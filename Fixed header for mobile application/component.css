@@ -1,0 +1,9 @@
+html, body { overflow: hidden; height: 100%; }
+body { margin:0; padding: 0; background-color: white; font-family: Arial; position: relative; }
+
+header { height: 50px; background-color: black; color: white; box-sizing: border-box; }
+.body { overflow-y: scroll; overflow-scrolling: touch; -webkit-overflow-scrolling: touch; -moz-overflow-scrolling: touch; -ms-overflow-scrolling: touch; -o-overflow-scrolling: touch; height: 100%; padding: 0; }
+
+/* REMOVE */
+.body div:nth-child(even) { background-color: #F0F0F0; }
+.body div { padding: 0 20px; }

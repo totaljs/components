@@ -1,0 +1,16 @@
+<div data-component="repeater" data-component-path="datasource">
+  <script type="text/html">
+     <div>
+         <div>{{ name }} ($index)</div>
+         <div>{{ amount | format(2) }}</div>
+         <div>{{ created | format('yyyy-MM-dd') }}</div>
+         <br />
+     </div>
+  </script>
+</div>
+<script>
+   var datasource = [];
+   datasource.push({ name: 'Row 1', amount: 1000, created: new Date() });  
+   datasource.push({ name: 'Row 2', amount: 10000, created: new Date() });  
+   datasource.push({ name: 'Row 3', amount: 100000, created: new Date() });  
+</script>

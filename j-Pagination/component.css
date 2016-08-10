@@ -1,0 +1,13 @@
+.ui-pagination { height: 60px; border-top: 2px solid #F0F0F0; padding-top: 20px; margin-top: 20px; }
+.ui-pagination nav { border: 1px solid #E0E0E0; position: relative; display: inline-block; border-radius: 3px; }
+.ui-pagination a { font-size: 11px; border-left: 1px solid #E0E0E0; width: 28px; padding: 6px 0; position: relative; display: inline-block; text-align: center; color: gray; text-decoration: none; }
+.ui-pagination a:first-child { border-left: 0; }
+.ui-pagination .fa { color: #4192C0; }
+.ui-pagination .selected { background-color: #F0F0F0; }
+.ui-pagination div { float: right; font-size: 11px; color: #A0A0A0; padding-top: 8px; }
+
+@media(max-width: 767px) {
+	.ui-pagination { height: 100px; text-align: center; }
+	.ui-pagination nav { display: inline-block; }
+	.ui-pagination div { float: none; margin-bottom: 10px; }
+}

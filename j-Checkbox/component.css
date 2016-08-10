@@ -1,0 +1,7 @@
+.ui-checkbox { margin-bottom: 5px; line-height: 16px; font-size: 12px; }
+.ui-checkbox label { cursor: pointer; }
+.ui-checkbox label span { cursor: pointer; }
+.ui-checkbox input { vertical-align: middle; cursor: pointer; }
+label { vertical-align: middle; }
+label input { vertical-align: middle; margin-right: 3px; }
+label span { vertical-align: middle; }

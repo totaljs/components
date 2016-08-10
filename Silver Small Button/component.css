@@ -1,0 +1,4 @@
+.button-small230 { position: relative; display: inline-block; margin: 0; padding: 0; font-size: 11px; border: 1px solid #D0D0D0; border-radius: 4px; background-color: white; background: linear-gradient(white,#F0F0F0); padding: 4px 8px; font: normal normal 11px Arial; vertical-align: middle; color: gray; cursor: pointer; outline: 0; }
+.button-small230:hover { border: 1px solid silver; }
+.button-small230:active { box-shadow: inset 0 0 5px silver; color: #A4A4A4; }
+.button-small230:disabled { color: silver; border: 1px solid #E0E0E0; cursor: not-allowed; }

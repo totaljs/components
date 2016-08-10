@@ -1,0 +1,9 @@
+label { vertical-align: middle; }
+label input { vertical-align: middle; margin-right: 5px; }
+label span { vertical-align: middle; }
+.ui-checkboxlist-checkbox { line-height: 16px; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+.ui-checkboxlist-checkbox label { cursor: pointer; }
+.ui-checkboxlist-checkbox label span { cursor: pointer; }
+.ui-checkboxlist-checkbox input { vertical-align: middle; cursor: pointer; }
+.ui-checkboxlist-selectall { margin-top: 10px; font-size: 11px; display: block; }
+.ui-checkboxlist-selectall .fa { margin-right: 5px; }

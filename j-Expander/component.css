@@ -1,0 +1,8 @@
+.ui-expander * { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; font-size: 14px; }
+.ui-expander { position: relative; width: 100%; }
+.ui-expander-container { max-height: 150px; overflow: hidden; transition: all 0.5s; }
+.ui-expander-fade { position: absolute; left: 0; top: 50%; margin-top: -30px; background: linear-gradient(transparent,white); height: 50%; width: 100%; text-align: center; }
+.ui-expander-button { text-align: center; margin: 10px auto; cursor: pointer; font-size: 15px; color: #A0A0A0; max-width: 200px; border-top: 1px solid #E0E0E0; padding: 3px 0; border-radius: 0 0 4px 4px; }
+.ui-expander-button:hover { background-color: #F8F8F8; }
+.ui-expander-expanded .ui-expander-fade { display: none; }
+.ui-expander-expanded .ui-expander-container { max-height: 1500px !important; }

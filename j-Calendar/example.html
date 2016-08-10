@@ -1,0 +1,14 @@
+<a href="#calendar">SHOW CALENDAR</a>
+
+<div data-component="calendar" data-days="SU,MO,TU,WE,TH,FR,SO" data-months="January,February,March,April,May,Juny,July,August,September,October,November,December" data-today="Set today" data-firstday="0"></div>
+
+<script>
+  var form = {};
+  form.date = new Date();
+  
+  $('a[href="#calendar"]').on('click', function(e) {
+     FIND('calendar').toggle($(this), form.date, function(date) {
+        alert(date);
+     });
+  });
+</script>

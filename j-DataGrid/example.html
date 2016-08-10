@@ -1,0 +1,66 @@
+<div data-component="datagrid" data-component-path="items">
+
+    <!-- HEAD template for normal displays -->
+    <script type="text/html" data-responsive="sm,md,lg" data-type="header">
+        <div class="column" style="width:200px">Name</div>
+        <div class="column" style="width:300px">Description</div>
+        <div class="column" style="width:100px">Created</div>
+        <div class="column" style="width:100px">&nbsp;</div>
+    </script>
+
+    <!-- ROW template for normal displays -->
+    <script type="text/html" data-responsive="sm,md,lg">
+        <div class="column"><span class="badge badge-red">new</span> {{ name }}</div>
+        <div class="column"><input type="checkbox" />{{ description }}</div>
+        <div class="column ui-center silver">{{ created | format('yyyy-MM-dd') }}</div>
+        <div class="column ui-center controls">
+            <a href="/detail/"><span class="fa fa-cog"></span></a>
+            <button name="remove"><span class="fa fa-times-circle"></span></button>
+        </div>
+    </script>
+
+    <!-- HEAD template for extra small displays -->
+    <script type="text/html" data-responsive="xs" data-type="header">
+        <div class="column" style="width:200px">Name</div>
+        <div class="column" style="width:100px">&nbsp;</div>        
+    </script>
+
+    <!-- ROW template for extra small displays -->
+    <script type="text/html" data-responsive="xs">
+        <div class="column">{{ name }}</div>
+        <div class="column ui-center controls">
+            <a href="/detail/"><span class="fa fa-cog"></span></a>
+            <button name="remove"><span class="fa fa-times-circle"></span></button>
+        </div>
+    </script>
+
+</div>
+
+<script>
+	var items = [];
+  
+    // fix for componentator.com
+    // iframe responsivity
+	setTimeout(function() {
+		items.push({ name: '1 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date() });
+		items.push({ name: '2 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date() });
+		items.push({ name: '3 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date() });
+		items.push({ name: '4 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date() });
+		items.push({ name: '5 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date() });
+		items.push({ name: '6 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date() });
+	    UPDATE('items');
+    }, 1000);
+  
+    FIND('datagrid', function(component) {
+      
+      component.onButton = function(index, row, name, elButton) {
+        console.log('CLICK', row);
+      };
+      
+      component.onCheckbox = function(index, row, checked, elCheckbox) {
+        console.log('CHECKED', row, checked);
+      };
+      
+    });
+  
+</script>

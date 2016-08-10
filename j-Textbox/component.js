@@ -1,0 +1,128 @@
+/**
+ * Textbox
+ * @version 2.0.0
+ */
+COMPONENT('textbox', function() {
+
+	var self = this;
+	var required = self.attr('data-required') === 'true';
+    var input;
+    var container;
+
+	self.validate = function(value) {
+
+		if (input.prop('disabled'))
+			return true;
+
+		var type = typeof(value);
+
+		if (type === 'undefined' || type === 'object')
+			value = '';
+		else
+			value = value.toString();
+
+		if (window.$calendar)
+			window.$calendar.hide();
+
+		if (self.type === 'email')
+			return value.isEmail();
+		if (self.type === 'currency')
+			return value > 0;
+		return value.length > 0;
+	};
+
+	if (!required)
+		self.noValid();
+
+	self.make = function() {
+
+		var attrs = [];
+		var builder = [];
+		var tmp;
+
+		attrs.attr('type', self.type === 'password' ? self.type : 'text');
+		attrs.attr('placeholder', self.attr('data-placeholder'));
+		attrs.attr('maxlength', self.attr('data-maxlength'));
+		attrs.attr('data-component-keypress', self.attr('data-component-keypress'));
+		attrs.attr('data-component-keypress-delay', self.attr('data-component-keypress-delay'));
+		attrs.attr('data-component-bind', '');
+
+		tmp = self.attr('data-align');
+		if (tmp)
+			attrs.attr('class', 'ui-' + tmp);
+
+		if (self.attr('data-autofocus') === 'true')
+			attrs.attr('autofocus');
+
+		var content = self.html();
+		var icon = self.attr('data-icon');
+		var icon2 = self.attr('data-control-icon');
+		var increment = self.attr('data-increment') === 'true';
+
+		if (!icon2 && self.type === 'date')
+			icon2 = 'fa-calendar';
+
+		builder.push('<input {0} />'.format(attrs.join(' ')));
+
+		if (icon2)
+			builder.push('<div><span class="fa {0}"></span></div>'.format(icon2));
+		else if (increment)
+			builder.push('<div><span class="fa fa-caret-up"></span><span class="fa fa-caret-down"></span></div>');
+
+		if (increment) {
+			self.element.on('click', '.fa-caret-up,.fa-caret-down', function(e) {
+				var el = $(this);
+				var inc = -1;
+				if (el.hasClass('fa-caret-up'))
+					inc = 1;
+				self.change(true);
+				self.inc(inc);
+			});
+		}
+
+		if (self.type === 'date') {
+			self.element.on('click', '.fa-calendar', function(e) {
+				e.preventDefault();
+				if (!window.$calendar)
+					return;
+				var el = $(this);
+				window.$calendar.toggle(el.parent().parent(), self.element.find('input').val(), function(date) {
+					self.set(date);
+				});
+			});
+		}
+
+		if (!content.length) {
+			self.element.addClass('ui-textbox ui-textbox-container');
+			self.html(builder.join(''));
+            input = self.find('input');
+            container = self.find('.ui-textbox');
+			return;
+		}
+
+		var html = builder.join('');
+		builder = [];
+		builder.push('<div class="ui-textbox-label{0}">'.format(required ? ' ui-textbox-label-required' : ''));
+
+		if (icon)
+			builder.push('<span class="fa {0}"></span> '.format(icon));
+
+		builder.push(content);
+		builder.push(':</div><div class="ui-textbox">{0}</div>'.format(html));
+
+		self.html(builder.join(''));
+		self.element.addClass('ui-textbox-container');
+        input = self.find('input');
+        container = self.find('.ui-textbox');
+   	};
+
+	self.state = function(type, who) {
+		if (!type)
+			return;
+		var invalid = self.isInvalid();
+		if (invalid === self.$oldstate)
+			return;
+		self.$oldstate = invalid;
+		container.toggleClass('ui-textbox-invalid', self.isInvalid());
+	};
+});

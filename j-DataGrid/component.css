@@ -1,0 +1,22 @@
+.ui-datagrid { font-size: 12px; margin-bottom: 10px; }
+.ui-datagrid-headers { border-bottom: 2px solid #F0F0F0; padding: 5px 0; font-weight: bold; color: #303030; margin-bottom: 15px; }
+.ui-datagrid-headers .ui-datagrid-column { border-color: white !important; }
+.ui-datagrid-row { border-top: 1px solid #F0F0F0; }
+.ui-datagrid-row:first-child { border-top: 0; }
+.ui-datagrid-row:hover { background-color: #FFFDE5; }
+.ui-datagrid-column { padding: 5px 10px 4px; position: relative; display: inline-block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; vertical-align: middle; border-left: 1px solid #F0F0F0; line-height: 16px; }
+.ui-datagrid-column:first-child { border-left: 0; }
+.ui-datagrid-rows { min-height: 400px; overflow: auto; outline: 0; }
+.ui-datagrid input { margin-right: 7px; }
+.ui-datagrid label { cursor: pointer; }
+.ui-datagrid-controls a { font-size: 14px; color: silver; margin-left: 13px; vertical-align: middle; }
+.ui-datagrid-controls a:hover { color: #4CC1E9; }
+.ui-datagrid-controls a:first-child { margin-left: 0; }
+.ui-datagrid-controls button { background-color: transparent; font-size: 14px; border: 0; margin: 0 0 0 13px; color: silver; padding: 0; height: auto; vertical-align: middle; outline: 0; cursor: pointer; }
+.ui-datagrid-controls button:first-child { margin-left: 0; }
+.ui-datagrid-controls button:hover { color: #4CC1E9; }
+.ui-datagrid .badge { font-size: 9px; padding: 0 6px 1px; border-radius: 4px; background-color: #F0F0F0; line-height: 12px; vertical-align: middle; margin-top: -2px; position: relative; display: inline-block; }
+.ui-datagrid .badge-blue { background-color: #4CC1E9; color: white; }
+.ui-datagrid .badge-red { background-color: #DA4453; color: white; }
+.ui-datagrid .badge-green { background-color: #8CC152; color: white; }
+.ui-datagrid .badge-yellow { background-color: #EFDC05; color: white; }

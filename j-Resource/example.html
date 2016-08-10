@@ -1,0 +1,31 @@
+Open Web Developer console.
+
+<div data-component="resource">
+  <script type="text/plain">
+      yes     : Yes
+      no      : No
+      message : Are you sure?
+  </script>
+</div>
+
+<div data-component="resource">
+  <script type="text/plain">
+      first     : Value of first
+      second    : Value of second
+      a b c     : ABC
+  </script>
+</div>
+
+<script>
+
+	setTimeout(function() {
+       console.log(RESOURCE('yes'));
+       console.log(RESOURCE('no'));
+       console.log(RESOURCE('message'));
+       console.log(RESOURCE('first'));
+       console.log(RESOURCE('second'));
+       console.log(RESOURCE('a b c'));
+       console.log(RESOURCE('notfound', 'NOT FOUND'));
+    }, 2000);
+
+</script>

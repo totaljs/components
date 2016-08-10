@@ -1,0 +1,21 @@
+<div data-component="loading" class="hidden"></div>
+
+<div>Lorem ipsum</div>
+<div>Lorem ipsum</div>
+<div>Lorem ipsum</div>
+<div>Lorem ipsum</div>
+<div>Lorem ipsum</div>
+<div>Lorem ipsum</div>
+<div>Lorem ipsum</div>
+
+<script>
+var is = false;
+  setInterval(function() {
+    is = !is;
+	var component = FIND('loading');
+	if (is)
+      component.show();
+    else
+      component.hide(1000);
+  }, 5000);
+</script>

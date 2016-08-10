@@ -1,0 +1,25 @@
+<div data-component="notifications" data-date-format="dd.MM.yyyy HH:mm" data-timeout="8000"></div>
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia harum accusamus debitis aut sunt, deserunt magni alias neque unde reprehenderit ipsa ea laboriosam eveniet! Distinctio pariatur sed, a aut nobis.
+
+<script>
+
+  FIND('notifications', function(component) {
+    component.append('fa-lightbulb-o', 'This is a new notification component.');        
+  });
+
+  setTimeout(function() {
+    FIND('notifications').append('fa-calendar', 'You have a meeting in the Central Park.', function() {
+      alert('You clicked on the notification');
+    });
+  }, 3000);
+
+  setTimeout(function() {
+    FIND('notifications').append('fa-link', 'Please support <a href="https://github.com/petersirka/jComponent" target="_blank">jComponent on GitHub</a>.');
+  }, 6000);
+
+  setTimeout(function() {
+    FIND('notifications').append('fa-facebook-square', 'Total.js is node.js web application framework, please support it on social networks.');
+  }, 10000);
+
+</script>

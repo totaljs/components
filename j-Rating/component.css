@@ -1,0 +1,5 @@
+.ui-rating { color: #A0A0A0; font-size: 12px; text-align: center; }
+.ui-rating > div { margin-top: 8px; }
+.ui-rating .fa { margin-left: 5px; cursor: pointer; font-size: 25px; }
+.ui-rating .fa:first-child { margin-left: 0; }
+.ui-rating .fa-star { color: #FFB715; }

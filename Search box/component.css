@@ -1,0 +1,4 @@
+.search-20150604 { border: 1px solid #E0E0E0; background-color: white; padding: 1px; border-radius: 4px; }
+.search-20150604 div { margin-right: 30px; padding: 5px 7px; }
+.search-20150604 span { float:right; width: 30px; border-left: 1px solid #E0E0E0; text-align: center; padding: 5px 0; font-size: 14px; margin: 2px 0; color: gray; }
+.search-20150604 input { width: 100%; border: 0; background-color: white; outline: 0; font-size: 14px; color: gray; }

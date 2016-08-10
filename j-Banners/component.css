@@ -1,0 +1,6 @@
+.ui-banners { position: relative; }
+.ui-banners > div > div { position: absolute; left: 0; top: 0; opacity: 1; transition: all 0.3s; }
+.ui-banners > img { visibility: hidden; }
+.ui-banners ul { margin: 15px 0; padding: 0; list-style-type: none; text-align: center; display: block; font-size: 20px; }
+.ui-banners li { position: relative; display: inline-block; margin: 5px; cursor: pointer; }
+.ui-banners-hidden { opacity: 0 !important; }

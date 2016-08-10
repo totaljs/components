@@ -1,0 +1,16 @@
+<div data-component="disable" data-component-path="user" data-if="!user">
+  <div>
+      <div><input type="text" placeholder="disabled" /></div>
+  </div>  
+</div>
+
+<div data-component="disable" data-component-path="user" data-if="!user" data-selector="input[type='text']">
+  <div>
+      <div><input type="text" placeholder="disabled" /></div>
+      <div><input type="password" placeholder="enabled" /></div>    
+  </div>  
+</div>
+
+<script>
+   var user = null;
+</script>

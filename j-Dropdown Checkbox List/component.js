@@ -1,0 +1,230 @@
+/**
+ * Disable
+ * @version 2.0.0
+ */
+COMPONENT('dropdowncheckbox', function() {
+
+	var self = this;
+	var required = self.element.attr('data-required') === 'true';
+	var datasource = '';
+	var container;
+	var data = [];
+	var values;
+
+	if (!window.$dropdowncheckboxtemplate)
+		window.$dropdowncheckboxtemplate = Tangular.compile('<div><label><input type="checkbox" value="{{ index }}" /><span>{{ text }}</span></label></div>');
+
+	var template = window.$dropdowncheckboxtemplate;
+
+	self.validate = function(value) {
+		return required ? value && value.length > 0 : true;
+	};
+
+	self.make = function() {
+
+		var options = [];
+		var element = self.element;
+		var arr = (element.attr('data-options') || '').split(';');
+
+		for (var i = 0, length = arr.length; i < length; i++) {
+			var item = arr[i].split('|');
+			var value = item[1] === undefined ? item[0] : item[1];
+			if (self.type === 'number')
+				value = parseInt(value);
+			var obj = { value: value, text: item[0], index: i };
+			options.push(template(obj));
+			data.push(obj);
+		}
+
+		var content = element.html();
+		var icon = element.attr('data-icon');
+		var html = '<div class="ui-dropdowncheckbox"><span class="fa fa-sort"></span><div class="ui-dropdowncheckbox-selected"></div></div><div class="ui-dropdowncheckbox-values hidden">' + options.join('') + '</div>';
+
+		if (content.length > 0) {
+			element.empty();
+			element.append('<div class="ui-dropdowncheckbox-label' + (required ? ' ui-dropdowncheckbox-label-required' : '') + '">' + (icon ? '<span class="fa ' + icon + '"></span> ' : '') + content + ':</div>');
+			element.append(html);
+		} else
+			element.append(html);
+
+		self.element.addClass('ui-dropdowncheckbox-container');
+		container = self.element.find('.ui-dropdowncheckbox-values');
+		values = self.element.find('.ui-dropdowncheckbox-selected');
+
+		self.element.on('click', '.ui-dropdowncheckbox', function(e) {
+
+			var el = $(this);
+			if (el.hasClass('ui-disabled'))
+				return;
+
+			container.toggleClass('hidden');
+
+			if (window.$dropdowncheckboxelement) {
+				window.$dropdowncheckboxelement.addClass('hidden');
+				window.$dropdowncheckboxelement = null;
+			}
+
+			if (!container.hasClass('hidden'))
+				window.$dropdowncheckboxelement = container;
+
+			e.stopPropagation();
+		});
+
+		self.element.on('click', 'input,label', function(e) {
+
+			e.stopPropagation();
+
+			var is = this.checked;
+			var index = parseInt(this.value);
+			var value = data[index];
+
+			if (value === undefined)
+				return;
+
+			value = value.value;
+
+			var arr = self.get();
+			if (!(arr instanceof Array))
+				arr = [];
+
+			var index = arr.indexOf(value);
+
+			if (is) {
+				if (index === -1)
+					arr.push(value);
+			} else {
+				if (index !== -1)
+					arr.splice(index, 1);
+			}
+
+			self.reset(true);
+			self.set(arr, undefined, 2);
+		});
+
+		var ds = self.attr('data-source');
+
+		if (!ds)
+			return;
+
+		self.watch(ds, prepare);
+		setTimeout(function() {
+			prepare(ds, GET(ds));
+		}, 500);
+	};
+
+	function prepare(path, value) {
+
+		if (NOTMODIFIED(path, value))
+			return;
+
+		var clsempty = 'ui-dropdowncheckbox-values-empty';
+
+		if (!value) {
+			container.addClass(clsempty).empty().html(self.attr('data-empty'));
+			return;
+		}
+
+		var kv = self.attr('data-source-value') || 'id';
+		var kt = self.attr('data-source-text') || 'name';
+		var builder = '';
+
+		data = [];
+		for (var i = 0, length = value.length; i < length; i++) {
+			var isString = typeof(value[i]) === 'string';
+			var item = { value: isString ? value[i] : value[i][kv], text: isString ? value[i] : value[i][kt], index: i };
+			data.push(item);
+			builder += template(item);
+		}
+
+		if (builder)
+			container.removeClass(clsempty).empty().append(builder);
+		else
+			container.addClass(clsempty).empty().html(self.attr('data-empty'));
+
+		self.setter(self.get());
+	}
+
+	self.setter = function(value) {
+
+		if (NOTMODIFIED(self.id, value))
+			return;
+
+		var label = '';
+		var empty = self.attr('data-placeholder');
+
+		if (value && value.length) {
+			var remove = [];
+			for (var i = 0, length = value.length; i < length; i++) {
+				var selected = value[i];
+				var index = 0;
+				var is = false;
+
+				while (true) {
+					var item = data[index++];
+					if (item === undefined)
+						break;
+					if (item.value != selected)
+						continue;
+					label += (label ? ', ' : '') + item.text;
+					is = true;
+				}
+
+				if (!is)
+					remove.push(selected);
+			}
+
+			var refresh = false;
+
+			while (true) {
+				var item = remove.shift();
+				if (item === undefined)
+					break;
+				value.splice(value.indexOf(item), 1);
+				refresh = true;
+			}
+
+			if (refresh)
+				MAN.set(self.path, value);
+		}
+
+		container.find('input').each(function() {
+			var index = parseInt(this.value);
+			var checked = false;
+			if (!value || !value.length)
+				checked = false;
+			else if (data[index])
+				checked = data[index];
+			if (checked)
+				checked = value.indexOf(checked.value) !== -1;
+			this.checked = checked;
+		});
+
+		if (!label && value) {
+			// invalid data
+			// it updates model without notification
+			MAN.set(self.path, []);
+		}
+
+		if (!label && empty) {
+			values.html('<span>{0}</span>'.format(empty));
+			return;
+		}
+
+		values.html(label);
+	};
+
+	self.state = function(type) {
+		self.element.find('.ui-dropdowncheckbox').toggleClass('ui-dropdowncheckbox-invalid', self.isInvalid());
+	};
+
+	if (window.$dropdowncheckboxevent)
+		return;
+
+	window.$dropdowncheckboxevent = true;
+	$(document).on('click', function(e) {
+		if (!window.$dropdowncheckboxelement)
+			return;
+		window.$dropdowncheckboxelement.addClass('hidden');
+		window.$dropdowncheckboxelement = null;
+	});
+});

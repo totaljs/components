@@ -1,0 +1,13 @@
+<div id="form">
+    <div><input type="text" placeholder="press enter" /></div>
+</div>
+<div><button data-component="click" data-component-path="doSubmit" data-enter="#form">SUBMIT</button></div>
+<br />
+<div><button data-component="click" data-component-path="user.name" data-value="Peter">SET VALUE user.name</button></div>
+<div data-component="" data-component-path="user.name"></div>
+
+<script>  
+	function doSubmit() {
+        alert('SUBMIT');
+    }
+</script>
