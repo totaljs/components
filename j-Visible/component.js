@@ -4,9 +4,10 @@ COMPONENT('visible', function() {
 	self.setter = function(value) {
 
 		var is = true;
+		var condition = self.attr('data-if');
 
 		if (condition)
-			is = self.evaluate(self.attr('data-if'));
+			is = self.evaluate(condition);
 		else
 			is = value ? true : false;
 
