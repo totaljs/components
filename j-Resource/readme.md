@@ -1,11 +1,11 @@
 ## j-Resource
 
-Resources are very great solution for e.g. translate some texts in all scripts. The component can be appended multiple-times.
+Resources are very great solution for e.g. translate some texts in all scripts. The component can be appended multiple-times and all components use one repository for storing keys and values.
 
 __METHODS__:
 
-- `RESOURCE(key, [def])` - is a global method and
-- `FIND('resource').download('/my-dictionary.txt', [callback]);` - for downloading resources
+- `RESOURCE(key, [def])` - is a global method
+- `FIND('resource').download('/my-dictionary.txt', [callback]);` - for importing new resources
 
 ### Author
 
