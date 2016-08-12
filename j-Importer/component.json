@@ -1,0 +1,16 @@
+{
+	"datecreated": "2016-08-10:46:00.865Z",
+	"dateupdated": null,
+	"name": "j-Importer",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

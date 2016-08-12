@@ -1,0 +1,21 @@
+<div>CURRENT VALUE: <span data-component="" data-component-path="myvalue"></span></div>
+<div data-component="importer" data-component-path="myvalue" data-if="value === 'd3'" data-url="https://d3js.org/d3.v4.min.js"></div>
+
+<script>
+
+	var myvalue = '';
+
+	setTimeout(function() {
+		SET('myvalue', 'd3');
+	}, 3000);
+
+	setTimeout(function() {
+		SET('myvalue', null);
+	}, 5000);
+
+	setTimeout(function() {
+		// The component contains prevention for double import, so D3 won't be imported again.
+		SET('myvalue', 'd3');
+	}, 8000);
+
+</script>
