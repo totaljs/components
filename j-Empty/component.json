@@ -1,1 +1,17 @@
-{"name":"j-Empty","tags":["jcomponent","empty"],"color":"transparent","version":3,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-03-02T08:45:06.240Z",
+	"dateupdated": null,
+	"name": "j-Empty",
+	"tags": [
+		"jcomponent",
+		"empty"
+	],
+	"color": "transparent",
+	"version": 3,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

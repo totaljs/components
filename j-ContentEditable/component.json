@@ -1,1 +1,16 @@
-{"name":"j-ContentEditable","tags":["jcomponent"],"color":"white","version":5,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-05-12T09:22:31.761Z",
+	"dateupdated": null,
+	"name": "j-ContentEditable",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "white",
+	"version": 5,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

@@ -1,1 +1,16 @@
-{"name":"j-Pagination","tags":["jcomponent"],"color":"transparent","version":16,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-03-01T09:09:27.634Z",
+	"dateupdated": null,
+	"name": "j-Pagination",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 16,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

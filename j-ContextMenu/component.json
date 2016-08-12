@@ -1,1 +1,16 @@
-{"name":"j-ContextMenu","tags":["jcomponent"],"color":"white","version":7,"responsive":false,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-05-11T19:46:55.496Z",
+	"dateupdated": null,
+	"name": "j-ContextMenu",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "white",
+	"version": 7,
+	"responsive": false,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

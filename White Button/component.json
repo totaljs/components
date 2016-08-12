@@ -1,1 +1,16 @@
-{"name":"White Button","tags":["button"],"color":"white","version":1,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2015-06-24T18:22:31.000Z",
+	"dateupdated": null,
+	"name": "White Button",
+	"tags": [
+		"button"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

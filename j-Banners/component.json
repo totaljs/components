@@ -1,1 +1,16 @@
-{"name":"j-Banners","tags":["jcomponent"],"color":"transparent","version":1,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-04-27T08:06:24.622Z",
+	"dateupdated": null,
+	"name": "j-Banners",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

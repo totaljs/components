@@ -1,1 +1,16 @@
-{"name":"j-LazyLoad","tags":["jcomponent"],"color":"transparent","version":7,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-05-02T11:30:38.062Z",
+	"dateupdated": null,
+	"name": "j-LazyLoad",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 7,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

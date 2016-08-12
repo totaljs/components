@@ -1,1 +1,16 @@
-{"name":"Fixed header for mobile application","tags":["jquery"],"color":"white","version":4,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2015-06-29T18:43:18.000Z",
+	"dateupdated": null,
+	"name": "Fixed header for mobile application",
+	"tags": [
+		"jquery"
+	],
+	"color": "white",
+	"version": 4,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

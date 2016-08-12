@@ -1,1 +1,17 @@
-{"name":"j-Template","tags":["jcomponent","templates"],"color":"transparent","version":7,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2015-08-05T05:36:06.000Z",
+	"dateupdated": null,
+	"name": "j-Template",
+	"tags": [
+		"jcomponent",
+		"templates"
+	],
+	"color": "transparent",
+	"version": 7,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

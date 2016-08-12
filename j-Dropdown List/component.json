@@ -1,1 +1,16 @@
-{"name":"j-Dropdown List","tags":["jcomponent"],"color":"white","version":14,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2015-08-06T09:50:49.000Z",
+	"dateupdated": null,
+	"name": "j-Dropdown List",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "white",
+	"version": 14,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

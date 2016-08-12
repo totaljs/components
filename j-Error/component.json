@@ -1,1 +1,16 @@
-{"name":"j-Error","tags":["jcomponent"],"color":"red","version":4,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-03-08T09:22:10.240Z",
+	"dateupdated": null,
+	"name": "j-Error",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "red",
+	"version": 4,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

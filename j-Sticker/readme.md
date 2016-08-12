@@ -1,3 +1,5 @@
+## j-Sticker
+
 - easy usage
 
 __Attributes__:
@@ -7,5 +9,5 @@ __Attributes__:
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

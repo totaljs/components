@@ -1,3 +1,5 @@
+## j-WebSocket
+
 With this component you can receive data via WebSocket. This component supports auto-reconnect to WebSocket when the connection is close.
 
 __Attributes__:
@@ -12,5 +14,5 @@ __Methods__:
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

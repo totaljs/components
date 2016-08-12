@@ -1,1 +1,16 @@
-{"name":"Search box rounded","tags":["search"],"color":"white","version":1,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2015-07-29T18:31:59.000Z",
+	"dateupdated": null,
+	"name": "Search box rounded",
+	"tags": [
+		"search"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

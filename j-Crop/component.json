@@ -1,1 +1,18 @@
-{"name":"j-Crop","tags":["crop","cropper","jcomponent"],"color":"transparent","version":7,"responsive":false,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2015-08-18T10:13:22.000Z",
+	"dateupdated": null,
+	"name": "j-Crop",
+	"tags": [
+		"crop",
+		"cropper",
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 7,
+	"responsive": false,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

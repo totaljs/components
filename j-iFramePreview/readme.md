@@ -1,3 +1,5 @@
+## j-iFramePreview
+
 - easy usage for e.g. invoices or some previews
 - show the layer before the content
 - can work with multiple `iframepreview` components (other components are hidden)
@@ -13,5 +15,5 @@ __Methods__:
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

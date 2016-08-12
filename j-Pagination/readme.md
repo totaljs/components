@@ -1,3 +1,5 @@
+## j-Pagination
+
 - responsive
 - easy usage
 
@@ -12,5 +14,5 @@ The component caches values: `pages` and `count`.
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

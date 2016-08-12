@@ -1,3 +1,5 @@
+## j-Textarea
+
 __Attributes__:
 
 - `data-required="true"` (optional) the field must have some value, default __false__
@@ -8,5 +10,5 @@ __Attributes__:
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

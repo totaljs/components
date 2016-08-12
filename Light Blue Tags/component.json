@@ -1,1 +1,14 @@
-{"name":"Light Blue Tags","tags":[],"color":"blue","version":1,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2015-06-28T19:44:59.463Z",
+	"dateupdated": null,
+	"name": "Light Blue Tags",
+	"tags": [],
+	"color": "blue",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

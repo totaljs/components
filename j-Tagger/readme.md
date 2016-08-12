@@ -1,3 +1,5 @@
+## j-Tagger
+
 Tagger can help with rendering data without replacing tags. All values without `data-format` are HTML encoded.
 
 __Tagger content attributes__:
@@ -13,5 +15,5 @@ jComponent transforms all __arrow functions__ to classic functions (don't worry 
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

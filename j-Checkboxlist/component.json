@@ -1,1 +1,17 @@
-{"name":"j-Checkboxlist","tags":["jcomponent","bootstrap"],"color":"transparent","version":3,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-05-10T17:09:20.420Z",
+	"dateupdated": null,
+	"name": "j-Checkboxlist",
+	"tags": [
+		"jcomponent",
+		"bootstrap"
+	],
+	"color": "transparent",
+	"version": 3,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

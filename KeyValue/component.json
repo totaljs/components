@@ -1,1 +1,16 @@
-{"name":"KeyValue","tags":["keyvalue"],"color":"silver","version":3,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-03-01T14:21:52.751Z",
+	"dateupdated": null,
+	"name": "KeyValue",
+	"tags": [
+		"keyvalue"
+	],
+	"color": "silver",
+	"version": 3,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

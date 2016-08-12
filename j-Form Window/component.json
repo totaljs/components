@@ -1,1 +1,16 @@
-{"name":"j-Form Window","tags":["jcomponent"],"color":"white","version":5,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2015-08-06T05:20:54.000Z",
+	"dateupdated": null,
+	"name": "j-Form Window",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "white",
+	"version": 5,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

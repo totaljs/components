@@ -1,3 +1,5 @@
+## j-Search
+
 Simple fulltext search component. This component can show/hide elements according to the searching phrase. Works async.
 
 __Attributes__:
@@ -8,5 +10,5 @@ __Attributes__:
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

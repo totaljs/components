@@ -1,1 +1,16 @@
-{"name":"Simple Invoice","tags":["invoice"],"color":"white","version":3,"responsive":false,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2015-06-28T08:04:15.000Z",
+	"dateupdated": null,
+	"name": "Simple Invoice",
+	"tags": [
+		"invoice"
+	],
+	"color": "white",
+	"version": 3,
+	"responsive": false,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

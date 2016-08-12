@@ -1,3 +1,5 @@
+## j-Map
+
 - easy usage
 - `data-component-path="target.property"` can contain GPS `48.727903,19.157763` or text `Viestova 28, Banská Bystrica, Slovakia`
 - two way binding works with GPS (so the component returns GPS coordinates into the model when the `text` is used instead of GPS)
@@ -16,5 +18,5 @@ __Methods__:
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

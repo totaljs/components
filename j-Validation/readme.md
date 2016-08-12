@@ -1,3 +1,5 @@
+## j-Validation
+
 - Works with Bootstrap
 - Works with other jComponents
 - The component validates a whole object and enables/disables all buttons according to the validation
@@ -11,5 +13,5 @@ Default: `data-selector="button"`. You can restrict button by yourself e.g. `dat
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

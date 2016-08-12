@@ -1,1 +1,17 @@
-{"name":"Silver Button","tags":["button","forms"],"color":"silver","version":1,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2015-06-24T19:10:58.594Z",
+	"dateupdated": null,
+	"name": "Silver Button",
+	"tags": [
+		"button",
+		"forms"
+	],
+	"color": "silver",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

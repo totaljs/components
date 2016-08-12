@@ -1,3 +1,5 @@
+## j-Notifications
+
 - easy usage
 - singleton
 
@@ -10,5 +12,5 @@ __Methods__
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

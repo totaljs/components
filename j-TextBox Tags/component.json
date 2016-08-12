@@ -1,1 +1,16 @@
-{"name":"j-TextBox Tags","tags":["jcomponent"],"color":"transparent","version":6,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2015-08-05T07:16:56.000Z",
+	"dateupdated": null,
+	"name": "j-TextBox Tags",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 6,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

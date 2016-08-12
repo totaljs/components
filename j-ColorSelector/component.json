@@ -1,1 +1,16 @@
-{"name":"j-ColorSelector","tags":["jcomponent"],"color":"transparent","version":6,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-03-10T09:39:23.625Z",
+	"dateupdated": null,
+	"name": "j-ColorSelector",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 6,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

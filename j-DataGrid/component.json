@@ -1,1 +1,16 @@
-{"name":"j-DataGrid","tags":["jcomponent"],"color":"transparent","version":10,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-03-01T08:04:50.721Z",
+	"dateupdated": null,
+	"name": "j-DataGrid",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 10,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

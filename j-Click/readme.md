@@ -1,3 +1,5 @@
+## j-Click
+
 The component calls method or can set a value according the path.
 
 __Attributes__:
@@ -8,5 +10,5 @@ __Attributes__:
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

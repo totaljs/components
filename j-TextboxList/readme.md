@@ -1,3 +1,5 @@
+## j-TextboxList
+
 - works with array
 - works with Bootstrap Grid System
 - easy usage
@@ -10,5 +12,5 @@ __Attributes__
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

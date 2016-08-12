@@ -1,3 +1,5 @@
+## j-Dropdown List
+
 - Works with Bootstrap
 
 __Attributes__:
@@ -14,5 +16,5 @@ __Attributes__:
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

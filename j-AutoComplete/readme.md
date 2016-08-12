@@ -1,3 +1,5 @@
+## j-AutoComplete
+
 - easy usage
 - works with `<input` tags only
 - singleton
@@ -30,5 +32,5 @@ FIND('autocomplete').attach('jquery-selector', onSearch, onSelected, plusOffsetT
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

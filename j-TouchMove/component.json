@@ -1,1 +1,16 @@
-{"name":"j-TouchMove","tags":["jcomponent"],"color":"transparent","version":10,"responsive":false,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-02-16T06:25:51.367Z",
+	"dateupdated": null,
+	"name": "j-TouchMove",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 10,
+	"responsive": false,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

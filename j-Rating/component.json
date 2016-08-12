@@ -1,1 +1,16 @@
-{"name":"j-Rating","tags":["jcomponent"],"color":"orange","version":1,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-04-28T11:18:11.392Z",
+	"dateupdated": null,
+	"name": "j-Rating",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "orange",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

@@ -1,1 +1,16 @@
-{"name":"j-Tab","tags":["jcomponent"],"color":"silver","version":2,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-04-05T18:02:13.668Z",
+	"dateupdated": null,
+	"name": "j-Tab",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "silver",
+	"version": 2,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

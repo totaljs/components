@@ -1,1 +1,16 @@
-{"name":"j-RadioButton","tags":["jcomponent"],"color":"transparent","version":2,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-04-18T07:55:10.793Z",
+	"dateupdated": null,
+	"name": "j-RadioButton",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 2,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

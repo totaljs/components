@@ -1,1 +1,18 @@
-{"name":"Decoding email addresses","tags":["email","robot","prevention"],"color":"transparent","version":1,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2015-07-30T09:21:45.000Z",
+	"dateupdated": null,
+	"name": "Decoding email addresses",
+	"tags": [
+		"email",
+		"robot",
+		"prevention"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

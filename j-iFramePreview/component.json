@@ -1,1 +1,16 @@
-{"name":"j-iFramePreview","tags":["jcomponent"],"color":"transparent","version":10,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-04-21T07:47:50.936Z",
+	"dateupdated": null,
+	"name": "j-iFramePreview",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 10,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

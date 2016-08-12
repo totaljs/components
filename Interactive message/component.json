@@ -1,1 +1,16 @@
-{"name":"Interactive message","tags":["jquery"],"color":"transparent","version":5,"responsive":false,"picture":"picture.gif","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2015-07-30T06:11:08.000Z",
+	"dateupdated": null,
+	"name": "Interactive message",
+	"tags": [
+		"jquery"
+	],
+	"color": "transparent",
+	"version": 5,
+	"responsive": false,
+	"picture": "picture.gif",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

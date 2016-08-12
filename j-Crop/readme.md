@@ -1,3 +1,5 @@
+## j-Crop
+
 __Supports__:
 
 - zoom
@@ -36,5 +38,5 @@ console.log('Is changed?', $.components.disable(component.path);
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

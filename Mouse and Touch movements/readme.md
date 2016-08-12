@@ -1,3 +1,5 @@
+## Mouse and Touch movements
+
 A simple JavaScript class for solving problems with Touch & Mouse events.
 
 __Supports:__
@@ -8,5 +10,5 @@ __Supports:__
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

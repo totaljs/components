@@ -1,1 +1,16 @@
-{"name":"j-Checkbox","tags":["jcomponent"],"color":"transparent","version":4,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2015-09-25T09:42:03.550Z",
+	"dateupdated": null,
+	"name": "j-Checkbox",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 4,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

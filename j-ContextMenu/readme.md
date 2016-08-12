@@ -1,3 +1,5 @@
+## j-ContextMenu
+
 - easy usage for different cases
 - supports 3 orientations `left`, `center` and `right`
 - singleton
@@ -29,5 +31,5 @@ jC.on('contextmenu', function(visible, component, target) {
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

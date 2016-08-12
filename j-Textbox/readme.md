@@ -1,3 +1,5 @@
+## j-Textbox
+
 __Attributes__:
 
 - `data-component-type=""` (optional), supports __email__, __password__, __date__, __number__ or __currency__ default __empty__
@@ -18,5 +20,5 @@ If you `data-component-type="date"` then the component uses `calendar` component
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

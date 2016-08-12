@@ -1,3 +1,5 @@
+## j-LazyLoad
+
 This component shows own content when is visible. It supports helpful features as `redraw` and `hide`.
 
 __Attributes__:
@@ -14,5 +16,5 @@ __Notes__:
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

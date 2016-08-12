@@ -1,1 +1,16 @@
-{"name":"j-AutoComplete","tags":["jcomponent"],"color":"white","version":9,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-05-06T10:22:35.133Z",
+	"dateupdated": null,
+	"name": "j-AutoComplete",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "white",
+	"version": 9,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

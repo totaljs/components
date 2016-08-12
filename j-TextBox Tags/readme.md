@@ -1,3 +1,5 @@
+## j-TextBox Tags
+
 - Works only with [jComponent](http://jcomponent.org)
 - __Download__ [jComponent with Tangular (jcta.min.js)](https://github.com/petersirka/jComponent)
 - Works with Bootstrap
@@ -10,5 +12,5 @@ __Other attributes__:
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

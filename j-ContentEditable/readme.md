@@ -1,3 +1,5 @@
+## j-ContentEditable
+
 - easy usage
 - supports great features
 - works with Bootstrap Grid System
@@ -43,5 +45,5 @@ self.event = function(type, value) {
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

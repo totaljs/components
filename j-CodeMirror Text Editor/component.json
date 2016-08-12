@@ -1,1 +1,18 @@
-{"name":"j-CodeMirror Text Editor","tags":["syntax","highlighter","jcomponent"],"color":"white","version":11,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2015-08-05T10:00:10.000Z",
+	"dateupdated": null,
+	"name": "j-CodeMirror Text Editor",
+	"tags": [
+		"syntax",
+		"highlighter",
+		"jcomponent"
+	],
+	"color": "white",
+	"version": 11,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

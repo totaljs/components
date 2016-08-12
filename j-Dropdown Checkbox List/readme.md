@@ -1,3 +1,5 @@
+## j-Dropdown Checkbox List
+
 - Works only with [jComponent](http://jcomponent.org)
 - __Download__ [jComponent with Tangular (jcta.min.js)](https://github.com/petersirka/jComponent)
 - Works with Bootstrap
@@ -23,5 +25,5 @@ The component stores selected values into the array.
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

@@ -1,1 +1,16 @@
-{"name":"Tags","tags":["tag"],"color":"blue","version":5,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-05-05T05:44:53.155Z",
+	"dateupdated": null,
+	"name": "Tags",
+	"tags": [
+		"tag"
+	],
+	"color": "blue",
+	"version": 5,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

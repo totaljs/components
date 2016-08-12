@@ -1,1 +1,16 @@
-{"name":"j-Dropdown Checkbox List","tags":["jcomponent"],"color":"white","version":19,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2015-08-05T04:36:55.000Z",
+	"dateupdated": null,
+	"name": "j-Dropdown Checkbox List",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "white",
+	"version": 19,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

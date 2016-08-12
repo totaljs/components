@@ -1,1 +1,18 @@
-{"name":"HTML 5 template","tags":["template","html5","empty"],"color":"transparent","version":4,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2015-07-30T06:33:58.000Z",
+	"dateupdated": null,
+	"name": "HTML 5 template",
+	"tags": [
+		"template",
+		"html5",
+		"empty"
+	],
+	"color": "transparent",
+	"version": 4,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

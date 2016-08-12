@@ -1,3 +1,5 @@
+## j-HighlightSyntax
+
 Simple syntax highlighter with help of __Highlight.js__.
 
 __Attributes__:
@@ -5,5 +7,5 @@ __Attributes__:
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

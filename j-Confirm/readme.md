@@ -1,3 +1,5 @@
+## j-Confirm
+
 - easy usage
 - singleton
 - works with Bootstrap
@@ -7,5 +9,5 @@ __Calling__: `FIND('confirm').confirm(message, buttons, callback);`
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

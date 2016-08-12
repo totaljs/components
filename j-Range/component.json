@@ -1,1 +1,16 @@
-{"name":"j-Range","tags":["jcomponent"],"color":"silver","version":1,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-05-06T12:21:44.749Z",
+	"dateupdated": null,
+	"name": "j-Range",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "silver",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

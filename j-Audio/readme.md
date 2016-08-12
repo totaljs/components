@@ -1,3 +1,5 @@
+## j-Audio
+
 - easy usage
 - singleton
 - the component can `play` and `stop` audio/sound `mp3`
@@ -13,5 +15,5 @@ __Properties__:
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

@@ -1,3 +1,5 @@
+## j-Checkboxlist
+
 - works only with Bootstrap Grid System
 - easy usage
 - supports custom `datasource`
@@ -19,5 +21,5 @@ The component stores selected values into the array.
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

@@ -1,3 +1,5 @@
+## j-Cookie
+
 - singleton
 - uses __localStorage__
 
@@ -6,5 +8,5 @@ __Attributes__:
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

@@ -1,3 +1,5 @@
+## j-Banners
+
 - works only with __Bootstrap__ (just need to Grid System)
 - fully responsive
 - simple CSS animation
@@ -5,5 +7,5 @@
 
 ### Author
 
-Peter Širka <petersirka@gmail.com>
-License: MIT
+- Peter Širka <petersirka@gmail.com>
+- License: MIT

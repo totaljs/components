@@ -1,1 +1,16 @@
-{"name":"j-Centered","tags":["jcomponent"],"color":"white","version":4,"responsive":true,"picture":"picture.jpg","dependencies":[],"author":"Peter Širka","email":"petersirka@gmail.com","license":"MIT"}
+{
+	"datecreated": "2016-03-11T18:07:56.072Z",
+	"dateupdated": null,
+	"name": "j-Centered",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "white",
+	"version": 4,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}
