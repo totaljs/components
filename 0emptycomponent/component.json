@@ -1,0 +1,16 @@
+{
+	"datecreated": "2016-05-06T12:59:57.478Z",
+	"dateupdated": null,
+	"name": "YOUR COMPONENT NAME",
+	"tags": [
+		"jcomponent",
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "YOUR NAME",
+	"email": "YOUR EMAIL ADDRESS",
+	"license": "MIT"
+}

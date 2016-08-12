@@ -4,8 +4,7 @@
 
 ## How to add a new component?
 
-... coming soon ...
-
+Just clone this example <https://github.com/totaljs/components/tree/master/0emptycomponent> and create pull request. The component will be shown on <www.componentator.com> next day.
 
 ## Contributors
 
