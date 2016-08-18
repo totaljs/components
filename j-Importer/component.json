@@ -1,12 +1,12 @@
 {
-	"datecreated": "2016-08-12T10:46:00.865Z",
+	"datecreated": "2016-08-18T07:20:00.865Z",
 	"dateupdated": null,
 	"name": "j-Importer",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 1,
+	"version": 2,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
