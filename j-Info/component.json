@@ -1,0 +1,16 @@
+{
+	"datecreated": "2016-08-22T21:23:50.682Z",
+	"dateupdated": null,
+	"name": "j-Info",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.png",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

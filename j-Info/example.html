@@ -1,0 +1,13 @@
+<div data-component="info"></div>
+
+<br />
+<div class="container">
+	<a href="javascript:void(0)">Mouse hover here</a>
+</div>
+
+<script>
+	$(document).on('mouseenter mouseleave', 'a', function(e) {
+		var info = FIND('info');
+		e.type === 'mouseenter' ? info.show('left', this, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate nobis omnis quae commodi recusandae dolore saepe blanditiis, eligendi accusamus optio!') : info.hide();
+	});
+</script>
