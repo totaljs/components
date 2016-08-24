@@ -1,12 +1,12 @@
 {
 	"datecreated": "2016-02-19T11:05:35.758Z",
-	"dateupdated": null,
+	"dateupdated": "2016-08-24T20:53:35.758Z",
 	"name": "j-Tagger",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 18,
+	"version": 19,
 	"responsive": false,
 	"picture": "picture.jpg",
 	"dependencies": "",
