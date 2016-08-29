@@ -1,7 +1,12 @@
-function urlify(text) {
-    var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
-    return text.replace(urlRegex, function(url,b,c) {
-        var url2 = c === 'www.' ? 'http://' + url : url;
-        return '<a href="' +url2+ '" target="_blank">' + url + '</a>';
-    }) ;
+function urlify(str) {
+	return str.replace(/(((https?:\/\/)|(www\.))[^\s]+)/g, function(url, b, c) {
+		var len = url.length;
+		var l = url.substring(len - 1);
+		if (l === '.' || l === ',')
+			url = url.substring(0, len - 1);
+		else
+			l = '';
+		url = c === 'www.' ? 'http://' + url : url;
+		return '<a href="' + url + '" target="_blank">' + url + '</a>' + last;
+	}) ;
 }

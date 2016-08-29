@@ -1,12 +1,12 @@
 {
 	"datecreated": "2016-02-22T13:39:43.589Z",
-	"dateupdated": null,
+	"dateupdated": "2016-08-29T17:50:00.000Z",
 	"name": "URLify",
 	"tags": [
 		"url"
 	],
 	"color": "transparent",
-	"version": 1,
+	"version": 2,
 	"responsive": false,
 	"picture": "picture.jpg",
 	"dependencies": "",
