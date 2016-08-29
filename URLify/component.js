@@ -7,6 +7,6 @@ function urlify(str) {
 		else
 			l = '';
 		url = c === 'www.' ? 'http://' + url : url;
-		return '<a href="' + url + '" target="_blank">' + url + '</a>' + last;
+		return '<a href="' + url + '" target="_blank">' + url + '</a>' + l;
 	}) ;
 }
