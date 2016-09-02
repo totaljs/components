@@ -5,8 +5,8 @@
 COMPONENT('repeater', function() {
 
 	var self = this;
-    var recompile = false;
-  
+	var recompile = false;
+
 	self.readonly();
 
 	self.make = function() {
@@ -14,7 +14,7 @@ COMPONENT('repeater', function() {
 		var html = element.html();
 		element.remove();
 		self.template = Tangular.compile(html);
-        recompile = html.indexOf('data-component="') !== -1;
+		recompile = html.indexOf('data-component="') !== -1;
 	};
 
 	self.setter = function(value) {
@@ -32,8 +32,6 @@ COMPONENT('repeater', function() {
 		}
 
 		self.html(builder);
-        
-        if (recompile)
-           jC.compile();
+		recompile && jC.compile();
 	};
 });
