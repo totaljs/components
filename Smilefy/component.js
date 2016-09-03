@@ -3,7 +3,7 @@ function smilefy(text) {
 	return text.replace(/(\-1|[:;8O\-)DP(|\*]|\+1){1,3}/g, function(match) {
 		var clean = match.replace('-', '');
 		var smile = db[clean];
-		if (smile === undefined)
+		if (smile == null)
 			return match;
 		return '<span class="smiles smiles-' + smile + '"></span>';
 	});
