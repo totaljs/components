@@ -13,7 +13,6 @@ COMPONENT('textarea', function() {
 
 		var is = false;
 		var type = typeof(value);
-
 		if (input.prop('disabled'))
 			return true;
 
@@ -22,14 +21,11 @@ COMPONENT('textarea', function() {
 		else
 			value = value.toString();
 
-		if (window.$calendar)
-			window.$calendar.hide();
-
+		window.$calendar && window.$calendar.hide();
 		return value.length > 0;
 	};
 
-	if (!required)
-		self.noValid();
+	!required && self.noValid();
 
 	self.make = function() {
 
@@ -42,12 +38,8 @@ COMPONENT('textarea', function() {
 		attrs.attr('data-component-bind', '');
 
 		tmp = self.attr('data-height');
-		if (tmp)
-			attrs.attr('style', 'height:' + tmp);
-
-		if (self.attr('data-autofocus') === 'true')
-			attrs.attr('autofocus');
-
+		tmp && attrs.attr('style', 'height:' + tmp);
+		self.attr('data-autofocus') === 'true' && attrs.attr('autofocus');
 		builder.push('<textarea {0}></textarea>'.format(attrs.join(' ')));
 
 		var element = self.element;
@@ -67,10 +59,7 @@ COMPONENT('textarea', function() {
 		var html = builder.join('');
 		builder = [];
 		builder.push('<div class="ui-textarea-label{0}">'.format(required ? ' ui-textarea-label-required' : ''));
-
-		if (icon)
-			builder.push('<span class="fa {0}"></span> '.format(icon));
-
+		icon && builder.push('<span class="fa {0}"></span> '.format(icon));
 		builder.push(content);
 		builder.push(':</div><div class="ui-textarea">{0}</div>'.format(html));
 
