@@ -1,12 +1,12 @@
 {
 	"datecreated": "2016-03-02T06:53:56.041Z",
-	"dateupdated": null,
+	"dateupdated": "2016-09-08T08:54:00.000Z",
 	"name": "j-Confirm",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "white",
-	"version": 3,
+	"version": 2,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

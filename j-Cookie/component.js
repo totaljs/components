@@ -13,7 +13,9 @@ COMPONENT('cookie', function() {
 		self.element.removeClass('hidden').addClass('ui-cookie');
 		self.element.append('<button>' + (self.attr('data-button') || 'OK') + '</button>');
 		self.element.on('click', 'button', function() {
-			localStorage.setItem('cookie', '1');
+			try {
+				localStorage.setItem('cookie', '1');
+			} catch (e) {}
 			self.element.addClass('hidden');
 		});
 	};

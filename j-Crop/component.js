@@ -212,19 +212,16 @@ COMPONENT('crop', function() {
 			context.fillRect(0, 0, width, height)
 		}
 
-		if (can)
-			context.drawImage(img, current.x || 0, current.y || 0, w, h);
+		can && context.drawImage(img, current.x || 0, current.y || 0, w, h);
 	};
 
 	self.setter = function(value) {
-
-		if (!value) {
+		if (value) {
+			img.src = (self.attr('data-format') || '{0}').format(value);
+		else {
 			can = false;
 			self.redraw();
-			return;
 		}
-
-		img.src = (self.attr('data-format') || '{0}').format(value);
 	};
 
 	function isTransparent(ctx) {

@@ -1,6 +1,6 @@
 {
 	"datecreated": "2015-07-30T06:33:58.000Z",
-	"dateupdated": null,
+	"dateupdated": "2016-09-08T10:29:00.000Z",
 	"name": "HTML 5 template",
 	"tags": [
 		"template",
@@ -8,7 +8,7 @@
 		"empty"
 	],
 	"color": "transparent",
-	"version": 4,
+	"version": 5,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

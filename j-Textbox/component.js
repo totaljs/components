@@ -1,17 +1,17 @@
 /**
  * Textbox
- * @version 2.0.0
+ * @version 3.0.0
  */
 COMPONENT('textbox', function() {
 
 	var self = this;
-	var required = self.attr('data-required') === 'true';
+	var isRequired = self.attr('data-required') === 'true';
 	var input;
 	var container;
 
 	self.validate = function(value) {
 
-		if (input.prop('disabled'))
+		if (input.prop('disabled') || !isRequired)
 			return true;
 
 		var type = typeof(value);
@@ -21,7 +21,7 @@ COMPONENT('textbox', function() {
 		else
 			value = value.toString();
 
-		window.$calendar && window.$calendar.hide();
+		EXEC('$calendar.hide');
 
 		if (self.type === 'email')
 			return value.isEmail();
@@ -30,7 +30,14 @@ COMPONENT('textbox', function() {
 		return value.length > 0;
 	};
 
-	!required && self.noValid();
+	!isRequired && self.noValid();
+
+	self.required = function(value) {
+		self.element.find('.ui-textbox-label').toggleClass('ui-textbox-label-required', value);
+		self.noValid(!value);
+		isRequired = value;
+		!value && self.state(1, 1);
+	};
 
 	self.make = function() {
 
@@ -87,7 +94,7 @@ COMPONENT('textbox', function() {
 
 		var html = builder.join('');
 		builder = [];
-		builder.push('<div class="ui-textbox-label{0}">'.format(required ? ' ui-textbox-label-required' : ''));
+		builder.push('<div class="ui-textbox-label{0}">'.format(isRequired ? ' ui-textbox-label-required' : ''));
 		icon && builder.push('<span class="fa {0}"></span> '.format(icon));
 		builder.push(content);
 		builder.push(':</div><div class="ui-textbox">{0}</div>'.format(html));

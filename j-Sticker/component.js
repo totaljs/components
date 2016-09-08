@@ -36,20 +36,16 @@ COMPONENT('sticker', function() {
 		if (is) {
 			if (enabled && !init)
 				return;
-			if (ca)
-				el.removeClass(ca);
-			if (cb)
-				el.addClass(cb);
+			ca && el.removeClass(ca);
+			cb && el.addClass(cb);
 			enabled = true;
 			return self;
 		}
 
 		if (!enabled && !init)
 			return self;
-		if (cb)
-			el.removeClass(cb);
-		if (ca)
-			el.addClass(ca);
+		cb && el.removeClass(cb);
+		ca && el.addClass(ca);
 		enabled = false;
 		top = 0;
 		return self;

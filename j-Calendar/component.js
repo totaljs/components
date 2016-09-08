@@ -7,8 +7,11 @@ COMPONENT('calendar', function() {
 	var self = this;
 	var skip = false;
 	var skipDay = false;
-	var callback;
 	var target;
+
+	self.readonly();
+	self.singleton();
+	self.click = function(date) {};
 
 	self.days = self.attr('data-days').split(',');
 	self.months = self.attr('data-months').split(',');
@@ -22,10 +25,6 @@ COMPONENT('calendar', function() {
 			m = m.substring(0, 3) + '.';
 		self.months_short.push(m);
 	}
-
-	self.readonly();
-	self.singleton();
-	self.click = function(date) {};
 
 	function getMonthDays(dt) {
 
@@ -151,8 +150,7 @@ COMPONENT('calendar', function() {
 		self.element.on('click', '.ui-calendar-today', function() {
 			var dt = new Date();
 			self.hide();
-			if (self.click)
-				self.click(dt);
+			self.click && self.click(dt);
 		});
 
 		self.element.on('click', '.ui-calendar-day', function() {
@@ -162,8 +160,7 @@ COMPONENT('calendar', function() {
 			self.element.find('.ui-calendar-selected').removeClass('ui-calendar-selected');
 			$(this).addClass('ui-calendar-selected');
 			self.hide();
-			if (self.click)
-				self.click(dt);
+			self.click && self.click(dt);
 		});
 
 		self.element.on('click', 'button', function(e) {
@@ -186,8 +183,7 @@ COMPONENT('calendar', function() {
 		});
 
 		$(document.body).on('scroll click', function() {
-			if (window.$calendar)
-				window.$calendar.hide();
+			window.$calendar && window.$calendar.hide();
 		});
 
 		window.$calendar = self;
@@ -223,8 +219,7 @@ COMPONENT('calendar', function() {
 			var item = output.days[i];
 
 			if (i % 7 === 0) {
-				if (builder.length > 0)
-					builder.push('</tr>');
+				builder.length > 0 && builder.push('</tr>');
 				builder.push('<tr>');
 			}
 
@@ -235,12 +230,8 @@ COMPONENT('calendar', function() {
 			else
 				cls.push('ui-calendar-day');
 
-			if (!empty && item.isSelected)
-				cls.push('ui-calendar-selected');
-
-			if (item.isToday)
-				cls.push('ui-calendar-day-today');
-
+			!empty && item.isSelected && cls.push('ui-calendar-selected');
+			item.isToday && cls.push('ui-calendar-day-today');
 			builder.push('<td class="' + cls.join(' ') + '" data-date="' + output.year + '-' + output.month + '-' + item.number + '">' + item.number + '</td>');
 		}
 

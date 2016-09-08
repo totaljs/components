@@ -75,10 +75,10 @@ COMPONENT('tagger', function() {
 
 			if (visible) {
 				key = 'visible';
-				if (!cache[key])
-					visible = cache[key] = self.arrow(visible);
-				else
+				if (cache[key])
 					visible = cache[key];
+				else
+					visible = cache[key] = self.arrow(visible);
 				var is = visible(val);
 				$(this).toggleClass('hidden', !is);
 				return;

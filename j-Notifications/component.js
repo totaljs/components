@@ -67,10 +67,8 @@ COMPONENT('notifications', function() {
 			clearTimeout(autoclosing);
 			autoclosing = null;
 			var el = self.find('.ui-notification');
-			if (el.length > 1)
-				self.autoclose();
-			if (el.length)
-				self.close(+el.eq(0).attr('data-id'));
+			el.length > 1 && self.autoclose();
+			el.length && self.close(+el.eq(0).attr('data-id'));
 		}, +self.attr('data-timeout') || 5000);
 	};
 });

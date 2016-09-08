@@ -21,8 +21,7 @@ COMPONENT('pagination', function() {
 			e.preventDefault();
 			e.stopPropagation();
 			var el = $(this);
-			if (self.onPage)
-				self.onPage(el.attr('data-page').parseInt(), el);
+			self.onPage && self.onPage(el.attr('data-page').parseInt(), el);
 		});
 	};
 
@@ -97,7 +96,7 @@ COMPONENT('pagination', function() {
             max = max.parseInt();
         else
             max = 8;
-      
+
 		self.getPagination(value.page, cachePages, max, function(index) {
 			builder.push(self.template({ page: index, selected: value.page === index }));
 		});
@@ -117,10 +116,8 @@ COMPONENT('pagination', function() {
 		if (cachePages > 1) {
 			var pluralize_pages = [cachePages];
 			var pluralize_items = [cacheCount];
-
 			pluralize_pages.push.apply(pluralize_pages, self.attr('data-pages').split(',').trim());
 			pluralize_items.push.apply(pluralize_items, self.attr('data-items').split(',').trim());
-
 			info.empty().append(Tangular.helpers.pluralize.apply(value, pluralize_pages) + ' / ' + Tangular.helpers.pluralize.apply(value, pluralize_items));
 			self.element.toggleClass('hidden', false);
 		} else

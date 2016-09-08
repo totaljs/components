@@ -1,13 +1,13 @@
 {
 	"datecreated": "2016-02-19T13:55:27.418Z",
-	"dateupdated": null,
+	"dateupdated": "2016-09-08T08:58:00.000Z",
 	"name": "j-Cookie",
 	"tags": [
 		"jcomponent",
 		"cookies"
 	],
 	"color": "transparent",
-	"version": 4,
+	"version": 5,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

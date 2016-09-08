@@ -14,6 +14,9 @@ __Attributes__:
 - `data-increment="true"` - appends increment/decrement numbers (works with `number` and `currency` - `data-component-type`)
 - `data-component-format` - works with `date` only e.g. `dd.MM.yyyy`.
 
+__Methods__:
+- `component.required(value)` - can enable/disable `required` with validation
+
 __Interesting:__
 
 If you `data-component-type="date"` then the component uses `calendar` component (an application must depend `calendar` component).

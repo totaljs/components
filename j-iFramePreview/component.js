@@ -6,8 +6,7 @@ COMPONENT('iframepreview', function() {
     if (!window.$iframepreview) {
         window.$iframepreview = true;
         $(window).on('keydown', function(e) {
-            if (e.keyCode === 27)
-                FIND('iframepreview', true).forEach(FN('n => n.hide()'));
+            e.keyCode === 27 && FIND('iframepreview', true).forEach(FN('n => n.hide()'));
         });
     }
 
@@ -21,13 +20,12 @@ COMPONENT('iframepreview', function() {
 
     self.open = function(url) {
 
-        if (window.$iframepreview_current && window.$iframepreview_current !== self)
-            window.$iframepreview_current.hide();
+        window.$iframepreview_current && window.$iframepreview_current !== self && window.$iframepreview_current.hide();
+        url && iframe.attr('src', url);
 
-        if (url)
-            iframe.attr('src', url);
         if (is)
             return;
+
         self.element.removeClass('hidden');
         window.$iframepreview_current = self;
         is = true;

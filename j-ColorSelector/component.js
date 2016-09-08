@@ -16,10 +16,7 @@ COMPONENT('colorselector', function() {
 	self.make = function() {
 		var builder = [];
 		var html = self.html();
-
-		if (html)
-			builder.push('<div class="ui-colorselector-label">{0}</div>'.format(html));
-
+		html && builder.push('<div class="ui-colorselector-label">{0}</div>'.format(html));
 		builder.push('<ul class="ui-colorselector">');
 		for (var i = 0, length = colors.length; i < length; i++)
 			builder.push('<li data-index="{0}" style="background-color:{1}"></li>'.format(i, colors[i]));

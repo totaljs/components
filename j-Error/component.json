@@ -1,12 +1,12 @@
 {
 	"datecreated": "2016-03-08T09:22:10.240Z",
-	"dateupdated": null,
+	"dateupdated": "2016-09-08T09:51:00.000Z",
 	"name": "j-Error",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "red",
-	"version": 4,
+	"version": 2,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

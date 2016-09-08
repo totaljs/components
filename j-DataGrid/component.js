@@ -10,7 +10,6 @@ COMPONENT('datagrid', function() {
 	var el_headers;
 
 	self.readonly();
-
 	self.onCheckbox;
 	self.onButton;
 
@@ -20,15 +19,13 @@ COMPONENT('datagrid', function() {
 		self.element.on('change', 'input', function() {
 			var el = $(this);
 			var index = parseInt(el.closest('.ui-datagrid-row').attr('data-index'));
-			if (self.onCheckbox)
-				self.onCheckbox(index, self.get()[index], el.prop('checked'), el);
+			self.onCheckbox && self.onCheckbox(index, self.get()[index], el.prop('checked'), el);
 		});
 
 		self.element.on('click', 'button', function() {
 			var el = $(this);
 			var index = parseInt(el.closest('.ui-datagrid-row').attr('data-index'));
-			if (self.onButton)
-				self.onButton(index, self.get()[index], el.attr('name'), el);
+			self.onButton && self.onButton(index, self.get()[index], el.attr('name'), el);
 		});
 
 		self.find('script').each(function(index) {
@@ -42,17 +39,12 @@ COMPONENT('datagrid', function() {
 			var type = this.getAttribute('data-type');
 			var header = type === 'header' || type === 'head';
 
-			if (!header) {
+			if (!header)
 				html = html.replace(/class\=\".*?"/g, function(text) {
-					if (text.indexOf('ui-datagrid-column') === -1)
-						return text;
-					return '[#]' + text;
+					return text.indexOf('ui-datagrid-column') === -1 ? text : '[#]' + text;
 				});
-			}
 
-			var responsive = this.getAttribute('data-responsive');
-
-			responsive.split(',').forEach(function(size) {
+			this.getAttribute('data-responsive').split(',').forEach(function(size) {
 				size = size.trim();
 				if (header) {
 					Theaders[size] = Ta.compile(html);
@@ -100,9 +92,7 @@ COMPONENT('datagrid', function() {
 			return 'style="{0}" '.format(w);
 		}), index);
 
-		if (refresh)
-			self.element.find('.ui-datagrid-row[data-index="{0}"]'.format(index)).replaceWith(rows[index]);
-
+		refresh && self.element.find('.ui-datagrid-row[data-index="{0}"]'.format(index)).replaceWith(rows[index]);
 		return self;
 	};
 

@@ -1,6 +1,6 @@
 /**
  * Confirm Message
- * @version 1.0.0
+ * @version 2.0.0
  */
 COMPONENT('confirm', function() {
 	var self = this;
@@ -31,13 +31,9 @@ COMPONENT('confirm', function() {
 	};
 
 	self.hide = function(index) {
-
-		if (self.callback)
-			self.callback(index);
-
+		self.callback && self.callback(index);
 		self.element.removeClass('ui-confirm-visible');
-		if (timer)
-			clearTimeout(timer);
+		timer && clearTimeout(timer);
 		timer = setTimeout(function() {
 			visible = false;
 			self.element.addClass('hidden');
@@ -45,13 +41,8 @@ COMPONENT('confirm', function() {
 	};
 
 	self.content = function(cls, text) {
-
-		if (!is)
-			self.html('<div><div class="ui-confirm-body"></div></div>');
-
-		if (timer)
-			clearTimeout(timer);
-
+		!is && self.html('<div><div class="ui-confirm-body"></div></div>');
+		timer && clearTimeout(timer);
 		visible = true;
 		self.element.find('.ui-confirm-body').empty().append(text);
 		self.element.removeClass('hidden');

@@ -1,12 +1,12 @@
 {
 	"datecreated": "2016-03-08T08:13:38.443Z",
-	"dateupdated": "2016-09-06T12:43:00.000Z",
+	"dateupdated": "2016-09-08T10:11:00.000Z",
 	"name": "j-Textarea",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 2,
+	"version": 3,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

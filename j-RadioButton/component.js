@@ -8,9 +8,7 @@ COMPONENT('radiobutton', function() {
 		var html = self.html();
 
 		required = self.attr('data-required') === 'true';
-
-		if (html)
-			builder.push('<div class="ui-radiobutton-label{1}">{0}</div>'.format(html, required ? ' ui-radiobutton-label-required' : ''));
+		html && builder.push('<div class="ui-radiobutton-label{1}">{0}</div>'.format(html, required ? ' ui-radiobutton-label-required' : ''));
 
 		options.forEach(function(item) {
 			item = item.split('|');

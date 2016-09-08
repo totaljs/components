@@ -18,7 +18,7 @@ COMPONENT('search', function() {
 
 		if (!options_selector || !options_attribute)
 			return;
-       
+
 		KEYPRESS(function() {
 
 			var elements = self.element.find(options_selector);
@@ -28,8 +28,8 @@ COMPONENT('search', function() {
 				return;
 			}
 
-            var search = value.toLowerCase().replace(/y/gi, 'i');
-      
+			var search = value.toLowerCase().replace(/y/gi, 'i');
+
 			elements.toArray().waitFor(function(item, next) {
 				var el = $(item);
 				var val = (el.attr(options_attribute) || '').toLowerCase().replace(/y/gi, 'i');

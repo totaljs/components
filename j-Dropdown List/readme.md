@@ -14,6 +14,9 @@ __Attributes__:
 - `data-source-text="name"` (optional) property name for gettint the text, default __text__
 - `data-source-value="id"` (optional) property name for getting the value, default __id__
 
+__Methods__:
+- `component.required(value)` - can enable/disable `required` with validation
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

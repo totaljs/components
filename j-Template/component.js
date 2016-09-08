@@ -24,8 +24,8 @@ COMPONENT('template', function() {
 	};
 
 	self.setter = function(value) {
-        if (NOTMODIFIED(self.id, value))
-            return;
+		if (NOTMODIFIED(self.id, value))
+			return;
 		if (!value)
 			return self.element.addClass('hidden');
 		KEYPRESS(function() {

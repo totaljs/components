@@ -8,6 +8,9 @@ __Attributes__:
 
 - `data-required="true"` (optional) the field must have some value, default __false__
 
+__Methods__:
+- `component.required(value)` - can enable/disable `required` with validation
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

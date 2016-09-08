@@ -14,7 +14,7 @@ COMPONENT('error', function() {
 	self.setter = function(value) {
 
 		if (!(value instanceof Array) || !value.length) {
-			self.element.addClass('hidden');
+			self.toggle('hidden', true);
 			return;
 		}
 
@@ -23,6 +23,6 @@ COMPONENT('error', function() {
 			builder.push('<div><span class="fa fa-times-circle"></span>{0}</div>'.format(value[i].error));
 
 		self.html(builder.join(''));
-		self.element.removeClass('hidden');
+		self.toggle('hidden', false);
 	};
 });

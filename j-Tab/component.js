@@ -4,9 +4,7 @@ COMPONENT('tabmenu', function() {
 	self.make = function() {
 		self.element.on('click', 'li', function() {
 			var el = $(this);
-			if (el.hasClass('selected'))
-				return;
-			self.set(el.attr('data-value'));
+			!el.hasClass('selected') && self.set(el.attr('data-value'));
 		});
 	};
 	self.setter = function(value) {

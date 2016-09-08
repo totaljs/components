@@ -1,11 +1,11 @@
 /**
  * Textarea
- * @version 2.0.0
+ * @version 3.0.0
  */
 COMPONENT('textarea', function() {
 
 	var self = this;
-	var required = self.attr('data-required') === 'true';
+	var isRequired = self.attr('data-required') === 'true';
 	var input;
 	var container;
 
@@ -13,7 +13,7 @@ COMPONENT('textarea', function() {
 
 		var is = false;
 		var type = typeof(value);
-		if (input.prop('disabled'))
+		if (input.prop('disabled') || isRequired)
 			return true;
 
 		if (type === 'undefined' || type === 'object')
@@ -21,11 +21,18 @@ COMPONENT('textarea', function() {
 		else
 			value = value.toString();
 
-		window.$calendar && window.$calendar.hide();
+		EXEC('$calendar.hide');
 		return value.length > 0;
 	};
 
-	!required && self.noValid();
+	!isRequired && self.noValid();
+
+	self.required = function(value) {
+		self.element.find('.ui-textarea-label').toggleClass('ui-textarea-label-required', value);
+		self.noValid(!value);
+		isRequired = value;
+		!value && self.state(1, 1);
+	};
 
 	self.make = function() {
 
@@ -55,10 +62,10 @@ COMPONENT('textarea', function() {
 
 		var height = self.attr('data-height');
 		var icon = self.attr('data-icon');
-
 		var html = builder.join('');
+
 		builder = [];
-		builder.push('<div class="ui-textarea-label{0}">'.format(required ? ' ui-textarea-label-required' : ''));
+		builder.push('<div class="ui-textarea-label{0}">'.format(isRequired ? ' ui-textarea-label-required' : ''));
 		icon && builder.push('<span class="fa {0}"></span> '.format(icon));
 		builder.push(content);
 		builder.push(':</div><div class="ui-textarea">{0}</div>'.format(html));

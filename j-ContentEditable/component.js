@@ -12,13 +12,11 @@ COMPONENT('contenteditable', function() {
 		else
 			value = value.toString();
 
-		if (window.$calendar)
-			window.$calendar.hide();
+		EXEC('$calendar.hide');
 		return value.length > 0;
 	};
 
-	if (!required)
-		self.noValid();
+	!required && self.noValid();
 
 	self.make = function() {
 
@@ -47,8 +45,7 @@ COMPONENT('contenteditable', function() {
 		};
 
 		self.element.on('click', function(e) {
-			if (e.target)
-				self.event('click', e.target);
+			e.target && self.event('click', e.target);
 		});
 
 		self.element.on('blur', function() {

@@ -1,135 +1,143 @@
+/**
+ * TextboxTags
+ * @version 3.0.0
+ */
 COMPONENT('textboxtags', function() {
 
-    var self = this;
-    var isRequired = self.attr('data-required') === 'true';
-    var isString = false;
-    var container;
+	var self = this;
+	var isRequired = self.attr('data-required') === 'true';
+	var isString = false;
+	var container;
 
-    if (!window.$textboxtagstemplate)
-        window.$textboxtagstemplate = Tangular.compile('<li class="ui-textboxtags-tag" data-name="{{ name }}">{{ name }}<span class="fa fa-times"></span></li>');
+	if (!window.$textboxtagstemplate)
+		window.$textboxtagstemplate = Tangular.compile('<div class="ui-textboxtags-tag" data-name="{{ name }}">{{ name }}<i class="fa fa-times"></i></div>');
 
-    var template = window.$textboxtagstemplate;
+	var template = window.$textboxtagstemplate;
 
-    self.validate = function(value) {
-        return isRequired ? value && value.length > 0 : true;
-    };
+	self.validate = function(value) {
+		return isRequired ? value && value.length > 0 : true;
+	};
 
-    self.make = function() {
+	self.required = function(value) {
+		self.element.find('.ui-textboxtags-label').toggleClass('ui-textboxtags-label-required', value);
+		self.noValid(!value);
+		isRequired = value;
+		!value && self.state(1, 1);
+	};
 
-        var height = self.attr('data-height');
-        var icon = self.attr('data-icon');
-        var content = self.html();
-        var html = '<div class="ui-textboxtags-values"' + (height ? ' style="min-height:' + height + '"' : '') + '><ul></ul><input type="text" placeholder="' + (self.attr('data-placeholder') || '') + '" /></div>';
+	self.make = function() {
 
-        isString = self.type === 'string';
+		var height = self.attr('data-height');
+		var icon = self.attr('data-icon');
+		var content = self.html();
+		var html = '<div class="ui-textboxtags-values"' + (height ? ' style="min-height:' + height + '"' : '') + '><input type="text" placeholder="' + (self.attr('data-placeholder') || '') + '" /></div>';
 
-        if (content.length === 0) {
-            self.element.addClass('ui-textboxtags');
-            self.element.append(html);
-        } else {
-            self.element.empty();
-            self.element.append('<div class="ui-textboxtags-label' + (isRequired ? ' ui-textboxtags-label-required' : '') + '">' + (icon ? '<span class="fa ' + icon + '"></span> ' : '') + content + ':</div>');
-            self.element.append('<div class="ui-textboxtags">' + html + '</div>');
-        }
+		isString = self.type === 'string';
 
-        self.element.on('click', function(e) {
-            self.element.find('input').focus();
-        });
+		if (content.length) {
+			self.element.empty();
+			self.element.append('<div class="ui-textboxtags-label' + (isRequired ? ' ui-textboxtags-label-required' : '') + '">' + (icon ? '<span class="fa ' + icon + '"></span> ' : '') + content + ':</div>');
+			self.element.append('<div class="ui-textboxtags">' + html + '</div>');
+		} else {
+			self.element.addClass('ui-textboxtags');
+			self.element.append(html);
+		}
 
-        container = self.element.find('ul');
-        container.on('click', '.fa-times', function(e) {
+		self.element.on('click', function(e) {
+			self.element.find('input').focus();
+		});
 
-            e.preventDefault();
-            e.stopPropagation();
+		container = self.element.find('.ui-textboxtags-values');
+		container.on('click', '.fa-times', function(e) {
 
-            var el = $(this);
-            var arr = self.get();
+			e.preventDefault();
+			e.stopPropagation();
 
-            if (isString)
-                arr = self.split(arr);
+			var el = $(this);
+			var arr = self.get();
 
-            if (!arr || !(arr instanceof Array) || !arr.length)
-                return;
+			if (isString)
+				arr = self.split(arr);
 
-            var index = arr.indexOf(el.parent().attr('data-name'));
-            if (index === -1)
-                return;
+			if (!arr || !(arr instanceof Array) || !arr.length)
+				return;
 
-            arr.splice(index, 1);
-            self.reset(true);
-            self.set(isString ? arr.join(', ') : arr);
-        });
+			var index = arr.indexOf(el.parent().attr('data-name'));
+			if (index === -1)
+				return;
 
-        self.element.on('keydown', 'input', function(e) {
+			arr.splice(index, 1);
+			self.reset(true);
+			self.set(isString ? arr.join(', ') : arr);
+		});
 
-            if (e.keyCode === 8) {
-                if (this.value)
-                    return;
-                var arr = self.get();
-                if (isString)
-                    arr = self.split(arr);
-                if (!arr || !(arr instanceof Array) || !arr.length)
-                    return;
-                arr.pop();
-                self.reset(true);
-                self.set(isString ? arr.join(', ') : arr);
-                return;
-            }
+		self.element.on('keydown', 'input', function(e) {
 
-            if (e.keyCode !== 13)
-                return;
+			if (e.keyCode === 8) {
+				if (this.value)
+					return;
+				var arr = self.get();
+				if (isString)
+					arr = self.split(arr);
+				if (!arr || !(arr instanceof Array) || !arr.length)
+					return;
+				arr.pop();
+				self.reset(true);
+				self.set(isString ? arr.join(', ') : arr);
+				return;
+			}
 
-            if (!this.value)
-                return;
+			if (e.keyCode !== 13 || !this.value)
+				return;
 
-            var arr = self.get();
-            var value = this.value;
+			var arr = self.get();
+			var value = this.value;
 
-            if (isString)
-                arr = self.split(arr);
+			if (isString)
+				arr = self.split(arr);
 
-            if (!(arr instanceof Array))
-                arr = [];
+			if (!(arr instanceof Array))
+				arr = [];
 
-            if (arr.indexOf(value) === -1)
-                arr.push(value);
-            else
-                return;
+			if (arr.indexOf(value) === -1)
+				arr.push(value);
+			else
+				return;
 
-            this.value = '';
-            self.reset(true);
-            self.set(isString ? arr.join(', ') : arr);
-        });
-    };
+			this.value = '';
+			self.reset(true);
+			self.set(isString ? arr.join(', ') : arr);
+		});
+	};
 
-    self.split = function(value) {
-        if (!value)
-            return new Array(0);
-        var arr = value.split(',');
-        for (var i = 0, length = arr.length; i < length; i++)
-            arr[i] = arr[i].trim();
-        return arr;
-    };
+	self.split = function(value) {
+		if (!value)
+			return new Array(0);
+		var arr = value.split(',');
+		for (var i = 0, length = arr.length; i < length; i++)
+			arr[i] = arr[i].trim();
+		return arr;
+	};
 
-    self.setter = function(value) {
+	self.setter = function(value) {
 
-        if (NOTMODIFIED(self.id, value))
-            return;
+		if (NOTMODIFIED(self.id, value))
+			return;
 
-        container.empty();
+		container.find('.ui-textboxtags-tag').remove();
 
-        if (!value || !value.length)
-            return;
+		if (!value || !value.length)
+			return;
 
-        var arr = isString ? self.split(value) : value;
-        var builder = '';
-        for (var i = 0, length = arr.length; i < length; i++)
-            builder += template({ name: arr[i] });
+		var arr = isString ? self.split(value) : value;
+		var builder = '';
+		for (var i = 0, length = arr.length; i < length; i++)
+			builder += template({ name: arr[i] });
 
-        container.append(builder);
-    };
+		container.prepend(builder);
+	};
 
-    self.state = function(type) {
-        self.element.find('.ui-textboxtags').toggleClass('ui-textboxtags-invalid', self.isInvalid());
-    };
+	self.state = function(type) {
+		self.element.find('.ui-textboxtags').toggleClass('ui-textboxtags-invalid', self.isInvalid());
+	};
 });

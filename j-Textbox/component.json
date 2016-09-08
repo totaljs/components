@@ -1,12 +1,12 @@
 {
 	"datecreated": "2015-08-06T05:41:27.000Z",
-	"dateupdated": "2016-09-06T09:27:00.000Z",
+	"dateupdated": "2016-09-08T09:46:00.000Z",
 	"name": "j-Textbox",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "white",
-	"version": 29,
+	"version": 3,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

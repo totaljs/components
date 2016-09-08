@@ -25,7 +25,7 @@ COMPONENT('form', function() {
         self.condition = self.attr('data-if');
         self.element.empty();
 
-        $(document.body).append('<div id="' + self._id + '" class="hidden ui-form-container"><div class="ui-form-container-padding"><div class="ui-form" style="max-width:' + width + '"><div class="ui-form-title"><span class="fa fa-times ui-form-button-close" data-id="' + self._id + '"></span>' + self.attr('data-title') + '</div>' + content + '</div></div>');
+        $(document.body).append('<div id="{0}" class="hidden ui-form-container"><div class="ui-form-container-padding"><div class="ui-form" style="max-width:' + width + '"><div class="ui-form-title"><span class="fa fa-times ui-form-button-close" data-id="{0}"></span>{1}</div>{2}</div></div>'.format(self._id, self.attr('data-title'), content));
 
         self.element = $('#' + self._id);
         self.element.data(COM_ATTR, self);
@@ -46,7 +46,6 @@ COMPONENT('form', function() {
     self.setter = function(value) {
         var isHidden = !EVALUATE(self.path, self.condition);
         self.element.toggleClass('hidden', isHidden);
-        if (!isHidden)
-            self.element.find('input').eq(0).focus();
+        !isHidden && !isMOBILE && self.element.find('input').eq(0).focus();
     };
 });

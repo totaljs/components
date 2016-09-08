@@ -19,8 +19,7 @@ COMPONENT('contextmenu', function() {
 		arrow = self.element.find('.ui-contextmenu-arrow');
 
 		self.element.on('touchstart mousedown', 'div[data-value]', function(e) {
-			if (self.callback)
-				self.callback($(this).attr('data-value'), $(self.target));
+			self.callback && self.callback($(this).attr('data-value'), $(self.target));
 			self.hide();
 			e.preventDefault();
 			e.stopPropagation();

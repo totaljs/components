@@ -21,8 +21,7 @@ COMPONENT('message', function() {
 		$(window).on('keyup', function(e) {
 			if (!visible)
 				return;
-			if (e.keyCode === 27)
-				self.hide();
+			e.keyCode === 27 && self.hide();
 		});
 	};
 
@@ -47,13 +46,9 @@ COMPONENT('message', function() {
 	};
 
 	self.hide = function() {
-
-		if (self.callback)
-			self.callback();
-
+		self.callback && self.callback();
 		self.element.removeClass('ui-message-visible');
-		if (timer)
-			clearTimeout(timer);
+		timer && clearTimeout(timer);
 		timer = setTimeout(function() {
 			visible = false;
 			self.element.addClass('hidden');
@@ -61,13 +56,8 @@ COMPONENT('message', function() {
 	};
 
 	self.content = function(cls, text, icon) {
-
-		if (!is)
-			self.html('<div><div class="ui-message-body"><span class="fa fa-warning"></span><div class="ui-center"></div></div><button>' + (self.attr('data-button') || 'Close') + '</button></div>');
-
-		if (timer)
-			clearTimeout(timer);
-
+		!is && self.html('<div><div class="ui-message-body"><span class="fa fa-warning"></span><div class="ui-center"></div></div><button>' + (self.attr('data-button') || 'Close') + '</button></div>');
+		timer && meout(timer);
 		visible = true;
 		self.element.find('.ui-message-body').removeClass().addClass('ui-message-body ' + cls);
 		self.element.find('.fa').removeClass().addClass('fa ' + icon);

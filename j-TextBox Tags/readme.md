@@ -10,6 +10,9 @@ __Other attributes__:
 - `data-placeholder="Add a tag"` placeholder for the input
 - `data-component-type="array"` (default) stores values into the array and supports `data-component-type="string"`
 
+__Methods__:
+- `component.required(value)` - can enable/disable `required` with validation
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

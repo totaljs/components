@@ -13,8 +13,7 @@ COMPONENT('rating', function() {
 		self.element.addClass('ui-rating');
 		self.html('{0}<div>{1}</div>'.format(self.html(), builder.join('')));
 		self.element.on('click', '.fa', function() {
-			if (!self.disabled)
-				self.set($(this).index() + 1);
+			!self.disabled && self.set($(this).index() + 1);
 		});
 	};
 

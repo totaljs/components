@@ -40,8 +40,7 @@ COMPONENT('map', function() {
 
         google.maps.event.addListener(self.marker, 'click', function(e) {
             var fn = self.attr('data-click');
-            if (fn)
-                self.get(fn)(self.prepare(e.latLng.lat(), e.latLng.lng()));
+            fn && self.get(fn)(self.prepare(e.latLng.lat(), e.latLng.lng()));
         });
 
         if (!options.draggable)
