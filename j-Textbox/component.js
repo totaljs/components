@@ -6,6 +6,7 @@ COMPONENT('textbox', function() {
 
 	var self = this;
 	var isRequired = self.attr('data-required') === 'true';
+	var validation = self.attr('data-validate');
 	var input;
 	var container;
 
@@ -23,11 +24,17 @@ COMPONENT('textbox', function() {
 
 		EXEC('$calendar.hide');
 
-		if (self.type === 'email')
-			return value.isEmail();
-		if (self.type === 'currency')
-			return value > 0;
-		return value.length > 0;
+		switch (self.type) {
+			case 'email':
+				return value.isEmail();
+			case 'url':
+				return value.isURL();
+			case 'currency':
+			case 'number':
+				return value > 0;
+		}
+
+		return validation ? self.evaluate(value, validation, true) ? true : false : value.length > 0;
 	};
 
 	!isRequired && self.noValid();

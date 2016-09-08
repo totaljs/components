@@ -12,7 +12,8 @@ __Attributes__:
 - `data-component-keypress-delay` - more in jComponent documentation
 - `data-component-keypress` - more in jComponent documentation
 - `data-increment="true"` - appends increment/decrement numbers (works with `number` and `currency` - `data-component-type`)
-- `data-component-format` - works with `date` only e.g. `dd.MM.yyyy`.
+- `data-component-format` - works with `date` only e.g. `dd.MM.yyyy`
+- `data-validate="value.match(/[a-z]+/) !== null"` - can add a custom validation
 
 __Methods__:
 - `component.required(value)` - can enable/disable `required` with validation
