@@ -17,7 +17,7 @@ COMPONENT('checkbox', function() {
 	};
 
 	self.required = function(value) {
-		self.find('span').toggleClass('ui-checkbox-label-requir', value === true);
+		self.find('span').toggleClass('ui-checkbox-label-required', value === true);
 		isRequired = value;
 		return self;
 	};
