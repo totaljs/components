@@ -1,4 +1,4 @@
-.ui-info { position: absolute; opacity: 0; transition: 0.25s transform cubic-bezier(0.23, 1, 0.32, 1); left: -100; top: -100; z-index: 20; max-width: 300px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); transform: translate(0px,20px); background-color: white; border-radius: 4px; }
+.ui-info { position: absolute; opacity: 0; transition: 0.25s transform cubic-bezier(0.23, 1, 0.32, 1); left: -100; top: -100; z-index: 20; max-width: 300px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); transform: translate(0px,20px); background-color: white; border-radius: 4px; display: none; }
 .ui-info-arrow { position: absolute; font-size: 30px; top: -20px; color: white; left: 107px; }
 .ui-info-visible { opacity: 1; transform: translate(0px,0px); }
 .ui-info-body { background-color: white; padding: 15px; }
