@@ -39,7 +39,6 @@ COMPONENT('crop', function() {
 		cache.x = current.x = (width / 2) - nw;
 		cache.y = current.y = (height / 2) - nh;
 		cache.zoom = zoom;
-
 		self.redraw();
 	};
 
@@ -135,59 +134,52 @@ COMPONENT('crop', function() {
 			offset.y = y - current.y;
 		});
 
-		var allow = (self.attr('data-dragdrop') || 'true') === 'true';
+		((self.attr('data-dragdrop') || 'true') === 'true') && $(canvas).on('dragenter dragover dragexit drop dragleave', function (e) {
+			if (self.disabled)
+				return;
 
-		if (allow) {
-			$(canvas).on('dragenter dragover dragexit drop dragleave', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
 
-				if (self.disabled)
+			switch (e.type) {
+				case 'drop':
+					self.element.removeClass('ui-crop-dragdrop');
+					break;
+				case 'dragenter':
+				case 'dragover':
+					self.element.addClass('ui-crop-dragdrop');
 					return;
+				case 'dragexit':
+				case 'dragleave':
+				default:
+					self.element.removeClass('ui-crop-dragdrop');
+					return;
+			}
 
-				e.stopPropagation();
-				e.preventDefault();
+			var files = e.originalEvent.dataTransfer.files;
+			var reader = new FileReader();
 
-				switch (e.type) {
-					case 'drop':
-						self.element.removeClass('ui-crop-dragdrop');
-						break;
-					case 'dragenter':
-					case 'dragover':
-						self.element.addClass('ui-crop-dragdrop');
-						return;
-					case 'dragexit':
-					case 'dragleave':
-					default:
-						self.element.removeClass('ui-crop-dragdrop');
-						return;
-				}
+			reader.onload = function () {
+				img.src = reader.result;
+				setTimeout(function() {
+					self.change();
+				}, 500);
+			};
 
-				var files = e.originalEvent.dataTransfer.files;
-				var reader = new FileReader();
-
-				reader.onload = function () {
-					img.src = reader.result;
-					setTimeout(function() {
-						self.change();
-					}, 500);
-				};
-
-				reader.readAsDataURL(files[0]);
-			});
-		}
+			reader.readAsDataURL(files[0]);
+		});
 
 		self.element.on('mousemove mouseup', function (e) {
 
 			if (e.type === 'mouseup') {
-				if (is)
-					self.change();
+				is && self.change();
 				is = false;
 				return;
 			}
 
-			if (self.disabled)
+			if (self.disabled || !can || !is)
 				return;
 
-			if (!can || !is) return;
 			var rect = canvas.getBoundingClientRect();
 			var x = e.clientX - rect.left;
 			var y = e.clientY - rect.top;
@@ -216,18 +208,20 @@ COMPONENT('crop', function() {
 	};
 
 	self.setter = function(value) {
+
 		if (value) {
 			img.src = (self.attr('data-format') || '{0}').format(value);
-		else {
-			can = false;
-			self.redraw();
+			return;
 		}
+
+		can = false;
+		self.redraw();
 	};
 
 	function isTransparent(ctx) {
 		var id = ctx.getImageData(0, 0, width, height);
 		for (var i = 0, length = id.data.length; i < length; i += 4)
-		if (id.data[i + 3] !== 255) return true;
+			if (id.data[i + 3] !== 255) return true;
 		return false;
 	}
 });
