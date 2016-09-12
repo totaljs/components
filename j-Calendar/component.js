@@ -1,17 +1,13 @@
 /**
  * calendar
- * @version 1.1.0
+ * @version 2.0.0
  */
 COMPONENT('calendar', function() {
 
 	var self = this;
 	var skip = false;
 	var skipDay = false;
-	var target;
-
-	self.readonly();
-	self.singleton();
-	self.click = function(date) {};
+	var callback;
 
 	self.days = self.attr('data-days').split(',');
 	self.months = self.attr('data-months').split(',');
@@ -25,6 +21,9 @@ COMPONENT('calendar', function() {
 			m = m.substring(0, 3) + '.';
 		self.months_short.push(m);
 	}
+
+	self.readonly();
+	self.click = function(date) {};
 
 	function getMonthDays(dt) {
 
@@ -110,14 +109,13 @@ COMPONENT('calendar', function() {
 	}
 
 	self.hide = function() {
-		if (self.element.hasClass('hidden'))
-			return;
-		self.element.addClass('hidden');
+		if (!self.element.hasClass('hidden'))
+			self.element.addClass('hidden');
 		return self;
 	};
 
 	self.toggle = function(el, value, callback, offset) {
-		if (self.element.hasClass('hidden') || target !== el.get(0))
+		if (self.element.hasClass('hidden'))
 			self.show(el, value, callback, offset);
 		else
 			self.hide();
@@ -129,17 +127,12 @@ COMPONENT('calendar', function() {
 		if (!el)
 			return self.hide();
 
-		target = el.get(0);
-
 		var off = el.offset();
 		var h = el.innerHeight();
 
-		setTimeout(function() {
-			self.element.css({ left: off.left + (offset || 0), top: off.top + h + 12 }).removeClass('hidden');
-			self.click = callback;
-			self.date(value);
-		}, 20);
-
+		self.element.css({ left: off.left + (offset || 0), top: off.top + h + 12 }).removeClass('hidden');
+		self.click = callback;
+		self.date(value);
 		return self;
 	};
 
@@ -182,8 +175,8 @@ COMPONENT('calendar', function() {
 			self.date(dt);
 		});
 
-		$(document.body).on('scroll click', function() {
-			window.$calendar && window.$calendar.hide();
+		$(document.body).on('scroll', function() {
+			EXEC('$calendar.hide');
 		});
 
 		window.$calendar = self;
@@ -219,7 +212,7 @@ COMPONENT('calendar', function() {
 			var item = output.days[i];
 
 			if (i % 7 === 0) {
-				builder.length > 0 && builder.push('</tr>');
+				builder.length && builder.push('</tr>');
 				builder.push('<tr>');
 			}
 
