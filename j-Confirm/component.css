@@ -7,6 +7,7 @@
 .ui-confirm button:hover { background-color: #E5E5E5; }
 .ui-confirm-visible { opacity: 1; }
 .ui-confirm-visible .ui-confirm-body { -webkit-transform: scale(1); transform: scale(1); }
+.ui-confirm-click { transform: scale(0.96) !important; }
 .hidden { display: none; }
 
 @media(max-width: 767px) {

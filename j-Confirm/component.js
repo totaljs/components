@@ -1,20 +1,29 @@
 /**
  * Confirm Message
- * @version 2.0.0
+ * @version 3.0.0
  */
 COMPONENT('confirm', function() {
 	var self = this;
 	var is = false;
 	var visible = false;
-	var timer;
 
 	self.readonly();
 	self.singleton();
 
 	self.make = function() {
-		self.element.addClass('ui-confirm hidden');
+		self.toggle('ui-confirm hidden', true);
 		self.element.on('click', 'button', function() {
 			self.hide($(this).attr('data-index').parseInt());
+		});
+
+		self.element.on('click', function(e) {
+			if (e.target.tagName !== 'DIV')
+				return;
+			var el = self.element.find('.ui-confirm-body');
+			el.addClass('ui-confirm-click');
+			setTimeout(function() {
+				el.removeClass('ui-confirm-click');
+			}, 300);
 		});
 	};
 
@@ -33,8 +42,7 @@ COMPONENT('confirm', function() {
 	self.hide = function(index) {
 		self.callback && self.callback(index);
 		self.element.removeClass('ui-confirm-visible');
-		timer && clearTimeout(timer);
-		timer = setTimeout(function() {
+		setTimeout2(self.id, function() {
 			visible = false;
 			self.element.addClass('hidden');
 		}, 1000);
@@ -42,11 +50,10 @@ COMPONENT('confirm', function() {
 
 	self.content = function(cls, text) {
 		!is && self.html('<div><div class="ui-confirm-body"></div></div>');
-		timer && clearTimeout(timer);
 		visible = true;
 		self.element.find('.ui-confirm-body').empty().append(text);
 		self.element.removeClass('hidden');
-		setTimeout(function() {
+		setTimeout2(self.id, function() {
 			self.element.addClass('ui-confirm-visible');
 		}, 5);
 	};
