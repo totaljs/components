@@ -12,12 +12,7 @@ COMPONENT('checkbox', function() {
 		var type = typeof(value);
 		if (input.prop('disabled') || !isRequired)
 			return true;
-
-		if (type === 'undefined' || type === 'object')
-			value = '';
-		else
-			value = value.toString();
-
+		value = type === 'undefined' || type === 'object' ? '' : value.toString();
 		return value === 'true' || value === 'on';
 	};
 
@@ -27,7 +22,7 @@ COMPONENT('checkbox', function() {
 		return self;
 	};
 
-	!required && self.noValid();
+	!isRequired && self.noValid();
 
 	self.make = function() {
 		self.element.addClass('ui-checkbox');
