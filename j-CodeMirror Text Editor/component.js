@@ -15,16 +15,12 @@ COMPONENT('codemirror', function() {
 
 		var height = self.element.attr('data-height');
 		var icon = self.element.attr('data-icon');
-		var content = self.element.html();
+		var content = self.html();
+		self.html('<div class="ui-codemirror-label' + (required ? ' ui-codemirror-label-required' : '') + '">' + (icon ? '<span class="fa ' + icon + '"></span> ' : '') + content + ':</div><div class="ui-codemirror"></div>');
 
-		self.element.empty();
-		self.element.append('<div class="ui-codemirror-label' + (required ? ' ui-codemirror-label-required' : '') + '">' + (icon ? '<span class="fa ' + icon + '"></span> ' : '') + content + ':</div><div class="ui-codemirror"></div>');
-		var container = self.element.find('.ui-codemirror');
-
+		var container = self.find('.ui-codemirror');
 		editor = CodeMirror(container.get(0), { lineNumbers: self.attr('data-linenumbers') === 'true', mode: self.attr('data-type') || 'htmlmixed', indentUnit: 4 });
-
-		if (height !== 'auto')
-			editor.setSize('100%', height || '200px');
+		height !== 'auto' && editor.setSize('100%', height || '200px');
 
 		editor.on('change', function(a, b) {
 
@@ -33,8 +29,7 @@ COMPONENT('codemirror', function() {
 				return;
 			}
 
-			clearTimeout(timeout);
-			timeout = setTimeout(function() {
+			setTimeout2(self.id, function() {
 				skipA = true;
 				self.reset(true);
 				self.dirty(false);
