@@ -6,5 +6,5 @@
 .ui-dropdown-label { margin-bottom: 5px; font-size: 12px; }
 .ui-dropdown-label .fa { width: 14px; }
 .ui-dropdown-label-required:before { color: red; content: '***'; margin-right: 5px; }
-.ui-dropdown-invalid { border: 1px solid #E1A1A1 !important; background-color: #FFF3F3 !important; }
+.ui-dropdown-invalid { border-color: #E1A1A1 !important; background-color: #FFF3F3 !important; }
 .ui-dropdown-invalid select { background-color: #FFF3F3 !important; }
