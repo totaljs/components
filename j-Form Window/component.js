@@ -17,8 +17,9 @@ COMPONENT('form', function() {
 			});
 		});
 
-		$(document).on('click', '.ui-form-container-padding', function(e) {
-			if (!$(e.target).hasClass('ui-form-container-padding'))
+		$(document).on('click', '.ui-form-container', function(e) {
+			var el = $(e.target);
+			if (!(el.hasClass('ui-form-container-padding') || el.hasClass('ui-form-container')))
 				return;
 			var form = $(this).find('.ui-form');
 			var cls = 'ui-form-animate-click';
