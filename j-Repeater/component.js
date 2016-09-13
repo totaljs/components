@@ -10,7 +10,13 @@ COMPONENT('repeater', function() {
 	self.readonly();
 
 	self.make = function() {
-		var element = self.element.find('script');
+		var element = self.find('script');
+
+		if (!element.length) {
+			element = self.element;
+			self.element = self.element.parent();
+		}
+
 		var html = element.html();
 		element.remove();
 		self.template = Tangular.compile(html);
