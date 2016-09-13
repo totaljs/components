@@ -102,7 +102,7 @@ COMPONENT('calendar', function() {
 	}
 
 	self.hide = function() {
-		self.toggle('hidden', true);
+		self.element.toggleClass('hidden', true);
 		return self;
 	};
 
