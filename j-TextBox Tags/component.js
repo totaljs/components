@@ -67,8 +67,8 @@ COMPONENT('textboxtags', function() {
 				return;
 
 			arr.splice(index, 1);
-			self.reset(true);
 			self.set(isString ? arr.join(', ') : arr);
+			self.change(true);
 		});
 
 		self.element.on('keydown', 'input', function(e) {
@@ -82,8 +82,8 @@ COMPONENT('textboxtags', function() {
 				if (!arr || !(arr instanceof Array) || !arr.length)
 					return;
 				arr.pop();
-				self.reset(true);
 				self.set(isString ? arr.join(', ') : arr);
+				self.change(true);
 				return;
 			}
 
@@ -105,8 +105,8 @@ COMPONENT('textboxtags', function() {
 				return;
 
 			this.value = '';
-			self.reset(true);
 			self.set(isString ? arr.join(', ') : arr);
+			self.change(true);
 		});
 	};
 
