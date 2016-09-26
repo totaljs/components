@@ -9,6 +9,7 @@ COMPONENT('autocomplete', function() {
 	var onCallback;
 	var datasource;
 	var is = false;
+	var margin = {};
 
 	self.template = Tangular.compile('<li{{ if index === 0 }} class="selected"{{ fi }} data-index="{{ index }}"><span>{{ name }}</span><span>{{ type }}</span></li>');
 	self.readonly();
@@ -33,6 +34,10 @@ COMPONENT('autocomplete', function() {
 		$(document).on('click', function(e) {
 			is && self.visible(false);
 		});
+
+		$(window).on('resize', function() {
+			self.resize();
+		});
 	};
 
 	function keydown(e) {
@@ -45,9 +50,12 @@ COMPONENT('autocomplete', function() {
 			clearTimeout(searchtimeout);
 			searchtimeout = setTimeout(function() {
 				var val = input.value;
-				if (!val || searchvalue === val)
+				if (!val)
+					return self.render(EMPTYARRAY);
+				if (searchvalue === val)
 					return;
 				searchvalue = val;
+				self.resize();
 				onSearch(val, function(value) { self.render(value); });
 			}, 200);
 			return;
@@ -91,6 +99,25 @@ COMPONENT('autocomplete', function() {
 		is = visible;
 	};
 
+	self.resize = function() {
+
+		if (!old)
+			return;
+
+		var offset = old.offset();
+		offset.top += old.height();
+		offset.width = old.width();
+
+		if (margin.left)
+			offset.left += margin.left;
+		if (margin.top)
+			offset.top += margin.top;
+		if (margin.width)
+			offset.width += margin.width;
+
+		self.element.css(offset);
+	};
+
 	self.attach = function(input, search, callback, top, left, width) {
 
 		clearTimeout(searchtimeout);
@@ -111,19 +138,11 @@ COMPONENT('autocomplete', function() {
 		input.attr({ 'autocomplete': 'off' });
 
 		old = input;
+		margin.left = left;
+		margin.top = top;
+		margin.width = width;
 
-		var offset = input.offset();
-		offset.top += input.height();
-		offset.width = input.width();
-
-		if (left)
-			offset.left += left;
-		if (top)
-			offset.top += top;
-		if (width)
-			offset.width += width;
-
-		self.element.css(offset);
+		self.resize();
 		self.refresh();
 		input.focus();
 		searchvalue = '';
