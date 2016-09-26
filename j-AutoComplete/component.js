@@ -144,7 +144,6 @@ COMPONENT('autocomplete', function() {
 
 		self.resize();
 		self.refresh();
-		input.focus();
 		searchvalue = '';
 		onSearch = search;
 		onCallback = callback;
