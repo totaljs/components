@@ -22,8 +22,11 @@ COMPONENT('dropdown', function() {
 
 		EXEC('$calendar.hide');
 
-		if (self.type === 'currency' || self.type === 'number')
-			return value > 0;
+		switch (self.type) {
+			case 'currency':
+			case 'number':
+				return value > 0;
+		}
 
 		return value.length > 0;
 	};
