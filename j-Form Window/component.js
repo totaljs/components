@@ -7,7 +7,7 @@ COMPONENT('form', function() {
 		window.$$form_level = window.$$form_level || 1;
 		MAN.$$form = true;
 		$(document).on('click', '.ui-form-button-close', function() {
-			SET($.components.findById($(this).attr('data-id')).path, '');
+			SET(FIND($(this).attr('data-id')).path, '');
 			window.$$form_level--;
 		});
 
