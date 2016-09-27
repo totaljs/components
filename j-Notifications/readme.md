@@ -8,7 +8,7 @@ __Attributes__
 - `datat-timeout` has to contain a timeout (milliseconds) for the expiration of notification
 
 __Methods__
-- `component.append(icon, message, [datetime], [callback])` for creating a new notification
+- `component.append(icon, message, [datetime], [callback], [color])` for creating a new notification
 
 ### Author
 

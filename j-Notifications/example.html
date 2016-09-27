@@ -5,13 +5,13 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia harum accusamus d
 <script>
 
   FIND('notifications', function(component) {
-    component.append('fa-lightbulb-o', 'This is a new notification component.');        
+    component.append('fa-lightbulb-o', 'This is a new notification component.');
   });
 
   setTimeout(function() {
     FIND('notifications').append('fa-calendar', 'You have a meeting in the Central Park.', function() {
       alert('You clicked on the notification');
-    });
+    }, 'red');
   }, 3000);
 
   setTimeout(function() {
