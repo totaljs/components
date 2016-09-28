@@ -1,12 +1,12 @@
 {
 	"datecreated": "2016-02-16T05:35:33.783Z",
-	"dateupdated": "2016-08-14T09:58:00.000Z",
+	"dateupdated": "2016-09-28T10:16:00.000Z",
 	"name": "j-Disable",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 6,
+	"version": 2,
 	"responsive": false,
 	"picture": "picture.jpg",
 	"dependencies": "",
