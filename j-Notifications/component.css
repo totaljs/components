@@ -7,7 +7,7 @@ body { font-family: Arial; background-color: #F5F5F5; }
 .ui-notification-icon { float: left; font-size: 11px; color: #AAB2BD; margin-right: 5px; }
 .ui-notification-message { margin: 1px 0 0 10px; color: gray; max-height: 150px; line-height: 16px; }
 .ui-notification-datetime { font-size: 11px; color: #A0A0A0; margin-bottom: 4px; }
-.ui-notification-hide { opacity: 0; margin-top: -100px; }
+.ui-notification-hide { opacity: 0; margin-top: -50px; }
 
 @media(max-width: 767px) {
   .ui-notification-container { width: auto; left: 0; padding-left: 20px; }
