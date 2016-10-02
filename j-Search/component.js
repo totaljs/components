@@ -28,11 +28,11 @@ COMPONENT('search', function() {
 				return;
 			}
 
-			var search = value.toLowerCase().replace(/y/gi, 'i');
+			var search = value.toSearch();
 
 			elements.toArray().waitFor(function(item, next) {
 				var el = $(item);
-				var val = (el.attr(options_attribute) || '').toLowerCase().replace(/y/gi, 'i');
+				var val = (el.attr(options_attribute) || '').toSearch();
 				el.toggleClass(options_class, val.indexOf(search) === -1);
 				setTimeout(next, 5);
 			});
