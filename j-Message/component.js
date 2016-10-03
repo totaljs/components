@@ -19,9 +19,7 @@ COMPONENT('message', function() {
 		});
 
 		$(window).on('keyup', function(e) {
-			if (!visible)
-				return;
-			e.keyCode === 27 && self.hide();
+			visible && e.keyCode === 27 && self.hide();
 		});
 	};
 
