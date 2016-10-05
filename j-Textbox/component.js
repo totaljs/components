@@ -59,6 +59,9 @@ COMPONENT('textbox', function() {
 		attrs.attr('data-component-keypress-delay', self.attr('data-component-keypress-delay'));
 		attrs.attr('data-component-bind', '');
 
+		var name = self.attr('data-name');
+		if(name) attrs.attr('name', name);
+
 		tmp = self.attr('data-align');
 		tmp && attrs.attr('class', 'ui-' + tmp);
 		self.attr('data-autofocus') === 'true' && attrs.attr('autofocus');
