@@ -66,7 +66,7 @@ COMPONENT('textarea', function() {
 
 		builder = [];
 		builder.push('<div class="ui-textarea-label{0}">'.format(isRequired ? ' ui-textarea-label-required' : ''));
-		icon && builder.push('<span class="fa {0}"></span> '.format(icon));
+		icon && builder.push('<span class="fa {0}"></span>'.format(icon));
 		builder.push(content);
 		builder.push(':</div><div class="ui-textarea">{0}</div>'.format(html));
 
