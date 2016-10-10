@@ -14,7 +14,7 @@ COMPONENT('click', function() {
 	self.make = function() {
 		self.element.on('click', self.click);
 		var enter = self.attr('data-enter');
-		enter && $(enter).on('keydown', 'input', function(e) {
+		enter && $(enter === '?' ? self.scope : enter).on('keydown', 'input', function(e) {
 			e.keyCode === 13 && setTimeout(function() {
 				!self.element.get(0).disabled && self.click();
 			}, 100);
