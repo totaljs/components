@@ -11,7 +11,7 @@ __Methods__:
 Method: `component.show(orientation, targetElement, [items], clickCallback)`
 - `orientation {String}` can be `left`, `center` or `right`
 - `targetElement {Selector/jQuery/Element}` a target where the component will be visible
-- `items {Array}` optinoal and must have this structure: `[{ name: String, value: String, iconFontAwesome: String }]` otherwise will be items read from the target's `data-options` attribute.
+- `items {Array}` optinoal and must have this structure: `[{ name: String, value: String, icon: String }]` otherwise will be items read from the target's `data-options` attribute.
 - `callback(selectedValue) {Function}` is triggered when the user clicks on the item
 
 Method: `component.hide()`
