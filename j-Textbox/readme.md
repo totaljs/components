@@ -23,6 +23,8 @@ __Interesting:__
 
 If you `data-component-type="date"` then the component uses `calendar` component (an application must depend `calendar` component).
 
+For search usage use: `data-component-type="search"` 
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

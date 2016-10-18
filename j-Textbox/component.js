@@ -1,7 +1,3 @@
-/**
- * Textbox
- * @version 3.0.0
- */
 COMPONENT('textbox', function() {
 
 	var self = this;
@@ -59,9 +55,6 @@ COMPONENT('textbox', function() {
 		attrs.attr('data-component-keypress-delay', self.attr('data-component-keypress-delay'));
 		attrs.attr('data-component-bind', '');
 
-		var name = self.attr('data-name');
-		if(name) attrs.attr('name', name);
-
 		tmp = self.attr('data-align');
 		tmp && attrs.attr('class', 'ui-' + tmp);
 		self.attr('data-autofocus') === 'true' && attrs.attr('autofocus');
@@ -75,6 +68,20 @@ COMPONENT('textbox', function() {
 
 		if (!icon2 && self.type === 'date')
 			icon2 = 'fa-calendar';
+		else if (self.type === 'search') {
+			icon2 = 'fa-search ui-textbox-control-icon';
+			self.element.on('click', '.ui-textbox-control-icon', function() {
+				self.$stateremoved = false;
+				$(this).removeClass('fa-times').addClass('fa-search');
+				self.set('');
+			});
+			self.getter2 = function(value) {
+				if (self.$stateremoved && !value)
+					return;
+				self.$stateremoved = value ? false : true;
+				self.find('.ui-textbox-control-icon').toggleClass('fa-times', value ? true : false).toggleClass('fa-search', value ? false : true);
+			};
+		}
 
 		icon2 && builder.push('<div><span class="fa {0}"></span></div>'.format(icon2));
 		increment && !icon2 && builder.push('<div><span class="fa fa-caret-up"></span><span class="fa fa-caret-down"></span></div>');
