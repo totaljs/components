@@ -1,5 +1,16 @@
 <div data-component="tooltip"></div>
-<div class="tooltip" data-title="Lorem ipsum dolor sit amet 1.">HOVER ME 1</div>
-<br />
-<div class="tooltip" data-title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, expedita.">HOVER ME 2</div>
-<br />
+
+<div style="padding:50px">
+	<div class="tooltip" data-title="Lorem ipsum dolor sit amet 1.">HOVER ME 1</div>
+	<br />
+	<div class="tooltip" data-title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, expedita.">HOVER ME 2</div>
+</div>
+
+<script>
+	$(document).on('mouseenter mouseleave', '.tooltip', function(e) {
+		if (e.type === 'mouseenter')
+			SETTER('tooltip', 'show', e);
+		else
+			SETTER('tooltip', 'hide');
+	});
+</script>
