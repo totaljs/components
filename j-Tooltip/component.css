@@ -1,0 +1,4 @@
+.hidden { display: none; }
+.ui-tooltip { position: absolute; z-index: 80; }
+.ui-tooltip-body { padding: 12px 15px; font-size: 11px; background: black linear-gradient(#303030,black); color: white; border-radius: 4px; }
+.ui-tooltip-arrow { font-size: 30px; color: #303030; line-height: 0; text-align: center; height: 20px; }
