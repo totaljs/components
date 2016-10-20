@@ -9,7 +9,7 @@
 <script>
 	$(document).on('mouseenter mouseleave', '.tooltip', function(e) {
 		if (e.type === 'mouseenter')
-			SETTER('tooltip', 'show', e);
+			SETTER('tooltip', 'show', this);
 		else
 			SETTER('tooltip', 'hide');
 	});
