@@ -1,7 +1,7 @@
 {
-	"datecreated": "2016-05-06T12:59:57.478Z",
+	"datecreated": "2016-10-20T15:25:57.478Z",
 	"dateupdated": null,
-	"name": "YOUR COMPONENT NAME",
+	"name": "j-Tooltip",
 	"tags": [
 		"jcomponent"
 	],
@@ -10,7 +10,7 @@
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
-	"author": "YOUR NAME",
-	"email": "YOUR EMAIL ADDRESS",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
 	"license": "MIT"
 }
