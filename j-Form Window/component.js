@@ -93,6 +93,10 @@ COMPONENT('form', function() {
 	self.getter = null;
 	self.setter = function(value) {
 
+		setTimeout2('noscroll', function() {
+			$('html,body').toggleClass('noscroll', value ? true : false);
+		}, 50);
+
 		var isHidden = !EVALUATE(self.path, self.condition);
 		self.element.toggleClass('hidden', isHidden);
 		EXEC('$calendar.hide');
