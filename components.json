@@ -85,5 +85,6 @@
 	"j-Info",
 	"j-PictureUpload",
 	"j-Exec",
-	"j-Tooltip"
+	"j-Tooltip",
+	"j-IsOpen"
 ]

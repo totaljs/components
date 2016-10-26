@@ -1,0 +1,5 @@
+.hidden { display: none; }
+.ui-isopen {}
+.ui-isopen span { font-size: 10px; padding: 2px 5px; border-radius: 4px; text-transform: uppercase; color: white; float: left; margin: 1px 5px 0 0; }
+.ui-isopen .open { background-color: #8CC152; }
+.ui-isopen .closed { background-color: #DA4453; }
