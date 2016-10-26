@@ -1,0 +1,9 @@
+.hidden { display: none; }
+.ui-pricerange { font-size: 11px; user-select: none; }
+.ui-pricerange-price { font-size: 12px; margin: 4px 0 0 0; }
+.ui-pricerange-from { float: left; width: 70px; }
+.ui-pricerange-to { float: right; width: 70px; text-align: right; }
+.ui-pricerange-slider { margin: 0 70px 0; background: #F0F0F0 linear-gradient(white, #F0F0F0); border-radius: 20px; font-size: 16px; border: 1px solid #E0E0E0; }
+.ui-pricerange-slider-value { background: #3BAFDA linear-gradient(#FFCE54, #F6BB42); border-radius: 20px; color: black; padding: 1px 10px 0; box-shadow: 0 4px 5px rgba(0,0,0,0.2); }
+.ui-pricerange-slider-value span { cursor: col-resize; }
+.ui-pricerange-slider-value > span:first-child { float: right; }

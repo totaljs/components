@@ -86,5 +86,6 @@
 	"j-PictureUpload",
 	"j-Exec",
 	"j-Tooltip",
-	"j-IsOpen"
+	"j-IsOpen",
+	"j-PriceRange"
 ]
