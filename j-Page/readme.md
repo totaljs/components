@@ -4,5 +4,5 @@ This component can handle different contents asynchronously. When the content is
 
 __Attributes__:
 - `data-template="/home.html"` (required) can contain relative URL to a content
-- `data-if="value === 'home'"` (required) a condition for showing a content (`value` according to `data-jc-path` attribute)
+- `data-if="home"` (required) a valid value for showing a content (`value` according to `data-jc-path` attribute)
 - `data-reload="FUNCTION_NAME"` when a condition is valid then the component executes a function with this name (optional)
