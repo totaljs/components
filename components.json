@@ -87,5 +87,6 @@
 	"j-Exec",
 	"j-Tooltip",
 	"j-IsOpen",
-	"j-PriceRange"
+	"j-PriceRange",
+	"j-Page"
 ]
