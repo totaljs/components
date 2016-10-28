@@ -93,7 +93,7 @@ COMPONENT('form', function() {
 	self.setter = function(value) {
 
 		setTimeout2('noscroll', function() {
-			$('html,body').toggleClass('noscroll', value ? true : false);
+			$('html').toggleClass('noscroll', $('.ui-form-container').not('.hidden').length ? true : false);
 		}, 50);
 
 		var isHidden = !EVALUATE(self.path, self.condition);
