@@ -1,7 +1,3 @@
-/**
- * Textarea
- * @version 3.0.0
- */
 COMPONENT('textarea', function() {
 
 	var self = this;
@@ -13,7 +9,7 @@ COMPONENT('textarea', function() {
 
 		var is = false;
 		var type = typeof(value);
-		if (input.prop('disabled') || isRequired)
+		if (input.prop('disabled') || !isRequired)
 			return true;
 
 		if (type === 'undefined' || type === 'object')
