@@ -88,5 +88,6 @@
 	"j-Tooltip",
 	"j-IsOpen",
 	"j-PriceRange",
-	"j-Page"
+	"j-Page",
+	"j-ContentRange"
 ]
