@@ -1,13 +1,13 @@
 <div data-component="exec" data-selector=".exec">
-	<a href="javascript:void(0)" class="exec" data-exec="myClikt">1</a>
-	<a href="javascript:void(0)" class="exec" data-exec="myClikt">2</a>
-	<a href="javascript:void(0)" class="exec" data-exec="myClikt">3</a>
-	<a href="javascript:void(0)" class="exec" data-exec="myClikt">4</a>
-	<a href="javascript:void(0)" class="exec" data-exec="myClikt">5</a>
+	<a href="javascript:void(0)" class="exec" data-exec="myClick">1</a>
+	<a href="javascript:void(0)" class="exec" data-exec="myClick">2</a>
+	<a href="javascript:void(0)" class="exec" data-exec="myClick">3</a>
+	<a href="javascript:void(0)" class="exec" data-exec="myClick">4</a>
+	<a href="javascript:void(0)" class="exec" data-exec="myClick">5</a>
 </div>
 
 <script>
-	function myClick() {
-        alert('SUBMIT');
+	function myClick(el) {
+        alert('CLICK: ' + el.html());
     }
 </script>
