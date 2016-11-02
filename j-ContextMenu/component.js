@@ -103,7 +103,7 @@ COMPONENT('contextmenu', function() {
 		self.element.show();
 		setTimeout(function() {
 			self.element.addClass('ui-contextmenu-visible');
-            self.emit('contextmenu', true, self, self.target);
+			self.emit('contextmenu', true, self, self.target);
 		}, 100);
 
 		is = true;
@@ -115,7 +115,7 @@ COMPONENT('contextmenu', function() {
 		clearTimeout(timeout);
 		timeout = setTimeout(function() {
 			self.element.hide().removeClass('ui-contextmenu-visible');
-            self.emit('contextmenu', false, self, self.target);
+			self.emit('contextmenu', false, self, self.target);
 			self.callback = null;
 			self.target = null;
 			is = false;
