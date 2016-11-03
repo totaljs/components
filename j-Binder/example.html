@@ -1,7 +1,7 @@
 <!-- BIND data-jc="binder" into the body element -->
 <div data-jc="binder">
-	<div data-binder="user.logged" data-binder-content="n => 'logged' : 'unlogged'" data-binder-class="n => '+green -red' : '–green +red'">...</div>
-	<div data-binder="user.datetime" data-binder-content="n => n ? n.format('dd.MM.yyyy HH:mm') : 'bla bla bla'"></div>
+	<div data-binder="user.logged" data-binder-html="n => 'logged' : 'unlogged'" data-binder-class="n => '+green -red' : '–green +red'">...</div>
+	<div data-binder="user.datetime" data-binder-html="n => n ? n.format('dd.MM.yyyy HH:mm') : 'bla bla bla'"></div>
 	<div data-binder="user.logged" data-binder-visible="n => n">LOGGED</div>
 	<div data-binder="user.datetime">{{ if value }}{{ value | format('dd.MM.yyyy') }}{{ else }}Tangular{{ fi }}</div>
 	<div data-binder="user.datetime"><script type="text/html">{{ if value }}{{ value | format('dd.MM.yyyy') }}{{ else }}Tangular{{ fi }}</script></div>

@@ -28,7 +28,7 @@ COMPONENT('binder', function() {
 			template.value = value;
 			item.classes && classes(item.element, item.classes(value));
 			item.visible && item.element.toggleClass('hidden', item.visible(value) ? false : true);
-			item.content && item.element.html(item.content(value));
+			item.html && item.element.html(item.html(value));
 			item.template && item.element.html(item.template(template));
 		});
 	};
@@ -68,7 +68,7 @@ COMPONENT('binder', function() {
 			var p = '';
 
 			var classes = el.attr('data-binder-class');
-			var content = el.attr('data-binder-content');
+			var html = el.attr('data-binder-html');
 			var visible = el.attr('data-binder-visible');
 			var obj = el.data('data-binder');
 
@@ -79,7 +79,7 @@ COMPONENT('binder', function() {
 				obj.path = path;
 				obj.element = el;
 				obj.classes = classes ? FN(decode(classes)) : undefined;
-				obj.content = content ? FN(decode(content)) : undefined;
+				obj.html = html ? FN(decode(html)) : undefined;
 				obj.visible = visible ? FN(decode(visible)) : undefined;
 
 				var tmp = el.find('script[type="text/html"]');
