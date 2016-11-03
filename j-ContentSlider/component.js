@@ -20,7 +20,7 @@ COMPONENT('contentslider', function() {
 		self.element.wrapInner('<div class="ui-contentslider-items" />');
 		self.element.find(self.attr('data-selector')).wrap('<div class="{0}" />'.format(cssi));
 		self.append('<div class="{0}" />'.format(cssp));
-		self.refresh();
+		self.refresh(true);
 		container = self.find('.ui-contentslider-items');
 
 		var id = self.attr('data-id');
@@ -48,12 +48,12 @@ COMPONENT('contentslider', function() {
 		}, (self.attr('data-interval') || '3000').parseInt());
 	};
 
-	self.refresh = function() {
+	self.refresh = function(noredraw) {
 		length = self.find('.' + cssi).length;
 		var builder = '';
 		for (var i = 0; i < length; i++)
 			builder += '<i class="fa fa-circle" data-index="{0}"></i>'.format(i);
-		self.find('.' + cssp).empty().html(builder);
+		noredraw !== true && self.find('.' + cssp).empty().html(builder);
 	};
 
 	self.show = function(index) {

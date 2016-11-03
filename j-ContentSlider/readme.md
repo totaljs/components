@@ -9,6 +9,13 @@ __Attributes__:
 - `data-interval="3000"` optional, sets interval for changing banners
 - `data-id="IDENTIFICATOR"` optional, when it's filled then the component saves a current state into the `localStorage` - so when the user refreshes the page then the component continues from the last state
 
+__Redraw__:
+The code below solves a problem with rendering component when the the component is dynamically displayed.
+
+```javascript
+SETTER('contentslider', 'refresh');
+```
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
