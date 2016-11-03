@@ -1,20 +1,27 @@
-/**
- * Disable
- * @version 2.0.0
- */
 COMPONENT('disable', function() {
 	var self = this;
-	var condition = self.attr('data-if');
-	var selector = self.attr('data-selector') || 'input,texarea,select';
-	var validate = self.attr('data-validate');
-
-	if (validate)
-		validate = validate.split(',').trim();
+	var condition;
+	var selector;
+	var validate;
 
 	self.readonly();
 
+	self.make = function() {
+		condition = self.attr('data-if');
+		selector = self.attr('data-selector') || 'input,texarea,select';
+		validate = self.attr('data-validate');
+		if (validate)
+			validate = validate.split(',').trim();
+	};
+
 	self.setter = function(value) {
-		var is = condition ? EVALUATE(self.path, condition) : value ? false : true;
+		var is = true;
+
+		if (condition)
+			is = EVALUATE(self.path, condition);
+		else
+			is = value ? false : true;
+
 		self.find(selector).each(function() {
 			var el = $(this);
 			var tag = el.get(0).tagName;
@@ -25,7 +32,7 @@ COMPONENT('disable', function() {
 				el.toggleClass('ui-disabled', is);
 		});
 
-		validate && validate.forEach(function(key) { jC.reset(key); });
+		validate && validate.forEach(FN('n => jC.reset(n)'));
 	};
 
 	self.state = function(type) {
