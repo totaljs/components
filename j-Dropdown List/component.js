@@ -1,7 +1,3 @@
-/**
- * Dropdown
- * @version 3.0.0
- */
 COMPONENT('dropdown', function() {
 
 	var self = this;

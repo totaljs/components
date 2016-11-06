@@ -1,7 +1,3 @@
-/**
- * calendar
- * @version 2.0.0
- */
 COMPONENT('calendar', function() {
 
 	var self = this;

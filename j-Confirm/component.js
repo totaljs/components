@@ -1,7 +1,3 @@
-/**
- * Confirm Message
- * @version 3.0.0
- */
 COMPONENT('confirm', function() {
 	var self = this;
 	var is = false;

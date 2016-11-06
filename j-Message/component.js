@@ -1,7 +1,3 @@
-/**
- * Message
- * @version 1.0.0
- */
 COMPONENT('message', function() {
 	var self = this;
 	var is = false;

@@ -1,7 +1,3 @@
-/**
- * Tagger
- * @version 1.9.0
- */
 COMPONENT('tagger', function() {
 
 	var self = this;
