@@ -1,7 +1,3 @@
-/**
- * TextboxTags
- * @version 3.0.0
- */
 COMPONENT('textboxtags', function() {
 
 	var self = this;
