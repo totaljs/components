@@ -54,6 +54,7 @@ COMPONENT('textbox', function() {
 		attrs.attr('data-component-keypress', self.attr('data-component-keypress'));
 		attrs.attr('data-component-keypress-delay', self.attr('data-component-keypress-delay'));
 		attrs.attr('data-component-bind', '');
+		attrs.attr('name', self.path);
 
 		tmp = self.attr('data-align');
 		tmp && attrs.attr('class', 'ui-' + tmp);
