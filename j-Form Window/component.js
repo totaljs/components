@@ -64,6 +64,7 @@ COMPONENT('form', function() {
 
 		var el = $('#' + self._id);
 		el.find('.ui-form').get(0).appendChild(self.element.get(0));
+		self.element.removeClass('hidden');
 		self.element = el;
 
 		self.element.on('scroll', function() {
