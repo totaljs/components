@@ -20,6 +20,6 @@ Tangular.register('time', function(value) {
 	if (months < 12)
 		return months + ' ' + Tangular.helpers.pluralize(months, 'months', 'month', 'months', 'months') + ' ago';
 
-	var years = (month / 12) >> 0;
+	var years = (months / 12) >> 0;
 	return years + ' ' + Tangular.helpers.pluralize(years, 'years', 'year', 'years', 'years') + ' ago';
 });
