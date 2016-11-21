@@ -14,9 +14,9 @@ COMPONENT('search', function() {
 		options_delay = (self.attr('data-delay') || '200').parseInt();
 	};
 
-	self.setter = function(value) {
+	self.setter = function(value, path, type) {
 
-		if (!options_selector || !options_attribute)
+		if (!options_selector || !options_attribute || value == null)
 			return;
 
 		KEYPRESS(function() {
@@ -28,13 +28,27 @@ COMPONENT('search', function() {
 				return;
 			}
 
-			var search = value.toSearch();
+			var search = value.toLowerCase().replace(/y/gi, 'i');
+			var hide = [];
+			var show = [];
 
 			elements.toArray().waitFor(function(item, next) {
 				var el = $(item);
-				var val = (el.attr(options_attribute) || '').toSearch();
-				el.toggleClass(options_class, val.indexOf(search) === -1);
-				setTimeout(next, 5);
+				var val = (el.attr(options_attribute) || '').toLowerCase().replace(/y/gi, 'i');
+				if (val.indexOf(search) === -1)
+					hide.push(el);
+				else
+					show.push(el);
+				setTimeout(next, 3);
+			}, function() {
+
+				hide.forEach(function(item) {
+					item.toggleClass(options_class, true);
+				});
+
+				show.forEach(function(item) {
+					item.toggleClass(options_class, false);
+				});
 			});
 
 		}, options_delay, 'search' + self.id);
