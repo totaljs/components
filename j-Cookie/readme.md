@@ -2,9 +2,11 @@
 
 - singleton
 - uses __localStorage__
+- supports `cancel` operation (removes cookies, localStorage and redirects to `about:blank`)
 
 __Attributes__:
-- `data-button` a label for the button, default: `OK`
+- `data-agree` a label for the button, default: `OK`
+- `data-cancel` a label for the button, default: `Cancel`
 
 ### Author
 
