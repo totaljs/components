@@ -20,7 +20,7 @@ COMPONENT('contentslider', function() {
 		self.element.wrapInner('<div class="ui-contentslider-items" />');
 		self.element.find(self.attr('data-selector')).wrap('<div class="{0}" />'.format(cssi));
 		self.append('<div class="{0}" />'.format(cssp));
-		self.refresh(true);
+		self.refresh();
 		container = self.find('.ui-contentslider-items');
 
 		var id = self.attr('data-id');
