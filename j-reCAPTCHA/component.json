@@ -1,0 +1,16 @@
+{
+	"datecreated": "2016-05-06T12:59:57.478Z",
+	"dateupdated": null,
+	"name": "j-reCAPTCHA",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}
