@@ -1,17 +1,17 @@
 <div data-jc="router" data-user-roles="user.roles">
 
-	<div data-path="/" data-template="/templates/home.html"></div>
-	<div data-path="/products/" data-template="/templates/products.html"></div>
+	<div data-path="/" data-template="/jrouter/home.html"></div>
+	<div data-path="/products/" data-template="/jrouter/products.html"></div>
 
-	<div data-path="/about/" data-template="/templates/about.html" data-handler="handle_about_page" data-role="about"></div>
+	<div data-path="/about/" data-template="/jrouter/about.html" data-handler="handle_about_page" data-role="about"></div>
 
-	<div data-path="/admin/" data-template="/templates/admin.html" data-middlewares="log" data-role="admin"></div>
+	<div data-path="/admin/" data-template="/jrouter/admin.html" data-middlewares="log" data-role="admin"></div>
 
-	<div data-path="/404" data-template="/templates/404.html"></div>
-	<div data-path="/500" data-template="/templates/500.html"></div>
+	<div data-path="/404" data-template="/jrouter/404.html"></div>
+	<div data-path="/500" data-template="/jrouter/500.html"></div>
 
 	<div data-path="/products/{id}/" data-form-id="form_product_edit" data-parent="/products/" data-handler="load_product_form"></div>
-	<div data-path="/products/{productId}/comments/{commentId}" data-template="/templates/products-comments.html" data-handler="products_comments"></div>
+	<div data-path="/products/{productId}/comments/{commentId}" data-template="/jrouter/products-comments.html" data-handler="products_comments"></div>
 
 </div>
 
