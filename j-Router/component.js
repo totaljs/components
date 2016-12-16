@@ -52,10 +52,10 @@ COMPONENT('router', function() {
 
 	self.form = function(form){
 
-		jC.ready(function(){
-			FIND('#' + form.formid).onHide = function(){
-				form.parent && jR.redirect(form.parent);
-			};	            		
+		FIND('#' + form.formid, function(component) {
+		     component.onHide = function() {
+		          form.parent && jR.redirect(form.parent);
+		     };
 		});
 
 		jR.route(form.path, function(id){

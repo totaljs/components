@@ -9,9 +9,11 @@
 
 	<div data-path="/404" data-template="/jrouter/404.html"></div>
 	<div data-path="/500" data-template="/jrouter/500.html"></div>
-
-	<div data-path="/products/{id}/" data-form-id="form_product_edit" data-parent="/products/" data-handler="load_product_form"></div>
+  	
 	<div data-path="/products/{productId}/comments/{commentId}" data-template="/jrouter/products-comments.html" data-handler="products_comments"></div>
+
+	<!-- j-Router supports form routing, after submiting the form the page will be redirected to url in `data-parent` -->
+	<!-- <div data-path="/products/{id}/" data-form-id="form_product_edit" data-parent="/products/" data-handler="load_product_form"></div>-->
 
 </div>
 
