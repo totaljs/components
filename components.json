@@ -92,5 +92,6 @@
 	"j-ContentSlider",
 	"j-Binder",
 	"Tangular-Time",
-	"j-reCAPTCHA"
+	"j-reCAPTCHA",
+	"j-Router"
 ]
