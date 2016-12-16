@@ -1,0 +1,16 @@
+{
+	"datecreated": "2016-12-16T21:50:57.478Z",
+	"dateupdated": null,
+	"name": "j-Router",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Martin Smola",
+	"email": "smola.martin@gmail.com",
+	"license": "MIT"
+}
