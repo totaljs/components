@@ -8,9 +8,9 @@ COMPONENT('clipboard', function() {
 	self.copy = function(value) {
 		container.val(value);
 		container.focus();
-  		document.execCommand('selectAll', false, null);
-  		document.execCommand('copy');
-  		container.blur();
+		document.execCommand('selectAll', false, null);
+		document.execCommand('copy');
+		container.blur();
 	};
 
 	self.make = function() {
