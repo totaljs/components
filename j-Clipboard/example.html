@@ -1,0 +1,17 @@
+<div data-jc="clipboard"></div>
+<div style="cursor:pointer">Copy to clipboard: My value to clipboard</div>
+<div style="cursor:pointer">Copy to clipboard: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, voluptatem?</div>
+
+<script>
+	$('div').on('click', function() {
+		var el = $(this);
+
+		el.css('background-color', '#E0E0E0');
+		setTimeout(function() {
+			el.css('background-color', 'transparent');
+		}, 200);
+
+		// Copy to clipboard
+		SETTER('clipboard', 'copy', el.html());
+	});
+</script>
