@@ -1,7 +1,3 @@
-/**
- * Validator
- * @version 2.0.0
- */
 COMPONENT('validation', function() {
 
 	var self = this;
