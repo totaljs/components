@@ -1,7 +1,3 @@
-/**
- * Error
- * @version 2.0.0
- */
 COMPONENT('error', function() {
 	var self = this;
 

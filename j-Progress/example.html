@@ -1,16 +1,16 @@
 <div style="padding:50px;max-width:300px">
-  <div data-component="progress" data-component-path="percentage1"></div>
-  <br />
-  <div data-component="progress" data-component-path="percentage2"></div>
-  <br />
-  <div data-component="progress" data-component-path="percentage3" data-animate="false"></div>
+	<div data-jc="progress" data-jc-path="percentage1"></div>
+	<br />
+	<div data-jc="progress" data-jc-path="percentage2"></div>
+	<br />
+	<div data-jc="progress" data-jc-path="percentage3" data-animate="false"></div>
 </div>
 
 <script>
 	var percentage = 30;
-    setInterval(function() {
-      SET('percentage1', (Math.random() * 100) >> 0);
-      SET('percentage2', (Math.random() * 100) >> 0);      
-      SET('percentage3', (Math.random() * 100) >> 0);      
-    }, 800);
+	setInterval(function() {
+		SET('percentage1', (Math.random() * 100) >> 0);
+		SET('percentage2', (Math.random() * 100) >> 0);
+		SET('percentage3', (Math.random() * 100) >> 0);
+	}, 800);
 </script>

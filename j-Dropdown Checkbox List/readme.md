@@ -6,7 +6,7 @@
 
 __Inline datasource__:
 
-- `data-component-type` supports only `number` but only for `data-options` attribute
+- `data-jc-type` supports only `number` but only for `data-options` attribute
 - `data-options="KEY1|VALUE1;KEY2|VALUE2`
 
 __Datasource in some model__:

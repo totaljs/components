@@ -1,18 +1,18 @@
-<div data-component="autocomplete"></div>
+<div data-jc="autocomplete"></div>
 
 <div style="margin: 80px auto 0;width:300px;">
-    <input type="text" style="width:100%;padding:5px 10px;border:1px solid #E0E0E0" placeholder="Type something ..." />
+	<input type="text" style="width:100%;padding:5px 10px;border:1px solid #E0E0E0" placeholder="Type something ..." />
 </div>
 
 <script>
-  FIND('autocomplete', function(component) {
-      component.attach('input', function(q, render) {
-          console.log('---> autocomplete search query:', q);
-          // e.g. we have to call e.g. AJAX or another datasource
-          render([{ name: 'Item 1', type: 'pages' }, { name: 'Item 2', type: 'widgets' }, { name: 'Item 3' }]);
-      }, function(value, input) {
-          alert('autocomplete selected --> ' + JSON.stringify(value));
-          input.val('');
-      }, 17, 0, 21);
-  });
+	FIND('autocomplete', function(component) {
+		component.attach('input', function(q, render) {
+			console.log('---> autocomplete search query:', q);
+			// e.g. we have to call e.g. AJAX or another datasource
+			render([{ name: 'Item 1', type: 'pages' }, { name: 'Item 2', type: 'widgets' }, { name: 'Item 3' }]);
+		}, function(value, input) {
+			alert('autocomplete selected --> ' + JSON.stringify(value));
+			input.val('');
+		}, 17, 0, 21);
+	});
 </script>

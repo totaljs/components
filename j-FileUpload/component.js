@@ -7,7 +7,7 @@ COMPONENT('fileupload', function() {
 	self.make = function() {
 		var id = 'fileupload' + self.id;
 		var accept = self.attr('data-accept');
-        var multiple = self.attr('data-multiple');
+		var multiple = self.attr('data-multiple');
 
 		$(document.body).append('<input type="file" id="{0}" class="hidden"{1}{2} />'.format(id, accept ? ' accept="{0}"'.format(accept) : '', multiple ? ' multiple="multiple"' : ''));
 

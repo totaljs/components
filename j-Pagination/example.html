@@ -1,15 +1,15 @@
-<div data-component="pagination" data-component-path="datasource" data-max="8" data-pages="# pages,# page,# pages,# pages" data-items="# items,# item,# items,# items"></div>
+<div data-jc="pagination" data-jc-path="datasource" data-max="8" data-pages="# pages,# page,# pages,# pages" data-items="# items,# item,# items,# items"></div>
 
 <script>
-    var datasource = {};
-    datasource.page = 3;     // current page
-    datasource.pages = 23;   // count of all pages
-    datasource.count = 2320; // count of all items
-  
-    FIND('pagination', function(component) {
-      component.onPage = function(page, elPage) {
-         console.log(page, elPage);
-         SET('datasource.page', page);
-      };
-    });
+	var datasource = {};
+	datasource.page = 3;     // current page
+	datasource.pages = 23;   // count of all pages
+	datasource.count = 2320; // count of all items
+
+	FIND('pagination', function(component) {
+		component.onPage = function(page, elPage) {
+			console.log(page, elPage);
+			SET('datasource.page', page);
+		};
+	});
 </script>

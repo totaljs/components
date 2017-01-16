@@ -1,17 +1,17 @@
-<div data-component="tagger" data-component-path="model">
-    <div data-name="user.name">default value</div>
+<div data-jc="tagger" data-jc-path="model">
+	<div data-name="user.name">default value</div>
 	<div data-name="user.age">default value</div>
-    <div data-name="beers" data-format="n => n.format(0) + ' ' + n.pluralize('beer', 'beer', 'beers', 'beers')">default value</div>
+	<div data-name="beers" data-format="n => n.format(0) + ' ' + n.pluralize('beer', 'beer', 'beers', 'beers')">default value</div>
 	<div data-name="amount" data-format="n => n.format(2)" data-before="EUR ">default value</div>
-    <div data-name="visible" data-visible="n => n">This will be hidden</div>
+	<div data-name="visible" data-visible="n => n">This will be hidden</div>
 </div>
 
 <script>
-    var model = {};
-    model.user = {};
-    model.user.name = 'Peter Širka';
-    model.user.age = 31;
-    model.amount = 1033.45;
-    model.beers = 3;
-    model.visible = false;
+	var model = {};
+	model.user = {};
+	model.user.name = 'Peter Širka';
+	model.user.age = 31;
+	model.amount = 1033.45;
+	model.beers = 3;
+	model.visible = false;
 </script>

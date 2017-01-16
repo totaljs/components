@@ -1,14 +1,14 @@
-<div data-component="visible" data-component-path="isVisible" class="hidden">
-   VISIBLE A
+<div data-jc="visible" data-jc-path="isVisible" class="hidden">
+	VISIBLE A
 </div>
 
-<div data-component="visible" data-component-path="isVisible" data-if="value === false" class="hidden">
-   VISIBLE B
+<div data-jc="visible" data-jc-path="isVisible" data-if="value === false" class="hidden">
+	VISIBLE B
 </div>
 
 <script>
-   var isVisible = false;
-   setInterval(function() {
-       SET('isVisible', !isVisible);
-   }, 1000);
+	var isVisible = false;
+	setInterval(function() {
+		SET('isVisible', !isVisible);
+	}, 1000);
 </script>
