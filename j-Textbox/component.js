@@ -130,6 +130,6 @@ COMPONENT('textbox', function() {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		container.toggleClass('ui-textbox-invalid', self.isInvalid());
+		container.toggleClass('ui-textbox-invalid', invalid);
 	};
 });
