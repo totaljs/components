@@ -78,6 +78,6 @@ COMPONENT('textarea', function() {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		container.toggleClass('ui-textarea-invalid', self.isInvalid());
+		container.toggleClass('ui-textarea-invalid', invalid);
 	};
 });
