@@ -1,6 +1,6 @@
 {
 	"datecreated": "2016-02-22T13:27:34.652Z",
-	"dateupdated": "2016-09-05T21:48:00.000Z",
+	"dateupdated": "2017-01-18T08:06:00.000Z",
 	"name": "Smilefy",
 	"tags": [
 		"function",
@@ -8,7 +8,7 @@
 		"smiles"
 	],
 	"color": "transparent",
-	"version": 2,
+	"version": 3,
 	"responsive": false,
 	"picture": "picture.jpg",
 	"dependencies": "",

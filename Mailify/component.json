@@ -1,13 +1,13 @@
 {
-	"datecreated": "2016-03-08T08:13:38.443Z",
-	"dateupdated": "2017-01-18T08:05:00.000Z",
-	"name": "j-Textarea",
+	"datecreated": "2017-01-18T08:10:00.000Z",
+	"dateupdated": null,
+	"name": "Mailify",
 	"tags": [
-		"jcomponent"
+		"email"
 	],
 	"color": "transparent",
-	"version": 3,
-	"responsive": true,
+	"version": 1,
+	"responsive": false,
 	"picture": "picture.jpg",
 	"dependencies": "",
 	"author": "Peter Širka",

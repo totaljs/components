@@ -8,5 +8,5 @@ function urlify(str) {
 			l = '';
 		url = c === 'www.' ? 'http://' + url : url;
 		return '<a href="' + url + '" target="_blank">' + url + '</a>' + l;
-	}) ;
+	});
 }
