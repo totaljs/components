@@ -103,6 +103,6 @@ COMPONENT('dropdown', function() {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		container.toggleClass('ui-dropdown-invalid', self.isInvalid());
+		container.toggleClass('ui-dropdown-invalid', invalid);
 	};
 });
