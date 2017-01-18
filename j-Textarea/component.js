@@ -6,8 +6,7 @@ COMPONENT('textarea', function() {
 	var container;
 
 	self.validate = function(value) {
-
-		var is = false;
+		
 		var type = typeof(value);
 		if (input.prop('disabled') || !isRequired)
 			return true;
