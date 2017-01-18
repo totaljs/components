@@ -1,7 +1,3 @@
-/*
- * Repeater
- * @version v2.0.0
- */
 COMPONENT('repeater', function() {
 
 	var self = this;
