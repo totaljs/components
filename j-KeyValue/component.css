@@ -1,0 +1,10 @@
+.ui-keyvalue-label { margin-bottom: 10px; font-size: 12px; }
+.ui-keyvalue-label .fa { margin-right: 5px; }
+.ui-keyvalue-item { height: 30px; background-color: #F8F8F8; margin-bottom: 1px; border-radius: 3px; }
+.ui-keyvalue-item-remove { float: right; width: 25px; text-align: center; color: #DA4453; font-size: 14px; margin: 4px 0 0; }
+.ui-keyvalue-item-key { padding: 4px 0 4px 0; float: left; width: 200px; border-right: 1px solid #E0E0E0; font-weight: bold; }
+.ui-keyvalue-item-value { padding: 4px 0 0 0; margin: 0 25px 0 202px; }
+.ui-keyvalue-item .fa { cursor: pointer; position: relative; display: inline-block; }
+.ui-keyvalue-item .fa:active { margin-top: 1px; }
+.ui-keyvalue-item input { width: 100%; background-color: transparent; border: 0; padding: 3px 10px 0; border-radius: 4px; outline: 0; font-size: 12px; color: black; }
+.ui-keyvalue-base .fa { display: none; }
