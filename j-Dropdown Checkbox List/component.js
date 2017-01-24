@@ -1,7 +1,3 @@
-/**
- * Disable
- * @version 2.0.0
- */
 COMPONENT('dropdowncheckbox', function() {
 
 	var self = this;
