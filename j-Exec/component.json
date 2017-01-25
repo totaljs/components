@@ -1,12 +1,12 @@
 {
 	"datecreated": "2016-10-18T14:39:57.478Z",
-	"dateupdated": "2016-10-30T17:42:00.000Z",
+	"dateupdated": "2017-01-25T14:50:00.000Z",
 	"name": "j-Exec",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 1,
+	"version": 2,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"author": "Peter Širka",
