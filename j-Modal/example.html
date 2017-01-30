@@ -1,4 +1,5 @@
 <div>THIS IS A MAIN CONTENT</div>
+<a href="javascript:showmodal()">Show modal</a>
 
 <div data-jc="modal" data-jc-path="common.modal" data-if="value === 'user'" class="hidden">
 	<div style="padding:50px">
@@ -13,4 +14,8 @@
 
 	// Show modal
 	SET('common.modal', 'user', 2000);
+
+	function showmodal() {
+		SET('common.modal', 'user');
+	}
 </script>
