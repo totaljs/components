@@ -44,7 +44,7 @@ COMPONENT('modal', function() {
 		if (isHidden) {
 			self.element.removeClass('ui-modal-visible');
 			setTimeout2(self.id, function() {
-				self.element.addClass('ui-remove');
+				self.element.addClass('hidden');
 			}, 50);
 			return;
 		}
