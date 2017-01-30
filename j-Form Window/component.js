@@ -68,7 +68,7 @@ COMPONENT('form', function() {
 		self.element = el;
 
 		self.element.on('scroll', function() {
-			EXEC('$calendar.hide');
+			WORKFLOW('reflow')(self.name);
 		});
 
 		self.element.find('button').on('click', function(e) {
@@ -99,7 +99,7 @@ COMPONENT('form', function() {
 
 		var isHidden = !EVALUATE(self.path, self.condition);
 		self.element.toggleClass('hidden', isHidden);
-		EXEC('$calendar.hide');
+		WORKFLOW('reflow')(self.name);
 
 		if (isHidden) {
 			self.element.find('.ui-form').removeClass('ui-form-animate');

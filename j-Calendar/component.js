@@ -168,6 +168,10 @@ COMPONENT('calendar', function() {
 		});
 
 		window.$calendar = self;
+
+		WORKFLOW('reflow', function() {
+			EXEC('$calendar.hide');
+		});
 	};
 
 	self.date = function(value) {

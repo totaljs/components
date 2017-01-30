@@ -6,7 +6,7 @@ COMPONENT('textarea', function() {
 	var container;
 
 	self.validate = function(value) {
-		
+
 		var type = typeof(value);
 		if (input.prop('disabled') || !isRequired)
 			return true;
@@ -16,7 +16,7 @@ COMPONENT('textarea', function() {
 		else
 			value = value.toString();
 
-		EXEC('$calendar.hide');
+		WORKFLOW('reflow')(self.name);
 		return value.length > 0;
 	};
 

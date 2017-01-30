@@ -16,7 +16,7 @@ COMPONENT('dropdown', function() {
 		else
 			value = value.toString();
 
-		EXEC('$calendar.hide');
+		WORKFLOW('reflow')(self.name);
 
 		switch (self.type) {
 			case 'currency':

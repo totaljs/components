@@ -12,7 +12,7 @@ COMPONENT('contenteditable', function() {
 		else
 			value = value.toString();
 
-		EXEC('$calendar.hide');
+		WORKFLOW('reflow')(self.name);
 		return value.length > 0;
 	};
 
