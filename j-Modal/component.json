@@ -1,0 +1,16 @@
+{
+	"datecreated": "2017-01-30T15:00:00.000Z",
+	"dateupdated": null,
+	"name": "j-Modal",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

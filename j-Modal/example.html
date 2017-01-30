@@ -1,0 +1,12 @@
+<div data-jc="modal" data-jc-path="common.modal" data-if="value === 'user'">
+	<div><code>SET('common.modal', '');</code></div>
+	<div>or</div>
+	<div><code>SET('common.modal', 'user');</code></div>
+</div>
+
+<script>
+	var common = {};
+
+	// Show modal
+	SET('common.modal', 'user', 2000);
+</script>
