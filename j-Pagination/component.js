@@ -1,7 +1,3 @@
-/**
- * Pagination
- * @version 1.0.0
- */
 COMPONENT('pagination', function() {
 
 	var self = this;
