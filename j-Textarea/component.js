@@ -37,7 +37,7 @@ COMPONENT('textarea', function() {
 
 		attrs.attr('placeholder', self.attr('data-placeholder'));
 		attrs.attr('maxlength', self.attr('data-maxlength'));
-		attrs.attr('data-component-bind', '');
+		attrs.attr('data-jc-bind', '');
 
 		tmp = self.attr('data-height');
 		tmp && attrs.attr('style', 'height:' + tmp);

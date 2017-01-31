@@ -51,9 +51,9 @@ COMPONENT('textbox', function() {
 		attrs.attr('type', self.type === 'password' ? self.type : 'text');
 		attrs.attr('placeholder', self.attr('data-placeholder'));
 		attrs.attr('maxlength', self.attr('data-maxlength'));
-		attrs.attr('data-component-keypress', self.attr('data-component-keypress'));
-		attrs.attr('data-component-keypress-delay', self.attr('data-component-keypress-delay'));
-		attrs.attr('data-component-bind', '');
+		attrs.attr('data-jc-keypress', self.attr('data-jc-keypress'));
+		attrs.attr('data-jc-keypress-delay', self.attr('data-jc-keypress-delay'));
+		attrs.attr('data-jc-bind', '');
 		attrs.attr('name', self.path);
 
 		tmp = self.attr('data-align');
