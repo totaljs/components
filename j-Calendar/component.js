@@ -3,6 +3,7 @@ COMPONENT('calendar', function() {
 	var self = this;
 	var skip = false;
 	var skipDay = false;
+	var visible = false;
 	var callback;
 
 	self.days = self.attr('data-days').split(',');
@@ -99,6 +100,7 @@ COMPONENT('calendar', function() {
 
 	self.hide = function() {
 		self.element.toggleClass('hidden', true);
+		visible = false;
 		return self;
 	};
 
@@ -121,6 +123,7 @@ COMPONENT('calendar', function() {
 		self.element.css({ left: off.left + (offset || 0), top: off.top + h + 12 }).removeClass('hidden');
 		self.click = callback;
 		self.date(value);
+		visible = true;
 		return self;
 	};
 
@@ -164,13 +167,13 @@ COMPONENT('calendar', function() {
 		});
 
 		$(document.body).on('scroll', function() {
-			EXEC('$calendar.hide');
+			visible && EXEC('$calendar.hide');
 		});
 
 		window.$calendar = self;
 
 		WORKFLOW('reflow', function() {
-			EXEC('$calendar.hide');
+			visible && EXEC('$calendar.hide');
 		});
 	};
 
