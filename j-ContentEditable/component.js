@@ -12,7 +12,7 @@ COMPONENT('contenteditable', function() {
 		else
 			value = value.toString();
 
-		WORKFLOW('reflow')(self.name);
+		EMIT('reflow', self.name);
 		return value.length > 0;
 	};
 

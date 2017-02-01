@@ -172,7 +172,7 @@ COMPONENT('calendar', function() {
 
 		window.$calendar = self;
 
-		WORKFLOW('reflow', function() {
+		self.on('reflow', function() {
 			visible && EXEC('$calendar.hide');
 		});
 	};

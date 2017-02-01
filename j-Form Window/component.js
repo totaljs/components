@@ -68,7 +68,7 @@ COMPONENT('form', function() {
 		self.element = el;
 
 		self.element.on('scroll', function() {
-			WORKFLOW('reflow')(self.name);
+			EMIT('reflow', self.name);
 		});
 
 		self.element.find('button').on('click', function(e) {
@@ -96,7 +96,7 @@ COMPONENT('form', function() {
 
 		var isHidden = !EVALUATE(self.path, self.condition);
 		self.element.toggleClass('hidden', isHidden);
-		WORKFLOW('reflow')(self.name);
+		EMIT('reflow', self.name);
 
 		if (isHidden) {
 			self.release(true);

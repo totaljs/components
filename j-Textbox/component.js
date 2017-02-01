@@ -18,7 +18,7 @@ COMPONENT('textbox', function() {
 		else
 			value = value.toString();
 
-		WORKFLOW('reflow')(self.name);
+		EMIT('reflow', self.name);
 
 		switch (self.type) {
 			case 'email':

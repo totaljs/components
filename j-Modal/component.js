@@ -20,7 +20,7 @@ COMPONENT('modal', function() {
 		self.element.removeClass('hidden');
 		self.element = el;
 		self.element.on('scroll', function() {
-			WORKFLOW('reflow')(self.name);
+			EMIT('reflow', self.name);
 		});
 
 		self.attr('data-esc') !== 'false' && $(window).on('keydown', function(e) {
@@ -39,7 +39,7 @@ COMPONENT('modal', function() {
 		if (self.element.hasClass('hidden') && isHidden)
 			return;
 
-		WORKFLOW('reflow')(self.name);
+		EMIT('reflow', self.name);
 
 		if (isHidden) {
 			self.element.removeClass('ui-modal-visible');
