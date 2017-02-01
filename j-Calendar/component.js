@@ -99,7 +99,7 @@ COMPONENT('calendar', function() {
 	}
 
 	self.hide = function() {
-		self.element.toggleClass('hidden', true);
+		self.classes('hidden');
 		visible = false;
 		return self;
 	};
