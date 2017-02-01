@@ -7,7 +7,7 @@ COMPONENT('progress', function() {
 	self.readonly();
 
 	self.make = function() {
-		self.element.addClass('ui-progress');
+		self.classes('ui-progress');
 		self.append('<div style="width:10%">0%</div>');
 		container = self.find('div');
 		animate = self.attr('data-animate') !== 'false';

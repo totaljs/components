@@ -15,7 +15,7 @@ COMPONENT('radiobutton', function() {
 			builder.push('<span data-value="{0}"><i class="fa fa-circle-o"></i>{1}</span>'.format(item[0] || item[1], item[1] || item[0]));
 		});
 
-		self.element.addClass('ui-radiobutton');
+		self.classes('ui-radiobutton');
 		self.element.on('click', 'span', function(e) {
 			var value = self.parser($(this).attr('data-value'));
 			self.dirty(false, true);
@@ -32,7 +32,7 @@ COMPONENT('radiobutton', function() {
 	};
 
 	self.setter = function(value, path) {
-		self.element.find('span').each(function() {
+		self.find('span').each(function() {
 			var el = $(this);
 			var is = el.attr('data-value') === (value === null || value === undefined ? null : value.toString());
 			el.toggleClass('ui-radiobutton-selected', is);

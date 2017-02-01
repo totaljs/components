@@ -21,7 +21,7 @@ COMPONENT('search', function() {
 
 		KEYPRESS(function() {
 
-			var elements = self.element.find(options_selector);
+			var elements = self.find(options_selector);
 
 			if (!value) {
 				elements.removeClass(options_class);

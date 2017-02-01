@@ -15,7 +15,7 @@ COMPONENT('textboxtags', function() {
 	};
 
 	self.required = function(value) {
-		self.element.find('.ui-textboxtags-label').toggleClass('ui-textboxtags-label-required', value);
+		self.find('.ui-textboxtags-label').toggleClass('ui-textboxtags-label-required', value);
 		self.noValid(!value);
 		isRequired = value;
 		!value && self.state(1, 1);
@@ -31,19 +31,19 @@ COMPONENT('textboxtags', function() {
 		isString = self.type === 'string';
 
 		if (content.length) {
-			self.element.empty();
-			self.element.append('<div class="ui-textboxtags-label' + (isRequired ? ' ui-textboxtags-label-required' : '') + '">' + (icon ? '<span class="fa ' + icon + '"></span> ' : '') + content + ':</div>');
-			self.element.append('<div class="ui-textboxtags">' + html + '</div>');
+			self.empty();
+			self.append('<div class="ui-textboxtags-label' + (isRequired ? ' ui-textboxtags-label-required' : '') + '">' + (icon ? '<span class="fa ' + icon + '"></span> ' : '') + content + ':</div>');
+			self.append('<div class="ui-textboxtags">' + html + '</div>');
 		} else {
-			self.element.addClass('ui-textboxtags');
-			self.element.append(html);
+			self.classes('ui-textboxtags');
+			self.append(html);
 		}
 
 		self.element.on('click', function(e) {
-			self.element.find('input').focus();
+			self.find('input').focus();
 		});
 
-		container = self.element.find('.ui-textboxtags-values');
+		container = self.find('.ui-textboxtags-values');
 		container.on('click', '.fa-times', function(e) {
 
 			e.preventDefault();
@@ -134,6 +134,6 @@ COMPONENT('textboxtags', function() {
 	};
 
 	self.state = function(type) {
-		self.element.find('.ui-textboxtags').toggleClass('ui-textboxtags-invalid', self.isInvalid());
+		self.find('.ui-textboxtags').toggleClass('ui-textboxtags-invalid', self.isInvalid());
 	};
 });

@@ -70,6 +70,6 @@ COMPONENT('codemirror', function() {
 	};
 
 	self.state = function(type) {
-		self.element.find('.ui-codemirror').toggleClass('ui-codemirror-invalid', self.isInvalid());
+		self.find('.ui-codemirror').toggleClass('ui-codemirror-invalid', self.isInvalid());
 	};
 });

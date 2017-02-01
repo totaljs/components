@@ -8,7 +8,7 @@ COMPONENT('click', function() {
 		if (typeof(value) === 'string')
 			self.set(self.parser(value));
 		else
-			self.get(self.attr('data-component-path'))(self);
+			self.get(self.attr('data-jc-path'))(self);
 	};
 
 	self.make = function() {

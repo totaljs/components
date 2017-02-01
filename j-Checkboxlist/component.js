@@ -30,7 +30,7 @@ COMPONENT('checkboxlist', function() {
 
 		self.element.on('click', '.ui-checkboxlist-selectall', function() {
 			var arr = [];
-			var inputs = self.element.find('input');
+			var inputs = self.find('input');
 			var value = self.get();
 
 			if (value && inputs.length === value.length) {
@@ -68,7 +68,7 @@ COMPONENT('checkboxlist', function() {
 	};
 
 	self.setter = function(value) {
-		self.element.find('input').each(function() {
+		self.find('input').each(function() {
 			this.checked = value && value.indexOf(self.parser(this.value)) !== -1;
 		});
 	};

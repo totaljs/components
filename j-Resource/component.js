@@ -46,7 +46,7 @@ COMPONENT('resource', function() {
 	};
 
 	self.make = function() {
-		var el = self.element.find('script');
+		var el = self.find('script');
 		self.prepare(el.html());
 		el.remove();
 	};

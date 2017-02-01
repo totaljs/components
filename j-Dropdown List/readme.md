@@ -4,7 +4,7 @@
 
 __Attributes__:
 
-- `data-component-type=""` (optional), supports __number__, default __empty__
+- `data-jc-type=""` (optional), supports __number__, default __empty__
 - `data-required="true"` (optional) the field must have some value, default __false__
 - `data-icon="fa-envelope"` (optional) the label icon, default __empty__
 - `data-autofucs="true"` (optional) auto focus, default __false__

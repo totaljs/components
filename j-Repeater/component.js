@@ -16,7 +16,7 @@ COMPONENT('repeater', function() {
 		var html = element.html();
 		element.remove();
 		self.template = Tangular.compile(html);
-		recompile = html.indexOf('data-component="') !== -1;
+		recompile = html.indexOf('data-jc="') !== -1;
 	};
 
 	self.setter = function(value) {

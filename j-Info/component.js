@@ -13,10 +13,10 @@ COMPONENT('info', function() {
 
 	self.make = function() {
 
-		self.element.addClass('ui-info');
-		self.element.append('<span class="ui-info-arrow fa fa-caret-up"></span><div class="ui-info-body"></div>');
-		container = self.element.find('.ui-info-body');
-		arrow = self.element.find('.ui-info-arrow');
+		self.classes('ui-info');
+		self.append('<span class="ui-info-arrow fa fa-caret-up"></span><div class="ui-info-body"></div>');
+		container = self.find('.ui-info-body');
+		arrow = self.find('.ui-info-arrow');
 
 		$(document).on('touchstart mousedown', function(e) {
 			self.hide();
@@ -66,7 +66,7 @@ COMPONENT('info', function() {
 		self.element.show();
 
 		setTimeout(function() {
-			self.element.addClass('ui-info-visible');
+			self.classes('ui-info-visible');
 		}, 100);
 
 		is = true;

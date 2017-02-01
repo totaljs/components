@@ -23,7 +23,7 @@ COMPONENT('textarea', function() {
 	!isRequired && self.noValid();
 
 	self.required = function(value) {
-		self.element.find('.ui-textarea-label').toggleClass('ui-textarea-label-required', value);
+		self.find('.ui-textarea-label').toggleClass('ui-textarea-label-required', value);
 		self.noValid(!value);
 		isRequired = value;
 		!value && self.state(1, 1);
@@ -48,7 +48,7 @@ COMPONENT('textarea', function() {
 		var content = element.html();
 
 		if (!content.length) {
-			self.element.addClass('ui-textarea ui-textarea-container');
+			self.classes('ui-textarea ui-textarea-container');
 			self.html(builder.join(''));
 			input = self.find('textarea');
 			container = self.element;
@@ -66,7 +66,7 @@ COMPONENT('textarea', function() {
 		builder.push(':</div><div class="ui-textarea">{0}</div>'.format(html));
 
 		self.html(builder.join(''));
-		self.element.addClass('ui-textarea-container');
+		self.classes('ui-textarea-container');
 		input = self.find('textarea');
 		container = self.find('.ui-textarea');
 	};

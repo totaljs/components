@@ -13,10 +13,10 @@ COMPONENT('contextmenu', function() {
 
 	self.make = function() {
 
-		self.element.addClass('ui-contextmenu');
-		self.element.append('<span class="ui-contextmenu-arrow fa fa-caret-up"></span><div class="ui-contextmenu-items"></div>');
-		container = self.element.find('.ui-contextmenu-items');
-		arrow = self.element.find('.ui-contextmenu-arrow');
+		self.classes('ui-contextmenu');
+		self.append('<span class="ui-contextmenu-arrow fa fa-caret-up"></span><div class="ui-contextmenu-items"></div>');
+		container = self.find('.ui-contextmenu-items');
+		arrow = self.find('.ui-contextmenu-arrow');
 
 		self.element.on('touchstart mousedown', 'div[data-value]', function(e) {
 			self.callback && self.callback($(this).attr('data-value'), $(self.target));
@@ -102,7 +102,7 @@ COMPONENT('contextmenu', function() {
 
 		self.element.show();
 		setTimeout(function() {
-			self.element.addClass('ui-contextmenu-visible');
+			self.classes('ui-contextmenu-visible');
 			self.emit('contextmenu', true, self, self.target);
 		}, 100);
 

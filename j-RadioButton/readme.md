@@ -3,7 +3,7 @@
 - easy usage
 - `data-options` must contain `value 1|text 1;value 2|text 2` or `text 1;text 2`
 - `data-required` can contain a value `true` or `false`
-- `data-component-type` works too.
+- `data-jc-type` works too.
 
 ### Author
 

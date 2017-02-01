@@ -78,7 +78,7 @@ COMPONENT('notifications', function() {
 		self.items[obj.id] = obj;
 
 		if (!system || focus)
-			self.element.append(self.template(obj));
+			self.append(self.template(obj));
 
 		self.autoclose();
 

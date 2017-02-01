@@ -10,7 +10,7 @@ COMPONENT('rating', function() {
 		for (var i = 0; i < 5; i++)
 			builder.push('<i class="fa {0}"></i>'.format(ino));
 
-		self.element.addClass('ui-rating');
+		self.classes('ui-rating');
 		self.html('{0}<div>{1}</div>'.format(self.html(), builder.join('')));
 		self.element.on('click', '.fa', function() {
 			!self.disabled && self.set($(this).index() + 1);

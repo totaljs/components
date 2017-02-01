@@ -13,7 +13,7 @@ __Other attributes__:
 - `data-dragdrop="true"` - allows drag and drop
 - `data-background="white"` - optional, default empty (transparent)
 - `data-format="/download/{0}.jpg"` - optional, a format of URL file generator (default: `{0}`)
-- `data-component-path="url-to-image"` - must contain URL to picture
+- `data-jc-path="url-to-image"` - must contain URL to picture
 
 __Methods__:
 

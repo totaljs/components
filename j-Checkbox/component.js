@@ -25,8 +25,8 @@ COMPONENT('checkbox', function() {
 	!isRequired && self.noValid();
 
 	self.make = function() {
-		self.element.addClass('ui-checkbox');
-		self.html('<label><input type="checkbox" data-component-bind="" /><span{1}>{0}</span></label>'.format(self.html(), isRequired ? ' class="ui-checkbox-label-required"' : ''));
+		self.classes('ui-checkbox');
+		self.html('<label><input type="checkbox" data-jc-bind="" /><span{1}>{0}</span></label>'.format(self.html(), isRequired ? ' class="ui-checkbox-label-required"' : ''));
 		input = self.find('input');
 	};
 });

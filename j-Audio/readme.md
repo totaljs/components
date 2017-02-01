@@ -3,7 +3,7 @@
 - easy usage
 - singleton
 - the component can `play` and `stop` audio/sound `mp3`
-- `data-component-path` represents volume control
+- `data-jc-path` represents volume control
 
 __Methods__:
 

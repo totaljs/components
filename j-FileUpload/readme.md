@@ -6,7 +6,7 @@ __Attributes__:
 - `data-url` is a target URL for the upload
 - `data-accept` is a content type and can be e.g. `image/*`, `text/plain`, etc.
 - `data-multiple` enables multiple files (default: `false`)
-- `data-array` pushs a uploaded value to array (`data-component-path` must be array)
+- `data-array` pushs a uploaded value to array (`data-jc-path` must be array)
 - `data-error` message when is thrown an error
 
 __Friendly components__:

@@ -1,6 +1,6 @@
 ## j-Calendar
 
-The component is need to call manually or works with `textbox` component with the attribute `data-component-type="date"`. The calendar component is singleton and the browser works with one instance only. Other instantes are not compiled and won't be used.
+The component is need to call manually or works with `textbox` component with the attribute `data-jc-type="date"`. The calendar component is singleton and the browser works with one instance only. Other instantes are not compiled and won't be used.
 
 - works __only__ with Bootstrap Grid System (otherwise is need to fix CSS)
 

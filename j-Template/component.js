@@ -1,7 +1,3 @@
-/**
- * Template
- * @version 2.0.0
- */
 COMPONENT('template', function() {
 	var self = this;
 	self.readonly();
@@ -12,7 +8,7 @@ COMPONENT('template', function() {
 			return;
 		}
 
-		var script = self.element.find('script');
+		var script = self.find('script');
 
 		if (!script.length) {
 			script = self.element;
@@ -27,7 +23,7 @@ COMPONENT('template', function() {
 		if (NOTMODIFIED(self.id, value))
 			return;
 		if (!value)
-			return self.element.addClass('hidden');
+			return self.classes('hidden');
 		KEYPRESS(function() {
 			self.html(self.template(value)).removeClass('hidden');
 		}, 100, self.id);

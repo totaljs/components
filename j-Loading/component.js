@@ -6,19 +6,19 @@ COMPONENT('loading', function() {
 	self.singleton();
 
 	self.make = function() {
-		self.element.addClass('ui-loading');
+		self.classes('ui-loading');
 	};
 
 	self.show = function() {
 		clearTimeout(pointer);
-		self.element.toggleClass('hidden', false);
+		self.toggle('hidden', false);
 		return self;
 	};
 
 	self.hide = function(timeout) {
 		clearTimeout(pointer);
 		pointer = setTimeout(function() {
-			self.element.toggleClass('hidden', true);
+			self.toggle('hidden', true);
 		}, timeout || 1);
 		return self;
 	};

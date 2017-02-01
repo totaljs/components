@@ -14,7 +14,7 @@ COMPONENT('datagrid', function() {
 	self.onButton;
 
 	self.make = function() {
-		self.element.addClass('ui-datagrid');
+		self.classes('ui-datagrid');
 
 		self.element.on('change', 'input', function() {
 			var el = $(this);
@@ -55,9 +55,9 @@ COMPONENT('datagrid', function() {
 
 		}).remove();
 
-		self.element.html('<div class="ui-datagrid-headers"></div><div class="ui-datagrid-rows"></div>');
-		el_headers = self.element.find('.ui-datagrid-headers');
-		el_rows = self.element.find('.ui-datagrid-rows');
+		self.html('<div class="ui-datagrid-headers"></div><div class="ui-datagrid-rows"></div>');
+		el_headers = self.find('.ui-datagrid-headers');
+		el_rows = self.find('.ui-datagrid-rows');
 	};
 
 	self.renderrow = function(index, row, size) {
@@ -92,14 +92,14 @@ COMPONENT('datagrid', function() {
 			return 'style="{0}" '.format(w);
 		}), index);
 
-		refresh && self.element.find('.ui-datagrid-row[data-index="{0}"]'.format(index)).replaceWith(rows[index]);
+		refresh && self.find('.ui-datagrid-row[data-index="{0}"]'.format(index)).replaceWith(rows[index]);
 		return self;
 	};
 
 	self.setter = function(value) {
 
 		if (!value) {
-			self.element.addClass('hidden');
+			self.classes('hidden');
 			return;
 		}
 
@@ -113,7 +113,7 @@ COMPONENT('datagrid', function() {
 		var Thead = Theaders[size];
 		el_headers.empty().append(Thead ? Thead(value) : '');
 		el_rows.empty().append(rows.join(''));
-		self.element.removeClass('hidden');
+		self.classes('-hidden');
 	};
 
 });

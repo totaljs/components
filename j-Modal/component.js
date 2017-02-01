@@ -17,7 +17,7 @@ COMPONENT('modal', function() {
 		$(document.body).append('<div id="{0}" class="hidden ui-modal-container"><a href="javascript:void(0)" class="ui-modal-close" data-path="{2}"><i class="fa fa-times"></i>{1}</a><div class="ui-modal-body"></div></div>'.format(self._id, self.attr('data-button') || 'Close window', self.path));
 		var el = $('#' + self._id);
 		el.find('.ui-modal-body').get(0).appendChild(self.element.get(0));
-		self.element.removeClass('hidden');
+		self.classes('-hidden');
 		self.element = el;
 		self.element.on('scroll', function() {
 			EMIT('reflow', self.name);
@@ -42,18 +42,18 @@ COMPONENT('modal', function() {
 		EMIT('reflow', self.name);
 
 		if (isHidden) {
-			self.element.removeClass('ui-modal-visible');
+			self.classes('-ui-modal-visible');
 			setTimeout2(self.id, function() {
-				self.element.addClass('hidden');
+				self.classes('hidden');
 			}, 50);
 			return;
 		}
 
 		window.$$modal_level++;
-		self.element.removeClass('hidden');
+		self.classes('-hidden');
 
 		setTimeout2(self.id, function() {
-			self.element.addClass('ui-modal-visible');
+			self.classes('ui-modal-visible');
 		}, 50);
 
 		reload && EXEC(reload, self);

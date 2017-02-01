@@ -9,7 +9,7 @@ COMPONENT('pagination', function() {
 	self.template = Tangular.compile('<a href="#{{ page }}" class="page{{ if selected }} selected{{ fi }}" data-page="{{ page }}">{{ page }}</a>');
 	self.readonly();
 	self.make = function() {
-		self.element.addClass('ui-pagination hidden');
+		self.classes('ui-pagination hidden');
 		self.append('<div></div><nav></nav>');
 		nav = self.find('nav');
 		info = self.find('div');

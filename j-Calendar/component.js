@@ -129,7 +129,7 @@ COMPONENT('calendar', function() {
 
 	self.make = function() {
 
-		self.element.addClass('ui-calendar hidden');
+		self.classes('ui-calendar hidden');
 
 		self.element.on('click', '.ui-calendar-today', function() {
 			var dt = new Date();
@@ -140,7 +140,7 @@ COMPONENT('calendar', function() {
 		self.element.on('click', '.ui-calendar-day', function() {
 			var arr = this.getAttribute('data-date').split('-');
 			var dt = new Date(parseInt(arr[0]), parseInt(arr[1]), parseInt(arr[2]));
-			self.element.find('.ui-calendar-selected').removeClass('ui-calendar-selected');
+			self.find('.ui-calendar-selected').removeClass('ui-calendar-selected');
 			$(this).addClass('ui-calendar-selected');
 			skip = true;
 			self.hide();
@@ -229,6 +229,6 @@ COMPONENT('calendar', function() {
 		for (var i = 0; i < 7; i++)
 			header.push('<th>{0}</th>'.format(output.header[i].name));
 
-		self.element.html('<div class="ui-calendar-header"><button class="ui-calendar-header-prev" name="prev" data-date="{0}-{1}"><span class="fa fa-chevron-left"></span></button><div class="ui-calendar-header-info">{2} {3}</div><button class="ui-calendar-header-next" name="next" data-date="{0}-{1}"><span class="fa fa-chevron-right"></span></button></div><table cellpadding="0" cellspacing="0" border="0"><thead>{4}</thead><tbody>{5}</tbody></table>'.format(output.year, output.month, self.months[value.getMonth()], value.getFullYear(), header.join(''), builder.join('')) + (self.today ? '<div><a href="javascript:void(0)" class="ui-calendar-today">' + self.today + '</a></div>' : ''));
+		self.html('<div class="ui-calendar-header"><button class="ui-calendar-header-prev" name="prev" data-date="{0}-{1}"><span class="fa fa-chevron-left"></span></button><div class="ui-calendar-header-info">{2} {3}</div><button class="ui-calendar-header-next" name="next" data-date="{0}-{1}"><span class="fa fa-chevron-right"></span></button></div><table cellpadding="0" cellspacing="0" border="0"><thead>{4}</thead><tbody>{5}</tbody></table>'.format(output.year, output.month, self.months[value.getMonth()], value.getFullYear(), header.join(''), builder.join('')) + (self.today ? '<div><a href="javascript:void(0)" class="ui-calendar-today">' + self.today + '</a></div>' : ''));
 	};
 });

@@ -4,7 +4,7 @@ COMPONENT('error', function() {
 	self.readonly();
 
 	self.make = function() {
-		self.element.addClass('ui-error hidden');
+		self.classes('ui-error hidden');
 	};
 
 	self.setter = function(value) {

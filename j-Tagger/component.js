@@ -20,7 +20,7 @@ COMPONENT('tagger', function() {
 	self.setter = function(value) {
 
 		if (!value) {
-			self.element.addClass('hidden');
+			self.classes('hidden');
 			return;
 		}
 
@@ -95,6 +95,6 @@ COMPONENT('tagger', function() {
 				this.innerHTML = cache.def;
 		});
 
-		self.element.removeClass('transparent hidden');
+		self.classes('-transparent –hidden');
 	};
 });

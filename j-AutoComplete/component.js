@@ -16,9 +16,9 @@ COMPONENT('autocomplete', function() {
 	self.singleton();
 
 	self.make = function() {
-		self.element.addClass('ui-autocomplete-container');
-		self.element.html('<div class="ui-autocomplete"><ul></ul></div>');
-		container = self.element.find('ul');
+		self.classes('ui-autocomplete-container');
+		self.html('<div class="ui-autocomplete"><ul></ul></div>');
+		container = self.find('ul');
 
 		self.element.on('click', 'li', function(e) {
 			e.preventDefault();
@@ -61,7 +61,7 @@ COMPONENT('autocomplete', function() {
 			return;
 		}
 
-		var current = self.element.find('.selected');
+		var current = self.find('.selected');
 
 		if (c === 13) {
 			self.visible(false);
@@ -82,7 +82,7 @@ COMPONENT('autocomplete', function() {
 		}
 
 		if (!current.length)
-			current = self.element.find('li:{0}-child'.format(c === 40 ? 'first' : 'last'));
+			current = self.find('li:{0}-child'.format(c === 40 ? 'first' : 'last'));
 		current.addClass('selected');
 	}
 

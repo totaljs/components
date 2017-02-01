@@ -15,7 +15,7 @@ COMPONENT('confirm', function() {
 		self.element.on('click', function(e) {
 			if (e.target.tagName !== 'DIV')
 				return;
-			var el = self.element.find('.ui-confirm-body');
+			var el = self.find('.ui-confirm-body');
 			el.addClass('ui-confirm-click');
 			setTimeout(function() {
 				el.removeClass('ui-confirm-click');
@@ -37,20 +37,20 @@ COMPONENT('confirm', function() {
 
 	self.hide = function(index) {
 		self.callback && self.callback(index);
-		self.element.removeClass('ui-confirm-visible');
+		self.classes('-ui-confirm-visible');
 		setTimeout2(self.id, function() {
 			visible = false;
-			self.element.addClass('hidden');
+			self.classes('hidden');
 		}, 1000);
 	};
 
 	self.content = function(cls, text) {
 		!is && self.html('<div><div class="ui-confirm-body"></div></div>');
 		visible = true;
-		self.element.find('.ui-confirm-body').empty().append(text);
-		self.element.removeClass('hidden');
+		self.find('.ui-confirm-body').empty().append(text);
+		self.classes('-hidden');
 		setTimeout2(self.id, function() {
-			self.element.addClass('ui-confirm-visible');
+			self.classes('ui-confirm-visible');
 		}, 5);
 	};
 });

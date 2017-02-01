@@ -36,7 +36,7 @@ COMPONENT('textbox', function() {
 	!isRequired && self.noValid();
 
 	self.required = function(value) {
-		self.element.find('.ui-textbox-label').toggleClass('ui-textbox-label-required', value);
+		self.find('.ui-textbox-label').toggleClass('ui-textbox-label-required', value);
 		self.noValid(!value);
 		isRequired = value;
 		!value && self.state(1, 1);
@@ -97,13 +97,13 @@ COMPONENT('textbox', function() {
 
 		self.type === 'date' && self.element.on('click', '.fa-calendar', function(e) {
 			e.preventDefault();
-			window.$calendar && window.$calendar.toggle($(this).parent().parent(), self.element.find('input').val(), function(date) {
+			window.$calendar && window.$calendar.toggle($(this).parent().parent(), self.find('input').val(), function(date) {
 				self.set(date);
 			});
 		});
 
 		if (!content.length) {
-			self.element.addClass('ui-textbox ui-textbox-container');
+			self.classes('ui-textbox ui-textbox-container');
 			self.html(builder.join(''));
 			input = self.find('input');
 			container = self.find('.ui-textbox');
@@ -118,7 +118,7 @@ COMPONENT('textbox', function() {
 		builder.push(':</div><div class="ui-textbox">{0}</div>'.format(html));
 
 		self.html(builder.join(''));
-		self.element.addClass('ui-textbox-container');
+		self.classes('ui-textbox-container');
 		input = self.find('input');
 		container = self.find('.ui-textbox');
 	};

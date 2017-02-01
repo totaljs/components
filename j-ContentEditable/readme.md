@@ -7,7 +7,7 @@
 - supports basic shortcuts `CMD+B` __bold__, `CMD+U` __underline__, `CMD+I` __italic__ and `CMD+L` __creates a link__
 
 __Attributes__:
-- `data-component-path=""` for two way bindings (write binding is a bit slow around `500 ms` because of performance)
+- `data-jc-path=""` for two way bindings (write binding is a bit slow around `500 ms` because of performance)
 - `data-required="true"` optional, default `false`
 - `data-clipboard="text/plain"` optional, default `text/plain` (for support of `html` use `text/html`)
 

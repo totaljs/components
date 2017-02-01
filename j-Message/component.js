@@ -8,7 +8,7 @@ COMPONENT('message', function() {
 	self.singleton();
 
 	self.make = function() {
-		self.element.addClass('ui-message hidden');
+		self.classes('ui-message hidden');
 
 		self.element.on('click', 'button', function() {
 			self.hide();
@@ -41,11 +41,11 @@ COMPONENT('message', function() {
 
 	self.hide = function() {
 		self.callback && self.callback();
-		self.element.removeClass('ui-message-visible');
+		self.classes('-ui-message-visible');
 		timer && clearTimeout(timer);
 		timer = setTimeout(function() {
 			visible = false;
-			self.element.addClass('hidden');
+			self.classes('hidden');
 		}, 1000);
 	};
 
@@ -53,12 +53,12 @@ COMPONENT('message', function() {
 		!is && self.html('<div><div class="ui-message-body"><span class="fa fa-warning"></span><div class="ui-center"></div></div><button>' + (self.attr('data-button') || 'Close') + '</button></div>');
 		timer && clearTimeout(timer);
 		visible = true;
-		self.element.find('.ui-message-body').removeClass().addClass('ui-message-body ' + cls);
-		self.element.find('.fa').removeClass().addClass('fa ' + icon);
-		self.element.find('.ui-center').html(text);
-		self.element.removeClass('hidden');
+		self.find('.ui-message-body').removeClass().addClass('ui-message-body ' + cls);
+		self.find('.fa').removeClass().addClass('fa ' + icon);
+		self.find('.ui-center').html(text);
+		self.classes('-hidden');
 		setTimeout(function() {
-			self.element.addClass('ui-message-visible');
+			self.classes('ui-message-visible');
 		}, 5);
 	};
 });

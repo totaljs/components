@@ -30,7 +30,7 @@ COMPONENT('dropdown', function() {
 	!isRequired && self.noValid();
 
 	self.required = function(value) {
-		self.element.find('.ui-dropdown-label').toggleClass('ui-dropdown-label-required', value);
+		self.find('.ui-dropdown-label').toggleClass('ui-dropdown-label-required', value);
 		self.noValid(!value);
 		isRequired = value;
 		!value && self.state(1, 1);
@@ -67,10 +67,10 @@ COMPONENT('dropdown', function() {
 			options.push('<option value="{0}">{1}</option>'.format(item[1] === undefined ? item[0] : item[1], item[0]));
 		});
 
-		self.element.addClass('ui-dropdown-container');
+		self.classes('ui-dropdown-container');
 
 		var label = self.html();
-		var html = '<div class="ui-dropdown"><span class="fa fa-sort"></span><select data-component-bind="">{0}</select></div>'.format(options.join(''));
+		var html = '<div class="ui-dropdown"><span class="fa fa-sort"></span><select data-jc-bind="">{0}</select></div>'.format(options.join(''));
 		var builder = [];
 
 		if (label.length) {

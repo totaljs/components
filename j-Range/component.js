@@ -12,7 +12,7 @@ COMPONENT('range', function() {
 		attrs.attr('step', self.attr('data-step'));
 		attrs.attr('max', self.attr('data-max'));
 		attrs.attr('min', self.attr('data-min'));
-		self.element.addClass('ui-range');
-		self.html('{0}<input type="range" data-component-bind=""{1} />'.format(name, attrs.length ? ' ' + attrs.join(' ') : ''));
+		self.classes('ui-range');
+		self.html('{0}<input type="range" data-jc-bind=""{1} />'.format(name, attrs.length ? ' ' + attrs.join(' ') : ''));
 	};
 });

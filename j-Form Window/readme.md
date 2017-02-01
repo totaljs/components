@@ -8,7 +8,7 @@ __Attributes__:
 
 - `data-title=""` title of the form
 - `data-width="800px"` (optional) max-width, default: __800px__
-- `data-if="value === 'user'"` condition for showing the form, the model is from `data-component-path`
+- `data-if="value === 'user'"` condition for showing the form, the model is from `data-jc-path`
 
 __Properties__:
 

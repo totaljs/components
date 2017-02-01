@@ -16,9 +16,9 @@ COMPONENT('contentslider', function() {
 
 	self.make = function() {
 
-		self.element.addClass('ui-contentslider');
+		self.classes('ui-contentslider');
 		self.element.wrapInner('<div class="ui-contentslider-items" />');
-		self.element.find(self.attr('data-selector')).wrap('<div class="{0}" />'.format(cssi));
+		self.find(self.attr('data-selector')).wrap('<div class="{0}" />'.format(cssi));
 		self.append('<div class="{0}" />'.format(cssp));
 		self.refresh();
 		container = self.find('.ui-contentslider-items');
@@ -31,7 +31,7 @@ COMPONENT('contentslider', function() {
 			indexer = CACHE(cacheid) || 0;
 		}
 
-		self.element.removeClass('hidden');
+		self.classes('-hidden');
 		self.show(indexer++);
 
 		self.element.on('click', '.fa', function() {

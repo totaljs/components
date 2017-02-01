@@ -7,13 +7,13 @@ COMPONENT('banners', function() {
 
 	self.make = function() {
 		self.element.wrapInner('<div />');
-		self.element.addClass('ui-banners');
+		self.classes('ui-banners');
 
 		interval = setInterval(function() {
 			self.show();
 		}, (self.attr('data-interval') || '3000').parseInt());
 
-		divs = self.element.find('div > div');
+		divs = self.find('div > div');
 		divs.addClass(cls);
 		divs.eq(0).removeClass(cls);
 

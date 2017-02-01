@@ -8,7 +8,7 @@ COMPONENT('tabmenu', function() {
 		});
 	};
 	self.setter = function(value) {
-		self.element.find('.selected').removeClass('selected');
-		self.element.find('li[data-value="' + value + '"]').addClass('selected');
+		self.find('.selected').removeClass('selected');
+		self.find('li[data-value="' + value + '"]').addClass('selected');
 	};
 });

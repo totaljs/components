@@ -7,7 +7,7 @@
 
 __Attributes:__
 - `data-width="500px"` max width size (the component is responsive)
-- `data-component-path` must contain a valid URL address (when is empty then is the component hidden)
+- `data-jc-path` must contain a valid URL address (when is empty then is the component hidden)
 
 __Methods__:
 - `component.open(url)` or `component.show(url)` (alias)

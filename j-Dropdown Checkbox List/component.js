@@ -43,9 +43,9 @@ COMPONENT('dropdowncheckbox', function() {
 		} else
 			element.append(html);
 
-		self.element.addClass('ui-dropdowncheckbox-container');
-		container = self.element.find('.ui-dropdowncheckbox-values');
-		values = self.element.find('.ui-dropdowncheckbox-selected');
+		self.classes('ui-dropdowncheckbox-container');
+		container = self.find('.ui-dropdowncheckbox-values');
+		values = self.find('.ui-dropdowncheckbox-selected');
 
 		self.element.on('click', '.ui-dropdowncheckbox', function(e) {
 
@@ -210,7 +210,7 @@ COMPONENT('dropdowncheckbox', function() {
 	};
 
 	self.state = function(type) {
-		self.element.find('.ui-dropdowncheckbox').toggleClass('ui-dropdowncheckbox-invalid', self.isInvalid());
+		self.find('.ui-dropdowncheckbox').toggleClass('ui-dropdowncheckbox-invalid', self.isInvalid());
 	};
 
 	if (window.$dropdowncheckboxevent)

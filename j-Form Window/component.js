@@ -71,7 +71,7 @@ COMPONENT('form', function() {
 			EMIT('reflow', self.name);
 		});
 
-		self.element.find('button').on('click', function(e) {
+		self.find('button').on('click', function(e) {
 			window.$$form_level--;
 			switch (this.name) {
 				case 'submit':
@@ -84,7 +84,7 @@ COMPONENT('form', function() {
 		});
 
 		enter === 'true' && self.element.on('keydown', 'input', function(e) {
-			e.keyCode === 13 && !self.element.find('button[name="submit"]').get(0).disabled && self.submit(hide);
+			e.keyCode === 13 && !self.find('button[name="submit"]').get(0).disabled && self.submit(hide);
 		});
 	};
 
@@ -100,14 +100,14 @@ COMPONENT('form', function() {
 
 		if (isHidden) {
 			self.release(true);
-			self.element.find('.ui-form').removeClass('ui-form-animate');
+			self.find('.ui-form').removeClass('ui-form-animate');
 			return;
 		}
 
 		self.resize();
 		self.release(false);
 
-		var el = self.element.find('input,select,textarea');
+		var el = self.find('input,select,textarea');
 		el.length && el.eq(0).focus();
 
 		window.$$form_level++;
@@ -115,7 +115,7 @@ COMPONENT('form', function() {
 		self.element.scrollTop(0);
 
 		setTimeout(function() {
-			self.element.find('.ui-form').addClass('ui-form-animate');
+			self.find('.ui-form').addClass('ui-form-animate');
 		}, 300);
 
 		// Fixes a problem with freezing of scrolling in Chrome

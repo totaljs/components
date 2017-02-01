@@ -21,7 +21,7 @@ COMPONENT('contenteditable', function() {
 	self.make = function() {
 
 		self.attr('contenteditable', 'true');
-		self.element.addClass('ui-contenteditable');
+		self.classes('ui-contenteditable');
 
 		self.element.on('selectstart', function() {
 			clearTimeout(timers.selection);
@@ -41,7 +41,7 @@ COMPONENT('contenteditable', function() {
 		});
 
 		self.save = function() {
-			self.getter(self.element.html(), 2, true);
+			self.getter(self.html(), 2, true);
 		};
 
 		self.element.on('click', function(e) {
