@@ -1,7 +1,3 @@
-/**
- * Checkbox
- * @version 2.0.0
- */
 COMPONENT('checkbox', function() {
 
 	var self = this;
