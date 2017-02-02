@@ -39,7 +39,7 @@ COMPONENT('textboxtags', function() {
 			self.append(html);
 		}
 
-		self.element.on('click', function(e) {
+		self.event('click', function(e) {
 			self.find('input').focus();
 		});
 
@@ -67,7 +67,7 @@ COMPONENT('textboxtags', function() {
 			self.change(true);
 		});
 
-		self.element.on('keydown', 'input', function(e) {
+		self.event('keydown', 'input', function(e) {
 
 			if (e.keyCode === 8) {
 				if (this.value)

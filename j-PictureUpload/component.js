@@ -36,11 +36,11 @@ COMPONENT('pictureupload', function() {
 			self.find('input').trigger('click');
 		});
 
-		self.element.on('change', 'input', function(evt) {
+		self.event('change', 'input', function(evt) {
 			self.upload(evt.target.files);
 		});
 
-		self.element.on('dragenter dragover dragexit drop dragleave', function (e) {
+		self.event('dragenter dragover dragexit drop dragleave', function (e) {
 
 			e.stopPropagation();
 			e.preventDefault();

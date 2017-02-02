@@ -19,7 +19,7 @@ COMPONENT('modal', function() {
 		el.find('.ui-modal-body').get(0).appendChild(self.element.get(0));
 		self.classes('-hidden');
 		self.element = el;
-		self.element.on('scroll', function() {
+		self.event('scroll', function() {
 			EMIT('reflow', self.name);
 		});
 

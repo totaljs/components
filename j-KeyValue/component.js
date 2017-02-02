@@ -27,7 +27,7 @@ COMPONENT('keyvalue', function() {
 
 		container = self.find('.ui-keyvalue-items');
 
-		self.element.on('click', '.fa-times', function() {
+		self.event('click', '.fa-times', function() {
 			var el = $(this);
 			var parent = el.closest('.ui-keyvalue-item');
 			var inputs = parent.find('input');
@@ -39,7 +39,7 @@ COMPONENT('keyvalue', function() {
 			self.change(true);
 		});
 
-		self.element.on('change keypress', 'input', function(e) {
+		self.event('change keypress', 'input', function(e) {
 
 			if (e.type !== 'change' && e.keyCode !== 13)
 				return;

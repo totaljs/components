@@ -34,7 +34,7 @@ COMPONENT('cookie', function() {
 		self.append('<button name="agree">' + (self.attr('data-agree') || 'OK') + '</button>');
 		self.append('<button name="cancel">' + (self.attr('data-cancel') || 'Cancel') + '</button>');
 
-		self.element.on('click', 'button', function() {
+		self.event('click', 'button', function() {
 
 			if (this.name === 'cancel')
 				return self.cancel();

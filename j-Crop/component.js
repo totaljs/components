@@ -68,7 +68,7 @@ COMPONENT('crop', function() {
 		canvas = self.find('canvas').get(0);
 		context = canvas.getContext('2d');
 
-		self.element.on('click', 'li', function(e) {
+		self.event('click', 'li', function(e) {
 
 			e.preventDefault();
 			e.stopPropagation();
@@ -169,7 +169,7 @@ COMPONENT('crop', function() {
 			reader.readAsDataURL(files[0]);
 		});
 
-		self.element.on('mousemove mouseup', function (e) {
+		self.event('mousemove mouseup', function (e) {
 
 			if (e.type === 'mouseup') {
 				is && self.change();

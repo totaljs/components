@@ -25,7 +25,7 @@ COMPONENT('colorselector', function() {
 		self.html(builder.join(''));
 		list = self.find('li');
 
-		self.element.on('click', 'li', function(e) {
+		self.event('click', 'li', function(e) {
 			var li = $(this);
 			self.change(true);
 			self.set(colors[parseInt(li.attr('data-index'))]);

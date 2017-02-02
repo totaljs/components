@@ -47,7 +47,7 @@ COMPONENT('dropdowncheckbox', function() {
 		container = self.find('.ui-dropdowncheckbox-values');
 		values = self.find('.ui-dropdowncheckbox-selected');
 
-		self.element.on('click', '.ui-dropdowncheckbox', function(e) {
+		self.event('click', '.ui-dropdowncheckbox', function(e) {
 
 			var el = $(this);
 			if (el.hasClass('ui-disabled'))
@@ -66,7 +66,7 @@ COMPONENT('dropdowncheckbox', function() {
 			e.stopPropagation();
 		});
 
-		self.element.on('click', 'input,label', function(e) {
+		self.event('click', 'input,label', function(e) {
 
 			e.stopPropagation();
 

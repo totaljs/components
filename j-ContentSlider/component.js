@@ -34,7 +34,7 @@ COMPONENT('contentslider', function() {
 		self.classes('-hidden');
 		self.show(indexer++);
 
-		self.element.on('click', '.fa', function() {
+		self.event('click', '.fa', function() {
 			clearInterval(interval);
 			self.show($(this).attr('data-index').parseInt());
 		});

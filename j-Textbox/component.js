@@ -71,7 +71,7 @@ COMPONENT('textbox', function() {
 			icon2 = 'fa-calendar';
 		else if (self.type === 'search') {
 			icon2 = 'fa-search ui-textbox-control-icon';
-			self.element.on('click', '.ui-textbox-control-icon', function() {
+			self.event('click', '.ui-textbox-control-icon', function() {
 				self.$stateremoved = false;
 				$(this).removeClass('fa-times').addClass('fa-search');
 				self.set('');
@@ -86,7 +86,7 @@ COMPONENT('textbox', function() {
 
 		icon2 && builder.push('<div><span class="fa {0}"></span></div>'.format(icon2));
 		increment && !icon2 && builder.push('<div><span class="fa fa-caret-up"></span><span class="fa fa-caret-down"></span></div>');
-		increment && self.element.on('click', '.fa-caret-up,.fa-caret-down', function(e) {
+		increment && self.event('click', '.fa-caret-up,.fa-caret-down', function(e) {
 			var el = $(this);
 			var inc = -1;
 			if (el.hasClass('fa-caret-up'))
@@ -95,7 +95,7 @@ COMPONENT('textbox', function() {
 			self.inc(inc);
 		});
 
-		self.type === 'date' && self.element.on('click', '.fa-calendar', function(e) {
+		self.type === 'date' && self.event('click', '.fa-calendar', function(e) {
 			e.preventDefault();
 			window.$calendar && window.$calendar.toggle($(this).parent().parent(), self.find('input').val(), function(date) {
 				self.set(date);

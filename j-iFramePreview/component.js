@@ -15,7 +15,7 @@ COMPONENT('iframepreview', function() {
         self.classes('ui-iframepreview hidden');
         self.html('<div style="max-width:{0}"><i class="fa fa-times-circle"></i><iframe src="about:blank" frameborder="0" allowfullscreen></div>'.format(self.attr('data-width') || '960px'));
         iframe = self.find('iframe');
-        self.element.on('click', '.fa', self.hide);
+        self.event('click', '.fa', self.hide);
     };
 
     self.open = function(url) {

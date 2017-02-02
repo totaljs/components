@@ -18,7 +18,7 @@ COMPONENT('contextmenu', function() {
 		container = self.find('.ui-contextmenu-items');
 		arrow = self.find('.ui-contextmenu-arrow');
 
-		self.element.on('touchstart mousedown', 'div[data-value]', function(e) {
+		self.event('touchstart mousedown', 'div[data-value]', function(e) {
 			self.callback && self.callback($(this).attr('data-value'), $(self.target));
 			self.hide();
 			e.preventDefault();
@@ -95,7 +95,7 @@ COMPONENT('contextmenu', function() {
 		}
 
 		var options = { left: orientation === 'center' ? Math.ceil((offset.left - self.element.width() / 2) + (target.innerWidth() / 2)) : orientation === 'left' ? offset.left - 8 : (offset.left - self.element.width()) + target.innerWidth(), top: offset.top + target.innerHeight() + 10 };
-		self.element.css(options);
+		self.css(options);
 
 		if (is)
 			return;

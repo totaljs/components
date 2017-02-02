@@ -8,11 +8,11 @@ COMPONENT('confirm', function() {
 
 	self.make = function() {
 		self.toggle('ui-confirm hidden', true);
-		self.element.on('click', 'button', function() {
+		self.event('click', 'button', function() {
 			self.hide($(this).attr('data-index').parseInt());
 		});
 
-		self.element.on('click', function(e) {
+		self.event('click', function(e) {
 			if (e.target.tagName !== 'DIV')
 				return;
 			var el = self.find('.ui-confirm-body');

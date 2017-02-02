@@ -12,7 +12,7 @@ COMPONENT('click', function() {
 	};
 
 	self.make = function() {
-		self.element.on('click', self.click);
+		self.event('click', self.click);
 		var enter = self.attr('data-enter');
 		enter && $(enter === '?' ? self.scope : enter).on('keydown', 'input', function(e) {
 			e.keyCode === 13 && setTimeout(function() {

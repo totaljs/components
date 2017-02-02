@@ -31,11 +31,10 @@ COMPONENT('form', function() {
 	}
 
 	self.readonly();
-	self.submit = function(hide) { self.hide(); };
-	self.cancel = function(hide) { self.hide(); };
+	self.submit = self.cancel = function(hide) { self.hide(); };
 	self.onHide = function(){};
 
-	var hide = self.hide = function() {
+	self.hide = function() {
 		self.set('');
 		self.onHide();
 	};
@@ -67,7 +66,7 @@ COMPONENT('form', function() {
 		self.classes('-hidden');
 		self.element = el;
 
-		self.element.on('scroll', function() {
+		self.event('scroll', function() {
 			EMIT('reflow', self.name);
 		});
 
@@ -75,16 +74,16 @@ COMPONENT('form', function() {
 			window.$$form_level--;
 			switch (this.name) {
 				case 'submit':
-					self.submit(hide);
+					self.submit(self.hide);
 					break;
 				case 'cancel':
-					!this.disabled && self[this.name](hide);
+					!this.disabled && self[this.name](self.hide);
 					break;
 			}
 		});
 
-		enter === 'true' && self.element.on('keydown', 'input', function(e) {
-			e.keyCode === 13 && !self.find('button[name="submit"]').get(0).disabled && self.submit(hide);
+		enter === 'true' && self.event('keydown', 'input', function(e) {
+			e.keyCode === 13 && !self.find('button[name="submit"]').get(0).disabled && self.submit(self.hide);
 		});
 	};
 
@@ -95,7 +94,7 @@ COMPONENT('form', function() {
 		}, 50);
 
 		var isHidden = !EVALUATE(self.path, self.condition);
-		self.element.toggleClass('hidden', isHidden);
+		self.toggle('hidden', isHidden);
 		EMIT('reflow', self.name);
 
 		if (isHidden) {
@@ -111,7 +110,7 @@ COMPONENT('form', function() {
 		el.length && el.eq(0).focus();
 
 		window.$$form_level++;
-		self.element.css('z-index', window.$$form_level * 10);
+		self.css('z-index', window.$$form_level * 10);
 		self.element.scrollTop(0);
 
 		setTimeout(function() {
@@ -120,7 +119,7 @@ COMPONENT('form', function() {
 
 		// Fixes a problem with freezing of scrolling in Chrome
 		setTimeout2(self.id, function() {
-			self.element.css('z-index', (window.$$form_level * 10) + 1);
+			self.css('z-index', (window.$$form_level * 10) + 1);
 		}, 1000);
 	};
 });

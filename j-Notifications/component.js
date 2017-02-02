@@ -10,9 +10,9 @@ COMPONENT('notifications', function() {
 
 	self.make = function() {
 
-		self.element.addClass('ui-notification-container');
+		self.classes('ui-notification-container');
 
-		self.element.on('click', '.fa-times-circle', function() {
+		self.event('click', '.fa-times-circle', function() {
 			var el = $(this).closest('.ui-notification');
 			self.close(+el.attr('data-id'));
 			clearTimeout(autoclosing);
@@ -20,11 +20,11 @@ COMPONENT('notifications', function() {
 			self.autoclose();
 		});
 
-		self.element.on('click', 'a,button', function() {
+		self.event('click', 'a,button', function() {
 			e.stopPropagation();
 		});
 
-		self.element.on('click', '.ui-notification', function(e) {
+		self.event('click', '.ui-notification', function(e) {
 			var el = $(this);
 			var id = +el.attr('data-id');
 			var obj = self.items[id];

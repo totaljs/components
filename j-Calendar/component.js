@@ -120,7 +120,7 @@ COMPONENT('calendar', function() {
 		var off = el.offset();
 		var h = el.innerHeight();
 
-		self.element.css({ left: off.left + (offset || 0), top: off.top + h + 12 }).removeClass('hidden');
+		self.css({ left: off.left + (offset || 0), top: off.top + h + 12 }).removeClass('hidden');
 		self.click = callback;
 		self.date(value);
 		visible = true;
@@ -131,13 +131,13 @@ COMPONENT('calendar', function() {
 
 		self.classes('ui-calendar hidden');
 
-		self.element.on('click', '.ui-calendar-today', function() {
+		self.event('click', '.ui-calendar-today', function() {
 			var dt = new Date();
 			self.hide();
 			self.click && self.click(dt);
 		});
 
-		self.element.on('click', '.ui-calendar-day', function() {
+		self.event('click', '.ui-calendar-day', function() {
 			var arr = this.getAttribute('data-date').split('-');
 			var dt = new Date(parseInt(arr[0]), parseInt(arr[1]), parseInt(arr[2]));
 			self.find('.ui-calendar-selected').removeClass('ui-calendar-selected');
@@ -147,7 +147,7 @@ COMPONENT('calendar', function() {
 			self.click && self.click(dt);
 		});
 
-		self.element.on('click', 'button', function(e) {
+		self.event('click', 'button', function(e) {
 
 			e.preventDefault();
 			e.stopPropagation();

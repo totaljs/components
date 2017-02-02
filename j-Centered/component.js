@@ -5,7 +5,7 @@ COMPONENT('centered', function() {
 		self.classes('ui-centered-container hidden');
 		self.element.wrapInner('<div class="ui-centered-content"><div class="ui-centered-body"></div></div>');
 		self.element.prepend('<span class="fa fa-times ui-centered-button"></span>');
-		self.element.on('click', '.ui-centered-button', function() {
+		self.event('click', '.ui-centered-button', function() {
 			self.set('');
 		});
 	};

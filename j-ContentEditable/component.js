@@ -23,14 +23,14 @@ COMPONENT('contenteditable', function() {
 		self.attr('contenteditable', 'true');
 		self.classes('ui-contenteditable');
 
-		self.element.on('selectstart', function() {
+		self.event('selectstart', function() {
 			clearTimeout(timers.selection);
 			timers.selection = setTimeout(function() {
 				self.event('select', self.getSelection());
 			}, 500);
 		});
 
-		self.element.on('focus', function() {
+		self.event('focus', function() {
 			clearTimeout(timers.focused);
 			clearInterval(timers.changes);
 			self.focused = true;
@@ -44,11 +44,11 @@ COMPONENT('contenteditable', function() {
 			self.getter(self.html(), 2, true);
 		};
 
-		self.element.on('click', function(e) {
+		self.event('click', function(e) {
 			e.target && self.event('click', e.target);
 		});
 
-		self.element.on('blur', function() {
+		self.event('blur', function() {
 			clearTimeout(timers.focused);
 			clearInterval(timers.changes);
 			self.save();
@@ -58,14 +58,14 @@ COMPONENT('contenteditable', function() {
 			}, 200);
 		});
 
-		self.element.on('paste', function(e) {
+		self.event('paste', function(e) {
 			e.preventDefault();
 			e.stopPropagation();
 			var text = e.originalEvent.clipboardData.getData(self.attr('data-clipboard') || 'text/plain');
 			self.event('paste', text);
 		});
 
-		self.element.on('keydown', function(e) {
+		self.event('keydown', function(e) {
 
 			clearTimeout(timers.keypress);
 			timers.keypress = setTimeout(function() {
@@ -208,6 +208,6 @@ COMPONENT('contenteditable', function() {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		self.element.toggleClass('ui-contenteditable-invalid', self.isInvalid());
+		self.toggle('ui-contenteditable-invalid', invalid);
 	};
 });

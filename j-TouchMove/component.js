@@ -11,7 +11,7 @@ COMPONENT('touchmove', function() {
 		if (!diff)
 			diff = 80;
 
-		self.element.on('touchstart touchmove', function(e) {
+		self.event('touchstart touchmove', function(e) {
 
 			var x = e.originalEvent.touches[0].pageX;
 			var y = e.originalEvent.touches[0].pageY;
@@ -25,7 +25,7 @@ COMPONENT('touchmove', function() {
 			var diffX = begX - x;
 			var diffY = begY - y;
 			var path;
-          
+
 			if (diffX > diff) {
 				// prev
 				path = self.element.attr('data-next');
@@ -42,7 +42,7 @@ COMPONENT('touchmove', function() {
 
 			if (!path)
 				return;
- 
+
 			self.get(path)();
 			e.preventDefault();
 			e.stopPropagation();

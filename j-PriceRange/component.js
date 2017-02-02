@@ -23,7 +23,7 @@ COMPONENT('pricerange', function() {
 		slider = self.find('.ui-pricerange-slider-value');
 		container = self.find('.ui-pricerange-slider');
 
-		self.element.on('mousemove mouseup mouseleave touchend touchcancel touchmove', function(e) {
+		self.event('mousemove mouseup mouseleave touchend touchcancel touchmove', function(e) {
 
 			if (!drag.is)
 				return;

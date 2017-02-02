@@ -20,14 +20,14 @@ COMPONENT('autocomplete', function() {
 		self.html('<div class="ui-autocomplete"><ul></ul></div>');
 		container = self.find('ul');
 
-		self.element.on('click', 'li', function(e) {
+		self.event('click', 'li', function(e) {
 			e.preventDefault();
 			e.stopPropagation();
 			onCallback && onCallback(datasource[+$(this).attr('data-index')], old);
 			self.visible(false);
 		});
 
-		self.element.on('mouseenter mouseleave', 'li', function(e) {
+		self.event('mouseenter mouseleave', 'li', function(e) {
 			$(this).toggleClass('selected', e.type === 'mouseenter');
 		});
 
@@ -95,7 +95,7 @@ COMPONENT('autocomplete', function() {
 
 	self.visible = function(visible) {
 		clearTimeout(blurtimeout);
-		self.element.toggleClass('hidden', !visible);
+		self.toggle('hidden', !visible);
 		is = visible;
 	};
 
@@ -115,7 +115,7 @@ COMPONENT('autocomplete', function() {
 		if (margin.width)
 			offset.width += margin.width;
 
-		self.element.css(offset);
+		self.css(offset);
 	};
 
 	self.attach = function(input, search, callback, top, left, width) {

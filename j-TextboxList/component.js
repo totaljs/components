@@ -21,7 +21,7 @@ COMPONENT('textboxlist', function() {
 		self.html((html ? '<div class="ui-textboxlist-label">{1}{0}:</div>'.format(html, icon) : '') + '<div class="ui-textboxlist-items"></div>' + self.template(empty).replace('-item"', '-item ui-textboxlist-base"'));
 		container = self.find('.ui-textboxlist-items');
 
-		self.element.on('click', '.fa-times', function() {
+		self.event('click', '.fa-times', function() {
 			var el = $(this);
 			var parent = el.closest('.ui-textboxlist-item');
 			var value = parent.find('input').val();
@@ -38,7 +38,7 @@ COMPONENT('textboxlist', function() {
 			self.change(true);
 		});
 
-		self.element.on('change keypress', 'input', function(e) {
+		self.event('change keypress', 'input', function(e) {
 
 			if (e.type !== 'change' && e.keyCode !== 13)
 				return;

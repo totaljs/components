@@ -13,7 +13,7 @@ COMPONENT('pagination', function() {
 		self.append('<div></div><nav></nav>');
 		nav = self.find('nav');
 		info = self.find('div');
-		self.element.on('click', 'a', function(e) {
+		self.event('click', 'a', function(e) {
 			e.preventDefault();
 			e.stopPropagation();
 			var el = $(this);
@@ -115,8 +115,8 @@ COMPONENT('pagination', function() {
 			pluralize_pages.push.apply(pluralize_pages, self.attr('data-pages').split(',').trim());
 			pluralize_items.push.apply(pluralize_items, self.attr('data-items').split(',').trim());
 			info.empty().append(Tangular.helpers.pluralize.apply(value, pluralize_pages) + ' / ' + Tangular.helpers.pluralize.apply(value, pluralize_items));
-			self.element.toggleClass('hidden', false);
-		} else
-			self.element.toggleClass('hidden', true);
+		}
+
+		self.classes((cachePages > 1 ? '-' : '') + 'hidden');
 	};
 });

@@ -16,7 +16,7 @@ COMPONENT('radiobutton', function() {
 		});
 
 		self.classes('ui-radiobutton');
-		self.element.on('click', 'span', function(e) {
+		self.event('click', 'span', function(e) {
 			var value = self.parser($(this).attr('data-value'));
 			self.dirty(false, true);
 			self.getter(value, 2);

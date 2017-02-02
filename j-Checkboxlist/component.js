@@ -17,7 +17,7 @@ COMPONENT('checkboxlist', function() {
 
 	self.make = function() {
 
-		self.element.on('click', 'input', function() {
+		self.event('click', 'input', function() {
 			var arr = self.get() || [];
 			var value = self.parser(this.value);
 			var index = arr.indexOf(value);
@@ -28,7 +28,7 @@ COMPONENT('checkboxlist', function() {
 			self.set(arr);
 		});
 
-		self.element.on('click', '.ui-checkboxlist-selectall', function() {
+		self.event('click', '.ui-checkboxlist-selectall', function() {
 			var arr = [];
 			var inputs = self.find('input');
 			var value = self.get();

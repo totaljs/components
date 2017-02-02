@@ -26,7 +26,7 @@ COMPONENT('banners', function() {
 
 		self.button(indexer);
 
-		self.element.on('click', '.fa', function() {
+		self.event('click', '.fa', function() {
 			self.show($(this).parent().index());
 		});
 	};

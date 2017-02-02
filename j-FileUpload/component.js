@@ -13,7 +13,7 @@ COMPONENT('fileupload', function() {
 
 		var input = $('#' + id);
 
-		self.element.on('click', function() {
+		self.event('click', function() {
 			input.click();
 		});
 

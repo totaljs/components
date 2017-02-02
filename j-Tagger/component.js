@@ -24,7 +24,6 @@ COMPONENT('tagger', function() {
 			return;
 		}
 
-		// self.element.toggleClass('transparent', true).removeClass('hidden');
 		elements.each(function() {
 
 			var name = this.getAttribute('data-name');
@@ -88,10 +87,7 @@ COMPONENT('tagger', function() {
 			if (val) {
 				if (this.innerHTML !== val)
 					this.innerHTML = (before ? before : '') + val + (after ? after : '');
-				return;
-			}
-
-			if (this.innerHTML !== cache.def)
+			} else if (this.innerHTML !== cache.def)
 				this.innerHTML = cache.def;
 		});
 

@@ -3,7 +3,7 @@ COMPONENT('exec', function() {
 	self.readonly();
 	self.blind();
 	self.make = function() {
-		self.element.on('click', self.attr('data-selector') || '.exec', function() {
+		self.event('click', self.attr('data-selector') || '.exec', function() {
 			var el = $(this);
 			var attr = el.attr('data-exec');
 			var path = el.attr('data-path');

@@ -16,13 +16,13 @@ COMPONENT('datagrid', function() {
 	self.make = function() {
 		self.classes('ui-datagrid');
 
-		self.element.on('change', 'input', function() {
+		self.event('change', 'input', function() {
 			var el = $(this);
 			var index = parseInt(el.closest('.ui-datagrid-row').attr('data-index'));
 			self.onCheckbox && self.onCheckbox(index, self.get()[index], el.prop('checked'), el);
 		});
 
-		self.element.on('click', 'button', function() {
+		self.event('click', 'button', function() {
 			var el = $(this);
 			var index = parseInt(el.closest('.ui-datagrid-row').attr('data-index'));
 			self.onButton && self.onButton(index, self.get()[index], el.attr('name'), el);

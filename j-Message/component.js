@@ -10,7 +10,7 @@ COMPONENT('message', function() {
 	self.make = function() {
 		self.classes('ui-message hidden');
 
-		self.element.on('click', 'button', function() {
+		self.event('click', 'button', function() {
 			self.hide();
 		});
 
