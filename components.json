@@ -96,5 +96,6 @@
 	"j-Clipboard",
 	"Mailify",
 	"j-KeyValue",
-	"j-Modal"
+	"j-Modal",
+	"j-SelectBox"
 ]
