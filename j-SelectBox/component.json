@@ -1,11 +1,11 @@
 {
-	"datecreated": "2016-04-28T11:18:11.392Z",
-	"dateupdated": "2016-09-08T10:08:00.000Z",
-	"name": "j-Rating",
+	"datecreated": "2017-02-02T11:40:00.000Z",
+	"dateupdated": null,
+	"name": "j-SelectBox",
 	"tags": [
 		"jcomponent"
 	],
-	"color": "orange",
+	"color": "silver",
 	"version": 1,
 	"responsive": true,
 	"picture": "picture.jpg",
