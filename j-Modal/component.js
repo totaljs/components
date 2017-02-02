@@ -33,7 +33,7 @@ COMPONENT('modal', function() {
 
 		setTimeout2(self.id + '.scroll', function() {
 			$('html').toggleClass('ui-modal-noscroll', $('.ui-modal-container').not('.hidden').length ? true : false);
-		}, 50);
+		}, 100);
 
 		var isHidden = !EVALUATE(self.path, self.condition);
 		if (self.element.hasClass('hidden') && isHidden)
