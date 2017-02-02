@@ -7,11 +7,11 @@ __Attributes__:
 - `data-jc-type=""` (optional), supports __number__, default __empty__
 - `data-required="true"` (optional) the field must have some value, default __false__
 - `data-options="Text 1|Value 1;Text 2|Value 2"` - for inline items
-- `data-empty` - add an empty field as the first item (works only with `data-source` attribute)
 - `data-source="path to the array"` - data-source of items
 - `data-source-text="name"` (optional) property name for gettint the text, default __text__
 - `data-source-value="id"` (optional) property name for getting the value, default __id__
 - `data-search="PLACEHOLDER TEXT"` (optional) shows search bar
+- `data-height="200px"` (optional) height of component (default: `200px`)
 
 __Methods__:
 - `component.required(value)` - can enable/disable `required` with validation
