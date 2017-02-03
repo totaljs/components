@@ -18,7 +18,7 @@ COMPONENT('websocket', function() {
 	};
 
 	self.send = function(obj) {
-		ws && ws.send(JSON.stringify(encodeURIComponent(obj)));
+		ws && ws.send(encodeURIComponent(JSON.stringify(obj)));
 		return self;
 	};
 
