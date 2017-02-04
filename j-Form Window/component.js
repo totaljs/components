@@ -106,7 +106,7 @@ COMPONENT('form', function() {
 		self.resize();
 		self.release(false);
 
-		var el = self.find('input,select,textarea');
+		var el = self.find('input[type="text"],select,textarea');
 		el.length && el.eq(0).focus();
 
 		window.$$form_level++;

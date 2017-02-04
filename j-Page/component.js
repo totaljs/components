@@ -21,6 +21,7 @@ COMPONENT('page', function() {
 		if (isProcessed || !is) {
 			el.toggleClass('hidden', !is);
 			is && reload && self.get(reload)();
+			self.release(!is);
 			return;
 		}
 
