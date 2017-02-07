@@ -1,12 +1,12 @@
 {
 	"datecreated": "2016-03-17T21:45:20.422Z",
-	"dateupdated": "2016-10-16T09:09:29.000Z",
+	"dateupdated": "2017-02-07T09:23:29.000Z",
 	"name": "j-Expander",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 2,
+	"version": 3,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
