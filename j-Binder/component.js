@@ -60,17 +60,17 @@ COMPONENT('binder', function() {
 	self.scan = function() {
 		keys = {};
 		keys_unique = {};
-		self.find('[data-binder]').each(function() {
+		self.find('[data-b]').each(function() {
 
 			var el = $(this);
-			var path = el.attr('data-binder');
+			var path = el.attr('data-b');
 			var arr = path.split('.');
 			var p = '';
 
-			var classes = el.attr('data-binder-class');
-			var html = el.attr('data-binder-html');
-			var visible = el.attr('data-binder-visible');
-			var obj = el.data('data-binder');
+			var classes = el.attr('data-b-class');
+			var html = el.attr('data-b-html');
+			var visible = el.attr('data-b-visible');
+			var obj = el.data('data-b');
 
 			keys_unique[path] = true;
 
@@ -94,7 +94,7 @@ COMPONENT('binder', function() {
 					tmp.length && tmp.remove();
 				}
 
-				el.data('data-binder', obj);
+				el.data('data-b', obj);
 			}
 
 			for (var i = 0, length = arr.length; i < length; i++) {
