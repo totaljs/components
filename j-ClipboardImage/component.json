@@ -1,0 +1,16 @@
+{
+	"datecreated": "2017-02-09T10:00:00.000Z",
+	"dateupdated": null,
+	"name": "j-ClipboardImage",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

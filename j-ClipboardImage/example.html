@@ -1,0 +1,10 @@
+<div data-jc="clipboardimage" data-quality="90"></div>
+<div id="output"></div>
+
+<script>
+	ON('clipboardimage', function(base64) {
+		var img = new Image();
+		img.src = base64;
+		$('#output').empty().append(img);
+	});
+</script>
