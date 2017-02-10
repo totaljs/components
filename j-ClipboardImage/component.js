@@ -8,7 +8,6 @@ COMPONENT('clipboardimage', function() {
 	self.blind();
 
 	self.make = function() {
-
 		self.classes('hidden');
 		self.append('<canvas></canvas><img src="data:image/png;base64,R0lGODdhAQABAIAAAHnrWAAAACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw==" />');
 		canvas = self.find('canvas').get(0);
@@ -25,8 +24,10 @@ COMPONENT('clipboardimage', function() {
 			var blob = item.getAsFile();
 			var reader = new FileReader();
 			reader.onload = function(e) {
+				img.onload = function() {
+					self.resize();
+				};
 				img.src = e.target.result;
-				self.resize();
 			};
 			reader.readAsDataURL(blob);
 		});
