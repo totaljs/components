@@ -98,5 +98,6 @@
 	"j-KeyValue",
 	"j-Modal",
 	"j-SelectBox",
-	"j-ClipboardImage"
+	"j-ClipboardImage",
+	"j-NativeNotifications"
 ]
