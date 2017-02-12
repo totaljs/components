@@ -1,6 +1,8 @@
-<div data-jc="nativenotifications"></div>
+<div data-jc="nativenotifications" data-jc-path="allowNotifications"></div>
 
 <script>
+	var allowNotifications = true;
+
 	setTimeout(function() {
 		SETTER('nativenotifications', 'append', 'Hello!', 'jComponent is a great solution for everyone.', null, null);
 	}, 3000);
