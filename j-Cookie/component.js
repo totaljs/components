@@ -31,8 +31,7 @@ COMPONENT('cookie', function() {
 		}
 
 		self.classes('-hidden ui-cookie');
-		self.append('<button name="agree">' + (self.attr('data-agree') || 'OK') + '</button>');
-		self.append('<button name="cancel">' + (self.attr('data-cancel') || 'Cancel') + '</button>');
+		self.append('<button name="agree">{0}</button><button name="cancel">{1}</button>'.format(self.attr('data-agree') || 'OK', self.attr('data-cancel') || 'Cancel'));
 
 		self.event('click', 'button', function() {
 
