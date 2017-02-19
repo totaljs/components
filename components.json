@@ -99,5 +99,6 @@
 	"j-Modal",
 	"j-SelectBox",
 	"j-ClipboardImage",
-	"j-NativeNotifications"
+	"j-NativeNotifications",
+	"j-FontAwesome"
 ]
