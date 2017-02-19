@@ -1,6 +1,6 @@
 ## j-FontAwesome
 
-A simple __FontAwesome__ viewer with fulltext searching. Supports a __recent__ feature.
+A simple __FontAwesome__ viewer with fulltext searching. Supports a __recent__ feature and it's responsive.
 
 __Attributes__:
 - `data-search` a placeholder for search input
