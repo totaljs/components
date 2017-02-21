@@ -6,7 +6,7 @@
 .ui-dropdowncheckbox-label .fa { width: 14px; }
 .ui-dropdowncheckbox-label { margin-bottom: 5px; font-size: 12px; color: gray; }
 .ui-dropdowncheckbox-label-required:before { color: red; content: '***'; margin-right: 5px; }
-.ui-dropdowncheckbox-values { position: absolute; width: 100%; z-index: 2; background-color: white; border: 1px solid #E0E0E0; padding: 5px 10px; border-radius: 3px; line-height: 18px; margin-top: -1px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 12px; }
+.ui-dropdowncheckbox-values { position: absolute; width: 100%; z-index: 2; background-color: white; border: 1px solid #E0E0E0; padding: 5px 10px; border-radius: 3px; line-height: 18px; margin-top: -1px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 12px; overflow: auto; max-height: 300px; }
 .ui-dropdowncheckbox-values label { cursor: pointer; vertical-align: middle; }
 .ui-dropdowncheckbox-values input { vertical-align: middle; }
 .ui-dropdowncheckbox-values span { margin-left: 5px; vertical-align: middle; }
