@@ -10,8 +10,7 @@ COMPONENT('disable', function() {
 		condition = self.attr('data-if');
 		selector = self.attr('data-selector') || 'input,texarea,select';
 		validate = self.attr('data-validate');
-		if (validate)
-			validate = validate.split(',').trim();
+		validate && (validate = validate.split(',').trim());
 	};
 
 	self.setter = function(value) {
@@ -32,7 +31,7 @@ COMPONENT('disable', function() {
 				el.toggleClass('ui-disabled', is);
 		});
 
-		validate && validate.forEach(FN('n => jC.reset(n)'));
+		validate && validate.forEach(FN('n => jC.reset({0}n)'.format(self.pathscope ? '\'' + self.pathscope + '.\'+' : '')));
 	};
 
 	self.state = function(type) {
