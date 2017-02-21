@@ -16,7 +16,7 @@ COMPONENT('autocomplete', function() {
 	self.singleton();
 
 	self.make = function() {
-		self.classes('ui-autocomplete-container');
+		self.classes('ui-autocomplete-container hidden');
 		self.html('<div class="ui-autocomplete"><ul></ul></div>');
 		container = self.find('ul');
 
