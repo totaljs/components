@@ -6,6 +6,7 @@ COMPONENT('dropdowncheckbox', function() {
 	var container;
 	var data = [];
 	var values;
+	var prepared = false;
 
 	if (!window.$dropdowncheckboxtemplate)
 		window.$dropdowncheckboxtemplate = Tangular.compile('<div><label><input type="checkbox" value="{{ index }}" /><span>{{ text }}</span></label></div>');
@@ -99,13 +100,13 @@ COMPONENT('dropdowncheckbox', function() {
 
 		var ds = self.attr('data-source');
 
-		if (!ds)
-			return;
-
-		self.watch(ds, prepare);
-		setTimeout(function() {
-			prepare(ds, GET(ds));
-		}, 500);
+		if (ds) {
+			self.watch(ds, prepare);
+			setTimeout(function() {
+				prepare(ds, GET(ds));
+			}, 500);
+		} else
+			prepared = true;
 	};
 
 	function prepare(path, value) {
@@ -114,6 +115,7 @@ COMPONENT('dropdowncheckbox', function() {
 			return;
 
 		var clsempty = 'ui-dropdowncheckbox-values-empty';
+		prepared = true;
 
 		if (!value) {
 			container.addClass(clsempty).empty().html(self.attr('data-empty'));
@@ -142,7 +144,7 @@ COMPONENT('dropdowncheckbox', function() {
 
 	self.setter = function(value) {
 
-		if (NOTMODIFIED(self.id, value))
+		if (!prepared || NOTMODIFIED(self.id, value))
 			return;
 
 		var label = '';
@@ -165,8 +167,7 @@ COMPONENT('dropdowncheckbox', function() {
 					is = true;
 				}
 
-				if (!is)
-					remove.push(selected);
+				!is && remove.push(selected);
 			}
 
 			var refresh = false;
@@ -179,8 +180,7 @@ COMPONENT('dropdowncheckbox', function() {
 				refresh = true;
 			}
 
-			if (refresh)
-				MAN.set(self.path, value);
+			refresh && MAN.set(self.path, value);
 		}
 
 		container.find('input').each(function() {
@@ -190,8 +190,7 @@ COMPONENT('dropdowncheckbox', function() {
 				checked = false;
 			else if (data[index])
 				checked = data[index];
-			if (checked)
-				checked = value.indexOf(checked.value) !== -1;
+			checked && (checked = value.indexOf(checked.value) !== -1);
 			this.checked = checked;
 		});
 
@@ -201,12 +200,10 @@ COMPONENT('dropdowncheckbox', function() {
 			MAN.set(self.path, []);
 		}
 
-		if (!label && empty) {
+		if (!label && empty)
 			values.html('<span>{0}</span>'.format(empty));
-			return;
-		}
-
-		values.html(label);
+		else
+			values.html(label);
 	};
 
 	self.state = function(type) {
@@ -218,9 +215,9 @@ COMPONENT('dropdowncheckbox', function() {
 
 	window.$dropdowncheckboxevent = true;
 	$(document).on('click', function(e) {
-		if (!window.$dropdowncheckboxelement)
-			return;
-		window.$dropdowncheckboxelement.addClass('hidden');
-		window.$dropdowncheckboxelement = null;
+		if (window.$dropdowncheckboxelement) {
+			window.$dropdowncheckboxelement.addClass('hidden');
+			window.$dropdowncheckboxelement = null;
+		}
 	});
 });
