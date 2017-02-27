@@ -102,5 +102,6 @@
 	"j-NativeNotifications",
 	"j-FontAwesome",
 	"j-Shortcuts",
-	"j-FileReader"
+	"j-FileReader",
+	"j-RepeaterGroup"
 ]
