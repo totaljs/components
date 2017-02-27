@@ -101,5 +101,6 @@
 	"j-ClipboardImage",
 	"j-NativeNotifications",
 	"j-FontAwesome",
-	"j-Shortcuts"
+	"j-Shortcuts",
+	"j-FileReader"
 ]

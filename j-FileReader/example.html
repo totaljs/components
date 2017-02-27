@@ -1,0 +1,10 @@
+<div data-jc="filereader"></div>
+<a href="javascript:fopen()">OPEN FILE</a>
+
+<script>
+	function fopen() {
+		SETTER('filereader', 'open', function(file) {
+			$(document.body).append('<div><pre><code>{0}</code></pre></div>'.format(JSON.stringify(file, null, '    ').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')));
+		});
+	}
+</script>
