@@ -32,6 +32,7 @@ COMPONENT('keyvalue', function() {
 			var parent = el.closest('.ui-keyvalue-item');
 			var inputs = parent.find('input');
 			var obj = self.get();
+			!obj && (obj = {});
 			var key = inputs.get(0).value;
 			parent.remove();
 			delete obj[key];
@@ -59,6 +60,7 @@ COMPONENT('keyvalue', function() {
 
 			if (base) {
 				var tmp = self.get();
+				!tmp && (tmp = {});
 				tmp[key] = value;
 				self.set(tmp);
 				self.change(true);
