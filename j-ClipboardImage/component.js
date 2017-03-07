@@ -46,10 +46,10 @@ COMPONENT('clipboardimage', function() {
 
 		if (canvas.width > maxW) {
 			canvas.width = maxW;
-			canvas.height = (img.width / (img.width / img.height)) >> 0;
+			canvas.height = (maxW / (img.width / img.height)) >> 0;
 		} else if (canvas.height > maxH) {
 			canvas.height = maxH;
-			canvas.width = (img.height / (img.width / img.height)) >> 0;
+			canvas.width = (maxH / (img.width / img.height)) >> 0;
 		}
 
 		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
