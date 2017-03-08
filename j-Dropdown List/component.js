@@ -88,7 +88,7 @@ COMPONENT('dropdown', function() {
 		if (!ds)
 			return;
 
-		var prerender = function(path) {
+		var prerender = function() {
 			var value = self.get(self.attr('data-source'));
 			!NOTMODIFIED(self.id, value) && self.render(value || EMPTYARRAY);
 		};
@@ -96,7 +96,7 @@ COMPONENT('dropdown', function() {
 		self.watch(ds, prerender, true);
 	};
 
-	self.state = function(type, who) {
+	self.state = function(type) {
 		if (!type)
 			return;
 		var invalid = self.isInvalid();

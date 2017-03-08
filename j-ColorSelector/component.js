@@ -7,7 +7,7 @@ COMPONENT('colorselector', function() {
 	var required = self.attr('data-required') === 'true';
 
 	self.validate = function(value) {
-		return colors.indexOf(value) === -1
+		return colors.indexOf(value) === -1;
 	};
 
 	if (!required)
@@ -25,20 +25,19 @@ COMPONENT('colorselector', function() {
 		self.html(builder.join(''));
 		list = self.find('li');
 
-		self.event('click', 'li', function(e) {
+		self.event('click', 'li', function() {
 			var li = $(this);
 			self.change(true);
-			self.set(colors[parseInt(li.attr('data-index'))]);
+			self.set(colors[+li.attr('data-index')]);
 		});
 	};
 
 	self.setter = function(value) {
 		var index = colors.indexOf(value);
-		if (selected)
-			selected.removeClass('selected');
-		if (index === -1)
-			return;
-		selected = list.eq(index);
-		selected.addClass('selected');
+		selected && selected.removeClass('selected');
+		if (index !== -1) {
+			selected = list.eq(index);
+			selected.addClass('selected');
+		}
 	};
 });

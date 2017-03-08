@@ -34,7 +34,7 @@ COMPONENT('disable', function() {
 		validate && validate.forEach(FN('n => jC.reset({0}n)'.format(self.pathscope ? '\'' + self.pathscope + '.\'+' : '')));
 	};
 
-	self.state = function(type) {
+	self.state = function() {
 		self.update();
 	};
 });

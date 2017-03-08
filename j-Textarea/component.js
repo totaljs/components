@@ -55,7 +55,6 @@ COMPONENT('textarea', function() {
 			return;
 		}
 
-		var height = self.attr('data-height');
 		var icon = self.attr('data-icon');
 		var html = builder.join('');
 

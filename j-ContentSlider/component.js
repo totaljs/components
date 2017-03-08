@@ -1,15 +1,14 @@
 COMPONENT('contentslider', function() {
 
 	var self = this;
-	var index = 0;
 	var cssv = 'ui-contentslider-item-visible';
 	var cssi = 'ui-contentslider-item';
 	var cssp = 'ui-contentslider-pagination';
 	var css = { 'min-height': 0 };
 	var container;
-	var indexer = 0;
 	var length = 0;
 	var cacheid;
+	var interval;
 
 	self.readonly();
 	self.blind();

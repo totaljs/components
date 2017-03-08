@@ -127,7 +127,7 @@ COMPONENT('contenteditable', function() {
 		});
 	};
 
-	self.reset = function(blur) {
+	self.reset = function() {
 		var keys = Object.keys(current);
 		for (var i = 0, length = keys.length; i < length; i++) {
 			var key = keys[i];
@@ -201,7 +201,7 @@ COMPONENT('contenteditable', function() {
 		self.html(value ? value.toString() : '');
 	};
 
-	self.state = function(type, who) {
+	self.state = function(type) {
 		if (!type)
 			return;
 		var invalid = self.isInvalid();

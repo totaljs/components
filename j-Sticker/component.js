@@ -11,10 +11,11 @@ COMPONENT('sticker', function() {
 
 	self.init = function() {
 		window.$stickercounter = 0;
-		$(window).on('scroll', function(e) {
+		$(window).on('scroll', function() {
 			if (window.$stickercounter < 20)
 				clearTimeout(window.$sticker);
-			else return;
+			else
+				return;
 			window.$stickercounter++;
 			window.$sticker = setTimeout(function() {
 				window.$stickercounter = 0;

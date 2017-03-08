@@ -86,7 +86,7 @@ COMPONENT('textbox', function() {
 
 		icon2 && builder.push('<div><span class="fa {0}"></span></div>'.format(icon2));
 		increment && !icon2 && builder.push('<div><span class="fa fa-caret-up"></span><span class="fa fa-caret-down"></span></div>');
-		increment && self.event('click', '.fa-caret-up,.fa-caret-down', function(e) {
+		increment && self.event('click', '.fa-caret-up,.fa-caret-down', function() {
 			var el = $(this);
 			var inc = -1;
 			if (el.hasClass('fa-caret-up'))
@@ -123,7 +123,7 @@ COMPONENT('textbox', function() {
 		container = self.find('.ui-textbox');
 	};
 
-	self.state = function(type, who) {
+	self.state = function(type) {
 		if (!type)
 			return;
 		var invalid = self.isInvalid();

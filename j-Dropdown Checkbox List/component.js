@@ -2,7 +2,6 @@ COMPONENT('dropdowncheckbox', function() {
 
 	var self = this;
 	var required = self.element.attr('data-required') === 'true';
-	var datasource = '';
 	var container;
 	var data = [];
 	var values;
@@ -206,7 +205,7 @@ COMPONENT('dropdowncheckbox', function() {
 			values.html(label);
 	};
 
-	self.state = function(type) {
+	self.state = function() {
 		self.find('.ui-dropdowncheckbox').toggleClass('ui-dropdowncheckbox-invalid', self.isInvalid());
 	};
 
@@ -214,7 +213,7 @@ COMPONENT('dropdowncheckbox', function() {
 		return;
 
 	window.$dropdowncheckboxevent = true;
-	$(document).on('click', function(e) {
+	$(document).on('click', function() {
 		if (window.$dropdowncheckboxelement) {
 			window.$dropdowncheckboxelement.addClass('hidden');
 			window.$dropdowncheckboxelement = null;

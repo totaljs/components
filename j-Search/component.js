@@ -14,7 +14,7 @@ COMPONENT('search', function() {
 		options_delay = (self.attr('data-delay') || '200').parseInt();
 	};
 
-	self.setter = function(value, path, type) {
+	self.setter = function(value, path) {
 
 		if (!options_selector || !options_attribute || value == null)
 			return;

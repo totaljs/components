@@ -20,11 +20,11 @@ COMPONENT('notifications', function() {
 			self.autoclose();
 		});
 
-		self.event('click', 'a,button', function() {
+		self.event('click', 'a,button', function(e) {
 			e.stopPropagation();
 		});
 
-		self.event('click', '.ui-notification', function(e) {
+		self.event('click', '.ui-notification', function() {
 			var el = $(this);
 			var id = +el.attr('data-id');
 			var obj = self.items[id];

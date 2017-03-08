@@ -53,7 +53,6 @@ COMPONENT('keyvalue', function() {
 			if (!key || !value)
 				return;
 
-			var arr = [];
 			var base = el.closest('.ui-keyvalue-base').length > 0;
 			if (base && e.type === 'change')
 				return;
@@ -87,7 +86,7 @@ COMPONENT('keyvalue', function() {
 		});
 	};
 
-	self.setter = function(value, path, type) {
+	self.setter = function(value, path) {
 
 		if (skip) {
 			skip = false;

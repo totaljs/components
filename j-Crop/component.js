@@ -1,7 +1,3 @@
-/**
- * Cropper
- * @version 2.0.0
- */
 COMPONENT('crop', function() {
 	var self = this;
 	var width, height, canvas, context;
@@ -25,17 +21,13 @@ COMPONENT('crop', function() {
 		var nh = (img.height / 2) >> 0;
 
 		if (img.width > width) {
-
-			var ratio;
-			var p;
-
-			p = (width / (img.width / 100)) >> 0;
+			var p = (width / (img.width / 100)) >> 0;
 			zoom -= zoom - p;
 			nh = ((img.height * (p / 100)) / 2) >> 0;
 			nw = ((img.width * (p / 100)) / 2) >> 0;
 		}
 
-		 // centering
+		// centering
 		cache.x = current.x = (width / 2) - nw;
 		cache.y = current.y = (height / 2) - nh;
 		cache.zoom = zoom;
@@ -73,7 +65,6 @@ COMPONENT('crop', function() {
 			e.preventDefault();
 			e.stopPropagation();
 
-			var count = parseInt();
 			var type = $(this).attr('data-type');
 
 			switch (type) {
@@ -87,7 +78,7 @@ COMPONENT('crop', function() {
 					current.x -= 5;
 					current.y -= 5;
 					self.redraw();
-				break;
+					break;
 				case 'minus':
 					zoom -= 5;
 					if (zoom < 5)
@@ -98,8 +89,6 @@ COMPONENT('crop', function() {
 					break;
 				case 'refresh':
 					zoom = cache.zoom;
-					x = cache.x;
-					y = cache.y;
 					self.redraw();
 					break;
 			}
@@ -201,7 +190,7 @@ COMPONENT('crop', function() {
 
 		if (bgcolor) {
 			context.fillStyle = bgcolor;
-			context.fillRect(0, 0, width, height)
+			context.fillRect(0, 0, width, height);
 		}
 
 		can && context.drawImage(img, current.x || 0, current.y || 0, w, h);

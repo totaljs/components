@@ -29,7 +29,7 @@ COMPONENT('modal', function() {
 	};
 
 	self.getter = null;
-	self.setter = function(value) {
+	self.setter = function() {
 
 		setTimeout2(self.id + '.scroll', function() {
 			$('html').toggleClass('ui-modal-noscroll', $('.ui-modal-container').not('.hidden').length ? true : false);

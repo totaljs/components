@@ -53,7 +53,6 @@ COMPONENT('pricerange', function() {
 
 			var pos;
 			var offset;
-			var steps;
 			var cur;
 			var tmp;
 			var val;

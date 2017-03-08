@@ -1,7 +1,6 @@
 COMPONENT('confirm', function() {
 	var self = this;
 	var is = false;
-	var visible = false;
 
 	self.readonly();
 	self.singleton();
@@ -39,14 +38,12 @@ COMPONENT('confirm', function() {
 		self.callback && self.callback(index);
 		self.classes('-ui-confirm-visible');
 		setTimeout2(self.id, function() {
-			visible = false;
 			self.classes('hidden');
 		}, 1000);
 	};
 
 	self.content = function(cls, text) {
 		!is && self.html('<div><div class="ui-confirm-body"></div></div>');
-		visible = true;
 		self.find('.ui-confirm-body').empty().append(text);
 		self.classes('-hidden');
 		setTimeout2(self.id, function() {

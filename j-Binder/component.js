@@ -20,7 +20,7 @@ COMPONENT('binder', function() {
 		});
 	};
 
-	self.autobind = function(path, value) {
+	self.autobind = function(path) {
 		var mapper = keys[path];
 		var template = {};
 		mapper && mapper.forEach(function(item) {

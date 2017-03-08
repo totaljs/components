@@ -31,7 +31,7 @@ COMPONENT('form', function() {
 	}
 
 	self.readonly();
-	self.submit = self.cancel = function(hide) { self.hide(); };
+	self.submit = self.cancel = function() { self.hide(); };
 	self.onHide = function(){};
 
 	self.hide = function() {
@@ -54,7 +54,6 @@ COMPONENT('form', function() {
 
 	self.make = function() {
 		var width = self.attr('data-width') || '800px';
-		var submit = self.attr('data-submit');
 		var enter = self.attr('data-enter');
 		autocenter = self.attr('data-autocenter') === 'true';
 		self.condition = self.attr('data-if');
@@ -70,7 +69,7 @@ COMPONENT('form', function() {
 			EMIT('reflow', self.name);
 		});
 
-		self.find('button').on('click', function(e) {
+		self.find('button').on('click', function() {
 			window.$$form_level--;
 			switch (this.name) {
 				case 'submit':
@@ -87,7 +86,7 @@ COMPONENT('form', function() {
 		});
 	};
 
-	self.setter = function(value) {
+	self.setter = function() {
 
 		setTimeout2('noscroll', function() {
 			$('html').toggleClass('noscroll', $('.ui-form-container').not('.hidden').length ? true : false);

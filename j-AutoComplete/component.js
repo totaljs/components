@@ -31,7 +31,7 @@ COMPONENT('autocomplete', function() {
 			$(this).toggleClass('selected', e.type === 'mouseenter');
 		});
 
-		$(document).on('click', function(e) {
+		$(document).on('click', function() {
 			is && self.visible(false);
 		});
 

@@ -4,6 +4,7 @@ COMPONENT('tooltip', function() {
 	var container;
 	var css = {};
 	var anim = {};
+	var body;
 
 	self.singleton();
 	self.readonly();

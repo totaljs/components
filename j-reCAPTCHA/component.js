@@ -21,6 +21,6 @@ COMPONENT('recaptcha', function() {
 				self.set(response);
 				self.change(true);
 			}});
-		});;
+		});
 	};
 });

@@ -28,7 +28,7 @@ COMPONENT('page', function() {
 		SETTER('loading', 'show');
 		isProcessing = true;
 
-		INJECT(el.attr('data-template'), el, function() {
+		IMPORT(el.attr('data-template'), el, function() {
 			isProcessing = false;
 
 			var init = el.attr('data-init');

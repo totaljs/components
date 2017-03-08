@@ -72,7 +72,7 @@ COMPONENT('textboxlist', function() {
 		});
 	};
 
-	self.setter = function(value, path, type) {
+	self.setter = function(value, path) {
 
 		if (skip) {
 			skip = false;

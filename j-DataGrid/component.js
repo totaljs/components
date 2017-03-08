@@ -1,7 +1,6 @@
 COMPONENT('datagrid', function() {
 
 	var self = this;
-	var width = [];
 	var Theaders = {};
 	var Trows = {};
 	var Twidths = {};
@@ -28,7 +27,7 @@ COMPONENT('datagrid', function() {
 			self.onButton && self.onButton(index, self.get()[index], el.attr('name'), el);
 		});
 
-		self.find('script').each(function(index) {
+		self.find('script').each(function() {
 
 			var html = this.innerHTML.replace(/(\s|\")column(\s|\")/g, function(text) {
 				return text.replace('column', 'ui-datagrid-column');
@@ -83,7 +82,7 @@ COMPONENT('datagrid', function() {
 
 		var indexer = 0;
 
-		rows[index] = '<div class="ui-datagrid-row" data-index="{1}">{0}</div>'.format(self.renderrow(index, row, size).replace(/\[\#\]/g, function(text) {
+		rows[index] = '<div class="ui-datagrid-row" data-index="{1}">{0}</div>'.format(self.renderrow(index, row, size).replace(/\[\#\]/g, function() {
 			var w = Twidths[size];
 			if (w)
 				w = w[indexer++];

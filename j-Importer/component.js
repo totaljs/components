@@ -4,23 +4,25 @@ COMPONENT('importer', function() {
 	var reload = self.attr('data-reload');
 
 	self.readonly();
-	self.setter = function(value) {
+	self.setter = function() {
 
 		if (!self.evaluate(self.attr('data-if')))
 			return;
 
 		if (imported) {
 			if (reload)
-				return EXEC(reload);
-			self.setter = null;
+				EXEC(reload);
+			else
+				self.setter = null;
 			return;
 		}
 
 		imported = true;
 		IMPORT(self.attr('data-url'), function() {
 			if (reload)
-				return EXEC(reload);
-			self.remove();
+				EXEC(reload);
+			else
+				self.remove();
 		});
 	};
 });

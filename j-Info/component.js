@@ -1,6 +1,5 @@
 COMPONENT('info', function() {
 	var self = this;
-	var $window = $(window);
 	var is = false;
 	var timeout;
 	var container;
@@ -18,7 +17,7 @@ COMPONENT('info', function() {
 		container = self.find('.ui-info-body');
 		arrow = self.find('.ui-info-arrow');
 
-		$(document).on('touchstart mousedown', function(e) {
+		$(document).on('touchstart mousedown', function() {
 			self.hide();
 		});
 	};

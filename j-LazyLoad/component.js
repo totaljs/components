@@ -14,7 +14,7 @@ COMPONENT('lazyload', function() {
 		window.$lazyload_can = false;
 
 		var win = $(window);
-		win.on('scroll', function(e) {
+		win.on('scroll', function() {
 
 			if (!window.$lazyload_can)
 				return;

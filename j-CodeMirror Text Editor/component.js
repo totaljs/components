@@ -5,7 +5,12 @@ COMPONENT('codemirror', function() {
 	var skipA = false;
 	var skipB = false;
 	var editor;
-	var timeout;
+
+	self.getter = null;
+
+	self.reload = function() {
+		editor.refresh();
+	};
 
 	self.validate = function(value) {
 		return required ? value && value.length > 0 : true;
@@ -40,8 +45,7 @@ COMPONENT('codemirror', function() {
 		skipB = true;
 	};
 
-	self.getter = null;
-	self.setter = function(value, path) {
+	self.setter = function(value) {
 
 		if (skipA === true) {
 			skipA = false;
@@ -54,8 +58,6 @@ COMPONENT('codemirror', function() {
 		skipB = true;
 
 		CodeMirror.commands['selectAll'](editor);
-		var f = editor.getCursor(true);
-		var t = editor.getCursor(false);
 		skipB = true;
 		editor.setValue(editor.getValue());
 		skipB = true;
@@ -67,9 +69,13 @@ COMPONENT('codemirror', function() {
 		setTimeout(function() {
 			editor.refresh();
 		}, 1000);
+
+		setTimeout(function() {
+			editor.refresh();
+		}, 2000);
 	};
 
-	self.state = function(type) {
+	self.state = function() {
 		self.find('.ui-codemirror').toggleClass('ui-codemirror-invalid', self.isInvalid());
 	};
 });

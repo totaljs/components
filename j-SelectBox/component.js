@@ -96,15 +96,15 @@ COMPONENT('selectbox', function() {
 			self.search();
 		});
 
-		typeof(search) === 'string' && self.event('keydown', 'input', function(e) {
+		typeof(search) === 'string' && self.event('keydown', 'input', function() {
 			setTimeout2(self.id, self.search, 500);
 		});
 	};
 
 	self.redraw = function() {
 		var builder = [];
-		self.datasource.forEach(function(item, index) {
-			builder.push(self.template(item))
+		self.datasource.forEach(function(item) {
+			builder.push(self.template(item));
 		});
 		self.search();
 		Eitems.empty().append(builder.join(''));
@@ -134,7 +134,7 @@ COMPONENT('selectbox', function() {
 		self.search();
 	};
 
-	self.state = function(type, who) {
+	self.state = function(type) {
 		if (!type)
 			return;
 		var invalid = self.isInvalid();

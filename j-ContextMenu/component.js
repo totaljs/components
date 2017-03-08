@@ -1,6 +1,5 @@
 COMPONENT('contextmenu', function() {
 	var self = this;
-	var $window = $(window);
 	var is = false;
 	var timeout;
 	var container;
@@ -25,7 +24,7 @@ COMPONENT('contextmenu', function() {
 			e.stopPropagation();
 		});
 
-		$(document).on('touchstart mousedown', function(e) {
+		$(document).on('touchstart mousedown', function() {
 			FIND('contextmenu').hide();
 		});
 	};

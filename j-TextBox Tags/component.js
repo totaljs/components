@@ -39,7 +39,7 @@ COMPONENT('textboxtags', function() {
 			self.append(html);
 		}
 
-		self.event('click', function(e) {
+		self.event('click', function() {
 			self.find('input').focus();
 		});
 
@@ -133,7 +133,7 @@ COMPONENT('textboxtags', function() {
 		container.prepend(builder);
 	};
 
-	self.state = function(type) {
+	self.state = function() {
 		self.find('.ui-textboxtags').toggleClass('ui-textboxtags-invalid', self.isInvalid());
 	};
 });

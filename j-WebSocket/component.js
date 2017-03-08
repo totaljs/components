@@ -32,7 +32,7 @@ COMPONENT('websocket', function() {
 		return self;
 	};
 
-	function onClose(e) {
+	function onClose() {
 		self.close(true);
 		setTimeout(function() {
 			self.connect();
@@ -44,7 +44,7 @@ COMPONENT('websocket', function() {
 			self.set(JSON.parse(decodeURIComponent(e.data)));
 		} catch (e) {
 			window.console && console.warn('WebSocket "{0}": {1}'.format(url, e.toString()));
-		};
+		}
 	}
 
 	function onOpen() {
@@ -53,7 +53,7 @@ COMPONENT('websocket', function() {
 
 	self.connect = function() {
 		ws && self.close();
-		timeout = setTimeout(function() {
+		setTimeout2(self.id, function() {
 			ws = new WebSocket(url);
 			ws.onopen = onOpen;
 			ws.onclose = onClose;

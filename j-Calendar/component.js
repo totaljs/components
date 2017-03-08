@@ -4,7 +4,6 @@ COMPONENT('calendar', function() {
 	var skip = false;
 	var skipDay = false;
 	var visible = false;
-	var callback;
 
 	self.days = self.attr('data-days').split(',');
 	self.months = self.attr('data-months').split(',');
@@ -20,7 +19,7 @@ COMPONENT('calendar', function() {
 	}
 
 	self.readonly();
-	self.click = function(date) {};
+	self.click = function() {};
 
 	function getMonthDays(dt) {
 
@@ -196,8 +195,6 @@ COMPONENT('calendar', function() {
 
 		if (!value)
 			value = new Date();
-
-		old = value;
 
 		var output = calculate(value.getFullYear(), value.getMonth(), value);
 		var builder = [];

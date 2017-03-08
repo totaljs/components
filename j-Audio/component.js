@@ -60,7 +60,6 @@ COMPONENT('audio', function() {
 			index--;
 			self.items.splice(index, 1);
 		}
-		return self;
 	};
 
 	self.stop = function(url) {
