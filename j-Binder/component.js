@@ -57,6 +57,10 @@ COMPONENT('binder', function() {
 		return val.replace(/\&\#39;/g, '\'');
 	}
 
+	self.prepare = function(code) {
+		return code.indexOf('=>') === -1 ? FN('value=>' + decode(code)) : FN(decode(code));
+	};
+
 	self.scan = function() {
 		keys = {};
 		keys_unique = {};
@@ -78,11 +82,10 @@ COMPONENT('binder', function() {
 				obj = {};
 				obj.path = path;
 				obj.element = el;
-				obj.classes = classes ? FN(decode(classes)) : undefined;
-				obj.html = html ? FN(decode(html)) : undefined;
-				obj.visible = visible ? FN(decode(visible)) : undefined;
+				obj.classes = classes ? self.prepare(classes) : undefined;
+				obj.visible = visible ? self.prepare(visible) : undefined;
 
-				if (obj.html) {
+				if (self.attr('data-b-template') === 'true') {
 					var tmp = el.find('script[type="text/html"]');
 					var str = '';
 					if (tmp.length)
@@ -93,7 +96,8 @@ COMPONENT('binder', function() {
 						obj.template = Tangular.compile(str);
 						tmp.length && tmp.remove();
 					}
-				}
+				} else
+					obj.html = html ? self.prepare(html) : undefined;
 
 				el.data('data-b', obj);
 			}
@@ -105,7 +109,6 @@ COMPONENT('binder', function() {
 				else
 					keys[p] = [obj];
 			}
-
 		});
 
 		Object.keys(keys_unique).forEach(function(key) {
