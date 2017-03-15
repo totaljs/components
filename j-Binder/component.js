@@ -28,8 +28,7 @@ COMPONENT('binder', function() {
 			template.value = value;
 			item.classes && classes(item.element, item.classes(value));
 			item.visible && item.element.toggleClass('hidden', item.visible(value) ? false : true);
-			item.html && item.element.html(item.html(value));
-			item.template && item.element.html(item.template(template));
+			item.html && item.element.html(item.Ta ? item.html(template) : item.html(value));
 		});
 	};
 
@@ -85,15 +84,18 @@ COMPONENT('binder', function() {
 				obj.classes = classes ? self.prepare(classes) : undefined;
 				obj.visible = visible ? self.prepare(visible) : undefined;
 
-				if (self.attr('data-b-template') === 'true') {
+				if (el.attr('data-b-template') === 'true') {
 					var tmp = el.find('script[type="text/html"]');
 					var str = '';
+
 					if (tmp.length)
 						str = tmp.html();
 					else
 						str = el.html();
+
 					if (str.indexOf('{{') !== -1) {
-						obj.template = Tangular.compile(str);
+						obj.html = Tangular.compile(str);
+						obj.Ta = true;
 						tmp.length && tmp.remove();
 					}
 				} else
@@ -117,5 +119,4 @@ COMPONENT('binder', function() {
 
 		return self;
 	};
-
 });
