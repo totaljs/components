@@ -69,8 +69,8 @@ COMPONENT('pictureupload', function() {
 		var el = this;
 		var data = new FormData();
 		data.append('file', files[0]);
-		data.set('width', width);
-		data.set('height', height);
+		data.append('width', width);
+		data.append('height', height);
 
 		UPLOAD(url, data, function(response, err) {
 
