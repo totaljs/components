@@ -110,9 +110,6 @@ COMPONENT('dropdowncheckbox', function() {
 
 	function prepare(path, value) {
 
-		if (NOTMODIFIED(path, value))
-			return;
-
 		var clsempty = 'ui-dropdowncheckbox-values-empty';
 		prepared = true;
 
