@@ -1,10 +1,13 @@
 COMPONENT('nosqlcounter', function() {
 	var self = this;
 	var count = (self.attr('data-count') || '0').parseInt();
+	var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 	self.readonly();
 	self.make = function() {
 		self.toggle('ui-nosqlcounter hidden', true);
+		var calendar = FIND('calendar');
+		calendar && (months = calendar.months);
 	};
 
 	self.setter = function(value) {
@@ -40,7 +43,7 @@ COMPONENT('nosqlcounter', function() {
 		var max = stats.scalar('max', 'value');
 		var bar = 100 / maxbars;
 		var builder = [];
-		var months = FIND('calendar').months;
+
 		var current = new Date().format('yyyyMM');
 		var cls = '';
 
