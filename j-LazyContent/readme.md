@@ -1,6 +1,6 @@
-## j-LazyLoad
+## j-LazyContent
 
-This component shows own content when is visible. It supports helpful features as `redraw` and `hide`.
+This component shows own content when it's visible. It supports helpful features as `redraw` and `hide`.
 
 __Attributes__:
 - `data-height="NUMBER_IN_PIXELS"` optional, a default content height. __Default value__: is height of the current element

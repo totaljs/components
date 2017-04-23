@@ -1,4 +1,4 @@
-COMPONENT('lazyload', function() {
+COMPONENT('lazycontent', function() {
 
 	var self = this;
 
@@ -10,16 +10,16 @@ COMPONENT('lazyload', function() {
 
 	self.init = function() {
 
-		window.$lazyload = [];
-		window.$lazyload_can = false;
+		window.$lazycontent = [];
+		window.$lazycontent_can = false;
 
 		var win = $(window);
 		win.on('scroll', function() {
 
-			if (!window.$lazyload_can)
+			if (!window.$lazycontent_can)
 				return;
 
-			var arr = window.$lazyload;
+			var arr = window.$lazycontent;
 			var top = win.scrollTop();
 			var toph = top + win.height();
 
@@ -30,9 +30,9 @@ COMPONENT('lazyload', function() {
 			}
 		});
 
-		window.$lazyload_refresh = function(skip) {
-			setTimeout2('$lazyload', function() {
-				var arr = window.$lazyload;
+		window.$lazycontent_refresh = function(skip) {
+			setTimeout2('$lazycontent', function() {
+				var arr = window.$lazycontent;
 				for (var i = 0, length = arr.length; i < length; i++) {
 					var item = arr[i];
 					if (item.remove)
@@ -49,9 +49,7 @@ COMPONENT('lazyload', function() {
 			win.trigger('scroll');
 		}, 500);
 
-		setInterval(function() {
-			$lazyload_refresh();
-		}, 1000 * 60);
+		setInterval($lazycontent_refresh(), 1000 * 60);
 	};
 
 	self.destroy = function() {
@@ -59,13 +57,13 @@ COMPONENT('lazyload', function() {
 	};
 
 	self.clean = function() {
-		var index = window.$lazyload.findIndex(function(item) {
+		var index = window.$lazycontent.findIndex(function(item) {
 			return item.component.id === self.id;
 		});
 		if (index === -1)
 			return;
-		window.$lazyload.splice(index, 1);
-		window.$lazyload_can = window.$lazyload.length > 0;
+		window.$lazycontent.splice(index, 1);
+		window.$lazycontent_can = window.$lazycontent.length > 0;
 	};
 
 	self.refresh = function(item) {
@@ -88,7 +86,7 @@ COMPONENT('lazyload', function() {
 					attr = 'init';
 					item.remove = item.$remove;
 					setTimeout(function() {
-						$lazyload_refresh(self.id);
+						$lazycontent_refresh(self.id);
 					}, 200);
 				}
 			} else if (self.isinit)
@@ -130,9 +128,9 @@ COMPONENT('lazyload', function() {
 			item.height = self.element.height();
 		}
 
-		$lazyload.push(item);
-		$lazyload_can = true;
+		$lazycontent.push(item);
+		$lazycontent_can = true;
 
-		setTimeout2('$lazyload.refresh', window.$lazyload_refresh, 200);
+		setTimeout2('$lazycontent.refresh', window.$lazycontent_refresh, 200);
 	};
 });
