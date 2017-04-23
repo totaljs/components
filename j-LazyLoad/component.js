@@ -1,6 +1,6 @@
 COMPONENT('lazyload', function() {
 	var self = this;
-	var selector, container, offset;
+	var selector, container, offset, is;
 
 	self.readonly();
 
@@ -8,6 +8,7 @@ COMPONENT('lazyload', function() {
 		selector = self.attr('data-selector');
 		offset = +(self.attr('data-offset') || 50);
 		container = $(self.attr('data-container') || window);
+		is = container.get(0) === window;
 		container.on('scroll', self.refresh);
 		setTimeout(function() {
 			self.refresh();
@@ -29,7 +30,7 @@ COMPONENT('lazyload', function() {
 			if (this.getAttribute('data-lazyload'))
 				return;
 			var el = $(this);
-			var top = (container !== window ? scroll : 0) + el.offset().top;
+			var top = (is ? 0 : scroll) + el.offset().top;
 			if (top >= beg && top <= end) {
 				el.attr('data-lazyload', true);
 				EXEC(self.attr('data-exec'), el);
