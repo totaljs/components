@@ -104,5 +104,6 @@
 	"j-Shortcuts",
 	"j-FileReader",
 	"j-RepeaterGroup",
-	"j-NoSQLcounter"
+	"j-NoSQLcounter",
+	"j-LazyLoad"
 ]
