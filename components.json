@@ -54,7 +54,7 @@
 	"j-WebSocket",
 	"j-ColorSelector",
 	"Search box rounded",
-	"j-LazyLoad",
+	"j-LazyContent",
 	"j-DataGrid",
 	"j-TouchMove",
 	"White Button",
@@ -103,5 +103,6 @@
 	"j-FontAwesome",
 	"j-Shortcuts",
 	"j-FileReader",
-	"j-RepeaterGroup"
+	"j-RepeaterGroup",
+	"j-NoSQLcounter"
 ]
