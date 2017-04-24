@@ -29,6 +29,7 @@ COMPONENT('websocket', function() {
 		ws.onopen = ws.onclose = ws.onmessage = null;
 		!isClosed && ws.close();
 		ws = null;
+		EMIT('online', false);
 		return self;
 	};
 
@@ -40,15 +41,19 @@ COMPONENT('websocket', function() {
 	}
 
 	function onMessage(e) {
+		var data;
 		try {
-			self.set(JSON.parse(decodeURIComponent(e.data)));
+			data = JSON.parse(decodeURIComponent(e.data));
+			self.attr('data-jc-path') && self.set(data);
 		} catch (e) {
 			window.console && console.warn('WebSocket "{0}": {1}'.format(url, e.toString()));
 		}
+		data && EMIT('message', data);
 	}
 
 	function onOpen() {
 		self.online = true;
+		EMIT('online', true);
 	}
 
 	self.connect = function() {
