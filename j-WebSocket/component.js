@@ -2,8 +2,8 @@ COMPONENT('websocket', function() {
 
 	var reconnect_timeout;
 	var self = this;
-	var ws;
-	var url;
+	var ws, url;
+	var queue = [];
 
 	self.online = false;
 	self.readonly();
@@ -18,7 +18,10 @@ COMPONENT('websocket', function() {
 	};
 
 	self.send = function(obj) {
-		ws && ws.send(encodeURIComponent(JSON.stringify(obj)));
+		if (ws)
+			ws.send(encodeURIComponent(JSON.stringify(obj)));
+		else
+			queue.push(ws);
 		return self;
 	};
 
@@ -54,6 +57,11 @@ COMPONENT('websocket', function() {
 	function onOpen() {
 		self.online = true;
 		EMIT('online', true);
+		var cache = queue.splice(0);
+		cache.waitFor(function(obj, next) {
+			self.send(obj);
+			setTimeout(next, 100);
+		});
 	}
 
 	self.connect = function() {
