@@ -2,8 +2,7 @@ COMPONENT('dropdown', function() {
 
 	var self = this;
 	var isRequired = self.attr('data-required') === 'true';
-	var select;
-	var container;
+	var select, container, condition;
 
 	self.validate = function(value) {
 
@@ -49,6 +48,8 @@ COMPONENT('dropdown', function() {
 
 		for (var i = 0, length = arr.length; i < length; i++) {
 			var item = arr[i];
+			if (condition && !condition(item))
+				continue;
 			if (item.length)
 				builder.push(template.format(item, value === item ? ' selected="selected"' : '', item));
 			else
@@ -72,6 +73,10 @@ COMPONENT('dropdown', function() {
 		var label = self.html();
 		var html = '<div class="ui-dropdown"><span class="fa fa-sort"></span><select data-jc-bind="">{0}</select></div>'.format(options.join(''));
 		var builder = [];
+
+		condition = self.attr('data-source-condition');
+		if (condition)
+			condition = FN(condition);
 
 		if (label.length) {
 			var icon = self.attr('data-icon');

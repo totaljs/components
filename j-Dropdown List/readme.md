@@ -13,6 +13,7 @@ __Attributes__:
 - `data-source="path to the array"` - data-source of items
 - `data-source-text="name"` (optional) property name for gettint the text, default __text__
 - `data-source-value="id"` (optional) property name for getting the value, default __id__
+- `data-source-condition="n => n.id > 10"` (optional) a condition for binding values from data-source
 
 __Methods__:
 - `component.required(value)` - can enable/disable `required` with validation
