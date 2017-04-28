@@ -4,6 +4,7 @@ COMPONENT('websocket', function() {
 	var self = this;
 	var ws, url;
 	var queue = [];
+	var sending = false;
 
 	self.online = false;
 	self.readonly();
@@ -18,11 +19,28 @@ COMPONENT('websocket', function() {
 	};
 
 	self.send = function(obj) {
-		if (ws)
-			ws.send(encodeURIComponent(JSON.stringify(obj)));
-		else
-			queue.push(ws);
+		queue.push(encodeURIComponent(JSON.stringify(obj)));
+		self.process();
 		return self;
+	};
+
+	self.process = function(callback) {
+
+		if (!ws || sending || !queue.length || ws.readyState !== 1) {
+			callback && callback();
+			return;
+		}
+
+		sending = true;
+		var async = queue.splice(0, 3);
+		async.waitFor(function(item, next) {
+			ws.send(item);
+			setTimeout(next, 5);
+		}, function() {
+			callback && callback();
+			sending = false;
+			queue.length && self.process();
+		});
 	};
 
 	self.close = function(isClosed) {
@@ -38,9 +56,7 @@ COMPONENT('websocket', function() {
 
 	function onClose() {
 		self.close(true);
-		setTimeout(function() {
-			self.connect();
-		}, reconnect_timeout);
+		setTimeout(self.connect, reconnect_timeout);
 	}
 
 	function onMessage(e) {
@@ -56,11 +72,8 @@ COMPONENT('websocket', function() {
 
 	function onOpen() {
 		self.online = true;
-		EMIT('online', true);
-		var cache = queue.splice(0);
-		cache.waitFor(function(obj, next) {
-			self.send(obj);
-			setTimeout(next, 100);
+		self.process(function() {
+			EMIT('online', true);
 		});
 	}
 

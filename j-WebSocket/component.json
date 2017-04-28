@@ -1,13 +1,13 @@
 {
 	"datecreated": "2016-07-28T06:00:21.670Z",
-	"dateupdated": "2017-04-24T10:11:13.000Z",
+	"dateupdated": "2017-04-28T10:52:13.000Z",
 	"name": "j-WebSocket",
 	"tags": [
 		"jcomponent",
 		"websocket"
 	],
 	"color": "transparent",
-	"version": 3,
+	"version": 4,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
