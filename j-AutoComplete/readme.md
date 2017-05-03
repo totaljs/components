@@ -27,7 +27,12 @@ function onSelected(value, input) {
 }
 
 var plusOffsetTop = 14;
-FIND('autocomplete').attach('jquery-selector', onSearch, onSelected, plusOffsetTop);
+// FIND('autocomplete').attach(input, onSearch, onSelected, [offsetY], [offsetX], [width]);
+FIND('autocomplete').attach('input', onSearch, onSelected, plusOffsetTop);
+
+// or
+// FIND('autocomplete').attachelement(element, input, onSearch, onSelected, [offsetY], [offsetX], [width]);
+FIND('autocomplete').attachelement('offset-element', 'input', onSearch, onSelected);
 ```
 
 ### Author

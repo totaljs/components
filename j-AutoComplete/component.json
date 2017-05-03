@@ -1,12 +1,12 @@
 {
 	"datecreated": "2016-05-06T10:22:35.133Z",
-	"dateupdated": "2017-02-21T20:39:00.000Z",
+	"dateupdated": "2017-05-03T12:51:00.000Z",
 	"name": "j-AutoComplete",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "white",
-	"version": 9,
+	"version": 10,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

@@ -1,13 +1,6 @@
 COMPONENT('autocomplete', function() {
 	var self = this;
-	var container;
-	var old;
-	var onSearch;
-	var searchtimeout;
-	var searchvalue;
-	var blurtimeout;
-	var onCallback;
-	var datasource;
+	var container, old, onSearch, searchtimeout, searchvalue, blurtimeout, onCallback, datasource, offsetter;
 	var is = false;
 	var margin = {};
 
@@ -101,12 +94,12 @@ COMPONENT('autocomplete', function() {
 
 	self.resize = function() {
 
-		if (!old)
+		if (!offsetter || !old)
 			return;
 
-		var offset = old.offset();
-		offset.top += old.height();
-		offset.width = old.width();
+		var offset = offsetter.offset();
+		offset.top += offsetter.height();
+		offset.width = offsetter.width();
 
 		if (margin.left)
 			offset.left += margin.left;
@@ -119,6 +112,10 @@ COMPONENT('autocomplete', function() {
 	};
 
 	self.attach = function(input, search, callback, top, left, width) {
+		self.attachelement(input, input, search, callback, top, left, width);
+	};
+
+	self.attachelement = function(element, input, search, callback, top, left, width) {
 
 		clearTimeout(searchtimeout);
 
@@ -142,6 +139,7 @@ COMPONENT('autocomplete', function() {
 		margin.top = top;
 		margin.width = width;
 
+		offsetter = $(element);
 		self.resize();
 		self.refresh();
 		searchvalue = '';
