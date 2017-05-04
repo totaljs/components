@@ -9,3 +9,4 @@ __Supported attributes__:
 - `data-b-class="value => value === 100 ? '+selected +animate -border -margin' : '-selected -animate +border +margin'` - optional, adds and removes classes
 - `data-b-html="value => value && value.price ? value.price.format(2) : 'without price'` - optional, sets HTML content
 - `data-b-template="true"` enables Tangular compiler for nested `<script type="text/html">{{ markup }}</script>` or raw `{{ markup }}`.
+- `data-b-disable="value => value > 100 && value < 1000"` - optional, toggles `disabled` attribute
