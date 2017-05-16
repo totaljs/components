@@ -105,5 +105,6 @@
 	"j-FileReader",
 	"j-RepeaterGroup",
 	"j-NoSQLcounter",
-	"j-LazyLoad"
+	"j-LazyLoad",
+	"j-Intro"
 ]
