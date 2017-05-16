@@ -106,5 +106,6 @@
 	"j-RepeaterGroup",
 	"j-NoSQLcounter",
 	"j-LazyLoad",
-	"j-Intro"
+	"j-Intro",
+	"j-ColorPicker"
 ]
