@@ -1,6 +1,6 @@
 .hidden { display: none; }
 .ui-colorpicker * { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
-.ui-colorpicker { border: 1px solid #E0E0E0; font-size: 14px; color: black; position: absolute; width: 180px; height: 160px; z-index: 10; background-color: white; box-shadow: 0 5px 10px rgba(0,0,0,0.08); border-radius: 4px; z-index: 80; }
+.ui-colorpicker { border: 1px solid #E0E0E0; font-size: 14px; color: black; position: absolute; width: 180px; height: 160px; background-color: white; box-shadow: 0 5px 10px rgba(0,0,0,0.08); border-radius: 4px; z-index: 80; }
 .ui-colorpicker ul { list-style-type: none; margin: 0; padding: 10px 20px 0 15px; text-align: center; }
 .ui-colorpicker li { position: relative; display: inline-block; width: 24px; height: 25px; text-align: center; margin-top: 2px; cursor: pointer; padding: 3px 0 0 0; border-radius: 4px; color: black; border: 2px solid white; }
 .ui-colorpicker li:hover { border-color: #E0E0E0; }
