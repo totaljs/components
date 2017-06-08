@@ -25,11 +25,12 @@ COMPONENT('binder', function() {
 		var template = {};
 		mapper && mapper.forEach(function(item) {
 			var value = self.get(item.path);
+			var element = item.selector ? item.element.find(item.selector) : item.element;
 			template.value = value;
-			item.classes && classes(item.element, item.classes(value));
-			item.visible && item.element.toggleClass('hidden', item.visible(value) ? false : true);
-			item.html && item.element.html(item.Ta ? item.html(template) : item.html(value));
-			item.disable && item.element.prop('disabled', item.disable(value));
+			item.classes && classes(element, item.classes(value));
+			item.visible && element.toggleClass('hidden', item.visible(value) ? false : true);
+			item.html && element.html(item.Ta ? item.html(template) : item.html(value));
+			item.disable && element.prop('disabled', item.disable(value));
 		});
 	};
 
@@ -75,6 +76,7 @@ COMPONENT('binder', function() {
 			var html = el.attr('data-b-html');
 			var visible = el.attr('data-b-visible');
 			var disable = el.attr('data-b-disable');
+			var selector = el.attr('data-b-selector');
 			var obj = el.data('data-b');
 
 			keys_unique[path] = true;
@@ -86,6 +88,7 @@ COMPONENT('binder', function() {
 				obj.classes = classes ? self.prepare(classes) : undefined;
 				obj.visible = visible ? self.prepare(visible) : undefined;
 				obj.disable = disable ? self.prepare(disable) : undefined;
+				obj.selector = selector ? selector : null;
 
 				if (el.attr('data-b-template') === 'true') {
 					var tmp = el.find('script[type="text/html"]');

@@ -1,12 +1,12 @@
 {
 	"datecreated": "2016-11-03T21:00:00.000Z",
-	"dateupdated": "2017-05-04T14:30:00.000Z",
+	"dateupdated": "2017-06-08T07:37:00.000Z",
 	"name": "j-Binder",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 2,
+	"version": 3,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
