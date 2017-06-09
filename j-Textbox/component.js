@@ -106,7 +106,7 @@ COMPONENT('textbox', function() {
 			self.classes('ui-textbox ui-textbox-container');
 			self.html(builder.join(''));
 			input = self.find('input');
-			container = self.find('.ui-textbox');
+			container = self.element;
 			return;
 		}
 
