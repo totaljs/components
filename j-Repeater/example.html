@@ -1,4 +1,4 @@
-<div data-jc="repeater" data-jc-path="datasource">
+<div data-jc="repeater" data-jc-path="datasource" data-filter="filter_data">
 	<script type="text/html">
 		 <div>
 			<div>{{ name }} ($index)</div>
@@ -13,4 +13,9 @@
 	datasource.push({ name: 'Row 1', amount: 1000, created: new Date() });
 	datasource.push({ name: 'Row 2', amount: 10000, created: new Date() });
 	datasource.push({ name: 'Row 3', amount: 100000, created: new Date() });
+
+	// filter is optional
+	function filter_data(item) {
+		return item.amount > 0;
+	}
 </script>

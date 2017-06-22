@@ -8,4 +8,11 @@
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
+
+### Contributors
+
+- Martin Smola <smola.martin@gmail.com>
+
+### License
+
 - License: MIT
