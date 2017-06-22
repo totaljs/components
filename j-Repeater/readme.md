@@ -5,7 +5,7 @@
 - `$index` will be replaced for current `index` (Number)
 - `$path` will be replaced for current `path` with `index`
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 
