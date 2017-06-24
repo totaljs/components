@@ -62,7 +62,7 @@ COMPONENT('websocket', function() {
 	function onMessage(e) {
 		var data;
 		try {
-			data = JSON.parse(decodeURIComponent(e.data));
+			data = PARSE(decodeURIComponent(e.data));
 			self.attr('data-jc-path') && self.set(data);
 		} catch (e) {
 			window.console && console.warn('WebSocket "{0}": {1}'.format(url, e.toString()));
