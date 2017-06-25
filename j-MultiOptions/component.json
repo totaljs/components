@@ -1,0 +1,16 @@
+{
+	"datecreated": "2017-06-25T09:00:00.000Z",
+	"dateupdated": null,
+	"name": "j-MultiOptions",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}
