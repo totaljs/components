@@ -108,5 +108,6 @@
 	"j-LazyLoad",
 	"j-Intro",
 	"j-ColorPicker",
-	"j-MultiOptions"
+	"j-MultiOptions",
+	"j-SplashScreen"
 ]
