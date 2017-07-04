@@ -109,5 +109,6 @@
 	"j-Intro",
 	"j-ColorPicker",
 	"j-MultiOptions",
-	"j-SplashScreen"
+	"j-SplashScreen",
+	"j-DragDropFiles"
 ]
