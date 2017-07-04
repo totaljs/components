@@ -1,12 +1,12 @@
 {
 	"datecreated": "2017-02-27T13:35:00.000Z",
-	"dateupdated": null,
+	"dateupdated": "2017-07-04T19:18:00.000Z",
 	"name": "j-FileReader",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 1,
+	"version": 2,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
