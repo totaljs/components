@@ -31,7 +31,7 @@ COMPONENT('disable', function() {
 				el.toggleClass('ui-disabled', is);
 		});
 
-		validate && validate.forEach(FN('n => jC.reset({0}n)'.format(self.pathscope ? '\'' + self.pathscope + '.\'+' : '')));
+		validate && validate.forEach(FN('n => MAIN.reset({0}n)'.format(self.pathscope ? '\'' + self.pathscope + '.\'+' : '')));
 	};
 
 	self.state = function() {
