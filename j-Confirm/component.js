@@ -15,7 +15,7 @@ COMPONENT('confirm', function() {
 
 		self.event('click', function(e) {
 			var t = e.target.tagName;
-			if (t !== 'BUTTON')
+			if (t !== 'DIV')
 				return;
 			var el = self.find('.ui-confirm-body');
 			el.addClass('ui-confirm-click');
