@@ -9,6 +9,7 @@
 __Methods__:
 
 Method: `component.show(orientation, targetElement, [items], clickCallback)`
+
 - `orientation {String}` can be `left`, `center` or `right`
 - `targetElement {Selector/jQuery/Element}` a target where the component will be visible
 - `items {Array}` optional and must have this structure: `[{ name: String, value: String, icon: String }]` otherwise will be items read from the target's `data-options` attribute.
@@ -17,7 +18,8 @@ Method: `component.show(orientation, targetElement, [items], clickCallback)`
 Method: `component.hide()`
 
 __Attributes__:
-`targetElement` can contain `data-options="Name 1|fa-building|Value 1;Name 2|fa-github|Value 2;"` attribut with all items of the context menu.
+- `targetElement` can contain `data-options="Name 1|fa-building|Value 1;Name 2|fa-github|Value 2;"` attribut with all items of the context menu.
+- `data-placeholder="Search ..."` - a placeholder for search input
 
 If the `value` isn't defined then the component uses `name` as `value.
 
