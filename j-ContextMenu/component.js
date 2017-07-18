@@ -25,7 +25,7 @@ COMPONENT('contextmenu', function() {
 		});
 
 		$(document).on('touchstart mousedown', function() {
-			FIND('contextmenu').hide();
+			is && self.hide(0);
 		});
 	};
 
