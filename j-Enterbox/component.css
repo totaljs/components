@@ -1,7 +1,7 @@
 .ui-enterbox * { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
 .ui-enterbox { border: 1px solid #E0E0E0; border-radius: 3px; padding: 0 1px; }
 .ui-enterbox-input input { width: 100%; border: 0; background: white; outline: 0; font-size: 16px; }
-.ui-enterbox-input { margin-right: 60px; padding: 8px 10px; }
+.ui-enterbox-input { margin-right: 60px; padding: 10px 10px 0; height: 40px; }
 .ui-enterbox-button { float: right; width: 60px; border-left: 1px solid #E0E0E0; }
-.ui-enterbox-button button { width: 100%; background-color: white; outline: 0; border: 0; font-size: 24px; height: 40px; }
+.ui-enterbox-button button { width: 100%; background-color: white; outline: 0; border: 0; font-size: 22px; height: 40px; cursor: pointer; }
 .ui-enterbox-button button:hover { background-color: #F8F8F8; }
