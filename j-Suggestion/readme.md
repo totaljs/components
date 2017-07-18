@@ -1,4 +1,4 @@
-## j-ContextMenu
+## j-Suggestion
 
 - easy usage for different cases
 - supports 3 orientations `left`, `center` and `right`
@@ -12,7 +12,7 @@ Method: `component.show(orientation, targetElement, [items], clickCallback)`
 - `orientation {String}` can be `left`, `center` or `right`
 - `targetElement {Selector/jQuery/Element}` a target where the component will be visible
 - `items {Array}` optional and must have this structure: `[{ name: String, value: String, icon: String }]` otherwise will be items read from the target's `data-options` attribute.
-- `callback(selectedValue) {Function}` is triggered when the user clicks on the item
+- `callback(selectedItem) {Function}` is triggered when the user clicks on the item
 
 Method: `component.hide()`
 
@@ -24,8 +24,8 @@ If the `value` isn't defined then the component uses `name` as `value.
 __Global events__:
 
 ```javascript
-jC.on('contextmenu', function(visible, component, target) {
-    console.log('ContextMenu is', visible ? 'visible' : 'hidden');
+ON('suggestion', function(visible, component, target) {
+    console.log('Suggestion is', visible ? 'visible' : 'hidden');
 });
 ```
 

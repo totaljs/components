@@ -110,5 +110,8 @@
 	"j-ColorPicker",
 	"j-MultiOptions",
 	"j-SplashScreen",
-	"j-DragDropFiles"
+	"j-DragDropFiles",
+	"j-Pin",
+	"j-Enterbox",
+	"j-Suggestion"
 ]
