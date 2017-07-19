@@ -1,6 +1,5 @@
-COMPONENT('form', function() {
+COMPONENT('form', function(self) {
 
-	var self = this;
 	var autocenter;
 
 	if (!MAN.$$form) {
@@ -53,16 +52,16 @@ COMPONENT('form', function() {
 	};
 
 	self.make = function() {
-		var width = self.attr('data-width') || '800px';
-		var enter = self.attr('data-enter');
-		autocenter = self.attr('data-autocenter') === 'true';
-		self.condition = self.attr('data-if');
+		var width = self.attrd('width') || '800px';
+		var enter = self.attrd('enter');
+		autocenter = self.attrd('autocenter') === 'true';
+		self.condition = self.attrd('if');
 
-		$(document.body).append('<div id="{0}" class="hidden ui-form-container"><div class="ui-form-container-padding"><div class="ui-form" style="max-width:{1}"><div class="ui-form-title"><span class="fa fa-times ui-form-button-close" data-path="{2}"></span>{3}</div>{4}</div></div>'.format(self._id, width, self.path, self.attr('data-title')));
+		$(document.body).append('<div id="{0}" class="hidden ui-form-container"><div class="ui-form-container-padding"><div class="ui-form" style="max-width:{1}"><div class="ui-form-title"><span class="fa fa-times ui-form-button-close" data-path="{2}"></span>{3}</div>{4}</div></div>'.format(self._id, width, self.path, self.attrd('title')));
 
 		var el = $('#' + self._id);
 		el.find('.ui-form').get(0).appendChild(self.element.get(0));
-		self.classes('-hidden');
+		self.rclass('hidden');
 		self.replace(el);
 
 		self.event('scroll', function() {
@@ -82,7 +81,7 @@ COMPONENT('form', function() {
 		});
 
 		enter === 'true' && self.event('keydown', 'input', function(e) {
-			e.keyCode === 13 && !self.find('button[name="submit"]').get(0).disabled && self.submit(self.hide);
+			e.which === 13 && !self.find('button[name="submit"]').get(0).disabled && self.submit(self.hide);
 		});
 	};
 

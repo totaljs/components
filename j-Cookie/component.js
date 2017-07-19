@@ -1,11 +1,11 @@
-COMPONENT('cookie', function() {
-	var self = this;
+COMPONENT('cookie', function(self) {
+
 	self.singleton();
 	self.readonly();
 
 	self.cancel = function() {
 		document.cookie.split(';').forEach(function(key) {
-			jC.cookies.set(key.split('=')[0], '', '-2 days');
+			COOKIES.set(key.split('=')[0], '', '-2 days');
 		});
 		try {
 			Object.keys(localStorage).forEach(function(key) {
@@ -26,12 +26,12 @@ COMPONENT('cookie', function() {
 		} catch (e) {}
 
 		if (cookie) {
-			self.classes('hidden');
+			self.rclass('hidden');
 			return;
 		}
 
 		self.classes('-hidden ui-cookie');
-		self.append('<button name="agree">{0}</button><button name="cancel">{1}</button>'.format(self.attr('data-agree') || 'OK', self.attr('data-cancel') || 'Cancel'));
+		self.append('<button name="agree">{0}</button><button name="cancel">{1}</button>'.format(self.attrd('agree') || 'OK', self.attrd('cancel') || 'Cancel'));
 
 		self.event('click', 'button', function() {
 
@@ -42,7 +42,8 @@ COMPONENT('cookie', function() {
 			try {
 				localStorage.setItem('cookie', '1');
 			} catch (e) {}
-			self.classes('hidden');
+
+			self.aclass('hidden');
 		});
 	};
 });

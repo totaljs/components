@@ -1,9 +1,7 @@
-COMPONENT('textarea', function() {
+COMPONENT('textarea', function(self) {
 
-	var self = this;
-	var isRequired = self.attr('data-required') === 'true';
-	var input;
-	var container;
+	var isRequired = self.attrd('required') === 'true';
+	var input, container;
 
 	self.validate = function(value) {
 
@@ -35,27 +33,27 @@ COMPONENT('textarea', function() {
 		var builder = [];
 		var tmp;
 
-		attrs.attr('placeholder', self.attr('data-placeholder'));
-		attrs.attr('maxlength', self.attr('data-maxlength'));
+		attrs.attr('placeholder', self.attrd('placeholder'));
+		attrs.attr('maxlength', self.attrd('maxlength'));
 		attrs.attr('data-jc-bind', '');
 
-		tmp = self.attr('data-height');
+		tmp = self.attrd('height');
 		tmp && attrs.attr('style', 'height:' + tmp);
-		self.attr('data-autofocus') === 'true' && attrs.attr('autofocus');
+		self.attrd('autofocus') === 'true' && attrs.attr('autofocus');
 		builder.push('<textarea {0}></textarea>'.format(attrs.join(' ')));
 
 		var element = self.element;
 		var content = element.html();
 
 		if (!content.length) {
-			self.classes('ui-textarea ui-textarea-container');
+			self.aclass('ui-textarea ui-textarea-container');
 			self.html(builder.join(''));
 			input = self.find('textarea');
 			container = self.element;
 			return;
 		}
 
-		var icon = self.attr('data-icon');
+		var icon = self.attrd('icon');
 		var html = builder.join('');
 
 		builder = [];
@@ -65,7 +63,7 @@ COMPONENT('textarea', function() {
 		builder.push(':</div><div class="ui-textarea">{0}</div>'.format(html));
 
 		self.html(builder.join(''));
-		self.classes('ui-textarea-container');
+		self.aclass('ui-textarea-container');
 		input = self.find('textarea');
 		container = self.find('.ui-textarea');
 	};

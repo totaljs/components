@@ -1,18 +1,19 @@
-COMPONENT('textboxlist', function() {
-	var self = this;
+COMPONENT('textboxlist', function(self) {
+
 	var container;
 	var empty = {};
 	var skip = false;
 
 	self.template = Tangular.compile('<div class="ui-textboxlist-item"><div><i class="fa fa-times"></i></div><div><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder }}" value="{{ value }}" /></div></div>');
+
 	self.make = function() {
 
-		empty.max = (self.attr('data-maxlength') || '100').parseInt();
-		empty.placeholder = self.attr('data-placeholder');
+		empty.max = (self.attrd('maxlength') || '100').parseInt();
+		empty.placeholder = self.attrd('placeholder');
 		empty.value = '';
 
 		var html = self.html();
-		var icon = self.attr('data-icon');
+		var icon = self.attrd('icon');
 
 		if (icon)
 			icon = '<i class="fa {0}"></i>'.format(icon);
@@ -72,7 +73,7 @@ COMPONENT('textboxlist', function() {
 		});
 	};
 
-	self.setter = function(value, path) {
+	self.setter = function(value) {
 
 		if (skip) {
 			skip = false;

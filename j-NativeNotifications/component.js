@@ -1,5 +1,5 @@
-COMPONENT('nativenotifications', function() {
-	var self = this;
+COMPONENT('nativenotifications', function(self) {
+
 	var autoclosing;
 	var system = false;
 	var N = window.Notification;
@@ -67,6 +67,6 @@ COMPONENT('nativenotifications', function() {
 				obj.system = null;
 			}
 			self.items.length && self.autoclose();
-		}, +self.attr('data-timeout') || 8000);
+		}, +self.attrd('timeout') || 8000);
 	};
 });

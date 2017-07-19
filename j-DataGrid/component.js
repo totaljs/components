@@ -1,19 +1,16 @@
-COMPONENT('datagrid', function() {
+COMPONENT('datagrid', function(self) {
 
-	var self = this;
 	var Theaders = {};
 	var Trows = {};
 	var Twidths = {};
-	var rows;
-	var el_rows;
-	var el_headers;
+	var rows, el_rows, el_headers;
 
 	self.readonly();
 	self.onCheckbox;
 	self.onButton;
 
 	self.make = function() {
-		self.classes('ui-datagrid');
+		self.aclass('ui-datagrid');
 
 		self.event('change', 'input', function() {
 			var el = $(this);
@@ -98,7 +95,7 @@ COMPONENT('datagrid', function() {
 	self.setter = function(value) {
 
 		if (!value) {
-			self.classes('hidden');
+			self.aclass('hidden');
 			return;
 		}
 
@@ -112,7 +109,7 @@ COMPONENT('datagrid', function() {
 		var Thead = Theaders[size];
 		el_headers.empty().append(Thead ? Thead(value) : '');
 		el_rows.empty().append(rows.join(''));
-		self.classes('-hidden');
+		self.rclass('hidden');
 	};
 
 });

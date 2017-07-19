@@ -1,7 +1,7 @@
-.ui-checkbox { margin-bottom: 5px; line-height: 16px; font-size: 12px; }
-.ui-checkbox label { cursor: pointer; }
-.ui-checkbox label span { cursor: pointer; }
-.ui-checkbox input { vertical-align: middle; cursor: pointer; }
-label { vertical-align: middle; }
-label input { vertical-align: middle; margin-right: 3px; }
-label span { vertical-align: middle; }
+.ui-checkbox * { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
+.ui-checkbox { margin-bottom: 5px; line-height: 10px; font-size: 12px; }
+.ui-checkbox span { cursor: pointer; vertical-align: middle; }
+.ui-checkbox div { position: relative; display: inline-block; width: 16px; height: 16px; border: 2px solid #E0E0E0; margin-right: 6px; vertical-align: middle; cursor: pointer; color: white; font-size: 11px; text-align: center; padding: 1px 0 0 1px; background-color: white; border-radius: 3px; }
+.ui-checkbox .fa { display: none; }
+.ui-checkbox-checked div { background-color: #017CCA; border-color: #017CCA; }
+.ui-checkbox-checked .fa { display: block !important; }

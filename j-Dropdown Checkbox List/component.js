@@ -1,7 +1,6 @@
-COMPONENT('dropdowncheckbox', function() {
+COMPONENT('dropdowncheckbox', function(self) {
 
-	var self = this;
-	var required = self.element.attr('data-required') === 'true';
+	var required = self.attrd('required') === 'true';
 	var container;
 	var data = [];
 	var values;
@@ -20,7 +19,7 @@ COMPONENT('dropdowncheckbox', function() {
 
 		var options = [];
 		var element = self.element;
-		var arr = (element.attr('data-options') || '').split(';');
+		var arr = (self.attrd('options') || '').split(';');
 
 		for (var i = 0, length = arr.length; i < length; i++) {
 			var item = arr[i].split('|');
@@ -33,7 +32,7 @@ COMPONENT('dropdowncheckbox', function() {
 		}
 
 		var content = element.html();
-		var icon = element.attr('data-icon');
+		var icon = self.attrd('icon');
 		var html = '<div class="ui-dropdowncheckbox"><span class="fa fa-sort"></span><div class="ui-dropdowncheckbox-selected"></div></div><div class="ui-dropdowncheckbox-values hidden">' + options.join('') + '</div>';
 
 		if (content.length > 0) {
@@ -43,7 +42,7 @@ COMPONENT('dropdowncheckbox', function() {
 		} else
 			element.append(html);
 
-		self.classes('ui-dropdowncheckbox-container');
+		self.aclass('ui-dropdowncheckbox-container');
 		container = self.find('.ui-dropdowncheckbox-values');
 		values = self.find('.ui-dropdowncheckbox-selected');
 
@@ -114,12 +113,12 @@ COMPONENT('dropdowncheckbox', function() {
 		prepared = true;
 
 		if (!value) {
-			container.addClass(clsempty).empty().html(self.attr('data-empty'));
+			container.addClass(clsempty).empty().html(self.attrd('empty'));
 			return;
 		}
 
-		var kv = self.attr('data-source-value') || 'id';
-		var kt = self.attr('data-source-text') || 'name';
+		var kv = self.attrd('source-value') || 'id';
+		var kt = self.attrd('source-text') || 'name';
 		var builder = '';
 
 		data = [];
@@ -133,7 +132,7 @@ COMPONENT('dropdowncheckbox', function() {
 		if (builder)
 			container.removeClass(clsempty).empty().append(builder);
 		else
-			container.addClass(clsempty).empty().html(self.attr('data-empty'));
+			container.addClass(clsempty).empty().html(self.attrd('empty'));
 
 		self.setter(self.get());
 	}
@@ -144,7 +143,7 @@ COMPONENT('dropdowncheckbox', function() {
 			return;
 
 		var label = '';
-		var empty = self.attr('data-placeholder');
+		var empty = self.attrd('placeholder');
 
 		if (value && value.length) {
 			var remove = [];
@@ -193,7 +192,7 @@ COMPONENT('dropdowncheckbox', function() {
 		if (!label && value) {
 			// invalid data
 			// it updates model without notification
-			MAN.set(self.path, []);
+			MAIN.rewrite(self.path, []);
 		}
 
 		if (!label && empty)

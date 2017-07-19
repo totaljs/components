@@ -1,14 +1,13 @@
-COMPONENT('calendar', function() {
+COMPONENT('calendar', function(self) {
 
-	var self = this;
 	var skip = false;
 	var skipDay = false;
 	var visible = false;
 
-	self.days = self.attr('data-days').split(',');
-	self.months = self.attr('data-months').split(',');
-	self.first = parseInt(self.attr('data-firstday'));
-	self.today = self.attr('data-today');
+	self.days = self.attrd('days').split(',');
+	self.months = self.attrd('months').split(',');
+	self.first = +(self.attrd('firstday') || '0');
+	self.today = self.attrd('today');
 	self.months_short = [];
 
 	for (var i = 0, length = self.months.length; i < length; i++) {
@@ -98,7 +97,7 @@ COMPONENT('calendar', function() {
 	}
 
 	self.hide = function() {
-		self.classes('hidden');
+		self.aclass('hidden');
 		visible = false;
 		return self;
 	};
@@ -128,7 +127,7 @@ COMPONENT('calendar', function() {
 
 	self.make = function() {
 
-		self.classes('ui-calendar hidden');
+		self.aclass('ui-calendar hidden');
 
 		self.event('click', '.ui-calendar-today', function() {
 			var dt = new Date();

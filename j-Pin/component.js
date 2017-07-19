@@ -1,6 +1,5 @@
-COMPONENT('pin', function() {
+COMPONENT('pin', function(self) {
 
-	var self = this;
 	var inputs = null;
 	var reg_validation = /[0-9]/;
 	var blank = '●';
@@ -13,7 +12,7 @@ COMPONENT('pin', function() {
 
 	self.make = function() {
 
-		self.classes('ui-pin');
+		self.aclass('ui-pin');
 
 		var builder = [];
 		count = +(self.attrd('count') || '6');

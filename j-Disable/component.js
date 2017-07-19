@@ -1,15 +1,13 @@
-COMPONENT('disable', function() {
-	var self = this;
-	var condition;
-	var selector;
-	var validate;
+COMPONENT('disable', function(self) {
+
+	var condition, selector, validate;
 
 	self.readonly();
 
 	self.make = function() {
-		condition = self.attr('data-if');
-		selector = self.attr('data-selector') || 'input,texarea,select';
-		validate = self.attr('data-validate');
+		condition = self.attrd('if');
+		selector = self.attrd('selector') || 'input,texarea,select';
+		validate = self.attrd('validate');
 		validate && (validate = validate.split(',').trim());
 	};
 

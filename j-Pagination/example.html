@@ -7,7 +7,7 @@
 	datasource.count = 2320; // count of all items
 
 	FIND('pagination', function(component) {
-		component.onPage = function(page, elPage) {
+		component.page = function(page, elPage) {
 			console.log(page, elPage);
 			SET('datasource.page', page);
 		};

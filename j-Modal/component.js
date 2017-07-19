@@ -1,6 +1,6 @@
-COMPONENT('modal', function() {
-	var self = this;
-	var reload = self.attr('data-reload');
+COMPONENT('modal', function(self) {
+
+	var reload = self.attrd('reload');
 
 	if (!MAN.$$modal) {
 		window.$$modal_level = window.$$modal_level || 1;
@@ -13,18 +13,19 @@ COMPONENT('modal', function() {
 
 	self.readonly();
 	self.make = function() {
-		self.condition = self.attr('data-if');
-		$(document.body).append('<div id="{0}" class="hidden ui-modal-container"><a href="javascript:void(0)" class="ui-modal-close" data-path="{2}"><i class="fa fa-times"></i>{1}</a><div class="ui-modal-body"></div></div>'.format(self._id, self.attr('data-button') || 'Close window', self.path));
+		self.condition = self.attrd('if');
+		$(document.body).append('<div id="{0}" class="hidden ui-modal-container"><a href="javascript:void(0)" class="ui-modal-close" data-path="{2}"><i class="fa fa-times"></i>{1}</a><div class="ui-modal-body"></div></div>'.format(self._id, self.attrd('button') || 'Close window', self.path));
 		var el = $('#' + self._id);
 		el.find('.ui-modal-body').get(0).appendChild(self.element.get(0));
-		self.classes('-hidden');
+		self.rclass('hidden');
 		self.element = el;
+
 		self.event('scroll', function() {
 			EMIT('reflow', self.name);
 		});
 
-		self.attr('data-esc') !== 'false' && $(window).on('keydown', function(e) {
-			e.keyCode === 27 && self.get() && self.set('');
+		self.attrd('esc') !== 'false' && $(window).on('keydown', function(e) {
+			e.which === 27 && self.get() && self.set('');
 		});
 	};
 
@@ -42,18 +43,18 @@ COMPONENT('modal', function() {
 		EMIT('reflow', self.name);
 
 		if (isHidden) {
-			self.classes('-ui-modal-visible');
+			self.rclass('ui-modal-visible');
 			setTimeout2(self.id, function() {
-				self.classes('hidden');
+				self.aclass('hidden');
 			}, 50);
 			return;
 		}
 
 		window.$$modal_level++;
-		self.classes('-hidden');
+		self.rclass('hidden');
 
 		setTimeout2(self.id, function() {
-			self.classes('ui-modal-visible');
+			self.aclass('ui-modal-visible');
 		}, 50);
 
 		reload && EXEC(reload, self);

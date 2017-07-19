@@ -1,9 +1,8 @@
-COMPONENT('pictureupload', function() {
+COMPONENT('pictureupload', function(self) {
 
-	var self = this;
-	var width = +self.attr('data-width');
-	var height = +self.attr('data-height');
-	var url = self.attr('data-url') || location.pathname;
+	var width = +self.attrd('width');
+	var height = +self.attrd('height');
+	var url = self.attrd('url') || location.pathname;
 	var empty;
 	var img;
 
@@ -15,7 +14,7 @@ COMPONENT('pictureupload', function() {
 		canvas.width = width;
 		canvas.height = height;
 
-		var bg = self.attr('data-background');
+		var bg = self.attrd('background');
 		if (bg) {
 			var ctx = canvas.getContext('2d');
 			ctx.fillStyle = bg;
@@ -26,7 +25,7 @@ COMPONENT('pictureupload', function() {
 		canvas = null;
 
 		var html = self.html();
-		var icon = self.attr('data-icon');
+		var icon = self.attrd('icon');
 		self.toggle('ui-pictureupload');
 		self.html((html ? '<div class="ui-pictureupload-label">{0}{1}:</div>'.format(icon ? '<i class="fa {0}"></i>'.format(icon) : '', html) : '') + '<input type="file" accept="image/*" class="hidden" /><img src="{0}" class="img-responsive" alt="" />'.format(empty, width, height));
 
@@ -77,7 +76,7 @@ COMPONENT('pictureupload', function() {
 			SETTER('loading', 'hide', 100);
 
 			if (err) {
-				SETTER('message', 'warning', self.attr('data-error-large'));
+				SETTER('message', 'warning', self.attrd('error-large'));
 				return;
 			}
 
@@ -89,7 +88,7 @@ COMPONENT('pictureupload', function() {
 
 	self.setter = function(value) {
 		if (value)
-			img.attr('src', (self.attr('data-path') || '{0}').format(value));
+			img.attr('src', (self.attrd('path') || '{0}').format(value));
 		else
 			img.attr('src', empty);
 	};

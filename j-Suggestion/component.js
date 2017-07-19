@@ -1,6 +1,5 @@
-COMPONENT('suggestion', function() {
+COMPONENT('suggestion', function(self) {
 
-	var self = this;
 	var container, arrow, timeout, input = null;
 	var is = false;
 
@@ -12,7 +11,7 @@ COMPONENT('suggestion', function() {
 
 	self.make = function() {
 
-		self.classes('ui-suggestion');
+		self.aclass('ui-suggestion');
 		self.append('<i class="ui-suggestion-arrow fa fa-caret-up"></i><div class="ui-suggestion-search"><span><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="ui-suggestion-search-input" /></div></div><div class="ui-suggestion-container"><ul></ul></div>'.format(self.attrd('placeholder')));
 		container = self.find('ul');
 		arrow = self.find('.ui-suggestion-arrow');
@@ -126,7 +125,7 @@ COMPONENT('suggestion', function() {
 
 		self.element.show();
 		setTimeout(function() {
-			self.classes('ui-suggestion-visible');
+			self.aclass('ui-suggestion-visible');
 			self.emit('suggestion', true, self, self.target);
 		}, 100);
 

@@ -1,8 +1,7 @@
-COMPONENT('checkbox', function() {
+COMPONENT('checkbox', function(self) {
 
-	var self = this;
+	var isRequired = self.attrd('required') === 'true';
 	var input;
-	var isRequired = self.attr('data-required') === 'true';
 
 	self.validate = function(value) {
 		var type = typeof(value);
@@ -21,8 +20,15 @@ COMPONENT('checkbox', function() {
 	!isRequired && self.noValid();
 
 	self.make = function() {
-		self.classes('ui-checkbox');
-		self.html('<label><input type="checkbox" data-jc-bind="" /><span{1}>{0}</span></label>'.format(self.html(), isRequired ? ' class="ui-checkbox-label-required"' : ''));
-		input = self.find('input');
+		self.aclass('ui-checkbox');
+		self.html('<div><i class="fa fa-check"></i></div><span{1}>{0}</span>'.format(self.html(), isRequired ? ' class="ui-checkbox-label-required"' : ''));
+		self.event('click', function() {
+			self.dirty(false);
+			self.getter(!self.get(), 2, true);
+		});
+	};
+
+	self.setter = function(value) {
+		self.toggle('ui-checkbox-checked', value ? true : false);
 	};
 });

@@ -1,10 +1,9 @@
-COMPONENT('error', function() {
-	var self = this;
+COMPONENT('error', function(self) {
 
 	self.readonly();
 
 	self.make = function() {
-		self.classes('ui-error hidden');
+		self.aclass('ui-error hidden');
 	};
 
 	self.setter = function(value) {

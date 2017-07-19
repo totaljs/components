@@ -1,8 +1,8 @@
-COMPONENT('contenteditable', function() {
-	var self = this;
+COMPONENT('contenteditable', function(self) {
+
 	var timers = {};
 	var current = { bold: false, underline: false, italic: false, focused: false, node: null };
-	var required = self.attr('data-required') === 'true';
+	var required = self.attrd('required') === 'true';
 
 	self.validate = function(value) {
 		var type = typeof(value);
@@ -21,7 +21,7 @@ COMPONENT('contenteditable', function() {
 	self.make = function() {
 
 		self.attr('contenteditable', 'true');
-		self.classes('ui-contenteditable');
+		self.aclass('ui-contenteditable');
 
 		self.event('selectstart', function() {
 			clearTimeout(timers.selection);
@@ -61,7 +61,7 @@ COMPONENT('contenteditable', function() {
 		self.event('paste', function(e) {
 			e.preventDefault();
 			e.stopPropagation();
-			var text = e.originalEvent.clipboardData.getData(self.attr('data-clipboard') || 'text/plain');
+			var text = e.originalEvent.clipboardData.getData(self.attrd('clipboard') || 'text/plain');
 			self.event('paste', text);
 		});
 
@@ -81,7 +81,7 @@ COMPONENT('contenteditable', function() {
 			if (!e.metaKey && !e.ctrlKey)
 				return;
 
-			if (e.keyCode === 66) {
+			if (e.which === 66) {
 				// bold
 				current.bold = !current.bold;
 				document.execCommand('Bold', false, null);
@@ -91,7 +91,7 @@ COMPONENT('contenteditable', function() {
 				return;
 			}
 
-			if (e.keyCode === 76) {
+			if (e.which === 76) {
 				// link
 				e.preventDefault();
 				e.stopPropagation();
@@ -105,7 +105,7 @@ COMPONENT('contenteditable', function() {
 				return;
 			}
 
-			if (e.keyCode === 73) {
+			if (e.which === 73) {
 				// italic
 				current.italic = !current.italic;
 				document.execCommand('Italic', false, null);
@@ -115,7 +115,7 @@ COMPONENT('contenteditable', function() {
 				return;
 			}
 
-			if (e.keyCode === 85) {
+			if (e.which === 85) {
 				// underline
 				current.underline = !current.underline;
 				document.execCommand('Underline', false, null);

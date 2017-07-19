@@ -1,17 +1,17 @@
-COMPONENT('banners', function() {
-	var self = this;
-	var cls = self.attr('data-class-hidden');
+COMPONENT('banners', function(self) {
+
+	var cls = self.attrd('class-hidden');
 	var divs, nav, interval, indexer = 0;
 
 	self.readonly();
 
 	self.make = function() {
 		self.element.wrapInner('<div />');
-		self.classes('ui-banners');
+		self.aclass('ui-banners');
 
 		interval = setInterval(function() {
 			self.show();
-		}, (self.attr('data-interval') || '3000').parseInt());
+		}, +(self.attrd('interval') || '3000'));
 
 		divs = self.find('div > div');
 		divs.addClass(cls);
@@ -21,7 +21,7 @@ COMPONENT('banners', function() {
 		for (var i = 0, length = divs.length; i < length; i++)
 			builder.push('<li><i class="fa fa-circle-o"></i></li>');
 
-		self.append('<img src="{0}" class="img-responsive" alt="" /><ul>{1}</ul>'.format(self.attr('data-empty'), builder.join('')));
+		self.append('<img src="{0}" class="img-responsive" alt="" /><ul>{1}</ul>'.format(self.attrd('empty'), builder.join('')));
 		nav = self.find('li');
 
 		self.button(indexer);

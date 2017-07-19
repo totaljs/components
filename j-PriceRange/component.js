@@ -1,6 +1,5 @@
-COMPONENT('pricerange', function() {
+COMPONENT('pricerange', function(self) {
 
-	var self = this;
 	var slider;
 	var container;
 	var min;
@@ -13,10 +12,10 @@ COMPONENT('pricerange', function() {
 	self.noValid();
 
 	self.make = function() {
-		min = (self.attr('data-min') || '0').parseInt();
-		max = (self.attr('data-max') || '0').parseInt(10000);
-		step = (self.attr('data-step') || '10').parseInt();
-		curr = self.attr('data-currency') || '{0} &euro;';
+		min = (self.attrd('min') || '0').parseInt();
+		max = (self.attrd('max') || '0').parseInt(10000);
+		step = (self.attrd('step') || '10').parseInt();
+		curr = self.attrd('currency') || '{0} &euro;';
 		self.toggle('ui-pricerange');
 		self.append('<div class="ui-pricerange-to ui-pricerange-price">{1}</div><div class="ui-pricerange-from ui-pricerange-price">{0}</div><div class="ui-pricerange-slider"><div class="ui-pricerange-slider-value"><span data-name="margin-right"><i class="fa fa-angle-right"></i></span><span data-name="margin-left"><i class="fa fa-angle-left"></i></span></div></div>'.format(curr.format(min.format(0)), curr.format(max.format(0))));
 

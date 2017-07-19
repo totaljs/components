@@ -1,5 +1,5 @@
-COMPONENT('crop', function() {
-	var self = this;
+COMPONENT('crop', function(self) {
+
 	var width, height, canvas, context;
 	var img = new Image();
 	var can = false;
@@ -51,10 +51,10 @@ COMPONENT('crop', function() {
 
 	self.make = function() {
 
-		bgcolor = self.attr('data-background');
-		width = parseInt(self.attr('data-width') || 0);
-		height = parseInt(self.attr('data-height') || 0);
-		self.classes('ui-crop');
+		bgcolor = self.attrd('background');
+		width = parseInt(self.attrd('width') || 0);
+		height = parseInt(self.attrd('height') || 0);
+		self.aclass('ui-crop');
 		self.append('<input type="file" style="display:none" accept="image/*" /><ul><li data-type="upload"><span class="fa fa-folder"></span></li><li data-type="plus"><span class="fa fa-plus"></span></li><li data-type="refresh"><span class="fa fa-refresh"></span></li><li data-type="minus"><span class="fa fa-minus"></span></li></ul>');
 		self.append(Tangular.render('<canvas width="{{ width }}" height="{{ height }}"></canvas>', { width: width, height: height }));
 		canvas = self.find('canvas').get(0);
@@ -123,7 +123,7 @@ COMPONENT('crop', function() {
 			offset.y = y - current.y;
 		});
 
-		((self.attr('data-dragdrop') || 'true') === 'true') && $(canvas).on('dragenter dragover dragexit drop dragleave', function (e) {
+		((self.attrd('dragdrop') || 'true') === 'true') && $(canvas).on('dragenter dragover dragexit drop dragleave', function (e) {
 			if (self.disabled)
 				return;
 
@@ -132,16 +132,16 @@ COMPONENT('crop', function() {
 
 			switch (e.type) {
 				case 'drop':
-					self.classes('-ui-crop-dragdrop');
+					self.rclass('ui-crop-dragdrop');
 					break;
 				case 'dragenter':
 				case 'dragover':
-					self.classes('ui-crop-dragdrop');
+					self.aclass('ui-crop-dragdrop');
 					return;
 				case 'dragexit':
 				case 'dragleave':
 				default:
-					self.classes('-ui-crop-dragdrop');
+					self.rclass('ui-crop-dragdrop');
 					return;
 			}
 
@@ -199,7 +199,7 @@ COMPONENT('crop', function() {
 	self.setter = function(value) {
 
 		if (value) {
-			img.src = (self.attr('data-format') || '{0}').format(value);
+			img.src = (self.attrd('format') || '{0}').format(value);
 			return;
 		}
 

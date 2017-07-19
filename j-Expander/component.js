@@ -1,5 +1,5 @@
-COMPONENT('expander', function() {
-	var self = this;
+COMPONENT('expander', function(self) {
+
 	self.readonly();
 
 	self.toggle = function(v) {
@@ -14,7 +14,7 @@ COMPONENT('expander', function() {
 	};
 
 	self.make = function() {
-		self.classes('ui-expander' + (self.attr('data-expand') === 'true' ? ' ui-expander-expanded' : ''));
+		self.aclass('ui-expander' + (self.attrd('expand') === 'true' ? ' ui-expander-expanded' : ''));
 		self.element.wrapInner('<div class="ui-expander-container"></div>');
 		self.append('<div class="ui-expander-fade"></div><div class="ui-expander-button"><span class="fa fa-angle-double-down"></span></div>');
 		self.event('click', '.ui-expander-button', function() {

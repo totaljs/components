@@ -1,6 +1,5 @@
-COMPONENT('tooltip', function() {
+COMPONENT('tooltip', function(self) {
 
-	var self = this;
 	var container;
 	var css = {};
 	var anim = {};
@@ -11,7 +10,7 @@ COMPONENT('tooltip', function() {
 	self.blind();
 
 	self.make = function() {
-		self.classes('ui-tooltip hidden');
+		self.aclass('ui-tooltip hidden');
 		self.html('<div></div>');
 		container = $(self.find('div').get(0));
 	};

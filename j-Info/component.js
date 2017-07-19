@@ -1,10 +1,8 @@
-COMPONENT('info', function() {
-	var self = this;
+COMPONENT('info', function(self) {
+
 	var is = false;
-	var timeout;
-	var container;
-	var arrow;
 	var orient = { left: '' };
+	var timeout, container, arrow;
 
 	self.singleton();
 	self.readonly();
@@ -12,7 +10,7 @@ COMPONENT('info', function() {
 
 	self.make = function() {
 
-		self.classes('ui-info');
+		self.aclass('ui-info');
 		self.append('<span class="ui-info-arrow fa fa-caret-up"></span><div class="ui-info-body"></div>');
 		container = self.find('.ui-info-body');
 		arrow = self.find('.ui-info-arrow');
@@ -65,7 +63,7 @@ COMPONENT('info', function() {
 		self.element.show();
 
 		setTimeout(function() {
-			self.classes('ui-info-visible');
+			self.aclass('ui-info-visible');
 		}, 100);
 
 		is = true;

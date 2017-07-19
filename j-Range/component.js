@@ -1,6 +1,6 @@
-COMPONENT('range', function() {
-	var self = this;
-	var required = self.attr('data-required');
+COMPONENT('range', function(self) {
+
+	var required = self.attrd('required');
 
 	self.noValid();
 
@@ -9,10 +9,10 @@ COMPONENT('range', function() {
 		if (name)
 			name = '<div class="ui-range-label{1}">{0}:</div>'.format(name, required ? ' ui-range-label-required' : '');
 		var attrs = [];
-		attrs.attr('step', self.attr('data-step'));
-		attrs.attr('max', self.attr('data-max'));
-		attrs.attr('min', self.attr('data-min'));
-		self.classes('ui-range');
+		attrs.attr('step', self.attrd('step'));
+		attrs.attr('max', self.attrd('max'));
+		attrs.attr('min', self.attrd('min'));
+		self.aclass('ui-range');
 		self.html('{0}<input type="range" data-jc-bind=""{1} />'.format(name, attrs.length ? ' ' + attrs.join(' ') : ''));
 	};
 });

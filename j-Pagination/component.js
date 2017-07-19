@@ -1,6 +1,5 @@
-COMPONENT('pagination', function() {
+COMPONENT('pagination', function(self) {
 
-	var self = this;
 	var nav;
 	var info;
 	var cachePages = 0;
@@ -9,7 +8,7 @@ COMPONENT('pagination', function() {
 	self.template = Tangular.compile('<a href="#{{ page }}" class="page{{ if selected }} selected{{ fi }}" data-page="{{ page }}">{{ page }}</a>');
 	self.readonly();
 	self.make = function() {
-		self.classes('ui-pagination hidden');
+		self.aclass('ui-pagination hidden');
 		self.append('<div></div><nav></nav>');
 		nav = self.find('nav');
 		info = self.find('div');
@@ -17,11 +16,15 @@ COMPONENT('pagination', function() {
 			e.preventDefault();
 			e.stopPropagation();
 			var el = $(this);
-			self.onPage && self.onPage(el.attr('data-page').parseInt(), el);
+
+			self.find('.selected').removeClass('selected');
+			el.addClass('selected');
+
+			self.page && self.page(+el.attr('data-page'), el);
 		});
 	};
 
-	self.onPage;
+	self.page = NOOP;
 	self.getPagination = function(page, pages, max, fn) {
 
 		var half = Math.ceil(max / 2);
@@ -87,7 +90,7 @@ COMPONENT('pagination', function() {
 			builder.push('<a href="#prev" class="page" data-page="{0}"><span class="fa fa-arrow-left"></span></a>'.format(prev));
 		}
 
-		var max = self.attr('data-max');
+		var max = self.attrd('max');
 		if (max)
 			max = max.parseInt();
 		else
@@ -112,8 +115,8 @@ COMPONENT('pagination', function() {
 		if (cachePages > 1) {
 			var pluralize_pages = [cachePages];
 			var pluralize_items = [cacheCount];
-			pluralize_pages.push.apply(pluralize_pages, self.attr('data-pages').split(',').trim());
-			pluralize_items.push.apply(pluralize_items, self.attr('data-items').split(',').trim());
+			pluralize_pages.push.apply(pluralize_pages, self.attrd('pages').split(',').trim());
+			pluralize_items.push.apply(pluralize_items, self.attrd('items').split(',').trim());
 			info.empty().append(Tangular.helpers.pluralize.apply(value, pluralize_pages) + ' / ' + Tangular.helpers.pluralize.apply(value, pluralize_items));
 		}
 

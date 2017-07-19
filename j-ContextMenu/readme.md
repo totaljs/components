@@ -24,7 +24,7 @@ If the `value` isn't defined then the component uses `name` as `value.
 __Global events__:
 
 ```javascript
-jC.on('contextmenu', function(visible, component, target) {
+MAIN.on('contextmenu', function(visible, component, target) {
     console.log('ContextMenu is', visible ? 'visible' : 'hidden');
 });
 ```

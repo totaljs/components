@@ -1,6 +1,5 @@
-COMPONENT('repeater', function() {
+COMPONENT('repeater', function(self) {
 
-	var self = this;
 	var recompile = false;
 	var filter;
 
@@ -18,7 +17,7 @@ COMPONENT('repeater', function() {
 		element.remove();
 		self.template = Tangular.compile(html);
 		recompile = html.indexOf('data-jc="') !== -1;
-		filter = GET(self.attr('data-filter'));
+		filter = GET(self.attrd('filter'));
 	};
 
 	self.setter = function(value) {
@@ -32,11 +31,11 @@ COMPONENT('repeater', function() {
 		for (var i = 0, length = value.length; i < length; i++) {
 			var item = value[i];
 			item.index = i;
-			if (!filter || filter(item)) 
+			if (!filter || filter(item))
 				builder.push(self.template(item).replace(/\$index/g, i.toString()).replace(/\$path/g, self.path + '[' + i + ']'));
 		}
 
 		self.html(builder);
-		recompile && jC.compile();
+		recompile && self.compile();
 	};
 });

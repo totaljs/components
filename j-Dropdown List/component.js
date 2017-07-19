@@ -1,7 +1,6 @@
-COMPONENT('dropdown', function() {
+COMPONENT('dropdown', function(self) {
 
-	var self = this;
-	var isRequired = self.attr('data-required') === 'true';
+	var isRequired = self.attrd('required') === 'true';
 	var select, container, condition;
 
 	self.validate = function(value) {
@@ -40,9 +39,9 @@ COMPONENT('dropdown', function() {
 		var builder = [];
 		var value = self.get();
 		var template = '<option value="{0}"{1}>{2}</option>';
-		var propText = self.attr('data-source-text') || 'name';
-		var propValue = self.attr('data-source-value') || 'id';
-		var emptyText = self.attr('data-empty');
+		var propText = self.attrd('source-text') || 'name';
+		var propValue = self.attrd('source-value') || 'id';
+		var emptyText = self.attrd('empty');
 
 		emptyText !== undefined && builder.push('<option value="">{0}</option>'.format(emptyText));
 
@@ -63,23 +62,23 @@ COMPONENT('dropdown', function() {
 
 		var options = [];
 
-		(self.attr('data-options') || '').split(';').forEach(function(item) {
+		(self.attrd('options') || '').split(';').forEach(function(item) {
 			item = item.split('|');
 			options.push('<option value="{0}">{1}</option>'.format(item[1] === undefined ? item[0] : item[1], item[0]));
 		});
 
-		self.classes('ui-dropdown-container');
+		self.aclass('ui-dropdown-container');
 
 		var label = self.html();
 		var html = '<div class="ui-dropdown"><span class="fa fa-sort"></span><select data-jc-bind="">{0}</select></div>'.format(options.join(''));
 		var builder = [];
 
-		condition = self.attr('data-source-condition');
+		condition = self.attrd('source-condition');
 		if (condition)
 			condition = FN(condition);
 
 		if (label.length) {
-			var icon = self.attr('data-icon');
+			var icon = self.attrd('icon');
 			builder.push('<div class="ui-dropdown-label{0}">{1}{2}:</div>'.format(isRequired ? ' ui-dropdown-label-required' : '', icon ? '<span class="fa {0}"></span> '.format(icon) : '', label));
 			builder.push('<div class="ui-dropdown-values">{0}</div>'.format(html));
 			self.html(builder.join(''));
@@ -89,12 +88,12 @@ COMPONENT('dropdown', function() {
 		select = self.find('select');
 		container = self.find('.ui-dropdown');
 
-		var ds = self.attr('data-source');
+		var ds = self.attrd('source');
 		if (!ds)
 			return;
 
 		var prerender = function() {
-			var value = self.get(self.attr('data-source'));
+			var value = self.get(self.attrd('source'));
 			!NOTMODIFIED(self.id, value) && self.render(value || EMPTYARRAY);
 		};
 

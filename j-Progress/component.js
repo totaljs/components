@@ -1,16 +1,15 @@
-COMPONENT('progress', function() {
-	var self = this;
-	var container;
-	var old;
+COMPONENT('progress', function(self) {
+
+	var container, old;
 	var animate = true;
 
 	self.readonly();
 
 	self.make = function() {
-		self.classes('ui-progress');
+		self.aclass('ui-progress');
 		self.append('<div style="width:10%">0%</div>');
 		container = self.find('div');
-		animate = self.attr('data-animate') !== 'false';
+		animate = self.attrd('animate') !== 'false';
 	};
 
 	self.setter = function(value) {

@@ -1,5 +1,5 @@
-COMPONENT('audio', function() {
-	var self = this;
+COMPONENT('audio', function(self) {
+
 	var can = false;
 	var volume = 0.5;
 

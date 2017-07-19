@@ -15,9 +15,9 @@ COMPONENT('contentslider', function() {
 
 	self.make = function() {
 
-		self.classes('ui-contentslider');
+		self.aclass('ui-contentslider');
 		self.element.wrapInner('<div class="ui-contentslider-items" />');
-		self.find(self.attr('data-selector')).wrap('<div class="{0}" />'.format(cssi));
+		self.find(self.attrd('selector')).wrap('<div class="{0}" />'.format(cssi));
 		self.append('<div class="{0}" />'.format(cssp));
 		self.refresh();
 		container = self.find('.ui-contentslider-items');
@@ -30,7 +30,7 @@ COMPONENT('contentslider', function() {
 			indexer = CACHE(cacheid) || 0;
 		}
 
-		self.classes('-hidden');
+		self.rclass('hidden');
 		self.show(indexer++);
 
 		self.event('click', '.fa', function() {
@@ -44,7 +44,7 @@ COMPONENT('contentslider', function() {
 			self.show(indexer++);
 			if (indexer > length)
 				indexer = 0;
-		}, (self.attr('data-interval') || '3000').parseInt());
+		}, +(self.attr+('interval') || '3000'));
 	};
 
 	self.refresh = function(noredraw) {

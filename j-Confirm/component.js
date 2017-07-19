@@ -1,13 +1,13 @@
-COMPONENT('confirm', function() {
-	var self = this;
-	var is = false;
-	var visible = false;
+COMPONENT('confirm', function(self) {
+
+	var is, visible = false;
 
 	self.readonly();
 	self.singleton();
 
 	self.make = function() {
-		self.toggle('ui-confirm hidden', true);
+
+		self.aclass('ui-confirm hidden');
 
 		self.event('click', 'button', function() {
 			self.hide($(this).attr('data-index').parseInt());
@@ -27,7 +27,7 @@ COMPONENT('confirm', function() {
 		$(window).on('keydown', function(e) {
 			if (!visible)
 				return;
-			var index = e.keyCode === 13 ? 0 : e.keyCode === 27 ? 1 : null;
+			var index = e.which === 13 ? 0 : e.which === 27 ? 1 : null;
 			if (index != null) {
 				self.find('button[data-index="{0}"]'.format(index)).trigger('click');
 				e.preventDefault();
@@ -49,20 +49,20 @@ COMPONENT('confirm', function() {
 
 	self.hide = function(index) {
 		self.callback && self.callback(index);
-		self.classes('-ui-confirm-visible');
+		self.rclass('ui-confirm-visible');
 		setTimeout2(self.id, function() {
 			visible = false;
-			self.classes('hidden');
+			self.aclass('hidden');
 		}, 1000);
 	};
 
 	self.content = function(cls, text) {
 		!is && self.html('<div><div class="ui-confirm-body"></div></div>');
 		self.find('.ui-confirm-body').empty().append(text);
-		self.classes('-hidden');
+		self.rclass('hidden');
 		setTimeout2(self.id, function() {
 			visible = true;
-			self.classes('ui-confirm-visible');
+			self.aclass('ui-confirm-visible');
 		}, 5);
 	};
 });

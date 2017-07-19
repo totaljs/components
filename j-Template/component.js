@@ -1,5 +1,5 @@
-COMPONENT('template', function() {
-	var self = this;
+COMPONENT('template', function(self) {
+
 	self.readonly();
 	self.make = function(template) {
 
@@ -22,10 +22,11 @@ COMPONENT('template', function() {
 	self.setter = function(value) {
 		if (NOTMODIFIED(self.id, value))
 			return;
-		if (!value)
-			return self.classes('hidden');
-		KEYPRESS(function() {
-			self.html(self.template(value)).removeClass('hidden');
-		}, 100, self.id);
+		if (value) {
+			KEYPRESS(function() {
+				self.html(self.template(value)).removeClass('hidden');
+			}, 100, self.id);
+		} else
+			self.aclass('hidden');
 	};
 });

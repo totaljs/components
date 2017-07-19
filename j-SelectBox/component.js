@@ -1,8 +1,7 @@
-COMPONENT('selectbox', function() {
+COMPONENT('selectbox', function(self) {
 
-	var self = this;
 	var Eitems, Eselected;
-	var isRequired = self.attr('data-required') === 'true';
+	var isRequired = self.attrd('required') === 'true';
 
 	self.datasource = EMPTYARRAY;
 	self.template = Tangular.compile('<li data-search="{{ search }}" data-index="{{ index }}">{{ text }}</li>');
@@ -31,9 +30,9 @@ COMPONENT('selectbox', function() {
 	};
 
 	self.make = function() {
-		var search = self.attr('data-search');
+		var search = self.attrd('search');
 
-		self.append((typeof(search) === 'string' ? '<div class="ui-selectbox-search"><span><i class="fa fa-search ui-selectbox-search-icon"></i></span><div><input type="text" placeholder="{0}" /></div></div><div>'.format(search) : '') + '<div style="height:{0}"><ul></ul><ul style="height:{0}"></ul></div>'.format(self.attr('data-height') || '200px'));
+		self.append((typeof(search) === 'string' ? '<div class="ui-selectbox-search"><span><i class="fa fa-search ui-selectbox-search-icon"></i></span><div><input type="text" placeholder="{0}" /></div></div><div>'.format(search) : '') + '<div style="height:{0}"><ul></ul><ul style="height:{0}"></ul></div>'.format(self.attrd('height') || '200px'));
 		self.classes('ui-selectbox');
 
 		self.find('ul').each(function(index) {
@@ -43,10 +42,10 @@ COMPONENT('selectbox', function() {
 				Eitems = $(this);
 		});
 
-		var datasource = self.attr('data-source');
+		var datasource = self.attrd('source');
 		datasource && self.watch(datasource, function(path, value) {
-			var propText = self.attr('data-source-text') || 'name';
-			var propValue = self.attr('data-source-value') || 'id';
+			var propText = self.attrd('source-text') || 'name';
+			var propValue = self.attrd('source-value') || 'id';
 			self.datasource = [];
 			value && value.forEach(function(item, index) {
 
@@ -66,7 +65,7 @@ COMPONENT('selectbox', function() {
 			self.redraw();
 		}, true);
 
-		datasource = self.attr('data-options');
+		datasource = self.attrd('options');
 		if (datasource) {
 			var items = [];
 			datasource.split(';').forEach(function(item, index) {
@@ -79,7 +78,7 @@ COMPONENT('selectbox', function() {
 
 		self.event('click', 'li', function() {
 			var selected = self.get() || [];
-			var index = this.getAttribute('data-index').parseInt();
+			var index = +this.getAttribute('data-index');
 			var value = self.datasource[index];
 
 			if (selected.indexOf(value.value) === -1)
@@ -122,7 +121,7 @@ COMPONENT('selectbox', function() {
 
 		Eitems.find('li').each(function() {
 			var el = $(this);
-			var index = el.attr('data-index').parseInt();
+			var index = +el.attr('data-index');
 			el.toggleClass('ui-selectbox-selected', selected[index] !== undefined);
 		});
 

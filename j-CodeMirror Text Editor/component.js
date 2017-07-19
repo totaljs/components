@@ -1,7 +1,6 @@
-COMPONENT('codemirror', function() {
+COMPONENT('codemirror', function(self) {
 
-	var self = this;
-	var required = self.attr('data-required') === 'true';
+	var required = self.attrd('required') === 'true';
 	var skipA = false;
 	var skipB = false;
 	var editor;
@@ -24,7 +23,7 @@ COMPONENT('codemirror', function() {
 		self.html('<div class="ui-codemirror-label' + (required ? ' ui-codemirror-label-required' : '') + '">' + (icon ? '<span class="fa ' + icon + '"></span> ' : '') + content + ':</div><div class="ui-codemirror"></div>');
 
 		var container = self.find('.ui-codemirror');
-		editor = CodeMirror(container.get(0), { lineNumbers: self.attr('data-linenumbers') === 'true', mode: self.attr('data-type') || 'htmlmixed', indentUnit: 4 });
+		editor = CodeMirror(container.get(0), { lineNumbers: self.attrd('linenumbers') === 'true', mode: self.attrd('type') || 'htmlmixed', indentUnit: 4 });
 		height !== 'auto' && editor.setSize('100%', height || '200px');
 
 		editor.on('change', function(a, b) {

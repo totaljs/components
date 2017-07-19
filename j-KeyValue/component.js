@@ -1,5 +1,5 @@
-COMPONENT('keyvalue', function() {
-	var self = this;
+COMPONENT('keyvalue', function(self) {
+
 	var container;
 	var empty = {};
 	var skip = false;
@@ -11,13 +11,13 @@ COMPONENT('keyvalue', function() {
 	self.template = Tangular.compile('<div class="ui-keyvalue-item"><div class="ui-keyvalue-item-remove"><i class="fa fa-times"></i></div><div class="ui-keyvalue-item-key"><input type="text" name="key" maxlength="{{ max }}" placeholder="{{ placeholder_key }}" value="{{ key }}" /></div><div class="ui-keyvalue-item-value"><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder_value }}" value="{{ value }}" /></div></div>');
 	self.make = function() {
 
-		empty.max = (self.attr('data-maxlength') || '100').parseInt();
-		empty.placeholder_key = self.attr('data-placeholder-key');
-		empty.placeholder_value = self.attr('data-placeholder-value');
+		empty.max = (self.attrd('maxlength') || '100').parseInt();
+		empty.placeholder_key = self.attrd('placeholder-key');
+		empty.placeholder_value = self.attrd('placeholder-value');
 		empty.value = '';
 
 		var html = self.html();
-		var icon = self.attr('data-icon');
+		var icon = self.attrd('icon');
 
 		if (icon)
 			icon = '<i class="fa {0}"></i>'.format(icon);
@@ -42,7 +42,7 @@ COMPONENT('keyvalue', function() {
 
 		self.event('change keypress', 'input', function(e) {
 
-			if (e.type !== 'change' && e.keyCode !== 13)
+			if (e.type !== 'change' && e.which !== 13)
 				return;
 
 			var el = $(this);
@@ -86,7 +86,7 @@ COMPONENT('keyvalue', function() {
 		});
 	};
 
-	self.setter = function(value, path) {
+	self.setter = function(value) {
 
 		if (skip) {
 			skip = false;

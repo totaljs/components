@@ -1,6 +1,5 @@
-COMPONENT('intro', function() {
+COMPONENT('intro', function(self) {
 
-	var self = this;
 	var container = 'intro' + GUID(4);
 	var condition, content, figures, buttons, button;
 	var index = 0;
@@ -8,7 +7,7 @@ COMPONENT('intro', function() {
 
 	self.readonly();
 	self.make = function() {
-		condition = FN(self.attr('data-if'));
+		condition = FN(self.attrd('if'));
 		$(document.body).append('<div id="{0}" class="hidden ui-intro"><div class="ui-intro-body"></div></div>'.format(container));
 		content = self.element;
 		container = $('#' + container);
@@ -52,7 +51,7 @@ COMPONENT('intro', function() {
 		buttons.filter('.selected').removeClass('selected');
 		figures.eq(index).addClass('visible');
 		buttons.eq(index).addClass('selected');
-		button.html(index < buttons.length - 1 ? ((self.attr('data-next') || 'Next') + '<i class="fa fa-chevron-right"></i>') : (self.attr('data-close') || 'Done'));
+		button.html(index < buttons.length - 1 ? ((self.attrd('next') || 'Next') + '<i class="fa fa-chevron-right"></i>') : (self.attrd('close') || 'Done'));
 		return self;
 	};
 

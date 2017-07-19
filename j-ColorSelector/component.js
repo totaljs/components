@@ -1,10 +1,9 @@
-COMPONENT('colorselector', function() {
+COMPONENT('colorselector', function(self) {
 
-	var self = this;
 	var colors = ['#DA4453', '#E9573F', '#F6BB42', '#8CC152', '#37BC9B', '#3BAFDA', '#4A89DC', '#967ADC', '#D770AD', '#656D78'];
 	var selected;
 	var list;
-	var required = self.attr('data-required') === 'true';
+	var required = self.attrd('required') === 'true';
 
 	self.validate = function(value) {
 		return colors.indexOf(value) === -1;

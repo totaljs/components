@@ -1,7 +1,6 @@
-COMPONENT('textboxtags', function() {
+COMPONENT('textboxtags', function(self) {
 
-	var self = this;
-	var isRequired = self.attr('data-required') === 'true';
+	var isRequired = self.attrd('required') === 'true';
 	var isString = false;
 	var container;
 
@@ -23,10 +22,10 @@ COMPONENT('textboxtags', function() {
 
 	self.make = function() {
 
-		var height = self.attr('data-height');
-		var icon = self.attr('data-icon');
+		var height = self.attrd('height');
+		var icon = self.attrd('icon');
 		var content = self.html();
-		var html = '<div class="ui-textboxtags-values"' + (height ? ' style="min-height:' + height + '"' : '') + '><input type="text" placeholder="' + (self.attr('data-placeholder') || '') + '" /></div>';
+		var html = '<div class="ui-textboxtags-values"' + (height ? ' style="min-height:' + height + '"' : '') + '><input type="text" placeholder="' + (self.attrd('placeholder') || '') + '" /></div>';
 
 		isString = self.type === 'string';
 
@@ -35,7 +34,7 @@ COMPONENT('textboxtags', function() {
 			self.append('<div class="ui-textboxtags-label' + (isRequired ? ' ui-textboxtags-label-required' : '') + '">' + (icon ? '<span class="fa ' + icon + '"></span> ' : '') + content + ':</div>');
 			self.append('<div class="ui-textboxtags">' + html + '</div>');
 		} else {
-			self.classes('ui-textboxtags');
+			self.aclass('ui-textboxtags');
 			self.append(html);
 		}
 
@@ -69,7 +68,7 @@ COMPONENT('textboxtags', function() {
 
 		self.event('keydown', 'input', function(e) {
 
-			if (e.keyCode === 8) {
+			if (e.which === 8) {
 				if (this.value)
 					return;
 				var arr = self.get();
@@ -83,7 +82,7 @@ COMPONENT('textboxtags', function() {
 				return;
 			}
 
-			if (e.keyCode !== 13 || !this.value)
+			if (e.which !== 13 || !this.value)
 				return;
 
 			var arr = self.get();

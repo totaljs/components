@@ -1,13 +1,13 @@
-COMPONENT('lazyload', function() {
-	var self = this;
+COMPONENT('lazyload', function(self) {
+
 	var selector, container, offset, is;
 
 	self.readonly();
 
 	self.make = function() {
-		selector = self.attr('data-selector');
-		offset = +(self.attr('data-offset') || 50);
-		container = $(self.attr('data-container') || window);
+		selector = self.attr('selector');
+		offset = +(self.attr('offset') || 50);
+		container = $(self.attr('container') || window);
 		is = container.get(0) === window;
 		container.on('scroll', self.refresh);
 		setTimeout(function() {
@@ -33,7 +33,7 @@ COMPONENT('lazyload', function() {
 			var top = (is ? 0 : scroll) + el.offset().top;
 			if (top >= beg && top <= end) {
 				el.attr('data-lazyload', true);
-				EXEC(self.attr('data-exec'), el);
+				EXEC(self.attr('exec'), el);
 			}
 		});
 	};

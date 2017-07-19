@@ -1,5 +1,5 @@
-COMPONENT('dragdropfiles', function() {
-	var self = this;
+COMPONENT('dragdropfiles', function(self) {
+
 	self.readonly();
 
 	self.mirror = function(cls) {
@@ -13,7 +13,7 @@ COMPONENT('dragdropfiles', function() {
 	};
 
 	self.make = function() {
-		var cls = self.attr('data-class');
+		var cls = self.attrd('class');
 		var has = false;
 
 		self.event('dragenter dragover dragexit drop dragleave', function (e) {
@@ -40,7 +40,7 @@ COMPONENT('dragdropfiles', function() {
 					return;
 			}
 
-			EXEC(self.attr('data-files'), e.originalEvent.dataTransfer.files, e);
+			EXEC(self.attrd('files'), e.originalEvent.dataTransfer.files, e);
 		});
 	};
 });

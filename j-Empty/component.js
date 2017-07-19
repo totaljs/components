@@ -1,9 +1,8 @@
-COMPONENT('empty', function() {
-	var self = this;
-	self.readonly();
+COMPONENT('empty', function(self) {
 
+	self.readonly();
 	self.make = function() {
-		self.classes('ui-empty');
+		self.aclass('ui-empty');
 	};
 
 	self.setter = function(value) {

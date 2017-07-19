@@ -1,6 +1,4 @@
-COMPONENT('lazycontent', function() {
-
-	var self = this;
+COMPONENT('lazycontent', function(self) {
 
 	self.visible_old = 0;
 	self.isinit = false;
@@ -95,7 +93,7 @@ COMPONENT('lazycontent', function() {
 			if (!attr)
 				return;
 
-			var path = self.attr('data-' + attr);
+			var path = self.attrd(attr);
 			if (!path)
 				return;
 
@@ -119,8 +117,8 @@ COMPONENT('lazycontent', function() {
 		item.component = self;
 		item.top = self.element.offset().top;
 		item.type = 0;
-		item.height = (self.attr('data-height') || '').replace(/px|\%/g, '').parseInt();
-		item.$remove = self.attr('data-redraw') || self.attr('data-hide') ? false : true;
+		item.height = (self.attrd('height') || '').replace(/px|\%/g, '').parseInt();
+		item.$remove = self.attrd('redraw') || self.attrd('hide') ? false : true;
 		item.remove = false;
 
 		if (!item.height) {

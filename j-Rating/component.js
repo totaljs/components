@@ -1,7 +1,7 @@
-COMPONENT('rating', function() {
+COMPONENT('rating', function(self) {
+
 	var iok = 'fa-star';
 	var ino = 'fa-star-o';
-	var self = this;
 
 	self.readonly();
 
@@ -10,7 +10,7 @@ COMPONENT('rating', function() {
 		for (var i = 0; i < 5; i++)
 			builder.push('<i class="fa {0}"></i>'.format(ino));
 
-		self.classes('ui-rating');
+		self.aclass('ui-rating');
 		self.html('{0}<div>{1}</div>'.format(self.html(), builder.join('')));
 		self.event('click', '.fa', function() {
 			!self.disabled && self.set($(this).index() + 1);

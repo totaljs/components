@@ -1,6 +1,5 @@
-COMPONENT('map', function() {
+COMPONENT('map', function(self) {
 
-	var self = this;
 	self.readonly();
 
 	self.prepare = function(lat, lng) {
@@ -10,9 +9,7 @@ COMPONENT('map', function() {
 
 		var max = function(val, num) {
 			var index = val.indexOf('.');
-			if (index === -1)
-				return val;
-			return val.substring(0, index + 1 + num);
+			return index === -1 ? val : val.substring(0, index + 1 + num);
 		};
 
 		return max(lat, 6) + ',' + max(lng, 6);
@@ -21,25 +18,25 @@ COMPONENT('map', function() {
 	self.make = function() {
 		var options = {};
 
-		options.zoom = +(self.attr('data-zoom') || 13);
+		options.zoom = +(self.attrd('zoom') || 13);
 		options.scrollwheel = true;
 		options.streetViewControl = false;
-		options.mapTypeId = self.attr('data-type') || 'roadmap';
+		options.mapTypeId = self.attrd('type') || 'roadmap';
 
 		self.map = new google.maps.Map(self.element.get(0), options);
 		self.geo = new google.maps.Geocoder();
 
 		options = { position: self.map.getCenter(), map: self.map }; // animation: google.maps.Animation.BOUNCE
-		options.draggable = self.attr('data-draggable') === 'true';
+		options.draggable = self.attrd('draggable') === 'true';
 
-		var tmp = self.attr('data-icon');
+		var tmp = self.attrd('icon');
 		if (tmp)
 			options.icon = tmp;
 
 		self.marker = new google.maps.Marker(options);
 
 		google.maps.event.addListener(self.marker, 'click', function(e) {
-			var fn = self.attr('data-click');
+			var fn = self.attrd('click');
 			fn && self.get(fn)(self.prepare(e.latLng.lat(), e.latLng.lng()));
 		});
 

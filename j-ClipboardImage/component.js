@@ -1,6 +1,5 @@
-COMPONENT('clipboardimage', function() {
+COMPONENT('clipboardimage', function(self) {
 
-	var self = this;
 	var ctx, img, canvas, maxW, maxH, quality;
 
 	self.singleton();
@@ -8,14 +7,14 @@ COMPONENT('clipboardimage', function() {
 	self.blind();
 
 	self.make = function() {
-		self.classes('hidden');
+		self.aclass('hidden');
 		self.append('<canvas></canvas><img src="data:image/png;base64,R0lGODdhAQABAIAAAHnrWAAAACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw==" />');
 		canvas = self.find('canvas').get(0);
 		ctx = canvas.getContext('2d');
 		img = self.find('img').get(0);
-		maxW = (self.attr('data-width') || '1280').parseInt();
-		maxH = (self.attr('data-height') || '1024').parseInt();
-		quality = (self.attr('data-quality') || '90').parseInt() * 0.01;
+		maxW = (self.attrd('width') || '1280').parseInt();
+		maxH = (self.attrd('height') || '1024').parseInt();
+		quality = (self.attrd('quality') || '90').parseInt() * 0.01;
 
 		$(window).on('paste', function(e) {
 			var item = e.originalEvent.clipboardData.items[0];

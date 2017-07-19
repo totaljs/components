@@ -1,9 +1,7 @@
-COMPONENT('contextmenu', function() {
-	var self = this;
+COMPONENT('contextmenu', function(self) {
+
 	var is = false;
-	var timeout;
-	var container;
-	var arrow;
+	var timeout, container, arrow;
 
 	self.template = Tangular.compile('<div data-value="{{ value }}"{{ if selected }} class="selected"{{ fi }}><i class="fa {{ icon }}"></i><span>{{ name | raw }}</span></div>');
 	self.singleton();

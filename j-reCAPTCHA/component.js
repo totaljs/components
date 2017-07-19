@@ -1,7 +1,6 @@
-COMPONENT('recaptcha', function() {
+COMPONENT('recaptcha', function(self) {
 
-	var self = this;
-	var isRequired = self.attr('data-required') === 'true';
+	var isRequired = self.attrd('required') === 'true';
 
 	self.getter = null;
 
@@ -17,7 +16,7 @@ COMPONENT('recaptcha', function() {
 		}, function(err, again) {
 			if (err)
 				return again(100);
-			grecaptcha.render(self.element.get(0), { sitekey: self.attr('data-key'), theme: self.attr('data-theme') || 'light', callback: function(response) {
+			grecaptcha.render(self.element.get(0), { sitekey: self.attrd('key'), theme: self.attrd('theme') || 'light', callback: function(response) {
 				self.set(response);
 				self.change(true);
 			}});

@@ -1,5 +1,5 @@
-COMPONENT('qrcode', function() {
-	var self = this;
+COMPONENT('qrcode', function(self) {
+
 	var url = 'https://api.qrserver.com/v1/create-qr-code/?color=000000&bgcolor=FFFFFF&data={0}&qzone=0&margin=0&size={1}x{1}&ecc=L';
 	var img;
 
@@ -16,7 +16,7 @@ COMPONENT('qrcode', function() {
 			value = value.toString();
 
 		var text = encodeURIComponent(value);
-		var size = (self.attr('data-size') || '200').replace('px', '');
+		var size = (self.attrd('size') || '200').replace('px', '');
 
 		if (img) {
 			img.attr('src', src.format(text, size));

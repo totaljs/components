@@ -1,9 +1,6 @@
-COMPONENT('repeater-group', function() {
+COMPONENT('repeater-group', function(self) {
 
-	var self = this;
-	var html;
-	var template_group;
-	var group;
+	var html, template_group, group;
 
 	self.readonly();
 
@@ -16,8 +13,8 @@ COMPONENT('repeater-group', function() {
 	};
 
 	self.make = function() {
-		group = self.attr('data-group');
-		self.element.find('script').each(function(index) {
+		group = self.attrd('group');
+		self.find('script').each(function(index) {
 			var element = $(this);
 			var html = element.html();
 			element.remove();

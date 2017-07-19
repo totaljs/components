@@ -1,5 +1,4 @@
-COMPONENT('resource', function() {
-	var self = this;
+COMPONENT('resource', function(self) {
 
 	self.readonly();
 	self.blind();

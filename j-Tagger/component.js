@@ -1,6 +1,5 @@
-COMPONENT('tagger', function() {
+COMPONENT('tagger', function(self) {
 
-	var self = this;
 	var elements;
 
 	self.readonly();
@@ -20,7 +19,7 @@ COMPONENT('tagger', function() {
 	self.setter = function(value) {
 
 		if (!value) {
-			self.classes('hidden');
+			self.aclass('hidden');
 			return;
 		}
 
@@ -91,6 +90,6 @@ COMPONENT('tagger', function() {
 				this.innerHTML = cache.def;
 		});
 
-		self.classes('-transparent –hidden');
+		self.rclass('transparent hidden');
 	};
 });

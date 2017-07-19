@@ -1,9 +1,10 @@
-COMPONENT('filereader', function() {
-	var self = this;
+COMPONENT('filereader', function(self) {
+
 	var input;
+
 	self.readonly();
 	self.make = function() {
-		self.classes('hidden');
+		self.aclass('hidden');
 		self.append('<input type="file" />');
 		input = self.find('input');
 		input.on('change', function(e) {

@@ -1,12 +1,12 @@
 {
 	"datecreated": "2015-09-25T09:42:03.550Z",
-	"dateupdated": "2016-09-12T20:39:00.000Z",
+	"dateupdated": "2017-07-19T08:19:00.000Z",
 	"name": "j-Checkbox",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 2,
+	"version": 3,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

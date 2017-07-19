@@ -1,10 +1,12 @@
-COMPONENT('shortcuts', function() {
-	var self = this;
+COMPONENT('shortcuts', function(self) {
+
 	var items = [];
 	var length = 0;
+
 	self.singleton();
 	self.readonly();
 	self.blind();
+
 	self.make = function() {
 		$(window).on('keydown', function(e) {
 			length && setTimeout2(self.id, function() {
@@ -73,13 +75,13 @@ COMPONENT('shortcuts', function() {
 					builder.push('e.key===\'{0}\''.format(item.toUpperCase()));
 					return;
 				case 'capslock':
-					builder.push('e.keyCode===20');
+					builder.push('e.which===20');
 					return;
 			}
 
 			var num = item.parseInt();
 			if (num)
-				builder.push('e.keyCode===' + num);
+				builder.push('e.which===' + num);
 			else
 				builder.push('e.key===\'{0}\''.format(item));
 

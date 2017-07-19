@@ -1,12 +1,13 @@
-COMPONENT('visible', function() {
-	var self = this;
+COMPONENT('visible', function(self) {
+
 	var processed = false;
-	var template = self.attr('data-template');
+	var template = self.attrd('template');
+
 	self.readonly();
 	self.setter = function(value) {
 
 		var is = true;
-		var condition = self.attr('data-if');
+		var condition = self.attrd('if');
 
 		if (condition)
 			is = self.evaluate(condition);

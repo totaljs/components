@@ -1,5 +1,5 @@
-COMPONENT('clipboard', function() {
-	var self = this;
+COMPONENT('clipboard', function(self) {
+
 	var container;
 
 	self.singleton();

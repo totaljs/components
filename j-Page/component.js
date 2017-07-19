@@ -1,5 +1,5 @@
-COMPONENT('page', function() {
-	var self = this;
+COMPONENT('page', function(self) {
+
 	var isProcessed = false;
 	var isProcessing = false;
 
@@ -14,12 +14,11 @@ COMPONENT('page', function() {
 		if (isProcessing)
 			return;
 
-		var el = self.element;
-		var is = el.attr('data-if') == value;
-		var reload = self.attr('data-reload');
+		var is = self.attrd('if') == value;
+		var reload = self.attrd('reload');
 
 		if (isProcessed || !is) {
-			el.toggleClass('hidden', !is);
+			self.toggle('hidden', !is);
 			is && reload && self.get(reload)();
 			self.release(!is);
 			return;
@@ -28,10 +27,10 @@ COMPONENT('page', function() {
 		SETTER('loading', 'show');
 		isProcessing = true;
 
-		IMPORT(el.attr('data-template'), el, function() {
+		IMPORT(self.attrd('template'), self.element, function() {
 			isProcessing = false;
 
-			var init = el.attr('data-init');
+			var init = self.attrd('init');
 			if (init) {
 				var fn = GET(init || '');
 				typeof(fn) === 'function' && fn(self);
@@ -39,9 +38,11 @@ COMPONENT('page', function() {
 
 			reload && self.get(reload)();
 			isProcessed = true;
+
 			setTimeout(function() {
-				el.toggleClass('hidden', !is);
+				self.toggle('hidden', !is);
 			}, 200);
+
 			SETTER('loading', 'hide', 1000);
 		});
 	};

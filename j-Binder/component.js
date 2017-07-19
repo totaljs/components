@@ -1,8 +1,6 @@
-COMPONENT('binder', function() {
+COMPONENT('binder', function(self) {
 
-	var self = this;
-	var keys;
-	var keys_unique;
+	var keys, keys_unique;
 
 	self.readonly();
 	self.blind();

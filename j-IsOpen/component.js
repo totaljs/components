@@ -1,7 +1,6 @@
-COMPONENT('isopen', function() {
-	var self = this;
-	var interval;
-	var prev;
+COMPONENT('isopen', function(self) {
+
+	var interval, prev;
 
 	self.destroy = function() {
 		clearInterval(interval);

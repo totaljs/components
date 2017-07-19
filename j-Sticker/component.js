@@ -1,10 +1,8 @@
-COMPONENT('sticker', function() {
+COMPONENT('sticker', function(self) {
 
-	var self = this;
-	var ca = self.attr('data-class-off');
-	var cb = self.attr('data-class-on');
-	var enabled = false;
-	var is = false;
+	var ca = self.attrd('class-off');
+	var cb = self.attrd('class-on');
+	var enabled = false, is = false;
 	var top = 0;
 
 	self.readonly();
@@ -20,9 +18,7 @@ COMPONENT('sticker', function() {
 			window.$sticker = setTimeout(function() {
 				window.$stickercounter = 0;
 				var y = $(window).scrollTop();
-				FIND('sticker', true).forEach(function(m) {
-					m.toggle(y);
-				});
+				SETTER(true, 'sticker', 'toggle', y);
 			}, 30);
 		});
 	};
@@ -45,6 +41,7 @@ COMPONENT('sticker', function() {
 
 		if (!enabled && !init)
 			return self;
+
 		cb && el.removeClass(cb);
 		ca && el.addClass(ca);
 		enabled = false;

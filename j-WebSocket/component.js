@@ -1,7 +1,6 @@
-COMPONENT('websocket', function() {
+COMPONENT('websocket', function(self) {
 
 	var reconnect_timeout;
-	var self = this;
 	var ws, url;
 	var queue = [];
 	var sending = false;
@@ -10,8 +9,8 @@ COMPONENT('websocket', function() {
 	self.readonly();
 
 	self.make = function() {
-		reconnect_timeout = (self.attr('data-reconnect') || '2000').parseInt();
-		url = self.attr('data-url');
+		reconnect_timeout = (self.attrd('reconnect') || '2000').parseInt();
+		url = self.attrd('url');
 		if (!url.match(/^(ws|wss)\:\/\//))
 			url = (location.protocol.length === 6 ? 'wss' : 'ws') + '://' + location.host + (url.substring(0, 1) !== '/' ? '/' : '') + url;
 		setTimeout(self.connect, 500);
@@ -63,7 +62,7 @@ COMPONENT('websocket', function() {
 		var data;
 		try {
 			data = PARSE(decodeURIComponent(e.data));
-			self.attr('data-jc-path') && self.set(data);
+			self.attrd('jc-path') && self.set(data);
 		} catch (e) {
 			window.console && console.warn('WebSocket "{0}": {1}'.format(url, e.toString()));
 		}

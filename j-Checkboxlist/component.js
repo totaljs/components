@@ -1,8 +1,7 @@
-COMPONENT('checkboxlist', function() {
+COMPONENT('checkboxlist', function(self) {
 
-	var self = this;
-	var isRequired = self.attr('data-required');
-	var template = Tangular.compile('<div class="{0} ui-checkboxlist-checkbox"><label><input type="checkbox" value="{{ id }}"><span>{{ name }}</span></label></div>'.format(self.attr('data-class')));
+	var isRequired = self.attrd('required');
+	var template = Tangular.compile('<div class="{0} ui-checkboxlist-checkbox"><label><input type="checkbox" value="{{ id }}"><span>{{ name }}</span></label></div>'.format(self.attrd('class')));
 
 	self.validate = function(value) {
 		return isRequired ? value && value.length > 0 : true;
@@ -45,14 +44,14 @@ COMPONENT('checkboxlist', function() {
 			self.set(arr);
 		});
 
-		var datasource = self.attr('data-source');
+		var datasource = self.attrd('source');
 		datasource && self.watch(datasource, function(path, value) {
 			if (!value)
 				value = [];
 			self.redraw(value);
 		}, true);
 
-		var options = self.attr('data-options');
+		var options = self.attrd('options');
 		if (!options)
 			return;
 
@@ -75,8 +74,8 @@ COMPONENT('checkboxlist', function() {
 
 	self.redraw = function(arr) {
 		var builder = [];
-		var kn = self.attr('data-source-text') || 'name';
-		var kv = self.attr('data-source-value') || 'id';
+		var kn = self.attrd('source-text') || 'name';
+		var kv = self.attrd('source-value') || 'id';
 
 		for (var i = 0, length = arr.length; i < length; i++) {
 			var item = arr[i];
@@ -89,7 +88,7 @@ COMPONENT('checkboxlist', function() {
 		if (!builder.length)
 			return;
 
-		var btn = self.attr('data-button') || '';
+		var btn = self.attrd('button') || '';
 		if (btn)
 			btn = '<div class="ui-checkboxlist-selectall"><a href="javascript:void(0)"><i class="fa fa-check-square-o mr5"></i>{0}</a></div>'.format(btn);
 

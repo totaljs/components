@@ -1,5 +1,5 @@
-COMPONENT('tabmenu', function() {
-	var self = this;
+COMPONENT('tabmenu', function(self) {
+
 	self.readonly();
 	self.make = function() {
 		self.event('click', 'li', function() {

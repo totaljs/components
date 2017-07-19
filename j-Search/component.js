@@ -1,6 +1,5 @@
-COMPONENT('search', function() {
+COMPONENT('search', function(self) {
 
-	var self = this;
 	var options_class;
 	var options_selector;
 	var options_attribute;
@@ -8,13 +7,13 @@ COMPONENT('search', function() {
 
 	self.readonly();
 	self.make = function() {
-		options_class = self.attr('data-class') || 'hidden';
-		options_selector = self.attr('data-selector');
-		options_attribute = self.attr('data-attribute') || 'data-search';
-		options_delay = (self.attr('data-delay') || '200').parseInt();
+		options_class = self.attrd('class') || 'hidden';
+		options_selector = self.attrd('selector');
+		options_attribute = self.attrd('attribute') || 'data-search';
+		options_delay = (self.attrd('delay') || '200').parseInt();
 	};
 
-	self.setter = function(value, path) {
+	self.setter = function(value) {
 
 		if (!options_selector || !options_attribute || value == null)
 			return;

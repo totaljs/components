@@ -1,12 +1,12 @@
-COMPONENT('importer', function() {
-	var self = this;
+COMPONENT('importer', function(self) {
+
 	var imported = false;
-	var reload = self.attr('data-reload');
+	var reload = self.attrd('reload');
 
 	self.readonly();
 	self.setter = function() {
 
-		if (!self.evaluate(self.attr('data-if')))
+		if (!self.evaluate(self.attrd('if')))
 			return;
 
 		if (imported) {
@@ -18,7 +18,7 @@ COMPONENT('importer', function() {
 		}
 
 		imported = true;
-		IMPORT(self.attr('data-url'), function() {
+		IMPORT(self.attrd('url'), function() {
 			if (reload)
 				EXEC(reload);
 			else

@@ -1,15 +1,12 @@
-COMPONENT('touchmove', function() {
-	var self = this;
-	var begX;
-	var begY;
-	var diff;
+COMPONENT('touchmove', function(self) {
+
+	var begX, begY, diff;
 
 	self.readonly();
 	self.make = function() {
 
-		diff = (self.attr('data-diff') || '110').parseInt();
-		if (!diff)
-			diff = 80;
+		diff = +(self.attrd('diff') || '110');
+		!diff && (diff = 80);
 
 		self.event('touchstart touchmove', function(e) {
 
@@ -28,16 +25,16 @@ COMPONENT('touchmove', function() {
 
 			if (diffX > diff) {
 				// prev
-				path = self.element.attr('data-next');
+				path = self.attrd('next');
 			} else if (diffX < -diff) {
 				// prev
-				path = self.element.attr('data-prev');
+				path = self.attrd('prev');
 			} else if (diffY > diff) {
 				// down
-				path = self.element.attr('data-down');
+				path = self.attrd('down');
 			} else if (diffY < -diff) {
 				// up
-				path = self.element.attr('data-up');
+				path = self.attrd('up');
 			}
 
 			if (!path)

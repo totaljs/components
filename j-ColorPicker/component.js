@@ -1,5 +1,5 @@
-COMPONENT('colorpicker', function() {
-	var self = this;
+COMPONENT('colorpicker', function(self) {
+
 	var container;
 	var template = '<li data-index="{0}"><i class="fa fa-circle" style="color:#{1}"></i></li>';
 	var opener = {};
@@ -11,7 +11,7 @@ COMPONENT('colorpicker', function() {
 	self.blind();
 
 	self.make = function() {
-		self.classes('ui-colorpicker hidden');
+		self.aclass('ui-colorpicker hidden');
 		self.append('<ul></ul>');
 		container = self.find('ul');
 
@@ -40,7 +40,7 @@ COMPONENT('colorpicker', function() {
 	self.hide = function() {
 		if (!is)
 			return;
-		self.classes('hidden');
+		self.aclass('hidden');
 		is = false;
 	};
 

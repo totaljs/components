@@ -1,5 +1,5 @@
-COMPONENT('autocomplete', function() {
-	var self = this;
+COMPONENT('autocomplete', function(self) {
+
 	var container, old, onSearch, searchtimeout, searchvalue, blurtimeout, onCallback, datasource, offsetter;
 	var is = false;
 	var margin = {};
@@ -9,7 +9,7 @@ COMPONENT('autocomplete', function() {
 	self.singleton();
 
 	self.make = function() {
-		self.classes('ui-autocomplete-container hidden');
+		self.aclass('ui-autocomplete-container hidden');
 		self.html('<div class="ui-autocomplete"><ul></ul></div>');
 		container = self.find('ul');
 

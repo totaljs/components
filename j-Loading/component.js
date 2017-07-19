@@ -1,12 +1,12 @@
-COMPONENT('loading', function() {
-	var self = this;
+COMPONENT('loading', function(self) {
+
 	var pointer;
 
 	self.readonly();
 	self.singleton();
 
 	self.make = function() {
-		self.classes('ui-loading');
+		self.aclass('ui-loading');
 	};
 
 	self.show = function() {

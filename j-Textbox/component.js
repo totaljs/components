@@ -1,10 +1,8 @@
-COMPONENT('textbox', function() {
+COMPONENT('textbox', function(self) {
 
-	var self = this;
-	var isRequired = self.attr('data-required') === 'true';
-	var validation = self.attr('data-validate');
-	var input;
-	var container;
+	var isRequired = self.attrd('required') === 'true';
+	var validation = self.attrd('validate');
+	var input, container;
 
 	self.validate = function(value) {
 
@@ -49,21 +47,21 @@ COMPONENT('textbox', function() {
 		var tmp;
 
 		attrs.attr('type', self.type === 'password' ? self.type : 'text');
-		attrs.attr('placeholder', self.attr('data-placeholder'));
-		attrs.attr('maxlength', self.attr('data-maxlength'));
-		attrs.attr('data-jc-keypress', self.attr('data-jc-keypress'));
-		attrs.attr('data-jc-keypress-delay', self.attr('data-jc-keypress-delay'));
+		attrs.attr('placeholder', self.attrd('placeholder'));
+		attrs.attr('maxlength', self.attrd('maxlength'));
+		attrs.attr('data-jc-keypress', self.attrd('jc-keypress'));
+		attrs.attr('data-jc-keypress-delay', self.attrd('jc-keypress-delay'));
 		attrs.attr('data-jc-bind', '');
 		attrs.attr('name', self.path);
 
-		tmp = self.attr('data-align');
+		tmp = self.attrd('align');
 		tmp && attrs.attr('class', 'ui-' + tmp);
-		self.attr('data-autofocus') === 'true' && attrs.attr('autofocus');
+		self.attrd('autofocus') === 'true' && attrs.attr('autofocus');
 
 		var content = self.html();
-		var icon = self.attr('data-icon');
-		var icon2 = self.attr('data-control-icon');
-		var increment = self.attr('data-increment') === 'true';
+		var icon = self.attrd('icon');
+		var icon2 = self.attrd('control-icon');
+		var increment = self.attrd('increment') === 'true';
 
 		builder.push('<input {0} />'.format(attrs.join(' ')));
 
@@ -103,7 +101,7 @@ COMPONENT('textbox', function() {
 		});
 
 		if (!content.length) {
-			self.classes('ui-textbox ui-textbox-container');
+			self.aclass('ui-textbox ui-textbox-container');
 			self.html(builder.join(''));
 			input = self.find('input');
 			container = self.element;
@@ -118,7 +116,7 @@ COMPONENT('textbox', function() {
 		builder.push(':</div><div class="ui-textbox">{0}</div>'.format(html));
 
 		self.html(builder.join(''));
-		self.classes('ui-textbox-container');
+		self.aclass('ui-textbox-container');
 		input = self.find('input');
 		container = self.find('.ui-textbox');
 	};
