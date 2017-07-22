@@ -11,6 +11,6 @@ COMPONENT('centered', function(self) {
 	};
 
 	self.setter = function(value) {
-		self.toggle('hidden', value !== self.attr('data-if'));
+		self.toggle('hidden', value !== self.attrd('if'));
 	};
 });
