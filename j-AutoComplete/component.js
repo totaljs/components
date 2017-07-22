@@ -34,7 +34,7 @@ COMPONENT('autocomplete', function(self) {
 	};
 
 	function keydown(e) {
-		var c = e.keyCode;
+		var c = e.which;
 		var input = this;
 
 		if (c !== 38 && c !== 40 && c !== 13) {
