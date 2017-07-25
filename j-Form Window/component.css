@@ -1,15 +1,17 @@
 .noscroll { overflow: hidden; }
 .hidden { display: none; }
+
 .ui-form-container { width: 100%; position: fixed; left: 0; top: 0; bottom: 0; right: 0; background-color: rgba(230,233,237,0.8); z-index: 5; overflow-y: scroll; transform-style: preserve-3d; }
 .ui-form-container-padding { padding: 0 30px;}
 .ui-form { background-color: white; margin: 0 auto 30px; border-radius: 4px; box-shadow: 0 0 20px #D0D0D0; transform: translate(0, -500px); transition: all 0.2s; opacity: 0; }
-.ui-form-animate { transform: scale(1); opacity: 1; }
-.ui-form-animate-click { transform: scale(1.07); }
+.ui-form-animate { transform: skewX(0deg); opacity: 1; }
+.ui-form-animate-click { transform: skewX(-5deg); }
 .ui-form-padding { padding: 0 30px; }
-.ui-form-title { padding: 15px 20px; font-size: 16px; user-select: none; color: #AAB2BD; background-color: #F8F8F8; border-bottom: 1px solid #F0F0F0; }
-.ui-form-title .fa-times { float: right; cursor: pointer; font-size: 18px; margin-top: 4px; }
-.ui-form-title .fa-times:hover { color: black; }
-.ui-form-title .fa-times:active { margin-top: 5px; }
+.ui-form-title { padding: 18px 20px; font-size: 16px; user-select: none; color: #AAB2BD; background-color: #F8F8F8; border-bottom: 1px solid #F0F0F0; }
+.ui-form-title .ui-form-button-close { float: right; cursor: pointer; font-size: 18px; margin: -2px 0 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; }
+.ui-form-title .ui-form-button-close:hover { transform: scale(1.2) rotate(-90deg); }
+.ui-form-title > span { font-weight: bold; }
+.ui-form-title > .fa { margin-right: 7px; }
 .ui-form-buttons { padding: 20px; border-top: 5px solid #F0F0F0; background-color: #F8F8F8; }
 .ui-form-buttons button { border: 2px solid #E0E0E0; background-color: white; border-radius: 4px; height: 45px; padding: 0 15px; color: black; margin: 0; cursor: pointer; font-family: Arial; vertical-align: middle; outline: 0; font-size: 14px; text-decoration: none; transition: all 0.3s; }
 .ui-form-buttons button .fa { width: 16px; }

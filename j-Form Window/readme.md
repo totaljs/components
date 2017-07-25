@@ -1,21 +1,19 @@
-## j-Form Window
+## j-Form
 
-- Works only with [jComponent](http://jcomponent.org)
+- Works only with +`v11.1.0` [jComponent](http://jcomponent.org)
 - __Download__ [jComponent with Tangular (jcta.min.js)](https://github.com/petersirka/jComponent)
 - Works with Bootstrap
 
-__Attributes__:
+__Configuration__:
 
-- `data-title=""` title of the form
-- `data-width="800px"` (optional) max-width, default: __800px__
-- `data-if="value === 'user'"` condition for showing the form, the model is from `data-jc-path`
+Example: `data-jc-config="title:Form title;width:800;if:user;icon:home"`
 
-__Properties__:
+- `title` {String} form title
+- `width` {Number} form max-width
+- `if` {String} condition for showing of the form, it's compared with the value within `data-jc-path`
+- `icon` {String} Font-Awesome icon without `fa-`
 
-- `instance.submit = function(hide) { hide(); }` - the delegate for submitting form
-- `instance.cancel = function(hide) { hide(); }` - the delegate for canceling form
-
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT
