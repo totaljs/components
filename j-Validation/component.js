@@ -1,22 +1,30 @@
 COMPONENT('validation', function(self) {
 
-	var self = this;
-	var path, elements;
+	var config = self.config;
+	var path, elements = null;
 
 	self.readonly();
 
 	self.make = function() {
-		elements = self.find(self.attrd('selector') || 'button');
-		elements.prop({ disabled: true });
-		self.evaluate = self.attrd('if');
+		!config.selector && (elements = self.find('button'));
 		path = self.path.replace(/\.\*$/, '');
-		self.watch(self.path, self.state, true);
+		setTimeout(function() {
+			self.watch(self.path, self.state, true);
+		}, 50);
+	};
+
+	self.configure = function(key, value) {
+		switch (key) {
+			case 'selector':
+				elements = self.find(value || 'button');
+				break;
+		}
 	};
 
 	self.state = function() {
 		var disabled = MAIN.disabled(path);
-		if (!disabled && self.evaluate)
-			disabled = !EVALUATE(self.path, self.evaluate);
-		elements.prop({ disabled: disabled });
+		if (!disabled && config.if)
+			disabled = !EVALUATE(self.path, config.if);
+		elements.prop('disabled', disabled);
 	};
 });

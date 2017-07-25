@@ -1,12 +1,16 @@
 ## j-Click
 
-The component calls method or can set a value according the path.
+The component calls a method or can set a value according to the path.
 
-__Attributes__:
-- `data-enter` is selector for HTML inputs (e.g. sign up / sign in form), the selector can be `?` and the component finds scope element as the container.
-- `data-value` the component sets a value from the this attribute to `data-jc-path`
+__Configuration__:
+
+Example: `data-jc-config="enter:#form;value:100"`
+
+- `enter` {String} (optional) is a jQuery selector
+- `value` {String/Number/Boolean} (optional) this value will be set to `data-jc-path`
+
 - `data-jc-type` works with `data-value`
-- `data-jc-path` can be `a value` or `a function` (default behaviour when is not defined `data-value`).
+- `data-jc-path` can be `value` or `function` (default behaviour when `value` is not defined in configuration).
 
 ### Author
 
