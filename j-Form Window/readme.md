@@ -10,7 +10,7 @@ Example: `data-jc-config="title:Form title;width:800;if:user;icon:home"`
 
 - `title` {String} form title
 - `width` {Number} form max-width
-- `if` {String} condition for showing of the form, it's compared with the value within `data-jc-path`
+- `if` {String} condition for showing of the form, it's compared with the value within of `data-jc-path`
 - `icon` {String} Font-Awesome icon without `fa-`
 
 ### Author

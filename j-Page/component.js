@@ -1,7 +1,6 @@
 COMPONENT('page', function(self) {
-
-	var isProcessed = false;
-	var isProcessing = false;
+	var type = 0;
+	var config = self.config;
 
 	self.readonly();
 
@@ -11,39 +10,36 @@ COMPONENT('page', function(self) {
 
 	self.setter = function(value) {
 
-		if (isProcessing)
+		if (type === 1)
 			return;
 
-		var is = self.attrd('if') == value;
-		var reload = self.attrd('reload');
+		var is = config.if == value;
 
-		if (isProcessed || !is) {
+		if (type === 2 || !is) {
 			self.toggle('hidden', !is);
-			is && reload && self.get(reload)();
+			is && config.reload && self.get(config.reload)();
 			self.release(!is);
 			return;
 		}
 
 		SETTER('loading', 'show');
-		isProcessing = true;
+		type = 1;
 
-		IMPORT(self.attrd('template'), self.element, function() {
-			isProcessing = false;
+		self.import(config.template, function() {
+			type = 2;
 
-			var init = self.attrd('init');
-			if (init) {
-				var fn = GET(init || '');
+			if (config.init) {
+				var fn = GET(config.init || '');
 				typeof(fn) === 'function' && fn(self);
 			}
 
-			reload && self.get(reload)();
-			isProcessed = true;
+			config.reload && self.get(config.reload)();
 
 			setTimeout(function() {
 				self.toggle('hidden', !is);
 			}, 200);
 
 			SETTER('loading', 'hide', 1000);
-		});
+		}, false);
 	};
 });
