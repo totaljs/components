@@ -1,16 +1,14 @@
 COMPONENT('textbox', function(self) {
 
-	var isRequired = self.attrd('required') === 'true';
-	var validation = self.attrd('validate');
-	var input, container;
+	var config = self.config;
+	var input, container, content = null;
 
 	self.validate = function(value) {
 
-		if (input.prop('disabled') || !isRequired)
+		if (!config.required || input.prop('disabled'))
 			return true;
 
 		var type = typeof(value);
-
 		if (type === 'undefined' || type === 'object')
 			value = '';
 		else
@@ -28,52 +26,73 @@ COMPONENT('textbox', function(self) {
 				return value > 0;
 		}
 
-		return validation ? self.evaluate(value, validation, true) ? true : false : value.length > 0;
-	};
-
-	!isRequired && self.noValid();
-
-	self.required = function(value) {
-		self.find('.ui-textbox-label').toggleClass('ui-textbox-label-required', value);
-		self.noValid(!value);
-		isRequired = value;
-		!value && self.state(1, 1);
+		return config.validation ? self.evaluate(value, config.validation, true) ? true : false : value.length > 0;
 	};
 
 	self.make = function() {
+		content = self.html();
+
+		self.event('click', '.fa-calendar', function(e) {
+			if (self.type === 'calendar') {
+				e.preventDefault();
+				window.$calendar && window.$calendar.toggle(self.closest('.ui-textbox'), self.find('input').val(), function(date) {
+					self.set(date);
+				});
+			}
+		});
+
+		self.event('click', '.fa-caret-up,.fa-caret-down', function() {
+			if (config.increment) {
+				var el = $(this);
+				var inc = el.hasClass('fa-caret-up') ? 1 : -1;
+				self.change(true);
+				self.inc(inc);
+			}
+		});
+
+		self.event('click', '.ui-textbox-control-icon', function() {
+			if (self.type === 'search') {
+				self.$stateremoved = false;
+				$(this).removeClass('fa-times').addClass('fa-search');
+				self.set('');
+			}
+		});
+
+		self.redraw();
+	};
+
+	self.redraw = function() {
 
 		var attrs = [];
 		var builder = [];
 		var tmp;
 
-		attrs.attr('type', self.type === 'password' ? self.type : 'text');
-		attrs.attr('placeholder', self.attrd('placeholder'));
-		attrs.attr('maxlength', self.attrd('maxlength'));
+		if (config.type === 'password')
+			tmp = 'password';
+		else
+			tmp = 'text';
+
+		self.type = config.type;
+		attrs.attr('type', tmp);
+		attrs.attr('placeholder', config.placeholder);
+		attrs.attr('maxlength', config.maxlength);
 		attrs.attr('data-jc-keypress', self.attrd('jc-keypress'));
 		attrs.attr('data-jc-keypress-delay', self.attrd('jc-keypress-delay'));
 		attrs.attr('data-jc-bind', '');
-		attrs.attr('name', self.path);
 
-		tmp = self.attrd('align');
-		tmp && attrs.attr('class', 'ui-' + tmp);
-		self.attrd('autofocus') === 'true' && attrs.attr('autofocus');
-
-		var content = self.html();
-		var icon = self.attrd('icon');
-		var icon2 = self.attrd('control-icon');
-		var increment = self.attrd('increment') === 'true';
+		config.autofill && attrs.attr('name', self.path);
+		config.align && attrs.attr('class', 'ui-' + config.align);
+		config.autofocus && attrs.attr('autofocus');
 
 		builder.push('<input {0} />'.format(attrs.join(' ')));
 
+		var icon = config.icon;
+		var icon2 = config.icon2;
+
 		if (!icon2 && self.type === 'date')
-			icon2 = 'fa-calendar';
+			icon2 = 'calendar';
 		else if (self.type === 'search') {
-			icon2 = 'fa-search ui-textbox-control-icon';
-			self.event('click', '.ui-textbox-control-icon', function() {
-				self.$stateremoved = false;
-				$(this).removeClass('fa-times').addClass('fa-search');
-				self.set('');
-			});
+			icon2 = 'search ui-textbox-control-icon';
 			self.getter2 = function(value) {
 				if (self.$stateremoved && !value)
 					return;
@@ -82,43 +101,75 @@ COMPONENT('textbox', function(self) {
 			};
 		}
 
-		icon2 && builder.push('<div><span class="fa {0}"></span></div>'.format(icon2));
-		increment && !icon2 && builder.push('<div><span class="fa fa-caret-up"></span><span class="fa fa-caret-down"></span></div>');
-		increment && self.event('click', '.fa-caret-up,.fa-caret-down', function() {
-			var el = $(this);
-			var inc = -1;
-			if (el.hasClass('fa-caret-up'))
-				inc = 1;
-			self.change(true);
-			self.inc(inc);
-		});
+		icon2 && builder.push('<div><span class="fa fa-{0}"></span></div>'.format(icon2));
+		config.increment && !icon2 && builder.push('<div><span class="fa fa-caret-up"></span><span class="fa fa-caret-down"></span></div>');
 
-		self.type === 'date' && self.event('click', '.fa-calendar', function(e) {
-			e.preventDefault();
-			window.$calendar && window.$calendar.toggle($(this).parent().parent(), self.find('input').val(), function(date) {
-				self.set(date);
-			});
-		});
-
-		if (!content.length) {
+		if (content.length) {
+			var html = builder.join('');
+			builder = [];
+			builder.push('<div class="ui-textbox-label{0}">'.format(config.required ? ' ui-textbox-label-required' : ''));
+			icon && builder.push('<span class="fa fa-{0}"></span> '.format(icon));
+			builder.push(content);
+			builder.push(':</div><div class="ui-textbox">{0}</div>'.format(html));
+			self.html(builder.join(''));
+			self.aclass('ui-textbox-container');
+			input = self.find('input');
+			container = self.find('.ui-textbox');
+		} else {
 			self.aclass('ui-textbox ui-textbox-container');
 			self.html(builder.join(''));
 			input = self.find('input');
 			container = self.element;
-			return;
 		}
+	};
 
-		var html = builder.join('');
-		builder = [];
-		builder.push('<div class="ui-textbox-label{0}">'.format(isRequired ? ' ui-textbox-label-required' : ''));
-		icon && builder.push('<span class="fa {0}"></span> '.format(icon));
-		builder.push(content);
-		builder.push(':</div><div class="ui-textbox">{0}</div>'.format(html));
+	self.configure = function(key, value, init) {
 
-		self.html(builder.join(''));
-		self.aclass('ui-textbox-container');
-		input = self.find('input');
-		container = self.find('.ui-textbox');
+		if (init)
+			return;
+
+		switch (key) {
+			case 'format':
+				self.refresh(true);
+				break;
+			case 'required':
+				self.noValid(!value);
+				!value && self.state(1, 1);
+				self.find('.ui-textbox-label').toggleClass('ui-textbox-label-required', value);
+				break;
+			case 'placeholder':
+				input.prop('placeholder', value || '');
+				break;
+			case 'maxlength':
+				input.prop('maxlength', value || 1000);
+				break;
+			case 'autofill':
+				input.prop('name', value ? self.path : '');
+				break;
+			case 'label':
+				content = value;
+				self.redraw();
+				break;
+			case 'type':
+				self.type = value;
+				if (value === 'password')
+					value = 'password';
+				else
+					self.type = 'text';
+				self.redraw();
+				break;
+			case 'align':
+				input.removeClass(input.attr('class')).addClass('ui-' + value || 'left');
+				break;
+			case 'autofocus':
+				input.focus();
+				break;
+			case 'icon':
+			case 'icon2':
+			case 'increment':
+				self.redraw();
+				break;
+		}
 	};
 
 	self.state = function(type) {
