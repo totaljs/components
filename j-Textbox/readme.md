@@ -1,29 +1,28 @@
 ## j-Textbox
 
-__Attributes__:
+__Configuration__:
 
-- `data-jc-type=""` (optional), supports __email__, __password__, __date__, __number__ or __currency__ default __empty__
-- `data-required="true"` (optional) the field must have some value, default __false__
-- `data-icon="fa-envelope"` (optional) the label icon, default __empty__
-- `data-placeholder="some placeholder"` (optional) the placeholder for the input, default __empty__
-- `data-align=""` (optional) text align (default __left__)
-- `data-autofocus="true"` (optional) auto focus, default __false__
-- `data-control-icon="fa-envelope"` (optional) adds icon into the html control
-- `data-jc-keypress-delay` - more in jComponent documentation
-- `data-jc-keypress` - more in jComponent documentation
-- `data-increment="true"` - appends increment/decrement numbers (works with `number` and `currency` - `data-jc-type`)
-- `data-jc-format` - works with `date` only e.g. `dd.MM.yyyy`
-- `data-validate="value.match(/[a-z]+/) !== null"` - can add a custom validation
-- `data-name="password" (optional) adds name attribute to input
+Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:date"`
 
-__Methods__:
-- `component.required(value)` - can enable/disable `required` with validation
+- `type` {String} (optional) can be `email`, `password`, `date`, `number`, `search` or empty (default)
+- `required` {Boolean} (optional) enables "required" (default: `false`)
+- `icon` {String} (optional) icon for label
+- `icon2` {String} (optional) icon in the right box
+- `label` {String} (optional) label (default is HTML content)
+- `autofocus` {Boolean} (optional) focuses the input (default: `false`)
+- `align` {String} (optional) `left` (default), `right` or `center`
+- `autofill` {Boolean} (optional) enables browser's autofill feature (default: `false`)
+- `placeholder` {String} (optional) adds a `placeholder` text into the input
+- `maxlength` {Number} (optional) sets a maximum length of chars
+- `validation` {String} (optional) a condition for `evaluation` e.g. `value.match(/[a-z]+/) !== null`
+- `format` {String} (optional) output formatting e.g. for dates `yyyy-MM-dd`
+- `increment` {Boolean} (optional) enables controls for incrementing of numbers (default: `false`)
+- `keypress` {Boolean} (optional) can disable real-time binding values (default: `true`)
+- `delay` {Number} (optional) can increase/decrease delay for real-time binding (default: `300` ms)
 
 __Interesting:__
 
-If you `data-jc-type="date"` then the component uses `calendar` component (an application must depend `calendar` component).
-
-For search usage use: `data-jc-type="search"` 
+- `type:date` uses `calendar` component
 
 ### Author
 

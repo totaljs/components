@@ -74,13 +74,13 @@ COMPONENT('textbox', function(self) {
 
 		self.type = config.type;
 		attrs.attr('type', tmp);
-		attrs.attr('placeholder', config.placeholder);
-		attrs.attr('maxlength', config.maxlength);
-		attrs.attr('data-jc-keypress', self.attrd('jc-keypress'));
-		attrs.attr('data-jc-keypress-delay', self.attrd('jc-keypress-delay'));
+		config.placeholder && attrs.attr('placeholder', config.placeholder);
+		config.maxlength && attrs.attr('maxlength', config.maxlength);
+		config.keypress != null && attrs.attr('data-jc-keypress', config.keypress);
+		config.delay && attrs.attr('data-jc-keypress-delay', config.delay);
 		attrs.attr('data-jc-bind', '');
 
-		config.autofill && attrs.attr('name', self.path);
+		config.autofill && attrs.attr('name', self.path.replace(/\./g, '_'));
 		config.align && attrs.attr('class', 'ui-' + config.align);
 		config.autofocus && attrs.attr('autofocus');
 
@@ -103,6 +103,9 @@ COMPONENT('textbox', function(self) {
 
 		icon2 && builder.push('<div><span class="fa fa-{0}"></span></div>'.format(icon2));
 		config.increment && !icon2 && builder.push('<div><span class="fa fa-caret-up"></span><span class="fa fa-caret-down"></span></div>');
+
+		if (config.label)
+			content = config.label;
 
 		if (content.length) {
 			var html = builder.join('');
@@ -144,7 +147,7 @@ COMPONENT('textbox', function(self) {
 				input.prop('maxlength', value || 1000);
 				break;
 			case 'autofill':
-				input.prop('name', value ? self.path : '');
+				input.prop('name', value ? self.path.replace(/\./g, '_') : '');
 				break;
 			case 'label':
 				content = value;
