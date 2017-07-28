@@ -1,13 +1,13 @@
 <div data-jc="contextmenu"></div>
 
 <div class="container">
-    <a href="javascript:void(0)">Edit</a>
+	<a href="javascript:void(0)">Edit</a>
 </div>
 
 <script>
-    $(document).on('click', 'a', function() {
-        FIND('contextmenu').show('left', this, [{ name: 'Print', icon: 'fa-print', value: 'print' }, { name: 'Copy', icon: 'fa-copy', value: 'copy' }, { name: 'Remove', icon: 'fa-times-circle', value: 'remove' }], function(value) {
-            console.log('CLICK', value);
-        });
-    });
+	$(document).on('click', 'a', function() {
+		FIND('contextmenu').show('left', this, [{ name: 'Print', icon: 'fa-print', value: 'print' }, { name: 'Copy', icon: 'fa-copy', value: 'copy' }, { name: 'Remove', icon: 'fa-times-circle', value: 'remove' }], function(item) {
+			console.log('CLICK', item);
+		});
+	});
 </script>

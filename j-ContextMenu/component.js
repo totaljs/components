@@ -3,10 +3,11 @@ COMPONENT('contextmenu', function(self) {
 	var is = false;
 	var timeout, container, arrow;
 
-	self.template = Tangular.compile('<div data-value="{{ value }}"{{ if selected }} class="selected"{{ fi }}><i class="fa {{ icon }}"></i><span>{{ name | raw }}</span></div>');
+	self.template = Tangular.compile('<div data-index="{{ index }}"{{ if selected }} class="selected"{{ fi }}><i class="fa {{ icon }}"></i><span>{{ name | raw }}</span></div>');
 	self.singleton();
 	self.readonly();
 	self.callback = null;
+	self.items = EMPTYARRAY;
 
 	self.make = function() {
 
@@ -15,8 +16,8 @@ COMPONENT('contextmenu', function(self) {
 		container = self.find('.ui-contextmenu-items');
 		arrow = self.find('.ui-contextmenu-arrow');
 
-		self.event('touchstart mousedown', 'div[data-value]', function(e) {
-			self.callback && self.callback($(this).attr('data-value'), $(self.target));
+		self.event('touchstart mousedown', 'div[data-index]', function(e) {
+			self.callback && self.callback(self.items[+$(this).attr('data-index')], $(self.target));
 			self.hide();
 			e.preventDefault();
 			e.stopPropagation();
@@ -27,7 +28,7 @@ COMPONENT('contextmenu', function(self) {
 		});
 	};
 
-	self.show = function(orientation, target, items, callback) {
+	self.show = function(orientation, target, items, callback, offsetX, offsetY) {
 
 		if (is) {
 			clearTimeout(timeout);
@@ -67,13 +68,16 @@ COMPONENT('contextmenu', function(self) {
 		for (var i = 0, length = items.length; i < length; i++) {
 			item = items[i];
 			item.index = i;
-			if (!item.value)
-				item.value = item.name;
-			if (!item.icon)
+			if (item.icon) {
+				if (item.icon.substring(0, 3) !== 'fa-')
+					item.icon = 'fa-' + item.icon;
+			} else
 				item.icon = 'fa-caret-right';
+
 			builder.push(self.template(item));
 		}
 
+		self.items = items;
 		self.target = target.get(0);
 		var offset = target.offset();
 
@@ -91,7 +95,7 @@ COMPONENT('contextmenu', function(self) {
 				break;
 		}
 
-		var options = { left: orientation === 'center' ? Math.ceil((offset.left - self.element.width() / 2) + (target.innerWidth() / 2)) : orientation === 'left' ? offset.left - 8 : (offset.left - self.element.width()) + target.innerWidth(), top: offset.top + target.innerHeight() + 10 };
+		var options = { left: orientation === 'center' ? Math.ceil((offset.left - self.element.width() / 2) + (target.innerWidth() / 2)) : orientation === 'left' ? offset.left - 8 : (offset.left - self.element.width()) + target.innerWidth() + (offsetX || 0), top: offset.top + target.innerHeight() + 10 + (offsetY || 0) };
 		self.css(options);
 
 		if (is)
