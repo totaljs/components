@@ -82,7 +82,12 @@ COMPONENT('textboxtags', function(self) {
 				return;
 			}
 
-			if (e.which !== 13 || !this.value)
+			if (e.which !== 13)
+				return;
+            
+			e.preventDefault();
+            
+			if (!this.value)
 				return;
 
 			var arr = self.get();
