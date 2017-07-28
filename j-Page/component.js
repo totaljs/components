@@ -1,6 +1,6 @@
-COMPONENT('page', function(self) {
+COMPONENT('page', function(self, config) {
+
 	var type = 0;
-	var config = self.config;
 
 	self.readonly();
 

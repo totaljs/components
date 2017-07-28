@@ -1,6 +1,5 @@
-COMPONENT('validation', function(self) {
+COMPONENT('validation', function(self, config) {
 
-	var config = self.config;
 	var path, elements = null;
 
 	self.readonly();

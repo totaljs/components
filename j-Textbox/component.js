@@ -1,6 +1,5 @@
-COMPONENT('textbox', function(self) {
+COMPONENT('textbox', function(self, config) {
 
-	var config = self.config;
 	var input, container, content = null;
 
 	self.validate = function(value) {

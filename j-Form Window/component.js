@@ -1,6 +1,5 @@
-COMPONENT('form', function(self) {
+COMPONENT('form', function(self, config) {
 
-	var config = self.config;
 	var W = window;
 	var header = null;
 	var csspos = {};
