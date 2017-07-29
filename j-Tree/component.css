@@ -1,0 +1,18 @@
+.ui-tree * { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
+.ui-tree { background-color: white; }
+.ui-tree .node {}
+.ui-tree .children { display: none; }
+.ui-tree .item .fa { width: 16px; margin-right: 3px; }
+.ui-tree .item { cursor: pointer; padding: 6px 18px; font-size: 14px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; border-bottom: 1px solid #E0E0E0; }
+.ui-tree .item:hover { background-color: #F0F0F0; }
+.ui-tree .show > .children { display: block; }
+.ui-tree .show > .item { font-weight: bold; }
+.ui-tree .selected { background-color: #FFE7A1 !important; }
+
+.ui-tree .children1 .item { padding-left: 33px; }
+.ui-tree .children2 .item { padding-left: 48px; }
+.ui-tree .children3 .item { padding-left: 63px; }
+.ui-tree .children4 .item { padding-left: 78px; }
+
+/* NOT REQUIRED */
+body { background-color: #E0E0E0; padding: 50px; }
