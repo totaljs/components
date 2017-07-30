@@ -136,6 +136,10 @@ COMPONENT('calendar', function(self, config) {
 
 	self.show = function(el, value, callback, offset) {
 
+		setTimeout(function() {
+			clearTimeout2('calendarhide');
+		}, 5);
+
 		if (!el)
 			return self.hide();
 
@@ -200,8 +204,10 @@ COMPONENT('calendar', function(self, config) {
 			self.date(dt);
 		});
 
-		$(document.body).on('scroll', function() {
-			visible && EXEC('$calendar.hide');
+		$(document.body).on('scroll click', function() {
+			visible && setTimeout2('calendarhide', function() {
+				EXEC('$calendar.hide');
+			}, 20);
 		});
 
 		window.$calendar = self;
