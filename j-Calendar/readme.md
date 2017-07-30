@@ -1,6 +1,15 @@
 ## j-Calendar
 
-The component is need to call manually or works with `textbox` component with the attribute `data-jc-type="date"`. The calendar component is singleton and the browser works with one instance only. Other instantes are not compiled and won't be used.
+__Configuration__:
+
+Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:date"`
+
+- `firstday` {Number} (optional) first day in the week
+- `today` {String} (optional) label for `Set today` button
+- `days` {String} (optional) days e.g. `SU,MO,TU,WE,TH,FR,SA` (default).
+- `months` {String} (optional) months e.g. `January,February,...` (default).
+
+The component is need to call manually or works with `textbox` component automatically. The calendar component is a singleton and the browser works with the one instance only. Other instantes are not compiled and won't be used.
 
 - works __only__ with Bootstrap Grid System (otherwise is need to fix CSS)
 
@@ -14,8 +23,6 @@ FIND('calendar').toggle(ELEMENT, PATH, function(date) {
    console.log('SELECTED DATE:', date);
 }, X_OFFSET);
 ```
-
-__IMPORTANT__: all attributes `data-days`, `data-months`, `data-firstday` and `data-today` are required.
 
 ### Author
 

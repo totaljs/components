@@ -1,21 +1,39 @@
-COMPONENT('calendar', function(self) {
+COMPONENT('calendar', function(self, config) {
 
 	var skip = false;
 	var skipDay = false;
 	var visible = false;
 
-	self.days = self.attrd('days').split(',');
-	self.months = self.attrd('months').split(',');
-	self.first = +(self.attrd('firstday') || '0');
-	self.today = self.attrd('today');
-	self.months_short = [];
+	self.days = EMPTYARRAY;
+	self.months = EMPTYARRAY;
+	self.months_short = EMPTYARRAY;
 
-	for (var i = 0, length = self.months.length; i < length; i++) {
-		var m = self.months[i];
-		if (m.length > 4)
-			m = m.substring(0, 3) + '.';
-		self.months_short.push(m);
-	}
+	self.configure = function(key, value) {
+		switch (key) {
+			case 'days':
+				if (value instanceof Array)
+					self.days = value;
+				else
+					self.days = value.split(',').trim();
+				break;
+
+			case 'months':
+				if (value instanceof Array)
+					self.months = value;
+				else
+					self.months = value.split(',').trim();
+
+				self.months_short = [];
+
+				for (var i = 0, length = self.months.length; i < length; i++) {
+					var m = self.months[i];
+					if (m.length > 4)
+						m = m.substring(0, 3) + '.';
+					self.months_short.push(m);
+				}
+				break;
+		}
+	};
 
 	self.readonly();
 	self.click = function() {};
@@ -37,7 +55,7 @@ COMPONENT('calendar', function(self) {
 
 		var d = new Date(year, month, 1);
 		var output = { header: [], days: [], month: month, year: year };
-		var firstDay = self.first;
+		var firstDay = config.firstday;
 		var firstCount = 0;
 		var from = d.getDay() - firstDay;
 		var today = new Date();
@@ -103,10 +121,16 @@ COMPONENT('calendar', function(self) {
 	};
 
 	self.toggle = function(el, value, callback, offset) {
-		if (self.element.hasClass('hidden'))
-			self.show(el, value, callback, offset);
-		else
-			self.hide();
+
+		if (self.older === el.get(0)) {
+			if (!self.hclass('hidden')) {
+				self.hide();
+				return;
+			}
+		}
+
+		self.older = el.get(0);
+		self.show(el, value, callback, offset);
 		return self;
 	};
 
@@ -118,7 +142,8 @@ COMPONENT('calendar', function(self) {
 		var off = el.offset();
 		var h = el.innerHeight();
 
-		self.css({ left: off.left + (offset || 0), top: off.top + h + 12 }).removeClass('hidden');
+		self.css({ left: off.left + (offset || 0), top: off.top + h + 12 });
+		self.rclass('hidden');
 		self.click = callback;
 		self.date(value);
 		visible = true;
@@ -128,6 +153,17 @@ COMPONENT('calendar', function(self) {
 	self.make = function() {
 
 		self.aclass('ui-calendar hidden');
+
+		var conf = {};
+
+		if (!config.days) {
+			conf.days = [];
+			for (var i = 0; i < DAYS.length; i++)
+				conf.days.push(DAYS[i].substring(0, 2).toUpperCase());
+		}
+
+		!config.months && (conf.months = MONTHS);
+		self.reconfigure(conf);
 
 		self.event('click', '.ui-calendar-today', function() {
 			var dt = new Date();
@@ -225,6 +261,17 @@ COMPONENT('calendar', function(self) {
 		for (var i = 0; i < 7; i++)
 			header.push('<th>{0}</th>'.format(output.header[i].name));
 
-		self.html('<div class="ui-calendar-header"><button class="ui-calendar-header-prev" name="prev" data-date="{0}-{1}"><span class="fa fa-chevron-left"></span></button><div class="ui-calendar-header-info">{2} {3}</div><button class="ui-calendar-header-next" name="next" data-date="{0}-{1}"><span class="fa fa-chevron-right"></span></button></div><table cellpadding="0" cellspacing="0" border="0"><thead>{4}</thead><tbody>{5}</tbody></table>'.format(output.year, output.month, self.months[value.getMonth()], value.getFullYear(), header.join(''), builder.join('')) + (self.today ? '<div><a href="javascript:void(0)" class="ui-calendar-today">' + self.today + '</a></div>' : ''));
+		self.html('<div class="ui-calendar-header"><button class="ui-calendar-header-prev" name="prev" data-date="{0}-{1}"><span class="fa fa-chevron-left"></span></button><div class="ui-calendar-header-info">{2} {3}</div><button class="ui-calendar-header-next" name="next" data-date="{0}-{1}"><span class="fa fa-chevron-right"></span></button></div><table cellpadding="0" cellspacing="0" border="0"><thead>{4}</thead><tbody>{5}</tbody></table>'.format(output.year, output.month, self.months[value.getMonth()], value.getFullYear(), header.join(''), builder.join('')) + (config.today ? '<div><a href="javascript:void(0)" class="ui-calendar-today">' + config.today + '</a></div>' : ''));
 	};
+});
+
+MAIN.formatter(function(path, value, type) {
+
+	if (type === 'date') {
+		if (value instanceof Date)
+			return value.format(this.config.format);
+		return value ? new Date(Date.parse(value)).format(this.config.format) : value;
+	}
+
+	return value;
 });
