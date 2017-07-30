@@ -1,12 +1,12 @@
 {
 	"datecreated": "2015-08-06T09:50:49.000Z",
-	"dateupdated": "2017-07-19T08:20:00.000Z",
+	"dateupdated": "2017-07-30T12:11:00.000Z",
 	"name": "j-Dropdown List",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "white",
-	"version": 4,
+	"version": 5,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

@@ -1,4 +1,4 @@
-## j-Dropdown List
+## j-Dropdown
 
 - Works with Bootstrap
 
