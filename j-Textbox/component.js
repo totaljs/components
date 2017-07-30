@@ -4,7 +4,7 @@ COMPONENT('textbox', function(self, config) {
 
 	self.validate = function(value) {
 
-		if (!config.required || config.disabled || input.prop('disabled'))
+		if (!config.required || config.disabled)
 			return true;
 
 		var type = typeof(value);
@@ -77,12 +77,15 @@ COMPONENT('textbox', function(self, config) {
 		else
 			tmp = 'text';
 
+
+		self.toggle('ui-disabled', config.disabled);
 		self.type = config.type;
 		attrs.attr('type', tmp);
 		config.placeholder && attrs.attr('placeholder', config.placeholder);
 		config.maxlength && attrs.attr('maxlength', config.maxlength);
 		config.keypress != null && attrs.attr('data-jc-keypress', config.keypress);
 		config.delay && attrs.attr('data-jc-keypress-delay', config.delay);
+		config.disabled && attrs.attr('disabled');
 		attrs.attr('data-jc-bind', '');
 
 		config.autofill && attrs.attr('name', self.path.replace(/\./g, '_'));
