@@ -1,22 +1,19 @@
-## j-Dropdown
+## j-DropdownCheckbox
 
-- Works with Bootstrap
+__Configuration__:
 
-__Attributes__:
+Example: `data-jc-config="required:true;icon:envelope"`
 
-- `data-jc-type=""` (optional), supports __number__, default __empty__
-- `data-required="true"` (optional) the field must have some value, default __false__
-- `data-icon="fa-envelope"` (optional) the label icon, default __empty__
-- `data-autofucs="true"` (optional) auto focus, default __false__
-- `data-options="Text 1|Value 1;Text 2|Value 2"` - for inline items
-- `data-empty` - add an empty field as the first item (works only with `data-source` attribute)
-- `data-source="path to the array"` - data-source of items
-- `data-source-text="name"` (optional) property name for gettint the text, default __text__
-- `data-source-value="id"` (optional) property name for getting the value, default __id__
-- `data-source-condition="n => n.id > 10"` (optional) a condition for binding values from data-source
-
-__Methods__:
-- `component.required(value)` - can enable/disable `required` with validation
+- `required` {Boolean} (optional) enables "required" (default: `false`)
+- `items` {String} (optional) static items `key1|value1, key2 with value, key3|value`
+- `icon` {String} (optional) icon for label e.g. `home`, `cog`, etc.
+- `label` {String} (optional) label (default is HTML content)
+- `type` {String} (optional) can be `number` (converts `String` values to `Number`)
+- `datasource` {String} path to data-source (must be array)
+- `text` {String} determines a property name for text (in data-source), default: `name`
+- `value` {String} determines a property name for value (in data-source) default :`id`
+- `empty` {String} (optional) adds an empty field
+- `disabled` {Boolean} (optional) disables this component
 
 ### Author
 
