@@ -19,6 +19,7 @@ Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:dat
 - `increment` {Boolean} (optional) enables controls for incrementing of numbers (default: `false`)
 - `keypress` {Boolean} (optional) can disable real-time binding values (default: `true`)
 - `delay` {Number} (optional) can increase/decrease delay for real-time binding (default: `300` ms)
+- `disabled` {Boolean} (optional) disables this component
 
 __Interesting:__
 

@@ -14,5 +14,6 @@ input[type="text"]:disabled, input[type="password"]:disabled, select:disabled { 
 
 .ui-right { text-align: right; }
 .ui-center { text-align: center; }
-.ui-disabled { background-color: #F0F0F0; cursor: not-allowed; }
-.ui-disabled > div { background-color: #F0F0F0; }
+
+.ui-textbox-container.ui-disabled { background-color: #F0F0F0; cursor: not-allowed; }
+.ui-textbox-container.ui-disabled > div { background-color: #F0F0F0; }

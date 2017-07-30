@@ -4,7 +4,7 @@ COMPONENT('textbox', function(self, config) {
 
 	self.validate = function(value) {
 
-		if (!config.required || input.prop('disabled'))
+		if (!config.required || config.disabled || input.prop('disabled'))
 			return true;
 
 		var type = typeof(value);
@@ -32,6 +32,8 @@ COMPONENT('textbox', function(self, config) {
 		content = self.html();
 
 		self.event('click', '.fa-calendar', function(e) {
+			if (config.disabled)
+				return;
 			if (self.type === 'calendar') {
 				e.preventDefault();
 				window.$calendar && window.$calendar.toggle(self.closest('.ui-textbox'), self.find('input').val(), function(date) {
@@ -41,6 +43,8 @@ COMPONENT('textbox', function(self, config) {
 		});
 
 		self.event('click', '.fa-caret-up,.fa-caret-down', function() {
+			if (config.disabled)
+				return;
 			if (config.increment) {
 				var el = $(this);
 				var inc = el.hasClass('fa-caret-up') ? 1 : -1;
@@ -50,6 +54,8 @@ COMPONENT('textbox', function(self, config) {
 		});
 
 		self.event('click', '.ui-textbox-control-icon', function() {
+			if (config.disabled)
+				return;
 			if (self.type === 'search') {
 				self.$stateremoved = false;
 				$(this).removeClass('fa-times').addClass('fa-search');
@@ -131,6 +137,10 @@ COMPONENT('textbox', function(self, config) {
 			return;
 
 		switch (key) {
+			case 'disabled':
+				self.toggle('ui-disabled', value);
+				self.find('input').prop('disabled', value);
+				break;
 			case 'format':
 				self.refresh(true);
 				break;

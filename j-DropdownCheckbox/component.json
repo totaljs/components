@@ -1,12 +1,12 @@
 {
 	"datecreated": "2015-08-05T04:36:55.000Z",
-	"dateupdated": "2017-07-19T08:20:00.000Z",
-	"name": "j-Dropdown Checkbox List",
+	"dateupdated": "2017-07-30T09:35:00.000Z",
+	"name": "j-DropdownCheckbox",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "white",
-	"version": 19,
+	"version": 20,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
