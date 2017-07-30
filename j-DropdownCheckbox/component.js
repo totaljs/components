@@ -21,6 +21,10 @@ COMPONENT('dropdowncheckbox', function(self, config) {
 
 		switch (key) {
 
+			case 'type':
+				self.type = value;
+				break;
+
 			case 'required':
 				self.find('.ui-dropdowncheckbox-label').toggleClass('ui-dropdowncheckbox-required', config.required);
 				break;
@@ -83,6 +87,8 @@ COMPONENT('dropdowncheckbox', function(self, config) {
 	};
 
 	self.make = function() {
+
+		self.type = config.type;
 
 		content = self.html();
 		self.aclass('ui-dropdowncheckbox-container');

@@ -120,6 +120,7 @@ COMPONENT('dropdown', function(self, config) {
 	};
 
 	self.make = function() {
+		self.type = config.type;
 		content = self.html();
 		self.aclass('ui-dropdown-container');
 		self.redraw();
