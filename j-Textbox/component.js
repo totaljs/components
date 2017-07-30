@@ -29,14 +29,18 @@ COMPONENT('textbox', function(self, config) {
 	};
 
 	self.make = function() {
+
 		content = self.html();
+
+		self.type = config.type;
+		self.format = config.format;
 
 		self.event('click', '.fa-calendar', function(e) {
 			if (config.disabled)
 				return;
-			if (self.type === 'calendar') {
+			if (config.type === 'date') {
 				e.preventDefault();
-				window.$calendar && window.$calendar.toggle(self.closest('.ui-textbox'), self.find('input').val(), function(date) {
+				window.$calendar && window.$calendar.toggle(self.element, self.find('input').val(), function(date) {
 					self.set(date);
 				});
 			}
@@ -76,7 +80,6 @@ COMPONENT('textbox', function(self, config) {
 			tmp = 'password';
 		else
 			tmp = 'text';
-
 
 		self.toggle('ui-disabled', config.disabled === true);
 		self.type = config.type;
