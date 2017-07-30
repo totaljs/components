@@ -6,7 +6,7 @@ Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:dat
 
 - `required` {Boolean} (optional) enables "required" (default: `false`)
 - `items` {String} (optional) static items `key1|value1, key2 with value, key3|value`
-- `icon` {String} (optional) icon for label
+- `icon` {String} (optional) icon for label e.g. `home`, `cog`, etc.
 - `label` {String} (optional) label (default is HTML content)
 - `placeholder` {String} (optional) adds a `placeholder` text into the input
 - `type` {String} (optional) can be `number` (converts `String` values to `Number`)
