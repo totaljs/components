@@ -78,7 +78,7 @@ COMPONENT('textbox', function(self, config) {
 			tmp = 'text';
 
 
-		self.toggle('ui-disabled', config.disabled);
+		self.toggle('ui-disabled', config.disabled === true);
 		self.type = config.type;
 		attrs.attr('type', tmp);
 		config.placeholder && attrs.attr('placeholder', config.placeholder);
