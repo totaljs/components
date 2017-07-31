@@ -73,7 +73,10 @@ COMPONENT('form', function(self, config) {
 			W.$$form_level--;
 			switch (this.name) {
 				case 'submit':
-					self.submit(self.hide);
+					if (el.hasClass('exec'))
+						self.hide();
+					else
+						self.submit(self.hide);
 					break;
 				case 'cancel':
 					!this.disabled && self[this.name](self.hide);
