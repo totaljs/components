@@ -42,7 +42,7 @@ COMPONENT('radiobutton', function(self, config) {
 			self.getter(value, 2);
 		});
 		self.html(builder.join(''));
-		config.items && self.reconfigure('items', config.items);
+		config.items && self.reconfigure('items:' + config.items);
 		config.type && (self.type = config.type);
 	};
 
