@@ -22,7 +22,7 @@ COMPONENT('form', function(self, config) {
 				return;
 			var form = $(this).find('.ui-form');
 			var cls = 'ui-form-animate-click';
-			form.aclasss(cls);
+			form.aclass(cls);
 			setTimeout(function() {
 				form.rclass(cls);
 			}, 300);
@@ -146,7 +146,7 @@ COMPONENT('form', function(self, config) {
 		self.element.scrollTop(0);
 
 		setTimeout(function() {
-			self.find('.ui-form').aclasss('ui-form-animate');
+			self.find('.ui-form').aclass('ui-form-animate');
 		}, 300);
 
 		// Fixes a problem with freezing of scrolling in Chrome
