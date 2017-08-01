@@ -1,4 +1,4 @@
-COMPONENT('suggestion', function(self) {
+COMPONENT('suggestion', function(self, config) {
 
 	var container, arrow, timeout, input = null;
 	var is = false;
@@ -9,10 +9,20 @@ COMPONENT('suggestion', function(self) {
 	self.readonly();
 	self.singleton();
 
+	self.configure = function(key, value, init) {
+		if (init)
+			return;
+		switch (key) {
+			case 'placeholder':
+				self.find('input').prop('placeholder', value);
+				break;
+		}
+	};
+
 	self.make = function() {
 
 		self.aclass('ui-suggestion');
-		self.append('<i class="ui-suggestion-arrow fa fa-caret-up"></i><div class="ui-suggestion-search"><span><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="ui-suggestion-search-input" /></div></div><div class="ui-suggestion-container"><ul></ul></div>'.format(self.attrd('placeholder')));
+		self.append('<i class="ui-suggestion-arrow fa fa-caret-up"></i><div class="ui-suggestion-search"><span><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="ui-suggestion-search-input" /></div></div><div class="ui-suggestion-container"><ul></ul></div>'.format(config.placeholder));
 		container = self.find('ul');
 		arrow = self.find('.ui-suggestion-arrow');
 		input = self.find('input');
@@ -48,7 +58,7 @@ COMPONENT('suggestion', function(self) {
 		container.find('li').each(function() {
 			var el = $(this);
 			var val = this.innerHTML.toSearch();
-			el.toggleClass('hidden', val.indexOf(value) === -1);
+			el.tclass('hidden', val.indexOf(value) === -1);
 		});
 	};
 
@@ -141,7 +151,7 @@ COMPONENT('suggestion', function(self) {
 			return;
 		clearTimeout(timeout);
 		timeout = setTimeout(function() {
-			self.element.hide().removeClass('ui-suggestion-visible');
+			self.element.hide().rclass('ui-suggestion-visible');
 			self.emit('suggestion', false, self, self.target);
 			self.callback = null;
 			self.target = null;
