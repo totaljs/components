@@ -18,9 +18,9 @@ COMPONENT('confirm', function(self) {
 			if (t !== 'DIV')
 				return;
 			var el = self.find('.ui-confirm-body');
-			el.addClass('ui-confirm-click');
+			el.aclass('ui-confirm-click');
 			setTimeout(function() {
-				el.removeClass('ui-confirm-click');
+				el.rclass('ui-confirm-click');
 			}, 300);
 		});
 

@@ -1,9 +1,10 @@
-COMPONENT('click', function(self) {
+COMPONENT('click', function(self, config) {
 
-	var config = self.config;
 	self.readonly();
 
 	self.click = function() {
+		if (config.disabled)
+			return;
 		if (config.value)
 			self.set(self.parser(config.value));
 		else

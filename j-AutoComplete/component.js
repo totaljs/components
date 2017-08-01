@@ -70,13 +70,13 @@ COMPONENT('autocomplete', function(self) {
 		e.stopPropagation();
 
 		if (current.length) {
-			current.removeClass('selected');
+			current.rclass('selected');
 			current = c === 40 ? current.next() : current.prev();
 		}
 
 		if (!current.length)
 			current = self.find('li:{0}-child'.format(c === 40 ? 'first' : 'last'));
-		current.addClass('selected');
+		current.aclass('selected');
 	}
 
 	function blur() {
