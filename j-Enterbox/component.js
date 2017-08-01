@@ -1,10 +1,26 @@
-COMPONENT('enterbox', function(self) {
+COMPONENT('enterbox', function(self, config) {
 
 	self.readonly();
 
+	self.reconfigure = function(key, value, init) {
+		if (init)
+			return;
+		switch (key) {
+			case 'icon':
+				self.find('i').rclass().aclass('fa fa-' + value);
+				break;
+			case 'placeholder':
+				self.find('input').prop('placeholder', value);
+				break;
+			case 'maxlength':
+				self.find('input').prop('maxlength', value);
+				break;
+		}
+	};
+
 	self.make = function() {
 		self.aclass('ui-enterbox');
-		self.append('<div class="ui-enterbox-button"><button><i class="fa {0}"></i></button></div><div class="ui-enterbox-input"><input type="text" placeholder="{1}" maxlength="{2}" /></div>'.format(self.attrd('icon') || 'fa-keyboard-o', self.attrd('placeholder'), self.attrd('maxlength') || '50'));
+		self.append('<div class="ui-enterbox-button"><button><i class="fa fa-{0}"></i></button></div><div class="ui-enterbox-input"><input type="text" placeholder="{1}" maxlength="{2}" /></div>'.format(config.icon || 'fa-keyboard-o', config.placeholder, config.maxlength || 50));
 		self.event('click', 'button', self.submit);
 		self.event('keyup', 'input', function(e) {
 			e.which === 13 && self.submit();
@@ -12,10 +28,9 @@ COMPONENT('enterbox', function(self) {
 	};
 
 	self.submit = function() {
-		var exec = self.attrd('exec');
 		var val = self.find('input').val();
-		if (exec)
-			EXEC(exec, val);
+		if (config.exec)
+			EXEC(config.exec, val);
 		else
 			self.set(val);
 	};
