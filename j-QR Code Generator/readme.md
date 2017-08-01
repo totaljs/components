@@ -3,8 +3,9 @@
 - easy usage
 - uses <http://goqr.me> server
 
-__Attributes__:
-- `data-size` in pixels, default: `200`
+__Configuration__:
+
+- `size` {Number} in pixels, default: `200`
 
 ### Author
 

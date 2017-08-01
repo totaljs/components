@@ -1,7 +1,7 @@
-COMPONENT('qrcode', function(self) {
+COMPONENT('qrcode', 'size:200', function(self, config) {
 
 	var url = 'https://api.qrserver.com/v1/create-qr-code/?color=000000&bgcolor=FFFFFF&data={0}&qzone=0&margin=0&size={1}x{1}&ecc=L';
-	var img;
+	var img = null;
 
 	self.readonly();
 
@@ -16,14 +16,13 @@ COMPONENT('qrcode', function(self) {
 			value = value.toString();
 
 		var text = encodeURIComponent(value);
-		var size = (self.attrd('size') || '200').replace('px', '');
 
 		if (img) {
-			img.attr('src', src.format(text, size));
+			img.attr('src', src.format(text, config.size));
 			return;
 		}
 
-		self.html('<img src="{0}" alt="QR Code" border="0" style="max-width:100%;height:auto" />'.format(src.format(text, size)));
+		self.html('<img src="{0}" alt="QR Code" border="0" style="max-width:100%;height:auto" />'.format(src.format(text, config.size)));
 		img = self.find('img');
 	};
 });
