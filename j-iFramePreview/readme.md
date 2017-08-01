@@ -5,8 +5,10 @@
 - can work with multiple `iframepreview` components (other components are hidden)
 - listens on `esc` key on the keyboard
 
-__Attributes:__
-- `data-width="500px"` max width size (the component is responsive)
+__Configuration__:
+- `width` {Number} a maximal width of iframe in pixels (default: `800` px)
+
+__Attributes__:
 - `data-jc-path` must contain a valid URL address (when is empty then is the component hidden)
 
 __Methods__:
