@@ -1,9 +1,15 @@
 COMPONENT('repeater', function(self) {
 
+	var filter = null;
 	var recompile = false;
-	var filter;
+	var reg = /\$(index|path)/g;
 
 	self.readonly();
+
+	self.configure = function(key, value) {
+		if (key === 'filter')
+			filter = value ? GET(value) : null;
+	};
 
 	self.make = function() {
 		var element = self.find('script');
@@ -17,7 +23,6 @@ COMPONENT('repeater', function(self) {
 		element.remove();
 		self.template = Tangular.compile(html);
 		recompile = html.indexOf('data-jc="') !== -1;
-		filter = GET(self.attrd('filter'));
 	};
 
 	self.setter = function(value) {
@@ -31,11 +36,14 @@ COMPONENT('repeater', function(self) {
 		for (var i = 0, length = value.length; i < length; i++) {
 			var item = value[i];
 			item.index = i;
-			if (!filter || filter(item))
-				builder.push(self.template(item).replace(/\$index/g, i.toString()).replace(/\$path/g, self.path + '[' + i + ']'));
+			if (!filter || filter(item)) {
+				builder.push(self.template(item).replace(reg, function(text) {
+					return text.substring(0, 2) === '$i' ? i.toString() : self.path + '[' + i + ']';
+				}));
+			}
 		}
 
-		self.html(builder);
+		self.html(builder.join(''));
 		recompile && self.compile();
 	};
 });

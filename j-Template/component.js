@@ -12,7 +12,7 @@ COMPONENT('template', function(self) {
 
 		if (!script.length) {
 			script = self.element;
-			self.element = self.element.parent();
+			self.element = self.parent();
 		}
 
 		self.template = Tangular.compile(script.html());

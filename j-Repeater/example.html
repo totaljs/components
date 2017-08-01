@@ -1,7 +1,9 @@
 <div data-jc="repeater" data-jc-path="datasource" data-filter="filter_data">
 	<script type="text/html">
 		 <div>
-			<div>{{ name }} ($index)</div>
+			<div>index: $index</div>
+			<div>path: $path</div>
+			<div>{{ name }}</div>
 			<div>{{ amount | format(2) }}</div>
 			<div>{{ created | format('yyyy-MM-dd') }}</div>
 			<br />
