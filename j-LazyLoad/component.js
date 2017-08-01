@@ -1,23 +1,23 @@
 COMPONENT('lazyload', 'offset:50', function(self, config) {
 
 	var is = null;
-	var container = window;
+	var container = $(window);
 
 	self.readonly();
 
 	self.configure = function(key, value) {
 		if (key === 'container') {
+			container.off('scroll', self.refresh);
 			container = $(value);
 			is = container.get(0) === window;
+			container.on('scroll', self.refresh);
 		}
 	};
 
 	self.make = function() {
 		is = true;
 		container.on('scroll', self.refresh);
-		setTimeout(function() {
-			self.refresh();
-		}, 1000);
+		setTimeout(self.refresh, 1000);
 	};
 
 	self.refresh = function() {
