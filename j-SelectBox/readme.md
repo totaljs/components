@@ -2,19 +2,20 @@
 
 - Works with Bootstrap
 
-__Attributes__:
+__Configuration__:
 
-- `data-jc-type=""` (optional), supports __number__, default __empty__
-- `data-required="true"` (optional) the field must have some value, default __false__
-- `data-options="Text 1|Value 1;Text 2|Value 2"` - for inline items
-- `data-source="path to the array"` - data-source of items
-- `data-source-text="name"` (optional) property name for gettint the text, default __text__
-- `data-source-value="id"` (optional) property name for getting the value, default __id__
-- `data-search="PLACEHOLDER TEXT"` (optional) shows search bar
-- `data-height="200px"` (optional) height of component (default: `200px`)
-
-__Methods__:
-- `component.required(value)` - can enable/disable `required` with validation
+- `required` {Boolean} (optional) enables `required` (default: __false__)
+- `items` {String} (optional) static items `key1|value1, key2 with value, key3|value`
+- `icon` {String} (optional) icon for label e.g. `home`, `cog`, etc.
+- `label` {String} (optional) label (default is HTML content)
+- `type` {String} (optional) can be `number` (converts `String` values to `Number`)
+- `datasource` {String} path to data-source (must be array)
+- `text` {String} determines a property name for text (in data-source), default: `name`
+- `value` {String} determines a property name for value (in data-source) default: `id`
+- `empty` {String} (optional) adds an empty field
+- `disabled` {Boolean} (optional) disables this component
+- `search` {String} (optional) enables search box with this value as a placeholder
+- `height` {Number} (optional) height (default: `200`)
 
 ### Author
 

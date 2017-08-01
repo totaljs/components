@@ -1,80 +1,111 @@
-COMPONENT('selectbox', function(self) {
+COMPONENT('selectbox', function(self, config) {
 
-	var Eitems, Eselected;
-	var isRequired = self.attrd('required') === 'true';
+	var Eitems, Eselected, datasource = null;
 
 	self.datasource = EMPTYARRAY;
 	self.template = Tangular.compile('<li data-search="{{ search }}" data-index="{{ index }}">{{ text }}</li>');
 
 	self.validate = function(value) {
-		return isRequired ? value && value.length > 0 : true;
+		return config.disabled || !config.required ? true : value && value.length > 0;
 	};
 
-	!isRequired && self.noValid();
+	self.configure = function(key, value, init) {
+		if (init)
+			return;
 
-	self.required = function(value) {
-		self.noValid(!value);
-		isRequired = value;
-		!value && self.state(1, 1);
+		var redraw = false;
+
+		switch (key) {
+			case 'type':
+				self.type = value;
+				break;
+			case 'disabled':
+				break;
+			case 'required':
+				!value && self.state(1, 1);
+				break;
+			case 'height':
+			case 'search':
+				redraw = true;
+				break;
+			case 'items':
+				var arr = [];
+				value.split(',').forEach(function(item) {
+					item = item.trim().split('|');
+					var obj = {};
+					obj.name = item[0].trim();
+					obj.id = (item[1] == null ? item[0] : item[1]).trim();
+					if (config.type === 'number')
+						obj.id = +obj.id;
+					arr.push(obj);
+				});
+				self.bind('', arr);
+				break;
+			case 'datasource':
+				datasource && self.unwatch(datasource, self.bind);
+				self.watch(value, self.bind, true);
+				datasource = value;
+				break;
+		}
+
+		redraw && self.redraw();
 	};
 
 	self.search = function() {
-		var search = self.find('input').val().toSearch();
-
+		var search = config.search ? self.find('input').val().toSearch() : '';
 		Eitems.find('li').each(function() {
 			var el = $(this);
 			el.toggleClass('hidden', el.attr('data-search').indexOf(search) === -1);
 		});
-
 		self.find('.ui-selectbox-search-icon').toggleClass('fa-search', search.length === 0).toggleClass('fa-times', search.length > 0);
 	};
 
-	self.make = function() {
-		var search = self.attrd('search');
-
-		self.append((typeof(search) === 'string' ? '<div class="ui-selectbox-search"><span><i class="fa fa-search ui-selectbox-search-icon"></i></span><div><input type="text" placeholder="{0}" /></div></div><div>'.format(search) : '') + '<div style="height:{0}"><ul></ul><ul style="height:{0}"></ul></div>'.format(self.attrd('height') || '200px'));
-		self.classes('ui-selectbox');
-
+	self.redraw = function() {
+		self.html((typeof(config.search) === 'string' ? '<div class="ui-selectbox-search"><span><i class="fa fa-search ui-selectbox-search-icon"></i></span><div><input type="text" placeholder="{0}" /></div></div><div>'.format(config.search) : '') + '<div style="height:{0}px"><ul></ul><ul style="height:{0}px"></ul></div>'.format(config.height || '200'));
 		self.find('ul').each(function(index) {
 			if (index)
 				Eselected = $(this);
 			else
 				Eitems = $(this);
 		});
+	};
 
-		var datasource = self.attrd('source');
-		datasource && self.watch(datasource, function(path, value) {
-			var propText = self.attrd('source-text') || 'name';
-			var propValue = self.attrd('source-value') || 'id';
-			self.datasource = [];
-			value && value.forEach(function(item, index) {
+	self.bind = function(path, value) {
 
-				var text;
-				var value;
+		var kt = config.text || 'name';
+		var kv = config.value || 'id';
+		var builder = [];
 
-				if (typeof(item) === 'string') {
-					text = item;
-					value = self.parser(item);
-				} else {
-					text = item[propText];
-					value = item[propValue];
-				}
+		self.datasource = [];
+		value && value.forEach(function(item, index) {
 
-				self.datasource.push({ text: text, value: value, index: index, search: text.toSearch() });
-			});
-			self.redraw();
-		}, true);
+			var text;
+			var value;
 
-		datasource = self.attrd('options');
-		if (datasource) {
-			var items = [];
-			datasource.split(';').forEach(function(item, index) {
-				var val = item.split('|');
-				items.push({ text: val[0], value: self.parser(val[1] === undefined ? val[0] : val[1]), index: index, search: val[0].toSearch() });
-			});
-			self.datasource = items;
-			self.redraw();
-		}
+			if (typeof(item) === 'string') {
+				text = item;
+				value = self.parser(item);
+			} else {
+				text = item[kt];
+				value = item[kv];
+			}
+
+			var item = { text: text, value: value, index: index, search: text.toSearch() };
+			self.datasource.push(item);
+			builder.push(self.template(item));
+		});
+
+		self.search();
+		Eitems.empty().append(builder.join(''));
+	};
+
+	self.make = function() {
+
+		self.aclass('ui-selectbox');
+		self.redraw();
+
+		config.datasource && self.reconfigure('datasource:' + config.datasource);
+		config.items && self.reconfigure('items:' + config.items);
 
 		self.event('click', 'li', function() {
 			var selected = self.get() || [];
@@ -100,33 +131,29 @@ COMPONENT('selectbox', function(self) {
 		});
 	};
 
-	self.redraw = function() {
-		var builder = [];
-		self.datasource.forEach(function(item) {
-			builder.push(self.template(item));
-		});
-		self.search();
-		Eitems.empty().append(builder.join(''));
-	};
-
 	self.setter = function(value) {
+
 		var selected = {};
 		var builder = [];
 
-		for (var i = 0, length = self.datasource.length; i < length; i++) {
-			var item = self.datasource[i];
-			if (value && value.indexOf(item.value) !== -1)
-				selected[i] = item;
+		var ds = self.datasource;
+		var dsl = ds.length;
+
+		if (value) {
+			for (var i = 0, length = value.length; i < length; i++) {
+				for (var j = 0; j < dsl; j++) {
+					if (ds[j].value === value[i]) {
+						selected[j] = true;
+						builder.push(self.template(ds[j]));
+					}
+				}
+			}
 		}
 
 		Eitems.find('li').each(function() {
 			var el = $(this);
 			var index = +el.attr('data-index');
 			el.toggleClass('ui-selectbox-selected', selected[index] !== undefined);
-		});
-
-		Object.keys(selected).forEach(function(key) {
-			builder.push(self.template(selected[key]));
 		});
 
 		Eselected.empty().append(builder.join(''));
