@@ -5,4 +5,4 @@
 .ui-checkbox .fa { display: none; }
 .ui-checkbox-checked div { background-color: #017CCA; border-color: #017CCA; }
 .ui-checkbox-checked .fa { display: block !important; }
-.ui-checkbox.ui-disabled div { background-color: #F0F0F0 !important; border-color: #E0E0E0 !important; color: gray !important; }
+.ui-checkbox.ui-disabled div { background-color: #F0F0F0 !important; border-color: #E0E0E0 !important; color: gray !important; }
