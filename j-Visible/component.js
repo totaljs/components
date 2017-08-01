@@ -1,24 +1,26 @@
-COMPONENT('visible', function(self) {
-
-	var processed = false;
-	var template = self.attrd('template');
+COMPONENT('visible', function(self, config) {
+	var processed, is = false;
+	var old = null;
 
 	self.readonly();
 	self.setter = function(value) {
 
-		var is = true;
-		var condition = self.attrd('if');
+		var condition = config.if;
 
 		if (condition)
 			is = self.evaluate(condition);
 		else
 			is = value ? true : false;
 
-		if (is && template && !processed) {
-			IMPORT(template, self);
+		if (old === is)
+			return;
+
+		if (is && config.template && !processed) {
+			self.import(config.template, NOOP, false);
 			processed = true;
 		}
 
-		self.toggle('hidden', !is);
+		self.tclass('hidden', !is);
+		old = is;
 	};
 });

@@ -1,11 +1,9 @@
 ## j-Visible
 
-- Works only with [jComponent](http://jcomponent.org)
-- __Download__ [jComponent with Tangular (jcta.min.js)](https://github.com/petersirka/jComponent)
+__Configuration__:
 
-__Attributes__:
-- `data-if="value === 'name'"` custom condition
-- `data-template="URL"` (optional) can contain URL to HTML
+- `if` {String} a custom condition example `if:value === true` (optional)
+- `template` {String} can contain URL to HTML content (optional)
 
 ### Author
 

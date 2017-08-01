@@ -1,4 +1,4 @@
-COMPONENT('centered', function(self) {
+COMPONENT('centered', function(self, config) {
 
 	self.readonly();
 	self.make = function() {
@@ -11,6 +11,6 @@ COMPONENT('centered', function(self) {
 	};
 
 	self.setter = function(value) {
-		self.toggle('hidden', value !== self.attrd('if'));
+		self.toggle('hidden', value !== config.if);
 	};
 });

@@ -1,4 +1,4 @@
-COMPONENT('dragdropfiles', function(self) {
+COMPONENT('dragdropfiles', function(self, config) {
 
 	self.readonly();
 
@@ -13,7 +13,6 @@ COMPONENT('dragdropfiles', function(self) {
 	};
 
 	self.make = function() {
-		var cls = self.attrd('class');
 		var has = false;
 
 		self.event('dragenter dragover dragexit drop dragleave', function (e) {
@@ -23,24 +22,24 @@ COMPONENT('dragdropfiles', function(self) {
 
 			switch (e.type) {
 				case 'drop':
-					cls && has && self.classes(self.mirror(cls));
+					config.class && has && self.classes(self.mirror(config.class));
 					break;
 				case 'dragenter':
 				case 'dragover':
-					cls && !has && self.classes(cls);
+					config.class && !has && self.classes(config.class);
 					has = true;
 					return;
 				case 'dragleave':
 				case 'dragexit':
 				default:
 					setTimeout2(self.id, function() {
-						cls && has && self.classes(self.mirror(cls));
+						config.class && has && self.classes(self.mirror(config.class));
 						has = false;
 					}, 100);
 					return;
 			}
 
-			EXEC(self.attrd('files'), e.originalEvent.dataTransfer.files, e);
+			EXEC(config.exec, e.originalEvent.dataTransfer.files, e);
 		});
 	};
 });

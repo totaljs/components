@@ -1,4 +1,4 @@
-COMPONENT('cookie', function(self) {
+COMPONENT('cookie', function(self, config) {
 
 	self.singleton();
 	self.readonly();
@@ -12,7 +12,7 @@ COMPONENT('cookie', function(self) {
 				localStorage.removeItem(key);
 			});
 		} catch (e) {}
-		location.href = 'about:blank';
+		location.href = config.redirect || 'about:blank';
 		return self;
 	};
 
@@ -31,7 +31,7 @@ COMPONENT('cookie', function(self) {
 		}
 
 		self.classes('-hidden ui-cookie');
-		self.append('<button name="agree">{0}</button><button name="cancel">{1}</button>'.format(self.attrd('agree') || 'OK', self.attrd('cancel') || 'Cancel'));
+		self.append('<button name="agree">{0}</button><button name="cancel">{1}</button>'.format(config.agree || 'OK', config.cancel || 'Cancel'));
 
 		self.event('click', 'button', function() {
 

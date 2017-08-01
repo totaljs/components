@@ -2,11 +2,15 @@
 
 This component automaticaly captures images in Clipboard.
 
-__Supported attributes__:
+__Configuration__:
 
-- `data-width="1280"` a maximum width of image (default: `1280`)
-- `data-height="1024"` a maximum height of image (default: `1024`)
-- `data-quality="90"` JPEG quality (default: `90`)
+Example: `data-jc-config="quality:75"`
+
+`quality` {Number} JPEG quality, (default: `90`)
+`maxwidth` {Number} a maximum width (default: `1024`)
+`maxheight` {Number} a maximum height (default: `768`)
+`exec` {String} a link to execute method if the image is obtained
+`disabled` {Boolean} can disable this component
 
 __How to capture data?__
 

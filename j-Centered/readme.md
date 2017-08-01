@@ -1,7 +1,8 @@
 ## j-Centered
 
-- easy usage
-- can contain everything
+__Configuration__:
+
+`if` {String} a condition for showing
 
 ### Author
 

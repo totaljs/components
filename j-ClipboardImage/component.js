@@ -1,6 +1,6 @@
-COMPONENT('clipboardimage', function(self) {
+COMPONENT('clipboardimage', 'quality:90;maxwidth:1024;maxheight:768', function(self, config) {
 
-	var ctx, img, canvas, maxW, maxH, quality;
+	var ctx, img, canvas = null;
 
 	self.singleton();
 	self.readonly();
@@ -12,11 +12,12 @@ COMPONENT('clipboardimage', function(self) {
 		canvas = self.find('canvas').get(0);
 		ctx = canvas.getContext('2d');
 		img = self.find('img').get(0);
-		maxW = (self.attrd('width') || '1280').parseInt();
-		maxH = (self.attrd('height') || '1024').parseInt();
-		quality = (self.attrd('quality') || '90').parseInt() * 0.01;
 
 		$(window).on('paste', function(e) {
+
+			if (config.disabled)
+				return;
+
 			var item = e.originalEvent.clipboardData.items[0];
 			if (item.kind !== 'file' || item.type.substring(0, 5) !== 'image')
 				return;
@@ -43,15 +44,17 @@ COMPONENT('clipboardimage', function(self) {
 			canvas.height = img.height;
 		}
 
-		if (canvas.width > maxW) {
-			canvas.width = maxW;
-			canvas.height = (maxW / (img.width / img.height)) >> 0;
-		} else if (canvas.height > maxH) {
-			canvas.height = maxH;
-			canvas.width = (maxH / (img.width / img.height)) >> 0;
+		if (canvas.width > config.maxwidth) {
+			canvas.width = config.maxwidth;
+			canvas.height = (config.maxwidth / (img.width / img.height)) >> 0;
+		} else if (canvas.height > config.maxheight) {
+			canvas.height = config.maxheight;
+			canvas.width = (config.maxheight / (img.width / img.height)) >> 0;
 		}
 
 		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-		EMIT('clipboardimage', canvas.toDataURL('image/jpeg', quality));
+		var data = canvas.toDataURL('image/jpeg', config.quality * 0.01);
+		config.exec && EXEC(config.exec, data);
+		EMIT('clipboardimage', data);
 	};
 });

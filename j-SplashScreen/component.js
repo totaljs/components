@@ -1,4 +1,4 @@
-COMPONENT('splashscreen', function(self) {
+COMPONENT('splashscreen', function(self, config) {
 	self.readonly();
 	self.make = function() {
 		self.aclass('ui-splashscreen');
@@ -11,6 +11,6 @@ COMPONENT('splashscreen', function(self) {
 			setTimeout(function() {
 				self.remove();
 			}, 500);
-		}, (+self.attrd('timeout')) || 2500);
+		}, config.timeout || 2500);
 	};
 });

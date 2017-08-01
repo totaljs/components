@@ -1,15 +1,11 @@
 ## j-Checkbox
 
-- Works only with [jComponent](http://jcomponent.org)
-- __Download__ [jComponent with Tangular (jcta.min.js)](https://github.com/petersirka/jComponent)
-- Works with Bootstrap
+Example: `data-jc-config="required:true"`
 
-__Attributes__:
-
-- `data-required="true"` (optional) the field must have some value, default __false__
-
-__Methods__:
-- `component.required(value)` - can enable/disable `required` with validation
+- `required` {Boolean} (optional) enables "required" (default: `false`)
+- `label` {String} (optional) label (default is HTML content)
+- `disabled` {Boolean} (optional) disables this component
+- `checkicon` {String} (optional) a check icon without `fa-` (default: `check`)
 
 ### Author
 
