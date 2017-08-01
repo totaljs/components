@@ -15,7 +15,7 @@ COMPONENT('progress', function(self, config) {
 			return;
 		old = value;
 		if (config.animate !== false)
-			container.animate({ width: (old < 10 ? 10 : old) + '%' }, 20);
+			container.animate({ width: (old < 10 ? 10 : old) + '%' }, 100);
 		else
 			container.css({ width: (old < 10 ? 10 : old) + '%' });
 		container.html(old + '%');
