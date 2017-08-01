@@ -4,14 +4,14 @@
 - works with Bootstrap Grid System
 - drag and drop support
 
-__Attributes__:
+__Configuration__:
 
-- `data-width="300"` picture width (required)
-- `data-height="200"` picture height (required)
-- `data-icon="fa-envelope"` (optional) the label icon, default __empty__
-- `data-url="/upload/"` (optional) upload URL (default: current URL)
-- `data-background="white"` (optional) background color (default: transparent)
-- `data-path="/img/{0}.jpg"` (optional) formats image path (default: empty)
+- `width` {Number} a picture width (required)
+- `height` {Number} a picture height (required)
+- `icon` {String} (optional) the label icon without `fa`, (default: `null`)
+- `url` {String}" (optional) upload URL (default: current URL)
+- `background` {String} (optional) a background color (default: white)
+- `src` {String} an image path (default: `null`), e.g. `/img/{0}.jpg`
 
 ### Author
 

@@ -1,11 +1,8 @@
 ## j-Progress
 
-- easy usage
-- works with Bootstrap Grid System
+__Configuration__:
 
-__Attributes__:
-
-- `data-animate="false"` optional(default true) useful when animation of progress is slower then updating of text
+- `animate` {Boolean} enables animation (default: `true`)
 
 ### Author
 
