@@ -16,3 +16,4 @@
 .ui-selectbox.ui-disabled input { background-color: #F0F0F0; color: gray; }
 .ui-selectbox.ui-disabled .ui-selectbox-search { background-color: #F0F0F0; }
 .ui-selectbox.ui-disabled ul { color: gray; }
+.ui-selectbox.ui-disabled li:hover { background-color: white !important; }
