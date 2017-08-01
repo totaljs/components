@@ -1,13 +1,9 @@
-COMPONENT('touchmove', function(self) {
+COMPONENT('touchmove', 'diff:110', function(self, config) {
 
-	var begX, begY, diff;
+	var begX, begY;
 
 	self.readonly();
 	self.make = function() {
-
-		diff = +(self.attrd('diff') || '110');
-		!diff && (diff = 80);
-
 		self.event('touchstart touchmove', function(e) {
 
 			var x = e.originalEvent.touches[0].pageX;
@@ -23,26 +19,25 @@ COMPONENT('touchmove', function(self) {
 			var diffY = begY - y;
 			var path;
 
-			if (diffX > diff) {
+			if (diffX > config.diff) {
 				// prev
-				path = self.attrd('next');
-			} else if (diffX < -diff) {
+				path = config.next;
+			} else if (diffX < -config.diff) {
 				// prev
-				path = self.attrd('prev');
-			} else if (diffY > diff) {
+				path = config.prev;
+			} else if (diffY > config.diff) {
 				// down
-				path = self.attrd('down');
-			} else if (diffY < -diff) {
+				path = config.down;
+			} else if (diffY < -config.diff) {
 				// up
-				path = self.attrd('up');
+				path = config.up;
 			}
 
-			if (!path)
-				return;
-
-			self.get(path)();
-			e.preventDefault();
-			e.stopPropagation();
+			if (path) {
+				self.get(path)();
+				e.preventDefault();
+				e.stopPropagation();
+			}
 		});
 	};
 });
