@@ -1,32 +1,24 @@
-COMPONENT('disable', function(self) {
+COMPONENT('disable', function(self, config) {
 
-	var condition, selector, validate;
-
+	var validate = null;
 	self.readonly();
 
-	self.make = function() {
-		condition = self.attrd('if');
-		selector = self.attrd('selector') || 'input,texarea,select';
-		validate = self.attrd('validate');
-		validate && (validate = validate.split(',').trim());
+	self.configure = function(key, value) {
+		if (key === 'validate')
+			validate = value.split(',').trim();
 	};
 
 	self.setter = function(value) {
 		var is = true;
 
-		if (condition)
-			is = EVALUATE(self.path, condition);
+		if (config.if)
+			is = EVALUATE(self.path, config.if);
 		else
 			is = value ? false : true;
 
-		self.find(selector).each(function() {
-			var el = $(this);
-			var tag = el.get(0).tagName;
-			if (tag === 'INPUT' || tag === 'SELECT') {
-				el.prop('disabled', is);
-				el.parent().toggleClass('ui-disabled', is);
-			} else
-				el.toggleClass('ui-disabled', is);
+		self.find(config.selector || '[data-jc]').each(function() {
+			var com = $(this).component();
+			com && com.reconfigure('disabled:' + is);
 		});
 
 		validate && validate.forEach(FN('n => MAIN.reset({0}n)'.format(self.pathscope ? '\'' + self.pathscope + '.\'+' : '')));

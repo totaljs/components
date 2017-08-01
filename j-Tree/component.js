@@ -1,4 +1,4 @@
-COMPONENT('tree', function(self, config) {
+COMPONENT('tree', 'selected:selected', function(self, config) {
 
 	var cache = null;
 	var counter = 0;
@@ -7,11 +7,7 @@ COMPONENT('tree', function(self, config) {
 	self.readonly();
 
 	self.make = function() {
-
-		!config.selected && (config.selected = 'selected');
-
 		self.aclass('ui-tree');
-
 		self.event('click', '.item', function() {
 			var el = $(this);
 			var index = +el.attr('data-index');

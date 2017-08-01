@@ -1,12 +1,12 @@
 {
 	"datecreated": "2017-04-23T17:00:00.000Z",
-	"dateupdated": null,
+	"dateupdated": "2017-08-01T09:27:00.000Z",
 	"name": "j-LazyLoad",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "white",
-	"version": 1,
+	"version": 2,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

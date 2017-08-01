@@ -47,12 +47,12 @@ COMPONENT('tooltip', function(self) {
 		container.html(body);
 
 		var el = self.element;
-		var is = el.hasClass('hidden');
+		var is = el.hclass('hidden');
 
 		if (is) {
 			anim.top = css.top;
 			css.top += 20;
-			el.css(css).removeClass('hidden').animate(anim, 100);
+			el.css(css).rclass('hidden').animate(anim, 100);
 		} else
 			el.css(css);
 	};

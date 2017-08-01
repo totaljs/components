@@ -1,14 +1,19 @@
-COMPONENT('lazyload', function(self) {
+COMPONENT('lazyload', 'offset:50', function(self, config) {
 
-	var selector, container, offset, is;
+	var is = null;
+	var container = window;
 
 	self.readonly();
 
+	self.configure = function(key, value) {
+		if (key === 'container') {
+			container = $(value);
+			is = container.get(0) === window;
+		}
+	};
+
 	self.make = function() {
-		selector = self.attr('selector');
-		offset = +(self.attr('offset') || 50);
-		container = $(self.attr('container') || window);
-		is = container.get(0) === window;
+		is = true;
 		container.on('scroll', self.refresh);
 		setTimeout(function() {
 			self.refresh();
@@ -24,16 +29,16 @@ COMPONENT('lazyload', function(self) {
 
 	self.prepare = function() {
 		var scroll = container.scrollTop();
-		var beg = scroll - offset;
-		var end = beg + container.height() + offset;
-		self.find(selector).each(function() {
+		var beg = scroll - config.offset;
+		var end = beg + container.height() + config.offset;
+		self.find(config.selector).each(function() {
 			if (this.getAttribute('data-lazyload'))
 				return;
 			var el = $(this);
 			var top = (is ? 0 : scroll) + el.offset().top;
 			if (top >= beg && top <= end) {
 				el.attr('data-lazyload', true);
-				EXEC(self.attr('exec'), el);
+				config.exec && EXEC(config.exec, el);
 			}
 		});
 	};

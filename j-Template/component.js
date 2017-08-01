@@ -24,7 +24,7 @@ COMPONENT('template', function(self) {
 			return;
 		if (value) {
 			KEYPRESS(function() {
-				self.html(self.template(value)).removeClass('hidden');
+				self.html(self.template(value)).rclass('hidden');
 			}, 100, self.id);
 		} else
 			self.aclass('hidden');

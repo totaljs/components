@@ -1,5 +1,5 @@
 COMPONENT('tabmenu', function(self) {
-
+	var old = null;
 	self.readonly();
 	self.make = function() {
 		self.event('click', 'li', function() {
@@ -7,8 +7,12 @@ COMPONENT('tabmenu', function(self) {
 			!el.hasClass('selected') && self.set(el.attr('data-value'));
 		});
 	};
+
 	self.setter = function(value) {
-		self.find('.selected').removeClass('selected');
-		self.find('li[data-value="' + value + '"]').addClass('selected');
+		if (old === value)
+			return;
+		self.find('.selected').rclass('selected');
+		self.find('li[data-value="' + value + '"]').aclass('selected');
+		old = value;
 	};
 });

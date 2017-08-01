@@ -1,7 +1,6 @@
 ## j-Tab
 
 - easy usage
-- works with e.g. `j-Visible` component
 
 ### Author
 

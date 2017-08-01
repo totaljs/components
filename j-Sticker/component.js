@@ -1,7 +1,6 @@
 COMPONENT('sticker', function(self) {
 
-	var ca = self.attrd('class-off');
-	var cb = self.attrd('class-on');
+	var ca, cb = null;
 	var enabled = false, is = false;
 	var top = 0;
 
@@ -23,6 +22,17 @@ COMPONENT('sticker', function(self) {
 		});
 	};
 
+	self.configure = function(key, value) {
+		switch (key) {
+			case 'on':
+				ca = value;
+				break;
+			case 'off':
+				cb = value;
+				break;
+		}
+	};
+
 	self.toggle = function(y, init) {
 		var el = self.element;
 
@@ -33,8 +43,8 @@ COMPONENT('sticker', function(self) {
 		if (is) {
 			if (enabled && !init)
 				return;
-			ca && el.removeClass(ca);
-			cb && el.addClass(cb);
+			ca && el.rclass(ca);
+			cb && el.aclass(cb);
 			enabled = true;
 			return self;
 		}
@@ -42,8 +52,8 @@ COMPONENT('sticker', function(self) {
 		if (!enabled && !init)
 			return self;
 
-		cb && el.removeClass(cb);
-		ca && el.addClass(ca);
+		cb && el.rclass(cb);
+		ca && el.aclass(ca);
 		enabled = false;
 		top = 0;
 		return self;

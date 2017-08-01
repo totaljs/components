@@ -1,11 +1,11 @@
 ## j-Sticker
 
-- easy usage
+__Configuration__:
 
-__Attributes__:
+Example: `data-jc-config="on:fixed;off:relative"`
 
-- `data-class-on="fixed"` this class is enabled when the `scroll top` position is greater than this element `Y` position
-- `data-class-on="relative"` this class is enabled when the `scroll top` position is smaller than this element `Y` position
+`on` {String} this class is enabled when the `scroll top` position is greater than this element `Y` position
+`off` {String} this class is enabled when the `scroll top` position is smaller than this element `Y` position
 
 ### Author
 

@@ -2,8 +2,8 @@
 
 The component has a similar functionality like `j-Click` but it can handle multiple clicks / elements.
 
-__Attributes__:
-- `data-selector` is selector for capturing `click`, default `.exec`
+__Configuration__:
+- `selector` is a selector for capturing `click` (default: `.exec`)
 
 __Elements__:
 
