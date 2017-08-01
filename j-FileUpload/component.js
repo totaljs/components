@@ -1,21 +1,50 @@
-COMPONENT('fileupload', function(self) {
+COMPONENT('fileupload', function(self, config) {
+
+	var id = 'fileupload' + self.id;
+	var input = null;
 
 	self.readonly();
+	self.configure = function(key, value, init) {
+		if (init)
+			return;
+		switch (key) {
+			case 'disabled':
+				self.tclass('ui-disabled', value);
+				break;
+			case 'accept':
+				var el = $('#' + id);
+				if (value)
+					el.prop('accept', value);
+				else
+					el.removeProp('accept');
+				break;
+			case 'multiple':
+				var el = $('#' + id);
+				if (value)
+					el.prop('multiple', true);
+				else
+					el.removeProp('multiple');
+				break;
+			case 'label':
+				self.html(value);
+				break;
+		}
+	};
 
 	self.make = function() {
-		var id = 'fileupload' + self.id;
-		var accept = self.attrd('accept');
-		var multiple = self.attrd('multiple');
 
-		$(document.body).append('<input type="file" id="{0}" class="hidden"{1}{2} />'.format(id, accept ? ' accept="{0}"'.format(accept) : '', multiple ? ' multiple="multiple"' : ''));
-
-		var input = $('#' + id);
+		config.disabled && self.aclass('ui-disabled');
+		$(document.body).append('<input type="file" id="{0}" class="hidden"{1}{2} />'.format(id, config.accept ? ' accept="{0}"'.format(config.accept) : '', config.multiple ? ' multiple="multiple"' : ''));
+		input = $('#' + id);
 
 		self.event('click', function() {
-			input.click();
+			!config.disabled && input.click();
 		});
 
 		input.on('change', function(evt) {
+
+			if (config.disabled)
+				return;
 
 			var files = evt.target.files;
 			var data = new FormData();
@@ -25,23 +54,27 @@ COMPONENT('fileupload', function(self) {
 				data.append('file' + i, files[i]);
 
 			SETTER('loading', 'show');
-			UPLOAD(self.attrd('url'), data, function(response, err) {
+			UPLOAD(config.url, data, function(response, err) {
 
 				el.value = '';
 				SETTER('loading', 'hide', 500);
 
 				if (err) {
-					SETTER('message', 'warning', self.attrd('error') || err.toString());
+					SETTER('message', 'warning', err.toString());
 					return;
 				}
 
 				self.change();
 
-				if (self.attrd('array') === 'true')
+				if (config.array)
 					self.push(response);
 				else
 					self.set(response);
 			});
 		});
+	};
+
+	self.destroy = function() {
+		input.off().remove();
 	};
 });

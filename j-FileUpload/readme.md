@@ -2,12 +2,14 @@
 
 Is very helpful component for uploading e.g. profile photos. I consider this component as inline file upload. Look into the html source. The component uploads files via `multipart/form-data`.
 
-__Attributes__:
-- `data-url` is a target URL for the upload
-- `data-accept` is a content type and can be e.g. `image/*`, `text/plain`, etc.
-- `data-multiple` enables multiple files (default: `false`)
-- `data-array` pushs a uploaded value to array (`data-jc-path` must be array)
-- `data-error` message when is thrown an error
+__Configuration__:
+
+- `url` {String} a target URL for the uploading
+- `accept` {String} (optional) can contain a content-type frow browsing files e.g. `image/*`
+- `multiple` enables `multiple` files upload (default: `false`)
+- `array` {Boolean} enables pushing an uploaded value to array (`data-jc-path` must be the array)
+- `label` {String} (optional) changes a current `innerHTML` (default: `innerHTML`)
+- `disabled` {Boolean} disables
 
 __Friendly components__:
 This component works with `loading` (when the upload start) and `message` (when is an error) component.
