@@ -42,7 +42,7 @@ COMPONENT('pictureupload', function(self, config) {
 	self.redraw = function() {
 		var label = config.label || content;
 		self.html((label ? '<div class="ui-pictureupload-label">{0}{1}:</div>'.format(config.icon ? '<i class="fa fa-{0}"></i>'.format(config.icon) : '', label) : '') + '<input type="file" accept="image/*" class="hidden" /><img src="{0}" class="img-responsive" alt="" />'.format(empty, config.width, config.height));
-		img = self.img();
+		img = self.find('img');
 		img.on('click', function() {
 			self.find('input').trigger('click');
 		});
