@@ -6,9 +6,11 @@
 
 __Attributes__:
 - `data-jc-path="PATH.TO.PROPERTY"` (__required__) the component saves the response according to the path
-- `data-key="YOUR_KEY"` (__required__)
-- `data-required="true"` (optional) the field has to have some value, default __false__
-- `data-theme="light"` (optional) possible values `light` (default) or `dark`
+
+__Configuration__:
+- `key` {String} (required) Google API key
+- `required` {Boolean} enables `required`
+- `theme` {String} can be `light` or `dark` (default: `light`)
 
 ### Author
 
