@@ -1,29 +1,15 @@
-COMPONENT('search', function(self) {
-
-	var options_class;
-	var options_selector;
-	var options_attribute;
-	var options_delay;
-
+COMPONENT('search', 'class:hidden;delay:200;attribute:data-search', function(self, config) {
 	self.readonly();
-	self.make = function() {
-		options_class = self.attrd('class') || 'hidden';
-		options_selector = self.attrd('selector');
-		options_attribute = self.attrd('attribute') || 'data-search';
-		options_delay = (self.attrd('delay') || '200').parseInt();
-	};
-
 	self.setter = function(value) {
 
-		if (!options_selector || !options_attribute || value == null)
+		if (!config.selector || !config.attribute || value == null)
 			return;
 
 		KEYPRESS(function() {
 
-			var elements = self.find(options_selector);
-
+			var elements = self.find(config.selector);
 			if (!value) {
-				elements.removeClass(options_class);
+				elements.rclass(config.class);
 				return;
 			}
 
@@ -33,7 +19,7 @@ COMPONENT('search', function(self) {
 
 			elements.toArray().waitFor(function(item, next) {
 				var el = $(item);
-				var val = (el.attr(options_attribute) || '').toSearch();
+				var val = (el.attr(config.attribute) || '').toSearch();
 				if (val.indexOf(search) === -1)
 					hide.push(el);
 				else
@@ -42,14 +28,14 @@ COMPONENT('search', function(self) {
 			}, function() {
 
 				hide.forEach(function(item) {
-					item.toggleClass(options_class, true);
+					item.tclass(config.class, true);
 				});
 
 				show.forEach(function(item) {
-					item.toggleClass(options_class, false);
+					item.tclass(config.class, false);
 				});
 			});
 
-		}, options_delay, 'search' + self.id);
+		}, config.delay, 'search' + self.id);
 	};
 });
