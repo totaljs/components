@@ -4,8 +4,11 @@ With this component you can receive data via WebSocket. This component supports 
 
 __Attributes__:
 - `data-jc-path` - (optional) the component binds data from websocket according to the path (if exists)
-- `data-url` - URL for websocket, it can be relative or absolute
-- `data-reconnect` - can contain only number (milliseconds, default: `2000`)
+
+__Configuration__:
+
+- `url` {String} URL for websocket, it can be relative or absolute
+- `reconnect` {Number} can contain only number (milliseconds, default: `2000`)
 
 __Methods__:
 - `component.send(obj)` - sends JSON serialized object to the server
