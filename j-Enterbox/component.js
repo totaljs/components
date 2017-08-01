@@ -20,7 +20,7 @@ COMPONENT('enterbox', function(self, config) {
 
 	self.make = function() {
 		self.aclass('ui-enterbox');
-		self.append('<div class="ui-enterbox-button"><button><i class="fa fa-{0}"></i></button></div><div class="ui-enterbox-input"><input type="text" placeholder="{1}" maxlength="{2}" /></div>'.format(config.icon || 'fa-keyboard-o', config.placeholder, config.maxlength || 50));
+		self.append('<div class="ui-enterbox-button"><button><i class="fa fa-{0}"></i></button></div><div class="ui-enterbox-input"><input type="text" placeholder="{1}" maxlength="{2}" /></div>'.format(config.icon || 'keyboard-o', config.placeholder, config.maxlength || 50));
 		self.event('click', 'button', self.submit);
 		self.event('keyup', 'input', function(e) {
 			e.which === 13 && self.submit();
