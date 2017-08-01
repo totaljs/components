@@ -1,26 +1,30 @@
-COMPONENT('pin', function(self) {
+COMPONENT('pin', 'blank:●;count:6', function(self, config) {
 
 	var inputs = null;
 	var reg_validation = /[0-9]/;
-	var blank = '●';
 	var skip = false;
 	var count = 0;
 
 	self.validate = function(value, init) {
-		return init ? true : self.attrd('required') === 'true' ? value && value.indexOf(' ') === -1 ? true : false : true;
+		return init ? true : config.required ? value && value.indexOf(' ') === -1 ? true : false : true;
+	};
+
+	self.configure = function(key, value, init) {
+		!init && key === 'count' && self.redraw();
+	};
+
+	self.redraw = function() {
+		var builder = [];
+		count = config.count;
+		for (var i = 0; i < count; i++)
+			builder.push('<div data-index="{0}" class="ui-pin-input"><input type="textbox" maxlength="1" name="pin{0}" /></div>'.format(i));
+		self.html(builder.join(''));
 	};
 
 	self.make = function() {
 
 		self.aclass('ui-pin');
-
-		var builder = [];
-		count = +(self.attrd('count') || '6');
-
-		for (var i = 0; i < count; i++)
-			builder.push('<div data-index="{0}" class="ui-pin-input"><input type="textbox" maxlength="1" name="pin{0}" /></div>'.format(i));
-
-		self.append(builder.join(''));
+		self.redraw();
 
 		self.event('keypress', 'input', function(e) {
 			var c = e.which;
@@ -57,7 +61,7 @@ COMPONENT('pin', function(self) {
 			inputs.each(function() {
 				if (this.value && reg_validation.test(this.value)) {
 					this.setAttribute('data-value', this.value);
-					this.value = blank;
+					this.value = config.blank;
 				}
 			});
 			self.getter();
@@ -90,7 +94,7 @@ COMPONENT('pin', function(self) {
 
 		inputs.each(function(index) {
 			this.setAttribute('data-value', value.substring(index, index + 1));
-			this.value = blank;
+			this.value = config.blank;
 		});
 	};
 });
