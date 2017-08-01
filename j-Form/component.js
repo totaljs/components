@@ -129,6 +129,9 @@ COMPONENT('form', function(self, config) {
 		var el = self.find('input[type="text"],select,textarea');
 		!isMOBILE && el.length && el.eq(0).focus();
 
+		if (W.$$form_level < 1)
+			W.$$form_level = 1;
+
 		W.$$form_level++;
 		self.css('z-index', W.$$form_level * 10);
 		self.element.scrollTop(0);
