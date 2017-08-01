@@ -20,6 +20,12 @@ COMPONENT('selectbox', function(self, config) {
 				self.type = value;
 				break;
 			case 'disabled':
+				self.tclass('ui-disabled', value);
+				self.find('input').prop('disabled', value);
+				if (value)
+					self.rclass('ui-selectbox-invalid');
+				else if (config.required)
+					self.state(1, 1);
 				break;
 			case 'required':
 				!value && self.state(1, 1);
@@ -108,6 +114,8 @@ COMPONENT('selectbox', function(self, config) {
 		config.items && self.reconfigure('items:' + config.items);
 
 		self.event('click', 'li', function() {
+			if (config.disabled)
+				return;
 			var selected = self.get() || [];
 			var index = +this.getAttribute('data-index');
 			var value = self.datasource[index];
@@ -122,11 +130,15 @@ COMPONENT('selectbox', function(self, config) {
 		});
 
 		self.event('click', '.fa-times', function() {
+			if (config.disabled)
+				return;
 			self.find('input').val('');
 			self.search();
 		});
 
 		typeof(search) === 'string' && self.event('keydown', 'input', function() {
+			if (config.disabled)
+				return;
 			setTimeout2(self.id, self.search, 500);
 		});
 	};
@@ -167,6 +179,6 @@ COMPONENT('selectbox', function(self, config) {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		self.toggle('ui-selectbox-invalid', invalid);
+		self.tclass('ui-selectbox-invalid', invalid);
 	};
 });
