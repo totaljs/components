@@ -1,7 +1,4 @@
 .ui-radiobutton * { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
-.ui-radiobutton.ui-disabled span { cursor: not-allowed; color: gray; }
-.ui-radiobutton.ui-disabled .ui-radiobutton-selected { color: gray; }
-.ui-radiobutton.ui-disabled .ui-radiobutton-selected * { color: gray; }
 .ui-radiobutton { color: black; font-size: 14px; }
 .ui-radiobutton span { cursor: pointer; margin: 0 10px 10px 0; }
 .ui-radiobutton .fa { margin-right: 5px; }
@@ -9,3 +6,6 @@
 .ui-radiobutton-selected * { color: #3B99FC !important; }
 .ui-radiobutton-label { margin-bottom: 5px; font-size: 12px; color: #656D78; text-align: left; }
 .ui-radiobutton-label-required:before { color: red; content: '***'; margin-right: 5px; }
+.ui-radiobutton.ui-disabled span { cursor: not-allowed; color: gray; }
+.ui-radiobutton.ui-disabled .ui-radiobutton-selected { color: gray !important; }
+.ui-radiobutton.ui-disabled .ui-radiobutton-selected * { color: gray !important; }
