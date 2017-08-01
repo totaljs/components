@@ -6,6 +6,6 @@ COMPONENT('empty', function(self) {
 	};
 
 	self.setter = function(value) {
-		self.toggle('hidden', value && value.length ? true : false);
+		self.tclass('hidden', value && value.length ? true : false);
 	};
 });

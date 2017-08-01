@@ -3,10 +3,11 @@
 - easy usage
 - singleton
 
-__Attributes__
-- `data-date-format` can contains a custom date/time formatting, default `yyyy-MM-dd HH:mm`
-- `data-timeout` has to contain a timeout (milliseconds) for the expiration of notification
-- `data-native="true"` enables native notifications when is not focused window
+__Configuration__:
+
+- `date` {String} a date format (default `yyyy-MM-dd HH:mm`)
+- `timeout` {Number} has to contain a timeout (milliseconds) for the expiration of notification (default: `8000`)
+- `native` {Boolean} enables native notifications when is not focused window (default: `false`)
 
 __Methods__
 - `component.append(icon, message, [datetime], [callback], [color])` for creating a new notification

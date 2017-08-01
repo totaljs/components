@@ -1,6 +1,5 @@
-COMPONENT('nosqlcounter', function(self) {
+COMPONENT('nosqlcounter', 'count:0', function(self, config) {
 
-	var count = (self.attrd('count') || '0').parseInt();
 	var months = MONTHS;
 
 	self.readonly();
@@ -18,10 +17,10 @@ COMPONENT('nosqlcounter', function(self) {
 
 		var maxbars = 12;
 
-		if (count === 0)
+		if (config.count === 0)
 			maxbars = self.element.width() / 30 >> 0;
 		else
-			maxbars = count;
+			maxbars = config.count;
 
 		if (WIDTH() === 'xs')
 			maxbars = maxbars / 2;
@@ -30,7 +29,7 @@ COMPONENT('nosqlcounter', function(self) {
 		var current = dt.format('yyyyMM');
 		var stats = null;
 
-		if (self.attrd('lastvalues') === 'true') {
+		if (config.lastvalues) {
 			var max = value.length - maxbars;
 			if (max < 0)
 				max = 0;

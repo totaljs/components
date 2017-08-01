@@ -1,6 +1,5 @@
-COMPONENT('inlineform', function(self) {
+COMPONENT('inlineform', function(self, config) {
 
-	var config = self.config;
 	var W = window;
 	var header = null;
 	var dw = 300;

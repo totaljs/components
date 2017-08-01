@@ -1,11 +1,12 @@
-COMPONENT('notifications', function(self) {
+COMPONENT('notifications', 'timeout:8000', function(self, config) {
 
 	var autoclosing;
 	var system = false;
+	var N = window.Notification;
 
 	self.singleton();
 	self.readonly();
-	self.template = Tangular.compile('<div class="ui-notification" data-id="{{ id }}" style="border-left-color:{{ color }}{{ if callback }};cursor:pointer{{ fi }}"><i class="fa fa-times-circle"></i><div class="ui-notification-message"><div class="ui-notification-icon"><i class="fa {{ icon }}" style="color:{{ color }}"></i></div><div class="ui-notification-datetime">{{ date | format(\'{0}\') }}</div>{{ message | raw }}</div></div>'.format(self.attrd('date-format') || 'yyyy-MM-dd HH:mm'));
+	self.template = Tangular.compile('<div class="ui-notification" data-id="{{ id }}" style="border-left-color:{{ color }}{{ if callback }};cursor:pointer{{ fi }}"><i class="fa fa-times-circle"></i><div class="ui-notification-message"><div class="ui-notification-icon"><i class="fa {{ icon }}" style="color:{{ color }}"></i></div><div class="ui-notification-datetime">{{ date | format(\'{0}\') }}</div>{{ message | raw }}</div></div>'.format(config.date || 'yyyy-MM-dd HH:mm'));
 	self.items = {};
 
 	self.make = function() {
@@ -34,9 +35,9 @@ COMPONENT('notifications', function(self) {
 			self.close(id);
 		});
 
-		if (self.attrd('native') === 'true' && window.Notification) {
-			system = window.Notification.permission === 'granted';
-			!system && window.Notification.requestPermission(function (permission) {
+		if (config.native === 'true' && N) {
+			system = N.permission === 'granted';
+			!system && N.requestPermission(function (permission) {
 				system = permission === 'granted';
 			});
 		}
@@ -85,7 +86,7 @@ COMPONENT('notifications', function(self) {
 		if (!system || focus)
 			return;
 
-		obj.system = new window.Notification(message.replace(/(<([^>]+)>)/ig, ''));
+		obj.system = new N(message.replace(/(<([^>]+)>)/ig, ''));
 		obj.system.onclick = function() {
 
 			if (obj.callback) {
@@ -110,6 +111,6 @@ COMPONENT('notifications', function(self) {
 			var el = self.find('.ui-notification');
 			el.length > 1 && self.autoclose();
 			el.length && self.close(+el.eq(0).attr('data-id'));
-		}, +self.attrd('timeout') || 8000);
+		}, config.timeout);
 	};
 });

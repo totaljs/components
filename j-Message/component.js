@@ -1,8 +1,7 @@
-COMPONENT('message', function(self) {
+COMPONENT('message', function(self, config) {
 
-	var is = false;
-	var visible = false;
-	var timer;
+	var is, visible = false;
+	var timer = null;
 
 	self.readonly();
 	self.singleton();
@@ -50,11 +49,11 @@ COMPONENT('message', function(self) {
 	};
 
 	self.content = function(cls, text, icon) {
-		!is && self.html('<div><div class="ui-message-body"><span class="fa fa-warning"></span><div class="ui-center"></div></div><button>' + (self.attrd('button') || 'Close') + '</button></div>');
+		!is && self.html('<div><div class="ui-message-body"><span class="fa fa-warning"></span><div class="ui-center"></div></div><button>' + (config.button || 'Close') + '</button></div>');
 		timer && clearTimeout(timer);
 		visible = true;
-		self.find('.ui-message-body').removeClass().addClass('ui-message-body ' + cls);
-		self.find('.fa').removeClass().addClass('fa ' + icon);
+		self.find('.ui-message-body').rclass().aclass('ui-message-body ' + cls);
+		self.find('.fa').rclass().aclass('fa ' + icon);
 		self.find('.ui-center').html(text);
 		self.rclass('hidden');
 		setTimeout(function() {
