@@ -11,7 +11,7 @@ Example: `data-jc-config="required:true;icon:envelope"`
 - `type` {String} (optional) can be `number` (converts `String` values to `Number`)
 - `datasource` {String} path to data-source (must be array)
 - `text` {String} determines a property name for text (in data-source), default: `name`
-- `value` {String} determines a property name for value (in data-source) default :`id`
+- `value` {String} determines a property name for value (in data-source) default: `id`
 - `empty` {String} (optional) adds an empty field
 - `disabled` {Boolean} (optional) disables this component
 
