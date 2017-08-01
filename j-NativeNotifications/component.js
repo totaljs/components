@@ -1,4 +1,4 @@
-COMPONENT('nativenotifications', function(self) {
+COMPONENT('nativenotifications', 'timeout:8000', function(self, config) {
 
 	var autoclosing;
 	var system = false;
@@ -31,7 +31,7 @@ COMPONENT('nativenotifications', function(self) {
 		self.autoclose();
 
 		if (img === undefined)
-			options.icon = '/icon.png';
+			options.icon = config.icon || '/icon.png';
 		else if (img != null)
 			options.icon = img;
 
@@ -67,6 +67,6 @@ COMPONENT('nativenotifications', function(self) {
 				obj.system = null;
 			}
 			self.items.length && self.autoclose();
-		}, +self.attrd('timeout') || 8000);
+		}, config.timeout);
 	};
 });
