@@ -6,11 +6,22 @@ COMPONENT('pin', 'blank:●;count:6', function(self, config) {
 	var count = 0;
 
 	self.validate = function(value, init) {
-		return init ? true : config.required ? value && value.indexOf(' ') === -1 ? true : false : true;
+		return init ? true : config.required || config.disabled ? value && value.indexOf(' ') === -1 ? true : false : true;
 	};
 
 	self.configure = function(key, value, init) {
-		!init && key === 'count' && self.redraw();
+		if (init)
+			return;
+		switch (key) {
+			case 'count':
+				self.redraw();
+				break;
+			case 'disabled':
+				self.find('input').prop('disabled', value);
+				self.tclass('ui-disabled', value);
+				!value && self.state(1, 1);
+				break;
+		}
 	};
 
 	self.redraw = function() {
@@ -96,5 +107,15 @@ COMPONENT('pin', 'blank:●;count:6', function(self, config) {
 			this.setAttribute('data-value', value.substring(index, index + 1));
 			this.value = config.blank;
 		});
+	};
+
+	self.state = function(type) {
+		if (!type)
+			return;
+		var invalid = self.isInvalid();
+		if (invalid === self.$oldstate)
+			return;
+		self.$oldstate = invalid;
+		self.tclass('ui-pin-invalid', invalid);
 	};
 });
