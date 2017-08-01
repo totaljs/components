@@ -55,6 +55,7 @@ COMPONENT('textboxtags', function(self, config) {
 		if (redraw) {
 			container.off();
 			self.redraw();
+			self.refresh();
 		}
 
 	};
