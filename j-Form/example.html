@@ -1,4 +1,4 @@
-<div data-jc="form" data-title="User settings" data-jc-path="common.form" data-jc-config="if:user;width:500;title:Title" data-jc-init="init_user_form" class="hidden">
+<div data-jc="form" data-title="User settings" data-jc-path="common.form" data-jc-config="if:user;width:500;title:Title;submit:userform_submit" data-jc-init="init_user_form" class="hidden">
 	<div style="padding:20px">SOME CONTENT</div>
 	<div class="ui-form-buttons">
 		<button name="submit">SUBMIT</button>
@@ -7,9 +7,16 @@
 </div>
 
 <script>
+
+	/*
 	function init_user_form(component) {
 		component.submit = function(hide) { alert('SUBMIT'); hide(); };
 		component.cancel = function(hide) { alert('CANCEL'); hide(); };
+	}*/
+
+	function userform_submit(component) {
+		alert('SUBMIT'); hide();
+		component.hide();
 	}
 
 	var common = {};

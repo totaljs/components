@@ -18,26 +18,36 @@ COMPONENT('form', function(self, config) {
 
 		$(document).on('click', '.ui-form-container', function(e) {
 			var el = $(e.target);
-			if (!(el.hasClass('ui-form-container-padding') || el.hasClass('ui-form-container')))
+			if (!(el.hclass('ui-form-container-padding') || el.hclass('ui-form-container')))
 				return;
 			var form = $(this).find('.ui-form');
 			var cls = 'ui-form-animate-click';
-			form.addClass(cls);
+			form.aclasss(cls);
 			setTimeout(function() {
-				form.removeClass(cls);
+				form.rclass(cls);
 			}, 300);
 		});
 	}
 
 	self.readonly();
-	self.submit = self.cancel = function() { self.hide(); };
+	self.submit = function() {
+		if (config.submit)
+			EXEC(config.submit, self);
+		else
+			self.hide();
+	};
+
+	self.cancel = function() {
+		config.cancel && EXEC(config.cancel, self);
+		self.hide();
+	};
 
 	self.hide = function() {
 		self.set('');
 	};
 
 	self.resize = function() {
-		if (!config.center || self.element.hasClass('hidden'))
+		if (!config.center || self.hclass('hidden'))
 			return;
 		var ui = self.find('.ui-form');
 		var fh = ui.innerHeight();
@@ -73,10 +83,7 @@ COMPONENT('form', function(self, config) {
 			W.$$form_level--;
 			switch (this.name) {
 				case 'submit':
-					if (el.hasClass('exec'))
-						self.hide();
-					else
-						self.submit(self.hide);
+					self.submit(self.hide);
 					break;
 				case 'cancel':
 					!this.disabled && self[this.name](self.hide);
@@ -106,7 +113,7 @@ COMPONENT('form', function(self, config) {
 	self.setter = function(value) {
 
 		setTimeout2('noscroll', function() {
-			$('html').toggleClass('noscroll', $('.ui-form-container').not('.hidden').length ? true : false);
+			$('html').tclass('noscroll', $('.ui-form-container').not('.hidden').length ? true : false);
 		}, 50);
 
 		var isHidden = value !== config.if;
@@ -119,12 +126,14 @@ COMPONENT('form', function(self, config) {
 
 		if (isHidden) {
 			self.release(true);
-			self.find('.ui-form').removeClass('ui-form-animate');
+			self.find('.ui-form').rclass('ui-form-animate');
 			return;
 		}
 
 		self.resize();
 		self.release(false);
+
+		config.reload && EXEC(config.reload, self);
 
 		var el = self.find('input[type="text"],select,textarea');
 		!isMOBILE && el.length && el.eq(0).focus();
@@ -137,7 +146,7 @@ COMPONENT('form', function(self, config) {
 		self.element.scrollTop(0);
 
 		setTimeout(function() {
-			self.find('.ui-form').addClass('ui-form-animate');
+			self.find('.ui-form').aclasss('ui-form-animate');
 		}, 300);
 
 		// Fixes a problem with freezing of scrolling in Chrome
