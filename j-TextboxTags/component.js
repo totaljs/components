@@ -2,6 +2,7 @@ COMPONENT('textboxtags', function(self, config) {
 
 	var isString = false;
 	var container, content = null;
+	var refresh = false;
 	var W = window;
 
 	if (!W.$textboxtagstemplate)
@@ -53,6 +54,7 @@ COMPONENT('textboxtags', function(self, config) {
 		}
 
 		if (redraw) {
+			refresh = true;
 			container.off();
 			self.redraw();
 			self.refresh();
@@ -172,9 +174,10 @@ COMPONENT('textboxtags', function(self, config) {
 
 	self.setter = function(value) {
 
-		if (NOTMODIFIED(self.id, value))
+		if (!refresh && NOTMODIFIED(self.id, value))
 			return;
 
+		refresh = false;
 		container.find('.ui-textboxtags-tag').remove();
 
 		if (!value || !value.length)
