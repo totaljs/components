@@ -1,7 +1,8 @@
 ## j-Expander
 
-- easy usage
-- works with Bootstrap
+__Configuration__:
+
+- `expand` {Boolean} expands content (default: `false`)
 
 ### Author
 
