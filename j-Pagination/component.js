@@ -1,4 +1,4 @@
-COMPONENT('pagination', function(self) {
+COMPONENT('pagination', function(self, config) {
 
 	var nav;
 	var info;
@@ -17,11 +17,15 @@ COMPONENT('pagination', function(self) {
 			e.stopPropagation();
 			var el = $(this);
 
-			self.find('.selected').removeClass('selected');
-			el.addClass('selected');
+			self.find('.selected').rclass('selected');
+			el.aclass('selected');
 
 			self.page && self.page(+el.attr('data-page'), el);
 		});
+	};
+
+	self.configure = function(key, value, init) {
+		!init && self.refresh();
 	};
 
 	self.page = NOOP;
@@ -87,10 +91,10 @@ COMPONENT('pagination', function(self) {
 			var prev = value.page - 1;
 			if (prev <= 0)
 				prev = cachePages;
-			builder.push('<a href="#prev" class="page" data-page="{0}"><span class="fa fa-arrow-left"></span></a>'.format(prev));
+			builder.push('<a href="#prev" class="page" data-page="{0}"><i class="fa fa-arrow-left"></i></a>'.format(prev));
 		}
 
-		var max = self.attrd('max');
+		var max = config.max;
 		if (max)
 			max = max.parseInt();
 		else
@@ -104,7 +108,7 @@ COMPONENT('pagination', function(self) {
 			var next = value.page + 1;
 			if (next > cachePages)
 				next = 1;
-			builder.push('<a href="#next" class="page" data-page="{0}"><span class="fa fa-arrow-right"></span></a>'.format(next));
+			builder.push('<a href="#next" class="page" data-page="{0}"><i class="fa fa-arrow-right"></i></a>'.format(next));
 		}
 
 		nav.empty().append(builder.join(''));
@@ -115,8 +119,8 @@ COMPONENT('pagination', function(self) {
 		if (cachePages > 1) {
 			var pluralize_pages = [cachePages];
 			var pluralize_items = [cacheCount];
-			pluralize_pages.push.apply(pluralize_pages, self.attrd('pages').split(',').trim());
-			pluralize_items.push.apply(pluralize_items, self.attrd('items').split(',').trim());
+			pluralize_pages.push.apply(pluralize_pages, (config.pages || '').split(',').trim());
+			pluralize_items.push.apply(pluralize_items, (config.items || '').split(',').trim());
 			info.empty().append(Tangular.helpers.pluralize.apply(value, pluralize_pages) + ' / ' + Tangular.helpers.pluralize.apply(value, pluralize_items));
 		}
 

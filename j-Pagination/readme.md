@@ -3,16 +3,16 @@
 - responsive
 - easy usage
 
-__Attributes__:
+__Configuration__:
 
-- `data-pages="# zero, # one, # two-three-four, # others` contains pluralization for count of pages
-- `data-items="# zero, # one, # two-three-four, # others` contains pluralization for count of items
-- `data-max="8"`contains the maximum count of pages shown in pagination
+- `pages` {String} pluralization for `pages`, e.g. `zero, # one, # two-three-four, # others`
+- `items` {String} pluralization for `items` e.g. `# zero, # one, # two-three-four, # others`
+- `max` {Number} shows a maximum count of pages (default: `8`)
 
 __Important__:
 The component caches values: `pages` and `count`.
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT
