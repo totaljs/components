@@ -1,16 +1,18 @@
 ## j-TextboxList
 
 - works with array
-- works with Bootstrap Grid System
-- easy usage
 
-__Attributes__
+__Configuration__:
 
-- `data-maxlength` sets maximum input length
-- `data-icon` sets icon into the label
-- `data-placheholder` sets placeholder of all inputs
+Example: `data-jc-config="required:true;icon:envelope"`
 
-### Author
+- `icon` {String} (optional) icon for label without `fa-` e.g. `home`, `cog`, etc.
+- `label` {String} (optional) label (default `innerHTML`)
+- `placeholder` {String} (optional) adds a `placeholder` text into the input
+- `maxlength` {Number} (optional) sets a maximum length of chars
+- `disabled` {Boolean} (optional) disables this component
+
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

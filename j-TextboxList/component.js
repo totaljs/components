@@ -1,28 +1,79 @@
-COMPONENT('textboxlist', function(self) {
+COMPONENT('textboxlist', 'maxlength:100', function(self, config) {
 
-	var container;
+	var container, content;
 	var empty = {};
 	var skip = false;
 
-	self.template = Tangular.compile('<div class="ui-textboxlist-item"><div><i class="fa fa-times"></i></div><div><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder }}" value="{{ value }}" /></div></div>');
+	self.readonly();
+	self.template = Tangular.compile('<div class="ui-textboxlist-item"><div><i class="fa fa-times"></i></div><div><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder }}"{{ if disabled}} disabled="disabled"{{ fi }} value="{{ value }}" /></div></div>');
+
+	self.configure = function(key, value, init, prev) {
+		if (init)
+			return;
+
+		var redraw = false;
+		switch (key) {
+			case 'disabled':
+				self.tclass('ui-required', value);
+				self.find('input').prop('disabled', true);
+				empty.disabled = value;
+				break;
+			case 'maxlength':
+				empty.max = value;
+				self.find('input').prop(key, value);
+				break;
+			case 'placeholder':
+				empty.placeholder = value;
+				self.find('input').prop(key, value);
+				break;
+			case 'label':
+				redraw = true;
+				break;
+			case 'icon':
+				if (value && prev)
+					self.find('i').rclass().aclass(value);
+				else
+					redraw = true;
+				break;
+		}
+
+		if (redraw) {
+			self.redraw();
+			self.refresh();
+		}
+	};
+
+	self.redraw = function() {
+
+		var icon = '';
+		var html = config.label || content;
+
+		if (config.icon)
+			icon = '<i class="fa fa-{0}"></i>'.format(config.icon);
+
+		self.html((html ? '<div class="ui-textboxlist-label">{1}{0}:</div>'.format(html, icon) : '') + '<div class="ui-textboxlist-items"></div>' + self.template(empty).replace('-item"', '-item ui-textboxlist-base"'));
+		container = self.find('.ui-textboxlist-items');
+	};
 
 	self.make = function() {
 
-		empty.max = (self.attrd('maxlength') || '100').parseInt();
-		empty.placeholder = self.attrd('placeholder');
+		empty.max = config.max;
+		empty.placeholder = config.placeholder;
 		empty.value = '';
+		empty.disabled = config.disabled;
 
-		var html = self.html();
-		var icon = self.attrd('icon');
+		if (config.disabled)
+			self.aclass('ui-disabled');
 
-		if (icon)
-			icon = '<i class="fa {0}"></i>'.format(icon);
-
-		self.toggle('ui-textboxlist');
-		self.html((html ? '<div class="ui-textboxlist-label">{1}{0}:</div>'.format(html, icon) : '') + '<div class="ui-textboxlist-items"></div>' + self.template(empty).replace('-item"', '-item ui-textboxlist-base"'));
-		container = self.find('.ui-textboxlist-items');
+		content = self.html();
+		self.aclass('ui-textboxlist');
+		self.redraw();
 
 		self.event('click', '.fa-times', function() {
+
+			if (config.disabled)
+				return;
+
 			var el = $(this);
 			var parent = el.closest('.ui-textboxlist-item');
 			var value = parent.find('input').val();
@@ -41,7 +92,7 @@ COMPONENT('textboxlist', function(self) {
 
 		self.event('change keypress', 'input', function(e) {
 
-			if (e.type !== 'change' && e.keyCode !== 13)
+			if (config.disabled || (e.type !== 'change' && e.which !== 13))
 				return;
 
 			var el = $(this);

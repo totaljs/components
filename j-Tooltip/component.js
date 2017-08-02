@@ -45,11 +45,9 @@ COMPONENT('tooltip', function(self) {
 			body = '<div class="ui-tooltip-arrow"><span class="fa fa-caret-up"></span></div><div class="ui-tooltip-body">{0}</div>'.format(body);
 
 		container.html(body);
-
 		var el = self.element;
-		var is = el.hclass('hidden');
 
-		if (is) {
+		if (el.hclass('hidden')) {
 			anim.top = css.top;
 			css.top += 20;
 			el.css(css).rclass('hidden').animate(anim, 100);
