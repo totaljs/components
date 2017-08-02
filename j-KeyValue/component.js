@@ -10,7 +10,7 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config) {
 		return value;
 	};
 
-	self.configure = function(key, value, init) {
+	self.configure = function(key, value, init, prev) {
 		if (init)
 			return;
 
