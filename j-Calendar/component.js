@@ -222,6 +222,9 @@ COMPONENT('calendar', function(self, config) {
 		if (typeof(value) === 'string')
 			value = value.parseDate();
 
+		if (isNaN(value.getTime()))
+			value = DATETIME;
+
 		var empty = !value;
 
 		if (skipDay) {
@@ -269,15 +272,4 @@ COMPONENT('calendar', function(self, config) {
 
 		self.html('<div class="ui-calendar-header"><button class="ui-calendar-header-prev" name="prev" data-date="{0}-{1}"><span class="fa fa-chevron-left"></span></button><div class="ui-calendar-header-info">{2} {3}</div><button class="ui-calendar-header-next" name="next" data-date="{0}-{1}"><span class="fa fa-chevron-right"></span></button></div><table cellpadding="0" cellspacing="0" border="0"><thead>{4}</thead><tbody>{5}</tbody></table>'.format(output.year, output.month, self.months[value.getMonth()], value.getFullYear(), header.join(''), builder.join('')) + (config.today ? '<div><a href="javascript:void(0)" class="ui-calendar-today">' + config.today + '</a></div>' : ''));
 	};
-});
-
-MAIN.formatter(function(path, value, type) {
-
-	if (type === 'date') {
-		if (value instanceof Date)
-			return value.format(this.config.format);
-		return value ? new Date(Date.parse(value)).format(this.config.format) : value;
-	}
-
-	return value;
 });
