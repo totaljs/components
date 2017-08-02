@@ -17,13 +17,11 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config) {
 		var redraw = false;
 
 		switch (key) {
-
 			case 'disabled':
 				self.tclass('ui-disabled', value);
 				self.find('input').prop('disabled', value);
 				empty.disabled = value;
 				break;
-
 			case 'maxlength':
 				self.find('input').prop('maxlength', value);
 				break;
@@ -32,6 +30,16 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config) {
 				break;
 			case 'placeholdervalue':
 				self.find('input[name="value"]').prop('placeholder', value);
+				break;
+			case 'icon':
+				if (value && prev)
+					self.find('i').rclass('fa').aclass('fa fa-' + value);
+				else
+					redraw = true;
+				break;
+
+			case 'label':
+				redraw = true;
 				break;
 		}
 
