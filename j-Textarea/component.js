@@ -12,9 +12,12 @@ COMPONENT('textarea', function(self, config) {
 		return value.length > 0;
 	};
 
-	self.reconfigure = function(key, value, init) {
+	self.configure = function(key, value, init) {
 		if (init)
 			return;
+
+		var redraw = false;
+
 		switch (key) {
 			case 'disabled':
 				self.tclass('ui-disabled', value);
@@ -32,19 +35,21 @@ COMPONENT('textarea', function(self, config) {
 				input.prop('maxlength', value || 1000);
 				break;
 			case 'label':
-				self.redraw();
+				redraw = true;
 				break;
 			case 'autofocus':
 				input.focus();
 				break;
 			case 'icon':
-				self.redraw();
+				redraw = true;
 				break;
 			case 'format':
 				self.format = value;
 				self.refresh();
 				break;
 		}
+
+		redraw && self.redraw();
 	};
 
 	self.redraw = function() {
