@@ -88,6 +88,7 @@ COMPONENT('textarea', function(self, config) {
 		content = self.html();
 		self.type = config.type;
 		self.format = config.format;
+		self.redraw();
 	};
 
 	self.state = function(type) {

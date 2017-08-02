@@ -2,10 +2,10 @@
 
 __Configuration__:
 
-Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:date"`
+Example: `data-jc-config="required:true;icon:pencile"`
 
 - `required` {Boolean} (optional) enables "required" (default: `false`)
-- `icon` {String} (optional) icon for label e.g. `home`, `cog`, etc.
+- `icon` {String} (optional) icon for label without `fa-` e.g. `home`, `cog`, etc.
 - `label` {String} (optional) label (default `innerHTML`)
 - `autofocus` {Boolean} (optional) focuses the input (default: `false`)
 - `placeholder` {String} (optional) adds a `placeholder` text into the input
