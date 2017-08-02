@@ -10,4 +10,3 @@
 .ui-keyvalue-base .fa { display: none; }
 .ui-keyvalue.ui-disabled input { color: gray; cursor: not-allowed; }
 .ui-keyvalue.ui-disabled .fa { display: none; }
-.ui-keyvalue.ui-disabled .ui-keyvalue-base { display: none; }
