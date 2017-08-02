@@ -3,3 +3,4 @@
 .ui-codemirror-label-required:before { color: red; content: '***'; margin-right: 5px; }
 .ui-codemirror-invalid .CodeMirror { background-color: #FFF3F3 !important; border: 1px solid #E1A1A1 !important; }
 .CodeMirror { border: 1px solid #E0E0E0; border-radius: 3px; }
+.ui-disabled .ui-codemirror { cursor: not-allowed; }
