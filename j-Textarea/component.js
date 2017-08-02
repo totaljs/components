@@ -1,51 +1,67 @@
-COMPONENT('textarea', function(self) {
+COMPONENT('textarea', function(self, config) {
 
-	var isRequired = self.attrd('required') === 'true';
-	var input, container;
+	var input, container, content = null;
 
 	self.validate = function(value) {
-
-		var type = typeof(value);
-		if (input.prop('disabled') || !isRequired)
+		if (config.disabled || !config.required)
 			return true;
-
-		if (type === 'undefined' || type === 'object')
+		if (value == null)
 			value = '';
 		else
 			value = value.toString();
-
-		EMIT('reflow', self.name);
 		return value.length > 0;
 	};
 
-	!isRequired && self.noValid();
-
-	self.required = function(value) {
-		self.find('.ui-textarea-label').toggleClass('ui-textarea-label-required', value);
-		self.noValid(!value);
-		isRequired = value;
-		!value && self.state(1, 1);
+	self.reconfigure = function(key, value, init) {
+		if (init)
+			return;
+		switch (key) {
+			case 'disabled':
+				self.tclass('ui-disabled', value);
+				self.find('input').prop('disabled', value);
+				break;
+			case 'required':
+				self.noValid(!value);
+				!value && self.state(1, 1);
+				self.find('.ui-textarea-label').tclass('ui-textarea-label-required', value);
+				break;
+			case 'placeholder':
+				input.prop('placeholder', value || '');
+				break;
+			case 'maxlength':
+				input.prop('maxlength', value || 1000);
+				break;
+			case 'label':
+				self.redraw();
+				break;
+			case 'autofocus':
+				input.focus();
+				break;
+			case 'icon':
+				self.redraw();
+				break;
+			case 'format':
+				self.format = value;
+				self.refresh();
+				break;
+		}
 	};
 
-	self.make = function() {
+	self.redraw = function() {
 
 		var attrs = [];
 		var builder = [];
-		var tmp;
 
-		attrs.attr('placeholder', self.attrd('placeholder'));
-		attrs.attr('maxlength', self.attrd('maxlength'));
+		config.placeholder && attrs.attr('placeholder', config.placeholder);
+		config.maxlength && attrs.attr('maxlength', config.maxlength);
 		attrs.attr('data-jc-bind', '');
-
-		tmp = self.attrd('height');
-		tmp && attrs.attr('style', 'height:' + tmp);
-		self.attrd('autofocus') === 'true' && attrs.attr('autofocus');
+		config.height && attrs.attr('style', 'config.height:{0}px'.format(config.height));
+		config.autofocus === 'true' && attrs.attr('autofocus');
 		builder.push('<textarea {0}></textarea>'.format(attrs.join(' ')));
 
-		var element = self.element;
-		var content = element.html();
+		var label = config.label || content;
 
-		if (!content.length) {
+		if (!label.length) {
 			self.aclass('ui-textarea ui-textarea-container');
 			self.html(builder.join(''));
 			input = self.find('textarea');
@@ -53,19 +69,25 @@ COMPONENT('textarea', function(self) {
 			return;
 		}
 
-		var icon = self.attrd('icon');
 		var html = builder.join('');
 
 		builder = [];
-		builder.push('<div class="ui-textarea-label{0}">'.format(isRequired ? ' ui-textarea-label-required' : ''));
-		icon && builder.push('<span class="fa {0}"></span>'.format(icon));
+		builder.push('<div class="ui-textarea-label{0}">'.format(config.required ? ' ui-textarea-label-required' : ''));
+		config.icon && builder.push('<i class="fa fa-{0}"></i>'.format(config.icon));
 		builder.push(content);
 		builder.push(':</div><div class="ui-textarea">{0}</div>'.format(html));
 
 		self.html(builder.join(''));
+		self.rclass('ui-textarea');
 		self.aclass('ui-textarea-container');
 		input = self.find('textarea');
 		container = self.find('.ui-textarea');
+	};
+
+	self.make = function() {
+		content = self.html();
+		self.type = config.type;
+		self.format = config.format;
 	};
 
 	self.state = function(type) {
@@ -75,6 +97,6 @@ COMPONENT('textarea', function(self) {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		container.toggleClass('ui-textarea-invalid', invalid);
+		container.tclass('ui-textarea-invalid', invalid);
 	};
 });

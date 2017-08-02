@@ -7,8 +7,7 @@ COMPONENT('textbox', function(self, config) {
 		if (!config.required || config.disabled)
 			return true;
 
-		var type = typeof(value);
-		if (type === 'undefined' || type === 'object')
+		if (value == null)
 			value = '';
 		else
 			value = value.toString();
@@ -62,7 +61,7 @@ COMPONENT('textbox', function(self, config) {
 				return;
 			if (self.type === 'search') {
 				self.$stateremoved = false;
-				$(this).removeClass('fa-times').addClass('fa-search');
+				$(this).rclass('fa-times').aclass('fa-search');
 				self.set('');
 			}
 		});
@@ -81,7 +80,7 @@ COMPONENT('textbox', function(self, config) {
 		else
 			tmp = 'text';
 
-		self.toggle('ui-disabled', config.disabled === true);
+		self.tclass('ui-disabled', config.disabled === true);
 		self.type = config.type;
 		attrs.attr('type', tmp);
 		config.placeholder && attrs.attr('placeholder', config.placeholder);
@@ -108,7 +107,7 @@ COMPONENT('textbox', function(self, config) {
 				if (self.$stateremoved && !value)
 					return;
 				self.$stateremoved = value ? false : true;
-				self.find('.ui-textbox-control-icon').toggleClass('fa-times', value ? true : false).toggleClass('fa-search', value ? false : true);
+				self.find('.ui-textbox-control-icon').tclass('fa-times', value ? true : false).tclass('fa-search', value ? false : true);
 			};
 		}
 
@@ -142,18 +141,21 @@ COMPONENT('textbox', function(self, config) {
 		if (init)
 			return;
 
+		var redraw = false;
+
 		switch (key) {
 			case 'disabled':
-				self.toggle('ui-disabled', value);
+				self.tclass('ui-disabled', value);
 				self.find('input').prop('disabled', value);
 				break;
 			case 'format':
-				self.refresh(true);
+				self.format = value;
+				self.refresh();
 				break;
 			case 'required':
 				self.noValid(!value);
 				!value && self.state(1, 1);
-				self.find('.ui-textbox-label').toggleClass('ui-textbox-label-required', value);
+				self.find('.ui-textbox-label').tclass('ui-textbox-label-required', value);
 				break;
 			case 'placeholder':
 				input.prop('placeholder', value || '');
@@ -166,7 +168,7 @@ COMPONENT('textbox', function(self, config) {
 				break;
 			case 'label':
 				content = value;
-				self.redraw();
+				redraw = true;
 				break;
 			case 'type':
 				self.type = value;
@@ -174,10 +176,10 @@ COMPONENT('textbox', function(self, config) {
 					value = 'password';
 				else
 					self.type = 'text';
-				self.redraw();
+				redraw = true;
 				break;
 			case 'align':
-				input.removeClass(input.attr('class')).addClass('ui-' + value || 'left');
+				input.rclass(input.attr('class')).aclass('ui-' + value || 'left');
 				break;
 			case 'autofocus':
 				input.focus();
@@ -185,9 +187,11 @@ COMPONENT('textbox', function(self, config) {
 			case 'icon':
 			case 'icon2':
 			case 'increment':
-				self.redraw();
+				redraw = true;
 				break;
 		}
+
+		redraw && self.redraw();
 	};
 
 	self.state = function(type) {
@@ -197,6 +201,6 @@ COMPONENT('textbox', function(self, config) {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		container.toggleClass('ui-textbox-invalid', invalid);
+		container.tclass('ui-textbox-invalid', invalid);
 	};
 });

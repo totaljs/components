@@ -1,15 +1,17 @@
 ## j-Textarea
 
-__Attributes__:
+__Configuration__:
 
-- `data-required="true"` (optional) the field must have some value, default __false__
-- `data-icon="fa-envelope"` (optional) the label icon, default __empty__
-- `data-placeholder="some placeholder"` (optional) the placeholder for the input, default __empty__
-- `data-autofocus="true"` (optional) auto focus, default __false__
-- `data-height="400px"` (optional) sets the height, default value according to the CSS
+Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:date"`
 
-__Methods__:
-- `component.required(value)` - can enable/disable `required` with validation
+- `required` {Boolean} (optional) enables "required" (default: `false`)
+- `icon` {String} (optional) icon for label e.g. `home`, `cog`, etc.
+- `label` {String} (optional) label (default `innerHTML`)
+- `autofocus` {Boolean} (optional) focuses the input (default: `false`)
+- `placeholder` {String} (optional) adds a `placeholder` text into the input
+- `maxlength` {Number} (optional) sets a maximum length of chars
+- `disabled` {Boolean} (optional) disables this component
+- `height` {Number} (optional) a maximum height for the input
 
 ### Author
 
