@@ -94,11 +94,7 @@ COMPONENT('pagination', function(self, config) {
 			builder.push('<a href="#prev" class="page" data-page="{0}"><i class="fa fa-arrow-left"></i></a>'.format(prev));
 		}
 
-		var max = config.max;
-		if (max)
-			max = max.parseInt();
-		else
-			max = 8;
+		var max = config.max || 8;
 
 		self.getPagination(value.page, cachePages, max, function(index) {
 			builder.push(self.template({ page: index, selected: value.page === index }));
