@@ -49,7 +49,10 @@ COMPONENT('textarea', function(self, config) {
 				break;
 		}
 
-		redraw && self.redraw();
+		if (redraw) {
+			self.redraw();
+			self.refresh();
+		}
 	};
 
 	self.redraw = function() {
@@ -79,7 +82,7 @@ COMPONENT('textarea', function(self, config) {
 		builder = [];
 		builder.push('<div class="ui-textarea-label{0}">'.format(config.required ? ' ui-textarea-label-required' : ''));
 		config.icon && builder.push('<i class="fa fa-{0}"></i>'.format(config.icon));
-		builder.push(content);
+		builder.push(label);
 		builder.push(':</div><div class="ui-textarea">{0}</div>'.format(html));
 
 		self.html(builder.join(''));

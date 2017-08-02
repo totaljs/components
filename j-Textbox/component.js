@@ -191,7 +191,10 @@ COMPONENT('textbox', function(self, config) {
 				break;
 		}
 
-		redraw && self.redraw();
+		if (redraw) {
+			self.redraw();
+			self.refresh();
+		}
 	};
 
 	self.state = function(type) {
