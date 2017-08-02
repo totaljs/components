@@ -88,6 +88,7 @@ COMPONENT('textbox', function(self, config) {
 		config.keypress != null && attrs.attr('data-jc-keypress', config.keypress);
 		config.delay && attrs.attr('data-jc-keypress-delay', config.delay);
 		config.disabled && attrs.attr('disabled');
+		config.error && attrs.attr('error');
 		attrs.attr('data-jc-bind', '');
 
 		config.autofill && attrs.attr('name', self.path.replace(/\./g, '_'));
@@ -124,11 +125,13 @@ COMPONENT('textbox', function(self, config) {
 			icon && builder.push('<span class="fa fa-{0}"></span> '.format(icon));
 			builder.push(content);
 			builder.push(':</div><div class="ui-textbox">{0}</div>'.format(html));
+			config.error && builder.push('<div class="ui-box-helper"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {0}</div>'.format(config.error));
 			self.html(builder.join(''));
 			self.aclass('ui-textbox-container');
 			input = self.find('input');
 			container = self.find('.ui-textbox');
 		} else {
+			config.error && builder.push('<div class="ui-box-helper"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {0}</div>'.format(config.error));
 			self.aclass('ui-textbox ui-textbox-container');
 			self.html(builder.join(''));
 			input = self.find('input');
@@ -205,5 +208,6 @@ COMPONENT('textbox', function(self, config) {
 			return;
 		self.$oldstate = invalid;
 		container.tclass('ui-textbox-invalid', invalid);
+		config.error && self.find('.ui-box-helper').tclass('ui-box-helper-show', invalid);
 	};
 });
