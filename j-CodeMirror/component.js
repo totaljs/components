@@ -22,9 +22,13 @@ COMPONENT('codemirror', 'linenumbers:false', function(self, config) {
 			case 'disabled':
 				self.tclass('ui-disabled', value);
 				editor.readOnly = value;
+				editor.refresh();
 				break;
 			case 'required':
 				self.find('.ui-codemirror-label').tclass('ui-codemirror-label-required', value);
+				break;
+			case 'icon':
+				self.find('i').rclass().aclass('fa fa-' + value);
 				break;
 		}
 
@@ -40,6 +44,7 @@ COMPONENT('codemirror', 'linenumbers:false', function(self, config) {
 		if (config.disabled) {
 			self.aclass('ui-disabled');
 			editor.readOnly = true;
+			editor.refresh();
 		}
 
 		editor.on('change', function(a, b) {
