@@ -222,7 +222,7 @@ COMPONENT('calendar', function(self, config) {
 		if (typeof(value) === 'string')
 			value = value.parseDate();
 
-		if (isNaN(value.getTime()))
+		if (!value || isNaN(value.getTime()))
 			value = DATETIME;
 
 		var empty = !value;
