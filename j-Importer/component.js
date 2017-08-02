@@ -1,26 +1,25 @@
-COMPONENT('importer', function(self) {
+COMPONENT('importer', function(self, config) {
 
 	var imported = false;
-	var reload = self.attrd('reload');
 
 	self.readonly();
 	self.setter = function() {
 
-		if (!self.evaluate(self.attrd('if')))
+		if (!self.evaluate(config.if))
 			return;
 
 		if (imported) {
-			if (reload)
-				EXEC(reload);
+			if (config.reload)
+				EXEC(config.reload);
 			else
 				self.setter = null;
 			return;
 		}
 
 		imported = true;
-		IMPORT(self.attrd('url'), function() {
-			if (reload)
-				EXEC(reload);
+		IMPORT(config.url, function() {
+			if (config.reload)
+				EXEC(config.reload);
 			else
 				self.remove();
 		});

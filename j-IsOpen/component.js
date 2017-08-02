@@ -22,7 +22,7 @@ COMPONENT('isopen', function(self) {
 		interval = setInterval(self.prerender, 60000);
 		!me && scr.remove();
 		self.prerender();
-		self.toggle('ui-isopen');
+		self.tclass('ui-isopen');
 	};
 
 	self.prerender = function() {

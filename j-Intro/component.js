@@ -1,21 +1,32 @@
-COMPONENT('intro', function(self) {
+COMPONENT('intro', function(self, config) {
 
 	var container = 'intro' + GUID(4);
-	var condition, content, figures, buttons, button;
+	var condition, content, figures, buttons, button = null;
 	var index = 0;
 	var visible = false;
 
 	self.readonly();
+
+	self.configure = function(key, value, init) {
+		if (init)
+			return;
+		switch (key) {
+			case 'if':
+				condition = FN(config.if);
+				break;
+		}
+	};
+
 	self.make = function() {
-		condition = FN(self.attrd('if'));
+		condition = FN(config.if);
 		$(document.body).append('<div id="{0}" class="hidden ui-intro"><div class="ui-intro-body"></div></div>'.format(container));
 		content = self.element;
 		container = $('#' + container);
-		content.removeClass('hidden');
+		content.rclass('hidden');
 		var body = container.find('.ui-intro-body');
 		body.get(0).appendChild(self.element.get(0));
 		self.replace(container);
-		content.addClass('ui-intro-figures');
+		content.aclass('ui-intro-figures');
 		figures = content.find('figure');
 		var items = [];
 
@@ -47,11 +58,11 @@ COMPONENT('intro', function(self) {
 	};
 
 	self.move = function(index) {
-		figures.filter('.visible').removeClass('visible');
-		buttons.filter('.selected').removeClass('selected');
-		figures.eq(index).addClass('visible');
-		buttons.eq(index).addClass('selected');
-		button.html(index < buttons.length - 1 ? ((self.attrd('next') || 'Next') + '<i class="fa fa-chevron-right"></i>') : (self.attrd('close') || 'Done'));
+		figures.filter('.visible').rclass('visible');
+		buttons.filter('.selected').rclass('selected');
+		figures.eq(index).aclass('visible');
+		buttons.eq(index).aclass('selected');
+		button.html(index < buttons.length - 1 ? ((config.next || 'Next') + '<i class="fa fa-chevron-right"></i>') : (config.close || 'Done'));
 		return self;
 	};
 
@@ -60,9 +71,9 @@ COMPONENT('intro', function(self) {
 		if (is === visible)
 			return;
 		visible = is;
-		self.toggle('hidden', !is);
+		self.tclass('hidden', !is);
 		setTimeout(function() {
-			self.find('.ui-intro-body').toggleClass('ui-intro-body-visible', is);
+			self.find('.ui-intro-body').tclass('ui-intro-body-visible', is);
 		}, 100);
 	};
 });

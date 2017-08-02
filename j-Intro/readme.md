@@ -1,9 +1,10 @@
 ## j-Intro
 
-__Attributes__:
-- `data-if="n => n === true"` visible condition
-- `data-next="Next"` (optional) text for next step button
-- `data-close="Done"` (optional) text for close button
+__Configuration__:
+
+- `if` {String} visible condition e.g. `n => n === true`
+- `next` {String} (optional) text for the next step button (default: `Next`)
+- `close` {String} (optional) text for the close step button (default: `Done`)
 
 __Good to know__:
 - each button with `name="next"` will be used as `next` button
