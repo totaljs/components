@@ -120,6 +120,6 @@ COMPONENT('pagination', function(self, config) {
 			info.empty().append(Tangular.helpers.pluralize.apply(value, pluralize_pages) + ' / ' + Tangular.helpers.pluralize.apply(value, pluralize_items));
 		}
 
-		self.classes((cachePages > 1 ? '-' : '') + 'hidden');
+		self.tclass('hidden', cachePages < 1);
 	};
 });

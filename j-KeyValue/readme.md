@@ -2,11 +2,14 @@
 
 A simple component for create key/value pairs values.
 
-__Attributes__
-- `data-placeholder-key="Type a key"` a placeholder for `key`
-- `data-placeholder-value="Type a value and press enter"` a placehollder for `value`
-- `data-maxlength="50"` a maximum size of key/value
-- `data-icon="fa-globe"` FontAwesome icon for label
+__Configuration__:
+
+- `placeholderkey` {String} (optional) a placeholder for the key input
+- `placeholdervalue` {String} (optional) a placeholder for the value input
+- `icon` {String} (optional) a label icon without `fa-`
+- `maxlength` {Number} (optional) max. lenght for inputs
+- `label` {String} (optional) a label (default: `innerHTML`)
+- `disabled` {Boolean} (optional) can disabled this control
 
 __Other functionality__
 
@@ -20,7 +23,7 @@ FIND('keyvalue').binder = function(type, value) {
 };
 ```
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

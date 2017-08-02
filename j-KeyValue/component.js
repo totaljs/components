@@ -1,33 +1,79 @@
-COMPONENT('keyvalue', function(self) {
+COMPONENT('keyvalue', 'maxlength:100', function(self, config) {
 
-	var container;
-	var empty = {};
+	var container, content = null;
 	var skip = false;
+	var empty = {};
+
+	self.template = Tangular.compile('<div class="ui-keyvalue-item"><div class="ui-keyvalue-item-remove"><i class="fa fa-times"></i></div><div class="ui-keyvalue-item-key"><input type="text" name="key" maxlength="{{ max }}"{{ if disabled }} disabled="disabled"{{ fi }} placeholder="{{ placeholder_key }}" value="{{ key }}" /></div><div class="ui-keyvalue-item-value"><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder_value }}" value="{{ value }}" /></div></div>');
 
 	self.binder = function(type, value) {
 		return value;
 	};
 
-	self.template = Tangular.compile('<div class="ui-keyvalue-item"><div class="ui-keyvalue-item-remove"><i class="fa fa-times"></i></div><div class="ui-keyvalue-item-key"><input type="text" name="key" maxlength="{{ max }}" placeholder="{{ placeholder_key }}" value="{{ key }}" /></div><div class="ui-keyvalue-item-value"><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder_value }}" value="{{ value }}" /></div></div>');
-	self.make = function() {
+	self.configure = function(key, value, init) {
+		if (init)
+			return;
 
-		empty.max = (self.attrd('maxlength') || '100').parseInt();
-		empty.placeholder_key = self.attrd('placeholder-key');
-		empty.placeholder_value = self.attrd('placeholder-value');
-		empty.value = '';
+		var redraw = false;
 
-		var html = self.html();
-		var icon = self.attrd('icon');
+		switch (key) {
+
+			case 'disabled':
+				self.tclass('ui-disabled', value);
+				self.find('input').prop('disabled', value);
+				empty.disabled = value;
+				break;
+
+			case 'maxlength':
+				self.find('input').prop('maxlength', value);
+				break;
+			case 'placeholderkey':
+				self.find('input[name="key"]').prop('placeholder', value);
+				break;
+			case 'placeholdervalue':
+				self.find('input[name="value"]').prop('placeholder', value);
+				break;
+		}
+
+		if (redraw) {
+			self.redraw();
+			self.refresh();
+		}
+	};
+
+	self.redraw = function() {
+
+		var icon = config.icon;
+		var label = config.label || content;
 
 		if (icon)
-			icon = '<i class="fa {0}"></i>'.format(icon);
+			icon = '<i class="fa fa-{0}"></i>'.format(icon);
 
-		self.toggle('ui-keyvalue');
-		self.html((html ? '<div class="ui-keyvalue-label">{1}{0}:</div>'.format(html, icon) : '') + '<div class="ui-keyvalue-items"></div>' + self.template(empty).replace('-item"', '-item ui-keyvalue-base"'));
+		empty.value = '';
 
+		self.html((label ? '<div class="ui-keyvalue-label">{1}{0}:</div>'.format(label, icon) : '') + '<div class="ui-keyvalue-items"></div>' + self.template(empty).replace('-item"', '-item ui-keyvalue-base"'));
 		container = self.find('.ui-keyvalue-items');
+	};
+
+	self.make = function() {
+
+		empty.max = config.maxlength;
+		empty.placeholder_key = config.placeholderkey;
+		empty.placeholder_value = config.placeholdervalue;
+		empty.value = '';
+		empty.disabled = config.disabled;
+
+		content = self.html();
+
+		self.aclass('ui-keyvalue');
+		self.disabled && self.aclass('ui-disabled');
+		self.redraw();
 
 		self.event('click', '.fa-times', function() {
+
+			if (config.disabled)
+				return;
+
 			var el = $(this);
 			var parent = el.closest('.ui-keyvalue-item');
 			var inputs = parent.find('input');
@@ -42,7 +88,7 @@ COMPONENT('keyvalue', function(self) {
 
 		self.event('change keypress', 'input', function(e) {
 
-			if (e.type !== 'change' && e.which !== 13)
+			if (config.disabled || (e.type !== 'change' && e.which !== 13))
 				return;
 
 			var el = $(this);
