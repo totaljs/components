@@ -38,6 +38,7 @@ COMPONENT('textboxlist', 'maxlength:100', function(self, config) {
 		}
 
 		if (redraw) {
+			skip = false;
 			self.redraw();
 			self.refresh();
 		}
@@ -51,6 +52,7 @@ COMPONENT('textboxlist', 'maxlength:100', function(self, config) {
 		if (config.icon)
 			icon = '<i class="fa fa-{0}"></i>'.format(config.icon);
 
+		empty.value = '';
 		self.html((html ? '<div class="ui-textboxlist-label">{1}{0}:</div>'.format(html, icon) : '') + '<div class="ui-textboxlist-items"></div>' + self.template(empty).replace('-item"', '-item ui-textboxlist-base"'));
 		container = self.find('.ui-textboxlist-items');
 	};
