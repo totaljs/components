@@ -1,6 +1,8 @@
-COMPONENT('repeater-group', function(self) {
+COMPONENT('repeater-group', function(self, config) {
 
-	var html, template_group, group;
+	var html, template_group, group = null;
+	var reg = /\$(index|path)/g;
+	var force = false;
 
 	self.readonly();
 
@@ -13,7 +15,6 @@ COMPONENT('repeater-group', function(self) {
 	};
 
 	self.make = function() {
-		group = self.attrd('group');
 		self.find('script').each(function(index) {
 			var element = $(this);
 			var html = element.html();
@@ -25,6 +26,15 @@ COMPONENT('repeater-group', function(self) {
 		});
 	};
 
+	self.configure = function(key, value, init) {
+		if (init)
+			return;
+		if (key === 'group') {
+			force = true;
+			self.refresh();
+		}
+	};
+
 	self.setter = function(value) {
 
 		if (!value || !value.length) {
@@ -32,18 +42,16 @@ COMPONENT('repeater-group', function(self) {
 			return;
 		}
 
-		if (NOTMODIFIED(self.id, value))
+		if (!force && NOTMODIFIED(self.id, value))
 			return;
 
+		force = false;
 		html = '';
 		var length = value.length;
 		var groups = {};
 
 		for (var i = 0; i < length; i++) {
-			var name = value[i][group];
-			if (!name)
-				name = '0';
-
+			var name = value[i][config.group] || '0';
 			if (groups[name])
 				groups[name].push(value[i]);
 			else
@@ -63,7 +71,9 @@ COMPONENT('repeater-group', function(self) {
 			for (var i = 0, length = arr.length; i < length; i++) {
 				var item = arr[i];
 				item.index = index++;
-				tmp += self.template(item).replace(/\$index/g, index.toString()).replace(/\$/g, self.path + '[' + index + ']');
+				tmp += self.template(item).replace(reg, function(text) {
+					return text.substring(0, 2) === '$i' ? index.toString() : self.path + '[' + index + ']';
+				});
 			}
 
 			if (key !== '0') {
@@ -77,6 +87,6 @@ COMPONENT('repeater-group', function(self) {
 
 		});
 
-		self.empty().append(builder);
+		self.append(builder);
 	};
 });

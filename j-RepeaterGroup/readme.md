@@ -4,8 +4,9 @@
 - automatically groups data
 - learn by example
 
-__Attributes__:
-- `data-group="PROPERTY"` has to contain a property which will be be groupped
+__Configuration__:
+
+- `group` {String} (required) a property for groupping
 
 
 ### Author
