@@ -10,8 +10,10 @@ input[type="text"]:disabled, input[type="password"]:disabled, select:disabled { 
 .ui-textbox-label-required:before { color: red; content: '***'; margin-right: 5px; }
 .ui-textbox-invalid { border-color: #E1A1A1 !important; background-color: #FFF3F3 !important; }
 .ui-textbox-invalid input { background-color: #FFF3F3 !important; }
-.ui-textbox .fa-caret-up, .ui-textbox .fa-caret-down { display:block; line-height:9px; cursor: pointer; }
+.ui-textbox .fa-caret-up, .ui-textbox .fa-caret-down { display: block; line-height: 9px; cursor: pointer; }
 .ui-textbox .fa-calendar { cursor: pointer; }
+.ui-box-helper { margin-top: 5px; font-size: 14px; color: #656D78; text-align: left; display: none; }
+.ui-box-helper-show { display: block; }
 
 .ui-right { text-align: right; }
 .ui-center { text-align: center; }
