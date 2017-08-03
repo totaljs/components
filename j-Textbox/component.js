@@ -7,6 +7,9 @@ COMPONENT('textbox', function(self, config) {
 		if (!config.required || config.disabled)
 			return true;
 
+		if (self.type === 'date')
+			return value instanceof Date && !isNaN(value.getTime());
+
 		if (value == null)
 			value = '';
 		else
