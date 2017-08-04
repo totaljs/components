@@ -1,11 +1,11 @@
-COMPONENT('dropdowncheckbox', function(self, config) {
+COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
 
 	var data = [], render = '';
 	var container, values, content, datasource = null;
 	var prepared = false;
 	var W = window;
 
-	!W.$dropdowncheckboxtemplate && (W.$dropdowncheckboxtemplate = Tangular.compile('<div class="ui-dropdowncheckbox-item" data-index="{{ index }}"><div><i class="fa fa-check"></i></div><span>{{ text }}</span></div>'));
+	!W.$dropdowncheckboxtemplate && (W.$dropdowncheckboxtemplate = Tangular.compile('<div class="ui-dropdowncheckbox-item" data-index="{{ index }}"><div><i class="fa fa-{{ $.checkicon }}"></i></div><span>{{ text }}</span></div>'));
 	var template = W.$dropdowncheckboxtemplate;
 
 	self.validate = function(value) {
@@ -36,6 +36,10 @@ COMPONENT('dropdowncheckbox', function(self, config) {
 
 			case 'disabled':
 				self.toggle('ui-disabled', value);
+				break;
+
+			case 'checkicon':
+				self.find('i').rclass().aclass('fa fa-' + value);
 				break;
 
 			case 'icon':
@@ -170,7 +174,7 @@ COMPONENT('dropdowncheckbox', function(self, config) {
 		for (var i = 0, length = value.length; i < length; i++) {
 			var isString = typeof(value[i]) === 'string';
 			var item = { value: isString ? value[i] : value[i][kv], text: isString ? value[i] : value[i][kt], index: i };
-			render += template(item);
+			render += template(item, config);
 			data.push(item);
 		}
 
