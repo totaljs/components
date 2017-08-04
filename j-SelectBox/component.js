@@ -136,7 +136,7 @@ COMPONENT('selectbox', function(self, config) {
 			self.search();
 		});
 
-		typeof(search) === 'string' && self.event('keydown', 'input', function() {
+		typeof(config.search) === 'string' && self.event('keydown', 'input', function() {
 			if (config.disabled)
 				return;
 			setTimeout2(self.id, self.search, 500);
