@@ -17,7 +17,7 @@ COMPONENT('togglebutton', function(self, config) {
 	self.make = function() {
 		self.aclass('ui-togglebutton');
 		self.append('<button></button>');
-		self.event('click', 'button', function() {
+		self.event('click', function() {
 			if (config.disabled)
 				return;
 			self.dirty(false);
