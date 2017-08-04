@@ -26,7 +26,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
 				break;
 
 			case 'required':
-				self.find('.ui-dropdowncheckbox-label').toggleClass('ui-dropdowncheckbox-required', config.required);
+				self.find('.ui-dropdowncheckbox-label').tclass('ui-dropdowncheckbox-required', config.required);
 				break;
 
 			case 'label':
@@ -71,6 +71,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
 				});
 
 				self.bind('', items);
+				self.refresh();
 				break;
 		}
 
@@ -110,10 +111,10 @@ COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
 			if (config.disabled)
 				return;
 
-			container.toggleClass('hidden');
+			container.tclass('hidden');
 
 			if (W.$dropdowncheckboxelement) {
-				W.$dropdowncheckboxelement.addClass('hidden');
+				W.$dropdowncheckboxelement.aclass('hidden');
 				W.$dropdowncheckboxelement = null;
 			}
 
@@ -161,7 +162,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
 		prepared = true;
 
 		if (!value) {
-			container.addClass(clsempty).html(config.empty);
+			container.aclass(clsempty).html(config.empty);
 			return;
 		}
 
@@ -179,9 +180,9 @@ COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
 		}
 
 		if (render)
-			container.removeClass(clsempty).html(render);
+			container.rclass(clsempty).html(render);
 		else
-			container.addClass(clsempty).html(config.empty);
+			container.aclass(clsempty).html(config.empty);
 	};
 
 	self.setter = function(value) {
@@ -231,7 +232,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
 			else if (data[index])
 				checked = data[index];
 			checked && (checked = value.indexOf(checked.value) !== -1);
-			el.toggleClass('ui-dropdowncheckbox-checked', checked);
+			el.tclass('ui-dropdowncheckbox-checked', checked);
 		});
 
 		if (!label && value) {
@@ -256,7 +257,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		self.find('.ui-dropdowncheckbox').toggleClass('ui-dropdowncheckbox-invalid', invalid);
+		self.find('.ui-dropdowncheckbox').tclass('ui-dropdowncheckbox-invalid', invalid);
 	};
 
 	if (W.$dropdowncheckboxevent)
@@ -265,7 +266,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
 	W.$dropdowncheckboxevent = true;
 	$(document).on('click', function() {
 		if (W.$dropdowncheckboxelement) {
-			W.$dropdowncheckboxelement.addClass('hidden');
+			W.$dropdowncheckboxelement.aclass('hidden');
 			W.$dropdowncheckboxelement = null;
 		}
 	});
