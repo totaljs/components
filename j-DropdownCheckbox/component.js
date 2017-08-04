@@ -35,7 +35,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
 				break;
 
 			case 'disabled':
-				self.toggle('ui-disabled', value);
+				self.tclass('ui-disabled', value);
 				break;
 
 			case 'checkicon':
