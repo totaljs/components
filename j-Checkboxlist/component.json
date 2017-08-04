@@ -1,13 +1,13 @@
 {
 	"datecreated": "2016-05-10T17:09:20.420Z",
-	"dateupdated": "2016-12-11T22:56:20.420Z",
+	"dateupdated": "2017-08-04T14:08:00.000Z",
 	"name": "j-Checkboxlist",
 	"tags": [
 		"jcomponent",
 		"bootstrap"
 	],
 	"color": "transparent",
-	"version": 3,
+	"version": 4,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

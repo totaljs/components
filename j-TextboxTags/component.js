@@ -28,7 +28,7 @@ COMPONENT('textboxtags', function(self, config) {
 				break;
 			case 'required':
 				self.find('.ui-textboxtags-label').toggleClass('ui-textboxtags-label-required', value);
-				!value && self.state(1, 1);
+				self.state(1, 1);
 				break;
 			case 'icon':
 				var fa = self.find('.ui-textboxtags-label > i');
@@ -194,7 +194,7 @@ COMPONENT('textboxtags', function(self, config) {
 	self.state = function(type) {
 		if (!type)
 			return;
-		var invalid = self.isInvalid();
+		var invalid = config.required ? self.isInvalid() : false;
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;

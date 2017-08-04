@@ -32,7 +32,7 @@ COMPONENT('togglebutton', function(self, config) {
 	self.state = function(type) {
 		if (!type)
 			return;
-		var invalid = self.isInvalid();
+		var invalid = config.required ? self.isInvalid() : false;
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;

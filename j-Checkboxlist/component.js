@@ -1,99 +1,212 @@
-COMPONENT('checkboxlist', function(self) {
+COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 
-	var isRequired = self.attrd('required');
-	var template = Tangular.compile('<div class="{0} ui-checkboxlist-checkbox"><label><input type="checkbox" value="{{ id }}"><span>{{ name }}</span></label></div>'.format(self.attrd('class')));
+	var W = window;
+	!W.$checkboxlist && (W.$checkboxlist = Tangular.compile('<div{{ if $.class }} class="{{ $.class }}"{{ fi }}><div class="ui-checkboxlist-item" data-index="{{ index }}"><div><i class="fa fa-{{ $.checkicon }}"></i></div><span>{{ text }}</span></div></div>'));
+
+	var template = W.$checkboxlist;
+	var container, data, datasource, content, dataold = null;
 
 	self.validate = function(value) {
-		return isRequired ? value && value.length > 0 : true;
+		return config.disabled || !config.required ? true : value && value.length > 0;
 	};
 
-	self.required = function(value) {
-		isRequired = value;
-		return self;
-	};
+	self.configure = function(key, value, init) {
 
-	!isRequired && self.noValid();
+		if (init)
+			return;
+
+		var redraw = false;
+
+		switch (key) {
+
+			case 'type':
+				self.type = value;
+				break;
+
+			case 'checkicon':
+				self.find('i').rclass().aclass('fa fa-' + value);
+				break;
+
+			case 'disabled':
+				self.tclass('ui-disabled', value);
+				break;
+
+			case 'datasource':
+				var was = datasource;
+				was && self.unwatch(datasource, self.bind);
+				self.watch(value, self.bind, true);
+				was && self.refresh();
+				datasource = value;
+				break;
+
+			case 'icon':
+				if (!self.find('.ui-checkboxlist-label').find('i').rclass().aclass('fa fa-' + value).length);
+					redraw = true;
+				break;
+
+			case 'required':
+				self.find('.ui-checkboxlist-label').tclass('ui-checkboxlist-required', value);
+				self.state(1, 1);
+				break;
+
+			case 'label':
+				redraw = true;
+				break;
+
+			case 'items':
+
+				if (value instanceof Array) {
+					self.bind('', value);
+					return;
+				}
+
+				var items = [];
+				value.split(',').forEach(function(item) {
+					item = item.trim().split('|');
+					var val = (item[1] == null ? item[0] : item[1]).trim();
+					if (config.type === 'number')
+						val = +val;
+					items.push({ name: item[0].trim(), id: val });
+				});
+
+				self.bind('', items);
+				self.refresh();
+				break;
+		}
+
+		redraw && setTimeout2(self.id + '.redraw', function() {
+			self.redraw();
+			self.bind('', dataold);
+			self.refresh();
+		}, 100);
+	}
 
 	self.make = function() {
 
-		self.event('click', 'input', function() {
-			var arr = self.get() || [];
-			var value = self.parser(this.value);
-			var index = arr.indexOf(value);
-			if (index === -1)
-				arr.push(value);
-			else
-				arr.splice(index, 1);
-			self.set(arr);
-		});
+		self.aclass('ui-checkboxlist');
+		content = self.html();
+		config.type && (self.type = config.type);
+		self.redraw();
 
-		self.event('click', '.ui-checkboxlist-selectall', function() {
-			var arr = [];
-			var inputs = self.find('input');
-			var value = self.get();
+		if (config.items)
+			self.reconfigure({ items: config.items });
+		else if (config.datasource)
+			self.reconfigure({ datasource: config.datasource });
+		else
+			self.bind('', null);
 
-			if (value && inputs.length === value.length) {
-				self.set(arr);
+		self.event('click', '.ui-checkboxlist-item', function(e) {
+
+			e.stopPropagation();
+
+			if (config.disabled)
 				return;
+
+			var el = $(this);
+			var is = !el.hasClass('ui-checkboxlist-checked');
+			var index = +el.attr('data-index');
+			var value = data[index];
+
+			if (value == null)
+				return;
+
+			value = value.value;
+
+			var arr = self.get();
+			if (!(arr instanceof Array))
+				arr = [];
+
+			var index = arr.indexOf(value);
+
+			if (is) {
+				index === -1 && arr.push(value);
+			} else {
+				index !== -1 && arr.splice(index, 1);
 			}
 
-			inputs.each(function() {
-				arr.push(self.parser(this.value));
-			});
-
-			self.set(arr);
+			self.reset(true);
+			self.set(arr, undefined, 2);
 		});
+	};
 
-		var datasource = self.attrd('source');
-		datasource && self.watch(datasource, function(path, value) {
-			if (!value)
-				value = [];
-			self.redraw(value);
-		}, true);
+	self.redraw = function() {
+		var label = config.label || content;
+		self.html((label ? '<div class="ui-checkboxlist-label{1}">{2}{0}</div>'.format(label, config.required ? ' ui-checkboxlist-required' : '', config.icon ? '<i class="fa fa-{0}"></i>'.format(config.icon) : '') : '') + '<div class="ui-checkboxlist-container"></div>');
+		container = self.find('.ui-checkboxlist-container');
+	};
 
-		var options = self.attrd('options');
-		if (!options)
+	self.selectall = function() {
+
+		if (config.disabled)
 			return;
 
-		var arr = options.split(';');
-		var datasource = [];
+		var arr = [];
+		var inputs = self.find('.ui-checkboxlist-item');
+		var value = self.get();
 
-		for (var i = 0, length = arr.length; i < length; i++) {
-			var item = arr[i].split('|');
-			datasource.push({ id: item[1] === undefined ? item[0] : item[1], name: item[0] });
+		self.change(true);
+
+		if (value && inputs.length === value.length) {
+			self.set(arr);
+			return;
 		}
 
-		self.redraw(datasource);
+		inputs.each(function() {
+			var el = $(this);
+			arr.push(self.parser(data[+el.attr('data-index')].value));
+		});
+
+		self.set(arr);
+	};
+
+	self.bind = function(path, value) {
+
+		prepared = true;
+
+		if (!value)
+			return;
+
+		var kv = config.value || 'id';
+		var kt = config.text || 'name';
+
+		render = '';
+		data = [];
+		dataold = value;
+
+		for (var i = 0, length = value.length; i < length; i++) {
+			var isString = typeof(value[i]) === 'string';
+			var item = { value: isString ? value[i] : value[i][kv], text: isString ? value[i] : value[i][kt], index: i };
+			render += template(item, config);
+			data.push(item);
+		}
+
+		if (render)
+			container.html(render);
+		else
+			container.html(config.empty);
 	};
 
 	self.setter = function(value) {
-		self.find('input').each(function() {
-			this.checked = value && value.indexOf(self.parser(this.value)) !== -1;
+		container.find('.ui-checkboxlist-item').each(function() {
+			var el = $(this);
+			var index = +el.attr('data-index');
+			var checked = false;
+			if (!value || !value.length)
+				checked = false;
+			else if (data[index])
+				checked = data[index];
+			checked && (checked = value.indexOf(checked.value) !== -1);
+			el.tclass('ui-checkboxlist-checked', checked);
 		});
 	};
 
-	self.redraw = function(arr) {
-		var builder = [];
-		var kn = self.attrd('source-text') || 'name';
-		var kv = self.attrd('source-value') || 'id';
-
-		for (var i = 0, length = arr.length; i < length; i++) {
-			var item = arr[i];
-			if (typeof(item) === 'string')
-				builder.push(template({ id: item, name: item }));
-			else
-				builder.push(template({ id: item[kv] === undefined ? item[kn] : item[kv], name: item[kn] }));
-		}
-
-		if (!builder.length)
+	self.state = function(type) {
+		if (!type)
 			return;
-
-		var btn = self.attrd('button') || '';
-		if (btn)
-			btn = '<div class="ui-checkboxlist-selectall"><a href="javascript:void(0)"><i class="fa fa-check-square-o mr5"></i>{0}</a></div>'.format(btn);
-
-		builder.push('<div class="clearfix"></div>' + btn);
-		self.html(builder.join(''));
-		return self;
+		var invalid = config.required ? self.isInvalid() : false;
+		if (invalid === self.$oldstate)
+			return;
+		self.$oldstate = invalid;
+		self.find('.ui-checkboxlist').tclass('ui-checkboxlist-invalid', invalid);
 	};
 });

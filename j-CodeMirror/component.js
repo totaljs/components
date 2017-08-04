@@ -26,6 +26,7 @@ COMPONENT('codemirror', 'linenumbers:false', function(self, config) {
 				break;
 			case 'required':
 				self.find('.ui-codemirror-label').tclass('ui-codemirror-label-required', value);
+				self.state(1, 1);
 				break;
 			case 'icon':
 				self.find('i').rclass().aclass('fa fa-' + value);
@@ -101,7 +102,7 @@ COMPONENT('codemirror', 'linenumbers:false', function(self, config) {
 	self.state = function(type) {
 		if (!type)
 			return;
-		var invalid = self.isInvalid();
+		var invalid = config.required ? self.isInvalid() : false;
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
