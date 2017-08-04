@@ -1,24 +1,22 @@
-## j-Checkboxlist
+## j-CheckboxList
 
-- works only with Bootstrap Grid System
-- easy usage
-- supports custom `datasource`
+__Configuration__:
 
-__Inline datasource__:
+Example: `data-jc-config="required:true;icon:envelope"`
 
-- `data-jc-type` supports only `number`
-- `data-options="KEY1|VALUE1;KEY2|VALUE2`
-- `data-class=""` each rendered `div` with the checkbox will contain this class
-- `data-button="Select all"` a custom text for `Select all` button (default is hidden)
-- `data-required="true"` (optional) enables validation
-
-__Datasource in some model__:
-
-- `data-source="somemodel"`
-- `data-source-value="id"` (default)
-- `data-source-text="name"` (default)
-
-The component stores selected values into the array.
+- `required` {Boolean} (optional) enables "required" (default: `false`)
+- `items` {String} (optional) static items `key1|value1, key2 with value, key3|value`
+- `icon` {String} (optional) icon for label without `fa-` e.g. `home`, `cog`, etc.
+- `checkicon` {String} (optional) check icon without `fa-`, (default: `check`).
+- `label` {String} (optional) label (default is HTML content)
+- `placeholder` {String} (optional) adds a `placeholder` text into the input
+- `type` {String} (optional) can be `number` (converts `String` values to `Number`)
+- `datasource` {String} path to data-source (must be array)
+- `text` {String} determines a property name for text (in data-source), default: `name`
+- `value` {String} determines a property name for value (in data-source) default :`id`
+- `empty` {String} (optional) empty text for empty data-source
+- `cleaner` {Boolean} (optional) clears non-exist values default: `true`
+- `disabled` {Boolean} (optional) disables this component
 
 ### Author
 

@@ -9,20 +9,19 @@ COMPONENT('qrcode', 'size:200', function(self, config) {
 
 		var src = url;
 
-		if (!value) {
+		if (value) {
+			value = value.toString();
+		} else {
 			src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP7//wAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==';
 			value = '';
-		} else
-			value = value.toString();
-
-		var text = encodeURIComponent(value);
-
-		if (img) {
-			img.attr('src', src.format(text, config.size));
-			return;
 		}
 
-		self.html('<img src="{0}" alt="QR Code" border="0" style="max-width:100%;height:auto" />'.format(src.format(text, config.size)));
-		img = self.find('img');
+		var text = encodeURIComponent(value);
+		if (img) {
+			img.attr('src', src.format(text, config.size));
+		} else {
+			self.html('<img src="{0}" alt="QR Code" border="0" style="max-width:100%;height:auto" />'.format(src.format(text, config.size)));
+			img = self.find('img');
+		}
 	};
 });
