@@ -63,7 +63,7 @@ COMPONENT('textarea', function(self, config) {
 		config.placeholder && attrs.attr('placeholder', config.placeholder);
 		config.maxlength && attrs.attr('maxlength', config.maxlength);
 		attrs.attr('data-jc-bind', '');
-		config.height && attrs.attr('style', 'config.height:{0}px'.format(config.height));
+		config.height && attrs.attr('style', 'height:{0}px'.format(config.height));
 		config.autofocus === 'true' && attrs.attr('autofocus');
 		builder.push('<textarea {0}></textarea>'.format(attrs.join(' ')));
 
