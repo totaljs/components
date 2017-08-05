@@ -1,4 +1,6 @@
-COMPONENT('map', function(self) {
+COMPONENT('map', function(self, config) {
+	// TODO: more makers (array), methods for add maker, remove maker, change maker animation
+	var animations = { 'drop': google.maps.Animation.DROP, 'bounce': google.maps.Animation.BOUNCE };
 
 	self.readonly();
 
@@ -18,20 +20,22 @@ COMPONENT('map', function(self) {
 	self.make = function() {
 		var options = {};
 
-		options.zoom = +(self.attrd('zoom') || 13);
+		options.zoom = config.zoom || 13;
 		options.scrollwheel = true;
 		options.streetViewControl = false;
-		options.mapTypeId = self.attrd('type') || 'roadmap';
+		options.mapTypeId = config.type || 'roadmap';
 
 		self.map = new google.maps.Map(self.element.get(0), options);
 		self.geo = new google.maps.Geocoder();
 
-		options = { position: self.map.getCenter(), map: self.map }; // animation: google.maps.Animation.BOUNCE
-		options.draggable = self.attrd('draggable') === 'true';
+		options = { position: self.map.getCenter(), map: self.map };
+		options.draggable = config.draggable || false;
 
-		var tmp = self.attrd('icon');
-		if (tmp)
-			options.icon = tmp;
+		if(config.animation)
+			options.animation = animations[config.animation];
+	
+		if(config.icon)
+			options.icon = config.icon;
 
 		self.marker = new google.maps.Marker(options);
 
@@ -64,6 +68,18 @@ COMPONENT('map', function(self) {
 			self.map.fitBounds(result.viewport);
 			self.marker.setPosition(result.location);
 		});
+
+		return self;
+	};
+	
+	self.reset = function(lat, lng) {
+
+		google.maps.event.trigger(self.map, 'resize');
+
+		if(lng !== undefined){
+			var position = new google.maps.LatLng(lat, lng);
+			self.map.setCenter(position);
+		}
 
 		return self;
 	};
