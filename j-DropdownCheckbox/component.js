@@ -9,7 +9,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
 	var template = W.$dropdowncheckboxtemplate;
 
 	self.validate = function(value) {
-		return config.required || config.disabled ? value && value.length > 0 : true;
+		return config.disabled || !config.required ? true : value && value.length > 0;
 	};
 
 	self.configure = function(key, value, init) {
@@ -89,7 +89,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
 		container = self.find('.ui-dropdowncheckbox-values');
 		values = self.find('.ui-dropdowncheckbox-selected');
 		prepared && self.refresh();
-		self.tclass('ui-disabled', config.disabled);
+		self.tclass('ui-disabled', config.disabled === true);
 	};
 
 	self.make = function() {

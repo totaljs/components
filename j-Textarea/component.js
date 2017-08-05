@@ -60,7 +60,7 @@ COMPONENT('textarea', function(self, config) {
 		var attrs = [];
 		var builder = [];
 
-		self.tclass('ui-disabled', config.disabled);
+		self.tclass('ui-disabled', config.disabled === true);
 
 		config.placeholder && attrs.attr('placeholder', config.placeholder);
 		config.maxlength && attrs.attr('maxlength', config.maxlength);
