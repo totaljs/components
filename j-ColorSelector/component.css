@@ -4,3 +4,4 @@
 .ui-colorselector li:last-child { border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
 .ui-colorselector .selected { margin: 0; height: 30px; }
 .ui-colorselector-label { font-size: 12px; color: #656D78; }
+.ui-colorselector.ui-disabled li { cursor: not-allowed; opacity: 0.9; }

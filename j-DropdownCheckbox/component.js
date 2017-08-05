@@ -89,6 +89,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
 		container = self.find('.ui-dropdowncheckbox-values');
 		values = self.find('.ui-dropdowncheckbox-selected');
 		prepared && self.refresh();
+		self.tclass('ui-disabled', config.disabled);
 	};
 
 	self.make = function() {

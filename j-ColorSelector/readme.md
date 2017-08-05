@@ -1,8 +1,9 @@
 ## j-ColorSelector
 
-- easy usage
-- works with Bootstrap
-- contains preddefined colors from <codepen.io/devi8/pen/lvIeh>
+__Configuration__:
+
+- `disabled` {Boolean} can disable this control
+- `required` {Boolean} (optional) enables "required" (default: `false`)
 
 ### Author
 

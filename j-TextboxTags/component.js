@@ -23,7 +23,7 @@ COMPONENT('textboxtags', function(self, config) {
 		switch (key) {
 			case 'disabled':
 				self.tclass('ui-disabled', value);
-				!value && self.state(1, 1);
+				self.state(1, 1);
 				self.find('input').prop('disabled', value);
 				break;
 			case 'required':
@@ -53,12 +53,12 @@ COMPONENT('textboxtags', function(self, config) {
 				break;
 		}
 
-		if (redraw) {
+		redraw && setTimeout2('redraw' + self.id, function() {
 			refresh = true;
 			container.off();
 			self.redraw();
 			self.refresh();
-		}
+		}, 100);
 
 	};
 
@@ -76,7 +76,17 @@ COMPONENT('textboxtags', function(self, config) {
 		}
 
 		container = self.find('.ui-textboxtags-values');
-		container.on('click', '.fa-times', function(e) {
+		config.disabled && self.reconfigure('disabled:true');
+	};
+
+	self.make = function() {
+
+		self.aclass('ui-textboxtags-container');
+		content = self.html();
+		self.type = config.type || '';
+		self.redraw();
+
+		self.event('click', '.fa-times', function(e) {
 
 			if (config.disabled)
 				return;
@@ -101,19 +111,9 @@ COMPONENT('textboxtags', function(self, config) {
 			self.set(isString ? arr.join(', ') : arr);
 			self.change(true);
 		});
-	};
-
-	self.make = function() {
-
-		self.aclass('ui-textboxtags-container');
-		content = self.html();
-		self.type = config.type || '';
-		self.redraw();
 
 		self.event('click', function() {
-			if (config.disabled)
-				return;
-			self.find('input').focus();
+			!config.disabled && self.find('input').focus();
 		});
 
 		self.event('keydown', 'input', function(e) {

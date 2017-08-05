@@ -49,10 +49,10 @@ COMPONENT('textarea', function(self, config) {
 				break;
 		}
 
-		if (redraw) {
+		redraw && setTimeout2('redraw' + self.id, function() {
 			self.redraw();
 			self.refresh();
-		}
+		}, 100);
 	};
 
 	self.redraw = function() {
@@ -92,6 +92,8 @@ COMPONENT('textarea', function(self, config) {
 		self.rclass('ui-textarea');
 		self.aclass('ui-textarea-container');
 		input = self.find('textarea');
+
+		config.disabled && self.reconfigure('disabled:true');
 		container = self.find('.ui-textarea');
 	};
 

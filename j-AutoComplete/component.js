@@ -1,6 +1,6 @@
 COMPONENT('autocomplete', function(self) {
 
-	var container, old, onSearch, searchtimeout, searchvalue, blurtimeout, onCallback, datasource, offsetter;
+	var container, old, onSearch, searchtimeout, searchvalue, blurtimeout, onCallback, datasource, offsetter = null;
 	var is = false;
 	var margin = {};
 
@@ -21,7 +21,7 @@ COMPONENT('autocomplete', function(self) {
 		});
 
 		self.event('mouseenter mouseleave', 'li', function(e) {
-			$(this).toggleClass('selected', e.type === 'mouseenter');
+			$(this).tclass('selected', e.type === 'mouseenter');
 		});
 
 		$(document).on('click', function() {
@@ -58,11 +58,11 @@ COMPONENT('autocomplete', function(self) {
 
 		if (c === 13) {
 			self.visible(false);
-			if (!current.length)
-				return;
-			onCallback(datasource[+current.attr('data-index')], old);
-			e.preventDefault();
-			e.stopPropagation();
+			if (current.length) {
+				onCallback(datasource[+current.attr('data-index')], old);
+				e.preventDefault();
+				e.stopPropagation();
+			}
 			return;
 		}
 
@@ -88,7 +88,7 @@ COMPONENT('autocomplete', function(self) {
 
 	self.visible = function(visible) {
 		clearTimeout(blurtimeout);
-		self.toggle('hidden', !visible);
+		self.tclass('hidden', !visible);
 		is = visible;
 	};
 
