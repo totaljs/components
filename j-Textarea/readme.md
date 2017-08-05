@@ -1,4 +1,4 @@
-## j-Textarea
+﻿## j-Textarea
 
 __Configuration__:
 
@@ -12,6 +12,7 @@ Example: `data-jc-config="required:true;icon:pencile"`
 - `maxlength` {Number} (optional) sets a maximum length of chars
 - `disabled` {Boolean} (optional) disables this component
 - `height` {Number} (optional) a maximum height for the input
+- `error` {String} (optional) adds a `error` text under the input
 
 ### Author
 

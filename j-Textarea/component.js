@@ -62,6 +62,7 @@ COMPONENT('textarea', function(self, config) {
 
 		config.placeholder && attrs.attr('placeholder', config.placeholder);
 		config.maxlength && attrs.attr('maxlength', config.maxlength);
+		config.error && attrs.attr('error');
 		attrs.attr('data-jc-bind', '');
 		config.height && attrs.attr('style', 'height:{0}px'.format(config.height));
 		config.autofocus === 'true' && attrs.attr('autofocus');
@@ -70,6 +71,7 @@ COMPONENT('textarea', function(self, config) {
 		var label = config.label || content;
 
 		if (!label.length) {
+			config.error && builder.push('<div class="ui-box-helper"><i class="fa fa-warning" aria-hidden="true"></i> {0}</div>'.format(config.error));
 			self.aclass('ui-textarea ui-textarea-container');
 			self.html(builder.join(''));
 			input = self.find('textarea');
@@ -84,6 +86,7 @@ COMPONENT('textarea', function(self, config) {
 		config.icon && builder.push('<i class="fa fa-{0}"></i>'.format(config.icon));
 		builder.push(label);
 		builder.push(':</div><div class="ui-textarea">{0}</div>'.format(html));
+		config.error && builder.push('<div class="ui-box-helper"><i class="fa fa-warning" aria-hidden="true"></i> {0}</div>'.format(config.error));
 
 		self.html(builder.join(''));
 		self.rclass('ui-textarea');
@@ -107,5 +110,6 @@ COMPONENT('textarea', function(self, config) {
 			return;
 		self.$oldstate = invalid;
 		container.tclass('ui-textarea-invalid', invalid);
+		config.error && self.find('.ui-box-helper').tclass('ui-box-helper-show', invalid);
 	};
 });
