@@ -60,12 +60,15 @@ COMPONENT('textarea', function(self, config) {
 		var attrs = [];
 		var builder = [];
 
+		self.tclass('ui-disabled', value);
+
 		config.placeholder && attrs.attr('placeholder', config.placeholder);
 		config.maxlength && attrs.attr('maxlength', config.maxlength);
 		config.error && attrs.attr('error');
 		attrs.attr('data-jc-bind', '');
 		config.height && attrs.attr('style', 'height:{0}px'.format(config.height));
 		config.autofocus === 'true' && attrs.attr('autofocus');
+		config.disabled && attrs.attr('disabled');
 		builder.push('<textarea {0}></textarea>'.format(attrs.join(' ')));
 
 		var label = config.label || content;
@@ -92,8 +95,6 @@ COMPONENT('textarea', function(self, config) {
 		self.rclass('ui-textarea');
 		self.aclass('ui-textarea-container');
 		input = self.find('textarea');
-
-		config.disabled && self.reconfigure('disabled:true');
 		container = self.find('.ui-textarea');
 	};
 
