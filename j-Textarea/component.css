@@ -7,6 +7,8 @@
 .ui-textarea-invalid { border-color: #E7B8B8 !important; background-color: #FFF3F3 !important; }
 .ui-textarea-invalid textarea { background-color: #FFF3F3 !important; }
 .ui-textarea-code textarea { font-family: monospace; font-size: 14px; }
+.ui-box-helper { margin-top: 8px; font-size: 11px; color: red; text-align: left; display: none; }
+.ui-box-helper-show { display: block; }
 
 .ui-disabled.ui-textarea { background-color: #F0F0F0; cursor: not-allowed; }
 .ui-disabled.ui-textarea textarea { background-color: #F0F0F0; }
