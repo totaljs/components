@@ -1,4 +1,4 @@
-COMPONENT('pagination', function(self, config) {
+COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# item,# items,# items', function(self, config) {
 
 	var nav;
 	var info;
@@ -74,6 +74,11 @@ COMPONENT('pagination', function(self, config) {
 		// value.page   --> current page index
 		// value.pages  --> count of pages
 		// value.count  --> count of items in DB
+
+		self.tclass('hidden', value == null);
+
+		if (!value)
+			return;
 
 		var is = false;
 
