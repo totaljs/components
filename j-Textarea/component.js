@@ -40,6 +40,9 @@ COMPONENT('textarea', function(self, config) {
 			case 'autofocus':
 				input.focus();
 				break;
+			case 'monospace':
+				self.tclass('ui-textarea-monospace', value);
+				break;
 			case 'icon':
 				redraw = true;
 				break;
@@ -61,6 +64,7 @@ COMPONENT('textarea', function(self, config) {
 		var builder = [];
 
 		self.tclass('ui-disabled', config.disabled === true);
+		self.tclass('ui-textarea-monospace', config.monospace === true);
 
 		config.placeholder && attrs.attr('placeholder', config.placeholder);
 		config.maxlength && attrs.attr('maxlength', config.maxlength);
