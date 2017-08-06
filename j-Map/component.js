@@ -1,7 +1,6 @@
 COMPONENT('map', function(self, config) {
 	// TODO: more makers (array), methods for add maker, remove maker, change maker animation
-	var animations = { drop: W.google.maps.Animation.DROP, bounce: W.google.maps.Animation.BOUNCE };
-	var W = window;
+	var animations = { drop: google.maps.Animation.DROP, bounce: google.maps.Animation.BOUNCE };
 
 	self.readonly();
 
@@ -27,8 +26,8 @@ COMPONENT('map', function(self, config) {
 		options.streetViewControl = false;
 		options.mapTypeId = config.type || 'roadmap';
 
-		self.map = new W.google.maps.Map(self.element.get(0), options);
-		self.geo = new W.google.maps.Geocoder();
+		self.map = new google.maps.Map(self.element.get(0), options);
+		self.geo = new google.maps.Geocoder();
 
 		options = { position: self.map.getCenter(), map: self.map };
 		options.draggable = config.draggable || false;
@@ -39,9 +38,9 @@ COMPONENT('map', function(self, config) {
 		if (config.icon)
 			options.icon = config.icon;
 
-		self.marker = new W.google.maps.Marker(options);
+		self.marker = new google.maps.Marker(options);
 
-		W.google.maps.event.addListener(self.marker, 'click', function(e) {
+		google.maps.event.addListener(self.marker, 'click', function(e) {
 			var fn = config.click;
 			fn && self.get(fn)(self.prepare(e.latLng.lat(), e.latLng.lng()));
 		});
@@ -49,7 +48,7 @@ COMPONENT('map', function(self, config) {
 		if (!options.draggable)
 			return;
 
-		W.google.maps.event.addListener(self.marker, 'dragend', function(e) {
+		google.maps.event.addListener(self.marker, 'dragend', function(e) {
 			self.set(self.prepare(e.latLng.lat(), e.latLng.lng()));
 		});
 	};
@@ -57,7 +56,7 @@ COMPONENT('map', function(self, config) {
 	self.search = function(lat, lng) {
 
 		if (lng !== undefined) {
-			var position = new W.google.maps.LatLng(lat, lng);
+			var position = new google.maps.LatLng(lat, lng);
 			self.map.setCenter(position);
 			self.marker.setPosition(position);
 			return self;
@@ -76,10 +75,10 @@ COMPONENT('map', function(self, config) {
 
 	self.reset = function(lat, lng) {
 
-		W.google.maps.event.trigger(self.map, 'resize');
+		google.maps.event.trigger(self.map, 'resize');
 
 		if(lng !== undefined){
-			var position = new W.google.maps.LatLng(lat, lng);
+			var position = new google.maps.LatLng(lat, lng);
 			self.map.setCenter(position);
 		}
 
