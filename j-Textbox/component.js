@@ -128,13 +128,13 @@ COMPONENT('textbox', function(self, config) {
 			icon && builder.push('<span class="fa fa-{0}"></span> '.format(icon));
 			builder.push(content);
 			builder.push(':</div><div class="ui-textbox">{0}</div>'.format(html));
-			config.error && builder.push('<div class="ui-box-helper"><i class="fa fa-warning" aria-hidden="true"></i> {0}</div>'.format(config.error));
+			config.error && builder.push('<div class="ui-textbox-helper"><i class="fa fa-warning" aria-hidden="true"></i> {0}</div>'.format(config.error));
 			self.html(builder.join(''));
 			self.aclass('ui-textbox-container');
 			input = self.find('input');
 			container = self.find('.ui-textbox');
 		} else {
-			config.error && builder.push('<div class="ui-box-helper"><i class="fa fa-warning" aria-hidden="true"></i> {0}</div>'.format(config.error));
+			config.error && builder.push('<div class="ui-textbox-helper"><i class="fa fa-warning" aria-hidden="true"></i> {0}</div>'.format(config.error));
 			self.aclass('ui-textbox ui-textbox-container');
 			self.html(builder.join(''));
 			input = self.find('input');
