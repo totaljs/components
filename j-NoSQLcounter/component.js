@@ -7,6 +7,17 @@ COMPONENT('nosqlcounter', 'count:0', function(self, config) {
 		self.toggle('ui-nosqlcounter hidden', true);
 	};
 
+	self.configure = function(key, value) {
+		switch (key) {
+			case 'months':
+				if (value instanceof Array)
+					months = value;
+				else
+					months = value.split(',').trim();
+				break;
+		}
+	};
+
 	self.setter = function(value) {
 
 		var is = !value || !value.length;

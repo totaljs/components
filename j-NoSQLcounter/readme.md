@@ -7,6 +7,7 @@ __Configuration__:
 
 - `count` {Number} (optional) a maximum bars in the chart (default: `0` === `auto-count`)
 - `lastvalues` {Boolean} (optional) shows only the last values (default: `false`)
+- `months` {String} (optional) months e.g. `January,February,etc.`
 
 ### Author
 
