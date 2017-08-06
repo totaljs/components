@@ -1,12 +1,12 @@
 {
 	"datecreated": "2016-05-08T07:40:46.369Z",
-	"dateupdated": "2016-09-08T10:02:00.000Z",
+	"dateupdated": "2017-08-06T00:08:00.000Z",
 	"name": "j-Map",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 4,
+	"version": 5,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
