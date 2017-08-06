@@ -15,6 +15,7 @@ Example: `data-jc-config="title:Form title;width:800;if:user;icon:home"`
 - `reload` {String} link to a global function and it's executed if the form is showing
 - `submit` {String} link to a global function and it's executed if the submit button is pressed
 - `cancel` {String} link to a global function and it's executed if the cancel button is pressed
+- `enter` {Boolean} (optional) captures `enter` key automatically and performs submit (default: `false`)
 
 ### Author
 
