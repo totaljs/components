@@ -1,5 +1,5 @@
-COMPONENT('loading', function() {
-	var self = this;
+COMPONENT('loading', function(self) {
+
 	var pointer;
 
 	self.readonly();
