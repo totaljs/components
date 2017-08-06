@@ -115,7 +115,7 @@ COMPONENT('contextmenu', function(self) {
 			return;
 		clearTimeout(timeout);
 		timeout = setTimeout(function() {
-			self.element.hide().removeClass('ui-contextmenu-visible');
+			self.element.hide().rclass('ui-contextmenu-visible');
 			self.emit('contextmenu', false, self, self.target);
 			self.callback = null;
 			self.target = null;
