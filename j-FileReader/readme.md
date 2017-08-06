@@ -4,7 +4,7 @@
 - only for text files
 
 __Methods__:
-- `component.open([accept], callback(file), [multiple])` - opens file browser
+- `component.open([accept], callback(file), [multiple])` - opens file browsing
 - `component.process(files)` - internal, processing `files` object
 
 ```javacript
