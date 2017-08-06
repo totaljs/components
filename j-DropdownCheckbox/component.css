@@ -18,6 +18,6 @@
 
 .ui-disabled .ui-dropdowncheckbox-selected { color: #A0A0A0; cursor: not-allowed; }
 .ui-disabled .ui-dropdowncheckbox { background-color: #F0F0F0; }
-.ui-disabled .ui-dropdowncheckbox .fa { color: #A0A0A0; cursor: nota }
+.ui-disabled .ui-dropdowncheckbox .fa { color: #A0A0A0; cursor: not-allowed; }
 
 .hidden { display: none; }
