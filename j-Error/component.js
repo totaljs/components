@@ -1,4 +1,4 @@
-COMPONENT('error', function(self) {
+COMPONENT('error', function(self, config) {
 
 	self.readonly();
 
@@ -9,15 +9,15 @@ COMPONENT('error', function(self) {
 	self.setter = function(value) {
 
 		if (!(value instanceof Array) || !value.length) {
-			self.toggle('hidden', true);
+			self.tclass('hidden', true);
 			return;
 		}
 
 		var builder = [];
 		for (var i = 0, length = value.length; i < length; i++)
-			builder.push('<div><span class="fa fa-times-circle"></span>{0}</div>'.format(value[i].error));
+			builder.push('<div><span class="fa {1}"></span>{0}</div>'.format(value[i].error, 'fa-' + (config.icon || 'times-circle')));
 
 		self.html(builder.join(''));
-		self.toggle('hidden', false);
+		self.tclass('hidden', false);
 	};
 });
