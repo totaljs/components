@@ -4,7 +4,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 	!W.$checkboxlist && (W.$checkboxlist = Tangular.compile('<div{{ if $.class }} class="{{ $.class }}"{{ fi }}><div class="ui-checkboxlist-item" data-index="{{ index }}"><div><i class="fa fa-{{ $.checkicon }}"></i></div><span>{{ text }}</span></div></div>'));
 
 	var template = W.$checkboxlist;
-	var container, data, datasource, content, dataold = null;
+	var container, data, datasource, content, dataold, render = null;
 
 	self.validate = function(value) {
 		return config.disabled || !config.required ? true : value && value.length > 0;
@@ -79,7 +79,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 			self.bind('', dataold);
 			self.refresh();
 		}, 100);
-	}
+	};
 
 	self.make = function() {
 
@@ -160,8 +160,6 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 	};
 
 	self.bind = function(path, value) {
-
-		prepared = true;
 
 		if (!value)
 			return;
