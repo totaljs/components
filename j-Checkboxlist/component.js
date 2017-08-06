@@ -40,7 +40,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 				break;
 
 			case 'icon':
-				if (!self.find('.ui-checkboxlist-label').find('i').rclass().aclass('fa fa-' + value).length);
+				if (!self.find('.ui-checkboxlist-label').find('i').rclass().aclass('fa fa-' + value).length)
 					redraw = true;
 				break;
 
