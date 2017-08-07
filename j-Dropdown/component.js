@@ -125,7 +125,7 @@ COMPONENT('dropdown', function(self, config) {
 		content = self.html();
 		self.aclass('ui-dropdown-container');
 		self.redraw();
-		config.items && self.reconfigure('items:' + config.items);
+		config.items && self.reconfigure({ items: config.items });
 		config.datasource && self.reconfigure('datasource:' + config.datasource);
 	};
 
