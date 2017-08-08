@@ -1,0 +1,14 @@
+<div data-jc="features" data-jc-config="placeholder:Search ..."></div>
+
+<div class="container">
+	<a href="javascript:features()">Show features</a>
+</div>
+
+<script>
+	function features() {
+		SETTER('features', 'show', [{ name: 'Dashboard' }, { name: 'Invoices' }, { name: 'Orders' }, { name: 'Products' }, { name: 'Pages' }, { name: 'Notes' }, { name: 'Users', icon: 'user' }, { name: 'Settings' }], function(value) {
+			console.log('CLICK', value);
+		});
+	}
+	setTimeout(features, 500);
+</script>
