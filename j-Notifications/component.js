@@ -35,7 +35,7 @@ COMPONENT('notifications', 'timeout:8000', function(self, config) {
 			self.close(id);
 		});
 
-		if (config.native === 'true' && N) {
+		if (config.native === true && N) {
 			system = N.permission === 'granted';
 			!system && N.requestPermission(function (permission) {
 				system = permission === 'granted';
