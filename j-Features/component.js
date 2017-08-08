@@ -94,7 +94,7 @@ COMPONENT('features', function(self, config) {
 			selectedindex = 0;
 			results = true;
 			resultscount = self.items.length;
-			container.find('li').rclass('hidden');
+			container.find('li').rclass('hidden selected');
 			self.move();
 			return;
 		}
@@ -115,6 +115,7 @@ COMPONENT('features', function(self, config) {
 				resultscount++;
 			}
 			el.tclass('hidden', h);
+			el.rclass('selected');
 		});
 		self.move();
 	};
