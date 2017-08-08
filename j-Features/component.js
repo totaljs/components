@@ -108,7 +108,7 @@ COMPONENT('features', function(self, config) {
 		selectedindex = 0;
 		container.find('li').each(function() {
 			var el = $(this);
-			var val = el.html().toSearch();
+			var val = el.text().toSearch();
 			var h = val.indexOf(value) === -1;
 			if (!h) {
 				results = true;
