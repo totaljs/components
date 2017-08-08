@@ -5,13 +5,13 @@
 .ui-features-search input { width: 100%; background-color: white; border: 0; font-size: 20px; outline: 0; }
 .ui-features-search > div { margin-left: 45px; padding: 10px 10px 0 0; }
 .ui-features-search > span { float: left; width: 35px; text-align: right; padding: 11px 0 0 0; font-size: 20px; }
-.ui-features .selected { font-weight: bold; background-color: #F0F0F0; color: #1484FC !important; }
+.ui-features .selected { font-weight: bold; background-color: #F8F8F8; color: #1484FC !important; }
 .ui-features-visible { opacity: 1; transform: scale(1); }
 .ui-features-container { max-height: 150px; overflow-x: hidden; overflow-y: auto; overflow-scrolling: touch; }
 .ui-features ul { list-style-type: none; margin: 0; padding: 0; }
-.ui-features li { border-top: 1px solid #F0F0F0; font-size: 14px; padding: 8px 15px; background-color: white; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ui-features li { border-top: 1px solid #E5E5E5; font-size: 14px; padding: 8px 15px; background-color: white; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ui-features li .fa { margin-right: 5px; }
-.ui-features li:hover { background-color: #F0F0F0; }
+.ui-features li:hover { background-color: #F8F8F8; }
 .ui-features-noscroll { overflow: hidden !important; }
 .hidden { display: none; }
 
