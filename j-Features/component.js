@@ -45,8 +45,7 @@ COMPONENT('features', function(self, config) {
 			is && self.hide(0);
 		});
 
-		self.event('keyup', 'input', function(e) {
-
+		self.event('keydown', 'input', function(e) {
 			var o = false;
 			switch (e.which) {
 				case 27:
@@ -78,10 +77,14 @@ COMPONENT('features', function(self, config) {
 					break;
 			}
 
-			if (o && results)
+			if (o && results) {
 				e.preventDefault();
-			else
-				setTimeout2(self.id, self.search, 100, null, this.value);
+				e.stopPropagation();
+			}
+		});
+
+		self.event('keyup', 'input', function() {
+			setTimeout2(self.id, self.search, 100, null, this.value);
 		});
 	};
 
@@ -214,5 +217,4 @@ COMPONENT('features', function(self, config) {
 			$('html,body').rclass('ui-features-noscroll');
 		}, sleep ? sleep : 100);
 	};
-
 });
