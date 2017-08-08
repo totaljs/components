@@ -53,7 +53,7 @@ COMPONENT('message', function(self, config) {
 		timer && clearTimeout(timer);
 		visible = true;
 		self.find('.ui-message-body').rclass().aclass('ui-message-body ' + cls);
-		self.find('.fa').rclass().aclass('fa ' + icon);
+		self.find('.fa').rclass().aclass('fa icon ' + icon);
 		self.find('.ui-center').html(text);
 		self.rclass('hidden');
 		setTimeout(function() {
