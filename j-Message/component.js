@@ -48,13 +48,13 @@ COMPONENT('message', function(self, config) {
 		}, 1000);
 	};
 
-	self.content = function(cls, text, icon) {
-		!is && self.html('<div><div class="ui-message-body"><span class="fa fa-warning"></span><div class="ui-center"></div></div><button>' + (config.button || 'Close') + '</button></div>');
+	self.content = function(cls, text) {
+		!is && self.html('<div><div class="ui-message-body"><div class="text"></div><hr /><button>' + (config.button || 'Close') + '</button></div></div>');
 		timer && clearTimeout(timer);
 		visible = true;
+		is = true;
 		self.find('.ui-message-body').rclass().aclass('ui-message-body ' + cls);
-		self.find('.fa').rclass().aclass('fa icon ' + icon);
-		self.find('.ui-center').html(text);
+		self.find('.text').html(text);
 		self.rclass('hidden');
 		setTimeout(function() {
 			self.aclass('ui-message-visible');

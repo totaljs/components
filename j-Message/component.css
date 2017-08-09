@@ -1,12 +1,10 @@
 .ui-message * { box-sizing: border-box; }
-.ui-message { background-color: rgba(255,255,255,0.9); position: fixed; left: 0; right: 0; bottom: 0; top: 0; z-index: 1010; width: 100%; display: table; height: 100%; transition: 0.5s all; opacity: 0; }
+.ui-message { background-color: rgba(255,255,255,0.9); position: fixed; left: 0; right: 0; bottom: 0; top: 0; z-index: 1010; width: 100%; display: table; height: 100%; transition: 0.3s all; opacity: 0; }
 .ui-message > div { display: table-cell; vertical-align: middle; text-align: center; color: black; padding: 15px; }
-.ui-message-body { padding: 20px 25px; position: relative; display: inline-block; border-radius: 4px; max-width: 600px; text-align: left; transform: scale(1.5); transition: 0.3s all; box-shadow: 0 5px 20px rgba(0,0,0,0.1); background-color: white; }
-.ui-message-warning { border: 5px solid #B6414C; }
-.ui-message-success { border: 5px solid #8CC152; }
-.ui-message-success .icon { color: #8CC152; }
-.ui-message .icon { display: block; margin-bottom: 10px; text-align: center; font-size: 80px; }
-.ui-message-info { background-color: white; color: black; border: 1px solid #E0E0E0; min-width: 300px; }
+.ui-message-body { padding: 30px 25px 20px; position: relative; display: inline-block; border-radius: 4px; max-width: 600px; text-align: left; transform: scale(1.5); transition: 0.2s all; box-shadow: 0 5px 20px rgba(0,0,0,0.1); background-color: white; border-width: 3px; border-style: solid; }
+.ui-message-warning { border-color: #DA4453; min-width: 300px; }
+.ui-message-success { border-color: #8CC152; min-width: 300px; }
+.ui-message-info { border-color: #E0E0E0; min-width: 300px; }
 .ui-message button { display: block; min-width: 100px; margin: 20px auto 0; cursor: pointer; outline: 0; background-color: #E0E0E0; border: 0; border-radius: 4px; color: gray; padding: 0 20px; height: 40px; font-weight: bold; }
 .ui-message button:hover { background-color: #E5E5E5; }
 .ui-message-visible { opacity: 1; }
