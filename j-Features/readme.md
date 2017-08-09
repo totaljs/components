@@ -4,12 +4,15 @@
 - singleton
 - works with Bootstrap Grid System
 
-__Methods__:
+### Methods
 
-Method: `component.show([items], clickCallback)`
-
-- `items` `{Array}` or `{String}` (with the path) and must have this structure: `[{ name: String, value: String, icon: String }]` (important: icon is optional and without `fa-`)
-- `callback(selectedItem)` `{Function}` is triggered when the user clicks on the item
+Method: `component.show([items], callback)`
+- `items` {Object Array} (required) with list of features. Each item needs to contain:
+    - `name` {String} a feature name
+    - `icon` {String} (optional) icon without `fa-`
+    - `keywords` {String} (optional) additional keywords for searching
+    - `value` {Object/String/Number} a value
+- `callback(selected)` {Function} a callback which is called when the user performs click for some feature. `selected` argument contains selected item.
 
 Method: `component.hide()`
 
