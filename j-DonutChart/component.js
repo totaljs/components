@@ -66,18 +66,15 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true', function(
 
 		var sum = null;
 
-		var groups = [];
-		var items = [];
-
 		for (var i = 0, length = value.length; i < length; i++) {
 			var item = value[i];
 			sum = (sum ? sum + item.value : item.value);
-			groups.push(item.name);
 		}
 
 		var count = 0;
 		var beg = 0;
 		var end = 0;
+		var items = [];
 
 		for (var i = 0, length = value.length; i < length; i++) {
 			var item = value[i];
