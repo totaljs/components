@@ -61,12 +61,10 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true', function(
 
 		if (!value) {
 			g.empty();
-			gcircle.empty();
 			return;
 		}
 
 		var sum = null;
-		var len = value.length;
 
 		var groups = [];
 		var items = [];
