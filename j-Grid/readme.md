@@ -1,6 +1,9 @@
 ## j-Grid
 
-__Data-source__ for the grid needs to contain:
+- please try to understand the functionality
+- needed `bootstrap` grid system
+
+__Data-source__ needs to contain:
 
 ```javascript
 {
@@ -35,6 +38,16 @@ __Column attributes in the template__:
 - `title="Tooltip"` {String} can contain a tooltip text for column header (optional)
 - `icon="home"` {String} font-awesome icon without `fa-` for column header (optional)
 - `bg="#F0F0F0` {String} a background color for column header (optional)
+
+__Disabling column borders__
+
+- just add a class `grid-noborder`
+
+```html
+<div data-jc="grid" class="grid-noborder" ...>
+    ...
+</div>
+```
 
 ### Author
 

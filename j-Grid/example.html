@@ -44,4 +44,11 @@
 		UPDATE('griddata');
 	}
 
+	// Auto-resize
+	$(window).on('resize', function() {
+		setTimeout2('resize', function() {
+			EMIT('resize');
+		}, 100);
+	});
+
 </script>
