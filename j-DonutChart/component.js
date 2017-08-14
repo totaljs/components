@@ -104,6 +104,8 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true', function(
 
 		for (var i = 0, length = items.length; i < length; i++) {
 			var item = items[i];
+			if (item.end === 360)
+				item.end = 359.99;
 			pieces.push(g.asvg('path').attr('data-index', i).attr('data-beg', item.beg).attr('data-end', item.end).attr('stroke-width', strokew).attr('class', 'piece piece' + (i + 1)).attr('d', arc(half, half, midpoint, item.beg, animate ? item.beg : item.end)));
 		}
 
