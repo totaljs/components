@@ -107,7 +107,7 @@ COMPONENT('textbox', function(self, config) {
 			icon2 = 'calendar';
 		else if (self.type === 'search') {
 			icon2 = 'search ui-textbox-control-icon';
-			self.getter2 = function(value) {
+			self.setter2 = function(value) {
 				if (self.$stateremoved && !value)
 					return;
 				self.$stateremoved = value ? false : true;

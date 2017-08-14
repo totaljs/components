@@ -17,6 +17,7 @@ Example: `data-jc-config="title:Form title;width:800;if:user;icon:home"`
 - `cancel` {String} link to a global function and it's executed if the cancel button is pressed
 - `enter` {Boolean} (optional) captures `enter` key automatically and performs submit (default: `false`)
 - `center` {Boolean} (optional) centers the form to middle of screen
+- `autofocus` {Boolean/String} (optional) can focus an input. `String` === `jQuery selector` for the input
 
 ### Author
 
