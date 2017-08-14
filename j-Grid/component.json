@@ -1,0 +1,16 @@
+{
+	"datecreated": "2017-08-14T18:21:00.000Z",
+	"dateupdated": null,
+	"name": "j-Grid",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 10,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

@@ -1,0 +1,44 @@
+<div data-jc="grid" data-jc-path="gridata" class="grid-noborder" data-jc-config="pageclick:gridpage;columnclick:gridcolumn">
+	<script type="text/html">
+		<tr>
+			<td name="name" text="Name" width="100px"><div class="wrap center">{{ name }}</div></td>
+			<td name="description" text="Description"><div class="wrap center">{{ description }}</div></td>
+			<td name="created" text="Created" width="80px"><div class="wrap center">{{ created | format('yyyy-MM-dd') }}</div></td>
+			<td text="Options" width="100px" align="center" class="center" bg="#777777;color:white"><div class="wrap center"><a href="javascript:void(0)"><i class="fa fa-navicon mr5"></i>Edit</a></div></td>
+		</tr>
+	</script>
+</div>
+
+<script>
+	var gridata = { page: 1, count: 18, pages: 3, limit: 6, items: [] };
+	var items = griddata.items;
+
+	items.push({ name: '1 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date() });
+	items.push({ name: '2 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date() });
+	items.push({ name: '3 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date() });
+	items.push({ name: '4 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date() });
+	items.push({ name: '5 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date() });
+	items.push({ name: '6 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date() });
+
+	function gridpage(page) {
+		console.log('PAGINATION CHANGE:', page);
+	}
+
+	function gridcolumn(obj) {
+		console.log('COLUMN CLICK:', obj);
+
+		if (obj.column.sort === 'desc') {
+			obj.column.sort = null;
+		} else if (obj.column.sort === 'asc') {
+			obj.column.sort = 'desc';
+		} else {
+			obj.columns.forEach(function(column) {
+				column.sort = null;
+			});
+			obj.column.sort = 'asc';
+		}
+
+		UPDATE('gridata');
+	}
+
+</script>

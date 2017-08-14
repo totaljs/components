@@ -1,0 +1,24 @@
+.ui-grid { overflow: hidden; font-size: 12px; }
+.ui-grid-scroller { overflow-x: hidden; overflow-y: auto; overflow-scrolling: touch; -webkit-overflow-scrolling: touch; border: 1px solid #E0E0E0; background-color: white; }
+.ui-grid table { width: 100%; table-layout: fixed; }
+.ui-grid .wrap { text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width: 100%; padding: 5px 10px; }
+.ui-grid .empty { height: 0; }
+.ui-grid .empty td { height: 0; }
+.ui-grid .head { height: 36px; position: relative; margin: 1px; }
+.ui-grid .head table { position: absolute; left: 0; width: 100%; box-shadow: 0 5px 10px rgba(0,0,0,0.08); }
+.ui-grid tr th:first-child { border-radius: 3px 0 0 0; }
+.ui-grid tr th:last-child { border-radius: 0 3px 0 0; }
+.ui-grid .noscroll { overflow: hidden !important; }
+.ui-grid td, .ui-grid th { overflow: hidden; cursor: default; border-left: 1px solid #E0E0E0; }
+.ui-grid th { border-bottom: 1px solid #E0E0E0; height: 38px; cursor: pointer; background-color: white; }
+.ui-grid th .fa-sort-asc, .ui-grid th .fa-sort-desc { margin-right: 5px; font-size: 11px; color: #5CB36D; }
+.ui-grid th .fa { margin-right: 5px; }
+.ui-grid td { min-height: 28px; }
+.ui-grid td:first-child, .ui-grid th:first-child { border-left: 0; }
+.ui-grid tbody tr:nth-child(even) { background-color: #F9F9F9; }
+.ui-grid tbody tr { border-top: 1px solid #E0E0E0; background-color: white; }
+.ui-grid tbody .grid-row:hover { background-color: #FEFFDF; }
+.ui-grid tbody tr:first-child { border-top: 0; }
+.ui-grid .footer { height: 40px; }
+.ui-grid .meta { float: right; font-size: 14px; margin: 23px 0 0 0; font-weight: bold; }
+.hidden { display: none; }
