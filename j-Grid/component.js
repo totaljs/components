@@ -113,6 +113,7 @@ COMPONENT('grid', 'pagination:true;head:true;pluralizepages:# pages,# page,# pag
 		});
 
 		self.on('resize', self.resize);
+		self.resize();
 	};
 
 	self.resize = function() {
@@ -151,6 +152,7 @@ COMPONENT('grid', 'pagination:true;head:true;pluralizepages:# pages,# page,# pag
 		pagination.last.prop('disabled', value.page === value.pages);
 
 		pagination.page.val(value.page);
+
 		pagination.meta.html(value.count.pluralize.apply(value.count, pitems));
 		pagination.pages.html(value.pages.pluralize.apply(value.pages, ppages));
 

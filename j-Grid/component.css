@@ -1,3 +1,5 @@
+body{padding:50px;margin:0;background-color:#F0F0F0;font-family:Arial;height:100%;}
+html{height:100%;}
 .ui-grid { overflow: hidden; font-size: 12px; }
 .ui-grid-scroller { overflow-x: hidden; overflow-y: auto; overflow-scrolling: touch; -webkit-overflow-scrolling: touch; border: 1px solid #E0E0E0; background-color: white; }
 .ui-grid table { width: 100%; table-layout: fixed; }
@@ -21,4 +23,23 @@
 .ui-grid tbody tr:first-child { border-top: 0; }
 .ui-grid .footer { height: 40px; }
 .ui-grid .meta { float: right; font-size: 14px; margin: 23px 0 0 0; font-weight: bold; }
+
+.ui-grid .pages { margin: 23px 0 0 15px; float: left; font-size: 14px; }
+.ui-grid .pagination { margin: 15px 0 0 0; float: left; }
+.ui-grid .pagination button { width: 35px; height: 35px; text-align: center; background-color: white; border: 1px solid #E0E0E0; outline: 0; vertical-align: top; font-size: 14px; }
+.ui-grid .pagination button:first-child { border-radius: 3px 0 0 3px; border-right: 0; }
+.ui-grid .pagination button:last-child { border-radius: 0 3px 3px 0; border-left: 0; }
+.ui-grid .pagination button:hover { background-color: #F0F0F0 }
+.ui-grid .pagination .page { width: 50px; position: relative; display: inline-block; height: 35px; background-color: white; vertical-align: top; border: 1px solid #E0E0E0; border-left: 0; border-right: 0; padding: 7px 0 0 0; }
+.ui-grid .pagination .page input { width: 100%; text-align: center; border: 0; background-color: white; outline: 0; font-size: 14px; font-weight: bold; }
+.ui-grid .pagination button:disabled { color: silver; cursor: not-allowed; background-color: white; }
+
+.grid-badge { font-size: 10px; padding: 3px 8px; background-color: #E0E0E0; position: relative; display: inline-block; margin: 0 5px 0 0; text-transform: uppercase; font-weight: bold; border-radius: 3px; }
+.grid-badge-number { border-radius: 100px; width: 22px; height: 22px; margin: 0 auto; text-align: center; line-height: 0; padding: 11px 0 0 0; font-size: 12px; font-weight: bold; }
+
+.grid-noborder td { border: 0; }
+.grid-noborder th { border-color: #F0F0F0; }
+
 .hidden { display: none; }
+.center { text-align: center; }
+.right { text-align: right; }
