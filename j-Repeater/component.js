@@ -1,4 +1,4 @@
-COMPONENT('repeater', function(self) {
+COMPONENT('repeater', 'hidden:true', function(self, config) {
 
 	var filter = null;
 	var recompile = false;
@@ -28,6 +28,7 @@ COMPONENT('repeater', function(self) {
 	self.setter = function(value) {
 
 		if (!value || !value.length) {
+			config.hidden && self.aclass('hidden');
 			self.empty();
 			return;
 		}
@@ -44,6 +45,7 @@ COMPONENT('repeater', function(self) {
 		}
 
 		self.html(builder.join(''));
+		config.hidden && self.rclass('hidden');
 		recompile && self.compile();
 	};
 });
