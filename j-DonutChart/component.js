@@ -1,8 +1,10 @@
-COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true', function(self, config) {
+COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true;presentation:true', function(self, config) {
 
 	var svg, g, selected, tooltip;
 	var strokew = 0;
 	var animate = true;
+	var indexer = 0;
+	var indexerskip = false;
 	var W = $(window);
 
 	self.readonly();
@@ -16,7 +18,11 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true', function(
 		W.on('resize', self.resize);
 
 		self.element.on('mouseenter touchstart', '.piece', function() {
-			config.tooltip && self.select(+this.getAttribute('data-index'));
+			if (config.tooltip) {
+				self.select(+this.getAttribute('data-index'));
+				!indexerskip && config.presentation && setTimeout2(self.id + '.skip', self.next, 30000);
+				indexerskip = true;
+			}
 		});
 	};
 
@@ -31,6 +37,7 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true', function(
 		tooltip.css('font-size', w / 15);
 		tooltip.html('<b>' + item.name + '</b><br />' + Tangular.render(config.format, item));
 		el.css('stroke-width', strokew.inc('-15%')).aclass('selected');
+		indexer = index;
 	};
 
 	self.destroy = function() {
@@ -42,6 +49,25 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true', function(
 			animate = false;
 			self.refresh();
 		}, 100);
+	};
+
+	self.next = function() {
+
+		if (self.removed)
+			return;
+
+		if (indexerskip) {
+			indexerskip = false;
+			return;
+		}
+
+		indexer++;
+
+		if (!self.get()[indexer])
+			indexer = 0;
+
+		self.select(indexer);
+		setTimeout2(self.id + '.next', self.next, 2000);
 	};
 
 	function arcradius(centerX, centerY, radius, degrees) {
@@ -122,7 +148,14 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true', function(
 		});
 
 		selected = null;
-		config.tooltip && self.select(0);
 		animate = true;
+
+		if (config.tooltip) {
+			self.select(0);
+			if (config.presentation) {
+				indexerskip = false;
+				setTimeout(self.next, 4000);
+			}
+		}
 	};
 });
