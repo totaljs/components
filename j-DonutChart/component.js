@@ -36,7 +36,7 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true;presentatio
 		var el = self.find('.piece' + (index + 1));
 		tooltip.css('font-size', w / 15);
 		tooltip.html('<b>' + item.name + '</b><br />' + Tangular.render(config.format, item));
-		el.css('stroke-width', strokew.inc('-15%')).aclass('selected');
+		el.css('stroke-width', strokew.inc('+15%')).aclass('selected');
 		indexer = index;
 	};
 
@@ -67,7 +67,7 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true;presentatio
 			indexer = 0;
 
 		self.select(indexer);
-		setTimeout2(self.id + '.next', self.next, 2000);
+		setTimeout2(self.id + '.next', self.next, 4000);
 	};
 
 	function arcradius(centerX, centerY, radius, degrees) {
@@ -120,7 +120,7 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true;presentatio
 		var half = size / 2;
 		var midpoint = size / 2.4;
 
-		strokew = size / 6 >> 0;
+		strokew = (size / 6 >> 0).inc('-15%');
 
 		svg.attr('width', size);
 		svg.attr('height', size);
