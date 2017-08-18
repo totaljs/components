@@ -82,6 +82,9 @@ COMPONENT('dropdown', function(self, config) {
 
 	self.bind = function(path, arr) {
 
+		if (!arr)
+			arr = EMPTYARRAY;
+
 		var builder = [];
 		var value = self.get();
 		var template = '<option value="{0}"{1}>{2}</option>';
