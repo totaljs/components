@@ -15,7 +15,17 @@ COMPONENT('inlineform', function(self, config) {
 	}
 
 	self.readonly();
-	self.submit = self.cancel = function() { self.hide(); };
+	self.submit = function() {
+		if (config.submit)
+			EXEC(config.submit, self);
+		else
+			self.hide();
+	};
+
+	self.cancel = function() {
+		config.cancel && EXEC(config.cancel, self);
+		self.hide();
+	};
 
 	self.hide = function() {
 		if (self.hclass('hidden'))
@@ -85,7 +95,9 @@ COMPONENT('inlineform', function(self, config) {
 	};
 
 	self.show = function(el, position, offsetX, offsetY) {
+
 		SETTER('inlineform', 'hide');
+
 		self.rclass('hidden');
 		self.release(false);
 
@@ -109,6 +121,8 @@ COMPONENT('inlineform', function(self, config) {
 
 		if (offsetY)
 			offset.top += offsetY;
+
+		config.reload && EXEC(config.reload, self);
 
 		self.find('.ui-inlineform-arrow').css('margin-left', ma);
 		self.css(offset);
