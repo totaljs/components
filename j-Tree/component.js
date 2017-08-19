@@ -52,6 +52,11 @@ COMPONENT('tree', 'selected:selected', function(self, config) {
 
 	self.setter = function(value) {
 
+		if (!value) {
+			self.empty();
+			return;
+		}
+
 		var builder = [];
 
 		counter = 0;
