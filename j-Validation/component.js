@@ -1,21 +1,24 @@
 COMPONENT('validation', function(self, config) {
 
 	var path, elements = null;
+	var def = 'button[name="submit"]';
 
 	self.readonly();
 
 	self.make = function() {
-		!config.selector && (elements = self.find('button'));
+		elements = self.find(config.selector || def);
 		path = self.path.replace(/\.\*$/, '');
 		setTimeout(function() {
 			self.watch(self.path, self.state, true);
 		}, 50);
 	};
 
-	self.configure = function(key, value) {
+	self.configure = function(key, value, init) {
+		if (init)
+			return;
 		switch (key) {
 			case 'selector':
-				elements = self.find(value || 'button');
+				elements = self.find(value || def);
 				break;
 		}
 	};
