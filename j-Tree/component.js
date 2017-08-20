@@ -3,6 +3,7 @@ COMPONENT('tree', 'selected:selected', function(self, config) {
 	var cache = null;
 	var counter = 0;
 	var expanded = {};
+	var selindex = -1;
 
 	self.template = Tangular.compile('<div class="item{{ if children }} expand{{ fi }}" data-index="{{ $pointer }}"><i class="fa fa-{{ if children }}folder{{ else }}file-o{{ fi }}"></i>{{ name }}</div>');
 	self.readonly();
@@ -29,6 +30,7 @@ COMPONENT('tree', 'selected:selected', function(self, config) {
 			!el.hclass(cls) && self.find('.' + cls).rclass(cls);
 			el.aclass(cls);
 			config.exec && EXEC(config.exec, cache[index], false);
+			selindex = index;
 		}
 	};
 
@@ -39,12 +41,55 @@ COMPONENT('tree', 'selected:selected', function(self, config) {
 
 	self.clear = function() {
 		expanded = {};
+		selindex = -1;
 	};
 
-	self.expand = function(value) {
-		self.find('.expand').each(function() {
-			$(this).parent().tclass('show', value === true);
-		});
+	self.expand = function(index) {
+		if (index == null) {
+			self.find('.expand').each(function() {
+				$(this).parent().aclass('show');
+			});
+		} else {
+			self.find('[data-index="{0}"]'.format(index)).each(function() {
+				var el = $(this);
+				if (el.hclass('expand')) {
+					// group
+					el.parent().aclass('show');
+				} else {
+					// item
+					while (true) {
+						el = el.closest('.children').prev();
+						if (!el.hclass('expand'))
+							break;
+						el.parent().aclass('show');
+					}
+				}
+			});
+		}
+	};
+
+	self.collapse = function(index) {
+		if (index == null) {
+			self.find('.expand').each(function() {
+				$(this).parent().rclass('show');
+			});
+		} else {
+			self.find('[data-index="{0}"]'.format(index)).each(function() {
+				var el = $(this);
+				if (el.hclass('expand')) {
+					// group
+					el.parent().rclass('show');
+				} else {
+					// item
+					while (true) {
+						el = el.closest('.children').prev();
+						if (!el.hclass('expand'))
+							break;
+						el.parent().rclass('show');
+					}
+				}
+			});
+		}
 	};
 
 	self.renderchildren = function(builder, item, level) {
@@ -90,6 +135,10 @@ COMPONENT('tree', 'selected:selected', function(self, config) {
 		});
 
 		self.html(builder.join(''));
-		config.first !== false && cache.first && setTimeout(self.first, 100);
+
+		if (selindex !== -1)
+			self.select(selindex);
+		else
+			config.first !== false && cache.first && setTimeout(self.first, 100);
 	};
 });

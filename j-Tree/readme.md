@@ -14,9 +14,15 @@ __Data structure__:
 
 __Methods__:
 
-- `component.expand(boolean)` - expands/collapses all nodes
+- `component.expand([index])` - expands `index` or `all` (with no defined `index`) nodes
+- `component.collapse([index])` - collapses `index` or `all` (with no defined `index`) nodes
 - `component.clear()` - clears a cache for refreshing source
+- `component.select(index)` - selects node
 - `component.unselect()` - unselects node
+
+__Good to know__:
+
+Setter automatically extends each object by adding `.$pointer` property with the tree index.
 
 ### Author
 
