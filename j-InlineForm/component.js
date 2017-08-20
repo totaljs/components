@@ -32,7 +32,7 @@ COMPONENT('inlineform', function(self, config) {
 			return;
 		self.release(true);
 		self.aclass('hidden');
-		self.find('.ui-inlineform').removeClass('ui-inlineform-animate');
+		self.find('.ui-inlineform').rclass('ui-inlineform-animate');
 	};
 
 	self.make = function() {
@@ -109,8 +109,8 @@ COMPONENT('inlineform', function(self, config) {
 			offset.left -= w - el.width();
 			ma = w - 35;
 		} else if (position === 'center') {
-			ma = (w / 2) - (el.width() / 2);
-			offset.left -= ma;
+			ma = (w / 2);
+			offset.left -= ma - (el.width() / 2);
 			ma -= 12;
 		}
 
@@ -129,7 +129,7 @@ COMPONENT('inlineform', function(self, config) {
 		var el = self.find('input[type="text"],select,textarea');
 		!isMOBILE && el.length && el.eq(0).focus();
 		setTimeout(function() {
-			self.find('.ui-inlineform').addClass('ui-inlineform-animate');
+			self.find('.ui-inlineform').aclass('ui-inlineform-animate');
 		}, 300);
 	};
 });
