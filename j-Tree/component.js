@@ -22,8 +22,9 @@ COMPONENT('tree', 'selected:selected', function(self, config) {
 		if (el.hclass('expand')) {
 			var parent = el.parent();
 			parent.tclass('show');
-			expanded[index] = parent.hclass('show');
-			config.exec && EXEC(config.exec, cache[index], true, expanded[index]);
+			var is = expanded[index] = parent.hclass('show');
+			el.find('.fa').tclass('fa-folder', !is).tclass('fa-folder-open', is);
+			config.exec && EXEC(config.exec, cache[index], true, is);
 		} else {
 			!el.hclass(cls) && self.find('.' + cls).rclass(cls);
 			el.aclass(cls);

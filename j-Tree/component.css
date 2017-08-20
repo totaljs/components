@@ -6,7 +6,7 @@
 .ui-tree .item { cursor: pointer; padding: 6px 18px; font-size: 14px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; border-bottom: 1px solid #E0E0E0; }
 .ui-tree .item:hover { background-color: #F0F0F0; }
 .ui-tree .show > .children { display: block; }
-.ui-tree .show > .item { font-weight: bold; }
+.ui-tree .show > .item { font-weight: bold; background-color: #F8F8F8; }
 .ui-tree .selected { background-color: #FFE7A1 !important; }
 
 .ui-tree .children1 .item { padding-left: 33px; }
