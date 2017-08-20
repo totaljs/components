@@ -18,12 +18,14 @@ COMPONENT('tree', 'selected:selected', function(self, config) {
 	self.select = function(index) {
 		var cls = config.selected;
 		var el = self.find('[data-index="{0}"]'.format(index));
-		if (el.hasClass('expand')) {
-			el.parent().toggleClass('show');
+		if (el.hclass('expand')) {
+			var parent = el.parent();
+			parent.tclass('show');
+			config.exec && EXEC(config.exec, cache[index], true, parent.hclass('show'));
 		} else {
-			!el.hasClass(cls) && self.find('.' + cls).removeClass(cls);
-			el.addClass(cls);
-			config.exec && EXEC(config.exec, cache[index]);
+			!el.hclass(cls) && self.find('.' + cls).rclass(cls);
+			el.aclass(cls);
+			config.exec && EXEC(config.exec, cache[index], false);
 		}
 	};
 
@@ -43,7 +45,7 @@ COMPONENT('tree', 'selected:selected', function(self, config) {
 
 	self.reset = function() {
 		var cls = config.selected;
-		self.find('.' + cls).removeClass(cls);
+		self.find('.' + cls).rclass(cls);
 	};
 
 	self.first = function() {

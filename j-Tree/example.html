@@ -13,7 +13,8 @@
 	nodes.push({ name: 'Item 3', children: [{ name: 'SubItem 3 / 1', children: [{ name: 'SubItem 3 / 1 / 1', children: null }]}]});
 	nodes.push({ name: 'Item 4', children: null });
 	nodes.push({ name: 'Item 5', children: [{ name: 'Subitem 5 / 1', children: null }, { name: 'Subitem 5 / 2', children: [{ name: 'Subitem 5 / 2 / 1', children: [{ name: 'Subitem 5 / 2 / 1 / 1', children: null }]}] }, { name: 'Subitem 5 / 3', children: null }]});
-	function fn_selected(node) {
-		console.log('SELECTED NODE:', node);
+
+	function fn_selected(node, isGroup, expanded) {
+		console.log('SELECTED NODE:', node, isGroup, expanded);
 	}
 </script>
