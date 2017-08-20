@@ -36,11 +36,16 @@ COMPONENT('codemirror', 'linenumbers:false', function(self, config) {
 	};
 
 	self.make = function() {
+
 		var content = config.label || self.html();
-		self.html('<div class="ui-codemirror-label' + (config.required ? ' ui-codemirror-label-required' : '') + '">' + (config.icon ? '<i class="fa fa-' + config.icon + '"></i> ' : '') + content + ':</div><div class="ui-codemirror"></div>');
+		self.html((content ? '<div class="ui-codemirror-label' + (config.required ? ' ui-codemirror-label-required' : '') + '">' + (config.icon ? '<i class="fa fa-' + config.icon + '"></i> ' : '') + content + ':</div>' : '') + '<div class="ui-codemirror"></div>');
 		var container = self.find('.ui-codemirror');
 		editor = CodeMirror(container.get(0), { lineNumbers: config.linenumbers, mode: config.type || 'htmlmixed', indentUnit: 4 });
-		config.height !== 'auto' && editor.setSize('100%', (config.height || 200) + 'px');
+		if (config.height !== 'auto') {
+			var is = typeof(config.height) === 'number';
+			editor.setSize('100%', is ? (config.height + 'px') : (config.height || '200px'));
+			!is && self.css('height', config.height);
+		}
 
 		if (config.disabled) {
 			self.aclass('ui-disabled');
