@@ -12,6 +12,12 @@ __Data structure__:
 - Object Array
 - Object has to contain `name:String` and `children:[another similar object]` or `children:null` (with no children)
 
+__Methods__:
+
+- `component.expand(boolean)` - expands/collapses all nodes
+- `component.clear()` - clears a cache for refreshing source
+- `component.unselect()` - unselects node
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
