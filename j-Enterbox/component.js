@@ -2,7 +2,7 @@ COMPONENT('enterbox', function(self, config) {
 
 	self.readonly();
 
-	self.reconfigure = function(key, value, init) {
+	self.configure = function(key, value, init) {
 		if (init)
 			return;
 		switch (key) {
