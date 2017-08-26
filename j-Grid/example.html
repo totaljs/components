@@ -1,11 +1,10 @@
-<div data-jc="grid" data-jc-path="griddata" data-jc-config="pageclick:gridpage;columnclick:gridcolumn" class="grid-noborder">
-	<script type="text/html">
-		<tr>
-			<td name="name" text="Name" width="200px"><div class="wrap">{{ name }}</div></td>
-			<td name="description" text="Description"><div class="wrap">{{ description }}</div></td>
-			<td name="created" text="Created" width="120px" align="center"><div class="wrap center">{{ created | format('yyyy-MM-dd') }}</div></td>
-			<td name="settings" text="Options" width="80px" align="center" class="center" bg="#777777;color:white"><div class="wrap center"><a href="javascript:void(0)"><i class="fa fa-navicon"></i> Edit</a></div></td>
-		</tr>
+<div data-jc="grid" data-jc-path="griddata" data-jc-cofing="exec:filtering">
+	<script type="text/plain">
+		[
+			{ name: 'name', text: 'Name', size: 2, render: 'n => n.toUpperCase()', filter: 'Search in name' },
+			{ name: 'description', text: 'Meno', size: 3, filter: 'Search in description' },
+			{ name: 'created', text: 'Created', size: 1, filter: 'Search in dates', format: 'dd.MM.yyyy', align: 'center' }
+		]
 	</script>
 </div>
 
@@ -20,35 +19,15 @@
 	items.push({ name: '5 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date() });
 	items.push({ name: '6 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date() });
 
-	function gridpage(page) {
-		console.log('PAGINATION CHANGE:', page);
-	}
-
-	function gridcolumn(obj) {
-		console.log('COLUMN CLICK:', obj);
-
-		if (obj.column.name === 'settings')
-			return;
-
-		if (obj.column.sort === 'desc') {
-			obj.column.sort = null;
-		} else if (obj.column.sort === 'asc') {
-			obj.column.sort = 'desc';
-		} else {
-			obj.columns.forEach(function(column) {
-				column.sort = null;
-			});
-			obj.column.sort = 'asc';
-		}
-
-		UPDATE('griddata');
-	}
-
 	// Auto-resize
 	$(window).on('resize', function() {
 		setTimeout2('resize', function() {
 			EMIT('resize');
 		}, 100);
 	});
+
+	function filtering(type, filter, sort, page) {
+		console.log(type, filter, sort, page);
+	}
 
 </script>
