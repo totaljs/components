@@ -34,7 +34,7 @@ __Column properties__:
 - `name` {String} a name of field in the object
 - `text` {String} a column label
 - `size` {Number} a column width: `1` small, `2` medium, `3` large, `4` very large (optional, default `1`)
-- `filter` {String} a placeholder for the filter (optional)
+- `filter` {String/Boolean} a placeholder for the filter or `boolean` can disable filter for this column (optional)
 - `format` {String/Number} for formatting values (`string` for date, `number` for numbers)
 - `background` {String} a background color (optional)
 - `align` {String} can be `center` or `right` (optional, default: `left`)
