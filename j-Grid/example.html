@@ -2,6 +2,7 @@
 	<script type="text/plain">
 		[
 			{ name: 'name', text: 'Name', size: 2, render: 'n => n.toUpperCase()', filter: 'Search in name' },
+			{ name: 'price', text: 'Price', size: 1, format: 2, filter: 'Search in prices', align: 'right' },
 			{ name: 'description', text: 'Meno', size: 3, filter: 'Search in description' },
 			{ name: 'created', text: 'Created', size: 1, filter: 'Search in dates', format: 'dd.MM.yyyy', align: 'center' }
 		]
@@ -12,12 +13,12 @@
 	var griddata = { page: 1, count: 18, pages: 3, limit: 6, items: [] };
 	var items = griddata.items;
 
-	items.push({ name: '1 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date().add('-5 days') });
-	items.push({ name: '2 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date().add('-1 year') });
-	items.push({ name: '3 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date().add('-1 month') });
-	items.push({ name: '4 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date().add('-14 days') });
-	items.push({ name: '5 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date().add('-5 hours') });
-	items.push({ name: '6 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', created: new Date().add('-349 minutes') });
+	items.push({ name: '1 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: 233, created: new Date().add('-5 days') });
+	items.push({ name: '2 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: 122, created: new Date().add('-1 year') });
+	items.push({ name: '3 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: 119, created: new Date().add('-1 month') });
+	items.push({ name: '4 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: 35.34, created: new Date().add('-14 days') });
+	items.push({ name: '5 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: 439.33, created: new Date().add('-5 hours') });
+	items.push({ name: '6 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: 111.12, created: new Date().add('-349 minutes') });
 
 	// Auto-resize
 	$(window).on('resize', function() {

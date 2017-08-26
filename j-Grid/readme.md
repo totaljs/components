@@ -42,6 +42,12 @@ __Column properties__:
 - `sort` {Boolean} enables sorting (optional, default: `true`)
 - `class` {String} additional classes for the column, e.g. `hidden-xs`
 
+__Filtering__:
+
+- `numbers`: (1) `number` searches an exact number, (2) `number / number` is an interval between numbers
+- `strings`: (1) `string` searches an exact string, (2) `string1, string2, string3` is a multiple search criterium
+- `dates`: (1) year `2017` searches all dates in this year, (2) `2017-02-12 / 2017-03-13` is an interval between dates, (3) `20.12 / 31.12` an interval between dates in the current year
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
