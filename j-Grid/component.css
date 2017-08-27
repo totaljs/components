@@ -14,7 +14,7 @@ html{height:100%;}
 .ui-grid td:first-child, .ui-grid th:first-child { border-left: 0; }
 .ui-grid tbody tr:nth-child(odd) { background-color: #F9F9F9; }
 .ui-grid tbody tr { border-top: 1px solid #E0E0E0; }
-.ui-grid tbody .grid-row:hover { background-color: #FFF9D1; }
+.ui-grid-row:hover { background-color: #FFF9D1 !important; }
 .ui-grid tbody tr:first-child { border-top: 0; }
 .ui-grid th input { width: 100%; font-size: 10px; color: black; outline: 0; border: 0; background-color: transparent; padding: 0 5px; margin: 0; text-align: center; }
 .ui-grid-columnname { border-bottom: 1px solid #E0E0E0; height: 34px; background: linear-gradient(white,#F0F0F0); }
