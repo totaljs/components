@@ -21,7 +21,8 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 		thead = $(self.find('.ui-grid-header').find('thead').get(0));
 		container = $(self.find('.ui-grid-scroller').get(0));
 		pagination = config.pagination ? VIRTUALIZE(self.find('.ui-grid-footer'), { page: 'input', first: 'button[name="first"]', last: 'button[name="last"]', prev: 'button[name="prev"]', next: 'button[name="next"]', meta: '.meta', pages: '.pages' }) : null;
-		self.meta(meta);
+		meta && self.meta(meta);
+		config.init && EXEC(config.init);
 
 		self.event('click', '.ui-grid-columnsort', function() {
 			var obj = {};
@@ -73,7 +74,18 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 	};
 
 	self.meta = function(html) {
-		options.columns = new Function('return ' + html.trim())();
+		switch (typeof(html)) {
+			case 'string':
+				options.columns = new Function('return ' + html.trim())();
+				break;
+			case 'function':
+				options.columns = html(self);
+				break;
+			case 'object':
+				options.columns = html;
+				break;
+		}
+
 		self.rebuild(true);
 	};
 

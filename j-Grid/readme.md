@@ -27,9 +27,9 @@ __Configuration__:
 - `autosize` {Boolean} enables full-height auto-size (optional, default `true`)
 - `boolean` {String} a values for filtering of boolean values (optional, default: `true|on|yes`)
 - `pagination` {Boolean} shows pagination panel (optional, default: `false`)
+- `init` {Function} an init function for e.g. custom columns
 
 __Column properties__:
-{ name: 'name', text: 'Name', size: 2, render: 'n => n.toUpperCase()', filter: 'Search in name' },
 
 - `name` {String} a name of field in the object
 - `text` {String} a column label
