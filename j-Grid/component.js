@@ -265,9 +265,9 @@
 							var dt = val2[j].trim();
 							var a = self.parseDate(dt);
 							if (a instanceof Array) {
-								arr.push(a[0])
+								arr.push(a[0]);
 								if (j === val2.length - 1) {
-									arr.push(a[1])
+									arr.push(a[1]);
 									break;
 								}
 							} else
