@@ -39,7 +39,7 @@ __Column properties__:
 - `format` {String/Number} for formatting values (`string` for date, `number` for numbers)
 - `background` {String} a background color (optional)
 - `align` {String} can be `center` or `right` (optional, default: `left`)
-- `render` {String/Function} a custom rendering, `string` is evaluated as an arrow function
+- `render` {String/Function(value, column, row)} a custom rendering, `string` is evaluated as an arrow function
 - `sort` {Boolean} enables sorting (optional, default: `true`)
 - `class` {String} additional classes for the column, e.g. `hidden-xs`
 
