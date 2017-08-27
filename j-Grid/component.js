@@ -352,7 +352,7 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 		var m = {};
 
 		for (var i = 0, length = items.length; i < length; i++) {
-			builder.push('<tr class="ui-grid-row">');
+			builder.push('<tr class="ui-grid-row" data-index="' + i + '">');
 			for (var j = 0, jl = columns.length; j < jl; j++) {
 				var column = columns[j];
 				var val = items[i][column.name];
