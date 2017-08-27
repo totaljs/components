@@ -323,7 +323,6 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 	self.parseNumber = function(val) {
 		var arr = [];
 		var num = val.replace(/\s/g, '').replace(/\,/g, '.').split(/\/|\||\\/).trim();
-		var minus = false;
 
 		for (var i = 0, length = num.length; i < length; i++) {
 			var n = num[i];
