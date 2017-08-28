@@ -3,7 +3,7 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 	var tbody, thead, tbodyhead, container, pagination;
 	var options = { columns: {}, items: [], indexer: 0, filter: {} };
 	var isFilter = false;
-	var ppages, pitems, cache;
+	var ppages, pitems, cache, eheight;
 
 	self.template = Tangular.compile('<td data-index="{{ index }}"{{ if $.class }} class="{{ $.class }}"{{ fi }}><div class="wrap{{ if align }} {{ align }}{{ fi }}"{{ if background }} style="background-color:{{ background }}"{{ fi }}>{{ value | raw }}</div></td>');
 	self.options = options;
@@ -127,7 +127,7 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 			var col = columns[i];
 			var width = (((col.size || 1) / size) * 100).floor(2);
 			data.push('<td style="width:{0}%" data-index="{1}" class="{2}"></td>'.format(width, i, col.class ? ' ' + col.class : ''));
-			header.push('<th class="ui-grid-columnname{3}{5}" style="width:{0}%;text-align:center" data-index="{1}" title="{6}" data-name="{4}"><div class="wrap"><i class="fa"></i>{2}</div></th>'.format(width, i, col.text || col.name, col.class ? ' ' + col.class : '', col.name, col.sort === false ? '' : ' ui-grid-columnsort', col.title || col.text || col.name));
+			header.push('<th class="ui-grid-columnname{3}{5}" style="width:{0}%;text-align:center" data-index="{1}" title="{6}" data-name="{4}"><div class="wrap"><i class="fa hidden"></i>{2}</div></th>'.format(width, i, col.text || col.name, col.class ? ' ' + col.class : '', col.name, col.sort === false ? '' : ' ui-grid-columnsort', col.title || col.text || col.name));
 			if (col.filter === false)
 				filter.push('<th class="ui-grid-columnfilterempty ui-grid-columnfilter{1}" style="width:{0}%">&nbsp;</th>'.format(width, col.class ? ' ' + col.class : ''));
 			else
@@ -172,7 +172,11 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 		var parent = self.parent();
 		var height = parent.height() - (config.padding || 0);
 
+		if (height === eheight)
+			return;
+
 		container.height(height - (config.pagination ? 124 : 74));
+		eheight = height;
 
 		var count = (height / 28) >> 0;
 		if (count > value.length) {
@@ -194,10 +198,10 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 
 	self.sort = function(data) {
 
-		options.lastsortelement && options.lastsortelement.rclass('fa-caret-down fa-caret-up');
+		options.lastsortelement && options.lastsortelement.rclass('fa-caret-down fa-caret-up').aclass('hidden');
 
 		if (data.column.sorting === 'desc') {
-			options.lastsortelement.find('.fa').rclass('fa-caret-down fa-caret-up');
+			options.lastsortelement.find('.fa').rclass('fa-caret-down fa-caret-up').aclass('hidden');
 			options.lastsortelement = null;
 			options.lastsort = null;
 			data.column.sorting = null;
@@ -209,11 +213,12 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 
 		} else if (data.column) {
 			data.column.sorting = data.column.sorting === 'asc' ? 'desc' : 'asc';
-			options.lastsortelement = thead.find('th[data-name="{0}"]'.format(data.column.name)).find('.fa').tclass('fa-caret-down', data.column.sorting === 'asc').tclass('fa-caret-up', data.column.sorting === 'desc');
+			options.lastsortelement = thead.find('th[data-name="{0}"]'.format(data.column.name)).find('.fa').rclass('hidden').tclass('fa-caret-down', data.column.sorting === 'asc').tclass('fa-caret-up', data.column.sorting === 'desc');
 			options.lastsort = data.column;
 
 			var name = data.column.name;
 			var sort = data.column.sorting;
+
 
 			!config.external && options.lastsort && options.items.quicksort(name, sort === 'asc');
 			self.operation('sort');
@@ -373,7 +378,10 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 
 		tbody.html(builder.join(''));
 		container.rclass('noscroll');
+
+		eheight = 0;
 		self.resize();
+		setTimeout(self.resize, 500);
 	};
 
 	self.setter = function(value) {
