@@ -16,9 +16,10 @@ COMPONENT('page', function(self, config) {
 		var is = config.if == value;
 
 		if (type === 2 || !is) {
-			self.toggle('hidden', !is);
+			self.tclass('hidden', !is);
 			is && config.reload && self.get(config.reload)();
 			self.release(!is);
+			EMIT('resize');
 			return;
 		}
 
@@ -36,7 +37,8 @@ COMPONENT('page', function(self, config) {
 			config.reload && self.get(config.reload)();
 
 			setTimeout(function() {
-				self.toggle('hidden', !is);
+				self.tclass('hidden', !is);
+				EMIT('resize');
 			}, 200);
 
 			SETTER('loading', 'hide', 1000);
