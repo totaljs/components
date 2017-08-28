@@ -26,9 +26,10 @@ COMPONENT('binder', function(self) {
 			var element = item.selector ? item.element.find(item.selector) : item.element;
 			template.value = value;
 			item.classes && classes(element, item.classes(value));
-			item.visible && element.toggleClass('hidden', item.visible(value) ? false : true);
+			item.visible && element.tclass('hidden', item.visible(value) ? false : true);
 			item.html && element.html(item.Ta ? item.html(template) : item.html(value));
 			item.disable && element.prop('disabled', item.disable(value));
+			item.src && element.attr('src', item.src(value));
 		});
 	};
 
@@ -48,8 +49,8 @@ COMPONENT('binder', function(self) {
 					break;
 			}
 		});
-		rem && element.removeClass(rem);
-		add && element.addClass(add);
+		rem && element.rclass(rem);
+		add && element.aclass(add);
 	}
 
 	function decode(val) {
@@ -66,15 +67,16 @@ COMPONENT('binder', function(self) {
 		self.find('[data-b]').each(function() {
 
 			var el = $(this);
-			var path = el.attr('data-b');
+			var path = el.attrd('b');
 			var arr = path.split('.');
 			var p = '';
 
-			var classes = el.attr('data-b-class');
-			var html = el.attr('data-b-html');
-			var visible = el.attr('data-b-visible');
-			var disable = el.attr('data-b-disable');
-			var selector = el.attr('data-b-selector');
+			var classes = el.attrd('b-class');
+			var html = el.attrd('b-html');
+			var visible = el.attrd('b-visible');
+			var disable = el.attrd('b-disable');
+			var selector = el.attrd('b-selector');
+			var src = el.attrd('b-src');
 			var obj = el.data('data-b');
 
 			keys_unique[path] = true;
@@ -87,6 +89,7 @@ COMPONENT('binder', function(self) {
 				obj.visible = visible ? self.prepare(visible) : undefined;
 				obj.disable = disable ? self.prepare(disable) : undefined;
 				obj.selector = selector ? selector : null;
+				obj.src = src ? self.prepare(src) : undefined;
 
 				if (el.attr('data-b-template') === 'true') {
 					var tmp = el.find('script[type="text/html"]');
