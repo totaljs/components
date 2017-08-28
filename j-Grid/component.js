@@ -127,7 +127,7 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 			var col = columns[i];
 			var width = (((col.size || 1) / size) * 100).floor(2);
 			data.push('<td style="width:{0}%" data-index="{1}" class="{2}"></td>'.format(width, i, col.class ? ' ' + col.class : ''));
-			header.push('<th class="ui-grid-columnname{3}{5}" style="width:{0}%;text-align:center" data-index="{1}" title="{6}" data-name="{4}"><div class="wrap"><i class="fa{3}"></i>{2}</div></th>'.format(width, i, col.text || col.name, col.class ? ' ' + col.class : '', col.name, col.sort === false ? '' : ' ui-grid-columnsort', col.title || col.text || col.name));
+			header.push('<th class="ui-grid-columnname{3}{5}" style="width:{0}%;text-align:center" data-index="{1}" title="{6}" data-name="{4}"><div class="wrap"><i class="fa"></i>{2}</div></th>'.format(width, i, col.text || col.name, col.class ? ' ' + col.class : '', col.name, col.sort === false ? '' : ' ui-grid-columnsort', col.title || col.text || col.name));
 			if (col.filter === false)
 				filter.push('<th class="ui-grid-columnfilterempty ui-grid-columnfilter{1}" style="width:{0}%">&nbsp;</th>'.format(width, col.class ? ' ' + col.class : ''));
 			else
