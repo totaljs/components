@@ -17,7 +17,8 @@ Method: `component.show([items], callback)`
 Method: `component.hide()`
 
 __Configuration__:
-- `placeholder` - a placeholder for the search input
+- `placeholder` {String} a placeholder for the search input
+- `height` {Number} height of list item (optional, default `35`)
 
 If the `value` isn't defined then the component uses `name` as `value.
 
