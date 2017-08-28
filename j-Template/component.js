@@ -1,6 +1,14 @@
 COMPONENT('template', function(self) {
 
+	var properties = null;
+
 	self.readonly();
+
+	self.configure = function(key, value) {
+		if (key === 'properties')
+			properties = value.split(',').trim();
+	};
+
 	self.make = function(template) {
 
 		if (template) {
@@ -19,7 +27,14 @@ COMPONENT('template', function(self) {
 		script.remove();
 	};
 
-	self.setter = function(value) {
+	self.setter = function(value, path) {
+
+		if (properties && path !== self.path) {
+			var key = path.substring(self.path.length + 1);
+			if (!key || properties.indexOf(key))
+				return;
+		}
+
 		if (NOTMODIFIED(self.id, value))
 			return;
 		if (value) {
