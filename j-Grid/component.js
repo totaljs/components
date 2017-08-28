@@ -86,6 +86,12 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 				break;
 		}
 
+		for (var i = 0; i < options.columns.length; i++) {
+			var column = options.columns[i];
+			if (typeof(column.template) === 'string')
+				column.template = Tangular.compile(column.template);
+		}
+
 		self.rebuild(true);
 	};
 
@@ -356,7 +362,7 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 			for (var j = 0, jl = columns.length; j < jl; j++) {
 				var column = columns[j];
 				var val = items[i][column.name];
-				m.value = column.render ? column.render(val, column, items[i]) : val == null ? '' : (column.format ? val.format(column.format) : val);
+				m.value = column.template ? column.template(items[i], column) : column.render ? column.render(val, column, items[i]) : val == null ? '' : (column.format ? val.format(column.format) : val);
 				m.index = j;
 				m.align = column.align;
 				m.background = column.background;
