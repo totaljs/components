@@ -89,7 +89,7 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 		for (var i = 0; i < options.columns.length; i++) {
 			var column = options.columns[i];
 			if (typeof(column.template) === 'string')
-				column.template = Tangular.compile(column.template);
+				column.template = column.template.indexOf('{{') === -1 ? new Function('a', 'b', 'return \'' + column.template + '\'') : Tangular.compile(column.template);
 		}
 
 		self.rebuild(true);
