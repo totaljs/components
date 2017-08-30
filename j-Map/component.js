@@ -1,7 +1,5 @@
 COMPONENT('map', function(self, config) {
 	// TODO: more makers (array), methods for add maker, remove maker, change maker animation
-	var animations = { drop: google.maps.Animation.DROP, bounce: google.maps.Animation.BOUNCE };
-
 	self.readonly();
 
 	self.prepare = function(lat, lng) {
@@ -18,38 +16,40 @@ COMPONENT('map', function(self, config) {
 	};
 
 	self.make = function() {
+		WAIT('google', function(again) {
+			var animations = { drop: google.maps.Animation.DROP, bounce: google.maps.Animation.BOUNCE }
+			var options = {};
 
-		var options = {};
+			options.zoom = config.zoom || 13;
+			options.scrollwheel = true;
+			options.streetViewControl = false;
+			options.mapTypeId = config.type || 'roadmap';
 
-		options.zoom = config.zoom || 13;
-		options.scrollwheel = true;
-		options.streetViewControl = false;
-		options.mapTypeId = config.type || 'roadmap';
+			self.map = new google.maps.Map(self.element.get(0), options);
+			self.geo = new google.maps.Geocoder();
 
-		self.map = new google.maps.Map(self.element.get(0), options);
-		self.geo = new google.maps.Geocoder();
+			options = { position: self.map.getCenter(), map: self.map };
+			options.draggable = config.draggable || false;
 
-		options = { position: self.map.getCenter(), map: self.map };
-		options.draggable = config.draggable || false;
+			if (config.animation)
+				options.animation = animations[config.animation];
 
-		if (config.animation)
-			options.animation = animations[config.animation];
+			if (config.icon)
+				options.icon = config.icon;
 
-		if (config.icon)
-			options.icon = config.icon;
+			self.marker = new google.maps.Marker(options);
 
-		self.marker = new google.maps.Marker(options);
+			google.maps.event.addListener(self.marker, 'click', function(e) {
+				var fn = config.click;
+				fn && self.get(fn)(self.prepare(e.latLng.lat(), e.latLng.lng()));
+			});
 
-		google.maps.event.addListener(self.marker, 'click', function(e) {
-			var fn = config.click;
-			fn && self.get(fn)(self.prepare(e.latLng.lat(), e.latLng.lng()));
-		});
+			if (!options.draggable)
+				return;
 
-		if (!options.draggable)
-			return;
-
-		google.maps.event.addListener(self.marker, 'dragend', function(e) {
-			self.set(self.prepare(e.latLng.lat(), e.latLng.lng()));
+			google.maps.event.addListener(self.marker, 'dragend', function(e) {
+				self.set(self.prepare(e.latLng.lat(), e.latLng.lng()));
+			});
 		});
 	};
 
