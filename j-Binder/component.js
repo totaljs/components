@@ -26,10 +26,19 @@ COMPONENT('binder', function(self) {
 			var element = item.selector ? item.element.find(item.selector) : item.element;
 			template.value = value;
 			item.classes && classes(element, item.classes(value));
-			item.visible && element.tclass('hidden', item.visible(value) ? false : true);
-			item.html && element.html(item.Ta ? item.html(template) : item.html(value));
-			item.disable && element.prop('disabled', item.disable(value));
-			item.src && element.attr('src', item.src(value));
+
+			var is = true;
+
+			if (item.visible) {
+				is = item.visible(value) ? true : false;
+				element.tclass('hidden', !is);
+			}
+
+			if (is) {
+				item.html && element.html(item.Ta ? item.html(template) : item.html(value));
+				item.disable && element.prop('disabled', item.disable(value));
+				item.src && element.attr('src', item.src(value));
+			}
 		});
 	};
 
