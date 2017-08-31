@@ -48,7 +48,7 @@ COMPONENT('notify', 'timeout:3000', function(self, config) {
 	self.autoclose = function() {
 
 		if (autoclosing)
-			return self;
+			return;
 
 		autoclosing = setTimeout(function() {
 			clearTimeout(autoclosing);
