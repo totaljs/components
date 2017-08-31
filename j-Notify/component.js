@@ -4,7 +4,7 @@ COMPONENT('notify', 'timeout:3000', function(self, config) {
 
 	self.singleton();
 	self.readonly();
-	self.template = Tangular.compile('<div class="ui-notify ui-notify-{{ type }}" data-id="{{ id }}"><div class="ui-notify-icon"><i class="fa {{ icon }}"></i></div><div class="ui-notify-message">{{ message }}</div>');
+	self.template = Tangular.compile('<div class="ui-notify ui-notify-{{ type }}" data-id="{{ id }}"><div class="ui-notify-icon"><i class="fa {{ icon }}"></i></div><div class="ui-notify-message">{{ message | raw }}</div>');
 	self.items = {};
 
 	self.make = function() {
