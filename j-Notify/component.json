@@ -1,0 +1,16 @@
+{
+	"datecreated": "2017-08-31T12:36:00.000Z",
+	"dateupdated": null,
+	"name": "j-Notify",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

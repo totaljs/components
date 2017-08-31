@@ -1,0 +1,18 @@
+<div data-jc="notify"></div>
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia harum accusamus debitis aut sunt, deserunt magni alias neque unde reprehenderit ipsa ea laboriosam eveniet! Distinctio pariatur sed, a aut nobis.
+
+<script>
+
+	FIND('notify', function(component) {
+		component.append('This is "success" message.');
+	});
+
+	setTimeout(function() {
+		FIND('notify').append('This is "warning" message.', 2);
+	}, 3000);
+
+	setTimeout(function() {
+		FIND('notify').append('This is "info" message.', 3);
+	}, 6000);
+</script>
