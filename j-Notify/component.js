@@ -47,7 +47,6 @@ COMPONENT('notify', 'timeout:3000', function(self, config) {
 
 	self.autoclose = function() {
 
-		return;
 		if (autoclosing)
 			return self;
 
