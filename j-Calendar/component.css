@@ -1,5 +1,5 @@
 .ui-calendar * { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; font-size:12px; }
-.ui-calendar { font-size: 12px; position: absolute; background-color: white; width: 250px; height: 270px; border: 1px solid #E0E0E0; left: 100px; top: 100px; padding: 10px; border-radius: 2px; z-index: 6; color: gray; }
+.ui-calendar { font-size: 12px; position: absolute; background-color: white; width: 250px; height: 270px; border: 1px solid #E0E0E0; left: 100px; top: 100px; padding: 10px; border-radius: 2px; z-index: 100; color: gray; box-shadow: 0 5px 25px rgba(0,0,0,0.1); }
 .ui-calendar table { width: 100%; margin-bottom: 10px; }
 .ui-calendar table td { padding: 5px 0; text-align: center; vertical-align: middle; }
 .ui-calendar table th { padding: 8px 0 5px; text-align: center; width: 14%; border-top: 1px solid #E0E0E0; vertical-align: middle; }
