@@ -33,11 +33,11 @@ COMPONENT('modal', function(self) {
 	self.setter = function() {
 
 		setTimeout2(self.id + '.scroll', function() {
-			$('html').toggleClass('ui-modal-noscroll', $('.ui-modal-container').not('.hidden').length ? true : false);
+			$('html').tclass('ui-modal-noscroll', $('.ui-modal-container').not('.hidden').length ? true : false);
 		}, 100);
 
 		var isHidden = !EVALUATE(self.path, self.condition);
-		if (self.element.hasClass('hidden') && isHidden)
+		if (self.hclass('hidden') && isHidden)
 			return;
 
 		EMIT('reflow', self.name);

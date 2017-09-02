@@ -17,7 +17,7 @@ COMPONENT('page', function(self, config) {
 
 		if (type === 2 || !is) {
 			self.tclass('hidden', !is);
-			is && config.reload && self.get(config.reload)();
+			is && config.reload && EXEC(config.reload);
 			self.release(!is);
 			EMIT('resize');
 			return;
@@ -34,7 +34,7 @@ COMPONENT('page', function(self, config) {
 				typeof(fn) === 'function' && fn(self);
 			}
 
-			config.reload && self.get(config.reload)();
+			config.reload && EXEC(config.reload);
 
 			setTimeout(function() {
 				self.tclass('hidden', !is);

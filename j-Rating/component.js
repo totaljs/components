@@ -22,9 +22,9 @@ COMPONENT('rating', function(self) {
 		self.find('.fa').each(function(counter) {
 			var el = $(this);
 			if (counter > index)
-				el.removeClass(iok).addClass(ino);
+				el.rclass(iok).aclass(ino);
 			else
-				el.removeClass(ino).addClass(iok);
+				el.rclass(ino).aclass(iok);
 		});
 	};
 });

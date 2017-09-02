@@ -28,8 +28,8 @@ COMPONENT('multioptions', function(self) {
 
 		self.event('click', '.multioptions-operation', function(e) {
 			var el = $(this);
-			var name = el.attr('data-name');
-			var type = el.attr('data-type');
+			var name = el.attrd('name');
+			var type = el.attrd('type');
 
 			e.stopPropagation();
 
@@ -43,23 +43,23 @@ COMPONENT('multioptions', function(self) {
 			}
 
 			if (type === 'color') {
-				el.parent().find('.selected').removeClass('selected');
-				el.addClass('selected');
+				el.parent().find('.selected').rclass('selected');
+				el.aclass('selected');
 				self.$save();
 				return;
 			}
 
 			if (type === 'boolean') {
-				el.toggleClass('checked');
+				el.tclass('checked');
 				self.$save();
 				return;
 			}
 
 			if (type === 'number') {
 				var input = el.parent().parent().find('input');
-				var step = (el.attr('data-step') || '0').parseInt();
-				var min = el.attr('data-min');
-				var max = el.attr('data-max');
+				var step = (el.attrd('step') || '0').parseInt();
+				var min = el.attrd('min');
+				var max = el.attrd('max');
 
 				if (!step)
 					step = 1;
@@ -155,37 +155,37 @@ COMPONENT('multioptions', function(self) {
 			var opt = mapping[key];
 			var el = values.filter('[data-name="{0}"]'.format(opt.name));
 
-			if (el.hasClass('ui-moi-value-colors')) {
-				obj[key] = el.find('.selected').attr('data-value');
+			if (el.hclass('ui-moi-value-colors')) {
+				obj[key] = el.find('.selected').attrd('value');
 				return;
 			}
 
-			if (el.hasClass('ui-moi-value-boolean')) {
-				obj[key] = el.hasClass('checked');
+			if (el.hclass('ui-moi-value-boolean')) {
+				obj[key] = el.hclass('checked');
 				return;
 			}
 
-			if (el.hasClass('ui-moi-date')) {
+			if (el.hclass('ui-moi-date')) {
 				obj[key] = el.val().parseDate();
 				return;
 			}
 
-			if (el.hasClass('ui-moi-value-inputtext')) {
+			if (el.hclass('ui-moi-value-inputtext')) {
 				obj[key] = el.val();
 				return;
 			}
 
-			if (el.hasClass('ui-moi-value-numbertext')) {
+			if (el.hclass('ui-moi-value-numbertext')) {
 				obj[key] = el.val().parseInt();
 				return;
 			}
 
-			if (el.hasClass('ui-moi-value-numbertext')) {
+			if (el.hclass('ui-moi-value-numbertext')) {
 				obj[key] = el.val().parseInt();
 				return;
 			}
 
-			if (el.hasClass('ui-multioptions-select')) {
+			if (el.hclass('ui-multioptions-select')) {
 				var index = el.val().parseInt();
 				var val = opt.values[index];
 				obj[key] = val ? val.value : null;
@@ -253,8 +253,8 @@ COMPONENT('multioptions', function(self) {
 
 		self.find('.ui-moi-value-colors').each(function() {
 			var el = $(this);
-			var value = el.attr('data-value');
-			el.find('[data-value="{0}"]'.format(value)).addClass('selected');
+			var value = el.attrd('value');
+			el.find('[data-value="{0}"]'.format(value)).aclass('selected');
 		});
 	};
 });

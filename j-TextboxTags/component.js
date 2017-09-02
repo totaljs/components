@@ -27,7 +27,7 @@ COMPONENT('textboxtags', function(self, config) {
 				self.find('input').prop('disabled', value);
 				break;
 			case 'required':
-				self.find('.ui-textboxtags-label').toggleClass('ui-textboxtags-label-required', value);
+				self.find('.ui-textboxtags-label').tclass('ui-textboxtags-label-required', value);
 				self.state(1, 1);
 				break;
 			case 'icon':
@@ -198,6 +198,6 @@ COMPONENT('textboxtags', function(self, config) {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		self.find('.ui-textboxtags').toggleClass('ui-textboxtags-invalid', invalid);
+		self.find('.ui-textboxtags').tclass('ui-textboxtags-invalid', invalid);
 	};
 });

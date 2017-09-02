@@ -61,9 +61,9 @@ COMPONENT('selectbox', function(self, config) {
 		var search = config.search ? self.find('input').val().toSearch() : '';
 		Eitems.find('li').each(function() {
 			var el = $(this);
-			el.toggleClass('hidden', el.attr('data-search').indexOf(search) === -1);
+			el.tclass('hidden', el.attrd('search').indexOf(search) === -1);
 		});
-		self.find('.ui-selectbox-search-icon').toggleClass('fa-search', search.length === 0).toggleClass('fa-times', search.length > 0);
+		self.find('.ui-selectbox-search-icon').tclass('fa-search', search.length === 0).tclass('fa-times', search.length > 0);
 	};
 
 	self.redraw = function() {
@@ -164,8 +164,8 @@ COMPONENT('selectbox', function(self, config) {
 
 		Eitems.find('li').each(function() {
 			var el = $(this);
-			var index = +el.attr('data-index');
-			el.toggleClass('ui-selectbox-selected', selected[index] !== undefined);
+			var index = +el.attrd('index');
+			el.tclass('ui-selectbox-selected', selected[index] !== undefined);
 		});
 
 		Eselected.empty().append(builder.join(''));

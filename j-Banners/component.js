@@ -14,8 +14,8 @@ COMPONENT('banners', function(self) {
 		}, +(self.attrd('interval') || '3000'));
 
 		divs = self.find('div > div');
-		divs.addClass(cls);
-		divs.eq(0).removeClass(cls);
+		divs.aclass(cls);
+		divs.eq(0).rclass(cls);
 
 		var builder = [];
 		for (var i = 0, length = divs.length; i < length; i++)
@@ -41,13 +41,13 @@ COMPONENT('banners', function(self) {
 			index = indexer;
 		}
 
-		divs.filter(':visible').addClass(cls);
-		divs.eq(index).removeClass(cls);
+		divs.filter(':visible').aclass(cls);
+		divs.eq(index).rclass(cls);
 		self.button(index);
 	};
 
 	self.button = function(index) {
-		nav.find('.fa-circle').removeClass('fa-circle').addClass('fa-circle-o');
-		nav.eq(index).find('i').removeClass('fa-circle-o').addClass('fa-circle');
+		nav.find('.fa-circle').rclass('fa-circle').aclass('fa-circle-o');
+		nav.eq(index).find('i').rclass('fa-circle-o').aclass('fa-circle');
 	};
 });

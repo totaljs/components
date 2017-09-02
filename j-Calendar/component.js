@@ -178,8 +178,8 @@ COMPONENT('calendar', 'today:Set today;firstday:0', function(self, config) {
 		self.event('click', '.ui-calendar-day', function() {
 			var arr = this.getAttribute('data-date').split('-');
 			var dt = new Date(parseInt(arr[0]), parseInt(arr[1]), parseInt(arr[2]));
-			self.find('.ui-calendar-selected').removeClass('ui-calendar-selected');
-			$(this).addClass('ui-calendar-selected');
+			self.find('.ui-calendar-selected').rclass('ui-calendar-selected');
+			$(this).aclass('ui-calendar-selected');
 			skip = true;
 			self.hide();
 			self.click && self.click(dt);

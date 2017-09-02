@@ -1,6 +1,5 @@
-COMPONENT('contentslider', function() {
+COMPONENT('contentslider', function(self) {
 
-	var self = this;
 	var cssv = 'ui-contentslider-item-visible';
 	var cssi = 'ui-contentslider-item';
 	var cssp = 'ui-contentslider-pagination';
@@ -22,7 +21,7 @@ COMPONENT('contentslider', function() {
 		self.refresh();
 		container = self.find('.ui-contentslider-items');
 
-		var id = self.attr('data-id');
+		var id = self.attrd('id');
 		var indexer = 0;
 
 		if (id) {
@@ -35,7 +34,7 @@ COMPONENT('contentslider', function() {
 
 		self.event('click', '.fa', function() {
 			clearInterval(interval);
-			self.show($(this).attr('data-index').parseInt());
+			self.show($(this).attrd('index').parseInt());
 		});
 
 		interval = setInterval(function() {
@@ -44,7 +43,7 @@ COMPONENT('contentslider', function() {
 			self.show(indexer++);
 			if (indexer > length)
 				indexer = 0;
-		}, +(self.attr+('interval') || '3000'));
+		}, +(self.attrd+('interval') || '3000'));
 	};
 
 	self.refresh = function(noredraw) {
@@ -64,12 +63,12 @@ COMPONENT('contentslider', function() {
 
 		var current = self.find('.' + cssv);
 		var next = self.find('.' + cssi).eq(index);
-		current.removeClass(cssv);
-		next.addClass(cssv);
+		current.rclass(cssv);
+		next.aclass(cssv);
 		css['min-height'] = next.height();
 		container.css(css);
-		self.find('.' + cssp + '-selected').removeClass(cssp + '-selected');
-		self.find('.' + cssp).find('i').eq(index).addClass(cssp + '-selected');
+		self.find('.' + cssp + '-selected').rclass(cssp + '-selected');
+		self.find('.' + cssp).find('i').eq(index).aclass(cssp + '-selected');
 		cacheid && CACHE(cacheid, index, '1 day');
 	};
 });
