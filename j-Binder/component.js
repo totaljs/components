@@ -20,8 +20,14 @@ COMPONENT('binder', function(self) {
 
 	self.autobind = function(path) {
 		var mapper = keys[path];
+
+		if (!mapper)
+			return;
+
 		var template = {};
-		mapper && mapper.forEach(function(item) {
+
+		for (var i = 0, length = mapper.length; i < length; i++) {
+			var item = mapper[i];
 			var value = self.get(item.path);
 			var element = item.selector ? item.element.find(item.selector) : item.element;
 			template.value = value;
@@ -39,7 +45,7 @@ COMPONENT('binder', function(self) {
 				item.disable && element.prop('disabled', item.disable(value));
 				item.src && element.attr('src', item.src(value));
 			}
-		});
+		}
 	};
 
 	function classes(element, val) {
