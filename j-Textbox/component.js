@@ -203,6 +203,10 @@ COMPONENT('textbox', function(self, config) {
 		}, 100);
 	};
 
+	self.formatter(function(path, value) {
+		return config.type === 'date' ? (value ? value.format(config.format || 'yyyy-MM-dd') : value) : value;
+	});
+
 	self.state = function(type) {
 		if (!type)
 			return;
