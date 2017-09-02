@@ -1,4 +1,4 @@
-COMPONENT('calendar', function(self, config) {
+COMPONENT('calendar', 'today:Set today;firstday:0', function(self, config) {
 
 	var skip = false;
 	var skipDay = false;
