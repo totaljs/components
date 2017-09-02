@@ -3,9 +3,7 @@ COMPONENT('range', function(self, config) {
 	var content = '';
 
 	self.validate = function(value) {
-		if (!config.required || config.disabled)
-			return true;
-		return value != 0;
+		return !config.required || config.disabled ? true : value != 0;
 	};
 
 	self.configure = function(key, value, init, prev) {
