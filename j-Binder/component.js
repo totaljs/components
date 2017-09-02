@@ -76,7 +76,7 @@ COMPONENT('binder', function(self) {
 		self.find('[data-b]').each(function() {
 
 			var el = $(this);
-			var path = el.attrd('b');
+			var path = el.attrd('b').replace('%', 'jctmp.');
 			var arr = path.split('.');
 			var p = '';
 
