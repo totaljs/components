@@ -1,5 +1,5 @@
 <div data-jc="modificator">
-	<div><a href="javascript:void(0)" class="modify" data-m="obj.a" data-m-schema="link">Click 1</a> second: <a href="javascript:void(0)" class="modify" data-m="obj.a" data-m-schema="link">Click 2</a>
+	<div><a href="javascript:void(0)" class="modify" data-m="obj.a" data-m-schema="link">Click 1</a> second: <a href="javascript:void(0)" class="modify" data-m="obj.a" data-m-schema="link">Click 2</a></div>
 	<br />
 	<div><button class="modify" data-m="obj.b" data-m-schema="button"><i></i><b>Submit</b></button></div>
 </div>
@@ -11,7 +11,6 @@
 	// Register modificator schemas
 
 	SETTER(true, 'modificator', 'register', 'link', function(value, element, e) {
-		console.log('link', element);
 		switch (e.type) {
 			case 'init':
 				break;
@@ -26,7 +25,6 @@
 	});
 
 	SETTER(true, 'modificator', 'register', 'button', function(value, element, e) {
-		console.log('button', element);
 		switch (e.type) {
 			case 'init':
 				e.icon = element.find('i');
