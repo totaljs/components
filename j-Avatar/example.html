@@ -37,8 +37,8 @@ COMPONENT('avatar', function(self, config) {
 	self.readonly();
 
 	self.make = function() {
-		var name = self.attr('data-jc-username') || 'Unkown';
-		var img = self.attr('data-jc-image') || null;
+		var name = config.username || 'Unkown';
+		var img = config.image || null;
 		var initials = name.match(/\b\w/g) || [];
 		initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
 
@@ -97,25 +97,25 @@ COMPONENT('avatar', function(self, config) {
 	</script>
 
 	<div class="default-avatar">
-		<div data-jc="avatar" data-jc-image="https://avatars3.githubusercontent.com/u/7585285?v=4&s=460"></div>
+		<div data-jc="avatar" data-jc-config="image:https\:\/\/avatars3.githubusercontent.com\/u\/7585285?v=4&s=460"></div>
 	</div>
 	<div class="default-avatar">
-		<div data-jc="avatar" data-jc-username='Peter Petrovič' data-jc-config="rounded:false;lighten:255;background:#000000"></div>
+		<div data-jc="avatar" data-jc-config="username:Peter Petrovič;rounded:false;lighten:255;background:#000000"></div>
 	</div>
 	<div class="default-avatar">
-		<div data-jc="avatar" data-jc-username='Austin Forch' data-jc-image="https://avatars3.githubusercontent.com/u/7585285?v=4&s=460"></div>
+		<div data-jc="avatar" data-jc-config="username:Austin Forch;image:https://avatars3.githubusercontent.com/u/7585285?v=4&s=460"></div>
 	</div>
 	<div class="default-avatar">
-		<div data-jc="avatar" data-jc-username='Denis Oliver'></div>
+		<div data-jc="avatar" data-jc-config="username:Denis Oliver"></div>
 	</div>
 	<div class="default-avatar">
-		<div data-jc="avatar" data-jc-username='Kristle Leverone'></div>
+		<div data-jc="avatar" data-jc-config="username:Kristle Leverone"></div>
 	</div>	
 	<div class="default-avatar">
-		<div data-jc="avatar" data-jc-username='Denis' data-jc-config="size:75;color:#000000"></div>
+		<div data-jc="avatar" data-jc-config="username:Denis;size:75;color:#000000"></div>
 	</div>	
 	<div class="default-avatar">
-		<div data-jc="avatar" data-jc-username='Peter Petrovič Martin' data-jc-config="radius:10"></div>
+		<div data-jc="avatar" data-jc-config="username:Peter Petrovič Martin;radius:10"></div>
 	</div>	
 	<script>
 
