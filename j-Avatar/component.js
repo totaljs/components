@@ -17,8 +17,8 @@ COMPONENT('avatar', function(self, config) {
 	self.readonly();
 
 	self.make = function() {
-		var name = self.attr('data-jc-username') || 'Unkown';
-		var img = self.attr('data-jc-image') || null;
+		var name = config.username || 'Unkown';
+		var img = config.image || null;
 		var initials = name.match(/\b\w/g) || [];
 		initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
 
