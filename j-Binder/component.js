@@ -28,7 +28,7 @@ COMPONENT('binder', function(self) {
 
 		for (var i = 0, length = mapper.length; i < length; i++) {
 			var item = mapper[i];
-			var value = self.get(item.path);
+			var value = GET(item.path);
 			var element = item.selector ? item.element.find(item.selector) : item.element;
 			template.value = value;
 			item.classes && classes(element, item.classes(value));
@@ -136,7 +136,7 @@ COMPONENT('binder', function(self) {
 		});
 
 		Object.keys(keys_unique).forEach(function(key) {
-			self.autobind(key, self.get(key));
+			self.autobind(key, GET(key));
 		});
 
 		return self;
