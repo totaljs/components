@@ -178,7 +178,7 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 		container.height(height - (config.pagination ? 124 : 74));
 		eheight = height;
 
-		var count = (height / 28) >> 0;
+		var count = (height / 32) >> 0;
 		if (count > value.length) {
 			self.fill((count + 1) - value.length);
 			container.aclass('ui-grid-noscroll');
