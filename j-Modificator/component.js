@@ -21,14 +21,13 @@ COMPONENT('modificator', function(self) {
 		$(document).on('click', '.modify', function() {
 			var el = $(this);
 			var item = el.data('data-m');
-			if (item) {
+			if (item && item.init) {
 				item.event.type = 'click';
 				item.event.bindtype = -1;
 				var schema = db[item.schema];
 				schema && schema(GET(item.path), item.selector ? item.element.find(item.selector) : item.element, item.event);
 			}
 		});
-
 	};
 
 	self.autobind = function(path, value, type) {
@@ -44,11 +43,35 @@ COMPONENT('modificator', function(self) {
 			item.event.bindtype = type;
 			schema && schema(GET(item.path), item.selector ? item.element.find(item.selector) : item.element, item.event);
 		}
+	};
 
+	self.reinit = function(path) {
+		var arr = keys[path];
+		for (var i = 0, length = arr.length; i < length; i++) {
+			var obj = arr[i];
+			obj.event.type = 'init';
+			obj.event.bindtype = -1;
+			var schema = db[obj.schema];
+			schema && schema(GET(obj.path), obj.selector ? obj.element.find(obj.selector) : obj.element, obj.event);
+		}
+		return self;
 	};
 
 	self.register = function(name, fn) {
 		db[name] = fn;
+		var paths = Object.keys(keys);
+		for (var i = 0, length = paths.length; i < length; i++) {
+			var arr = keys[paths[i]];
+			for (var j = 0, jl = arr.length; j < jl; j++) {
+				var obj = arr[j];
+				if (obj.init || obj.schema !== name)
+					continue;
+				obj.init = true;
+				obj.event.type = 'init';
+				obj.event.bindtype = -1;
+				fn(GET(obj.path), obj.selector ? obj.element.find(obj.selector) : obj.element, obj.event);
+			}
+		}
 		return self;
 	};
 
@@ -73,8 +96,12 @@ COMPONENT('modificator', function(self) {
 				obj.selector = el.attr('m-selector');
 				obj.element = el;
 				obj.event = { type: 'init' };
+				obj.init = false;
 				el.data('data-m', obj);
-				db[obj.schema] && db[obj.schema](GET(self.path), obj.selector ? obj.element.find(obj.selector) : obj.element, obj.event);
+				if (db[obj.schema]) {
+					obj.init = true;
+					db[obj.schema](GET(obj.path), obj.selector ? obj.element.find(obj.selector) : obj.element, obj.event);
+				}
 			}
 
 			for (var i = 0, length = arr.length; i < length; i++) {
