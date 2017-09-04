@@ -52,10 +52,13 @@
 	// Only for test
 	$(document).on('click', '.modify', function(e) {
 		var path = $(this).attr('data-m');
-		if (path === 'obj.a')
-			SET(path, true, 3000);
-		else
+		if (path === 'obj.a') {
 			SET(path, 'Success', 3000);
+		} else {
+			SET(path, true, 3000);
+			SET(path, null, 5000);
+		}
 	});
+
 
 </script>
