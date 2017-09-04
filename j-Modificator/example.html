@@ -1,0 +1,59 @@
+<div data-jc="modificator">
+	<div><a href="javascript:void(0)" class="modify" data-m="obj.a" data-m-schema="link">Click 1</a> second: <a href="javascript:void(0)" class="modify" data-m="obj.a" data-m-schema="link">Click 2</a>
+	<div><button class="modify" data-m="obj.b" data-m-schema="button"><i></i><b>Submit</b></button></div>
+</div>
+
+<script>
+
+	STYLE('.sending{color:black;font-weight:bold;cursor:not-allowed}.done{color:green;font-weight:bold;}');
+
+	// Register modificator schemas
+
+	SETTER(true, 'modificator', 'register', 'link', function(value, element, e) {
+		switch (e.type) {
+			case 'init':
+				break;
+			case 'click':
+				element.aclass('sending').html('Sending...');
+				break;
+			default:
+				element.rclass().aclass('done').html(value);
+				break;
+		}
+
+	});
+
+	SETTER(true, 'modificator', 'register', 'button', function(value, element, e) {
+		switch (e.type) {
+			case 'init':
+				e.icon = element.find('i');
+				e.html = element.html();
+				break;
+			case 'click':
+				e.icon.rclass().aclass('fa fa-spin fa-refresh');
+				element.prop('disabled', true).find('b').html('Sending...');
+				break;
+			default:
+				e.icon.rclass();
+				e.icon.aclass('fa ' + (value ? 'fa-check-circle' : 'fa-times-circle'));
+				element.prop('disabled', false);
+				element.find('b').html(e.html);
+				break;
+		}
+	});
+
+	var obj = {};
+
+	obj.a = false;
+	obj.b = 1;
+
+	// Only for test
+	$(document).on('click', '.modify', function(e) {
+		var path = $(this).attr('data-m');
+		if (path === 'obj.a')
+			SET(path, true, 3000);
+		else
+			SET(path, 'Success', 3000);
+	});
+
+</script>
