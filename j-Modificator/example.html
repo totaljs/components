@@ -18,7 +18,8 @@
 				element.aclass('sending').html('Sending...');
 				break;
 			default:
-				element.rclass().aclass('done').html(value);
+				if (value != null)
+					element.rclass().aclass('done').html(value);
 				break;
 		}
 
@@ -46,8 +47,8 @@
 
 	var obj = {};
 
-	obj.a = false;
-	obj.b = 1;
+	obj.a = null;
+	obj.b = null;
 
 	// Only for test
 	$(document).on('click', '.modify', function(e) {
