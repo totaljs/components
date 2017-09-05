@@ -99,14 +99,13 @@ COMPONENT('modificator', function(self) {
 			var p = '';
 
 			var obj = el.data('data-m');
-
 			keys_unique[path] = true;
 
 			if (!obj) {
 				obj = {};
 				obj.path = path;
 				obj.schema = el.attrd('m-schema');
-				obj.selector = el.attr('m-selector');
+				obj.selector = el.attrd('m-selector');
 				obj.element = el;
 				obj.event = { type: 'init' };
 				obj.init = false;
