@@ -20,13 +20,7 @@ COMPONENT('modificator', function(self) {
 
 		$(document).on('click', '.modify', function() {
 			var el = $(this);
-			var item = el.data('data-m');
-			if (item && item.init) {
-				item.event.type = 'click';
-				item.event.bindtype = -1;
-				var schema = db[item.schema];
-				schema && schema(GET(item.path), item.selector ? item.element.find(item.selector) : item.element, item.event);
-			}
+			self.click(el.attrd('m'), el.attrd('m-schema'));
 		});
 	};
 
@@ -43,6 +37,25 @@ COMPONENT('modificator', function(self) {
 			item.event.bindtype = type;
 			schema && schema(GET(item.path), item.selector ? item.element.find(item.selector) : item.element, item.event);
 		}
+	};
+
+	self.click = function(path, schema) {
+		var fn = db[schema];
+		if (fn) {
+			var arr = keys[path];
+			if (arr) {
+				var val = GET(path);
+				for (var i = 0, length = arr.length; i < length; i++) {
+					var obj = arr[i];
+					if (obj.schema === schema) {
+						obj.event.type = 'click';
+						obj.event.bindtype = -1;
+						fn(val, obj.selector ? obj.element.find(obj.selector) : obj.element, obj.event);
+					}
+				}
+			}
+		}
+		return self;
 	};
 
 	self.reinit = function(path) {
