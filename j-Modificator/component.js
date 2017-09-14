@@ -41,6 +41,10 @@ COMPONENT('modificator', function(self) {
 	};
 
 	self.click = function(path, schema) {
+
+		if (path.substring(0, 1) === '%')
+			path = 'jctmp.' + path.substring(1);
+
 		var fn = db[schema];
 		if (fn) {
 			var arr = keys[path];

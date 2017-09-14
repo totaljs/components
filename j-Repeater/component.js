@@ -1,4 +1,4 @@
-COMPONENT('repeater', 'hidden:true', function(self, config) {
+COMPONENT('repeater', 'hidden:true;check:true', function(self, config) {
 
 	var filter = null;
 	var recompile = false;
@@ -30,6 +30,7 @@ COMPONENT('repeater', 'hidden:true', function(self, config) {
 		if (!value || !value.length) {
 			config.hidden && self.aclass('hidden');
 			self.empty();
+			self.cache = '';
 			return;
 		}
 
@@ -44,7 +45,15 @@ COMPONENT('repeater', 'hidden:true', function(self, config) {
 			}
 		}
 
-		self.html(builder.join(''));
+		var tmp = builder.join('');
+
+		if (config.check) {
+			if (tmp === self.cache)
+				return;
+			self.cache = tmp;
+		}
+
+		self.html(tmp);
 		config.hidden && self.rclass('hidden');
 		recompile && self.compile();
 	};
