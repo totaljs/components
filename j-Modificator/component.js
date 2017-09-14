@@ -1,5 +1,6 @@
 COMPONENT('modificator', function(self) {
 
+	var reg_search = /\+|\s/;
 	var keys, keys_unique;
 	var db = {};
 
@@ -95,8 +96,16 @@ COMPONENT('modificator', function(self) {
 
 			var el = $(this);
 			var path = (el.attrd('m') || '').replace('%', 'jctmp.');
-			var arr = path.split('.');
 			var p = '';
+			var schema = '';
+
+			if (reg_search.test(path)) {
+				var arr = path.split(reg_search);
+				path = arr[0];
+				schema = arr[1];
+			}
+
+			arr = path.split('.');
 
 			var obj = el.data('data-m');
 			keys_unique[path] = true;
@@ -104,7 +113,7 @@ COMPONENT('modificator', function(self) {
 			if (!obj) {
 				obj = {};
 				obj.path = path;
-				obj.schema = el.attrd('m-schema');
+				obj.schema = schema || el.attrd('m-schema');
 				obj.selector = el.attrd('m-selector');
 				obj.element = el;
 				obj.event = { type: 'init' };

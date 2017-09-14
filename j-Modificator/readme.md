@@ -7,6 +7,7 @@ __Supported attributes__:
 - `data-m="SOME.PATH"` - the component will watch this path
 - `data-m-schema="schema_name"` - modificator uses this registered schema
 - `data-m-selector=".ui-textbox-label"` (optional) a target element will be an element according to the selector (default: `null`)
+- __NEW UPDATE__: `data-m="SOME.PATH + schema_name"` this attribute can contain `path` and `schema_name` together
 
 __Supported classes__:
 
