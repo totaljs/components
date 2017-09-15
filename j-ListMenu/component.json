@@ -1,0 +1,16 @@
+{
+	"datecreated": "2017-09-15T10:35:00.000Z",
+	"dateupdated": null,
+	"name": "j-ListMenu",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}
