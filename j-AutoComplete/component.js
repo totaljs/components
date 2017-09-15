@@ -1,6 +1,6 @@
-COMPONENT('autocomplete', function(self) {
+COMPONENT('autocomplete', 'height:200', function(self, config) {
 
-	var container, old, onSearch, searchtimeout, searchvalue, blurtimeout, onCallback, datasource, offsetter = null;
+	var container, old, onSearch, searchtimeout, searchvalue, blurtimeout, onCallback, datasource, offsetter, scroller;
 	var is = false;
 	var margin = {};
 
@@ -11,6 +11,8 @@ COMPONENT('autocomplete', function(self) {
 	self.make = function() {
 		self.aclass('ui-autocomplete-container hidden');
 		self.html('<div class="ui-autocomplete"><ul></ul></div>');
+
+		scroller = self.find('.ui-autocomplete');
 		container = self.find('ul');
 
 		self.event('click', 'li', function(e) {
@@ -31,6 +33,15 @@ COMPONENT('autocomplete', function(self) {
 		$(window).on('resize', function() {
 			self.resize();
 		});
+	};
+
+	self.configure = function(name, value) {
+		switch (name) {
+			case 'height':
+				value && scroller.css('max-height', value);
+				console.log(scroller);
+				break;
+		}
 	};
 
 	function keydown(e) {
@@ -54,8 +65,10 @@ COMPONENT('autocomplete', function(self) {
 			return;
 		}
 
-		var current = self.find('.selected');
+		if (!datasource || !datasource.length)
+			return;
 
+		var current = self.find('.selected');
 		if (c === 13) {
 			self.visible(false);
 			if (current.length) {
@@ -74,9 +87,12 @@ COMPONENT('autocomplete', function(self) {
 			current = c === 40 ? current.next() : current.prev();
 		}
 
-		if (!current.length)
-			current = self.find('li:{0}-child'.format(c === 40 ? 'first' : 'last'));
+		!current.length && (current = self.find('li:{0}-child'.format(c === 40 ? 'first' : 'last')));
 		current.aclass('selected');
+		var index = +current.attr('data-index');
+		var h = current.innerHeight();
+		var offset = ((index + 1) * h) + (h * 2);
+		scroller.prop('scrollTop', offset > config.height ? offset - config.height : 0);
 	}
 
 	function blur() {
