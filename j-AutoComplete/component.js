@@ -39,7 +39,6 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 		switch (name) {
 			case 'height':
 				value && scroller.css('max-height', value);
-				console.log(scroller);
 				break;
 		}
 	};
