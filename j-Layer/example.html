@@ -1,0 +1,27 @@
+<div data-jc="layer" data-jc-path="common.layer" data-jc-config="if:layerA;title:Title for layer A" class="hidden">
+	<div class="ui-layer-body">
+		Layer A
+	</div>
+</div>
+
+<div data-jc="layer" data-jc-path="common.layer" data-jc-config="if:layerB;title:Title for layer B" class="hidden">
+	<div class="ui-layer-body">
+		Layer B
+	</div>
+</div>
+
+<div data-jc="layer" data-jc-path="common.layer" data-jc-config="if:layerC;title:Title for layer C" class="hidden">
+	<div class="ui-layer-body">
+		Layer C
+	</div>
+</div>
+
+<script>
+	var common = {};
+
+	// Show the layer
+	common.layer = [];
+	PUSH('common.layer', 'a', 1000);
+	PUSH('common.layer', 'b', 3000);
+	PUSH('common.layer', 'c', 6000);
+</script>

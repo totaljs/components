@@ -1,0 +1,11 @@
+.noscroll { overflow: hidden; }
+.hidden { display: none; }
+
+.ui-layer { position: fixed; right: -60px; top: 0; height: 100%; box-shadow: -10px 10px 20px rgba(0,0,0,0.1); transition: all 0.3s; opacity: 0; background-color: white; }
+.ui-layer-toolbar { height: 55px; border-bottom: 1px solid #E0E0E0; }
+.ui-layer-toolbar-back { border-right: 1px solid #E0E0E0; float: left; }
+.ui-layer-toolbar-back button { height: 54px; border: 0; background-color: white; cursor: pointer; width: 65px; transition: background 0.3s; outline: 0; color: red; }
+.ui-layer-toolbar-back button:hover { background-color: #E0E0E0; }
+.ui-layer-toolbar-caption { font-size: 18px; font-weight: bold; float: left; margin: 15px 0 0 20px; color: black; }
+.ui-layer-visible { right: 0; opacity: 1; }
+.ui-layer-body { overflow-x: hidden; overflow-y: auto; }
