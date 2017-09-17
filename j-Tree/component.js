@@ -1,4 +1,4 @@
-COMPONENT('tree', 'selected:selected', function(self, config) {
+COMPONENT('tree', 'selected:selected;autoreset:false', function(self, config) {
 
 	var cache = null;
 	var counter = 0;
@@ -117,6 +117,7 @@ COMPONENT('tree', 'selected:selected', function(self, config) {
 
 	self.setter = function(value) {
 
+		config.autoreset && self.clear();
 		var builder = [];
 
 		counter = 0;

@@ -6,6 +6,8 @@ Example: `data-jc-config="first:true;exec:your_callback"`
 
 - `first` {Boolean} selects the first tree item, default: `true` (optional)
 - `exec` {String} __required__: link to a function, this function is executed when the node is selected in the tree
+- `autoreset` {Boolean} resets state when datas-source is changed (optional, default: `false`)
+- `selected` {String} selected class (optional, default: `selected`)
 
 __Data structure__:
 
