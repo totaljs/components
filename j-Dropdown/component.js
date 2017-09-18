@@ -61,8 +61,7 @@ COMPONENT('dropdown', function(self, config) {
 				self.state(1, 1);
 				break;
 			case 'datasource':
-				datasource && self.unwatch(value, self.bind);
-				self.watch(value, self.bind, true);
+				self.datasource(value, self.bind);
 				break;
 			case 'label':
 				content = value;

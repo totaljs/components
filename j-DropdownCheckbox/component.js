@@ -47,10 +47,8 @@ COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
 				break;
 
 			case 'datasource':
-				var was = datasource;
-				was && self.unwatch(datasource, self.bind);
-				self.watch(value, self.bind, true);
-				was && self.refresh();
+				self.datasource(value, self.bind);
+				datasource && self.refresh();
 				datasource = value;
 				break;
 

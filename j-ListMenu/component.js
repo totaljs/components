@@ -11,9 +11,7 @@ COMPONENT('listmenu', 'class:selected;selector:a;property:id;click:true', functi
 	self.configure = function(name, value) {
 		switch (name) {
 			case 'datasource':
-				source && self.unwatch(source, self.rebind);
-				source = value;
-				value && self.watch(value, self.rebind, true);
+				self.datasource(value, self.rebind);
 				break;
 		}
 	};
