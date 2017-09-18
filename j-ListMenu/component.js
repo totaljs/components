@@ -1,6 +1,6 @@
 COMPONENT('listmenu', 'class:selected;selector:a;property:id;click:true', function(self, config) {
 
-	var source, old, oldvalue;
+	var old, oldvalue;
 
 	self.make = function() {
 		var scr = self.find('script');
@@ -30,11 +30,12 @@ COMPONENT('listmenu', 'class:selected;selector:a;property:id;click:true', functi
 			opt.index = i;
 			builder.push(self.template(item, opt));
 		}
+
 		self.html(builder.join(''));
 
 		config.click && self.find(config.selector).on('click', function() {
 			var index = $(this).index();
-			var item = self.get(source)[index];
+			var item = self.get(config.datasource)[index];
 			self.set(item[config.property]);
 		});
 
@@ -42,7 +43,7 @@ COMPONENT('listmenu', 'class:selected;selector:a;property:id;click:true', functi
 	};
 
 	self.setter = function(value) {
-		var arr = self.get(source);
+		var arr = self.get(config.datasource);
 		if (arr.length) {
 			if (value === oldvalue)
 				return;
