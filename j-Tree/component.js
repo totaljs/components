@@ -127,7 +127,7 @@ COMPONENT('tree', 'selected:selected;autoreset:false', function(self, config) {
 			counter++;
 			item.$pointer = counter;
 			cache[counter] = item;
-			builder.push('<div class="node{0}">'.format(expanded[counter] ? ' show' : '') + self.template(item));
+			builder.push('<div class="node{0}">'.format(expanded[counter] && item.children ? ' show' : '') + self.template(item));
 			if (item.children)
 				self.renderchildren(builder, item, 1);
 			else if (!cache.first)
