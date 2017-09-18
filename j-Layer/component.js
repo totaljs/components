@@ -13,6 +13,7 @@ COMPONENT('layer', 'offset:65;container:.ui-layer-body', function(self, config) 
 				$('.ui-layer').each(function() {
 					var el = $(this);
 					el.css('width', (w - config.offset) - (config.offset * (+el.attr('data-index'))));
+					el.component().resizecontent();
 				});
 			}, 100);
 		});
@@ -71,7 +72,9 @@ COMPONENT('layer', 'offset:65;container:.ui-layer-body', function(self, config) 
 		var el = config.container ? self.find(config.container) : EMPTYARRAY;
 		if (el.length) {
 			var h = $(W).height();
-			el.css('height', h - el.offset().top);
+			h = h - self.find('.ui-layer-toolbar').innerHeight();
+			el.css('height', h);
+			config.resize && EXEC(config.resize, h);
 		}
 	};
 
@@ -103,8 +106,8 @@ COMPONENT('layer', 'offset:65;container:.ui-layer-body', function(self, config) 
 		self.css(csspos);
 		self.attrd('index', index);
 		self.rclass('hidden');
-
 		config.reload && EXEC(config.reload);
+		config.default && DEFAULT(config.default, true);
 
 		setTimeout(function() {
 			self.aclass('ui-layer-visible');

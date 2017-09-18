@@ -18,6 +18,7 @@ Example: `data-jc-config="title:Form title;width:800;if:user;icon:home"`
 - `enter` {Boolean} (optional) captures `enter` key automatically and performs submit (default: `false`)
 - `center` {Boolean} (optional) centers the form to middle of screen
 - `autofocus` {Boolean/String} (optional) can focus an input. `String` === `jQuery selector` for the input
+- `default` {String} (optional) a short alias for `DEFAULT(default, true)`
 
 ### Author
 

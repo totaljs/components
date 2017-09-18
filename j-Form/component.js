@@ -137,6 +137,7 @@ COMPONENT('form', function(self, config) {
 		self.release(false);
 
 		config.reload && EXEC(config.reload, self);
+		config.default && DEFAULT(config.default, true);
 
 		if (!isMOBILE && config.autofocus) {
 			var el = self.find(config.autofocus === true ? 'input[type="text"],select,textarea' : config.autofocus);

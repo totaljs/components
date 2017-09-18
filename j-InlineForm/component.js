@@ -123,6 +123,7 @@ COMPONENT('inlineform', function(self, config) {
 			offset.top += offsetY;
 
 		config.reload && EXEC(config.reload, self);
+		config.default && DEFAULT(config.default, true);
 
 		self.find('.ui-inlineform-arrow').css('margin-left', ma);
 		self.css(offset);

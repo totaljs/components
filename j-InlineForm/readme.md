@@ -15,6 +15,7 @@ Example: `data-jc-config="title:Form title;width:200;icon:home"`
 - `submit` {String} link to a global function and it's executed if the submit button is pressed
 - `cancel` {String} link to a global function and it's executed if the cancel button is pressed
 - `enter` {Boolean} (optional) captures `enter` key automatically and performs submit (default: `false`)
+- `default` {String} (optional) a short alias for `DEFAULT(default, true)`
 
 __Methods__:
 
