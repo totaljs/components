@@ -10,3 +10,4 @@ Example: `data-jc-config="template:/home.html;if:home`
 - `if` {String} (required) condition, it's compared with the value within of `data-jc-path`
 - `reload` {String} (optional) a link to function in the `window` scope
 - `init` {String} (optional) a link to function in the `window` scope
+- `default` {String} (optional) a short alias for `DEFAULT(default, true)`

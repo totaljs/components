@@ -35,6 +35,7 @@ COMPONENT('page', function(self, config) {
 			}
 
 			config.reload && EXEC(config.reload);
+			config.default && DEFAULT(config.default, true);
 
 			setTimeout(function() {
 				self.tclass('hidden', !is);
