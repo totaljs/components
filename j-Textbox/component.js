@@ -96,7 +96,7 @@ COMPONENT('textbox', function(self, config) {
 
 		config.autofill && attrs.attr('name', self.path.replace(/\./g, '_'));
 		config.align && attrs.attr('class', 'ui-' + config.align);
-		config.autofocus && attrs.attr('autofocus');
+		!isMOBILE && config.autofocus && attrs.attr('autofocus');
 
 		builder.push('<input {0} />'.format(attrs.join(' ')));
 
