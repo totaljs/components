@@ -69,7 +69,9 @@ COMPONENT('inlineform', function(self, config) {
 		});
 
 		config.enter && self.event('keydown', 'input', function(e) {
-			e.which === 13 && !self.find('button[name="submit"]').get(0).disabled && self.submit(self.hide);
+			e.which === 13 && !self.find('button[name="submit"]').get(0).disabled && setTimeout(function() {
+				self.submit(self.hide);
+			}, 800);
 		});
 	};
 
