@@ -3,7 +3,7 @@
 This component can help with creating keyboard shortcuts. The component __is singleton__.
 
 __Methods__:
-- `component.register(shortcut, callback(e))` - registers a new shortcut
+- `component.register(shortcut, callback(e), [prevent])` - registers a new shortcut
 
 __Shortcuts__:
 - `enter`

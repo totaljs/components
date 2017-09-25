@@ -2,7 +2,6 @@ COMPONENT('shortcuts', function(self) {
 
 	var items = [];
 	var length = 0;
-	var stop = {};
 
 	self.singleton();
 	self.readonly();
@@ -11,21 +10,24 @@ COMPONENT('shortcuts', function(self) {
 	self.make = function() {
 		$(window).on('keydown', function(e) {
 			if (length) {
-				setTimeout2(self.id, function() {
-					for (var i = 0; i < length; i++)
-						items[i].fn(e) && items[i].callback(e);
-				}, 100);
 
-				// Disables F-keys
-				if (stop[e.key]) {
-					e.stopPropagation();
-					e.preventDefault();
+				for (var i = 0; i < length; i++) {
+					var o = items[i];
+					if (o.fn(e)) {
+						if (o.prevent) {
+							e.preventDefault();
+							e.stopPropagation();
+						}
+						setTimeout(function(o, e) {
+							o.callback(e);
+						}, 100, o, e);
+					}
 				}
 			}
 		});
 	};
 
-	self.register = function(shortcut, callback) {
+	self.register = function(shortcut, callback, prevent) {
 		var builder = [];
 		shortcut.split('+').trim().forEach(function(item) {
 			var lower = item.toLowerCase();
@@ -33,7 +35,7 @@ COMPONENT('shortcuts', function(self) {
 				case 'ctrl':
 				case 'alt':
 				case 'shift':
-					builder.push('e.{0}Key').format(lower);
+					builder.push('e.{0}Key'.format(lower));
 					return;
 				case 'win':
 				case 'meta':
@@ -83,7 +85,6 @@ COMPONENT('shortcuts', function(self) {
 				case 'f12':
 					var a = item.toUpperCase();
 					builder.push('e.key===\'{0}\''.format(a));
-					stop[a] = true;
 					return;
 				case 'capslock':
 					builder.push('e.which===20');
@@ -98,7 +99,7 @@ COMPONENT('shortcuts', function(self) {
 
 		});
 
-		items.push({ fn: new Function('e', 'return ' + builder.join('&&')), callback: callback });
+		items.push({ fn: new Function('e', 'return ' + builder.join('&&')), callback: callback, prevent: true });
 		length = items.length;
 		return self;
 	};
