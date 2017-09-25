@@ -5,7 +5,7 @@ COMPONENT('tree', 'selected:selected;autoreset:false', function(self, config) {
 	var expanded = {};
 	var selindex = -1;
 
-	self.template = Tangular.compile('<div class="item{{ if children }} expand{{ fi }}" data-index="{{ $pointer }}"><i class="fa fa-{{ if children }}folder{{ else }}file-o{{ fi }}"></i>{{ name }}</div>');
+	self.template = Tangular.compile('<div class="item{{ if children }} expand{{ fi }}" title="{{ name }}" data-index="{{ $pointer }}"><i class="fa {{ if children }}ui-tree-folder{{ else }}fa-file-o{{ fi }}"></i>{{ name }}</div>');
 	self.readonly();
 
 	self.make = function() {
@@ -24,7 +24,6 @@ COMPONENT('tree', 'selected:selected;autoreset:false', function(self, config) {
 			var parent = el.parent();
 			parent.tclass('show');
 			var is = expanded[index] = parent.hclass('show');
-			el.find('.fa').tclass('fa-folder', !is).tclass('fa-folder-open', is);
 			config.exec && EXEC(config.exec, cache[index], true, is);
 		} else {
 			!el.hclass(cls) && self.find('.' + cls).rclass(cls);

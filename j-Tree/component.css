@@ -9,6 +9,9 @@
 .ui-tree .show > .item { font-weight: bold; background-color: #F8F8F8; }
 .ui-tree .selected { background-color: #FFE7A1 !important; }
 
+.ui-tree .ui-tree-folder:before { content: '\f07b'; }
+.ui-tree .show > .expand .ui-tree-folder:before { content: '\f07c'; }
+
 .ui-tree .children1 .item { padding-left: 33px; }
 .ui-tree .children2 .item { padding-left: 48px; }
 .ui-tree .children3 .item { padding-left: 63px; }
