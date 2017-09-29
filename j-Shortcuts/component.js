@@ -99,7 +99,7 @@ COMPONENT('shortcuts', function(self) {
 
 		});
 
-		items.push({ fn: new Function('e', 'return ' + builder.join('&&')), callback: callback, prevent: true });
+		items.push({ fn: new Function('e', 'return ' + builder.join('&&')), callback: callback, prevent: prevent });
 		length = items.length;
 		return self;
 	};
