@@ -1,12 +1,12 @@
 {
 	"datecreated": "2016-09-01T23:55:00.000Z",
-	"dateupdated": "2017-08-01T14:18:00.000Z",
+	"dateupdated": "2017-10-02T19:50:00.000Z",
 	"name": "j-PictureUpload",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 1,
+	"version": 2,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

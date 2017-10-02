@@ -1,4 +1,4 @@
-COMPONENT('pictureupload', function(self, config) {
+COMPONENT('pictureupload', 'extension:false;singlefile:true', function(self, config) {
 
 	var empty, img, canvas, content = null;
 
@@ -103,7 +103,18 @@ COMPONENT('pictureupload', function(self, config) {
 
 			self.change();
 			el.value = '';
-			self.set(response);
+
+
+      if (config.extension) {
+        for (var i = 0, length = response.length; i < length; i++) {
+          var filename = response[i]
+          var index = filename.lastIndexOf('.')
+          if (index === -1) { continue }
+          response[i] = filename.substring(0, index)
+        }
+      }
+
+      self.set((config.singlefile ? response[0] : response));
 		});
 	};
 
