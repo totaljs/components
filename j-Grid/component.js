@@ -114,6 +114,7 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 
 		var size = 0;
 		var columns = options.columns;
+		var scrollbar = SCROLLBARWIDTH();
 
 		for (var i = 0, length = columns.length; i < length; i++) {
 			var col = columns[i];
@@ -132,6 +133,11 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 				filter.push('<th class="ui-grid-columnfilterempty ui-grid-columnfilter{1}" style="width:{0}%">&nbsp;</th>'.format(width, col.class ? ' ' + col.class : ''));
 			else
 				filter.push('<th class="ui-grid-columnfilter{4}" style="width:{0}%"><input type="text" placeholder="{3}" name="{2}" autocomplete="off" class="ui-grid-filter" /></th>'.format(width, i, col.name, col.filter || config.filterlabel, col.class ? ' ' + col.class : ''));
+		}
+
+		if (scrollbar) {
+			header.push('<th class="ui-grid-columnname" style="width:{0}px"></th>'.format(scrollbar));
+			filter.push('<th class="ui-grid-columnfilterempty ui-grid-columnfilter{1}" style="width:{0}px">&nbsp;</th>'.format(scrollbar, col.class ? ' ' + col.class : ''));
 		}
 
 		tbodyhead.html(data.join('') + '</tr>');
