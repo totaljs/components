@@ -1,12 +1,12 @@
 {
 	"datecreated": "2017-09-04T14:44:00.000Z",
-	"dateupdated": null,
+	"dateupdated": "2017-10-02T12:00:00.000Z",
 	"name": "j-Avatar",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 1,
+	"version": 2,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

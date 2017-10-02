@@ -13,6 +13,7 @@ Example: `data-jc-config="rounded:false"`
 - `radius` {Number} (optional) how rounded border corners will be (default: 50)
 - `background` {Hex} (optional) set background color (default: selected from colors array)
 - `color` {Hex} (optional) set font color (default: generated from background color by lighten)
+- `font` {String} (optional) set font family (default: `Helvetica, Arial, sans-serif`)
 
 
 ### Author
