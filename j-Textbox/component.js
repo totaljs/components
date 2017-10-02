@@ -1,4 +1,4 @@
-COMPONENT('textbox', 'format:dd.MM.yyyy', function(self, config) {
+COMPONENT('textbox', function(self, config) {
 
 	var input, container, content = null;
 
@@ -43,7 +43,7 @@ COMPONENT('textbox', 'format:dd.MM.yyyy', function(self, config) {
 			if (config.type === 'date') {
 				e.preventDefault();
 				window.$calendar && window.$calendar.toggle(self.element, self.find('input').val(), function(date) {
-					self.set(date.format(config.format));
+					self.set(date);
 				});
 			}
 		});
