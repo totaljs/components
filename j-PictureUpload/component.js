@@ -5,6 +5,7 @@ COMPONENT('pictureupload', 'extension:false;singlefile:true', function(self, con
 	self.readonly();
 
 	self.configure = function(key, value, init) {
+
 		if (init)
 			return;
 
@@ -105,16 +106,16 @@ COMPONENT('pictureupload', 'extension:false;singlefile:true', function(self, con
 			el.value = '';
 
 
-      if (config.extension) {
-        for (var i = 0, length = response.length; i < length; i++) {
-          var filename = response[i]
-          var index = filename.lastIndexOf('.')
-          if (index === -1) { continue }
-          response[i] = filename.substring(0, index)
-        }
-      }
+			if (config.extension) {
+				for (var i = 0, length = response.length; i < length; i++) {
+					var filename = response[i];
+					var index = filename.lastIndexOf('.');
+					if (index !== -1)
+						response[i] = filename.substring(0, index);
+				}
+			}
 
-      self.set((config.singlefile ? response[0] : response));
+			self.set(config.singlefile ? response[0] : response);
 		});
 	};
 
