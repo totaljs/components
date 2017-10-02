@@ -1,18 +1,10 @@
-COMPONENT('avatar', function(self, config) {
-	var data = {
-		size: 50,
-		lighten: 80,
-		rounded: true,
-		radius: 50,
-		weight: 'bold',
-		font: 'Helvetica, Arial, sans-serif',
-		// colors from https://flatuicolors.com/
-		backgrounds: [
+COMPONENT('avatar', 'size:50;lighten:80;rounded:true;radius:50;weight:bold;font:Helvetica, Arial, sans-serif', function(self, config) {
+	var backgrounds: [
 			'#1abc9c', '#2ecc71', '#3498db', '#9b59b6',
 			'#34495e', '#16a085', '#2980b9', '#8e44ad',
 			'#2c3e50', '#f1c40f', '#e67e22', '#e74c3c',
-			'#d35400', '#c0392b']
-	};
+			'#d35400', '#c0392b'
+	];
 
 	self.readonly();
 
@@ -23,14 +15,14 @@ COMPONENT('avatar', function(self, config) {
 		initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
 
 		var style = [];
-		var size = config.size || data.size;
-		var lighten = config.lighten || data.lighten;
-		var rounded = (typeof config.rounded != 'undefined') ? config.rounded : data.rounded;
-		var radius = config.radius || data.radius;
+		var size = config.size;
+		var lighten = config.lighten;
+		var rounded = config.rounded;
+		var radius = config.radius;
 		var fontsize = Math.floor(size / 2.5);  
 		var line = (size + Math.floor(size / 20));
-		var background = config.background || data.backgrounds[ name.length % data.backgrounds.length ];
-		var color = config.color || LightenDarkenColor(data.backgrounds[ name.length % data.backgrounds.length ], lighten);
+		var background = config.background || backgrounds[ name.length % backgrounds.length ];
+		var color = config.color || LightenDarkenColor(backgrounds[ name.length % backgrounds.length ], lighten);
 
 		style.push('width: {0}px'.format(size));
 		style.push('height: {0}px'.format(size));
@@ -41,10 +33,10 @@ COMPONENT('avatar', function(self, config) {
 		if (img == null) {
 			style.push('background-color: {0}'.format(background));
 			style.push('font-style: normal');
-			style.push('font-weight: {0}'.format(data.weight));
+			style.push('font-weight: {0}'.format(config.weight));
 			style.push('font-size: {0}px'.format(fontsize));
 			style.push('line-height: {0}px'.format(line));
-			style.push('font-family: {0}'.format(data.font));
+			style.push('font-family: {0}'.format(config.font));
 			style.push('color: {0}'.format(color));
 			self.html('<div class="avatar" style="{0}"><span>{1}</span></div>'.format(style.join(';'), initials));
 		} else {
