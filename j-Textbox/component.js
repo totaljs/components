@@ -1,4 +1,4 @@
-COMPONENT('textbox', function(self, config) {
+COMPONENT('textbox', 'format:dd.MM.yyyy', function(self, config) {
 
 	var input, container, content = null;
 
@@ -43,7 +43,7 @@ COMPONENT('textbox', function(self, config) {
 			if (config.type === 'date') {
 				e.preventDefault();
 				window.$calendar && window.$calendar.toggle(self.element, self.find('input').val(), function(date) {
-					self.set(date);
+					self.set(date.format(config.format));
 				});
 			}
 		});
@@ -215,6 +215,6 @@ COMPONENT('textbox', function(self, config) {
 			return;
 		self.$oldstate = invalid;
 		container.tclass('ui-textbox-invalid', invalid);
-		config.error && self.find('.ui-box-helper').tclass('ui-box-helper-show', invalid);
+		config.error && self.find('.ui-textbox-helper').tclass('ui-textbox-helper-show', invalid);
 	};
 });
