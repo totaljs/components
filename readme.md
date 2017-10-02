@@ -10,7 +10,7 @@ Just clone this example <https://github.com/totaljs/components/tree/master/0empt
 
 | Contributor | Type | E-mail |
 |-------------|------|--------|
-| [Peter Širka](https://github.com/JozefGula) | author + support | <petersirka@gmail.com> |
+| [Peter Širka](https://github.com/petersirka) | author + support | <petersirka@gmail.com> |
 | [Martin Smola](https://github.com/molda) | contributor + support | <smola.martin@gmail.com> |
 
 ## Contact
