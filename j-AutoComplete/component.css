@@ -7,5 +7,5 @@
 .ui-autocomplete li:last-child { border-bottom: 0; }
 .ui-autocomplete .selected { background-color: #F0F0F0; }
 .ui-autocomplete li span { text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
-.ui-autocomplete li span:first-child { float: left; width: 65%;  }
+.ui-autocomplete li span:first-child { float: left; width: 65%; }
 .ui-autocomplete li span:last-child { float: right; width: 30%; font-size: 11px; color: #A0A0A0; }
