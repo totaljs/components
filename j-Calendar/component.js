@@ -244,8 +244,12 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close', function(self, c
 
 	self.date = function(value) {
 
-		if (typeof(value) === 'string')
-			value = value.parseDate();
+		if (typeof(value) === 'string') {
+			if (self.$parser)
+				value = self.parser(value);
+			else
+				value = value.parseDate();
+		}
 
 		if (!value || isNaN(value.getTime()))
 			value = DATETIME;

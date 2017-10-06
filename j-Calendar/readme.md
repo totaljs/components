@@ -24,6 +24,18 @@ FIND('calendar').toggle(ELEMENT, PATH, function(date) {
 }, X_OFFSET);
 ```
 
+## Date parsing from String
+
+```javascript
+// Registers a parser
+// for example: "dd-MM-yyy"
+SETTER(true, 'calendar', 'parser', function(path, value, type) {
+    var arr = value.split('-');
+    var dt = new Date((arr[2] || '').parseInt(DATETIME.getFullYear()), ((arr[1] || '').parseInt(DATETIME.getMonth() + 1) - 1), (arr[0] || '').parseInt(DATETIME.getDate()));
+    return dt;
+});
+```
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
