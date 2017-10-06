@@ -1,0 +1,13 @@
+.ui-togglebox { border: 1px solid #E0E0E0; font-size: 14px; color: black; outline: 0; -webkit-touch-callout: none; -webkit-tap-highlight-color: rgba(0,0,0,0); }
+.ui-togglebox ul { list-style-type: none; overflow: auto; margin: 0; padding: 0; border: 0; overflow: hidden; }
+.ui-togglebox span { font-family: FontAwesome; float: left; width: 17px; height: 12px; font-size: 14px; margin: -2px 5px 0 0; }
+.ui-togglebox span:before { content: '\f096'; }
+.ui-togglebox li { border-top: 1px solid #E0E0E0; height: 26px; padding: 5px 10px 0; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; transition: all 0.3s; font-size: 11px; }
+.ui-togglebox li:first-child {border-top: 0;}
+.ui-togglebox li:hover { background-color: #F0F0F0; }
+.ui-togglebox-drop { background-color: #F8F7DD !important; }
+.ui-togglebox-drag { background-color: #FFFDA8 !important; }
+.ui-togglebox-visible { font-weight: bold; color: black; }
+.ui-togglebox-visible span:before { content: '\f14a' }
+.ui-togglebox.ui-disabled ul { color: gray; }
+.ui-togglebox.ui-disabled li:hover { background-color: white !important; }
