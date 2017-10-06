@@ -3,9 +3,9 @@ COMPONENT('importer', function(self, config) {
 	var imported = false;
 
 	self.readonly();
-	self.setter = function() {
+	self.setter = function(value) {
 
-		if (!self.evaluate(config.if))
+		if (config.if !== value)
 			return;
 
 		if (imported) {

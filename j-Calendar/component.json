@@ -1,6 +1,6 @@
 {
 	"datecreated": "2015-10-08T06:14:00.000Z",
-	"dateupdated": "2017-08-02T22:50:00.000Z",
+	"dateupdated": "2017-10-21:17:00.000Z",
 	"name": "j-Calendar",
 	"tags": [
 		"jcomponent",
@@ -8,7 +8,7 @@
 		"bootstrap"
 	],
 	"color": "white",
-	"version": 28,
+	"version": 29,
 	"responsive": false,
 	"picture": "picture.jpg",
 	"dependencies": "",

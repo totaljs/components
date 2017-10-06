@@ -4,7 +4,7 @@ __j-Import__ is a great component for importing HTML templates, scripts or style
 
 __Configuration__:
 
-- `if` {String} needs to contain a condition in the form `value === 'myvalue'` (the condition is evaluated with the value according to `data-jc-path`)
+- `if` {String} needs to contain a value
 - `url` {String} relative/absolute URL to a subpage or subpart
 - `reload` {String} a link to method in the global scope, it's executed if the __condition__ is valid
 

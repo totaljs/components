@@ -41,6 +41,10 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 			self.filter();
 		});
 
+		self.event('change', 'input', function() {
+			this.type === 'checkbox' && config.checked && GET(config.checked).call(self, this, self);
+		});
+
 		self.event('click', '.ui-grid-button', function() {
 			switch (this.name) {
 				case 'first':
@@ -71,6 +75,10 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 		});
 
 		self.on('resize', self.resize);
+	};
+
+	self.checked = function() {
+		return self.find('input:checked');
 	};
 
 	self.meta = function(html) {
@@ -122,17 +130,19 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 			col.sorting = null;
 			if (typeof(col.render) === 'string')
 				col.render = FN(col.render);
+			if (typeof(col.header) === 'string')
+				col.header = FN(col.header);
 		}
 
 		for (var i = 0, length = columns.length; i < length; i++) {
 			var col = columns[i];
-			var width = (((col.size || 1) / size) * 100).floor(2);
-			data.push('<td style="width:{0}%" data-index="{1}" class="{2}"></td>'.format(width, i, col.class ? ' ' + col.class : ''));
-			header.push('<th class="ui-grid-columnname{3}{5}" style="width:{0}%;text-align:center" data-index="{1}" title="{6}" data-name="{4}"><div class="wrap"><i class="fa hidden"></i>{2}</div></th>'.format(width, i, col.text || col.name, col.class ? ' ' + col.class : '', col.name, col.sort === false ? '' : ' ui-grid-columnsort', col.title || col.text || col.name));
+			var width = typeof(col.size) === 'string' ? col.size : ((((col.size || 1) / size) * 100).floor(2) + '%');
+			data.push('<td style="width:{0}" data-index="{1}" class="{2}"></td>'.format(width, i, col.class ? ' ' + col.class : ''));
+			header.push('<th class="ui-grid-columnname{3}{5}" style="width:{0};text-align:center" data-index="{1}" title="{6}" data-name="{4}"><div class="wrap"><i class="fa hidden"></i>{2}</div></th>'.format(width, i, col.header ? col.header(col) : (col.text || col.name), col.class ? ' ' + col.class : '', col.name, col.sort === false ? '' : ' ui-grid-columnsort', col.title || col.text || col.name));
 			if (col.filter === false)
-				filter.push('<th class="ui-grid-columnfilterempty ui-grid-columnfilter{1}" style="width:{0}%">&nbsp;</th>'.format(width, col.class ? ' ' + col.class : ''));
+				filter.push('<th class="ui-grid-columnfilterempty ui-grid-columnfilter{1}" style="width:{0}">&nbsp;</th>'.format(width, col.class ? ' ' + col.class : ''));
 			else
-				filter.push('<th class="ui-grid-columnfilter{4}" style="width:{0}%"><input type="text" placeholder="{3}" name="{2}" autocomplete="off" class="ui-grid-filter" /></th>'.format(width, i, col.name, col.filter || config.filterlabel, col.class ? ' ' + col.class : ''));
+				filter.push('<th class="ui-grid-columnfilter{4}" style="width:{0}"><input type="text" placeholder="{3}" name="{2}" autocomplete="off" class="ui-grid-filter" /></th>'.format(width, i, col.name, col.filter || config.filterlabel, col.class ? ' ' + col.class : ''));
 		}
 
 		if (scrollbar) {

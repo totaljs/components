@@ -28,19 +28,22 @@ __Configuration__:
 - `boolean` {String} a values for filtering of boolean values (optional, default: `true|on|yes`)
 - `pagination` {Boolean} shows pagination panel (optional, default: `false`)
 - `init` {Function} an init function for e.g. custom columns
-
+- `checked` {Function} if rows will contain `<input type="checkbox` then this function will be evaluated when the checkbox is checked
+- 
 __Column properties__:
 
 - `name` {String} a name of field in the object
 - `text` {String} a column label
 - `title` {String} a column tooltip (optional)
 - `size` {Number} a column width: `1` small, `2` medium, `3` large, `4` very large (optional, default `1`)
+- `size` {String} a column width in pixels, value needs to contains `px` e.g. `20px`
 - `filter` {String/Boolean} a placeholder for the filter or `boolean` can disable filter for this column (optional)
 - `format` {String/Number} for formatting values (`string` for date, `number` for numbers)
 - `background` {String} a background color (optional)
 - `align` {String} can be `center` or `right` (optional, default: `left`)
 - `template` {String} can be a Tangular template and the model is the whole object of row
 - `render` {String/Function(value, column, row)} a custom rendering, `string` is evaluated as an arrow function
+- `header` {String/Function(column)} a custom rendering of header, `string` is evaluated as an arrow function
 - `sort` {Boolean} enables sorting (optional, default: `true`)
 - `class` {String} additional classes for the column, e.g. `hidden-xs`
 
