@@ -1,22 +1,51 @@
 ﻿## j-Avatar
 
 - easy usage
+- supports themes
 - inspiration from `react-user-avatar`
 
-Example: `data-jc-config="rounded:false"`
+__Themes__:
 
-- `username` {String} full name of the user
-- `image` {String} (optional) path to the user image
-- `size` {Number} (optional) a size in pixels (default: 50)
-- `lighten` {Number} (optional) the font color will be lightened by lighten factor of background color (default: 80 | from -255 to 255)
-- `rounded` {Boolean} (optional) if avatar will be rounded (default: true)
-- `radius` {Number} (optional) how rounded border corners will be (default: 50)
-- `background` {Hex} (optional) set background color (default: selected from colors array)
-- `color` {Hex} (optional) set font color (default: generated from background color by lighten)
-- `font` {String} (optional) set font family (default: `Helvetica, Arial, sans-serif`)
+Avatar component needs to register your own theme. It contains `default` theme.
 
+```javascript
+SETTER(true, 'avatar', 'register', 'THEME_NAME', 'options')
+```
+
+Options can contain:
+
+- `size` {Number} Optional, a size in pixels (default: `100`)
+- `lighten` {Number} Optional, the font color will be lightened by lighten factor of background color (default: `80` | from -255 to 255)
+- `radius` {Number} Optional, how rounded border corners will be (default: `50`)
+- `background` {Hex} Optional, set background color (default: selected from colors `Array`)
+- `color` {Hex} Optional, set font color (default: generated from background color by lighten)
+- `font` {String} Optional, set font family (default: `Arial`)
+- `weight` {String} Optional, font-weight (default: `bold`)
+- `class` {String} Optional, this property perfoms `toggleClass` for this class
+
+__Usage__:
+
+Each element of avatar needs to contain `avatar` class like this: `<div class="avatar">`. Here are custom attributes:
+
+- `data-avatar="THEME_NAME"` Optional, can contain a theme name (default: `default`)
+- `data-avatar-url="URL_TO_PICTURE"` Optional, can contain a URL for user photo
+- `data-avatar-class="class_for_toggle_effect"` Optional, can contain a class for `toggleClass` effect
+
+Element needs to contain a user name, for example:
+
+- `<div class="avatar">Peter Širka</div>` or
+- `<a href="#" class="avatar">Peter Širka</a>`
+
+__Good to know__:
+
+- avatar component binds all new avatars in all new components automatically
+- `SETTER('avatar', 'refresh')` performs refreshing
 
 ### Author
 
 - Denis Granec <denis@granec.cz>
 - License: MIT
+
+## Contributor
+
+- Big improvements by Peter Širka <petersirka@gmail.com>
