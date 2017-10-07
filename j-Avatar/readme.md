@@ -2,6 +2,7 @@
 
 - easy usage
 - supports themes
+- it's singleton
 - inspiration from `react-user-avatar`
 
 __Themes__:
