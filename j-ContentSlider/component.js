@@ -1,4 +1,4 @@
-COMPONENT('contentslider', function(self) {
+COMPONENT('contentslider', 'interval:3000;selector:a', function(self, config) {
 
 	var cssv = 'ui-contentslider-item-visible';
 	var cssi = 'ui-contentslider-item';
@@ -16,12 +16,12 @@ COMPONENT('contentslider', function(self) {
 
 		self.aclass('ui-contentslider');
 		self.element.wrapInner('<div class="ui-contentslider-items" />');
-		self.find(self.attrd('selector')).wrap('<div class="{0}" />'.format(cssi));
+		self.find(config.selector).wrap('<div class="{0}" />'.format(cssi));
 		self.append('<div class="{0}" />'.format(cssp));
 		self.refresh();
 		container = self.find('.ui-contentslider-items');
 
-		var id = self.attrd('id');
+		var id = config.cache;
 		var indexer = 0;
 
 		if (id) {
@@ -43,7 +43,7 @@ COMPONENT('contentslider', function(self) {
 			self.show(indexer++);
 			if (indexer > length)
 				indexer = 0;
-		}, +(self.attrd('interval') || '3000'));
+		}, config.interval);
 	};
 
 	self.refresh = function(noredraw) {
