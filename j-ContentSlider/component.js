@@ -43,7 +43,7 @@ COMPONENT('contentslider', function(self) {
 			self.show(indexer++);
 			if (indexer > length)
 				indexer = 0;
-		}, +(self.attrd+('interval') || '3000'));
+		}, +(self.attrd('interval') || '3000'));
 	};
 
 	self.refresh = function(noredraw) {
