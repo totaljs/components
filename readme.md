@@ -2,6 +2,8 @@
 
 [![Support](https://www.totaljs.com/img/button-support.png)](https://www.totaljs.com/support/) [![Donate](https://www.totaljs.com/img/button-donate.png)](https://www.totaljs.com/#make-a-donation)
 
+- [Documentation](https://wiki.totaljs.com/jcomponent/)
+
 ## How to add a new component?
 
 Just clone this example <https://github.com/totaljs/components/tree/master/0emptycomponent>, rename it and create a pull request. The component will be shown on <www.componentator.com> next day.

@@ -1,5 +1,7 @@
 # Dependencies
 
+- [Documentation](https://wiki.totaljs.com/jcomponent/)
+
 ### CSS: `bootstrap.min.css`
 
 This style sheet contains Bootstrap Grid System and small CSS classes for formatting tables and images. It doesn't contain styles for Bootstrap components, etc..
@@ -19,3 +21,4 @@ I have prepared merge files for SPA:
 - `spa.min.css` - Bootstrap Grid System + FontAwesome
 - `spa.min.js` - jQuery + jctajr.min.js
 - `/fonts/` - contains FontAwesome fonts
+
