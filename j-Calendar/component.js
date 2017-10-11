@@ -244,15 +244,15 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close', function(self, c
 
 	self.date = function(value) {
 
-		if (typeof(value) === 'string') {
-			if (self.$parser)
-				value = self.parser(value);
-			else
-				value = value.parseDate();
-		}
+		var clssel = 'ui-calendar-selected';
 
-		if (!value || isNaN(value.getTime()))
+		if (typeof(value) === 'string')
+			value = value.parseDate();
+
+		if (!value || isNaN(value.getTime())) {
+			self.find('.' + clssel).rclass(clssel);
 			value = DATETIME;
+		}
 
 		var empty = !value;
 
@@ -286,7 +286,7 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close', function(self, c
 			item.isEmpty && cls.push('ui-calendar-disabled');
 			cls.push('ui-calendar-day');
 
-			!empty && item.isSelected && cls.push('ui-calendar-selected');
+			!empty && item.isSelected && cls.push(clssel);
 			item.isToday && cls.push('ui-calendar-day-today');
 			builder.push('<td class="{0}" data-date="{1}-{2}-{3}"><div>{3}</div></td>'.format(cls.join(' '), item.year, item.month, item.number));
 		}
