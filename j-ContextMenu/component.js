@@ -12,7 +12,7 @@ COMPONENT('contextmenu', function(self) {
 	self.make = function() {
 
 		self.classes('ui-contextmenu');
-		self.append('<span class="ui-contextmenu-arrow fa fa-caret-up"></span><div class="ui-contextmenu-items"></div>');
+		self.append('<span class="ui-contextmenu-arrow"></span><div class="ui-contextmenu-items"></div>');
 		container = self.find('.ui-contextmenu-items');
 		arrow = self.find('.ui-contextmenu-arrow');
 
@@ -88,14 +88,14 @@ COMPONENT('contextmenu', function(self) {
 				arrow.css({ left: '15px' });
 				break;
 			case 'right':
-				arrow.css({ left: '210px' });
+				arrow.css({ left: '165px' });
 				break;
 			case 'center':
-				arrow.css({ left: '107px' });
+				arrow.css({ left: '90px' });
 				break;
 		}
 
-		var options = { left: orientation === 'center' ? Math.ceil((offset.left - self.element.width() / 2) + (target.innerWidth() / 2)) : orientation === 'left' ? offset.left - 8 : (offset.left - self.element.width()) + target.innerWidth() + (offsetX || 0), top: offset.top + target.innerHeight() + 10 + (offsetY || 0) };
+		var options = { left: orientation === 'center' ? Math.ceil((offset.left - self.element.width() / 2) + (target.innerWidth() / 2)) : orientation === 'left' ? offset.left - 8 : (offset.left - self.element.width()) + target.innerWidth() + (offsetX || 0) + 8, top: offset.top + target.innerHeight() + 10 + (offsetY || 0) };
 		self.css(options);
 
 		if (is)

@@ -1,12 +1,12 @@
 {
 	"datecreated": "2016-05-11T19:46:55.496Z",
-	"dateupdated": "2017-07-28T14:01:00.000Z",
+	"dateupdated": "2017-10-11T22:12:00.000Z",
 	"name": "j-ContextMenu",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "white",
-	"version": 7,
+	"version": 8,
 	"responsive": false,
 	"picture": "picture.jpg",
 	"dependencies": "",
