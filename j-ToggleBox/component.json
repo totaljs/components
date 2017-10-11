@@ -1,12 +1,12 @@
 {
 	"datecreated": "2017-10-06T21:48:00.000Z",
-	"dateupdated": null,
+	"dateupdated": "2017-10-11T22:20:00.000Z",
 	"name": "j-ToggleBox",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 1,
+	"version": 2,
 	"responsive": true,
 	"picture": "picture.gif",
 	"author": "Peter Širka",

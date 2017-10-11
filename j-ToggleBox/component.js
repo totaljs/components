@@ -1,4 +1,4 @@
-COMPONENT('togglebox', 'dragdrop:true;text:name;hidden:hidden', function(self, config) {
+COMPONENT('togglebox', 'dragdrop:true;text:name;hidden:hidden;replace:false', function(self, config) {
 
 	var container, dragdrop;
 	var touch = {};
@@ -37,9 +37,17 @@ COMPONENT('togglebox', 'dragdrop:true;text:name;hidden:hidden', function(self, c
 		});
 
 		self.rebind = function() {
+			var current = self.get();
+			var arr = [];
+			self.find('li').each(function(counter) {
+				var el = $(this);
+				var index = +el.attrd('index');
+				el.attrd('index', counter);
+				arr.push(current[index]);
+			});
 			skip = true;
+			self.set(arr);
 			self.change(true);
-			self.update(true);
 		};
 
 		self.event('touchstart touchmove touchend', '[draggable]', function(e) {
@@ -120,19 +128,15 @@ COMPONENT('togglebox', 'dragdrop:true;text:name;hidden:hidden', function(self, c
 			if (ai === bi)
 				return;
 
-			var ac = a.clone(true);
-			var bc = b.clone(true);
-
-			ac.attrd('index', bi);
-			bc.attrd('index', ai);
-
-			a.replaceWith(bc);
-			b.replaceWith(ac);
-
-			var arr = self.get();
-			var tmp = arr[ai];
-			arr[ai] = arr[bi];
-			arr[bi] = tmp;
+			if (config.replace) {
+				var ac = a.clone(true);
+				var bc = b.clone(true);
+				ac.attrd('index', bi);
+				bc.attrd('index', ai);
+				a.replaceWith(bc);
+				b.replaceWith(ac);
+			} else
+				b.insertBefore(a);
 
 			setTimeout2(self._id, self.rebind, 500);
 		};

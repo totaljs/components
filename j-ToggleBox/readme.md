@@ -8,6 +8,7 @@ __Configuration__:
 - `text` {String} A property name for text (it needs to be `String`, default: `name`)
 - `hidden` {String} A property for show/hide (it needs to be `Boolean`, default: `hidden`)
 - `disabled` {Boolean} Can disable the control (default: `false`)
+- `replace` {Boolean} Can replace position of elements (default: `false`)
 
 ### Author
 
