@@ -146,8 +146,8 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 		}
 
 		if (scrollbar) {
-			header.push('<th class="ui-grid-columnname" style="width:{0}px"></th>'.format(scrollbar));
-			filter.push('<th class="ui-grid-columnfilterempty ui-grid-columnfilter{1}" style="width:{0}px">&nbsp;</th>'.format(scrollbar, col.class ? ' ' + col.class : ''));
+			header.push('<th class="ui-grid-columnname ui-grid-scrollbar" style="width:{0}px"></th>'.format(scrollbar));
+			filter.push('<th class="ui-grid-columnfilterempty ui-grid-scrollbar ui-grid-columnfilter{1}" style="width:{0}px">&nbsp;</th>'.format(scrollbar, col.class ? ' ' + col.class : ''));
 		}
 
 		tbodyhead.html(data.join('') + '</tr>');

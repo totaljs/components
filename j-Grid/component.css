@@ -33,6 +33,7 @@ html{height:100%;}
 .ui-grid-pagination .page input { width: 100%; text-align: center; border: 0; background-color: white; outline: 0; font-size: 14px; font-weight: bold; }
 .ui-grid-pagination button:disabled { color: silver; cursor: not-allowed; background-color: white; }
 .ui-grid-container { margin: 10px 20px 20px; }
+.ui-grid-noscroll .ui-grid-scrollbar { display: none; }
 
 .right { text-align: right; }
 .center { text-align: center; }
