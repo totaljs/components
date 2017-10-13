@@ -95,7 +95,7 @@ COMPONENT('contextmenu', function(self) {
 				break;
 		}
 
-		var options = { left: orientation === 'center' ? Math.ceil((offset.left - self.element.width() / 2) + (target.innerWidth() / 2)) : orientation === 'left' ? offset.left - 8 : (offset.left - self.element.width()) + target.innerWidth() + (offsetX || 0) + 8, top: offset.top + target.innerHeight() + 10 + (offsetY || 0) };
+		var options = { left: orientation === 'center' ? Math.ceil((offset.left - self.element.width() / 2) + (target.innerWidth() / 2)) : orientation === 'left' ? (offset.left - 8) + offsetX : (offset.left - self.element.width()) + target.innerWidth() + (offsetX || 0) + 8, top: offset.top + target.innerHeight() + 10 + (offsetY || 0) };
 		self.css(options);
 
 		if (is)
