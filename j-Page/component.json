@@ -1,12 +1,12 @@
 {
 	"datecreated": "2016-10-27T10:00:00.000Z",
-	"dateupdated": "2017-09-18T14:17:00.000Z",
+	"dateupdated": "2017-10-13T22:23:00.000Z",
 	"name": "j-Page",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 2,
+	"version": 3,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

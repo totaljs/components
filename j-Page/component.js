@@ -26,7 +26,7 @@ COMPONENT('page', function(self, config) {
 		SETTER('loading', 'show');
 		type = 1;
 
-		self.import(config.template, function() {
+		self.import(config.url, function() {
 			type = 2;
 
 			if (config.init) {
