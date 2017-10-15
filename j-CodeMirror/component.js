@@ -1,4 +1,4 @@
-COMPONENT('codemirror', 'linenumbers:false', function(self, config) {
+COMPONENT('codemirror', 'linenumbers:false;required:false', function(self, config) {
 
 	var skipA = false;
 	var skipB = false;
@@ -11,7 +11,7 @@ COMPONENT('codemirror', 'linenumbers:false', function(self, config) {
 	};
 
 	self.validate = function(value) {
-		return config.disabled || !config.required ? true : value && value.length > 0;
+		return (config.disabled || !config.required ? true : value && value.length > 0) === true;
 	};
 
 	self.configure = function(key, value, init) {
@@ -36,11 +36,11 @@ COMPONENT('codemirror', 'linenumbers:false', function(self, config) {
 	};
 
 	self.make = function() {
-
 		var content = config.label || self.html();
 		self.html((content ? '<div class="ui-codemirror-label' + (config.required ? ' ui-codemirror-label-required' : '') + '">' + (config.icon ? '<i class="fa fa-' + config.icon + '"></i> ' : '') + content + ':</div>' : '') + '<div class="ui-codemirror"></div>');
 		var container = self.find('.ui-codemirror');
 		editor = CodeMirror(container.get(0), { lineNumbers: config.linenumbers, mode: config.type || 'htmlmixed', indentUnit: 4 });
+
 		if (config.height !== 'auto') {
 			var is = typeof(config.height) === 'number';
 			editor.setSize('100%', is ? (config.height + 'px') : (config.height || '200px'));
@@ -65,7 +65,7 @@ COMPONENT('codemirror', 'linenumbers:false', function(self, config) {
 
 			setTimeout2(self.id, function() {
 				skipA = true;
-				self.reset(true);
+				// self.reset(true);
 				self.dirty(false);
 				self.set(editor.getValue());
 			}, 200);
@@ -113,4 +113,4 @@ COMPONENT('codemirror', 'linenumbers:false', function(self, config) {
 		self.$oldstate = invalid;
 		self.find('.ui-codemirror').tclass('ui-codemirror-invalid', invalid);
 	};
-});
+}, ['//cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/codemirror.min.css', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/codemirror.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/mode/javascript/javascript.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/mode/htmlmixed/htmlmixed.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/mode/xml/xml.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/mode/css/css.min.js']);
