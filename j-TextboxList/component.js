@@ -3,6 +3,7 @@ COMPONENT('textboxlist', 'maxlength:100', function(self, config) {
 	var container, content;
 	var empty = {};
 	var skip = false;
+	var cempty = 'empty';
 
 	self.readonly();
 	self.template = Tangular.compile('<div class="ui-textboxlist-item"><div><i class="fa fa-times"></i></div><div><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder }}"{{ if disabled}} disabled="disabled"{{ fi }} value="{{ value }}" /></div></div>');
@@ -86,7 +87,11 @@ COMPONENT('textboxlist', 'maxlength:100', function(self, config) {
 			var index = arr.indexOf(value);
 			if (index === -1)
 				return;
+
 			arr.splice(index, 1);
+
+			self.tclass(cempty, arr.length === 0);
+
 			skip = true;
 			self.set(self.path, arr, 2);
 			self.change(true);
@@ -109,8 +114,13 @@ COMPONENT('textboxlist', 'maxlength:100', function(self, config) {
 			if (base && e.type === 'change')
 				return;
 
+			var raw = self.get();
+
 			if (base) {
-				self.get().indexOf(value) === -1 && self.push(self.path, value, 2);
+
+				if (!raw || raw.indexOf(value) === -1)
+					self.push(self.path, value, 2);
+
 				this.value = '';
 				self.change(true);
 				return;
@@ -134,9 +144,12 @@ COMPONENT('textboxlist', 'maxlength:100', function(self, config) {
 		}
 
 		if (!value || !value.length) {
+			self.aclass(cempty);
 			container.empty();
 			return;
 		}
+
+		self.rclass(cempty);
 
 		var builder = [];
 
