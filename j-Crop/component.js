@@ -1,4 +1,4 @@
-COMPONENT('crop', function(self) {
+COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 
 	var width, height, canvas, context;
 	var img = new Image();
@@ -8,7 +8,6 @@ COMPONENT('crop', function(self) {
 	var current = { x: 0, y: 0 };
 	var offset = { x: 0, y: 0 };
 	var cache = { x: 0, y: 0, zoom: 0 };
-	var bgcolor = '';
 
 	self.noValid();
 	self.getter = null;
@@ -42,21 +41,17 @@ COMPONENT('crop', function(self) {
 	};
 
 	self.output = function(type) {
-		if (type)
-			return canvas.toDataURL(type);
-		if (!bgcolor && isTransparent(context))
-			return canvas.toDataURL('image/png');
-		return canvas.toDataURL('image/jpeg');
+		return type ? canvas.toDataURL(type) : !config.background && self.isTransparent(context) ? canvas.toDataURL('image/png') : canvas.toDataURL('image/jpeg');
 	};
 
 	self.make = function() {
 
-		bgcolor = self.attrd('background');
-		width = parseInt(self.attrd('width') || 0);
-		height = parseInt(self.attrd('height') || 0);
+		width = config.width;
+		height = config.height;
+
 		self.aclass('ui-crop');
 		self.append('<input type="file" style="display:none" accept="image/*" /><ul><li data-type="upload"><span class="fa fa-folder"></span></li><li data-type="plus"><span class="fa fa-plus"></span></li><li data-type="refresh"><span class="fa fa-refresh"></span></li><li data-type="minus"><span class="fa fa-minus"></span></li></ul>');
-		self.append(Tangular.render('<canvas width="{{ width }}" height="{{ height }}"></canvas>', { width: width, height: height }));
+		self.append(Tangular.render('<canvas width="{0}" height="{1}"></canvas>'.format(width, height)));
 		canvas = self.find('canvas').get(0);
 		context = canvas.getContext('2d');
 
@@ -96,18 +91,20 @@ COMPONENT('crop', function(self) {
 		});
 
 		self.find('input').on('change', function() {
+
 			var file = this.files[0];
 			var reader = new FileReader();
 
 			reader.onload = function () {
 				img.src = reader.result;
 				setTimeout(function() {
-					self.change();
+					self.change(true);
 				}, 500);
 			};
 
 			reader.readAsDataURL(file);
 			this.value = '';
+
 		});
 
 		$(canvas).on('mousedown', function (e) {
@@ -123,7 +120,7 @@ COMPONENT('crop', function(self) {
 			offset.y = y - current.y;
 		});
 
-		((self.attrd('dragdrop') || 'true') === 'true') && $(canvas).on('dragenter dragover dragexit drop dragleave', function (e) {
+		(config.dragdrop && $(canvas).on('dragenter dragover dragexit drop dragleave', function (e) {
 			if (self.disabled)
 				return;
 
@@ -151,7 +148,7 @@ COMPONENT('crop', function(self) {
 			reader.onload = function () {
 				img.src = reader.result;
 				setTimeout(function() {
-					self.change();
+					self.change(true);
 				}, 500);
 			};
 
@@ -188,8 +185,8 @@ COMPONENT('crop', function(self) {
 
 		context.clearRect(0, 0, width, height);
 
-		if (bgcolor) {
-			context.fillStyle = bgcolor;
+		if (config.background) {
+			context.fillStyle = config.background;
 			context.fillRect(0, 0, width, height);
 		}
 
@@ -197,20 +194,20 @@ COMPONENT('crop', function(self) {
 	};
 
 	self.setter = function(value) {
-
 		if (value) {
-			img.src = (self.attrd('format') || '{0}').format(value);
-			return;
+			img.src = config.format.format(value);
+		} else {
+			can = false;
+			self.redraw();
 		}
-
-		can = false;
-		self.redraw();
 	};
 
-	function isTransparent(ctx) {
+	self.isTransparent = function(ctx) {
 		var id = ctx.getImageData(0, 0, width, height);
-		for (var i = 0, length = id.data.length; i < length; i += 4)
-			if (id.data[i + 3] !== 255) return true;
+		for (var i = 0, length = id.data.length; i < length; i += 4) {
+			if (id.data[i + 3] !== 255)
+				return true;
+		}
 		return false;
 	}
 });
