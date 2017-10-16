@@ -3,7 +3,7 @@
 .ui-textboxlist-label .fa { margin-right: 5px; }
 .ui-textboxlist-items > div:first-child { border-radius: 2px 2px 0 0; }
 .ui-textboxlist-item { height: 32px; background-color: white; border: 1px solid #E0E0E0; border-bottom: 0; }
-.ui-textboxlist-item > div:first-child { float: right; width: 32px; text-align: center; color: #DA4453; font-size: 14px; height: 30px; border-left: 1px solid #E0E0E0; }
+.ui-textboxlist-item > div:first-child { float: right; width: 32px; text-align: center; color: #DA4453; font-size: 14px; height: 31px; border-left: 1px solid #E0E0E0; }
 .ui-textboxlist-item > div:last-child { padding: 4px 0 0 0; margin-right: 32px; }
 .ui-textboxlist-item .fa { cursor: pointer; display: block; padding: 7px 0 2px; }
 .ui-textboxlist-item .fa:active { margin-top: 1px; }

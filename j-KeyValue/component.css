@@ -3,7 +3,7 @@
 .ui-keyvalue-items > div:first-child { border-radius: 2px 2px 0 0; }
 .ui-keyvalue-item { height: 32px; background-color: white; border-radius: 2px; border: 1px solid #E0E0E0; border-bottom: 0; }
 .ui-keyvalue-item-remove { float: right; width: 32px; height: 32px; border-left: 1px solid #E0E0E0; text-align: center; color: #DA4453; font-size: 14px; }
-.ui-keyvalue-item-key { padding: 3px 0 4px 0; float: left; width: 200px; border-right: 1px solid #E0E0E0; font-weight: bold; }
+.ui-keyvalue-item-key {  height: 32px; padding: 3px 0 4px 0; float: left; width: 200px; border-right: 1px solid #E0E0E0; font-weight: bold; }
 .ui-keyvalue-item-value { padding: 3px 0 0 0; margin: 0 32px 0 202px; }
 .ui-keyvalue-item .fa { cursor: pointer; display: block; padding: 8px 0 0 0; }
 .ui-keyvalue-item .fa:active { margin-top: 1px; }
