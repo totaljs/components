@@ -4,7 +4,7 @@ COMPONENT('listbox', function(self, config) {
 	var skip = false;
 
 	self.datasource = EMPTYARRAY;
-	self.template = Tangular.compile('<li data-search="{{ search }}" data-index="{{ index }}">{{ text }}</li>');
+	self.template = Tangular.compile('<li data-search="{{ search }}" data-index="{{ index }}">{{ if icon }}<i class="fa fa-{{ icon }}"></i>{{ fi }}{{ text }}</li>');
 
 	self.validate = function(value) {
 		return config.disabled || !config.required ? true : value ? (config.multiple ? value.length > 0 : true) : false;
@@ -127,6 +127,7 @@ COMPONENT('listbox', function(self, config) {
 
 		var kt = config.text || 'name';
 		var kv = config.value || 'id';
+		var ki = config.icon || 'icon';
 		var builder = [];
 
 		self.datasource = [];
@@ -134,6 +135,7 @@ COMPONENT('listbox', function(self, config) {
 
 			var text;
 			var value;
+			var icon = null;
 
 			if (typeof(item) === 'string') {
 				text = item;
@@ -141,9 +143,10 @@ COMPONENT('listbox', function(self, config) {
 			} else {
 				text = item[kt];
 				value = item[kv];
+				icon = item[ki];
 			}
 
-			var item = { text: text, value: value, index: index, search: text.toSearch() };
+			var item = { text: text, value: value, index: index, search: text.toSearch(), icon: icon };
 			self.datasource.push(item);
 			builder.push(self.template(item));
 		});
