@@ -6,8 +6,6 @@ __Configuration__:
 
 - `required` {Boolean} (optional) enables `required` (default: __false__)
 - `items` {String} (optional) static items `key1|value1, key2 with value, key3|value`
-- `icon` {String} (optional) icon for label e.g. `home`, `cog`, etc.
-- `label` {String} (optional) label (default is HTML content)
 - `type` {String} (optional) can be `number` (converts `String` values to `Number`)
 - `datasource` {String} path to data-source (must be array)
 - `text` {String} determines a property name for text (in data-source), default: `name`

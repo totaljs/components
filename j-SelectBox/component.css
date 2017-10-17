@@ -1,7 +1,7 @@
 .hidden { display: none; }
 .ui-selectbox * { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
 .ui-selectbox { border: 1px solid #E0E0E0; font-size: 14px; color: black; }
-.ui-selectbox ul { list-style-type: none; width: 50%; height: 100%; float: left; overflow: auto; margin: 0; padding: 0; border-left: 1px solid #E0E0E0; font-weight: bold; }
+.ui-selectbox ul { list-style-type: none; width: 50%; height: 100%; float: left; overflow: auto; margin: 0; padding: 0; border-left: 1px solid #E0E0E0; font-weight: bold; overflow-scrolling: touch; }
 .ui-selectbox ul:first-child { border-left: 0; font-weight: normal; }
 .ui-selectbox li { border-bottom: 1px solid #E0E0E0; padding: 5px 10px; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ui-selectbox li:hover { background-color: #F0F0F0; }
@@ -15,5 +15,5 @@
 .ui-selectbox-invalid .ui-selectbox-search { border-color: #E1A1A1; }
 .ui-selectbox.ui-disabled input { background-color: #F0F0F0; color: gray; }
 .ui-selectbox.ui-disabled .ui-selectbox-search { background-color: #F0F0F0; }
-.ui-selectbox.ui-disabled ul { color: gray; }
+.ui-selectbox.ui-disabled ul { color: gray; overflow: hidden; }
 .ui-selectbox.ui-disabled li:hover { background-color: white !important; }
