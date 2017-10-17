@@ -34,8 +34,11 @@ COMPONENT('listbox', function(self, config) {
 				else
 					selected = selected.remove(value.value);
 				self.set(selected);
-			} else
+				config.exec && EXEC(config.exec, selected);
+			} else {
 				self.set(value.value);
+				config.exec && EXEC(config.exec, value.value);
+			}
 
 			self.change(true);
 		});
@@ -116,7 +119,7 @@ COMPONENT('listbox', function(self, config) {
 	};
 
 	self.redraw = function() {
-		self.html((typeof(config.search) === 'string' ? '<div class="ui-listbox-search"><span><i class="fa fa-search ui-listbox-search-icon"></i></span><div><input type="text" placeholder="{0}" /></div></div><div>'.format(config.search) : '') + '<div><ul style="height:{0}px"></ul></div>'.format(config.height || '200'));
+		self.html((typeof(config.search) === 'string' ? '<div class="ui-listbox-search"><span><i class="fa fa-search ui-listbox-search-icon"></i></span><div><input type="text" placeholder="{0}" /></div></div><div><div class="ui-listbox-search-empty"></div>'.format(config.search) : '') + '<div><ul style="height:{0}px"></ul></div>'.format(config.height || '200'));
 		Eitems = self.find('ul');
 	};
 
