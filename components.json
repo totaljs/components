@@ -125,5 +125,6 @@
 	"j-ListMenu",
 	"j-Layer",
 	"j-Avatar",
-	"j-ToggleBox"
+	"j-ToggleBox",
+	"j-ListBox"
 ]
