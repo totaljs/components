@@ -106,12 +106,12 @@ COMPONENT('multioptions', function(self) {
 		});
 	};
 
-
 	self.remap = function(js) {
 
 		var fn = new Function('option', js);
 
 		mapping = {};
+
 		fn(function(key, label, def, type, max, min, step, validator) {
 			if (typeof(type) === 'number') {
 				validator = step;
