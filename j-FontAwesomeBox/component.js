@@ -79,7 +79,7 @@ COMPONENT('fontawesomebox', 'height:300;fa:false', function(self, config) {
 		if (value) {
 			var fa = container.find(config.fa ? ('.' + value) : ('.fa-' + value));
 			prev = fa.parent().aclass('selected');
-			!skip && prev.length && prev.rescroll(100);
+			!skip && prev.length && prev.rescroll(-40);
 		}
 		skip = false;
 		refresh = true;
