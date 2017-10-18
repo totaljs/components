@@ -1,0 +1,16 @@
+{
+	"datecreated": "2017-10-18T09:03:00.000Z",
+	"dateupdated": null,
+	"name": "j-FontAwesomeBox",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

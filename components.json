@@ -126,5 +126,6 @@
 	"j-Layer",
 	"j-Avatar",
 	"j-ToggleBox",
-	"j-ListBox"
+	"j-ListBox",
+	"j-FontAwesomeBox"
 ]
