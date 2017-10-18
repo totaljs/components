@@ -1,7 +1,6 @@
 .ui-fontawesomebox * { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
-.ui-fontawesomebox { border: 1px solid #E0E0E0; font-size: 14px; color: black; z-index: 10; background-color: white; border-radius: 3px; z-index: 80; }
+.ui-fontawesomebox-icons ul { list-style-type: none; margin: 0; padding: 10px 60px 0 15px; overflow-y: scroll; width: 110%; overflow-scrolling: touch; }
 .ui-fontawesomebox-icons { overflow: hidden; }
-.ui-fontawesomebox-icons ul { list-style-type: none; margin: 0; padding: 10px 50px 0 15px; overflow-y: scroll; width: 110%; }
 .ui-fontawesomebox .selected { background-color: #3BAFDA !important; color: white; }
 .ui-fontawesomebox li { position: relative; display: inline-block; width: 28px; height: 25px; text-align: center; cursor: pointer; margin: 2px 1px 1px; padding: 4px 0 0 0; border-radius: 4px; color: black; }
 .ui-fontawesomebox li:hover { background-color: #F8F7DD; }
