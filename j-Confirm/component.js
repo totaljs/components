@@ -46,8 +46,7 @@ COMPONENT('confirm', function(self) {
 			if (icon) {
 				item = item.replace(icon, '').trim();
 				icon = '<i class="fa fa-{0}"></i>'.format(icon.toString().replace(/\"/g, ''));
-			}
-			else
+			} else
 				icon = '';
 
 			builder.push('<button data-index="{1}">{2}{0}</button>'.format(item, index, icon));
