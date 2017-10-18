@@ -13,7 +13,8 @@ COMPONENT('fontawesomebox', 'height:300;fa:false', function(self, config) {
 
 	self.make = function() {
 		self.aclass('ui-fontawesomebox');
-		self.append('<div class="ui-fontawesomebox-search"><span><i class="fa fa-search clearsearch"></i></span><div><input type="text" maxlength="50" placeholder="{0}" /></div></div><div></div><div class="ui-fontawesomebox-icons"><ul></ul></div>'.format(config.search));
+		self.css('height', config.height + 'px');
+		self.append('<div class="ui-fontawesomebox-search"><span><i class="fa fa-search clearsearch"></i></span><div><input type="text" maxlength="50" placeholder="{0}" /></div></div><div></div><div class="ui-fontawesomebox-icons"><ul style="height:{1}px"></ul></div>'.format(config.search, config.height));
 		container = $(self.find('.ui-fontawesomebox-icons').find('ul').get(0));
 		input = self.find('input');
 		icon = self.find('.ui-fontawesomebox-search').find('.fa');
@@ -48,7 +49,11 @@ COMPONENT('fontawesomebox', 'height:300;fa:false', function(self, config) {
 		});
 	};
 
-	self.configure = function (key, value) {
+	self.configure = function (key, value, init) {
+
+		if (init)
+			return;
+
 		switch (key) {
 			case 'height':
 				self.css('height', value + 'px');
