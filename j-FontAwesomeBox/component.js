@@ -59,7 +59,7 @@ COMPONENT('fontawesomebox', 'height:300;fa:false', function(self, config) {
 		switch (key) {
 			case 'height':
 				self.css('height', value + 'px');
-				container.css('height', value - (40) + 'px');
+				container.css('height', value - (38) + 'px');
 				break;
 		}
 	};
