@@ -1,0 +1,8 @@
+.hidden { display: none; }
+
+.ui-snackbar { position: fixed; bottom: 0; left: 0; width: 100%; transition: all 0.3s; transform: translate(0,70px); font-size: 14px; }
+.ui-snackbar > div { margin: 0 auto; width: 80%; background-color: #303030; border-radius: 3px 3px 0 0; }
+.ui-snackbar-dismiss { float: right; width: 100px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; text-align: center; text-decoration: none; color: #f44336; padding: 16px 0 0 0; text-transform: uppercase; }
+.ui-snackbar-body { margin-right: 100px; padding: 15px; color: white; }
+.ui-snackbar-body .fa { margin-right: 5px; }
+.ui-snackbar-visible { transform: translate(0, 0); }
