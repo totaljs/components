@@ -62,7 +62,7 @@ COMPONENT('fontawesomebox', 'height:300;fa:false', function(self, config) {
 				container.css('height', value - (40) + 'px');
 				break;
 		}
-	}
+	};
 
 	self.released = function(is) {
 		if (is) {
