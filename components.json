@@ -127,5 +127,6 @@
 	"j-Avatar",
 	"j-ToggleBox",
 	"j-ListBox",
-	"j-FontAwesomeBox"
+	"j-FontAwesomeBox",
+	"j-SnackBar"
 ]
