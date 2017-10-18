@@ -31,15 +31,8 @@ COMPONENT('snackbar', 'timeout:3000;button:Dismiss', function(self, config) {
 			button = null;
 		}
 
-		var icon = message.match(/\"[a-z0-9\-]+\"/);
-		if (icon) {
-			message = message.replace(icon, '').trim();
-			icon = '<i class="fa fa-{0}"></i>'.format(icon.toString().replace(/\"/g, ''));
-		} else
-			icon = '';
-
 		callback = close;
-		virtual.body.html(icon + message);
+		virtual.body.html(message);
 		virtual.button.html(button || config.button);
 
 		if (show) {

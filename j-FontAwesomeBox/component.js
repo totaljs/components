@@ -78,7 +78,9 @@ COMPONENT('fontawesomebox', 'height:300;fa:false', function(self, config) {
 		var icons = window.fontawesomeicons;
 		for (var i = 0, length = icons.length; i < length; i++)
 			builder.push(template.format(icons[i]));
-		container.empty().html(builder.join(''));
+		container.empty();
+		input.val('').trigger('keydown');
+		container.html(builder.join(''));
 	};
 
 	self.setter = function(value) {
