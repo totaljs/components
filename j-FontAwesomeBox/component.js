@@ -14,7 +14,7 @@ COMPONENT('fontawesomebox', 'height:300;fa:false', function(self, config) {
 	self.make = function() {
 		self.aclass('ui-fontawesomebox');
 		self.css('height', config.height + 'px');
-		self.append('<div class="ui-fontawesomebox-search"><span><i class="fa fa-search clearsearch"></i></span><div><input type="text" maxlength="50" placeholder="{0}" /></div></div><div></div><div class="ui-fontawesomebox-icons"><ul style="height:{1}px"></ul></div>'.format(config.search, config.height - 40));
+		self.append('<div class="ui-fontawesomebox-search"><span><i class="fa fa-search clearsearch"></i></span><div><input type="text" maxlength="50" placeholder="{0}" /></div></div><div class="ui-fontawesomebox-search-empty"></div><div class="ui-fontawesomebox-icons"><ul style="height:{1}px"></ul></div>'.format(config.search, config.height - 40));
 		container = $(self.find('.ui-fontawesomebox-icons').find('ul').get(0));
 		input = self.find('input');
 		icon = self.find('.ui-fontawesomebox-search').find('.fa');
@@ -88,7 +88,9 @@ COMPONENT('fontawesomebox', 'height:300;fa:false', function(self, config) {
 		if (value) {
 			var fa = container.find(config.fa ? ('.' + value) : ('.fa-' + value));
 			prev = fa.parent().aclass('selected');
-			!skip && prev.length && prev.rescroll(-40);
+			setTimeout(function() {
+				!skip && prev.length && prev.rescroll(-40);
+			}, 100);
 		}
 		skip = false;
 		refresh = true;
