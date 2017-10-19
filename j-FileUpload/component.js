@@ -42,35 +42,35 @@ COMPONENT('fileupload', function(self, config) {
 		});
 
 		input.on('change', function(evt) {
+			!config.disabled && self.upload(evt.target.files);
+		});
+	};
 
-			if (config.disabled)
+	self.upload = function(files) {
+
+		var data = new FormData();
+		var el = this;
+
+		for (var i = 0, length = files.length; i < length; i++)
+			data.append('file' + i, files[i]);
+
+		SETTER('loading', 'show');
+		UPLOAD(config.url, data, function(response, err) {
+
+			el.value = '';
+			SETTER('loading', 'hide', 500);
+
+			if (err) {
+				SETTER('snackbar', 'warning', err.toString());
 				return;
+			}
 
-			var files = evt.target.files;
-			var data = new FormData();
-			var el = this;
+			self.change();
 
-			for (var i = 0, length = files.length; i < length; i++)
-				data.append('file' + i, files[i]);
-
-			SETTER('loading', 'show');
-			UPLOAD(config.url, data, function(response, err) {
-
-				el.value = '';
-				SETTER('loading', 'hide', 500);
-
-				if (err) {
-					SETTER('message', 'warning', err.toString());
-					return;
-				}
-
-				self.change();
-
-				if (config.array)
-					self.push(response);
-				else
-					self.set(response);
-			});
+			if (config.array)
+				self.push(response);
+			else
+				self.set(response);
 		});
 	};
 
