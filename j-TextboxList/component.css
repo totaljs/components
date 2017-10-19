@@ -11,4 +11,5 @@
 .ui-textboxlist-base { border-radius: 0 0 2px 2px; border-bottom: 1px solid #E0E0E0; }
 .ui-textboxlist-base .fa { display: none; }
 .ui-textboxlist-base > div:first-child { display: none; }
+.ui-textboxlist-helper { margin-top: 8px; font-size: 11px; color: red !important; text-align: left; }
 .empty .ui-textboxlist-base { border-radius: 2px; }
