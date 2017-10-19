@@ -1,3 +1,4 @@
+
 COMPONENT('snackbar', 'timeout:3000;button:Dismiss', function(self, config) {
 
 	var virtual = null;
@@ -48,9 +49,9 @@ COMPONENT('snackbar', 'timeout:3000;button:Dismiss', function(self, config) {
 			setTimeout(function() {
 				self.aclass('ui-snackbar-visible');
 			}, 50);
-			setTimeout2(self.id, self.hide, config.timeout + 50);
 		}
 
+		setTimeout2(self.id, self.hide, config.timeout + 50);
 		show = false;
 	};
 });
