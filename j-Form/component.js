@@ -154,6 +154,7 @@ COMPONENT('form', function(self, config) {
 		self.element.scrollTop(0);
 
 		setTimeout(function() {
+			self.element.scrollTop(0);
 			self.find('.ui-form').aclass('ui-form-animate');
 		}, 300);
 
