@@ -16,14 +16,14 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 		can = true;
 		zoom = 100;
 
-		var nw = (img.width / 2) >> 0;
-		var nh = (img.height / 2) >> 0;
+		var nw = (img.width / 2);
+		var nh = (img.height / 2);
 
 		if (img.width > width) {
-			var p = (width / (img.width / 100)) >> 0;
+			var p = (width / (img.width / 100));
 			zoom -= zoom - p;
-			nh = ((img.height * (p / 100)) / 2) >> 0;
-			nw = ((img.width * (p / 100)) / 2) >> 0;
+			nh = ((img.height * (p / 100)) / 2);
+			nw = ((img.width * (p / 100)) / 2);
 		}
 
 		// centering
@@ -38,6 +38,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 		height = h;
 		canvas.width = w;
 		canvas.height = h;
+		self.refresh();
 	};
 
 	self.output = function(type) {
@@ -67,19 +68,19 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 					self.find('input').trigger('click');
 					break;
 				case 'plus':
-					zoom += 5;
+					zoom += 3;
 					if (zoom > 300)
 						zoom = 300;
-					current.x -= 5;
-					current.y -= 5;
+					current.x -= 3;
+					current.y -= 3;
 					self.redraw();
 					break;
 				case 'minus':
-					zoom -= 5;
-					if (zoom < 5)
-						zoom = 5;
-					current.x += 5;
-					current.y += 5;
+					zoom -= 3;
+					if (zoom < 3)
+						zoom = 3;
+					current.x += 3;
+					current.y += 3;
 					self.redraw();
 					break;
 				case 'refresh':
@@ -120,7 +121,8 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 			offset.y = y - current.y;
 		});
 
-		(config.dragdrop && $(canvas).on('dragenter dragover dragexit drop dragleave', function (e) {
+		config.dragdrop && $(canvas).on('dragenter dragover dragexit drop dragleave', function (e) {
+
 			if (self.disabled)
 				return;
 
@@ -143,17 +145,19 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 			}
 
 			var files = e.originalEvent.dataTransfer.files;
-			var reader = new FileReader();
+			self.load(files[0]);
+		});
 
+		self.load = function(file) {
+			var reader = new FileReader();
 			reader.onload = function () {
 				img.src = reader.result;
 				setTimeout(function() {
 					self.change(true);
 				}, 500);
 			};
-
-			reader.readAsDataURL(files[0]);
-		});
+			reader.readAsDataURL(file);
+		};
 
 		self.event('mousemove mouseup', function (e) {
 
@@ -180,8 +184,8 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 		var w = img.width;
 		var h = img.height;
 
-		w = ((w / 100) * zoom) >> 0;
-		h = ((h / 100) * zoom) >> 0;
+		w = ((w / 100) * zoom);
+		h = ((h / 100) * zoom);
 
 		context.clearRect(0, 0, width, height);
 
