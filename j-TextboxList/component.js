@@ -1,4 +1,4 @@
-COMPONENT('textboxlist', 'maxlength:100;error:You reach the maximum limit;', function(self, config) {
+COMPONENT('textboxlist', 'maxlength:100;error:You reach the maximum limit', function(self, config) {
 
 	var container, content;
 	var empty = {};
