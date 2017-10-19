@@ -24,6 +24,14 @@ COMPONENT('snackbar', 'timeout:3000;button:Dismiss', function(self, config) {
 		show = true;
 	};
 
+	self.success = function(message, button, close) {
+		self.show('<i class="fa fa-check-circle ui-snackbar-icon"></i>' + message, button, close);
+	};
+
+	self.warning = function(message, button, close) {
+		self.show('<i class="fa fa-times-circle ui-snackbar-icon"></i>' + message, button, close);
+	};
+
 	self.show = function(message, button, close) {
 
 		if (typeof(button) === 'function') {

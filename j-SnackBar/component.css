@@ -6,3 +6,6 @@
 .ui-snackbar-body { margin-right: 100px; padding: 15px; color: white; }
 .ui-snackbar-body .fa { margin-right: 5px; }
 .ui-snackbar-visible { transform: translate(0, 0); }
+.ui-snackbar-icon { float: left; font-size: 20px; border-right: 1px solid #505050; margin-right: 10px !important; padding: 0 10px 0 0; }
+.ui-snackbar-icon.fa-times-circle { color: red; }
+.ui-snackbar-icon.fa-check-circle { color: #60CD4F; }
