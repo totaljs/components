@@ -1,4 +1,4 @@
-## j-TextboxList
+﻿## j-TextboxList
 
 - works with array
 
@@ -11,6 +11,8 @@ Example: `data-jc-config="required:true;icon:envelope"`
 - `placeholder` {String} (optional) adds a `placeholder` text into the input
 - `maxlength` {Number} (optional) sets a maximum length of chars
 - `disabled` {Boolean} (optional) disables this component
+- `limit` {Number} (optional) sets a maximum length of lists
+- `error` {String} (optional) error message when limit is reached (default `You reach the maximum limit`)
 
 ### Author
 

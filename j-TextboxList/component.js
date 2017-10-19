@@ -1,9 +1,10 @@
-COMPONENT('textboxlist', 'maxlength:100', function(self, config) {
+COMPONENT('textboxlist', 'maxlength:100;error:You reach the maximum limit;', function(self, config) {
 
 	var container, content;
 	var empty = {};
 	var skip = false;
 	var cempty = 'empty';
+	var helper = null;
 
 	self.readonly();
 	self.template = Tangular.compile('<div class="ui-textboxlist-item"><div><i class="fa fa-times"></i></div><div><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder }}"{{ if disabled}} disabled="disabled"{{ fi }} value="{{ value }}" /></div></div>');
@@ -82,6 +83,9 @@ COMPONENT('textboxlist', 'maxlength:100', function(self, config) {
 			var value = parent.find('input').val();
 			var arr = self.get();
 
+			helper != null && helper.remove();
+			helper = null;
+
 			parent.remove();
 
 			var index = arr.indexOf(value);
@@ -109,14 +113,25 @@ COMPONENT('textboxlist', 'maxlength:100', function(self, config) {
 				return;
 
 			var arr = [];
-			var base = el.closest('.ui-textboxlist-base').length > 0;
+			var base = el.closest('.ui-textboxlist-base');
+			var len = base.length > 0;
 
-			if (base && e.type === 'change')
+			if (len && e.type === 'change')
 				return;
 
 			var raw = self.get();
 
-			if (base) {
+			if (config.limit && raw.length >= config.limit) {
+
+				if (helper != null)
+					return;
+
+				base.after('<div class="ui-textboxlist-helper"><i class="fa fa-warning" aria-hidden="true"></i> {0}</div>'.format(config.error));
+				helper = container.closest('.ui-textboxlist').find('.ui-textboxlist-helper');
+				return;
+			}
+
+			if (len) {
 
 				if (!raw || raw.indexOf(value) === -1)
 					self.push(self.path, value, 2);
