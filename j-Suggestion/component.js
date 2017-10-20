@@ -45,6 +45,10 @@ COMPONENT('suggestion', function(self, config) {
 		self.event('keyup', 'input', function() {
 			setTimeout2(self.id, self.search, 100, null, this.value);
 		});
+
+		$(window).on('scroll', function() {
+			is && self.hide(1);
+		});
 	};
 
 	self.search = function(value) {
