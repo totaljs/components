@@ -10,7 +10,7 @@ COMPONENT('confirm', function(self) {
 		self.aclass('ui-confirm hidden');
 
 		self.event('click', 'button', function() {
-			self.hide($(this).attr('data-index').parseInt());
+			self.hide($(this).attrd('index').parseInt());
 		});
 
 		self.event('click', function(e) {
@@ -35,22 +35,21 @@ COMPONENT('confirm', function(self) {
 		});
 	};
 
-	self.confirm = function(message, buttons, fn) {
+	self.show = self.confirm = function(message, buttons, fn) {
 		self.callback = fn;
 
 		var builder = [];
 
-		buttons.forEach(function(item, index) {
-
+		for (var i = 0; i < buttons.length; i++) {
+			var item = buttons[i];
 			var icon = item.match(/\"[a-z0-9\-]+\"/);
 			if (icon) {
 				item = item.replace(icon, '').trim();
 				icon = '<i class="fa fa-{0}"></i>'.format(icon.toString().replace(/\"/g, ''));
 			} else
 				icon = '';
-
-			builder.push('<button data-index="{1}">{2}{0}</button>'.format(item, index, icon));
-		});
+			builder.push('<button data-index="{1}">{2}{0}</button>'.format(item, i, icon));
+		}
 
 		self.content('ui-confirm-warning', '<div class="ui-confirm-message">{0}</div>{1}'.format(message.replace(/\n/g, '<br />'), builder.join('')));
 	};
@@ -58,9 +57,9 @@ COMPONENT('confirm', function(self) {
 	self.hide = function(index) {
 		self.callback && self.callback(index);
 		self.rclass('ui-confirm-visible');
+		visible = false;
 		setTimeout2(self.id, function() {
 			$('html').rclass('noscrollconfirm');
-			visible = false;
 			self.aclass('hidden');
 		}, 1000);
 	};
@@ -70,8 +69,8 @@ COMPONENT('confirm', function(self) {
 		!is && self.html('<div><div class="ui-confirm-body"></div></div>');
 		self.find('.ui-confirm-body').empty().append(text);
 		self.rclass('hidden');
+		visible = true;
 		setTimeout2(self.id, function() {
-			visible = true;
 			self.aclass('ui-confirm-visible');
 		}, 5);
 	};
