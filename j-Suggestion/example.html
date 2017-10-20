@@ -1,13 +1,13 @@
 <div data-jc="suggestion" data-jc-config="placeholder:Search ..."></div>
 
 <div class="container">
-    <a href="javascript:void(0)">Suggest</a>
+	<a href="javascript:void(0)">Suggest</a>
 </div>
 
 <script>
-    $(document).on('click', 'a', function() {
-        SETTER('suggestion', 'show', 'left', this, [{ name: 'Total.js' }, { name: 'Express.js' }, { name: 'Meteor.js' }, { name: 'Koa.js' }, { name: 'ASP.NET' }, { name: 'PHP' }, { name: 'Python' }, { name: 'Node.js' }], function(value) {
-            console.log('CLICK', value);
-        });
-    });
+	$(document).on('click', 'a', function() {
+		SETTER('suggestion', 'show', 'left', this, [{ name: 'Total.js' }, { name: 'Express.js' }, { name: 'Meteor.js' }, { name: 'Koa.js' }, { name: 'ASP.NET' }, { name: 'PHP' }, { name: 'Python' }, { name: 'Node.js' }], function(value) {
+			console.log('CLICK', value);
+		});
+	});
 </script>
