@@ -11,16 +11,20 @@ COMPONENT('contextmenu', function(self) {
 
 	self.make = function() {
 
-		self.classes('ui-contextmenu');
+		self.aclass('ui-contextmenu hidden');
 		self.append('<span class="ui-contextmenu-arrow"></span><div class="ui-contextmenu-items"></div>');
 		container = self.find('.ui-contextmenu-items');
 		arrow = self.find('.ui-contextmenu-arrow');
 
 		self.event('touchstart mousedown', 'div[data-index]', function(e) {
-			self.callback && self.callback(self.items[+$(this).attr('data-index')], $(self.target));
+			self.callback && self.callback(self.items[+$(this).attrd('index')], $(self.target));
 			self.hide();
 			e.preventDefault();
 			e.stopPropagation();
+		});
+
+		$(window).on('scroll', function() {
+			is && self.hide(1);
 		});
 
 		$(document).on('touchstart mousedown', function() {
@@ -47,7 +51,7 @@ COMPONENT('contextmenu', function(self) {
 			items = self.get(items);
 		else if (type === 'function') {
 			callback = items;
-			items = (target.attr('data-options') || '').split(';');
+			items = (target.attrd('options') || '').split(';');
 			for (var i = 0, length = items.length; i < length; i++) {
 				item = items[i];
 				if (!item)
@@ -101,9 +105,9 @@ COMPONENT('contextmenu', function(self) {
 		if (is)
 			return;
 
-		self.element.show();
+		self.rclass('hidden');
 		setTimeout(function() {
-			self.classes('ui-contextmenu-visible');
+			self.aclass('ui-contextmenu-visible');
 			self.emit('contextmenu', true, self, self.target);
 		}, 100);
 
@@ -115,7 +119,7 @@ COMPONENT('contextmenu', function(self) {
 			return;
 		clearTimeout(timeout);
 		timeout = setTimeout(function() {
-			self.element.hide().rclass('ui-contextmenu-visible');
+			self.aclass('hidden').rclass('ui-contextmenu-visible');
 			self.emit('contextmenu', false, self, self.target);
 			self.callback = null;
 			self.target = null;

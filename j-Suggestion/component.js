@@ -21,8 +21,8 @@ COMPONENT('suggestion', function(self, config) {
 
 	self.make = function() {
 
-		self.aclass('ui-suggestion');
-		self.append('<i class="ui-suggestion-arrow fa fa-caret-up"></i><div class="ui-suggestion-search"><span><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="ui-suggestion-search-input" /></div></div><div class="ui-suggestion-container"><ul></ul></div>'.format(config.placeholder));
+		self.aclass('ui-suggestion hidden');
+		self.append('<span class="ui-suggestion-arrow"></span><div class="ui-suggestion-search"><span><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="ui-suggestion-search-input" /></div></div><div class="ui-suggestion-container"><ul></ul></div>'.format(config.placeholder));
 		container = self.find('ul');
 		arrow = self.find('.ui-suggestion-arrow');
 		input = self.find('input');
@@ -35,7 +35,7 @@ COMPONENT('suggestion', function(self, config) {
 		});
 
 		$(document).on('touchstart mousedown', function(e) {
-			is && !$(e.target).hasClass('ui-suggestion-search-input') && self.hide(0);
+			is && !$(e.target).hclass('ui-suggestion-search-input') && self.hide(0);
 		});
 
 		$(window).on('resize', function() {
@@ -50,7 +50,7 @@ COMPONENT('suggestion', function(self, config) {
 	self.search = function(value) {
 
 		if (!value) {
-			container.find('li').removeClass('hidden');
+			container.find('li').rclass('hidden');
 			return;
 		}
 
@@ -81,7 +81,7 @@ COMPONENT('suggestion', function(self, config) {
 			items = self.get(items);
 		else if (type === 'function') {
 			callback = items;
-			items = (target.attr('data-options') || '').split(';');
+			items = (target.attrd('options') || '').split(';');
 			for (var i = 0, length = items.length; i < length; i++) {
 				item = items[i];
 				if (!item)
@@ -133,7 +133,7 @@ COMPONENT('suggestion', function(self, config) {
 		if (is)
 			return;
 
-		self.element.show();
+		self.rclass('hidden');
 		setTimeout(function() {
 			self.aclass('ui-suggestion-visible');
 			self.emit('suggestion', true, self, self.target);
@@ -151,7 +151,7 @@ COMPONENT('suggestion', function(self, config) {
 			return;
 		clearTimeout(timeout);
 		timeout = setTimeout(function() {
-			self.element.hide().rclass('ui-suggestion-visible');
+			self.rclass('ui-suggestion-visible').aclass('hidden');
 			self.emit('suggestion', false, self, self.target);
 			self.callback = null;
 			self.target = null;
