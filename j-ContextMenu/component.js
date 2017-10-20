@@ -27,6 +27,10 @@ COMPONENT('contextmenu', function(self) {
 			is && self.hide(1);
 		});
 
+		self.event('scroll', function() {
+			is && self.hide(1);
+		});
+
 		$(document).on('touchstart mousedown', function() {
 			is && self.hide(0);
 		});

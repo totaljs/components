@@ -46,6 +46,10 @@ COMPONENT('suggestion', function(self, config) {
 			setTimeout2(self.id, self.search, 100, null, this.value);
 		});
 
+		self.event('scroll', function() {
+			is && self.hide(1);
+		});
+
 		$(window).on('scroll', function() {
 			is && self.hide(1);
 		});

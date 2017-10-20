@@ -76,6 +76,7 @@ COMPONENT('form', function(self, config) {
 		header = self.virtualize({ title: '.ui-form-title > span', icon: '.ui-form-title > i' });
 
 		self.event('scroll', function() {
+			EMIT('scroll', self.name);
 			EMIT('reflow', self.name);
 		});
 
