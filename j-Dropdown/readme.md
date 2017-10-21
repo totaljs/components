@@ -14,6 +14,7 @@ Example: `data-jc-config="required:true;icon:envelope"`
 - `value` {String} determines a property name for value (in data-source) default: `id`
 - `empty` {String} (optional) adds an empty field
 - `disabled` {Boolean} (optional) disables this component
+- `if` {String} (optional) arrow function as a condition for filtering of datasource
 
 ### Author
 
