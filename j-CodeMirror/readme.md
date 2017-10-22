@@ -16,6 +16,10 @@ Example: `data-jc-config="required:true;icon:envelope"`
 - `label` {String} (optional) label (default is HTML content)
 - `disabled` {Boolean} (optional) disables this component
 
+__Method__:
+
+- `component.insert('some text')` inserts a text to the current position of the cursor
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
