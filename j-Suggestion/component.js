@@ -27,14 +27,14 @@ COMPONENT('suggestion', function(self, config) {
 		arrow = self.find('.ui-suggestion-arrow');
 		input = self.find('input');
 
-		self.event('touchstart mousedown', 'li[data-index]', function(e) {
+		self.event('click', 'li', function(e) {
 			self.callback && self.callback(self.items[+this.getAttribute('data-index')], $(self.target));
 			self.hide();
 			e.preventDefault();
 			e.stopPropagation();
 		});
 
-		$(document).on('touchstart mousedown', function(e) {
+		$(document).on('click', function(e) {
 			is && !$(e.target).hclass('ui-suggestion-search-input') && self.hide(0);
 		});
 
