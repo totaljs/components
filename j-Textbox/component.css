@@ -2,7 +2,7 @@ input:-ms-input-placeholder, input:-webkit-input-placeholder, input:-moz-input-p
 input[type="text"]:disabled, input[type="password"]:disabled, select:disabled { background-color: #F0F0F0; cursor: not-allowed; color: silver; }
 .ui-textbox-container * { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
 .ui-textbox { border: 1px solid #E0E0E0; padding: 5px 2px 5px 5px; border-radius: 2px; position: relative; width: 100%; background-color: white; display: table; }
-.ui-textbox input { display: table-cell; border: 0; outline: 0; font: normal 14px Arial; color: black; width: 100%; background-color: white; }
+.ui-textbox input { display: table-cell; border: 0; outline: 0; font: normal 14px Arial; color: black; width: 100%; background-color: white; margin: 0; padding: 0; }
 .ui-textbox div { width: 1%; position: relative; vertical-align: middle; display: table-cell; text-align: center; white-space: nowrap; text-overflow: clip; border-left: 1px solid #E0E0E0; width: 30px; color: silver; }
 .ui-textbox .fa-times { color: red; cursor: pointer; }
 .ui-textbox-label { margin-bottom: 5px; font-size: 12px; color: #656D78; text-align: left; }
