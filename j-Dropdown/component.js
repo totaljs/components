@@ -108,7 +108,7 @@ COMPONENT('dropdown', function(self, config) {
 	};
 
 	self.redraw = function() {
-		var html = '<div class="ui-dropdown"><span class="fa fa-sort"></span><select data-jc-bind="">{0}</select></div>'.format(render);
+		var html = '<div class="ui-dropdown"><select data-jc-bind="">{0}</select></div>'.format(render);
 		var builder = [];
 		var label = content || config.label;
 		if (label) {
