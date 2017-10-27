@@ -21,7 +21,7 @@ COMPONENT('progress', 'animate:true', function(self, config) {
 
 		old = value;
 		if (config.animate)
-			container.animate({ width: old + '%' }, 100);
+			container.stop().animate({ width: old + '%' }, 80);
 		else
 			container.css({ width: old + '%' });
 
