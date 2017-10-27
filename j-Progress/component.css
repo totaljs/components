@@ -1,2 +1,7 @@
-.ui-progress { background-color: #F0F0F0; border-radius: 4px; box-sizing: border-box; }
-.ui-progress div { margin-right: 30px; background-color: #DB2724; text-align: right; font-size: 10px; color: white; padding: 2px 5px 0 0;  height: 16px; font-weight: bold; border-radius: 4px; }
+.ui-progress { background-color: #F0F0F0; border-radius: 3px; box-sizing: border-box; }
+.ui-progress div { background-size: 56px 56px; animation: progress 20s infinite linear forwards; margin-right: 30px; background-image: repeating-linear-gradient(45deg,#4285F4,#4285F4 10px,#4993E7 10px,#4993E7 20px); text-align: right; font-size: 10px; color: white; padding: 2px 5px 0 0; height: 18px; font-weight: bold; border-radius: 3px; min-width: 30px; }
+
+@keyframes progress {
+	from { background-position: 0% 0%; }
+	to { background-position: 100% 0%; }
+}

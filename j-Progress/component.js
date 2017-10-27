@@ -1,4 +1,4 @@
-COMPONENT('progress', function(self, config) {
+COMPONENT('progress', 'animate:true', function(self, config) {
 
 	var container, old = null;
 	self.readonly();
@@ -13,11 +13,18 @@ COMPONENT('progress', function(self, config) {
 		!value && (value = 0);
 		if (old === value)
 			return;
+
+		if (value > 100)
+			value = 100;
+		else if (value < 0)
+			value = 0;
+
 		old = value;
-		if (config.animate !== false)
-			container.animate({ width: (old < 10 ? 10 : old) + '%' }, 100);
+		if (config.animate)
+			container.animate({ width: old + '%' }, 100);
 		else
-			container.css({ width: (old < 10 ? 10 : old) + '%' });
+			container.css({ width: old + '%' });
+
 		container.html(old + '%');
 	};
 });
