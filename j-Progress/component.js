@@ -20,11 +20,12 @@ COMPONENT('progress', 'animate:true', function(self, config) {
 		else if (value < 0)
 			value = 0;
 
-		old = value;
+		old = value >> 0;
 		if (config.animate)
-			container.stop().animate({ width: (old >> 0) + '%' }, 80).show();
+			container.stop().animate({ width: old + '%' }, 80).show();
 		else
-			container.css({ width: (old >> 0) + '%' });
+			container.css({ width: old + '%' });
 
 		container.html(old + '%');
 	};
+});
