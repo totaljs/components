@@ -1,6 +1,7 @@
 COMPONENT('progress', 'animate:true', function(self, config) {
 
 	var container, old = null;
+
 	self.readonly();
 
 	self.make = function() {
@@ -21,10 +22,9 @@ COMPONENT('progress', 'animate:true', function(self, config) {
 
 		old = value;
 		if (config.animate)
-			container.stop().animate({ width: old + '%' }, 80);
+			container.stop().animate({ width: (old >> 0) + '%' }, 80).show();
 		else
-			container.css({ width: old + '%' });
+			container.css({ width: (old >> 0) + '%' });
 
 		container.html(old + '%');
 	};
-});
