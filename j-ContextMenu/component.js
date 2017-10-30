@@ -31,8 +31,9 @@ COMPONENT('contextmenu', function(self) {
 			is && self.hide(1);
 		});
 
-		$(document).on('touchstart mousedown', function() {
-			is && self.hide(0);
+		$(document).on('touchstart mousedown', function(e) {
+			if (is && self.target !== e.target)
+				self.hide(1);
 		});
 	};
 
