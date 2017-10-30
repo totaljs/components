@@ -5,8 +5,9 @@ input[type="text"]:disabled, input[type="password"]:disabled, select:disabled { 
 .ui-textbox input { display: table-cell; border: 0; outline: 0; font: normal 14px Arial; color: black; width: 100%; background-color: white; margin: 0; padding: 0; }
 .ui-textbox div { width: 1%; position: relative; vertical-align: middle; display: table-cell; text-align: center; white-space: nowrap; text-overflow: clip; border-left: 1px solid #E0E0E0; width: 30px; color: silver; }
 .ui-textbox .fa-times { color: red; cursor: pointer; }
-.ui-textbox-label { margin-bottom: 5px; font-size: 12px; color: #656D78; text-align: left; }
+.ui-textbox-label { margin-bottom: 5px; font-size: 12px; text-align: left; }
 .ui-textbox-label .fa { margin-right: 5px; }
+.ui-textbox-label-required { font-weight: bold; }
 .ui-textbox-label-required:before { color: red; content: '***'; margin-right: 5px; }
 .ui-textbox-invalid { border-color: #E1A1A1 !important; background-color: #FFF3F3 !important; }
 .ui-textbox-invalid input { background-color: #FFF3F3 !important; }
@@ -14,9 +15,8 @@ input[type="text"]:disabled, input[type="password"]:disabled, select:disabled { 
 .ui-textbox .fa-calendar { cursor: pointer; }
 .ui-textbox-helper { margin-top: 8px; font-size: 11px; color: red; text-align: left; display: none; }
 .ui-textbox-helper-show { display: block; }
+.ui-textbox-container.ui-disabled .ui-textbox { background-color: #F0F0F0; cursor: not-allowed; }
+.ui-textbox-container.ui-disabled .ui-textbox input { background-color: #F0F0F0; }
 
 .ui-right { text-align: right; }
 .ui-center { text-align: center; }
-
-.ui-textbox-container.ui-disabled .ui-textbox { background-color: #F0F0F0; cursor: not-allowed; }
-.ui-textbox-container.ui-disabled .ui-textbox input { background-color: #F0F0F0; }
