@@ -146,6 +146,11 @@ COMPONENT('textboxtags', function(self, config) {
 			var arr = self.get();
 			var value = this.value;
 
+			if (config.uppercase)
+				value = value.toUpperCase();
+			else if (config.lowercase)
+				value = value.toLowerCase();
+
 			if (isString)
 				arr = self.split(arr);
 

@@ -13,6 +13,8 @@ __Configuration__:
 - `icon` {String} a label icon without `fa-`, e.g. `home`
 - `label` {String} a label (default: `innerHTML`)
 - `disabled` {Boolean} can disable this control
+- `lowercase` {Boolean} converts a value to lowercase (default: `false`)
+- `uppercase` {Boolean} converts a value to uppercase (default: `false`)
 
 __Other attributes__:
 
