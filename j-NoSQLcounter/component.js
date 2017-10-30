@@ -4,7 +4,7 @@ COMPONENT('nosqlcounter', 'count:0', function(self, config) {
 
 	self.readonly();
 	self.make = function() {
-		self.toggle('ui-nosqlcounter hidden', true);
+		self.aclass('ui-nosqlcounter');
 	};
 
 	self.configure = function(key, value) {
@@ -21,8 +21,6 @@ COMPONENT('nosqlcounter', 'count:0', function(self, config) {
 	self.setter = function(value) {
 
 		var is = !value || !value.length;
-		self.toggle('hidden', is);
-
 		if (is)
 			return self.empty();
 
