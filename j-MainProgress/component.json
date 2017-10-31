@@ -1,0 +1,16 @@
+{
+	"datecreated": "2017-10-31T10:53:00.000Z",
+	"dateupdated": null,
+	"name": "j-MainProgress",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "blue",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}
