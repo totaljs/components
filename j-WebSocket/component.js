@@ -1,4 +1,4 @@
-COMPONENT('websocket', 'reconnect:2000', function(self, config) {
+COMPONENT('websocket', 'reconnect:3000', function(self, config) {
 
 	var ws, url;
 	var queue = [];
@@ -8,8 +8,8 @@ COMPONENT('websocket', 'reconnect:2000', function(self, config) {
 	self.readonly();
 
 	self.make = function() {
-		url = config.url || '';
-		if (!url.match(/^(ws|wss)\:\/\//))
+		url = (config.url || '').env(true);
+		if (!url.match(/^(ws|wss):\/\//))
 			url = (location.protocol.length === 6 ? 'wss' : 'ws') + '://' + location.host + (url.substring(0, 1) !== '/' ? '/' : '') + url;
 		setTimeout(self.connect, 500);
 		self.destroy = self.close;
