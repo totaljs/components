@@ -77,7 +77,7 @@ COMPONENT('websocket', 'reconnect:3000', function(self, config) {
 	self.connect = function() {
 		ws && self.close();
 		setTimeout2(self.id, function() {
-			ws = new WebSocket(url);
+			ws = new WebSocket(url.env(true));
 			ws.onopen = onOpen;
 			ws.onclose = onClose;
 			ws.onmessage = onMessage;
