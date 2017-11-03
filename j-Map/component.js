@@ -17,7 +17,7 @@ COMPONENT('map', function(self, config) {
 
 	self.make = function() {
 		WAIT('google', function(again) {
-			var animations = { drop: google.maps.Animation.DROP, bounce: google.maps.Animation.BOUNCE }
+			var animations = { drop: google.maps.Animation.DROP, bounce: google.maps.Animation.BOUNCE };
 			var options = {};
 
 			options.zoom = config.zoom || 13;
@@ -90,7 +90,7 @@ COMPONENT('map', function(self, config) {
 		if (!value)
 			return;
 
-		if (!value.replace(/\s/g, '').match(/^[0-9\.\,]+(\,|\;)?[0-9\.\,]+$/)) {
+		if (!value.replace(/\s/g, '').match(/^[0-9.,]+(,|;)?[0-9.,]+$/)) {
 			self.search(value);
 			return;
 		}
