@@ -20,7 +20,7 @@ __Methods__:
 - `component.reset()` call `resize` event (useful for modals)
 - `component.reset(lat, lng)` arguments must be numbers
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT
