@@ -1,0 +1,13 @@
+.ui-barchart { position: relative; background-color: white; box-shadow: 0 5px 10px rgba(0,0,0,0.05); }
+.ui-barchart svg { shape-rendering: geometricPrecision; }
+.ui-barchart .bar1 { fill: #3182BD;}
+.ui-barchart .bar2 { fill: #FD8D3C; }
+.ui-barchart .bar3 { fill: #74C476; }
+.ui-barchart .bar4 { fill: #9E9AC8; }
+.ui-barchart .bar5 { fill: #969696; }
+.ui-barchart .axis { stroke: #E0E0E0; shape-rendering: optimizeSpeed; }
+.ui-barchart .selected { opacity: 0.8; }
+.ui-barchart .xlabel { font-size: 11px; fill: gray; }
+.ui-barchart .ylabel { font-size: 11px; fill: #A0A0A0; }
+.ui-barchart .selected { font-size: 16px; fill: black; font-weight: bold; }
+.ui-barchart rect { cursor: pointer; }

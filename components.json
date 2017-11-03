@@ -129,5 +129,6 @@
 	"j-ListBox",
 	"j-FontAwesomeBox",
 	"j-SnackBar",
-	"j-MainProgress"
+	"j-MainProgress",
+	"j-BarChart"
 ]
