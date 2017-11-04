@@ -106,7 +106,7 @@ COMPONENT('binder', function(self) {
 				obj.selector = selector ? selector : null;
 				obj.src = src ? self.prepare(src) : undefined;
 
-				if (el.attr('data-b-template') === 'true') {
+				if (el.attrd('b-template') === 'true') {
 					var tmp = el.find('script[type="text/html"]');
 					var str = '';
 
