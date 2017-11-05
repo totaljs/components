@@ -1,6 +1,5 @@
 * { box-sizing: border-box; }
 
-.ui-nosqlcounter { height: 80px; }
 .ui-nosqlcounter .last { border-radius: 0 3px 3px 0; }
 .ui-nosqlcounter span { border-bottom: 1px solid rgba(255,255,255,0.5); display: block; padding: 2px 0; overflow: hidden; white-space: nowrap; }
 .ui-nosqlcounter .empty { background-color: #A0A0A0; }
