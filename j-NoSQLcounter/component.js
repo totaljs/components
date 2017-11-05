@@ -56,15 +56,17 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config) {
 		var builder = [];
 		var dates = [];
 		var cls = '';
+		var min = ((25 / config.height) * 100) >> 0;
 
 		for (var i = 0, length = stats.length; i < length; i++) {
 			var item = stats[i];
 			var val = item.value;
+
 			if (val > 999)
 				val = (val / 1000).format(1, 2) + 'K';
 
-			var h = (item.value / max) * 60;
-			h += 40;
+			var h = max === 0 ? 0 : ((item.value / max) * (100 - min));
+			h += min;
 
 			cls = item.value ? '' : 'empty';
 
@@ -76,7 +78,7 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config) {
 
 			var w = bar.format(2, '');
 
-			builder.push('<div style="width:{0}%;height:{1}%" title="{3}" class="{4}"><span>{2}</span></div>'.format(w, h.format(0, ''), val, months[item.month - 1] + ' ' + item.year, cls));
+			builder.push('<div style="width:{0}%" title="{3}" class="{4}"><div style="height:{1}%"><span>{2}</span></div></div>'.format(w, h.format(0, ''), val, months[item.month - 1] + ' ' + item.year, cls));
 			dates.push('<div style="width:{0}%">{1}</div>'.format(w, months[item.month - 1].substring(0, 3)));
 		}
 
