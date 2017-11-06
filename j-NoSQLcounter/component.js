@@ -28,9 +28,6 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config) {
 		if (!value)
 			value = [];
 
-		if (WIDTH() === 'xs')
-			maxbars = maxbars / 2;
-
 		var dt = new Date();
 		var current = dt.format('yyyyMM');
 		var stats = null;
@@ -56,7 +53,7 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config) {
 		var builder = [];
 		var dates = [];
 		var cls = '';
-		var min = ((25 / config.height) * 100) >> 0;
+		var min = ((20 / config.height) * 100) >> 0;
 
 		for (var i = 0, length = stats.length; i < length; i++) {
 			var item = stats[i];
@@ -89,9 +86,9 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config) {
 	self.setter = function(value) {
 		if (config.count === 0) {
 			self.width(function(width) {
-				self.redraw(width / 30 >> 0);
+				self.redraw(width / 30 >> 0, value);
 			});
 		} else
-			self.redraw(config.count);
+			self.redraw(WIDTH() === 'xs' ? config.count / 2 : config.count, value);
 	};
 });
