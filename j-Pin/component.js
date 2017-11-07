@@ -28,7 +28,7 @@ COMPONENT('pin', 'blank:●;count:6', function(self, config) {
 		var builder = [];
 		count = config.count;
 		for (var i = 0; i < count; i++)
-			builder.push('<div data-index="{0}" class="ui-pin-input"><input type="textbox" maxlength="1" name="pin{0}" /></div>'.format(i));
+			builder.push('<div data-index="{0}" class="ui-pin-input"><input type="{1}" maxlength="1" name="pin{0}" /></div>'.format(i, isMOBILE ? 'number' : 'text'));
 		self.html(builder.join(''));
 	};
 
