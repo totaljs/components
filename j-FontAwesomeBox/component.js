@@ -24,8 +24,14 @@ COMPONENT('fontawesomebox', 'height:300;fa:false', function(self, config) {
 		});
 
 		self.event('click', 'li', function() {
-			var icon = $(this).find('.fa').attr('class').replace('fa ', '');
-			var val = config.fa ? icon : icon.replace('fa-', '');
+			var el = $(this);
+			var val = '';
+
+			if (!el.hclass('selected')) {
+				var icon = el.find('.fa').attr('class').replace('fa ', '');
+				val = config.fa ? icon : icon.replace('fa-', '');
+			}
+
 			skip = true;
 			config.exec && EXEC(config.exec, val, self);
 			self.set(val);
