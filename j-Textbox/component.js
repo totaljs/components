@@ -80,9 +80,6 @@ COMPONENT('textbox', function(self, config) {
 
 		switch (config.type) {
 			case 'password':
-			case 'url':
-			case 'email':
-			case 'zip':
 				tmp = config.type;
 				break;
 			case 'number':
