@@ -1,4 +1,3 @@
-
 COMPONENT('dropdown', function(self, config) {
 
 	var select, container, condition, content = null;
