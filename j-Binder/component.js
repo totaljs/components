@@ -69,7 +69,7 @@ COMPONENT('binder', function(self) {
 	}
 
 	function decode(val) {
-		return val.replace(/\&\#39;/g, '\'');
+		return val.replace(/&#39;/g, '\'');
 	}
 
 	self.prepare = function(code) {
