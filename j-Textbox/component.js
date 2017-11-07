@@ -76,12 +76,19 @@ COMPONENT('textbox', function(self, config) {
 
 		var attrs = [];
 		var builder = [];
-		var tmp;
+		var tmp = 'text';
 
-		if (config.type === 'password')
-			tmp = 'password';
-		else
-			tmp = 'text';
+		switch (config.type) {
+			case 'password':
+			case 'url':
+			case 'email':
+			case 'zip':
+				tmp = config.type;
+				break;
+			case 'number':
+				isMOBILE && (tmp = 'tel');
+				break;
+		}
 
 		self.tclass('ui-disabled', config.disabled === true);
 		self.type = config.type;
