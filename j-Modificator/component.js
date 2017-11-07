@@ -104,7 +104,7 @@ COMPONENT('modificator', function(self) {
 			var schema = '';
 
 			if (reg_search.test(path)) {
-				var arr = path.split(reg_search);
+				var arr = path.replace(/\s+\+\s+/, '+').split(reg_search);
 				path = arr[0];
 				schema = arr[1];
 			}
