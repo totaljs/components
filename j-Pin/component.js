@@ -39,19 +39,18 @@ COMPONENT('pin', 'blank:●;count:6', function(self, config) {
 
 		self.event('keypress', 'input', function(e) {
 			var c = e.which;
+			var t = this;
 			if (c >= 48 && c <= 57) {
 				var c = String.fromCharCode(e.charCode);
-				if (this.value !== c)
-					this.value = c;
+				if (t.value !== c)
+					t.value = c;
 				setTimeout(function(el) {
 					var next = el.parent().next().find('input');
 					next.length && next.focus();
-				}, 50, $(this));
+				}, 50, $(t));
 				self.mask();
-				return;
-			}
-
-			c > 30 && e.preventDefault();
+			} else if (c > 30)
+				e.preventDefault();
 		});
 
 		self.event('keydown', 'input', function(e) {
@@ -60,6 +59,7 @@ COMPONENT('pin', 'blank:●;count:6', function(self, config) {
 					el.attr('data-value', '');
 					var prev = el.parent().prev().find('input');
 					prev.val() && prev.focus();
+					self.mask();
 				}
 			}, 50, $(this));
 		});
