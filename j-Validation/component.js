@@ -1,7 +1,8 @@
-COMPONENT('validation', function(self, config) {
+COMPONENT('validation', 'timeout:100;flags:visible', function(self, config) {
 
 	var path, elements = null;
 	var def = 'button[name="submit"]';
+	var flags = null;
 
 	self.readonly();
 
@@ -14,19 +15,28 @@ COMPONENT('validation', function(self, config) {
 	};
 
 	self.configure = function(key, value, init) {
-		if (init)
-			return;
 		switch (key) {
 			case 'selector':
-				elements = self.find(value || def);
+				if (!init)
+					elements = self.find(value || def);
+				break;
+			case 'flags':
+				if (value) {
+					flags = value.split(',');
+					for (var i = 0; i < flags.length; i++)
+						flags[i] = '@' + flags[i];
+				} else
+					flags = null;
 				break;
 		}
 	};
 
 	self.state = function() {
-		var disabled = MAIN.disabled(path);
-		if (!disabled && config.if)
-			disabled = !EVALUATE(self.path, config.if);
-		elements.prop('disabled', disabled);
+		setTimeout2(self.id, function() {
+			var disabled = MAIN.disabled(path, flags);
+			if (!disabled && config.if)
+				disabled = !EVALUATE(self.path, config.if);
+			elements.prop('disabled', disabled);
+		}, config.timeout);
 	};
 });
