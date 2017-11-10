@@ -17,6 +17,7 @@ Example: `data-jc-config="discount:10"`
 - `instance.has(id)` checks product
 - `instance.read(id)` reads product
 - `instance.clear()` clears all products
+- `instance.clean()` removes all products with zero count
 - `instance.sync(function(array_id_products, meta) {})` create data for synchronization with the server
 
 ### Global Events
@@ -24,6 +25,7 @@ Example: `data-jc-config="discount:10"`
 - `ON('shoppingcart.add', function(item) {})`
 - `ON('shoppingcart.upd', function(item) {})`
 - `ON('shoppingcart.rem', function(id) {})`
+- `ON('shoppingcart.sum', function(data) {})`
 - `ON('shoppingcart.clear', function() {})`
 
 ### Author

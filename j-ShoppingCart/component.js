@@ -44,8 +44,8 @@ COMPONENT('shoppingcart', 'discount:0;expiration:6 days', function(self, config)
 	self.sync = function(callback) {
 		var datasource = self.prepare();
 		var id = [];
-		for (var i = 0; i < datasource.length; i++)
-			id.push(datasource[i].id);
+		for (var i = 0; i < datasource.items.length; i++)
+			id.push(datasource.items[i].id);
 		callback(id, datasource);
 	};
 
@@ -55,7 +55,7 @@ COMPONENT('shoppingcart', 'discount:0;expiration:6 days', function(self, config)
 
 	self.has = function(id) {
 		var datasource = self.prepare().items;
-		return id ? datasource.items.findItem('id', id) != null : datasource.items.length > 0;
+		return id ? datasource.findItem('id', id) != null : datasource.length > 0;
 	};
 
 	self.add = function(id, price, count, name) {
@@ -68,7 +68,8 @@ COMPONENT('shoppingcart', 'discount:0;expiration:6 days', function(self, config)
 			item = { id: id, price: price, count: count || 1, name: name, created: new Date() };
 			datasource.items.push(item);
 		}
-		self.sum();
+
+		setTimeout2(self.id + '.sum', self.sum, 100);
 		EMIT('shoppingcart.add', item);
 	};
 
@@ -77,10 +78,17 @@ COMPONENT('shoppingcart', 'discount:0;expiration:6 days', function(self, config)
 		var item = datasource.items.findItem('id', id);
 		if (item) {
 			item.count = count;
-			!count && (datasource.items = datasource.items.remove('id', id));
-			self.sum();
 			EMIT('shoppingcart.upd', item);
+			setTimeout2(self.id + '.sum', self.sum, 100);
 		}
+	};
+
+	self.clean = function() {
+		var datasource = self.prepare();
+		datasource.items = datasource.items.remove(function(item) {
+			return item.count <= 0;
+		});
+		self.sum();
 	};
 
 	self.items = function() {
@@ -91,7 +99,7 @@ COMPONENT('shoppingcart', 'discount:0;expiration:6 days', function(self, config)
 	self.rem = function(id) {
 		var datasource = self.prepare();
 		datasource.items = datasource.items.remove('id', id);
-		self.sum();
+		setTimeout2(self.id + '.sum', self.sum, 100);
 		EMIT('shoppingcart.rem', id);
 	};
 
@@ -122,5 +130,6 @@ COMPONENT('shoppingcart', 'discount:0;expiration:6 days', function(self, config)
 
 		!init && CACHE('shoppingcart', datasource.items, config.expiration);
 		self.update(true);
+		EMIT('shoppingcart.sum', datasource);
 	};
 });
