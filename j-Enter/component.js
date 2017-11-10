@@ -1,4 +1,4 @@
-COMPONENT('enter', 'validate:true', function(self) {
+COMPONENT('enter', 'validate:true', function(self, config) {
 	self.readonly();
 	self.make = function() {
 		self.event('keydown', 'input', function(e) {
