@@ -1,11 +1,16 @@
 COMPONENT('clickbox', function(self, config) {
 
+	var visible = false;
+
 	self.readonly();
 	self.blind();
 
 	self.init = function() {
 		$(document).on('click', function() {
-			$('.ui-clickbox-visible').rclass('ui-clickbox-visible');
+			if (visible) {
+				$('.ui-clickbox-visible').rclass('ui-clickbox-visible');
+				visible = false;
+			}
 		});
 	};
 
@@ -20,9 +25,11 @@ COMPONENT('clickbox', function(self, config) {
 			var cls = 'ui-clickbox-visible';
 			if (self.hclass(cls)) {
 				self.rclass(cls);
+				visible = false;
 				return;
 			}
 
+			visible = true;
 			setTimeout(function() {
 				self.aclass(cls);
 			}, 50);
