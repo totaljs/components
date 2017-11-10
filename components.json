@@ -130,5 +130,7 @@
 	"j-FontAwesomeBox",
 	"j-SnackBar",
 	"j-MainProgress",
-	"j-BarChart"
+	"j-BarChart",
+	"j-Enter",
+	"j-ClickBox"
 ]
