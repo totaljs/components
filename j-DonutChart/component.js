@@ -1,10 +1,11 @@
-COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true;presentation:true', function(self, config) {
+COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true;presentation:true;animate:true', function(self, config) {
 
 	var svg, g, selected, tooltip;
 	var strokew = 0;
 	var animate = true;
 	var indexer = 0;
 	var indexerskip = false;
+	var force = false;
 	var W = $(window);
 
 	self.readonly();
@@ -17,12 +18,10 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true;presentatio
 
 		W.on('resize', self.resize);
 
-		self.element.on('mouseenter touchstart', '.piece', function() {
-			if (config.tooltip) {
-				self.select(+this.getAttribute('data-index'));
-				!indexerskip && config.presentation && setTimeout2(self.id + '.skip', self.next, 30000);
-				indexerskip = true;
-			}
+		self.event('mouseenter touchstart', '.piece', function() {
+			self.select(+this.getAttribute('data-index'));
+			!indexerskip && config.presentation && setTimeout2(self.id + '.skip', self.next, 30000);
+			indexerskip = true;
 		});
 	};
 
@@ -30,12 +29,19 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true;presentatio
 		var item = self.get()[index];
 		if (item === selected)
 			return;
+
 		self.find('.selected').rclass('selected').css('stroke-width', strokew);
 		selected = item;
-		var w = self.element.width();
+
 		var el = self.find('.piece' + (index + 1));
-		tooltip.css('font-size', w / 15);
-		tooltip.html('<b>' + item.name + '</b><br />' + Tangular.render(config.format, item));
+
+		if (config.tooltip) {
+			var w = self.width();
+			tooltip.css('font-size', w / 15);
+			tooltip.html('<b>' + item.name + '</b><br />' + Tangular.render(config.format, item));
+		}
+
+		config.select && EXEC(config.select, item);
 		el.css('stroke-width', strokew.inc('+15%')).aclass('selected');
 		indexer = index;
 	};
@@ -47,6 +53,7 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true;presentatio
 	self.resize = function() {
 		setTimeout2('resize.' + self.id, function() {
 			animate = false;
+			force = true;
 			self.refresh();
 		}, 100);
 	};
@@ -83,18 +90,14 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true;presentatio
 		return d;
 	}
 
-	self.setter = function(value) {
-
-		if (!value) {
-			g.empty();
-			return;
-		}
+	self.redraw = function(width, value) {
 
 		var sum = null;
 
 		for (var i = 0, length = value.length; i < length; i++) {
 			var item = value[i];
-			sum = (sum ? sum + item.value : item.value);
+			var val = item.value + 1;
+			sum = sum ? sum + val : val;
 		}
 
 		var count = 0;
@@ -104,7 +107,7 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true;presentatio
 
 		for (var i = 0, length = value.length; i < length; i++) {
 			var item = value[i];
-			var p = ((item.value / sum) * 100).floor(2);
+			var p = (((item.value + 1) / sum) * 100).floor(2);
 
 			count += p;
 
@@ -116,7 +119,10 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true;presentatio
 			beg = end;
 		}
 
-		var size = self.element.width();
+		if (!force && NOTMODIFIED(self.id, items))
+			return;
+
+		var size = width;
 		var half = size / 2;
 		var midpoint = size / 2.4;
 
@@ -130,6 +136,8 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true;presentatio
 
 		for (var i = 0, length = items.length; i < length; i++) {
 			var item = items[i];
+			if (item.percentage === 0)
+				continue;
 			if (item.end === 360)
 				item.end = 359.99;
 			pieces.push(g.asvg('path').attr('data-index', i).attr('data-beg', item.beg).attr('data-end', item.end).attr('stroke-width', strokew).attr('class', 'piece piece' + (i + 1)).attr('d', arc(half, half, midpoint, item.beg, animate ? item.beg : item.end)));
@@ -140,22 +148,40 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true;presentatio
 			var end = +item.attrd('end');
 			var diff = end - beg;
 
-			item.animate({ end: diff }, { duration: 180, step: function(fx) {
-				item.attr('d', arc(half, half, midpoint, beg, beg + fx));
-			}, complete: function() {
+			if (config.animate) {
+				item.animate({ end: diff }, { duration: 180, step: function(fx) {
+					item.attr('d', arc(half, half, midpoint, beg, beg + fx));
+				}, complete: function() {
+					next();
+				}});
+			} else {
+				item.attr('d', arc(half, half, midpoint, beg, end));
 				next();
-			}});
+			}
 		});
 
 		selected = null;
 		animate = true;
+		force = false;
 
-		if (config.tooltip) {
-			self.select(0);
-			if (config.presentation) {
-				indexerskip = false;
-				setTimeout(self.next, 4000);
-			}
+		config.redraw && EXEC(config.redraw);
+
+		self.select(0);
+		if (config.presentation) {
+			indexerskip = false;
+			setTimeout(self.next, 4000);
 		}
+	};
+
+	self.setter = function(value) {
+
+		if (!value) {
+			g.empty();
+			return;
+		}
+
+		self.width(function(width) {
+			self.redraw(width, value);
+		});
 	};
 });
