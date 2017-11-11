@@ -197,6 +197,7 @@ COMPONENT('multioptions', function(self) {
 
 		skip = true;
 		self.set(obj);
+		self.change(true);
 	};
 
 	self.setter = function(options) {
