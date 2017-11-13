@@ -78,6 +78,7 @@ COMPONENT('listbox', function(self, config) {
 				break;
 			case 'search':
 				redraw = true;
+				break;
 			case 'height':
 				Eitems.css('height', value + 'px');
 				break;
@@ -158,8 +159,6 @@ COMPONENT('listbox', function(self, config) {
 	self.setter = function(value) {
 
 		var selected = {};
-		var builder = [];
-
 		var ds = self.datasource;
 		var dsl = ds.length;
 
@@ -178,8 +177,6 @@ COMPONENT('listbox', function(self, config) {
 				}
 			}
 		}
-
-		var first;
 
 		Eitems.find('li').each(function() {
 			var el = $(this);
