@@ -1,28 +1,27 @@
-COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;boolean:true|on|yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;pagination:false', function(self, config) {
+COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering values ...;boolean:true|on|yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;pagination:false;rowheight:30', function(self, config) {
 
 	var tbody, thead, tbodyhead, container, pagination;
 	var options = { columns: {}, items: [], indexer: 0, filter: {} };
 	var isFilter = false;
-	var ppages, pitems, cache, eheight;
+	var ppages, pitems, cache, eheight, wheight, scroll, filled = false;
 
-	self.template = Tangular.compile('<td data-index="{{ index }}"{{ if $.class }} class="{{ $.class }}"{{ fi }}><div class="wrap{{ if align }} {{ align }}{{ fi }}"{{ if background }} style="background-color:{{ background }}"{{ fi }}>{{ value | raw }}</div></td>');
+	self.template = Tangular.compile('<td data-index="{{ index }}"{{ if $.cls }} class="{{ $.cls }}"{{ fi }}><div class="wrap{{ if align }} {{ align }}{{ fi }}"{{ if background }} style="background-color:{{ background }}"{{ fi }}>{{ value | raw }}</div></td>');
 	self.options = options;
 	self.readonly();
 
 	self.make = function() {
 
 		var meta = self.find('script').html();
-		self.aclass('ui-grid-container');
-		self.html('<div class="ui-grid"><table class="ui-grid-header"><thead></thead></table><div class="ui-grid-scroller"><table class="ui-grid-data"><thead></thead><tbody></tbody></table></div></div>' + (config.pagination ? '<div class="ui-grid-footer"><div class="ui-grid-meta"></div><div class="ui-grid-pagination"><button class="ui-grid-button" name="first"><i class="fa fa-angle-double-left"></i></button><button class="ui-grid-button" name="prev"><i class="fa fa-angle-left"></i></button><div class="page"><input type="text" maxlength="5" class="ui-grid-input" /></div><button class="ui-grid-button" name="next"><i class="fa fa-angle-right"></i></button><button class="ui-grid-button" name="last"><i class="fa fa-angle-double-right"></i></button></div><div class="ui-grid-pages"></div></div></div>' : ''));
+		self.aclass('ui-grid-container' + (config.autosize ? '' : ' hidden'));
+		self.html('<div class="ui-grid"><table class="ui-grid-header"><thead></thead></table><div class="ui-grid-scroller"><table class="ui-grid-data"><thead></thead><tbody></tbody></table></div></div>' + (config.pagination ? '<div class="ui-grid-footer hidden"><div class="ui-grid-meta"></div><div class="ui-grid-pagination"><button class="ui-grid-button" name="first"><i class="fa fa-angle-double-left"></i></button><button class="ui-grid-button" name="prev"><i class="fa fa-angle-left"></i></button><div class="page"><input type="text" maxlength="5" class="ui-grid-input" /></div><button class="ui-grid-button" name="next"><i class="fa fa-angle-right"></i></button><button class="ui-grid-button" name="last"><i class="fa fa-angle-double-right"></i></button></div><div class="ui-grid-pages"></div></div></div>' : ''));
 
 		var body = self.find('.ui-grid-data');
 		tbody = $(body.find('tbody').get(0));
 		tbodyhead = $(body.find('thead').get(0));
 		thead = $(self.find('.ui-grid-header').find('thead').get(0));
 		container = $(self.find('.ui-grid-scroller').get(0));
-		pagination = config.pagination ? VIRTUALIZE(self.find('.ui-grid-footer'), { page: 'input', first: 'button[name="first"]', last: 'button[name="last"]', prev: 'button[name="prev"]', next: 'button[name="next"]', meta: '.meta', pages: '.pages' }) : null;
+		pagination = config.pagination ? VIRTUALIZE(self.find('.ui-grid-footer'), { page: 'input', first: 'button[name="first"]', last: 'button[name="last"]', prev: 'button[name="prev"]', next: 'button[name="next"]', meta: '.ui-grid-meta', pages: '.ui-grid-pages' }) : null;
 		meta && self.meta(meta);
-		config.init && EXEC(config.init);
 
 		self.event('click', '.ui-grid-columnsort', function() {
 			var obj = {};
@@ -38,28 +37,33 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 			else
 				delete options.filter[this.name];
 			el.tclass('ui-grid-selected', this.value ? true : false);
+			scroll = true;
 			self.filter();
 		});
 
 		self.event('change', 'input', function() {
-			this.type === 'checkbox' && config.checked && GET(config.checked).call(self, this, self);
+			this.type === 'checkbox' && config.checked && EXEC(config.checked, this, self);
 		});
 
 		self.event('click', '.ui-grid-button', function() {
 			switch (this.name) {
 				case 'first':
+					scroll = true;
 					cache.page = 1;
 					self.operation('pagination');
 					break;
 				case 'last':
+					scroll = true;
 					cache.page = cache.pages;
 					self.operation('pagination');
 					break;
 				case 'prev':
+					scroll = true;
 					cache.page -= 1;
 					self.operation('pagination');
 					break;
 				case 'next':
+					scroll = true;
 					cache.page += 1;
 					self.operation('pagination');
 					break;
@@ -70,15 +74,27 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 			var page = (+this.value) >> 0;
 			if (isNaN(page) || page < 0 || page > cache.pages || page === cache.page)
 				return;
+			scroll = true;
 			cache.page = page;
 			self.operation('pagination');
 		});
 
+		tbody.on('click', 'button', function() {
+			var btn = $(this);
+			var tr = btn.closest('tr');
+			config.button && EXEC(config.button, btn, options.items[+tr.attrd('index')], self);
+		});
+
 		self.on('resize', self.resize);
+		config.init && EXEC(config.init);
+		wheight = $(window).height();
 	};
 
-	self.checked = function() {
-		return self.find('input:checked');
+	self.checked = function(value) {
+		if (typeof(value) === 'boolean')
+			self.find('input[type="checkbox"]').prop('checked', value);
+		else
+			return tbody.find('input:checked');
 	};
 
 	self.meta = function(html) {
@@ -96,6 +112,10 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 
 		for (var i = 0; i < options.columns.length; i++) {
 			var column = options.columns[i];
+
+			if (typeof(column.header) === 'string' && column.header.indexOf('{{') !== -1)
+				column.header = Tangular.compile(column.header);
+
 			if (typeof(column.template) === 'string')
 				column.template = column.template.indexOf('{{') === -1 ? new Function('a', 'b', 'return \'' + column.template + '\'') : Tangular.compile(column.template);
 		}
@@ -114,6 +134,15 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 		}
 	};
 
+	self.cls = function(d) {
+		var a = [];
+		for (var i = 1; i < arguments.length; i++) {
+			var cls = arguments[i];
+			cls && a.push(cls);
+		}
+		return a.length ? ((d ? ' ' : '') + a.join(' ')) : '';
+	};
+
 	self.rebuild = function(init) {
 
 		var data = ['<tr class="ui-grid-empty">'];
@@ -126,28 +155,36 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 
 		for (var i = 0, length = columns.length; i < length; i++) {
 			var col = columns[i];
-			size += col.size || 1;
+
+			if (typeof(col.size) !== 'string')
+				size += col.size || 1;
+
 			col.sorting = null;
+
 			if (typeof(col.render) === 'string')
 				col.render = FN(col.render);
+
 			if (typeof(col.header) === 'string')
 				col.header = FN(col.header);
+
+			col.cls = self.cls(0, col.classtd, col.class);
 		}
 
 		for (var i = 0, length = columns.length; i < length; i++) {
 			var col = columns[i];
 			var width = typeof(col.size) === 'string' ? col.size : ((((col.size || 1) / size) * 100).floor(2) + '%');
-			data.push('<td style="width:{0}" data-index="{1}" class="{2}"></td>'.format(width, i, col.class ? ' ' + col.class : ''));
-			header.push('<th class="ui-grid-columnname{3}{5}" style="width:{0};text-align:center" data-index="{1}" title="{6}" data-name="{4}"><div class="wrap"><i class="fa hidden"></i>{2}</div></th>'.format(width, i, col.header ? col.header(col) : (col.text || col.name), col.class ? ' ' + col.class : '', col.name, col.sort === false ? '' : ' ui-grid-columnsort', col.title || col.text || col.name));
+
+			data.push('<td style="width:{0}" data-index="{1}" class="{2}"></td>'.format(width, i, self.cls(0, col.classtd, col.class)));
+			header.push('<th class="ui-grid-columnname{3}{5}" style="width:{0};text-align:center" data-index="{1}" title="{6}" data-name="{4}"><div class="wrap"><i class="fa hidden ui-grid-fa"></i>{2}</div></th>'.format(width, i, col.header ? col.header(col) : (col.text || col.name), self.cls(1, col.classth, col.class), col.name, col.sort === false ? '' : ' ui-grid-columnsort', col.title || col.text || col.name));
 			if (col.filter === false)
-				filter.push('<th class="ui-grid-columnfilterempty ui-grid-columnfilter{1}" style="width:{0}">&nbsp;</th>'.format(width, col.class ? ' ' + col.class : ''));
+				filter.push('<th class="ui-grid-columnfilterempty ui-grid-columnfilter{1}" style="width:{0}">&nbsp;</th>'.format(width, self.cls(1, col.classfilter, col.class)));
 			else
-				filter.push('<th class="ui-grid-columnfilter{4}" style="width:{0}"><input type="text" placeholder="{3}" name="{2}" autocomplete="off" class="ui-grid-filter" /></th>'.format(width, i, col.name, col.filter || config.filterlabel, col.class ? ' ' + col.class : ''));
+				filter.push('<th class="ui-grid-columnfilter{4}" style="width:{0}"><input type="text" placeholder="{3}" name="{2}" autocomplete="off" class="ui-grid-filter" /></th>'.format(width, i, col.name, col.filter || config.filterlabel, self.cls(1, col.classfilter, col.class)));
 		}
 
 		if (scrollbar) {
 			header.push('<th class="ui-grid-columnname ui-grid-scrollbar" style="width:{0}px"></th>'.format(scrollbar));
-			filter.push('<th class="ui-grid-columnfilterempty ui-grid-scrollbar ui-grid-columnfilter{1}" style="width:{0}px">&nbsp;</th>'.format(scrollbar, col.class ? ' ' + col.class : ''));
+			filter.push('<th class="ui-grid-columnfilterempty ui-grid-scrollbar ui-grid-columnfilter{1}" style="width:{0}px">&nbsp;</th>'.format(scrollbar, self.cls(1, col.classtd, col.class)));
 		}
 
 		tbodyhead.html(data.join('') + '</tr>');
@@ -157,49 +194,67 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 		options.filter = {};
 	};
 
-	self.fill = function(count) {
+	self.fill = function() {
 
-		if (config.autosize === false)
+		if (config.autosize === false || filled)
 			return;
 
+		filled = true;
 		tbody.find('.emptyfill').remove();
 		var builder = ['<tr class="emptyfill">'];
 
 		var cols = options.columns;
 		for (var i = 0, length = cols.length; i < length; i++) {
-			if (!cols[i].hidden)
-				builder.push('<td{0}>'.format(cols[i].class ? (' class="' + cols[i].class + '"') : '') + (i ? '' : '<div class="wrap">&nbsp;</div>') + '</td>');
+			var col = cols[i];
+			if (!col.hidden) {
+				var cls = self.cls(0, col.classtd, col.class);
+				builder.push('<td{0}>'.format(cls ? (' class="' + cls + '"') : '') + (i ? '' : '<div class="wrap">&nbsp;</div>') + '</td>');
+			}
 		}
 
 		builder.push('</tr>');
 		builder = builder.join('');
 		var buffer = [];
-		for (var i = 0; i < count; i++)
+		for (var i = 0; i < config.fillcount; i++)
 			buffer.push(builder);
 		tbody.append(buffer.join(''));
 	};
 
-	self.resize = function() {
+	self.resize = function(delay) {
 
 		if (config.autosize === false)
 			return;
 
-		var value = options.items;
-		var parent = self.parent();
-		var height = parent.height() - (config.padding || 0);
+		setTimeout2(self.id + '.resize', function() {
 
-		if (height === eheight)
-			return;
+			var parent = self.parent().height();
+			if (parent < wheight / 3)
+				return;
 
-		container.height(height - (config.pagination ? 124 : 74));
-		eheight = height;
+			var value = options.items;
+			var height = parent - (config.padding || 0) - (config.pagination ? 105 : 74);
 
-		var count = (height / 32) >> 0;
-		if (count > value.length) {
-			self.fill((count + 1) - value.length);
-			container.aclass('ui-grid-noscroll');
-		} else
-			container.rclass('ui-grid-noscroll');
+			if (height === eheight)
+				return;
+
+			container.height(height);
+			eheight = height;
+
+			var cls = 'ui-grid-noscroll';
+			var count = (height / config.rowheight) >> 0;
+			if (count > value.length) {
+				self.fill(config.fillcount);
+				self.aclass(cls);
+			} else
+				self.rclass(cls);
+
+			pagination && pagination.rclass('hidden');
+			eheight && self.rclass('hidden');
+		}, typeof(delay) === 'number' ? delay : 50);
+	};
+
+	self.limit = function() {
+		return Math.ceil(container.height() / config.rowheight);
 	};
 
 	self.filter = function() {
@@ -209,7 +264,9 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 	};
 
 	self.operation = function(type) {
-		config.exec && EXEC(config.exec, type, isFilter ? options.filter : null, options.lastsort ? options.lastsort : null, cache.page);
+		if (type === 'filter')
+			cache.page = 1;
+		config.exec && EXEC(config.exec, type, isFilter ? options.filter : null, options.lastsort ? options.lastsort : null, cache.page, self);
 	};
 
 	self.sort = function(data) {
@@ -217,7 +274,7 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 		options.lastsortelement && options.lastsortelement.rclass('fa-caret-down fa-caret-up').aclass('hidden');
 
 		if (data.column.sorting === 'desc') {
-			options.lastsortelement.find('.fa').rclass('fa-caret-down fa-caret-up').aclass('hidden');
+			options.lastsortelement.find('.ui-grid-fa').rclass('fa-caret-down fa-caret-up').aclass('hidden');
 			options.lastsortelement = null;
 			options.lastsort = null;
 			data.column.sorting = null;
@@ -229,12 +286,11 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 
 		} else if (data.column) {
 			data.column.sorting = data.column.sorting === 'asc' ? 'desc' : 'asc';
-			options.lastsortelement = thead.find('th[data-name="{0}"]'.format(data.column.name)).find('.fa').rclass('hidden').tclass('fa-caret-down', data.column.sorting === 'asc').tclass('fa-caret-up', data.column.sorting === 'desc');
+			options.lastsortelement = thead.find('th[data-name="{0}"]'.format(data.column.name)).find('.ui-grid-fa').rclass('hidden').tclass('fa-caret-down', data.column.sorting === 'asc').tclass('fa-caret-up', data.column.sorting === 'desc');
 			options.lastsort = data.column;
 
 			var name = data.column.name;
 			var sort = data.column.sorting;
-
 
 			!config.external && options.lastsort && options.items.quicksort(name, sort === 'asc');
 			self.operation('sort');
@@ -255,6 +311,11 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 			var type = typeof(val);
 			var val2 = cache[column];
 
+			if (val instanceof Array) {
+				val = val.join(' ');
+				type = 'string';
+			}
+
 			if (type === 'number') {
 
 				if (val2 == null)
@@ -269,7 +330,7 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 			} else if (type === 'string') {
 
 				if (val2 == null) {
-					val2 = cache[column] = filter.split(/\/\|\\|\,/).trim();
+					val2 = cache[column] = filter.split(/\/\|\\|,/).trim();
 					for (var j = 0; j < val2.length; j++)
 						val2[j] = val2[j].toSearch();
 				}
@@ -298,7 +359,7 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 				val.setMinutes(0);
 
 				if (val2 == null) {
-					val2 = filter.trim().split(/\/|\||\\|\,/).trim();
+					val2 = filter.trim().split(/\/|\||\\|,/).trim();
 					var arr = cache[column] = [];
 					for (var j = 0; j < val2.length; j++) {
 						var dt = val2[j].trim();
@@ -349,7 +410,7 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 
 	self.parseNumber = function(val) {
 		var arr = [];
-		var num = val.replace(/\s/g, '').replace(/\,/g, '.').split(/\/|\||\\/).trim();
+		var num = val.replace(/\s/g, '').replace(/,/g, '.').split(/\/|\||\\/).trim();
 
 		for (var i = 0, length = num.length; i < length; i++) {
 			var n = num[i];
@@ -392,12 +453,13 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 			builder.push('</tr>');
 		}
 
-		tbody.html(builder.join(''));
+		tbody.find('.ui-grid-row').remove();
+		tbody.prepend(builder.join(''));
 		container.rclass('noscroll');
-
+		scroll && container.prop('scrollTop', 0);
+		scroll = false;
 		eheight = 0;
-		self.resize();
-		setTimeout(self.resize, 500);
+		self.resize(0);
 	};
 
 	self.setter = function(value) {
@@ -409,7 +471,7 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 		// value.count
 
 		if (!value) {
-			tbody.empty();
+			tbody.find('.ui-grid-row').remove();
 			self.resize();
 			return;
 		}
@@ -439,5 +501,6 @@ COMPONENT('grid', 'filter:true;external:false;filterlabel:Filtering values ...;b
 		}
 
 		self.redraw();
+		config.checked && EXEC(config.checked, null, self);
 	};
 });
