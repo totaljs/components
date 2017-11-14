@@ -3,6 +3,7 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config) {
 	var months = MONTHS;
 	var container, labels;
 
+	self.bindvisible();
 	self.readonly();
 
 	self.make = function() {
@@ -23,8 +24,9 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config) {
 		}
 	};
 
-	self.redraw = function(maxbars, value) {
+	self.redraw = function(maxbars) {
 
+		var value = self.get();
 		if (!value)
 			value = [];
 
@@ -54,6 +56,7 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config) {
 		var dates = [];
 		var cls = '';
 		var min = ((20 / config.height) * 100) >> 0;
+		var sum = '';
 
 		for (var i = 0, length = stats.length; i < length; i++) {
 			var item = stats[i];
@@ -61,6 +64,8 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config) {
 
 			if (val > 999)
 				val = (val / 1000).format(1, 2) + 'K';
+
+			sum += val + ',';
 
 			var h = max === 0 ? 0 : ((item.value / max) * (100 - min));
 			h += min;
@@ -79,14 +84,17 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config) {
 			dates.push('<div style="width:{0}%">{1}</div>'.format(w, months[item.month - 1].substring(0, 3)));
 		}
 
-		labels.html(dates.join(''));
-		container.html(builder.join(''));
+		if (self.old !== sum) {
+			self.old = sum;
+			labels.html(dates.join(''));
+			container.html(builder.join(''));
+		}
 	};
 
 	self.setter = function(value) {
 		if (config.count === 0) {
 			self.width(function(width) {
-				self.redraw(width / 30 >> 0, value);
+				self.redraw(width / 30 >> 0);
 			});
 		} else
 			self.redraw(WIDTH() === 'xs' ? config.count / 2 : config.count, value);
