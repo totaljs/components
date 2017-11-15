@@ -4,7 +4,7 @@ This component can handle different contents asynchronously.
 
 __Configuration__:
 
-Example: `data-jc-config="template:/home.html;if:home`
+Example: `data-jc-config="url:/home.html;if:home`
 
 - `url` {String} (required) a relative URL address
 - `if` {String} (required) condition, it's compared with the value within of `data-jc-path`
