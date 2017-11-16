@@ -23,8 +23,11 @@ COMPONENT('multioptions', function(self) {
 		self.aclass('ui-multioptions');
 
 		var el = self.find('script');
-		self.remap(el.html());
-		el.remove();
+
+		if (el.length) {
+			self.remap(el.html());
+			el.remove();
+		}
 
 		self.event('click', '.multioptions-operation', function(e) {
 			var el = $(this);
@@ -107,43 +110,49 @@ COMPONENT('multioptions', function(self) {
 	};
 
 	self.remap = function(js) {
-
 		var fn = new Function('option', js);
-
 		mapping = {};
+		fn(self.mapping);
+		self.refresh();
+	};
 
-		fn(function(key, label, def, type, max, min, step, validator) {
-			if (typeof(type) === 'number') {
-				validator = step;
-				step = min;
-				min = max;
-				max = type;
-				type = 'number';
-			} else if (!type)
-				type = def instanceof Date ? 'date' : typeof(def);
+	self.remap2 = function(callback) {
+		mapping = {};
+		callback(self.mapping);
+		self.refresh();
+	};
 
-			var values;
+	self.mapping = function(key, label, def, type, max, min, step, validator) {
+		if (typeof(type) === 'number') {
+			validator = step;
+			step = min;
+			min = max;
+			max = type;
+			type = 'number';
+		} else if (!type)
+			type = def instanceof Date ? 'date' : typeof(def);
 
-			if (type instanceof Array) {
+		var values;
 
-				values = [];
+		if (type instanceof Array) {
 
-				type.forEach(function(val) {
-					values.push({ text: val.text === undefined ? val : val.text, value: val.value === undefined ? val : val.value });
-				});
+			values = [];
 
-				type = 'array';
-			}
+			type.forEach(function(val) {
+				values.push({ text: val.text === undefined ? val : val.text, value: val.value === undefined ? val : val.value });
+			});
 
-			if (validator && typeof(validator) !== 'function')
-				validator = null;
+			type = 'array';
+		}
 
-			mapping[key] = { name: key, label: label, type: type.toLowerCase(), def: def, max: max, min: min, step: step, value: def, values: values, validator: validator };
-		});
+		if (validator && typeof(validator) !== 'function')
+			validator = null;
+
+		mapping[key] = { name: key, label: label, type: type.toLowerCase(), def: def, max: max, min: min, step: step, value: def, values: values, validator: validator };
 	};
 
 	self.$save = function() {
-		setTimeout2('multioptions.' + self._id, self.save, 500);
+		setTimeout2('multioptions.' + self._id, self.save, 150);
 	};
 
 	self.save = function() {
@@ -202,13 +211,12 @@ COMPONENT('multioptions', function(self) {
 
 	self.setter = function(options) {
 
-		if (!options || skip) {
+		if (!options || skip || !mapping) {
 			skip = false;
 			return;
 		}
 
 		var builder = [];
-
 		Object.keys(mapping).forEach(function(key) {
 
 			var option = mapping[key];
@@ -222,7 +230,7 @@ COMPONENT('multioptions', function(self) {
 			// option.min
 			// option.step
 
-			option.value = options[key];
+			option.value = options[key] || option.def;
 
 			var value = '';
 
@@ -250,7 +258,7 @@ COMPONENT('multioptions', function(self) {
 			builder.push('<div class="ui-multioptions-item"><div class="ui-moi-name">{0}</div><div class="ui-moi-value">{1}</div></div>'.format(option.label, value));
 		});
 
-		self.html(builder);
+		self.empty().html(builder);
 
 		self.find('.ui-moi-value-colors').each(function() {
 			var el = $(this);

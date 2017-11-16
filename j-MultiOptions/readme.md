@@ -43,6 +43,7 @@ __Good to know__:
 - all properties not defined in mapping won't be shown
 - `date` type is linked by `Calendar` component
 - follow example
+- `component.remap(js_code)` can remap new configuration
 
 ### Author
 
