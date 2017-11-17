@@ -8,6 +8,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 	var current = { x: 0, y: 0 };
 	var offset = { x: 0, y: 0 };
 	var cache = { x: 0, y: 0, zoom: 0 };
+	var width = 0;
 
 	self.bindvisible();
 	self.noValid();
@@ -43,7 +44,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 		switch (key) {
 			case 'width':
 			case 'height':
-				setTimeout2(self._id + 'resize', self.refresh, 50);
+				setTimeout2(self._id + 'resize', self.redraw, 50);
 				break;
 		}
 	};
@@ -204,37 +205,36 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 	};
 
 	self.redraw = function() {
-		self.width(function(width) {
 
-			var ratio = width < config.width ? width / config.width : 1;
+		var ratio = width < config.width ? width / config.width : 1;
 
-			canvas.width = width < config.width ? width : config.width;
-			canvas.height = width < config.width ? (config.height / config.width) * width : config.height;
+		canvas.width = width < config.width ? width : config.width;
+		canvas.height = width < config.width ? (config.height / config.width) * width : config.height;
 
-			var w = img.width;
-			var h = img.height;
+		var w = img.width;
+		var h = img.height;
 
-			w = ((w / 100) * zoom);
-			h = ((h / 100) * zoom);
+		w = ((w / 100) * zoom);
+		h = ((h / 100) * zoom);
 
-			context.clearRect(0, 0, canvas.width, canvas.height);
+		context.clearRect(0, 0, canvas.width, canvas.height);
 
-			if (config.background) {
-				context.fillStyle = config.background;
-				context.fillRect(0, 0, canvas.width, canvas.height);
-			}
+		if (config.background) {
+			context.fillStyle = config.background;
+			context.fillRect(0, 0, canvas.width, canvas.height);
+		}
 
-			can && context.drawImage(img, (current.x || 0) * ratio, (current.y || 0) * ratio, w * ratio, h * ratio);
-		});
+		context.drawImage(img, (current.x || 0) * ratio, (current.y || 0) * ratio, w * ratio, h * ratio);
 	};
 
 	self.setter = function(value) {
-		if (value) {
-			img.src = config.format.format(value);
-		} else {
-			can = false;
-			self.redraw();
-		}
+		self.width(function(w) {
+			width = w;
+			if (value)
+				img.src = config.format.format(value);
+			else
+				self.redraw();
+		});
 	};
 
 	self.isTransparent = function(ctx) {
