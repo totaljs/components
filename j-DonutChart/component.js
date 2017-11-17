@@ -96,6 +96,10 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true;presentatio
 
 		for (var i = 0, length = value.length; i < length; i++) {
 			var item = value[i];
+
+			if (item.value == null)
+				item.value = 0;
+
 			var val = item.value + 1;
 			sum = sum ? sum + val : val;
 		}
