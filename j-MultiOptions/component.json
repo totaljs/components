@@ -1,12 +1,12 @@
 {
 	"datecreated": "2017-06-25T09:00:00.000Z",
-	"dateupdated": "2017-11-17T00:00:00.000Z",
+	"dateupdated": "2017-11-17T12:59:00.000Z",
 	"name": "j-MultiOptions",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 1,
+	"version": 2,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

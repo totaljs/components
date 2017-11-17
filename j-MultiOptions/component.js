@@ -94,7 +94,8 @@ COMPONENT('multioptions', function(self) {
 			return;
 		});
 
-		self.event('change', 'input,select', self.$save);
+		self.event('change', 'select', self.$save);
+		self.event('input', 'input', self.$save);
 
 		self.event('click', '.ui-moi-date', function(e) {
 			e.stopPropagation();
