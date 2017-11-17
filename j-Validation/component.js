@@ -1,4 +1,4 @@
-COMPONENT('validation', 'timeout:100;flags:visible', function(self, config) {
+COMPONENT('validation', 'delay:100;flags:visible', function(self, config) {
 
 	var path, elements = null;
 	var def = 'button[name="submit"]';
@@ -37,6 +37,6 @@ COMPONENT('validation', 'timeout:100;flags:visible', function(self, config) {
 			if (!disabled && config.if)
 				disabled = !EVALUATE(self.path, config.if);
 			elements.prop('disabled', disabled);
-		}, config.timeout);
+		}, config.delay);
 	};
 });
