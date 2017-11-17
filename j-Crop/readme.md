@@ -5,14 +5,18 @@ __Supports__:
 - zoom
 - drag and drop
 - local files
+- __responsive__
 
-__Other attributes__:
+__Configuration__:
 
-- `data-width="500"` width
-- `data-height="500"` height
-- `data-dragdrop="true"` - allows drag and drop
-- `data-background="white"` - optional, default empty (transparent)
-- `data-format="/download/{0}.jpg"` - optional, a format of URL file generator (default: `{0}`)
+
+- `width` {Number} target width, required
+- `height` {Number} target height, required
+- `dragdrop` {Boolean} enables drag&drop (default: `true`)
+- `background` {String} a background color (default: transparent)
+- `format` {String} a format for URL file generator (default: `{0}`)
+
+__Attributes__
 - `data-jc-path="url-to-image"` - must contain URL to picture
 
 __Methods__:
@@ -22,7 +26,7 @@ __Methods__:
 var component = FIND('croper');
 
 // Resize canvas
-component.resize(500, 200);
+component.reconfigure('width:500;height:200');
 
 // Get cropped image
 var png = component.output('image/png');
@@ -33,7 +37,7 @@ var data = component.output();
 
 // Is the image cropped?
 console.log('Is changed?', component.dirty());
-console.log('Is changed?', $.components.disable(component.path);
+console.log('Is changed?', CHANGE(component.path);
 ```
 
 ### Author

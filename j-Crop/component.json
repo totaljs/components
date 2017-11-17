@@ -1,6 +1,6 @@
 {
 	"datecreated": "2015-08-18T10:13:22.000Z",
-	"dateupdated": "2017-10-19T13:37:00.000Z",
+	"dateupdated": "2017-11-17T20:34:00.000Z",
 	"name": "j-Crop",
 	"tags": [
 		"crop",
@@ -8,7 +8,7 @@
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 2,
+	"version": 3,
 	"responsive": false,
 	"picture": "picture.jpg",
 	"dependencies": "",

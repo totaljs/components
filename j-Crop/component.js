@@ -1,6 +1,6 @@
 COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 
-	var width, height, canvas, context;
+	var canvas, context;
 	var img = new Image();
 	var can = false;
 	var is = false;
@@ -9,12 +9,16 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 	var offset = { x: 0, y: 0 };
 	var cache = { x: 0, y: 0, zoom: 0 };
 
+	self.bindvisible();
 	self.noValid();
 	self.getter = null;
 
 	img.onload = function () {
 		can = true;
 		zoom = 100;
+
+		var width = config.width;
+		var height = config.height;
 
 		var nw = (img.width / 2);
 		var nh = (img.height / 2);
@@ -33,26 +37,46 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 		self.redraw();
 	};
 
-	self.resize = function(w, h) {
-		width = w;
-		height = h;
-		canvas.width = w;
-		canvas.height = h;
-		self.refresh();
+	self.configure = function(key, value, init) {
+		if (init)
+			return;
+		switch (key) {
+			case 'width':
+			case 'height':
+				setTimeout2(self._id + 'resize', self.refresh, 50);
+				break;
+		}
 	};
 
 	self.output = function(type) {
-		return type ? canvas.toDataURL(type) : !config.background && self.isTransparent(context) ? canvas.toDataURL('image/png') : canvas.toDataURL('image/jpeg');
+		var canvas2 = document.createElement('canvas');
+		var ctx2 = canvas2.getContext('2d');
+
+		canvas2.width = config.width;
+		canvas2.height = config.height;
+
+		ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+
+		if (config.background) {
+			ctx2.fillStyle = config.background;
+			ctx2.fillRect(0, 0, canvas2.width, canvas2.height);
+		}
+
+		var w = img.width;
+		var h = img.height;
+
+		w = ((w / 100) * zoom);
+		h = ((h / 100) * zoom);
+
+		ctx2.drawImage(img, current.x || 0, current.y || 0, w, h);
+		return type ? canvas2.toDataURL(type) : !config.background && self.isTransparent(context) ? canvas2.toDataURL('image/png') : canvas2.toDataURL('image/jpeg');
 	};
 
 	self.make = function() {
 
-		width = config.width;
-		height = config.height;
-
 		self.aclass('ui-crop');
-		self.append('<input type="file" style="display:none" accept="image/*" /><ul><li data-type="upload"><span class="fa fa-folder"></span></li><li data-type="plus"><span class="fa fa-plus"></span></li><li data-type="refresh"><span class="fa fa-refresh"></span></li><li data-type="minus"><span class="fa fa-minus"></span></li></ul>');
-		self.append(Tangular.render('<canvas width="{0}" height="{1}"></canvas>'.format(width, height)));
+		self.append('<input type="file" style="display:none" accept="image/*" /><ul><li data-type="upload"><span class="fa fa-folder"></span></li><li data-type="plus"><span class="fa fa-plus"></span></li><li data-type="refresh"><span class="fa fa-refresh"></span></li><li data-type="minus"><span class="fa fa-minus"></span></li></ul><canvas></canvas>');
+
 		canvas = self.find('canvas').get(0);
 		context = canvas.getContext('2d');
 
@@ -180,21 +204,28 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 	};
 
 	self.redraw = function() {
+		self.width(function(width) {
 
-		var w = img.width;
-		var h = img.height;
+			var ratio = width / config.width;
 
-		w = ((w / 100) * zoom);
-		h = ((h / 100) * zoom);
+			canvas.width = width;
+			canvas.height = (config.height / config.width) * width;
 
-		context.clearRect(0, 0, width, height);
+			var w = img.width;
+			var h = img.height;
 
-		if (config.background) {
-			context.fillStyle = config.background;
-			context.fillRect(0, 0, width, height);
-		}
+			w = ((w / 100) * zoom);
+			h = ((h / 100) * zoom);
 
-		can && context.drawImage(img, current.x || 0, current.y || 0, w, h);
+			context.clearRect(0, 0, canvas.width, canvas.height);
+
+			if (config.background) {
+				context.fillStyle = config.background;
+				context.fillRect(0, 0, canvas.width, canvas.height);
+			}
+
+			can && context.drawImage(img, (current.x || 0) * ratio, (current.y || 0) * ratio, w * ratio, h * ratio);
+		});
 	};
 
 	self.setter = function(value) {
@@ -207,11 +238,11 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 	};
 
 	self.isTransparent = function(ctx) {
-		var id = ctx.getImageData(0, 0, width, height);
+		var id = ctx.getImageData(0, 0, canvas.width, canvas.height);
 		for (var i = 0, length = id.data.length; i < length; i += 4) {
 			if (id.data[i + 3] !== 255)
 				return true;
 		}
 		return false;
-	}
+	};
 });
