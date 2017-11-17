@@ -206,10 +206,10 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 	self.redraw = function() {
 		self.width(function(width) {
 
-			var ratio = width / config.width;
+			var ratio = width < config.width ? width / config.width : 1;
 
-			canvas.width = width;
-			canvas.height = (config.height / config.width) * width;
+			canvas.width = width < config.width ? width : config.width;
+			canvas.height = width < config.width ? (config.height / config.width) * width : config.height;
 
 			var w = img.width;
 			var h = img.height;
