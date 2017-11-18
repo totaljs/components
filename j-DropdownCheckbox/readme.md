@@ -13,6 +13,7 @@ Example: `data-jc-config="required:true;icon:envelope"`
 - `text` {String} determines a property name for text (in data-source), default: `name`
 - `value` {String} determines a property name for value (in data-source) default :`id`
 - `disabled` {Boolean} (optional) disables this component
+- `cleaner` {Boolean} (optional) removes non-exist values (default: `true`)
 
 ### Author
 

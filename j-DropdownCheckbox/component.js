@@ -178,10 +178,18 @@ COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
 			data.push(item);
 		}
 
+		var h = HASH(render);
+		if (h === self.old)
+			return;
+
+		self.old = h;
+
 		if (render)
 			container.rclass(clsempty).html(render);
 		else
 			container.aclass(clsempty).html(config.empty);
+
+		self.refresh();
 	};
 
 	self.setter = function(value) {
@@ -234,14 +242,14 @@ COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
 			el.tclass('ui-dropdowncheckbox-checked', checked);
 		});
 
-		if (!label && value) {
+		if (!label && value && config.cleaner !== false) {
 			// invalid data
 			// it updates model without notification
 			self.rewrite([]);
 		}
 
 		if (!label && config.placeholder) {
-			values.removeAttr('title', '');
+			values.rattr('title', '');
 			values.html('<span>{0}</span>'.format(config.placeholder));
 		} else {
 			values.attr('title', label);
