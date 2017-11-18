@@ -70,7 +70,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 		h = ((h / 100) * zoom);
 
 		ctx2.drawImage(img, current.x || 0, current.y || 0, w, h);
-		return type ? canvas2.toDataURL(type) : !config.background && self.isTransparent(context) ? canvas2.toDataURL('image/png') : canvas2.toDataURL('image/jpeg');
+		return type ? canvas2.toDataURL(type) : !config.background && self.isTransparent(canvas2) ? canvas2.toDataURL('image/png') : canvas2.toDataURL('image/jpeg');
 	};
 
 	self.make = function() {
@@ -237,8 +237,8 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 		});
 	};
 
-	self.isTransparent = function(ctx) {
-		var id = ctx.getImageData(0, 0, canvas.width, canvas.height);
+	self.isTransparent = function(canvas) {
+		var id = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height);
 		for (var i = 0, length = id.data.length; i < length; i += 4) {
 			if (id.data[i + 3] !== 255)
 				return true;
