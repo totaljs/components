@@ -1,10 +1,9 @@
 COMPONENT('codemirror', 'linenumbers:false;required:false', function(self, config) {
 
-	var skipA = false;
-	var skipB = false;
 	var editor = null;
 
 	self.getter = null;
+	self.bindvisible();
 
 	self.reload = function() {
 		editor.refresh();
@@ -44,7 +43,20 @@ COMPONENT('codemirror', 'linenumbers:false;required:false', function(self, confi
 		var content = config.label || self.html();
 		self.html((content ? '<div class="ui-codemirror-label' + (config.required ? ' ui-codemirror-label-required' : '') + '">' + (config.icon ? '<i class="fa fa-' + config.icon + '"></i> ' : '') + content + ':</div>' : '') + '<div class="ui-codemirror"></div>');
 		var container = self.find('.ui-codemirror');
-		editor = CodeMirror(container.get(0), { lineNumbers: config.linenumbers, mode: config.type || 'htmlmixed', indentUnit: 4 });
+
+		var options = {};
+		options.lineNumbers = config.linenumbers;
+		options.mode = config.type || 'htmlmixed';
+		options.indentUnit = 4;
+
+		if (config.type === 'markdown') {
+			options.styleActiveLine = true;
+			options.lineWrapping = true;
+			options.matchBrackets = true;
+		}
+
+		editor = CodeMirror(container.get(0), options);
+		self.editor = editor;
 
 		if (config.height !== 'auto') {
 			var is = typeof(config.height) === 'number';
@@ -58,46 +70,33 @@ COMPONENT('codemirror', 'linenumbers:false;required:false', function(self, confi
 			editor.refresh();
 		}
 
+		var can = {};
+		can['+input'] = can['+delete'] = can.undo = can.redo = can.paste = true;
+
 		editor.on('change', function(a, b) {
 
 			if (config.disabled)
 				return;
 
-			if (skipB && b.origin !== 'paste') {
-				skipB = false;
+			if (!can[b.origin])
 				return;
-			}
 
 			setTimeout2(self.id, function() {
-				skipA = true;
-				// self.reset(true);
-				self.dirty(false);
-				self.set(editor.getValue());
+				self.$dirty && self.change(true);
+				self.rewrite(editor.getValue());
 			}, 200);
 		});
-
-		skipB = true;
 	};
 
 	self.setter = function(value) {
 
-		if (skipA === true) {
-			skipA = false;
-			return;
-		}
-
-		skipB = true;
 		editor.setValue(value || '');
 		editor.refresh();
-		skipB = true;
-
-		CodeMirror.commands['selectAll'](editor);
-		skipB = true;
-		editor.setValue(editor.getValue());
-		skipB = true;
 
 		setTimeout(function() {
 			editor.refresh();
+			editor.scrollTo(0, 0);
+			editor.setCursor(0);
 		}, 200);
 
 		setTimeout(function() {
@@ -118,4 +117,4 @@ COMPONENT('codemirror', 'linenumbers:false;required:false', function(self, confi
 		self.$oldstate = invalid;
 		self.find('.ui-codemirror').tclass('ui-codemirror-invalid', invalid);
 	};
-}, ['//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/codemirror.min.css', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/codemirror.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/mode/javascript/javascript.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/mode/htmlmixed/htmlmixed.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/mode/xml/xml.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/mode/css/css.min.js']);
+}, ['//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/codemirror.min.css', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/codemirror.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/mode/javascript/javascript.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/mode/htmlmixed/htmlmixed.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/mode/xml/xml.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/mode/css/css.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/mode/markdown/markdown.min.js']);
