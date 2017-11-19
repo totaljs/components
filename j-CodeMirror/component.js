@@ -75,10 +75,7 @@ COMPONENT('codemirror', 'linenumbers:false;required:false', function(self, confi
 
 		editor.on('change', function(a, b) {
 
-			if (config.disabled)
-				return;
-
-			if (!can[b.origin])
+			if (config.disabled || !can[b.origin])
 				return;
 
 			setTimeout2(self.id, function() {
