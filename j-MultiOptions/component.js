@@ -9,7 +9,8 @@ COMPONENT('multioptions', function(self) {
 	var skip = false;
 	var mapping = null;
 
-	self.readonly();
+	self.getter = null;
+	self.novalidate();
 
 	self.init = function() {
 		window.Tmultioptionscolor = Tangular.compile('<div class="ui-moi-value-colors ui-moi-save" data-name="{{ name }}" data-value="{{ value }}">{0}</div>'.format(['#ED5565', '#DA4453', '#FC6E51', '#E9573F', '#FFCE54', '#F6BB42', '#A0D468', '#8CC152', '#48CFAD', '#37BC9B', '#4FC1E9', '#3BAFDA', '#5D9CEC', '#4A89DC', '#AC92EC', '#967ADC', '#EC87C0', '#D770AD', '#F5F7FA', '#E6E9ED', '#CCD1D9', '#AAB2BD', '#656D78', '#434A54', '#000000'].map(function(n) { return '<span data-value="{0}" data-type="color" class="multioptions-operation" style="background-color:{0}"><i class="fa fa-check-circle"></i></span>'.format(n); }).join('')));
@@ -115,12 +116,14 @@ COMPONENT('multioptions', function(self) {
 		mapping = {};
 		fn(self.mapping);
 		self.refresh();
+		self.change(false);
 	};
 
 	self.remap2 = function(callback) {
 		mapping = {};
 		callback(self.mapping);
 		self.refresh();
+		self.change(false);
 	};
 
 	self.mapping = function(key, label, def, type, max, min, step, validator) {
