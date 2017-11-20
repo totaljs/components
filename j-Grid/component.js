@@ -222,8 +222,10 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 
 	self.resize = function(delay) {
 
-		if (config.autosize === false)
+		if (config.autosize === false) {
+			self.hclass('hidden') && self.rclass('hidden');
 			return;
+		}
 
 		setTimeout2(self.id + '.resize', function() {
 
