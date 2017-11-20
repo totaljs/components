@@ -14,6 +14,9 @@ Example: `data-jc-config="required:true;icon:envelope"`
 - `value` {String} determines a property name for value (in data-source) default :`id`
 - `disabled` {Boolean} (optional) disables this component
 - `cleaner` {Boolean} (optional) removes non-exist values (default: `true`)
+- `limit` {Number} (optional) sets a limit for selected items (default: `0`)
+- `visible` {Number} (optional) sets a maximum visible items then show `X selected` (default: `0`)
+- `alltext` {String} (optional) when all items are selected this is showed (default: `All selected`)
 
 ### Author
 

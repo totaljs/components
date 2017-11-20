@@ -1,4 +1,4 @@
-COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
+COMPONENT('dropdowncheckbox', 'checkicon:check;visible:3;alltext:All selected;limit:0', function(self, config) {
 
 	var data = [], render = '';
 	var container, values, content, datasource = null;
@@ -146,6 +146,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
 			var index = arr.indexOf(value);
 
 			if (is) {
+				if(config.limit && arr.length === config.limit) return;
 				index === -1 && arr.push(value);
 			} else {
 				index !== -1 && arr.splice(index, 1);
@@ -198,10 +199,11 @@ COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
 			return;
 
 		var label = '';
+		var count = (value == null) ? undefined : value.length;
 
-		if (value && value.length) {
+		if (value && count) {
 			var remove = [];
-			for (var i = 0, length = value.length; i < length; i++) {
+			for (var i = 0; i < count; i++) {
 				var selected = value[i];
 				var index = 0;
 				var is = false;
@@ -252,6 +254,11 @@ COMPONENT('dropdowncheckbox', 'checkicon:check', function(self, config) {
 			values.rattr('title', '');
 			values.html('<span>{0}</span>'.format(config.placeholder));
 		} else {
+			if(count == data.length){
+				label = config.alltext;
+			} else if(config.visible && count > config.visible){
+				label = '{0} selected'.format(count);
+			}
 			values.attr('title', label);
 			values.html(label);
 		}
