@@ -146,7 +146,8 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 			var index = arr.indexOf(value);
 
 			if (is) {
-				if(config.limit && arr.length === config.limit) return;
+				if (config.limit && arr.length === config.limit)
+					return;
 				index === -1 && arr.push(value);
 			} else {
 				index !== -1 && arr.splice(index, 1);
