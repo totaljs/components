@@ -25,15 +25,15 @@ __Example__:
 
 // SETTER(true, ...) --> works in jComponent +v9.0.0
 
-SETTER(true, 'shortcuts', 'register', 'cmd + enter', funciton(e) {
+SETTER(true, 'shortcuts', 'register', 'cmd + enter', function(e) {
     console.log('PRESSED: CMD + ENTER');
 });
 
-SETTER(true, 'shortcuts', 'register', 'alt + p', funciton(e) {
+SETTER(true, 'shortcuts', 'register', 'alt + p', function(e) {
     console.log('PRESSED: ALT + P');
 });
 
-SETTER(true, 'shortcuts', 'register', 'esc', funciton(e) {
+SETTER(true, 'shortcuts', 'register', 'esc', function(e) {
     console.log('PRESSED: esc');
 });
 ```
