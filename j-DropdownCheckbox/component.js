@@ -1,4 +1,4 @@
-COMPONENT('dropdowncheckbox', 'checkicon:check;visible:3;alltext:All selected;limit:0', function(self, config) {
+COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;limit:0;selectedtext:{0} selected', function(self, config) {
 
 	var data = [], render = '';
 	var container, values, content, datasource = null;
@@ -254,10 +254,10 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:3;alltext:All selected;li
 			values.rattr('title', '');
 			values.html('<span>{0}</span>'.format(config.placeholder));
 		} else {
-			if(count == data.length){
+			if(count == data.length && config.alltext !== 'null'){
 				label = config.alltext;
 			} else if(config.visible && count > config.visible){
-				label = '{0} selected'.format(count);
+				label = config.selectedtext.format(count, data.length);
 			}
 			values.attr('title', label);
 			values.html(label);
