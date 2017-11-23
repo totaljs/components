@@ -44,6 +44,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 		switch (key) {
 			case 'width':
 			case 'height':
+				cache.x = current.x = cache.y = current.y = 0;
 				setTimeout2(self._id + 'resize', self.redraw, 50);
 				break;
 		}
