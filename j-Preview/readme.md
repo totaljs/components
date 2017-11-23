@@ -14,7 +14,7 @@ __Configuration__:
 - `height` {Number} a picture height (required)
 - `icon` {String} (optional) the label icon without `fa`, (default: `null`)
 - `background` {String} (optional) a background color (default: `white`)
-- `schema` {String} prepared object for sending (default: `{file:base64}`, `base64` is a value from preview)
+- `schema` {String} prepared object for sending (default: `{file:base64,filename:filename}`, `base64` + `filename` is a value from preview)
 - `quality` {Number} JPEG quality (default: `90`)
 
 ### Author

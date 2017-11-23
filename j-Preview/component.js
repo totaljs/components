@@ -1,6 +1,6 @@
-COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;schema:{file\\:base64}', function(self, config) {
+COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;schema:{file\\:base64,name\\:filename}', function(self, config) {
 
-	var empty, img, canvas, content = null;
+	var empty, img, canvas, name, content = null;
 
 	self.readonly();
 
@@ -99,7 +99,9 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;schema:
 				};
 				image.src = reader.result;
 			};
-			reader.readAsDataURL(this.files[0]);
+			var file = this.files[0];
+			name = file.name;
+			reader.readAsDataURL(file);
 			this.value = '';
 		});
 
@@ -130,14 +132,16 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;schema:
 					};
 					image.src = reader.result;
 				};
-				reader.readAsDataURL(e.originalEvent.dataTransfer.files[0]);
+				var file = e.originalEvent.dataTransfer.files[0];
+				name = file.name;
+				reader.readAsDataURL(file);
 			}
 		});
 	};
 
 	self.upload = function(base64) {
 		if (base64) {
-			var data = (new Function('base64', 'return ' + config.schema))(base64);
+			var data = (new Function('base64', 'filename', 'return ' + config.schema))(base64, name);
 			SETTER('loading', 'show');
 			AJAX('POST ' + config.url.env(true), data, function(response, err) {
 				SETTER('loading', 'hide', 100);
