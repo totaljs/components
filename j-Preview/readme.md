@@ -17,7 +17,7 @@ __Configuration__:
 - `schema` {String} prepared object for sending (default: `{file:base64}`, `base64` is a value from preview)
 - `quality` {Number} JPEG quality (default: `90`)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT
