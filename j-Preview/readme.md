@@ -9,7 +9,7 @@ This component resizes the picture automatically according to the settings and u
 
 __Configuration__:
 
-- `url` {String}" (__IMPORTANT__) upload URL (required)
+- `url` {String} (__IMPORTANT__) upload URL (required)
 - `width` {Number} a picture width (required)
 - `height` {Number} a picture height (required)
 - `icon` {String} (optional) the label icon without `fa`, (default: `null`)
