@@ -1,4 +1,4 @@
-COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;schema:{file:base64}', function(self, config) {
+COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;schema:{file\\:base64}', function(self, config) {
 
 	var empty, img, canvas, content = null;
 
@@ -139,7 +139,7 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;schema:
 		if (base64) {
 			var data = (new Function('base64', 'return ' + config.schema))(base64);
 			SETTER('loading', 'show');
-			AJAX('POST ' + config.url, data, function(response, err) {
+			AJAX('POST ' + config.url.env(true), data, function(response, err) {
 				SETTER('loading', 'hide', 100);
 				if (err) {
 					SETTER('snackbar', 'warning', err.toString());
