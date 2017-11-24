@@ -58,7 +58,7 @@ COMPONENT('barchart', 'paddingbars:5;paddinggroup:10;radius:2;offsetX:10;offsetY
 	};
 
 	self.released = function(is) {
-		!is && setTimeout(self.refresh, 1000);;
+		!is && setTimeout(self.refresh, 1000);
 	};
 
 	self.setter = function(value) {
