@@ -1,4 +1,4 @@
-COMPONENT('barchart', 'paddingbars:5;paddinggroup:10;radius:2;offsetX:10;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }}', function(self, config) {
+COMPONENT('barchart', 'paddingbars:5;paddinggroup:10;radius:2;offsetX:10;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }};height:0', function(self, config) {
 
 	var svg, g, axis, selected;
 	var templateX, templateY;
@@ -83,7 +83,7 @@ COMPONENT('barchart', 'paddingbars:5;paddinggroup:10;radius:2;offsetX:10;offsetY
 		var len = value.length;
 		var size = value[0].values.length;
 		var width = self.element.width();
-		var height = (width / 100) * 60;
+		var height = config.height ? config.height : (width / 100) * 60;
 		var barwidth = ((width - paddingbars - paddinggroup) / (size * len));
 		var offsetY = 50;
 

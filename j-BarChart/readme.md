@@ -11,6 +11,7 @@ __Configuration__:
 - `offsetY` {Number} An offset Y for value tooltip (default: `10`)
 - `templateX` {String} Tangular template for X axis (default: `{{ value }}`)
 - `templateY` {String} Tangular template for Y axis (default: `{{ value | format(0) }}`)
+- `height` {Number} height (default: `0` = auto-height)
 
 ### Author
 
