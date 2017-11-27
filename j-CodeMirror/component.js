@@ -71,7 +71,7 @@ COMPONENT('codemirror', 'linenumbers:false;required:false', function(self, confi
 		}
 
 		var can = {};
-		can['+input'] = can['+delete'] = can.undo = can.redo = can.paste = true;
+		can['+input'] = can['+delete'] = can.undo = can.redo = can.paste = can.cut = can.clear = true;
 
 		editor.on('change', function(a, b) {
 
@@ -81,6 +81,7 @@ COMPONENT('codemirror', 'linenumbers:false;required:false', function(self, confi
 			setTimeout2(self.id, function() {
 				self.$dirty && self.change(true);
 				self.rewrite(editor.getValue());
+				config.required && self.validate2();
 			}, 200);
 		});
 	};
