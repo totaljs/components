@@ -79,10 +79,13 @@ COMPONENT('codemirror', 'linenumbers:false;required:false', function(self, confi
 				return;
 
 			setTimeout2(self.id, function() {
+				var val = editor.getValue();
+				self.getter2 && self.getter2(val);
 				self.$dirty && self.change(true);
-				self.rewrite(editor.getValue());
+				self.rewrite(val);
 				config.required && self.validate2();
 			}, 200);
+
 		});
 	};
 
@@ -115,4 +118,4 @@ COMPONENT('codemirror', 'linenumbers:false;required:false', function(self, confi
 		self.$oldstate = invalid;
 		self.find('.ui-codemirror').tclass('ui-codemirror-invalid', invalid);
 	};
-}, ['//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/codemirror.min.css', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/codemirror.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/mode/javascript/javascript.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/mode/htmlmixed/htmlmixed.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/mode/xml/xml.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/mode/css/css.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/mode/markdown/markdown.min.js']);
+}, ['//cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.css', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/mode/javascript/javascript.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/mode/htmlmixed/htmlmixed.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/mode/xml/xml.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/mode/css/css.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/mode/markdown/markdown.min.js']);

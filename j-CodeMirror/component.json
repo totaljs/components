@@ -1,6 +1,6 @@
 {
 	"datecreated": "2015-08-05T10:00:10.000Z",
-	"dateupdated": "2017-11-19T18:43:00.000Z",
+	"dateupdated": "2017-11-27T20:41:00.000Z",
 	"name": "j-CodeMirror",
 	"tags": [
 		"syntax",
@@ -8,7 +8,7 @@
 		"jcomponent"
 	],
 	"color": "white",
-	"version": 11,
+	"version": 12,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
