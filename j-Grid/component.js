@@ -3,7 +3,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 	var tbody, thead, tbodyhead, container, pagination;
 	var options = { columns: {}, items: [], indexer: 0, filter: {} };
 	var isFilter = false;
-	var ppages, pitems, cache, eheight, wheight, scroll, filled = false;
+	var ppages, pitems, cache, eheight, wheight, scroll, filtercache, filled = false;
 
 	self.template = Tangular.compile('<td data-index="{{ index }}"{{ if $.cls }} class="{{ $.cls }}"{{ fi }}><div class="wrap{{ if align }} {{ align }}{{ fi }}"{{ if background }} style="background-color:{{ background }}"{{ fi }}>{{ value | raw }}</div></td>');
 	self.options = options;
@@ -303,7 +303,6 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 	self.can = function(row) {
 
 		var keys = Object.keys(options.filter);
-		var cache = {};
 
 		for (var i = 0; i < keys.length; i++) {
 
@@ -311,7 +310,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 			var val = row[column];
 			var filter = options.filter[column];
 			var type = typeof(val);
-			var val2 = cache[column];
+			var val2 = filtercache[column];
 
 			if (val instanceof Array) {
 				val = val.join(' ');
@@ -321,7 +320,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 			if (type === 'number') {
 
 				if (val2 == null)
-					val2 = cache[column] = self.parseNumber(filter);
+					val2 = filtercache[column] = self.parseNumber(filter);
 
 				if (val2.length === 1 && val !== val2[0])
 					return false;
@@ -332,7 +331,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 			} else if (type === 'string') {
 
 				if (val2 == null) {
-					val2 = cache[column] = filter.split(/\/\|\\|,/).trim();
+					val2 = filtercache[column] = filter.split(/\/\|\\|,/).trim();
 					for (var j = 0; j < val2.length; j++)
 						val2[j] = val2[j].toSearch();
 				}
@@ -352,7 +351,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 
 			} else if (type === 'boolean') {
 				if (val2 == null)
-					val2 = cache[column] = config.boolean.indexOf(filter.replace(/\s/g, '')) !== -1;
+					val2 = filtercache[column] = config.boolean.indexOf(filter.replace(/\s/g, '')) !== -1;
 				if (val2 !== val)
 					return false;
 			} else if (val instanceof Date) {
@@ -361,25 +360,39 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 				val.setMinutes(0);
 
 				if (val2 == null) {
-					val2 = filter.trim().split(/\/|\||\\|,/).trim();
-					var arr = cache[column] = [];
+
+					val2 = filter.trim().replace(/\s-\s/, '/').split(/\/|\||\\|,/).trim();
+					var arr = filtercache[column] = [];
+
 					for (var j = 0; j < val2.length; j++) {
 						var dt = val2[j].trim();
 						var a = self.parseDate(dt);
 						if (a instanceof Array) {
-							arr.push(a[0]);
-							if (j === val2.length - 1) {
-								arr.push(a[1]);
-								break;
+							if (val2.length === 2) {
+								arr.push(j ? a[1] : a[0]);
+							} else {
+								arr.push(a[0]);
+								if (j === val2.length - 1) {
+									arr.push(a[1]);
+									break;
+								}
 							}
 						} else
 							arr.push(a);
 					}
+
+					if (val2.length === 2 && arr.length === 2) {
+						arr[1].setHours(23);
+						arr[1].setMinutes(59);
+						arr[1].setSeconds(59);
+					}
+
 					val2 = arr;
 				}
 
 				if (val2.length === 1 && val.format('yyyyMMdd') !== val2[0].format('yyyyMMdd'))
 					return false;
+
 				if (val < val2[0] || val > val2[1])
 					return false;
 			} else
@@ -397,7 +410,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 				return dt > DATETIME ? [DATETIME, dt] : [dt, DATETIME];
 			}
 			if (val.length === 4)
-				return [new Date(+val, 1, 1), new Date(+val + 1, 1, 1)];
+				return [new Date(+val, 0, 1), new Date(+val + 1, 0	, 1)];
 		} else if (val.indexOf('.', index + 1) === -1) {
 			var a = val.split('.');
 			return new Date(DATETIME.getFullYear(), +a[1] - 1, +a[0]);
@@ -412,7 +425,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 
 	self.parseNumber = function(val) {
 		var arr = [];
-		var num = val.replace(/\s/g, '').replace(/,/g, '.').split(/\/|\||\\/).trim();
+		var num = val.replace(/\s-\s/, '/').replace(/\s/g, '').replace(/,/g, '.').split(/\/|\|\s\-\s|\\/).trim();
 
 		for (var i = 0, length = num.length; i < length; i++) {
 			var n = num[i];
@@ -494,6 +507,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 			options.items = value.items;
 		} else {
 			options.items = [];
+			filtercache = {};
 			for (var i = 0, length = value.items.length; i < length; i++) {
 				if (isFilter && !self.can(value.items[i]))
 					continue;

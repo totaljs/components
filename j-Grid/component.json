@@ -1,12 +1,12 @@
 {
 	"datecreated": "2017-08-26T22:37:00.000Z",
-	"dateupdated": "2017-11-13T22:21:00.000Z",
+	"dateupdated": "2017-11-28T15:20:00.000Z",
 	"name": "j-Grid",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 4,
+	"version": 5,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
