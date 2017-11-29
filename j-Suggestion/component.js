@@ -151,7 +151,9 @@ COMPONENT('suggestion', function(self, config) {
 			input.focus();
 		}, 500);
 
-		is = true;
+		setTimeout(function() {
+			is = true;
+		}, 50);
 	};
 
 	self.hide = function(sleep) {
