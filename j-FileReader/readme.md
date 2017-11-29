@@ -7,7 +7,7 @@ __Methods__:
 - `component.open([accept], callback(file), [multiple])` - opens file browsing
 - `component.process(files)` - internal, processing `files` object
 
-```javacript
+```javascript
 SETTER('filereader', 'open', 'text/*', function(file) {
 
 });
