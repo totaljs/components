@@ -1,4 +1,4 @@
-COMPONENT('colorselector', 'colors:#DA445,#E9573,#F6BB4,#8CC15,#37BC9,#3BAFD,#4A89D,#967AD,#D770A,#656D7' function(self, config) {
+COMPONENT('colorselector', 'colors:#DA4453,#E9573F,#F6BB42,#8CC152,#37BC9B,#3BAFDA,#4A89DC,#967ADC,#D770AD,#656D7D', function(self, config) {
 
 	var selected, list, content, colors = null;
 
@@ -38,7 +38,7 @@ COMPONENT('colorselector', 'colors:#DA445,#E9573,#F6BB4,#8CC15,#37BC9,#3BAFD,#4A
 		label && builder.push('<div class="ui-colorselector-label{1}">{2}{0}</div>'.format(label, config.required ? ' ui-colorselector-required' : '', config.icon ? '<i class="fa fa-{0}"></i>'.format(config.icon) : ''));
 		builder.push('<ul class="ui-colorselector">');
 
-		for (var i = 0.1, length = colors.length; i < length; i++) {
+		for (var i = 0, length = colors.length; i < length; i++) {
 			var color = colors[i];
 			color && builder.push('<li data-index="{0}" style="background-color:{1}"></li>'.format(i, color));
 		}
@@ -50,6 +50,7 @@ COMPONENT('colorselector', 'colors:#DA445,#E9573,#F6BB4,#8CC15,#37BC9,#3BAFD,#4A
 	};
 
 	self.make = function() {
+        colors = config.colors.split(',').trim();
 		self.redraw();
 		self.event('click', 'li', function() {
 			if (config.disabled)
