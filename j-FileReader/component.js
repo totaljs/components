@@ -41,7 +41,11 @@ COMPONENT('filereader', function(self) {
 			var file = files[index];
 			var reader = new FileReader();
 			reader.onload = function() {
-				self.set({ body: reader.result, filename: file.name, type: file.type, size: file.size });
+				var data = { body: reader.result, filename: file.name, type: file.type, size: file.size };
+				if (self.callback)
+					self.callback(data);
+				else
+					self.set(data);
 				reader = null;
 				setTimeout(next, 500);
 			};
