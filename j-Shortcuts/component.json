@@ -1,12 +1,12 @@
 {
 	"datecreated": "2017-02-24T11:06:00.000Z",
-	"dateupdated": "2017-09-29T20:29:00.000Z",
+	"dateupdated": "2017-12-01T22:43:00.000Z",
 	"name": "j-Shortcuts",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 2,
+	"version": 3,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

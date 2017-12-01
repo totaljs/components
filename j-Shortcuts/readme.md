@@ -36,6 +36,12 @@ SETTER(true, 'shortcuts', 'register', 'alt + p', function(e) {
 SETTER(true, 'shortcuts', 'register', 'esc', function(e) {
     console.log('PRESSED: esc');
 });
+
+// +v3 supports multiple shortcuts at the one time:
+SETTER(true, 'shortcuts', 'register', 'cmd+enter, ctrl+enter', function(e) {
+    console.log('PRESSED: CMD + ENTER');
+});
+
 ```
 
 ### Author
