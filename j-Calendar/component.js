@@ -280,6 +280,10 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 			self.date(dt);
 		});
 
+		self.event('click', '.ui-calendar-header, .ui-calendar-table, .ui-calendar-today', function(e) {
+			e.stopPropagation();
+		});
+
 		$(document.body).on('scroll click', function() {
 			visible && setTimeout2('calendarhide', function() {
 				EXEC('$calendar.hide');
