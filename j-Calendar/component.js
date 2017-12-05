@@ -226,30 +226,34 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 			self.click && self.click(dt);
 		});
 
-		self.event('click', '.ui-calendar-year', function(e){
-			e.preventDefault();
+		self.event('click', '.ui-calendar-year,.ui-calendar-month', function(e) {
 			e.stopPropagation();
-
-			if (e.offsetY < 0) {
-				var arr = this.getAttribute('data-date').split('-');
-				var dt = new Date(parseInt(arr[0]), parseInt(arr[1]), 1);
-				dt.setFullYear(this.value);
-				skipDay = true;
-				self.date(dt);
-			}
 		});
 
-		self.event('click', '.ui-calendar-month', function(e){
+		self.event('change', '.ui-calendar-year', function(e) {
+
+			clearTimeout2('calendarhide');
 			e.preventDefault();
 			e.stopPropagation();
 
-			if (e.offsetY < 0) {
-				var arr = this.getAttribute('data-date').split('-');
-				var dt = new Date(parseInt(arr[0]), parseInt(arr[1]), 1);
-				dt.setMonth(this.value);
-				skipDay = true;
-				self.date(dt);
-			}
+			var arr = this.getAttribute('data-date').split('-');
+			var dt = new Date(parseInt(arr[0]), parseInt(arr[1]), 1);
+			dt.setFullYear(this.value);
+			skipDay = true;
+			self.date(dt);
+		});
+
+		self.event('change', '.ui-calendar-month', function(e){
+
+			clearTimeout2('calendarhide');
+			e.preventDefault();
+			e.stopPropagation();
+
+			var arr = this.getAttribute('data-date').split('-');
+			var dt = new Date(parseInt(arr[0]), parseInt(arr[1]), 1);
+			dt.setMonth(this.value);
+			skipDay = true;
+			self.date(dt);
 		});
 
 		self.event('click', 'button', function(e) {
