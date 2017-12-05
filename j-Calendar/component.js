@@ -1,4 +1,4 @@
-COMPONENT('calendar', 'today:Set today;firstday:0;close:Close', function(self, config) {
+COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;monthselect:true;yearfrom:-100 years;yearto:current', function(self, config) {
 
 	var skip = false;
 	var skipDay = false;
@@ -7,6 +7,8 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close', function(self, c
 	self.days = EMPTYARRAY;
 	self.months = EMPTYARRAY;
 	self.months_short = EMPTYARRAY;
+	self.years_from;
+	self.years_to;
 
 	self.configure = function(key, value) {
 		switch (key) {
@@ -38,6 +40,20 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close', function(self, c
 						m = m.substring(0, 3) + '.';
 					self.months_short.push(m);
 				}
+				break;
+
+				case 'yearfrom':
+					if(value.indexOf('current') !== -1)
+						self.years_from = parseInt(new Date().format('yyyy'));
+					else
+						self.years_from = parseInt(new Date().add(value).format('yyyy'));
+				break;
+
+				case 'yearto':
+					if(value.indexOf('current') !== -1)
+						self.years_to = parseInt(new Date().format('yyyy'));
+					else
+						self.years_to = parseInt(new Date().add(value).format('yyyy'));
 				break;
 		}
 	};
@@ -210,6 +226,32 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close', function(self, c
 			self.click && self.click(dt);
 		});
 
+		self.event('click', '.ui-calendar-year', function(e){
+			e.preventDefault();
+			e.stopPropagation();
+
+			if (e.offsetY < 0) {
+				var arr = this.getAttribute('data-date').split('-');
+				var dt = new Date(parseInt(arr[0]), parseInt(arr[1]), 1);
+				dt.setFullYear(this.value);
+				skipDay = true;
+				self.date(dt);
+			}
+		});
+
+		self.event('click', '.ui-calendar-month', function(e){
+			e.preventDefault();
+			e.stopPropagation();
+
+			if (e.offsetY < 0) {
+				var arr = this.getAttribute('data-date').split('-');
+				var dt = new Date(parseInt(arr[0]), parseInt(arr[1]), 1);
+				dt.setMonth(this.value);
+				skipDay = true;
+				self.date(dt);
+			}
+		});
+
 		self.event('click', 'button', function(e) {
 
 			e.preventDefault();
@@ -297,6 +339,26 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close', function(self, c
 		for (var i = 0; i < 7; i++)
 			header.push('<th>{0}</th>'.format(output.header[i].name));
 
-		self.html('<div class="ui-calendar-header"><button class="ui-calendar-header-prev" name="prev" data-date="{0}-{1}"><span class="fa fa-arrow-left"></span></button><div class="ui-calendar-header-info">{2} {3}</div><button class="ui-calendar-header-next" name="next" data-date="{0}-{1}"><span class="fa fa-arrow-right"></span></button></div><div class="ui-calendar-table"><table cellpadding="0" cellspacing="0" border="0"><thead>{4}</thead><tbody>{5}</tbody></table></div>'.format(output.year, output.month, self.months[value.getMonth()], value.getFullYear(), header.join(''), builder.join('')) + (config.today ? '<div class="ui-calendar-today"><a href="javascript:void(0)">{0}</a><a href="javascript:void(0)" class="ui-calendar-today-a"><i class="fa fa-calendar"></i>{1}</a></div>'.format(config.close, config.today) : ''));
+		var years = value.getFullYear();
+		if (config.yearselect) {
+			years = '';
+			var current_year = value.getFullYear();
+			for (var i = self.years_from; i <= self.years_to; i++) {
+				years += '<option value="{0}" {1}>{0}</option>'.format(i, i === current_year ? 'selected' : '');
+			}
+			years = '<select data-date="{0}-{1}" class="ui-calendar-year">{2}</select>'.format(output.year, output.month, years);
+		}
+
+		var months = self.months[value.getMonth()];
+		if (config.monthselect) {
+			months = '';
+			var current_month = value.getMonth();
+			for (var i = 0, l = self.months.length; i < l; i++){
+				months += '<option value="{0}" {2}>{1}</option>'.format(i, self.months[i], i === current_month ? 'selected' : '');
+			}
+			months = '<select data-date="{0}-{1}" class="ui-calendar-month">{2}</select>'.format(output.year, output.month, months);
+		}
+
+		self.html('<div class="ui-calendar-header"><button class="ui-calendar-header-prev" name="prev" data-date="{0}-{1}"><span class="fa fa-arrow-left"></span></button><div class="ui-calendar-header-info">{2} {3}</div><button class="ui-calendar-header-next" name="next" data-date="{0}-{1}"><span class="fa fa-arrow-right"></span></button></div><div class="ui-calendar-table"><table cellpadding="0" cellspacing="0" border="0"><thead>{4}</thead><tbody>{5}</tbody></table></div>'.format(output.year, output.month, months, years, header.join(''), builder.join('')) + (config.today ? '<div class="ui-calendar-today"><a href="javascript:void(0)">{0}</a><a href="javascript:void(0)" class="ui-calendar-today-a"><i class="fa fa-calendar"></i>{1}</a></div>'.format(config.close, config.today) : ''));
 	};
 });

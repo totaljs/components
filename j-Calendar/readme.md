@@ -8,6 +8,10 @@ Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:dat
 - `today` {String} (optional) label for `Set today` button
 - `days` {String} (optional) days e.g. `SU,MO,TU,WE,TH,FR,SA` (default).
 - `months` {String} (optional) months e.g. `January,February,...` (default).
+- `yearselect` {Boolean} (optional) dropdown with years (default `true`).
+- `monthselect` {Boolean} (optional) dropdown with months (default `true`).
+- `yearfrom` {String} (optional) set minimum year limit in dropdown e.g. `-5 years` `current`  (default `-100 years`).
+- `yearto` {String} (optional) set maximum year limit in dropdown  `+5 years` `current` (default `current`).
 
 The component is need to call manually or works with `textbox` component automatically. The calendar component is a singleton and the browser works with the one instance only. Other instantes are not compiled and won't be used.
 
