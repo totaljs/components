@@ -42,18 +42,18 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 				}
 				break;
 
-				case 'yearfrom':
-					if(value.indexOf('current') !== -1)
-						self.years_from = parseInt(new Date().format('yyyy'));
-					else
-						self.years_from = parseInt(new Date().add(value).format('yyyy'));
+			case 'yearfrom':
+				if (value.indexOf('current') !== -1)
+					self.years_from = parseInt(new Date().format('yyyy'));
+				else
+					self.years_from = parseInt(new Date().add(value).format('yyyy'));
 				break;
 
-				case 'yearto':
-					if(value.indexOf('current') !== -1)
-						self.years_to = parseInt(new Date().format('yyyy'));
-					else
-						self.years_to = parseInt(new Date().add(value).format('yyyy'));
+			case 'yearto':
+				if (value.indexOf('current') !== -1)
+					self.years_to = parseInt(new Date().format('yyyy'));
+				else
+					self.years_to = parseInt(new Date().add(value).format('yyyy'));
 				break;
 		}
 	};
@@ -271,6 +271,11 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 					dt.setMonth(dt.getMonth() + 1);
 					break;
 			}
+
+			var current_year = dt.getFullYear();
+			if (current_year < self.years_from || current_year > self.years_to)
+				return;
+
 			skipDay = true;
 			self.date(dt);
 		});
