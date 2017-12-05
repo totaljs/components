@@ -1,4 +1,4 @@
-COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;monthselect:true;yearfrom:-100 years;yearto:current', function(self, config) {
+COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;monthselect:true;yearfrom:-70 years;yearto:5 years', function(self, config) {
 
 	var skip = false;
 	var skipDay = false;
@@ -226,7 +226,7 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 			self.click && self.click(dt);
 		});
 
-		self.event('click', '.ui-calendar-year,.ui-calendar-month', function(e) {
+		self.event('click', '.ui-calendar-header', function(e) {
 			e.stopPropagation();
 		});
 
@@ -280,11 +280,7 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 			self.date(dt);
 		});
 
-		self.event('click', '.ui-calendar-header, .ui-calendar-table, .ui-calendar-today', function(e) {
-			e.stopPropagation();
-		});
-
-		$(document.body).on('scroll click', function() {
+		$(window).on('scroll click', function() {
 			visible && setTimeout2('calendarhide', function() {
 				EXEC('$calendar.hide');
 			}, 20);
@@ -356,9 +352,8 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 		if (config.yearselect) {
 			years = '';
 			var current_year = value.getFullYear();
-			for (var i = self.years_from; i <= self.years_to; i++) {
+			for (var i = self.years_from; i <= self.years_to; i++)
 				years += '<option value="{0}" {1}>{0}</option>'.format(i, i === current_year ? 'selected' : '');
-			}
 			years = '<select data-date="{0}-{1}" class="ui-calendar-year">{2}</select>'.format(output.year, output.month, years);
 		}
 
@@ -366,9 +361,8 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 		if (config.monthselect) {
 			months = '';
 			var current_month = value.getMonth();
-			for (var i = 0, l = self.months.length; i < l; i++){
+			for (var i = 0, l = self.months.length; i < l; i++)
 				months += '<option value="{0}" {2}>{1}</option>'.format(i, self.months[i], i === current_month ? 'selected' : '');
-			}
 			months = '<select data-date="{0}-{1}" class="ui-calendar-month">{2}</select>'.format(output.year, output.month, months);
 		}
 
