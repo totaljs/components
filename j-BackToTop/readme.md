@@ -4,5 +4,5 @@
 
 ### Author
 
-- Peter Širka <martinjirku@gmail.com>
+- Peter Jirku <martinjirku@gmail.com>
 - License: MIT
