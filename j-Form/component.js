@@ -124,7 +124,10 @@ COMPONENT('form', function(self, config) {
 
 		var isHidden = value !== config.if;
 
-		self.toggle('hidden', isHidden);
+		if (self.hclass('hidden') === isHidden)
+			return;
+
+		self.tclass('hidden', isHidden);
 
 		setTimeout2('formreflow', function() {
 			EMIT('reflow', self.name);
