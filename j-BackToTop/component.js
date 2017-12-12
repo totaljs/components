@@ -10,7 +10,7 @@ COMPONENT('backtotop', function(self) {
 		var $w = $(window);
 
 		self.aclass('ui-backtotop');
-  		self.html('<a href="javascript:void(0)"><i class="fa fa-arrow-circle-up"></i></a>');
+		self.html('<a href="javascript:void(0)"><i class="fa fa-arrow-circle-up"></i></a>');
 
 		self.event('click', function() {
 			document.body.scrollTop = 0;
