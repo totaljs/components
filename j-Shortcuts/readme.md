@@ -4,6 +4,7 @@ This component can help with creating keyboard shortcuts. The component __is sin
 
 __Methods__:
 - `component.register(shortcut, callback(e), [prevent])` - registers a new shortcut
+- `component.exec('shortcut')` - evaluates shortcut
 
 __Shortcuts__:
 - `enter`

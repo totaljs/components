@@ -26,11 +26,18 @@ COMPONENT('shortcuts', function(self) {
 		});
 	};
 
+	self.exec = function(shortcut) {
+		var item = items.findItem('shortcut', shortcut.toLowerCase().replace(/\s/g, ''));
+		item && item.callback(EMPTYOBJECT);
+	};
+
 	self.register = function(shortcut, callback, prevent) {
 		shortcut.split(',').trim().forEach(function(shortcut) {
 			var builder = [];
+			var alias = [];
 			shortcut.split('+').trim().forEach(function(item) {
 				var lower = item.toLowerCase();
+				alias.push(lower);
 				switch (lower) {
 					case 'ctrl':
 					case 'alt':
@@ -99,7 +106,7 @@ COMPONENT('shortcuts', function(self) {
 
 			});
 
-			items.push({ fn: new Function('e', 'return ' + builder.join('&&')), callback: callback, prevent: prevent });
+			items.push({ shortcut: alias.join('+'), fn: new Function('e', 'return ' + builder.join('&&')), callback: callback, prevent: prevent });
 			length = items.length;
 		});
 		return self;
