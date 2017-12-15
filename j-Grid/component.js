@@ -36,7 +36,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 				options.filter[this.name] = this.value;
 			else
 				delete options.filter[this.name];
-			el.tclass('ui-grid-selected', this.value ? true : false);
+			el.tclass('ui-grid-selected', !!this.value);
 			scroll = true;
 			self.filter();
 		});

@@ -36,7 +36,7 @@ COMPONENT('binder', function(self) {
 			var is = true;
 
 			if (item.visible) {
-				is = item.visible(value) ? true : false;
+				is = !!item.visible(value);
 				element.tclass('hidden', !is);
 			}
 

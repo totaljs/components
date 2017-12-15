@@ -27,7 +27,7 @@ COMPONENT('textbox', function(self, config) {
 				return value > 0;
 		}
 
-		return config.validation ? self.evaluate(value, config.validation, true) ? true : false : value.length > 0;
+		return config.validation ? !!self.evaluate(value, config.validation, true) : value.length > 0;
 	};
 
 	self.make = function() {
@@ -115,7 +115,7 @@ COMPONENT('textbox', function(self, config) {
 				if (self.$stateremoved && !value)
 					return;
 				self.$stateremoved = value ? false : true;
-				self.find('.ui-textbox-control-icon').tclass('fa-times', value ? true : false).tclass('fa-search', value ? false : true);
+				self.find('.ui-textbox-control-icon').tclass('fa-times', !!value).tclass('fa-search', !value);
 			};
 		}
 

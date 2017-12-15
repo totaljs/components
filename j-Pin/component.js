@@ -6,7 +6,7 @@ COMPONENT('pin', 'blank:●;count:6', function(self, config) {
 	var count = 0;
 
 	self.validate = function(value, init) {
-		return init ? true : config.required || config.disabled ? value && value.indexOf(' ') === -1 ? true : false : true;
+		return init ? true : config.required || config.disabled ? !!(value && value.indexOf(' ') === -1) : true;
 	};
 
 	self.configure = function(key, value, init) {

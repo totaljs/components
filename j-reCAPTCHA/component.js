@@ -8,7 +8,7 @@ COMPONENT('recaptcha', function(self, config) {
 
 	self.make = function() {
 		WAIT(function() {
-			return window.grecaptcha ? true : false;
+			return !!window.grecaptcha;
 		}, function(err, again) {
 			if (err)
 				return again(100);

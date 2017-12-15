@@ -55,7 +55,7 @@ COMPONENT('fontawesome', function(self, config) {
 				});
 				$(hide).aclass('hidden');
 				$(show).rclass('hidden');
-				icon.tclass('fa-times', value ? true : false).tclass('fa-search', value ? false : true);
+				icon.tclass('fa-times', !!value).tclass('fa-search', !value);
 			}, 300);
 		});
 
@@ -128,7 +128,7 @@ COMPONENT('fontawesome', function(self, config) {
 			recent.empty().html(builder.join('')).rclass('hidden');
 		} else
 			recent.aclass('hidden');
-		self.tclass('ui-fontawesome-recent', items && items.length ? true : false);
+		self.tclass('ui-fontawesome-recent', !!(items && items.length));
 	};
 
 });

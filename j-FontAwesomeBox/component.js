@@ -52,7 +52,7 @@ COMPONENT('fontawesomebox', 'height:300;fa:false', function(self, config) {
 				});
 				$(hide).aclass('hidden');
 				$(show).rclass('hidden');
-				icon.tclass('fa-times', value ? true : false).tclass('fa-search', value ? false : true);
+				icon.tclass('fa-times', !!value).tclass('fa-search', !value);
 			}, 300);
 		});
 	};

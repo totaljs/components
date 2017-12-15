@@ -35,6 +35,6 @@ COMPONENT('checkbox', function(self, config) {
 	};
 
 	self.setter = function(value) {
-		self.toggle('ui-checkbox-checked', value ? true : false);
+		self.toggle('ui-checkbox-checked', !!value);
 	};
 });

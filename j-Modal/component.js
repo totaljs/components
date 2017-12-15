@@ -33,7 +33,7 @@ COMPONENT('modal', function(self) {
 	self.setter = function() {
 
 		setTimeout2(self.id + '.scroll', function() {
-			$('html').tclass('ui-modal-noscroll', $('.ui-modal-container').not('.hidden').length ? true : false);
+			$('html').tclass('ui-modal-noscroll', !!$('.ui-modal-container').not('.hidden').length);
 		}, 100);
 
 		var isHidden = !EVALUATE(self.path, self.condition);

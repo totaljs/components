@@ -119,7 +119,7 @@ COMPONENT('form', function(self, config) {
 	self.setter = function(value) {
 
 		setTimeout2('noscroll', function() {
-			$('html').tclass('noscroll', $('.ui-form-container').not('.hidden').length ? true : false);
+			$('html').tclass('noscroll', !!$('.ui-form-container').not('.hidden').length);
 		}, 50);
 
 		var isHidden = value !== config.if;

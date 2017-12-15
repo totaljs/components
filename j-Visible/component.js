@@ -10,7 +10,7 @@ COMPONENT('visible', function(self, config) {
 		if (condition)
 			is = self.evaluate(condition);
 		else
-			is = value ? true : false;
+			is = !!value;
 
 		if (old === is)
 			return;

@@ -47,7 +47,7 @@ COMPONENT('radiobutton', function(self, config) {
 	};
 
 	self.validate = function(value) {
-		return config.disabled || !config.required ? true : value ? true : false;
+		return config.disabled || !config.required ? true : !!value;
 	};
 
 	self.setter = function(value) {
