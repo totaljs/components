@@ -117,8 +117,8 @@ COMPONENT('lazycontent', function(self) {
 		item.component = self;
 		item.top = self.element.offset().top;
 		item.type = 0;
-		item.height = (self.attrd('height') || '').replace(/px|\%/g, '').parseInt();
-		item.$remove = self.attrd('redraw') || self.attrd('hide') ? false : true;
+		item.height = (self.attrd('height') || '').replace(/px|%/g, '').parseInt();
+		item.$remove = !(self.attrd('redraw') || self.attrd('hide'));
 		item.remove = false;
 
 		if (!item.height) {

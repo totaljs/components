@@ -32,7 +32,7 @@ COMPONENT('togglebox', 'dragdrop:true;text:name;hidden:hidden;replace:false', fu
 
 			var items = self.get();
 			items[index][config.hidden] = !items[index][config.hidden];
-			el.tclass('ui-togglebox-visible', items[index][config.hidden] ? false : true);
+			el.tclass('ui-togglebox-visible', !items[index][config.hidden]);
 			setTimeout2(self.id, self.rebind, 500);
 		});
 

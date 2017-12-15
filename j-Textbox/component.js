@@ -114,7 +114,7 @@ COMPONENT('textbox', function(self, config) {
 			self.setter2 = function(value) {
 				if (self.$stateremoved && !value)
 					return;
-				self.$stateremoved = value ? false : true;
+				self.$stateremoved = !value;
 				self.find('.ui-textbox-control-icon').tclass('fa-times', !!value).tclass('fa-search', !value);
 			};
 		}

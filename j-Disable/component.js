@@ -14,7 +14,7 @@ COMPONENT('disable', function(self, config) {
 		if (config.if)
 			is = EVALUATE(self.path, config.if);
 		else
-			is = value ? false : true;
+			is = !value;
 
 		self.find(config.selector || '[data-jc]').each(function() {
 			var com = $(this).component();
