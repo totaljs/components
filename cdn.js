@@ -11,7 +11,7 @@ Fs.readdir(process.cwd(), function(err, dir) {
 
 				var builder = [];
 				Fs.readFile(item + '/component.css', function(err, css) {
-						css && builder.push('<style>{0}</style>'.format(U.minifyStyle(css.toString('utf8'))));
+					css && builder.push('<style>{0}</style>'.format(U.minifyStyle('/*auto*/\n' + css.toString('utf8'))));
 					Fs.readFile(item + '/component.js', function(err, js) {
 						js && builder.push('<script>{0}</script>'.format(U.minifyScript(js.toString('utf8'))));
 						Fs.writeFile(path + item.toLowerCase() + '.html', builder.join('\n'), next);
