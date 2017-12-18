@@ -1,0 +1,13 @@
+<a href="#clock">SHOW CALENDAR</a>
+<div data-jc="clock" data-jc-config="today:Set today;firstday:0"></div>
+
+<script>
+	var form = {};
+	form.date = new Date();
+
+	$('a[href="#clock"]').on('click', function(e) {
+		FIND('clock').toggle($(this), form.date, function(date) {
+			alert(date);
+		});
+	});
+</script>
