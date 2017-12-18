@@ -1,12 +1,11 @@
 COMPONENT('clock', 'time:actual;twelvehour:true', function(self, config) {
 
 	var visible = false;
-	var dialRadius = 100, outerRadius = 80,	innerRadius = 54, tickRadius = 13, diameter = dialRadius * 2;
+	var dialRadius = 100, outerRadius = 80,	innerRadius = 54, tickRadius = 13;
 
-	self.activeMinutes;
-
+	// self.activeMinutes;
 	self.readonly();
-	self.click = function() {};
+	self.click = NOOP;
 
 	self.hide = function() {
 		self.aclass('hidden');
@@ -16,6 +15,7 @@ COMPONENT('clock', 'time:actual;twelvehour:true', function(self, config) {
 	};
 
 	self.toggle = function(el, value, callback, offset) {
+
 		if (self.older === el.get(0)) {
 			if (!self.hclass('hidden')) {
 				self.hide();
@@ -75,9 +75,9 @@ COMPONENT('clock', 'time:actual;twelvehour:true', function(self, config) {
 			var val = this.getAttribute('data-value');
 
 			if (val.indexOf('PM') !== -1)
-				val = val.replace('PM', 'AM')
+				val = val.replace('PM', 'AM');
 			else
-				val = val.replace('AM', 'PM')
+				val = val.replace('AM', 'PM');
 
 			self.time(val, self.activeMinutes);
 		});
@@ -128,7 +128,7 @@ COMPONENT('clock', 'time:actual;twelvehour:true', function(self, config) {
 			value = value.format('HH:mm');
 
 		if (!value)
-			value = new Date().format('HH:mm')
+			value = new Date().format('HH:mm');
 
 		value = value.split(':');
 		hours = parseInt(value[0]);
@@ -155,6 +155,7 @@ COMPONENT('clock', 'time:actual;twelvehour:true', function(self, config) {
 		}
 
 		if (showminutes) {
+
 			for (i = 0; i < 60; i += 5) {
 				radian = i / 30 * Math.PI;
 				radius = outerRadius;
@@ -163,7 +164,9 @@ COMPONENT('clock', 'time:actual;twelvehour:true', function(self, config) {
 				font = '120';
 				hoursView += '<div class="ui-clock-tick {0}" data-value="{1}:{2}{3}" style="left: {4}px; top: {5}px; font-size: {6}%;">{2}</div>'.format((i == minutes ? 'ui-clock-tick-selected' : ''), hours, (i < 10 ? '0' + i : i), isAmPm, left, right, font);
 			}
+
 		} else {
+
 			if (config.twelvehour) {
 				for (i = 1; i < 13; i += 1) {
 					radian = i / 6 * Math.PI;
@@ -186,6 +189,6 @@ COMPONENT('clock', 'time:actual;twelvehour:true', function(self, config) {
 			}
 		}
 
-		self.html('<div class="ui-clock-header"><span class="ui-clock-header-hours {6}" data-value="{1}:{2}{3}" >{1}</span> : <span class="ui-clock-header-minutes {7}" data-value="{1}:{2}{3}">{2}</span> <span class="ui-clock-header-twelve" data-value="{1}:{2}{3}">{3}</span></div><div class="ui-clock-body"><div class="ui-clock-holder">{4}<span class="ui-clock-swap" data-value="{1}:{2}{3}">{5}</span></div></div><div class="ui-clock-footer"><a href="javascript:void(0)">Close</a></div>'.format('', hours, minutes, isAmPm, hoursView, swapAmPm, (!showminutes ? 'ui-clock-active' : ''), (showminutes ? 'ui-clock-active' : '')))
+		self.html('<div class="ui-clock-header"><span class="ui-clock-header-hours {6}" data-value="{1}:{2}{3}" >{1}</span> : <span class="ui-clock-header-minutes {7}" data-value="{1}:{2}{3}">{2}</span> <span class="ui-clock-header-twelve" data-value="{1}:{2}{3}">{3}</span></div><div class="ui-clock-body"><div class="ui-clock-holder">{4}<span class="ui-clock-swap" data-value="{1}:{2}{3}">{5}</span></div></div><div class="ui-clock-footer"><a href="javascript:void(0)">Close</a></div>'.format('', hours, minutes, isAmPm, hoursView, swapAmPm, (!showminutes ? 'ui-clock-active' : ''), (showminutes ? 'ui-clock-active' : '')));
 	};
 });
