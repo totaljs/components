@@ -6,7 +6,7 @@
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 10,
+	"version": 1,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

@@ -8,7 +8,7 @@
 		"jcomponent"
 	],
 	"color": "white",
-	"version": 12,
+	"version": 1,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

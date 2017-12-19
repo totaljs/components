@@ -8,7 +8,7 @@
 		"bootstrap"
 	],
 	"color": "white",
-	"version": 30,
+	"version": 1,
 	"responsive": false,
 	"picture": "picture.jpg",
 	"dependencies": "",

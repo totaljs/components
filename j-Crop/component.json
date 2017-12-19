@@ -8,7 +8,7 @@
 		"jcomponent"
 	],
 	"color": "transparent",
-	"version": 3,
+	"version": 1,
 	"responsive": false,
 	"picture": "picture.jpg",
 	"dependencies": "",
