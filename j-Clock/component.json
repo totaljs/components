@@ -1,5 +1,5 @@
 {
-	"datecreated": "2017-12-18T15:30:00.000Z",
+	"datecreated": "2017-12-19T03:30:00.000Z",
 	"dateupdated": null,
 	"name": "j-Clock",
 	"tags": [
@@ -9,7 +9,7 @@
 		"bootstrap"
 	],
 	"color": "white",
-	"version": 1,
+	"version": 2,
 	"responsive": false,
 	"picture": "picture.jpg",
 	"dependencies": "",
