@@ -1,4 +1,3 @@
-body{padding:50px;margin:0;background-color:#F0F0F0;font-family:Arial}
 .hidden { display: none; }
 .ui-modal-noscroll { overflow: hidden; }
 .ui-modal-body { position: absolute; left: 0; right: 0; top: 0; bottom: 0; overflow: auto; }

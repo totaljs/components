@@ -15,6 +15,3 @@
 .ui-suggestion li:hover { background-color: #F0F0F0; }
 .ui-suggestion li:first-child { border-top: 0; }
 .hidden { display: none; }
-
-/* NOT REQUIRED */
-body { background-color: #F0F0F0; }
