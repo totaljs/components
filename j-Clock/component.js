@@ -1,4 +1,4 @@
-COMPONENT('clock', 'time:actual;twelvehour:false', function(self, config) {
+COMPONENT('clock', 'twelvehour:false', function(self, config) {
 
 	var visible = false;
 	var dialRadius = 100, outerRadius = 80,	innerRadius = 54, tickRadius = 13;
