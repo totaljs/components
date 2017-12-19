@@ -8,4 +8,4 @@ COMPONENT('highlightsyntax', function(self, config) {
 		} else
 			self.tclass('hidden', true);
 	};
-});
+}, ['//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/styles/github.min.css', '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/highlight.min.js']);

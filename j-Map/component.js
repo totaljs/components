@@ -16,7 +16,7 @@ COMPONENT('map', function(self, config) {
 	};
 
 	self.make = function() {
-		WAIT('google', function(again) {
+		WAIT('google', function() {
 			var animations = { drop: google.maps.Animation.DROP, bounce: google.maps.Animation.BOUNCE };
 			var options = {};
 
@@ -106,4 +106,4 @@ COMPONENT('map', function(self, config) {
 		var lng = value.substring(index + 1).parseFloat();
 		self.search(lat, lng);
 	};
-});
+}, ['https://maps.googleapis.com/maps/api/js?key=AIzaSyDRRKKSG8td8bT-W_rkuLtZCKiTlS_iIX8 .js']);

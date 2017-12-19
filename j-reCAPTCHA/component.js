@@ -18,4 +18,5 @@ COMPONENT('recaptcha', function(self, config) {
 			}});
 		});
 	};
-});
+
+}, ['https://www.google.com/recaptcha/api.js']);
