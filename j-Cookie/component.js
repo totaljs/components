@@ -1,4 +1,4 @@
-COMPONENT('cookie', function(self, config) {
+COMPONENT('cookie', 'redirect:about\\:blank;agree:OK;cancel:Cancel', function(self, config) {
 
 	self.singleton();
 	self.readonly();
@@ -12,7 +12,7 @@ COMPONENT('cookie', function(self, config) {
 				localStorage.removeItem(key);
 			});
 		} catch (e) {}
-		location.href = config.redirect || 'about:blank';
+		location.href = config.redirect;
 		return self;
 	};
 
@@ -32,7 +32,7 @@ COMPONENT('cookie', function(self, config) {
 
 		self.aclass('ui-cookie');
 		self.rclass('hidden');
-		self.append('<button name="agree">{0}</button><button name="cancel">{1}</button>'.format(config.agree || 'OK', config.cancel || 'Cancel'));
+		self.append('<button name="agree">{0}</button><button name="cancel">{1}</button>'.format(config.agree, config.cancel));
 
 		self.event('click', 'button', function() {
 
