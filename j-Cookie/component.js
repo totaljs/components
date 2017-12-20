@@ -26,11 +26,12 @@ COMPONENT('cookie', function(self, config) {
 		} catch (e) {}
 
 		if (cookie) {
-			self.rclass('hidden');
+			self.aclass('hidden');
 			return;
 		}
 
-		self.classes('-hidden ui-cookie');
+		self.aclass('ui-cookie');
+		self.rclass('hidden');
 		self.append('<button name="agree">{0}</button><button name="cancel">{1}</button>'.format(config.agree || 'OK', config.cancel || 'Cancel'));
 
 		self.event('click', 'button', function() {
