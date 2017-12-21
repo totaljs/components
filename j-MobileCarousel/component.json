@@ -1,0 +1,16 @@
+{
+	"datecreated": "2017-12-21T09:13:00.000Z",
+	"dateupdated": null,
+	"name": "j-MobileCarousel",
+	"tags": [
+		"jcomponent",
+		"bootstrap"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.gif",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}
