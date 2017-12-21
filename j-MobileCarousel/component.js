@@ -89,6 +89,6 @@ COMPONENT('mobilecarousel', 'count:1;selector:.col-sm-4;margin:15;snapping:true;
 		});
 
 		self.css('height', height + 5);
-		self.find('.ui-carousel-body').css('width', sum);
+		self.find('.ui-mobilecarousel-body').css('width', sum);
 	};
 });
