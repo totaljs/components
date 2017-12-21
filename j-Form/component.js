@@ -139,10 +139,8 @@ COMPONENT('form', function(self, config) {
 			return;
 		}
 
-		if (W.$$form_level < 1) {
-			console.log('RESET', W.$$form_level);
+		if (W.$$form_level < 1)
 			W.$$form_level = 1;
-		}
 
 		W.$$form_level++;
 
