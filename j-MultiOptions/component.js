@@ -117,6 +117,7 @@ COMPONENT('multioptions', function(self) {
 		fn(self.mapping);
 		self.refresh();
 		self.change(false);
+		self.save();
 	};
 
 	self.remap2 = function(callback) {
@@ -124,6 +125,7 @@ COMPONENT('multioptions', function(self) {
 		callback(self.mapping);
 		self.refresh();
 		self.change(false);
+		self.save();
 	};
 
 	self.mapping = function(key, label, def, type, max, min, step, validator) {
