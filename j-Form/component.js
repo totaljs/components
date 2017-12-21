@@ -5,11 +5,12 @@ COMPONENT('form', function(self, config) {
 	var csspos = {};
 
 	if (!W.$$form) {
+
 		W.$$form_level = W.$$form_level || 1;
 		W.$$form = true;
+
 		$(document).on('click', '.ui-form-button-close', function() {
 			SET($(this).attr('data-path'), '');
-			W.$$form_level--;
 		});
 
 		$(window).on('resize', function() {
@@ -81,7 +82,6 @@ COMPONENT('form', function(self, config) {
 		});
 
 		self.find('button').on('click', function() {
-			W.$$form_level--;
 			switch (this.name) {
 				case 'submit':
 					self.submit(self.hide);
@@ -127,17 +127,28 @@ COMPONENT('form', function(self, config) {
 		if (self.hclass('hidden') === isHidden)
 			return;
 
-		self.tclass('hidden', isHidden);
-
 		setTimeout2('formreflow', function() {
 			EMIT('reflow', self.name);
 		}, 10);
 
 		if (isHidden) {
+			self.aclass('hidden');
 			self.release(true);
 			self.find('.ui-form').rclass('ui-form-animate');
+			W.$$form_level--;
 			return;
 		}
+
+		if (W.$$form_level < 1) {
+			console.log('RESET', W.$$form_level);
+			W.$$form_level = 1;
+		}
+
+		W.$$form_level++;
+
+		self.css('z-index', W.$$form_level * 10);
+		self.element.scrollTop(0);
+		self.rclass('hidden');
 
 		self.resize();
 		self.release(false);
@@ -149,13 +160,6 @@ COMPONENT('form', function(self, config) {
 			var el = self.find(config.autofocus === true ? 'input[type="text"],select,textarea' : config.autofocus);
 			el.length && el.eq(0).focus();
 		}
-
-		if (W.$$form_level < 1)
-			W.$$form_level = 1;
-
-		W.$$form_level++;
-		self.css('z-index', W.$$form_level * 10);
-		self.element.scrollTop(0);
 
 		setTimeout(function() {
 			self.element.scrollTop(0);
