@@ -20,10 +20,14 @@ COMPONENT('cookie', 'redirect:about\\:blank;agree:OK;cancel:Cancel', function(se
 
 		var cookie;
 
-		// private mode
+		// Determines private mode
 		try {
 			cookie = localStorage.getItem('cookie');
-		} catch (e) {}
+		} catch (e) {
+			// Is private mode
+			// We disable message
+			cookie = true;
+		}
 
 		if (cookie) {
 			self.aclass('hidden');
