@@ -1,0 +1,16 @@
+{
+	"datecreated": "2017-12-21T21:43:00.000Z",
+	"dateupdated": null,
+	"name": "j-Listing",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}
