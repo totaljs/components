@@ -27,15 +27,16 @@ COMPONENT('listing', 'count:20', function(self, config) {
 	self.page = function(index) {
 
 		var builder = [];
-		var arr = self.get().takeskip(config.count, index * config.count);
-		var g = {};
+		var items = self.get();
+		var arr = items.takeskip(config.count, index * config.count);
+		var g = { count: items.length, page: index + 1, pages: pages };
 
 		for (var i = 0; i < arr.length; i++) {
 			g.index = i;
 			builder.push(self.template(arr[i], g));
 		}
 
-		container.html(layout ? layout({ page: i, pages: pages, body: builder.join('') }) : builder.join(''));
+		container.html(layout ? layout({ page: index + 1, pages: pages, body: builder.join(''), count: items.length }) : builder.join(''));
 		paginate.find('.selected').rclass('selected');
 		paginate.find('button[data-index="{0}"]'.format(index)).aclass('selected');
 	};
