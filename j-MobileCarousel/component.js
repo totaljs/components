@@ -74,21 +74,24 @@ COMPONENT('mobilecarousel', 'count:1;selector:.col-sm-4;margin:15;snapping:true;
 
 		self.aclass('ui-mobilecarousel');
 
-		var sum = 0;
-		var height = 0;
+		self.width(function(w) {
 
-		width = self.width() / config.count;
-		count = 0;
+			var sum = 0;
+			var height = 0;
 
-		self.find(config.selector).each(function(index) {
-			var el = $(this);
-			sum += width + (index ? 15 : 0);
-			height = Math.max(el.height(), height);
-			el.css('width', width);
-			count++;
+			width = w / config.count;
+			count = 0;
+
+			self.find(config.selector).each(function(index) {
+				var el = $(this);
+				sum += width + (index ? 15 : 0);
+				height = Math.max(el.height(), height);
+				el.css('width', width);
+				count++;
+			});
+
+			self.css('height', height + 5);
+			self.find('.ui-mobilecarousel-body').css('width', sum);
 		});
-
-		self.css('height', height + 5);
-		self.find('.ui-mobilecarousel-body').css('width', sum);
 	};
 });
