@@ -294,7 +294,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 			var name = data.column.name;
 			var sort = data.column.sorting;
 
-			!config.external && options.lastsort && options.items.quicksort(name, sort === 'asc');
+			!config.external && options.lastsort && options.items.quicksort(name, sort !== 'asc');
 			self.operation('sort');
 			self.redraw();
 		}
@@ -425,7 +425,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 
 	self.parseNumber = function(val) {
 		var arr = [];
-		var num = val.replace(/\s-\s/, '/').replace(/\s/g, '').replace(/,/g, '.').split(/\/|\|\s\-\s|\\/).trim();
+		var num = val.replace(/\s-\s/, '/').replace(/\s/g, '').replace(/,/g, '.').split(/\/|\|\s-\s|\\/).trim();
 
 		for (var i = 0, length = num.length; i < length; i++) {
 			var n = num[i];
