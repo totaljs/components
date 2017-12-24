@@ -81,7 +81,7 @@ COMPONENT('codemirror', 'linenumbers:false;required:false', function(self, confi
 			setTimeout2(self.id, function() {
 				var val = editor.getValue();
 				self.getter2 && self.getter2(val);
-				self.$dirty && self.change(true);
+				self.change(true);
 				self.rewrite(val);
 				config.required && self.validate2();
 			}, 200);
