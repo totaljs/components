@@ -10,5 +10,6 @@ __Supported attributes__:
 - `data-b-html="value => value && value.price ? value.price.format(2) : 'without price'` - optional, sets HTML content
 - `data-b-template="true"` enables Tangular compiler for nested `<script type="text/html">{{ markup }}</script>` or raw `{{ markup }}`.
 - `data-b-disable="value => value > 100 && value < 1000"` - optional, toggles `disabled` attribute
-- `data-b-selector=".ui-textbox-label"` - (__+v3__) optional, target element will be elements by selector (default: `null`)
-- `data-b-src="value"` - (__+v4__) optinal, can change `src` argument in the image
+- `data-b-selector=".ui-textbox-label"` - optional, target element will be elements by selector (default: `null`)
+- `data-b-src="value"` - optional, can change `src` argument in the image
+- `data-b-href="value"` - optional, can change `href` argument in the link
