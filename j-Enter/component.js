@@ -3,7 +3,7 @@ COMPONENT('enter', 'validate:true', function(self, config) {
 	self.make = function() {
 		self.event('keydown', 'input', function(e) {
 			if (e.which === 13 && (!config.validate || MAIN.can(self.path)))
-					EXEC(self.attrd('enter'));
+				EXEC(config.exec, self);
 		});
 	};
 });
