@@ -23,9 +23,20 @@ instance.register('schema_name', function(value, element, e) {
     // value: according to the "data-m"
     // element: jQuery element (target)
     // e: contains additional data { type: 'init/click/bind' } and can be used as a repository
-    
+
     // here you can modify the element
 });
 ```
 
 For more info look into the example.
+
+__Scopes__:
+
+j-Modificator supports jComponent scopes but each path in the scope needs to contain `?` question mark e.g. `data-m="?.name"` which is replaced with a scope path. __Important:__ jComponent scope needs to contain some jComponents.
+
+```html
+<div data-jc-scope="user">
+	<div data-jc="textbox" data-jc-path="name">Your name</div>
+	<div data-m="?.name"></div>
+</div>
+```

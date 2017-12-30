@@ -13,3 +13,14 @@ __Supported attributes__:
 - `data-b-selector=".ui-textbox-label"` - optional, target element will be elements by selector (default: `null`)
 - `data-b-src="value"` - optional, can change `src` argument in the image
 - `data-b-href="value"` - optional, can change `href` argument in the link
+
+__Scopes__:
+
+j-Binder supports jComponent scopes but each path in the scope needs to contain `?` question mark e.g. `data-m="?.name"` which is replaced with a scope path. __Important:__ jComponent scope needs to contain some jComponents.
+
+```html
+<div data-jc-scope="user">
+	<div data-jc="textbox" data-jc-path="name">Your name</div>
+	<div data-b="?.name"></div>
+</div>
+```

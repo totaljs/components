@@ -109,6 +109,17 @@ COMPONENT('modificator', function(self) {
 				schema = arr[1];
 			}
 
+			if (path.indexOf('?') !== -1) {
+				var scope = el.closest('[data-jc-scope]');
+				if (scope) {
+					var data = scope.get(0).$scopedata;
+					if (data == null)
+						return;
+					path = path.replace(/\?/g, data.path);
+				} else
+					return;
+			}
+
 			arr = path.split('.');
 
 			var obj = el.data('data-m');

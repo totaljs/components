@@ -84,6 +84,18 @@ COMPONENT('binder', function(self) {
 
 			var el = $(this);
 			var path = el.attrd('b').replace('%', 'jctmp.');
+
+			if (path.indexOf('?') !== -1) {
+				var scope = el.closest('[data-jc-scope]');
+				if (scope) {
+					var data = scope.get(0).$scopedata;
+					if (data == null)
+						return;
+					path = path.replace(/\?/g, data.path);
+				} else
+					return;
+			}
+
 			var arr = path.split('.');
 			var p = '';
 
