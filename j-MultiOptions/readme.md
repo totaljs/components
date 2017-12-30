@@ -6,6 +6,10 @@
 - It expects the whole object with `key`: `value`
 - HTML body of the jComponent has to be `<script type="text/plain>` with (JavaScript) mapping
 
+__Configuration__:
+
+- `rebind` {Boolean} rebinds a path value according to the MultiOptions schema (default: `true`)
+
 __Mapping__:
 
 - it's provided on immediately when the component is ready
@@ -44,6 +48,7 @@ __Good to know__:
 - `date` type is linked by `Calendar` component
 - follow example
 - `component.remap(js_code)` can remap new configuration
+- `component.dependencies()` returns `Object` with all items `key/value` from dropdown lists
 
 ### Author
 

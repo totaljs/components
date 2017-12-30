@@ -1,4 +1,4 @@
-COMPONENT('multioptions', function(self) {
+COMPONENT('multioptions', 'rebind:true', function(self, config) {
 
 	var Tinput = Tangular.compile('<input class="ui-moi-save ui-moi-value-inputtext" data-name="{{ name }}" type="text" value="{{ value }}"{{ if def }} placeholder="{{ def }}"{{ fi }}{{ if max }} maxlength="{{ max }}"{{ fi }} data-type="text" />');
 	var Tselect = Tangular.compile('<div class="ui-moi-value-select"><i class="fa fa-chevron-down"></i><select data-name="{{ name }}" class="ui-moi-save ui-multioptions-select">{{ foreach m in values }}<option value="{{ $index }}"{{ if value === m.value }} selected="selected"{{ fi }}>{{ m.text }}</option>{{ end }}</select></div>');
@@ -8,6 +8,7 @@ COMPONENT('multioptions', function(self) {
 	var Tcolor = null;
 	var skip = false;
 	var mapping = null;
+	var dep = {};
 
 	self.getter = null;
 	self.novalidate();
@@ -17,6 +18,10 @@ COMPONENT('multioptions', function(self) {
 	};
 
 	self.form = function() {};
+
+	self.dependencies = function() {
+		return dep;
+	};
 
 	self.make = function() {
 
@@ -114,18 +119,20 @@ COMPONENT('multioptions', function(self) {
 	self.remap = function(js) {
 		var fn = new Function('option', js);
 		mapping = {};
+		dep = {};
 		fn(self.mapping);
 		self.refresh();
 		self.change(false);
-		self.$save();
+		config.rebind && self.$save();
 	};
 
 	self.remap2 = function(callback) {
 		mapping = {};
+		dep = {};
 		callback(self.mapping);
 		self.refresh();
 		self.change(false);
-		self.$save();
+		config.rebind && self.$save();
 	};
 
 	self.mapping = function(key, label, def, type, max, min, step, validator) {
@@ -154,6 +161,7 @@ COMPONENT('multioptions', function(self) {
 		if (validator && typeof(validator) !== 'function')
 			validator = null;
 
+		dep[key] = values;
 		mapping[key] = { name: key, label: label, type: type.toLowerCase(), def: def, max: max, min: min, step: step, value: def, values: values, validator: validator };
 	};
 
@@ -191,12 +199,19 @@ COMPONENT('multioptions', function(self) {
 			}
 
 			if (el.hclass('ui-moi-value-numbertext')) {
-				obj[key] = el.val().parseInt();
-				return;
-			}
 
-			if (el.hclass('ui-moi-value-numbertext')) {
 				obj[key] = el.val().parseInt();
+
+				if (opt.max !== null && obj[key] > opt.max) {
+					obj[key] = opt.max;
+					el.val(opt.max);
+				}
+
+				if (opt.min !== null && obj[key] < opt.min) {
+					obj[key] = opt.min;
+					el.val(opt.min);
+				}
+
 				return;
 			}
 
@@ -240,7 +255,7 @@ COMPONENT('multioptions', function(self) {
 
 			var value = '';
 
-			switch (option.type) {
+			switch (option.type.toLowerCase()) {
 				case 'string':
 					value = Tinput(option);
 					break;
