@@ -1,4 +1,3 @@
-
 COMPONENT('snackbar', 'timeout:3000;button:Dismiss', function(self, config) {
 
 	var virtual = null;
