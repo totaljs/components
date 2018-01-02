@@ -42,6 +42,7 @@ COMPONENT('page', function(self, config) {
 				EMIT('resize');
 			}, 200);
 
+			self.release(false);
 			SETTER('loading', 'hide', 1000);
 		}, false);
 	};
