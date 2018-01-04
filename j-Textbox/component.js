@@ -42,7 +42,7 @@ COMPONENT('textbox', function(self, config) {
 				return;
 			if (config.type === 'date') {
 				e.preventDefault();
-				window.$calendar && window.$calendar.toggle(self.element, self.find('input').val(), function(date) {
+				window.$calendar && window.$calendar.toggle(self.element, self.get(), function(date) {
 					self.set(date);
 				});
 			}
