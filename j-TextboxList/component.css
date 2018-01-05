@@ -1,5 +1,6 @@
 * { box-sizing: border-box; }
 .ui-textboxlist-label { margin-bottom: 5px; font-size: 12px; text-align: left; }
+.ui-textboxlist-label-required:before { color: red; content: '***'; margin-right: 5px; }
 .ui-textboxlist-label .fa { margin-right: 5px; }
 .ui-textboxlist-items > div:first-child { border-radius: 2px 2px 0 0; }
 .ui-textboxlist-item { height: 32px; background-color: white; border: 1px solid #E0E0E0; border-bottom: 0; }
@@ -13,3 +14,8 @@
 .ui-textboxlist-base > div:first-child { display: none; }
 .ui-textboxlist-helper { margin-top: 8px; font-size: 11px; color: red !important; text-align: left; }
 .empty .ui-textboxlist-base { border-radius: 2px; }
+.required .ui-textboxlist-base,
+.ui-textboxlist-item.invalid { border-color: #E1A1A1; background-color: #FFF3F3 !important; }
+.ui-textboxlist-item.invalid:last-child{ border-bottom:1px solid #E1A1A1; }
+.ui-textboxlist-item.invalid  > div:first-child { border-left-color: #E1A1A1; }
+.ui-textboxlist-item.invalid input { color: red; }
