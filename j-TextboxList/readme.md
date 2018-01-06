@@ -20,3 +20,8 @@ Example: `data-jc-config="required:true;icon:envelope"`
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT
+
+## Contributor
+
+- improvements by Pedro Maia Costa <https://github.com/pnmcosta>
+- improvements by Denis Grance <denis@granec.cz>
