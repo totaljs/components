@@ -13,6 +13,8 @@ Example: `data-jc-config="required:true;icon:envelope"`
 - `disabled` {Boolean} (optional) disables this component
 - `limit` {Number} (optional) sets a maximum length of lists
 - `error` {String} (optional) error message when limit is reached (default `You reach the maximum limit`)
+- `required` {Boolean} (optional) whether list is required (default `false`)
+- `type` {String} (optional) can be `email`, `url`, `currency`, `number`, `date` or empty (default)
 
 ### Author
 
