@@ -14,8 +14,7 @@
 .ui-textboxlist-base > div:first-child { display: none; }
 .ui-textboxlist-helper { margin-top: 8px; font-size: 11px; color: red !important; text-align: left; }
 .empty .ui-textboxlist-base { border-radius: 2px; }
-.required .ui-textboxlist-base,
-.ui-textboxlist-item.invalid { border-color: #E1A1A1; background-color: #FFF3F3 !important; }
-.ui-textboxlist-item.invalid:last-child{ border-bottom:1px solid #E1A1A1; }
-.ui-textboxlist-item.invalid  > div:first-child { border-left-color: #E1A1A1; }
-.ui-textboxlist-item.invalid input { color: red; }
+.ui-textboxlist-item-invalid { border-color: #E1A1A1; background-color: #FFF3F3 !important; }
+.ui-textboxlist-item-invalid:last-child{ border-bottom:1px solid #E1A1A1; }
+.ui-textboxlist-item-invalid > div:first-child { border-left-color: #E1A1A1; }
+.ui-textboxlist-item-invalid input { color: red; }

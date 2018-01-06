@@ -6,7 +6,9 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 	var cempty = 'empty';
 	var helper = null;
 
-	// PMC: removed self.readonly();
+	self.setter = null;
+	self.getter = null;
+
 	self.template = Tangular.compile('<div class="ui-textboxlist-item"><div><i class="fa fa-times"></i></div><div><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder }}"{{ if disabled}} disabled="disabled"{{ fi }} value="{{ value }}" /></div></div>');
 
 	self.configure = function (key, value, init, prev) {
@@ -16,7 +18,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 		var redraw = false;
 		switch (key) {
 			case 'disabled':
-				self.tclass('ui-required', value);
+				self.tclass('ui-textboxlist-required', value);
 				self.find('input').prop('disabled', true);
 				empty.disabled = value;
 				break;
@@ -55,8 +57,6 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 			icon = '<i class="fa fa-{0}"></i>'.format(config.icon);
 
 		empty.value = '';
-
-		// PMC: added required label class
 		self.html((html ? '<div class="ui-textboxlist-label{2}">{1}{0}:</div>'.format(html, icon, config.required ? ' ui-textboxlist-label-required' : '') : '') + '<div class="ui-textboxlist-items"></div>' + self.template(empty).replace('-item"', '-item ui-textboxlist-base"'));
 		container = self.find('.ui-textboxlist-items');
 	};
@@ -97,8 +97,6 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 			arr.splice(index, 1);
 
 			self.tclass(cempty, arr.length === 0);
-			// PMC: toggle required class when removing items
-			self.tclass('required', config.required && arr.length === 0);
 
 			skip = true;
 			self.set(self.path, arr, 2);
@@ -127,12 +125,10 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 			var raw = self.get();
 
 			if (config.limit && raw.length >= config.limit) {
-
-				if (helper != null)
-					return;
-
-				base.after('<div class="ui-textboxlist-helper"><i class="fa fa-warning" aria-hidden="true"></i> {0}</div>'.format(config.error));
-				helper = container.closest('.ui-textboxlist').find('.ui-textboxlist-helper');
+				if (helper) {
+					base.after('<div class="ui-textboxlist-helper"><i class="fa fa-warning" aria-hidden="true"></i> {0}</div>'.format(config.error));
+					helper = container.closest('.ui-textboxlist').find('.ui-textboxlist-helper');
+				}
 				return;
 			}
 
@@ -165,19 +161,13 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 
 		if (!value || !value.length) {
 			self.aclass(cempty);
-
-			// PMC: add required class if required
-			config.required && self.aclass('required');
 			container.empty();
 			return;
 		}
 
 		self.rclass(cempty);
-
-		// PMC: remove required class
-		self.rclass('required');
-
 		var builder = [];
+
 		value.forEach(function (item) {
 			empty.value = item;
 			builder.push(self.template(empty));
@@ -186,13 +176,17 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 		container.empty().append(builder.join(''));
 	};
 
-	// PMC: added validate method for each item
-	self.validate = function (value) {
+	self.validate = function(value, init) {
+
+		if (init)
+			return true;
+
 		var valid = !config.required;
 		var items = container.children();
-		if (!value || !value.length || !items || !items.length) {
+
+		if (!value || !value.length)
 			return valid;
-		}
+
 		value.forEach(function (item, i) {
 			!item && (item = '');
 			switch (config.type) {
@@ -214,8 +208,9 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 					valid = item.length > 0;
 					break;
 			}
-			items.eq(i).tclass('invalid', !valid);
+			items.eq(i).tclass('ui-textboxlist-item-invalid', !valid);
 		});
+
 		return valid;
 	};
 
