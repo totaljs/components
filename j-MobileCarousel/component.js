@@ -90,7 +90,7 @@ COMPONENT('mobilecarousel', 'count:1;selector:.col-sm-4;margin:15;snapping:true;
 				count++;
 			});
 
-			self.css('height', height + 5);
+			self.css('height', (height >> 0) + 20);
 			self.find('.ui-mobilecarousel-body').css('width', sum);
 		});
 	};
