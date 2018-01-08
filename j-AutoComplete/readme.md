@@ -14,11 +14,11 @@ function onSearch(query, render) {
 	// `query` contains a value from the input
 	// `render` is a function
 	// Here we have to find a datasource and render argument helps with rendering HTML
-   
+
   	AJAX('GET /cities/', { q: query }, render);
 
     // or e.g.
-	// render([{ name: 'Item 1', category: 'Pages' }, { name: 'Item 2', category: 'Widgets' }]);
+	// render([{ name: 'Item 1', type: 'Pages' }, { name: 'Item 2', type: 'Widgets' }]);
 }
 
 function onSelected(value, input) {
