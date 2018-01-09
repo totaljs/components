@@ -8,6 +8,7 @@ COMPONENT('mobilecarousel', 'count:1;selector:.col-sm-4;margin:15;snapping:true;
 	var move = false;
 	var anim;
 	var container;
+	var old;
 
 	self.readonly();
 	self.blind();
@@ -15,7 +16,9 @@ COMPONENT('mobilecarousel', 'count:1;selector:.col-sm-4;margin:15;snapping:true;
 	self.make = function() {
 		self.element.wrapInner('<div class="ui-mobilecarousel-container"><div class="ui-mobilecarousel-body"></div></div>');
 		$(window).on('resize', self.resize);
-		self.resize();
+		setTimeout(self.resize, 50);
+		setTimeout(self.resize, 500);
+		setTimeout(self.resize, 2000);
 		CSS('.ui-mobilecarousel .ui-mobilecarousel-{0} {1}{margin:0 0 0 {2}px;padding:0;float:left;vertical-align:top;display:inline-block}.ui-mobilecarousel .ui-mobilecarousel-{0} {1}:first-child{margin-left:0}'.format(self.id, config.selector, config.margin));
 		container = self.find('.ui-mobilecarousel-container').aclass('ui-mobilecarousel-' + self.id);
 		config.snapping && container.on('scroll', function() {
@@ -54,7 +57,7 @@ COMPONENT('mobilecarousel', 'count:1;selector:.col-sm-4;margin:15;snapping:true;
 		var off = Math.round(x / width);
 		skip = true;
 		move = true;
-		container.animate({ scrollLeft: off * (width + config.margin) }, 200);
+		container.stop().animate({ scrollLeft: off * (width + config.margin) }, 200);
 		setTimeout(function() {
 			skip = false;
 		}, 500);
@@ -63,6 +66,11 @@ COMPONENT('mobilecarousel', 'count:1;selector:.col-sm-4;margin:15;snapping:true;
 	self.resize = function() {
 
 		if (WIDTH() !== 'xs') {
+
+			if (old === '1')
+				return;
+
+			old = '1';
 			count = 0;
 			width = 0;
 			self.rclass('ui-mobilecarousel');
@@ -85,12 +93,17 @@ COMPONENT('mobilecarousel', 'count:1;selector:.col-sm-4;margin:15;snapping:true;
 			self.find(config.selector).each(function(index) {
 				var el = $(this);
 				sum += width + (index ? 15 : 0);
-				height = Math.max(el.height(), height);
+				height = Math.max(el.innerHeight(), height);
 				el.css('width', width);
 				count++;
 			});
 
-			self.css('height', (height >> 0) + 20);
+			var k = sum + 'x' + height;
+			if (old === k)
+				return;
+
+			old = k;
+			self.css('height', (height >> 0) + 15);
 			self.find('.ui-mobilecarousel-body').css('width', sum);
 		});
 	};
