@@ -89,7 +89,12 @@ COMPONENT('pictureupload', 'extension:false;singlefile:true', function(self, con
 		var el = this;
 		var data = new FormData();
 
-		data.append('file', files[0]);
+		var filename = files[0].name;
+		var index = filename.lastIndexOf('\\');
+		if (index !== -1)
+			filename = filename.substring(index + 1);
+
+		data.append('file', files[0], filename);
 		data.append('width', config.width);
 		data.append('height', config.height);
 
