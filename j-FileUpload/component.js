@@ -51,8 +51,19 @@ COMPONENT('fileupload', function(self, config) {
 		var data = new FormData();
 		var el = this;
 
-		for (var i = 0, length = files.length; i < length; i++)
-			data.append('file' + i, files[i]);
+		for (var i = 0, length = files.length; i < length; i++) {
+
+			var filename = files[i].name;
+			var index = filename.lastIndexOf('/');
+
+			if (index === -1)
+				index = filename.lastIndexOf('\\');
+
+			if (index !== -1)
+				filename = filename.substring(index + 1);
+
+			data.append('file' + i, files[i], filename);
+		}
 
 		SETTER('loading', 'show');
 		UPLOAD(config.url, data, function(response, err) {
