@@ -1,13 +1,12 @@
 COMPONENT('importer', function(self, config) {
 
-	var imported = false;
-
 	self.readonly();
 	self.setter = function(value) {
 
 		if (config.if !== value)
 			return;
 
+		var imported = self.element.get(0).hasChildNodes();
 		if (imported) {
 			if (config.reload)
 				EXEC(config.reload);
@@ -16,7 +15,6 @@ COMPONENT('importer', function(self, config) {
 			return;
 		}
 
-		imported = true;
 		IMPORT(config.url, function() {
 			if (config.reload)
 				EXEC(config.reload);
