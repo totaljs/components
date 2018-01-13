@@ -1,6 +1,6 @@
 ## j-Importer
 
-__j-Import__ is a great component for importing HTML templates, scripts or styles according to the path and condition. The component can help with SPA applications because you can easily import templates, scripts or styles dynamically. __IMPORTANT__ the component checks the content, if the content doesn't exist then the component performs a downloading of the content.
+__j-Import__ is a great component for importing HTML templates, scripts or styles according to the path and condition. The component can help with SPA applications because you can easily import templates, scripts or styles dynamically.
 
 __Configuration__:
 
