@@ -42,10 +42,10 @@ COMPONENT('confirm', function(self) {
 
 		for (var i = 0; i < buttons.length; i++) {
 			var item = buttons[i];
-			var icon = item.match(/\"[a-z0-9\-]+\"/);
+			var icon = item.match(/"[a-z0-9-]+"/);
 			if (icon) {
 				item = item.replace(icon, '').trim();
-				icon = '<i class="fa fa-{0}"></i>'.format(icon.toString().replace(/\"/g, ''));
+				icon = '<i class="fa fa-{0}"></i>'.format(icon.toString().replace(/"/g, ''));
 			} else
 				icon = '';
 			builder.push('<button data-index="{1}">{2}{0}</button>'.format(item, i, icon));
