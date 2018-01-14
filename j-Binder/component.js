@@ -9,13 +9,13 @@ COMPONENT('binder', function(self) {
 		self.watch('*', self.autobind);
 		self.scan();
 
-		self.on('component', function() {
+		var fn = function() {
 			setTimeout2(self.id, self.scan, 200);
-		});
+		};
 
-		self.on('destroy', function() {
-			setTimeout2(self.id, self.scan, 200);
-		});
+		self.on('import', fn);
+		self.on('component', fn);
+		self.on('destroy', fn);
 	};
 
 	self.autobind = function(path) {
