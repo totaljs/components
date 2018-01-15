@@ -1,4 +1,4 @@
-.ui-tree * { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
+.ui-tree * { box-sizing: border-box; }
 .ui-tree { background-color: white; }
 .ui-tree .node {}
 .ui-tree .children { display: none; }

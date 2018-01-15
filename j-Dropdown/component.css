@@ -1,4 +1,4 @@
-.ui-dropdown-container * { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; font-size:14px; }
+.ui-dropdown-container * { box-sizing: border-box; font-size:14px; }
 .ui-dropdown-values { position: relative; display: block; height: 32px; text-align: left; }
 .ui-dropdown { border: 1px solid #E0E0E0; padding: 0 5px 0 10px; border-radius: 2px; outline: 0; height: 32px; overflow: hidden; float: left; width: 100%; background-color: white; position: relative; }
 .ui-dropdown select { width: 100%; outline: 0; border: 0; height: 24px; background: white url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAA50lEQVR4AWIYIKAFxIeB+BYQRzKMMOAOxP/R8FQgZgSQQ8cCAAAAAIP8rXcOIoRS8UrCeDBhPJgwXkwY7yWMBxPGgwnjwYTxYsJ4L2E8mDAeTBgPJowHE8aDCePBhPFgwngwYbyYkLRABg8xXEHNADgMMnQIYlZqBcCdIRoA3NQKgMgh6HmAtjNQGcQA8bMh4PFvQNxPzeQPYN8OCAAAYCAC9m8tiNNiewAAAAAccQw5hz1EvMQ8Rb3FDSOmMeOoeZwgQZEhSdHkiJJUWbI0XV4wIZkRTcnmhJPSWfF0o9r2+TsDvX0eAPFHeiSgUaPMAAAAAElFTkSuQmCC) no-repeat 100% 50%; background-size: 12px; font-size: 14px; float: left; cursor: pointer; padding: 0; margin: 3px 0 0 -3px; color: black; appearance: none; }

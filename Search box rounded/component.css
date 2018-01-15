@@ -1,5 +1,5 @@
-.search-container { border: 2px solid #E0E0E0; border-radius: 20px; padding: 3px 12px; margin: 10px 0 0 22px; background-color: white; height: 38px; width: 100%; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
-.search-container * { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
+.search-container { border: 2px solid #E0E0E0; border-radius: 20px; padding: 3px 12px; margin: 10px 0 0 22px; background-color: white; height: 38px; width: 100%; box-sizing: border-box; }
+.search-container * { box-sizing: border-box; }
 .search-container div { margin-right: 25px; }
 .search-container input { width: 100%; padding: 5px 0; margin: 0; font-size: 14px; border: 0; background-color: white; outline: 0; color: black; }
 .search-container button { margin: 0; padding: 0; float: right; font-size: 16px; color: silver; width: 20px; height: 25px; text-decoration: none; text-align: right; border: 0; background-color: white; cursor: pointer; outline: 0; }

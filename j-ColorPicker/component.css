@@ -1,5 +1,5 @@
 .hidden { display: none; }
-.ui-colorpicker * { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
+.ui-colorpicker * { box-sizing: border-box; }
 .ui-colorpicker { border: 1px solid #E0E0E0; font-size: 14px; color: black; position: absolute; width: 180px; height: 165px; background-color: white; box-shadow: 0 5px 10px rgba(0,0,0,0.08); border-radius: 4px; z-index: 80; }
 .ui-colorpicker ul { list-style-type: none; margin: 0; padding: 10px 10px 0; text-align: center; }
 .ui-colorpicker li { position: relative; display: inline-block; width: 24px; height: 25px; text-align: center; margin-top: 2px; cursor: pointer; padding: 1px 0 0 0; border-radius: 3px; color: black; border: 2px solid white; }

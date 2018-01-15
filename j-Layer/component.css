@@ -1,4 +1,4 @@
-* { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; font-size:14px; }
+* { box-sizing: border-box; font-size:14px; }
 
 .noscroll { overflow: hidden; }
 .hidden { display: none; }

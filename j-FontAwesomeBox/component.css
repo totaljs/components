@@ -1,4 +1,4 @@
-.ui-fontawesomebox * { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
+.ui-fontawesomebox * { box-sizing: border-box; }
 .ui-fontawesomebox { border: 1px solid #E0E0E0; font-size: 14px; color: black; background-color: white; border-radius: 3px; position: relative; }
 .ui-fontawesomebox-icons { overflow: hidden; }
 .ui-fontawesomebox-icons ul { list-style-type: none; margin: 0; padding: 10px 15px 0 15px; overflow-y: scroll; overflow-scrolling: touch; }

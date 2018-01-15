@@ -1,4 +1,4 @@
-.ui-dropdowncheckbox-container * { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
+.ui-dropdowncheckbox-container * { box-sizing: border-box; }
 .ui-dropdowncheckbox-container { display: block; text-align: left; position: relative; font-size:14px; }
 .ui-dropdowncheckbox { border: 1px solid #E0E0E0; padding: 0 10px; border-radius: 2px; outline: 0; overflow: hidden; width: 100%; background-color: white; height: 30px; cursor: pointer; }
 .ui-dropdowncheckbox div { padding: 4px 0 0 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: black; }

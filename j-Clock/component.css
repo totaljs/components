@@ -1,6 +1,6 @@
-.ui-clock * { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; font-size: 12px; }
+.ui-clock * { box-sizing: border-box; font-size: 12px; }
 .ui-clock { font-size: 12px; position: absolute; background-color: #FFF; max-width: 250px; width: 100%; border: 1px solid #E0E0E0; left: 100px; top: 100px; border-radius: 2px; z-index: 100; color: gray; box-shadow: 0 5px 25px rgba(0,0,0,0.1); opacity: 0; filter: alpha(opacity=0); transform: scale(0.6); -webkit-transform: scale(0.6); -moz-transform: scale(0.6); -ms-transform: scale(0.6); transition: all .2s; -webkit-transition: all .2s; -moz-transition: all .2s; -ms-transition: all .2s; }
-.ui-clock-visible { transform: scale(1); -webkit-transform: scale(1); -moz-transform: scale(1); -ms-transform: scale(1); opacity: 1; filter: alpha(opacity=100); }
+.ui-clock-visible { transform: scale(1); opacity: 1; filter: alpha(opacity=100); }
 .ui-clock-header { height: 40px; font-weight: bold; border-bottom: 1px solid #E0E0E0; text-align: center; font-size: 16pt; padding: 5px 10px 0; }
 .ui-clock-header a { cursor: pointer; font-size: 16pt; color: gray; }
 a.ui-clock-active { color: #0095DD; }

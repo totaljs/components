@@ -1,5 +1,5 @@
 .hidden { display: none; }
-.ui-selectbox * { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
+.ui-selectbox * { box-sizing: border-box; }
 .ui-selectbox { border: 1px solid #E0E0E0; font-size: 14px; color: black; }
 .ui-selectbox ul { list-style-type: none; width: 50%; height: 100%; float: left; overflow: auto; margin: 0; padding: 0; border-left: 1px solid #E0E0E0; font-weight: bold; overflow-scrolling: touch; }
 .ui-selectbox ul:first-child { border-left: 0; font-weight: normal; }

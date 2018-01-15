@@ -1,4 +1,4 @@
-.ui-notify-container * { box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
+.ui-notify-container * { box-sizing: border-box; }
 .ui-notify-container { position: fixed; left: 50%; margin-left: -150px; bottom: 40px; width: 300px; z-index: 100; text-align: center; }
 .ui-notify { background-color: white; box-shadow: 0 3px 20px rgba(0,0,0,0.2); border-radius: 4px; font-size: 14px; padding: 0; margin-top: 20px; transition: 0.5s all; color: white; cursor: default; }
 .ui-notify-1 { background: #8CC152; }
