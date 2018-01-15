@@ -38,8 +38,8 @@ COMPONENT('radiobutton', function(self, config) {
 			if (config.disabled)
 				return;
 			var value = self.parser($(this).attr('data-value'));
-			self.dirty(false, true);
-			self.getter(value, 2);
+			self.set(value);
+			self.change(true);
 		});
 		self.html(builder.join(''));
 		config.items && self.reconfigure('items:' + config.items);
