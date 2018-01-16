@@ -162,8 +162,8 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 		var clsempty = 'ui-dropdowncheckbox-values-empty';
 		prepared = true;
 
-		if (!value) {
-			container.aclass(clsempty).html(config.empty);
+		if (!value || !value.length) {
+			container.aclass(clsempty).html(config.empty || '&nbsp;');
 			return;
 		}
 
