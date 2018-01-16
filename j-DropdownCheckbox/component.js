@@ -160,7 +160,9 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 
 	self.bind = function(path, value) {
 		var clsempty = 'ui-dropdowncheckbox-values-empty';
-		prepared = true;
+
+		if (value !== undefined)
+			prepared = true;
 
 		if (!value || !value.length) {
 			var h = config.empty || '&nbsp;';
