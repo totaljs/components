@@ -163,8 +163,11 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 		prepared = true;
 
 		if (!value || !value.length) {
-			container.aclass(clsempty).html(config.empty || '&nbsp;');
-			self.old = '';
+			var h = config.empty || '&nbsp;';
+			if (h === self.old)
+				return;
+			container.aclass(clsempty).html(h);
+			self.old = h;
 			return;
 		}
 
@@ -201,7 +204,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 			return;
 
 		var label = '';
-		var count = (value == null) ? undefined : value.length;
+		var count = value == null || !value.length ? undefined : value.length;
 
 		if (value && count) {
 			var remove = [];
@@ -221,7 +224,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 				!is && remove.push(selected);
 			}
 
-			if (config.cleaner !== false) {
+			if (config.cleaner !== false && value) {
 				var refresh = false;
 				while (true) {
 					var item = remove.shift();
@@ -256,11 +259,10 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 			values.rattr('title', '');
 			values.html('<span>{0}</span>'.format(config.placeholder));
 		} else {
-			if(count == data.length && config.alltext !== 'null'){
+			if (count == data.length && config.alltext !== 'null' && config.alltext)
 				label = config.alltext;
-			} else if(config.visible && count > config.visible){
+			else if (config.visible && count > config.visible)
 				label = config.selectedtext.format(count, data.length);
-			}
 			values.attr('title', label);
 			values.html(label);
 		}
