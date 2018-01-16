@@ -153,8 +153,8 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 				index !== -1 && arr.splice(index, 1);
 			}
 
-			self.reset(true);
-			self.set(arr, undefined, 2);
+			self.set(arr);
+			self.change(true);
 		});
 	};
 
