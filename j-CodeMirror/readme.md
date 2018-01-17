@@ -15,6 +15,8 @@ Example: `data-jc-config="required:true;icon:envelope"`
 - `height` {Number} (optional) control height (default: `200` px)
 - `label` {String} (optional) label (default is HTML content)
 - `disabled` {Boolean} (optional) disables this component
+- `tabs` {Boolean} (optional) enables indent with tabs (default: `false`)
+- `trim` {Boolean} (optional) performs right auto-trim and removes empty begin/end lines (default: `false`)
 
 __Method__:
 
