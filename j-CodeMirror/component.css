@@ -1,4 +1,4 @@
-.ui-codemirror-label { margin-bottom: 5px; font-size: 12px; color: #656D78; text-align: left; }
+.ui-codemirror-label { margin-bottom: 5px; font-size: 12px; text-align: left; }
 .ui-codemirror-label .fa { width: 14px; }
 .ui-codemirror-label-required { font-weight: bold; }
 .ui-codemirror-label-required:before { color: red; content: '***'; margin-right: 5px; }
