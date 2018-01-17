@@ -1,4 +1,4 @@
-COMPONENT('colorselector', 'colors:#DA4453,#E9573F,#F6BB42,#8CC152,#37BC9B,#3BAFDA,#4A89DC,#967ADC,#D770AD,#656D7D', function(self, config) {
+COMPONENT('colorselector', 'colors:#DA4453,#E9573F,#F6BB42,#8CC152,#37BC9B,#3BAFDA,#4A89DC,#967ADC,#D770AD,#656D7D;empty:true', function(self, config) {
 
 	var selected, list, content, colors = null;
 
@@ -50,13 +50,16 @@ COMPONENT('colorselector', 'colors:#DA4453,#E9573F,#F6BB42,#8CC152,#37BC9B,#3BAF
 	};
 
 	self.make = function() {
-        colors = config.colors.split(',').trim();
+		colors = config.colors.split(',').trim();
 		self.redraw();
 		self.event('click', 'li', function() {
 			if (config.disabled)
 				return;
+			var color = colors[+this.getAttribute('data-index')];
+			if (!config.required && color === self.get())
+				color = '';
 			self.change(true);
-			self.set(colors[+this.getAttribute('data-index')]);
+			self.set(color);
 		});
 	};
 
