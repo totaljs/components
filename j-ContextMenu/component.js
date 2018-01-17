@@ -32,7 +32,7 @@ COMPONENT('contextmenu', function(self) {
 		});
 
 		$(document).on('touchstart mousedown', function(e) {
-			if (is && self.target !== e.target)
+			if (is && (self.target !== e.target && !self.target.contains(e.target)))
 				self.hide(1);
 		});
 	};
