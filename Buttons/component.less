@@ -1,0 +1,306 @@
+.button {
+  position: relative;
+  display: inline-block;
+  border: 1px solid #E0E0E0;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 35px;
+  padding: 0 15px;
+  font: normal bold 12px Arial;
+  outline: 0;
+}
+
+.button.is-small {
+  height: 27px;
+  font: normal bold 11px Arial;
+}
+
+.button.is-large {
+  height: 45px;
+  font: normal bold 16px Arial;
+}
+
+.make(@primary-color, @secondary-color: #fff) {
+  .is-& {
+    color: @primary-color;
+
+    &.button {
+      color: @secondary-color;
+      background-color: @primary-color;
+
+      &:hover {
+        color: @secondary-color;
+        background-color: darken(@primary-color, 9%);
+        border-color: @secondary-color;
+      }
+
+      &[disabled] {
+        background-color: lighten(@primary-color, 30%);
+        border-color: transparent;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        cursor: not-allowed;
+      }
+
+      &.is-outlined {
+        color: @primary-color;
+        background-color: transparent;
+        border-color: @primary-color;
+      }
+      &.is-outlined:hover {
+        color: @secondary-color;
+        background-color: @primary-color;
+      }
+
+      &.is-outlined[disabled] {
+        color: lighten(@primary-color, 30%);
+        background-color: transparent;
+        border-color: lighten(@primary-color, 30%);
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        cursor: not-allowed;
+      }
+      &.is-outlined:hover[disabled] {
+        color: lighten(@primary-color, 30%);
+        background-color: transparent;
+        border-color: lighten(@primary-color, 30%);
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        cursor: not-allowed;
+      }
+
+    }
+  }
+}
+
+default {
+  .make(#E1E5EC)
+}
+
+dark {
+  .make(#2F353B);
+}
+
+blue {
+  .make(#3598DC);
+}
+
+blue-madison {
+  .make(#578EBE);
+}
+
+blue-chambray {
+  .make(#2C3E50);
+}
+
+blue-ebonyclay {
+  .make(#22313F);
+}
+
+blue-hoki {
+  .make(#67809F);
+}
+
+blue-steel {
+  .make(#4B77BE);
+}
+
+blue-soft {
+  .make(#4C87B9);
+}
+
+blue-dark {
+  .make(#5E738B);
+}
+
+blue-sharp {
+  .make(#5C9BD1);
+}
+
+blue-oleo {
+  .make(#94A0B2);
+}
+
+green {
+  .make(#32C5D2);
+}
+
+green-meadow {
+  .make(#1BBC9B);
+}
+
+green-seagreen {
+  .make(#1BA39C);
+}
+
+green-turquoise {
+  .make(#36D7B7);
+}
+
+green-haze {
+  .make(#44B6AE);
+}
+
+green-jungle {
+  .make(#26C281);
+}
+
+green-soft {
+  .make(#3FABA4);
+}
+
+green-dark {
+  .make(#4DB3A2);
+}
+
+green-sharp {
+  .make(#2AB4C0);
+}
+
+green-steel {
+  .make(#29B4B6);
+}
+
+grey {
+  .make(#E5E5E5);
+}
+
+grey-steel {
+  .make(#E9EDEF);
+}
+
+grey-cararra {
+  .make(#FAFAFA);
+}
+
+grey-gallery {
+  .make(#555555);
+}
+
+grey-cascade {
+  .make(#95A5A6);
+}
+
+grey-silver {
+  .make(#BFBFBF);
+}
+
+grey-salsa {
+  .make(#ACB5C3);
+}
+
+grey-salt {
+  .make(#BFCAD1);
+}
+
+grey-mint {
+  .make(#525E64);
+}
+
+red {
+  .make(#E7505A);
+}
+
+red-pink {
+  .make(#E08283);
+}
+
+red-sunglo {
+  .make(#E26A6A);
+}
+
+red-intense {
+  .make(#E35B5A);
+}
+
+red-thunderbird {
+  .make(#D91E18);
+}
+
+red-flamingo {
+  .make(#EF4836);
+}
+
+red-soft {
+  .make(#D05454);
+}
+
+red-haze {
+  .make(#F36A5A);
+}
+
+red-mint {
+  .make(#E43A45)
+}
+
+yellow {
+  .make(#C49F47);
+}
+
+yellow-gold {
+  .make(#E87E04);
+}
+
+yellow-casablanca {
+  .make(#F2784B);
+}
+
+yellow-crusta {
+  .make(#F3C200);
+}
+
+yellow-lemon {
+  .make(#F7CA18);
+}
+
+yellow-saffron {
+  .make(#F4D03F);
+}
+
+yellow-soft {
+  .make(#C8D046);
+}
+
+yellow-haze {
+  .make(#C5BF66);
+}
+
+yellow-mint {
+  .make(#C5B96B);
+}
+
+purple {
+  .make(#8E44AD);
+}
+
+purple-plum {
+  .make(#8775A7);
+}
+
+purple-medium {
+  .make(#BF55EC);
+}
+
+purple-studio {
+  .make(#8E44AD);
+}
+
+purple-wisteria {
+  .make(#9B59B6);
+}
+
+purple-seance {
+  .make(#9A12B3);
+}
+
+purple-intense {
+  .make(#8775A7);
+}
+
+purple-sharp {
+  .make(#796799);
+}
+
+purple-soft {
+  .make(#8877A9);
+}
