@@ -1,16 +1,16 @@
-/*
-.button {
-  position: relative;
-  display: inline-block;
-  border: 1px solid #E0E0E0;
-  border-radius: 4px;
-  cursor: pointer;
-  height: 35px;
-  padding: 0 15px;
-  font: normal bold 12px Arial;
-  outline: 0;
-}
-*/
+@white: #FFFFFF;
+@grapefruit: #DA4453;
+@bittersweet: #E9573F;
+@sunflower: #F6BB42;
+@grass: #8CC152;
+@mint: #37BC9B;
+@aqua: #3BAFDA;
+@blue-jeans: #4A89DC;
+@lavender: #967ADC;
+@ping-rose: #D770AD;
+@light-gray: #E6E9ED;
+@medium-gray: #AAB2BD;
+@dark-gray: #434A54;
 
 .button.is-small {
   height: 27px;
@@ -22,115 +22,114 @@
   font: normal bold 16px Arial;
 }
 
-.make(@primary-color, @secondary-color: #fff) {
-  .is-& {
-    color: @primary-color;
+.make_button(@primary-color, @secondary-color: @white) {
+  position: relative;
+  display: inline-block;
+  border: 1px solid @primary-color;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 35px;
+  padding: 0 15px;
+  font: normal bold 12px Arial;
+  outline: 0;
+  color: @secondary-color;
+  background-color: @primary-color;
 
-    &.button {
-      position: relative;
-      display: inline-block;
-      border: 1px solid #E0E0E0;
-      border-radius: 4px;
-      cursor: pointer;
-      height: 35px;
-      padding: 0 15px;
-      font: normal bold 12px Arial;
-      outline: 0;
-      color: @secondary-color;
-      background-color: @primary-color;
-
-      &:hover {
-        color: @secondary-color;
-        background-color: darken(@primary-color, 11%);
-        border-color: @secondary-color;
-      }
-
-      &[disabled] {
-        background-color: lighten(@primary-color, 30%);
-        border-color: transparent;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-        cursor: not-allowed;
-      }
-
-      &.is-outlined {
-        & when (@secondary-color = #fff) {
-          color: @primary-color;
-        }
-        background-color: transparent;
-        border-color: @primary-color;
-      }
-      &.is-outlined:hover {
-        color: @secondary-color;
-        background-color: @primary-color;
-      }
-
-      &.is-outlined[disabled] {
-        color: lighten(@primary-color, 30%);
-        background-color: transparent;
-        border-color: lighten(@primary-color, 30%);
-        -webkit-box-shadow: none;
-        box-shadow: none;
-        cursor: not-allowed;
-      }
-      &.is-outlined:hover[disabled] {
-        color: lighten(@primary-color, 30%);
-        background-color: transparent;
-        border-color: lighten(@primary-color, 30%);
-        -webkit-box-shadow: none;
-        box-shadow: none;
-        cursor: not-allowed;
-      }
-
+  &:hover {
+    color: @secondary-color;
+    background-color: darken(@primary-color, 11%);
+    & when (@secondary-color = @white) {
+      border-color: @secondary-color;
     }
   }
+
+  &[disabled] {
+    background-color: lighten(@primary-color, 30%);
+    border-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+
+  &.is-outlined {
+    & when (@secondary-color = @white) {
+      color: @primary-color;
+    }
+    background-color: transparent;
+    border-color: @primary-color;
+  }
+  &.is-outlined:hover {
+    color: @secondary-color;
+    background-color: @primary-color;
+  }
+
+  &.is-outlined[disabled] {
+    color: lighten(@primary-color, 30%);
+    background-color: transparent;
+    border-color: lighten(@primary-color, 30%);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+  &.is-outlined:hover[disabled] {
+    color: lighten(@primary-color, 30%);
+    background-color: transparent;
+    border-color: lighten(@primary-color, 30%);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+
 }
 
-grapefruit {
-  .make(#DA4453)
+.button {
+  .make_button(@light-gray, @dark-gray);
 }
 
-bittersweet {
-  .make(#E9573F);
+.button.is-grapefruit {
+  .make_button(@grapefruit)
 }
 
-sunflower {
-  .make(#F6BB42);
+.button.is-bittersweet {
+  .make_button(@bittersweet);
 }
 
-grass {
-  .make(#8CC152);
+.button.is-sunflower {
+  .make_button(@sunflower);
 }
 
-mint {
-  .make(#37BC9B);
+.button.is-grass {
+  .make_button(@grass);
 }
 
-aqua {
-  .make(#3BAFDA);
+.button.is-mint {
+  .make_button(@mint);
 }
 
-blue-jeans {
-  .make(#4A89DC);
+.button.is-aqua {
+  .make_button(@aqua);
 }
 
-lavender {
-  .make(#967ADC);
+.button.is-blue-jeans {
+  .make_button(@blue-jeans);
 }
 
-pink-rose {
-  .make(#D770AD);
+.button.is-lavender {
+  .make_button(@lavender);
 }
 
-light-gray {
-  .make(#E6E9ED, #434A54);
+.button.is-pink-rose {
+  .make_button(@ping-rose);
 }
 
-medium-gray {
-  .make(#AAB2BD, #434A54);
+.button.is-light-gray {
+  .make_button(@light-gray, @dark-gray);
 }
 
-dark-gray {
-  .make(#434A54);
+.button.is-medium-gray {
+  .make_button(@medium-gray, @dark-gray);
 }
 
+.button.is-dark-gray {
+  .make_button(@dark-gray);
+}
