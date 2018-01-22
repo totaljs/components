@@ -12,6 +12,8 @@
 @medium-gray: #AAB2BD;
 @dark-gray: #434A54;
 
+@default: @light-gray;
+
 .button.is-small {
   height: 27px;
   font: normal bold 11px Arial;
@@ -20,6 +22,10 @@
 .button.is-large {
   height: 45px;
   font: normal bold 16px Arial;
+}
+
+.make_color(@primary-color) {
+  color: @primary-color
 }
 
 .make_button(@primary-color, @secondary-color: @white) {
@@ -60,7 +66,7 @@
   }
   &.is-outlined:hover {
     color: @secondary-color;
-    background-color: @primary-color;
+    background-color: darken(@primary-color, 11%);
   }
 
   &.is-outlined[disabled] {
@@ -83,7 +89,7 @@
 }
 
 .button {
-  .make_button(@light-gray, @dark-gray);
+  .make_button(@default, @dark-gray);
 }
 
 .button.is-grapefruit {
@@ -132,4 +138,56 @@
 
 .button.is-dark-gray {
   .make_button(@dark-gray);
+}
+
+.is-default {
+  .make_color(@default)
+}
+
+.is-grapefruit {
+  .make_color(@grapefruit)
+}
+
+.is-bittersweet {
+  .make_color(@bittersweet);
+}
+
+.is-sunflower {
+  .make_color(@sunflower);
+}
+
+.is-grass {
+  .make_color(@grass);
+}
+
+.is-mint {
+  .make_color(@mint);
+}
+
+.is-aqua {
+  .make_color(@aqua);
+}
+
+.is-blue-jeans {
+  .make_color(@blue-jeans);
+}
+
+.is-lavender {
+  .make_color(@lavender);
+}
+
+.is-pink-rose {
+  .make_color(@ping-rose);
+}
+
+.is-light-gray {
+  .make_color(@light-gray);
+}
+
+.is-medium-gray {
+  .make_color(@medium-gray);
+}
+
+.is-dark-gray {
+  .make_color(@dark-gray);
 }
