@@ -1,4 +1,4 @@
-.ui-crop { text-align: center; padding: 40px 0 60px; background-color: #FFFFF5; position: relative; width: 100%; }
+.ui-crop { text-align: center; padding: 40px 0 60px; background-color: #FFFFF5; position: relative; width: 100%; user-select: none; }
 .ui-crop canvas { cursor: crosshair; border: 1px solid #4285F4; }
 .ui-crop-dragdrop canvas { border: 1px dashed red !important; }
 .ui-crop ul { position:absolute; list-style-type: none; margin: 0; padding: 0; left: 50%; margin-left: -50px; bottom: 18px; width: 120px; color: white; text-align: center; }
