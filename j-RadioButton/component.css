@@ -1,6 +1,7 @@
 .ui-radiobutton * { box-sizing: border-box; }
 .ui-radiobutton { color: black; font-size: 14px; }
 .ui-radiobutton span { cursor: pointer; margin: 0 10px 10px 0; }
+.ui-radiobutton.notinline span { margin-bottom: 4px; display: block; }
 .ui-radiobutton .fa { margin-right: 5px; }
 .ui-radiobutton-selected { color: #3B99FC !important; }
 .ui-radiobutton-selected * { color: #3B99FC !important; }
