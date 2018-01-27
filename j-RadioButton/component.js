@@ -33,7 +33,7 @@ COMPONENT('radiobutton', function(self, config) {
 		var builder = [];
 		var label = config.label || self.html();
 		label && builder.push('<div class="ui-radiobutton-label{1}">{0}</div>'.format(label, config.required ? ' ui-radiobutton-label-required' : ''));
-		self.aclass('ui-radiobutton{0}'.format(config.inline === false ? ' notinline' : ''));
+		self.aclass('ui-radiobutton{0}'.format(config.inline === false ? ' ui-radiobutton-block' : ''));
 		self.event('click', 'span', function() {
 			if (config.disabled)
 				return;
