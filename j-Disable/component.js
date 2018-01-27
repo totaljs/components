@@ -21,7 +21,7 @@ COMPONENT('disable', function(self, config) {
 			com && com.reconfigure('disabled:' + is);
 		});
 
-		validate && validate.forEach(FN('n => MAIN.reset({0}n)'.format(self.pathscope ? '\'' + self.pathscope + '.\'+' : '')));
+		validate && validate.forEach(FN('n => RESET({0}n)'.format(self.pathscope ? '\'' + self.pathscope + '.\'+' : '')));
 	};
 
 	self.state = function() {

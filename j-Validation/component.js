@@ -33,7 +33,7 @@ COMPONENT('validation', 'delay:100;flags:visible', function(self, config) {
 
 	self.state = function() {
 		setTimeout2(self.id, function() {
-			var disabled = MAIN.disabled(path, flags);
+			var disabled = DISABLED(path, flags);
 			if (!disabled && config.if)
 				disabled = !EVALUATE(self.path, config.if);
 			elements.prop('disabled', disabled);

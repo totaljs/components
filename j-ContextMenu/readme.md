@@ -21,12 +21,12 @@ Method: `component.hide()`
 __Attributes__:
 `targetElement` can contain `data-options="Name 1|fa-building|Value 1;Name 2|fa-github|Value 2;"` attribut with all items of the context menu.
 
-If the `value` isn't defined then the component uses `name` as `value.
+If the `value` isn't defined then the component uses `name` as `value`.
 
 __Global events__:
 
 ```javascript
-MAIN.on('contextmenu', function(visible, component, target) {
+ON('contextmenu', function(visible, component, target) {
     console.log('ContextMenu is', visible ? 'visible' : 'hidden');
 });
 ```
