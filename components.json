@@ -139,5 +139,6 @@
 	"j-MobileCarousel",
 	"j-Listing",
 	"j-Part",
-	"j-ServerListing"
+	"j-ServerListing",
+	"j-FileUploadList"
 ]
