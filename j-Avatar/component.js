@@ -6,6 +6,16 @@ COMPONENT('avatar', function(self) {
 	self.readonly();
 	self.singleton();
 
+	window.avatarerror = function(image) {
+		var img = $(image);
+		var el = img.parent().get(0);
+		el.$avatar = false;
+		el.$avatarerror = true;
+		el = $(el);
+		el.attr('title', img.attr('title'));
+		self.create(el);
+	};
+
 	self.rebind = function(el) {
 		var jq = el ? el.find('.avatar') : $('.avatar');
 		jq.each(function() {
@@ -15,26 +25,32 @@ COMPONENT('avatar', function(self) {
 
 	self.create = function(el) {
 
-		var url = el.attrd('avatar-url');
-		var name = el.text();
 		var theme = el.attrd('avatar') || 'default';
 		var options = themes[theme];
-
 		if (!options)
 			return false;
 
-		el.get(0).$avatar = true;
+		var url = el.attrd('avatar-url');
+		var dom = el.get(0);
+		var name = dom.$avatarerror ? el.attr('title') : el.text();
 
-		var cls = el.attrd('avatar-class') || options.class;
-		cls && el.tclass(cls);
+		dom.$avatar = true;
+
+		if (dom.$avatarerror) {
+			url = '';
+		} else {
+			var cls = el.attrd('avatar-class') || options.class;
+			cls && el.tclass(cls);
+		}
 
 		el.aclass('ui-avatar-theme-' + theme);
 
 		if (url) {
-			el.html('<img src="{0}" alt="{1}" title="{1}" border="0" />'.format(url, name));
+			el.html('<img src="{0}" alt="{1}" title="{1}" border="0" onerror="avatarerror(this)" />'.format(url, name));
 		} else {
-			var initials = name.match(/\b\w/g) || [];
-			initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
+
+			var arr = name.trim().split(' ');
+			var initials = ((arr[0] || '').substring(0, 1) + (arr[1] || '').substring(0, 1)).toUpperCase();
 
 			var css = {};
 			var can = false;
