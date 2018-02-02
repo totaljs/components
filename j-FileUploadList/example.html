@@ -1,5 +1,6 @@
 <div data-jc="fileuploadlist" data-jc-path="files"></div>
-<div><a href="javascript:upload()">Upload files</a></div>
+<br />
+<div><a href="javascript:browsefiles()">Upload files</a></div>
 
 <script>
 	var files = [];
@@ -7,7 +8,7 @@
 	files.push({ name: 'snapshot.js', length: 507, url: '/download/16754-168632909-snapshot.js'});
 	files.push({ name: 'tracking-cms.gif', length: 974730, url: '/download/16755-1806731401-tracking-cms.gif' });
 
-	function upload() {
-		SETTER('fileuploadlist', 'upload');
+	function browsefiles() {
+		SETTER('fileuploadlist', 'browse');
 	}
 </script>
