@@ -1,4 +1,4 @@
-COMPONENT('barchart', 'paddingbars:5;paddinggroup:10;radius:2;offsetX:10;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }};height:0', function(self, config) {
+COMPONENT('barchart', 'paddingbars:5;limit:0;paddinggroup:10;radius:2;offsetX:10;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }};height:0', function(self, config) {
 
 	var svg, g, axis, selected;
 	var templateX, templateY;
@@ -98,6 +98,9 @@ COMPONENT('barchart', 'paddingbars:5;paddinggroup:10;radius:2;offsetX:10;offsetY
 				maxY = Math.max(maxY, val.y);
 			}
 		}
+
+		if (config.limit)
+			maxY = config.limit;
 
 		svg.attr('width', width);
 		svg.attr('height', height);
