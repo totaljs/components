@@ -1,6 +1,6 @@
-COMPONENT('listing', 'count:20', function(self, config) {
+COMPONENT('listing', 'pages:3;count:20', function(self, config) {
 
-	var container, paginate, pages = 0;
+	var container, paginate, current, pages = 0;
 	var layout;
 
 	self.readonly();
@@ -20,7 +20,27 @@ COMPONENT('listing', 'count:20', function(self, config) {
 		container = self.find('.ui-listing-container');
 		paginate = self.find('.ui-listing-paginate');
 		paginate.on('click', 'button', function() {
-			self.page(+$(this).attrd('index'));
+
+			var index = $(this).attrd('index');
+			var meta = self.get();
+
+			switch (index) {
+				case '+':
+					index = current + 1;
+					if (index > pages)
+						index = 1;
+					break;
+				case '-':
+					index = current - 1;
+					if (index < 1)
+						index = pages;
+					break;
+				default:
+					index = +index;
+					break;
+			}
+
+			self.page(index);
 		});
 	};
 
@@ -28,35 +48,87 @@ COMPONENT('listing', 'count:20', function(self, config) {
 
 		var builder = [];
 		var items = self.get();
-		var arr = items.takeskip(config.count, index * config.count);
-		var g = { count: items.length, page: index + 1, pages: pages };
+		var arr = items.takeskip(config.count, (index - 1) * config.count);
+		var g = { count: items.length, page: index, pages: pages };
 
 		for (var i = 0; i < arr.length; i++) {
 			g.index = i;
 			builder.push(self.template(arr[i], g));
 		}
 
-		container.html(layout ? layout({ page: index + 1, pages: pages, body: builder.join(''), count: items.length }) : builder.join(''));
+		current = index;
+		self.paginate(items.length, index);
+		container.html(layout ? layout({ page: index, pages: pages, body: builder.join(''), count: items.length }) : builder.join(''));
+	};
+
+	self.paginate = function(count, page) {
+
+		var max = config.pages;
+		var half = Math.ceil(max / 2);
+
+		pages = Math.ceil(count / config.count);
+
+		var pfrom = page - half;
+		var pto = page + half;
+		var plus = 0;
+
+		if (pfrom <= 0) {
+			plus = Math.abs(pfrom);
+			pfrom = 1;
+			pto += plus;
+		}
+
+		if (pto >= pages) {
+			pto = pages;
+			pfrom = pages - max;
+		}
+
+		if (pfrom <= 0)
+			pfrom = 1;
+
+		if (page < half + 1) {
+			pto++;
+			if (pto > pages)
+				pto--;
+		}
+
+		if (page < 2) {
+			var template = '<button data-index="{0}"><i class="fa fa-caret-{1}"></i></button>';
+			var builder = [];
+			builder.push(template.format('-', 'left'));
+
+			for (var i = pfrom; i < pto + 1; i++)
+				builder.push('<button class="ui-listing-page" data-index="{0}">{0}</button>'.format(i));
+
+			builder.push(template.format('+', 'right'));
+			paginate.html(builder.join(''));
+		} else {
+
+			var max = half * 2 + 1;
+			var cur = (pto - pfrom) + 1;
+
+			if (max > cur && pages > config.pages)
+				pfrom--;
+
+			paginate.find('.ui-listing-page[data-index]').each(function(index) {
+				var page = pfrom + index;
+				$(this).attrd('index', page).html(page);
+			});
+
+		}
+
 		paginate.find('.selected').rclass('selected');
-		paginate.find('button[data-index="{0}"]'.format(index)).aclass('selected');
+		paginate.find('.ui-listing-page[data-index="{0}"]'.format(page)).aclass('selected');
+		paginate.tclass('hidden', pages < 2);
 	};
 
 	self.setter = function(value) {
-
-		if (!value) {
+		if (value)
+			self.page(1);
+		else {
 			container.empty();
 			paginate.empty();
-			return;
 		}
-
-		pages = Math.ceil(value.length / config.count);
-		var builder = [];
-
-		for (var i = 0; i < pages; i++)
-			builder.push('<button data-index="{0}">{1}</button>'.format(i, i + 1));
-
-		paginate.html(builder.join(''));
-		self.page(0);
 	};
 
 });
