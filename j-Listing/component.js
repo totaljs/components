@@ -20,10 +20,7 @@ COMPONENT('listing', 'pages:3;count:20', function(self, config) {
 		container = self.find('.ui-listing-container');
 		paginate = self.find('.ui-listing-paginate');
 		paginate.on('click', 'button', function() {
-
 			var index = $(this).attrd('index');
-			var meta = self.get();
-
 			switch (index) {
 				case '+':
 					index = current + 1;
@@ -39,7 +36,6 @@ COMPONENT('listing', 'pages:3;count:20', function(self, config) {
 					index = +index;
 					break;
 			}
-
 			self.page(index);
 		});
 	};

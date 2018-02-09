@@ -5,6 +5,7 @@
 __Configuration__:
 
 - `paginate(page)` {String} link to a function for pagination
+- `pages` {Number} Optional, max pages in pagination (default: `3` --> half + current page + half)
 
 __Model__:
 

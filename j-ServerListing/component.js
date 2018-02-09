@@ -1,4 +1,4 @@
-COMPONENT('serverlisting', 'pages:4', function(self, config) {
+COMPONENT('serverlisting', 'pages:3', function(self, config) {
 
 	var container, paginate;
 	var layout;

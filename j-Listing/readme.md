@@ -6,6 +6,7 @@
 __Configuration__:
 
 - `count` {Number} Optional, items per page (default: `20`)
+- `pages` {Number} Optional, max pages in pagination (default: `3` --> half + current page + half)
 
 __Tangular layout__:
 
