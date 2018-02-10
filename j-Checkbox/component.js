@@ -18,7 +18,7 @@ COMPONENT('checkbox', function(self, config) {
 				self.tclass('ui-disabled', value);
 				break;
 			case 'checkicon':
-				self.find('i').rclass().aclass('fa fa-' + value);
+				self.find('i').rclass2('fa-').aclass('fa-' + value);
 				break;
 		}
 	};
@@ -26,6 +26,7 @@ COMPONENT('checkbox', function(self, config) {
 	self.make = function() {
 		self.aclass('ui-checkbox');
 		self.html('<div><i class="fa fa-{2}"></i></div><span{1}>{0}</span>'.format(config.label || self.html(), config.required ? ' class="ui-checkbox-label-required"' : '', config.checkicon || 'check'));
+		config.disabled && self.aclass('ui-disabled');
 		self.event('click', function() {
 			if (config.disabled)
 				return;
@@ -35,6 +36,6 @@ COMPONENT('checkbox', function(self, config) {
 	};
 
 	self.setter = function(value) {
-		self.toggle('ui-checkbox-checked', !!value);
+		self.tclass('ui-checkbox-checked', !!value);
 	};
 });
