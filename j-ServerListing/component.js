@@ -53,9 +53,6 @@ COMPONENT('serverlisting', 'pages:3', function(self, config) {
 			return;
 		}
 
-		if (self.notmodified('items'))
-			return;
-
 		var builder = [];
 		var g = { count: value.count, page: value.page, pages: value.pages };
 

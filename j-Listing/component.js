@@ -116,6 +116,7 @@ COMPONENT('listing', 'pages:3;count:20', function(self, config) {
 		paginate.find('.selected').rclass('selected');
 		paginate.find('.ui-listing-page[data-index="{0}"]'.format(page)).aclass('selected');
 		paginate.tclass('hidden', pages < 2);
+		self.tclass('hidden', count === 0);
 	};
 
 	self.setter = function(value) {
