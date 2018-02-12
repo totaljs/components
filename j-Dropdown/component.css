@@ -9,6 +9,7 @@
 .ui-dropdown-label-required:before { color: red; content: '***'; margin-right: 5px; }
 .ui-dropdown-invalid { border-color: #E1A1A1 !important; background-color: #FFF3F3 !important; }
 .ui-dropdown-invalid select { background-color: #FFF3F3 !important; }
+.ui-dropdown-invalid:after { border-left-color: #E1A1A1 !important; }
 .ui-disabled select { background-color: #F0F0F0; cursor: not-allowed; color: #A0A0A0; }
 .ui-disabled .ui-dropdown { background-color: #F0F0F0; cursor: not-allowed; }
 .ui-disabled .ui-dropdown .fa { color: #A0A0A0; }
