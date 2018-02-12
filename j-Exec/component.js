@@ -2,14 +2,19 @@ COMPONENT('exec', function(self, config) {
 	self.readonly();
 	self.blind();
 	self.make = function() {
-		self.event('click', config.selector || '.exec', function() {
+		self.event('click', config.selector || '.exec', function(e) {
 			var el = $(this);
 
 			var attr = el.attrd('exec');
 			var path = el.attrd('path');
 			var href = el.attrd('href');
 
-			attr && EXEC(attr, el);
+			if (el.attrd('prevent') === 'true') {
+				e.preventDefault();
+				e.stopPropagation();
+			}
+
+			attr && EXEC(attr, el, e);
 			href && NAV.redirect(href);
 
 			if (path) {

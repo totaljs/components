@@ -12,6 +12,16 @@ __Elements__:
 3. Toggling value with these attributes `data-path="some.path` and `data-value-a="1"` (same functionality as `data-value`) and `data-value-b="2"` (same functionality as `data-value`)
 4. Elements can contain `data-href` attribute and the component performs `REDIRECT()`.
 
+__Attributes__:
+
+- `data-exec="METHOD_NAME"` executes a method when user clicks
+- `data-prevent="true"` prevents continuing `click` event
+- `data-href="URL"` performs `REDIRECT()`
+- `data-path="path.to.property"` a path for setting of value
+- `data-value=""` sets a value according to the `data-path=""` attribute
+- `data-value-a=""` works as `toggle` with `data-value-b=""`
+- `data-value-b=""` works as `toggle` with `data-value-a=""`
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
