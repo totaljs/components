@@ -1,6 +1,6 @@
 COMPONENT('fileupload', function(self, config) {
 
-	var id = 'fileupload' + self.id;
+	var id = 'fileupload' + self._id;
 	var input = null;
 
 	self.readonly();

@@ -103,7 +103,7 @@ COMPONENT('listing', 'pages:3;count:20', function(self, config) {
 			var max = half * 2 + 1;
 			var cur = (pto - pfrom) + 1;
 
-			if (max > cur && pages > config.pages)
+			if (max > cur && pages > config.pages && pfrom > 1)
 				pfrom--;
 
 			paginate.find('.ui-listing-page[data-index]').each(function(index) {
