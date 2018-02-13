@@ -20,8 +20,7 @@ COMPONENT('modificator', function(self) {
 		});
 
 		$(document).on('click', '.modify', function() {
-			var el = $(this);
-			self.click(el.attrd('m'), el.attrd('m-schema'));
+			self.click($(this));
 		});
 	};
 
@@ -40,10 +39,30 @@ COMPONENT('modificator', function(self) {
 		}
 	};
 
-	self.click = function(path, schema) {
+	self.click = function(el) {
+
+		var path = el.attrd('m');
+		var schema = el.attrd('m-schema');
 
 		if (path.substring(0, 1) === '%')
 			path = 'jctmp.' + path.substring(1);
+
+		if (!schema && reg_search.test(path)) {
+			var arr = path.replace(/\s+\+\s+/, '+').split(reg_search);
+			path = arr[0];
+			schema = arr[1];
+		}
+
+		if (path.indexOf('?') !== -1) {
+			var scope = el.closest('[data-jc-scope]');
+			if (scope) {
+				var data = scope.get(0).$scopedata;
+				if (data == null)
+					return;
+				path = path.replace(/\?/g, data.path);
+			} else
+				return;
+		}
 
 		var fn = db[schema];
 		if (fn) {
