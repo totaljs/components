@@ -14,6 +14,7 @@ Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:dat
 - `autofill` {Boolean} (optional) enables browser's autofill feature (default: `false`)
 - `placeholder` {String} (optional) adds a `placeholder` text into the input
 - `maxlength` {Number} (optional) sets a maximum length of chars
+- `minlength` {Number} (optional) sets a minimum length of chars
 - `validation` {String} (optional) a condition for `evaluation` e.g. `value.match(/[a-z]+/) !== null`
 - `format` {String} (optional) output formatting e.g. for dates (default: `yyyy-MM-dd`)
 - `increment` {Boolean} (optional) enables controls for incrementing of numbers (default: `false`)
