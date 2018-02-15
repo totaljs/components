@@ -17,6 +17,9 @@ COMPONENT('textbox', function(self, config) {
 
 		EMIT('reflow', self.name);
 
+		if (config.minlength && value.length < config.minlength)
+			return false;
+
 		switch (self.type) {
 			case 'email':
 				return value.isEmail();
