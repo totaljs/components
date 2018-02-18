@@ -118,7 +118,7 @@ COMPONENT('textbox', function(self, config) {
 		if (!icon2 && self.type === 'date')
 			icon2 = 'calendar';
 		else if (self.type === 'search') {
-			icon2 = 'search ui-textbox-control-icon';
+			icon2 = 'search';
 			self.setter2 = function(value) {
 				if (self.$stateremoved && !value)
 					return;
@@ -127,7 +127,7 @@ COMPONENT('textbox', function(self, config) {
 			};
 		}
 
-		icon2 && builder.push('<div class="ui-textbox-control"><span class="fa fa-{0}"></span></div>'.format(icon2));
+		icon2 && builder.push('<div class="ui-textbox-control"><span class="fa fa-{0} ui-textbox-control-icon"></span></div>'.format(icon2));
 		config.increment && !icon2 && builder.push('<div class="ui-textbox-control"><span class="fa fa-caret-up"></span><span class="fa fa-caret-down"></span></div>');
 
 		if (config.label)
