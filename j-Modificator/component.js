@@ -8,20 +8,23 @@ COMPONENT('modificator', function(self) {
 	self.blind();
 
 	self.make = function() {
+
 		self.watch('*', self.autobind);
 		self.scan();
 
-		self.on('component', function() {
+		var fn = function() {
 			setTimeout2(self.id, self.scan, 200);
-		});
+		};
 
-		self.on('destroy', function() {
-			setTimeout2(self.id, self.scan, 200);
-		});
+		self.on('import', fn);
+		self.on('component', fn);
+		self.on('destroy', fn);
 
 		$(document).on('click', '.modify', function() {
-			self.click($(this));
+			var el = $(this);
+			self.click(el.attrd('m'), el.attrd('m-schema'));
 		});
+
 	};
 
 	self.autobind = function(path, value, type) {
@@ -39,30 +42,10 @@ COMPONENT('modificator', function(self) {
 		}
 	};
 
-	self.click = function(el) {
-
-		var path = el.attrd('m');
-		var schema = el.attrd('m-schema');
+	self.click = function(path, schema) {
 
 		if (path.substring(0, 1) === '%')
 			path = 'jctmp.' + path.substring(1);
-
-		if (!schema && reg_search.test(path)) {
-			var arr = path.replace(/\s+\+\s+/, '+').split(reg_search);
-			path = arr[0];
-			schema = arr[1];
-		}
-
-		if (path.indexOf('?') !== -1) {
-			var scope = el.closest('[data-jc-scope]');
-			if (scope) {
-				var data = scope.get(0).$scopedata;
-				if (data == null)
-					return;
-				path = path.replace(/\?/g, data.path);
-			} else
-				return;
-		}
 
 		var fn = db[schema];
 		if (fn) {
@@ -115,6 +98,9 @@ COMPONENT('modificator', function(self) {
 	self.scan = function() {
 		keys = {};
 		keys_unique = {};
+
+		var keys_news = {};
+
 		self.find('[data-m]').each(function() {
 
 			var el = $(this);
@@ -153,6 +139,7 @@ COMPONENT('modificator', function(self) {
 				obj.event = { type: 'init' };
 				obj.init = false;
 				el.data('data-m', obj);
+				keys_news[path] = true;
 				if (db[obj.schema]) {
 					obj.init = true;
 					db[obj.schema](GET(obj.path), obj.selector ? obj.element.find(obj.selector) : obj.element, obj.event);
@@ -168,9 +155,9 @@ COMPONENT('modificator', function(self) {
 			}
 		});
 
-		Object.keys(keys_unique).forEach(function(key) {
-			self.autobind(key, GET(key));
-		});
+		var nk = Object.keys(keys_news);
+		for (var i = 0; i < nk.length; i++)
+			self.autobind(nk[i]);
 
 		return self;
 	};

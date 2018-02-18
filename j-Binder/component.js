@@ -19,8 +19,8 @@ COMPONENT('binder', function(self) {
 	};
 
 	self.autobind = function(path) {
-		var mapper = keys[path];
 
+		var mapper = keys[path];
 		if (!mapper)
 			return;
 
@@ -30,6 +30,7 @@ COMPONENT('binder', function(self) {
 			var item = mapper[i];
 			var value = GET(item.path);
 			var element = item.selector ? item.element.find(item.selector) : item.element;
+
 			template.value = value;
 			item.classes && classes(element, item.classes(value));
 
@@ -45,6 +46,7 @@ COMPONENT('binder', function(self) {
 				item.disable && element.prop('disabled', item.disable(value));
 				item.src && element.attr('src', item.src(value));
 				item.href && element.attr('href', item.href(value));
+				item.exec && EXEC(item.exec, element);
 			}
 		}
 	};
@@ -52,7 +54,10 @@ COMPONENT('binder', function(self) {
 	function classes(element, val) {
 		var add = '';
 		var rem = '';
-		val.split(' ').forEach(function(item) {
+		var classes = val.split(' ');
+
+		for (var i = 0; i < classes.length; i++) {
+			var item = classes[i];
 			switch (item.substring(0, 1)) {
 				case '+':
 					add += (add ? ' ' : '') + item.substring(1);
@@ -64,7 +69,7 @@ COMPONENT('binder', function(self) {
 					add += (add ? ' ' : '') + item;
 					break;
 			}
-		});
+		}
 		rem && element.rclass(rem);
 		add && element.aclass(add);
 	}
@@ -78,8 +83,12 @@ COMPONENT('binder', function(self) {
 	};
 
 	self.scan = function() {
+
 		keys = {};
 		keys_unique = {};
+
+		var keys_news = {};
+
 		self.find('[data-b]').each(function() {
 
 			var el = $(this);
@@ -106,6 +115,7 @@ COMPONENT('binder', function(self) {
 			var selector = el.attrd('b-selector');
 			var src = el.attrd('b-src');
 			var href = el.attrd('b-href');
+			var exec = el.attrd('b-exec');
 			var obj = el.data('data-b');
 
 			keys_unique[path] = true;
@@ -120,6 +130,7 @@ COMPONENT('binder', function(self) {
 				obj.selector = selector ? selector : null;
 				obj.src = src ? self.prepare(src) : undefined;
 				obj.href = href ? self.prepare(href) : undefined;
+				obj.exec = exec;
 
 				if (el.attrd('b-template') === 'true') {
 					var tmp = el.find('script[type="text/html"]');
@@ -139,6 +150,7 @@ COMPONENT('binder', function(self) {
 					obj.html = html ? self.prepare(html) : undefined;
 
 				el.data('data-b', obj);
+				keys_news[path] = true;
 			}
 
 			for (var i = 0, length = arr.length; i < length; i++) {
@@ -150,9 +162,9 @@ COMPONENT('binder', function(self) {
 			}
 		});
 
-		Object.keys(keys_unique).forEach(function(key) {
-			self.autobind(key, GET(key));
-		});
+		var nk = Object.keys(keys_news);
+		for (var i = 0; i < nk.length; i++)
+			self.autobind(nk[i]);
 
 		return self;
 	};
