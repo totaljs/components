@@ -69,7 +69,12 @@ COMPONENT('textbox', function(self, config) {
 				self.$stateremoved = false;
 				$(this).rclass('fa-times').aclass('fa-search');
 				self.set('');
-			}
+			} else if (config.icon2click)
+				EXEC(config.icon2click, self);
+		});
+
+		self.event('focus', 'input', function() {
+			config.autocomplete && EXEC(config.autocomplete, self);
 		});
 
 		self.redraw();

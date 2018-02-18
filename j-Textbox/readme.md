@@ -22,6 +22,8 @@ Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:dat
 - `delay` {Number} (optional) can increase/decrease delay for real-time binding (default: `300` ms)
 - `disabled` {Boolean} (optional) disables this component
 - `error` {String} (optional) adds a `string` text under the input
+- `icon2click` {String} (optional) needs to contain a link to a function
+- `autocomplete` {String} (optional) needs to contain a link to a function, is triggered on `focus` event
 
 __Interesting:__
 

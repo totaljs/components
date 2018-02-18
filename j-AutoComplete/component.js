@@ -18,7 +18,13 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 		self.event('click', 'li', function(e) {
 			e.preventDefault();
 			e.stopPropagation();
-			onCallback && onCallback(datasource[+$(this).attr('data-index')], old);
+			if (onCallback) {
+				var val = datasource[+$(this).attrd('index')];
+				if (typeof(onCallback) === 'string')
+					SET(onCallback, val.value === undefined ? val.name : val.value);
+				else
+					onCallback(val, old);
+			}
 			self.visible(false);
 		});
 
@@ -71,7 +77,13 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 		if (c === 13) {
 			self.visible(false);
 			if (current.length) {
-				onCallback(datasource[+current.attr('data-index')], old);
+				if (onCallback) {
+					var val = datasource[+current.attrd('index')];
+					if (typeof(onCallback) === 'string')
+						SET(onCallback, val.value === undefined ? val.name : val.value);
+					else
+						onCallback(val, old);
+				}
 				e.preventDefault();
 				e.stopPropagation();
 			}
@@ -88,7 +100,7 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 
 		!current.length && (current = self.find('li:{0}-child'.format(c === 40 ? 'first' : 'last')));
 		current.aclass('selected');
-		var index = +current.attr('data-index');
+		var index = +current.attrd('index');
 		var h = current.innerHeight();
 		var offset = ((index + 1) * h) + (h * 2);
 		scroller.prop('scrollTop', offset > config.height ? offset - config.height : 0);
@@ -132,12 +144,29 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 
 	self.attachelement = function(element, input, search, callback, top, left, width) {
 
+		if (typeof(callback) === 'number') {
+			width = left;
+			left = top;
+			top = callback;
+			callback = null;
+		}
+
 		clearTimeout(searchtimeout);
 
 		if (input.setter)
 			input = input.find('input');
 		else
 			input = $(input);
+
+		if (input.get(0).tagName !== 'INPUT') {
+			input = input.find('input');
+		}
+
+		if (element.setter) {
+			if (!callback)
+				callback = element.path;
+			element = element.element;
+		}
 
 		if (old) {
 			old.removeAttr('autocomplete');
@@ -176,6 +205,8 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 		for (var i = 0, length = arr.length; i < length; i++) {
 			var obj = arr[i];
 			obj.index = i;
+			if (!obj.name)
+				obj.name = obj.text;
 			builder.push(self.template(obj));
 		}
 
