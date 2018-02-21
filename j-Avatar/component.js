@@ -25,12 +25,12 @@ COMPONENT('avatar', function(self) {
 
 	self.create = function(el) {
 
-		var theme = el.attrd('avatar') || 'default';
+		var theme = el.attrd('a') || el.attrd('avatar') || 'default';
 		var options = themes[theme];
 		if (!options)
 			return false;
 
-		var url = el.attrd('avatar-url');
+		var url = el.attrd('a-url') || el.attrd('avatar-url');
 		var dom = el.get(0);
 		var name = dom.$avatarerror ? el.attr('title') : el.text();
 
@@ -39,7 +39,7 @@ COMPONENT('avatar', function(self) {
 		if (dom.$avatarerror) {
 			url = '';
 		} else {
-			var cls = el.attrd('avatar-class') || options.class;
+			var cls = el.attrd('a-class') || el.attrd('avatar-class') || options.class;
 			cls && el.tclass(cls);
 		}
 
@@ -97,11 +97,11 @@ COMPONENT('avatar', function(self) {
 	self.make = function() {
 		self.register('default', '');
 		self.on('component', function(component) {
-			setTimeout2(self.id, function() {
+			setTimeout2(self._id, function() {
 				component.element && self.rebind(component.element);
 			}, 150);
 		});
-		setTimeout2(self.id + 'rebind', self.rebind, 100, 5);
+		setTimeout2(self._id + 'rebind', self.rebind, 100, 5);
 	};
 
 	// Thank to Chris Coyier (https://css-tricks.com/snippets/javascript/lighten-darken-color/)

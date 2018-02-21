@@ -28,9 +28,9 @@ __Usage__:
 
 Each element of avatar needs to contain `avatar` class like this: `<div class="avatar">`. Here are custom attributes:
 
-- `data-avatar="THEME_NAME"` Optional, can contain a theme name (default: `default`)
-- `data-avatar-url="URL_TO_PICTURE"` Optional, can contain a URL for user photo
-- `data-avatar-class="class_for_toggle_effect"` Optional, can contain a class for `toggleClass` effect
+- `data-a="THEME_NAME"` Optional, can contain a theme name (default: `default`)
+- `data-a-url="URL_TO_PICTURE"` Optional, can contain a URL for user photo
+- `data-a-class="class_for_toggle_effect"` Optional, can contain a class for `toggleClass` effect
 
 Element needs to contain a user name, for example:
 
