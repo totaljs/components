@@ -8,7 +8,7 @@
 .ui-form-animate-click { transform: skewX(-5deg); }
 .ui-form-padding { padding: 0 30px; }
 .ui-form-title { padding: 18px 20px; font-size: 16px; user-select: none; color: black; background-color: #F8F8F8; border-bottom: 1px solid #F0F0F0; }
-.ui-form-title .ui-form-button-close { float: right; cursor: pointer; font-size: 18px; margin: -2px 0 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; padding: 3px 0 3px 3px; }
+.ui-form-title .ui-form-button-close { float: right; cursor: pointer; font-size: 18px; margin: -2px 0 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; padding: 0; width: auto; }
 .ui-form-title .ui-form-button-close:hover { transform: scale(1.2) rotate(-90deg); }
 .ui-form-title > span { font-weight: bold; }
 .ui-form-title > .fa { margin-right: 7px; }
@@ -22,3 +22,8 @@
 .ui-form-buttons button[name="cancel"] { color: gray; }
 .ui-form-buttons div { position: relative; display: inline-block; vertical-align: middle; }
 .ui-form-buttons label { float: right; margin: 12px 0 0 0; font-size: 11px; }
+
+@media(max-width: 767px) {
+	.ui-form-buttons { display: block; margin: 0; width: 100%; }
+	.ui-form-buttons button[name="submit"] { margin-bottom: 10px; }
+}
