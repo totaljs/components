@@ -1,0 +1,16 @@
+{
+	"datecreated": "2018-02-23T20:22:54.000Z",
+	"dateupdated": null,
+	"name": "j-Window",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.gif",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}
