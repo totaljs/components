@@ -24,6 +24,7 @@
 .ui-form-buttons label { float: right; margin: 12px 0 0 0; font-size: 11px; }
 
 @media(max-width: 767px) {
-	.ui-form-buttons { display: block; margin: 0; width: 100%; }
+	.ui-form-buttons button { display: block; margin: 0; width: 100% !important; }
 	.ui-form-buttons button[name="submit"] { margin-bottom: 10px; }
+	.ui-form-buttons button[name="cancel"] { color: gray; height: 35px; font-size: 12px; }
 }
