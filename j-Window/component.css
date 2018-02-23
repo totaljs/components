@@ -7,7 +7,7 @@
 .ui-window-body { overflow-scrolling: touch; overflow-y: auto; }
 .ui-window-animate { transform: scale(1); opacity: 1; }
 .ui-window-title { padding: 18px 20px; font-size: 16px; user-select: none; color: black; background-color: white; border-bottom: 1px solid #F0F0F0; position: absolute; left: 0; right: 0; top: 0; height: 60px; }
-.ui-window-title .ui-window-button-close { float: right; cursor: pointer; font-size: 18px; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; }
+.ui-window-title .ui-window-button-close { float: right; cursor: pointer; font-size: 18px; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; padding: 0; width: auto; }
 .ui-window-title .ui-window-button-close:hover { transform: rotate(-90deg); }
 .ui-window-title > span { font-weight: bold; }
 .ui-window-title > .fa { margin-right: 7px; }
