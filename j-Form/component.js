@@ -67,7 +67,7 @@ COMPONENT('form', function(self, config) {
 		else
 			icon = '<i></i>';
 
-		$(document.body).append('<div id="{0}" class="hidden ui-form-container"><div class="ui-form-container-padding"><div class="ui-form" style="max-width:{1}px"><div class="ui-form-title"><button class="ui-form-button-close" data-path="{2}"><i class="fa fa-times"></i></button>{4}<span>{3}</span></div></div></div>'.format(self._id, config.width || 800, self.path, config.title, icon));
+		$(document.body).append('<div id="{0}" class="hidden ui-form-container"><div class="ui-form-container-padding"><div class="ui-form" style="max-width:{1}px"><div class="ui-form-title"><button class="ui-form-button-close{5}" data-path="{2}"><i class="fa fa-times"></i></button>{4}<span>{3}</span></div></div></div>'.format(self._id, config.width || 800, self.path, config.title, icon, config.closebutton == false ? ' hidden' : ''));
 
 		var el = $('#' + self._id);
 		el.find('.ui-form').get(0).appendChild(self.element.get(0));
@@ -94,7 +94,7 @@ COMPONENT('form', function(self, config) {
 
 		config.enter && self.event('keydown', 'input', function(e) {
 			e.which === 13 && !self.find('button[name="submit"]').get(0).disabled && setTimeout(function() {
-				self.submit(self.hide);
+				self.submit(self);
 			}, 800);
 		});
 	};
@@ -112,6 +112,9 @@ COMPONENT('form', function(self, config) {
 				break;
 			case 'width':
 				value !== prev && self.find('.ui-form').css('max-width', value + 'px');
+				break;
+			case 'closebutton':
+				self.find('.ui-form-button-close').tclass(value !== true);
 				break;
 		}
 	};

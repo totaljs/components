@@ -1,6 +1,6 @@
 ## j-Form
 
-- Works only with +`v11.1.0` [jComponent](http://jcomponent.org)
+- Works only with `+v11.1.0` [jComponent](http://jcomponent.org)
 - __Download__ [jComponent with Tangular (jcta.min.js)](https://github.com/petersirka/jComponent)
 - Works with Bootstrap
 
@@ -19,6 +19,7 @@ Example: `data-jc-config="title:Form title;width:800;if:user;icon:home"`
 - `center` {Boolean} (optional) centers the form to middle of screen
 - `autofocus` {Boolean/String} (optional) can focus an input. `String` === `jQuery selector` for the input
 - `default` {String} (optional) a short alias for `DEFAULT(default, true)`
+- `closebutton` {Boolean} (optional) can hide `x` button (default: `false`)
 
 ### Author
 
