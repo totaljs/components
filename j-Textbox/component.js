@@ -56,7 +56,7 @@ COMPONENT('textbox', function(self, config) {
 				return;
 			if (config.increment) {
 				var el = $(this);
-				var inc = el.hasClass('fa-caret-up') ? 1 : -1;
+				var inc = el.hclass('fa-caret-up') ? 1 : -1;
 				self.change(true);
 				self.inc(inc);
 			}
