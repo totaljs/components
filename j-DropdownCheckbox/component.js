@@ -130,7 +130,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 
 			var el = $(this);
 			var is = !el.hasClass('ui-dropdowncheckbox-checked');
-			var index = +el.attr('data-index');
+			var index = +el.attrd('index');
 			var value = data[index];
 
 			if (value === undefined)
@@ -241,7 +241,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 
 		container.find('.ui-dropdowncheckbox-item').each(function() {
 			var el = $(this);
-			var index = +el.attr('data-index');
+			var index = +el.attrd('index');
 			var checked = false;
 			if (!value || !value.length)
 				checked = false;
