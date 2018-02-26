@@ -59,13 +59,13 @@ COMPONENT('confirm', function(self) {
 		self.rclass('ui-confirm-visible');
 		visible = false;
 		setTimeout2(self.id, function() {
-			$('html').rclass('noscrollconfirm');
+			$('html').rclass('ui-confirm-noscroll');
 			self.aclass('hidden');
 		}, 1000);
 	};
 
 	self.content = function(cls, text) {
-		$('html').aclass('noscrollconfirm');
+		$('html').aclass('ui-confirm-noscroll');
 		!is && self.html('<div><div class="ui-confirm-body"></div></div>');
 		self.find('.ui-confirm-body').empty().append(text);
 		self.rclass('hidden');

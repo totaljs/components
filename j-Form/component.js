@@ -13,7 +13,7 @@ COMPONENT('form', function(self, config) {
 			SET($(this).attr('data-path'), '');
 		});
 
-		$(window).on('resize', function() {
+		$(W).on('resize', function() {
 			SETTER('form', 'resize');
 		});
 
@@ -121,8 +121,8 @@ COMPONENT('form', function(self, config) {
 
 	self.setter = function(value) {
 
-		setTimeout2('noscroll', function() {
-			$('html').tclass('noscroll', !!$('.ui-form-container').not('.hidden').length);
+		setTimeout2('ui-form-noscroll', function() {
+			$('html').tclass('ui-form-noscroll', !!$('.ui-form-container').not('.hidden').length);
 		}, 50);
 
 		var isHidden = value !== config.if;

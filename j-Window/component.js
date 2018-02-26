@@ -37,7 +37,7 @@ COMPONENT('window', function(self, config) {
 		else
 			icon = '<i></i>';
 
-		$(document.body).append('<div id="{0}" class="hidden ui-window-container"><div class="ui-window"><div class="ui-window-title"><button class="ui-window-button-close{5}" data-path="{2}"><i class="fa fa-times"></i></button>{4}<span>{3}</span></div><div class="ui-window-header"></div><div class="ui-window-body"></div></div>'.format(self._id, config.width || 800, self.path, config.title, icon, config.closebutton == false ? ' hidden' : ''));
+		$(document.body).append('<div id="{0}" class="hidden ui-window-container"><div class="ui-window"><div class="ui-window-title"><button class="ui-window-button-close{4}" data-path="{1}"><i class="fa fa-times"></i></button>{3}<span>{2}</span></div><div class="ui-window-header"></div><div class="ui-window-body"></div></div>'.format(self._id, self.path, config.title, icon, config.closebutton == false ? ' hidden' : ''));
 
 		var el = $('#' + self._id);
 		el.find('.ui-window-body').get(0).appendChild(self.element.get(0));
@@ -55,7 +55,7 @@ COMPONENT('window', function(self, config) {
 		});
 	};
 
-	self.configure = function(key, value, init, prev) {
+	self.configure = function(key, value, init) {
 		if (init)
 			return;
 		switch (key) {
@@ -74,8 +74,8 @@ COMPONENT('window', function(self, config) {
 
 	self.setter = function(value) {
 
-		setTimeout2('noscroll', function() {
-			$('html').tclass('noscroll', !!$('.ui-window-container').not('.hidden').length);
+		setTimeout2('ui-window-noscroll', function() {
+			$('html').tclass('ui-window-noscroll', !!$('.ui-window-container').not('.hidden').length);
 		}, 50);
 
 		var isHidden = value !== config.if;
