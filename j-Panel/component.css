@@ -1,0 +1,12 @@
+.hidden { display: none; }
+.ui-panel-noscroll, .ui-panel-noscroll body { overflow: hidden; }
+.ui-panel-container { width: 100%; position: fixed; left: 0; top: 0; bottom: 0; right: 0; background-color: rgba(230,233,237,0.8); z-index: 5; overflow: none; transform-style: preserve-3d; height: 100%; }
+.ui-panel { background-color: white; margin: 0 0 0 auto; transform: scale(0.8); transition: all 0.2s; opacity: 0; }
+.ui-panel-header { height: 60px; }
+.ui-panel-body { overflow-scrolling: touch; overflow-y: auto; }
+.ui-panel-animate { transform: scale(1); opacity: 1; }
+.ui-panel-title { padding: 18px 20px; font-size: 16px; user-select: none; color: black; background-color: white; border-bottom: 1px solid #F0F0F0; position: absolute; left: 0; right: 0; top: 0; height: 60px; }
+.ui-panel-title .ui-panel-button-close { float: right; cursor: pointer; font-size: 18px; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; padding: 0; width: auto; }
+.ui-panel-title .ui-panel-button-close:hover { transform: rotate(-90deg); }
+.ui-panel-title > span { font-weight: bold; }
+.ui-panel-title > .fa { margin-right: 7px; }

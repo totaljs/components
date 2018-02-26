@@ -1,0 +1,16 @@
+{
+	"datecreated": "2018-02-26T09:38:00.000Z",
+	"dateupdated": null,
+	"name": "j-Panel",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.gif",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

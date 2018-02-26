@@ -141,5 +141,6 @@
 	"j-Part",
 	"j-ServerListing",
 	"j-FileUploadList",
-	"j-Window"
+	"j-Window",
+	"j-Panel"
 ]
