@@ -7,7 +7,7 @@ COMPONENT('barchart', 'paddingbars:5;limit:0;paddinggroup:10;radius:2;offsetX:10
 	self.readonly();
 	self.make = function() {
 		self.aclass('ui-barchart');
-		self.append('<svg></svg>');
+		self.empty().append('<svg></svg>');
 		svg = self.find('svg');
 		axis = svg.asvg('g').attr('class', 'axisy');
 		g = svg.asvg('g').attr('class', 'bars');
