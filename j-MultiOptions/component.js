@@ -170,7 +170,7 @@ COMPONENT('multioptions', 'rebind:true', function(self, config) {
 
 		if (external) {
 			pending++;
-			AJAX('GET ' + type, function(values) {
+			AJAX('GET ' + url, function(values) {
 				pending--;
 				bindmapping(values);
 			});
