@@ -134,22 +134,22 @@ COMPONENT('multioptions', 'rebind:true', function(self, config) {
 
 	self.mapping = function(key, label, def, type, max, min, step, validator) {
 
-		var type = typeof(type);
+		var T = typeof(type);
 		var values, url;
 
-		if (type === 'number') {
+		if (T === 'number') {
 			validator = step;
 			step = min;
 			min = max;
 			max = type;
 			type = 'number';
-		} else if (type === 'string') {
+		} else if (T === 'string') {
 			var tmp = type.substring(0, 6);
-			url = type.substring(0, 1) === '/' || tmp === 'http:/' || tmp === 'https:' ? tmp : '';
-			type = 'array';
+			url = type.substring(0, 1) === '/' || tmp === 'http:/' || tmp === 'https:' ? type : '';
+			if (url)
+				type = 'array';
 		} if (!type)
 			type = def instanceof Date ? 'date' : typeof(def);
-
 
 		if (type instanceof Array) {
 			values = [];
@@ -168,7 +168,7 @@ COMPONENT('multioptions', 'rebind:true', function(self, config) {
 			mapping[key] = { name: key, label: label, type: url ? 'array' : type.toLowerCase(), def: def, max: max, min: min, step: step, value: def, values: values, validator: validator };
 		};
 
-		if (external) {
+		if (url) {
 			pending++;
 			AJAX('GET ' + url, function(values) {
 				pending--;
