@@ -35,6 +35,13 @@ __Advanced Array__:
 option('language', 'Language', 1, [{ text: 'sk', value: 1}, { text: 'en', value: 2}, { text: 'de', value: 3}]);
 ```
 
+__Array from URL__:
+
+```javascript
+option('language', 'Language', 1, '/my/api/codelist/');
+// It expects some "Array"
+```
+
 __Colors__:
 
 MultiOptions component uses this color scheme: <http://codepen.io/devi8/pen/lvIeh> and the declaration below will show all colors in the widget settings.

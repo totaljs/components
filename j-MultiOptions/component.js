@@ -9,6 +9,7 @@ COMPONENT('multioptions', 'rebind:true', function(self, config) {
 	var skip = false;
 	var mapping = null;
 	var dep = {};
+	var pending = 0;
 
 	self.getter = null;
 	self.novalidate();
@@ -48,23 +49,14 @@ COMPONENT('multioptions', 'rebind:true', function(self, config) {
 					el.val(date.format('yyyy-MM-dd'));
 					self.$save();
 				});
-				return;
-			}
-
-			if (type === 'color') {
+			} else if (type === 'color') {
 				el.parent().find('.selected').rclass('selected');
 				el.aclass('selected');
 				self.$save();
-				return;
-			}
-
-			if (type === 'boolean') {
+			} else if (type === 'boolean') {
 				el.tclass('checked');
 				self.$save();
-				return;
-			}
-
-			if (type === 'number') {
+			} else if (type === 'number') {
 				var input = el.parent().parent().find('input');
 				var step = (el.attrd('step') || '0').parseInt();
 				var min = el.attrd('min');
@@ -93,11 +85,8 @@ COMPONENT('multioptions', 'rebind:true', function(self, config) {
 					input.val(value);
 				}
 				self.$save();
-				return;
-			}
-
-			self.form(type, el.parent().parent().find('input'), name);
-			return;
+			} else
+				self.form(type, el.parent().parent().find('input'), name);
 		});
 
 		self.event('change', 'select', self.$save);
@@ -116,53 +105,77 @@ COMPONENT('multioptions', 'rebind:true', function(self, config) {
 		});
 	};
 
+	self.redraw = function() {
+		if (pending) {
+			setTimeout(self.redraw, 500);
+		} else {
+			self.refresh();
+			self.change(false);
+			config.rebind && self.$save();
+		}
+	};
+
 	self.remap = function(js) {
 		var fn = new Function('option', js);
 		mapping = {};
 		dep = {};
+		pending = 0;
 		fn(self.mapping);
-		self.refresh();
-		self.change(false);
-		config.rebind && self.$save();
+		self.redraw();
 	};
 
 	self.remap2 = function(callback) {
 		mapping = {};
 		dep = {};
+		pending = 0;
 		callback(self.mapping);
-		self.refresh();
-		self.change(false);
-		config.rebind && self.$save();
+		self.redraw();
 	};
 
 	self.mapping = function(key, label, def, type, max, min, step, validator) {
-		if (typeof(type) === 'number') {
+
+		var type = typeof(type);
+		var values, url;
+
+		if (type === 'number') {
 			validator = step;
 			step = min;
 			min = max;
 			max = type;
 			type = 'number';
-		} else if (!type)
+		} else if (type === 'string') {
+			var tmp = type.substring(0, 6);
+			url = type.substring(0, 1) === '/' || tmp === 'http:/' || tmp === 'https:' ? tmp : '';
+			type = 'array';
+		} if (!type)
 			type = def instanceof Date ? 'date' : typeof(def);
 
-		var values;
 
 		if (type instanceof Array) {
-
 			values = [];
-
-			type.forEach(function(val) {
-				values.push({ text: val.text === undefined ? val : val.text, value: val.value === undefined ? val : val.value });
-			});
-
+			for (var i = 0; i < type.length; i++) {
+				var val = type[i];
+				values.push({ text: val.text == null ? val : val.text, value: val.value == null ? val : val.value });
+			}
 			type = 'array';
 		}
 
 		if (validator && typeof(validator) !== 'function')
 			validator = null;
 
-		dep[key] = values;
-		mapping[key] = { name: key, label: label, type: type.toLowerCase(), def: def, max: max, min: min, step: step, value: def, values: values, validator: validator };
+		var bindmapping = function(values) {
+			dep[key] = values;
+			mapping[key] = { name: key, label: label, type: url ? 'array' : type.toLowerCase(), def: def, max: max, min: min, step: step, value: def, values: values, validator: validator };
+		};
+
+		if (external) {
+			pending++;
+			AJAX('GET ' + type, function(values) {
+				pending--;
+				bindmapping(values);
+			});
+		} else
+			bindmapping(values);
 	};
 
 	self.$save = function() {
