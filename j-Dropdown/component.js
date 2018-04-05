@@ -92,11 +92,14 @@ COMPONENT('dropdown', function(self, config) {
 
 		config.empty !== undefined && builder.push('<option value="">{0}</option>'.format(config.empty));
 
+		var type = typeof(arr[0]);
+		var notObj = type === 'string' || type === 'number';
+
 		for (var i = 0, length = arr.length; i < length; i++) {
 			var item = arr[i];
 			if (condition && !condition(item))
 				continue;
-			if (item.length)
+			if (notObj)
 				builder.push(template.format(item, value === item ? ' selected="selected"' : '', item));
 			else
 				builder.push(template.format(item[propValue], value === item[propValue] ? ' selected="selected"' : '', item[propText]));
