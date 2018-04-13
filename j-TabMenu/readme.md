@@ -1,4 +1,4 @@
-## j-Tab
+## j-TabMenu
 
 - easy usage
 
