@@ -3,7 +3,7 @@ COMPONENT('tabmenu', 'class:selected;selector:li', function(self, config) {
 
 	self.readonly();
 	self.make = function() {
-		self.event('click', 'li', function() {
+		self.event('click', config.selector, function() {
 			var el = $(this);
 			!el.hclass(config.class) && self.set(el.attrd('value'));
 		});
