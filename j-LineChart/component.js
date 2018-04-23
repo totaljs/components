@@ -1,4 +1,4 @@
-COMPONENT('linechart', 'paddingaxis:0;paddingbars:5;limit:0;fill:true;point:5;fillopacity:0.1;paddinggroup:0;offsetX:10;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }};height:0;width:0', function(self, config) {
+COMPONENT('linechart', 'paddingaxis:0;paddingbars:5;limit:0;fill:false;point:5;fillopacity:0.1;paddinggroup:0;offsetX:10;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }};height:0;width:0', function(self, config) {
 
 	var svg, g, axis, selected, points, fills, selectedold;
 	var templateX, templateY;
