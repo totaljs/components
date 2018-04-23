@@ -11,10 +11,13 @@ __Configuration__:
 - `height` {Number} height (default: `0` = auto-height)
 - `width` {Number} width (default: `0` = auto-width)
 - `limit` {Number} a maximum limit of value for Y axis (default: `0`)
-- `paddingaxis` {Number} left padding for axis (default: `0`)
 - `fill` {Boolean} enables filling (default: `false`)
 - `fillopacity` {Number} filling opacity (default: `0.1`)
 - `point` {Number} size of `point` (default: `5`)
+- `pl` {Number} lines left padding (default: `10`)
+- `pr` {Number} lines right padding (default: `10`)
+- `pt` {Number} lines top padding (default: `10`)
+- `pb` {Number} lines bottom padding (default: `25`)
 
 ### Author
 
