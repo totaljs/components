@@ -1,0 +1,16 @@
+{
+	"datecreated": "2018-04-03T23:11:07.000Z",
+	"dateupdated": null,
+	"name": "j-LineChart",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

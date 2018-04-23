@@ -1,0 +1,29 @@
+<div class="container">
+	<div class="row">
+		<div class="col-sm-6">
+			<div data-jc="linechart" data-jc-path="values" style="background-color:#F0F0F0"></div>
+		</div>
+		<div class="col-sm-6">
+			<div data-jc="linechart" data-jc-path="values" data-jc-config="fill:true" style="background-color:#F0F0F0"></div>
+		</div>
+	</div>
+</div>
+
+<script>
+	var values = [];
+
+	values.push({
+		name: 'Apples',
+		values: [{ x: 2009, y: 100 }, { x: 2010, y: 120 }, { x: 2011, y: 130 }, { x: 2012, y: 150 }, { x: 2013, y: 50 }, { x: 2014, y: 200 }, { x: 2015, y: 80 }, { x: 2016, y: 170 }, { x: 2017, y: 300 }]
+	});
+
+	values.push({
+		name: 'Oranges',
+		values: [{ x: 2009, y: 40 }, { x: 2010, y: 80 }, { x: 2011, y: 400 }, { x: 2012, y: 170 }, { x: 2013, y: 90 }, { x: 2014, y: 60 }, { x: 2015, y: 160 }, { x: 2016, y: 120 }, { x: 2017, y: 180 }]
+	});
+
+	values.push({
+		name: 'Bananas',
+		values: [{ x: 2009, y: 80 }, { x: 2010, y: 40 }, { x: 2011, y: 300 }, { x: 2012, y: 200 }, { x: 2013, y: 120 }, { x: 2014, y: 150 }, { x: 2015, y: 220 }, { x: 2016, y: 40 }, { x: 2017, y: 80 }]
+	});
+</script>

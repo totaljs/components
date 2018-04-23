@@ -142,5 +142,6 @@
 	"j-ServerListing",
 	"j-FileUploadList",
 	"j-Window",
-	"j-Panel"
+	"j-Panel",
+	"j-LineChart"
 ]

@@ -1,0 +1,23 @@
+.ui-linechart { position:relative; }
+.ui-linechart svg { shape-rendering: geometricPrecision; }
+.ui-linechart .line1 { stroke: #3182BD; stroke-width: 2.5; fill: transparent; }
+.ui-linechart .line1fill { fill: #3182BD; }
+.ui-linechart .line2 { stroke: #FD8D3C; stroke-width: 2.5; fill: transparent; }
+.ui-linechart .line2fill {fill:#FD8D3C;}
+.ui-linechart .line3 { stroke: #74C476; stroke-width: 2.5; fill: transparent; }
+.ui-linechart .line3fill {fill:#74C476;}
+.ui-linechart .line4 { stroke: #9E9AC8; stroke-width: 2.5; fill: transparent; }
+.ui-linechart .line4fill {fill:#9E9AC8;}
+.ui-linechart .line5 { stroke: #969696; stroke-width: 2.5; fill: transparent; }
+.ui-linechart .line5fill { fill: #969696;}
+.ui-linechart .points circle { cursor: pointer; }
+.ui-linechart .point1 { stroke: #3182BD; stroke-width: 2; fill: white; }
+.ui-linechart .point2 { stroke: #FD8D3C; stroke-width: 2; fill: white; }
+.ui-linechart .point3 { stroke: #74C476; stroke-width: 2; fill: white; }
+.ui-linechart .point4 { stroke: #9E9AC8; stroke-width: 2; fill: white; }
+.ui-linechart .point5 { stroke: #969696; stroke-width: 2; fill: white; }
+.ui-linechart .axis { stroke: #E0E0E0; shape-rendering: optimizeSpeed; }
+.ui-linechart .selected { opacity: 0.8; filter: alpha(opacity=80); }
+.ui-linechart .xlabel { font-size: 11px; fill: gray; }
+.ui-linechart .ylabel { font-size: 11px; fill: #A0A0A0; }
+.ui-linechart .selected { font-size: 16px; fill: black; font-weight: bold; }
