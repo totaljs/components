@@ -1,4 +1,4 @@
-COMPONENT('linechart', 'paddingaxis:0;paddingbars:5;limit:0;fill:false;point:5;fillopacity:0.1;paddinggroup:0;offsetX:10;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }};height:0;width:0', function(self, config) {
+COMPONENT('linechart', 'pl:10;pr:10;pt:10;pb:25;limit:0;fill:false;point:5;fillopacity:0.1;offsetX:0;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }};axisY:true;axisX:true;height:0;width:0', function(self, config) {
 
 	var svg, g, axis, selected, points, fills, selectedold;
 	var templateX, templateY;
@@ -89,55 +89,58 @@ COMPONENT('linechart', 'paddingaxis:0;paddingbars:5;limit:0;fill:false;point:5;f
 			return;
 		}
 
-		var maxX = 0;
-		var maxY = 0;
+		var maxY = null;
+		var minY = null;
 		var labels = [];
-		var paddingbars = config.paddingbars;
-		var paddinggroup = config.paddinggroup;
 		var len = value.length;
 		var size = value[0].values.length;
 		var width = config.width ? config.width : self.element.width();
 		var height = config.height ? config.height : (width / 100) * 60;
-		var barwidth = ((width - paddingbars - paddinggroup - config.paddingaxis) / (size * len));
-		var offsetY = 30;
-
-		barwidth -= paddingbars + (paddinggroup / len);
+		var barwidth = (width - config.point - (config.pl + config.pr)) / (size * len);
 
 		for (var i = 0; i < len; i++) {
 			var item = value[i];
 			labels.push(item.name);
 			for (var j = 0, length = item.values.length; j < length; j++) {
 				var val = item.values[j];
-				maxX = Math.max(maxX, val.x);
-				maxY = Math.max(maxY, val.y);
+				maxY = maxY == null ? val.y : maxY < val.y ? val.y : maxY;
+				minY = minY == null ? val.y : minY > val.y ? val.y : minY;
 			}
 		}
 
 		if (config.limit)
 			maxY = config.limit;
 
-		svg.attr('width', width);
-		svg.attr('height', height);
-		selected.attr('transform', 'translate({0},30)'.format(width - 20));
+		svg.attr('width', width).attr('height', height);
+		selected.attr('transform', 'translate({0},30)'.format(width - 32));
+		selectedold = null;
 
 		g.empty();
 		axis.empty();
 		points.empty();
 		fills.empty();
 
-		height = height - offsetY;
-
 		var T = { value: null };
+		var lines = {};
 
-		for (var i = 4; i > 0; i--) {
+		if (minY < 0) {
+			minY = minY * -1;
+			maxY += minY;
+		} else
+			minY = 0;
+
+		lines.height = height - config.pt - config.pb;
+
+		// Y axis
+		for (var i = 5; i > 0; i--) {
 			var val = i * 20;
-			var y = ((height / 100) * val) + 25;
-			axis.asvg('line').attr('x1', 0).attr('x2', width).attr('y1', y).attr('y2', y).attr('class', 'axis');
-			T.value = (maxY / 100) * (100 - val);
+			var y = ((lines.height / 100) * val) + config.pt;
+			config.axisY && axis.asvg('line').attr('x1', 0).attr('x2', width).attr('y1', y).attr('y2', y).attr('class', 'axis');
+			T.value = ((maxY / 100) * (100 - val)) - minY;
 			axis.asvg('text').aclass('ylabel').attr('transform', 'translate({0},{1})'.format(config.offsetX, y - config.offsetY)).text(templateY(T));
 		}
 
-		var offsetX = config.paddingaxis + paddingbars + paddinggroup;
+		var offsetX = config.pl + config.point;
 		var posX = 0;
 		var offsetL = (len - 1) === 0 ? 0.5 : len - 1;
 		var data = [];
@@ -152,32 +155,40 @@ COMPONENT('linechart', 'paddingaxis:0;paddingbars:5;limit:0;fill:false;point:5;f
 			for (var j = 0; j < len; j++) {
 				var item = value[j];
 				var val = item.values[i];
-				var y = ((val.y / maxY) * 100) >> 0;
+				var sum = val.y + minY;
+				var is = false;
+
+				var y = (((sum / maxY) * 100) >> 0);
 				var x = posX;
-				var h = height.inc('{0}%'.format(y));
+				var h = lines.height.inc('{0}%'.format(y));
 
 				x += offsetX;
 				T.value = val.y;
 
-				var mx = x + config.paddingaxis + (barwidth / 2);
-				var my = (height - h) + (offsetY / 2);
+				var r = (config.point / 2);
+				var mx = x + ((barwidth * offsetL) - config.point);
+				var my = (lines.height - h - r) + config.pt;
 
-				data[j].push((i ? 'L' : 'M') + '{0} {1}'.format(mx, my));
+				data[j].push((i ? 'L' : 'M') + '{0} {1}'.format(mx, my + r));
 
 				if (config.fill) {
-					!i && fill[j].push('M' + mx + ' ' + height);
+					!i && fill[j].push('M' + mx + ' ' + (lines.height + config.pt));
 					fill[j].push('L{0} {1}'.format(mx, my));
 					if (i === length - 1)
-						fill[j].push('L' + mx + ' ' + height);
+						fill[j].push('L' + mx + ' ' + (lines.height + config.pt));
 				}
-				points.asvg('circle').attr('cx', mx).attr('cy', my).attr('r', config.point).aclass('point' + (j + 1)).attrd('index', j + ',' + i);
+
+				points.asvg('circle').attr('cx', mx).attr('cy', my + config.point - r).attr('r', config.point).aclass('point' + (j + 1)).attrd('index', j + ',' + i);
 			}
 
 			T.value = val.x;
 			var text = templateX(T);
-			g.asvg('text').aclass('xlabel').text(text).attr('text-anchor', 'middle').attr('transform', 'translate({0},{1})'.format(posX + offsetX + (barwidth * offsetL), height + offsetY - 6));
-			posX += (len * barwidth) + paddinggroup;
-			offsetX += len * paddingbars;
+			var ax = posX + offsetX + (barwidth * offsetL) - config.point;
+
+			config.axisX && axis.asvg('line').attr('x1', ax).attr('x2', ax).attr('y1', 0).attr('y2', height - 25).attr('class', 'axis');
+			g.asvg('text').aclass('xlabel').text(text).attr('text-anchor', 'middle').attr('transform', 'translate({0},{1})'.format(ax, height - 6));
+			posX += (len * barwidth);
+			offsetX += len;
 		}
 
 		for (var j = 0; j < len; j++)
