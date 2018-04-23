@@ -1,4 +1,4 @@
-COMPONENT('barchart', 'paddingbars:5;limit:0;paddinggroup:10;radius:2;offsetX:10;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }};height:0', function(self, config) {
+COMPONENT('barchart', 'paddingaxis:0;paddingbars:5;limit:0;paddinggroup:10;radius:2;offsetX:10;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }};height:0', function(self, config) {
 
 	var svg, g, axis, selected;
 	var templateX, templateY;
@@ -43,16 +43,19 @@ COMPONENT('barchart', 'paddingbars:5;limit:0;paddinggroup:10;radius:2;offsetX:10
 	self.resize = function() {
 		setTimeout2('resize.' + self.id, function() {
 			self.refresh();
-		}, 100);
+		}, 500);
 	};
 
-	self.configure = function(key, value) {
+	self.configure = function(key, value, init) {
 		switch (key) {
 			case 'templateX':
 				templateX = Tangular.compile(value);
 				break;
 			case 'templateY':
 				templateY = Tangular.compile(value);
+				break;
+			default:
+				!init && self.resize();
 				break;
 		}
 	};
@@ -82,9 +85,10 @@ COMPONENT('barchart', 'paddingbars:5;limit:0;paddinggroup:10;radius:2;offsetX:10
 		var paddinggroup = config.paddinggroup;
 		var len = value.length;
 		var size = value[0].values.length;
-		var width = self.element.width();
+		var width = config.width ? config.width : self.element.width();
 		var height = config.height ? config.height : (width / 100) * 60;
-		var barwidth = ((width - paddingbars - paddinggroup) / (size * len));
+
+		var barwidth = ((width - paddingbars - paddinggroup - config.paddingaxis) / (size * len));
 		var offsetY = 50;
 
 		barwidth -= paddingbars + (paddinggroup / len);
@@ -122,7 +126,7 @@ COMPONENT('barchart', 'paddingbars:5;limit:0;paddinggroup:10;radius:2;offsetX:10
 			axis.asvg('text').aclass('ylabel').attr('transform', 'translate({0},{1})'.format(config.offsetX, y - config.offsetY)).text(templateY(T));
 		}
 
-		var offsetX = paddingbars + paddinggroup;
+		var offsetX = config.paddingaxis + paddingbars + paddinggroup;
 		var posX = 0;
 		var offsetL = (len - 1) === 0 ? 0.5 : len - 1;
 
