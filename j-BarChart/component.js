@@ -1,4 +1,4 @@
-COMPONENT('barchart', 'paddingaxis:0;paddingbars:5;limit:0;paddinggroup:10;radius:2;offsetX:10;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }};height:0', function(self, config) {
+COMPONENT('barchart', 'pl:0;paddingbars:5;limit:0;paddinggroup:10;radius:2;offsetX:10;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }};height:0', function(self, config) {
 
 	var svg, g, axis, selected;
 	var templateX, templateY;
@@ -88,7 +88,7 @@ COMPONENT('barchart', 'paddingaxis:0;paddingbars:5;limit:0;paddinggroup:10;radiu
 		var width = config.width ? config.width : self.element.width();
 		var height = config.height ? config.height : (width / 100) * 60;
 
-		var barwidth = ((width - paddingbars - paddinggroup - config.paddingaxis) / (size * len));
+		var barwidth = ((width - paddingbars - paddinggroup - config.pl) / (size * len));
 		var offsetY = 50;
 
 		barwidth -= paddingbars + (paddinggroup / len);
@@ -126,7 +126,7 @@ COMPONENT('barchart', 'paddingaxis:0;paddingbars:5;limit:0;paddinggroup:10;radiu
 			axis.asvg('text').aclass('ylabel').attr('transform', 'translate({0},{1})'.format(config.offsetX, y - config.offsetY)).text(templateY(T));
 		}
 
-		var offsetX = config.paddingaxis + paddingbars + paddinggroup;
+		var offsetX = config.pl + paddingbars + paddinggroup;
 		var posX = 0;
 		var offsetL = (len - 1) === 0 ? 0.5 : len - 1;
 
