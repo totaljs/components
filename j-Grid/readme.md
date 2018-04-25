@@ -24,12 +24,12 @@ __Configuration__:
 - `pluralizeitems` {String} pluralization for items (optional, default: `# items,# item,# items,# items`)
 - `exec` {String} a link to `function(type, filter, sort, page)`, it's evaluated if the grid performs some operations
 - `padding` {Number} height padding (optional, default: `0`)
-- `autosize` {Boolean} enables full-height auto-size (optional, default `true`)
+- `autosize` {Boolean} enables full-height auto-size (optional, default `false`)
 - `boolean` {String} a values for filtering of boolean values (optional, default: `true|on|yes`)
 - `pagination` {Boolean} shows pagination panel (optional, default: `false`)
 - `init` {Function} an init function for e.g. custom columns
 - `checked` {Function} if rows will contain `<input type="checkbox` then this function will be evaluated when the checkbox is checked
-- 
+-
 __Column properties__:
 
 - `name` {String} a name of field in the object
