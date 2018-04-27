@@ -18,6 +18,7 @@ __Configuration__:
 - `pr` {Number} lines right padding (default: `10`)
 - `pt` {Number} lines top padding (default: `10`)
 - `pb` {Number} lines bottom padding (default: `25`)
+- `type` {String} lines type, can be `normal`, `curves` or `step` (default: `normal`)
 
 ### Author
 

@@ -1,4 +1,4 @@
-COMPONENT('linechart', 'pl:10;pr:10;pt:10;pb:25;limit:0;fill:false;point:5;fillopacity:0.1;offsetX:0;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }};axisY:true;axisX:true;height:0;width:0', function(self, config) {
+COMPONENT('linechart', 'type:step;pl:10;pr:10;pt:10;pb:25;limit:0;fill:false;point:5;fillopacity:0.1;offsetX:0;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }};axisY:true;axisX:true;height:0;width:0', function(self, config) {
 
 	var svg, g, axis, selected, points, fills, selectedold;
 	var templateX, templateY;
@@ -71,6 +71,10 @@ COMPONENT('linechart', 'pl:10;pr:10;pt:10;pb:25;limit:0;fill:false;point:5;fillo
 		}
 	};
 
+	self.diagonal = function(x1, y1, x2, y2) {
+		return 'L' + x1 + ',' + y1 + 'C' + ((x1 + x2 ) / 2) + ',' + y1 + ' ' + ((x1 + x2) / 2) + ',' + y2 + ' ' + x2 + ',' + y2;
+	}
+
 	self.released = function(is) {
 		!is && setTimeout(self.refresh, 1000);
 	};
@@ -96,7 +100,7 @@ COMPONENT('linechart', 'pl:10;pr:10;pt:10;pb:25;limit:0;fill:false;point:5;fillo
 		var size = value[0].values.length;
 		var width = config.width ? config.width : self.element.width();
 		var height = config.height ? config.height : (width / 100) * 60;
-		var barwidth = (width - config.point - (config.pl + config.pr)) / (size * len);
+		var barwidth = ((width - config.point - (config.pl + config.pr)) / (size * len)).floor(2);
 
 		for (var i = 0; i < len; i++) {
 			var item = value[i];
@@ -145,6 +149,7 @@ COMPONENT('linechart', 'pl:10;pr:10;pt:10;pb:25;limit:0;fill:false;point:5;fillo
 		var offsetL = (len - 1) === 0 ? 0.5 : len - 1;
 		var data = [];
 		var fill = [];
+		var prev = [];
 
 		for (var j = 0; j < len; j++) {
 			data.push([]);
@@ -152,11 +157,11 @@ COMPONENT('linechart', 'pl:10;pr:10;pt:10;pb:25;limit:0;fill:false;point:5;fillo
 		}
 
 		for (var i = 0, length = size; i < length; i++) {
+
 			for (var j = 0; j < len; j++) {
 				var item = value[j];
 				var val = item.values[i];
 				var sum = val.y + minY;
-				var is = false;
 
 				var y = (((sum / maxY) * 100) >> 0);
 				var x = posX;
@@ -166,18 +171,42 @@ COMPONENT('linechart', 'pl:10;pr:10;pt:10;pb:25;limit:0;fill:false;point:5;fillo
 				T.value = val.y;
 
 				var r = (config.point / 2);
-				var mx = x + ((barwidth * offsetL) - config.point);
-				var my = (lines.height - h - r) + config.pt;
+				var mx = (x + ((barwidth * offsetL) - config.point)).floor(2);
+				var my = ((lines.height - h - r) + config.pt).floor(2);
 
-				data[j].push((i ? 'L' : 'M') + '{0} {1}'.format(mx, my + r));
+				if (prev[j] && config.type === 'step')
+					data[j].push('L{0} {1}'.format(mx, prev[j][1] + r));
+
+				if (config.type === 'curves') {
+					if (i)
+						data[j].push(self.diagonal(prev[j][0], prev[j][1], mx, my + r));
+					else
+						data[j].push('M{0} {1}'.format(mx, my + r));
+				} else
+					data[j].push((i ? 'L' : 'M') + '{0} {1}'.format(mx, my + r));
 
 				if (config.fill) {
-					!i && fill[j].push('M' + mx + ' ' + (lines.height + config.pt));
-					fill[j].push('L{0} {1}'.format(mx, my));
+
+					if (prev[j] && config.type === 'step') {
+						!i && fill[j].push('M' + mx + ' ' + (lines.height + config.pt));
+						fill[j].push('L{0} {1}'.format(mx, prev[j][1]));
+					} else if (config.type === 'curves') {
+						if (i) {
+							fill[j].push(self.diagonal(prev[j][0], prev[j][1], mx, my));
+						} else {
+							fill[j].push('M' + mx + ' ' + (lines.height + config.pt));
+							fill[j].push('L{0} {1}'.format(mx, my));
+						}
+					} else {
+						!i && fill[j].push('M' + mx + ' ' + (lines.height + config.pt));
+						fill[j].push('L{0} {1}'.format(mx, my));
+					}
+
 					if (i === length - 1)
 						fill[j].push('L' + mx + ' ' + (lines.height + config.pt));
 				}
 
+				prev[j] = [mx, my];
 				points.asvg('circle').attr('cx', mx).attr('cy', my + config.point - r).attr('r', config.point).aclass('point' + (j + 1)).attrd('index', j + ',' + i);
 			}
 
