@@ -170,6 +170,6 @@ COMPONENT('form', function(self, config) {
 		// Fixes a problem with freezing of scrolling in Chrome
 		setTimeout2(self.id, function() {
 			self.css('z-index', (W.$$form_level * 10) + 1);
-		}, 1000);
+		}, 500);
 	};
 });
