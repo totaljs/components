@@ -31,6 +31,7 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config) {
 			value = [];
 
 		var dt = new Date();
+		dt.setDate(1);
 		var current = dt.format('yyyyMM');
 		var stats = null;
 
