@@ -137,9 +137,9 @@ COMPONENT('textbox', function(self, config) {
 			var html = builder.join('');
 			builder = [];
 			builder.push('<div class="ui-textbox-label{0}">'.format(config.required ? ' ui-textbox-label-required' : ''));
-			icon && builder.push('<span class="fa fa-{0}"></span> '.format(icon));
-			builder.push(content);
-			builder.push(':</div><div class="ui-textbox">{0}</div>'.format(html));
+			icon && builder.push('<i class="fa fa-{0}"></i> '.format(icon));
+			builder.push('<span>' + content + (content.endsWith('?') ? '' : ':') + '</span>');
+			builder.push('</div><div class="ui-textbox">{0}</div>'.format(html));
 			config.error && builder.push('<div class="ui-textbox-helper"><i class="fa fa-warning" aria-hidden="true"></i> {0}</div>'.format(config.error));
 			self.html(builder.join(''));
 			self.aclass('ui-textbox-container');
@@ -185,8 +185,11 @@ COMPONENT('textbox', function(self, config) {
 				input.prop('name', value ? self.path.replace(/\./g, '_') : '');
 				break;
 			case 'label':
+				if (content && value)
+					self.find('.ui-textbox-label span').html(value);
+				else
+					redraw = true;
 				content = value;
-				redraw = true;
 				break;
 			case 'type':
 				self.type = value;
@@ -194,7 +197,7 @@ COMPONENT('textbox', function(self, config) {
 					value = 'password';
 				else
 					self.type = 'text';
-				redraw = true;
+				self.find('input').prop('type', self.type);
 				break;
 			case 'align':
 				input.rclass(input.attr('class')).aclass('ui-' + value || 'left');
@@ -203,6 +206,12 @@ COMPONENT('textbox', function(self, config) {
 				input.focus();
 				break;
 			case 'icon':
+				var tmp = self.find('.ui-textbox-label .fa');
+				if (tmp.length)
+					tmp.rclass2('fa-').aclass('fa-' + value);
+				else
+					redraw = true;
+				break;
 			case 'icon2':
 			case 'increment':
 				redraw = true;
