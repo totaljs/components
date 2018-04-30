@@ -31,6 +31,7 @@ COMPONENT('confirm', function(self) {
 			if (index != null) {
 				self.find('button[data-index="{0}"]'.format(index)).trigger('click');
 				e.preventDefault();
+				e.stopPropagation();
 			}
 		});
 	};
