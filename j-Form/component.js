@@ -10,7 +10,7 @@ COMPONENT('form', function(self, config) {
 		W.$$form = true;
 
 		$(document).on('click', '.ui-form-button-close', function() {
-			SET($(this).attr('data-path'), '');
+			SET($(this).attrd('path'), '');
 		});
 
 		$(W).on('resize', function() {
