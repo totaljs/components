@@ -143,5 +143,6 @@
 	"j-FileUploadList",
 	"j-Window",
 	"j-Panel",
-	"j-LineChart"
+	"j-LineChart",
+	"j-MarkdownPreview"
 ]

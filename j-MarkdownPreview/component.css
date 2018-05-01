@@ -1,0 +1,12 @@
+.ui-markdown { font-size: 16px; line-height: 22px; font-family: 'Helvetica Neue', Helvetica, 'Segoe UI', Arial, sans-serif; color: #404040; }
+.ui-markdown h1 { margin: 0 0 20px; font-size: 30px; padding: 0 0 13px; border-bottom: 1px solid #E0E0E0; color: black; line-height: 38px; font-family: Arial, sans-serif; }
+.ui-markdown h2 { margin: 30px 0 18px; font-weight: bold; font-size: 25px; padding: 0 0 8px; border-bottom: 1px solid #E0E0E0; color: black; line-height: 28px; font-family: Arial, sans-serif; }
+.ui-markdown h3 { margin: 20px 0 10px; font-size: 20px; padding: 0 0 5px; color: black; font-weight: bold; color: black; line-height: 22px; font-family: Arial, sans-serif; }
+.ui-markdown .h1 { margin: 0 0 20px; font-size: 24px; padding: 0 0 15px; border-bottom: 1px solid #E0E0E0; color: black; }
+.ui-markdown .h2 { margin: 10px 0 18px; font-size: 20px; padding: 0 0 10px; border-bottom: 1px solid #E0E0E0; color: black; }
+.ui-markdown .h3 { margin: 0 0 5px; font-size: 16px; padding: 0 0 5px; color: black; }
+.ui-markdown p { margin: 0 0 20px; }
+.ui-markdown pre { padding: 0; border-radius: 4px; margin: 20px 0; width: 100%; }
+.ui-markdown pre code { padding: 15px; font-size: 14px; line-height: 18px; }
+.ui-markdown ul { margin: 0 0 20px 0; padding: 0 0 0 2em; }
+.ui-markdown th { background-color: #F8F8F8; }

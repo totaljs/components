@@ -1,0 +1,15 @@
+{
+	"datecreated": "2018-05-01T09:36:00.000Z",
+	"dateupdated": null,
+	"name": "j-MarkdownPreview",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}
