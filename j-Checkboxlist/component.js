@@ -180,6 +180,10 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 			container.html(render);
 		else
 			container.html(config.empty);
+
+		path && setTimeout(function() {
+			self.refresh();
+		}, 200);
 	};
 
 	self.setter = function(value) {
