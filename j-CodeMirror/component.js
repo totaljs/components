@@ -1,6 +1,7 @@
 COMPONENT('codemirror', 'linenumbers:false;required:false;trim:false;tabs:false', function(self, config) {
 
 	var editor = null;
+	var skip = false;
 
 	self.getter = null;
 	self.bindvisible();
@@ -93,7 +94,8 @@ COMPONENT('codemirror', 'linenumbers:false;required:false;trim:false;tabs:false'
 
 				self.getter2 && self.getter2(val);
 				self.change(true);
-				self.rewrite(val);
+				skip = true;
+				self.set(val);
 				config.required && self.validate2();
 			}, 200);
 
@@ -101,6 +103,11 @@ COMPONENT('codemirror', 'linenumbers:false;required:false;trim:false;tabs:false'
 	};
 
 	self.setter = function(value) {
+
+		if (skip) {
+			skip = false;
+			return;
+		}
 
 		editor.setValue(value || '');
 		editor.refresh();

@@ -9,12 +9,11 @@ COMPONENT('markdownpreview', function(self) {
 			return marked(text).replace(/<img/g, '<img class="img-responsive img-rounded"').replace(/<table/g, '<table class="table table-bordered"');
 		};
 		self.aclass('ui-markdown');
-
 	};
 
 	self.setter = function(value) {
 		self.html(value ? self.M(value) : '');
-		self.find('pre code').each(function(i, block) {
+		value && self.find('pre code').each(function(i, block) {
 			hljs.highlightBlock(block);
 		});
 	};
