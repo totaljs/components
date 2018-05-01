@@ -73,7 +73,7 @@ COMPONENT('linechart', 'type:normal;pl:10;pr:10;pt:10;pb:25;limit:0;fill:false;p
 
 	self.diagonal = function(x1, y1, x2, y2) {
 		return 'L' + x1 + ',' + y1 + 'C' + ((x1 + x2 ) / 2) + ',' + y1 + ' ' + ((x1 + x2) / 2) + ',' + y2 + ' ' + x2 + ',' + y2;
-	}
+	};
 
 	self.released = function(is) {
 		!is && setTimeout(self.refresh, 1000);
