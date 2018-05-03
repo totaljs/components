@@ -15,6 +15,10 @@ __Configuration__:
 - `width` {Number} width (default: `0` = auto-width)
 - `limit` {Number} a maximum limit of value for Y axis (default: `0`)
 - `pl` {Number} left padding for axis (default: `0`)
+- `pr` {Number} lines right padding (default: `10`)
+- `pt` {Number} lines top padding (default: `10`)
+- `pb` {Number} lines bottom padding (default: `25`)
+- `prselected` {Number} right padding for selected value (default: `0`)
 
 ### Author
 
