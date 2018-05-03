@@ -1,4 +1,4 @@
-COMPONENT('barchart', 'pl:20;paddingbars:5;limit:0;paddinggroup:10;radius:2;offsetX:10;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }};height:0', function(self, config) {
+COMPONENT('barchart', 'pl:20;pt:10;pb:25;prselected:0;axisX:true;axisY:true;paddingbars:5;limit:0;paddinggroup:10;radius:2;offsetX:10;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }};height:0', function(self, config) {
 
 	var svg, g, axis, selected;
 	var templateX, templateY;
@@ -20,8 +20,8 @@ COMPONENT('barchart', 'pl:20;paddingbars:5;limit:0;paddinggroup:10;radius:2;offs
 
 			if (index === self.$selectedindex && e.type === 'mouseenter')
 				return;
-			self.$selectedindex = index;
 
+			self.$selectedindex = index;
 			var arr = index.split(',');
 			var item = self.get()[+arr[0]];
 			var value = item.values[+arr[1]];
@@ -87,9 +87,8 @@ COMPONENT('barchart', 'pl:20;paddingbars:5;limit:0;paddinggroup:10;radius:2;offs
 		var size = value[0].values.length;
 		var width = config.width ? config.width : self.element.width();
 		var height = config.height ? config.height : (width / 100) * 60;
-
 		var barwidth = ((width - paddingbars - paddinggroup - config.pl) / (size * len));
-		var offsetY = 50;
+		var lines = {};
 
 		barwidth -= paddingbars + (paddinggroup / len);
 
@@ -109,19 +108,19 @@ COMPONENT('barchart', 'pl:20;paddingbars:5;limit:0;paddinggroup:10;radius:2;offs
 		svg.attr('width', width);
 		svg.attr('height', height);
 
-		selected.attr('transform', 'translate({0},30)'.format(width - 20));
+		selected.attr('transform', 'translate({0},30)'.format(width - config.prselected));
 
 		g.empty();
 		axis.empty();
 
-		height = height - offsetY;
+		lines.height = height - config.pt - config.pb;
 
 		var T = { value: null };
 
-		for (var i = 4; i > 0; i--) {
+		for (var i = 5; i > 0; i--) {
 			var val = i * 20;
-			var y = ((height / 100) * val) + 25;
-			axis.asvg('line').attr('x1', 0).attr('x2', width).attr('y1', y).attr('y2', y).attr('class', 'axis');
+			var y = (((lines.height / 100) * val) + config.pt);
+			config.axisY && axis.asvg('line').attr('x1', 0).attr('x2', width).attr('y1', y).attr('y2', y).attr('class', 'axis');
 			T.value = (maxY / 100) * (100 - val);
 			axis.asvg('text').aclass('ylabel').attr('transform', 'translate({0},{1})'.format(config.offsetX, y - config.offsetY)).text(templateY(T));
 		}
@@ -129,6 +128,7 @@ COMPONENT('barchart', 'pl:20;paddingbars:5;limit:0;paddinggroup:10;radius:2;offs
 		var offsetX = config.pl + paddingbars + paddinggroup;
 		var posX = 0;
 		var offsetL = (len - 1) === 0 ? 0.5 : len - 1;
+		var offsetY =  config.pb;
 
 		for (var i = 0, length = size; i < length; i++) {
 
@@ -139,17 +139,19 @@ COMPONENT('barchart', 'pl:20;paddingbars:5;limit:0;paddinggroup:10;radius:2;offs
 				var rect = g.asvg('rect');
 				var y = ((val.y / maxY) * 100) >> 0;
 				var x = posX + (barwidth * j);
-				var h = height.inc('{0}%'.format(y));
+				var h = lines.height.inc('{0}%'.format(y));
 
 				x += offsetX + (paddingbars * j);
 				T.value = val.y;
-				rect.attr('x', x).attr('y', (height - h) + (offsetY / 2)).attr('width', barwidth).attr('height', h).attr('class', 'bar bar' + (j + 1)).attr('data-index', j + ',' + i);
+				rect.attr('x', x).attr('y', ((lines.height - h) + (offsetY / 2)) - 3).attr('width', barwidth).attr('height', h).attr('class', 'bar bar' + (j + 1)).attr('data-index', j + ',' + i);
 				config.radius && rect.attr('rx', config.radius).attr('ry', config.radius);
 			}
 
 			T.value = val.x;
 			var text = templateX(T);
-			g.asvg('text').aclass('xlabel').text(text).attr('text-anchor', 'middle').attr('transform', 'translate({0},{1})'.format(posX + offsetX + (barwidth * offsetL), height + offsetY - 6));
+			var ax = posX + offsetX + ((len - 1) * barwidth) + paddinggroup + (paddingbars * (len - 1)) + paddingbars;
+			config.axisX && axis.asvg('line').attr('x1', ax).attr('x2', ax).attr('y1', 0).attr('y2', height - 25).attr('class', 'axis');
+			g.asvg('text').aclass('xlabel').text(text).attr('text-anchor', 'middle').attr('transform', 'translate({0},{1})'.format(posX + offsetX + (barwidth * offsetL), height - 6));
 
 			posX += (len * barwidth) + paddinggroup;
 			offsetX += len * paddingbars;

@@ -5,6 +5,7 @@
 .ui-barchart .bar3 { fill: #74C476; }
 .ui-barchart .bar4 { fill: #9E9AC8; }
 .ui-barchart .bar5 { fill: #969696; }
+.ui-barchart .bar:hover { opacity: 0.5; }
 .ui-barchart .axis { stroke: #E0E0E0; shape-rendering: optimizeSpeed; }
 .ui-barchart .selected { opacity: 0.8; }
 .ui-barchart .xlabel { font-size: 11px; fill: gray; }
