@@ -1,7 +1,7 @@
-COMPONENT('linechart', 'type:normal;pl:10;pr:10;pt:10;pb:25;limit:0;fill:false;point:5;fillopacity:0.1;offsetX:0;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }};axisY:true;axisX:true;height:0;width:0', function(self, config) {
+COMPONENT('linechart', 'type:normal;pl:10;pr:10;pt:10;pb:25;prselected:0;limit:0;fill:false;point:5;fillopacity:0.1;offsetX:0;offsetY:10;selected:{{ value | format(0) }};templateY:{{ value | format(0) }};templateX:{{ value }};axisY:true;axisX:true;height:0;width:0', function(self, config) {
 
 	var svg, g, axis, selected, points, fills, selectedold;
-	var templateX, templateY;
+	var templateX, templateY, templateS;
 	var W = $(window);
 
 	self.readonly();
@@ -31,8 +31,7 @@ COMPONENT('linechart', 'type:normal;pl:10;pr:10;pt:10;pb:25;limit:0;fill:false;p
 			var value = item.values[+arr[1]];
 
 			selectedold && selectedold.animate({ r: config.point }, 100);
-
-			selected.text(templateY({ value: value.y }));
+			selected.text(templateS({ name: arr.name, x: value.x, y: value.y, value: value.y }));
 			selectedold = circle.animate({ r: config.point + 3 }, 100);
 
 			if (e.type === 'mouseenter') {
@@ -64,6 +63,15 @@ COMPONENT('linechart', 'type:normal;pl:10;pr:10;pt:10;pb:25;limit:0;fill:false;p
 				break;
 			case 'templateY':
 				templateY = Tangular.compile(value);
+				break;
+			case 'selected':
+				templateS = Tangular.compile(value);
+				break;
+			case 'width':
+			case 'height':
+				setTimeout2(self._id, function() {
+					self.refresh();
+				}, 100);
 				break;
 			default:
 				!init && self.resize();
@@ -116,7 +124,7 @@ COMPONENT('linechart', 'type:normal;pl:10;pr:10;pt:10;pb:25;limit:0;fill:false;p
 			maxY = config.limit;
 
 		svg.attr('width', width).attr('height', height);
-		selected.attr('transform', 'translate({0},30)'.format(width - 32));
+		selected.attr('transform', 'translate({0},30)'.format(width - config.prselected));
 		selectedold = null;
 
 		g.empty();
@@ -218,6 +226,14 @@ COMPONENT('linechart', 'type:normal;pl:10;pr:10;pt:10;pb:25;limit:0;fill:false;p
 			g.asvg('text').aclass('xlabel').text(text).attr('text-anchor', 'middle').attr('transform', 'translate({0},{1})'.format(ax, height - 6));
 			posX += (len * barwidth);
 			offsetX += len;
+		}
+
+		if (typeof(config.avg) === 'number') {
+			var at = 100 - ((config.avg / maxY) * 100);
+			var ay = ((lines.height / 100) * at) + config.pt;
+			axis.asvg('line').attr('x1', 0).attr('x2', width).attr('y1', ay).attr('y2', ay).attr('class', 'axis-avg');
+			T.value = config.avg;
+			axis.asvg('text').aclass('ylabel-avg').attr('transform', 'translate({0},{1})'.format(width - config.pr - config.offsetX, ay - config.offsetY)).text(templateY(T));
 		}
 
 		for (var j = 0; j < len; j++)
