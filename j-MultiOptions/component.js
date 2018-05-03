@@ -264,7 +264,7 @@ COMPONENT('multioptions', 'rebind:true', function(self, config) {
 			// option.min
 			// option.step
 
-			option.value = options[key] || option.def;
+			option.value = options[key] == null ? option.def : options[key];
 
 			var value = '';
 
