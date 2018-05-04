@@ -1,4 +1,4 @@
-COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true;presentation:true;animate:true', function(self, config) {
+COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:true;presentation:true;animate:true', function(self, config) {
 
 	var svg, g, selected, tooltip;
 	var strokew = 0;
@@ -184,8 +184,12 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};tooltip:true;presentatio
 			return;
 		}
 
-		self.width(function(width) {
-			self.redraw(width, value);
-		});
+		if (config.size) {
+			self.redraw(config.size, value);
+		} else {
+			self.width(function(width) {
+				self.redraw(width, value);
+			});
+		}
 	};
 });

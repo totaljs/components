@@ -1,7 +1,7 @@
-COMPONENT('barchart', 'pl:20;pt:10;pb:25;prselected:0;axisX:true;axisY:true;paddingbars:5;limit:0;paddinggroup:10;radius:2;offsetX:10;offsetY:10;selected:{{ value | format(0) }};templateY:{{ value | format(0) }};templateX:{{ value }};height:0', function(self, config) {
+COMPONENT('barchart', 'pl:20;pt:10;pb:25;prselected:0;axisX:true;axisY:true;paddingbars:5;limit:0;paddinggroup:10;radius:2;offsetX:10;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }};height:0', function(self, config) {
 
 	var svg, g, axis, selected;
-	var templateX, templateY, templateS;
+	var templateX, templateY;
 	var W = $(window);
 
 	self.readonly();
@@ -25,7 +25,7 @@ COMPONENT('barchart', 'pl:20;pt:10;pb:25;prselected:0;axisX:true;axisY:true;padd
 			var arr = index.split(',');
 			var item = self.get()[+arr[0]];
 			var value = item.values[+arr[1]];
-			selected.text(templateS({ name: arr.name, x: value.x, y: value.y, value: value.y }));
+			selected.text(templateY({ value: value.y }));
 			if (e.type === 'mouseenter') {
 				setTimeout2(self.id, function() {
 					selected.text('');
@@ -53,9 +53,6 @@ COMPONENT('barchart', 'pl:20;pt:10;pb:25;prselected:0;axisX:true;axisY:true;padd
 				break;
 			case 'templateY':
 				templateY = Tangular.compile(value);
-				break;
-			case 'selected':
-				templateS = Tangular.compile(value);
 				break;
 			default:
 				!init && self.resize();
@@ -152,7 +149,7 @@ COMPONENT('barchart', 'pl:20;pt:10;pb:25;prselected:0;axisX:true;axisY:true;padd
 
 			T.value = val.x;
 			var text = templateX(T);
-			var ax = posX + offsetX + ((len - 1) * barwidth) + paddinggroup + (paddingbars * (len - 1)) + paddingbars;
+			var ax = posX + offsetX + (barwidth * len) + (paddingbars * len) + 2;
 			config.axisX && axis.asvg('line').attr('x1', ax).attr('x2', ax).attr('y1', 0).attr('y2', height - 25).attr('class', 'axis');
 			g.asvg('text').aclass('xlabel').text(text).attr('text-anchor', 'middle').attr('transform', 'translate({0},{1})'.format(posX + offsetX + (barwidth * offsetL), height - 6));
 

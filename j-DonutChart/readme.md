@@ -8,6 +8,7 @@ __Configuration__:
 - `select` {String} a path to method if a `value` is selected
 - `redraw` {String} a path to method if the chart is redrawn
 - `animate` {Boolean} enables/disables animations (default: `true`)
+- `size` {Number} width/height of donut (default: `0` = auto)
 
 ### Author
 
