@@ -1,7 +1,6 @@
 COMPONENT('binder', function(self) {
 
 	var keys, keys_unique;
-	var cache = {};
 
 	self.readonly();
 	self.blind();
@@ -21,27 +20,9 @@ COMPONENT('binder', function(self) {
 
 	self.autobind = function(path) {
 
-		var mapper = keys[path] || cache[path];
-		if (!mapper) {
-
-			if (cache[p] === null)
-				return;
-
-			var p = path;
-			path = path.split('.');
-			while (path.length) {
-				path.pop();
-				mapper = keys[path.join('.')];
-				if (mapper) {
-					cache[p] = mapper;
-					break;
-				}
-			}
-			if (!mapper) {
-				cache[p] = null;
-				return;
-			}
-		}
+		var mapper = keys[path];
+		if (!mapper)
+			return;
 
 		var template = {};
 
@@ -65,7 +46,7 @@ COMPONENT('binder', function(self) {
 				item.disable && element.prop('disabled', item.disable(value));
 				item.src && element.attr('src', item.src(value));
 				item.href && element.attr('href', item.href(value));
-				item.exec && EXEC(item.exec, element);
+				item.exec && EXEC(item.exec, element, value, item.path);
 			}
 		}
 	};
@@ -105,7 +86,6 @@ COMPONENT('binder', function(self) {
 
 		keys = {};
 		keys_unique = {};
-		cache = {};
 
 		var keys_news = {};
 

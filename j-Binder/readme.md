@@ -13,7 +13,7 @@ __Supported attributes__:
 - `data-b-selector=".ui-textbox-label"` - optional, target element will be elements by selector (default: `null`)
 - `data-b-src="value"` - optional, can change `src` argument in the image
 - `data-b-href="value"` - optional, can change `href` argument in the link
-- `data-b-exec="fn"` - optional, can contain a `function` reference which is executed after rendering
+- `data-b-exec="fn"` - optional, can contain a `function(element, value, path)` reference which is executed after rendering
 
 __Scopes__:
 
