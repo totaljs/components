@@ -80,7 +80,7 @@ COMPONENT('layer', 'offset:65;container:.ui-layer-body', function(self, config) 
 
 	self.setter = function(value) {
 
-		$('html').tclass('noscroll', value.length > 0);
+		$('html').tclass('ui-layer-noscroll', value.length > 0);
 
 		var index = value.indexOf(config.if);
 		if (index === -1) {
