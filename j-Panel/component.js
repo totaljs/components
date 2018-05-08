@@ -1,7 +1,6 @@
-COMPONENT('panel', 'width:300', function(self, config) {
+COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
 
 	var W = window;
-	var header = null;
 
 	if (!W.$$panel) {
 
@@ -9,7 +8,7 @@ COMPONENT('panel', 'width:300', function(self, config) {
 		W.$$panel = true;
 
 		$(document).on('click', '.ui-panel-button-close', function() {
-			SET($(this).attr('data-path'), '');
+			SET($(this).attrd('path'), '');
 		});
 
 		$(W).on('resize', function() {
@@ -25,27 +24,20 @@ COMPONENT('panel', 'width:300', function(self, config) {
 
 	self.resize = function() {
 		var el = self.element.find('.ui-panel-body');
-		el.height($(W).height() - self.find('.ui-panel-header').height());
+		el.height(WH - self.find('.ui-panel-header').height());
+	};
+
+	self.icon = function(value) {
+		var el = this.rclass2('fa');
+		value.icon && el.aclass('fa fa-' + value.icon);
 	};
 
 	self.make = function() {
-
-		var icon;
-
-		if (config.icon)
-			icon = '<i class="fa fa-{0}"></i>'.format(config.icon);
-		else
-			icon = '<i></i>';
-
-		$(document.body).append('<div id="{0}" class="hidden ui-panel-container"><div class="ui-panel" style="width:{1}px"><div class="ui-panel-title"><button class="ui-panel-button-close{5}" data-path="{2}"><i class="fa fa-times"></i></button>{4}<span>{3}</span></div><div class="ui-panel-header"></div><div class="ui-panel-body"></div></div>'.format(self._id, config.width, self.path, config.title, icon, config.closebutton == false ? ' hidden' : ''));
-
-		var el = $('#' + self._id);
-		el.find('.ui-panel-body').get(0).appendChild(self.element.get(0));
+		$(document.body).append('<div id="{0}" class="hidden ui-panel-container"><div class="ui-panel" style="width:{1}px"><div data-bind="@config__change .ui-panel-icon:@icon__html span:value.title" class="ui-panel-title"><button class="ui-panel-button-close{3}" data-path="{2}"><i class="fa fa-times"></i></button><i class="ui-panel-icon"></i><span></span></div><div class="ui-panel-header"></div><div class="ui-panel-body"></div></div>'.format(self.ID, config.width, self.path, config.closebutton == false ? ' hidden' : ''));
+		var el = $('#' + self.ID);
+		el.find('.ui-panel-body')[0].appendChild(self.dom);
 		self.rclass('hidden');
 		self.replace(el);
-
-		header = self.virtualize({ title: '.ui-panel-title > span', icon: '.ui-panel-title > i' });
-
 		self.find('button').on('click', function() {
 			switch (this.name) {
 				case 'cancel':
@@ -56,19 +48,12 @@ COMPONENT('panel', 'width:300', function(self, config) {
 	};
 
 	self.configure = function(key, value, init) {
-		if (init)
-			return;
-		switch (key) {
-			case 'icon':
-				header.icon.rclass(header.icon.attr('class'));
-				value && header.icon.aclass('fa fa-' + value);
-				break;
-			case 'title':
-				header.title.html(value);
-				break;
-			case 'closebutton':
-				self.find('.ui-panel-button-close').tclass(value !== true);
-				break;
+		if (!init) {
+			switch (key) {
+				case 'closebutton':
+					self.find('.ui-panel-button-close').tclass(value !== true);
+					break;
+			}
 		}
 	};
 
@@ -111,7 +96,7 @@ COMPONENT('panel', 'width:300', function(self, config) {
 
 		if (!isMOBILE && config.autofocus) {
 			var el = self.find(config.autofocus === true ? 'input[type="text"],select,textarea' : config.autofocus);
-			el.length && el.eq(0).focus();
+			el.length && el[0].focus();
 		}
 
 		setTimeout(function() {

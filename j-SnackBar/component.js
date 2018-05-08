@@ -1,6 +1,5 @@
 COMPONENT('snackbar', 'timeout:3000;button:Dismiss', function(self, config) {
 
-	var virtual = null;
 	var show = true;
 	var callback;
 
@@ -9,7 +8,6 @@ COMPONENT('snackbar', 'timeout:3000;button:Dismiss', function(self, config) {
 	self.make = function() {
 		self.aclass('ui-snackbar hidden');
 		self.append('<div><a href="javasc' + 'ript:void(0)" class="ui-snackbar-dismiss"></a><div class="ui-snackbar-body"></div></div>');
-		virtual = self.virtualize({ body: '.ui-snackbar-body', button: '.ui-snackbar-dismiss' });
 		self.event('click', '.ui-snackbar-dismiss', function() {
 			self.hide();
 			callback && callback();
@@ -40,8 +38,9 @@ COMPONENT('snackbar', 'timeout:3000;button:Dismiss', function(self, config) {
 		}
 
 		callback = close;
-		virtual.body.html(message);
-		virtual.button.html(button || config.button);
+
+		self.find('.ui-snackbar-body').html(message);
+		self.find('.ui-snackbar-dismiss').html(button || config.button);
 
 		if (show) {
 			self.rclass('hidden');
@@ -50,7 +49,7 @@ COMPONENT('snackbar', 'timeout:3000;button:Dismiss', function(self, config) {
 			}, 50);
 		}
 
-		setTimeout2(self.id, self.hide, config.timeout + 50);
+		setTimeout2(self.ID, self.hide, config.timeout + 50);
 		show = false;
 	};
 });

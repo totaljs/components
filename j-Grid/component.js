@@ -20,7 +20,20 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 		tbodyhead = $(body.find('thead').get(0));
 		thead = $(self.find('.ui-grid-header').find('thead').get(0));
 		container = $(self.find('.ui-grid-scroller').get(0));
-		pagination = config.pagination ? VIRTUALIZE(self.find('.ui-grid-footer'), { page: 'input', first: 'button[name="first"]', last: 'button[name="last"]', prev: 'button[name="prev"]', next: 'button[name="next"]', meta: '.ui-grid-meta', pages: '.ui-grid-pages' }) : null;
+
+		if (config.pagination) {
+			var el = self.find('.ui-grid-footer');
+			pagination = {};
+			pagination.main = el;
+			pagination.page = el.find('input');
+			pagination.first = el.find('button[name="first"]');
+			pagination.last = el.find('button[name="last"]');
+			pagination.prev = el.find('button[name="prev"]');
+			pagination.next = el.find('button[name="next"]');
+			pagination.meta = el.find('.ui-grid-meta');
+			pagination.pages = el.find('.ui-grid-pages');
+		}
+
 		meta && self.meta(meta);
 
 		self.event('click', '.ui-grid-columnsort', function() {
@@ -87,7 +100,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 
 		self.on('resize', self.resize);
 		config.init && EXEC(config.init);
-		wheight = $(window).height();
+		wheight = WH;
 	};
 
 	self.checked = function(value) {
@@ -250,7 +263,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 			} else
 				self.rclass(cls);
 
-			pagination && pagination.rclass('hidden');
+			pagination && pagination.main.rclass('hidden');
 			eheight && self.rclass('hidden');
 		}, typeof(delay) === 'number' ? delay : 50);
 	};

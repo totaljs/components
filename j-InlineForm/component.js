@@ -1,7 +1,6 @@
-COMPONENT('inlineform', function(self, config) {
+COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 
 	var W = window;
-	var header = null;
 	var dw = 300;
 
 	if (!W.$$inlineform) {
@@ -35,23 +34,19 @@ COMPONENT('inlineform', function(self, config) {
 		self.find('.ui-inlineform').rclass('ui-inlineform-animate');
 	};
 
+	self.icon = function(value) {
+		var el = this.rclass2('fa');
+		value.icon && el.aclass('fa fa-' + value.icon);
+	};
+
 	self.make = function() {
 
-		var icon;
+		$(document.body).append('<div id="{0}" class="hidden ui-inlineform-container" style="max-width:{1}"><div class="ui-inlineform"><i class="fa fa-caret-up ui-inlineform-arrow"></i><div class="ui-inlineform-title" data-bind="@config__html span:value.title__change .ui-inlineform-icon:@icon"><button class="ui-inlineform-close"><i class="fa fa-times"></i></button><i class="ui-inlineform-icon"></i><span></span></div></div></div>'.format(self.ID, (config.width || dw) + 'px', self.path));
 
-		if (config.icon)
-			icon = '<i class="fa fa-{0}"></i>'.format(config.icon);
-		else
-			icon = '<i></i>';
-
-		$(document.body).append('<div id="{0}" class="hidden ui-inlineform-container" style="max-width:{1}"><div class="ui-inlineform"><i class="fa fa-caret-up ui-inlineform-arrow"></i><div class="ui-inlineform-title"><button class="ui-inlineform-close"><i class="fa fa-times"></i></button>{4}<span>{3}</span></div></div></div>'.format(self._id, (config.width || dw) + 'px', self.path, config.title, icon));
-
-		var el = $('#' + self._id);
-		el.find('.ui-inlineform').get(0).appendChild(self.element.get(0));
+		var el = $('#' + self.ID);
+		el.find('.ui-inlineform')[0].appendChild(self.dom);
 		self.rclass('hidden');
 		self.replace(el);
-
-		header = self.virtualize({ title: '.ui-inlineform-title > span', icon: '.ui-inlineform-title > i' });
 
 		self.find('button').on('click', function() {
 			var el = $(this);
@@ -69,24 +64,10 @@ COMPONENT('inlineform', function(self, config) {
 		});
 
 		config.enter && self.event('keydown', 'input', function(e) {
-			e.which === 13 && !self.find('button[name="submit"]').get(0).disabled && setTimeout(function() {
+			e.which === 13 && !self.find('button[name="submit"]')[0].disabled && setTimeout(function() {
 				self.submit(self.hide);
 			}, 800);
 		});
-	};
-
-	self.configure = function(key, value, init) {
-		if (init)
-			return;
-		switch (key) {
-			case 'icon':
-				header.icon.rclass(header.icon.attr('class'));
-				value && header.icon.aclass('fa fa-' + value);
-				break;
-			case 'title':
-				header.title.html(value);
-				break;
-		}
 	};
 
 	self.toggle = function(el, position, offsetX, offsetY) {
@@ -129,8 +110,10 @@ COMPONENT('inlineform', function(self, config) {
 
 		self.find('.ui-inlineform-arrow').css('margin-left', ma);
 		self.css(offset);
+
 		var el = self.find('input[type="text"],select,textarea');
-		!isMOBILE && el.length && el.eq(0).focus();
+		!isMOBILE && el.length && el[0].focus();
+
 		setTimeout(function() {
 			self.find('.ui-inlineform').aclass('ui-inlineform-animate');
 		}, 300);
