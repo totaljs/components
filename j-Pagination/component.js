@@ -28,7 +28,13 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# 
 		!init && self.refresh();
 	};
 
-	self.page = NOOP;
+	self.page = function(page, el) {
+		if (config.exec) {
+			var fn = GET(config.exec);
+			fn && fn(page, el);
+		}
+	};
+
 	self.getPagination = function(page, pages, max, fn) {
 
 		var half = Math.ceil(max / 2);

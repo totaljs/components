@@ -1,4 +1,4 @@
-<div data-jc="pagination" data-jc-path="datasource" data-jc-config="max:8;pages:# pages,# page,# pages,# pages;items:# items,# item,# items,# items"></div>
+<div data-jc="pagination__datasource__max:8;exec:mypage;pages:# pages,# page,# pages,# pages;items:# items,# item,# items,# items"></div>
 
 <script>
 	var datasource = {};
@@ -6,10 +6,8 @@
 	datasource.pages = 23;   // count of all pages
 	datasource.count = 2320; // count of all items
 
-	FIND('pagination', function(component) {
-		component.page = function(page, elPage) {
-			console.log(page, elPage);
-			SET('datasource.page', page);
-		};
-	});
+	function mypage(page, el) {
+		console.log(page, el);
+		SET('datasource.page', page);
+	}
 </script>
