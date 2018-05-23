@@ -31,6 +31,7 @@ COMPONENT('listmenu', 'class:selected;selector:a;property:id;click:true', functi
 			builder.push(self.template(item, opt));
 		}
 
+		oldvalue = null;
 		self.html(builder.join(''));
 
 		config.click && self.find(config.selector).on('click', function() {
