@@ -76,7 +76,7 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 
 	self.calculate = function(year, month, selected) {
 
-		var d = new Date(year, month, 1);
+		var d = new Date(year, month, 1, 12, 0);
 		var output = { header: [], days: [], month: month, year: year };
 		var firstDay = config.firstday;
 		var firstCount = 0;
@@ -103,7 +103,7 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 		var index = 0;
 		var indexEmpty = 0;
 		var count = 0;
-		var prev = getMonthDays(new Date(year, month - 1, 1)) - frm;
+		var prev = getMonthDays(new Date(year, month - 1, 1, 12, 0)) - frm;
 		var cur;
 
 		for (var i = 0; i < days + frm; i++) {
@@ -115,7 +115,6 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 				obj.isSelected = sy === year && sm === month && sd === index;
 				obj.isToday = ty === year && tm === month && td === index;
 				obj.isFuture = ty < year;
-
 				if (!obj.isFuture && year === ty) {
 					if (tm < month)
 						obj.isFuture = true;
@@ -133,8 +132,8 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 			if (!obj.isEmpty)
 				cur = d.add(i + ' days');
 
-			obj.month = cur.getMonth();
-			obj.year = cur.getFullYear();
+			obj.month = i >= frm && obj.number <= days ? d.getMonth() : cur.getMonth();
+			obj.year = i >= frm && obj.number <= days ? d.getFullYear() : cur.getFullYear();
 			obj.date = cur;
 			output.days.push(obj);
 		}
@@ -218,7 +217,7 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 
 		self.event('click', '.ui-calendar-day', function() {
 			var arr = this.getAttribute('data-date').split('-');
-			var dt = new Date(parseInt(arr[0]), parseInt(arr[1]), parseInt(arr[2]));
+			var dt = new Date(parseInt(arr[0]), parseInt(arr[1]), parseInt(arr[2]), 12, 0);
 			self.find('.ui-calendar-selected').rclass('ui-calendar-selected');
 			var el = $(this).aclass('ui-calendar-selected');
 			skip = !el.hclass('ui-calendar-disabled');
@@ -237,7 +236,7 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 			e.stopPropagation();
 
 			var arr = this.getAttribute('data-date').split('-');
-			var dt = new Date(parseInt(arr[0]), parseInt(arr[1]), 1);
+			var dt = new Date(parseInt(arr[0]), parseInt(arr[1]), 1, 12, 0);
 			dt.setFullYear(this.value);
 			skipDay = true;
 			self.date(dt);
@@ -250,7 +249,7 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 			e.stopPropagation();
 
 			var arr = this.getAttribute('data-date').split('-');
-			var dt = new Date(parseInt(arr[0]), parseInt(arr[1]), 1);
+			var dt = new Date(parseInt(arr[0]), parseInt(arr[1]), 1, 12, 0);
 			dt.setMonth(this.value);
 			skipDay = true;
 			self.date(dt);
@@ -262,7 +261,7 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 			e.stopPropagation();
 
 			var arr = this.getAttribute('data-date').split('-');
-			var dt = new Date(parseInt(arr[0]), parseInt(arr[1]), 1);
+			var dt = new Date(parseInt(arr[0]), parseInt(arr[1]), 1, 12, 0);
 			switch (this.name) {
 				case 'prev':
 					dt.setMonth(dt.getMonth() - 1);
@@ -318,7 +317,7 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 		}
 
 		if (!value)
-			value = NOW = DATETIME = new Date();
+			value = NOW = new Date();
 
 		var output = self.calculate(value.getFullYear(), value.getMonth(), value);
 		var builder = [];
