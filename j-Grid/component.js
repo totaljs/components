@@ -419,19 +419,19 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 		var index = val.indexOf('.');
 		if (index === -1) {
 			if ((/[a-z]+/).test(val)) {
-				var dt = DATETIME.add(val);
-				return dt > DATETIME ? [DATETIME, dt] : [dt, DATETIME];
+				var dt = NOW.add(val);
+				return dt > NOW ? [NOW, dt] : [dt, NOW];
 			}
 			if (val.length === 4)
 				return [new Date(+val, 0, 1), new Date(+val + 1, 0	, 1)];
 		} else if (val.indexOf('.', index + 1) === -1) {
 			var a = val.split('.');
-			return new Date(DATETIME.getFullYear(), +a[1] - 1, +a[0]);
+			return new Date(NOW.getFullYear(), +a[1] - 1, +a[0]);
 		}
 		index = val.indexOf('-');
 		if (index !== -1 && val.indexOf('-', index + 1) === -1) {
 			var a = val.split('-');
-			return new Date(DATETIME.getFullYear(), +a[0] - 1, +a[1]);
+			return new Date(NOW.getFullYear(), +a[0] - 1, +a[1]);
 		}
 		return val.parseDate();
 	};

@@ -35,7 +35,7 @@ FIND('calendar').toggle(ELEMENT, PATH, function(date) {
 // for example: "dd-MM-yyy"
 SETTER(true, 'calendar', 'parser', function(path, value, type) {
     var arr = value.split('-');
-    var dt = new Date((arr[2] || '').parseInt(DATETIME.getFullYear()), ((arr[1] || '').parseInt(DATETIME.getMonth() + 1) - 1), (arr[0] || '').parseInt(DATETIME.getDate()));
+    var dt = new Date((arr[2] || '').parseInt(NOW.getFullYear()), ((arr[1] || '').parseInt(NOW.getMonth() + 1) - 1), (arr[0] || '').parseInt(NOW.getDate()));
     return dt;
 });
 ```

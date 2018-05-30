@@ -302,7 +302,7 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 
 		if (!value || isNaN(value.getTime())) {
 			self.find('.' + clssel).rclass(clssel);
-			value = DATETIME;
+			value = NOW;
 		}
 
 		var empty = !value;
@@ -318,7 +318,7 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 		}
 
 		if (!value)
-			value = DATETIME = new Date();
+			value = NOW = DATETIME = new Date();
 
 		var output = self.calculate(value.getFullYear(), value.getMonth(), value);
 		var builder = [];
