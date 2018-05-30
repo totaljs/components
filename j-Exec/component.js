@@ -19,16 +19,10 @@ COMPONENT('exec', function(self, config) {
 
 			if (path) {
 				var val = el.attrd('value');
-				if (val == null) {
-					var a = new Function('return ' + el.attrd('value-a'))();
-					var b = new Function('return ' + el.attrd('value-b'))();
+				if (val) {
 					var v = GET(path);
-					if (v === a)
-						SET(path, b, true);
-					else
-						SET(path, a, true);
-				} else
-					SET(path, new Function('return ' + val)(), true);
+					SET(path, new Function('value', 'return ' + val)(v), true);
+				}
 			}
 		});
 	};
