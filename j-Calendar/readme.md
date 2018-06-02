@@ -26,6 +26,10 @@ var X_OFFSET = 100;
 FIND('calendar').toggle(ELEMENT, PATH, function(date) {
    console.log('SELECTED DATE:', date);
 }, X_OFFSET);
+
+// OR
+
+FIND('calendar').toggle(ELEMENT, 'path.to.date OR date object', 'path.to.binding.date');
 ```
 
 ## Date parsing from String

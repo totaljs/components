@@ -160,16 +160,12 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 	};
 
 	self.toggle = function(el, value, callback, offset) {
-
 		if (self.older === el.get(0)) {
-			if (!self.hclass('hidden')) {
-				self.hide();
-				return;
-			}
+			!self.hclass('hidden') && self.hide();
+		} else {
+			self.older = el.get(0);
+			self.show(el, value, callback, offset);
 		}
-
-		self.older = el.get(0);
-		self.show(el, value, callback, offset);
 		return self;
 	};
 
@@ -213,9 +209,10 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 			var dt = new Date();
 			self.hide();
 			if (self.click) {
-				if (typeof(self.click) === 'string')
+				if (typeof(self.click) === 'string') {
 					SET(self.click, dt);
-				else
+					CHANGE(self.click, true);
+				} else
 					self.click(dt);
 			}
 		});
@@ -228,9 +225,10 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 			skip = !el.hclass('ui-calendar-disabled');
 			self.hide();
 			if (self.click) {
-				if (typeof(self.click) === 'string')
+				if (typeof(self.click) === 'string') {
 					SET(self.click, dt);
-				else
+					CHANGE(self.click, true);
+				} else
 					self.click(dt);
 			}
 		});
