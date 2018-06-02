@@ -212,7 +212,12 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 		self.event('click', '.ui-calendar-today-a', function() {
 			var dt = new Date();
 			self.hide();
-			self.click && self.click(dt);
+			if (self.click) {
+				if (typeof(self.click) === 'string')
+					SET(self.click, dt);
+				else
+					self.click(dt);
+			}
 		});
 
 		self.event('click', '.ui-calendar-day', function() {
@@ -222,7 +227,12 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 			var el = $(this).aclass('ui-calendar-selected');
 			skip = !el.hclass('ui-calendar-disabled');
 			self.hide();
-			self.click && self.click(dt);
+			if (self.click) {
+				if (typeof(self.click) === 'string')
+					SET(self.click, dt);
+				else
+					self.click(dt);
+			}
 		});
 
 		self.event('click', '.ui-calendar-header', function(e) {
