@@ -153,9 +153,12 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 	};
 
 	self.hide = function() {
-		self.aclass('hidden');
-		self.rclass('ui-calendar-visible');
-		visible = false;
+		if (visible) {
+			self.older = null;
+			self.aclass('hidden');
+			self.rclass('ui-calendar-visible');
+			visible = false;
+		}
 		return self;
 	};
 
@@ -180,8 +183,16 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 
 		var off = el.offset();
 		var h = el.innerHeight();
+		var l = off.left + (offset || 0);
+		var t = off.top + h + 12;
+		var s = 250;
 
-		self.css({ left: off.left + (offset || 0), top: off.top + h + 12 });
+		if (l + s > WW) {
+			var w = el.innerWidth();
+			l = (l + w) - s;
+		}
+
+		self.css({ left: l, top: t });
 		self.rclass('hidden');
 		self.click = callback;
 		self.date(value);

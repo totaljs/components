@@ -16,6 +16,7 @@ Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:dat
 The component is need to call manually or works with `textbox` component automatically. The calendar component is a singleton and the browser works with the one instance only. Other instantes are not compiled and won't be used.
 
 - works __only__ with Bootstrap Grid System (otherwise is need to fix CSS)
+- __important__ add the calendar component under `<body>` element
 
 ## Usage
 
