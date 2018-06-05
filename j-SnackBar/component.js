@@ -15,6 +15,7 @@ COMPONENT('snackbar', 'timeout:3000;button:Dismiss', function(self, config) {
 	};
 
 	self.hide = function() {
+		clearTimeout2(self.ID);
 		self.rclass('ui-snackbar-visible');
 		setTimeout(function() {
 			self.aclass('hidden');
@@ -49,6 +50,7 @@ COMPONENT('snackbar', 'timeout:3000;button:Dismiss', function(self, config) {
 			}, 50);
 		}
 
+		clearTimeout2(self.ID);
 		setTimeout2(self.ID, self.hide, config.timeout + 50);
 		show = false;
 	};
