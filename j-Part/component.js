@@ -1,20 +1,30 @@
 COMPONENT('part', 'hide:true', function(self, config) {
 
 	var init = false;
+	var clid = null;
 
 	self.readonly();
 	self.setter = function(value) {
 
 		if (config.if !== value) {
 			config.hide && self.aclass('hidden');
+			if (config.cleaner && init && !clid)
+				clid = setTimeout(self.clean, config.cleaner * 1000);
 			return;
 		}
 
 		config.hide && self.rclass('hidden');
 
-		if (self.element.get(0).hasChildNodes()) {
+		if (self.element[0].hasChildNodes()) {
+
+			if (clid) {
+				clearTimeout(clid);
+				clid = null;
+			}
+
 			config.reload && EXEC(config.reload);
 			config.default && DEFAULT(config.default, true);
+
 		} else {
 			SETTER('loading', 'show');
 			setTimeout(function() {
@@ -28,6 +38,16 @@ COMPONENT('part', 'hide:true', function(self, config) {
 					SETTER('loading', 'hide', 500);
 				});
 			}, 200);
+		}
+	};
+
+	self.clean = function() {
+		if (self.hclass('hidden')) {
+			config.clean && EXEC(config.clean);
+			self.element.empty();
+			init = false;
+			clid = null;
+			setTimeout(FREE, 1000);
 		}
 	};
 });

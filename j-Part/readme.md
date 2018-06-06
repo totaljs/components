@@ -8,7 +8,9 @@ Example: `data-jc-config="url:/home.html;if:home`
 
 - `url` {String} (required) a relative URL address
 - `if` {String} (required) condition, it's compared with the value within of `data-jc-path`
-- `reload` {String} (optional) a link to function in the `window` scope
-- `init` {String} (optional) a link to function in the `window` scope
-- `default` {String} (optional) a short alias for `DEFAULT(default, true)`
+- `reload` {String} (optional) a link to function
+- `init` {String} (optional) a link to function
+- `default` {String} (optional) a short alias for `DEFAULT(default)`
 - `hide` {Boolean} (optional) auto-hide element if the `if` condition is not valid (default: `true`)
+- `cleaner` {Number} (optional) idle time (in minutes) for running of cleaning (default: `0`)
+- `clean` {String} (optional) a link to function
