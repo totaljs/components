@@ -24,6 +24,7 @@ Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:dat
 - `error` {String} (optional) adds a `string` text under the input
 - `icon2click` {String} (optional) needs to contain a link to a function
 - `autocomplete` {String} (optional) needs to contain a link to a function, is triggered on `focus` event
+- `spaces` {Boolean} (optional) enables spaces otherwise it removes them (default: `true`)
 
 __Interesting:__
 

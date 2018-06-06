@@ -229,6 +229,10 @@ COMPONENT('textbox', function(self, config) {
 		return config.type === 'date' ? (value ? value.format(config.format || 'yyyy-MM-dd') : value) : value;
 	});
 
+	self.parser(function(path, value) {
+		return value ? config.spaces === false ? value.replace(/\s/g, '') : value : value;
+	});
+
 	self.state = function(type) {
 		if (!type)
 			return;
