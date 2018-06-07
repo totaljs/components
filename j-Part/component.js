@@ -9,7 +9,7 @@ COMPONENT('part', 'hide:true', function(self, config) {
 		if (config.if !== value) {
 			config.hide && self.aclass('hidden');
 			if (config.cleaner && init && !clid)
-				clid = setTimeout(self.clean, config.cleaner * 1000);
+				clid = setTimeout(self.clean, config.cleaner * 60000);
 			return;
 		}
 
