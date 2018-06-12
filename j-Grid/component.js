@@ -16,10 +16,10 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 		self.html('<div class="ui-grid"><table class="ui-grid-header"><thead></thead></table><div class="ui-grid-scroller"><table class="ui-grid-data"><thead></thead><tbody></tbody></table></div></div>' + (config.pagination ? '<div class="ui-grid-footer hidden"><div class="ui-grid-meta"></div><div class="ui-grid-pagination"><button class="ui-grid-button" name="first"><i class="fa fa-angle-double-left"></i></button><button class="ui-grid-button" name="prev"><i class="fa fa-angle-left"></i></button><div class="page"><input type="text" maxlength="5" class="ui-grid-input" /></div><button class="ui-grid-button" name="next"><i class="fa fa-angle-right"></i></button><button class="ui-grid-button" name="last"><i class="fa fa-angle-double-right"></i></button></div><div class="ui-grid-pages"></div></div></div>' : ''));
 
 		var body = self.find('.ui-grid-data');
-		tbody = $(body.find('tbody').get(0));
-		tbodyhead = $(body.find('thead').get(0));
-		thead = $(self.find('.ui-grid-header').find('thead').get(0));
-		container = $(self.find('.ui-grid-scroller').get(0));
+		tbody = $(body.find('tbody')[0]);
+		tbodyhead = $(body.find('thead')[0]);
+		thead = $(self.find('.ui-grid-header').find('thead')[0]);
+		container = $(self.find('.ui-grid-scroller')[0]);
 
 		if (config.pagination) {
 			var el = self.find('.ui-grid-footer');

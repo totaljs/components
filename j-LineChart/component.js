@@ -89,7 +89,7 @@ COMPONENT('linechart', 'type:normal;pl:10;pr:10;pt:10;pb:25;prselected:0;limit:0
 
 	self.setter = function(value) {
 
-		if (!self.element.get(0).offsetParent) {
+		if (!self.element[0].offsetParent) {
 			setTimeout(function() {
 				self.refresh();
 			}, 1000);

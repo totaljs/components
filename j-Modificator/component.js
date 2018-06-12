@@ -117,7 +117,7 @@ COMPONENT('modificator', function(self) {
 			if (path.indexOf('?') !== -1) {
 				var scope = el.closest('[data-jc-scope]');
 				if (scope) {
-					var data = scope.get(0).$scopedata;
+					var data = scope[0].$scopedata;
 					if (data == null)
 						return;
 					path = path.replace(/\?/g, data.path);

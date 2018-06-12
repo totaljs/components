@@ -9,7 +9,7 @@ COMPONENT('lazyload', 'offset:50', function(self, config) {
 		if (key === 'container') {
 			container.off('scroll', self.refresh);
 			container = $(value);
-			is = container.get(0) === window;
+			is = container[0] === window;
 			container.on('scroll', self.refresh);
 		}
 	};

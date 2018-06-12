@@ -59,7 +59,7 @@ COMPONENT('codemirror', 'linenumbers:false;required:false;trim:false;tabs:false'
 			options.matchBrackets = true;
 		}
 
-		editor = CodeMirror(container.get(0), options);
+		editor = CodeMirror(container[0], options);
 		self.editor = editor;
 
 		if (config.height !== 'auto') {

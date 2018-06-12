@@ -163,10 +163,10 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 	};
 
 	self.toggle = function(el, value, callback, offset) {
-		if (self.older === el.get(0)) {
+		if (self.older === el[0]) {
 			!self.hclass('hidden') && self.hide();
 		} else {
-			self.older = el.get(0);
+			self.older = el[0];
 			self.show(el, value, callback, offset);
 		}
 		return self;

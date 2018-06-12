@@ -12,7 +12,7 @@ COMPONENT('recaptcha', function(self, config) {
 		}, function(err, again) {
 			if (err)
 				return again(100);
-			grecaptcha.render(self.element.get(0), { sitekey: config.key, theme: config.theme || 'light', callback: function(response) {
+			grecaptcha.render(self.element[0], { sitekey: config.key, theme: config.theme || 'light', callback: function(response) {
 				self.set(response);
 				self.change(true);
 			}});

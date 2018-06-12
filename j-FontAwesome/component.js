@@ -13,8 +13,8 @@ COMPONENT('fontawesome', function(self, config) {
 	self.make = function() {
 		self.aclass('ui-fontawesome hidden');
 		self.append('<div class="ui-fontawesome-search"><span><i class="fa fa-search clearsearch"></i></span><div><input type="text" maxlength="50" placeholder="{0}" /></div></div><div></div><ul class="ui-fontawesome-recentlist hidden"></ul><div class="ui-fontawesome-icons"><ul></ul></div>'.format(config.search));
-		container = $(self.find('.ui-fontawesome-icons').find('ul').get(0));
-		recent = $(self.find('.ui-fontawesome-recentlist').get(0));
+		container = $(self.find('.ui-fontawesome-icons').find('ul')[0]);
+		recent = $(self.find('.ui-fontawesome-recentlist')[0]);
 		input = self.find('input');
 		icon = self.find('.ui-fontawesome-search').find('.fa');
 

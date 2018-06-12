@@ -79,7 +79,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 		self.aclass('ui-crop');
 		self.append('<input type="file" style="display:none" accept="image/*" /><ul><li data-type="upload"><span class="fa fa-folder"></span></li><li data-type="plus"><span class="fa fa-plus"></span></li><li data-type="refresh"><span class="fa fa-refresh"></span></li><li data-type="minus"><span class="fa fa-minus"></span></li></ul><canvas></canvas>');
 
-		canvas = self.find('canvas').get(0);
+		canvas = self.find('canvas')[0];
 		context = canvas.getContext('2d');
 
 		self.event('click', 'li', function(e) {

@@ -9,9 +9,9 @@ COMPONENT('clipboardimage', 'quality:90;maxwidth:1024;maxheight:768', function(s
 	self.make = function() {
 		self.aclass('hidden');
 		self.append('<canvas></canvas><img src="data:image/png;base64,R0lGODdhAQABAIAAAHnrWAAAACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw==" />');
-		canvas = self.find('canvas').get(0);
+		canvas = self.find('canvas')[0];
 		ctx = canvas.getContext('2d');
-		img = self.find('img').get(0);
+		img = self.find('img')[0];
 
 		$(window).on('paste', function(e) {
 

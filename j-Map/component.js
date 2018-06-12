@@ -25,7 +25,7 @@ COMPONENT('map', function(self, config) {
 			options.streetViewControl = false;
 			options.mapTypeId = config.type || 'roadmap';
 
-			self.map = new google.maps.Map(self.element.get(0), options);
+			self.map = new google.maps.Map(self.element[0], options);
 			self.geo = new google.maps.Geocoder();
 
 			options = { position: self.map.getCenter(), map: self.map };

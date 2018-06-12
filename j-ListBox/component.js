@@ -115,7 +115,7 @@ COMPONENT('listbox', function(self, config) {
 				first = el;
 		});
 		self.find('.ui-listbox-search-icon').tclass('fa-search', search.length === 0).tclass('fa-times', search.length > 0);
-		!skip && first && first.get(0).scrollIntoView(true);
+		!skip && first && first[0].scrollIntoView(true);
 		skip = false;
 	};
 

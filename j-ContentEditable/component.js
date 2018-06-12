@@ -70,7 +70,7 @@ COMPONENT('contenteditable', function(self) {
 			clearTimeout(timers.keypress);
 			timers.keypress = setTimeout(function() {
 				var node = self.getNode();
-				if (node === self.element.get(0))
+				if (node === self.element[0])
 					node = undefined;
 				if (current.node === node)
 					return;

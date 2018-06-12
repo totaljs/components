@@ -66,7 +66,7 @@ COMPONENT('barchart', 'pl:20;pt:10;pb:25;prselected:0;axisX:true;axisY:true;padd
 
 	self.setter = function(value) {
 
-		if (!self.element.get(0).offsetParent) {
+		if (!self.element[0].offsetParent) {
 			setTimeout(function() {
 				self.refresh();
 			}, 1000);

@@ -15,14 +15,14 @@ COMPONENT('clock', 'twelvehour:false', function(self, config) {
 
 	self.toggle = function(el, value, callback, offset) {
 
-		if (self.older === el.get(0)) {
+		if (self.older === el[0]) {
 			if (!self.hclass('hidden')) {
 				self.hide();
 				return;
 			}
 		}
 
-		self.older = el.get(0);
+		self.older = el[0];
 		self.activeMinutes = false;
 		self.show(el, value, callback, offset);
 		return self;

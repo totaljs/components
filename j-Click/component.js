@@ -15,7 +15,7 @@ COMPONENT('click', function(self, config) {
 		self.event('click', self.click);
 		config.enter && $(config.enter === '?' ? self.scope : config.enter).on('keydown', 'input', function(e) {
 			e.which === 13 && setTimeout(function() {
-				!self.element.get(0).disabled && self.click();
+				!self.element[0].disabled && self.click();
 			}, 100);
 		});
 	};

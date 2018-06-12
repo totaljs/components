@@ -12,7 +12,7 @@ COMPONENT('tooltip', function(self) {
 	self.make = function() {
 		self.aclass('ui-tooltip hidden');
 		self.html('<div></div>');
-		container = $(self.find('div').get(0));
+		container = $(self.find('div')[0]);
 	};
 
 	self.hide = function() {

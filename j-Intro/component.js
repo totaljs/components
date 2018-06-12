@@ -24,7 +24,7 @@ COMPONENT('intro', function(self, config) {
 		container = $('#' + container);
 		content.rclass('hidden');
 		var body = container.find('.ui-intro-body');
-		body.get(0).appendChild(self.element.get(0));
+		body[0].appendChild(self.element[0]);
 		self.replace(container);
 		content.aclass('ui-intro-figures');
 		figures = content.find('figure');

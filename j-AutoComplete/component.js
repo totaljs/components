@@ -158,7 +158,7 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 		else
 			input = $(input);
 
-		if (input.get(0).tagName !== 'INPUT') {
+		if (input[0].tagName !== 'INPUT') {
 			input = input.find('input');
 		}
 

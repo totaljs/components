@@ -8,7 +8,7 @@ COMPONENT('avatar', function(self) {
 
 	window.avatarerror = function(image) {
 		var img = $(image);
-		var el = img.parent().get(0);
+		var el = img.parent()[0];
 		el.$avatar = false;
 		el.$avatarerror = true;
 		el = $(el);
@@ -31,7 +31,7 @@ COMPONENT('avatar', function(self) {
 			return false;
 
 		var url = el.attrd('a-url') || el.attrd('avatar-url');
-		var dom = el.get(0);
+		var dom = el[0];
 		var name = dom.$avatarerror ? el.attr('title') : el.text();
 
 		dom.$avatar = true;

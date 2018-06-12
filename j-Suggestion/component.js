@@ -74,7 +74,7 @@ COMPONENT('suggestion', function(self, config) {
 
 		if (is) {
 			clearTimeout(timeout);
-			var obj = target instanceof jQuery ? target.get(0) : target;
+			var obj = target instanceof jQuery ? target[0] : target;
 			if (self.target === obj) {
 				self.hide(0);
 				return;
@@ -118,7 +118,7 @@ COMPONENT('suggestion', function(self, config) {
 			builder.push(self.template(item, indexer));
 		}
 
-		self.target = target.get(0);
+		self.target = target[0];
 		var offset = target.offset();
 
 		container.html(builder);

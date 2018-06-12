@@ -24,7 +24,7 @@ COMPONENT('info', function(self) {
 
 		if (is) {
 			clearTimeout(timeout);
-			var obj = target instanceof jQuery ? target.get(0) : target;
+			var obj = target instanceof jQuery ? target[0] : target;
 			if (self.target === obj)
 				return self.hide(0);
 		}
