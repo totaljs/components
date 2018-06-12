@@ -1,6 +1,6 @@
 ## j-Exec
 
-The component has a similar functionality like `j-Click` but it can handle multiple clicks / elements.
+The component has a similar functionality like `j-Click` but it can handle multiple clicks / elements. __RECOMMENDATION__: add this component into the `<body>` element.
 
 __Configuration__:
 - `selector` is a selector for capturing `click` (default: `.exec`)

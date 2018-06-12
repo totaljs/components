@@ -1,7 +1,10 @@
-<div data-jc="empty" data-jc-path="datasource" class="hidden">The datasource is empty.</div>
+<div data-jc="empty__datasource" class="hidden">The datasource is empty.</div>
 
 <script>
+
+	var datasource = true;
+
 	setInterval(function() {
-		SET('datasource', window.datasource ? null : [1]);
+		TOGGLE('datasource');
 	}, 5000);
 </script>

@@ -1,6 +1,5 @@
-COMPONENT('banners', function(self) {
+COMPONENT('banners', 'class:ui-banners-hidden;interval:3000', function(self, config) {
 
-	var cls = self.attrd('class-hidden');
 	var divs, nav, interval, indexer = 0;
 
 	self.readonly();
@@ -11,21 +10,19 @@ COMPONENT('banners', function(self) {
 
 		interval = setInterval(function() {
 			self.show();
-		}, +(self.attrd('interval') || '3000'));
+		}, config.interval);
 
 		divs = self.find('div > div');
-		divs.aclass(cls);
-		divs.eq(0).rclass(cls);
+		divs.aclass(config.class);
+		divs.eq(0).rclass(config.class);
 
 		var builder = [];
 		for (var i = 0, length = divs.length; i < length; i++)
 			builder.push('<li><i class="fa fa-circle-o"></i></li>');
 
-		self.append('<img src="{0}" class="img-responsive" alt="" /><ul>{1}</ul>'.format(self.attrd('empty'), builder.join('')));
+		self.append('<img src="{0}" class="img-responsive" alt="" /><ul>{1}</ul>'.format(config.empty, builder.join('')));
 		nav = self.find('li');
-
 		self.button(indexer);
-
 		self.event('click', '.fa', function() {
 			self.show($(this).parent().index());
 		});
@@ -41,8 +38,8 @@ COMPONENT('banners', function(self) {
 			index = indexer;
 		}
 
-		divs.filter(':visible').aclass(cls);
-		divs.eq(index).rclass(cls);
+		divs.filter(':visible').aclass(config.class);
+		divs.eq(index).rclass(config.class);
 		self.button(index);
 	};
 

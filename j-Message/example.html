@@ -1,8 +1,8 @@
-<div data-jc="message" data-jc-config="button:Close this message"></div>
+<div data-jc="message__null__button:Close this message"></div>
 
 <script>
 	setTimeout(function() {
-		FIND('message').success('Success message');
+		SETTER('message', 'success', 'Success message');
+		// SETTER('message', 'warning', 'Warning message');
 	}, 2000);
-	// FIND('message').warning('Warning message');
 </script>
