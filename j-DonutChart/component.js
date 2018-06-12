@@ -70,7 +70,11 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:true;pres
 
 		indexer++;
 
-		if (!self.get()[indexer])
+		var tmp = self.get();
+		if (!tmp)
+			return;
+
+		if (!tmp[indexer])
 			indexer = 0;
 
 		self.select(indexer);
