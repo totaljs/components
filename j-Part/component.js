@@ -7,6 +7,7 @@ COMPONENT('part', 'hide:true', function(self, config) {
 	self.setter = function(value) {
 
 		if (config.if !== value) {
+			config.hidden && !self.hclass('hidden') && EXEC(config.hidden);
 			config.hide && self.aclass('hidden');
 			if (config.cleaner && init && !clid)
 				clid = setTimeout(self.clean, config.cleaner * 60000);
@@ -44,10 +45,12 @@ COMPONENT('part', 'hide:true', function(self, config) {
 	self.clean = function() {
 		if (self.hclass('hidden')) {
 			config.clean && EXEC(config.clean);
-			self.element.empty();
-			init = false;
-			clid = null;
-			setTimeout(FREE, 1000);
+			setTimeout(function() {
+				self.element.empty();
+				init = false;
+				clid = null;
+				setTimeout(FREE, 1000);
+			}, 1000);
 		}
 	};
 });
