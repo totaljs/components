@@ -1,6 +1,6 @@
 COMPONENT('listing', 'pages:3;count:20', function(self, config) {
 
-	var container, paginate, current, pages = 0;
+	var container, paginate, current, items, pages = 0;
 	var layout;
 
 	self.readonly();
@@ -43,7 +43,6 @@ COMPONENT('listing', 'pages:3;count:20', function(self, config) {
 	self.page = function(index) {
 
 		var builder = [];
-		var items = self.get();
 		var arr = items.takeskip(config.count, (index - 1) * config.count);
 		var g = { count: items.length, page: index, pages: pages };
 
@@ -120,12 +119,13 @@ COMPONENT('listing', 'pages:3;count:20', function(self, config) {
 	};
 
 	self.setter = function(value) {
-		if (value)
+		if (value) {
+			items = value;
 			self.page(1);
-		else {
+		} else {
+			items = null;
 			container.empty();
 			paginate.empty();
 		}
 	};
-
 });
