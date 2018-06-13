@@ -7,6 +7,8 @@ __Configuration__:
 - `if` {String} needs to contain a value
 - `url` {String} relative/absolute URL to a subpage or subpart
 - `reload` {String} a link to method in the global scope, it's executed if the __condition__ is valid
+- `cleaner` {Number} (optional) idle time (in minutes) for running of cleaning (default: `0`)
+- `clean` {String} (optional) a link to function, it's executed before the importer is cleaned
 
 ### Author
 
