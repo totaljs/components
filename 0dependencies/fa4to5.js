@@ -287,7 +287,7 @@ youtube-square	youtube	fab`;
 diff.split('\n').forEach(function(line) {
 	line = line.split('\t');
 	css = css.replace('}.fa-' + line[1] + ':before{', function(text) {
-		return '}.fa-' + line[0] + ':before,' + text;
+		return '}.fa-' + line[0] + ':before,' + text.substring(1);
 	});
 });
 Fs.writeFileSync('spa.min@15.css', css, 'utf8');
