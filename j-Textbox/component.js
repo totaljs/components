@@ -104,6 +104,7 @@ COMPONENT('textbox', function(self, config) {
 		config.keypress != null && attrs.attr('data-jc-keypress', config.keypress);
 		config.delay && attrs.attr('data-jc-keypress-delay', config.delay);
 		config.disabled && attrs.attr('disabled');
+		config.readonly && attrs.attr('readonly');
 		config.error && attrs.attr('error');
 		attrs.attr('data-jc-bind', '');
 
@@ -163,6 +164,9 @@ COMPONENT('textbox', function(self, config) {
 		var redraw = false;
 
 		switch (key) {
+			case 'readonly':
+				self.find('input').prop('readonly', value);
+				break;
 			case 'disabled':
 				self.tclass('ui-disabled', value);
 				self.find('input').prop('disabled', value);

@@ -14,6 +14,7 @@ Example: `data-jc-config="required:true;icon:pencile"`
 - `height` {Number} (optional) a maximum height for the input
 - `error` {String} (optional) adds a `error` text under the input
 - `monospace` {Boolean} (optional) sets `monospace` font for the input (default: `false`)
+- `readonly` {Boolean} optional, default `false`
 
 ### Author
 

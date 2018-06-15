@@ -19,9 +19,12 @@ COMPONENT('textarea', function(self, config) {
 		var redraw = false;
 
 		switch (key) {
+			case 'readonly':
+				self.find('textarea').prop('readonly', value);
+				break;
 			case 'disabled':
 				self.tclass('ui-disabled', value);
-				self.find('input').prop('disabled', value);
+				self.find('textarea').prop('disabled', value);
 				break;
 			case 'required':
 				self.noValid(!value);
@@ -73,6 +76,7 @@ COMPONENT('textarea', function(self, config) {
 		config.height && attrs.attr('style', 'height:{0}px'.format(config.height));
 		config.autofocus === 'true' && attrs.attr('autofocus');
 		config.disabled && attrs.attr('disabled');
+		config.readonly && attrs.attr('readonly');
 		builder.push('<textarea {0}></textarea>'.format(attrs.join(' ')));
 
 		var label = config.label || content;
