@@ -1,0 +1,20 @@
+<style>
+	.selected { font-weight: bold; }
+	nav a { display: block; }
+</style>
+
+<nav data-jc="selected__common.page">
+	<a href="#users" data-if="users">Users</a>
+	<a href="#products" data-if="products">Products</a>
+	<a href="#settings" data-if="settings">Settings</a>
+</nav>
+
+<script>
+
+	SET('common.page', 'products');
+
+	window.onhashchange = function() {
+		SET('common.page', location.hash.substring(1));
+	};
+
+</script>

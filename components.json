@@ -140,5 +140,6 @@
 	"j-Window",
 	"j-Panel",
 	"j-LineChart",
-	"j-MarkdownPreview"
+	"j-MarkdownPreview",
+	"j-Selected"
 ]
