@@ -39,7 +39,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 		self.event('click', '.ui-grid-columnsort', function() {
 			var obj = {};
 			obj.columns = options.columns;
-			obj.column = options.columns[+$(this).attr('data-index')];
+			obj.column = options.columns[+$(this).attrd('index')];
 			self.sort(obj);
 		});
 
@@ -55,7 +55,11 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 		});
 
 		self.event('change', 'input', function() {
-			this.type === 'checkbox' && config.checked && EXEC(config.checked, this, self);
+			var el = this;
+			if (el.type === 'checkbox') {
+				el && !el.value && self.checked(el.checked);
+				config.checked && EXEC(config.checked, el, self);
+			}
 		});
 
 		self.event('click', '.ui-grid-button', function() {
@@ -98,8 +102,10 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 			config.button && EXEC(config.button, btn, options.items[+tr.attrd('index')], self);
 		});
 
-		tbody.on('click', '.ui-grid-row', function() {
-			config.click && EXEC(config.click, options.items[+$(this).attrd('index')], self);
+		var ALLOWED = { INPUT: 1, SELECT: 1 };
+
+		tbody.on('click', '.ui-grid-row', function(e) {
+			!ALLOWED[e.target.nodeName] && config.click && EXEC(config.click, options.items[+$(this).attrd('index')], self);
 		});
 
 		self.on('resize', self.resize);
@@ -137,8 +143,8 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 		for (var i = 0; i < options.columns.length; i++) {
 			var column = options.columns[i];
 
-			if (typeof(column.header) === 'string' && column.header.indexOf('{{') !== -1)
-				column.header = Tangular.compile(column.header);
+			if (typeof(column.header) === 'string')
+				column.header = column.header.indexOf('{{') === -1 ? new Function('return \'' + column.header + '\'') : Tangular.compile(column.header);
 
 			if (typeof(column.template) === 'string')
 				column.template = column.template.indexOf('{{') === -1 ? new Function('a', 'b', 'return \'' + column.template + '\'') : Tangular.compile(column.template);
