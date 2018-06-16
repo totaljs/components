@@ -29,7 +29,7 @@ __Configuration__:
 - `pagination` {Boolean} shows pagination panel (optional, default: `false`)
 - `init` {Function} an init function for e.g. custom columns
 - `checked` {Function} if rows will contain `<input type="checkbox` then this function will be evaluated when the checkbox is checked
--
+
 __Column properties__:
 
 - `name` {String} a name of field in the object
@@ -46,6 +46,7 @@ __Column properties__:
 - `header` {String/Function(column)} a custom rendering of header, `string` is evaluated as an arrow function
 - `sort` {Boolean} enables sorting (optional, default: `true`)
 - `class` {String} additional classes for the column, e.g. `hidden-xs`
+- `search` {Boolean/String} `true` will filter a value according to the `template` result or `String` can be a Tangular template which will be used as a value for search
 
 __Filtering__:
 
