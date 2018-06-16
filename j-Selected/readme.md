@@ -1,6 +1,6 @@
 ## j-Selected
 
-The component can select toggle a specific class to specific element according to the condition.
+The component can set a specific class to a specific element according to the simple condition.
 
 __Configuration__:
 
