@@ -1,0 +1,16 @@
+{
+	"datecreated": "2018-06-18T22:25:00.000Z",
+	"dateupdated": "2018-06-18T22:25:00.000Z",
+	"name": "j-JSONTree",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "jsontree.png",
+	"dependencies": "",
+	"author": "Martin Smola",
+	"email": "smola.martin@gmail.com",
+	"license": "MIT"
+}
