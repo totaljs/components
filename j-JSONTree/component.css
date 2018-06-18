@@ -7,4 +7,4 @@
 .jsontree-tree .treeitem img { height: 25px; width: 25px; }
 .jsontree-textarea { height: 400px; }
 .jsontree-label { padding-bottom: 10px; }
-.jsontree-label > button { float:right; background: red; color: white; cursor: pointer; padding: 3px; }
+.jsontree-label > button { float:right; background: red; color: white; cursor: pointer; padding: 2px 5px; outline: 0; font-size: 11px; border: 0; border-radius: 3px; }
