@@ -141,5 +141,6 @@
 	"j-Panel",
 	"j-LineChart",
 	"j-MarkdownPreview",
-	"j-Selected"
+	"j-Selected",
+	"j-JSONTree"
 ]

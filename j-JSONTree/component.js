@@ -1,4 +1,4 @@
-COMPONENT('jsontree', function(self, config){
+COMPONENT('jsontree', function(self){
 
 	var item = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABoSURBVEiJ7dSxDYAwDETRO4vBsk22QBFTJNuExXKp6CgMKBKFf23rdUcAhLNaayG5Ayg558P7Z97DLwUSSCA/QbY3TyRTa809R48QM4MkSEoA0hJkjAGSINklnUuQK0k9VjiQQAK5bwLU3xq8lh5dEwAAAABJRU5ErkJggg==';
 	var itemlast = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABnSURBVEiJ7ZSxDYAwDAQvyHvBNhkjyhgeJ5swSAqaFKmCMQ1CPum7f11jOQEJI6pagALUnHO17jZr8Q0hCUlIPiIR5+5Q1WVhfjteyT6ywifpvTcRacA5YiLx4At7+c91hSQkIbnnAlzgEDui0adaAAAAAElFTkSuQmCC';
@@ -8,7 +8,7 @@ COMPONENT('jsontree', function(self, config){
 
 	self.onClick = NOOP;
 
-	self.configure = function(key, value, init, prev) {
+	self.configure = function(key, value) {
 		switch (key) {
 			case 'click':
 				self.onClick = window[value];
@@ -17,20 +17,20 @@ COMPONENT('jsontree', function(self, config){
 	};
 
 	self.make = function(){
-		var title = self.element.html();
+		var title = self.html();
 		self.empty();
 		self.aclass('jsontree');
-		self.element.append('<div class="jsontree-label"><i class="fa fa-code-fork fa-rotate-90"></i>&nbsp;{0}<button class="button button-small">Clear</button></div>'.format(title || 'JSON tree'));
-		self.element.append('<div class="jsontree-textarea"><div data-jc="textarea" data-jc-noscope="true" data-jc-path="{0}" data-jc-config="height:400"></div></div>'.format(self.path));
-		self.element.append('<div class="jsontree-tree hidden"></div>');
-		$textarea = self.element.find('.jsontree-textarea');
-		$tree = self.element.find('.jsontree-tree');
-		
+		self.append('<div class="jsontree-label"><i class="fa fa-code-fork fa-rotate-90"></i>&nbsp;{0}<button class="button button-small">Clear</button></div>'.format(title || 'JSON tree'));
+		self.append('<div class="jsontree-textarea"><div data-jc="textarea" data-jc-noscope="true" data-jc-path="{0}" data-jc-config="height:400"></div></div>'.format(self.path));
+		self.append('<div class="jsontree-tree hidden"></div>');
+		$textarea = self.find('.jsontree-textarea');
+		$tree = self.find('.jsontree-tree');
+
 		self.event('click', 'span', function(){
 			var path = $(this).parent().attrd('path');
 			self.onClick(path);
 		});
-		
+
 		self.event('click', 'button', function(){
 			self.set('');
 		});
@@ -61,7 +61,7 @@ COMPONENT('jsontree', function(self, config){
 		var keys = Object.keys(obj);
 		var kl = keys.length;
 		var sp = [].concat(spacers || []);
-		var isArr = obj instanceof Array; 		
+		var isArr = obj instanceof Array;
 		for (var i = 0; i < kl; i++) {
 			var isNum = !isNaN(keys[i]) && !isArr;
 			var p = path + (isArr || isNum ? '[{0}'.format(isNum ? '\'' : '') : path === '' ? path : '.') + keys[i] + (isArr || isNum ? '{0}]'.format(isNum ? '\'' : '') : '');
@@ -77,7 +77,7 @@ COMPONENT('jsontree', function(self, config){
 
 	self.treeitem = function(path, last, key, s) {
 		var img = s.length ? '<img src="{0}"/>'.format(last ? itemlast : item) : '';
-		return '<div class="treeitem">' + self.spacer(s) + '<div data-path="{0}" title="{0}">{1}<span>'.format(path, img) + key + '<span></div></div>\n'
+		return '<div class="treeitem">' + self.spacer(s) + '<div data-path="{0}" title="{0}">{1}<span>'.format(path, img) + key + '<span></div></div>\n';
 	};
 
 	self.spacer = function(s) {
