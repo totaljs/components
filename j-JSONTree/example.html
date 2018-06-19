@@ -1,5 +1,10 @@
 <div data-jc="jsontree__json__click:jsontree_click">Sample JSON data</div>
 <script>
+
+	setTimeout(function() {
+		SET('json', '{"datecreated":"2018-06-18T22:27:00.000Z","name":"j-JSONTree","color":"transparent","version":1,"responsive":true,"picture":"picture.png","dependencies":"","author":"Martin Smola","email":"smola.martin@gmail.com","license":"MIT"}');
+	}, 2000);
+
 	function jsontree_click(path) {
 		console.log('Path:', path);
 	};
