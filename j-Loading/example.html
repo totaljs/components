@@ -16,10 +16,9 @@
 	var is = false;
 	setInterval(function() {
 		is = !is;
-		var component = FIND('loading');
 		if (is)
-			component.show();
+			SETTER('loading', 'show');
 		else
-			component.hide(1000);
+			SETTER('loading', 'hide', 1000);
 	}, 5000);
 </script>
