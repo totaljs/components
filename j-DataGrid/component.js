@@ -207,7 +207,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 
 			r.h = el.css('height');
 			r.x = el.css('left').parseInt();
-			el.css('height', opt.height);
+			el.css('height', opt.height + config.bottom);
 			r.is = true;
 			e.preventDefault();
 			e.stopPropagation();
