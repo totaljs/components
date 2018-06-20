@@ -1,22 +1,58 @@
-.ui-datagrid { font-size: 12px; margin-bottom: 10px; }
-.ui-datagrid-headers { border-bottom: 2px solid #F0F0F0; padding: 5px 0; font-weight: bold; color: #303030; margin-bottom: 15px; }
-.ui-datagrid-headers .ui-datagrid-column { border-color: white !important; }
-.ui-datagrid-row { border-top: 1px solid #F0F0F0; }
-.ui-datagrid-row:first-child { border-top: 0; }
-.ui-datagrid-row:hover { background-color: #FFFDE5; }
-.ui-datagrid-column { padding: 5px 10px 4px; position: relative; display: inline-block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; vertical-align: middle; border-left: 1px solid #F0F0F0; line-height: 16px; }
-.ui-datagrid-column:first-child { border-left: 0; }
-.ui-datagrid-rows { min-height: 400px; overflow: auto; outline: 0; }
-.ui-datagrid input { margin-right: 7px; }
-.ui-datagrid label { cursor: pointer; }
-.ui-datagrid-controls a { font-size: 14px; color: silver; margin-left: 13px; vertical-align: middle; }
-.ui-datagrid-controls a:hover { color: #4CC1E9; }
-.ui-datagrid-controls a:first-child { margin-left: 0; }
-.ui-datagrid-controls button { background-color: transparent; font-size: 14px; border: 0; margin: 0 0 0 13px; color: silver; padding: 0; height: auto; vertical-align: middle; outline: 0; cursor: pointer; }
-.ui-datagrid-controls button:first-child { margin-left: 0; }
-.ui-datagrid-controls button:hover { color: #4CC1E9; }
-.ui-datagrid .badge { font-size: 9px; padding: 0 6px 1px; border-radius: 4px; background-color: #F0F0F0; line-height: 12px; vertical-align: middle; margin-top: -2px; position: relative; display: inline-block; }
-.ui-datagrid .badge-blue { background-color: #4CC1E9; color: white; }
-.ui-datagrid .badge-red { background-color: #DA4453; color: white; }
-.ui-datagrid .badge-green { background-color: #8CC152; color: white; }
-.ui-datagrid .badge-yellow { background-color: #EFDC05; color: white; }
+.dg { color: black; position: relative; }
+.dg-h-container { overflow: hidden; border: 1px solid #E0E0E0; }
+.dg-h-body { overflow: hidden; overflow-x: auto; overflow-scrolling: touch; -webkit-overflow-scrolling: touch; }
+.dg-header { position: relative; }
+.dg-hrow { height: 55px; border-bottom: 1px solid #E0E0E0; }
+.dg-hcol { float: left; border-left: 1px solid #E0E0E0; height: 55px; font-weight: bold; position: relative; }
+.dg-sort { float: right; font-size: 11px; width: 20px; text-align: center; padding: 9px 0 0 0; color: #4285F4; }
+.dg-sorting { cursor: pointer; }
+.dg-sorting .fa-sort { color: gray; }
+.dg-hcol:first-child { border-left: 0; }
+.dg-resize { position: absolute; width: 10px; cursor: col-resize; height: 30px; border-right: 1px solid #D0D0D0; z-index: 2; }
+.db-order { position: absolute; left: 0; height: 30px; width: 10px; cursor: pointer; }
+.dg-label { padding: 7px 5px 0; height: 30px; font-size: 12px; user-select: none; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+.dg-sorting .dg-label { margin-right: 24px; }
+.dg-filter { padding: 0 5px; border-top: 1px solid #E0E0E0; height: 24px; }
+.dg-filter input { width: 100%; outline: 0; font-size: 10px; background-color: transparent; border: 0; margin: 0; padding: 0; line-height: 12px; height: 25px; }
+.dg-filter.center input { text-align: center; }
+.dg-filter.right input { text-align: right; }
+.dg-filter-empty { border-top: 1px solid #E0E0E0; height: 24px; cursor: not-allowed !important; background: repeating-linear-gradient(45deg,#FFFFFF,#FFFFFF 10px,#F9F9F9 10px,#F9F9F9 20px); }
+.dg-filter-selected { background-color: #FBF0CA !important; }
+.dg-clickable .dg-row { cursor: pointer; }
+.dg-v-area { overflow: hidden; }
+.dg-v-container { overflow: hidden; }
+.dg-v-body { overflow-y: auto; overflow-scrolling: touch; -webkit-overflow-scrolling: touch; overflow-x: hidden; }
+.dg-body { outline: 0 !important; }
+.dg-row { height: 24px; font-size: 12px; border-bottom: 1px solid #E0E0E0; }
+.dg-row:hover { background-color: rgba(0,0,0,0.05); }
+.dg-row:nth-child(even) { background-color: #F8F8F8; }
+.dg-col { float: left; border-left: 1px solid #E0E0E0; height: 23px; overflow: hidden; min-width: 30px; }
+.dg-col:first-child { border-left: 0; }
+.dg-value { padding: 4px 5px 0; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.dg-number { padding: 4px 5px 0; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; font-size: 11px; text-align: right; background-color: #F8F8F8; height: 24px; color: #A0A0A0; }
+.dg-checkbox { text-align: center; padding: 3px 0 0; }
+.dg-col--1 { width: 40px; }
+.dg .clusterize-no-data { padding: 10px 20px; }
+.dg-row-empty { height: 24px; font-size: 12px; border-bottom: 1px solid #F0F0F0; background-color: white !important; cursor: default; }
+.dg-footer { border: 1px solid #E0E0E0; border-top: 0; height: 32px; }
+.dg-pagination { float: left; }
+.dg-pagination button { background-color: #FFF; border: 0; border-left: 1px solid #E0E0E0; height: 31px; width: 30px; color: black; font-size: 12px; text-align: center; outline: 0; }
+.dg-pagination button:hover { background-color: #F0F0F0; }
+.dg-pagination button:disabled { background-color: #F9F9F9; color: #A0A0A0; }
+.dg-pagination button:first-child { border-left: 0; }
+.dg-pagination button[name="page-prev"] { border-right: 1px solid #E0E0E0; }
+.dg-pagination button[name="page-last"] { border-right: 1px solid #E0E0E0; }
+.dg-pagination input { width: 40px; text-align: center; border: 0; outline: 0; font-size: 12px; padding: 0; margin: 0; }
+.dg-pagination > div { position: relative; display: inline-block; }
+.dg-pagination-items { float: right; font-size: 12px; margin: 7px 10px 0 0; font-weight: bold; }
+.dg-pagination-pages { float: left; font-size: 12px; margin: 7px 0 0 10px; }
+.dg-scrollbar-container-v { position: absolute; right: 0; top: 55px; width: 10px; background-color: #D0D0D0; z-index: 3; overflow: hidden; }
+.dg-scrollbar-v { width: 100%; height: 30px; background-color: gray; position: absolute; left: 0; top: 0; }
+.dg-scrollbar-container-h { position: relative; height: 10px;; background-color: #D0D0D0; overflow: hidden; }
+.dg-scrollbar-h { height: 100%; width: 30px; background-color: gray; position: absolute; left: 0; bottom: 0; }
+.dg-noscroll .dg-v-body { overflow: hidden; }
+.dg-noscroll .dg-scrollbar-container-v { display: none; }
+
+.center { text-align: center; }
+.right { text-align: right; }
+.hidden { display: none; }

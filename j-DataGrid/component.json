@@ -1,6 +1,6 @@
 {
-	"datecreated": "2016-03-01T08:04:50.721Z",
-	"dateupdated": "2017-03-08T11:12:00.000Z",
+	"datecreated": "2018-06-20T07:55:00.000Z",
+	"dateupdated": null,
 	"name": "j-DataGrid",
 	"tags": [
 		"jcomponent"
@@ -8,7 +8,7 @@
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,
-	"picture": "picture.jpg",
+	"picture": "picture.gif",
 	"dependencies": "",
 	"author": "Peter Širka",
 	"email": "petersirka@gmail.com",
