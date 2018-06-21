@@ -962,12 +962,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 				return [new Date(+val, 0, 1), new Date(+val + 1, 0	, 1)];
 		} else if (val.indexOf('.', index + 1) === -1) {
 			var a = val.split('.');
-			return new Date(NOW.getFullYear(), +a[1] - 1, +a[0]);
+			return a[1].length === 4 ? new Date(+a[1], +a[0] - 1, 1) : new Date(NOW.getFullYear(), +a[1] - 1, +a[0]);
 		}
 		index = val.indexOf('-');
 		if (index !== -1 && val.indexOf('-', index + 1) === -1) {
 			var a = val.split('-');
-			return new Date(NOW.getFullYear(), +a[0] - 1, +a[1]);
+			return a[0].length === 4 ? new Date(+a[0], +a[1] - 1, 1) : new Date(NOW.getFullYear(), +a[0] - 1, +a[1]);
 		}
 		return val.parseDate();
 	};
