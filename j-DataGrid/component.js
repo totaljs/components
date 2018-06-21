@@ -595,6 +595,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		opt.cols[index].width = size;
 		self.rebindcss();
 		config.remember && self.save();
+		self.resize();
 	};
 
 	self.save = function() {
