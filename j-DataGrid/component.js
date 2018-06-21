@@ -897,7 +897,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 
 					for (var j = 0; j < val2.length; j++) {
 						var dt = val2[j].trim();
-						var a = self.parseDate(dt);
+						var a = self.parseDate(dt, j === 1);
 						if (a instanceof Array) {
 							if (val2.length === 2) {
 								arr.push(j ? a[1] : a[0]);
@@ -946,7 +946,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		return output;
 	};
 
-	self.parseDate = function(val) {
+	self.parseDate = function(val, second) {
 		var index = val.indexOf('.');
 		if (index === -1) {
 			if ((/[a-z]+/).test(val)) {
@@ -962,12 +962,36 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 				return [new Date(+val, 0, 1), new Date(+val + 1, 0	, 1)];
 		} else if (val.indexOf('.', index + 1) === -1) {
 			var a = val.split('.');
-			return a[1].length === 4 ? new Date(+a[1], +a[0] - 1, 1) : new Date(NOW.getFullYear(), +a[1] - 1, +a[0]);
+			var m, y, d;
+
+			if (a[1].length === 4) {
+				y = +a[1];
+				m = +a[0] - 1;
+				d = second ? new Date(y, m, 0).getDate() : 1;
+			} else {
+				y = NOW.getFullYear();
+				m = +a[1] - 1;
+				d = +a[0];
+			}
+
+			return new Date(y, m, d);
 		}
 		index = val.indexOf('-');
 		if (index !== -1 && val.indexOf('-', index + 1) === -1) {
 			var a = val.split('-');
-			return a[0].length === 4 ? new Date(+a[0], +a[1] - 1, 1) : new Date(NOW.getFullYear(), +a[0] - 1, +a[1]);
+			var m, y, d;
+
+			if (a[0].length === 4) {
+				y = +a[0];
+				m = +a[1] - 1;
+				d = second ? new Date(y, m, 0).getDate() : 1;
+			} else {
+				y = NOW.getFullYear();
+				m = +a[0] - 1;
+				d = +a[1];
+			}
+
+			return new Date(y, m, d);
 		}
 		return val.parseDate();
 	};
@@ -981,5 +1005,4 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		}
 		return arr;
 	};
-
 });
