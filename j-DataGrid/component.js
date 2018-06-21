@@ -499,7 +499,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		var css = [];
 		var indexes = {};
 
-		opt.width = (config.numbering ? 44 : 0) + (config.checkbox ? 40 : 0) + 30;
+		opt.width = (config.numbering ? 40 : 0) + (config.checkbox ? 40 : 0) + 30;
 
 		for (var i = 0; i < cols.length; i++) {
 			var col = cols[i];
@@ -541,7 +541,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		var resize = [];
 		var index = 0;
 
-		opt.width = (config.numbering ? 44 : 0) + (config.checkbox ? 40 : 0) + 30;
+		opt.width = (config.numbering ? 40 : 0) + (config.checkbox ? 40 : 0) + 30;
 
 		if (config.checkbox)
 			column += Theadercol({ index: -1, label: '<div class="center"><input type="checkbox" value="-1" class="dg-checkbox-input" /></div>', filter: false, name: '$', sorting: false });
@@ -676,7 +676,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		}
 
 		var w = self.width();
-		var width = (config.numbering ? 44 : 0) + (config.checkbox ? 40 : 0) + 30;
+		var width = (config.numbering ? 40 : 0) + (config.checkbox ? 40 : 0) + 30;
 
 		for (var i = 0; i < opt.cols.length; i++)
 			width += opt.cols[i].width;
