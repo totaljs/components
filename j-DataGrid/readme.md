@@ -3,9 +3,8 @@
 This grid was created for single page applications and enterprise applications.
 
 - please try to understand the functionality
-- grid uses [Clusterize.js](https://clusterize.js.org/)
 - needed `bootstrap` grid system
-- you can render more than 20 000 rows without any problem
+- you can render more than 30 000 rows without any problem
 - supports drag&drop columns
 - supports sorting
 - supports resizing of columns

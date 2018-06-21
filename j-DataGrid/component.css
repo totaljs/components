@@ -21,8 +21,7 @@
 .dg-clickable .dg-row { cursor: pointer; }
 .dg-v-area { overflow: hidden; }
 .dg-v-container { overflow: hidden; }
-.dg-v-body { overflow-y: auto; overflow-scrolling: touch; -webkit-overflow-scrolling: touch; overflow-x: hidden; }
-.dg-body { outline: 0 !important; }
+.dg-v-body { overflow-y: auto; overflow-scrolling: touch; -webkit-overflow-scrolling: touch; overflow-x: hidden; outline: 0 !important; }
 .dg-row { height: 24px; font-size: 12px; border-bottom: 1px solid #E0E0E0; }
 .dg-row:hover { background-color: rgba(0,0,0,0.05); }
 .dg-row:nth-child(even) { background-color: #F8F8F8; }
@@ -32,7 +31,6 @@
 .dg-number { padding: 4px 5px 0; font-size: 11px; text-align: right; background-color: #F8F8F8; height: 24px; color: #A0A0A0; }
 .dg-checkbox { text-align: center; padding: 3px 0 0; }
 .dg-col--1 { width: 40px; }
-.dg .clusterize-no-data { padding: 10px 20px; }
 .dg-row-empty { height: 24px; font-size: 12px; border-bottom: 1px solid #F0F0F0; background-color: white !important; cursor: default; }
 .dg-footer { border: 1px solid #E0E0E0; border-top: 0; height: 32px; }
 .dg-pagination { float: left; }
