@@ -23,8 +23,8 @@
 .dg-v-container { overflow: hidden; }
 .dg-v-body { overflow-y: auto; overflow-scrolling: touch; -webkit-overflow-scrolling: touch; overflow-x: hidden; outline: 0 !important; }
 .dg-row { height: 24px; font-size: 12px; border-bottom: 1px solid #E0E0E0; }
+.dg-row:nth-child(even) { background-color: rgba(0,0,0,0.03); }
 .dg-row:hover { background-color: rgba(0,0,0,0.05); }
-.dg-row:nth-child(even) { background-color: #F8F8F8; }
 .dg-col { float: left; border-left: 1px solid #E0E0E0; height: 23px; overflow: hidden; min-width: 30px; }
 .dg-col:first-child { border-left: 0; }
 .dg-value { padding: 4px 5px 0; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }

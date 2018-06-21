@@ -1,4 +1,4 @@
-COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filter;numbering:Num.;height:auto;bottom:80;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true', function(self, config) {
+COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filter;numbering:Num.;height:auto;bottom:90;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true', function(self, config) {
 
 	var opt = { filter: {}, filtercache: {}, filtervalues: {}, scroll: false, selected: {} };
 	var header, vbody, footer, vcontainer, hcontainer, varea, hbody, vscrollbar, vscrollbararea, hscrollbar, hscrollbararea;
@@ -19,9 +19,13 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 
 		self.render = function() {
 			var t = self.pos * self.frame;
-			var b = (self.rows.length * row) - self.frame - t;
+			var b = (self.rows.length * row) - (self.frame * 2) - t;
 			var pos = self.pos * self.limit;
 			var h = self.rows.slice(pos, pos + (self.limit * 2));
+
+			if (b < 0)
+				b = 0;
+
 			self.el.html('<div style="height:{0}px"></div>{2}<div style="height:{1}px"></div>'.format(t, b, h.join('')));
 		};
 
@@ -29,6 +33,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 			var y = dom.scrollTop + 1;
 			var frame = Math.ceil(y / self.frame) - 1;
 			if (self.pos !== frame) {
+				if (self.max && frame >= self.max)
+					return;
 				self.pos = frame;
 				self.render();
 				self.scroll && self.scroll();
@@ -39,6 +45,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 			self.el.prop('scrollTop', 0);
 			self.pos = -1;
 			self.rows = rows;
+			self.max = Math.ceil(rows.length / self.limit) - 1;
 			self.scrolling();
 		};
 
@@ -492,7 +499,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		var css = [];
 		var indexes = {};
 
-		opt.width = (config.numbering ? 40 : 0) + (config.checkbox ? 40 : 0) + 30;
+		opt.width = (config.numbering ? 44 : 0) + (config.checkbox ? 40 : 0) + 30;
 
 		for (var i = 0; i < cols.length; i++) {
 			var col = cols[i];
@@ -534,7 +541,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		var resize = [];
 		var index = 0;
 
-		opt.width = (config.numbering ? 40 : 0) + (config.checkbox ? 40 : 0) + 30;
+		opt.width = (config.numbering ? 44 : 0) + (config.checkbox ? 40 : 0) + 30;
 
 		if (config.checkbox)
 			column += Theadercol({ index: -1, label: '<div class="center"><input type="checkbox" value="-1" class="dg-checkbox-input" /></div>', filter: false, name: '$', sorting: false });
@@ -669,7 +676,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		}
 
 		var w = self.width();
-		var width = (config.numbering ? 40 : 0) + (config.checkbox ? 40 : 0) + 30;
+		var width = (config.numbering ? 44 : 0) + (config.checkbox ? 40 : 0) + 30;
 
 		for (var i = 0; i < opt.cols.length; i++)
 			width += opt.cols[i].width;
@@ -683,6 +690,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		hscrollbararea.css('width', w);
 
 		var plus = hbody.offset().top;
+
+		if (plus < 24)
+			plus = 24;
 
 		hbody.css('height', opt.height + 50 + plus);
 		hcontainer.css('height', opt.height + 50 + 7);
