@@ -921,8 +921,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 					val2 = arr;
 				}
 
-				if (val2.length === 1 && val.format('yyyyMMdd') !== val2[0].format('yyyyMMdd'))
-					return false;
+				if (val2.length === 1) {
+					if (val2[0].YYYYMM)
+						return val.format('yyyyMM') === val2[0].format('yyyyMM');
+					if (val.format('yyyyMMdd') !== val2[0].format('yyyyMMdd'))
+						return false;
+				}
 
 				if (val < val2[0] || val > val2[1])
 					return false;
@@ -962,36 +966,44 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 				return [new Date(+val, 0, 1), new Date(+val + 1, 0	, 1)];
 		} else if (val.indexOf('.', index + 1) === -1) {
 			var a = val.split('.');
-			var m, y, d;
+			var m, y, d, special;
 
 			if (a[1].length === 4) {
 				y = +a[1];
 				m = +a[0] - 1;
 				d = second ? new Date(y, m, 0).getDate() : 1;
+				special = true;
 			} else {
 				y = NOW.getFullYear();
 				m = +a[1] - 1;
 				d = +a[0];
 			}
 
-			return new Date(y, m, d);
+			var tmp = new Date(y, m, d);
+			if (special)
+				tmp.YYYYMM = true;
+			return tmp;
 		}
 		index = val.indexOf('-');
 		if (index !== -1 && val.indexOf('-', index + 1) === -1) {
 			var a = val.split('-');
-			var m, y, d;
+			var m, y, d, special;
 
 			if (a[0].length === 4) {
 				y = +a[0];
 				m = +a[1] - 1;
 				d = second ? new Date(y, m, 0).getDate() : 1;
+				special = true;
 			} else {
 				y = NOW.getFullYear();
 				m = +a[0] - 1;
 				d = +a[1];
 			}
 
-			return new Date(y, m, d);
+			var tmp = new Date(y, m, d);
+			if (special)
+				tmp.YYYYMM = true;
+			return tmp;
 		}
 		return val.parseDate();
 	};
