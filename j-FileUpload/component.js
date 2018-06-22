@@ -43,6 +43,7 @@ COMPONENT('fileupload', function(self, config) {
 
 		input.on('change', function(evt) {
 			!config.disabled && self.upload(evt.target.files);
+			this.value = '';
 		});
 	};
 
