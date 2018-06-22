@@ -142,5 +142,6 @@
 	"j-LineChart",
 	"j-MarkdownPreview",
 	"j-Selected",
-	"j-JSONTree"
+	"j-JSONTree",
+	"j-ObjectEditor"
 ]
