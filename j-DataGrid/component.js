@@ -253,8 +253,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 			if (!el.hclass('dg-resize'))
 				return;
 
+			var offset = self.element.offset().left;
 			r.el = el;
-			r.offset = hbody.scrollLeft();
+			r.offset = (hbody.scrollLeft() - offset) + 10;
 
 			r.h = el.css('height');
 			r.x = el.css('left').parseInt();
