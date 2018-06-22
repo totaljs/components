@@ -57,6 +57,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		self.el.on('scroll', self.scrolling);
 	}
 
+	self.destroy = function() {
+		opt.cluster && opt.cluster.destroy();
+	};
+
 	// opt.cols    --> columns
 	// opt.rows    --> raw rendered data
 	// opt.render  --> for cluster
@@ -90,6 +94,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 
 	self.make = function() {
 
+		self.IDCSS = GUID(5);
+		self.aclass('dg dg-' + self.IDCSS);
+
 		var scr = self.find('script');
 		self.rebind(scr.html());
 
@@ -113,8 +120,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		vscrollbararea = self.find('.dg-scrollbar-container-v');
 		hscrollbar = self.find('.dg-scrollbar-h');
 		hscrollbararea = self.find('.dg-scrollbar-container-h');
-
-		self.aclass('dg');
 
 		// Gets a top/left position of vertical/horizontal scrollbar
 		pos.vscroll = vscrollbararea.css('top').parseInt();
@@ -472,13 +477,18 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 				col.search = col.search === true ? Tangular.compile(col.template) : Tangular.compile(col.search);
 			}
 
-			if (col.align)
+			if (col.align && col.align !== 'left') {
 				col.align = ' ' + col.align;
+				if (!col.alignfilter)
+					col.alignfilter = ' center';
+				if (!col.alignheader)
+					col.alignheader = ' center';
+			}
 
 			if (col.template)
-				col.template = Tangular.compile((col.template.indexOf('<') === -1 ? '<div class="dg-value{1}">{0}</div>' : '{0}').format(col.template, col.align));
+				col.template = Tangular.compile((col.template.indexOf('<button') === -1 ? '<div class="dg-value">{0}</div>' : '{0}').format(col.template));
 			else
-				col.template = Tangular.compile('<div class="dg-value{1}">{{ {0} }}</div>'.format(col.name, col.align));
+				col.template = Tangular.compile('<div class="dg-value">{{ {0} }}</div>'.format(col.name));
 
 			if (col.header)
 				col.header = Tangular.compile(col.header);
@@ -508,7 +518,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 			if (!col.width)
 				col.width = config.colwidth;
 
-			css.push('.dg-col-{0}{width:{1}px}'.format(i, col.width));
+			css.push('.dg-{2} .dg-col-{0}{width:{1}px}'.format(i, col.width, self.IDCSS));
 
 			if (!col.hidden) {
 				opt.width += col.width;
@@ -578,7 +588,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 
 		var output = [];
 		var Trow = '<div class="dg-row dg-row-{0}" data-index="{2}">{1}</div>';
-		var Tcol = '<div class="dg-col dg-col-{0}">{1}</div>';
+		var Tcol = '<div class="dg-col dg-col-{0}{2}">{1}</div>';
 
 		for (var i = 0, length = rows.length; i < length; i++) {
 
@@ -595,7 +605,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 			for (var j = 0; j < opt.cols.length; j++) {
 				var col = opt.cols[j];
 				if (!col.hidden)
-					column += Tcol.format(index++, col.template(row));
+					column += Tcol.format(index++, col.template(row), col.align);
 			}
 
 			column += '<div class="dg-col">&nbsp;</div>';

@@ -31,6 +31,7 @@
 .dg-number { padding: 4px 5px 0; font-size: 11px; text-align: right; background-color: #F8F8F8; height: 24px; color: #A0A0A0; }
 .dg-checkbox { text-align: center; padding: 3px 0 0; }
 .dg-col--1 { width: 40px; }
+.dg-col--1 .dg-label { text-overflow: clip; }
 .dg-row-empty { height: 24px; font-size: 12px; border-bottom: 1px solid #F0F0F0; background-color: white !important; cursor: default; }
 .dg-footer { border: 1px solid #E0E0E0; border-top: 0; height: 32px; }
 .dg-pagination { float: left; }
