@@ -57,7 +57,7 @@ __Configuration__:
 - `alignfilter` {String} align for filter input `right` or `center` (optional, default: `left`)
 - `align` {String} align for a column value `right` or `center` (optional, default: `left`)
 - `click` {String} a link to `function(row, grid)` is executed if the user clicks on a row
-- `selected` {String} a link to `function(rows, grid)` is executed if the user selected/checked some rows
+- `checked` {String} a link to `function(rows, grid)` is executed if the user selected/checked some rows
 - `exec` {String} a link to `function(type, filter, sort, page)` for server-side operations only (it disables client-side sorting & filtering)
 
 __Column properties__:
@@ -71,6 +71,8 @@ __Column properties__:
 - `template` {String} can be a Tangular template and the model is the entire object of row
 - `sorting` {Boolean} enables sorting (optional, default: `true`)
 - `search` {Boolean/String} `true` will filter a value according to the `template` result or `String` can be a Tangular template which will be used as a value for search
+- `format` {String/Number} can be used for date and numbers (count of decimals) field (optional), e.g. `dd.MM.yyyy`
+- `hidden` {String} as an arrow function `column => true` --> column will be hidden
 
 __Filtering__:
 

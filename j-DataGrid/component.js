@@ -365,18 +365,22 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		});
 
 		self.event('change', '.dg-checkbox-input', function() {
-			var val = this.value;
+			var t = this;
+			var val = t.value;
 			if (val === '-1') {
-				if (this.checked) {
+				if (t.checked) {
 					opt.selected = {};
 					for (var i = 0; i < opt.rows.length; i++)
 						opt.selected[opt.rows[i].ROW] = 1;
 				} else
 					opt.selected = {};
 				self.scrolling();
-			} else
+			} else if (t.checked)
 				opt.selected[val] = 1;
-			config.selected && EXEC(config.selected, self.selected(), self);
+			else
+				delete opt.selected[val];
+
+			config.checked && EXEC(config.checked, self.checked(), self);
 		});
 
 		self.event('click', 'button', function() {
@@ -488,7 +492,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 			if (col.template)
 				col.template = Tangular.compile((col.template.indexOf('<button') === -1 ? '<div class="dg-value">{0}</div>' : '{0}').format(col.template));
 			else
-				col.template = Tangular.compile('<div class="dg-value">{{ {0} }}</div>'.format(col.name));
+				col.template = Tangular.compile('<div class="dg-value">{{ {0} }}</div>'.format(col.name + (col.format ? ' | format({0}) '.format(typeof(col.format) === 'string' ? ('\'' + col.format + '\'') : col.format) : '')));
 
 			if (col.header)
 				col.header = Tangular.compile(col.header);
@@ -545,12 +549,20 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		});
 	};
 
+	self.cols = function(callback) {
+		callback(opt.cols);
+		opt.cols.quicksort('index');
+		self.rebindcss();
+		self.rendercols();
+		self.renderrows(opt.rows);
+		opt.cluster && opt.cluster.update(opt.render);
+	};
+
 	self.rendercols = function() {
 
 		var Trow = '<div class="dg-hrow dg-row-{0}">{1}</div>';
 		var column = config.numbering ? Theadercol({ index: -1, label: config.numbering, filter: false, name: '$', sorting: false }) : '';
 		var resize = [];
-		var index = 0;
 
 		opt.width = (config.numbering ? 40 : 0) + (config.checkbox ? 40 : 0) + 30;
 
@@ -560,11 +572,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		for (var i = 0; i < opt.cols.length; i++) {
 			var col = opt.cols[i];
 			if (!col.hidden) {
-				var obj = { index: index, label: col.header(col), filter: col.filter, reorder: config.reorder, sorting: col.sorting, name: col.name, alignfilter: col.alignfilter, alignheader: col.alignheader, filterval: opt.filtervalues[col.id], labeltitle: col.title };
+				var obj = { index: i, label: col.header(col), filter: col.filter, reorder: config.reorder, sorting: col.sorting, name: col.name, alignfilter: col.alignfilter, alignheader: col.alignheader, filterval: opt.filtervalues[col.id], labeltitle: col.title };
 				opt.width += col.width;
 				config.resize && resize.push('<span class="dg-resize" style="left:{0}px" data-index="{1}"></span>'.format(opt.width - 39, i));
 				column += Theadercol(obj);
-				index++;
 			}
 		}
 
@@ -594,7 +605,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 
 			var row = rows[i];
 			var column = '';
-			var index = 0;
 
 			if (config.numbering)
 				column += Tcol.format(-1, '<div class="dg-number">{0}</div>'.format(i + 1));
@@ -605,7 +615,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 			for (var j = 0; j < opt.cols.length; j++) {
 				var col = opt.cols[j];
 				if (!col.hidden)
-					column += Tcol.format(index++, col.template(row), col.align);
+					column += Tcol.format(j, col.template(row), col.align);
 			}
 
 			column += '<div class="dg-col">&nbsp;</div>';
@@ -689,8 +699,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		var w = self.width();
 		var width = (config.numbering ? 40 : 0) + (config.checkbox ? 40 : 0) + 30;
 
-		for (var i = 0; i < opt.cols.length; i++)
-			width += opt.cols[i].width;
+		for (var i = 0; i < opt.cols.length; i++) {
+			var col = opt.cols[i];
+			if (!col.hidden)
+				width += col.width;
+		}
 
 		if (w > width)
 			width = w - 2;
@@ -727,7 +740,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 
 		opt.selected = {};
 		config.checkbox && header.find('.dg-checkbox-input').prop('checked', false);
-		config.selected && EXEC(config.selected, EMPTYARRAY, self);
+		config.checked && EXEC(config.checked, EMPTYARRAY, self);
 
 		for (var i = 0, length = items.length; i < length; i++) {
 			var item = items[i];
@@ -949,7 +962,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		return true;
 	};
 
-	self.selected = function() {
+	self.checked = function() {
 		var arr = Object.keys(opt.selected);
 		var output = [];
 		var model = self.get();
