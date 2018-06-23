@@ -408,7 +408,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 					break;
 				default:
 					var row = opt.rows[+$(this).closest('.dg-row').attrd('index')];
-					config.button && EXEC(config.button, row, self);
+					config.button && EXEC(config.button, this.name, row, self);
 					break;
 			}
 		});
