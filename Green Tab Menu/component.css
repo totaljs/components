@@ -1,6 +1,0 @@
-.tabmenu1618 { list-style-type: none; margin: 0; padding: 0; position: relative; display: inline-block; background-color: #8CC152; border-radius: 100px; }
-.tabmenu1618 li { position: relative; display: inline-block; margin: 0; padding: 0; }
-.tabmenu1618 a { text-decoration: none; color: #C3EB97; display: block; font-size: 12px; outline: 0; padding: 8px 20px; border-radius: 100px; transition: all 0.3s; }
-.tabmenu1618 a:hover { color: white; }
-.tabmenu1618 .fa { margin-right: 4px; }
-.tabmenu1618 .selected a { background-color: #A0D468; color: white; }

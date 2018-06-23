@@ -1,4 +1,0 @@
-.button150211 { position: relative; display: inline-block; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; height: 45px; padding: 0 40px; font: normal bold 12px Arial; color: gray; background: #F0F0F0 linear-gradient(white,#F0F0F0); outline: 0; }
-.button150211:hover { border: 1px solid silver; }
-.button150211:active { box-shadow: inset 0 0 5px silver; color: #9E9696; }
-.button150211:disabled { background: white; color: silver; border: 1px solid #E0E0E0; cursor: not-allowed; }

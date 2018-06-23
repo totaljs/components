@@ -1,6 +1,0 @@
-.iconmenu1618 { list-style-type: none; margin: 0; padding: 0; }
-.iconmenu1618 li { position: relative; display: inline-block; margin: 0; padding: 0; }
-.iconmenu1618 a { text-decoration: none; color: #A0A0A0; display: block; font-size: 10px; outline: 0; padding: 8px 20px; border-radius: 4px; transition: all 0.3s; }
-.iconmenu1618 a:hover { color: gray; }
-.iconmenu1618 .selected a { color: black; background-color: #F8F8F8; }
-.iconmenu1618 .fa { font-size: 24px; display: block; text-align: center; margin: 0 0 4px; }

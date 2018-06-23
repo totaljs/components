@@ -1,7 +1,0 @@
-.breadcrumb3299 { margin: 0; padding: 0; list-style-type: none; font: normal normal 12px Arial; }
-.breadcrumb3299 li { position: relative; display: inline-block; }
-.breadcrumb3299 li:after { content: '>'; margin: 0 5px 0 8px; color: silver; }
-.breadcrumb3299 li:last-child:after { content: ''; margin: 0; }
-.breadcrumb3299 li:last-child { font-weight: bold; }
-.breadcrumb3299 a { text-decoration: none; color: gray; }
-.breadcrumb3299 a:hover { text-decoration: underline; }

@@ -1,5 +1,0 @@
-.button100 { border: 1px solid #D0D0D0; background-color: white; border-radius: 4px; height: 45px; padding: 0 15px; color: black; margin: 0; cursor: pointer; box-shadow: 0 2px 2px rgba(100,100,100,0.1); font-family: Arial; vertical-align: middle; outline: 0; font-size: 14px; text-decoration: none; display: block; width: 100%; }
-.button100 .fa { width: 16px; }
-.button100:hover { border: 1px solid silver; }
-.button100:active { background-color: #F0F0F0; }
-.button100:disabled { background-color: #F5F5F5 !important; border: 1px solid #D0D0D0 !important; color: silver !important; cursor: not-allowed; }
