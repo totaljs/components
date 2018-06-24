@@ -5,7 +5,7 @@ COMPONENT('dragdropfiles', function(self, config) {
 	self.mirror = function(cls) {
 		var arr = cls.split(' ');
 		for (var i = 0, length = arr.length; i < length; i++) {
-			arr[i] = arr[i].replace(/^(\+|\-)/g, function(c) {
+			arr[i] = arr[i].replace(/^(\+|-)/g, function(c) {
 				return c === '+' ? '-' : '+';
 			});
 		}
