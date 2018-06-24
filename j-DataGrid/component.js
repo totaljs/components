@@ -532,8 +532,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		cols.quicksort('index');
 		opt.cols = cols;
 		self.rebindcss();
-		hbody.prop('scrollLeft', 0);
-		vbody.prop('scrollTop', 0);
+		hbody && hbody.prop('scrollLeft', 0);
+		vbody && vbody.prop('scrollTop', 0);
 	};
 
 	self.rebindcss = function() {
