@@ -98,7 +98,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		self.aclass('dg dg-' + self.IDCSS);
 
 		var scr = self.find('script');
-		self.rebind(scr.html());
+		var meta = scr.html();
+		meta && self.rebind(meta);
 
 		var pagination = '';
 
@@ -190,6 +191,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		vbody.on('scroll', function(e) {
 			var el = e.target;
 			var p = ((el.scrollTop / (el.scrollHeight - opt.height)) * 100) >> 0;
+
+			if (p > 100)
+				p = 100;
+
 			var plus = (p / 100) * 30;
 			p = (((opt.height - pos.vscroll) / 100) * p);
 			vscrollbar.css('top', (p + plus - 2) + 'px');
@@ -198,6 +203,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		hbody.on('scroll', function(e) {
 			var el = e.target;
 			var p = ((el.scrollLeft / (el.scrollWidth - opt.width2)) * 100) >> 0;
+
+			if (p > 100)
+				p = 100;
+
 			var plus = (p / 100) * 30;
 			p = (((opt.width2 - pos.hscroll) / 100) * p);
 			hscrollbar.css('left', (p - plus) + 'px');
@@ -499,6 +508,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 			else
 				col.header = Tangular.compile('{{ text }}');
 
+			if (!col.text)
+				col.text = col.name;
+
 			if (col.filter !== false && !col.filter)
 				col.filter = config.filterlabel;
 		}
@@ -684,6 +696,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 	};
 
 	self.resize = function() {
+
+		if (!opt.cols)
+			return;
+
 		switch (config.height) {
 			case 'auto':
 				var el = self.element;
@@ -834,6 +850,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 	};
 
 	self.setter = function() {
+
+		if (!opt.cols)
+			return;
 
 		opt.selected = {};
 
