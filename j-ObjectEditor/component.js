@@ -28,7 +28,7 @@ COMPONENT('objecteditor', 'null:true', function(self, config) {
 			self.change(true);
 		});
 
-		self.event('change', 'input', function() {
+		self.event('input', 'input,textarea', function() {
 
 			var el = $(this);
 			var type = el.attrd('type');
@@ -46,9 +46,11 @@ COMPONENT('objecteditor', 'null:true', function(self, config) {
 					break;
 			}
 
-			skip = true;
-			self.change(true);
-			self.set(path, val);
+			setTimeout2(self.ID, function() {
+				skip = true;
+				self.set(path, val);
+				self.change(true);
+			}, 100);
 		});
 	};
 
@@ -61,12 +63,16 @@ COMPONENT('objecteditor', 'null:true', function(self, config) {
 			var key = arr[i];
 			var val = obj[key];
 
-			if (val == null && !config.null || (config.skip && config.skip.indexOf(key) !== -1))
+			if (val == null)
 				continue;
 
 			var tmp = {};
 
 			tmp.pathraw = (path ? (path + '.') : '') + key;
+
+			if (!config.null || (config.skip && config.skip.indexOf(tmp.pathraw) !== -1))
+				continue;
+
 			tmp.path = tmp.pathraw;
 			tmp.label = key;
 			tmp.value = val;
