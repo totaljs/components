@@ -19,7 +19,7 @@
 
 .ui-oe-null { height: 24px; margin-bottom: 1px; }
 .ui-oe-null .ui-oe-label { width: 30%; float: left; font-weight: bold; }
-.ui-oe-null .ui-oe-control { margin-left: 30%; height: 24px; padding: 3px 0 0 5px; color: #A0A0A0; }
+.ui-oe-null .ui-oe-control { margin-left: 30%; height: 24px; padding: 10px 0 0 5px; color: #A0A0A0; }
 
 .ui-oe-date { height: 24px; margin-bottom: 1px; }
 .ui-oe-date .ui-oe-control { margin-left: 30%; }
