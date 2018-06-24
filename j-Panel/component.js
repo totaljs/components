@@ -33,7 +33,7 @@ COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
 	};
 
 	self.make = function() {
-		$(document.body).append('<div id="{0}" class="hidden ui-panel-container"><div class="ui-panel" style="width:{1}px"><div data-bind="@config__change .ui-panel-icon:@icon__html span:value.title" class="ui-panel-title"><button class="ui-panel-button-close{3}" data-path="{2}"><i class="fa fa-times"></i></button><i class="ui-panel-icon"></i><span></span></div><div class="ui-panel-header"></div><div class="ui-panel-body"></div></div>'.format(self.ID, config.width, self.path, config.closebutton == false ? ' hidden' : ''));
+		$(document.body).append('<div id="{0}" class="hidden ui-panel-container{4}"><div class="ui-panel" style="width:{1}px"><div data-bind="@config__change .ui-panel-icon:@icon__html span:value.title" class="ui-panel-title"><button class="ui-panel-button-close{3}" data-path="{2}"><i class="fa fa-times"></i></button><i class="ui-panel-icon"></i><span></span></div><div class="ui-panel-header"></div><div class="ui-panel-body"></div></div>'.format(self.ID, config.width, self.path, config.closebutton == false ? ' hidden' : '', config.background ? '' : ' ui-panel-inline'));
 		var el = $('#' + self.ID);
 		el.find('.ui-panel-body')[0].appendChild(self.dom);
 		self.rclass('hidden');

@@ -1,6 +1,7 @@
 COMPONENT('objecteditor', 'null:true', function(self, config) {
 
 	var skip = false;
+	var tstringmultiline = '<div class="ui-oe-string-multiline ui-oe-item"><div class="ui-oe-label"><span>{label}</span></div><div class="ui-oe-control"><textarea data-type="string" name="{path}">{value}</textarea></div></div>';
 	var tstring = '<div class="ui-oe-string ui-oe-item"><div class="ui-oe-label"><span>{label}</span></div><div class="ui-oe-control"><input type="text" data-type="string" name="{path}" value="{value}" /></div></div>';
 	var tdate = '<div class="ui-oe-date ui-oe-item"><div class="ui-oe-label"><span>{label}</span></div><div class="ui-oe-control"><input type="text" data-type="date" name="{path}" value="{value}" /></div></div>';
 	var tnumber = '<div class="ui-oe-number ui-oe-item"><div class="ui-oe-label"><span>{label}</span></div><div class="ui-oe-control"><input type="text" data-type="number" name="{path}" value="{value}" /></div></div>';
@@ -8,6 +9,11 @@ COMPONENT('objecteditor', 'null:true', function(self, config) {
 	var tnull = '<div class="ui-oe-null ui-oe-item"><div class="ui-oe-label"><span>{label}</span></div><div class="ui-oe-control">null</div></div>';
 	var tgroup = '<div class="ui-oe-group ui-oe-level-{level}"><div class="ui-oe-label">{name}</div><div class="ui-oe-items">{body}</div></div>';
 	var tarray = '<div class="ui-oe-array ui-oe-level-{level}"><div class="ui-oe-label"><b>Array:</b> {name}</div><div class="ui-oe-items">{body}</div></div>';
+
+	self.configure = function(key, value ) {
+		if (key === 'skip')
+			config.skip = value instanceof Array ? value : value.split(',');
+	};
 
 	self.make = function() {
 		self.aclass('ui-oe');
@@ -24,7 +30,7 @@ COMPONENT('objecteditor', 'null:true', function(self, config) {
 
 		self.event('change', 'input', function() {
 
-			var el = $(this);
+			var el = $(this);
 			var type = el.attrd('type');
 			var path = self.path + '.' + this.name;
 			var val = this.value;
@@ -55,7 +61,7 @@ COMPONENT('objecteditor', 'null:true', function(self, config) {
 			var key = arr[i];
 			var val = obj[key];
 
-			if (val == null && !config.null)
+			if (val == null && !config.null || (config.skip && config.skip.indexOf(key) !== -1))
 				continue;
 
 			var tmp = {};
@@ -73,7 +79,10 @@ COMPONENT('objecteditor', 'null:true', function(self, config) {
 			var type = typeof(val);
 			if (type === 'string') {
 				tmp.value = Tangular.helpers.encode(tmp.value);
-				builder.push(tstring.arg(tmp));
+				if (tmp.value.indexOf('\n') == -1)
+					builder.push(tstring.arg(tmp));
+				else
+					builder.push(tstringmultiline.arg(tmp));
 			} else if (type === 'number')
 				builder.push(tnumber.arg(tmp));
 			else if (type === 'boolean') {
@@ -122,7 +131,10 @@ COMPONENT('objecteditor', 'null:true', function(self, config) {
 		return level ? tgroup.arg({ name: path, body: output, level: level }) : output;
 	};
 
-	self.setter = function(value, path, type) {
+	self.setter = function(value) {
+
+		if (value == null)
+			return;
 
 		if (skip) {
 			skip = false;
