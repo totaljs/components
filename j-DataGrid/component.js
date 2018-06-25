@@ -21,6 +21,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 			var t = self.pos * self.frame;
 			var b = (self.rows.length * row) - (self.frame * 2) - t;
 			var pos = self.pos * self.limit;
+
 			var h = self.rows.slice(pos, pos + (self.limit * 2));
 
 			if (b < 0)
@@ -34,7 +35,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 			var frame = Math.ceil(y / self.frame) - 1;
 			if (self.pos !== frame) {
 				if (self.max && frame >= self.max)
-					return;
+					frame = self.max;
 				self.pos = frame;
 				self.render();
 				self.scroll && self.scroll();
@@ -185,11 +186,15 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 			if (sv.is) {
 				var y = (e.pageY - sv.y);
 				var p = (y / sv.h) * 100;
+				if (p > 100)
+					p = 100;
 				var scroll = ((vbody[0].scrollHeight - opt.height) / 100) * p;
 				vbody.prop('scrollTop', scroll);
 			} else if (sh.is) {
 				var x = (e.pageX - sh.x);
 				var p = (x / sh.w) * 100;
+				if (p > 100)
+					p = 100;
 				var scroll = ((hbody[0].scrollWidth - opt.width2) / 100) * p;
 				hbody.prop('scrollLeft', scroll);
 			}
@@ -204,6 +209,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 
 			var plus = (p / 100) * 30;
 			p = (((opt.height - pos.vscroll) / 100) * p);
+
 			vscrollbar.css('top', (p + plus - 2) + 'px');
 		});
 
