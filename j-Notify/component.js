@@ -1,4 +1,4 @@
-COMPONENT('notify', 'timeout:3000;position:bottom;', function(self, config) {
+COMPONENT('notify', 'timeout:3000;position:bottom', function(self, config) {
 
 	var autoclosing;
 
@@ -10,28 +10,25 @@ COMPONENT('notify', 'timeout:3000;position:bottom;', function(self, config) {
 	self.make = function() {
 		self.aclass('ui-notify-container');
 
-		switch (config.position) {
+		var name = config.position.replace(/_|\s/, '-');
+		switch (name) {
 			case 'top':
-				self.aclass('ui-notify-container-top');
+				self.aclass('ui-notify-container-' + name);
 				break;
 			case 'top-left':
-			case 'top_left':
-				self.aclass('ui-notify-container-top-left');
+				self.aclass('ui-notify-container-' + name);
 				break;
 			case 'top-right':
-			case 'top_right':
-				self.aclass('ui-notify-container-top-right');
+				self.aclass('ui-notify-container-' + name);
 				break;
 			case 'bottom':
-				self.aclass('ui-notify-container-bottom');
+				self.aclass('ui-notify-container-' + name);
 				break;
 			case 'bottom-left':
-			case 'bottom_left':
-				self.aclass('ui-notify-container-bottom-left');
+				self.aclass('ui-notify-container-' + name);
 				break;
 			case 'bottom-right':
-			case 'bottom_right':
-				self.aclass('ui-notify-container-bottom-right');
+				self.aclass('ui-notify-container-' + name);
 				break;
 		}
 
@@ -46,15 +43,14 @@ COMPONENT('notify', 'timeout:3000;position:bottom;', function(self, config) {
 
 	self.close = function(id) {
 		var obj = self.items[id];
-		if (!obj)
-			return;
-
-		delete self.items[id];
-		var item = self.find('div[data-id="{0}"]'.format(id));
-		item.aclass('ui-notify-hide');
-		setTimeout(function() {
-			item.remove();
-		}, 600);
+		if (obj) {
+			delete self.items[id];
+			var item = self.find('div[data-id="{0}"]'.format(id));
+			item.aclass('ui-notify-hide');
+			setTimeout(function() {
+				item.remove();
+			}, 600);
+		}
 	};
 
 	self.append = function(message, type) {
