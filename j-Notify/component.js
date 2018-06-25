@@ -1,4 +1,4 @@
-COMPONENT('notify', 'timeout:3000', function(self, config) {
+COMPONENT('notify', 'timeout:3000;position:bottom;', function(self, config) {
 
 	var autoclosing;
 
@@ -9,6 +9,32 @@ COMPONENT('notify', 'timeout:3000', function(self, config) {
 
 	self.make = function() {
 		self.aclass('ui-notify-container');
+
+		switch (config.position) {
+			case 'top':
+				self.aclass('ui-notify-container-top');
+				break;
+			case 'top-left':
+			case 'top_left':
+				self.aclass('ui-notify-container-top-left');
+				break;
+			case 'top-right':
+			case 'top_right':
+				self.aclass('ui-notify-container-top-right');
+				break;
+			case 'bottom':
+				self.aclass('ui-notify-container-bottom');
+				break;
+			case 'bottom-left':
+			case 'bottom_left':
+				self.aclass('ui-notify-container-bottom-left');
+				break;
+			case 'bottom-right':
+			case 'bottom_right':
+				self.aclass('ui-notify-container-bottom-right');
+				break;
+		}
+
 		self.event('click', '.ui-notify', function() {
 			var el = $(this);
 			self.close(+el.attrd('id'));
@@ -35,6 +61,18 @@ COMPONENT('notify', 'timeout:3000', function(self, config) {
 
 		if (!type)
 			type = 1;
+
+		switch (type) {
+			case 'success':
+				type = 1;
+				break;
+			case 'warning':
+				type = 2;
+				break;
+			case 'info':
+				type = 3;
+				break;
+		}
 
 		// type 1: success
 		// type 2: warning
