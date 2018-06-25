@@ -6,7 +6,7 @@
 __Configuration__:
 
 - `timeout` {Number} has to contain a timeout (milliseconds) for the expiration of notification (default: `3000`)
-- `position` {String} can be `top`, `top left`, `top right`, `bottom` (default), `bottom left` and `bottom-right`
+- `position` {String} can be `top`, `top left`, `top right`, `bottom` (default), `bottom left` and `bottom right`
 
 __Methods__:
 
