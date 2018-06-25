@@ -183,19 +183,16 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		});
 
 		$(window).on('mousemove', function(e) {
+			var p, scroll;
 			if (sv.is) {
 				var y = (e.pageY - sv.y);
-				var p = (y / sv.h) * 100;
-				if (p > 100)
-					p = 100;
-				var scroll = ((vbody[0].scrollHeight - opt.height) / 100) * p;
+				p = (y / sv.h) * 100;
+				scroll = ((vbody[0].scrollHeight - opt.height) / 100) * (p > 100 ? 100 : p);
 				vbody.prop('scrollTop', scroll);
 			} else if (sh.is) {
 				var x = (e.pageX - sh.x);
-				var p = (x / sh.w) * 100;
-				if (p > 100)
-					p = 100;
-				var scroll = ((hbody[0].scrollWidth - opt.width2) / 100) * p;
+				p = (x / sh.w) * 100;
+				scroll = ((hbody[0].scrollWidth - opt.width2) / 100) * (p > 100 ? 100 : p);
 				hbody.prop('scrollLeft', scroll);
 			}
 		});
@@ -571,7 +568,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 			opt.width = w - 2;
 
 		if (varea) {
-			var css = { width: opt.width };
+			css = { width: opt.width };
 			vcontainer.css(css);
 			css.width += 50;
 			varea.css(css);
@@ -680,7 +677,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		opt.cols.quicksort('index');
 
 		for (var i = 0; i < opt.cols.length; i++) {
-			var col = opt.cols[i];
+			col = opt.cols[i];
 			col.index = i;
 		}
 
