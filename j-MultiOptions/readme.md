@@ -22,6 +22,7 @@ __Basic types__:
 - type: `number` (when is the value `number` you don't need to define the type)
 - type: `boolean` (when is the value `boolean` you don't need to define the type)
 - type: `date` (when is the value `date` you don't need to define the type)
+- __NEW__ type: `multiline` renders `textarea` instead of `input`
 
 __Simple Array__:
 

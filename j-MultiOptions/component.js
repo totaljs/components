@@ -1,5 +1,6 @@
 COMPONENT('multioptions', 'rebind:true', function(self, config) {
 
+	var Tarea = Tangular.compile('<textarea class="ui-moi-save ui-moi-value-inputarea" data-name="{{ name }}"{{ if def }} placeholder="{{ def }}"{{ fi }}{{ if max }} maxlength="{{ max }}"{{ fi }} data-type="text">{{ value }}</textarea>');
 	var Tinput = Tangular.compile('<input class="ui-moi-save ui-moi-value-inputtext" data-name="{{ name }}" type="text" value="{{ value }}"{{ if def }} placeholder="{{ def }}"{{ fi }}{{ if max }} maxlength="{{ max }}"{{ fi }} data-type="text" />');
 	var Tselect = Tangular.compile('<div class="ui-moi-value-select"><i class="fa fa-chevron-down"></i><select data-name="{{ name }}" class="ui-moi-save ui-multioptions-select">{{ foreach m in values }}<option value="{{ $index }}"{{ if value === m.value }} selected="selected"{{ fi }}>{{ m.text }}</option>{{ end }}</select></div>');
 	var Tnumber = Tangular.compile('<div class="ui-moi-value-inputnumber-buttons"><span class="multioptions-operation" data-type="number" data-step="{{ step }}" data-name="plus" data-max="{{ max }}" data-min="{{ min }}"><i class="fa fa-plus"></i></span><span class="multioptions-operation" data-type="number" data-name="minus" data-step="{{ step }}" data-max="{{ max }}" data-min="{{ min }}"><i class="fa fa-minus"></i></span></div><div class="ui-moi-value-inputnumber"><input data-name="{{ name }}" class="ui-moi-save ui-moi-value-numbertext" type="text" value="{{ value }}"{{ if def }} placeholder="{{ def }}"{{ fi }} data-max="{{ max }}" data-min="{{ max }}" data-type="number" /></div>');
@@ -90,7 +91,7 @@ COMPONENT('multioptions', 'rebind:true', function(self, config) {
 		});
 
 		self.event('change', 'select', self.$save);
-		self.event('input', 'input', self.$save);
+		self.event('input', 'input,textarea', self.$save);
 
 		self.event('click', '.ui-moi-date', function(e) {
 			e.stopPropagation();
@@ -135,7 +136,7 @@ COMPONENT('multioptions', 'rebind:true', function(self, config) {
 	self.mapping = function(key, label, def, type, max, min, step, validator) {
 
 		var T = typeof(type);
-		var values, url;
+		var values, url, multiline;
 
 		if (T === 'number') {
 			validator = step;
@@ -148,6 +149,12 @@ COMPONENT('multioptions', 'rebind:true', function(self, config) {
 			url = type.substring(0, 1) === '/' || tmp === 'http:/' || tmp === 'https:' ? type : '';
 			if (url)
 				type = 'array';
+
+			if (type.toLowerCase() === 'multiline') {
+				multiline = true;
+				type = 'string';
+			}
+
 		} if (!type)
 			type = def instanceof Date ? 'date' : typeof(def);
 
@@ -165,7 +172,7 @@ COMPONENT('multioptions', 'rebind:true', function(self, config) {
 
 		var bindmapping = function(values) {
 			dep[key] = values;
-			mapping[key] = { name: key, label: label, type: url ? 'array' : type.toLowerCase(), def: def, max: max, min: min, step: step, value: def, values: values, validator: validator };
+			mapping[key] = { name: key, label: label, type: url ? 'array' : type.toLowerCase(), def: def, max: max, min: min, step: step, value: def, values: values, validator: validator, multiline: multiline };
 		};
 
 		if (url) {
@@ -206,7 +213,7 @@ COMPONENT('multioptions', 'rebind:true', function(self, config) {
 				return;
 			}
 
-			if (el.hclass('ui-moi-value-inputtext')) {
+			if (el.hclass('ui-moi-value-inputtext') || el.hclass('ui-moi-value-inputarea')) {
 				obj[key] = el.val();
 				return;
 			}
@@ -270,7 +277,7 @@ COMPONENT('multioptions', 'rebind:true', function(self, config) {
 
 			switch (option.type.toLowerCase()) {
 				case 'string':
-					value = Tinput(option);
+					value = option.multiline ? Tarea(option) : Tinput(option);
 					break;
 				case 'number':
 					value = Tnumber(option);
@@ -289,7 +296,7 @@ COMPONENT('multioptions', 'rebind:true', function(self, config) {
 					break;
 			}
 
-			builder.push('<div class="ui-multioptions-item"><div class="ui-moi-name">{0}</div><div class="ui-moi-value">{1}</div></div>'.format(option.label, value));
+			builder.push('<div class="ui-multioptions-item{2}"><div class="ui-moi-name">{0}</div><div class="ui-moi-value">{1}</div></div>'.format(option.label, value, option.multiline ? ' ui-multioptions-multiline' : ''));
 		});
 
 		self.empty().html(builder);

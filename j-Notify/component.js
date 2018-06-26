@@ -8,29 +8,8 @@ COMPONENT('notify', 'timeout:3000;position:bottom', function(self, config) {
 	self.items = {};
 
 	self.make = function() {
-		self.aclass('ui-notify-container');
 
-		var name = config.position.replace(/_|\s/, '-');
-		switch (name) {
-			case 'top':
-				self.aclass('ui-notify-container-' + name);
-				break;
-			case 'top-left':
-				self.aclass('ui-notify-container-' + name);
-				break;
-			case 'top-right':
-				self.aclass('ui-notify-container-' + name);
-				break;
-			case 'bottom':
-				self.aclass('ui-notify-container-' + name);
-				break;
-			case 'bottom-left':
-				self.aclass('ui-notify-container-' + name);
-				break;
-			case 'bottom-right':
-				self.aclass('ui-notify-container-' + name);
-				break;
-		}
+		self.aclass('ui-notify-container ui-notify-container-' + config.position.replace(/_|\s/, '-'));
 
 		self.event('click', '.ui-notify', function() {
 			var el = $(this);

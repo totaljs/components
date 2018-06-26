@@ -23,6 +23,8 @@ COMPONENT('textbox', function(self, config) {
 		switch (self.type) {
 			case 'email':
 				return value.isEmail();
+			case 'phone':
+				return value.isPhone();
 			case 'url':
 				return value.isURL();
 			case 'phone':
@@ -94,6 +96,7 @@ COMPONENT('textbox', function(self, config) {
 				tmp = config.type;
 				break;
 			case 'number':
+			case 'phone':
 				isMOBILE && (tmp = 'tel');
 				break;
 		}
