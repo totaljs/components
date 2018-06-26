@@ -27,6 +27,8 @@ COMPONENT('textbox', function(self, config) {
 				return value.isPhone();
 			case 'url':
 				return value.isURL();
+			case 'phone':
+				return value.isPhone();
 			case 'currency':
 			case 'number':
 				return value > 0;
