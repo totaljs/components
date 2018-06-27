@@ -18,7 +18,9 @@ Just clone this example <https://github.com/totaljs/components/tree/master/0empt
 |-------------|------|--------|
 | [Peter Širka](https://github.com/petersirka) | author + support | <petersirka@gmail.com> |
 | [Martin Smola](https://github.com/molda) | contributor + support | <smola.martin@gmail.com> |
-| [Denis Granec](https://github.com/PatchwerkQWER) | contributor + support | <denis@granec.cz> |
+| [Denis Granec](https://github.com/PatchwerkQWER) | contributor | <denis@granec.cz> |
+| [Pedro Costa](https://github.com/pnmcosta) | contributor | <hello@pmcdigital.pt> |
+| [Michal Capo](https://github.com/michalCapo) | contributor | - |
 
 ## Contact
 
