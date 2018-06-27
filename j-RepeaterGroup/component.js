@@ -1,6 +1,6 @@
 COMPONENT('repeater-group', function(self, config) {
 
-	var html, template_group, group = null;
+	var html, template_group;
 	var reg = /\$(index|path)/g;
 	var force = false;
 
@@ -78,7 +78,7 @@ COMPONENT('repeater-group', function(self, config) {
 
 			if (key !== '0') {
 				var options = {};
-				options[group] = key;
+				options[config.group] = key;
 				options.length = arr.length;
 				options.index = indexgroup++;
 				options.body = tmp;
