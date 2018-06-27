@@ -4,6 +4,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 	var empty = {};
 	var skip = false;
 	var cempty = 'empty';
+	var crequired = 'required';
 	var helper = null;
 
 	self.setter = null;
@@ -18,7 +19,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 		var redraw = false;
 		switch (key) {
 			case 'disabled':
-				self.tclass('ui-textboxlist-required', value);
+				self.tclass(crequired, value);
 				self.find('input').prop('disabled', true);
 				empty.disabled = value;
 				break;
@@ -98,12 +99,13 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 
 			self.tclass(cempty, arr.length === 0);
 
+			self.tclass(crequired, config.required && arr.length === 0);
+
 			skip = true;
 			self.set(self.path, arr, 2);
 			self.change(true);
 		});
 
-		// PMC: added blur event for base input auto submit
 		self.event('change keypress blur', 'input', function (e) {
 
 			if ((e.type === 'keypress' && e.which !== 13) || config.disabled)
@@ -161,11 +163,13 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 
 		if (!value || !value.length) {
 			self.aclass(cempty);
+			config.required && self.aclass(crequired);
 			container.empty();
 			return;
 		}
 
 		self.rclass(cempty);
+		self.rclass(crequired);
 		var builder = [];
 
 		value.forEach(function (item) {
@@ -202,7 +206,6 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 					break;
 				case 'date':
 					valid = item instanceof Date && !isNaN(item.getTime());
-					// TODO: date string format validation
 					break;
 				default:
 					valid = item.length > 0;
