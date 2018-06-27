@@ -85,8 +85,10 @@ COMPONENT('window', function(self, config) {
 
 		W.$$window_level++;
 
+		var body = self.find('.ui-window-body');
+
 		self.css('z-index', W.$$window_level * 10);
-		self.element.scrollTop(0);
+		body.scrollTop(0);
 		self.rclass('hidden');
 		self.release(false);
 		self.resize();
@@ -100,7 +102,7 @@ COMPONENT('window', function(self, config) {
 		}
 
 		setTimeout(function() {
-			self.element.scrollTop(0);
+			body.scrollTop(0);
 			self.find('.ui-window').aclass('ui-window-animate');
 		}, 300);
 
