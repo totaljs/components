@@ -9,7 +9,7 @@ COMPONENT('notify', 'timeout:3000;position:bottom', function(self, config) {
 
 	self.make = function() {
 
-		self.aclass('ui-notify-container ui-notify-container-' + config.position.replace(/_|\s/, '-'));
+		self.aclass('ui-notify-container');
 
 		self.event('click', '.ui-notify', function() {
 			var el = $(this);
@@ -18,6 +18,13 @@ COMPONENT('notify', 'timeout:3000;position:bottom', function(self, config) {
 			autoclosing = null;
 			self.autoclose();
 		});
+	};
+
+	self.configure = function(key, value, init) {
+		if (key === 'position') {
+			var cls = 'ui-notify-container-';
+			self.rclass2(cls).aclass(cls + value.replace(/_|\s/, '-'));
+		}
 	};
 
 	self.close = function(id) {
@@ -31,6 +38,7 @@ COMPONENT('notify', 'timeout:3000;position:bottom', function(self, config) {
 			}, 600);
 		}
 	};
+
 
 	self.append = function(message, type) {
 
