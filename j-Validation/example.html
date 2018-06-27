@@ -5,5 +5,19 @@
 
 <!-- VALIDATION -->
 <div data-jc="validation__model">
-	<button name="submit">SUBMIT FORM</button>
+	<button name="submit" disabled="disabled" onclick="show_me()">SUBMIT FORM</button>
 </div>
+
+<style type="text/css">
+	button:disabled {
+		background-color: #cccccc;
+		color: #666666;
+		cursor: not-allowed;
+	}
+</style>
+
+<script>
+    function show_me() {
+        alert('ok');
+    }
+</script>
