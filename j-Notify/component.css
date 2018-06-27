@@ -18,10 +18,10 @@
 }
 
 @media(max-width: 767px) {
-    .ui-notify-container-top { width: 100%; left: 0; margin: 0; bottom: 20px; }
-    .ui-notify-container-top-left { margin-left: auto; margin-right: auto; width: 90%; }
-    .ui-notify-container-top-right { width: 100%; left: 0; margin: 0; }
-    .ui-notify-container-bottom { bottom: 20px; }
-    .ui-notify-container-bottom-left { bottom: 20px; }
-    .ui-notify-container-bottom-right { bottom: 20px; }
+    .ui-notify-container-top { width: 98%; margin: 1%; }
+    .ui-notify-container-top-left { width: 98%; margin: 1%; }
+    .ui-notify-container-top-right { width: 98%; margin: 1%; }
+    .ui-notify-container-bottom { width: 98%; margin: 1%; bottom: 20px; }
+    .ui-notify-container-bottom-left { width: 98%; margin: 1%; bottom: 20px; }
+    .ui-notify-container-bottom-right { width: 98%; margin: 1%; bottom: 20px; }
 }
