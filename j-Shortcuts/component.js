@@ -49,6 +49,9 @@ COMPONENT('shortcuts', function(self) {
 					case 'cmd':
 						builder.push('e.metaKey');
 						return;
+					case 'ins':
+						builder.push('e.keyCode===45');
+						return;
 					case 'space':
 						builder.push('e.keyCode===32');
 						return;
