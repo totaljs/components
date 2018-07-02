@@ -1,4 +1,4 @@
-COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filter;numbering:Num.;height:auto;bottom:90;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true', function(self, config) {
+COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filter;numbering:;height:auto;bottom:90;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true', function(self, config) {
 
 	var opt = { filter: {}, filtercache: {}, filtervalues: {}, scroll: false, selected: {} };
 	var header, vbody, footer, vcontainer, hcontainer, varea, hbody, vscrollbar, vscrollbararea, hscrollbar, hscrollbararea;
@@ -545,7 +545,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		var css = [];
 		var indexes = {};
 
-		opt.width = (config.numbering ? 40 : 0) + (config.checkbox ? 40 : 0) + 30;
+		opt.width = (config.numbering !== false ? 40 : 0) + (config.checkbox ? 40 : 0) + 30;
 
 		for (var i = 0; i < cols.length; i++) {
 			var col = cols[i];
@@ -592,10 +592,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 	self.rendercols = function() {
 
 		var Trow = '<div class="dg-hrow dg-row-{0}">{1}</div>';
-		var column = config.numbering ? Theadercol({ index: -1, label: config.numbering, filter: false, name: '$', sorting: false }) : '';
+		var column = config.numbering !== false ? Theadercol({ index: -1, label: config.numbering, filter: false, name: '$', sorting: false }) : '';
 		var resize = [];
 
-		opt.width = (config.numbering ? 40 : 0) + (config.checkbox ? 40 : 0) + 30;
+		opt.width = (config.numbering !== false ? 40 : 0) + (config.checkbox ? 40 : 0) + 30;
 
 		if (config.checkbox)
 			column += Theadercol({ index: -1, label: '<div class="center"><input type="checkbox" value="-1" class="dg-checkbox-input" /></div>', filter: false, name: '$', sorting: false });
@@ -637,7 +637,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 			var row = rows[i];
 			var column = '';
 
-			if (config.numbering)
+			if (config.numbering !== false)
 				column += Tcol.format(-1, '<div class="dg-number">{0}</div>'.format(i + 1));
 
 			if (config.checkbox)
@@ -732,7 +732,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		}
 
 		var w = self.width();
-		var width = (config.numbering ? 40 : 0) + (config.checkbox ? 40 : 0) + 30;
+		var width = (config.numbering !== false ? 40 : 0) + (config.checkbox ? 40 : 0) + 30;
 
 		for (var i = 0; i < opt.cols.length; i++) {
 			var col = opt.cols[i];
