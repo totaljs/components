@@ -53,6 +53,9 @@ COMPONENT('textarea', function(self, config) {
 				self.format = value;
 				self.refresh();
 				break;
+			case 'height':
+				self.find('textarea').css('height', (value > 0 ? value + 'px' : value));
+				break;
 		}
 
 		redraw && setTimeout2('redraw' + self.id, function() {
