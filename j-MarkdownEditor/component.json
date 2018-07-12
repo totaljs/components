@@ -1,0 +1,16 @@
+{
+	"datecreated": "2018-07-12T14:23:00.000Z",
+	"dateupdated": null,
+	"name": "j-MarkdownEditor",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Michal Capo",
+	"email": "michal.capo@gmail.com",
+	"license": "MIT"
+}
