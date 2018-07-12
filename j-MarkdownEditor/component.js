@@ -1,4 +1,4 @@
-COMPONENT('markdown-editor', function (self) {
+COMPONENT('markdowneditor', function (self) {
 
     var input, editor;
 
