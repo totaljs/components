@@ -1,6 +1,6 @@
 ## j-MarkdownEditor
 
-This component user `https://simplemde.com/` editor for markdown editing.
+This component use `https://simplemde.com/` editor for markdown editing.
 
 ### Author
 
