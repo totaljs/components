@@ -1,62 +1,55 @@
 COMPONENT('markdowneditor', function (self, config) {
 
-    var input, editor, content;
+	var input, editor, content;
 
-    self.validate = function (value) {
-        if (!config.required)
-            return true;
+	self.make = function () {
+		content = self.html();
+		self.redraw();
+	};
 
-        if (value == null)
-            value = '';
-        else
-            value = value.toString();
+	self.redraw = function () {
 
-        return value.length > 0;
-    };
+		var label = config.label || content;
+		var builder = ['<div>'];
 
-    self.state = function (type) {
-        if (!type)
-            return;
+		label && builder.push((config.required ? '<div class="ui-markdown-editor-label ui-markdown-editor-label-required"><i class="fa fa-pencil"></i>{0}:</div>' : '<div class="ui-markdown-editor-label">{0}:</div>').format(label));
+		builder.push('<textarea></textarea></div>');
+		self.html(builder.join(''));
 
-        var invalid = config.required ? self.isInvalid() : false;
-        if (invalid === self.$oldstate)
-            return;
+		input = self.find('textarea')[0];
+		editor = new SimpleMDE({element: input});
+		editor.codemirror.on('change', function () {
+			self.set(self.path, editor.value(), 3);
+			self.change(true);
+		});
+	};
 
-        self.$oldstate = invalid;
-        self.find('.CodeMirror-wrap').tclass('ui-markdown-editor-invalid', invalid);
-    };
+	self.setter = function (value, path, type) {
+		if (type !== 3)
+			editor.value(value || '');
+	};
 
-    self.redraw = function () {
-        var label = config.label || content;
-        var builder = [];
+	self.validate = function(value, init) {
 
-        if (label)
-            if (config && config.required)
-                builder.push(`<div class="ui-markdown-editor-label ui-markdown-editor-label-required"><i class="fa fa-pencil"></i>${label}:</div>`);
-            else
-                builder.push(`<div class="ui-markdown-editor-label">${label}:</div>`);
+		if (init || !config.required)
+			return true;
 
-        builder.push('<textarea></textarea>');
+		if (value == null)
+			value = '';
+		else
+			value = value + '';
 
-        self.html('<div>' + builder.join('') + '</div>');
+		return value.length > 0;
+	};
 
-        input = self.find('textarea')[0];
-        editor = new SimpleMDE({element: input});
-        editor.codemirror.on('change', function () {
-            self.set(self.path, editor.value(), 3);
-            self.change(true);
-        });
-    };
-
-    self.make = function () {
-        content = self.html();
-
-        self.redraw();
-    };
-
-    self.setter = function (value, path, type) {
-        if (type !== 3)
-            editor.value(value || '');
-    };
+	self.state = function (type) {
+		if (type) {
+			var invalid = config.required ? self.isInvalid() : false;
+			if (invalid !== self.$oldstate) {
+				self.$oldstate = invalid;
+				self.find('.CodeMirror-wrap').tclass('ui-markdown-editor-invalid', invalid);
+			}
+		}
+	};
 
 }, ['https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js', 'https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css']);
