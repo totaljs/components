@@ -21,7 +21,7 @@ COMPONENT('togglebutton', function(self, config) {
 			if (config.disabled)
 				return;
 			self.dirty(false);
-			self.getter(!self.get(), 2, true);
+			self.getter(!self.get());
 		});
 	};
 

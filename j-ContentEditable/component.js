@@ -41,7 +41,7 @@ COMPONENT('contenteditable', function(self) {
 		});
 
 		self.save = function() {
-			self.getter(self.html(), 2, true);
+			self.getter(self.html());
 		};
 
 		self.event('click', function(e) {
