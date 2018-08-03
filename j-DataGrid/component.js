@@ -714,6 +714,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		CACHE(self.gridid, cache, '1 month');
 	};
 
+	self.rows = function() {
+		return opt.rows.slice(0);
+	};
+
 	self.resize = function() {
 
 		if (!opt.cols)
