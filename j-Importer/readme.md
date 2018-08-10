@@ -10,6 +10,10 @@ __Configuration__:
 - `cleaner` {Number} (optional) idle time (in minutes) for running of cleaning (default: `0`)
 - `clean` {String} (optional) a link to function, it's executed before the importer is cleaned
 
+__New update__:
+
+j-Importer can contain `<script type="text/html">` with a content which will be evaluated as HTML if the condition will be valid.
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
