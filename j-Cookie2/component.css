@@ -8,5 +8,5 @@
 .ui-cookie2-buttons button:first-child { background-color: #2A69BB; width: 60%; }
 
 @media(max-width: 768px) {
-	.ui-cookie2 { left: 20px; right: 20px; bottom: 20px; }
+	.ui-cookie2 { left: 20px; right: 20px; bottom: 20px; max-width: auto; }
 }
