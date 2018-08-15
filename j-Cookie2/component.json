@@ -1,0 +1,17 @@
+{
+	"datecreated": "2016-02-19T13:55:27.418Z",
+	"dateupdated": "2017-12-21T10:05:00.000Z",
+	"name": "j-Cookie",
+	"tags": [
+		"jcomponent",
+		"cookies"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}
