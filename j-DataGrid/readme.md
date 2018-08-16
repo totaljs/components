@@ -56,7 +56,7 @@ __Configuration__:
 - `alignheader` {String} align for header `right` or `center` (optional, default: `left`)
 - `alignfilter` {String} align for filter input `right` or `center` (optional, default: `left`)
 - `align` {String} align for a column value `right` or `center` (optional, default: `left`)
-- `click` {String} a link to `function(row, grid)` is executed if the user clicks on a row
+- `click` {String} a link to `function(row, grid, row_el)` is executed if the user clicks on a row
 - `checked` {String} a link to `function(rows, grid)` is executed if the user selected/checked some rows
 - `exec` {String} a link to `function(type, filter, sort, page)` for server-side operations only (it disables client-side sorting & filtering)
 

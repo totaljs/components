@@ -231,8 +231,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 				case 'BUTTON':
 				case 'SPAN':
 					if (!$(e.target).closest('.dg-checkbox').length) {
-						var row = opt.rows[+el.closest('.dg-row').attrd('index')];
-						row && config.click && EXEC(config.click, row);
+						var elrow = el.closest('.dg-row');
+						var row = opt.rows[+elrow.attrd('index')];
+						row && config.click && EXEC(config.click, row, self, elrow);
 					}
 					break;
 			}
