@@ -1,6 +1,6 @@
 COMPONENT('suggestion', function(self, config) {
 
-	var container, arrow, timeout, input = null;
+	var container, arrow, timeout, icon, input = null;
 	var is = false, selectedindex = 0, resultscount = 0;
 
 	self.items = null;
@@ -22,10 +22,11 @@ COMPONENT('suggestion', function(self, config) {
 	self.make = function() {
 
 		self.aclass('ui-suggestion hidden');
-		self.append('<span class="ui-suggestion-arrow"></span><div class="ui-suggestion-search"><span><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="ui-suggestion-search-input" /></div></div><div class="ui-suggestion-container"><ul></ul></div>'.format(config.placeholder));
+		self.append('<span class="ui-suggestion-arrow"></span><div class="ui-suggestion-search"><span class="ui-suggestion-button"><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="ui-suggestion-search-input" /></div></div><div class="ui-suggestion-container"><ul></ul></div>'.format(config.placeholder));
 		container = self.find('ul');
 		arrow = self.find('.ui-suggestion-arrow');
 		input = self.find('input');
+		icon = self.find('.ui-suggestion-button').find('.fa');
 
 		self.event('mouseenter mouseleave', 'li', function() {
 			container.find('li.selected').rclass('selected');
@@ -37,6 +38,13 @@ COMPONENT('suggestion', function(self, config) {
 					break;
 				}
 			}
+		});
+
+		self.event('click', '.ui-suggestion-button', function(e) {
+			input.val('');
+			self.search();
+			e.stopPropagation();
+			e.preventDefault();
 		});
 
 		self.event('touchstart mousedown', 'li', function(e) {
@@ -54,7 +62,9 @@ COMPONENT('suggestion', function(self, config) {
 			is && self.hide(0);
 		});
 
-		self.event('keyup', 'input', function(e) {
+		var stop = false;
+
+		self.event('keydown', 'input', function(e) {
 			var o = false;
 			switch (e.which) {
 				case 27:
@@ -89,8 +99,12 @@ COMPONENT('suggestion', function(self, config) {
 			if (o) {
 				e.preventDefault();
 				e.stopPropagation();
-			} else
-				setTimeout2(self.ID, self.search, 100, null, this.value);
+			}
+
+		});
+
+		self.event('input', 'input', function() {
+			setTimeout2(self.ID, self.search, 100, null, this.value);
 		});
 
 		self.event('scroll', function() {
@@ -129,8 +143,13 @@ COMPONENT('suggestion', function(self, config) {
 
 	self.search = function(value) {
 
+		icon.tclass('fa-times', !!value).tclass('fa-search', !value);
+
 		if (!value) {
 			container.find('li').rclass('hidden');
+			resultscount = self.items.length;
+			selectedindex = 0;
+			self.move();
 			return;
 		}
 
@@ -224,6 +243,7 @@ COMPONENT('suggestion', function(self, config) {
 		selectedindex = 0;
 		resultscount = items.length;
 		self.move();
+		self.search();
 
 		self.rclass('hidden');
 		setTimeout(function() {
