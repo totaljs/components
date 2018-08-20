@@ -1,5 +1,5 @@
 .ui-suggestion * { box-sizing: border-box; }
-.ui-suggestion { position: absolute; opacity: 0; transition: 0.25s transform cubic-bezier(0.23, 1, 0.32, 1); left: -100; top: -100; z-index: 100; width: 240px; box-shadow: 0 1px 20px rgba(0,0,0,0.2); transform: translate(0px,20px); background-color: white; border-radius: 4px; border: 1px solid #E0E0E0; }
+.ui-suggestion { position: absolute; opacity: 0; transition: 0.25s transform cubic-bezier(0.23, 1, 0.32, 1); left: -100; top: -100; z-index: 100; width: 240px; box-shadow: 0 1px 20px rgba(0,0,0,0.1); transform: translate(0px,20px); background-color: white; border-radius: 4px; border: 1px solid #E0E0E0; }
 .ui-suggestion-search { height: 31px; background: white; border-radius: 4px 4px 0 0; border-bottom: 1px solid #E0E0E0; }
 .ui-suggestion-search input { width: 100%; background-color: white; border: 0; font-size: 12px; outline: 0; }
 .ui-suggestion-search > div { margin-left: 35px; padding: 5px 10px 0 0; }
@@ -11,7 +11,7 @@
 .ui-suggestion-visible { opacity: 1; transform: translate(0px,0px); }
 .ui-suggestion-container { height: 150px; overflow-x: hidden; overflow-y: auto; overflow-scrolling: touch; }
 .ui-suggestion ul { list-style-type: none; margin: 0; padding: 0; }
+.ui-suggestion .selected { background-color: #F0F0F0; }
 .ui-suggestion li { border-top: 1px solid #F0F0F0; font-size: 12px; padding: 5px 10px; background-color: white; cursor: pointer; }
-.ui-suggestion li:hover { background-color: #F0F0F0; }
 .ui-suggestion li:first-child { border-top: 0; }
 .hidden { display: none; }

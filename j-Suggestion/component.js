@@ -1,7 +1,7 @@
 COMPONENT('suggestion', function(self, config) {
 
 	var container, arrow, timeout, input = null;
-	var is = false;
+	var is = false, results = false, selectedindex = 0, resultscount = 0, skipmouse = true;
 
 	self.items = null;
 	self.template = Tangular.compile('<li data-index="{{ $.index }}"{{ if selected }} class="selected"{{ fi }}>{{ name | raw }}</li>');
@@ -27,7 +27,19 @@ COMPONENT('suggestion', function(self, config) {
 		arrow = self.find('.ui-suggestion-arrow');
 		input = self.find('input');
 
-		self.event('click', 'li', function(e) {
+		self.event('mouseenter mouseleave', 'li', function(e) {
+			container.find('li.selected').rclass('selected');
+			$(this).aclass('selected');
+			var arr = container.find('li:visible');
+			for (var i = 0; i < arr.length; i++) {
+				if ($(arr[i]).hclass('selected')) {
+					selectedindex = i;
+					break;
+				}
+			}
+		});
+
+		self.event('touchstart mousedown', 'li', function(e) {
 			self.callback && self.callback(self.items[+this.getAttribute('data-index')], $(self.target));
 			self.hide();
 			e.preventDefault();
@@ -42,8 +54,45 @@ COMPONENT('suggestion', function(self, config) {
 			is && self.hide(0);
 		});
 
-		self.event('keyup', 'input', function() {
-			setTimeout2(self.id, self.search, 100, null, this.value);
+		self.event('keyup', 'input', function(e) {
+			var o = false;
+			switch (e.which) {
+				case 27:
+					o = true;
+					self.hide();
+					break;
+				case 13:
+					o = true;
+					var sel = self.find('li.selected');
+					if (sel.length && self.callback)
+						self.callback(self.items[+sel.attrd('index')]);
+					self.hide();
+					break;
+				case 38: // up
+					o = true;
+					skipmouse = true;
+					selectedindex--;
+					if (selectedindex < 0)
+						selectedindex = 0;
+					else
+						self.move();
+					break;
+				case 40: // down
+					o = true;
+					skipmouse = true;
+					selectedindex++ ;
+					if (selectedindex >= resultscount)
+						selectedindex = resultscount;
+					else
+						self.move();
+					break;
+			}
+
+			if (o) {
+				e.preventDefault();
+				e.stopPropagation();
+			} else
+				setTimeout2(self.ID, self.search, 100, null, this.value);
 		});
 
 		self.event('scroll', function() {
@@ -55,19 +104,56 @@ COMPONENT('suggestion', function(self, config) {
 		});
 	};
 
+	self.move = function() {
+		var counter = 0;
+		var scroller = container.parent();
+		var h = scroller.height();
+		container.find('li').each(function() {
+			var el = $(this);
+
+			if (el.hclass('hidden')) {
+				el.rclass('selected');
+				return;
+			}
+
+			var is = selectedindex === counter;
+			el.tclass('selected', is);
+			if (is) {
+				var t = (h * counter) - h;
+				if ((t + h * 4) > h)
+					scroller.scrollTop(t - h);
+				else
+					scroller.scrollTop(0);
+			}
+			counter++;
+		});
+
+		skipmouse = false;
+	};
+
 	self.search = function(value) {
+
+		results = true;
 
 		if (!value) {
 			container.find('li').rclass('hidden');
 			return;
 		}
 
+		resultscount = 0;
+		selectedindex = 0;
+
 		value = value.toSearch();
 		container.find('li').each(function() {
 			var el = $(this);
 			var val = this.innerHTML.toSearch();
-			el.tclass('hidden', val.indexOf(value) === -1);
+			var is = val.indexOf(value) === -1;
+			el.tclass('hidden', is);
+			if (!is)
+				resultscount++;
 		});
+
+		self.move();
 	};
 
 	self.show = function(orientation, target, items, callback) {
@@ -140,6 +226,10 @@ COMPONENT('suggestion', function(self, config) {
 
 		if (is)
 			return;
+
+		selectedindex = 0;
+		resultscount = items.length;
+		self.move();
 
 		self.rclass('hidden');
 		setTimeout(function() {
