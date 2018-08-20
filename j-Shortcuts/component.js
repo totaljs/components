@@ -12,7 +12,6 @@ COMPONENT('shortcuts', function(self) {
 			if (length && !e.isPropagationStopped()) {
 				for (var i = 0; i < length; i++) {
 					var o = items[i];
-					console.log(e.key, e.altKey, e);
 					if (o.fn(e)) {
 						if (o.prevent) {
 							e.preventDefault();
