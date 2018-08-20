@@ -1,7 +1,7 @@
 COMPONENT('suggestion', function(self, config) {
 
 	var container, arrow, timeout, input = null;
-	var is = false, results = false, selectedindex = 0, resultscount = 0, skipmouse = true;
+	var is = false, selectedindex = 0, resultscount = 0;
 
 	self.items = null;
 	self.template = Tangular.compile('<li data-index="{{ $.index }}"{{ if selected }} class="selected"{{ fi }}>{{ name | raw }}</li>');
@@ -27,7 +27,7 @@ COMPONENT('suggestion', function(self, config) {
 		arrow = self.find('.ui-suggestion-arrow');
 		input = self.find('input');
 
-		self.event('mouseenter mouseleave', 'li', function(e) {
+		self.event('mouseenter mouseleave', 'li', function() {
 			container.find('li.selected').rclass('selected');
 			$(this).aclass('selected');
 			var arr = container.find('li:visible');
@@ -70,7 +70,6 @@ COMPONENT('suggestion', function(self, config) {
 					break;
 				case 38: // up
 					o = true;
-					skipmouse = true;
 					selectedindex--;
 					if (selectedindex < 0)
 						selectedindex = 0;
@@ -79,7 +78,6 @@ COMPONENT('suggestion', function(self, config) {
 					break;
 				case 40: // down
 					o = true;
-					skipmouse = true;
 					selectedindex++ ;
 					if (selectedindex >= resultscount)
 						selectedindex = resultscount;
@@ -127,13 +125,9 @@ COMPONENT('suggestion', function(self, config) {
 			}
 			counter++;
 		});
-
-		skipmouse = false;
 	};
 
 	self.search = function(value) {
-
-		results = true;
 
 		if (!value) {
 			container.find('li').rclass('hidden');
