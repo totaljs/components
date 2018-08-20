@@ -59,6 +59,7 @@ __Configuration__:
 - `click` {String} a link to `function(row, grid, row_el)` is executed if the user clicks on a row
 - `checked` {String} a link to `function(rows, grid)` is executed if the user selected/checked some rows
 - `exec` {String} a link to `function(type, filter, sort, page)` for server-side operations only (it disables client-side sorting & filtering)
+- `button` {String} a link to `function(btn_name, row, grid, elbutton, elrow)` is executed if the user clicks on a __button__ in the row
 
 __Column properties__:
 
