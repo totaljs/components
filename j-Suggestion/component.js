@@ -62,8 +62,6 @@ COMPONENT('suggestion', function(self, config) {
 			is && self.hide(0);
 		});
 
-		var stop = false;
-
 		self.event('keydown', 'input', function(e) {
 			var o = false;
 			switch (e.which) {
