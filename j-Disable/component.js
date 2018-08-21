@@ -16,8 +16,13 @@ COMPONENT('disable', function(self, config) {
 		else
 			is = !value;
 
+		var types = { INPUT: 1, TEXTAREA: 1, SELECT: 1 };
+
 		self.find(config.selector || '[data-jc]').each(function() {
-			var com = $(this).component();
+			var el = $(this);
+			if (types[this.nodeName])
+				el.prop('disabled', is);
+			var com = el.component();
 			com && com.reconfigure('disabled:' + is);
 		});
 
