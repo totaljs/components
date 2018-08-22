@@ -485,7 +485,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 			col.realindex = i;
 
 			if (!col.name)
-				col.name = id;
+				col.name = col.id;
 
 			if (col.hidden)
 				col.hidden = FN(col.hidden)(col) === true;
