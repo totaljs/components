@@ -1,6 +1,6 @@
 COMPONENT('dropdown', function(self, config) {
 
-	var select, container, condition, content = null;
+	var select, condition, content = null;
 	var render = '';
 
 	self.validate = function(value) {
