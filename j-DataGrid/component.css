@@ -28,9 +28,9 @@
 .dg-row:hover { background-color: rgba(0,0,0,0.05); }
 .dg-col { float: left; border-left: 1px solid #E0E0E0; height: 23px; overflow: hidden; min-width: 30px; }
 .dg-col:first-child { border-left: 0; }
-.dg-value { padding: 4px 5px 0; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
-.dg-number { padding: 4px 5px 0; font-size: 11px; text-align: right; background-color: #F8F8F8; height: 24px; color: #A0A0A0; }
-.dg-checkbox { text-align: center; padding: 3px 0 0; }
+.dg-value { padding: 2px 5px 0; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.dg-number { padding: 2px 5px 0; font-size: 11px; text-align: right; background-color: #F8F8F8; height: 24px; color: #A0A0A0; }
+.dg-checkbox { text-align: center; padding: 2px 0 0; }
 .dg-col--1 { width: 40px; }
 .dg-col--1 .dg-label { text-overflow: clip; }
 .dg-row-empty { height: 24px; font-size: 12px; border-bottom: 1px solid #F0F0F0; background-color: white !important; cursor: default; }
