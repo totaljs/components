@@ -1,6 +1,6 @@
 .ui-textboxtags * { box-sizing: border-box; }
 .ui-textboxtags { border: 1px solid #E0E0E0; padding: 3px; border-radius: 3px; position: relative; display: block; width: 100%; background-color: white; }
-.ui-textboxtags-label { margin-bottom: 5px; font-size: 12px; color: gray; text-align: left; }
+.ui-textboxtags-label { margin-bottom: 5px; font-size: 12px; text-align: left; }
 .ui-textboxtags-label .fa { width: 14px; }
 .ui-textboxtags-required .ui-textboxtags-label { font-weight: bold; }
 .ui-textboxtags-required .ui-textboxtags-label:before { color: red; content: '***'; margin-right: 5px; }
