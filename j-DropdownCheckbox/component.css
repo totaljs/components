@@ -9,6 +9,7 @@
 .ui-dropdowncheckbox-required .ui-dropdowncheckbox { border-color: #D0D0D0; }
 .ui-dropdowncheckbox-required .ui-dropdowncheckbox-label:before { color: red; content: '***'; margin-right: 5px; }
 .ui-dropdowncheckbox-required .ui-dropdowncheckbox-label { font-weight: bold; }
+.ui-dropdowncheckbox-required .ui-dropdowncheckbox .fa { border-left-color: #D0D0D0; }
 .ui-dropdowncheckbox-values { position: absolute; width: 100%; z-index: 2; background-color: white; border: 1px solid #E0E0E0; padding: 5px 10px; border-radius: 0 0 3px 3px; line-height: 18px; margin-top: -1px; box-shadow: 0 3px 5px rgba(0,0,0,0.08); overflow: auto; max-height: 250px; font-size: 12px; }
 .ui-dropdowncheckbox-item { cursor: pointer; padding-bottom: 2px; }
 .ui-dropdowncheckbox-item span { cursor: pointer; vertical-align: middle; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; margin-left: 20px; }
