@@ -43,9 +43,7 @@ COMPONENT('textbox', function(self, config) {
 		self.format = config.format;
 
 		self.event('click', '.fa-calendar', function(e) {
-			if (config.disabled)
-				return;
-			if (config.type === 'date') {
+			if (!config.disabled && !config.readonly && config.type === 'date') {
 				e.preventDefault();
 				SETTER('calendar', 'toggle', self.element, self.get(), function(date) {
 					self.change(true);
@@ -55,9 +53,7 @@ COMPONENT('textbox', function(self, config) {
 		});
 
 		self.event('click', '.fa-caret-up,.fa-caret-down', function() {
-			if (config.disabled)
-				return;
-			if (config.increment) {
+			if (!config.disabled && !config.readonly && config.increment) {
 				var el = $(this);
 				var inc = el.hclass('fa-caret-up') ? 1 : -1;
 				self.change(true);
@@ -66,7 +62,7 @@ COMPONENT('textbox', function(self, config) {
 		});
 
 		self.event('click', '.ui-textbox-control-icon', function() {
-			if (config.disabled)
+			if (config.disabled || config.readonly)
 				return;
 			if (self.type === 'search') {
 				self.$stateremoved = false;
@@ -77,7 +73,8 @@ COMPONENT('textbox', function(self, config) {
 		});
 
 		self.event('focus', 'input', function() {
-			config.autocomplete && EXEC(config.autocomplete, self);
+			if (!config.disabled && !config.readonly && config.autocomplete)
+				EXEC(config.autocomplete, self);
 		});
 
 		self.redraw();
