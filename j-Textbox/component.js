@@ -97,6 +97,7 @@ COMPONENT('textbox', function(self, config) {
 		}
 
 		self.tclass('ui-disabled', config.disabled === true);
+		self.tclass('ui-textbox-required', config.required === true);
 		self.type = config.type;
 		attrs.attr('type', tmp);
 		config.placeholder && attrs.attr('placeholder', config.placeholder);
@@ -138,7 +139,7 @@ COMPONENT('textbox', function(self, config) {
 		if (content.length) {
 			var html = builder.join('');
 			builder = [];
-			builder.push('<div class="ui-textbox-label{0}">'.format(config.required ? ' ui-textbox-label-required' : ''));
+			builder.push('<div class="ui-textbox-label">');
 			icon && builder.push('<i class="fa fa-{0}"></i> '.format(icon));
 			builder.push('<span>' + content + (content.substring(content.length - 1) === '?' ? '' : ':') + '</span>');
 			builder.push('</div><div class="ui-textbox">{0}</div>'.format(html));
@@ -178,7 +179,7 @@ COMPONENT('textbox', function(self, config) {
 			case 'required':
 				self.noValid(!value);
 				!value && self.state(1, 1);
-				self.find('.ui-textbox-label').tclass('ui-textbox-label-required', value);
+				self.tclass('ui-textbox-required', value === true);
 				break;
 			case 'placeholder':
 				input.prop('placeholder', value || '');
