@@ -9,9 +9,9 @@
 .ui-dropdown-required .ui-dropdown-label:before { color: red; content: '***'; margin-right: 5px; }
 .ui-dropdown-required .ui-dropdown { border-color: #D0D0D0; }
 .ui-dropdown-required .ui-dropdown:after { border-left-color: #D0D00D; }
-.ui-dropdown-invalid { border-color: #E1A1A1 !important; background-color: #FFF3F3 !important; }
+.ui-dropdown-invalid .ui-dropdown { border-color: #E1A1A1 !important; background-color: #FFF3F3 !important; }
 .ui-dropdown-invalid select { background-color: #FFF3F3 !important; }
-.ui-dropdown-invalid:after { border-left-color: #E1A1A1 !important; }
+.ui-dropdown-invalid .ui-dropdown:after { border-left-color: #E1A1A1 !important; }
 .ui-disabled select { background-color: #F0F0F0; cursor: not-allowed; color: #A0A0A0; }
 .ui-disabled .ui-dropdown { background-color: #F0F0F0; cursor: not-allowed; }
 .ui-disabled .ui-dropdown .fa { color: #A0A0A0; }

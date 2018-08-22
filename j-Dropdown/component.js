@@ -114,7 +114,7 @@ COMPONENT('dropdown', function(self, config) {
 		var builder = [];
 		var label = content || config.label;
 		if (label) {
-			builder.push('<div class="ui-dropdown-label{0}">{1}{2}:</div>'.format(config.required ? ' ui-dropdown-label-required' : '', config.icon ? '<span class="fa fa-{0}"></span> '.format(config.icon) : '', label));
+			builder.push('<div class="ui-dropdown-label">{0}{1}:</div>'.format(config.icon ? '<span class="fa fa-{0}"></span> '.format(config.icon) : '', label));
 			builder.push('<div class="ui-dropdown-values">{0}</div>'.format(html));
 			self.html(builder.join(''));
 		} else
@@ -123,6 +123,7 @@ COMPONENT('dropdown', function(self, config) {
 		container = self.find('.ui-dropdown');
 		render && self.refresh();
 		config.disabled && self.reconfigure('disabled:true');
+		self.tclass('ui-dropdown-required', config.required === true);
 	};
 
 	self.make = function() {
@@ -142,6 +143,6 @@ COMPONENT('dropdown', function(self, config) {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		container.tclass('ui-dropdown-invalid', invalid);
+		self.tclass('ui-dropdown-invalid', invalid);
 	};
 });
