@@ -5,7 +5,7 @@
 - singleton
 
 ```javascript
-component.attach(selector|input|jComponent, onSearchDelegate(value, render(array)), onSelectedDelegate(value, input), [customOffsetTop], [customOffsetLeft], [customIncrementWidth]);
+component.attach(selector|input|jComponent, onSearchDelegate(value, render(array)), onSelectedDelegate(value, input), [customOffsetLeft], [customOffsetTop], [customIncrementWidth]);
 ```
 
 __Example__:
@@ -28,12 +28,12 @@ function onSelected(value, input) {
 }
 
 var plusOffsetTop = 14;
-// FIND('autocomplete').attach(input, onSearch, onSelected, [offsetY], [offsetX], [width]);
-FIND('autocomplete').attach('input', onSearch, onSelected, plusOffsetTop);
+// SETTER('autocomplete', 'attach', input, onSearch, onSelected, [offsetX], [offsetY], [width]);
+SETTER('autocomplete', 'attach', input', onSearch, onSelected, plusOffsetTop);
 
 // or
-// FIND('autocomplete').attachelement(element, input, onSearch, onSelected, [offsetY], [offsetX], [width]);
-FIND('autocomplete').attachelement('offset-element', 'input', onSearch, onSelected);
+// SETTER('autocomplete', 'attachelement', element, input, onSearch, onSelected, [offsetX], [offsetY], [width]);
+SETTER('autocomplete', 'attachelement', offset-element', 'input', onSearch, onSelected);
 ```
 
 __Improved example__:

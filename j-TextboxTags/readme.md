@@ -15,6 +15,7 @@ __Configuration__:
 - `disabled` {Boolean} can disable this control
 - `lowercase` {Boolean} converts a value to lowercase (default: `false`)
 - `uppercase` {Boolean} converts a value to uppercase (default: `false`)
+- `focus` {String} a link to function, it's executed when the `input` is focused
 
 __Other attributes__:
 

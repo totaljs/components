@@ -116,6 +116,10 @@ COMPONENT('textboxtags', function(self, config) {
 			!config.disabled && self.find('input').focus();
 		});
 
+		self.event('focus', 'input', function() {
+			config.focus && EXEC(config.focus, $(this), self);
+		});
+
 		self.event('keydown', 'input', function(e) {
 
 			if (config.disabled)
@@ -170,7 +174,7 @@ COMPONENT('textboxtags', function(self, config) {
 
 	self.split = function(value) {
 		if (!value)
-			return new Array(0);
+			return [];
 		var arr = value.split(',');
 		for (var i = 0, length = arr.length; i < length; i++)
 			arr[i] = arr[i].trim();

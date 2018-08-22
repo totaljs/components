@@ -84,18 +84,20 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 
 		var current = container.find('.selected');
 		if (c === 13) {
-			prev = null;
-			self.visible(false);
-			if (current.length) {
-				if (onCallback) {
-					var val = datasource[+current.attrd('index')];
-					if (typeof(onCallback) === 'string')
-						SET(onCallback, val.value === undefined ? val.name : val.value);
-					else
-						onCallback(val, old);
+			if (prev) {
+				prev = null;
+				self.visible(false);
+				if (current.length) {
+					if (onCallback) {
+						var val = datasource[+current.attrd('index')];
+						if (typeof(onCallback) === 'string')
+							SET(onCallback, val.value === undefined ? val.name : val.value);
+						else
+							onCallback(val, old);
+					}
+					e.preventDefault();
+					e.stopPropagation();
 				}
-				e.preventDefault();
-				e.stopPropagation();
 			}
 			return;
 		}
@@ -153,11 +155,11 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 		self.css(offset);
 	};
 
-	self.attach = function(input, search, callback, top, left, width) {
-		self.attachelement(input, input, search, callback, top, left, width);
+	self.attach = function(input, search, callback, left, top, width) {
+		self.attachelement(input, input, search, callback, left, top, width);
 	};
 
-	self.attachelement = function(element, input, search, callback, top, left, width) {
+	self.attachelement = function(element, input, search, callback, left, top, width) {
 
 		if (typeof(callback) === 'number') {
 			width = left;
