@@ -78,7 +78,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 
 	self.redraw = function() {
 
-		var html = '<div class="ui-dropdowncheckbox"><span class="fa fa-sort"></span><div class="ui-dropdowncheckbox-selected"></div></div><div class="ui-dropdowncheckbox-values hidden">{0}</div>'.format(render);
+		var html = '<div class="ui-dropdowncheckbox"><span class="fa fa-caret-down"></span><div class="ui-dropdowncheckbox-selected"></div></div><div class="ui-dropdowncheckbox-values hidden">{0}</div>'.format(render);
 		if (content.length)
 			self.html('<div class="ui-dropdowncheckbox-label">{0}{1}:</div>'.format(config.icon ? ('<i class="fa fa-' + config.icon + '"></i>') : '', content) + html);
 		else

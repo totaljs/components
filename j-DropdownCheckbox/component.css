@@ -16,8 +16,8 @@
 .ui-dropdowncheckbox-item .fa { display: none; }
 .ui-dropdowncheckbox-checked div { background-color: #017CCA; border-color: #017CCA; }
 .ui-dropdowncheckbox-checked .fa { display: block !important; }
-.ui-dropdowncheckbox-invalid .dropdowncheckbox { border: 1px solid #E1A1A1 !important; background-color: #FFF3F3 !important; }
-.ui-dropdowncheckbox-invalid .dropdowncheckbox .fa { border-left-color: #E1A1A1 !important; }
+.ui-dropdowncheckbox-invalid .ui-dropdowncheckbox { border: 1px solid #E1A1A1 !important; background-color: #FFF3F3 !important; }
+.ui-dropdowncheckbox-invalid .ui-dropdowncheckbox .fa { border-left-color: #E1A1A1 !important; }
 .ui-dropdowncheckbox-values-empty { text-align: center; padding: 10px 0; color: #A0A0A0; }
 
 .ui-disabled .ui-dropdowncheckbox-selected { color: #A0A0A0; cursor: not-allowed; }
