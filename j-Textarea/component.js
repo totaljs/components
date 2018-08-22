@@ -71,6 +71,7 @@ COMPONENT('textarea', function(self, config) {
 
 		self.tclass('ui-disabled', config.disabled === true);
 		self.tclass('ui-textarea-monospace', config.monospace === true);
+		self.tclass('ui-textarea-required', config.required === true);
 
 		config.placeholder && attrs.attr('placeholder', config.placeholder);
 		config.maxlength && attrs.attr('maxlength', config.maxlength);
