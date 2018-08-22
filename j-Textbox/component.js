@@ -1,6 +1,6 @@
 COMPONENT('textbox', function(self, config) {
 
-	var input, container, content = null;
+	var input, content = null;
 
 	self.validate = function(value) {
 
@@ -147,13 +147,11 @@ COMPONENT('textbox', function(self, config) {
 			self.html(builder.join(''));
 			self.aclass('ui-textbox-container');
 			input = self.find('input');
-			container = self.find('.ui-textbox');
 		} else {
 			config.error && builder.push('<div class="ui-textbox-helper"><i class="fa fa-warning" aria-hidden="true"></i> {0}</div>'.format(config.error));
 			self.aclass('ui-textbox ui-textbox-container');
 			self.html(builder.join(''));
 			input = self.find('input');
-			container = self.element;
 		}
 	};
 
@@ -245,7 +243,7 @@ COMPONENT('textbox', function(self, config) {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		container.tclass('ui-textbox-invalid', invalid);
+		self.tclass('ui-textbox-invalid', invalid);
 		config.error && self.find('.ui-textbox-helper').tclass('ui-textbox-helper-show', invalid);
 	};
 });

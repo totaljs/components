@@ -15,7 +15,7 @@ input:invalid { box-shadow: none; }
 .ui-textbox-required .ui-textbox-label { font-weight: bold; }
 .ui-textbox-required .ui-textbox-label:before { color: red; content: '***'; margin-right: 5px; }
 .ui-textbox-required .ui-textbox { border-color: #D0D0D0; }
-.ui-textbox-invalid { border-color: #E1A1A1 !important; background-color: #FFF3F3 !important; }
+.ui-textbox-invalid .ui-textbox { border-color: #E1A1A1 !important; background-color: #FFF3F3 !important; }
 .ui-textbox-invalid input { background-color: #FFF3F3 !important; }
 .ui-textbox-invalid .ui-textbox-control { border-color: #E1A1A1 !important; }
 .ui-textbox .fa-caret-up, .ui-textbox .fa-caret-down { display: block; line-height: 9px; cursor: pointer; }
