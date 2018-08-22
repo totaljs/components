@@ -57,7 +57,7 @@ COMPONENT('dropdown', function(self, config) {
 				condition = value ? FN(value) : null;
 				break;
 			case 'required':
-				self.find('.ui-dropdown-label').tclass('ui-dropdown-label-required', value);
+				self.tclass('ui-dropdown-required', value === true);
 				self.state(1, 1);
 				break;
 			case 'datasource':
