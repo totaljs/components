@@ -86,7 +86,7 @@ COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
 		W.$$panel_level++;
 
 		self.css('z-index', W.$$panel_level * 10);
-		self.element.scrollTop(0);
+		self.element.find('.ui-panel-body').scrollTop(0);
 		self.rclass('hidden');
 		self.release(false);
 		self.resize();
