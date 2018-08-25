@@ -4,7 +4,7 @@
 .ui-textboxtags-label .fa { width: 14px; }
 .ui-textboxtags-label-required { font-weight: bold; }
 .ui-textboxtags-label-required:before { color: red; content: '***'; margin-right: 5px; }
-.ui-textboxtags-invalid { border: 1px solid #E1A1A1 !important; background-color: #FFF3F3 !important; }
+.ui-textboxtags-invalid .ui-textboxtags { border: 1px solid #E1A1A1 !important; background-color: #FFF3F3 !important; }
 .ui-textboxtags-values { min-height: 60px; }
 .ui-textboxtags-tag { padding: 3px 6px 3px 8px; line-height: 16px; vertical-align: middle; background-color: #4783EE; font-size: 12px; position: relative; display: inline-block; margin: 2px; border-radius: 2px; color: white; font-weight: bold; }
 .ui-textboxtags-tag .fa { font-size: 12px; color: #A8C3F5; margin-left: 5px; cursor: pointer; }
