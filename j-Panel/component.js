@@ -9,8 +9,9 @@ COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
 
 		$(document).on('click', '.ui-panel-button-close,.ui-panel-container', function(e) {
 			var target = $(e.target);
+			var curr = $(this);
 			var main = target.hclass('ui-panel-container');
-			if (target.hclass('ui-panel-button-close') || main) {
+			if (curr.hclass('ui-panel-button-close') || main) {
 				var parent = target.closest('.ui-panel-container');
 				var com = parent.component();
 				if (!main || com.config.bgclose)
