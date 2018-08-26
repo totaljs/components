@@ -7,8 +7,15 @@ COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
 		W.$$panel_level = W.$$panel_level || 1;
 		W.$$panel = true;
 
-		$(document).on('click', '.ui-panel-button-close', function() {
-			SET($(this).attrd('path'), '');
+		$(document).on('click', '.ui-panel-button-close,.ui-panel-container', function(e) {
+			var target = $(e.target);
+			var main = target.hclass('ui-panel-container');
+			if (target.hclass('ui-panel-button-close') || main) {
+				var parent = target.closest('.ui-panel-container');
+				var com = parent.component();
+				if (!main || com.config.bgclose)
+					com.hide();
+			}
 		});
 
 		$(W).on('resize', function() {
@@ -33,7 +40,7 @@ COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
 	};
 
 	self.make = function() {
-		$(document.body).append('<div id="{0}" class="hidden ui-panel-container{4}"><div class="ui-panel" style="width:{1}px"><div data-bind="@config__change .ui-panel-icon:@icon__html span:value.title" class="ui-panel-title"><button class="ui-panel-button-close{3}" data-path="{2}"><i class="fa fa-times"></i></button><i class="ui-panel-icon"></i><span></span></div><div class="ui-panel-header"></div><div class="ui-panel-body"></div></div>'.format(self.ID, config.width, self.path, config.closebutton == false ? ' hidden' : '', config.background ? '' : ' ui-panel-inline'));
+		$(document.body).append('<div id="{0}" class="hidden ui-panel-container{3}"><div class="ui-panel" style="width:{1}px"><div data-bind="@config__change .ui-panel-icon:@icon__html span:value.title" class="ui-panel-title"><button class="ui-panel-button-close{2}"><i class="fa fa-times"></i></button><i class="ui-panel-icon"></i><span></span></div><div class="ui-panel-header"></div><div class="ui-panel-body"></div></div>'.format(self.ID, config.width, config.closebutton == false ? ' hidden' : '', config.bg ? '' : ' ui-panel-inline'));
 		var el = $('#' + self.ID);
 		el.find('.ui-panel-body')[0].appendChild(self.dom);
 		self.rclass('hidden');
@@ -85,8 +92,10 @@ COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
 
 		W.$$panel_level++;
 
+		var container = self.element.find('.ui-panel-body');
+
 		self.css('z-index', W.$$panel_level * 10);
-		self.element.find('.ui-panel-body').scrollTop(0);
+		container.scrollTop(0);
 		self.rclass('hidden');
 		self.release(false);
 		self.resize();
@@ -100,7 +109,7 @@ COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
 		}
 
 		setTimeout(function() {
-			self.element.scrollTop(0);
+			container.scrollTop(0);
 			self.find('.ui-panel').aclass('ui-panel-animate');
 		}, 300);
 
