@@ -120,7 +120,6 @@ COMPONENT('dropdown', function(self, config) {
 		} else
 			self.html(html).aclass('ui-dropdown-values');
 		select = self.find('select');
-		container = self.find('.ui-dropdown');
 		render && self.refresh();
 		config.disabled && self.reconfigure('disabled:true');
 		self.tclass('ui-dropdown-required', config.required === true);
