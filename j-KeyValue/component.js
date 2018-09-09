@@ -92,7 +92,7 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config) {
 			parent.remove();
 			delete obj[key];
 
-			self.set(self.path, obj, 2);
+			SET(self.path, obj, 2);
 			self.change(true);
 		});
 
@@ -137,7 +137,7 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config) {
 			});
 
 			skip = true;
-			self.set(self.path, keyvalue, 2);
+			SET(self.path, keyvalue, 2);
 			self.change(true);
 		});
 	};

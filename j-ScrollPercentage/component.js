@@ -20,7 +20,7 @@ COMPONENT('scrollpercentage', function(self, config) {
 		if (config.exec)
 			EXEC(config.exec, p, container);
 		else
-			self.set(self.path, p, 2);
+			SET(self.path, p, 2);
 	};
 
 	self.setter = function(value, path, type) {

@@ -19,7 +19,7 @@ COMPONENT('markdowneditor', function (self, config) {
 		input = self.find('textarea')[0];
 		editor = new SimpleMDE({element: input});
 		editor.codemirror.on('change', function () {
-			self.set(self.path, editor.value(), 3);
+			SET(self.path, editor.value(), 3);
 			self.change(true);
 		});
 	};

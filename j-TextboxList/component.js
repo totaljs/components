@@ -102,7 +102,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 			self.tclass(crequired, config.required && arr.length === 0);
 
 			skip = true;
-			self.set(self.path, arr, 2);
+			SET(self.path, arr, 2);
 			self.change(true);
 		});
 
@@ -149,7 +149,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 			});
 
 			skip = true;
-			self.set(self.path, arr, 2);
+			SET(self.path, arr, 2);
 			self.change(true);
 		});
 	};
