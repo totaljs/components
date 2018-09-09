@@ -151,7 +151,7 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:true;pres
 			pieces.push(g.asvg('path').attr('data-index', i).attr('data-beg', item.beg).attr('data-end', item.end).attr('stroke-width', strokew).attr('class', 'piece piece' + (i + 1)).attr('d', arc(half, half, midpoint, item.beg, animate ? item.beg : item.end)));
 		}
 
-		animate && pieces.waitFor(function(item, next) {
+		animate && pieces.wait(function(item, next) {
 			var beg = +item.attrd('beg');
 			var end = +item.attrd('end');
 			var diff = end - beg;

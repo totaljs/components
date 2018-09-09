@@ -30,7 +30,7 @@ COMPONENT('websocket', 'reconnect:3000', function(self, config) {
 
 		sending = true;
 		var async = queue.splice(0, 3);
-		async.waitFor(function(item, next) {
+		async.wait(function(item, next) {
 			ws.send(item);
 			setTimeout(next, 5);
 		}, function() {
