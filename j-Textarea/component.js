@@ -25,6 +25,7 @@ COMPONENT('textarea', function(self, config) {
 			case 'disabled':
 				self.tclass('ui-disabled', value);
 				self.find('textarea').prop('disabled', value);
+				self.reset();
 				break;
 			case 'required':
 				self.noValid(!value);

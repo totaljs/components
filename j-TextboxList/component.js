@@ -22,6 +22,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 				self.tclass(crequired, value);
 				self.find('input').prop('disabled', true);
 				empty.disabled = value;
+				self.reset();
 				break;
 			case 'maxlength':
 				empty.max = value;

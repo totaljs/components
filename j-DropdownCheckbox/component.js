@@ -36,6 +36,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 
 			case 'disabled':
 				self.tclass('ui-disabled', value);
+				self.reset();
 				break;
 
 			case 'checkicon':

@@ -169,6 +169,7 @@ COMPONENT('textbox', function(self, config) {
 			case 'disabled':
 				self.tclass('ui-disabled', value);
 				self.find('input').prop('disabled', value);
+				self.reset();
 				break;
 			case 'format':
 				self.format = value;

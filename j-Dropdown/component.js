@@ -73,6 +73,7 @@ COMPONENT('dropdown', function(self, config) {
 			case 'disabled':
 				self.tclass('ui-disabled', value);
 				self.find('select').prop('disabled', value);
+				self.reset();
 				break;
 		}
 

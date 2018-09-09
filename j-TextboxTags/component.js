@@ -23,8 +23,8 @@ COMPONENT('textboxtags', function(self, config) {
 		switch (key) {
 			case 'disabled':
 				self.tclass('ui-disabled', value);
-				self.state(1, 1);
 				self.find('input').prop('disabled', value);
+				self.reset();
 				break;
 			case 'required':
 				self.tclass('ui-textboxtags-required', value);

@@ -29,6 +29,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 
 			case 'disabled':
 				self.tclass('ui-disabled', value);
+				self.reset();
 				break;
 
 			case 'datasource':
