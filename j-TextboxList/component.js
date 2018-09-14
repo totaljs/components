@@ -145,12 +145,16 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 				return;
 			}
 
+			skip = true;
+
 			container.find('input').each(function () {
 
 				var temp = this.value.trim();
 
 				if (arr.indexOf(temp) === -1)
 					arr.push(temp);
+				else
+				 	skip = false;
 			});
 
 			SET(self.path, arr, 2);
