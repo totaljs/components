@@ -53,9 +53,9 @@ __Configuration__:
 - `checkbox` {Boolean} enables checkboxes
 - `colwidth` {Number} a default column width in pixels (optional, default `150`)
 - `rowheight` {Number} a default row height in pixels (optional, default: `24`) + it depends on CSS
-- `alignheader` {String} align for header `right` or `center` (optional, default: `left`)
-- `alignfilter` {String} align for filter input `right` or `center` (optional, default: `left`)
-- `align` {String} align for a column value `right` or `center` (optional, default: `left`)
+- `alignheader` {String/Number} align for header `right` (or `2`) or `center` (or `1`) (optional, default: `left`)
+- `alignfilter` {String/Number} align for filter input `right` (or `2`) or `center` (or `1`) (optional, default: `left`)
+- `align` {String/Number} align for a column value `right` (or `2`) or `center` (or `1`) (optional, default: `left`)
 - `click` {String} a link to `function(row, grid, row_el)` is executed if the user clicks on a row
 - `highlight` {Boolean} each selected row (after `click`) will be highlighted (default: `false`)
 - `checked` {String} a link to `function(rows, grid)` is executed if the user selected/checked some rows
