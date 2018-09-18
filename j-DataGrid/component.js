@@ -954,13 +954,17 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 		self.refreshfilter();
 		self.redrawpagination();
 
+
+		config.autoselect && opt.rows && opt.rows.length && setTimeout(function() {
+			self.select(opt.rows[0]);
+		}, 1);
+
 		if (opt.cluster)
 			return;
 
 		opt.cluster = new Cluster(vbody, config.rowheight, 80);
 		opt.cluster.scroll = self.scrolling;
 		opt.render && opt.cluster.update(opt.render);
-		config.autoselect && opt.rows && opt.rows.length && self.select(opt.rows[0]);
 	};
 
 	self.scrolling = function() {
