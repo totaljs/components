@@ -26,7 +26,7 @@
 .dg-row { height: 28px; font-size: 12px; border-bottom: 1px solid #E0E0E0; }
 .dg-row:nth-child(even) { background-color: rgba(0,0,0,0.02); }
 .dg-row:hover { background-color: rgba(0,0,0,0.05); }
-.dg-selected { background-color: rgba(233,233,0,0.1) !important; }
+.dg-selected { background-color: rgba(249,232,196,0.5) !important; }
 .dg-col { float: left; border-left: 1px solid #E0E0E0; height: 27px; overflow: hidden; min-width: 30px; }
 .dg-col:first-child { border-left: 0; }
 .dg-value { padding: 3px 5px 0; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }

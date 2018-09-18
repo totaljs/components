@@ -1,4 +1,4 @@
-COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filter;numbering:;height:auto;bottom:90;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false', function(self, config) {
+COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filter;numbering:;height:auto;bottom:90;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;autoselect:false', function(self, config) {
 
 	var opt = { filter: {}, filtercache: {}, filtervalues: {}, scroll: false, selected: {} };
 	var header, vbody, footer, vcontainer, hcontainer, varea, hbody, vscrollbar, vscrollbararea, hscrollbar, hscrollbararea;
@@ -72,9 +72,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 	self.init = function() {
 		$(window).on('resize', function() {
 			setTimeout2('datagridresize', function() {
-				var arr = FIND('datagrid', true);
-				for (var i = 0; i < arr.length; i++)
-					arr[i].resize();
+				SETTER('datagrid', 'resize');
 			}, 500);
 		});
 	};
@@ -402,6 +400,32 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 			else
 				self.refreshfilter();
 		});
+
+		self.select = function(row) {
+
+			var index;
+
+			if (typeof(row) === 'number') {
+				index = row;
+				row = opt.rows[index];
+			} else {
+				index = opt.rows.indexOf(row);
+				if (index === -1)
+					return;
+			}
+
+			if (!row || index === -1)
+				return;
+
+			var elrow = opt.cluster.el.find('.dg-row[data-index="{0}"]'.format(index));
+			if (elrow && config.highlight) {
+				var cls = 'dg-selected';
+				opt.cluster.el.find('.' + cls).rclass(cls);
+				elrow.aclass(cls);
+			}
+
+			config.click && EXEC(config.click, row, self, elrow, null);
+		};
 
 		self.event('change', '.dg-checkbox-input', function() {
 			var t = this;
@@ -802,7 +826,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 
 			// Empty rows
 			var min = Math.ceil(opt.height / config.rowheight) + 1;
-			var is = opt.render.length <= min;
+			var is = opt.rows.length <= min;
 			self.tclass('dg-noscroll', is);
 		}, 500);
 	};
@@ -936,6 +960,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 		opt.cluster = new Cluster(vbody, config.rowheight, 80);
 		opt.cluster.scroll = self.scrolling;
 		opt.render && opt.cluster.update(opt.render);
+		config.autoselect && opt.rows && opt.rows.length && self.select(opt.rows[0]);
 	};
 
 	self.scrolling = function() {
