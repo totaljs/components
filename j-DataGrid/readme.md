@@ -43,7 +43,7 @@ __Configuration__:
 - `filterlabel` {String} a default placeholder for all filters (optional)
 - `pluralizepages` {String} pluralization for pages (optional, default: `# pages,# page,# pages,# pages`)
 - `pluralizeitems` {String} pluralization for items (optional, default: `# items,# item,# items,# items`)
-- `height` {Number} height of grid (optional, default `auto`)
+- `height` {Number/String} height of grid, supported values: `auto` (default), `parent` or `NUMBER` as height
 - `bottom` {Number} a bottom padding for `auto` height (optional, default: `80`)
 - `boolean` {String} a values for filtering of boolean values (optional, default: `true|on|yes`)
 - `resize` {Boolean} enables resizing of columns (optional, default: `true`)
@@ -57,6 +57,7 @@ __Configuration__:
 - `alignfilter` {String} align for filter input `right` or `center` (optional, default: `left`)
 - `align` {String} align for a column value `right` or `center` (optional, default: `left`)
 - `click` {String} a link to `function(row, grid, row_el)` is executed if the user clicks on a row
+- `highlight` {Boolean} each selected row (after `click`) will be highlighted (default: `false`)
 - `checked` {String} a link to `function(rows, grid)` is executed if the user selected/checked some rows
 - `exec` {String} a link to `function(type, filter, sort, page)` for server-side operations only (it disables client-side sorting & filtering)
 - `button` {String} a link to `function(btn_name, row, grid, elbutton, elrow)` is executed if the user clicks on a __button__ in the row

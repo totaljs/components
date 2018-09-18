@@ -1,4 +1,4 @@
-COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filter;numbering:;height:auto;bottom:90;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true', function(self, config) {
+COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filter;numbering:;height:auto;bottom:90;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false', function(self, config) {
 
 	var opt = { filter: {}, filtercache: {}, filtervalues: {}, scroll: false, selected: {} };
 	var header, vbody, footer, vcontainer, hcontainer, varea, hbody, vscrollbar, vscrollbararea, hscrollbar, hscrollbararea;
@@ -234,12 +234,22 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 				case 'SPAN':
 					if (!target.closest('.dg-checkbox').length) {
 						var elrow = el.closest('.dg-row');
-						var row = opt.rows[+elrow.attrd('index')];
+						var index = +elrow.attrd('index');
+						var row = opt.rows[index];
 						if (row) {
 							if (type === 'BUTTON' && config.button)
 								config.button && EXEC(config.button, target[0].name, row, self, target, elrow);
-							else
+							else {
+
+								if (config.highlight) {
+									var cls = 'dg-selected';
+									opt.cluster.el.find('> .' + cls).rclass(cls);
+									self.selected = row;
+									elrow.aclass(cls);
+								}
+
 								config.click && EXEC(config.click, row, self, elrow, target);
+							}
 						}
 					}
 					break;
@@ -463,6 +473,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		}
 	};
 
+	function align(type) {
+		return type === 1 ? 'center' : type === 2 ? 'right' : type;
+	}
+
 	self.rebind = function(code) {
 
 		var type = typeof(code);
@@ -506,10 +520,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 				col.sorting = config.sorting;
 
 			if (col.alignfilter)
-				col.alignfilter = ' ' + col.alignfilter;
+				col.alignfilter = ' ' + align(col.alignfilter);
 
 			if (col.alignheader)
-				col.alignheader = ' ' + col.alignheader;
+				col.alignheader = ' ' + align(col.alignheader);
 
 			col.sort = 0;
 
@@ -519,6 +533,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 			}
 
 			if (col.align && col.align !== 'left') {
+				col.align = align(col.align);
 				col.align = ' ' + col.align;
 				if (!col.alignfilter)
 					col.alignfilter = ' center';
@@ -534,7 +549,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 			if (col.header)
 				col.header = Tangular.compile(col.header);
 			else
-				col.header = Tangular.compile('{{ text }}');
+				col.header = Tangular.compile('{{ text | raw }}');
 
 			if (!col.text)
 				col.text = col.name;
@@ -640,7 +655,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		opt.rows = rows;
 
 		var output = [];
-		var Trow = '<div class="dg-row dg-row-{0}" data-index="{2}">{1}</div>';
+		var Trow = '<div class="dg-row dg-row-{0}{3}" data-index="{2}">{1}</div>';
 		var Tcol = '<div class="dg-col dg-col-{0}{2}">{1}</div>';
 
 		for (var i = 0, length = rows.length; i < length; i++) {
@@ -661,7 +676,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 			}
 
 			column += '<div class="dg-col">&nbsp;</div>';
-			column && output.push(Trow.format(i + 1, column, i));
+			column && output.push(Trow.format(i + 1, column, i, self.selected === row ? ' dg-selected' : ''));
 		}
 
 		var min = (opt.height / config.rowheight >> 0) + 1;
@@ -740,6 +755,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 				opt.height = WH - (el.offset().top + config.bottom) - (config.exec ? 30 : 0);
 				vbody.css('height', opt.height);
 				break;
+			case 'parent':
+				var el = self.element.parent();
+				opt.height = el.height() - config.bottom - (config.exec ? 30 : 0);
+				vbody.css('height', opt.height);
+				break;
 			default:
 				vbody.css('height', config.height);
 				opt.height = config.height;
@@ -760,7 +780,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 
 		vcontainer.css('width', width);
 		varea.css('width', width + 50);
-		vscrollbararea.css('height', opt.height + 2);
+		vscrollbararea.css('height', opt.height - 1);
 		hscrollbararea.css('width', w);
 
 		var plus = hbody.offset().top;
@@ -772,12 +792,18 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:24;filterlabel:Filte
 		hcontainer.css('height', opt.height + 50 + 7);
 
 		opt.width2 = w;
-
 		setTimeout(function() {
 			var vb = vbody[0];
 			var hb = hbody[0];
+
+			// Scrollbars
 			vscrollbararea.tclass('hidden', isMOBILE || (vb.scrollHeight - vb.clientHeight) === 0);
 			hscrollbararea.tclass('hidden', isMOBILE || (hb.scrollWidth - hb.clientWidth) === 0);
+
+			// Empty rows
+			var min = Math.ceil(opt.height / config.rowheight) + 1;
+			var is = opt.render.length <= min;
+			self.tclass('dg-noscroll', is);
 		}, 500);
 	};
 
