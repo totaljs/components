@@ -11,7 +11,7 @@
 .dg-resize { position: absolute; width: 10px; cursor: col-resize; height: 30px; border-right: 1px solid #D0D0D0; z-index: 2; }
 .db-order { position: absolute; left: 0; height: 30px; width: 10px; cursor: pointer; }
 .dg-label { padding: 7px 5px 0; height: 30px; font-size: 12px; user-select: none; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
-.dg-label.center { padding-left: 25px; padding-right: 0; }
+.dg-sorting .dg-label.center { padding-left: 25px; padding-right: 0; }
 .dg-sorting .dg-label { margin-right: 24px; }
 .dg-filter { padding: 0 5px; border-top: 1px solid #E0E0E0; height: 24px; }
 .dg-filter input { width: 100%; outline: 0; font-size: 10px; background-color: transparent; border: 0; margin: 0; padding: 0; line-height: 12px; height: 25px; }
