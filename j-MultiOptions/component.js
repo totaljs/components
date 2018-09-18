@@ -220,7 +220,7 @@ COMPONENT('multioptions', 'rebind:true', function(self, config) {
 
 			if (el.hclass('ui-moi-value-numbertext')) {
 
-				obj[key] = el.val().parseInt();
+				obj[key] = el.val().parseFloat();
 
 				if (opt.max !== null && obj[key] > opt.max) {
 					obj[key] = opt.max;

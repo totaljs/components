@@ -1,9 +1,9 @@
 COMPONENT('textarea', function(self, config) {
 
-	var input, container, content = null;
+	var input, content = null;
 
 	self.validate = function(value) {
-		if (config.disabled || !config.required)
+		if (config.disabled || !config.required || config.readonly)
 			return true;
 		if (value == null)
 			value = '';
@@ -25,11 +25,12 @@ COMPONENT('textarea', function(self, config) {
 			case 'disabled':
 				self.tclass('ui-disabled', value);
 				self.find('textarea').prop('disabled', value);
+				self.reset();
 				break;
 			case 'required':
 				self.noValid(!value);
 				!value && self.state(1, 1);
-				self.find('.ui-textarea-label').tclass('ui-textarea-label-required', value);
+				self.tclass('ui-textarea-required', value);
 				break;
 			case 'placeholder':
 				input.prop('placeholder', value || '');
@@ -53,6 +54,9 @@ COMPONENT('textarea', function(self, config) {
 				self.format = value;
 				self.refresh();
 				break;
+			case 'height':
+				self.find('textarea').css('height', (value > 0 ? value + 'px' : value));
+				break;
 		}
 
 		redraw && setTimeout2('redraw' + self.id, function() {
@@ -68,6 +72,7 @@ COMPONENT('textarea', function(self, config) {
 
 		self.tclass('ui-disabled', config.disabled === true);
 		self.tclass('ui-textarea-monospace', config.monospace === true);
+		self.tclass('ui-textarea-required', config.required === true);
 
 		config.placeholder && attrs.attr('placeholder', config.placeholder);
 		config.maxlength && attrs.attr('maxlength', config.maxlength);
@@ -86,14 +91,13 @@ COMPONENT('textarea', function(self, config) {
 			self.aclass('ui-textarea ui-textarea-container');
 			self.html(builder.join(''));
 			input = self.find('textarea');
-			container = self.element;
 			return;
 		}
 
 		var html = builder.join('');
 
 		builder = [];
-		builder.push('<div class="ui-textarea-label{0}">'.format(config.required ? ' ui-textarea-label-required' : ''));
+		builder.push('<div class="ui-textarea-label">');
 		config.icon && builder.push('<i class="fa fa-{0}"></i>'.format(config.icon));
 		builder.push(label);
 		builder.push(':</div><div class="ui-textarea">{0}</div>'.format(html));
@@ -103,7 +107,6 @@ COMPONENT('textarea', function(self, config) {
 		self.rclass('ui-textarea');
 		self.aclass('ui-textarea-container');
 		input = self.find('textarea');
-		container = self.find('.ui-textarea');
 	};
 
 	self.make = function() {
@@ -120,7 +123,7 @@ COMPONENT('textarea', function(self, config) {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		container.tclass('ui-textarea-invalid', invalid);
+		self.tclass('ui-textarea-invalid', invalid);
 		config.error && self.find('.ui-textarea-helper').tclass('ui-textarea-helper-show', invalid);
 	};
 });

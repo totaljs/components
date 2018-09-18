@@ -1,4 +1,6 @@
-COMPONENT('dragdropfiles', function(self, config) {
+COMPONENT('dragdropfiles', 'click:true', function(self, config) {
+
+	var file;
 
 	self.readonly();
 
@@ -12,8 +14,29 @@ COMPONENT('dragdropfiles', function(self, config) {
 		return arr.join(' ');
 	};
 
+	self.destroy = function() {
+		file.off('*').remove();
+	};
+
 	self.make = function() {
+
 		var has = false;
+		var id = 'file' + self.ID;
+		$(document.body).append('<input type="file" id="{0}" class="hidden" multiple />'.format(id));
+
+		file = $('#' + id);
+
+		self.event('click', function() {
+			config.click && file.trigger('click');
+		});
+
+		file.on('change', function(e) {
+			var self = this;
+			EXEC(config.exec, this.files, e);
+			setTimeout(function() {
+				self.value = '';
+			}, 1000);
+		});
 
 		self.event('dragenter dragover dragexit drop dragleave', function (e) {
 

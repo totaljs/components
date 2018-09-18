@@ -52,7 +52,7 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 			var el = $(this);
 			switch (this.name) {
 				case 'submit':
-					if (el.hasClass('exec'))
+					if (el.hclass('exec'))
 						self.hide();
 					else
 						self.submit(self.hide);

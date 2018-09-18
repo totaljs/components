@@ -22,6 +22,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 				self.tclass(crequired, value);
 				self.find('input').prop('disabled', true);
 				empty.disabled = value;
+				self.reset();
 				break;
 			case 'maxlength':
 				empty.max = value;
@@ -102,7 +103,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 			self.tclass(crequired, config.required && arr.length === 0);
 
 			skip = true;
-			self.set(self.path, arr, 2);
+			SET(self.path, arr, 2);
 			self.change(true);
 		});
 
@@ -126,8 +127,8 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 
 			var raw = self.get();
 
-			if (config.limit && raw.length >= config.limit) {
-				if (helper) {
+			if (config.limit && len && raw.length >= config.limit) {
+				if (!helper) {
 					base.after('<div class="ui-textboxlist-helper"><i class="fa fa-warning" aria-hidden="true"></i> {0}</div>'.format(config.error));
 					helper = container.closest('.ui-textboxlist').find('.ui-textboxlist-helper');
 				}
@@ -137,19 +138,26 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 			if (len) {
 
 				if (!raw || raw.indexOf(value) === -1)
-					self.push(self.path, value, 2);
+					self.push(value);
 
 				this.value = '';
 				self.change(true);
 				return;
 			}
 
+			skip = true;
+
 			container.find('input').each(function () {
-				arr.push(this.value.trim());
+
+				var temp = this.value.trim();
+
+				if (arr.indexOf(temp) === -1)
+					arr.push(temp);
+				else
+				 	skip = false;
 			});
 
-			skip = true;
-			self.set(self.path, arr, 2);
+			SET(self.path, arr, 2);
 			self.change(true);
 		});
 	};

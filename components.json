@@ -117,5 +117,11 @@
 	"j-MarkdownPreview",
 	"j-Selected",
 	"j-JSONTree",
-	"j-ObjectEditor"
+	"j-ObjectEditor",
+	"j-MarkdownEditor",
+	"j-Gallery",
+	"j-Cookie2",
+	"j-Drawer",
+	"j-Menu",
+	"j-ScrollPercentage"
 ]

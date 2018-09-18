@@ -42,6 +42,14 @@ COMPONENT('part', 'hide:true', function(self, config) {
 		}
 	};
 
+	self.configure = function(key, value) {
+		switch (key) {
+			case 'if':
+				config.if = value + '';
+				break;
+		}
+	};
+
 	self.clean = function() {
 		if (self.hclass('hidden')) {
 			config.clean && EXEC(config.clean);

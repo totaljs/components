@@ -1,4 +1,4 @@
-.ui-grid { overflow: hidden; border: 1px solid #F0F0F0; box-shadow: 0 2px 20px rgba(0,0,0,0.05); position: relative; }
+.ui-grid { overflow: hidden; box-shadow: 0 2px 20px rgba(0,0,0,0.05); position: relative; }
 .ui-grid-scroller { overflow-x: hidden; overflow-y: auto; overflow-scrolling: touch; background-color: white; margin-top: 65px; }
 .ui-grid table { width: 100%; table-layout: fixed; }
 .ui-grid .wrap { text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width: 100%; padding: 3px 10px 0; }

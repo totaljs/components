@@ -17,7 +17,8 @@ Example: `data-jc-config="title:Panel title;if:user;icon:home"`
 - `default` {String} (optional) a short alias for `DEFAULT(default, true)`
 - `closebutton` {Boolean} (optional) can hide `x` button (default: `false`)
 - `width` {Number} (optional) a default width of the panel (default: `300`)
-- __NEW__: `background` {Boolean} (optional) can disable `background` (default: `true`)
+- __NEW__: `bg` {Boolean} (optional) can disable `background` (default: `true`)
+- __NEW__: `bgclose` {Boolean} (optional) if the user click on the background then the panel will be closed (default: `false`)
 
 ### Author
 

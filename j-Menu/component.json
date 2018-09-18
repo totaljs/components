@@ -1,0 +1,16 @@
+{
+	"datecreated": "2018-08-17T10:28:02.000Z",
+	"dateupdated": null,
+	"name": "j-Menu",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

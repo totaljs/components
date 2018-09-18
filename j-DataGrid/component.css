@@ -2,38 +2,39 @@
 .dg-h-container { overflow: hidden; border: 1px solid #E0E0E0; }
 .dg-h-body { overflow: hidden; overflow-x: auto; overflow-scrolling: touch; -webkit-overflow-scrolling: touch; }
 .dg-header { position: relative; }
-.dg-hrow { height: 55px; border-bottom: 1px solid #E0E0E0; }
-.dg-hcol { float: left; border-left: 1px solid #E0E0E0; height: 55px; font-weight: bold; position: relative; }
-.dg-sort { float: right; font-size: 11px; width: 20px; text-align: center; padding: 9px 0 0 0; color: #4285F4; }
+.dg-hrow { height: 58px; border-bottom: 1px solid #E0E0E0; }
+.dg-hcol { float: left; border-left: 1px solid #E0E0E0; height: 58px; font-weight: bold; position: relative; }
+.dg-sort { float: right; font-size: 11px; width: 20px; text-align: center; padding: 11px 0 0 0; color: #4285F4; }
 .dg-sorting { cursor: pointer; }
 .dg-sorting .fa-sort { color: gray; }
 .dg-hcol:first-child { border-left: 0; }
 .dg-resize { position: absolute; width: 10px; cursor: col-resize; height: 30px; border-right: 1px solid #D0D0D0; z-index: 2; }
 .db-order { position: absolute; left: 0; height: 30px; width: 10px; cursor: pointer; }
-.dg-label { padding: 7px 5px 0; height: 30px; font-size: 12px; user-select: none; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
-.dg-label.center { padding-left: 25px; padding-right: 0; }
+.dg-label { padding: 8px 5px 0; height: 34px; font-size: 12px; user-select: none; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+.dg-sorting .dg-label.center { padding-left: 25px; padding-right: 0; }
 .dg-sorting .dg-label { margin-right: 24px; }
-.dg-filter { padding: 0 5px; border-top: 1px solid #E0E0E0; height: 24px; }
-.dg-filter input { width: 100%; outline: 0; font-size: 10px; background-color: transparent; border: 0; margin: 0; padding: 0; line-height: 12px; height: 25px; }
+.dg-filter { padding: 0 5px; border-top: 1px solid #E0E0E0; height: 23px; }
+.dg-filter input { width: 100%; outline: 0; font-size: 10px; background-color: transparent; border: 0; margin: 0; padding: 0; line-height: 12px; height: 23px; }
 .dg-filter.center input { text-align: center; }
 .dg-filter.right input { text-align: right; }
-.dg-filter-empty { border-top: 1px solid #E0E0E0; height: 24px; cursor: not-allowed !important; background: repeating-linear-gradient(45deg,#FFFFFF,#FFFFFF 10px,#F9F9F9 10px,#F9F9F9 20px); }
+.dg-filter-empty { border-top: 1px solid #E0E0E0; height: 23px; cursor: not-allowed !important; background: repeating-linear-gradient(45deg,#FFFFFF,#FFFFFF 10px,#F9F9F9 10px,#F9F9F9 20px); }
 .dg-filter-selected { background-color: #FBF0CA !important; }
 .dg-clickable .dg-row { cursor: pointer; }
 .dg-v-area { overflow: hidden; }
 .dg-v-container { overflow: hidden; }
 .dg-v-body { overflow-y: auto; overflow-scrolling: touch; -webkit-overflow-scrolling: touch; overflow-x: hidden; outline: 0 !important; }
-.dg-row { height: 24px; font-size: 12px; border-bottom: 1px solid #E0E0E0; }
+.dg-row { height: 28px; font-size: 12px; border-bottom: 1px solid #E0E0E0; }
 .dg-row:nth-child(even) { background-color: rgba(0,0,0,0.02); }
 .dg-row:hover { background-color: rgba(0,0,0,0.05); }
-.dg-col { float: left; border-left: 1px solid #E0E0E0; height: 23px; overflow: hidden; min-width: 30px; }
+.dg-selected { background-color: rgba(249,232,196,0.5) !important; }
+.dg-col { float: left; border-left: 1px solid #E0E0E0; height: 27px; overflow: hidden; min-width: 30px; }
 .dg-col:first-child { border-left: 0; }
-.dg-value { padding: 4px 5px 0; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
-.dg-number { padding: 4px 5px 0; font-size: 11px; text-align: right; background-color: #F8F8F8; height: 24px; color: #A0A0A0; }
+.dg-value { padding: 3px 5px 0; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.dg-number { padding: 3px 5px 0; font-size: 11px; text-align: right; background-color: #F8F8F8; height: 28px; color: #A0A0A0; }
 .dg-checkbox { text-align: center; padding: 3px 0 0; }
 .dg-col--1 { width: 40px; }
 .dg-col--1 .dg-label { text-overflow: clip; }
-.dg-row-empty { height: 24px; font-size: 12px; border-bottom: 1px solid #F0F0F0; background-color: white !important; cursor: default; }
+.dg-row-empty { height: 28px; font-size: 12px; border-bottom: 1px solid #F0F0F0; background-color: white !important; cursor: default; }
 .dg-footer { border: 1px solid #E0E0E0; border-top: 0; height: 32px; }
 .dg-pagination { float: left; }
 .dg-pagination button { background-color: #FFF; border: 0; border-left: 1px solid #E0E0E0; height: 31px; width: 30px; color: black; font-size: 12px; text-align: center; outline: 0; }
@@ -46,12 +47,17 @@
 .dg-pagination > div { position: relative; display: inline-block; }
 .dg-pagination-items { float: right; font-size: 12px; margin: 7px 10px 0 0; font-weight: bold; }
 .dg-pagination-pages { float: left; font-size: 12px; margin: 7px 0 0 10px; }
-.dg-scrollbar-container-v { position: absolute; right: 0; top: 55px; width: 10px; background-color: #D0D0D0; z-index: 3; overflow: hidden; }
+.dg-scrollbar-container-v { position: absolute; right: 0; top: 58px; width: 10px; background-color: #D0D0D0; z-index: 3; overflow: hidden; }
 .dg-scrollbar-v { width: 100%; height: 30px; background-color: gray; position: absolute; left: 0; top: 0; }
 .dg-scrollbar-container-h { position: relative; height: 10px;; background-color: #D0D0D0; overflow: hidden; }
 .dg-scrollbar-h { height: 100%; width: 30px; background-color: gray; position: absolute; left: 0; bottom: 0; }
 .dg-noscroll .dg-v-body { overflow: hidden; }
 .dg-noscroll .dg-scrollbar-container-v { display: none; }
+
+.dg-col button { margin: 4px 0 0; border: 0; background-color: white; font-size: 11px; color: #404040; height: 19px; border: 1px solid #E0E0E0; border-left: 0; padding: 0 3px; outline: 0; line-height: 10px; }
+.dg-col button:hover { background-color: #4285F4; color: white; }
+.dg-col button:first-child { border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-left: 1px solid #E0E0E0; }
+.dg-col button:last-child { border-top-right-radius: 3px; border-bottom-right-radius: 3px; }
 
 .center { text-align: center; }
 .right { text-align: right; }

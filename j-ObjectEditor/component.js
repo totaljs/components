@@ -24,7 +24,7 @@ COMPONENT('objecteditor', 'null:true', function(self, config) {
 			var path = self.path + '.' + el.attrd('name');
 			el.tclass(cls);
 			skip = true;
-			self.set(path, el.hclass(cls));
+			SET(path, el.hclass(cls));
 			self.change(true);
 		});
 
@@ -48,7 +48,7 @@ COMPONENT('objecteditor', 'null:true', function(self, config) {
 
 			setTimeout2(self.ID, function() {
 				skip = true;
-				self.set(path, val);
+				SET(path, val);
 				self.change(true);
 			}, 100);
 		});

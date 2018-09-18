@@ -23,11 +23,11 @@ COMPONENT('textboxtags', function(self, config) {
 		switch (key) {
 			case 'disabled':
 				self.tclass('ui-disabled', value);
-				self.state(1, 1);
 				self.find('input').prop('disabled', value);
+				self.reset();
 				break;
 			case 'required':
-				self.find('.ui-textboxtags-label').tclass('ui-textboxtags-label-required', value);
+				self.tclass('ui-textboxtags-required', value);
 				self.state(1, 1);
 				break;
 			case 'icon':
@@ -69,7 +69,7 @@ COMPONENT('textboxtags', function(self, config) {
 		isString = self.type === 'string';
 
 		if (content.length) {
-			self.html('<div class="ui-textboxtags-label{0}">{1}{2}:</div><div class="ui-textboxtags">{3}</div>'.format((config.required ? ' ui-textboxtags-label-required' : ''), (config.icon ? '<i class="fa fa-' + config.icon + '"></i> ' : ''), label, html));
+			self.html('<div class="ui-textboxtags-label">{0}{1}:</div><div class="ui-textboxtags">{2}</div>'.format((config.icon ? '<i class="fa fa-' + config.icon + '"></i> ' : ''), label, html));
 		} else {
 			self.aclass('ui-textboxtags');
 			self.html(html);
@@ -82,6 +82,7 @@ COMPONENT('textboxtags', function(self, config) {
 	self.make = function() {
 
 		self.aclass('ui-textboxtags-container');
+		config.required && self.aclass('ui-textboxtags-required');
 		content = self.html();
 		self.type = config.type || '';
 		self.redraw();
@@ -114,6 +115,10 @@ COMPONENT('textboxtags', function(self, config) {
 
 		self.event('click', function() {
 			!config.disabled && self.find('input').focus();
+		});
+
+		self.event('focus', 'input', function() {
+			config.focus && EXEC(config.focus, $(this), self);
 		});
 
 		self.event('keydown', 'input', function(e) {
@@ -170,7 +175,7 @@ COMPONENT('textboxtags', function(self, config) {
 
 	self.split = function(value) {
 		if (!value)
-			return new Array(0);
+			return [];
 		var arr = value.split(',');
 		for (var i = 0, length = arr.length; i < length; i++)
 			arr[i] = arr[i].trim();
@@ -203,6 +208,6 @@ COMPONENT('textboxtags', function(self, config) {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		self.find('.ui-textboxtags').tclass('ui-textboxtags-invalid', invalid);
+		self.tclass('ui-textboxtags-invalid', invalid);
 	};
 });

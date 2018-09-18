@@ -19,6 +19,7 @@ __Shortcuts__:
 - `left`, `up`, `right`, `down`
 - `F1`, `F2`, `F3`, `F4`, `F5`, `F6`, `F7`, `F8`, `F9`, `F10`, `F11`, `F12`
 - or custom key-codes `{Number}` or key-characters `{String(1)}`
+- __NEW__: `ins`
 
 __Example__:
 

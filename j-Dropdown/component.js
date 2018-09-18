@@ -1,6 +1,6 @@
 COMPONENT('dropdown', function(self, config) {
 
-	var select, container, condition, content = null;
+	var select, condition, content = null;
 	var render = '';
 
 	self.validate = function(value) {
@@ -57,7 +57,7 @@ COMPONENT('dropdown', function(self, config) {
 				condition = value ? FN(value) : null;
 				break;
 			case 'required':
-				self.find('.ui-dropdown-label').tclass('ui-dropdown-label-required', value);
+				self.tclass('ui-dropdown-required', value === true);
 				self.state(1, 1);
 				break;
 			case 'datasource':
@@ -73,6 +73,7 @@ COMPONENT('dropdown', function(self, config) {
 			case 'disabled':
 				self.tclass('ui-disabled', value);
 				self.find('select').prop('disabled', value);
+				self.reset();
 				break;
 		}
 
@@ -114,15 +115,15 @@ COMPONENT('dropdown', function(self, config) {
 		var builder = [];
 		var label = content || config.label;
 		if (label) {
-			builder.push('<div class="ui-dropdown-label{0}">{1}{2}:</div>'.format(config.required ? ' ui-dropdown-label-required' : '', config.icon ? '<span class="fa fa-{0}"></span> '.format(config.icon) : '', label));
+			builder.push('<div class="ui-dropdown-label">{0}{1}:</div>'.format(config.icon ? '<span class="fa fa-{0}"></span> '.format(config.icon) : '', label));
 			builder.push('<div class="ui-dropdown-values">{0}</div>'.format(html));
 			self.html(builder.join(''));
 		} else
 			self.html(html).aclass('ui-dropdown-values');
 		select = self.find('select');
-		container = self.find('.ui-dropdown');
 		render && self.refresh();
 		config.disabled && self.reconfigure('disabled:true');
+		self.tclass('ui-dropdown-required', config.required === true);
 	};
 
 	self.make = function() {
@@ -142,6 +143,6 @@ COMPONENT('dropdown', function(self, config) {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		container.tclass('ui-dropdown-invalid', invalid);
+		self.tclass('ui-dropdown-invalid', invalid);
 	};
 });

@@ -29,6 +29,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 
 			case 'disabled':
 				self.tclass('ui-disabled', value);
+				self.reset();
 				break;
 
 			case 'datasource':
@@ -43,7 +44,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 				break;
 
 			case 'required':
-				self.find('.ui-checkboxlist-label').tclass('ui-checkboxlist-required', value);
+				self.tclass('ui-checkboxlist-required', value);
 				self.state(1, 1);
 				break;
 
@@ -129,7 +130,8 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 
 	self.redraw = function() {
 		var label = config.label || content;
-		self.html((label ? '<div class="ui-checkboxlist-label{1}">{2}{0}</div>'.format(label, config.required ? ' ui-checkboxlist-required' : '', config.icon ? '<i class="fa fa-{0}"></i>'.format(config.icon) : '') : '') + '<div class="ui-checkboxlist-container"></div>');
+		self.tclass('ui-checkboxlist-required', config.required);
+		self.html((label ? '<div class="ui-checkboxlist-label">{1}{0}</div>'.format(label, config.icon ? '<i class="fa fa-{0}"></i>'.format(config.icon) : '') : '') + '<div class="ui-checkboxlist-container"></div>');
 		container = self.find('.ui-checkboxlist-container');
 	};
 

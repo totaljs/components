@@ -46,7 +46,7 @@ COMPONENT('pricerange', function(self) {
 					r = max;
 
 				self.dirty(false, true);
-				self.getter(l + '-' + r, 2);
+				self.getter(l + '-' + r);
 				return;
 			}
 
