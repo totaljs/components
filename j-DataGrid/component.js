@@ -582,6 +582,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			if (!col.text)
 				col.text = col.name;
 
+			if (col.text.substring(0, 1) === '.')
+				col.text = '<i class="{0}"></i>'.format(col.text.substring(1));
+
 			if (col.filter !== false && !col.filter)
 				col.filter = config.filterlabel;
 		}
