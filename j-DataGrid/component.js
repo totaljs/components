@@ -1,32 +1,28 @@
-COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filter;numbering:;height:auto;bottom:90;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;autoselect:false', function(self, config) {
+COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterlabel:Filter;numbering:;height:auto;bottom:90;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;autoselect:false', function(self, config) {
 
 	var opt = { filter: {}, filtercache: {}, filtervalues: {}, scroll: false, selected: {} };
 	var header, vbody, footer, vcontainer, hcontainer, varea, hbody, vscrollbar, vscrollbararea, hscrollbar, hscrollbararea;
 	var Theadercol = Tangular.compile('<div class="dg-hcol dg-col-{{ index }}{{ if sorting }} dg-sorting{{ fi }}" data-index="{{ index }}"{{ if reorder }} draggable="true"{{ fi }}>{{ if sorting }}<i class="dg-sort fa fa-sort"></i>{{ fi }}<div class="dg-label{{ alignheader }}"{{ if labeltitle }} title="{{ labeltitle }}"{{ fi }}>{{ label | raw }}</div>{{ if filter }}<div class="dg-filter{{ alignfilter }}{{ if filterval }} dg-filter-selected{{ fi }}"><input autocomplete="off" type="text" placeholder="{{ filter }}" class="dg-filter-input" data-name="{{ name }}" value="{{ filterval }}" /></div>{{ else }}<div class="dg-filter-empty">&nbsp;</div>{{ fi }}</div>');
 	var pos = {};
 
-	function Cluster(el, row, limit) {
+	function Cluster(el) {
 
 		var self = this;
 		var dom = el[0];
 
 		self.el = el;
-		self.row = row;
+		self.row = config.rowheight;
 		self.rows = [];
-		self.limit = limit || 100;
-		self.frame = self.limit * row;
+		self.limit = config.limit;
 		self.pos = -1;
 
 		self.render = function() {
 			var t = self.pos * self.frame;
-			var b = (self.rows.length * row) - (self.frame * 2) - t;
+			var b = (self.rows.length * self.row) - (self.frame * 2) - t;
 			var pos = self.pos * self.limit;
-
 			var h = self.rows.slice(pos, pos + (self.limit * 2));
-
 			if (b < 0)
 				b = 0;
-
 			self.el.html('<div style="height:{0}px"></div>{2}<div style="height:{1}px"></div>'.format(t, b, h.join('')));
 		};
 
@@ -43,13 +39,21 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 		};
 
 		self.update = function(rows, noscroll) {
-
 			if (noscroll != true)
 				self.el.prop('scrollTop', 0);
 
+			self.limit = config.limit;
 			self.pos = -1;
 			self.rows = rows;
 			self.max = Math.ceil(rows.length / self.limit) - 1;
+			self.frame = self.limit * self.row;
+
+			if (self.limit * 2 > rows.length) {
+				self.limit = rows.length;
+				self.frame = self.limit * self.row;
+				self.max = 1;
+			}
+
 			self.scrolling();
 		};
 
@@ -954,7 +958,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 		self.refreshfilter();
 		self.redrawpagination();
 
-
 		config.autoselect && opt.rows && opt.rows.length && setTimeout(function() {
 			self.select(opt.rows[0]);
 		}, 1);
@@ -962,7 +965,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 		if (opt.cluster)
 			return;
 
-		opt.cluster = new Cluster(vbody, config.rowheight, 80);
+		opt.cluster = new Cluster(vbody);
 		opt.cluster.scroll = self.scrolling;
 		opt.render && opt.cluster.update(opt.render);
 	};
