@@ -710,7 +710,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			column && output.push(Trow.format(i + 1, column, i, self.selected === row ? ' dg-selected' : ''));
 		}
 
-		var min = (opt.height / config.rowheight >> 0) + 1;
+		var min = ((opt.height / config.rowheight) >> 0) + 1;
 		var is = output.length < min;
 
 		if (is) {
@@ -832,8 +832,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			hscrollbararea.tclass('hidden', isMOBILE || (hb.scrollWidth - hb.clientWidth) === 0);
 
 			// Empty rows
-			var min = Math.ceil(opt.height / config.rowheight) + 1;
-			var is = opt.rows.length <= min;
+			var min = ((opt.height / config.rowheight) >> 0) + 1;
+			var is = opt.rows.length < min;
 			self.tclass('dg-noscroll', is);
 		}, 500);
 	};
