@@ -841,12 +841,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	self.refreshfilter = function() {
 
 		// Get data
-		var obj = self.get();
-
-		if (obj == null)
-			return;
-
-		var items = obj instanceof Array ? obj : obj.items;
+		var obj = self.get() || EMPTYARRAY;
+		var items = (obj instanceof Array ? obj : obj.items) || EMPTYARRAY;
 		var output = [];
 
 		opt.selected = {};
