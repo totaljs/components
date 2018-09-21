@@ -1,6 +1,6 @@
 COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterlabel:Filter;numbering:;height:auto;bottom:90;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;autoselect:false', function(self, config) {
 
-	var opt = { filter: {}, filtercache: {}, filtervalues: {}, scroll: false, selected: {} };
+	var opt = { filter: {}, filtercache: {}, filtervalues: {}, scroll: false, selected: {}, operation: '' };
 	var header, vbody, footer, vcontainer, hcontainer, varea, hbody, vscrollbar, vscrollbararea, hscrollbar, hscrollbararea;
 	var Theadercol = Tangular.compile('<div class="dg-hcol dg-col-{{ index }}{{ if sorting }} dg-sorting{{ fi }}" data-index="{{ index }}"{{ if reorder }} draggable="true"{{ fi }}>{{ if sorting }}<i class="dg-sort fa fa-sort"></i>{{ fi }}<div class="dg-label{{ alignheader }}"{{ if labeltitle }} title="{{ labeltitle }}"{{ fi }}>{{ label | raw }}</div>{{ if filter }}<div class="dg-filter{{ alignfilter }}{{ if filterval }} dg-filter-selected{{ fi }}"><input autocomplete="off" type="text" placeholder="{{ filter }}" class="dg-filter-input" data-name="{{ name }}" value="{{ filterval }}" /></div>{{ else }}<div class="dg-filter-empty">&nbsp;</div>{{ fi }}</div>');
 	var pos = {};
@@ -286,9 +286,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			}
 
 			opt.sort = col;
+			opt.operation = 'sort';
 
 			if (config.exec)
-				self.operation('sort');
+				self.operation(opt.operation);
 			else
 				self.refreshfilter();
 		});
@@ -397,10 +398,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				delete opt.filter[name];
 
 			opt.scroll = true;
+			opt.operation = 'filter';
 			el.tclass('dg-filter-selected', !!val);
 
 			if (config.exec)
-				self.operation('filter');
+				self.operation(opt.operation);
 			else
 				self.refreshfilter();
 		});
@@ -414,16 +416,18 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				row = opt.rows[index];
 			} else {
 				index = opt.rows.indexOf(row);
-				if (index === -1)
-					return;
 			}
 
-			if (!row || index === -1)
+			var cls = 'dg-selected';
+
+			if (!row || index === -1) {
+				opt.cluster && opt.cluster.el.find('.' + cls).rclass(cls);
+				config.click && EXEC(config.click, null, self);
 				return;
+			}
 
 			var elrow = opt.cluster.el.find('.dg-row[data-index="{0}"]'.format(index));
 			if (elrow && config.highlight) {
-				var cls = 'dg-selected';
 				opt.cluster.el.find('.' + cls).rclass(cls);
 				elrow.aclass(cls);
 			}
@@ -484,11 +488,18 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 					break;
 			}
 		});
+
+		config.exec && self.operation('init');
 	};
 
 	self.operation = function(type) {
+
 		var value = self.get();
-		if (type === 'filter')
+
+		if (value == null)
+			value = {};
+
+		if (type === 'filter' || type === 'init')
 			value.page = 1;
 
 		var keys = Object.keys(opt.filter);
@@ -888,6 +899,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		self.renderrows(output);
 		opt.cluster && opt.cluster.update(opt.render, opt.scroll == false);
 		self.scrolling();
+
+		if (opt.operation !== 'sort')
+			self.select(null);
+
+		config.autoselect && output && output.length && setTimeout(function() {
+			self.select(output[0]);
+		}, 1);
+
 	};
 
 	self.redrawsorting = function() {
@@ -946,20 +965,20 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		footer.rclass('hidden');
 	};
 
-	self.setter = function() {
+	self.setter = function(value, path, type) {
 
 		if (!opt.cols)
 			return;
 
-		opt.selected = {};
+		if (type && config.exec && value == null) {
+			self.operation('refresh');
+			return;
+		}
 
+		opt.selected = {};
 		self.rendercols();
 		self.refreshfilter();
 		self.redrawpagination();
-
-		config.autoselect && opt.rows && opt.rows.length && setTimeout(function() {
-			self.select(opt.rows[0]);
-		}, 1);
 
 		if (opt.cluster)
 			return;
