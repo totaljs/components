@@ -871,14 +871,15 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 			item.ROW = i;
 
-			if (opt.filter && !self.filter(item))
-				continue;
-
-			if (opt.search) {
-				for (var j = 0; j < opt.cols.length; j++) {
-					var col = opt.cols[j];
-					if (col.search)
-						item['$' + col.name] = col.search(item);
+			if (!config.exec) {
+				if (opt.filter && !self.filter(item))
+					continue;
+				if (opt.search) {
+					for (var j = 0; j < opt.cols.length; j++) {
+						var col = opt.cols[j];
+						if (col.search)
+							item['$' + col.name] = col.search(item);
+					}
 				}
 			}
 
