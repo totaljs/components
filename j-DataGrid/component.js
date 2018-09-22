@@ -114,7 +114,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		var pagination = '';
 
 		if (config.exec)
-			pagination = '<div class="dg-footer hidden"><div class="dg-pagination-items"></div><div class="dg-pagination"><button name="page-first" disabled><i class="fa fa-angle-double-left"></i></button><button name="page-prev" disabled><i class="fa fa-angle-left"></i></button><div><input type="text" name="page" maxlength="5" /></div><button name="page-next" disabled><i class="fa fa-angle-right"></i></button><button name="page-last" disabled><i class="fa fa-angle-double-right"></i></button></div><div class="dg-pagination-pages"></div></div>';
+			pagination = '<div class="dg-footer hidden"><div class="dg-pagination-items"></div><div class="dg-pagination"><button name="page-first" disabled><i class="fa fa-angle-double-left"></i></button><button name="page-prev" disabled><i class="fa fa-angle-left"></i></button><div><input type="text" name="page" maxlength="5" class="dg-pagination-input" /></div><button name="page-next" disabled><i class="fa fa-angle-right"></i></button><button name="page-last" disabled><i class="fa fa-angle-double-right"></i></button></div><div class="dg-pagination-pages"></div></div>';
 
 		self.html('<div class="dg-scrollbar-container-v hidden"><div class="dg-scrollbar-v"></div></div><div class="dg-h-container"><div class="dg-h-body"><div class="dg-v-container"><div class="dg-v-area"><div class="dg-header"></div><div class="dg-v-body"></div></div></div></div></div><div class="dg-scrollbar-container-h hidden"><div class="dg-scrollbar-h"></div></div>{0}'.format(pagination));
 
@@ -230,6 +230,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			var el = $(this);
 			var type = e.target.nodeName;
 			var target = $(e.target);
+
 			switch (type) {
 				case 'DIV':
 				case 'BUTTON':
@@ -249,7 +250,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 									self.selected = row;
 									elrow.aclass(cls);
 								}
-
 								config.click && EXEC(config.click, row, self, elrow, target);
 							}
 						}
@@ -376,6 +376,24 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				default:
 					return;
 			}
+		});
+
+		self.event('change', '.dg-pagination-input', function() {
+
+			var value = self.get();
+			var val = +this.value;
+
+			if (isNaN(val))
+				return;
+
+			if (val >= value.pages)
+				val = value.pages;
+			else if (val < 1)
+				val = 1;
+
+			value.page = val;
+			opt.scroll = true;
+			self.operation('page');
 		});
 
 		self.event('change', '.dg-filter-input', function() {
@@ -699,6 +717,13 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		var output = [];
 		var Trow = '<div class="dg-row dg-row-{0}{3}" data-index="{2}">{1}</div>';
 		var Tcol = '<div class="dg-col dg-col-{0}{2}">{1}</div>';
+		var plus = 0;
+
+		if (config.exec) {
+			// pagination
+			var val = self.get();
+			plus = (val.page - 1) * val.limit;
+		}
 
 		for (var i = 0, length = rows.length; i < length; i++) {
 
@@ -706,7 +731,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			var column = '';
 
 			if (config.numbering !== false)
-				column += Tcol.format(-1, '<div class="dg-number">{0}</div>'.format(i + 1));
+				column += Tcol.format(-1, '<div class="dg-number">{0}</div>'.format(i + 1 + plus));
 
 			if (config.checkbox)
 				column += Tcol.format(-1, '<div class="dg-checkbox"><input type="checkbox" value="{0}" class="dg-checkbox-input" /></div>'.format(row.ROW));
@@ -966,12 +991,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		footer.rclass('hidden');
 	};
 
-	self.setter = function(value, path, type) {
+	self.setter = function(value) {
 
 		if (!opt.cols)
 			return;
 
-		if (type && config.exec && value == null) {
+		if (config.exec && value == null) {
 			self.operation('refresh');
 			return;
 		}
