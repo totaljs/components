@@ -1,4 +1,4 @@
-.dg { color: black; position: relative; }
+.dg { color: black; position: relative; visibility: hidden; }
 .dg-h-container { overflow: hidden; border: 1px solid #E0E0E0; }
 .dg-h-body { overflow: hidden; overflow-x: auto; overflow-scrolling: touch; -webkit-overflow-scrolling: touch; }
 .dg-header { position: relative; }
@@ -53,6 +53,7 @@
 .dg-scrollbar-h { height: 100%; width: 30px; background-color: gray; position: absolute; left: 0; bottom: 0; }
 .dg-noscroll .dg-v-body { overflow: hidden; }
 .dg-noscroll .dg-scrollbar-container-v { display: none; }
+.dg-visible { visibility: visible; }
 
 .dg-col button { margin: 4px 0 0; border: 0; background-color: white; font-size: 11px; color: #404040; height: 19px; border: 1px solid #E0E0E0; border-left: 0; padding: 0 3px; outline: 0; line-height: 10px; }
 .dg-col button:hover { background-color: #4285F4; color: white; }

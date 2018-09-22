@@ -1012,6 +1012,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		opt.cluster = new Cluster(vbody);
 		opt.cluster.scroll = self.scrolling;
 		opt.render && opt.cluster.update(opt.render);
+		self.aclass('dg-visible');
 	};
 
 	self.scrolling = function() {
