@@ -230,28 +230,21 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			var el = $(this);
 			var type = e.target.nodeName;
 			var target = $(e.target);
-
 			switch (type) {
 				case 'DIV':
-				case 'BUTTON':
 				case 'SPAN':
 					if (!target.closest('.dg-checkbox').length) {
 						var elrow = el.closest('.dg-row');
 						var index = +elrow.attrd('index');
 						var row = opt.rows[index];
 						if (row) {
-							if (type === 'BUTTON' && config.button)
-								config.button && EXEC(config.button, target[0].name, row, self, target, elrow);
-							else {
-
-								if (config.highlight) {
-									var cls = 'dg-selected';
-									opt.cluster.el.find('> .' + cls).rclass(cls);
-									self.selected = row;
-									elrow.aclass(cls);
-								}
-								config.click && EXEC(config.click, row, self, elrow, target);
+							if (config.highlight) {
+								var cls = 'dg-selected';
+								opt.cluster.el.find('> .' + cls).rclass(cls);
+								self.selected = row;
+								elrow.aclass(cls);
 							}
+							config.click && EXEC(config.click, row, self, elrow, target);
 						}
 					}
 					break;
