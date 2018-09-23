@@ -55,8 +55,10 @@
 .dg-noscroll .dg-scrollbar-container-v { display: none; }
 .dg-visible { visibility: visible; }
 
-.dg-col button { margin: 4px 0 0; border: 0; background-color: white; font-size: 11px; color: #404040; height: 19px; border: 1px solid #E0E0E0; border-left: 0; padding: 0 3px; outline: 0; line-height: 10px; }
+.dg-col button { margin: 4px 0 0; border: 0; background-color: white; font-size: 10px; color: #404040; height: 19px; border: 1px solid #E0E0E0; border-left: 0; padding: 0 3px; outline: 0; line-height: 10px; min-width: 20px; }
 .dg-col button:hover { background-color: #4285F4; color: white; }
+.dg-col button[name="remove"] { background-color: #ffe5dd; color: red; }
+.dg-col button[name="remove"]:hover { background-color: red; color: white; }
 .dg-col button:first-child { border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-left: 1px solid #E0E0E0; }
 .dg-col button:last-child { border-top-right-radius: 3px; border-bottom-right-radius: 3px; }
 
