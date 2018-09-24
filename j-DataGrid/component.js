@@ -425,15 +425,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			if (typeof(row) === 'number') {
 				index = row;
 				row = opt.rows[index];
-			} else {
+			} else if (row)
 				index = opt.rows.indexOf(row);
-			}
 
 			var cls = 'dg-selected';
 
 			if (!row || index === -1) {
 				opt.cluster && opt.cluster.el.find('.' + cls).rclass(cls);
-				config.click && EXEC(config.click, null, self);
+				config.highlight && config.click && EXEC(config.click, null, self);
 				return;
 			}
 
