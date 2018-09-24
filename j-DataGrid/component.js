@@ -2,7 +2,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 	var opt = { filter: {}, filtercache: {}, filtervalues: {}, scroll: false, selected: {}, operation: '' };
 	var header, vbody, footer, vcontainer, hcontainer, varea, hbody, vscrollbar, vscrollbararea, hscrollbar, hscrollbararea;
-	var Theadercol = Tangular.compile('<div class="dg-hcol dg-col-{{ index }}{{ if sorting }} dg-sorting{{ fi }}" data-index="{{ index }}"{{ if reorder }} draggable="true"{{ fi }}>{{ if sorting }}<i class="dg-sort fa fa-sort"></i>{{ fi }}<div class="dg-label{{ alignheader }}"{{ if labeltitle }} title="{{ labeltitle }}"{{ fi }}>{{ label | raw }}</div>{{ if filter }}<div class="dg-filter{{ alignfilter }}{{ if filterval }} dg-filter-selected{{ fi }}"><input autocomplete="off" type="text" placeholder="{{ filter }}" class="dg-filter-input" data-name="{{ name }}" value="{{ filterval }}" /></div>{{ else }}<div class="dg-filter-empty">&nbsp;</div>{{ fi }}</div>');
+	var Theadercol = Tangular.compile('<div class="dg-hcol dg-col-{{ index }}{{ if sorting }} dg-sorting{{ fi }}" data-index="{{ index }}"{{ if reorder }} draggable="true"{{ fi }}>{{ if sorting }}<i class="dg-sort fa fa-sort"></i>{{ fi }}<div class="dg-label{{ alignheader }}"{{ if labeltitle }} title="{{ labeltitle }}"{{ fi }}>{{ label | raw }}</div>{{ if filter }}<div class="dg-filter{{ alignfilter }}{{ if filterval != null && filterval !== \'\' }} dg-filter-selected{{ fi }}">{{ if options }}<select class="dg-filter-input" data-name="{{ name }}"><option value="">{{ filter }}</option></select>{{ else }}<input autocomplete="off" type="text" placeholder="{{ filter }}" class="dg-filter-input" data-name="{{ name }}" value="{{ filterval }}" />{{ fi }}</div>{{ else }}<div class="dg-filter-empty">&nbsp;</div>{{ fi }}</div>');
 	var pos = {};
 
 	function Cluster(el) {
@@ -390,18 +390,29 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		});
 
 		self.event('change', '.dg-filter-input', function() {
+
 			var input = this;
-			var el = $(input).parent();
-			var val = input.value;
+			var $el = $(this);
+			var el = $el.parent();
+			var val = $el.val();
 			var name = input.getAttribute('data-name');
 
 			var col = opt.cols[+el.closest('.dg-hcol').attrd('index')];
 			delete opt.filtercache[name];
 
+			if (col.options) {
+				if (val)
+					val = col.options[+val][col.ovalue];
+				else
+					val = null;
+			}
+
+			var is = val != null && val !== '';
+
 			if (col)
 				opt.filtervalues[col.id] = val;
 
-			if (val) {
+			if (is) {
 				if (opt.filter[name] == val)
 					return;
 				opt.filter[name] = val;
@@ -410,7 +421,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 			opt.scroll = true;
 			opt.operation = 'filter';
-			el.tclass('dg-filter-selected', !!val);
+			el.tclass('dg-filter-selected', is);
 
 			if (config.exec)
 				self.operation(opt.operation);
@@ -553,6 +564,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			if (col.hidden)
 				col.hidden = FN(col.hidden)(col) === true;
 
+			if (col.options) {
+				!col.otext && (col.otext = 'text');
+				!col.ovalue && (col.ovalue = 'value');
+			}
+
 			if (cache) {
 				var c = cache[i];
 				if (c) {
@@ -664,6 +680,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		self.rebindcss();
 		self.rendercols();
 		self.renderrows(opt.rows);
+		self.save();
 		opt.cluster && opt.cluster.update(opt.render);
 	};
 
@@ -681,7 +698,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		for (var i = 0; i < opt.cols.length; i++) {
 			var col = opt.cols[i];
 			if (!col.hidden) {
-				var obj = { index: i, label: col.header(col), filter: col.filter, reorder: config.reorder, sorting: col.sorting, name: col.name, alignfilter: col.alignfilter, alignheader: col.alignheader, filterval: opt.filtervalues[col.id], labeltitle: col.title };
+				var obj = { index: i, label: col.header(col), filter: col.filter, reorder: config.reorder, sorting: col.sorting, name: col.name, alignfilter: col.alignfilter, alignheader: col.alignheader, filterval: opt.filtervalues[col.id], labeltitle: col.title, options: col.options ? col.options instanceof Array ? col.options : GET(col.options) : null };
 				opt.width += col.width;
 				config.resize && resize.push('<span class="dg-resize" style="left:{0}px" data-index="{1}"></span>'.format(opt.width - 39, i));
 				column += Theadercol(obj);
@@ -700,6 +717,21 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		vcontainer.css(css);
 		css.width += 50;
 		varea.css(css);
+
+		header.find('select').each(function() {
+			var el = $(this);
+			var index = +el.closest('.dg-hcol').attrd('index');
+			var builder = [];
+			var col = opt.cols[index];
+
+			for (var i = 0; i < col.options.length; i++) {
+				var item = col.options[i];
+				builder.push('<option value="{0}"{1}>{2}</option>'.format(i, opt.filtervalues[col.id] === item[col.ovalue] ? ' selected' : '', item[col.otext]));
+			}
+
+			el.append(builder.join(''));
+		});
+
 	};
 
 	self.renderrows = function(rows) {
@@ -994,13 +1026,16 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		}
 
 		opt.selected = {};
-		self.rendercols();
+
 		self.refreshfilter();
 		self.redrawpagination();
+
+		!config.exec && self.rendercols();
 
 		if (opt.cluster)
 			return;
 
+		config.exec && self.rendercols();
 		opt.cluster = new Cluster(vbody);
 		opt.cluster.scroll = self.scrolling;
 		opt.render && opt.cluster.update(opt.render);
@@ -1067,7 +1102,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 			} else if (type === 'boolean') {
 				if (val2 == null)
-					val2 = opt.filtercache[column] = config.boolean.indexOf(filter.replace(/\s/g, '')) !== -1;
+					val2 = opt.filtercache[column] = typeof(filter) === 'string' ? config.boolean.indexOf(filter.replace(/\s/g, '')) !== -1 : filter;
 				if (val2 !== val)
 					return false;
 			} else if (val instanceof Date) {

@@ -77,6 +77,9 @@ __Column properties__:
 - `search` {Boolean/String} `true` will filter a value according to the `template` result or `String` can be a Tangular template which will be used as a value for search
 - `format` {String/Number} can be used for date and numbers (count of decimals) field (optional), e.g. `dd.MM.yyyy`
 - `hidden` {String} as an arrow function `column => true` --> column will be hidden
+- `options` {Object Array} optional, a custom filter for example `[{ text: 'yes', value: true }, { text: 'no', value: false }]` or {String} link to data-source
+- `otext` {String} optional, a key for `text` field in `options`, default `text`
+- `ovalue` {String} optional, a key for `value` field in `options`, default `value`
 
 __Filtering__:
 

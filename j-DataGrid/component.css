@@ -14,11 +14,13 @@
 .dg-sorting .dg-label.center { padding-left: 25px; padding-right: 0; }
 .dg-sorting .dg-label { margin-right: 24px; }
 .dg-filter { padding: 0 5px; border-top: 1px solid #E0E0E0; height: 23px; }
+.dg-filter select { width: 100%; outline: 0; font-size: 10px; background-color: transparent; border: 0; margin: 0; padding: 0; line-height: 12px; height: 22px; appearance: none; -webkit-appearance: none; -moz-appearance: none; color: gray; cursor: pointer; }
 .dg-filter input { width: 100%; outline: 0; font-size: 10px; background-color: transparent; border: 0; margin: 0; padding: 0; line-height: 12px; height: 23px; }
 .dg-filter.center input { text-align: center; }
 .dg-filter.right input { text-align: right; }
 .dg-filter-empty { border-top: 1px solid #E0E0E0; height: 23px; cursor: not-allowed !important; background: repeating-linear-gradient(45deg,#FFFFFF,#FFFFFF 10px,#F9F9F9 10px,#F9F9F9 20px); }
 .dg-filter-selected { background-color: #FBF0CA !important; }
+.dg-filter-selected select { color: black; }
 .dg-clickable .dg-row { cursor: pointer; }
 .dg-v-area { overflow: hidden; }
 .dg-v-container { overflow: hidden; }
@@ -64,4 +66,3 @@
 
 .center { text-align: center; }
 .right { text-align: right; }
-.hidden { display: none; }
