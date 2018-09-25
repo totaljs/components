@@ -67,6 +67,7 @@
 .dg-col button[name="remove"]:hover { background-color: red; color: white; }
 .dg-col button:first-child { border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-left: 1px solid #E0E0E0; }
 .dg-col button:last-child { border-top-right-radius: 3px; border-bottom-right-radius: 3px; }
+.dg-col button:disabled { background-color: #F0F0F0 !important; color: silver !important; cursor: not-allowed; }
 
 .center { text-align: center; }
 .right { text-align: right; }
