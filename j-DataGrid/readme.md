@@ -80,6 +80,7 @@ __Column properties__:
 - `options` {Object Array} optional, a custom filter for example `[{ text: 'yes', value: true }, { text: 'no', value: false }]` or {String} link to data-source
 - `otext` {String} optional, a key for `text` field in `options`, default `text`
 - `ovalue` {String} optional, a key for `value` field in `options`, default `value`
+- `buttonapply` {String} optional, a label for `Apply` button in columns, default: `Apply`
 
 __Filtering__:
 
