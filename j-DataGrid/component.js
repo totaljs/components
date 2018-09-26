@@ -1072,6 +1072,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 		opt.selected = {};
 
+		self.applycolumns();
 		self.refreshfilter();
 		self.redrawpagination();
 
