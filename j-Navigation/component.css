@@ -4,7 +4,7 @@
 .ui-navigation-item span .far { width: 20px; text-align: center; margin-right: 5px; }
 .ui-navigation-item span .far:before { content: '\f15c'; }
 .ui-navigation-item .ui-navigation-children .far:before { content: '\f07b'; font-weight: 900; }
-.ui-navigation-selected { background-color: #D0D0D0; }
+.ui-navigation-selected { background-color: #E0E0E0; }
 .ui-navigation-show > div { display: block; }
 .ui-navigation-show > span { font-weight: bold; }
 .ui-navigation-show > span .far:before { content: '\f07c' !important; }
