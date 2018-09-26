@@ -6,8 +6,8 @@
 __Configuration__:
 
 - `height` {Number} a percentage of height
-- `selector` {String} optional, a container with fixed height, default: `component.parent()`
 - `disabled` {Boolean} optional, can disable a content with the layer
+- `selector` {String} optional, a container with fixed height, can be `window`. Default value: `component.parent()`
 
 ### Author
 
