@@ -837,7 +837,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		}
 
 		self.tclass('dg-noscroll', is);
-		vscrollbar.css('top', 0);
+		hbody.prop('scrollLeft', 0);
+		vbody.prop('scrollTop', 0);
 		opt.render = output;
 	};
 
