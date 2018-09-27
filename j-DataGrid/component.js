@@ -263,8 +263,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 			e.preventDefault();
 			e.stopPropagation();
-
-			var el = $(this);
 			var cls = 'hidden';
 			if (isecolumns) {
 				self.applycolumns();
