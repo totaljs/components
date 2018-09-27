@@ -353,6 +353,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			r.el = el;
 			r.offset = (hbody.scrollLeft() - offset) + 10;
 
+			var prev = el.prev();
+			r.min = (prev ? prev.css('left').parseInt() : 0) + 50;
+
 			r.h = el.css('height');
 			r.x = el.css('left').parseInt();
 			el.css('height', opt.height + config.bottom);
@@ -363,7 +366,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 		header.on('mousemove', function(e) {
 			if (r.is) {
-				r.el.css('left', e.pageX + r.offset - 20);
+				var x = e.pageX + r.offset - 20;
+				if (x < r.min)
+					x = r.min;
+				r.el.css('left', x);
 				e.preventDefault();
 				e.stopPropagation();
 			}

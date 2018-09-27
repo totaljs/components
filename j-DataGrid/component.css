@@ -10,7 +10,7 @@
 .dg-sorting { cursor: pointer; }
 .dg-sorting .fa-sort { color: gray; }
 .dg-hcol:first-child { border-left: 0; }
-.dg-resize { position: absolute; width: 10px; cursor: col-resize; height: 30px; border-right: 1px solid #D0D0D0; z-index: 2; }
+.dg-resize { position: absolute; width: 10px; cursor: col-resize; height: 34px; border-right: 1px solid #D0D0D0; z-index: 2; }
 .db-order { position: absolute; left: 0; height: 30px; width: 10px; cursor: pointer; }
 .dg-label { padding: 8px 5px 0; height: 34px; font-size: 12px; user-select: none; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
 .dg-sorting .dg-label.center { padding-left: 25px; padding-right: 0; }
