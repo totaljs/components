@@ -837,6 +837,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		}
 
 		self.tclass('dg-noscroll', is);
+		vscrollbar.css('top', 0);
 		opt.render = output;
 	};
 
@@ -1122,7 +1123,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			if (val instanceof Array) {
 				val = val.join(' ');
 				type = 'string';
-			} else if (val && type === 'object') {
+			} else if (val && type === 'object' && !(val instanceof Date)) {
 				val = JSON.stringify(val);
 				type = 'string';
 			}
@@ -1246,7 +1247,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		} else if (val.indexOf('.', index + 1) === -1) {
 			var a = val.split('.');
 			var m, y, d, special;
-
 			if (a[1].length === 4) {
 				y = +a[1];
 				m = +a[0] - 1;
