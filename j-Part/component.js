@@ -54,7 +54,7 @@ COMPONENT('part', 'hide:true', function(self, config) {
 		if (self.hclass('hidden')) {
 			config.clean && EXEC(config.clean);
 			setTimeout(function() {
-				self.element.empty();
+				self.empty();
 				init = false;
 				clid = null;
 				setTimeout(FREE, 1000);
