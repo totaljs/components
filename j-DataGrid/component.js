@@ -2,8 +2,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 	var opt = { filter: {}, filtercache: {}, filtervalues: {}, scroll: false, selected: {}, operation: '' };
 	var header, vbody, footer, vcontainer, hcontainer, varea, hbody, vscrollbar, vscrollbararea, hscrollbar, hscrollbararea, ecolumns, isecolumns = false;
-	var Theadercol = Tangular.compile('<div class="dg-hcol dg-col-{{ index }}{{ if sorting }} dg-sorting{{ fi }}" data-index="{{ index }}"{{ if reorder }} draggable="true"{{ fi }}>{{ if sorting }}<i class="dg-sort fa fa-sort"></i>{{ fi }}<div class="dg-label{{ alignheader }}"{{ if labeltitle }} title="{{ labeltitle }}"{{ fi }}>{{ label | raw }}</div>{{ if filter }}<div class="dg-filter{{ alignfilter }}{{ if filterval != null && filterval !== \'\' }} dg-filter-selected{{ fi }}">{{ if options }}<select class="dg-filter-input" data-name="{{ name }}"><option value="">{{ filter }}</option></select>{{ else }}<input autocomplete="off" type="text" placeholder="{{ filter }}" class="dg-filter-input" data-name="{{ name }}" value="{{ filterval }}" />{{ fi }}</div>{{ else }}<div class="dg-filter-empty">&nbsp;</div>{{ fi }}</div>');
+	var Theadercol = Tangular.compile('<div class="dg-hcol dg-col-{{ index }}{{ if sorting }} dg-sorting{{ fi }}" data-index="{{ index }}">{{ if sorting }}<i class="dg-sort fa fa-sort"></i>{{ fi }}<div class="dg-label{{ alignheader }}"{{ if labeltitle }} title="{{ labeltitle }}"{{ fi }}{{ if reorder }} draggable="true"{{ fi }}>{{ label | raw }}</div>{{ if filter }}<div class="dg-filter{{ alignfilter }}{{ if filterval != null && filterval !== \'\' }} dg-filter-selected{{ fi }}">{{ if options }}<select class="dg-filter-input" data-name="{{ name }}" name="{{ name }}{{ index }}"><option value="">{{ filter }}</option></select>{{ else }}<input autocomplete="off" type="text" placeholder="{{ filter }}" class="dg-filter-input" name="{{ name }}{{ index }}" data-name="{{ name }}" value="{{ filterval }}" />{{ fi }}</div>{{ else }}<div class="dg-filter-empty">&nbsp;</div>{{ fi }}</div>');
 	var pos = {};
+	var isIE = navigator.userAgent.indexOf('MSIE ') !== -1;
 
 	function Cluster(el) {
 
@@ -111,8 +112,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	};
 
 	self.applycolumns = function(use) {
-		ecolumns.aclass('hidden');
 		isecolumns = false;
+		ecolumns.aclass('hidden');
 		if (use) {
 			var hidden = {};
 			ecolumns.find('input').each(function() {
@@ -260,9 +261,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		var r = { is: false };
 
 		self.event('click', '.dg-btn-columns', function(e) {
-
 			e.preventDefault();
 			e.stopPropagation();
+
 			var cls = 'hidden';
 			if (isecolumns) {
 				self.applycolumns();
@@ -341,6 +342,13 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				self.refreshfilter();
 		});
 
+		isIE && self.event('keydown', 'input', function(e) {
+			if (e.keyCode === 13)
+				$(this).blur();
+			else if (e.keyCode === 27)
+				$(this).val('');
+		});
+
 		self.event('mousedown', function(e) {
 			var el = $(e.target);
 
@@ -352,7 +360,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			r.offset = (hbody.scrollLeft() - offset) + 10;
 
 			var prev = el.prev();
-			r.min = (prev && prev.length ? prev.css('left').parseInt() : 0) + 80;
+			r.min = (prev ? prev.css('left').parseInt() : 0) + 50;
 
 			r.h = el.css('height');
 			r.x = el.css('left').parseInt();
@@ -397,7 +405,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		var d = { is: false };
 
 		self.event('dragstart', function(e) {
-			e.originalEvent.dataTransfer.setData('text/plain', GUID());
+			!isIE && e.originalEvent.dataTransfer.setData('text/plain', GUID());
 		});
 
 		self.event('dragenter dragover dragexit drop dragleave', function (e) {
