@@ -1023,6 +1023,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 		self.resize();
 		self.renderrows(output);
+		setTimeout(self.resize, 100);
 		opt.cluster && opt.cluster.update(opt.render, opt.scroll == false);
 		self.scrolling();
 
