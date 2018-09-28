@@ -955,7 +955,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		hcontainer.css('height', opt.height + 50 + 7);
 
 		opt.width2 = w;
-		setTimeout(function() {
+		setTimeout2(self.ID, function() {
 			var vb = vbody[0];
 			var hb = hbody[0];
 
@@ -967,6 +967,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			var min = ((opt.height / config.rowheight) >> 0) + 1;
 			var is = opt.rows.length < min;
 			self.tclass('dg-noscroll', is);
+
+			// rescroll
+			vbody.prop('scrollTop', vbody.prop('scrollTop') + 1);
+			hbody.prop('scrollLeft', hbody.prop('scrollLeft') + 1);
 		}, 500);
 	};
 
