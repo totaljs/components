@@ -88,6 +88,11 @@ __Filtering__:
 - `strings`: (1) `string` searches an exact string, (2) `string1, string2, string3` is a multiple search criterium
 - `dates`: (1) year `2017` searches all dates in this year, (2) `2017-02-12 - 2017-03-13` <--> `02.12.2017 - 13.03.2017` is an interval between dates, (3) `12-20 - 12-31` <--> `20.12 - 31.12` an interval between dates in the current year ir (4) `2017-01 - 2018-05` <--> `01.2017 - 05.2018` or (5) `-5 days` <--> `-1 week` <--> `-10 years`
 
+__Methods__:
+
+- `component.redraw()` can redraw rows again (only for modifications, if you will remove some row you need to update the entire model)
+
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

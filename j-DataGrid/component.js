@@ -804,7 +804,13 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		});
 	};
 
-	self.renderrows = function(rows) {
+	self.redraw = function() {
+		self.renderrows(opt.rows, true);
+		opt.cluster && opt.cluster.update(opt.render, true);
+		self.scrolling();
+	};
+
+	self.renderrows = function(rows, noscroll) {
 
 		opt.rows = rows;
 
@@ -848,9 +854,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				output.push('<div class="dg-row-empty">&nbsp;</div>');
 		}
 
-		self.tclass('dg-noscroll', is);
-		hbody.prop('scrollLeft', 0);
-		vbody.prop('scrollTop', 0);
+		if (noscroll) {
+			self.tclass('dg-noscroll', is);
+			hbody.prop('scrollLeft', 0);
+			vbody.prop('scrollTop', 0);
+		}
+
 		opt.render = output;
 	};
 
@@ -1033,7 +1042,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		config.autoselect && output && output.length && setTimeout(function() {
 			self.select(output[0]);
 		}, 1);
-
 	};
 
 	self.redrawsorting = function() {
