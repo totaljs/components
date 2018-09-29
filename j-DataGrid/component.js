@@ -481,7 +481,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				opt.filtervalues[col.id] = val;
 
 			if (is) {
-				if (opt.filter[name] == val)
+				if (opt.filter[name] === val)
 					return;
 				opt.filter[name] = val;
 			} else
@@ -1024,7 +1024,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		self.resize();
 		self.renderrows(output);
 		setTimeout(self.resize, 100);
-		opt.cluster && opt.cluster.update(opt.render, opt.scroll == false);
+		opt.cluster && opt.cluster.update(opt.render, opt.scroll === false);
 		self.scrolling();
 
 		if (opt.operation !== 'sort')
@@ -1123,7 +1123,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	self.scrolling = function() {
 		config.checkbox && setTimeout2(self.ID, function() {
 			vbody.find('.dg-checkbox-input').each(function() {
-				this.checked = opt.selected[this.value] == 1;
+				this.checked = opt.selected[this.value] === 1;
 			});
 		}, 80, 10);
 	};
