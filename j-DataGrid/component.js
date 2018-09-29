@@ -48,7 +48,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 		self.update = function(rows, noscroll) {
 
-			if (noscroll != true)
+			if (noscroll !== true)
 				self.el.prop('scrollTop', 0);
 
 			self.limit = config.limit;
