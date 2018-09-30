@@ -3,8 +3,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	var opt = { filter: {}, filtercache: {}, filtervalues: {}, scroll: false, selected: {}, operation: '' };
 	var header, vbody, footer, vcontainer, hcontainer, varea, hbody, vscrollbar, vscrollbararea, hscrollbar, hscrollbararea, ecolumns, isecolumns = false;
 	var Theadercol = Tangular.compile('<div class="dg-hcol dg-col-{{ index }}{{ if sorting }} dg-sorting{{ fi }}" data-index="{{ index }}">{{ if sorting }}<i class="dg-sort fa fa-sort"></i>{{ fi }}<div class="dg-label{{ alignheader }}"{{ if labeltitle }} title="{{ labeltitle }}"{{ fi }}{{ if reorder }} draggable="true"{{ fi }}>{{ label | raw }}</div>{{ if filter }}<div class="dg-filter{{ alignfilter }}{{ if filterval != null && filterval !== \'\' }} dg-filter-selected{{ fi }}">{{ if options }}<select class="dg-filter-input" data-name="{{ name }}" name="{{ name }}{{ index }}"><option value="">{{ filter }}</option></select>{{ else }}<input autocomplete="off" type="text" placeholder="{{ filter }}" class="dg-filter-input" name="{{ name }}{{ index }}" data-name="{{ name }}" value="{{ filterval }}" />{{ fi }}</div>{{ else }}<div class="dg-filter-empty">&nbsp;</div>{{ fi }}</div>');
-	var pos = {};
 	var isIE = navigator.userAgent.indexOf('MSIE ') !== -1;
+	var isredraw = false;
+	var pos = {};
 
 	function Cluster(el) {
 
@@ -22,8 +23,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			var b = (self.rows.length * self.row) - (self.frame * 2) - t;
 			var pos = self.pos * self.limit;
 			var h = self.rows.slice(pos, pos + (self.limit * 2));
-			if (b < 0)
-				b = 0;
+			if (b < 2)
+				b = 2;
 			self.el.html('<div style="height:{0}px"></div>{2}<div style="height:{1}px"></div>'.format(t, b, h.join('')));
 		};
 
@@ -804,10 +805,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		});
 	};
 
-	self.redraw = function() {
-		self.renderrows(opt.rows, true);
-		opt.cluster && opt.cluster.update(opt.render, true);
-		self.scrolling();
+	self.redraw = function(update) {
+		var x = hbody.prop('scrollLeft');
+		var y = vbody.prop('scrollTop');
+		isredraw = update ? 2 : 1;
+		self.refreshfilter();
+		isredraw = 0;
+		hbody.prop('scrollLeft', x);
+		vbody.prop('scrollTop', y);
 	};
 
 	self.renderrows = function(rows, noscroll) {
@@ -990,14 +995,24 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		var items = (obj instanceof Array ? obj : obj.items) || EMPTYARRAY;
 		var output = [];
 
-		opt.selected = {};
-		config.checkbox && header.find('.dg-checkbox-input').prop('checked', false);
-
-		if (config.checked) {
-			if (config.checked.indexOf('.') === - 1)
-				EXEC(config.checked, EMPTYARRAY, self);
-			else
-				SET(config.checked, EMPTYARRAY);
+		if (isredraw) {
+			if (isredraw === 2) {
+				if (config.checked) {
+					if (config.checked.indexOf('.') === -1)
+						EXEC(config.checked, self.checked(), self);
+					else
+						SET(config.checked, self.checked());
+				}
+			}
+		} else {
+			opt.selected = {};
+			config.checkbox && header.find('.dg-checkbox-input').prop('checked', false);
+			if (config.checked) {
+				if (config.checked.indexOf('.') === - 1)
+					EXEC(config.checked, EMPTYARRAY, self);
+				else
+					SET(config.checked, EMPTYARRAY);
+			}
 		}
 
 		for (var i = 0, length = items.length; i < length; i++) {
@@ -1020,28 +1035,36 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			output.push(item);
 		}
 
-		if (opt.scroll) {
-			vbody.prop('scrollTop', 0);
-			opt.scroll = false;
-		}
+		if (!isredraw) {
+			if (opt.scroll) {
+				vbody.prop('scrollTop', 0);
+				opt.scroll = false;
+			}
 
-		if (opt.sort != null) {
-			opt.sort.sort && output.quicksort(opt.sort.name, opt.sort.sort === 1);
-			self.redrawsorting();
+			if (opt.sort != null) {
+				opt.sort.sort && output.quicksort(opt.sort.name, opt.sort.sort === 1);
+				self.redrawsorting();
+			}
 		}
 
 		self.resize();
-		self.renderrows(output);
+		self.renderrows(output, isredraw);
 		setTimeout(self.resize, 100);
 		opt.cluster && opt.cluster.update(opt.render, opt.scroll == false);
 		self.scrolling();
 
-		if (opt.operation !== 'sort')
-			self.select(null);
-
-		config.autoselect && output && output.length && setTimeout(function() {
-			self.select(output[0]);
-		}, 1);
+		if (isredraw) {
+			if (isredraw === 2) {
+				// re-update all items
+				self.select(self.selected || null);
+			}
+		} else {
+			if (opt.operation !== 'sort')
+				self.select(null);
+			config.autoselect && output && output.length && setTimeout(function() {
+				self.select(output[0]);
+			}, 1);
+		}
 	};
 
 	self.redrawsorting = function() {

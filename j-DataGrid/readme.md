@@ -90,7 +90,7 @@ __Filtering__:
 
 __Methods__:
 
-- `component.redraw()` can redraw rows again (only for modifications, if you will remove some row you need to update the entire model)
+- `component.redraw([reselect_again])` can redraw rows again (only for modifications, if you will remove some row you need to update the entire model)
 
 
 ### Author
