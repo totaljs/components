@@ -516,6 +516,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				return;
 			}
 
+			self.selected = row;
+
 			var elrow = opt.cluster.el.find('.dg-row[data-index="{0}"]'.format(index));
 			if (elrow && config.highlight) {
 				opt.cluster.el.find('.' + cls).rclass(cls);
@@ -1059,11 +1061,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				self.select(self.selected || null);
 			}
 		} else {
-			if (opt.operation !== 'sort')
+			if (config.autoselect && output && output.length) {
+				setTimeout(function() {
+					self.select(output[0]);
+				}, 1);
+			} else if (opt.operation !== 'sort')
 				self.select(null);
-			config.autoselect && output && output.length && setTimeout(function() {
-				self.select(output[0]);
-			}, 1);
 		}
 	};
 
