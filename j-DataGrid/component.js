@@ -1038,8 +1038,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		}
 
 		if (!isredraw) {
+
 			if (opt.scroll) {
 				vbody.prop('scrollTop', 0);
+				hbody.prop('scrollLeft', 0);
 				opt.scroll = false;
 			}
 
@@ -1137,6 +1139,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		}
 
 		opt.selected = {};
+		opt.scroll = true;
 
 		self.applycolumns();
 		self.refreshfilter();
