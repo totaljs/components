@@ -184,7 +184,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				var p = (y / sv.h) * 100;
 				var scroll = ((vbody[0].scrollHeight - opt.height) / 100) * p;
 				var plus = (p / 100) * 30;
-				vbody.prop('scrollTop', scroll + plus);
+				vbody.prop('scrollTop', Math.ceil(scroll + plus));
 				e.preventDefault();
 				e.stopPropagation();
 			}
@@ -206,7 +206,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				var p = (x / sh.w) * 100;
 				var scroll = ((hbody[0].scrollWidth - opt.width2) / 100) * p;
 				var plus = (p / 100) * 30;
-				hbody.prop('scrollLeft', scroll + plus);
+				hbody.prop('scrollLeft', Math.ceil(scroll + plus));
 				e.preventDefault();
 				e.stopPropagation();
 			}
@@ -218,12 +218,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				var y = (e.pageY - sv.y);
 				p = (y / sv.h) * 100;
 				scroll = ((vbody[0].scrollHeight - opt.height) / 100) * (p > 100 ? 100 : p);
-				vbody.prop('scrollTop', scroll);
+				vbody.prop('scrollTop', Math.ceil(scroll));
 			} else if (sh.is) {
 				var x = (e.pageX - sh.x);
 				p = (x / sh.w) * 100;
 				scroll = ((hbody[0].scrollWidth - opt.width2) / 100) * (p > 100 ? 100 : p);
-				hbody.prop('scrollLeft', scroll);
+				hbody.prop('scrollLeft', Math.ceil(scroll));
 			}
 		});
 
@@ -236,10 +236,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 			var plus = (p / 100) * 30;
 			p = (((opt.height - pos.vscroll) / 100) * p);
-			var oy = (p + plus - 2);
+			var oy = (p + plus);
 			if (oy < 0)
 				oy = 0;
-			vscrollbar.css('top', oy + 'px');
+			vscrollbar.css('top', (oy >> 0) + 'px');
 			isecolumns && self.applycolumns();
 		});
 
@@ -255,7 +255,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			var ox = (p - plus);
 			if (ox < 0)
 				ox = 0;
-			hscrollbar.css('left', ox + 'px');
+			hscrollbar.css('left', (ox >> 0) + 'px');
 			isecolumns && self.applycolumns();
 		});
 
