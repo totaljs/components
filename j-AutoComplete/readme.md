@@ -29,7 +29,7 @@ function onSelected(value, input) {
 
 var plusOffsetTop = 14;
 // SETTER('autocomplete', 'attach', input, onSearch, onSelected, [offsetX], [offsetY], [width]);
-SETTER('autocomplete', 'attach', input', onSearch, onSelected, plusOffsetTop);
+SETTER('autocomplete', 'attach', input, onSearch, onSelected, plusOffsetTop);
 
 // or
 // SETTER('autocomplete', 'attachelement', element, input, onSearch, onSelected, [offsetX], [offsetY], [width]);
