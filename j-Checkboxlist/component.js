@@ -130,7 +130,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 
 	self.redraw = function() {
 		var label = config.label || content;
-		self.tclass('ui-checkboxlist-required', config.required);
+		self.tclass('ui-checkboxlist-required', config.required == true);
 		self.html((label ? '<div class="ui-checkboxlist-label">{1}{0}</div>'.format(label, config.icon ? '<i class="fa fa-{0}"></i>'.format(config.icon) : '') : '') + '<div class="ui-checkboxlist-container"></div>');
 		container = self.find('.ui-checkboxlist-container');
 	};
