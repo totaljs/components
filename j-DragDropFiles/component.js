@@ -4,16 +4,6 @@ COMPONENT('dragdropfiles', 'click:true', function(self, config) {
 
 	self.readonly();
 
-	self.mirror = function(cls) {
-		var arr = cls.split(' ');
-		for (var i = 0, length = arr.length; i < length; i++) {
-			arr[i] = arr[i].replace(/^(\+|-)/g, function(c) {
-				return c === '+' ? '-' : '+';
-			});
-		}
-		return arr.join(' ');
-	};
-
 	self.destroy = function() {
 		file.off('*').remove();
 	};
@@ -45,18 +35,18 @@ COMPONENT('dragdropfiles', 'click:true', function(self, config) {
 
 			switch (e.type) {
 				case 'drop':
-					config.class && has && self.classes(self.mirror(config.class));
+					config.class && has && self.rclass(config.class);
 					break;
 				case 'dragenter':
 				case 'dragover':
-					config.class && !has && self.classes(config.class);
+					config.class && !has && self.aclass(config.class);
 					has = true;
 					return;
 				case 'dragleave':
 				case 'dragexit':
 				default:
 					setTimeout2(self.id, function() {
-						config.class && has && self.classes(self.mirror(config.class));
+						config.class && has && self.rclass(config.class);
 						has = false;
 					}, 100);
 					return;

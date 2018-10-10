@@ -1,38 +1,43 @@
-COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filter;numbering:;height:auto;bottom:90;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;autoselect:false', function(self, config) {
+COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterlabel:Filter;numbering:;height:auto;bottom:90;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;autoselect:false;buttonapply:Apply', function(self, config) {
 
-	var opt = { filter: {}, filtercache: {}, filtervalues: {}, scroll: false, selected: {} };
-	var header, vbody, footer, vcontainer, hcontainer, varea, hbody, vscrollbar, vscrollbararea, hscrollbar, hscrollbararea;
-	var Theadercol = Tangular.compile('<div class="dg-hcol dg-col-{{ index }}{{ if sorting }} dg-sorting{{ fi }}" data-index="{{ index }}"{{ if reorder }} draggable="true"{{ fi }}>{{ if sorting }}<i class="dg-sort fa fa-sort"></i>{{ fi }}<div class="dg-label{{ alignheader }}"{{ if labeltitle }} title="{{ labeltitle }}"{{ fi }}>{{ label | raw }}</div>{{ if filter }}<div class="dg-filter{{ alignfilter }}{{ if filterval }} dg-filter-selected{{ fi }}"><input autocomplete="off" type="text" placeholder="{{ filter }}" class="dg-filter-input" data-name="{{ name }}" value="{{ filterval }}" /></div>{{ else }}<div class="dg-filter-empty">&nbsp;</div>{{ fi }}</div>');
+	var opt = { filter: {}, filtercache: {}, filtervalues: {}, scroll: false, selected: {}, operation: '' };
+	var header, vbody, footer, vcontainer, hcontainer, varea, hbody, vscrollbar, vscrollbararea, hscrollbar, hscrollbararea, ecolumns, isecolumns = false;
+	var Theadercol = Tangular.compile('<div class="dg-hcol dg-col-{{ index }}{{ if sorting }} dg-sorting{{ fi }}" data-index="{{ index }}">{{ if sorting }}<i class="dg-sort fa fa-sort"></i>{{ fi }}<div class="dg-label{{ alignheader }}"{{ if labeltitle }} title="{{ labeltitle }}"{{ fi }}{{ if reorder }} draggable="true"{{ fi }}>{{ label | raw }}</div>{{ if filter }}<div class="dg-filter{{ alignfilter }}{{ if filterval != null && filterval !== \'\' }} dg-filter-selected{{ fi }}">{{ if options }}<select class="dg-filter-input" data-name="{{ name }}" name="{{ name }}{{ index }}"><option value="">{{ filter }}</option></select>{{ else }}<input autocomplete="off" type="text" placeholder="{{ filter }}" class="dg-filter-input" name="{{ name }}{{ index }}" data-name="{{ name }}" value="{{ filterval }}" />{{ fi }}</div>{{ else }}<div class="dg-filter-empty">&nbsp;</div>{{ fi }}</div>');
+	var isIE = (/msie|trident/i).test(navigator.userAgent);
+	var isredraw = false;
 	var pos = {};
 
-	function Cluster(el, row, limit) {
+	function Cluster(el) {
 
 		var self = this;
 		var dom = el[0];
 
 		self.el = el;
-		self.row = row;
+		self.row = config.rowheight;
 		self.rows = [];
-		self.limit = limit || 100;
-		self.frame = self.limit * row;
+		self.limit = config.limit;
 		self.pos = -1;
 
 		self.render = function() {
 			var t = self.pos * self.frame;
-			var b = (self.rows.length * row) - (self.frame * 2) - t;
+			var b = (self.rows.length * self.row) - (self.frame * 2) - t;
 			var pos = self.pos * self.limit;
-
 			var h = self.rows.slice(pos, pos + (self.limit * 2));
-
-			if (b < 0)
-				b = 0;
-
+			if (b < 2)
+				b = 2;
 			self.el.html('<div style="height:{0}px"></div>{2}<div style="height:{1}px"></div>'.format(t, b, h.join('')));
 		};
 
 		self.scrolling = function() {
+
 			var y = dom.scrollTop + 1;
+			if (y < 0)
+				return;
+
 			var frame = Math.ceil(y / self.frame) - 1;
+			if (frame === -1)
+				return;
+
 			if (self.pos !== frame) {
 				if (self.max && frame >= self.max)
 					frame = self.max;
@@ -47,9 +52,18 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 			if (noscroll != true)
 				self.el.prop('scrollTop', 0);
 
+			self.limit = config.limit;
 			self.pos = -1;
 			self.rows = rows;
 			self.max = Math.ceil(rows.length / self.limit) - 1;
+			self.frame = self.limit * self.row;
+
+			if (self.limit * 2 > rows.length) {
+				self.limit = rows.length;
+				self.frame = self.limit * self.row;
+				self.max = 1;
+			}
+
 			self.scrolling();
 		};
 
@@ -98,6 +112,23 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 		self.refreshfilter();
 	};
 
+	self.applycolumns = function(use) {
+		isecolumns = false;
+		ecolumns.aclass('hidden');
+		if (use) {
+			var hidden = {};
+			ecolumns.find('input').each(function() {
+				hidden[this.value] = !this.checked;
+			});
+			self.cols(function(cols) {
+				for (var i = 0; i < cols.length; i++) {
+					var col = cols[i];
+					col.hidden = hidden[col.id] === true;
+				}
+			});
+		}
+	};
+
 	self.make = function() {
 
 		self.IDCSS = GUID(5);
@@ -110,9 +141,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 		var pagination = '';
 
 		if (config.exec)
-			pagination = '<div class="dg-footer hidden"><div class="dg-pagination-items"></div><div class="dg-pagination"><button name="page-first" disabled><i class="fa fa-angle-double-left"></i></button><button name="page-prev" disabled><i class="fa fa-angle-left"></i></button><div><input type="text" name="page" maxlength="5" /></div><button name="page-next" disabled><i class="fa fa-angle-right"></i></button><button name="page-last" disabled><i class="fa fa-angle-double-right"></i></button></div><div class="dg-pagination-pages"></div></div>';
+			pagination = '<div class="dg-footer hidden"><div class="dg-pagination-items hidden-xs"></div><div class="dg-pagination"><button name="page-first" disabled><i class="fa fa-angle-double-left"></i></button><button name="page-prev" disabled><i class="fa fa-angle-left"></i></button><div><input type="text" name="page" maxlength="5" class="dg-pagination-input" /></div><button name="page-next" disabled><i class="fa fa-angle-right"></i></button><button name="page-last" disabled><i class="fa fa-angle-double-right"></i></button></div><div class="dg-pagination-pages"></div></div>';
 
-		self.html('<div class="dg-scrollbar-container-v hidden"><div class="dg-scrollbar-v"></div></div><div class="dg-h-container"><div class="dg-h-body"><div class="dg-v-container"><div class="dg-v-area"><div class="dg-header"></div><div class="dg-v-body"></div></div></div></div></div><div class="dg-scrollbar-container-h hidden"><div class="dg-scrollbar-h"></div></div>{0}'.format(pagination));
+		self.html('<div class="dg-columns hidden"><div class="dg-columns-body"></div><button class="dg-columns-button" name="columns-apply"><i class="fa fa-columns"></i>{1}</button></div><div class="dg-scrollbar-container-v hidden"><div class="dg-scrollbar-v"></div></div><div class="dg-h-container"><div class="dg-h-body"><div class="dg-v-container"><div class="dg-v-area"><div class="dg-header"></div><div class="dg-v-body"></div></div></div></div></div><div class="dg-scrollbar-container-h hidden"><div class="dg-scrollbar-h"></div></div>{0}'.format(pagination, config.buttonapply));
 
 		varea = self.find('.dg-v-area');
 		vcontainer = self.find('.dg-v-container');
@@ -121,6 +152,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 		footer = self.find('.dg-footer');
 		hbody = self.find('.dg-h-body');
 		hcontainer = self.find('.dg-h-container');
+		ecolumns = self.find('.dg-columns');
 
 		// Scrollbars
 		vscrollbar = self.find('.dg-scrollbar-v');
@@ -152,7 +184,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 				var p = (y / sv.h) * 100;
 				var scroll = ((vbody[0].scrollHeight - opt.height) / 100) * p;
 				var plus = (p / 100) * 30;
-				vbody.prop('scrollTop', scroll + plus);
+				vbody.prop('scrollTop', Math.ceil(scroll + plus));
 				e.preventDefault();
 				e.stopPropagation();
 			}
@@ -174,7 +206,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 				var p = (x / sh.w) * 100;
 				var scroll = ((hbody[0].scrollWidth - opt.width2) / 100) * p;
 				var plus = (p / 100) * 30;
-				hbody.prop('scrollLeft', scroll + plus);
+				hbody.prop('scrollLeft', Math.ceil(scroll + plus));
 				e.preventDefault();
 				e.stopPropagation();
 			}
@@ -186,12 +218,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 				var y = (e.pageY - sv.y);
 				p = (y / sv.h) * 100;
 				scroll = ((vbody[0].scrollHeight - opt.height) / 100) * (p > 100 ? 100 : p);
-				vbody.prop('scrollTop', scroll);
+				vbody.prop('scrollTop', Math.ceil(scroll));
 			} else if (sh.is) {
 				var x = (e.pageX - sh.x);
 				p = (x / sh.w) * 100;
 				scroll = ((hbody[0].scrollWidth - opt.width2) / 100) * (p > 100 ? 100 : p);
-				hbody.prop('scrollLeft', scroll);
+				hbody.prop('scrollLeft', Math.ceil(scroll));
 			}
 		});
 
@@ -204,8 +236,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 
 			var plus = (p / 100) * 30;
 			p = (((opt.height - pos.vscroll) / 100) * p);
-
-			vscrollbar.css('top', (p + plus - 2) + 'px');
+			var oy = (p + plus);
+			if (oy < 0)
+				oy = 0;
+			vscrollbar.css('top', (oy >> 0) + 'px');
+			isecolumns && self.applycolumns();
 		});
 
 		hbody.on('scroll', function(e) {
@@ -217,10 +252,35 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 
 			var plus = (p / 100) * 30;
 			p = (((opt.width2 - pos.hscroll) / 100) * p);
-			hscrollbar.css('left', (p - plus) + 'px');
+			var ox = (p - plus);
+			if (ox < 0)
+				ox = 0;
+			hscrollbar.css('left', (ox >> 0) + 'px');
+			isecolumns && self.applycolumns();
 		});
 
 		var r = { is: false };
+
+		self.event('click', '.dg-btn-columns', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			var cls = 'hidden';
+			if (isecolumns) {
+				self.applycolumns();
+			} else {
+				var builder = [];
+
+				for (var i = 0; i < opt.cols.length; i++) {
+					var col = opt.cols[i];
+					builder.push('<div><label><input type="checkbox" value="{0}"{1} /><span>{2}</span></label></div>'.format(col.id, col.hidden ? '' : ' checked', col.text));
+				}
+
+				ecolumns.find('.dg-columns-body').html(builder.join(''));
+				ecolumns.rclass(cls);
+				isecolumns = true;
+			}
+		});
 
 		self.event('click', '.dg-row', function(e) {
 			var el = $(this);
@@ -228,26 +288,19 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 			var target = $(e.target);
 			switch (type) {
 				case 'DIV':
-				case 'BUTTON':
 				case 'SPAN':
 					if (!target.closest('.dg-checkbox').length) {
 						var elrow = el.closest('.dg-row');
 						var index = +elrow.attrd('index');
 						var row = opt.rows[index];
 						if (row) {
-							if (type === 'BUTTON' && config.button)
-								config.button && EXEC(config.button, target[0].name, row, self, target, elrow);
-							else {
-
-								if (config.highlight) {
-									var cls = 'dg-selected';
-									opt.cluster.el.find('> .' + cls).rclass(cls);
-									self.selected = row;
-									elrow.aclass(cls);
-								}
-
-								config.click && EXEC(config.click, row, self, elrow, target);
+							if (config.highlight) {
+								var cls = 'dg-selected';
+								opt.cluster.el.find('> .' + cls).rclass(cls);
+								self.selected = row;
+								elrow.aclass(cls);
 							}
+							config.click && EXEC(config.click, row, self, elrow, target);
 						}
 					}
 					break;
@@ -282,11 +335,19 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 			}
 
 			opt.sort = col;
+			opt.operation = 'sort';
 
 			if (config.exec)
-				self.operation('sort');
+				self.operation(opt.operation);
 			else
 				self.refreshfilter();
+		});
+
+		isIE && self.event('keydown', 'input', function(e) {
+			if (e.keyCode === 13)
+				$(this).blur();
+			else if (e.keyCode === 27)
+				$(this).val('');
 		});
 
 		self.event('mousedown', function(e) {
@@ -299,6 +360,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 			r.el = el;
 			r.offset = (hbody.scrollLeft() - offset) + 10;
 
+			var prev = el.prev();
+			r.min = (prev.length ? prev.css('left').parseInt() : 0) + 50;
+
 			r.h = el.css('height');
 			r.x = el.css('left').parseInt();
 			el.css('height', opt.height + config.bottom);
@@ -309,7 +373,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 
 		header.on('mousemove', function(e) {
 			if (r.is) {
-				r.el.css('left', e.pageX + r.offset - 20);
+				var x = e.pageX + r.offset - 20;
+				if (x < r.min)
+					x = r.min;
+				r.el.css('left', x);
 				e.preventDefault();
 				e.stopPropagation();
 			}
@@ -339,7 +406,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 		var d = { is: false };
 
 		self.event('dragstart', function(e) {
-			e.originalEvent.dataTransfer.setData('text/plain', GUID());
+			!isIE && e.originalEvent.dataTransfer.setData('text/plain', GUID());
 		});
 
 		self.event('dragenter dragover dragexit drop dragleave', function (e) {
@@ -373,19 +440,48 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 			}
 		});
 
+		self.event('change', '.dg-pagination-input', function() {
+
+			var value = self.get();
+			var val = +this.value;
+
+			if (isNaN(val))
+				return;
+
+			if (val >= value.pages)
+				val = value.pages;
+			else if (val < 1)
+				val = 1;
+
+			value.page = val;
+			opt.scroll = true;
+			self.operation('page');
+		});
+
 		self.event('change', '.dg-filter-input', function() {
+
 			var input = this;
-			var el = $(input).parent();
-			var val = input.value;
+			var $el = $(this);
+			var el = $el.parent();
+			var val = $el.val();
 			var name = input.getAttribute('data-name');
 
 			var col = opt.cols[+el.closest('.dg-hcol').attrd('index')];
 			delete opt.filtercache[name];
 
+			if (col.options) {
+				if (val)
+					val = col.options[+val][col.ovalue];
+				else
+					val = null;
+			}
+
+			var is = val != null && val !== '';
+
 			if (col)
 				opt.filtervalues[col.id] = val;
 
-			if (val) {
+			if (is) {
 				if (opt.filter[name] == val)
 					return;
 				opt.filter[name] = val;
@@ -393,10 +489,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 				delete opt.filter[name];
 
 			opt.scroll = true;
-			el.tclass('dg-filter-selected', !!val);
+			opt.operation = 'filter';
+			el.tclass('dg-filter-selected', is);
 
 			if (config.exec)
-				self.operation('filter');
+				self.operation(opt.operation);
 			else
 				self.refreshfilter();
 		});
@@ -408,18 +505,21 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 			if (typeof(row) === 'number') {
 				index = row;
 				row = opt.rows[index];
-			} else {
+			} else if (row)
 				index = opt.rows.indexOf(row);
-				if (index === -1)
-					return;
+
+			var cls = 'dg-selected';
+
+			if (!row || index === -1) {
+				opt.cluster && opt.cluster.el.find('.' + cls).rclass(cls);
+				config.highlight && config.click && EXEC(config.click, null, self);
+				return;
 			}
 
-			if (!row || index === -1)
-				return;
+			self.selected = row;
 
 			var elrow = opt.cluster.el.find('.dg-row[data-index="{0}"]'.format(index));
 			if (elrow && config.highlight) {
-				var cls = 'dg-selected';
 				opt.cluster.el.find('.' + cls).rclass(cls);
 				elrow.aclass(cls);
 			}
@@ -453,6 +553,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 
 		self.event('click', 'button', function() {
 			switch (this.name) {
+				case 'columns-apply':
+					self.applycolumns(true);
+					break;
 				case 'page-first':
 					opt.scroll = true;
 					self.get().page = 1;
@@ -480,11 +583,18 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 					break;
 			}
 		});
+
+		config.exec && self.operation('init');
 	};
 
 	self.operation = function(type) {
+
 		var value = self.get();
-		if (type === 'filter')
+
+		if (value == null)
+			value = {};
+
+		if (type === 'filter' || type === 'init')
 			value.page = 1;
 
 		var keys = Object.keys(opt.filter);
@@ -527,6 +637,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 
 			if (col.hidden)
 				col.hidden = FN(col.hidden)(col) === true;
+
+			if (col.options) {
+				!col.otext && (col.otext = 'text');
+				!col.ovalue && (col.ovalue = 'value');
+			}
 
 			if (cache) {
 				var c = cache[i];
@@ -577,6 +692,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 
 			if (!col.text)
 				col.text = col.name;
+
+			if (col.text.substring(0, 1) === '.')
+				col.text = '<i class="{0}"></i>'.format(col.text.substring(1));
 
 			if (col.filter !== false && !col.filter)
 				col.filter = config.filterlabel;
@@ -636,7 +754,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 		self.rebindcss();
 		self.rendercols();
 		self.renderrows(opt.rows);
+		self.save();
 		opt.cluster && opt.cluster.update(opt.render);
+		self.resize();
 	};
 
 	self.rendercols = function() {
@@ -653,15 +773,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 		for (var i = 0; i < opt.cols.length; i++) {
 			var col = opt.cols[i];
 			if (!col.hidden) {
-				var obj = { index: i, label: col.header(col), filter: col.filter, reorder: config.reorder, sorting: col.sorting, name: col.name, alignfilter: col.alignfilter, alignheader: col.alignheader, filterval: opt.filtervalues[col.id], labeltitle: col.title };
+				var obj = { index: i, label: col.header(col), filter: col.filter, reorder: config.reorder, sorting: col.sorting, name: col.name, alignfilter: col.alignfilter, alignheader: col.alignheader, filterval: opt.filtervalues[col.id], labeltitle: col.title, options: col.options ? col.options instanceof Array ? col.options : GET(col.options) : null };
 				opt.width += col.width;
 				config.resize && resize.push('<span class="dg-resize" style="left:{0}px" data-index="{1}"></span>'.format(opt.width - 39, i));
 				column += Theadercol(obj);
 			}
 		}
 
-		column += '<div class="dg-hcol">&nbsp;</div>';
-
+		column += '<div class="dg-hcol"></div><div class="dg-btn-columns"><i class="fa fa-columns"></i></div>';
 		header.html(resize.join('') + Trow.format(0, column));
 
 		var w = self.width();
@@ -672,15 +791,46 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 		vcontainer.css(css);
 		css.width += 50;
 		varea.css(css);
+
+		header.find('select').each(function() {
+			var el = $(this);
+			var index = +el.closest('.dg-hcol').attrd('index');
+			var builder = [];
+			var col = opt.cols[index];
+
+			for (var i = 0; i < col.options.length; i++) {
+				var item = col.options[i];
+				builder.push('<option value="{0}"{1}>{2}</option>'.format(i, opt.filtervalues[col.id] === item[col.ovalue] ? ' selected' : '', item[col.otext]));
+			}
+
+			el.append(builder.join(''));
+		});
 	};
 
-	self.renderrows = function(rows) {
+	self.redraw = function(update) {
+		var x = hbody.prop('scrollLeft');
+		var y = vbody.prop('scrollTop');
+		isredraw = update ? 2 : 1;
+		self.refreshfilter();
+		isredraw = 0;
+		hbody.prop('scrollLeft', x);
+		vbody.prop('scrollTop', y);
+	};
+
+	self.renderrows = function(rows, noscroll) {
 
 		opt.rows = rows;
 
 		var output = [];
 		var Trow = '<div class="dg-row dg-row-{0}{3}" data-index="{2}">{1}</div>';
 		var Tcol = '<div class="dg-col dg-col-{0}{2}">{1}</div>';
+		var plus = 0;
+
+		if (config.exec) {
+			// pagination
+			var val = self.get();
+			plus = (val.page - 1) * val.limit;
+		}
 
 		for (var i = 0, length = rows.length; i < length; i++) {
 
@@ -688,7 +838,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 			var column = '';
 
 			if (config.numbering !== false)
-				column += Tcol.format(-1, '<div class="dg-number">{0}</div>'.format(i + 1));
+				column += Tcol.format(-1, '<div class="dg-number">{0}</div>'.format(i + 1 + plus));
 
 			if (config.checkbox)
 				column += Tcol.format(-1, '<div class="dg-checkbox"><input type="checkbox" value="{0}" class="dg-checkbox-input" /></div>'.format(row.ROW));
@@ -703,7 +853,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 			column && output.push(Trow.format(i + 1, column, i, self.selected === row ? ' dg-selected' : ''));
 		}
 
-		var min = (opt.height / config.rowheight >> 0) + 1;
+		var min = ((opt.height / config.rowheight) >> 0) + 1;
 		var is = output.length < min;
 
 		if (is) {
@@ -711,7 +861,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 				output.push('<div class="dg-row-empty">&nbsp;</div>');
 		}
 
-		self.tclass('dg-noscroll', is);
+		if (noscroll) {
+			self.tclass('dg-noscroll', is);
+			hbody.prop('scrollLeft', 0);
+			vbody.prop('scrollTop', 0);
+		}
+
 		opt.render = output;
 	};
 
@@ -816,40 +971,50 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 		hcontainer.css('height', opt.height + 50 + 7);
 
 		opt.width2 = w;
-		setTimeout(function() {
+		setTimeout2(self.ID, function() {
 			var vb = vbody[0];
 			var hb = hbody[0];
 
 			// Scrollbars
-			vscrollbararea.tclass('hidden', isMOBILE || (vb.scrollHeight - vb.clientHeight) === 0);
-			hscrollbararea.tclass('hidden', isMOBILE || (hb.scrollWidth - hb.clientWidth) === 0);
+			vscrollbararea.tclass('hidden', isMOBILE || (vb.scrollHeight - vb.clientHeight) < 5);
+			hscrollbararea.tclass('hidden', isMOBILE || (hb.scrollWidth - hb.clientWidth) < 5);
 
 			// Empty rows
-			var min = Math.ceil(opt.height / config.rowheight) + 1;
-			var is = opt.rows.length <= min;
+			var min = ((opt.height / config.rowheight) >> 0) + 1;
+			var is = opt.rows.length < min;
 			self.tclass('dg-noscroll', is);
+
+			// rescroll
+			vbody.prop('scrollTop', vbody.prop('scrollTop') - 1);
+			hbody.prop('scrollLeft', hbody.prop('scrollLeft') - 1);
 		}, 500);
 	};
 
 	self.refreshfilter = function() {
 
 		// Get data
-		var obj = self.get();
-
-		if (obj == null)
-			return;
-
-		var items = obj instanceof Array ? obj : obj.items;
+		var obj = self.get() || EMPTYARRAY;
+		var items = (obj instanceof Array ? obj : obj.items) || EMPTYARRAY;
 		var output = [];
 
-		opt.selected = {};
-		config.checkbox && header.find('.dg-checkbox-input').prop('checked', false);
-
-		if (config.checked) {
-			if (config.checked.indexOf('.') === - 1)
-				EXEC(config.checked, EMPTYARRAY, self);
-			else
-				SET(config.checked, EMPTYARRAY);
+		if (isredraw) {
+			if (isredraw === 2) {
+				if (config.checked) {
+					if (config.checked.indexOf('.') === -1)
+						EXEC(config.checked, self.checked(), self);
+					else
+						SET(config.checked, self.checked());
+				}
+			}
+		} else {
+			opt.selected = {};
+			config.checkbox && header.find('.dg-checkbox-input').prop('checked', false);
+			if (config.checked) {
+				if (config.checked.indexOf('.') === - 1)
+					EXEC(config.checked, EMPTYARRAY, self);
+				else
+					SET(config.checked, EMPTYARRAY);
+			}
 		}
 
 		for (var i = 0, length = items.length; i < length; i++) {
@@ -857,34 +1022,54 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 
 			item.ROW = i;
 
-			if (opt.filter && !self.filter(item))
-				continue;
-
-			if (opt.search) {
-				for (var j = 0; j < opt.cols.length; j++) {
-					var col = opt.cols[j];
-					if (col.search)
-						item['$' + col.name] = col.search(item);
+			if (!config.exec) {
+				if (opt.filter && !self.filter(item))
+					continue;
+				if (opt.search) {
+					for (var j = 0; j < opt.cols.length; j++) {
+						var col = opt.cols[j];
+						if (col.search)
+							item['$' + col.name] = col.search(item);
+					}
 				}
 			}
 
 			output.push(item);
 		}
 
-		if (opt.scroll) {
-			vbody.prop('scrollTop', 0);
-			opt.scroll = false;
-		}
+		if (!isredraw) {
 
-		if (opt.sort != null) {
-			opt.sort.sort && output.quicksort(opt.sort.name, opt.sort.sort === 1);
-			self.redrawsorting();
+			if (opt.scroll) {
+				vbody.prop('scrollTop', 0);
+				hbody.prop('scrollLeft', 0);
+				opt.scroll = false;
+			}
+
+			if (opt.sort != null) {
+				opt.sort.sort && output.quicksort(opt.sort.name, opt.sort.sort === 1);
+				self.redrawsorting();
+			}
 		}
 
 		self.resize();
-		self.renderrows(output);
+		self.renderrows(output, isredraw);
+		setTimeout(self.resize, 100);
 		opt.cluster && opt.cluster.update(opt.render, opt.scroll == false);
 		self.scrolling();
+
+		if (isredraw) {
+			if (isredraw === 2) {
+				// re-update all items
+				self.select(self.selected || null);
+			}
+		} else {
+			if (config.autoselect && output && output.length) {
+				setTimeout(function() {
+					self.select(output[0]);
+				}, 1);
+			} else if (opt.operation !== 'sort')
+				self.select(null);
+		}
 	};
 
 	self.redrawsorting = function() {
@@ -943,28 +1128,33 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 		footer.rclass('hidden');
 	};
 
-	self.setter = function() {
+	self.setter = function(value) {
 
 		if (!opt.cols)
 			return;
 
-		opt.selected = {};
+		if (config.exec && value == null) {
+			self.operation('refresh');
+			return;
+		}
 
-		self.rendercols();
+		opt.selected = {};
+		opt.scroll = true;
+
+		self.applycolumns();
 		self.refreshfilter();
 		self.redrawpagination();
 
-
-		config.autoselect && opt.rows && opt.rows.length && setTimeout(function() {
-			self.select(opt.rows[0]);
-		}, 1);
+		!config.exec && self.rendercols();
 
 		if (opt.cluster)
 			return;
 
-		opt.cluster = new Cluster(vbody, config.rowheight, 80);
+		config.exec && self.rendercols();
+		opt.cluster = new Cluster(vbody);
 		opt.cluster.scroll = self.scrolling;
 		opt.render && opt.cluster.update(opt.render);
+		self.aclass('dg-visible');
 	};
 
 	self.scrolling = function() {
@@ -988,7 +1178,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 			if (val instanceof Array) {
 				val = val.join(' ');
 				type = 'string';
-			} else if (val && type === 'object') {
+			} else if (val && type === 'object' && !(val instanceof Date)) {
 				val = JSON.stringify(val);
 				type = 'string';
 			}
@@ -1027,7 +1217,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 
 			} else if (type === 'boolean') {
 				if (val2 == null)
-					val2 = opt.filtercache[column] = config.boolean.indexOf(filter.replace(/\s/g, '')) !== -1;
+					val2 = opt.filtercache[column] = typeof(filter) === 'string' ? config.boolean.indexOf(filter.replace(/\s/g, '')) !== -1 : filter;
 				if (val2 !== val)
 					return false;
 			} else if (val instanceof Date) {
@@ -1112,7 +1302,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;filterlabel:Filte
 		} else if (val.indexOf('.', index + 1) === -1) {
 			var a = val.split('.');
 			var m, y, d, special;
-
 			if (a[1].length === 4) {
 				y = +a[1];
 				m = +a[0] - 1;

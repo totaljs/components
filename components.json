@@ -123,5 +123,7 @@
 	"j-Cookie2",
 	"j-Drawer",
 	"j-Menu",
-	"j-ScrollPercentage"
+	"j-ScrollPercentage",
+	"j-Navigation",
+	"j-ViewBox"
 ]

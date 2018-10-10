@@ -62,11 +62,12 @@ __Configuration__:
 - `exec` {String} a link to `function(type, filter, sort, page)` for server-side operations only (it disables client-side sorting & filtering)
 - `button` {String} a link to `function(btn_name, row, grid, elbutton, elrow)` is executed if the user clicks on a __button__ in the row
 - `autoselect` {Boolean} enables auto-select of first row in grid, it performs `EXEC(config.click)`, default: `false`
+- `limit` {Number} a cluster limit, default: `80`
 
 __Column properties__:
 
 - `name` {String} a name of field in the row object
-- `text` {String} a column label
+- `text` {String} a column label, text with `.fa fa-home` will render FontAwesome icon
 - `title` {String} a column tooltip (optional)
 - `width` {Number} a column width (optional, default `config.colwidth`)
 - `filter` {String/Boolean} a placeholder for the filter or `boolean` can disable filter for this column (optional)
@@ -76,12 +77,21 @@ __Column properties__:
 - `search` {Boolean/String} `true` will filter a value according to the `template` result or `String` can be a Tangular template which will be used as a value for search
 - `format` {String/Number} can be used for date and numbers (count of decimals) field (optional), e.g. `dd.MM.yyyy`
 - `hidden` {String} as an arrow function `column => true` --> column will be hidden
+- `options` {Object Array} optional, a custom filter for example `[{ text: 'yes', value: true }, { text: 'no', value: false }]` or {String} link to data-source
+- `otext` {String} optional, a key for `text` field in `options`, default `text`
+- `ovalue` {String} optional, a key for `value` field in `options`, default `value`
+- `buttonapply` {String} optional, a label for `Apply` button in columns, default: `Apply`
 
 __Filtering__:
 
 - `numbers`: (1) `number` searches an exact number, (2) `number - number` is an interval between numbers
 - `strings`: (1) `string` searches an exact string, (2) `string1, string2, string3` is a multiple search criterium
 - `dates`: (1) year `2017` searches all dates in this year, (2) `2017-02-12 - 2017-03-13` <--> `02.12.2017 - 13.03.2017` is an interval between dates, (3) `12-20 - 12-31` <--> `20.12 - 31.12` an interval between dates in the current year ir (4) `2017-01 - 2018-05` <--> `01.2017 - 05.2018` or (5) `-5 days` <--> `-1 week` <--> `-10 years`
+
+__Methods__:
+
+- `component.redraw([reselect_again])` can redraw rows again (only for modifications, if you will remove some row you need to update the entire model)
+
 
 ### Author
 

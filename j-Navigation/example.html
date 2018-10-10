@@ -1,0 +1,18 @@
+<div class="row">
+	<div class="col-xs-6">
+		<div style="border: 1px solid #E0E0E0">
+			<div data-jc="navigation__items__exec:navclick"></div>
+		</div>
+	</div>
+</div>
+
+<script>
+	var items = [];
+	items.push({ name: 'Home' });
+	items.push({ name: 'Admin', collapsed: true, children: [{ name: 'Users' }, { name: 'Products' }] });
+	items.push({ name: 'Settings' });
+
+	function navclick(item) {
+		console.log(item);
+	}
+</script>

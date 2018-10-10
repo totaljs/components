@@ -21,7 +21,7 @@ COMPONENT('radiobutton', function(self, config) {
 				var builder = [];
 				value.split(',').forEach(function(item) {
 					item = item.split('|');
-					builder.push('<span data-value="{0}"><i class="fa fa-circle-o"></i>{1}</span>'.format(item[0] || item[1], item[1] || item[0]));
+					builder.push('<span data-value="{0}"><i></i>{1}</span>'.format(item[0] || item[1], item[1] || item[0]));
 				});
 				self.append(builder.join(''));
 				self.refresh();

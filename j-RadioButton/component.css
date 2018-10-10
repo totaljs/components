@@ -1,9 +1,10 @@
 .ui-radiobutton * { box-sizing: border-box; }
 .ui-radiobutton { color: black; font-size: 14px; }
-.ui-radiobutton span { cursor: pointer; margin: 0 10px 10px 0; }
+.ui-radiobutton span { cursor: pointer; margin: 0 10px 10px 0; line-height: 16px; }
 .ui-radiobutton-block span { margin-bottom: 4px; display: block; }
-.ui-radiobutton .fa { margin-right: 5px; }
+.ui-radiobutton i { width: 14px; height: 14px; display: inline-block; position: relative; border-radius: 100px; border: 2px solid black; margin-right: 5px; vertical-align: middle; }
 .ui-radiobutton-selected { color: #3B99FC !important; }
+.ui-radiobutton-selected i { background-color: #3B99FC !important; border-color: #3B99FC; box-shadow: inset 0 0 5px rgba(0,0,0,0.2); }
 .ui-radiobutton-selected * { color: #3B99FC !important; }
 .ui-radiobutton-label { margin-bottom: 5px; font-size: 12px; text-align: left; }
 .ui-radiobutton-label-required:before { color: red; content: '***'; margin-right: 5px; }
