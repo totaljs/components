@@ -8,5 +8,6 @@ Example: `data-jc-config="min:0;max:10000;step:10"`
 - `max` a maximal value (default `10000`)
 - `step` step (default `100`)
 - `currency` formats current values (default `{0} &euro;`)
+- `label` {String} (optional) label (default is none)
 
 The component stores value as string `200-500`, explanation: `from-to`.
