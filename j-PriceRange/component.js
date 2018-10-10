@@ -1,23 +1,27 @@
-COMPONENT('pricerange', function(self) {
+COMPONENT('pricerange', 'min:0;max:10000;step:10;', function(self, config) {
 
 	var slider;
 	var container;
-	var min;
-	var max;
-	var step;
 	var curr;
 	var drag = { is: false, el: null, width: 0, offset: 0, type: '' };
 	var css = { 'margin-left': '0', 'margin-right': '0' };
 
 	self.noValid();
 
+	self.configure = function(name, value) {
+		switch (name) {
+			case 'currency':
+				curr = value;
+				self.set(self.get());
+				break;
+		}
+	};
+
 	self.make = function() {
-		min = (self.attrd('min') || '0').parseInt();
-		max = (self.attrd('max') || '0').parseInt(10000);
-		step = (self.attrd('step') || '10').parseInt();
-		curr = self.attrd('currency') || '{0} &euro;';
+		curr = config.currency || '{0} &euro;';
 		self.toggle('ui-pricerange');
-		self.append('<div class="ui-pricerange-to ui-pricerange-price">{1}</div><div class="ui-pricerange-from ui-pricerange-price">{0}</div><div class="ui-pricerange-slider"><div class="ui-pricerange-slider-value"><span data-name="margin-right"><i class="fa fa-angle-right"></i></span><span data-name="margin-left"><i class="fa fa-angle-left"></i></span></div></div>'.format(curr.format(min.format(0)), curr.format(max.format(0))));
+		config.label && self.append('<div class="ui-pricerange-label">{0}</div>'.format(config.label));
+		self.append('<div class="ui-pricerange-to ui-pricerange-price">{1}</div><div class="ui-pricerange-from ui-pricerange-price">{0}</div><div class="ui-pricerange-slider"><div class="ui-pricerange-slider-value"><span data-name="margin-right"><i class="fa fa-angle-right"></i></span><span data-name="margin-left"><i class="fa fa-angle-left"></i></span></div></div>'.format(curr.format(config.min.format(0)), curr.format(config.max.format(0))));
 
 		slider = self.find('.ui-pricerange-slider-value');
 		container = self.find('.ui-pricerange-slider');
@@ -37,13 +41,13 @@ COMPONENT('pricerange', function(self) {
 				r = drag.steps - Math.ceil((drag.steps / 100) * r);
 				l = drag.steps - (drag.steps - Math.ceil((drag.steps / 100) * l));
 
-				l = l * step;
-				if (l < min)
-					l = min;
+				l = l * config.step;
+				if (l < config.min)
+					l = config.min;
 
-				r = r * step;
-				if (r > max)
-					r = max;
+				r = r * config.step;
+				if (r > config.max)
+					r = config.max;
 
 				self.dirty(false, true);
 				self.getter(l + '-' + r);
@@ -67,7 +71,7 @@ COMPONENT('pricerange', function(self) {
 				tmp = drag.steps - Math.ceil((drag.steps / 100) * tmp);
 				if (tmp < cur)
 					return;
-				val = cur * step;
+				val = cur * config.step;
 			} else {
 				offset = drag.offsetR;
 				pos = offset + (drag.x - pageX);
@@ -78,7 +82,7 @@ COMPONENT('pricerange', function(self) {
 				tmp = drag.steps - Math.ceil((drag.steps / 100) * tmp);
 				if (tmp < cur)
 					return;
-				val = (drag.steps - cur) * step;
+				val = (drag.steps - cur) * config.step;
 			}
 
 			if (cur <= 0) {
@@ -109,7 +113,7 @@ COMPONENT('pricerange', function(self) {
 			drag.offsetL = slider.css('margin-left').parseInt() + 5;
 			drag.offsetR = slider.css('margin-right').parseInt() + 5;
 			drag.padding = drag.el.width();
-			drag.steps = Math.ceil(max / step);
+			drag.steps = Math.ceil(config.max / config.step);
 			drag.text = self.find('.ui-pricerange-price').eq(drag.type === 'margin-left' ? 1 : 0);
 		});
 	};
@@ -128,23 +132,23 @@ COMPONENT('pricerange', function(self) {
 	self.setter = function(value) {
 
 		if (!value)
-			value = min + '-' + max;
+			value = config.min + '-' + config.max;
 
 		var arr = value.split('-');
 		var f = (arr[0] || '').parseInt();
 		var t = (arr[1] || '').parseInt();
 		var w = container.width();
 
-		if (f < min)
-			f = min;
+		if (f < config.min)
+			f = config.min;
 
-		if (t > max)
-			t = max;
+		if (t > config.max)
+			t = config.max;
 
 		self.values(f, t);
 
-		var l = (f / max) * 100;
-		var r = 100 - ((t / max) * 100);
+		var l = (f / config.max) * 100;
+		var r = 100 - ((t / config.max) * 100);
 
 		l = (w / 100) * l;
 		r = (w / 100) * r;

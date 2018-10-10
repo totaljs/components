@@ -1,5 +1,6 @@
 .hidden { display: none; }
 .ui-pricerange { font-size: 11px; user-select: none; }
+.ui-pricerange-label { margin-bottom: 5px; font-size: 12px; text-align: left;}
 .ui-pricerange-price { font-size: 12px; margin: 4px 0 0 0; }
 .ui-pricerange-from { float: left; width: 70px; }
 .ui-pricerange-to { float: right; width: 70px; text-align: right; }
