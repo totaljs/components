@@ -340,7 +340,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			if (config.exec)
 				self.operation(opt.operation);
 			else
-				self.refreshfilter();
+				self.refreshfilter(true);
 		});
 
 		isIE && self.event('keydown', 'input', function(e) {
@@ -495,7 +495,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			if (config.exec)
 				self.operation(opt.operation);
 			else
-				self.refreshfilter();
+				self.refreshfilter(true);
 		});
 
 		self.select = function(row) {
@@ -990,7 +990,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		}, 500);
 	};
 
-	self.refreshfilter = function() {
+	self.refreshfilter = function(useraction) {
 
 		// Get data
 		var obj = self.get() || EMPTYARRAY;
@@ -1041,7 +1041,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 			if (opt.scroll) {
 				vbody.prop('scrollTop', 0);
-				hbody.prop('scrollLeft', 0);
+				if (useraction)	{
+					var sl = hbody.prop('scrollLeft');
+					hbody.prop('scrollLeft', sl ? sl - 1 : 0);
+				} else
+					hbody.prop('scrollLeft', 0);
 				opt.scroll = false;
 			}
 
