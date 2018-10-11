@@ -15,7 +15,7 @@ COMPONENT('viewbox', function(self, config) {
 	self.configure = function(key, value) {
 		switch (key) {
 			case 'disabled':
-				eld.tclass('hidden', !!value);
+				eld.tclass('hidden', !value);
 				break;
 		}
 	};
