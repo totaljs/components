@@ -70,6 +70,7 @@
 .dg-columns-button:hover { background-color: #999999; }
 .dg-columns-button i { margin-right: 6px; }
 
+.dg input:-ms-input-placeholder { color: #A0A0A0 !important; }
 .dg input::placeholder { color: #A0A0A0; opacity: 1; }
 .dg input::-ms-input-placeholder { color: #A0A0A0 !important; }
 .dg select::-ms-expand { display: none; }
