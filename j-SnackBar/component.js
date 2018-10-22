@@ -1,4 +1,4 @@
-COMPONENT('snackbar', 'timeout:4000;button:Dismiss', function(self, config) {
+COMPONENT('snackbar', 'timeout:4000;button:OK', function(self, config) {
 
 	var show = true;
 	var callback;
