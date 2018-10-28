@@ -8,6 +8,7 @@ __Configuration__:
 
 - `url` {String} a pattern for URL is evaluated as RegExp, __must be defined__
 - `label` {String} optional (default: `HTML content`)
+- `icon` {Boolean} adds __spinner__ icon (default: `true`)
 
 ### Author
 
