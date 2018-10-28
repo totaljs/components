@@ -126,5 +126,6 @@
 	"j-ScrollPercentage",
 	"j-Navigation",
 	"j-ViewBox",
-	"j-PasswordMeter"
+	"j-PasswordMeter",
+	"j-AjaxLoading"
 ]
