@@ -1,11 +1,12 @@
-COMPONENT('ajaxloading', function(self) {
+COMPONENT('ajaxloading', 'icon:true', function(self) {
 
-	var pattern;
+	var pattern, html;
 
 	self.readonly();
 
 	self.make = function() {
-		self.aclass('ui-ajaxloading');
+		self.aclass('ui-ajaxloading hidden');
+		html = self.html();
 	};
 
 	self.configure = function(key, value) {
@@ -14,7 +15,11 @@ COMPONENT('ajaxloading', function(self) {
 				pattern = new RegExp(value);
 				break;
 			case 'label':
+				html = value;
 				self.html(value);
+				break;
+			case 'icon':
+				self.html('<i class="fas fa-spinner fa-pulse"></i>' + html);
 				break;
 		}
 	};
