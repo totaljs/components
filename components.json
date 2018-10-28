@@ -125,5 +125,6 @@
 	"j-Menu",
 	"j-ScrollPercentage",
 	"j-Navigation",
-	"j-ViewBox"
+	"j-ViewBox",
+	"j-PasswordMeter"
 ]
