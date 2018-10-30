@@ -127,5 +127,6 @@
 	"j-Navigation",
 	"j-ViewBox",
 	"j-PasswordMeter",
-	"j-AjaxLoading"
+	"j-AjaxLoading",
+	"j-Tagger"
 ]
