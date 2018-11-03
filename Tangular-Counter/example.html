@@ -3,7 +3,7 @@
 <script>
 	var numbers = [1000, 10000, 100000, 1000000];
 	var builder = [];
-	numbers.forEach(function(mnum) {
+	numbers.forEach(function(num) {
 		builder.push(Thelpers.counter(num));
 	});
 	$('#output').html(builder.join('<br />'));
