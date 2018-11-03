@@ -6,7 +6,7 @@ __Outputs__:
 
 - `now`
 - `5 minutes ago`
-- `1 month ago`,
+- `1 month ago`
 - `2 years ago`
 
 __Usage__:
@@ -16,9 +16,8 @@ __Usage__:
 <div>{{ created | time }}</div>
 ```
 
-
 or
 
 ```javascript
-console.log(Tangular.helpers.time(new Date()));
+console.log(Thelpers.time(new Date()));
 ```
