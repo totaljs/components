@@ -1,13 +1,13 @@
 .ui-radiobutton * { box-sizing: border-box; }
 .ui-radiobutton { color: black; font-size: 14px; }
-.ui-radiobutton span { cursor: pointer; margin: 0 10px 10px 0; line-height: 16px; }
-.ui-radiobutton-block span { margin-bottom: 4px; display: block; }
-.ui-radiobutton i { width: 14px; height: 14px; display: inline-block; position: relative; border-radius: 100px; border: 2px solid black; margin-right: 5px; vertical-align: middle; }
-.ui-radiobutton-selected { color: #3B99FC !important; }
-.ui-radiobutton-selected i { background-color: #3B99FC !important; border-color: #3B99FC; box-shadow: inset 0 0 5px rgba(0,0,0,0.2); }
-.ui-radiobutton-selected * { color: #3B99FC !important; }
+.ui-radiobutton div { cursor: pointer; margin: 0 10px 10px 0; line-height: 16px; position: relative; display: inline-block; }
+.ui-radiobutton span { vertical-align: middle; }
+.ui-radiobutton-block div { margin-bottom: 4px; display: block; }
+.ui-radiobutton i { width: 14px; height: 14px; display: inline-block; position: relative; border-radius: 100px; border: 1px solid #A0A0A0; margin-right: 5px; vertical-align: middle; }
+.ui-radiobutton-selected i { border-color: black; }
+.ui-radiobutton-selected i:before { content: ' '; width: 8px; height: 8px; background-color: black; display: block; position: absolute; border-radius: 100px; margin: 2px 0 0 2px; }
 .ui-radiobutton-label { margin-bottom: 5px; font-size: 12px; text-align: left; }
 .ui-radiobutton-label-required:before { color: red; content: '***'; margin-right: 5px; }
-.ui-radiobutton.ui-disabled span { cursor: not-allowed; color: gray; }
+.ui-radiobutton.ui-disabled div { cursor: not-allowed; color: gray; }
 .ui-radiobutton.ui-disabled .ui-radiobutton-selected { color: gray !important; }
 .ui-radiobutton.ui-disabled .ui-radiobutton-selected * { color: gray !important; }
