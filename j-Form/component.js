@@ -101,7 +101,7 @@ COMPONENT('form', function(self, config) {
 				value !== prev && self.find('.ui-form').css('max-width', value + 'px');
 				break;
 			case 'closebutton':
-				self.find('.ui-form-button-close').tclass(value !== true);
+				self.find('.ui-form-button-close').tclass('hidden', value !== true);
 				break;
 		}
 	};
