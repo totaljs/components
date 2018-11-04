@@ -43,7 +43,7 @@ FUNC.csv = function(filename, columns, arr) {
 						break;
 					case 'object':
 						if (val instanceof Date)
-							tmp.push(val.format('dd/MM/yyyy'));
+							tmp.push(val.format('yyyy-MM-dd'));
 						else
 							tmp.push(val == null ? 'null' : val.toString());
 						break;
