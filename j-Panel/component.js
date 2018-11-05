@@ -87,7 +87,7 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12', function(self, config) {
 		if (isHidden) {
 			self.aclass('hidden');
 			self.release(true);
-			self.find('.ui-panel').rclass('ui-panel-animate');
+			self.rclass('ui-panel-animate');
 			W.$$panel_level--;
 			return;
 		}
@@ -115,7 +115,7 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12', function(self, config) {
 
 		setTimeout(function() {
 			container.scrollTop(0);
-			self.find('.ui-panel').aclass('ui-panel-animate');
+			self.aclass('ui-panel-animate');
 		}, 300);
 
 		// Fixes a problem with freezing of scrolling in Chrome
