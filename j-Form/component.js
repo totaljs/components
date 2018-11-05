@@ -1,4 +1,4 @@
-COMPONENT('form', function(self, config) {
+COMPONENT('form', 'zindex:12', function(self, config) {
 
 	var W = window;
 	var csspos = {};
@@ -134,7 +134,7 @@ COMPONENT('form', function(self, config) {
 
 		W.$$form_level++;
 
-		self.css('z-index', W.$$form_level * 10);
+		self.css('z-index', W.$$form_level * config.zindex);
 		self.element.scrollTop(0);
 		self.rclass('hidden');
 
@@ -156,7 +156,7 @@ COMPONENT('form', function(self, config) {
 
 		// Fixes a problem with freezing of scrolling in Chrome
 		setTimeout2(self.ID, function() {
-			self.css('z-index', (W.$$form_level * 10) + 1);
+			self.css('z-index', (W.$$form_level * config.zindex) + 1);
 		}, 500);
 	};
 });

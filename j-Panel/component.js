@@ -1,4 +1,4 @@
-COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
+COMPONENT('panel', 'width:350;icon:circle-o;zindex:12', function(self, config) {
 
 	var W = window;
 
@@ -59,12 +59,13 @@ COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
 	};
 
 	self.configure = function(key, value, init) {
-		if (!init) {
-			switch (key) {
-				case 'closebutton':
-					self.find('.ui-panel-button-close').tclass(value !== true);
-					break;
-			}
+		switch (key) {
+			case 'closebutton':
+				!init && self.find('.ui-panel-button-close').tclass(value !== true);
+				break;
+			case 'width':
+				self.element.css('max-width', config.bg ? 'inherit' : value);
+				break;
 		}
 	};
 
@@ -98,7 +99,7 @@ COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
 
 		var container = self.element.find('.ui-panel-body');
 
-		self.css('z-index', W.$$panel_level * 10);
+		self.css('z-index', W.$$panel_level * config.zindex);
 		container.scrollTop(0);
 		self.rclass('hidden');
 		self.release(false);
@@ -119,7 +120,7 @@ COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
 
 		// Fixes a problem with freezing of scrolling in Chrome
 		setTimeout2(self.id, function() {
-			self.css('z-index', (W.$$panel_level * 10) + 1);
+			self.css('z-index', (W.$$panel_level * config.zindex) + 1);
 		}, 1000);
 	};
 });

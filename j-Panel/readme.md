@@ -19,6 +19,7 @@ Example: `data-jc-config="title:Panel title;if:user;icon:home"`
 - `width` {Number} (optional) a default width of the panel (default: `300`)
 - __NEW__: `bg` {Boolean} (optional) can disable `background` (default: `true`)
 - __NEW__: `bgclose` {Boolean} (optional) if the user click on the background then the panel will be closed (default: `false`)
+- __NEW__: `zindex` {Number} (optional) can affect z-index (default: `12`)
 
 ### Author
 

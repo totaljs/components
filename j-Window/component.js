@@ -1,4 +1,4 @@
-COMPONENT('window', function(self, config) {
+COMPONENT('window', 'zindex:12', function(self, config) {
 
 	var W = window;
 
@@ -87,7 +87,7 @@ COMPONENT('window', function(self, config) {
 
 		var body = self.find('.ui-window-body');
 
-		self.css('z-index', W.$$window_level * 10);
+		self.css('z-index', W.$$window_level * config.zindex);
 		body.scrollTop(0);
 		self.rclass('hidden');
 		self.release(false);
@@ -108,7 +108,7 @@ COMPONENT('window', function(self, config) {
 
 		// Fixes a problem with freezing of scrolling in Chrome
 		setTimeout2(self.id, function() {
-			self.css('z-index', (W.$$window_level * 10) + 1);
+			self.css('z-index', (W.$$window_level * config.zindex) + 1);
 		}, 500);
 	};
 });
