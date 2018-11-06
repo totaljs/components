@@ -125,6 +125,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 
 			self.reset(true);
 			self.set(arr, 2);
+			self.change();
 		});
 	};
 
