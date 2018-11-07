@@ -92,7 +92,7 @@ __Filtering__:
 __Methods__:
 
 - `component.redraw([reselect_again])` can redraw rows again (only for modifications, if you will remove some row you need to update the entire model)
-
+- __NEW__ `component.resetfilter()` can reset a filter
 
 ### Author
 

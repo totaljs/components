@@ -94,8 +94,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	self.readonly();
 	self.bindvisible();
 
-	self.configure = function(key, value) {
+	self.configure = function(key, value, init) {
 		switch (key) {
+			case 'checkbox':
+			case 'numbering':
+				!init && self.cols(NOOP);
+				break;
 			case 'pluralizepages':
 				config.pluralizepages = value.split(',').trim();
 				break;
@@ -753,7 +757,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		opt.cols.quicksort('index');
 		self.rebindcss();
 		self.rendercols();
-		self.renderrows(opt.rows);
+		opt.rows && self.renderrows(opt.rows);
 		self.save();
 		opt.cluster && opt.cluster.update(opt.render);
 		self.resize();
@@ -1093,6 +1097,17 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 					break;
 			}
 		});
+	};
+
+	self.resetfilter = function() {
+		opt.filter = {};
+		opt.filtercache = {};
+		opt.filtervalues = {};
+		self.rendercols();
+		if (config.exec)
+			self.operation('init');
+		else
+			self.refresh();
 	};
 
 	self.redrawpagination = function() {
