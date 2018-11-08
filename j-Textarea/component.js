@@ -2,6 +2,8 @@ COMPONENT('textarea', function(self, config) {
 
 	var input, content = null;
 
+	self.nocompile && self.nocompile();
+
 	self.validate = function(value) {
 		if (config.disabled || !config.required || config.readonly)
 			return true;

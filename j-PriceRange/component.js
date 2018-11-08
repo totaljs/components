@@ -9,7 +9,8 @@ COMPONENT('pricerange', function(self) {
 	var drag = { is: false, el: null, width: 0, offset: 0, type: '' };
 	var css = { 'margin-left': '0', 'margin-right': '0' };
 
-	self.noValid();
+	self.novalidate();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 		min = (self.attrd('min') || '0').parseInt();

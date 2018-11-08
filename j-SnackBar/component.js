@@ -5,6 +5,7 @@ COMPONENT('snackbar', 'timeout:4000;button:OK', function(self, config) {
 
 	self.readonly();
 	self.blind();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 		self.aclass('ui-snackbar hidden');

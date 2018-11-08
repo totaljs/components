@@ -1,6 +1,7 @@
 COMPONENT('error', function(self, config) {
 
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 		self.aclass('ui-error hidden');

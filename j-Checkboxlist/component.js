@@ -6,6 +6,8 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 	var template = W.$checkboxlist;
 	var container, data, datasource, content, dataold, render = null;
 
+	self.nocompile && self.nocompile();
+
 	self.validate = function(value) {
 		return config.disabled || !config.required ? true : value && value.length > 0;
 	};

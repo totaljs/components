@@ -2,6 +2,8 @@ COMPONENT('colorselector', 'colors:#DA4453,#E9573F,#F6BB42,#8CC152,#37BC9B,#3BAF
 
 	var selected, list, content, colors = null;
 
+	self.nocompile && self.nocompile();
+
 	self.validate = function(value) {
 		return config.disabled || !config.required ? true : colors.indexOf(value) === -1;
 	};

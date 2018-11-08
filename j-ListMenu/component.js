@@ -2,6 +2,9 @@ COMPONENT('listmenu', 'class:selected;selector:a;property:id;click:true', functi
 
 	var old, oldvalue;
 
+	self.readonly();
+	self.nocompile && self.nocompile();
+
 	self.make = function() {
 		var scr = self.find('script');
 		self.template = Tangular.compile(scr.html());

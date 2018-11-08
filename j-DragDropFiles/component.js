@@ -3,6 +3,7 @@ COMPONENT('dragdropfiles', 'click:true', function(self, config) {
 	var file;
 
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.destroy = function() {
 		file.off('*').remove();

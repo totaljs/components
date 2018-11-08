@@ -3,6 +3,7 @@ COMPONENT('progress', 'animate:true', function(self, config) {
 	var container, old = null;
 
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 		self.aclass('ui-progress');

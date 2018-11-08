@@ -9,6 +9,7 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 	self.template = Tangular.compile('<li{{ if index === 0 }} class="selected"{{ fi }} data-index="{{ index }}"><span>{{ name }}</span><span>{{ type }}</span></li>');
 	self.readonly();
 	self.singleton();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 		self.aclass('ui-autocomplete-container hidden');

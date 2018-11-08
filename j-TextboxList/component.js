@@ -9,6 +9,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 
 	self.setter = null;
 	self.getter = null;
+	self.nocompile && self.nocompile();
 
 	self.template = Tangular.compile('<div class="ui-textboxlist-item"><div><i class="fa fa-times"></i></div><div><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder }}"{{ if disabled}} disabled="disabled"{{ fi }} value="{{ value }}" /></div></div>');
 

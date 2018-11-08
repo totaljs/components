@@ -7,6 +7,7 @@ COMPONENT('togglebox', 'dragdrop:true;text:name;hidden:hidden;replace:false', fu
 	var clsdrag = 'ui-togglebox-drag';
 
 	self.template = Tangular.compile('<li data-index="{{ index }}" draggable="true"{{ if !hidden }} class="ui-togglebox-visible"{{ fi }}><span></span>{{ text }}</li>');
+	self.nocompile && self.nocompile();
 
 	self.configure = function(key, value) {
 		switch (key) {

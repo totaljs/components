@@ -10,6 +10,7 @@ COMPONENT('colorpicker', function(self) {
 	self.singleton();
 	self.readonly();
 	self.blind();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 		self.aclass('ui-colorpicker hidden');

@@ -7,6 +7,7 @@ COMPONENT('info', function(self) {
 	self.singleton();
 	self.readonly();
 	self.blind();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 

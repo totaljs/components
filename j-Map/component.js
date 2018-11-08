@@ -1,6 +1,8 @@
 COMPONENT('map', function(self, config) {
+
 	// TODO: more makers (array), methods for add maker, remove maker, change maker animation
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.prepare = function(lat, lng) {
 

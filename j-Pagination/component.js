@@ -7,6 +7,8 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# 
 
 	self.template = Tangular.compile('<a href="#{{ page }}" class="page{{ if selected }} selected{{ fi }}" data-page="{{ page }}">{{ page }}</a>');
 	self.readonly();
+	self.nocompile && self.nocompile();
+
 	self.make = function() {
 		self.aclass('ui-pagination hidden');
 		self.append('<div></div><nav></nav>');

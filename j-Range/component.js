@@ -2,6 +2,8 @@ COMPONENT('range', function(self, config) {
 
 	var content = '';
 
+	self.nocompile && self.nocompile();
+
 	self.validate = function(value) {
 		return !config.required || config.disabled ? true : value != 0;
 	};

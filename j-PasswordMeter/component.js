@@ -2,6 +2,8 @@ COMPONENT('passwordmeter', 'numbers:true;chars:true;special:false;casesensitive:
 
 	var elp, elr, p;
 
+	self.nocompile && self.nocompile();
+
 	self.make = function() {
 		self.aclass('ui-passwordmeter');
 		self.element.prepend('<div class="ui-passwordmeter-progress"><div></div></div><div class="ui-passwordmeter-help"><div class="ui-passwordmeter-rating"></div>');

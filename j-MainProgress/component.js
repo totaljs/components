@@ -4,6 +4,7 @@ COMPONENT('mainprogress', function(self) {
 
 	self.singleton();
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 		self.aclass('ui-mainprogress hidden');

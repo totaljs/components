@@ -6,6 +6,7 @@ COMPONENT('shortcuts', function(self) {
 	self.singleton();
 	self.readonly();
 	self.blind();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 		$(window).on('keydown', function(e) {

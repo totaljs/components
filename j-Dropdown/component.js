@@ -3,6 +3,8 @@ COMPONENT('dropdown', function(self, config) {
 	var select, condition, content = null;
 	var render = '';
 
+	self.nocompile && self.nocompile();
+
 	self.validate = function(value) {
 
 		if (!config.required || config.disabled)

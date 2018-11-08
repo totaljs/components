@@ -3,6 +3,8 @@ COMPONENT('scrollpercentage', function(self, config) {
 	var container;
 
 	self.readonly();
+	self.nocompile && self.nocompile();
+
 	self.make = function() {
 		if (self.element[0].tagName === 'BODY') {
 			$(window).on('scroll', self.refresh);

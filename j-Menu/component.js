@@ -2,6 +2,7 @@ COMPONENT('menu', function(self) {
 
 	self.singleton();
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	var ul;
 	var is = false;

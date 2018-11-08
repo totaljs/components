@@ -5,6 +5,7 @@ COMPONENT('listbox', function(self, config) {
 
 	self.datasource = EMPTYARRAY;
 	self.template = Tangular.compile('<li data-search="{{ search }}" data-index="{{ index }}">{{ if icon }}<i class="fa fa-{{ icon }}"></i>{{ fi }}{{ text }}</li>');
+	self.nocompile && self.nocompile();
 
 	self.validate = function(value) {
 		return config.disabled || !config.required ? true : value ? (config.multiple ? value.length > 0 : true) : false;

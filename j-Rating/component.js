@@ -4,6 +4,7 @@ COMPONENT('rating', function(self) {
 	var ino = 'fa-star-o';
 
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 		var builder = [];

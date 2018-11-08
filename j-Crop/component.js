@@ -11,7 +11,8 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 	var width = 0;
 
 	self.bindvisible();
-	self.noValid();
+	self.novalidate();
+	self.nocompile && self.nocompile();
 	self.getter = null;
 
 	img.onload = function () {

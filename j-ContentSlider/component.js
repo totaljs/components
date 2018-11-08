@@ -9,6 +9,7 @@ COMPONENT('contentslider', 'interval:3000;selector:a', function(self, config) {
 	var cacheid;
 	var interval;
 
+	self.nocompile && self.nocompile();
 	self.readonly();
 	self.blind();
 

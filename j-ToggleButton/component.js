@@ -1,5 +1,7 @@
 COMPONENT('togglebutton', function(self, config) {
 
+	self.nocompile && self.nocompile();
+
 	self.validate = function(value) {
 		return (config.disabled || !config.required) ? true : value === true;
 	};

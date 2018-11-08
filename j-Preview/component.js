@@ -3,6 +3,7 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;schema:
 	var empty, img, canvas, name, content = null;
 
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.configure = function(key, value, init) {
 

@@ -1,5 +1,6 @@
 COMPONENT('highlightsyntax', function(self, config) {
 	self.readonly();
+	self.nocompile && self.nocompile();
 	self.setter = function(value) {
 		if (value) {
 			self.html('<pre><code class="{0}">{1}</code></pre>'.format(config.type, Tangular.helpers.encode(value)));

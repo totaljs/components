@@ -2,6 +2,8 @@ COMPONENT('markdowneditor', function (self, config) {
 
 	var input, editor, content;
 
+	self.nocompile && self.nocompile();
+
 	self.make = function () {
 		content = self.html();
 		self.redraw();

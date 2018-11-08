@@ -4,6 +4,7 @@ COMPONENT('clipboard', function(self) {
 
 	self.singleton();
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.copy = function(value) {
 		container.val(value);

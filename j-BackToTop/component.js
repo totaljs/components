@@ -4,6 +4,7 @@ COMPONENT('backtotop', function(self) {
 	var visible = false;
 
 	self.singleton();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 

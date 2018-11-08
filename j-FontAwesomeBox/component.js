@@ -10,6 +10,7 @@ COMPONENT('fontawesomebox', 'height:300', function(self, config) {
 	};
 
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 

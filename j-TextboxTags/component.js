@@ -10,6 +10,8 @@ COMPONENT('textboxtags', function(self, config) {
 
 	var template = W.$textboxtagstemplate;
 
+	self.nocompile && self.nocompile();
+
 	self.validate = function(value) {
 		return config.disabled || !config.required ? true : value && value.length > 0;
 	};

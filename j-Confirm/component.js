@@ -4,6 +4,7 @@ COMPONENT('confirm', function(self) {
 
 	self.readonly();
 	self.singleton();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 

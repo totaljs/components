@@ -4,6 +4,7 @@ COMPONENT('qrcode', 'size:200', function(self, config) {
 	var img = null;
 
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.setter = function(value) {
 

@@ -4,6 +4,7 @@ COMPONENT('loading', function(self) {
 
 	self.readonly();
 	self.singleton();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 		self.aclass('ui-loading');
