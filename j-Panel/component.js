@@ -65,6 +65,9 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12', function(self, config) {
 
 	self.configure = function(key, value, init) {
 		switch (key) {
+			case 'bg':
+				self.find('.ui-panel-container').tclass('ui-panel-inline', !value);
+				break;
 			case 'closebutton':
 				!init && self.find('.ui-panel-button-close').tclass(value !== true);
 				break;
