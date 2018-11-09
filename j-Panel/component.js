@@ -15,7 +15,12 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12', function(self, config) {
 				var parent = target.closest('.ui-panel-container');
 				var com = parent.component();
 				if (!main || com.config.bgclose) {
-					com.hide();
+
+					if (config.close)
+						EXEC(config.close, com);
+					else
+						com.hide();
+
 					e.preventDefault();
 					e.stopPropagation();
 				}

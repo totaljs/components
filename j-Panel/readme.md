@@ -20,6 +20,7 @@ Example: `data-jc-config="title:Panel title;if:user;icon:home"`
 - __NEW__: `bg` {Boolean} (optional) can disable `background` (default: `true`)
 - __NEW__: `bgclose` {Boolean} (optional) if the user click on the background then the panel will be closed (default: `false`)
 - __NEW__: `zindex` {Number} (optional) can affect z-index (default: `12`)
+- __NEW__: `close` {String} (optional) path/method is executed when the user closes the panel manually via close button
 
 ### Author
 
