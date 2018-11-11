@@ -40,7 +40,7 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12', function(self, config) {
 
 	self.resize = function() {
 		var el = self.element.find('.ui-panel-body');
-		el.height(WH - (isMOBILE ? 0 : self.find('.ui-panel-header').height()));
+		el.height(WH - self.find('.ui-panel-header').height());
 	};
 
 	self.icon = function(value) {
