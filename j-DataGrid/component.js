@@ -7,6 +7,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	var isredraw = false;
 	var pos = {};
 
+	self.meta = opt;
+
 	function Cluster(el) {
 
 		var self = this;

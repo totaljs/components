@@ -95,6 +95,10 @@ __Methods__:
 - `component.redraw([reselect_again])` can redraw rows again (only for modifications, if you will remove some row you need to update the entire model)
 - __NEW__ `component.resetfilter()` can reset a filter
 
+__Properties__:
+
+- __NEW__ `component.meta` returns internal meta info about filters, columns and rows
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
