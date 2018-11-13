@@ -953,7 +953,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 		var w;
 
-		if (config.fullwidth_xs && WIDTH() === 'xs') {
+		if (config.fullwidth_xs && WIDTH() === 'xs' && isMOBILE) {
 			var isfrm = false;
 			try {
 				isfrm = window.self !== window.top;
