@@ -47,7 +47,10 @@ COMPONENT('singleupload', 'title:{{ name }};url:/api/upload/', function(self, co
 		});
 
 		self.event('click', '.fa-times', function() {
-			!config.disabled && self.set(null);
+			if (!config.disabled) {
+				self.change();
+				self.set(null);
+			}
 		});
 
 		input.on('change', function(evt) {
