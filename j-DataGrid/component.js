@@ -478,7 +478,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 			if (col.options) {
 				if (val)
-					val = col.options[+val][col.ovalue];
+					val = (col.options instanceof Array ? col.options : GET(col.options))[+val][col.ovalue];
 				else
 					val = null;
 			}
