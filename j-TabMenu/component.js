@@ -6,8 +6,10 @@ COMPONENT('tabmenu', 'class:selected;selector:li', function(self, config) {
 
 	self.make = function() {
 		self.event('click', config.selector, function() {
-			var el = $(this);
-			!el.hclass(config.class) && self.set(el.attrd('value'));
+			if (!config.disabled) {
+				var el = $(this);
+				!el.hclass(config.class) && self.set(el.attrd('value'));
+			}
 		});
 		var scr = self.find('script');
 		if (scr.length) {
@@ -18,6 +20,9 @@ COMPONENT('tabmenu', 'class:selected;selector:li', function(self, config) {
 
 	self.configure = function(key, value) {
 		switch (key) {
+			case 'disabled':
+				self.tclass('ui-disabled', !!value);
+				break;
 			case 'datasource':
 				self.datasource(value, function(path, value) {
 					if (value instanceof Array) {
