@@ -558,7 +558,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			}
 		});
 
-		self.event('click', 'button', function() {
+		self.event('click', 'button', function(e) {
 			switch (this.name) {
 				case 'columns-apply':
 					self.applycolumns(true);
@@ -586,7 +586,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 					break;
 				default:
 					var row = opt.rows[+$(this).closest('.dg-row').attrd('index')];
-					config.button && EXEC(config.button, this.name, row, self);
+					config.button && EXEC(config.button, this.name, row, self, e);
 					break;
 			}
 		});

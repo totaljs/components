@@ -63,7 +63,7 @@ __Configuration__:
 - `limit` {Number} a cluster limit, default: `80`
 - `numbering` {Boolean}, optional default `false`
 - `allowtitles` {Boolean}, enables titles for all row values, optional default `false`
-- `button` {String} a link to `function(btn_name, row, grid, elbutton, elrow)` is executed if the user clicks on a __button__ in the row
+- `button` {String} a link to `function(btn_name, name, row, grid, event)` is executed if the user clicks on a __button__ in the row
 - `exec` {String} a link to `function(type, filter, sort, page)` for server-side operations only (it disables client-side sorting & filtering), supported types: `init`, `refresh` and `page`
 
 __Column properties__:
