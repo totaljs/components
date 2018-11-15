@@ -368,7 +368,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			r.offset = (hbody.scrollLeft() - offset) + 10;
 
 			var prev = el.prev();
-			r.min = (prev.length ? prev.css('left').parseInt() : 0) + 50;
+
+			r.min = (prev.length ? prev.css('left').parseInt() : (config.checkbox ? 70 : 30)) + 50;
 
 			r.h = el.css('height');
 			r.x = el.css('left').parseInt();
