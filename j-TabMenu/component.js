@@ -11,8 +11,10 @@ COMPONENT('tabmenu', 'class:selected;selector:li', function(self, config) {
 				var el = $(this);
 				if (!el.hclass(config.class)) {
 					var val = el.attrd('value');
-					self.set(val);
-					config.exec && EXEC(config.exec, val);
+					if (config.exec)
+						EXEC(config.exec, val);
+					else
+						self.set(val);
 				}
 			}
 		});
