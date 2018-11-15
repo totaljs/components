@@ -1,3 +1,4 @@
+
 COMPONENT('tabmenu', 'class:selected;selector:li', function(self, config) {
 	var old, oldtab;
 
@@ -8,7 +9,11 @@ COMPONENT('tabmenu', 'class:selected;selector:li', function(self, config) {
 		self.event('click', config.selector, function() {
 			if (!config.disabled) {
 				var el = $(this);
-				!el.hclass(config.class) && self.set(el.attrd('value'));
+				if (!el.hclass(config.class)) {
+					var val = el.attrd('value');
+					self.set(val);
+					config.exec && EXEC(config.exec, val);
+				}
 			}
 		});
 		var scr = self.find('script');
