@@ -232,10 +232,30 @@ COMPONENT('textbox', function(self, config) {
 	};
 
 	self.formatter(function(path, value) {
+		if (value) {
+			switch (config.type) {
+				case 'lower':
+					value = value.toString().toLowerCase();
+					break;
+				case 'upper':
+					value = value.toString().toUpperCase();
+					break;
+			}
+		}
 		return config.type === 'date' ? (value ? value.format(config.format || 'yyyy-MM-dd') : value) : value;
 	});
 
 	self.parser(function(path, value) {
+		if (value) {
+			switch (config.type) {
+				case 'lower':
+					value = value.toLowerCase();
+					break;
+				case 'upper':
+					value = value.toUpperCase();
+					break;
+			}
+		}
 		return value ? config.spaces === false ? value.replace(/\s/g, '') : value : value;
 	});
 
