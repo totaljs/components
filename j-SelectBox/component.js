@@ -11,8 +11,6 @@ COMPONENT('selectbox', function(self, config) {
 	};
 
 	self.configure = function(key, value, init) {
-		if (init)
-			return;
 
 		var redraw = false;
 
