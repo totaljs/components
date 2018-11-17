@@ -95,17 +95,17 @@ COMPONENT('selectbox', function(self, config) {
 				if (condition && !condition(item))
 					continue;
 
-				var text, value;
+				var text, val;
 
 				if (typeof(item) === 'string') {
 					text = item;
-					value = self.parser(item);
+					val = self.parser(item);
 				} else {
 					text = item[kt];
-					value = item[kv];
+					val = item[kv];
 				}
 
-				var item = { text: text, value: value, index: i, search: text.toSearch() };
+				var item = { text: text, value: val, index: i, search: text.toSearch() };
 				self.datasource.push(item);
 				builder.push(self.template(item));
 			}
