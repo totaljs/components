@@ -14,6 +14,7 @@ __Configuration__:
 - `disabled` {Boolean} (optional) disables this component
 - `search` {String} (optional) enables search box with this value as a placeholder
 - `height` {Number} (optional) height (default: `200`)
+- `if` {String} (optional) arrow function as a condition for filtering of datasource, example: `if:n => !n.removed`
 
 ### Author
 
