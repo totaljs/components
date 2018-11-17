@@ -87,6 +87,7 @@ COMPONENT('selectbox', function(self, config) {
 		self.datasource = [];
 
 		if (value) {
+			var index = 0;
 			for (var i = 0; i < value.length; i++) {
 				var item = value[i];
 
@@ -103,7 +104,7 @@ COMPONENT('selectbox', function(self, config) {
 					val = item[kv];
 				}
 
-				var item = { text: text, value: val, index: i, search: text.toSearch() };
+				var item = { text: text, value: val, index: index++, search: text.toSearch() };
 				self.datasource.push(item);
 				builder.push(self.template(item));
 			}
