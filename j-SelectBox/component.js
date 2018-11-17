@@ -110,8 +110,9 @@ COMPONENT('selectbox', function(self, config) {
 			}
 		}
 
-		self.search();
 		Eitems.empty().append(builder.join(''));
+		self.refresh();
+		self.search();
 	};
 
 	self.make = function() {
