@@ -26,8 +26,37 @@ COMPONENT('menu', function(self) {
 		});
 
 		$(document).on('touchstart mousedown', function(e) {
-			is && (self.target !== e.target && !self.target.contains(e.target)) && self.hide();
+			if (is && (!self.target || (self.target !== e.target && !self.target.contains(e.target))))
+				self.hide();
 		});
+	};
+
+	self.showxy = function(x, y, items, callback) {
+
+		var builder = [];
+
+		self.target = null;
+		self.items = items;
+		self.callback = callback;
+
+		for (var i = 0; i < items.length; i++) {
+			var item = items[i];
+			builder.push('<li{2}>{0}{1}</li>'.format(item.icon ? '<i class="fa fa-{0}"></i>'.format(item.icon) : '', item.name, item.icon ? '' : ' class="ui-menu-nofa"'));
+		}
+
+		ul.html(builder.join(''));
+
+		if (!is) {
+			self.rclass('hidden');
+			self.aclass('ui-menu-visible', 100);
+			is = true;
+		}
+
+		var opt = {};
+		opt.left = x;
+		opt.top = y;
+
+		self.element.css(opt);
 	};
 
 	self.show = function(orientation, element, items, callback, offsetX, offsetY) {
