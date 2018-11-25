@@ -117,7 +117,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 			if (!(arr instanceof Array))
 				arr = [];
 
-			var index = arr.indexOf(value);
+			index = arr.indexOf(value);
 
 			if (is) {
 				index === -1 && arr.push(value);
