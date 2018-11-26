@@ -666,10 +666,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			if (col.sorting == null)
 				col.sorting = config.sorting;
 
-			if (col.alignfilter)
+			if (col.alignfilter != null)
 				col.alignfilter = ' ' + align(col.alignfilter);
 
-			if (col.alignheader)
+			if (col.alignheader != null)
 				col.alignheader = ' ' + align(col.alignheader);
 
 			col.sort = 0;
