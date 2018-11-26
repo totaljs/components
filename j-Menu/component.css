@@ -5,4 +5,4 @@
 .ui-menu li { margin: 0; padding: 5px 20px 5px 5px; list-style-type: none; font-size: 12px; cursor: pointer; }
 .ui-menu li:hover { background-color: #F0F0F0; }
 .ui-menu-nofa { padding-left: 20px !important; }
-.ui-menu .fa { width: 30px; margin: 0 5px 0 0; text-align: center; color: #4299f7; }
+.ui-menu i { width: 30px; margin: 0 5px 0 0; text-align: center; color: #4299f7; }
