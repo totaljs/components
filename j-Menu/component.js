@@ -80,6 +80,11 @@ COMPONENT('menu', function(self) {
 			builder.push('<li{2}>{0}{1}</li>'.format(item.icon ? '<i class="fa fa-{0}"></i>'.format(item.icon) : '', item.name, item.icon ? '' : ' class="ui-menu-nofa"'));
 		}
 
+		var opt = {};
+		opt.left = 0;
+		opt.top = 0;
+		self.element.css(opt);
+
 		ul.html(builder.join(''));
 
 		if (!is) {
@@ -88,7 +93,6 @@ COMPONENT('menu', function(self) {
 			is = true;
 		}
 
-		var opt = {};
 		var w = self.width();
 		var offset = target.offset();
 
@@ -110,6 +114,7 @@ COMPONENT('menu', function(self) {
 			opt.left += offsetX;
 
 		self.element.css(opt);
+
 	};
 
 	self.hide = function() {
