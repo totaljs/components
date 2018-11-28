@@ -94,6 +94,7 @@ __Methods__:
 
 - `component.redraw([reselect_again])` can redraw rows again (only for modifications, if you will remove some row you need to update the entire model)
 - __NEW__ `component.resetfilter()` can reset a filter
+- __NEW__ `component.exportrows(page_from or true from the current page, pages_count, callback(rows, internal_options), [reset_to_page or true for the current page])` can export rows with server-side rendering
 
 __Properties__:
 

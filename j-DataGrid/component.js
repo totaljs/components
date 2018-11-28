@@ -441,8 +441,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 					return;
 				case 'dragover':
 					return;
-				case 'dragleave':
-				case 'dragexit':
 				default:
 					return;
 			}
@@ -875,6 +873,43 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		}
 
 		opt.render = output;
+		self.onrenderrows && self.onrenderrows(opt);
+	};
+
+	self.exportrows = function(page_from, page_count, callback, reset_page_to) {
+
+		var arr = [];
+		var source = self.get();
+
+		if (reset_page_to === true)
+			reset_page_to = source.page;
+
+		if (page_from === true)
+			reset_page_to = source.page;
+
+		for (var i = page_from; i < page_count + 1; i++)
+			arr.push(i);
+
+		var index = 0;
+		var rows = [];
+
+		arr.wait(function(page, next) {
+			opt.scroll = (index++) === 0;
+			self.get().page = page;
+			self.operation('page');
+			self.onrenderrows = function(opt) {
+				rows.push.apply(rows, opt.rows);
+				next();
+			};
+		}, function() {
+			self.onrenderrows = null;
+			callback(rows, opt);
+
+			if (reset_page_to > 0) {
+				self.get().page = reset_page_to;
+				self.operation('page');
+			}
+		});
 	};
 
 	self.reordercolumn = function(index, position) {
@@ -935,14 +970,16 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		if (!opt.cols)
 			return;
 
+		var el;
+
 		switch (config.height) {
 			case 'auto':
-				var el = self.element;
+				el = self.element;
 				opt.height = WH - (el.offset().top + config.bottom) - (config.exec ? 30 : 0);
 				vbody.css('height', opt.height);
 				break;
 			case 'parent':
-				var el = self.element.parent();
+				el = self.element.parent();
 				opt.height = el.height() - config.bottom - (config.exec ? 30 : 0);
 				vbody.css('height', opt.height);
 				break;
@@ -1327,7 +1364,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	};
 
 	self.parseDate = function(val, second) {
+
 		var index = val.indexOf('.');
+		var m, y, d, a, special, tmp;
+
 		if (index === -1) {
 			if ((/[a-z]+/).test(val)) {
 				var dt;
@@ -1341,8 +1381,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			if (val.length === 4)
 				return [new Date(+val, 0, 1), new Date(+val + 1, 0	, 1)];
 		} else if (val.indexOf('.', index + 1) === -1) {
-			var a = val.split('.');
-			var m, y, d, special;
+			a = val.split('.');
 			if (a[1].length === 4) {
 				y = +a[1];
 				m = +a[0] - 1;
@@ -1354,16 +1393,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				d = +a[0];
 			}
 
-			var tmp = new Date(y, m, d);
+			tmp = new Date(y, m, d);
 			if (special)
 				tmp.YYYYMM = true;
 			return tmp;
 		}
 		index = val.indexOf('-');
 		if (index !== -1 && val.indexOf('-', index + 1) === -1) {
-			var a = val.split('-');
-			var m, y, d, special;
-
+			a = val.split('-');
 			if (a[0].length === 4) {
 				y = +a[0];
 				m = +a[1] - 1;
@@ -1375,11 +1412,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				d = +a[1];
 			}
 
-			var tmp = new Date(y, m, d);
+			tmp = new Date(y, m, d);
+
 			if (special)
 				tmp.YYYYMM = true;
+
 			return tmp;
 		}
+
 		return val.parseDate();
 	};
 
