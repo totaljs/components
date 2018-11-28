@@ -876,7 +876,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		self.onrenderrows && self.onrenderrows(opt);
 	};
 
-	self.exportrows = function(page_from, page_count, callback, reset_page_to) {
+	self.exportrows = function(page_from, pages_count, callback, reset_page_to, sleep) {
 
 		var arr = [];
 		var source = self.get();
@@ -887,7 +887,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		if (page_from === true)
 			reset_page_to = source.page;
 
-		for (var i = page_from; i < page_count + 1; i++)
+		pages_count = page_from + pages_count;
+
+		if (pages_count > source.pages)
+			pages_count = source.pages;
+
+		for (var i = page_from; i < pages_count; i++)
 			arr.push(i);
 
 		var index = 0;
@@ -899,7 +904,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			self.operation('page');
 			self.onrenderrows = function(opt) {
 				rows.push.apply(rows, opt.rows);
-				next();
+				setTimeout(next, sleep || 100);
 			};
 		}, function() {
 			self.onrenderrows = null;
