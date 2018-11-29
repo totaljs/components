@@ -8,6 +8,8 @@ COMPONENT('exec', function(self, config) {
 			var attr = el.attrd('exec');
 			var path = el.attrd('path');
 			var href = el.attrd('href');
+			var def = el.attrd('def');
+			var reset = el.attrd('reset');
 
 			if (el.attrd('prevent') === 'true') {
 				e.preventDefault();
@@ -16,6 +18,8 @@ COMPONENT('exec', function(self, config) {
 
 			attr && EXEC(attr, el, e);
 			href && NAV.redirect(href);
+			def && DEFAULT(def);
+			reset && RESET(reset);
 
 			if (path) {
 				var val = el.attrd('value');
