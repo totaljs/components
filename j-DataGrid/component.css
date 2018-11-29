@@ -28,7 +28,7 @@
 
 .dg-filter i { position: absolute; right: 5px; margin-top: 6px; font-size: 10px; color: red; display: none; cursor: pointer; }
 .dg-filter-selected i { display: block; }
-.dg-filter-selected.right input { padding-right: 12px; }
+.dg-filter-selected input, .dg-filter-selected select { padding-right: 12px; }
 
 .dg-clickable .dg-row { cursor: pointer; }
 .dg-v-area { overflow: hidden; }
