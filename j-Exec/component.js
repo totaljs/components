@@ -18,7 +18,7 @@ COMPONENT('exec', function(self, config) {
 
 			attr && EXEC(attr, el, e);
 			href && NAV.redirect(href);
-			def && DEFAULT2(def);
+			def && DEFAULT(def);
 			reset && RESET(reset);
 
 			if (path) {
