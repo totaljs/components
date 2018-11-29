@@ -900,6 +900,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		for (var i = page_from; i < pages_count; i++)
 			arr.push(i);
 
+		!arr.length && arr.push(page_from);
+
 		var index = 0;
 		var rows = [];
 
