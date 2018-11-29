@@ -22,8 +22,14 @@
 .dg-filter.center input { text-align: center; }
 .dg-filter.right input { text-align: right; }
 .dg-filter-empty { border-top: 1px solid #E0E0E0; height: 23px; cursor: not-allowed !important; background: repeating-linear-gradient(45deg,#FFFFFF,#FFFFFF 10px,#F9F9F9 10px,#F9F9F9 20px); }
+
 .dg-filter-selected { background-color: #FBF0CA !important; }
 .dg-filter-selected select { color: black; }
+
+.dg-filter i { position: absolute; right: 5px; margin-top: 6px; font-size: 10px; color: red; display: none; cursor: pointer; }
+.dg-filter-selected i { display: block; }
+.dg-filter-selected.right input { padding-right: 12px; }
+
 .dg-clickable .dg-row { cursor: pointer; }
 .dg-v-area { overflow: hidden; }
 .dg-v-container { overflow: hidden; }
