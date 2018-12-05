@@ -10,7 +10,6 @@ __Supports__:
 
 __Configuration__:
 
-
 - `width` {Number} target width, required
 - `height` {Number} target height, required
 - `dragdrop` {Boolean} enables drag&drop (default: `true`)
