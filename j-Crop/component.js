@@ -15,6 +15,8 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 	self.nocompile && self.nocompile();
 	self.getter = null;
 
+	img.crossOrigin = 'anonymous';
+
 	img.onload = function () {
 		can = true;
 		zoom = 100;
@@ -162,7 +164,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 			}
 
 			var files = e.originalEvent.dataTransfer.files;
-			self.load(files[0]);
+			files[0] && self.load(files[0]);
 		});
 
 		self.load = function(file) {
