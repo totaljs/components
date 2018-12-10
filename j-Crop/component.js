@@ -15,6 +15,8 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 	self.nocompile && self.nocompile();
 	self.getter = null;
 
+	img.crossOrigin = 'anonymous';
+
 	img.onload = function () {
 		can = true;
 		zoom = 100;
@@ -119,18 +121,8 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 		});
 
 		self.find('input').on('change', function() {
-
 			var file = this.files[0];
-			var reader = new FileReader();
-
-			reader.onload = function () {
-				img.src = reader.result;
-				setTimeout(function() {
-					self.change(true);
-				}, 500);
-			};
-
-			reader.readAsDataURL(file);
+			self.load(file);
 			this.value = '';
 
 		});
@@ -172,18 +164,29 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 			}
 
 			var files = e.originalEvent.dataTransfer.files;
-			self.load(files[0]);
+			files[0] && self.load(files[0]);
 		});
 
 		self.load = function(file) {
-			var reader = new FileReader();
-			reader.onload = function () {
-				img.src = reader.result;
-				setTimeout(function() {
-					self.change(true);
-				}, 500);
-			};
-			reader.readAsDataURL(file);
+			self.getOrientation(file, function(orient) {
+				var reader = new FileReader();
+				reader.onload = function () {
+					if (orient < 2) {
+						img.src = reader.result;
+						setTimeout(function() {
+							self.change(true);
+						}, 500);
+					} else {
+						SETTER('loading', 'show');
+						self.resetOrientation(reader.result, orient, function(url) {
+							SETTER('loading', 'hide', 500);
+							img.src = url;
+							self.change(true);
+						});
+					}
+				};
+				reader.readAsDataURL(file);
+			});
 		};
 
 		self.event('mousemove mouseup', function (e) {
@@ -246,5 +249,68 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 				return true;
 		}
 		return false;
+	};
+
+	// http://stackoverflow.com/a/32490603
+	self.getOrientation = function(file, callback) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var view = new DataView(e.target.result);
+			if (view.getUint16(0, false) != 0xFFD8)
+				return callback(-2);
+			var length = view.byteLength;
+			var offset = 2;
+			while (offset < length) {
+				var marker = view.getUint16(offset, false);
+				offset += 2;
+				if (marker == 0xFFE1) {
+					if (view.getUint32(offset += 2, false) != 0x45786966)
+						return callback(-1);
+					var little = view.getUint16(offset += 6, false) == 0x4949;
+					offset += view.getUint32(offset + 4, little);
+					var tags = view.getUint16(offset, little);
+					offset += 2;
+					for (var i = 0; i < tags; i++)
+						if (view.getUint16(offset + (i * 12), little) == 0x0112)
+							return callback(view.getUint16(offset + (i * 12) + 8, little));
+				} else if ((marker & 0xFF00) != 0xFF00)
+					break;
+				else
+					offset += view.getUint16(offset, false);
+			}
+			return callback(-1);
+		};
+		reader.readAsArrayBuffer(file.slice(0, 64 * 1024));
+	};
+
+	self.resetOrientation = function(src, srcOrientation, callback) {
+		var img = new Image();
+		img.onload = function() {
+			var width = img.width;
+			var height = img.height;
+			var canvas = document.createElement('canvas');
+			var ctx = canvas.getContext('2d');
+
+			// set proper canvas dimensions before transform & export
+			if (4 < srcOrientation && srcOrientation < 9) {
+				canvas.width = height;
+				canvas.height = width;
+			} else {
+				canvas.width = width;
+				canvas.height = height;
+			}
+			switch (srcOrientation) {
+				case 2: ctx.transform(-1, 0, 0, 1, width, 0); break;
+				case 3: ctx.transform(-1, 0, 0, -1, width, height); break;
+				case 4: ctx.transform(1, 0, 0, -1, 0, height); break;
+				case 5: ctx.transform(0, 1, 1, 0, 0, 0); break;
+				case 6: ctx.transform(0, 1, -1, 0, height, 0); break;
+				case 7: ctx.transform(0, -1, -1, 0, height, width); break;
+				case 8: ctx.transform(0, -1, 1, 0, 0, width); break;
+			}
+			ctx.drawImage(img, 0, 0);
+			callback(canvas.toDataURL());
+		};
+		img.src = src;
 	};
 });

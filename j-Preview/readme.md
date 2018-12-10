@@ -6,6 +6,7 @@ This component resizes the picture automatically according to the settings and u
 - easy usage
 - works with Bootstrap Grid System
 - drag and drop support
+- supports EXIF orientation
 
 __Configuration__:
 

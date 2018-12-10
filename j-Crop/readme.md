@@ -5,10 +5,10 @@ __Supports__:
 - zoom
 - drag and drop
 - local files
-- __responsive__
+- responsive
+- __NEW__: automatically rotates image according to the EXIF information
 
 __Configuration__:
-
 
 - `width` {Number} target width, required
 - `height` {Number} target height, required
