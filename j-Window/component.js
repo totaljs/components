@@ -28,6 +28,10 @@ COMPONENT('window', 'zindex:12', function(self, config) {
 	};
 
 	self.make = function() {
+
+		var scr = self.find('> script');
+		self.template = scr.length ? scr.html() : '';
+
 		$(document.body).append('<div id="{0}" class="hidden ui-window-container"><div class="ui-window"><div data-bind="@config__change .ui-window-icon:@icon__html span:value.title" class="ui-window-title"><button class="ui-window-button-close{2}" data-path="{1}"><i class="fa fa-times"></i></button><i class="ui-window-icon"></i><span></span></div><div class="ui-window-header"></div><div class="ui-window-body"></div></div>'.format(self.ID, self.path, config.closebutton == false ? ' hidden' : ''));
 		var el = $('#' + self.ID);
 		el.find('.ui-window-body')[0].appendChild(self.dom);
@@ -78,6 +82,13 @@ COMPONENT('window', 'zindex:12', function(self, config) {
 			self.find('.ui-window').rclass('ui-window-animate');
 			W.$$window_level--;
 			return;
+		}
+
+		if (self.template) {
+			var is = (/(data-bind|data-jc)="/).test(self.template);
+			self.find('div[data-jc-replaced]').html(self.template);
+			self.template = null;
+			is && COMPILE();
 		}
 
 		if (W.$$window_level < 1)

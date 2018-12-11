@@ -44,9 +44,14 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 		$(document.body).append('<div id="{0}" class="hidden ui-inlineform-container" style="max-width:{1}"><div class="ui-inlineform"><i class="fa fa-caret-up ui-inlineform-arrow"></i><div class="ui-inlineform-title" data-bind="@config__html span:value.title__change .ui-inlineform-icon:@icon"><button class="ui-inlineform-close"><i class="fa fa-times"></i></button><i class="ui-inlineform-icon"></i><span></span></div></div></div>'.format(self.ID, (config.width || dw) + 'px', self.path));
 
 		var el = $('#' + self.ID);
+
+		var scr = self.find('> script');
+		self.template = scr.length ? scr.html() : '';
+
 		el.find('.ui-inlineform')[0].appendChild(self.dom);
 		self.rclass('hidden');
 		self.replace(el);
+
 
 		self.find('button').on('click', function() {
 			var el = $(this);
@@ -81,6 +86,13 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 
 		SETTER('inlineform', 'hide');
 
+		if (self.template) {
+			var is = (/(data-bind|data-jc)="/).test(self.template);
+			self.find('div[data-jc-replaced]').html(self.template);
+			self.template = null;
+			is && COMPILE();
+		}
+
 		self.rclass('hidden');
 		self.release(false);
 
@@ -111,7 +123,7 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 		self.find('.ui-inlineform-arrow').css('margin-left', ma);
 		self.css(offset);
 
-		var el = self.find('input[type="text"],select,textarea');
+		el = self.find('input[type="text"],select,textarea');
 		!isMOBILE && el.length && el[0].focus();
 
 		setTimeout(function() {

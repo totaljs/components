@@ -65,6 +65,10 @@ COMPONENT('form', 'zindex:12', function(self, config) {
 	self.make = function() {
 
 		$(document.body).append('<div id="{0}" class="hidden ui-form-container"><div class="ui-form-container-padding"><div class="ui-form" style="max-width:{1}px"><div data-bind="@config__html span:value.title__change .ui-form-icon:@icon" class="ui-form-title"><button class="ui-form-button-close{3}" data-path="{2}"><i class="fa fa-times"></i></button><i class="ui-form-icon"></i><span></span></div></div></div>'.format(self.ID, config.width || 800, self.path, config.closebutton == false ? ' hidden' : ''));
+
+		var scr = self.find('> script');
+		self.template = scr.length ? scr.html() : '';
+
 		var el = $('#' + self.ID);
 		el.find('.ui-form')[0].appendChild(self.dom);
 		self.rclass('hidden');
@@ -127,6 +131,13 @@ COMPONENT('form', 'zindex:12', function(self, config) {
 			self.find('.ui-form').rclass('ui-form-animate');
 			W.$$form_level--;
 			return;
+		}
+
+		if (self.template) {
+			var is = (/(data-bind|data-jc)="/).test(self.template);
+			self.find('div[data-jc-replaced]').html(self.template);
+			self.template = null;
+			is && COMPILE();
 		}
 
 		if (W.$$form_level < 1)
