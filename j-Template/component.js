@@ -38,9 +38,9 @@ COMPONENT('template', function(self) {
 		if (NOTMODIFIED(self.id, value))
 			return;
 		if (value) {
-			KEYPRESS(function() {
+			setTimeout2(self.ID, function() {
 				self.html(self.template(value)).rclass('hidden');
-			}, 100, self.id);
+			}, 100);
 		} else
 			self.aclass('hidden');
 	};
