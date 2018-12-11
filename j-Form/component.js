@@ -79,13 +79,14 @@ COMPONENT('form', 'zindex:12', function(self, config) {
 			EMIT('reflow', self.name);
 		});
 
-		self.find('button').on('click', function() {
-			switch (this.name) {
+		self.event('click', 'button[name]', function() {
+			var t = this;
+			switch (t.name) {
 				case 'submit':
 					self.submit(self.hide);
 					break;
 				case 'cancel':
-					!this.disabled && self[this.name](self.hide);
+					!t.disabled && self[t.name](self.hide);
 					break;
 			}
 		});

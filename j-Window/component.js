@@ -37,7 +37,7 @@ COMPONENT('window', 'zindex:12', function(self, config) {
 		el.find('.ui-window-body')[0].appendChild(self.dom);
 		self.rclass('hidden');
 		self.replace(el);
-		self.find('button').on('click', function() {
+		self.event('click', 'button[name]', function() {
 			switch (this.name) {
 				case 'cancel':
 					self.hide();

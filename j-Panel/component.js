@@ -58,7 +58,7 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12', function(self, config) {
 		el.find('.ui-panel-body')[0].appendChild(self.dom);
 		self.rclass('hidden');
 		self.replace(el);
-		self.find('button').on('click', function() {
+		self.event('click', 'button[name]', function() {
 			switch (this.name) {
 				case 'cancel':
 					self.hide();
