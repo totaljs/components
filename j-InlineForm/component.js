@@ -41,7 +41,7 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 
 	self.make = function() {
 
-		$(document.body).append('<div id="{0}" class="hidden ui-inlineform-container" style="max-width:{1}"><div class="ui-inlineform"><i class="fa fa-caret-up ui-inlineform-arrow"></i><div class="ui-inlineform-title" data-bind="@config__html span:value.title__change .ui-inlineform-icon:@icon"><button class="ui-inlineform-close"><i class="fa fa-times"></i></button><i class="ui-inlineform-icon"></i><span></span></div></div></div>'.format(self.ID, (config.width || dw) + 'px', self.path));
+		$(document.body).append('<div id="{0}" class="hidden ui-inlineform-container" style="max-width:{1}"><div class="ui-inlineform"><i class="fa fa-caret-up ui-inlineform-arrow"></i><div class="ui-inlineform-title" data-bind="@config__html span:value.title__change .ui-inlineform-icon:@icon"><button name="cancel" class="ui-inlineform-close"><i class="fa fa-times"></i></button><i class="ui-inlineform-icon"></i><span></span></div></div></div>'.format(self.ID, (config.width || dw) + 'px', self.path));
 
 		var el = $('#' + self.ID);
 
