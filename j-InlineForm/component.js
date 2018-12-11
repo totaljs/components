@@ -51,11 +51,10 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 		el.find('.ui-inlineform')[0].appendChild(self.dom);
 		self.rclass('hidden');
 		self.replace(el);
-
-
-		self.find('button').on('click', function() {
+		self.event('click', 'button[name]', function() {
+			var t = this;
 			var el = $(this);
-			switch (this.name) {
+			switch (t.name) {
 				case 'submit':
 					if (el.hclass('exec'))
 						self.hide();
@@ -63,7 +62,7 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 						self.submit(self.hide);
 					break;
 				case 'cancel':
-					!this.disabled && self[this.name](self.hide);
+					!t.disabled && self[t.name](self.hide);
 					break;
 			}
 		});
