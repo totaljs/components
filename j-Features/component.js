@@ -9,6 +9,7 @@ COMPONENT('features', 'height:37', function(self, config) {
 	self.callback = null;
 	self.readonly();
 	self.singleton();
+	self.nocompile && self.nocompile();
 
 	self.configure = function(key, value, init) {
 		if (init)

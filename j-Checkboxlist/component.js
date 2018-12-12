@@ -6,6 +6,8 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 	var template = W.$checkboxlist;
 	var container, data, datasource, content, dataold, render = null;
 
+	self.nocompile && self.nocompile();
+
 	self.validate = function(value) {
 		return config.disabled || !config.required ? true : value && value.length > 0;
 	};
@@ -115,7 +117,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 			if (!(arr instanceof Array))
 				arr = [];
 
-			var index = arr.indexOf(value);
+			index = arr.indexOf(value);
 
 			if (is) {
 				index === -1 && arr.push(value);
@@ -124,13 +126,14 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 			}
 
 			self.reset(true);
-			self.set(arr, undefined, 2);
+			self.set(arr, 2);
+			self.change();
 		});
 	};
 
 	self.redraw = function() {
 		var label = config.label || content;
-		self.tclass('ui-checkboxlist-required', config.required);
+		self.tclass('ui-checkboxlist-required', config.required == true);
 		self.html((label ? '<div class="ui-checkboxlist-label">{1}{0}</div>'.format(label, config.icon ? '<i class="fa fa-{0}"></i>'.format(config.icon) : '') : '') + '<div class="ui-checkboxlist-container"></div>');
 		container = self.find('.ui-checkboxlist-container');
 	};

@@ -6,6 +6,8 @@ COMPONENT('fileuploadlist', 'multiple:true;url:/api/upload/', function(self, con
 	self.template = Tangular.compile('<div class="ui-fileuploadlist-item" data-id="{{ $.index }}"><div class="ui-fileuploadlist-remove"><i class="fa fa-times"></i></div><div class="ui-fileuploadlist-name"><a href="{{ url }}" target="_blank">{{ name }}</a></div></div>');
 
 	self.readonly();
+	self.nocompile && self.nocompile();
+
 	self.configure = function(key, value, init) {
 		if (init)
 			return;

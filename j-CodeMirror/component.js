@@ -5,6 +5,7 @@ COMPONENT('codemirror', 'linenumbers:false;required:false;trim:false;tabs:false'
 
 	self.getter = null;
 	self.bindvisible();
+	self.nocompile && self.nocompile();
 
 	self.reload = function() {
 		editor.refresh();

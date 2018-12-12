@@ -18,6 +18,8 @@ __Attributes__:
 - `data-href="URL"` performs `REDIRECT()`
 - `data-path="path.to.property"` a path for setting of value
 - `data-value=""` sets a value according to the `data-path=""` attribute
+- __NEW__: `data-def="path.*"` performs default values
+- __NEW__: `data-reset="path.*"` performs a state reseting
 
 __Hints__:
 

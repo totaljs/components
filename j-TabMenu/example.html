@@ -1,3 +1,4 @@
+<h2>Static tabs</h2>
 <ul class="tabmenu" data-jc="tabmenu__tab">
 	<li data-value="tab1">Tab 1</li>
 	<li data-value="tab2">Tab 2</li>
@@ -5,6 +6,16 @@
 	<li data-value="tab4">Tab 4</li>
 </ul>
 
+<br />
+
+<h2>Dynamic tabs</h2>
+<ul class="tabmenu" data-jc="tabmenu__tab__datasource:tabs">
+	<script type="text/html">
+		<li href="#{{ value }}" data-value="{{ value }}">{{ name }}</li>
+	</script>
+</ul>
+
 <script>
 	var tab = 'tab1';
+	var tabs = [{ name: 'Tab 1', value: 'tab1' }, { name: 'Tab2', value: 'tab2' }, { name: 'Tab 3', value: 'tab3' }];
 </script>

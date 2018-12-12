@@ -16,6 +16,12 @@ Method: `component.show(orientation, targetElement, [items], clickCallback, [off
 - `offsetX` {Number} optional can change offset X
 - `offsetY` {Number} optional can change offset Y
 
+Method: `component.showxy(x, y, [items], clickCallback)`
+- `x {Number}` position `x`
+- `y {Number}` position `y`
+- `items {Array}` optional and must have this structure: `[{ name: String, value: String, icon: String }]` otherwise will be items read from the target's `data-options` attribute.
+- `callback(selectedValue) {Function}` is triggered when the user clicks on the item
+
 Method: `component.hide()`
 
 ### Author

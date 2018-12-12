@@ -1,0 +1,16 @@
+{
+	"datecreated": "2018-10-28T21:35:44.000Z",
+	"dateupdated": null,
+	"name": "j-AjaxLoading",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

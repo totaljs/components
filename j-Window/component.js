@@ -1,4 +1,4 @@
-COMPONENT('window', function(self, config) {
+COMPONENT('window', 'zindex:12', function(self, config) {
 
 	var W = window;
 
@@ -28,12 +28,16 @@ COMPONENT('window', function(self, config) {
 	};
 
 	self.make = function() {
-		$(document.body).append('<div id="{0}" class="hidden ui-window-container"><div class="ui-window"><div data-bind="@config__change .ui-window-icon:@icon__html span:value.title" class="ui-window-title"><button class="ui-window-button-close{2}" data-path="{1}"><i class="fa fa-times"></i></button><i class="ui-window-icon"></i><span></span></div><div class="ui-window-header"></div><div class="ui-window-body"></div></div>'.format(self.ID, self.path, config.closebutton == false ? ' hidden' : ''));
+
+		var scr = self.find('> script');
+		self.template = scr.length ? scr.html() : '';
+
+		$(document.body).append('<div id="{0}" class="hidden ui-window-container"><div class="ui-window"><div data-bind="@config__change .ui-window-icon:@icon__html span:value.title" class="ui-window-title"><button name="cancel" class="ui-window-button-close{2}" data-path="{1}"><i class="fa fa-times"></i></button><i class="ui-window-icon"></i><span></span></div><div class="ui-window-header"></div><div class="ui-window-body"></div></div>'.format(self.ID, self.path, config.closebutton == false ? ' hidden' : ''));
 		var el = $('#' + self.ID);
 		el.find('.ui-window-body')[0].appendChild(self.dom);
 		self.rclass('hidden');
 		self.replace(el);
-		self.find('button').on('click', function() {
+		self.event('click', 'button[name]', function() {
 			switch (this.name) {
 				case 'cancel':
 					self.hide();
@@ -80,6 +84,13 @@ COMPONENT('window', function(self, config) {
 			return;
 		}
 
+		if (self.template) {
+			var is = (/(data-bind|data-jc)="/).test(self.template);
+			self.find('div[data-jc-replaced]').html(self.template);
+			self.template = null;
+			is && COMPILE();
+		}
+
 		if (W.$$window_level < 1)
 			W.$$window_level = 1;
 
@@ -87,7 +98,7 @@ COMPONENT('window', function(self, config) {
 
 		var body = self.find('.ui-window-body');
 
-		self.css('z-index', W.$$window_level * 10);
+		self.css('z-index', W.$$window_level * config.zindex);
 		body.scrollTop(0);
 		self.rclass('hidden');
 		self.release(false);
@@ -108,7 +119,7 @@ COMPONENT('window', function(self, config) {
 
 		// Fixes a problem with freezing of scrolling in Chrome
 		setTimeout2(self.id, function() {
-			self.css('z-index', (W.$$window_level * 10) + 1);
+			self.css('z-index', (W.$$window_level * config.zindex) + 1);
 		}, 500);
 	};
 });

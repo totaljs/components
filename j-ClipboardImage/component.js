@@ -5,6 +5,7 @@ COMPONENT('clipboardimage', 'quality:90;maxwidth:1024;maxheight:768', function(s
 	self.singleton();
 	self.readonly();
 	self.blind();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 		self.aclass('hidden');

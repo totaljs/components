@@ -1,0 +1,10 @@
+.ui-passwordmeter { color: #A0A0A0; }
+.ui-passwordmeter-progress { border: 1px solid #E0E0E0; padding: 1px; border-radius: 2px; margin-top: 10px; }
+.ui-passwordmeter-progress > div { height: 8px; background-color: #E0E0E0; width: 0; background-color: #DA4453; }
+.ui-passwordmeter-rating { font-size: 11px; margin: 3px 0 0 0; }
+.ui-passwordmeter-rating b { margin-right: 5px; }
+.ui-passwordmeter-weak .ui-passwordmeter-progress div { background-color: #DA4453; }
+.ui-passwordmeter-good .ui-passwordmeter-progress div { background-color: #F6BB42; }
+.ui-passwordmeter-strong .ui-passwordmeter-progress div { background-color: #8CC152; }
+.ui-passwordmeter-good { color: #F6BB42; }
+.ui-passwordmeter-strong { color: #8CC152; }

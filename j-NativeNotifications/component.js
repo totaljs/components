@@ -6,6 +6,7 @@ COMPONENT('nativenotifications', 'timeout:8000', function(self, config) {
 
 	self.singleton();
 	self.readonly();
+	self.nocompile && self.nocompile();
 	self.items = [];
 
 	self.make = function() {

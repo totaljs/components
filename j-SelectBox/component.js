@@ -1,17 +1,16 @@
 COMPONENT('selectbox', function(self, config) {
 
-	var Eitems, Eselected, datasource = null;
+	var Eitems, Eselected, datasource, condition;
 
 	self.datasource = EMPTYARRAY;
 	self.template = Tangular.compile('<li data-search="{{ search }}" data-index="{{ index }}">{{ text }}</li>');
+	self.nocompile && self.nocompile();
 
 	self.validate = function(value) {
 		return config.disabled || !config.required ? true : value && value.length > 0;
 	};
 
 	self.configure = function(key, value, init) {
-		if (init)
-			return;
 
 		var redraw = false;
 
@@ -26,6 +25,9 @@ COMPONENT('selectbox', function(self, config) {
 					self.rclass('ui-selectbox-invalid');
 				else if (config.required)
 					self.state(1, 1);
+				break;
+			case 'if':
+				condition = value ? FN(value) : null;
 				break;
 			case 'required':
 				!value && self.state(1, 1);
@@ -83,26 +85,34 @@ COMPONENT('selectbox', function(self, config) {
 		var builder = [];
 
 		self.datasource = [];
-		value && value.forEach(function(item, index) {
 
-			var text;
-			var value;
+		if (value) {
+			var index = 0;
+			for (var i = 0; i < value.length; i++) {
+				var item = value[i];
 
-			if (typeof(item) === 'string') {
-				text = item;
-				value = self.parser(item);
-			} else {
-				text = item[kt];
-				value = item[kv];
+				if (condition && !condition(item))
+					continue;
+
+				var text, val;
+
+				if (typeof(item) === 'string') {
+					text = item;
+					val = self.parser(item);
+				} else {
+					text = item[kt];
+					val = item[kv];
+				}
+
+				var item = { text: text, value: val, index: index++, search: text.toSearch() };
+				self.datasource.push(item);
+				builder.push(self.template(item));
 			}
+		}
 
-			var item = { text: text, value: value, index: index, search: text.toSearch() };
-			self.datasource.push(item);
-			builder.push(self.template(item));
-		});
-
-		self.search();
 		Eitems.empty().append(builder.join(''));
+		self.refresh();
+		self.search();
 	};
 
 	self.make = function() {
@@ -130,16 +140,14 @@ COMPONENT('selectbox', function(self, config) {
 		});
 
 		self.event('click', '.fa-times', function() {
-			if (config.disabled)
-				return;
-			self.find('input').val('');
-			self.search();
+			if (!config.disabled) {
+				self.find('input').val('');
+				self.search();
+			}
 		});
 
 		typeof(config.search) === 'string' && self.event('keydown', 'input', function() {
-			if (config.disabled)
-				return;
-			setTimeout2(self.id, self.search, 500);
+			!config.disabled && setTimeout2(self.id, self.search, 500);
 		});
 	};
 
@@ -173,12 +181,12 @@ COMPONENT('selectbox', function(self, config) {
 	};
 
 	self.state = function(type) {
-		if (!type)
-			return;
-		var invalid = config.required ? self.isInvalid() : false;
-		if (invalid === self.$oldstate)
-			return;
-		self.$oldstate = invalid;
-		self.tclass('ui-selectbox-invalid', invalid);
+		if (type) {
+			var invalid = config.required ? self.isInvalid() : false;
+			if (invalid !== self.$oldstate) {
+				self.$oldstate = invalid;
+				self.tclass('ui-selectbox-invalid', invalid);
+			}
+		}
 	};
 });

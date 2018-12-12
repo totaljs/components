@@ -3,3 +3,4 @@
 .tabmenu li:first-child { margin-left: 0; }
 .tabmenu .selected { background-color: white; top: 1px; border-color: #E0E0E0; color: black; }
 .tabmenu .fa { margin-right: 8px; }
+.tabmenu.ui-disabled li { cursor: not-allowed; color: #A0A0A0; }

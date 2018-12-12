@@ -3,6 +3,7 @@ COMPONENT('navigation', function(self, config) {
 	var current, items;
 
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 		self.aclass('ui-navigation');

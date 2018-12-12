@@ -2,6 +2,7 @@ COMPONENT('clickbox', function(self, config) {
 
 	self.readonly();
 	self.blind();
+	self.nocompile && self.nocompile();
 
 	self.init = function() {
 		$(document).on('click', function() {

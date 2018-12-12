@@ -1,5 +1,7 @@
 COMPONENT('radiobutton', function(self, config) {
 
+	self.nocompile && self.nocompile();
+
 	self.configure = function(key, value, init) {
 		if (init)
 			return;
@@ -17,11 +19,11 @@ COMPONENT('radiobutton', function(self, config) {
 				self.find('.ui-radiobutton-label').html(value);
 				break;
 			case 'items':
-				self.find('span').remove();
+				self.find('div').remove();
 				var builder = [];
 				value.split(',').forEach(function(item) {
 					item = item.split('|');
-					builder.push('<span data-value="{0}"><i class="fa fa-circle-o"></i>{1}</span>'.format(item[0] || item[1], item[1] || item[0]));
+					builder.push('<div data-value="{0}"><i></i><span>{1}</span></div>'.format(item[0] || item[1], item[1] || item[0]));
 				});
 				self.append(builder.join(''));
 				self.refresh();
@@ -34,10 +36,10 @@ COMPONENT('radiobutton', function(self, config) {
 		var label = config.label || self.html();
 		label && builder.push('<div class="ui-radiobutton-label{1}">{0}</div>'.format(label, config.required ? ' ui-radiobutton-label-required' : ''));
 		self.aclass('ui-radiobutton{0}'.format(config.inline === false ? ' ui-radiobutton-block' : ''));
-		self.event('click', 'span', function() {
+		self.event('click', 'div', function() {
 			if (config.disabled)
 				return;
-			var value = self.parser($(this).attr('data-value'));
+			var value = self.parser($(this).attrd('value'));
 			self.set(value);
 			self.change(true);
 		});
@@ -51,9 +53,9 @@ COMPONENT('radiobutton', function(self, config) {
 	};
 
 	self.setter = function(value) {
-		self.find('span').each(function() {
+		self.find('div').each(function() {
 			var el = $(this);
-			var is = el.attr('data-value') === (value == null ? null : value.toString());
+			var is = el.attrd('value') === (value == null ? null : value.toString());
 			el.tclass('ui-radiobutton-selected', is);
 			el.find('.fa').tclass('fa-circle-o', !is).tclass('fa-circle', is);
 		});

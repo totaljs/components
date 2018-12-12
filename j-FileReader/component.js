@@ -3,6 +3,8 @@ COMPONENT('filereader', function(self) {
 	var input;
 
 	self.readonly();
+	self.nocompile && self.nocompile();
+
 	self.make = function() {
 		self.aclass('hidden');
 		self.append('<input type="file" />');

@@ -5,6 +5,7 @@ COMPONENT('message', function(self, config) {
 
 	self.readonly();
 	self.singleton();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 		self.aclass('ui-message hidden');

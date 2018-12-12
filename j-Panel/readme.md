@@ -3,6 +3,7 @@
 - Works only with `+v11.1.0` [jComponent](http://jcomponent.org)
 - __Download__ [jComponent with Tangular (jcta.min.js)](https://github.com/petersirka/jComponent)
 - Works with Bootstrap
+- The component moves the content of this component under `<body>` tag (because of positioning)
 
 __Configuration__:
 
@@ -19,6 +20,20 @@ Example: `data-jc-config="title:Panel title;if:user;icon:home"`
 - `width` {Number} (optional) a default width of the panel (default: `300`)
 - __NEW__: `bg` {Boolean} (optional) can disable `background` (default: `true`)
 - __NEW__: `bgclose` {Boolean} (optional) if the user click on the background then the panel will be closed (default: `false`)
+- __NEW__: `zindex` {Number} (optional) can affect z-index (default: `12`)
+- __NEW__: `close` {String} (optional) path/method is executed as `path_to_method(com)` when the user closes the panel manually via close button
+
+__Good to know__:
+
+New version of this component supports dynamic evaluation of the content of `<script type="text/html">`. The example below contains a script with HTML and the component evaluates the content if the j-Panel will be displayed (only once).
+
+```html
+<div data-jc="panel__path__config">
+	<script type="text/html">
+		A CONTENT
+	</script>
+</div>
+```
 
 ### Author
 

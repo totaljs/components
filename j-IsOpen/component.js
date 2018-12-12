@@ -7,6 +7,7 @@ COMPONENT('isopen', function(self) {
 	};
 
 	self.blind();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 

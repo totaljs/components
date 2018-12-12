@@ -1,0 +1,18 @@
+{
+	"datecreated": "2018-11-08T22:39:00.000Z",
+	"dateupdated": "2018-11-24T15:45:00.000Z",
+	"name": "Tangular-Initials",
+	"tags": [
+		"jcomponent",
+		"tangular",
+		"helpers"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

@@ -1,0 +1,17 @@
+{
+	"datecreated": "2018-11-11T22:48:00.000Z",
+	"dateupdated": null,
+	"name": "j-SingleUpload",
+	"tags": [
+		"jcomponent",
+		"upload"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

@@ -6,6 +6,7 @@ COMPONENT('contextmenu', function(self) {
 	self.template = Tangular.compile('<div data-index="{{ index }}"{{ if selected }} class="selected"{{ fi }}><i class="fa {{ icon }}"></i><span>{{ name | raw }}</span></div>');
 	self.singleton();
 	self.readonly();
+	self.nocompile && self.nocompile();
 	self.callback = null;
 	self.items = EMPTYARRAY;
 

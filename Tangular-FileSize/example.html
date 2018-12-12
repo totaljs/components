@@ -1,0 +1,10 @@
+<div id="output"></div>
+
+<script>
+	var numbers = [5, 134, 2309, 43300330];
+	var builder = [];
+	numbers.forEach(function(num) {
+		builder.push(Thelpers.filesize(num));
+	});
+	$('#output').html(builder.join('<br />'));
+</script>

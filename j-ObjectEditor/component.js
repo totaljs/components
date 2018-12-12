@@ -1,5 +1,7 @@
 COMPONENT('objecteditor', 'null:true', function(self, config) {
 
+	self.nocompile && self.nocompile();
+
 	var skip = false;
 	var tstringmultiline = '<div class="ui-oe-string-multiline ui-oe-item"><div class="ui-oe-label"><span>{label}</span></div><div class="ui-oe-control"><textarea data-type="string" name="{path}">{value}</textarea></div></div>';
 	var tstring = '<div class="ui-oe-string ui-oe-item"><div class="ui-oe-label"><span>{label}</span></div><div class="ui-oe-control"><input type="text" data-type="string" name="{path}" value="{value}" /></div></div>';

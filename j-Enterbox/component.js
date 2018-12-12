@@ -1,6 +1,7 @@
 COMPONENT('enterbox', function(self, config) {
 
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.configure = function(key, value, init) {
 		if (init)

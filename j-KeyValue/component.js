@@ -5,6 +5,7 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config) {
 	var skip = false;
 	var empty = {};
 
+	self.nocompile && self.nocompile();
 	self.template = Tangular.compile('<div class="ui-keyvalue-item"><div class="ui-keyvalue-item-remove"><i class="fa fa-times"></i></div><div class="ui-keyvalue-item-key"><input type="text" name="key" maxlength="{{ max }}"{{ if disabled }} disabled="disabled"{{ fi }} placeholder="{{ placeholder_key }}" value="{{ key }}" /></div><div class="ui-keyvalue-item-value"><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder_value }}" value="{{ value }}" /></div></div>');
 
 	self.binder = function(type, value) {

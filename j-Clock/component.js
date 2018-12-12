@@ -4,6 +4,7 @@ COMPONENT('clock', 'twelvehour:false', function(self, config) {
 	var dialRadius = 100, outerRadius = 80,	innerRadius = 54, tickRadius = 13;
 
 	self.readonly();
+	self.nocompile && self.nocompile();
 	self.click = NOOP;
 
 	self.hide = function() {

@@ -12,7 +12,7 @@ __Configuration__:
 - `disabled` {Boolean} disables
 
 __Friendly components__:
-This component works with `loading` (when the upload start) and `message` (when is an error) component.
+This component works with `loading` (when the file is uploading) and `message` (when server throws an error) component.
 
 ### Author
 

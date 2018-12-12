@@ -1,0 +1,18 @@
+{
+	"datecreated": "2018-11-03T21:40:00.000Z",
+	"dateupdated": null,
+	"name": "Tangular-FileSize",
+	"tags": [
+		"jcomponent",
+		"tangular",
+		"helpers"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

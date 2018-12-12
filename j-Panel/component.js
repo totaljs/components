@@ -1,4 +1,4 @@
-COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
+COMPONENT('panel', 'width:350;icon:circle-o;zindex:12', function(self, config) {
 
 	var W = window;
 
@@ -15,7 +15,12 @@ COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
 				var parent = target.closest('.ui-panel-container');
 				var com = parent.component();
 				if (!main || com.config.bgclose) {
-					com.hide();
+
+					if (config.close)
+						EXEC(config.close, com);
+					else
+						com.hide();
+
 					e.preventDefault();
 					e.stopPropagation();
 				}
@@ -35,7 +40,7 @@ COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
 
 	self.resize = function() {
 		var el = self.element.find('.ui-panel-body');
-		el.height(WH - (isMOBILE ? 0 : self.find('.ui-panel-header').height()));
+		el.height(WH - self.find('.ui-panel-header').height());
 	};
 
 	self.icon = function(value) {
@@ -44,12 +49,16 @@ COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
 	};
 
 	self.make = function() {
-		$(document.body).append('<div id="{0}" class="hidden ui-panel-container{3}"><div class="ui-panel" style="max-width:{1}px"><div data-bind="@config__change .ui-panel-icon:@icon__html span:value.title" class="ui-panel-title"><button class="ui-panel-button-close{2}"><i class="fa fa-times"></i></button><i class="ui-panel-icon"></i><span></span></div><div class="ui-panel-header"></div><div class="ui-panel-body"></div></div>'.format(self.ID, config.width, config.closebutton == false ? ' hidden' : '', config.bg ? '' : ' ui-panel-inline'));
+
+		var scr = self.find('> script');
+		self.template = scr.length ? scr.html() : '';
+
+		$(document.body).append('<div id="{0}" class="hidden ui-panel-container{3}"><div class="ui-panel" style="max-width:{1}px"><div data-bind="@config__change .ui-panel-icon:@icon__html span:value.title" class="ui-panel-title"><button name="cancel" class="ui-panel-button-close{2}"><i class="fa fa-times"></i></button><i class="ui-panel-icon"></i><span></span></div><div class="ui-panel-header"></div><div class="ui-panel-body"></div></div>'.format(self.ID, config.width, config.closebutton == false ? ' hidden' : '', config.bg ? '' : ' ui-panel-inline'));
 		var el = $('#' + self.ID);
 		el.find('.ui-panel-body')[0].appendChild(self.dom);
 		self.rclass('hidden');
 		self.replace(el);
-		self.find('button').on('click', function() {
+		self.event('click', 'button[name]', function() {
 			switch (this.name) {
 				case 'cancel':
 					self.hide();
@@ -59,12 +68,17 @@ COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
 	};
 
 	self.configure = function(key, value, init) {
-		if (!init) {
-			switch (key) {
-				case 'closebutton':
-					self.find('.ui-panel-button-close').tclass(value !== true);
-					break;
-			}
+		switch (key) {
+			case 'bg':
+				self.tclass('ui-panel-inline', !value);
+				self.element.css('max-width', config.bg ? 'inherit' : config.width);
+				break;
+			case 'closebutton':
+				!init && self.find('.ui-panel-button-close').tclass(value !== true);
+				break;
+			case 'width':
+				self.element.css('max-width', config.bg ? 'inherit' : value);
+				break;
 		}
 	};
 
@@ -86,9 +100,16 @@ COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
 		if (isHidden) {
 			self.aclass('hidden');
 			self.release(true);
-			self.find('.ui-panel').rclass('ui-panel-animate');
+			self.rclass('ui-panel-animate');
 			W.$$panel_level--;
 			return;
+		}
+
+		if (self.template) {
+			var is = (/(data-bind|data-jc)="/).test(self.template);
+			self.find('div[data-jc-replaced]').html(self.template);
+			self.template = null;
+			is && COMPILE();
 		}
 
 		if (W.$$panel_level < 1)
@@ -97,8 +118,7 @@ COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
 		W.$$panel_level++;
 
 		var container = self.element.find('.ui-panel-body');
-
-		self.css('z-index', W.$$panel_level * 10);
+		self.css('z-index', W.$$panel_level * config.zindex);
 		container.scrollTop(0);
 		self.rclass('hidden');
 		self.release(false);
@@ -114,12 +134,12 @@ COMPONENT('panel', 'width:350;icon:circle-o', function(self, config) {
 
 		setTimeout(function() {
 			container.scrollTop(0);
-			self.find('.ui-panel').aclass('ui-panel-animate');
+			self.aclass('ui-panel-animate');
 		}, 300);
 
 		// Fixes a problem with freezing of scrolling in Chrome
 		setTimeout2(self.id, function() {
-			self.css('z-index', (W.$$panel_level * 10) + 1);
+			self.css('z-index', (W.$$panel_level * config.zindex) + 1);
 		}, 1000);
 	};
 });

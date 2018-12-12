@@ -1,4 +1,4 @@
-Tangular.register('time', function(value) {
+Thelpers.time = function(value) {
 	var diff = Date.now() - (value instanceof Date ? value : value.parseDate()).getTime();
 
 	var minutes = ((diff / 1000) / 60) >> 0;
@@ -22,4 +22,4 @@ Tangular.register('time', function(value) {
 
 	var years = (months / 12) >> 0;
 	return years + ' ' + Tangular.helpers.pluralize(years, 'years', 'year', 'years', 'years') + ' ago';
-});
+};

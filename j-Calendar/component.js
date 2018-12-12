@@ -10,6 +10,10 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 	self.years_from;
 	self.years_to;
 
+	self.readonly();
+	self.nocompile && self.nocompile();
+	self.click = function() {};
+
 	self.configure = function(key, value) {
 		switch (key) {
 			case 'days':
@@ -57,9 +61,6 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 				break;
 		}
 	};
-
-	self.readonly();
-	self.click = function() {};
 
 	function getMonthDays(dt) {
 

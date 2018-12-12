@@ -4,7 +4,7 @@ __Configuration__:
 
 Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:date"`
 
-- `type` {String} (optional) can be `email`, `phone`, `password`, `date`, `number`, `search` or empty (default)
+- `type` {String} (optional) can be `email`, `phone`, `password`, `date`, `number`, `search`, `lower`, `upper` or empty (default)
 - `required` {Boolean} (optional) enables "required" (default: `false`)
 - `icon` {String} (optional) icon for label e.g. `home`, `cog`, etc.
 - `icon2` {String} (optional) icon in the right box e.g. `home`, `cog`, etc.

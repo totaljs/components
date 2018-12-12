@@ -1,0 +1,10 @@
+<div style="width:300px">
+	<div data-jc="ajaxloading__null__url:/users/" class="hidden">Loading users</div>
+	<br />
+</div>
+
+<script>
+	setTimeout(function() {
+		AJAX('GET /users/');
+	}, 2000);
+</script>

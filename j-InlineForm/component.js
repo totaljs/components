@@ -41,16 +41,20 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 
 	self.make = function() {
 
-		$(document.body).append('<div id="{0}" class="hidden ui-inlineform-container" style="max-width:{1}"><div class="ui-inlineform"><i class="fa fa-caret-up ui-inlineform-arrow"></i><div class="ui-inlineform-title" data-bind="@config__html span:value.title__change .ui-inlineform-icon:@icon"><button class="ui-inlineform-close"><i class="fa fa-times"></i></button><i class="ui-inlineform-icon"></i><span></span></div></div></div>'.format(self.ID, (config.width || dw) + 'px', self.path));
+		$(document.body).append('<div id="{0}" class="hidden ui-inlineform-container" style="max-width:{1}"><div class="ui-inlineform"><i class="fa fa-caret-up ui-inlineform-arrow"></i><div class="ui-inlineform-title" data-bind="@config__html span:value.title__change .ui-inlineform-icon:@icon"><button name="cancel" class="ui-inlineform-close"><i class="fa fa-times"></i></button><i class="ui-inlineform-icon"></i><span></span></div></div></div>'.format(self.ID, (config.width || dw) + 'px', self.path));
 
 		var el = $('#' + self.ID);
+
+		var scr = self.find('> script');
+		self.template = scr.length ? scr.html() : '';
+
 		el.find('.ui-inlineform')[0].appendChild(self.dom);
 		self.rclass('hidden');
 		self.replace(el);
-
-		self.find('button').on('click', function() {
+		self.event('click', 'button[name]', function() {
+			var t = this;
 			var el = $(this);
-			switch (this.name) {
+			switch (t.name) {
 				case 'submit':
 					if (el.hclass('exec'))
 						self.hide();
@@ -58,7 +62,7 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 						self.submit(self.hide);
 					break;
 				case 'cancel':
-					!this.disabled && self[this.name](self.hide);
+					!t.disabled && self[t.name](self.hide);
 					break;
 			}
 		});
@@ -80,6 +84,13 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 	self.show = function(el, position, offsetX, offsetY) {
 
 		SETTER('inlineform', 'hide');
+
+		if (self.template) {
+			var is = (/(data-bind|data-jc)="/).test(self.template);
+			self.find('div[data-jc-replaced]').html(self.template);
+			self.template = null;
+			is && COMPILE();
+		}
 
 		self.rclass('hidden');
 		self.release(false);
@@ -111,7 +122,7 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 		self.find('.ui-inlineform-arrow').css('margin-left', ma);
 		self.css(offset);
 
-		var el = self.find('input[type="text"],select,textarea');
+		el = self.find('input[type="text"],select,textarea');
 		!isMOBILE && el.length && el[0].focus();
 
 		setTimeout(function() {

@@ -3,6 +3,7 @@ COMPONENT('banners', 'class:ui-banners-hidden;interval:3000', function(self, con
 	var divs, nav, interval, indexer = 0;
 
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 		self.element.wrapInner('<div />');

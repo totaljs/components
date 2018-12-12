@@ -6,6 +6,7 @@ COMPONENT('websocket', 'reconnect:3000', function(self, config) {
 
 	self.online = false;
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 		url = (config.url || '').env(true);

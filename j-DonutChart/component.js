@@ -9,6 +9,8 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:true;pres
 	var W = $(window);
 
 	self.readonly();
+	self.nocompile && self.nocompile();
+
 	self.make = function() {
 		self.aclass('ui-donutchart');
 		self.append('<div class="ui-donutchart-tooltip"></div><svg></svg>');

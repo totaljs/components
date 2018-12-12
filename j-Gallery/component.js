@@ -4,6 +4,7 @@ COMPONENT('gallery', function(self) {
 
 	self.readonly();
 	self.blind();
+	self.nocompile && self.nocompile();
 
 	self.init = function() {
 		$('body').append('<div class="ui-gallery-preview hidden"><button name="prev"><i class="fa fa-caret-left"></i></button><button name="next"><i class="fa fa-caret-right"></i></button><div class="ui-gallery-table"><div class="ui-gallery-cell"><div><img src="" alt="" /></div></div></div></div>');

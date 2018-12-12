@@ -17,6 +17,8 @@ COMPONENT('iframepreview', 'width:800', function(self, config) {
 	};
 
 	self.readonly();
+	self.nocompile && self.nocompile();
+
 	self.make = function() {
 		self.aclass('ui-iframepreview hidden');
 		self.html('<div style="max-width:{0}px"><i class="fa fa-times-circle"></i><iframe src="about:blank" frameborder="0" allowfullscreen></div>'.format(config.width));

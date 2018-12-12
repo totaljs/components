@@ -4,6 +4,7 @@ COMPONENT('shoppingcart', 'discount:0;expiration:6 days', function(self, config)
 
 	self.singleton();
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.configure = function(key, value, init) {
 		if (init)

@@ -5,6 +5,7 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config) {
 
 	self.bindvisible();
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 		self.aclass('ui-nosqlcounter');

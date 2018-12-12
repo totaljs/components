@@ -4,6 +4,7 @@ COMPONENT('listing', 'pages:3;count:20', function(self, config) {
 	var layout;
 
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 

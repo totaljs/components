@@ -1,4 +1,4 @@
-COMPONENT('form', function(self, config) {
+COMPONENT('form', 'zindex:12', function(self, config) {
 
 	var W = window;
 	var csspos = {};
@@ -64,7 +64,11 @@ COMPONENT('form', function(self, config) {
 
 	self.make = function() {
 
-		$(document.body).append('<div id="{0}" class="hidden ui-form-container"><div class="ui-form-container-padding"><div class="ui-form" style="max-width:{1}px"><div data-bind="@config__html span:value.title__change .ui-form-icon:@icon" class="ui-form-title"><button class="ui-form-button-close{3}" data-path="{2}"><i class="fa fa-times"></i></button><i class="ui-form-icon"></i><span></span></div></div></div>'.format(self.ID, config.width || 800, self.path, config.closebutton == false ? ' hidden' : ''));
+		$(document.body).append('<div id="{0}" class="hidden ui-form-container"><div class="ui-form-container-padding"><div class="ui-form" style="max-width:{1}px"><div data-bind="@config__html span:value.title__change .ui-form-icon:@icon" class="ui-form-title"><button name="cancel" class="ui-form-button-close{3}" data-path="{2}"><i class="fa fa-times"></i></button><i class="ui-form-icon"></i><span></span></div></div></div>'.format(self.ID, config.width || 800, self.path, config.closebutton == false ? ' hidden' : ''));
+
+		var scr = self.find('> script');
+		self.template = scr.length ? scr.html() : '';
+
 		var el = $('#' + self.ID);
 		el.find('.ui-form')[0].appendChild(self.dom);
 		self.rclass('hidden');
@@ -75,13 +79,14 @@ COMPONENT('form', function(self, config) {
 			EMIT('reflow', self.name);
 		});
 
-		self.find('button').on('click', function() {
-			switch (this.name) {
+		self.event('click', 'button[name]', function() {
+			var t = this;
+			switch (t.name) {
 				case 'submit':
 					self.submit(self.hide);
 					break;
 				case 'cancel':
-					!this.disabled && self[this.name](self.hide);
+					!t.disabled && self[t.name](self.hide);
 					break;
 			}
 		});
@@ -101,7 +106,7 @@ COMPONENT('form', function(self, config) {
 				value !== prev && self.find('.ui-form').css('max-width', value + 'px');
 				break;
 			case 'closebutton':
-				self.find('.ui-form-button-close').tclass(value !== true);
+				self.find('.ui-form-button-close').tclass('hidden', value !== true);
 				break;
 		}
 	};
@@ -129,12 +134,19 @@ COMPONENT('form', function(self, config) {
 			return;
 		}
 
+		if (self.template) {
+			var is = (/(data-bind|data-jc)="/).test(self.template);
+			self.find('div[data-jc-replaced]').html(self.template);
+			self.template = null;
+			is && COMPILE();
+		}
+
 		if (W.$$form_level < 1)
 			W.$$form_level = 1;
 
 		W.$$form_level++;
 
-		self.css('z-index', W.$$form_level * 10);
+		self.css('z-index', W.$$form_level * config.zindex);
 		self.element.scrollTop(0);
 		self.rclass('hidden');
 
@@ -156,7 +168,7 @@ COMPONENT('form', function(self, config) {
 
 		// Fixes a problem with freezing of scrolling in Chrome
 		setTimeout2(self.ID, function() {
-			self.css('z-index', (W.$$form_level * 10) + 1);
+			self.css('z-index', (W.$$form_level * config.zindex) + 1);
 		}, 500);
 	};
 });

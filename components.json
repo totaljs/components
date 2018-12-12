@@ -125,5 +125,13 @@
 	"j-Menu",
 	"j-ScrollPercentage",
 	"j-Navigation",
-	"j-ViewBox"
+	"j-ViewBox",
+	"j-PasswordMeter",
+	"j-AjaxLoading",
+	"j-Tagger",
+	"Tangular-FileSize",
+	"Tangular-Counter",
+	"CSV export",
+	"Tangular-Initials",
+	"j-SingleUpload"
 ]

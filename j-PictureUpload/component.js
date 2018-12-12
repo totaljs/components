@@ -3,6 +3,7 @@ COMPONENT('pictureupload', 'extension:false;singlefile:true', function(self, con
 	var empty, img, canvas, content = null;
 
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.configure = function(key, value, init) {
 

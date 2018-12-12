@@ -4,6 +4,8 @@ COMPONENT('fileupload', function(self, config) {
 	var input = null;
 
 	self.readonly();
+	self.nocompile && self.nocompile();
+
 	self.configure = function(key, value, init) {
 		if (init)
 			return;

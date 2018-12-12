@@ -5,6 +5,8 @@ COMPONENT('barchart', 'pl:20;pt:10;pb:25;prselected:0;axisX:true;axisY:true;padd
 	var W = $(window);
 
 	self.readonly();
+	self.nocompile && self.nocompile();
+
 	self.make = function() {
 		self.aclass('ui-barchart');
 		self.empty().append('<svg></svg>');

@@ -3,6 +3,8 @@ COMPONENT('dropdown', function(self, config) {
 	var select, condition, content = null;
 	var render = '';
 
+	self.nocompile && self.nocompile();
+
 	self.validate = function(value) {
 
 		if (!config.required || config.disabled)
@@ -101,9 +103,9 @@ COMPONENT('dropdown', function(self, config) {
 			if (condition && !condition(item))
 				continue;
 			if (notObj)
-				builder.push(template.format(item, value === item ? ' selected="selected"' : '', item));
+				builder.push(template.format(item, value == item ? ' selected="selected"' : '', item));
 			else
-				builder.push(template.format(item[propValue], value === item[propValue] ? ' selected="selected"' : '', item[propText]));
+				builder.push(template.format(item[propValue], value == item[propValue] ? ' selected="selected"' : '', item[propText]));
 		}
 
 		render = builder.join('');

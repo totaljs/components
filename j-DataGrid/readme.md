@@ -59,10 +59,12 @@ __Configuration__:
 - `click` {String} a link to `function(row, grid, row_el)` is executed if the user clicks on a row
 - `highlight` {Boolean} each selected row (after `click`) will be highlighted (default: `false`)
 - `checked` {String} a link to `function(rows, grid)` is executed if the user selected/checked some rows
-- `exec` {String} a link to `function(type, filter, sort, page)` for server-side operations only (it disables client-side sorting & filtering)
-- `button` {String} a link to `function(btn_name, row, grid, elbutton, elrow)` is executed if the user clicks on a __button__ in the row
 - `autoselect` {Boolean} enables auto-select of first row in grid, it performs `EXEC(config.click)`, default: `false`
 - `limit` {Number} a cluster limit, default: `80`
+- `numbering` {Boolean}, optional default `false`
+- `allowtitles` {Boolean}, enables titles for all row values, optional default `false`
+- `button` {String} a link to `function(btn_name, name, row, grid, event)` is executed if the user clicks on a __button__ in the row
+- `exec` {String} a link to `function(type, filter, sort, page)` for server-side operations only (it disables client-side sorting & filtering), supported types: `init`, `refresh` and `page`
 
 __Column properties__:
 
@@ -87,6 +89,16 @@ __Filtering__:
 - `numbers`: (1) `number` searches an exact number, (2) `number - number` is an interval between numbers
 - `strings`: (1) `string` searches an exact string, (2) `string1, string2, string3` is a multiple search criterium
 - `dates`: (1) year `2017` searches all dates in this year, (2) `2017-02-12 - 2017-03-13` <--> `02.12.2017 - 13.03.2017` is an interval between dates, (3) `12-20 - 12-31` <--> `20.12 - 31.12` an interval between dates in the current year ir (4) `2017-01 - 2018-05` <--> `01.2017 - 05.2018` or (5) `-5 days` <--> `-1 week` <--> `-10 years`
+
+__Methods__:
+
+- `component.redraw([reselect_again])` can redraw rows again (only for modifications, if you will remove some row you need to update the entire model)
+- __NEW__ `component.resetfilter()` can reset a filter
+- __NEW__ `component.exportrows(page_from or true from the current page, pages_count, callback(rows, internal_options), [reset_to_page or true for the current page])` can export rows with server-side rendering
+
+__Properties__:
+
+- __NEW__ `component.meta` returns internal meta info about filters, columns and rows
 
 ### Author
 

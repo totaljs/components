@@ -6,6 +6,7 @@ COMPONENT('notifications', 'timeout:8000', function(self, config) {
 
 	self.singleton();
 	self.readonly();
+	self.nocompile && self.nocompile();
 	self.template = Tangular.compile('<div class="ui-notification" data-id="{{ id }}" style="border-left-color:{{ color }}{{ if callback }};cursor:pointer{{ fi }}"><i class="fa fa-times-circle"></i><div class="ui-notification-message"><div class="ui-notification-icon"><i class="fa {{ icon }}" style="color:{{ color }}"></i></div><div class="ui-notification-datetime">{{ date | format(\'{0}\') }}</div>{{ message | raw }}</div></div>'.format(config.date || 'yyyy-MM-dd HH:mm'));
 	self.items = {};
 

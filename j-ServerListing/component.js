@@ -4,6 +4,7 @@ COMPONENT('serverlisting', 'pages:3', function(self, config) {
 	var layout;
 
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 

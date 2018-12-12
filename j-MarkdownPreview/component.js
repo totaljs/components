@@ -2,6 +2,7 @@ COMPONENT('markdownpreview', function(self) {
 
 	self.bindvisible();
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 		marked.setOptions({ gfm: true, breaks: true, sanitize: true, tables: true });

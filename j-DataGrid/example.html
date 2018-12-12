@@ -3,6 +3,7 @@
 		[
 			{ name: 'name', text: 'Name', width: 200 },
 			{ name: 'price', text: 'Price', align: 'center', alignfilter: 'center' },
+			{ name: 'published', text: 'Public', align: 'center', options: [{ text: 'yes', value: true }, { text: 'no', value: false }], template: '{{ if published }}yes{{ else }}no{{ fi }}' },
 			{ name: 'description', text: 'Description', filter: 'Search in description' },
 			{ name: 'created', text: 'Created', align: 'center', template: '{{ created | format(\'dd.MM.yyyy\') }}', align: 'right', alignfilter: 'right', alignheader: 'right' }
 		]
@@ -12,5 +13,5 @@
 <script>
 	var items = [];
 	for (var i = 1; i < 90; i++)
-		items.push({ name: '{0} Lorem ipsum dolor'.format(i), description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: i + 100, created: new Date().add('-5 days') });
+		items.push({ name: '{0} Lorem ipsum dolor'.format(i), published: i % 5 !== 0, description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: i + 100, created: new Date().add('-5 days') });
 </script>

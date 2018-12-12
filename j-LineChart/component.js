@@ -5,6 +5,8 @@ COMPONENT('linechart', 'type:normal;pl:10;pr:10;pt:10;pb:25;prselected:0;limit:0
 	var W = $(window);
 
 	self.readonly();
+	self.nocompile && self.nocompile();
+
 	self.make = function() {
 		self.aclass('ui-linechart');
 		self.empty().append('<svg></svg>');

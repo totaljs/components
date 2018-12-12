@@ -1,6 +1,7 @@
 COMPONENT('recaptcha', function(self, config) {
 
 	self.getter = null;
+	self.nocompile && self.nocompile();
 
 	self.validate = function(value) {
 		return config.disabled || !config.required ? true : (value && value.length > 300);

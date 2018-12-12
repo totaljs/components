@@ -1,0 +1,7 @@
+<button>CSV export</button>
+
+<script>
+	$(document).on('click', 'button', function() {
+		FUNC.csv('example.csv', [{ name: 'Name 1', price: 1, date: new Date() }, { name: 'Name 2', price: 2, date: new Date() }, { name: 'Name 3', price: 3, date: new Date() }]);
+	});
+</script>

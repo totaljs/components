@@ -2,6 +2,7 @@ COMPONENT('cookie2', 'redirect:about\\:blank;agree:ACCEPT COOKIES;cancel:CANCEL'
 
 	self.singleton();
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.cancel = function() {
 		document.cookie.split(';').forEach(function(key) {
