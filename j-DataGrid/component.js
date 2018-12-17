@@ -1,4 +1,4 @@
-COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterlabel:Filter;numbering:;height:auto;bottom:90;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;autoselect:false;buttonapply:Apply;allowtitles:false;fullwidth_xs:true', function(self, config) {
+COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterlabel:Filter;numbering:;height:auto;bottom:90;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;unhighlight:true;autoselect:false;buttonapply:Apply;allowtitles:false;fullwidth_xs:true', function(self, config) {
 
 	var opt = { filter: {}, filtercache: {}, filtervalues: {}, scroll: false, selected: {}, operation: '' };
 	var header, vbody, footer, vcontainer, hcontainer, varea, hbody, vscrollbar, vscrollbararea, hscrollbar, hscrollbararea, ecolumns, isecolumns = false;
@@ -304,8 +304,15 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 							if (config.highlight) {
 								var cls = 'dg-selected';
 								opt.cluster.el.find('> .' + cls).rclass(cls);
-								self.selected = row;
-								elrow.aclass(cls);
+								if (!config.unhighlight || self.selected !== row) {
+									self.selected = row;
+									elrow.aclass(cls);
+								} else {
+									self.selected = null;
+									elrow = null;
+									target = null;
+									row = null;
+								}
 							}
 							config.click && EXEC(config.click, row, self, elrow, target);
 						}

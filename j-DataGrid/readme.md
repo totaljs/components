@@ -58,6 +58,7 @@ __Configuration__:
 - `align` {String/Number} align for a column value `right` (or `2`) or `center` (or `1`) (optional, default: `left`)
 - `click` {String} a link to `function(row, grid, row_el)` is executed if the user clicks on a row
 - `highlight` {Boolean} each selected row (after `click`) will be highlighted (default: `false`)
+- `unhighlight` {Boolean} enables `undo highlighting` of selected row (default: `true`)
 - `checked` {String} a link to `function(rows, grid)` is executed if the user selected/checked some rows
 - `autoselect` {Boolean} enables auto-select of first row in grid, it performs `EXEC(config.click)`, default: `false`
 - `limit` {Number} a cluster limit, default: `80`
