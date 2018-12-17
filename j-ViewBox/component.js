@@ -12,10 +12,13 @@ COMPONENT('viewbox', function(self, config) {
 		});
 	};
 
-	self.configure = function(key, value) {
+	self.configure = function(key, value, init) {
 		switch (key) {
 			case 'disabled':
 				eld.tclass('hidden', !value);
+				break;
+			case 'minheight':
+				!init && self.resize();
 				break;
 		}
 	};
@@ -30,6 +33,10 @@ COMPONENT('viewbox', function(self, config) {
 	self.resize = function() {
 		var el = config.selector ? config.selector === 'window' ? $(window) : self.element.closest(config.selector) : self.parent();
 		var h = (el.height() / 100) * config.height;
+
+		if (config.minheight && h < config.minheight)
+			h = config.minheight;
+
 		eld.css({ height: h, width: self.element.width() });
 		self.css('height', h);
 		self.element.SETTER('*', 'resize');
