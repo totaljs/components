@@ -280,7 +280,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 				for (var i = 0; i < opt.cols.length; i++) {
 					var col = opt.cols[i];
-					builder.push('<div><label><input type="checkbox" value="{0}"{1} /><span>{2}</span></label></div>'.format(col.id, col.hidden ? '' : ' checked', col.text));
+					!col.$hidden && builder.push('<div><label><input type="checkbox" value="{0}"{1} /><span>{2}</span></label></div>'.format(col.id, col.hidden ? '' : ' checked', col.text));
 				}
 
 				ecolumns.find('.dg-columns-body').html(builder.join(''));
@@ -653,8 +653,15 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			if (!col.name)
 				col.name = col.id;
 
-			if (col.hidden)
-				col.hidden = FN(col.hidden)(col) === true;
+			if (col.hidden) {
+				col.$hidden = FN(col.hidden)(col) === true;
+				col.hidden = true;
+			}
+
+			if (col.hide) {
+				col.hidden = col.hide === true;
+				delete col.hide;
+			}
 
 			if (col.options) {
 				!col.otext && (col.otext = 'text');
