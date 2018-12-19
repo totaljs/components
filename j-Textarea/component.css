@@ -16,8 +16,8 @@
 
 /* DARK MODE */
 .ui-dark .ui-textarea { border-color: #3A3A3A; background-color: #202020; }
-.ui-dark .ui-textarea textarea { background-color: #202020; }
+.ui-dark .ui-textarea textarea { color: white; background-color: #202020; }
 .ui-dark .ui-textarea-required .ui-textarea-label:before { color: red; }
-.ui-dark .ui-textarea-required .ui-textarea { border-color: #101010; background-color: #202020 !important; }
+.ui-dark .ui-textarea-required .ui-textarea { border-color: #303030; background-color: #202020 !important; }
 .ui-dark .ui-textarea-required .ui-textarea textarea { background-color: #202020 !important; }
 .ui-dark .ui-textarea-invalid .ui-textarea { border-color: red !important; }

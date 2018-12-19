@@ -1,5 +1,5 @@
 input:-ms-input-placeholder, input:-webkit-input-placeholder, input:-moz-input-placeholder { color: silver; }
-input[type="text"]:disabled, input[type="password"]:disabled, select:disabled { background-color: #F0F0F0; cursor: not-allowed; color: silver; }
+input[type="text"]:disabled, input[type="password"]:disabled { background-color: #F0F0F0; cursor: not-allowed; color: silver; }
 input:invalid { box-shadow: none; }
 
 .ui-textbox-container * { box-sizing: border-box; }
@@ -30,6 +30,9 @@ input:invalid { box-shadow: none; }
 .ui-center { text-align: center; }
 
 /* DARK MODE */
+.ui-dark input:-ms-input-placeholder, .ui-dark input:-webkit-input-placeholder, .ui-dark input:-moz-input-placeholder { color: #707070; }
+.ui-dark input[type="text"]:disabled, .ui-dark input[type="password"]:disabled { background-color: #202020; color: #707070; }
+
 .ui-dark .ui-textbox { border-color: #3A3A3A; background-color: #202020; }
 .ui-dark .ui-textbox-input input { color: white; background-color: #202020; }
 .ui-dark .ui-textbox-control { border-left-color: #3A3A3A; color: white; }
