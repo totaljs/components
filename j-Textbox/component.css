@@ -43,3 +43,5 @@ input:invalid { box-shadow: none; }
 .ui-dark .ui-textbox-invalid .ui-textbox { border-color: red !important; background-color: #202020 !important; }
 .ui-dark .ui-textbox-invalid .ui-textbox input { background-color: #202020 !important; }
 .ui-dark .ui-textbox-invalid .ui-textbox-control { border-color: red !important; background-color: #202020 !important; }
+.ui-dark .ui-textbox-container.ui-disabled .ui-textbox { background-color: #202020; }
+.ui-dark .ui-textbox-container.ui-disabled .ui-textbox input { background-color: #202020; }

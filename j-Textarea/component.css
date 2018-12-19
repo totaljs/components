@@ -21,3 +21,5 @@
 .ui-dark .ui-textarea-required .ui-textarea { border-color: #303030; background-color: #202020 !important; }
 .ui-dark .ui-textarea-required .ui-textarea textarea { background-color: #202020 !important; }
 .ui-dark .ui-textarea-invalid .ui-textarea { border-color: red !important; }
+.ui-dark .ui-disabled.ui-textarea { background-color: #202020; }
+.ui-dark .ui-disabled.ui-textarea textarea { background-color: #202020; }
