@@ -15,11 +15,11 @@
 .ui-disabled.ui-textarea textarea { background-color: #F0F0F0; }
 
 /* DARK MODE */
-.ui-dark .ui-textarea { border-color: #3A3A3A; background-color: #202020; }
-.ui-dark .ui-textarea textarea { color: white; background-color: #202020; }
+.ui-dark .ui-textarea { border-color: #3A3A3A; background-color: #282828; }
+.ui-dark .ui-textarea textarea { color: white; background-color: #282828; }
 .ui-dark .ui-textarea-required .ui-textarea-label:before { color: red; }
 .ui-dark .ui-textarea-required .ui-textarea { border-color: #303030; background-color: #202020 !important; }
 .ui-dark .ui-textarea-required .ui-textarea textarea { background-color: #202020 !important; }
 .ui-dark .ui-textarea-invalid .ui-textarea { border-color: red !important; }
-.ui-dark .ui-disabled.ui-textarea { background-color: #202020; }
-.ui-dark .ui-disabled.ui-textarea textarea { background-color: #202020; }
+.ui-dark .ui-disabled.ui-textarea { background-color: #282828; }
+.ui-dark .ui-disabled.ui-textarea textarea { background-color: #282828; }

@@ -31,7 +31,7 @@ input:invalid { box-shadow: none; }
 
 /* DARK MODE */
 .ui-dark input:-ms-input-placeholder, .ui-dark input:-webkit-input-placeholder, .ui-dark input:-moz-input-placeholder { color: #707070; }
-.ui-dark input[type="text"]:disabled, .ui-dark input[type="password"]:disabled { background-color: #202020; color: #707070; }
+.ui-dark input[type="text"]:disabled, .ui-dark input[type="password"]:disabled { background-color: #282828; color: #707070; }
 
 .ui-dark .ui-textbox { border-color: #3A3A3A; background-color: #202020; }
 .ui-dark .ui-textbox-input input { color: white; background-color: #202020; }
@@ -43,5 +43,5 @@ input:invalid { box-shadow: none; }
 .ui-dark .ui-textbox-invalid .ui-textbox { border-color: red !important; background-color: #202020 !important; }
 .ui-dark .ui-textbox-invalid .ui-textbox input { background-color: #202020 !important; }
 .ui-dark .ui-textbox-invalid .ui-textbox-control { border-color: red !important; background-color: #202020 !important; }
-.ui-dark .ui-textbox-container.ui-disabled .ui-textbox { background-color: #202020; }
-.ui-dark .ui-textbox-container.ui-disabled .ui-textbox input { background-color: #202020; }
+.ui-dark .ui-textbox-container.ui-disabled .ui-textbox { background-color: #282828; }
+.ui-dark .ui-textbox-container.ui-disabled .ui-textbox input { background-color: #282828; }
