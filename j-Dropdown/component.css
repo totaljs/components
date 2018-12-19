@@ -1,4 +1,4 @@
-select:disabled { background-color: #F0F0F0; cursor: not-allowed; color: silver; }
+select:disabled { background-color: #F0F0F0; cursor: not-allowed; color: gray; }
 .ui-dropdown-container * { box-sizing: border-box; font-size: 14px; }
 .ui-dropdown-values { position: relative; display: block; height: 32px; text-align: left; }
 .ui-dropdown { border: 1px solid #E0E0E0; padding: 0 5px 0 10px; border-radius: 2px; outline: 0; height: 32px; overflow: hidden; float: left; width: 100%; background-color: white; position: relative; }
@@ -13,7 +13,7 @@ select:disabled { background-color: #F0F0F0; cursor: not-allowed; color: silver;
 .ui-dropdown-invalid .ui-dropdown { border-color: #E1A1A1 !important; background-color: #FFF3F3 !important; }
 .ui-dropdown-invalid select { background-color: #FFF3F3 !important; }
 .ui-dropdown-invalid .ui-dropdown:after { border-left-color: #E1A1A1 !important; }
-.ui-disabled select { background-color: #F0F0F0; cursor: not-allowed; color: #A0A0A0; }
+.ui-disabled select { background-color: #F0F0F0; cursor: not-allowed; color: gray; }
 .ui-disabled .ui-dropdown { background-color: #F0F0F0; cursor: not-allowed; }
 .ui-disabled .ui-dropdown .fa { color: #A0A0A0; }
 .ui-dropdown select::-ms-expand { display: none; }
