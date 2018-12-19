@@ -5,6 +5,7 @@
 - singleton
 - works with Bootstrap Grid System
 - works with touches
+- supports __dark mode__
 
 __Methods__:
 
@@ -23,13 +24,13 @@ __Attributes__:
 __Configuration__:
 - `placeholder` - a placeholder for the search input
 
-If the `value` isn't defined then the component uses `name` as `value.
+If the `value` isn't defined then the component uses `name` as `value`.
 
 __Global events__:
 
 ```javascript
 ON('suggestion', function(visible, component, target) {
-    console.log('Suggestion is', visible ? 'visible' : 'hidden');
+	console.log('Suggestion is', visible ? 'visible' : 'hidden');
 });
 ```
 

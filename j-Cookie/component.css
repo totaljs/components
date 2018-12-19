@@ -2,5 +2,3 @@
 .ui-cookie button { position: relative; display: inline-block; padding: 1px 5px; border-radius: 3px; font-size: 10px; background-color: black; color: white; border: 0; margin-left: 5px; cursor: pointer; outline: 0; }
 .ui-cookie button:hover { background-color: #303030; }
 .ui-cookie button[name="cancel"] { background-color: #F0F0F0; color: gray; }
-
-.hidden { display: none; }

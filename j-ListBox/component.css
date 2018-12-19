@@ -1,4 +1,3 @@
-.hidden { display: none; }
 .ui-listbox * { box-sizing: border-box; }
 .ui-listbox { border: 1px solid #E0E0E0; font-size: 14px; color: black; position: relative; }
 .ui-listbox ul { list-style-type: none; width: 100%; height: 100%; overflow: auto; margin: 0; padding: 0; }

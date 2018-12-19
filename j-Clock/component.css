@@ -12,4 +12,3 @@ a.ui-clock-active { color: #0095DD; }
 .ui-clock-tick-selected { background-color: RGBA(0,149,221,0.2); }
 .ui-clock-swap { left: 85px; top: 87px; font-size: 16pt; position: absolute; cursor: pointer; }
 .ui-clock-footer { border-top: 1px solid #E0E0E0; background-color: #F0F0F0; padding: 8px 10px; }
-.hidden { display: none; }

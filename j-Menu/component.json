@@ -1,6 +1,6 @@
 {
 	"datecreated": "2018-08-17T10:28:02.000Z",
-	"dateupdated": "2018-11-26T11:09:00.000Z",
+	"dateupdated": "2018-12-19T08:23:00.000Z",
 	"name": "j-Menu",
 	"tags": [
 		"jcomponent"
@@ -8,6 +8,7 @@
 	"color": "white",
 	"version": 1,
 	"responsive": true,
+	"darkmode": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
 	"author": "Peter Širka",

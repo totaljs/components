@@ -1,6 +1,6 @@
 ## j-SelectBox
 
-- Works with Bootstrap
+- supports __dark mode__
 
 __Configuration__:
 

@@ -1,5 +1,4 @@
 * { box-sizing: border-box; }
-.hidden { display: none; }
 .ui-autocomplete-container { position: absolute; z-index: 60; }
 .ui-autocomplete { background-color: white; width: 100%; margin: -5px 0 0 0; padding: 2px 0; border-radius: 0 0 4px 4px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); border: 1px solid #E0E0E0; line-height: 14px; overflow-x: hidden; overflow-y: auto; }
 .ui-autocomplete ul { list-style-type: none; margin: 0; padding: 0; }

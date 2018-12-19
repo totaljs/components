@@ -1,4 +1,3 @@
-.hidden { display: none; }
 .ui-fontawesome * { box-sizing: border-box; }
 .ui-fontawesome { border: 1px solid #E0E0E0; font-size: 14px; color: black; position: absolute; width: 400px; height: 300px; z-index: 10; background-color: white; box-shadow: 0 5px 10px rgba(0,0,0,0.08); border-radius: 4px; z-index: 80; }
 .ui-fontawesome-icons { overflow: hidden; }

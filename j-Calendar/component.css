@@ -23,4 +23,16 @@
 .ui-calendar-today a:first-child { float: right; color: #B7292E; font-weight: bold; }
 .ui-calendar select::-ms-expand { display: none; }
 
-.hidden { display: none; }
+.ui-dark .ui-calendar { background-color: #303030; border-color: #353535; color: #A0A0A0; box-shadow: 1px 5px 10px rgba(0,0,0,0.2); }
+.ui-dark .ui-calendar table th { color: white; }
+.ui-dark .ui-calendar table td { color: #A0A0A0; }
+.ui-dark .ui-calendar-disabled { color: #606060 !important; }
+.ui-dark .ui-calendar-today { background-color: #252525; border-top-color: #404040; }
+.ui-dark .ui-calendar-selected div { background-color: #101010; color: white; }
+.ui-dark .ui-calendar-day:hover div { background-color: #181818; }
+.ui-dark .ui-calendar-header { border-bottom-color: #404040; }
+.ui-dark .ui-calendar-today-a { color: white; }
+.ui-dark .ui-calendar button { background-color: #202020; border-color: #202020; height: 22px; }
+.ui-dark .ui-calendar button:hover { background-color: #404040; border-color: #404040; }
+.ui-dark .ui-calendar-header select { background-color: #303030; color: white; border-color: #202020; }
+.ui-dark .ui-calendar-day-today div { background-color: #505050; color: white; }

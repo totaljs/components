@@ -28,3 +28,15 @@ input:invalid { box-shadow: none; }
 
 .ui-right { text-align: right; }
 .ui-center { text-align: center; }
+
+/* DARK MODE */
+.ui-dark .ui-textbox { border-color: #3A3A3A; background-color: #202020; }
+.ui-dark .ui-textbox-input input { color: white; background-color: #202020; }
+.ui-dark .ui-textbox-control { border-left-color: #3A3A3A; color: white; }
+.ui-dark .ui-textbox .fa-times { color: red; }
+.ui-dark .ui-textbox-required .ui-textbox-label:before { color: red; }
+.ui-dark .ui-textbox-required .ui-textbox-control { border-color: #303030; }
+.ui-dark .ui-textbox-required .ui-textbox { border-color: #303030; }
+.ui-dark .ui-textbox-invalid .ui-textbox { border-color: red !important; background-color: #202020 !important; }
+.ui-dark .ui-textbox-invalid .ui-textbox input { background-color: #202020 !important; }
+.ui-dark .ui-textbox-invalid .ui-textbox-control { border-color: red !important; background-color: #202020 !important; }

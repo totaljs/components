@@ -13,6 +13,7 @@ This grid was created for single page applications and enterprise applications.
 - supports checkboxes
 - custom scrollbars independent on OS
 - responsive
+- supports __dark mode__
 
 __TO-DO__:
 

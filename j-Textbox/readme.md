@@ -1,5 +1,7 @@
 ﻿## j-Textbox
 
+- supports __dark mode__
+
 __Configuration__:
 
 Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:date"`

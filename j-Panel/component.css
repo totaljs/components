@@ -1,4 +1,3 @@
-.hidden { display: none; }
 .ui-panel { background-color: white; margin: 0 0 0 auto; transform: scale(0.8); transition: all 0.2s; opacity: 0; width: 100%; }
 .ui-panel-noscroll, .ui-panel-noscroll body { overflow: hidden; }
 .ui-panel-container { width: 100%; position: fixed; left: 0; top: 0; bottom: 0; right: 0; background-color: rgba(230,233,237,0.8); z-index: 5; overflow: none; transform-style: preserve-3d; height: 100%; }
@@ -13,3 +12,10 @@
 .ui-panel-title .ui-panel-button-close:hover { background-color: #EB3324; color: white; }
 .ui-panel-title > span { font-weight: bold; max-width: 70%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; display: inline-block; vertical-align: middle; padding: 18px 0 0 0; }
 .ui-panel-title > .fa { margin: 19px 7px 0 0; float: left; }
+
+.ui-dark .ui-panel { background-color: #252525; }
+.ui-dark .ui-panel-title { color: white; background-color: #101010; border-bottom-color: #101010; }
+.ui-dark .ui-panel-container { background-color: rgba(30,30,30,0.8); }
+.ui-dark .ui-panel-inline { background-color: transparent; }
+.ui-dark .ui-panel-inline .ui-panel { border-left-color: #202020; background-color: rgba(40,40,40,0.9); }
+.ui-dark .ui-panel-button-close { border-left-color: #303030; }

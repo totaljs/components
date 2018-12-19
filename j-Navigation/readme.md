@@ -2,6 +2,7 @@
 
 - a simple navigation component like Tree
 - easy for customization
+- supports __dark mode__
 
 __Configuration__:
 
@@ -15,7 +16,7 @@ __Data-source__:
 [
 	{
 		name: 'Text to navigation item',
-		title: 'Optional, a title attribute'
+		title: 'Optional, a title attribute',
 		collapsed: true, // only for children, default "false"
 		children: [
 			// Can contain same structure as the parent
