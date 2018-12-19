@@ -7,5 +7,6 @@
 .ui-checkbox-checked .fa { display: block !important; }
 .ui-checkbox.ui-disabled div { background-color: #F0F0F0 !important; border-color: #E0E0E0 !important; color: gray !important; }
 
+.ui-dark .ui-checkbox-checked div { background-color: #4285F4; border-color: #4285F4; }
 .ui-dark .ui-checkbox div { border-color: #303030; background-color: #282828; }
 .ui-dark .ui-checkbox.ui-disabled div { background-color: #282828 !important; border-color: #303030 !important; color: gray !important; }
