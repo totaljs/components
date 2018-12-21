@@ -1,5 +1,6 @@
 ## j-Clock
 
+- supports __dark mode__
 - works __only__ with Bootstrap Grid System (otherwise is need to fix CSS)
 - thanks [weareoutman](https://github.com/weareoutman/) for some things
 

@@ -1,6 +1,7 @@
 ## j-Calendar
 
 - supports __dark mode__
+- supports __touch gestures (swipe)__ and fixed full size on mobile
 
 __Configuration__:
 
