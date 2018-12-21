@@ -189,6 +189,6 @@ COMPONENT('clock', 'twelvehour:false', function(self, config) {
 			}
 		}
 
-		self.html('<div class="ui-clock-header"><a href="javascript:void(0)" class="ui-clock-header-hours {5}" data-value="{0}:{1}{2}" >{0}</a> : <a href="javascript:void(0)" class="ui-clock-header-minutes {6}" data-value="{0}:{1}{2}">{1}</a> <a href="javascript:void(0)" class="ui-clock-header-twelve" data-value="{0}:{1}{2}">{2}</a></div><div class="ui-clock-body"><div class="ui-clock-holder">{3}<a href="javascript:void(0)" class="ui-clock-swap" data-value="{0}:{1}{2}">{4}</a></div></div><div class="ui-clock-footer"><a href="javascript:void(0)">Close</a></div>'.format(hours, minutes, isAmPm, hoursView, swapAmPm, (!showminutes ? 'ui-clock-active' : ''), (showminutes ? 'ui-clock-active' : '')));
+		self.html('<div class="ui-clock-header"><span class="ui-clock-header-hours {5}" data-value="{0}:{1}{2}">{0}</span> : <span class="ui-clock-header-minutes {6}" data-value="{0}:{1}{2}">{1}</span> <span class="ui-clock-header-twelve" data-value="{0}:{1}{2}">{2}</span></div><div class="ui-clock-body"><div class="ui-clock-holder">{3}<span class="ui-clock-swap" data-value="{0}:{1}{2}">{4}</span></div></div><div class="ui-clock-footer"><span>Close</span></div>'.format(hours, minutes, isAmPm, hoursView, swapAmPm, (!showminutes ? 'ui-clock-active' : ''), (showminutes ? 'ui-clock-active' : '')));
 	};
 });
