@@ -9,7 +9,7 @@
 
 __Methods__:
 
-Method: `component.show(orientation, targetElement, [items], clickCallback)`
+Method: `component.show(orientation, targetElement, [items/function(search, next)], clickCallback)`
 
 - `orientation {String}` can be `left`, `center` or `right`
 - `targetElement {Selector/jQuery/Element}` a target where the component will be visible
@@ -23,6 +23,16 @@ __Attributes__:
 
 __Configuration__:
 - `placeholder` - a placeholder for the search input
+
+__Server-side searching__:
+
+```javascript
+SETTER('suggestion', 'show', element, function(search, next) {
+	next([{ name: 'Item 1' }, { name: 'Item 2' }]);
+}, function(selected) {
+	console.log(selected);
+});
+````
 
 If the `value` isn't defined then the component uses `name` as `value`.
 
