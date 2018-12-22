@@ -45,6 +45,9 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:true', function(
 				else
 					fa.aclass('hidden');
 				break;
+			case 'remap':
+				config.remap = value ? FN(value) : null;
+				break;
 		}
 	};
 
@@ -75,6 +78,9 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:true', function(
 	};
 
 	self.bindvalue = function(value) {
+
+		if (config.remap)
+			value = config.remap(value);
 
 		self.tclass(cls + '-is', !!value);
 		var fa = self.find('.' + cls + '-icon').find('i');
