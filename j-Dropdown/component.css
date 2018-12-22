@@ -20,12 +20,12 @@ select:disabled { background-color: #F0F0F0; cursor: not-allowed; color: gray; }
 
 /* DARK MODE */
 .ui-dark select:disabled { background-color: #282828; color: #707070; }
-.ui-dark .ui-dropdown { border: 1px solid #3A3A3A; background-color: #202020; }
-.ui-dark .ui-dropdown:after { border-left-color: #3A3A3A; }
+.ui-dark .ui-dropdown { border: 1px solid #353535; background-color: #202020; }
+.ui-dark .ui-dropdown:after { border-left-color: #353535; }
 .ui-dark .ui-dropdown select { background: #202020 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAA1ElEQVR4AWJwL/ABtFsXVw0EUBhGTwrAoZl0gbu7u0M7UGFWSeayx8dn8b5z3v5G52/0BTCAAQxgiRfAAGIQEyXfYGogWnhHX/n18YZWGmBb9bXTAEfQUV0djKT6DmIKPeXXw1TWH8lMycgeZnP9zWAefcXXx0Ih/4NYLBjZx3Khf9RYQSJ/CdZKeZJgrQDkZqmPOmzmQO5W8izGtvQdVDoWsOv/HdeyZnDg785rnVs49nNXjdiDOPW120YNVlwA4LGRixpXeI3J/+8LYAADGMAABvADeTrtXSN3kt8AAAAASUVORK5CYII=) no-repeat 100% 50%; background-size: 14px; color: white; }
 .ui-dark .ui-dropdown-invalid select { background-color: #202020 !important; }
-.ui-dark .ui-dropdown-required .ui-dropdown { border-color: #424242; }
-.ui-dark .ui-dropdown-required .ui-dropdown:after { border-left-color: #424242; }
+.ui-dark .ui-dropdown-required .ui-dropdown { border-color: #454545; }
+.ui-dark .ui-dropdown-required .ui-dropdown:after { border-left-color: #454545; }
 .ui-dark .ui-dropdown-invalid .ui-dropdown { border-color: red !important; background-color: #202020 !important; }
 .ui-dark .ui-dropdown-invalid .ui-dropdown:after { border-left-color: red !important; }
 .ui-dark .ui-disabled .ui-dropdown { background-color: #282828; }
