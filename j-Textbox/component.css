@@ -9,9 +9,9 @@ input:invalid { box-shadow: none; }
 .ui-textbox-control { position: relative; vertical-align: middle; display: table-cell; text-align: center; white-space: nowrap; text-overflow: clip; border-left: 1px solid #E0E0E0; width: 32px; color: black; }
 .ui-textbox .fa-times { color: red; cursor: pointer; }
 .ui-textbox-label { margin-bottom: 5px; font-size: 12px; text-align: left; }
-.ui-textbox-label .fa { margin-right: 5px; }
+.ui-textbox-label i { margin-right: 5px; }
 .ui-textbox-label { margin-bottom: 5px; font-size: 12px; text-align: left; }
-.ui-textbox-label .fa { margin-right: 5px; }
+.ui-textbox-label i { margin-right: 5px; }
 .ui-textbox-required .ui-textbox-label { font-weight: bold; }
 .ui-textbox-required .ui-textbox-label:before { color: red; content: '***'; margin-right: 5px; }
 .ui-textbox-required .ui-textbox-control { border-color: #D0D0D0; }
