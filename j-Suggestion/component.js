@@ -115,7 +115,7 @@ COMPONENT('suggestion', function(self, config) {
 			is && self.hide(1);
 		});
 
-		$(window).on('scroll', function() {
+		self.on('scroll', function() {
 			is && self.hide(1);
 		});
 	};
