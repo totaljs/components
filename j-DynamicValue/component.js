@@ -27,7 +27,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:true', function(
 			case 'label':
 				var label = self.find('.' + cls + '-label');
 				label.tclass('hidden', !value);
-				label.find('span').text((value || '') + ':');
+				label.find('span').html((value || '') + ':');
 				break;
 			case 'required':
 				self.noValid(!value);
@@ -60,7 +60,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:true', function(
 		self.html('<div class="{2}-label{3}"><i class="fa hidden"></i><span>{1}:</span></div><div class="{2}"><div class="{2}-icon"><i class="fa fa-times"></i></div><div class="{2}-value">{0}</div></div>'.format(config.placeholder, config.label, cls, config.label ? '' : ' hidden'));
 
 		self.event('click', '.' + cls, function() {
-			!config.disabled && EXEC(config.click, function(value) {
+			!config.disabled && EXEC(config.click, self.element, function(value) {
 				self.set(value);
 				self.change();
 				config.required && setTimeout(self.validate2, 100);

@@ -8,7 +8,7 @@ This component is very special component. It can keep a value for example `Numbe
 - `placeholder` {String} (optional) adds a placeholder text
 - `disabled` {Boolean} (optional) disables this component
 - `click` {String} __important__ link to `function(value, next(new_value))` for binding a new value
-- `exec` {String} (optional) a link to `function(next(value), current_value)` for binding a readable `text`
+- `exec` {String} (optional) a link to `function(element, next(value), current_value)` for binding a readable `text`
 - `url` {String} (optional) tries to bind a value via `AJAX()`, argument `{value}` in URL is replaced by the value
 - `html` {String} Tangular template for rendering a value (default: `{{ name }}`)
 - `remap` String} (optional) a remap function (default: `null`), example: `value.length ? value[0] : null`
