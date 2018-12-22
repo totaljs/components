@@ -25,6 +25,10 @@ COMPONENT('menu', function(self) {
 			is && self.hide();
 		});
 
+		self.on('scroll', function() {
+			is && self.hide();
+		});
+
 		$(document).on('touchstart mousedown', function(e) {
 			if (is && (!self.target || (self.target !== e.target && !self.target.contains(e.target))))
 				self.hide();

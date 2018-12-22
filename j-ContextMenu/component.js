@@ -32,6 +32,10 @@ COMPONENT('contextmenu', function(self) {
 			is && self.hide(1);
 		});
 
+		self.on('scroll', function() {
+			is && self.hide(1);
+		});
+
 		$(document).on('touchstart mousedown', function(e) {
 			if (is && (self.target !== e.target && !self.target.contains(e.target)))
 				self.hide(1);
