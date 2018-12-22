@@ -102,15 +102,14 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:true', function(
 	};
 
 	self.setter = function(value, path, type) {
-		if (value == null)
-			self.bindvalue(value);
-		else {
+		if (value) {
 			if (config.url) {
 				config.loading && SETTER('loading', 'show');
-				AJAX(config.url.arg({ value: encodeURIComponent(value) }), self.bindvalue);
+				AJAX('GET ' + config.url.arg({ value: encodeURIComponent(value) }), self.bindvalue);
 			} else
 				EXEC(config.exec, value, self.bindvalue, type);
-		}
+		} else
+			self.bindvalue(value);
 	};
 
 });
