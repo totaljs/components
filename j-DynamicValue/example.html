@@ -1,0 +1,20 @@
+<div style="width:300px">
+	<div data-jc="dynamicvalue__userid__exec:getuser;click:finduser;placeholder:Choose a user">User</div>
+</div>
+
+<script>
+	var userid = 1;
+
+	function getuser(value, next) {
+		// Here you can read a readable text
+		// Value is binded according to the "config.html" Tangular template
+		next({ name: 'Peter' });
+	}
+
+	function finduser(next, current_value) {
+		// "next" must received a new value which will be binded from e.g. j-Suggestion or some j-Form
+		// a value will be automatically binded according to the component "path"
+		next(1);
+	}
+
+</script>
