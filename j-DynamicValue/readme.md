@@ -1,6 +1,6 @@
 ## j-DynamicValue
 
-This component is very special component. It can keep a value for example `Number` and at the same it can render another readable `text`. This component is optimized for dynamic usage, so it needs be linked with another component or part.
+This component is very special component. It can keep a value for example `Number` and at the same it can render another readable `text`. This component is optimized for dynamic usage, so it needs to be linked with another component or part.
 
 - `icon` {String} (optional) icon for label e.g. home, cog, etc.
 - `label` {String} (optional) label (default is HTML content)
