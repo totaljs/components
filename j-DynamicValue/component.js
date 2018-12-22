@@ -27,7 +27,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:true', function(
 			case 'label':
 				var label = self.find('.' + cls + '-label');
 				label.tclass('hidden', !value);
-				label.find('span').text(value || '');
+				label.find('span').text((value || '') + ':');
 				break;
 			case 'required':
 				self.noValid(!value);
@@ -86,7 +86,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:true', function(
 		else
 			fa.aclass('fa-' + config.icon2);
 
-		var val = value ? config.html(value) : config.label;
+		var val = value ? config.html(value) : config.placeholder;
 		var body = self.find('.' + cls + '-value');
 
 		if (body.html() !== val)
