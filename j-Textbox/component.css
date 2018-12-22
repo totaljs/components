@@ -16,8 +16,8 @@ input:invalid { box-shadow: none; }
 .ui-textbox-label i { margin-right: 5px; }
 .ui-textbox-required .ui-textbox-label { font-weight: bold; }
 .ui-textbox-required .ui-textbox-label:before { color: red; content: '***'; margin-right: 5px; }
-.ui-textbox-required .ui-textbox-control { border-color: #424242; }
-.ui-textbox-required .ui-textbox { border-color: #424242; }
+.ui-textbox-required .ui-textbox-control { border-color: #D0D0D0; }
+.ui-textbox-required .ui-textbox { border-color: #D0D0D0; }
 .ui-textbox-invalid .ui-textbox { border-color: #E1A1A1 !important; background-color: #FFF3F3 !important; }
 .ui-textbox-invalid input { background-color: #FFF3F3 !important; }
 .ui-textbox-invalid .ui-textbox-control { border-color: #E1A1A1 !important; }
@@ -32,13 +32,13 @@ input:invalid { box-shadow: none; }
 /* DARK MODE */
 .ui-dark input:-ms-input-placeholder, .ui-dark input:-webkit-input-placeholder, .ui-dark input:-moz-input-placeholder { color: #707070; }
 .ui-dark input[type="text"]:disabled, .ui-dark input[type="password"]:disabled { background-color: #282828; color: #707070; }
-.ui-dark .ui-textbox { border-color: #3A3A3A; background-color: #202020; }
+.ui-dark .ui-textbox { border-color: #383838; background-color: #202020; }
 .ui-dark .ui-textbox-input input { color: white; background-color: #202020; }
-.ui-dark .ui-textbox-control { border-left-color: #3A3A3A; color: white; }
+.ui-dark .ui-textbox-control { border-left-color: #383838; color: white; }
 .ui-dark .ui-textbox .fa-times { color: red; }
 .ui-dark .ui-textbox-required .ui-textbox-label:before { color: red; }
-.ui-dark .ui-textbox-required .ui-textbox-control { border-color: #303030; }
-.ui-dark .ui-textbox-required .ui-textbox { border-color: #303030; }
+.ui-dark .ui-textbox-required .ui-textbox-control { border-color: #454545; }
+.ui-dark .ui-textbox-required .ui-textbox { border-color: #454545; }
 .ui-dark .ui-textbox-invalid .ui-textbox { border-color: red !important; background-color: #202020 !important; }
 .ui-dark .ui-textbox-invalid .ui-textbox input { background-color: #202020 !important; }
 .ui-dark .ui-textbox-invalid .ui-textbox-control { border-color: red !important; background-color: #202020 !important; }
