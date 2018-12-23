@@ -1,6 +1,6 @@
 ## j-Scrollbar
 
-Custom scrollbars. __IMPORTANT:__ It wraps current content by adding two nested `div` elements with `relative` position.
+Custom scrollbars. __IMPORTANT:__ It wraps current content by adding two nested `div` elements with `relative` position. __It works with jComponent v17 only__.
 
 __Configuration__:
 
