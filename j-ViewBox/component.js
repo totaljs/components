@@ -36,7 +36,7 @@ COMPONENT('viewbox', 'margin:0;scroll:true', function(self, config) {
 	};
 
 	self.resize = function() {
-		var el = config.selector ? self.element.closest(config.selector) : self.parent();
+		var el = config.selector ? config.selector === 'window' ? $(window) : self.element.closest(config.selector) : self.parent();
 		var h = ((el.height() / 100) * config.height) - config.margin;
 
 		if (config.minheight && h < config.minheight)
