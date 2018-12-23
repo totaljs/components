@@ -5,7 +5,7 @@ COMPONENT('search', 'class:hidden;delay:200;attribute:data-search', function(sel
 		if (!config.selector || !config.attribute || value == null)
 			return;
 
-		setTimeout2('search' + self.id, function() {
+		setTimeout2('search' + self.ID, function() {
 
 			var elements = self.find(config.selector);
 			if (!value) {
