@@ -167,6 +167,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		hscrollbar = self.find('.dg-scrollbar-h');
 		hscrollbararea = self.find('.dg-scrollbar-container-h');
 
+		opt.vbarsize = 30;
+		opt.hbarsize = 30;
+
 		// Gets a top/left position of vertical/horizontal scrollbar
 		pos.vscroll = vscrollbararea.css('top').parseInt();
 		pos.hscroll = hscrollbararea.css('left').parseInt();
@@ -190,7 +193,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				var y = (e.pageY - sv.y);
 				var p = (y / sv.h) * 100;
 				var scroll = ((vbody[0].scrollHeight - opt.height) / 100) * p;
-				var plus = (p / 100) * 30;
+				var plus = (p / 100) * opt.vbarsize;
 				vbody.prop('scrollTop', Math.ceil(scroll + plus));
 				e.preventDefault();
 				e.stopPropagation();
@@ -212,7 +215,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				var x = e.offsetX;
 				var p = (x / sh.w) * 100;
 				var scroll = ((hbody[0].scrollWidth - opt.width2) / 100) * p;
-				var plus = (p / 100) * 30;
+				var plus = (p / 100) * opt.hbarsize;
 				hbody.prop('scrollLeft', Math.ceil(scroll + plus));
 				e.preventDefault();
 				e.stopPropagation();
@@ -237,32 +240,32 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		vbody.on('scroll', function(e) {
 			var el = e.target;
 			var p = ((el.scrollTop / (el.scrollHeight - opt.height)) * 100) >> 0;
-
-			if (p > 100)
-				p = 100;
-
-			var plus = (p / 100) * 30;
-			p = (((opt.height - pos.vscroll) / 100) * p);
-			var oy = (p + plus);
-			if (oy < 0)
-				oy = 0;
-			vscrollbar.css('top', (oy >> 0) + 'px');
+			var pos = (((opt.height - opt.vbarsize) / 100) * p);
+			if (pos < 0)
+				pos = 0;
+			else {
+				var max = opt.height - opt.vbarsize;
+				if (pos > max)
+					pos = max;
+			}
+			vscrollbar.css('top', pos + 'px');
 			isecolumns && self.applycolumns();
 		});
 
 		hbody.on('scroll', function(e) {
+
 			var el = e.target;
 			var p = ((el.scrollLeft / (el.scrollWidth - opt.width2)) * 100) >> 0;
+			var pos = (((opt.width2 - opt.hbarsize) / 100) * p);
+			if (pos < 0)
+				pos = 0;
+			else {
+				var max = opt.width2 - opt.hbarsize;
+				if (pos > max)
+					pos = max;
+			}
 
-			if (p > 100)
-				p = 100;
-
-			var plus = (p / 100) * 30;
-			p = (((opt.width2 - pos.hscroll) / 100) * p);
-			var ox = (p - plus);
-			if (ox < 0)
-				ox = 0;
-			hscrollbar.css('left', (ox >> 0) + 'px');
+			hscrollbar.css('left', pos + 'px');
 			isecolumns && self.applycolumns();
 		});
 
@@ -1066,6 +1069,20 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			// Scrollbars
 			vscrollbararea.tclass('hidden', isMOBILE || (vb.scrollHeight - vb.clientHeight) < 5);
 			hscrollbararea.tclass('hidden', isMOBILE || (hb.scrollWidth - hb.clientWidth) < 5);
+
+			var barsize = (w * (w / width)) >> 0;
+			if (barsize < 30)
+				barsize = 30;
+
+			hscrollbar.css('width', barsize);
+			opt.hbarsize = barsize;
+
+			barsize = (opt.height * (opt.height / vb.scrollHeight)) >> 0;
+			if (barsize < 30)
+				barsize = 30;
+
+			vscrollbar.css('height', barsize);
+			opt.vbarsize = barsize;
 
 			// Empty rows
 			var min = ((opt.height / config.rowheight) >> 0) + 1;
