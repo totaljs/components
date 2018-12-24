@@ -58,7 +58,7 @@ COMPONENT('repeater-group', function(self, config) {
 				groups[name] = [value[i]];
 		}
 
-		var index = 0;
+		var index;
 		var indexgroup = 0;
 		var builder = '';
 		var keys = Object.keys(groups);
@@ -67,6 +67,8 @@ COMPONENT('repeater-group', function(self, config) {
 		keys.forEach(function(key) {
 			var arr = groups[key];
 			var tmp = '';
+
+			index = 0;
 
 			for (var i = 0, length = arr.length; i < length; i++) {
 				var item = arr[i];
