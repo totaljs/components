@@ -70,10 +70,10 @@ COMPONENT('repeater-group', function(self, config) {
 
 			for (var i = 0, length = arr.length; i < length; i++) {
 				var item = arr[i];
-				item.index = index++;
 				tmp += self.template(item).replace(reg, function(text) {
 					return text.substring(0, 2) === '$i' ? index.toString() : self.path + '[' + index + ']';
 				});
+				item.index = index++;
 			}
 
 			if (key !== '0') {
