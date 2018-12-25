@@ -72,10 +72,9 @@ COMPONENT('textbox', function(self, config) {
 				self.set('');
 			} else if (self.type === 'password') {
 				var el = $(this);
-				var textbox = el.parents('.ui-textbox').find('input');
-				var type = textbox.attr('type');
+				var type = input.attr('type');
 
-				textbox.attr('type', type === 'text' ? 'password' : 'text');
+				input.attr('type', type === 'text' ? 'password' : 'text');
 				el.rclass2('fa-').aclass(type === 'text' ? 'fa-eye' : 'fa-eye-slash');
 			} else if (config.icon2click)
 				EXEC(config.icon2click, self);
