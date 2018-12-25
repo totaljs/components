@@ -70,6 +70,13 @@ COMPONENT('textbox', function(self, config) {
 				self.$stateremoved = false;
 				$(this).rclass('fa-times').aclass('fa-search');
 				self.set('');
+			} else if (self.type === 'password') {
+				var el = $(this);
+				var textbox = el.parents('.ui-textbox').find('input');
+				var type = textbox.attr('type');
+
+				textbox.attr('type', type === 'text' ? 'password' : 'text');
+				el.rclass2('fa-').aclass(type === 'text' ? 'fa-eye' : 'fa-eye-slash');
 			} else if (config.icon2click)
 				EXEC(config.icon2click, self);
 		});
@@ -122,6 +129,8 @@ COMPONENT('textbox', function(self, config) {
 
 		if (!icon2 && self.type === 'date')
 			icon2 = 'calendar';
+		else if (!icon2 && self.type === 'password')
+			icon2 = 'eye';
 		else if (self.type === 'search') {
 			icon2 = 'search';
 			self.setter2 = function(value) {
