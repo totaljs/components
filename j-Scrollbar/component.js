@@ -1,6 +1,19 @@
-COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;maginsm:0;marginmd:0;marginlg:0', function(self, config) {
+COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;marginsm:0;marginmd:0;marginlg:0', function(self, config) {
 
 	self.readonly();
+
+	self.configure = function(key, value) {
+		if (key === 'track') {
+			if (!(value instanceof Array))
+				value = value.split(',').trim();
+
+			for (var i = 0; i < value.length; i++)
+				value[i] = self.path + '.' + value[i];
+
+			value.push(self.path);
+			config.track = value;
+		}
+	};
 
 	self.done = function() {
 
@@ -39,6 +52,8 @@ COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;maginsm:0;marginmd:0;marg
 	};
 
 	self.setter = function(value, path, type) {
+		if (config.track && config.track.indexOf(path) === -1)
+			return;
 		type && setTimeout(function() {
 			self.done();
 			config.reset && self.reset();

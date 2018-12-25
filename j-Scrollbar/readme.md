@@ -14,6 +14,7 @@ __Configuration__:
 - `marginsm` {Number} a margin for `SM` displays (default: `0`)
 - `marginmd` {Number} a margin for `MD` displays (default: `0`)
 - `marginlg` {Number} a margin for `LG` displays (default: `0`)
+- `track` {String} can track only defined paths e.g. `FIELD1,FIELD2,FIELD3`, paths will linked with `component.path`
 
 __Methods__:
 
