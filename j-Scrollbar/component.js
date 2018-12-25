@@ -1,8 +1,9 @@
-COMPONENT('scrollbar', 'margin:0;visibleX:false;visibleY:false', function(self, config) {
+COMPONENT('scrollbar', 'margin:0;reset:true', function(self, config) {
+
 	self.readonly();
 
 	self.done = function() {
-		config.parent && self.element.css('height', self.element.closest(config.parent).height());
+		config.parent && self.element.css('height', (config.parent === 'window' ? WH : self.element.closest(config.parent).height()) - (config.offset ? self.element.offset().top : 0) - config.margin);
 		self.scrollbar.resize();
 	};
 
@@ -14,6 +15,29 @@ COMPONENT('scrollbar', 'margin:0;visibleX:false;visibleY:false', function(self, 
 
 	self.resize = function() {
 		self.scrollbar.resize();
+	};
+
+	self.scrollLeft = function(val) {
+		self.scrollbar.scrollLeft(val);
+	};
+
+	self.scrollTop = function(val) {
+		self.scrollbar.scrollTop(val);
+	};
+
+	self.scroll = function(x, y) {
+		self.scrollbar.scroll(x, y);
+	};
+
+	self.reset = function() {
+		self.scroll(0, 0);
+	};
+
+	self.setter = function(value, path, type) {
+		type && setTimeout(function() {
+			self.done();
+			config.reset && self.reset();
+		}, 500);
 	};
 
 });
