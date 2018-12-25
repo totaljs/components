@@ -150,7 +150,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		if (config.exec)
 			pagination = '<div class="dg-footer hidden"><div class="dg-pagination-items hidden-xs"></div><div class="dg-pagination"><button name="page-first" disabled><i class="fa fa-angle-double-left"></i></button><button name="page-prev" disabled><i class="fa fa-angle-left"></i></button><div><input type="text" name="page" maxlength="5" class="dg-pagination-input" /></div><button name="page-next" disabled><i class="fa fa-angle-right"></i></button><button name="page-last" disabled><i class="fa fa-angle-double-right"></i></button></div><div class="dg-pagination-pages"></div></div>';
 
-		self.html('<div class="dg-columns hidden"><div><div class="dg-columns-body"></div></div><button class="dg-columns-button" name="columns-apply"><i class="fa fa-columns"></i>{1}</button></div><div class="dg-scrollbar-container-v hidden"><div class="dg-scrollbar-v"></div></div><div class="dg-h-container"><div class="dg-h-body"><div class="dg-v-container"><div class="dg-v-area"><div class="dg-header"></div><div class="dg-v-body"></div></div></div></div></div><div class="dg-scrollbar-container-h hidden"><div class="dg-scrollbar-h"></div></div>{0}'.format(pagination, config.buttonapply));
+		self.html('<div class="dg-btn-columns"><i class="fa fa-caret-left"></i><span class="fa fa-columns"></span></div><div class="dg-columns hidden"><div><div class="dg-columns-body"></div></div><button class="dg-columns-button" name="columns-apply"><i class="fa fa-columns"></i>{1}</button></div><div class="dg-scrollbar-container-v hidden"><div class="dg-scrollbar-v"></div></div><div class="dg-h-container"><div class="dg-h-body"><div class="dg-v-container"><div class="dg-v-area"><div class="dg-header"></div><div class="dg-v-body"></div></div></div></div></div><div class="dg-scrollbar-container-h hidden"><div class="dg-scrollbar-h"></div></div>{0}'.format(pagination, config.buttonapply));
 
 		varea = self.find('.dg-v-area');
 		vcontainer = self.find('.dg-v-container');
@@ -548,18 +548,24 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			config.click && EXEC(config.click, row, self, elrow, null);
 		};
 
-		self.event('change', '.dg-checkbox-input', function() {
-			var t = this;
-			var val = t.value;
+		self.event('click', '.dg-checkbox', function() {
+
+			var t = $(this);
+
+			t.tclass('dg-checked');
+
+			var val = t.attrd('value');
+			var checked = t.hclass('dg-checked');
+
 			if (val === '-1') {
-				if (t.checked) {
+				if (checked) {
 					opt.selected = {};
 					for (var i = 0; i < opt.rows.length; i++)
 						opt.selected[opt.rows[i].ROW] = 1;
 				} else
 					opt.selected = {};
 				self.scrolling();
-			} else if (t.checked)
+			} else if (checked)
 				opt.selected[val] = 1;
 			else
 				delete opt.selected[val];
@@ -796,7 +802,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		opt.width = (config.numbering !== false ? 40 : 0) + (config.checkbox ? 40 : 0) + 30;
 
 		if (config.checkbox)
-			column += Theadercol({ index: -1, label: '<div class="center"><input type="checkbox" value="-1" class="dg-checkbox-input" /></div>', filter: false, name: '$', sorting: false });
+			column += Theadercol({ index: -1, label: '<div class="dg-checkbox" data-value="-1"><i class="fa fa-check"></i></div>', filter: false, name: '$', sorting: false });
 
 		for (var i = 0; i < opt.cols.length; i++) {
 			var col = opt.cols[i];
@@ -808,7 +814,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			}
 		}
 
-		column += '<div class="dg-hcol"></div><div class="dg-btn-columns"><i class="fa fa-columns"></i></div>';
+		column += '<div class="dg-hcol"></div>';
 		header.html(resize.join('') + Trow.format(0, column));
 
 		var w = self.width();
@@ -868,7 +874,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				column += Tcol.format(-1, '<div class="dg-number">{0}</div>'.format(i + 1 + plus));
 
 			if (config.checkbox)
-				column += Tcol.format(-1, '<div class="dg-checkbox"><input type="checkbox" value="{0}" class="dg-checkbox-input" /></div>'.format(row.ROW));
+				column += Tcol.format(-1, '<div class="dg-checkbox" data-value="{0}"><i class="fa fa-check"></i></div>'.format(row.ROW));
 
 			for (var j = 0; j < opt.cols.length; j++) {
 				var col = opt.cols[j];
@@ -1113,7 +1119,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			}
 		} else {
 			opt.selected = {};
-			config.checkbox && header.find('.dg-checkbox-input').prop('checked', false);
+			config.checkbox && header.find('.dg-checkbox').rclass('dg-checked');
 			if (config.checked) {
 				if (config.checked.indexOf('.') === - 1)
 					EXEC(config.checked, EMPTYARRAY, self);
@@ -1280,8 +1286,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 	self.scrolling = function() {
 		config.checkbox && setTimeout2(self.ID, function() {
-			vbody.find('.dg-checkbox-input').each(function() {
-				this.checked = opt.selected[this.value] == 1;
+			vbody.find('.dg-checkbox').each(function() {
+				$(this).tclass('dg-checked', opt.selected[this.getAttribute('data-value')] == 1);
 			});
 		}, 80, 10);
 	};
