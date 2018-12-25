@@ -1,4 +1,4 @@
-COMPONENT('scrollbar', 'margin:0;reset:true', function(self, config) {
+COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;maginsm:0;marginmd:0;marginlg:0', function(self, config) {
 
 	self.readonly();
 
@@ -6,7 +6,7 @@ COMPONENT('scrollbar', 'margin:0;reset:true', function(self, config) {
 
 		if (config.parent) {
 			var parent = config.parent === 'window' ? $(window) : self.element.closest(config.parent).height();
-			self.element.css('height', parent.height() - (config.offset ? self.element.offset().top : 0) - config.margin);
+			self.element.css('height', parent.height() - (config.offset ? self.element.offset().top : 0) - config.margin - config.marginxs[WIDTH()]);
 		}
 
 		self.scrollbar.resize();
