@@ -3,7 +3,12 @@ COMPONENT('scrollbar', 'margin:0;reset:true', function(self, config) {
 	self.readonly();
 
 	self.done = function() {
-		config.parent && self.element.css('height', (config.parent === 'window' ? WH : self.element.closest(config.parent).height()) - (config.offset ? self.element.offset().top : 0) - config.margin);
+
+		if (config.parent) {
+			var parent = config.parent === 'window' ? $(window) : self.element.closest(config.parent).height();
+			self.element.css('height', parent.height() - (config.offset ? self.element.offset().top : 0) - config.margin);
+		}
+
 		self.scrollbar.resize();
 	};
 
