@@ -6,7 +6,7 @@ COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;maginsm:0;marginmd:0;marg
 
 		if (config.parent) {
 			var parent = config.parent === 'window' ? $(window) : self.element.closest(config.parent).height();
-			self.element.css('height', parent.height() - (config.offset ? self.element.offset().top : 0) - config.margin - config.marginxs[WIDTH()]);
+			self.element.css('height', parent.height() - (config.offset ? self.element.offset().top : 0) - config.margin - config.margin[WIDTH()]);
 		}
 
 		self.scrollbar.resize();
