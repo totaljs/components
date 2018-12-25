@@ -1,0 +1,21 @@
+<div style="height:100px">
+	<div data-jc="typed__messages__loop:true;id:myconsole" style="white-space:pre"></div>
+</div>
+<div style="height:50px">
+	<div data-jc="typed__messages2__loop:true;typespeed:100;backspeed:50"></div>
+</div>
+
+<script>
+	var messages = 'npm install total.js^1000\n`+ <b>total.js@3.1.0</b>` ^1000\n`added <b>1 package</b> from 23 contributors and audited 1 package in <b>1.348s</b>` ^1000\n`found 0 vulnerabilities`';
+	var messages2 = ['Hello world!', '<b>Total.js</b> is awesome!', 'jComponent is <b>awesome</b>!', 'Lorem ipsum', 'Lorem dolor'];
+
+	var count = 0;
+	ON('typed.onComplete', function(typed, component) {
+		if (typed.el.id === 'myconsole') {
+			count++;
+
+			if (count === 5)
+				typed.loop = false;
+		}
+	});
+</script>
