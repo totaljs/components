@@ -15,25 +15,24 @@ COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;marginsm:0;marginmd:0;mar
 		}
 	};
 
-	self.done = function() {
-
-		if (config.parent) {
-			var parent = config.parent === 'window' ? $(window) : self.element.closest(config.parent).height();
-			self.element.css('height', parent.height() - (config.offset ? self.element.offset().top : 0) - config.margin - config['margin' + WIDTH()]);
-		}
-
-		self.scrollbar.resize();
+	self.init = function() {
+		SETTER('scrollbar', 'resize');
 	};
-
-	self.on('resize', self.done);
 
 	self.make = function() {
 		self.scrollbar = SCROLLBAR(self.element, { visibleX: config.visibleX, visibleY: config.visibleY });
 	};
 
 	self.resize = function() {
+		if (config.parent) {
+			var parent = config.parent === 'window' ? $(window) : self.element.closest(config.parent).height();
+			self.element.css('height', parent.height() - (config.offset ? self.element.offset().top : 0) - config.margin - config['margin' + WIDTH()]);
+		}
 		self.scrollbar.resize();
 	};
+
+	self.on('resize', self.resize);
+	self.done = self.resize;
 
 	self.scrollLeft = function(val) {
 		self.scrollbar.scrollLeft(val);
@@ -55,7 +54,7 @@ COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;marginsm:0;marginmd:0;mar
 		if (config.track && config.track.indexOf(path) === -1)
 			return;
 		type && setTimeout(function() {
-			self.done();
+			self.resize();
 			config.reset && self.reset();
 		}, 500);
 	};

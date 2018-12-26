@@ -1,6 +1,7 @@
 COMPONENT('viewbox', 'margin:0;scroll:true', function(self, config) {
 
 	var eld;
+	var scrollbar;
 
 	self.readonly();
 
@@ -32,7 +33,7 @@ COMPONENT('viewbox', 'margin:0;scroll:true', function(self, config) {
 		self.aclass('ui-viewbox ui-viewbox-hidden');
 		if (config.scroll) {
 			if (MAIN.version > 17)
-				window.SCROLLBAR(self.find('.ui-viewbox-body'), { parent: self.element });
+				scrollbar = window.SCROLLBAR(self.find('.ui-viewbox-body'), { parent: self.element });
 			else
 				self.aclass('ui-viewbox-scroll');
 		}
@@ -59,5 +60,6 @@ COMPONENT('viewbox', 'margin:0;scroll:true', function(self, config) {
 		self.element.SETTER('*', 'resize');
 		var cls = 'ui-viewbox-hidden';
 		self.hclass(cls) && self.rclass(cls, 100);
+		scrollbar && scrollbar.resize();
 	};
 });
