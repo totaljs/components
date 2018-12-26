@@ -3,6 +3,7 @@ COMPONENT('repeater-group', function(self, config) {
 	var html, template_group;
 	var reg = /\$(index|path)/g;
 	var force = false;
+	var recompile = false;
 
 	self.readonly();
 
@@ -23,6 +24,7 @@ COMPONENT('repeater-group', function(self, config) {
 				template_group = Tangular.compile(html);
 			else
 				self.template = Tangular.compile(html);
+			recompile = (/data-(jc|bind)="/).test(html);
 		});
 	};
 
@@ -88,5 +90,6 @@ COMPONENT('repeater-group', function(self, config) {
 		});
 
 		self.append(builder);
+		recompile && COMPILE();
 	};
 });
