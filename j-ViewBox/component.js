@@ -18,6 +18,10 @@ COMPONENT('viewbox', 'margin:0;scroll:true', function(self, config) {
 			case 'minheight':
 				!init && self.resize();
 				break;
+			case 'selector': // backward compatibility
+				config.parent = value;
+				self.resize();
+				break;
 		}
 	};
 
@@ -36,11 +40,12 @@ COMPONENT('viewbox', 'margin:0;scroll:true', function(self, config) {
 	};
 
 	self.resize = function() {
-		var el = config.selector ? config.selector === 'window' ? $(window) : self.element.closest(config.selector) : self.parent();
+		var el = config.parent ? config.parent === 'window' ? $(window) : self.element.closest(config.parent) : self.parent();
 		var h = el.height();
 
 		if (h === 0) {
-			setTimeout(self.resize, 234);
+			self.$waiting && clearTimeout(self.$waiting);
+			self.$waiting = setTimeout(self.resize, 234);
 			return;
 		}
 
