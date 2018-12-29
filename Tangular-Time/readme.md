@@ -21,3 +21,7 @@ or
 ```javascript
 console.log(Thelpers.time(new Date()));
 ```
+
+### Improvements
+
+__New__: Tangular helper `time2` performs updating of time every minute automatically.
