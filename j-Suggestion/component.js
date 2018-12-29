@@ -107,17 +107,13 @@ COMPONENT('suggestion', function(self, config) {
 			setTimeout2(self.ID, self.search, 100, null, this.value);
 		});
 
-		self.on('reflow', function() {
+		var fn = function() {
 			is && self.hide(1);
-		});
+		};
 
-		$(window).on('scroll', function() {
-			is && self.hide(1);
-		});
-
-		self.on('scroll', function() {
-			is && self.hide(1);
-		});
+		self.on('reflow', fn);
+		self.on('scroll', fn);
+		$(window).on('scroll', fn);
 	};
 
 	self.move = function() {

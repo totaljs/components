@@ -16,7 +16,6 @@
 .ui-disabled .ui-textarea { background-color: #F0F0F0; }
 .ui-disabled .ui-textarea textarea { background-color: #F0F0F0; cursor: not-allowed; color: gray; }
 
-/* DARK MODE */
 .ui-dark .ui-textarea { border-color: #353535; background-color: #202020; }
 .ui-dark .ui-textarea textarea { color: white; background-color: #202020; }
 .ui-dark .ui-textarea-required .ui-textarea-label:before { color: red; }

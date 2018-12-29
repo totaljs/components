@@ -29,7 +29,6 @@ input:invalid { box-shadow: none; }
 .ui-textbox-container.ui-disabled .ui-textbox input { background-color: #F0F0F0; }
 .ui-textbox-container.ui-disabled .ui-textbox-control { color: gray; }
 
-/* DARK MODE */
 .ui-dark input:-ms-input-placeholder, .ui-dark input:-webkit-input-placeholder, .ui-dark input:-moz-input-placeholder { color: #707070; }
 .ui-dark input[type="text"]:disabled, .ui-dark input[type="password"]:disabled { background-color: #282828; color: #707070; }
 .ui-dark .ui-textbox { border-color: #383838; background-color: #202020; }

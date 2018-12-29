@@ -17,7 +17,6 @@
 .ui-selectbox.ui-disabled ul { color: gray; overflow: hidden; }
 .ui-selectbox.ui-disabled li:hover { background-color: white !important; }
 
-/* DARK MODE */
 .ui-dark .ui-selectbox-search { border-bottom-color: #3A3A3A; background-color: #202020; }
 .ui-dark .ui-selectbox-search input { background-color: #202020; }
 .ui-dark .ui-selectbox { border-color: #3A3A3A; color: white; background-color: #202020; }
