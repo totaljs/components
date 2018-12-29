@@ -1,57 +1,49 @@
-COMPONENT('iframepreview', 'width:800', function(self, config) {
+COMPONENT('iframepreview', function(self) {
 
-	var iframe, is = null;
-	var W = window;
-
-	if (!W.$iframepreview) {
-		W.$iframepreview = true;
-		$(W).on('keydown', function(e) {
-			e.which === 27 && FIND('iframepreview', true).forEach(FN('n => n.hide()'));
-		});
-	}
-
-	self.reconfigure = function(key, value, init) {
-		if (init)
-			return;
-		key === 'width' && self.find('div').eq(0).css('width', value + 'px');
-	};
+	var iframe;
 
 	self.readonly();
 	self.nocompile && self.nocompile();
 
 	self.make = function() {
-		self.aclass('ui-iframepreview hidden');
-		self.html('<div style="max-width:{0}px"><i class="fa fa-times-circle"></i><iframe src="about:blank" frameborder="0" allowfullscreen></div>'.format(config.width));
+		self.aclass('ui-iframepreview');
+		self.html('<iframe src="about:blank" frameborder="0" scrolling="no"></iframe>');
 		iframe = self.find('iframe');
-		self.event('click', '.fa', self.hide);
 	};
 
-	self.open = function(url) {
+	self.write = function(content) {
 
-		W.$iframepreview_current && W.$iframepreview_current !== self && W.$iframepreview_current.hide();
-		url && iframe.attr('src', url);
+		var is = false;
+		var offset = '<div id="IFPOFFSET"></div>';
 
-		if (is)
-			return;
+		content = content.replace(/<\/body>/i, function() {
+			is = true;
+			return offset + '</body>';
+		});
 
-		self.rclass('hidden');
-		W.$iframepreview_current = self;
-		is = true;
+		if (!is)
+			content += offset;
+
+		var doc = iframe[0].contentWindow.document;
+		doc.open();
+		doc.write(content);
+		doc.close();
+		self.resize();
+		setTimeout(self.resize, 500);
+		setTimeout(self.resize, 1000);
+		setTimeout(self.resize, 2000);
+		setTimeout(self.resize, 3000);
 	};
 
-	self.show = self.open;
-
-	self.hide = function() {
-		if (is) {
-			self.aclass('hidden');
-			is = false;
-		}
+	self.resize = function() {
+		var el = $(iframe[0].contentWindow.document.getElementById('IFPOFFSET'));
+		self.element.css('height', el.offset().top);
 	};
 
 	self.setter = function(value) {
-		if (value)
-			self.open(value);
+		if (value == null)
+			iframe.attr('src', 'about:blank');
 		else
-			self.hide();
+			self.write(value);
 	};
 });
