@@ -1,4 +1,4 @@
-COMPONENT('viewbox', 'margin:0;scroll:true', function(self, config) {
+COMPONENT('viewbox', 'margin:0;scroll:true;delay:100', function(self, config) {
 
 	var eld;
 	var scrollbar;
@@ -61,5 +61,9 @@ COMPONENT('viewbox', 'margin:0;scroll:true', function(self, config) {
 		var cls = 'ui-viewbox-hidden';
 		self.hclass(cls) && self.rclass(cls, 100);
 		scrollbar && scrollbar.resize();
+	};
+
+	self.setter = function() {
+		setTimeout(self.resize, config.delay);
 	};
 });
