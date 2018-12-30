@@ -21,6 +21,10 @@ COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;marginsm:0;marginmd:0;mar
 
 	self.make = function() {
 		self.scrollbar = SCROLLBAR(self.element, { visibleX: config.visibleX, visibleY: config.visibleY });
+		self.scrollLeft = self.scrollbar.scrollLeft;
+		self.scrollTop = self.scrollbar.scrollTop;
+		self.scrollRight = self.scrollbar.scrollRight;
+		self.scrollBottom = self.scrollbar.scrollBottom;
 	};
 
 	self.resize = function() {
@@ -33,14 +37,6 @@ COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;marginsm:0;marginmd:0;mar
 
 	self.on('resize', self.resize);
 	self.done = self.resize;
-
-	self.scrollLeft = function(val) {
-		self.scrollbar.scrollLeft(val);
-	};
-
-	self.scrollTop = function(val) {
-		self.scrollbar.scrollTop(val);
-	};
 
 	self.scroll = function(x, y) {
 		self.scrollbar.scroll(x, y);

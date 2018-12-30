@@ -12,6 +12,14 @@ __Configuration__:
 - `scroll` {Boolean} enables vertical scrolling (default: `false` - disabled)
 - `delay` {Number} `msec.` resizes the box again if the value is changed according to the path (default: `100`)
 
+__Methods__:
+
+- `component.scrollLeft(val)` scrolls X
+- `component.scrollTop(val)` scrolls Y
+- `component.scrollRight(val)` scrolls X from right side
+- `component.scrollBottom(val)` scrolls Y from bottom side
+- `component.resize()` resizes container (it reacts on `resize` events automatically)
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

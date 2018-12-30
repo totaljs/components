@@ -32,9 +32,13 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100', function(self, config) {
 		eld = self.find('> .ui-viewbox-disabled').eq(0);
 		self.aclass('ui-viewbox ui-viewbox-hidden');
 		if (config.scroll) {
-			if (MAIN.version > 17)
+			if (MAIN.version > 17) {
 				scrollbar = window.SCROLLBAR(self.find('.ui-viewbox-body'), { parent: self.element });
-			else
+				self.scrollLeft = scrollbar.scrollLeft;
+				self.scrollTop = scrollbar.scrollTop;
+				self.scrollRight = scrollbar.scrollRight;
+				self.scrollBottom = scrollbar.scrollBottom;
+			} else
 				self.aclass('ui-viewbox-scroll');
 		}
 		self.resize();
