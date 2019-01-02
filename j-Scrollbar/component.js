@@ -29,7 +29,7 @@ COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;marginsm:0;marginmd:0;mar
 
 	self.resize = function() {
 		if (config.parent) {
-			var parent = config.parent === 'window' ? $(window) : self.element.closest(config.parent).height();
+			var parent = config.parent === 'window' ? $(window) : self.element.closest(config.parent);
 			self.element.css('height', parent.height() - (config.offset ? self.element.offset().top : 0) - config.margin - config['margin' + WIDTH()]);
 		}
 		self.scrollbar.resize();
