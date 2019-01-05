@@ -1,0 +1,16 @@
+{
+	"datecreated": "2019-01-06T00:44:00.000Z",
+	"dateupdated": null,
+	"name": "Tooltip",
+	"tags": [
+		"css"
+	],
+	"color": "transparent",
+	"version": 1,
+	"darkmode": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

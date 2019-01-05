@@ -136,5 +136,6 @@
 	"j-SingleUpload",
 	"j-DynamicValue",
 	"j-Scrollbar",
-	"j-Typed"
+	"j-Typed",
+	"Tooltip"
 ]
