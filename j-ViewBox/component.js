@@ -34,10 +34,10 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100', function(self, config) {
 		if (config.scroll) {
 			if (MAIN.version > 17) {
 				scrollbar = window.SCROLLBAR(self.find('.ui-viewbox-body'), { parent: self.element });
-				self.scrollLeft = scrollbar.scrollLeft;
-				self.scrollTop = scrollbar.scrollTop;
-				self.scrollRight = scrollbar.scrollRight;
-				self.scrollBottom = scrollbar.scrollBottom;
+				self.scrollleft = scrollbar.scrollLeft;
+				self.scrolltop = scrollbar.scrollTop;
+				self.scrollright = scrollbar.scrollRight;
+				self.scrollbottom = scrollbar.scrollBottom;
 			} else
 				self.aclass('ui-viewbox-scroll');
 		}
