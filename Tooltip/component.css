@@ -6,9 +6,9 @@
 [tooltip-position='top']::before { left: 50%; }
 [tooltip-position='bottom']::before { top: 100%; margin-top: 8px; transform: translateX(-50%) translatey(-100%) rotate(-180deg); }
 [tooltip-position='right']::before { left: 100%; top: 50%; margin-left: 1px; transform: translatey(-50%) rotate(90deg); }
-[tooltip-position='left']::after { left: 0%; top: 50%; margin-left: -6px; transform: translateX(-100%) translateY(-50%); }
+[tooltip-position='left']::after { left: 0%; top: 50%; margin-left: -5px; transform: translateX(-100%) translateY(-50%); }
 [tooltip-position='top']::after { left: 50%; }
 [tooltip-position='bottom']::after { top: 100%; margin-top: 8px; transform: translateX(-50%) translateY(0%); }
-[tooltip-position='right']::after { left: 100%; top: 50%; margin-left: 12px; transform: translateX(0%) translateY(-50%); }
+[tooltip-position='right']::after { left: 100%; top: 50%; margin-left: 10px; transform: translateX(0%) translateY(-50%); }
 .ui-dark [tooltip]::after { background: rgba(255,255,255,0.9); color: #000; }
 .ui-dark [tooltip]::before { border-color: rgba(255,255,255,0.9) transparent transparent transparent; }
