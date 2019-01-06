@@ -176,14 +176,77 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 		var sv = { is: false };
 		var sh = { is: false };
+		var events = {};
+
+		events.mousemove = function(e) {
+			var p, scroll;
+			if (sv.is) {
+				var y = (e.pageY - sv.y);
+				p = (y / (sv.h - (e.pageY > sv.pos ? sv.offset : -sv.offset))) * 100;
+				scroll = ((vbody[0].scrollHeight - opt.height) / 100) * (p > 100 ? 100 : p);
+				vbody.prop('scrollTop', Math.ceil(scroll));
+			} else if (sh.is) {
+				var x = (e.pageX - sh.x);
+				p = ((x / (sh.w - (e.pageX > sh.pos ? sh.offset : -sh.offset))) * 100);
+				scroll = ((hbody[0].scrollWidth - opt.width2) / 100) * (p > 100 ? 100 : p);
+				hbody.prop('scrollLeft', Math.ceil(scroll));
+			}
+		};
+
+		events.mouseup = function(e) {
+			if (r.is) {
+				r.is = false;
+				r.el.css('height', r.h);
+				var x = r.el.css('left').parseInt();
+				var index = +r.el.attrd('index');
+				var width = opt.cols[index].width + (x - r.x);
+				self.resizecolumn(index, width);
+				e.preventDefault();
+				e.stopPropagation();
+			} else if (sv.is) {
+				sv.is = false;
+				e.preventDefault();
+				e.stopPropagation();
+			} else if (sh.is) {
+				sh.is = false;
+				e.preventDefault();
+				e.stopPropagation();
+			}
+			events.unbind();
+		};
+
+		events.mouseleave = function(e) {
+			var f = e.relatedTarget || e.toElement;
+			if (!f || f.nodeName == 'HTML') {
+				r.is = false;
+				sh.is = false;
+				sv.is = false;
+			}
+		};
+
+		events.unbind = function() {
+			$(window).off('mouseup', events.mouseup);
+			$(window).off('mousemove', events.mousemove);
+			$(window).off('mouseout', events.mouseleave);
+		};
+
+		events.bind = function() {
+			$(window).on('mouseup', events.mouseup);
+			$(window).on('mousemove', events.mousemove);
+			$(window).on('mouseout', events.mouseleave);
+		};
 
 		vscrollbararea.on('mousedown', function(e) {
+
+			events.bind();
+
 			var el = $(e.target);
 			if (el.hclass('dg-scrollbar-v')) {
 				sv.is = true;
 				sv.y = self.element.offset().top + pos.vscroll;
 				sv.h = vscrollbararea.height();
 				sv.s = vbody[0].scrollHeight;
+				sv.pos = e.pageY;
 				sv.offset = el.height() - e.offsetY;
 				e.preventDefault();
 				e.stopPropagation();
@@ -202,12 +265,16 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		});
 
 		hscrollbararea.on('mousedown', function(e) {
+
+			events.bind();
+
 			var el = $(e.target);
 			if (el.hclass('dg-scrollbar-h')) {
 				sh.is = true;
 				sh.x = self.element.offset().left + pos.hscroll;
 				sh.w = hscrollbararea.width();
 				sh.s = hbody[0].scrollWidth;
+				sh.pos = e.pageX;
 				sh.offset = el.width() - e.offsetX;
 				e.preventDefault();
 				e.stopPropagation();
@@ -221,21 +288,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				hbody.prop('scrollLeft', Math.ceil(scroll + plus));
 				e.preventDefault();
 				e.stopPropagation();
-			}
-		});
-
-		$(window).on('mousemove', function(e) {
-			var p, scroll;
-			if (sv.is) {
-				var y = (e.pageY - sv.y);
-				p = (y / (sv.h - sv.offset)) * 100;
-				scroll = ((vbody[0].scrollHeight - opt.height) / 100) * (p > 100 ? 100 : p);
-				vbody.prop('scrollTop', Math.ceil(scroll));
-			} else if (sh.is) {
-				var x = (e.pageX - sh.x);
-				p = ((x / (sh.w - sh.offset)) * 100);
-				scroll = ((hbody[0].scrollWidth - opt.width2) / 100) * (p > 100 ? 100 : p);
-				hbody.prop('scrollLeft', Math.ceil(scroll));
 			}
 		});
 
@@ -380,6 +432,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			if (!el.hclass('dg-resize'))
 				return;
 
+			events.bind();
+
 			var offset = self.element.offset().left;
 			r.el = el;
 			r.offset = (hbody.scrollLeft() - offset) + 10;
@@ -402,27 +456,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				if (x < r.min)
 					x = r.min;
 				r.el.css('left', x);
-				e.preventDefault();
-				e.stopPropagation();
-			}
-		});
-
-		$(window).on('mouseup', function(e) {
-			if (r.is) {
-				r.is = false;
-				r.el.css('height', r.h);
-				var x = r.el.css('left').parseInt();
-				var index = +r.el.attrd('index');
-				var width = opt.cols[index].width + (x - r.x);
-				self.resizecolumn(index, width);
-				e.preventDefault();
-				e.stopPropagation();
-			} else if (sv.is) {
-				sv.is = false;
-				e.preventDefault();
-				e.stopPropagation();
-			} else if (sh.is) {
-				sh.is = false;
 				e.preventDefault();
 				e.stopPropagation();
 			}
