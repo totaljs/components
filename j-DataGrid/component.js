@@ -6,6 +6,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	var isIE = (/msie|trident/i).test(navigator.userAgent);
 	var isredraw = false;
 	var pos = {};
+	var sv = { is: false };
+	var sh = { is: false };
 
 	self.meta = opt;
 
@@ -174,22 +176,56 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		pos.vscroll = vscrollbararea.css('top').parseInt();
 		pos.hscroll = hscrollbararea.css('left').parseInt();
 
-		var sv = { is: false };
-		var sh = { is: false };
 		var events = {};
 
 		events.mousemove = function(e) {
-			var p, scroll;
+			var p, scroll, half, off;
 			if (sv.is) {
+
+				off = sv.offset;
 				var y = (e.pageY - sv.y);
-				p = (y / (sv.h - (e.pageY > sv.pos ? sv.offset : -sv.offset))) * 100;
+
+				if (e.pageY > sv.pos) {
+					half = sv.size / 1.5 >> 0;
+					if (off < half)
+						off = half;
+				}
+
+				p = (y / (sv.h - off)) * 100;
 				scroll = ((vbody[0].scrollHeight - opt.height) / 100) * (p > 100 ? 100 : p);
-				vbody.prop('scrollTop', Math.ceil(scroll));
+				vbody[0].scrollTop = Math.ceil(scroll);
+
+				if (sv.counter++ > 10) {
+					sv.counter = 0;
+					sv.pos = e.pageY;
+				}
+
+				if (p < -20 || p > 120)
+					sv.is = false;
+
 			} else if (sh.is) {
+
+				off = sh.offset;
 				var x = (e.pageX - sh.x);
-				p = ((x / (sh.w - (e.pageX > sh.pos ? sh.offset : -sh.offset))) * 100);
+
+				if (e.pageX > sh.pos) {
+					half = sh.size / 1.5 >> 0;
+					if (off < half)
+						off = half;
+				}
+
+				p = (x / (sh.w - off)) * 100;
 				scroll = ((hbody[0].scrollWidth - opt.width2) / 100) * (p > 100 ? 100 : p);
-				hbody.prop('scrollLeft', Math.ceil(scroll));
+				hbody[0].scrollLeft = Math.ceil(scroll);
+
+				if (sh.counter++ > 10) {
+					sh.counter = 0;
+					sh.pos = e.pageX;
+				}
+
+				if (p < -20 || p > 120)
+					sh.is = false;
+
 			}
 		};
 
@@ -215,25 +251,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			events.unbind();
 		};
 
-		events.mouseleave = function(e) {
-			var f = e.relatedTarget || e.toElement;
-			if (!f || f.nodeName == 'HTML') {
-				r.is = false;
-				sh.is = false;
-				sv.is = false;
-			}
-		};
-
 		events.unbind = function() {
 			$(window).off('mouseup', events.mouseup);
 			$(window).off('mousemove', events.mousemove);
-			$(window).off('mouseout', events.mouseleave);
 		};
 
 		events.bind = function() {
 			$(window).on('mouseup', events.mouseup);
 			$(window).on('mousemove', events.mousemove);
-			$(window).on('mouseout', events.mouseleave);
 		};
 
 		vscrollbararea.on('mousedown', function(e) {
@@ -243,11 +268,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			var el = $(e.target);
 			if (el.hclass('dg-scrollbar-v')) {
 				sv.is = true;
-				sv.y = self.element.offset().top + pos.vscroll;
+				sv.y = self.element.offset().top + e.offsetY + 60;
 				sv.h = vscrollbararea.height();
-				sv.s = vbody[0].scrollHeight;
 				sv.pos = e.pageY;
-				sv.offset = el.height() - e.offsetY;
+				sv.offset = e.offsetY;
+				sv.counter = 0;
 				e.preventDefault();
 				e.stopPropagation();
 			} else if (el.hclass('dg-scrollbar-container-v')) {
@@ -271,11 +296,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			var el = $(e.target);
 			if (el.hclass('dg-scrollbar-h')) {
 				sh.is = true;
-				sh.x = self.element.offset().left + pos.hscroll;
+				sh.x = self.element.offset().left + e.offsetX;
 				sh.w = hscrollbararea.width();
-				sh.s = hbody[0].scrollWidth;
 				sh.pos = e.pageX;
-				sh.offset = el.width() - e.offsetX;
+				sh.offset = e.offsetX;
+				sh.counter = 0;
 				e.preventDefault();
 				e.stopPropagation();
 			} else if (el.hclass('dg-scrollbar-container-h')) {
@@ -1117,11 +1142,13 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 			hscrollbar.css('width', barsize);
 			opt.hbarsize = barsize;
+			sh.size = barsize;
 
 			barsize = (opt.height * (opt.height / vb.scrollHeight)) >> 0;
 			if (barsize < 30)
 				barsize = 30;
 
+			sv.size = barsize;
 			vscrollbar.css('height', barsize);
 			opt.vbarsize = barsize;
 
