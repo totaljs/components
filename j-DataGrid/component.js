@@ -184,6 +184,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				sv.y = self.element.offset().top + pos.vscroll;
 				sv.h = vscrollbararea.height();
 				sv.s = vbody[0].scrollHeight;
+				sv.offset = el.height() - e.offsetY;
 				e.preventDefault();
 				e.stopPropagation();
 			} else if (el.hclass('dg-scrollbar-container-v')) {
@@ -207,6 +208,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				sh.x = self.element.offset().left + pos.hscroll;
 				sh.w = hscrollbararea.width();
 				sh.s = hbody[0].scrollWidth;
+				sh.offset = el.width() - e.offsetX;
 				e.preventDefault();
 				e.stopPropagation();
 			} else if (el.hclass('dg-scrollbar-container-h')) {
@@ -226,12 +228,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			var p, scroll;
 			if (sv.is) {
 				var y = (e.pageY - sv.y);
-				p = (y / sv.h) * 100;
+				p = (y / (sv.h - sv.offset)) * 100;
 				scroll = ((vbody[0].scrollHeight - opt.height) / 100) * (p > 100 ? 100 : p);
 				vbody.prop('scrollTop', Math.ceil(scroll));
 			} else if (sh.is) {
 				var x = (e.pageX - sh.x);
-				p = (x / sh.w) * 100;
+				p = ((x / (sh.w - sh.offset)) * 100);
 				scroll = ((hbody[0].scrollWidth - opt.width2) / 100) * (p > 100 ? 100 : p);
 				hbody.prop('scrollLeft', Math.ceil(scroll));
 			}
