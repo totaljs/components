@@ -29,7 +29,7 @@ COMPONENT('tagger', 'text:name', function(self, config) {
 	};
 
 	self.setter = function(value) {
-		obj.set(value);
+		obj.set(value || EMPTYARRAY);
 	};
 
 });
