@@ -9,7 +9,7 @@ COMPONENT('clipboard', function(self) {
 	self.copy = function(value) {
 		container.val(value);
 		container.focus();
-		document.execCommand('selectAll', false, null);
+		container.select();
 		document.execCommand('copy');
 		container.blur();
 	};
