@@ -8,11 +8,12 @@ COMPONENT('loading', function(self) {
 
 	self.make = function() {
 		self.aclass('ui-loading');
-		self.append('<div></div>');
+		self.append('<div><div class="ui-loading-text"></div></div>');
 	};
 
-	self.show = function() {
+	self.show = function(text) {
 		clearTimeout(pointer);
+		self.find('.ui-loading-text').html(text || '');
 		self.rclass('hidden');
 		return self;
 	};

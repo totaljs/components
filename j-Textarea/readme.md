@@ -1,5 +1,7 @@
 ﻿## j-Textarea
 
+- supports __dark mode__
+
 __Configuration__:
 
 Example: `data-jc-config="required:true;icon:pencile"`

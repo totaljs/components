@@ -1,9 +1,6 @@
 ## j-Panel
 
-- Works only with `+v11.1.0` [jComponent](http://jcomponent.org)
-- __Download__ [jComponent with Tangular (jcta.min.js)](https://github.com/petersirka/jComponent)
-- Works with Bootstrap
-- The component moves the content of this component under `<body>` tag (because of positioning)
+- supports __dark mode__
 
 __Configuration__:
 

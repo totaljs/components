@@ -1,7 +1,5 @@
 * { box-sizing: border-box; font-size:14px; }
 
-.hidden { display: none; }
-
 .ui-layer-noscroll { overflow: hidden !important; }
 .ui-layer { position: fixed; right: -60px; top: 0; height: 100%; box-shadow: -10px 10px 20px rgba(0,0,0,0.1); transition: all 0.3s; opacity: 0; background-color: white; }
 .ui-layer-toolbar { height: 55px; border-bottom: 1px solid #E0E0E0; }

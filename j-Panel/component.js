@@ -71,7 +71,7 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12', function(self, config) {
 		switch (key) {
 			case 'bg':
 				self.tclass('ui-panel-inline', !value);
-				self.element.css('max-width', config.bg ? 'inherit' : config.width);
+				self.element.css('max-width', config.bg ? 'inherit' : (config.width + 1));
 				break;
 			case 'closebutton':
 				!init && self.find('.ui-panel-button-close').tclass(value !== true);

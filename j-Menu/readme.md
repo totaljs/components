@@ -2,9 +2,9 @@
 
 - easy usage for different cases
 - supports 3 orientations `left`, `center` and `right`
-- singleton
-- works with Bootstrap Grid System
 - works with touches
+- supports __Dark mode__
+- singleton
 
 __Methods__:
 

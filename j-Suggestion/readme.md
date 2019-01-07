@@ -5,10 +5,11 @@
 - singleton
 - works with Bootstrap Grid System
 - works with touches
+- supports __dark mode__
 
 __Methods__:
 
-Method: `component.show(orientation, targetElement, [items], clickCallback)`
+Method: `component.show(orientation, targetElement, [items/function(search, next)], clickCallback)`
 
 - `orientation {String}` can be `left`, `center` or `right`
 - `targetElement {Selector/jQuery/Element}` a target where the component will be visible
@@ -23,13 +24,23 @@ __Attributes__:
 __Configuration__:
 - `placeholder` - a placeholder for the search input
 
-If the `value` isn't defined then the component uses `name` as `value.
+__Server-side searching__:
+
+```javascript
+SETTER('suggestion', 'show', element, function(search, next) {
+	next([{ name: 'Item 1' }, { name: 'Item 2' }]);
+}, function(selected) {
+	console.log(selected);
+});
+````
+
+If the `value` isn't defined then the component uses `name` as `value`.
 
 __Global events__:
 
 ```javascript
 ON('suggestion', function(visible, component, target) {
-    console.log('Suggestion is', visible ? 'visible' : 'hidden');
+	console.log('Suggestion is', visible ? 'visible' : 'hidden');
 });
 ```
 

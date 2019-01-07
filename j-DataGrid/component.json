@@ -1,12 +1,13 @@
 {
 	"datecreated": "2018-06-20T07:59:00.000Z",
-	"dateupdated": "2018-11-29T12:24:00.000Z",
+	"dateupdated": "2019-01-06T20:29:00.000Z",
 	"name": "j-DataGrid",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "transparent",
 	"version": 1,
+	"darkmode": true,
 	"responsive": true,
 	"picture": "picture.gif",
 	"dependencies": "",

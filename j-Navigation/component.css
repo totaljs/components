@@ -9,3 +9,7 @@
 .ui-navigation-show > span { font-weight: bold; }
 .ui-navigation-show > span .far:before { content: '\f07c' !important; }
 .ui-navigation-level-1, .ui-navigation-level-2, .ui-navigation-level-3, .ui-navigation-level-4 { padding-left: 20px; }
+
+.ui-dark .ui-navigation-item span { color: #A0A0A0; }
+.ui-dark .ui-navigation-selected { background-color: #353535; }
+.ui-dark .ui-navigation-selected span { color: white; }

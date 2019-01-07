@@ -1,6 +1,6 @@
 ## j-Range
 
-- easy usage
+- supports __dark mode__
 
 __Attributes__:
 - `data-max="100"` maximum value

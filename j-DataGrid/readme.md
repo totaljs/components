@@ -13,6 +13,7 @@ This grid was created for single page applications and enterprise applications.
 - supports checkboxes
 - custom scrollbars independent on OS
 - responsive
+- supports __dark mode__
 
 __TO-DO__:
 
@@ -58,6 +59,7 @@ __Configuration__:
 - `align` {String/Number} align for a column value `right` (or `2`) or `center` (or `1`) (optional, default: `left`)
 - `click` {String} a link to `function(row, grid, row_el)` is executed if the user clicks on a row
 - `highlight` {Boolean} each selected row (after `click`) will be highlighted (default: `false`)
+- `unhighlight` {Boolean} enables `undo highlighting` of selected row (default: `true`)
 - `checked` {String} a link to `function(rows, grid)` is executed if the user selected/checked some rows
 - `autoselect` {Boolean} enables auto-select of first row in grid, it performs `EXEC(config.click)`, default: `false`
 - `limit` {Number} a cluster limit, default: `80`
@@ -78,7 +80,8 @@ __Column properties__:
 - `sorting` {Boolean} enables sorting (optional, default: `true`)
 - `search` {Boolean/String} `true` will filter a value according to the `template` result or `String` can be a Tangular template which will be used as a value for search
 - `format` {String/Number} can be used for date and numbers (count of decimals) field (optional), e.g. `dd.MM.yyyy`
-- `hidden` {String} as an arrow function `column => true` --> column will be hidden
+- `hide` {Boolean} hides a column
+- `hidden` {String} as an arrow function `column => true` --> column will be hidden (e.g. for restricting user)
 - `options` {Object Array} optional, a custom filter for example `[{ text: 'yes', value: true }, { text: 'no', value: false }]` or {String} link to data-source
 - `otext` {String} optional, a key for `text` field in `options`, default `text`
 - `ovalue` {String} optional, a key for `value` field in `options`, default `value`

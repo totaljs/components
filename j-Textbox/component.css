@@ -1,6 +1,8 @@
-input:-ms-input-placeholder, input:-webkit-input-placeholder, input:-moz-input-placeholder { color: silver; }
-input[type="text"]:disabled, input[type="password"]:disabled, select:disabled { background-color: #F0F0F0; cursor: not-allowed; color: silver; }
+input:-ms-input-placeholder, input:-webkit-input-placeholder, input:-moz-input-placeholder { color: gray; }
+input[type="text"]:disabled, input[type="password"]:disabled { background-color: #F0F0F0; cursor: not-allowed; color: gray; }
 input:invalid { box-shadow: none; }
+.ui-right { text-align: right; }
+.ui-center { text-align: center; }
 
 .ui-textbox-container * { box-sizing: border-box; }
 .ui-textbox { height: 32px; border: 1px solid #E0E0E0; border-radius: 2px; position: relative; width: 100%; background-color: white; display: table; }
@@ -9,9 +11,9 @@ input:invalid { box-shadow: none; }
 .ui-textbox-control { position: relative; vertical-align: middle; display: table-cell; text-align: center; white-space: nowrap; text-overflow: clip; border-left: 1px solid #E0E0E0; width: 32px; color: black; }
 .ui-textbox .fa-times { color: red; cursor: pointer; }
 .ui-textbox-label { margin-bottom: 5px; font-size: 12px; text-align: left; }
-.ui-textbox-label .fa { margin-right: 5px; }
+.ui-textbox-label i { margin-right: 5px; }
 .ui-textbox-label { margin-bottom: 5px; font-size: 12px; text-align: left; }
-.ui-textbox-label .fa { margin-right: 5px; }
+.ui-textbox-label i { margin-right: 5px; }
 .ui-textbox-required .ui-textbox-label { font-weight: bold; }
 .ui-textbox-required .ui-textbox-label:before { color: red; content: '***'; margin-right: 5px; }
 .ui-textbox-required .ui-textbox-control { border-color: #D0D0D0; }
@@ -20,11 +22,25 @@ input:invalid { box-shadow: none; }
 .ui-textbox-invalid input { background-color: #FFF3F3 !important; }
 .ui-textbox-invalid .ui-textbox-control { border-color: #E1A1A1 !important; }
 .ui-textbox .fa-caret-up, .ui-textbox .fa-caret-down { display: block; line-height: 9px; cursor: pointer; }
-.ui-textbox .fa-calendar { cursor: pointer; }
+.ui-textbox .fa-calendar, .ui-textbox .fa-eye, .ui-textbox .fa-eye-slash { cursor: pointer; }
 .ui-textbox-helper { margin-top: 8px; font-size: 11px; color: red; text-align: left; display: none; }
 .ui-textbox-helper-show { display: block; }
-.ui-textbox-container.ui-disabled .ui-textbox { background-color: #F0F0F0; cursor: not-allowed; }
+.ui-textbox-container.ui-disabled .ui-textbox { background-color: #F0F0F0; cursor: not-allowed; color: gray; }
 .ui-textbox-container.ui-disabled .ui-textbox input { background-color: #F0F0F0; }
+.ui-textbox-container.ui-disabled .ui-textbox-control { color: gray; }
 
-.ui-right { text-align: right; }
-.ui-center { text-align: center; }
+.ui-dark input:-ms-input-placeholder, .ui-dark input:-webkit-input-placeholder, .ui-dark input:-moz-input-placeholder { color: #707070; }
+.ui-dark input[type="text"]:disabled, .ui-dark input[type="password"]:disabled { background-color: #282828; color: #707070; }
+.ui-dark .ui-textbox { border-color: #383838; background-color: #202020; }
+.ui-dark .ui-textbox-input input { color: white; background-color: #202020; }
+.ui-dark .ui-textbox-control { border-left-color: #383838; color: white; }
+.ui-dark .ui-textbox .fa-times { color: red; }
+.ui-dark .ui-textbox-required .ui-textbox-label:before { color: red; }
+.ui-dark .ui-textbox-required .ui-textbox-control { border-color: #454545; }
+.ui-dark .ui-textbox-required .ui-textbox { border-color: #454545; }
+.ui-dark .ui-textbox-invalid .ui-textbox { border-color: red !important; background-color: #202020 !important; }
+.ui-dark .ui-textbox-invalid .ui-textbox input { background-color: #202020 !important; }
+.ui-dark .ui-textbox-invalid .ui-textbox-control { border-color: red !important; background-color: #202020 !important; }
+.ui-dark .ui-textbox-container.ui-disabled .ui-textbox { background-color: #282828; color: #777777; }
+.ui-dark .ui-textbox-container.ui-disabled .ui-textbox input { background-color: #282828; }
+.ui-dark .ui-textbox-container.ui-disabled .ui-textbox-control { color: #777777; }

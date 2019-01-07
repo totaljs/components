@@ -3,3 +3,5 @@
 .ui-tagger-item span { padding: 4px 8px; position: relative; display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 .ui-tagger-item i { width: 22px; float: left; height: 22px; padding: 5px 0 0; text-align: center; background-color: #303030; cursor: pointer; color: white; font-size: 10px; }
 .ui-tagger-fullwidth .ui-tagger-item { display: block; max-width: inherit; margin: 0 0 1px; }
+.ui-dark .ui-tagger-item i { background-color: #707070; }
+.ui-dark .ui-tagger-item { background-color: #404040; color: silver; }

@@ -1,6 +1,6 @@
 {
 	"datecreated": "2015-10-08T06:14:00.000Z",
-	"dateupdated": "2018-11-08T19:40:00.000Z",
+	"dateupdated": "2018-12-21T00:08:00.000Z",
 	"name": "j-Calendar",
 	"tags": [
 		"jcomponent",
@@ -9,7 +9,8 @@
 	],
 	"color": "white",
 	"version": 1,
-	"responsive": false,
+	"responsive": true,
+	"darkmode": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
 	"author": "Peter Širka",

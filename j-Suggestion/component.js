@@ -2,6 +2,7 @@ COMPONENT('suggestion', function(self, config) {
 
 	var container, arrow, timeout, icon, input = null;
 	var is = false, selectedindex = 0, resultscount = 0;
+	var ajax = null;
 
 	self.items = null;
 	self.template = Tangular.compile('<li data-index="{{ $.index }}"{{ if selected }} class="selected"{{ fi }}>{{ name | raw }}</li>');
@@ -106,17 +107,13 @@ COMPONENT('suggestion', function(self, config) {
 			setTimeout2(self.ID, self.search, 100, null, this.value);
 		});
 
-		self.on('reflow', function() {
+		var fn = function() {
 			is && self.hide(1);
-		});
+		};
 
-		$(window).on('scroll', function() {
-			is && self.hide(1);
-		});
-
-		$(window).on('scroll', function() {
-			is && self.hide(1);
-		});
+		self.on('reflow', fn);
+		self.on('scroll', fn);
+		$(window).on('scroll', fn);
 	};
 
 	self.move = function() {
@@ -150,7 +147,7 @@ COMPONENT('suggestion', function(self, config) {
 
 		if (!value) {
 			container.find('li').rclass('hidden');
-			resultscount = self.items.length;
+			resultscount = self.items ? self.items.length : 0;
 			selectedindex = 0;
 			self.move();
 			return;
@@ -159,17 +156,32 @@ COMPONENT('suggestion', function(self, config) {
 		resultscount = 0;
 		selectedindex = 0;
 
-		value = value.toSearch();
-		container.find('li').each(function() {
-			var el = $(this);
-			var val = this.innerHTML.toSearch();
-			var is = val.indexOf(value) === -1;
-			el.tclass('hidden', is);
-			if (!is)
-				resultscount++;
-		});
-
-		self.move();
+		if (ajax) {
+			ajax(value, function(items) {
+				var builder = [];
+				var indexer = {};
+				for (var i = 0; i < items.length; i++) {
+					var item = items[i];
+					indexer.index = i;
+					!item.value && (item.value = item.name);
+					resultscount++;
+					builder.push(self.template(item, indexer));
+				}
+				self.items = items;
+				container.html(builder);
+				self.move();
+			});
+		} else {
+			container.find('li').each(function() {
+				var el = $(this);
+				var val = this.innerHTML.toSearch();
+				var is = val.indexOf(value) === -1;
+				el.tclass('hidden', is);
+				if (!is)
+					resultscount++;
+			});
+			self.move();
+		}
 	};
 
 	self.show = function(orientation, target, items, callback) {
@@ -183,25 +195,33 @@ COMPONENT('suggestion', function(self, config) {
 			}
 		}
 
+		ajax = null;
 		target = $(target);
+
 		var type = typeof(items);
 		var item;
+
+		if (type === 'function' && callback) {
+			ajax = items;
+			type = '';
+			items = null;
+		}
 
 		if (type === 'string')
 			items = self.get(items);
 		else if (type === 'function') {
 			callback = items;
 			items = (target.attrd('options') || '').split(';');
-			for (var i = 0, length = items.length; i < length; i++) {
+			for (var i = 0; i < items.length; i++) {
 				item = items[i];
-				if (!item)
-					continue;
-				var val = item.split('|');
-				items[i] = { name: val[0], value: val[2] == null ? val[0] : val[2] };
+				if (item) {
+					var val = item.split('|');
+					items[i] = { name: val[0], value: val[2] == null ? val[0] : val[2] };
+				}
 			}
 		}
 
-		if (!items) {
+		if (!items && !ajax) {
 			self.hide(0);
 			return;
 		}
@@ -211,13 +231,15 @@ COMPONENT('suggestion', function(self, config) {
 		input.val('');
 
 		var builder = [];
-		var indexer = {};
 
-		for (var i = 0, length = items.length; i < length; i++) {
-			item = items[i];
-			indexer.index = i;
-			!item.value && (item.value = item.name);
-			builder.push(self.template(item, indexer));
+		if (!ajax) {
+			var indexer = {};
+			for (var i = 0; i < items.length; i++) {
+				item = items[i];
+				indexer.index = i;
+				!item.value && (item.value = item.name);
+				builder.push(self.template(item, indexer));
+			}
 		}
 
 		self.target = target[0];
@@ -244,7 +266,7 @@ COMPONENT('suggestion', function(self, config) {
 			return;
 
 		selectedindex = 0;
-		resultscount = items.length;
+		resultscount = items ? items.length : 0;
 		self.move();
 		self.search();
 

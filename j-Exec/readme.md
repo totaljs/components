@@ -13,17 +13,18 @@ __Elements__:
 
 __Attributes__:
 
-- `data-exec="METHOD_NAME"` executes a method when user clicks
+- `data-exec="METHOD_NAME"` executes a method when user clicks (supports scope via `?` char)
 - `data-prevent="true"` prevents continuing `click` event
 - `data-href="URL"` performs `REDIRECT()`
-- `data-path="path.to.property"` a path for setting of value
+- `data-path="path.to.property"` a path for setting of value (supports scope via `?` char)
 - `data-value=""` sets a value according to the `data-path=""` attribute
-- __NEW__: `data-def="path.*"` performs default values
-- __NEW__: `data-reset="path.*"` performs a state reseting
+- `data-def="path.*"` performs default values (supports scope via `?` char)
+- `data-reset="path.*"` performs a state reseting (supports scope via `?` char)
 
 __Hints__:
 
 - toggles boolean `data-value="!value"`
+- scopes: `data-path="?.name"` replaces `?` char with a scope path
 
 ### Author
 

@@ -24,13 +24,14 @@ COMPONENT('contextmenu', function(self) {
 			e.stopPropagation();
 		});
 
-		$(window).on('scroll', function() {
+		var fn = function() {
 			is && self.hide(1);
-		});
+		};
 
-		self.event('scroll', function() {
-			is && self.hide(1);
-		});
+		$(window).on('scroll', fn);
+		self.event('scroll', fn);
+		self.on('reflow', fn);
+		self.on('scroll', fn);
 
 		$(document).on('touchstart mousedown', function(e) {
 			if (is && (self.target !== e.target && !self.target.contains(e.target)))

@@ -17,13 +17,14 @@ COMPONENT('menu', function(self) {
 			self.hide();
 		});
 
-		$(window).on('scroll', function() {
+		var fn = function() {
 			is && self.hide();
-		});
+		};
 
-		self.event('scroll', function() {
-			is && self.hide();
-		});
+		$(window).on('scroll', fn);
+		self.event('scroll', fn);
+		self.on('reflow', fn);
+		self.on('scroll', fn);
 
 		$(document).on('touchstart mousedown', function(e) {
 			if (is && (!self.target || (self.target !== e.target && !self.target.contains(e.target))))

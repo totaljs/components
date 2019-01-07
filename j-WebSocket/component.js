@@ -22,6 +22,13 @@ COMPONENT('websocket', 'reconnect:3000', function(self, config) {
 		return self;
 	};
 
+	self.configure = function(key, value, init) {
+		if (init)
+			return;
+		if (key === 'url')
+			url = value;
+	};
+
 	self.process = function(callback) {
 
 		if (!ws || sending || !queue.length || ws.readyState !== 1) {
@@ -61,7 +68,7 @@ COMPONENT('websocket', 'reconnect:3000', function(self, config) {
 		var data;
 		try {
 			data = PARSE(decodeURIComponent(e.data));
-			self.attrd('jc-path') && self.set(data);
+			config.bind && self.set(data);
 		} catch (e) {
 			WARN('WebSocket "{0}": {1}'.format(url, e.toString()));
 		}

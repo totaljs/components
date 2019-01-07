@@ -133,5 +133,9 @@
 	"Tangular-Counter",
 	"CSV export",
 	"Tangular-Initials",
-	"j-SingleUpload"
+	"j-SingleUpload",
+	"j-DynamicValue",
+	"j-Scrollbar",
+	"j-Typed",
+	"Tooltip"
 ]

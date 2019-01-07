@@ -1,5 +1,8 @@
 ## j-Calendar
 
+- supports __dark mode__
+- supports __touch gestures (swipe)__ and fixed full size on mobile
+
 __Configuration__:
 
 Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:date"`

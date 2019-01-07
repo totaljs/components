@@ -1,0 +1,16 @@
+{
+	"datecreated": "2018-12-25T21:40:00.000Z",
+	"dateupdated": null,
+	"name": "j-Typed",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Denis Granec",
+	"email": "denis@granec.cz",
+	"license": "MIT"
+}

@@ -4,8 +4,9 @@
 - singleton
 - works with Bootstrap
 - modal
+- supports __dark mode__
 
-__Calling__: `FIND('confirm').confirm(message, buttons, callback);`
+__Usage__: `SETTER('confirm', 'show', message, buttons, callback)`
 
 ### Author
 

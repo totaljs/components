@@ -149,16 +149,23 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 			skip = true;
 
 			container.find('input').each(function () {
-
 				var temp = this.value.trim();
+				switch (config.type) {
+					case 'number':
+						temp = temp.parseInt();
+						break;
+					case 'date':
+						temp = temp.parseDate();
+						break;
+				}
 
 				if (arr.indexOf(temp) === -1)
 					arr.push(temp);
 				else
-				 	skip = false;
+					skip = false;
 			});
 
-			SET(self.path, arr, 2);
+			self.set(arr, 2);
 			self.change(true);
 		});
 	};
@@ -181,10 +188,10 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 		self.rclass(crequired);
 		var builder = [];
 
-		value.forEach(function (item) {
-			empty.value = item;
+		for (var i = 0; i < value.length; i++) {
+			empty.value = value[i];
 			builder.push(self.template(empty));
-		});
+		}
 
 		container.empty().append(builder.join(''));
 	};
@@ -200,7 +207,8 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 		if (!value || !value.length)
 			return valid;
 
-		value.forEach(function (item, i) {
+		for (var i = 0; i < value.length; i++) {
+			var item = value[i];
 			!item && (item = '');
 			switch (config.type) {
 				case 'email':
@@ -221,7 +229,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 					break;
 			}
 			items.eq(i).tclass('ui-textboxlist-item-invalid', !valid);
-		});
+		}
 
 		return valid;
 	};

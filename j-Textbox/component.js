@@ -70,8 +70,14 @@ COMPONENT('textbox', function(self, config) {
 				self.$stateremoved = false;
 				$(this).rclass('fa-times').aclass('fa-search');
 				self.set('');
-			} else if (config.icon2click)
-				EXEC(config.icon2click, self);
+			} else if (self.type === 'password') {
+				var el = $(this);
+				var type = input.attr('type');
+
+				input.attr('type', type === 'text' ? 'password' : 'text');
+				el.rclass2('fa-').aclass(type === 'text' ? 'fa-eye' : 'fa-eye-slash');
+			} else if (config.iconclick)
+				EXEC(config.iconclick, self);
 		});
 
 		self.event('focus', 'input', function() {
@@ -80,6 +86,7 @@ COMPONENT('textbox', function(self, config) {
 		});
 
 		self.redraw();
+		config.iconclick && self.configure('iconclick', config.iconclick);
 	};
 
 	self.redraw = function() {
@@ -122,6 +129,8 @@ COMPONENT('textbox', function(self, config) {
 
 		if (!icon2 && self.type === 'date')
 			icon2 = 'calendar';
+		else if (!icon2 && self.type === 'password')
+			icon2 = 'eye';
 		else if (self.type === 'search') {
 			icon2 = 'search';
 			self.setter2 = function(value) {
@@ -211,6 +220,11 @@ COMPONENT('textbox', function(self, config) {
 				break;
 			case 'autofocus':
 				input.focus();
+				break;
+			case 'icon2click': // backward compatibility
+			case 'iconclick':
+				config.iconclick = value;
+				self.find('.ui-textbox-control').css('cursor', value ? 'pointer' : 'default');
 				break;
 			case 'icon':
 				var tmp = self.find('.ui-textbox-label .fa');

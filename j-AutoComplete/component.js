@@ -45,6 +45,10 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 		$(window).on('resize', function() {
 			self.resize();
 		});
+
+		self.on('scroll', function() {
+			is && self.visible(false);
+		});
 	};
 
 	self.prerender = function(value) {

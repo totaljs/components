@@ -1,38 +1,73 @@
-COMPONENT('viewbox', function(self, config) {
+COMPONENT('viewbox', 'margin:0;scroll:true;delay:100', function(self, config) {
 
 	var eld;
+	var scrollbar;
 
 	self.readonly();
 
 	self.init = function() {
 		$(window).on('resize', function() {
-			setTimeout2('viewbox', function() {
-				SETTER('viewbox', 'resize');
-			}, 300);
+			SETTER('viewbox', 'resize');
 		});
 	};
 
-	self.configure = function(key, value) {
+	self.configure = function(key, value, init) {
 		switch (key) {
 			case 'disabled':
 				eld.tclass('hidden', !value);
+				break;
+			case 'minheight':
+				!init && self.resize();
+				break;
+			case 'selector': // backward compatibility
+				config.parent = value;
+				self.resize();
 				break;
 		}
 	};
 
 	self.make = function() {
+		config.scroll && MAIN.version > 17 && self.element.wrapInner('<div class="ui-viewbox-body"></div>');
 		self.element.prepend('<div class="ui-viewbox-disabled hidden"></div>');
 		eld = self.find('> .ui-viewbox-disabled').eq(0);
-		self.aclass('ui-viewbox');
+		self.aclass('ui-viewbox ui-viewbox-hidden');
+		if (config.scroll) {
+			if (MAIN.version > 17) {
+				scrollbar = window.SCROLLBAR(self.find('.ui-viewbox-body'), { parent: self.element });
+				self.scrollleft = scrollbar.scrollLeft;
+				self.scrolltop = scrollbar.scrollTop;
+				self.scrollright = scrollbar.scrollRight;
+				self.scrollbottom = scrollbar.scrollBottom;
+			} else
+				self.aclass('ui-viewbox-scroll');
+		}
 		self.resize();
 	};
 
 	self.resize = function() {
-		var el = config.selector ? config.selector === 'window' ? $(window) : self.element.closest(config.selector) : self.parent();
-		var h = (el.height() / 100) * config.height;
+		var el = config.parent ? config.parent === 'window' ? $(window) : self.element.closest(config.parent) : self.parent();
+		var h = el.height();
+
+		if (h === 0) {
+			self.$waiting && clearTimeout(self.$waiting);
+			self.$waiting = setTimeout(self.resize, 234);
+			return;
+		}
+
+		h = ((h / 100) * config.height) - config.margin;
+
+		if (config.minheight && h < config.minheight)
+			h = config.minheight;
+
 		eld.css({ height: h, width: self.element.width() });
 		self.css('height', h);
 		self.element.SETTER('*', 'resize');
+		var cls = 'ui-viewbox-hidden';
+		self.hclass(cls) && self.rclass(cls, 100);
+		scrollbar && scrollbar.resize();
 	};
 
+	self.setter = function() {
+		setTimeout(self.resize, config.delay);
+	};
 });
