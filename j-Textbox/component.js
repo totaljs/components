@@ -86,6 +86,7 @@ COMPONENT('textbox', function(self, config) {
 		});
 
 		self.redraw();
+		config.iconclick && self.configure('iconclick', config.iconclick);
 	};
 
 	self.redraw = function() {

@@ -22,7 +22,7 @@ input:invalid { box-shadow: none; }
 .ui-textbox-invalid input { background-color: #FFF3F3 !important; }
 .ui-textbox-invalid .ui-textbox-control { border-color: #E1A1A1 !important; }
 .ui-textbox .fa-caret-up, .ui-textbox .fa-caret-down { display: block; line-height: 9px; cursor: pointer; }
-.ui-textbox .fa-calendar { cursor: pointer; }
+.ui-textbox .fa-calendar, .ui-textbox .fa-eye, .ui-textbox .fa-eye-slash { cursor: pointer; }
 .ui-textbox-helper { margin-top: 8px; font-size: 11px; color: red; text-align: left; display: none; }
 .ui-textbox-helper-show { display: block; }
 .ui-textbox-container.ui-disabled .ui-textbox { background-color: #F0F0F0; cursor: not-allowed; color: gray; }
