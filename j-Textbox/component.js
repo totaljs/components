@@ -76,8 +76,8 @@ COMPONENT('textbox', function(self, config) {
 
 				input.attr('type', type === 'text' ? 'password' : 'text');
 				el.rclass2('fa-').aclass(type === 'text' ? 'fa-eye' : 'fa-eye-slash');
-			} else if (config.icon2click)
-				EXEC(config.icon2click, self);
+			} else if (config.iconclick)
+				EXEC(config.iconclick, self);
 		});
 
 		self.event('focus', 'input', function() {
@@ -219,6 +219,11 @@ COMPONENT('textbox', function(self, config) {
 				break;
 			case 'autofocus':
 				input.focus();
+				break;
+			case 'icon2click': // backward compatibility
+			case 'iconclick':
+				config.iconclick = value;
+				self.find('.ui-textbox-control').css('cursor', value ? 'pointer' : 'default');
 				break;
 			case 'icon':
 				var tmp = self.find('.ui-textbox-label .fa');
