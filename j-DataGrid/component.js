@@ -1082,8 +1082,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				vbody.css('height', opt.height);
 				break;
 			default:
-				vbody.css('height', config.height);
-				opt.height = config.height;
+				if (config.height > 0) {
+					vbody.css('height', config.height);
+					opt.height = config.height;
+				} else {
+					el = self.element.closest(config.height);
+					opt.height = el.height() - config.bottom - (config.exec ? 30 : 0);
+					vbody.css('height', opt.height);
+				}
 				break;
 		}
 
