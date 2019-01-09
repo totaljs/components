@@ -19,6 +19,8 @@ Example: `data-jc-config="title:Panel title;if:user;icon:home"`
 - __NEW__: `bgclose` {Boolean} (optional) if the user click on the background then the panel will be closed (default: `false`)
 - __NEW__: `zindex` {Number} (optional) can affect z-index (default: `12`)
 - __NEW__: `close` {String} (optional) path/method is executed as `path_to_method(com)` when the user closes the panel manually via close button
+- __NEW__: `scrollbar` {Boolean} (optional) enables custom scrollbar (default: `true`)
+- __NEW__: `scrollbarY` {Boolean} (optional) shows vertical custom scrollbar (default: `false`)
 
 __Good to know__:
 
