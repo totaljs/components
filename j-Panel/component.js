@@ -1,4 +1,4 @@
-COMPONENT('panel', 'width:350;icon:circle-o;zindex:12', function(self, config) {
+COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:false', function(self, config) {
 
 	var W = window;
 
@@ -41,6 +41,7 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12', function(self, config) {
 	self.resize = function() {
 		var el = self.element.find('.ui-panel-body');
 		el.height(WH - self.find('.ui-panel-header').height());
+		self.scrollbar && self.scrollbar.resize();
 	};
 
 	self.icon = function(value) {
@@ -52,10 +53,21 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12', function(self, config) {
 
 		var scr = self.find('> script');
 		self.template = scr.length ? scr.html() : '';
-
 		$(document.body).append('<div id="{0}" class="hidden ui-panel-container{3}"><div class="ui-panel" style="max-width:{1}px"><div data-bind="@config__change .ui-panel-icon:@icon__html span:value.title" class="ui-panel-title"><button name="cancel" class="ui-panel-button-close{2}"><i class="fa fa-times"></i></button><i class="ui-panel-icon"></i><span></span></div><div class="ui-panel-header"></div><div class="ui-panel-body"></div></div>'.format(self.ID, config.width, config.closebutton == false ? ' hidden' : '', config.bg ? '' : ' ui-panel-inline'));
 		var el = $('#' + self.ID);
-		el.find('.ui-panel-body')[0].appendChild(self.dom);
+
+		var body = el.find('.ui-panel-body');
+		body[0].appendChild(self.dom);
+
+		if (config.scrollbar && window.SCROLLBAR) {
+			self.scrollbar = SCROLLBAR(body, { visibleY: !!config.scrollbarY });
+			self.scrollleft = self.scrollbar.scrollLeft;
+			self.scrolltop = self.scrollbar.scrollTop;
+			self.scrollright = self.scrollbar.scrollRight;
+			self.scrollbottom = self.scrollbar.scrollBottom;
+		} else
+			body.aclass('ui-panel-scroll');
+
 		self.rclass('hidden');
 		self.replace(el);
 		self.event('click', 'button[name]', function() {
@@ -65,6 +77,8 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12', function(self, config) {
 					break;
 			}
 		});
+
+		self.resize();
 	};
 
 	self.configure = function(key, value, init) {
