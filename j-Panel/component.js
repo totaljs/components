@@ -120,7 +120,7 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 		}
 
 		if (self.template) {
-			var is = (/(data-bind|data-jc)="/).test(self.template);
+			var is = (/(data-bind|data-jc|data--{2,})="/).test(self.template);
 			self.find('div[data-jc-replaced]').html(self.template);
 			self.template = null;
 			is && COMPILE();
@@ -147,7 +147,10 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 		}
 
 		setTimeout(function() {
-			container.scrollTop(0);
+			if (self.scrollbar)
+				self.scrollbar.scroll(0, 0);
+			else
+				container.scrollTop(0);
 			self.aclass('ui-panel-animate');
 		}, 300);
 
