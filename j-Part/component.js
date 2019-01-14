@@ -27,6 +27,10 @@ COMPONENT('part', 'hide:true', function(self, config) {
 			config.reload && EXEC(config.reload);
 			config.default && DEFAULT(config.default, true);
 
+			setTimeout(function() {
+				self.element.SETTER('*', 'resize');
+			}, 200);
+
 		} else {
 
 			if (downloading)
@@ -44,6 +48,10 @@ COMPONENT('part', 'hide:true', function(self, config) {
 					config.reload && EXEC(config.reload);
 					config.default && DEFAULT(config.default, true);
 					SETTER('loading', 'hide', 500);
+
+					setTimeout(function() {
+						self.element.SETTER('*', 'resize');
+					}, 200);
 				});
 			}, 200);
 		}
