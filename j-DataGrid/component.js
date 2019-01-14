@@ -111,7 +111,15 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			case 'pluralizeitems':
 				config.pluralizeitems = value.split(',').trim();
 				break;
+			case 'checked':
+			case 'button':
+			case 'exec':
+				if (value && value.SCOPE)
+					config[key] = value.SCOPE(self, value);
+				break;
 			case 'click':
+				if (value && value.SCOPE)
+					config.click = value.SCOPE(self, value);
 				self.tclass('dg-clickable', !!value);
 				break;
 		}
