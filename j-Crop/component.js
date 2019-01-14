@@ -283,6 +283,10 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 		reader.readAsArrayBuffer(file.slice(0, 64 * 1024));
 	};
 
+	self.clear = function() {
+		canvas && context && context.clearRect(0, 0, canvas.width, canvas.height);
+	};
+
 	self.resetOrientation = function(src, srcOrientation, callback) {
 		var img = new Image();
 		img.onload = function() {
