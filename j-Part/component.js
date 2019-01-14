@@ -2,6 +2,7 @@ COMPONENT('part', 'hide:true', function(self, config) {
 
 	var init = false;
 	var clid = null;
+	var downloading = false;
 
 	self.readonly();
 	self.setter = function(value) {
@@ -27,9 +28,15 @@ COMPONENT('part', 'hide:true', function(self, config) {
 			config.default && DEFAULT(config.default, true);
 
 		} else {
+
+			if (downloading)
+				return;
+
 			SETTER('loading', 'show');
+			downloading = true;
 			setTimeout(function() {
 				self.import(config.url, function() {
+					downloading = false;
 					if (!init) {
 						config.init && EXEC(config.init);
 						init = true;
