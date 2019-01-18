@@ -7,13 +7,13 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 		W.$$inlineform = true;
 		$(document).on('click', '.ui-inlineform-close', function() {
 			SETTER('inlineform', 'hide');
-		});
-		$(window).on('resize', function() {
+		}).on('resize', function() {
 			SETTER('inlineform', 'hide');
 		});
 	}
 
 	self.readonly();
+
 	self.submit = function() {
 		if (config.submit)
 			EXEC(config.submit, self);
@@ -27,11 +27,11 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 	};
 
 	self.hide = function() {
-		if (self.hclass('hidden'))
-			return;
-		self.release(true);
-		self.aclass('hidden');
-		self.find('.ui-inlineform').rclass('ui-inlineform-animate');
+		if (!self.hclass('hidden')) {
+			self.release(true);
+			self.aclass('hidden');
+			self.find('.ui-inlineform').rclass('ui-inlineform-animate');
+		}
 	};
 
 	self.icon = function(value) {
@@ -86,7 +86,7 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 		SETTER('inlineform', 'hide');
 
 		if (self.template) {
-			var is = (/(data-bind|data-jc)="/).test(self.template);
+			var is = (/(data-bind|data-jc|data-{2,})="/).test(self.template);
 			self.find('div[data-jc-replaced]').html(self.template);
 			self.template = null;
 			is && COMPILE();
@@ -122,8 +122,10 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 		self.find('.ui-inlineform-arrow').css('margin-left', ma);
 		self.css(offset);
 
-		el = self.find('input[type="text"],select,textarea');
-		!isMOBILE && el.length && el[0].focus();
+		if (!isMOBILE) {
+			el = self.find('input[type="text"],select,textarea');
+			el.length && el[0].focus();
+		}
 
 		setTimeout(function() {
 			self.find('.ui-inlineform').aclass('ui-inlineform-animate');
