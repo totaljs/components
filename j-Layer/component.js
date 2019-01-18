@@ -1,4 +1,4 @@
-COMPONENT('layer', 'offset:65;scrollbar:true;container:.ui-layer-body', function(self, config) {
+COMPONENT('layer', 'offset:65;scrollbar:true', function(self, config) {
 
 	var visible = false;
 	var csspos = {};
@@ -10,11 +10,7 @@ COMPONENT('layer', 'offset:65;scrollbar:true;container:.ui-layer-body', function
 		W.$$layer_resize = function() {
 			setTimeout2('layers', function() {
 				$('.ui-layer').each(function() {
-					var el = $(this);
-					var com = el.component();
-					el.css('width', (WW - com.config.offset) - (com.config.offset * (+el.attrd('index'))));
-					el.css('height', WH - com.element.find('.ui-layer-body').offset().top);
-					com.resize();
+					$(this).component().resize();
 				});
 			}, 100);
 		};
@@ -29,10 +25,10 @@ COMPONENT('layer', 'offset:65;scrollbar:true;container:.ui-layer-body', function
 	self.make = function() {
 
 		// Move element to safe place
-		$(document.body).append('<div id="{0}" class="ui-layer"><div class="ui-layer-toolbar"><div class="ui-layer-toolbar-back"><button class="ui-layer-toolbar-backbutton"><i class="fa fa-times"></i></button></div><div class="ui-layer-toolbar-caption" data-bind="@config.title__html:value"></div></div><div class="ui-layer-body"></div></div>'.format(self.ID));
+		$(document.body).append('<div id="{0}" class="ui-layer"><div class="ui-layer-toolbar"><div class="ui-layer-toolbar-back"><button class="ui-layer-toolbar-backbutton"><i class="fa fa-times"></i></button></div><div class="ui-layer-toolbar-caption" data-bind="@config.title__html:value"></div></div><div class="ui-layer-body"><div class="ui-layer-scrollbar"></div></div></div>'.format(self.ID));
 
 		var el = $('#' + self.ID);
-		el.find('.ui-layer-body')[0].appendChild(self.dom);
+		el.find('.ui-layer-scrollbar')[0].appendChild(self.dom);
 		self.rclass('hidden');
 		self.replace(el);
 		self.event('click', '.ui-layer-toolbar-backbutton', self.hide);
@@ -40,7 +36,7 @@ COMPONENT('layer', 'offset:65;scrollbar:true;container:.ui-layer-body', function
 		var body = el.find('.ui-layer-body');
 
 		if (config.scrollbar && W.SCROLLBAR) {
-			self.scrollbar = SCROLLBAR(body, { visibleY: !!config.scrollbarY, parent: '.ui-layer' });
+			self.scrollbar = SCROLLBAR(body.find('.ui-layer-scrollbar'), { visibleY: !!config.scrollbarY, parent: '.ui-layer-body' });
 			self.scrollleft = self.scrollbar.scrollLeft;
 			self.scrolltop = self.scrollbar.scrollTop;
 			self.scrollright = self.scrollbar.scrollRight;
@@ -71,12 +67,11 @@ COMPONENT('layer', 'offset:65;scrollbar:true;container:.ui-layer-body', function
 	};
 
 	self.resize = function() {
-		var el = config.container ? self.find(config.container) : EMPTYARRAY;
-		if (el.length) {
-			var h = WH - self.find('.ui-layer-toolbar').innerHeight();
-			el.css('height', h);
-			config.resize && EXEC(config.resize, h);
-		}
+		var el = self.find('.ui-layer-body');
+		self.css('height', WH);
+		var h = WH - el.offset().top;
+		el.css('height', h);
+		config.resize && EXEC(config.resize, h);
 		if (self.scrollbar) {
 			self.scrollbar.resize();
 			setTimeout(self.scrollbar.resize, 500);
