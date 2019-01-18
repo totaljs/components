@@ -22,7 +22,7 @@
 .ui-inlineform-buttons button[name="cancel"] { color: gray; }
 .ui-inlineform-buttons div { position: relative; display: inline-block; vertical-align: middle; }
 .ui-inlineform-buttons label { float: right; margin: 12px 0 0 0; font-size: 11px; }
+.ui-dark .ui-inlineform-buttons button { border-color: #202020; background-color: #505050; color: #E0E0E0; }
 .ui-dark .ui-inlineform-buttons button:hover { background-color: #606060; }
 .ui-dark .ui-inlineform-buttons button[name="submit"] { color: white; }
-.ui-dark .ui-inlineform-buttons button { border-color: #202020; background-color: #505050; color: #E0E0E0; }
 .ui-dark .ui-inlineform-buttons button:disabled { background-color: #303030 !important; color: #606060 !important; border-color: #202020 !important; }

@@ -135,7 +135,7 @@ COMPONENT('form', 'zindex:12', function(self, config) {
 		}
 
 		if (self.template) {
-			var is = (/(data-bind|data-jc)="/).test(self.template);
+			var is = (/(data-bind|data-jc|data-{2,})="/).test(self.template);
 			self.find('div[data-jc-replaced]').html(self.template);
 			self.template = null;
 			is && COMPILE();
