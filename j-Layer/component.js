@@ -13,6 +13,7 @@ COMPONENT('layer', 'offset:65;scrollbar:true;container:.ui-layer-body', function
 					var el = $(this);
 					var com = el.component();
 					el.css('width', (WW - com.config.offset) - (com.config.offset * (+el.attrd('index'))));
+					el.css('height', WH - com.element.find('.ui-layer-body').offset().top);
 					com.resize();
 				});
 			}, 100);
