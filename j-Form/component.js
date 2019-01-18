@@ -12,9 +12,14 @@ COMPONENT('form', 'zindex:12', function(self, config) {
 			SET($(this).attrd('path'), '');
 		});
 
-		$(W).on('resize', function() {
+		var resize = function() {
 			SETTER('form', 'resize');
-		});
+		};
+
+		if (W.OP)
+			W.OP.on('resize', resize);
+		else
+			$(W).on('resize', resize);
 
 		$(document).on('click', '.ui-form-container', function(e) {
 			var el = $(e.target);

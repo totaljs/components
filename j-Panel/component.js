@@ -27,9 +27,14 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 			}
 		});
 
-		$(W).on('resize', function() {
+		var resize = function() {
 			SETTER('panel', 'resize');
-		});
+		};
+
+		if (W.OP)
+			W.OP.on('resize', resize);
+		else
+			$(W).on('resize', resize);
 	}
 
 	self.readonly();

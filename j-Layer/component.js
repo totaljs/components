@@ -2,20 +2,25 @@ COMPONENT('layer', 'offset:65;scrollbar:true;container:.ui-layer-body', function
 
 	var visible = false;
 	var csspos = {};
-	var w = window;
+	var W = window;
 
-	if (!w.$$layer) {
-		w.$$layer_level = w.$$layer_level || 1;
-		w.$$layer = true;
-		$(w).on('resize', function() {
+	if (!W.$$layer) {
+		W.$$layer_level = W.$$layer_level || 1;
+		W.$$layer = true;
+		W.$$layer_resize = function() {
 			setTimeout2('layers', function() {
 				$('.ui-layer').each(function() {
 					var el = $(this);
-					el.css('width', (w - config.offset) - (config.offset * (+el.attrd('index'))));
-					el.component().resize();
+					var com = el.component();
+					el.css('width', (WW - com.config.offset) - (com.config.offset * (+el.attrd('index'))));
+					com.resize();
 				});
 			}, 100);
-		});
+		};
+		if (W.OP)
+			W.OP.on('resize', W.$$layer_resize);
+		else
+			$(W).on('resize', W.$$layer_resize);
 	}
 
 	self.readonly();
@@ -33,8 +38,8 @@ COMPONENT('layer', 'offset:65;scrollbar:true;container:.ui-layer-body', function
 
 		var body = el.find('.ui-layer-body');
 
-		if (config.scrollbar && window.SCROLLBAR) {
-			self.scrollbar = SCROLLBAR(body, { visibleY: !!config.scrollbarY });
+		if (config.scrollbar && W.SCROLLBAR) {
+			self.scrollbar = SCROLLBAR(body, { visibleY: !!config.scrollbarY, parent: '.ui-layer' });
 			self.scrollleft = self.scrollbar.scrollLeft;
 			self.scrolltop = self.scrollbar.scrollTop;
 			self.scrollright = self.scrollbar.scrollRight;
@@ -71,7 +76,10 @@ COMPONENT('layer', 'offset:65;scrollbar:true;container:.ui-layer-body', function
 			el.css('height', h);
 			config.resize && EXEC(config.resize, h);
 		}
-		self.scrollbar && self.scrollbar.resize();
+		if (self.scrollbar) {
+			self.scrollbar.resize();
+			setTimeout(self.scrollbar.resize, 500);
+		}
 	};
 
 	self.setter = function(value) {

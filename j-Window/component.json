@@ -1,12 +1,13 @@
 {
 	"datecreated": "2018-02-23T20:22:59.000Z",
-	"dateupdated": "2019-01-18T15:36:00.000Z",
+	"dateupdated": "2019-01-18T16:18:00.000Z",
 	"name": "j-Window",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "white",
 	"version": 1,
+	"darkmode": true,
 	"responsive": true,
 	"picture": "picture.gif",
 	"dependencies": "",
