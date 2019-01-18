@@ -1,4 +1,4 @@
-COMPONENT('window', 'zindex:12', function(self, config) {
+COMPONENT('window', 'zindex:12;scrollbar:true', function(self, config) {
 
 	var W = window;
 
@@ -25,6 +25,7 @@ COMPONENT('window', 'zindex:12', function(self, config) {
 	self.resize = function() {
 		var el = self.find('.ui-window-body');
 		el.height(WH - self.find('.ui-window-header').height());
+		self.scrollbar && self.scrollbar.resize();
 	};
 
 	self.make = function() {
@@ -34,7 +35,18 @@ COMPONENT('window', 'zindex:12', function(self, config) {
 
 		$(document.body).append('<div id="{0}" class="hidden ui-window-container"><div class="ui-window"><div data-bind="@config__change .ui-window-icon:@icon__html span:value.title" class="ui-window-title"><button name="cancel" class="ui-window-button-close{2}" data-path="{1}"><i class="fa fa-times"></i></button><i class="ui-window-icon"></i><span></span></div><div class="ui-window-header"></div><div class="ui-window-body"></div></div>'.format(self.ID, self.path, config.closebutton == false ? ' hidden' : ''));
 		var el = $('#' + self.ID);
-		el.find('.ui-window-body')[0].appendChild(self.dom);
+		var body = el.find('.ui-window-body');
+		body[0].appendChild(self.dom);
+
+		if (config.scrollbar && window.SCROLLBAR) {
+			self.scrollbar = SCROLLBAR(body, { visibleY: !!config.scrollbarY });
+			self.scrollleft = self.scrollbar.scrollLeft;
+			self.scrolltop = self.scrollbar.scrollTop;
+			self.scrollright = self.scrollbar.scrollRight;
+			self.scrollbottom = self.scrollbar.scrollBottom;
+		} else
+			body.aclass('ui-window-scroll');
+
 		self.rclass('hidden');
 		self.replace(el);
 		self.event('click', 'button[name]', function() {
@@ -85,7 +97,7 @@ COMPONENT('window', 'zindex:12', function(self, config) {
 		}
 
 		if (self.template) {
-			var is = (/(data-bind|data-jc)="/).test(self.template);
+			var is = (/(data-bind|data-jc|data-{2,})="/).test(self.template);
 			self.find('div[data-jc-replaced]').html(self.template);
 			self.template = null;
 			is && COMPILE();
