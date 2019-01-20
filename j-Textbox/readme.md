@@ -28,6 +28,7 @@ Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:dat
 - `autocomplete` {String} (optional) needs to contain a link to a function, is triggered on `focus` event
 - `spaces` {Boolean} (optional) enables spaces otherwise it removes them (default: `true`)
 - `readonly` {Boolean} optional, default `false`
+- __NEW__ `innerlabel` {Boolean} optional, enables inner label (default: `true`)
 
 __Interesting:__
 

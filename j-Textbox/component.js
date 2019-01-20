@@ -1,6 +1,13 @@
 COMPONENT('textbox', function(self, config) {
 
-	var input, content = null;
+	var input, content = null, isfilled = false;
+	var innerlabel = function() {
+		var is = !!input[0].value;
+		if (isfilled !== is) {
+			isfilled = is;
+			self.tclass('ui-textbox-filled', isfilled);
+		}
+	};
 
 	self.nocompile && self.nocompile();
 
@@ -63,6 +70,10 @@ COMPONENT('textbox', function(self, config) {
 			}
 		});
 
+		self.event('click', '.ui-textbox-label', function() {
+			input.focus();
+		});
+
 		self.event('click', '.ui-textbox-control-icon', function() {
 			if (config.disabled || config.readonly)
 				return;
@@ -85,8 +96,19 @@ COMPONENT('textbox', function(self, config) {
 				EXEC(config.autocomplete, self);
 		});
 
+		self.event('input', 'input', innerlabel);
 		self.redraw();
 		config.iconclick && self.configure('iconclick', config.iconclick);
+	};
+
+	self.setter2 = function(value) {
+		if (self.type === 'search') {
+			if (self.$stateremoved && !value)
+				return;
+			self.$stateremoved = !value;
+			self.find('.ui-textbox-control-icon').tclass('fa-times', !!value).tclass('fa-search', !value);
+		}
+		innerlabel();
 	};
 
 	self.redraw = function() {
@@ -109,7 +131,7 @@ COMPONENT('textbox', function(self, config) {
 		self.tclass('ui-textbox-required', config.required === true);
 		self.type = config.type;
 		attrs.attr('type', tmp);
-		config.placeholder && attrs.attr('placeholder', config.placeholder);
+		config.placeholder && !config.innerlabel && attrs.attr('placeholder', config.placeholder);
 		config.maxlength && attrs.attr('maxlength', config.maxlength);
 		config.keypress != null && attrs.attr('data-jc-keypress', config.keypress);
 		config.delay && attrs.attr('data-jc-keypress-delay', config.delay);
@@ -135,21 +157,16 @@ COMPONENT('textbox', function(self, config) {
 			icon2 = 'calendar';
 		else if (!icon2 && self.type === 'password')
 			icon2 = 'eye';
-		else if (self.type === 'search') {
+		else if (self.type === 'search')
 			icon2 = 'search';
-			self.setter2 = function(value) {
-				if (self.$stateremoved && !value)
-					return;
-				self.$stateremoved = !value;
-				self.find('.ui-textbox-control-icon').tclass('fa-times', !!value).tclass('fa-search', !value);
-			};
-		}
 
 		icon2 && builder.push('<div class="ui-textbox-control"><span class="fa fa-{0} ui-textbox-control-icon"></span></div>'.format(icon2));
 		config.increment && !icon2 && builder.push('<div class="ui-textbox-control"><span class="fa fa-caret-up"></span><span class="fa fa-caret-down"></span></div>');
 
 		if (config.label)
 			content = config.label;
+
+		self.tclass('ui-textbox-innerlabel', !!config.innerlabel);
 
 		if (content.length) {
 			var html = builder.join('');
@@ -239,6 +256,9 @@ COMPONENT('textbox', function(self, config) {
 				break;
 			case 'icon2':
 			case 'increment':
+				redraw = true;
+				break;
+			case 'labeltype':
 				redraw = true;
 				break;
 		}
