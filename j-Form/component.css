@@ -1,16 +1,21 @@
 .ui-form-noscroll, .ui-form-noscroll body { overflow: hidden; }
 .ui-form-container { width: 100%; position: fixed; left: 0; top: 0; bottom: 0; right: 0; background-color: rgba(230,233,237,0.8); z-index: 5; overflow-y: scroll; transform-style: preserve-3d; overflow-scrolling: touch; }
+.ui-dark .ui-form-container { background-color: rgba(0,0,0,0.2); }
 .ui-form-container-padding { padding: 0 12px;}
 .ui-form { background-color: white; margin: 0 auto 30px; border-radius: 3px; box-shadow: 0 0 20px #D0D0D0; transform: translate(0, -500px); transition: all 0.2s; opacity: 0; }
+.ui-dark .ui-form { box-shadow: 0 0 20px #111; background-color: #202020; }
 .ui-form-animate { transform: skewX(0deg); opacity: 1; }
-.ui-form-animate-click { transform: skewX(-5deg); }
+.ui-form-animate-click { transform: skewX(-2deg); }
 .ui-form-title { padding: 18px 20px; font-size: 16px; user-select: none; color: black; background-color: white; border-bottom: 1px solid #F0F0F0; height: 58px; }
 .ui-form-title .ui-form-button-close { float: right; cursor: pointer; font-size: 18px; margin: -2px 0 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; width: 20px; padding: 0; }
 .ui-form-title .ui-form-button-close:hover { transform: scale(1.2); }
 .ui-form-title > span { font-weight: bold; }
 .ui-form-title > .fa, .ui-form-title > .far { margin-right: 7px; }
+.ui-dark .ui-form-title { background-color: #191919; border-bottom-color: #191919; color: white; }
 .ui-form-buttons { padding: 33px 20px 0; border-top: 1px solid #E0E0E0; background-color: white; border-radius: 0 0 3px 3px; height: 120px; box-shadow: inset 0 3px 10px rgba(0,0,0,0.05); text-align: right; }
+.ui-dark .ui-form-buttons { background-color: #202020; border-top-color: #303030; }
 .ui-form-buttons button { border: 0; background-color: #F0F0F0; height: 54px; padding: 0 20px; color: black; margin: 0; cursor: pointer; font-family: Arial; vertical-align: middle; outline: 0; font-size: 14px; text-decoration: none; transition: all 0.3s; margin: 0; }
+.ui-dark .ui-form-buttons button { border-color: #202020; background-color: #505050; color: #E0E0E0; }
 .ui-form-buttons button .fa { width: 16px; }
 .ui-form-buttons button:hover { opacity: 0.9; }
 .ui-form-buttons button:active { background-color: #D0D0D0; }
@@ -18,7 +23,7 @@
 .ui-form-buttons button:first-child { border-top-left-radius: 3px; border-bottom-left-radius: 3px; }
 .ui-form-buttons button:last-child { border-top-right-radius: 3px; border-bottom-right-radius: 3px; }
 .ui-form-buttons button[name="submit"] { max-width: 300px; width: 100%; font-weight: bold; background-color: #4285F4; color: white; font-size: 16px; }
-.ui-form-buttons button[name="cancel"] { color: black; border: 1px solid #E0E0E0; }
+.ui-dark .ui-form-buttons button:disabled { background-color: #303030 !important; color: #606060 !important; border-color: #202020 !important; }
 .ui-form-buttons div { position: relative; display: inline-block; vertical-align: middle; }
 .ui-form-buttons label { float: right; margin: 12px 0 0 0; font-size: 11px; }
 

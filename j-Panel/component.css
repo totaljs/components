@@ -14,8 +14,8 @@
 .ui-panel-title > i { margin: 20px 7px 0 0; float: left; }
 
 .ui-dark .ui-panel { background-color: #252525; }
-.ui-dark .ui-panel-title { color: white; background-color: #101010; border-bottom-color: #101010; }
+.ui-dark .ui-panel-title { color: white; background-color: #252525; border-bottom-color: #101010; }
 .ui-dark .ui-panel-container { background-color: rgba(30,30,30,0.8); }
 .ui-dark .ui-panel-inline { background-color: transparent; }
 .ui-dark .ui-panel-inline .ui-panel { border-left-color: #202020; background-color: rgba(40,40,40,0.9); }
-.ui-dark .ui-panel-button-close { border-left-color: #303030; }
+.ui-dark .ui-panel-button-close { border-left-color: #101010; }

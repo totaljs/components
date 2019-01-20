@@ -27,9 +27,14 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 			}
 		});
 
-		$(W).on('resize', function() {
+		var resize = function() {
 			SETTER('panel', 'resize');
-		});
+		};
+
+		if (W.OP)
+			W.OP.on('resize', resize);
+		else
+			$(W).on('resize', resize);
 	}
 
 	self.readonly();
@@ -85,13 +90,14 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 		switch (key) {
 			case 'bg':
 				self.tclass('ui-panel-inline', !value);
-				self.element.css('max-width', config.bg ? 'inherit' : (config.width + 1));
+				self.element.css('max-width', value ? 'inherit' : (config.width + 1));
 				break;
 			case 'closebutton':
 				!init && self.find('.ui-panel-button-close').tclass(value !== true);
 				break;
 			case 'width':
 				self.element.css('max-width', config.bg ? 'inherit' : value);
+				self.find('.ui-panel').css('max-width', value);
 				break;
 		}
 	};

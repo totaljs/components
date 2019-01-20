@@ -118,7 +118,11 @@ COMPONENT('textbox', function(self, config) {
 		config.error && attrs.attr('error');
 		attrs.attr('data-jc-bind', '');
 
-		config.autofill && attrs.attr('name', self.path.replace(/\./g, '_'));
+		if (config.autofill) {
+			attrs.attr('name', self.path.replace(/\./g, '_'));
+			self.autofill && self.autofill();
+		}
+
 		config.align && attrs.attr('class', 'ui-' + config.align);
 		!isMOBILE && config.autofocus && attrs.attr('autofocus');
 
