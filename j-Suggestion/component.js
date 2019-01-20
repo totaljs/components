@@ -153,6 +153,7 @@ COMPONENT('suggestion', function(self, config) {
 			return;
 		}
 
+		value = value.toSearch();
 		resultscount = 0;
 		selectedindex = 0;
 
@@ -282,6 +283,7 @@ COMPONENT('suggestion', function(self, config) {
 
 		setTimeout(function() {
 			is = true;
+			container.parent()[0].scrollTop = 0;
 		}, 50);
 	};
 
