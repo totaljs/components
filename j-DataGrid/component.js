@@ -1077,16 +1077,17 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			return;
 
 		var el;
+		var sbw = 10;
 
 		switch (config.height) {
 			case 'auto':
 				el = self.element;
-				opt.height = WH - (el.offset().top + config.bottom) - (config.exec ? 30 : 0);
+				opt.height = (WH - (el.offset().top + config.bottom) - (config.exec ? 30 : 0)) + sbw;
 				vbody.css('height', opt.height);
 				break;
 			case 'parent':
 				el = self.element.parent();
-				opt.height = el.height() - config.bottom - (config.exec ? 30 : 0);
+				opt.height = (el.height() - config.bottom - (config.exec ? 30 : 0)) + sbw;
 				vbody.css('height', opt.height);
 				break;
 			default:
@@ -1095,7 +1096,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 					opt.height = config.height;
 				} else {
 					el = self.element.closest(config.height);
-					opt.height = el.height() - config.bottom - (config.exec ? 30 : 0);
+					opt.height = (el.height() - config.bottom - (config.exec ? 30 : 0)) + sbw;
 					vbody.css('height', opt.height);
 				}
 				break;
@@ -1151,7 +1152,16 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 			// Scrollbars
 			vscrollbararea.tclass('hidden', isMOBILE || (vb.scrollHeight - vb.clientHeight) < 5);
-			hscrollbararea.tclass('hidden', isMOBILE || (hb.scrollWidth - hb.clientWidth) < 5);
+
+			var ish = isMOBILE || (hb.scrollWidth - hb.clientWidth) < 5;
+			if (!ish) {
+				hbody.css('height', (opt.height + 50 + plus) - sbw);
+				vbody.css('height', opt.height - sbw);
+				hcontainer.css('height', (opt.height + 50 + 7) - sbw);
+				vscrollbararea.css('height', opt.height - 1 - sbw);
+			}
+
+			hscrollbararea.tclass('hidden', ish);
 
 			var barsize = (w * (w / width)) >> 0;
 			if (barsize < 30)
@@ -1177,7 +1187,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			// rescroll
 			vbody.prop('scrollTop', vbody.prop('scrollTop') - 1);
 			hbody.prop('scrollLeft', hbody.prop('scrollLeft') - 1);
-		}, 500);
+		}, 100);
 	};
 
 	self.refreshfilter = function(useraction) {
