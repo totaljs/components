@@ -1187,7 +1187,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			// rescroll
 			vbody.prop('scrollTop', vbody.prop('scrollTop') - 1);
 			hbody.prop('scrollLeft', hbody.prop('scrollLeft') - 1);
-		}, 100);
+		}, 500);
 	};
 
 	self.refreshfilter = function(useraction) {
