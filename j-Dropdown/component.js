@@ -2,7 +2,6 @@ COMPONENT('dropdown', function(self, config) {
 
 	var select, condition, content = null;
 	var render = '';
-
 	self.nocompile && self.nocompile();
 
 	self.validate = function(value) {
@@ -103,9 +102,9 @@ COMPONENT('dropdown', function(self, config) {
 			if (condition && !condition(item))
 				continue;
 			if (notObj)
-				builder.push(template.format(item, value == item ? ' selected="selected"' : '', item));
+				builder.push(template({ value: item, selected: value == item, text: item }));
 			else
-				builder.push(template.format(item[propValue], value == item[propValue] ? ' selected="selected"' : '', item[propText]));
+				builder.push(template({ value: item[propValue], selected: value == item[propValue], text: item[propText] }));
 		}
 
 		render = builder.join('');
@@ -129,6 +128,7 @@ COMPONENT('dropdown', function(self, config) {
 	};
 
 	self.make = function() {
+		self.template = Tangular.compile('<option value="{{value}}"{{if selected}} selected="selected"{{ fi }}>{{text}}</option>');
 		self.type = config.type;
 		content = self.html();
 		self.aclass('ui-dropdown-container');
