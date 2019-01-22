@@ -137,5 +137,6 @@
 	"j-DynamicValue",
 	"j-Scrollbar",
 	"j-Typed",
-	"Tooltip"
+	"Tooltip",
+	"j-iFrameEditable"
 ]
