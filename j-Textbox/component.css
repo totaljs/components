@@ -12,6 +12,7 @@ input:invalid { box-shadow: none; }
 .ui-textbox .fa-times { color: red; cursor: pointer; }
 .ui-textbox-label { margin-bottom: 5px; font-size: 12px; text-align: left; }
 .ui-textbox-label i { margin-right: 3px; }
+.ui-textbox-innerlabel { position: relative; }
 .ui-textbox-innerlabel input { font-size: 12px; }
 .ui-textbox-innerlabel .ui-textbox-label { position: absolute; z-index: 1; margin: 9px 0 0 6px; }
 .ui-textbox-innerlabel.ui-textbox-filled .ui-textbox-label { margin: 3px 0 0 6px; font-size: 10px; color: #777777; }
