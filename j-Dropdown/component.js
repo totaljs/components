@@ -88,7 +88,6 @@ COMPONENT('dropdown', function(self, config) {
 
 		var builder = [];
 		var value = self.get();
-		var template = '<option value="{0}"{1}>{2}</option>';
 		var propText = config.text || 'name';
 		var propValue = config.value || 'id';
 
