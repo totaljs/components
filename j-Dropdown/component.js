@@ -102,9 +102,9 @@ COMPONENT('dropdown', function(self, config) {
 			if (condition && !condition(item))
 				continue;
 			if (notObj)
-				builder.push(template({ value: item, selected: value == item, text: item }));
+				builder.push(self.template({ value: item, selected: value == item, text: item }));
 			else
-				builder.push(template({ value: item[propValue], selected: value == item[propValue], text: item[propText] }));
+				builder.push(self.template({ value: item[propValue], selected: value == item[propValue], text: item[propText] }));
 		}
 
 		render = builder.join('');
