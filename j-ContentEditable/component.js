@@ -23,32 +23,32 @@ COMPONENT('contenteditable', function(self) {
 		self.attr('contenteditable', 'true');
 		self.aclass('ui-contenteditable');
 
-		self.event('selectstart', function() {
+		var el = self.element;
+
+		el.on('selectstart', function() {
 			clearTimeout(timers.selection);
 			timers.selection = setTimeout(function() {
 				self.event('select', self.getSelection());
 			}, 500);
 		});
 
-		self.event('focus', function() {
+		el.on('focus', function() {
 			clearTimeout(timers.focused);
 			clearInterval(timers.changes);
 			self.focused = true;
 			self.event('focus', self);
-			timers.changes = setInterval(function() {
-				self.save();
-			}, 1000);
+			timers.changes = setInterval(self.save, 1000);
 		});
 
 		self.save = function() {
 			self.getter(self.html());
 		};
 
-		self.event('click', function(e) {
+		el.on('click', function(e) {
 			e.target && self.event('click', e.target);
 		});
 
-		self.event('blur', function() {
+		el.on('blur', function() {
 			clearTimeout(timers.focused);
 			clearInterval(timers.changes);
 			self.save();
@@ -58,14 +58,14 @@ COMPONENT('contenteditable', function(self) {
 			}, 200);
 		});
 
-		self.event('paste', function(e) {
+		el.on('paste', function(e) {
 			e.preventDefault();
 			e.stopPropagation();
 			var text = e.originalEvent.clipboardData.getData(self.attrd('clipboard') || 'text/plain');
 			self.event('paste', text);
 		});
 
-		self.event('keydown', function(e) {
+		el.on('keydown', function(e) {
 
 			clearTimeout(timers.keypress);
 			timers.keypress = setTimeout(function() {
