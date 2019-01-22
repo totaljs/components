@@ -160,7 +160,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		if (config.exec)
 			pagination = '<div class="dg-footer hidden"><div class="dg-pagination-items hidden-xs"></div><div class="dg-pagination"><button name="page-first" disabled><i class="fa fa-angle-double-left"></i></button><button name="page-prev" disabled><i class="fa fa-angle-left"></i></button><div><input type="text" name="page" maxlength="5" class="dg-pagination-input" /></div><button name="page-next" disabled><i class="fa fa-angle-right"></i></button><button name="page-last" disabled><i class="fa fa-angle-double-right"></i></button></div><div class="dg-pagination-pages"></div></div>';
 
-		self.html('<div class="dg-btn-columns"><i class="fa fa-caret-left"></i><span class="fa fa-columns"></span></div><div class="dg-columns hidden"><div><div class="dg-columns-body"></div></div><button class="dg-columns-button" name="columns-apply"><i class="fa fa-columns"></i>{1}</button></div><div class="dg-scrollbar-container-v hidden"><div class="dg-scrollbar-v"></div></div><div class="dg-h-container"><div class="dg-h-body"><div class="dg-v-container"><div class="dg-v-area"><div class="dg-header"></div><div class="dg-v-body"></div></div></div></div></div><div class="dg-scrollbar-container-h hidden"><div class="dg-scrollbar-h"></div></div>{0}'.format(pagination, config.buttonapply));
+		self.html('<div class="dg-btn-columns"><i class="fa fa-caret-left"></i><span class="fa fa-columns"></span></div><div class="dg-columns hidden"><div><div class="dg-columns-body"></div></div><button class="dg-columns-button" name="columns-apply"><i class="fa fa-columns"></i>{1}</button></div><div class="dg-scrollbar-container-v hidden"><div class="dg-scrollbar-v hidden"></div></div><div class="dg-h-container"><div class="dg-h-body"><div class="dg-v-container"><div class="dg-v-area"><div class="dg-header"></div><div class="dg-v-body"></div></div></div></div></div><div class="dg-scrollbar-container-h hidden"><div class="dg-scrollbar-h hidden"></div></div>{0}'.format(pagination, config.buttonapply));
 
 		varea = self.find('.dg-v-area');
 		vcontainer = self.find('.dg-v-container');
@@ -1077,16 +1077,17 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			return;
 
 		var el;
+		var sbw = 10;
 
 		switch (config.height) {
 			case 'auto':
 				el = self.element;
-				opt.height = WH - (el.offset().top + config.bottom) - (config.exec ? 30 : 0);
+				opt.height = (WH - (el.offset().top + config.bottom) - (config.exec ? 30 : 0)) + sbw;
 				vbody.css('height', opt.height);
 				break;
 			case 'parent':
 				el = self.element.parent();
-				opt.height = el.height() - config.bottom - (config.exec ? 30 : 0);
+				opt.height = (el.height() - config.bottom - (config.exec ? 30 : 0)) + sbw;
 				vbody.css('height', opt.height);
 				break;
 			default:
@@ -1095,7 +1096,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 					opt.height = config.height;
 				} else {
 					el = self.element.closest(config.height);
-					opt.height = el.height() - config.bottom - (config.exec ? 30 : 0);
+					opt.height = (el.height() - config.bottom - (config.exec ? 30 : 0)) + sbw;
 					vbody.css('height', opt.height);
 				}
 				break;
@@ -1144,14 +1145,36 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		hcontainer.css('height', opt.height + 50 + 7);
 
 		opt.width2 = w;
+		var hb = hbody[0];
+		var issh = ((hb.scrollWidth - hb.clientWidth) < 5);
+
+		hscrollbararea.tclass('hidden', issh);
+
+		if (!issh) {
+			hbody.css('height', (opt.height + 50 + plus) - sbw);
+			vbody.css('height', opt.height - sbw);
+			hcontainer.css('height', (opt.height + 50 + 7) - sbw);
+			vscrollbararea.css('height', opt.height - 1 - sbw);
+		}
 
 		setTimeout2(self.ID, function() {
 			var vb = vbody[0];
 			var hb = hbody[0];
 
+			var ish = isMOBILE || (hb.scrollWidth - hb.clientWidth) < 5;
+			if (!ish) {
+				hbody.css('height', (opt.height + 50 + plus) - sbw);
+				vbody.css('height', opt.height - sbw);
+				hcontainer.css('height', (opt.height + 50 + 7) - sbw);
+				vscrollbararea.css('height', opt.height - 1 - sbw);
+			}
+
+			hscrollbar.rclass('hidden');
+			vscrollbar.rclass('hidden');
+
 			// Scrollbars
 			vscrollbararea.tclass('hidden', isMOBILE || (vb.scrollHeight - vb.clientHeight) < 5);
-			hscrollbararea.tclass('hidden', isMOBILE || (hb.scrollWidth - hb.clientWidth) < 5);
+			hscrollbararea.tclass('hidden', ish);
 
 			var barsize = (w * (w / width)) >> 0;
 			if (barsize < 30)
@@ -1507,7 +1530,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				return dt > NOW ? [NOW, dt] : [dt, NOW];
 			}
 			if (val.length === 4)
-				return [new Date(+val, 0, 1), new Date(+val + 1, 0	, 1)];
+				return [new Date(+val, 0, 1), new Date(+val + 1, 0, 1)];
 		} else if (val.indexOf('.', index + 1) === -1) {
 			a = val.split('.');
 			if (a[1].length === 4) {
