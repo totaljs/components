@@ -13,7 +13,12 @@ COMPONENT('dragdropfiles', 'click:true', function(self, config) {
 
 		var has = false;
 		var id = 'file' + self.ID;
-		$(document.body).append('<input type="file" id="{0}" class="hidden" multiple />'.format(id));
+		var accept = config.accept;
+
+		if(!accept)
+			accept = '*/*';
+
+		$(document.body).append('<input type="file" id="{0}" class="hidden" accept="{1}" multiple />'.format(id, accept));
 
 		file = $('#' + id);
 
