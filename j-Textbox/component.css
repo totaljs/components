@@ -15,9 +15,9 @@ input:invalid { box-shadow: none; }
 .ui-textbox-innerlabel { position: relative; }
 .ui-textbox-innerlabel input { font-size: 12px; }
 .ui-textbox-innerlabel .ui-textbox-label { position: absolute; z-index: 1; margin: 9px 0 0 6px; }
-.ui-textbox-innerlabel.ui-textbox-filled .ui-textbox-label { margin: 3px 0 0 6px; font-size: 10px; color: #777777; }
+.ui-textbox-innerlabel.ui-textbox-filled .ui-textbox-label { margin: 2px 0 0 6px; font-size: 10px; color: #777777; }
 .ui-textbox-innerlabel.ui-textbox-filled .ui-textbox-label i { margin-right: 2px; }
-.ui-textbox-innerlabel.ui-textbox-filled input { padding-top: 5px; }
+.ui-textbox-innerlabel.ui-textbox-filled input { padding-top: 6px; }
 .ui-textbox-required .ui-textbox-label { font-weight: bold; }
 .ui-textbox-required .ui-textbox-label:before { color: red; content: '***'; margin-right: 5px; }
 .ui-textbox-innerlabel.ui-textbox-required .ui-textbox-label:before { content: ''; margin: 0; }
