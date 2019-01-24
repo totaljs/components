@@ -401,13 +401,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 		self.event('dblclick', '.dg-col', function(e) {
 
+			if (!config.change)
+				return;
 
 			var col = $(this);
 			var index = col.attr('class').match(/\d+/);
 
-			if (index == null) {
+			if (index == null)
 				return;
-			}
 
 			index = +index[0];
 
