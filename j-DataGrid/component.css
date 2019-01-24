@@ -36,10 +36,12 @@
 .dg-v-body { overflow-y: auto; overflow-scrolling: touch; -webkit-overflow-scrolling: touch; overflow-x: hidden; outline: 0 !important; }
 .dg-row { height: 28px; font-size: 12px; border-bottom: 1px solid #E0E0E0; }
 .dg-row:nth-child(even) { background-color: rgba(0,0,0,0.02); }
+.dg-row-changed, .dg-row-changed.dg-row:nth-child(even) { background-color: rgba(208,31,33,0.07); }
 .dg-row:hover { background-color: rgba(0,0,0,0.05); }
 .dg-selected { background-color: rgba(249,232,196,0.5) !important; }
 .dg-col { float: left; border-left: 1px solid #E0E0E0; height: 27px; overflow: hidden; min-width: 30px; }
 .dg-col:first-child { border-left: 0; }
+.dg-col-changed { background-image: url(data:image/gif;base64,R0lGODdhBgAGAIAAAP8mAAAAACH5BAEAAAEALAAAAAAGAAYAAAIKhI8QGGvt4JKhAAA7); background-repeat: no-repeat; background-position: 0 0; }
 .dg-value { padding: 6px 5px 0; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 .dg-number { padding: 6px 5px 0; font-size: 11px; text-align: right; background-color: #F8F8F8; height: 28px; color: #A0A0A0; }
 .dg-col--1 { width: 40px; }
@@ -108,6 +110,7 @@
 .ui-dark .dg-selected { background-color: rgba(200,200,200,0.07) !important; }
 .ui-dark .dg-row:nth-child(even) { background-color: rgba(0,0,0,0.1); }
 .ui-dark .dg-row:hover { background-color: rgba(0,0,0,0.2); }
+.ui-dark .dg-row-changed, .ui-dark .dg-row-changed.dg-row:nth-child(even) { background-color: rgba(208,31,33,0.12); }
 .ui-dark .dg-scrollbar-container-h { background-color: #282828; }
 .ui-dark .dg-scrollbar-container-v { background-color: #282828; }
 .ui-dark .dg-scrollbar-h { background-color: #454545; }

@@ -1,6 +1,6 @@
 COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterlabel:Filter;numbering:;height:auto;bottom:90;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;unhighlight:true;autoselect:false;buttonapply:Apply;allowtitles:false;fullwidth_xs:true', function(self, config) {
 
-	var opt = { filter: {}, filtercache: {}, filtervalues: {}, scroll: false, selected: {}, operation: '' };
+	var opt = { filter: {}, filtercache: {}, filtervalues: {}, scroll: false, selected: {}, changed: {}, operation: '' };
 	var header, vbody, footer, vcontainer, hcontainer, varea, hbody, vscrollbar, vscrollbararea, hscrollbar, hscrollbararea, ecolumns, isecolumns = false;
 	var Theadercol = Tangular.compile('<div class="dg-hcol dg-col-{{ index }}{{ if sorting }} dg-sorting{{ fi }}" data-index="{{ index }}">{{ if sorting }}<i class="dg-sort fa fa-sort"></i>{{ fi }}<div class="dg-label{{ alignheader }}"{{ if labeltitle }} title="{{ labeltitle }}"{{ fi }}{{ if reorder }} draggable="true"{{ fi }}>{{ label | raw }}</div>{{ if filter }}<div class="dg-filter{{ alignfilter }}{{ if filterval != null && filterval !== \'\' }} dg-filter-selected{{ fi }}"><i class="fa dg-filter-cancel fa-times"></i>{{ if options }}<select class="dg-filter-input" data-name="{{ name }}" name="{{ name }}{{ index }}"><option value="">{{ filter }}</option></select>{{ else }}<input autocomplete="off" type="text" placeholder="{{ filter }}" class="dg-filter-input" name="{{ name }}{{ index }}" data-name="{{ name }}" value="{{ filterval }}" />{{ fi }}</div>{{ else }}<div class="dg-filter-empty">&nbsp;</div>{{ fi }}</div>');
 	var isIE = (/msie|trident/i).test(navigator.userAgent);
@@ -48,6 +48,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				self.pos = frame;
 				self.render();
 				self.scroll && self.scroll();
+				config.change && EXEC(config.change, null, null, self.grid);
 			}
 		};
 
@@ -145,6 +146,25 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			});
 		}
 	};
+
+	self.fn_in_changed = function(arr) {
+		if (config.changed) {
+			if (config.changed.indexOf('.') === -1)
+				EXEC(config.changed, arr || self.changed(), self);
+			else
+				SET(config.changed, arr || self.changed());
+		}
+	};
+
+	self.fn_in_checked = function(arr) {
+		if (config.checked) {
+			if (config.checked.indexOf('.') === -1)
+				EXEC(config.checked, arr || self.checked(), self);
+			else
+				SET(config.checked, arr || self.checked());
+		}
+	};
+
 
 	self.make = function() {
 
@@ -377,6 +397,49 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				ecolumns.rclass(cls);
 				isecolumns = true;
 			}
+		});
+
+		self.event('dblclick', '.dg-col', function(e) {
+
+
+			var col = $(this);
+			var index = col.attr('class').match(/\d+/);
+
+			if (index == null) {
+				return;
+			}
+
+			index = +index[0];
+
+			var row = col.closest('.dg-row');
+			var data = {};
+
+			data.index = +row.attrd('index');
+			data.row = opt.rows[data.index];
+			data.col = opt.cols[index];
+			data.value = data.row[data.col.name];
+			data.elrow = row;
+			data.elcol = col;
+
+			EXEC(config.change, data, function(data) {
+
+				data.row[data.col.name] = data.value;
+
+				if (opt.rows[data.index] != data.row)
+					opt.rows[data.index] = data.row;
+
+				if (!data.row.CHANGES)
+					data.row.CHANGES = {};
+
+				data.row.CHANGES[data.col.name] = true;
+				opt.render[data.index] = self.renderrow(data.index, data.row);
+				data.elrow.replaceWith(opt.render[data.index]);
+				opt.changed[data.index] = 1;
+				self.fn_in_changed();
+			}, self);
+
+			e.preventDefault();
+			e.stopPropagation();
 		});
 
 		self.event('click', '.dg-row', function(e) {
@@ -627,23 +690,18 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 			if (val === '-1') {
 				if (checked) {
-					opt.selected = {};
+					opt.checked = {};
 					for (var i = 0; i < opt.rows.length; i++)
-						opt.selected[opt.rows[i].ROW] = 1;
+						opt.checked[opt.rows[i].ROW] = 1;
 				} else
-					opt.selected = {};
+					opt.checked = {};
 				self.scrolling();
 			} else if (checked)
-				opt.selected[val] = 1;
+				opt.checked[val] = 1;
 			else
-				delete opt.selected[val];
+				delete opt.checked[val];
 
-			if (config.checked) {
-				if (config.checked.indexOf('.') === -1)
-					EXEC(config.checked, self.checked(), self);
-				else
-					SET(config.checked, self.checked());
-			}
+			self.fn_in_checked();
 		});
 
 		self.event('click', 'button', function(e) {
@@ -705,6 +763,15 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	function align(type) {
 		return type === 1 ? 'center' : type === 2 ? 'right' : type;
 	}
+
+	self.clear = function() {
+		opt.changed = {};
+		for (var i = 0; i < opt.rows.length; i++)
+			opt.rows[i].CHANGES = undefined;
+		self.renderrows(opt.rows, true);
+		opt.cluster && opt.cluster.update(opt.render);
+		self.fn_in_changed();
+	};
 
 	self.rebind = function(code) {
 
@@ -921,13 +988,48 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		vbody.prop('scrollTop', y);
 	};
 
+	self.redrawrow = function(row) {
+		index = opt.rows.indexOf(row);
+		if (index !== -1) {
+			var el = vbody.find('.dg-row[data-index="{0}"]'.format(index));
+			if (el.length)
+				self.renderrow(index, row);
+		}
+	};
+
+	self.renderrow = function(index, row, plus) {
+
+		if (plus === undefined && config.exec) {
+			// pagination
+			var val = self.get();
+			plus = (val.page - 1) * val.limit;
+		}
+
+		var Trow = '<div class="dg-row dg-row-{0}{3}{4}" data-index="{2}">{1}</div>';
+		var Tcol = '<div class="dg-col dg-col-{0}{2}{3}">{1}</div>';
+		var column = '';
+
+		if (config.numbering !== false)
+			column += Tcol.format(-1, '<div class="dg-number">{0}</div>'.format(index + 1 + (plus || 0)));
+
+		if (config.checkbox)
+			column += Tcol.format(-1, '<div class="dg-checkbox{1}" data-value="{0}"><i class="fa fa-check"></i></div>'.format(row.ROW, opt.checked[row.ROW] ? ' dg-checked' : ''));
+
+		for (var j = 0; j < opt.cols.length; j++) {
+			var col = opt.cols[j];
+			if (!col.hidden)
+				column += Tcol.format(j, col.template(row), col.align, row.CHANGES && row.CHANGES[col.name] ? ' dg-col-changed' : '');
+		}
+
+		column += '<div class="dg-col">&nbsp;</div>';
+		return Trow.format(index + 1, column, index, self.selected === row ? ' dg-selected' : '', row.CHANGES ? ' dg-row-changed' : '')
+	};
+
 	self.renderrows = function(rows, noscroll) {
 
 		opt.rows = rows;
 
 		var output = [];
-		var Trow = '<div class="dg-row dg-row-{0}{3}" data-index="{2}">{1}</div>';
-		var Tcol = '<div class="dg-col dg-col-{0}{2}">{1}</div>';
 		var plus = 0;
 
 		if (config.exec) {
@@ -936,26 +1038,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			plus = (val.page - 1) * val.limit;
 		}
 
-		for (var i = 0, length = rows.length; i < length; i++) {
-
-			var row = rows[i];
-			var column = '';
-
-			if (config.numbering !== false)
-				column += Tcol.format(-1, '<div class="dg-number">{0}</div>'.format(i + 1 + plus));
-
-			if (config.checkbox)
-				column += Tcol.format(-1, '<div class="dg-checkbox" data-value="{0}"><i class="fa fa-check"></i></div>'.format(row.ROW));
-
-			for (var j = 0; j < opt.cols.length; j++) {
-				var col = opt.cols[j];
-				if (!col.hidden)
-					column += Tcol.format(j, col.template(row), col.align);
-			}
-
-			column += '<div class="dg-col">&nbsp;</div>';
-			column && output.push(Trow.format(i + 1, column, i, self.selected === row ? ' dg-selected' : ''));
-		}
+		for (var i = 0, length = rows.length; i < length; i++)
+			output.push(self.renderrow(i, rows[i], plus));
 
 		var min = ((opt.height / config.rowheight) >> 0) + 1;
 		var is = output.length < min;
@@ -1212,22 +1296,13 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 		if (isredraw) {
 			if (isredraw === 2) {
-				if (config.checked) {
-					if (config.checked.indexOf('.') === -1)
-						EXEC(config.checked, self.checked(), self);
-					else
-						SET(config.checked, self.checked());
-				}
+				self.fn_in_checked();
+				self.fn_in_changed();
 			}
 		} else {
-			opt.selected = {};
+			opt.checked = {};
 			config.checkbox && header.find('.dg-checkbox').rclass('dg-checked');
-			if (config.checked) {
-				if (config.checked.indexOf('.') === - 1)
-					EXEC(config.checked, EMPTYARRAY, self);
-				else
-					SET(config.checked, EMPTYARRAY);
-			}
+			self.fn_in_checked(EMPTYARRAY);
 		}
 
 		for (var i = 0, length = items.length; i < length; i++) {
@@ -1367,12 +1442,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			return;
 		}
 
-		opt.selected = {};
+		opt.checked = {};
+		opt.changed = {};
 		opt.scroll = true;
 
 		self.applycolumns();
 		self.refreshfilter();
 		self.redrawpagination();
+		self.fn_in_changed();
 
 		!config.exec && self.rendercols();
 
@@ -1381,6 +1458,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 		config.exec && self.rendercols();
 		opt.cluster = new Cluster(vbody);
+		opt.cluster.grid = self;
 		opt.cluster.scroll = self.scrolling;
 		opt.render && opt.cluster.update(opt.render);
 		self.aclass('dg-visible');
@@ -1389,7 +1467,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	self.scrolling = function() {
 		config.checkbox && setTimeout2(self.ID, function() {
 			vbody.find('.dg-checkbox').each(function() {
-				$(this).tclass('dg-checked', opt.selected[this.getAttribute('data-value')] == 1);
+				$(this).tclass('dg-checked', opt.checked[this.getAttribute('data-value')] == 1);
 			});
 		}, 80, 10);
 	};
@@ -1503,7 +1581,19 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	};
 
 	self.checked = function() {
-		var arr = Object.keys(opt.selected);
+		var arr = Object.keys(opt.checked);
+		var output = [];
+		var model = self.get();
+		var rows = model instanceof Array ? model : model.items;
+		for (var i = 0; i < arr.length; i++) {
+			var index = +arr[i];
+			output.push(rows[index]);
+		}
+		return output;
+	};
+
+	self.changed = function() {
+		var arr = Object.keys(opt.changed);
 		var output = [];
 		var model = self.get();
 		var rows = model instanceof Array ? model : model.items;

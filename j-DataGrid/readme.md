@@ -67,6 +67,8 @@ __Configuration__:
 - `allowtitles` {Boolean}, enables titles for all row values, optional default `false`
 - `button` {String} a link to `function(btn_name, name, row, grid, event)` is executed if the user clicks on a __button__ in the row
 - `exec` {String} a link to `function(type, filter, sort, page)` for server-side operations only (it disables client-side sorting & filtering), supported types: `init`, `refresh` and `page`
+- __NEW__ `changed` {String} a link to `function(rows, grid)` is executed if the user changed some rows
+- __NEW__ `change` {String} a link to `function(data, grid)` is executed if the user double clicks on a column (`data` can be `null` if the grid is refreshed)
 
 __Column properties__:
 
@@ -97,8 +99,10 @@ __Filtering__:
 __Methods__:
 
 - `component.redraw([reselect_again])` can redraw rows again (only for modifications, if you will remove some row you need to update the entire model)
-- __NEW__ `component.resetfilter()` can reset a filter
-- __NEW__ `component.exportrows(page_from or true from the current page, pages_count, callback(rows, internal_options), [reset_to_page or true for the current page])` can export rows with server-side rendering
+- `component.resetfilter()` can reset a filter
+- `component.exportrows(page_from or true from the current page, pages_count, callback(rows, internal_options), [reset_to_page or true for the current page])` can export rows with server-side rendering
+- __NEW__ `component.redrawrow(row_object)` redraws row
+- __NEW__ `component.clear()` clears all changes
 
 __Properties__:
 
