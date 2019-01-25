@@ -1,0 +1,21 @@
+{
+	"datecreated": "2019-01-25T17:30:00.000Z",
+	"dateupdated": null,
+	"name": "j-Input",
+	"tags": [
+		"textbox",
+		"input",
+		"password",
+		"dropdown",
+		"jcomponent"
+	],
+	"color": "white",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

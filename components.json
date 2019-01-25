@@ -138,5 +138,7 @@
 	"j-Scrollbar",
 	"j-Typed",
 	"Tooltip",
-	"j-iFrameEditable"
+	"j-iFrameEditable",
+	"j-Input",
+	"j-Directory"
 ]
