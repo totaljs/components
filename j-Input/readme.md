@@ -31,19 +31,20 @@ Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:dat
 - `autocomplete` {String} optional, needs to contain a link to a function, is triggered on `focus` event
 - `spaces` {Boolean} optional, enables spaces otherwise it removes them (default: `true`)
 - `innerlabel` {Boolean} optional, enables inner label (default: `true`)
-- `datasource` {String} optional, path to a data-source
-- `datasourcecustom` {String/Boolean} optional, can contain a path to `function(val, next(new_val))` or can be `Boolean`. This option can enable adding a custom value (value not defined in data-source)
-- `datasourcerender` {String} optional, a path to `function(item, text)` (must return HTML for `j-Directory`), this function can affect list of items in `j-Directory`
-- `datasourceminwidth` {Number} optional, a minimum width for `j-Directory`, default: `200`
-- `datasourcemaxwidth` {Number} optional, a maximum width for `j-Directory`
-- `key` {String} optional, a key name for reading of `text` in `datasource` (default: `name`)
-- `value` {String} optional, a key name for reading of `value` in `datasource` (default: `id`)
+- `dirsource` {String} optional, path to a data-source
+- `dircustom` {String/Boolean} optional, can contain a path to `function(val, next(new_val))` or can be `Boolean`. This option can enable adding a custom value (value not defined in data-source)
+- `dirrender` {String} optional, a path to `function(item, text)` (must return HTML for `j-Directory`), this function can affect list of items in `j-Directory`
+- `dirminwidth` {Number} optional, a minimum width for `j-Directory`, default: `200`
+- `dirmaxwidth` {Number} optional, a maximum width for `j-Directory`
+- `dirplaceholder` {String} optional, a placeholder for `j-Directory`
+- `key` {String} optional, a key name for reading of `text` in `dirsource` (default: `name`)
+- `value` {String} optional, a key name for reading of `value` in `dirsource` (default: `id`)
 
 __Interesting:__
 
 - `type:date` needs __`calendar`__ component
 - `type:time` needs __`colorpicker`__ component
-- `datasource:path.to.datasource` needs __`directory`__ component
+- `dirsource:path.to.datasource` needs __`directory`__ component
 - if `licon` or `ricon` starts with `!` then the component render a raw value instead of `icon`
 
 ### Author

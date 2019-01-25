@@ -2,13 +2,13 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 
 	var cls = 'ui-input';
 	var cls2 = '.' + cls;
-	var input, placeholder, datasource, binded, customvalidator;
+	var input, placeholder, dirsource, binded, customvalidator;
 
 	self.init = function() {
 		Thelpers.ui_input_icon = function(val) {
 			return val.charAt(0) === '!' ? ('<span class="ui-input-icon-custom">' + val.substring(1) + '</span>') : ('<i class="fa fa-' + val + '"></i>');
 		};
-		W.ui_input_template = Tangular.compile('{{ if label }}<div class="{0}-label">{{ if icon }}<i class="fa fa-{{ icon }}"></i>{{ fi }}{{ label }}{{ after }}</div>{{ fi }}<div class="{0}-control{{ if datasource }} ui-input-dropdown{{ fi }}{{ if licon }} {0}-licon{{ fi }}{{ if ricon || type === \'number\' }} {0}-ricon{{ fi }}">{{ if ricon || type === \'number\' }}<div class="{0}-icon-right{{ if type === \'number\' }} ui-input-increment{{ else if riconclick || type === \'date\' || type === \'time\' || type === \'search\' || type === \'password\' }} ui-input-click{{ fi }}">{{ if type === \'number\' }}<i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i>{{ else }}{{ ricon | ui_input_icon }}{{ fi }}</div>{{ fi }}{{ if licon }}<div class="{0}-icon-left{{ if liconclick }} ui-input-click{{ fi }}">{{ licon | ui_input_icon }}</div>{{ fi }}<div class="{0}-input{{ if align === 1 || align === \'center\' }} center{{ else if align === 2 || align === \'right\' }} right{{ fi }}">{{ if placeholder && !innerlabel }}<div class="{0}-placeholder">{{ placeholder }}</div>{{ fi }}<input type="{{ if !datasource && type === \'password\' }}password{{ else }}text{{ fi }}"{{ if autofill }} name="{{ PATH }}"{{ fi }}{{ if datasource }} readonly{{ else }} data-jc-bind=""{{ fi }}{{ if maxlength > 0}} maxlength="{{ maxlength }}"{{ fi }}{{ if autofocus }} autofocus{{ fi }} /></div></div>{{ if error }}<div class="ui-input-error hidden"><i class="fa fa-warning"></i> {{ error }}</div>{{ fi }}'.format(cls));
+		W.ui_input_template = Tangular.compile('{{ if label }}<div class="{0}-label">{{ if icon }}<i class="fa fa-{{ icon }}"></i>{{ fi }}{{ label }}{{ after }}</div>{{ fi }}<div class="{0}-control{{ if dirsource }} ui-input-dropdown{{ fi }}{{ if licon }} {0}-licon{{ fi }}{{ if ricon || type === \'number\' }} {0}-ricon{{ fi }}">{{ if ricon || type === \'number\' }}<div class="{0}-icon-right{{ if type === \'number\' }} ui-input-increment{{ else if riconclick || type === \'date\' || type === \'time\' || type === \'search\' || type === \'password\' }} ui-input-click{{ fi }}">{{ if type === \'number\' }}<i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i>{{ else }}{{ ricon | ui_input_icon }}{{ fi }}</div>{{ fi }}{{ if licon }}<div class="{0}-icon-left{{ if liconclick }} ui-input-click{{ fi }}">{{ licon | ui_input_icon }}</div>{{ fi }}<div class="{0}-input{{ if align === 1 || align === \'center\' }} center{{ else if align === 2 || align === \'right\' }} right{{ fi }}">{{ if placeholder && !innerlabel }}<div class="{0}-placeholder">{{ placeholder }}</div>{{ fi }}<input type="{{ if !dirsource && type === \'password\' }}password{{ else }}text{{ fi }}"{{ if autofill }} name="{{ PATH }}"{{ fi }}{{ if dirsource }} readonly{{ else }} data-jc-bind=""{{ fi }}{{ if maxlength > 0}} maxlength="{{ maxlength }}"{{ fi }}{{ if autofocus }} autofocus{{ fi }} /></div></div>{{ if error }}<div class="ui-input-error hidden"><i class="fa fa-warning"></i> {{ error }}</div>{{ fi }}'.format(cls));
 	};
 
 	self.make = function() {
@@ -42,7 +42,7 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 			}
 
 			if (!config.disabled && e.which === 13 || e.which > 30)
-				config.datasource && self.element.find(cls2 + '-control').trigger('click');
+				config.dirsource && self.element.find(cls2 + '-control').trigger('click');
 		});
 
 		self.event('blur', 'input', function() {
@@ -51,23 +51,24 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 
 		self.event('click', cls2 + '-control', function() {
 
-			if (!config.datasource || config.disabled)
+			if (!config.dirsource || config.disabled)
 				return;
 
 			var opt = {};
 			opt.element = self.find(cls2 + '-control');
-			opt.items = datasource;
+			opt.items = dirsource;
 			opt.offsetY = -1;
-			opt.render = config.datasourcerender ? GET(config.datasourcerender) : null;
-			opt.custom = !!config.datasourcecustom;
+			opt.placeholder = config.dirplaceholder;
+			opt.render = config.dirrender ? GET(config.dirrender) : null;
+			opt.custom = !!config.dircustom;
 			opt.offsetWidth = 2;
-			opt.minwidth = config.datasourceminwidth || 200;
-			opt.maxwidth = config.datasourcemaxwidth;
+			opt.minwidth = config.dirminwidth || 200;
+			opt.maxwidth = config.dirmaxwidth;
 
 			opt.callback = function(item, el, custom) {
 				var val = custom || typeof(item) === 'string' ? item : item[config.value];
-				if (custom && typeof(config.datasourcecustom) === 'string') {
-					var fn = GET(config.datasourcecustom);
+				if (custom && typeof(config.dircustom) === 'string') {
+					var fn = GET(config.dircustom);
 					fn(val, function(val) {
 						self.set(val, 2);
 						self.change();
@@ -85,7 +86,7 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 
 		self.event('click', cls2 + '-placeholder,' + cls2 + '-label', function() {
 			if (!config.disabled) {
-				if (config.datasource)
+				if (config.dirsource)
 					self.element.find(cls2 + '-control').trigger('click');
 				else
 					input.focus();
@@ -100,7 +101,7 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 			var el = $(this);
 			var left = el.hclass(cls + '-icon-left');
 
-			if (config.datasource && left && config.liconclick) {
+			if (config.dirsource && left && config.liconclick) {
 				e.preventDefault();
 				e.stopPropagation();
 			}
@@ -142,7 +143,7 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 		if (!config.required || config.disabled)
 			return true;
 
-		if (config.datasource)
+		if (config.dirsource)
 			return !!value;
 
 		if (customvalidator)
@@ -218,13 +219,13 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 	};
 
 	self.bindvalue = function() {
-		if (datasource) {
+		if (dirsource) {
 
 			var value = self.get();
 			var item;
 
-			for (var i = 0; i < datasource.length; i++) {
-				item = datasource[i];
+			for (var i = 0; i < dirsource.length; i++) {
+				item = dirsource[i];
 				if (typeof(item) === 'string') {
 					if (item === value)
 						break;
@@ -236,7 +237,7 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 					item = null;
 			}
 
-			if (value && item == null && config.datasourcecustom)
+			if (value && item == null && config.dircustom)
 				item = value;
 
 			input.val(item || '');
@@ -247,7 +248,7 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 	self.redraw = function() {
 
 		if (!config.ricon) {
-			if (config.datasource)
+			if (config.dirsource)
 				config.ricon = 'angle-down';
 			else if (config.type === 'date') {
 				config.ricon = 'calendar';
@@ -274,9 +275,9 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 
 	self.configure = function(key, value) {
 		switch (key) {
-			case 'datasource':
+			case 'dirsource':
 				self.datasource(value, function(path, value) {
-					datasource = value;
+					dirsource = value;
 					self.bindvalue();
 				});
 				break;
