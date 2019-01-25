@@ -54,7 +54,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 		self.event('click', cls2 + '-add', function() {
 			if (self.opt.callback) {
-				self.opt.callback(input.val(''), self.opt.element, true);
+				self.opt.callback(input.val(), self.opt.element, true);
 				self.hide();
 			}
 		});
