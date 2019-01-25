@@ -1,4 +1,4 @@
-COMPONENT('directory', function(self, config) {
+COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 	var cls = 'ui-directory';
 	var cls2 = '.' + cls;
@@ -224,6 +224,9 @@ COMPONENT('directory', function(self, config) {
 		// opt.minwidth
 		// opt.maxwidth
 
+		if (!opt.minwidth)
+			opt.minwidth = 200;
+
 		if (is) {
 			clearTimeout(timeout);
 			var obj = opt.element instanceof jQuery ? opt.element[0] : opt.element;
@@ -278,9 +281,9 @@ COMPONENT('directory', function(self, config) {
 		var offset = element.offset();
 		var width = element.width() + (opt.offsetWidth || 0);
 
-		if (width < opt.minwidth)
+		if (opt.minwidth && width < opt.minwidth)
 			width = opt.minwidth;
-		else if (width > opt.maxwidth)
+		else if (opt.maxwidth && width > opt.maxwidth)
 			width = opt.maxwidth;
 
 		opt.ajaxold = null;
