@@ -8,6 +8,7 @@
 	$('a[href="#timepicker"]').on('click', function(e) {
 		var opt = {};
 		opt.element = this;
+		opt.value = 'form.date';
 		opt.callback = function() {
 			alert(date);
 		};
