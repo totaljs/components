@@ -2,7 +2,7 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 
 	var cls = 'ui-input';
 	var cls2 = '.' + cls;
-	var input, placeholder, dirsource, binded, customvalidator;
+	var input, placeholder, dirsource, binded, customvalidator, mask;
 
 	self.init = function() {
 		Thelpers.ui_input_icon = function(val) {
@@ -34,15 +34,117 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 			config.autcomplete && EXEC(config.autcomplete, self, input.parent());
 		});
 
+		self.event('paste', 'input', function(e) {
+			if (config.mask) {
+				var val = (e.originalEvent.clipboardData || window.clipboardData).getData('text');
+				self.set(val.replace(/\s|\t/g, ''));
+				e.preventDefault();
+			}
+		});
+
 		self.event('keydown', 'input', function(e) {
 
-			if (this.readOnly || config.disabled) {
+			var t = this;
+			var code = e.which;
+
+			if (t.readOnly || config.disabled) {
 				e.preventDefault();
 				e.stopPropagation();
+				//self.curpos(0);
+				return;
 			}
 
-			if (!config.disabled && e.which === 13 || e.which > 30)
-				config.dirsource && self.element.find(cls2 + '-control').trigger('click');
+			if (!config.disabled && config.dirsource && (code === 13 || code > 30)) {
+				self.element.find(cls2 + '-control').trigger('click');
+				return;
+			}
+
+			if (config.mask) {
+
+				if (e.metaKey) {
+					if (code === 8 || code === 127) {
+						e.preventDefault();
+						e.stopPropagation();
+					}
+					return;
+				}
+
+				if (code === 32) {
+					e.preventDefault();
+					e.stopPropagation();
+					return;
+				}
+
+				var beg = e.target.selectionStart;
+				var end = e.target.selectionEnd;
+				var val = t.value;
+				var c;
+
+				if (code === 8 || code === 127) {
+
+					if (beg === end) {
+						c = config.mask.substring(beg - 1, beg);
+						t.value = val.substring(0, beg - 1) + c + val.substring(beg);
+						self.curpos(beg - 1);
+					} else {
+						for (var i = beg; i <= end; i++) {
+							c = config.mask.substring(i - 1, i);
+							val = val.substring(0, i - 1) + c + val.substring(i);
+						}
+						t.value = val;
+						self.curpos(beg);
+					}
+
+					e.preventDefault();
+					return;
+				}
+
+				if (code > 40) {
+
+					var cur = String.fromCharCode(code);
+
+					if (mask && mask[beg]) {
+						if (!mask[beg].test(cur)) {
+							e.preventDefault();
+							return;
+						}
+					}
+
+					c = config.mask.charCodeAt(beg);
+					if (c !== 95) {
+						beg++;
+						while (true) {
+							c = config.mask.charCodeAt(beg);
+							if (c === 95 || isNaN(c))
+								break;
+							else
+								beg++;
+						}
+					}
+
+					if (c === 95) {
+
+						val = val.substring(0, beg) + cur + val.substring(beg + 1);
+						t.value = val;
+						beg++;
+
+						while (beg < config.mask.length) {
+							c = config.mask.charCodeAt(beg);
+							if (c === 95)
+								break;
+							else
+								beg++;
+						}
+
+						self.curpos(beg);
+					} else
+						self.curpos(beg + 1);
+
+					e.preventDefault();
+					e.stopPropagation();
+				}
+			}
+
 		});
 
 		self.event('blur', 'input', function() {
@@ -84,11 +186,13 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 			SETTER('directory', 'show', opt);
 		});
 
-		self.event('click', cls2 + '-placeholder,' + cls2 + '-label', function() {
+		self.event('click', cls2 + '-placeholder,' + cls2 + '-label', function(e) {
 			if (!config.disabled) {
-				if (config.dirsource)
+				if (config.dirsource) {
+					e.preventDefault();
+					e.stopPropagation();
 					self.element.find(cls2 + '-control').trigger('click');
-				else
+				} else
 					input.focus();
 			}
 		});
@@ -136,6 +240,18 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 				EXEC(config.riconclick, self, el);
 
 		});
+	};
+
+	self.curpos = function(pos) {
+		var el = input[0];
+		if (el.createTextRange) {
+			var range = el.createTextRange();
+			range.move('character', pos);
+			range.select();
+		} else if (el.selectionStart) {
+			el.focus();
+			el.setSelectionRange(pos, pos);
+		}
 	};
 
 	self.validate = function(value) {
@@ -195,10 +311,57 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 		self.find(cls2 + '-icon-right').find('i').tclass(config.ricon, visible).tclass('fa-eye-slash', !visible);
 	};
 
+	self.getterin = self.getter;
+	self.getter = function(value, realtime, nobind) {
+		if (config.mask && config.masktidy) {
+			var val = [];
+			for (var i = 0; i < value.length; i++) {
+				if (config.mask.charAt(i) === '_')
+					val.push(value.charAt(i));
+			}
+			value = val.join('');
+		}
+		self.getterin(value, realtime, nobind);
+	};
+
 	self.setterin = self.setter;
+
 	self.setter = function(value, path, type) {
+
+		if (config.mask) {
+			if (value) {
+				if (config.masktidy) {
+					var index = 0;
+					var val = [];
+					for (var i = 0; i < config.mask.length; i++) {
+						var c = config.mask.charAt(i);
+						if (c === '_')
+							val.push(value.charAt(index++) || '_');
+						else
+							val.push(c);
+					}
+					value = val.join('');
+				}
+
+				// check values
+				if (mask) {
+					var arr = [];
+					for (var i = 0; i < mask.length; i++) {
+						var c = value.charAt(i);
+						if (mask[i] && mask[i].test(c))
+							arr.push(c);
+						else
+							arr.push(config.mask.charAt(i));
+					}
+					value = arr.join('');
+				}
+			} else
+				value = config.mask;
+		}
+
 		self.setterin(value, path, type);
 		self.bindvalue();
+
 		if (config.type === 'password')
 			self.password(true);
 	};
@@ -213,9 +376,9 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 		binded = is;
 		placeholder && placeholder.tclass('hidden', is);
 		self.tclass(cls + '-binded', is);
+
 		if (config.type === 'search')
 			self.find(cls2 + '-icon-right').find('i').tclass(config.ricon, !is).tclass('fa-times', is);
-
 	};
 
 	self.bindvalue = function() {
@@ -268,6 +431,7 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 			}
 		}
 
+		self.tclass(cls + '-masked', !!config.mask);
 		self.html(W.ui_input_template(config));
 		input = self.find('input');
 		placeholder = self.find(cls2 + '-placeholder');
@@ -296,6 +460,22 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 				break;
 			case 'innerlabel':
 				self.tclass('ui-input-inner', value);
+				break;
+			case 'maskregexp':
+				if (value) {
+					mask = value.toLowerCase().split(',');
+					for (var i = 0; i < mask.length; i++) {
+						var m = mask[i];
+						if (!m || m === 'null')
+							mask[i] = '';
+						else
+							mask[i] = new RegExp(m);
+					}
+				} else
+					mask = null;
+				break;
+			case 'mask':
+				config.mask = value.replace(/#/g, '_');
 				break;
 		}
 	};

@@ -66,13 +66,31 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			e.stopPropagation();
 		});
 
-		$(document).on('click', function(e) {
+		var e_click = function(e) {
 			is && !$(e.target).hclass(cls + '-search-input') && self.hide(0);
-		});
+		};
 
-		$(window).on('resize', function() {
+		var e_resize = function() {
 			is && self.hide(0);
-		});
+		};
+
+		self.bindedevents = false;
+
+		self.bindevents = function() {
+			if (!self.bindedevents) {
+				$(document).on('click', e_click);
+				$(window).on('resize', e_resize);
+				self.bindedevents = true;
+			}
+		};
+
+		self.unbindevents = function() {
+			if (self.bindedevents) {
+				self.bindedevents = false;
+				$(document).off('click', e_click);
+				$(window).off('resize', e_resize);
+			}
+		};
 
 		self.event('keydown', 'input', function(e) {
 			var o = false;
@@ -127,6 +145,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 		self.on('reflow', fn);
 		self.on('scroll', fn);
+		self.on('resize', fn);
 		$(window).on('scroll', fn);
 	};
 
@@ -227,15 +246,18 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		if (!opt.minwidth)
 			opt.minwidth = 200;
 
+		var el = opt.element instanceof jQuery ? opt.element[0] : opt.element;
+
 		if (is) {
 			clearTimeout(timeout);
-			var obj = opt.element instanceof jQuery ? opt.element[0] : opt.element;
-			if (self.target === obj) {
-				self.hide(0);
+			if (self.target === el) {
+				self.hide(1);
 				return;
 			}
 		}
 
+		self.initializing = true;
+		self.target = el;
 		opt.ajax = null;
 
 		var element = $(opt.element);
@@ -257,6 +279,8 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			self.hide(0);
 			return;
 		}
+
+		self.bindevents();
 
 		self.opt = opt;
 		opt.class && self.aclass(opt.class);
@@ -296,6 +320,17 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		var options = { left: offset.left + (opt.offsetX || 0), top: offset.top + (opt.offsetY || 0), width: width };
 		self.css(options);
 
+		!isMOBILE && setTimeout(function() {
+			self.is = false;
+			input.focus();
+		}, 500);
+
+		setTimeout(function() {
+			self.initializing = false;
+			is = true;
+			container.parent()[0].scrollTop = 0;
+		}, 50);
+
 		if (is) {
 			self.search();
 			return;
@@ -308,22 +343,15 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 		self.rclass('hidden');
 		self.aclass(cls + '-visible', 100);
-
-		!isMOBILE && setTimeout(function() {
-			input.focus();
-		}, 500);
-
-		setTimeout(function() {
-			is = true;
-			container.parent()[0].scrollTop = 0;
-		}, 50);
 	};
 
 	self.hide = function(sleep) {
-		if (!is)
+		if (!is || self.initializing)
 			return;
 		clearTimeout(timeout);
 		timeout = setTimeout(function() {
+			self.is = false;
+			self.unbindevents();
 			self.rclass(cls + '-visible').aclass('hidden');
 			if (self.opt) {
 				self.opt.class && self.rclass(self.opt.class);
