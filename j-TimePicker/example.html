@@ -1,4 +1,4 @@
-<a href="#timepicker">SHOW TIMEPICKER</a>
+<a href="#timepicker">SHOW TIMEPICKER <span data-bind="form.date__html:value.format('HH\:mm')"></span></a>
 <div data---="timepicker"></div>
 
 <script>
@@ -9,9 +9,6 @@
 		var opt = {};
 		opt.element = this;
 		opt.value = 'form.date';
-		opt.callback = function() {
-			alert(date);
-		};
 		SETTER('timepicker', 'toggle', opt);
 	});
 </script>

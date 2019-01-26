@@ -188,7 +188,7 @@ COMPONENT('timepicker', function(self, config) {
 		var ampm = opt.ampm;
 
 		self.find(cls2 + '-hours input').val(value.format(ampm ? '!H' : 'HH'));
-		self.find(cls2 + '-minutes input').val(value.format(ampm ? 'M' : 'MM'));
+		self.find(cls2 + '-minutes input').val(value.format(ampm ? 'm' : 'mm'));
 		self.find(cls2 + '-seconds input').val(value.format(ampm ? 's' : 'ss'));
 		self.find(cls2 + '-ampm span').html(value.format('a').toUpperCase());
 
@@ -207,11 +207,13 @@ COMPONENT('timepicker', function(self, config) {
 			off.top += opt.offsetY;
 
 		off.top += el.innerHeight() + 12;
-		is = true;
-
 		self.element.css(off);
 		self.rclass2(cls + '-').tclass(cls + '-' + count).rclass('hidden').aclass(cls + '-visible', 100);
 		clearTimeout(timeout);
+
+		setTimeout(function() {
+			is = true;
+		}, 500);
 	};
 
 	self.hide = function(sleep) {
