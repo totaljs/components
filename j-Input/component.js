@@ -453,15 +453,17 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 			case 'disabled':
 				self.tclass('ui-disabled', value == true);
 				input.prop('readonly', value === true);
+				self.reset();
 				break;
 			case 'required':
 				self.tclass(cls + '-required', value == true);
+				self.reset();
 				break;
 			case 'type':
 				self.type = value;
 				break;
 			case 'validate':
-				customvalidator = value ? (/\(|=|>|<|\+|\-|\)/).test(value) ? FN('value=>' + value) : (function(path) { return function(value) { return GET(path)(value); }; })(value) : null;
+				customvalidator = value ? (/\(|=|>|<|\+|-|\)/).test(value) ? FN('value=>' + value) : (function(path) { return function(value) { return GET(path)(value); }; })(value) : null;
 				break;
 			case 'innerlabel':
 				self.tclass('ui-input-inner', value);
