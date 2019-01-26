@@ -8,7 +8,7 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 		Thelpers.ui_input_icon = function(val) {
 			return val.charAt(0) === '!' ? ('<span class="ui-input-icon-custom">' + val.substring(1) + '</span>') : ('<i class="fa fa-' + val + '"></i>');
 		};
-		W.ui_input_template = Tangular.compile('{{ if label }}<div class="{0}-label">{{ if icon }}<i class="fa fa-{{ icon }}"></i>{{ fi }}{{ label }}{{ after }}</div>{{ fi }}<div class="{0}-control{{ if dirsource }} ui-input-dropdown{{ fi }}{{ if licon }} {0}-licon{{ fi }}{{ if ricon || type === \'number\' }} {0}-ricon{{ fi }}">{{ if ricon || type === \'number\' }}<div class="{0}-icon-right{{ if type === \'number\' }} ui-input-increment{{ else if riconclick || type === \'date\' || type === \'time\' || type === \'search\' || type === \'password\' }} ui-input-click{{ fi }}">{{ if type === \'number\' }}<i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i>{{ else }}{{ ricon | ui_input_icon }}{{ fi }}</div>{{ fi }}{{ if licon }}<div class="{0}-icon-left{{ if liconclick }} ui-input-click{{ fi }}">{{ licon | ui_input_icon }}</div>{{ fi }}<div class="{0}-input{{ if align === 1 || align === \'center\' }} center{{ else if align === 2 || align === \'right\' }} right{{ fi }}">{{ if placeholder && !innerlabel }}<div class="{0}-placeholder">{{ placeholder }}</div>{{ fi }}<input type="{{ if !dirsource && type === \'password\' }}password{{ else }}text{{ fi }}"{{ if autofill }} name="{{ PATH }}"{{ fi }}{{ if dirsource }} readonly{{ else }} data-jc-bind=""{{ fi }}{{ if maxlength > 0}} maxlength="{{ maxlength }}"{{ fi }}{{ if autofocus }} autofocus{{ fi }} /></div></div>{{ if error }}<div class="ui-input-error hidden"><i class="fa fa-warning"></i> {{ error }}</div>{{ fi }}'.format(cls));
+		W.ui_input_template = Tangular.compile('{{ if label }}<div class="{0}-label">{{ if icon }}<i class="fa fa-{{ icon }}"></i>{{ fi }}{{ label }}{{ after }}</div>{{ fi }}<div class="{0}-control{{ if dirsource }} ui-input-dropdown{{ fi }}{{ if licon }} {0}-licon{{ fi }}{{ if ricon || type === \'number\' }} {0}-ricon{{ fi }}">{{ if ricon || type === \'number\' }}<div class="{0}-icon-right{{ if type === \'number\' }} ui-input-increment{{ else if riconclick || type === \'date\' || type === \'time\' || type === \'search\' || type === \'password\' }} ui-input-click{{ fi }}">{{ if type === \'number\' }}<i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i>{{ else }}{{ ricon | ui_input_icon }}{{ fi }}</div>{{ fi }}{{ if licon }}<div class="{0}-icon-left{{ if liconclick }} ui-input-click{{ fi }}">{{ licon | ui_input_icon }}</div>{{ fi }}<div class="{0}-input{{ if align === 1 || align === \'center\' }} center{{ else if align === 2 || align === \'right\' }} right{{ fi }}">{{ if placeholder && !innerlabel }}<div class="{0}-placeholder">{{ placeholder }}</div>{{ fi }}<input type="{{ if !dirsource && type === \'password\' }}password{{ else }}text{{ fi }}"{{ if autofill }} name="{{ PATH }}"{{ else }} autocomplete="false"{{ fi }}{{ if dirsource }} readonly{{ else }} data-jc-bind=""{{ fi }}{{ if maxlength > 0}} maxlength="{{ maxlength }}"{{ fi }}{{ if autofocus }} autofocus{{ fi }} /></div></div>{{ if error }}<div class="ui-input-error hidden"><i class="fa fa-warning"></i> {{ error }}</div>{{ fi }}'.format(cls));
 	};
 
 	self.make = function() {
@@ -273,6 +273,9 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 		else
 			value = value.toString();
 
+		if (config.mask && typeof(value) === 'string' && value.indexOf('_') !== -1)
+			return false;
+
 		if (config.minlength && value.length < config.minlength)
 			return false;
 
@@ -285,6 +288,8 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 				return value.isURL();
 			case 'currency':
 			case 'number':
+
+				value = value.parseFloat();
 
 				if (config.minvalue != null && value < config.minvalue)
 					return false;
