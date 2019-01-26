@@ -461,7 +461,7 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 				self.type = value;
 				break;
 			case 'validate':
-				customvalidator = value ? value.indexOf('(') == - 1 ? (function(path) { return function(value) { return GET(path)(value); }})(value) : FN('value => ' + value) : null;
+				customvalidator = value ? (/\(|=|>|<|\+|\-|\)/).test(value) ? FN('value=>' + value) : (function(path) { return function(value) { return GET(path)(value); }; })(value) : null;
 				break;
 			case 'innerlabel':
 				self.tclass('ui-input-inner', value);
@@ -506,9 +506,10 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 
 	self.parser(function(path, value) {
 		if (value) {
+			var tmp;
 			switch (config.type) {
 				case 'date':
-					var tmp = self.get();
+					tmp = self.get();
 					if (tmp)
 						tmp = tmp.format('HH:mm');
 					else
@@ -521,7 +522,7 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 					value = value.toUpperCase();
 					break;
 				case 'time':
-					var tmp = value.split(':');
+					tmp = value.split(':');
 					var dt = self.get();
 					if (dt == null)
 						dt = new Date();
