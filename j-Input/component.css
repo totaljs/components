@@ -3,7 +3,7 @@
 .ui-input-label { margin-bottom: 3px; }
 .ui-input-label i { margin-right: 4px; }
 .ui-input-required .ui-input-label:before { content: '***'; color: red; margin-right: 3px; }
-.ui-input-control { border: 1px solid #E0E0E0; border-radius: 3px; height: 32px; }
+.ui-input-control { border: 1px solid #E0E0E0; border-radius: 3px; height: 32px; background-color: white; }
 .ui-input-input { padding: 6px 2px 0 6px; position: relative; line-height: 20px; }
 .ui-input-placeholder { position: absolute; color: gray; margin: 0; user-select: none; cursor: text; width: 100%; text-align: left; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 .ui-input-control input { border: 0; outline: 0; background-color: white; width: 100%; padding: 0; margin: 0; line-height: 15px; font-size: 13px; color: black; font-family: Menlo,Consolas,monospace; }
@@ -39,7 +39,7 @@
 .ui-input-masked input { letter-spacing: 1px; }
 
 .ui-dark .ui-input-required .ui-input-control { border-color: #404040; }
-.ui-dark .ui-input-control { border-color: #303030; }
+.ui-dark .ui-input-control { border-color: #303030; background-color: #202020; }
 .ui-dark .ui-input-required .ui-input-icon-left { border-color: #404040; }
 .ui-dark .ui-input-required .ui-input-icon-right { border-color: #404040; }
 .ui-dark .ui-input-control input { background-color: #202020; color: white; }
