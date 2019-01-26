@@ -1,0 +1,19 @@
+{
+	"datecreated": "2019-01-26T20:20:00.000Z",
+	"dateupdated": null,
+	"name": "j-TimePicker",
+	"tags": [
+		"jcomponent",
+		"time",
+		"timepicker"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"darkmode": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

@@ -140,5 +140,6 @@
 	"Tooltip",
 	"j-iFrameEditable",
 	"j-Input",
-	"j-Directory"
+	"j-Directory",
+	"j-TimePicker"
 ]

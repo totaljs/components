@@ -1,0 +1,16 @@
+<a href="#timepicker">SHOW TIMEPICKER</a>
+<div data---="timepicker"></div>
+
+<script>
+	var form = {};
+	form.date = new Date();
+
+	$('a[href="#timepicker"]').on('click', function(e) {
+		var opt = {};
+		opt.element = this;
+		opt.callback = function() {
+			alert(date);
+		};
+		SETTER('timepicker', 'toggle', opt);
+	});
+</script>
