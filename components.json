@@ -141,5 +141,6 @@
 	"j-iFrameEditable",
 	"j-Input",
 	"j-Directory",
-	"j-TimePicker"
+	"j-TimePicker",
+	"j-Upload"
 ]
