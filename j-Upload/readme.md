@@ -16,6 +16,10 @@ var opt = {};
 // Enables multiple files
 // opt.multiple = true;
 
+// IMPORTANT:
+// URL address for uploading
+opt.url = '/api/upload/';
+
 // A callback
 opt.callback = function(response) {
 
