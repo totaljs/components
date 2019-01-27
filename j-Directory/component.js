@@ -9,7 +9,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		return this.template ? (typeof(this.template) === 'string' ? Tangular.render(this.template, this) : this.render(this, val)) : self.opt.render ? self.opt.render(this, val) : val;
 	};
 
-	self.template = Tangular.compile('<li data-index="{{ $.index }}" data-search="{{ name }}" {{ if selected }} class="selected"{{ fi }}>{{ name | ui_directory_helper }}</li>');
+	self.template = Tangular.compile('<li data-index="{{ $.index }}" data-search="{{ name }}" {{ if selected }} class="selected{{ if classname }} {{ classname }}{{ fi }}"{{ else if classname }} class="{{ classname }}"{{ fi }}>{{ name | ui_directory_helper }}</li>');
 	self.readonly();
 	self.singleton();
 	self.nocompile && self.nocompile();

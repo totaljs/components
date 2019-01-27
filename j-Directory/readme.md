@@ -50,6 +50,14 @@ opt.render = function(item, name) {
 };
 ```
 
+__Adding of custom class__:
+
+```javascript
+var opt = {};
+opt.items = [];
+opt.push({ name: 'Total.js', classname: 'your_class_name' });
+```
+
 __Server-side searching__:
 
 ```javascript
