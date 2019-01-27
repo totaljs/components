@@ -31,7 +31,7 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 
 		self.event('focus', 'input', function() {
 			self.aclass(cls + '-focused');
-			config.autcomplete && EXEC(config.autcomplete, self, input.parent());
+			config.autocomplete && EXEC(config.autocomplete, self, input.parent());
 		});
 
 		self.event('paste', 'input', function(e) {
