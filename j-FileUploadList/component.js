@@ -3,7 +3,7 @@ COMPONENT('fileuploadlist', 'multiple:true;url:/api/upload/', function(self, con
 	var id = 'fileuploadlist' + self.id;
 	var input = null;
 
-	self.template = Tangular.compile('<div class="ui-fileuploadlist-item" data-id="{{ $.index }}"><div class="ui-fileuploadlist-remove"><i class="fa fa-times"></i></div><div class="ui-fileuploadlist-name"><a href="{{ url }}" target="_blank">{{ name }}</a></div></div>');
+	self.template = Tangular.compile('<div class="ui-fileuploadlist-item" data-id="{{ $.index }}"><div class="ui-fileuploadlist-remove"><i class="fa fa-times"></i></div><div class="ui-fileuploadlist-name">{{ if url }}<a href="{{ url }}" target="_blank">{{ fi }}{{ name }}{{ if url }}</a>{{ fi }}</div></div>');
 
 	self.readonly();
 	self.nocompile && self.nocompile();
@@ -11,19 +11,20 @@ COMPONENT('fileuploadlist', 'multiple:true;url:/api/upload/', function(self, con
 	self.configure = function(key, value, init) {
 		if (init)
 			return;
+		var el;
 		switch (key) {
 			case 'disabled':
 				self.tclass('ui-disabled', value);
 				break;
 			case 'accept':
-				var el = $('#' + id);
+				el = $('#' + id);
 				if (value)
 					el.prop('accept', value);
 				else
 					el.removeProp('accept');
 				break;
 			case 'multiple':
-				var el = $('#' + id);
+				el = $('#' + id);
 				if (value)
 					el.prop('multiple', true);
 				else
@@ -46,8 +47,8 @@ COMPONENT('fileuploadlist', 'multiple:true;url:/api/upload/', function(self, con
 		self.event('click', '.ui-fileuploadlist-remove', function() {
 			var index = +$(this).closest('.ui-fileuploadlist-item').attrd('index');
 			self.get().splice(index, 1);
+			self.update(true);
 			self.change(true);
-			self.update();
 		});
 	};
 

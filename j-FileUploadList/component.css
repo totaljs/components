@@ -2,7 +2,7 @@
 .ui-fileuploadlist-item { border-top: 1px solid #E0E0E0; padding: 0; border }
 .ui-fileuploadlist-item:first-child { border-top: 0; }
 .ui-fileuploadlist-name { margin-right: 34px; padding: 5px 10px; height: 30px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; max-width: 500px; }
-.ui-fileuploadlist-remove { float: right; width: 34px; cursor: pointer; color: red; text-align: center; border-left: 1px solid #E0E0E0; height: 30px; padding: 4px 0 0; }
+.ui-fileuploadlist-remove { float: right; width: 34px; cursor: pointer; color: red; text-align: center; border-left: 1px solid #E0E0E0; height: 30px; line-height: 30px; }
 
 @media(max-width: 767px) {
 	.ui-fileuploadlist-name { max-width: 180px; }
