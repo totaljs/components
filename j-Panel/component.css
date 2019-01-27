@@ -7,8 +7,8 @@
 .ui-panel-scroll { overflow-scrolling: touch; overflow-y: auto; }
 .ui-panel-animate .ui-panel { transform: scale(1); opacity: 1; }
 .ui-panel-inline.ui-panel-animate { transition: box-shadow 0.5s; box-shadow: -10px 0 20px rgba(0,0,0,0.02); }
-.ui-panel-title { padding: 0 0 0 20px; font-size: 16px; user-select: none; color: black; background-color: white; border-bottom: 1px solid #E0E0E0; position: absolute; left: 0; right: 0; top: 0; height: 60px; }
-.ui-panel-title .ui-panel-button-close { float: right; cursor: pointer; font-size: 18px; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: center; !important; padding: 0; width: auto; border-left: 1px solid #E0E0E0; width: 60px; height: 60px; }
+.ui-panel-title { padding: 0 0 0 20px; font-size: 16px; user-select: none; color: black; background-color: white; border-bottom: 1px solid #E0E0E0; position: absolute; left: 0; right: 0; top: 0; height: 60px; box-shadow: 0 5px 10px rgba(0,0,0,0.05); }
+.ui-panel-title .ui-panel-button-close { float: right; cursor: pointer; font-size: 18px; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: center; !important; padding: 0; width: auto; border-left: 1px solid #E0E0E0; width: 60px; height: 59px; }
 .ui-panel-title .ui-panel-button-close:hover { background-color: #EB3324; color: white; }
 .ui-panel-title > span { font-weight: bold; max-width: 70%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; display: inline-block; vertical-align: middle; padding: 18px 0 0 0; }
 .ui-panel-title > i { margin: 20px 7px 0 0; float: left; }
