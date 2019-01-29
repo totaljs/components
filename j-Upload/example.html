@@ -1,0 +1,20 @@
+<div data---="upload"></div>
+<br />
+<a href="javascript:uploadfile()">Upload file</a>
+
+<script>
+	function uploadfile() {
+
+		var opt = {};
+
+		opt.url = '/api/upload/files/';
+		opt.accept = 'image/*';
+		opt.multiple = true;
+		opt.callback = function(response) {
+			console.log(response);
+		};
+		// opt.error = function(err) {};
+
+        SETTER('upload', 'show', opt);
+    }
+</script>

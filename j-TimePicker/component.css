@@ -1,4 +1,4 @@
-.ui-timepicker { position: absolute; background-color: white; border-radius: 3px; height: 70px; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.25s; transform: scale(0.5); transform-origin: left top; border: 1px solid #E0E0E0; }
+.ui-timepicker { position: absolute; background-color: white; border-radius: 3px; height: 70px; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.25s; transform: scale(0.5); transform-origin: left top; border: 1px solid #E0E0E0; z-index: 100; }
 .ui-timepicker-visible { transform: scale(1); }
 .ui-timepicker-0 { width: 82px; }
 .ui-timepicker-1 { width: 122px; }
