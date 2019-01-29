@@ -123,6 +123,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 					config.click = value.SCOPE(self, value);
 				self.tclass('dg-clickable', !!value);
 				break;
+			case 'columns':
+				self.datasource(value, function(path, value, type) {
+					if (value) {
+						self.rebind(value);
+						type && self.setter(null);
+					}
+				});
+				break;
 		}
 	};
 
@@ -990,7 +998,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	};
 
 	self.redrawrow = function(row) {
-		index = opt.rows.indexOf(row);
+		var index = opt.rows.indexOf(row);
 		if (index !== -1) {
 			var el = vbody.find('.dg-row[data-index="{0}"]'.format(index));
 			if (el.length)
@@ -1023,7 +1031,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		}
 
 		column += '<div class="dg-col">&nbsp;</div>';
-		return Trow.format(index + 1, column, index, self.selected === row ? ' dg-selected' : '', row.CHANGES ? ' dg-row-changed' : '')
+		return Trow.format(index + 1, column, index, self.selected === row ? ' dg-selected' : '', row.CHANGES ? ' dg-row-changed' : '');
 	};
 
 	self.renderrows = function(rows, noscroll) {

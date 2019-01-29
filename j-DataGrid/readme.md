@@ -36,7 +36,7 @@ __Data-source__ needs to contain:
 or raw `Array` but you can't use pagination and external filters:
 
 ```javascript
-[{ name: 'Row 1' }, { name: 'Row 2' }]
+[{ name: 'Row 1' }, { name: 'Row 2' }];
 ```
 
 __Configuration__:
@@ -69,6 +69,7 @@ __Configuration__:
 - `exec` {String} a link to `function(type, filter, sort, page)` for server-side operations only (it disables client-side sorting & filtering), supported types: `init`, `refresh` and `page`
 - __NEW__ `changed` {String} a link to `function(rows, grid)` is executed if the user changed some rows
 - __NEW__ `change` {String} a link to `function(data, grid)` is executed if the user double clicks on a column (`data` can be `null` if the grid is refreshed)
+- __NEW__ `columns` {String} a path to definition of `columns {Array}`
 
 __Column properties__:
 
