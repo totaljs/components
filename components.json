@@ -142,5 +142,6 @@
 	"j-Input",
 	"j-Directory",
 	"j-TimePicker",
-	"j-Upload"
+	"j-Upload",
+	"j-DragDropElement"
 ]
