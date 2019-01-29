@@ -14,9 +14,6 @@ COMPONENT('dragdropfiles', 'click:true;class:ui-dragdropfiles-over;accept:*/*;',
 		var has = false;
 		var id = 'file' + self.ID;
 
-		if(!config.accept)
-			config.accept = '*/*';
-
 		$(document.body).append('<input type="file" id="{0}" class="hidden" accept="{1}" multiple />'.format(id, config.accept));
 
 		file = $('#' + id);
