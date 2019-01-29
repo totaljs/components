@@ -20,7 +20,7 @@ Just clone this example <https://github.com/totaljs/components/tree/master/0empt
 | [Martin Smola](https://github.com/molda) | contributor + support | <smola.martin@gmail.com> |
 | [Denis Granec](https://github.com/PatchwerkQWER) | contributor | <denis@granec.cz> |
 | [Pedro Costa](https://github.com/pnmcosta) | contributor | <hello@pmcdigital.pt> |
-| [Michal Capo](https://github.com/michalCapo) | contributor | - |
+| [Michal Capo](https://github.com/michalCapo) | contributor | <capo@dasolutions.sk> |
 
 ## Contact
 

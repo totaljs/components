@@ -1,2 +1,2 @@
-.dragdrop { background-color: #F0F0F0; padding: 3.6em 0; text-align: center; cursor: pointer; border-radius: 0.3em; }
-.dragover { background-color: #03a9f4 !important; }
+.ui-dragdropfiles { background-color: #F0F0F0; padding: 3.6em 0; text-align: center; cursor: pointer; border-radius: 0.3em; border: 0.15em solid #F0F0F0; }
+.ui-dragdropfiles-over { background-color: #e5e5e5 !important; border: 0.15em dashed black; }
