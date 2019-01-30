@@ -1,5 +1,5 @@
 ## j-DragDropElements
-On `drag` displays modal inside given element with text `Drop your files here`. On moving dragged files away from element or dropping dragged files modal will hide. Also on `drop` event `exec` class is executed.
+On `drag` event displays modal inside given element with text `Drop & drop files here`. On moving dragged files away from element or dropping dragged files modal will hide. Also on `drop` event `exec` function is executed.
 
 __Configuration__
 
