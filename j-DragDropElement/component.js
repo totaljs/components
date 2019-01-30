@@ -4,8 +4,6 @@ COMPONENT('dragdropelement', 'class:ui-dragdropelement;text:Drag & drop files he
 	var timeout_id;
 
 	self.readonly();
-	self.nocompile && self.nocompile();
-
 	self.destroy = function () {
 		modal.off('*').remove();
 	};
