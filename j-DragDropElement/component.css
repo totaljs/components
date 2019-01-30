@@ -1,2 +1,2 @@
-.ui-dragdropelement { background-color: rgba(229, 229, 229, 0.3) !important; border: 0.12em dashed black; border-radius: 0.3em; position: absolute; width: 88%; height: 88%; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; font-size: 1.2em; }
-.ui-dragdropelement span { color: #dbdbdb; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 1.5em; }
+.ui-dragdropelement { z-index: 12; background-color: rgba(229, 229, 229, 0.3) !important; border: 0.12em dashed black; border-radius: 0.3em; position: absolute; width: 88%; height: 88%; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; font-size: 1.2em; }
+.ui-dragdropelement span { color: #a5a5a5; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 1.5em; }
