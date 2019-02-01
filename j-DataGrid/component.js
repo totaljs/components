@@ -1015,6 +1015,25 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		}
 	};
 
+	self.appendrow = function(row) {
+		var index = opt.rows.push(row) - 1;
+		var model = self.get();
+
+		if (model == null) {
+			// bad
+			return;
+		} else {
+			if (model.items)
+				model.items.push(row);
+			else
+				model.push(row);
+		}
+
+		opt.render[index] = self.renderrow(index, row);
+		opt.cluster && opt.cluster.update(opt.render, opt.scroll == false);
+		self.scrolling();
+	};
+
 	self.renderrow = function(index, row, plus) {
 
 		if (plus === undefined && config.exec) {
