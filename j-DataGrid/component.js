@@ -430,7 +430,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			data.elrow = row;
 			data.elcol = col;
 
+			var clone = col.clone();
+
 			EXEC(config.change, data, function(data) {
+
+				if (data == null) {
+					col.replaceWith(clone);
+					return;
+				}
 
 				data.row[data.col.name] = data.value;
 
@@ -1594,7 +1601,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	self.checked = function() {
 		var arr = Object.keys(opt.checked);
 		var output = [];
-		var model = self.get();
+		var model = self.get() || EMPTYARRAY;
 		var rows = model instanceof Array ? model : model.items;
 		for (var i = 0; i < arr.length; i++) {
 			var index = +arr[i];
@@ -1606,7 +1613,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	self.changed = function() {
 		var arr = Object.keys(opt.changed);
 		var output = [];
-		var model = self.get();
+		var model = self.get() || EMPTYARRAY;
 		var rows = model instanceof Array ? model : model.items;
 		for (var i = 0; i < arr.length; i++) {
 			var index = +arr[i];

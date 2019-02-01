@@ -60,15 +60,15 @@ __Configuration__:
 - `click` {String} a link to `function(row, grid, row_el)` is executed if the user clicks on a row
 - `highlight` {Boolean} each selected row (after `click`) will be highlighted (default: `false`)
 - `unhighlight` {Boolean} enables `undo highlighting` of selected row (default: `true`)
-- `checked` {String} a link to `function(rows, grid)` is executed if the user selected/checked some rows
+- `checked` {String} `path` to a variable or path to `function(rows, grid)` is executed if the user selected/checked some rows
 - `autoselect` {Boolean} enables auto-select of first row in grid, it performs `EXEC(config.click)`, default: `false`
 - `limit` {Number} a cluster limit, default: `80`
 - `numbering` {Boolean}, optional default `false`
 - `allowtitles` {Boolean}, enables titles for all row values, optional default `false`
 - `button` {String} a link to `function(btn_name, name, row, grid, event)` is executed if the user clicks on a __button__ in the row
 - `exec` {String} a link to `function(type, filter, sort, page)` for server-side operations only (it disables client-side sorting & filtering), supported types: `init`, `refresh` and `page`
-- __NEW__ `changed` {String} a link to `function(rows, grid)` is executed if the user changed some rows
-- __NEW__ `change` {String} a link to `function(meta, next(meta))` is executed if the user double clicks on a column (`meta` can be `null` if the grid is refreshed)
+- __NEW__ `changed` {String} `path` to a variable or path to `function(rows, grid)` is executed if the user changed some rows
+- __NEW__ `change` {String} `path` to a variable or path to `function(meta, next(meta))` is executed if the user double clicks on a column (`meta` can be `null` if the grid is refreshed) + `next(null)` replaces previous content again
 - __NEW__ `columns` {String} a path to definition of `columns {Array}`
 
 __Column properties__:
