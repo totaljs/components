@@ -64,6 +64,7 @@ COMPONENT('layer', 'offset:65;scrollbar:true', function(self, config) {
 	self.$hide = function() {
 		self.rclass('ui-layer-visible');
 		self.aclass('hidden', 500);
+		self.release(true);
 	};
 
 	self.resize = function() {
@@ -105,6 +106,7 @@ COMPONENT('layer', 'offset:65;scrollbar:true', function(self, config) {
 		self.attrd('index', index);
 		self.rclass('hidden');
 		self.resize();
+		self.release(false);
 		config.reload && EXEC(config.reload);
 		config.default && DEFAULT(config.default, true);
 
