@@ -166,12 +166,7 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 			opt.offsetWidth = 2;
 			opt.minwidth = config.dirminwidth || 200;
 			opt.maxwidth = config.dirmaxwidth;
-
-			if (config.key && config.key !== 'name') {
-				opt.render = function(item) {
-					return (item && item[config.key]) || '';
-				};
-			}
+			opt.key = config.key;
 
 			opt.callback = function(item, el, custom) {
 				var val = custom || typeof(item) === 'string' ? item : item[config.value];
