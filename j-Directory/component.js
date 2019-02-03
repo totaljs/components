@@ -4,12 +4,13 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 	var cls2 = '.' + cls;
 	var container, timeout, icon, plus, input = null;
 	var is = false, selectedindex = 0, resultscount = 0;
+	var template = '<li data-index="{{ $.index }}" data-search="{{ name }}" {{ if selected }} class="selected{{ if classname }} {{ classname }}{{ fi }}"{{ else if classname }} class="{{ classname }}"{{ fi }}>{{ name | ui_directory_helper }}</li>';
 
 	Thelpers.ui_directory_helper = function(val) {
 		return this.template ? (typeof(this.template) === 'string' ? Tangular.render(this.template, this) : this.render(this, val)) : self.opt.render ? self.opt.render(this, val) : val;
 	};
 
-	self.template = Tangular.compile('<li data-index="{{ $.index }}" data-search="{{ name }}" {{ if selected }} class="selected{{ if classname }} {{ classname }}{{ fi }}"{{ else if classname }} class="{{ classname }}"{{ fi }}>{{ name | ui_directory_helper }}</li>');
+	self.template = Tangular.compile(template);
 	self.readonly();
 	self.singleton();
 	self.nocompile && self.nocompile();
@@ -205,7 +206,6 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 						for (var i = 0; i < items.length; i++) {
 							var item = items[i];
 							indexer.index = i;
-							!item.value && (item.value = item.name);
 							resultscount++;
 							builder.push(self.template(item, indexer));
 						}
@@ -242,6 +242,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		// opt.custom
 		// opt.minwidth
 		// opt.maxwidth
+		// opt.key
 
 		if (!opt.minwidth)
 			opt.minwidth = 200;
@@ -287,6 +288,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 		input.val('');
 		var builder = [];
+		var ta = opt.key ? Tangular.compile(template.replace(/\{\{\sname/g, '{{ ' + opt.key)) : self.template;
 
 		if (!opt.ajax) {
 			var indexer = {};
@@ -295,8 +297,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 				if (typeof(item) === 'string')
 					item = { name: item };
 				indexer.index = i;
-				!item.value && (item.value = item.name);
-				builder.push(self.template(item, indexer));
+				builder.push(ta(item, indexer));
 			}
 		}
 

@@ -23,6 +23,7 @@ Method: `component.show(options)`
 - `options.minwidth` {Number} optional, a minimal width, default `200`
 - `options.maxwidth` {Number} optional, a maximal width, default `infinite`
 - `options.callback(selected_item, element) {Function}` is triggered when the user clicks on the item
+- `options.key` {String} optional, a default `key` for `text` value (default: `name`)
 
 Method: `component.hide()`
 
