@@ -212,6 +212,6 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		self.find('.ui-checkboxlist').tclass('ui-checkboxlist-invalid', invalid);
+		self.tclass('ui-checkboxlist-invalid', invalid);
 	};
 });
