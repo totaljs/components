@@ -244,6 +244,8 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		// opt.maxwidth
 		// opt.key
 
+		self.tclass(cls + '-default', !opt.render);
+
 		if (!opt.minwidth)
 			opt.minwidth = 200;
 
