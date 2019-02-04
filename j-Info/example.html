@@ -11,7 +11,12 @@
 
 <script>
 	$(document).on('mouseenter mouseleave', 'a', function(e) {
-		var info = FIND('info');
-		e.type === 'mouseenter' ? info.show('left', this, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate nobis omnis quae commodi recusandae dolore saepe blanditiis, eligendi accusamus optio!') : info.hide();
+		if (e.type === 'mouseenter') {
+			var opt = {};
+			opt.element = this;
+			opt.html = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate nobis omnis quae commodi recusandae dolore saepe blanditiis, eligendi accusamus optio!';
+			SETTER('info', 'show', opt);
+		} else
+			SETTER('info', 'hide');
 	});
 </script>
