@@ -1,28 +1,32 @@
 ## j-Menu
 
 - easy usage for different cases
-- supports 3 orientations `left`, `center` and `right`
 - works with touches
 - supports __Dark mode__
 - singleton
 
-__Methods__:
+## Usage
 
-Method: `component.show(orientation, targetElement, [items], clickCallback, [offsetX], [offsetY])`
-- `orientation {String}` can be `left`, `center` or `right`
-- `targetElement {Selector/jQuery/Element}` a target where the component will be visible
-- `items {Array}` optional and must have this structure: `[{ name: String, value: String, icon: String }]` otherwise will be items read from the target's `data-options` attribute.
-- `callback(selectedValue) {Function}` is triggered when the user clicks on the item
-- `offsetX` {Number} optional can change offset X
-- `offsetY` {Number} optional can change offset Y
+```javascript
+var opt = {};
 
-Method: `component.showxy(x, y, [items], clickCallback)`
-- `x {Number}` position `x`
-- `y {Number}` position `y`
-- `items {Array}` optional and must have this structure: `[{ name: String, value: String, icon: String }]` otherwise will be items read from the target's `data-options` attribute.
-- `callback(selectedValue) {Function}` is triggered when the user clicks on the item
+// opt.offsetX {Number}    : adds X offset (default: 0)
+// opt.offsetY {Number}    : adds Y offset (default: 0)
+// opt.align {String}      : align `left` (default), `center` or `right`
 
-Method: `component.hide()`
+opt.element = YOUR_ELEMENT;
+// or if you want to use a fixed position:
+// opt.x {Number}          : `x` position
+// opt.y {Number}          : `y` position
+
+opt.items = ['Label', { name: 'Item 1', icon: 'print' }, { name: 'Item 2', icon: 'home' }, '-', { name: 'Item 3', icon: 'cog' }];
+
+opt.callback = function(item) {
+	console.log(item);
+};
+
+SETTER('menu', 'show', opt);
+```
 
 ### Author
 

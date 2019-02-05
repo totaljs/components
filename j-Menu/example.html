@@ -14,8 +14,14 @@
 
 <script>
 	$(document).on('click', 'a', function() {
-		SETTER('menu', 'show', 'center', this, [{ name: 'Print', icon: 'print', value: 'print' }, { name: 'Copy', icon: 'copy', value: 'copy' }, { name: 'Remove', icon: 'times-circle', value: 'remove' }], function(item) {
-			console.log(item);
-		});
+
+		var opt = {};
+		opt.items = ['Common', { name: 'Print', icon: 'print', value: 'print' }, { name: 'Copy', icon: 'copy', value: 'copy' }, '-', { name: 'Remove', icon: 'times-circle', value: 'remove' }];
+		opt.align = 'center';
+		opt.element = this;
+		opt.callback = function(selected) {
+			console.log(selected);
+		};
+		SETTER('menu', 'show', opt);
 	});
 </script>
