@@ -58,7 +58,7 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 
 		var scr = self.find('> script');
 		self.template = scr.length ? scr.html() : '';
-		$(document.body).append('<div id="{0}" class="hidden ui-panel-container{3}"><div class="ui-panel" style="max-width:{1}px"><div data-bind="@config__change .ui-panel-icon:@icon__html span:value.title" class="ui-panel-title"><button name="cancel" class="ui-panel-button-close{2}"><i class="fa fa-times"></i></button><i class="ui-panel-icon"></i><span></span></div><div class="ui-panel-header"></div><div class="ui-panel-body"></div></div>'.format(self.ID, config.width, config.closebutton == false ? ' hidden' : '', config.bg ? '' : ' ui-panel-inline'));
+		$(document.body).append('<div id="{0}" class="hidden ui-panel-container{3}"><div class="ui-panel" style="max-width:{1}px"><div data-bind="@config__change .ui-panel-icon:@icon__html span:value.title" class="ui-panel-title"><button name="cancel" class="ui-panel-button-close{2}"><i class="fa fa-times"></i></button><button name="menu" class="ui-panel-button-menu{4}"><i class="fa fa-ellipsis-h"></i></button><i class="ui-panel-icon"></i><span></span></div><div class="ui-panel-header"></div><div class="ui-panel-body"></div></div>'.format(self.ID, config.width, config.closebutton == false ? ' hidden' : '', config.bg ? '' : ' ui-panel-inline', config.menu ? '' : ' hidden'));
 		var el = $('#' + self.ID);
 
 		var body = el.find('.ui-panel-body');
@@ -77,6 +77,9 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 		self.replace(el);
 		self.event('click', 'button[name]', function() {
 			switch (this.name) {
+				case 'menu':
+					EXEC(config.menu, $(this), self);
+					break;
 				case 'cancel':
 					self.hide();
 					break;
