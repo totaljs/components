@@ -1,0 +1,13 @@
+<a href="#calendar">SHOW CALENDAR</a>
+<div data-jc="calendar__null__today:Set today;firstday:0"></div>
+
+<script>
+	var form = {};
+	form.date = new Date();
+
+	$('a[href="#calendar"]').on('click', function(e) {
+		SETTER('calendar', 'toggle', $(this), form.date, function(date) {
+			alert(date);
+		});
+	});
+</script>
