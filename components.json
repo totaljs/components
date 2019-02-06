@@ -143,5 +143,6 @@
 	"j-Directory",
 	"j-TimePicker",
 	"j-Upload",
-	"j-DragDropElement"
+	"j-DragDropElement",
+	"j-DatePicker"
 ]
