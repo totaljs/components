@@ -191,8 +191,8 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 		self.rclass('hidden');
 		self.date(dt);
 		self.aclass('ui-datepicker-visible', 50);
-		visible = true;
 		self.bindevents();
+		visible = true;
 		return self;
 	};
 
@@ -416,6 +416,6 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 			months = '<select data-date="{0}-{1}" class="ui-datepicker-month">{2}</select>'.format(output.year, output.month, months);
 		}
 
-		self.html('<div class="ui-datepicker-header"><button class="ui-datepicker-header-prev" name="prev" data-date="{0}-{1}"><span class="fa fa-arrow-left"></span></button><div class="ui-datepicker-header-info">{2} {3}</div><button class="ui-datepicker-header-next" name="next" data-date="{0}-{1}"><span class="fa fa-arrow-right"></span></button></div><div class="ui-datepicker-table" data-date="{0}-{1}"><table cellpadding="0" cellspacing="0" border="0"><thead>{4}</thead><tbody>{5}</tbody></table></div>'.format(output.year, output.month, months, years, header.join(''), builder.join('')) + (config.today ? '<div class="ui-datepicker-today"><a href="javascript:void(0)">{0}</a><a href="javascript:void(0)" class="ui-datepicker-today-a"><i class="fa fa-datepicker"></i>{1}</a></div>'.format(config.close, config.today) : ''));
+		self.html('<div class="ui-datepicker-header"><button class="ui-datepicker-header-prev" name="prev" data-date="{0}-{1}"><span class="fa fa-arrow-left"></span></button><div class="ui-datepicker-header-info">{2} {3}</div><button class="ui-datepicker-header-next" name="next" data-date="{0}-{1}"><span class="fa fa-arrow-right"></span></button></div><div class="ui-datepicker-table" data-date="{0}-{1}"><table cellpadding="0" cellspacing="0" border="0"><thead>{4}</thead><tbody>{5}</tbody></table></div>'.format(output.year, output.month, months, years, header.join(''), builder.join('')) + (config.today ? '<div class="ui-datepicker-today"><span class="link">{0}</span><span class="link ui-datepicker-today-a"><i class="fa fa-datepicker"></i>{1}</span></div>'.format(config.close, config.today) : ''));
 	};
 });
