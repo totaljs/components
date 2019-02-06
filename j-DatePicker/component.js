@@ -184,11 +184,12 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 			l = (l + w) - s;
 		}
 
+		var dt = typeof(opt.value) === 'string' ? GET(opt.value) : opt.value;
 		self.opt = opt;
-		self.time = (opt.value || NOW).format('HH:mm:ss');
+		self.time = (dt || NOW).format('HH:mm:ss');
 		self.css({ left: l, top: t });
 		self.rclass('hidden');
-		self.date(opt.value);
+		self.date(dt);
 		self.aclass('ui-datepicker-visible', 50);
 		visible = true;
 		self.bindevents();
