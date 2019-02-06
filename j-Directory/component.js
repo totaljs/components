@@ -324,7 +324,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		self.css(options);
 
 		!isMOBILE && setTimeout(function() {
-			self.is = false;
+			is = false;
 			input.focus();
 		}, 500);
 
@@ -353,7 +353,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			return;
 		clearTimeout(timeout);
 		timeout = setTimeout(function() {
-			self.is = false;
+			is = false;
 			self.unbindevents();
 			self.rclass(cls + '-visible').aclass('hidden');
 			if (self.opt) {
