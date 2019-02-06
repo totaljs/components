@@ -159,6 +159,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 			self.unbindevents();
 			self.opt = null;
 			self.older = null;
+			self.target = null;
 			self.aclass('hidden');
 			self.rclass('ui-datepicker-visible');
 			visible = false;
@@ -173,6 +174,13 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 		}, 5);
 
 		var el = $(opt.element);
+		var dom = el[0];
+
+		if (self.target === dom) {
+			self.hide();
+			return;
+		}
+
 		var off = el.offset();
 		var h = el.innerHeight();
 		var l = off.left + (opt.offsetX || 0);
@@ -192,6 +200,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 		self.date(dt);
 		self.aclass('ui-datepicker-visible', 50);
 		self.bindevents();
+		self.target = dom;
 		visible = true;
 		return self;
 	};
