@@ -177,7 +177,7 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 						self.change();
 						self.bindvalue();
 					});
-				} else {
+				} else if (!custom) {
 					self.set(val, 2);
 					self.change();
 					self.bindvalue();
