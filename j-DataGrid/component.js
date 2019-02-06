@@ -408,52 +408,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		});
 
 		self.event('dblclick', '.dg-col', function(e) {
-
-			if (!config.change)
-				return;
-
-			var col = $(this);
-			var index = col.attr('class').match(/\d+/);
-
-			if (index == null)
-				return;
-
-			index = +index[0];
-
-			var row = col.closest('.dg-row');
-			var data = {};
-
-			data.index = +row.attrd('index');
-			data.row = opt.rows[data.index];
-			data.col = opt.cols[index];
-			data.value = data.row[data.col.name];
-			data.elrow = row;
-			data.elcol = col;
-
-			var clone = col.clone();
-
-			EXEC(config.change, data, function(data) {
-
-				if (data == null) {
-					col.replaceWith(clone);
-					return;
-				}
-
-				data.row[data.col.name] = data.value;
-
-				if (opt.rows[data.index] != data.row)
-					opt.rows[data.index] = data.row;
-
-				if (!data.row.CHANGES)
-					data.row.CHANGES = {};
-
-				data.row.CHANGES[data.col.name] = true;
-				opt.render[data.index] = self.renderrow(data.index, data.row);
-				data.elrow.replaceWith(opt.render[data.index]);
-				opt.changed[data.index] = 1;
-				self.fn_in_changed();
-			}, self);
-
+			self.editcolumn($(this));
 			e.preventDefault();
 			e.stopPropagation();
 		});
@@ -787,6 +742,71 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		self.renderrows(opt.rows, true);
 		opt.cluster && opt.cluster.update(opt.render);
 		self.fn_in_changed();
+	};
+
+	self.editcolumn = function(rindex, cindex) {
+
+		if (!config.change)
+			return;
+
+		var col;
+		var row;
+
+		if (cindex == null) {
+			if (rindex instanceof jQuery) {
+				cindex = rindex.attr('class').match(/\d+/);
+				if (cindex)
+					cindex = +cindex[0];
+				else
+					return;
+				col = rindex;
+			}
+		} else
+			row = opt.cluster.el.find('.dg-row-' + (rindex + 1));
+
+		if (!col)
+			col = row.find('.dg-col-' + cindex);
+
+		var index = cindex;
+		if (index == null)
+			return;
+
+		if (!row)
+			row = col.closest('.dg-row');
+
+		var data = {};
+
+		data.rowindex = +row.attrd('index');
+		data.row = opt.rows[data.rowindex];
+		data.col = opt.cols[index];
+		data.colindex = index;
+		data.value = data.row[data.col.name];
+		data.elrow = row;
+		data.elcol = col;
+
+		var clone = col.clone();
+
+		EXEC(config.change, data, function(data) {
+
+			if (data == null) {
+				col.replaceWith(clone);
+				return;
+			}
+
+			data.row[data.col.name] = data.value;
+
+			if (opt.rows[data.rowindex] != data.row)
+				opt.rows[data.rowindex] = data.row;
+
+			if (!data.row.CHANGES)
+				data.row.CHANGES = {};
+
+			data.row.CHANGES[data.col.name] = true;
+			opt.render[data.rowindex] = self.renderrow(data.rowindex, data.row);
+			data.elrow.replaceWith(opt.render[data.rowindex]);
+			opt.changed[data.rowindex] = 1;
+			self.fn_in_changed();
+		}, self);
 	};
 
 	self.rebind = function(code) {
