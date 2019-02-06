@@ -144,5 +144,6 @@
 	"j-TimePicker",
 	"j-Upload",
 	"j-DragDropElement",
-	"j-DatePicker"
+	"j-DatePicker",
+	"j-Filter"
 ]
