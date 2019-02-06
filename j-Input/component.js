@@ -205,6 +205,7 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 
 			var el = $(this);
 			var left = el.hclass(cls + '-icon-left');
+			var opt;
 
 			if (config.dirsource && left && config.liconclick) {
 				e.preventDefault();
@@ -213,15 +214,23 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 
 			if (!left && !config.riconclick) {
 				if (config.type === 'date') {
-					SETTER('calendar', 'toggle', self.element, self.get(), function(date) {
+					opt = {};
+					opt.element = self.element;
+					opt.value = self.get();
+					opt.callback = function(date) {
 						self.change(true);
 						self.set(date);
-					});
+					};
+					SETTER('datepicker', 'show', opt);
 				} else if (config.type === 'time') {
-					SETTER('timepicker', 'toggle', self.element, self.get(), function(date) {
+					opt = {};
+					opt.element = self.element;
+					opt.value = self.get();
+					opt.callback = function(date) {
 						self.change(true);
 						self.set(date);
-					});
+					};
+					SETTER('timepicker', 'show', opt);
 				} else if (config.type === 'search')
 					self.set('');
 				else if (config.type === 'password')
@@ -231,7 +240,6 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 					self.change(true);
 					self.inc(config.increment * n);
 				}
-
 				return;
 			}
 

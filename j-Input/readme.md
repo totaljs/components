@@ -45,8 +45,8 @@ Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:dat
 
 __Interesting:__
 
-- `type:date` needs __`calendar`__ component
-- `type:time` needs __`colorpicker`__ component
+- `type:date` needs __`datepicker`__ component
+- `type:time` needs __`timerpicker`__ component
 - `dirsource:path.to.datasource` needs __`directory`__ component
 - if `licon` or `ricon` starts with `!` then the component render a raw value instead of `icon`
 
