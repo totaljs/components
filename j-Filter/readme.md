@@ -46,6 +46,11 @@ opt.items.push({ label: 'Price', name: 'price', type: Number });
 
 opt.callback = function(obj, changed) {
 
+	if (obj == null) {
+		// THIS IS RESET
+		return;
+	}
+
 	// @obj {Object} with all values from the filter
 	// @changed {String Array} contains changed keys only
 
