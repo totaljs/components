@@ -240,8 +240,8 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 			self.find('.ui-datepicker-selected').rclass('ui-datepicker-selected');
 			var el = $(this).aclass('ui-datepicker-selected');
 			skip = !el.hclass('ui-datepicker-disabled');
-			self.hide();
 			self.setdate(dt);
+			self.hide();
 		});
 
 		self.event('click', '.ui-datepicker-header', function(e) {

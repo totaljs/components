@@ -7,7 +7,7 @@
 
 	$('a[href="#datepicker"]').on('click', function(e) {
 		var opt = {};
-		opt.date = 'form.date';
+		opt.value = 'form.date';
 		opt.element = this;
 		SETTER('datepicker', 'show', opt);
 	});
