@@ -13,7 +13,7 @@
 .ui-tree input { padding: 0; margin: 0; outline: 0; background-color: white; border: 1px solid #E0E0E0; line-height: 0; color: black; outline: 0; }
 .ui-tree .ui-tree-ddhere { background-color: #E0E0E0 !important; }
 .ui-tree-checkbox { width: 16px; height: 16px; line-height: 16px; border-radius: 2px; background-color: white; border: 1px solid #E0E0E0; font-size: 11px; text-align: center; float: left; padding: 1px 0 0; }
-.ui-tree-checkbox i { display: none; margin: 0; }
+.ui-tree-checkbox i { display: none; margin: 0; width: 100% !important; }
 .ui-tree-checkbox-checked { background-color: #4285F4 !important; border-color: #4285F4 !important; color: white; }
 .ui-tree-checkbox-checked i { display: block !important; }
 
