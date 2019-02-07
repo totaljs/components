@@ -22,7 +22,7 @@ Server must return `Array` in the form below:
 ]
 ```
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

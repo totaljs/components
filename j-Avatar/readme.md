@@ -42,7 +42,7 @@ __Good to know__:
 - avatar component binds all new avatars in all new components automatically
 - `SETTER('avatar', 'refresh')` performs refreshing
 
-### Author
+### Author
 
 - Denis Granec <denis@granec.cz>
 - License: MIT

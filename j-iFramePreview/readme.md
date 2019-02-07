@@ -10,7 +10,7 @@ __Attributes__:
 __Methods__:
 - `component.resize()`
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

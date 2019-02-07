@@ -26,7 +26,7 @@ __Hints__:
 - toggles boolean `data-value="!value"`
 - scopes: `data-path="?.name"` replaces `?` char with a scope path
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

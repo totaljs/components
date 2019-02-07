@@ -7,7 +7,7 @@ __METHODS__:
 - `RESOURCE(key, [def])` - is a global method
 - `FIND('resource').download('/my-dictionary.txt', [callback]);` - for importing new resources
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

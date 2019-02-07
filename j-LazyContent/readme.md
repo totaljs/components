@@ -14,7 +14,7 @@ __Notes__:
 - if the attributes contains link to `variable` (not methods) then as value is stored `Boolean` value.
 - __important__: scroll area must be `document.body` element
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

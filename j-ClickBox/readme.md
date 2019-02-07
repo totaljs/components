@@ -5,7 +5,7 @@ This component is optimized for SEO. It reads all links and creates a clickable 
 __Configuration__:
 - `param` {String} name oof URL param for selecting value
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

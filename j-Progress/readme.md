@@ -4,7 +4,7 @@ __Configuration__:
 
 - `animate` {Boolean} enables animation (default: `true`)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

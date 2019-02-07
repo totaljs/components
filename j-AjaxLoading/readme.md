@@ -10,7 +10,7 @@ __Configuration__:
 - `label` {String} optional (default: `HTML content`)
 - `icon` {Boolean} adds __spinner__ icon (default: `true`)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

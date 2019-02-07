@@ -54,7 +54,7 @@ __Filtering__:
 - `strings`: (1) `string` searches an exact string, (2) `string1, string2, string3` is a multiple search criterium
 - `dates`: (1) year `2017` searches all dates in this year, (2) `2017-02-12 / 2017-03-13` is an interval between dates, (3) `20.12 / 31.12` an interval between dates in the current year
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

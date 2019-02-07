@@ -23,7 +23,7 @@ __Configuration__:
 - `prselected` {Number} right padding for selected value (default: `0`)
 - `avg` {Number} average value (chart renders a new black line)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

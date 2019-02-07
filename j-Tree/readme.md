@@ -26,7 +26,7 @@ __Good to know__:
 
 Setter automatically extends each object by adding `.$pointer` property with the tree index.
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

@@ -20,7 +20,7 @@ __Methods__:
 - `component.scrollbottom(val)` scrolls Y from bottom side
 - `component.resize()` resizes container (it reacts on `resize` events automatically)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

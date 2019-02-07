@@ -34,7 +34,7 @@ __Interesting:__
 
 - `type:date` uses `calendar` component
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

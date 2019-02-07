@@ -15,7 +15,7 @@ __Tangular model properties__:
 {{ week }}    - (boolean) is weekend?
 ```
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

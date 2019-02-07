@@ -57,7 +57,7 @@ function LINK_TO_FN(component) {
 }
 ```
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

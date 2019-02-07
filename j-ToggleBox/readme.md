@@ -10,7 +10,7 @@ __Configuration__:
 - `disabled` {Boolean} Can disable the control (default: `false`)
 - `replace` {Boolean} Can replace position of elements (default: `false`)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

@@ -9,7 +9,7 @@ __Configuration__:
 - `lastvalues` {Boolean} (optional) shows only the last values (default: `false`)
 - `months` {String} (optional) months e.g. `January,February,etc.`
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

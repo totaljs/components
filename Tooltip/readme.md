@@ -4,7 +4,7 @@
 - based on attributes `tooltip="TEXT"`
 - supports positioning via `tooltip-position="top|left|bottom|right"` (default: `top`)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

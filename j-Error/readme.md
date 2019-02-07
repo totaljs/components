@@ -7,7 +7,7 @@
 __Configuration__:
 - `icon` {String} error icon without `fa-` (default: `warning`)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

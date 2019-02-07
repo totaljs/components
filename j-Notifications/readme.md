@@ -12,7 +12,7 @@ __Configuration__:
 __Methods__
 - `component.append(icon, message, [datetime], [callback], [color])` for creating a new notification
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

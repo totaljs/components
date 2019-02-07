@@ -112,7 +112,7 @@ __Properties__:
 
 - __NEW__ `component.meta` returns internal meta info about filters, columns and rows
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

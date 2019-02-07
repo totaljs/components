@@ -8,7 +8,7 @@
 - `SETTER('loading', 'show', [text])` - shows loading
 - `SETTER('loading', 'hide', [sleep])` - hides loading
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

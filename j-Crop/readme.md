@@ -43,7 +43,7 @@ console.log('Is changed?', CHANGE(component.path));
 component.clear();
 ```
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

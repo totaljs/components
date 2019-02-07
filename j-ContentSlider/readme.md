@@ -17,7 +17,7 @@ The code below solves a problem with rendering component when the the component 
 SETTER('contentslider', 'refresh');
 ```
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

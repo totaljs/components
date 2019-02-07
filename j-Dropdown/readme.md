@@ -18,7 +18,7 @@ Example: `data-jc-config="required:true;icon:envelope"`
 - `disabled` {Boolean} (optional) disables this component
 - `if` {String} (optional) arrow function as a condition for filtering of datasource, example: `if:n => !n.removed`
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

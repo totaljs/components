@@ -51,7 +51,7 @@ __Interesting:__
 - `dirsource:path.to.datasource` needs __`directory`__ component
 - if `licon` or `ricon` starts with `!` then the component render a raw value instead of `icon`
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

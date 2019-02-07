@@ -12,7 +12,7 @@ __Configuration__:
 - `button` {String} A label for dismiss button (default: `OK`)
 - `timeout` {Number} A timeout in milliseconds (default: `4000`)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

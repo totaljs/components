@@ -10,7 +10,7 @@ __Configuration__:
 - `property` {String} Property name for comparing of values (default: `id`)
 - `click` {Boolean} enables clicking on items (default: `true`)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

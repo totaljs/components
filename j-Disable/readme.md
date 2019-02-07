@@ -7,7 +7,7 @@ __Configuration__:
 - `selector` can contain custom element selector, default: `input,texarea,select`
 - `validate` can contain only paths separated with comma, e.g. `form.email,form.name`, the component performs `RESET(path)`
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

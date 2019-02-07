@@ -1,4 +1,4 @@
-## j-NativeNotifications
+## j-NativeNotifications
 
 - easy usage
 - singleton
@@ -19,7 +19,7 @@ SETTER('nativenotifications', 'append', 'TITLE', 'MESSAGE', function() {
 }, '/img/warning-optional.png');
 ```
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

@@ -17,7 +17,7 @@ __Configuration__:
 - `multiple` {Boolean} (optional) `true` expects `Array` in `data-jc-path` (default: `false`)
 - `exec` {String} (optional) a link to function which is executed when the user click on the item
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

@@ -41,7 +41,7 @@ SETTER('upload', 'show', opt);
 
 Files are uploaded with these names/keys in the form `file1`, `file2`, `file..N`.
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

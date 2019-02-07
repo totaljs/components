@@ -13,7 +13,7 @@ Example: `data-jc-config="if:value.terms && value.newsletter;selector:button[nam
 	- `hidden` validates all components which are hidden
 	- `visible` validates all components which are visible
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

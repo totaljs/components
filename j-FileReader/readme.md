@@ -13,7 +13,7 @@ SETTER('filereader', 'open', 'text/*', function(file) {
 });
 ```
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

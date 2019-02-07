@@ -18,11 +18,11 @@ __Mapping__:
 
 __Basic types__:
 
-- type: `string` (when is the value `string` you don't need to define the type)
-- type: `number` (when is the value `number` you don't need to define the type)
-- type: `boolean` (when is the value `boolean` you don't need to define the type)
-- type: `date` (when is the value `date` you don't need to define the type)
-- __NEW__ type: `multiline` renders `textarea` instead of `input`
+- type: `string` (when is the value `string` you don't need to define the type)
+- type: `number` (when is the value `number` you don't need to define the type)
+- type: `boolean` (when is the value `boolean` you don't need to define the type)
+- type: `date` (when is the value `date` you don't need to define the type)
+- __NEW__ type: `multiline` renders `textarea` instead of `input`
 
 __Simple Array__:
 
@@ -58,7 +58,7 @@ __Good to know__:
 - `component.remap(js_code)` can remap new configuration
 - `component.dependencies()` returns `Object` with all items `key/value` from dropdown lists
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

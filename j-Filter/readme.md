@@ -60,7 +60,7 @@ opt.callback = function(obj, changed) {
 };
 ````
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

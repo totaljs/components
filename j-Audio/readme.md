@@ -13,7 +13,7 @@ __Methods__:
 __Properties__:
 - `component.items` contains all audio objects
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

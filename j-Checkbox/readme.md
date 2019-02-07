@@ -7,7 +7,7 @@ Example: `data-jc-config="required:true"`
 - `disabled` {Boolean} (optional) disables this component
 - `checkicon` {String} (optional) a check icon without `fa-` (default: `check`)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

@@ -10,7 +10,7 @@ __Good to know__:
 - each button with `name="next"` will be used as `next` button
 - each button with `name="close"` will be used as `close` button
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

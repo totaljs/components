@@ -7,7 +7,7 @@ __Configuration__:
 - `text` {String} a property name for label (default: `name`)
 - `fullwidth` {Boolean} enables fullwidth tags (default: `false`)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

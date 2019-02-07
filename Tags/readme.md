@@ -3,7 +3,7 @@
 - easy usage
 - only CSS
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

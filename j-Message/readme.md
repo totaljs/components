@@ -7,7 +7,7 @@ __Configuration__:
 
 - `button` {String} a button label (default `Close`)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

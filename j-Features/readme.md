@@ -22,7 +22,7 @@ __Configuration__:
 
 If the `value` isn't defined then the component uses `name` as `value.
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

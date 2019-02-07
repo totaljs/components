@@ -15,7 +15,7 @@ __Configuration__:
 - `extension` {Boolean} response without file extension (default: `false`)
 - `singlefile` {Boolean} response will be string instead of array (default: `true`)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

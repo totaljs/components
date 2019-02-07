@@ -18,7 +18,7 @@ Example: `data-jc-config="required:true;icon:envelope"`
 - `cleaner` {Boolean} (optional) clears non-exist values default: `true`
 - `disabled` {Boolean} (optional) disables this component
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

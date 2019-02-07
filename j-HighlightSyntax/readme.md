@@ -6,7 +6,7 @@ __Configuration__:
 
 - `type` needs to contain a content-type for highlighting
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

@@ -9,7 +9,7 @@ __Configuration__:
 - `class` {String} this class will be used if the element is not found (default: `hidden`)
 - `delay` {Number} typping delay (default: `50` ms)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

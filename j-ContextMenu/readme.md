@@ -31,7 +31,7 @@ ON('contextmenu', function(visible, component, target) {
 });
 ```
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

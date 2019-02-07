@@ -28,7 +28,7 @@ opt.callback = function(item) {
 SETTER('menu', 'show', opt);
 ```
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

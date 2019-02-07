@@ -16,7 +16,7 @@ Example: `data-jc-config="selector:img;container:.photos;exec:function_name"`
 __Methods__:
 - `instance.refresh()` refreshes current state
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

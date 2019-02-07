@@ -10,7 +10,7 @@ __Configuration__:
 - `animate` {Boolean} enables/disables animations (default: `true`)
 - `size` {Number} width/height of donut (default: `0` = auto)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

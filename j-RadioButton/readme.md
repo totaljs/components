@@ -9,7 +9,7 @@ __Configuration__:
 - `type` {String} (optional) can contain `number`
 - `inline` {Boolean} enables/disables inline position (default: `true`)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

@@ -8,7 +8,7 @@ __Configuration__:
 
 - `group` {String} (required) a property for groupping
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

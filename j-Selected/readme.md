@@ -13,7 +13,7 @@ __Usage__:
 
 Each nested element according to the `selector` must have defined `data-if` attribute. It works only with `strings` values.
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

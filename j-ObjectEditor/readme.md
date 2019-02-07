@@ -7,7 +7,7 @@ __Configuration__:
 - `null` {Boolean} (optional) shows `null` values (default: `true`)
 - `skip` {String} (optional) skips properties divided by commas
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

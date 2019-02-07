@@ -35,7 +35,7 @@ If the `value` will be changed then the component performs `config.exec` for obt
 </script>
 ```
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

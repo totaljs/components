@@ -1,4 +1,4 @@
-# j-ClipboardImage
+# j-ClipboardImage
 
 This component automaticaly captures images in Clipboard.
 

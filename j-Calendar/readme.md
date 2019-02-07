@@ -36,7 +36,7 @@ FIND('calendar').toggle(ELEMENT, PATH, function(date) {
 FIND('calendar').toggle(ELEMENT, 'path.to.date OR date object', 'path.to.binding.date');
 ```
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

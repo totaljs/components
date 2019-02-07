@@ -79,7 +79,7 @@ opt.callback = function(selected) {
 SETTER('directory', 'show', opt);
 ````
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

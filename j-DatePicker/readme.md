@@ -37,7 +37,7 @@ opt.callback = function(newdate) {
 SETTER('datepicker', 'show', opt);
 ```
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT
