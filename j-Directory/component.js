@@ -7,7 +7,8 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 	var template = '<li data-index="{{ $.index }}" data-search="{{ name }}" {{ if selected }} class="selected{{ if classname }} {{ classname }}{{ fi }}"{{ else if classname }} class="{{ classname }}"{{ fi }}>{{ name | ui_directory_helper }}</li>';
 
 	Thelpers.ui_directory_helper = function(val) {
-		return this.template ? (typeof(this.template) === 'string' ? Tangular.render(this.template, this) : this.render(this, val)) : self.opt.render ? self.opt.render(this, val) : val;
+		var t = this;
+		return template ? (typeof(t.template) === 'string' ? t.template.indexOf('{{') === -1 ? t.template : Tangular.render(t.template, this) : t.render(this, val)) : self.opt.render ? self.opt.render(this, val) : val;
 	};
 
 	self.template = Tangular.compile(template);
@@ -304,7 +305,8 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 			if (opt.empty) {
 				item = {};
-				item[opt.key || 'name'] = '<b>{0}</b>'.format(opt.empty);
+				item[opt.key || 'name'] = opt.empty;
+				item.template = '<b>{0}</b>'.format(opt.empty);
 				indexer.index = -1;
 				builder.unshift(ta(item, indexer));
 			}
