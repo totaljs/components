@@ -166,9 +166,20 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 			opt.offsetWidth = 2;
 			opt.minwidth = config.dirminwidth || 200;
 			opt.maxwidth = config.dirmaxwidth;
-			opt.key = config.key;
+			opt.key = config.dirkey;
+			opt.empty = config.dirempty;
 
 			opt.callback = function(item, el, custom) {
+
+				// empty
+				if (item == null) {
+					input.val('');
+					self.set(null, 2);
+					self.change();
+					self.check();
+					return;
+				}
+
 				var val = custom || typeof(item) === 'string' ? item : item[config.value];
 				if (custom && typeof(config.dircustom) === 'string') {
 					var fn = GET(config.dircustom);
@@ -407,8 +418,8 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 					if (item === value)
 						break;
 					item = null;
-				} else if (item[config.value] === value) {
-					item = item[config.key];
+				} else if (item[config.dirvalue || config.value] === value) {
+					item = item[config.dirkey || config.key];
 					break;
 				} else
 					item = null;

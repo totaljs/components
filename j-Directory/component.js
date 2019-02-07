@@ -301,6 +301,13 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 				indexer.index = i;
 				builder.push(ta(item, indexer));
 			}
+
+			if (opt.empty) {
+				item = {};
+				item[opt.key || 'name'] = '<b>{0}</b>'.format(opt.empty);
+				indexer.index = -1;
+				builder.unshift(ta(item, indexer));
+			}
 		}
 
 		self.target = element[0];

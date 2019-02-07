@@ -41,8 +41,9 @@ opt.items.push({ label: 'Price', name: 'price', type: Number });
 // item.placeholder {String} A placeholder
 // item.type {Function or String} supported types: Array, String, Date, Number, Boolean, 'Time'
 // item.format {String} A format for Date or 'Time' type
-// item.key {String} A property name for "text" for Array type (default: 'name')
-// item.value {String} A property name for "value" for Array type (default: 'id')
+// item.dirkey {String} A property name for "text" for Array type (default: 'name')
+// item.dirvalue {String} A property name for "value" for Array type (default: 'id')
+// item.dirempty {String} Adds an empty value for Array type
 
 opt.callback = function(obj, changed) {
 

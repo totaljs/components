@@ -118,7 +118,8 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 			opt.placeholder = 'Search';
 			opt.offsetX = 10;
 			opt.offsetY = 10;
-			opt.key = item.key;
+			opt.key = item.dirkey;
+			opt.empty = item.dirempty;
 
 			opt.callback = function(selected, el, custom) {
 
@@ -158,7 +159,7 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 				}
 			} else {
 				item.current = val;
-				val = item.type.findValue(item.value, val, item.key, '');
+				val = item.type.findValue(item.value, val, item.dirkey, '');
 				el.find(cls2 + '-option').html(val);
 			}
 		} else {
@@ -216,11 +217,11 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 				item.icon = 'chevron-down';
 				item.iconclick = true;
 
-				if (!item.key)
-					item.key = 'name';
+				if (!item.dirkey)
+					item.dirkey = 'name';
 
-				if (!item.value)
-					item.value = 'id';
+				if (!item.dirvalue)
+					item.dirvalue = 'id';
 
 			} else {
 				switch (item.type) {
