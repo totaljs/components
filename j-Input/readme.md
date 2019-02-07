@@ -37,16 +37,17 @@ Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:dat
 - `dirminwidth` {Number} optional, a minimum width for `j-Directory`, default: `200`
 - `dirmaxwidth` {Number} optional, a maximum width for `j-Directory`
 - `dirplaceholder` {String} optional, a placeholder for `j-Directory`
-- `key` {String} optional, a key name for reading of `text` in `dirsource` (default: `name`)
-- `value` {String} optional, a key name for reading of `value` in `dirsource` (default: `id`)
+- `dirempty` {String} optional, adds an empty field for `j-Directory`
+- `dirkey` {String} optional, a key name for reading of `text` in `dirsource` (default: `name`)
+- `dirvalue` {String} optional, a key name for reading of `value` in `dirsource` (default: `id`)
 - `mask` {String} optional, can contain a mask in the form `###/##` (`#` is replaced for a char)
 - `maskregexp` {String} optional, can contain RegExp for each char in the form `\d,\d,\d,null,\d,\d` (`,` is delimiter)
 - `masktidy` {Boolean} optional, the component returns only raw chars without fixed chars (default: `false`)
 
 __Interesting:__
 
-- `type:date` needs __`calendar`__ component
-- `type:time` needs __`colorpicker`__ component
+- `type:date` needs __`datepicker`__ component
+- `type:time` needs __`timerpicker`__ component
 - `dirsource:path.to.datasource` needs __`directory`__ component
 - if `licon` or `ricon` starts with `!` then the component render a raw value instead of `icon`
 

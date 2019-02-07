@@ -24,6 +24,7 @@ Method: `component.show(options)`
 - `options.maxwidth` {Number} optional, a maximal width, default `infinite`
 - `options.callback(selected_item, element) {Function}` is triggered when the user clicks on the item
 - `options.key` {String} optional, a default `key` for `text` value (default: `name`)
+- `options.empty` {String} optional, adds empty field
 
 Method: `component.hide()`
 

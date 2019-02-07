@@ -1,11 +1,13 @@
 {
-	"datecreated": "2019-01-26T12:36:00.000Z",
-	"dateupdated": "2019-02-07T09:24:00.000Z",
-	"name": "j-Directory",
+	"datecreated": "2019-02-06T21:32:00.000Z",
+	"dateupdated": null,
+	"name": "j-DatePicker",
 	"tags": [
-		"jcomponent"
+		"jcomponent",
+		"calendar",
+		"bootstrap"
 	],
-	"color": "transparent",
+	"color": "white",
 	"version": 1,
 	"responsive": true,
 	"darkmode": true,

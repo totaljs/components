@@ -166,10 +166,21 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 			opt.offsetWidth = 2;
 			opt.minwidth = config.dirminwidth || 200;
 			opt.maxwidth = config.dirmaxwidth;
-			opt.key = config.key;
+			opt.key = config.dirkey || config.key;
+			opt.empty = config.dirempty;
 
 			opt.callback = function(item, el, custom) {
-				var val = custom || typeof(item) === 'string' ? item : item[config.value];
+
+				// empty
+				if (item == null) {
+					input.val('');
+					self.set(null, 2);
+					self.change();
+					self.check();
+					return;
+				}
+
+				var val = custom || typeof(item) === 'string' ? item : item[config.dirvalue || config.value];
 				if (custom && typeof(config.dircustom) === 'string') {
 					var fn = GET(config.dircustom);
 					fn(val, function(val) {
@@ -205,6 +216,7 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 
 			var el = $(this);
 			var left = el.hclass(cls + '-icon-left');
+			var opt;
 
 			if (config.dirsource && left && config.liconclick) {
 				e.preventDefault();
@@ -213,15 +225,23 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 
 			if (!left && !config.riconclick) {
 				if (config.type === 'date') {
-					SETTER('calendar', 'toggle', self.element, self.get(), function(date) {
+					opt = {};
+					opt.element = self.element;
+					opt.value = self.get();
+					opt.callback = function(date) {
 						self.change(true);
 						self.set(date);
-					});
+					};
+					SETTER('datepicker', 'show', opt);
 				} else if (config.type === 'time') {
-					SETTER('timepicker', 'toggle', self.element, self.get(), function(date) {
+					opt = {};
+					opt.element = self.element;
+					opt.value = self.get();
+					opt.callback = function(date) {
 						self.change(true);
 						self.set(date);
-					});
+					};
+					SETTER('timepicker', 'show', opt);
 				} else if (config.type === 'search')
 					self.set('');
 				else if (config.type === 'password')
@@ -231,7 +251,6 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 					self.change(true);
 					self.inc(config.increment * n);
 				}
-
 				return;
 			}
 
@@ -399,8 +418,8 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 					if (item === value)
 						break;
 					item = null;
-				} else if (item[config.value] === value) {
-					item = item[config.key];
+				} else if (item[config.dirvalue || config.value] === value) {
+					item = item[config.dirkey || config.key];
 					break;
 				} else
 					item = null;

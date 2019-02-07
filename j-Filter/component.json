@@ -1,15 +1,17 @@
 {
-	"datecreated": "2018-06-20T07:59:00.000Z",
-	"dateupdated": "2019-02-06T23:17:00.000Z",
-	"name": "j-DataGrid",
+	"datecreated": "2019-02-06T22:14:37.000Z",
+	"dateupdated": null,
+	"name": "j-Filter",
 	"tags": [
-		"jcomponent"
+		"jcomponent",
+		"filter",
+		"controls"
 	],
 	"color": "transparent",
 	"version": 1,
 	"darkmode": true,
 	"responsive": true,
-	"picture": "picture.gif",
+	"picture": "picture.jpg",
 	"dependencies": "",
 	"author": "Peter Širka",
 	"email": "petersirka@gmail.com",
