@@ -1,12 +1,12 @@
 <style>
-	body { background-color: #E0E0E0; padding: 50px; }
+	.ui-tree { border: 1px solid #E0E00E; }
 </style>
 
 <div class="container">
 	<div class="col-md-6">
 		<div>Open Web Developer Console</div>
 		<br />
-		<div data-jc="tree__nodes__exec:fn_selected"></div>
+		<div data-jc="tree__nodes__exec:fn_selected;checked:fn_checked"></div>
 	</div>
 </div>
 
@@ -21,4 +21,9 @@
 	function fn_selected(node, isGroup, expanded) {
 		console.log('SELECTED NODE:', node, isGroup, expanded);
 	}
+
+	function fn_checked(checked) {
+		console.log('CHECKED', checked);
+	}
+
 </script>
