@@ -29,13 +29,14 @@ COMPONENT('lazyload', 'offset:50', function(self, config) {
 
 	self.prepare = function() {
 		var scroll = container.scrollTop();
-		var beg = scroll - config.offset;
-		var end = beg + container.height() + config.offset;
+		var beg = scroll;
+		var end = beg + container.height();
+        var off = config.offset;
 		self.find(config.selector).each(function() {
 			if (!this.getAttribute('data-lazyload')) {
 				var el = $(this);
 				var top = (is ? 0 : scroll) + el.offset().top;
-				if (top >= beg && top <= end) {
+				if ((top + off) >= beg && (top - off) <= end) {
 					el.attrd('lazyload', true);
 					config.exec && EXEC(config.exec, el);
 				}
