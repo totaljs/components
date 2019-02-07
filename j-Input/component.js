@@ -180,7 +180,7 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 					return;
 				}
 
-				var val = custom || typeof(item) === 'string' ? item : item[config.value];
+				var val = custom || typeof(item) === 'string' ? item : item[config.dirvalue || config.value];
 				if (custom && typeof(config.dircustom) === 'string') {
 					var fn = GET(config.dircustom);
 					fn(val, function(val) {
