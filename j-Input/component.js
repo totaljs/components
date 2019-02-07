@@ -166,7 +166,7 @@ COMPONENT('input', 'maxlength:200;key:name;value:id;increment:1;after:\\:', func
 			opt.offsetWidth = 2;
 			opt.minwidth = config.dirminwidth || 200;
 			opt.maxwidth = config.dirmaxwidth;
-			opt.key = config.dirkey;
+			opt.key = config.dirkey || config.key;
 			opt.empty = config.dirempty;
 
 			opt.callback = function(item, el, custom) {
