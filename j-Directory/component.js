@@ -8,7 +8,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 	Thelpers.ui_directory_helper = function(val) {
 		var t = this;
-		return template ? (typeof(t.template) === 'string' ? t.template.indexOf('{{') === -1 ? t.template : Tangular.render(t.template, this) : t.render(this, val)) : self.opt.render ? self.opt.render(this, val) : val;
+		return t.template ? (typeof(t.template) === 'string' ? t.template.indexOf('{{') === -1 ? t.template : Tangular.render(t.template, this) : t.render(this, val)) : self.opt.render ? self.opt.render(this, val) : val;
 	};
 
 	self.template = Tangular.compile(template);
