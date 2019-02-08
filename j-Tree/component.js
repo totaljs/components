@@ -15,7 +15,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true', function(self, config) {
 	self.make = function() {
 
 		self.aclass(cls);
-		self.template = Tangular.compile(('<div' + (config.dragdrop ? ' draggable="true"' : '') + ' class="{0}-item{{ if children }} {0}-expand{{ fi }}" title="{{ name }}" data-index="{{ $pointer }}">' + (config.checked ? '<div class="{0}-checkbox"><i class="fa fa-check"></i></div><div class="{0}-label">' : '') + '<i class="far {{ if children }}{0}-folder{{ else }}{{ icon | def(\'fa-file-o\') }}{{ fi }}"></i>' + (config.options ? '<span class="{0}-options"><i class="fa fa-ellipsis-h"></i></span>' : '') + '<div>{{ name }}</div></div>' + (config.checked ? '</div>' : '')).format(cls));
+		self.template = Tangular.compile(('<div' + (config.dragdrop ? ' draggable="true"' : '') + ' class="{0}-item{{ if children }} {0}-expand{{ fi }}" title="{{ name }}" data-index="{{ $pointer }}">' + (config.checked ? '<div class="{0}-checkbox"><i class="fa fa-check"></i></div><div class="{0}-label">' : '') + '<i class="far {{ if children }}{0}-folder{{ else }}{{ icon | def(\'fa-file-o\') }}{{ fi }}"></i>' + (config.options ? '<span class="{0}-options"><i class="fa fa-ellipsis-h"></i></span>' : '') + '<div class="{0}-item-name">{{ name }}</div></div>' + (config.checked ? '</div>' : '')).format(cls));
 
 		self.event('click', cls2 + '-checkbox', function(e) {
 			e.stopPropagation();
@@ -72,8 +72,6 @@ COMPONENT('tree', 'autoreset:false;checkednested:true', function(self, config) {
 				case 'dragenter':
 				case 'dragover':
 
-					//e.dataTransfer.setData('text', e.target.id);
-
 					if (e.target !== ddtarget || (ddtarget && e.target !== ddtarget.parentNode)) {
 						ddtarget = e.target;
 						ddfile && ddfile.rclass(cls + '-ddhere');
@@ -109,6 +107,8 @@ COMPONENT('tree', 'autoreset:false;checkednested:true', function(self, config) {
 				dragged = null;
 			}
 
+			ddfile && ddfile.rclass(cls + '-ddhere');
+			ddfile = null;
 		});
 
 		self.event('keydown', 'input', function(e) {
@@ -163,7 +163,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true', function(self, config) {
 	};
 
 	self.rename = function(index) {
-		var div = self.find('[data-index="{0}"] div'.format(index));
+		var div = self.find('[data-index="{0}"] .ui-tree-item-name'.format(index));
 		if (div[0].$def)
 			return;
 		div[0].$def = div.html();
