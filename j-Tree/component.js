@@ -23,7 +23,10 @@ COMPONENT('tree', 'autoreset:false;checkednested:true', function(self, config) {
 			var c = cls + '-checkbox-checked';
 			el.tclass(c);
 			config.checkednested && el.closest(cls2 + '-node').find(cls2 + '-checkbox').tclass(c, el.hclass(c));
-			EXEC(config.checked, self.checked(), self);
+			if (config.checked.indexOf('.') === -1)
+				EXEC(config.checked, self.checked(), self);
+			else
+				SET(config.checked, self.checked());
 		});
 
 		self.event('click', cls2 + '-item', function() {

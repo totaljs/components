@@ -6,7 +6,7 @@ __Configuration__:
 - `exec` {String} __required__: link to a function, this function is executed when the node is selected in the tree
 - `autoreset` {Boolean} resets state when datas-source is changed (optional, default: `false`)
 - `selected` {String} selected class (optional, default: `selected`)
-- `checked` {String} optional, a path to `function(arr, component)`
+- `checked` {String} optional, a path to `function(arr, component)` or path to `property`
 - `checkednested` {Boolean} optional, checks all nested items (default: `true`)
 - `upload` {String} optional, a path to `function(item, files)` (enables drag & drop files)
 - `dragdrop` {String} optional, a path to `function(item, target_item, itemel, targetel)` (enables drag & drop items)
