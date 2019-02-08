@@ -58,7 +58,7 @@ opt.callback = function(obj, changed) {
 	for (var i = 0; i < changed.length; i++)
 		console.log('changed:', obj[changed[i]]);
 };
-````
+```
 
 ### Author
 
