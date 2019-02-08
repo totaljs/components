@@ -30,7 +30,6 @@ function fn_browser(path, next, item) {
 	// obj.checked {Boolean} item will be checked
 	// obj.icon {String} a icon for item
 	// obj.type {Number} determines a type of item (1: directory, other: file)
-	// obj.count {Number} optional, determines a count of nested items
 
 	// Good to know:
 	// Only directories can be drilled

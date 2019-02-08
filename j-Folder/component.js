@@ -7,7 +7,7 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/', function(self,
 	self.opt = {};
 	self.readonly();
 	self.nocompile();
-	self.template = Tangular.compile('<div data-index="{{ $.index }}" class="{0}-item {0}-{{ if type === 1 }}folder{{ else }}file{{ fi }}">{{ if count }}<span class="{0}-item-count">{{ count }}</span>{{ fi }}<span class="{0}-item-options"><i class="fa fa-ellipsis-h"></i></span>{{ if checkbox }}<div class="{0}-checkbox{{ if checked }} {0}-checkbox-checked{{ fi }}"><i class="fa fa-check"></i></div>{{ fi }}<span class="{0}-item-icon"><i class="far fa-{{ icon | def(\'chevron-right\') }}"></i></span><div class="{0}-item-name">{{ name }}</div></div>'.format(cls));
+	self.template = Tangular.compile('<div data-index="{{ $.index }}" class="{0}-item {0}-{{ if type === 1 }}folder{{ else }}file{{ fi }}"><span class="{0}-item-options"><i class="fa fa-ellipsis-h"></i></span>{{ if checkbox }}<div class="{0}-checkbox{{ if checked }} {0}-checkbox-checked{{ fi }}"><i class="fa fa-check"></i></div>{{ fi }}<span class="{0}-item-icon"><i class="far fa-{{ icon | def(\'chevron-right\') }}"></i></span><div class="{0}-item-name">{{ name }}</div></div>'.format(cls));
 
 	self.make = function() {
 		self.aclass(cls);
