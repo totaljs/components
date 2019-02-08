@@ -145,5 +145,6 @@
 	"j-Upload",
 	"j-DragDropElement",
 	"j-DatePicker",
-	"j-Filter"
+	"j-Filter",
+	"j-Folder"
 ]
