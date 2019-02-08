@@ -18,6 +18,7 @@ __Data structure__:
 - Object Array
 - Object has to contain `name:String` and `children:[another similar object]` or `children:null` (with no children)
 - Object item can contain `..., icon: 'home' }`, it can change a file icon
+- Object item can contain `..., class: 'css_custom_class' }`, it adds a CSS class onto "label" element
 
 __Methods__:
 

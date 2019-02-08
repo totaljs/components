@@ -30,6 +30,7 @@ function fn_browser(path, next, item) {
 	// obj.checked {Boolean} item will be checked
 	// obj.icon {String} a icon for item
 	// obj.type {Number} determines a type of item (1: directory, other: file)
+	// obj.class {String} adds a CSS class onto "label" element
 
 	// Good to know:
 	// Only directories can be drilled
