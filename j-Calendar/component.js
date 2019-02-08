@@ -3,7 +3,7 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 	var skip = false;
 	var visible = false;
 	var touchdiff;
-	var startX, startY;
+	var startX;
 
 	self.days = EMPTYARRAY;
 	self.months = EMPTYARRAY;
@@ -11,6 +11,7 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 	self.years_from;
 	self.years_to;
 
+	self.singleton();
 	self.readonly();
 	self.nocompile && self.nocompile();
 	self.click = function() {};
@@ -312,7 +313,6 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 
 			if (e.type === 'touchstart') {
 				startX = x;
-				startY = y;
 				touchdiff = Date.now();
 				return;
 			}
