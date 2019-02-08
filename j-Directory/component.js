@@ -4,7 +4,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 	var cls2 = '.' + cls;
 	var container, timeout, icon, plus, input = null;
 	var is = false, selectedindex = 0, resultscount = 0;
-	var template = '<li data-index="{{ $.index }}" data-search="{{ name }}" {{ if selected }} class="selected{{ if classname }} {{ classname }}{{ fi }}"{{ else if classname }} class="{{ classname }}"{{ fi }}>{{ name | ui_directory_helper }}</li>';
+	var template = '<li data-index="{{ $.index }}" data-search="{{ name }}" {{ if selected }} class="selected{{ if classname }} {{ classname }}{{ fi }}"{{ else if classname }} class="{{ classname }}"{{ fi }}>{{ name | encode | ui_directory_helper }}</li>';
 
 	Thelpers.ui_directory_helper = function(val) {
 		var t = this;
