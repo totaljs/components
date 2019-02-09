@@ -17,7 +17,7 @@
 
 .ui-dark .ui-console { border: 5px solid rgba(0,0,0,0.8); }
 .ui-dark .ui-console-tabs { height: 26px; padding: 0; background-color: rgba(0,0,0,0.8); }
-.ui-dark .ui-console-output { background-color: black; }
-.ui-dark .ui-console-selected { background-color: black; color: white !important; }
-.ui-dark .ui-console-message { border-bottom-color: #202020; }
+.ui-dark .ui-console-output { background-color: #222222; }
+.ui-dark .ui-console-selected { background-color: #222222; color: white !important; }
+.ui-dark .ui-console-message { border-bottom-color: #303030; }
 .ui-dark .ui-console-tabs span:hover { color: white; }
