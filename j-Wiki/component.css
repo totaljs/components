@@ -1,4 +1,4 @@
-.ui-wiki { position: fixed; right: 0; top: 45px; bottom: 0; max-width: 600px; width: 100%; box-shadow: -10px 0 10px rgba(0,0,0,0.03); z-index: 32; background-color: white; }
+.ui-wiki { position: fixed; right: 0; top: 0; bottom: 0; max-width: 600px; width: 100%; box-shadow: -10px 0 10px rgba(0,0,0,0.03); z-index: 32; background-color: white; }
 .ui-wiki-topics-body { overflow: auto; height: 100%; }
 .ui-wiki-topic label { padding: 5px 15px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border-bottom: 1px solid #E0E0E0; cursor: pointer; color: #505050; font-size: 13px; }
 .ui-wiki-topic label i { margin-right: 5px; }
