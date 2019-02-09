@@ -28,9 +28,11 @@
 .ui-form-buttons label { float: right; margin: 12px 0 0 0; font-size: 11px; }
 
 @media(max-width: 767px) {
+	.ui-form-container-padding { padding: 0; }
 	.ui-form-buttons button[name="submit"] { max-width: 180px; }
 }
 
 @media(max-width: 350px) {
+	.ui-form-container-padding { padding: 0; }
 	.ui-form-buttons button[name="submit"] { max-width: 150px; }
 }
