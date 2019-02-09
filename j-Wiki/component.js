@@ -195,7 +195,7 @@ COMPONENT('wiki', 'title:Wiki', function(self, config) {
 		});
 	};
 
-}, ['//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js', '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/github.min.css', '//cdnjs.cloudflare.com/ajax/libs/apexcharts/2.2.4/apexcharts.min.js']);
+}, ['//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js', '//cdnjs.cloudflare.com/ajax/libs/apexcharts/2.2.4/apexcharts.min.js']);
 
 if (String.prototype.markdown == null) {
 	(function Markdown() {
