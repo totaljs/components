@@ -91,7 +91,7 @@ COMPONENT('console', function(self, config) {
 		source = value;
 		if (path === config.datasource)
 			self.render_tabs();
-		else if (path.substring(config.datasource.length + 1) === current)
+		else if (path.substring(config.datasource.length + 1).substring(0, current.length) === current)
 			self.render_logs(source[current]);
 	};
 
