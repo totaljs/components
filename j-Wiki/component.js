@@ -1,7 +1,7 @@
 COMPONENT('wiki', 'title:Wiki', function(self, config) {
 
 	var cls = 'ui-wiki';
-	var cls2 = '.ui-wiki';
+	var cls2 = '.' + cls;
 	var etopics, container;
 
 	self.singleton();
@@ -22,7 +22,7 @@ COMPONENT('wiki', 'title:Wiki', function(self, config) {
 		$(W).on('resize', self.resize);
 		self.resize();
 
-		self.event('click', 'label', function(e) {
+		self.event('click', 'label', function() {
 
 			var el = $(this);
 			var index = +el.attrd('index');
