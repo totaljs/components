@@ -146,5 +146,6 @@
 	"j-DragDropElement",
 	"j-DatePicker",
 	"j-Filter",
-	"j-Folder"
+	"j-Folder",
+	"j-Console"
 ]

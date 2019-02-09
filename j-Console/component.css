@@ -1,0 +1,23 @@
+.ui-console { position: fixed; left: 0; right: 0; bottom: 0; transition: all 0.15s; transform: translate(0,150px); height: 150px; z-index: 32; border: 5px solid rgba(255,255,255,0.8); border-bottom: 0; }
+.ui-console-visible { transform: translate(0,0); }
+.ui-console-tabs { height: 26px; padding: 0; background-color: rgba(255,255,255,0.8); }
+.ui-console-tabs span { float: left; width: 24px; height: 26px; line-height: 26px; text-align: center; cursor: pointer; color: gray; font-size: 12px; }
+.ui-console-tabs > div { float: left; }
+.ui-console-tabs span:hover { color: black; }
+.ui-console-selected { background-color: white; color: black !important; }
+.ui-console-output { height: 120px; background-color: white; overflow: auto; overflow-scrolling: touch; }
+.ui-console-tabs > .ui-console-close { color: red !important; float: right; border-right: 0; }
+.ui-console-message { height: 24px; font-size: 12px; border-bottom: 1px solid #F0F0F0; line-height: 24px; padding: 0 5px 0 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-right: 30px; }
+.ui-console-message i { width: 20px; text-align: center; }
+.ui-console-error { color: red; }
+.ui-console-warning { color: #E8A826; }
+.ui-console-success { color: #8CC152; }
+.ui-console-info { color: #3BAFDA; }
+.ui-console-body { overflow: hidden; }
+
+.ui-dark .ui-console { border: 5px solid rgba(0,0,0,0.8); }
+.ui-dark .ui-console-tabs { height: 26px; padding: 0; background-color: rgba(0,0,0,0.8); }
+.ui-dark .ui-console-output { background-color: black; }
+.ui-dark .ui-console-selected { background-color: black; color: white !important; }
+.ui-dark .ui-console-message { border-bottom-color: #202020; }
+.ui-dark .ui-console-tabs span:hover { color: white; }

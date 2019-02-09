@@ -1,0 +1,18 @@
+{
+	"datecreated": "2019-01-09T15:46:00.000Z",
+	"dateupdated": null,
+	"name": "j-Console",
+	"tags": [
+		"console",
+		"float panel"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"darkmode": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}
