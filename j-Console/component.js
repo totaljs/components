@@ -1,7 +1,7 @@
 COMPONENT('console', function(self, config) {
 
 	var cls = 'ui-console';
-	var cls2 = '.ui-console';
+	var cls2 = '.' + cls;
 	var etabs, source ,elogs, current;
 	var ready = false;
 
