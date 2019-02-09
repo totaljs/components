@@ -13,7 +13,7 @@
 .ui-wiki-visible label { background-color: #4285F4 !important; border-bottom-color: #4285F4 !important; color: white !important; }
 .ui-wiki-visible label i:before { content: '\f078' }
 
-.ui-dark .ui-wiki { background-color: #404040; }
+.ui-dark .ui-wiki { background-color: #252525; }
 .ui-dark .ui-wiki-title { border-bottom-color: #404040; }
 .ui-dark .ui-wiki-topic label { border-bottom-color: #404040; color: gray; }
 .ui-dark .ui-wiki-topic label:hover { background-color: #303030; }
