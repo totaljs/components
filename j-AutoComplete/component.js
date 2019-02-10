@@ -71,7 +71,6 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 	function keydown(e) {
 		var c = e.which;
 		var input = this;
-
 		if (c !== 38 && c !== 40 && c !== 13) {
 			if (c !== 8 && c < 32)
 				return;
@@ -125,7 +124,7 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 		var index = +current.attrd('index');
 		var h = current.innerHeight();
 		var offset = ((index + 1) * h) + (h * 2);
-		scroller[0] = offset > config.height ? offset - config.height : 0;
+		scroller[0].scrollTop = offset > config.height ? offset - config.height : 0;
 		setTimeout2(self.ID + 'skipmouse', function() {
 			skipmouse = false;
 		}, 100);
@@ -176,7 +175,7 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 		else
 			opt.input = $(opt.input);
 
-		if (opt.input[0].tagName !== 'INPUT' && !opt.input.prop('contenteditable'))
+		if (opt.input[0].tagName !== 'INPUT' && !opt.input.attr('contenteditable'))
 			opt.input = opt.input.find(selector);
 
 		if (opt.element.setter) {
