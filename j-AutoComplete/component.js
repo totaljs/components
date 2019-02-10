@@ -88,7 +88,7 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 			return;
 		}
 
-		if (!datasource || !datasource.length)
+		if (!datasource || !datasource.length || !is)
 			return;
 
 		var current = container.find('.' + clssel);
