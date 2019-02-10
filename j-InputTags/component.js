@@ -219,8 +219,10 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;after:\\:', function(self, confi
 		if (is) {
 			skip = true;
 			self.push(value);
+			self.change(true);
 		}
 
+		self.check();
 	};
 
 	self.appendtag = function(text) {
