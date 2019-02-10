@@ -1,6 +1,6 @@
 .ui-form-noscroll, .ui-form-noscroll body { overflow: hidden; }
 .ui-form-container { width: 100%; position: fixed; left: 0; top: 0; bottom: 0; right: 0; background-color: rgba(230,233,237,0.8); z-index: 5; overflow-y: scroll; transform-style: preserve-3d; overflow-scrolling: touch; }
-.ui-dark .ui-form-container { background-color: rgba(0,0,0,0.2); }
+.ui-dark .ui-form-container { background-color: rgba(100,100,100,0.2); }
 .ui-form-container-padding { padding: 0 12px;}
 .ui-form { background-color: white; margin: 0 auto 30px; border-radius: 3px; box-shadow: 0 0 20px #D0D0D0; transform: translate(0, -500px); transition: all 0.2s; opacity: 0; }
 .ui-dark .ui-form { box-shadow: 0 0 20px #111; background-color: #202020; }
