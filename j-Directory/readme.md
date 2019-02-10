@@ -25,6 +25,7 @@ Method: `component.show(options)`
 - `options.callback(selected_item, element) {Function}` is triggered when the user clicks on the item
 - `options.key` {String} optional, a default `key` for `text` value (default: `name`)
 - `options.empty` {String} optional, adds empty field
+- __NEW__: `options.exclude` {Function} optional, can exclude items and must return a boolean `function(item) { return item.id !== 100 }`
 
 Method: `component.hide()`
 

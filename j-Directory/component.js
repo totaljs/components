@@ -206,6 +206,8 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 						var indexer = {};
 						for (var i = 0; i < items.length; i++) {
 							var item = items[i];
+							if (self.opt.exclude && self.opt.exclude(item))
+								continue;
 							indexer.index = i;
 							resultscount++;
 							builder.push(self.template(item, indexer));
@@ -244,6 +246,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		// opt.minwidth
 		// opt.maxwidth
 		// opt.key
+		// opt.exclude    --> function(item) must return Boolean
 
 		self.tclass(cls + '-default', !opt.render);
 
@@ -297,8 +300,13 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			var indexer = {};
 			for (var i = 0; i < items.length; i++) {
 				item = items[i];
+
 				if (typeof(item) === 'string')
 					item = { name: item };
+
+				if (opt.exclude && opt.exclude(item))
+					continue;
+
 				indexer.index = i;
 				builder.push(ta(item, indexer));
 			}
