@@ -169,12 +169,11 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;after:\\:'
 			opt.key = config.dirkey || config.key;
 			opt.empty = config.dirempty;
 
-			if (opt.dirvalue) {
-				var val = self.get();
-				opt.exclude = function(item) {
-					return item ? typeof(item) === 'string' ? item === val : item[config.dirvalue] === val : false;
-				};
-			}
+			var val = self.get();
+
+			opt.exclude = function(item) {
+				return item ? typeof(item) === 'string' ? item === val : item[config.dirvalue] === val : false;
+			};
 
 			opt.callback = function(item, el, custom) {
 
