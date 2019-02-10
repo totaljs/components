@@ -20,7 +20,7 @@ __Configuration__:
 - `center` {Boolean} (optional) centers the form to middle of screen
 - `autofocus` {Boolean/String} (optional) can focus an input. `String` === `jQuery selector` for the input
 - `default` {String} (optional) a short alias for `DEFAULT(default, true)`
-- __NEW__: `zindex` {Number} (optional) can affect z-index (default: `12`)
+- `zindex` {Number} (optional) can affect z-index (default: `12`)
 
 __Good to know__:
 
