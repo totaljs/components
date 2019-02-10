@@ -45,3 +45,6 @@
 .ui-dark .ui-input-control input { background-color: #202020; color: white; }
 .ui-dark .ui-input-control { background-color: #202020; }
 .ui-dark .ui-input-icon-left, .ui-dark .ui-input-icon-right { border-color: #303030; color: gray; }
+.ui-dark .ui-input.ui-disabled .ui-input-control { background-color: #282828; }
+.ui-dark .ui-input.ui-disabled input { background-color: #282828; color: #777777; }
+.ui-dark .ui-input.ui-disabled .ui-input-placeholder { color: #777777; }
