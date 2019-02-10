@@ -1,4 +1,4 @@
-COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;after:\\:', function(self, config) {
+COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:name;after:\\:', function(self, config) {
 
 	var cls = 'ui-input';
 	var cls2 = '.' + cls;
@@ -32,6 +32,17 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;after:\\:'
 		self.event('focus', 'input', function() {
 			self.aclass(cls + '-focused');
 			config.autocomplete && EXEC(config.autocomplete, self, input.parent());
+			if (config.autosource) {
+				var opt = {};
+				opt.element = self.element;
+				opt.search = GET(config.autosource);
+				opt.callback = function(value) {
+					self.set(typeof(value) === 'string' ? value : value[config.autovalue], 2);
+					self.change();
+					self.bindvalue();
+				};
+				SETTER('autocomplete', 'show', opt);
+			}
 		});
 
 		self.event('paste', 'input', function(e) {
