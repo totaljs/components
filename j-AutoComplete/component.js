@@ -77,7 +77,7 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 				return;
 			clearTimeout(searchtimeout);
 			searchtimeout = setTimeout(function() {
-				var val = input.value;
+				var val = input.value || input.innerHTML;
 				if (!val)
 					return self.render(EMPTYARRAY);
 				if (searchvalue === val)
@@ -168,12 +168,6 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 		clearTimeout(searchtimeout);
 		var selector = 'input,[contenteditable]';
 
-		if (opt.element.setter) {
-			if (!opt.callback)
-				opt.callback = opt.element.path;
-			opt.element = opt.element.element;
-		}
-
 		if (opt.input == null)
 			opt.input = opt.element;
 
@@ -182,8 +176,14 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 		else
 			opt.input = $(opt.input);
 
-		if (opt.input[0].tagName !== 'INPUT')
+		if (opt.input[0].tagName !== 'INPUT' && !opt.input.prop('contenteditable'))
 			opt.input = opt.input.find(selector);
+
+		if (opt.element.setter) {
+			if (!opt.callback)
+				opt.callback = opt.element.path;
+			opt.element = opt.element.element;
+		}
 
 		if (old) {
 			old.removeAttr('autocomplete');
