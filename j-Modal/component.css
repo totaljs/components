@@ -1,23 +1,23 @@
 .ui-modal-noscroll, .ui-modal-noscroll body { overflow: hidden; }
 .ui-modal-container { background-color: rgba(0,0,0,0.1); position: fixed; left: 0; right: 0; top: 0; bottom: 0; }
-.ui-modal { background-color: white; margin: 0 auto 30px; border-radius: 3px; box-shadow: 0 0 30px rgba(0,0,0,0.05); transform: scale(0); transition: transform 0.2s; position: absolute; left: 50%; overflow: hidden; }
+.ui-modal { background-color: white; margin: 0 auto; border-radius: 3px; box-shadow: 0 0 30px rgba(0,0,0,0.05); transform: scale(0); transition: transform 0.2s; position: absolute; left: 50%; overflow: hidden; }
 .ui-modal-visible .ui-modal { transform: scale(1); }
 .ui-modal-body-area { overflow-x: hidden; overflow-y: auto; overflow-scrolling: touch; width: 100%; }
 .ui-modal-body { margin-right: 30px; }
-.ui-modal-header { border-bottom: 2px solid #E0E0E0; height: 55px; padding: 0 0 0 15px; }
-.ui-modal-icon { float: left; height: 55px; line-height: 55px; margin-right: 7px; }
-.ui-modal-header label { height: 55px; line-height: 55px; font-size: 16px; float: left; padding: 0; margin: 0; font-weight: bold; color: black; }
+.ui-modal-header { border-bottom: 2px solid #E0E0E0; height: 50px; padding: 0 0 0 15px; }
+.ui-modal-icon { float: left; height: 50px; line-height: 50px; margin-right: 7px; }
+.ui-modal-header label { height: 50px; line-height: 50px; font-size: 16px; float: left; padding: 0; margin: 0; font-weight: bold; color: black; }
 .ui-modal-header label i { margin-right: 5px; }
-.ui-modal-header .cancel { float: right; line-height: 55px; width: 28px; color: red; transition: transform 0.2s; font-size: 16px; }
+.ui-modal-header .cancel { float: right; line-height: 50px; width: 28px; color: red; transition: transform 0.2s; font-size: 16px; }
 .ui-modal-header .cancel:hover { transform: scale(1.2); }
-.ui-modal-footer { border-top: 2px solid #E0E0E0; height: 60px; padding: 0 15px; line-height: 55px; text-align: right; }
-.ui-modal-footer button { height: 28px; border: 0; background-color: #4285F4; color: white; border-radius: 2px; padding: 0 15px; margin: 0; line-height: 28px; font-weight: bold; }
+.ui-modal-footer { border-top: 2px solid #E0E0E0; height: 60px; padding: 0 15px; line-height: 58px; text-align: right; }
+.ui-modal-footer button { height: 33px; border: 0; background-color: #4285F4; color: white; border-radius: 2px; padding: 0 15px; margin: 0; line-height: 28px; font-weight: bold; }
 .ui-modal-footer button:disabled { background-color: #E0E0E0; color: #A0A0A0; cursor: not-allowed; }
 .ui-modal-footer .link { font-size: 12px; vertical-align: middle; position: relative; display: inline-block; margin: 0 10px; }
 .ui-modal-footer i { margin-right: 5px; }
 .ui-modal .padding { padding: 15px; }
-.ui-modal-align-1 { left: auto; right: 25px; bottom: 0; top: auto; }
-.ui-modal-align-2 { left: 25px; bottom: 0; top: auto; }
+.ui-modal-align-1 { left: auto; right: 25px; bottom: 25px; top: auto; }
+.ui-modal-align-2 { left: 25px; bottom: 25px; top: auto; }
 .ui-modal-align-3 { left: 25px; top: 25px; }
 .ui-modal-align-4 { left: auto; right: 25px; top: 25px; }
 
