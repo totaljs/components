@@ -150,5 +150,6 @@
 	"j-Console",
 	"j-Wiki",
 	"j-Modal",
-	"j-InputTags"
+	"j-InputTags",
+	"j-Editable"
 ]

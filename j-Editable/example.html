@@ -1,0 +1,52 @@
+<div data-jc="LAZY datepicker"></div>
+<div data-jc="LAZY directory"></div>
+
+<div data-jc="editable__form">
+	<div style="width:500px;padding:10px;border:1px solid #E0E0E0">
+
+		<div class="row">
+			<div class="col-sm-3">
+				Name:
+			</div>
+			<div class="col-sm-9">
+				<div class="editable" data-editable="required:true" data-bind="form.name__html"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-3">
+				Framework:
+			</div>
+			<div class="col-sm-9">
+				<div class="editable" data-editable="path:frameworkid;dirsource:frameworks">Choose a framework</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-3">
+				Country:
+			</div>
+			<div class="col-sm-9">
+				<div class="editable" data-editable="path:city;dirsource:countries">Choose a country</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-3">
+				Date:
+			</div>
+			<div class="col-sm-9">
+				<div class="editable" data-editable="type:date" data-bind="form.date__html:(new Date() || value).format('yyyy-MM-dd')"></div>
+			</div>
+		</div>
+	</div>
+	<pre data-bind="form__html:JSON.stringify(value, null, '  ')"></pre>
+</div>
+
+
+<script>
+
+	var frameworks = [{ id: 0, name: 'Nothing', template: '<b>{{ name }}</b>' }, { id: 1, name: 'jComponent' }, { id: 2, name: 'Angular.js' }, { id: 3, name: 'React' }];
+	var countries = ['Slovakia', 'Poland', 'Hungary', 'Germany'];
+	var form = {};
+	form.date = new Date();
+	form.name = 'Peter Širka';
+
+</script>

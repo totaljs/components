@@ -1,0 +1,16 @@
+{
+	"datecreated": "2019-02-11T12:53:00.000Z",
+	"dateupdated": null,
+	"name": "j-Editable",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}
