@@ -93,10 +93,15 @@ COMPONENT('modal', 'zindex:12;width:800', function(self, config) {
 		var width = mobile ? emodal.width() : config.width;
 		var ml = Math.ceil(width / 2) * -1;
 
-		if (config.center) {
+		if (config.center || !config.align) {
 			top = Math.ceil((WH / 2) - (hs / 2));
 			if (top < 0)
 				top = (WH - h) / 2 >> 0;
+		}
+
+		if (!mobile && config.align) {
+			top = '';
+			ml = '';
 		}
 
 		emodal.css({ top: top, 'margin-left': ml });
@@ -113,6 +118,11 @@ COMPONENT('modal', 'zindex:12;width:800', function(self, config) {
 				self.resize();
 				break;
 			case 'center':
+				self.resize();
+				break;
+			case 'align':
+				prev && emodal.rclass(cls + '-align-' + prev);
+				value && emodal.aclass(cls + '-align-' + value);
 				self.resize();
 				break;
 			case 'icon':

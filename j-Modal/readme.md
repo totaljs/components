@@ -16,11 +16,12 @@ __Configuration__:
 - `reload` {String} link to a global function and it's executed if the form is showing
 - `submit` {String} link to a global function and it's executed if the submit button is pressed
 - `cancel` {String} link to a global function and it's executed if the cancel button is pressed
-- `enter` {Boolean} (optional) captures `enter` key automatically and performs submit (default: `false`)
-- `center` {Boolean} (optional) centers the form to middle of screen
-- `autofocus` {Boolean/String} (optional) can focus an input. `String` === `jQuery selector` for the input
-- `default` {String} (optional) a short alias for `DEFAULT(default, true)`
-- `zindex` {Number} (optional) can affect z-index (default: `12`)
+- `enter` {Boolean} optional, captures `enter` key automatically and performs submit (default: `false`)
+- `center` {Boolean} optional, centers the form to middle of screen
+- `autofocus` {Boolean/String} optional, can focus an input. `String` === `jQuery selector` for the input
+- `default` {String} optional, a short alias for `DEFAULT(default, true)`
+- `zindex` {Number} optional, can affect z-index (default: `12`)
+- `align` {Number} optional, aligns modal `0` centered (default), `1` right bottom, `2` left bottom, `3` left top, `4` right top
 
 __Good to know__:
 
