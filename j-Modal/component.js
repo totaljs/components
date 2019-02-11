@@ -102,6 +102,7 @@ COMPONENT('modal', 'zindex:12;width:800', function(self, config) {
 		if (!mobile && config.align) {
 			top = '';
 			ml = '';
+			hh += 25;
 		}
 
 		emodal.css({ top: top, 'margin-left': ml });

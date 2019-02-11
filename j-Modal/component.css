@@ -30,5 +30,5 @@
 .ui-dark .ui-modal-footer button:disabled { background-color: #404040; color: gray; cursor: not-allowed; }
 
 @media(max-width: 768px) {
-	.ui-modal { width: 90%; left: 50%; right: inherit; bottom: inherit; }
+	.ui-modal { width: 90%; left: 50%; right: auto; bottom: auto; }
 }
