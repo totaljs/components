@@ -23,10 +23,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true', function(self, config) {
 			var c = cls + '-checkbox-checked';
 			el.tclass(c);
 			config.checkednested && el.closest(cls2 + '-node').find(cls2 + '-checkbox').tclass(c, el.hclass(c));
-			if (config.checked.indexOf('.') === -1)
-				EXEC(config.checked, self.checked(), self);
-			else
-				SET(config.checked, self.checked());
+			SEEX(config.checked, self.checked(), self);
 		});
 
 		self.event('click', cls2 + '-item', function() {
@@ -144,11 +141,11 @@ COMPONENT('tree', 'autoreset:false;checkednested:true', function(self, config) {
 			var parent = el.parent();
 			parent.tclass('ui-tree-show');
 			var is = expanded[index] = parent.hclass(cls + '-show');
-			!noeval && config.exec && EXEC(config.exec, cache[index], true, is);
+			!noeval && config.exec && SEEX(config.exec, cache[index], true, is);
 		} else {
 			!el.hclass(cls + c) && self.find(cls2 + c).rclass(cls + c);
 			el.aclass(cls + c);
-			!noeval && config.exec && EXEC(config.exec, cache[index], false);
+			!noeval && config.exec && SEEX(config.exec, cache[index], false);
 			selindex = index;
 		}
 	};

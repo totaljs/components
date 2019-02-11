@@ -2,6 +2,10 @@
 
 This component can edit all elements with `editable` class. It works with `data-bind` or dynamic values. Learn more from example.
 
+__Configuration__:
+
+- `autofocus` {Boolean} focuses first item (default: `false`)
+
 ---
 
 `data-editable` attribute describes behaviour:

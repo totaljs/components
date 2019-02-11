@@ -3,7 +3,25 @@ COMPONENT('editable', function(self, config) {
 	var cls = 'ui-editable';
 	var events = {};
 
-	self.readonly();
+	self.getter = null;
+	self.setter = null;
+
+	self.validate = function(value, init) {
+
+		if (init)
+			return true;
+
+		var is = true;
+
+		self.find('[data-editable]').each(function() {
+			var t = this;
+			var el = $(this);
+			if (el.attrd('editable').indexOf('required') !== -1 && !t.innerHTML)
+				is = false;
+		});
+
+		return is;
+	};
 
 	self.make = function() {
 
@@ -106,7 +124,7 @@ COMPONENT('editable', function(self, config) {
 				SETTER('directory', 'show', attr);
 
 			} else if (opt.type === 'boolean') {
-				TOGGLE(opt.path, 1);
+				TOGGLE(opt.path, 2);
 				opt.is = false;
 			} else
 				self.attach(el);
@@ -245,7 +263,7 @@ COMPONENT('editable', function(self, config) {
 				if (b)
 					b.disabled = true;
 				self.cnotify(el, 'ok');
-				SET(opt.path, opt.value, 1);
+				SET(opt.path, opt.value, 2);
 				self.change(true);
 				b && setTimeout(function() {
 					b.disabled = false;
@@ -293,6 +311,16 @@ COMPONENT('editable', function(self, config) {
 			opt.is = false;
 			el.rclass('editable-editing');
 			el.attr('contenteditable', false);
+		}
+	};
+
+	self.setter = function(value, path, type) {
+		if (type !== 2) {
+			if (config.autofocus) {
+				setTimeout(function() {
+					self.find('[data-editable]').eq(0).trigger('click');
+				}, 500);
+			}
 		}
 	};
 
