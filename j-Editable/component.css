@@ -1,3 +1,3 @@
 .ui-editable .editable { border: 1px solid transparent; padding: 1px 2px; cursor: text; outline: 0; border-radius: 3px; }
-.ui-editable .editable input { width: 100%; outline: 0; border: 0; background-color: transparent; padding: 0; margin: 0; }
+.ui-editable .editable:hover { border-color: rgba(100,100,100,0.2); }
 .ui-editable .editable-editing { border: 1px solid #4783EE; }
