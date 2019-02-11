@@ -6,8 +6,9 @@ COMPONENT('editable', function(self, config) {
 	self.readonly();
 
 	self.make = function() {
+
 		self.aclass(cls);
-		self.event('click', '.editable', function() {
+		self.event('click', '[data-editable]', function() {
 
 			var t = this;
 
@@ -114,13 +115,28 @@ COMPONENT('editable', function(self, config) {
 				e.stopPropagation();
 			}
 
+			if (e.which === 27) {
+				self.detach($(this));
+				return;
+			}
+
 			if (e.which === 13 || e.which === 9) {
 				var el = $(this);
 				self.approve(el);
 				self.detach(el);
 
 				if (e.which === 9) {
-					e.preventDefault();
+					var arr = self.find('[data-editable]');
+					for (var i = 0; i < arr.length; i++) {
+						if (arr[i] === this) {
+							var next = arr[i + 1];
+							if (next) {
+								$(next).trigger('click');
+								e.preventDefault();
+							}
+							break;
+						}
+					}
 				}
 			}
 		};
