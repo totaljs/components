@@ -22,6 +22,7 @@ This component can edit all elements with `editable` class. It works with `data-
 - `dirvalue` {String} optional, a key name for reading of `value` in `dirsource` (default: `id`)
 - `autosource` {String} a path to `search` function in `autocomplete`, `function(search, render(arr))`
 - `autovalue` {String} a property path for the value in `autosource`
+- `maxlength` {Number} a maxlength
 
 ### Author
 
