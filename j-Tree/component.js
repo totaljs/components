@@ -74,7 +74,6 @@ COMPONENT('tree', 'autoreset:false;checkednested:true', function(self, config) {
 					break;
 				case 'dragenter':
 				case 'dragover':
-
 					if (e.target !== ddtarget || (ddtarget && e.target !== ddtarget.parentNode)) {
 						ddtarget = e.target;
 						ddfile && ddfile.rclass(cls + '-ddhere');
@@ -83,10 +82,8 @@ COMPONENT('tree', 'autoreset:false;checkednested:true', function(self, config) {
 							ddfile = ddfile.closest(cls2 + '-item');
 						ddfile.aclass(cls + '-ddhere');
 					}
-
 					return;
-				case 'dragleave':
-				case 'dragexit':
+
 				default:
 					setTimeout2(self.id, function() {
 						ddfile && ddfile.rclass(cls + '-ddhere');
