@@ -157,6 +157,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 	self.hide = function() {
 		if (visible) {
 			self.unbindevents();
+			self.opt.close && self.opt.close();
 			self.opt = null;
 			self.older = null;
 			self.target = null;
@@ -180,6 +181,9 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 			self.hide();
 			return;
 		}
+
+		if (self.opt && self.opt.close)
+			self.opt.close();
 
 		var off = el.offset();
 		var h = el.innerHeight();

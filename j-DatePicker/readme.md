@@ -33,6 +33,7 @@ opt.callback = function(newdate) {
 
 // opt.offsetX {Number} "x" offset
 // opt.offsetY {Number} "y" offset
+// opt.close {Function} optional, this function can determine closing of DatePicker
 
 SETTER('datepicker', 'show', opt);
 ```

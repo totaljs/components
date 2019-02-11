@@ -222,6 +222,12 @@ COMPONENT('timepicker', function(self, config) {
 		clearTimeout(timeout);
 		timeout = setTimeout(function() {
 			self.unbindevents();
+
+			if (self.opt) {
+				self.opt.close && self.opt.close();
+				self.opt = null;
+			}
+
 			self.rclass(cls + '-visible').aclass('hidden');
 			self.target = null;
 			is = false;

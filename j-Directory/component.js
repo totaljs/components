@@ -372,6 +372,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			self.unbindevents();
 			self.rclass(cls + '-visible').aclass('hidden');
 			if (self.opt) {
+				self.opt.close && self.opt.close();
 				self.opt.class && self.rclass(self.opt.class);
 				self.opt = null;
 			}

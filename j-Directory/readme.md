@@ -26,6 +26,7 @@ Method: `component.show(options)`
 - `options.key` {String} optional, a default `key` for `text` value (default: `name`)
 - `options.empty` {String} optional, adds empty field
 - __NEW__: `options.exclude` {Function} optional, can exclude items and must return a boolean `function(item) { return item.id !== 100 }`
+- __NEW__: `options.close` {Function} optional, can determine closing of panel
 
 Method: `component.hide()`
 

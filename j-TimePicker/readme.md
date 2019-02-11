@@ -31,6 +31,8 @@ opt.callback = function(date) {
 	console.log(date);
 };
 
+// opt.close {Function} optional, this function can determine closing of TimePicker
+
 SETTER('timepicker', 'show', opt);
 ```
 
