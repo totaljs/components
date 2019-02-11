@@ -225,7 +225,7 @@ COMPONENT('timepicker', function(self, config) {
 
 			if (self.opt) {
 				self.opt.close && self.opt.close();
-				self.opt = null;
+				self.opt.close = null;
 			}
 
 			self.rclass(cls + '-visible').aclass('hidden');
