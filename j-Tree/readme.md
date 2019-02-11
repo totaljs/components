@@ -12,6 +12,7 @@ __Configuration__:
 - `dragdrop` {String} optional, a path to `function(item, target_item, itemel, targetel)` (enables drag & drop items)
 - `options` {String} optional, a path to `function(item, el)` enables a small button for inline context menu for each item
 - `rename` {String} optional, a path to `function(item, newname, fn_accept(true))`
+- `unselectexpand` {Boolean} optional, can `unselect` selected item when the user clicks on the expandable item (default: `false`)
 
 __Data structure__:
 

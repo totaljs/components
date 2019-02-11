@@ -139,6 +139,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true', function(self, config) {
 		var c = '-selected';
 		if (el.hclass(cls + '-expand')) {
 			var parent = el.parent();
+			config.unselectexpand && self.find(cls2 + c).rclass(cls + c);
 			parent.tclass('ui-tree-show');
 			var is = expanded[index] = parent.hclass(cls + '-show');
 			!noeval && config.exec && SEEX(config.exec, cache[index], true, is);
