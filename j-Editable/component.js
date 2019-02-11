@@ -115,13 +115,17 @@ COMPONENT('editable', function(self, config) {
 				e.stopPropagation();
 			}
 
+			var el;
+
 			if (e.which === 27) {
-				self.detach($(this));
+				el = $(this);
+				self.cnotify(el, 'no');
+				self.detach(el);
 				return;
 			}
 
 			if (e.which === 13 || e.which === 9) {
-				var el = $(this);
+				el = $(this);
 				self.approve(el);
 				self.detach(el);
 
@@ -177,10 +181,13 @@ COMPONENT('editable', function(self, config) {
 	self.approve = function(el) {
 
 		var opt = el[0].$editable;
-		var val = el.text();
+		var val = el.text().replace(/&nbsp;/g, ' ');
 
 		if (opt.html === el.html())
 			return;
+
+		if (opt.maxlength && val.length > opt.maxlength)
+			val = val.substring(0, opt.maxlength);
 
 		opt.value = val;
 
@@ -199,8 +206,15 @@ COMPONENT('editable', function(self, config) {
 		if (opt.required && !opt.value)
 			return;
 
-		opt.html = '';
+		opt.html = null;
 		self.approve2(el);
+	};
+
+	self.cnotify = function(el, classname) {
+		el.aclass(cls + '-' + classname);
+		setTimeout(function() {
+			el && el.rclass(cls + '-' + classname);
+		}, 1000);
 	};
 
 	self.approve2 = function(el) {
@@ -208,6 +222,10 @@ COMPONENT('editable', function(self, config) {
 		if (opt.save) {
 			GET(opt.save)(opt, function(is) {
 				el.html(is || is == null ? opt.value : opt.html);
+				if (is || is == null)
+					self.cnotify(el, 'ok');
+				else
+					self.cnotify(el, 'no');
 			});
 		} else {
 			setTimeout(function() {
@@ -216,7 +234,8 @@ COMPONENT('editable', function(self, config) {
 					b = el.binder();
 				if (b)
 					b.disabled = true;
-				SET(opt.path, opt.value);
+				self.cnotify(el, 'ok');
+				SET(opt.path, opt.value, 1);
 				self.change(true);
 				b && setTimeout(function() {
 					b.disabled = false;
@@ -259,7 +278,8 @@ COMPONENT('editable', function(self, config) {
 			el.off('paste', events.paste);
 			el[0].$events = false;
 			var opt = el[0].$editable;
-			opt.html && el.html(opt.html);
+			if (opt.html != null)
+				el.html(opt.html);
 			opt.is = false;
 			el.rclass('editable-editing');
 			el.attr('contenteditable', false);
