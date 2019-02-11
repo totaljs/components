@@ -36,6 +36,9 @@ COMPONENT('editable', function(self, config) {
 			if (opt.type === 'date' && !opt.format)
 				opt.format = config.dateformat || 'yyyy-MM-dd';
 
+			if (opt.type === 'bool')
+				opt.type += 'ean';
+
 			if ((opt.can && !GET(opt.can)(opt, el)) || (config.can && !GET(config.can)(opt, el)))
 				return;
 
@@ -68,10 +71,11 @@ COMPONENT('editable', function(self, config) {
 
 				attr.close = function() {
 					opt.is = false;
-					el[0].$editable = null;
 				};
 
 				attr.callback = function(item, el, custom) {
+
+					opt.is = false;
 
 					// empty
 					if (item == null)
@@ -101,6 +105,9 @@ COMPONENT('editable', function(self, config) {
 
 				SETTER('directory', 'show', attr);
 
+			} else if (opt.type === 'boolean') {
+				TOGGLE(opt.path, 1);
+				opt.is = false;
 			} else
 				self.attach(el);
 		});
@@ -198,6 +205,9 @@ COMPONENT('editable', function(self, config) {
 			case 'date':
 				SETTER('!datepicker', 'hide');
 				opt.value = opt.value ? opt.value.parseDate(opt.format) : null;
+				break;
+			case 'boolean':
+				opt.value = opt.value === true || opt.value == 'true' || opt.value == '1' || opt.value == 'on';
 				break;
 		}
 
