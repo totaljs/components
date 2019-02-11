@@ -32,7 +32,6 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;after:\\:', function(self, confi
 		self.event('focus', cls2 + '-editable', function() {
 			self.aclass(cls + '-focused');
 			config.autocomplete && EXEC(config.autocomplete, self, input.parent());
-
 			if (config.autosource) {
 				var opt = {};
 				opt.element = self.element;
@@ -44,7 +43,6 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;after:\\:', function(self, confi
 				};
 				SETTER('autocomplete', 'show', opt);
 			}
-
 		});
 
 		self.event('blur', cls2 + '-editable', function() {
