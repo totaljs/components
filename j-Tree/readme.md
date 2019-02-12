@@ -13,6 +13,7 @@ __Configuration__:
 - `options` {String} optional, a path to `function(item, el)` enables a small button for inline context menu for each item
 - `rename` {String} optional, a path to `function(item, newname, fn_accept(true))`
 - `unselectexpand` {Boolean} optional, can `unselect` selected item when the user clicks on the expandable item (default: `false`)
+- `reselect` {Boolean} optional, evaluates `exec` again if the tree is refreshed (default: `false`)
 
 __Data structure__:
 

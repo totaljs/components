@@ -1,4 +1,4 @@
-COMPONENT('tree', 'autoreset:false;checkednested:true', function(self, config) {
+COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(self, config) {
 
 	var cls = 'ui-tree';
 	var cls2 = '.ui-tree';
@@ -9,6 +9,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true', function(self, config) {
 	var ddfile = null;
 	var ddtarget = null;
 	var dragged = null;
+
 	self.readonly();
 	self.nocompile && self.nocompile();
 
@@ -140,15 +141,16 @@ COMPONENT('tree', 'autoreset:false;checkednested:true', function(self, config) {
 		if (el.hclass(cls + '-expand')) {
 			var parent = el.parent();
 			config.unselectexpand && self.find(cls2 + c).rclass(cls + c);
-			parent.tclass('ui-tree-show');
+			parent.tclass(cls + '-show');
 			var is = expanded[index] = parent.hclass(cls + '-show');
 			!noeval && config.exec && SEEX(config.exec, cache[index], true, is);
 		} else {
 			!el.hclass(cls + c) && self.find(cls2 + c).rclass(cls + c);
-			el.aclass(cls + c);
 			!noeval && config.exec && SEEX(config.exec, cache[index], false);
 			selindex = index;
 		}
+
+		el.aclass(cls + c);
 	};
 
 	self.checked = function() {
@@ -277,7 +279,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true', function(self, config) {
 
 		if (selindex !== -1) {
 			// Disables auto-select when is refreshed
-			self.select(selindex, true);
+			self.select(selindex, config.reselect);
 		} else
 			config.first !== false && cache.first && setTimeout(self.first, 100);
 
