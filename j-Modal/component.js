@@ -93,7 +93,7 @@ COMPONENT('modal', 'zindex:12;width:800', function(self, config) {
 		var width = mobile ? emodal.width() : config.width;
 		var ml = Math.ceil(width / 2) * -1;
 
-		if (config.center || !config.align) {
+		if (config.center) {
 			top = Math.ceil((WH / 2) - (hs / 2));
 			if (top < 0)
 				top = (WH - h) / 2 >> 0;
