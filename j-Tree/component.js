@@ -283,7 +283,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 
 		if (selindex !== -1) {
 			// Disables auto-select when is refreshed
-			self.select(selindex, config.reselect);
+			self.select(selindex, !config.reselect);
 		} else
 			config.first !== false && cache.first && setTimeout(self.first, 100);
 
