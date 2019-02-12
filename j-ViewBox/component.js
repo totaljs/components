@@ -46,9 +46,11 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100', function(self, config) {
 
 	self.resize = function() {
 		var el = config.parent ? config.parent === 'window' ? $(window) : self.element.closest(config.parent) : self.parent();
-		var h = el.height();
 
-		if (h === 0) {
+		var h = el.height();
+		var w = el.width();
+
+		if (h === 0 || w === 0) {
 			self.$waiting && clearTimeout(self.$waiting);
 			self.$waiting = setTimeout(self.resize, 234);
 			return;
