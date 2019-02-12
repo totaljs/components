@@ -140,17 +140,21 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 		var c = '-selected';
 		if (el.hclass(cls + '-expand')) {
 			var parent = el.parent();
-			config.unselectexpand && self.find(cls2 + c).rclass(cls + c);
+
+            if (config.selectexpand) {
+                self.find(cls2 + c).rclass(cls + c);
+                el.aclass(cls + c);
+            }
+
 			parent.tclass(cls + '-show');
 			var is = expanded[index] = parent.hclass(cls + '-show');
 			!noeval && config.exec && SEEX(config.exec, cache[index], true, is);
 		} else {
 			!el.hclass(cls + c) && self.find(cls2 + c).rclass(cls + c);
+            el.aclass(cls + c);
 			!noeval && config.exec && SEEX(config.exec, cache[index], false);
 			selindex = index;
 		}
-
-		el.aclass(cls + c);
 	};
 
 	self.checked = function() {
