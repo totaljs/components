@@ -27,7 +27,7 @@
 .ui-input.ui-disabled .ui-input-icon-left, .ui-input.ui-disabled .ui-input-icon-right { color: gray; }
 .ui-input-increment { padding: 5px 0 0; }
 .ui-input-increment i { display: block; line-height: 10px; font-size: 15px; cursor: pointer; }
-.ui-input-inner .ui-input-label { position: absolute; z-index: 1; margin: 12px 0 0 7px; font-size: 13px; }
+.ui-input-inner .ui-input-label { position: absolute; z-index: 1; margin: 11px 0 0 7px; font-size: 13px; }
 .ui-input-inner.ui-input-binded .ui-input-label { font-size: 11px; margin-top: 3px; color: gray; }
 .ui-input-inner .ui-input-input { padding-top: 9px; }
 .ui-input-binded.ui-input-inner .ui-input-input { padding-top: 15px; }
