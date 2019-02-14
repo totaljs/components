@@ -36,14 +36,16 @@ COMPONENT('editable', function(self, config) {
 			var el = $(t);
 			var opt = (el.attrd('editable') || '').parseConfig();
 
-			if (!opt.path) {
-				// Internal hack for data-bind instance
-				var binder = el[0].$jcbind;
-				if (!binder)
-					return;
-				opt.path = binder.path;
-			} else
-				opt.path = self.path + '.' + opt.path;
+			if (!opt.save) {
+				if (!opt.path) {
+					// Internal hack for data-bind instance
+					var binder = el[0].$jcbind;
+					if (!binder)
+						return;
+					opt.path = binder.path;
+				} else
+					opt.path = self.path + '.' + opt.path;
+			}
 
 			opt.html = el.html();
 			opt.value = GET(opt.path) || el.text();
