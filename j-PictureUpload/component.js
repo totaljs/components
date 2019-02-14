@@ -69,9 +69,6 @@ COMPONENT('pictureupload', 'extension:false;singlefile:true;type:png', function(
 			switch (e.type) {
 				case 'drop':
 					break;
-				case 'dragenter':
-				case 'dragover':
-					return;
 				default:
 					return;
 			}
@@ -108,7 +105,6 @@ COMPONENT('pictureupload', 'extension:false;singlefile:true;type:png', function(
 
 			self.change();
 			el.value = '';
-
 
 			if (config.extension) {
 				for (var i = 0, length = response.length; i < length; i++) {
