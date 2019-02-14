@@ -2,7 +2,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 	var cls = 'ui-directory';
 	var cls2 = '.' + cls;
-	var container, timeout, icon, plus, input = null;
+	var container, timeout, icon, plus, skipreset = false, skipclear = false, ready = false, input = null;
 	var is = false, selectedindex = 0, resultscount = 0;
 	var template = '<li data-index="{{ $.index }}" data-search="{{ name }}" {{ if selected }} class="current selected{{ if classname }} {{ classname }}{{ fi }}"{{ else if classname }} class="{{ classname }}"{{ fi }}>{{ name | encode | ui_directory_helper }}</li>';
 
@@ -36,13 +36,15 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		plus = self.find(cls2 + '-add');
 
 		self.event('mouseenter mouseleave', 'li', function() {
-			container.find('li.current').rclass('current');
-			$(this).aclass('current');
-			var arr = container.find('li:visible');
-			for (var i = 0; i < arr.length; i++) {
-				if ($(arr[i]).hclass('current')) {
-					selectedindex = i;
-					break;
+			if (ready) {
+				container.find('li.current').rclass('current');
+				$(this).aclass('current');
+				var arr = container.find('li:visible');
+				for (var i = 0; i < arr.length; i++) {
+					if ($(arr[i]).hclass('current')) {
+						selectedindex = i;
+						break;
+					}
 				}
 			}
 		});
@@ -166,6 +168,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 			var is = selectedindex === counter;
 			el.tclass('current', is);
+
 			if (is) {
 				var t = (h * counter) - h;
 				if ((t + h * 4) > h)
@@ -186,9 +189,11 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		self.opt.custom && plus.tclass('hidden', !value);
 
 		if (!value && !self.opt.ajax) {
-			container.find('li').rclass('hidden');
+			if (!skipclear)
+				container.find('li').rclass('hidden');
+			if (!skipreset)
+				selectedindex = 0;
 			resultscount = self.opt.items ? self.opt.items.length : 0;
-			selectedindex = 0;
 			self.move();
 			return;
 		}
@@ -212,6 +217,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 							resultscount++;
 							builder.push(self.template(item, indexer));
 						}
+						skipclear = true;
 						self.opt.items = items;
 						container.html(builder);
 						self.move();
@@ -228,6 +234,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 				if (!is)
 					resultscount++;
 			});
+			skipclear = true;
 			self.move();
 		}
 	};
@@ -312,8 +319,10 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 				if (opt.exclude && opt.exclude(item))
 					continue;
 
-				if (item.selected)
+				if (item.selected) {
 					selected = i;
+					skipreset = true;
+				}
 
 				indexer.index = i;
 				builder.push(ta(item, indexer));
@@ -338,8 +347,9 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		else if (opt.maxwidth && width > opt.maxwidth)
 			width = opt.maxwidth;
 
-		opt.ajaxold = null;
+		ready = false;
 
+		opt.ajaxold = null;
 		plus.aclass('hidden');
 		self.find('input').prop('placeholder', opt.placeholder || config.placeholder);
 		var scroller = self.find(cls2 + '-container').css('width', width + 30);
@@ -349,8 +359,9 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		self.css(options);
 
 		!isMOBILE && setTimeout(function() {
+			ready = true;
 			input.focus();
-		}, 500);
+		}, 200);
 
 		setTimeout(function() {
 			self.initializing = false;
@@ -368,11 +379,13 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 		selectedindex = selected || 0;
 		resultscount = items ? items.length : 0;
-		self.move();
-		self.search();
+		skipclear = true;
 
+		self.search();
 		self.rclass('hidden');
 		self.aclass(cls + '-visible', 100);
+
+		skipreset = false;
 	};
 
 	self.hide = function(sleep) {
