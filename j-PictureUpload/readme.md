@@ -14,6 +14,8 @@ __Configuration__:
 - `src` {String} an image path (default: `null`), e.g. `/img/{0}.jpg`
 - `extension` {Boolean} response without file extension (default: `false`)
 - `singlefile` {Boolean} response will be string instead of array (default: `true`)
+- __new__ `type` {String} output type (default: `png`)
+- __new__ `quality` {Number} output quality
 
 ### Author
 

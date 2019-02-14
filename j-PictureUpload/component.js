@@ -1,4 +1,4 @@
-COMPONENT('pictureupload', 'extension:false;singlefile:true', function(self, config) {
+COMPONENT('pictureupload', 'extension:false;singlefile:true;type:png', function(self, config) {
 
 	var empty, img, canvas, content = null;
 
@@ -37,7 +37,7 @@ COMPONENT('pictureupload', 'extension:false;singlefile:true', function(self, con
 		var ctx = canvas.getContext('2d');
 		ctx.fillStyle = config.background || '#FFFFFF';
 		ctx.fillRect(0, 0, config.width, config.height);
-		empty = canvas.toDataURL('image/png');
+		empty = canvas.toDataURL('image/' + config.type, config.quality);
 		canvas = null;
 	};
 
@@ -72,8 +72,6 @@ COMPONENT('pictureupload', 'extension:false;singlefile:true', function(self, con
 				case 'dragenter':
 				case 'dragover':
 					return;
-				case 'dragexit':
-				case 'dragleave':
 				default:
 					return;
 			}
@@ -126,9 +124,6 @@ COMPONENT('pictureupload', 'extension:false;singlefile:true', function(self, con
 	};
 
 	self.setter = function(value) {
-		if (value)
-			img.attr('src', (config.src || '{0}').format(value));
-		else
-			img.attr('src', empty);
+		img.attr('src', value ? (config.src || '{0}').format(value) : empty);
 	};
 });
