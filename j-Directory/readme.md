@@ -27,6 +27,7 @@ Method: `component.show(options)`
 - `options.empty` {String} optional, adds empty field
 - __NEW__: `options.exclude` {Function} optional, can exclude items and must return a boolean `function(item) { return item.id !== 100 }`
 - __NEW__: `options.close` {Function} optional, can determine closing of panel
+- __NEW__: `options.search` {Boolean} optional, can hiden search field (default: `true`)
 
 Method: `component.hide()`
 

@@ -36,11 +36,11 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		plus = self.find(cls2 + '-add');
 
 		self.event('mouseenter mouseleave', 'li', function() {
-			container.find('li.selected').rclass('selected');
-			$(this).aclass('selected');
+			container.find('li.current').rclass('current');
+			$(this).aclass('current');
 			var arr = container.find('li:visible');
 			for (var i = 0; i < arr.length; i++) {
-				if ($(arr[i]).hclass('selected')) {
+				if ($(arr[i]).hclass('current')) {
 					selectedindex = i;
 					break;
 				}
@@ -103,7 +103,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 					break;
 				case 13:
 					o = true;
-					var sel = self.find('li.selected');
+					var sel = self.find('li.current');
 					if (self.opt.callback) {
 						if (sel.length)
 							self.opt.callback(self.opt.items[+sel.attrd('index')], self.opt.element);
@@ -160,12 +160,12 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			var el = $(this);
 
 			if (el.hclass('hidden')) {
-				el.rclass('selected');
+				el.rclass('current');
 				return;
 			}
 
 			var is = selectedindex === counter;
-			el.tclass('selected', is);
+			el.tclass('current', is);
 			if (is) {
 				var t = (h * counter) - h;
 				if ((t + h * 4) > h)
@@ -247,6 +247,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		// opt.maxwidth
 		// opt.key
 		// opt.exclude    --> function(item) must return Boolean
+		// opt.search
 
 		self.tclass(cls + '-default', !opt.render);
 
@@ -289,12 +290,15 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 		self.bindevents();
 
+		self.tclass(cls + '-search-hidden', opt.search === false);
+
 		self.opt = opt;
 		opt.class && self.aclass(opt.class);
 
 		input.val('');
 		var builder = [];
 		var ta = opt.key ? Tangular.compile(template.replace(/\{\{\sname/g, '{{ ' + opt.key)) : self.template;
+		var selected = false;
 
 		if (!opt.ajax) {
 			var indexer = {};
@@ -306,6 +310,9 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 				if (opt.exclude && opt.exclude(item))
 					continue;
+
+				if (item.selected)
+					selected = true;
 
 				indexer.index = i;
 				builder.push(ta(item, indexer));
@@ -334,7 +341,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 		plus.aclass('hidden');
 		self.find('input').prop('placeholder', opt.placeholder || config.placeholder);
-		self.find(cls2 + '-container').css('width', width + 30);
+		var scroller = self.find(cls2 + '-container').css('width', width + 30);
 		container.html(builder);
 
 		var options = { left: offset.left + (opt.offsetX || 0), top: offset.top + (opt.offsetY || 0), width: width };
@@ -344,10 +351,14 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			input.focus();
 		}, 500);
 
+
 		setTimeout(function() {
 			self.initializing = false;
 			is = true;
-			container.parent()[0].scrollTop = 0;
+			if (selected)
+                scroller[0].scrollTop = container.find('.selected').offset().top - (self.element.height() / 2 >> 0);
+            else
+				scroller[0].scrollTop = 0;
 		}, 50);
 
 		if (is) {
