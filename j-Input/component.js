@@ -186,6 +186,14 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;direxclude:true;increm
 				opt.exclude = function(item) {
 					return item ? typeof(item) === 'string' ? item === val : item[config.dirvalue] === val : false;
 				};
+			} else {
+				for (var i = 0; i < dirsource.length; i++) {
+					var item = dirsource[i];
+					if (item && typeof(config.dirvalue) === 'object' && item[config.dirvalue] === val) {
+						item.selected = true;
+						break;
+					}
+				}
 			}
 
 			opt.callback = function(item, el, custom) {
