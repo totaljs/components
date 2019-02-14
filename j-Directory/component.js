@@ -248,6 +248,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		// opt.key
 		// opt.exclude    --> function(item) must return Boolean
 		// opt.search
+		// opt.selected   --> only for String Array "opt.items"
 
 		self.tclass(cls + '-default', !opt.render);
 
@@ -306,7 +307,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 				item = items[i];
 
 				if (typeof(item) === 'string')
-					item = { name: item };
+					item = { name: item, selected: item === opt.selected };
 
 				if (opt.exclude && opt.exclude(item))
 					continue;
@@ -351,7 +352,6 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			input.focus();
 		}, 500);
 
-
 		setTimeout(function() {
 			self.initializing = false;
 			is = true;
@@ -390,5 +390,4 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			is = false;
 		}, sleep ? sleep : 100);
 	};
-
 });

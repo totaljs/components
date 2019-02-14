@@ -180,10 +180,11 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			opt.key = config.dirkey || config.key;
 			opt.empty = config.dirempty;
 
-			if (!config.dirsearch)
+			if (config.dirsearch === false)
 				opt.search = false;
 
 			var val = self.get();
+			opt.selected = val;
 
 			if (config.direxclude === false) {
 				for (var i = 0; i < dirsource.length; i++) {
@@ -195,7 +196,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				}
 			} else {
 				opt.exclude = function(item) {
-					return item ? typeof(item) === 'string' ? item === val : item[config.dirvalue] === val : false;
+					return item ? item[config.dirvalue] === val : false;
 				};
 			}
 
