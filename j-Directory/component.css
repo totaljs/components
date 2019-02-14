@@ -9,8 +9,8 @@
 .ui-directory-visible { opacity: 1; }
 .ui-directory-container { height: 150px; overflow-x: hidden; overflow-y: auto; overflow-scrolling: touch; margin: 0 30px 0 0; padding: 0; }
 .ui-directory ul { list-style-type: none; margin: 0; padding: 0; }
-.ui-directory .selected { background-color: #F0F0F0; color: black; }
-.ui-directory .current { background-color: #F8F8F8; color: black; }
+.ui-directory .selected { background-color: #E9E9E9; color: black; }
+.ui-directory .current { background-color: #F2F2F2; color: black; }
 .ui-directory-default li { padding: 0 40px 0 10px; height: 26px; line-height: 26px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 .ui-directory li { border-top: 1px solid #F0F0F0; font-size: 12px; background-color: white; cursor: pointer; margin: 0; }
 .ui-directory li:first-child { border-top: 0; }
@@ -22,4 +22,5 @@
 .ui-dark .ui-directory-search { border-bottom-color: #404040; }
 .ui-dark .ui-directory-search input { background-color: #303030; }
 .ui-dark .ui-directory-add:hover { color: white; }
+.ui-dark .ui-directory .current { background-color: #303030; color: black; }
 .ui-dark .ui-directory .selected { background-color: #404040; color: white; }
