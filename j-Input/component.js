@@ -1,4 +1,4 @@
-COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;direxclude:true;increment:1;autovalue:name;after:\\:', function(self, config) {
+COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:name;after:\\:', function(self, config) {
 
 	var cls = 'ui-input';
 	var cls2 = '.' + cls;
@@ -180,13 +180,12 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;direxclude:true;increm
 			opt.key = config.dirkey || config.key;
 			opt.empty = config.dirempty;
 
+			if (!config.dirsearch)
+				opt.search = false;
+
 			var val = self.get();
 
-			if (config.direxclude) {
-				opt.exclude = function(item) {
-					return item ? typeof(item) === 'string' ? item === val : item[config.dirvalue] === val : false;
-				};
-			} else {
+			if (config.direxclude === false) {
 				for (var i = 0; i < dirsource.length; i++) {
 					var item = dirsource[i];
 					if (item && typeof(config.dirvalue) === 'object' && item[config.dirvalue] === val) {
@@ -194,6 +193,10 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;direxclude:true;increm
 						break;
 					}
 				}
+			} else {
+				opt.exclude = function(item) {
+					return item ? typeof(item) === 'string' ? item === val : item[config.dirvalue] === val : false;
+				};
 			}
 
 			opt.callback = function(item, el, custom) {

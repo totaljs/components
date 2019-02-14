@@ -41,6 +41,7 @@ Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:dat
 - `dirkey` {String} optional, a key name for reading of `text` in `dirsource` (default: `name`)
 - `dirvalue` {String} optional, a key name for reading of `value` in `dirsource` (default: `id`)
 - `direxclude` {Boolean} optional, excludes a current value from `j-Directory` (default: `true`)
+- `dirsearch` {Boolean} optional, can disable search in `j-Directory` (default: `true`)
 - `mask` {String} optional, can contain a mask in the form `###/##` (`#` is replaced for a char)
 - `maskregexp` {String} optional, can contain RegExp for each char in the form `\d,\d,\d,null,\d,\d` (`,` is delimiter)
 - `masktidy` {Boolean} optional, the component returns only raw chars without fixed chars (default: `false`)
