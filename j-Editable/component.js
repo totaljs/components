@@ -259,7 +259,7 @@ COMPONENT('editable', function(self, config) {
 		var opt = el[0].$editable;
 		if (opt.save) {
 			GET(opt.save)(opt, function(is) {
-				el.html(is || is == null ? opt.value : opt.html);
+				el.html(is || is == null ? (opt.type === 'date' || opt.type === 'number' ? opt.value.format(opt.format) : opt.value) : opt.html);
 				if (is || is == null)
 					self.cnotify(el, 'ok');
 				else
