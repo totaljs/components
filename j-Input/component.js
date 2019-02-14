@@ -189,7 +189,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			if (config.direxclude === false) {
 				for (var i = 0; i < dirsource.length; i++) {
 					var item = dirsource[i];
-					if (item && typeof(config.dirvalue) === 'object' && item[config.dirvalue] === val) {
+					if (item && typeof(item) === 'object' && item[config.dirvalue] === val) {
 						item.selected = true;
 						break;
 					}

@@ -4,7 +4,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 	var cls2 = '.' + cls;
 	var container, timeout, icon, plus, input = null;
 	var is = false, selectedindex = 0, resultscount = 0;
-	var template = '<li data-index="{{ $.index }}" data-search="{{ name }}" {{ if selected }} class="selected{{ if classname }} {{ classname }}{{ fi }}"{{ else if classname }} class="{{ classname }}"{{ fi }}>{{ name | encode | ui_directory_helper }}</li>';
+	var template = '<li data-index="{{ $.index }}" data-search="{{ name }}" {{ if selected }} class="current selected{{ if classname }} {{ classname }}{{ fi }}"{{ else if classname }} class="{{ classname }}"{{ fi }}>{{ name | encode | ui_directory_helper }}</li>';
 
 	Thelpers.ui_directory_helper = function(val) {
 		var t = this;
@@ -299,7 +299,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		input.val('');
 		var builder = [];
 		var ta = opt.key ? Tangular.compile(template.replace(/\{\{\sname/g, '{{ ' + opt.key)) : self.template;
-		var selected = false;
+		var selected = null;
 
 		if (!opt.ajax) {
 			var indexer = {};
@@ -313,7 +313,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 					continue;
 
 				if (item.selected)
-					selected = true;
+					selected = i;
 
 				indexer.index = i;
 				builder.push(ta(item, indexer));
@@ -355,10 +355,10 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		setTimeout(function() {
 			self.initializing = false;
 			is = true;
-			if (selected)
-				scroller[0].scrollTop = container.find('.selected').offset().top - (self.element.height() / 2 >> 0);
-			else
+			if (selected == null)
 				scroller[0].scrollTop = 0;
+			else
+				scroller[0].scrollTop = container.find('.selected').offset().top - (self.element.height() / 2 >> 0);
 		}, 50);
 
 		if (is) {
@@ -366,7 +366,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			return;
 		}
 
-		selectedindex = 0;
+		selectedindex = selected || 0;
 		resultscount = items ? items.length : 0;
 		self.move();
 		self.search();
