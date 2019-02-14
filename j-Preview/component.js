@@ -105,11 +105,6 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;schema:
 			switch (e.type) {
 				case 'drop':
 					break;
-				case 'dragenter':
-				case 'dragover':
-					return;
-				case 'dragexit':
-				case 'dragleave':
 				default:
 					return;
 			}
