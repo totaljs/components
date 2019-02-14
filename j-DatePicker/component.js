@@ -197,8 +197,11 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 		}
 
 		var dt = typeof(opt.value) === 'string' ? GET(opt.value) : opt.value;
+		if ((!(dt instanceof Date)) || isNaN(dt.getTime()))
+			dt = NOW;
+
 		self.opt = opt;
-		self.time = (dt || NOW).format('HH:mm:ss');
+		self.time = dt.format('HH:mm:ss');
 		self.css({ left: l, top: t });
 		self.rclass('hidden');
 		self.date(dt);
