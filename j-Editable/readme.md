@@ -5,6 +5,7 @@ This component can edit all elements with `editable` class. It works with `data-
 __Configuration__:
 
 - `autofocus` {Boolean} focuses first item (default: `false`)
+- `validate` {Boolean} can disable validation (default: `true`)
 
 ---
 

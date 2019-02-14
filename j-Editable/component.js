@@ -203,6 +203,14 @@ COMPONENT('editable', function(self, config) {
 		};
 	};
 
+	self.configure = function(key, value) {
+		switch (key) {
+			case 'validate':
+				self.novalidate();
+				return;
+		}
+	};
+
 	self.approve = function(el) {
 
 		var opt = el[0].$editable;
