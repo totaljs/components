@@ -1,4 +1,4 @@
-COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:name;after:\\:', function(self, config) {
+COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;direxclude:true;increment:1;autovalue:name;after:\\:', function(self, config) {
 
 	var cls = 'ui-input';
 	var cls2 = '.' + cls;
@@ -182,9 +182,11 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 			var val = self.get();
 
-			opt.exclude = function(item) {
-				return item ? typeof(item) === 'string' ? item === val : item[config.dirvalue] === val : false;
-			};
+			if (config.direxclude) {
+				opt.exclude = function(item) {
+					return item ? typeof(item) === 'string' ? item === val : item[config.dirvalue] === val : false;
+				};
+			}
 
 			opt.callback = function(item, el, custom) {
 
