@@ -356,8 +356,8 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			self.initializing = false;
 			is = true;
 			if (selected)
-                scroller[0].scrollTop = container.find('.selected').offset().top - (self.element.height() / 2 >> 0);
-            else
+				scroller[0].scrollTop = container.find('.selected').offset().top - (self.element.height() / 2 >> 0);
+			else
 				scroller[0].scrollTop = 0;
 		}, 50);
 
