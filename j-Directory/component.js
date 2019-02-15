@@ -314,7 +314,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 				item = items[i];
 
 				if (typeof(item) === 'string')
-					item = { name: item, selected: item === opt.selected };
+					item = { name: item, id: item, selected: item === opt.selected };
 
 				if (opt.exclude && opt.exclude(item))
 					continue;
