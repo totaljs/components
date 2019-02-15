@@ -17,7 +17,7 @@ form.push({ name: 'user.firstname', type: 'string', value: 'Peter Sirka' });
 form.push({ name: 'user.age', type: 'number', value: 33 });
 form.push({ name: 'user.birth', type: 'date', value: NOW });
 form.push({ name: 'user.newsletter', type: 'boolean', value: true });
-````
+```
 
 __Allowed types in data__:
 

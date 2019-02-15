@@ -15,5 +15,6 @@
 .ui-dark .ui-parameters-search span { color: gray; }
 .ui-dark .ui-parameters-search { background-color: #252525; border-bottom-color: #404040; }
 .ui-dark .ui-parameters { border-color: #404040; }
+.ui-dark .ui-parameters-modified { color: white; }
 .ui-dark .ui-parameters-item { border-bottom-color: #404040; }
 .ui-dark .ui-parameters-type { background-color: #303030; border-left-color: #404040; border-right-color: #404040; }
