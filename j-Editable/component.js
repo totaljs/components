@@ -82,11 +82,8 @@ COMPONENT('editable', function(self, config) {
 				attr.maxwidth = opt.dirmaxwidth;
 				attr.key = opt.dirkey || 'name';
 				attr.empty = opt.dirempty;
-
-				var val = self.get();
-
 				attr.exclude = function(item) {
-					return item ? typeof(item) === 'string' ? item === val : item[opt.dirvalue || 'id'] === val : false;
+					return item[opt.dirvalue || 'id'] === opt.value;
 				};
 
 				attr.close = function() {
