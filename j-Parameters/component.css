@@ -1,0 +1,19 @@
+.ui-parameters { font-size: 11px; border: 1px solid #E0E0E0; }
+.ui-parameters-search { height: 30px; background-color: white; font-size: 12px; border-bottom: 1px solid #E0E0E0; }
+.ui-parameters-search span { float: left; width: 30px; line-height: 30px; text-align: center; }
+.ui-parameters-search .fa-times { color: red; cursor: pointer; }
+.ui-parameters-search div { margin-left: 30px; }
+.ui-parameters-search input { width: 100%; border: 0; outline: 0; background: transparent; font-size: 12px; height: 30px; }
+.ui-parameters-modified { font-weight: bold; }
+.ui-parameters-item { height: 24px; font-size: 11px; border-bottom: 1px solid #E0E0E0; }
+.ui-parameters-name { float: left; width: 40%; line-height: 23px; padding: 0 5px; text-overflow: ellipsis; overflow: hidden; text-overflow: ellipsis; }
+.ui-parameters-type { float: left; width: 20%; line-height: 23px; padding: 0 5px; text-overflow: ellipsis; overflow: hidden; text-overflow: ellipsis; border-left: 1px solid #E0E0E0; border-right: 1px solid #E0E0E0; color: gray; background-color: #F9F9F9; }
+.ui-parameters-value { float: left; width: 40%; padding: 0 5px; user-select: none; }
+.ui-parameters-value div { display: block; line-height: 23px; }
+.ui-parameters-value input { border: 0; background: transparent; width: 100%; outline: 0; height: 23px; font-size: 11px; }
+.ui-parameters-boolean { cursor: pointer; }
+.ui-dark .ui-parameters-search span { color: gray; }
+.ui-dark .ui-parameters-search { background-color: #252525; border-bottom-color: #404040; }
+.ui-dark .ui-parameters { border-color: #404040; }
+.ui-dark .ui-parameters-item { border-bottom-color: #404040; }
+.ui-dark .ui-parameters-type { background-color: #303030; border-left-color: #404040; border-right-color: #404040; }
