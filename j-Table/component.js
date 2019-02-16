@@ -94,12 +94,17 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false', function(se
 		eempty = self.find(cls2 + '-empty').html(templates.empty || '');
 		ehead = etable.find('thead');
 
-		ebody.on('click', '> tr', function() {
+		ebody.on('click', '> tr', function(e) {
 
 			if (!config.highlight)
 				return;
 
 			var el = $(this);
+			var node = e.target;
+
+			if (node.nodeName === 'A' || node.nodeName === 'button' || (node.nodeName === 'SPAN' && node.getAttribute('class').indexOf('link') !== -1))
+				return;
+
 			var index = +el.attrd('index');
 			if (index > -1) {
 				var is = el.hclass(cls + '-selected');
