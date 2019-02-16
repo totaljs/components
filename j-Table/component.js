@@ -30,12 +30,13 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false', function(se
 
 			var display = el.attrd('display');
 			var template = Tangular.compile(el.html());
-			var size = (el.attrd('size') || '').split(',').trim();
-			var name = (el.attrd('head') || '').split(',').trim();
-			var align = (el.attrd('align') || '').split(',').trim();
+			var size = (el.attrd('size') || '').split(',');
+			var name = (el.attrd('head') || '').split(',');
+			var align = (el.attrd('align') || '').split(',');
+			var i;
 
-			for (var i = 0; i < align.length; i++) {
-				switch (align[i]) {
+			for (i = 0; i < align.length; i++) {
+				switch (align[i].trim()) {
 					case '0':
 						align[i] = 'left';
 						break;
@@ -50,8 +51,29 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false', function(se
 
 			display = (display || '').split(',').trim();
 
+			for (i = 0; i < align.length; i++)
+				align[i] = align[i].trim();
+
+			for (i = 0; i < size.length; i++)
+				size[i] = size[i].trim();
+
+			for (i = 0; i < name.length; i++) {
+				name[i] = name[i].trim().replace(/\'\w\'/, function(val) {
+					return '<i class="fa fa-{0}"></i>'.format(val.replace(/\'/g, ''));
+				});
+			}
+
+			if (!size[0] && size.length === 1)
+				size = EMPTYARRAY;
+
+			if (!align[0] && align.length === 1)
+				align = EMPTYARRAY;
+
+			if (!name[0] && name.length === 1)
+				name = EMPTYARRAY;
+
 			if (display.length) {
-				for (var i = 0; i < display.length; i++) {
+				for (i = 0; i < display.length; i++) {
 					templates[display[i]] = template;
 					sizes[display[i]] = size.length ? size : null;
 					names[display[i]] = name.length ? name : null;
