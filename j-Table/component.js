@@ -9,6 +9,10 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false', function(se
 	var names = {};
 	var aligns = {};
 
+	self.readonly();
+	self.nocompile();
+	self.bindvisible();
+
 	self.make = function() {
 
 		self.aclass(cls + ' invisible' + (config.detail ? (' ' + cls + '-detailed') : '') + (config.highlight ? (' ' + cls + '-selectable') : '') + (config.border ? (' ' + cls + '-border') : ''));
@@ -102,7 +106,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false', function(se
 			var el = $(this);
 			var node = e.target;
 
-			if (node.nodeName === 'A' || node.nodeName === 'button' || (node.nodeName === 'SPAN' && node.getAttribute('class').indexOf('link') !== -1))
+			if (node.nodeName === 'A' || node.nodeName === 'button' || (node.nodeName === 'SPAN' && (node.getAttribute('class') || '').indexOf('link') !== -1))
 				return;
 
 			var index = +el.attrd('index');
@@ -201,8 +205,11 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false', function(se
 			var indexer = {};
 			indexer.user = W.user;
 			indexer.index = +index.attrd('index');
+			var is = index.hclass(cls + '-selected');
 			index.replaceWith(template(row, indexer).replace('<tr', '<tr data-index="' + indexer.index + '"'));
+			console.log(is);
 		}
+
 	};
 
 	self.appendrow = function(row) {
@@ -250,6 +257,8 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false', function(se
 		var builder = [];
 		var indexer = {};
 
+
+		var selected = opt.selected.slice(0);
 		indexer.user = window.user;
 
 		var filter = config.filter ? FN(config.filter) : null;
@@ -295,6 +304,12 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false', function(se
 		etable.tclass(clsh, count == 0);
 
 		config.exec && SEEX(config.exec, config.multiple ? [] : null);
+
+		if (config.remember) {
+			for (var i = 0; i < selected.length; i++)
+				ebody.find('tr[data-index="{0}"]'.format(selected[i])).trigger('click');
+		}
+
 	};
 
 });
