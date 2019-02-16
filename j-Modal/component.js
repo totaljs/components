@@ -3,7 +3,7 @@ COMPONENT('modal', 'zindex:12;width:800', function(self, config) {
 	var cls = 'ui-modal';
 	var cls2 = '.' + cls;
 	var W = window;
-	var eheader, earea, ebody, efooter, emodal, icon;
+	var eheader, earea, ebody, efooter, emodal, icon, first = true;
 
 	if (W.$$modal == null) {
 		W.$$modal = 0;
@@ -220,14 +220,18 @@ COMPONENT('modal', 'zindex:12;width:800', function(self, config) {
 			el.length && el[0].focus();
 		}
 
+		var delay = first ? 500 : 0;
+
 		setTimeout(function() {
 			earea[0].scrollTop = 0;
 			self.aclass(cls + '-visible');
-		}, 300);
+		}, 300 + delay);
 
 		// Fixes a problem with freezing of scrolling in Chrome
 		setTimeout2(self.ID, function() {
 			self.css('z-index', (W.$$modal * config.zindex) + 1);
-		}, 500);
+		}, 500 + delay);
+
+		first = false;
 	};
 });
