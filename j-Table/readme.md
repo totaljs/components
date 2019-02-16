@@ -12,6 +12,7 @@ __Configuration__:
 - `detail` {Boolean/String} if `string` then the value must be a link to `function(el_td, row)`
 - `exec` {String} a path to `function(row/rows)` or path to `variable`
 - `remember` {Boolean} enables remembering of last selected rows (default: `false`)
+- `pk` {String} a primary key (default: `id`)
 
 __Good to know__:
 

@@ -1,4 +1,4 @@
-COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false', function(self, config) {
+COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', function(self, config) {
 
 	var cls = 'ui-table';
 	var cls2 = '.' + cls;
@@ -225,6 +225,14 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false', function(se
 		ebody.append(template(row, indexer).replace('<tr', '<tr data-index="' + indexer.index + '"'));
 	};
 
+	self.removerow = function(row) {
+		var index = opt.items.indexOf(row);
+		if (index == -1)
+			return;
+		opt.selected = opt.selected.remove(index);
+		opt.items.remove(row);
+	};
+
 	self.selected = function() {
 		var rows = [];
 		for (var i = 0; i < opt.selected.length; i++) {
@@ -234,7 +242,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false', function(se
 		return rows;
 	};
 
-	self.setter = function(value) {
+	self.setter = function(value, path, type) {
 
 		if (value && value.items)
 			value = value.items;
@@ -259,9 +267,14 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false', function(se
 
 
 		var selected = opt.selected.slice(0);
+
+		for (var i = 0; i < selected.length; i++) {
+			var row = opt.items[i];
+			selected[i] = row[config.pk];
+		}
+
 		indexer.user = window.user;
 
-		var filter = config.filter ? FN(config.filter) : null;
 		var template = templates[display];
 		var count = 0;
 		var size = sizes[display];
@@ -284,11 +297,9 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false', function(se
 		if (template) {
 			for (var i = 0; i < value.length; i++) {
 				var item = value[i];
-				if (!filter || filter(item)) {
-					count++;
-					indexer.index = i;
-					builder.push(template(item, indexer).replace('<tr', '<tr data-index="' + i + '"'));
-				}
+				count++;
+				indexer.index = i;
+				builder.push(template(item, indexer).replace('<tr', '<tr data-index="' + i + '"'));
 			}
 		}
 
@@ -306,8 +317,13 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false', function(se
 		config.exec && SEEX(config.exec, config.multiple ? [] : null);
 
 		if (config.remember) {
-			for (var i = 0; i < selected.length; i++)
-				ebody.find('tr[data-index="{0}"]'.format(selected[i])).trigger('click');
+			for (var i = 0; i < selected.length; i++) {
+				if (selected[i]) {
+					var index = opt.items.findIndex(config.pk, selected[i]);
+					if (index !== -1)
+						ebody.find('tr[data-index="{0}"]'.format(index)).trigger('click');
+				}
+			}
 		}
 
 	};
