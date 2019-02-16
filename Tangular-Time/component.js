@@ -1,4 +1,8 @@
 Thelpers.time = function(value) {
+
+	if (!value)
+		return value;
+
 	var diff = Date.now() - (value instanceof Date ? value : value.parseDate()).getTime();
 
 	var minutes = ((diff / 1000) / 60) >> 0;
