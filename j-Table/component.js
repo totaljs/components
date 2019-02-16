@@ -237,7 +237,7 @@ COMPONENT('table', 'highlight:true;unhighlight:false;multiple:false', function(s
 			var arr = name || size || align;
 
 			for (var i = 0; i < arr.length; i++)
-				builder.push('<th style="width:{0};align:{2}">{1}</th>'.format(!size || size[i] === '0' ? 'auto' : size[i], name ? name[i] : '', align ? align[i] : 'left'));
+				builder.push('<th style="width:{0};text-align:{2}">{1}</th>'.format(!size || size[i] === '0' ? 'auto' : size[i], name ? name[i] : '', align ? align[i] : 'left'));
 
 			ehead.tclass(cls + '-nohead', !name);
 			ehead.html('<tr>{0}</tr>'.format(builder.join('')));
