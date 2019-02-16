@@ -7,7 +7,7 @@
 __Configuration__:
 
 - `highlight` {Boolean} enables highlighting of the row (default: `true`)
-- `unhighlight` {Boolean} enables undo-highlighting of the row (default: `false`)
+- `unhighlight` {Boolean} enables undo-highlighting of the row (default: `true`)
 - `multiple` {Boolean} enables multiple row highlighting (default: `false`)
 - `detail` {Boolean/String} if `string` then the value must be a link to `function(el_td, row)`
 - `exec` {String} a path to `function(row/rows)` or path to `variable`

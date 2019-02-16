@@ -1,4 +1,4 @@
-COMPONENT('table', 'highlight:true;unhighlight:false;multiple:false', function(self, config) {
+COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false', function(self, config) {
 
 	var cls = 'ui-table';
 	var cls2 = '.' + cls;
