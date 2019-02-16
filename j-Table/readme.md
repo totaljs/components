@@ -12,6 +12,10 @@ __Configuration__:
 - `detail` {Boolean/String} if `string` then the value must be a link to `function(el_td, row)`
 - `exec` {String} a path to `function(row/rows)` or path to `variable`
 
+__Good to know__:
+
+- each `tr` element contains `data-index` attribute with `row` index
+
 __HTML definition__:
 
 ```html
