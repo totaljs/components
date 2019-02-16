@@ -1,0 +1,61 @@
+<style>
+	body{padding:50px;margin:0;background-color:#F0F0F0;font-family:Arial;height:100%;}
+	html{height:100%;}
+</style>
+
+<div data---="table__items__detail:true">
+
+	<!-- WITHOUT HEADERS -->
+
+	<script type="text/html" data-size="0,120px,120px" data-head="Name,Price,Date" data-align="0,2,1">
+		<tr>
+			<td>{{ name }}</td>
+			<td class="right">{{ price | format(2) }} &euro;</td>
+			<td>{{ created | format('yyyy-MM-dd') }}</td>
+		</tr>
+	</script>
+
+	<script type="text/html" data-type="detail">
+		<div>Name: {{ name }}</div>
+		<div>Description: {{ description }}</div>
+	</script>
+
+	<script type="text/html" data-type="empty">
+		No data
+	</script>
+
+</div>
+
+<br />
+
+<div data---="table__items">
+
+	<!-- WITHOUT HEADERS -->
+	<script type="text/html" data-size="0,120px,120px">
+		<tr>
+			<td>{{ name }}</td>
+			<td class="right">{{ price | format(2) }} &euro;</td>
+			<td>{{ created | format('yyyy-MM-dd') }}</td>
+		</tr>
+	</script>
+
+	<script type="text/html" data-type="empty">
+		No data
+	</script>
+
+</div>
+
+<script>
+
+	var items = [];
+
+	items.push({ name: '1 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: 233, created: new Date().add('-5 days') });
+	items.push({ name: '2 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: 122, created: new Date().add('-1 year') });
+	items.push({ name: '3 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: 119, created: new Date().add('-1 month') });
+	items.push({ name: '4 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: 35.34, created: new Date().add('-14 days') });
+	items.push({ name: '5 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: 439.33, created: new Date().add('-5 hours') });
+	items.push({ name: '6 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: 111.12, created: new Date().add('-349 minutes') });
+
+
+
+</script>
