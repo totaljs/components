@@ -333,7 +333,6 @@ COMPONENT('editable', function(self, config) {
 		switch (opt.type) {
 			case 'number':
 				opt.value = opt.value.parseFloat();
-				console.log(opt.minvalue, opt.maxvalue, opt.value);
 				if ((opt.minvalue != null && opt.value < opt.minvalue) || (opt.maxvalue != null && opt.value > opt.maxvalue))
 					return false;
 				break;
