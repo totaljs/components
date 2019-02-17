@@ -99,6 +99,9 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		self.event('keydown', 'input', function(e) {
 			var o = false;
 			switch (e.which) {
+				case 8:
+					skipclear = false;
+					break;
 				case 27:
 					o = true;
 					self.hide();

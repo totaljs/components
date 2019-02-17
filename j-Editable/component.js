@@ -306,7 +306,7 @@ COMPONENT('editable', function(self, config) {
 		var val = cur;
 
 		if (opt.multiline)
-			val = val.replace(/<br(\s\/)?>/g, '\n');
+			val = val.replace(/<br(\s\/)?>/g, '\n').trim();
 
 		val = val.replace(/&(gt|lt|nbsp|quot)+;/g, function(text) {
 			switch (text) {
