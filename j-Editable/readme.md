@@ -32,6 +32,7 @@ __Configuration__:
 - `maxvalue` {Number} a max. value for number type (default: `undefined`)
 - `rebind` {Boolean} if `true` rebinds `data-bind` on this element only (default: `0`)
 - `validate` {String} optional, a condition for validating of value, can contain a link to `function(value)` or `!!value.match(/[a-z]+/)`
+- `multiline` {Boolean} optional, enables multiline (default: `false`)
 
 ### Author
 

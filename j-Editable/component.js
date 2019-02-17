@@ -12,15 +12,75 @@ COMPONENT('editable', function(self, config) {
 			return true;
 
 		var is = true;
+		var arr = self.find('[data-editable]');
 
-		self.find('[data-editable]').each(function() {
-			var t = this;
-			var el = $(this);
-			if (el.attrd('editable').indexOf('required') !== -1 && !t.innerHTML)
-				is = false;
-		});
+		for (var i = 0; i < arr.length; i++) {
+			var el = $(arr[i]);
+			var opt = self.parse(el);
+
+			if (!opt || !opt.required)
+				continue;
+
+			if (opt.path) {
+				var val = GET(opt.path);
+				if (opt.validate && !opt.validate(val))
+					is = false;
+				else if (opt.type === 'number')
+					is = val ? val > 0 || val < 0 : false;
+				else if (opt.type === 'date')
+					is = val ? val.getTime() > 0 : false;
+				else if (opt.type === 'boolean')
+					is = val ? true : false;
+				else
+					is = val ? true : false;
+				if (!is)
+					break;
+			}
+		}
 
 		return is;
+	};
+
+	self.parse = function(el) {
+		var t = el[0];
+		if (t.$editable)
+			return t.$editable;
+
+		var opt = (el.attrd('editable') || '').parseConfig();
+
+		if (!opt.path) {
+			// Internal hack for data-bind instance
+			var binder = el[0].$jcbind;
+			if (!binder)
+				return;
+			opt.path = binder.path;
+			opt.binder = binder;
+		} else
+			opt.path = self.path + '.' + opt.path;
+
+		opt.html = el.html();
+
+		if (opt.type)
+			opt.type = opt.type.toLowerCase();
+
+		if (opt.type === 'date' && !opt.format)
+			opt.format = config.dateformat || 'yyyy-MM-dd';
+
+		if (opt.type === 'bool')
+			opt.type += 'ean';
+
+		if (opt.validate)
+			opt.validate = opt.validate ? (/\(|=|>|<|\+|-|\)/).test(opt.validate) ? FN('value=>' + opt.validate) : (function(path) { return function(value) { return GET(path)(value); }; })(opt.validate) : null;
+
+		if (opt.can) {
+			opt.canedit = function(el) {
+				var opt = el[0].$editable;
+				return (opt.can && !GET(opt.can)(opt, el)) || (config.can && !GET(config.can)(opt, el));
+			};
+		}
+
+		t.$editable = opt;
+		return opt;
 	};
 
 	self.make = function() {
@@ -34,37 +94,12 @@ COMPONENT('editable', function(self, config) {
 				return;
 
 			var el = $(t);
-			var opt = (el.attrd('editable') || '').parseConfig();
+			var opt = self.parse(el);
 
-			if (!opt.path) {
-				// Internal hack for data-bind instance
-				var binder = el[0].$jcbind;
-				if (!binder)
-					return;
-				opt.path = binder.path;
-				opt.binder = binder;
-			} else
-				opt.path = self.path + '.' + opt.path;
-
-			opt.html = el.html();
-
-			if (opt.type)
-				opt.type = opt.type.toLowerCase();
-
-			if (opt.type === 'date' && !opt.format)
-				opt.format = config.dateformat || 'yyyy-MM-dd';
-
-			if (opt.type === 'bool')
-				opt.type += 'ean';
-
-			if ((opt.can && !GET(opt.can)(opt, el)) || (config.can && !GET(config.can)(opt, el)))
+			if (!opt || (opt.canedit && !opt.canedit(el)))
 				return;
 
-			if (opt.validate)
-				opt.validate = opt.validate ? (/\(|=|>|<|\+|-|\)/).test(opt.validate) ? FN('value=>' + opt.validate) : (function(path) { return function(value) { return GET(path)(value); }; })(opt.validate) : null;
-
 			opt.is = true;
-			t.$editable = opt;
 
 			if (opt.dirsource) {
 
@@ -92,7 +127,7 @@ COMPONENT('editable', function(self, config) {
 						return;
 
 					if (typeof(item) === 'string')
-						return item === val;
+						return item === opt.value;
 
 					var v = item[opt.dirvalue || 'id'];
 					return opt.value instanceof Array ? opt.value.indexOf(v) !== -1 : v === opt.value;
@@ -107,8 +142,12 @@ COMPONENT('editable', function(self, config) {
 					opt.is = false;
 
 					// empty
-					if (item == null)
+					if (item == null) {
+						opt.value = null;
+						!opt.save && el.html(null);
+						self.approve2(el);
 						return;
+					}
 
 					var val = custom || typeof(item) === 'string' ? item : item[opt.dirvalue];
 					if (custom && typeof(attr.dircustom) === 'string') {
@@ -148,7 +187,9 @@ COMPONENT('editable', function(self, config) {
 
 		events.keydown = function(e) {
 
-			if (!this.$events)
+			var t = this;
+
+			if (!t.$events)
 				return;
 
 			if ((e.metaKey || e.ctrlKey) && (e.which === 66 || e.which === 76 || e.which === 73 || e.which === 85)) {
@@ -159,20 +200,27 @@ COMPONENT('editable', function(self, config) {
 			var el;
 
 			if (e.which === 27) {
-				el = $(this);
+				el = $(t);
 				self.cnotify(el, 'no');
 				self.detach(el);
 				return;
 			}
 
 			if (e.which === 13 || e.which === 9) {
-				el = $(this);
+
+				if (e.which === 13 && t.$editable && t.$editable.multiline) {
+					document.execCommand('insertHTML', false, '<br>');
+					e.preventDefault();
+					return;
+				}
+
+				el = $(t);
 				if (self.approve(el)) {
 					self.detach(el);
 					if (e.which === 9) {
 						var arr = self.find('[data-editable]');
 						for (var i = 0; i < arr.length; i++) {
-							if (arr[i] === this) {
+							if (arr[i] === t) {
 								var next = arr[i + 1];
 								if (next) {
 									$(next).trigger('click');
@@ -223,12 +271,30 @@ COMPONENT('editable', function(self, config) {
 	self.approve = function(el) {
 
 		var opt = el[0].$editable;
-		var val = el.text().replace(/&nbsp;/g, ' ');
 
 		SETTER('!autocomplete', 'hide');
 
 		if (opt.html === el.html())
 			return true;
+
+		var val = el.html();
+
+		if (opt.multiline)
+			val = val.replace(/<br(\s\/)?>/g, '\n');
+
+		val = val.replace(/&(gt|lt|nbsp|quot)+;/g, function(text) {
+			switch (text) {
+				case '&gt;':
+					return '>';
+				case '&lt;':
+					return '<';
+				case '&nbsp;':
+					return ' ';
+				case '&quot;':
+					return '"';
+			}
+			return text;
+		});
 
 		if (opt.maxlength && val.length > opt.maxlength)
 			val = val.substring(0, opt.maxlength);
