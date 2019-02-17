@@ -1290,6 +1290,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		var issh = ((hb.scrollWidth - hb.clientWidth) < 5);
 
 		hscrollbararea.tclass('hidden', issh);
+		self.tclass('dg-scroll-h', !issh);
 
 		if (!issh) {
 			hbody.css('height', (opt.height + 50 + plus) - sbw);
