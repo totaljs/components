@@ -36,19 +36,17 @@ COMPONENT('editable', function(self, config) {
 			var el = $(t);
 			var opt = (el.attrd('editable') || '').parseConfig();
 
-			if (!opt.save) {
-				if (!opt.path) {
-					// Internal hack for data-bind instance
-					var binder = el[0].$jcbind;
-					if (!binder)
-						return;
-					opt.path = binder.path;
-				} else
-					opt.path = self.path + '.' + opt.path;
-			}
+			if (!opt.path) {
+				// Internal hack for data-bind instance
+				var binder = el[0].$jcbind;
+				if (!binder)
+					return;
+				opt.path = binder.path;
+				opt.binder = binder;
+			} else
+				opt.path = self.path + '.' + opt.path;
 
 			opt.html = el.html();
-			opt.value = GET(opt.path) || el.text();
 
 			if (opt.type)
 				opt.type = opt.type.toLowerCase();
@@ -62,10 +60,15 @@ COMPONENT('editable', function(self, config) {
 			if ((opt.can && !GET(opt.can)(opt, el)) || (config.can && !GET(config.can)(opt, el)))
 				return;
 
+			if (opt.validate)
+				opt.validate = opt.validate ? (/\(|=|>|<|\+|-|\)/).test(opt.validate) ? FN('value=>' + opt.validate) : (function(path) { return function(value) { return GET(path)(value); }; })(opt.validate) : null;
+
 			opt.is = true;
 			t.$editable = opt;
 
 			if (opt.dirsource) {
+
+				opt.value = GET(opt.path) || el.text();
 
 				if (!opt.dirvalue)
 					opt.dirvalue = 'id';
@@ -82,8 +85,17 @@ COMPONENT('editable', function(self, config) {
 				attr.maxwidth = opt.dirmaxwidth;
 				attr.key = opt.dirkey || 'name';
 				attr.empty = opt.dirempty;
+
 				attr.exclude = function(item) {
-					return item[opt.dirvalue || 'id'] === opt.value;
+
+					if (!item)
+						return;
+
+					if (typeof(item) === 'string')
+						return item === val;
+
+					var v = item[opt.dirvalue || 'id'];
+					return opt.value instanceof Array ? opt.value.indexOf(v) !== -1 : v === opt.value;
 				};
 
 				attr.close = function() {
@@ -105,17 +117,17 @@ COMPONENT('editable', function(self, config) {
 							if (val) {
 								if (typeof(val) === 'string') {
 									opt.value = val;
-									el.html(val);
+									!opt.save && el.html(val);
 								} else {
 									opt.value = item[opt.dirvalue];
-									el.html(val[attr.key]);
+									!opt.save && el.html(val[attr.key]);
 								}
 								self.approve2(val);
 							}
 						});
 					} else if (!custom) {
 						opt.value = val;
-						el.html(typeof(item) === 'string' ? item : item[attr.key]);
+						!opt.save && el.html(typeof(item) === 'string' ? item : item[attr.key]);
 						self.approve2(el);
 					}
 				};
@@ -125,8 +137,13 @@ COMPONENT('editable', function(self, config) {
 			} else if (opt.type === 'boolean') {
 				TOGGLE(opt.path, 2);
 				opt.is = false;
-			} else
+			} else if (opt.type === 'set') {
+				SET(opt.path, new Function('return ' + (opt.value == null ? 'null' : opt.value))(), 2);
+				opt.is = false;
+			} else {
+				opt.value = GET(opt.path) || el.text();
 				self.attach(el);
+			}
 		});
 
 		events.keydown = function(e) {
@@ -150,22 +167,23 @@ COMPONENT('editable', function(self, config) {
 
 			if (e.which === 13 || e.which === 9) {
 				el = $(this);
-				self.approve(el);
-				self.detach(el);
-
-				if (e.which === 9) {
-					var arr = self.find('[data-editable]');
-					for (var i = 0; i < arr.length; i++) {
-						if (arr[i] === this) {
-							var next = arr[i + 1];
-							if (next) {
-								$(next).trigger('click');
-								e.preventDefault();
+				if (self.approve(el)) {
+					self.detach(el);
+					if (e.which === 9) {
+						var arr = self.find('[data-editable]');
+						for (var i = 0; i < arr.length; i++) {
+							if (arr[i] === this) {
+								var next = arr[i + 1];
+								if (next) {
+									$(next).trigger('click');
+									e.preventDefault();
+								}
+								break;
 							}
-							break;
 						}
 					}
-				}
+				} else
+					e.preventDefault();
 			}
 		};
 
@@ -202,21 +220,15 @@ COMPONENT('editable', function(self, config) {
 		};
 	};
 
-	self.configure = function(key, value) {
-		switch (key) {
-			case 'validate':
-				self.novalidate();
-				return;
-		}
-	};
-
 	self.approve = function(el) {
 
 		var opt = el[0].$editable;
 		var val = el.text().replace(/&nbsp;/g, ' ');
 
+		SETTER('!autocomplete', 'hide');
+
 		if (opt.html === el.html())
-			return;
+			return true;
 
 		if (opt.maxlength && val.length > opt.maxlength)
 			val = val.substring(0, opt.maxlength);
@@ -226,6 +238,8 @@ COMPONENT('editable', function(self, config) {
 		switch (opt.type) {
 			case 'number':
 				opt.value = opt.value.parseFloat();
+				if ((opt.minvalue != null && opt.value < opt.minvalue) || (opt.maxvalue != null && opt.value > opt.maxvalue))
+					return false;
 				break;
 			case 'date':
 				SETTER('!datepicker', 'hide');
@@ -236,13 +250,12 @@ COMPONENT('editable', function(self, config) {
 				break;
 		}
 
-		SETTER('!autocomplete', 'hide');
-
-		if (opt.required && !opt.value)
-			return;
+		if ((opt.required && !opt.value) || (opt.validate && !opt.validate(opt.value)))
+			return false;
 
 		opt.html = null;
 		self.approve2(el);
+		return true;
 	};
 
 	self.cnotify = function(el, classname) {
@@ -255,9 +268,8 @@ COMPONENT('editable', function(self, config) {
 	self.approve2 = function(el) {
 		var opt = el[0].$editable;
 		if (opt.save) {
-			opt.element = el;
-			GET(opt.save).call(el, opt, function(is) {
-				el.html(is || is == null ? (opt.type === 'date' || opt.type === 'number' ? opt.value.format(opt.format) : opt.value) : opt.html);
+			GET(opt.save)(opt, function(is) {
+				el.html(is || is == null ? opt.value : opt.html);
 				if (is || is == null)
 					self.cnotify(el, 'ok');
 				else
@@ -275,6 +287,7 @@ COMPONENT('editable', function(self, config) {
 				self.change(true);
 				b && setTimeout(function() {
 					b.disabled = false;
+					opt.rebind && opt.binder && opt.binder.exec(GET(opt.binder.path), opt.binder.path);
 				}, 100);
 			}, 100);
 		}
@@ -297,7 +310,7 @@ COMPONENT('editable', function(self, config) {
 			if (o.type === 'date') {
 				var opt = {};
 				opt.element = el;
-				opt.value = typeof(o.value) === 'string' ? (/\d/).test(o.value) ? o.value.parseDate(o.format) : NOW : o.value;
+				opt.value = typeof(o.value) === 'string' ? o.value.parseDate(o.format) : o.value;
 				opt.callback = function(date) {
 					el.html(date.format(o.format));
 					self.approve(el);
