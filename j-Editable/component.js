@@ -75,10 +75,10 @@ COMPONENT('editable', function(self, config) {
 
 				var attr = {};
 				attr.element = el;
-				attr.items = GET(opt.dirsource);
+				attr.items = GET(opt.dirsource.replace(/\?/g, self.pathscope));
 				attr.offsetY = -1;
 				attr.placeholder = opt.dirplaceholder;
-				attr.render = opt.dirrender ? GET(opt.dirrender) : null;
+				attr.render = opt.dirrender ? GET(opt.dirrender.replace(/\?/g, self.pathscope)) : null;
 				attr.custom = !!opt.dircustom;
 				attr.offsetWidth = 2;
 				attr.minwidth = opt.dirminwidth || 200;
@@ -112,7 +112,7 @@ COMPONENT('editable', function(self, config) {
 
 					var val = custom || typeof(item) === 'string' ? item : item[opt.dirvalue];
 					if (custom && typeof(attr.dircustom) === 'string') {
-						var fn = GET(attr.dircustom);
+						var fn = GET(attr.dircustom.replace(/\?/g, self.pathscope));
 						fn(val, function(val) {
 							if (val) {
 								if (typeof(val) === 'string') {
