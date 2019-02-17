@@ -83,6 +83,23 @@ COMPONENT('editable', function(self, config) {
 		return opt;
 	};
 
+	self.moveend = function(el) {
+		var range, selection, doc = document;
+		if (doc.createRange) {
+			range = doc.createRange();
+			range.selectNodeContents(el[0]);
+			range.collapse(false);
+			selection = W.getSelection();
+			selection.removeAllRanges();
+			selection.addRange(range);
+		} else if (doc.selection) {
+			range = doc.body.createTextRange();
+			range.moveToElementText(el[0]);
+			range.collapse(false);
+			range.select();
+		}
+	};
+
 	self.make = function() {
 
 		self.aclass(cls);
@@ -180,7 +197,15 @@ COMPONENT('editable', function(self, config) {
 				SET(opt.path, new Function('return ' + (opt.value == null ? 'null' : opt.value))(), 2);
 				opt.is = false;
 			} else {
-				opt.value = GET(opt.path) || el.text();
+
+				opt.value = GET(opt.path);
+				opt.html = el.html();
+
+				if (opt.value == null) {
+					opt.value = opt.raw ? '' : opt.html;
+					opt.raw && el.html('');
+				}
+
 				self.attach(el);
 			}
 		});
@@ -209,7 +234,7 @@ COMPONENT('editable', function(self, config) {
 			if (e.which === 13 || e.which === 9) {
 
 				if (e.which === 13 && t.$editable && t.$editable.multiline) {
-					document.execCommand('insertHTML', false, '<br>');
+					document.execCommand('insertHTML', false, '<br><br>');
 					e.preventDefault();
 					return;
 				}
@@ -274,10 +299,11 @@ COMPONENT('editable', function(self, config) {
 
 		SETTER('!autocomplete', 'hide');
 
-		if (opt.html === el.html())
+		var cur = el.html();
+		if (opt.html === cur)
 			return true;
 
-		var val = el.html();
+		var val = cur;
 
 		if (opt.multiline)
 			val = val.replace(/<br(\s\/)?>/g, '\n');
@@ -372,6 +398,7 @@ COMPONENT('editable', function(self, config) {
 			el.on('paste', events.paste);
 			el.attr('contenteditable', true);
 			el.focus();
+			self.moveend(el);
 
 			if (o.type === 'date') {
 				var opt = {};
