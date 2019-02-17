@@ -80,7 +80,7 @@ opt.callback = function(selected) {
 };
 
 SETTER('directory', 'show', opt);
-````
+```
 
 ### Author
 
