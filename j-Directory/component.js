@@ -257,6 +257,8 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		// opt.search
 		// opt.selected   --> only for String Array "opt.items"
 
+		var el = opt.element instanceof jQuery ? opt.element[0] : opt.element;
+
 		if (opt.items == null)
 			opt.items = EMPTYARRAY;
 
@@ -264,8 +266,6 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 		if (!opt.minwidth)
 			opt.minwidth = 200;
-
-		var el = opt.element instanceof jQuery ? opt.element[0] : opt.element;
 
 		if (is) {
 			clearTimeout(timeout);
@@ -386,7 +386,13 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 		self.search();
 		self.rclass('hidden');
-		self.aclass(cls + '-visible', 100);
+
+		setTimeout(function() {
+			if (self.opt.element[0].offsetParent)
+				self.aclass(cls + '-visible');
+			else
+				self.hide(1);
+		}, 100);
 
 		skipreset = false;
 	};
