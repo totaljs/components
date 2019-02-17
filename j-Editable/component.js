@@ -72,6 +72,9 @@ COMPONENT('editable', function(self, config) {
 		if (opt.validate)
 			opt.validate = opt.validate ? (/\(|=|>|<|\+|-|\)/).test(opt.validate) ? FN('value=>' + opt.validate) : (function(path) { return function(value) { return GET(path)(value); }; })(opt.validate) : null;
 
+		if (opt.raw == null)
+			opt.raw = true;
+
 		if (opt.can) {
 			opt.canedit = function(el) {
 				var opt = el[0].$editable;
@@ -330,6 +333,7 @@ COMPONENT('editable', function(self, config) {
 		switch (opt.type) {
 			case 'number':
 				opt.value = opt.value.parseFloat();
+				console.log(opt.minvalue, opt.maxvalue, opt.value);
 				if ((opt.minvalue != null && opt.value < opt.minvalue) || (opt.maxvalue != null && opt.value > opt.maxvalue))
 					return false;
 				break;
@@ -342,7 +346,7 @@ COMPONENT('editable', function(self, config) {
 				break;
 		}
 
-		if ((opt.required && !opt.value) || (opt.validate && !opt.validate(opt.value)))
+		if ((opt.required && opt.value == null || opt.value === '') || (opt.validate && !opt.validate(opt.value)))
 			return false;
 
 		opt.html = null;
