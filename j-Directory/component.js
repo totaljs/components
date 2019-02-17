@@ -257,6 +257,9 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		// opt.search
 		// opt.selected   --> only for String Array "opt.items"
 
+		if (opt.items == null)
+			opt.items = EMPTYARRAY;
+
 		self.tclass(cls + '-default', !opt.render);
 
 		if (!opt.minwidth)
