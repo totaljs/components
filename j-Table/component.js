@@ -8,6 +8,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 	var sizes = {};
 	var names = {};
 	var aligns = {};
+	var dcompile = false;
 
 	self.readonly();
 	self.nocompile();
@@ -25,6 +26,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 			switch (type) {
 				case 'detail':
 					var h = el.html();
+					dcompile = (/(data-{2,4}|data-jc|data-bind)+=/).test(h);
 					templates.detail = Tangular.compile(h);
 					return;
 				case 'empty':
@@ -62,8 +64,8 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 				size[i] = size[i].trim();
 
 			for (i = 0; i < name.length; i++) {
-				name[i] = name[i].trim().replace(/\'\w\'/, function(val) {
-					return '<i class="fa fa-{0}"></i>'.format(val.replace(/\'/g, ''));
+				name[i] = name[i].trim().replace(/'\w'/, function(val) {
+					return '<i class="fa fa-{0}"></i>'.format(val.replace(/'/g, ''));
 				});
 			}
 
@@ -185,9 +187,13 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 				el.after('<tr class="{0}-detail"><td colspan="{1}"></td></tr>'.format(cls, el.find('td').length));
 				eld = el.next();
 
-				if (config.detail === true)
-					templates.detail && eld.find('td').html(templates.detail(row, { user: window.user }));
-				else
+				if (config.detail === true) {
+					if (templates.detail) {
+						var tmp = eld.find('td');
+						tmp.html(templates.detail(row, { user: window.user }));
+						dcompile && COMPILE(tmp);
+					}
+				} else
 					EXEC(config.detail, eld.find('td'), row);
 			}
 
@@ -206,10 +212,11 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 			indexer.user = W.user;
 			indexer.index = +index.attrd('index');
 			var is = index.hclass(cls + '-selected');
+			var next = index.next();
 			index.replaceWith(template(row, indexer).replace('<tr', '<tr data-index="' + indexer.index + '"'));
-			console.log(is);
+			next.hclass(cls + '-detail') && next.remove();
+			is && ebody.find('tr[data-index="{0}"]'.format(indexer.index)).trigger('click');
 		}
-
 	};
 
 	self.appendrow = function(row) {
@@ -242,7 +249,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 		return rows;
 	};
 
-	self.setter = function(value, path, type) {
+	self.setter = function(value, path) {
 
 		if (value && value.items)
 			value = value.items;
