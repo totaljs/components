@@ -221,8 +221,10 @@ COMPONENT('editable', function(self, config) {
 				return;
 
 			if ((e.metaKey || e.ctrlKey) && (e.which === 66 || e.which === 76 || e.which === 73 || e.which === 85)) {
-				e.preventDefault();
-				e.stopPropagation();
+				if (t.$editable.type !== 'html') {
+					e.preventDefault();
+					e.stopPropagation();
+				}
 			}
 
 			var el;
@@ -236,7 +238,7 @@ COMPONENT('editable', function(self, config) {
 
 			if (e.which === 13 || e.which === 9) {
 
-				if (e.which === 13 && t.$editable && t.$editable.multiline) {
+				if (e.which === 13 && t.$editable.multiline) {
 					document.execCommand('insertHTML', false, '<br><br>');
 					e.preventDefault();
 					return;
@@ -308,22 +310,25 @@ COMPONENT('editable', function(self, config) {
 
 		var val = cur;
 
-		if (opt.multiline)
-			val = val.replace(/<br(\s\/)?>/g, '\n').trim();
+		if (opt.type !== 'html') {
 
-		val = val.replace(/&(gt|lt|nbsp|quot)+;/g, function(text) {
-			switch (text) {
-				case '&gt;':
-					return '>';
-				case '&lt;':
-					return '<';
-				case '&nbsp;':
-					return ' ';
-				case '&quot;':
-					return '"';
-			}
-			return text;
-		});
+			if (opt.multiline)
+				val = val.replace(/<br(\s\/)?>/g, '\n').trim();
+
+			val = val.replace(/&(gt|lt|nbsp|quot)+;/g, function(text) {
+				switch (text) {
+					case '&gt;':
+						return '>';
+					case '&lt;':
+						return '<';
+					case '&nbsp;':
+						return ' ';
+					case '&quot;':
+						return '"';
+				}
+				return text;
+			});
+		}
 
 		if (opt.maxlength && val.length > opt.maxlength)
 			val = val.substring(0, opt.maxlength);

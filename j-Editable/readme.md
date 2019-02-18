@@ -12,7 +12,7 @@ __Configuration__:
 `data-editable` attribute describes behaviour:
 
 - `path` {String} a __relative path__ to property (can be inherited from `data-bind` automatically)
-- `type` {String} optional, can be `string` (default), `date`, `number` or `boolean`
+- `type` {String} optional, can be `string` (default), `date`, `number`, `boolean` or `html`
 - `can` {String} optional, a path to `function(opt, el)` must return `boolean`, it means `can edit?`
 - `save` {String} optional, a path to `function(opt, accepted(boolean))`, `accepted` function must be evaluated
 - `format` {String} optional, a format for `date`, default: `yyyy-MM-dd`
