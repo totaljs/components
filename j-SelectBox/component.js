@@ -10,7 +10,7 @@ COMPONENT('selectbox', function(self, config) {
 		return config.disabled || !config.required ? true : value && value.length > 0;
 	};
 
-	self.configure = function(key, value, init) {
+	self.configure = function(key, value) {
 
 		var redraw = false;
 
@@ -104,7 +104,7 @@ COMPONENT('selectbox', function(self, config) {
 					val = item[kv];
 				}
 
-				var item = { text: text, value: val, index: index++, search: text.toSearch() };
+				item = { text: text, value: val, index: index++, search: text.toSearch() };
 				self.datasource.push(item);
 				builder.push(self.template(item));
 			}
@@ -151,7 +151,7 @@ COMPONENT('selectbox', function(self, config) {
 		});
 	};
 
-	self.setter = function(value) {
+	self.setter = function(value, path, type) {
 
 		var selected = {};
 		var builder = [];
@@ -178,6 +178,12 @@ COMPONENT('selectbox', function(self, config) {
 
 		Eselected.empty().append(builder.join(''));
 		self.search();
+
+		if (type !== 1) {
+			setTimeout(function() {
+				Eitems[0].scrollTop = 0;
+			}, 500);
+		}
 	};
 
 	self.state = function(type) {
