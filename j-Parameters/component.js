@@ -88,6 +88,8 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5', function
 			switch (item.type) {
 				case 'date':
 					item.value = item.value ? item.value.parseDate(config.dateformat) : null;
+					if (item.value && isNaN(item.value.getTime()))
+						item.value = item.prev;
 					var a = item.value ? item.value.format(config.dateformat) : 0;
 					var b = item.prev ? item.prev.format(config.dateformat) : 0;
 					item.modified = a !== b;
