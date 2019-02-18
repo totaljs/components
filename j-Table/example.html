@@ -11,7 +11,7 @@
 		<tr>
 			<td>{{ name }}</td>
 			<td class="right">{{ price | format(2) }} &euro;</td>
-			<td>{{ created | format('yyyy-MM-dd') }}</td>
+			<td class="center">{{ created | format('yyyy-MM-dd') }}</td>
 		</tr>
 	</script>
 
@@ -35,7 +35,7 @@
 		<tr>
 			<td>{{ name }}</td>
 			<td class="right">{{ price | format(2) }} &euro;</td>
-			<td>{{ created | format('yyyy-MM-dd') }}</td>
+			<td class="center">{{ created | format('yyyy-MM-dd') }}</td>
 		</tr>
 	</script>
 
@@ -55,7 +55,5 @@
 	items.push({ name: '4 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: 35.34, created: new Date().add('-14 days') });
 	items.push({ name: '5 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: 439.33, created: new Date().add('-5 hours') });
 	items.push({ name: '6 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: 111.12, created: new Date().add('-349 minutes') });
-
-
 
 </script>
