@@ -11,6 +11,8 @@ __Configuration__:
 - `minheight` {Number} a minimal height in pixels (default: `0` - disabled)
 - `scroll` {Boolean} enables vertical scrolling (default: `false` - disabled)
 - `delay` {Number} `msec.` resizes the box again if the value is changed according to the path (default: `100`)
+- `visibleY` {Boolean} still shows `Y` scrollbar (default: `false`)
+- `visibleX` {Boolean} still shows `X` scrollbar (default: `false`)
 
 __Methods__:
 

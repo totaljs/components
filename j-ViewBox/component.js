@@ -33,7 +33,7 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100', function(self, config) {
 		self.aclass('ui-viewbox ui-viewbox-hidden');
 		if (config.scroll) {
 			if (MAIN.version > 17) {
-				scrollbar = window.SCROLLBAR(self.find('.ui-viewbox-body'), { parent: self.element });
+				scrollbar = window.SCROLLBAR(self.find('.ui-viewbox-body'), { visibleX: config.visibleX, visibleY: config.visibleY, parent: self.element });
 				self.scrollleft = scrollbar.scrollLeft;
 				self.scrolltop = scrollbar.scrollTop;
 				self.scrollright = scrollbar.scrollRight;
