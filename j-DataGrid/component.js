@@ -352,6 +352,16 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			}
 		});
 
+		var scrollcache = {};
+
+		scrollcache.scrollv = function() {
+			vscrollbar.css('top', scrollcache.v + 'px');
+		};
+
+		scrollcache.scrollh = function() {
+			hscrollbar.css('left', scrollcache.h + 'px');
+		};
+
 		vbody.on('scroll', function(e) {
 			var el = e.target;
 			var p = ((el.scrollTop / (el.scrollHeight - opt.height)) * 100) >> 0;
@@ -363,7 +373,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				if (pos > max)
 					pos = max;
 			}
-			vscrollbar.css('top', pos + 'px');
+			scrollcache.v = pos;
+			W.requestAnimationFrame(scrollcache.scrollv);
 			isecolumns && self.applycolumns();
 		});
 
@@ -380,7 +391,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 					pos = max;
 			}
 
-			hscrollbar.css('left', pos + 'px');
+			scrollcache.h = pos;
+			W.requestAnimationFrame(scrollcache.scrollh);
 			isecolumns && self.applycolumns();
 		});
 
