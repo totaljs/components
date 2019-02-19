@@ -36,7 +36,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;after:\\:', function(self, confi
 				var opt = {};
 				opt.element = self.element;
 				opt.search = GET(config.autosource);
-				opt.callback = function(value, el) {
+				opt.callback = function(value) {
 					input.empty();
 					self.appendval(typeof(value) === 'string' ? value : value[config.autovalue]);
 					self.check();
@@ -180,7 +180,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;after:\\:', function(self, confi
 		return { left: offset.left, top: control.offset().top + control.height(), width: width };
 	};
 
-	self.setter = function(value) {
+	self.setter = function() {
 		if (skip)
 			skip = false;
 		else
@@ -259,6 +259,8 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;after:\\:', function(self, confi
 
 		var value = self.get() || EMPTYARRAY;
 
+		tags.find(cls2 + '-tag').remove();
+
 		if (dirsource) {
 
 			var arr = [];
@@ -276,8 +278,6 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;after:\\:', function(self, confi
 
 			if (value && item == null && config.dircustom)
 				arr.push(value);
-
-			tags.find(cls2 + '-tag').remove();
 
 			for (var i = 0; i < arr.length; i++)
 				self.appendtag(arr[i]);
