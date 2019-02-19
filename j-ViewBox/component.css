@@ -1,3 +1,5 @@
-.ui-viewbox { overflow: hidden; }
+.ui-viewbox { overflow: hidden; -ms-overflow-style: none; box-sizing: content-box }
 .ui-viewbox-scroll { overflow: auto; overflow-scrolling: touch; }
 .ui-viewbox-disabled { z-index: 5; position: absolute; background-color: rgba(255,255,255,0.8); }
+.ui-viewbox-hidden { visibility: hidden; }
+.ui-viewbox-scrollhidden .ui-viewbox-body { margin-right: 30px; }
