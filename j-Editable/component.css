@@ -1,5 +1,6 @@
 .ui-editable .editable { border: 1px solid transparent; padding: 1px 2px; cursor: text; outline: 0; border-radius: 2px; }
 .ui-editable .editable:hover { border-color: rgba(100,100,100,0.2); }
 .ui-editable .editable-editing { border-color: #D0D0D0 !important; background-color: #F8F8F8; }
+.ui-editable .editable-multiline { display: inline-block; width: 100%; }
 .ui-editable-ok { border-color: #9FE200 !important; }
 .ui-editable-no { border-color: #BE0000 !important; }

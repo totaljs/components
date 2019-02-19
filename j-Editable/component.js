@@ -238,11 +238,8 @@ COMPONENT('editable', function(self, config) {
 
 			if (e.which === 13 || e.which === 9) {
 
-				if (e.which === 13 && t.$editable.multiline) {
-					document.execCommand('insertHTML', false, '<br><br>');
-					e.preventDefault();
+				if (e.which === 13 && t.$editable.multiline)
 					return;
-				}
 
 				el = $(t);
 				if (self.approve(el)) {
@@ -399,7 +396,7 @@ COMPONENT('editable', function(self, config) {
 			var o = el[0].$editable;
 			el[0].$events = true;
 
-			el.aclass('editable-editing');
+			el.aclass('editable-editing' + (o.multiline ? ' editable-multiline' : ''));
 			el.on('focus', events.focus);
 			el.on('keydown', events.keydown);
 			el.on('blur', events.blur);
@@ -431,7 +428,7 @@ COMPONENT('editable', function(self, config) {
 			if (opt.html != null)
 				el.html(opt.html);
 			opt.is = false;
-			el.rclass('editable-editing');
+			el.rclass('editable-editing editable-multiline');
 			el.attr('contenteditable', false);
 		}
 	};

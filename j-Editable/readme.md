@@ -32,7 +32,7 @@ __Configuration__:
 - `maxvalue` {Number} a max. value for number type (default: `undefined`)
 - `rebind` {Boolean} if `true` rebinds `data-bind` on this element only (default: `0`)
 - `validate` {String} optional, a condition for validating of value, can contain a link to `function(value)` or `!!value.match(/[a-z]+/)`
-- `multiline` {Boolean} optional, enables multiline (default: `false`)
+- `multiline` {Boolean} optional, enables multiline + appends class `editable-multiline` (`inline-block` + `width:100%`) when it's editing (default: `false`)
 - `raw` {Boolean} optional, when `true` then the current HTML content will be as a placeholder if the value is `nullable` (default: `true`)
 
 ### Author
