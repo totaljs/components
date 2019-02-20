@@ -70,6 +70,7 @@ COMPONENT('console', function(self, config) {
 		}
 
 		elogs.html(builder.join(''));
+		elogs[0].scrollTop = 0;
 	};
 
 	self.show = function(id) {
