@@ -195,9 +195,11 @@ COMPONENT('editable', function(self, config) {
 
 			} else if (opt.type === 'boolean') {
 				TOGGLE(opt.path, 2);
+				self.change(true);
 				opt.is = false;
 			} else if (opt.type === 'set') {
 				SET(opt.path, new Function('return ' + (opt.value == null ? 'null' : opt.value))(), 2);
+				self.change(true);
 				opt.is = false;
 			} else {
 
