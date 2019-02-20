@@ -55,7 +55,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		self.update = function(rows, noscroll) {
 
 			if (noscroll != true)
-				self.el.prop('scrollTop', 0);
+				self.el[0].scrollTop = 0;
 
 			self.limit = config.limit;
 			self.pos = -1;
@@ -1047,7 +1047,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		}
 	};
 
-	self.appendrow = function(row) {
+	self.appendrow = function(row, scroll) {
 		var index = opt.rows.push(row) - 1;
 		var model = self.get();
 
@@ -1063,6 +1063,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 		opt.render[index] = self.renderrow(index, row);
 		opt.cluster && opt.cluster.update(opt.render, opt.scroll == false);
+		if (scroll) {
+			var el = opt.cluster.el[0];
+			el.scrollTop = el.scrollHeight;
+		}
 		self.scrolling();
 	};
 
