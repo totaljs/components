@@ -1,12 +1,19 @@
-COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:false', function(self, config) {
+COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:false;visibleY:true', function(self, config) {
 
-	var eld;
+	var eld, elb;
 	var scrollbar;
+	var cls = 'ui-viewbox';
+	var cls2 = '.' + cls;
 
 	self.readonly();
 
 	self.init = function() {
-		$(window).on('resize', function() {
+		var obj;
+		if (W.OP)
+			obj = W.OP;
+		else
+			obj = $(W);
+		obj.on('resize', function() {
 			SETTER('viewbox', 'resize');
 		});
 	};
@@ -29,20 +36,21 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:false', function(
 	self.make = function() {
 		config.scroll && MAIN.version > 17 && self.element.wrapInner('<div class="ui-viewbox-body"></div>');
 		self.element.prepend('<div class="ui-viewbox-disabled hidden"></div>');
-		eld = self.find('> .ui-viewbox-disabled').eq(0);
-		self.aclass('ui-viewbox ui-viewbox-hidden');
+		eld = self.find('> .ui-viewbox-disabled'.format(cls)).eq(0);
+		elb = self.find('> .ui-viewbox-body'.format(cls)).eq(0);
+		self.aclass('{0} {0}-hidden'.format(cls));
 		if (config.scroll) {
 			if (config.scrollbar) {
 				if (MAIN.version > 17) {
-					scrollbar = window.SCROLLBAR(self.find('.ui-viewbox-body'), { visibleY: config.visibleY, visibleX: config.visibleX, parent: self.element });
+					scrollbar = window.SCROLLBAR(self.find(cls2 + '-body'), { visibleY: config.visibleY, visibleX: config.visibleX, parent: self.element });
 					self.scrollleft = scrollbar.scrollLeft;
 					self.scrolltop = scrollbar.scrollTop;
 					self.scrollright = scrollbar.scrollRight;
 					self.scrollbottom = scrollbar.scrollBottom;
 				} else
-					self.aclass('ui-viewbox-scroll');
+					self.aclass(cls + '-scroll');
 			} else
-				self.aclass('ui-viewbox-scroll ui-viewbox-scrollhidden');
+				self.aclass(cls + '-scroll ' + cls + '-scrollhidden');
 		}
 		self.resize();
 	};
@@ -71,15 +79,16 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:false', function(
 
 		eld.css(css);
 
+		css.width = null;
+		self.css(css);
+
 		if (config.scroll && !config.scrollbar)
 			css.width = w + 30;
-		else
-			css.width = null;
 
-		self.css(css);
+		elb.length && elb.css(css);
 		self.element.SETTER('*', 'resize');
-		var cls = 'ui-viewbox-hidden';
-		self.hclass(cls) && self.rclass(cls, 100);
+		var c = cls + '-hidden';
+		self.hclass(c) && self.rclass(c, 100);
 
 		if (scrollbar)
 			scrollbar.resize();
