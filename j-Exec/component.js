@@ -6,7 +6,8 @@ COMPONENT('exec', function(self, config) {
 		var scope;
 
 		var scopepath = function(el, val) {
-			scope = el.scope();
+			if (!scope)
+				scope = el.scope();
 			return scope ? scope.makepath ? scope.makepath(val) : val.replace(/\?/g, el.scope().path) : val;
 		};
 
