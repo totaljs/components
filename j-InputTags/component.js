@@ -4,6 +4,9 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;after:\\:', function(self, confi
 	var cls2 = '.' + cls;
 	var input, placeholder, dirsource, binded, customvalidator, tags, skip = false;
 
+	self.nocompile();
+	self.bindvisible(50);
+
 	self.init = function() {
 		Thelpers.ui_inputtags_icon = function(val) {
 			return val.charAt(0) === '!' ? ('<span class="ui-inputtags-icon-custom">' + val.substring(1) + '</span>') : ('<i class="fa fa-' + val + '"></i>');

@@ -1,6 +1,8 @@
 COMPONENT('togglebutton', function(self, config) {
 
-	self.nocompile && self.nocompile();
+	var cls = 'ui-togglebutton';
+
+	self.nocompile();
 
 	self.validate = function(value) {
 		return (config.disabled || !config.required) ? true : value === true;
@@ -17,7 +19,7 @@ COMPONENT('togglebutton', function(self, config) {
 	};
 
 	self.make = function() {
-		self.aclass('ui-togglebutton');
+		self.aclass(cls);
 		self.append('<button></button>');
 		self.event('click', function() {
 			if (config.disabled)
@@ -28,7 +30,7 @@ COMPONENT('togglebutton', function(self, config) {
 	};
 
 	self.setter = function(value) {
-		self.tclass('ui-togglebutton-selected', value === true);
+		self.tclass(cls + '-selected', value === true);
 	};
 
 	self.state = function(type) {
@@ -38,6 +40,6 @@ COMPONENT('togglebutton', function(self, config) {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		self.tclass('ui-togglebutton-invalid', invalid);
+		self.tclass(cls + '-invalid', invalid);
 	};
 });

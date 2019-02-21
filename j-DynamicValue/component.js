@@ -4,6 +4,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:true', function(
 
 	self.readonly();
 	self.nocompile();
+	self.bindvisible(50);
 
 	self.validate = function(value) {
 		return !config.required || config.disabled ? true : !!value;

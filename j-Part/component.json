@@ -1,9 +1,11 @@
 {
 	"datecreated": "2018-01-30T08:48:00.000Z",
-	"dateupdated": "2019-02-01T17:34:00.000Z",
+	"dateupdated": "2019-02-21T15:57:00.000Z",
 	"name": "j-Part",
 	"tags": [
-		"jcomponent"
+		"part",
+		"page",
+		"content"
 	],
 	"color": "transparent",
 	"version": 1,

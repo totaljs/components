@@ -5,11 +5,13 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5', function
 	var container, search, scroller, prevh, skip;
 
 	self.readonly();
+	self.nocompile && self.nocompile();
+	self.bindvisible();
 
 	self.init = function() {
 		Thelpers.ui_parameters_value = function(val, format) {
 			if (val instanceof Date)
-				return val.format(format)
+				return val.format(format);
 			if (typeof(val) === 'number')
 				return val;
 			return val ? Thelpers.encode(val.toString()) : '';
@@ -114,7 +116,7 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5', function
 		self.scrollbar.resize();
 	};
 
-	self.setter = function(value, path, type) {
+	self.setter = function(value) {
 
 		if (skip) {
 			skip = false;

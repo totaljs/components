@@ -1,9 +1,10 @@
 {
 	"datecreated": "2018-02-26T09:38:00.000Z",
-	"dateupdated": "2019-02-05T15:02:00.000Z",
+	"dateupdated": "2019-02-21T16:00:00.000Z",
 	"name": "j-Panel",
 	"tags": [
-		"jcomponent"
+		"panel",
+		"form"
 	],
 	"color": "white",
 	"version": 1,

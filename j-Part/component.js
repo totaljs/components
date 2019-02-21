@@ -4,7 +4,10 @@ COMPONENT('part', 'hide:true', function(self, config) {
 	var clid = null;
 	var downloading = false;
 
+	self.releasemode && self.releasemode('true');
+	self.bindvisible();
 	self.readonly();
+
 	self.setter = function(value) {
 
 		if (config.if !== value) {

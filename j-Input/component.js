@@ -4,6 +4,9 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 	var cls2 = '.' + cls;
 	var input, placeholder, dirsource, binded, customvalidator, mask;
 
+	self.nocompile();
+	self.bindvisible(20);
+
 	self.init = function() {
 		Thelpers.ui_input_icon = function(val) {
 			return val.charAt(0) === '!' ? ('<span class="ui-input-icon-custom">' + val.substring(1) + '</span>') : ('<i class="fa fa-' + val + '"></i>');
