@@ -2,6 +2,7 @@
 
 - keeps a fixed percentage height
 - great usage for intranet applications
+- supports `releasing`
 
 __Configuration__:
 

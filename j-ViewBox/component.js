@@ -55,9 +55,16 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:false;visibleY:tr
 		self.resize();
 	};
 
+	self.released = function(is) {
+		!is && self.resize();
+	};
+
 	var css = {};
 
 	self.resize = function() {
+
+		if (self.release())
+			return;
 
 		var el = config.parent ? config.parent === 'window' ? $(window) : self.element.closest(config.parent) : self.parent();
 		var h = el.height();
