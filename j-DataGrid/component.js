@@ -816,7 +816,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	self.rebind = function(code) {
 
 		var type = typeof(code);
-
 		if (type === 'string') {
 			code = code.trim();
 			self.gridid = 'dg' + HASH(code);
@@ -825,6 +824,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 		var cache = config.remember ? CACHE(self.gridid) : null;
 		var cols = type === 'string' ? new Function('return ' + code)() : CLONE(code);
+		var tmp;
 
 		opt.search = false;
 
@@ -837,7 +837,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			if (!col.name)
 				col.name = col.id;
 
-			if(col.listcolumn == null)
+			if (col.listcolumn == null)
 				col.listcolumn = true;
 
 			if (col.hidden) {
@@ -912,6 +912,13 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 			if (col.filter !== false && !col.filter)
 				col.filter = config.filterlabel;
+
+			if (col.filtervalue != null) {
+				tmp = col.filtervalue;
+				if (typeof(tmp) === 'function')
+					tmp = tmp(col);
+				opt.filter[col.name] = opt.filtervalues[col.id] = tmp;
+			}
 		}
 
 		cols.quicksort('index');
@@ -1222,7 +1229,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 	self.resize = function() {
 
-		if (!opt.cols)
+		if (!opt.cols || self.dom.offsetParent == null)
 			return;
 
 		var el;
@@ -1394,12 +1401,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		if (!isredraw) {
 
 			if (opt.scroll) {
-				vbody.prop('scrollTop', 0);
+				vbody[0].scrollTop = 0;
 				if (useraction)	{
-					var sl = hbody.prop('scrollLeft');
-					hbody.prop('scrollLeft', sl ? sl - 1 : 0);
+					var sl = hbody[0].scrollLeft;
+					hbody[0].scrollLeft = sl ? sl - 1 : 0;
 				} else
-					hbody.prop('scrollLeft', 0);
+					hbody[0].scrollLeft = 0;
 				opt.scroll = false;
 			}
 
