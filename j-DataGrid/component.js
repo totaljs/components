@@ -48,7 +48,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				self.pos = frame;
 				self.render();
 				self.scroll && self.scroll();
-				config.change && EXEC(config.change, null, null, self.grid);
+				config.change && SEEX(config.change, null, null, self.grid);
 			}
 		};
 
@@ -156,21 +156,13 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	};
 
 	self.fn_in_changed = function(arr) {
-		if (config.changed) {
-			if (config.changed.indexOf('.') === -1)
-				EXEC(config.changed, arr || self.changed(), self);
-			else
-				SET(config.changed, arr || self.changed());
-		}
+		if (config.changed)
+			SEEX(config.changed, arr || self.changed(), self);
 	};
 
 	self.fn_in_checked = function(arr) {
-		if (config.checked) {
-			if (config.checked.indexOf('.') === -1)
-				EXEC(config.checked, arr || self.checked(), self);
-			else
-				SET(config.checked, arr || self.checked());
-		}
+		if (config.checked)
+			SEEX(config.checked, arr || self.checked(), self);
 	};
 
 
@@ -450,7 +442,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 									row = null;
 								}
 							}
-							config.click && EXEC(config.click, row, self, elrow, target);
+							config.click && SEEX(config.click, row, self, elrow, target);
 						}
 					}
 					break;
@@ -647,7 +639,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 			if (!row || index === -1) {
 				opt.cluster && opt.cluster.el.find('.' + cls).rclass(cls);
-				config.highlight && config.click && EXEC(config.click, null, self);
+				config.highlight && config.click && SEEX(config.click, null, self);
 				return;
 			}
 
@@ -659,7 +651,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				elrow.aclass(cls);
 			}
 
-			config.click && EXEC(config.click, row, self, elrow, null);
+			config.click && SEEX(config.click, row, self, elrow, null);
 		};
 
 		self.event('click', '.dg-checkbox', function() {
@@ -715,7 +707,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 					break;
 				default:
 					var row = opt.rows[+$(this).closest('.dg-row').attrd('index')];
-					config.button && EXEC(config.button, this.name, row, self, e);
+					config.button && SEEX(config.button, this.name, row, self, e);
 					break;
 			}
 		});
@@ -734,7 +726,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			value.page = 1;
 
 		var keys = Object.keys(opt.filter);
-		EXEC(config.exec, type, keys.length ? opt.filter : null, opt.sort && opt.sort.sort ? [(opt.sort.name + ' ' + (opt.sort.sort === 1 ? 'asc' : 'desc'))] : null, value.page, self);
+		SEEX(config.exec, type, keys.length ? opt.filter : null, opt.sort && opt.sort.sort ? [(opt.sort.name + ' ' + (opt.sort.sort === 1 ? 'asc' : 'desc'))] : null, value.page, self);
 
 		switch (type) {
 			case 'sort':
