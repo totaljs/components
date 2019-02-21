@@ -1,7 +1,7 @@
 COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:false', function(self, config) {
 
 	var W = window;
-	var cls = cls + '';
+	var cls = 'ui-panel';
 	var cls2 = '.' + cls;
 
 	if (!W.$$panel) {
