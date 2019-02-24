@@ -34,6 +34,7 @@ COMPONENT('intro', function(self, config) {
 			if (index >= figures.length) {
 				self.set('');
 				config.exec && EXEC(config.exec);
+				config.remove && self.remove();
 			} else {
 				self.move(index);
 				config.page && EXEC(config.page, index);
