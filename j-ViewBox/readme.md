@@ -18,9 +18,7 @@ __Configuration__:
 
 __Methods__:
 
-- `component.scrollleft(val)` scrolls X
 - `component.scrolltop(val)` scrolls Y
-- `component.scrollright(val)` scrolls X from right side
 - `component.scrollbottom(val)` scrolls Y from bottom side
 - `component.resize()` resizes container (it reacts on `resize` events automatically)
 
