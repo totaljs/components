@@ -33,19 +33,31 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:false;visibleY:tr
 		}
 	};
 
+	self.scrollbottom = function(val) {
+		if (val == null)
+			return elb[0].scrollTop;
+		elb[0].scrollTop = (elb[0].scrollHeight - self.dom.clientHeight) - (val || 0);
+		return elb[0].scrollTop;
+	};
+
+	self.scrolltop = function(val) {
+		if (val == null)
+			return elb[0].scrollTop;
+		elb[0].scrollTop = (val || 0);
+		return elb[0].scrollTop;
+	};
+
 	self.make = function() {
 		config.scroll && MAIN.version > 17 && self.element.wrapInner('<div class="ui-viewbox-body"></div>');
 		self.element.prepend('<div class="ui-viewbox-disabled hidden"></div>');
-		eld = self.find('> .ui-viewbox-disabled'.format(cls)).eq(0);
-		elb = self.find('> .ui-viewbox-body'.format(cls)).eq(0);
+		eld = self.find('> .{0}-disabled'.format(cls)).eq(0);
+		elb = self.find('> .{0}-body'.format(cls)).eq(0);
 		self.aclass('{0} {0}-hidden'.format(cls));
 		if (config.scroll) {
 			if (config.scrollbar) {
 				if (MAIN.version > 17) {
 					scrollbar = window.SCROLLBAR(self.find(cls2 + '-body'), { visibleY: config.visibleY, visibleX: config.visibleX, parent: self.element });
-					self.scrollleft = scrollbar.scrollLeft;
 					self.scrolltop = scrollbar.scrollTop;
-					self.scrollright = scrollbar.scrollRight;
 					self.scrollbottom = scrollbar.scrollBottom;
 				} else
 					self.aclass(cls + '-scroll');
