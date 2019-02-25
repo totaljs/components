@@ -29,7 +29,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 	self.make = function() {
 
 		self.aclass(cls + ' hidden');
-		self.append('<div class="{1}-search"><span class="{1}-add hidden"><i class="fa fa-plus"></i></span><span class="{1}-button"><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" /></div></div><div class="{1}-container"><ul></ul></div>'.format(config.placeholder, cls));
+		self.append('<div class="{1}-search"><span class="{1}-add hidden"><i class="fa fa-plus"></i></span><span class="{1}-button"><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" name="dir{2}" autocomplete="dir{2}" /></div></div><div class="{1}-container"><ul></ul></div>'.format(config.placeholder, cls, Date.now()));
 		container = self.find('ul');
 		input = self.find('input');
 		icon = self.find(cls2 + '-button').find('.fa');
