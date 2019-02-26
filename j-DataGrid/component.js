@@ -819,12 +819,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		}, self);
 	};
 
-	self.applyfilter = function(obj) {
-		opt.filter = {};
+	self.applyfilter = function(obj, add) {
+		if (!add)
+			opt.filter = {};
 		header.find('input,select').each(function() {
 			var el = $(this);
 			var val = obj[el.attrd('name')];
-			el.val(val == null ? '' : val);
+			if (val !== undefined)
+				el.val(val == null ? '' : val);
 		}).trigger('change');
 	};
 
