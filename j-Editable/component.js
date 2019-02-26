@@ -31,6 +31,8 @@ COMPONENT('editable', function(self, config) {
 					is = val ? val.getTime() > 0 : false;
 				else if (opt.type === 'boolean')
 					is = val ? true : false;
+				else if (val instanceof Array)
+					is = !!val.length;
 				else
 					is = val ? true : false;
 				if (!is)
@@ -39,6 +41,10 @@ COMPONENT('editable', function(self, config) {
 		}
 
 		return is;
+	};
+
+	self.makefn = function(val) {
+		return (/\(|=|>|<|\+|-|\)/).test(val) ? FN('value=>' + val) : (function(path) { return function(value) { return GET(path)(value); }; })(val);
 	};
 
 	self.parse = function(el) {
@@ -70,7 +76,10 @@ COMPONENT('editable', function(self, config) {
 			opt.type += 'ean';
 
 		if (opt.validate)
-			opt.validate = opt.validate ? (/\(|=|>|<|\+|-|\)/).test(opt.validate) ? FN('value=>' + opt.validate) : (function(path) { return function(value) { return GET(path)(value); }; })(opt.validate) : null;
+			opt.validate = self.makefn(opt.validate);
+
+		if (opt.accept)
+			opt.accept = self.makefn(opt.accept);
 
 		if (opt.raw == null)
 			opt.raw = true;
@@ -101,6 +110,12 @@ COMPONENT('editable', function(self, config) {
 			range.collapse(false);
 			range.select();
 		}
+	};
+
+	self.cancel = function(opt, el) {
+		opt.value = null;
+		!opt.save && el.html('');
+		self.approve2(el);
 	};
 
 	self.make = function() {
@@ -163,9 +178,7 @@ COMPONENT('editable', function(self, config) {
 
 					// empty
 					if (item == null) {
-						opt.value = null;
-						!opt.save && el.html(null);
-						self.approve2(el);
+						self.cancel(opt, el);
 						return;
 					}
 
@@ -174,6 +187,12 @@ COMPONENT('editable', function(self, config) {
 						var fn = GET(attr.dircustom.replace(/\?/g, self.pathscope));
 						fn(val, function(val) {
 							if (val) {
+
+								if (opt.accept && !opt.accept(val)) {
+									self.cancel(opt, el);
+									return;
+								}
+
 								if (typeof(val) === 'string') {
 									opt.value = val;
 									!opt.save && el.html(val);
@@ -185,6 +204,12 @@ COMPONENT('editable', function(self, config) {
 							}
 						});
 					} else if (!custom) {
+
+						if (opt.accept && !opt.accept(val)) {
+							self.cancel(opt, el);
+							return;
+						}
+
 						opt.value = val;
 						!opt.save && el.html(typeof(item) === 'string' ? item : item[attr.key]);
 						self.approve2(el);
@@ -348,6 +373,9 @@ COMPONENT('editable', function(self, config) {
 				opt.value = opt.value === true || opt.value == 'true' || opt.value == '1' || opt.value == 'on';
 				break;
 		}
+
+		if (opt.accept && !opt.accept(val))
+			return false;
 
 		if ((opt.required && (opt.value == null || opt.value === '')) || (opt.validate && !opt.validate(opt.value)))
 			return false;
