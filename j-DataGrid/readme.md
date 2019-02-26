@@ -108,6 +108,7 @@ __Methods__:
 - __NEW__ `component.redrawrow(row_object)` redraws row
 - __NEW__ `component.clear()` clears all changes
 - __NEW__ `component.editcolumn(row_index, col_index)` executes `config.change` internally (only for advanced usage)
+- __NEW__ `component.applyfilter(obj)` can apply a custom filter `{ name: 'Peter', age: '20 - 50' }`
 
 __Properties__:
 

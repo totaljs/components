@@ -619,10 +619,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			opt.operation = 'filter';
 			el.tclass('dg-filter-selected', is);
 
-			if (config.exec)
-				self.operation(opt.operation);
-			else
-				self.refreshfilter(true);
+			setTimeout2(self.ID + 'filter', function() {
+				if (config.exec)
+					self.operation(opt.operation);
+				else
+					self.refreshfilter(true);
+			}, 50);
 		});
 
 		self.select = function(row) {
@@ -813,6 +815,15 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		}, self);
 	};
 
+	self.applyfilter = function(obj) {
+		opt.filter = {};
+		header.find('input,select').each(function() {
+			var el = $(this);
+			var val = obj[el.attrd('name')];
+			el.val(val == null ? '' : val);
+		}).trigger('change');
+	};
+
 	self.rebind = function(code) {
 
 		var type = typeof(code);
@@ -924,8 +935,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		cols.quicksort('index');
 		opt.cols = cols;
 		self.rebindcss();
-		hbody && hbody.prop('scrollLeft', 0);
-		vbody && vbody.prop('scrollTop', 0);
+		hbody && (hbody[0].scrollLeft = 0);
+		vbody && (vbody[0].scrollTop = 0);
 	};
 
 	self.rebindcss = function() {
