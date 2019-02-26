@@ -349,7 +349,7 @@ COMPONENT('editable', function(self, config) {
 				break;
 		}
 
-		if ((opt.required && opt.value == null || opt.value === '') || (opt.validate && !opt.validate(opt.value)))
+		if ((opt.required && (opt.value == null || opt.value === '')) || (opt.validate && !opt.validate(opt.value)))
 			return false;
 
 		opt.html = null;
