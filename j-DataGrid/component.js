@@ -449,6 +449,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			}
 		});
 
+		self.released = function(is) {
+			!is && setTimeout(self.resize, 500);
+		};
+
 		self.event('click', '.dg-filter-cancel', function() {
 			var el = $(this);
 			el.parent().find('input,select').val('').trigger('change');
@@ -1534,8 +1538,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		self.refreshfilter();
 		self.redrawpagination();
 		self.fn_in_changed();
-
 		!config.exec && self.rendercols();
+		setTimeout2(self.ID + 'resize', self.resize, 100);
 
 		if (opt.cluster)
 			return;
