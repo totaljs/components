@@ -37,7 +37,14 @@ COMPONENT('iframepreview', function(self) {
 
 	self.resize = function() {
 		var el = $(iframe[0].contentWindow.document.getElementById('IFPOFFSET'));
-		self.element.css('height', el.offset().top);
+		if (el) {
+			var offset = el.offset();
+			if (offset) {
+				self.element.css('height', offset.top);
+				if (offset.top == 0)
+					setTimeout(self.resize, 1000);
+			}
+		}
 	};
 
 	self.setter = function(value) {
