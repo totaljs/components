@@ -12,12 +12,12 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 
 	self.bindevents = function() {
 		if (!is)
-			$(window).on('scroll', events.resize).on('resize', events.resize);
+			$(W).on('scroll', events.resize).on('resize', events.resize);
 	};
 
 	self.unbindevents = function() {
 		if (is)
-			$(window).off('scroll', events.resize).off('resize', events.resize);
+			$(W).off('scroll', events.resize).off('resize', events.resize);
 	};
 
 	self.make = function() {
@@ -129,7 +129,7 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 				if (typeof(selected) === 'string')
 					self.val(opt.element, selected);
 				else
-					self.val(opt.element, selected[item.value]);
+					self.val(opt.element, selected[item.dirvalue]);
 			};
 
 			SETTER('directory', 'show', opt);
@@ -159,7 +159,7 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 				}
 			} else {
 				item.current = val;
-				val = item.type.findValue(item.value, val, item.dirkey, '');
+				val = item.type.findValue(item.dirvalue, val, item.dirkey, '');
 				el.find(cls2 + '-option').html(val);
 			}
 		} else {
