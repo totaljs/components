@@ -231,7 +231,7 @@ COMPONENT('editable', function(self, config) {
 				opt.value = GET(opt.path);
 				opt.html = el.html();
 
-				if (opt.value == null) {
+				if (opt.value == null || opt.value == '') {
 					opt.value = opt.raw ? '' : opt.html;
 					opt.raw && el.html('');
 				}
