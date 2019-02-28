@@ -7,5 +7,5 @@ Thelpers.initials = function(value) {
 	var sum = 0;
 	for (var i = 0; i < value.length; i++)
 		sum += value.charCodeAt(i);
-	return '<span class="initials" style="background-color:{1}" title="{2}">{0}</span>'.format(initials, TTIC[sum % value.length], value);
+	return '<span class="initials" style="background-color:{1}" title="{2}">{0}</span>'.format(initials, TTIC[sum % value.length] || TTIC[0], value);
 };
