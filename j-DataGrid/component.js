@@ -126,6 +126,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			case 'columns':
 				self.datasource(value, function(path, value, type) {
 					if (value) {
+						opt.sort = null;
+						opt.filter = {};
+						opt.scroll = false;
+						opt.selected = {};
 						self.rebind(value);
 						type && self.setter(null);
 					}
