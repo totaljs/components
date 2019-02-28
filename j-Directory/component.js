@@ -391,7 +391,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		self.rclass('hidden');
 
 		setTimeout(function() {
-			if (self.opt.element[0].offsetParent)
+			if (self.opt && self.target && self.target.offsetParent)
 				self.aclass(cls + '-visible');
 			else
 				self.hide(1);
