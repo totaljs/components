@@ -81,6 +81,7 @@
 .dg-checkbox i { display: none; }
 .dg-checked { background-color: #4285F4; border-color: #4285F4; color: white; }
 .dg-checked i { display: block; }
+.dg-required:before { content: '*'; font-size: 14px; color: red; font-weight: bold; margin-right: 3px; vertical-align: top; }
 .dg input:-ms-input-placeholder { color: #A0A0A0 !important; }
 .dg input::placeholder { color: #A0A0A0; opacity: 1; }
 .dg input::-ms-input-placeholder { color: #A0A0A0 !important; }
