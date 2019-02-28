@@ -104,7 +104,7 @@ COMPONENT('modal', 'zindex:12;width:800', function(self, config) {
 			ml = '';
 			hh += 25;
 		}
-
+		ebody.css({ 'margin-right': mobile ? 0 : SCROLLBARWIDTH() });
 		emodal.css({ top: top, 'margin-left': ml });
 		earea.css({ 'max-height': h - hh - hf, 'width': width + 30 });
 	};

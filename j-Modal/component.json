@@ -1,9 +1,11 @@
 {
 	"datecreated": "2019-02-10T17:51:00.000Z",
-	"dateupdated": null,
+	"dateupdated": "2019-02-28T23:38:00.000Z",
 	"name": "j-Modal",
 	"tags": [
-		"jcomponent"
+		"modal",
+		"window",
+		"form"
 	],
 	"color": "white",
 	"version": 1,
