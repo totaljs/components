@@ -746,7 +746,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	}
 
 	self.clear = function() {
-		opt.changed = {};
 		for (var i = 0; i < opt.rows.length; i++)
 			opt.rows[i].CHANGES = undefined;
 		self.renderrows(opt.rows, true);
@@ -814,7 +813,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			data.row.CHANGES[data.col.name] = true;
 			opt.render[data.rowindex] = self.renderrow(data.rowindex, data.row);
 			data.elrow.replaceWith(opt.render[data.rowindex]);
-			opt.changed[data.rowindex] = 1;
 			self.fn_in_changed();
 		}, self);
 	};
@@ -1054,6 +1052,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			}
 			el.append(builder.join(''));
 		});
+
+		self.redrawsorting();
 	};
 
 	self.redraw = function(update) {
@@ -1545,12 +1545,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		}
 
 		opt.checked = {};
-		opt.changed = {};
 		opt.scroll = true;
 
 		self.applycolumns();
 		self.refreshfilter();
-		self.redrawpagination();
+		self.redrawsorting();
 		self.fn_in_changed();
 		!config.exec && self.rendercols();
 		setTimeout2(self.ID + 'resize', self.resize, 100);
@@ -1695,14 +1694,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	};
 
 	self.changed = function() {
-		var arr = Object.keys(opt.changed);
 		var output = [];
 		var model = self.get() || EMPTYARRAY;
 		var rows = model instanceof Array ? model : model.items;
-		for (var i = 0; i < arr.length; i++) {
-			var index = +arr[i];
-			output.push(rows[index]);
-		}
+		for (var i = 0; i < rows.length; i++)
+			rows[i].CHANGES && output.push(rows[i]);
 		return output;
 	};
 
