@@ -1475,17 +1475,19 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		self.find('.dg-sorting').each(function() {
 			var el = $(this);
 			var col = opt.cols[+el.attrd('index')];
-			var fa = el.find('.dg-sort').rclass2('fa-');
-			switch (col.sort) {
-				case 1:
-					fa.aclass('fa-arrow-up');
-					break;
-				case 2:
-					fa.aclass('fa-arrow-down');
-					break;
-				default:
-					fa.aclass('fa-sort');
-					break;
+			if (col) {
+				var fa = el.find('.dg-sort').rclass2('fa-');
+				switch (col.sort) {
+					case 1:
+						fa.aclass('fa-arrow-up');
+						break;
+					case 2:
+						fa.aclass('fa-arrow-down');
+						break;
+					default:
+						fa.aclass('fa-sort');
+						break;
+				}
 			}
 		});
 	};
