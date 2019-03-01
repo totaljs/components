@@ -47,6 +47,7 @@ Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:dat
 - `masktidy` {Boolean} optional, the component returns only raw chars without fixed chars (default: `false`)
 - __NEW__ `autosource` {String} a path to `search` function in `autocomplete`, `function(search, render(arr))`
 - __NEW__ `autovalue` {String} a property path for the value in `autosource`
+- __NEW__ `searchalign` {Number} can align icon on `type:search` to left (`2`) or right (`1`, default)
 
 __Interesting:__
 
