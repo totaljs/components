@@ -220,7 +220,13 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 						self.change();
 						self.bindvalue();
 					});
-				} else if (!custom) {
+				} else if (custom) {
+					if (val) {
+						self.set(val, 2);
+						self.change();
+						self.bindvalue();
+					}
+				} else {
 					self.set(val, 2);
 					self.change();
 					self.bindvalue();
