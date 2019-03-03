@@ -91,13 +91,14 @@ COMPONENT('menu', function(self) {
 		}
 
 		var css = {};
-		css.left = 0;
-		css.top = 0;
-		self.element.css(css);
 
 		ul.html(builder.join(''));
 
-		if (!is) {
+		if (is) {
+			css.left = 0;
+			css.top = 0;
+			self.element.css(css);
+		} else {
 			self.rclass('hidden');
 			self.aclass(cls + '-visible', 100);
 			is = true;
