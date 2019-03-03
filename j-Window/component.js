@@ -1,13 +1,14 @@
 COMPONENT('window', 'zindex:12;scrollbar:true', function(self, config) {
 
-	var W = window;
+	var cls = 'ui-window';
+	var cls2 = '.' + cls;
 
 	if (!W.$$window) {
 
 		W.$$window_level = W.$$window_level || 1;
 		W.$$window = true;
 
-		$(document).on('click', '.ui-window-button-close', function() {
+		$(document).on('click', cls2 + '-button-close', function() {
 			SET($(this).attrd('path'), '');
 		});
 
@@ -28,8 +29,8 @@ COMPONENT('window', 'zindex:12;scrollbar:true', function(self, config) {
 	};
 
 	self.resize = function() {
-		var el = self.find('.ui-window-body');
-		el.height(WH - self.find('.ui-window-header').height());
+		var el = self.find(cls2 + '-body');
+		el.height(WH - self.find(cls2 + '-header').height());
 		self.scrollbar && self.scrollbar.resize();
 	};
 
@@ -38,9 +39,9 @@ COMPONENT('window', 'zindex:12;scrollbar:true', function(self, config) {
 		var scr = self.find('> script');
 		self.template = scr.length ? scr.html() : '';
 
-		$(document.body).append('<div id="{0}" class="hidden ui-window-container"><div class="ui-window"><div data-bind="@config__change .ui-window-icon:@icon__html span:value.title" class="ui-window-title"><button name="cancel" class="ui-window-button-close{2}" data-path="{1}"><i class="fa fa-times"></i></button><i class="ui-window-icon"></i><span></span></div><div class="ui-window-header"></div><div class="ui-window-body"></div></div>'.format(self.ID, self.path, config.closebutton == false ? ' hidden' : ''));
+		$(document.body).append('<div id="{0}" class="hidden {3}-container"><div class="{3}"><div data-bind="@config__change .{3}-icon:@icon__html span:value.title" class="{3}-title"><button name="cancel" class="{3}-button-close{2}" data-path="{1}"><i class="fa fa-times"></i></button><i class="{3}-icon"></i><span></span></div><div class="{3}-header"></div><div class="{3}-body"></div></div>'.format(self.ID, self.path, config.closebutton == false ? ' hidden' : '', cls));
 		var el = $('#' + self.ID);
-		var body = el.find('.ui-window-body');
+		var body = el.find(cls2 + '-body');
 		body[0].appendChild(self.dom);
 
 		if (config.scrollbar && window.SCROLLBAR) {
@@ -50,7 +51,7 @@ COMPONENT('window', 'zindex:12;scrollbar:true', function(self, config) {
 			self.scrollright = self.scrollbar.scrollRight;
 			self.scrollbottom = self.scrollbar.scrollBottom;
 		} else
-			body.aclass('ui-window-scroll');
+			body.aclass(cls + '-scroll');
 
 		self.rclass('hidden');
 		self.replace(el);
@@ -72,7 +73,7 @@ COMPONENT('window', 'zindex:12;scrollbar:true', function(self, config) {
 		if (!init) {
 			switch (key) {
 				case 'closebutton':
-					self.find('.ui-window-button-close').tclass(value !== true);
+					self.find(cls2 + '-button-close').tclass(value !== true);
 					break;
 			}
 		}
@@ -80,8 +81,8 @@ COMPONENT('window', 'zindex:12;scrollbar:true', function(self, config) {
 
 	self.setter = function(value) {
 
-		setTimeout2('ui-window-noscroll', function() {
-			$('html').tclass('ui-window-noscroll', !!$('.ui-window-container').not('.hidden').length);
+		setTimeout2(cls + '-noscroll', function() {
+			$('html').tclass(cls + '-noscroll', !!$(cls2 + '-container').not('.hidden').length);
 		}, 50);
 
 		var isHidden = value !== config.if;
@@ -96,13 +97,13 @@ COMPONENT('window', 'zindex:12;scrollbar:true', function(self, config) {
 		if (isHidden) {
 			self.aclass('hidden');
 			self.release(true);
-			self.find('.ui-window').rclass('ui-window-animate');
+			self.find(cls2).rclass(cls + '-animate');
 			W.$$window_level--;
 			return;
 		}
 
 		if (self.template) {
-			var is = (/(data-bind|data-jc|data-{2,})="/).test(self.template);
+			var is = self.template.COMPILABLE();
 			self.find('div[data-jc-replaced]').html(self.template);
 			self.template = null;
 			is && COMPILE();
@@ -113,7 +114,7 @@ COMPONENT('window', 'zindex:12;scrollbar:true', function(self, config) {
 
 		W.$$window_level++;
 
-		var body = self.find('.ui-window-body');
+		var body = self.find(cls2 + '-body');
 
 		self.css('z-index', W.$$window_level * config.zindex);
 		body.scrollTop(0);
@@ -125,13 +126,15 @@ COMPONENT('window', 'zindex:12;scrollbar:true', function(self, config) {
 		config.default && DEFAULT(config.default, true);
 
 		if (!isMOBILE && config.autofocus) {
-			var el = self.find(config.autofocus === true ? 'input[type="text"],select,textarea' : config.autofocus);
-			el.length && el[0].focus();
+			var el = self.find(config.autofocus === true ? 'input[type="text"],input[type="password"],select,textarea' : config.autofocus);
+			el.length && setTimeout(function() {
+				el[0].focus();
+			}, 1500);
 		}
 
 		setTimeout(function() {
-			body.scrollTop(0);
-			self.find('.ui-window').aclass('ui-window-animate');
+			body[0].scrollTop = 0;
+			self.find(cls2 ).aclass(cls + '-animate');
 		}, 300);
 
 		// Fixes a problem with freezing of scrolling in Chrome
