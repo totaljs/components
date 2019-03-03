@@ -67,7 +67,7 @@ COMPONENT('iframeeditable', 'bind:body', function(self, config) {
 	self.write = function(content) {
 
 		var is = false;
-		var offset = ('<div id="IFPOFFSET"></div><scr' + 'ipt>window.addEventListener(\'keydown\',function(){window.parent.iframeeditableinstances[\'{0}\'].resize2()});</scr' + 'ipt>').format(self.ID);
+		var offset = ('<div id="IFPOFFSET"></div><scr' + 'ipt>window.addEventListener(\'keydown\',function(){window.parent.iframeeditableinstances[\'{0}\'].resize2()});</scr' + 'ipt><style>body{background:white!important;font:normal 14px Arial;}</style>').format(self.ID);
 
 		content = content.replace(/<\/body>/i, function() {
 			is = true;
@@ -77,17 +77,19 @@ COMPONENT('iframeeditable', 'bind:body', function(self, config) {
 		if (!is)
 			content += offset;
 
-		var win = iframe[0].contentWindow;
-		var doc = win.document;
-		doc.open();
-		doc.write(content);
-		doc.close();
+		setTimeout(function() {
+			var win = iframe[0].contentWindow;
+			var doc = win.document;
+			doc.open();
+			doc.write(content);
+			doc.close();
+			self.resize();
+			setTimeout(self.resize, 500);
+			setTimeout(self.resize, 1000);
+			setTimeout(self.resize, 2000);
+			setTimeout(self.resize, 3000);
+		}, 500);
 
-		self.resize();
-		setTimeout(self.resize, 500);
-		setTimeout(self.resize, 1000);
-		setTimeout(self.resize, 2000);
-		setTimeout(self.resize, 3000);
 	};
 
 	self.resize2 = function() {
@@ -125,7 +127,8 @@ COMPONENT('iframeeditable', 'bind:body', function(self, config) {
 
 	self.resize = function() {
 		var el = $(iframe[0].contentWindow.document.getElementById('IFPOFFSET'));
-		self.element.css('height', el.offset().top + 30);
+		var offset = el ? el.offset() : null;
+		self.element.css('height', (offset ? offset.top : 0) + 30);
 	};
 
 	self.setter = function(value) {
