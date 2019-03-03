@@ -19,7 +19,7 @@ opt.element = YOUR_ELEMENT;
 // opt.x {Number}          : `x` position
 // opt.y {Number}          : `y` position
 
-opt.items = ['Label', { name: 'Item 1', icon: 'print', shortcut: 'CMD+P' }, { name: 'Item 2', icon: 'home' }, '-', { name: 'Item 3', icon: 'cog' }];
+opt.items = ['Label', { name: 'Item 1', icon: 'print' }, { name: 'Item 2', icon: 'home' }, '-', { name: 'Item 3', icon: 'cog' }];
 
 opt.callback = function(item) {
 	console.log(item);

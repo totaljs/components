@@ -1,11 +1,11 @@
 .ui-menu { position: absolute; z-index: 100; background-color: white; padding: 5px 0; border-radius: 3px; box-shadow: 2px 5px 10px rgba(0,0,0,0.05); transition: 0.2s all; transform: scale(0.3); transform-origin: top left; opacity: 0; border: 1px solid #E0E0E0; }
 .ui-menu-visible { transform: scale(1); opacity: 1; }
 .ui-menu ul { margin: 0; padding: 0; }
-.ui-menu li { margin: 0; padding: 5px 20px 5px 5px; list-style-type: none; font-size: 12px; cursor: pointer; }
+.ui-menu li { margin: 0; padding: 5px 30px 5px 5px; list-style-type: none; font-size: 12px; cursor: pointer; }
 .ui-menu li:hover { background-color: #F0F0F0; }
 .ui-menu-nofa { padding-left: 12px !important; }
 .ui-menu i { width: 30px; margin: 0 5px 0 0; text-align: center; color: black; }
-.ui-menu b { float: right; font-size: 11px; color: gray; }
+.ui-menu b { position: absolute; right: 0; font-size: 11px; color: gray; margin: 1px 5px 0; }
 .ui-menu-divider { padding: 0 !important; background: transparent !important; cursor: default !important; color: gray; font-size: 11px !important; }
 .ui-menu-divider span { display: block; margin: 5px 12px; }
 .ui-menu-divider hr { margin: 5px 0; border-color: #E0E0E0; }
