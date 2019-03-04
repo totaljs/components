@@ -49,7 +49,6 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/', function(self,
 			e.preventDefault();
 			e.stopPropagation();
 			var el = $(this);
-			var index = +el.closest(cls2 + 'item').attrd('index');
 			el.tclass(cls + '-checkbox-checked');
 			self.checked2();
 		});
@@ -78,7 +77,8 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/', function(self,
 	};
 
 	self.resize = function() {
-		self.scrollbar && self.scrollbar.element.css('height', self.element.height() - epath.height());
+		var el = config.parent === 'window' ? $(W) : config.parent ? self.closest(config.parent) : self.element;
+		self.scrollbar && self.scrollbar.element.css('height', el.height() - epath.height() - (config.margin || 0));
 	};
 
 	self.checked = function() {
@@ -159,6 +159,6 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/', function(self,
 		self.renderpath(value || '');
 		config.browse && EXEC(config.browse, value, self.renderitems);
 		self.resize();
-	}
+	};
 
 });
