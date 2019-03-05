@@ -1,6 +1,5 @@
-.ui-listbox * { box-sizing: border-box; }
 .ui-listbox { border: 1px solid #E0E0E0; font-size: 14px; color: black; position: relative; }
-.ui-listbox ul { list-style-type: none; width: 100%; height: 100%; overflow: auto; margin: 0; padding: 0; }
+.ui-listbox ul { list-style-type: none; width: 100%; height: 100%; overflow: auto; margin: 0; padding: 0; overflow-scrolling: touch; }
 .ui-listbox li { border-bottom: 1px solid #E0E0E0; padding: 5px 10px; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; overflow-scrolling: touch; }
 .ui-listbox li .fa { width: 22px; font-size: 12px; border-right: 1px solid #E0E0E0; margin-right: 7px; color: #A0A0A0; }
 .ui-listbox li:hover { background-color: #F0F0F0; }
@@ -19,3 +18,4 @@
 .ui-listbox.ui-disabled li:hover { background-color: white; }
 .ui-listbox.ui-disabled li { cursor: not-allowed; }
 .ui-listbox.ui-disabled .ui-listbox-selected { background-color: #D0D0D0 !important; }
+.ui-listbox-container { overflow: hidden; }

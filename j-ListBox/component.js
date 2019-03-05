@@ -1,11 +1,32 @@
 COMPONENT('listbox', function(self, config) {
 
+	var cls = 'ui-listbox';
+	var cls2 = '.' + cls;
 	var Eitems, datasource = null;
 	var skip = false;
 
 	self.datasource = EMPTYARRAY;
-	self.template = Tangular.compile('<li data-search="{{ search }}" data-index="{{ index }}">{{ if icon }}<i class="fa fa-{{ icon }}"></i>{{ fi }}{{ text }}</li>');
+	self.template = Tangular.compile('<li data-search="{{ search }}" data-index="{{ index }}" style="padding-right:{0}px">{{ if icon }}<i class="fa fa-{{ icon }}"></i>{{ fi }}{{ text }}</li>'.format(SCROLLBARWIDTH()));
 	self.nocompile && self.nocompile();
+
+	self.init = function() {
+
+		var resize = function() {
+			// Notifies all listboxes
+			setTimeout2('listboxes_resize', function() {
+				for (var i = 0; i < M.components.length; i++) {
+					var com = M.components[i];
+					if (com.name === 'listbox' && !(com.config.height > 0))
+						com.resize2();
+				}
+			}, 100);
+		};
+
+		if (W.OP)
+			W.OP.on('resize', resize);
+		else
+			$(W).on('resize', resize);
+	};
 
 	self.validate = function(value) {
 		return config.disabled || !config.required ? true : value ? (config.multiple ? value.length > 0 : true) : false;
@@ -13,7 +34,7 @@ COMPONENT('listbox', function(self, config) {
 
 	self.make = function() {
 
-		self.aclass('ui-listbox');
+		self.aclass(cls);
 		self.redraw();
 
 		config.datasource && self.reconfigure('datasource:' + config.datasource);
@@ -54,6 +75,9 @@ COMPONENT('listbox', function(self, config) {
 		typeof(config.search) === 'string' && self.event('keydown', 'input', function() {
 			!config.disabled && setTimeout2(self.id, self.search, 500);
 		});
+
+		self.on('resize', self.resize2);
+		self.on('reflow', self.resize2);
 	};
 
 	self.configure = function(key, value, init) {
@@ -70,7 +94,7 @@ COMPONENT('listbox', function(self, config) {
 				self.tclass('ui-disabled', value);
 				self.find('input').prop('disabled', value);
 				if (value)
-					self.rclass('ui-listbox-invalid');
+					self.rclass(cls + '-invalid');
 				else if (config.required)
 					self.state(1, 1);
 				break;
@@ -81,7 +105,10 @@ COMPONENT('listbox', function(self, config) {
 				redraw = true;
 				break;
 			case 'height':
-				Eitems.css('height', value + 'px');
+				if (value > 0)
+					Eitems.css('height', value + 'px');
+				else
+					self.resize();
 				break;
 			case 'items':
 				var arr = [];
@@ -112,17 +139,52 @@ COMPONENT('listbox', function(self, config) {
 		Eitems.find('li').each(function() {
 			var el = $(this);
 			el.tclass('hidden', el.attrd('search').indexOf(search) === -1);
-			if (!first && el.hclass('ui-listbox-selected'))
+			if (!first && el.hclass(cls + '-selected'))
 				first = el;
 		});
-		self.find('.ui-listbox-search-icon').tclass('fa-search', search.length === 0).tclass('fa-times', search.length > 0);
+		self.find(cls2 + '-search-icon').tclass('fa-search', search.length === 0).tclass('fa-times', search.length > 0);
 		!skip && first && first[0].scrollIntoView(true);
 		skip = false;
 	};
 
 	self.redraw = function() {
-		self.html((typeof(config.search) === 'string' ? '<div class="ui-listbox-search"><span><i class="fa fa-search ui-listbox-search-icon"></i></span><div><input type="text" placeholder="{0}" /></div></div><div><div class="ui-listbox-search-empty"></div>'.format(config.search) : '') + '<div><ul style="height:{0}px"></ul></div>'.format(config.height || '200'));
+		self.html((typeof(config.search) === 'string' ? '<div class="{0}-search"><span><i class="fa fa-search {0}-search-icon"></i></span><div><input type="text" placeholder="{1}" /></div></div><div><div class="{0}-search-empty"></div>'.format(cls, config.search) : '') + '<div class="{0}-container"><ul style="height:{1}px"></ul></div>'.format(cls, config.height || '200'));
 		Eitems = self.find('ul');
+		self.resize();
+	};
+
+	self.resize2 = function() {
+		if (!(config.height > 0))
+			setTimeout2(self.ID + 'resize', self.resize, 300);
+	};
+
+	self.resize = function() {
+
+		var w = SCROLLBARWIDTH();
+		var h = 0;
+		var css = {};
+
+		css.width = w ? (self.element.width() + w) : 'auto';
+
+		if (typeof(config.height) === 'string') {
+
+			// selector
+			switch (config.height) {
+				case 'parent':
+					h = self.element.parent().height();
+					break;
+				case 'window':
+					h = WH;
+					break;
+				default:
+					h = self.element.closest(config.height).height();
+					break;
+			}
+
+			css.height = (h - (config.margin || 0) - (self.find(cls2 + '-search').height() + 4)) >> 0; // 4 means border
+		}
+
+		Eitems.css(css);
 	};
 
 	self.bind = function(path, value) {
@@ -183,7 +245,7 @@ COMPONENT('listbox', function(self, config) {
 			var el = $(this);
 			var index = +el.attrd('index');
 			var is = selected[index] !== undefined;
-			el.tclass('ui-listbox-selected', is);
+			el.tclass(cls + '-selected', is);
 		});
 
 		self.search();
@@ -196,6 +258,6 @@ COMPONENT('listbox', function(self, config) {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		self.tclass('ui-listbox-invalid', invalid);
+		self.tclass(cls + '-invalid', invalid);
 	};
 });
