@@ -31,10 +31,7 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# it
 	};
 
 	self.page = function(page, el) {
-		if (config.exec) {
-			var fn = GET(config.exec);
-			fn && fn(page, el);
-		}
+		config.exec && SEEX(config.exec, page, el);
 	};
 
 	self.getPagination = function(page, pages, max, fn) {
