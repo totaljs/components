@@ -4,6 +4,7 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:false;visibleY:tr
 	var scrollbar;
 	var cls = 'ui-viewbox';
 	var cls2 = '.' + cls;
+	var sw = SCROLLBARWIDTH();
 
 	self.readonly();
 
@@ -14,7 +15,11 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:false;visibleY:tr
 		else
 			obj = $(W);
 		obj.on('resize', function() {
-			SETTER('viewbox', 'resize');
+			for (var i = 0; i < M.components.length; i++) {
+				var com = M.components[i];
+				if (com.name === 'viewbox' && com.dom.offsetParent)
+					com.resize();
+			}
 		});
 	};
 
@@ -61,8 +66,10 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:false;visibleY:tr
 					self.scrollbottom = scrollbar.scrollBottom;
 				} else
 					self.aclass(cls + '-scroll');
-			} else
-				self.aclass(cls + '-scroll ' + cls + '-scrollhidden');
+			} else {
+				self.aclass(cls + '-scroll');
+				sw && self.find(cls2 + '-body').css('padding-right', sw);
+			}
 		}
 		self.resize();
 	};
@@ -90,19 +97,19 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:false;visibleY:tr
 
 		h = ((h / 100) * config.height) - config.margin;
 
+
 		if (config.minheight && h < config.minheight)
 			h = config.minheight;
 
 		css.height = h;
 		css.width = self.element.width();
-
 		eld.css(css);
 
 		css.width = null;
 		self.css(css);
 
 		if (config.scroll && !config.scrollbar)
-			css.width = w + 30;
+			css.width = w + sw;
 
 		elb.length && elb.css(css);
 		self.element.SETTER('*', 'resize');
