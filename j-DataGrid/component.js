@@ -1556,6 +1556,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		self.applycolumns();
 		self.refreshfilter();
 		self.redrawsorting();
+		self.redrawpagination();
 		self.fn_in_changed();
 		!config.exec && self.rendercols();
 		setTimeout2(self.ID + 'resize', self.resize, 100);
