@@ -13,7 +13,11 @@ COMPONENT('window', 'zindex:12;scrollbar:true', function(self, config) {
 		});
 
 		var resize = function() {
-			SETTER('window', 'resize');
+			for (var i = 0; i < M.components.length; i++) {
+				var com = M.components[i];
+				if (com.dom.offsetParent)
+					com.resize();
+			}
 		};
 
 		if (W.OP)
@@ -117,7 +121,7 @@ COMPONENT('window', 'zindex:12;scrollbar:true', function(self, config) {
 		var body = self.find(cls2 + '-body');
 
 		self.css('z-index', W.$$window_level * config.zindex);
-		body.scrollTop(0);
+		body[0].scrollTop = 0;
 		self.rclass('hidden');
 		self.release(false);
 		self.resize();
