@@ -15,6 +15,7 @@ __Configuration__:
 - `delay` {Number} `msec.` resizes the box again if the value is changed according to the path (default: `100`)
 - `visibleY` {Boolean} still shows `Y` scrollbar (default: `false`)
 - `visibleX` {Boolean} still shows `X` scrollbar (default: `false`)
+- `margin` {Number} optional, a top/bottom margin together (default: `0`)
 
 __Methods__:
 

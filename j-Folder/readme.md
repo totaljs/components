@@ -14,6 +14,8 @@ __Configuration__:
 - `click` {String} a path to variable or method `function(item)` (user must click on the item)
 - `checked` {String} a path to variable or method `function(checked_items, component)` (user must check the checkbox)
 - `browse` {String} __IMPORTANT__: a path to method `function(path, next(ARRAY), [item])` which must return a content for the component
+- `parent` {String} optional, a container with fixed height, can be `window`. Default value: `component.element()`
+- `margin` {Number} optional, a top/bottom margin together (default: `0`)
 
 ```javascript
 function fn_browser(path, next, item) {
