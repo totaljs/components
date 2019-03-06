@@ -55,12 +55,14 @@ COMPONENT('editable', function(self, config) {
 		var opt = (el.attrd('editable') || '').parseConfig();
 
 		if (!opt.path) {
-			// Internal hack for data-bind instance
-			var binder = el[0].$jcbind;
-			if (!binder)
-				return;
-			opt.path = binder.path;
-			opt.binder = binder;
+			if (!opt.save) {
+				// Internal hack for data-bind instance
+				var binder = el[0].$jcbind;
+				if (!binder)
+					return;
+				opt.path = binder.path;
+				opt.binder = binder;
+			}
 		} else
 			opt.path = self.path + '.' + opt.path;
 
