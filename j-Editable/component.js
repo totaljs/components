@@ -230,7 +230,7 @@ COMPONENT('editable', function(self, config) {
 				opt.is = false;
 			} else {
 
-				opt.value = GET(opt.path);
+				opt.prev = opt.value = GET(opt.path);
 				opt.html = el.html();
 
 				if (opt.value == null || opt.value == '') {
@@ -331,7 +331,7 @@ COMPONENT('editable', function(self, config) {
 		SETTER('!autocomplete', 'hide');
 
 		var cur = el.html();
-		if (opt.html === cur)
+		if (opt.html === cur || (opt.raw && !cur))
 			return true;
 
 		var val = cur;
