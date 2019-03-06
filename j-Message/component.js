@@ -66,7 +66,7 @@ COMPONENT('message', function(self, config) {
 				self.warning(msg);
 			} else {
 				self.success(success);
-				callback && callback();
+				callback && callback(response);
 			}
 		};
 	};
