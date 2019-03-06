@@ -26,7 +26,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 			switch (type) {
 				case 'detail':
 					var h = el.html();
-					dcompile = (/(data-{2,4}|data-jc|data-bind)+=/).test(h);
+					dcompile = h.COMPILABLE();
 					templates.detail = Tangular.compile(h);
 					return;
 				case 'empty':
@@ -99,6 +99,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 		ebody = etable.find('tbody');
 		eempty = self.find(cls2 + '-empty').html(templates.empty || '');
 		ehead = etable.find('thead');
+		templates.empty && templates.empty.COMPILABLE() && COMPILE(eempty);
 
 		ebody.on('click', '> tr', function(e) {
 
@@ -173,7 +174,8 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 
 	self.row_detail = function(el) {
 
-		var row = opt.items[+el.attrd('index')];
+		var index = +el.attrd('index');
+		var row = opt.items[index];
 		var eld = el.next();
 
 		if (el.hclass(cls + '-selected')) {
@@ -190,7 +192,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 				if (config.detail === true) {
 					if (templates.detail) {
 						var tmp = eld.find('td');
-						tmp.html(templates.detail(row, { user: window.user }));
+						tmp.html(templates.detail(row, { index: index, user: window.user }));
 						dcompile && COMPILE(tmp);
 					}
 				} else
@@ -249,7 +251,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 		return rows;
 	};
 
-	self.setter = function(value, path) {
+	self.setter = function(value) {
 
 		if (value && value.items)
 			value = value.items;
@@ -276,7 +278,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 		var selected = opt.selected.slice(0);
 
 		for (var i = 0; i < selected.length; i++) {
-			var row = opt.items[i];
+			var row = opt.items[selected[i]];
 			selected[i] = row[config.pk];
 		}
 
@@ -332,7 +334,6 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 				}
 			}
 		}
-
 	};
 
 });
