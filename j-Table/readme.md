@@ -39,6 +39,7 @@ __HTML definition__:
 
 	<script type="text/html" data-type="detail">
 		DETAIL: {{ name }}
+		HIDDEN COMMANDS: {{ $.index }} or {{ $.user }}
 	</script>
 
 	<script type="text/html" data-type="empty">
