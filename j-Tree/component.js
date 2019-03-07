@@ -136,10 +136,11 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 		});
 	};
 
-	self.select = function(index, noeval) {
+	self.select = function(index, noeval, reinit) {
 		var el = self.find('[data-index="{0}"]'.format(index));
 		var c = '-selected';
 		if (el.hclass(cls + '-expand')) {
+
 			var parent = el.parent();
 
 			if (config.selectexpand) {
@@ -147,9 +148,19 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 				el.aclass(cls + c);
 			}
 
-			parent.tclass(cls + '-show');
-			var is = expanded[index] = parent.hclass(cls + '-show');
-			!noeval && config.exec && SEEX(config.exec, cache[index], true, is);
+			if (!reinit)
+				parent.tclass(cls + '-show');
+
+			var is = parent.hclass(cls + '-show');
+			var item = cache[index];
+
+			if (config.pk)
+				expanded[item[config.pk]] = 1;
+			else
+				expanded[index] = 1;
+
+			!noeval && config.exec && SEEX(config.exec, item, true, is);
+			selindex = index;
 		} else {
 			!el.hclass(cls + c) && self.find(cls2 + c).rclass(cls + c);
 			el.aclass(cls + c);
@@ -237,15 +248,20 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 		}
 	};
 
-	self.renderchildren = function(builder, item, level) {
+	self.renderchildren = function(builder, item, level, selected) {
 		builder.push('<div class="{0}-children {0}-children{1}" data-level="{1}">'.format(cls, level));
 		item.children.forEach(function(item) {
 			counter++;
 			item.$pointer = counter;
 			cache[counter] = item;
-			builder.push('<div class="{0}-node{1}">'.format(cls, expanded[counter] && item.children ? ' ui-tree-show' : ''));
+			var key = config.pk ? item[config.pk] : counter;
+
+			if (key === selected)
+				selindex = counter;
+
+			builder.push('<div class="{0}-node{1}">'.format(cls, expanded[key] && item.children ? ' ui-tree-show' : ''));
 			builder.push(self.template(item));
-			item.children && self.renderchildren(builder, item, level + 1);
+			item.children && self.renderchildren(builder, item, level + 1, selected);
 			builder.push('</div>');
 		});
 		builder.push('</div>');
@@ -264,7 +280,9 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 
 		config.autoreset && self.clear();
 		var builder = [];
+		var selected = selindex === -1 ? -1 : config.pk ? cache[selindex][config.pk] : cache[selindex];
 
+		selindex = -1;
 		counter = 0;
 		cache = {};
 
@@ -272,9 +290,12 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 			counter++;
 			item.$pointer = counter;
 			cache[counter] = item;
-			builder.push('<div class="{0}-node{1}">'.format(cls, expanded[counter] && item.children ? ' ui-tree-show' : '') + self.template(item));
+			var key = config.pk ? item[config.pk] : counter;
+			if (key === selected)
+				selindex = counter;
+			builder.push('<div class="{0}-node{1}">'.format(cls, expanded[key] && item.children ? ' ui-tree-show' : '') + self.template(item));
 			if (item.children)
-				self.renderchildren(builder, item, 1);
+				self.renderchildren(builder, item, 1, selected);
 			else if (!cache.first)
 				cache.first = item;
 			builder.push('</div>');
@@ -284,7 +305,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 
 		if (selindex !== -1) {
 			// Disables auto-select when is refreshed
-			self.select(selindex, !config.reselect);
+			self.select(selindex, !config.reselect, true);
 		} else
 			config.first !== false && cache.first && setTimeout(self.first, 100);
 
