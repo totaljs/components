@@ -63,7 +63,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			}
 		});
 
-		self.event('touchstart mousedown', 'li', function(e) {
+		self.event('click', 'li', function(e) {
 			self.opt.callback && self.opt.callback(self.opt.items[+this.getAttribute('data-index')], self.opt.element);
 			self.hide();
 			e.preventDefault();
