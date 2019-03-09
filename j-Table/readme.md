@@ -9,7 +9,7 @@ __Configuration__:
 - `highlight` {Boolean} enables highlighting of the row (default: `true`)
 - `unhighlight` {Boolean} enables undo-highlighting of the row (default: `true`)
 - `multiple` {Boolean} enables multiple row highlighting (default: `false`)
-- `detail` {Boolean/String} if `string` then the value must be a link to `function(el_td, row)`
+- `detail` {Boolean/String} if `string` then the value must be a link to `function(row_data, next_fn(new_data_for_detail_template_OR__new_html), tdelement)`
 - `exec` {String} a path to `function(row/rows)` or path to `variable`
 - `remember` {Boolean} enables remembering of last selected rows (default: `false`)
 - `pk` {String} a primary key (default: `id`)
@@ -17,6 +17,7 @@ __Configuration__:
 __Good to know__:
 
 - each `tr` element contains `data-index` attribute with `row` index
+- each `td` __element of detail__ contains `data-index` attribute with `row` index
 
 __HTML definition__:
 

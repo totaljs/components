@@ -185,18 +185,26 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 				// Detail exists
 				eld.rclass('hidden');
 			} else {
+
 				// Detail doesn't exist
-				el.after('<tr class="{0}-detail"><td colspan="{1}"></td></tr>'.format(cls, el.find('td').length));
+				el.after('<tr class="{0}-detail"><td colspan="{1}" data-index="{2}"></td></tr>'.format(cls, el.find('td').length, index));
 				eld = el.next();
 
+				var tmp;
+
 				if (config.detail === true) {
-					if (templates.detail) {
-						var tmp = eld.find('td');
-						tmp.html(templates.detail(row, { index: index, user: window.user }));
-						dcompile && COMPILE(tmp);
-					}
-				} else
-					EXEC(config.detail, eld.find('td'), row);
+					tmp = eld.find('td');
+					tmp.html(templates.detail(row, { index: index, user: window.user }));
+					dcompile && COMPILE(tmp);
+				} else {
+					tmp = eld.find('td');
+					EXEC(config.detail, row, function(row) {
+						var is = typeof(row) === 'string';
+						tmp.html(is ? row : templates.detail(row, { index: index, user: window.user }));
+						if ((is && row.COMPILABLE()) || dcompile)
+							COMPILE(tmp);
+					}, tmp);
+				}
 			}
 
 		} else
