@@ -36,6 +36,8 @@ Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:dat
 - `dirrender` {String} optional, a path to `function(item, text)` (must return HTML for `j-Directory`), this function can affect list of items in `j-Directory`
 - `dirminwidth` {Number} optional, a minimum width for `j-Directory`, default: `200`
 - `dirmaxwidth` {Number} optional, a maximum width for `j-Directory`
+- `diroffsety` {Number} optional, `Y` offset (default: `0`)
+- `diroffsetx` {Number} optional, `X` offset (default: `0`)
 - `dirplaceholder` {String} optional, a placeholder for `j-Directory`
 - `dirempty` {String} optional, adds an empty field for `j-Directory`
 - `dirkey` {String} optional, a key name for reading of `text` in `dirsource` (default: `name`)

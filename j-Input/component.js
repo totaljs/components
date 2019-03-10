@@ -173,7 +173,8 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			var opt = {};
 			opt.element = self.find(cls2 + '-control');
 			opt.items = dirsource;
-			opt.offsetY = -1;
+			opt.offsetY = -1 + (config.diroffsety || 0);
+			opt.offsetX = 0 + (config.diroffsetx || 0);
 			opt.placeholder = config.dirplaceholder;
 			opt.render = config.dirrender ? GET(config.dirrender) : null;
 			opt.custom = !!config.dircustom;
