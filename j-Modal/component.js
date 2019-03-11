@@ -9,8 +9,13 @@ COMPONENT('modal', 'zindex:12;width:800', function(self, config) {
 		W.$$modal = 0;
 
 		var resizemodal = function() {
-			SETTER('modal', 'resize');
+			for (var i = 0; i < M.components.length; i++) {
+				var com = M.components[i];
+				if (com.name === 'modal' && com.dom.offsetParent && com.$ready)
+					com.resize();
+			}
 		};
+
 		var resize = function() {
 			setTimeout2(cls, resizemodal, 300);
 		};

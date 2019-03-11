@@ -13,7 +13,11 @@ COMPONENT('form', 'zindex:12', function(self, config) {
 		});
 
 		var resize = function() {
-			SETTER('form', 'resize');
+			for (var i = 0; i < M.components.length; i++) {
+				var com = M.components[i];
+				if (com.name === 'form' && com.dom.offsetParent && com.$ready)
+					com.resize();
+			}
 		};
 
 		if (W.OP)
