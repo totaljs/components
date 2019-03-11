@@ -101,6 +101,8 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 		ehead = etable.find('thead');
 		templates.empty && templates.empty.COMPILABLE() && COMPILE(eempty);
 
+		var blacklist = { A: 1, BUTTON: 1 };
+
 		ebody.on('click', '> tr', function(e) {
 
 			if (!config.highlight)
@@ -109,8 +111,14 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 			var el = $(this);
 			var node = e.target;
 
-			if (node.nodeName === 'A' || node.nodeName === 'button' || (node.nodeName === 'SPAN' && (node.getAttribute('class') || '').indexOf('link') !== -1))
+			if (blacklist[node.tagName] || (node.tagName === 'SPAN' && node.getAttribute('class') || '').indexOf('link') !== -1)
 				return;
+
+			if (node.tagName === 'I') {
+				var parent = $(node).parent();
+				if (blacklist[parent[0].tagName] || (parent[0].tagName === 'SPAN' && parent.hclass('link')))
+					return;
+			}
 
 			var index = +el.attrd('index');
 			if (index > -1) {
