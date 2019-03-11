@@ -122,16 +122,14 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 					selectedindex--;
 					if (selectedindex < 0)
 						selectedindex = 0;
-					else
-						self.move();
+					self.move();
 					break;
 				case 40: // down
 					o = true;
-					selectedindex++ ;
+					selectedindex++;
 					if (selectedindex >= resultscount)
 						selectedindex = resultscount;
-					else
-						self.move();
+					self.move();
 					break;
 			}
 
