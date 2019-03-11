@@ -11,8 +11,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 	var dragged = null;
 
 	self.readonly();
-	self.nocompile();
-	self.bindvisible(50);
+	self.nocompile && self.nocompile();
 
 	self.make = function() {
 
