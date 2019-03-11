@@ -17,7 +17,7 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:false;visibleY:tr
 		obj.on('resize', function() {
 			for (var i = 0; i < M.components.length; i++) {
 				var com = M.components[i];
-				if (com.name === 'viewbox' && com.dom.offsetParent && com.$ready)
+				if (com.name === 'viewbox' && com.dom.offsetParent && com.$ready && !com.$removed)
 					com.resize();
 			}
 		});

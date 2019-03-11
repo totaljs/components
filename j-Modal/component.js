@@ -11,7 +11,7 @@ COMPONENT('modal', 'zindex:12;width:800', function(self, config) {
 		var resizemodal = function() {
 			for (var i = 0; i < M.components.length; i++) {
 				var com = M.components[i];
-				if (com.name === 'modal' && com.dom.offsetParent && com.$ready)
+				if (com.name === 'modal' && com.dom.offsetParent && com.$ready && !com.$removed)
 					com.resize();
 			}
 		};

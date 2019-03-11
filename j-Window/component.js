@@ -15,7 +15,7 @@ COMPONENT('window', 'zindex:12;scrollbar:true', function(self, config) {
 		var resize = function() {
 			for (var i = 0; i < M.components.length; i++) {
 				var com = M.components[i];
-				if (com.name === 'window' && com.dom.offsetParent && com.$ready)
+				if (com.name === 'window' && com.dom.offsetParent && com.$ready && !com.$removed)
 					com.resize();
 			}
 		};
