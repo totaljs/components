@@ -1,4 +1,4 @@
-COMPONENT('modal', 'zindex:12;width:800', function(self, config) {
+COMPONENT('modal', 'zindex:12;width:800;bg:true', function(self, config) {
 
 	var cls = 'ui-modal';
 	var cls2 = '.' + cls;
@@ -9,13 +9,8 @@ COMPONENT('modal', 'zindex:12;width:800', function(self, config) {
 		W.$$modal = 0;
 
 		var resizemodal = function() {
-			for (var i = 0; i < M.components.length; i++) {
-				var com = M.components[i];
-				if (com.name === 'modal' && com.dom.offsetParent && com.$ready && !com.$removed)
-					com.resize();
-			}
+			SETTER('modal', 'resize');
 		};
-
 		var resize = function() {
 			setTimeout2(cls, resizemodal, 300);
 		};
@@ -118,6 +113,9 @@ COMPONENT('modal', 'zindex:12;width:800', function(self, config) {
 
 	self.configure = function(key, value, init, prev) {
 		switch (key) {
+			case 'bg':
+				self.tclass(cls + '-bg', !!value);
+				break;
 			case 'title':
 				eheader && eheader.find('label').html(value);
 				break;
@@ -177,7 +175,7 @@ COMPONENT('modal', 'zindex:12;width:800', function(self, config) {
 	self.setter = function(value) {
 
 		setTimeout2(cls + '-noscroll', function() {
-			$('html').tclass(cls + '-noscroll', !!$(cls2 + '-container').not('.hidden').length);
+			$('html').tclass(cls + '-noscroll', !!$(cls2 + '-bg').not('.hidden').length);
 		}, 789);
 
 		var hidden = value !== config.if;
@@ -200,7 +198,7 @@ COMPONENT('modal', 'zindex:12;width:800', function(self, config) {
 		}
 
 		if (self.template) {
-			var is = (/(data-bind|data-jc|data-{2,})="/).test(self.template);
+			var is = self.template.COMPILABLE();
 			self.find('div[data-jc-replaced]').html(self.template);
 			self.prepare(true);
 			self.template = null;
