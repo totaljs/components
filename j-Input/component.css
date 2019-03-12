@@ -14,7 +14,7 @@
 .ui-input-required .ui-input-icon-right { border-color: #D0D0D0; }
 .ui-input-ricon .ui-input-input { margin-right: 35px; }
 .ui-input-licon .ui-input-input { margin-left: 32px; }
-.ui-input-ricon .fa-times { color: red; }
+.ui-input-ricon .fa-times, .ui-input-licon .fa-times { color: red; }
 .ui-input-click { cursor: pointer; }
 .ui-input-error { margin-top: 7px; font-size: 11px; color: red; }
 .ui-input .right input, .ui-input .right .ui-input-placeholder { text-align: right; }
