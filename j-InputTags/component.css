@@ -26,12 +26,14 @@
 .ui-inputtags-inner .ui-inputtags-control { min-height: 38px; }
 .ui-inputtags-inner .ui-inputtags-icon-left, .ui-inputtags-inner .ui-inputtags-icon-right { height: 100%; line-height: 37px; }
 .ui-inputtags-inner.ui-inputtags-required .ui-inputtags-label:before { content: '*'; }
-.ui-inputtags-tags { padding: 1px 0 3px; }
-.ui-inputtags-tags span { padding: 2px 5px; line-height: 12px; margin: 0 3px 3px 0; cursor: default; }
+.ui-inputtags-tags { padding: 0 0 3px; }
+.ui-inputtags-tags span { padding: 1px 5px; line-height: 12px; margin: 0 3px 3px 0; cursor: default; }
 .ui-inputtags-tags span i { margin-right: 4px; font-size: 12px; cursor: pointer; transition: transform 0.1s; }
 .ui-inputtags-tags span i:hover { transform: scale(1.2); }
 .ui-inputtags-tag { position: relative; display: inline-block; color: white; background-color: #4783EE; color: white; border-radius: 2px; border: 1px solid #3A6FCF; }
 .ui-inputtags-editable { outline: 0; min-width: 50px; padding-left: 1px !important; padding-right: 1px; width: 100%; line-height: 12px; }
+.ui-disabled .ui-inputtags-tags span i { display: none; }
+.ui-disabled .ui-inputtags-tag { background-color: #D0D0D0; color: gray; border: 1px solid #C0C0C0; }
 .ui-dark .ui-inputtags-required .ui-inputtags-control { border-color: #404040; }
 .ui-dark .ui-inputtags-control { border-color: #303030; background-color: #202020; }
 .ui-dark .ui-inputtags-required .ui-inputtags-icon-left { border-color: #404040; }
@@ -49,6 +51,4 @@
 .ui-dark .ui-inputtags.ui-disabled .ui-inputtags-control { background-color: #282828; }
 .ui-dark .ui-inputtags.ui-disabled inputtags { background-color: #282828; color: #777777; }
 .ui-dark .ui-inputtags.ui-disabled .ui-inputtags-placeholder { color: #777777; }
-.ui-disabled .ui-inputtags-tags span i { display: none; }
-.ui-disabled .ui-inputtags-tag { background-color: #D0D0D0; color: gray; border: 1px solid #C0C0C0; }
 .ui-dark .ui-disabled .ui-inputtags-tag { background-color: #202020; color: gray; border: 1px solid #101010; }
