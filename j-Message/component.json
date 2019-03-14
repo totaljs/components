@@ -1,10 +1,11 @@
 {
 	"datecreated": "2016-02-22T07:56:32.682Z",
-	"dateupdated": "2018-11-08T19:44:00.000Z",
+	"dateupdated": "2019-03-06T10:45:00.000Z",
 	"name": "j-Message",
 	"tags": [
 		"jcomponent"
 	],
+	"darkmode": true,
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

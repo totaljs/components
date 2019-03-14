@@ -1,4 +1,4 @@
-# j-Modificator
+# j-Modificator
 
 This component can modify behaviour of element according to the preddefined schema. The component can be hooked on a `body` element (because it's singleton) and it's optimized for the performance.
 

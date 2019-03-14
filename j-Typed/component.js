@@ -1,14 +1,11 @@
 COMPONENT('typed', 'typespeed:0;startdelay:0;backspeed:0;smartbackspace:true;shuffle:false;backdelay:700;fadeout:false;fadeoutclass:typed-fade-out;fadeoutdelay:500;loop:false;loopcount:Infinity;showcursor:true;cursorchar:|;autoinsertcss:true;contenttype:html', function(self, config) {
-	var container;
+
 	var typed;
 	var id;
 
 	self.make = function() {
-
 		id = self.config.id || 'typed' + self.id;
-
 		self.append('<span id="{0}"></span>'.format(id));
-		container = self.find('span');
 	};
 
 	self.setter = function(value) {
@@ -23,21 +20,21 @@ COMPONENT('typed', 'typespeed:0;startdelay:0;backspeed:0;smartbackspace:true;shu
 
 		typed = new Typed('#{0}'.format(id), {
 			strings: value,
-			typeSpeed: self.config.typespeed,
-			startDelay: self.config.startdelay,
-			backSpeed: self.config.backspeed,
-			smartBackspace: self.config.smartbackspace,
-			shuffle: self.config.shuffle,
-			backDelay: self.config.backdelay,
-			fadeOut: self.config.fadeout,
-			fadeOutClass: self.config.fadeoutclass,
-			fadeOutDelay: self.config.fadeoutdelay,
-			loop: self.config.loop,
-			loopCount: self.config.loopcount,
-			showCursor: self.config.showcursor,
-			cursorChar: self.config.cursorchar,
-			autoInsertCss: self.config.autoinsertcss,
-			contentType: self.config.contenttype,
+			typeSpeed: config.typespeed,
+			startDelay: config.startdelay,
+			backSpeed: config.backspeed,
+			smartBackspace: config.smartbackspace,
+			shuffle: config.shuffle,
+			backDelay: config.backdelay,
+			fadeOut: config.fadeout,
+			fadeOutClass: config.fadeoutclass,
+			fadeOutDelay: config.fadeoutdelay,
+			loop: config.loop,
+			loopCount: config.loopcount,
+			showCursor: config.showcursor,
+			cursorChar: config.cursorchar,
+			autoInsertCss: config.autoinsertcss,
+			contentType: config.contenttype,
 			onComplete: function(typed) {
 				self.emit('typed.onComplete', typed, self);
 			},
@@ -70,6 +67,6 @@ COMPONENT('typed', 'typespeed:0;startdelay:0;backspeed:0;smartbackspace:true;shu
 			}
 
 		});
-};
+	};
 
 }, ['https://cdn.jsdelivr.net/npm/typed.js']);

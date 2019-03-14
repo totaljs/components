@@ -1,29 +1,20 @@
 COMPONENT('intro', function(self, config) {
 
+	var cls = 'ui-intro';
+	var cls2 = '.' + cls;
 	var container = 'intro' + GUID(4);
-	var condition, content, figures, buttons, button = null;
+	var content, figures, buttons, button = null;
 	var index = 0;
 	var visible = false;
 
 	self.readonly();
 
-	self.configure = function(key, value, init) {
-		if (init)
-			return;
-		switch (key) {
-			case 'if':
-				condition = FN(config.if);
-				break;
-		}
-	};
-
 	self.make = function() {
-		condition = FN(config.if);
-		$(document.body).append('<div id="{0}" class="hidden ui-intro"><div class="ui-intro-body"></div></div>'.format(container));
+		$(document.body).append('<div id="{0}" class="hidden {1}"><div class="{1}-body"></div></div>'.format(container, cls));
 		content = self.element;
 		container = $('#' + container);
 		content.rclass('hidden');
-		var body = container.find('.ui-intro-body');
+		var body = container.find(cls2 + '-body');
 		body[0].appendChild(self.element[0]);
 		self.replace(container);
 		content.aclass('ui-intro-figures');
@@ -31,49 +22,56 @@ COMPONENT('intro', function(self, config) {
 		var items = [];
 
 		figures.each(function(index) {
-			items.push('<i class="fa fa-circle ui-intro-button" data-index="{0}"></i>'.format(index));
+			items.push('<i class="fa fa-circle {0}-button" data-index="{1}"></i>'.format(cls, index));
 		});
 
-		body.append('<div class="ui-intro-pagination"><button name="next"></button>{0}</div>'.format(items.join('')));
-		buttons = self.find('.ui-intro-button');
-		button = self.find('.ui-intro-pagination').find('button');
+		body.append('<div class="{0}-pagination"><button name="next"></button>{1}</div>'.format(cls, items.join('')));
+		buttons = self.find(cls2 + '-button');
+		button = self.find(cls2 + '-pagination').find('button');
 
 		self.event('click', 'button[name="next"]', function() {
 			index++;
-			if (index >= figures.length)
+			if (index >= figures.length) {
 				self.set('');
-			else
+				config.exec && EXEC(config.exec);
+				config.remove && self.remove();
+			} else {
 				self.move(index);
+				config.page && EXEC(config.page, index);
+			}
 		});
 
 		self.event('click', 'button[name="close"]', function() {
 			self.set('');
+			config.exec && EXEC(config.exec, true);
+			config.remove && self.remove();
 		});
 
-		self.event('click', '.ui-intro-button', function() {
+		self.event('click', cls2 + '-button', function() {
 			self.move(+this.getAttribute('data-index'));
 		});
-
-		self.move(0);
 	};
 
-	self.move = function(index) {
+	self.move = function(indexer) {
 		figures.filter('.visible').rclass('visible');
 		buttons.filter('.selected').rclass('selected');
-		figures.eq(index).aclass('visible');
-		buttons.eq(index).aclass('selected');
-		button.html(index < buttons.length - 1 ? ((config.next || 'Next') + '<i class="fa fa-chevron-right"></i>') : (config.close || 'Done'));
+		figures.eq(indexer).aclass('visible');
+		buttons.eq(indexer).aclass('selected');
+		button.html(indexer < buttons.length - 1 ? ((config.next || 'Next') + '<i class="fa fa-chevron-right"></i>') : (config.close || 'Done'));
+		index = indexer;
 		return self;
 	};
 
 	self.setter = function(value) {
-		var is = condition(value);
+		var is = value == config.if;
 		if (is === visible)
 			return;
+		index = 0;
+		self.move(0);
 		visible = is;
 		self.tclass('hidden', !is);
 		setTimeout(function() {
-			self.find('.ui-intro-body').tclass('ui-intro-body-visible', is);
+			self.find(cls2 + '-body').tclass(cls + '-body-visible', is);
 		}, 100);
 	};
 });

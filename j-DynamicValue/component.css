@@ -16,7 +16,6 @@
 .ui-disabled .ui-dynamicvalue-value { color: gray; }
 .ui-disabled .ui-dynamicvalue-icon i { color: gray !important; }
 
-/* DARK MODE */
 .ui-dark .ui-dynamicvalue { border-color: #3A3A3A; background-color: #202020; color: #707070; }
 .ui-dark .ui-dynamicvalue-icon { border-left-color: #3A3A3A; color: #707070; }
 .ui-dark .ui-dynamicvalue-is .ui-dynamicvalue-value { color: white; }

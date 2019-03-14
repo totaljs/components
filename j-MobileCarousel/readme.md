@@ -1,4 +1,4 @@
-# j-MobileCarousel
+# j-MobileCarousel
 
 Works only with Bootstrap grid system and in mobile devices `xs`.
 

@@ -6,7 +6,7 @@ __Configuration__:
 
 - `properties` {String} watch only specific properties in the string e.g. `name,email` (optional)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

@@ -1,12 +1,13 @@
 {
 	"datecreated": "2017-09-17T10:20:11.000Z",
-	"dateupdated": "2018-05-08T19:28:01.000Z",
+	"dateupdated": "2019-02-01T20:30:00.000Z",
 	"name": "j-Layer",
 	"tags": [
 		"jcomponent"
 	],
 	"color": "white",
 	"version": 1,
+	"darkmode": true,
 	"responsive": true,
 	"picture": "picture.gif",
 	"dependencies": "",

@@ -1,5 +1,5 @@
 COMPONENT('selected', 'class:selected;selector:a', function(self, config) {
-	self.bindvisible();
+	self.bindvisible(20);
 	self.readonly();
 	self.setter = function(value) {
 		var cls = config.class;

@@ -7,7 +7,7 @@ __Configuration__:
 
 - `size` {Number} in pixels, default: `200`
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

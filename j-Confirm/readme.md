@@ -8,7 +8,7 @@
 
 __Usage__: `SETTER('confirm', 'show', message, buttons, callback)`
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

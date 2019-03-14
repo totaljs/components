@@ -1,12 +1,15 @@
 {
 	"datecreated": "2016-08-22T21:23:50.682Z",
-	"dateupdated": "2018-11-08T19:44:00.000Z",
+	"dateupdated": "2019-02-04T09:54:00.000Z",
 	"name": "j-Info",
 	"tags": [
-		"jcomponent"
+		"tooltip",
+		"info",
+		"hint"
 	],
 	"color": "transparent",
 	"version": 1,
+	"darkmode": true,
 	"responsive": true,
 	"picture": "picture.png",
 	"dependencies": "",

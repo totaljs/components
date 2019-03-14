@@ -6,7 +6,7 @@ __Configuration__:
 
 - `timeout` a timeout in milliseconds for destroying of splash screen (default: `2500`)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

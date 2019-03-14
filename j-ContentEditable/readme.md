@@ -43,7 +43,7 @@ self.event = function(type, value) {
 };
 ```
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

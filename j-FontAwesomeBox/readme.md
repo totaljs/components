@@ -8,7 +8,7 @@ __Configuration__:
 - `height` {Number} Optional, default: `250`
 - `exec` {String} Optional, can contain a link to the function
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

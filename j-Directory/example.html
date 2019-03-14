@@ -1,0 +1,23 @@
+<style>
+	body { background-color: #F0F0F0; }
+</style>
+
+<div data-jc="directory__null__placeholder:Search ..."></div>
+
+<div class="container">
+	<a href="javascript:void(0)">Open directory</a>
+</div>
+
+<script>
+	$(document).on('click', 'a', function() {
+
+		var opt = {};
+		opt.element = this;
+		opt.items = [{ name: 'Total.js', template: '<b>{{ name }}</b>' }, { name: 'Express.js' }, { name: 'Meteor.js' }, { name: 'Koa.js' }, { name: 'ASP.NET' }, { name: 'PHP' }, { name: 'Python' }, { name: 'Node.js' }];
+		opt.callback = function(value) {
+			console.log('CLICK', value);
+		};
+
+		SETTER('directory', 'show', opt);
+	});
+</script>

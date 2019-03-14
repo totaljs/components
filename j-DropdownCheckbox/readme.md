@@ -19,7 +19,7 @@ Example: `data-jc-config="required:true;icon:envelope"`
 - `selectedtext` {String} (optional) sets a message for maximum visible items e.g. `{0} selected from {1}` (default: `{0} selected`)
 - `alltext` {String} (optional) when all items are selected this is showed (default: `All selected` you can disable it with `null`)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

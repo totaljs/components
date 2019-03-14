@@ -1,38 +1,48 @@
-COMPONENT('layer', 'offset:65;container:.ui-layer-body', function(self, config) {
+COMPONENT('layer', 'offset:65;scrollbar:true', function(self, config) {
 
 	var visible = false;
 	var csspos = {};
-	var w = window;
+	var W = window;
 
-	if (!w.$$layer) {
-		w.$$layer_level = w.$$layer_level || 1;
-		w.$$layer = true;
-		$(w).on('resize', function() {
+	if (!W.$$layer) {
+		W.$$layer_level = W.$$layer_level || 1;
+		W.$$layer = true;
+		W.$$layer_resize = function() {
 			setTimeout2('layers', function() {
 				$('.ui-layer').each(function() {
-					var el = $(this);
-					el.css('width', (w - config.offset) - (config.offset * (+el.attrd('index'))));
-					el.component().resizecontent();
+					$(this).component().resize();
 				});
 			}, 100);
-		});
+		};
+		if (W.OP)
+			W.OP.on('resize', W.$$layer_resize);
+		else
+			$(W).on('resize', W.$$layer_resize);
 	}
 
 	self.readonly();
 
 	self.make = function() {
 
-		self.aclass('ui-layer');
-		self.element.prepend('<div class="ui-layer-toolbar"><div class="ui-layer-toolbar-back"><button class="ui-layer-toolbar-backbutton"><i class="fa fa-times"></i></button></div><div class="ui-layer-toolbar-caption" data-bind="@config.title__html:value"></div></div>');
-
 		// Move element to safe place
-		$(document.body).append('<div id="{0}"></div>'.format(self.ID));
+		$(document.body).append('<div id="{0}" class="ui-layer"><div class="ui-layer-toolbar"><div class="ui-layer-toolbar-back"><button class="ui-layer-toolbar-backbutton"><i class="fa fa-times"></i></button></div><div class="ui-layer-toolbar-caption" data-bind="@config.title__html:value"></div></div><div class="ui-layer-body"><div class="ui-layer-scrollbar"></div></div></div>'.format(self.ID));
 
 		var el = $('#' + self.ID);
-		el[0].appendChild(self.dom);
+		el.find('.ui-layer-scrollbar')[0].appendChild(self.dom);
 		self.rclass('hidden');
-		self.replace(el.find('.ui-layer'));
+		self.replace(el);
 		self.event('click', '.ui-layer-toolbar-backbutton', self.hide);
+
+		var body = el.find('.ui-layer-body');
+
+		if (config.scrollbar && W.SCROLLBAR) {
+			self.scrollbar = SCROLLBAR(body.find('.ui-layer-scrollbar'), { visibleY: !!config.scrollbarY, parent: '.ui-layer-body' });
+			self.scrollleft = self.scrollbar.scrollLeft;
+			self.scrolltop = self.scrollbar.scrollTop;
+			self.scrollright = self.scrollbar.scrollRight;
+			self.scrollbottom = self.scrollbar.scrollBottom;
+		} else
+			body.aclass('ui-layer-scroll');
 
 		self.event('click', function() {
 			var arr = self.get();
@@ -54,14 +64,18 @@ COMPONENT('layer', 'offset:65;container:.ui-layer-body', function(self, config) 
 	self.$hide = function() {
 		self.rclass('ui-layer-visible');
 		self.aclass('hidden', 500);
+		self.release(true);
 	};
 
-	self.resizecontent = function() {
-		var el = config.container ? self.find(config.container) : EMPTYARRAY;
-		if (el.length) {
-			var h = WH - self.find('.ui-layer-toolbar').innerHeight();
-			el.css('height', h);
-			config.resize && EXEC(config.resize, h);
+	self.resize = function() {
+		var el = self.find('.ui-layer-body');
+		self.css('height', WH);
+		var h = WH - el.offset().top;
+		el.css('height', h);
+		config.resize && EXEC(config.resize, h);
+		if (self.scrollbar) {
+			self.scrollbar.resize();
+			setTimeout(self.scrollbar.resize, 500);
 		}
 	};
 
@@ -81,7 +95,7 @@ COMPONENT('layer', 'offset:65;container:.ui-layer-body', function(self, config) 
 			csspos.width = (WW - config.offset) - (config.offset * index);
 			self.attrd('index', index);
 			self.css(csspos);
-			setTimeout(self.resizecontent, 100);
+			setTimeout(self.resize, 100);
 			return;
 		}
 
@@ -91,12 +105,14 @@ COMPONENT('layer', 'offset:65;container:.ui-layer-body', function(self, config) 
 		self.css(csspos);
 		self.attrd('index', index);
 		self.rclass('hidden');
+		self.resize();
+		self.release(false);
 		config.reload && EXEC(config.reload);
 		config.default && DEFAULT(config.default, true);
 
 		setTimeout(function() {
 			self.aclass('ui-layer-visible');
-			setTimeout(self.resizecontent, 100);
+			setTimeout(self.resize, 100);
 		}, 200);
 	};
 });

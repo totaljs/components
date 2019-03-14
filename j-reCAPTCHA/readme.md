@@ -12,7 +12,7 @@ __Configuration__:
 - `required` {Boolean} enables `required`
 - `theme` {String} can be `light` or `dark` (default: `light`)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

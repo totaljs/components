@@ -18,7 +18,6 @@ select:disabled { background-color: #F0F0F0; cursor: not-allowed; color: gray; }
 .ui-disabled .ui-dropdown .fa { color: #A0A0A0; }
 .ui-dropdown select::-ms-expand { display: none; }
 
-/* DARK MODE */
 .ui-dark select:disabled { background-color: #282828; color: #707070; }
 .ui-dark .ui-dropdown { border: 1px solid #353535; background-color: #202020; }
 .ui-dark .ui-dropdown:after { border-left-color: #353535; }

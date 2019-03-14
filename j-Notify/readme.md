@@ -18,7 +18,7 @@ __Types__:
 - type `2`: warning message (red)
 - type `3`: info message (blue)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

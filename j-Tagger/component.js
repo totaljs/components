@@ -3,7 +3,7 @@ COMPONENT('tagger', 'text:name', function(self, config) {
 	self.bindvisible();
 	self.nocompile && self.nocompile();
 
-	var obj = VBINDARRAY('<div class="ui-tagger-item"><i class="fa fa-times"></i><span data-bind=".{0}__text:value__title:value"></span></div>'.format(config.text), self);
+	var obj = VBINDARRAY('<div class="ui-tagger-item"><i class="fa fa-times"></i><span data-bind=".{0}__text__title"></span></div>'.format(config.text), self);
 
 	self.make = function() {
 
@@ -29,7 +29,7 @@ COMPONENT('tagger', 'text:name', function(self, config) {
 	};
 
 	self.setter = function(value) {
-		obj.set(value);
+		obj.set(value || EMPTYARRAY);
 	};
 
 });

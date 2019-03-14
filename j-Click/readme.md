@@ -12,7 +12,7 @@ Example: `data-jc-config="enter:#form;value:100"`
 - `data-jc-type` works with `data-value`
 - `data-jc-path` can be `value` or `function` (default behaviour when `value` is not defined in configuration).
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

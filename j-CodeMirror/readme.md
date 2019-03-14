@@ -22,12 +22,12 @@ __Method__:
 
 - `component.insert('some text')` inserts a text to the current position of the cursor
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

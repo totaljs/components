@@ -1,0 +1,15 @@
+<a href="#timepicker">SHOW TIMEPICKER <span data-bind="form.date__html:value.format('HH\:mm\:ss')"></span></a>
+<div data---="timepicker"></div>
+
+<script>
+	var form = {};
+	form.date = new Date();
+
+	$('a[href="#timepicker"]').on('click', function(e) {
+		var opt = {};
+		opt.element = this;
+		opt.value = 'form.date';
+		opt.seconds = true;
+		SETTER('timepicker', 'toggle', opt);
+	});
+</script>

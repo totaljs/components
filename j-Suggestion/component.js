@@ -24,7 +24,7 @@ COMPONENT('suggestion', function(self, config) {
 	self.make = function() {
 
 		self.aclass('ui-suggestion hidden');
-		self.append('<span class="ui-suggestion-arrow"></span><div class="ui-suggestion-search"><span class="ui-suggestion-button"><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="ui-suggestion-search-input" /></div></div><div class="ui-suggestion-container"><ul></ul></div>'.format(config.placeholder));
+		self.append('<span class="ui-suggestion-arrow"></span><div class="ui-suggestion-body"><div class="ui-suggestion-search"><span class="ui-suggestion-button"><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="ui-suggestion-search-input" /></div></div><div class="ui-suggestion-container"><ul></ul></div></div>'.format(config.placeholder));
 		container = self.find('ul');
 		arrow = self.find('.ui-suggestion-arrow');
 		input = self.find('input');
@@ -107,17 +107,13 @@ COMPONENT('suggestion', function(self, config) {
 			setTimeout2(self.ID, self.search, 100, null, this.value);
 		});
 
-		self.on('reflow', function() {
+		var fn = function() {
 			is && self.hide(1);
-		});
+		};
 
-		$(window).on('scroll', function() {
-			is && self.hide(1);
-		});
-
-		self.on('scroll', function() {
-			is && self.hide(1);
-		});
+		self.on('reflow', fn);
+		self.on('scroll', fn);
+		$(window).on('scroll', fn);
 	};
 
 	self.move = function() {
@@ -157,6 +153,7 @@ COMPONENT('suggestion', function(self, config) {
 			return;
 		}
 
+		value = value.toSearch();
 		resultscount = 0;
 		selectedindex = 0;
 
@@ -286,6 +283,7 @@ COMPONENT('suggestion', function(self, config) {
 
 		setTimeout(function() {
 			is = true;
+			container.parent()[0].scrollTop = 0;
 		}, 50);
 	};
 

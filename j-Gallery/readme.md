@@ -3,7 +3,7 @@
 - works with Bootstrap Grid System
 - easy usage
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

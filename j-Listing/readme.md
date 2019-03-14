@@ -20,7 +20,7 @@ __Tangular item__:
 - `model` contains an object from `Array`
 - second model contains info about data-source `{ index: Number, page: Number, pages: Number, count: Number }`
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

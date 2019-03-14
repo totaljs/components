@@ -4,6 +4,7 @@ The component has a similar functionality like `j-Click` but it can handle multi
 
 __Configuration__:
 - `selector` is a selector for capturing `click` (default: `.exec`)
+- `selector2` is a selector for capturing `dblclick` (default: `.exec2`)
 
 __Elements__:
 
@@ -13,19 +14,30 @@ __Elements__:
 
 __Attributes__:
 
-- `data-exec="METHOD_NAME"` executes a method when user clicks
+- `data-exec="METHOD_NAME"` executes a method when user clicks (supports scope via `?` char)
 - `data-prevent="true"` prevents continuing `click` event
 - `data-href="URL"` performs `REDIRECT()`
-- `data-path="path.to.property"` a path for setting of value
+- `data-path="path.to.property"` a path for setting of value (supports scope via `?` char)
 - `data-value=""` sets a value according to the `data-path=""` attribute
-- __NEW__: `data-def="path.*"` performs default values
-- __NEW__: `data-reset="path.*"` performs a state reseting
+- `data-def="path.*"` performs default values (supports scope via `?` char)
+- `data-reset="path.*"` performs a state reseting (supports scope via `?` char)
+
+__Attributes for double click__:
+
+- `data-exec2="METHOD_NAME"` executes a method when user clicks (supports scope via `?` char)
+- `data-prevent2="true"` prevents continuing `click` event
+- `data-href2="URL"` performs `REDIRECT()`
+- `data-path2="path.to.property"` a path for setting of value (supports scope via `?` char)
+- `data-value2=""` sets a value according to the `data-path=""` attribute
+- `data-def2="path.*"` performs default values (supports scope via `?` char)
+- `data-reset2="path.*"` performs a state reseting (supports scope via `?` char)
 
 __Hints__:
 
 - toggles boolean `data-value="!value"`
+- scopes: `data-path="?.name"` replaces `?` char with a scope path
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

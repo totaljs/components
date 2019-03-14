@@ -12,7 +12,7 @@ Example: `data-jc-config="class:selected;selector:a"`
 - __NEW__: `disabled` {Boolean} optional, can disable tabs
 - __NEW__: `exec` {String} optional, a link to the function (it will be executes when the user clicks on the tab)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

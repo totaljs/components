@@ -1,0 +1,52 @@
+<div class="container">
+	<br />
+	<div data-jc="folder__currentpath__browse:fn_browse;checked:fn_checked;click:fn_click" style="height:500px"></div>
+	<br />
+</div>
+
+<script>
+
+	var currentpath = 'Frameworks/Node.js';
+
+	function fn_browse(path, next, item) {
+
+		var arr = [];
+
+		switch (path) {
+			case 'Frameworks':
+				arr.push({ name: 'Node.js', checkbox: true, type: 1, icon: 'folder' });
+				arr.push({ name: 'Client-Side', checkbox: true, type: 1, icon: 'folder' });
+				break;
+			case 'Frameworks/Node.js':
+				arr.push({ name: 'Total.js', checkbox: true, checked: true, icon: 'file' });
+				arr.push({ name: 'Express.js', checkbox: true, icon: 'file' });
+				arr.push({ name: 'Koa.js', checkbox: true, icon: 'file' });
+				arr.push({ name: 'Meteor.js', checkbox: true, icon: 'file' });
+				break;
+			case 'Frameworks/Client-Side':
+				arr.push({ name: 'React', checkbox: true, icon: 'file' });
+				arr.push({ name: 'Vue', checkbox: true, icon: 'file' });
+				arr.push({ name: 'jComponent', checkbox: true, checked: true, icon: 'file' });
+				arr.push({ name: 'Angular.js', checkbox: true, icon: 'file' });
+				arr.push({ name: 'jQuery', checkbox: true, icon: 'file' });
+				break;
+			default:
+				arr.push({ name: 'Frameworks', checkbox: true, type: 1, icon: 'folder' });
+				arr.push({ name: 'Item 1', checkbox: true, icon: 'file' });
+				arr.push({ name: 'Item 2', checkbox: true, icon: 'file' });
+				arr.push({ name: 'Item 3', checkbox: true, icon: 'file' });
+				break;
+		}
+
+		next(arr);
+	}
+
+	function fn_click(item) {
+		console.log('click', item);
+	}
+
+	function fn_checked(arr) {
+		console.log('checked', arr);
+	}
+
+</script>

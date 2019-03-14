@@ -1,0 +1,18 @@
+<style>
+	body { background-color: #D0D0D0; }
+</style>
+
+<div data---="wiki__visible__datasource:wiki"></div>
+
+<script>
+
+	var visible = true;
+	var wiki = [];
+
+	wiki.push({ name: 'Markdown', body: '# Markdown\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam repellendus odit tempora iusto ea distinctio, illum. Accusamus fugiat, soluta optio!' });
+	wiki.push({ name: 'Blockquotes', body: '# Markdown\n> Blockquote works correctly\n\n- list item 1\n- list item 2\n- list item 3' });
+	wiki.push({ name: 'Syntax highlighter', body: '```javascript\nalert(\'OK\');\n```' });
+	wiki.push({ name: 'Chart example', body: '# Great charts\n```barchart\nYear    |   Apples   |  Bananas   |   Oranges\n2009    |   80       |  40        |   70\n2010    |   40       |  50        |   300\n2011    |   20       |  70        |   120\n2012    |   100      |  50        |   80\n2013    |   300      |  150       |   40\n```\n\n# Line chart\n\n```linechart\nYear    |   Apples   |  Bananas   |   Oranges\n2009    |   80       |  40        |   70\n2010    |   40       |  50        |   300\n2011    |   20       |  70        |   120\n2012    |   100      |  50        |   80\n2013    |   300      |  150       |   40\n```' });
+	wiki.push({ name: 'Video', body: '```video\nhttps://www.youtube.com/watch?v=FyIf2ZiYfT8\n```' });
+
+</script>

@@ -25,7 +25,7 @@ FIND('tooltip').hide();
 - default `width` is `140px`
 
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

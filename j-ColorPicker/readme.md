@@ -6,7 +6,7 @@ __Methods__:
 - `component.show(x, y, [target], [callback(color, target)]` and it works as `toggle` when `x` and `y` are same as previous call
 - `component.hide()`
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

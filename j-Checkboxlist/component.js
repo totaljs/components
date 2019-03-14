@@ -9,7 +9,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 	self.nocompile && self.nocompile();
 
 	self.validate = function(value) {
-		return config.disabled || !config.required ? true : value && value.length > 0;
+		return config.disabled || !config.required ? true : !!(value && value.length > 0);
 	};
 
 	self.configure = function(key, value, init) {
@@ -212,6 +212,6 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		self.find('.ui-checkboxlist').tclass('ui-checkboxlist-invalid', invalid);
+		self.tclass('ui-checkboxlist-invalid', invalid);
 	};
 });

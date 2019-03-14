@@ -1,0 +1,18 @@
+{
+	"datecreated": "2019-02-10T22:40:02.000Z",
+	"dateupdated": "2019-03-13T11:30:00.000Z",
+	"name": "j-InputTags",
+	"tags": [
+		"tags",
+		"input"
+	],
+	"color": "white",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

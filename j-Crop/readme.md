@@ -37,10 +37,13 @@ var data = component.output();
 
 // Is the image cropped?
 console.log('Is changed?', component.dirty());
-console.log('Is changed?', CHANGE(component.path);
+console.log('Is changed?', CHANGE(component.path));
+
+// New method for clearing of canvas
+component.clear();
 ```
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

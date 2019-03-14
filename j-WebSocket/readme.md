@@ -17,7 +17,7 @@ __Events__:
 - `ON('message', function(data) {})` - received data
 - `ON('online', function(isOnline) {})` - online/offline
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

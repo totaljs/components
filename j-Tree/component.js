@@ -1,37 +1,194 @@
-COMPONENT('tree', 'selected:selected;autoreset:false', function(self, config) {
+COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(self, config) {
 
+	var cls = 'ui-tree';
+	var cls2 = '.ui-tree';
 	var cache = null;
 	var counter = 0;
 	var expanded = {};
 	var selindex = -1;
+	var ddfile = null;
+	var ddtarget = null;
+	var dragged = null;
 
-	self.template = Tangular.compile('<div class="item{{ if children }} expand{{ fi }}" title="{{ name }}" data-index="{{ $pointer }}"><i class="fa {{ if children }}ui-tree-folder{{ else }}fa-file-o{{ fi }}"></i>{{ name }}</div>');
 	self.readonly();
 	self.nocompile && self.nocompile();
 
 	self.make = function() {
-		self.aclass('ui-tree');
-		self.event('click', '.item', function() {
+
+		self.aclass(cls);
+		self.template = Tangular.compile(('<div' + (config.dragdrop ? ' draggable="true"' : '') + ' class="{0}-item{{ if children }} {0}-expand{{ fi }}" title="{{ name }}" data-index="{{ $pointer }}">' + (config.checked ? '<div class="{0}-checkbox"><i class="fa fa-check"></i></div><div class="{0}-label">' : '') + '<i class="far {{ if children }}{0}-folder{{ else }}{{ icon | def(\'fa-file-o\') }}{{ fi }}"></i>' + (config.options ? '<span class="{0}-options"><i class="fa fa-ellipsis-h"></i></span>' : '') + '<div class="{0}-item-name{{ if classname }} {{ classname }}{{ fi }}">{{ name }}</div></div>' + (config.checked ? '</div>' : '')).format(cls));
+
+		self.event('click', cls2 + '-checkbox', function(e) {
+			e.stopPropagation();
 			var el = $(this);
-			var index = +el.attr('data-index');
+			var c = cls + '-checkbox-checked';
+			el.tclass(c);
+			config.checkednested && el.closest(cls2 + '-node').find(cls2 + '-checkbox').tclass(c, el.hclass(c));
+			SEEX(config.checked, self.checked(), self);
+		});
+
+		self.event('click', cls2 + '-item', function() {
+			var el = $(this);
+			var index = +el.attrd('index');
 			self.select(index);
+		});
+
+		self.event('click', cls2 + '-options', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			var el = $(this);
+			var index = +el.closest(cls2 + 'item').attrd('index');
+			config.options && EXEC(config.options, cache[index], el);
+		});
+
+		self.event('focusout', 'input', function() {
+			var input = $(this);
+			var el = input.parent();
+			el.html(el[0].$def);
+			el[0].$def = null;
+		});
+
+		var dragdrop = (config.upload || config.dragdrop);
+
+		dragdrop && self.event('dragenter dragover dragexit drop dragleave dragstart', function (e) {
+
+			if (e.type === 'dragstart') {
+				var el = $(e.target);
+				if (!el.hclass(cls + '-item'))
+					el = el.closest(cls2 + '-item');
+				if (el && el.length) {
+					e.originalEvent.dataTransfer.setData('text', '1');
+					dragged = el;
+					return;
+				}
+				dragged = null;
+			}
+
+			e.stopPropagation();
+			e.preventDefault();
+
+			switch (e.type) {
+				case 'drop':
+					break;
+				case 'dragenter':
+				case 'dragover':
+					if (e.target !== ddtarget || (ddtarget && e.target !== ddtarget.parentNode)) {
+						ddtarget = e.target;
+						ddfile && ddfile.rclass(cls + '-ddhere');
+						ddfile = $(ddtarget);
+						if (!ddfile.hclass(cls + '-item'))
+							ddfile = ddfile.closest(cls2 + '-item');
+						ddfile.aclass(cls + '-ddhere');
+					}
+					return;
+
+				default:
+					setTimeout2(self.id, function() {
+						ddfile && ddfile.rclass(cls + '-ddhere');
+						ddfile = null;
+						ddtarget = null;
+					}, 100);
+					return;
+			}
+
+			var index = -1;
+
+			if (e.originalEvent.dataTransfer.files.length) {
+				if (ddfile)
+					index = +ddfile.attrd('index');
+				config.upload && EXEC(config.upload, cache[index], e.originalEvent.dataTransfer.files);
+			} else {
+				var tmp = $(e.target);
+				if (!tmp.hclass(cls + '-item'))
+					tmp = tmp.closest(cls2 + '-item');
+				tmp.length && config.dragdrop && EXEC(config.dragdrop, cache[+dragged.attrd('index')], cache[+tmp.attrd('index')], dragged, tmp);
+				dragged = null;
+			}
+
+			ddfile && ddfile.rclass(cls + '-ddhere');
+			ddfile = null;
+		});
+
+		self.event('keydown', 'input', function(e) {
+			if (e.which === 13 || e.which === 27) {
+				var input = $(this);
+				var el = input.parent();
+				if (e.which === 27) {
+					// cancel
+					el.html(el[0].$def);
+					el[0].$def = null;
+				} else {
+					var val = input.val().replace(/[^a-z0-9.\-_]/gi, '');
+					var index = +input.closest(cls2 + '-item').attrd('index');
+					var item = cache[index];
+					var newname = item.path.substring(0, item.path.length - item.name.length) + val;
+					EXEC(config.rename, cache[index], newname, function(is) {
+						el.html(is ? val : el[0].$def);
+						if (is) {
+							item.path = newname;
+							item.name = val;
+							self.select(index);
+						}
+					});
+				}
+			}
 		});
 	};
 
-	self.select = function(index) {
-		var cls = config.selected;
+	self.select = function(index, noeval, reinit) {
 		var el = self.find('[data-index="{0}"]'.format(index));
-		if (el.hclass('expand')) {
+		var c = '-selected';
+		if (el.hclass(cls + '-expand')) {
+
 			var parent = el.parent();
-			parent.tclass('show');
-			var is = expanded[index] = parent.hclass('show');
-			config.exec && EXEC(config.exec, cache[index], true, is);
+
+			if (config.selectexpand) {
+				self.find(cls2 + c).rclass(cls + c);
+				el.aclass(cls + c);
+			}
+
+			if (!reinit)
+				parent.tclass(cls + '-show');
+
+			var is = parent.hclass(cls + '-show');
+			var item = cache[index];
+
+			if (config.pk)
+				expanded[item[config.pk]] = 1;
+			else
+				expanded[index] = 1;
+
+			!noeval && config.exec && SEEX(config.exec, item, true, is);
+			selindex = index;
 		} else {
-			!el.hclass(cls) && self.find('.' + cls).rclass(cls);
-			el.aclass(cls);
-			config.exec && EXEC(config.exec, cache[index], false);
+			!el.hclass(cls + c) && self.find(cls2 + c).rclass(cls + c);
+			el.aclass(cls + c);
+			!noeval && config.exec && SEEX(config.exec, cache[index], false);
 			selindex = index;
 		}
+	};
+
+	self.checked = function() {
+		var items = [];
+		self.find(cls2 + '-checkbox-checked').each(function() {
+			var item = cache[+$(this).parent().attrd('index')];
+			item && items.push(item);
+		});
+		return items;
+	};
+
+	self.rename = function(index) {
+		var div = self.find('[data-index="{0}"] .ui-tree-item-name'.format(index));
+		if (div[0].$def)
+			return;
+		div[0].$def = div.html();
+		div.html('<input type="text" value="{0}" />'.format(div[0].$def));
+		div.find('input').focus();
+	};
+
+	self.select2 = function(index) {
+		self.expand(index);
+		self.select(index, true);
 	};
 
 	self.unselect = function() {
@@ -46,22 +203,22 @@ COMPONENT('tree', 'selected:selected;autoreset:false', function(self, config) {
 
 	self.expand = function(index) {
 		if (index == null) {
-			self.find('.expand').each(function() {
+			self.find(cls2 + '-expand').each(function() {
 				$(this).parent().aclass('show');
 			});
 		} else {
 			self.find('[data-index="{0}"]'.format(index)).each(function() {
 				var el = $(this);
-				if (el.hclass('expand')) {
+				if (el.hclass(cls + '-expand')) {
 					// group
-					el.parent().aclass('show');
+					el.parent().aclass(cls + '-show');
 				} else {
 					// item
 					while (true) {
-						el = el.closest('.children').prev();
-						if (!el.hclass('expand'))
+						el = el.closest(cls2 + '-children').prev();
+						if (!el.hclass(cls + '-expand'))
 							break;
-						el.parent().aclass('show');
+						el.parent().aclass(cls + '-show');
 					}
 				}
 			});
@@ -70,37 +227,40 @@ COMPONENT('tree', 'selected:selected;autoreset:false', function(self, config) {
 
 	self.collapse = function(index) {
 		if (index == null) {
-			self.find('.expand').each(function() {
-				$(this).parent().rclass('show');
+			self.find(cls2 + '-expand').each(function() {
+				$(this).parent().rclass(cls + '-show');
 			});
 		} else {
 			self.find('[data-index="{0}"]'.format(index)).each(function() {
 				var el = $(this);
-				if (el.hclass('expand')) {
-					// group
-					el.parent().rclass('show');
+				if (el.hclass(cls + '-expand')) {
+					el.parent().rclass(cls + '-show');
 				} else {
-					// item
 					while (true) {
-						el = el.closest('.children').prev();
-						if (!el.hclass('expand'))
+						el = el.closest(cls2 + '-children').prev();
+						if (!el.hclass(cls + '-expand'))
 							break;
-						el.parent().rclass('show');
+						el.parent().rclass(cls + '-show');
 					}
 				}
 			});
 		}
 	};
 
-	self.renderchildren = function(builder, item, level) {
-		builder.push('<div class="children children{0}" data-level="{0}">'.format(level));
+	self.renderchildren = function(builder, item, level, selected) {
+		builder.push('<div class="{0}-children {0}-children{1}" data-level="{1}">'.format(cls, level));
 		item.children.forEach(function(item) {
 			counter++;
 			item.$pointer = counter;
 			cache[counter] = item;
-			builder.push('<div class="node{0}">'.format(expanded[counter] && item.children ? ' show' : ''));
+			var key = config.pk ? item[config.pk] : counter;
+
+			if (key === selected)
+				selindex = counter;
+
+			builder.push('<div class="{0}-node{1}">'.format(cls, expanded[key] && item.children ? ' ui-tree-show' : ''));
 			builder.push(self.template(item));
-			item.children && self.renderchildren(builder, item, level + 1);
+			item.children && self.renderchildren(builder, item, level + 1, selected);
 			builder.push('</div>');
 		});
 		builder.push('</div>');
@@ -119,7 +279,9 @@ COMPONENT('tree', 'selected:selected;autoreset:false', function(self, config) {
 
 		config.autoreset && self.clear();
 		var builder = [];
+		var selected = selindex === -1 ? -1 : config.pk ? cache[selindex][config.pk] : cache[selindex];
 
+		selindex = -1;
 		counter = 0;
 		cache = {};
 
@@ -127,9 +289,12 @@ COMPONENT('tree', 'selected:selected;autoreset:false', function(self, config) {
 			counter++;
 			item.$pointer = counter;
 			cache[counter] = item;
-			builder.push('<div class="node{0}">'.format(expanded[counter] && item.children ? ' show' : '') + self.template(item));
+			var key = config.pk ? item[config.pk] : counter;
+			if (key === selected)
+				selindex = counter;
+			builder.push('<div class="{0}-node{1}">'.format(cls, expanded[key] && item.children ? ' ui-tree-show' : '') + self.template(item));
 			if (item.children)
-				self.renderchildren(builder, item, 1);
+				self.renderchildren(builder, item, 1, selected);
 			else if (!cache.first)
 				cache.first = item;
 			builder.push('</div>');
@@ -137,9 +302,12 @@ COMPONENT('tree', 'selected:selected;autoreset:false', function(self, config) {
 
 		self.html(builder.join(''));
 
-		if (selindex !== -1)
-			self.select(selindex);
-		else
+		if (selindex !== -1) {
+			// Disables auto-select when is refreshed
+			self.select(selindex, !config.reselect, true);
+		} else
 			config.first !== false && cache.first && setTimeout(self.first, 100);
+
+		config.checked && EXEC(config.checked, EMPTYARRAY, self);
 	};
 });

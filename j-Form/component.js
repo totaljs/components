@@ -12,9 +12,18 @@ COMPONENT('form', 'zindex:12', function(self, config) {
 			SET($(this).attrd('path'), '');
 		});
 
-		$(W).on('resize', function() {
-			SETTER('form', 'resize');
-		});
+		var resize = function() {
+			for (var i = 0; i < M.components.length; i++) {
+				var com = M.components[i];
+				if (com.name === 'form' && com.dom.offsetParent && com.$ready && !com.$removed)
+					com.resize();
+			}
+		};
+
+		if (W.OP)
+			W.OP.on('resize', resize);
+		else
+			$(W).on('resize', resize);
 
 		$(document).on('click', '.ui-form-container', function(e) {
 			var el = $(e.target);
@@ -135,7 +144,7 @@ COMPONENT('form', 'zindex:12', function(self, config) {
 		}
 
 		if (self.template) {
-			var is = (/(data-bind|data-jc)="/).test(self.template);
+			var is = (/(data-bind|data-jc|data-{2,})="/).test(self.template);
 			self.find('div[data-jc-replaced]').html(self.template);
 			self.template = null;
 			is && COMPILE();

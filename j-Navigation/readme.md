@@ -30,7 +30,7 @@ __Good to know__:
 - only items without children are clickable
 - `exec` returns an entire object
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

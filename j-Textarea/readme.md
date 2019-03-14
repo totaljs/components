@@ -18,7 +18,7 @@ Example: `data-jc-config="required:true;icon:pencile"`
 - `monospace` {Boolean} (optional) sets `monospace` font for the input (default: `false`)
 - `readonly` {Boolean} optional, default `false`
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

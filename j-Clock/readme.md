@@ -21,7 +21,7 @@ SETTER('clock', 'toggle', ELEMENT, PATH, function(date) {
 }, X_OFFSET);
 ```
 
-### Author
+### Author
 
 - Denis Granec <denis@granec.cz>
 - License: MIT

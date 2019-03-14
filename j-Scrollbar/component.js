@@ -1,34 +1,42 @@
-COMPONENT('scrollbar', 'margin:0;reset:true', function(self, config) {
+COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;marginsm:0;marginmd:0;marginlg:0', function(self, config) {
 
 	self.readonly();
 
-	self.done = function() {
+	self.configure = function(key, value) {
+		if (key === 'track') {
+			if (!(value instanceof Array))
+				value = value.split(',').trim();
 
-		if (config.parent) {
-			var parent = config.parent === 'window' ? $(window) : self.element.closest(config.parent).height();
-			self.element.css('height', parent.height() - (config.offset ? self.element.offset().top : 0) - config.margin);
+			for (var i = 0; i < value.length; i++)
+				value[i] = self.path + '.' + value[i];
+
+			value.push(self.path);
+			config.track = value;
 		}
-
-		self.scrollbar.resize();
 	};
 
-	self.on('resize', self.done);
+	self.init = function() {
+		SETTER('scrollbar', 'resize');
+	};
 
 	self.make = function() {
 		self.scrollbar = SCROLLBAR(self.element, { visibleX: config.visibleX, visibleY: config.visibleY });
+		self.scrollleft = self.scrollbar.scrollLeft;
+		self.scrolltop = self.scrollbar.scrollTop;
+		self.scrollright = self.scrollbar.scrollRight;
+		self.scrollbottom = self.scrollbar.scrollBottom;
 	};
 
 	self.resize = function() {
+		if (config.parent) {
+			var parent = config.parent === 'window' ? $(window) : self.element.closest(config.parent);
+			self.element.css('height', parent.height() - (config.offset ? self.element.offset().top : 0) - config.margin - config['margin' + WIDTH()]);
+		}
 		self.scrollbar.resize();
 	};
 
-	self.scrollLeft = function(val) {
-		self.scrollbar.scrollLeft(val);
-	};
-
-	self.scrollTop = function(val) {
-		self.scrollbar.scrollTop(val);
-	};
+	self.on('resize', self.resize);
+	self.done = self.resize;
 
 	self.scroll = function(x, y) {
 		self.scrollbar.scroll(x, y);
@@ -39,10 +47,14 @@ COMPONENT('scrollbar', 'margin:0;reset:true', function(self, config) {
 	};
 
 	self.setter = function(value, path, type) {
-		type && setTimeout(function() {
-			self.done();
-			config.reset && self.reset();
-		}, 500);
+		if (config.track && config.track.indexOf(path) === -1)
+			return;
+		if (type === 1) {
+			setTimeout(function() {
+				self.done();
+				config.reset && self.reset();
+			}, 500);
+		}
 	};
 
 });

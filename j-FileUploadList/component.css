@@ -1,8 +1,20 @@
-.ui-fileuploadlist { border: 1px solid #E0E0E0; background-color: white; border-radius: 3px; }
-.ui-fileuploadlist-item { border-top: 1px solid #E0E0E0; padding: 0; border }
+.ui-fileuploadlist { border: 1px solid #E0E0E0; background-color: white; border-radius: 3px; font-size: 12px; }
+.ui-fileuploadlist-item { border-top: 1px solid #E0E0E0; padding: 0; }
+.ui-fileuploadlist-item a { color: black; }
 .ui-fileuploadlist-item:first-child { border-top: 0; }
-.ui-fileuploadlist-name { margin-right: 34px; padding: 5px 10px; height: 30px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; max-width: 500px; }
-.ui-fileuploadlist-remove { float: right; width: 34px; cursor: pointer; color: red; text-align: center; border-left: 1px solid #E0E0E0; height: 30px; padding: 4px 0 0; }
+.ui-fileuploadlist-name { margin-right: 30px; padding: 5px 10px; height: 24px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; max-width: 500px; }
+.ui-fileuploadlist-remove { float: right; width: 30px; cursor: pointer; color: red; text-align: center; border-left: 1px solid #E0E0E0; height: 24px; line-height: 24px; }
+
+.ui-dark .ui-fileuploadlist { border-color: #353535; background-color: #252525; }
+.ui-dark .ui-fileuploadlist-item { border-top-color: #353535; }
+.ui-dark .ui-fileuploadlist-remove { border-left-color: #353535; }
+.ui-dark .ui-fileuploadlist a { color: #A0A0A0; }
+
+.ui-disabled .ui-fileuploadlist-item a { color: #C0C0C0; }
+.ui-disabled .ui-fileuploadlist-remove { color: silver; cursor: not-allowed; }
+
+.ui-dark .ui-disabled .ui-fileuploadlist-item a { color: gray; }
+.ui-dark .ui-disabled .ui-fileuploadlist-remove { color: #707070; cursor: not-allowed; }
 
 @media(max-width: 767px) {
 	.ui-fileuploadlist-name { max-width: 180px; }

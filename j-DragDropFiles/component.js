@@ -1,4 +1,4 @@
-COMPONENT('dragdropfiles', 'click:true', function(self, config) {
+COMPONENT('dragdropfiles', 'click:true;class:ui-dragdropfiles;accept:*/*;', function(self, config) {
 
 	var file;
 
@@ -13,7 +13,10 @@ COMPONENT('dragdropfiles', 'click:true', function(self, config) {
 
 		var has = false;
 		var id = 'file' + self.ID;
-		$(document.body).append('<input type="file" id="{0}" class="hidden" multiple />'.format(id));
+
+		self.aclass(config.class);
+
+		$(document.body).append('<input type="file" id="{0}" class="hidden" accept="{1}" multiple />'.format(id, config.accept));
 
 		file = $('#' + id);
 
@@ -36,18 +39,18 @@ COMPONENT('dragdropfiles', 'click:true', function(self, config) {
 
 			switch (e.type) {
 				case 'drop':
-					config.class && has && self.rclass(config.class);
+					config.class && has && self.rclass('over');
 					break;
 				case 'dragenter':
 				case 'dragover':
-					config.class && !has && self.aclass(config.class);
+					config.class && !has && self.aclass('over');
 					has = true;
 					return;
 				case 'dragleave':
 				case 'dragexit':
 				default:
 					setTimeout2(self.id, function() {
-						config.class && has && self.rclass(config.class);
+						config.class && has && self.rclass('over');
 						has = false;
 					}, 100);
 					return;

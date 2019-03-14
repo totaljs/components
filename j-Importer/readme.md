@@ -14,7 +14,7 @@ __New update__:
 
 j-Importer can contain `<script type="text/html">` with a content which will be evaluated as HTML if the condition will be valid.
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

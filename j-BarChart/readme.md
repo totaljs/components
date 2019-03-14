@@ -20,7 +20,7 @@ __Configuration__:
 - `pb` {Number} lines bottom padding (default: `25`)
 - `prselected` {Number} right padding for selected value (default: `0`)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

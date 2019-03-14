@@ -17,7 +17,8 @@ Example: `data-jc-config="title:Window title;if:user;icon:home"`
 - `autofocus` {Boolean/String} (optional) can focus an input. `String` === `jQuery selector` for the input
 - `default` {String} (optional) a short alias for `DEFAULT(default, true)`
 - `closebutton` {Boolean} (optional) can hide `x` button (default: `false`)
-- __NEW__: `zindex` {Number} (optional) can affect z-index (default: `12`)
+- `zindex` {Number} (optional) can affect z-index (default: `12`)
+- __NEW__: `scrollbar` {Boolean} enables custom scrollbar (default: `true`)
 
 __Good to know__:
 

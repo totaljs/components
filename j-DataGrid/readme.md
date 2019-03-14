@@ -36,7 +36,7 @@ __Data-source__ needs to contain:
 or raw `Array` but you can't use pagination and external filters:
 
 ```javascript
-[{ name: 'Row 1' }, { name: 'Row 2' }]
+[{ name: 'Row 1' }, { name: 'Row 2' }];
 ```
 
 __Configuration__:
@@ -44,7 +44,7 @@ __Configuration__:
 - `filterlabel` {String} a default placeholder for all filters (optional)
 - `pluralizepages` {String} pluralization for pages (optional, default: `# pages,# page,# pages,# pages`)
 - `pluralizeitems` {String} pluralization for items (optional, default: `# items,# item,# items,# items`)
-- `height` {Number/String} height of grid, supported values: `auto` (default), `parent` or `NUMBER` as height
+- `height` {Number/String} height of grid, supported values: `auto` (default), `parent` or `NUMBER` as height or `selector` for jQuery.closest()
 - `bottom` {Number} a bottom padding for `auto` height (optional, default: `80`)
 - `boolean` {String} a values for filtering of boolean values (optional, default: `true|on|yes`)
 - `resize` {Boolean} enables resizing of columns (optional, default: `true`)
@@ -60,13 +60,16 @@ __Configuration__:
 - `click` {String} a link to `function(row, grid, row_el)` is executed if the user clicks on a row
 - `highlight` {Boolean} each selected row (after `click`) will be highlighted (default: `false`)
 - `unhighlight` {Boolean} enables `undo highlighting` of selected row (default: `true`)
-- `checked` {String} a link to `function(rows, grid)` is executed if the user selected/checked some rows
+- `checked` {String} `path` to a variable or path to `function(rows, grid)` is executed if the user selected/checked some rows
 - `autoselect` {Boolean} enables auto-select of first row in grid, it performs `EXEC(config.click)`, default: `false`
 - `limit` {Number} a cluster limit, default: `80`
 - `numbering` {Boolean}, optional default `false`
 - `allowtitles` {Boolean}, enables titles for all row values, optional default `false`
 - `button` {String} a link to `function(btn_name, name, row, grid, event)` is executed if the user clicks on a __button__ in the row
 - `exec` {String} a link to `function(type, filter, sort, page)` for server-side operations only (it disables client-side sorting & filtering), supported types: `init`, `refresh` and `page`
+- __NEW__ `changed` {String} `path` to a variable or path to `function(rows, grid)` is executed if the user changed some rows
+- __NEW__ `change` {String} `path` to a variable or path to `function(meta, next(meta))` is executed if the user double clicks on a column (`meta` can be `null` if the grid is refreshed) + `next(null)` replaces previous content again
+- __NEW__ `columns` {String} a path to definition of `columns {Array}`
 
 __Column properties__:
 
@@ -75,17 +78,20 @@ __Column properties__:
 - `title` {String} a column tooltip (optional)
 - `width` {Number} a column width (optional, default `config.colwidth`)
 - `filter` {String/Boolean} a placeholder for the filter or `boolean` can disable filter for this column (optional)
+- __NEW__ `filtervalue` {Object} optional, a preddefined filter value (default: `undefined`)
 - `align` {String} can be `center` or `right` (optional, default: `left`)
 - `template` {String} can be a Tangular template and the model is the entire object of row
 - `sorting` {Boolean} enables sorting (optional, default: `true`)
 - `search` {Boolean/String} `true` will filter a value according to the `template` result or `String` can be a Tangular template which will be used as a value for search
 - `format` {String/Number} can be used for date and numbers (count of decimals) field (optional), e.g. `dd.MM.yyyy`
 - `hide` {Boolean} hides a column
+- `listcolumn` {Boolean} default:true, false for removing column from columns list
 - `hidden` {String} as an arrow function `column => true` --> column will be hidden (e.g. for restricting user)
 - `options` {Object Array} optional, a custom filter for example `[{ text: 'yes', value: true }, { text: 'no', value: false }]` or {String} link to data-source
 - `otext` {String} optional, a key for `text` field in `options`, default `text`
 - `ovalue` {String} optional, a key for `value` field in `options`, default `value`
 - `buttonapply` {String} optional, a label for `Apply` button in columns, default: `Apply`
+- `class` {String} optiona, a custom column class name
 
 __Filtering__:
 
@@ -96,14 +102,19 @@ __Filtering__:
 __Methods__:
 
 - `component.redraw([reselect_again])` can redraw rows again (only for modifications, if you will remove some row you need to update the entire model)
-- __NEW__ `component.resetfilter()` can reset a filter
-- __NEW__ `component.exportrows(page_from or true from the current page, pages_count, callback(rows, internal_options), [reset_to_page or true for the current page])` can export rows with server-side rendering
+- `component.resetfilter()` can reset a filter
+- `component.exportrows(page_from or true from the current page, pages_count, callback(rows, internal_options), [reset_to_page or true for the current page])` can export rows with server-side rendering
+- __NEW__ `component.appendrow(row_object, [scrolldown])` appends and render row
+- __NEW__ `component.redrawrow(row_object)` redraws row
+- __NEW__ `component.clear()` clears all changes
+- __NEW__ `component.editcolumn(row_index, col_index)` executes `config.change` internally (only for advanced usage)
+- __NEW__ `component.applyfilter(obj)` can apply a custom filter `{ name: 'Peter', age: '20 - 50' }`
 
 __Properties__:
 
 - __NEW__ `component.meta` returns internal meta info about filters, columns and rows
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

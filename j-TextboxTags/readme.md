@@ -19,7 +19,7 @@ __Configuration__:
 
 __Other attributes__:
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

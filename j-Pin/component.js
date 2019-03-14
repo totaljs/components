@@ -1,7 +1,7 @@
 COMPONENT('pin', 'blank:●;count:6', function(self, config) {
 
-	var inputs = null;
 	var reg_validation = /[0-9]/;
+	var inputs = null;
 	var skip = false;
 	var count = 0;
 
@@ -30,7 +30,7 @@ COMPONENT('pin', 'blank:●;count:6', function(self, config) {
 		var builder = [];
 		count = config.count;
 		for (var i = 0; i < count; i++)
-			builder.push('<div data-index="{0}" class="ui-pin-input"><input type="{1}" maxlength="1" name="pin{0}" pattern="[0-9]" /></div>'.format(i, isMOBILE ? 'tel' : 'text'));
+			builder.push('<div data-index="{0}" class="ui-pin-input"><input type="{1}" maxlength="1" autocomplete="pin{2}" name="pin{2}" pattern="[0-9]" /></div>'.format(i, isMOBILE ? 'tel' : 'text', Date.now() + i));
 		self.html(builder.join(''));
 	};
 
@@ -58,7 +58,7 @@ COMPONENT('pin', 'blank:●;count:6', function(self, config) {
 		self.event('keydown', 'input', function(e) {
 			e.which === 8 && setTimeout(function(el) {
 				if (!el.val()) {
-					el.attr('data-value', '');
+					el.attrd('value', '');
 					var prev = el.parent().prev().find('input');
 					prev.val() && prev.focus();
 					self.mask();
@@ -100,14 +100,14 @@ COMPONENT('pin', 'blank:●;count:6', function(self, config) {
 
 	self.setter = function(value) {
 
-		if (!value || skip) {
+		if (skip) {
 			skip = false;
 			return;
 		}
 
 		inputs.each(function(index) {
 			this.setAttribute('data-value', value.substring(index, index + 1));
-			this.value = config.blank;
+			this.value = value ? config.blank : '';
 		});
 	};
 

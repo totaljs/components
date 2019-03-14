@@ -1,0 +1,25 @@
+<div data---="LAZY timepicker"></div>
+<div data---="LAZY datepicker"></div>
+<div data---="LAZY directory"></div>
+<div data---="filter"></div>
+
+<div class="container">
+	<a href="#filter">Open filter</a>
+</div>
+
+<script>
+	$(document).on('click', 'a', function() {
+
+		var opt = {};
+		opt.element = this;
+		opt.width = 300;
+		opt.items = [{ label: 'Brand', name: 'brand', type: ['Audi', 'VWFS', 'Porsche', 'Škoda'] }, { label: 'City', name: 'city', type: [{ name: 'Banská Bystrica', id: 1 }, { name: 'Bratislava', id: 2 }], placeholder: 'Choose a city' }, { label: 'From', name: 'from', type: Date, placeholder: 'Date from', format: 'dd.MM.yyyy' }, { label: 'Time', name: 'time', type: 'Time', format: 'HH:mm' }, { label: 'Search', name: 'search', type: String, placeholder: 'Search in items' }, { label: 'Removed', name: 'removed', type: Boolean }, { label: 'Price', name: 'price', type: Number }];
+		opt.value = { brand: 'VWFS', from: new Date() };
+
+		opt.callback = function(value, changed) {
+			console.log(value, changed);
+		};
+
+		SETTER('filter', 'show', opt);
+	});
+</script>

@@ -14,7 +14,7 @@ __Configuration__:
 __Friendly components__:
 This component works with `loading` (when the file is uploading) and `message` (when server throws an error) component.
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

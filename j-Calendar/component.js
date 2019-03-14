@@ -3,7 +3,7 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 	var skip = false;
 	var visible = false;
 	var touchdiff;
-	var startX, startY;
+	var startX;
 
 	self.days = EMPTYARRAY;
 	self.months = EMPTYARRAY;
@@ -11,6 +11,7 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 	self.years_from;
 	self.years_to;
 
+	self.singleton();
 	self.readonly();
 	self.nocompile && self.nocompile();
 	self.click = function() {};
@@ -194,6 +195,7 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 			l = (l + w) - s;
 		}
 
+		self.time = (value || new Date()).format('HH:mm:ss');
 		self.css({ left: l, top: t });
 		self.rclass('hidden');
 		self.click = callback;
@@ -201,6 +203,25 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 		visible = true;
 		self.aclass('ui-calendar-visible', 50);
 		return self;
+	};
+
+	self.setdate = function(dt) {
+
+		var time = self.time.split(':');
+
+		if (time.length > 1) {
+			dt.setHours(+(time[0] || '0'));
+			dt.setMinutes(+(time[1] || '0'));
+			dt.setSeconds(+(time[2] || '0'));
+		}
+
+		if (self.click) {
+			if (typeof(self.click) === 'string') {
+				SET(self.click, dt);
+				CHANGE(self.click, true);
+			} else
+				self.click(dt);
+		}
 	};
 
 	self.make = function() {
@@ -219,15 +240,8 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 		self.reconfigure(conf);
 
 		self.event('click', '.ui-calendar-today-a', function() {
-			var dt = new Date();
+			self.setdate(new Date());
 			self.hide();
-			if (self.click) {
-				if (typeof(self.click) === 'string') {
-					SET(self.click, dt);
-					CHANGE(self.click, true);
-				} else
-					self.click(dt);
-			}
 		});
 
 		self.event('click touchend', '.ui-calendar-day', function() {
@@ -239,13 +253,7 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 			var el = $(this).aclass('ui-calendar-selected');
 			skip = !el.hclass('ui-calendar-disabled');
 			self.hide();
-			if (self.click) {
-				if (typeof(self.click) === 'string') {
-					SET(self.click, dt);
-					CHANGE(self.click, true);
-				} else
-					self.click(dt);
-			}
+			self.setdate(dt);
 		});
 
 		self.event('click', '.ui-calendar-header', function(e) {
@@ -305,18 +313,15 @@ COMPONENT('calendar', 'today:Set today;firstday:0;close:Close;yearselect:true;mo
 
 			if (e.type === 'touchstart') {
 				startX = x;
-				startY = y;
 				touchdiff = Date.now();
 				return;
 			}
 
 			var diffX = startX - x;
-			var diffY = startY - y;
 
 			if (diffX > 70 || diffX < -70) {
 				var arr = $(this).data('date').split('-');
 				var dt = new Date(parseInt(arr[0]), parseInt(arr[1]), 1, 12, 0);
-
 				dt.setMonth(dt.getMonth() + (diffX > 50 ? 1 : -1));
 				self.date(dt, true);
 			}

@@ -1,0 +1,16 @@
+{
+	"datecreated": "2019-01-27T19:57:01.000Z",
+	"dateupdated": null,
+	"name": "j-Upload",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": false,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

@@ -10,7 +10,7 @@ __Configuration__
 - `cancel` {String} a label for the cancel button (default: `Cancel`)
 - `redirect` {String} URL to redirect if the user pressed cancel button (default: `about:blank`)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

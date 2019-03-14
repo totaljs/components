@@ -3,7 +3,7 @@
 - easy usage
 - works with Bootstrap
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

@@ -2,15 +2,24 @@ COMPONENT('part', 'hide:true', function(self, config) {
 
 	var init = false;
 	var clid = null;
+	var downloading = false;
 
+	self.releasemode && self.releasemode('true');
 	self.readonly();
+
 	self.setter = function(value) {
 
 		if (config.if !== value) {
-			config.hidden && !self.hclass('hidden') && EXEC(config.hidden);
-			config.hide && self.aclass('hidden');
+
+			if (!self.hclass('hidden')) {
+				config.hidden && EXEC(config.hidden);
+				config.hide && self.aclass('hidden');
+				self.release(true);
+			}
+
 			if (config.cleaner && init && !clid)
 				clid = setTimeout(self.clean, config.cleaner * 60000);
+
 			return;
 		}
 
@@ -23,20 +32,38 @@ COMPONENT('part', 'hide:true', function(self, config) {
 				clid = null;
 			}
 
+			self.release(false);
 			config.reload && EXEC(config.reload);
 			config.default && DEFAULT(config.default, true);
 
+			setTimeout(function() {
+				self.element.SETTER('*', 'resize');
+			}, 200);
+
 		} else {
+
+			if (downloading)
+				return;
+
 			SETTER('loading', 'show');
+			downloading = true;
 			setTimeout(function() {
 				self.import(config.url, function() {
+					downloading = false;
+
 					if (!init) {
 						config.init && EXEC(config.init);
 						init = true;
 					}
+
+					self.release(false);
 					config.reload && EXEC(config.reload);
 					config.default && DEFAULT(config.default, true);
 					SETTER('loading', 'hide', 500);
+
+					setTimeout(function() {
+						self.element.SETTER('*', 'resize');
+					}, 200);
 				});
 			}, 200);
 		}

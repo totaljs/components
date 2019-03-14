@@ -1,0 +1,29 @@
+<!-- DEPENDENCIES -->
+<div data---="directory__null__placeholder:Search..."></div>
+<div data---="datepicker"></div>
+
+<div style="width:400px">
+	<div data---="input__form.framework__required:1;placeholder:Your name;dirsource:frameworks">Framework</div>
+	<br />
+	<div data---="input__form.city__required:1;placeholder:Where do you live?;dirsource:cities;innerlabel:true;dircustom:true">City</div>
+	<br />
+	<div data---="input__form.date__placeholder:Your name;type:date;required:true;innerlabel:true">Date</div>
+	<br />
+	<div data---="input__form.search__placeholder:Search...;type:search;innerlabel:true">Search</div>
+	<br />
+	<div data---="input__form.password__placeholder:Type a password...;type:password">Password</div>
+	<br />
+	<div data---="input__form.zip__mask:###-##;maskregexp:\d,\d,\d,null,\d,\d">ZIP</div>
+	<br />
+	<div style="width:150px">
+		<div data---="input__form.age__type:number;innerlabel:false">Your age</div>
+	</div>
+</div>
+
+<script>
+	var frameworks = [{ id: 0, name: 'Nothing', template: '<b>{{ name }}</b>' }, { id: 1, name: 'jComponent' }, { id: 2, name: 'Angular.js' }, { id: 3, name: 'React' }];
+	var cities = ['Slovakia', 'Poland', 'Hungary', 'Germany'];
+	var form = {};
+	form.email = '@';
+	form.age = 30;
+</script>

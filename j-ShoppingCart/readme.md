@@ -28,7 +28,7 @@ Example: `data-jc-config="discount:10"`
 - `ON('shoppingcart.sum', function(data) {})`
 - `ON('shoppingcart.clear', function() {})`
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

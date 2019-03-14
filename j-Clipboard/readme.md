@@ -11,7 +11,7 @@ __Attributes__:
 __Methods__:
 - `SETTER('clipboard', 'copy', 'TEXT TO CLIPBOARD')` or `FIND('clipboard').copy('TEXT TO CLIPBOARD')`
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

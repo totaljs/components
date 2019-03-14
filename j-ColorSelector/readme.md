@@ -5,7 +5,7 @@ __Configuration__:
 - `disabled` {Boolean} can disable this control
 - `required` {Boolean} (optional) enables "required" (default: `false`)
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

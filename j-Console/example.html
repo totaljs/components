@@ -1,0 +1,18 @@
+<style>
+	body { background-color: #D0D0D0; }
+</style>
+
+<div data---="console__visible__datasource:logs"></div>
+
+<script>
+
+	var visible = true;
+	var logs = {};
+
+	logs['app1'] = { icon: 'cog', items: [{ type: 'info', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, ea.' }, { type: 'error', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, ea.' }] };
+	logs['app2'] = { icon: 'cloud', items: [{ type: 'warning', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, ea.' }, { type: 'success', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, ea.' }] };
+
+	// 2 seconds delay
+	PUSH('logs.app1.items', { type: 'warning', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, tempora.' }, 2000);
+
+</script>

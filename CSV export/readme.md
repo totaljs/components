@@ -17,7 +17,7 @@ FUNC.csv('example.csv', ['name', 'price'], [{ name: 'Name 1', price: 1, date: ne
 FUNC.csv('example.csv', [{ name: 'Name 1', price: 1, date: new Date() }, { name: 'Name 2', price: 2, date: new Date() }, { name: 'Name 3', price: 3, date: new Date() }]);
 ```
 
-### Author
+### Author
 
 - Peter Širka <petersirka@gmail.com>
 - License: MIT

@@ -1,9 +1,11 @@
 {
-	"datecreated": "2018-12-22T10:09:07.000Z",
-	"dateupdated": null,
+	"datecreated": "2018-12-22T10:09:08.000Z",
+	"dateupdated": "2019-02-21T16:05:00.000Z",
 	"name": "j-DynamicValue",
 	"tags": [
-		"jcomponent"
+		"value",
+		"input",
+		"dynamic"
 	],
 	"color": "transparent",
 	"version": 1,

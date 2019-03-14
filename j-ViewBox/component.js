@@ -1,12 +1,25 @@
-COMPONENT('viewbox', 'margin:0;scroll:true', function(self, config) {
+COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:false;visibleY:true', function(self, config) {
 
-	var eld;
+	var eld, elb;
+	var scrollbar;
+	var cls = 'ui-viewbox';
+	var cls2 = '.' + cls;
+	var sw = SCROLLBARWIDTH();
 
 	self.readonly();
 
 	self.init = function() {
-		$(window).on('resize', function() {
-			SETTER('viewbox', 'resize');
+		var obj;
+		if (W.OP)
+			obj = W.OP;
+		else
+			obj = $(W);
+		obj.on('resize', function() {
+			for (var i = 0; i < M.components.length; i++) {
+				var com = M.components[i];
+				if (com.name === 'viewbox' && com.dom.offsetParent && com.$ready && !com.$removed)
+					com.resize();
+			}
 		});
 	};
 
@@ -18,34 +31,96 @@ COMPONENT('viewbox', 'margin:0;scroll:true', function(self, config) {
 			case 'minheight':
 				!init && self.resize();
 				break;
+			case 'selector': // backward compatibility
+				config.parent = value;
+				self.resize();
+				break;
 		}
+	};
+
+	self.scrollbottom = function(val) {
+		if (val == null)
+			return elb[0].scrollTop;
+		elb[0].scrollTop = (elb[0].scrollHeight - self.dom.clientHeight) - (val || 0);
+		return elb[0].scrollTop;
+	};
+
+	self.scrolltop = function(val) {
+		if (val == null)
+			return elb[0].scrollTop;
+		elb[0].scrollTop = (val || 0);
+		return elb[0].scrollTop;
 	};
 
 	self.make = function() {
 		config.scroll && MAIN.version > 17 && self.element.wrapInner('<div class="ui-viewbox-body"></div>');
 		self.element.prepend('<div class="ui-viewbox-disabled hidden"></div>');
-		eld = self.find('> .ui-viewbox-disabled').eq(0);
-		self.aclass('ui-viewbox ui-viewbox-hidden');
+		eld = self.find('> .{0}-disabled'.format(cls)).eq(0);
+		elb = self.find('> .{0}-body'.format(cls)).eq(0);
+		self.aclass('{0} {0}-hidden'.format(cls));
 		if (config.scroll) {
-			if (MAIN.version > 17)
-				window.SCROLLBAR(self.find('.ui-viewbox-body'), { parent: self.element });
-			else
-				self.aclass('ui-viewbox-scroll');
+			if (config.scrollbar) {
+				if (MAIN.version > 17) {
+					scrollbar = window.SCROLLBAR(self.find(cls2 + '-body'), { visibleY: config.visibleY, visibleX: config.visibleX, parent: self.element });
+					self.scrolltop = scrollbar.scrollTop;
+					self.scrollbottom = scrollbar.scrollBottom;
+				} else
+					self.aclass(cls + '-scroll');
+			} else {
+				self.aclass(cls + '-scroll');
+				sw && self.find(cls2 + '-body').css('padding-right', sw);
+			}
 		}
 		self.resize();
 	};
 
+	self.released = function(is) {
+		!is && self.resize();
+	};
+
+	var css = {};
+
 	self.resize = function() {
-		var el = config.selector ? config.selector === 'window' ? $(window) : self.element.closest(config.selector) : self.parent();
-		var h = ((el.height() / 100) * config.height) - config.margin;
+
+		if (self.release())
+			return;
+
+		var el = config.parent ? config.parent === 'window' ? $(window) : self.element.closest(config.parent) : self.parent();
+		var h = el.height();
+		var w = el.width();
+
+		if (h === 0 || w === 0) {
+			self.$waiting && clearTimeout(self.$waiting);
+			self.$waiting = setTimeout(self.resize, 234);
+			return;
+		}
+
+		h = ((h / 100) * config.height) - config.margin;
+
 
 		if (config.minheight && h < config.minheight)
 			h = config.minheight;
 
-		eld.css({ height: h, width: self.element.width() });
-		self.css('height', h);
+		css.height = h;
+		css.width = self.element.width();
+		eld.css(css);
+
+		css.width = null;
+		self.css(css);
+
+		if (config.scroll && !config.scrollbar)
+			css.width = w + sw;
+
+		elb.length && elb.css(css);
 		self.element.SETTER('*', 'resize');
-		var cls = 'ui-viewbox-hidden';
-		self.hclass(cls) && self.rclass(cls, 100);
+		var c = cls + '-hidden';
+		self.hclass(c) && self.rclass(c, 100);
+
+		if (scrollbar)
+			scrollbar.resize();
+	};
+
+	self.setter = function() {
+		setTimeout(self.resize, config.delay);
 	};
 });

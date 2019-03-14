@@ -2,7 +2,7 @@
 
 - works as singleton
 
-### Author
+### Author
 
 - Martin Jirku <martinjirku@gmail.com>
 - License: MIT
