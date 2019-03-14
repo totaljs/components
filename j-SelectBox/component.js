@@ -1,9 +1,10 @@
 COMPONENT('selectbox', function(self, config) {
 
 	var Eitems, Eselected, datasource, condition;
+	var sw = SCROLLBARWIDTH();
 
 	self.datasource = EMPTYARRAY;
-	self.template = Tangular.compile('<li data-search="{{ search }}" data-index="{{ index }}">{{ text }}</li>');
+	self.template = Tangular.compile('<a href="javascript:void(0)" data-search="{{ search }}" data-index="{{ index }}">{{ text }}</a>');
 	self.nocompile && self.nocompile();
 
 	self.validate = function(value) {
@@ -61,7 +62,7 @@ COMPONENT('selectbox', function(self, config) {
 
 	self.search = function() {
 		var search = config.search ? self.find('input').val().toSearch() : '';
-		Eitems.find('li').each(function() {
+		Eitems.find('a').each(function() {
 			var el = $(this);
 			el.tclass('hidden', el.attrd('search').indexOf(search) === -1);
 		});
@@ -69,8 +70,12 @@ COMPONENT('selectbox', function(self, config) {
 	};
 
 	self.redraw = function() {
-		self.html((typeof(config.search) === 'string' ? '<div class="ui-selectbox-search"><span><i class="fa fa-search ui-selectbox-search-icon"></i></span><div><input type="text" placeholder="{0}" /></div></div><div>'.format(config.search) : '') + '<div style="height:{0}px"><ul></ul><ul style="height:{0}px"></ul></div>'.format(config.height || '200'));
-		self.find('ul').each(function(index) {
+		self.html((typeof(config.search) === 'string' ? '<div class="ui-selectbox-search"><span><i class="fa fa-search ui-selectbox-search-icon"></i></span><div><input type="text" placeholder="{0}" /></div></div><div>'.format(config.search) : '') + '<div class="ui-selectbox-container" style="height:{0}px"><div class="ui-selectbox-area"><div class="ui-selectbox-body"></div></div><div class="ui-selectbox-area"><div class="ui-selectbox-body" style="height:{0}px"></div></div></div>'.format(config.height || '200'));
+
+		var width = Math.ceil(self.find('.ui-selectbox-container').width()/2) + sw;
+		self.find('.ui-selectbox-area').css('width', width + 'px');
+
+		self.find('.ui-selectbox-body').each(function(index) {
 			if (index)
 				Eselected = $(this);
 			else
@@ -123,7 +128,7 @@ COMPONENT('selectbox', function(self, config) {
 		config.datasource && self.reconfigure('datasource:' + config.datasource);
 		config.items && self.reconfigure('items:' + config.items);
 
-		self.event('click', 'li', function() {
+		self.event('click', 'a', function() {
 			if (config.disabled)
 				return;
 			var selected = self.get() || [];
@@ -170,7 +175,7 @@ COMPONENT('selectbox', function(self, config) {
 			}
 		}
 
-		Eitems.find('li').each(function() {
+		Eitems.find('a').each(function() {
 			var el = $(this);
 			var index = +el.attrd('index');
 			el.tclass('ui-selectbox-selected', selected[index] !== undefined);
