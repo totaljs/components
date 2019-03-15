@@ -12,6 +12,6 @@
 
 .ui-dark .ui-menu b { color: #505050; }
 .ui-dark .ui-menu { background-color: #303030; border-color: #353535; box-shadow: 1px 5px 10px rgba(0,0,0,0.2); }
-.ui-dark .ui-menu .fa { color: white; }
+.ui-dark .ui-menu i { color: white; }
 .ui-dark .ui-menu li:hover { background-color: #202020; }
 .ui-dark .ui-menu-divider hr { border-color: #404040; }
