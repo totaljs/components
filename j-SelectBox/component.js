@@ -4,7 +4,7 @@ COMPONENT('selectbox', function(self, config) {
 	var sw = SCROLLBARWIDTH();
 
 	self.datasource = EMPTYARRAY;
-	self.template = Tangular.compile('<a href="javascript:void(0)" data-search="{{ search }}" data-index="{{ index }}">{{ text }}</a>');
+	self.template = Tangular.compile('<span data-search="{{ search }}" data-index="{{ index }}">{{ text }}</span>');
 	self.nocompile && self.nocompile();
 
 	self.validate = function(value) {
@@ -62,7 +62,7 @@ COMPONENT('selectbox', function(self, config) {
 
 	self.search = function() {
 		var search = config.search ? self.find('input').val().toSearch() : '';
-		Eitems.find('a').each(function() {
+		Eitems.find('span').each(function() {
 			var el = $(this);
 			el.tclass('hidden', el.attrd('search').indexOf(search) === -1);
 		});
@@ -128,7 +128,7 @@ COMPONENT('selectbox', function(self, config) {
 		config.datasource && self.reconfigure('datasource:' + config.datasource);
 		config.items && self.reconfigure('items:' + config.items);
 
-		self.event('click', 'a', function() {
+		self.event('click', 'span', function() {
 			if (config.disabled)
 				return;
 			var selected = self.get() || [];
@@ -175,7 +175,7 @@ COMPONENT('selectbox', function(self, config) {
 			}
 		}
 
-		Eitems.find('a').each(function() {
+		Eitems.find('span').each(function() {
 			var el = $(this);
 			var index = +el.attrd('index');
 			el.tclass('ui-selectbox-selected', selected[index] !== undefined);
