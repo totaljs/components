@@ -1,9 +1,9 @@
 {
 	"datecreated": "2018-12-23T22:13:00.000Z",
-	"dateupdated": null,
+	"dateupdated": "2019-03-15T10:04:00.000Z",
 	"name": "j-Scrollbar",
 	"tags": [
-		"jcomponent"
+		"scrollbar"
 	],
 	"color": "transparent",
 	"version": 1,

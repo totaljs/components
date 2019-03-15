@@ -16,7 +16,18 @@ COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;marginsm:0;marginmd:0;mar
 	};
 
 	self.init = function() {
-		SETTER('scrollbar', 'resize');
+		var resize = function() {
+			SETTER('modal', 'resize');
+		};
+
+		var resizedelay = function() {
+			setTimeout2(cls, resize, 300);
+		};
+
+		if (W.OP)
+			W.OP.on('resize', resizedelay);
+		else
+			$(W).on('resize', resizedelay);
 	};
 
 	self.make = function() {
@@ -56,5 +67,4 @@ COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;marginsm:0;marginmd:0;mar
 			}, 500);
 		}
 	};
-
 });
