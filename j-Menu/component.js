@@ -122,7 +122,8 @@ COMPONENT('menu', function(self) {
 					css.left = offset.left;
 					break;
 			}
-			css.top = offset.top + target.innerHeight() + 10;
+
+			css.top = opt.position === 'bottom' ? (offset.top - self.element.height() - 10) : (offset.top + target.innerHeight() + 10);
 		} else {
 			css.left = opt.x;
 			css.top = opt.y;
