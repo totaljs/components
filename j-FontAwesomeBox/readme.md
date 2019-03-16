@@ -1,6 +1,6 @@
 ## j-FontAwesomeBox
 
-A simple __FontAwesome__ viewer with fulltext searching.
+A simple __FontAwesome__ viewer with fulltext searching. Optimized for jComponent `+v17`.
 
 __Configuration__:
 
