@@ -1,9 +1,10 @@
 {
 	"datecreated": "2017-02-02T11:40:00.000Z",
-	"dateupdated": "2019-03-15T09:05:00.000Z",
+	"dateupdated": "2019-03-16T14:35:00.000Z",
 	"name": "j-SelectBox",
 	"tags": [
-		"jcomponent"
+		"selectbox",
+		"listbox"
 	],
 	"color": "silver",
 	"version": 1,

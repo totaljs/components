@@ -1,6 +1,7 @@
 ## j-SelectBox
 
 - supports __dark mode__
+- only for jComponent `+v17`
 
 __Configuration__:
 

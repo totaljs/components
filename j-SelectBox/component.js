@@ -1,7 +1,6 @@
 COMPONENT('selectbox', function(self, config) {
 
 	var Eitems, Eselected, datasource, condition;
-	var sw = SCROLLBARWIDTH();
 
 	self.datasource = EMPTYARRAY;
 	self.template = Tangular.compile('<span data-search="{{ search }}" data-index="{{ index }}">{{ text }}</span>');
@@ -70,11 +69,7 @@ COMPONENT('selectbox', function(self, config) {
 	};
 
 	self.redraw = function() {
-		self.html((typeof(config.search) === 'string' ? '<div class="ui-selectbox-search"><span><i class="fa fa-search ui-selectbox-search-icon"></i></span><div><input type="text" placeholder="{0}" /></div></div><div>'.format(config.search) : '') + '<div class="ui-selectbox-container" style="height:{0}px"><div class="ui-selectbox-area"><div class="ui-selectbox-body"></div></div><div class="ui-selectbox-area"><div class="ui-selectbox-body" style="height:{0}px"></div></div></div>'.format(config.height || '200'));
-
-		var width = Math.ceil(self.find('.ui-selectbox-container').width()/2) + sw;
-		self.find('.ui-selectbox-area').css('width', width + 'px');
-
+		self.html((typeof(config.search) === 'string' ? '<div class="ui-selectbox-search"><span><i class="fa fa-search ui-selectbox-search-icon"></i></span><div><input type="text" placeholder="{0}" /></div></div><div>'.format(config.search) : '') + '<div class="ui-selectbox-container" style="height:{0}px"><div class="ui-selectbox-area"><div class="ui-selectbox-body noscrollbar"></div></div><div class="ui-selectbox-area"><div class="ui-selectbox-body noscrollbar" style="height:{0}px"></div></div></div>'.format(config.height || '200'));
 		self.find('.ui-selectbox-body').each(function(index) {
 			if (index)
 				Eselected = $(this);
