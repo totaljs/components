@@ -18,7 +18,7 @@ COMPONENT('fontawesomebox', 'height:300', function(self, config) {
 
 		self.aclass(cls);
 		self.css('height', config.height + 'px');
-		self.append('<div class="{3}-search"><span><i class="fa fa-search clearsearch"></i></span><div><input type="text" maxlength="50" placeholder="{0}" /></div></div><div class="{3}-search-empty"></div><div class="{3}-icons"><ul style="height:{1}px" class="noscrollbar"></ul></div>'.format(config.search, config.height - 40, cls));
+		self.append('<div class="{2}-search"><span><i class="fa fa-search clearsearch"></i></span><div><input type="text" maxlength="50" placeholder="{0}" /></div></div><div class="{2}-search-empty"></div><div class="{2}-icons"><ul style="height:{1}px" class="noscrollbar"></ul></div>'.format(config.search, config.height - 40, cls));
 		container = $(self.find(cls2 + '-icons').find('ul')[0]);
 		input = self.find('input');
 		icon = self.find(cls2 + '-search').find('i');
