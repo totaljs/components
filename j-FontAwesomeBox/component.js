@@ -1,6 +1,6 @@
 COMPONENT('fontawesomebox', 'height:300', function(self, config) {
 
-	var cls = cls;
+	var cls = 'ui-fontawesomebox';
 	var cls2 = '.' + cls;
 	var container, input, icon, prev;
 	var template = '<li data-search="{0}"><i class="{1}"></i></li>';
