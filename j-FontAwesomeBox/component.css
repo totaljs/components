@@ -11,6 +11,13 @@
 .ui-fontawesomebox-search .fa-times { color: red; cursor: pointer; }
 .ui-fontawesomebox-search div { margin-left: 30px; padding: 6px 10px 0 0; }
 
+.ui-dark .ui-fontawesomebox { border-color: #303030; background-color: #202020; }
+.ui-dark .ui-fontawesomebox li { color: #D0D0D0; }
+.ui-dark .ui-fontawesomebox .selected { background-color: yellow !important; color: black; }
+.ui-dark .ui-fontawesomebox li:hover { background-color: #404040; }
+.ui-dark .ui-fontawesomebox-search { border-color: #303030; background-color: #202020; }
+.ui-dark .ui-fontawesomebox-search input { background-color: #202020; color: white; }
+
 @media(max-width: 767px) {
 	.ui-fontawesomebox { width: 90%; margin-left: 5%; }
 	.ui-fontawesomebox li { width: 10%; }

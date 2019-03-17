@@ -1,11 +1,12 @@
 {
 	"datecreated": "2017-10-18T09:14:00.000Z",
-	"dateupdated": "2019-03-16T23:48:00.000Z",
+	"dateupdated": "2019-03-16T23:49:00.000Z",
 	"name": "j-FontAwesomeBox",
 	"tags": [
 		"icons",
 		"fontawesome"
 	],
+	"darkmode": true,
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,
