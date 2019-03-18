@@ -22,7 +22,7 @@ This component implements `FUNC.messageresponse` function and you can use it in 
 ```javascript
 // FUNC.messageresponse(success_message, [success_callback]);
 AJAX('GET /api/something', FUNC.messageresponse('Profile has been saved successfully'));
-````
+```
 
 ### Author
 
