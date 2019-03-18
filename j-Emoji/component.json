@@ -1,0 +1,17 @@
+{
+	"datecreated": "2019-03-18T14:55:00.000Z",
+	"dateupdated": null,
+	"name": "j-Emoji",
+	"tags": [
+		"emoji",
+		"smiles"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Denis Granec",
+	"email": "denis@granec.cz",
+	"license": "MIT"
+}
