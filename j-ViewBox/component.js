@@ -4,7 +4,6 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:false;visibleY:tr
 	var scrollbar;
 	var cls = 'ui-viewbox';
 	var cls2 = '.' + cls;
-	var sw = SCROLLBARWIDTH();
 
 	self.readonly();
 
