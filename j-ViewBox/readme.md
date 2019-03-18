@@ -3,6 +3,7 @@
 - keeps a fixed percentage height
 - great usage for intranet applications
 - supports `releasing`
+- optimized for jComponent `+v17`
 
 __Configuration__:
 

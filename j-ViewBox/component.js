@@ -68,7 +68,7 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:false;visibleY:tr
 					self.aclass(cls + '-scroll');
 			} else {
 				self.aclass(cls + '-scroll');
-				sw && self.find(cls2 + '-body').css('padding-right', sw);
+				self.find(cls2 + '-body').aclass('noscrollbar');
 			}
 		}
 		self.resize();
@@ -97,7 +97,6 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:false;visibleY:tr
 
 		h = ((h / 100) * config.height) - config.margin;
 
-
 		if (config.minheight && h < config.minheight)
 			h = config.minheight;
 
@@ -107,9 +106,6 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:false;visibleY:tr
 
 		css.width = null;
 		self.css(css);
-
-		if (config.scroll && !config.scrollbar)
-			css.width = w + sw;
 
 		elb.length && elb.css(css);
 		self.element.SETTER('*', 'resize');
