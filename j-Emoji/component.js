@@ -1,5 +1,7 @@
 COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,127828,127937;height:295;history:15;empty:No emoji match your search;emptyemoji:128557;speed:500;footer:Choose skin tone;toneemoji:9995', function(self, config) {
 
+	var cls = 'ui-emoji';
+	var cls2 = '.' + cls;
 	var template = '<span data-id="{2}" {3}>{0}{1}</span>';
 	var tone = ['', '&#127995;', '&#127996;', '&#127997;', '&#127998;', '&#127999;'];
 	var toneclear = ['', '-127995', '-127996', '-127997', '-127998', '-127999'];
@@ -26,7 +28,7 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 	};
 
 	self.redraw = function() {
-		self.html('<div class="ui-emoji"><div class="ui-emoji-header"><div class="ui-emoji-nav"><span data-type="history">{0}</span><span data-type="people">{1}</span><span data-type="objects">{2}</span><span data-type="activity">{3}</span><span data-type="nature">{4}</span><span data-type="travel">{5}</span><span data-type="symbols">{6}</span><span data-type="food">{7}</span><span data-type="flags">{8}</span></div><div class="ui-emoji-search"><span><i class="fa fa-search clearsearch"></i></span><div><input type="text" placeholder="Search" class="ui-emoji-search-input"></div></div></div><div class="ui-emoji-content noscrollbar" style="height:{9}px;"></div><div class="ui-emoji-footer"><div class="ui-emoji-footer-text">{10}</div><span data-type="0">&#{11};</span><span data-type="1">&#{11};&#127995;</span><span data-type="2">&#{11};&#127996;</span><span data-type="3">&#{11};&#127997;</span><span data-type="4">&#{11};&#127998;</span><span data-type="5">&#{11};&#127999;</span></div></div>'.format(categories[0], categories[1], categories[2], categories[3], categories[4], categories[5], categories[6], categories[7], categories[8], config.height, config.footer, config.toneemoji));
+		self.html('<div class="{12}"><div class="{12}-header"><div class="{12}-nav"><span data-type="history">{0}</span><span data-type="people">{1}</span><span data-type="objects">{2}</span><span data-type="activity">{3}</span><span data-type="nature">{4}</span><span data-type="travel">{5}</span><span data-type="symbols">{6}</span><span data-type="food">{7}</span><span data-type="flags">{8}</span></div><div class="{12}-search"><span><i class="fa fa-search clearsearch"></i></span><div><input type="text" placeholder="Search" class="{12}-search-input"></div></div></div><div class="{12}-content noscrollbar" style="height:{9}px;"></div><div class="{12}-footer"><div class="{12}-footer-text">{10}</div><span data-type="0">&#{11};</span><span data-type="1">&#{11};&#127995;</span><span data-type="2">&#{11};&#127996;</span><span data-type="3">&#{11};&#127997;</span><span data-type="4">&#{11};&#127998;</span><span data-type="5">&#{11};&#127999;</span></div></div>'.format(categories[0], categories[1], categories[2], categories[3], categories[4], categories[5], categories[6], categories[7], categories[8], config.height, config.footer, config.toneemoji, cls));
 		self.renderemoji();
 		self.find('.noscrollbar').noscrollbar();
 	};
@@ -48,7 +50,7 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 		var code;
 
 		if (history.length) {
-			html += '<div class="ui-emoji-content-title" id="history">Frequently used</div>';
+			html += '<div class="' + cls + '-content-title" id="history">Frequently used</div>';
 			for (var i = 0, len = history.length; i < len; i++) {
 				html += template.format(self.parseemoji(history[i].id), '', history[i].id);
 			}
@@ -57,20 +59,17 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 		for (var i = 0, len = W.emoticonsdb.length; i < len; i++) {
 
 			var emoticon = W.emoticonsdb[i];
-			html += '<div class="ui-emoji-content-title" id="{0}">{0}</div>'.format(emoticon.name);
-
+			html += '<div class="{0}-content-title" id="{1}">{1}</div>'.format(cls, emoticon.name);
 			for (var item = 0, len2 = emoticon.emojis.length; item < len2; item++) {
-
 				var emoji = emoticon.emojis[item];
 				var editable = emoji.fitzpatrick || false;
-
 				code = emoji.code_decimal.replace(/&#/g, '').replace(/;/g, '-').slice(0, -1);
 				html += template.format(emoji.code_decimal, (editable ? tone[toneselected] : ''), code, (editable ? 'data-editable="1"' : ''));
 			}
 		}
 
 		allemoticons = html;
-		self.find('.ui-emoji-content').html(html);
+		self.find(cls2 + '-content').html(html);
 	};
 
 	self.search = function(value) {
@@ -80,13 +79,13 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 
 		if (!value.length) {
 			search.aclass('fa-search');
-			self.find('.ui-emoji-content').html(allemoticons);
+			self.find(cls2 + 'content').html(allemoticons);
 			return;
 		}
 
 		var html = '';
 		value = value.toSearch();
-		self.find('.ui-emoji-content').html('');
+		self.find(cls2 + '-content').html('');
 		search.aclass('fa-times');
 
 		for (var i = 0, len = W.emoticons_search.length; i < len; i++) {
@@ -97,9 +96,9 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 		}
 
 		if (html === '')
-			html = '<div class="ui-emoji-empty"><div>&#{0};</div>{1}</div>'.format(config.emptyemoji, config.empty);
+			html = '<div class="{0}-empty"><div>&#{1};</div>{2}</div>'.format(cls, config.emptyemoji, config.empty);
 
-		self.find('.ui-emoji-content').html(html).scrollTop(0);
+		self.find(cls2 + '-content').html(html)[0].scrollTop = 0;
 	};
 
 	self.make = function() {
@@ -112,38 +111,33 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 		if (saved.history != null)
 			history = saved.history;
 
-		self.aclass('ui-emoji-container hidden');
+		self.aclass(cls + '-container hidden');
 		self.redraw();
 
 		self.event('keydown', 'input', function() {
-
-			var _self = this;
-
+			var t = this;
 			setTimeout2(self.id, function() {
-				self.search(_self.value);
+				self.search(t.value);
 			}, 300);
 		});
 
 		self.event('click', '.fa-times', function() {
-			self.find('.ui-emoji-search-input').val('');
-			self.find('.ui-emoji-content').html(allemoticons).scrollTop(0);
+			self.find(cls2 + '-search-input').val('');
+			self.find(cls2 + '-content').html(allemoticons).scrollTop(0);
 			$(this).rclass2('fa-').aclass('fa-search');
 		});
 
-		self.event('click', '.ui-emoji-nav span', function() {
-
+		self.event('click', cls2 + '-nav span', function() {
 			var id = $(this).data('type');
-			var el = self.find('.ui-emoji-content');
-
-			el.animate({
-				scrollTop: el.scrollTop() + (self.find('#{0}'.format(id)).offset().top - el.offset().top)
-			}, config.speed);
+			var el = self.find(cls2 + '-content');
+			el.animate({ scrollTop: el.scrollTop() + (self.find('#{0}'.format(id)).offset().top - el.offset().top) }, config.speed);
 		});
 
-		self.event('click', '.ui-emoji-content span', function() {
+		self.event('click', cls2 + '-content span', function() {
 
-			var editable = $(this).data('editable') || 0;
-			var icon = '{0}{1}'.format($(this).data('id'), editable ? toneclear[toneselected] : '');
+			var t = $(this);
+			var editable = t.attrd('editable') || 0;
+			var icon = '{0}{1}'.format(t.data('id'), editable ? toneclear[toneselected] : '');
 			var saved = CACHE(self.name) || {};
 
 			if (saved.history == null)
@@ -163,13 +157,10 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 			self.hide();
 		});
 
-		self.event('click', '.ui-emoji-footer span', function() {
-
+		self.event('click', cls2 + '-footer span', function() {
 			var saved = CACHE(self.name) || {};
-
-			toneselected = $(this).data('type');
+			toneselected = $(this).attrd('type');
 			saved.tone = toneselected;
-
 			CACHE(self.name, saved, '1 month');
 			self.renderemoji();
 		});
@@ -177,13 +168,11 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 		self.click = function(e) {
 			var el = e.target;
 			var parent = self.element[0];
-
 			do {
 				if (el == parent)
 					return;
 				el = el.parentNode;
 			} while (el);
-
 			self.hide();
 		};
 	};
@@ -205,7 +194,6 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 			self.hide();
 			return;
 		}
-
 
 		self.target = tmp;
 		self.opt = opt;
@@ -239,6 +227,7 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 			}
 
 			css.top = opt.position === 'bottom' ? (offset.top - self.element.height() - 10) : (offset.top + target.innerHeight() + 10);
+
 		} else {
 			css.left = opt.x;
 			css.top = opt.y;
@@ -277,10 +266,9 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 			var items = W.emoticons_search;
 			code = code.trim();
 
-			for (var i = 0, len =  items.length; i < len; i++) {
-				if (items[i].shortname === code) {
+			for (var i = 0; i < items.length; i++) {
+				if (items[i].shortname === code)
 					return text.replace(items[i].shortname, items[i].decimal);
-				}
 			}
 
 			return text;
@@ -296,23 +284,21 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 		W.emoticons_search = [];
 		W.emoticons_ascii = {};
 
-		for (var i = 0, len = response.length; i < len; i++) {
+		for (var i = 0; i < response.length; i++) {
 
 			var emoticon = response[i];
 
-			for (var item = 0, len2 = emoticon.emojis.length; item < len2; item++) {
+			for (var a = 0; a < emoticon.emojis.length; a++) {
 
-				var emoji = emoticon.emojis[item];
+				var emoji = emoticon.emojis[a];
 				var name;
 				var keywords = '';
 				var code;
 
-				for (var index = 0, len3 = emoji.keywords.length; index < len3; index++) {
-					keywords += emoji.keywords[index];
-				}
+				for (var b = 0; b < emoji.keywords.length; b++)
+					keywords += emoji.keywords[b];
 
 				name = '{1}{2}{3}{4}'.format(emoji.category, emoji.name, emoji.shortname, keywords);
-
 				code = emoji.code_decimal.replace(/&#/g, '').replace(/;/g, '-').slice(0, -1);
 
 				W.emoticons_search.push({
