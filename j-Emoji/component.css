@@ -1,9 +1,8 @@
 .ui-emoji-container { position: absolute; z-index: 110; }
 .ui-emoji { border: 1px solid #E0E0E0; font-size: 14px; color: black; width: 340px; z-index: 10; background-color: white; box-shadow: 0 5px 10px rgba(0,0,0,0.08); border-radius: 4px; z-index: 80; overflow: hidden; }
 .ui-emoji-header { height: 100px; background-color: #fcfcfc; border-bottom: 1px solid #e0e0e0; }
-.ui-emoji-nav { padding: 13px 0 6px 0; text-align: center; }
-.ui-emoji-nav span { margin-right: 10px; cursor: pointer; font-size: 26px; }
-.ui-emoji-nav span:last-child { margin-right: 0; }
+.ui-emoji-nav { padding: 13px 5px 6px 5px; text-align: center; }
+.ui-emoji-nav span { cursor: pointer; font-size: 26px; width: 11%; display: inline-block; }
 .ui-emoji-search { padding: 0 10px; }
 .ui-emoji-search span { float: left; width: 30px; text-align: center; height: 30px; padding: 7px 0 0; font-size: 12px; background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 4px 0 0 4px; color: #A0A0A0; cursor: pointer; }
 .ui-emoji-search .fa-times { color: #ff0000; }
