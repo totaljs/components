@@ -23,6 +23,6 @@
 .ui-emoji-footer span.active { border-bottom-color: grey; }
 
 @media(max-width: 767px) {
-	.ui-emoji .ui-emoji-nav span { margin-right: 3px; cursor: pointer; font-size: 26px; }
+	.ui-emoji .ui-emoji-nav span { cursor: pointer; font-size: 26px; }
 	.ui-emoji .ui-emoji-content span { min-width: 45px; }
 }
