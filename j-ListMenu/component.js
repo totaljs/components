@@ -21,7 +21,7 @@ COMPONENT('listmenu', 'class:selected;selector:a;property:id;click:true', functi
 
 	self.rebind = function(path, value) {
 
-		if (!value.length) {
+		if (!value || !value.length) {
 			self.empty();
 			return;
 		}
@@ -48,7 +48,7 @@ COMPONENT('listmenu', 'class:selected;selector:a;property:id;click:true', functi
 
 	self.setter = function(value) {
 		var arr = self.get(config.datasource);
-		if (arr.length) {
+		if (arr && arr.length) {
 			if (value === oldvalue)
 				return;
 			oldvalue = value;

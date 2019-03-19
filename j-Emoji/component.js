@@ -10,6 +10,7 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 	var history = [];
 	var categories = [];
 	var is = false;
+	var events = {};
 
 	self.singleton();
 	self.readonly();
@@ -153,7 +154,12 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 			}
 
 			CACHE(self.name, saved, '1 month');
-			self.opt.callback(icon);
+
+			var num = icon.split('-').trim().map(function(c) {
+				return +c;
+			});
+
+			self.opt.callback(String.fromCodePoint.apply(null, num));
 			self.hide();
 		});
 
@@ -165,9 +171,9 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 			self.renderemoji();
 		});
 
-		self.click = function(e) {
+		events.click = function(e) {
 			var el = e.target;
-			var parent = self.element[0];
+			var parent = self.dom;
 			do {
 				if (el == parent)
 					return;
@@ -177,13 +183,18 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 		};
 	};
 
-
 	self.bindevents = function() {
-		$(document).on('click', self.click);
+		if (!events.is) {
+			events.is = true;
+			$(document).on('click', events.click);
+		}
 	};
 
 	self.unbindevents = function() {
-		$(document).off('click', self.click);
+		if (events.is) {
+			events.is = false;
+			$(document).off('click', events.click);
+		}
 	};
 
 	self.show = function(opt) {
@@ -197,17 +208,14 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 
 		self.target = tmp;
 		self.opt = opt;
-
 		var css = {};
 
 		if (is) {
 			css.left = 0;
 			css.top = 0;
 			self.element.css(css);
-		} else {
-			self.element.rclass('hidden');
-			is = true;
-		}
+		} else
+			self.rclass('hidden');
 
 		var target = $(opt.element);
 		var w = self.element.width();
@@ -239,9 +247,9 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 		if (opt.offsetY)
 			css.top += opt.offsetY;
 
-		self.bindevents();
 		self.redraw();
 		self.element.css(css);
+		setTimeout(self.bindevents, 50);
 	};
 
 	self.hide = function() {

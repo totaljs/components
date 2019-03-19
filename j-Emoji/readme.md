@@ -40,7 +40,7 @@ opt.element = YOUR_ELEMENT;
 // opt.y {Number}          : `y` position
 
 opt.callback = function(emoji) {
-	console.log(emoji); // if emoji is build with more characters, it's one string with `-` between emoji
+	console.log(emoji); // callback parameter has String.fromCodePoint() value
 };
 
 SETTER('emoji', 'show', opt);
