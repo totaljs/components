@@ -1,9 +1,22 @@
-<div data-jc="colorpicker"></div>
+<div data---="colorpicker"></div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-xs-4 col-xs-offset-4" style="text-align:center">
+			<a href="javascript:void(0)" style="color:black;font-size:30px"><i class="fasvd fa-eye-dropper"></i></a>
+		</div>
+	</div>
+</div>
 
 <script>
-	setTimeout(function() {
-		SETTER('colorpicker', 'show', 100, 100, function(color) {
-			console.log(color);
-		});
-	}, 500);
+	$(document).on('click', 'a', function() {
+		var opt = {};
+		opt.align = 'center';
+		opt.position = 'top';
+		opt.element = this;
+		opt.callback = function(color) {
+			alert(color);
+		};
+		SETTER('colorpicker', 'show', opt);
+	});
 </script>

@@ -1,6 +1,5 @@
-.ui-colorpicker * { box-sizing: border-box; }
-.ui-colorpicker { border: 1px solid #E0E0E0; font-size: 14px; color: black; position: absolute; width: 180px; height: 165px; background-color: white; box-shadow: 0 5px 10px rgba(0,0,0,0.08); border-radius: 4px; z-index: 80; }
-.ui-colorpicker ul { list-style-type: none; margin: 0; padding: 10px 10px 0; text-align: center; }
-.ui-colorpicker li { position: relative; display: inline-block; width: 24px; height: 25px; text-align: center; margin-top: 2px; cursor: pointer; padding: 1px 0 0 0; border-radius: 3px; color: black; border: 2px solid white; }
-.ui-colorpicker li:hover { border-color: #E0E0E0; }
-.ui-colorpicker .hidden { display: none !important; }
+.ui-colorpicker-container { position: absolute; z-index: 109; }
+.ui-colorpicker { border: 1px solid #E0E0E0; font-size: 14px; color: black; width: 277px; z-index: 10; background-color: white; box-shadow: 0 5px 10px rgba(0,0,0,0.08); border-radius: 4px; z-index: 80; overflow: hidden; margin: 0; padding: 0; }
+.ui-colorpicker-body { padding: 10px 16px 13px 10px; margin: 0; text-align: right; }
+.ui-colorpicker-body span { cursor: pointer; width: 19px; height: 21px; display: inline-block; border: 1px solid rgba(0,0,0,0.2); margin: 2px; padding: 0; margin-bottom: -6px; margin-left: -1px; transition: transform .2s ease-in; }
+.ui-colorpicker-body span:hover { transform: scale(1.25); }
