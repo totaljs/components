@@ -29,5 +29,5 @@ SETTER('colorpicker', 'show', opt);
 
 ### Author
 
-- Denis Granec <denis@granec.cz>
+- Denis Granec <info@totalavengers.com>
 - License: MIT
