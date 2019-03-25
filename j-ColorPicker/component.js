@@ -15,11 +15,11 @@ COMPONENT('colorpicker', function(self, config) {
 
 		var html = '';
 		for (var i = 0; i < colors.length; i++) {
+			html += '<div>';
 			for (var j = 0; j < colors[i].length; j++) {
 				html += '<span style="background-color: #{0}"></span>'.format(colors[i][j]);
 			}
-			if (i !== colors.length - 1)
-				html += '<br/><br/>';
+			html += '</div>';
 		}
 
 		self.html('<div class="{0}"><div class="{0}-body">{1}</div></div>'.format(cls, html));

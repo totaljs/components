@@ -1,6 +1,6 @@
 {
 	"datecreated": "2017-05-16T14:39:00.000Z",
-	"dateupdated": "2019-03-25T13:23:00.000Z",
+	"dateupdated": "2019-03-25T13:42:00.000Z",
 	"name": "j-ColorPicker",
 	"tags": [
 		"colors",
@@ -10,6 +10,7 @@
 	"color": "white",
 	"version": 1,
 	"responsive": true,
+	"darkmode": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
 	"author": "Denis Granec",

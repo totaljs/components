@@ -2,6 +2,7 @@
 
 - Component is __singleton__
 - Simple color picker
+- Supports __Dark theme__
 
 ## Usage
 
