@@ -9,7 +9,7 @@ __Configuration__:
 
 - `categories` {String} change emoticons in categories. Use unicode without special characters (default: `128342,128578,128161,127944,128008,128690,128172,127828,127937`)
 - `height` {Integer} set component height (default: `295`)
-- `history` {Integer} history limit for frequently used emoticons (default: `15`)
+- `history` {Integer} history limit for frequently used emoticons (default: `49`)
 - `empty` {String} a message when no emoticons are found  (default: `No emoji match your search`)
 - `emptyemoji` {Integer} change emoticon when no emoticons are found. Use unicode without special characters (default: `128557`)
 - `speed` {Integer} scroll speed in ms (default: `500`)
