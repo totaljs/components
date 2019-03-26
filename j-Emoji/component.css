@@ -2,7 +2,7 @@
 .ui-emoji { border: 1px solid #E0E0E0; font-size: 14px; color: black; width: 340px; z-index: 10; background-color: white; box-shadow: 0 5px 10px rgba(0,0,0,0.08); border-radius: 4px; z-index: 80; overflow: hidden; }
 .ui-emoji-header { height: 100px; background-color: #fcfcfc; border-bottom: 1px solid #e0e0e0; }
 .ui-emoji-nav { padding: 13px 5px 6px 5px; text-align: center; }
-.ui-emoji-nav span { cursor: pointer; font-size: 26px; width: 11%; display: inline-block; }
+.ui-emoji-nav span { cursor: pointer; font-size: 26px; width: 11%; display: inline-block; user-select: none; }
 .ui-emoji-nav span.active { border-bottom: 2px solid #e0e0e0; }
 .ui-emoji-search { padding: 0 10px; }
 .ui-emoji-search span { float: left; width: 30px; text-align: center; height: 30px; padding: 7px 0 0; font-size: 12px; background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 4px 0 0 4px; color: #A0A0A0; cursor: pointer; }
@@ -14,13 +14,13 @@
 .ui-emoji-content { position: relative; height: 305px; padding: 0 10px 10px; }
 .ui-emoji-content-title { margin: 25px 0 5px; padding: 0 0 5px; border-bottom: 1px solid #e0e0e0; text-transform: capitalize; color: #777; }
 .ui-emoji div.ui-emoji-content-title:first-child { margin: 15px 0 5px; }
-.ui-emoji-content span { padding: 5px; cursor: pointer; font-size: 24px; min-width: 39px; height: 30px; display: inline-block; text-align: center; }
+.ui-emoji-content span { padding: 5px; cursor: pointer; font-size: 24px; min-width: 39px; height: 30px; display: inline-block; text-align: center; user-select: none; }
 .ui-emoji-content span:hover { transform: scale(1.15); }
 .ui-emoji-empty { text-align: center; top: 40%; left: 22%; position: absolute; color: #a5a5a5; }
-.ui-emoji-empty div { font-size: 50px; line-height: 50px; opacity: 0.4; }
+.ui-emoji-empty div { font-size: 50px; line-height: 50px; opacity: 0.4; user-select: none; }
 .ui-emoji-footer { text-align: right; padding: 6px 10px 3px 0; font-size: 18px; border-top: 1px solid #e0e0e0; background-color: #fcfcfc; }
 .ui-emoji-footer .ui-emoji-footer-text { font-size: 12px; text-align: left; float: left; margin-top: 4px; margin-left: 10px; color: #808080; }
-.ui-emoji-footer span { border-bottom: 1px solid #fcfcfc; padding: 0 0px 0 6px; cursor: pointer; }
+.ui-emoji-footer span { border-bottom: 1px solid #fcfcfc; padding: 0 0px 0 6px; cursor: pointer; user-select: none; }
 .ui-emoji-footer span.active { border-bottom-color: grey; }
 
 @media(max-width: 767px) {
