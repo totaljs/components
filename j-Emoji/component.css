@@ -3,6 +3,7 @@
 .ui-emoji-header { height: 100px; background-color: #fcfcfc; border-bottom: 1px solid #e0e0e0; }
 .ui-emoji-nav { padding: 13px 5px 6px 5px; text-align: center; }
 .ui-emoji-nav span { cursor: pointer; font-size: 26px; width: 11%; display: inline-block; }
+.ui-emoji-nav span.active { border-bottom: 2px solid #e0e0e0; }
 .ui-emoji-search { padding: 0 10px; }
 .ui-emoji-search span { float: left; width: 30px; text-align: center; height: 30px; padding: 7px 0 0; font-size: 12px; background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 4px 0 0 4px; color: #A0A0A0; cursor: pointer; }
 .ui-emoji-search .fa-times { color: #ff0000; }
