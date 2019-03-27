@@ -1,4 +1,4 @@
-COMPONENT('part', 'hide:true', function(self, config) {
+COMPONENT('part', 'hide:1;loading:1', function(self, config) {
 
 	var init = false;
 	var clid = null;
@@ -45,7 +45,7 @@ COMPONENT('part', 'hide:true', function(self, config) {
 			if (downloading)
 				return;
 
-			SETTER('loading', 'show');
+			config.loading && SETTER('loading', 'show');
 			downloading = true;
 			setTimeout(function() {
 				self.import(config.url, function() {
@@ -59,7 +59,8 @@ COMPONENT('part', 'hide:true', function(self, config) {
 					self.release(false);
 					config.reload && EXEC(config.reload);
 					config.default && DEFAULT(config.default, true);
-					SETTER('loading', 'hide', 500);
+					config.loading && SETTER('loading', 'hide', 500);
+					self.hclass('invisible') && self.rclass('invisible', 500);
 
 					setTimeout(function() {
 						self.element.SETTER('*', 'resize');
