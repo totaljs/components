@@ -49,7 +49,6 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true', function(self, config) {
 			}
 		});
 
-
 		if (!self.template)
 			self.prepare();
 
@@ -115,6 +114,8 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true', function(self, config) {
 		switch (key) {
 			case 'bg':
 				self.tclass(cls + '-bg', !!value);
+				self.find(cls2).css('z-index', null);
+				self.css('z-index', null);
 				break;
 			case 'title':
 				eheader && eheader.find('label').html(value);
@@ -210,7 +211,10 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true', function(self, config) {
 
 		W.$$modal++;
 
-		self.css('z-index', W.$$modal * config.zindex);
+		var index = W.$$modal * config.zindex;
+		var elindex = config.bg ? self.element : self.find(cls2);
+
+		elindex.css('z-index', index);
 		self.element.scrollTop(0);
 		self.rclass('hidden');
 
@@ -236,7 +240,7 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true', function(self, config) {
 
 		// Fixes a problem with freezing of scrolling in Chrome
 		setTimeout2(self.ID, function() {
-			self.css('z-index', (W.$$modal * config.zindex) + 1);
+			elindex.css('z-index', index + 1);
 		}, 500 + delay);
 
 		first = false;
