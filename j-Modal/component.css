@@ -1,7 +1,7 @@
 .ui-modal-noscroll, .ui-modal-noscroll body { overflow: hidden; }
-.ui-modal-container { position: fixed; }
-.ui-modal-bg { background-color: rgba(250,250,250,0.8); left: 0; top: 0; right: 0; bottom: 0; }
-.ui-modal { background-color: white; margin: 0 auto; border-radius: 3px; box-shadow: 0 0 30px rgba(0,0,0,0.05); transform: scale(0); transition: transform 0.2s; position: absolute; left: 50%; overflow: hidden; border: 1px solid #E0E0E0; }
+.ui-modal-bg { background-color: rgba(250,250,250,0.8); left: 0; top: 0; right: 0; bottom: 0; position: fixed; z-index: 0; }
+.ui-modal-bg .ui-modal { position: absolute; }
+.ui-modal { background-color: white; margin: 0 auto; border-radius: 3px; box-shadow: 0 0 30px rgba(0,0,0,0.05); transform: scale(0); transition: transform 0.2s; position: fixed; left: 50%; overflow: hidden; border: 1px solid #E0E0E0; }
 .ui-modal-visible .ui-modal { transform: scale(1); }
 .ui-modal-body-area { overflow-x: hidden; overflow-y: scroll; overflow-scrolling: touch; width: 100%; }
 .ui-modal-body { margin-right: 30px; }
