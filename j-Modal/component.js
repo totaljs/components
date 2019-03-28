@@ -1,4 +1,4 @@
-COMPONENT('modal', 'zindex:12;width:800;bg:true', function(self, config) {
+COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self, config) {
 
 	var cls = 'ui-modal';
 	var cls2 = '.' + cls;
@@ -104,18 +104,14 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true', function(self, config) {
 			hh += 25;
 		}
 
-		var sw = SCROLLBARWIDTH();
-		ebody.css({ 'margin-right': sw ? sw : null });
 		emodal.css({ top: top, 'margin-left': ml });
-		earea.css({ 'max-height': h - hh - hf, 'width': width + 30 });
+		earea.css({ 'max-height': h - hh - hf, 'width': width });
 	};
 
 	self.configure = function(key, value, init, prev) {
 		switch (key) {
 			case 'bg':
 				self.tclass(cls + '-bg', !!value);
-				self.find(cls2).css('z-index', null);
-				self.css('z-index', null);
 				break;
 			case 'title':
 				eheader && eheader.find('label').html(value);
@@ -211,10 +207,7 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true', function(self, config) {
 
 		W.$$modal++;
 
-		var index = W.$$modal * config.zindex;
-		var elindex = config.bg ? self.element : self.find(cls2);
-
-		elindex.css('z-index', index);
+		self.css('z-index', W.$$modal * config.zindex);
 		self.element.scrollTop(0);
 		self.rclass('hidden');
 
@@ -223,6 +216,11 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true', function(self, config) {
 
 		config.reload && EXEC(config.reload, self);
 		config.default && DEFAULT(config.default, true);
+
+		if (!config.scrollbar)
+			$(cls2 + '-body-area').noscrollbar();
+		else
+			SCROLLBAR($(cls2 + '-body-area'), { visibleY: true });
 
 		if (!isMOBILE && config.autofocus) {
 			var el = self.find(config.autofocus ? 'input[type="text"],input[type="password"],select,textarea' : config.autofocus);
@@ -240,7 +238,7 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true', function(self, config) {
 
 		// Fixes a problem with freezing of scrolling in Chrome
 		setTimeout2(self.ID, function() {
-			elindex.css('z-index', index + 1);
+			self.css('z-index', (W.$$modal * config.zindex) + 1);
 		}, 500 + delay);
 
 		first = false;
