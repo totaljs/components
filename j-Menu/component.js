@@ -141,6 +141,7 @@ COMPONENT('menu', function(self) {
 	self.hide = function() {
 		events.is && self.unbindevents();
 		is = false;
+		self.opt && self.opt.hide && self.opt.hide();
 		self.target = null;
 		self.opt = null;
 		self.aclass('hidden');
