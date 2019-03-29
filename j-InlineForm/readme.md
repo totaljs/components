@@ -1,4 +1,4 @@
-## j-Form
+## j-InlineForm
 
 - Works only with +`v11.1.0` [jComponent](http://jcomponent.org)
 - __Download__ [jComponent with Tangular (jcta.min.js)](https://github.com/petersirka/jComponent)
