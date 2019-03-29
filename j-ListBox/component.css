@@ -1,21 +1,31 @@
 .ui-listbox { border: 1px solid #E0E0E0; font-size: 14px; color: black; position: relative; }
 .ui-listbox ul { list-style-type: none; width: 100%; height: 100%; overflow: auto; margin: 0; padding: 0; overflow-scrolling: touch; }
-.ui-listbox li { border-bottom: 1px solid #E0E0E0; padding: 5px 10px; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; overflow-scrolling: touch; }
+.ui-listbox li { border-bottom: 1px solid #E0E0E0; padding: 5px 10px; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; overflow-scrolling: }
 .ui-listbox li .fa { width: 22px; font-size: 12px; border-right: 1px solid #E0E0E0; margin-right: 7px; color: #A0A0A0; }
 .ui-listbox li:hover { background-color: #F0F0F0; }
 .ui-listbox-selected { background-color: #FFE7A4 !important; font-weight: bold; }
 .ui-listbox-search-empty { height: 34px; }
 .ui-listbox-search { border-bottom: 1px solid #E0E0E0; height: 34px; background-color: white; position: absolute; width: 100%; box-shadow: 0 5px 10px rgba(0,0,0,0.05); }
 .ui-listbox-search input { width: 100%; outline: 0; background-color: white; font: normal normal 12px Arial; border: 0; margin: 0; padding: 0; }
-.ui-listbox-search span { float: left; width: 30px; text-align: center; height: 30px; padding: 8px 0 0 0; font-size: 12px; color: #A0A0A0; }
+.ui-listbox-search span { float: left; width: 30px; text-align: center; height: 30px; padding: 8px 0 0; font-size: 12px; color: #A0A0A0; }
 .ui-listbox-search .fa-times { color: red; cursor: pointer; }
 .ui-listbox-search div { margin-left: 30px; padding: 6px 10px 0 0; }
 .ui-listbox-invalid { border-color: #E1A1A1; background-color: #FFF3F3 !important; }
 .ui-listbox-invalid .ui-listbox-search { border-color: #E1A1A1; }
-.ui-listbox.ui-disabled input { background-color: #F0F0F0; color: gray; }
-.ui-listbox.ui-disabled .ui-listbox-search { background-color: #F0F0F0; }
-.ui-listbox.ui-disabled ul { color: gray; overflow: hidden; }
-.ui-listbox.ui-disabled li:hover { background-color: white; }
-.ui-listbox.ui-disabled li { cursor: not-allowed; }
-.ui-listbox.ui-disabled .ui-listbox-selected { background-color: #D0D0D0 !important; }
-.ui-listbox-container { overflow: hidden; }
+.ui-listbox.ui-listbox-disabled input { background-color: #F0F0F0; color: gray; cursor: not-allowed; }
+.ui-listbox.ui-listbox-disabled .ui-listbox-search { background-color: #F0F0F0; cursor: not-allowed; }
+.ui-listbox.ui-listbox-disabled ul { color: gray; overflow: hidden; }
+.ui-listbox.ui-listbox-disabled li:hover { background-color: white; }
+.ui-listbox.ui-listbox-disabled li { cursor: not-allowed; }
+.ui-listbox.ui-listbox-disabled .ui-listbox-selected { background-color: #D0D0D0 !important; }
+.ui-listbox-container  { overflow: hidden; }
+
+.ui-dark .ui-listbox { border-color: #3A3A3A; background-color: #202020; }
+.ui-dark .ui-listbox li { border-bottom-color: #3A3A3A; color: white; }
+.ui-dark .ui-listbox li:hover { background-color: #303030; }
+.ui-dark .ui-listbox-selected { background-color: #303030 !important; }
+.ui-dark .ui-listbox-search, .ui-dark .ui-listbox-search input { color: white; background-color: #202020; }
+.ui-dark .ui-listbox-search { border-bottom-color: #808080; }
+.ui-dark .ui-listbox.ui-listbox-disabled .ui-listbox-selected { background-color: #4c4c4c !important; }
+.ui-dark .ui-listbox.ui-listbox-disabled .ui-listbox-search, .ui-listbox.ui-listbox-disabled input { background-color: #5a5a5a; }
+.ui-dark .ui-listbox.ui-listbox-disabled li:hover { background-color: #202020; }

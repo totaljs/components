@@ -80,18 +80,15 @@ COMPONENT('listbox', function(self, config) {
 		self.on('reflow', self.resize2);
 	};
 
-	self.configure = function(key, value, init) {
-		if (init)
-			return;
+	self.configure = function(key, value) {
 
 		var redraw = false;
-
 		switch (key) {
 			case 'type':
 				self.type = value;
 				break;
 			case 'disabled':
-				self.tclass('ui-disabled', value);
+				self.tclass(cls + '-disabled', value);
 				self.find('input').prop('disabled', value);
 				if (value)
 					self.rclass(cls + '-invalid');
@@ -146,7 +143,8 @@ COMPONENT('listbox', function(self, config) {
 	};
 
 	self.redraw = function() {
-		self.html((typeof(config.search) === 'string' ? '<div class="{0}-search"><span><i class="fa fa-search {0}-search-icon"></i></span><div><input type="text" placeholder="{1}" /></div></div><div><div class="{0}-search-empty"></div>'.format(cls, config.search) : '') + '<div class="{0}-container"><ul style="height:{1}px"></ul></div>'.format(cls, config.height || '200'));
+		self.html((typeof(config.search) === 'string' ? '<div class="{0}-search"><span><i class="fa fa-search {0}-search-icon"></i></span><div><input type="text" placeholder="{1}" /></div></div><div><div class="{0}-search-empty"></div>'.format(cls, config.search) : '') + '<div class="{0}-container"><ul style="height:{1}px" class="noscrollbar"></ul></div>'.format(cls, config.height || '200'));
+		self.find('.noscrollbar').noscrollbar();
 		Eitems = self.find('ul');
 		self.resize();
 	};
@@ -158,10 +156,8 @@ COMPONENT('listbox', function(self, config) {
 
 	self.resize = function() {
 		self.width(function(width) {
-			var w = SCROLLBARWIDTH();
 			var h = 0;
 			var css = {};
-			css.width = w ? (width + w) : 'auto';
 			if (typeof(config.height) === 'string') {
 				// selector
 				switch (config.height) {

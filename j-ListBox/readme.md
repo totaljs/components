@@ -1,5 +1,6 @@
 ## j-ListBox
 
+- __NEW__ dark mode
 - Works with Bootstrap
 
 __Configuration__:
