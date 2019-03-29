@@ -1,10 +1,8 @@
 ﻿## j-Input
 
-__j-Input__ is multifuncional `input` component which supports a lot of features and it's optimized for everyday usage. It's a great alternative to `j-Textbox` and `j-Dropdown`.
+__j-Input__ is multifuncional `input` component which supports a lot of features and it's optimized for everyday usage. It's a great alternative to `j-Textbox` and `j-Dropdown`. Works only with jComponent `+v17`.
 
 __Configuration__:
-
-Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:date"`
 
 - `type` {String} optional, can be `email`, `phone`, `password`, `date`, `time` (supports only 24 hours time), `url`, `number`, `search`, `lower`, `upper` or empty (default)
 - `required` {Boolean} optional, enables "required" (default: `false`)
@@ -48,7 +46,8 @@ Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:dat
 - `maskregexp` {String} optional, can contain RegExp for each char in the form `\d,\d,\d,null,\d,\d` (`,` is delimiter)
 - `masktidy` {Boolean} optional, the component returns only raw chars without fixed chars (default: `false`)
 - __NEW__ `autosource` {String} a path to `search` function in `autocomplete`, `function(search, render(arr))`
-- __NEW__ `autovalue` {String} a property path for the value in `autosource`
+- __NEW__ `autovalue` {String} a property path for the value in `autosource`, default: `name`
+- __NEW__ `autoexec` {String} a path method `function(item, next(value_to_input))`
 - __NEW__ `searchalign` {Number} can align icon on `type:search` to left (`2`) or right (`1`, default)
 
 __Interesting:__

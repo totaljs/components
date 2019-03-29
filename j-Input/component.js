@@ -34,15 +34,24 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 		self.event('focus', 'input', function() {
 			self.aclass(cls + '-focused');
-			config.autocomplete && EXEC(config.autocomplete, self, input.parent());
+			config.autocomplete && EXEC(self.makepath(config.autocomplete), self, input.parent());
 			if (config.autosource) {
 				var opt = {};
 				opt.element = self.element;
-				opt.search = GET(config.autosource);
+				opt.search = GET(self.makepath(config.autosource));
 				opt.callback = function(value) {
-					self.set(typeof(value) === 'string' ? value : value[config.autovalue], 2);
-					self.change();
-					self.bindvalue();
+					var val = typeof(value) === 'string' ? value : value[config.autovalue];
+					if (config.autoexec) {
+						EXEC(self.makepath(config.autoexec), value, function(val) {
+							self.set(val, 2);
+							self.change();
+							self.bindvalue();
+						});
+					} else {
+						self.set(val, 2);
+						self.change();
+						self.bindvalue();
+					}
 				};
 				SETTER('autocomplete', 'show', opt);
 			}
@@ -69,7 +78,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			}
 
 			if (!config.disabled && config.dirsource && (code === 13 || code > 30)) {
-				self.element.find(cls2 + '-control').trigger('click');
+				self.find(cls2 + '-control').trigger('click');
 				return;
 			}
 
@@ -242,7 +251,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				if (config.dirsource) {
 					e.preventDefault();
 					e.stopPropagation();
-					self.element.find(cls2 + '-control').trigger('click');
+					self.find(cls2 + '-control').trigger('click');
 				} else
 					input.focus();
 			}
@@ -294,9 +303,9 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			}
 
 			if (left && config.liconclick)
-				EXEC(config.liconclick, self, el);
+				EXEC(self.makepath(config.liconclick), self, el);
 			else if (config.riconclick)
-				EXEC(config.riconclick, self, el);
+				EXEC(self.makepath(config.riconclick), self, el);
 			else if (left && config.type === 'search')
 				self.set('');
 
