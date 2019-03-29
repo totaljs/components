@@ -14,18 +14,19 @@
 .ui-listbox-invalid .ui-listbox-search { border-color: #E1A1A1; }
 .ui-listbox.ui-listbox-disabled input { background-color: #F0F0F0; color: gray; cursor: not-allowed; }
 .ui-listbox.ui-listbox-disabled .ui-listbox-search { background-color: #F0F0F0; cursor: not-allowed; }
-.ui-listbox.ui-listbox-disabled ul { color: gray; overflow: hidden; }
+.ui-listbox.ui-listbox-disabled ul { color: #c7c7c7 !important; overflow: hidden; }
 .ui-listbox.ui-listbox-disabled li:hover { background-color: white; }
 .ui-listbox.ui-listbox-disabled li { cursor: not-allowed; }
-.ui-listbox.ui-listbox-disabled .ui-listbox-selected { background-color: #D0D0D0 !important; }
+.ui-listbox.ui-listbox-disabled .ui-listbox-selected { background-color: #f1f1f1 !important; color: #c3c3c3 !important; }
 .ui-listbox-container  { overflow: hidden; }
 
 .ui-dark .ui-listbox { border-color: #3A3A3A; background-color: #202020; }
 .ui-dark .ui-listbox li { border-bottom-color: #3A3A3A; color: white; }
-.ui-dark .ui-listbox li:hover { background-color: #303030; }
-.ui-dark .ui-listbox-selected { background-color: #303030 !important; }
+.ui-dark .ui-listbox li:hover { background-color: #2b2b2b; }
+.ui-dark .ui-listbox-selected { background-color: #2b2b2b !important; }
 .ui-dark .ui-listbox-search, .ui-dark .ui-listbox-search input { color: white; background-color: #202020; }
-.ui-dark .ui-listbox-search { border-bottom-color: #808080; }
-.ui-dark .ui-listbox.ui-listbox-disabled .ui-listbox-selected { background-color: #4c4c4c !important; }
-.ui-dark .ui-listbox.ui-listbox-disabled .ui-listbox-search, .ui-listbox.ui-listbox-disabled input { background-color: #5a5a5a; }
+.ui-dark .ui-listbox-search { border-bottom-color: #4c4c4c; }
+.ui-dark .ui-listbox.ui-listbox-disabled .ui-listbox-selected { background-color: #2b2b2b !important; color: #757575 !important; }
+.ui-dark .ui-listbox.ui-listbox-disabled .ui-listbox-search, .ui-dark .ui-listbox.ui-listbox-disabled input { background-color: #2b2b2b; }
+.ui-dark .ui-listbox.ui-listbox-disabled li { color: #505050; }
 .ui-dark .ui-listbox.ui-listbox-disabled li:hover { background-color: #202020; }
