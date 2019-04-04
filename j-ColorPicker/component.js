@@ -26,7 +26,8 @@ COMPONENT('colorpicker', function(self, config) {
 		self.aclass(cls + '-container hidden');
 
 		self.event('click', cls2 + '-cell', function() {
-			self.opt.callback && self.opt.callback($(this).attr('style').replace('background-color:', ''));
+			var el = $(this);
+			self.opt.callback && self.opt.callback(el.find('span').attr('style').replace('background-color:', ''));
 			self.hide();
 		});
 
