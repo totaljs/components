@@ -154,5 +154,6 @@
 	"j-Editable",
 	"j-Parameters",
 	"j-Table",
-	"j-Emoji"
+	"j-Emoji",
+	"j-ColorPickerButton"
 ]
