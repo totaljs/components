@@ -17,7 +17,7 @@ COMPONENT('colorpicker', function(self, config) {
 		for (var i = 0; i < colors.length; i++) {
 			html += '<div>';
 			for (var j = 0; j < colors[i].length; j++) {
-				html += '<span style="background-color: #{0}"></span>'.format(colors[i][j]);
+				html += '<span class="{0}-cell"><span style="background-color:#{1}"></span></span>'.format(cls, colors[i][j]);
 			}
 			html += '</div>';
 		}

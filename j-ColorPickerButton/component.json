@@ -1,11 +1,10 @@
 {
-	"datecreated": "2019-04-04T14:13:00.000Z",
+	"datecreated": "2019-04-04T14:14:00.000Z",
 	"dateupdated": null,
 	"name": "j-ColorPickerButton",
 	"tags": [
-		"colors",
-		"picker",
-		"colorpicker"
+		"button",
+		"color"
 	],
 	"color": "white",
 	"version": 1,

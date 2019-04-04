@@ -1,8 +1,13 @@
 .ui-colorpicker-container { position: absolute; z-index: 109; }
-.ui-colorpicker { border: 1px solid #E0E0E0; font-size: 14px; color: black; width: 272px; z-index: 10; background-color: white; box-shadow: 0 5px 10px rgba(0,0,0,0.08); border-radius: 4px; z-index: 80; overflow: hidden; margin: 0; padding: 0; }
-.ui-colorpicker-body { padding: 12px 13px 15px 10px; margin: 0; text-align: right; }
-.ui-colorpicker-body div:nth-child(1) { margin-bottom: 6px; }
-.ui-colorpicker-body div:nth-child(2) { margin-bottom: 13px; }
-.ui-colorpicker-body span { cursor: pointer; width: 19px; height: 21px; display: inline-block; border: 1px solid rgba(0,0,0,0.2); margin: 2px; padding: 0; margin-bottom: -6px; margin-left: -1px; transition: transform .1s ease-in; }
-.ui-colorpicker-body span:hover { transform: scale(1.25); }
-.ui-dark .ui-colorpicker { background-color: #303030; border-color: #353535; }
+.ui-colorpicker { border: 1px solid #E0E0E0; font-size: 14px; color: black; width: 240px; background-color: white; box-shadow: 0 5px 10px rgba(0,0,0,0.08); border-radius: 3px; overflow: hidden; margin: 0; padding: 7px 0 3px; }
+.ui-colorpicker-body { text-align: center; }
+.ui-colorpicker-body div:nth-child(1) { margin-bottom: 0; }
+.ui-colorpicker-body div:nth-child(2) { margin-bottom: 8px; padding-bottom: 2px; border-bottom: 1px solid #E0E0E0; }
+.ui-colorpicker-cell { cursor: pointer; width: 19px; height: 15px; display: inline-block; }
+.ui-colorpicker-cell span { display: block; height: 15px; margin: 0 2px; border-radius: 2px; border: 1px solid rgba(0,0,0,0.1); }
+.ui-colorpicker-body span:hover { border-color: rgba(0,0,0,0.3); }
+
+.ui-dark .ui-colorpicker { background-color: #252525; border-color: #404040; }
+.ui-dark .ui-colorpicker-cell span { border-color: rgba(255,255,255,0.1); }
+.ui-dark .ui-colorpicker-cell span:hover { border-color: rgba(255,255,255,0.5); }
+.ui-dark .ui-colorpicker-body div:nth-child(2) { border-bottom-color: #404040; }
