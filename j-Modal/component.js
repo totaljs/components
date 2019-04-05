@@ -109,8 +109,9 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 			self.scrollbar && self.scrollbar.resize();
 			earea.css('height', h - hh - hf);
 		} else {
+			earea[0].$noscrollbarwidth = 0;
+			earea.css({ 'max-height': h - hh - hf, width: width });
 			earea.noscrollbar();
-			earea.css({ 'max-height': h - hh - hf });
 		}
 	};
 
