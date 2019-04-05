@@ -1,5 +1,4 @@
 COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self, config) {
-
 	var cls = 'ui-modal';
 	var cls2 = '.' + cls;
 	var W = window;
@@ -105,7 +104,14 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 		}
 
 		emodal.css({ top: top, 'margin-left': ml });
-		earea.css({ 'max-height': h - hh - hf, 'width': width });
+
+		if (config.scrollbar) {
+			self.scrollbar && self.scrollbar.resize();
+			earea.css('height', h - hh - hf);
+		} else {
+			earea.noscrollbar();
+			earea.css({ 'max-height': h - hh - hf });
+		}
 	};
 
 	self.configure = function(key, value, init, prev) {
@@ -220,7 +226,7 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 		if (!config.scrollbar)
 			$(cls2 + '-body-area').noscrollbar();
 		else
-			SCROLLBAR($(cls2 + '-body-area'), { visibleY: true });
+			self.scrollbar = SCROLLBAR($(cls2 + '-body-area'), { visibleY: true });
 
 		if (!isMOBILE && config.autofocus) {
 			var el = self.find(config.autofocus ? 'input[type="text"],input[type="password"],select,textarea' : config.autofocus);
