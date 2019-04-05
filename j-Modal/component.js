@@ -101,6 +101,10 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 			top = '';
 			ml = '';
 			hh += 25;
+		} else {
+			if (top < 25)
+				top = 25;
+			h -= 30;
 		}
 
 		emodal.css({ top: top, 'margin-left': ml });
