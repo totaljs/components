@@ -1,8 +1,9 @@
 .ui-colorpickerbutton.ui-disabled { cursor: not-allowed !important; color: #A0A0A0 !important; }
-.ui-colorpickerbutton { border: 1px solid #E0E0E0; height: 32px; width: 60px; border-radius: 2px; cursor: pointer; background-color: white; color: black; }
+.ui-colorpickerbutton { border: 1px solid #E0E0E0; height: 32px; width: 200px; border-radius: 2px; cursor: pointer; background-color: white; color: black; }
 .ui-colorpickerbutton:hover { border-color: #D0D0D0; }
-.ui-colorpickerbutton-color { width: 35px; float: left; height: 28px; margin: 1px 0 0 1px; border-radius: 2px 0 0 2px; }
-.ui-colorpickerbutton-arrow { margin-left: 37px; display: block; text-align: center; line-height: 31px; height: 31px; border-left: 1px solid #E0E0E0; }
+.ui-colorpickerbutton-color { height: 24px; margin: 3px 35px 0 3px; border-radius: 2px 0 0 2px; }
+.ui-colorpickerbutton-arrow { width: 32px; float: right; display: block; text-align: center; line-height: 31px; height: 31px; border-left: 1px solid #E0E0E0; }
 
 .ui-dark .ui-colorpickerbutton { border-color: #404040; background-color: #303030; color: white; }
+.ui-dark .ui-colorpickerbutton-arrow { border-left-color: #404040; }
 .ui-dark .ui-colorpickerbutton:hover { border-color: #505050; }
