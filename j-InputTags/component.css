@@ -27,7 +27,7 @@
 .ui-inputtags-inner .ui-inputtags-icon-left, .ui-inputtags-inner .ui-inputtags-icon-right { height: 100%; line-height: 37px; }
 .ui-inputtags-inner.ui-inputtags-required .ui-inputtags-label:before { content: '*'; }
 .ui-inputtags-tags { padding: 0 0 3px; }
-.ui-inputtags-tags span { padding: 1px 5px; line-height: 12px; margin: 0 3px 3px 0; cursor: default; }
+.ui-inputtags-tags span { padding: 2px 5px 1px; line-height: 12px; margin: 0 3px 3px 0; cursor: default; }
 .ui-inputtags-tags span i { margin-right: 4px; font-size: 12px; cursor: pointer; transition: transform 0.1s; }
 .ui-inputtags-tags span i:hover { transform: scale(1.2); }
 .ui-inputtags-tag { position: relative; display: inline-block; color: white; background-color: #4783EE; color: white; border-radius: 2px; border: 1px solid #3A6FCF; }
