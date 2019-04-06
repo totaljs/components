@@ -4,7 +4,6 @@ COMPONENT('template', function(self) {
 	var is = false;
 
 	self.readonly();
-	self.nocompile();
 
 	self.configure = function(key, value) {
 		if (key === 'properties')
