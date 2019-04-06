@@ -26,7 +26,7 @@ COMPONENT('features', 'height:37', function(self, config) {
 	self.make = function() {
 
 		self.aclass(cls + '-layer hidden');
-		self.append('<div class="{1}"><div class="{1}-search"><span><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" /></div></div><div class="{1}-container"><ul></ul></div></div>'.format(config.placeholder, cls));
+		self.append('<div class="{1}"><div class="{1}-search"><span><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" /></div></div><div class="{1}-container noscrollbar"><ul></ul></div></div>'.format(config.placeholder, cls));
 
 		container = self.find('ul');
 		input = self.find('input');
