@@ -1,4 +1,4 @@
-COMPONENT('colorpicker', function(self, config) {
+COMPONENT('colorpicker', function(self) {
 
 	var cls = 'ui-colorpicker';
 	var cls2 = '.' + cls;
@@ -41,6 +41,8 @@ COMPONENT('colorpicker', function(self, config) {
 			} while (el);
 			self.hide();
 		};
+
+		self.on('scroll + reflow', self.hide);
 	};
 
 	self.bindevents = function() {
@@ -113,10 +115,13 @@ COMPONENT('colorpicker', function(self, config) {
 	};
 
 	self.hide = function() {
-		is = false;
-		self.target = null;
-		self.opt = null;
-		self.unbindevents();
-		self.aclass('hidden');
+		if (is) {
+			is = false;
+			self.target = null;
+			self.opt = null;
+			self.unbindevents();
+			self.aclass('hidden');
+		}
 	};
 });
+
