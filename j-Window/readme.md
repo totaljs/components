@@ -7,8 +7,6 @@
 
 __Configuration__:
 
-Example: `data-jc-config="title:Window title;if:user;icon:home"`
-
 - `title` {String} window title
 - `if` {String} condition for showing of the window, it's compared with the value within of `data-jc-path`
 - `icon` {String} Font-Awesome icon without `fa-`

@@ -1,5 +1,7 @@
 COMPONENT('features', 'height:37', function(self, config) {
 
+	var cls = 'ui-features';
+	var cls2 = '.' + cls;
 	var container, timeout, input, search, scroller = null;
 	var is = false, results = false, selectedindex = 0, resultscount = 0;
 
@@ -23,13 +25,13 @@ COMPONENT('features', 'height:37', function(self, config) {
 
 	self.make = function() {
 
-		self.aclass('ui-features-layer hidden');
-		self.append('<div class="ui-features"><div class="ui-features-search"><span><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="ui-features-search-input" /></div></div><div class="ui-features-container"><ul></ul></div></div>'.format(config.placeholder));
+		self.aclass(cls + '-layer hidden');
+		self.append('<div class="{1}"><div class="{1}-search"><span><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" /></div></div><div class="{1}-container"><ul></ul></div></div>'.format(config.placeholder, cls));
 
 		container = self.find('ul');
 		input = self.find('input');
-		search = self.find('.ui-features');
-		scroller = self.find('.ui-features-container');
+		search = self.find(cls2);
+		scroller = self.find(cls2 + '-container');
 
 		self.event('touchstart mousedown', 'li[data-index]', function(e) {
 			self.callback && self.callback(self.items[+this.getAttribute('data-index')]);
@@ -39,7 +41,7 @@ COMPONENT('features', 'height:37', function(self, config) {
 		});
 
 		$(document).on('touchstart mousedown', function(e) {
-			is && !$(e.target).hclass('ui-features-search-input') && self.hide(0);
+			is && !$(e.target).hclass(cls + '-search-input') && self.hide(0);
 		});
 
 		$(window).on('resize', function() {
@@ -57,7 +59,7 @@ COMPONENT('features', 'height:37', function(self, config) {
 					o = true;
 					var sel = self.find('li.selected');
 					if (sel.length && self.callback)
-						self.callback(self.items[+sel.attr('data-index')]);
+						self.callback(self.items[+sel.attrd('index')]);
 					self.hide();
 					break;
 				case 38: // up
@@ -114,7 +116,7 @@ COMPONENT('features', 'height:37', function(self, config) {
 
 		container.find('li').each(function() {
 			var el = $(this);
-			var val = el.attr('data-search');
+			var val = el.attrd('search');
 			var h = false;
 
 			for (var i = 0; i < value.length; i++) {
@@ -208,7 +210,7 @@ COMPONENT('features', 'height:37', function(self, config) {
 		self.rclass('hidden');
 
 		setTimeout(function() {
-			self.aclass('ui-features-visible');
+			self.aclass(cls + '-visible');
 		}, 100);
 
 		!isMOBILE && setTimeout(function() {
@@ -216,7 +218,7 @@ COMPONENT('features', 'height:37', function(self, config) {
 		}, 500);
 
 		is = true;
-		$('html,body').aclass('ui-features-noscroll');
+		$('html,body').aclass(cls + '-noscroll');
 	};
 
 	self.hide = function(sleep) {
@@ -224,11 +226,11 @@ COMPONENT('features', 'height:37', function(self, config) {
 			return;
 		clearTimeout(timeout);
 		timeout = setTimeout(function() {
-			self.aclass('hidden').rclass('ui-features-visible');
+			self.aclass('hidden').rclass(cls + '-visible');
 			self.callback = null;
 			self.target = null;
 			is = false;
-			$('html,body').rclass('ui-features-noscroll');
+			$('html,body').rclass(cls + '-noscroll');
 		}, sleep ? sleep : 100);
 	};
 });

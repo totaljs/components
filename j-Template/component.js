@@ -1,8 +1,10 @@
 COMPONENT('template', function(self) {
 
 	var properties = null;
+	var is = false;
 
 	self.readonly();
+	self.nocompile();
 
 	self.configure = function(key, value) {
 		if (key === 'properties')
@@ -23,7 +25,10 @@ COMPONENT('template', function(self) {
 			self.element = self.parent();
 		}
 
-		self.template = Tangular.compile(script.html());
+		var html = script.html();
+		is = html.COMPILABLE();
+
+		self.template = Tangular.compile(html);
 		script.remove();
 	};
 
@@ -40,6 +45,7 @@ COMPONENT('template', function(self) {
 		if (value) {
 			setTimeout2(self.ID, function() {
 				self.html(self.template(value)).rclass('hidden');
+				is && COMPILE(self.element);
 			}, 100);
 		} else
 			self.aclass('hidden');

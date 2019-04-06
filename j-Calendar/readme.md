@@ -5,8 +5,6 @@
 
 __Configuration__:
 
-Example: `data-jc-config="required:true;icon:envelope;format:dd.MM.yyyy;type:date"`
-
 - `firstday` {Number} (optional) first day in the week
 - `today` {String} (optional) label for `Set today` button
 - `days` {String} (optional) days e.g. `SU,MO,TU,WE,TH,FR,SA` (default).

@@ -1,6 +1,6 @@
 ## j-Checkbox
 
-Example: `data-jc-config="required:true"`
+__Configuration__:
 
 - `required` {Boolean} (optional) enables "required" (default: `false`)
 - `label` {String} (optional) label (default is HTML content)

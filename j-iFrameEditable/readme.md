@@ -5,9 +5,11 @@
 - __important__: content must contain `contenteditable` attribute
 
 __Configuration__:
+
 - `bind` {String} can contain `body` (default), `html` or `contenteditable`
 
 __Methods__:
+
 - `component.resize()`
 
 ### Author

@@ -4,8 +4,6 @@
 
 __Configuration__:
 
-Example: `data-jc-config="required:true;icon:pencile"`
-
 - `required` {Boolean} (optional) enables "required" (default: `false`)
 - `icon` {String} (optional) icon for label without `fa-` e.g. `home`, `cog`, etc.
 - `label` {String} (optional) label (default `innerHTML`)

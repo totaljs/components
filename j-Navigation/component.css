@@ -1,4 +1,3 @@
-.ui-navigation * { box-sizing: border-box; }
 .ui-navigation-item > div { display: none; }
 .ui-navigation-item span { display: block; width: 90%; border: 0; text-align: left; padding: 3px 5px; background-color: transparent; color: black; outline: 0; text-decoration: none; margin: 0 auto 2px; cursor: pointer; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 .ui-navigation-item span .far { width: 20px; text-align: center; margin-right: 5px; }

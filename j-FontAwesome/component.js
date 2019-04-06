@@ -5,6 +5,8 @@ COMPONENT('fontawesome', function(self, config) {
 	var template = '<li data-search="{0}"><i class="fa fa-{0}"></i></li>';
 	var opener = {};
 	var is = false;
+	var cls = 'ui-fontawesome';
+	var cls2 = '.' + cls;
 
 	self.singleton();
 	self.readonly();
@@ -12,12 +14,12 @@ COMPONENT('fontawesome', function(self, config) {
 	self.nocompile && self.nocompile();
 
 	self.make = function() {
-		self.aclass('ui-fontawesome hidden');
-		self.append('<div class="ui-fontawesome-search"><span><i class="fa fa-search clearsearch"></i></span><div><input type="text" maxlength="50" placeholder="{0}" /></div></div><div></div><ul class="ui-fontawesome-recentlist hidden"></ul><div class="ui-fontawesome-icons"><ul></ul></div>'.format(config.search));
-		container = $(self.find('.ui-fontawesome-icons').find('ul')[0]);
-		recent = $(self.find('.ui-fontawesome-recentlist')[0]);
+		self.aclass(cls + ' hidden');
+		self.append('<div class="{1}-search"><span><i class="fa fa-search clearsearch"></i></span><div><input type="text" maxlength="50" placeholder="{0}" /></div></div><div></div><ul class="{1}-recentlist hidden"></ul><div class="{1}-icons"><ul></ul></div>'.format(config.search, cls));
+		container = $(self.find(cls2 + '-icons').find('ul')[0]);
+		recent = $(self.find(cls2 + '-recentlist')[0]);
 		input = self.find('input');
-		icon = self.find('.ui-fontawesome-search').find('.fa');
+		icon = self.find(cls2 + '-search').find('.fa');
 
 		self.event('click', '.clearsearch', function() {
 			input.val('').trigger('keydown');
@@ -129,7 +131,7 @@ COMPONENT('fontawesome', function(self, config) {
 			recent.empty().html(builder.join('')).rclass('hidden');
 		} else
 			recent.aclass('hidden');
-		self.tclass('ui-fontawesome-recent', !!(items && items.length));
+		self.tclass(cls + '-recent', !!(items && items.length));
 	};
 
 });

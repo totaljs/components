@@ -3,7 +3,8 @@
 	"dateupdated": "2019-01-07T11:35:00.000Z",
 	"name": "j-TextboxList",
 	"tags": [
-		"jcomponent"
+		"textbox",
+		"list"
 	],
 	"color": "silver",
 	"version": 1,

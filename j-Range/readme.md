@@ -3,6 +3,7 @@
 - supports __dark mode__
 
 __Attributes__:
+
 - `data-max="100"` maximum value
 - `data-min="0"` minimum value
 - `data-step="1"` step size

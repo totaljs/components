@@ -6,8 +6,6 @@
 
 __Configuration__:
 
-Example: `data-jc-config="exec:LINK_TO_FUNCTION"`
-
 - `exec` {String} a link to the function
 
 __Data-source__:

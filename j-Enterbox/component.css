@@ -1,4 +1,3 @@
-.ui-enterbox * { box-sizing: border-box; }
 .ui-enterbox { border: 1px solid #E0E0E0; border-radius: 3px; padding: 0 1px; background-color: white; }
 .ui-enterbox-input input { width: 100%; border: 0; background: white; outline: 0; font-size: 16px; }
 .ui-enterbox-input { margin-right: 60px; padding: 10px 10px 0; height: 40px; }

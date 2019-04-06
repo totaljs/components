@@ -6,8 +6,6 @@
 
 __Configuration__:
 
-Example: `data-jc-config="twelvehour:true"`
-
 - `twelvehour` {Boolean} (optional) the clock will be 12-hour (default `false`).
 
 ## Usage
@@ -16,8 +14,9 @@ Example: `data-jc-config="twelvehour:true"`
 var ELEMENT = $(document);
 var PATH = 'some.path.to.date';
 var X_OFFSET = 100;
+
 SETTER('clock', 'toggle', ELEMENT, PATH, function(date) {
-   console.log('SELECTED DATE:', date);
+	console.log('SELECTED DATE:', date);
 }, X_OFFSET);
 ```
 

@@ -20,7 +20,7 @@ __Configuration__:
 - `placeholder` {String} a placeholder for the search input
 - `height` {Number} height of list item (optional, default `35`)
 
-If the `value` isn't defined then the component uses `name` as `value.
+If the `value` isn't defined then the component uses `name` as `value`.
 
 ### Author
 

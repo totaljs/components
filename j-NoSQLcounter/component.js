@@ -1,5 +1,7 @@
 COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config) {
 
+	var cls = 'ui-nosqlcounter';
+	var cls2 = '.' + cls;
 	var months = MONTHS;
 	var container, labels;
 
@@ -8,10 +10,10 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config) {
 	self.nocompile && self.nocompile();
 
 	self.make = function() {
-		self.aclass('ui-nosqlcounter');
-		self.append('<div class="ui-nosqlcounter-table"{0}><div class="ui-nosqlcounter-cell"></div></div><div class="ui-nosqlcounter-labels"></div>'.format(config.height ? ' style="height:{0}px"'.format(config.height) : ''));
-		container = self.find('.ui-nosqlcounter-cell');
-		labels = self.find('.ui-nosqlcounter-labels');
+		self.aclass(cls);
+		self.append('<div class="{1}-table"{0}><div class="{1}-cell"></div></div><div class="ui-nosqlcounter-labels"></div>'.format(config.height ? ' style="height:{0}px"'.format(config.height) : '', cls));
+		container = self.find(cls2 + '-cell');
+		labels = self.find(cls2 + '-labels');
 	};
 
 	self.configure = function(key, value) {

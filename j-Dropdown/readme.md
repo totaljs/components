@@ -4,8 +4,6 @@
 
 __Configuration__:
 
-Example: `data-jc-config="required:true;icon:envelope"`
-
 - `required` {Boolean} (optional) enables "required" (default: `false`)
 - `items` {String} (optional) static items `key1|value1, key2 with value, key3|value`
 - `icon` {String} (optional) icon for label e.g. `home`, `cog`, etc.
