@@ -111,7 +111,7 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 		emodal.css({ top: top, 'margin-left': ml });
 
 		if (config.scrollbar) {
-			earea.css({ height: h - hh - hf, width: width - 1 });
+			earea.css({ height: h - hh - hf, width: width });
 			self.scrollbar && self.scrollbar.resize();
 		} else {
 			earea[0].$noscrollbarwidth = 0;
