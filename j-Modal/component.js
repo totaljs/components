@@ -90,6 +90,12 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 		var top = ((WH - h) / 2.2) >> 0;
 		var width = mobile ? emodal.width() : config.width;
 		var ml = Math.ceil(width / 2) * -1;
+		var empty = false;
+
+		if (!width) {
+			empty = true;
+			width = WW.inc('-10%') >> 0;
+		}
 
 		if (config.center) {
 			top = Math.ceil((WH / 2) - (hs / 2));
@@ -108,7 +114,11 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 			}
 		}
 
-		emodal.css({ top: top, 'margin-left': ml });
+		var css = { top: top, 'margin-left': ml };
+		if (empty)
+			css.width = width;
+
+		emodal.css(css);
 
 		if (config.scrollbar) {
 			earea.css({ height: h - hh - hf, width: width });
@@ -229,10 +239,11 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 		config.reload && EXEC(config.reload, self);
 		config.default && DEFAULT(config.default, true);
 
-		if (!config.scrollbar)
+		if (config.scrollbar) {
+			if (!self.scrollbar)
+				self.scrollbar = SCROLLBAR($(cls2 + '-body-area'), { visibleY: true });
+		} else
 			$(cls2 + '-body-area').noscrollbar();
-		else
-			self.scrollbar = SCROLLBAR($(cls2 + '-body-area'), { visibleY: true });
 
 		if (!isMOBILE && config.autofocus) {
 			var el = self.find(config.autofocus ? 'input[type="text"],input[type="password"],select,textarea' : config.autofocus);
@@ -244,7 +255,10 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 		var delay = first ? 500 : 0;
 
 		setTimeout(function() {
-			earea[0].scrollTop = 0;
+			if (self.scrollbar)
+				self.scrollbar.scrollTop(0);
+			else
+				earea[0].scrollTop = 0;
 			self.aclass(cls + '-visible');
 		}, 300 + delay);
 

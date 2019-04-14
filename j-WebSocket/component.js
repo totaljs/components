@@ -22,25 +22,24 @@ COMPONENT('websocket', 'reconnect:3000', function(self, config) {
 		return self;
 	};
 
-	self.configure = function(key, value, init) {
-		if (init)
-			return;
-		if (key === 'url')
-			url = value;
-	};
-
 	self.process = function(callback) {
 
-		if (!ws || sending || !queue.length || ws.readyState !== 1) {
+		if (!ws || !ws.send || sending || !queue.length || ws.readyState !== 1) {
 			callback && callback();
 			return;
 		}
 
 		sending = true;
 		var async = queue.splice(0, 3);
+
 		async.wait(function(item, next) {
-			ws.send(item);
-			setTimeout(next, 5);
+			if (ws) {
+				ws.send(item);
+				setTimeout(next, 5);
+			} else {
+				queue.unshift(item);
+				next();
+			}
 		}, function() {
 			callback && callback();
 			sending = false;
@@ -59,7 +58,14 @@ COMPONENT('websocket', 'reconnect:3000', function(self, config) {
 		return self;
 	};
 
-	function onClose() {
+	function onClose(e) {
+
+		if (e.code === 4001) {
+			location.href = location.href + '';
+			return;
+		}
+
+		e.reason && WARN('WebSocket:', decodeURIComponent(e.reason));
 		self.close(true);
 		setTimeout(self.connect, config.reconnect);
 	}
@@ -68,7 +74,7 @@ COMPONENT('websocket', 'reconnect:3000', function(self, config) {
 		var data;
 		try {
 			data = PARSE(decodeURIComponent(e.data));
-			config.bind && self.set(data);
+			self.attrd('jc-path') && self.set(data);
 		} catch (e) {
 			WARN('WebSocket "{0}": {1}'.format(url, e.toString()));
 		}

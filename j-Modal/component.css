@@ -1,5 +1,5 @@
 .ui-modal-noscroll, .ui-modal-noscroll body { overflow: hidden; }
-.ui-modal-container { position: fixed; }
+.ui-modal-container { position: fixed; left: 0; right: 0; top: 0; }
 .ui-modal-bg { background-color: rgba(250,250,250,0.8); left: 0; top: 0; right: 0; bottom: 0; }
 .ui-modal { background-color: white; margin: 0 auto; border-radius: 3px; box-shadow: 0 0 30px rgba(0,0,0,0.05); transform: scale(0); transition: transform 0.2s; position: absolute; left: 50%; overflow: hidden; border: 1px solid #E0E0E0; }
 .ui-modal-visible .ui-modal { transform: scale(1); }
