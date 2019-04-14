@@ -1,4 +1,4 @@
-COMPONENT('pin', 'blank:●;count:6', function(self, config) {
+COMPONENT('pin', 'blank:●;count:6;hide:false', function(self, config) {
 
 	var reg_validation = /[0-9]/;
 	var inputs = null;
@@ -12,16 +12,14 @@ COMPONENT('pin', 'blank:●;count:6', function(self, config) {
 	};
 
 	self.configure = function(key, value, init) {
-		if (init)
-			return;
 		switch (key) {
 			case 'count':
-				self.redraw();
+				!init && self.redraw();
 				break;
 			case 'disabled':
 				self.find('input').prop('disabled', value);
 				self.tclass('ui-disabled', value);
-				!value && self.state(1, 1);
+				!init && !value && self.state(1, 1);
 				break;
 		}
 	};
@@ -46,11 +44,16 @@ COMPONENT('pin', 'blank:●;count:6', function(self, config) {
 				var c = String.fromCharCode(e.charCode);
 				if (t.value !== c)
 					t.value = c;
+
+				if (config.hide) {
+					self.maskforce(t);
+				} else
+					self.mask();
+
 				setTimeout(function(el) {
 					var next = el.parent().next().find('input');
 					next.length && next.focus();
 				}, 50, $(t));
-				self.mask();
 			} else if (c > 30)
 				e.preventDefault();
 		});
@@ -69,14 +72,20 @@ COMPONENT('pin', 'blank:●;count:6', function(self, config) {
 		inputs = self.find('input');
 	};
 
+	self.maskforce2 = function() {
+		self.maskforce(this);
+	};
+
+	self.maskforce = function(input) {
+		if (input.value && reg_validation.test(input.value)) {
+			input.setAttribute('data-value', input.value);
+			input.value = config.blank;
+		}
+	};
+
 	self.mask = function() {
 		setTimeout2(self.id + '.mask', function() {
-			inputs.each(function() {
-				if (this.value && reg_validation.test(this.value)) {
-					this.setAttribute('data-value', this.value);
-					this.value = config.blank;
-				}
-			});
+			inputs.each(self.maskforce2);
 			self.getter();
 		}, 300);
 	};
@@ -104,6 +113,9 @@ COMPONENT('pin', 'blank:●;count:6', function(self, config) {
 			skip = false;
 			return;
 		}
+
+		if (value == null)
+			value = '';
 
 		inputs.each(function(index) {
 			this.setAttribute('data-value', value.substring(index, index + 1));

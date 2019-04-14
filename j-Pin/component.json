@@ -1,10 +1,13 @@
 {
 	"datecreated": "2017-07-18T22:00:00.000Z",
-	"dateupdated": "2018-11-08T19:46:00.000Z",
+	"dateupdated": "2019-04-14T09:25:00.000Z",
 	"name": "j-Pin",
 	"tags": [
-		"jcomponent"
+		"pin",
+		"input",
+		"textbox"
 	],
+	"darkmode": true,
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,
