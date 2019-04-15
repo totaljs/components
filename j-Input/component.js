@@ -54,6 +54,10 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					}
 				};
 				SETTER('autocomplete', 'show', opt);
+			} else if (config.mask) {
+				setTimeout(function(input) {
+					input.selectionStart = input.selectionEnd = 0;
+				}, 50, this);
 			}
 		});
 
