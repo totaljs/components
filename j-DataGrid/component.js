@@ -173,7 +173,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	self.make = function() {
 
 		self.IDCSS = GUID(5);
-		self.aclass('dg dg-' + self.IDCSS);
+		self.aclass('dg dg-noscroll dg-' + self.IDCSS);
 
 		var scr = self.find('script');
 		var meta = scr.html();
