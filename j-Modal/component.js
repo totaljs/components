@@ -80,7 +80,6 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 			return;
 
 		var mobile = WIDTH() === 'xs';
-
 		var hh = eheader.height();
 		var hb = ebody.height();
 		var hf = efooter.height();
@@ -240,8 +239,7 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 		config.default && DEFAULT(config.default, true);
 
 		if (config.scrollbar) {
-			if (!self.scrollbar)
-				self.scrollbar = SCROLLBAR($(cls2 + '-body-area'), { visibleY: true });
+			!self.scrollbar && (self.scrollbar = SCROLLBAR(self.find(cls2 + '-body-area'), { visibleY: true }));
 		} else
 			$(cls2 + '-body-area').noscrollbar();
 
