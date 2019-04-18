@@ -73,9 +73,11 @@
 .dg-columns label { display: block; cursor: pointer; overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .dg-columns label input { vertical-align: middle; }
 .dg-columns label span { vertical-align: middle; margin-left: 5px; }
-.dg-columns-button { margin: 10px; display: block; width: 160px; background-color: #888888; border-radius: 2px; color: white; border: 0; font-size: 11px; height: 20px; }
+.dg-columns-button { margin: 10px 10px 0; display: block; width: 160px; background-color: #888888; border-radius: 2px; color: white; border: 0; font-size: 11px; height: 20px; }
 .dg-columns-button:hover { background-color: #999999; }
 .dg-columns-button i { margin-right: 6px; }
+.dt-columns-reset { display: block; font-size: 11px; padding: 5px 0 8px 10px; cursor: pointer; }
+.dt-columns-reset:hover { text-decoration: underline; }
 .dg-hcol .dg-checkbox { margin-top: 0; }
 .dg-checkbox { width: 15px; height: 15px; border: 1px solid #D0D0D0; vertical-align: middle; cursor: pointer; font-size: 11px; text-align: center; padding: 1px 0 0 1px; background-color: white; border-radius: 2px; margin: 5px auto 0; }
 .dg-checkbox i { display: none; }
