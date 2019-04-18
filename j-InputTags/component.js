@@ -1,4 +1,4 @@
-COMPONENT('inputtags', 'dirkey:name;dirvalue:id;after:\\:', function(self, config) {
+COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;after:\\:', function(self, config) {
 
 	var cls = 'ui-inputtags';
 	var cls2 = '.' + cls;
@@ -195,6 +195,8 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;after:\\:', function(self, confi
 		var cur = self.get() || EMPTYARRAY;
 		var is = false;
 
+		value = self.transform(value);
+
 		if (cur.indexOf(value) !== -1)
 			return;
 
@@ -265,12 +267,12 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;after:\\:', function(self, confi
 		tags.find(cls2 + '-tag').remove();
 
 		if (dirsource) {
-
 			var arr = [];
 			var item;
 
 			for (var i = 0; i < dirsource.length; i++) {
 				item = dirsource[i];
+				item.name = self.transform(item.name);
 				if (typeof(item) === 'string') {
 					if (value.indexOf(item) === -1)
 						continue;
@@ -285,8 +287,10 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;after:\\:', function(self, confi
 			for (var i = 0; i < arr.length; i++)
 				self.appendtag(arr[i]);
 		} else {
-			for (var i = 0; i < value.length; i++)
+			for (var i = 0; i < value.length; i++) {
+				value[i] = self.transform(value[i]);
 				self.appendtag(value[i]);
+			}
 		}
 
 		input.empty();
@@ -395,5 +399,25 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;after:\\:', function(self, confi
 		self.$oldstate = invalid;
 		self.tclass(cls + '-invalid', invalid);
 		config.error && self.find(cls2 + '-error').tclass('hidden', !invalid);
+	};
+
+	self.transform = function(string) {
+
+		if (typeof string !== 'string')
+			return string;
+
+		switch (config.transform) {
+			case 1:
+				return string.toLowerCase();
+			case 2:
+				return string.toUpperCase();
+			case 3:
+				return self.capitalize(string);
+		}
+		return string;
+	};
+
+	self.capitalize = function(string) {
+		return string.toLowerCase().replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
 	};
 });
