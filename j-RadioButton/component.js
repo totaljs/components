@@ -1,6 +1,9 @@
-COMPONENT('radiobutton', function(self, config) {
+COMPONENT('radiobutton', 'inline:1', function(self, config) {
 
-	self.nocompile && self.nocompile();
+	var cls = 'ui-radiobutton';
+	var cls2 = '.' + cls;
+
+	self.nocompile();
 
 	self.configure = function(key, value, init) {
 		if (init)
@@ -10,20 +13,20 @@ COMPONENT('radiobutton', function(self, config) {
 				self.tclass('ui-disabled', value);
 				break;
 			case 'required':
-				self.find('.ui-radiobutton-label').tclass('ui-radiobutton-label-required', value);
+				self.find(cls2 + '-label').tclass(cls + '-label-required', value);
 				break;
 			case 'type':
 				self.type = config.type;
 				break;
 			case 'label':
-				self.find('.ui-radiobutton-label').html(value);
+				self.find(cls2 + '-label').html(value);
 				break;
 			case 'items':
 				self.find('div[data-value]').remove();
 				var builder = [];
 				value.split(',').forEach(function(item) {
 					item = item.split('|');
-					builder.push('<div data-value="{0}"><i></i><span>{1}</span></div>'.format(item[0] || item[1], item[1] || item[0]));
+					builder.push('<div data-value="{1}"><i></i><span>{0}</span></div>'.format(item[0] || item[1], item[1] || item[0]));
 				});
 				self.append(builder.join(''));
 				self.refresh();
@@ -34,8 +37,8 @@ COMPONENT('radiobutton', function(self, config) {
 	self.make = function() {
 		var builder = [];
 		var label = config.label || self.html();
-		label && builder.push('<div class="ui-radiobutton-label{1}">{0}</div>'.format(label, config.required ? ' ui-radiobutton-label-required' : ''));
-		self.aclass('ui-radiobutton{0}'.format(config.inline === false ? ' ui-radiobutton-block' : ''));
+		label && builder.push('<div class="' + cls + '-label{1}">{0}</div>'.format(label, config.required ? (' ' + cls + '-label-required') : ''));
+		self.aclass(cls + (!config.inline ? (' ' + cls + '-block') : '') + (config.disabled ? ' ui-disabled' : ''));
 		self.event('click', 'div', function() {
 			if (config.disabled)
 				return;
@@ -56,7 +59,7 @@ COMPONENT('radiobutton', function(self, config) {
 		self.find('div').each(function() {
 			var el = $(this);
 			var is = el.attrd('value') === (value == null ? null : value.toString());
-			el.tclass('ui-radiobutton-selected', is);
+			el.tclass(cls + '-selected', is);
 			el.find('.fa').tclass('fa-circle-o', !is).tclass('fa-circle', is);
 		});
 	};

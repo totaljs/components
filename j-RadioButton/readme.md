@@ -2,11 +2,11 @@
 
 __Configuration__:
 
-- `items` {String} (required) needs to contain `value 1|text 1;value 2|text 2` or `text 1;text 2`
-- `required` {Boolean} (optional) enables `required`
-- `disabled` {Boolean} (optional) disables this control
-- `label` {String} (optional) can change the content (default: `innerHTML`)
-- `type` {String} (optional) can contain `number`
+- `items` {String} __required__, needs to contain `value 1|text 1;value 2|text 2` or `text 1;text 2`
+- `required` {Boolean} enables `required`
+- `disabled` {Boolean} disables this control
+- `label` {String} can change the content (default: `innerHTML`)
+- `type` {String} can contain `number`
 - `inline` {Boolean} enables/disables inline position (default: `true`)
 
 ### Author
