@@ -16,12 +16,13 @@ COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;marginsm:0;marginmd:0;mar
 	};
 
 	self.init = function() {
+
 		var resize = function() {
-			SETTER('modal', 'resize');
+			SETTER('scrollbar', 'resize');
 		};
 
 		var resizedelay = function() {
-			setTimeout2(cls, resize, 300);
+			setTimeout2('scrollbar', resize, 300);
 		};
 
 		if (W.OP)
@@ -60,11 +61,9 @@ COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;marginsm:0;marginmd:0;mar
 	self.setter = function(value, path, type) {
 		if (config.track && config.track.indexOf(path) === -1)
 			return;
-		if (type === 1) {
-			setTimeout(function() {
-				self.done();
-				config.reset && self.reset();
-			}, 500);
-		}
+		type && setTimeout(function() {
+			self.done();
+			config.reset && self.reset();
+		}, 500);
 	};
 });
