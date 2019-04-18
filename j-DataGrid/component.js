@@ -710,8 +710,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 					self.operation('page');
 					break;
 				default:
-					var row = opt.rows[+$(this).closest('.dg-row').attrd('index')];
-					config.button && SEEX(config.button, this.name, row, self, e);
+					var el =+$(this);
+					var row = opt.rows[el.closest('.dg-row').attrd('index')];
+					config.button && SEEX(config.button, this.name, row, el, e);
 					break;
 			}
 		});
