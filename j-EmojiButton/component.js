@@ -1,13 +1,15 @@
-COMPONENT('colorpickerbutton', 'default:#FFFFFF;align:left;position:top', function(self, config) {
+COMPONENT('emojibutton', 'default:#FFFFFF;align:left;position:top', function(self, config) {
 
-	var cls = 'ui-colorpickerbutton';
-	var cls2 = '.' + cls;
+	var cls = 'ui-emojibutton';
+	var icon;
 
 	self.nocompile();
 
 	self.make = function() {
 		self.aclass(cls);
-		self.append('<span class="{0}-arrow"><i class="fa fa-angle-down"></i></span><div class="{0}-color"></div>'.format(cls));
+		self.append('<span class="{0}-arrow"><i class="fa fa-angle-down"></i></span><div class="{0}-icon"></div>'.format(cls));
+		icon = self.find('.' + cls + '-icon');
+
 		self.event('click', function() {
 			if (config.disabled)
 				return;
@@ -21,7 +23,7 @@ COMPONENT('colorpickerbutton', 'default:#FFFFFF;align:left;position:top', functi
 				self.set(color.toUpperCase());
 				self.change(true);
 			};
-			SETTER('colorpicker', 'show', opt);
+			SETTER('emoji', 'show', opt);
 		});
 	};
 
@@ -34,6 +36,6 @@ COMPONENT('colorpickerbutton', 'default:#FFFFFF;align:left;position:top', functi
 	};
 
 	self.setter = function(value) {
-		self.find(cls2 + '-color').css('background-color', value || config.default);
+		icon.html(value);
 	};
 });
