@@ -104,11 +104,12 @@ __Methods__:
 - `component.redraw([reselect_again])` can redraw rows again (only for modifications, if you will remove some row you need to update the entire model)
 - `component.resetfilter()` can reset a filter
 - `component.exportrows(page_from or true from the current page, pages_count, callback(rows, internal_options), [reset_to_page or true for the current page])` can export rows with server-side rendering
-- __NEW__ `component.appendrow(row_object, [scrolldown])` appends and render row
-- __NEW__ `component.redrawrow(row_object)` redraws row
-- __NEW__ `component.clear()` clears all changes
-- __NEW__ `component.editcolumn(row_index, col_index)` executes `config.change` internally (only for advanced usage)
-- __NEW__ `component.applyfilter(obj)` can apply a custom filter `{ name: 'Peter', age: '20 - 50' }`
+- `component.appendrow(row_object, [scrolldown])` appends and render row
+- `component.redrawrow(row_object)` redraws row
+- `component.clear()` clears all changes
+- `component.editcolumn(row_index, col_index)` executes `config.change` internally (only for advanced usage)
+- `component.applyfilter(obj)` can apply a custom filter `{ name: 'Peter', age: '20 - 50' }`
+- __NEW__ `component.resetcolumns()` resets columns
 
 __Properties__:
 
