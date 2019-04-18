@@ -329,7 +329,6 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 			}
 		});
 
-
 		window.$datepicker = self;
 
 		var hide = function() {
