@@ -1,0 +1,18 @@
+{
+	"datecreated": "2019-04-18T21:29:00.000Z",
+	"dateupdated": null,
+	"name": "j-EmojiButton",
+	"tags": [
+		"button",
+		"color"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"darkmode": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "info@totalavengers.com",
+	"license": "MIT"
+}
