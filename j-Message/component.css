@@ -21,3 +21,4 @@
 .ui-dark .ui-message button:hover { background-color: #444444; }
 .ui-dark .ui-message button:active { border-color: #505050; }
 .ui-dark .ui-message-icon { background-color: #202020; }
+.ui-dark .ui-message hr { border-color: #404040; }
