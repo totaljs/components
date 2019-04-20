@@ -1079,8 +1079,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		var index = opt.rows.indexOf(row);
 		if (index !== -1) {
 			var el = vbody.find('.dg-row[data-index="{0}"]'.format(index));
-			if (el.length)
-				self.renderrow(index, row);
+			if (el.length) {
+				opt.render[index] = self.renderrow(index, row);
+				el.replaceWith(opt.render[index]);
+			}
 		}
 	};
 
