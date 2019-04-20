@@ -887,6 +887,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				!col.ovalue && (col.ovalue = 'value');
 			}
 
+			// SORT?
+			if (col.sort != null)
+				col.sorting = col.sort;
+
 			if (cache) {
 				var c = cache[i];
 				if (c) {
