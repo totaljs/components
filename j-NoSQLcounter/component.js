@@ -59,7 +59,7 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config) {
 			if (max == null)
 				max = stats[i].value;
 			else
-				max = Math.amx(stats[i].value, max);
+				max = Math.max(stats[i].value, max);
 		}
 
 		var bar = 100 / maxbars;
