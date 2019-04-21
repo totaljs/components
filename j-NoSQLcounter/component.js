@@ -54,7 +54,14 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config) {
 			stats.reverse();
 		}
 
-		var max = stats.scalar('max', 'value');
+		var max = null;
+		for (var i = 0; i < stats.length; i++) {
+			if (max == null)
+				max = stats[i].value;
+			else
+				max = Math.amx(stats[i].value, max);
+		}
+
 		var bar = 100 / maxbars;
 		var builder = [];
 		var dates = [];
