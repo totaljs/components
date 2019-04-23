@@ -28,7 +28,7 @@
 .ui-dark .ui-emoji-content-title { border-color: #303030; color: #ababab; }
 .ui-dark .ui-emoji-footer { background-color: #202020; border-color: #303030; }
 .ui-dark .ui-emoji-footer-text { color: #ababab; }
-.ui-dark .ui-emoji-search span { background-color: #3a3a3a; color: #A0A0A0; }
+.ui-dark .ui-emoji-search span { background-color: #3a3a3a; border-color: #303030; color: #A0A0A0; }
 .ui-dark .ui-emoji-search-input { border-color: #303030; background-color: #1f1f1f; color: white; }
 
 @media(max-width: 767px) {
