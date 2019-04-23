@@ -854,7 +854,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		} else
 			self.gridid = 'dg' + HASH(JSON.stringify(code));
 
-		var cache = config.remember ? CACHE(self.gridid) : null;
+		var cache = config.remember ? W.PREF ? W.PREF.get(self.gridid) : CACHE(self.gridid) : null;
 		var cols = type === 'string' ? new Function('return ' + code)() : CLONE(code);
 		var tmp;
 
@@ -1259,7 +1259,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			cache[col.realindex] = { index: col.index, width: col.width, hidden: col.hidden };
 		}
 
-		CACHE(self.gridid, cache, '1 month');
+		if (W.PREF)
+			W.PREF.set(self.gridid, cache, '1 month');
+		else
+			CACHE(self.gridid, cache, '1 month');
 	};
 
 	self.rows = function() {
@@ -1500,7 +1503,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	};
 
 	self.resetcolumns = function() {
-		CACHE(self.gridid, null, '-1 day');
+
+		if (W.PREF)
+			W.PREF.set(self.gridid);
+		else
+			CACHE(self.gridid, null, '-1 day');
+
 		self.rebind(opt.declaration);
 		self.cols(NOOP);
 		ecolumns.aclass('hidden');

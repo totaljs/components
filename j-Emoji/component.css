@@ -20,8 +20,16 @@
 .ui-emoji-empty div { font-size: 50px; line-height: 50px; opacity: 0.4; user-select: none; }
 .ui-emoji-footer { text-align: right; padding: 6px 10px 3px 0; font-size: 18px; border-top: 1px solid #e0e0e0; background-color: #fcfcfc; }
 .ui-emoji-footer .ui-emoji-footer-text { font-size: 12px; text-align: left; float: left; margin-top: 4px; margin-left: 10px; color: #808080; }
-.ui-emoji-footer span { border-bottom: 1px solid #fcfcfc; padding: 0 0px 0 6px; cursor: pointer; user-select: none; }
-.ui-emoji-footer span.active { border-bottom-color: grey; }
+.ui-emoji-footer span { padding: 0 0px 0 6px; cursor: pointer; user-select: none; }
+
+.ui-dark .ui-emoji { background-color: #202020; border-color: #303030; }
+.ui-dark .ui-emoji .active { border-color: #5d5d5d; }
+.ui-dark .ui-emoji-header { background-color: #202020; border-color: #303030; }
+.ui-dark .ui-emoji-content-title { border-color: #303030; color: #ababab; }
+.ui-dark .ui-emoji-footer { background-color: #202020; border-color: #303030; }
+.ui-dark .ui-emoji-footer-text { color: #ababab; }
+.ui-dark .ui-emoji-search span { background-color: #3a3a3a; border-color: #303030; color: #A0A0A0; }
+.ui-dark .ui-emoji-search-input { border-color: #303030; background-color: #1f1f1f; color: white; }
 
 @media(max-width: 767px) {
 	.ui-emoji .ui-emoji-nav span { cursor: pointer; font-size: 26px; }

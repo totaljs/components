@@ -1,6 +1,6 @@
 {
 	"datecreated": "2019-03-18T18:03:04.000Z",
-	"dateupdated": "2019-04-18T21:42:04.000Z",
+	"dateupdated": "2019-04-23T16:05:00.000Z",
 	"name": "j-Emoji",
 	"tags": [
 		"emoji",
@@ -8,6 +8,7 @@
 	],
 	"color": "white",
 	"version": 1,
+	"darkmode": true,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

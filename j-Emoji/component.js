@@ -13,6 +13,17 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 	var page = 0;
 	var events = {};
 
+	var cacheset = function(value) {
+		if (W.PREF)
+			W.PREF.set(self.name, value);
+		else
+			CACHE(self.name, value, '1 month');
+	};
+
+	var cacheget = function() {
+		return (W.PREF ? W.PREF.get(self.name) : CACHE(self.name)) || {};
+	};
+
 	self.singleton();
 	self.readonly();
 	self.blind();
@@ -152,7 +163,7 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 			var t = $(this);
 			var editable = t.attrd('editable') || 0;
 			var icon = '{0}{1}'.format(t.data('id'), editable ? toneclear[toneselected] : '');
-			var saved = CACHE(self.name) || {};
+			var saved = cacheget();
 
 			if (saved.history == null)
 				saved.history = [];
@@ -166,7 +177,7 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 				saved.history.push({ id: icon, count: 1 });
 			}
 
-			CACHE(self.name, saved, '1 month');
+			cacheset(saved);
 
 			var num = icon.split('-').trim().map(function(c) {
 				return +c;
@@ -177,10 +188,10 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 		});
 
 		self.event('click', cls2 + '-footer span', function() {
-			var saved = CACHE(self.name) || {};
+			var saved = cacheget();
 			toneselected = $(this).attrd('type');
 			saved.tone = toneselected;
-			CACHE(self.name, saved, '1 month');
+			cacheset(saved);
 			self.renderemoji();
 		});
 
@@ -262,7 +273,7 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 		if (opt.offsetY)
 			css.top += opt.offsetY;
 
-		var saved = CACHE(self.name) || {};
+		var saved = cacheget();
 
 		if (saved.tone != null)
 			toneselected = saved.tone;
