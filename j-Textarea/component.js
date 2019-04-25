@@ -1,4 +1,4 @@
-COMPONENT('textarea', function(self, config) {
+COMPONENT('textarea', 'scrollbar:true', function(self, config) {
 
 	var input, content = null;
 
@@ -109,6 +109,11 @@ COMPONENT('textarea', function(self, config) {
 		self.rclass('ui-textarea');
 		self.aclass('ui-textarea-container');
 		input = self.find('textarea');
+
+		if (!config.scrollbar) {
+			input.noscrollbar();
+			input.css('padding-right', (SCROLLBARWIDTH() + 5) + 'px');
+		}
 	};
 
 	self.make = function() {
