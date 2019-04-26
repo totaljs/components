@@ -440,7 +440,7 @@ COMPONENT('editable', function(self, config) {
 			if (o.type === 'date') {
 				var opt = {};
 				opt.element = el;
-				opt.value = typeof(o.value) === 'string' ? o.value.parseDate(o.format) : o.value;
+				opt.value = (o.value && typeof(o.value) === 'string' ? o.value.parseDate(o.format) : o.value) || NOW;
 				opt.callback = function(date) {
 					el.html(date.format(o.format));
 					self.approve(el);
