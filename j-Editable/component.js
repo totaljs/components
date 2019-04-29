@@ -331,7 +331,8 @@ COMPONENT('editable', function(self, config) {
 		SETTER('!autocomplete', 'hide');
 
 		var cur = el.html();
-		if (opt.html === cur || (opt.raw && !cur))
+
+		if (opt.html === cur || (opt.raw && !cur && !opt.empty))
 			return true;
 
 		var val = cur;
@@ -363,7 +364,7 @@ COMPONENT('editable', function(self, config) {
 
 		switch (opt.type) {
 			case 'number':
-				opt.value = opt.value.parseFloat();
+				opt.value = opt.value ? opt.value.parseFloat() : 0;
 				if ((opt.minvalue != null && opt.value < opt.minvalue) || (opt.maxvalue != null && opt.value > opt.maxvalue))
 					return false;
 				break;
@@ -379,7 +380,7 @@ COMPONENT('editable', function(self, config) {
 		if (opt.accept && !opt.accept(val))
 			return false;
 
-		if ((opt.required && (opt.value == null || opt.value === '')) || (opt.validate && !opt.validate(opt.value)))
+		if (!opt.empty && (opt.required && (opt.value == null || opt.value === '')) || (opt.validate && !opt.validate(opt.value)))
 			return false;
 
 		opt.html = null;
@@ -414,9 +415,19 @@ COMPONENT('editable', function(self, config) {
 				self.cnotify(el, 'ok');
 				SET(opt.path, opt.value, 2);
 				self.change(true);
+
+				var val = GET(opt.binder.path);
+				if (opt.empty && !val && typeof(opt.empty) === 'string') {
+					el.html(opt.empty);
+					if (b)
+						b.disabled = false;
+					return;
+				}
+
 				b && setTimeout(function() {
 					b.disabled = false;
-					opt.rebind && opt.binder && opt.binder.exec(GET(opt.binder.path), opt.binder.path);
+					if (opt.empty || opt.rebind)
+						opt.binder && opt.binder.exec(val, opt.binder.path);
 				}, 100);
 			}, 100);
 		}
