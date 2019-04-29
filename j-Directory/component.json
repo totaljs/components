@@ -1,9 +1,10 @@
 {
 	"datecreated": "2019-01-26T12:36:00.000Z",
-	"dateupdated": "2019-03-11T13:34:00.000Z",
+	"dateupdated": "2019-03-11T13:35:00.000Z",
 	"name": "j-Directory",
 	"tags": [
-		"jcomponent"
+		"dropdown",
+		"select"
 	],
 	"color": "transparent",
 	"version": 1,
