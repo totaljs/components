@@ -369,8 +369,10 @@ COMPONENT('editable', function(self, config) {
 					return false;
 				break;
 			case 'date':
-				SETTER('!datepicker', 'hide');
-				opt.value = opt.value ? opt.value.parseDate(opt.format) : null;
+				if (!opt.empty) {
+					SETTER('!datepicker', 'hide');
+					opt.value = opt.value ? opt.value.parseDate(opt.format) : null;
+				}
 				break;
 			case 'boolean':
 				opt.value = opt.value === true || opt.value == 'true' || opt.value == '1' || opt.value == 'on';
