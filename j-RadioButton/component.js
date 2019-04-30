@@ -2,6 +2,7 @@ COMPONENT('radiobutton', 'inline:1', function(self, config) {
 
 	var cls = 'ui-radiobutton';
 	var cls2 = '.' + cls;
+	var template = '<div data-value="{1}"><i></i><span>{0}</span></div>';
 
 	self.nocompile();
 
@@ -24,10 +25,22 @@ COMPONENT('radiobutton', 'inline:1', function(self, config) {
 			case 'items':
 				self.find('div[data-value]').remove();
 				var builder = [];
-				value.split(',').forEach(function(item) {
-					item = item.split('|');
-					builder.push('<div data-value="{1}"><i></i><span>{0}</span></div>'.format(item[0] || item[1], item[1] || item[0]));
-				});
+				if (value.indexOf(',') === -1) {
+					var items = self.get(value);
+
+					for (var i = 0; i < items.length; i++) {
+						var item = items[i];
+						if (typeof item === 'object')
+							builder.push(template.format(item.name, item.value || item.name));
+						else
+							builder.push(template.format(item, item));
+					}
+				} else {
+					value.split(',').forEach(function(item) {
+						item = item.split('|');
+						builder.push(template.format(item[0] || item[1], item[1] || item[0]));
+					});
+				}
 				self.append(builder.join(''));
 				self.refresh();
 				break;
