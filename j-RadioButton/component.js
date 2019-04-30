@@ -25,24 +25,15 @@ COMPONENT('radiobutton', 'inline:1', function(self, config) {
 			case 'items':
 				self.find('div[data-value]').remove();
 				var builder = [];
-				if (value.indexOf(',') === -1) {
-					var items = self.get(value);
-
-					for (var i = 0; i < items.length; i++) {
-						var item = items[i];
-						if (typeof item === 'object')
-							builder.push(template.format(item.name, item.value || item.name));
-						else
-							builder.push(template.format(item, item));
-					}
-				} else {
-					value.split(',').forEach(function(item) {
-						item = item.split('|');
-						builder.push(template.format(item[0] || item[1], item[1] || item[0]));
-					});
-				}
+				value.split(',').forEach(function(item) {
+					item = item.split('|');
+					builder.push(template.format(item[0] || item[1], item[1] || item[0]));
+				});
 				self.append(builder.join(''));
 				self.refresh();
+				break;
+			case 'datasource':
+				self.datasource(value, self.bind);
 				break;
 		}
 	};
@@ -60,7 +51,9 @@ COMPONENT('radiobutton', 'inline:1', function(self, config) {
 			self.change(true);
 		});
 		self.html(builder.join(''));
+		html = self.html();
 		config.items && self.reconfigure('items:' + config.items);
+		config.datasource && self.reconfigure('datasource:' + config.datasource);
 		config.type && (self.type = config.type);
 	};
 
@@ -75,5 +68,31 @@ COMPONENT('radiobutton', 'inline:1', function(self, config) {
 			el.tclass(cls + '-selected', is);
 			el.find('.fa').tclass('fa-circle-o', !is).tclass('fa-circle', is);
 		});
+	};
+
+	self.bind = function(path, arr) {
+
+		if (!arr)
+			arr = EMPTYARRAY;
+
+		var builder = [];
+		var propText = config.text || 'name';
+		var propValue = config.value || 'id';
+
+		var type = typeof(arr[0]);
+		var notObj = type === 'string' || type === 'number';
+
+		for (var i = 0, length = arr.length; i < length; i++) {
+			var item = arr[i];
+			if (notObj)
+				builder.push(template.format(item, item));
+			else
+				builder.push(template.format(item[propText], item[propValue]));
+		}
+
+		render = builder.join('');
+		self.find('div[data-value]').remove();
+		self.append(render);
+		self.refresh();
 	};
 });
