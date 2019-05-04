@@ -9,6 +9,8 @@
 .ui-layout-resize:hover { background-color: #C0C0C0; }
 .ui-layout-drag { background-color: #C0C0C0; }
 .ui-layout-section { background-color: #F0F0F0; }
+.ui-layout-lock { background-color: rgba(222,222,222,0.8); z-index: 100; }
 
 .ui-dark .ui-layout-section { background-color: #282828; }
 .ui-dark .ui-layout-resize:hover { background-color: #505050; }
+.ui-dark .ui-layout-lock { background-color: rgba(34,34,34,0.8); }

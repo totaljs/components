@@ -50,12 +50,18 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 
 			el.aclass(cls + '-' + type + ' hidden ui-layout-section');
 			el.after('<div class="{0}-resize-{1} {0}-resize" data-type="{1}"></div>'.format(cls, type));
+			el.after('<div class="{0}-lock hidden" data-type="{1}"></div>'.format(cls, type));
 			s[type] = el;
 		});
 
 		self.find('> .{0}-resize'.format(cls)).each(function() {
 			var el = $(this);
 			s[el.attrd('type') + 'resize'] = el;
+		});
+
+		self.find('> .{0}-lock'.format(cls)).each(function() {
+			var el = $(this);
+			s[el.attrd('type') + 'lock'] = el;
 		});
 
 		var tmp = self.find('> script');
@@ -86,12 +92,15 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			var h = self.height();
 			var m = 2; // size of line
 
+			drag.cur = self.element.offset();
 			drag.offset = target.offset();
 			drag.el = target;
 			drag.x = e.pageX;
 			drag.y = e.pageY;
 			drag.horizontal = type === 'left' || type === 'right' ? 1 : 0;
 			drag.type = type;
+			drag.plusX = 10;
+			drag.plusY = 10;
 
 			var ch = cache[type];
 			var offset = 0;
@@ -124,11 +133,11 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 
 		events.mmove = function(e) {
 			if (drag.horizontal) {
-				var x = drag.offset.left + (e.pageX - drag.x);
+				var x = drag.offset.left + (e.pageX - drag.x) - drag.plusX - drag.cur.left;
 				if (x > drag.min && x < drag.max)
 					drag.el.css('left', x + 'px');
 			} else {
-				var y = drag.offset.top + (e.pageY - drag.y);
+				var y = drag.offset.top + (e.pageY - drag.y) - drag.plusY - drag.cur.top;
 				if (y > drag.min && y < drag.max)
 					drag.el.css('top', y + 'px');
 			}
@@ -144,12 +153,14 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 
 			if (drag.horizontal) {
 
+				offset.left -= drag.cur.left;
+
 				if (offset.left < drag.min)
 					offset.left = drag.min;
 				if (offset.left > drag.max)
 					offset.left = drag.max;
 
-				var w = offset.left - drag.offset.left;
+				var w = offset.left - (drag.offset.left - drag.cur.left);
 				if (drag.type === 'right')
 					w = w * -1;
 
@@ -159,6 +170,9 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 				config.remember && PREF.set(pk, w, prefexpire);
 
 			} else {
+
+				offset.top -= drag.cur.top;
+
 				if (offset.top < drag.min)
 					offset.top = drag.min;
 				if (offset.top > drag.max)
@@ -166,8 +180,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 
 				drag.el.css('top', offset.top);
 
-				var h = offset.top - drag.offset.top;
-
+				var h = offset.top - (drag.offset.top - drag.cur.top);
 				if (drag.type === 'bottom' || drag.type === 'preview')
 					h = h * -1;
 
@@ -183,6 +196,11 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 		self.event('mousedown', cls2 + '-resize', function(e) {
 			events.mdown(e);
 		});
+	};
+
+	self.lock = function(type, b) {
+		var el = s[type + 'lock'];
+		el && el.tclass('hidden', b == null ? b : !b);
 	};
 
 	self.rebind = function(code, noresize) {
@@ -329,11 +347,9 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 
 		el.tclass('hidden', !opt.show);
 		c.show = !!opt.show;
-
-		if (opt.resize != null) {
-			c.resize = !!opt.resize;
-			el.tclass(cls + '-resizable', c.resize);
-		}
+		c.resize = opt.resize == null ? false : !!opt.resize;
+		el.tclass(cls + '-resizable', c.resize);
+		s[type + 'resize'].tclass('hidden', !c.show || !c.resize);
 
 		is && el.css(css);
 		setTimeout2(self.ID + 'refresh', self.refresh, 50);
@@ -372,6 +388,9 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			cssleft.top = istop2 ? config.border : (top ? (top + config.space) : 0);
 			cssleft.height = isbottom2 ? (height - top2 - config.border) : (height - top2 - bottom2 - (config.space * space));
 			s.left.css(cssleft);
+			cssleft.width = s.left.width();
+			s.leftlock.css(cssleft);
+			delete cssleft.width;
 			left = s.left.width();
 			cssleft.left = s.left.width();
 			s.leftresize.css(cssleft);
@@ -386,6 +405,9 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			cssright.top = istop2 ? config.border : (top ? (top + config.space) : 0);
 			cssright.height = isbottom2 ? (height - top2 - config.border) : (height - top2 - bottom2 - (config.space * space));
 			s.right.css(cssright);
+			cssright.width = s.right.width();
+			s.rightlock.css(cssright);
+			delete cssright.width;
 			cssright.left = width - right - 2;
 			s.rightresize.css(cssright);
 			s.rightresize.tclass(hidden, !s.right.hclass(cls + '-resizable'));
@@ -400,6 +422,9 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			csstop.top = 0;
 			s.top.css(csstop);
 			s.topresize.css(csstop);
+			csstop.height = s.top.height();
+			s.toplock.css(csstop);
+			delete csstop.height;
 			csstop.top = s.top.height();
 			s.topresize.css(csstop);
 			s.topresize.tclass(hidden, !s.top.hclass(cls + '-resizable'));
@@ -413,6 +438,9 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			space = left && right ? 2 : left || right ? 1 : 0;
 			cssbottom.width = isbottom2 ? (width - right - left - (config.space * space)) : width;
 			s.bottom.css(cssbottom);
+			cssbottom.height = s.bottom.height();
+			s.bottomlock.css(cssbottom);
+			delete cssbottom.height;
 			cssbottom.top = cssbottom.top - 2;
 			s.bottomresize.css(cssbottom);
 			s.bottomresize.tclass(hidden, !s.bottom.hclass(cls + '-resizable'));
@@ -427,6 +455,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 		space = top && bottom ? 2 : top || bottom ? 1 : 0;
 		css.height = height - top - bottom - (config.space * space);
 		s.main && s.main.css(css);
+		s.mainlock && s.mainlock.css(css);
 
 		self.element.SETTER('*', 'resize');
 

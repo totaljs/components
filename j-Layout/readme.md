@@ -17,6 +17,7 @@ __Methods__:
 - `component.reset()` performs reset of resizing
 - `component.layout(name)` changes a layout (like two way data-binding)
 - `component.rebind(code_string)` makes a new layout configuration
+- `component.lock(type, [boolean])` locks the panel
 
 __Panel types__:
 
