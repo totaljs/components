@@ -138,6 +138,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 
 			var offset = drag.el.offset();
 			var d = WIDTH();
+			var pk = prefkey + '_' + layout + '_' + drag.type + '_' + d;
 
 			drag.el.rclass(cls + '-drag');
 
@@ -155,7 +156,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 				drag.el.css('left', offset.left);
 				w = s[drag.type].width() + w;
 				s[drag.type].css('width', w);
-				config.remember && PREF.set(prefkey + '_' + drag.type + '_' + d, w, prefexpire);
+				config.remember && PREF.set(pk, w, prefexpire);
 
 			} else {
 				if (offset.top < drag.min)
@@ -172,7 +173,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 
 				h = s[drag.type].height() + h;
 				s[drag.type].css('height', h);
-				config.remember && PREF.set(prefkey + '_' + drag.type + '_' + d, h, prefexpire);
+				config.remember && PREF.set(pk, h, prefexpire);
 			}
 
 			events.unbind();
@@ -298,7 +299,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 
 		var w = self.width();
 		var h = self.height();
-		var pk = prefkey + '_' + type + '_' + d;
+		var pk = prefkey + '_' + layout + '_' + type + '_' + d;
 		var cached = PREF.get(pk, prefexpire);
 
 		if (isreset) {
