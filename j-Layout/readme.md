@@ -1,6 +1,6 @@
 ## j-Layout
 
-This component can create a layout for your SPA. This component is a bit harder for understanding, but it's very helpful. `j-Layout` uses jComponent `+v17`.
+__BETA VERSION__. This component can create a layout for your SPA. This component is a bit harder for understanding, but it's very helpful. `j-Layout` uses jComponent `+v17`.
 
 __Configuration__:
 
