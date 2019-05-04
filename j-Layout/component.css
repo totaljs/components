@@ -1,0 +1,14 @@
+.ui-layout { border: 0; position: absolute; }
+.ui-layout > section { position: absolute; overflow: hidden; }
+.ui-layout > div { position: absolute; }
+.ui-layout-resize-top { height: 2px; cursor: row-resize; }
+.ui-layout-resize-bottom { height: 2px; cursor: row-resize; }
+.ui-layout-resize-left { width: 2px; cursor: col-resize; }
+.ui-layout-resize-right { width: 2px; cursor: col-resize; }
+.ui-layout-resize { z-index: 2; user-select: none; }
+.ui-layout-resize:hover { background-color: #C0C0C0; }
+.ui-layout-drag { background-color: #C0C0C0; }
+.ui-layout-section { background-color: #F0F0F0; }
+
+.ui-dark .ui-layout-section { background-color: #282828; }
+.ui-dark .ui-layout-resize:hover { background-color: #505050; }

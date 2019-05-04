@@ -1,0 +1,94 @@
+<div style="width:800px;height:400px">
+	<div data---="layout__mylayout__parent:parent" class="invisible">
+
+		<!-- META DATA OF THE LAYOUT -->
+		<!-- VERY IMPORTANT -->
+		<script type="text/plain">
+			{
+				top: { height: 80, resize: true },
+				bottom: { height: 100 },
+				left: { width: 100, resize: true },
+				right: { width: 100 },
+				main: {},
+				detail: {
+					left: { show: false },
+					right: { show: true, width: '100%' },
+					bottom: { show: false },
+					main: { show: false }
+				}
+			}
+		</script>
+
+		<!-- PANEL IN LAYOUT -->
+		<section data-type="top">
+			TOP
+		</section>
+
+		<!-- PANEL IN LAYOUT -->
+		<section data-type="main">
+			MAIN
+		</section>
+
+		<!-- PANEL IN LAYOUT -->
+		<section data-type="right">
+			RIGHT
+		</section>
+
+		<!-- PANEL IN LAYOUT -->
+		<section data-type="left">
+			LEFT
+		</section>
+
+		<!-- PANEL IN LAYOUT -->
+		<section data-type="bottom">
+			BOTTOM
+		</section>
+
+	</div>
+</div>
+
+<br />
+
+<div style="width:800px;height:400px">
+	<div data---="layout__null__parent:parent" class="invisible">
+		<script type="text/plain">
+			{
+				top: { height: 80, resize: 1 },
+				bottom: { height: 100 },
+				left: { width: 100 },
+				right: { width: 100 }
+			}
+		</script>
+
+		<section data-type="top2">
+			TOP2
+		</section>
+
+		<section data-type="main">
+			MAIN
+		</section>
+
+		<section data-type="right">
+			RIGHT
+		</section>
+
+		<section data-type="left">
+			LEFT
+		</section>
+
+		<section data-type="bottom2">
+			BOTTOM2
+		</section>
+
+	</div>
+</div>
+
+<script>
+
+	var mylayout = '';
+
+	setInterval(function() {
+		SET('mylayout', mylayout === 'detail' ? '' : 'detail');
+	}, 5000);
+
+</script>

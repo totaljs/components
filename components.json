@@ -155,5 +155,6 @@
 	"j-Table",
 	"j-Emoji",
 	"j-ColorPickerButton",
-	"j-EmojiButton"
+	"j-EmojiButton",
+	"j-Layout"
 ]
