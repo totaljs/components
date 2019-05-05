@@ -1,0 +1,27 @@
+<div data-bind="tabs__template__click span:choosetab">
+	<script type="text/html">
+		<span data-index="{{ $index }}" class="mr5">{{ $index }}</span>
+	</script>
+</div>
+
+<h2>Duplicator</h2>
+
+<div data---="duplicator__mytab__datasource:tabs" class="padding invisible">
+	<script type="text/html">
+		<div data---="input__?.name">Name</div>
+	</script>
+</div>
+
+<script>
+
+	var tabs = [];
+	tabs.push({ name: 'Peter' });
+	tabs.push({ name: 'Lucka' });
+	tabs.push({ name: 'Betka' });
+
+	function choosetab(el) {
+		var index = +el.attrd('index');
+		SET('mytab', tabs[index]);
+	}
+
+</script>

@@ -1,0 +1,19 @@
+{
+	"datecreated": "2019-05-05T10:18:00.000Z",
+	"dateupdated": null,
+	"name": "j-Duplicator",
+	"tags": [
+		"duplicator",
+		"clone",
+		"tabs"
+	],
+	"color": "transparent",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}
