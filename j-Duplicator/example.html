@@ -1,12 +1,14 @@
 <div data-bind="tabs__template__click span:choosetab">
 	<script type="text/html">
-		<span data-index="{{ $index }}" class="mr5">{{ $index }}</span>
+		{{ foreach m in value }}
+			<span data-index="{{ $index }}" class="mr5 link">{{ $index + 1 }}</span>
+		{{ end }}
 	</script>
 </div>
 
 <h2>Duplicator</h2>
 
-<div data---="duplicator__mytab__datasource:tabs" class="padding invisible">
+<div data---="duplicator__mytab__datasource:tabs" class="invisible">
 	<script type="text/html">
 		<div data---="input__?.name">Name</div>
 	</script>
@@ -23,5 +25,8 @@
 		var index = +el.attrd('index');
 		SET('mytab', tabs[index]);
 	}
+
+	// Default tab
+	SET('mytab', tabs[0]);
 
 </script>
