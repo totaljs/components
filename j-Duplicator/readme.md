@@ -1,6 +1,6 @@
 ## j-Duplicator
 
-This component is a bit special component because it can duplicate same content several times with diffferent data-source. Imaging some text editor with tabs which each tab contains different content. For this case is targeted `j-Duplicator`. Follow example.
+__BETA VERSION__. This component is a bit special component because it can duplicate same content several times with diffferent data-source. Imaging some text editor with tabs which each tab contains different content. For this case is targeted `j-Duplicator`. Follow example.
 
 __Configuration__:
 
