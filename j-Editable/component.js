@@ -122,6 +122,14 @@ COMPONENT('editable', function(self, config) {
 		self.approve2(el);
 	};
 
+	self.configure = function(name, value) {
+		switch (name) {
+			case 'disabled':
+				self.aclass(cls + '-disabled', !!value);
+				break;
+		}
+	};
+
 	self.make = function() {
 
 		self.aclass(cls);
