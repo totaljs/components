@@ -72,6 +72,14 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 				h = config.height;
 			}
 
+			if (w < config.width) {
+				w = config.width;
+				h = (image.height * (config.width / image.width)) >> 0;
+			} else if (h < config.height) {
+				w = (image.width * (config.height / image.height)) >> 0;
+				h = config.height;
+			}
+
 		} else {
 
 			if (image.width < config.width && image.height < config.height) {
@@ -94,6 +102,7 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 		ctx.drawImage(image, x, y, w, h);
 		var base64 = canvas.toDataURL('image/jpeg', config.quality * 0.01);
 		img.attr('src', base64);
+		return;
 		self.upload(base64);
 	};
 
