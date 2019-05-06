@@ -48,7 +48,9 @@ COMPONENT('editable', function(self, config) {
 	};
 
 	self.parse = function(el) {
+
 		var t = el[0];
+
 		if (t.$editable)
 			return t.$editable;
 
@@ -124,6 +126,9 @@ COMPONENT('editable', function(self, config) {
 
 		self.aclass(cls);
 		self.event('click', '[data-editable]', function() {
+
+			if (config.disabled)
+				return;
 
 			var t = this;
 

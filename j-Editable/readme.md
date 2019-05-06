@@ -6,6 +6,7 @@ __Configuration__:
 
 - `autofocus` {Boolean} focuses first item (default: `false`)
 - `validate` {Boolean} can disable validation (default: `true`)
+- `disabled` {Boolean} can disable editing (default: `false`)
 
 ---
 
