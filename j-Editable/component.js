@@ -125,7 +125,7 @@ COMPONENT('editable', function(self, config) {
 	self.configure = function(name, value) {
 		switch (name) {
 			case 'disabled':
-				self.aclass(cls + '-disabled', !!value);
+				self.tclass(cls + '-disabled', !!value);
 				break;
 		}
 	};
