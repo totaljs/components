@@ -41,7 +41,15 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 		canvas = null;
 	};
 
-	self.resize = function(image) {
+	var resizewidth = function(w, h, size) {
+		return Math.ceil(w * (size / h));
+	};
+
+	var resizeheight = function(w, h, size) {
+		return Math.ceil(h * (size / w));
+	};
+
+	self.resizeforce = function(image) {
 
 		var canvas = document.createElement('canvas');
 		var ctx = canvas.getContext('2d');
@@ -54,34 +62,42 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 		var h = 0;
 		var x = 0;
 		var y = 0;
+		var is = false;
 
 		if (config.customize) {
+			if (image.width > config.width || image.height > config.height) {
+				if (image.width > image.height) {
+					w = resizewidth(image.width, image.height, config.height);
+					h = config.height;
 
-			if (image.width > image.height) {
-				w = (image.width * (config.height / image.height)) >> 0;
-				h = config.height;
-				if (w > config.width)
-					x -= w / 4;
-			} else if (image.height > image.width) {
-				w = config.width;
-				h = (image.height * (config.width / image.width)) >> 0;
-				if (h > config.height)
-					y -= h / 6;
-			} else {
-				w = config.width;
-				h = config.height;
+					if (w < config.width) {
+						w = config.width;
+						h = resizeheight(image.width, image.height, config.width);
+					}
+
+					if (w > config.width)
+						x -= w / 4;
+
+					is = true;
+				} else if (image.height > image.width) {
+
+					w = config.width;
+					h = resizeheight(image.width, image.height, config.width);
+
+					if (h < config.height) {
+						h = config.height;
+						w = resizewidth(image.width, image.height, config.height);
+					}
+
+					if (h > config.height)
+						y -= h / 6;
+
+					is = true;
+				}
 			}
+		}
 
-			if (w < config.width) {
-				w = config.width;
-				h = (image.height * (config.width / image.width)) >> 0;
-			} else if (h < config.height) {
-				w = (image.width * (config.height / image.height)) >> 0;
-				h = config.height;
-			}
-
-		} else {
-
+		if (!is) {
 			if (image.width < config.width && image.height < config.height) {
 				w = image.width;
 				h = image.height;
@@ -154,7 +170,7 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 			reader.onload = function () {
 				var img = new Image();
 				img.onload = function() {
-					self.resize(img);
+					self.resizeforce(img);
 					self.change(true);
 				};
 				img.crossOrigin = 'anonymous';
