@@ -1,4 +1,4 @@
-COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;schema:{file\\:base64,name\\:filename}', function(self, config) {
+COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customize:1;schema:{file\\:base64,name\\:filename}', function(self, config) {
 
 	var empty, img, canvas, name, content = null;
 
@@ -42,6 +42,7 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;schema:
 	};
 
 	self.resize = function(image) {
+
 		var canvas = document.createElement('canvas');
 		var ctx = canvas.getContext('2d');
 		canvas.width = config.width;
@@ -54,19 +55,40 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;schema:
 		var x = 0;
 		var y = 0;
 
-		if (image.width < config.width && image.height < config.height) {
-			w = image.width;
-			h = image.height;
-			x = (config.width / 2) - (image.width / 2);
-			y = (config.height / 2) - (image.height / 2);
-		} else if (image.width >= image.height) {
-			w = config.width;
-			h = image.height * (config.width / image.width);
-			y = (config.height / 2) - (h / 2);
+		if (config.customize) {
+
+			if (image.width > image.height) {
+				w = (image.width * (config.height / image.height)) >> 0;
+				h = config.height;
+				if (w > config.width)
+					x -= w / 4;
+			} else if (image.height > image.width) {
+				w = config.width;
+				h = (image.height * (config.width / image.width)) >> 0;
+				if (h > config.height)
+					y -= h / 6;
+			} else {
+				w = config.width;
+				h = config.height;
+			}
+
 		} else {
-			h = config.height;
-			w = (image.width * (config.height / image.height)) >> 0;
-			x = (config.width / 2) - (w / 2);
+
+			if (image.width < config.width && image.height < config.height) {
+				w = image.width;
+				h = image.height;
+				x = (config.width / 2) - (image.width / 2);
+				y = (config.height / 2) - (image.height / 2);
+			} else if (image.width >= image.height) {
+				w = config.width;
+				h = image.height * (config.width / image.width);
+				y = (config.height / 2) - (h / 2);
+			} else {
+				h = config.height;
+				w = (image.width * (config.height / image.height)) >> 0;
+				x = (config.width / 2) - (w / 2);
+			}
+
 		}
 
 		ctx.drawImage(image, x, y, w, h);

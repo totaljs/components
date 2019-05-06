@@ -17,6 +17,7 @@ __Configuration__:
 - `background` {String} (optional) a background color (default: `white`)
 - `schema` {String} prepared object for sending (default: `{file:base64,filename:filename}`, `base64` + `filename` is a value from preview)
 - `quality` {Number} JPEG quality (default: `90`)
+- `customize` {Boolean} resizes picture to the entire defined size (default: `true`)
 
 ### Author
 
