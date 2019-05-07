@@ -1,4 +1,4 @@
-COMPONENT('editable', function(self, config) {
+COMPONENT('editable', 'disabled:0', function(self, config) {
 
 	var cls = 'ui-editable';
 	var events = {};
