@@ -1,4 +1,4 @@
-COMPONENT('editable', function(self, config) {
+COMPONENT('editable', 'disabled:0', function(self, config) {
 
 	var cls = 'ui-editable';
 	var events = {};
@@ -126,6 +126,7 @@ COMPONENT('editable', function(self, config) {
 		switch (name) {
 			case 'disabled':
 				self.tclass(cls + '-disabled', !!value);
+				self.tclass(cls + '-enabled', !value);
 				break;
 		}
 	};
