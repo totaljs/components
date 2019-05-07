@@ -9,7 +9,7 @@ __Configuration__:
 
 - `height` {Number} a percentage of height
 - `disabled` {Boolean} optional, can disable a content with the layer
-- `parent` {String} optional, a container with fixed height, can be `window`. Default value: `component.parent()`
+- `parent` {String} optional, a container with fixed height, can be `window`. Default value: `parent` element.
 - `minheight` {Number} a minimal height in pixels (default: `0` - disabled)
 - `scroll` {Boolean} enables vertical scrolling (default: `false` - disabled)
 - `scrollbar` {Boolean} shows scrollbar (default: `false`)
@@ -17,6 +17,7 @@ __Configuration__:
 - `visibleY` {Boolean} still shows `Y` scrollbar (default: `false`)
 - `visibleX` {Boolean} still shows `X` scrollbar (default: `false`)
 - `margin` {Number} optional, a top/bottom margin together (default: `0`)
+- __NEW__: `scrolltop` {Boolean} scrolls to top automatically if the `path` is changed (default: `false`)
 
 __Methods__:
 

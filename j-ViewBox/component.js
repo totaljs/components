@@ -1,4 +1,4 @@
-COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:false;visibleY:true', function(self, config) {
+COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1', function(self, config) {
 
 	var eld, elb;
 	var scrollbar;
@@ -79,12 +79,12 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:false;visibleY:tr
 
 	var css = {};
 
-	self.resize = function() {
+	self.resize = function(scrolltop) {
 
 		if (self.release())
 			return;
 
-		var el = config.parent ? config.parent === 'window' ? $(window) : self.element.closest(config.parent) : self.parent();
+		var el = config.parent ? config.parent === 'window' ? $(W) : config.parent === 'parent' ? self.parent() : self.element.closest(config.parent) : self.parent();
 		var h = el.height();
 		var w = el.width();
 
@@ -105,17 +105,15 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:false;visibleY:tr
 
 		css.width = null;
 		self.css(css);
-
 		elb.length && elb.css(css);
 		self.element.SETTER('*', 'resize');
 		var c = cls + '-hidden';
 		self.hclass(c) && self.rclass(c, 100);
-
-		if (scrollbar)
-			scrollbar.resize();
+		scrollbar && scrollbar.resize();
+		scrolltop && self.scrolltop(0);
 	};
 
 	self.setter = function() {
-		setTimeout(self.resize, config.delay);
+		setTimeout(self.resize, config.delay, config.scrolltop);
 	};
 });
