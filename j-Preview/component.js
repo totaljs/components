@@ -63,10 +63,12 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 		var x = 0;
 		var y = 0;
 		var is = false;
+		var diff = 0;
 
 		if (config.customize) {
 			if (image.width > config.width || image.height > config.height) {
 				if (image.width > image.height) {
+
 					w = resizewidth(image.width, image.height, config.height);
 					h = config.height;
 
@@ -75,8 +77,10 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 						h = resizeheight(image.width, image.height, config.width);
 					}
 
-					if (w > config.width)
-						x -= w / 4;
+					if (w > config.width) {
+						diff = w - config.width;
+						x -= (diff / 2) >> 0;
+					}
 
 					is = true;
 				} else if (image.height > image.width) {
@@ -89,8 +93,10 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 						w = resizewidth(image.width, image.height, config.height);
 					}
 
-					if (h > config.height)
-						y -= h / 6;
+					if (h > config.height) {
+						diff = h - config.height;
+						y -= (diff / 2) >> 0;
+					}
 
 					is = true;
 				}
@@ -118,6 +124,7 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 		ctx.drawImage(image, x, y, w, h);
 		var base64 = canvas.toDataURL('image/jpeg', config.quality * 0.01);
 		img.attr('src', base64);
+		return;
 		self.upload(base64);
 	};
 
