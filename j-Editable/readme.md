@@ -6,7 +6,7 @@ __Configuration__:
 
 - `autofocus` {Boolean} focuses first item (default: `false`)
 - `validate` {Boolean} can disable validation (default: `true`)
-- __NEW__: `disabled` {Boolean} can disable editing (it adds `ui-editable-disabled` class) (default: `false`)
+- __NEW__: `disabled` {Boolean} can disable editing (it adds `ui-editable-disabled` and `ui-editable-enabled` class), default: `false`
 
 ---
 
