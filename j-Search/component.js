@@ -14,6 +14,7 @@ COMPONENT('search', 'class:hidden;delay:50;attribute:data-search', function(self
 			if (!value) {
 				elements.rclass(config.class);
 				self.rclass2(cls + '-');
+				config.exec && EXEC(config.exec, 0, search);
 				return;
 			}
 
@@ -32,6 +33,8 @@ COMPONENT('search', 'class:hidden;delay:50;attribute:data-search', function(self
 			});
 
 			self.tclass(cls + '-empty', !count);
+			config.exec && EXEC(config.exec, count, search);
+
 		}, config.delay);
 	};
 });

@@ -8,6 +8,7 @@ __Configuration__:
 - `attribute` {String} element attribute which contains a search phrase (default: `data-search`)
 - `class` {String} this class will be used if the element is not found (default: `hidden`)
 - `delay` {Number} typing delay (default: `50` ms)
+- `exec` {String} a link to method which will be evaluated if the component searches for something
 
 __Good to know__:
 
