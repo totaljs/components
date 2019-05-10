@@ -124,7 +124,6 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 		ctx.drawImage(image, x, y, w, h);
 		var base64 = canvas.toDataURL('image/jpeg', config.quality * 0.01);
 		img.attr('src', base64);
-		return;
 		self.upload(base64);
 	};
 
