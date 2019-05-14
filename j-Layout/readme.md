@@ -85,7 +85,7 @@ __Good to know__:
 - define panels only which you will use
 - ordering of all `section` elements isn't important
 - `top2` uses `top` config key
-- `right2` uses `bottom` config key
+- `right2` uses `right` config key
 - `bottom2` uses `bottom` config key
 
 ### Author
