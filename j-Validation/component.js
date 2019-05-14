@@ -3,6 +3,7 @@ COMPONENT('validation', 'delay:100;flags:visible', function(self, config) {
 	var path, elements = null;
 	var def = 'button[name="submit"]';
 	var flags = null;
+	var old;
 
 	self.readonly();
 
@@ -37,9 +38,12 @@ COMPONENT('validation', 'delay:100;flags:visible', function(self, config) {
 			var disabled = DISABLED(path, flags);
 			if (!disabled && config.if)
 				disabled = !EVALUATE(self.path, config.if);
-			elements.prop('disabled', disabled);
-			self.tclass(cls + '-ok', !disabled);
-			self.tclass(cls + '-no', disabled);
+			if (disabled !== old) {
+				elements.prop('disabled', disabled);
+				self.tclass(cls + '-ok', !disabled);
+				self.tclass(cls + '-no', disabled);
+				old = disabled;
+			}
 		}, config.delay);
 	};
 });
