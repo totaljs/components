@@ -398,6 +398,10 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 		if (opt.accept && !opt.accept(val))
 			return false;
 
+		// EMPTY STRING
+		if ((!opt.type || opt.type === 'string') && (opt.value == null || opt.value === '') && (opt.prev == null || opt.prev === ''))
+			return false;
+
 		if (!opt.empty && (opt.required && (opt.value == null || opt.value === '')) || (opt.validate && !opt.validate(opt.value)))
 			return false;
 
@@ -454,6 +458,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 					b = el.binder();
 				if (b)
 					b.disabled = true;
+
 				SET(opt.path, opt.value, 2);
 				self.cnotify(el, 'ok');
 				self.change(true);
