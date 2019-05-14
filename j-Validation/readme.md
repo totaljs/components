@@ -13,6 +13,11 @@ Example: `data-jc-config="if:value.terms && value.newsletter;selector:button[nam
 	- `hidden` validates all components which are hidden
 	- `visible` validates all components which are visible
 
+__Good to know__:
+
+- component adds `ui-validation-ok` to the element if the model is valid
+- component adds `ui-validation-no` to the element if the model is invalid
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

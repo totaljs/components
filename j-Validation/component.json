@@ -1,9 +1,9 @@
 {
 	"datecreated": "2015-08-05T05:15:41.000Z",
-	"dateupdated": "2017-11-09T19:31:01.000Z",
+	"dateupdated": "2018-05-14T16:33:01.000Z",
 	"name": "j-Validation",
 	"tags": [
-		"jcomponent",
+		"validation",
 		"validator"
 	],
 	"color": "transparent",

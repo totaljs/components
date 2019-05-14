@@ -33,10 +33,13 @@ COMPONENT('validation', 'delay:100;flags:visible', function(self, config) {
 
 	self.state = function() {
 		setTimeout2(self.id, function() {
+			var cls = 'ui-validation';
 			var disabled = DISABLED(path, flags);
 			if (!disabled && config.if)
 				disabled = !EVALUATE(self.path, config.if);
 			elements.prop('disabled', disabled);
+			self.tclass(cls + '-ok', !disabled);
+			self.tclass(cls + '-no', disabled);
 		}, config.delay);
 	};
 });
