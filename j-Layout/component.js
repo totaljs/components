@@ -365,6 +365,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 		var top2 = 0;
 		var bottom2 = 0;
 		var space = 2;
+		var topbottomoffset = 0;
 
 		if (s.top && !s.top.hclass(hidden))
 			top = top2 = s.top.height();
@@ -375,18 +376,23 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 		var width = self.width() - (config.border * 2);
 		var height = self.height() - (config.border * 2);
 
-		if (istop2)
+		if (istop2) {
+			topbottomoffset++;
 			top2 = 0;
+		}
 
-		if (isbottom2)
+		if (isbottom2) {
+			topbottomoffset--;
 			bottom2 = 0;
+		}
 
 		if (s.left && !s.left.hclass(hidden)) {
 			var cssleft = {};
 			space = top && bottom ? 2 : top || bottom ? 1 : 0;
 			cssleft.left = 0;
 			cssleft.top = istop2 ? config.border : (top ? (top + config.space) : 0);
-			cssleft.height = isbottom2 ? (height - top2 - config.border - config.space) : (height - top2 - bottom2 - (config.space * space));
+			cssleft.height = isbottom2 ? (height - top2 - config.border) : (height - top2 - bottom2 - (config.space * space));
+			cssleft.height += topbottomoffset;
 			s.left.css(cssleft);
 			cssleft.width = s.left.width();
 			s.leftlock.css(cssleft);
@@ -403,7 +409,8 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			var cssright = {};
 			cssright.left = width - right;
 			cssright.top = istop2 ? config.border : (top ? (top + config.space) : 0);
-			cssright.height = isbottom2 ? (height - top2 - config.border - config.space) : (height - top2 - bottom2 - (config.space * space));
+			cssright.height = isbottom2 ? (height - top2 - config.border) : (height - top2 - bottom2 - (config.space * space));
+			cssright.height += topbottomoffset;
 			s.right.css(cssright);
 			cssright.width = s.right.width();
 			s.rightlock.css(cssright);
