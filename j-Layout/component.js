@@ -333,16 +333,21 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 		}
 
 		c.minsize = opt.minwidth ? parseSize(opt.minwidth, w) : 0;
-		if (opt.width && (type === 'left' || type === 'right')) {
-			size = parseSize(opt.width, w);
+
+		var def = getSize(d, settings);
+		var width = opt.width || (def[type] ? def[type].width : 0);
+		var height = opt.height || (def[type] ? def[type].height : 0);
+
+		if (width && (type === 'left' || type === 'right')) {
+			size = parseSize(width, w);
 			c.size = size.value;
 			css.width = cached ? cached : size.value;
 			is = 1;
 		}
 
 		c.minsize = opt.minheight ? parseSize(opt.minheight, h) : 0;
-		if (opt.height && (type === 'top' || type === 'bottom')) {
-			size = parseSize(opt.height, h);
+		if (height && (type === 'top' || type === 'bottom')) {
+			size = parseSize(height, h);
 			c.size = size.value;
 			css.height = (cached ? cached : size.value);
 			is = 1;
@@ -372,6 +377,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 		var bottom2 = 0;
 		var space = 2;
 		var topbottomoffset = 0;
+		var right2visible = isright2 && !s.right.hclass(hidden);
 
 		if (s.top && !s.top.hclass(hidden))
 			top = top2 = s.top.height();
@@ -413,7 +419,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			right = s.right.width();
 			space = top && bottom ? 2 : top || bottom ? 1 : 0;
 			var cssright = {};
-			cssright.left = isright2 ? (s.left.width() + config.border + config.space) : (width - right);
+			cssright.left = right2visible ? (s.left.width() + config.border + config.space) : (width - right);
 			cssright.top = istop2 ? config.border : (top ? (top + config.space) : 0);
 			cssright.height = isbottom2 ? (height - top2 - config.border) : (height - top2 - bottom2 - (config.space * space));
 			cssright.height += topbottomoffset;
@@ -422,7 +428,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			s.rightlock.css(cssright);
 			delete cssright.width;
 
-			if (isright2)
+			if (right2visible)
 				cssright.left += s.right.width();
 			else
 				cssright.left = width - right - 2;
@@ -436,7 +442,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			space = left ? config.space : 0;
 			csstop.left = istop2 ? (left + space) : 0;
 
-			if (isright2 && istop2)
+			if (right2visible && istop2)
 				csstop.left += s.right.width() + config.space;
 
 			space = left && right ? 2 : left || right ? 1 : 0;
@@ -458,7 +464,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			space = left ? config.space : 0;
 			cssbottom.left = isbottom2 ? (left + space) : 0;
 
-			if (isright2 && isbottom2)
+			if (right2visible && isbottom2)
 				cssbottom.left += s.right.width() + config.space;
 
 			space = left && right ? 2 : left || right ? 1 : 0;
@@ -476,7 +482,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 		var css = {};
 		css.left = left ? left + config.space : 0;
 
-		if (isright2)
+		if (right2visible)
 			css.left += s.right.width() + config.space;
 
 		css.width = (width - left - right - (config.space * space));
