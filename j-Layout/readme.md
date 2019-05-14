@@ -24,9 +24,9 @@ __Panel types__:
 - `left` left panel, can be resizable
 - `right` right panel, can be resizable
 - `top` top panel, can be resizable (it's panel on top of all panels)
-- `top2` top panel, can be resizable (it is between `left` and `right` panel)
+- `top2` top panel, can be resizable and uses `top` key in the config (it is between `left` and `right` panel)
 - `bottom` bottom panel, can be resizable (it's panel on bottom of all panels)
-- `bottom2` bottom panel, can be resizable (it is between `left` and `right` panel)
+- `bottom2` bottom panel, can be resizable and uses `bottom` key in the config (it is between `left` and `right` panel)
 - `main` main panel, __can't be resizable__ and size is counted automatically
 
 __Layout__:
@@ -83,6 +83,8 @@ __Good to know__:
 - each panel is `section` element and must contain `data-type="top"` attribute with type of panel
 - define panels only which you will use
 - ordering of all `section` elements isn't important
+- `bottom2` uses `bottom` config key
+- `top2` uses `top` config key
 
 ### Author
 
