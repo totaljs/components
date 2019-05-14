@@ -132,6 +132,15 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 		}
 	};
 
+	self.changed = function() {
+		var keys = Object.keys(changed);
+		var data = {};
+		var model = self.get();
+		for (var i = 0; i < keys.length; i++)
+			data[keys[i]] = model[keys[i]];
+		return data;
+	};
+
 	self.make = function() {
 
 		self.aclass(cls);
@@ -422,17 +431,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 
 			var meta = el[0].$editable;
 			changed[meta.path.substring(self.path.length + 1)] = 1;
-
-			if (config.changed) {
-				var keys = Object.keys(changed);
-				var data = {};
-				var model = self.get();
-
-				for (var i = 0; i < keys.length; i++)
-					data[keys[i]] = model[keys[i]];
-
-				SEEX(config.changed, data);
-			}
+			config.changed && SEEX(config.changed, self.changed());
 		}
 
 		el.aclass(cls + '-' + classname);

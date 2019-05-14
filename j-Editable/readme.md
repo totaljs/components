@@ -40,6 +40,10 @@ __Configuration__:
 - `accept` {String} optional, a condition for accepting of value, can contain a link to `function(value)` or `!!value.match(/[a-z]+/)` is similar to `validate`
 - `empty` {String} optional, enables empty value and can contain empty label or `1` or `true` for auto `rebind` of binder
 
+__Methods__:
+
+- __NEW__: `component.changed()` returns an object with changed data
+
 __Good to know__:
 
 - each changed element will contain class `changed`
