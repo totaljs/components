@@ -8,6 +8,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 	var events = {};
 	var istop2 = false;
 	var isbottom2 = false;
+	var isright2 = false;
 	var loaded = false;
 	var resizecache = '';
 	var settings;
@@ -42,12 +43,19 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 
 			if (type.charAt(type.length - 1) === '2') {
 				type = type.substring(0, type.length - 1);
-				if (type.charAt(0) === 't')
-					istop2 = true;
-				else
-					isbottom2 = true;
-			}
 
+				switch (type) {
+					case 'top':
+						istop2 = true;
+						break;
+					case 'bottom':
+						isbottom2 = true;
+						break;
+					case 'right':
+						isright2 = true;
+						break;
+				}
+			}
 			el.aclass(cls + '-' + type + ' hidden ui-layout-section');
 			el.after('<div class="{0}-resize-{1} {0}-resize" data-type="{1}"></div>'.format(cls, type));
 			el.after('<div class="{0}-lock hidden" data-type="{1}"></div>'.format(cls, type));
@@ -157,11 +165,13 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 
 				if (offset.left < drag.min)
 					offset.left = drag.min;
+
 				if (offset.left > drag.max)
 					offset.left = drag.max;
 
 				var w = offset.left - (drag.offset.left - drag.cur.left);
-				if (drag.type === 'right')
+
+				if (!isright2 && drag.type === 'right')
 					w = w * -1;
 
 				drag.el.css('left', offset.left);
@@ -193,9 +203,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			self.refresh();
 		};
 
-		self.event('mousedown', cls2 + '-resize', function(e) {
-			events.mdown(e);
-		});
+		self.find('> ' + cls2 + '-resize').on('mousedown', events.mdown);
 	};
 
 	self.lock = function(type, b) {
@@ -208,8 +216,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 		prefkey = 'L' + HASH(code);
 		resizecache = '';
 		settings = new Function('return ' + code)();
-		if (!noresize)
-			self.resize();
+		!noresize && self.resize();
 	};
 
 	var getSize = function(display, data) {
@@ -334,7 +341,6 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 		}
 
 		c.minsize = opt.minheight ? parseSize(opt.minheight, h) : 0;
-
 		if (opt.height && (type === 'top' || type === 'bottom')) {
 			size = parseSize(opt.height, h);
 			c.size = size.value;
@@ -407,7 +413,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			right = s.right.width();
 			space = top && bottom ? 2 : top || bottom ? 1 : 0;
 			var cssright = {};
-			cssright.left = width - right;
+			cssright.left = isright2 ? (s.left.width() + config.border + config.space) : (width - right);
 			cssright.top = istop2 ? config.border : (top ? (top + config.space) : 0);
 			cssright.height = isbottom2 ? (height - top2 - config.border) : (height - top2 - bottom2 - (config.space * space));
 			cssright.height += topbottomoffset;
@@ -415,7 +421,12 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			cssright.width = s.right.width();
 			s.rightlock.css(cssright);
 			delete cssright.width;
-			cssright.left = width - right - 2;
+
+			if (isright2)
+				cssright.left += s.right.width();
+			else
+				cssright.left = width - right - 2;
+
 			s.rightresize.css(cssright);
 			s.rightresize.tclass(hidden, !s.right.hclass(cls + '-resizable'));
 		}
@@ -424,6 +435,10 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			var csstop = {};
 			space = left ? config.space : 0;
 			csstop.left = istop2 ? (left + space) : 0;
+
+			if (isright2 && istop2)
+				csstop.left += s.right.width() + config.space;
+
 			space = left && right ? 2 : left || right ? 1 : 0;
 			csstop.width = istop2 ? (width - right - left - (config.space * space)) : width;
 			csstop.top = 0;
@@ -442,6 +457,10 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			cssbottom.top = height - bottom;
 			space = left ? config.space : 0;
 			cssbottom.left = isbottom2 ? (left + space) : 0;
+
+			if (isright2 && isbottom2)
+				cssbottom.left += s.right.width() + config.space;
+
 			space = left && right ? 2 : left || right ? 1 : 0;
 			cssbottom.width = isbottom2 ? (width - right - left - (config.space * space)) : width;
 			s.bottom.css(cssbottom);
@@ -456,11 +475,16 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 		var space = left && right ? 2 : left ? 1 : right ? 1 : 0;
 		var css = {};
 		css.left = left ? left + config.space : 0;
+
+		if (isright2)
+			css.left += s.right.width() + config.space;
+
 		css.width = (width - left - right - (config.space * space));
 		css.top = top ? top + config.space : 0;
 
 		space = top && bottom ? 2 : top || bottom ? 1 : 0;
 		css.height = height - top - bottom - (config.space * space);
+
 		s.main && s.main.css(css);
 		s.mainlock && s.mainlock.css(css);
 

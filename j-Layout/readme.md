@@ -21,12 +21,13 @@ __Methods__:
 
 __Panel types__:
 
-- `left` left panel, can be resizable
-- `right` right panel, can be resizable
-- `top` top panel, can be resizable (it's panel on top of all panels)
-- `top2` top panel, can be resizable and uses `top` key in the config (it is between `left` and `right` panel)
-- `bottom` bottom panel, can be resizable (it's panel on bottom of all panels)
-- `bottom2` bottom panel, can be resizable and uses `bottom` key in the config (it is between `left` and `right` panel)
+- `left` left panel, resizable
+- `right` right panel, resizable
+- `right2` right panel will be next to the left panel, resizable
+- `top` top panel, resizable (it's panel on top of all panels)
+- `top2` top panel, resizable and uses `top` key in the config (it is between `left` and `right` panel)
+- `bottom` bottom panel, resizable (it's panel on bottom of all panels)
+- `bottom2` bottom panel, resizable and uses `bottom` key in the config (it is between `left` and `right` panel)
 - `main` main panel, __can't be resizable__ and size is counted automatically
 
 __Layout__:
