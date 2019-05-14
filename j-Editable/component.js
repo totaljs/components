@@ -2,6 +2,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 
 	var cls = 'ui-editable';
 	var events = {};
+	var changed = null;
 
 	self.getter = null;
 	self.setter = null;
@@ -164,6 +165,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 				attr.items = GET(opt.dirsource.replace(/\?/g, self.pathscope));
 				attr.offsetY = -1;
 				attr.placeholder = opt.dirplaceholder;
+				attr.search = opt.dirsearch;
 				attr.render = opt.dirrender ? GET(opt.dirrender.replace(/\?/g, self.pathscope)) : null;
 				attr.custom = !!opt.dircustom;
 				attr.offsetWidth = 2;
@@ -405,6 +407,30 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 	};
 
 	self.cnotify = function(el, classname) {
+
+		if (classname === 'ok') {
+			el.aclass('changed');
+
+			if (!changed) {
+				self.aclass(cls + '-changed');
+				changed = {};
+			}
+
+			var meta = el[0].$editable;
+			changed[meta.path.substring(self.path.length + 1)] = 1;
+
+			if (config.changed) {
+				var keys = Object.keys(changed);
+				var data = {};
+				var model = self.get();
+
+				for (var i = 0; i < keys.length; i++)
+					data[keys[i]] = model[keys[i]];
+
+				SEEX(config.changed, data);
+			}
+		}
+
 		el.aclass(cls + '-' + classname);
 		setTimeout(function() {
 			el && el.rclass(cls + '-' + classname);
@@ -428,11 +454,11 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 					b = el.binder();
 				if (b)
 					b.disabled = true;
-				self.cnotify(el, 'ok');
 				SET(opt.path, opt.value, 2);
+				self.cnotify(el, 'ok');
 				self.change(true);
 
-				var val = GET(opt.binder.path);
+				var val = opt.binder ? GET(opt.binder.path) : null;
 				if (opt.empty && !val && typeof(opt.empty) === 'string') {
 					el.html(opt.empty);
 					if (b)
@@ -492,11 +518,23 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 		}
 	};
 
+	self.state = function(type, what) {
+		// reset or update
+		if (type === 0 || what === 3 || what === 4) {
+			if (changed) {
+				self.find('.changed').rclass('changed');
+				self.rclass(cls + '-changed');
+				changed = null;
+				config.changed && SEEX(config.changed);
+			}
+		}
+	};
+
 	self.setter = function(value, path, type) {
 		if (type !== 2) {
 			if (config.autofocus) {
 				setTimeout(function() {
-					self.find('[data-editable]').eq(0).trigger('click');
+					self.find('[data-editable]:first-child').eq(0).trigger('click');
 				}, 500);
 			}
 		}

@@ -7,6 +7,7 @@ __Configuration__:
 - `autofocus` {Boolean} focuses first item (default: `false`)
 - `validate` {Boolean} can disable validation (default: `true`)
 - __NEW__: `disabled` {Boolean} can disable editing (it adds `ui-editable-disabled` and `ui-editable-enabled` class), default: `false`
+- __NEW__: `changed` {String} optional, a link to a method or path --> it will contain the object with changed values only
 
 ---
 
@@ -26,6 +27,7 @@ __Configuration__:
 - `dirempty` {String} optional, adds an empty field for `j-Directory`
 - `dirkey` {String} optional, a key name for reading of `text` in `dirsource` (default: `name`)
 - `dirvalue` {String} optional, a key name for reading of `value` in `dirsource` (default: `id`)
+- `dirsearch` {Boolean} optional, can disable search for `j-Directory`
 - `autosource` {String} a path to `search` function in `autocomplete`, `function(search, render(arr))`
 - `autovalue` {String} a property path for the value in `autosource`
 - `maxlength` {Number} a maxlength
@@ -37,6 +39,11 @@ __Configuration__:
 - `raw` {Boolean} optional, when `true` then the current HTML content will be as a placeholder if the value is `nullable` (default: `true`)
 - `accept` {String} optional, a condition for accepting of value, can contain a link to `function(value)` or `!!value.match(/[a-z]+/)` is similar to `validate`
 - `empty` {String} optional, enables empty value and can contain empty label or `1` or `true` for auto `rebind` of binder
+
+__Good to know__:
+
+- each changed element will contain class `changed`
+- if the component changes some values then the main element will contain class `ui-editable-changed`
 
 ### Author
 
