@@ -311,9 +311,15 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 
 				el = $(t);
 				if (self.approve(el)) {
+
 					self.detach(el);
 					el.rclass('keypressed');
-					config.enter && EXEC(config.enter, t.$editable.path, GET(t.$editable.path));
+					if (config.enter) {
+						setTimeout(function() {
+							EXEC(config.enter, t.$editable.path, GET(t.$editable.path));
+						}, 100);
+					}
+
 					if (e.which === 9) {
 						var arr = self.find('[data-editable]');
 						for (var i = 0; i < arr.length; i++) {
@@ -380,11 +386,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 		var val = cur;
 
 		if (opt.type !== 'html') {
-
-			if (opt.multiline)
-				val = val.replace(/<br(\s\/)?>/g, '\n').trim();
-
-			val = val.replace(/&(gt|lt|nbsp|quot)+;/g, function(text) {
+			val = val.replace(/<br(\s\/)?>/g, opt.multiline ? '\n' : '').trim().replace(/&(gt|lt|nbsp|quot)+;/g, function(text) {
 				switch (text) {
 					case '&gt;':
 						return '>';
