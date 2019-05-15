@@ -112,26 +112,27 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 
 			var ch = cache[type];
 			var offset = 0;
+			var min = ch.minsize ? ch.minsize.value : 0;
 
 			target.aclass(cls + '-drag');
 
 			switch (type) {
 				case 'top':
-					drag.min = ch.size - m;
+					drag.min = min || (ch.size - m);
 					drag.max = h - (cache.bottom ? cache.bottom.size : 0) - 50;
 					break;
 				case 'right':
 					offset = w;
-					drag.min = (cache.left ? cache.left.size : 0) + 50;
+					drag.min = min || ((cache.left ? cache.left.size : 0) + 50);
 					drag.max = offset - ch.size;
 					break;
 				case 'bottom':
 					offset = h;
-					drag.min = (cache.top ? cache.top.size : 0) + 50;
+					drag.min = min || ((cache.top ? cache.top.size : 0) + 50);
 					drag.max = offset - ch.size;
 					break;
 				case 'left':
-					drag.min = ch.size - m;
+					drag.min = min || (ch.size - m);
 					drag.max = w - (cache.right ? cache.right.size : 0) - 50;
 					break;
 			}
@@ -332,11 +333,11 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			cached = 0;
 		}
 
-		c.minsize = opt.minwidth ? parseSize(opt.minwidth, w) : 0;
+		c.minsize = opt.minwidth ? parseSize(opt.minwidth, w) : opt.minsize ? parseSize(opt.minsize, w) : 0;
 
 		var def = getSize(d, settings);
-		var width = opt.width || (def[type] ? def[type].width : 0);
-		var height = opt.height || (def[type] ? def[type].height : 0);
+		var width = (opt.size || opt.width) || (def[type] ? def[type].width : 0);
+		var height = (opt.size || opt.height) || (def[type] ? def[type].height : 0);
 
 		if (width && (type === 'left' || type === 'right')) {
 			size = parseSize(width, w);
@@ -345,7 +346,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			is = 1;
 		}
 
-		c.minsize = opt.minheight ? parseSize(opt.minheight, h) : 0;
+		c.minsize = opt.minheight ? parseSize(opt.minheight, w) : opt.minsize ? parseSize(opt.minsize, w) : 0;
 		if (height && (type === 'top' || type === 'bottom')) {
 			size = parseSize(height, h);
 			c.size = size.value;

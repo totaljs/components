@@ -34,23 +34,23 @@ __Layout__:
 
 Making of layout is very easy and with a lot of possibilities. Layout must have own HTML structure. Look to example. The example below describes only meta data of the layout.
 
-- `height` {Number/String} only for `top` and `bottom` panel, can contain a height of panel. Number `120` defines pixels and String `100%` can define percentage
-- `width` {Number/String} only for `left` and `right` panel, can contain a height of panel. Number `120` defines pixels and String `100%` can define percentage
+- `size` {Number/String} can contain a height/width of panel according to the panel type. Number `120` defines pixels and String `100%` can define percentage
+- `minsize` {Number/String} is a minimal size of panel when the panel is resizing (default: `size` value)
 - `resize` {Boolean} enables resizing of the panel with except `main` panel (it's counted automatically)
 - `show` {Boolean} enables visibility (default: `false`)
 
 ```javascript
 {
-	top: { height: 80, resize: true }, // top panel
-	right: { width: 100 },
-	bottom: { height: 100 }, // bottom panel
-	left: { width: 100, resize: true }, // left panel
+	top: { size: 80, resize: true, minsize: 50 }, // top panel
+	right: { size: 100 },
+	bottom: { size: 100 }, // bottom panel
+	left: { size: 100, resize: true }, // left panel
 	main: {}, // main panel
 
 	// Can contain a different template for various display types
 	// lg = Large display, md = Medium display, sm = Small display, xs = Extra small display
 	md: {
-		top: { show: true, height: 80 },
+		top: { show: true, size: 80 },
 		bottom: { show: false },
 		left: { show: false },
 		main: { show: true }
@@ -65,14 +65,14 @@ Making of layout is very easy and with a lot of possibilities. Layout must have 
 			bottom: { show: true },
 			main: { show: true },
 			left: { show: false },
-			right: { show: true, width: 300 }
+			right: { show: true, size: 300 }
 		},
 		xs: {
 			top: { show: true },
 			bottom: { show: true },
 			main: { show: false },
 			left: { show: false },
-			right: { show: true, width: '100%' }
+			right: { show: true, size: '100%' }
 		}
 	}
 }
