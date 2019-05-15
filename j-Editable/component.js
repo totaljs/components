@@ -100,19 +100,19 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 		return opt;
 	};
 
-	self.moveend = function(el) {
+	self.movecursor = function(el, beg) {
 		var range, selection, doc = document;
 		if (doc.createRange) {
 			range = doc.createRange();
 			range.selectNodeContents(el[0]);
-			range.collapse(false);
+			range.collapse(beg ? true : false);
 			selection = W.getSelection();
 			selection.removeAllRanges();
 			selection.addRange(range);
 		} else if (doc.selection) {
 			range = doc.body.createTextRange();
 			range.moveToElementText(el[0]);
-			range.collapse(false);
+			range.collapse(beg ? true : false);
 			range.select();
 		}
 	};
@@ -161,6 +161,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 				return;
 
 			opt.is = true;
+			opt.keypressed = 0;
 
 			if (opt.dirsource) {
 
@@ -260,7 +261,10 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 
 				if (opt.value == null || opt.value == '') {
 					opt.value = opt.raw ? '' : opt.html;
-					opt.raw && el.html('');
+					if (opt.raw) {
+						opt.clear = true;
+						self.movecursor(el, 1);
+					}
 				}
 
 				self.attach(el);
@@ -273,6 +277,16 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 
 			if (!t.$events)
 				return;
+
+			if (t.$editable.clear) {
+				t.innerHTML = '';
+				t.$editable.clear = 0;
+			}
+
+			if (!t.$editable.keypressed) {
+				t.$editable.keypressed = 1;
+				$(t).aclass('keypressed');
+			}
 
 			if ((e.metaKey || e.ctrlKey) && (e.which === 66 || e.which === 76 || e.which === 73 || e.which === 85)) {
 				if (t.$editable.type !== 'html') {
@@ -298,6 +312,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 				el = $(t);
 				if (self.approve(el)) {
 					self.detach(el);
+					el.rclass('keypressed');
 					if (e.which === 9) {
 						var arr = self.find('[data-editable]');
 						for (var i = 0; i < arr.length; i++) {
@@ -319,6 +334,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 		events.blur = function() {
 			if (this.$events) {
 				var el = $(this);
+				el.rclass('keypressed');
 				self.approve(el);
 				self.detach(el);
 			}
@@ -492,7 +508,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 			el.on('paste', events.paste);
 			el.attr('contenteditable', true);
 			el.focus();
-			self.moveend(el);
+			self.movecursor(el, o.clear ? 1 : 0);
 
 			if (o.type === 'date') {
 				var opt = {};
