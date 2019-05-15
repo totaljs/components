@@ -313,6 +313,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 				if (self.approve(el)) {
 					self.detach(el);
 					el.rclass('keypressed');
+					config.enter && EXEC(config.enter, t.$editable.path, GET(t.$editable.path));
 					if (e.which === 9) {
 						var arr = self.find('[data-editable]');
 						for (var i = 0; i < arr.length; i++) {

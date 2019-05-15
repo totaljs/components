@@ -8,6 +8,7 @@ __Configuration__:
 - `validate` {Boolean} can disable validation (default: `true`)
 - __NEW__: `disabled` {Boolean} can disable editing (it adds `ui-editable-disabled` and `ui-editable-enabled` class), default: `false`
 - __NEW__: `changed` {String} optional, a link to a method or path --> it will contain the object with changed values only
+- __NEW__: `enter` {String} optional, a link to a method `method(path, value)`, the method is executed if the user presses enter
 
 ---
 
