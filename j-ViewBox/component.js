@@ -28,10 +28,8 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1', fu
 				eld.tclass('hidden', !value);
 				break;
 			case 'minheight':
-				!init && self.resize();
-				break;
 			case 'margin':
-				self.resize();
+				!init && self.resize();
 				break;
 			case 'selector': // backward compatibility
 				config.parent = value;
