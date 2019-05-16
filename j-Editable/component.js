@@ -301,6 +301,11 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 				el = $(t);
 				self.cnotify(el, 'no');
 				self.detach(el);
+				if (config.escape) {
+					setTimeout(function() {
+						EXEC(config.escape, t.$editable.path, GET(t.$editable.path));
+					}, 100);
+				}
 				return;
 			}
 
