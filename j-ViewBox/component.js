@@ -30,6 +30,9 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1', fu
 			case 'minheight':
 				!init && self.resize();
 				break;
+			case 'margin':
+				self.resize();
+				break;
 			case 'selector': // backward compatibility
 				config.parent = value;
 				self.resize();
