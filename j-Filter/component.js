@@ -31,24 +31,36 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 			if (t.name === 'cancel') {
 				self.hide(1);
 			} else if (t.name === 'reset') {
-				self.opt.callback(null);
+
+				for (var i = 0; i < self.opt.items.length; i++) {
+					var item = self.opt.items[i];
+					var key = item.name || item.label;
+					delete self.opt.value[key];
+				}
+
+				self.opt.callback(self.opt.value);
 				self.hide(1);
 			} else {
 
 				var obj = {};
 				var changed = [];
+				var keys = [];
 
 				for (var i = 0; i < self.opt.items.length; i++) {
 					var item = self.opt.items[i];
 					var key = item.name || item.label;
-					if (item.current != null) {
-						obj[key] = item.current;
-						if (item.changed)
-							changed.push(key);
+					if (item.current != undefined) {
+						self.opt.value[key] = obj[key] = item.current;
+						item.changed && changed.push(key);
+					} else {
+						delete self.opt.value[key];
+						item.changed && changed.push(key);
 					}
+
+					keys.push(key);
 				}
 
-				self.opt.callback(obj, changed);
+				self.opt.callback(self.opt.value, changed, obj, keys);
 				self.hide(1);
 			}
 		});
@@ -119,7 +131,9 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 			opt.offsetX = 10;
 			opt.offsetY = 10;
 			opt.key = item.dirkey;
-			opt.empty = item.dirempty;
+
+			if (item.dirempty || item.dirempty === '')
+				opt.empty = item.dirempty || item.placeholder;
 
 			opt.callback = function(selected, el, custom) {
 
@@ -129,7 +143,7 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 				if (typeof(selected) === 'string')
 					self.val(opt.element, selected);
 				else
-					self.val(opt.element, selected[item.dirvalue]);
+					self.val(opt.element, selected ? selected[item.dirvalue] : null);
 			};
 
 			SETTER('directory', 'show', opt);
@@ -152,14 +166,22 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 
 		if (item.type instanceof Array) {
 			if (typeof(item.type[0]) === 'string') {
-				tmp = item.type.indexOf(val);
-				if (tmp !== -1) {
-					el.find(cls2 + '-option').html(val);
-					item.current = val;
+
+				if (val === null) {
+					// EMPTY
+					el.find(cls2 + '-option').html('');
+					item.current = undefined;
+				} else {
+					tmp = item.type.indexOf(val);
+					if (tmp !== -1) {
+						el.find(cls2 + '-option').html(val);
+						item.current = val;
+					}
 				}
+
 			} else {
 				item.current = val;
-				val = item.type.findValue(item.dirvalue, val, item.dirkey, '');
+				val = val == null ? '' : item.type.findValue(item.dirvalue, val, item.dirkey, '');
 				el.find(cls2 + '-option').html(val);
 			}
 		} else {
@@ -173,7 +195,7 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 						val = val.parseFloat();
 					break;
 				case Boolean:
-					el.find(cls2 + '-checkbox').tclass(cls + '-checkbox-checked', val);
+					el.find(cls2 + '-checkbox').tclass(cls + '-checkbox-checked', init ? val === true : val);
 					break;
 				case 'Time':
 					if (type === 'string') {
@@ -272,6 +294,9 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 
 		container.html(builder.join(''));
 
+		if (!opt.value)
+			opt.value = {};
+
 		self.opt = opt;
 		self.target = el;
 
@@ -283,15 +308,37 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 
 		el = $(el);
 
+		self.rclass('hidden');
+
 		var css = {};
 		var off = el.offset();
+		var w = self.width();
+
+		if (opt.element) {
+			switch (opt.align) {
+				case 'center':
+					css.left = Math.ceil((off.left - w / 2) + (el.innerWidth() / 2));
+					break;
+				case 'right':
+					css.left = (off.left - w) + el.innerWidth();
+					break;
+				default:
+					css.left = off.left;
+					break;
+			}
+
+			css.top = opt.position === 'bottom' ? (off.top - self.element.height() - 10) : (off.top + el.innerHeight() + 10);
+		}
 
 		css.width = opt.width || null;
-		css.left = off.left + (opt.offsetX || 0);
-		css.top = el.innerHeight() + off.top + (opt.offsetY || 10);
+
+		if (opt.offsetX)
+			css.left += opt.offsetX;
+
+		if (opt.offsetY)
+			css.top += opt.offsetY;
 
 		self.element.css(css);
-		self.rclass('hidden');
 		self.aclass(cls + '-visible', 100);
 		self.bindevents();
 		is = true;

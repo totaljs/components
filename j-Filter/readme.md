@@ -16,10 +16,11 @@ var opt = {};
 
 opt.element = YOUR_ELEMENT;
 
-// opt.offsetX {Number} "x" offset
-// opt.offsetY {Number} "y" offset
-// opt.width {Number} width (default: 280)
-//
+// opt.offsetX {Number}    : "x" offset
+// opt.offsetY {Number}    : "y" offset
+// opt.width {Number}      : width (default: 280)
+// opt.align {String}      : align `left` (default), `center` or `right`
+// opt.position {String}   : position `top` (default) or `bottom`
 
 // Can contain preddefined values for filter
 opt.value = { from: new Date(), price: 10, brand: 'VWFS', city: 1 };
@@ -43,7 +44,7 @@ opt.items.push({ label: 'Price', name: 'price', type: Number });
 // item.format {String} A format for Date or 'Time' type
 // item.dirkey {String} A property name for "text" for Array type (default: 'name')
 // item.dirvalue {String} A property name for "value" for Array type (default: 'id')
-// item.dirempty {String} Adds an empty value for Array type
+// item.dirempty {String} Adds an empty value for Array type (empty string will contain a placeholder)
 
 opt.callback = function(obj, changed) {
 
