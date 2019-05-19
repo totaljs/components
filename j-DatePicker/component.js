@@ -1,5 +1,7 @@
 COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;monthselect:true;yearfrom:-70 years;yearto:5 years', function(self, config) {
 
+	var cls = 'ui-datepicker';
+	var cls2 = '.' + cls;
 	var skip = false;
 	var visible = false;
 	var touchdiff;
@@ -162,7 +164,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 			self.older = null;
 			self.target = null;
 			self.aclass('hidden');
-			self.rclass('ui-datepicker-visible');
+			self.rclass(cls + '-visible');
 			visible = false;
 		}
 		return self;
@@ -186,15 +188,40 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 			self.opt.close();
 
 		var off = el.offset();
+		var w = el.innerWidth();
 		var h = el.innerHeight();
-		var l = off.left + (opt.offsetX || 0);
-		var t = off.top + h + 12 + (opt.offsetY || 0);
+		var l = 0;
+		var t = 0;
+		var height = 305 + (opt.cancel ? 25 : 0);
 		var s = 250;
 
-		if (l + s > WW) {
-			var w = el.innerWidth();
-			l = (l + w) - s;
+		if (opt.element) {
+			switch (opt.align) {
+				case 'center':
+					l = Math.ceil((off.left - w / 2) + (w / 2));
+					break;
+				case 'right':
+					l = (off.left - w) + w;
+					break;
+				default:
+					l = off.left;
+					break;
+			}
+
+			t = opt.position === 'bottom' ? (off.top - height) : (off.top + h + 12);
 		}
+
+		if (opt.offsetX)
+			l += opt.offsetX;
+
+		if (opt.offsetY)
+			t += opt.offsetY;
+
+		if (l + s > WW)
+			l = (l + w) - s;
+
+		if (t + height > WH)
+			t = (t + h) - height;
 
 		var dt = typeof(opt.value) === 'string' ? GET(opt.value) : opt.value;
 		if ((!(dt instanceof Date)) || isNaN(dt.getTime()))
@@ -205,7 +232,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 		self.css({ left: l, top: t });
 		self.rclass('hidden');
 		self.date(dt);
-		self.aclass('ui-datepicker-visible', 50);
+		self.aclass(cls + '-visible', 50);
 		self.bindevents();
 		self.target = dom;
 		visible = true;
@@ -230,7 +257,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 
 	self.make = function() {
 
-		self.aclass('ui-datepicker hidden');
+		self.aclass(cls + ' hidden');
 
 		var conf = {};
 
@@ -243,28 +270,36 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 		!config.months && (conf.months = MONTHS);
 		self.reconfigure(conf);
 
-		self.event('click', '.ui-datepicker-today-a', function() {
+		self.event('click', cls2 + '-today-a', function() {
 			self.setdate(new Date());
 			self.hide();
 		});
 
-		self.event('click touchend', '.ui-datepicker-day', function() {
+		self.event('click touchend', cls2 + '-day', function() {
 			if (Date.now() - touchdiff > 500)
 				return;
 			var arr = this.getAttribute('data-date').split('-');
 			var dt = new Date(+arr[0], +arr[1], +arr[2], 12, 0);
-			self.find('.ui-datepicker-selected').rclass('ui-datepicker-selected');
-			var el = $(this).aclass('ui-datepicker-selected');
-			skip = !el.hclass('ui-datepicker-disabled');
+			self.find(cls2 + '-selected').rclass(cls + '-selected');
+			var el = $(this).aclass(cls + '-selected');
+			skip = !el.hclass(cls + '-disabled');
 			self.setdate(dt);
 			self.hide();
 		});
 
-		self.event('click', '.ui-datepicker-header', function(e) {
+		self.event('click touchend', cls2 + '-cancel', function() {
+			if (typeof(self.opt.value) === 'string')
+				SET2(self.opt.value, null);
+			else
+				self.opt.callback(null);
+			self.hide();
+		});
+
+		self.event('click', cls2 + '-header', function(e) {
 			e.stopPropagation();
 		});
 
-		self.event('change', '.ui-datepicker-year', function(e) {
+		self.event('change', cls2 + '-year', function(e) {
 
 			clearTimeout2('datepickerhide');
 			e.preventDefault();
@@ -276,7 +311,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 			self.date(dt, true);
 		});
 
-		self.event('change', '.ui-datepicker-month', function(e){
+		self.event('change', cls2 + '-month', function(e){
 
 			clearTimeout2('datepickerhide');
 			e.preventDefault();
@@ -307,7 +342,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 			self.date(dt, true);
 		});
 
-		self.event('touchstart touchmove', '.ui-datepicker-table',function(e){
+		self.event('touchstart touchmove', cls2 + '-table',function(e){
 
 			e.stopPropagation();
 			e.preventDefault();
@@ -356,7 +391,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 
 	self.date = function(value, skipday) {
 
-		var clssel = 'ui-datepicker-selected';
+		var clssel = cls + '-selected';
 
 		if (typeof(value) === 'string')
 			value = value.parseDate();
@@ -397,14 +432,14 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 				builder.push('<tr>');
 			}
 
-			var cls = [];
+			var classes = [];
 
-			item.isEmpty && cls.push('ui-datepicker-disabled');
-			cls.push('ui-datepicker-day');
+			item.isEmpty && classes.push(cls + '-disabled');
+			classes.push(cls + '-day');
 
-			!empty && item.isSelected && cls.push(clssel);
-			item.isToday && cls.push('ui-datepicker-day-today');
-			builder.push('<td class="{0}" data-date="{1}-{2}-{3}"><div>{3}</div></td>'.format(cls.join(' '), item.year, item.month, item.number));
+			!empty && item.isSelected && classes.push(clssel);
+			item.isToday && classes.push(cls + '-day-today');
+			builder.push('<td class="{0}" data-date="{1}-{2}-{3}"><div>{3}</div></td>'.format(classes.join(' '), item.year, item.month, item.number));
 		}
 
 		builder.push('</tr>');
@@ -431,6 +466,6 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 			months = '<select data-date="{0}-{1}" class="ui-datepicker-month">{2}</select>'.format(output.year, output.month, months);
 		}
 
-		self.html('<div class="ui-datepicker-header"><button class="ui-datepicker-header-prev" name="prev" data-date="{0}-{1}"><span class="fa fa-arrow-left"></span></button><div class="ui-datepicker-header-info">{2} {3}</div><button class="ui-datepicker-header-next" name="next" data-date="{0}-{1}"><span class="fa fa-arrow-right"></span></button></div><div class="ui-datepicker-table" data-date="{0}-{1}"><table cellpadding="0" cellspacing="0" border="0"><thead>{4}</thead><tbody>{5}</tbody></table></div>'.format(output.year, output.month, months, years, header.join(''), builder.join('')) + (config.today ? '<div class="ui-datepicker-today"><span class="link">{0}</span><span class="link ui-datepicker-today-a"><i class="fa fa-datepicker"></i>{1}</span></div>'.format(config.close, config.today) : ''));
+		self.html('<div class="ui-datepicker-header"><button class="ui-datepicker-header-prev" name="prev" data-date="{0}-{1}"><span class="fa fa-arrow-left"></span></button><div class="ui-datepicker-header-info">{2} {3}</div><button class="ui-datepicker-header-next" name="next" data-date="{0}-{1}"><span class="fa fa-arrow-right"></span></button></div><div class="ui-datepicker-table" data-date="{0}-{1}"><table cellpadding="0" cellspacing="0" border="0"><thead>{4}</thead><tbody>{5}</tbody></table></div>'.format(output.year, output.month, months, years, header.join(''), builder.join('')) + (self.opt.cancel ? ('<div class="ui-datepicker-cancel">' + self.opt.cancel + '</div>') : '') + (config.today ? '<div class="ui-datepicker-today"><span class="link">{0}</span><span class="link ui-datepicker-today-a"><i class="fa fa-datepicker"></i>{1}</span></div>'.format(config.close, config.today) : ''));
 	};
 });

@@ -7,6 +7,9 @@
 .ui-datepicker table th { padding: 8px 0 5px; text-align: center; width: 14%; vertical-align: middle; font-weight: bold; font-size: 12px; color: black; }
 .ui-datepicker-disabled { color: silver !important; cursor: pointer; }
 .ui-datepicker-day {}
+.ui-datepicker-cancel { padding: 3px 8px; background-color: #D63B32; color: white; text-align: center; cursor: pointer; }
+.ui-datepicker-cancel i { margin-right: 5px; }
+.ui-datepicker-cancel:hover { text-decoration: none; opacity: 0.8; }
 .ui-datepicker-day-today div { background-color: #F0F0F0; font-weight: bold; }
 .ui-datepicker-selected div { background-color: #F8F7DA; font-weight: bold; }
 .ui-datepicker-day:hover div { background-color: #F8F7DA; cursor: pointer; }
@@ -21,6 +24,7 @@
 .ui-datepicker-header select { background-color: white; border: 1px solid #E0E0E0; height: 23px; outline: 0; cursor: pointer; appearance: none; padding: 0 10px; border-radius: 3px; }
 .ui-datepicker-today .link:first-child { float: right; color: #B7292E; font-weight: bold; }
 .ui-datepicker select::-ms-expand { display: none; }
+.ui-datepicker-cancel-container { text-align: center; padding: 0 0 10px; }
 
 .ui-dark .ui-datepicker { background-color: #303030; border-color: #353535; color: #A0A0A0; box-shadow: 1px 5px 10px rgba(0,0,0,0.2); }
 .ui-dark .ui-datepicker table th { color: white; }
@@ -40,9 +44,4 @@
 	.ui-datepicker { top: 20% !important; left: 0 !important; width: 100%; max-width: 100%; position: fixed; }
 	.ui-datepicker-header-info { width: calc(100% - 75px); }
 	.ui-datepicker table td div { padding: 10px 0; }
-}
-
-@keyframes ui-datepicker-animation {
-	0% { transform: scale(1.15); }
-	100% { transform: scale(1); }
 }

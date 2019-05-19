@@ -26,6 +26,8 @@ var opt = {};
 opt.element = YOUR_ELEMENT;
 opt.value = new Date();
 // or opt.value = 'path.to.date'; --> then "opt.callback" is disabled
+// opt.align {String}      : align "left" (default), "center" or "right"
+// opt.position {String}   : position "top" (default) or "bottom"
 
 opt.callback = function(newdate) {
 	console.log('date has been changed');
