@@ -25,10 +25,12 @@ Method: `component.show(options)`
 - `options.callback(selected_item, element) {Function}` is triggered when the user clicks on the item
 - `options.key` {String} optional, a default `key` for `text` value (default: `name`)
 - `options.empty` {String} optional, adds empty field
-- __NEW__: `options.exclude` {Function} optional, can exclude items and must return a boolean `function(item) { return item.id !== 100 }`
-- __NEW__: `options.close` {Function} optional, can determine closing of panel
-- __NEW__: `options.search` {Boolean} optional, can hidnen search field (default: `true`)
-- __NEW__: `options.selected` {Object} optional, can contain a selected value (default: `undefined`)
+- `options.exclude` {Function} optional, can exclude items and must return a boolean `function(item) { return item.id !== 100 }`
+- `options.close` {Function} optional, can determine closing of panel
+- `options.search` {Boolean} optional, can hidnen search field (default: `true`)
+- `options.selected` {Object} optional, can contain a selected value (default: `undefined`)
+- __NEW__: `options.align` {String} optional, `left` (default), `right` or `center`
+- __NEW__: `options.position` {String} optional, `top` (default), `bottom`
 
 Method: `component.hide()`
 

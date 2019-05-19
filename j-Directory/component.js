@@ -279,6 +279,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		self.initializing = true;
 		self.target = el;
 		opt.ajax = null;
+		self.ajaxold = null;
 
 		var element = $(opt.element);
 		var callback = opt.callback;
@@ -343,8 +344,9 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 		self.target = element[0];
 
+		var w = element.width();
 		var offset = element.offset();
-		var width = element.width() + (opt.offsetWidth || 0);
+		var width = w + (opt.offsetWidth || 0);
 
 		if (opt.minwidth && width < opt.minwidth)
 			width = opt.minwidth;
@@ -359,7 +361,28 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		var scroller = self.find(cls2 + '-container').css('width', width + 30);
 		container.html(builder);
 
-		var options = { left: offset.left + (opt.offsetX || 0), top: offset.top + (opt.offsetY || 0), width: width };
+		var options = { left: 0, top: 0, width: width };
+
+		switch (opt.align) {
+			case 'center':
+				options.left = Math.ceil((offset.left - width / 2) + (width / 2));
+				break;
+			case 'right':
+				options.left = (offset.left - width) + w;
+				break;
+			default:
+				options.left = offset.left;
+				break;
+		}
+
+		options.top = opt.position === 'bottom' ? ((offset.top - self.height()) + element.height()) : offset.top;
+
+		if (opt.offsetX)
+			options.left += opt.offsetX;
+
+		if (opt.offsetY)
+			options.top += opt.offsetY;
+
 		self.css(options);
 
 		!isMOBILE && setTimeout(function() {
