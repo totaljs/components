@@ -46,9 +46,9 @@ opt.items.push({ label: 'Price', name: 'price', type: Number });
 // item.dirvalue {String} A property name for "value" for Array type (default: 'id')
 // item.dirempty {String} Adds an empty value for Array type (empty string will contain a placeholder)
 
-opt.callback = function(obj, changed) {
+opt.callback = function(obj, changed, keys, isfilter) {
 
-	if (obj == null) {
+	if (changed == null) {
 		// THIS IS RESET
 		return;
 	}
