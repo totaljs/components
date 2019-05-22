@@ -391,19 +391,10 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 		var val = cur;
 
 		if (opt.type !== 'html') {
-			val = val.replace(/<br(\s\/)?>/g, opt.multiline ? '\n' : '').trim().replace(/&(gt|lt|nbsp|quot)+;/g, function(text) {
-				switch (text) {
-					case '&gt;':
-						return '>';
-					case '&lt;':
-						return '<';
-					case '&nbsp;':
-						return ' ';
-					case '&quot;':
-						return '"';
-				}
-				return text;
-			});
+			var area = document.createElement('TEXTAREA');
+			area.innerHTML = val;
+			val = $(area).text();
+			val = val.replace(/<br(\s\/)?>/g, opt.multiline ? '\n' : '').trim();
 		}
 
 		if (opt.maxlength && val.length > opt.maxlength)
