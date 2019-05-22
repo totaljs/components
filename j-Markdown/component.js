@@ -171,8 +171,7 @@ COMPONENT('markdown', function (self) {
 			var closeul = function() {
 				while (ul.length) {
 					var text = ul.pop();
-					if (opt.ul !== false)
-						builder.push('</' + text + '>');
+					builder.push('</' + text + '>');
 				}
 			};
 
@@ -338,7 +337,7 @@ COMPONENT('markdown', function (self) {
 
 				var tmpline = line.trim();
 
-				if (ordered.test(tmpline)) {
+				if (opt.ul !== false && ordered.test(tmpline)) {
 
 					var size = line.match(orderedsize);
 					if (size)
@@ -359,8 +358,7 @@ COMPONENT('markdown', function (self) {
 						} else {
 							// back to normal
 							prevsize = size;
-							if (opt.ul !== false)
-								builder.push('</' + ul.pop() + '>');
+							builder.push('</' + ul.pop() + '>');
 						}
 					}
 
@@ -369,10 +367,7 @@ COMPONENT('markdown', function (self) {
 						var subtype;
 						if (type === 'ol')
 							subtype = tmpline.charAt(0);
-
-						if (opt.ul !== false)
-							builder.push('<' + type + (subtype ? (' type="' + subtype + '"') : '') + '>');
-
+						builder.push('<' + type + (subtype ? (' type="' + subtype + '"') : '') + '>');
 						ul.push(type + (append ? '></li' : ''));
 						prev = type;
 						prevsize = size;
