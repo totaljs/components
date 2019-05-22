@@ -157,5 +157,6 @@
 	"j-ColorPickerButton",
 	"j-EmojiButton",
 	"j-Layout",
-	"j-Duplicator"
+	"j-Duplicator",
+	"j-Markdown"
 ]
