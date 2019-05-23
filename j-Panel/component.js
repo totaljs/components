@@ -153,8 +153,10 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 		config.default && DEFAULT(config.default, true);
 
 		if (!isMOBILE && config.autofocus) {
-			var el = self.find(config.autofocus === true ? 'input[type="text"],select,textarea' : config.autofocus);
-			el.length && el[0].focus();
+			var el = self.find(config.autofocus ? 'input[type="text"],select,textarea' : config.autofocus);
+			el.length && setTimeout(function(el) {
+				el.focus();
+			}, 500, el[0]);
 		}
 
 		setTimeout(function() {
