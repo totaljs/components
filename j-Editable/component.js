@@ -319,11 +319,6 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 
 					self.detach(el);
 					el.rclass('keypressed');
-					if (config.enter) {
-						setTimeout(function() {
-							EXEC(config.enter, t.$editable.path, GET(t.$editable.path));
-						}, 100);
-					}
 
 					if (e.which === 9) {
 						var arr = self.find('[data-editable]');
@@ -334,10 +329,17 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 									$(next).trigger('click');
 									e.preventDefault();
 								}
-								break;
+								return;
 							}
 						}
 					}
+
+					if (config.enter) {
+						setTimeout(function() {
+							EXEC(config.enter, t.$editable.path, GET(t.$editable.path));
+						}, 100);
+					}
+
 				} else
 					e.preventDefault();
 			}
@@ -554,7 +556,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 			if (config.autofocus) {
 				setTimeout(function() {
 					self.find('[data-editable]:first-child').eq(0).trigger('click');
-				}, 500);
+				}, 400);
 			}
 		}
 	};
