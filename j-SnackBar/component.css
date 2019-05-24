@@ -3,7 +3,7 @@
 .ui-snackbar-dismiss { float: right; width: 100px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; text-align: center; text-decoration: none; color: gray; padding: 22px 0 0 0; text-transform: uppercase; background-color: #404040; border-radius: 0 3px 0 0; height: 63px; display: block; cursor: pointer; font-weight: bold; color: #A0A0A0; }
 .ui-snackbar-dismiss:hover { background-color: #505050; text-decoration: none; }
 .ui-snackbar-body { margin: 0 100px 0 80px; padding: 22px 15px 15px 0; color: white; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
-.ui-snackbar-body .fa { margin-right: 5px; }
+.ui-snackbar-body i { margin-right: 5px; }
 .ui-snackbar-visible { transform: translate(0, 0); }
 .ui-snackbar-icon { float: left; font-size: 28px; border-right: 1px solid #505050; padding: 13px 0 0 0; width: 63px; height: 63px; text-align: center; color: #4285F4; }
 .ui-snackbar-icon .fa-times-circle { color: red; }
