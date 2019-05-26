@@ -1,6 +1,6 @@
-## URLify
+## Mailify
 
-
+This method finds all emails and creates links with `mailto:`.
 
 ### Author
 

@@ -1,7 +1,7 @@
 ## Smilefy
 
 - simple JavaScript function
-- smiles size `18x18`
+- UTF smiles
 
 ### Author
 
