@@ -19,7 +19,7 @@ COMPONENT('markdown', function (self) {
 		var links2 = /&lt;(https|http)+:\/\/.*?&gt;/g;
 		var imagelinks = /\[!\[.*?\]\(.*?\)\]\(.*?\)/g;
 		var format = /__.*?__|_.*?_|\*\*.*?\*\*|\*.*?\*|~~.*?~~|~.*?~/g;
-		var ordered = /^([a-z|0-9]{1,2}\.\s)|-\s/i;
+		var ordered = /^([a-z|0-9]{1,2}\.\s)|^-\s/i;
 		var orderedsize = /^(\s|\t)+/;
 		var code = /`.*?`/g;
 		var encodetags = /<|>/g;
