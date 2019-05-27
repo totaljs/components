@@ -47,10 +47,11 @@ COMPONENT('clipboardimage', 'quality:90;maxwidth:1024;maxheight:768', function(s
 
 		if (canvas.width > config.maxwidth) {
 			canvas.width = config.maxwidth;
-			canvas.height = (config.maxwidth / (img.width / img.height)) >> 0;
+			canvas.height = (img.height * (config.maxwidth / img.width) >> 0);
 		} else if (canvas.height > config.maxheight) {
 			canvas.height = config.maxheight;
-			canvas.width = (config.maxheight / (img.width / img.height)) >> 0;
+			canvas.width = (img.width * (config.maxheight / img.height)) >> 0;
+			console.log('OK', canvas.width, canvas.height);
 		}
 
 		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
