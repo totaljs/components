@@ -87,7 +87,12 @@ COMPONENT('menu', function(self) {
 
 		for (var i = 0; i < opt.items.length; i++) {
 			var item = opt.items[i];
-			builder.push(typeof(item) == 'string' ? '<li class="{1}-divider">{0}</li>'.format(item === '-' ? '<hr />' : ('<span>' + item + '</span>'), cls) : '<li{2}>{3}{0}{1}</li>'.format(item.icon ? '<i class="{0}"></i>'.format(item.icon.charAt(0) === '!' ? item.icon.substring(1) : ('fa fa-' + item.icon)) : '', item.name, item.icon ? '' : (' class="' + cls + '-nofa"'), item.shortcut ? '<b>{0}</b>'.format(item.shortcut) : ''));
+			var cn = item.classname || '';
+
+			if (!item.icon)
+				cn = (cn ? ' ' : '') + cls + '-nofa';
+
+			builder.push(typeof(item) == 'string' ? '<li class="{1}-divider">{0}</li>'.format(item === '-' ? '<hr />' : ('<span>' + item + '</span>'), cls) : '<li class="{2}">{3}{0}{1}</li>'.format(item.icon ? '<i class="{0}"></i>'.format(item.icon.charAt(0) === '!' ? item.icon.substring(1) : ('fa fa-' + item.icon)) : '', item.name, cn, item.shortcut ? '<b>{0}</b>'.format(item.shortcut) : ''));
 		}
 
 		var css = {};

@@ -21,7 +21,7 @@ opt.element = YOUR_ELEMENT;
 // opt.x {Number}          : `x` position
 // opt.y {Number}          : `y` position
 
-opt.items = ['Label', { name: 'Item 1', icon: 'print' }, { name: 'Item 2', icon: 'home' }, '-', { name: 'Item 3', icon: '!far fa-envelope' }];
+opt.items = ['Label', { name: 'Item 1', icon: 'print', classname: 'custom_class_name' }, { name: 'Item 2', icon: 'home' }, '-', { name: 'Item 3', icon: '!far fa-envelope' }];
 
 opt.callback = function(item) {
 	console.log(item);
