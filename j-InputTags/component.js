@@ -89,7 +89,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;after:\\:', function
 			opt.key = config.dirkey || config.key;
 			opt.empty = config.dirempty;
 
-			if (config.dirvalue) {
+			if (config.dirvalue && typeof(dirsource) !== 'function') {
 				var val = self.get() || EMPTYARRAY;
 				opt.exclude = function(item) {
 					return item ? typeof(item) === 'string' ? self.findvalue(val, item) : self.findvalue(val, item[config.dirvalue]) : false;
@@ -109,7 +109,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;after:\\:', function
 						self.appendval(val, true);
 					});
 				} else if (!custom)
-					self.appendval(val);
+					self.appendval(typeof(dirsource) === 'function' ? item : val);
 			};
 
 			SETTER('directory', 'show', opt);
@@ -194,34 +194,44 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;after:\\:', function
 
 		var cur = self.get() || EMPTYARRAY;
 		var is = false;
+		var isfn = false;
+		var rawvalue = value;
 
-		value = self.transform(value);
-
-		if (cur.indexOf(value) !== -1)
-			return;
-
-		if (!self.checkvalue(value))
-			return;
+		if (dirsource && typeof(dirsource) === 'function') {
+			isfn = true;
+			rawvalue = value[config.dirvalue];
+			if (cur.indexOf(rawvalue) !== -1 || !self.checkvalue(rawvalue))
+				return;
+		} else {
+			rawvalue = self.transform(rawvalue);
+			if (cur.indexOf(rawvalue) !== -1 || !self.checkvalue(rawvalue))
+				return;
+		}
 
 		if (config.dirsource) {
 			if (custom) {
 				is = true;
-				self.appendtag(value);
+				self.appendtag(rawvalue);
 			} else {
-				var item = dirsource.findItem(config.dirvalue, value);
-				if (item) {
+				if (isfn) {
 					is = true;
-					self.appendtag(item[config.dirkey]);
+					self.appendtag(value[config.dirkey]);
+				} else {
+					var item = dirsource.findItem(config.dirvalue, rawvalue);
+					if (item) {
+						is = true;
+						self.appendtag(item[config.dirkey]);
+					}
 				}
 			}
 		} else {
 			is = true;
-			self.appendtag(value);
+			self.appendtag(rawvalue);
 		}
 
 		if (is) {
 			skip = true;
-			self.push(value);
+			self.push(rawvalue);
 			self.change(true);
 		}
 
@@ -260,13 +270,38 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;after:\\:', function
 			self.find(cls2 + '-icon-right').find('i').tclass(config.ricon, !is).tclass('fa-times', is);
 	};
 
+	self.dirinitchecksum = 0;
+
 	self.bindvalue = function() {
 
 		var value = self.get() || EMPTYARRAY;
+		var tmp = HASH(value);
+		if (tmp === self.dirinitchecksum)
+			return;
 
+		self.dirinitchecksum = tmp;
 		tags.find(cls2 + '-tag').remove();
 
 		if (dirsource) {
+
+			if (typeof(dirsource) === 'function') {
+				EXEC(config.dirinit, value, function(dirsource) {
+
+					var item;
+
+					for (var i = 0; i < dirsource.length; i++) {
+						item = dirsource[i];
+						item.name = self.transform(item.name);
+						if (value.indexOf(item[config.dirvalue || config.value]) != -1)
+							self.appendtag(item[config.dirkey || config.key]);
+					}
+
+					input.empty();
+					self.check();
+				});
+				return;
+			}
+
 			var arr = [];
 			var item;
 
@@ -286,6 +321,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;after:\\:', function
 
 			for (var i = 0; i < arr.length; i++)
 				self.appendtag(arr[i]);
+
 		} else {
 			for (var i = 0; i < value.length; i++) {
 				value[i] = self.transform(value[i]);
