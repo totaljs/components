@@ -276,6 +276,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;after:\\:', function
 
 		var value = self.get() || EMPTYARRAY;
 		var tmp = HASH(value);
+
 		if (tmp === self.dirinitchecksum)
 			return;
 
@@ -375,11 +376,15 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;after:\\:', function
 	self.configure = function(key, value) {
 		switch (key) {
 			case 'dirsource':
+				var tmp = GET(value);
 				input.prop('contenteditable', !value);
-				self.datasource(value, function(path, value) {
-					dirsource = value || EMPTYARRAY;
-					self.bindvalue();
-				});
+				if (typeof(tmp) !== 'function') {
+					self.datasource(value, function(path, value) {
+						dirsource = value || EMPTYARRAY;
+						self.bindvalue();
+					});
+				} else
+					dirsource = tmp;
 				break;
 			case 'disabled':
 				self.tclass('ui-disabled', value == true);
