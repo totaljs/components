@@ -91,7 +91,7 @@ __Column properties__:
 - `otext` {String} optional, a key for `text` field in `options`, default `text`
 - `ovalue` {String} optional, a key for `value` field in `options`, default `value`
 - `buttonapply` {String} optional, a label for `Apply` button in columns, default: `Apply`
-- `class` {String} optiona, a custom column class name
+- `class` {String} optional, a custom column class name
 
 __Filtering__:
 
