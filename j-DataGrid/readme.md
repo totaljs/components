@@ -107,6 +107,7 @@ __Methods__:
 - `component.appendrow(row_object, [scrolldown])` appends and render row
 - `component.redrawrow(row_object)` redraws row
 - `component.clear()` clears all changes
+- `component.select(row)` selects `row` must be the same object as in data-source
 - `component.editcolumn(row_index, col_index)` executes `config.change` internally (only for advanced usage)
 - `component.applyfilter(obj)` can apply a custom filter `{ name: 'Peter', age: '20 - 50' }`
 - __NEW__ `component.resetcolumns()` resets columns
