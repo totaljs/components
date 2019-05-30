@@ -158,8 +158,11 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		var counter = 0;
 		var scroller = container.parent();
 		var h = scroller.height();
+		var li = container.find('li');
+		var hli = li.eq(0).innerHeight() || 30;
+		var was = false;
 
-		container.find('li').each(function() {
+		li.each(function() {
 			var el = $(this);
 
 			if (el.hclass('hidden')) {
@@ -171,14 +174,22 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			el.tclass('current', is);
 
 			if (is) {
-				var t = (h * counter) - h;
-				if ((t + h * 4) > h)
-					scroller.scrollTop(t - h);
+				was = true;
+				var t = (hli * (counter || 1));
+				var f = Math.ceil((h / hli) / 2);
+				if (counter > f)
+					scroller[0].scrollTop = (t + f) - (h / 2.8 >> 0);
 				else
-					scroller.scrollTop(0);
+					scroller[0].scrollTop = 0;
 			}
+
 			counter++;
 		});
+
+		if (!was && li.length) {
+			selectedindex = li.length - 1;
+			li.eq(selectedindex).aclass('current');
+		}
 	};
 
 	self.search = function(value) {
