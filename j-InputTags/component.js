@@ -234,12 +234,12 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;after:\\:', function
 
 		if (is) {
 			skip = true;
-		console.log(rawvalue);
 			self.push(rawvalue);
 			self.change(true);
 		}
 
 		self.check();
+		self.dirinitchecksum = 0;
 	};
 
 	self.appendtag = function(text) {
@@ -262,6 +262,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;after:\\:', function
 	self.check = function() {
 
 		var is = !!input[0].innerHTML || (self.get() || EMPTYARRAY).length > 0;
+		setTimeout(self.resize, 10);
 
 		if (binded === is)
 			return;
@@ -321,21 +322,28 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;after:\\:', function
 					arr.push(item[config.dirkey || config.key]);
 			}
 
-			if (value && item == null && config.dircustom)
-				arr.push(value);
+			// if (value && item == null && config.dircustom)
+			// arr.push(value);
 
-			for (var i = 0; i < arr.length; i++)
-				self.appendtag(arr[i]);
+			for (var i = 0; i < arr.length; i++) {
+				item = arr[i];
+				item && self.appendtag(item);
+			}
 
 		} else {
 			for (var i = 0; i < value.length; i++) {
 				value[i] = self.transform(value[i]);
-				self.appendtag(value[i]);
+				value[i] && self.appendtag(value[i]);
 			}
 		}
 
 		input.empty();
 		self.check();
+	};
+
+	self.resize = function() {
+		var h = (self.find(cls2 + '-input').height() + 7) + 'px'; // 7 == padding
+		self.find('.{0}-icon-right,.{0}-icon-left'.format(cls)).css({ height: h, 'line-height': h });
 	};
 
 	self.redraw = function() {
