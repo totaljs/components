@@ -102,12 +102,15 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;after:\\:', function
 				if (item == null)
 					return;
 
-				var val = custom || typeof(item) === 'string' ? item : item[config.dirvalue || config.value];
-				if (custom && typeof(config.dircustom) === 'string') {
-					var fn = GET(config.dircustom);
-					fn(val, function(val) {
-						self.appendval(val, true);
-					});
+				var val = custom || (typeof(item) === 'string' ? item : item[config.dirvalue || config.value]);
+				if (custom) {
+					if (typeof(config.dircustom) === 'string') {
+						var fn = GET(config.dircustom);
+						fn(val, function(val) {
+							self.appendval(val, true);
+						});
+					} else
+						self.appendval(item, true);
 				} else if (!custom)
 					self.appendval(typeof(dirsource) === 'function' ? item : val);
 			};
@@ -231,6 +234,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;after:\\:', function
 
 		if (is) {
 			skip = true;
+		console.log(rawvalue);
 			self.push(rawvalue);
 			self.change(true);
 		}
