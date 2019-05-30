@@ -8,10 +8,6 @@ COMPONENT('window', 'zindex:12;scrollbar:true', function(self, config) {
 		W.$$window_level = W.$$window_level || 1;
 		W.$$window = true;
 
-		$(document).on('click', cls2 + '-button-close', function() {
-			SET($(this).attrd('path'), '');
-		});
-
 		var resize = function() {
 			for (var i = 0; i < M.components.length; i++) {
 				var com = M.components[i];
