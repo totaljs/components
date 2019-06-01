@@ -50,6 +50,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		});
 
 		self.event('click', cls2 + '-button', function(e) {
+			skipclear = false;
 			input.val('');
 			self.search();
 			e.stopPropagation();
@@ -161,8 +162,10 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		var li = container.find('li');
 		var hli = li.eq(0).innerHeight() || 30;
 		var was = false;
+		var last = -1;
+		var lastselected = 0;
 
-		li.each(function() {
+		li.each(function(index) {
 			var el = $(this);
 
 			if (el.hclass('hidden')) {
@@ -184,11 +187,13 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			}
 
 			counter++;
+			last = index;
+			lastselected++;
 		});
 
-		if (!was && li.length) {
-			selectedindex = li.length - 1;
-			li.eq(selectedindex).aclass('current');
+		if (!was && last >= 0) {
+			selectedindex = lastselected;
+			li.eq(last).aclass('current');
 		}
 	};
 
