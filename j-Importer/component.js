@@ -2,6 +2,7 @@ COMPONENT('importer', function(self, config) {
 
 	var init = false;
 	var clid = null;
+	var pending = false;
 	var content = '';
 
 	self.readonly();
@@ -14,15 +15,21 @@ COMPONENT('importer', function(self, config) {
 	self.reload = function(recompile) {
 		config.reload && EXEC(config.reload);
 		recompile && COMPILE();
+		pending = false;
 	};
 
 	self.setter = function(value) {
+
+		if (pending)
+			return;
 
 		if (config.if !== value) {
 			if (config.cleaner && init && !clid)
 				clid = setTimeout(self.clean, config.cleaner * 60000);
 			return;
 		}
+
+		pending = true;
 
 		if (clid) {
 			clearTimeout(clid);
