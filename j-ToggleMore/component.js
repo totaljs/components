@@ -36,7 +36,7 @@ COMPONENT('togglemore', function(self) {
 		after = self.find(cls2 + '-after');
 		arrowcontainer = self.find(cls2 + '-arrow');
 		arrow = self.find(cls2 + '-arrow i');
-		after.tclass('hidden');
+		after.aclass('hidden');
 	};
 
 	self.setter = function() {
