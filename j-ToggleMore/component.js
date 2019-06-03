@@ -9,16 +9,13 @@ COMPONENT('togglemore', function(self) {
 
 	self.make = function() {
 		self.element.aclass(cls);
-		self.event('click', cls2 + '-arrow, ' + cls2 + '-before', function() {
-			self.toggle();
-		});
-
+		self.event('click', cls2 + '-arrow, ' + cls2 + '-before', self.toggle);
 		self.prepare();
 	};
 
 	self.toggle = function(force) {
 
-		if (force != null)
+		if (typeof(force) === 'boolean')
 			showed = !force;
 
 		showed = !showed;
@@ -29,6 +26,7 @@ COMPONENT('togglemore', function(self) {
 	};
 
 	self.prepare = function() {
+
 		self.find(' > div').each(function(index) {
 			$(this).aclass(cls + '-' + (index === 0 ? 'before' : 'after'));
 		});
@@ -41,7 +39,7 @@ COMPONENT('togglemore', function(self) {
 		after.tclass('hidden');
 	};
 
-	self.setter = function(value) {
+	self.setter = function() {
 		self.toggle(false);
 	};
 });
