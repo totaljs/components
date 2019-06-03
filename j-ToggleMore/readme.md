@@ -15,7 +15,7 @@ The content of the `j-ToggleMore` is divided to 2 parts: `before` and `after`. E
 ---
 
 ```html
-<div data-jc="togglemore__path__config">
+<div data---="togglemore__path__config">
 	<div>
 		Content before
 	</div>
