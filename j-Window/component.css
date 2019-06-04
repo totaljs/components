@@ -4,7 +4,7 @@
 .ui-window-header { height: 50px; }
 .ui-window-scroll { overflow-scrolling: touch; overflow-y: auto; }
 .ui-window-animate { transform: scale(1); opacity: 1; }
-.ui-window-title { padding: 14px 20px 0; font-size: 14px; user-select: none; color: black; background-color: white; border-bottom: 1px solid #F0F0F0; position: absolute; left: 0; right: 0; top: 0; height: 50px; }
+.ui-window-title { white-space: nowrap; overflow: hidden !important; text-overflow: ellipsis; padding: 14px 20px 0; font-size: 14px; user-select: none; color: black; background-color: white; border-bottom: 1px solid #F0F0F0; position: absolute; left: 0; right: 0; top: 0; height: 50px; }
 .ui-window-title .ui-window-button-close { float: right; cursor: pointer; font-size: 18px; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; padding: 0; width: auto; }
 .ui-window-title .ui-window-button-close:hover { transform: scale(1.2); }
 .ui-window-title > span { font-weight: bold; }
