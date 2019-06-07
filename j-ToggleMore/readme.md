@@ -11,6 +11,7 @@ __Methods__:
 __Good to know__:
 
 The content of the `j-ToggleMore` is divided to 2 parts: `before` and `after`. Each part must be defined. The component adds CSS classes to each part, for example first `div` will contain `ui-togglemore-before` and second `ui-togglemore-after`.
+To avoid "blink" add class `hidden` to second `div`.
 
 ---
 
@@ -19,7 +20,7 @@ The content of the `j-ToggleMore` is divided to 2 parts: `before` and `after`. E
 	<div>
 		Content before
 	</div>
-	<div>
+	<div class="hidden">
 		Content after
 	</div>
 </div>
