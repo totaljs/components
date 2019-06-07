@@ -159,5 +159,6 @@
 	"j-Layout",
 	"j-Duplicator",
 	"j-Markdown",
-	"j-ToggleMore"
+	"j-ToggleMore",
+	"j-ListMenuEditable"
 ]

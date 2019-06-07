@@ -1,0 +1,15 @@
+<div style="width: 400px;">
+	<div data-jc="listmenueditable__tags__title:All tags;editclick:clicked;addclick:add"></div>
+</div>
+
+<script>
+	var tags = [{ name: 'Tag 1', id: 1, template: '<i class="fas fa-circle mr5" style="color:#bada55;"></i>{{ name }}', selected: true, classname: 'customclass' }, { name: 'Tag 2', template: '<i class="fas fa-circle mr5" style="color:#ba55da;"></i>{{ name }}', id: 2, icon: 'pencil-alt' }];
+
+	function clicked(el, index) {
+		FIND('listmenueditable').edit(index, '<i class="fas fa-circle mr5" style="color:#bada55;"></i>{{ name }}');
+	}
+
+	function add() {
+		FIND('listmenueditable').add('<i class="fas fa-circle mr5" style="color:#da55ba;"></i>{{ name }}');
+	}
+</script>
