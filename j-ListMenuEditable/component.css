@@ -1,11 +1,14 @@
 .ui-listmenueditable .ui-listmenueditable-header { height: 25px; line-height: 25px; margin-bottom: 5px; font-weight: bold; background-color: #e0e0e0; padding: 0 5px; }
-.ui-listmenueditable .ui-listmenueditable-item { height: 25px; line-height: 25px; margin-bottom: 5px; background-color: #f1f1f1; padding: 0 5px; }
-.ui-listmenueditable .ui-listmenueditable-item.selected { font-weight: bold; }
-.ui-listmenueditable .ui-listmenueditable-icon { width: 20px; float: right; text-align: center; cursor: pointer; }
-.ui-listmenueditable .ui-listmenueditable-deleteicon { width: 20px; float: right; text-align: center; cursor: pointer; color: red; }
+.ui-listmenueditable .ui-listmenueditable-item { height: 25px; line-height: 25px; margin-bottom: 5px; background-color: #f1f1f1; padding: 0 5px; cursor: pointer; }
+.ui-listmenueditable .ui-listmenueditable-icon { width: 16px; float: right; text-align: center; cursor: pointer; }
+.ui-listmenueditable .ui-listmenueditable-icon:hover { opacity: 0.7; }
+.ui-listmenueditable .ui-listmenueditable-icon i { font-size: 12px; }
+.ui-listmenueditable .ui-listmenueditable-deleteicon { width: 16px; float: right; text-align: center; cursor: pointer; color: red; }
+.ui-listmenueditable .ui-listmenueditable-deleteicon:hover { opacity: 0.7; }
 .ui-listmenueditable .ui-listmenueditable-text { margin-right: 25px; }
-.ui-listmenueditable .ui-listmenueditable-text span { width: 100%; white-space: nowrap; overflow: hidden !important; text-overflow: ellipsis; display: inline-block; }
-.ui-listmenueditable .ui-listmenueditable-text input { width: 100%; height: 25px; border: none; background-color: #f1f1f1; }
+.ui-listmenueditable .ui-listmenueditable-text span { width: 100%; white-space: nowrap; overflow: hidden !important; text-overflow: ellipsis; display: inline-block; font-size: 13px; }
+.ui-listmenueditable .ui-listmenueditable-text span i { font-size: 12px; }
+.ui-listmenueditable .ui-listmenueditable-text input { width: 100%; height: 25px; border: none; background-color: #f1f1f1; font-size: 13px; }
 .ui-listmenueditable .ui-listmenueditable-text input:focus { outline: none; }
 
 .ui-dark .ui-listmenueditable .ui-listmenueditable-header { background-color: #2d2d2d; }
