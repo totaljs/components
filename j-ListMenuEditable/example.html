@@ -1,15 +1,28 @@
 <div style="width: 400px;">
-	<div data-jc="listmenueditable__tags__title:All tags;editclick:clicked;addclick:add"></div>
+	<div data---="listmenueditable__tags__title:All tags;editclick:edit;addclick:add;click:click">
+		<script type="text/html">
+			{{ if mycolor }}
+				<i class="fas fa-circle" style="color: {{ mycolor }}"></i>
+			{{ fi }}
+			{{ name }}
+		</script>
+	</div>
 </div>
 
 <script>
-	var tags = [{ name: 'Tag 1', id: 1, template: '<i class="fas fa-circle mr5" style="color:#bada55;"></i>{{ name }}', selected: true, classname: 'customclass' }, { name: 'Tag 2', template: '<i class="fas fa-circle mr5" style="color:#ba55da;"></i>{{ name }}', id: 2, icon: 'pencil-alt' }];
+	var tags = [{ name: 'Tag 1', mycolor: '#00B9D7', editable: true, classname: 'customclass', mycustomdata: 'ola' }, { name: 'Tag 2', mycolor: '#00A06E', editable: true, mycustomdata: 'ola2' }];
 
-	function clicked(el, index) {
-		FIND('listmenueditable').edit(index, '<i class="fas fa-circle mr5" style="color:#bada55;"></i>{{ name }}');
+	function click(el, item, index) {
+		alert('clicked index ' + index);
+		console.log(el);
+		console.log(item);
+	}
+
+	function edit(el, index) {
+		SETTER('listmenueditable', 'edit', index);
 	}
 
 	function add() {
-		FIND('listmenueditable').add('<i class="fas fa-circle mr5" style="color:#da55ba;"></i>{{ name }}');
+		SETTER('listmenueditable', 'add', { mycolor: '#8e44ad', editable: true });
 	}
 </script>
