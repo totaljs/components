@@ -2,9 +2,8 @@ COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:p
 
 	var cls = 'ui-listmenueditable';
 	var cls2 = '.' + cls;
-	var selected;
 	var container;
-	var last;
+	var last, editing, selected;
 	var template = '<div class="' + cls + '-item {{ if selected }}selected{{ fi }} {{ classname }}" data-index="{{ index }}" {{ if value }} data-value="{{ value }}" {{ fi }}>{{ if editable }}<span class="' + cls + '-icon"><i class="fa fa-{{ icon }}"></i></span>{{ fi }}<div class="' + cls + '-text"><span>{{ name | encode | ui_listmenueditable_helper }}</span></div></div>';
 	var templateinput = '<div class="' + cls + '-item" {{ if index != null }}data-index="{{ index }}"{{ fi }}><span class="' + cls + '-deleteicon"><i class="fa fa-' + config.iconremove + '"></i></span><div class="' + cls + '-text"><input placeholder="' + config.placeholder + '" {{ if index != null }}value="{{ text }}"{{ fi }} type="text" /></div></div>';
 	var layout;
@@ -83,13 +82,14 @@ COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:p
 	};
 
 	self.edit = function(index) {
-		if (index == null)
+		if (index == null || editing != null)
 			return;
 
 		var el = container.find(cls2 + '-item[data-index="' + index + '"]');
 		var text = self.get()[index];
 		var key = config.key || 'name';
 		el.replaceWith(self.templateinput({ text: text[key] || '', index: index }));
+		editing = index;
 
 		setTimeout2(self.id + 'focus', function() {
 			container.find('input').focus();
@@ -118,7 +118,7 @@ COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:p
 
 		var builder = [];
 		var itemtemplate = self.itemtemplate();
-		last = null;
+		last = editing = null;
 
 		for (var i = 0; i < value.length; i++) {
 			var item = value[i];
