@@ -6,24 +6,19 @@
 __METHODS__
 
 ```javascript
-// === Element binding:
-SETTER('tooltip', 'show', element, 'HTML BODY', [width], [offsetX], [offsetY]);
-// or
-FIND('tooltip').show(element, 'HTML BODY', [width], [offsetX], [offsetY]);
+var opt = {};
 
-// === Position:
-SETTER('tooltip', 'show', x, y, 'HTML BODY', [width]);
-// or
-FIND('tooltip').show(x, y, 'HTML BODY', [width]);
+// opt.offsetX {Number}    : adds X offset (default: 0)
+// opt.offsetY {Number}    : adds Y offset (default: 0)
+// opt.align {String}      : align `bottom` (default), `top`, `left` or `right`
+// opt.center {Boolean}    : centered position for `left` and `right` align (default: false)
+// opt.timeout {Number}    : hide timeout (in milliseconds), default: `undefined`
 
-// === Hide:
-SETTER('tooltip', 'hide');
-// or
-FIND('tooltip').hide();
+opt.element = YOUR_ELEMENT;
+opt.html = 'YOUR_HTML_CONTENT';
+
+SETTER('tooltip', 'show', opt);
 ```
-
-- default `width` is `140px`
-
 
 ### Author
 

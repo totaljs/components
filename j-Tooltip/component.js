@@ -1,9 +1,7 @@
 COMPONENT('tooltip', function(self) {
 
-	var container;
-	var css = {};
-	var anim = {};
-	var body;
+	var cls = 'ui-tooltip';
+	var is = false;
 
 	self.singleton();
 	self.readonly();
@@ -11,49 +9,73 @@ COMPONENT('tooltip', function(self) {
 	self.nocompile && self.nocompile();
 
 	self.make = function() {
-		self.aclass('ui-tooltip hidden');
-		self.html('<div></div>');
-		container = $(self.find('div')[0]);
+		self.aclass(cls + ' hidden');
 	};
 
 	self.hide = function() {
-		setTimeout2(self.id, function() {
-			self.toggle('hidden', true);
-		}, 100);
+		is && setTimeout2(self.ID, function() {
+			self.aclass('hidden');
+			self.rclass(cls + '-visible');
+			is = false;
+		}, 200);
 	};
 
-	// show(el, body, width, offX, offY)
-	// show(x, y, body, width)
-	self.show = function() {
+	self.show = function(opt) {
 
-		clearTimeout2(self.id);
+		var tmp = opt.element ? opt.element instanceof jQuery ? opt.element[0] : opt.element.element ? opt.element.dom : opt.element : null;
 
-		if (typeof(arguments[0]) !== 'number') {
-			var target = $(arguments[0]);
-			var off = target.offset();
-			body = arguments[1] || '';
-			css.width = arguments[2] || 140;
-			css.top = off.top + target.height() + (arguments[4] || 0);
-			css.left = (off.left - ((css.width / 2) - (target.width() / 2))) + (arguments[3] || 0);
-		} else {
-			css.left = arguments[0] || 0;
-			css.top = arguments[1] || 0;
-			body = arguments[2] || '';
-			css.width = arguments[3] || 140;
+		if (is && tmp && self.target === tmp) {
+			self.hide();
+			return;
 		}
 
-		if (body.substring(0, 1) !== '<')
-			body = '<div class="ui-tooltip-arrow"><span class="fa fa-caret-up"></span></div><div class="ui-tooltip-body">{0}</div>'.format(body);
+		clearTimeout2(self.ID);
 
-		container.html(body);
-		var el = self.element;
+		self.target = tmp;
+		self.opt = opt;
+		self.html('<div class="' + cls + '-body">' + opt.html + '</div>');
 
-		if (el.hclass('hidden')) {
-			anim.top = css.top;
-			css.top += 20;
-			el.css(css).rclass('hidden').animate(anim, 100);
-		} else
-			el.css(css);
+		var b = self.find('.' + cls + '-body');
+		b.rclass2(cls + '-arrow-');
+		b.aclass(cls + '-arrow-' + opt.align);
+
+		var css = {};
+
+		if (is) {
+			css.left = 0;
+			css.top = 0;
+			self.element.css(css);
+		} else {
+			self.rclass('hidden');
+			self.aclass(cls + '-visible', 100);
+			is = true;
+		}
+
+		var target = $(opt.element);
+		var w = self.width();
+		var h = self.height();
+		var offset = target.offset();
+
+		switch (opt.align) {
+			case 'left':
+			case 'right':
+				css.top = offset.top + (opt.center ? (h / 2 >> 0) : 0);
+				css.left = opt.align === 'left' ? (offset.left - w - 10) : (offset.left + target.innerWidth() + 10);
+				break;
+			default:
+				css.left = Math.ceil((offset.left - w / 2) + (target.innerWidth() / 2));
+				css.top = opt.align === 'bottom' ? (offset.top + target.innerHeight() + 10) : (offset.top - h - 10);
+				break;
+		}
+
+		if (opt.offsetX)
+			css.left += opt.offsetX;
+
+		if (opt.offsetY)
+			css.top += opt.offsetY;
+
+		opt.timeout && setTimeout2(self.ID, self.hide, opt.timeout - 200);
+		self.element.css(css);
 	};
 
 });
