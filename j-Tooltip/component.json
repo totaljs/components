@@ -1,6 +1,6 @@
 {
 	"datecreated": "2016-10-20T15:52:00.000Z",
-	"dateupdated": "2019-06-13T09:36:00.000Z",
+	"dateupdated": "2019-06-13T09:36:01.000Z",
 	"name": "j-Tooltip",
 	"tags": [
 		"tooltip",
@@ -9,7 +9,7 @@
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,
-	"darmode": true,
+	"darkmode": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
 	"author": "Peter Širka",
