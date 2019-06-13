@@ -367,6 +367,14 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 		setTimeout2(self.ID + 'refresh', self.refresh, 50);
 	};
 
+	var getWidth = function(el) {
+		return el.hclass('hidden') ? 0 : el.width();
+	};
+
+	var getHeight = function(el) {
+		return el.hclass('hidden') ? 0 : el.height();
+	};
+
 	self.refresh = function() {
 
 		var top = 0;
@@ -380,11 +388,11 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 		var topbottomoffset = 0;
 		var right2visible = isright2 && !s.right.hclass(hidden);
 
-		if (s.top && !s.top.hclass(hidden))
-			top = top2 = s.top.height();
+		if (s.top)
+			top = top2 = getHeight(s.top);
 
-		if (s.bottom && !s.bottom.hclass(hidden))
-			bottom = bottom2 = s.bottom.height();
+		if (s.bottom)
+			bottom = bottom2 = getHeight(s.bottom);
 
 		var width = self.width() - (config.border * 2);
 		var height = self.height() - (config.border * 2);
@@ -420,7 +428,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			right = s.right.width();
 			space = top && bottom ? 2 : top || bottom ? 1 : 0;
 			var cssright = {};
-			cssright.left = right2visible ? (s.left.width() + config.border + config.space) : (width - right);
+			cssright.left = right2visible ? (getWidth(s.left) + config.border + config.space) : (width - right);
 			cssright.top = istop2 ? config.border : (top ? (top + config.space) : 0);
 			cssright.height = isbottom2 ? (height - top2 - config.border) : (height - top2 - bottom2 - (config.space * space));
 			cssright.height += topbottomoffset;
@@ -444,7 +452,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			csstop.left = istop2 ? (left + space) : 0;
 
 			if (right2visible && istop2)
-				csstop.left += s.right.width() + config.space;
+				csstop.left += getWidth(s.right) + config.space;
 
 			space = left && right ? 2 : left || right ? 1 : 0;
 			csstop.width = istop2 ? (width - right - left - (config.space * space)) : width;
@@ -466,7 +474,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			cssbottom.left = isbottom2 ? (left + space) : 0;
 
 			if (right2visible && isbottom2)
-				cssbottom.left += s.right.width() + config.space;
+				cssbottom.left += getWidth(s.right) + config.space;
 
 			space = left && right ? 2 : left || right ? 1 : 0;
 			cssbottom.width = isbottom2 ? (width - right - left - (config.space * space)) : width;
@@ -484,7 +492,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 		css.left = left ? left + config.space : 0;
 
 		if (right2visible)
-			css.left += s.right.width() + config.space;
+			css.left += getWidth(s.right) + config.space;
 
 		css.width = (width - left - right - (config.space * space));
 		css.top = top ? top + config.space : 0;
