@@ -1,4 +1,4 @@
-COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:plus-square;placeholder:Write text and press ENTER;class:selected', function(self, config) {
+COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:plus-square;placeholder:Write text and press ENTER', function(self, config) {
 
 	var cls = 'ui-listmenueditable';
 	var cls2 = '.' + cls;
@@ -26,14 +26,17 @@ COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:p
 		self.append('<div class="' + cls + '-container"></div>');
 
 		self.event('click', cls2 + '-item' + ' ' + cls2 + '-text', function() {
+
 			if ($(this).find('input').length)
 				return;
 
 			var parent = $(this).closest(cls2 + '-item');
 			var index = parent.attrd('index');
 			var items = self.get();
-			container.find('.' + config.class).rclass(config.class);
-			parent.aclass(config.class);
+
+			container.find('.selected').rclass('selected');
+			parent.aclass('selected');
+
 			selected = index;
 			config.click && EXEC(config.click, parent, items[index], index);
 		});
@@ -53,15 +56,7 @@ COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:p
 				if (!value.trim().length)
 					return;
 
-				if (index == null) {
-					var obj = {};
-					obj[key] = value;
-					if (config.defaulticon.length)
-						obj.icon = config.defaulticon;
-					cur.push(obj);
-				} else {
-					cur[index][key] = value;
-				}
+				cur[index][key] = value;
 				self.set(cur);
 			}
 		});
@@ -71,17 +66,19 @@ COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:p
 			config.editclick && EXEC(config.editclick, parent, parent.attrd('index'));
 		});
 
-		self.event('focusout', 'input', function() {
+		self.event('click', cls2 + '-deleteicon', function() {
 			var parent = $(this).closest(cls2 + '-item');
 			var cur = self.get();
 			var index = parseInt(parent.attrd('index'));
+
 			if (index === last) {
 				cur.splice(index, 1);
 				self.set(cur);
-			} else {
-				var itemtemplate = self.itemtemplate();
-				parent.replaceWith(itemtemplate(cur[index]));
+				return;
 			}
+
+			var itemtemplate = self.itemtemplate();
+			parent.replaceWith(itemtemplate(cur[index]));
 		});
 	};
 
@@ -121,6 +118,7 @@ COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:p
 
 		var builder = [];
 		var itemtemplate = self.itemtemplate();
+		last = null;
 
 		for (var i = 0; i < value.length; i++) {
 			var item = value[i];
@@ -136,5 +134,4 @@ COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:p
 
 		container.empty().append(builder.join(''));
 	};
-
 });
