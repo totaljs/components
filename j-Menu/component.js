@@ -99,7 +99,7 @@ COMPONENT('menu', function(self) {
 			var offset = el.position();
 
 			css.left = ul.width() - 5;
-			css.top = offset.top;
+			css.top = offset.top - 5;
 
 			var offsetX = offset.left;
 
