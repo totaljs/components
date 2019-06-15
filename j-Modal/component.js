@@ -145,8 +145,8 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 				self.resize();
 				break;
 			case 'align':
-				prev && emodal.rclass(cls + '-align-' + prev);
-				value && emodal.aclass(cls + '-align-' + value);
+				prev && self.rclass(cls + '-align-' + prev);
+				value && self.aclass(cls + '-align-' + value);
 				self.resize();
 				break;
 			case 'icon':

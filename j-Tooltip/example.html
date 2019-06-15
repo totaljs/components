@@ -11,7 +11,12 @@
 	$(document).on('mouseenter mouseleave', '.tooltip', function(e) {
 		if (e.type === 'mouseenter') {
 			var el = $(this);
-			SETTER('tooltip', 'show', el, el.attr('data-title'));
+			var opt = {};
+			opt.element = el;
+			opt.html = el.attrd('title');
+			opt.align = 'bottom';
+			opt.timeout = 3000;
+			SETTER('tooltip', 'show', opt);
 		} else
 			SETTER('tooltip', 'hide');
 	});
