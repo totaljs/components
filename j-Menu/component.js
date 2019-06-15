@@ -21,6 +21,8 @@ COMPONENT('menu', function(self) {
 
 		self.event('click', 'li', function(e) {
 
+			clearTimeout2(self.ID);
+
 			var el = $(this);
 			if (el.hclass(cls + '-divider')) {
 				e.preventDefault();
@@ -50,9 +52,8 @@ COMPONENT('menu', function(self) {
 		self.on('resize', events.hide);
 
 		events.click = function(e) {
-			console.log(isopen);
 			if (is && !isopen && (!self.target || (self.target !== e.target && !self.target.contains(e.target))))
-				self.hide();
+				setTimeout2(self.ID, self.hide, 100);
 		};
 
 		events.hidechildren = function() {
