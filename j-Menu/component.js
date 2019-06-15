@@ -5,23 +5,38 @@ COMPONENT('menu', function(self) {
 	self.nocompile && self.nocompile();
 
 	var cls = 'ui-menu';
+	var cls2 = '.' + cls;
+
 	var is = false;
+	var issubmenu = false;
+	var isopen = false;
 	var events = {};
-	var ul;
+	var ul, children, prevsub;
 
 	self.make = function() {
 		self.aclass(cls + ' hidden');
-		self.append('<ul></ul>');
-		ul = self.find('ul');
+		self.append('<div class="{0}-items"><ul></ul></div><div class="{0}-submenu hidden"><ul></ul></div>'.format(cls));
+		ul = self.find(cls2 + '-items').find('ul');
+		children = self.find(cls2 + '-submenu');
 
-		self.event('touchstart mousedown', 'li', function(e) {
+		self.event('click', 'li', function(e) {
+
 			var el = $(this);
 			if (el.hclass(cls + '-divider')) {
 				e.preventDefault();
 				e.stopPropagation();
 			} else {
-				self.opt.callback(self.opt.items[el.index()]);
-				self.hide();
+
+				var index = el.attrd('index').split('-');
+
+				if (index.length > 1) {
+					// submenu
+					self.opt.callback(self.opt.items[+index[0]].children[+index[1]]);
+					self.hide();
+				} else if (!issubmenu) {
+					self.opt.callback(self.opt.items[+index[0]]);
+					self.hide();
+				}
 			}
 		});
 
@@ -35,21 +50,83 @@ COMPONENT('menu', function(self) {
 		self.on('resize', events.hide);
 
 		events.click = function(e) {
-			if (is && (!self.target || (self.target !== e.target && !self.target.contains(e.target))))
+			console.log(isopen);
+			if (is && !isopen && (!self.target || (self.target !== e.target && !self.target.contains(e.target))))
 				self.hide();
+		};
+
+		events.hidechildren = function() {
+			if ($(this.parentNode.parentNode).hclass('ui-menu-items')) {
+				if (prevsub && prevsub[0] !== this) {
+					prevsub.rclass(cls + '-selected');
+					prevsub = null;
+					children.aclass('hidden');
+					issubmenu = false;
+				}
+			}
+		};
+
+		events.children = function() {
+
+			if (prevsub) {
+				prevsub.rclass(cls + '-selected');
+				if (prevsub[0] === this) {
+					prevsub = null;
+					return;
+				}
+				prevsub = null;
+			}
+
+			issubmenu = true;
+			isopen = true;
+
+			setTimeout(function() {
+				isopen = false;
+			}, 500);
+
+			var el = prevsub = $(this);
+			var index = +el.attrd('index');
+			var item = self.opt.items[index];
+
+			el.aclass(cls + '-selected');
+
+			var html = self.makehtml(item.children, index);
+			children.find('ul').html(html);
+			children.rclass('hidden');
+
+			var css = {};
+			var offset = el.position();
+
+			css.left = ul.width() - 5;
+			css.top = offset.top;
+
+			var offsetX = offset.left;
+
+			offset = self.element.offset();
+
+			var w = children.width();
+			var left = offset.left + css.left + w;
+			if (left > WW + 30)
+				css.left = (offsetX - w) + 5;
+
+			children.css(css);
 		};
 	};
 
 	self.bindevents = function() {
 		events.is = true;
 		$(document).on('touchstart mousedown', events.click);
+		$(document).on('touchstart mouseenter mousedown', cls2 + '-children', events.children);
 		$(window).on('scroll', events.hide);
+		self.element.on('mouseenter', 'li', events.hidechildren);
 	};
 
 	self.unbindevents = function() {
 		events.is = false;
+		$(document).off('touchstart mouseenter mousedown', cls2 + '-children', events.children);
 		$(document).off('touchstart mousedown', events.click);
 		$(window).off('scroll', events.hide);
+		self.element.off('mouseenter', 'li', events.hidechildren);
 	};
 
 	self.showxy = function(x, y, items, callback) {
@@ -59,6 +136,49 @@ COMPONENT('menu', function(self) {
 		opt.items = items;
 		opt.callback = callback;
 		self.show(opt);
+	};
+
+	self.makehtml = function(items, index) {
+		var builder = [];
+		var tmp;
+
+		for (var i = 0; i < items.length; i++) {
+			var item = items[i];
+
+			if (typeof(item) === 'string') {
+				// caption or divider
+				if (item === '-')
+					tmp = '<hr />';
+				else
+					tmp = '<span>{0}</span>'.format(item);
+				builder.push('<li class="{0}-divider">{1}</li>'.format(cls, tmp));
+				continue;
+			}
+
+			var cn = item.classname || '';
+			var icon = '';
+
+			if (item.icon)
+				icon = '<i class="{0}"></i>'.format(item.icon.charAt(0) === '!' ? item.icon.substring(1) : ('fa fa-' + item.icon));
+			else
+				cn = (cn ? ' ' : '') + cls + '-nofa';
+
+			tmp = '';
+
+			if (index == null && item.children && item.children.length) {
+				cn += (cn ? ' ' : '') + cls + '-children';
+				tmp += '<i class="fa fa-play pull-right"></i>';
+			}
+
+			tmp += '<div class="{0}-name">{1}{2}{3}</div>'.format(cls, icon, item.name, item.shortcut ? '<b>{0}</b>'.format(item.shortcut) : '');
+
+			if (item.note)
+				tmp += '<div class="ui-menu-note">{0}</div>'.format(item.note);
+
+			builder.push('<li class="{0}" data-index="{2}">{1}</li>'.format(cn, tmp, (index ? (index + '-') : '') + i));
+		}
+
+		return builder.join('');
 	};
 
 	self.show = function(opt) {
@@ -80,24 +200,20 @@ COMPONENT('menu', function(self) {
 			return;
 		}
 
-		var builder = [];
+		var tmp;
 
 		self.target = tmp;
 		self.opt = opt;
 
-		for (var i = 0; i < opt.items.length; i++) {
-			var item = opt.items[i];
-			var cn = item.classname || '';
-
-			if (!item.icon)
-				cn = (cn ? ' ' : '') + cls + '-nofa';
-
-			builder.push(typeof(item) == 'string' ? '<li class="{1}-divider">{0}</li>'.format(item === '-' ? '<hr />' : ('<span>' + item + '</span>'), cls) : '<li class="{2}">{3}{0}{1}</li>'.format(item.icon ? '<i class="{0}"></i>'.format(item.icon.charAt(0) === '!' ? item.icon.substring(1) : ('fa fa-' + item.icon)) : '', item.name, cn, item.shortcut ? '<b>{0}</b>'.format(item.shortcut) : ''));
-		}
+		isopen = false;
+		issubmenu = false;
+		prevsub = null;
 
 		var css = {};
+		children.aclass('hidden');
+		children.find('ul').empty();
 
-		ul.html(builder.join(''));
+		ul.html(self.makehtml(opt.items));
 
 		if (is) {
 			css.left = 0;
@@ -129,6 +245,7 @@ COMPONENT('menu', function(self) {
 			}
 
 			css.top = opt.position === 'bottom' ? (offset.top - self.element.height() - 10) : (offset.top + target.innerHeight() + 10);
+
 		} else {
 			css.left = opt.x;
 			css.top = opt.y;

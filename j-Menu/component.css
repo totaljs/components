@@ -1,17 +1,24 @@
-.ui-menu { position: absolute; z-index: 100; background-color: white; padding: 5px 0; border-radius: 3px; box-shadow: 2px 5px 10px rgba(0,0,0,0.05); transition: 0.2s all; transform: scale(0.3); transform-origin: top left; opacity: 0; border: 1px solid #E0E0E0; }
-.ui-menu-visible { transform: scale(1); opacity: 1; }
+.ui-menu { position: absolute; z-index: 100; transform-origin: top left; }
+.ui-menu-items { background-color: white; padding: 5px 0; border-radius: 3px; box-shadow: 2px 5px 10px rgba(0,0,0,0.05); border: 1px solid #E0E0E0; position: relative; }
+.ui-menu-submenu { position: absolute; z-index: 101; background-color: white; padding: 5px 0; border-radius: 3px; box-shadow: 2px 5px 10px rgba(0,0,0,0.05); border: 1px solid #E0E0E0; }
+.ui-menu-visible {}
 .ui-menu ul { margin: 0; padding: 0; }
-.ui-menu li { margin: 0; padding: 5px 30px 5px 5px; list-style-type: none; font-size: 12px; cursor: pointer; }
-.ui-menu li:hover { background-color: #F0F0F0; }
+.ui-menu li { margin: 0; padding: 5px; list-style-type: none; font-size: 12px; cursor: pointer; max-width: 220px; }
+.ui-menu-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 15px; }
+.ui-menu-note { font-size: 10px; margin: 0 10px 3px 35px; color: #A0A0A0; line-height: 11px; }
+.ui-menu-nofa .ui-menu-note { margin-left: 0; }
+.ui-menu li:hover, .ui-menu-selected { background-color: #F0F0F0; }
 .ui-menu-nofa { padding-left: 12px !important; }
-.ui-menu i { width: 30px; margin: 0 5px 0 0; text-align: center; color: black; }
-.ui-menu b { position: absolute; right: 0; font-size: 11px; color: gray; margin: 1px 5px 0; }
+.ui-menu .pull-right { margin: 1px 5px 0 0; width: 20px; text-align: right; font-size: 10px; }
+.ui-menu-name i { width: 30px; margin: 0 5px 0 0; text-align: center; color: black; }
+.ui-menu-name b { position: absolute; right: 0; font-size: 11px; color: gray; margin: 1px 5px 0; }
 .ui-menu-divider { padding: 0 !important; background: transparent !important; cursor: default !important; color: gray; font-size: 11px !important; }
 .ui-menu-divider span { display: block; margin: 5px 12px; }
 .ui-menu-divider hr { margin: 5px 0; border-color: #E0E0E0; }
 
 .ui-dark .ui-menu b { color: #505050; }
-.ui-dark .ui-menu { background-color: #303030; border-color: #353535; box-shadow: 1px 5px 10px rgba(0,0,0,0.2); }
-.ui-dark .ui-menu i { color: white; }
-.ui-dark .ui-menu li:hover { background-color: #202020; }
+.ui-dark .ui-menu-items, .ui-dark .ui-menu-submenu { background-color: #303030; border-color: #353535; box-shadow: 1px 5px 10px rgba(0,0,0,0.2); }
+.ui-dark .ui-menu-name i { color: white; }
+.ui-dark .ui-menu li:hover, .ui-dark .ui-menu-selected { background-color: #202020; }
 .ui-dark .ui-menu-divider hr { border-color: #404040; }
+.ui-dark .ui-menu-note { color: #777777; }
