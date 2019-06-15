@@ -75,9 +75,15 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			var code = e.which;
 
 			if (t.readOnly || config.disabled) {
-				e.preventDefault();
-				e.stopPropagation();
-				//self.curpos(0);
+				// TAB
+				if (e.keyCode !== 9) {
+					if (config.dirsource) {
+						self.find(cls2 + '-control').trigger('click');
+						return;
+					}
+					e.preventDefault();
+					e.stopPropagation();
+				}
 				return;
 			}
 
