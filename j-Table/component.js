@@ -1,14 +1,17 @@
-COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', function(self, config) {
+COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visibleY:1;scrollbar:0;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items', function(self, config) {
 
 	var cls = 'ui-table';
 	var cls2 = '.' + cls;
-	var etable, ebody, eempty, ehead;
+	var etable, ebody, eempty, ehead, eheadsize, efooter, container;
 	var opt = { selected: [] };
 	var templates = {};
 	var sizes = {};
 	var names = {};
 	var aligns = {};
+	var sorts = {};
 	var dcompile = false;
+	var prevsort;
+	var prevhead;
 
 	self.readonly();
 	self.nocompile();
@@ -39,6 +42,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 			var size = (el.attrd('size') || '').split(',');
 			var name = (el.attrd('head') || '').split(',');
 			var align = (el.attrd('align') || '').split(',');
+			var sort = (el.attrd('sort') || '').split(',');
 			var i;
 
 			for (i = 0; i < align.length; i++) {
@@ -63,6 +67,9 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 			for (i = 0; i < size.length; i++)
 				size[i] = size[i].trim();
 
+			for (i = 0; i < sort.length; i++)
+				sort[i] = sort[i].trim();
+
 			for (i = 0; i < name.length; i++) {
 				name[i] = name[i].trim().replace(/'\w'/, function(val) {
 					return '<i class="fa fa-{0}"></i>'.format(val.replace(/'/g, ''));
@@ -84,22 +91,120 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 					sizes[display[i]] = size.length ? size : null;
 					names[display[i]] = name.length ? name : null;
 					aligns[display[i]] = align.length ? align : null;
+					sorts[display[i]] = sort.length ? sort : null;
 				}
 			} else {
 				templates.lg = templates.md = templates.sm = templates.xs = template;
 				sizes.lg = sizes.md = sizes.sm = sizes.xs = size.length ? size : null;
 				names.lg = names.md = names.sm = names.xs = name.length ? name : null;
+				sorts.lg = sorts.md = sorts.sm = sorts.xs = sort.length ? sort : null;
 				aligns.lg = aligns.md = aligns.sm = aligns.xs = align.length ? align : null;
 			}
-
 		});
 
-		self.html('<table class="{0}-table"><thead class="{0}-thead"></thead><tbody class="{0}-tbody"></tbody><tfooter class="{0}-tfooter hidden"></tfooter></table><div class="{0}-empty hidden"></div>'.format(cls));
-		etable = self.find('table');
+		self.html('<div class="{0}-headcontainer"><table class="{0}-head"><thead></thead></table></div><div class="{0}-container"><table class="{0}-table"><thead></thead><tbody class="{0}-tbody"></tbody></table><div class="{0}-empty hidden"></div></div>'.format(cls));
+		etable = self.find(cls2 + '-table');
 		ebody = etable.find('tbody');
 		eempty = self.find(cls2 + '-empty').html(templates.empty || '');
-		ehead = etable.find('thead');
+		ehead = self.find(cls2 + '-head thead');
+		eheadsize = etable.find('thead');
+		container = self.find(cls2 + '-container');
+
+		if (config.paginate) {
+			self.append('<div class="{0}-footer"><div class={0}-pagination-items hidden-xs"></div><div class="{0}-pagination"><button name="page-first" disabled><i class="fa fa-angle-double-left"></i></button><button name="page-prev" disabled><i class="fa fa-angle-left"></i></button><div><input type="text" name="page" maxlength="5" class="{0}-pagination-input" /></div><button name="page-next" disabled><i class="fa fa-angle-right"></i></button><button name="page-last" disabled><i class="fa fa-angle-double-right"></i></button></div><div class="{0}-pagination-pages"></div></div>'.format(cls));
+			efooter = self.find(cls2 + '-footer');
+
+			efooter.on('change', cls2 + '-pagination-input', function() {
+
+				var value = self.get();
+				var val = +this.value;
+
+				if (isNaN(val))
+					return;
+
+				if (val >= value.pages)
+					val = value.pages;
+				else if (val < 1)
+					val = 1;
+
+				value.page = val;
+			});
+
+			efooter.on('click', 'button', function() {
+				var data = self.get();
+
+				var model = {};
+				model.page = data.page;
+				model.limit = data.limit;
+
+				if (prevsort)
+					model.sort = { index: prevsort.index, type: prevsort.type, name: prevsort.name };
+
+				switch (this.name) {
+					case 'page-first':
+						model.page = 1;
+						SEEX(config.paginate, model);
+						self.operation('page');
+						break;
+					case 'page-last':
+						var tmp = model;
+						tmp.page = tmp.pages;
+						SEEX(config.paginate, model);
+						break;
+					case 'page-prev':
+						model.page -= 1;
+						SEEX(config.paginate, model);
+						break;
+					case 'page-next':
+						model.page += 1;
+						SEEX(config.paginate, model);
+						break;
+				}
+			});
+		}
+
+		if (config.scrollbar) {
+			self.scrollbar = SCROLLBAR(container, { visibleY: !!config.visibleY });
+			ehead.parent().parent().aclass(cls + '-scrollbar');
+		}
+
 		templates.empty && templates.empty.COMPILABLE() && COMPILE(eempty);
+
+		self.event('click', '.sort', function() {
+
+			var th = $(this);
+			var i = th.find('i');
+			var type;
+
+			if (i.hclass('fa-sort')) {
+				// no sort
+				prevsort && prevsort.el.find('i').rclass2('fa-').aclass('fa-sort');
+				i.rclass('fa-sort').aclass('fa-long-arrow-up');
+				type = 'asc';
+			} else if (i.hclass('fa-long-arrow-up')) {
+				// ascending
+				i.rclass('fa-long-arrow-up').aclass('fa-long-arrow-down');
+				type = 'desc';
+			} else if (i.hclass('fa-long-arrow-down')) {
+				// descending
+				i.rclass('fa-long-arrow-down').aclass('fa-sort');
+				type = '';
+			}
+
+			var index = th.index();
+			prevsort = { index: index, type: type, el: th, name: sorts[WIDTH()][index] };
+			if (config.sort) {
+				SEEX(config.sort, prevsort);
+			} else if (prevsort.name) {
+				if (prevsort.type)
+					opt.items.quicksort(prevsort.name, prevsort.type === 'asc');
+				else {
+					var tmp = self.get() || EMPTYARRAY;
+					opt.items = tmp.items ? tmp.items : tmp;
+				}
+				self.redraw();
+			}
+		});
 
 		var blacklist = { A: 1, BUTTON: 1 };
 
@@ -174,10 +279,29 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 			$(W).on('resize', resize);
 	};
 
+	self.resize2 = function() {
+		self.scrollbar && setTimeout2(self.ID + 'scrollbar', self.scrollbar.resize, 300);
+	};
+
 	self.resize = function() {
+
 		var display = WIDTH();
-		if (display !== opt.display && sizes[display] && sizes[display] !== sizes[opt.display])
+		if (display !== opt.display && sizes[display] && sizes[display] !== sizes[opt.display]) {
 			self.refresh();
+			return;
+		}
+
+		if (config.height > 0)
+			self.find(cls2 + '-container').css('height', config.height);
+		else if (config.height) {
+			var el = config.height === 'window' ? $(W) : config.height === 'parent' ? self.parent() : self.closest(config.height);
+			var header = self.find(cls2 + '-head');
+			var footer = config.paginate ? (self.find(cls2 + '-footer').height() + 2) : 0;
+			self.find(cls2 + '-container').css('height', el.height() - header.height() - footer - 2);
+		}
+
+		// config.height && self.fillempty();
+		self.scrollbar && self.scrollbar.resize();
 	};
 
 	self.row_detail = function(el) {
@@ -217,6 +341,8 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 
 		} else
 			eld.hclass(cls + '-detail') && eld.aclass('hidden');
+
+		self.resize2();
 	};
 
 	self.redrawrow = function(index, row) {
@@ -258,6 +384,59 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 		opt.items.remove(row);
 	};
 
+	self.redraw = function() {
+		var clsh = 'hidden';
+		var count = 0;
+		var indexer = { user: W.user };
+		var builder = [];
+		var template = templates[WIDTH()];
+		if (template) {
+			for (var i = 0; i < opt.items.length; i++) {
+				var item = opt.items[i];
+				count++;
+				indexer.index = i;
+				builder.push(template(item, indexer).replace('<tr', '<tr data-index="' + i + '"'));
+			}
+		}
+		count && ebody.html(builder.join(''));
+		eempty.tclass(clsh, count > 0);
+		etable.tclass(clsh, count == 0);
+	};
+
+	self.redrawpagination = function() {
+
+		if (!config.paginate)
+			return;
+
+		var value = self.get();
+		efooter.find('button').each(function() {
+
+			var el = $(this);
+			var dis = true;
+
+			switch (this.name) {
+				case 'page-next':
+					dis = value.page >= value.pages;
+					break;
+				case 'page-prev':
+					dis = value.page === 1;
+					break;
+				case 'page-last':
+					dis = value.page === value.pages;
+					break;
+				case 'page-first':
+					dis = value.page === 1;
+					break;
+			}
+
+			el.prop('disabled', dis);
+		});
+
+		efooter.find('input')[0].value = value.page;
+		efooter.find(cls2 + '-pagination-pages')[0].innerHTML = value.pages.pluralize.apply(value.pages, config.pluralizepages);
+		efooter.find(cls2 + '-pagination-items')[0].innerHTML = value.count.pluralize.apply(value.count, config.pluralizeitems);
+	};
+
 	self.selected = function() {
 		var rows = [];
 		for (var i = 0; i < opt.selected.length; i++) {
@@ -267,17 +446,74 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 		return rows;
 	};
 
+	self.fillempty = function() {
+		// ebody.find(cls2 + '-empty').remove();
+		// var h = container.height();
+		// console.log(h);
+	};
+
+	self.configure = function(key, value) {
+		switch (key) {
+			case 'pluralizepages':
+				config.pluralizepages = value.split(',').trim();
+				break;
+			case 'pluralizeitems':
+				config.pluralizeitems = value.split(',').trim();
+				break;
+			case 'paginate':
+			case 'sort':
+			case 'exec':
+				if (value && value.SCOPE)
+					config[key] = value.SCOPE(self, value);
+				break;
+		}
+	};
+
 	self.setter = function(value) {
 
-		if (value && value.items)
-			value = value.items;
-
-		var empty = !value || !value.length;
+		var data = value ? value.items ? value.items : value : value;
+		var empty = !data || !data.length;
 		var clsh = 'hidden';
 
 		if (!self.isinit) {
 			self.rclass('invisible', 10);
 			self.isinit = true;
+		}
+
+		var display = WIDTH();
+		var builder = [];
+		var buildersize = [];
+		var selected = opt.selected.slice(0);
+
+		for (var i = 0; i < selected.length; i++) {
+			var row = opt.items[selected[i]];
+			selected[i] = row[config.pk];
+		}
+
+		var size = sizes[display];
+		var name = names[display];
+		var align = aligns[display];
+		var sort = sorts[display];
+
+		if (prevhead !== display) {
+			if ((size && size.length) || (name && name.length) || (align && align.length)) {
+
+				var arr = name || size || align;
+
+				for (var i = 0; i < arr.length; i++) {
+					var w = !size || size[i] === '0' ? 'auto' : size[i];
+					builder.push('<th style="width:{0};text-align:{2}"{3}>{1}</th>'.format(w, (sort && sort[i] ? '<i class="fa fa-sort"></i>' : '') + (name ? name[i] : ''), align ? align[i] : 'left', sort && sort[i] ? ' class="sort"' : ''));
+					buildersize.push('<th style="width:{0}"></th>'.format(w));
+				}
+
+				ehead.parent().tclass('hidden', !name);
+				ehead.html('<tr>{0}</tr>'.format(builder.join('')));
+				eheadsize.html('<tr>{0}</tr>'.format(buildersize.join('')));
+
+			} else
+				ehead.html('');
+
+			prevhead = display;
 		}
 
 		if (empty) {
@@ -286,59 +522,14 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 			return;
 		}
 
-		var display = WIDTH();
-		var builder = [];
-		var indexer = {};
-
-
-		var selected = opt.selected.slice(0);
-
-		for (var i = 0; i < selected.length; i++) {
-			var row = opt.items[selected[i]];
-			selected[i] = row[config.pk];
-		}
-
-		indexer.user = window.user;
-
-		var template = templates[display];
-		var count = 0;
-		var size = sizes[display];
-		var name = names[display];
-		var align = aligns[display];
-
-		if ((size && size.length) || (name && name.length) || (align && align.length)) {
-
-			var arr = name || size || align;
-
-			for (var i = 0; i < arr.length; i++)
-				builder.push('<th style="width:{0};text-align:{2}">{1}</th>'.format(!size || size[i] === '0' ? 'auto' : size[i], name ? name[i] : '', align ? align[i] : 'left'));
-
-			ehead.tclass(cls + '-nohead', !name);
-			ehead.html('<tr>{0}</tr>'.format(builder.join('')));
-			builder = [];
-		} else
-			ehead.html('');
-
-		if (template) {
-			for (var i = 0; i < value.length; i++) {
-				var item = value[i];
-				count++;
-				indexer.index = i;
-				builder.push(template(item, indexer).replace('<tr', '<tr data-index="' + i + '"'));
-			}
-		}
-
 		opt.display = display;
-		opt.items = value;
+		opt.items = data.slice(0);
+		opt.data = value;
 		opt.selindex = -1;
 		opt.selrow = null;
 		opt.selected = [];
 
-		count && ebody.html(builder.join(''));
-
-		eempty.tclass(clsh, count > 0);
-		etable.tclass(clsh, count == 0);
-
+		self.redraw();
 		config.exec && SEEX(config.exec, config.multiple ? [] : null);
 
 		if (config.remember) {
@@ -350,6 +541,9 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id', funct
 				}
 			}
 		}
+
+		self.resize();
+		self.redrawpagination();
 	};
 
 });

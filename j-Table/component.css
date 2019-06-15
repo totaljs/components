@@ -1,8 +1,16 @@
 .ui-table-border > table { border: 1px solid #E0E0E0; }
-.ui-table-border .ui-table-thead > tr > th, .ui-table-border .ui-table-tbody > tr > td { border-left: 1px solid #E0E0E0; border-right: 1px solid #E0E0E0; }
-.ui-table > table { width: 100%; margin: 0; padding: 0; font-size: 13px; table-layout: fixed; }
-.ui-table-thead { margin-bottom: 10px; }
-.ui-table-thead th { padding: 8px 4px; border-bottom: 2px solid #E0E0E0; }
+.ui-table-border .ui-table-head > thead > tr > th, .ui-table-border .ui-table-tbody > tr > td { border-left: 1px solid #E0E0E0; border-right: 1px solid #E0E0E0; }
+.ui-table-border .ui-table-head > thead > tr > th:first-child, .ui-table-border .ui-table-tbody > tr > td:first-child { border-left: 0 !important; }
+.ui-table-table, .ui-table-head { width: 100%; margin: 0; padding: 0; font-size: 13px; table-layout: fixed; }
+.ui-table-head { border-bottom: 0; }
+.ui-table-border .ui-table-headcontainer { border: 1px solid #E0E0E0; border-bottom: 0; border-right: 0; }
+.ui-table-border .ui-table-headcontainer.ui-table-scrollbar { border-right: 1px solid #E0E0E0; }
+.ui-table-scrollbar { padding-right: 8px; }
+.ui-table-border .ui-table-scrollbar .ui-table-head { border-right: 1px solid #E0E0E0; }
+.ui-table-head th { padding: 8px 4px; }
+.ui-table-head .sort { cursor: pointer; user-select: none; }
+.ui-table-head .sort i { width: 12px; text-align: left; color: #4783EE; }
+.ui-table-head .sort .fa-sort { color: black; }
 .ui-table-nohead, .ui-table-nohead tr, .ui-table-nohead th { height: 0 !important; overflow: hidden !important; padding: 0 !important; margin: 0 !important; border-bottom: 0; }
 .ui-table-tbody > tr { border-bottom: 1px solid #E0E0E0; }
 .ui-table-tbody > tr > td { padding: 5px 4px; }
@@ -12,13 +20,34 @@
 .ui-table-detailed .ui-table-selected { border-bottom-color: transparent; }
 .ui-table-detail { background-color: transparent !important; cursor: inherit !important; }
 .ui-table-detail td { padding: 20px 4px !important; }
-.ui-table-empty { font-size: 12px; color: gray; padding: 15px 0; border-top: 1px solid #E0E0E0; border-bottom: 1px solid #E0E0E0; text-align: center; }
+.ui-table-empty { font-size: 12px; color: gray; padding: 30px 0; text-align: center; }
 .ui-table-empty i { margin-right: 5px; }
+.ui-table-border > .ui-table-container { border: 1px solid #E0E0E0; }
+.ui-table-footer { border: 1px solid #E0E0E0; border-top: 0; height: 32px; }
+.ui-table-pagination { float: left; }
+.ui-table-pagination button { background-color: #FFF; border: 0; border-left: 1px solid #E0E0E0; height: 31px; width: 40px; color: black; font-size: 12px; text-align: center; outline: 0; }
+.ui-table-pagination button:hover { background-color: #F0F0F0; }
+.ui-table-pagination button:disabled { background-color: #F9F9F9; color: #A0A0A0; }
+.ui-table-pagination button:first-child { border-left: 0; }
+.ui-table-pagination button[name="page-prev"] { border-right: 1px solid #E0E0E0; width: 41px; }
+.ui-table-pagination button[name="page-last"] { border-right: 1px solid #E0E0E0; }
+.ui-table-pagination input { width: 40px; text-align: center; border: 0; outline: 0; font-size: 12px; padding: 0; margin: 0; background-color: transparent; }
+.ui-table-pagination > div { position: relative; display: inline-block; }
+.ui-table-pagination-items { float: right; font-size: 12px; margin: 7px 10px 0 0; font-weight: bold; }
+.ui-table-pagination-pages { float: left; font-size: 12px; margin: 7px 0 0 10px; }
 
-.ui-dark .ui-table-border > table { border: 1px solid #404040; }
-.ui-dark .ui-table-border .ui-table-thead > tr > th, .ui-table-border .ui-table-tbody > tr > td { border-left: 1px solid #404040; border-right: 1px solid #404040; }
+.ui-dark .ui-table-border > .ui-table-container { border-color: #404040; }
+.ui-dark .ui-table-border > .ui-table-headcontainer { border-color: #404040; }
+.ui-dark .ui-table-head .sort .fa-sort { color: white; }
+.ui-dark .ui-table-footer { border-color: #404040; }
+.ui-dark .ui-table-border .ui-table-headcontainer thead > tr > th, .ui-dark .ui-table-border .ui-table-tbody > tr > td { border-left: 1px solid #404040; border-right: 1px solid #404040; }
 .ui-dark .ui-table-thead th { padding: 8px 4px; border-bottom: 2px solid #404040; }
 .ui-dark .ui-table-tbody > tr { border-bottom: 1px solid #404040; }
 .ui-dark .ui-table-selectable .ui-table-tbody tr:hover { background-color: rgba(100,100,100,.2); }
 .ui-dark .ui-table-selected { background-color: rgba(100,100,100,.3) !important; }
 .ui-dark .ui-table-empty { border-top-color: #404040; border-bottom-color: #404040; }
+.ui-dark .ui-table-pagination button { background-color: #303030; color: #A0A0A0; border-color: #404040; }
+.ui-dark .ui-table-pagination button:hover { background-color: #404040; color: white; }
+.ui-dark .ui-table-pagination button:first-child { border-left-color: #404040; }
+.ui-dark .ui-table-pagination button[name="remove"] { background-color: #282828; color: red; }
+.ui-dark .ui-table-pagination button:disabled { background-color: #252525 !important; color: #505050 !important; }

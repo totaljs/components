@@ -2,7 +2,7 @@
 
 - please try to understand the functionality
 - `j-Table` is very very very simple alternative to `j-DataGrid` targeted for UI
-- `data-source` expects `Array`
+- `data-source` expects `Array` or `Object` with `{ page: 1, pages: 10, limit: 50, items: [], count: 1000 }`
 
 __Configuration__:
 
@@ -13,6 +13,11 @@ __Configuration__:
 - `exec` {String} a path to `function(row/rows)` or path to `variable`
 - `remember` {Boolean} enables remembering of last selected rows (default: `false`)
 - `pk` {String} a primary key (default: `id`)
+- `border` {Boolean} enables border (default: `false`)
+- __NEW__ `scrollbar` {Boolean} enables custom scrollbar (default: `false`) + important: `height` must be specified
+- __NEW__ `height` {Number/String} height of grid or can contain selector `window`, `parent` or custom selector `.ui-viewbox-body`
+- __NEW__ `paginate` {String} a link to `function(model)` for performing of pagination `{ page: 1, limit: 10, sort: [] }`
+- __NEW__ `sort` {String} a link to custom sort function `function(sort)` for performing of sort `{ name: 'prop_name', index: Number, type: 'asc' }`
 
 __Good to know__:
 
@@ -29,8 +34,10 @@ __HTML definition__:
 		data-head="TD1,TD2,TD3"      : column names, optional
 		data-align="TD1,TD2,TD3"     : column align, optional (0: left, 1: center, 2: right)
 		data-type="TYPE"             : can be "detail" (Tangular template) or "empty" (empty is rendered when the Array is empty)
+		data-display="MD,XS"         : can contain display types "LG" large, "MD" medium, "SM" small, "XS" extra small
+		data-sort="name,,price"      : enables sorting, can contain name of fields (a column with empty value will have disabled sorting)
 	-->
-	<script type="text/html" data-size="0,150px,50px" data-head="Name,Created,Opt" data-align="0,0,1">
+	<script type="text/html" data-size="0,150px,50px" data-head="Name,Created,Opt" data-align="0,0,1" data-sort="1">
 		<tr>
 			<td>{{ name }}</td>
 			<td>{{ dtcreated | format('[date]') }}</td>
