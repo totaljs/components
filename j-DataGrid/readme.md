@@ -116,6 +116,10 @@ __Properties__:
 
 - __NEW__ `component.meta` returns internal meta info about filters, columns and rows
 
+__Good to know__:
+
+- `NULL('link.to.data')` evaluates `config.exec`
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

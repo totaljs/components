@@ -61,6 +61,7 @@ __HTML definition__:
 __Good to know__:
 
 - `data-head` can contain Font Awesome icons, it must be wrapped like this `data-head="Name,'cog'"` or `data-name="Name,'youtube fab'"`
+- `NULL('link.to.data')` evaluates `config.paginate`
 
 ### Author
 
