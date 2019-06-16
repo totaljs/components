@@ -72,9 +72,15 @@ COMPONENT('markdown', function (self) {
 					responsive = false;
 					text = text.substring(1);
 				}
+			} else {
+				if ((/^#\d+$/).test(link)) {
+					// footnotes
+					return (/^\d+$/).test(text) ? '<sup data-id="{0}" class="footnote">{1}</sup>'.format(link.substring(1), text) : '<span data-id="{0}" class="footnote">{1}</span>'.format(link.substring(1), text);
+				}
 			}
 
-			return img ? ('<img src="' + link + '" alt="' + text + '"' + (responsive ? ' class="img-responsive"' : '') + ' border="0" />') : ('<a href="' + link + '" target="_blank">' + text + '</a>');
+			var nofollow = link.charAt(0) === '@' ? 'rel="nofollow"' : 'target="_blank"';
+			return img ? ('<img src="' + link + '" alt="' + text + '"' + (responsive ? ' class="img-responsive"' : '') + ' border="0" />') : ('<a href="' + link + '" ' + nofollow + '>' + text + '</a>');
 		}
 
 		function markdown_links2(value) {
@@ -88,15 +94,27 @@ COMPONENT('markdown', function (self) {
 			var n = text.charAt(index + value.length);
 
 			if ((!p || regemptychar.test(p)) && (!n || regemptychar.test(n))) {
-				switch (value.charAt(0)) {
-					case '_':
-						return '<strong>' + value.replace(formatclean, '') + '</strong>';
-					case '*':
-						return '<em>' + value.replace(formatclean, '') + '</em>';
-					case '~':
-						return '<strike>' + value.replace(formatclean, '') + '</strike>';
+
+				var beg = '';
+				var end = '';
+
+				if (value.indexOf('*') !== -1) {
+					beg += '<em>';
+					end = '</em>' + end;
 				}
+				if (value.indexOf('_') !== -1) {
+					beg += '<strong>';
+					end = '</strong>' + end;
+				}
+
+				if (value.indexOf('~') !== -1) {
+					beg += '<strike>';
+					end = '</strike>' + end;
+				}
+
+				return beg + value.replace(formatclean, '') + end;
 			}
+
 			return value;
 		}
 
@@ -132,6 +150,20 @@ COMPONENT('markdown', function (self) {
 			return value.substring(0, beg - 1) + '<i class="fa fa-' + value.substring(beg, end) + '"></i>' + value.substring(end + 1);
 		}
 
+		function markdown_urlify(str) {
+			return str.replace(/(^|\s)+(((https?:\/\/)|(www\.))[^\s]+)/g, function(url, b, c) {
+				var len = url.length;
+				var l = url.charAt(len - 1);
+				var f = url.charAt(0);
+				if (l === '.' || l === ',')
+					url = url.substring(0, len - 1);
+				else
+					l = '';
+				url = (c === 'www.' ? 'http://' + url : url).trim();
+				return (f.charCodeAt(0) < 40 ? f : '') + '[' + url + '](' + url + ')' + l;
+			});
+		}
+
 		String.prototype.markdown = function(opt) {
 
 			// opt.wrap = true;
@@ -147,9 +179,20 @@ COMPONENT('markdown', function (self) {
 			// opt.headlines = true;
 			// opt.hr = true;
 			// opt.blockquotes = true;
+			// opt.sections = true;
 			// opt.custom
+			// opt.footnotes = true;
+			// opt.urlify = true;
 
-			var lines = this.split('\n');
+			var str = this;
+
+			if (!opt)
+				opt = {};
+
+			if (opt.urlify !== false && opt.links !== false)
+				str = markdown_urlify(str);
+
+			var lines = str.split('\n');
 			var builder = [];
 			var ul = [];
 			var table = false;
@@ -158,9 +201,6 @@ COMPONENT('markdown', function (self) {
 			var prev;
 			var prevsize = 0;
 			var tmp;
-
-			if (!opt)
-				opt = {};
 
 			if (opt.wrap == null)
 				opt.wrap = true;
@@ -187,7 +227,7 @@ COMPONENT('markdown', function (self) {
 
 					if (iscode) {
 						if (opt.code !== false)
-							builder.push('</code></pre>');
+							builder.push('</code></pre></div>');
 						iscode = false;
 						continue;
 					}
@@ -195,7 +235,7 @@ COMPONENT('markdown', function (self) {
 					closeul();
 					iscode = true;
 					if (opt.code !== false)
-						tmp = '<pre><code class="lang-' + lines[i].substring(3) + '">';
+						tmp = '<div class="code"><pre><code class="lang-' + lines[i].substring(3) + '">';
 					prev = 'code';
 					continue;
 				}
@@ -328,10 +368,26 @@ COMPONENT('markdown', function (self) {
 					continue;
 				}
 
+				// footnotes
+				if ((/^#\d+:(\s)+/).test(line)) {
+					if (opt.footnotes !== false) {
+						tmp = line.indexOf(':');
+						builder.push('<div class="footnotebody" data-id="{0}"><span>{0}:</span> {1}</div>'.format(line.substring(1, tmp).trim(), line.substring(tmp + 1).trim()));
+					}
+					continue;
+				}
+
 				if (line.substring(0, 5) === '&gt; ') {
 					if (opt.blockquotes !== false)
 						builder.push('<blockquote>' + line.substring(5).trim() + '</blockquote>');
 					prev = '>';
+					continue;
+				}
+
+				if (line.substring(0, 5) === '&lt; ') {
+					if (opt.sections !== false)
+						builder.push('<section>' + line.substring(5).trim() + '</section>');
+					prev = '<';
 					continue;
 				}
 
