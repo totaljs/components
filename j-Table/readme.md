@@ -17,7 +17,8 @@ __Configuration__:
 - __NEW__ `scrollbar` {Boolean} enables custom scrollbar (default: `false`) + important: `height` must be specified
 - __NEW__ `height` {Number/String} height of grid or can contain selector `window`, `parent` or custom selector `.ui-viewbox-body`
 - __NEW__ `paginate` {String} a link to `function(model)` for performing of pagination `{ page: 1, limit: 10, sort: [] }`
-- __NEW__ `sort` {String} a link to custom sort function `function(sort)` for performing of sort `{ name: 'prop_name', index: Number, type: 'asc' }`
+- __NEW__ `redraw` {String} a link to function, it's evaluated when the table is redrawing
+- __NEW__ `filter` {String} a link to function, it's evaluated before the table is rendering
 
 __Good to know__:
 
@@ -56,6 +57,10 @@ __HTML definition__:
 
 </div>
 ```
+
+__Good to know__:
+
+- `data-head` can contain Font Awesome icons, it must be wrapped like this `data-head="Name,'cog'"` or `data-name="Name,'youtube fab'"`
 
 ### Author
 

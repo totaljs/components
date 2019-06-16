@@ -1546,7 +1546,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 					dis = value.page === 1;
 					break;
 				case 'page-last':
-					dis = value.page === value.pages;
+					dis = !value.page || value.page === value.pages;
 					break;
 				case 'page-first':
 					dis = value.page === 1;
