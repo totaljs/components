@@ -1,6 +1,21 @@
+<div data---="info"></div>
 <div data---="markdown"></div>
+
 <div data-bind="markdown__html:value.markdown()"></div>
 
 <script>
-	var markdown = '# Hello world\nLorem ipsum dolor sit amet, **consectetur** adipisicing elit. Eius, ~~illo~~.\n\n```javascript \nalert(\'Markdown Preview\');\n```';
+	var markdown = '# Hello world\nLorem ipsum dolor sit amet, **consectetur** adipisicing elit. [Eius](#1), ~~illo~~.\n\n```javascript \nalert(\'Markdown Preview\');\n```\n\n#1: footnote';
+
+	$(document).on('mouseenter mouseleave click', '.footnote', function(e) {
+		if (e.type === 'mouseenter' || e.type === 'click') {
+			var el = $(this);
+			var opt = {};
+			opt.element = this;
+			opt.offsetX = 10;
+			opt.html = $('.footnotebody[data-id="{0}"]'.format(el.attrd('id'))).html();
+			SETTER('info', 'show', opt);
+		} else
+			SETTER('!info', 'hide', true);
+	});
+
 </script>
