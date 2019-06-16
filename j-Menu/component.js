@@ -213,6 +213,7 @@ COMPONENT('menu', function(self) {
 		var css = {};
 		children.aclass('hidden');
 		children.find('ul').empty();
+		clearTimeout2(self.ID);
 
 		ul.html(self.makehtml(opt.items));
 
