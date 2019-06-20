@@ -21,6 +21,7 @@ __Methods__:
 
 - `component.add(object)` - This function will push object into path (can be null)
 - `component.edit(index)` - Function will enable edit on element
+- `component.remove(index)` - Function will remove the index
 
 __Good to know__:
 

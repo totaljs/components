@@ -46,29 +46,24 @@ COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:p
 
 		self.event('keydown', 'input', function(event) {
 			if (event.which === 13) {
+				self.save();
+			}
+			else if (event.which === 27) {
 				var parent = $(this).closest(cls2 + '-item');
-				var value = parent.find('input').val();
-				var cur = self.get();
-				var index = parent.attrd('index');
-				var key = config.key || 'name';
-
-				if (!value.trim().length)
-					return;
-
-				cur[index][key] = value;
-				self.set(cur);
+				parent.find(cls2 + '-deleteicon').click();
 			}
 		});
 
 		self.event('click', cls2 + '-item ' + cls2 + '-icon', function() {
 			var parent = $(this).closest(cls2 + '-item');
-			config.editclick && EXEC(config.editclick, parent, parent.attrd('index'));
+			config.editclick && EXEC(config.editclick, parent, parent.attrd('index'), $(this));
 		});
 
 		self.event('click', cls2 + '-deleteicon', function() {
 			var parent = $(this).closest(cls2 + '-item');
 			var cur = self.get();
 			var index = parseInt(parent.attrd('index'));
+			editing = null;
 
 			if (index === last) {
 				cur.splice(index, 1);
@@ -81,15 +76,39 @@ COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:p
 		});
 	};
 
-	self.edit = function(index) {
-		if (index == null || editing != null)
+	self.save = function() {
+		var parent = editing.closest(cls2 + '-item');
+		var value = editing.val();
+		var cur = self.get();
+		var index = parent.attrd('index');
+		var key = config.key || 'name';
+		editing = null;
+		cur[index][key] = value;
+		self.set(cur);
+	};
+
+	self.remove = function(index) {
+
+		if (index == null)
 			return;
+
+		var cur = self.get();
+		cur.splice(index, 1);
+		self.set(cur);
+	};
+
+	self.edit = function(index) {
+		if (index == null)
+			return;
+
+		if (editing)
+			self.save();
 
 		var el = container.find(cls2 + '-item[data-index="' + index + '"]');
 		var text = self.get()[index];
 		var key = config.key || 'name';
 		el.replaceWith(self.templateinput({ text: text[key] || '', index: index }));
-		editing = index;
+		editing = container.find('input');
 
 		setTimeout2(self.id + 'focus', function() {
 			container.find('input').focus();

@@ -1,3 +1,6 @@
+<!-- EXAMPLE DEPENDENCIES -->
+<div data---="menu"></div>
+
 <div style="width: 400px;">
 	<div data---="listmenueditable__tags__title:All tags;editclick:edit;addclick:add;click:click">
 		<script type="text/html">
@@ -13,13 +16,25 @@
 	var tags = [{ name: 'Tag 1', mycolor: '#00B9D7', editable: true, classname: 'customclass', mycustomdata: 'ola' }, { name: 'Tag 2', mycolor: '#00A06E', editable: true, mycustomdata: 'ola2' }];
 
 	function click(el, item, index) {
-		alert('clicked index ' + index);
-		console.log(el);
-		console.log(item);
+		console.log('clicked index', index, 'item', item);
 	}
 
-	function edit(el, index) {
-		SETTER('listmenueditable', 'edit', index);
+	function edit(el, index, icon) {
+		var opt = {};
+		opt.items = [{ name: 'Edit', id: 'edit' }, { name: 'Remove', icon: 'trash', id: 'remove' }];
+		opt.align = 'center';
+		opt.element = icon;
+		opt.callback = function(selected) {
+			switch (selected.id) {
+				case 'edit':
+					SETTER('listmenueditable', 'edit', index);
+					break;
+				case 'remove':
+					SETTER('listmenueditable', 'remove', index);
+					break;
+			}
+		};
+		SETTER('menu', 'show', opt);
 	}
 
 	function add() {
