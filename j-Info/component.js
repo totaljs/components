@@ -3,11 +3,17 @@ COMPONENT('info', function(self) {
 	var cls = 'ui-info';
 	var is = false;
 	var canhide = false;
-	var timeout, templates = {};
+	var timeout;
+	var events = {};
+	var templates = {};
 
 	self.singleton();
 	self.readonly();
 	self.blind();
+
+	events.scroll = function() {
+		events.is && self.forcehide();
+	};
 
 	self.make = function() {
 
@@ -26,6 +32,7 @@ COMPONENT('info', function(self) {
 				timeout = null;
 			}
 		});
+
 	};
 
 	var ehide = function() {
@@ -33,13 +40,21 @@ COMPONENT('info', function(self) {
 	};
 
 	self.bindevents = function() {
+		if (events.is)
+			return;
+		events.is = true;
 		$(document).on('touchstart mousedown', ehide);
-		$(W).on('scroll', ehide);
+		$(W).on('scroll', events.scroll);
+		ON('scroll', events.scroll);
 	};
 
 	self.unbindevents = function() {
+		if (!events.is)
+			return;
+		events.is = false;
 		$(document).off('touchstart mousedown', ehide);
-		$(W).off('scroll', ehide);
+		$(W).off('scroll', events.scroll);
+		OFF('scroll', events.scroll);
 	};
 
 	self.show = function(opt) {
@@ -81,7 +96,7 @@ COMPONENT('info', function(self) {
 		}
 
 		if (!opt.minwidth)
-			opt.minwidth = 100;
+			opt.minwidth = 150;
 
 		if (!opt.maxwidth)
 			opt.maxwidth = 280;
@@ -92,7 +107,7 @@ COMPONENT('info', function(self) {
 
 		var offset = target.offset();
 		var options = {};
-		var width = self.element.width() + (opt.offsetWidth || 0);
+		var width = self.element.innerWidth() + (opt.offsetWidth || 0);
 
 		if (opt.maxwidth && width > opt.maxwidth)
 			options.width = width = opt.maxwidth;
@@ -115,11 +130,10 @@ COMPONENT('info', function(self) {
 			options.left = 0;
 
 		self.element.css(options);
+		self.bindevents();
 
 		if (is)
 			return;
-
-		self.bindevents();
 
 		setTimeout(function() {
 			self.aclass(cls + '-visible');
@@ -128,22 +142,30 @@ COMPONENT('info', function(self) {
 		is = true;
 	};
 
+	self.forcehide = function() {
+
+		self.unbindevents();
+		self.rclass(cls + '-visible').aclass('hidden', 100);
+
+		if (self.opt) {
+			self.opt.class && self.rclass(self.opt.class);
+			self.opt.callback && self.opt.callback();
+		}
+
+		self.target = null;
+		self.opt = null;
+		is = false;
+	};
+
 	self.hide = function(sleep) {
-		if (!is || !canhide)
+
+		if (!is || (!canhide && sleep !== true))
 			return;
+
+		if (sleep == true)
+			sleep = 1000;
+
 		clearTimeout(timeout);
-		timeout = setTimeout(function() {
-			self.unbindevents();
-			self.rclass(cls + '-visible').aclass('hidden', 100);
-
-			if (self.opt) {
-				self.opt.class && self.rclass(self.opt.class);
-				self.opt.callback && self.opt.callback();
-			}
-
-			self.target = null;
-			self.opt = null;
-			is = false;
-		}, sleep ? sleep : 100);
+		timeout = setTimeout(self.forcehide, sleep > 0 ? sleep : 800);
 	};
 });
