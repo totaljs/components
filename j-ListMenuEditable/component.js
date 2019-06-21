@@ -44,13 +44,15 @@ COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:p
 			config.addclick && EXEC(config.addclick);
 		});
 
-		self.event('keydown', 'input', function(event) {
-			if (event.which === 13) {
-				self.save();
-			}
-			else if (event.which === 27) {
-				var parent = $(this).closest(cls2 + '-item');
-				parent.find(cls2 + '-deleteicon').click();
+		self.event('keydown', 'input', function(e) {
+			switch (e.which) {
+				case 13:
+					self.save();
+					break;
+				case 27:
+					var parent = $(this).closest(cls2 + '-item');
+					parent.find(cls2 + '-deleteicon').click();
+					break;
 			}
 		});
 
@@ -68,11 +70,10 @@ COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:p
 			if (index === last) {
 				cur.splice(index, 1);
 				self.set(cur);
-				return;
+			} else {
+				var tmp = self.itemtemplate();
+				parent.replaceWith(tmp(cur[index]));
 			}
-
-			var itemtemplate = self.itemtemplate();
-			parent.replaceWith(itemtemplate(cur[index]));
 		});
 	};
 
@@ -127,8 +128,8 @@ COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:p
 	};
 
 	self.itemtemplate = function() {
-		var itemtemplate = config.key ? Tangular.compile(template.replace(/\{\{\sname/g, '{{ ' + config.key)) : self.template;
-		return itemtemplate;
+		var tmp = config.key ? Tangular.compile(template.replace(/\{\{\sname/g, '{{ ' + config.key)) : self.template;
+		return tmp;
 	};
 
 	self.setter = function(value) {
@@ -136,7 +137,7 @@ COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:p
 			return;
 
 		var builder = [];
-		var itemtemplate = self.itemtemplate();
+		var tmp = self.itemtemplate();
 		last = editing = null;
 
 		for (var i = 0; i < value.length; i++) {
@@ -145,7 +146,7 @@ COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:p
 			item.icon = config.defaulticon;
 			if (selected != null && selected == i)
 				item.selected = true;
-			builder.push(itemtemplate(item));
+			builder.push(tmp(item));
 		}
 
 		if (container == null)
