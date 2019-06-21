@@ -53,11 +53,11 @@ COMPONENT('menu', function(self) {
 
 		events.click = function(e) {
 			if (is && !isopen && (!self.target || (self.target !== e.target && !self.target.contains(e.target))))
-				setTimeout2(self.ID, self.hide, 100);
+				setTimeout2(self.ID, self.hide, 300);
 		};
 
 		events.hidechildren = function() {
-			if ($(this.parentNode.parentNode).hclass('ui-menu-items')) {
+			if ($(this.parentNode.parentNode).hclass(cls + '-items')) {
 				if (prevsub && prevsub[0] !== this) {
 					prevsub.rclass(cls + '-selected');
 					prevsub = null;
@@ -69,12 +69,8 @@ COMPONENT('menu', function(self) {
 
 		events.children = function() {
 
-			if (prevsub) {
+			if (prevsub && prevsub[0] !== this) {
 				prevsub.rclass(cls + '-selected');
-				if (prevsub[0] === this) {
-					prevsub = null;
-					return;
-				}
 				prevsub = null;
 			}
 
@@ -116,8 +112,8 @@ COMPONENT('menu', function(self) {
 
 	self.bindevents = function() {
 		events.is = true;
-		$(document).on('touchstart mousedown', events.click);
 		$(document).on('touchstart mouseenter mousedown', cls2 + '-children', events.children);
+		$(document).on('touchstart mousedown', events.click);
 		$(window).on('scroll', events.hide);
 		self.element.on('mouseenter', 'li', events.hidechildren);
 	};
