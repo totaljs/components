@@ -19,7 +19,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 
 	self.make = function() {
 
-		self.aclass(cls + ' invisible' + (config.detail ? (' ' + cls + '-detailed') : '') + ((config.highlight || config.click) ? (' ' + cls + '-selectable') : '') + (config.border ? (' ' + cls + '-border') : ''));
+		self.aclass(cls + ' invisible' + (config.detail ? (' ' + cls + '-detailed') : '') + ((config.highlight || config.click || config.exec) ? (' ' + cls + '-selectable') : '') + (config.border ? (' ' + cls + '-border') : ''));
 
 		self.find('script').each(function() {
 
@@ -324,7 +324,6 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 			self.find(cls2 + '-container').css('height', el.height() - header.height() - footer - 2 - config.margin);
 		}
 
-		// config.height && self.fillempty();
 		self.scrollbar && self.scrollbar.resize();
 	};
 
@@ -501,6 +500,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 			return;
 		}
 
+
 		var data = value ? value.items ? value.items : value : value;
 		var empty = !data || !data.length;
 		var clsh = 'hidden';
@@ -550,7 +550,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 		setTimeout(self.resize, 100);
 
 		opt.display = display;
-		opt.items = data.slice(0);
+		opt.items = data ? data.slice(0) : 0;
 		opt.data = value;
 		opt.selindex = -1;
 		opt.selrow = null;
