@@ -1,11 +1,13 @@
 COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;limit:0;selectedtext:{0} selected', function(self, config) {
 
+	var cls = 'ui-dropdowncheckbox';
+	var cls2 = '.' + cls;
 	var data = [], render = '';
 	var container, values, content, datasource = null;
 	var prepared = false;
 	var W = window;
 
-	!W.$dropdowncheckboxtemplate && (W.$dropdowncheckboxtemplate = Tangular.compile('<div class="ui-dropdowncheckbox-item" data-index="{{ index }}"><div><i class="fa fa-{{ $.checkicon }}"></i></div><span>{{ text }}</span></div>'));
+	!W.$dropdowncheckboxtemplate && (W.$dropdowncheckboxtemplate = Tangular.compile('<div class="' + cls + '-item" data-index="{{ index }}"><div><i class="fa fa-{{ $.checkicon }}"></i></div><span>{{ text }}</span></div>'));
 	var template = W.$dropdowncheckboxtemplate;
 
 	self.nocompile && self.nocompile();
@@ -28,7 +30,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 				break;
 
 			case 'required':
-				self.tclass('ui-dropdowncheckbox-required', config.required);
+				self.tclass(cls + '-required', config.required);
 				break;
 
 			case 'label':
@@ -81,17 +83,17 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 
 	self.redraw = function() {
 
-		var html = '<div class="ui-dropdowncheckbox"><span class="fa fa-caret-down"></span><div class="ui-dropdowncheckbox-selected"></div></div><div class="ui-dropdowncheckbox-values hidden">{0}</div>'.format(render);
+		var html = '<div class="{0}"><i class="fa fa-angle-down"></i><div class="{0}-selected"></div></div><div class="{0}-values hidden">{1}</div>'.format(cls, render);
 		if (content.length)
-			self.html('<div class="ui-dropdowncheckbox-label">{0}{1}:</div>'.format(config.icon ? ('<i class="fa fa-' + config.icon + '"></i>') : '', content) + html);
+			self.html('<div class="{0}-label">{1}{2}:</div>'.format(cls, config.icon ? ('<i class="fa fa-' + config.icon + '"></i>') : '', content) + html);
 		else
 			self.html(html);
 
-		container = self.find('.ui-dropdowncheckbox-values');
-		values = self.find('.ui-dropdowncheckbox-selected');
+		container = self.find(cls2 + '-values');
+		values = self.find(cls2 + '-selected');
 		prepared && self.refresh();
 		self.tclass('ui-disabled', config.disabled === true);
-		self.tclass('ui-dropdowncheckbox-required', config.required === true);
+		self.tclass(cls + '-required', config.required === true);
 	};
 
 	self.make = function() {
@@ -99,7 +101,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 		self.type = config.type;
 
 		content = self.html();
-		self.aclass('ui-dropdowncheckbox-container');
+		self.aclass(cls + '-container');
 		self.redraw();
 
 		if (config.items)
@@ -109,7 +111,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 		else
 			self.bind('', null);
 
-		self.event('click', '.ui-dropdowncheckbox', function(e) {
+		self.event('click', cls2, function(e) {
 
 			if (config.disabled)
 				return;
@@ -125,7 +127,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 			e.stopPropagation();
 		});
 
-		self.event('click', '.ui-dropdowncheckbox-item', function(e) {
+		self.event('click', cls2 + '-item', function(e) {
 
 			e.stopPropagation();
 
@@ -133,7 +135,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 				return;
 
 			var el = $(this);
-			var is = !el.hclass('ui-dropdowncheckbox-checked');
+			var is = !el.hclass(cls + '-checked');
 			var index = +el.attrd('index');
 			var value = data[index];
 
@@ -163,7 +165,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 	};
 
 	self.bind = function(path, value) {
-		var clsempty = 'ui-dropdowncheckbox-values-empty';
+		var clsempty = cls + '-values-empty';
 
 		if (value !== undefined)
 			prepared = true;
@@ -243,7 +245,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 			}
 		}
 
-		container.find('.ui-dropdowncheckbox-item').each(function() {
+		container.find(cls2 + '-item').each(function() {
 			var el = $(this);
 			var index = +el.attrd('index');
 			var checked = false;
@@ -252,7 +254,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 			else if (data[index])
 				checked = data[index];
 			checked && (checked = value.indexOf(checked.value) !== -1);
-			el.tclass('ui-dropdowncheckbox-checked', checked);
+			el.tclass(cls + '-checked', checked);
 		});
 
 		if (!label && value && config.cleaner !== false) {
@@ -281,17 +283,16 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		self.tclass('ui-dropdowncheckbox-invalid', invalid);
+		self.tclass(cls + '-invalid', invalid);
 	};
 
-	if (W.$dropdowncheckboxevent)
-		return;
-
-	W.$dropdowncheckboxevent = true;
-	$(document).on('click', function() {
-		if (W.$dropdowncheckboxelement) {
-			W.$dropdowncheckboxelement.aclass('hidden');
-			W.$dropdowncheckboxelement = null;
-		}
-	});
+	if (!W.$dropdowncheckboxevent) {
+		W.$dropdowncheckboxevent = true;
+		$(document).on('click', function() {
+			if (W.$dropdowncheckboxelement) {
+				W.$dropdowncheckboxelement.aclass('hidden');
+				W.$dropdowncheckboxelement = null;
+			}
+		});
+	}
 });
