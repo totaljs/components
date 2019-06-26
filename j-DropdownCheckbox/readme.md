@@ -1,5 +1,7 @@
 ## j-DropdownCheckbox
 
+- __NEW__ now supports dark mode
+
 __Configuration__:
 
 - `required` {Boolean} (optional) enables "required" (default: `false`)
@@ -16,6 +18,7 @@ __Configuration__:
 - `visible` {Number} (optional) sets a maximum visible items then show `X selected` (default: `0`)
 - `selectedtext` {String} (optional) sets a message for maximum visible items e.g. `{0} selected from {1}` (default: `{0} selected`)
 - `alltext` {String} (optional) when all items are selected this is showed (default: `All selected` you can disable it with `null`)
+- `placeholder` {String} (optional) sets a text for placeholder
 
 ### Author
 

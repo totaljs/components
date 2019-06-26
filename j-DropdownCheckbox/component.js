@@ -265,7 +265,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 
 		if (!label && config.placeholder) {
 			values.rattr('title', '');
-			values.html('<span>{0}</span>'.format(config.placeholder));
+			values.html('<span class="{1}-placeholder">{0}</span>'.format(config.placeholder, cls));
 		} else {
 			if (count == data.length && config.alltext !== 'null' && config.alltext)
 				label = config.alltext;
