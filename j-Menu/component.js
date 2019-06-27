@@ -30,7 +30,6 @@ COMPONENT('menu', function(self) {
 			} else {
 
 				var index = el.attrd('index').split('-');
-
 				if (index.length > 1) {
 					// submenu
 					self.opt.callback(self.opt.items[+index[0]].children[+index[1]]);
@@ -172,7 +171,7 @@ COMPONENT('menu', function(self) {
 			if (item.note)
 				tmp += '<div class="ui-menu-note">{0}</div>'.format(item.note);
 
-			builder.push('<li class="{0}" data-index="{2}">{1}</li>'.format(cn, tmp, (index ? (index + '-') : '') + i));
+			builder.push('<li class="{0}" data-index="{2}">{1}</li>'.format(cn, tmp, (index != null ? (index + '-') : '') + i));
 		}
 
 		return builder.join('');
