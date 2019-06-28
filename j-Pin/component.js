@@ -1,4 +1,4 @@
-COMPONENT('pin', 'blank:●;count:6;hide:false', function(self, config) {
+COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true', function(self, config) {
 
 	var reg_validation = /[0-9]/;
 	var inputs = null;
@@ -45,10 +45,16 @@ COMPONENT('pin', 'blank:●;count:6;hide:false', function(self, config) {
 				if (t.value !== c)
 					t.value = c;
 
-				if (config.hide) {
-					self.maskforce(t);
-				} else
-					self.mask();
+				if (config.mask) {
+					if (config.hide) {
+						self.maskforce(t);
+					} else
+						self.mask();
+				}
+				else {
+					t.setAttribute('data-value', t.value);
+					self.getter();
+				}
 
 				setTimeout(function(el) {
 					var next = el.parent().next().find('input');
@@ -80,13 +86,13 @@ COMPONENT('pin', 'blank:●;count:6;hide:false', function(self, config) {
 		if (input.value && reg_validation.test(input.value)) {
 			input.setAttribute('data-value', input.value);
 			input.value = config.blank;
+			self.getter();
 		}
 	};
 
 	self.mask = function() {
 		setTimeout2(self.id + '.mask', function() {
 			inputs.each(self.maskforce2);
-			self.getter();
 		}, 300);
 	};
 
