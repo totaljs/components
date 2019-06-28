@@ -1,0 +1,19 @@
+{
+	"datecreated": "2019-06-28T16:06:00.000Z",
+	"dateupdated": null,
+	"name": "j-FixedModal",
+	"tags": [
+		"modal",
+		"window",
+		"form"
+	],
+	"color": "white",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}
