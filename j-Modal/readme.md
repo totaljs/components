@@ -3,8 +3,6 @@
 Is a simple alternative to `j-Form`.
 
 - Works only with `+v17` [jComponent](http://jcomponent.org)
-- __Download__ [jComponent with Tangular (jcta.min.js)](https://github.com/petersirka/jComponent)
-- Works with Bootstrap
 - The component moves the content of this component under `<body>` tag (because of positioning)
 
 __Configuration__:
@@ -34,7 +32,7 @@ The content of the `j-Modal` is divided to 3 parts: `header`, `body` and `footer
 This component supports dynamic evaluation of the content of `<script type="text/html">`. The example below contains a script with HTML and the component evaluates the content if the j-Modal will be displayed (only once).
 
 ```html
-<div data-jc="modal__path__config">
+<div data---="modal__path__config">
 	<script type="text/html">
 		A CONTENT
 	</script>
