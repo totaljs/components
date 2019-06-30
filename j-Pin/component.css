@@ -5,5 +5,5 @@
 .ui-disabled .ui-pin-input input { background-color: #F0F0F0; cursor: not-allowed; color: gray; }
 .ui-dark .ui-pin-input { background-color: #252525; border-color: #353535; }
 .ui-dark .ui-pin-input input { background-color: #252525; color: white; }
-.ui-disabled .ui-pin-input { background-color: #282828; border-color: #282828; }
-.ui-disabled .ui-pin-input input { background-color: #282828; cursor: not-allowed; color: gray; }
+.ui-dark .ui-disabled .ui-pin-input { background-color: #282828; border-color: #282828; }
+.ui-dark .ui-disabled .ui-pin-input input { background-color: #282828; color: gray; }
