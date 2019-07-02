@@ -109,7 +109,7 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 		} else {
 			if (top < 20) {
 				top = 20;
-				h -= 30;
+				h -= 27;
 			}
 		}
 
