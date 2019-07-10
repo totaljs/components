@@ -20,6 +20,7 @@ __Configuration__:
 - `default` {String} a short alias for `DEFAULT(default, true)`
 - `zindex` {Number} can affect z-index (default: `12`)
 - `align` {Number} aligns modal `0` centered (default), `1` right bottom, `2` left bottom, `3` left top, `4` right top
+- `height` {Number} a min. height if the content has less size than defined `height`
 - __NEW__ `bg` {Boolean} can enable/disable a background layer (default: `true`)
 - __NEW__ `scrollbar` {Boolean} can enable/disable the scrollbar (default: `false`)
 

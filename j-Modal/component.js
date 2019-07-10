@@ -120,7 +120,16 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 		emodal.css(css);
 
 		if (config.scrollbar) {
-			earea.css({ height: h - hh - hf, width: width });
+			var nh = 0;
+			if (config.height && (hb - hh - hf) < config.height) {
+				if (config.height < (h - hh - hf))
+					nh = config.height;
+				else
+					nh = h - hh - hf;
+			} else
+				nh = h - hh - hf;
+
+			earea.css({ height: nh, width: width });
 			self.scrollbar && self.scrollbar.resize();
 		} else {
 			earea[0].$noscrollbarwidth = 0;
