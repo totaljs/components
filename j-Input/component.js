@@ -336,7 +336,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 	self.validate = function(value) {
 
-		if (!config.required || config.disabled)
+		if ((!config.required || config.disabled) && !self.forcedvalidation())
 			return true;
 
 		if (config.dirsource)
@@ -625,11 +625,15 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 	self.state = function(type) {
 		if (!type)
 			return;
-		var invalid = config.required ? self.isInvalid() : false;
+		var invalid = config.required ? self.isInvalid() : self.forcedvalidation() ? self.isInvalid() : false;
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
 		self.tclass(cls + '-invalid', invalid);
 		config.error && self.find(cls2 + '-error').tclass('hidden', !invalid);
+	};
+
+	self.forcedvalidation = function() {
+		return (self.type === 'phone' || self.type === 'email');
 	};
 });
