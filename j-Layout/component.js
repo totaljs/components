@@ -267,14 +267,17 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 		var size = getSize(d, tmp);
 		var keys = Object.keys(s);
 
+		height -= config.margin;
 		resizecache = key;
-		self.css({ width: width, height: height - config.margin });
+		self.css({ width: width, height: height });
 
 		for (var i = 0; i < keys.length; i++) {
 			var key = keys[i];
 			el = s[key];
 			self.update(key, size[key] ? size[key] : settings[key]);
 		}
+
+		config.resize && EXEC(config.resize, d, width, height);
 	};
 
 	var parseSize = function(val, size) {
