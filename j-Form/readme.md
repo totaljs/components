@@ -1,6 +1,5 @@
 ## j-Form
 
-- Works only with `+v11.1.0` [jComponent](http://jcomponent.org)
 - The component moves the content of this component under `<body>` tag (because of positioning)
 
 __Configuration__:

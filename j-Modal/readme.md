@@ -2,7 +2,7 @@
 
 Is a simple alternative to `j-Form`.
 
-- Works only with `+v17` [jComponent](http://jcomponent.org)
+- Works only with `+v17`
 - The component moves the content of this component under `<body>` tag (because of positioning)
 
 __Configuration__:

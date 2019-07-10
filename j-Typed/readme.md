@@ -1,6 +1,5 @@
 ## j-Typed
 
-- Works only with [jComponent](http://jcomponent.org)
 - Based on [typed.js](https://github.com/mattboldt/typed.js/) by [Matt Boldt](https://github.com/mattboldt)
 - Value must be __array__
 
