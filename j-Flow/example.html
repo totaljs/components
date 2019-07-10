@@ -1,0 +1,30 @@
+<div>
+	<button disabled="disabled" data-bind="floweditor.undo__enabled:value && value.length > 0__click:floweditor_undo"><i class="fa fa-undo"></i></button>
+	<button disabled="disabled" data-bind="floweditor.redo__enabled:value && value.length > 0__click:floweditor_redo"><i class="fa fa-redo"></i></button>
+	<button disabled="disabled" data-bind="floweditor.info.selected__enabled__click:floweditor_remove"><i class="fa fa-trash-o"></i></button>
+</div>
+
+<div data---="flow__flowmodel__width:6000;height:6000;grid:26;infopath:floweditor.info;undopath:floweditor.undo;redopath:floweditor.redo"></div>
+
+<script>
+
+	var flowmodel = {
+		'F1562743923216': { x: 100, y: 50, html: 'Component 1', outputs: ['Done', 'Error'], connections: { '0': [{ id: 'F1562743965303', index: '2', disabled: false }] }},
+		'F1562743965303': { x: 200, y: 300, html: 'Component 2', inputs: ['1', '2', '3'] }
+	};
+
+	var floweditor = {};
+
+	function floweditor_undo() {
+		CMD('flow.undo');
+	}
+
+	function floweditor_redo() {
+		CMD('flow.redo');
+	}
+
+	function floweditor_remove() {
+		CMD('flow.selected.clear');
+	}
+
+</script>

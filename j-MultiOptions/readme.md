@@ -1,7 +1,5 @@
 ## j-MultiOptions
 
-- Works only with [jComponent](http://jcomponent.org)
-- __Download__ [jComponent with Tangular (jcta.min.js)](https://github.com/petersirka/jComponent)
 - Works with Bootstrap
 - It expects the whole object with `key`: `value`
 - HTML body of the jComponent has to be `<script type="text/plain>` with (JavaScript) mapping

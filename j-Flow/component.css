@@ -1,0 +1,20 @@
+.ui-flow { position: relative; transform-origin: top left; transition: transform 0.3s; }
+.ui-flow .trigger { position: absolute; left: 50px; top: 30px; border: 1px solid #E0E0E0; background-color: white; border-radius: 2px; box-shadow: 1px 1px 10px rgba(0,0,0,0.03); }
+.ui-flow .component { position: absolute; left: 150px; top: 150px; border: 2px solid #E0E0E0; background-color: white; border-radius: 2px; box-shadow: 1px 1px 10px rgba(0,0,0,0.03); }
+.ui-flow .inputs { position: absolute; width: 100%; top: -8px; left: 4px; }
+.ui-flow .input { float: left; font-size: 11px; color: #A0A0A0; margin-right: 5px; }
+.ui-flow .outputs { position: absolute; width: 100%; margin: -13px 0 0 10px; }
+.ui-flow .output { float: left; border-radius: 2px; background-color: white; padding: 2px 5px; font-size: 11px; border: 1px solid #E0E0E0; margin-right: 5px; color: gray; }
+.ui-flow .output i { margin-right: 5px; }
+.ui-flow .content { padding: 10px 12px 10px; min-width: 200px; min-height: 30px; cursor: default; }
+.ui-flow .output.connected { border-color: black; color: black; }
+.ui-flow .output.connected i { color: #68B25B; }
+.ui-flow .input.connected i { color: #68B25B; }
+.ui-flow .connection { stroke-width: 2; stroke: black; fill: none; }
+.ui-flow .connection-draft { stroke: #4285F4; }
+.ui-flow .component-selected { border-color: #4285F4; }
+.ui-flow .connection-selected { stroke: #4285F4; }
+.ui-flow .area { position: relative; }
+.ui-flow .hasoutputs .content { padding-bottom: 20px; }
+.ui-flow path.highlight { stroke: #4285F4; }
+.ui-flow svg { margin: -1px 0 0 -1px; }
