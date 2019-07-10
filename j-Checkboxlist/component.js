@@ -87,6 +87,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 		self.aclass('ui-checkboxlist');
 		content = self.html();
 		config.type && (self.type = config.type);
+		config.disabled && self.aclass('ui-disabled');
 		self.redraw();
 
 		if (config.items)
