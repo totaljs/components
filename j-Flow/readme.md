@@ -1,7 +1,6 @@
 ## j-Flow
 
 - Works only with `+v17`
-- the component adds custom scrollbars automatically
 
 __Configuration__:
 
