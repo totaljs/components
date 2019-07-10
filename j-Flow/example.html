@@ -1,7 +1,7 @@
 <div>
-	<button name="undo" disabled="disabled" data-exec="editor/undo" data-bind="floweditor.undo__enabled:value && value.length > 0"><i class="fa fa-undo"></i></button>
-	<button name="redo" disabled="disabled" data-exec="editor/redo" data-bind="floweditor.redo__enabled:value && value.length > 0"><i class="fa fa-redo"></i></button>
-	<button name="remove" disabled="disabled" data-exec="editor/remove" data-bind="floweditor.info.selected__enabled"><i class="fa fa-trash-o"></i></button>
+	<button disabled="disabled" data-bind="floweditor.undo__enabled:value && value.length > 0__click:floweditor_undo"><i class="fa fa-undo"></i></button>
+	<button disabled="disabled" data-bind="floweditor.redo__enabled:value && value.length > 0__click:floweditor_redo"><i class="fa fa-redo"></i></button>
+	<button disabled="disabled" data-bind="floweditor.info.selected__enabled__click:floweditor_remove"><i class="fa fa-trash-o"></i></button>
 </div>
 
 <div data---="flow__flowmodel__width:6000;height:6000;grid:26;infopath:floweditor.info;undopath:floweditor.undo;redopath:floweditor.redo"></div>
