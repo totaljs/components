@@ -162,5 +162,6 @@
 	"j-ToggleMore",
 	"j-ListMenuEditable",
 	"j-FixedModal",
-	"j-Flow"
+	"j-Flow",
+	"j-StatusInput"
 ]

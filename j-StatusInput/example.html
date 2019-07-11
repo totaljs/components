@@ -1,0 +1,12 @@
+<div data---="statusinput"></div>
+
+<script>
+	setTimeout(function() {
+		var opt = {};
+		opt.callback = function(val) {
+			console.log('callback', val);
+		};
+		opt.placeholder = 'Type a new name';
+		SETTER('statusinput', 'show', opt);
+	}, 500);
+</script>

@@ -1,0 +1,15 @@
+.ui-statusinput { position: fixed; bottom: 0; left: 0; right: 0; height: 40px; border-top: 1px solid #E0E0E0; background-color: #F8F8F8; box-shadow: -7px 0 15px rgba(0,0,0,0.05); }
+.ui-statusinput-input { margin-right: 80px; }
+.ui-statusinput-input input { width: 100%; border: 0; padding: 0 10px; margin: 0; outline: 0; height: 39px; line-height: 39px; background-color: transparent; }
+.ui-statusinput-placeholder { color: gray; position: absolute; top: 0; left: 12px; z-index: 1; height: 39px; line-height: 39px; }
+.ui-statusinput-placeholder i { margin-right: 5px; }
+.ui-statusinput nav { float: right; width: 80px; }
+.ui-statusinput nav button[name="ok"] { color: #65B639; }
+.ui-statusinput nav button[name="no"] { color: red; }
+.ui-statusinput nav button { float: left; width: 40px; height: 39px; text-align: center; padding: 0; margin: 0; border: 0; border-left: 1px solid #E0E0E0; background-color: white; }
+.ui-statusinput nav button:hover { background-color: #E0E0E0; }
+.ui-statusinput nav button:disabled { color: #A0A0A0; cursor: not-allowed; background-color: #F0F0F0 !important; }
+.ui-dark .ui-statusinput { background-color: #303030; border-top-color: #353535; }
+.ui-dark .ui-statusinput nav button { border-left-color: #404040; background-color: #383838; }
+.ui-dark .ui-statusinput nav button:hover { background-color: #404040; }
+.ui-dark .ui-statusinput nav button:disabled { color: #777777; background-color: #303030 !important; }
