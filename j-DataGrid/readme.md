@@ -57,7 +57,8 @@ __Configuration__:
 - `alignheader` {String/Number} align for header `right` (or `2`) or `center` (or `1`) (optional, default: `left`)
 - `alignfilter` {String/Number} align for filter input `right` (or `2`) or `center` (or `1`) (optional, default: `left`)
 - `align` {String/Number} align for a column value `right` (or `2`) or `center` (or `1`) (optional, default: `left`)
-- `click` {String} a link to `function(row, grid, row_el)` is executed if the user clicks on a row
+- `click` {String} a link to `function(row, grid, row_el)`, it's executed if the user clicks on a row
+- `clickid` {String} an identificator/property name for backwards redrawing (for previous row highlight), default: `id`
 - `highlight` {Boolean} each selected row (after `click`) will be highlighted (default: `false`)
 - `unhighlight` {Boolean} enables `undo highlighting` of selected row (default: `true`)
 - `checked` {String} `path` to a variable or path to `function(rows, grid)` is executed if the user selected/checked some rows
@@ -70,6 +71,7 @@ __Configuration__:
 - __NEW__ `changed` {String} `path` to a variable or path to `function(rows, grid)` is executed if the user changed some rows
 - __NEW__ `change` {String} `path` to a variable or path to `function(meta, next(meta))` is executed if the user double clicks on a column (`meta` can be `null` if the grid is refreshed) + `next(null)` replaces previous content again
 - __NEW__ `columns` {String} a path to definition of `columns {Array}`
+- __NEW__ `dblclick` {String} a link to `function(row, grid, row_el)` method, it's executed if the user double-clicks on a row
 
 __Column properties__:
 

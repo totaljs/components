@@ -99,6 +99,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	self.bindvisible();
 	self.nocompile();
 
+	var reconfig = function() {
+		self.tclass('dg-clickable', !!(config.click || config.dblclick));
+	};
+
 	self.configure = function(key, value, init) {
 		switch (key) {
 			case 'checkbox':
@@ -117,10 +121,13 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				if (value && value.SCOPE)
 					config[key] = value.SCOPE(self, value);
 				break;
+			case 'dblclick':
+				if (value && value.SCOPE)
+					config.dblclick = value.SCOPE(self, value);
+				break;
 			case 'click':
 				if (value && value.SCOPE)
 					config.click = value.SCOPE(self, value);
-				self.tclass('dg-clickable', !!value);
 				break;
 			case 'columns':
 				self.datasource(value, function(path, value, type) {
@@ -135,6 +142,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				});
 				break;
 		}
+
+		setTimeout2(self.ID + 'reconfigure', reconfig);
 	};
 
 	self.refresh = function() {
@@ -415,35 +424,44 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			e.stopPropagation();
 		});
 
+
+		var dblclick = { ticks: 0, id: null, row: null };
+
 		self.event('click', '.dg-row', function(e) {
+
+			var now = Date.now();
 			var el = $(this);
 			var type = e.target.tagName;
 			var target = $(e.target);
-			switch (type) {
-				case 'DIV':
-				case 'SPAN':
-					if (!target.closest('.dg-checkbox').length) {
-						var elrow = el.closest('.dg-row');
-						var index = +elrow.attrd('index');
-						var row = opt.rows[index];
-						if (row) {
-							if (config.highlight) {
-								var cls = 'dg-selected';
-								opt.cluster.el.find('> .' + cls).rclass(cls);
-								if (!config.unhighlight || self.selected !== row) {
-									self.selected = row;
-									elrow.aclass(cls);
-								} else {
-									self.selected = null;
-									elrow = null;
-									target = null;
-									row = null;
-								}
-							}
-							config.click && SEEX(config.click, row, self, elrow, target);
-						}
-					}
-					break;
+
+			if ((type === 'DIV' || type === 'SPAN') && !target.closest('.dg-checkbox').length) {
+
+				var elrow = el.closest('.dg-row');
+				var index = +elrow.attrd('index');
+				var row = opt.rows[index];
+				if (row == null)
+					return;
+
+				if (config.dblclick && dblclick.ticks && dblclick.ticks > now && dblclick.row === row) {
+					config.dblclick && SEEX(config.dblclick, row, self, elrow, target);
+					e.preventDefault();
+					return;
+				}
+
+				dblclick.row = row;
+				dblclick.ticks = now + 300;
+
+				if (config.highlight) {
+					var cls = 'dg-selected';
+					opt.cluster.el.find('> .' + cls).rclass(cls);
+					if (!config.unhighlight || self.selected !== row) {
+						self.selected = row;
+						elrow.aclass(cls);
+					} else
+						self.selected = null;
+				}
+
+				config.click && SEEX(config.click, row, self, elrow, target);
 			}
 		});
 
