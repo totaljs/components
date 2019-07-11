@@ -16,6 +16,7 @@ __Configuration__:
 - `browse` {String} __IMPORTANT__: a path to method `function(path, next(ARRAY), [item])` which must return a content for the component
 - `parent` {String} optional, a container with fixed height, can be `window`. Default value: `component.element()`
 - `margin` {Number} optional, a top/bottom margin together (default: `0`)
+- `drop` {String} optional, a path to method which will be executed if a file will be drag&dropped
 
 ```javascript
 function fn_browser(path, next, item) {

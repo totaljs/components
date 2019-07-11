@@ -15,6 +15,7 @@
 .ui-folder-checkbox-checked { background-color: #4285F4 !important; border-color: #4285F4 !important; color: white; }
 .ui-folder-checkbox-checked i { display: block !important; }
 .ui-folder-up { height: 32px; line-height: 32px; padding: 0 10px; font-size: 20px; cursor: pointer; font-weight: bold; color: black; }
+.ui-folder-dragenter { background-color: #F8F8F8; }
 
 .ui-dark .ui-folder { border-color: #404040; background-color: #252525; }
 .ui-dark .ui-folder-item { border-top-color: #404040; color: #A0A0A0; }
@@ -24,3 +25,4 @@
 .ui-dark .ui-folder-path { background-color: #303030; border-bottom-color: #404040; }
 .ui-dark .ui-folder-path i { color: gray; }
 .ui-dark .ui-folder-path span:hover { color: white; }
+.ui-dark .ui-folder-dragenter { background-color: #292929; }

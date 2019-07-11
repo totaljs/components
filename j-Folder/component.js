@@ -3,11 +3,34 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/', function(self,
 	var cls = 'ui-folder';
 	var cls2 = '.ui-folder';
 	var epath, eitems, eselected;
+	var drag = {};
 
 	self.opt = {};
 	self.readonly();
 	self.nocompile();
 	self.template = Tangular.compile('<div data-index="{{ $.index }}" class="{0}-item {0}-{{ if type === 1 }}folder{{ else }}file{{ fi }}"><span class="{0}-item-options"><i class="fa fa-ellipsis-h"></i></span>{{ if checkbox }}<div class="{0}-checkbox{{ if checked }} {0}-checkbox-checked{{ fi }}"><i class="fa fa-check"></i></div>{{ fi }}<span class="{0}-item-icon"><i class="far fa-{{ icon | def(\'chevron-right\') }}"></i></span><div class="{0}-item-name{{ if classname }} {{ classname }}{{ fi }}">{{ name }}</div></div>'.format(cls));
+
+	drag.drop = function(e) {
+
+		if (!config.drop)
+			return;
+
+		var files = e.originalEvent.dataTransfer.files;
+		if (!files || !files.length)
+			return;
+
+		var el = $(e.target);
+		var tmp = null;
+
+		if (el.hclass(cls + '-item-name'))
+			tmp = el.closest(cls2 + '-folder');
+		else if (el.hclass(cls + '-folder'))
+			tmp = el;
+		else
+			tmp = null;
+
+		config.drop && EXEC(config.drop, files, self.get(), tmp ? self.opt.items[+tmp.attrd('index')] : null);
+	};
 
 	self.make = function() {
 		self.aclass(cls);
@@ -22,6 +45,31 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/', function(self,
 			self.scrollright = self.scrollbar.scrollRight;
 			self.scrollbottom = self.scrollbar.scrollBottom;
 		}
+
+		config.drop && self.event('dragenter dragover dragexit drop dragleave', function(e) {
+			switch (e.type) {
+				case 'dragenter':
+					var el = $(e.target);
+					if (drag.el)
+						drag.el.rclass(cls + '-dragenter');
+					drag.el = el.closest(cls2 + '-folder');
+					if (drag.el.length)
+						drag.el.aclass(cls + '-dragenter');
+					else
+						drag.el = null;
+					break;
+				case 'drop':
+					drag.el && drag.el.rclass(cls + '-dragenter');
+					drag.el = null;
+					drag.drop(e);
+					break;
+				case 'dragexit':
+					drag.el && drag.el.rclass(cls + '-dragenter');
+					drag.el = null;
+					break;
+			}
+			e.preventDefault();
+		});
 
 		self.event('click', cls2 + '-item-options', function(e) {
 			e.stopPropagation();
