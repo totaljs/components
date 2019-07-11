@@ -25,3 +25,4 @@
 .ui-dark .ui-flow .connection { stroke: gray; }
 .ui-dark .ui-flow .connection-draft { stroke: #4285F4; }
 .ui-dark .ui-flow path.highlight { stroke: #4285F4; }
+.ui-dark .ui-flow .component-selected { border-color: #4285F4; }
