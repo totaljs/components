@@ -13,7 +13,7 @@ COMPONENT('textbox', function(self, config) {
 
 	self.validate = function(value) {
 
-		if ((!config.required || config.disabled) && !self.isforcevalidation())
+		if ((!config.required || config.disabled) && !self.forcedvalidation())
 			return true;
 
 		if (self.type === 'date')
@@ -303,7 +303,7 @@ COMPONENT('textbox', function(self, config) {
 	self.state = function(type) {
 		if (!type)
 			return;
-		var invalid = config.required ? self.isInvalid() : self.isforcevalidation() ? self.isInvalid() : false;
+		var invalid = config.required ? self.isInvalid() : self.forcedvalidation() ? self.isInvalid() : false;
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
@@ -311,7 +311,8 @@ COMPONENT('textbox', function(self, config) {
 		config.error && self.find('.ui-textbox-helper').tclass('ui-textbox-helper-show', invalid);
 	};
 
-	self.isforcevalidation = function() {
-		return (self.type === 'phone' || self.type === 'email');
+	self.forcedvalidation = function() {
+		var val = self.get();
+		return (self.type === 'phone' || self.type === 'email') && (val != null && (typeof val === 'string' && val.length !== 0));
 	};
 });

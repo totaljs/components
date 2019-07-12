@@ -634,6 +634,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 	};
 
 	self.forcedvalidation = function() {
-		return (self.type === 'phone' || self.type === 'email');
+		var val = self.get();
+		return (self.type === 'phone' || self.type === 'email') && (val != null && (typeof val === 'string' && val.length !== 0));
 	};
 });
