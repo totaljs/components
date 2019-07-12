@@ -1,4 +1,4 @@
-.ui-statusinput { position: fixed; bottom: 0; left: 0; right: 0; height: 40px; border-top: 1px solid #E0E0E0; background-color: #F8F8F8; box-shadow: -7px 0 15px rgba(0,0,0,0.05); }
+.ui-statusinput { position: fixed; bottom: 0; left: 0; right: 0; height: 40px; z-index: 40; border-top: 1px solid #E0E0E0; background-color: #F8F8F8; box-shadow: -7px 0 15px rgba(0,0,0,0.05); }
 .ui-statusinput-input { margin-right: 80px; }
 .ui-statusinput-input input { width: 100%; border: 0; padding: 0 10px; margin: 0; outline: 0; height: 39px; line-height: 39px; background-color: transparent; }
 .ui-statusinput-placeholder { color: gray; position: absolute; top: 0; left: 12px; z-index: 1; height: 39px; line-height: 39px; }
