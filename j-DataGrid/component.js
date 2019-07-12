@@ -1495,8 +1495,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				setTimeout(function() {
 					self.select(sel ? output.findItem(config.clickid, sel.id) : output[0]);
 				}, 1);
-			} else if (opt.operation !== 'sort')
+			} else if (opt.operation !== 'sort') {
 				self.select(sel ? output.findItem(config.clickid, sel.id) : null);
+			} else {
+				var tmp = sel ? output.findItem(config.clickid, sel.id) : null;
+				tmp && self.select(tmp);
+			}
 		}
 	};
 
