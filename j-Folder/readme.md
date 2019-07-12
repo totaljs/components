@@ -1,6 +1,6 @@
 ## j-Folder
 
-The component can render a content like file browser. `path` must contain a path e.g. `Directory/Directory/Directory`. Learn from example.
+The component can render a content like file browser. `path` must be in the form e.g. `/Directory/Directory/Directory/`. Learn from example.
 
 __Configuration__:
 
