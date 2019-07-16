@@ -1,4 +1,4 @@
-COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/', function(self, config) {
+COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/;key:name', function(self, config) {
 
 	var cls = 'ui-folder';
 	var cls2 = '.ui-folder';
@@ -113,7 +113,7 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/', function(self,
 			if (el.hclass(cls + '-folder')) {
 				item = self.opt.selected = self.opt.items[index];
 				var p = self.get();
-				self.set(p ? self.makepath(p + config.delimiter + item.name) : self.makepath(item.name));
+				self.set(p ? self.makepath(p + config.delimiter + item[config.key]) : self.makepath(item[config.key]));
 			} else if (el.hclass(cls + '-file')) {
 				var c = cls + '-selected';
 				item = self.opt.selected = self.opt.items[index];
@@ -211,13 +211,11 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/', function(self,
 	};
 
 	self.makepath = function(path) {
-		return !path || path.charAt(0) === config.delimiter ? path : (config.delimiter + path + config.delimiter);
+		return !path || path.charAt(0) === config.delimiter ? path.substring(1, path.length - 1) : path;
 	};
 
 	self.tidypath = function(path) {
-		if (path && path.charAt(0) === config.delimiter)
-			path = path.substring(1, path.length - 1);
-		return path;
+		return path && path.charAt(0) === config.delimiter ? path.substring(1, path.length - 1) : path;
 	};
 
 	self.setter = function(value) {

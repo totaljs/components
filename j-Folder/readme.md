@@ -1,6 +1,6 @@
 ## j-Folder
 
-The component can render a content like file browser. `path` must be in the form e.g. `/Directory/Directory/Directory/`. Learn from example.
+The component can render a content like file browser. `path` must be in the form e.g. `Directory/Directory/File`. Learn from example.
 
 __Configuration__:
 
@@ -17,6 +17,7 @@ __Configuration__:
 - `parent` {String} optional, a container with fixed height, can be `window`. Default value: `component.element()`
 - `margin` {Number} optional, a top/bottom margin together (default: `0`)
 - `drop` {String} optional, a path to method which will be executed if a file will be drag&dropped
+- `key` {String} optional, a key name for creating of path (default: `name`)
 
 ```javascript
 function fn_browser(path, next, item) {
