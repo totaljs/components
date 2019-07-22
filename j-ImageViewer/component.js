@@ -126,7 +126,7 @@ COMPONENT('imageviewer', 'selector:.img-viewer;container:body', function(self, c
 			var ratio;
 
 			var mw = WW - 10;
-			var mh = WH - (isMOBILE ? 45 : 100);
+			var mh = WH - 55;
 
 			if (img.width > img.height)
 				ratio = mw / (img.width / 100);
