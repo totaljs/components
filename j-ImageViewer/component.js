@@ -56,7 +56,7 @@ COMPONENT('imageviewer', 'selector:.img-viewer;container:body', function(self, c
 			self.show(el);
 		});
 
-		self.event('click', 'button[name]', function(e) {
+		self.event('click', 'button[name]', function() {
 			var t = this;
 			if (!t.disabled) {
 				if (t.name === 'close')
@@ -126,7 +126,7 @@ COMPONENT('imageviewer', 'selector:.img-viewer;container:body', function(self, c
 			var ratio;
 
 			var mw = WW - 10;
-			var mh = WH - 55;
+			var mh = WH - 65;
 
 			if (img.width > img.height)
 				ratio = mw / (img.width / 100);
