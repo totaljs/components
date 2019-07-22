@@ -7,6 +7,7 @@ __Configuration__:
 
 - `container` {String} a container for group of images (default: `body`)
 - `selector` {String} a image selector, (default: `.img-viewer`)
+- `loading` {Boolean} enables loading between slides (default: `true`)
 
 ### Author
 

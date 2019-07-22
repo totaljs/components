@@ -1,4 +1,4 @@
-COMPONENT('imageviewer', 'selector:.img-viewer;container:body', function(self, config) {
+COMPONENT('imageviewer', 'selector:.img-viewer;container:body;loading:1', function(self, config) {
 
 	var cls = 'ui-imageviewer';
 	var cls2 = '.' + cls;
@@ -82,6 +82,9 @@ COMPONENT('imageviewer', 'selector:.img-viewer;container:body', function(self, c
 	};
 
 	self.loading = function(is) {
+
+		if (!config.loading)
+			return;
 
 		var el = self.find(cls2 + '-loading');
 		if (is) {
