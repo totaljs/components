@@ -163,5 +163,6 @@
 	"j-ListMenuEditable",
 	"j-FixedModal",
 	"j-Flow",
-	"j-StatusInput"
+	"j-StatusInput",
+	"j-ImageViewer"
 ]
