@@ -75,7 +75,7 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/;key:name', funct
 			e.stopPropagation();
 			e.preventDefault();
 			var el = $(this);
-			var index = +el.closest(cls2 + 'item').attrd('index');
+			var index = +el.closest(cls2 + '-item').attrd('index');
 			config.options && EXEC(config.options, self.opt.items[index], el);
 		});
 
