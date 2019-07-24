@@ -72,8 +72,8 @@ COMPONENT('statusinput', function(self) {
 
 		self.opt = opt;
 		input.val(opt.value || '');
-		isplaceholder = !!opt.value;
-		placeholder.tclass('hidden', isplaceholder);
+		isplaceholder = false;
+		placeholder.tclass('hidden', !!opt.value);
 		placeholder.html((opt.icon ? '<i class="fa fa-{0}"></i>'.format(opt.icon) : '') + opt.placeholder || '');
 		submit.prop('disabled', true);
 		self.rclass('hidden');
