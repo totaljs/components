@@ -602,6 +602,7 @@ EXTENSION('flow:map', function(self) {
 	events.move = function(e) {
 		var x = (drag.x - e.pageX);
 		var y = (drag.y - e.pageY);
+
 		if (drag.target[0]) {
 			drag.target[0].scrollTop +=  ((y / 6) / drag.zoom) >> 0;
 			drag.target[0].scrollLeft += ((x / 6) / drag.zoom) >> 0;
@@ -636,7 +637,15 @@ EXTENSION('flow:map', function(self) {
 			return;
 
 		var evt = e.touches ? e.touches[0] : e;
-		var target = $(e.target).closest('.ui-scrollbar-area');
+		var et = $(e.target);
+		var target = et.closest('.ui-scrollbar-area');
+
+		if (!target[0]) {
+			target = et.closest('.ui-viewbox')
+			if (!target[0])
+				return;
+		}
+
 		drag.target = target;
 		drag.zoom = self.info.zoom / 100;
 		drag.x = evt.pageX;
