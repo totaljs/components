@@ -121,6 +121,7 @@ __Properties__:
 __Good to know__:
 
 - `NULL('link.to.data')` evaluates `config.exec`
+- `SET('link.to.data', data, 'noscroll')` --> `noscroll` type disables reseting of scrolling
 
 ### Author
 

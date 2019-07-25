@@ -424,7 +424,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			e.stopPropagation();
 		});
 
-
 		var dblclick = { ticks: 0, id: null, row: null };
 
 		self.event('click', '.dg-row', function(e) {
@@ -1585,7 +1584,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		footer.rclass('hidden');
 	};
 
-	self.setter = function(value) {
+	self.setter = function(value, path, type) {
 
 		if (!opt.cols)
 			return;
@@ -1596,7 +1595,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		}
 
 		opt.checked = {};
-		opt.scroll = true;
+		opt.scroll = type !== 'noscroll';
 
 		self.applycolumns();
 		self.refreshfilter();
