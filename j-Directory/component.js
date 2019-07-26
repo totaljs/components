@@ -223,7 +223,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			if (self.ajaxold !== val) {
 				self.ajaxold = val;
 				setTimeout2(self.ID, function(val) {
-					self.opt.ajax(val, function(items) {
+					self.opt && self.opt.ajax(val, function(items) {
 						var builder = [];
 						var indexer = {};
 						for (var i = 0; i < items.length; i++) {
