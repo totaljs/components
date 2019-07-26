@@ -1,0 +1,16 @@
+<div data---="directory"></div>
+<div data---="permissions__mypermissions__dirsource:searchusers;pk:name;empty:@(Not defined permissions)">@(Permissions)</div>
+
+<script>
+	var mypermissions = [{ name: 'Peter', value: 'RW' }, { name: 'Denis', value: 'R' }, { name: 'Group: Managers', text: '<b>Group:</b> Managers', value: 'R' }];
+
+	function searchusers(search, next) {
+		// Here you can perform AJAX request to your server
+		var items = [];
+		items.push({ name: 'Lucia' });
+		items.push({ name: 'Tomas' });
+		items.push({ name: 'Daniel' });
+		next(items);
+	}
+
+</script>

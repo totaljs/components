@@ -1,0 +1,17 @@
+{
+	"datecreated": "2019-07-26T14:14:00.000Z",
+	"dateupdated": null,
+	"name": "j-Permissions",
+	"tags": [
+		"permissions"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"darkmode": false,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

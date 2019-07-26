@@ -164,5 +164,6 @@
 	"j-FixedModal",
 	"j-Flow",
 	"j-StatusInput",
-	"j-ImageViewer"
+	"j-ImageViewer",
+	"j-Permissions"
 ]
