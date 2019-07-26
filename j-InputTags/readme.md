@@ -31,6 +31,7 @@ __Configuration__:
 - `autosource` {String} a path to `search` function in `autocomplete`, `function(search, render(arr))`
 - `autovalue` {String} a property path for the value in `autosource`
 - `transform` {Number} optional, transforms the text `0 - none, 1 - lowercase, 2 - uppercase, 3 - capitalize` (Default: `0`)
+- `enteronly` {Boolean} optional, appends a new value after `enter` key is pressed (default: `true`)
 
 __Interesting:__
 

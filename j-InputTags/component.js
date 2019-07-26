@@ -1,4 +1,4 @@
-COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;after:\\:', function(self, config) {
+COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\:', function(self, config) {
 
 	var cls = 'ui-inputtags';
 	var cls2 = '.' + cls;
@@ -28,8 +28,15 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;after:\\:', function
 		self.rclass('invisible', 100);
 		self.redraw();
 
-		self.event('input change', function() {
+		self.event('input change focusout', function(e) {
 			self.check();
+			if (!config.enteronly && e.type === 'focusout') {
+				setTimeout(function() {
+					var val = input.text();
+					val && self.appendval(val);
+					input.html('');
+				}, 100);
+			}
 		});
 
 		self.event('focus', cls2 + '-editable', function() {
