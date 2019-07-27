@@ -641,7 +641,7 @@ EXTENSION('flow:map', function(self) {
 		var target = et.closest('.ui-scrollbar-area');
 
 		if (!target[0]) {
-			target = et.closest('.ui-viewbox')
+			target = et.closest('.ui-viewbox');
 			if (!target[0])
 				return;
 		}
