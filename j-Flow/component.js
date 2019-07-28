@@ -716,9 +716,9 @@ EXTENSION('flow:components', function(self, config) {
 			data.onmove && data.onmove(drag.target, data);
 			config.onmove && EXEC(config.onmove, drag.target, data);
 			self.op.modified();
-			self.el.lines.find('.from_{0},.to_{0}'.format(drag.id)).rclass('highlight');
 		}
 
+		self.el.lines.find('.from_{0},.to_{0}'.format(drag.id)).rclass('highlight');
 		events.unbind();
 	};
 
@@ -768,7 +768,15 @@ EXTENSION('flow:components', function(self, config) {
 		drag.posX = pos.left;
 		drag.posY = pos.top;
 
-		self.el.lines.find('.from_{0},.to_{0}'.format(drag.id)).aclass('highlight');
+		var connections = self.el.lines.find('.from_{0},.to_{0}'.format(drag.id)).aclass('highlight');
+		var parent = self.el.lines[0];
+
+		for (var i = 0; i < connections.length; i++) {
+			var dom = connections[i];
+			parent.removeChild(dom);
+			parent.appendChild(dom);
+		}
+
 		events.bind();
 	});
 
