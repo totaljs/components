@@ -716,9 +716,9 @@ EXTENSION('flow:components', function(self, config) {
 			data.onmove && data.onmove(drag.target, data);
 			config.onmove && EXEC(config.onmove, drag.target, data);
 			self.op.modified();
+			self.el.lines.find('.from_{0},.to_{0}'.format(drag.id)).rclass('highlight');
 		}
 
-		self.el.lines.find('.from_{0},.to_{0}'.format(drag.id)).rclass('highlight');
 		events.unbind();
 	};
 
