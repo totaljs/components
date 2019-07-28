@@ -12,6 +12,7 @@ Example: `data-jc-config="if:value.terms && value.newsletter;selector:button[nam
 	- `disabled` validates all components which are disabled `input`, `textarea` or `select` elements
 	- `hidden` validates all components which are hidden
 	- `visible` validates all components which are visible
+- __NEW__ `track` {String} can contain paths divided by comma which evaluate validation (executors for paths aren't components, but these methods `SET()`, `UPD()`, `INC()`, etc.)
 
 __Good to know__:
 
