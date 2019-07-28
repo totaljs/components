@@ -415,8 +415,10 @@ EXTENSION('flow:operations', function(self, config) {
 
 	self.op.unselect = function(type) {
 		var cls = 'connection-selected';
-		if (type == null || type === 'connections')
+		if (type == null || type === 'connections') {
 			self.el.lines.find('.' + cls).rclass(cls);
+			self.el.lines.find('.highlight').rclass('highlight');
+		}
 
 		cls = 'component-selected';
 
@@ -716,7 +718,7 @@ EXTENSION('flow:components', function(self, config) {
 			data.onmove && data.onmove(drag.target, data);
 			config.onmove && EXEC(config.onmove, drag.target, data);
 			self.op.modified();
-			self.el.lines.find('.from_{0},.to_{0}'.format(drag.id)).rclass('highlight');
+			// self.el.lines.find('.from_{0},.to_{0}'.format(drag.id)).rclass('highlight');
 		}
 
 		events.unbind();
