@@ -33,6 +33,7 @@ __Commands__:
 - `flow.redo` performs redo step
 - `flow.reset` resets editor
 - `flow.components.add` adds a new component, argument: `component_declaration`
+- `flow.components.find` finds a component, argument: `component_id`
 
 __Adding a new component__:
 

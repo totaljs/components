@@ -489,6 +489,16 @@ EXTENSION('flow:operations', function(self, config) {
 		var cls = 'component-selected';
 		self.find('.' + cls).rclass(cls);
 		self.find('.component[data-id="{0}"]'.format(id)).aclass(cls);
+
+		var connections = self.el.lines.find('.from_{0},.to_{0}'.format(id)).aclass('highlight');
+		var parent = self.el.lines[0];
+
+		for (var i = 0; i < connections.length; i++) {
+			var dom = connections[i];
+			parent.removeChild(dom);
+			parent.appendChild(dom);
+		}
+
 		self.info.selected = com.instance;
 		self.op.refreshinfo();
 		return true;
@@ -771,15 +781,6 @@ EXTENSION('flow:components', function(self, config) {
 		drag.posX = pos.left;
 		drag.posY = pos.top;
 
-		var connections = self.el.lines.find('.from_{0},.to_{0}'.format(drag.id)).aclass('highlight');
-		var parent = self.el.lines[0];
-
-		for (var i = 0; i < connections.length; i++) {
-			var dom = connections[i];
-			parent.removeChild(dom);
-			parent.appendChild(dom);
-		}
-
 		events.bind();
 	});
 
@@ -1036,6 +1037,20 @@ EXTENSION('flow:commands', function(self) {
 	};
 
 	self.command('flow.refresh', self.op.reposition);
+
+	self.command('flow.components.find', function(id) {
+		var com = self.cache[id];
+		if (com) {
+			var pos = com.el.offset();
+			var scroll = self.closest('.ui-scrollbar-area');
+			if (scroll) {
+				var offset = self.element.offset();
+				scroll.animate({ scrollLeft: pos.left - 200 - offset.left, scrollTop: pos.top - 150 - offset.top }, 300);
+				self.op.unselect();
+				self.op.select(id);
+			}
+		}
+	});
 
 	self.command('flow.selected.disconnect', function() {
 		disconnect();
