@@ -411,8 +411,10 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			is = true;
 			if (selected == null)
 				scroller[0].scrollTop = 0;
-			else
-				scroller[0].scrollTop = container.find('.selected').offset().top - (self.element.height() / 2 >> 0);
+			else {
+				var y = container.find('.selected').position().top - (self.element.height() / 3 >> 0);
+				scroller[0].scrollTop = y < 0 ? 0 : y;
+			}
 		}, 50);
 
 		if (is) {
