@@ -156,7 +156,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0', fun
 			}
 
 			if (rebuild) {
-				tmp && tmp.el.remove();
+				tmp && tmp.el.aclass('removed').attrd('id', 'removed');
 				var html = self.template(com);
 				self.append(html);
 				el = self.find('.component[data-id="{id}"]'.arg(com));
@@ -192,7 +192,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0', fun
 			ondone && ondone(tmp.el, tmp.instance);
 		}
 
-		ischanged && self.el.lines.empty();
+		ischanged && self.el.lines.find('path').rclass().aclass('connection removed');
 
 		setTimeout(function() {
 			for (var i = 0; i < keys.length; i++) {
@@ -201,6 +201,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0', fun
 				tmp.el.rclass('invisible');
 				ischanged && tmp.instance.connections && self.reconnect(tmp);
 			}
+			self.find('.removed').remove();
 		}, 500);
 
 		self.op.refreshinfo();
