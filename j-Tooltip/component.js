@@ -12,12 +12,12 @@ COMPONENT('tooltip', function(self) {
 		self.aclass(cls + ' hidden');
 	};
 
-	self.hide = function() {
+	self.hide = function(force) {
 		is && setTimeout2(self.ID, function() {
 			self.aclass('hidden');
 			self.rclass(cls + '-visible');
 			is = false;
-		}, 200);
+		}, force ? 1 : 200);
 	};
 
 	self.show = function(opt) {

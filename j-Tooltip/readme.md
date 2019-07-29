@@ -2,6 +2,7 @@
 
 - singleton
 - universal usage
+- __NEW__ hide (`SETTER('tooltip', 'hide', [force])`) now supports `force` parameter for instant hide.
 
 __METHODS__
 
