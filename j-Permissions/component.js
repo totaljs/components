@@ -42,7 +42,7 @@ COMPONENT('permissions', 'placeholder:Search;types:R,W,RW;default:R', function(s
 				if (!items || !items.findItem(config.pk, value[config.pk])) {
 					if (!value.text)
 						value.text = value.name;
-					value.type = config.default;
+					value.value = config.default;
 					value && self.push(value);
 				}
 			};
