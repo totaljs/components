@@ -1,4 +1,4 @@
-COMPONENT('permissions', 'placeholder:Search;types:R,W,RW', function(self, config) {
+COMPONENT('permissions', 'placeholder:Search;types:R,W,RW;default:R', function(self, config) {
 
 	var cls = 'ui-permissions';
 	var cls2 = '.' + cls;
@@ -42,6 +42,7 @@ COMPONENT('permissions', 'placeholder:Search;types:R,W,RW', function(self, confi
 				if (!items || !items.findItem(config.pk, value[config.pk])) {
 					if (!value.text)
 						value.text = value.name;
+					value.type = config.default;
 					value && self.push(value);
 				}
 			};

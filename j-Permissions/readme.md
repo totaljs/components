@@ -2,6 +2,7 @@
 
 - __NEW__ now supports darkmode
 - __NEW__ can be disabled
+- __NEW__ default `type`
 
 __Configuration__:
 
@@ -10,6 +11,7 @@ __Configuration__:
 - `dirsource` {String} a link to method, it is evaluated after user clicks on the header
 - `pk` {String} a `pk` means primary key, it's used as a prevention for duplicated values (default: `name`)
 - __NEW__ `disabled` {Boolean} optional, disables this component
+- __NEW__ `default` {String} default value of `type` (default: `R`)
 
 __Source__:
 
