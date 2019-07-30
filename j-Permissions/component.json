@@ -1,6 +1,6 @@
 {
 	"datecreated": "2019-07-26T14:14:01.000Z",
-	"dateupdated": null,
+	"dateupdated": "2019-07-30T10:33:42.661Z",
 	"name": "j-Permissions",
 	"tags": [
 		"permissions"
@@ -8,7 +8,7 @@
 	"color": "white",
 	"version": 1,
 	"responsive": true,
-	"darkmode": false,
+	"darkmode": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
 	"author": "Peter Širka",

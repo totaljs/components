@@ -17,3 +17,13 @@
 .ui-permissions-empty i { margin-right: 5px; }
 .ui-permissions-type.ui-permissions-checked i:before { content: '\f058'; }
 .ui-permissions-container { border: 1px solid #E0E0E0; border-radius: 2px; }
+.ui-permissions-disabled .green { display: none; }
+.ui-permissions-disabled .ui-permissions-header:hover { cursor: default; color: gray; }
+.ui-permissions-disabled .ui-permissions-type { cursor: not-allowed; }
+.ui-permissions-disabled .fa-times { display: none; }
+
+.ui-dark .ui-permissions-container { border-color: #404040; }
+.ui-dark .ui-permissions tr { border-color: #404040; background-color: #252525; }
+.ui-dark .ui-permissions td { border-color: #404040; }
+.ui-dark .ui-permissions-checked { background-color: #e0dfa1; color: #4a4a4a; }
+.ui-dark .ui-permissions-header:hover { color: white; }

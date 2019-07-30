@@ -1,12 +1,21 @@
-COMPONENT('permissions', 'placeholder:Search;types:R,W,RW;', function(self, config) {
+COMPONENT('permissions', 'placeholder:Search;types:R,W,RW', function(self, config) {
 
 	var cls = 'ui-permissions';
 	var cls2 = '.' + cls;
 	var tbody;
 	var skip = false;
 
+	self.configure = function(key, value, init, prev) {
+		switch (key) {
+			case 'disabled':
+				self.tclass(cls + '-disabled', value);
+				break;
+		}
+	};
+
 	self.make = function() {
 		self.aclass(cls);
+		config.disabled && self.aclass(cls + '-disabled');
 
 		var builder = ['<tr data-index="{{ index }}"><td class="{0}-text"><i class="fa fa-times red"></i>{{ text | raw }}</td>'];
 		var types = config.types.split(',').trim();
@@ -20,6 +29,10 @@ COMPONENT('permissions', 'placeholder:Search;types:R,W,RW;', function(self, conf
 		tbody = self.find('tbody');
 
 		self.event('click', cls2 + '-header', function() {
+
+			if (config.disabled)
+				return;
+
 			var opt = {};
 			opt.element = $(this);
 			opt.placeholder = config.placeholder;
@@ -36,6 +49,10 @@ COMPONENT('permissions', 'placeholder:Search;types:R,W,RW;', function(self, conf
 		});
 
 		self.event('click', cls2 + '-type', function() {
+
+			if (config.disabled)
+				return;
+
 			var el = $(this);
 			var tr = el.closest('tr');
 			tr.find(cls2 + '-checked').rclass(cls + '-checked');
@@ -45,6 +62,10 @@ COMPONENT('permissions', 'placeholder:Search;types:R,W,RW;', function(self, conf
 		});
 
 		self.event('click', '.fa-times', function(e) {
+
+			if (config.disabled)
+				return;
+
 			var el = $(this);
 			var index = +el.closest('tr').attrd('index');
 			var items = GETU(self.path);
