@@ -8,6 +8,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	var sv = { is: false };
 	var sh = { is: false };
 	var pos = {};
+	var forcenoscroll = false;
 
 	self.meta = opt;
 
@@ -505,6 +506,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 			opt.sort = col;
 			opt.operation = 'sort';
+			forcenoscroll = true;
 
 			if (config.exec)
 				self.operation(opt.operation);
@@ -1595,7 +1597,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		}
 
 		opt.checked = {};
-		opt.scroll = type !== 'noscroll';
+
+		if (forcenoscroll) {
+			opt.scroll = false;
+			forcenoscroll = false;
+		} else
+			opt.scroll = type !== 'noscroll';
 
 		self.applycolumns();
 		self.refreshfilter();
@@ -1613,7 +1620,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		opt.cluster.grid = self;
 		opt.cluster.scroll = self.scrolling;
 		opt.render && opt.cluster.update(opt.render);
-
 		self.aclass('dg-visible');
 	};
 

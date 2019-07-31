@@ -58,9 +58,9 @@
 .dg-pagination > div { position: relative; display: inline-block; }
 .dg-pagination-items { float: right; font-size: 12px; margin: 7px 10px 0 0; font-weight: bold; }
 .dg-pagination-pages { float: left; font-size: 12px; margin: 7px 0 0 10px; }
-.dg-scrollbar-container-v { position: absolute; right: 0; top: 58px; width: 10px; background-color: #D0D0D0; z-index: 3; overflow: hidden; }
+.dg-scrollbar-container-v { position: absolute; right: 0; top: 58px; width: 6px; background-color: #D0D0D0; z-index: 3; overflow: hidden; }
 .dg-scrollbar-v { width: 100%; height: 30px; background-color: gray; position: absolute; left: 0; top: 0; }
-.dg-scrollbar-container-h { position: relative; height: 10px;; background-color: #D0D0D0; overflow: hidden; }
+.dg-scrollbar-container-h { position: relative; height: 6px; background-color: #D0D0D0; overflow: hidden; }
 .dg-scrollbar-h { height: 100%; width: 30px; background-color: gray; position: absolute; left: 0; bottom: 0; }
 .dg-scroll-h .dg-h-container { border-bottom: 0; }
 .dg-noscroll .dg-v-body { overflow: hidden; }
