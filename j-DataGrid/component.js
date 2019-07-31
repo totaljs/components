@@ -8,7 +8,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	var sv = { is: false };
 	var sh = { is: false };
 	var pos = {};
-	var forcenoscroll = false;
+	var forcescroll = '';
 
 	self.meta = opt;
 
@@ -135,7 +135,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 					if (value) {
 						opt.sort = null;
 						opt.filter = {};
-						opt.scroll = false;
+						opt.scroll = '';
 						opt.selected = {};
 						self.rebind(value);
 						type && self.setter(null);
@@ -506,7 +506,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 			opt.sort = col;
 			opt.operation = 'sort';
-			forcenoscroll = true;
+			forcescroll = '-';
 
 			if (config.exec)
 				self.operation(opt.operation);
@@ -605,7 +605,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				val = 1;
 
 			value.page = val;
-			opt.scroll = true;
+			forcescroll = opt.scroll = 'y';
 			self.operation('page');
 		});
 
@@ -639,7 +639,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			} else
 				delete opt.filter[name];
 
-			opt.scroll = true;
+			forcescroll = opt.scroll = 'y';
 			opt.operation = 'filter';
 			el.tclass('dg-filter-selected', is);
 
@@ -711,23 +711,23 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 					self.applycolumns(true);
 					break;
 				case 'page-first':
-					opt.scroll = true;
+					forcescroll = opt.scroll = 'y';
 					self.get().page = 1;
 					self.operation('page');
 					break;
 				case 'page-last':
-					opt.scroll = true;
+					forcescroll = opt.scroll = 'y';
 					var tmp = self.get();
 					tmp.page = tmp.pages;
 					self.operation('page');
 					break;
 				case 'page-prev':
-					opt.scroll = true;
+					forcescroll = opt.scroll = 'y';
 					self.get().page -= 1;
 					self.operation('page');
 					break;
 				case 'page-next':
-					opt.scroll = true;
+					forcescroll = opt.scroll = 'y';
 					self.get().page += 1;
 					self.operation('page');
 					break;
@@ -1120,7 +1120,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		}
 
 		opt.render[index] = self.renderrow(index, row);
-		opt.cluster && opt.cluster.update(opt.render, opt.scroll == false);
+		opt.cluster && opt.cluster.update(opt.render, !opt.scroll || opt.scroll === '-');
 		if (scroll) {
 			var el = opt.cluster.el[0];
 			el.scrollTop = el.scrollHeight;
@@ -1215,7 +1215,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		var rows = [];
 
 		arr.wait(function(page, next) {
-			opt.scroll = (index++) === 0;
+			opt.scroll = (index++) === 0 ? 'xy' : '';
 			self.get().page = page;
 			self.operation('page');
 			self.onrenderrows = function(opt) {
@@ -1463,13 +1463,19 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		if (!isredraw) {
 
 			if (opt.scroll) {
-				vbody[0].scrollTop = 0;
-				if (useraction)	{
-					var sl = hbody[0].scrollLeft;
-					hbody[0].scrollLeft = sl ? sl - 1 : 0;
-				} else
-					hbody[0].scrollLeft = 0;
-				opt.scroll = false;
+
+				if ((/y/).test(opt.scroll))
+					vbody[0].scrollTop = 0;
+
+				if ((/x/).test(opt.scroll)) {
+					if (useraction)	{
+						var sl = hbody[0].scrollLeft;
+						hbody[0].scrollLeft = sl ? sl - 1 : 0;
+					} else
+						hbody[0].scrollLeft = 0;
+				}
+
+				opt.scroll = '';
 			}
 
 			if (opt.sort != null) {
@@ -1482,7 +1488,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		self.renderrows(output, isredraw);
 
 		setTimeout(self.resize, 100);
-		opt.cluster && opt.cluster.update(opt.render, opt.scroll == false);
+		opt.cluster && opt.cluster.update(opt.render, !opt.scroll || opt.scroll === '-');
 		self.scrolling();
 
 		if (isredraw) {
@@ -1598,11 +1604,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 		opt.checked = {};
 
-		if (forcenoscroll) {
-			opt.scroll = false;
-			forcenoscroll = false;
+		if (forcescroll) {
+			opt.scroll = forcescroll;
+			forcescroll = '';
 		} else
-			opt.scroll = type !== 'noscroll';
+			opt.scroll = type !== 'noscroll' ? 'xy' : '';
 
 		self.applycolumns();
 		self.refreshfilter();
