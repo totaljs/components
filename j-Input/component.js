@@ -58,7 +58,8 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				setTimeout(function(input) {
 					input.selectionStart = input.selectionEnd = 0;
 				}, 50, this);
-			}
+			} else if (config.dirsource && (config.autofocus != false && config.autofocus != 0))
+				self.find(cls2 + '-control').trigger('click');
 		});
 
 		self.event('paste', 'input', function(e) {
