@@ -436,6 +436,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 			if ((type === 'DIV' || type === 'SPAN') && !target.closest('.dg-checkbox').length) {
 
+				var cls = 'dg-selected';
 				var elrow = el.closest('.dg-row');
 				var index = +elrow.attrd('index');
 				var row = opt.rows[index];
@@ -444,6 +445,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 				if (config.dblclick && dblclick.ticks && dblclick.ticks > now && dblclick.row === row) {
 					config.dblclick && SEEX(config.dblclick, row, self, elrow, target);
+					if (config.highlight && self.selected !== row) {
+						opt.cluster.el.find('> .' + cls).rclass(cls);
+						self.selected = row;
+						elrow.aclass(cls);
+					}
 					e.preventDefault();
 					return;
 				}
@@ -451,17 +457,18 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				dblclick.row = row;
 				dblclick.ticks = now + 300;
 
+				var rowarg = row;
+
 				if (config.highlight) {
-					var cls = 'dg-selected';
 					opt.cluster.el.find('> .' + cls).rclass(cls);
 					if (!config.unhighlight || self.selected !== row) {
 						self.selected = row;
 						elrow.aclass(cls);
 					} else
-						self.selected = null;
+						rowarg = self.selected = null;
 				}
 
-				config.click && SEEX(config.click, row, self, elrow, target);
+				config.click && SEEX(config.click, rowarg, self, elrow, target);
 			}
 		});
 
