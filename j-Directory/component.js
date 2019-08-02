@@ -317,8 +317,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			return;
 		}
 
-		self.bindevents();
-
+		setTimeout(self.bindevents, 500);
 		self.tclass(cls + '-search-hidden', opt.search === false);
 
 		self.opt = opt;
@@ -412,7 +411,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			if (selected == null)
 				scroller[0].scrollTop = 0;
 			else {
-				var y = container.find('.selected').position().top - (self.element.height() / 3 >> 0);
+				var y = container.find('.selected').position().top - 30;
 				scroller[0].scrollTop = y < 0 ? 0 : y;
 			}
 		}, 50);
