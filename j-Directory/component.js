@@ -411,10 +411,11 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			if (selected == null)
 				scroller[0].scrollTop = 0;
 			else {
-				var y = container.find('.selected').position().top - 30;
+				var h = container.find('li:first-child').height();
+				var y = (container.find('li.selected').index() * h) - (h * 2);
 				scroller[0].scrollTop = y < 0 ? 0 : y;
 			}
-		}, 50);
+		}, 100);
 
 		if (is) {
 			self.search();
