@@ -2,7 +2,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 	var cls = 'ui-input';
 	var cls2 = '.' + cls;
-	var input, placeholder, dirsource, binded, customvalidator, mask;
+	var input, placeholder, dirsource, binded, customvalidator, mask, isdirvisible = false;
 
 	self.nocompile();
 	self.bindvisible(20);
@@ -58,8 +58,10 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				setTimeout(function(input) {
 					input.selectionStart = input.selectionEnd = 0;
 				}, 50, this);
-			} else if (config.dirsource && (config.autofocus != false && config.autofocus != 0))
-				self.find(cls2 + '-control').trigger('click');
+			} else if (config.dirsource && (config.autofocus != false && config.autofocus != 0)) {
+				if (!isdirvisible)
+					self.find(cls2 + '-control').trigger('click');
+			}
 		});
 
 		self.event('paste', 'input', function(e) {
@@ -187,8 +189,13 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 		self.event('click', cls2 + '-control', function() {
 
-			if (!config.dirsource || config.disabled)
+			if (!config.dirsource || config.disabled || isdirvisible)
 				return;
+
+			isdirvisible = true;
+			setTimeout(function() {
+				isdirvisible = false;
+			}, 500);
 
 			var opt = {};
 			opt.element = self.find(cls2 + '-control');
