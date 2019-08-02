@@ -14,6 +14,7 @@ This grid was created for single page applications and enterprise applications.
 - custom scrollbars independent on OS
 - responsive
 - supports __dark mode__
+- __IMPORTANT__ column options filter needs `j-Directory` component
 
 __TO-DO__:
 

@@ -1,8 +1,8 @@
-COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterlabel:Filter;numbering:;height:auto;bottom:90;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;unhighlight:true;autoselect:false;buttonapply:Apply;buttonreset:Reset;allowtitles:false;fullwidth_xs:true;clickid:id', function(self, config) {
+COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterlabel:Filter;numbering:;height:auto;bottom:90;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;unhighlight:true;autoselect:false;buttonapply:Apply;buttonreset:Reset;allowtitles:false;fullwidth_xs:true;clickid:id;dirplaceholder:Search', function(self, config) {
 
 	var opt = { filter: {}, filtercache: {}, filtervalues: {}, scroll: false, selected: {}, operation: '' };
 	var header, vbody, footer, vcontainer, hcontainer, varea, hbody, vscrollbar, vscrollbararea, hscrollbar, hscrollbararea, ecolumns, isecolumns = false;
-	var Theadercol = Tangular.compile('<div class="dg-hcol dg-col-{{ index }}{{ if sorting }} dg-sorting{{ fi }}" data-index="{{ index }}">{{ if sorting }}<i class="dg-sort fa fa-sort"></i>{{ fi }}<div class="dg-label{{ alignheader }}"{{ if labeltitle }} title="{{ labeltitle }}"{{ fi }}{{ if reorder }} draggable="true"{{ fi }}>{{ label | raw }}</div>{{ if filter }}<div class="dg-filter{{ alignfilter }}{{ if filterval != null && filterval !== \'\' }} dg-filter-selected{{ fi }}"><i class="fa dg-filter-cancel fa-times"></i>{{ if options }}<select class="dg-filter-input" data-name="{{ name }}" name="{{ name }}{{ index }}"><option value="">{{ filter }}</option></select>{{ else }}<input autocomplete="new-password" type="text" placeholder="{{ filter }}" class="dg-filter-input" name="{{ name }}{{ ts }}" data-name="{{ name }}" value="{{ filterval }}" />{{ fi }}</div>{{ else }}<div class="dg-filter-empty">&nbsp;</div>{{ fi }}</div>');
+	var Theadercol = Tangular.compile('<div class="dg-hcol dg-col-{{ index }}{{ if sorting }} dg-sorting{{ fi }}" data-index="{{ index }}">{{ if sorting }}<i class="dg-sort fa fa-sort"></i>{{ fi }}<div class="dg-label{{ alignheader }}"{{ if labeltitle }} title="{{ labeltitle }}"{{ fi }}{{ if reorder }} draggable="true"{{ fi }}>{{ label | raw }}</div>{{ if filter }}<div class="dg-filter{{ alignfilter }}{{ if filterval != null && filterval !== \'\' }} dg-filter-selected{{ fi }}"><i class="fa dg-filter-cancel fa-times"></i>{{ if options }}<label data-name="{{ name }}">{{ if filterval }}{{ filterval }}{{ else }}{{ filter }}{{ fi }}</label>{{ else }}<input autocomplete="new-password" type="text" placeholder="{{ filter }}" class="dg-filter-input" name="{{ name }}{{ ts }}" data-name="{{ name }}" value="{{ filterval }}" />{{ fi }}</div>{{ else }}<div class="dg-filter-empty">&nbsp;</div>{{ fi }}</div>');
 	var isIE = (/msie|trident/i).test(navigator.userAgent);
 	var isredraw = false;
 	var sv = { is: false };
@@ -44,7 +44,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			if (self.pos !== frame) {
 				if (self.max && frame >= self.max)
 					frame = self.max;
-
 				self.pos = frame;
 				self.render();
 				self.scroll && self.scroll();
@@ -174,6 +173,15 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 	self.fn_in_checked = function(arr) {
 		config.checked && SEEX(config.checked, arr || self.checked(), self);
+	};
+
+	self.fn_refresh = function() {
+		setTimeout2(self.ID + 'filter', function() {
+			if (config.exec)
+				self.operation(opt.operation);
+			else
+				self.refreshfilter(true);
+		}, 50);
 	};
 
 	self.make = function() {
@@ -362,6 +370,16 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			hscrollbar.css('left', scrollcache.h + 'px');
 		};
 
+		var hidedir = function() {
+			ishidedir = true;
+			SETTER('!directory', 'hide');
+			setTimeout(function() {
+				ishidedir = false;
+			}, 800);
+		};
+
+		var ishidedir = false;
+
 		vbody.on('scroll', function(e) {
 			var el = e.target;
 			var p = ((el.scrollTop / (el.scrollHeight - opt.height)) * 100) >> 0;
@@ -376,6 +394,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			scrollcache.v = pos;
 			W.requestAnimationFrame(scrollcache.scrollv);
 			isecolumns && self.applycolumns();
+			!ishidedir && hidedir();
 		});
 
 		hbody.on('scroll', function(e) {
@@ -394,6 +413,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			scrollcache.h = pos;
 			W.requestAnimationFrame(scrollcache.scrollh);
 			isecolumns && self.applycolumns();
+			!ishidedir && hidedir();
 		});
 
 		var r = { is: false };
@@ -417,6 +437,47 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				ecolumns.rclass(cls);
 				isecolumns = true;
 			}
+		});
+
+		header.on('click', 'label', function() {
+
+			var el = $(this);
+			var index = +el.closest('.dg-hcol').attrd('index');
+			var builder = [];
+			var col = opt.cols[index];
+			var opts = col.options instanceof Array ? col.options : GET(col.options);
+			var dir = {};
+
+			dir.element = el;
+			dir.items = opts;
+			dir.key = col.otext;
+			dir.offsetX = -6;
+			dir.offsetY = -2;
+			dir.placeholder = config.dirplaceholder;
+
+			dir.callback = function(item) {
+
+				var val = item[col.ovalue];
+				var is = val != null && val !== '';
+				var name = el.attrd('name');
+
+				opt.filtervalues[col.id] = val;
+
+				if (is) {
+					if (opt.filter[name] == val)
+						return;
+					opt.filter[name] = val;
+				} else
+					delete opt.filter[name];
+
+				forcescroll = opt.scroll = 'y';
+				opt.operation = 'filter';
+				el.parent().tclass('dg-filter-selected', is);
+				el.text(item[dir.key] || '');
+				self.fn_refresh();
+			};
+
+			SETTER('directory', 'show', dir);
 		});
 
 		self.event('dblclick', '.dg-col', function(e) {
@@ -480,8 +541,26 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			var el = $(this);
 			if (el.hclass('dt-columns-reset'))
 				self.resetcolumns();
-			else
-				el.parent().find('input,select').val('').trigger('change');
+			else {
+				var tmp = el.parent();
+				var input = tmp.find('input');
+				if (input.length) {
+					input.trigger('change');
+					return;
+				}
+
+				var label = tmp.find('label');
+				if (label.length) {
+					tmp.rclass('dg-filter-selected');
+					var index = +el.closest('.dg-hcol').attrd('index');
+					var col = opt.cols[index];
+					label.html(col.filter);
+					forcescroll = opt.scroll = 'y';
+					opt.operation = 'filter';
+					delete opt.filter[label.attrd('name')];
+					self.fn_refresh();
+				}
+			}
 		});
 
 		self.event('click', '.dg-label,.dg-sort', function() {
@@ -649,13 +728,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			forcescroll = opt.scroll = 'y';
 			opt.operation = 'filter';
 			el.tclass('dg-filter-selected', is);
-
-			setTimeout2(self.ID + 'filter', function() {
-				if (config.exec)
-					self.operation(opt.operation);
-				else
-					self.refreshfilter(true);
-			}, 50);
+			self.fn_refresh();
 		});
 
 		self.select = function(row) {
@@ -1074,20 +1147,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		vcontainer.css(css);
 		css.width += 50;
 		varea.css(css);
-
-		header.find('select').each(function() {
-			var el = $(this);
-			var index = +el.closest('.dg-hcol').attrd('index');
-			var builder = [];
-			var col = opt.cols[index];
-			var opts = col.options instanceof Array ? col.options : GET(col.options);
-			for (var i = 0; i < opts.length; i++) {
-				var item = opts[i];
-				builder.push('<option value="{0}"{1}>{2}</option>'.format(i, opt.filtervalues[col.id] === item[col.ovalue] ? ' selected' : '', item[col.otext]));
-			}
-			el.append(builder.join(''));
-		});
-
 		self.redrawsorting();
 	};
 
