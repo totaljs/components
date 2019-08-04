@@ -1,4 +1,4 @@
-.ui-dynamicvalue-label { margin-bottom: 5px; font-size: 12px; text-align: left; }
+.ui-dynamicvalue-label { margin-bottom: 3px; font-size: 12px; text-align: left; }
 .ui-dynamicvalue-label i { margin-right: 5px; }
 .ui-dynamicvalue { height: 32px; border: 1px solid #E0E0E0; border-radius: 3px; }
 .ui-dynamicvalue-value { cursor: pointer; display: block; padding: 8px 7px 0 5px; margin-right: 32px; user-select: none; font: normal 14px Arial; color: gray; }
