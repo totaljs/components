@@ -15,7 +15,10 @@ COMPONENT('importer', function(self, config) {
 	self.reload = function(recompile) {
 		config.reload && EXEC(config.reload);
 		recompile && COMPILE();
-		pending = false;
+		setTimeout(function() {
+			pending = false;
+			init = true;
+		}, 1000);
 	};
 
 	self.setter = function(value) {
@@ -40,8 +43,6 @@ COMPONENT('importer', function(self, config) {
 			self.reload();
 			return;
 		}
-
-		init = true;
 
 		if (content) {
 			self.html(content);
