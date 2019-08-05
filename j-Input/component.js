@@ -277,7 +277,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					e.preventDefault();
 					e.stopPropagation();
 					self.find(cls2 + '-control').trigger('click');
-				} else
+				} else if (!config.camouflage || $(e.target).hclass(cls + '-placeholder'))
 					input.focus();
 			}
 		});
