@@ -12,9 +12,6 @@ COMPONENT('validation', 'delay:100;flags:visible', function(self, config) {
 	self.make = function() {
 		elements = self.find(config.selector || def);
 		path = self.path.replace(/\.\*$/, '');
-		setTimeout(function() {
-			self.watch(self.path, self.state, true);
-		}, 50);
 	};
 
 	self.configure = function(key, value, init) {
@@ -41,18 +38,23 @@ COMPONENT('validation', 'delay:100;flags:visible', function(self, config) {
 		if ((type === 1 || type === 2) && track && track.length) {
 			for (var i = 0; i < track.length; i++) {
 				if (path.indexOf(track[i]) !== -1) {
-					tracked = true;
-					self.state();
+					tracked = 1;
 					return;
 				}
+			}
+			if (tracked === 1) {
+				tracked = 2;
+				setTimeout(function() {
+					tracked = 0;
+				}, config.delay * 3);
 			}
 		}
 	};
 
 	self.state = function() {
-		setTimeout2(self.id, function() {
+		setTimeout2(self.ID, function() {
 			var cls = 'ui-validation';
-			var disabled = tracked ? VALIDATE(path, flags) : DISABLED(path, flags);
+			var disabled = tracked ? !VALIDATE(path, flags) : DISABLED(path, flags);
 			if (!disabled && config.if)
 				disabled = !EVALUATE(self.path, config.if);
 			if (disabled !== old) {
@@ -61,8 +63,6 @@ COMPONENT('validation', 'delay:100;flags:visible', function(self, config) {
 				self.tclass(cls + '-no', disabled);
 				old = disabled;
 			}
-			if (tracked)
-				tracked = false;
 		}, config.delay);
 	};
 });
