@@ -4,6 +4,8 @@ COMPONENT('validation', 'delay:100;flags:visible', function(self, config) {
 	var def = 'button[name="submit"]';
 	var flags = null;
 	var tracked = false;
+	var reset = 0;
+	var cls = 'ui-validation';
 	var old;
 	var track;
 
@@ -35,6 +37,14 @@ COMPONENT('validation', 'delay:100;flags:visible', function(self, config) {
 	};
 
 	self.setter = function(value, path, type) {
+
+		var is = path === self.path || path.length < self.path.length;
+
+		if (reset !== is) {
+			reset = is;
+			self.tclass(cls + '-modified', !reset);
+		}
+
 		if ((type === 1 || type === 2) && track && track.length) {
 			for (var i = 0; i < track.length; i++) {
 				if (path.indexOf(track[i]) !== -1) {
@@ -53,7 +63,6 @@ COMPONENT('validation', 'delay:100;flags:visible', function(self, config) {
 
 	self.state = function() {
 		setTimeout2(self.ID, function() {
-			var cls = 'ui-validation';
 			var disabled = tracked ? !VALIDATE(path, flags) : DISABLED(path, flags);
 			if (!disabled && config.if)
 				disabled = !EVALUATE(self.path, config.if);
@@ -61,6 +70,7 @@ COMPONENT('validation', 'delay:100;flags:visible', function(self, config) {
 				elements.prop('disabled', disabled);
 				self.tclass(cls + '-ok', !disabled);
 				self.tclass(cls + '-no', disabled);
+				//self.tclass(cls + '-modified',
 				old = disabled;
 			}
 		}, config.delay);
