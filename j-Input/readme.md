@@ -49,6 +49,7 @@ __Configuration__:
 - __NEW__ `autovalue` {String} a property path for the value in `autosource`, default: `name`
 - __NEW__ `autoexec` {String} a path method `function(item, next(value_to_input))`
 - __NEW__ `searchalign` {Number} can align icon on `type:search` to left (`2`) or right (`1`, default)
+- __NEW__ `forcevalidation` {Boolean} enables for force validation for `phone` and `email` (default: `true`)
 
 __Interesting:__
 
