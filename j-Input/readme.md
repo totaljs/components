@@ -50,6 +50,7 @@ __Configuration__:
 - __NEW__ `autoexec` {String} a path method `function(item, next(value_to_input))`
 - __NEW__ `searchalign` {Number} can align icon on `type:search` to left (`2`) or right (`1`, default)
 - __NEW__ `forcevalidation` {Boolean} enables for force validation for `phone` and `email` (default: `true`)
+- __NEW__ `camouflage` {Boolean/String} masks the value in the input after is triggered `blur` event (default: `false`) or it can be `String` which will be used as a camouflage
 
 __Interesting:__
 

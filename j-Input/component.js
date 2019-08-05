@@ -2,7 +2,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 	var cls = 'ui-input';
 	var cls2 = '.' + cls;
-	var input, placeholder, dirsource, binded, customvalidator, mask, isdirvisible = false;
+	var input, placeholder, dirsource, binded, customvalidator, mask, isdirvisible = false, nobindcamouflage = false, focused = false;
 
 	self.nocompile();
 	self.bindvisible(20);
@@ -29,10 +29,15 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		self.redraw();
 
 		self.event('input change', function() {
-			self.check();
+			if (nobindcamouflage)
+				nobindcamouflage = false;
+			else
+				self.check();
 		});
 
 		self.event('focus', 'input', function() {
+			focused = true;
+			self.camouflage(false);
 			self.aclass(cls + '-focused');
 			config.autocomplete && EXEC(self.makepath(config.autocomplete), self, input.parent());
 			if (config.autosource) {
@@ -57,7 +62,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			} else if (config.mask) {
 				setTimeout(function(input) {
 					input.selectionStart = input.selectionEnd = 0;
-				}, 50, this);
+				}, 50, t);
 			} else if (config.dirsource && (config.autofocus != false && config.autofocus != 0)) {
 				if (!isdirvisible)
 					self.find(cls2 + '-control').trigger('click');
@@ -184,6 +189,8 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		});
 
 		self.event('blur', 'input', function() {
+			focused = false;
+			self.camouflage(true);
 			self.rclass(cls + '-focused');
 		});
 
@@ -330,6 +337,22 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		});
 	};
 
+	self.camouflage = function(is) {
+		if (config.camouflage) {
+			if (is) {
+				var t = input[0];
+				var arr = t.value.split('');
+				for (var i = 0; i < arr.length; i++)
+					arr[i] = typeof(config.camouflage) === 'string' ? config.camouflage : '*';
+				nobindcamouflage = true;
+				t.value = arr.join('');
+			} else {
+				nobindcamouflage = true;
+				input[0].value = self.get();
+			}
+		}
+	};
+
 	self.curpos = function(pos) {
 		var el = input[0];
 		if (el.createTextRange) {
@@ -406,6 +429,10 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 	self.getterin = self.getter;
 	self.getter = function(value, realtime, nobind) {
+
+		if (nobindcamouflage)
+			return;
+
 		if (config.mask && config.masktidy) {
 			var val = [];
 			for (var i = 0; i < value.length; i++) {
@@ -454,6 +481,8 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 		self.setterin(value, path, type);
 		self.bindvalue();
+
+		config.camouflage && !focused && setTimeout(self.camouflage, type === 1 ? 1000 : 1, true);
 
 		if (config.type === 'password')
 			self.password(true);
