@@ -744,6 +744,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			var cls = 'dg-selected';
 
 			if (!row || index === -1) {
+				self.selected = null;
 				opt.cluster && opt.cluster.el.find('.' + cls).rclass(cls);
 				config.highlight && config.click && SEEX(config.click, null, self);
 				return;
