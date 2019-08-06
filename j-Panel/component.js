@@ -33,10 +33,10 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 			SETTER('panel', 'resize');
 		};
 
-		if (W.OP)
-			W.OP.on('resize', resize);
-		else
-			$(W).on('resize', resize);
+		var e = W.OP ? W.OP : $(W);
+		e.on('resize', function() {
+			setTimeout2('panelresize', resize, 100);
+		});
 	}
 
 	self.readonly();
@@ -60,7 +60,7 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 
 		var scr = self.find('> script');
 		self.template = scr.length ? scr.html() : '';
-		$(document.body).append('<div id="{0}" class="hidden {5}-container{3}"><div class="{5}" style="max-width:{1}px"><div data-bind="@config__change .ui-panel-icon:@icon__html span:value.title" class="{5}-title"><button name="cancel" class="{5}-button-close{2}"><i class="fa fa-times"></i></button><button name="menu" class="{5}-button-menu{4}"><i class="fa fa-ellipsis-h"></i></button><i class="{5}-icon"></i><span></span></div><div class="{5}-header"></div><div class="{5}-body"></div></div>'.format(self.ID, config.width, config.closebutton == false ? ' hidden' : '', config.bg ? '' : ' ui-panel-inline', config.menu ? '' : ' hidden', cls));
+		$(document.body).append('<div id="{0}" class="hidden {5}-container{3}"><div class="{5}" style="max-width:{1}px"><div data-bind="@config__change .ui-panel-icon:@icon__html span:value.title" class="{5}-title"><button name="cancel" class="{5}-button-close{2}"><i class="fa fa-caret-square-down"></i></button><button name="menu" class="{5}-button-menu{4}"><i class="fa fa-ellipsis-h"></i></button><i class="{5}-icon"></i><span></span></div><div class="{5}-header"></div><div class="{5}-body"></div></div>'.format(self.ID, config.width, config.closebutton == false ? ' hidden' : '', config.bg ? '' : ' ui-panel-inline', config.menu ? '' : ' hidden', cls));
 		var el = $('#' + self.ID);
 
 		var body = el.find(cls2 + '-body');
@@ -77,13 +77,17 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 
 		self.rclass('hidden');
 		self.replace(el);
-		self.event('click', 'button[name]', function() {
+		self.event('click', 'button[name],.cancel', function() {
 			switch (this.name) {
 				case 'menu':
 					EXEC(config.menu, $(this), self);
 					break;
 				case 'cancel':
 					self.hide();
+					break;
+				default:
+					if ($(this).hclass('cancel'))
+						self.hide();
 					break;
 			}
 		});
@@ -131,7 +135,7 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 		}
 
 		if (self.template) {
-			var is = (/(data-bind|data-jc|data--{2,})="/).test(self.template);
+			var is = self.template.COMPILABLE();
 			self.find('div[data-jc-replaced]').html(self.template);
 			self.template = null;
 			is && COMPILE();
