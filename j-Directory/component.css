@@ -22,5 +22,5 @@
 .ui-dark .ui-directory-search { border-bottom-color: #404040; }
 .ui-dark .ui-directory-search input { background-color: #303030; }
 .ui-dark .ui-directory-add:hover { color: white; }
-.ui-dark .ui-directory .current { background-color: #303030; color: white; }
-.ui-dark .ui-directory .selected { background-color: #404040; color: white; }
+.ui-dark .ui-directory .current { background-color: #404040; color: white; }
+.ui-dark .ui-directory .selected { background-color: #505050; color: white; }

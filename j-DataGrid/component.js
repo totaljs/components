@@ -545,6 +545,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 				var tmp = el.parent();
 				var input = tmp.find('input');
 				if (input.length) {
+					input.val('');
 					input.trigger('change');
 					return;
 				}
