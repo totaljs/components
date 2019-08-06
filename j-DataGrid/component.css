@@ -17,8 +17,6 @@
 .dg-sorting .dg-label.center { padding-left: 25px; padding-right: 0; }
 .dg-sorting .dg-label { margin-right: 24px; }
 .dg-filter { padding: 0 5px; border-top: 1px solid #E0E0E0; height: 23px; }
-.dg-filter select { width: 100%; outline: 0; font-size: 10px; background-color: transparent; border: 0; margin: 0; padding: 0; line-height: 12px; height: 22px; appearance: none; -webkit-appearance: none; -moz-appearance: none; color: #A0A0A0; cursor: pointer; }
-.dg-filter select:focus { color: black; }
 .dg-filter input, .dg-filter label { width: 100%; outline: 0; font-size: 10px; background-color: transparent; border: 0; margin: 0; padding: 0; line-height: 23px; height: 23px; }
 .dg-filter label { color: #A0A0A0; cursor: pointer; display: block; }
 .dg-filter.center input { text-align: center; }
@@ -26,10 +24,10 @@
 .dg-filter-empty { border-top: 1px solid #E0E0E0; height: 23px; cursor: not-allowed !important; background: repeating-linear-gradient(45deg,#FFFFFF,#FFFFFF 10px,#F9F9F9 10px,#F9F9F9 20px); }
 .dg-hcol .dg-label { padding-top: 9px; }
 .dg-filter-selected { background-color: #FBF0CA !important; }
-.dg-filter-selected select { color: black; }
+.dg-filter-selected label { color: black; }
 .dg-filter i { position: absolute; right: 5px; margin-top: 6px; font-size: 10px; color: red; display: none; cursor: pointer; }
 .dg-filter-selected i { display: block; }
-.dg-filter-selected input, .dg-filter-selected select { padding-right: 12px; }
+.dg-filter-selected input { padding-right: 12px; }
 .dg-clickable .dg-row { cursor: pointer; }
 .dg-v-area { overflow: hidden; }
 .dg-v-container { overflow: hidden; }
@@ -55,7 +53,7 @@
 .dg-pagination button:first-child { border-left: 0; }
 .dg-pagination button[name="page-prev"] { border-right: 1px solid #E0E0E0; width: 41px; }
 .dg-pagination button[name="page-last"] { border-right: 1px solid #E0E0E0; }
-.dg-pagination input { width: 40px; text-align: center; border: 0; outline: 0; font-size: 12px; padding: 0; margin: 0; }
+.dg-pagination input { width: 40px; text-align: center; border: 0; outline: 0; font-size: 12px; padding: 0; margin: 0; background: transparent; }
 .dg-pagination > div { position: relative; display: inline-block; }
 .dg-pagination-items { float: right; font-size: 12px; margin: 7px 10px 0 0; font-weight: bold; }
 .dg-pagination-pages { float: left; font-size: 12px; margin: 7px 0 0 10px; }
@@ -88,7 +86,6 @@
 .dg input:-ms-input-placeholder { color: #A0A0A0 !important; }
 .dg input::placeholder { color: #A0A0A0; opacity: 1; }
 .dg input::-ms-input-placeholder { color: #A0A0A0 !important; }
-.dg select::-ms-expand { display: none; }
 .dg-col button { margin: 4px 0 0; border: 0; background-color: white; font-size: 10px; color: #404040; height: 19px; border: 1px solid #E0E0E0; border-left: 0; padding: 0 3px; outline: 0; line-height: 10px; min-width: 20px; }
 .dg-col button:hover { background-color: #4285F4; color: white; }
 .dg-col button[name="remove"] { background-color: #ffe5dd; color: red; }
@@ -97,8 +94,7 @@
 .dg-col button:last-child { border-top-right-radius: 3px; border-bottom-right-radius: 3px; }
 .dg-col button:disabled { background-color: #F0F0F0 !important; color: silver !important; cursor: not-allowed; }
 .ui-dark .dg-filter-selected { background-color: #3c3a32 !important; color: white; }
-.ui-dark .dg-filter-selected select { color: white; }
-.ui-dark .dg-filter select:focus { color: white; }
+.ui-dark .dg-filter-selected label { color: white; }
 .ui-dark .dg { color: #E0E0E0; }
 .ui-dark .dg-h-container { border-color: #353535; }
 .ui-dark .dg-sorting .fa-sort { color: #A0A0A0; }
@@ -108,7 +104,7 @@
 .ui-dark .dg-number { background-color: #282828; }
 .ui-dark .dg-col { border-left-color: #353535; }
 .ui-dark .dg-hcol { border-left-color: #353535; }
-.ui-dark .dg-hrow { border-bottom-color: #353535; color: #F0F0F0; background-color: #212121 }
+.ui-dark .dg-hrow { border-bottom-color: #353535; color: #F0F0F0; }
 .ui-dark .dg-row-empty { background-color: #202020 !important; border-bottom-color: #353535; }
 .ui-dark .dg-row { border-bottom-color: #353535; }
 .ui-dark .dg-selected { background-color: rgba(200,200,200,0.03) !important; }
