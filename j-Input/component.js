@@ -62,7 +62,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			} else if (config.mask) {
 				setTimeout(function(input) {
 					input.selectionStart = input.selectionEnd = 0;
-				}, 50, t);
+				}, 50, this);
 			} else if (config.dirsource && (config.autofocus != false && config.autofocus != 0)) {
 				if (!isdirvisible)
 					self.find(cls2 + '-control').trigger('click');
