@@ -125,6 +125,18 @@ __Good to know__:
 - `NULL('link.to.data')` evaluates `config.exec`
 - `SET('link.to.data', data, 'noscroll')` --> `noscroll` type disables reseting of scrolling
 
+__How to extend a class of row?__
+
+- look to the `{{ if active` line, it extends a class of row by adding `dg-active-class` if the `active` will be valid
+
+```javascript
+[
+	'{{ if active }} dg-active-class{{ fi }}',
+	{ name: 'name', text: 'Name', width: 200 },
+	// other columns ...
+]
+```
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

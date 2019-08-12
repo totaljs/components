@@ -29,6 +29,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			var pos = self.pos * self.limit;
 			var h = self.rows.slice(pos, pos + (self.limit * 2));
 			self.el[0].innerHTML = '<div style="height:{0}px"></div>{2}<div style="height:{1}px"></div>'.format(t, b < 2 ? 2 : b, h.join(''));
+			if (!self.grid.selected)
+				return;
+			var index = opt.rows.indexOf(self.grid.selected);
+			if (index !== -1 && (index >= pos || index <= (pos + self.limit)))
+				self.el.find('.dg-row[data-index="{0}"]'.format(index)).aclass('dg-selected');
 		};
 
 		self.scrolling = function() {
@@ -443,6 +448,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 			var el = $(this);
 			var index = +el.closest('.dg-hcol').attrd('index');
+			var builder = [];
 			var col = opt.cols[index];
 			var opts = col.options instanceof Array ? col.options : GET(col.options);
 			var dir = {};
@@ -958,10 +964,18 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		var cols = type === 'string' ? new Function('return ' + code)() : CLONE(code);
 		var tmp;
 
+		opt.rowclasstemplate = null;
 		opt.search = false;
 
 		for (var i = 0; i < cols.length; i++) {
 			var col = cols[i];
+
+			if (typeof(col) === 'string') {
+				opt.rowclasstemplate = Tangular.compile(col);
+				cols.splice(i, 1);
+				i--;
+				continue;
+			}
 
 			col.id = GUID(5);
 			col.realindex = i;
@@ -1220,7 +1234,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		}
 
 		column += '<div class="dg-col">&nbsp;</div>';
-		return Trow.format(index + 1, column, index, self.selected === row ? ' dg-selected' : '', row.CHANGES ? ' dg-row-changed' : '');
+		var rowcustomclass = opt.rowclasstemplate ? opt.rowclasstemplate(row) : '';
+		return Trow.format(index + 1, column, index, self.selected === row ? ' dg-selected' : '', (row.CHANGES ? ' dg-row-changed' : '') + (rowcustomclass || ''));
 	};
 
 	self.renderrows = function(rows, noscroll) {
@@ -1621,10 +1636,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			self.operation('refresh');
 		else
 			self.refresh();
-	};
-
-	self.readfilter = function() {
-		return CLONE(opt.filter);
 	};
 
 	self.redrawpagination = function() {
