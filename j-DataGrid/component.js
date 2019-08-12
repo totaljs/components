@@ -1624,7 +1624,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 	};
 
 	self.readfilter = function() {
-		return opt.filter;
+		return CLONE(opt.filter);
 	};
 
 	self.redrawpagination = function() {
