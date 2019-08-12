@@ -18,7 +18,7 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 	self.make = function() {
 
 		self.aclass(cls + '-container hidden');
-		self.html('<div class="' + cls + '"><ul></ul></div>');
+		self.html('<div class="' + cls + ' noscrollbar"><ul></ul></div>');
 
 		scroller = self.find(cls2);
 		container = self.find('ul');
