@@ -63,7 +63,7 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 	self.configure = function(name, value) {
 		switch (name) {
 			case 'height':
-				value && scroller.css('max-height', value).parent().css('max-height', value);
+				value && scroller.css('height', value);
 				break;
 		}
 	};
@@ -264,5 +264,8 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 
 		prev = container.find('.' + clssel);
 		self.visible(true);
+		setTimeout(function() {
+			scroller.noscrollbar(true);
+		}, 100);
 	};
 });
