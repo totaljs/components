@@ -443,7 +443,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 			var el = $(this);
 			var index = +el.closest('.dg-hcol').attrd('index');
-			var builder = [];
 			var col = opt.cols[index];
 			var opts = col.options instanceof Array ? col.options : GET(col.options);
 			var dir = {};
@@ -1622,6 +1621,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			self.operation('refresh');
 		else
 			self.refresh();
+	};
+
+	self.readfilter = function() {
+		return opt.filter;
 	};
 
 	self.redrawpagination = function() {

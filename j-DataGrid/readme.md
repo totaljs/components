@@ -114,6 +114,7 @@ __Methods__:
 - `component.editcolumn(row_index, col_index)` executes `config.change` internally (only for advanced usage)
 - `component.applyfilter(obj)` can apply a custom filter `{ name: 'Peter', age: '20 - 50' }`
 - __NEW__ `component.resetcolumns()` resets columns
+- __NEW__ `component.readfilter()` returns a current filter
 
 __Properties__:
 
