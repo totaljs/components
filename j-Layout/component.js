@@ -112,14 +112,14 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 
 			var ch = cache[type];
 			var offset = 0;
-			var min = ch.minsize ? ch.minsize.value : 0;
+			var min = ch.minsize ? (ch.minsize.value - 1) : 0;
 
 			target.aclass(cls + '-drag');
 
 			switch (type) {
 				case 'top':
 					drag.min = min || (ch.size - m);
-					drag.max = h - (cache.bottom ? cache.bottom.size : 0) - 50;
+					drag.max = (h - (cache.bottom ? cache.bottom.size : 0) - 50);
 					break;
 				case 'right':
 					offset = w;
@@ -143,12 +143,25 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 		events.mmove = function(e) {
 			if (drag.horizontal) {
 				var x = drag.offset.left + (e.pageX - drag.x) - drag.plusX - drag.cur.left;
-				if (x > drag.min && x < drag.max)
-					drag.el.css('left', x + 'px');
+
+				if (x < drag.min)
+					x = drag.min + 1;
+
+				if (x > drag.max)
+					x = drag.max - 1;
+
+				drag.el.css('left', x + 'px');
+
 			} else {
 				var y = drag.offset.top + (e.pageY - drag.y) - drag.plusY - drag.cur.top;
-				if (y > drag.min && y < drag.max)
-					drag.el.css('top', y + 'px');
+
+				if (y < drag.min)
+					y = drag.min + 1;
+
+				if (y > drag.max)
+					y = drag.max - 1;
+
+				drag.el.css('top', y + 'px');
 			}
 		};
 
