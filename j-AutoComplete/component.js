@@ -18,9 +18,9 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 	self.make = function() {
 
 		self.aclass(cls + '-container hidden');
-		self.html('<div class="' + cls + ' noscrollbar"><ul></ul></div>');
+		self.html('<div class="' + cls + '"><div class="noscrollbar"><ul></ul></div></div>');
 
-		scroller = self.find(cls2);
+		scroller = self.find('.noscrollbar');
 		container = self.find('ul');
 
 		self.event('click', 'li', function(e) {
@@ -63,7 +63,7 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 	self.configure = function(name, value) {
 		switch (name) {
 			case 'height':
-				value && scroller.css('max-height', value);
+				value && scroller.css('max-height', value).parent().css('max-height', value);
 				break;
 		}
 	};
