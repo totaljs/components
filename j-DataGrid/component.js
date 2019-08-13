@@ -1381,12 +1381,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 		switch (config.height) {
 			case 'auto':
 				el = self.element;
-				opt.height = (WH - (el.offset().top + config.bottom) - (config.exec ? 30 : 0)) + sbw;
+				opt.height = (WH - (el.offset().top + config.bottom) - (config.exec ? 30 : -2)) + sbw;
 				vbody.css('height', opt.height);
 				break;
 			case 'parent':
 				el = self.element.parent();
-				opt.height = (el.height() - config.bottom - (config.exec ? 30 : 0)) + sbw;
+				opt.height = (el.height() - config.bottom - (config.exec ? 30 : -2)) + sbw;
 				vbody.css('height', opt.height);
 				break;
 			default:
@@ -1395,7 +1395,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 					opt.height = config.height;
 				} else {
 					el = self.element.closest(config.height);
-					opt.height = (el.height() - config.bottom - (config.exec ? 30 : 0)) + sbw;
+					opt.height = (el.height() - config.bottom - (config.exec ? 30 : -2)) + sbw;
 					vbody.css('height', opt.height);
 				}
 				break;
