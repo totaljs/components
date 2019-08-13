@@ -96,6 +96,10 @@ COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true', function(self, config
 		}, 300);
 	};
 
+	self.focus = function() {
+		self.find('input').eq(0).focus();
+	};
+
 	self.getter = function() {
 		setTimeout2(self.id + '.getter', function() {
 			var value = '';

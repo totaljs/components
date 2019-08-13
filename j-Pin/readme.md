@@ -14,3 +14,7 @@ __Good to know__:
 
 - input with no value creates a space
 - it expects `String`
+
+__Methods__:
+
+- `component.focus()` focuses the first input
