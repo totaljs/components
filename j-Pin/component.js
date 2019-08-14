@@ -70,7 +70,7 @@ COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true', function(self, config
 					el.attrd('value', '');
 					var prev = el.parent().prev().find('input');
 					prev.val() && prev.focus();
-					self.mask();
+					config.mask && self.mask();
 				}
 			}, 50, $(this));
 		});
