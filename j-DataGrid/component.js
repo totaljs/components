@@ -1100,7 +1100,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 			}
 		}
 
-		self.style(css);
+		CSS(css, self.ID);
 
 		var w = self.width();
 		if (w > opt.width)
