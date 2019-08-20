@@ -1,26 +1,19 @@
 COMPONENT('sticker', function(self) {
 
-	var ca, cb = null;
-	var enabled = false, is = false;
+	var ca = null;
+	var cb = null;
+	var enabled = false;
+	var is = false;
+	var ready = false;
 	var top = 0;
+	var events = {};
+	var raf = W.requestAnimationFrame ? W.requestAnimationFrame : function(cb) { cb(); };
 
 	self.readonly();
 
-	self.init = function() {
-		window.$stickercounter = 0;
-		$(window).on('scroll', function() {
-			if (window.$stickercounter < 20)
-				clearTimeout(window.$sticker);
-			else
-				return;
-			window.$stickercounter++;
-			window.$sticker = setTimeout(function() {
-				window.$stickercounter = 0;
-				var y = $(window).scrollTop();
-				SETTER(true, 'sticker', 'toggle', y);
-			}, 30);
-		});
-	};
+	function parentscroll(node) {
+		return node ? (node.scrollHeight > node.clientHeight ? node : parentscroll(node.parentNode)) : null;
+	}
 
 	self.configure = function(key, value) {
 		switch (key) {
@@ -33,33 +26,67 @@ COMPONENT('sticker', function(self) {
 		}
 	};
 
-	self.toggle = function(y, init) {
-		var el = self.element;
+	events.onscroll = function() {
+		raf(self.toggle);
+	};
 
-		if (!enabled)
-			top = el.offset().top;
+	events.bind = function() {
+		$(self.container.tagName === 'HTML' ? W : self.container).on('scroll', events.onscroll);
+	};
 
-		is = y >= top;
-		if (is) {
-			if (enabled && !init)
-				return;
-			ca && el.rclass(ca);
-			cb && el.aclass(cb);
-			enabled = true;
-			return self;
-		}
+	self.destroy = function() {
+		$(self.container.tagName === 'HTML' ? W : self.container).off('scroll', events.onscroll);
+	};
 
-		if (!enabled && !init)
-			return self;
+	self.resize = function() {
 
-		cb && el.rclass(cb);
-		ca && el.aclass(ca);
-		enabled = false;
-		top = 0;
-		return self;
+		if (self.hclass(ca))
+			return;
+
+		ready = false;
+
+		WAIT(function() {
+			top = self.element.offset().top;
+			return top > 0;
+		}, function() {
+			ready = true;
+			setTimeout(self.toggle, 500);
+		});
 	};
 
 	self.make = function() {
-		self.toggle($(window).scrollTop(), true);
+		self.container = parentscroll(self.dom);
+		if (self.container) {
+			self.resize();
+			events.bind();
+		}
+	};
+
+	self.toggle = function() {
+
+		if (!ready)
+			return;
+
+		var el = self.element;
+
+		if (!top || !self.dom.parentNode) {
+			ca && el.rclass(ca);
+			cb && el.aclass(cb);
+			return;
+		}
+
+		var y = self.container.scrollTop;
+		is = y >= top;
+		if (is) {
+			if (!enabled) {
+				ca && el.rclass(ca);
+				cb && el.aclass(cb);
+				enabled = true;
+			}
+		} else if (enabled) {
+			cb && el.rclass(cb);
+			ca && el.aclass(ca);
+			enabled = false;
+		}
 	};
 });
