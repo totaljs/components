@@ -100,6 +100,8 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			var h = self.height();
 			var m = 2; // size of line
 
+			self.element.find('iframe').css('pointer-events', 'none');
+
 			drag.cur = self.element.offset();
 			drag.offset = target.offset();
 			drag.el = target;
@@ -166,6 +168,8 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 		};
 
 		events.mup = function() {
+
+			self.element.find('iframe').css('pointer-events', '');
 
 			var offset = drag.el.offset();
 			var d = WIDTH();
