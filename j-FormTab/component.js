@@ -4,6 +4,7 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 	var cls2 = '.' + cls;
 	var clsm = 'maximized';
 	var skip = false;
+	var ismobile = isMOBILE && WIDTH() === 'xs';
 
 	self.readonly();
 
@@ -22,7 +23,7 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 
 		self.event('click', cls2 + '-title', function() {
 
-			if (isMOBILE && WIDTH() === 'xs')
+			if (ismobile)
 				return;
 
 			var el = $(this);
@@ -86,19 +87,20 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 
 			var maximized = '';
 
-			if (isMOBILE && WIDTH() === 'xs') {
+			if (ismobile) {
 				maximized = ' ' + cls + '-' + clsm + ' ' + cls + '-open';
 				self.aclass(cls + '-ismaximized');
 			}
 
 			var scope = self.ID + 'p' + GUID(5);
-			var template = '<div data-id="{4}" class="{0}-modal{8}"><div class="{0}-title"><i class="fa fa-times {0}-op" data-name="close"></i><i class="fa fa-expand-arrows-alt {0}-op hidden-xs" data-name="maximize"></i><i class="fa fa-minus {0}-op hidden-xs" data-name="minimize"></i><label>{3}</label></div><div class="{0}-body" data-scope="{2}" data-id="{4}" style="width:{5}px;height:{6}px">{7}</div></div>'.format(cls, self.ID, scope, obj.name, obj.id, config.width, config.height, self.template(obj), maximized);
+			var template = '<div data-id="{4}" class="{0}-modal{8}"><div class="{0}-title"><i class="fa fa-times {0}-op" data-name="close"></i><i class="fa fa-expand-arrows-alt {0}-op{9}" data-name="maximize"></i><i class="fa fa-minus {0}-op{9}" data-name="minimize"></i><label>{3}</label></div><div class="{0}-body" data-scope="{2}" data-id="{4}" style="width:{5}px;height:{6}px">{7}</div></div>'.format(cls, self.ID, scope, obj.name, obj.id, config.width, config.height, self.template(obj), maximized, ismobile ? ' hidden-xs' : '');
 
 			if (obj.data)
 				SETR(scope, CLONE(obj.data));
 
 			self.append(template);
 			self.resize2();
+			setTimeout2(self.ID + 'compile', COMPILE, 500);
 		}
 	};
 
