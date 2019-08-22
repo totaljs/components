@@ -26,7 +26,7 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 			var el = $(this);
 			var parent = el.parent();
 
-			if (ismobile || parent.hclass(clsm))
+			if (ismobile || parent.hclass(cls + '-' + clsm))
 				return;
 
 			var id = parent.attrd('id');
