@@ -21,6 +21,10 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 		self.replace($('#' + self.ID), true);
 
 		self.event('click', cls2 + '-title', function() {
+
+			if (isMOBILE && WIDTH() === 'xs')
+				return;
+
 			var el = $(this);
 			var id = el.parent().attrd('id');
 			self.toggle(id);
@@ -82,7 +86,7 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 
 			var maximized = '';
 
-			if (WIDTH() === 'xs') {
+			if (isMOBILE && WIDTH() === 'xs') {
 				maximized = ' ' + cls + '-' + clsm + ' ' + cls + '-open';
 				self.aclass(cls + '-ismaximized');
 			}
