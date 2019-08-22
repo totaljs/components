@@ -93,7 +93,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:true', function(
 		else
 			fa.aclass('fa-' + config.icon2);
 
-		var val = value ? config.html(value) : config.placeholder;
+		var val = (value ? config.html(value) : config.placeholder) || '';
 		var body = self.find('.' + cls + '-value');
 
 		if (body.html() !== val)
