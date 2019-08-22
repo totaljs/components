@@ -23,11 +23,13 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 
 		self.event('click', cls2 + '-title', function() {
 
-			if (ismobile || self.hclass(clsm))
+			var el = $(this);
+			var parent = el.parent();
+
+			if (ismobile || parent.hclass(clsm))
 				return;
 
-			var el = $(this);
-			var id = el.parent().attrd('id');
+			var id = parent.attrd('id');
 			self.toggle(id);
 		});
 
