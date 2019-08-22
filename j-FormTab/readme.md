@@ -44,6 +44,7 @@ __Data-Source__:
 		name: 'YOUR_NAME_OF_THE_FORM',
 
 		// Optional
+		minimized: true,
 		data: { blabla: '"data" will be cloned into the form scope' }
 	}
 ]
