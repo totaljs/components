@@ -224,7 +224,7 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 		var arr = self.find(cls2 + '-modal');
 		for (var i = 0; i < arr.length; i++) {
 			var el = arr[i];
-			var id = el.attrd('id');
+			var id = el.getAttribute('data-id');
 			if (!value.findItem('id', id))
 				self.closeforce(id);
 		}
