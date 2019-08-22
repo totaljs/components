@@ -95,6 +95,7 @@ __Column properties__:
 - `ovalue` {String} optional, a key for `value` field in `options`, default `value`
 - `buttonapply` {String} optional, a label for `Apply` button in columns, default: `Apply`
 - `class` {String} optional, a custom column class name
+- __NEW__ `empty` {String/Boolean} optional, can rewrite empty value with the value defined in empty field (`true` value uses `---` as a default value)
 
 __Filtering__:
 

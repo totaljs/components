@@ -61,7 +61,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:true', function(
 		self.html('<div class="{2}-label{3}"><i class="fa hidden"></i><span>{1}:</span></div><div class="{2}"><div class="{2}-icon"><i class="fa fa-times"></i></div><div class="{2}-value">{0}</div></div>'.format(config.placeholder, config.label, cls, config.label ? '' : ' hidden'));
 
 		self.event('click', '.' + cls, function() {
-			!config.disabled && EXEC(config.click, self.element, function(value) {
+			!config.disabled && EXEC(self.makepath(config.click), self.element, function(value) {
 				self.set(value);
 				self.change();
 				config.required && setTimeout(self.validate2, 100);
@@ -93,7 +93,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:true', function(
 		else
 			fa.aclass('fa-' + config.icon2);
 
-		var val = value ? config.html(value) : config.placeholder;
+		var val = (value ? config.html(value) : config.placeholder) || '';
 		var body = self.find('.' + cls + '-value');
 
 		if (body.html() !== val)
@@ -108,7 +108,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:true', function(
 				config.loading && SETTER('loading', 'show');
 				AJAX('GET ' + config.url.arg({ value: encodeURIComponent(value) }), self.bindvalue);
 			} else
-				EXEC(config.exec, value, self.bindvalue, type);
+				EXEC(self.makepath(config.exec), value, self.bindvalue, type);
 		} else
 			self.bindvalue(value);
 	};

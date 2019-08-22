@@ -128,8 +128,9 @@ COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true', function(self, config
 			value = '';
 
 		inputs.each(function(index) {
-			this.setAttribute('data-value', value.substring(index, index + 1));
-			this.value = value ? config.blank : '';
+			var number = value.substring(index, index + 1);
+			this.setAttribute('data-value', number);
+			this.value = value ? config.mask ? config.blank  : number : '';
 		});
 	};
 

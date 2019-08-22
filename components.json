@@ -165,5 +165,6 @@
 	"j-Flow",
 	"j-StatusInput",
 	"j-ImageViewer",
-	"j-Permissions"
+	"j-Permissions",
+	"j-FormTab"
 ]
