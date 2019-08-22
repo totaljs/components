@@ -75,7 +75,7 @@ COMPONENT('sticker', function(self) {
 			return;
 		}
 
-		var y = self.container.scrollTop;
+		var y = W.pageYOffset || self.container.scrollTop;
 		is = y >= top;
 		if (is) {
 			if (!enabled) {
