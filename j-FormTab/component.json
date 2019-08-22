@@ -1,0 +1,18 @@
+{
+	"datecreated": "2019-08-22T09:02:00.000Z",
+	"dateupdated": null,
+	"name": "j-FormTab",
+	"tags": [
+		"form",
+		"tabbed"
+	],
+	"color": "white",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.gif",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}
