@@ -23,7 +23,7 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 
 		self.event('click', cls2 + '-title', function() {
 
-			if (ismobile)
+			if (ismobile || self.hclass(clsm))
 				return;
 
 			var el = $(this);
