@@ -164,6 +164,10 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 			skip = true;
 			if (el.hclass(cls + '-' + clsm))
 				self.rclass(cls + '-is' + clsm);
+
+			var items = self.get();
+			items.splice(items.findIndex('id', id), 1);
+
 			self.update();
 			el.remove();
 			FREE();
