@@ -10,6 +10,38 @@ __Configuration__:
 __Good to know__:
 This component appends `.scopename()` function to each item of Array for handling of scope and each content is wrapped in to the independent `scope` with direct reference to main source.
 
+### Advanced templating
+
+```html
+<div data---="duplicator__mytab__datasource:tabs" class="invisible">
+
+	<script type="text/html" data-id="PRODUCT">
+		<div data---="input__?.name">Name</div>
+	</script>
+
+	<script type="text/html" data-id="USER">
+		<div data---="input__?.age">Age</div>
+	</script>
+
+	<!-- DYNAMIC -->
+	<script type="text/html" data-id="ORDER" data-url="/templates/orders.html"></script>
+
+</div>
+
+<script>
+
+	// All tabs
+	var tabs = [];
+	tabs.push({ template: 'product', name: 'iPhone X' });
+	tabs.push({ template: 'user', age: 30 });
+	tabs.push({ template: 'order', price: 324 });
+
+	// Choose a default open tab
+	var mytab = tabs[0];
+
+</script>
+```
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

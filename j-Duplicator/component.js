@@ -4,18 +4,20 @@ COMPONENT('duplicator', function(self) {
 	var cls2 = '.' + cls;
 	var open = [];
 	var ready = false;
-	var template;
+	var templates = {};
 
 	self.readonly();
 
 	self.make = function() {
 
 		var tmp = self.find('script');
-		if (tmp.length) {
-			template = tmp.html().trim();
-			tmp.remove();
+
+		for (var i = 0; i < tmp.length; i++) {
+			var name = tmp[i].getAttribute('data-id') || 'default';
+			templates[name] = { url: tmp[i].getAttribute('data-url'), html: tmp[i].innerHTML.trim() };
 		}
 
+		tmp.remove();
 		self.aclass(cls);
 	};
 
@@ -27,16 +29,31 @@ COMPONENT('duplicator', function(self) {
 			case 'url':
 				AJAX('GET ' + value, function(response) {
 					if (typeof(response) === 'string')
-						template = response.trim();
+						templates.default = response.trim();
 				});
 				break;
 		}
 	};
 
-	self.insert = function(obj, show) {
+	self.insert = function(obj, show, callback) {
 
 		if (open.indexOf(obj) !== -1)
 			return;
+
+		var template = templates[obj.template || 'default'];
+
+		// Template not found
+		if (!template)
+			return;
+
+		if (template.url) {
+			AJAX('GET ' + template.url, function(response) {
+				template.url = '';
+				template.html = response || '';
+				self.insert(obj, show);
+			});
+			return;
+		}
 
 		var scope = 'duplicator' + GUID(5);
 
@@ -46,13 +63,14 @@ COMPONENT('duplicator', function(self) {
 
 		open.push(obj);
 		W[scope] = obj;
-		self.append('<div data-scope="{0}__isolated:true" data-id="{0}" class="{2}-container hidden">{1}</div>'.format(scope, template, cls));
+		self.append('<div data-scope="{0}__isolated:true" data-id="{0}" class="{2}-container hidden">{1}</div>'.format(scope, template.html, cls));
 		show && self.set(obj);
+		callback && callback(obj);
 	};
 
 	self.rebind = function(path, arr) {
 
-		if (!template) {
+		if (!Object.keys(templates).length) {
 			setTimeout(self.rebind, 500, path, arr);
 			return;
 		}
@@ -69,9 +87,10 @@ COMPONENT('duplicator', function(self) {
 		for (var i = 0; i < arr.length; i++) {
 			var item = arr[i];
 			if (open.indexOf(arr) === -1) {
-				self.insert(item);
-				cache[item.scopename()] = 1;
-				is = true;
+				self.insert(item, null, function(item) {
+					cache[item.scopename()] = 1;
+					setTimeout2(self.ID + 'compile', COMPILE, 100);
+				});
 			}
 		}
 
@@ -95,7 +114,6 @@ COMPONENT('duplicator', function(self) {
 		}
 
 		remove.length && FREE();
-		is && COMPILE();
 
 		if (!ready) {
 			ready = true;
