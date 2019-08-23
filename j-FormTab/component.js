@@ -56,7 +56,10 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 
 			if (t.name === 'submit') {
 				if (config.submit)
-					EXEC(config.submit, self.get().findItem('id', id), scope ? scope.get() : null);
+					EXEC(self.makepath(config.submit), self.get().findItem('id', id), scope ? scope.get() : null, function(val) {
+						if (val)
+							self.closeforce(id);
+					});
 			} else
 				self.close(id);
 		});
@@ -156,7 +159,7 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 
 	self.close = function(id) {
 		if (config.onclose) {
-			EXEC(config.onclose, self.get().findItem('id', id), function() {
+			EXEC(self.makepath(config.onclose), self.get().findItem('id', id), function() {
 				self.closeforce(id);
 			});
 		} else
