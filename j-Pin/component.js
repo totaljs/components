@@ -69,7 +69,7 @@ COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true', function(self, config
 				if (!el.val()) {
 					el.attrd('value', '');
 					var prev = el.parent().prev().find('input');
-					prev.val() && prev.focus();
+					prev.val() && prev.val('').focus();
 					config.mask && self.mask();
 				}
 			}, 50, $(this));
