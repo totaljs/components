@@ -32,9 +32,9 @@ This component appends `.scopename()` function to each item of Array for handlin
 
 	// All tabs
 	var tabs = [];
-	tabs.push({ template: 'product', name: 'iPhone X' });
-	tabs.push({ template: 'user', age: 30 });
-	tabs.push({ template: 'order', price: 324 });
+	tabs.push({ template: 'PRODUCT', name: 'iPhone X' });
+	tabs.push({ template: 'USER', age: 30 });
+	tabs.push({ template: 'ORDER', price: 324 });
 
 	// Choose a default open tab
 	var mytab = tabs[0];
