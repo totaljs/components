@@ -103,6 +103,8 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			self.element.find('iframe').css('pointer-events', 'none');
 
 			drag.cur = self.element.offset();
+			drag.cur.top -= 10;
+			drag.cur.left -= 8;
 			drag.offset = target.offset();
 			drag.el = target;
 			drag.x = e.pageX;
@@ -121,21 +123,21 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			switch (type) {
 				case 'top':
 					drag.min = min || (ch.size - m);
-					drag.max = (h - (cache.bottom ? cache.bottom.size : 0) - 50);
+					drag.max = (h - (cache.bottom ? s.bottom.height() : 0) - 50);
 					break;
 				case 'right':
 					offset = w;
-					drag.min = min || ((cache.left ? cache.left.size : 0) + 50);
-					drag.max = offset - ch.size;
+					drag.min = (cache.left ? s.left.width() : 0) + 50;
+					drag.max = offset - (min || ch.size);
 					break;
 				case 'bottom':
 					offset = h;
-					drag.min = min || ((cache.top ? cache.top.size : 0) + 50);
-					drag.max = offset - ch.size;
+					drag.min = (cache.top ? s.top.height() : 0) + 50;
+					drag.max = offset - (min || ch.size);
 					break;
 				case 'left':
 					drag.min = min || (ch.size - m);
-					drag.max = w - (cache.right ? cache.right.size : 0) - 50;
+					drag.max = w - (cache.right ? s.right.width() : 0) - 50;
 					break;
 			}
 
@@ -155,15 +157,14 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 				drag.el.css('left', x + 'px');
 
 			} else {
-				var y = drag.offset.top + (e.pageY - drag.y) - drag.plusY - drag.cur.top;
+				var y = drag.offset.top + (e.pageY - drag.y) - drag.plusY;
 
 				if (y < drag.min)
 					y = drag.min + 1;
-
 				if (y > drag.max)
 					y = drag.max - 1;
 
-				drag.el.css('top', y + 'px');
+				drag.el.css('top', (y - drag.cur.top) + 'px');
 			}
 		};
 
