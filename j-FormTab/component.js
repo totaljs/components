@@ -56,9 +56,8 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 
 			if (t.name === 'submit') {
 				if (config.submit)
-					EXEC(self.makepath(config.submit), self.get().findItem('id', id), scope ? scope.get() : null, function(val) {
-						if (val)
-							self.closeforce(id);
+					EXEC(self.makepath(config.submit), self.get().findItem('id', id), scope ? scope.get() : null, function() {
+						self.closeforce(id);
 					});
 			} else
 				self.close(id);

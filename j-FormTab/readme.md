@@ -25,7 +25,7 @@ __Configuration__:
 - `marginfullscreenmd` {Number} a default fullscreen margin for `md` devices (default: `config.marginfullscreen`)
 - `marginfullscreensm` {Number} a default fullscreen margin for `sm` devices (default: `config.marginfullscreen`)
 - `marginfullscreenxs` {Number} a default fullscreen margin for `xs` devices (default: `config.marginfullscreen`)
-- `submit` {String} link to a global function and it's executed if the submit button is pressed
+- `submit` {String} link to a global function `function(meta, data, hide)` and it's executed if the submit button is pressed
 - `cancel` {String} link to a global function and it's executed if the `cancel` button is pressed
 - `enter` {Boolean} captures `enter` key automatically and virtually clicks on the submit button (default: `false`)
 - `onclose` {String} a link to function `function(item, close)` (optional)
