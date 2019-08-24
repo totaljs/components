@@ -110,6 +110,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:27;limit:80;filterla
 
 	self.configure = function(key, value, init) {
 		switch (key) {
+			case 'noborder':
+				self.tclass('dg-noborder', !!value);
+				break;
 			case 'checkbox':
 			case 'numbering':
 				!init && self.cols(NOOP);

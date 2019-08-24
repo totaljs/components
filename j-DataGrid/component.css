@@ -95,6 +95,8 @@
 .dg-col button:disabled { background-color: #F0F0F0 !important; color: silver !important; cursor: not-allowed; }
 .ui-dark .dg-filter-selected { background-color: #3c3a32 !important; color: white; }
 .ui-dark .dg-filter-selected label { color: white; }
+.dg-noborder .dg-h-container { border: 0 !important; }
+.dg-noborder .dg-footer { border-left: 0 !important; border-bottom: 0 !important; border-right: 0 !important; }
 .ui-dark .dg { color: #E0E0E0; }
 .ui-dark .dg-h-container { border-color: #353535; }
 .ui-dark .dg-sorting .fa-sort { color: #A0A0A0; }
