@@ -37,7 +37,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 					return;
 			}
 
-			var display = el.attrd('display');
+			var display = (el.attrd('display') || '').toLowerCase();
 			var template = Tangular.compile(el.html());
 			var size = (el.attrd('size') || '').split(',');
 			var name = (el.attrd('head') || '').split(',');
@@ -65,7 +65,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 				align[i] = align[i].trim();
 
 			for (i = 0; i < size.length; i++)
-				size[i] = size[i].trim();
+				size[i] = size[i].trim().toLowerCase();
 
 			for (i = 0; i < sort.length; i++)
 				sort[i] = sort[i].trim();
