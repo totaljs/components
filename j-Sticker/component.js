@@ -59,7 +59,8 @@ COMPONENT('sticker', function(self) {
 		if (self.container) {
 			self.resize();
 			events.bind();
-		}
+		} else
+			setTimeout(self.make, 500);
 	};
 
 	self.toggle = function() {
