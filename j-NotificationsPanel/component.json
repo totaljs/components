@@ -1,0 +1,18 @@
+{
+	"datecreated": "2019-08-26T21:32:00.000Z",
+	"dateupdated": null,
+	"name": "j-NotificationsPanel",
+	"tags": [
+		"notifications",
+		"panel"
+	],
+	"darkmode": true,
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}

@@ -1,0 +1,33 @@
+<div data---="notificationspanel__shownotifications__exec:loadnotifications;click:clicknotificiation">
+	<script type="text/html">
+		<h2>{{ name }}</h2>
+		<p>{{ body }}</p>
+	</script>
+</div>
+
+<script>
+
+	var shownotifications = false;
+
+	// Shows notifications panel after 2 seconds
+	SET('shownotifications', true, 2000);
+
+	// The method will be executed automatically before the notifications panel will be visible
+	function loadnotifications(render) {
+		var arr = [];
+		arr.push({ name: 'Name of notifications 1', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos, architecto!' });
+		arr.push({ name: 'Name of notifications 2', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos, architecto!' });
+		arr.push({ name: 'Name of notifications 3', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos, architecto!' });
+		arr.push({ name: 'Name of notifications 4', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos, architecto!' });
+		arr.push({ name: 'Name of notifications 5', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos, architecto!' });
+
+		// IMPORTANT:
+		// This renders notifications onto notifications panel
+		render(arr);
+	}
+
+	function clicknotificiation(obj) {
+		console.log('CLICK', obj);
+	}
+
+</script>

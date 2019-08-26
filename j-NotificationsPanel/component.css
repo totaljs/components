@@ -1,0 +1,11 @@
+.ui-notificationspanel-header { height: 30px; border-bottom: 1px solid #E0E0E0; font-size: 12px; line-height: 29px; padding: 0 0 0 10px; color: gray; }
+.ui-notificationspanel-clear { float: right; cursor: pointer; line-height: 27px; color: #A0A0A0; margin-right: 10px; font-size: 11px; }
+.ui-notificationspanel-clear:hover { color: #e73323 !important; }
+.ui-notificationspanel-close { float: right; cursor: pointer; line-height: 29px; color: #e73323; border-left: 1px solid #E0E0E0; text-align: center; width: 29px; }
+.ui-notificationspanel-close:hover { background-color: red; color: white; }
+.ui-notificationspanel { position: fixed; right: 0; width: 300px; top: 0; background-color: rgba(255,255,255,0.9); border-left: 1px solid #E0E0E0; box-shadow: -10px 0 10px rgba(0,0,0,0.05); }
+
+.ui-dark .ui-notificationspanel-header { border-bottom-color: #303030; }
+.ui-dark .ui-notificationspanel-clear { color: #505050; }
+.ui-dark .ui-notificationspanel-close { border-left-color: #303030; }
+.ui-dark .ui-notificationspanel { background-color: rgba(20,20,20,0.9); border-left-color: #303030; box-shadow: -10px 0 10px rgba(0,0,0,0.1); }
