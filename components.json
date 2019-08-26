@@ -166,5 +166,6 @@
 	"j-StatusInput",
 	"j-ImageViewer",
 	"j-Permissions",
-	"j-FormTab"
+	"j-FormTab",
+	"NotificationsPanel"
 ]
