@@ -68,6 +68,7 @@ COMPONENT('colorpicker', function(self) {
 			return;
 		}
 
+		events.is && self.unbindevents();
 		self.target = tmp;
 		self.opt = opt;
 		var css = {};
@@ -111,7 +112,7 @@ COMPONENT('colorpicker', function(self) {
 
 		is = true;
 		self.element.css(css);
-		setTimeout(self.bindevents, 50);
+		setTimeout(self.bindevents, 10);
 	};
 
 	self.hide = function() {
@@ -119,9 +120,8 @@ COMPONENT('colorpicker', function(self) {
 			is = false;
 			self.target = null;
 			self.opt = null;
-			self.unbindevents();
+			setTimeout(self.unbindevents, 50);
 			self.aclass('hidden');
 		}
 	};
 });
-
