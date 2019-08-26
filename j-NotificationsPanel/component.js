@@ -66,7 +66,7 @@ COMPONENT('notificationspanel', 'top:0;visibleY:1;title:Notifications;autoremove
 
 		container.html(builder.join(''));
 		elclear.tclass('hidden', !builder.length);
-		builder.length && self.resizeforce();
+		builder.length && self.resize();
 	};
 
 	self.clear = function() {
