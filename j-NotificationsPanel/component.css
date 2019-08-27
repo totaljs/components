@@ -9,3 +9,7 @@
 .ui-dark .ui-notificationspanel-clear { color: #505050; }
 .ui-dark .ui-notificationspanel-close { border-left-color: #303030; }
 .ui-dark .ui-notificationspanel { background-color: rgba(20,20,20,0.9); border-left-color: #303030; box-shadow: -10px 0 10px rgba(0,0,0,0.1); }
+
+@media(max-width: 767px) {
+	.ui-notificationspanel { width: 100%; border-left: 0; }
+}
