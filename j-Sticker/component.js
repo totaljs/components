@@ -1,4 +1,4 @@
-COMPONENT('sticker', function(self) {
+COMPONENT('sticker', 'margin:0', function(self, config) {
 
 	var ca = null;
 	var cb = null;
@@ -77,7 +77,7 @@ COMPONENT('sticker', function(self) {
 		}
 
 		var y = W.pageYOffset || self.container.scrollTop;
-		is = y >= top;
+		is = y >= (top - config.margin);
 		if (is) {
 			if (!enabled) {
 				ca && el.rclass(ca);
