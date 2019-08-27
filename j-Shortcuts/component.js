@@ -21,6 +21,7 @@ COMPONENT('shortcuts', function(self) {
 						setTimeout(function(o, e) {
 							o.callback(e);
 						}, 100, o, e);
+						return;
 					}
 				}
 			}
