@@ -89,7 +89,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 		if (opt.raw == null)
 			opt.raw = true;
 
-		if (opt.can) {
+		if (opt.can || config.can) {
 			opt.canedit = function(el) {
 				var opt = el[0].$editable;
 				return (opt.can && !GET(opt.can)(opt, el)) || (config.can && !GET(config.can)(opt, el));
