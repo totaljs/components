@@ -29,6 +29,8 @@ __Configuration__:
 - `cancel` {String} link to a global function and it's executed if the `cancel` button is pressed
 - `enter` {Boolean} captures `enter` key automatically and virtually clicks on the submit button (default: `false`)
 - `onclose` {String} a link to function `function(item, close)` (optional)
+- `onopen` {String} a link to function `function(item, el)` (optional)
+- `autofocus` {Boolean} enables auto-focus for the first input (default: `false`)
 
 __Good to know__:
 

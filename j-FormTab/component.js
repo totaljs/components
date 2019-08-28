@@ -97,19 +97,21 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 			}
 
 			var scope = self.ID + 'p' + GUID(5);
-			var template = '<div data-id="{4}" class="invisible {0}-modal{8}"><div class="{0}-title"><i class="fa fa-times {0}-op" data-name="close"></i><i class="fa fa-expand-arrows-alt {0}-op{9}" data-name="maximize"></i><i class="fa fa-minus {0}-op{9}" data-name="minimize"></i><label>{3}</label></div><div class="{0}-body" data-scope="{2}" data-id="{4}" style="width:{5}px;height:{6}px">{7}</div></div>'.format(cls, self.ID, scope, obj.name, obj.id, config.width, config.height, self.template(obj), (obj.minimized ? '' : (' ' + cls + '-open')) + maximized, (ismobile ? ' hidden-xs' : ''));
+			var template = '<div data-id="{4}" class="invisible {0}-modal{8}"><div class="{0}-title"><i class="fa fa-times {0}-op" data-name="close"></i><i class="fa fa-expand-arrows-alt {0}-op{9}" data-name="maximize"></i><i class="fa fa-minus {0}-op{9}" data-name="minimize"></i><label>{3}</label></div><div class="{0}-body" data-scope="{2}" data-id="{4}" style="width:{5}px;min-height:{6}px">{7}</div></div>'.format(cls, self.ID, scope, obj.name, obj.id, config.width, config.height, self.template(obj), (obj.minimized ? '' : (' ' + cls + '-open')) + maximized, (ismobile ? ' hidden-xs' : ''));
 
 			if (obj.data)
 				SETR(scope, CLONE(obj.data));
 
 			self.append(template);
 			self.resize2();
-			setTimeout2(self.ID + 'compile', COMPILE, 500);
+			setTimeout2(self.ID + 'compile', COMPILE, 300);
 
 			setTimeout(function(obj) {
 				var el = self.findmodal(obj.id);
 				el.rclass('invisible');
-			}, 300, obj);
+				config.onopen && EXEC(config.onopen, obj, el);
+				config.autofocus && el.find('input,select,textarea').eq(0).focus();
+			}, 500, obj);
 		}
 	};
 
@@ -201,11 +203,15 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 			if (el.hclass(cls + '-' + clsm)) {
 				cssa.width = w - m;
 				cssa.height = WH - m;
+				cssa['min-height'] = '';
 				cssa.left = cssa.top = mf;
 				cssa.right = '';
 				cssb.width = cssa.width;
 				cssb.height = cssa.height - body.position().top;
+				cssb['min-height'] = '';
 			} else {
+
+				cssa.height = '';
 				cssa.right = offset + 'px';
 				cssa.width = cssa.height = cssa.left = cssa.top = '';
 				cssb.width = config['width' + wd] || config.width;
@@ -213,10 +219,10 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 				if (el.hclass(cls + '-open'))
 					cssa.width = cssb.width;
 
-				cssb.height = config['height' + wd] || config.height;
+				cssb['min-height'] = config['height' + wd] || config.height;
+				cssb.height = '';
 			}
 
-			// el.css('width', cssb.width);
 			el.css(cssa);
 			body.css(cssb);
 
@@ -226,7 +232,7 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 				offset += el.find(cls2 + '-title').width() + (mn * 2);
 		}
 
-		self.css('width', WW);
+		self.css('width', w);
 	};
 
 	self.setter = function(value) {
