@@ -67,9 +67,14 @@ COMPONENT('shortcuts', function(self) {
 						builder.push('e.keyCode===13');
 						return;
 					case 'backspace':
+						builder.push('e.keyCode===8');
+						break;
 					case 'del':
 					case 'delete':
-						builder.push('(e.keyCode===8||e.keyCode===127)');
+						builder.push('e.keyCode===46');
+						return;
+					case 'remove':
+						builder.push('(e.keyCode===8||e.keyCode===46)');
 						return;
 					case 'up':
 						builder.push('e.keyCode===38');
