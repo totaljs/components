@@ -136,6 +136,8 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 			el.rclass(cls + '-open');
 			if (el.hclass(cls + '-' + clsm))
 				self.maximize(id);
+			else
+				self.emitresize(el);
 			self.resize();
 		} else
 			self.toggle(id);
