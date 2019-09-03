@@ -1,0 +1,19 @@
+<style>
+	.selected { font-weight: bold; color: blue; }
+</style>
+
+<nav data---="aselected">
+	<a href="/">Users</a>
+	<a href="/products/">Products</a>
+	<a href="/settings/">Settings</a>
+</nav>
+
+<script>
+
+	var arr = ['/', '/products/', '/settings/'];
+
+	setInterval(function() {
+		REDIRECT(arr[Math.random() * arr.length) >> 0]);
+	}, 1500);
+
+</script>

@@ -168,5 +168,6 @@
 	"j-Permissions",
 	"j-FormTab",
 	"j-NotificationsPanel",
-	"j-LazyImages"
+	"j-LazyImages",
+	"j-ASelected"
 ]
