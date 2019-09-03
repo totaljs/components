@@ -1,4 +1,4 @@
-COMPONENT('sticker', 'margin:0', function(self, config) {
+COMPONENT('sticker', 'margin:0;lg:1;md:1;sm:0;xs:0', function(self, config) {
 
 	var ca = null;
 	var cb = null;
@@ -55,6 +55,12 @@ COMPONENT('sticker', 'margin:0', function(self, config) {
 	};
 
 	self.make = function() {
+
+		var w = WIDTH();
+
+		if (!config[w])
+			return;
+
 		self.container = parentscroll(self.dom);
 		if (self.container) {
 			self.resize();
@@ -77,7 +83,8 @@ COMPONENT('sticker', 'margin:0', function(self, config) {
 		}
 
 		var y = W.pageYOffset || self.container.scrollTop;
-		is = y >= (top - config.margin);
+
+		is = y >= (top + config.margin);
 		if (is) {
 			if (!enabled) {
 				ca && el.rclass(ca);
