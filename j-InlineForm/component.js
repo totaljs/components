@@ -100,7 +100,7 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 
 		if (self.template) {
 			is = self.template.COMPILABLE();
-			self.find('div[data-jc-replaced]').html(self.template);
+			self.find('div[data-jc-replaced]').aclass(cls + '-body').html(self.template);
 			self.template = null;
 			is && COMPILE();
 			setTimeout(self.show, 250, opt);
