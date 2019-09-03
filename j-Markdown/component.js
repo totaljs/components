@@ -12,7 +12,7 @@ COMPONENT('markdown', function (self) {
 		}, 500);
 	};
 
-	/*! Markdown | (c) 2019 Peter Sirka | www.petersirka.com */
+/*! Markdown | (c) 2019 Peter Sirka | www.petersirka.com */
 	(function Markdown() {
 
 		var keywords = /\{.*?\}\(.*?\)/g;
@@ -256,7 +256,7 @@ COMPONENT('markdown', function (self) {
 					if (il === '&lt;') {
 						beg2 = i;
 						continue;
-					} else if (beg2 && il === '&gt;') {
+					} else if (beg2 > -1 && il === '&gt;') {
 						callback(val.substring(beg2, i + 4), true);
 						beg2 = -1;
 						continue;
@@ -574,5 +574,4 @@ COMPONENT('markdown', function (self) {
 		};
 
 	})();
-
 });
