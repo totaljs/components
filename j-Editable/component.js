@@ -170,13 +170,14 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 				if (!opt.dirvalue)
 					opt.dirvalue = 'id';
 
+				var scope = el.scope();
 				var attr = {};
 				attr.element = el;
-				attr.items = GET(opt.dirsource.replace(/\?/g, self.pathscope));
+				attr.items = GET(scope == null ? self.makepath(opt.dirsource) : scope.makepath(opt.dirsource));
 				attr.offsetY = -1;
 				attr.placeholder = opt.dirplaceholder;
 				attr.search = opt.dirsearch;
-				attr.render = opt.dirrender ? GET(opt.dirrender.replace(/\?/g, self.pathscope)) : null;
+				attr.render = opt.dirrender ? GET(scope == null ? self.makepath(opt.dirrender) : scope.makepath(opt.dirrender)) : null;
 				attr.custom = !!opt.dircustom;
 				attr.offsetWidth = 2;
 				attr.minwidth = opt.dirminwidth || 200;
