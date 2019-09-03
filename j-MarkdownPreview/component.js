@@ -164,11 +164,16 @@ COMPONENT('markdownpreview', function(self, config) {
 			}
 		});
 
-		if (!iseditor)
-			el.find('.code').rclass('hidden');
+		el.find('.code').rclass('hidden');
 	};
 
 	self.setter = function(value) {
+
+		// Waits for markdown component
+		if (!String.prototype.markdown) {
+			setTimeout(self.setter, 500, value);
+			return;
+		}
 
 		var cache = {};
 		var html = (value || '').markdown();
