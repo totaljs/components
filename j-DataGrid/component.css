@@ -1,4 +1,4 @@
-.dg { color: black; position: relative; visibility: hidden; }
+.dg { color: black; position: relative; visibility: hidden; background-color: white; }
 .dg-h-container { overflow: hidden; border: 1px solid #E0E0E0; }
 .dg-h-body { overflow: hidden; overflow-x: auto; overflow-scrolling: touch; -webkit-overflow-scrolling: touch; }
 .dg-header { position: relative; }
@@ -97,7 +97,7 @@
 .dg-noborder .dg-footer { border-left: 0 !important; border-bottom: 0 !important; border-right: 0 !important; }
 .ui-dark .dg-filter-selected { background-color: #3c3a32 !important; color: white; }
 .ui-dark .dg-filter-selected label { color: white; }
-.ui-dark .dg { color: #E0E0E0; }
+.ui-dark .dg { color: #E0E0E0; background-color: #202020; }
 .ui-dark .dg-h-container { border-color: #353535; }
 .ui-dark .dg-sorting .fa-sort { color: #A0A0A0; }
 .ui-dark .dg-filter { border-top-color: #353535; }
