@@ -167,5 +167,6 @@
 	"j-ImageViewer",
 	"j-Permissions",
 	"j-FormTab",
-	"j-NotificationsPanel"
+	"j-NotificationsPanel",
+	"j-LazyImages"
 ]

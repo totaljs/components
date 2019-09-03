@@ -1,0 +1,19 @@
+{
+	"datecreated": "2019-09-03T08:39:00.000Z",
+	"dateupdated": null,
+	"name": "j-LazyImages",
+	"tags": [
+		"images",
+		"lazyload",
+		"pictures"
+	],
+	"color": "white",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "MIT"
+}
