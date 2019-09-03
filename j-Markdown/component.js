@@ -146,6 +146,7 @@ COMPONENT('markdown', function (self) {
 			if (value.charAt(value.length - 1) === '>')
 				end = '-';
 
+			// return (beg + value.replace(regtags, '').toLowerCase().replace(regid, '-') + end).replace(regdash, '-');
 			return (beg + value.slug() + end).replace(regdash, '-');
 		}
 
@@ -206,9 +207,6 @@ COMPONENT('markdown', function (self) {
 
 			if (!opt)
 				opt = {};
-
-			if (opt.urlify !== false && opt.links !== false)
-				str = markdown_urlify(str);
 
 			var lines = str.split('\n');
 			var builder = [];
@@ -366,6 +364,9 @@ COMPONENT('markdown', function (self) {
 				}
 
 				var line = lines[i];
+
+				if (opt.urlify !== false && opt.links !== false)
+					line = markdown_urlify(line);
 
 				if (opt.custom)
 					line = opt.custom(line);
