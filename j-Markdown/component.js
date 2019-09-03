@@ -146,7 +146,6 @@ COMPONENT('markdown', function (self) {
 			if (value.charAt(value.length - 1) === '>')
 				end = '-';
 
-			// return (beg + value.replace(regtags, '').toLowerCase().replace(regid, '-') + end).replace(regdash, '-');
 			return (beg + value.slug() + end).replace(regdash, '-');
 		}
 
