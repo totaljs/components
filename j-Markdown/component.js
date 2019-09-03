@@ -15,18 +15,15 @@ COMPONENT('markdown', function (self) {
 	/*! Markdown | (c) 2019 Peter Sirka | www.petersirka.com */
 	(function Markdown() {
 
-		var links = /(!)?\[.*?\]\(.*?\)/g;
-		var links2 = /&lt;(https|http)+:\/\/.*?&gt;/g;
-		var imagelinks = /\[!\[.*?\]\(.*?\)\]\(.*?\)/g;
+		var keywords = /\{.*?\}\(.*?\)/g;
+		var linksexternal = /(https|http):\/\//;
 		var format = /__.*?__|_.*?_|\*\*.*?\*\*|\*.*?\*|~~.*?~~|~.*?~/g;
 		var ordered = /^[a-z|0-9]{1}\.\s|^-\s/i;
 		var orderedsize = /^(\s|\t)+/;
 		var code = /`.*?`/g;
 		var encodetags = /<|>/g;
 		var formatclean = /_|\*|~/g;
-		var regid = /[^\w]+/g;
 		var regdash = /-{2,}/g;
-		var regtags = /<\/?[^>]+(>|$)/g;
 		var regicons = /(^|[^\w]):[a-z-]+:([^\w]|$)/g;
 		var regemptychar = /\s|\W/;
 
@@ -39,9 +36,16 @@ COMPONENT('markdown', function (self) {
 		}
 
 		function markdown_imagelinks(value) {
-			var end = value.indexOf(')') + 1;
-			var img = value.substring(1, end);
-			return '<a href="' + value.substring(end + 2, value.length - 1) + '" target="_blank">' + markdown_links(img) + '</a>';
+			var end = value.lastIndexOf(')') + 1;
+			var img = value.substring(0, end);
+			var url = value.substring(end + 2, value.length - 1);
+			var label = markdown_links(img);
+			var footnote = label.substring(0, 13);
+
+			if (footnote === '<sup data-id=' || footnote === '<span data-id' || label.substring(0, 9) === '<a href="')
+				return label;
+
+			return '<a href="' + url + '"' + (linksexternal.test(url) ? ' target="_blank"' : '') + '>' + label + '</a>';
 		}
 
 		function markdown_table(value, align, ishead) {
@@ -65,27 +69,40 @@ COMPONENT('markdown', function (self) {
 			var img = value.charAt(0) === '!';
 			var text = value.substring(img ? 2 : 1, end);
 			var link = value.substring(end + 2, value.length - 1);
-			var responsive = true;
 
-			if (img) {
-				if (text.charAt(0) === '+') {
-					responsive = false;
-					text = text.substring(1);
-				}
-			} else {
-				if ((/^#\d+$/).test(link)) {
-					// footnotes
-					return (/^\d+$/).test(text) ? '<sup data-id="{0}" class="footnote">{1}</sup>'.format(link.substring(1), text) : '<span data-id="{0}" class="footnote">{1}</span>'.format(link.substring(1), text);
-				}
+			if ((/^#\d+$/).test(link)) {
+				// footnotes
+				return (/^\d+$/).test(text) ? '<sup data-id="{0}" class="footnote">{1}</sup>'.format(link.substring(1), text) : '<span data-id="{0}" class="footnote">{1}</span>'.format(link.substring(1), text);
 			}
 
-			var nofollow = link.charAt(0) === '@' ? 'rel="nofollow"' : 'target="_blank"';
-			return img ? ('<img src="' + link + '" alt="' + text + '"' + (responsive ? ' class="img-responsive"' : '') + ' border="0" />') : ('<a href="' + link + '" ' + nofollow + '>' + text + '</a>');
+			var nofollow = link.charAt(0) === '@' ? ' rel="nofollow"' : linksexternal.test(link) ? ' target="_blank"' : '';
+			return '<a href="' + link + '"' + nofollow + '>' + text + '</a>';
+		}
+
+		function markdown_image(value) {
+
+			var end = value.lastIndexOf(']');
+			var text = value.substring(2, end);
+			var link = value.substring(end + 2, value.length - 1);
+			var responsive = true;
+
+			if (text.charAt(0) === '+') {
+				responsive = false;
+				text = text.substring(1);
+			}
+
+			return '<img src="' + link + '" alt="' + text + '"' + (responsive ? ' class="img-responsive"' : '') + ' border="0" loading="lazy" />';
+		}
+
+		function markdown_keywords(value) {
+			var keyword = value.substring(1, value.indexOf('}'));
+			var type = value.substring(value.lastIndexOf('(') + 1, value.lastIndexOf(')'));
+			return '<span class="keyword" data-type="{0}">{1}</span>'.format(type, keyword);
 		}
 
 		function markdown_links2(value) {
 			value = value.substring(4, value.length - 4);
-			return '<a href="' + value + '" target="_blank">' + value + '</a>';
+			return '<a href="' + (value.indexOf('@') !== -1 ? 'mailto:' : linksexternal.test(value) ? '' : 'http://') + value + '" target="_blank">' + value + '</a>';
 		}
 
 		function markdown_format(value, index, text) {
@@ -129,7 +146,8 @@ COMPONENT('markdown', function (self) {
 			if (value.charAt(value.length - 1) === '>')
 				end = '-';
 
-			return (beg + value.replace(regtags, '').toLowerCase().replace(regid, '-') + end).replace(regdash, '-');
+			// return (beg + value.replace(regtags, '').toLowerCase().replace(regid, '-') + end).replace(regdash, '-');
+			return (beg + value.slug() + end).replace(regdash, '-');
 		}
 
 		function markdown_icon(value) {
@@ -183,6 +201,7 @@ COMPONENT('markdown', function (self) {
 			// opt.custom
 			// opt.footnotes = true;
 			// opt.urlify = true;
+			// opt.keywords = true;
 
 			var str = this;
 
@@ -219,6 +238,105 @@ COMPONENT('markdown', function (self) {
 				return markdown_links(val, opt.images);
 			};
 
+			var linkscope = function(val, index, callback) {
+
+				var beg = -1;
+				var beg2 = -1;
+				var can = false;
+				var n;
+
+				for (var i = index; i < val.length; i++) {
+					var c = val.charAt(i);
+
+					if (c === '[') {
+						beg = i;
+						can = false;
+						continue;
+					}
+
+					var il = val.substring(i, i + 4);
+
+					if (il === '&lt;') {
+						beg2 = i;
+						continue;
+					} else if (beg2 && il === '&gt;') {
+						callback(val.substring(beg2, i + 4), true);
+						beg2 = -1;
+						continue;
+					}
+
+					if (c === ']') {
+
+						can = false;
+
+						if (beg === -1)
+							continue;
+
+						n = val.charAt(i + 1);
+
+						// maybe a link mistake
+						if (n === ' ')
+							n = val.charAt(i + 2);
+
+						// maybe a link
+						can = n === '(';
+					}
+
+					if (beg > -1 && can && c === ')') {
+						n = val.charAt(beg - 1);
+						callback(val.substring(beg - (n === '!' ? 1 : 0), i + 1));
+						can = false;
+						beg = -1;
+					}
+				}
+
+			};
+
+			var imagescope = function(val) {
+
+				var beg = -1;
+				var can = false;
+
+				for (var i = 0; i < val.length; i++) {
+					var c = val.charAt(i);
+
+					if (c === '[') {
+						beg = i;
+						can = false;
+						continue;
+					}
+
+					if (c === ']') {
+
+						can = false;
+
+						if (beg === -1)
+							continue;
+
+						var n = val.charAt(i + 1);
+
+						// maybe a link mistake
+						if (n === ' ')
+							n = val.charAt(i + 2);
+
+						// maybe a link
+						can = n === '(';
+					}
+
+					if (beg > -1 && can && c === ')') {
+						n = val.charAt(beg - 1);
+						var tmp = val.substring(beg - (n === '!' ? 1 : 0), i + 1);
+						if (tmp.charAt(0) === '!')
+							val = val.replace(tmp, markdown_image(tmp));
+						can = false;
+						beg = -1;
+					}
+				}
+
+
+				return val;
+			};
+
 			for (var i = 0, length = lines.length; i < length; i++) {
 
 				lines[i] = lines[i].replace(encodetags, encode);
@@ -235,7 +353,7 @@ COMPONENT('markdown', function (self) {
 					closeul();
 					iscode = true;
 					if (opt.code !== false)
-						tmp = '<div class="code"><pre><code class="lang-' + lines[i].substring(3) + '">';
+						tmp = '<div class="code hidden"><pre><code class="lang-' + lines[i].substring(3) + '">';
 					prev = 'code';
 					continue;
 				}
@@ -253,14 +371,25 @@ COMPONENT('markdown', function (self) {
 				if (opt.custom)
 					line = opt.custom(line);
 
-				if (opt.links !== false) {
-					if (opt.images !== false)
-						line = line.replace(imagelinks, markdown_imagelinks);
-					line = line.replace(links, formatlinks).replace(links2, markdown_links2);
-				}
-
 				if (opt.formatting !== false)
 					line = line.replace(format, markdown_format).replace(code, markdown_code);
+
+				if (opt.images !== false)
+					line = imagescope(line);
+
+				if (opt.links !== false) {
+					linkscope(line, 0, function(text, inline) {
+						if (inline)
+							line = line.replace(text, markdown_links2);
+						else if (opt.images !== false)
+							line = line.replace(text, markdown_imagelinks);
+						else
+							line = line.replace(text, formatlinks);
+					});
+				}
+
+				if (opt.keywords !== false)
+					line = line.replace(keywords, markdown_keywords);
 
 				if (opt.icons !== false)
 					line = line.replace(regicons, markdown_icon);
@@ -441,7 +570,7 @@ COMPONENT('markdown', function (self) {
 			closeul();
 			table && opt.tables !== false && builder.push('</tbody></table>');
 			iscode && opt.code !== false && builder.push('</code></pre>');
-			return (opt.wrap ? '<div class="markdown">' : '') + builder.join('\n') + (opt.wrap ? '</div>' : '');
+			return (opt.wrap ? '<div class="markdown">' : '') + builder.join('\n').replace(/\t/g, '    ') + (opt.wrap ? '</div>' : '');
 		};
 
 	})();
