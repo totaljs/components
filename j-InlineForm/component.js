@@ -1,14 +1,18 @@
 COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 
-	var W = window;
+	var cls = 'ui-inlineform';
+	var cls2 = '.' + cls;
 	var dw = 300;
+	var options;
 
 	if (!W.$$inlineform) {
 		W.$$inlineform = true;
-		$(document).on('click', '.ui-inlineform-close', function() {
-			SETTER('inlineform', 'hide');
-		}).on('resize', function() {
-			SETTER('inlineform', 'hide');
+		$(document).on('click', cls2 + '-close', function() {
+			SETTER(self.name, 'hide');
+		});
+
+		$(W).on('resize', function() {
+			SETTER(self.name, 'hide');
 		});
 	}
 
@@ -16,9 +20,10 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 
 	self.submit = function() {
 		if (config.submit)
-			EXEC(config.submit, self);
+			EXEC(config.submit, self.hide);
 		else
 			self.hide();
+		options.callback && options.callback(self.hide);
 	};
 
 	self.cancel = function() {
@@ -30,7 +35,8 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 		if (!self.hclass('hidden')) {
 			self.release(true);
 			self.aclass('hidden');
-			self.find('.ui-inlineform').rclass('ui-inlineform-animate');
+			self.find(cls2).rclass(cls + '-animate');
+			config.hide && EXEC(config.hide);
 		}
 	};
 
@@ -41,14 +47,14 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 
 	self.make = function() {
 
-		$(document.body).append('<div id="{0}" class="hidden ui-inlineform-container" style="max-width:{1}"><div class="ui-inlineform"><i class="fa fa-caret-up ui-inlineform-arrow"></i><div class="ui-inlineform-title" data-bind="@config__html span:value.title__change .ui-inlineform-icon:@icon"><button name="cancel" class="ui-inlineform-close"><i class="fa fa-times"></i></button><i class="ui-inlineform-icon"></i><span></span></div></div></div>'.format(self.ID, (config.width || dw) + 'px', self.path));
+		$(document.body).append('<div id="{0}" class="hidden {3}-container" style="max-width:{1}"><div class="{3}"><div class="{3}-title" data-bind="@config__html span:value.title__change .ui-inlineform-icon:@icon"><button name="cancel" class="{3}-close"><i class="fa fa-times"></i></button><i class="{3}-icon"></i><span></span></div></div></div>'.format(self.ID, (config.width || dw) + 'px', self.path, cls));
 
 		var el = $('#' + self.ID);
 
 		var scr = self.find('> script');
 		self.template = scr.length ? scr.html() : '';
 
-		el.find('.ui-inlineform')[0].appendChild(self.dom);
+		el.find(cls2)[0].appendChild(self.dom);
 		self.rclass('hidden');
 		self.replace(el);
 		self.event('click', 'button[name]', function() {
@@ -70,26 +76,35 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 		config.enter && self.event('keydown', 'input', function(e) {
 			e.which === 13 && !self.find('button[name="submit"]')[0].disabled && setTimeout(function() {
 				self.submit(self.hide);
-			}, 800);
+			}, 500);
 		});
 	};
 
-	self.toggle = function(el, position, offsetX, offsetY) {
+	self.toggle = function(opt) {
 		if (self.hclass('hidden'))
-			self.show(el, position, offsetX, offsetY);
+			self.show(opt);
 		else
 			self.hide();
 	};
 
-	self.show = function(el, position, offsetX, offsetY) {
+	self.show = function(opt) {
 
-		SETTER('inlineform', 'hide');
+		var el = opt.element;
+		var is = false;
+		options = opt;
+
+		if (!self.hclass('hidden')) {
+			SETTER(self.name, 'hide');
+			return;
+		}
 
 		if (self.template) {
-			var is = (/(data-bind|data-jc|data-{2,})="/).test(self.template);
+			is = self.template.COMPILABLE();
 			self.find('div[data-jc-replaced]').html(self.template);
 			self.template = null;
 			is && COMPILE();
+			setTimeout(self.show, 250, opt);
+			return;
 		}
 
 		self.rclass('hidden');
@@ -99,27 +114,29 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 		var w = config.width || dw;
 		var ma = 35;
 
-		if (position === 'right') {
+		if (opt.align === 'right') {
 			offset.left -= w - el.width();
 			ma = w - 35;
-		} else if (position === 'center') {
+		} else if (opt.align === 'center') {
 			ma = (w / 2);
 			offset.left -= ma - (el.width() / 2);
 			ma -= 12;
 		}
 
-		offset.top += el.height() + 10;
+		if (opt.position === 'bottom')
+			offset.top -= self.element.innerHeight() + 10;
+		else
+			offset.top += el.height() + 10;
 
-		if (offsetX)
-			offset.left += offsetX;
+		if (opt.offsetX)
+			offset.left += opt.offsetX;
 
-		if (offsetY)
-			offset.top += offsetY;
+		if (opt.offsetY)
+			offset.top += opt.offsetY;
 
 		config.reload && EXEC(config.reload, self);
 		config.default && DEFAULT(config.default, true);
 
-		self.find('.ui-inlineform-arrow').css('margin-left', ma);
 		self.css(offset);
 
 		if (!isMOBILE) {
@@ -128,7 +145,7 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 		}
 
 		setTimeout(function() {
-			self.find('.ui-inlineform').aclass('ui-inlineform-animate');
+			self.find(cls2).aclass(cls + '-animate');
 		}, 300);
 	};
 });

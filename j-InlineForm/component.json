@@ -1,9 +1,11 @@
 {
 	"datecreated": "2017-07-31T09:40:00.000Z",
-	"dateupdated": "2019-01-18T14:06:03.000Z",
+	"dateupdated": "2019-09-03T09:22:03.000Z",
 	"name": "j-InlineForm",
 	"tags": [
-		"jcomponent"
+		"form",
+		"inlineform",
+		"modal"
 	],
 	"color": "white",
 	"version": 1,
