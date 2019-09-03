@@ -9,7 +9,7 @@ COMPONENT('aselected', 'selector:a;attr:href;class:selected', function(self, con
 	};
 
 	self.refresh = function() {
-		var arr = self.find(config.selected);
+		var arr = self.find(config.selector);
 		var url = location.pathname;
 		for (var i = 0; i < arr.length; i++) {
 			var el = $(arr[i]);
