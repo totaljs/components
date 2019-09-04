@@ -114,14 +114,18 @@ COMPONENT('markdown', function (self) {
 
 				var beg = '';
 				var end = '';
+				var tag;
 
 				if (value.indexOf('*') !== -1) {
-					beg += '<em>';
-					end = '</em>' + end;
+					tag = value.indexOf('**') === -1 ? 'em' : 'strong';
+					beg += '<' + tag + '>';
+					end = '</' + tag + '>' + end;
 				}
+
 				if (value.indexOf('_') !== -1) {
-					beg += '<strong>';
-					end = '</strong>' + end;
+					tag = value.indexOf('__') === -1 ? 'u' : 'b';
+					beg += '<' + tag + '>';
+					end = '</' + tag + '>' + end;
 				}
 
 				if (value.indexOf('~') !== -1) {
