@@ -33,7 +33,7 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config) {
 			}
 
 			self.release(false);
-			config.reload && EXEC(config.reload, init);
+			config.reload && EXEC(config.reload);
 			config.default && DEFAULT(config.default, true);
 
 			setTimeout(function() {
@@ -57,7 +57,7 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config) {
 					}
 
 					self.release(false);
-					config.reload && EXEC(config.reload, init);
+					config.reload && EXEC(config.reload, true);
 					config.default && DEFAULT(config.default, true);
 					config.loading && SETTER('loading', 'hide', 500);
 					self.hclass('invisible') && self.rclass('invisible', 500);
