@@ -6,7 +6,7 @@ __Configuration__:
 
 - `url` {String} (required) a relative URL address
 - `if` {String} (required) condition, it's compared with the value within of `data-jc-path`
-- `reload` {String} (optional) a link to function, it's executed when the part is visible (always)
+- `reload` {String} (optional) a link to function `function(init) {}`, it's executed when the part is visible (always)
 - `hidden` {String} (optional) a link to function, it's executed when the part is hidden (always)
 - `init` {String} (optional) a link to function, it's executed when the part is visible and onetime
 - `default` {String} (optional) a short alias for `DEFAULT(default)`
