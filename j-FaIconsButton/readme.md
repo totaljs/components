@@ -1,4 +1,4 @@
-## j-EmojiButton
+## j-FaIconsButton
 
 - Component is __singleton__
 - Supports __Dark theme__
