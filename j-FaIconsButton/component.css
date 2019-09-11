@@ -1,0 +1,10 @@
+.ui-faiconsbutton.ui-disabled { cursor: not-allowed !important; opacity: 0.6; border-color: #E0E0E0 !important; }
+.ui-faiconsbutton { border: 1px solid #E0E0E0; height: 32px; border-radius: 2px; cursor: pointer; background-color: white; color: black; }
+.ui-faiconsbutton-icon { height: 24px; margin: 0 32px 0 0; line-height: 32px; font-size: 20px; text-align: center; }
+.ui-faiconsbutton:hover { border-color: #D0D0D0; }
+.ui-faiconsbutton-arrow { width: 32px; float: right; display: block; text-align: center; line-height: 31px; height: 31px; border-left: 1px solid #E0E0E0; }
+
+.ui-dark .ui-faiconsbutton.ui-disabled { border-color: #404040 !important; }
+.ui-dark .ui-faiconsbutton { border-color: #404040; background-color: #303030; color: white; }
+.ui-dark .ui-faiconsbutton-arrow { border-left-color: #404040; }
+.ui-dark .ui-faiconsbutton:hover { border-color: #505050; }
