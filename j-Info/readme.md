@@ -18,6 +18,7 @@ __Show options__:
 - `opt.offsetWidth` {Number} `width` offset (default: `0`)
 - `opt.callback` {Function} a callback is executed when the element is hidden
 - `opt.class` {String} a custom class name
+- `opt.position` {String} position `top` (default) or `bottom`
 
 ```javascript
 var opt = {};
