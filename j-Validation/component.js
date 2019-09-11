@@ -61,9 +61,11 @@ COMPONENT('validation', 'delay:100;flags:visible', function(self, config) {
 		}
 	};
 
-	self.state = function() {
+	self.state = function(type, what) {
+		if (type === 3 || what === 3)
+			tracked = 0;
 		setTimeout2(self.ID, function() {
-			var disabled = tracked ? !VALIDATE(path, flags) : DISABLED(path, flags);
+			var disabled = tracked ? !VALID(path, flags) : DISABLED(path, flags);
 			if (!disabled && config.if)
 				disabled = !EVALUATE(self.path, config.if);
 			if (disabled !== old) {
