@@ -6,7 +6,9 @@ COMPONENT('selected', 'class:selected;selector:a;attr:if', function(self, config
 	self.configure = function(key, value) {
 		switch (key) {
 			case 'datasource':
-				self.datasource(value, self.refresh);
+				self.datasource(value, function() {
+					self.refresh();
+				});
 				break;
 		}
 	};
