@@ -8,18 +8,20 @@
 __Configuration__:
 
 - `categories` {String} change emoticons in categories. Use unicode without special characters (default: `128342,128578,128161,127944,128008,128690,128172,127828,127937`)
-- `height` {Integer} set component height (default: `295`)
-- `history` {Integer} history limit for frequently used emoticons (default: `49`)
+- `height` {Number} set component height (default: `295`)
+- `history` {Number} history limit for frequently used emoticons (default: `49`)
 - `empty` {String} a message when no emoticons are found  (default: `No emoji match your search`)
-- `emptyemoji` {Integer} change emoticon when no emoticons are found. Use unicode without special characters (default: `128557`)
-- `speed` {Integer} scroll speed in ms (default: `500`)
+- `emptyemoji` {Number} change emoticon when no emoticons are found. Use unicode without special characters (default: `128557`)
+- `speed` {Number} scroll speed in ms (default: `500`)
 - `footer` {String} footer message (default: `Choose skin tone`)
 - `toneemoji` {String} skin tones emoticon. Use unicode without special characters (default: `9995`)
+- `search` {String} a placeholder for search field (default: `Search`)
 
 __Good to know__:
 
 - This component implements `FUNC.parseASCI(string)` function. The function will parse string and transform text like `:D` or `:joy:` into UTF emoticons.
-```
+
+```javascript
 var message = 'This one was good. :joy: See you soon :P';
 console.log(FUNC.parseASCI(message)); // This one was good. &#128514; See you soon &#128539;
 ```
@@ -45,7 +47,6 @@ opt.callback = function(emoji) {
 
 SETTER('emoji', 'show', opt);
 ```
-
 
 ### Author
 
