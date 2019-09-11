@@ -19,6 +19,7 @@
 .ui-dark .ui-faicons-content { color: #A0A0A0; }
 .ui-dark .ui-faicons-search span { background-color: #252525; border-color: #303030; color: #A0A0A0; }
 .ui-dark .ui-faicons-search-input { border-color: #303030; background-color: #1f1f1f; color: white; }
+.ui-dark .ui-faicons-content span { color: #A0A0A0; }
 .ui-dark .ui-faicons-content span:hover { color: white; }
 
 @media(max-width: 767px) {
