@@ -28,6 +28,7 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 			e.stopPropagation();
 			if (self.opt.callback) {
 				var val = datasource[+$(this).attrd('index')];
+				self.opt.scope && M.scope(self.opt.scope);
 				if (self.opt.path)
 					SET(self.opt.path, val.value === undefined ? val.name : val.value);
 				else
@@ -98,6 +99,7 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 				self.visible(false);
 				if (current.length) {
 					var val = datasource[+current.attrd('index')];
+					self.opt.scope && M.scope(self.opt.scope);
 					if (self.opt.callback)
 						self.opt.callback(val, old);
 					else if (self.opt.path)
@@ -198,6 +200,7 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 		margin.left = opt.offsetX;
 		margin.top = opt.offsetY;
 		margin.width = opt.offsetWidth;
+		opt.scope = M.scope ? M.scope() : '';
 
 		offsetter = $(opt.element);
 		self.opt = opt;
