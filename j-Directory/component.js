@@ -59,13 +59,17 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 		self.event('click', cls2 + '-add', function() {
 			if (self.opt.callback) {
+				self.opt.scope && M.scope(self.opt.scope);
 				self.opt.callback(input.val(), self.opt.element, true);
 				self.hide();
 			}
 		});
 
 		self.event('click', 'li', function(e) {
-			self.opt.callback && self.opt.callback(self.opt.items[+this.getAttribute('data-index')], self.opt.element);
+			if (self.opt.callback) {
+				self.opt.scope && M.scope(self.opt.scope);
+				self.opt.callback(self.opt.items[+this.getAttribute('data-index')], self.opt.element);
+			}
 			self.hide();
 			e.preventDefault();
 			e.stopPropagation();
@@ -111,6 +115,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 					o = true;
 					var sel = self.find('li.current');
 					if (self.opt.callback) {
+						self.opt.scope && M.scope(self.opt.scope);
 						if (sel.length)
 							self.opt.callback(self.opt.items[+sel.attrd('index')], self.opt.element);
 						else
@@ -391,6 +396,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		}
 
 		options.top = opt.position === 'bottom' ? ((offset.top - self.height()) + element.height()) : offset.top;
+		options.scope = M.scope ? M.scope() : '';
 
 		if (opt.offsetX)
 			options.left += opt.offsetX;
