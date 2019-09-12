@@ -119,7 +119,7 @@ COMPONENT('info', function(self) {
 			width = WW;
 
 		options.left = (opt.align === 'center' ? Math.ceil(offset.left - ((width / 2) - (target.innerWidth() / 2))) : opt.align === 'left' ? offset.left - 8 : (offset.left - width) + target.innerWidth()) + (opt.offsetX || 0);
-		options.top = (offset.top + target.innerHeight() + 10) + (opt.offsetY || 0);
+		options.top = (opt.position === 'bottom' ? (offset.top - self.element.height() - 10) : (offset.top + target.innerHeight() + 10)) + (opt.offsetY || 0);
 
 		var sum = options.left + width;
 

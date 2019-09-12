@@ -18,13 +18,14 @@ __Show options__:
 - `opt.offsetWidth` {Number} `width` offset (default: `0`)
 - `opt.callback` {Function} a callback is executed when the element is hidden
 - `opt.class` {String} a custom class name
+- __NEW__ `opt.position` {String} position `top` (default) or `bottom`
 
 ```javascript
 var opt = {};
 opt.element = YOUR_ELEMENT;
 opt.html = 'TEST';
 SETTER('info', 'show', opt);
-````
+```
 
 __or with Tangular templates:__
 
@@ -54,7 +55,7 @@ function some_caller() {
 	SETTER('info', 'show', opt);
 }
 </script>
-````
+```
 
 ### Author
 
