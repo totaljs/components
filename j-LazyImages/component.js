@@ -1,6 +1,7 @@
 COMPONENT('lazyimages', function(self) {
 
 	var is = null;
+	var regtest = /[?.\/]/;
 
 	self.readonly();
 	self.singleton();
@@ -28,7 +29,7 @@ COMPONENT('lazyimages', function(self) {
 			var t = arr[i];
 			if (!t.$lazyload) {
 				var src = t.getAttribute('data-src');
-				if (src) {
+				if (src && regtest.test(src)) {
 					var el = $(t);
 					var top = (is ? 0 : scroll) + el.offset().top;
 					if ((top + off) >= beg && (top - off) <= end) {
