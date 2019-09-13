@@ -83,14 +83,21 @@ COMPONENT('markdown', function (self) {
 			var end = value.lastIndexOf(']');
 			var text = value.substring(2, end);
 			var link = value.substring(end + 2, value.length - 1);
-			var responsive = true;
+			var responsive = 1;
+			var gallery = false;
+			var f = text.charAt(0);
+			var width;
 
-			if (text.charAt(0) === '+') {
-				responsive = false;
+			if (f === '+') {
+				responsive = 2;
+				text = text.substring(1);
+			} else if (f === '-') {
+				// gallery
+				responsive = 3;
 				text = text.substring(1);
 			}
 
-			return '<img src="' + link + '" alt="' + text + '"' + (responsive ? ' class="img-responsive"' : '') + ' border="0" loading="lazy" />';
+			return '<img src="' + link + '" alt="' + text + '"' + (responsive === 1 ? ' class="img-responsive"' : responsive === 3 ? ' class="gallery"' : '') + ' border="0" loading="lazy" />';
 		}
 
 		function markdown_keywords(value) {
