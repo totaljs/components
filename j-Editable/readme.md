@@ -43,6 +43,7 @@ __Configuration__:
 - `raw` {Boolean} optional, when `true` then the current HTML content will be as a placeholder if the value is `nullable` (default: `true`)
 - `accept` {String} optional, a condition for accepting of value, can contain a link to `function(value)` or `!!value.match(/[a-z]+/)` is similar to `validate`
 - `empty` {String} optional, enables empty value and can contain empty label or `1` or `true` for auto `rebind` of binder
+- `invalid` {String} optional, a link to method `method(el, isInvalid, meta)` is evaluated when the item is invalid and vice-versa
 
 __Methods__:
 
