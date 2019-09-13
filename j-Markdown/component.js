@@ -84,9 +84,7 @@ COMPONENT('markdown', function (self) {
 			var text = value.substring(2, end);
 			var link = value.substring(end + 2, value.length - 1);
 			var responsive = 1;
-			var gallery = false;
 			var f = text.charAt(0);
-			var width;
 
 			if (f === '+') {
 				responsive = 2;
