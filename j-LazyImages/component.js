@@ -1,7 +1,7 @@
 COMPONENT('lazyimages', function(self) {
 
 	var is = null;
-	var regtest = /[?.\/]/;
+	var regtest = /[?./]/;
 
 	self.readonly();
 	self.singleton();
