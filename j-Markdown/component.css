@@ -25,7 +25,6 @@
 .markdown a code { background-color: #DAE8F8; text-decoration: none !important; border-color: #D5DFEB; }
 .markdown .footnote { background-color: rgba(0,0,0,0.1); padding: 0 2px; border-radius: 2px; cursor: help; }
 .markdown .footnotebody { font-size: 11px; border-top: 1px solid #E0E0E0; font-family: Arial; color: #505050; }
-
 .markdown .showsecret { cursor: pointer; display: block; padding: 8px 15px; user-select: none; }
 .markdown .showsecret b { margin-left: 8px; }
 .markdown .showsecret .pull-right { margin: 2px 0 0; }
