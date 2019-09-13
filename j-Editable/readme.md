@@ -52,7 +52,8 @@ __Good to know__:
 
 - if the user presses some `key` then the editable element will contain `keypressed` class as long as they haven't left the control
 - each changed element will contain class `changed`
-- if the component changes some values then the main element will contain class `ui-editable-changed`
+- if the component changes some values, the main element will contain class `ui-editable-changed`
+- if the element has `data-bind` with `empty`, it will be cleared after focus
 
 ### Author
 

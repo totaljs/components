@@ -362,8 +362,10 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 			text && document.execCommand('insertText', false, text);
 		};
 
-		events.focus = function() {
+		events.focus = function(e) {
 			var t = this;
+			var jcbind = e.target.$jcbind || {};
+
 			if (t.$editable && t.$editable.is && t.$editable.autosource) {
 				var attr = t.$editable;
 				var opt = {};
@@ -376,6 +378,12 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 					self.approve2(el);
 				};
 				SETTER('autocomplete', 'show', opt);
+				return;
+			}
+
+			if (jcbind.empty && jcbind.empty == e.target.innerText) {
+				$(e.target).empty();
+				return;
 			}
 		};
 	};

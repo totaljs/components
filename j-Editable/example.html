@@ -1,5 +1,6 @@
 <style>
-	.changed { color: red; }
+	.changed { color: green; font-weight: bold; }
+	.changed::after { content: '- Changed'; margin-left: 5px; font-weight: normal; }
 </style>
 
 <div data-jc="LAZY datepicker"></div>
@@ -14,6 +15,14 @@
 			</div>
 			<div class="col-xs-9">
 				<div class="editable" data-editable="required:true" data-bind="form.name__html"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-3">
+				Name with empty:
+			</div>
+			<div class="col-xs-9">
+				<div class="editable" data-editable="required:true" data-bind="form.nickname__empty:Nickname__html"></div>
 			</div>
 		</div>
 		<div class="row">
