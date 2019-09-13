@@ -22,7 +22,6 @@ COMPONENT('markdown', function (self) {
 		var orderedsize = /^(\s|\t)+/;
 		var code = /`.*?`/g;
 		var encodetags = /<|>/g;
-		var formatclean = /_|\*|~/g;
 		var regdash = /-{2,}/g;
 		var regicons = /(^|[^\w]):[a-z-]+:([^\w]|$)/g;
 		var regemptychar = /\s|\W/;
@@ -133,7 +132,8 @@ COMPONENT('markdown', function (self) {
 					end = '</strike>' + end;
 				}
 
-				return beg + value.replace(formatclean, '') + end;
+				var count = value.charAt(1) === value.charAt(0) ? 2 : 1;
+				return beg + value.substring(count, value.length - count) + end;
 			}
 
 			return value;
