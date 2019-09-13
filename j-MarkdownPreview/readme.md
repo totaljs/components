@@ -10,6 +10,8 @@ __Configuration__:
 
 - `showsecret` {String} a label for displaying of secret (default: `Show secret data`)
 - `hidesecret` {String} a label to hide of secret (default: `Hide secret data`)
+- `html` {Boolean} prepares inner HTML (it expects rendered Markdown) with Markdown utilities (syntax, secrets, links, etc.)
+- `headlines` {String} a link to method `method(headlines)` will be executed when the headlines will be parsed as quick bookmarks
 
 __Custom methods__:
 

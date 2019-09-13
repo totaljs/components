@@ -10,9 +10,13 @@ COMPONENT('markdownpreview', 'showsecret:Show secret data;hidesecret:Hide secret
 	self.nocompile && self.nocompile();
 
 	self.make = function() {
-		self.append('<div class="{0}-body"></div><div class="{0}-cache hidden"></div>'.format(cls));
-		elcache = self.find(cls2 + '-cache');
-		elbody = self.find(cls2 + '-body');
+
+		if (!config.html) {
+			self.append('<div class="{0}-body"></div><div class="{0}-cache hidden"></div>'.format(cls));
+			elcache = self.find(cls2 + '-cache');
+			elbody = self.find(cls2 + '-body');
+		}
+
 		self.event('click', '.showsecret', function() {
 			var el = $(this);
 			var next = el.next();
@@ -26,21 +30,24 @@ COMPONENT('markdownpreview', 'showsecret:Show secret data;hidesecret:Hide secret
 		});
 	};
 
+	var markdown_id = function(value) {
+		var end = '';
+		var beg = '';
+		if (value.charAt(0) === '<')
+			beg = '-';
+		if (value.charAt(value.length - 1) === '>')
+			end = '-';
+		return (beg + value.slug() + end).replace(/-{2,}/g, '-');
+	};
+
 	self.redraw = function(el) {
 
-		var markdown_id = function(value) {
-			var end = '';
-			var beg = '';
-			if (value.charAt(0) === '<')
-				beg = '-';
-			if (value.charAt(value.length - 1) === '>')
-				end = '-';
-			return (beg + value.slug() + end).replace(/-{2,}/g, '-');
-		};
+		if (!el || !(el instanceof jQuery))
+			el = self.element;
 
 		el.find('.lang-secret').each(function() {
 			var el = $(this);
-			el.parent().replaceWith('<div class="secret"><span class="showsecret"><i class="fa fa-lock"></i><i class="fa pull-right fa-angle-down"></i><b>' + config.showsecret + '</b></span><div class="hidden">' + el.html().trim().markdown({ code: false, wrap: false }) +'</div></div>');
+			el.parent().replaceWith('<div class="secret"><span class="showsecret"><i class="fa fa-lock"></i><i class="fa pull-right fa-angle-down"></i><b>' + config.showsecret + '</b></span><div class="hidden">' + el.html().trim().markdown() +'</div></div>');
 		});
 
 		el.find('.lang-video').each(function() {
@@ -160,7 +167,6 @@ COMPONENT('markdownpreview', 'showsecret:Show secret data;hidesecret:Hide secret
 		});
 
 		el.find('a').each(function() {
-
 			var t = this;
 			if (t.$mdloaded)
 				return;
@@ -181,6 +187,16 @@ COMPONENT('markdownpreview', 'showsecret:Show secret data;hidesecret:Hide secret
 		});
 
 		el.find('.code').rclass('hidden');
+
+		if (config.headlines) {
+			var arr = [];
+			el.find('h1,h2,h3,h4').each(function() {
+				var el = $(this);
+				arr.push({ name: el.text(), id: el.attr('id'), tag: this.tagName.toLowerCase(), offset: el.offset().top });
+			});
+			SEEX(self.makepath(config.headlines), arr);
+		}
+
 	};
 
 	self.setter = function(value) {
@@ -188,6 +204,11 @@ COMPONENT('markdownpreview', 'showsecret:Show secret data;hidesecret:Hide secret
 		// Waits for markdown component
 		if (!String.prototype.markdown) {
 			setTimeout(self.setter, 500, value);
+			return;
+		}
+
+		if (config.html) {
+			self.redraw(self.element);
 			return;
 		}
 
@@ -240,7 +261,7 @@ COMPONENT('markdownpreview', 'showsecret:Show secret data;hidesecret:Hide secret
 			var words = text.split(' ');
 			for (var j = 0; j < words.length; j++) {
 				var word = words[j];
-				sum += (word.length * 0.450) / 10; // Reading time for 10 characters word is 450 ms
+				sum += (word.length * 0.650) / 10; // Reading time for 10 characters word is 450 ms
 			}
 		}
 		return (sum / 60) >> 0;
