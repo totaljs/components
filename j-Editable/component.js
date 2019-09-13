@@ -28,6 +28,10 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 					is = false;
 				else if (opt.type === 'number')
 					is = val ? val > 0 || val < 0 : false;
+				else if (opt.type === 'email')
+					is = val ? val.isEmail() : false;
+				else if (opt.type === 'phone')
+					is = val.isPhone();
 				else if (opt.type === 'date')
 					is = val ? val.getTime() > 0 : false;
 				else if (opt.type === 'boolean')
@@ -45,7 +49,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 	};
 
 	self.makefn = function(val) {
-		return (/\(|=|>|<|\+|-|\)/).test(val) ? FN('value=>' + val) : (function(path) { return function(value) { return GET(path)(value); }; })(val);
+		return (/\(|=|>|<|\+|-|\)/).test(val) ? FN('value=>' + val) : (function(path) { return function(value) { return GET(self.makepath(path))(value); }; })(val);
 	};
 
 	self.parse = function(el) {
@@ -92,7 +96,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 		if (opt.can || config.can) {
 			opt.canedit = function(el) {
 				var opt = el[0].$editable;
-				return (opt.can && !GET(opt.can)(opt, el)) || (config.can && !GET(config.can)(opt, el));
+				return (opt.can && !GET(self.makepath(opt.can))(opt, el)) || (config.can && !GET(self.makepath(config.can))(opt, el));
 			};
 		}
 
@@ -129,6 +133,22 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 				self.tclass(cls + '-disabled', !!value);
 				self.tclass(cls + '-enabled', !value);
 				break;
+		}
+	};
+
+	self.focusnext = function(el, e) {
+		if (el instanceof jQuery)
+			el = el[0];
+		var arr = self.find('[data-editable]');
+		for (var i = 0; i < arr.length; i++) {
+			if (arr[i] === el) {
+				var next = arr[i + 1];
+				if (next) {
+					$(next).trigger('click');
+					e && e.preventDefault();
+				}
+				return true;
+			}
 		}
 	};
 
@@ -262,7 +282,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 
 				if (opt.value == null || opt.value == '') {
 					opt.value = opt.raw ? '' : opt.html;
-					if (opt.raw) {
+					if (opt.raw && !el.hclass('invalid')) {
 						opt.clear = true;
 						self.movecursor(el, 1);
 					}
@@ -322,17 +342,8 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 					el.rclass('keypressed');
 
 					if (e.which === 9) {
-						var arr = self.find('[data-editable]');
-						for (var i = 0; i < arr.length; i++) {
-							if (arr[i] === t) {
-								var next = arr[i + 1];
-								if (next) {
-									$(next).trigger('click');
-									e.preventDefault();
-								}
-								return;
-							}
-						}
+						if (self.focusnext(t, e))
+							return;
 					}
 
 					if (config.enter) {
@@ -341,16 +352,25 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 						}, 100);
 					}
 
-				} else
+				} else {
+					// INVALID
+					self.cnotify(el, 'no');
 					e.preventDefault();
+				}
 			}
 		};
 
 		events.blur = function() {
-			if (this.$events) {
-				var el = $(this);
+			var t = this;
+			if (t.$events) {
+				var el = $(t);
 				el.rclass('keypressed');
-				self.approve(el);
+
+				if (t.$editable.is) {
+					var is = self.approve(el);
+					self.cnotify(el, is ? 'ok' : 'no');
+				}
+
 				self.detach(el);
 			}
 		};
@@ -396,7 +416,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 
 		var cur = el.html();
 
-		if (opt.html === cur || (opt.raw && !cur && !opt.empty))
+		if (!opt.required && (opt.html === cur || (opt.raw && !cur && !opt.empty)))
 			return true;
 
 		var val = cur;
@@ -419,14 +439,42 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 				if ((opt.minvalue != null && opt.value < opt.minvalue) || (opt.maxvalue != null && opt.value > opt.maxvalue))
 					return false;
 				break;
+			case 'phone':
+				if (opt.required) {
+					if (!opt.value.isPhone()) {
+						opt.html = null;
+						return false;
+					}
+				} else if (opt.value && !opt.value.isPhone()) {
+					opt.html = null;
+					return false;
+				}
+				break;
+			case 'email':
+				if (opt.required && (!opt.value || !opt.value.isEmail())) {
+					opt.html = null;
+					return false;
+				}
+				break;
 			case 'date':
 				if (!opt.empty) {
 					SETTER('!datepicker', 'hide');
 					opt.value = opt.value ? opt.value.parseDate(opt.format) : null;
+					if (opt.required && !opt.value) {
+						opt.html = null;
+						return false;
+					}
 				}
 				break;
 			case 'boolean':
 				opt.value = opt.value === true || opt.value == 'true' || opt.value == '1' || opt.value == 'on';
+				break;
+			default:
+				if (opt.required && !opt.value) {
+					//opt.value = '';
+					opt.html = null;
+					return false;
+				}
 				break;
 		}
 
@@ -447,17 +495,23 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 
 	self.cnotify = function(el, classname) {
 
+		var meta = el[0].$editable;
+
 		if (classname === 'ok') {
-			el.aclass('changed');
+
+			el.rclass('invalid').aclass('changed');
 
 			if (!changed) {
 				self.aclass(cls + '-changed');
 				changed = {};
 			}
 
-			var meta = el[0].$editable;
 			changed[meta.path.substring(self.path.length + 1)] = 1;
 			config.changed && SEEX(config.changed, self.changed());
+			config.invalid && EXEC(config.invalid, el, false, meta);
+		} else {
+			meta.invalid && EXEC(config.invalid, el, true, meta);
+			el.aclass('invalid changed');
 		}
 
 		el.aclass(cls + '-' + classname);
@@ -551,12 +605,23 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 	self.state = function(type, what) {
 		// reset or update
 		if (type === 0 || what === 3 || what === 4) {
+
+			self.find('.changed').rclass('changed');
+			self.rclass(cls + '-changed');
+
 			if (changed) {
-				self.find('.changed').rclass('changed');
-				self.rclass(cls + '-changed');
 				changed = null;
 				config.changed && SEEX(config.changed);
 			}
+
+			var el = self.find('.invalid');
+
+			if (config.invalid) {
+				for (var i = 0; i < el.length; i++)
+					EXEC(config.invalid, el[0], false, el[0].$editable);
+			}
+
+			el.rclass('invalid');
 		}
 	};
 
