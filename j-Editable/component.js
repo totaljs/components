@@ -610,7 +610,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 			el[0].$events = false;
 			var opt = el[0].$editable;
 			if (opt.html != null)
-			 	el.html(opt.html);
+				el.html(opt.html);
 			opt.is = false;
 			el.rclass('editable-editing editable-multiline');
 			el.attr('contenteditable', false);
