@@ -1,4 +1,4 @@
-COMPONENT('markdownpreview', function(self, config) {
+COMPONENT('markdownpreview', 'showsecret:Show secret data;hidesecret:Hide secret data', function(self, config) {
 
 	var cls = 'ui-markdownpreview';
 	var cls2  = '.' + cls;
@@ -13,6 +13,17 @@ COMPONENT('markdownpreview', function(self, config) {
 		self.append('<div class="{0}-body"></div><div class="{0}-cache hidden"></div>'.format(cls));
 		elcache = self.find(cls2 + '-cache');
 		elbody = self.find(cls2 + '-body');
+		self.event('click', '.showsecret', function() {
+			var el = $(this);
+			var next = el.next();
+			next.tclass('hidden');
+
+			var is = next.hclass('hidden');
+			var icons = el.find('i');
+			icons.eq(0).tclass('fa-unlock', !is).tclass('fa-lock', is);
+			icons.eq(1).tclass('fa-angle-up', !is).tclass('fa-angle-down', is);
+			el.find('b').html(config[(is ? 'show' : 'hide') + 'secret']);
+		});
 	};
 
 	self.redraw = function(el) {
@@ -26,6 +37,11 @@ COMPONENT('markdownpreview', function(self, config) {
 				end = '-';
 			return (beg + value.slug() + end).replace(/-{2,}/g, '-');
 		};
+
+		el.find('.lang-secret').each(function() {
+			var el = $(this);
+			el.parent().replaceWith('<div class="secret"><span class="showsecret"><i class="fa fa-lock"></i><i class="fa pull-right fa-angle-down"></i><b>' + config.showsecret + '</b></span><div class="hidden">' + el.html().trim().markdown({ code: false, wrap: false }) +'</div></div>');
+		});
 
 		el.find('.lang-video').each(function() {
 			var t = this;

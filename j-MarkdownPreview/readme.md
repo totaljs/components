@@ -6,6 +6,11 @@ This component depends on `j-Markdown` component. It uses `highlight.js` library
 - supports YouTube, Vimeo and custom iframes
 - supports barchart and linechart rendering via ApexCharts
 
+__Configuration__:
+
+- `showsecret` {String} a label for displaying of secret (default: `Show secret data`)
+- `hidesecret` {String} a label to hide of secret (default: `Hide secret data`)
+
 __Custom methods__:
 
 - `component.readingtime()` returns approximate reading time in minutes
