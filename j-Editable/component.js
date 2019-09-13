@@ -1,3 +1,4 @@
+
 COMPONENT('editable', 'disabled:0', function(self, config) {
 
 	var cls = 'ui-editable';
@@ -164,12 +165,15 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 	self.make = function() {
 
 		self.aclass(cls);
-		self.event('click', '[data-editable]', function() {
+		self.event('click', '[data-editable]', function(e) {
 
 			if (config.disabled)
 				return;
 
 			var t = this;
+
+			e.preventDefault();
+			e.stopPropagation();
 
 			if (t.$editable && t.$editable.is)
 				return;
@@ -299,18 +303,20 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 			if (!t.$events)
 				return;
 
-			if (t.$editable.clear) {
+			var meta = t.$editable;
+
+			if (meta.clear) {
 				t.innerHTML = '';
-				t.$editable.clear = 0;
+				meta.clear = 0;
 			}
 
-			if (!t.$editable.keypressed) {
-				t.$editable.keypressed = 1;
+			if (!meta.keypressed) {
+				meta.keypressed = 1;
 				$(t).aclass('keypressed');
 			}
 
 			if ((e.metaKey || e.ctrlKey) && (e.which === 66 || e.which === 76 || e.which === 73 || e.which === 85)) {
-				if (t.$editable.type !== 'html') {
+				if (meta.type !== 'html') {
 					e.preventDefault();
 					e.stopPropagation();
 				}
@@ -324,7 +330,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 				self.detach(el);
 				if (config.escape) {
 					setTimeout(function() {
-						EXEC(config.escape, t.$editable.path, GET(t.$editable.path));
+						EXEC(config.escape, meta.path, GET(meta.path));
 					}, 100);
 				}
 				return;
@@ -332,8 +338,10 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 
 			if (e.which === 13 || e.which === 9) {
 
-				if (e.which === 13 && t.$editable.multiline)
+				if (e.which === 13 && meta.multiline)
 					return;
+
+				e.preventDefault();
 
 				el = $(t);
 				if (self.approve(el)) {
@@ -348,14 +356,13 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 
 					if (config.enter) {
 						setTimeout(function() {
-							EXEC(config.enter, t.$editable.path, GET(t.$editable.path));
+							EXEC(config.enter, meta.path, GET(meta.path));
 						}, 100);
 					}
 
 				} else {
 					// INVALID
 					self.cnotify(el, 'no');
-					e.preventDefault();
 				}
 			}
 		};
@@ -436,8 +443,10 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 		switch (opt.type) {
 			case 'number':
 				opt.value = opt.value ? opt.value.parseFloat() : 0;
-				if ((opt.minvalue != null && opt.value < opt.minvalue) || (opt.maxvalue != null && opt.value > opt.maxvalue))
+				if ((opt.minvalue != null && opt.value < opt.minvalue) || (opt.maxvalue != null && opt.value > opt.maxvalue)) {
+					opt.value = '';
 					return false;
+				}
 				break;
 			case 'phone':
 				if (opt.required) {
@@ -446,22 +455,27 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 						return false;
 					}
 				} else if (opt.value && !opt.value.isPhone()) {
-					opt.html = null;
+					opt.value = '';
 					return false;
 				}
 				break;
 			case 'email':
-				if (opt.required && (!opt.value || !opt.value.isEmail())) {
-					opt.html = null;
+				if (opt.required) {
+					if ((!opt.value || !opt.value.isEmail())) {
+						opt.html = null;
+						return false;
+					}
+				} else if (opt.value && !opt.value.isEmail()) {
+					opt.value = '';
 					return false;
 				}
+
 				break;
 			case 'date':
 				if (!opt.empty) {
 					SETTER('!datepicker', 'hide');
 					opt.value = opt.value ? opt.value.parseDate(opt.format) : null;
 					if (opt.required && !opt.value) {
-						opt.html = null;
 						return false;
 					}
 				}
@@ -532,6 +546,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 			});
 		} else {
 			setTimeout(function() {
+
 				var b = null;
 				if (el.binder)
 					b = el.binder();
@@ -595,7 +610,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 			el[0].$events = false;
 			var opt = el[0].$editable;
 			if (opt.html != null)
-				el.html(opt.html);
+			 	el.html(opt.html);
 			opt.is = false;
 			el.rclass('editable-editing editable-multiline');
 			el.attr('contenteditable', false);
