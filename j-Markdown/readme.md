@@ -28,6 +28,7 @@ console.log(text.markdown(opt));
 - `opt.sections = true` enables sections `> section`
 - `opt.footnotes = true` enables footnotes `#1: foot note description` and usage in links `[link](#1)`
 - `opt.urlify = true` converts URL addresses to links
+- `opt.keywords = true` parses keywords in the form `{keyword}(type)`
 
 __Good to know__:
 
