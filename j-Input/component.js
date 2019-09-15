@@ -399,15 +399,9 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				return value.isURL();
 			case 'currency':
 			case 'number':
-
 				value = value.parseFloat();
-
-				if (config.minvalue != null && value < config.minvalue)
+				if ((config.minvalue != null && value < config.minvalue) || (config.maxvalue != null && value > config.maxvalue))
 					return false;
-
-				if (config.maxvalue != null && value > config.maxvalue)
-					return false;
-
 				return config.minvalue == null ? value > 0 : true;
 		}
 
@@ -677,15 +671,8 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 		var val = self.get();
 
-		if (self.type === 'number') {
-			if (typeof(val) !== 'number')
-				val = val == null ? 0 : (val + '').parseFloat();
-			if (config.minvalue != null && val < config.minvalue)
-				return false;
-			if (config.maxvalue != null && val > config.maxvalue)
-				return false;
-			return config.minvalue == null ? val > 0 : true;
-		}
+		if (self.type === 'number')
+			return true;
 
 		return (self.type === 'phone' || self.type === 'email') && (val != null && (typeof(val) === 'string' && val.length !== 0));
 	};
