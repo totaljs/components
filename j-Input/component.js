@@ -408,7 +408,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				if (config.maxvalue != null && value > config.maxvalue)
 					return false;
 
-				return value > 0;
+				return config.minvalue == null ? value > 0 : true;
 		}
 
 		return value.length > 0;
@@ -673,7 +673,18 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 	self.forcedvalidation = function() {
 		if (!config.forcevalidation)
 			return false;
+
 		var val = self.get();
+
+		if (self.type === 'number') {
+			val = val.parseFloat();
+			if (config.minvalue != null && val < config.minvalue)
+				return false;
+			if (config.maxvalue != null && val > config.maxvalue)
+				return false;
+			return config.minvalue == null ? val > 0 : true;
+		}
+
 		return (self.type === 'phone' || self.type === 'email') && (val != null && (typeof(val) === 'string' && val.length !== 0));
 	};
 });
