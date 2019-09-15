@@ -671,6 +671,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 	};
 
 	self.forcedvalidation = function() {
+
 		if (!config.forcevalidation)
 			return false;
 
