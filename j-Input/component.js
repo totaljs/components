@@ -678,7 +678,8 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		var val = self.get();
 
 		if (self.type === 'number') {
-			val = val.parseFloat();
+			if (typeof(val) !== 'number')
+				val = val == null ? 0 : (val + '').parseFloat();
 			if (config.minvalue != null && val < config.minvalue)
 				return false;
 			if (config.maxvalue != null && val > config.maxvalue)
