@@ -24,6 +24,7 @@ __Methods__:
 - `component.scrolltop(val)` scrolls Y
 - `component.scrollbottom(val)` scrolls Y from bottom side
 - `component.resize()` resizes container (it reacts on `resize` events automatically)
+- `component.resizescrollbar()` resizes custom scrollbar (targeted for special cases)
 
 ### Author
 
