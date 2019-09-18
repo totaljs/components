@@ -121,7 +121,7 @@ COMPONENT('fixedmodal', 'zindex:12;width:500', function(self, config) {
 			is && COMPILE();
 		}
 
-		if (W.$$fixedmodal < 1)
+		if (W.$$fixedmodal < 1 || !W.$$fixedmodal)
 			W.$$fixedmodal = 1;
 
 		W.$$fixedmodal++;
