@@ -72,9 +72,9 @@ COMPONENT('textarea', 'scrollbar:true', function(self, config) {
 		var attrs = [];
 		var builder = [];
 
-		self.tclass('ui-disabled', config.disabled === true);
-		self.tclass('ui-textarea-monospace', config.monospace === true);
-		self.tclass('ui-textarea-required', config.required === true);
+		self.tclass('ui-disabled', !!config.disabled);
+		self.tclass('ui-textarea-monospace', !!config.monospace);
+		self.tclass('ui-textarea-required', !!config.required);
 
 		config.placeholder && attrs.attr('placeholder', config.placeholder);
 		config.maxlength && attrs.attr('maxlength', config.maxlength);
