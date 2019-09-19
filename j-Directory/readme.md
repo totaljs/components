@@ -29,8 +29,9 @@ Method: `component.show(options)`
 - `options.close` {Function} optional, can determine closing of panel
 - `options.search` {Boolean} optional, can hidnen search field (default: `true`)
 - `options.selected` {Object} optional, can contain a selected value (default: `undefined`)
-- __NEW__: `options.align` {String} optional, `left` (default), `right` or `center`
-- __NEW__: `options.position` {String} optional, `top` (default), `bottom`
+- `options.align` {String} optional, `left` (default), `right` or `center`
+- `options.position` {String} optional, `top` (default), `bottom`
+- `options.raw` {Boolean} optional, this option disables escaping of characters (in other words: HTML content will be allowed in labels of items, default: `false`)
 
 Method: `component.hide()`
 
