@@ -5,7 +5,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 	var container, timeout, icon, plus, skipreset = false, skipclear = false, ready = false, input = null;
 	var is = false, selectedindex = 0, resultscount = 0;
 	var templateE = '{{ name | encode | ui_directory_helper }}';
-	var templateR = '{{ name | ui_directory_helper }}';
+	var templateR = '{{ name | raw }}';
 	var template = '<li data-index="{{ $.index }}" data-search="{{ name }}" {{ if selected }} class="current selected{{ if classname }} {{ classname }}{{ fi }}"{{ else if classname }} class="{{ classname }}"{{ fi }}>{0}</li>';
 	var templateraw = template.format(templateR);
 
@@ -337,7 +337,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 		input.val('');
 		var builder = [];
-		var ta = opt.key ? Tangular.compile(template.replace(/\{\{\sname/g, '{{ ' + opt.key)) : self.template;
+		var ta = opt.key ? Tangular.compile(template.replace(/\{\{\sname/g, '{{ ' + opt.key)) : opt.raw ? self.templateraw : self.template;
 		var selected = null;
 
 		if (!opt.ajax) {
