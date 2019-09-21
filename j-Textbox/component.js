@@ -127,8 +127,8 @@ COMPONENT('textbox', function(self, config) {
 				break;
 		}
 
-		self.tclass('ui-disabled', config.disabled === true);
-		self.tclass('ui-textbox-required', config.required === true);
+		self.tclass('ui-disabled', !!config.disabled);
+		self.tclass('ui-textbox-required', !!config.required);
 		self.type = config.type;
 		attrs.attr('type', tmp);
 		config.placeholder && !config.innerlabel && attrs.attr('placeholder', config.placeholder);

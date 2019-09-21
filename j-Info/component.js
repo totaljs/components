@@ -131,6 +131,7 @@ COMPONENT('info', function(self) {
 
 		self.element.css(options);
 		self.bindevents();
+		canhide = true;
 
 		if (is)
 			return;

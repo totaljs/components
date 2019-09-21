@@ -1,4 +1,4 @@
-COMPONENT('repeater-group', function(self, config) {
+COMPONENT('repeatergroup', function(self, config) {
 
 	var html, template_group;
 	var reg = /\$(index|path)/g;
@@ -24,7 +24,7 @@ COMPONENT('repeater-group', function(self, config) {
 				template_group = Tangular.compile(html);
 			else
 				self.template = Tangular.compile(html);
-			recompile = (/data-(jc|bind)="/).test(html);
+			recompile = html.COMPILABLE();
 		});
 	};
 

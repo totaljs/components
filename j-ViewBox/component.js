@@ -126,6 +126,10 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		}
 	};
 
+	self.resizescrollbar = function() {
+		scrollbar && scrollbar.resize();
+	};
+
 	self.setter = function() {
 		setTimeout(self.resize, config.delay, config.scrolltop);
 	};
