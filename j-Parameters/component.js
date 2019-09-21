@@ -18,7 +18,7 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5', function
 		};
 	};
 
-	self.template = Tangular.compile('<div class="{0}-item{{ if modified }} {0}-modified{{ fi }}" data-index="{{ $.index }}" data-search="{{ $.search }}"><div class="{0}-name">{{ name }}</div><div class="{0}-type">{{ type }}</div><div class="{0}-value">{{ if type === \'boolean\' }}<div class="{0}-boolean">{{ if value }}true{{ else }}false{{ fi }}</div>{{ else }}<input class="{0}-input" value="{{ value | ui_parameters_value(\'{1}\') }}" />{{ fi }}</div></div>'.format(cls, config.dateformat));
+	self.template = Tangular.compile('<div class="{0}-item{{ if modified }} {0}-modified{{ fi }}" data-index="{{ $.index }}" data-search="{{ $.search }}"><div class="{0}-value{{ if unit }} {0}-unit{{ fi }}{{ if invalid }} {0}-invalid{{ fi }}">{{ if unit }}<span>{{ unit }}</span>{{ fi }}{{ if type === \'boolean\' }}<div class="{0}-boolean">{{ if value }}true{{ else }}false{{ fi }}</div>{{ else }}<div><input class="{0}-input" data-type="{{ type }}" value="{{ value | ui_parameters_value(\'{1}\') }}" /></div>{{ fi }}</div><div class="{0}-type">{{ type }}</div><div class="{0}-name">{{ name }}</div></div>'.format(cls, config.dateformat));
 
 	self.search = function() {
 		var val = search.find('input').val().toSearch();
@@ -59,12 +59,54 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5', function
 			setTimeout2(self.ID, self.search, 300);
 		});
 
+		container.on('keydown', cls2 + '-input', function(e) {
+
+			if (e.which !== 38 && e.which !== 40)
+				return;
+
+			var t = this;
+			var type = t.getAttribute('data-type');
+			if (type !== 'number' && type !== 'date')
+				return;
+
+			var row = $(t).closest(cls2 + '-item');
+			var index = +row.attrd('index');
+			var item = self.get()[index];
+			var val = t.value;
+
+			if (item.type === 'number') {
+				val = val.replace(',', '.');
+				val = +val;
+			} else if (item.type === 'date')
+				val = val.parseDate(config.dateformat);
+
+			switch (e.which) {
+				case 38: // up
+					if (item.type === 'date')
+						val = val.add('1 day').format(config.dateformat);
+					else
+						val += 1;
+					e.preventDefault();
+					break;
+				case 40: // down
+					if (item.type === 'date')
+						val = val.add('-1 day').format(config.dateformat);
+					else
+						val -= 1;
+					e.preventDefault();
+					break;
+			}
+
+			this.value = val + '';
+		});
+
 		search.on('click', '.fa-times', function() {
 			search.find('input').val('');
 			self.search();
 		});
 
 		container.on('dblclick', cls2 + '-boolean', function() {
+
 			var el = $(this).parent();
 			var row = el.closest(cls2 + '-item');
 			var index = +row.attrd('index');
@@ -80,7 +122,20 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5', function
 			UPD(self.path, 2);
 		});
 
-		container.on('change', cls2 + '-input', function() {
+		var skipblur = false;
+
+		container.on('change blur', cls2 + '-input', function(e) {
+
+			if (skipblur)
+				return;
+
+			if (e.type === 'change') {
+				setTimeout(function() {
+					skipblur = false;
+				}, 300);
+				skipblur = true;
+			}
+
 			var el = $(this);
 			var row = el.closest(cls2 + '-item');
 			var index = +row.attrd('index');
@@ -90,20 +145,31 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5', function
 			switch (item.type) {
 				case 'date':
 					item.value = item.value ? item.value.parseDate(config.dateformat) : null;
-					if (item.value && isNaN(item.value.getTime()))
+					if (item.value && isNaN(item.value.getTime())) {
+						item.invalid = true;
 						item.value = item.prev;
+					} else
+						item.invalid = false;
+
+					if (!item.invalid)
+						item.invalid = (item.min ? item.min > item.value : false) || (item.max ? item.max < item.value : false);
+
 					var a = item.value ? item.value.format(config.dateformat) : 0;
 					var b = item.prev ? item.prev.format(config.dateformat) : 0;
 					item.modified = a !== b;
 					break;
 				case 'number':
-					item.value = item.value.parseFloat();
+					var val = item.value.parseFloat();
+					item.invalid = (item.min != null && val < item.min) || (item.max != null && val > item.max);
+					if (!item.invalid)
+						item.value = val;
 					item.modified = item.value !== item.prev;
 					break;
 				default:
 					item.modified = item.value !== item.prev;
 					break;
 			}
+
 			row.replaceWith(self.template(item, indexer));
 			item.modified && self.change(true);
 
