@@ -22,6 +22,7 @@ __Configuration__:
 - `type` {String} lines type, can be `normal`, `curves` or `step` (default: `normal`)
 - `prselected` {Number} right padding for selected value (default: `0`)
 - `avg` {Number} average value (chart renders a new black line)
+- `xmod` {Number} performs `modulo` for points on x-axis (default: `0`)
 
 ### Author
 

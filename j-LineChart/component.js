@@ -156,7 +156,7 @@ COMPONENT('linechart', 'type:normal;pl:10;pr:10;pt:10;pb:25;prselected:0;limit:0
 
 		var offsetX = config.pl + config.point;
 		var posX = 0;
-		var offsetL = (len - 1) === 0 ? 0.5 : len - 1;
+		var offsetL = 0;
 		var data = [];
 		var fill = [];
 		var prev = [];
@@ -220,14 +220,15 @@ COMPONENT('linechart', 'type:normal;pl:10;pr:10;pt:10;pb:25;prselected:0;limit:0
 				points.asvg('circle').attr('cx', mx).attr('cy', my + config.point - r).attr('r', config.point).aclass('point' + (j + 1)).attrd('index', j + ',' + i);
 			}
 
-			T.value = val.x;
-			var text = templateX(T);
-			var ax = posX + offsetX + (barwidth * offsetL) - config.point;
+			if (!config.xmod || (i % config.xmod) === 0) {
+				T.value = val.x;
+				var text = templateX(T);
+				var ax = posX + offsetX + (barwidth * offsetL) - config.point;
+				config.axisX && axis.asvg('line').attr('x1', ax).attr('x2', ax).attr('y1', 0).attr('y2', height - 25).attr('class', 'axis');
+				g.asvg('text').aclass('xlabel').text(text).attr('text-anchor', 'middle').attr('transform', 'translate({0},{1})'.format(ax, height - 6));
+			}
 
-			config.axisX && axis.asvg('line').attr('x1', ax).attr('x2', ax).attr('y1', 0).attr('y2', height - 25).attr('class', 'axis');
-			g.asvg('text').aclass('xlabel').text(text).attr('text-anchor', 'middle').attr('transform', 'translate({0},{1})'.format(ax, height - 6));
 			posX += (len * barwidth);
-			offsetX += len;
 		}
 
 		if (typeof(config.avg) === 'number') {
