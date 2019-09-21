@@ -1,4 +1,4 @@
-COMPONENT('linechart', 'type:normal;pl:10;pr:10;pt:10;pb:25;prselected:0;limit:0;fill:false;point:5;fillopacity:0.1;offsetX:0;offsetY:10;selected:{{ value | format(0) }};templateY:{{ value | format(0) }};templateX:{{ value }};axisY:true;axisX:true;height:0;width:0', function(self, config) {
+COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;fill:false;point:5;fillopacity:0.1;offsetX:0;offsetY:10;selected:{{ value | format(0) }};templateY:{{ value | format(0) }};templateX:{{ value }};axisY:true;axisX:true;height:0;width:0', function(self, config) {
 
 	var svg, g, axis, selected, points, fills, selectedold;
 	var templateX, templateY, templateS;
