@@ -19,7 +19,7 @@ COMPONENT('menu', function(self) {
 		ul = self.find(cls2 + '-items').find('ul');
 		children = self.find(cls2 + '-submenu');
 
-		self.event('click', 'li', function(e) {
+		self.event('touchstart click', 'li', function(e) {
 
 			clearTimeout2(self.ID);
 
@@ -38,6 +38,9 @@ COMPONENT('menu', function(self) {
 					self.opt.callback(self.opt.items[+index[0]]);
 					self.hide();
 				}
+
+				e.preventDefault();
+				e.stopPropagation();
 			}
 		});
 
@@ -157,7 +160,7 @@ COMPONENT('menu', function(self) {
 			if (item.icon)
 				icon = '<i class="{0}"></i>'.format(item.icon.charAt(0) === '!' ? item.icon.substring(1) : ('fa fa-' + item.icon));
 			else
-				cn = (cn ? ' ' : '') + cls + '-nofa';
+				cn = (cn ? (cn + ' ') : '') + cls + '-nofa';
 
 			tmp = '';
 
