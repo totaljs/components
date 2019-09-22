@@ -19,7 +19,7 @@ COMPONENT('menu', function(self) {
 		ul = self.find(cls2 + '-items').find('ul');
 		children = self.find(cls2 + '-submenu');
 
-		self.event('touchstart click', 'li', function(e) {
+		self.event('click', 'li', function(e) {
 
 			clearTimeout2(self.ID);
 
@@ -55,7 +55,7 @@ COMPONENT('menu', function(self) {
 
 		events.click = function(e) {
 			if (is && !isopen && (!self.target || (self.target !== e.target && !self.target.contains(e.target))))
-				setTimeout2(self.ID, self.hide, 300);
+				setTimeout2(self.ID, self.hide, isMOBILE ? 700 : 300);
 		};
 
 		events.hidechildren = function() {
