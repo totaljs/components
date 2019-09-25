@@ -18,7 +18,7 @@ __Configuration__:
 
 - `path` {String} a __relative path__ to property (can be inherited from `data-bind` automatically)
 - `required` {Boolean} optional, enables "required" (default: `false`)
-- `type` {String} optional, can be `string` (default), `date`, `number`, `boolean`, `email` or `html`
+- `type` {String} optional, can be `string` (default), `date`, `number`, `boolean`, `email` or `html` __NEW__ `tags`
 - `can` {String} optional, a path to `function(opt, el)` must return `boolean`, it means `can edit?`
 - `save` {String} optional, a path to `function(opt, accepted(boolean))`, `accepted` function must be evaluated
 - `format` {String} optional, a format for `date`, default: `yyyy-MM-dd`
@@ -55,6 +55,7 @@ __Good to know__:
 - each changed element will contain class `changed`
 - if the component changes some values, the main element will contain class `ui-editable-changed`
 - if the element has `data-bind` with `empty`, it will be cleared after focus
+- __NEW__ now supports `tags` type. For now supports only with `rebind` and `data-bind`
 
 ### Author
 

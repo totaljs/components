@@ -3,10 +3,10 @@
 	.changed::after { float: right; content: '+'; margin-left: 5px; font-weight: normal; color: orange; }
 </style>
 
-<div data-jc="LAZY datepicker"></div>
-<div data-jc="LAZY directory"></div>
+<div data---="LAZY datepicker"></div>
+<div data---="LAZY directory"></div>
 
-<div data-jc="editable__form">
+<div data---="editable__form">
 	<div style="width:500px;padding:10px;border:1px solid #E0E0E0">
 
 		<div class="row">
@@ -46,7 +46,7 @@
 				Country:
 			</div>
 			<div class="col-xs-9">
-				<div class="editable" data-editable="path:city;dirsource:countries">Choose a country</div>
+				<div class="editable" data-editable="rebind:1;dirsource:countries;type:tags" data-bind="form.countries__template:{#countrytags}"></div>
 			</div>
 		</div>
 		<div class="row">
@@ -61,13 +61,29 @@
 	<pre data-bind="form__html:JSON.stringify(value, null, '  ')"></pre>
 </div>
 
+<script type="text/html" id="countrytags">
+	{{ foreach m in value }}<span class="editable-tag"><i class="fa fa-times"></i>{{ m }}</span>{{ end }}
+</script>
+
 
 <script>
 
+	// Alternative to tags (data-bind="path__change:myfunc")
+	function myfunc(data, path, el) {
+		if (!data)
+			return el.html('');
+		var template = '<span class="tag"><i class="fa fa-times"></i>{0}</span>';
+		var html = '';
+		for (var i = 0; i < data.length; i++)
+			html += template.format(data[i]);
+		el.html(html);
+	}
+
 	var frameworks = [{ id: 0, name: 'Nothing', template: '<b>{{ name }}</b>' }, { id: 1, name: 'jComponent' }, { id: 2, name: 'Angular.js' }, { id: 3, name: 'React' }];
-	var countries = ['Slovakia', 'Poland', 'Hungary', 'Germany'];
+	var countries = ['Slovakia', 'Poland', 'Hungary', 'Germany', 'USA', 'Austria', 'Poland', 'Czechia'];
 	var form = {};
 	form.date = new Date();
 	form.name = 'Peter Širka';
+	form.countries = ['Slovakia', 'Hungary'];
 
 </script>

@@ -1,4 +1,3 @@
-
 COMPONENT('editable', 'disabled:0', function(self, config) {
 
 	var cls = 'ui-editable';
@@ -183,6 +182,18 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 
 			if (!opt || (opt.canedit && !opt.canedit(el)))
 				return;
+
+			var target = $(e.target);
+			if (opt.type === 'tags') {
+				if (target.hclass('fa')) {
+					var temp = GET(opt.path);
+					var index = target.parent().eq(0).index();
+					temp.splice(index, 1);
+					SET(opt.path, temp, 2);
+					return;
+				} else if (target[0].nodeName === 'SPAN')
+					return;
+			}
 
 			opt.is = true;
 			opt.keypressed = 0;
@@ -553,7 +564,11 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 				if (b)
 					b.disabled = true;
 
-				SET(opt.path, opt.value, 2);
+				if (opt.type === 'tags')
+					PUSH(opt.path, opt.value, 2);
+				else
+					SET(opt.path, opt.value, 2);
+
 				self.cnotify(el, 'ok');
 				self.change(true);
 
