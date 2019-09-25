@@ -13,7 +13,7 @@ __Data declaration__:
 
 ```javascript
 var form = [];
-form.push({ name: 'user.firstname', type: 'string', value: 'Peter Sirka' });
+form.push({ name: 'user.firstname', label: 'First name', type: 'string', value: 'Peter Sirka' });
 form.push({ name: 'user.age', type: 'number', value: 33, min: 18, max: 50 });
 form.push({ name: 'user.birth', type: 'date', value: NOW });
 form.push({ name: 'user.newsletter', type: 'boolean', value: true });

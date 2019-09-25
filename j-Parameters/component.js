@@ -16,9 +16,12 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5', function
 				return val;
 			return val ? Thelpers.encode(val.toString()) : '';
 		};
+		Thelpers.ui_parameters_label = function() {
+			return this.label || this.name;
+		};
 	};
 
-	self.template = Tangular.compile('<div class="{0}-item{{ if modified }} {0}-modified{{ fi }}" data-index="{{ $.index }}" data-search="{{ $.search }}"><div class="{0}-value{{ if unit }} {0}-unit{{ fi }}{{ if invalid }} {0}-invalid{{ fi }}">{{ if unit }}<span>{{ unit }}</span>{{ fi }}{{ if type === \'boolean\' }}<div class="{0}-boolean">{{ if value }}true{{ else }}false{{ fi }}</div>{{ else }}<div><input class="{0}-input" data-type="{{ type }}" value="{{ value | ui_parameters_value(\'{1}\') }}" /></div>{{ fi }}</div><div class="{0}-type">{{ type }}</div><div class="{0}-name">{{ name }}</div></div>'.format(cls, config.dateformat));
+	self.template = Tangular.compile('<div class="{0}-item{{ if modified }} {0}-modified{{ fi }}" data-index="{{ $.index }}" data-search="{{ $.search }}"><div class="{0}-value{{ if unit }} {0}-unit{{ fi }}{{ if invalid }} {0}-invalid{{ fi }}">{{ if unit }}<span>{{ unit }}</span>{{ fi }}{{ if type === \'boolean\' }}<div class="{0}-boolean">{{ if value }}true{{ else }}false{{ fi }}</div>{{ else }}<div><input class="{0}-input" data-type="{{ type }}" value="{{ value | ui_parameters_value(\'{1}\') }}" /></div>{{ fi }}</div><div class="{0}-type">{{ type }}</div><div class="{0}-name">{{ name | ui_parameters_label }}</div></div>'.format(cls, config.dateformat));
 
 	self.search = function() {
 		var val = search.find('input').val().toSearch();
