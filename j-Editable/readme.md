@@ -55,7 +55,7 @@ __Good to know__:
 - each changed element will contain class `changed`
 - if the component changes some values, the main element will contain class `ui-editable-changed`
 - if the element has `data-bind` with `empty`, it will be cleared after focus
-- __NEW__ now supports `tags` type. For now supports only with `rebind` and `data-bind`
+- __NEW__ now supports `tags` type. For now supports only with `rebind` and `data-bind`. (data-bind `template` with `{jQuery selector}` works from `+v18`)
 
 ### Author
 
