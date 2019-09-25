@@ -27,7 +27,7 @@ Method: `component.show(options)`
 - `options.empty` {String} optional, adds empty field
 - `options.exclude` {Function} optional, can exclude items and must return a boolean `function(item) { return item.id !== 100 }`
 - `options.close` {Function} optional, can determine closing of panel
-- `options.search` {Boolean} optional, can hidnen search field (default: `true`)
+- `options.search` {Boolean} optional, can hide search field (default: `true`)
 - `options.selected` {Object} optional, can contain a selected value (default: `undefined`)
 - `options.align` {String} optional, `left` (default), `right` or `center`
 - `options.position` {String} optional, `top` (default), `bottom`
