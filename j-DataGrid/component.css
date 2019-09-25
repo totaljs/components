@@ -1,4 +1,4 @@
-.dg { color: black; position: relative; visibility: hidden; background-color: white; }
+.dg { color: black; position: relative; visibility: hidden; }
 .dg-h-container { overflow: hidden; border: 1px solid #E0E0E0; }
 .dg-h-body { overflow: hidden; overflow-x: auto; overflow-scrolling: touch; -webkit-overflow-scrolling: touch; }
 .dg-header { position: relative; }
@@ -93,11 +93,16 @@
 .dg-col button:first-child { border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-left: 1px solid #E0E0E0; }
 .dg-col button:last-child { border-top-right-radius: 3px; border-bottom-right-radius: 3px; }
 .dg-col button:disabled { background-color: #F0F0F0 !important; color: silver !important; cursor: not-allowed; }
-.dg-noborder .dg-h-container { border: 0 !important; }
-.dg-noborder .dg-footer { border-left: 0 !important; border-bottom: 0 !important; border-right: 0 !important; }
+.dg-editable .dg-checkbox { position: relative; display: inline-block; margin-left: 5px; margin-right: 5px; }
+.dg-editable > div > .dg-checkbox { border-color: #4285F4; }
+.dg-bool { height: 28px; }
+.dg-bool .dg-checked { background-color: #D0D0D0; border-color: #D0D0D0; color: gray; }
+.dg-editable { background-color: rgba(255,241,164,0.1); }
+.dg-editable input { width: 100%; height: 28px; background-color: transparent; border: 0; outline: 0; padding: 0 4px; }
+
 .ui-dark .dg-filter-selected { background-color: #3c3a32 !important; color: white; }
 .ui-dark .dg-filter-selected label { color: white; }
-.ui-dark .dg { color: #E0E0E0; background-color: #202020; }
+.ui-dark .dg { color: #E0E0E0; }
 .ui-dark .dg-h-container { border-color: #353535; }
 .ui-dark .dg-sorting .fa-sort { color: #A0A0A0; }
 .ui-dark .dg-filter { border-top-color: #353535; }
@@ -112,7 +117,9 @@
 .ui-dark .dg-selected { background-color: rgba(200,200,200,0.03) !important; }
 .ui-dark .dg-row:nth-child(even) { background-color: rgba(0,0,0,0.1); }
 .ui-dark .dg-row:hover { background-color: rgba(0,0,0,0.2); }
-.ui-dark .dg-row-changed, .ui-dark .dg-row-changed.dg-row:nth-child(even) { background-color: rgba(208,31,33,0.12); }
+.ui-dark .dg-row-changed:hover { background-color: rgba(208,31,33,0.2) !important; }
+.ui-dark .dg-row-changed { background-color: rgba(208,31,33,0.12) !important; }
+.ui-dark .dg-row-changed.dg-row:nth-child(even) { background-color: rgba(208,31,33,0.12); }
 .ui-dark .dg-scrollbar-container-h { background-color: #282828; }
 .ui-dark .dg-scrollbar-container-v { background-color: #282828; }
 .ui-dark .dg-scrollbar-h { background-color: #454545; }
@@ -133,3 +140,5 @@
 .ui-dark .dg-pagination button:disabled { background-color: #202020; color: gray; }
 .ui-dark .dg-pagination button[name="page-prev"] { border-right-color: #404040; }
 .ui-dark .dg-pagination button[name="page-last"] { border-right-color: #404040; }
+.ui-dark .dg-bool .dg-checked { background-color: #505050; border-color: #505050; color: gray; }
+.ui-dark .dg-editable { background-color: rgba(255,241,164,0.05); }

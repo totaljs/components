@@ -70,7 +70,7 @@ __Configuration__:
 - `button` {String} a link to `function(btn_name, name, row, btn_element, event)` is executed if the user clicks on a __button__ in the row
 - `exec` {String} a link to `function(type, filter, sort, page)` for server-side operations only (it disables client-side sorting & filtering), supported types: `init`, `refresh` and `page`
 - `changed` {String} `path` to a variable or path to `function(rows, grid)` is executed if the user changed some rows
-- `change` {String} `path` to a variable or path to `function(meta, next(meta))` is executed if the user double clicks on a column (`meta` can be `null` if the grid is refreshed) + `next(null)` replaces previous content again
+- `change` {String/Boolean __NEW__} boolean enables internal editing or string must contain a `path` to a variable or path to `function(meta, next(meta))` is executed if the user double clicks on a column (`meta` can be `null` if the grid is refreshed) + `next(null)` replaces previous content again
 - `columns` {String} a path to definition of `columns {Array}`
 - `dblclick` {String} a link to `function(row, grid, row_el)` method, it's executed if the user double-clicks on a row
 - `noborder` {Boolean} can disable a border around the grid (default: `false`)
@@ -97,7 +97,12 @@ __Column properties__:
 - `ovalue` {String} optional, a key for `value` field in `options`, default `value`
 - `buttonapply` {String} optional, a label for `Apply` button in columns, default: `Apply`
 - `class` {String} optional, a custom column class name
-- __NEW__ `empty` {String/Boolean} optional, can rewrite empty value with the value defined in empty field (`true` value uses `---` as a default value)
+- `empty` {String/Boolean} optional, can rewrite empty value with the value defined in empty field (`true` value uses `---` as a default value)
+- __NEW__ `min` {Number} __editable only__ a min. number value
+- __NEW__ `max` {Number} __editable only__ a max. number value
+- __NEW__ `required` {Boolean} __editable only__
+- __NEW__ `dirsearch` {String/Boolean} a placeholder for `j-Directory` search, boolean with `false` will disable search
+- __NEW__ `type` {String} optional, can contain a data-type (`string`, `boolean`, `date` or `number`) for the field
 
 __Filtering__:
 
