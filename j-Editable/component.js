@@ -190,6 +190,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 					var index = target.parent().eq(0).index();
 					temp.splice(index, 1);
 					SET(opt.path, temp, 2);
+					self.change(true);
 					return;
 				} else if (target[0].nodeName === 'SPAN')
 					return;
