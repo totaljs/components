@@ -9,17 +9,17 @@
 
 	<script type="text/html" data-size="0,120px,120px" data-head="Name,Price,Date" data-align="0,2,1" data-sort="name,price,created">
 		<tr>
-			<td>{{ $.data.author }}: {{ name }}</td>
+			<td><b>{{ $.data.author }}:</b> {{ name }}</td>
 			<td class="right">{{ price | format(2) }} &euro;</td>
 			<td class="center">{{ created | format('yyyy-MM-dd') }}</td>
 		</tr>
 	</script>
 
 	<script type="text/html" data-type="detail">
-		<div>Author: {{ $.data.author }}</div>
-		<div>Role: {{ $.data.role }}</div>
-		<div>Name: {{ name }}</div>
-		<div>Description: {{ description }}</div>
+		<div>Author: <b>{{ $.data.author }}</b></div>
+		<div>Role: <b>{{ $.data.role }}</b></div>
+		<div>Name: <b>{{ name }}</b></div>
+		<div>Description: <b>{{ description }}</b></div>
 	</script>
 
 	<script type="text/html" data-type="empty">
@@ -52,7 +52,7 @@
 	var items = [];
 	var extra = {
 		author: 'Brutus',
-		role: 'planter';
+		role: 'Planter'
 	};
 
 	items.push({ name: '1 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: 233, created: new Date().add('-5 days') });
