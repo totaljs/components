@@ -3,19 +3,21 @@
 	html{height:100%;}
 </style>
 
-<div data---="table__items__detail:true;border:1">
+<div data---="table__items__detail:true;border:1;datasource:extra">
 
 	<!-- WITHOUT HEADERS -->
 
 	<script type="text/html" data-size="0,120px,120px" data-head="Name,Price,Date" data-align="0,2,1" data-sort="name,price,created">
 		<tr>
-			<td>{{ name }}</td>
+			<td>{{ $.data.author }}: {{ name }}</td>
 			<td class="right">{{ price | format(2) }} &euro;</td>
 			<td class="center">{{ created | format('yyyy-MM-dd') }}</td>
 		</tr>
 	</script>
 
 	<script type="text/html" data-type="detail">
+		<div>Author: {{ $.data.author }}</div>
+		<div>Role: {{ $.data.role }}</div>
 		<div>Name: {{ name }}</div>
 		<div>Description: {{ description }}</div>
 	</script>
@@ -28,7 +30,7 @@
 
 <br />
 
-<div data---="table__items">
+<div data---="table__items__datasource:extra">
 
 	<!-- WITHOUT HEADERS -->
 	<script type="text/html" data-size="0,120px,120px">
@@ -48,6 +50,10 @@
 <script>
 
 	var items = [];
+	var extra = {
+		author: 'Brutus',
+		role: 'planter';
+	};
 
 	items.push({ name: '1 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: 233, created: new Date().add('-5 days') });
 	items.push({ name: '2 Lorem ipsum dolor.', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: 122, created: new Date().add('-1 year') });

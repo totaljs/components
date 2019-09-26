@@ -12,6 +12,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 	var dcompile = false;
 	var prevsort;
 	var prevhead;
+	var extradata;
 
 	self.readonly();
 	self.nocompile();
@@ -364,13 +365,13 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 
 				if (config.detail === true) {
 					tmp = eld.find('td');
-					tmp.html(templates.detail(row, { index: index, user: window.user }));
+					tmp.html(templates.detail(row, { index: index, user: window.user, data: extradata }));
 					dcompile && COMPILE(tmp);
 				} else {
 					tmp = eld.find('td');
 					EXEC(self.makepath(config.detail), row, function(row) {
 						var is = typeof(row) === 'string';
-						tmp.html(is ? row : templates.detail(row, { index: index, user: window.user }));
+						tmp.html(is ? row : templates.detail(row, { index: index, user: window.user, data: extradata }));
 						if ((is && row.COMPILABLE()) || dcompile)
 							COMPILE(tmp);
 					}, tmp);
@@ -391,6 +392,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 		if (index.length) {
 			var template = templates[opt.display];
 			var indexer = {};
+			indexer.data = extradata;
 			indexer.user = W.user;
 			indexer.index = +index.attrd('index');
 			var is = index.hclass(cls + '-selected');
@@ -409,6 +411,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 
 		var template = templates[opt.display];
 		var indexer = {};
+		indexer.data = extradata;
 		indexer.user = W.user;
 		indexer.index = index;
 		ebody.append(template(row, indexer).replace('<tr', '<tr data-index="' + indexer.index + '"'));
@@ -425,7 +428,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 	self.redraw = function() {
 		var clsh = 'hidden';
 		var count = 0;
-		var indexer = { user: W.user };
+		var indexer = { user: W.user, data: extradata };
 		var builder = [];
 		var template = templates[WIDTH()];
 		if (template) {
@@ -493,6 +496,9 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 			case 'pluralizeitems':
 				config.pluralizeitems = value.split(',').trim();
 				break;
+			case 'datasource':
+				self.datasource(value, self.bind);
+				break;
 			case 'paginate':
 			case 'exec':
 			case 'click':
@@ -502,6 +508,10 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 					config[key] = value.SCOPE(self, value);
 				break;
 		}
+	};
+
+	self.bind = function(path, val) {
+		extradata = val;
 	};
 
 	self.setter = function(value) {
