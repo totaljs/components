@@ -20,7 +20,7 @@ __Configuration__:
 - `redraw` {String} a link to function, it's evaluated when the table is redrawing
 - `filter` {String} a link to function, it's evaluated before the table is rendering
 - __NEW__ `dblclick` {String} a link to function, it's evaluated when the user performs double-click
-- __NEW__ `datasource` {String} path to data-source (for other extra data in template. Usage: `{{ $.data }}`)
+- __NEW__ `datasource` {String} path to data-source (for other extra data in template. Usage: `{{ $.data.something }}`)
 
 __Good to know__:
 
