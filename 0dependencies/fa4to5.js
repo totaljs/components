@@ -1,6 +1,7 @@
 const Fs = require('fs');
 
-var css = Fs.readFileSync('spa.min@17.css').toString('utf8');
+var filename = 'spa.min@18.css';
+var css = Fs.readFileSync(filename).toString('utf8');
 var diff = `address-book-o	address-book	far
 address-card-o	address-card	far
 area-chart	chart-area	fas
@@ -290,4 +291,4 @@ diff.split('\n').forEach(function(line) {
 		return '}.fa-' + line[0] + ':before,' + text.substring(1);
 	});
 });
-Fs.writeFileSync('spa.min@17.css', css, 'utf8');
+Fs.writeFileSync(filename, css, 'utf8');
