@@ -600,7 +600,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 				if (config.dblclick && dblclick.ticks && dblclick.ticks > now && dblclick.row === row) {
 					config.dblclick && SEEX(config.dblclick, row, self, elrow, target);
 					if (config.highlight && self.selected !== row) {
-						opt.cluster.el.find('> .' + cls).rclass(cls);
+						opt.cluster.el.find('.' + cls).rclass(cls);
 						self.selected = row;
 						elrow.aclass(cls);
 					}
@@ -614,7 +614,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 				var rowarg = row;
 
 				if (config.highlight) {
-					opt.cluster.el.find('> .' + cls).rclass(cls);
+					opt.cluster.el.find('.' + cls).rclass(cls);
 					if (!config.unhighlight || self.selected !== row) {
 						self.selected = row;
 						elrow.aclass(cls);
