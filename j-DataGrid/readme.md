@@ -103,7 +103,7 @@ __Column properties__:
 - __NEW__ `required` {Boolean} __editable only__
 - __NEW__ `dirsearch` {String/Boolean} a placeholder for `j-Directory` search, boolean with `false` will disable search
 - __NEW__ `type` {String} optional, can contain a data-type (`string`, `boolean`, `date` or `number`) for the field
-- __NEW__ `editable` {Boolean} enables editing, but `config.change` must be `true`
+- __NEW__ `editable` {Boolean} enables editing
 
 __Filtering__:
 
