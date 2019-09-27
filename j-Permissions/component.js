@@ -5,7 +5,7 @@ COMPONENT('permissions', 'placeholder:Search;types:R,W,RW;default:R', function(s
 	var tbody;
 	var skip = false;
 
-	self.configure = function(key, value, init, prev) {
+	self.configure = function(key, value) {
 		switch (key) {
 			case 'disabled':
 				self.tclass(cls + '-disabled', value);
@@ -34,6 +34,7 @@ COMPONENT('permissions', 'placeholder:Search;types:R,W,RW;default:R', function(s
 				return;
 
 			var opt = {};
+			opt.raw = !!config.dirraw;
 			opt.element = $(this);
 			opt.placeholder = config.placeholder;
 			opt.items = GET(config.dirsource);

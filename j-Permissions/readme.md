@@ -12,6 +12,7 @@ __Configuration__:
 - `pk` {String} a `pk` means primary key, it's used as a prevention for duplicated values (default: `name`)
 - __NEW__ `disabled` {Boolean} optional, disables this component
 - __NEW__ `default` {String} default value of `type` (default: `R`)
+- __NEW__ `dirraw` {Boolean} optional, disables HTML encoding for text in `j-Directory` (default: `false`)
 
 __Source__:
 
