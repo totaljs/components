@@ -96,7 +96,7 @@ COMPONENT('permissionsop', 'placeholder:Search;types:CRUD;default:R;labelrole:Ro
 				$(this).attrd('index', index);
 			});
 			if (!items.length)
-				self.setter(EMPTYARRAY);
+				self.empty();
 		});
 	};
 
@@ -159,12 +159,16 @@ COMPONENT('permissionsop', 'placeholder:Search;types:CRUD;default:R;labelrole:Ro
 		tbody.html(builder.join(''));
 	};
 
+	self.empty = function() {
+		config.empty && tbody.html('<tr><td class="{0}-empty"><i class="fa fa-database"></i>{1}</td></tr>'.format(cls, config.empty));
+	};
+
 	self.setter = function(value) {
 
-		if ((!items || !items.length) || (!skip && (!value || !value.length))) {
+		if (!skip && (!value || !value.length)) {
 			items = [];
-			config.empty && tbody.html('<tr><td class="{0}-empty"><i class="fa fa-database"></i>{1}</td></tr>'.format(cls, config.empty));
 			skip = false;
+			self.empty();
 			return;
 		}
 
