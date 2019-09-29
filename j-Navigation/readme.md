@@ -7,12 +7,14 @@
 __Configuration__:
 
 - `exec` {String} a link to the function
+- `pk` {String} a primary key (default: `id`) for remembering last state of tree
 
 __Data-source__:
 
 ```javascript
 [
 	{
+		id: 1,
 		name: 'Text to navigation item',
 		title: 'Optional, a title attribute',
 		collapsed: true, // only for children, default "false"
