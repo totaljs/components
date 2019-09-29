@@ -1,6 +1,6 @@
 COMPONENT('permissionsop', 'placeholder:Search;types:CRUD;default:R;labelrole:Role;labelgroup:Group;pk:id', function(self, config) {
 
-	var cls = 'ui-permissions';
+	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
 	var tbody;
 	var skip = false;
