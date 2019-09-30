@@ -25,8 +25,8 @@ __Configuration__:
 - `labelgroup` {String} optional a label for groups (default: `Group`)
 - `limit` {Number} a count of allowed permissions (default: `0` = unlimited)
 - `pk` {String} a primary key which value will be binded into the model (default: `id`)
-- __IMPORTAN__ `find` {String} URL address for finding roles, groups and users, the component sends `url?q=SEARCH_QUERY` (it sends empty value)
-- __IMPORTAN__ `read` {String} URL address for reading roles, groups and users, the component sends `url?id=@role,#group,userid,...`
+- __IMPORTANT__ `find` {String} URL address for finding roles, groups and users, the component sends `url?q=SEARCH_QUERY` (it sends empty value)
+- __IMPORTANT__ `read` {String} URL address for reading roles, groups and users, the component sends `url?id=@role,#group,userid,...`
 
 ```javascript
 // The component expects data:
