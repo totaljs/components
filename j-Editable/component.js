@@ -211,7 +211,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 				attr.element = el;
 				attr.items = GET(scope == null ? self.makepath(opt.dirsource) : scope.makepath(opt.dirsource));
 				attr.offsetY = -1;
-				attr.placeholder = opt.dirplaceholder;
+				attr.placeholder = typeof(opt.dirsearch) === 'string' ? opt.dirsearch : opt.dirplaceholder;
 				attr.search = opt.dirsearch;
 				attr.render = opt.dirrender ? GET(scope == null ? self.makepath(opt.dirrender) : scope.makepath(opt.dirrender)) : null;
 				attr.custom = !!opt.dircustom;
@@ -221,17 +221,19 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 				attr.key = opt.dirkey || 'name';
 				attr.empty = opt.dirempty;
 
-				attr.exclude = function(item) {
+				if (opt.direxclude || opt.direxclude == null) {
+					attr.exclude = function(item) {
 
-					if (!item)
-						return;
+						if (!item)
+							return;
 
-					if (typeof(item) === 'string')
-						return item === opt.value;
+						if (typeof(item) === 'string')
+							return item === opt.value;
 
-					var v = item[opt.dirvalue || 'id'];
-					return opt.value instanceof Array ? opt.value.indexOf(v) !== -1 : v === opt.value;
-				};
+						var v = item[opt.dirvalue || 'id'];
+						return opt.value instanceof Array ? opt.value.indexOf(v) !== -1 : v === opt.value;
+					};
+				}
 
 				attr.close = function() {
 					opt.is = false;
@@ -397,8 +399,9 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 		events.paste = function(e) {
 			e.preventDefault();
 			e.stopPropagation();
+			var meta = this.$editable;
 			var text = e.originalEvent.clipboardData.getData(self.attrd('clipboard') || 'text/plain');
-			text && document.execCommand('insertText', false, text);
+			text && document.execCommand('insertText', false, meta.multiline ? text.trim() : text.replace(/\n|\r/g, '').trim());
 		};
 
 		events.focus = function(e) {
@@ -537,7 +540,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 			config.invalid && EXEC(config.invalid, el, false, meta);
 		} else {
 			meta.invalid && EXEC(config.invalid, el, true, meta);
-			el.aclass('invalid changed');
+			el.aclass((meta.required ? 'invalid ' : '') + 'changed');
 		}
 
 		el.aclass(cls + '-' + classname);
