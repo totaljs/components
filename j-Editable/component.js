@@ -1,6 +1,7 @@
 COMPONENT('editable', 'disabled:0', function(self, config) {
 
 	var cls = 'ui-editable';
+	var rtrue = /1|true/i;
 	var events = {};
 	var changed = null;
 
@@ -16,8 +17,13 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 		var arr = self.find('[data-editable]');
 
 		for (var i = 0; i < arr.length; i++) {
+
 			var el = $(arr[i]);
 			var opt = self.parse(el);
+			var disabled = el.attrd('disabled');
+
+			if ((disabled && rtrue.test(disabled)) || HIDDEN(el))
+				continue;
 
 			if (!opt || !opt.required)
 				continue;
@@ -178,8 +184,11 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 				return;
 
 			var el = $(t);
-			var opt = self.parse(el);
+			var disabled = el.attrd('disabled');
+			if (disabled && rtrue.test(disabled))
+				return;
 
+			var opt = self.parse(el);
 			if (!opt || (opt.canedit && !opt.canedit(el)))
 				return;
 

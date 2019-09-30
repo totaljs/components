@@ -56,6 +56,8 @@ __Good to know__:
 - if the component changes some values, the main element will contain class `ui-editable-changed`
 - if the element has `data-bind` with `empty`, it will be cleared after focus
 - __NEW__ now supports `tags` type. For now supports only with `rebind` and `data-bind`. (data-bind `template` with `{jQuery selector}` works from `+v18`)
+- __NEW__ if the element contains attribute `data-disabled="1"`, the control will be disabled
+- __NEW__ hidden and disabled elements won't be validated
 
 ### Author
 
