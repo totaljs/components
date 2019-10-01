@@ -7,11 +7,11 @@ __Configuration__:
 - `selector` {String} jQuery selector for watching
 - `exec` {String} A path to method which will be executed if the user moves element
 
-__Exec method is in the form__:
+__Example of `Exec` method__:
 
 ```javascript
 function exec_method(list, dragged, target) {
-
+	// @list jQuery list
 }
 ```
 
