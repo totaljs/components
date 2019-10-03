@@ -227,7 +227,8 @@ COMPONENT('planner', 'days:# days,# day,# days,# days;parent:parent', function(s
 
 			item.duration = Math.ceil((item.dtend - item.dtbeg) / 1000 / 60 / 60 / 24);
 
-			gg.asvg('text').attr('x', l + padding + 4).attr('y', t + padding + 10).aclass('svg-text').text(item.duration.pluralize(config.days));
+			var d = config.days[0];
+			gg.asvg('text').attr('x', l + padding + 4).attr('y', t + padding + 10).aclass('svg-text').text(item.duration.pluralize(d[0], d[1], d[2], d[3]));
 
 			if (item.progress < 10)
 				ll += 4;
