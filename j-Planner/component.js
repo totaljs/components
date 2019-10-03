@@ -217,19 +217,18 @@ COMPONENT('planner', 'days:# days,# day,# days,# days;parent:parent', function(s
 
 			var gg = g.asvg('g').aclass(cls + '-item').attrd('id', item.id);
 
-			item.name && gg.asvg('title').text(item.name);
-			gg.asvg('rect').attr('x', l + padding).attr('width', w - l - (padding * 2)).attr('y', t + padding + 1).attr('height', h - (padding * 2)).attr('fill', item.color).attr('opacity', 0.4).attr('rx', 4).attr('ry', 4).attrd('id', item.id).asvg('title').text(item.team);
+			gg.asvg('rect').attr('x', l + padding).attr('width', w - l - (padding * 2)).attr('y', t + padding + 1).attr('height', h - (padding * 2)).attr('fill', item.color).attr('opacity', 0.4).attr('rx', 4).attr('ry', 4).attrd('id', item.id).asvg('title').text(item.title);
 
 			if (item.progress) {
 				w = w - l - (padding * 2);
 				w = (item.progress / 100) * w;
-				gg.asvg('rect').attr('x', l + padding).attr('width', w).attr('y', t + padding + 1).attr('height', h - (padding * 2)).attr('fill', item.color).attr('rx', 4).attr('ry', 4).asvg('title').text(item.team);
+				gg.asvg('rect').attr('x', l + padding).attr('width', w).attr('y', t + padding + 1).attr('height', h - (padding * 2)).attr('fill', item.color).attr('rx', 4).attr('ry', 4).asvg('title').text(item.title);
 			}
 
 			item.duration = Math.ceil((item.dtend - item.dtbeg) / 1000 / 60 / 60 / 24);
 
-			var d = config.days;
-			gg.asvg('text').attr('x', l + padding + 4).attr('y', t + padding + 10).aclass('svg-text').text(item.duration.pluralize(d[0], d[1], d[2], d[3]));
+			// var d = config.days;
+			gg.asvg('text').attr('x', l + padding + 4).attr('y', t + padding + 10).aclass('svg-text').text(item.name); //.text(item.duration.pluralize(d[0], d[1], d[2], d[3]));
 
 			if (item.progress < 10)
 				ll += 4;
