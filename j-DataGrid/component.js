@@ -648,10 +648,13 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 					tmp.rclass('dg-filter-selected');
 					var index = +el.closest('.dg-hcol').attrd('index');
 					var col = opt.cols[index];
+					var k = label.attrd('name');
 					label.html(col.filter);
 					forcescroll = opt.scroll = 'y';
 					opt.operation = 'filter';
-					delete opt.filter[label.attrd('name')];
+					delete opt.filter[k];
+					delete opt.filtervalues[col.id];
+					delete opt.filtercl[k];
 					self.fn_refresh();
 				}
 			}
@@ -1250,7 +1253,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		for (var i = 0; i < opt.cols.length; i++) {
 			var col = opt.cols[i];
 			if (!col.hidden) {
-				var obj = { index: i, ts: NOW.getTime(), label: col.header(col), filter: col.filter, reorder: config.reorder, sorting: col.sorting, name: col.name, alignfilter: col.alignfilter, alignheader: col.alignheader, filterval: opt.filtervalues[col.id], labeltitle: col.title || col.text, options: col.options ? col.options instanceof Array ? col.options : GET(col.options) : null };
+				var filteritems = col.options ? col.options instanceof Array ? col.options : GET(col.options) : null;
+				var filtervalue = opt.filtervalues[col.id];
+				var obj = { index: i, ts: NOW.getTime(), label: col.header(col), filter: col.filter, reorder: config.reorder, sorting: col.sorting, name: col.name, alignfilter: col.alignfilter, alignheader: col.alignheader, filterval: filtervalue == null ? null : filteritems ? filteritems.findValue(col.ovalue, filtervalue, col.otext, '???') : filtervalue, labeltitle: col.title || col.text, options: filteritems };
 				opt.width += col.width;
 				config.resize && resize.push('<span class="dg-resize" style="left:{0}px" data-index="{1}"></span>'.format(opt.width - 39, i));
 				column += Theadercol(obj);
