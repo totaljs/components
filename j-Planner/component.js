@@ -217,12 +217,12 @@ COMPONENT('planner', 'days:# days,# day,# days,# days;parent:parent', function(s
 
 			var gg = g.asvg('g').aclass(cls + '-item').attrd('id', item.id);
 
-			gg.asvg('rect').attr('x', l + padding).attr('width', w - l - (padding * 2)).attr('y', t + padding + 1).attr('height', h - (padding * 2)).attr('fill', item.color).attr('opacity', 0.4).attr('rx', 4).attr('ry', 4).attrd('id', item.id).asvg('title').text(item.title);
+			gg.asvg('rect').attr('x', l + padding).attr('width', w - l - (padding * 2)).attr('y', t + padding + 1).attr('height', h - (padding * 2)).attr('fill', item.color).attr('opacity', 0.4).attr('rx', 2).attr('ry', 2).attrd('id', item.id).asvg('title').text(item.title);
 
 			if (item.progress) {
 				w = w - l - (padding * 2);
 				w = (item.progress / 100) * w;
-				gg.asvg('rect').attr('x', l + padding).attr('width', w).attr('y', t + padding + 1).attr('height', h - (padding * 2)).attr('fill', item.color).attr('rx', 4).attr('ry', 4).asvg('title').text(item.title);
+				gg.asvg('rect').attr('x', l + padding).attr('width', w).attr('y', t + padding + 1).attr('height', h - (padding * 2)).attr('fill', item.color).attr('rx', 2).attr('ry', 2).asvg('title').text(item.title);
 			}
 
 			item.duration = Math.ceil((item.dtend - item.dtbeg) / 1000 / 60 / 60 / 24);

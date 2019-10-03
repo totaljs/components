@@ -6,7 +6,7 @@ __Data-source__ needs to contain:
 
 ```javascript
 {
-    items: [{ id: '12345', name: 'A name of plan', dtbeg: NOW.add('-5 days'), dtend: NOW.add('3 days'), progress: 30, color: '#5385EA' }, ...] // items
+    items: [{ id: '12345', name: 'A name of plan', dtbeg: NOW.add('-5 days'), dtend: NOW.add('3 days'), progress: 30, color: '#5385EA', title: 'A tooltip' }, ...] // items
     year: 2019
 }
 ```
