@@ -1,0 +1,23 @@
+.ui-planner { overflow: hidden; }
+.ui-planner svg { display: block; }
+.ui-planner-calendar { width: 100%; height: 100%; overflow: hidden; }
+.ui-planner-dayscontainer { background-color: white; border-bottom: 1px solid #E0E0E0; height: 60px; overflow: hidden; }
+.ui-planner-daysscrollbar { overflow-x: scroll; overflow-y: hidden; user-select: none; }
+.ui-planner-days { width: 10950px; height: 80px; }
+.ui-planner-day { width: 20px; font-size: 9px; text-align: center; float: left; height: 40px; border-left: 1px solid #D0D0D0; margin: 0; line-height: 19px; background-color: #F0F0F0; }
+.ui-planner-day:first-child { border-left: 0; }
+.ui-planner-day span { display: block; border-top: 1px solid #D0D0D0; color: gray; }
+.ui-planner-month { text-align: center; height: 20px; background-color: #FDFFD5; float: left; border-left: 1px solid #ECF0AA; line-height: 20px; font-size: 11px; color: #92956A; text-transform: uppercase; }
+.ui-planner-month:first-child { border-left: 0; }
+.ui-planner-months { height: 20px; }
+.ui-planner pattern path { stroke: #E0E0E0; }
+.ui-planner line { stroke: red; }
+.ui-planner .svg-text { font-size: 10px; fill: rgba(0,0,0,0.7); }
+.ui-planner .svg-percentage { font-size: 9px; fill: rgba(100,100,100,0.7); }
+
+.ui-dark .ui-planner pattern path { stroke: #404040; }
+.ui-dark .ui-planner-day { border-left-color: #404040; background-color: #303030; }
+.ui-dark .ui-planner-day span { border-top-color: #404040; }
+.ui-dark .ui-planner-dayscontainer { border-bottom-color: #404040; background-color: #303030; }
+.ui-dark .ui-planner-month { background-color: #4f5041; border-left-color: #5c5d4f; color: #959687; }
+.ui-dark .svg-text { fill: rgba(255,255,255,0.7); }

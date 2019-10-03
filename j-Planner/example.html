@@ -1,0 +1,20 @@
+<style>
+	body{padding:0;margin:0;background-color:#F0F0F0;font-family:Arial;height:100%;}
+	html{height:100%;}
+</style>
+
+<div data---="planner__obj__exec:selected">
+</div>
+
+<script>
+
+	var obj = {};
+	obj.year = 2019;
+	obj.items = [];
+	obj.items.push({ id: '1', name: 'jComponent', dtbeg: NOW.add('-5 days'), dtend: NOW.add('3 days'), progress: 30, color: '#769DEA' });
+	obj.items.push({ id: '2', name: 'Total.js', dtbeg: NOW.add('-5 days'), dtend: NOW.add('3 days'), progress: 30, color: '#EACA76' });
+
+	function selected(item, g) {
+		console.log(item, g);
+	}
+</script>
