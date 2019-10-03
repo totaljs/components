@@ -158,7 +158,7 @@ COMPONENT('planner', 'days:# days,# day,# days,# days;parent:parent', function(s
 
 			var cur = dt.getDate();
 			if (cur === 1 && i) {
-				months.push('<div class="{0}-month" style="width:{1}px"><b>{2}</b> / {2}</div>'.format(cls, Math.ceil(index * 20), (monthscount + 1).padLeft(2, '0'), MONTHS[monthscount]));
+				months.push('<div class="{0}-month" style="width:{1}px"><b>{2}</b> / {3}</div>'.format(cls, Math.ceil(index * 20), (monthscount + 1).padLeft(2, '0'), MONTHS[monthscount]));
 				monthscount++;
 				index = 0;
 			}
