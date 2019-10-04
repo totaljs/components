@@ -1,5 +1,5 @@
 // Designer: Core
-COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0', function(self, config) {
+COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horizontal:0', function(self, config) {
 
 	// config.infopath {String}, output: { zoom: Number, selected: Object }
 	// config.undopath {String}, output: {Object Array}
@@ -19,11 +19,13 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0', fun
 
 	self.make = function() {
 		self.aclass(cls);
-		//  stroke="{gridcolor}" stroke-width="{gridstroke}"
+
 		self.html('<svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="svg-grid" width="{grid}" height="{grid}" patternunits="userSpaceOnUse"><path d="M {grid} 0 L 0 0 0 {grid}" fill="none" class="ui-flow-grid" shape-rendering="crispEdges" /></pattern></defs><rect width="100%" height="100%" fill="url(#svg-grid)" shape-rendering="crispEdges" /><g class="lines"></g></svg>'.arg(config));
 		self.el.svg = self.find('svg');
 		self.el.lines = self.el.svg.find('g.lines');
-		self.template = Tangular.compile('<div class="component invisible{{ if inputs && inputs.length }} hasinputs{{ fi }}{{ if outputs && outputs.length }} hasoutputs{{ fi }}" data-id="{{ id }}" style="top:{{ y }}px;left:{{ x }}px"><div class="area">{{ if inputs && inputs.length }}<div class="inputs">{{ foreach m in inputs }}<div class="input" data-index="{{ $index }}"><i class="fa fa-circle"></i></div>{{ end }}</div>{{ fi }}<div class="content">{{ html | raw }}</div>{{ if outputs && outputs.length }}<div class="outputs">{{ foreach m in outputs }}<div class="output" data-index="{{ $index }}"><i class="fa fa-circle"></i>{{ m }}</div>{{ end }}</div>{{ fi }}</div></div>');
+		self.template = Tangular.compile('<div class="component invisible{{ if inputs && inputs.length }} hasinputs{{ fi }}{{ if outputs && outputs.length }} hasoutputs{{ fi }}" data-id="{{ id }}" style="top:{{ y }}px;left:{{ x }}px"><div class="area">{{ if inputs && inputs.length }}<div class="inputs">{{ foreach m in inputs }}<div class="input" data-index="{{ $index }}"><i class="fa fa-circle"></i></div>{{ end }}</div>{{ fi }}<div class="content">{{ html | raw }}</div>{{ if outputs && outputs.length }}<div class="outputs">{{ foreach m in outputs }}<div class="output" data-index="{{ $index }}"><i class="fa fa-circle"></i><span>{{ m }}</span></div>{{ end }}</div>{{ fi }}</div></div>');
+
+		self.aclass(cls + '-' + (config.horizontal ? 'h' : 'v'));
 
 		drag.touchmove = function(e) {
 			var evt = e.touches[0];
@@ -96,6 +98,10 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0', fun
 
 	self.destroy = function() {
 		$(document).off('dragstart', drag.handler);
+		if (W.OP)
+			W.OP.off('resize', self.op.resize);
+		else
+			$(W).off('resize', self.op.resize);
 	};
 
 	self.getOffset = function() {
@@ -216,7 +222,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0', fun
 			for (var j = 0; j < inputs.length; j++) {
 				var com = inputs[j];
 				var el = self.find('.component[data-id="{0}"]'.format(com.id));
-				input = el.find('.input[data-index="{0}"]'.format(com.index));
+				var input = el.find('.input[data-index="{0}"]'.format(com.index));
 				self.el.connect(output, input, true);
 			}
 		}
@@ -291,13 +297,17 @@ EXTENSION('flow:helpers', function(self, config) {
 
 		builder.push('M' + (x1 >> 0) + s + (y1 >> 0));
 
-		if (x1 !== x4 && y1 !== y4) {
+		if (config.horizontal) {
+			x2 += ((index + 1) * 10) + 20;
+			builder.push('L' + (x2 >> 0) + s + (y1 >> 0));
+		}
+
+		if (x1 !== x4 || y1 !== y4) {
 			builder.push('L' + (x2 >> 0) + s + (y2 >> 0));
 			builder.push('L' + (x3 >> 0) + s + (y3 >> 0));
 		}
 
-		if (!config.curvedlines)
-			builder.push('L' + (x4 >> 0) + s + (y4 >> 0));
+		builder.push('L' + (x4 >> 0) + s + (y4 >> 0));
 
 		return builder.join(s);
 	};
@@ -342,7 +352,7 @@ EXTENSION('flow:helpers', function(self, config) {
 		return el.length > 0;
 	};
 
-	self.helpers.position = function(el) {
+	self.helpers.position = function(el, isout) {
 
 		var component = el.closest('.component');
 		var pos = el.offset();
@@ -350,6 +360,11 @@ EXTENSION('flow:helpers', function(self, config) {
 
 		var x = (pos.left - mainoffset.left) + 12;
 		var y = (pos.top - mainoffset.top) + 10;
+
+		if (isout && config.horizontal) {
+			var zoom = self.info.zoom / 100;
+			x += (component.width() * zoom) - 13;
+		}
 
 		return { x: x >> 0, y: y >> 0, id: component.attrd('id'), index: +el.attrd('index') };
 	};
@@ -370,7 +385,10 @@ EXTENSION('flow:helpers', function(self, config) {
 	};
 
 	self.helpers.diagonal = function(x1, y1, x4, y4) {
-		return 'M' + x1 + ',' + y1 + 'C' + x1 +  ',' + (y1 + y4) / 2 + ' ' + x4 + ',' + (y1 + y4) / 2 + ' ' + x4 + ',' + y4;
+		if (config.horizontal)
+			return 'M' + x1 + ',' + y1 + 'C' + ((x1 + x4) / 2) + ',' + y1 + ' ' + x4 + ',' + ((y1 + y4) / 2) + ' ' + x4 + ',' + y4;
+		else
+			return 'M' + x1 + ',' + y1 + 'C' + x1 +  ',' + ((y1 + y4) / 2) + ' ' + x4 + ',' + ((y1 + y4) / 2) + ' ' + x4 + ',' + y4;
 	};
 
 });
@@ -549,17 +567,32 @@ EXTENSION('flow:operations', function(self, config) {
 	};
 
 	self.op.reposition = function() {
+
+		var dzoom = self.info.zoom / 100;
+		var dzoomoffset = ((100 - self.info.zoom) / 10) + (self.info.zoom > 100 ? 1 : -1);
+
+		var zoom = function(val) {
+			return Math.ceil(val / dzoom) - dzoomoffset;
+		};
+
 		self.el.lines.find('.connection').each(function() {
 
 			var path = $(this);
 			var meta = self.helpers.parseconnection(path);
 			var output = self.find('.component[data-id="{0}"]'.format(meta.fromid)).find('.output[data-index="{0}"]'.format(meta.fromindex));
 			var input = self.find('.component[data-id="{0}"]'.format(meta.toid)).find('.input[data-index="{0}"]'.format(meta.toindex));
-			var a = self.helpers.position(output);
+			var a = self.helpers.position(output, true);
 			var b = self.helpers.position(input);
 
 			// I don't know why :-D
 			b.x -= config.paddingX;
+
+			if (dzoom !== 1) {
+				b.x = zoom(b.x);
+				b.y = zoom(b.y);
+				a.x = zoom(a.x);
+				a.y = zoom(a.y);
+			}
 
 			path.attrd('offset', a.x + ',' + a.y + ',' + b.x + ',' + b.y);
 			path.attrd('fromindex', a.index);
@@ -605,6 +638,14 @@ EXTENSION('flow:operations', function(self, config) {
 		config.redopath && SEEX(config.redopath, self.redo);
 	};
 
+	self.op.resize = function() {
+		setTimeout2(self.ID + 'reposition', self.op.reposition, 300);
+	};
+
+	if (W.OP)
+		W.OP.on('resize', self.op.resize);
+	else
+		$(W).on('resize', self.op.resize);
 });
 
 EXTENSION('flow:map', function(self) {
@@ -699,7 +740,7 @@ EXTENSION('flow:components', function(self, config) {
 		// move all output connections
 		for (var i = 0; i < drag.output.length; i++) {
 			var conn = $(drag.output[i]);
-			var pos = self.helpers.position(conn);
+			var pos = self.helpers.position(conn, true);
 			var arr = self.el.lines.find('.from_' + pos.id + '_' + pos.index);
 			for (var j = 0; j < arr.length; j++)
 				self.helpers.move1(zoom(pos.x + drag.zoomoffset), zoom(pos.y), $(arr[j]));
@@ -801,7 +842,7 @@ EXTENSION('flow:connections', function(self, config) {
 	events.move = function(e) {
 		var x = (e.pageX - drag.x) + drag.offsetX;
 		var y = (e.pageY - drag.y) + drag.offsetY;
-		drag.path.attr('d', self.helpers.connect(zoom(drag.pos.x),zoom(drag.pos.y), zoom(x), zoom(y), drag.index));
+		drag.path.attr('d', drag.input ? self.helpers.connect(zoom(x), zoom(y), zoom(drag.pos.x), zoom(drag.pos.y), drag.index) : self.helpers.connect(zoom(drag.pos.x), zoom(drag.pos.y), zoom(x), zoom(y), drag.index));
 	};
 
 	events.movetouch = function(e) {
@@ -868,6 +909,9 @@ EXTENSION('flow:connections', function(self, config) {
 		e.preventDefault();
 		e.stopPropagation();
 
+		if (config.horizontal && e.target.nodeName !== 'I')
+			return;
+
 		var target = $(this);
 		var evt = e.touches ? e.touches[0] : e;
 		var com = target.closest('.component');
@@ -887,7 +931,7 @@ EXTENSION('flow:connections', function(self, config) {
 		drag.zoom = self.info.zoom / 100;
 		drag.zoomoffset = ((100 - self.info.zoom) / 10) + (self.info.zoom > 100 ? 1 : -1);
 
-		drag.pos = self.helpers.position(target);
+		drag.pos = self.helpers.position(target, !drag.input);
 		drag.target.add(com).aclass('connecting');
 		drag.targetcomponent = com;
 
@@ -907,6 +951,9 @@ EXTENSION('flow:connections', function(self, config) {
 			drag.offsetY = (targetoffset.top - offset.top) + evt.offsetY + (drag.input ? 0 : 2);
 		}
 
+		if (config.horizontal && !drag.input)
+			drag.offsetX = drag.offsetX + (com.width() * drag.zoom) - 10;
+
 		drag.path = self.el.lines.asvg('path');
 		drag.path.aclass('connection connection-draft');
 
@@ -915,13 +962,13 @@ EXTENSION('flow:connections', function(self, config) {
 
 	self.el.connect = function(output, input, init) {
 
-		var a = self.helpers.position(output);
+		drag.zoom = self.info.zoom / 100;
+		drag.zoomoffset = ((100 - self.info.zoom) / 10) - 1;
+
+		var a = self.helpers.position(output, true);
 		var b = self.helpers.position(input);
 
 		b.x -= config.paddingX;
-
-		drag.zoom = self.info.zoom / 100;
-		drag.zoomoffset = ((100 - self.info.zoom) / 10) - 1;
 
 		if (drag.zoom !== 1) {
 			b.x = zoom(b.x);

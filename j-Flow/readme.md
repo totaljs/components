@@ -21,6 +21,7 @@ __Configuration__:
 - `onremove` {String} a path to method `fn(el, com)`, it's executed when the component is removed
 - `onconnect` {String} a path to method `fn(meta)`, it's executed when the two components are connected
 - `ondisconnect` {String} a path to method `fn(meta)`, it's executed when the two components are disconnected
+- `horizontal` {Boolean} outputs will be rendered horizontally (default: `false`)
 
 __Commands__:
 
