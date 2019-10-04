@@ -1,12 +1,13 @@
-COMPONENT('togglebox', 'dragdrop:true;text:name;hidden:hidden;replace:false', function(self, config) {
+COMPONENT('togglebox', 'dragdrop:true;text:name;hidden:hidden;replace:0', function(self, config) {
 
+	var cls = 'ui-' + self.name;
 	var container, dragdrop;
 	var touch = {};
 	var skip = false;
-	var clsdrop = 'ui-togglebox-drop';
-	var clsdrag = 'ui-togglebox-drag';
+	var clsdrop = cls + '-drop';
+	var clsdrag = cls + '-drag';
 
-	self.template = Tangular.compile('<li data-index="{{ index }}" draggable="true"{{ if !hidden }} class="ui-togglebox-visible"{{ fi }}><span></span>{{ text }}</li>');
+	self.template = Tangular.compile('<li data-index="{{ index }}" draggable="true"{{ if !hidden }} class="{0}-visible"{{ fi }}><span></span>{{ text }}</li>'.format(cls));
 	self.nocompile && self.nocompile();
 
 	self.configure = function(key, value) {
@@ -19,7 +20,7 @@ COMPONENT('togglebox', 'dragdrop:true;text:name;hidden:hidden;replace:false', fu
 
 	self.make = function() {
 
-		self.aclass('ui-togglebox');
+		self.aclass(cls);
 		self.append('<div><ul></ul></div>');
 		container = self.find('ul');
 
@@ -33,7 +34,7 @@ COMPONENT('togglebox', 'dragdrop:true;text:name;hidden:hidden;replace:false', fu
 
 			var items = self.get();
 			items[index][config.hidden] = !items[index][config.hidden];
-			el.tclass('ui-togglebox-visible', !items[index][config.hidden]);
+			el.tclass(cls + '-visible', !items[index][config.hidden]);
 			setTimeout2(self.id, self.rebind, 500);
 		});
 
@@ -153,12 +154,12 @@ COMPONENT('togglebox', 'dragdrop:true;text:name;hidden:hidden;replace:false', fu
 
 				case 'dragstart':
 					dragdrop = $(e.target);
-					dragdrop.aclass('ui-togglebox-drag');
+					dragdrop.aclass(cls + '-drag');
 					e.originalEvent.dataTransfer.setData('text', '1');
 					return;
 
 				case 'drop':
-					dragdrop.rclass('ui-togglebox-drag');
+					dragdrop.rclass(cls + '-drag');
 					self.move($(e.target), dragdrop);
 					break;
 			}
