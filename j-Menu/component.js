@@ -169,6 +169,9 @@ COMPONENT('menu', function(self) {
 				tmp += '<i class="fa fa-play pull-right"></i>';
 			}
 
+			if (item.selected)
+				cn += (cn ? ' ' : '') + cls + '-selected';
+
 			tmp += '<div class="{0}-name">{1}{2}{3}</div>'.format(cls, icon, item.name, item.shortcut ? '<b>{0}</b>'.format(item.shortcut) : '');
 
 			if (item.note)
