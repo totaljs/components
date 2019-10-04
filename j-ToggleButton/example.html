@@ -9,4 +9,7 @@
 <script>
 	var form = {};
 	form.darkmode = false;
+	WATCH('form.darkmode', function(path, value) {
+		$('body').tclass('ui-dark', value === true);
+	});
 </script>
