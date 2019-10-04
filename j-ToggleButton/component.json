@@ -1,6 +1,6 @@
 {
 	"datecreated": "2017-08-04T14:15:00.000Z",
-	"dateupdated": "2019-02-21T16:06:00.000Z",
+	"dateupdated": "2019-10-04T18:06:00.000Z",
 	"name": "j-ToggleButton",
 	"tags": [
 		"toggle",
@@ -10,6 +10,7 @@
 	],
 	"color": "green",
 	"version": 1,
+	"darkmode": true,
 	"responsive": false,
 	"picture": "picture.jpg",
 	"dependencies": "",

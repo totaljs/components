@@ -1,9 +1,13 @@
 ## j-ToggleButton
 
-Example: `data-jc-config="required:true"`
+__Configuration__:
 
-- `required` {Boolean} (optional) enables "required" (default: `false`)
-- `disabled` {Boolean} (optional) disables this component
+- `required` {Boolean} optional, enables "required" (default: `false`)
+- `disabled` {Boolean} optional, disables this component
+- `icontrue` {String} optional, toggles FontAwesome icons if the value is `true`
+- `iconfalse` {String} optional, toggles FontAwesome icons if the value is `false`
+
+Icons can be in the form: `moon` or `far fa-moon`.
 
 ### Author
 
