@@ -49,7 +49,7 @@ var component = {
 	html: 'Component test',
 	outputs: ['1 output name', '2 output name'],
 	connections: { '0': [{ id: '0002', index: '2', disabled: false }] }, // Look to the connection object below
-	actions: { select: true, move: true, disabled: false, remove: true, connet: true }
+	actions: { select: true, move: true, disabled: false, remove: true, connect: true }
 };
 
 // Appends component
