@@ -1,0 +1,16 @@
+<ul>
+	<li draggable="true">Drag me: A</li>
+	<li draggable="true">Drag me: B</li>
+	<li draggable="true">Drag me: C</li>
+	<li draggable="true">Drag me: D</li>
+	<li draggable="true">Drag me: E</li>
+</ul>
+
+<div data---="draggable__null__selector:li;exec:showinfo" style="height:300px;background-color:#F0F0F0">
+</div>
+
+<script>
+	function showinfo(meta, el) {
+		alert(JSON.stringify(meta));
+	}
+</script>
