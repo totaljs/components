@@ -1116,7 +1116,8 @@ EXTENSION('flow:commands', function(self) {
 	});
 
 	self.command('flow.components.add', function(com) {
-		com.id = 'F' + Date.now() + '';
+		if (!com.id)
+			com.id = 'F' + Date.now() + '';
 		var data = self.get();
 		data[com.id] = com;
 		self.op.modified();
