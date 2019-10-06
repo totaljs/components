@@ -1,4 +1,3 @@
-// Designer: Core
 COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horizontal:0;steplines:0', function(self, config) {
 
 	// config.infopath {String}, output: { zoom: Number, selected: Object }
@@ -183,6 +182,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			tmp = prev[key];
 			tmp.instance.onremove && tmp.instance.onremove(tmp.el, tmp.instance);
 			onremove && onremove(tmp.el, tmp.instance);
+			self.el.lines.find('.from_' + key + ', .to_' + key).aclass('connection removed hidden');
 			tmp.el.remove();
 		}
 
@@ -192,7 +192,6 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			tmp = self.cache[key];
 			tmp.instance.ondone && tmp.instance.ondone(tmp.el, tmp.instance);
 			ondone && ondone(tmp.el, tmp.instance);
-			self.el.lines.find('.from_' + key + ' .to_' + key).aclass('connection removed hidden');
 		}
 
 		// ischanged && self.el.lines.find('path').rclass().aclass('connection removed hidden');
@@ -217,11 +216,27 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			var index = indexes[i];
 			var output = m.el.find('.output[data-index="{0}"]'.format(index));
 			var inputs = m.instance.connections[index];
+			var problem = false;
 			for (var j = 0; j < inputs.length; j++) {
 				var com = inputs[j];
 				var el = self.find('.component[data-id="{0}"]'.format(com.id));
 				var input = el.find('.input[data-index="{0}"]'.format(com.index));
-				self.el.connect(output, input, true);
+				if (!self.el.connect(output, input, true)) {
+					inputs[j] = null;
+					problem = true;
+				}
+			}
+			if (problem) {
+				index = 0;
+				while (true) {
+					var item = inputs[index];
+					if (item === undefined)
+						break;
+					if (item === null)
+						inputs.splice(index, 1);
+					else
+						index++;
+				}
 			}
 		}
 	};
@@ -426,7 +441,7 @@ EXTENSION('flow:operations', function(self, config) {
 			var index = keys[i];
 			var conn = connections[index];
 			meta.fromindex = index;
-			conn = conn.remove(onremove);
+			connections[index] = conn = conn.remove(onremove);
 			if (conn.length === 0) {
 				delete connections[index];
 				self.helpers.checkconnectedoutput(next.id, index);
@@ -974,6 +989,9 @@ EXTENSION('flow:connections', function(self, config) {
 
 	self.el.connect = function(output, input, init) {
 
+		if (!output[0] || !input[0])
+			return false;
+
 		drag.zoom = self.info.zoom / 100;
 		drag.zoomoffset = ((100 - self.info.zoom) / 10) - 1;
 
@@ -1041,6 +1059,8 @@ EXTENSION('flow:connections', function(self, config) {
 			self.op.undo({ type: 'connect', fromid: meta.fromid, toid: meta.toid, fromindex: meta.fromindex + '', toindex: meta.toindex + '' });
 			self.op.modified();
 		}
+
+		return true;
 	};
 
 	self.event('mousedown touchstart', '.connection', function(e) {
