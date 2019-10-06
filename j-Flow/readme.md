@@ -22,6 +22,7 @@ __Configuration__:
 - `onconnect` {String} a path to method `fn(meta)`, it's executed when the two components are connected
 - `ondisconnect` {String} a path to method `fn(meta)`, it's executed when the two components are disconnected
 - `horizontal` {Boolean} outputs will be rendered horizontally (default: `false`)
+- `steplines` {Boolean} enables step lines (default: `false`)
 
 __Commands__:
 

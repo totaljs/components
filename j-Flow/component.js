@@ -1,5 +1,5 @@
 // Designer: Core
-COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horizontal:0', function(self, config) {
+COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horizontal:0;steplines:0', function(self, config) {
 
 	// config.infopath {String}, output: { zoom: Number, selected: Object }
 	// config.undopath {String}, output: {Object Array}
@@ -62,14 +62,10 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 		};
 
 		drag.handler = function(e) {
-
 			drag.el = $(e.target);
-
-			if (e.touches)
-				drag.bind();
-
-			if (e.originalEvent.dataTransfer)
-				e.originalEvent.dataTransfer.setData('text', '1');
+			e.touches && drag.bind();
+			var dt = e.originalEvent.dataTransfer;
+			dt && dt.setData('text', '1');
 		};
 
 		drag.drop = function(e) {
@@ -196,9 +192,11 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			tmp = self.cache[key];
 			tmp.instance.ondone && tmp.instance.ondone(tmp.el, tmp.instance);
 			ondone && ondone(tmp.el, tmp.instance);
+			self.el.lines.find('.from_' + key + ' .to_' + key).aclass('connection removed hidden');
 		}
 
-		ischanged && self.el.lines.find('path').rclass().aclass('connection removed');
+		// ischanged && self.el.lines.find('path').rclass().aclass('connection removed hidden');
+		ischanged && self.el.lines.find('path').aclass('removed');
 
 		setTimeout(function() {
 			for (var i = 0; i < keys.length; i++) {
@@ -208,7 +206,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 				ischanged && tmp.instance.connections && self.reconnect(tmp);
 			}
 			self.find('.removed').remove();
-		}, 500);
+		}, 300);
 
 		self.op.refreshinfo();
 	};
@@ -277,7 +275,7 @@ EXTENSION('flow:helpers', function(self, config) {
 	self.helpers = {};
 
 	self.helpers.checksum = function(obj) {
-		var checksum = (obj.outputs ? obj.outputs.length : 0) + ',' + (obj.inputs ? obj.inputs.length : 0) + ',' + (obj.body || '');
+		var checksum = (obj.outputs ? obj.outputs.length : 0) + ',' + (obj.inputs ? obj.inputs.length : 0) + ',' + (obj.html || '');
 		return HASH(checksum, true);
 	};
 
@@ -289,6 +287,7 @@ EXTENSION('flow:helpers', function(self, config) {
 		var x3 = x4;
 		var y3 = y1 + y;
 		var s = ' ';
+		var padding = 15;
 
 		if (config.curvedlines)
 			return self.helpers.diagonal(x1, y1, x4, y4);
@@ -298,17 +297,22 @@ EXTENSION('flow:helpers', function(self, config) {
 		builder.push('M' + (x1 >> 0) + s + (y1 >> 0));
 
 		if (config.horizontal) {
-			x2 += ((index + 1) * 10) + 20;
-			builder.push('L' + (x2 >> 0) + s + (y1 >> 0));
-		}
 
-		if (x1 !== x4 || y1 !== y4) {
-			builder.push('L' + (x2 >> 0) + s + (y2 >> 0));
-			builder.push('L' + (x3 >> 0) + s + (y3 >> 0));
+			x2 += padding;
+			builder.push('L' + (x2 >> 0) + s + (y1 >> 0));
+
+			y4 -= padding;
+			builder.push('L' + (x4 >> 0) + s + (y4 >> 0));
+			y4 += padding;
+
+		} else if (config.steplines) {
+			if ((x1 !== x4 || y1 !== y4)) {
+				builder.push('L' + (x2 >> 0) + s + (y2 >> 0));
+				builder.push('L' + (x3 >> 0) + s + (y3 >> 0));
+			}
 		}
 
 		builder.push('L' + (x4 >> 0) + s + (y4 >> 0));
-
 		return builder.join(s);
 	};
 
@@ -821,6 +825,14 @@ EXTENSION('flow:components', function(self, config) {
 		var pos = target.position();
 		drag.posX = pos.left;
 		drag.posY = pos.top;
+
+
+		var dom = target[0];
+		var parent = dom.parentNode;
+		var children = parent.children;
+
+		if (children[children.length - 1] !== dom)
+			parent.appendChild(dom);
 
 		events.bind();
 	});
