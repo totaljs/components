@@ -569,7 +569,7 @@ EXTENSION('flow:operations', function(self, config) {
 		if (!conn || conn.disabled)
 			return false;
 
-		ac.connections[fromindex].splice(ac.connections[fromindex].indexOf(conn));
+		ac.connections[fromindex].splice(ac.connections[fromindex].indexOf(conn), 1);
 
 		if (!ac.connections[fromindex].length)
 			delete ac.connections[fromindex];
