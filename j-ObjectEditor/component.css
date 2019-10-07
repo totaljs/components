@@ -1,4 +1,4 @@
-.ui-oe { font-size: 12px; border: 1px solid #E0E0E0; padding: 10px 10px 0; border-radius: 3px; box-sizing: border-box; background-color: white; }
+.ui-oe { font-size: 12px; border: 1px solid #E0E0E0; padding: 10px; border-radius: 3px; box-sizing: border-box; background-color: white; }
 .ui-oe input, .ui-oe textarea { font-family: Arial; font-size: 12px !important; }
 .ui-oe-group { margin: 15px 0; }
 .ui-oe-group > .ui-oe-label { font-size: 11px; color: #A0A0A0; border-bottom: 1px solid #E0E0E0; margin-bottom: 5px; padding: 3px 10px; float: none !important; width: auto !important; }
