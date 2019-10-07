@@ -12,8 +12,8 @@
 .ui-panel-title .ui-panel-button-menu:hover { color: black; transform: rotate(-90deg); }
 .ui-panel-title .ui-panel-button-close { float: right; cursor: pointer; font-size: 14px; transition: all 0.2s; background: none; border: 0; outline: 0; color: red; text-align: center; !important; padding: 0; width: auto; border-left: 1px solid #E0E0E0; width: 50px; height: 44px; }
 .ui-panel-title .ui-panel-button-close:hover { background-color: #EB3324; color: white; }
-.ui-panel-title > span { font-weight: bold; max-width: 70%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; display: inline-block; vertical-align: middle; padding: 12px 0 0 0; }
-.ui-panel-title > i { margin: 15px 7px 0 0; float: left; }
+.ui-panel-title > span { font-weight: bold; max-width: 70%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; display: inline-block; vertical-align: middle; line-height: 45px; }
+.ui-panel-title > i { margin-right: 7px; line-height: 45px; float: left; }
 
 .ui-dark .ui-panel { background-color: #252525; }
 .ui-dark .ui-panel-title { color: white; background-color: #252525; border-bottom-color: #101010; }
