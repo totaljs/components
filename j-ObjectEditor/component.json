@@ -8,6 +8,7 @@
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,
+	"darkmode": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
 	"author": "Peter Širka",
