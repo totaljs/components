@@ -22,7 +22,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 		self.html('<svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="svg-grid" width="{grid}" height="{grid}" patternunits="userSpaceOnUse"><path d="M {grid} 0 L 0 0 0 {grid}" fill="none" class="ui-flow-grid" shape-rendering="crispEdges" /></pattern></defs><rect width="100%" height="100%" fill="url(#svg-grid)" shape-rendering="crispEdges" /><g class="lines"></g></svg>'.arg(config));
 		self.el.svg = self.find('svg');
 		self.el.lines = self.el.svg.find('g.lines');
-		self.template = Tangular.compile('<div class="component invisible{{ if inputs && inputs.length }} hasinputs{{ fi }}{{ if outputs && outputs.length }} hasoutputs{{ fi }}" data-id="{{ id }}" style="top:{{ y }}px;left:{{ x }}px"><div class="area">{{ if inputs && inputs.length }}<div class="inputs">{{ foreach m in inputs }}<div class="input" data-index="{{ $index }}"><i class="fa fa-circle"></i></div>{{ end }}</div>{{ fi }}<div class="content">{{ html | raw }}</div>{{ if outputs && outputs.length }}<div class="outputs">{{ foreach m in outputs }}<div class="output" data-index="{{ $index }}"><i class="fa fa-circle"></i><span>{{ m }}</span></div>{{ end }}</div>{{ fi }}</div></div>');
+		self.template = Tangular.compile('<div class="component invisible{{ if inputs && inputs.length }} hasinputs{{ fi }}{{ if outputs && outputs.length }} hasoutputs{{ fi }}" data-id="{{ id }}" style="top:{{ y }}px;left:{{ x }}px"><div class="area">{{ if inputs && inputs.length }}<div class="inputs">{{ foreach m in inputs }}<div class="input" data-index="{{ if m.id }}{{ m.id }}{{ else }}{{ $index }}{{ fi }}"><i class="fa component-io"></i></div>{{ end }}</div>{{ fi }}<div class="content">{{ html | raw }}</div>{{ if outputs && outputs.length }}<div class="outputs">{{ foreach m in outputs }}<div class="output" data-index="{{ if m.id }}{{ m.id }}{{ else }}{{ $index }}{{ fi }}"><i class="fa component-io"></i><span>{{ if m.name }}{{ m.name | raw }}{{ else }}{{ m | raw }}{{ fi }}</span></div>{{ end }}</div>{{ fi }}</div></div>');
 
 		self.aclass(cls + '-' + (config.horizontal ? 'h' : 'v'));
 
@@ -126,9 +126,9 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			var checksum = self.helpers.checksum(com);
 
 			// com.id = key
-			// com.outputs = ['0 output', '1 output', '2 output'];
-			// com.inputs = ['0 input', '1 input', '2 input'];
-			// com.connections = { 0: { ID: INDEX_OUTPUT } };
+			// com.outputs = ['0 output', '1 output', '2 output'] or [{ id: 'X', name: 'Output X' }]
+			// com.inputs = ['0 input', '1 input', '2 input'] or [{ id: 'X', name: 'Input X' }]
+			// com.connections = { 0: { ID: COMPONENT_ID, index: 'INDEX' } };
 			// com.x
 			// com.y
 			// com.actions = { select: true, move: true, disabled: false, remove: true, connet: true };
@@ -385,7 +385,24 @@ EXTENSION('flow:helpers', function(self, config) {
 			x += (component.width() * zoom) - 13;
 		}
 
-		return { x: x >> 0, y: y >> 0, id: component.attrd('id'), index: +el.attrd('index') };
+		var id = component.attrd('id');
+		var indexid = el.attrd('index');
+
+		/*
+		var index = -1;
+		var tmp = self.cache[id].instance;
+
+		if (isout) {
+			index = tmp.outputs.indexOf(indexid);
+			if (index === -1)
+				index = tmp.outputs.findIndex('id', indexid);
+		} else {
+			index = tmp.inputs.indexOf(indexid);
+			if (index === -1)
+				index = tmp.inputs.findIndex('id', indexid);
+		}*/
+
+		return { x: x >> 0, y: y >> 0, id: id, index: indexid };
 	};
 
 	self.helpers.parseconnection = function(line) {
@@ -473,6 +490,59 @@ EXTENSION('flow:operations', function(self, config) {
 	self.op.modified = function() {
 		self.change(true);
 		self.update(true, 2);
+	};
+
+	self.op.clean = function() {
+
+		var model = self.get();
+		var keys = Object.keys(model);
+		var subkeys;
+
+		for (var i = 0; i < keys.length; i++) {
+			var key = keys[i];
+
+			if (key === 'paused') {
+				var count = 0;
+				subkeys = Object.keys(model.paused);
+				for (var j = 0; j < subkeys.length; j++) {
+					var subkey = subkeys[j];
+					var tmp = subkey.split('_');
+					if (!model[tmp[1]] || !model[tmp[1]].connections || !model[tmp[1]].connections[tmp[2]])
+						delete model.paused[subkey];
+					else
+						count++;
+				}
+				if (!count)
+					delete model.paused;
+				continue;
+			}
+
+			// check connections
+			var com = model[key];
+			subkeys = Object.keys(com.connections);
+			for (var j = 0; j < subkeys.length; j++) {
+
+				var subkey = subkeys[j];
+				var tmp = model[key].connections[subkey];
+				var index = 0;
+
+				while (true) {
+					var conn = tmp[index];
+					if (conn == null)
+						break;
+
+					if (!model[conn.id] || !model[conn.id].inputs) {
+						tmp.splice(index, 1);
+						continue;
+					}
+
+					index++;
+				}
+
+				if (!tmp.length)
+					delete model[key].connections;
+			}
+		}
 	};
 
 	self.op.remove = function(id, noundo) {
@@ -841,7 +911,6 @@ EXTENSION('flow:components', function(self, config) {
 		drag.posX = pos.left;
 		drag.posY = pos.top;
 
-
 		var dom = target[0];
 		var parent = dom.parentNode;
 		var children = parent.children;
@@ -870,6 +939,8 @@ EXTENSION('flow:connections', function(self, config) {
 		var x = (e.pageX - drag.x) + drag.offsetX;
 		var y = (e.pageY - drag.y) + drag.offsetY;
 		drag.path.attr('d', drag.input ? self.helpers.connect(zoom(x), zoom(y), zoom(drag.pos.x), zoom(drag.pos.y), drag.index) : self.helpers.connect(zoom(drag.pos.x), zoom(drag.pos.y), zoom(x), zoom(y), drag.index));
+		if (drag.click)
+			drag.click = false;
 	};
 
 	events.movetouch = function(e) {
@@ -884,8 +955,29 @@ EXTENSION('flow:connections', function(self, config) {
 		drag.path.remove();
 		events.unbind();
 
+		if (drag.click && (Date.now() - drag.ticks) < 150) {
+			var icon = drag.target.find('.component-io');
+			var clsp = 'fa-times';
+			icon.tclass(clsp);
+
+			var key = (drag.input ? 'input' : 'output') + '_' + drag.pos.id + '_' + drag.pos.index;
+			var model = self.get();
+
+			if (!model.paused)
+				model.paused = {};
+
+			if (icon.hclass(clsp))
+				model.paused[key] = 1;
+			else
+				delete model.paused[key];
+
+			setTimeout2(self.ID + 'clean', self.op.clean, 2000);
+			self.op.modified();
+			return;
+		}
+
 		if (drag.lastX != null && drag.lastY != null)
-			e.target= document.elementFromPoint(drag.lastX, drag.lastY);
+			e.target = document.elementFromPoint(drag.lastX, drag.lastY);
 
 		drag.target.add(drag.targetcomponent).rclass('connecting');
 
@@ -938,6 +1030,9 @@ EXTENSION('flow:connections', function(self, config) {
 
 		if (config.horizontal && e.target.nodeName !== 'I')
 			return;
+
+		drag.click = true;
+		drag.ticks = Date.now();
 
 		var target = $(this);
 		var evt = e.touches ? e.touches[0] : e;

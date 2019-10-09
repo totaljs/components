@@ -48,8 +48,15 @@ var component = {
 	x: 100,
 	y: 50,
 	html: 'Component test',
+
 	outputs: ['1 output name', '2 output name'],
+	// or
+	// outputs: [{ id: 'A', 'A output name' }, { id: 'B', 'B output name' }],
+
 	connections: { '0': [{ id: '0002', index: '2', disabled: false }] }, // Look to the connection object below
+	// or
+	// connections: { 'A': [{ id: '0002', index: 'B', disabled: false }] },
+
 	actions: { select: true, move: true, disabled: false, remove: true, connect: true }
 };
 
@@ -62,8 +69,8 @@ CMD('flow.components.add', component);
 // connections: { '0': [CONNECTION_OBJECT1, CONNECTION_OBJECT2, CONNECTION_OBJECT3] }
 {
 	id: 'TARGET_ID_COMPONENT',
-	index: '0', // An input index, must be string!!!
-	disabled: false // Is the connection disabled? Disabled connection can't be removed
+	index: '0', // An input index or index id, must be string!!!
+	disabled: false // Optional, it's the connection disabled? Disabled connection can't be removed
 }
 ````
 
@@ -75,6 +82,9 @@ __Flow output__:
 {
 	'F1562743923216': { x: 1, y: 1, connections: [], ... },
 	'F1562743965303': { x: 1, y: 1, connections: [], ... },
+
+	// Contains paused endpoints
+	paused: { 'input_COMPONENTID_INDEXID': 1, 'output_COMPONENTID_INDEXID': 1}
 }
 ````
 

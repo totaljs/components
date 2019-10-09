@@ -1,7 +1,7 @@
 .ui-flow { position: relative; transform-origin: top left; transition: transform 0.3s; }
 .ui-flow .component { position: absolute; left: 150px; top: 150px; border: 2px solid #E0E0E0; background-color: white; border-radius: 2px; box-shadow: 1px 1px 10px rgba(0,0,0,0.03); }
 .ui-flow .inputs { position: absolute; width: 100%; top: -8px; left: 4px; }
-.ui-flow .input { float: left; font-size: 11px; color: #A0A0A0; margin-right: 5px; }
+.ui-flow .input { float: left; font-size: 11px; margin-right: 5px; }
 .ui-flow-v .outputs { position: absolute; width: 100%; margin: -10px 0 0 8px; }
 .ui-flow-v .output { float: left; border-radius: 2px; background-color: white; padding: 2px 5px; font-size: 11px; border: 1px solid #E0E0E0; margin-right: 5px; color: gray; }
 .ui-flow-v .output i { margin-right: 5px; }
@@ -9,11 +9,12 @@
 .ui-flow-h .output { background-color: white; padding: 0 8px; font-size: 11px; color: gray; border-top: 1px solid #E0E0E0; line-height: 20px; }
 .ui-flow-h .output > span { display: block; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
 .ui-flow-h .output i { float: right; margin: 3px -14px 0 0; }
+.ui-flow .component-io { width: 12px; height: 12px; line-height: 12px; border-radius: 100px; background-color: #A0A0A0; text-align: center; float: left; margin-top: 1px; font-size: 9px; }
 .ui-flow .content { padding: 10px 8px; min-width: 200px; min-height: 24px; cursor: default; }
 .ui-flow-v .output.connected { border-color: black; color: black; }
 .ui-flow-h .output.connected { color: black; }
-.ui-flow .output.connected i { color: #68B25B !important; }
-.ui-flow .input.connected i { color: #68B25B !important; }
+.ui-flow .output.connected i { background-color: #68B25B !important; }
+.ui-flow .input.connected i { background-color: #68B25B !important; }
 .ui-flow .connection { stroke-width: 2; stroke: black; fill: none; }
 .ui-flow .connection-draft { stroke: #4285F4; }
 .ui-flow .component-selected { border-color: #4285F4; }
@@ -23,6 +24,7 @@
 .ui-flow path.highlight { stroke: #4285F4; }
 .ui-flow svg { margin: -1px 0 0 -1px; }
 .ui-flow-grid { stroke: #F8F8F8; stroke-width: 2; }
+.ui-flow .output.connected i.fa-times, .ui-flow .output i.fa-times, .ui-flow .input i.fa-times { background-color: red !important; color: white; }
 
 .ui-dark .ui-flow-grid { stroke: #303030; }
 .ui-dark .ui-flow .component { border-color: #404040; background-color: #303030; }
