@@ -5,6 +5,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 	// config.redopath {String}, output: {Object Array}
 
 	var cls = 'ui-flow';
+	var D = '__';
 	var drag = {};
 
 	self.readonly();
@@ -181,7 +182,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			tmp = prev[key];
 			tmp.instance.onremove && tmp.instance.onremove(tmp.el, tmp.instance);
 			onremove && onremove(tmp.el, tmp.instance);
-			self.el.lines.find('.from_' + key + ', .to_' + key).aclass('connection removed hidden');
+			self.el.lines.find('.from' + D + key + ', .to' + D + key).aclass('connection removed hidden');
 			tmp.el.remove();
 		}
 
@@ -264,8 +265,8 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			var cls = el.getAttribute('class').split(' ');
 			for (var j = 0; j < cls.length; j++) {
 				var c = cls[j];
-				if (c.substring(0, 5) === 'conn_') {
-					var a = c.split('_');
+				if (c.substring(0, 4) === 'conn') {
+					var a = c.split(D);
 					var tmp = {};
 					tmp.output = self.cache[a[1]].instance;
 					tmp.input = self.cache[a[2]].instance;
@@ -285,6 +286,8 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 
 // Designer: Helpers
 EXTENSION('flow:helpers', function(self, config) {
+
+	var D = '__';
 
 	self.helpers = {};
 
@@ -341,12 +344,12 @@ EXTENSION('flow:helpers', function(self, config) {
 	};
 
 	self.helpers.checkconnectedoutput = function(id, index) {
-		var is = !!self.el.lines.find('.from_' + id + '_' + index).length;
+		var is = !!self.el.lines.find('.from' + D + id + D + index).length;
 		self.find('.component[data-id="{0}"]'.format(id)).find('.output[data-index="{0}"]'.format(index)).tclass('connected', is);
 	};
 
 	self.helpers.checkconnectedinput = function(id, index) {
-		var is = !!self.el.lines.find('.to_' + id + '_' + index).length;
+		var is = !!self.el.lines.find('.to' + D + id + D + index).length;
 		self.find('.component[data-id="{0}"]'.format(id)).find('.input[data-index="{0}"]'.format(index)).tclass('connected', is);
 	};
 
@@ -366,7 +369,7 @@ EXTENSION('flow:helpers', function(self, config) {
 		if (coid.actions.disabled || coid.actions.connect === false || ciid.actions.disabled || ciid.actions.connect === false)
 			return true;
 
-		var el = $('.conn_' + co.attrd('id') + '_' + ci.attrd('id') + '_' + output.attrd('index') + '_' + input.attrd('index'));
+		var el = $('.conn' + D + co.attrd('id') + D + ci.attrd('id') + D + output.attrd('index') + D + input.attrd('index'));
 		return el.length > 0;
 	};
 
@@ -407,8 +410,8 @@ EXTENSION('flow:helpers', function(self, config) {
 	self.helpers.parseconnection = function(line) {
 		var arr = line.attr('class').split(' ');
 		for (var i = 0; i < arr.length; i++) {
-			if (arr[i].substring(0, 5) === 'conn_') {
-				var info = arr[i].split('_');
+			if (arr[i].substring(0, 4) === 'conn') {
+				var info = arr[i].split(D);
 				var obj = {};
 				obj.fromid = info[1];
 				obj.toid = info[2];
@@ -429,6 +432,8 @@ EXTENSION('flow:helpers', function(self, config) {
 });
 
 EXTENSION('flow:operations', function(self, config) {
+
+	var D = '__';
 
 	// Internal method
 	var removeconnections = function(next, removed) {
@@ -505,7 +510,7 @@ EXTENSION('flow:operations', function(self, config) {
 				subkeys = Object.keys(model.paused);
 				for (var j = 0; j < subkeys.length; j++) {
 					var subkey = subkeys[j];
-					var tmp = subkey.split('_');
+					var tmp = subkey.split(D);
 					if (!model[tmp[1]] || !model[tmp[1]].connections || !model[tmp[1]].connections[tmp[2]])
 						delete model.paused[subkey];
 					else
@@ -556,8 +561,8 @@ EXTENSION('flow:operations', function(self, config) {
 		delete self.cache[id];
 		delete self.get()[id];
 
-		self.el.lines.find('.from_' + id).remove();
-		self.el.lines.find('.to_' + id).remove();
+		self.el.lines.find('.from' + D + id).remove();
+		self.el.lines.find('.to' + D + id).remove();
 
 		// browse all components and find dependencies to this component
 		var keys = Object.keys(self.cache);
@@ -596,7 +601,7 @@ EXTENSION('flow:operations', function(self, config) {
 		self.find('.' + cls).rclass(cls);
 		self.find('.component[data-id="{0}"]'.format(id)).aclass(cls);
 
-		var connections = self.el.lines.find('.from_{0},.to_{0}'.format(id)).aclass('highlight');
+		var connections = self.el.lines.find('.from{0},.to{0}'.format(D + id)).aclass('highlight');
 		var parent = self.el.lines[0];
 
 		for (var i = 0; i < connections.length; i++) {
@@ -646,7 +651,7 @@ EXTENSION('flow:operations', function(self, config) {
 		if (!noundo)
 			self.op.undo({ type: 'disconnect', fromid: fromid, toid: toid, fromindex: fromindex, toindex: toindex });
 
-		self.el.lines.find('.conn_{0}_{1}_{2}_{3}'.format(fromid, toid, fromindex, toindex)).remove();
+		self.el.lines.find('.conn{0}{1}{2}{3}'.format(D + fromid, D + toid, D + fromindex, D + toindex)).remove();
 		self.op.modified();
 		self.helpers.checkconnected(a);
 		self.helpers.checkconnectedoutput(fromid, fromindex);
@@ -803,6 +808,7 @@ EXTENSION('flow:map', function(self) {
 
 EXTENSION('flow:components', function(self, config) {
 
+	var D = '__';
 	var events = {};
 	var drag = {};
 
@@ -829,7 +835,7 @@ EXTENSION('flow:components', function(self, config) {
 		for (var i = 0; i < drag.output.length; i++) {
 			var conn = $(drag.output[i]);
 			var pos = self.helpers.position(conn, true);
-			var arr = self.el.lines.find('.from_' + pos.id + '_' + pos.index);
+			var arr = self.el.lines.find('.from' + D + pos.id + D + pos.index);
 			for (var j = 0; j < arr.length; j++)
 				self.helpers.move1(zoom(pos.x + drag.zoomoffset), zoom(pos.y), $(arr[j]));
 		}
@@ -838,7 +844,7 @@ EXTENSION('flow:components', function(self, config) {
 		for (var i = 0; i < drag.input.length; i++) {
 			var conn = $(drag.input[i]);
 			var pos = self.helpers.position(conn);
-			var arr = self.el.lines.find('.to_' + pos.id + '_' + pos.index);
+			var arr = self.el.lines.find('.to' + D + pos.id + D + pos.index);
 			for (var j = 0; j < arr.length; j++)
 				self.helpers.move2(zoom(pos.x - 6), zoom(pos.y), $(arr[j]));
 		}
@@ -858,7 +864,7 @@ EXTENSION('flow:components', function(self, config) {
 			data.onmove && data.onmove(drag.target, data);
 			config.onmove && EXEC(config.onmove, drag.target, data);
 			self.op.modified();
-			// self.el.lines.find('.from_{0},.to_{0}'.format(drag.id)).rclass('highlight');
+			// self.el.lines.find('.from{0},.to{0}'.format(D + drag.id)).rclass('highlight');
 		}
 
 		events.unbind();
@@ -924,6 +930,7 @@ EXTENSION('flow:components', function(self, config) {
 
 EXTENSION('flow:connections', function(self, config) {
 
+	var D = '__';
 	var events = {};
 	var drag = {};
 	var prevselected = null;
@@ -959,7 +966,7 @@ EXTENSION('flow:connections', function(self, config) {
 			var clsp = 'fa-times';
 			icon.tclass(clsp);
 
-			var key = (drag.input ? 'input' : 'output') + '_' + drag.pos.id + '_' + drag.pos.index;
+			var key = (drag.input ? 'input' : 'output') + D + drag.pos.id + D + drag.pos.index;
 			var model = self.get();
 
 			if (!model.paused)
@@ -1102,7 +1109,7 @@ EXTENSION('flow:connections', function(self, config) {
 		}
 
 		var path = self.el.lines.asvg('path');
-		path.aclass('connection from_' + a.id + ' to_' + b.id + ' from_' + a.id + '_' + a.index + ' to_' + b.id + '_' + b.index + ' conn_' + a.id + '_' + b.id + '_' + a.index + '_' + b.index);
+		path.aclass('connection from' + D + a.id + ' to' + D + b.id + ' from' + D + a.id + D + a.index + ' to' + D + b.id + D + b.index + ' conn' + D + a.id + D + b.id + D + a.index + D + b.index);
 		path.attrd('offset', a.x + ',' + a.y + ',' + b.x + ',' + b.y);
 		path.attrd('fromindex', a.index);
 		path.attrd('toindex', b.index);

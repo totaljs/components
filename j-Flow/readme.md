@@ -1,6 +1,7 @@
 ## j-Flow
 
 - Works only with `+v18`
+- identifiers can't contain `_` char
 
 __Configuration__:
 
@@ -85,7 +86,7 @@ __Flow output__:
 	'F1562743965303': { x: 1, y: 1, connections: [], ... },
 
 	// Contains paused endpoints
-	paused: { 'input_COMPONENTID_INDEXID': 1, 'output_COMPONENTID_INDEXID': 1 }
+	paused: { 'input.COMPONENTID.INDEXID': 1, 'output.COMPONENTID.INDEXID': 1 }
 }
 ````
 
