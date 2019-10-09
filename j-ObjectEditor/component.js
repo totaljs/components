@@ -1,4 +1,4 @@
-COMPONENT('objecteditor', 'null:true', function(self, config) {
+COMPONENT('objecteditor', 'null:true;dateformat:yyyy-MM-dd HH\\:mm\\:ss', function(self, config) {
 
 	self.nocompile && self.nocompile();
 
@@ -44,7 +44,7 @@ COMPONENT('objecteditor', 'null:true', function(self, config) {
 					val = val.parseFloat();
 					break;
 				case 'date':
-					val = val.parseDate();
+					val = val.parseDate(config.dateformat);
 					break;
 			}
 
@@ -98,7 +98,7 @@ COMPONENT('objecteditor', 'null:true', function(self, config) {
 				builder.push(tboolean.arg(tmp));
 			} else {
 				if (val instanceof Date) {
-					tmp.value = tmp.value.format('yyyy-MM-dd HH:mm:ss');
+					tmp.value = tmp.value.format(config.dateformat);
 					builder.push(tdate.arg(tmp));
 				} else if (val instanceof Array) {
 
