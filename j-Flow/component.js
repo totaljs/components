@@ -1241,6 +1241,10 @@ EXTENSION('flow:commands', function(self) {
 		self.op.unselect();
 	});
 
+	self.command('flow.clean', function() {
+		self.op.clean();
+	});
+
 	self.command('flow.components.add', function(com) {
 		if (!com.id)
 			com.id = 'F' + Date.now() + '';

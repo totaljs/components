@@ -1,6 +1,6 @@
 ## j-Flow
 
-- Works only with `+v17`
+- Works only with `+v18`
 
 __Configuration__:
 
@@ -36,6 +36,7 @@ __Commands__:
 - `flow.reset` resets editor
 - `flow.components.add` adds a new component, argument: `component_declaration`
 - `flow.components.find` finds a component, argument: `component_id`
+- `flow.clean` cleans data and non-exist connections
 
 __Adding a new component__:
 
@@ -84,7 +85,7 @@ __Flow output__:
 	'F1562743965303': { x: 1, y: 1, connections: [], ... },
 
 	// Contains paused endpoints
-	paused: { 'input_COMPONENTID_INDEXID': 1, 'output_COMPONENTID_INDEXID': 1}
+	paused: { 'input_COMPONENTID_INDEXID': 1, 'output_COMPONENTID_INDEXID': 1 }
 }
 ````
 
