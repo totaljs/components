@@ -265,7 +265,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			var cls = el.getAttribute('class').split(' ');
 			for (var j = 0; j < cls.length; j++) {
 				var c = cls[j];
-				if (c.substring(0, 4) === 'conn') {
+				if (c.substring(0, 4 + D.length) === 'conn' + D) {
 					var a = c.split(D);
 					var tmp = {};
 					tmp.output = self.cache[a[1]].instance;
@@ -410,7 +410,7 @@ EXTENSION('flow:helpers', function(self, config) {
 	self.helpers.parseconnection = function(line) {
 		var arr = line.attr('class').split(' ');
 		for (var i = 0; i < arr.length; i++) {
-			if (arr[i].substring(0, 4) === 'conn') {
+			if (arr[i].substring(0, 4 + D.length) === 'conn' + D) {
 				var info = arr[i].split(D);
 				var obj = {};
 				obj.fromid = info[1];
@@ -1178,7 +1178,6 @@ EXTENSION('flow:connections', function(self, config) {
 		prevselected = el;
 
 		var conn = self.helpers.parseconnection(el);
-
 		conn.isconnection = true;
 		conn.frominstance = self.cache[conn.fromid].instance;
 		conn.toinstance = self.cache[conn.toid].instance;
