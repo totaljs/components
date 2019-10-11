@@ -1,6 +1,6 @@
 ## j-RadioButton
 
-- __NEW__ now supprorts __custom buttons__
+- __NEW__ now supports __custom buttons__
 - __NEW__ now you can use datasource
 
 __Configuration__:

@@ -7,7 +7,7 @@
 .ui-radiobutton-label-required:before { color: red; content: '***'; margin-right: 5px; }
 .ui-radiobutton-selected i { border-color: black; }
 .ui-radiobutton-selected i:before { content: ' '; width: 8px; height: 8px; background-color: black; display: block; position: absolute; border-radius: 100px; margin: 2px 0 0 2px; }
-.ui-radiobutton-custom { display: inline-block; border: 1px solid #ccc; padding: 10px; position: relative; margin: 0 10px 10px 0; cursor: pointer; border-radius: 2px; text-align: center; }
+.ui-radiobutton-custom { display: inline-block; border: 1px solid #ccc; padding: 10px; position: relative; margin: 0 10px 10px 0; cursor: pointer; border-radius: 2px; text-align: center; user-select: none; }
 .ui-radiobutton-custom.ui-radiobutton-selected { background-color: #4285F4; color: white; border-color: rgba(0, 0, 0, 0.2); }
 .ui-radiobutton.ui-disabled .ui-radiobutton-custom { cursor: not-allowed !important; color: gray; }
 .ui-radiobutton.ui-disabled .ui-radiobutton-custom.ui-radiobutton-selected { background-color: #F0F0F0; border-color: #E0E0E0; color: gray; }

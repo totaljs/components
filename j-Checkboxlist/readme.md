@@ -23,7 +23,7 @@ __Custom buttons:__
 
 - Custom buttons have predefined styles. For predefined styles use `ui-checkboxlist-custom` class
 - Component will create custom `object` with `value, text, index`. So in template you can use `{{ text }}` or `{{ value }}` or `{{ index }}`
-- But, your data will be set as `repository` ([more info](https://wiki.totaljs.com/jcomponent/helpers/tangular/#method-tangular-render-)). So you can display your data with `$.` prefix. e.g. `{{ $.mydata }}`
+- But, your data are set as `repository` ([more info](https://wiki.totaljs.com/jcomponent/helpers/tangular/#method-tangular-render-)). So you can display your data with `$.` prefix. e.g. `{{ $.mydata }}`
 
 ```
 <div data---="checkboxlist__selected__datasource:datasource;label:My label">
