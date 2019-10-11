@@ -2,7 +2,10 @@ COMPONENT('radiobutton', 'inline:1', function(self, config) {
 
 	var cls = 'ui-radiobutton';
 	var cls2 = '.' + cls;
-	var template = '<div data-value="{1}"><i></i><span>{0}</span></div>';
+	var template = '<div class="' + cls + '-inner" data-value="{1}"><i></i><span>{0}</span></div>';
+	var customtemplate = false;
+	var recompile = false;
+	var reg = /\$(index|path)/g;
 
 	self.nocompile();
 
@@ -40,9 +43,27 @@ COMPONENT('radiobutton', 'inline:1', function(self, config) {
 
 	self.make = function() {
 		var builder = [];
-		var label = config.label || self.html();
+		var element = self.find('script');
+
+		if (element.length) {
+			var html = element.html();
+			element.remove();
+			html = html.replace('>', ' data-value="{{ {0} }}">'.format(config.value || 'id'));
+			template = Tangular.compile(html);
+			recompile = html.COMPILABLE();
+			customtemplate = true;
+		}
+
+		var label = element.length ? config.label : (config.label || self.html());
 		label && builder.push('<div class="' + cls + '-label{1}">{0}</div>'.format(label, config.required ? (' ' + cls + '-label-required') : ''));
+
 		self.aclass(cls + (!config.inline ? (' ' + cls + '-block') : '') + (config.disabled ? ' ui-disabled' : ''));
+		self.html(builder.join(''));
+
+		config.items && self.reconfigure('items:' + config.items);
+		config.datasource && self.reconfigure('datasource:' + config.datasource);
+		config.type && (self.type = config.type);
+
 		self.event('click', 'div', function() {
 			if (config.disabled)
 				return;
@@ -50,11 +71,6 @@ COMPONENT('radiobutton', 'inline:1', function(self, config) {
 			self.set(value);
 			self.change(true);
 		});
-		self.html(builder.join(''));
-		html = self.html();
-		config.items && self.reconfigure('items:' + config.items);
-		config.datasource && self.reconfigure('datasource:' + config.datasource);
-		config.type && (self.type = config.type);
 	};
 
 	self.validate = function(value) {
@@ -84,6 +100,13 @@ COMPONENT('radiobutton', 'inline:1', function(self, config) {
 
 		for (var i = 0, length = arr.length; i < length; i++) {
 			var item = arr[i];
+			if (customtemplate) {
+				builder.push(template(item).replace(reg, function(text) {
+					return text.substring(0, 2) === '$i' ? i.toString() : self.path + '[' + i + ']';
+				}));
+				continue;
+			}
+
 			if (notObj)
 				builder.push(template.format(item, item));
 			else
@@ -94,5 +117,6 @@ COMPONENT('radiobutton', 'inline:1', function(self, config) {
 		self.find('div[data-value]').remove();
 		self.append(render);
 		self.refresh();
+		recompile && self.compile();
 	};
 });
