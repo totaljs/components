@@ -16,7 +16,9 @@ __Configuration__:
 - __NEW__ `value` {String} determines a property name for value (in data-source) default: `id`
 
 __Custom buttons__:
-Custom buttons have predefined styles. For predefined styles use `ui-radiobutton-custom` class
+
+- Custom buttons have predefined styles. For predefined styles use `ui-radiobutton-custom` class
+
 ```javascript
 <div data---="radiobutton__model.myvalue4__datasource:mydata">
 	<script type="text/html">
