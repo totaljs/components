@@ -175,5 +175,6 @@
 	"j-PermissionsOP",
 	"j-Movable",
 	"j-Planner",
-	"j-Draggable"
+	"j-Draggable",
+	"j-Dashboard"
 ]

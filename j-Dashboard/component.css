@@ -1,0 +1,22 @@
+.ui-dashboard { position: relative; min-height: 200px; }
+.ui-dashboard-item { position: absolute; z-index: 1; overflow: hidden; }
+.ui-dashboard-item figure { position: relative; border: 1px solid #E0E0E0; border-radius: 0 0 2px 2px; background-color: white; }
+.ui-dashboard-title { background-color: white; height: 0; border: 1px solid #E0E0E0; border-bottom: 0; line-height: 30px; padding: 0 10px; font-size: 12px; border-radius: 2px 2px 0 0; cursor: grab; font-weight: bold; display: none; }
+.ui-dashboard-body { position: relative; }
+.ui-dashboard-control { float: right; margin: 9px 0 0 7px; cursor: pointer; color: gray; display: none; }
+.ui-dashboard-selected { z-index: 2; }
+.ui-dashboard-selected .ui-dashboard-title { border-color: #D0D0D0; }
+.ui-dashboard-selected .ui-dashboard-body figure { border-color: #D0D0D0; }
+.ui-dashboard-canresize .ui-dashboard-resize-button { position: absolute; border: 2px solid gray; border-top: 0; border-left: 0; width: 10px; height: 10px; right: 0; bottom: 0; cursor: nwse-resize; }
+.ui-dashboard-canresize .ui-dashboard-resize-button:hover { border-color: black; }
+.ui-dashboard-header .ui-dashboard-title { height: 30px; display: block; }
+.ui-dashboard-control[data-name='remove']:hover { color: red; }
+.ui-dashboard-canremove .ui-dashboard-control[data-name='remove'] { display: block; }
+.ui-dashboard-cansettings .ui-dashboard-control[data-name='settings'] { display: block; }
+
+.ui-dark .ui-dashboard-item figure { border-color: #404040; }
+.ui-dark .ui-dashboard-title { border-color: #404040; background-color: #202020; }
+.ui-dark .ui-dashboard-item figure { background-color: #202020; }
+.ui-dark .ui-dashboard-selected .ui-dashboard-title { border-color: #505050; }
+.ui-dark .ui-dashboard-selected .ui-dashboard-body figure { border-color: #505050; }
+.ui-dark .ui-dashboard-canresize .ui-dashboard-resize-button:hover { border-color: white; }
