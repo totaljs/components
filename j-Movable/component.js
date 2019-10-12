@@ -41,7 +41,7 @@ COMPONENT('movable', function(self, config) {
 						break;
 				}
 
-				if (a === b)
+				if (a === b || !is)
 					return;
 
 				for (var i = 0; i < parent.children.length; i++) {
