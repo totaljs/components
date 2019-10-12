@@ -42,4 +42,4 @@ __Good to know__:
 
 ### License
 
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

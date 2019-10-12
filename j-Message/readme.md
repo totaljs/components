@@ -27,4 +27,4 @@ AJAX('GET /api/something', FUNC.messageresponse('Profile has been saved successf
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

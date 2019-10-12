@@ -18,4 +18,4 @@ function exec_method(list, dragged, target) {
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

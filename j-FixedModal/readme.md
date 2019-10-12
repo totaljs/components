@@ -34,4 +34,4 @@ This component supports dynamic evaluation of the content of `<script type="text
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

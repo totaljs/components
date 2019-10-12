@@ -25,4 +25,4 @@ If the `value` isn't defined then the component uses `name` as `value`.
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

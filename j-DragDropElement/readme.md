@@ -13,4 +13,4 @@ __Example__
 
 __Author__
 - Michal Capo <capo@dasolutions.sk>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

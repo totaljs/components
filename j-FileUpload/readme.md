@@ -17,4 +17,4 @@ This component works with `loading` (when the file is uploading) and `message` (
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

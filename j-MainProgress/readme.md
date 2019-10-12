@@ -5,5 +5,5 @@ This component is singleton. The component is visible when the value if more tha
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)
 

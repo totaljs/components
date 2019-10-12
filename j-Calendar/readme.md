@@ -37,4 +37,4 @@ FIND('calendar').toggle(ELEMENT, 'path.to.date OR date object', 'path.to.binding
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

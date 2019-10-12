@@ -12,4 +12,4 @@ Icons can be in the form: `moon` or `far fa-moon`.
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

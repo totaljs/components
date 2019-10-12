@@ -45,4 +45,4 @@ This component appends `.scopename()` function to each item of Array for handlin
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

@@ -5,4 +5,4 @@ Simple `touchmove` component for easy touch navigation next/prev/up/down.
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

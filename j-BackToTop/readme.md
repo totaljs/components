@@ -5,4 +5,4 @@
 ### Author
 
 - Martin Jirku <martinjirku@gmail.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

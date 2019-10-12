@@ -11,4 +11,4 @@ __Usage__: `SETTER('confirm', 'show', message, buttons, callback)`
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

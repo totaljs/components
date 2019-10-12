@@ -38,4 +38,4 @@ New version of this component supports dynamic evaluation of the content of `<sc
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

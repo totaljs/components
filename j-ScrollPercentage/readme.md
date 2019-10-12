@@ -11,4 +11,4 @@ __IMPORTANT__: if the `exec` is not defined then the component will bind a value
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

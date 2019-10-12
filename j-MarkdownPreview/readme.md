@@ -24,4 +24,4 @@ __Custom methods__:
 
 ### License
 
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

@@ -50,4 +50,4 @@ SETTER(true, 'shortcuts', 'register', 'cmd+enter, ctrl+enter', function(e) {
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

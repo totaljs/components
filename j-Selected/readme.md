@@ -18,4 +18,4 @@ Each nested element according to the `selector` must have defined `data-if` attr
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

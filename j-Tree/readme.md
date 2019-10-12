@@ -38,4 +38,4 @@ Setter automatically extends each object by adding `.$pointer` property with a t
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

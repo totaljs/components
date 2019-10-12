@@ -20,4 +20,4 @@ __Configuration__:
 
 ### License
 
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

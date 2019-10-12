@@ -51,4 +51,4 @@ SETTER('emoji', 'show', opt);
 ### Author
 
 - Denis Granec <info@totalavengers.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

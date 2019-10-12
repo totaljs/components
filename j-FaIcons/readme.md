@@ -33,4 +33,4 @@ SETTER('faicons', 'show', opt);
 ### Author
 
 - Peter Širka <info@totalavengers.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)

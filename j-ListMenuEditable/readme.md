@@ -57,4 +57,4 @@ opt.push({ name: 'Total.js', editable: true });
 ### Author
 
 - Denis Granec <info@totalavengers.com>
-- License: MIT
+- [License](https://www.totaljs.com/licenses/)
