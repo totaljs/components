@@ -4,6 +4,7 @@
 
 - [Documentation](https://wiki.totaljs.com/jcomponent/)
 - __CDN for pre-compiled HTML components:__ <https://cdn.componentator.com>
+- [License](https://www.totaljs.com/license/)
 
 ## How to add a new component?
 
@@ -25,6 +26,3 @@ Just clone this example <https://github.com/totaljs/components/tree/master/0empt
 ## Contact
 
 Do you have any questions? Contact us <https://www.totaljs.com/contact/>
-
-[license-image]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat
-[license-url]: license.txt
