@@ -8,10 +8,7 @@
 
 ## How to add a new component?
 
-Just clone this example <https://github.com/totaljs/components/tree/master/0emptycomponent>, rename it and create a pull request. The component will be shown on <www.componentator.com> next day.
-
-- keep the image size (300x240)
-- keep tabs instead of spaces
+Contact us.
 
 ## Contributors
 
