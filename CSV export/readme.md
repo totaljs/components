@@ -20,4 +20,4 @@ FUNC.csv('example.csv', [{ name: 'Name 1', price: 1, date: new Date() }, { name:
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- [License](https://www.totaljs.com/licenses/)
+- [License](https://www.totaljs.com/license/)

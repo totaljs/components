@@ -25,4 +25,4 @@ Server must return `Array` in the form below:
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- [License](https://www.totaljs.com/licenses/)
+- [License](https://www.totaljs.com/license/)

@@ -24,4 +24,4 @@ This component evaluates password according to the rating. Rating is counted as 
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- [License](https://www.totaljs.com/licenses/)
+- [License](https://www.totaljs.com/license/)

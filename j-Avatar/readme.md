@@ -45,7 +45,7 @@ __Good to know__:
 ### Author
 
 - Denis Granec <denis@granec.cz>
-- [License](https://www.totaljs.com/licenses/)
+- [License](https://www.totaljs.com/license/)
 
 ## Contributor
 

@@ -13,4 +13,4 @@ __Configuration__:
 
 ### License
 
-- [License](https://www.totaljs.com/licenses/)
+- [License](https://www.totaljs.com/license/)

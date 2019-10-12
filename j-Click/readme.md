@@ -15,4 +15,4 @@ Example: `data-jc-config="enter:#form;value:100"`
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- [License](https://www.totaljs.com/licenses/)
+- [License](https://www.totaljs.com/license/)

@@ -38,4 +38,4 @@ If the `value` will be changed then the component performs `config.exec` for obt
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- [License](https://www.totaljs.com/licenses/)
+- [License](https://www.totaljs.com/license/)

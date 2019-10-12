@@ -23,4 +23,4 @@ SETTER('clock', 'toggle', ELEMENT, PATH, function(date) {
 ### Author
 
 - Denis Granec <denis@granec.cz>
-- [License](https://www.totaljs.com/licenses/)
+- [License](https://www.totaljs.com/license/)

@@ -24,4 +24,4 @@ __Custom methods__:
 
 ### License
 
-- [License](https://www.totaljs.com/licenses/)
+- [License](https://www.totaljs.com/license/)

@@ -9,4 +9,4 @@ __Configuration__:
 ## Author
 
 - Martin Smola <smola.martin@gmail.com>
-- [License](https://www.totaljs.com/licenses/)
+- [License](https://www.totaljs.com/license/)

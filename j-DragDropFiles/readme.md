@@ -12,4 +12,4 @@ Example: `data-jc-config="exec:method_name;class:dragover"`
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- [License](https://www.totaljs.com/licenses/)
+- [License](https://www.totaljs.com/license/)

@@ -29,4 +29,4 @@ To avoid "blink" add class `hidden` to second `div`.
 ### Author
 
 - Denis Granec <info@totalavengers.com>
-- [License](https://www.totaljs.com/licenses/)
+- [License](https://www.totaljs.com/license/)

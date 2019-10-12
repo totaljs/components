@@ -10,4 +10,4 @@ The component tries to find all `<img` elements with `data-src=""` attribute and
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
-- [License](https://www.totaljs.com/licenses/)
+- [License](https://www.totaljs.com/license/)
