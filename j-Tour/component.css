@@ -17,7 +17,7 @@
 .ui-tour-info-header span { float: right; font-size: 12px; line-height: 20px; color: #686868; }
 .ui-tour-info-header div { margin-right: 40px; }
 .ui-tour-info::before { content: ''; position: absolute; bottom: -10px; left: 20px; transform: translateX(-50%); border-width: 10px 10px 0 10px; border-style: solid; border-color: #FFF transparent transparent transparent; z-index: 1000; }
-.ui-tour-info-bottom::before { top: 0px; transform: translateX(-50%) translatey(-100%) rotate(-180deg); bottom: unset; border-color: #686868 transparent transparent transparent; }
+.ui-tour-info-bottom::before { top: 0px; transform: translateX(-50%) translatey(-100%) rotate(-180deg); bottom: unset; border-color: #ececec transparent transparent transparent; }
 
 .ui-tour-visible .ui-tour-background { display: block; }
 .ui-tour-visible .ui-tour { display: block; }
