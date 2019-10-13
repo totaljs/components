@@ -1,0 +1,24 @@
+.ui-tour-container { background: inherit; }
+.ui-tour-background { display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 9997; background-color: #000; opacity: 0.8; }
+.ui-tour { display: none; position: absolute !important; z-index: 9997; background: inherit; border-radius: 2px; }
+.ui-tour-element { position: relative !important; z-index: 9998 !important; }
+.ui-tour-info { display: none; position: absolute; z-index: 9999; background-color: white; border-radius: 2px; width: 340px; border: 1px solid #BBBBBB; }
+.ui-tour-info-body { font-size: 13px; padding: 10px 15px; }
+.ui-tour-info-footer { padding: 10px 15px; padding-top: 0; }
+.ui-tour-info-footer button { background: white; border: 1px solid #bbb; height: 20px; font-size: 12px; }
+.ui-tour-info-footer button.close { border-radius: 2px; float: right; min-width: 45px; }
+.ui-tour-info-footer button.back { border-top-left-radius: 2px; border-bottom-left-radius: 2px; min-width: 60px; }
+.ui-tour-info-footer button.back i { margin-right: 5px; }
+.ui-tour-info-footer button.next { border-left: 0; border-top-right-radius: 2px; border-bottom-right-radius: 2px; min-width: 60px; }
+.ui-tour-info-footer button.next i { margin-left: 5px; }
+.ui-tour-info-footer button:hover { background: #eee; }
+.ui-tour-info-footer button:disabled { cursor: not-allowed; background-color: #dcdcdc !important; }
+.ui-tour-info-header { padding: 5px 15px; margin: 0; font-size: 14px; background-color: #ececec; border-radius: 2px 2px 0 0; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ui-tour-info-header span { float: right; font-size: 12px; line-height: 20px; color: #686868; }
+.ui-tour-info-header div { margin-right: 40px; }
+.ui-tour-info::before { content: ''; position: absolute; bottom: -10px; left: 20px; transform: translateX(-50%); border-width: 10px 10px 0 10px; border-style: solid; border-color: #FFF transparent transparent transparent; z-index: 1000; }
+.ui-tour-info-bottom::before { top: 0px; transform: translateX(-50%) translatey(-100%) rotate(-180deg); bottom: unset; }
+
+.ui-tour-visible .ui-tour-background { display: block; }
+.ui-tour-visible .ui-tour { display: block; }
+.ui-tour-visible .ui-tour-info { display: block; }

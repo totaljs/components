@@ -1,0 +1,18 @@
+{
+	"datecreated": "2019-10-13T23:00:00.000Z",
+	"dateupdated": null,
+	"name": "j-Tour",
+	"tags": [
+		"tour",
+		"intro"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"darkmode": false,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Denis Granec",
+	"email": "info@totalavengers.com",
+	"license": "https://www.totaljs.com/license/"
+}
