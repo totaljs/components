@@ -290,7 +290,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self,
 	};
 
 	self.resize_pixel = function() {
-		var width = self.container.width() - (config.padding * 2);
+		var width = self.element.width() - (config.padding * 2);
 		pixel = (width / config.axisX).floor(3);
 	};
 
