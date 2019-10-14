@@ -40,7 +40,7 @@ var component = {
 		lg: { x: 1, y: 1, width: 6, height: 6 }
 	},
 
-	html: 'THE CONTENT OF COMPONENT',
+	html: 'THE CONTENT OF COMPONENT', // or can be raw HTMLElement
 
 	// Default settings
 	actions: { move: true, remove: true, resize: true, settings: true },

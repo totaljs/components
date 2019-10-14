@@ -433,17 +433,22 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self,
 		if (obj.header !== false)
 			classname.push(cls + '-header');
 
-		var el = $(('<div class="{1} invisible" data-id="{2}"><div class="{0}-body" style="margin:{5}px"><div class="{0}-title">{4}</div><figure>{3}</figure><span class="{0}-resize-button"></span></div></div>').format(cls, classname.join(' '), obj.id, obj.html, '<span class="fa fa-trash-o ui-dashboard-control" data-name="remove"></span><span class="fa fa-cog ui-dashboard-control" data-name="settings"></span>' + obj.title, config.padding));
+		var isdom = obj.html && typeof(obj.html) !== 'string';
+		var el = $(('<div class="{1} invisible" data-id="{2}"><div class="{0}-body" style="margin:{5}px"><div class="{0}-title">{4}</div><figure>{3}</figure><span class="{0}-resize-button"></span></div></div>').format(cls, classname.join(' '), obj.id, isdom ? '' : obj.html, '<span class="fa fa-trash-o ui-dashboard-control" data-name="remove"></span><span class="fa fa-cog ui-dashboard-control" data-name="settings"></span>' + obj.title, config.padding));
 		self.dom.appendChild(el[0]);
 		var tmp = cache[obj.id] = {};
 		tmp.container = el;
 		tmp.element = el.find('figure');
+		isdom && tmp.element[0].appendChild(obj.html);
 		tmp.meta = obj;
 		tmp.main = self;
 		self.woffset(obj.id, true);
 		tmp.meta.make && tmp.meta.make.call(tmp, tmp.element);
 		el[0].$dashboard = tmp;
-		obj.html.COMPILABLE() && COMPILE();
+
+		if (!isdom && obj.html)
+			obj.html.COMPILABLE() && COMPILE();
+
 		tmp.meta.service && services.push(tmp);
 		tmp.meta.data && data.push(tmp);
 		setTimeout(winit, config.delay, el);
