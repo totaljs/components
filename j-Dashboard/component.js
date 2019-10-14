@@ -123,7 +123,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self,
 				tmp.$service++;
 			else
 				tmp.$service = 1;
-			tmp.meta.service && tmp.meta.service.call(tmp, tmp.$service);
+			tmp.meta.service && tmp.meta.service.call(tmp, tmp.$service, tmp.element);
 		}
 	};
 
@@ -283,14 +283,14 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self,
 		var max = 0;
 		for (var i = 0; i < keys.length; i++) {
 			var item = cache[keys[i]];
-			var y = (+item.element.css('top').replace('px', '')) + (+item.element.css('height').replace('px', ''));
+			var y = (+item.container.css('top').replace('px', '')) + (+item.container.css('height').replace('px', ''));
 			max = Math.max(y, max);
 		}
 		self.css('height', max + 20);
 	};
 
 	self.resize_pixel = function() {
-		var width = self.element.width() - (config.padding * 2);
+		var width = self.container.width() - (config.padding * 2);
 		pixel = (width / config.axisX).floor(3);
 	};
 
@@ -338,8 +338,8 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self,
 	self.wdestroy = function(id, bind) {
 		var obj = cache[id];
 		if (obj) {
-			var el = obj.element;
-			obj.meta.destroy && obj.meta.destroy.call(obj, el);
+			var el = obj.container;
+			obj.meta.destroy && obj.meta.destroy.call(obj, obj.element);
 			el.find('*').off();
 			el.off();
 			el.remove();
@@ -375,20 +375,20 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self,
 		var w = tmp.width * pixel;
 		var h = tmp.height * pixel;
 
-		obj.element.css({ left: x, top: y, width: w, height: h });
+		obj.container.css({ left: x, top: y, width: w, height: h });
 
-		var figure = obj.element.find('figure');
-		var title = obj.element.find(cls2 + '-title').height() || 0;
+		var title = obj.container.find(cls2 + '-title').height() || 0;
 		var prevw = obj.width;
 		var prevh = obj.height;
 
 		obj.height = h - title - config.padding * 2;
-		obj.width = figure.width();
-		figure.css({ height: obj.height });
+		obj.width = obj.element.width();
+		obj.display = d;
+		obj.element.css({ height: obj.height });
 
 		if (obj.meta.resize) {
 			if (init)
-				obj.meta.resize.call(obj, obj.element);
+				obj.meta.resize.call(obj, obj.width, obj.height, obj.element, obj.display);
 			else if (prevw !== obj.width && prevh !== obj.height)
 				setTimeout2(self.ID + 'resizeitem', resizewidget, 200, null, obj);
 		}
@@ -396,13 +396,13 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self,
 
 	self.send = function(type, body) {
 		for (var i = 0; i < data.length; i++)
-			data[i].meta.data(type, body);
+			data[i].meta.data(type, body, data[i].element);
 	};
 
 	self.wupd = function(id) {
 		var obj = cache[id];
 		var meta = obj.meta;
-		var el = obj.element;
+		var el = obj.container;
 		el.tclass(cls + '-header', meta.header !== false);
 		el.tclass(cls + '-canremove', meta.actions.remove !== false);
 		el.tclass(cls + '-canresize', meta.actions.resize !== false);
@@ -436,11 +436,12 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self,
 		var el = $(('<div class="{1} invisible" data-id="{2}"><div class="{0}-body" style="margin:{5}px"><div class="{0}-title">{4}</div><figure>{3}</figure><span class="{0}-resize-button"></span></div></div>').format(cls, classname.join(' '), obj.id, obj.html, '<span class="fa fa-trash-o ui-dashboard-control" data-name="remove"></span><span class="fa fa-cog ui-dashboard-control" data-name="settings"></span>' + obj.title, config.padding));
 		self.dom.appendChild(el[0]);
 		var tmp = cache[obj.id] = {};
-		tmp.element = el;
+		tmp.container = el;
+		tmp.element = el.find('figure');
 		tmp.meta = obj;
 		tmp.main = self;
 		self.woffset(obj.id, true);
-		tmp.meta.make && tmp.meta.make.call(tmp, el);
+		tmp.meta.make && tmp.meta.make.call(tmp, tmp.element);
 		el[0].$dashboard = tmp;
 		obj.html.COMPILABLE() && COMPILE();
 		tmp.meta.service && services.push(tmp);

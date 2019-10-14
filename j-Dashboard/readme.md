@@ -53,22 +53,56 @@ var component = {
 
 	// Handlers (optional):
 	destroy: function() {
+		// @el {jQuery} a content of the component
+		// @this {Instance}
+
 		// is executed when the component is destroyed
 	},
 
-	make: function() {
+	make: function(el) {
+
+		// @el {jQuery} a content of the component
+		// @this {Instance}
+
+		// this.meta {Object} a reference to component object
+		// this.element {jQuery} a content element of the component
+		// this.contianer {jQuery} a main content element of the component
+		// this.main {Object} a reference to Dashboard component
+		// this.width {Number} a width of "this.element"
+		// this.height {Number} a height of "this.element"
+		// this.display {String} a current display size "xs", "sm", "md" or "lg"
+
 		// is executed when the component is making
 	},
 
-	data: function(type, data) {
+	data: function(type, data, el) {
+
+		// @type {String}
+		// @data {Object}
+		// @this {Instance}
+		// @el {jQuery} a content element of the component
+
 		// is executed when data are sent via SETTER('dashboard', 'send', 'TYPE', 'DATA')
 	},
 
-	resize: function() {
+	resize: function(width, height, el, display) {
+
+		// @width {Number}
+		// @height {Number}
+		// @el {jQuery} a content of the component
+		// @display {String} a current display size "xs", "sm", "md" or "lg"
+		// @this {Instance}
+
 		// is executed when the component is resized
+		// @this {Instance}
 	},
 
-	service: function(counter) {
+	service: function(counter, el) {
+
+		// @counter {Number} count of calls
+		// @el {jQuery} a content of the component
+		// @this {Instance}
+
 		// dashboard will execute this handler each 5 seconds
 	}
 };
