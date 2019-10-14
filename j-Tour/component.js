@@ -3,12 +3,13 @@ COMPONENT('tour', 'skiptext:Skip;nexttext:Next;backtext:Back;endtext:End;escape:
 	var cls = 'ui-tour';
 	var cls2 = '.' + cls;
 	var data, lastindex;
-	var $background, $container, $info, $last;
+	var $container, $info, $last;
+	var $W = $(W);
 
 	self.singleton();
 	self.nocompile();
 
-	self.configure = function(name, value, init) {
+	self.configure = function(name, value) {
 		switch(name) {
 			case 'datasource':
 				self.datasource(value, self.bind);
@@ -30,7 +31,7 @@ COMPONENT('tour', 'skiptext:Skip;nexttext:Next;backtext:Back;endtext:End;escape:
 
 		self.aclass(cls + '-container');
 		self.html(html);
-		$background = self.find(cls2 + '-background');
+
 		$container = self.find(cls2);
 		$info = self.find(cls2 + '-info');
 
@@ -39,11 +40,14 @@ COMPONENT('tour', 'skiptext:Skip;nexttext:Next;backtext:Back;endtext:End;escape:
 		});
 
 		self.event('click', '.next', function() {
+
 			lastindex += 1;
+
 			if (lastindex === data.length) {
 				self.hideintro(1);
 				return;
 			}
+
 			var item = data[lastindex];
 			self.setintro(item);
 		});
@@ -90,14 +94,14 @@ COMPONENT('tour', 'skiptext:Skip;nexttext:Next;backtext:Back;endtext:End;escape:
 		var item = data[index];
 		lastindex = index;
 		self.setintro(item);
-		$(W).on('keydown', self.keydown);
+		$W.on('keydown', self.keydown);
 	};
 
 	self.hideintro = function(type) {
 		$last && $last.rclass(cls + '-element');
 		self.rclass(cls + '-visible');
 		config.hide && EXEC(self.makepath(config.hide), type);
-		$(W).off('keydown', self.keydown);
+		$W.off('keydown', self.keydown);
 	};
 
 	self.setintro = function(item) {
@@ -119,7 +123,8 @@ COMPONENT('tour', 'skiptext:Skip;nexttext:Next;backtext:Back;endtext:End;escape:
 		el.aclass(cls + '-element');
 
 		var counter = '{0}&sol;{1}'.format(lastindex + 1, data.length);
-		var islast = ((data.length - 1) === lastindex);
+		var islast = (data.length - 1) === lastindex;
+
 		item.title && builder.push('<div class="' + cls + '-info-header"><span>' + counter + '</span><div>' + item.title + '</div></div>');
 		builder.push('<div class="' + cls + '-info-body">' + item.text + '</div>');
 		builder.push('<div class="{0}-info-footer"><button class="close">{1}</button><button class="back"{2}><i class="fas fa-angle-left"></i>{3}</button><button class="next">{4}<i class="fas fa-angle-right {5}"></i></button></div>'.format(cls, config.skiptext, (lastindex === 0 ? ' disabled' : ''), config.backtext, islast ? config.endtext : config.nexttext, islast ? 'hidden' : ''));
@@ -127,9 +132,9 @@ COMPONENT('tour', 'skiptext:Skip;nexttext:Next;backtext:Back;endtext:End;escape:
 		$info.html(builder.join(''));
 
 		var height = $info.innerHeight() + 20;
-		$(W).scrollTop(position.top - height - 100);
+		$W.scrollTop(position.top - height - 100);
 
-		var current = position.top - $(W).scrollTop();
+		var current = position.top - $W.scrollTop();
 		var isbottom = (current < height);
 		var viewoffset = isbottom ? ((css.height * -1) - 20) : height;
 
@@ -139,6 +144,7 @@ COMPONENT('tour', 'skiptext:Skip;nexttext:Next;backtext:Back;endtext:End;escape:
 			$info.aclass(cls + '-info-bottom');
 
 		var offset = item.offsetY || 0;
+
 		$info.css({
 			top: (position.top - viewoffset) - offset,
 			left: position.left
