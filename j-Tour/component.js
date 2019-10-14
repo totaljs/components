@@ -23,6 +23,7 @@ COMPONENT('tour', 'skiptext:Skip;nexttext:Next;backtext:Back;endtext:End;escape:
 
 	self.make = function() {
 		var builder = [];
+
 		builder.push('<div class="' + cls + '-background"></div>');
 		builder.push('<div class="' + cls + '"></div>');
 		builder.push('<div class="' + cls + '-info"></div>');
