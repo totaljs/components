@@ -1,6 +1,6 @@
 .ui-dashboard { position: relative; min-height: 200px; }
 .ui-dashboard-item { position: absolute; z-index: 1; overflow: hidden; }
-.ui-dashboard-item figure { position: relative; border: 1px solid #E0E0E0; border-radius: 0 0 2px 2px; background-color: white; }
+.ui-dashboard-item figure { position: relative; border: 1px solid #E0E0E0; border-radius: 0 0 2px 2px; background-color: white; overflow: hidden; }
 .ui-dashboard-title { background-color: white; height: 0; border: 1px solid #E0E0E0; border-bottom: 0; line-height: 30px; padding: 0 10px; font-size: 12px; border-radius: 2px 2px 0 0; cursor: grab; font-weight: bold; display: none; }
 .ui-dashboard-body { position: relative; }
 .ui-dashboard-control { float: right; margin: 9px 0 0 7px; cursor: pointer; color: gray; display: none; }
