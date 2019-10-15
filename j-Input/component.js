@@ -36,6 +36,10 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		});
 
 		self.event('focus', 'input', function() {
+
+			if (config.disabled)
+				return $(this).blur();
+
 			focused = true;
 			self.camouflage(false);
 			self.aclass(cls + '-focused');
