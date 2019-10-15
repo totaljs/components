@@ -102,6 +102,10 @@
 .dg-scrollbar-container-v:hover, .dg-scrollbar-container-v-focused { width: 12px; }
 .dg-scrollbar-container-h:hover, .dg-scrollbar-container-h-focused { height: 12px; margin-top: -6px; z-index: 4; }
 
+.dg-noborder .dg-h-container { border: 0; }
+.dg-noborder .dg-footer { border: 0; border-top: 1px solid #E0E0E0; }
+
+.ui-dark .dg-noborder .dg-footer { border-color: #404040; }
 .ui-dark .dg-filter-selected { background-color: #3c3a32 !important; color: white; }
 .ui-dark .dg-filter-selected label { color: white; }
 .ui-dark .dg { color: #E0E0E0; }
