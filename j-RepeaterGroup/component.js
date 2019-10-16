@@ -89,7 +89,7 @@ COMPONENT('repeatergroup', function(self, config) {
 
 		});
 
-		self.append(builder);
+		self.html(builder);
 		recompile && COMPILE();
 	};
 });
