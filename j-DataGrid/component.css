@@ -33,7 +33,7 @@
 .dg-v-container { overflow: hidden; }
 .dg-v-body { overflow-y: auto; overflow-scrolling: touch; -webkit-overflow-scrolling: touch; overflow-x: hidden; outline: 0 !important; }
 .dg-row { height: 28px; font-size: 12px; border-bottom: 1px solid #E0E0E0; }
-.dg-row:nth-child(even) { background-color: rgba(0,0,0,0.02); }
+.dg-v-body > div > div:nth-child(even) > .dg-row { background-color: rgba(0,0,0,0.02); }
 .dg-row-changed, .dg-row-changed.dg-row:nth-child(even) { background-color: rgba(208,31,33,0.07); }
 .dg-row:hover { background-color: rgba(0,0,0,0.05); }
 .dg-selected { background-color: rgba(249,232,196,0.5) !important; }
@@ -121,7 +121,7 @@
 .ui-dark .dg-row-empty { background-color: #202020 !important; border-bottom-color: #353535; }
 .ui-dark .dg-row { border-bottom-color: #353535; }
 .ui-dark .dg-selected { background-color: rgba(200,200,200,0.03) !important; }
-.ui-dark .dg-row:nth-child(even) { background-color: rgba(0,0,0,0.1); }
+.ui-dark .dg-v-body > div > div:nth-child(even) > .dg-row  { background-color: rgba(0,0,0,0.1); }
 .ui-dark .dg-row:hover { background-color: rgba(0,0,0,0.2); }
 .ui-dark .dg-row-changed:hover { background-color: rgba(208,31,33,0.2) !important; }
 .ui-dark .dg-row-changed { background-color: rgba(208,31,33,0.12) !important; }
