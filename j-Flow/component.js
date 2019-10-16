@@ -13,6 +13,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 	self.el = {};     // elements
 	self.op = {};     // operations
 	self.cache = {};  // cache
+	self.paused = {};
 	self.info = { zoom: 100 };
 	self.undo = [];
 	self.redo = [];
@@ -118,10 +119,17 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 		var el;
 
 		self.cache = {};
+		self.paused = {};
 
 		for (var i = 0; i < keys.length; i++) {
 
 			var key = keys[i];
+
+			if (key === 'paused') {
+				self.paused = value[key];
+				continue;
+			}
+
 			var com = value[key];
 			var checksum = self.helpers.checksum(com);
 
@@ -1114,7 +1122,15 @@ EXTENSION('flow:connections', function(self, config) {
 		path.attrd('fromindex', a.index);
 		path.attrd('toindex', b.index);
 		path.attr('d', self.helpers.connect(a.x, a.y, b.x, b.y, a.index));
+
 		input.add(output).aclass('connected');
+
+		if (init) {
+			var kp = 'input' + D + b.id + D + b.index;
+			input.find('i').tclass('fa-times', !!self.paused[kp]);
+			kp = 'output' + D + a.id + D + a.index;
+			output.find('i').tclass('fa-times', !!self.paused[kp]);
+		}
 
 		var data = self.get();
 		var ac = data[a.id];
@@ -1126,6 +1142,7 @@ EXTENSION('flow:connections', function(self, config) {
 
 		if (ac.connections[key] == null)
 			ac.connections[key] = [];
+
 
 		var arr = ac.connections[key];
 		var bindex = b.index + '';
