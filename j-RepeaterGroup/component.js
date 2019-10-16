@@ -24,7 +24,7 @@ COMPONENT('repeatergroup', function(self, config) {
 				template_group = Tangular.compile(html);
 			else
 				self.template = Tangular.compile(html);
-			recompile = html.COMPILABLE();
+			!recompile && (recompile = html.COMPILABLE());
 		});
 	};
 
