@@ -15,6 +15,9 @@
 .ui-parameters-unit span { color: gray; width: 30px; float: right; line-height: 23px; text-align: center; }
 .ui-parameters-boolean { cursor: pointer; }
 .ui-parameters-invalid { background-color: #FFE1E1; }
+.ui-parameters-hidetype .ui-parameters-type { display: none; }
+.ui-parameters-hidetype .ui-parameters-name { margin-right: 220px; }
+
 .ui-dark .ui-parameters-invalid { background-color: #653d3d; }
 .ui-dark .ui-parameters-search span { color: gray; }
 .ui-dark .ui-parameters-search { background-color: #252525; border-bottom-color: #404040; }
