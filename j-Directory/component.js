@@ -56,6 +56,11 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			}
 		});
 
+		self.event('focus', 'input', function() {
+			if (self.opt.search === false)
+				$(this).blur();
+		});
+
 		self.event('click', cls2 + '-button', function(e) {
 			skipclear = false;
 			input.val('');
@@ -415,7 +420,8 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 		!isMOBILE && setTimeout(function() {
 			ready = true;
-			input.focus();
+			if (opt.search !== false)
+				input.focus();
 		}, 200);
 
 		setTimeout(function() {
