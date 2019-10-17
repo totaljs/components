@@ -1,7 +1,7 @@
 COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5', function(self, config) {
 
-	var cls = 'ui-parameters';
-	var cls2 = '.ui-parameters';
+	var cls = 'ui-' + self.name;
+	var cls2 = '.' + cls;
 	var container, search, scroller, prevh, skip;
 
 	self.readonly();
