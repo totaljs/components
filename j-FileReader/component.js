@@ -39,7 +39,11 @@ COMPONENT('filereader', function(self) {
 	self.process = function(files) {
 		var el = this;
 		SETTER('loading', 'show');
-		(files.length - 1).async(function(index, next) {
+
+		var arr = [];
+		for (var i = 0; i < files.length; i++)
+			arr.push(i);
+		arr.wait(function(index, next) {
 			var file = files[index];
 			var reader = new FileReader();
 			reader.onload = function() {

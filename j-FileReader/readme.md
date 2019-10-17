@@ -1,5 +1,6 @@
 ## j-FileReader
 
+- singleton
 - easy usage
 - only for text files
 
