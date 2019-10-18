@@ -8,9 +8,9 @@
 .ui-panel-animate .ui-panel { transform: scale(1); opacity: 1; }
 .ui-panel-inline.ui-panel-animate { transition: box-shadow 0.5s; box-shadow: -10px 0 20px rgba(0,0,0,0.02); }
 .ui-panel-title { padding: 0 0 0 20px; font-size: 14px; user-select: none; color: black; background-color: white; border-bottom: 1px solid #E0E0E0; position: absolute; left: 0; right: 0; top: 0; height: 45px; box-shadow: 0 5px 10px rgba(0,0,0,0.05); }
-.ui-panel-title .ui-panel-button-menu { float: right; cursor: pointer; font-size: 14px; transition: all 0.2s; background: none; border: 0; outline: 0; color: gray; text-align: center; !important; padding: 0; width: auto; border: 0; width: 50px; height: 44px; }
+.ui-panel-title .ui-panel-button-menu { float: right; cursor: pointer; font-size: 14px; transition: all 0.2s; background: none; border: 0; outline: 0; color: gray; text-align: center; !important; padding: 0; width: auto; border: 0; width: 44px; height: 44px; }
 .ui-panel-title .ui-panel-button-menu:hover { color: black; transform: rotate(-90deg); }
-.ui-panel-title .ui-panel-button-close { float: right; cursor: pointer; font-size: 14px; transition: all 0.2s; background: none; border: 0; outline: 0; color: red; text-align: center; !important; padding: 0; width: auto; border-left: 1px solid #E0E0E0; width: 50px; height: 44px; }
+.ui-panel-title .ui-panel-button-close { float: right; cursor: pointer; font-size: 14px; transition: all 0.2s; background: none; border: 0; outline: 0; color: red; text-align: center; !important; padding: 0; width: auto; border-left: 1px solid #E0E0E0; width: 44px; height: 44px; }
 .ui-panel-title .ui-panel-button-close:hover { background-color: #EB3324; color: white; }
 .ui-panel-title > span { font-weight: bold; max-width: 70%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; display: inline-block; vertical-align: middle; line-height: 45px; }
 .ui-panel-title > i { margin-right: 7px; line-height: 45px; float: left; }
