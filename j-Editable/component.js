@@ -8,6 +8,17 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 	self.getter = null;
 	self.setter = null;
 
+	var isdisabled = function(el) {
+		var c = 'disabled';
+		var disabled = el.attrd(c);
+		var parent;
+		if (!disabled) {
+			parent = el.parent();
+			disabled = parent.attrd(c) || parent.parent().attrd(c);
+		}
+		return disabled ? rtrue.test(disabled) : false;
+	};
+
 	self.validate = function(value, init) {
 
 		if (init)
@@ -20,9 +31,8 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 
 			var el = $(arr[i]);
 			var opt = self.parse(el);
-			var disabled = el.attrd('disabled');
-
-			if ((disabled && rtrue.test(disabled)) || HIDDEN(el))
+			var disabled = isdisabled(el);
+			if (disabled || HIDDEN(el))
 				continue;
 
 			if (!opt || !opt.required)
@@ -184,8 +194,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 				return;
 
 			var el = $(t);
-			var disabled = el.attrd('disabled');
-			if (disabled && rtrue.test(disabled))
+			if (isdisabled(el))
 				return;
 
 			var opt = self.parse(el);
