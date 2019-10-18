@@ -171,7 +171,7 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5', function
 					item.modified = item.value !== item.prev;
 					break;
 				default:
-					item.modified = item.value !== item.prev;
+					item.modified = item.value !== (item.prev == null ? '' : item.prev);
 					break;
 			}
 
