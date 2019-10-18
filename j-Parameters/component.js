@@ -50,7 +50,8 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5', function
 	};
 
 	self.make = function() {
-		self.aclass(cls);
+
+		self.aclass(cls + (config.hidetype ? (' ' + cls + '-hidetype') : ''));
 		self.append('<div class="{0}-search"><span><i class="fa fa-search"></i></span><div><input type="text" placeholder="{1}" maxlength="50" class="{0}-searchinput" /></div></div><div class="{0}-scroller"><div class="{0}-container"></div></div>'.format(cls, config.search));
 		container = self.find(cls2 + '-container');
 		search = self.find(cls2 + '-search');
@@ -145,6 +146,7 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5', function
 			var item = self.get()[index];
 			var indexer = { index: index, search: item.name.toSearch() };
 			item.value = el.val();
+
 			switch (item.type) {
 				case 'date':
 					item.value = item.value ? item.value.parseDate(config.dateformat) : null;

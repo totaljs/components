@@ -8,6 +8,7 @@ __Configuration__:
 - `search` {String} optional, placeholder for search input (default: `Search`)
 - `height` {Number} optional, a height of the element (default: `undefined`)
 - `parent` {String} optional, jQuery selector for auto setup of height (can be `window`, `parent` or `custom`)
+- `hidetype` {Boolean} optional, hides type (default: `false`)
 
 __Data declaration__:
 
