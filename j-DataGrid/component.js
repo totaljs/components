@@ -2164,7 +2164,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 					return;
 				} else if (meta.col.type.substring(0, 4) === 'bool') {
 					var tmp = $(e.target);
-					if (tmp.hclass('dg-checkbox')) {
+					var is = tmp.hclass('dg-checkbox');
+					if (!is) {
+						tmp = tmp.closest('.dg-checkbox');
+						is = tmp.length;
+					}
+					if (is) {
 						meta.value = tmp.hclass('dg-checked');
 						next(meta);
 						self.datagrid_cancel(meta);
