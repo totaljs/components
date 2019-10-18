@@ -1,11 +1,11 @@
 COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5', function(self, config) {
 
-	var cls = 'ui-parameters';
-	var cls2 = '.ui-parameters';
+	var cls = 'ui-' + self.name;
+	var cls2 = '.' + cls;
 	var container, search, scroller, prevh, skip;
 
 	self.readonly();
-	self.nocompile && self.nocompile();
+	self.nocompile();
 	self.bindvisible();
 
 	self.init = function() {
@@ -39,7 +39,9 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5', function
 		if (config.height > 0)
 			h = config.height;
 		else if (config.parent)
-			h = (config.parent === 'window' ? WH : config.parent === 'parent' ? self.parent().height() : self.closest(config.parent).height()) - search.height() - self.element.offset().top - config.offset;
+			h = (config.parent === 'window' ? WH : config.parent === 'parent' ? self.parent().height() : self.closest(config.parent).height()) - search.height() - config.offset;
+
+		h -= config.margin;
 
 		if (prevh === h)
 			return;
@@ -59,7 +61,7 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5', function
 
 		self.scrollbar = SCROLLBAR(scroller);
 
-		search.on('keydown', cls2 + '-searchinput', function(e) {
+		search.on('keydown', cls2 + '-searchinput', function() {
 			setTimeout2(self.ID, self.search, 300);
 		});
 

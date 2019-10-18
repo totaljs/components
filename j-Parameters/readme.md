@@ -9,6 +9,7 @@ __Configuration__:
 - `height` {Number} optional, a height of the element (default: `undefined`)
 - `parent` {String} optional, jQuery selector for auto setup of height (can be `window`, `parent` or `custom`)
 - `hidetype` {Boolean} optional, hides type (default: `false`)
+- `margin` {Number} optional, vertical margin (default: `0`)
 
 __Data declaration__:
 

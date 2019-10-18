@@ -18,6 +18,7 @@
 .ui-parameters-invalid { background-color: #FFE1E1; }
 .ui-parameters-hidetype .ui-parameters-type { display: none; }
 .ui-parameters-hidetype .ui-parameters-name { margin-right: 220px; }
+.ui-parameters-hidetype .ui-parameters-value { border-left: 1px solid #E0E0E0; }
 
 .ui-dark .ui-parameters-invalid { background-color: #653d3d; }
 .ui-dark .ui-parameters-search span { color: gray; }
@@ -26,3 +27,4 @@
 .ui-dark .ui-parameters-modified { color: white; }
 .ui-dark .ui-parameters-item { border-bottom-color: #404040; }
 .ui-dark .ui-parameters-type { background-color: #282828; border-left-color: #404040; border-right-color: #404040; }
+.ui-dark .ui-parameters-hidetype .ui-parameters-value { border-left: 1px solid #404040; }
