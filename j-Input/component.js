@@ -354,6 +354,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				nobindcamouflage = true;
 				input[0].value = self.get();
 			}
+			self.tclass(cls + '-camouflaged', is);
 		}
 	};
 
