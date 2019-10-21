@@ -53,7 +53,7 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5;margin:0',
 
 	self.resize2 = function() {
 		setTimeout2(self.ID, self.resize, 500);
-	}
+	};
 
 	self.make = function() {
 
