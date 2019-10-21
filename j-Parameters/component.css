@@ -17,7 +17,7 @@
 .ui-parameters-boolean { cursor: pointer; }
 .ui-parameters-invalid { background-color: #FFE1E1; }
 .ui-parameters-hidetype .ui-parameters-type { display: none; }
-.ui-parameters-hidetype .ui-parameters-name { margin-right: 220px; }
+.ui-parameters-hidetype .ui-parameters-name { margin-right: 120px; }
 .ui-parameters-hidetype .ui-parameters-value { border-left: 1px solid #E0E0E0; }
 
 .ui-dark .ui-parameters-invalid { background-color: #653d3d; }

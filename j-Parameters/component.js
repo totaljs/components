@@ -1,4 +1,4 @@
-COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5', function(self, config) {
+COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5;margin:0', function(self, config) {
 
 	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
@@ -48,8 +48,12 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5', function
 
 		prevh = h;
 		scroller.css('height', h);
-		self.scrollbar.resize();
+		self.scrollbar && self.scrollbar.resize();
 	};
+
+	self.resize2 = function() {
+		setTimeout2(self.ID, self.resize, 500);
+	}
 
 	self.make = function() {
 
@@ -58,7 +62,7 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5', function
 		container = self.find(cls2 + '-container');
 		search = self.find(cls2 + '-search');
 		scroller = self.find(cls2 + '-scroller');
-
+		self.resize();
 		self.scrollbar = SCROLLBAR(scroller);
 
 		search.on('keydown', cls2 + '-searchinput', function() {
@@ -184,9 +188,14 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5', function
 			UPD(self.path, 2);
 		});
 
-		self.on('resize', self.resize);
+		$(W).on('resize', self.resize2);
+		self.on('resize', self.resize2);
 		self.resize();
 		self.scrollbar.resize();
+	};
+
+	self.destroy = function() {
+		$(W).off('resize', self.resize2);
 	};
 
 	self.setter = function(value) {
