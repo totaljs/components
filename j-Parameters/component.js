@@ -42,10 +42,6 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5;margin:0',
 			h = (config.parent === 'window' ? WH : config.parent === 'parent' ? self.parent().height() : self.closest(config.parent).height()) - search.height() - config.offset;
 
 		h -= config.margin;
-
-		if (prevh === h)
-			return;
-
 		prevh = h;
 		scroller.css('height', h);
 		self.scrollbar && self.scrollbar.resize();
