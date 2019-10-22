@@ -2,6 +2,7 @@ COMPONENT('markdownpreview', 'showsecret:Show secret data;hidesecret:Hide secret
 
 	var cls = 'ui-markdownpreview';
 	var cls2  = '.' + cls;
+	var secret_options = { wrap: false };
 	var elcache;
 	var elbody;
 
@@ -42,12 +43,9 @@ COMPONENT('markdownpreview', 'showsecret:Show secret data;hidesecret:Hide secret
 
 	self.redraw = function(el) {
 
-		if (!el || !(el instanceof jQuery))
-			el = self.element;
-
 		el.find('.lang-secret').each(function() {
 			var el = $(this);
-			el.parent().replaceWith('<div class="secret"><span class="showsecret"><i class="fa fa-lock"></i><i class="fa pull-right fa-angle-down"></i><b>' + config.showsecret + '</b></span><div class="hidden">' + el.html().trim().markdown() +'</div></div>');
+			el.parent().replaceWith('<div class="secret"><span class="showsecret"><i class="fa fa-lock"></i><i class="fa pull-right fa-angle-down"></i><b>' + config.showsecret + '</b></span><div class="hidden">' + el.html().trim().markdown(secret_options) +'</div></div>');
 		});
 
 		el.find('.lang-video').each(function() {
@@ -173,7 +171,7 @@ COMPONENT('markdownpreview', 'showsecret:Show secret data;hidesecret:Hide secret
 			t.$mdloaded = 1;
 			var el = $(t);
 			var href = el.attr('href');
-			href.substring(0, 1) !== '/' && el.attr('target', '_blank');
+			var c = href.substring(0, 1);
 			if (href === '#') {
 				var beg = '';
 				var end = '';
@@ -183,7 +181,8 @@ COMPONENT('markdownpreview', 'showsecret:Show secret data;hidesecret:Hide secret
 				if (text.substring(text.length - 1) === '>')
 					end = '-';
 				el.attr('href', '#' + (beg + markdown_id(el.text()) + end));
-			}
+			} else if (c !== '/' && c !== '#')
+				el.attr('target', '_blank');
 		});
 
 		el.find('.code').rclass('hidden');
@@ -194,21 +193,21 @@ COMPONENT('markdownpreview', 'showsecret:Show secret data;hidesecret:Hide secret
 				var el = $(this);
 				arr.push({ name: el.text(), id: el.attr('id'), tag: this.tagName.toLowerCase(), offset: el.offset().top });
 			});
-			SEEX(self.makepath(config.headlines), arr);
+			SEEX(config.headlines, arr);
 		}
 
 	};
 
 	self.setter = function(value) {
 
-		// Waits for markdown component
-		if (!String.prototype.markdown) {
-			setTimeout(self.setter, 500, value);
+		if (config.html) {
+			self.redraw(self.element);
 			return;
 		}
 
-		if (config.html) {
-			self.redraw(self.element);
+		// Waits for markdown component
+		if (!String.prototype.markdown) {
+			setTimeout(self.setter, 500, value);
 			return;
 		}
 
@@ -218,30 +217,32 @@ COMPONENT('markdownpreview', 'showsecret:Show secret data;hidesecret:Hide secret
 
 		elcache.empty();
 
-		elbody.find('.code').each(function() {
+		elbody.find('.code').each(function(index) {
 			var t = this;
-			cache[t.getAttribute('data-checksum')] = t;
+			var checksum = t.getAttribute('data-checksum') + '_' + index;
+			cache[checksum] = t;
 			elcache[0].appendChild(t);
 		});
 
-		elbody.find('img').each(function() {
+		elbody.find('img').each(function(index) {
 			var t = this;
-			cache[t.getAttribute('data-checksum')] = t;
+			var checksum = t.getAttribute('data-checksum') + '_' + index;
+			cache[checksum] = t;
 			elcache[0].appendChild(t);
 		});
 
-		vdom.find('.code').each(function() {
+		vdom.find('.code').each(function(index) {
 			var t = this;
-			var h = 'code' + HASH(t.outerHTML, true) + '';
+			var h = 'code' + HASH(t.outerHTML, true) + '_' + index;
 			if (cache[h])
 				$(t).replaceWith(cache[h]);
 			else
 				t.setAttribute('data-checksum', h);
 		}).rclass('hidden');
 
-		vdom.find('img').each(function() {
+		vdom.find('img').each(function(index) {
 			var t = this;
-			var h = 'img' + HASH(t.outerHTML, true) + '';
+			var h = 'img' + HASH(t.outerHTML, true) + '' + index;
 			if (cache[h])
 				$(t).replaceWith(cache[h]);
 			else
