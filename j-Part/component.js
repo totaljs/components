@@ -47,7 +47,16 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config) {
 
 			config.loading && SETTER('loading', 'show');
 			downloading = true;
+
 			setTimeout(function() {
+
+				var preparator = config.path == null ? null : function(content) {
+					return content.replace(/~PATH~/g, config.path);
+				};
+
+				if (preparator == null && config.replace)
+					preparator = GET(config.replace);
+
 				self.import(config.url, function() {
 					downloading = false;
 
@@ -65,7 +74,8 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config) {
 					setTimeout(function() {
 						self.element.SETTER('*', 'resize');
 					}, 200);
-				});
+
+				}, true, preparator);
 			}, 200);
 		}
 	};
