@@ -1,0 +1,47 @@
+.ui-properties { border: 1px solid #F0F0F0; background-color: #F0F0F0; }
+.ui-properties-container { padding: 0 0 20px 0; }
+.ui-properties-group:first-child { margin-top: 10px; }
+.ui-properties-group:lastchild-child section { margin-bottom: 0; }
+.ui-properties-group label { display: block; padding: 3px 9px; font-size: 12px; font-weight: bold; cursor: pointer; }
+.ui-properties-group label i { width: 16px; }
+.ui-properties-group label i:before { content: '\f146'; }
+.ui-properties-hidden label i:before { content: '\f0fe' !important; }
+.ui-properties-group section { margin: 5px 10px; margin-bottom: 10px; }
+.ui-properties-group section > div:first-child { border-top-left-radius: 2px; border-top-right-radius: 2px; }
+.ui-properties-group section > div:last-child { border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; }
+.ui-properties-hidden section { display: none; }
+.ui-properties-item { height: 22px; background-color: white; margin-bottom: 1px; font-size: 12px; }
+.ui-properties-key { float: left; width: 50%; border-right: 1px solid #F0F0F0; line-height: 22px; padding: 0 5px; }
+.ui-properties-value { float: right; width: 50%; line-height: 21px; }
+.ui-properties-string, .ui-properties-number, .ui-properties-date, .ui-properties-list, .ui-properties-file { padding: 0 6px; }
+.ui-properties-string input, .ui-properties-number input, .ui-properties-date input { outline: 0; height: 21px; padding: 0; margin: 0; width: 100%; border: 0; line-height: 21px; background-color: transparent; }
+.ui-properties-bool, .ui-properties-list, .ui-properties-color, .ui-properties-fontawesome, .ui-properties-emoji, .ui-properties-file { line-height: 22px; }
+.ui-properties-bool span { width: 14px; height: 14px; display: inline-block; border: 1px solid #D0D0D0; line-height: 14px; font-size: 9px; text-align: center; margin: 4px 0 0 6px; border-radius: 2px; position: relative; cursor: pointer; color: white; vertical-align: top; }
+.ui-properties-bool .checked { background-color: #4285F4; border-color: #4285F4; }
+.ui-properties-fontawesometoggle, .ui-properties-emojitoggle, .ui-properties-color { width: 34px; line-height: 22px; display: block; cursor: pointer; font-size: 14px; position: relative; border-right: 1px solid #F0F0F0; text-align: center; }
+.ui-properties-list { cursor: pointer; }
+.ui-properties-list i { float: right; width: 20px; line-height: 22px; text-align: right; }
+.ui-properties-list span { display: block; margin-right: 25px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.ui-properties-file { cursor: pointer; }
+.ui-properties-file i { float: right; width: 20px; line-height: 22px; text-align: right; font-size: 10px; }
+.ui-properties-file span { display: block; margin-right: 25px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.ui-properties-changed { font-weight: bold; }
+.ui-properties-color { padding: 3px 6px; }
+.ui-properties-color span b { height: 16px; display: block; border-radius: 1px; color: gray; }
+.ui-properties-invalid { font-weight: bold; color: red !important; }
+.ui-properties-invalid .ui-properties-key { border-right-color: red !important; }
+#propertiesupload { position: absolute; left: -100px; top: -100px; opacity: 0; }
+
+.ui-large .ui-properties-group label { font-size: 16px; }
+.ui-large .ui-properties-group label i { width: 20px; }
+.ui-large .ui-properties-item { font-size: 15px; }
+.ui-large .ui-properties-bool { padding: 0; }
+.ui-large .ui-properties-bool span { width: 16px; height: 16px; margin-top: 3px; font-size: 10px; line-height: 16px; }
+
+.ui-dark .ui-properties { border: 1px solid #404040; background-color: #303030; }
+.ui-dark .ui-properties-item { background-color: #252525; }
+.ui-dark .ui-properties-key { border-right-color: #404040; }
+.ui-dark .ui-properties-fontawesometoggle, .ui-dark .ui-properties-emojitoggle, .ui-dark .ui-properties-color { border-right-color: #404040; }
+.ui-dark .ui-properties-bool span { color: #252525; border-color: #404040; }
+.ui-dark .ui-properties-bool span.checked { color: white; border-color: #4285F4; }
+.ui-dark .ui-properties-changed { color: white; }

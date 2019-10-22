@@ -1,0 +1,24 @@
+<div data---="LAZY directory"></div>
+<div data---="LAZY colorpicker"></div>
+<div data---="LAZY faicons"></div>
+<div data---="LAZY datepicker"></div>
+<div data---="LAZY timepicker"></div>
+<div data---="LAZY emoji"></div>
+
+<div style="width:400px;float:right">
+	<div data---="properties__form__parent:window"></div>
+</div>
+
+<script>
+	var items = [{ id: 2, name: 'Banská Bystrica' }, { id: 3, name: 'Bratislava' }];
+	var form = [];
+	form.push({ group: 'Personal', label: 'First name', name: 'user.firstname', type: 'string', value: 'Peter', transform: 'capitalize' });
+	form.push({ group: 'Personal', label: 'Last name', name: 'user.lastname', type: 'string', value: 'Širka', placeholder: 'String' });
+	form.push({ group: 'Personal', label: 'Age', name: 'user.age', type: 'number', value: 33, min: 30 });
+	form.push({ group: 'Personal', label: 'Birth date', name: 'user.birth', type: 'date', value: NOW });
+	form.push({ group: 'Additional', label: 'Newsletter', name: 'user.newsletter', type: 'bool', value: true });
+	form.push({ group: 'Additional', label: 'City', name: 'user.city', type: 'list', value: 2, items: 'items', dirsearch: 'Search city', dircustom: true });
+	form.push({ group: 'Additional', label: 'Color', name: 'user.color', type: 'color', value: '#e73323' });
+	form.push({ group: 'Additional', label: 'Icon', name: 'user.icon', type: 'fontawesome', value: 'fas fa-home' });
+	form.push({ group: 'Additional', label: 'Emoji', name: 'user.emoji', type: 'emoji', value: '' });
+</script>
