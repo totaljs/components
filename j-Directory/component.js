@@ -320,14 +320,16 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		var type = typeof(items);
 		var item;
 
-		if (type === 'function' && callback) {
-			opt.ajax = items;
-			type = '';
-			items = null;
+		if (type === 'string') {
+			items = GET(items);
+			type = typeof(items);
 		}
 
-		if (type === 'string')
-			items = self.get(items);
+		if (type === 'function' && callback) {
+			type = '';
+			opt.ajax = items;
+			items = null;
+		}
 
 		if (!items && !opt.ajax) {
 			self.hide(0);
