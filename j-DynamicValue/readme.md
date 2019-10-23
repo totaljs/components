@@ -12,6 +12,7 @@ This component is very special component. It can keep a value for example `Numbe
 - `url` {String} (optional) tries to bind a value via `AJAX()`, argument `{value}` in URL is replaced by the value
 - `html` {String} Tangular template for rendering a value (default: `{{ name }}`)
 - `remap` String} (optional) a remap function (default: `null`), example: `value.length ? value[0] : null`
+- `required` {Boolean} (optional) enables "required" (default: `false`)
 
 ### AJAX usage
 
