@@ -1,0 +1,28 @@
+<div data---="windows__components"></div>
+
+<script>
+
+	var components = [];
+
+	components.push({
+		id: 'A',
+		offset: { x: 200, y: 100, width: 600, height: 400, minwidth: 200, minheight: 200 },
+		title: 'A',
+		html: '<div class="padding">Lorem ipsum dolor sit amet.</div>',
+		actions: { minimize: true, maximize: true, move: true, resize: true, close: true, menu: true },
+		make: function() {
+		},
+		menu: function(el) {
+			alert('MENU');
+		}
+	});
+
+	components.push({
+		id: 'B',
+		offset: { x: 600, y: 300, width: 600, height: 400, minwidth: 200, minheight: 200 },
+		title: 'B',
+		html: '<div class="padding">Lorem ipsum dolor sit amet.</div>',
+		actions: { minimize: true, maximize: false, move: true, resize: true, close: true }
+	});
+
+</script>
