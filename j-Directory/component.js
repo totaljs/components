@@ -88,7 +88,38 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		});
 
 		var e_click = function(e) {
-			is && !$(e.target).hclass(cls + '-search-input') && self.hide(0);
+			var node = e.target;
+			var count = 0;
+
+			if (is) {
+				while (true) {
+					var c = node.getAttribute('class') || '';
+					if (c.indexOf(cls + '-search-input') !== -1) {
+						is = false;
+						break;
+					}
+					node = node.parentNode;
+					if (!node || !node.tagName || node.tagName === 'BODY' || count > 3)
+						break;
+					count++;
+				}
+			} else {
+				is = true;
+				while (true) {
+					var c = node.getAttribute('class') || '';
+					if (c.indexOf(cls) !== -1) {
+						is = false;
+						break;
+					}
+					node = node.parentNode;
+					if (!node || !node.tagName || node.tagName === 'BODY' || count > 4)
+						break;
+					count++;
+				}
+			}
+
+
+			is && self.hide(0);
 		};
 
 		var e_resize = function() {
@@ -173,6 +204,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 	};
 
 	self.move = function() {
+
 		var counter = 0;
 		var scroller = container.parent();
 		var h = scroller.height();
