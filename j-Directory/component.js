@@ -82,7 +82,8 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 				self.opt.scope && M.scope(self.opt.scope);
 				self.opt.callback(self.opt.items[+this.getAttribute('data-index')], self.opt.element);
 			}
-			self.hide();
+			is = true;
+			self.hide(0);
 			e.preventDefault();
 			e.stopPropagation();
 		});
@@ -117,7 +118,6 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 					count++;
 				}
 			}
-
 
 			is && self.hide(0);
 		};
