@@ -66,7 +66,7 @@ var component = {
 
 		// this.meta {Object} a reference to component object
 		// this.element {jQuery} a content element of the component
-		// this.contianer {jQuery} a main content element of the component
+		// this.container {jQuery} a main content element of the component
 		// this.main {Object} a reference to Dashboard component
 		// this.width {Number} a width of "this.element"
 		// this.height {Number} a height of "this.element"
