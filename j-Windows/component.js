@@ -333,8 +333,8 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 						obj.setcommand('resetminimize');
 					}
 
-					var ww = self.element.width();
-					var wh = self.element.height();
+					var ww = self.element.width() || WW;
+					var wh = self.element.height() || WH;
 					obj.setoffset(0, 0);
 					obj.setsize(ww, wh - obj.element.position().top);
 					break;
