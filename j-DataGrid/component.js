@@ -119,7 +119,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 				}
 
 				self.scroll && self.scroll();
-				config.change && SEEX(config.change, null, null, self.grid);
+				config.change && SEEX(self.makepath(config.change), null, null, self.grid);
 			}
 		};
 
@@ -250,11 +250,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 	};
 
 	self.fn_in_changed = function(arr) {
-		config.changed && SEEX(config.changed, arr || self.changed(), self);
+		config.changed && SEEX(self.makepath(config.changed), arr || self.changed(), self);
 	};
 
 	self.fn_in_checked = function(arr) {
-		config.checked && SEEX(config.checked, arr || self.checked(), self);
+		config.checked && SEEX(self.makepath(config.checked), arr || self.checked(), self);
 	};
 
 	self.fn_refresh = function() {
@@ -598,7 +598,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 					return;
 
 				if (config.dblclick && dblclick.ticks && dblclick.ticks > now && dblclick.row === row) {
-					config.dblclick && SEEX(config.dblclick, row, self, elrow, target);
+					config.dblclick && SEEX(self.makepath(config.dblclick), row, self, elrow, target);
 					if (config.highlight && self.selected !== row) {
 						opt.cluster.el.find('.' + cls).rclass(cls);
 						self.selected = row;
@@ -622,7 +622,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 						rowarg = self.selected = null;
 				}
 
-				config.click && SEEX(config.click, rowarg, self, elrow, target);
+				config.click && SEEX(self.makepath(config.click), rowarg, self, elrow, target);
 			}
 		});
 
@@ -842,7 +842,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			if (!row || index === -1) {
 				self.selected = null;
 				opt.cluster && opt.cluster.el.find('.' + cls).rclass(cls);
-				config.highlight && config.click && SEEX(config.click, null, self);
+				config.highlight && config.click && SEEX(self.makepath(config.click), null, self);
 				return;
 			}
 
@@ -854,7 +854,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 				elrow.aclass(cls);
 			}
 
-			config.click && SEEX(config.click, row, self, elrow, null);
+			config.click && SEEX(self.makepath(config.click), row, self, elrow, null);
 		};
 
 		self.event('click', '.dg-checkbox', function() {
@@ -918,7 +918,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 				default:
 					var el = $(this);
 					var row = opt.rows[+el.closest('.dg-row').attrd('index')];
-					config.button && SEEX(config.button, this.name, row, el, e);
+					config.button && SEEX(self.makepath(config.button), this.name, row, el, e);
 					break;
 			}
 		});
@@ -937,7 +937,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			value.page = 1;
 
 		var keys = Object.keys(opt.filter);
-		SEEX(config.exec, type, keys.length ? opt.filter : null, opt.sort && opt.sort.sort ? [(opt.sort.name + ' ' + (opt.sort.sort === 1 ? 'asc' : 'desc'))] : null, value.page, self);
+		SEEX(self.makepath(config.exec), type, keys.length ? opt.filter : null, opt.sort && opt.sort.sort ? [(opt.sort.name + '_' + (opt.sort.sort === 1 ? 'asc' : 'desc'))] : null, value.page, self);
 
 		switch (type) {
 			case 'sort':
@@ -1021,7 +1021,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		};
 
 		if (config.change)
-			EXEC(config.change, data, cb, self);
+			EXEC(self.makepath(config.change), data, cb, self);
 		else
 			self.datagrid_edit(data, cb);
 	};
@@ -1700,7 +1700,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			}
 
 			if (opt.sort != null) {
-				opt.sort.sort && output.quicksort(opt.sort.name, opt.sort.sort === 1);
+
+				if (!config.exec)
+					opt.sort.sort && output.quicksort(opt.sort.name, opt.sort.sort === 1);
+
 				self.redrawsorting();
 			}
 		}
