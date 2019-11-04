@@ -8,7 +8,11 @@ COMPONENT('serverlisting', 'pages:3', function(self, config) {
 
 	self.configure = function(key, value, init) {
 		if (key === 'datasource')
-			datasource = value;
+			self.datasource(value, self.bind);
+	};
+
+	self.bind = function(path, value) {
+		datasource = value;
 	};
 
 	self.make = function() {
