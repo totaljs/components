@@ -18,10 +18,10 @@
 
 	<div class="col-sm-6">
 		<h2>Without layout</h2>
-		<div data-jc="serverlisting__model__paginate:gotopage">
+		<div data-jc="serverlisting__model__paginate:gotopage;datasource:extra">
 			<script type="text/html">
 				<div>
-					<div>Item: {{ name }}</div>
+					<div>Item: {{ name }} <small>{{ $.data.extra }}</small></div>
 				</div>
 			</script>
 		</div>
@@ -30,6 +30,10 @@
 </div>
 
 <script>
+
+	var extra = {
+		framework: 'jComponent'
+	};
 
 	var model = {};
 	model.page = 1;
