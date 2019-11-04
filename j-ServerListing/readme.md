@@ -6,7 +6,6 @@ __Configuration__:
 
 - `paginate(page)` {String} link to a function for pagination
 - `pages` {Number} Optional, max pages in pagination (default: `3` --> half + current page + half)
-- __NEW__ `datasource` {String} data-source path (in layout use `$.data.mykey`)
 
 __Model__:
 
@@ -31,7 +30,7 @@ __Tangular layout__:
 __Tangular item__:
 
 - `model` contains an object from `Array`
-- second model contains info about data-source `{ index: Number, page: Number, pages: Number, count: Number, data: datasource }`
+- second model contains info about data-source `{ index: Number, page: Number, pages: Number, count: Number }`
 
 ### Author
 

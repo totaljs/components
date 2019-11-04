@@ -1,19 +1,10 @@
 COMPONENT('serverlisting', 'pages:3', function(self, config) {
 
-	var container, paginate, datasource;
+	var container, paginate;
 	var layout;
 
 	self.readonly();
 	self.nocompile && self.nocompile();
-
-	self.configure = function(key, value, init) {
-		if (key === 'datasource')
-			self.datasource(value, self.bind);
-	};
-
-	self.bind = function(path, value) {
-		datasource = value;
-	};
 
 	self.make = function() {
 
@@ -64,7 +55,7 @@ COMPONENT('serverlisting', 'pages:3', function(self, config) {
 		}
 
 		var builder = [];
-		var g = { count: value.count, page: value.page, pages: value.pages, data: datasource };
+		var g = { count: value.count, page: value.page, pages: value.pages };
 
 		for (var i = 0; i < value.items.length; i++) {
 			g.index = i;
