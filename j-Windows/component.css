@@ -6,7 +6,7 @@
 .ui-windows-control { float: right; width: 30px; text-align: center; border-left: 1px solid #E0E0E0; line-height: 30px; cursor: pointer; font-size: 13px; }
 .ui-windows-control:hover { background-color: #F9F9F9; }
 .ui-windows-control.fa-times { color: red; }
-.ui-windows-title span { cursor: default; line-height: 31px; display: block; margin-right: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 0 0 10px; font-weight: bold; }
+.ui-windows-title span { cursor: default; line-height: 31px; display: block; margin-right: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 0 0 10px; font-weight: bold; }
 .ui-windows-nomove .ui-windows-title span { cursor: default; }
 .ui-windows-title span i { margin-right: 5px; }
 .ui-windows-body { border: 1px solid #E0E0E0; border-top: 0; border-radius: 0 0 2px 2px; }
@@ -29,6 +29,7 @@
 .ui-windows-resize-tr { right: 0; top: 0; cursor: nesw-resize; }
 .ui-windows-resize-bl { left: 0; bottom: 0; cursor: nesw-resize; }
 .ui-windows-resize-br { right: 0; bottom: 0; cursor: nwse-resize; }
+.ui-windows-block iframe, .ui-windows-block webview { pointer-events: none; }
 
 .ui-dark .ui-windows-item { background-color: #202020; box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
 .ui-dark .ui-windows-title { border-color: #404040; }

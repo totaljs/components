@@ -29,6 +29,9 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 				case 'menu':
 					item.meta.menu && item.meta.menu.call(item, el);
 					break;
+				default:
+					item.setcommand(name);
+					break;
 			}
 		});
 
@@ -120,6 +123,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 			}
 		}
 
+		drag.el.aclass(cls + '-block');
 		drag.offX = myoffset.left;
 		drag.offY = myoffset.top;
 		drag.item = cache[drag.el.attrd('id')];
@@ -233,7 +237,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 
 	events.up = function() {
 
-		drag.el.rclass(cls + '-dragged');
+		drag.el.rclass(cls + '-dragged').rclass(cls + '-block');
 		$(W).off('mousemove touchmove', events.move).off('mouseup touchend', events.up);
 
 		if (!drag.is)
@@ -244,8 +248,8 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 		var pos = drag.el.position();
 
 		drag.is = false;
-		drag.x = meta.offset.x = pos.left;
-		drag.y = meta.offset.y = pos.top;
+		drag.x = meta.offset.x = item.x = pos.left;
+		drag.y = meta.offset.y = item.y = pos.top;
 
 		if (drag.resize) {
 			item.width = meta.offset.width = drag.el.width();
@@ -254,12 +258,42 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 		}
 
 		meta.move && meta.move.call(item, item.x, item.y, drag.body);
+		self.wsave(item);
 		self.change(true);
 	};
 
+	var wsavecallback = function(item) {
+		var key = 'win_' + item.meta.id;
+		var obj = {};
+		obj.x = item.x;
+		obj.y = item.y;
+		obj.width = item.width;
+		obj.height = item.height;
+		PREF.set(key, obj, '1 month');
+	};
+
+	self.wsave = function(obj) {
+		if (obj.meta.actions && obj.meta.actions.autosave)
+			setTimeout2(self.ID + '_win_' + obj.meta.id, wsavecallback, 500, null, obj);
+	};
+
 	self.wadd = function(item) {
-		var el = $('<div class="{0}-item" data-id="{id}" style="left:{x}px;top:{y}px;width:{width}px"><span class="{0}-resize {0}-resize-tl"></span><span class="{0}-resize {0}-resize-tr"></span><span class="{0}-resize {0}-resize-bl"></span><span class="{0}-resize {0}-resize-br"></span><div class="{0}-title"><i class="fa fa-times {0}-control" data-name="close"></i><i class="far fa-window-maximize {0}-control" data-name="maximize"></i><i class="far fa-window-minimize {0}-control" data-name="minimize"></i><i class="{1} {0}-control" data-name="menu"></i><span>{{ title }}</span></div><div class="{0}-body" style="height:{height}px"></div></div>'.format(cls, config.menuicon).arg(item.offset).arg(item));
+
+
+		if (item.actions && item.actions.autosave) {
+			pos = PREF['win_' + item.id];
+			if (pos) {
+				item.offset.x = pos.x;
+				item.offset.y = pos.y;
+				item.offset.width = pos.width;
+				item.offset.height = pos.height;
+			}
+		}
+
+		var el = $('<div class="{0}-item" data-id="{id}" style="left:{x}px;top:{y}px;width:{width}px"><span class="{0}-resize {0}-resize-tl"></span><span class="{0}-resize {0}-resize-tr"></span><span class="{0}-resize {0}-resize-bl"></span><span class="{0}-resize {0}-resize-br"></span><div class="{0}-title"><i class="fa fa-times {0}-control" data-name="close"></i><i class="far fa-window-maximize {0}-control" data-name="maximize"></i><i class="far fa-window-minimize {0}-control" data-name="minimize"></i><i class="{1} {0}-control {0}-lastbutton" data-name="menu"></i><span>{{ title }}</span></div><div class="{0}-body" style="height:{height}px"></div></div>'.format(cls, config.menuicon).arg(item.offset).arg(item));
 		var body = el.find(cls2 + '-body');
+		var pos;
+
 		body.append(item.html);
 
 		if (typeof(item.html) === 'string' && item.html.COMPILABLE())
@@ -289,6 +323,17 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 		obj.y = item.offset.y;
 		obj.width = item.offset.width;
 		obj.height = item.offset.height;
+
+		if (item.buttons) {
+			var builder = [];
+			for (var i = 0; i < item.buttons.length; i++) {
+				var btn = item.buttons[i];
+				var icon = btn.icon.indexOf(' ') === -1 ? ('fa fa-' + btn.icon) : btn.icon;
+				builder.push('<i class="fa fa-{1} {0}-control" data-name="{2}"></i>'.format(cls, icon, btn.name));
+			}
+			builder.length && el.find(cls2 + '-lastbutton').before(builder.join(''));
+		}
+
 		item.make && item.make.call(cache[item.id], body);
 
 		obj.setsize = function(w, h) {
@@ -304,6 +349,8 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 				t.element.css('height', h);
 				t.height = t.meta.offset.height = h;
 			}
+
+			self.wsave(t);
 		};
 
 		obj.setcommand = function(type) {
@@ -382,6 +429,13 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 					prevfocused && prevfocused.rclass(cls + '-focused');
 					prevfocused = obj.element.parent().aclass(cls + '-focused');
 					break;
+				default:
+					if (obj.meta.buttons) {
+						var btn = obj.meta.buttons.findItem('name', type);
+						if (btn && btn.exec)
+							btn.exec.call(obj, obj);
+					}
+					break;
 			}
 		};
 
@@ -396,6 +450,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 				obj.top = t.y = t.meta.offset.y = y;
 
 			t.element.parent().css(obj);
+			self.wsave(t);
 		};
 
 		obj.meta.service && services.push(obj);
