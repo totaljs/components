@@ -142,6 +142,7 @@ COMPONENT('textbox', function(self, config) {
 
 		if (config.autofill) {
 			attrs.attr('name', self.path.replace(/\./g, '_'));
+			attrs.attr('autocomplete', 'on');
 			self.autofill && self.autofill();
 		} else {
 			attrs.attr('name', 'input' + Date.now());
