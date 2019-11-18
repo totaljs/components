@@ -65,20 +65,25 @@ COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true', function(self, config
 		});
 
 		self.event('keydown', 'input', function(e) {
-			e.which === 8 && setTimeout(function(el) {
+			if (e.which === 8) {
+
+				var el = $(this);
 				if (!el.val()) {
-					el.attrd('value', '');
 					var prev = el.parent().prev().find('input');
-					prev.val() && prev.val('').focus();
+					prev.val('').focus();
+					prev.attrd('value', '');
 					config.mask && self.mask();
 				}
-			}, 50, $(this));
+
+				el.attrd('value', '');
+				self.getter();
+			}
 		});
 
 		inputs = self.find('input');
 	};
 
-	self.maskforce2 = function() {
+    self.maskforce2 = function() {
 		self.maskforce(this);
 	};
 
@@ -111,7 +116,7 @@ COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true', function(self, config
 			if (self.get() !== value) {
 				self.change(true);
 				skip = true;
-				self.set(value);
+				self.set(value.trim());
 			}
 
 		}, 100);
