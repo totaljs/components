@@ -1,4 +1,4 @@
-COMPONENT('serverlisting', 'pages:3', function(self, config) {
+COMPONENT('serverlisting', 'pages:3;scrolltop:1', function(self, config) {
 
 	var container, paginate;
 	var layout;
@@ -45,7 +45,7 @@ COMPONENT('serverlisting', 'pages:3', function(self, config) {
 		});
 	};
 
-	self.setter = function(value) {
+	self.setter = function(value, path, type) {
 
 		if (!value) {
 			container.empty();
@@ -120,6 +120,7 @@ COMPONENT('serverlisting', 'pages:3', function(self, config) {
 		paginate.find('.ui-serverlisting-page[data-index="{0}"]'.format(value.page)).aclass('selected');
 		paginate.tclass('hidden', value.pages < 2);
 		self.tclass('hidden', value.count === 0);
+		type && config.scrolltop && $(window).scrollTop(self.element.position().top - 50);
 	};
 
 });
