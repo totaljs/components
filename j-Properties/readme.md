@@ -44,6 +44,7 @@ __Data properties in data declaration__:
 - `dircustom` {Boolean} enables a custom value for `list` type only
 - `dirkey` {String} a key name for label/name, targeted for `list` type only (default: `name`)
 - `dirvalue` {String} a key name for value, targeted for `list` type only (default: `id`)
+- `detail` {String} URL address for obtaining of data for `list` type, example: `/users/{0}/` and `{0}` will be replaced with the value from list
 - `items` {Object Array/String} items for `list` type only, string can contain a path to `Array` or `URL address` to search
 - `show` {Arrow function}, example: `data => data.KEY === 'SOMETHING'` --> will show the item if the condition will valid
 

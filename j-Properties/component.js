@@ -347,6 +347,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 			else if (item.dirsearch == false)
 				opt.search = false;
 			opt.callback = function(value) {
+
 				if (typeof(value) === 'string') {
 					opt.element.find('span').text(value);
 					item.value = value;
@@ -356,10 +357,10 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 				}
 
 				if (item.dircustom && item.dirappend !== false) {
-					if (!item.items)
-						item.items = [];
-					if (item.items.indexOf(item.value) === -1)
-						item.items.push(item.value);
+					if (!opt.items)
+						opt.items = [];
+					if (opt.items.indexOf(item.value) === -1)
+						opt.items.push(item.value);
 				}
 
 				item.changed = item.prev !== item.value;
@@ -377,7 +378,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 	types.list.render = function(item, next) {
 		var template = '<div class="{0}-list"><i class="fa fa-caret-down"></i><span>{1}</span></div>';
 		if (item.detail) {
-			AJAX('GET ' + item.detail.format(item.value), function(response) {
+			AJAX('GET ' + item.detail.format(encodeURIComponent(item.value)), function(response) {
 				next(template.format(cls, response[item.dirkey || 'name'] || item.placeholder || DEF.empty));
 			});
 		} else {
