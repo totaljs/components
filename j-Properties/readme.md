@@ -24,7 +24,7 @@ form.push({ group: 'Additional', label: 'Newsletter', name: 'user.newsletter', t
 form.push({ group: 'Additional', label: 'City', name: 'user.city', type: 'list', value: 2, items: 'items', dirsearch: 'Search city', dircustom: true });
 form.push({ group: 'Additional', label: 'Color', name: 'user.color', type: 'color', value: '#e73323' });
 form.push({ group: 'Additional', label: 'Icon', name: 'user.icon', type: 'fontawesome', value: 'fas fa-home' });
-form.push({ group: 'Additional', label: 'Emoji', name: 'user.emoji', type: 'emoji', value: '' });
+form.push({ group: 'Additional', label: 'Emoji', name: 'user.emoji', type: 'emoji', value: '', show: 'n => n.age === 33' });
 ```
 
 __Data properties in data declaration__:
@@ -45,6 +45,7 @@ __Data properties in data declaration__:
 - `dirkey` {String} a key name for label/name, targeted for `list` type only (default: `name`)
 - `dirvalue` {String} a key name for value, targeted for `list` type only (default: `id`)
 - `items` {Object Array/String} items for `list` type only, string can contain a path to `Array` or `URL address` to search
+- `show` {Arrow function}, example: `data => data.KEY === 'SOMETHING'` --> will show the item if the condition will valid
 
 __Allowed types in data__:
 

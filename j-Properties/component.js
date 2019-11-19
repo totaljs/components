@@ -1,4 +1,4 @@
-COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timeformat:HH:mm;offset:0;margin:0', function(self, config) {
+COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timeformat:HH:mm;offset:0;margin:0;modalalign:center', function(self, config) {
 
 	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
@@ -8,6 +8,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 	var prevh = -1;
 	var skip = false;
 	var prefkey = 'jcproperties';
+	var values, funcs;
 
 	self.make = function() {
 
@@ -61,6 +62,18 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 
 	self.findel = function(el) {
 		return $(el).closest(cls2 + '-item');
+	};
+
+	self.modifyval = function(item) {
+		values[item.name] = item.value;
+		var items = self.get();
+		for (var i = 0; i < items.length; i++) {
+			var item = items[i];
+			if (!item.show)
+				continue;
+			var is = funcs[item.name + '_show'](values);
+			self.find(cls2 + '-item[data-index="{0}"]'.format(i)).tclass('hidden', !is);
+		}
 	};
 
 	self.register = function(name, init, render) {
@@ -124,7 +137,8 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 				item.value = val;
 				item.changed = item.prev !== val;
 				el.tclass(cls + '-changed', item.changed);
-				config.change && EXEC(config.change, item);
+				config.change && EXEC(self.makepath(config.change), item);
+				self.modifyval(item);
 				self.change(true);
 			}
 
@@ -134,7 +148,47 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 		});
 	};
 	types.string.render = function(item, next) {
-		next('<div class="{0}-string"><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pstring" /></div>'.format(cls, item.maxlength || 100, item.placeholder || '', Thelpers.encode(item.value)));
+		next('<div class="{0}-string"><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pstring" /></div>'.format(cls, item.maxlength, item.placeholder || '', Thelpers.encode(item.value)));
+	};
+
+	types.password = {};
+	types.password.init = function() {
+		self.event('focus', '.ppassword', function() {
+			$(this).attr('type', 'text');
+		});
+		self.event('blur', '.ppassword', function() {
+			$(this).attr('type', 'password');
+		});
+		self.event('change', '.ppassword', function() {
+			var t = this;
+			var item = self.finditem(t);
+			var val = t.value.trim();
+
+			var isvalid = item.required == true ? !!val : true;
+			if (isvalid) {
+				// Is RegExp?
+				if (typeof(item.validate) === 'object')
+					isvalid = item.validate.test(val);
+			}
+
+			var el = self.findel(t);
+
+			if (isvalid) {
+				item.value = val;
+				item.changed = item.prev !== val;
+				el.tclass(cls + '-changed', item.changed);
+				config.change && EXEC(self.makepath(config.change), item);
+				self.modifyval(item);
+				self.change(true);
+			}
+
+			item.invalid = !isvalid;
+			el.tclass(cls + '-invalid', item.invalid);
+			t.$processed = true;
+		});
+	};
+	types.password.render = function(item, next) {
+		next('<div class="{0}-string"><input type="password" maxlength="{1}" placeholder="{2}" value="{3}" class="ppassword" /></div>'.format(cls, item.maxlength, item.placeholder || '', Thelpers.encode(item.value)));
 	};
 
 	types.number = {};
@@ -146,11 +200,16 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 			if (t.$processed)
 				return;
 
-			var el = self.findel(t);
 			var item = self.finditem(t);
-			var val = t.value.parseFloat();
+			var val = t.value.trim();
 
+			if (!val && item.value == null)
+				return;
+
+			var el = self.findel(t);
 			var isvalid = true;
+
+			val = val.parseFloat();
 
 			if (item.min != null && val < item.min)
 				isvalid = false;
@@ -160,10 +219,12 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 			item.invalid = !isvalid;
 
 			if (isvalid) {
+				t.value =val + '';
 				item.value = val;
 				item.changed = item.prev !== val;
 				el.tclass(cls + '-changed', item.changed);
-				config.change && EXEC(config.change, item);
+				config.change && EXEC(self.makepath(config.change), item);
+				self.modifyval(item);
 				self.change(true);
 			}
 
@@ -190,7 +251,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 		});
 	};
 	types.number.render = function(item, next) {
-		next('<div class="{0}-number"><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pnumber" /></div>'.format(cls, 20, item.placeholder || '', Thelpers.encode(item.value + '')));
+		next('<div class="{0}-number"><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pnumber" /></div>'.format(cls, 20, item.placeholder || '', Thelpers.encode((item.value == null ? '' : item.value) + '')));
 	};
 
 	types.date = {};
@@ -211,10 +272,11 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 			item.value = val;
 			item.changed = !item.prev || item.prev.format(config.dateformat) !== val.format(config.dateformat);
 			self.findel(t).tclass(cls + '-changed', item.changed);
-			config.change && EXEC(config.change, item, function(val) {
+			config.change && EXEC(self.makepath(config.change), item, function(val) {
 				t.value = val;
 			});
 			self.change(true);
+			self.modifyval(item);
 			t.$processed = true;
 		});
 
@@ -259,8 +321,9 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 			item.value = el.hclass('checked');
 			item.changed = item.prev !== item.value;
 			self.findel(t).tclass(cls + '-changed', item.changed);
-			config.change && EXEC(config.change, item);
+			config.change && EXEC(self.makepath(config.change), item);
 			self.change(true);
+			self.modifyval(item);
 		});
 	};
 	types.bool.render = function(item, next) {
@@ -278,6 +341,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 			opt.element = $(t);
 			opt.items = typeof(item.items) === 'string' ? item.items.indexOf('/') === -1 ? GET(item.items) : item.items : item.items;
 			opt.custom = item.dircustom;
+			opt.minwidth = 80;
 			if (item.dirsearch)
 				opt.placeholder = item.dirsearch;
 			else if (item.dirsearch == false)
@@ -290,12 +354,21 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 					opt.element.find('span').html(value[item.dirkey || 'name']);
 					item.value = value[item.dirvalue || 'id'];
 				}
+
+				if (item.dircustom && item.dirappend !== false) {
+					if (!item.items)
+						item.items = [];
+					if (item.items.indexOf(item.value) === -1)
+						item.items.push(item.value);
+				}
+
 				item.changed = item.prev !== item.value;
 				self.findel(t).tclass(cls + '-changed', item.changed);
-				config.change && EXEC(config.change, item, function(val) {
+				config.change && EXEC(self.makepath(config.change), item, function(val) {
 					opt.element.find('span').text(val);
 				});
 				self.change(true);
+				self.modifyval(item);
 			};
 			SETTER('directory', 'show', opt);
 		});
@@ -322,17 +395,18 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 			var opt = {};
 			// opt.offsetY = -5;
 			// opt.offsetX = 6;
-			opt.align = 'center';
+			opt.align = config.modalalign;
 			opt.element = $(t);
 			opt.callback = function(value) {
 				opt.element.find('b').css('background-color', value);
 				item.value = value;
 				item.changed = item.prev !== item.value;
 				self.findel(t).tclass(cls + '-changed', item.changed);
-				config.change && EXEC(config.change, item, function(val) {
+				config.change && EXEC(self.makepath(config.change), item, function(val) {
 					opt.element.find('b').css('background-color', val);
 				});
 				self.change(true);
+				self.modifyval(item);
 			};
 			SETTER('colorpicker', 'show', opt);
 		});
@@ -347,16 +421,17 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 			var t = this;
 			var item = self.finditem(t);
 			var opt = {};
-			opt.align = 'center';
+			opt.align = config.modalalign;
 			opt.element = $(t);
 			opt.callback = function(value) {
 				opt.element.find('i').rclass().aclass(value);
 				item.value = value;
 				item.changed = item.prev !== item.value;
 				self.findel(t).tclass(cls + '-changed', item.changed);
-				config.change && EXEC(config.change, item, function(val) {
+				config.change && EXEC(self.makepath(config.change), item, function(val) {
 					opt.element.find('i').rclass().aclass(val);
 				});
+				self.modifyval(item);
 				self.change(true);
 			};
 			SETTER('faicons', 'show', opt);
@@ -372,17 +447,18 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 			var t = this;
 			var item = self.finditem(t);
 			var opt = {};
-			opt.align = 'center';
+			opt.align = config.modalalign;
 			opt.element = $(t);
 			opt.callback = function(value) {
 				opt.element.html(value);
 				item.value = value;
 				item.changed = item.prev !== item.value;
 				self.findel(t).tclass(cls + '-changed', item.changed);
-				config.change && EXEC(config.change, item, function(val) {
+				config.change && EXEC(self.makepath(config.change), item, function(val) {
 					opt.element.html(val);
 				});
 				self.change(true);
+				self.modifyval(item);
 			};
 			SETTER('emoji', 'show', opt);
 		});
@@ -413,12 +489,13 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 					item.value = response;
 					item.changed = item.prev !== item.value;
 					self.findel(t).tclass(cls + '-changed', item.changed);
-					config.change && EXEC(config.change, item, function(val) {
+					config.change && EXEC(self.makepath(config.change), item, function(val) {
 						self.findel(cls2 + '-filename').text(val);
 					});
 					SETTER('loading', 'hide', 1000);
 					file.value = '';
 					self.change(true);
+					self.modifyval(item);
 				});
 			}).trigger('click');
 		});
@@ -461,7 +538,14 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 
 	self.render = function(item, index) {
 		var type = types[item.type === 'boolean' ? 'bool' : item.type];
-		var el = $('<div class="{0}-item" data-index="{1}"><div class="{0}-key">{{ label }}</div><div class="{0}-value">&nbsp;</div></div>'.format(cls, index).arg(item));
+		var c = cls;
+
+		if (item.show) {
+			if (!funcs[item.name + '_show'](values))
+				c = 'hidden ' + c;
+		}
+
+		var el = $('<div class="{2}-item" data-index="{1}"><div class="{0}-key">{{ label }}</div><div class="{0}-value">&nbsp;</div></div>'.format(cls, index, c).arg(item));
 		type.render(item, function(html) {
 			el.find(cls2 + '-value').html(html);
 		});
@@ -475,8 +559,16 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 			return;
 		}
 
+		if (!value)
+			value = EMPTYARRAY;
+
 		container.empty();
+
 		var groups = {};
+
+		values = {};
+		funcs = {};
+
 		for (var i = 0; i < value.length; i++) {
 			var item = value[i];
 			var g = item.group || 'Default';
@@ -494,14 +586,19 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 				case 'date':
 					item.prev = item.value ? item.value.format(config.dateformat) : null;
 					break;
-				case 'number':
-				case 'bool':
-				case 'boolean':
-				case 'list':
+				// case 'number':
+				// case 'bool':
+				// case 'boolean':
+				// case 'list':
+				default:
 					item.prev = item.value;
 					break;
 			}
 
+			if (item.show)
+				funcs[item.name + '_show'] = typeof(item.show) === 'string' ? FN(item.show) : item.show;
+
+			values[item.name] = item.value;
 			groups[g].html.push(self.render(item, i));
 		}
 
