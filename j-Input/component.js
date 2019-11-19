@@ -674,11 +674,11 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		if (!config.forcevalidation)
 			return false;
 
-		var val = self.get();
-
 		if (self.type === 'number')
-			return true;
+			return false;
 
+		var val = self.get();
 		return (self.type === 'phone' || self.type === 'email') && (val != null && (typeof(val) === 'string' && val.length !== 0));
 	};
+
 });
