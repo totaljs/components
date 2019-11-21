@@ -51,7 +51,6 @@ __Configuration__:
 - __NEW__ `searchalign` {Number} can align icon on `type:search` to left (`2`) or right (`1`, default)
 - __NEW__ `forcevalidation` {Boolean} enables for force validation for `phone` and `email` (default: `true`)
 - __NEW__ `camouflage` {Boolean/String} masks the value in the input after is triggered `blur` event (default: `false`) or it can be `String` which will be used as a camouflage
-- __NEW__ `dirraw` {Boolean} optional, disables escaping in `j-Directory` (default: `false`)
 
 __Interesting:__
 
