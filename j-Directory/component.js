@@ -375,8 +375,9 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		opt.class && self.aclass(opt.class);
 
 		input.val('');
+
 		var builder = [];
-		var ta = opt.key ? Tangular.compile(template.replace(/\{\{\sname/g, '{{ ' + opt.key)) : opt.raw ? self.templateraw : self.template;
+		var ta = opt.key ? Tangular.compile((opt.raw ? templateraw : template).replace(/\{\{\sname/g, '{{ ' + opt.key)) : opt.raw ? self.templateraw : self.template;
 		var selected = null;
 
 		if (!opt.ajax) {
