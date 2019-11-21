@@ -1,6 +1,10 @@
 <div data---="listmenu__listmenu.selected__datasource:listmenu.datasource" class="listmenu">
 	<script type="text/html">
-		<a href="#">{{ name }}</a>
+		{{ if id && id !== '-' }}
+			<a href="#">{{ name }}</a>
+		{{ else }}
+			<hr />
+		{{ fi }}
 	</script>
 </div>
 
