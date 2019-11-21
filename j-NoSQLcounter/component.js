@@ -1,6 +1,6 @@
 COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config) {
 
-	var cls = 'ui-nosqlcounter';
+	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
 	var months = MONTHS;
 	var container, labels;
