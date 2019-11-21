@@ -14,7 +14,8 @@
 .ui-windows-dragged .ui-windows-title { background-color: #FAFAFA; }
 .ui-windows-focused { z-index: 90; }
 .ui-windows-maximized { box-shadow: none; }
-.ui-windows-maximized .ui-windows-title { border-left: 0; border-right: 0; }
+.ui-windows-maximized .ui-windows-title { border-left: 0; border-right: 0; border-radius: 0; border-top: 0 }
+.ui-windows-maximized .ui-windows-control { height: 31px; }
 .ui-windows-maximized .ui-windows-body { border: 0; }
 .ui-windows-maximized .ui-windows-title .fa-window-maximize:before { content: '\f2d2'; }
 .ui-windows-minimized .ui-windows-body { display: none; }

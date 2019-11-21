@@ -113,14 +113,9 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 			drag.height = drag.body.height();
 		} else {
 			drag.el = el.closest(cls2 + '-item');
-			if (drag.touch) {
-				pos = drag.el.position();
-				drag.x = e.pageX - pos.left;
-				drag.y = e.pageY - pos.top;
-			} else {
-				drag.x = e.offsetX;
-				drag.y = e.offsetY;
-			}
+			pos = drag.el.position();
+			drag.x = e.pageX - pos.left;
+			drag.y = e.pageY - pos.top;
 		}
 
 		drag.el.aclass(cls + '-block');
