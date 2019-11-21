@@ -1,4 +1,4 @@
-COMPONENT('listmenu', 'class:selected;selector:a;attr:id;property:id;click:true', function(self, config) {
+COMPONENT('listmenu', 'class:selected;selector:a;property:id;click:true', function(self, config) {
 
 	var old, oldvalue;
 
@@ -38,12 +38,41 @@ COMPONENT('listmenu', 'class:selected;selector:a;attr:id;property:id;click:true'
 		self.html(builder.join(''));
 
 		config.click && self.find(config.selector).on('click', function() {
-			var id = $(this).attrd(config.attr);
-			var item = self.get(self.makepath(config.datasource)).findItem(config.property, id);
-			self.set(item[config.property]);
+			var arr = self.find(config.selector).toArray();
+			var index = arr.indexOf(this);
+			if (index !== -1) {
+				var item = self.finditem(self.get(self.makepath(config.datasource)), index);
+				item && self.set(item[config.property]);
+			}
 		});
 
 		self.refresh();
+	};
+
+	self.finditem = function(arr, index) {
+		var j = 0;
+		for (var i = 0; i < arr.length; i++) {
+			var item = arr[i];
+			var id = item[config.property];
+			if (id && id != '-') {
+				if (index === j)
+					return item;
+				j++;
+			}
+		}
+	};
+
+	self.findindex = function(arr, value) {
+		var j = 0;
+		for (var i = 0; i < arr.length; i++) {
+			var item = arr[i];
+			var id = item[config.property];
+			if (id && id != '-') {
+				if (id === value)
+					return j;
+				j++;
+			}
+		}
 	};
 
 	self.setter = function(value) {
@@ -51,10 +80,12 @@ COMPONENT('listmenu', 'class:selected;selector:a;attr:id;property:id;click:true'
 		if (arr && arr.length) {
 			if (value === oldvalue)
 				return;
+
 			oldvalue = value;
 			old && old.rclass(config.class);
+			var index = self.findindex(arr, value);
 			if (value)
-				old = self.find(config.selector + '[data-' + config.attr + '="' + value + '"').aclass(config.class);
+				old = self.find(config.selector).eq(index).aclass(config.class);
 		}
 	};
 });

@@ -1,6 +1,6 @@
-<div data-jc="listmenu__listmenu.selected__datasource:listmenu.datasource" class="listmenu">
+<div data---="listmenu__listmenu.selected__datasource:listmenu.datasource" class="listmenu">
 	<script type="text/html">
-		<a href="javascript:select({{ id }})">{{ name }}</a>
+		<a href="#">{{ name }}</a>
 	</script>
 </div>
 
@@ -14,18 +14,17 @@
 	// Data-Source
 	listmenu.datasource = [];
 	listmenu.datasource.push({ id: 1, name: 'List Item 1' });
+	listmenu.datasource.push({ id: '-' });
 	listmenu.datasource.push({ id: 2, name: 'List Item 2' });
 	listmenu.datasource.push({ id: 3, name: 'List Item 3' });
 	listmenu.datasource.push({ id: 4, name: 'List Item 4' });
 	listmenu.datasource.push({ id: 5, name: 'List Item 5' });
+	listmenu.datasource.push({});
 	listmenu.datasource.push({ id: 6, name: 'List Item 6' });
+	listmenu.datasource.push({});
 	listmenu.datasource.push({ id: 7, name: 'List Item 7' });
 	listmenu.datasource.push({ id: 8, name: 'List Item 8' });
 	listmenu.datasource.push({ id: 9, name: 'List Item 9' });
 	listmenu.datasource.push({ id: 0, name: 'List Item 0' });
-
-	function select(id) {
-		SET('listmenu.selected', id);
-	}
 
 </script>
