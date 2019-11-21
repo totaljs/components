@@ -221,6 +221,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			opt.maxwidth = config.dirmaxwidth;
 			opt.key = config.dirkey || config.key;
 			opt.empty = config.dirempty;
+			opt.raw = opt.dirraw || false;
 
 			if (config.dirsearch === false)
 				opt.search = false;
