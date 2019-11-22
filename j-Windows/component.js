@@ -98,6 +98,8 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 		drag.resize = el.hclass(cls + '-resize');
 		drag.is = false;
 
+		e.preventDefault();
+
 		var myoffset = self.element.position();
 		var pos;
 
@@ -106,7 +108,9 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 			drag.el = el.closest(cls2 + '-item');
 			drag.dir = c.match(/-(tl|tr|bl|br)/)[0].substring(1);
 			pos = drag.el.position();
+			var m = self.element.offset();
 			drag.body = drag.el.find(cls2 + '-body');
+			drag.plus = m;
 			drag.x = pos.left;
 			drag.y = pos.top;
 			drag.width = drag.el.width();
@@ -148,11 +152,11 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 
 		if (drag.resize) {
 
-			var x = evt.pageX - drag.offX;
-			var y = evt.pageY - drag.offY;
+			var x = evt.pageX - drag.offX - drag.plus.left;
+			var y = evt.pageY - drag.offY - drag.plus.top;
+			var off = drag.item.meta.offset;
 			var w;
 			var h;
-			var off = drag.item.meta.offset;
 
 			switch (drag.dir) {
 
