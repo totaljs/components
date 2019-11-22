@@ -5,7 +5,7 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# it
 	var cachePages = 0;
 	var cacheCount = 0;
 
-	self.template = Tangular.compile('<a href="#{{ page }}" class="page{{ if selected }} selected{{ fi }}" data-page="{{ page }}">{{ page }}</a>');
+	self.template = Tangular.compile('<span class="page{{ if selected }} selected{{ fi }}" data-page="{{ page }}">{{ page }}</span>');
 	self.readonly();
 	self.nocompile && self.nocompile();
 
@@ -14,14 +14,13 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# it
 		self.append('<div></div><nav></nav>');
 		nav = self.find('nav');
 		info = self.find('div');
-		self.event('click', 'a', function(e) {
+
+		self.event('click', '.page', function(e) {
 			e.preventDefault();
 			e.stopPropagation();
 			var el = $(this);
-
 			self.find('.selected').rclass('selected');
 			el.aclass('selected');
-
 			self.page && self.page(+el.attr('data-page'), el);
 		});
 	};
@@ -101,7 +100,7 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# it
 			var prev = value.page - 1;
 			if (prev <= 0)
 				prev = cachePages;
-			builder.push('<a href="#prev" class="page" data-page="{0}"><i class="fa fa-arrow-left"></i></a>'.format(prev));
+			builder.push('<span class="page" data-page="{0}"><i class="fa fa-arrow-left"></i></span>'.format(prev));
 		}
 
 		var max = config.max || 8;
@@ -114,7 +113,7 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# it
 			var next = value.page + 1;
 			if (next > cachePages)
 				next = 1;
-			builder.push('<a href="#next" class="page" data-page="{0}"><i class="fa fa-arrow-right"></i></a>'.format(next));
+			builder.push('<span class="page" data-page="{0}"><i class="fa fa-arrow-right"></i></span>'.format(next));
 		}
 
 		nav.empty().append(builder.join(''));
