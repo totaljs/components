@@ -118,14 +118,13 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# it
 
 		nav.empty().append(builder.join(''));
 
-		if (!is)
-			return;
-
-		var pluralize_pages = [cachePages];
-		var pluralize_items = [cacheCount];
-		pluralize_pages.push.apply(pluralize_pages, (config.pages || '').split(',').trim());
-		pluralize_items.push.apply(pluralize_items, (config.items || '').split(',').trim());
-		info.empty().append(Tangular.helpers.pluralize.apply(value, pluralize_pages) + ' / ' + Tangular.helpers.pluralize.apply(value, pluralize_items));
-		self.tclass('hidden', cachePages < 1);
+		if (is) {
+			var pluralize_pages = [cachePages];
+			var pluralize_items = [cacheCount];
+			pluralize_pages.push.apply(pluralize_pages, (config.pages || '').split(',').trim());
+			pluralize_items.push.apply(pluralize_items, (config.items || '').split(',').trim());
+			info.empty().append(Tangular.helpers.pluralize.apply(value, pluralize_pages) + ' / ' + Tangular.helpers.pluralize.apply(value, pluralize_items));
+			self.tclass('hidden', cachePages < 1);
+		}
 	};
 });
