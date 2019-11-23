@@ -1,4 +1,4 @@
-COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:false', function(self, config) {
+COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:false;margin:0', function(self, config) {
 
 	var W = window;
 	var cls = 'ui-panel';
@@ -47,7 +47,12 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 
 	self.resize = function() {
 		var el = self.element.find(cls2 + '-body');
-		el.height(WH - self.find(cls2 + '-header').height());
+		var h = WH - self.find(cls2 + '-header').height();
+		el.height(h);
+
+		if (config.container)
+			el.find(config.container).height(h - config.margin);
+
 		self.scrollbar && self.scrollbar.resize();
 	};
 
@@ -64,9 +69,16 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 		var el = $('#' + self.ID);
 
 		var body = el.find(cls2 + '-body');
-		body[0].appendChild(self.dom);
+
+		while (self.dom.children.length)
+			body[0].appendChild(self.dom.children[0]);
+
+		self.rclass('hidden');
+		self.replace(el);
 
 		if (config.scrollbar && window.SCROLLBAR) {
+			if (config.container)
+				body = body.find(config.container);
 			self.scrollbar = SCROLLBAR(body, { visibleY: !!config.scrollbarY });
 			self.scrollleft = self.scrollbar.scrollLeft;
 			self.scrolltop = self.scrollbar.scrollTop;
@@ -75,8 +87,6 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 		} else
 			body.aclass(cls + '-scroll');
 
-		self.rclass('hidden');
-		self.replace(el);
 		self.event('click', 'button[name],.cancel', function() {
 			switch (this.name) {
 				case 'menu':
