@@ -15,13 +15,15 @@ Example: `data-jc-config="title:Panel title;if:user;icon:home"`
 - `default` {String} optional, a short alias for `DEFAULT(default, true)`
 - `closebutton` {Boolean} optional, can hide `x` button (default: `false`)
 - `width` {Number} optional, a default width of the panel (default: `300`)
-- __NEW__: `bg` {Boolean} optional, can disable `background` (default: `true`)
-- __NEW__: `bgclose` {Boolean} optional, if the user click on the background then the panel will be closed (default: `false`)
-- __NEW__: `zindex` {Number} optional, can affect z-index (default: `12`)
-- __NEW__: `close` {String} optional, path/method is executed as `path_to_method(com)` when the user closes the panel manually via close button
-- __NEW__: `scrollbar` {Boolean} optional, enables custom scrollbar (default: `true`)
-- __NEW__: `scrollbarY` {Boolean} optional, shows vertical custom scrollbar (default: `false`)
-- __NEW__: `menu` {String} optional, a link to function (panel will show a button with burger icon in title bar)
+- `bg` {Boolean} optional, can disable `background` (default: `true`)
+- `bgclose` {Boolean} optional, if the user click on the background then the panel will be closed (default: `false`)
+- `zindex` {Number} optional, can affect z-index (default: `12`)
+- `close` {String} optional, path/method is executed as `path_to_method(com)` when the user closes the panel manually via close button
+- `scrollbar` {Boolean} optional, enables custom scrollbar (default: `true`)
+- `scrollbarY` {Boolean} optional, shows vertical custom scrollbar (default: `false`)
+- `menu` {String} optional, a link to function (panel will show a button with burger icon in title bar)
+- __NEW__ `container` {String} optional, jQuery selector (this container means a container for scrollbar)
+- __NEW__ `margin` {Number} optional, a margin for `container` and its `scrollbar` (it works with `container` only)
 
 __Good to know__:
 
