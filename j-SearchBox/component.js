@@ -7,6 +7,7 @@ COMPONENT('searchbox', 'cleartype:1;keypress:0;autotrim:1', function(self, confi
 	var type = {};
 	var skip = false;
 	var initialized = false;
+	var hidetimeout;
 
 	self.readonly();
 	self.nocompile && self.nocompile();
@@ -32,12 +33,16 @@ COMPONENT('searchbox', 'cleartype:1;keypress:0;autotrim:1', function(self, confi
 			}
 		});
 
-		els.searchinput.on('blur focusout', function(e) {
-			isvisible = false;
-			self.refresh();
+		els.searchinput.on('blur focusout', function() {
+			hidetimeout && clearTimeout(hidetimeout);
+			hidetimeout = setTimeout(function() {
+				hidetimeout = null;
+				isvisible = false;
+				self.refresh();
+			}, 100);
 		});
 
-		els.searchinput.on('focusin', function(e) {
+		els.searchinput.on('focusin', function() {
 			self.focus();
 		});
 
@@ -58,6 +63,8 @@ COMPONENT('searchbox', 'cleartype:1;keypress:0;autotrim:1', function(self, confi
 		});
 
 		els.type.on('click', function() {
+			hidetimeout && clearTimeout(hidetimeout);
+			isvisible = true;
 			config.clicktype && EXEC(config.clicktype, self, type, els.searchinput.val());
 		});
 	};
@@ -111,7 +118,7 @@ COMPONENT('searchbox', 'cleartype:1;keypress:0;autotrim:1', function(self, confi
 		model.value = val;
 
 		if (isenter && config.exec)
-			SEEX(config.exec, model, self);
+			SEEX(config.exec, model, self, type);
 
 		skip = true;
 
@@ -150,7 +157,7 @@ COMPONENT('searchbox', 'cleartype:1;keypress:0;autotrim:1', function(self, confi
 		els.type.html(html);
 
 		if (!noemit)
-			self.modifiedvalue('type');
+			self.modifiedvalue('type', true);
 
 		self.resize();
 	};
