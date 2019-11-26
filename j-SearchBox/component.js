@@ -100,7 +100,7 @@ COMPONENT('searchbox', 'cleartype:1;keypress:0;autotrim:1', function(self, confi
 		}
 	};
 
-	self.modifiedvalue = function(type, isenter) {
+	self.modifiedvalue = function(caller, isenter) {
 
 		var val = els.searchinput.val();
 		var model = self.get();
@@ -118,7 +118,7 @@ COMPONENT('searchbox', 'cleartype:1;keypress:0;autotrim:1', function(self, confi
 		model.value = val;
 
 		if (isenter && config.exec)
-			SEEX(config.exec, model, self, type);
+			SEEX(config.exec, model, self, caller);
 
 		skip = true;
 
