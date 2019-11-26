@@ -1,4 +1,4 @@
-COMPONENT('searchbox', 'cleartype:1;keypress:0;autotrim:1', function(self, config) {
+COMPONENT('searchbox', 'cleartype:0;keypress:0;autotrim:1', function(self, config) {
 
 	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
