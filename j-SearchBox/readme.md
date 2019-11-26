@@ -13,6 +13,10 @@ __Configuration__:
 - `autotrim` {Boolean} trims the value automatically (default: `true`)
 - `clicktype` {String} a link to the `function(component, currenttype, currentvalue)`, it will be executed if the user clicks on the `type` (a new `type` must be set via `component.type(html, value)`)
 
+__Methods__:
+
+- `component.type(html, id, [noemit])` adds a new type before the search input
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
