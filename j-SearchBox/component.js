@@ -114,6 +114,16 @@ COMPONENT('searchbox', 'cleartype:0;keypress:0;autotrim:1', function(self, confi
 			model = {};
 		}
 
+		if (!model.value)
+			model.value = '';
+
+		if (!model.type)
+			model.type = '';
+
+		var ischange = model.type !== type.value || model.value !== val;
+		if (!ischange)
+			return;
+
 		model.type = type.value;
 		model.value = val;
 
