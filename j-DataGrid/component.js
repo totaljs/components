@@ -272,7 +272,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		self.IDCSS = GUID(5);
 		self.aclass('dg dg-noscroll dg-' + self.IDCSS);
 
-		self.find('script').each(function(index) {
+		self.find('script').each(function() {
 			var el = $(this);
 			var id = el.attrd('id');
 
@@ -284,7 +284,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		});
 
 		if (schemas.default) {
-			self.rebind(schemas.default)
+			self.rebind(schemas.default);
 			schemas.$current = 'default';
 		}
 
@@ -1857,7 +1857,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			return;
 		}
 
-		if (value.schema && schemas.$current !== value.schema) {
+		if (value && value.schema && schemas.$current !== value.schema) {
 			schemas.$current = value.schema;
 			self.rebind(value.schema);
 			setTimeout(function() {
