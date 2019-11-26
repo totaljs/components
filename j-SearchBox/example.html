@@ -1,5 +1,5 @@
 
-<div data---="searchbox__null__exec:searchbox_enter;autocomplete:searchbox_autocomplete;placeholder:Search and press enter ..."></div>
+<div data---="searchbox__null__exec:searchbox_enter;init:searchbox_init;placeholder:Search and press enter ..."></div>
 
 <script>
 	function searchbox_enter(model, component) {
@@ -10,7 +10,7 @@
 		alert(model.value);
     }
 
-    function searchbox_autocomplete(component) {
+    function searchbox_init(component) {
     	component.type('<i class="fa fa-user"></i> By name', 'name');
     }
 

@@ -6,6 +6,7 @@ COMPONENT('searchbox', 'cleartype:1;keypress:0;autotrim:1', function(self, confi
 	var isvisible = false;
 	var type = {};
 	var skip = false;
+	var initialized = false;
 
 	self.readonly();
 	self.nocompile && self.nocompile();
@@ -24,11 +25,20 @@ COMPONENT('searchbox', 'cleartype:1;keypress:0;autotrim:1', function(self, confi
 		els.placeholder.on('click', function() {
 			isvisible = true;
 			self.refresh();
+			forcefocus();
+			if (!initialized) {
+				config.init && EXEC(config.init, self);
+				initialized = true;
+			}
 		});
 
-		els.searchinput.on('blur', function() {
+		els.searchinput.on('blur focusout', function(e) {
 			isvisible = false;
 			self.refresh();
+		});
+
+		els.searchinput.on('focusin', function(e) {
+			self.focus();
 		});
 
 		els.searchinput.on('input', function() {
@@ -63,6 +73,10 @@ COMPONENT('searchbox', 'cleartype:1;keypress:0;autotrim:1', function(self, confi
 		}
 
 		self.refresh();
+	};
+
+	self.focus = function() {
+		config.autocomplete && EXEC(config.autocomplete, self, els.searchinput);
 	};
 
 	var forcefocus = function() {
@@ -116,9 +130,6 @@ COMPONENT('searchbox', 'cleartype:1;keypress:0;autotrim:1', function(self, confi
 		var div = els.searchinput.parent();
 		var w = els.type.width();
 		div.css('margin-left', w + 5);
-		forcefocus();
-		setTimeout(forcefocus, 500);
-		config.autocomplete && EXEC(config.autocomplete, self, els.searchinput);
 	};
 
 	self.refresh = function() {
@@ -131,13 +142,17 @@ COMPONENT('searchbox', 'cleartype:1;keypress:0;autotrim:1', function(self, confi
 
 	self.type = function(html, value, noemit) {
 
+		if (type.html === html && type.value === value)
+			return;
+
 		type.html = html;
 		type.value = value;
 		els.type.html(html);
-		self.resize();
 
 		if (!noemit)
 			self.modifiedvalue('type');
+
+		self.resize();
 	};
 
 	self.setter = function(value) {
