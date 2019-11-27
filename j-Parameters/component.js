@@ -195,6 +195,9 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5;margin:0',
 
 	self.setter = function(value) {
 
+		if (!value)
+			return;
+
 		if (skip) {
 			skip = false;
 			return;
