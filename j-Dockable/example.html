@@ -1,0 +1,41 @@
+<style>
+	body{padding:0;margin:0;overflow:hidden;}
+</style>
+
+<div data---="dockable__mypanels">
+
+	<div class="padding">
+		YOUR CONTENT
+	</div>
+
+</div>
+
+<script>
+
+	var mypanels = [];
+
+	mypanels.push({
+		id: 'A',
+		offset: { x: 200, y: 100, width: 250, height: 400, minwidth: 200, minheight: 200, docked: 'left' },
+		title: 'Components',
+		html: '<div class="padding">Lorem ipsum dolor sit amet.</div>',
+		actions: { move: true, resize: true, close: false, dockable: 'left right bottom' }
+	});
+
+	mypanels.push({
+		id: 'B',
+		offset: { x: 600, y: 300, width: 250, height: 400, minwidth: 200, minheight: 200, docked: 'right' },
+		title: 'Properties',
+		html: '<div class="padding">Lorem ipsum dolor sit amet.</div>',
+		actions: { move: true, resize: true, close: true, dockable: 'left right bottom' }
+	});
+
+	mypanels.push({
+		id: 'C',
+		offset: { x: 600, y: 300, width: 300, height: 200, minwidth: 200, minheight: 200, docked: 'bottom' },
+		title: 'Console',
+		html: '<div class="padding">Lorem ipsum dolor sit amet.</div>',
+		actions: { move: true, resize: true, close: true, dockable: 'right bottom' }
+	});
+
+</script>

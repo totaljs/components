@@ -1,0 +1,45 @@
+.ui-dockable-item { position: absolute; border-radius: 2px; box-shadow: 0 10px 20px rgba(0,0,0,0.03); background-color: white; z-index: 80; }
+.ui-dockable-title { border: 1px solid #E0E0E0; border-radius: 2px 2px 0 0; height: 20px; }
+.ui-dockable-control { float: left; width: 18px; text-align: center; line-height: 18px; cursor: pointer; font-size: 11px; color: gray; border-right: 1px solid #E0E0E0; }
+.ui-dockable-control:hover { background-color: #F9F9F9; }
+.ui-dockable-title span { cursor: default; line-height: 18px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-weight: bold; font-size: 11px; }
+.ui-dockable-nomove .ui-dockable-title span { cursor: default; }
+.ui-dockable-title span i { margin-right: 5px; }
+.ui-dockable-body { border: 1px solid #E0E0E0; border-top: 0; border-radius: 0 0 2px 2px; }
+.ui-dockable-dragged { z-index: 100; }
+.ui-dockable-dragged .ui-dockable-title { background-color: #FAFAFA; }
+.ui-dockable-focused { z-index: 90; }
+.ui-dockable-noclose .ui-dockable-control[data-name='close'] { display: none; }
+.ui-dockable-noresize .ui-dockable-resize { display: none; }
+.ui-dockable-resize { position: absolute; width: 5px; height: 5px; }
+.ui-dockable-resize-tl { left: 0; top: 0; cursor: nwse-resize; }
+.ui-dockable-resize-tr { right: 0; top: 0; cursor: nesw-resize; }
+.ui-dockable-resize-bl { left: 0; bottom: 0; cursor: nesw-resize; }
+.ui-dockable-resize-br { right: 0; bottom: 0; cursor: nwse-resize; }
+.ui-dockable-block iframe, .ui-dockable-block webview { pointer-events: none; }
+.ui-dockable-ruler { width: 10px; height: 10px; background-color: black; position: absolute; z-index: 100; left: 0; top: 0; }
+
+.ui-dockable-layout { position: absolute; }
+.ui-dockable-docked { border-top: 0; border-bottom: 0; box-shadow: none; z-index: 70; }
+.ui-dockable-docked .ui-dockable-control { display: none; }
+.ui-dockable-docked .ui-dockable-body { border-radius: 0; }
+.ui-dockable-docked .ui-dockable-title { border-radius: 0; background-color: #F8F8F8; }
+.ui-dockable-docked-left .ui-dockable-body { border-left: 0; border-top: 0; border-bottom: 0; }
+.ui-dockable-docked-left .ui-dockable-title { border-left: 0; border-top: 0; }
+.ui-dockable-docked-right .ui-dockable-body { border-right: 0; border-top: 0; border-bottom: 0; }
+.ui-dockable-docked-right .ui-dockable-title { border-right: 0; border-top: 0; }
+.ui-dockable-docked-bottom .ui-dockable-body { border-bottom: 0; }
+.ui-dockable-docked-bottom .ui-dockable-title { border-right: 0; border-left: 0; }
+.ui-dockable-style2 .ui-dockable-docked-bottom .ui-dockable-body { border-left: 0; border-right: 0; }
+.ui-dockable-docked-left .ui-dockable-resize-tr { height: 100%; cursor: col-resize; }
+.ui-dockable-docked-right .ui-dockable-resize-tl { height: 100%; cursor: col-resize; }
+.ui-dockable-docked-bottom .ui-dockable-resize-tl { width: 100%; cursor: row-resize; }
+
+.ui-dark .ui-dockable-item { background-color: #202020; box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+.ui-dark .ui-dockable-docked .ui-dockable-title { background-color: #303030; }
+.ui-dark .ui-dockable-title { border-color: #404040; }
+.ui-dark .ui-dockable-body { border-color: #404040; }
+.ui-dark .ui-dockable-control { border-right-color: #404040; }
+.ui-dark .ui-dockable-ruler { background-color: white; }
+.ui-dark .ui-dockable-dragged .ui-dockable-title { background-color: #272727; }
+.ui-dark .ui-dockable-control:hover { background-color: #404040; }
