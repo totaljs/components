@@ -24,7 +24,7 @@ __Datasource structure__:
 ```
 
 __Good to know__:
-- __PATH__ can be used as dynamic version. It'll refresh assets e.g. `SET('version', '1.35')`
+- __PATH__ can be used as dynamic version. It'll refresh assets instantly (without page reloading) e.g. `SET('version', '1.35')`
 - After add/remove something from assets, you doesn't need to increase version
 - __fallback__ performs offline version of html. e.g. `fallback: '/offline.html'`
 - Assets can be everything: fonts, partial pages, css files, javascript files
