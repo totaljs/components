@@ -1,6 +1,5 @@
 <style>
 	body { background-color: #E0E0E0; }
-	.myclass .ui-menu-items { border-color: #bada55; }
 </style>
 
 <div data-jc="menu"></div>
@@ -17,10 +16,9 @@
 	$(document).on('click', 'a', function() {
 
 		var opt = {};
-		opt.items = ['Label', { name: 'Item 1', icon: 'print', classname: 'custom_class_name' }, { name: 'Item 2', icon: 'home', note: 'A simple description for this item' }, '-', { name: 'Item 3', icon: '!far fa-envelope', children: [{ name: 'Submenu item 1', icon: 'cog' }, { name: 'Submenu item 2', icon: 'home' }] }, { name: 'SElected', icon: 'check-circle', selected: true }];
+		opt.items = ['Label', { name: 'Item 1', icon: 'print', classname: 'custom_class_name' }, { name: 'Item 2', icon: 'home', note: 'A simple description for this item' }, '-', { name: 'Item 3', icon: '!far fa-envelope', children: [{ name: 'Submenu item 1', icon: 'cog' }, { name: 'Submenu item 2', icon: 'home' }] }, { name: 'Selected', icon: 'check-circle', selected: true }];
 		opt.align = 'center';
 		opt.element = this;
-		opt.classname = 'myclass';
 		opt.callback = function(selected) {
 			console.log(selected);
 		};
