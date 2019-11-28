@@ -17,8 +17,8 @@
 
     function searchbox_type(component) {
     	var opt = {};
-		opt.items = [{ name: 'By name', value: 'name', icon: 'user' }, { name: 'By subject', value: 'subject', icon: 'text-width' }, { name: 'By body', value: 'name', icon: 'file-alt' }];
-		opt.align = 'center';
+		opt.items = [{ name: 'By name', value: 'name', icon: 'user' }, { name: 'By subject', value: 'subject', icon: 'text-width' }, { name: 'By body', value: 'body', icon: 'file-alt' }];
+		opt.align = 'left';
 		opt.element = component.element;
 		opt.callback = function(selected) {
 			component.type('<i class="fa fa-{0}"></i> {1}'.format(selected.icon, selected.name), selected.value, true);
