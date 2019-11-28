@@ -179,5 +179,6 @@
 	"j-Dashboard",
 	"j-Tour",
 	"j-Properties",
-	"j-Windows"
+	"j-Windows",
+	"j-InfiniteScroll"
 ]

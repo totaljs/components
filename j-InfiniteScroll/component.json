@@ -1,0 +1,19 @@
+{
+	"datecreated": "2019-11-28T19:12:00.000Z",
+	"dateupdated": null,
+	"name": "j-InfiniteScroll",
+	"tags": [
+		"scroll",
+		"infinite",
+		"infinity"
+	],
+	"color": "white",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "info@totalavengers.com",
+	"license": "https://www.totaljs.com/license/"
+}

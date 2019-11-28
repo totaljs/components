@@ -1,0 +1,23 @@
+<div style="width:500px;height:300px;border:1px solid red">
+	<div data---="infinitescroll__null__exec:add_new_content">
+		<div style="height:1000px">Some content</div>
+	</div>
+</div>
+
+<script>
+	function add_new_content(next, el, init) {
+
+		// init
+		if (init)
+			return;
+
+		setTimeout(function() {
+			// el.append(...);
+			// or
+			next('<div style="height:500px">' + new Date().format('HH:mm:ss') + '</div>');
+
+			// or if the content doesn't exist:
+			// next();
+		}, 1000);
+	}
+</script>
