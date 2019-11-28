@@ -35,6 +35,10 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 				break;
 			case 'minheight':
 			case 'margin':
+			case 'marginxs':
+			case 'marginsm':
+			case 'marginmd':
+			case 'marginlg':
 				!init && self.resize();
 				break;
 			case 'selector': // backward compatibility
@@ -95,6 +99,12 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		var el = config.parent ? config.parent === 'window' ? $(W) : config.parent === 'parent' ? self.parent() : self.element.closest(config.parent) : self.parent();
 		var h = el.height();
 		var w = el.width();
+		var width = WIDTH();
+		var margin = config.margin;
+		var responsivemargin = config['margin' + width];
+
+		if (responsivemargin != null)
+			margin = responsivemargin;
 
 		if (h === 0 || w === 0) {
 			self.$waiting && clearTimeout(self.$waiting);
@@ -102,7 +112,7 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 			return;
 		}
 
-		h = ((h / 100) * config.height) - config.margin;
+		h = ((h / 100) * config.height) - margin;
 
 		if (config.minheight && h < config.minheight)
 			h = config.minheight;

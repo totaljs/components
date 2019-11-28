@@ -17,7 +17,11 @@ __Configuration__:
 - `visibleY` {Boolean} still shows `Y` scrollbar (default: `false`)
 - `visibleX` {Boolean} still shows `X` scrollbar (default: `false`)
 - `margin` {Number} optional, a top/bottom margin together (default: `0`)
-- __NEW__: `scrolltop` {Boolean} scrolls to top automatically if the `path` is changed (default: `false`)
+- `scrolltop` {Boolean} scrolls to top automatically if the `path` is changed (default: `false`)
+- __NEW__: `marginxs` {Number} optional, a top/bottom margin together for `xs` screen width
+- __NEW__: `marginsm` optional, a top/bottom margin together for `sm` screen width
+- __NEW__: `marginmd` optional, a top/bottom margin together for `md` screen width
+- __NEW__: `marginlg` optional, a top/bottom margin together for `lg` screen width
 
 __Methods__:
 

@@ -26,6 +26,7 @@ __Data-source__ needs to contain:
 
 ```javascript
 {
+	schema: 'schema_id', // NEW: optional, DataGrid supports multiple schemas (it means: multiple declaration of columns)
     items: [{ name: 'Row 1' }, { name: 'Row 2' }, ...] // items
     page: 1,    // current pages
     pages: 30,  // count of pages
@@ -122,12 +123,13 @@ __Methods__:
 - `component.select(row)` selects `row` must be the same object as in data-source
 - `component.editcolumn(row_index, col_index)` executes `config.change` internally (only for advanced usage)
 - `component.applyfilter(obj)` can apply a custom filter `{ name: 'Peter', age: '20 - 50' }`
-- __NEW__ `component.resetcolumns()` resets columns
-- __NEW__ `component.readfilter()` returns a current filter
+- `component.resetcolumns()` resets columns
+- `component.readfilter()` returns a current filter
+- __NEW__ `component.rebind(schemaname__or__columnsdeclaration)` the method rebinds the schema
 
 __Properties__:
 
-- __NEW__ `component.meta` returns internal meta info about filters, columns and rows
+- `component.meta` returns internal meta info about filters, columns and rows
 
 __Good to know__:
 
@@ -144,6 +146,42 @@ __How to extend a class of row?__
 	{ name: 'name', text: 'Name', width: 200 },
 	// other columns ...
 ]
+```
+
+__Multiple schemas__:
+
+```html
+<div data---="datagrid__obj">
+
+	<script type="text/plain" data-id="SCHEMA_A">
+		[
+			{ name: 'name', text: 'Name', width: 200 },
+			// ...
+		]
+	</script>
+
+	<script type="text/plain" data-id="SCHEMA_B">
+		[
+			{ name: 'price', text: 'Price', width: 100 },
+			// ...
+		]
+	</script>
+
+</div>
+
+<script>
+	// Usage
+	var obj = {};
+	obj.schema = 'SCHEMA_A';
+	obj.items = [];
+
+	// Changing of schema
+	setTimeout(function() {
+		obj.schema = 'SCHEMA_B';
+		obj.items = [];
+		UPD('obj');
+	}, 5000);
+</script>
 ```
 
 ### Author

@@ -180,5 +180,7 @@
 	"j-Tour",
 	"j-Properties",
 	"j-Windows",
+	"j-SearchBox",
+	"j-ServiceWorker",
 	"j-InfiniteScroll"
 ]

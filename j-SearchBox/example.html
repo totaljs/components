@@ -1,0 +1,17 @@
+
+<div data---="searchbox__null__exec:searchbox_enter;init:searchbox_init;placeholder:Search and press enter ..."></div>
+
+<script>
+	function searchbox_enter(model, component) {
+
+		// model.type
+		// model.value
+
+		alert(model.value);
+    }
+
+    function searchbox_init(component) {
+    	component.type('<i class="fa fa-user"></i> By name', 'name', true);
+    }
+
+</script>

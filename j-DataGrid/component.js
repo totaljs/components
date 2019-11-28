@@ -9,6 +9,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 	var sh = { is: false };
 	var pos = {};
 	var forcescroll = '';
+	var schemas = {};
 
 	self.meta = opt;
 
@@ -271,9 +272,21 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		self.IDCSS = GUID(5);
 		self.aclass('dg dg-noscroll dg-' + self.IDCSS);
 
-		var scr = self.find('script');
-		var meta = scr.html();
-		meta && self.rebind(meta);
+		self.find('script').each(function() {
+			var el = $(this);
+			var id = el.attrd('id');
+
+			if (id)
+				schemas[id] = el.html();
+
+			if (!schemas.default)
+				schemas.default = el.html();
+		});
+
+		if (schemas.default) {
+			self.rebind(schemas.default);
+			schemas.$current = 'default';
+		}
 
 		var pagination = '';
 
@@ -1050,6 +1063,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 	};
 
 	self.rebind = function(code) {
+
+		if (code.length < 30 && code.indexOf(' ') === -1) {
+			schemas.$current = code;
+			schemas[code] && self.rebind(schemas[code]);
+			return;
+		}
 
 		opt.declaration = code;
 
@@ -1835,6 +1854,15 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 
 		if (config.exec && value == null) {
 			self.operation('refresh');
+			return;
+		}
+
+		if (value && value.schema && schemas.$current !== value.schema) {
+			schemas.$current = value.schema;
+			self.rebind(value.schema);
+			setTimeout(function() {
+				self.setter(value, path, type);
+			}, 100);
 			return;
 		}
 

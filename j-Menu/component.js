@@ -11,7 +11,7 @@ COMPONENT('menu', function(self) {
 	var issubmenu = false;
 	var isopen = false;
 	var events = {};
-	var ul, children, prevsub;
+	var ul, children, prevsub, parentclass;
 
 	self.make = function() {
 		self.aclass(cls + ' hidden');
@@ -207,6 +207,11 @@ COMPONENT('menu', function(self) {
 		self.target = tmp;
 		self.opt = opt;
 
+		if (parentclass && opt.classname !== parentclass) {
+			self.rclass(parentclass);
+			parentclass = null;
+		}
+
 		isopen = false;
 		issubmenu = false;
 		prevsub = null;
@@ -217,6 +222,11 @@ COMPONENT('menu', function(self) {
 		clearTimeout2(self.ID);
 
 		ul.html(self.makehtml(opt.items));
+
+		if (!parentclass && opt.classname) {
+			self.aclass(opt.classname);
+			parentclass = opt.classname;
+		}
 
 		if (is) {
 			css.left = 0;

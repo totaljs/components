@@ -7,7 +7,7 @@
 .ui-parameters-modified { font-weight: bold; }
 .ui-parameters-modified input::placeholder { font-weight: normal; }
 .ui-parameters-item { height: 24px; font-size: 11px; border-bottom: 1px solid #E0E0E0; }
-.ui-parameters-name { margin-right: 340px; line-height: 23px; padding: 0 5px; text-overflow: ellipsis; overflow: hidden; text-overflow: ellipsis; }
+.ui-parameters-name { margin-right: 340px; line-height: 23px; padding: 0 5px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 .ui-parameters-type { float: right; width: 120px; line-height: 23px; padding: 0 5px; text-overflow: ellipsis; overflow: hidden; text-overflow: ellipsis; border-left: 1px solid #E0E0E0; border-right: 1px solid #E0E0E0; color: gray; background-color: #F9F9F9; }
 .ui-parameters-value { float: right; width: 220px; padding: 0 0 0 5px; user-select: none; }
 .ui-parameters-value div { display: block; line-height: 23px; }

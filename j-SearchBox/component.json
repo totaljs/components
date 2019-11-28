@@ -1,15 +1,16 @@
 {
-	"datecreated": "2019-02-15T10:44:00.000Z",
-	"dateupdated": "2019-11-27T14:30:00.000Z",
-	"name": "j-Parameters",
+	"datecreated": "2019-11-26T10:54:00.000Z",
+	"dateupdated": null,
+	"name": "j-SearchBox",
 	"tags": [
-		"parameters",
-		"form"
+		"search",
+		"input"
 	],
 	"color": "transparent",
 	"version": 1,
 	"darkmode": true,
-	"responsive": true,
+	"largemode": true,
+	"responsive": false,
 	"picture": "picture.jpg",
 	"dependencies": "",
 	"author": "Peter Širka",
