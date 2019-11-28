@@ -1,0 +1,20 @@
+{
+	"datecreated": "2019-11-28T14:50:00.000Z",
+	"dateupdated": null,
+	"name": "j-ServiceWorker",
+	"tags": [
+		"offline",
+		"worker",
+		"serviceworker"
+	],
+	"color": "transparent",
+	"version": 1,
+	"darkmode": false,
+	"largemode": false,
+	"responsive": false,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Denis Granec",
+	"email": "info@totalavengers.com",
+	"license": "https://www.totaljs.com/license/"
+}

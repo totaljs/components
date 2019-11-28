@@ -180,5 +180,6 @@
 	"j-Tour",
 	"j-Properties",
 	"j-Windows",
-	"j-SearchBox"
+	"j-SearchBox",
+	"j-ServiceWorker"
 ]
