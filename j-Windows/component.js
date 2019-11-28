@@ -152,8 +152,8 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 
 		if (drag.resize) {
 
-			var x = evt.pageX - drag.offX - drag.plus.left;
-			var y = evt.pageY - drag.offY - drag.plus.top;
+			var x = (evt.pageX - drag.offX) - drag.plus.left + drag.offX;
+			var y = (evt.pageY - drag.offY) - drag.plus.top + drag.offY;
 			var off = drag.item.meta.offset;
 			var w;
 			var h;
@@ -225,8 +225,8 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 			}
 
 		} else {
-			obj.left = evt.pageX - drag.x - drag.offX;
-			obj.top = evt.pageY - drag.y - drag.offY;
+			obj.left = (evt.pageX + drag.offX) - drag.x - drag.offX;
+			obj.top = (evt.pageY + drag.offY) - drag.y - drag.offY;
 			drag.el.css(obj);
 		}
 
