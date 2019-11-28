@@ -1,5 +1,6 @@
 
-<div data---="searchbox__null__exec:searchbox_enter;init:searchbox_init;placeholder:Search and press enter ..."></div>
+<div data---="menu"></div>
+<div data---="searchbox__null__exec:searchbox_enter;clicktype:searchbox_type;init:searchbox_init;placeholder:Search and press enter ..."></div>
 
 <script>
 	function searchbox_enter(model, component) {
@@ -7,11 +8,21 @@
 		// model.type
 		// model.value
 
-		alert(model.value);
+		alert(model.type + ': ' + model.value);
     }
 
     function searchbox_init(component) {
     	component.type('<i class="fa fa-user"></i> By name', 'name', true);
+    }
+
+    function searchbox_type(component) {
+		opt.items = [{ name: 'By name', value: 'name', icon: 'user' }, { name: 'By subject', value: 'subject', icon: 'text-width' }, { name: 'By body', value: 'name', icon: 'file-alt' }];
+		opt.align = 'center';
+		opt.element = this;
+		opt.callback = function(selected) {
+			component.type('<i class="fa fa-{0}"></i> {1}'.format(selected.icon, selected.name), selected.value, true);
+		};
+		SETTER('menu', 'show', opt);
     }
 
 </script>
