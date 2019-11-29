@@ -49,6 +49,10 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 		serviceid = setInterval(events.service, 5000);
 	};
 
+	self.finditem = function(id) {
+		return cache[id];
+	};
+
 	self.send = function(type, body) {
 		for (var i = 0; i < data.length; i++)
 			data[i].meta.data(type, body, data[i].element);
@@ -65,6 +69,12 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 
 	self.recompile = function() {
 		setTimeout2(self.iD + 'compile', COMPILE, 50);
+	};
+
+	self.resize = function() {
+		self.element.find(cls2 + '-maximized').each(function() {
+			cache[$(this).attrd('id')].setcommand('maximize');
+		});
 	};
 
 	events.service = function() {
@@ -152,8 +162,8 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 
 		if (drag.resize) {
 
-			var x = (evt.pageX - drag.offX) - drag.plus.left + drag.offX;
-			var y = (evt.pageY - drag.offY) - drag.plus.top + drag.offY;
+			var x = evt.pageX - drag.offX - drag.plus.left;
+			var y = evt.pageY - drag.offY - drag.plus.top;
 			var off = drag.item.meta.offset;
 			var w;
 			var h;
@@ -225,8 +235,8 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 			}
 
 		} else {
-			obj.left = (evt.pageX + drag.offX) - drag.x - drag.offX;
-			obj.top = (evt.pageY + drag.offY) - drag.y - drag.offY;
+			obj.left = evt.pageX - drag.x - drag.offX;
+			obj.top = evt.pageY - drag.y - drag.offY;
 			drag.el.css(obj);
 		}
 
@@ -277,7 +287,6 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 	};
 
 	self.wadd = function(item) {
-
 
 		if (item.actions && item.actions.autosave) {
 			pos = PREF['win_' + item.id];

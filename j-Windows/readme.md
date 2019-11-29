@@ -110,6 +110,10 @@ var win = {
 PUSH('windows', win);
 ```
 
+__Methods__:
+
+- `component.finditem(panel_id)` finds the specific window according to `ID`
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
