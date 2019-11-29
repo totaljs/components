@@ -105,6 +105,10 @@ var panel = {
 PUSH('panels', panel);
 ```
 
+__Methods__:
+
+- `component.finditem(panel_id)` finds the specific panel according to `ID`
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

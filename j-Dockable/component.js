@@ -54,6 +54,10 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 		self.resizelayout();
 	};
 
+	self.finditem = function(id) {
+		return cache[id];
+	};
+
 	self.send = function(type, body) {
 		for (var i = 0; i < data.length; i++)
 			data[i].meta.data(type, body, data[i].element);
@@ -65,6 +69,8 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 	};
 
 	self.resize = function() {
+
+		clearTimeout2(self.ID + 'compile');
 
 		self.resizelayout();
 
@@ -80,7 +86,8 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 		}
 
 		var ww = self.element.width();
-		var wh = self.element.height() - config.margin;
+		var wh = self.element.height();
+
 		var h;
 		var w;
 		var x;
@@ -134,6 +141,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 		var css = {};
 		css.width = parent.width();
 		css.height = parent.height() - config.margin;
+
 		self.css(css);
 
 		css['margin-left'] = 0;
@@ -163,7 +171,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 	};
 
 	self.recompile = function() {
-		setTimeout2(self.iD + 'compile', COMPILE, 50);
+		setTimeout2(self.ID + 'compile', COMPILE, 50);
 	};
 
 	events.service = function() {
@@ -256,7 +264,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 		drag.dockr = false;
 		drag.dockb = false;
 		drag.ww = self.element.width();
-		drag.wh = self.element.height() - config.margin;
+		drag.wh = self.element.height();
 
 		if (drag.item.meta.actions) {
 			if (drag.resize) {
@@ -436,6 +444,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 				drag.isdocked = false;
 				drag.item.setdock(null);
 				drag.item.setsize(old === 'bottom' ? (drag.item.width / 2) >> 0 : drag.item.width, old !== 'bottom' ? (drag.item.height / 2) >> 0 : drag.item.height);
+				self.resize();
 
 			} else {
 
