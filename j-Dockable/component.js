@@ -1,4 +1,4 @@
-COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;style:2;parent:window', function(self, config) {
+COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', function(self, config) {
 
 	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
@@ -9,16 +9,19 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 	var prevfocused;
 	var serviceid;
 	var data = [];
+	var docked = {};
 	var layout;
 	var ruler;
-	var docked = {};
+	var container;
+	var init = false;
 
 	self.make = function() {
 		self.aclass(cls + (config.style === 2 ? (' ' + cls + '-style2') : ''));
 		self.element.wrapInner('<div class="{0}-layout" />'.format(cls));
-		self.element.append('<div class="{0}-ruler hidden"></div>'.format(cls));
+		self.element.append('<div class="{0}-panels"><div class="{0}-ruler hidden"></div></div>'.format(cls));
 		layout = self.find(cls2 + '-layout');
 		ruler = self.find(cls2 + '-ruler');
+		container = self.find(cls2 + '-panels');
 		self.event('click', cls2 + '-control', function() {
 			var el = $(this);
 			var name = el.attrd('name');
@@ -63,8 +66,9 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 
 	self.resize = function() {
 
-		var keys = Object.keys(cache);
+		self.resizelayout();
 
+		var keys = Object.keys(cache);
 		docked = {};
 
 		for (var i = 0; i < keys.length; i++) {
@@ -75,11 +79,11 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 			}
 		}
 
+		var ww = self.element.width();
+		var wh = self.element.height() - config.margin;
 		var h;
 		var w;
 		var x;
-		var ww = self.element.width();
-		var wh = self.element.height();
 
 		if (docked.bottom) {
 			h = docked.bottom.container.offset().top;
@@ -107,12 +111,21 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 			}
 
 		} else {
-			h = self.height();
-			docked.left && docked.left.setsize(null, h);
-			docked.right && docked.right.setsize(null, h);
+
+			w = self.element.width();
+			x = docked.left ? docked.left.width : 0;
+
+			if (docked.right) {
+				docked.right.setoffset(ww - docked.right.width);
+				docked.right.setsize(null, wh - docked.right.titleheight);
+				w = w - docked.right.width;
+			}
+
+			docked.left && docked.left.setsize(null, wh - docked.left.titleheight);
 		}
 
 		self.resizelayout();
+		self.element.SETTER('*', 'resize');
 	};
 
 	self.resizelayout = function() {
@@ -120,7 +133,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 		var parent = config.parent === 'window' ? $(W) : config.parent === 'parent' ? self.parent() : self.closest(config.parent);
 		var css = {};
 		css.width = parent.width();
-		css.height = parent.height();
+		css.height = parent.height() - config.margin;
 		self.css(css);
 
 		css['margin-left'] = 0;
@@ -146,7 +159,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 	};
 
 	self.resize2 = function() {
-		setTimeout2(self.ID, self.resize, 200);
+		setTimeout2(self.ID, self.resize, 300);
 	};
 
 	self.recompile = function() {
@@ -176,11 +189,6 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 			return;
 
 		var el = $(this);
-		var parent = el.closest(cls2 + '-item');
-
-		if (parent.hclass(cls + '-maximized'))
-			return;
-
 		drag.resize = el.hclass(cls + '-resize');
 		drag.is = false;
 
@@ -201,6 +209,37 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 			drag.y = pos.top;
 			drag.width = drag.el.width();
 			drag.height = drag.body.height();
+
+			var css = {};
+
+			if (drag.el.hclass(cls + '-docked')) {
+				switch (drag.dir) {
+					case 'tr':
+						css.width = 1;
+						css.height = drag.height;
+						css.left = pos.left + drag.width;
+						css.top = pos.top;
+						ruler.css(css).rclass('hidden');
+						break;
+					case 'tl':
+
+						var item = cache[drag.el.attrd('id')];
+						var d = item.meta.offset.docked;
+						if (d === 'bottom') {
+							css.width = drag.width;
+							css.height = 1;
+						} else {
+							css.width = 1;
+							css.height = drag.height;
+						}
+
+						css.top = pos.top;
+						css.left = pos.left;
+						ruler.css(css).rclass('hidden');
+						break;
+				}
+			}
+
 		} else {
 			drag.el = el.closest(cls2 + '-item');
 			pos = drag.el.position();
@@ -217,7 +256,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 		drag.dockr = false;
 		drag.dockb = false;
 		drag.ww = self.element.width();
-		drag.wh = self.element.height();
+		drag.wh = self.element.height() - config.margin;
 
 		if (drag.item.meta.actions) {
 			if (drag.resize) {
@@ -245,8 +284,8 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 
 		if (drag.resize) {
 
-			var x = (evt.pageX - drag.offX) - drag.plus.left - drag.offX;
-			var y = (evt.pageY - drag.offY) - drag.plus.top - drag.offX;
+			var x = evt.pageX - drag.plus.left;
+			var y = evt.pageY - drag.plus.top;
 			var off = drag.item.meta.offset;
 			var actions = drag.item.meta.actions;
 			var d = off.docked;
@@ -275,19 +314,34 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 					if ((minwidth && w < minwidth) || (minheight && h < minheight) || (maxwidth && w > maxwidth) || (maxheight && h > maxheight))
 						break;
 
-					if (resizeX && (!d || d !== 'bottom'))
-						obj.width = w;
+					if (d) {
 
-					drag.el.css(obj);
+						if (resizeX && (!d || d !== 'bottom')) {
+							obj.left = drag.ww - w;
+							ruler.css(obj).attrd('cache', w);
+						}
 
-					if (resizeY && (!d || d === 'bottom')) {
-						obj.top = y;
-						obj.height = h;
+						if (resizeY && (!d || d === 'bottom')) {
+							obj.top = drag.wh - h - drag.item.titleheight;
+							ruler.css(obj).attrd('cache', h);
+						}
+
+					} else {
+
+						if (resizeX && (!d || d !== 'bottom'))
+							obj.width = w;
+
+						drag.el.css(obj);
+
+						if (resizeY && (!d || d === 'bottom')) {
+							obj.top = y;
+							obj.height = h;
+						}
+
+						delete obj.width;
+						delete obj.top;
+						drag.body.css(obj);
 					}
-
-					delete obj.width;
-					delete obj.top;
-					drag.body.css(obj);
 					break;
 
 				case 'tr':
@@ -298,20 +352,33 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 					if ((minwidth && w < minwidth) || (minheight && h < minheight) || (maxwidth && w > maxwidth) || (maxheight && h > maxheight))
 						break;
 
-					if (resizeX)
-						obj.width = w;
+					if (d) {
 
-					if (resizeY && !d)
-						obj.top = y;
+						if (resizeX)
+							obj.left = w;
 
-					drag.el.css(obj);
+						if (resizeY && !d)
+							obj.top = y;
 
-					if (resizeY && !d)
-						obj.height = h;
+						ruler.css(obj).attrd('cache', w);
 
-					delete obj.width;
-					delete obj.top;
-					drag.body.css(obj);
+					} else {
+						if (resizeX)
+							obj.width = w;
+
+						if (resizeY && !d)
+							obj.top = y;
+
+						drag.el.css(obj);
+
+						if (resizeY && !d)
+							obj.height = h;
+
+						delete obj.width;
+						delete obj.top;
+						drag.body.css(obj);
+					}
+
 					break;
 
 				case 'bl':
@@ -359,8 +426,8 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 
 		} else {
 
-			obj.left = (evt.pageX - drag.offX) - drag.x - drag.offX;
-			obj.top =  (evt.pageY - drag.offY) - drag.y - drag.offY;
+			obj.left = evt.pageX - drag.x;
+			obj.top =  evt.pageY - drag.y;
 			drag.el.css(obj);
 
 			if (drag.isdocked) {
@@ -388,7 +455,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 						css = {};
 						css.width = 1;
 						css.height = drag.wh - margin;
-						css.left = drag.item.width;
+						css.left = minwidth || maxwidth || drag.item.width;
 						css.top = 0;
 						ruler.css(css).tclass('hidden', !is);
 					}
@@ -406,7 +473,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 						css = {};
 						css.width = 1;
 						css.height = drag.wh - margin;
-						css.left = drag.ww - drag.item.width;
+						css.left = drag.ww - (minwidth || maxwidth || drag.item.width);
 						css.top = 0;
 						ruler.css(css).tclass('hidden', !is);
 					}
@@ -421,7 +488,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 						css = {};
 
 						css.height = 1;
-						css.top = drag.wh - drag.item.height;
+						css.top = drag.wh - (minheight || maxheight || drag.item.height);
 
 						if (config.style === 1) {
 							css.left = 0;
@@ -445,22 +512,42 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 
 		drag.el.rclass(cls + '-dragged').rclass(cls + '-block');
 		$(W).off('mousemove touchmove', events.move).off('mouseup touchend', events.up);
-		ruler.aclass('hidden');
 
-		if (!drag.is)
+		if (!drag.is) {
+			ruler.aclass('hidden');
 			return;
+		}
 
 		var item = drag.item;
 		var meta = item.meta;
-		var pos = drag.el.position();
+		var pos;
+		var w;
+		var h;
 
+		if (meta.offset.docked) {
+			pos = ruler.offset();
+
+			if (meta.offset.docked !== 'bottom')
+				w = +ruler.attrd('cache');
+			else if (meta.offset.docked === 'bottom')
+				h = +ruler.attrd('cache');
+
+			if (meta.offset.docked === 'right')
+				pos.left = drag.ww - w;
+
+		} else {
+			pos = drag.el.position();
+			w = drag.el.width();
+			h = drag.el.height() - drag.item.titleheight;
+		}
+
+		ruler.aclass('hidden');
 		drag.is = false;
 		drag.x = meta.offset.x = item.x = pos.left;
 		drag.y = meta.offset.y = item.y = pos.top;
 
 		if (drag.resize) {
-			item.width = meta.offset.width = drag.el.width();
-			item.height = meta.offset.height = drag.body.height();
+			drag.item.setsize(w, h);
 			meta.resize && meta.resize.call(item, item.width, item.height, drag.body, item.x, item.y);
 		} else {
 			drag.dockl && item.setdock('left', true);
@@ -469,7 +556,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 		}
 
 		meta.move && meta.move.call(item, item.x, item.y, drag.body);
-		self.resize2();
+		self.resize();
 		self.wsave(item);
 		self.change(true);
 	};
@@ -481,11 +568,12 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 		obj.y = item.y;
 		obj.width = item.width;
 		obj.height = item.height;
+		obj.docked = item.meta.offset.docked;
 		PREF.set(key, obj, '1 month');
 	};
 
 	self.wsave = function(obj) {
-		if (obj.meta.actions && obj.meta.actions.autosave)
+		if (obj.meta.actions && obj.meta.actions.autosave && init)
 			setTimeout2(self.ID + '_dock_' + obj.meta.id, wsavecallback, 500, null, obj);
 	};
 
@@ -682,7 +770,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 		obj.meta.service && services.push(obj);
 		obj.meta.data && data.push(obj);
 
-		self.append(el);
+		container.append(el);
 		return obj;
 	};
 
@@ -711,6 +799,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 		if (!value)
 			value = EMPTYARRAY;
 
+		init = false;
 		var updated = {};
 
 		for (var i = 0; i < value.length; i++) {
@@ -729,6 +818,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;left:200;bottom:200;right:300;styl
 		}
 
 		self.resize();
+		init = true;
 	};
 
 });
