@@ -1,0 +1,19 @@
+{
+	"datecreated": "2019-11-30T18:40:00.000Z",
+	"dateupdated": null,
+	"name": "j-ChunkyScroll",
+	"tags": [
+		"scroll",
+		"chunked",
+		"clusterized",
+		"clusterize"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

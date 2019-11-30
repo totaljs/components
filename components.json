@@ -183,5 +183,6 @@
 	"j-SearchBox",
 	"j-ServiceWorker",
 	"j-InfiniteScroll",
-	"j-Dockable"
+	"j-Dockable",
+	"j-ChunkyScroll"
 ]
