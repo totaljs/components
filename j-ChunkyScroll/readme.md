@@ -4,7 +4,6 @@
 
 __Configuration__:
 
-- `parent` {String} Optional, default `a`
 - `rowheight` {Number} __Important__, a row height (default: `30` with auto obtaining of size)
 - `parent` {String} optional, a container with fixed height, can be `window`. Default value: `parent` element.
 - `margin` {Number} optional, a top/bottom margin together (default: `0`)
