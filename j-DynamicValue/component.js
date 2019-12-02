@@ -1,6 +1,6 @@
-COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:true', function(self, config) {
+COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:1', function(self, config) {
 
-	var cls = 'ui-dynamicvalue';
+	var cls = 'ui-' + self.name;
 
 	self.readonly();
 	self.nocompile();
@@ -79,6 +79,8 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:true', function(
 	};
 
 	self.bindvalue = function(value) {
+
+		config.bind && SEEX(self.makepath(config.bind), value);
 
 		if (config.remap)
 			value = config.remap(value);
