@@ -14,7 +14,7 @@
 .ui-diagram li .ui-diagram-item:hover, .ui-diagram li .ui-diagram-item:hover + ul li .ui-diagram-item { border: 1px solid #4285F4 !important; cursor: default; }
 .ui-diagram li .ui-diagram-item:hover + ul li::after, .ui-diagram li .ui-diagram-item:hover + ul li::before, .ui-diagram li .ui-diagram-item:hover + ul::before, .ui-diagram li .ui-diagram-item:hover + ul ul::before { border-color: #4285F4; }
 
-.ui-diagram-reverse { transform: rotate(180deg); transform-origin: 50%; }
+.ui-diagram-reverse .ui-diagram-body { transform: rotate(180deg); transform-origin: 50%; }
 .ui-diagram-reverse .ui-diagram-item { transform: rotate(180deg); }
 
 .ui-dark .ui-diagram li::before, .ui-dark .ui-diagram li::after { border-top-color: #404040; }
