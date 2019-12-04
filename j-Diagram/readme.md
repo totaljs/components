@@ -10,9 +10,8 @@ __Configuration__:
 - `marginlg` optional, a top/bottom margin together for `lg` screen width
 - `reverse` {Boolean}, reverses diagram
 
-Inspired by: <https://codepen.io/philippkuehn/pen/QbrOaN>
-
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
+- Philipp Khn <https://codepen.io/philippkuehn/pen/QbrOaN>
 - [License](https://www.totaljs.com/license/)
