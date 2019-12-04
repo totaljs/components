@@ -288,6 +288,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 			evt = e.touches[0];
 
 		var obj = {};
+
 		drag.is = true;
 
 		if (drag.resize) {
@@ -305,6 +306,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 			var resizeY = actions ? actions.resizeY != false : true;
 			var w;
 			var h;
+			var stopw, stoph;
 
 			switch (drag.dir) {
 
@@ -319,36 +321,38 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 					if (resizeX && (!d || d !== 'bottom'))
 						obj.left = x;
 
-					if ((minwidth && w < minwidth) || (minheight && h < minheight) || (maxwidth && w > maxwidth) || (maxheight && h > maxheight))
-						break;
+					stopw = (minwidth && w < minwidth) || (maxwidth && w > maxwidth);
+					stoph = (minheight && h < minheight) || (maxheight && h > maxheight);
 
 					if (d) {
 
-						if (resizeX && (!d || d !== 'bottom')) {
+						if (resizeX && (!d || d !== 'bottom') && !stopw) {
 							obj.left = drag.ww - w;
 							ruler.css(obj).attrd('cache', w);
 						}
 
-						if (resizeY && (!d || d === 'bottom')) {
+						if (resizeY && (!d || d === 'bottom') && !stoph) {
 							obj.top = drag.wh - h - drag.item.titleheight;
 							ruler.css(obj).attrd('cache', h);
 						}
 
 					} else {
 
-						if (resizeX && (!d || d !== 'bottom'))
+						if (resizeX && (!d || d !== 'bottom') && !stopw) {
+							drag.el.css(obj);
 							obj.width = w;
+						}
 
-						drag.el.css(obj);
-
-						if (resizeY && (!d || d === 'bottom')) {
+						if (resizeY && (!d || d === 'bottom') && !stoph) {
 							obj.top = y;
 							obj.height = h;
 						}
 
 						delete obj.width;
 						delete obj.top;
-						drag.body.css(obj);
+
+						if (!stopw || !stoph)
+							drag.body.css(obj);
 					}
 					break;
 
@@ -357,34 +361,38 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 					w = x - drag.x;
 					h = drag.height - (y - drag.y);
 
-					if ((minwidth && w < minwidth) || (minheight && h < minheight) || (maxwidth && w > maxwidth) || (maxheight && h > maxheight))
-						break;
+					stopw = (minwidth && w < minwidth) || (maxwidth && w > maxwidth);
+					stoph = (minheight && h < minheight) || (maxheight && h > maxheight);
 
 					if (d) {
 
-						if (resizeX)
+						if (resizeX && !stopw)
 							obj.left = w;
 
-						if (resizeY && !d)
+						if (resizeY && !d && !stoph)
 							obj.top = y;
 
 						ruler.css(obj).attrd('cache', w);
 
 					} else {
-						if (resizeX)
+
+						if (resizeX && !stopw)
 							obj.width = w;
 
-						if (resizeY && !d)
+						if (resizeY && !d && !stoph)
 							obj.top = y;
 
-						drag.el.css(obj);
+						if (!stopw || !stoph)
+							drag.el.css(obj);
 
-						if (resizeY && !d)
+						if (resizeY && !d && !stoph)
 							obj.height = h;
 
 						delete obj.width;
 						delete obj.top;
-						drag.body.css(obj);
+
+						if (!stopw || !stoph)
+							drag.body.css(obj);
 					}
 
 					break;
@@ -394,16 +402,16 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 					w = drag.width - (x - drag.x);
 					h = y - drag.y - 30;
 
-					if ((minwidth && w < minwidth) || (minheight && h < minheight) || (maxwidth && w > maxwidth) || (maxheight && h > maxheight))
-						break;
+					stopw = (minwidth && w < minwidth) || (maxwidth && w > maxwidth);
+					stoph = (minheight && h < minheight) || (maxheight && h > maxheight);
 
-					if (resizeX) {
+					if (resizeX && !stopw) {
 						obj.left = x;
 						obj.width = w;
 						drag.el.css(obj);
 					}
 
-					if (resizeY) {
+					if (resizeY && !stoph) {
 						delete obj.width;
 						obj.height = h;
 						drag.body.css(obj);
@@ -412,18 +420,19 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 					break;
 
 				case 'br':
+
 					w = x - drag.x;
 					h = y - drag.y - 30;
 
-					if ((minwidth && w < minwidth) || (minheight && h < minheight) || (maxwidth && w > maxwidth) || (maxheight && h > maxheight))
-						break;
+					stopw = (minwidth && w < minwidth) || (maxwidth && w > maxwidth);
+					stoph = (minheight && h < minheight) || (maxheight && h > maxheight);
 
-					if (resizeX) {
+					if (resizeX && !stopw) {
 						obj.width = w;
 						drag.el.css(obj);
 					}
 
-					if (resizeY) {
+					if (resizeY && !stoph) {
 						delete obj.width;
 						obj.height = h;
 						drag.body.css(obj);
