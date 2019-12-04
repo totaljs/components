@@ -13,7 +13,7 @@ COMPONENT('diagram', 'parent:parent;margin:0;reverse:0', function(self, config) 
 		var scr = self.find('script');
 		self.template = Tangular.compile(scr.html());
 		scr.remove();
-		self.append('<div class="{0}-container"><div class="{0}-padding"><div class="{0}-body"></div></div></div><div class="clearfix"></div>'.format(cls));
+		self.append('<div class="{0}-container"><div class="{0}-padding"><div class="{0}-body"></div></div><div class="clearfix"></div><div class="{0}-width"></div></div>'.format(cls));
 		body = self.find(cls2 + '-body');
 		self.scrollbar = new SCROLLBAR(self.find(cls2 + '-container'), { visibleX: true, visibleY: true });
 
@@ -57,9 +57,18 @@ COMPONENT('diagram', 'parent:parent;margin:0;reverse:0', function(self, config) 
 		}
 
 		var css = {};
+		var elw = self.find(cls2 + '-padding');
 
 		css.height = h - margin;
 		self.find(cls2 + '-container').css(css);
+
+		elw.css('width', 'auto');
+		var wb = body.width() + (body.offset().left * 2);
+
+		if (wb < w)
+			wb = w;
+
+		elw.css('width', wb);
 
 		self.element.SETTER('*', 'resize');
 		var c = cls + '-hidden';
@@ -87,12 +96,11 @@ COMPONENT('diagram', 'parent:parent;margin:0;reverse:0', function(self, config) 
 
 	self.setter = function(value) {
 		var builder = ['<ul>'];
-		for (var i = 0; i < value.length; i++) {
+		for (var i = 0; i < value.length; i++)
 			self.render(builder, value[i]);
-		}
 		builder.push('</ul>');
 		body.html(builder.join(''));
-		self.scrollbar.resize();
+		self.resize2();
 		self.scrollbar.scrollTop(0);
 	};
 

@@ -1,4 +1,5 @@
-.ui-diagram-padding { padding: 20px 50px 20px 20px; float: left; }
+.ui-diagram-padding { padding: 20px; float: left; }
+.ui-diagram-width { height: 1px; }
 .ui-diagram ul { position: relative; padding: 1em 0; white-space: nowrap; margin: 0 auto; text-align: center; }
 .ui-diagram ul::after { content: ''; display: table; clear: both; }
 .ui-diagram li { display: inline-block; vertical-align: top; text-align: center; list-style-type: none; position: relative; padding: 1em .5em 0 .5em; }
