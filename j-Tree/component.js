@@ -24,7 +24,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 			var c = cls + '-checkbox-checked';
 			el.tclass(c);
 			config.checkednested && el.closest(cls2 + '-node').find(cls2 + '-checkbox').tclass(c, el.hclass(c));
-			SEEX(config.checked, self.checked(), self);
+			SEEX(self.makepath(config.checked), self.checked(), self);
 		});
 
 		self.event('click', cls2 + '-item', function() {
@@ -38,7 +38,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 			e.stopPropagation();
 			var el = $(this);
 			var index = +el.closest(cls2 + 'item').attrd('index');
-			config.options && EXEC(config.options, cache[index], el);
+			config.options && EXEC(self.makepath(config.options), cache[index], el);
 		});
 
 		self.event('focusout', 'input', function() {
@@ -96,12 +96,12 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 			if (e.originalEvent.dataTransfer.files.length) {
 				if (ddfile)
 					index = +ddfile.attrd('index');
-				config.upload && EXEC(config.upload, cache[index], e.originalEvent.dataTransfer.files);
+				config.upload && EXEC(self.makepath(config.upload), cache[index], e.originalEvent.dataTransfer.files);
 			} else {
 				var tmp = $(e.target);
 				if (!tmp.hclass(cls + '-item'))
 					tmp = tmp.closest(cls2 + '-item');
-				tmp.length && config.dragdrop && EXEC(config.dragdrop, cache[+dragged.attrd('index')], cache[+tmp.attrd('index')], dragged, tmp);
+				tmp.length && config.dragdrop && EXEC(self.makepath(config.dragdrop), cache[+dragged.attrd('index')], cache[+tmp.attrd('index')], dragged, tmp);
 				dragged = null;
 			}
 
@@ -122,7 +122,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 					var index = +input.closest(cls2 + '-item').attrd('index');
 					var item = cache[index];
 					var newname = item.path.substring(0, item.path.length - item.name.length) + val;
-					EXEC(config.rename, cache[index], newname, function(is) {
+					EXEC(self.makepath(config.rename), cache[index], newname, function(is) {
 						el.html(is ? val : el[0].$def);
 						if (is) {
 							item.path = newname;
@@ -158,12 +158,12 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 			else
 				expanded[index] = 1;
 
-			!noeval && config.exec && SEEX(config.exec, item, true, is);
+			!noeval && config.exec && SEEX(self.makepath(config.exec), item, true, is);
 			selindex = index;
 		} else {
 			!el.hclass(cls + c) && self.find(cls2 + c).rclass(cls + c);
 			el.aclass(cls + c);
-			!noeval && config.exec && SEEX(config.exec, cache[index], false);
+			!noeval && config.exec && SEEX(self.makepath(config.exec), cache[index], false);
 			selindex = index;
 		}
 	};
@@ -241,6 +241,12 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 						if (!el.hclass(cls + '-expand'))
 							break;
 						el.parent().rclass(cls + '-show');
+						var parent = el.parent().aclass('show');
+						var tmp = +parent.find('> .item').attrd('index');
+						var item = cache[tmp];
+						var key = config.pk ? item[config.pk] : counter;
+						expanded[key] = 1;
+						item.isopen = true;
 					}
 				}
 			});
@@ -308,6 +314,6 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 		} else
 			config.first !== false && cache.first && setTimeout(self.first, 100);
 
-		config.checked && EXEC(config.checked, EMPTYARRAY, self);
+		config.checked && EXEC(self.makepath(config.checked), EMPTYARRAY, self);
 	};
 });
