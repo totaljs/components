@@ -1,0 +1,16 @@
+<div style="width:600px;height:400px;border:1px solid #E0E0E0">
+	<div data---="diagram__items" class="invisible">
+		<script type="text/html">
+			<div style="padding:10px;{{ if id === 'AA' }}width:200px;height:150px{{ fi }}{{ if id === 'BC' }}height:100px{{ fi }}">{{ id }}</div>
+		</script>
+	</div>
+</div>
+
+<script>
+
+	var items = [];
+	items.push({ id: 'A', items: [{ id: 'AA', items: [{ id: 'AAA' }] }] });
+	items.push({ id: 'B', items: [{ id: 'BA' }, { id: 'BB' }, { id: 'BC', items: [{ id: 'BCA' }] }] });
+	items.push({ id: 'C', items: [{ id: 'CA', items: [{ id: 'CAA' }] }, { id: 'CB' }, { id: 'CC' }, { id: 'CD', items: [{ id: 'CDA' }] }] });
+
+</script>

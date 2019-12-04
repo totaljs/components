@@ -184,5 +184,6 @@
 	"j-ServiceWorker",
 	"j-InfiniteScroll",
 	"j-Dockable",
-	"j-ChunkyScroll"
+	"j-ChunkyScroll",
+	"j-Diagram"
 ]
