@@ -16,7 +16,18 @@ COMPONENT('diagram', 'parent:parent;margin:0;reverse:0', function(self, config) 
 		self.append('<div class="{0}-container"><div class="{0}-padding"><div class="{0}-body"></div></div></div><div class="clearfix"></div>'.format(cls));
 		body = self.find(cls2 + '-body');
 		self.scrollbar = new SCROLLBAR(self.find(cls2 + '-container'), { visibleX: true, visibleY: true });
-		self.resize();
+
+		$(W).on('resize', self.resize2);
+		self.on('resize', self.resize2);
+		self.resize2();
+	};
+
+	self.destroy = function() {
+		$(W).off('resize', self.resize2);
+	};
+
+	self.resize2 = function() {
+		setTimeout2(self.ID, self.resize, 300);
 	};
 
 	self.configure = function(key, value) {
