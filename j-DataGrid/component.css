@@ -95,7 +95,7 @@
 .dg-noborder .dg-footer { border: 0; border-top: 1px solid #E0E0E0; }
 .dg-header-scrollbar { overflow-x: scroll; height: 80px; }
 .dg-header-scrollbar-container { height: 58px; overflow: hidden; }
-.dg-resize-line { position: absolute; width: 1px; background-color: #E0E0E0 z-index: 6; }
+.dg-resize-line { position: absolute; width: 1px; background-color: #E0E0E0; z-index: 6; }
 
 .ui-dark .dg-noborder .dg-footer { border-color: #404040; }
 .ui-dark .dg-filter-selected { background-color: #3c3a32 !important; color: white; }
