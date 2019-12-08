@@ -47,7 +47,7 @@ __Configuration__:
 - `pluralizepages` {String} pluralization for pages (optional, default: `# pages,# page,# pages,# pages`)
 - `pluralizeitems` {String} pluralization for items (optional, default: `# items,# item,# items,# items`)
 - `height` {Number/String} height of grid, supported values: `auto` (default), `parent` or `NUMBER` as height or `selector` for jQuery.closest()
-- `bottom` {Number} a bottom padding for `auto` height (optional, default: `80`)
+- `margin` {Number} a top margin for height (optional, default: `0`)
 - `boolean` {String} a values for filtering of boolean values (optional, default: `true|on|yes`)
 - `resize` {Boolean} enables resizing of columns (optional, default: `true`)
 - `reorder` {Boolean} enables re-ordering of columns (optional, default: `true`)
