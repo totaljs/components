@@ -1,13 +1,13 @@
 {
 	"datecreated": "2018-06-20T07:59:00.000Z",
-	"dateupdated": "2019-11-26T12:02:00.000Z",
+	"dateupdated": "2019-11-26T12:03:00.000Z",
 	"name": "j-DataGrid",
 	"tags": [
 		"datagrid",
 		"grid"
 	],
 	"color": "transparent",
-	"version": 1,
+	"version": 2,
 	"darkmode": true,
 	"responsive": true,
 	"picture": "picture.gif",
