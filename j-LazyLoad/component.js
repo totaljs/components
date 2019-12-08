@@ -31,7 +31,7 @@ COMPONENT('lazyload', 'offset:50', function(self, config) {
 		var scroll = container.scrollTop();
 		var beg = scroll;
 		var end = beg + container.height();
-        var off = config.offset;
+		var off = config.offset;
 		self.find(config.selector).each(function() {
 			if (!this.getAttribute('data-lazyload')) {
 				var el = $(this);
