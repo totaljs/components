@@ -1370,7 +1370,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 				opt.height = (el.height() - config.margin - footerh);
 				break;
 			default:
-				if (config.height) {
+				if (config.height > 0) {
 					opt.height = config.height;
 				} else {
 					el = self.element.closest(config.height);
