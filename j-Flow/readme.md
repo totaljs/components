@@ -7,7 +7,7 @@ __Configuration__:
 
 - `width` {Number} a width of Flow designer, default: `6000`
 - `height` {Number} a height of Flow designer, default: `6000`
-- `gridsize` {Number} a size of background grid, default: `25`
+- `grid` {Number} a size of background grid, default: `25`
 - `gridcolor` {String} a stroke color, default: `#F8F8F8`
 - `gridstroke` {Number} a stroke width, default: `2`
 - `paddingX` {Number} internal padding, default: `6`
