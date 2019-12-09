@@ -52,13 +52,11 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 		};
 
 		drag.bind = function() {
-			$(document).on('touchmove', drag.touchmove);
-			$(document).on('touchend', drag.touchend);
+			$(document).on('touchmove', drag.touchmove).on('touchend', drag.touchend);
 		};
 
 		drag.unbind = function() {
-			$(document).off('touchmove', drag.touchmove);
-			$(document).off('touchend', drag.touchend);
+			$(document).off('touchmove', drag.touchmove).off('touchend', drag.touchend);
 		};
 
 		drag.handler = function(e) {
@@ -79,8 +77,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			config.ondrop && EXEC(config.ondrop, meta, self);
 		};
 
-		$(document).on('dragstart', '[draggable]', drag.handler);
-		$(document).on('touchstart', '[draggable]', drag.handler);
+		$(document).on('dragstart', '[draggable]', drag.handler).on('touchstart', '[draggable]', drag.handler);
 
 		self.el.svg.on('dragenter dragover dragexit drop dragleave', function(e) {
 			switch (e.type) {
