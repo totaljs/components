@@ -1412,7 +1412,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			width = w - 2;
 
 		header.css('width', width);
-		vbody.css('width', width + 15);
+		vbody.css('width', width);
 
 		opt.width2 = w;
 		self.scrollbar.resize();
