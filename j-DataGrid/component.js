@@ -300,7 +300,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		sheader = self.find('.dg-header-scrollbar');
 		sbody = self.find('.dg-body-scrollbar');
 		self.scrollbar = SCROLLBAR(sbody, { visibleX: true, visibleY: true });
-		self.scrollbar.sync(sheader);
+		self.scrollbar.sync(sheader, 'x');
 
 		if (schemas.default) {
 			self.rebind(schemas.default);
