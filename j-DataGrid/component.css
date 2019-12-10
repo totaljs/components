@@ -1,7 +1,7 @@
 .dg { color: black; position: relative; visibility: hidden; }
 .dg-container { overflow: hidden; border-top: 1px solid #E0E0E0; border-left: 1px solid #E0E0E0; }
 .dg-header { position: relative; }
-.dg-hrow { height: 58px; border-bottom: 1px solid #E0E0E0; }
+.dg-hrow { height: 58px; }
 .dg-hcol { float: left; border-left: 1px solid #E0E0E0; height: 58px; font-weight: bold; position: relative; }
 .dg-sort { float: right; font-size: 11px; width: 20px; text-align: center; padding: 11px 0 0 0; color: #4285F4; }
 .dg-btn-columns { cursor: pointer; color: #D0D0D0; font-size: 20px; position: absolute; right: 0; height: 58px; background-color: #D0D0D0; width: 13px; text-align: left; z-index: 3; }
@@ -93,15 +93,16 @@
 .dg-noscroll .ui-scrollbar-y span { visibility: hidden; }
 .dg-noborder .dg-container { border: 0; }
 .dg-noborder .dg-footer { border: 0; border-top: 1px solid #E0E0E0; }
-.dg-header-scrollbar { overflow-x: scroll; height: 80px; }
-.dg-header-scrollbar-container { height: 58px; overflow: hidden; }
+.dg-header-scrollbar { overflow-x: scroll; height: 80px; overflow-y: hidden; }
+.dg-header-scrollbar-container { height: 58px; overflow: hidden; border-bottom: 1px solid #E0E0E0; }
 .dg-resize-line { position: absolute; width: 1px; background-color: #E0E0E0; z-index: 6; }
 
+.ui-dark .dg-container { border-top-color: #353535; border-left-color: #353535; }
+.ui-dark .dg-header-scrollbar-container { border-bottom-color: #353535; }
 .ui-dark .dg-noborder .dg-footer { border-color: #404040; }
 .ui-dark .dg-filter-selected { background-color: #3c3a32 !important; color: white; }
 .ui-dark .dg-filter-selected label { color: white; }
 .ui-dark .dg { color: #E0E0E0; }
-.ui-dark .dg-h-container { border-color: #353535; }
 .ui-dark .dg-sorting .fa-sort { color: #A0A0A0; }
 .ui-dark .dg-filter { border-top-color: #353535; }
 .ui-dark .dg-resize { border-right-color: #353535; }
@@ -109,7 +110,7 @@
 .ui-dark .dg-number { background-color: #282828; }
 .ui-dark .dg-col { border-left-color: #353535; }
 .ui-dark .dg-hcol { border-left-color: #353535; }
-.ui-dark .dg-hrow { border-bottom-color: #353535; color: #F0F0F0; }
+.ui-dark .dg-hrow { color: #F0F0F0; }
 .ui-dark .dg-row-empty { background-color: #202020 !important; border-bottom-color: #353535; }
 .ui-dark .dg-row { border-bottom-color: #353535; }
 .ui-dark .dg-selected { background-color: rgba(200,200,200,0.03) !important; }
