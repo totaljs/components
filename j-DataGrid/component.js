@@ -1379,8 +1379,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 				break;
 		}
 
+		var sw = 0;
+		var mr = (vbody.parent().css('margin-right') || '').parseInt();
+		var m = self.scrollbar.size.margin;
+
 		sbody.css('height', opt.height - self.find('.dg-header-scrollbar-container').height());
-		container.css('height');
 
 		var w;
 
@@ -1400,8 +1403,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		if (w == null)
 			w = self.width();
 
-		var sw = self.scrollbar.size.margin;
-		var width = (config.numbering !== false ? 40 : 0) + (config.checkbox ? 40 : 0) + 15 + sw;
+		var emptyspace = 40 - mr;
+
+		if (emptyspace < 50)
+			emptyspace = 50;
+
+		var width = (config.numbering !== false ? 40 : 0) + (config.checkbox ? 40 : 0) + emptyspace;
 
 		for (var i = 0; i < opt.cols.length; i++) {
 			var col = opt.cols[i];
@@ -1412,11 +1419,13 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		if (w > width)
 			width = w - 2;
 
-		header.css('width', (width + SCROLLBARWIDTH()) - sw);
+		header.css('width', width);
 		vbody.css('width', width);
 
 		opt.width2 = w;
 		self.scrollbar.resize();
+
+		header.parent().css('width', self.scrollbar.area.width());
 	};
 
 	self.refreshfilter = function(useraction) {
