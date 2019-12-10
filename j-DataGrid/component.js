@@ -289,7 +289,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		if (config.exec)
 			pagination = '<div class="dg-footer hidden"><div class="dg-pagination-items hidden-xs"></div><div class="dg-pagination"><button name="page-first" disabled><i class="fa fa-angle-double-left"></i></button><button name="page-prev" disabled><i class="fa fa-angle-left"></i></button><div><input type="text" name="page" maxlength="5" class="dg-pagination-input" /></div><button name="page-next" disabled><i class="fa fa-angle-right"></i></button><button name="page-last" disabled><i class="fa fa-angle-double-right"></i></button></div><div class="dg-pagination-pages"></div></div>';
 
-		self.dom.innerHTML = '<div class="dg-btn-columns"><i class="fa fa-caret-left"></i><span class="fa fa-columns"></span></div><div class="dg-columns hidden"><div><div class="dg-columns-body"></div></div><button class="dg-columns-button" name="columns-apply"><i class="fa fa-columns"></i>{1}</button><span class="dt-columns-reset">{2}</span></div><div class="dg-container"><span class="dg-resize-line hidden"></span><div class="dg-header-scrollbar-container"><div class="dg-header-scrollbar"><div class="dg-header"></div></div></div><div class="dg-body-scrollbar"><div class="dg-body"></div></div></div>{0}'.format(pagination, config.buttonapply, config.buttonreset);
+		self.dom.innerHTML = '<div class="dg-btn-columns"><i class="fa fa-caret-left"></i><span class="fa fa-columns"></span></div><div class="dg-columns hidden"><div><div class="dg-columns-body"></div></div><button class="dg-columns-button" name="columns-apply"><i class="fa fa-columns"></i>{1}</button><span class="dt-columns-reset">{2}</span></div><div class="dg-container"><span class="dg-resize-line hidden"></span><div class="dg-header-scrollbar"><div class="dg-header"></div><div class="dg-body-scrollbar"><div class="dg-body"></div></div></div></div>{0}'.format(pagination, config.buttonapply, config.buttonreset);
 
 		header = self.find('.dg-header');
 		vbody = self.find('.dg-body');
@@ -299,8 +299,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 
 		sheader = self.find('.dg-header-scrollbar');
 		sbody = self.find('.dg-body-scrollbar');
-		self.scrollbar = SCROLLBAR(sbody, { visibleX: true, visibleY: true });
-		self.scrollbar.sync(sheader, 'x');
+
+		self.scrollbarY = SCROLLBAR(sbody, { visibleY: true, orientation: 'y', controls: container, marginY: 58 });
+		self.scrollbarX = SCROLLBAR(sheader, { visibleX: true, orientation: 'x', controls: container });
+
+		// self.scrollbar.sync(sheader, 'x');
 
 		if (schemas.default) {
 			self.rebind(schemas.default);
@@ -549,7 +552,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 
 			var offset = self.element.offset().left;
 			r.el = el;
-			r.offset = (self.scrollbar.scrollLeft() - offset) + 10;
+			r.offset = (self.scrollbarX.scrollLeft() - offset) + 10;
 
 			var prev = el.prev();
 			r.min = (prev.length ? prev.css('left').parseInt() : (config.checkbox ? 70 : 30)) + 50;
@@ -761,7 +764,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			}
 		});
 
-		self.scrollbar.area.on('scroll', function() {
+		self.scrollbarX.area.on('scroll', function() {
 			!ishidedir && hidedir();
 			isecolumns && self.applycolumns();
 		});
@@ -1068,7 +1071,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		if (sheader) {
 			css = { width: opt.width };
 			header.css(css);
-			vbody.css(css);
+			// vbody.css(css);
 		}
 
 		header && header.find('.dg-resize').each(function() {
@@ -1122,13 +1125,13 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 	};
 
 	self.redraw = function(update) {
-		var x = self.scrollbar.scrollLeft();
-		var y = self.scrollbar.scrollTop();
+		var x = self.scrollbarX.scrollLeft();
+		var y = self.scrollbarY.scrollTop();
 		isredraw = update ? 2 : 1;
 		self.refreshfilter();
 		isredraw = 0;
-		self.scrollbar.scrollLeft(x);
-		self.scrollbar.scrollTop(y);
+		self.scrollbarX.scrollLeft(x);
+		self.scrollbarY.scrollTop(y);
 	};
 
 	self.redrawrow = function(row) {
@@ -1247,8 +1250,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 
 		self.tclass('dg-noscroll', is);
 
-		if (noscroll)
-			self.scrollbar.scroll(0, 0);
+		if (noscroll) {
+			self.scrollbarX.scrollLeft(0);
+			self.scrollbarY.scrollTop(0);
+		}
 
 		opt.render = output;
 		self.onrenderrows && self.onrenderrows(opt);
@@ -1379,11 +1384,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 				break;
 		}
 
-		var sw = 0;
 		var mr = (vbody.parent().css('margin-right') || '').parseInt();
-		var m = self.scrollbar.size.margin;
+		var h = opt.height;
 
-		sbody.css('height', opt.height - self.find('.dg-header-scrollbar-container').height());
+		sheader.css('height', h);
+		sbody.css('height', h - self.scrollbarX.size.thicknessH);
 
 		var w;
 
@@ -1405,8 +1410,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 
 		var emptyspace = 40 - mr;
 
-		if (emptyspace < 50)
-			emptyspace = 50;
+		if (emptyspace < 30)
+			emptyspace = 30;
 
 		var width = (config.numbering !== false ? 40 : 0) + (config.checkbox ? 40 : 0) + emptyspace;
 
@@ -1419,13 +1424,16 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		if (w > width)
 			width = w - 2;
 
+		container.css({ width: w, height: h });
 		header.css('width', width);
 		vbody.css('width', width);
+		self.find('.dg-body-scrollbar').css('width', width);
 
 		opt.width2 = w;
-		self.scrollbar.resize();
+		self.scrollbarY.resize();
+		self.scrollbarX.resize();
 
-		header.parent().css('width', self.scrollbar.area.width());
+		// header.parent().css('width', self.scrollbar.area.width());
 	};
 
 	self.refreshfilter = function(useraction) {
@@ -1471,14 +1479,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			if (opt.scroll) {
 
 				if ((/y/).test(opt.scroll))
-					self.scrollbar.scrollTop(0);
+					self.scrollbarY.scrollTop(0);
 
 				if ((/x/).test(opt.scroll)) {
 					if (useraction)	{
-						var sl = self.scrollbar.scrollLeft();
-						self.scrollbar.scrollLeft(sl ? sl - 1 : 0);
+						var sl = self.scrollbarX.scrollLeft();
+						self.scrollbarX.scrollLeft(sl ? sl - 1 : 0);
 					} else
-						self.scrollbar.scrollLeft(0);
+						self.scrollbarX.scrollLeft(0);
 				}
 
 				opt.scroll = '';

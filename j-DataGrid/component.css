@@ -1,10 +1,12 @@
 .dg { color: black; position: relative; visibility: hidden; }
+.dg .ui-scrollbar-y { margin-top: 58px; }
+.dg .dg-header-scrollbar > .ui-scrollbar-area { overflow-y: hidden; }
 .dg-container { overflow: hidden; border-top: 1px solid #E0E0E0; border-left: 1px solid #E0E0E0; }
-.dg-header { position: relative; }
+.dg-header { position: relative; border-bottom: 1px solid #E0E0E0; }
 .dg-hrow { height: 58px; }
 .dg-hcol { float: left; border-left: 1px solid #E0E0E0; height: 58px; font-weight: bold; position: relative; }
 .dg-sort { float: right; font-size: 11px; width: 20px; text-align: center; padding: 11px 0 0 0; color: #4285F4; }
-.dg-btn-columns { cursor: pointer; color: #D0D0D0; font-size: 20px; position: absolute; right: 0; height: 58px; background-color: #D0D0D0; width: 13px; text-align: left; z-index: 3; }
+.dg-btn-columns { cursor: pointer; color: #D0D0D0; font-size: 20px; position: absolute; right: 0; height: 59px; background-color: #D0D0D0; width: 13px; text-align: left; z-index: 3; }
 .dg-btn-columns span { display: block; padding-top: 4px; font-size: 6px; color: gray; text-align: center; }
 .dg-btn-columns i { position: absolute; margin-left: -5px; top: 26px; }
 .dg-btn-columns:hover { background-color: #D9D9D9; color: #D9D9D9; }
@@ -93,12 +95,12 @@
 .dg-noscroll .ui-scrollbar-y span { visibility: hidden; }
 .dg-noborder .dg-container { border: 0; }
 .dg-noborder .dg-footer { border: 0; border-top: 1px solid #E0E0E0; }
-.dg-header-scrollbar { overflow-x: scroll; height: 80px; overflow-y: hidden; }
-.dg-header-scrollbar-container { height: 58px; overflow: hidden; border-bottom: 1px solid #E0E0E0; }
+.dg-header-scrollbar { overflow-y: hidden; }
+.dg-header-scrollbar-container { height: 58px; overflow: hidden; }
 .dg-resize-line { position: absolute; width: 1px; background-color: #E0E0E0; z-index: 6; }
 
 .ui-dark .dg-container { border-top-color: #353535; border-left-color: #353535; }
-.ui-dark .dg-header-scrollbar-container { border-bottom-color: #353535; }
+.ui-dark .dg-header { border-bottom-color: #353535; }
 .ui-dark .dg-noborder .dg-footer { border-color: #404040; }
 .ui-dark .dg-filter-selected { background-color: #3c3a32 !important; color: white; }
 .ui-dark .dg-filter-selected label { color: white; }
