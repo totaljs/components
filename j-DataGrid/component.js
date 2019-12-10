@@ -1400,10 +1400,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		if (w == null)
 			w = self.width();
 
-		var sw = (self.scrollbar.size.margin - SCROLLBARWIDTH());
-		if (sw < 5)
-			sw = 5;
-
+		var sw = self.scrollbar.size.margin;
 		var width = (config.numbering !== false ? 40 : 0) + (config.checkbox ? 40 : 0) + 15 + sw;
 
 		for (var i = 0; i < opt.cols.length; i++) {
