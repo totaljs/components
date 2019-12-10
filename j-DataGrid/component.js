@@ -1400,8 +1400,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		if (w == null)
 			w = self.width();
 
-		var sw = SCROLLBARWIDTH();
-		var width = (config.numbering !== false ? 40 : 0) + (config.checkbox ? 40 : 0) + 20 + sw;
+		var sw = (self.scrollbar.size.margin - SCROLLBARWIDTH());
+		if (sw < 5)
+			sw = 5;
+
+		var width = (config.numbering !== false ? 40 : 0) + (config.checkbox ? 40 : 0) + 15 + sw;
 
 		for (var i = 0; i < opt.cols.length; i++) {
 			var col = opt.cols[i];
@@ -1412,7 +1415,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		if (w > width)
 			width = w - 2;
 
-		header.css('width', (width + sw) - self.scrollbar.size.margin);
+		header.css('width', (width + SCROLLBARWIDTH()) - sw);
 		vbody.css('width', width);
 
 		opt.width2 = w;
