@@ -1,7 +1,8 @@
 .dg { color: black; position: relative; visibility: hidden; }
 .dg .ui-scrollbar-y { margin-top: 58px; }
 .dg .dg-header-scrollbar > .ui-scrollbar-area { overflow-y: hidden; }
-.dg-container { overflow: hidden; border-top: 1px solid #E0E0E0; border-left: 1px solid #E0E0E0; }
+.dg .dg-body-scrollbar > .ui-scrollbar-area { overflow-x: hidden; }
+.dg-container { overflow: hidden; border-top: 1px solid #E0E0E0; border-left: 1px solid #E0E0E0; position: relative; }
 .dg-header { position: relative; border-bottom: 1px solid #E0E0E0; }
 .dg-hrow { height: 58px; }
 .dg-hcol { float: left; border-left: 1px solid #E0E0E0; height: 58px; font-weight: bold; position: relative; }

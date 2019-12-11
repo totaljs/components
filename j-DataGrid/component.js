@@ -46,25 +46,33 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			set.css('height', t);
 			seb.css('height', b < 2 ? 2 : b);
 
-			if (self.prev < t)
-				dom.scrollTop = t + 5;
-
-			self.prev = t;
-
+			var tmp = self.scrollbar[0].scrollTop;
 			var node = self.el[0];
-			node.innerHTML = '';
+			// node.innerHTML = '';
 
+			var child = node.firstChild;
+
+			while (child) {
+				node.removeChild(child);
+				child = node.firstChild;
+			}
 
 			for (var i = pos; i < posto; i++) {
 				if (typeof(self.rows[i]) === 'string')
 					self.rows[i] = $(self.rows[i])[0];
+
 				if (self.rows[i])
 					node.appendChild(self.rows[i]);
 				else
 					break;
 			}
 
-			self.scrollbar[0].scrollTop = t;
+			if (self.prev < t)
+				self.scrollbar[0].scrollTop = t;
+			else
+				self.scrollbar[0].scrollTop = tmp;
+
+			self.prev = t;
 
 			if (self.grid.selected) {
 				var index = opt.rows.indexOf(self.grid.selected);
@@ -552,7 +560,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 
 			var offset = self.element.offset().left;
 			r.el = el;
-			r.offset = (self.scrollbarX.scrollLeft() - offset) + 10;
+			r.offset = offset; //offset;
 
 			var prev = el.prev();
 			r.min = (prev.length ? prev.css('left').parseInt() : (config.checkbox ? 70 : 30)) + 50;
@@ -560,7 +568,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			r.x = el.css('left').parseInt();
 			r.line.rclass('hidden');
 			r.line.css('height', opt.height);
-			r.line.css('left', r.x - r.offset);
+			r.line.css('left', r.x + r.offset);
 			r.is = true;
 			e.preventDefault();
 			e.stopPropagation();
@@ -568,11 +576,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 
 		header.on('mousemove', function(e) {
 			if (r.is) {
-				var x = e.pageX + r.offset - 20;
-				if (x < r.min)
-					x = r.min;
-				r.el.css('left', x);
-				r.line.css('left', x - r.offset);
+				var x = (e.pageX - r.offset - 10);
+				var x2 = self.scrollbarX.scrollLeft() + x;
+				if (x2 < r.min)
+					x2 = r.min;
+				r.el.css('left', x2);
+				r.line.css('left', x + 9);
 				e.preventDefault();
 				e.stopPropagation();
 			}
@@ -1363,32 +1372,33 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			return;
 
 		var el;
-		var footerh = footer.length ? (footer.height() + 1) : 0;
+		var footerh = footer.length ? footer.height() : 0;
 
 		switch (config.height) {
 			case 'auto':
 				el = self.element;
-				opt.height = (WH - (el.offset().top + config.margin) - footerh);
+				opt.height = (WH - (el.offset().top + config.margin));
 				break;
 			case 'parent':
 				el = self.element.parent();
-				opt.height = (el.height() - config.margin - footerh);
+				opt.height = (el.height() - config.margin);
 				break;
 			default:
 				if (config.height > 0) {
 					opt.height = config.height;
 				} else {
 					el = self.element.closest(config.height);
-					opt.height = (el.height() - config.margin - footerh);
+					opt.height = ((el.length ? el.height() : 200) - config.margin);
 				}
 				break;
 		}
 
 		var mr = (vbody.parent().css('margin-right') || '').parseInt();
-		var h = opt.height;
+		var h = opt.height - footerh;
+		var sh = SCROLLBARWIDTH();
 
 		sheader.css('height', h);
-		sbody.css('height', h - self.scrollbarX.size.thicknessH);
+		sbody.css('height', h - (sh ? (sh + self.scrollbarX.size.thicknessH - 2) : (footerh - 2)));
 
 		var w;
 
@@ -1408,10 +1418,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		if (w == null)
 			w = self.width();
 
-		var emptyspace = 40 - mr;
-
-		if (emptyspace < 30)
-			emptyspace = 30;
+		var emptyspace = 50 - mr;
+		if (emptyspace < 50)
+			emptyspace = 50;
 
 		var width = (config.numbering !== false ? 40 : 0) + (config.checkbox ? 40 : 0) + emptyspace;
 
@@ -1424,15 +1433,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		if (w > width)
 			width = w - 2;
 
-		container.css({ width: w, height: h });
+		container.css('height', h);
 		header.css('width', width);
 		vbody.css('width', width);
 		self.find('.dg-body-scrollbar').css('width', width);
 
 		opt.width2 = w;
-		self.scrollbarY.resize();
 		self.scrollbarX.resize();
-
+		self.scrollbarY.resize();
 		// header.parent().css('width', self.scrollbar.area.width());
 	};
 
