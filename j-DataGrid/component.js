@@ -566,10 +566,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			r.min = (prev.length ? prev.css('left').parseInt() : (config.checkbox ? 70 : 30)) + 50;
 			r.h = el.css('height');
 			r.x = el.css('left').parseInt();
-			r.line.rclass('hidden');
 			r.line.css('height', opt.height);
-			r.line.css('left', r.x + r.offset);
 			r.is = true;
+			r.isline = false;
 			e.preventDefault();
 			e.stopPropagation();
 		});
@@ -580,8 +579,15 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 				var x2 = self.scrollbarX.scrollLeft() + x;
 				if (x2 < r.min)
 					x2 = r.min;
+
 				r.el.css('left', x2);
 				r.line.css('left', x + 9);
+
+				if (!r.isline) {
+					r.isline = true;
+					r.line.rclass('hidden');
+				}
+
 				e.preventDefault();
 				e.stopPropagation();
 			}
