@@ -24,10 +24,7 @@ COMPONENT('menu', function(self) {
 			clearTimeout2(self.ID);
 
 			var el = $(this);
-			if (el.hclass(cls + '-divider')) {
-				e.preventDefault();
-				e.stopPropagation();
-			} else {
+			if (!el.hclass(cls + '-divider') && !el.hclass(cls + '-disabled')) {
 
 				var index = el.attrd('index').split('-');
 				if (index.length > 1) {
@@ -38,10 +35,10 @@ COMPONENT('menu', function(self) {
 					self.opt.callback(self.opt.items[+index[0]]);
 					self.hide();
 				}
-
-				e.preventDefault();
-				e.stopPropagation();
 			}
+
+			e.preventDefault();
+			e.stopPropagation();
 		});
 
 		events.hide = function() {
@@ -171,6 +168,9 @@ COMPONENT('menu', function(self) {
 
 			if (item.selected)
 				cn += (cn ? ' ' : '') + cls + '-selected';
+
+			if (item.disabled)
+				cn += (cn ? ' ' : '') + cls + '-disabled';
 
 			tmp += '<div class="{0}-name">{1}{2}{3}</div>'.format(cls, icon, item.name, item.shortcut ? '<b>{0}</b>'.format(item.shortcut) : '');
 
