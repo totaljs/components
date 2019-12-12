@@ -207,7 +207,7 @@ COMPONENT('menu', function(self) {
 		self.target = tmp;
 		self.opt = opt;
 
-		if (parentclass && opt.classname !== parentclass) {
+		if (parentclass && opt.classname !== parentclass) {
 			self.rclass(parentclass);
 			parentclass = null;
 		}
@@ -223,7 +223,7 @@ COMPONENT('menu', function(self) {
 
 		ul.html(self.makehtml(opt.items));
 
-		if (!parentclass && opt.classname) {
+		if (!parentclass && opt.classname) {
 			self.aclass(opt.classname);
 			parentclass = opt.classname;
 		}
