@@ -7,7 +7,7 @@
 .ui-menu-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 15px; }
 .ui-menu-note { font-size: 10px; margin: 0 10px 3px 35px; color: #A0A0A0; line-height: 11px; }
 .ui-menu-nofa .ui-menu-note { margin-left: 0; }
-.ui-menu-selected { background-color: #F9F9F9; }
+.ui-menu-selected { background-color: #F5F5F5; }
 .ui-menu li:hover { background-color: #F0F0F0; }
 .ui-menu-nofa { padding-left: 12px !important; }
 .ui-menu .pull-right { margin: 1px 5px 0 0; width: 20px; text-align: right; font-size: 10px; }
@@ -22,8 +22,8 @@
 .ui-dark .ui-menu b { color: #505050; }
 .ui-dark .ui-menu-items, .ui-dark .ui-menu-submenu { background-color: #303030; border-color: #353535; box-shadow: 1px 5px 10px rgba(0,0,0,0.2); }
 .ui-dark .ui-menu-name i { color: white; }
+.ui-dark .ui-menu-selected { background-color: #252525; }
 .ui-dark .ui-menu li:hover { background-color: #202020; }
-.ui-dark .ui-menu-selected { background-color: #292929; }
 .ui-dark .ui-menu-divider hr { border-color: #404040; }
 .ui-dark .ui-menu-note { color: #777777; }
 .ui-dark .ui-menu li.ui-menu-disabled { background-color: #191919; }
