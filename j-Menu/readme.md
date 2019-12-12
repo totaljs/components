@@ -22,7 +22,15 @@ opt.element = YOUR_ELEMENT;
 // opt.x {Number}          : `x` position
 // opt.y {Number}          : `y` position
 
-opt.items = ['Label', { name: 'Item 1', icon: 'print', classname: 'custom_class_name' }, { name: 'Item 2', icon: 'home', note: 'A simple description for this item' }, '-', { name: 'Item 3', icon: '!far fa-envelope', children: [{ name: 'Submenu item 1', icon: 'cog' }, { name: 'Submenu item 2', icon: 'home' }] }, { name: 'SElected', icon: 'check-circle', selected: true }];
+opt.items = ['Label', { name: 'Item 1', icon: 'print', classname: 'custom_class_name' }, { name: 'Item 2', icon: 'home', note: 'A simple description for this item' }, '-', { name: 'Item 3', icon: '!far fa-envelope', children: [{ name: 'Submenu item 1', icon: 'cog' }, { name: 'Submenu item 2', icon: 'home' }] }, { name: 'Selected', icon: 'check-circle', selected: true }, { name: 'Item 4', icon: 'gear', disabled: true }];
+// Item properties
+// name {String}           : Item name
+// icon {String}           : Icon
+// classname {String}      : class to be added to li element
+// note {String}           : text bellow Item name
+// selected {Boolean}      : item will be highlighted
+// disabled {Boolean}      : item will be disabled(not clickable)
+// children {Array}        : array of subitems
 
 opt.callback = function(item) {
 	console.log(item);

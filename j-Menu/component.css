@@ -15,6 +15,8 @@
 .ui-menu-divider { padding: 0 !important; background: transparent !important; cursor: default !important; color: gray; font-size: 11px !important; }
 .ui-menu-divider span { display: block; margin: 5px 12px; }
 .ui-menu-divider hr { margin: 5px 0; border-color: #E0E0E0; }
+.ui-menu li.ui-menu-disabled { color: grey; background-color: #dedede; cursor: not-allowed; }
+.ui-menu li.ui-menu-disabled i { color: #c5c5c5; }
 
 .ui-dark .ui-menu b { color: #505050; }
 .ui-dark .ui-menu-items, .ui-dark .ui-menu-submenu { background-color: #303030; border-color: #353535; box-shadow: 1px 5px 10px rgba(0,0,0,0.2); }
@@ -22,3 +24,5 @@
 .ui-dark .ui-menu li:hover, .ui-dark .ui-menu-selected { background-color: #202020; }
 .ui-dark .ui-menu-divider hr { border-color: #404040; }
 .ui-dark .ui-menu-note { color: #777777; }
+.ui-dark .ui-menu li.ui-menu-disabled { background-color: #191919; }
+.ui-dark .ui-menu li.ui-menu-disabled i { color: #525252; }
