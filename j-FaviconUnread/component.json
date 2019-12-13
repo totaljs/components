@@ -1,0 +1,16 @@
+{
+	"datecreated": "2018-12-13T15:44:00.000Z",
+	"dateupdated": null,
+	"name": "j-FaviconUnread",
+	"tags": [
+		"favicon",
+		"unread"
+	],
+	"color": "transparent",
+	"version": 1,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
