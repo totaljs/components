@@ -1822,6 +1822,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		return output;
 	};
 
+	self.readfilter = function() {
+		return opt.filter;
+	};
+
 	self.changed = function() {
 		var output = [];
 		var model = self.get() || EMPTYARRAY;
