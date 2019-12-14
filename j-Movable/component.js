@@ -7,8 +7,7 @@ COMPONENT('movable', function(self, config) {
 	self.blind();
 
 	self.make = function() {
-		$(document).on('dragenter dragover dragexit drop dragleave dragstart', config.selector, events.ondrag);
-		$(document).on('mousedown', config.selector, events.ondown);
+		$(document).on('dragenter dragover dragexit drop dragleave dragstart', config.selector, events.ondrag).on('mousedown', config.selector, events.ondown);
 	};
 
 	events.ondrag = function(e) {
@@ -64,8 +63,7 @@ COMPONENT('movable', function(self, config) {
 
 			case 'dragstart':
 				var eo = e.originalEvent;
-				if (eo.dataTransfer)
-					eo.dataTransfer.setData('text', '1');
+				eo.dataTransfer && eo.dataTransfer.setData('text', '1');
 				break;
 			case 'dragenter':
 			case 'dragover':
@@ -80,7 +78,6 @@ COMPONENT('movable', function(self, config) {
 	};
 
 	self.destroy = function() {
-		$(document).off('dragenter dragover dragexit drop dragleave dragstart', config.selector, events.ondrag);
-		$(document).off('mousedown', config.selector, events.ondown);
+		$(document).off('dragenter dragover dragexit drop dragleave dragstart', config.selector, events.ondrag).off('mousedown', config.selector, events.ondown);
 	};
 });
