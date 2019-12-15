@@ -267,7 +267,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 			return;
 
 		var d = WIDTH();
-		var el = config.parent === 'window' ? $(W) : config.parent === 'parent' ? self.element.parent() : config.parent ? self.element.closest(config.parent) : self.element;
+		var el = self.parent(config.parent);
 		var width = el.width();
 		var height = el.height();
 		var key = d + 'x' + width + 'x' + height;
