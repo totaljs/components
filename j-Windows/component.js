@@ -234,6 +234,9 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 					break;
 			}
 
+			drag.item.ert && clearTimeout(drag.item.ert);
+			drag.item.ert = setTimeout(drag.item.emitresize, 100);
+
 		} else {
 			obj.left = evt.pageX - drag.x - drag.offX;
 			obj.top = evt.pageY - drag.y - drag.offY;
@@ -264,6 +267,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 			item.width = meta.offset.width = drag.el.width();
 			item.height = meta.offset.height = drag.body.height();
 			meta.resize && meta.resize.call(item, item.width, item.height, drag.body, item.x, item.y);
+			self.element.SETTER('*', 'resize');
 		}
 
 		meta.move && meta.move.call(item, item.x, item.y, drag.body);
@@ -344,6 +348,11 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 
 		item.make && item.make.call(cache[item.id], body);
 
+		obj.emitresize = function() {
+			obj.ert = null;
+			obj.element.SETTER('*', 'resize');
+		};
+
 		obj.setsize = function(w, h) {
 			var t = this;
 			var obj = {};
@@ -358,6 +367,8 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 				t.height = t.meta.offset.height = h;
 			}
 
+			t.ert && clearTimeout(t.ert);
+			t.ert = setTimeout(t.emitresize, 100);
 			self.wsave(t);
 		};
 
