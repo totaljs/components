@@ -10,7 +10,7 @@ __Configuration__:
 - `height` {Number} optional, a height of the element (default: `undefined`)
 - `parent` {String} optional, jQuery selector for auto setup of height (can be `window`, `parent` or `custom`)
 - `margin` {Number} optional, vertical margin (default: `0`)
-- `change` {String} optional, a path to method `method(item, replace_text(new_text))` (executed if some value is changed) and `replace_text` argumnet is optional
+- `change` {String} optional, a path to method `method(item, replace_text(new_text))` (executed if some value is changed) and `replace_text` argument is optional
 
 __Data declaration__:
 
