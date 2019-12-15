@@ -71,7 +71,6 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 	self.resize = function() {
 
 		clearTimeout2(self.ID + 'compile');
-
 		self.resizelayout();
 
 		var keys = Object.keys(cache);
@@ -137,7 +136,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 
 	self.resizelayout = function() {
 
-		var parent = config.parent === 'window' ? $(W) : config.parent === 'parent' ? self.parent() : self.closest(config.parent);
+		var parent = self.parent(config.parent);
 		var css = {};
 		css.width = parent.width();
 		css.height = parent.height() - config.margin;
@@ -224,7 +223,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 				switch (drag.dir) {
 					case 'tr':
 						css.width = 1;
-						css.height = drag.height;
+						css.height = drag.el.height();
 						css.left = pos.left + drag.width;
 						css.top = pos.top;
 						ruler.css(css).rclass('hidden');
@@ -238,7 +237,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 							css.height = 1;
 						} else {
 							css.width = 1;
-							css.height = drag.height;
+							css.height = drag.el.height();
 						}
 
 						css.top = pos.top;
@@ -288,6 +287,12 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 			evt = e.touches[0];
 
 		var obj = {};
+		var off = drag.item.meta.offset;
+		var d = off.docked;
+		var minwidth = (d ? off.dockminwidth : off.minwidth) || 30;
+		var maxwidth = d ? off.dockmaxwidth : off.maxwidth;
+		var minheight = (d ? off.dockminheight : off.minheight) || 30;
+		var maxheight = d ? off.dockmaxheight : off.maxheight;
 
 		drag.is = true;
 
@@ -295,13 +300,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 
 			var x = evt.pageX - drag.plus.left;
 			var y = evt.pageY - drag.plus.top;
-			var off = drag.item.meta.offset;
 			var actions = drag.item.meta.actions;
-			var d = off.docked;
-			var minwidth = (d ? off.dockminwidth : off.minwidth) || 30;
-			var maxwidth = d ? off.dockmaxwidth : off.maxwidth;
-			var minheight = (d ? off.dockminheight : off.minheight) || 30;
-			var maxheight = d ? off.dockmaxheight : off.maxheight;
 			var resizeX = actions ? actions.resizeX != false : true;
 			var resizeY = actions ? actions.resizeY != false : true;
 			var w;
@@ -441,6 +440,11 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 					break;
 			}
 
+			if (!d) {
+				drag.item.ert && clearTimeout(drag.item.ert);
+				drag.item.ert = setTimeout(drag.item.emitresize, 100);
+			}
+
 		} else {
 
 			obj.left = evt.pageX - drag.x;
@@ -453,7 +457,6 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 				drag.isdocked = false;
 				drag.item.setdock(null);
 				drag.item.setsize(old === 'bottom' ? (drag.item.width / 2) >> 0 : drag.item.width, old !== 'bottom' ? (drag.item.height / 2) >> 0 : drag.item.height);
-				self.resize();
 
 			} else {
 
@@ -574,7 +577,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 		}
 
 		meta.move && meta.move.call(item, item.x, item.y, drag.body);
-		self.resize();
+		drag.resize && self.resize();
 		self.wsave(item);
 		self.change(true);
 	};
@@ -667,6 +670,11 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 
 		item.make && item.make.call(cache[item.id], body);
 
+		obj.emitresize = function() {
+			obj.ert = null;
+			obj.element.SETTER('*', 'resize');
+		};
+
 		obj.setsize = function(w, h) {
 			var t = this;
 			var obj = {};
@@ -679,6 +687,11 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 			if (h) {
 				t.element.css('height', h);
 				t.height = t.meta.offset.height = h;
+			}
+
+			if (!init) {
+				t.ert && clearTimeout(t.ert);
+				t.ert = setTimeout(t.emitresize, 100);
 			}
 
 			self.wsave(t);
@@ -724,7 +737,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 				el.rclass2(cls + '-docked');
 
 			t.setoffset(meta.offset.x, meta.offset.y);
-			t.setsize(meta.offset.width, meta.offset.height);
+			t.setsize(meta.offset.width, meta.offset.height, init);
 
 			if (init)
 				return;
