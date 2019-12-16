@@ -116,7 +116,7 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# it
 			builder.push('<span class="page" data-page="{0}"><i class="fa fa-arrow-right"></i></span>'.format(next));
 		}
 
-		nav.html(builder.join('')).tclass('hidden', builder.length > 0);
+		nav.html(builder.join('')).tclass('hidden', builder.length <= 0);
 
 		if (is) {
 			var pluralize_pages = [cachePages];
