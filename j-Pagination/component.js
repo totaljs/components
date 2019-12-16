@@ -1,13 +1,13 @@
 COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# item,# items,# items', function(self, config) {
 
-	var nav;
-	var info;
 	var cachePages = 0;
 	var cacheCount = 0;
+	var nav;
+	var info;
 
 	self.template = Tangular.compile('<span class="page{{ if selected }} selected{{ fi }}" data-page="{{ page }}">{{ page }}</span>');
-	self.readonly();
 	self.nocompile && self.nocompile();
+	self.readonly();
 
 	self.make = function() {
 		self.aclass('ui-pagination hidden');
@@ -116,7 +116,7 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# it
 			builder.push('<span class="page" data-page="{0}"><i class="fa fa-arrow-right"></i></span>'.format(next));
 		}
 
-		nav.empty().append(builder.join(''));
+		nav.html(builder.join('')).tclass('hidden', builder.length > 0);
 
 		if (is) {
 			var pluralize_pages = [cachePages];
