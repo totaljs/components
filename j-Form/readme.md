@@ -13,12 +13,13 @@ Example: `data-jc-config="title:Form title;width:800;if:user;icon:home"`
 - `reload` {String} link to a global function and it's executed if the form is showing
 - `submit` {String} link to a global function and it's executed if the submit button is pressed
 - `cancel` {String} link to a global function and it's executed if the cancel button is pressed
-- `enter` {Boolean} (optional) captures `enter` key automatically and performs submit (default: `false`)
-- `center` {Boolean} (optional) centers the form to middle of screen
-- `autofocus` {Boolean/String} (optional) can focus an input. `String` === `jQuery selector` for the input
-- `default` {String} (optional) a short alias for `DEFAULT(default, true)`
-- `closebutton` {Boolean} (optional) can hide `x` button (default: `false`)
-- __NEW__: `zindex` {Number} (optional) can affect z-index (default: `12`)
+- `enter` {Boolean} captures `enter` key automatically and performs submit (default: `false`)
+- `center` {Boolean} centers the form to middle of screen
+- `autofocus` {Boolean/String} can focus an input. `String` === `jQuery selector` for the input
+- `default` {String} a short alias for `DEFAULT(default, true)`
+- `closebutton` {Boolean} can hide `x` button (default: `false`)
+- `zindex` {Number} can affect z-index (default: `12`)
+- `scrollbar` {Boolean} enables custom scrollbar (default: `true`)
 
 __Good to know__:
 

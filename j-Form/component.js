@@ -1,8 +1,8 @@
-COMPONENT('form', 'zindex:12', function(self, config) {
+COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config) {
 
 	var cls = 'ui-form';
 	var cls2 = '.' + cls;
-	var W = window;
+	var container;
 	var csspos = {};
 
 	if (!W.$$form) {
@@ -15,11 +15,13 @@ COMPONENT('form', 'zindex:12', function(self, config) {
 		});
 
 		var resize = function() {
-			for (var i = 0; i < M.components.length; i++) {
-				var com = M.components[i];
-				if (com.name === 'form' && com.dom.offsetParent && com.$ready && !com.$removed)
-					com.resize();
-			}
+			setTimeout2('form', function() {
+				for (var i = 0; i < M.components.length; i++) {
+					var com = M.components[i];
+					if (com.name === 'form' && !HIDDEN(com.dom) && com.$ready && !com.$removed)
+						com.resize();
+				}
+			}, 200);
 		};
 
 		if (W.OP)
@@ -63,11 +65,18 @@ COMPONENT('form', 'zindex:12', function(self, config) {
 	};
 
 	self.resize = function() {
+
+		if (self.scrollbar) {
+			container.css('height', WH);
+			self.scrollbar.resize();
+		}
+
 		if (!config.center || self.hclass('hidden'))
 			return;
+
 		var ui = self.find(cls2);
 		var fh = ui.innerHeight();
-		var wh = $(W).height();
+		var wh = WH;
 		var r = (wh / 2) - (fh / 2);
 		csspos.marginTop = (r > 30 ? (r - 15) : 20) + 'px';
 		ui.css(csspos);
@@ -75,7 +84,7 @@ COMPONENT('form', 'zindex:12', function(self, config) {
 
 	self.make = function() {
 
-		$(document.body).append('<div id="{0}" class="hidden {4}-container invisible noscrollbar"><div class="{4}-container-padding"><div class="{4}" style="max-width:{1}px"><div data-bind="@config__html span:value.title__change .{4}-icon:@icon" class="{4}-title"><button name="cancel" class="{4}-button-close{3}" data-path="{2}"><i class="fa fa-times"></i></button><i class="{4}-icon"></i><span></span></div></div></div>'.format(self.ID, config.width || 800, self.path, config.closebutton == false ? ' hidden' : '', cls));
+		$(document.body).append('<div id="{0}" class="hidden {4}-container invisible"><div class="{4}-scrollbar"><div class="{4}-container-padding"><div class="{4}" style="max-width:{1}px"><div data-bind="@config__html span:value.title__change .{4}-icon:@icon" class="{4}-title"><button name="cancel" class="{4}-button-close{3}" data-path="{2}"><i class="fa fa-times"></i></button><i class="{4}-icon"></i><span></span></div></div></div></div>'.format(self.ID, config.width || 800, self.path, config.closebutton == false ? ' hidden' : '', cls));
 
 		var scr = self.find('> script');
 		self.template = scr.length ? scr.html().trim() : '';
@@ -84,6 +93,10 @@ COMPONENT('form', 'zindex:12', function(self, config) {
 
 		var el = $('#' + self.ID);
 		var body = el.find(cls2)[0];
+		container = el.find(cls2 + '-scrollbar');
+
+		if (config.scrollbar)
+			self.scrollbar = SCROLLBAR(el.find(cls2 + '-scrollbar'), { visibleY: 1 });
 
 		while (self.dom.children.length)
 			body.appendChild(self.dom.children[0]);
