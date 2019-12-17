@@ -1407,7 +1407,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 
 		var ismobile = isMOBILE && isTOUCH;
 
-		if (resizecache.mobile !== ismobile) {
+		if (resizecache.mobile !== ismobile && !config.noborder) {
 			resizecache.mobile = ismobile;
 			self.tclass('dg-mobile', ismobile);
 		}
