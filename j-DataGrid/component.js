@@ -26,7 +26,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		self.scrolltop = 0;
 		self.prev = 0;
 
-		var seh = '<div style="height:0px"></div>';
+		var seh = '<div style="height:0"></div>';
 		var set = $(seh);
 		var seb = $(seh);
 
@@ -44,7 +44,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			var posto = pos + (self.limit * 2);
 
 			set.css('height', t);
-			seb.css('height', b < 2 ? 2 : b);
+			seb.css('height', b < 2 ? isMOBILE && isTOUCH ? (self.row * 2.23) >> 0 : 2 : b);
 
 			var tmp = self.scrollbar[0].scrollTop;
 			var node = self.el[0];
