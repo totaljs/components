@@ -214,7 +214,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			opt.offsetY = -1 + (config.diroffsety || 0);
 			opt.offsetX = 0 + (config.diroffsetx || 0);
 			opt.placeholder = config.dirplaceholder;
-			opt.render = config.dirrender ? GET(config.dirrender) : null;
+			opt.render = config.dirrender ? GET(self.makepath(config.dirrender)) : null;
 			opt.custom = !!config.dircustom;
 			opt.offsetWidth = 2;
 			opt.minwidth = config.dirminwidth || 200;
