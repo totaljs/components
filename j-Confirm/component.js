@@ -1,6 +1,9 @@
 COMPONENT('confirm', function(self) {
 
-	var is, visible = false;
+	var cls = 'ui-' + self.name;
+	var cls2 = '.' + cls;
+	var is;
+	var events = {};
 
 	self.readonly();
 	self.singleton();
@@ -8,32 +11,50 @@ COMPONENT('confirm', function(self) {
 
 	self.make = function() {
 
-		self.aclass('ui-confirm hidden');
+		self.aclass(cls + ' hidden');
 
 		self.event('click', 'button', function() {
-			self.hide($(this).attrd('index').parseInt());
+			self.hide(+$(this).attrd('index'));
+		});
+
+		self.event('click', cls2 + '-close', function() {
+			self.callback = null;
+			self.hide(-1);
 		});
 
 		self.event('click', function(e) {
 			var t = e.target.tagName;
 			if (t !== 'DIV')
 				return;
-			var el = self.find('.ui-confirm-body');
-			el.aclass('ui-confirm-click');
+			var el = self.find(cls2 + '-body');
+			el.aclass(cls + '-click');
 			setTimeout(function() {
-				el.rclass('ui-confirm-click');
+				el.rclass(cls + '-click');
 			}, 300);
 		});
+	};
 
-		$(window).on('keydown', function(e) {
-			if (!visible)
-				return;
-			var index = e.which === 13 ? 0 : e.which === 27 ? 1 : null;
-			if (index != null) {
-				self.find('button[data-index="{0}"]'.format(index)).trigger('click');
-				e.preventDefault();
-				e.stopPropagation();
-			}
+	events.keydown = function(e) {
+		var index = e.which === 13 ? 0 : e.which === 27 ? 1 : null;
+		if (index != null) {
+			self.find('button[data-index="{0}"]'.format(index)).trigger('click');
+			e.preventDefault();
+			e.stopPropagation();
+			events.unbind();
+		}
+	};
+
+	events.bind = function() {
+		$(W).on('keydown', events.keydown);
+	};
+
+	events.unbind = function() {
+		$(W).off('keydown', events.keydown);
+	};
+
+	self.show2 = function(message, buttons, fn) {
+		self.show(message, buttons, function(index) {
+			!index && fn();
 		});
 	};
 
@@ -50,30 +71,35 @@ COMPONENT('confirm', function(self) {
 				icon = '<i class="fa fa-{0}"></i>'.format(icon.toString().replace(/"/g, ''));
 			} else
 				icon = '';
-			builder.push('<button data-index="{1}">{2}{0}</button>'.format(item, i, icon));
+
+			var color = item.match(/#[0-9a-f]+/i);
+			if (color)
+				item = item.replace(color, '').trim();
+
+			builder.push('<button data-index="{1}"{3}>{2}{0}</button>'.format(item, i, icon, color ? ' style="background:{0}"'.format(color) : ''));
 		}
 
-		self.content('ui-confirm-warning', '<div class="ui-confirm-message">{0}</div>{1}'.format(message.replace(/\n/g, '<br />'), builder.join('')));
+		self.content('<div class="{0}-message">{1}</div>{2}'.format(cls, message.replace(/\n/g, '<br />'), builder.join('')));
 	};
 
 	self.hide = function(index) {
 		self.callback && self.callback(index);
-		self.rclass('ui-confirm-visible');
-		visible = false;
+		self.rclass(cls + '-visible');
+		events.unbind();
 		setTimeout2(self.id, function() {
-			$('html').rclass('ui-confirm-noscroll');
+			$('html').rclass(cls + '-noscroll');
 			self.aclass('hidden');
 		}, 1000);
 	};
 
-	self.content = function(cls, text) {
-		$('html').aclass('ui-confirm-noscroll');
-		!is && self.html('<div><div class="ui-confirm-body"></div></div>');
-		self.find('.ui-confirm-body').empty().append(text);
+	self.content = function(text) {
+		$('html').aclass(cls + '-noscroll');
+		!is && self.html('<div><div class="{0}-body"><span class="{0}-close"><i class="fa fa-times"></i></span></div></div>'.format(cls));
+		self.find(cls2 + '-body').append(text);
 		self.rclass('hidden');
-		visible = true;
+		events.bind();
 		setTimeout2(self.id, function() {
-			self.aclass('ui-confirm-visible');
+			self.aclass(cls + '-visible');
 		}, 5);
 	};
 });
