@@ -1,5 +1,8 @@
 COMPONENT('selectbox', function(self, config) {
 
+	var cls = 'ui-' + self.name;
+	var cls2 = '.' + cls;
+
 	var Eitems, Eselected, datasource, condition;
 
 	self.datasource = EMPTYARRAY;
@@ -22,7 +25,7 @@ COMPONENT('selectbox', function(self, config) {
 				self.tclass('ui-disabled', value);
 				self.find('input').prop('disabled', value);
 				if (value)
-					self.rclass('ui-selectbox-invalid');
+					self.rclass(cls + '-invalid');
 				else if (config.required)
 					self.state(1, 1);
 				break;
@@ -61,16 +64,16 @@ COMPONENT('selectbox', function(self, config) {
 
 	self.search = function() {
 		var search = config.search ? self.find('input').val().toSearch() : '';
-		Eitems.find('span').each(function() {
+		self.find(cls2 + '-main').find('span').each(function() {
 			var el = $(this);
 			el.tclass('hidden', el.attrd('search').indexOf(search) === -1);
 		});
-		self.find('.ui-selectbox-search-icon').tclass('fa-search', search.length === 0).tclass('fa-times', search.length > 0);
+		self.find(cls2 + '-search-icon').tclass('fa-search', search.length === 0).tclass('fa-times', search.length > 0);
 	};
 
 	self.redraw = function() {
-		self.html((typeof(config.search) === 'string' ? '<div class="ui-selectbox-search"><span><i class="fa fa-search ui-selectbox-search-icon"></i></span><div><input type="text" placeholder="{0}" /></div></div><div>'.format(config.search) : '') + '<div class="ui-selectbox-container" style="height:{0}px"><div class="ui-selectbox-area"><div class="ui-selectbox-body noscrollbar"></div></div><div class="ui-selectbox-area"><div class="ui-selectbox-body noscrollbar" style="height:{0}px"></div></div></div>'.format(config.height || '200'));
-		self.find('.ui-selectbox-body').each(function(index) {
+		self.html((typeof(config.search) === 'string' ? '<div class="{0}-search"><span><i class="fa fa-search {0}-search-icon"></i></span><div><input type="text" placeholder="{1}" /></div></div><div>'.format(cls, config.search) : '') + '<div class="{0}-container" style="height:{1}px"><div class="{0}-area {0}-main"><div class="{0}-body noscrollbar"></div></div><div class="{0}-area"><div class="{0}-body noscrollbar" style="height:{1}px"></div></div></div>'.format(cls, config.height || '200'));
+		self.find(cls2 + '-body').each(function(index) {
 			if (index)
 				Eselected = $(this);
 			else
@@ -110,6 +113,7 @@ COMPONENT('selectbox', function(self, config) {
 			}
 		}
 
+
 		Eitems.empty().append(builder.join(''));
 		self.refresh();
 		self.search();
@@ -117,15 +121,17 @@ COMPONENT('selectbox', function(self, config) {
 
 	self.make = function() {
 
-		self.aclass('ui-selectbox');
+		self.aclass(cls);
 		self.redraw();
 
 		config.datasource && self.reconfigure('datasource:' + config.datasource);
 		config.items && self.reconfigure('items:' + config.items);
 
-		self.event('click', 'span', function() {
+		self.event('click', 'span[data-index]', function() {
+
 			if (config.disabled)
 				return;
+
 			var selected = self.get() || [];
 			var index = +this.getAttribute('data-index');
 			var value = self.datasource[index];
@@ -173,8 +179,9 @@ COMPONENT('selectbox', function(self, config) {
 		Eitems.find('span').each(function() {
 			var el = $(this);
 			var index = +el.attrd('index');
-			el.tclass('ui-selectbox-selected', selected[index] !== undefined);
+			el.tclass(cls + '-selected', selected[index] !== undefined);
 		});
+
 
 		Eselected.empty().append(builder.join(''));
 		self.search();
@@ -191,7 +198,7 @@ COMPONENT('selectbox', function(self, config) {
 			var invalid = config.required ? self.isInvalid() : false;
 			if (invalid !== self.$oldstate) {
 				self.$oldstate = invalid;
-				self.tclass('ui-selectbox-invalid', invalid);
+				self.tclass(cls + '-invalid', invalid);
 			}
 		}
 	};
