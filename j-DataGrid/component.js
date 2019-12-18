@@ -1154,8 +1154,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		if (index !== -1) {
 			var el = vbody.find('.dg-row[data-index="{0}"]'.format(index));
 			if (el.length) {
-				opt.render[index] = self.renderrow(index, row);
-				el.replaceWith(opt.render[index]);
+				opt.render[index] = $(self.renderrow(index, row))[0];
+				el[0].parentNode.replaceChild(opt.render[index], el[0]);
 			}
 		}
 	};
