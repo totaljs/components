@@ -45,7 +45,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			var sh = SCROLLBARWIDTH();
 
 			set.css('height', t);
-			seb.css('height', b < 2 ? isMOBILE ? (self.row * 2.23) >> 0 : sh ? 2 : (self.row + 5) : b);
+			seb.css('height', b < 2 ? isMOBILE ? (self.row * 2.23) >> 0 : sh ? 2 : (self.row - config.margin) : b);
 
 			var tmp = self.scrollbar[0].scrollTop;
 			var node = self.el[0];
