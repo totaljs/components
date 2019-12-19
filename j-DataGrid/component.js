@@ -42,9 +42,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			var b = (self.rows.length * self.row) - (self.frame * 2) - t;
 			var pos = self.pos * self.limit;
 			var posto = pos + (self.limit * 2);
+			var sh = SCROLLBARWIDTH();
 
 			set.css('height', t);
-			seb.css('height', b < 2 ? isMOBILE && isTOUCH ? (self.row * 2.23) >> 0 : 2 : b);
+			seb.css('height', b < 2 ? isMOBILE ? (self.row * 2.23) >> 0 : sh ? 2 : (self.row + 5) : b);
 
 			var tmp = self.scrollbar[0].scrollTop;
 			var node = self.el[0];
@@ -1375,7 +1376,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 
 	self.resize = function() {
 
-		if (!opt.cols || self.dom.offsetParent == null)
+		if (!opt.cols || HIDDEN(self.dom))
 			return;
 
 		var el;
@@ -1473,9 +1474,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			vbody.css('width', width);
 			self.find('.dg-body-scrollbar').css('width', width);
 			opt.width2 = w;
-			self.scrollbarX.resize();
-			self.scrollbarY.resize();
 		}
+
+		self.scrollbarX.resize();
+		self.scrollbarY.resize();
 
 		ready = true;
 		// header.parent().css('width', self.scrollbar.area.width());
