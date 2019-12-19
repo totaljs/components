@@ -1422,9 +1422,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 
 		var tmpsh = h - (sh ? (sh + self.scrollbarX.thinknessX - 2) : (footerh - 2));
 
-		if (resizecache.tmpsh !== h) {
+		if (resizecache.tmpsh !== tmpsh) {
 			resizecache.tmpsh = tmpsh;
-			sbody.css('height', tmpsh + self.scrollbarX.marginY);
+			sbody.css('height', tmpsh + self.scrollbarX.marginY + (config.exec && self.scrollbarX.size.empty ? footerh : 0));
 		}
 
 		var w;
