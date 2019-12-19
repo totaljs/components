@@ -45,7 +45,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			var sh = SCROLLBARWIDTH();
 
 			set.css('height', t);
-			seb.css('height', b < 2 ? isMOBILE ? (self.row * 2.23) >> 0 : sh ? 2 : (self.row - config.margin) : b);
+			seb.css('height', b < 2 ? isMOBILE ? (config.exec ? (self.row + 1) : (self.row * 2.25)) >> 0 : 3 : b);
 
 			var tmp = self.scrollbar[0].scrollTop;
 			var node = self.el[0];
@@ -337,11 +337,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		};
 
 		events.unbind = function() {
-			$(window).off('mouseup', events.mouseup).off('mousemove', events.mousemove);
+			$(W).off('mouseup', events.mouseup).off('mousemove', events.mousemove);
 		};
 
 		events.bind = function() {
-			$(window).on('mouseup', events.mouseup).on('mousemove', events.mousemove);
+			$(W).on('mouseup', events.mouseup).on('mousemove', events.mousemove);
 		};
 
 		var hidedir = function() {
@@ -1380,7 +1380,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			return;
 
 		var el;
-		var footerh = footer.length ? footer.height() : 0;
+		var footerh = opt.footer = footer.length ? footer.height() : 0;
 
 		switch (config.height) {
 			case 'auto':
@@ -1420,11 +1420,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			sheader.css('height', h);
 		}
 
-		var tmpsh = h - (sh ? (sh + self.scrollbarX.size.thicknessH - 2) : (footerh - 2));
+		var tmpsh = h - (sh ? (sh + self.scrollbarX.thinknessX - 2) : (footerh - 2));
 
 		if (resizecache.tmpsh !== h) {
 			resizecache.tmpsh = tmpsh;
-			sbody.css('height', tmpsh);
+			sbody.css('height', tmpsh + self.scrollbarX.marginY);
 		}
 
 		var w;
