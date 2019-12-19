@@ -27,7 +27,7 @@ COMPONENT('chunkyscroll', 'parent:parent;limit:80;margin:0;rowheight:0;scrolltop
 		set = $(seh);
 		seb = $(seh);
 
-		self.scrollbar = new SCROLLBAR(self.find(cls2 + '-container'), { visibleY: true, onscroll: self.scroll });
+		self.scrollbar = new SCROLLBAR(self.find(cls2 + '-container'), { visibleY: true, onscroll: self.scroll, orientation: 'y' });
 		self.scrolltop = self.scrollbar.scrollTop;
 		container = self.find('.ui-scrollbar-body');
 
