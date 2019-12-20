@@ -1,4 +1,4 @@
-COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;marginsm:0;marginmd:0;marginlg:0', function(self, config) {
+COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;marginsm:0;marginmd:0;marginlg:0;visibleY:1', function(self, config) {
 
 	self.readonly();
 
@@ -32,7 +32,7 @@ COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;marginsm:0;marginmd:0;mar
 	};
 
 	self.make = function() {
-		self.scrollbar = SCROLLBAR(self.element, { visibleX: config.visibleX, visibleY: config.visibleY });
+		self.scrollbar = SCROLLBAR(self.element, { visibleX: config.visibleX, visibleY: config.visibleY, orientation: !config.visibleX && config.visibleY ? null : 'y' });
 		self.scrollleft = self.scrollbar.scrollLeft;
 		self.scrolltop = self.scrollbar.scrollTop;
 		self.scrollright = self.scrollbar.scrollRight;
