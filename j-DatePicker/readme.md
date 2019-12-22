@@ -6,14 +6,15 @@
 
 __Configuration__:
 
-- `firstday` {Number} optional, first day in the week
-- `today` {String} optional, label for `Set today` button
-- `days` {String} optional, days e.g. `SU,MO,TU,WE,TH,FR,SA` (default).
-- `months` {String} optional, months e.g. `January,February,...` (default).
-- `yearselect` {Boolean} optional, dropdown with years (default `true`).
-- `monthselect` {Boolean} optional, dropdown with months (default `true`).
-- `yearfrom` {String} optional, set minimum year limit in dropdown e.g. `-5 years` `current`  (default `-100 years`).
-- `yearto` {String} optional, set maximum year limit in dropdown  `+5 years` `current` (default `current`).
+- `firstday` {Number} first day in the week
+- `today` {String} a label for `Set today` button
+- `close` {String} a label for close button
+- `days` {String} days e.g. `SU,MO,TU,WE,TH,FR,SA` (default).
+- `months` {String} months e.g. `January,February,...` (default).
+- `yearselect` {Boolean} dropdown with years (default `true`).
+- `monthselect` {Boolean} dropdown with months (default `true`).
+- `yearfrom` {String} sets minimum year limit in dropdown e.g. `-5 years` `current`  (default `-100 years`).
+- `yearto` {String} sets maximum year limit in dropdown  `+5 years` `current` (default `current`).
 
 The component must be called manually or works with `j-Input` component automatically. The component is a singleton.
 
