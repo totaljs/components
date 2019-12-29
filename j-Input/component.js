@@ -352,7 +352,8 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				t.value = arr.join('');
 			} else {
 				nobindcamouflage = true;
-				input[0].value = self.get();
+				var val = self.get();
+				input[0].value = val == null ? '' : val;
 			}
 			self.tclass(cls + '-camouflaged', is);
 		}
