@@ -3,7 +3,7 @@
 .ui-datepicker-table { padding: 10px; }
 .ui-datepicker table { width: 100%; margin: 0; table-layout: fixed; animation: ui-datepicker-animation 0.25s ease-out 1; }
 .ui-datepicker table td { text-align: center; vertical-align: middle; font-size: 11px; color: #505050; }
-.ui-datepicker table td div { margin: 2px; padding: 5px 0; border-radius: 4px; }
+.ui-datepicker table td div { margin: 2px; line-height: 30px; border-radius: 100px; }
 .ui-datepicker table th { padding: 8px 0 5px; text-align: center; width: 14%; vertical-align: middle; font-weight: bold; font-size: 12px; color: black; }
 .ui-datepicker-disabled { color: silver !important; cursor: pointer; }
 .ui-datepicker-day {}
