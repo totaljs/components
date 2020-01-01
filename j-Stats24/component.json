@@ -1,0 +1,18 @@
+{
+	"datecreated": "2020-01-01T11:19:00.000Z",
+	"dateupdated": null,
+	"name": "j-Stats24",
+	"tags": [
+		"daily stats",
+		"chart",
+		"barchart"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
