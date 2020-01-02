@@ -3,5 +3,5 @@
 .ui-gauge-pointer circle { fill: black; }
 
 .ui-dark .ui-gauge text { fill: white; }
-.ui-dark .ui-gauge-pointer path { fill: black; }
-.ui-dark .ui-gauge-pointer circle { fill: black; }
+.ui-dark .ui-gauge-pointer path { fill: white; }
+.ui-dark .ui-gauge-pointer circle { fill: white; }
