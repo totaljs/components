@@ -7,6 +7,7 @@ __Configuration__:
 - `tooltiplarge` {Boolean} enables tooltips in larger mode (default: `true`)
 - `tooltip` {Boolean} enables tooltips (default: `true`)
 - `tooltiptext` {String} Tooltip text (default: `{0}`)
+- `border` {Boolean} enables border (default: `true`)
 
 ### Author
 

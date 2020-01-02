@@ -1,4 +1,4 @@
-COMPONENT('stats24', 'height:120;tooltiplarge:0;tooltip:1;tooltiptext:{0}', function(self, config, cls) {
+COMPONENT('stats24', 'height:120;tooltiplarge:0;tooltip:1;tooltiptext:{0};border:1', function(self, config, cls) {
 
 	var old = '';
 	var bars = [];
@@ -10,6 +10,7 @@ COMPONENT('stats24', 'height:120;tooltiplarge:0;tooltip:1;tooltiptext:{0}', func
 	self.nocompile();
 
 	self.make = function() {
+
 		self.aclass(cls);
 
 		var builder = [];
@@ -37,6 +38,11 @@ COMPONENT('stats24', 'height:120;tooltiplarge:0;tooltip:1;tooltiptext:{0}', func
 			}
 		});
 	};
+
+	self.configure = function(key, value) {
+		if (key === 'border')
+			self.tclass(cls + '-border', !!value);
+	}
 
 	self.setter = function(value) {
 
