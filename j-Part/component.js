@@ -32,7 +32,7 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config) {
 		if (config.if !== value) {
 
 			if (!self.hclass('hidden')) {
-				config.hidden && EXEC(config.hidden);
+				config.hidden && EXEC(self.makepath(config.hidden));
 				config.hide && self.aclass('hidden');
 				self.release(true);
 			}
@@ -50,7 +50,7 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config) {
 
 		config.hide && self.rclass('hidden');
 
-		if (self.element[0].hasChildNodes()) {
+		if (self.dom.hasChildNodes()) {
 
 			if (clid) {
 				clearTimeout(clid);
@@ -58,10 +58,11 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config) {
 			}
 
 			self.release(false);
-			config.reload && EXEC(config.reload);
-			config.default && DEFAULT(config.default, true);
+			config.reload && EXEC(self.makepath(config.reload));
+			config.default && DEFAULT(self.makepath(config.default), true);
 			isresizing && setTimeout(self.resize, 50);
 			setTimeout(self.emitresize, 200);
+
 		} else {
 
 			if (downloading)
@@ -76,20 +77,21 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config) {
 				};
 
 				if (preparator == null && config.replace)
-					preparator = GET(config.replace);
+					preparator = GET(self.makepath(config.replace));
 
 				self.import(config.url, function() {
 					downloading = false;
 
 					if (!init) {
-						config.init && EXEC(config.init);
+						config.init && EXEC(self.makepath(config.init));
 						init = true;
 					}
 
 					self.release(false);
-					config.reload && EXEC(config.reload, true);
-					config.default && DEFAULT(config.default, true);
+					config.reload && EXEC(self.makepath(config.reload), true);
+					config.default && DEFAULT(self.makepath(config.default), true);
 					config.loading && SETTER('loading', 'hide', 500);
+					EMIT('parts.' + config.if, self.element, self);
 					self.hclass('invisible') && self.rclass('invisible', 500);
 					isresizing && setTimeout(self.resize, 50);
 					setTimeout(self.emitresize, 200);
@@ -118,7 +120,7 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config) {
 
 	self.clean = function() {
 		if (self.hclass('hidden')) {
-			config.clean && EXEC(config.clean);
+			config.clean && EXEC(self.makepath(config.clean));
 			setTimeout(function() {
 				self.empty();
 				init = false;

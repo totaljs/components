@@ -17,3 +17,7 @@ __Configuration__:
 - __NEW__ `path` {String} optional, the component replace all `~PATH~` phrases for the value of the `path` in the downloaded template
 - __NEW__ `replace` {String} optional, a link to method `function(content) { return content }` which can modify downloaded template
 - __NEW__ `absolute` {Boolean} optional, enables absolute position (default `false`)
+
+__Good to know__:
+
+Part component emits an event in the form: `parts.` + `config.if` for extending of parts. This can be very usefull for some plugin systems.
