@@ -1,0 +1,7 @@
+.ui-gauge text { font-family: Arial; fill: black; font-weight: bold; }
+.ui-gauge-pointer path { fill: black; transform-origin: bottom; }
+.ui-gauge-pointer circle { fill: black; }
+
+.ui-dark .ui-gauge text { fill: white; }
+.ui-dark .ui-gauge-pointer path { fill: black; }
+.ui-dark .ui-gauge-pointer circle { fill: black; }
