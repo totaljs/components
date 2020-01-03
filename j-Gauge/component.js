@@ -1,4 +1,4 @@
-COMPONENT('gauge', 'decimals:1;format:{0}%;text:1;colors:30 #8CC152,40 #EDBC5A,30 #DB3737', function(self, config, cls) {
+COMPONENT('gauge', 'decimals:1;format:{0}%;text:1;colors:30 #8CC152,40 #EDBC5A,30 #DB3737;stroke:25', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var svg;
@@ -54,6 +54,7 @@ COMPONENT('gauge', 'decimals:1;format:{0}%;text:1;colors:30 #8CC152,40 #EDBC5A,3
 		var colors = config.colors.split(',');
 		var color = [];
 		var data = [];
+		var stroke = [];
 		var centerX = 150;
 		var centerY = 150;
 		var radius = 120;
@@ -62,12 +63,13 @@ COMPONENT('gauge', 'decimals:1;format:{0}%;text:1;colors:30 #8CC152,40 #EDBC5A,3
 			var c = colors[i].trim().split(' ');
 			data.push({ value: +c[0] });
 			color.push(c[1]);
+			stroke.push(c[2] ? +c[2] : config.stroke);
 		}
 
 		var arr = Donut(centerX, centerY, radius, data);
 		for (var i = 0; i < arr.length; i++) {
 			var item = arr[i];
-			svg.asvg('<g><path d="{0}" stroke="{1}" fill="none" stroke-width="25" /></g>'.format(item.d, color[i]));
+			svg.asvg('<g><path d="{0}" stroke="{1}" fill="none" stroke-width="{2}" /></g>'.format(item.d, color[i], stroke[i]));
 		}
 		config.text && svg.asvg('<g><text x="150" y="105" font-size="30" text-anchor="middle"></text></g><g transform="translate(0,-10)" class="{0}-pointer"><path d="M150 20 L145 145 L155 145 Z" class="{0}-value" transform="rotate(0)" /><circle cx="150" cy="150" r="10"></circle></g>'.format(cls));
 	};
