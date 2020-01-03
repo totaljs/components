@@ -1,7 +1,8 @@
-COMPONENT('serverlisting', 'pages:3;scrolltop:1', function(self, config) {
+COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0', function(self, config, cls) {
 
 	var container, paginate;
 	var layout;
+	var cls2 = '.' + cls;
 
 	self.readonly();
 	self.nocompile && self.nocompile();
@@ -16,14 +17,15 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1', function(self, config) {
 				self.template = T;
 		});
 
-		self.aclass('ui-serverlisting');
-		self.html('<div class="ui-serverlisting-container"></div><div class="ui-serverlisting-paginate"></div>');
-		container = self.find('.ui-serverlisting-container');
-		paginate = self.find('.ui-serverlisting-paginate');
+		self.aclass(cls);
+		self.html('<div class="{0}-scrollbar"><div class="{0}-container"></div></div><div class="{0}-paginate"></div>'.format(cls));
+		container = self.find(cls2 + '-container');
+		paginate = self.find(cls2 + '-paginate');
 		paginate.on('click', 'button', function() {
 
 			var index = $(this).attrd('index');
 			var meta = self.get();
+			var current = meta.page;
 
 			switch (index) {
 				case '+':
@@ -41,8 +43,37 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1', function(self, config) {
 					break;
 			}
 
-			EXEC(config.paginate, index);
+
+			if (current !== index)
+				EXEC(self.makepath(config.paginate), index);
+
 		});
+
+		if (config.height) {
+			self.aclass(cls + '-fixed');
+			self.scrollbar = SCROLLBAR(self.find(cls2 + '-scrollbar'), { visibleY: 1, orientation: 'y' });
+		}
+
+		self.resize2();
+		self.on('resize', self.resize2);
+		$(W).on('resize', self.resize2);
+	};
+
+	self.destroy = function() {
+		$(W).off('resize', self.resize2);
+	};
+
+	self.resize2 = function() {
+		setTimeout2(self.ID, self.resize, 300);
+	};
+
+	self.resize = function() {
+		if (!config.height)
+			return;
+		var parent = self.parent(config.height);
+		var height = parent.height() - config.margin - paginate.height() - 11; // 10 is padding + 1 border
+		self.find(cls2 + '-scrollbar').css('height', height);
+		self.scrollbar.resize();
 	};
 
 	self.setter = function(value, path, type) {
@@ -97,7 +128,7 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1', function(self, config) {
 			builder.push(template.format('-', 'left'));
 
 			for (var i = pfrom; i < pto + 1; i++)
-				builder.push('<button class="ui-serverlisting-page" data-index="{0}">{0}</button>'.format(i));
+				builder.push('<button class="{0}-page" data-index="{1}">{1}</button>'.format(cls, i));
 
 			builder.push(template.format('+', 'right'));
 			paginate.html(builder.join(''));
@@ -110,17 +141,22 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1', function(self, config) {
 			if (max > cur && pages > config.pages && pfrom > 1)
 				pfrom--;
 
-			paginate.find('.ui-serverlisting-page[data-index]').each(function(index) {
+			paginate.find(cls2 + '-page[data-index]').each(function(index) {
 				var page = pfrom + index;
 				$(this).attrd('index', page).html(page);
 			});
 		}
 
 		paginate.find('.selected').rclass('selected');
-		paginate.find('.ui-serverlisting-page[data-index="{0}"]'.format(value.page)).aclass('selected');
-		paginate.tclass('hidden', value.pages < 2);
+		paginate.find(cls2 + '-page[data-index="{0}"]'.format(value.page)).aclass('selected');
+		paginate.tclass('hidden', value.pages < 2 && !config.height);
 		self.tclass('hidden', value.count === 0);
-		type && config.scrolltop && $(window).scrollTop(self.element.position().top - 50);
+		if (type && config.scrolltop) {
+			if (config.height)
+				self.scrollbar.scrollTop(0);
+			else
+				$(W).scrollTop(self.element.position().top - 50);
+		}
 	};
 
 });

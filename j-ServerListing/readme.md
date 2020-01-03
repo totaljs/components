@@ -5,8 +5,10 @@
 __Configuration__:
 
 - `paginate(page)` {String} link to a function for pagination
-- `pages` {Number} Optional, max pages in pagination (default: `3` --> half + current page + half)
-- `scrolltop` {Boolean} Optional, scrolls top automatically when the user changes a page
+- `pages` {Number} max. pages in pagination (default: `3` --> half + current page + half)
+- `scrolltop` {Boolean} scrolls top automatically when the user changes a page
+- `height` {String} jQuery selector for obtaining of height, enables fixed area with custom scrollbars
+- `margin` {Number} a margin for `height` (default: `0`)
 
 __Model__:
 
