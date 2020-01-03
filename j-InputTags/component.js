@@ -45,7 +45,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 			if (config.autosource) {
 				var opt = {};
 				opt.element = self.element;
-				opt.search = GET(config.autosource);
+				opt.search = GET(self.makepath(config.autosource));
 				opt.callback = function(value) {
 					input.empty();
 					self.appendval(typeof(value) === 'string' ? value : value[config.autovalue]);
@@ -88,7 +88,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 			opt.items = dirsource;
 			opt.offsetY = -1;
 			opt.placeholder = config.dirplaceholder;
-			opt.render = config.dirrender ? GET(config.dirrender) : null;
+			opt.render = config.dirrender ? GET(self.makepath(config.dirrender)) : null;
 			opt.custom = !!config.dircustom;
 			opt.offsetWidth = 2;
 			opt.minwidth = config.dirminwidth || 200;
@@ -112,7 +112,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 				var val = custom || (typeof(item) === 'string' ? item : item[config.dirvalue || config.value]);
 				if (custom) {
 					if (typeof(config.dircustom) === 'string') {
-						var fn = GET(config.dircustom);
+						var fn = GET(self.makepath(config.dircustom));
 						fn(val, function(val) {
 							self.appendval(val, true);
 						});
@@ -150,9 +150,9 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 			}
 
 			if (left && config.liconclick)
-				EXEC(config.liconclick, self, el);
+				EXEC(self.makepath(config.liconclick), self, el);
 			else if (config.riconclick)
-				EXEC(config.riconclick, self, el);
+				EXEC(self.makepath(config.riconclick), self, el);
 
 		});
 	};
@@ -263,7 +263,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 	};
 
 	self.checkvalue = function(val) {
-		return config.check ? GET(config.check)(val) : true;
+		return config.check ? GET(self.makepath(config.check))(val) : true;
 	};
 
 	self.check = function() {
@@ -298,7 +298,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 		if (dirsource) {
 
 			if (typeof(dirsource) === 'function') {
-				EXEC(config.dirinit, value, function(dirsource) {
+				EXEC(self.makepath(config.dirinit), value, function(dirsource) {
 
 					var item;
 
@@ -395,7 +395,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 	self.configure = function(key, value) {
 		switch (key) {
 			case 'dirsource':
-				var tmp = GET(value);
+				var tmp = GET(self.makepath(value));
 				input.prop('contenteditable', !value);
 				if (typeof(tmp) !== 'function') {
 					self.datasource(value, function(path, value) {
