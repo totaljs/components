@@ -20,4 +20,10 @@ __Configuration__:
 
 __Good to know__:
 
-Part component emits an event in the form: `parts.` + `config.if` for extending of parts. This can be very usefull for some plugin systems.
+Part component emits an event in the form: `parts.` + `config.if` for extending of parts. This can be very usefull for some plugin systems. Example:
+
+```javascript
+ON('parts.pages', function(element, partcomponent) {
+
+});
+```
