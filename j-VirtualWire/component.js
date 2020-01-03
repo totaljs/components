@@ -1,6 +1,6 @@
-COMPONENT('virtualwire', 'selector:.virtualwire;delay:10', function(self, config) {
+COMPONENT('virtualwire', 'selector:.virtualwire', function(self, config) {
 
-	var old, delay;
+	var old, waiter;
 
 	self.restore = function() {
 		if (old) {
@@ -37,18 +37,25 @@ COMPONENT('virtualwire', 'selector:.virtualwire;delay:10', function(self, config
 		exec && EXEC(exec);
 	};
 
+	self.load = function(value) {
+		waiter && clearTimeout(waiter);
+		waiter = null;
+		var el = $(config.selector + '[data-if="' + value + '"]');
+		if (el.length)
+			self.backup(el);
+		else
+			waiter = setTimeout(self.load, 100, value);
+	};
+
 	self.setter = function(value) {
 
-		if (!value) {
-			self.restore();
-			return;
-		}
+		self.restore();
 
-		delay && clearTimeout(delay);
-		delay = setTimeout(function(value) {
-			delay = null;
-			self.backup($(config.selector + '[data-if="' + value + '"]'));
-		}, config.delay, value);
+		if (!value)
+			return;
+
+		waiter &&clearTimeout(waiter);
+		self.load(value);
 	};
 
 });
