@@ -24,6 +24,6 @@ Part component emits an event in the form: `parts.` + `config.if` for extending 
 
 ```javascript
 ON('parts.pages', function(element, partcomponent) {
-
+	// It's executed only when the part is initialized
 });
 ```
