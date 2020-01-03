@@ -1,0 +1,41 @@
+<div class="b">Virtual Wire Container:</div>
+<div data---="virtualwire__common.page"></div>
+
+<hr />
+
+<!-- YOU CAN HIDE THE ELEMENTS BELOW BY ADDING "hidden" CLASS -->
+<div class="virtualwire" data-if="users">
+	<div>USERS</div>
+</div>
+
+<div class="virtualwire" data-if="products" data-in="products_in" data-out="products_out">
+	<div>PRODUCTS</div>
+</div>
+
+<script>
+
+	var common = {};
+
+	setInterval(function() {
+		switch (common.page) {
+			case 'users':
+				SET('common.page', 'products');
+				break;
+			case 'products':
+				NULL('common.page');
+				break;
+			default:
+				SET('common.page', 'users');
+				break;
+		}
+	}, 2000);
+
+	function products_out() {
+		console.log('products_out');
+	}
+
+	function products_in() {
+		console.log('products_in');
+	}
+
+</script>
