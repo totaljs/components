@@ -1,6 +1,6 @@
-COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:1', function(self, config) {
+COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function(self, config, cls) {
 
-	var cls = 'ui-' + self.name;
+	var cls2 = '.' + cls;
 
 	self.readonly();
 	self.nocompile();
@@ -26,7 +26,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:1', function(sel
 				config.html = Tangular.compile(value);
 				break;
 			case 'label':
-				var label = self.find('.' + cls + '-label');
+				var label = self.find(cls2 + '-label');
 				label.tclass('hidden', !value);
 				label.find('span').html((value || '') + ':');
 				break;
@@ -39,7 +39,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:1', function(sel
 				self.tclass('ui-disabled', value);
 				break;
 			case 'icon':
-				var fa = self.find('.' + cls + '-label').find('i');
+				var fa = self.find(cls2 + '-label').find('i');
 				fa.rclass2('fa-').rclass('hidden');
 				if (value)
 					fa.aclass('fa-' + value);
@@ -61,11 +61,40 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:1', function(sel
 		self.html('<div class="{2}-label{3}"><i class="fa hidden"></i><span>{1}:</span></div><div class="{2}"><div class="{2}-icon"><i class="fa fa-times"></i></div><div class="{2}-value">{0}</div></div>'.format(config.placeholder, config.label, cls, config.label ? '' : ' hidden'));
 
 		self.event('click', '.' + cls, function() {
-			!config.disabled && EXEC(self.makepath(config.click), self.element, function(value) {
-				self.set(value);
-				self.change();
-				config.required && setTimeout(self.validate2, 100);
-			}, self.get());
+
+			if (config.disabled)
+				return;
+
+			if (config.dirsource) {
+				var opt = {};
+				opt.element = self.element;
+				opt.offsetY = -1;
+				opt.placeholder = config.dirplaceholder;
+				opt.render = config.dirrender ? GET(self.makepath(config.dirrender)) : null;
+				opt.custom = !!config.dircustom;
+				opt.offsetWidth = 2;
+				opt.minwidth = config.dirminwidth || 200;
+				opt.maxwidth = config.dirmaxwidth;
+				opt.key = config.dirkey || config.key;
+				opt.empty = config.dirempty;
+				opt.key = config.dirkey;
+				opt.items = function(value, next) {
+					EXEC(self.makepath(config.dirsource), value, next);
+				};
+				opt.callback = function(selected) {
+					self.set(selected[config.dirvalue || 'id']);
+					self.change();
+					config.required && setTimeout(self.validate2, 100);
+				};
+				SETTER('directory', 'show', opt);
+			} else {
+				EXEC(self.makepath(config.click), self.element, function(value) {
+					self.set(value);
+					self.change();
+					config.required && setTimeout(self.validate2, 100);
+				}, self.get());
+			}
+
 		});
 
 		self.event('click', '.fa-times', function(e) {
@@ -86,7 +115,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:1', function(sel
 			value = config.remap(value);
 
 		self.tclass(cls + '-is', !!value);
-		var fa = self.find('.' + cls + '-icon').find('i');
+		var fa = self.find(cls2 + '-icon').find('i');
 
 		fa.rclass2('fa-');
 
@@ -96,7 +125,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:search;loading:1', function(sel
 			fa.aclass('fa-' + config.icon2);
 
 		var val = (value ? config.html(value) : config.placeholder) || '';
-		var body = self.find('.' + cls + '-value');
+		var body = self.find(cls2 + '-value');
 
 		if (body.html() !== val)
 			body.html(val);
