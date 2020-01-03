@@ -1,7 +1,7 @@
 ## j-Drawer
 
-- `if` {String} (required) condition, it's compared with the value within of `data-jc-path`
-- `align` {String} (optional) alignment (default: `left`)
+- `if` {String} condition, it's compared with the value within of `path`
+- `align` {String} alignment (default: `left`)
 
 ### Author
 
