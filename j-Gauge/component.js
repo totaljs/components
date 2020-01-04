@@ -71,7 +71,7 @@ COMPONENT('gauge', 'decimals:1;format:{0}%;text:1;colors:30 #8CC152,40 #EDBC5A,3
 			var item = arr[i];
 			svg.asvg('<g><path d="{0}" stroke="{1}" fill="none" stroke-width="{2}" /></g>'.format(item.d, color[i], stroke[i]));
 		}
-		config.text && svg.asvg('<g><text x="150" y="105" font-size="30" text-anchor="middle"></text></g><g transform="translate(0,-10)" class="{0}-pointer"><path d="M150 20 L145 145 L155 145 Z" class="{0}-value" transform="rotate(0)" /><circle cx="150" cy="150" r="10"></circle></g>'.format(cls));
+		config.text && svg.asvg('<g><text x="150" y="105" font-size="30" text-anchor="middle"></text></g><g transform="translate(0,-10)" class="{0}-pointer"><path d="M150 20 L145 145 L155 145 Z" class="{0}-value" transform="rotate(0,150,150)" /><circle cx="150" cy="150" r="10"></circle></g>'.format(cls));
 	};
 
 	self.make = function() {
@@ -92,7 +92,7 @@ COMPONENT('gauge', 'decimals:1;format:{0}%;text:1;colors:30 #8CC152,40 #EDBC5A,3
 		var deg = ((max / 100) * value) - (max / 2);
 
 		self.find(cls2 + '-value').stop().animate({ diff: deg }, { step: function(val) {
-			this.setAttribute('transform', 'rotate(' + val + ')');
+			this.setAttribute('transform', 'rotate(' + val + ',150,150)');
 		}, duration: 300 });
 
 		config.text && (self.find('text')[0].textContent = config.format.format(value.format(config.decimals)));
