@@ -1,9 +1,10 @@
 {
 	"datecreated": "2018-02-02T09:24:11.000Z",
-	"dateupdated": "2019-01-27T12:58:00.000Z",
+	"dateupdated": "2019-01-27T12:59:00.000Z",
 	"name": "j-FileUploadList",
 	"tags": [
-		"jcomponent"
+		"upload",
+		"files"
 	],
 	"color": "transparent",
 	"version": 1,

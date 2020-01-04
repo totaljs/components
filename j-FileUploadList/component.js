@@ -1,9 +1,10 @@
-COMPONENT('fileuploadlist', 'multiple:true;url:/api/upload/', function(self, config) {
+COMPONENT('fileuploadlist', 'multiple:true;url:/api/upload/', function(self, config, cls) {
 
 	var id = 'fileuploadlist' + self.id;
 	var input = null;
+	var cls2 = '.' + cls;
 
-	self.template = Tangular.compile('<div class="ui-fileuploadlist-item" data-id="{{ $.index }}"><div class="ui-fileuploadlist-remove"><i class="fa fa-times"></i></div><div class="ui-fileuploadlist-name">{{ if url }}<a href="{{ url }}" target="_blank">{{ fi }}{{ name }}{{ if url }}</a>{{ fi }}</div></div>');
+	self.template = Tangular.compile('<div class="{0}-item" data-id="{{ $.index }}"><div class="{0}-remove"><i class="fa fa-times"></i></div><div class="{0}-name">{{ if url }}<a href="{{ url }}" target="_blank">{{ fi }}{{ name }}{{ if url }}</a>{{ fi }}</div></div>'.format(cls));
 
 	self.readonly();
 	self.nocompile && self.nocompile();
@@ -38,7 +39,7 @@ COMPONENT('fileuploadlist', 'multiple:true;url:/api/upload/', function(self, con
 
 	self.make = function() {
 
-		self.aclass('ui-fileuploadlist hidden' + (config.disabled ? ' ui-disabled' : ''));
+		self.aclass(cls + ' hidden' + (config.disabled ? ' ui-disabled' : ''));
 		$(document.body).append('<input type="file" id="{0}" class="hidden"{1}{2} />'.format(id, config.accept ? ' accept="{0}"'.format(config.accept) : '', config.multiple ? ' multiple="multiple"' : ''));
 
 		input = $('#' + id);
@@ -46,12 +47,12 @@ COMPONENT('fileuploadlist', 'multiple:true;url:/api/upload/', function(self, con
 			self.upload(evt.target.files);
 		});
 
-		self.event('click', '.ui-fileuploadlist-remove', function() {
+		self.event('click', cls2 + '-remove', function() {
 
 			if (config.disabled)
 				return;
 
-			var index = +$(this).closest('.ui-fileuploadlist-item').attrd('index');
+			var index = +$(this).closest(cls2 + '-item').attrd('index');
 			self.get().splice(index, 1);
 			self.update(true);
 			self.change(true);
