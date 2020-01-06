@@ -23,7 +23,9 @@ COMPONENT('exec', function(self, config) {
 
 				scope = null;
 
-				if (el.attrd('prevent' + plus) === 'true') {
+				var prevent = el.attrd('prevent' + plus);
+
+				if (prevent === 'true' || prevent === '1') {
 					e.preventDefault();
 					e.stopPropagation();
 				}
