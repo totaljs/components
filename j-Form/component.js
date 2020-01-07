@@ -96,9 +96,9 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config) {
 		container = el.find(cls2 + '-scrollbar');
 
 		if (config.scrollbar) {
-            el.css('overflow', 'hidden');
+			el.css('overflow', 'hidden');
 			self.scrollbar = SCROLLBAR(el.find(cls2 + '-scrollbar'), { visibleY: 1 });
-        }
+		}
 
 		while (self.dom.children.length)
 			body.appendChild(self.dom.children[0]);
@@ -187,9 +187,11 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config) {
 		config.default && DEFAULT(config.default, true);
 
 		if (!isMOBILE && config.autofocus) {
-			var el = self.find(config.autofocus ? 'input[type="text"],select,textarea' : config.autofocus);
-			el.length && el[0].focus();
+			setTimeout(function() {
+				self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea').eq(0).focus();
+			}, 1000);
 		}
+
 
 		setTimeout(function() {
 			self.rclass('invisible');
