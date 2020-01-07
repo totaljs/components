@@ -82,6 +82,10 @@ COMPONENT('searchbox', 'cleartype:0;keypress:0;autotrim:1', function(self, confi
 		self.refresh();
 	};
 
+	self.enter = function() {
+		self.modifiedvalue('input', true);
+	};
+
 	self.focus = function() {
 		config.autocomplete && EXEC(self.makepath(config.autocomplete), self, els.searchinput);
 	};
