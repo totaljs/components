@@ -9,6 +9,7 @@ __Configuration__:
 - `maxheight` {Number} a maximum height (default: `768`)
 - `exec` {String} a link to execute method if the image is obtained
 - `disabled` {Boolean} can disable this component
+- __NEW__: `type` {String} output type, supports `png` or `jpg` (default)
 
 __How to capture data?__
 

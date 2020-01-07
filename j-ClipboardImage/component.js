@@ -1,4 +1,4 @@
-COMPONENT('clipboardimage', 'quality:90;maxwidth:1024;maxheight:768', function(self, config) {
+COMPONENT('clipboardimage', 'quality:90;maxwidth:1024;maxheight:768;type:jpg', function(self, config) {
 
 	var ctx, img, canvas = null;
 
@@ -51,11 +51,10 @@ COMPONENT('clipboardimage', 'quality:90;maxwidth:1024;maxheight:768', function(s
 		} else if (canvas.height > config.maxheight) {
 			canvas.height = config.maxheight;
 			canvas.width = (img.width * (config.maxheight / img.height)) >> 0;
-			console.log('OK', canvas.width, canvas.height);
 		}
 
 		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-		var data = canvas.toDataURL('image/jpeg', config.quality * 0.01);
+		var data = config.type === 'png' ? canvas.toDataURL('image/png') : canvas.toDataURL('image/jpeg', config.quality * 0.01);
 		config.exec && EXEC(config.exec, data);
 		EMIT('clipboardimage', data);
 	};
