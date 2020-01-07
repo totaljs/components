@@ -42,7 +42,7 @@ COMPONENT('stats24', 'height:120;tooltiplarge:0;tooltip:1;tooltiptext:{0};border
 	self.configure = function(key, value) {
 		if (key === 'border')
 			self.tclass(cls + '-border', !!value);
-	}
+	};
 
 	self.setter = function(value) {
 
