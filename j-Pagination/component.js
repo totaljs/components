@@ -30,7 +30,7 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# it
 	};
 
 	self.page = function(page, el) {
-		config.exec && SEEX(config.exec, page, el);
+		config.exec && SEEX(self.makepath(config.exec), page, el);
 	};
 
 	self.getPagination = function(page, pages, max, fn) {
