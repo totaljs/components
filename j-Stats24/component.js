@@ -1,3 +1,4 @@
+
 COMPONENT('stats24', 'height:120;tooltiplarge:0;tooltip:1;tooltiptext:{0};border:1', function(self, config, cls) {
 
 	var old = '';
@@ -59,45 +60,47 @@ COMPONENT('stats24', 'height:120;tooltiplarge:0;tooltip:1;tooltiptext:{0};border
 
 		container.css('height', config.height);
 
-		old = sum;
-		var max = config.max;
-		var width = self.width();
+		self.width(function(width) {
 
-		smallsize = width < 400;
-		self.tclass(cls + '-smallsize', smallsize);
+			old = sum;
+			var max = config.max;
 
-		if (!max) {
-			max = 0;
-			for (var i = 0; i < 24; i++) {
-				if (value[i] > max)
-					max = value[i];
+			smallsize = width < 400;
+			self.tclass(cls + '-smallsize', smallsize);
+
+			if (!max) {
+				max = 0;
+				for (var i = 0; i < 24; i++) {
+					if (value[i] > max)
+						max = value[i];
+				}
 			}
-		}
 
-		for (var i = 0; i < 24; i++) {
+			for (var i = 0; i < 24; i++) {
 
-			var num = value[i];
+				var num = value[i];
 
-			if (num > max)
-				num = max;
+				if (num > max)
+					num = max;
 
-			var p = (num / max) * 100;
+				var p = (num / max) * 100;
 
-			if (isNaN(p))
-				p = 0;
+				if (isNaN(p))
+					p = 0;
 
-			var h = ((config.height / 100) * p) - (smallsize ? 2 : 17);
-			if (h < 18)
-				h = 18;
+				var h = ((config.height / 100) * p) - (smallsize ? 2 : 17);
+				if (h < 18)
+					h = 18;
 
-			if (smallsize && h === 18)
-				h = 5;
+				if (smallsize && h === 18)
+					h = 5;
 
-			var val = value[i];
-			if (val > 1000)
-				val = (val / 1000).floor(1) + ' K';
+				var val = value[i];
+				if (val > 1000)
+					val = (val / 1000).floor(1) + ' K';
 
-			bars[i].css('height', h + 'px').tclass('online', value[i] > 0).find('span').html(smallsize ? '' : val);
-		}
+				bars[i].css('height', h + 'px').tclass('online', value[i] > 0).find('span').html(smallsize ? '' : val);
+			}
+		});
 	};
 });
