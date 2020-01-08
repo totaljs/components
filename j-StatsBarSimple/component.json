@@ -1,0 +1,19 @@
+{
+	"datecreated": "2020-01-08T12:13:14.000Z",
+	"dateupdated": null,
+	"name": "j-StatsBarSimple",
+	"tags": [
+		"chart",
+		"barchart"
+	],
+	"color": "white",
+	"version": 1,
+	"darkmode": 1,
+	"largemode": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
