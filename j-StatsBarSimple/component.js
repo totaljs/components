@@ -1,8 +1,8 @@
 COMPONENT('statsbarsimple', 'tooltip:1;animate:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
-	var templatetooltip;
-	var sum;
+	var templatetooltip, container;
+	var sum, old;
 
 	self.readonly();
 	self.nocompile();
@@ -31,10 +31,23 @@ COMPONENT('statsbarsimple', 'tooltip:1;animate:1', function(self, config, cls) {
 			opt.timeout = 2000;
 			SETTER('tooltip', 'show', opt);
 		});
+
+		container = self.find(cls2 + '-table');
 	};
 
 	self.setter = function(value) {
 
+		if (!value) {
+			container.empty();
+			old = null;
+			return;
+		}
+
+		var tmp = STRINGIFY(value, true);
+		if (old == tmp)
+			return;
+
+		old = tmp;
 		sum = 0;
 		var builder = [];
 
@@ -47,10 +60,10 @@ COMPONENT('statsbarsimple', 'tooltip:1;animate:1', function(self, config, cls) {
 			var item = value[i];
 			var p = ((item.value / sum) * 100).floor(1);
 			item.percentage = p;
-			builder.push(('<div style="width:' + (config.animate ? '100%' : '{0}') + ';background-color:{3}" class="{0}-bar" data-index="{4}" data-percentage="{2}"><span>{1}</span></div>').format(cls, self.template(item).trim(), p, item.color, i));
+			builder.push(('<div style="width:' + (config.animate ? '100%' : '{4}') + ';background-color:{3}" class="{0}-bar" data-index="{4}" data-percentage="{2}"><span>{1}</span></div>').format(cls, self.template(item).trim(), p === 0 ? 1 : p, item.color, i));
 		}
 
-		self.find(cls2 + '-table').html(builder.join(''));
+		container.html(builder.join(''));
 
 		var bars = self.find(cls2 + '-bar');
 
