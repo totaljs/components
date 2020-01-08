@@ -1,4 +1,3 @@
-
 COMPONENT('stats24', 'height:120;tooltiplarge:0;tooltip:1;tooltiptext:{0};border:1', function(self, config, cls) {
 
 	var old = '';
