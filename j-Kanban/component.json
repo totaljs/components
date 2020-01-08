@@ -1,0 +1,17 @@
+{
+	"datecreated": "2020-01-08T20:18:06.000Z",
+	"dateupdated": null,
+	"name": "j-Kanban",
+	"tags": [
+		"kanban"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": false,
+	"darkmode": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
