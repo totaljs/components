@@ -1,4 +1,4 @@
-COMPONENT('statsbarsimple', 'tooltip:1;animate:1', function(self, config, cls) {
+COMPONENT('statsbarsimple', 'tooltip:1;animate:1;value:value', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var templatetooltip, container;
@@ -55,12 +55,12 @@ COMPONENT('statsbarsimple', 'tooltip:1;animate:1', function(self, config, cls) {
 
 		for (var i = 0; i < value.length; i++) {
 			var item = value[i];
-			sum += item.value;
+			sum += item[config.value];
 		}
 
 		for (var i = 0; i < value.length; i++) {
 			var item = value[i];
-			var p = !item.value && !sum ? 0 : ((item.value / sum) * 100).floor(1);
+			var p = !item[config.value] && !sum ? 0 : ((item[config.value] / sum) * 100).floor(1);
 			item.percentage = p;
 			builder.push(('<div style="width:' + (config.animate ? '100%' : '{4}') + ';background-color:{3}" class="{0}-bar" data-index="{4}" data-percentage="{2}"><span>{1}</span></div>').format(cls, self.template(item).trim(), sum === 0 ? (100 / value.length).floor(2) : p === 0 ? 5 : p, item.color, i));
 		}
