@@ -1,0 +1,30 @@
+<style>
+	.caption { line-height: 50px; border-bottom: 1px solid #E0E0E0; padding: 0 10px; font-weight: bold; }
+	.ui-dark .caption { border-bottom-color: #404040; }
+</style>
+
+<div data---="kanban__items__parent:window;move:onmoveitem;margin:50">
+
+	<!-- Group header rendering -->
+	<script type="text/html">
+		<div class="caption">{{ name }}</div>
+	</script>
+
+	<!-- Item rendering -->
+	<script type="text/html">
+		<div>{{ name }}</div>
+	</script>
+</div>
+
+<script>
+
+	var items = [];
+	items.push({ id: '1', name: 'In progress', items: [{ id: '11', name: 'Better life Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea culpa voluptatem asperiores aspernatur doloremque cupiditate error, qui sit est quas.' }] });
+	items.push({ id: '2', name: 'Pending', items: [{ id: '21', name: 'Improve j-ChunkyScroll' }] });
+	items.push({ id: '3', name: 'Done', items: [{ id: '31', name: 'Fix scrollbars j-DataGrid' }, { id: '32', name: 'Improve performace' }] });
+
+	function onmoveitem(group, target) {
+		console.log('MOVEMENT:', group, target);
+	}
+
+</script>
