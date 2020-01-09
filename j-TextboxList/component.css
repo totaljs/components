@@ -13,9 +13,6 @@
 .ui-textboxlist-base > div:first-child { display: none; }
 .ui-textboxlist-helper { margin-top: 8px; font-size: 11px; color: red !important; text-align: left; }
 .ui-textboxlist-empty .ui-textboxlist-base { border-radius: 2px; }
-.ui-textboxlist-item-invalid { border-color: #E1A1A1; background-color: #FFF3F3 !important; }
-.ui-textboxlist-item-invalid:last-child { border-bottom:1px solid #E1A1A1; }
-.ui-textboxlist-item-invalid > div:first-child { border-left-color: #E1A1A1; }
 .ui-textboxlist-item-invalid input { color: red; }
 
 .ui-dark .ui-textboxlist-item { border-color: #404040; }
@@ -24,7 +21,3 @@
 .ui-dark .ui-textboxlist-item input { background-color: transparent; color: white; }
 .ui-dark .ui-textboxlist-base { border-bottom-color: #404040; }
 .ui-dark .ui-textboxlist-helper { color: red !important; }
-.ui-dark .ui-textboxlist-item-invalid { background-color: #202020 !important; }
-.ui-dark .ui-textboxlist-item-invalid:last-child { border-bottom-color: transparent; }
-.ui-dark .ui-textboxlist-item-invalid > div:first-child { border-left-color: #404040; }
-.ui-dark .ui-textboxlist-item-invalid input { color: red; }
