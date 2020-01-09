@@ -1,19 +1,21 @@
-COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maximum limit', function (self, config) {
+COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maximum limit', function (self, config, cls) {
 
 	var container, content;
 	var empty = {};
 	var skip = false;
-	var cempty = 'empty';
+	var cempty = cls + '-empty';
 	var crequired = 'required';
 	var helper = null;
+	var cls2 = '.' + cls;
 
 	self.setter = null;
 	self.getter = null;
 	self.nocompile && self.nocompile();
 
-	self.template = Tangular.compile('<div class="ui-textboxlist-item"><div><i class="fa fa-times"></i></div><div><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder }}"{{ if disabled}} disabled="disabled"{{ fi }} value="{{ value }}" /></div></div>');
+	self.template = Tangular.compile('<div class="' + cls + '-item"><div><i class="fa fa-times"></i></div><div><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder }}"{{ if disabled}} disabled="disabled"{{ fi }} value="{{ value }}" /></div></div>');
 
 	self.configure = function (key, value, init, prev) {
+
 		if (init)
 			return;
 
@@ -60,8 +62,9 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 			icon = '<i class="fa fa-{0}"></i>'.format(config.icon);
 
 		empty.value = '';
-		self.html((html ? '<div class="ui-textboxlist-label{2}">{1}{0}:</div>'.format(html, icon, config.required ? ' ui-textboxlist-label-required' : '') : '') + '<div class="ui-textboxlist-items"></div>' + self.template(empty).replace('-item"', '-item ui-textboxlist-base"'));
-		container = self.find('.ui-textboxlist-items');
+
+		self.html((html ? ('<div class="' + cls + '-label{2}">{1}{0}:</div>').format(html, icon, config.required ? (' ' + cls + '-required') : '') : '') + ('<div class="' + cls + '-items"></div>' + self.template(empty).replace('-item"', '-item ' + cls + '-base"')));
+		container = self.find(cls2 + '-items');
 	};
 
 	self.make = function () {
@@ -75,7 +78,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 			self.aclass('ui-disabled');
 
 		content = self.html();
-		self.aclass('ui-textboxlist');
+		self.aclass(cls);
 		self.redraw();
 
 		self.event('click', '.fa-times', function () {
@@ -84,7 +87,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 				return;
 
 			var el = $(this);
-			var parent = el.closest('.ui-textboxlist-item');
+			var parent = el.closest(cls2 + '-item');
 			var value = parent.find('input').val();
 			var arr = self.get();
 
@@ -99,9 +102,8 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 
 			arr.splice(index, 1);
 
-			self.tclass(cempty, arr.length === 0);
-
-			self.tclass(crequired, config.required && arr.length === 0);
+			self.tclass(cempty, !arr.length);
+			self.tclass(crequired, config.required && !arr.length);
 
 			skip = true;
 			SET(self.path, arr, 2);
@@ -120,7 +122,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 				return;
 
 			var arr = [];
-			var base = el.closest('.ui-textboxlist-base');
+			var base = el.closest(cls2 + '-base');
 			var len = base.length > 0;
 
 			if (len && e.type === 'change')
@@ -130,8 +132,8 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 
 			if (config.limit && len && raw.length >= config.limit) {
 				if (!helper) {
-					base.after('<div class="ui-textboxlist-helper"><i class="fa fa-warning" aria-hidden="true"></i> {0}</div>'.format(config.error));
-					helper = container.closest('.ui-textboxlist').find('.ui-textboxlist-helper');
+					base.after(('<div class="' + cls + '-helper"><i class="fa fa-warning" aria-hidden="true"></i> {0}</div>').format(config.error));
+					helper = container.closest(cls2).find(cls2 + '-helper');
 				}
 				return;
 			}
@@ -228,7 +230,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 					valid = item.length > 0;
 					break;
 			}
-			items.eq(i).tclass('ui-textboxlist-item-invalid', !valid);
+			items.eq(i).tclass(cls + '-item-invalid', !valid);
 		}
 
 		return valid;
