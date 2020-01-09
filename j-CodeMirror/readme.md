@@ -1,10 +1,10 @@
 ## j-CodeMirror
 
-- Works with Bootstrap
+- supports multiple cursors (`shift + cmd + arrow-down/up`)
+- supports finding selected text (`cmd + d`)
+- supports custom scrollbars
 
 __Configuration__:
-
-Example: `data-jc-config="required:true;icon:envelope"`
 
 - `type` {String} (optional) type for syntax highlighting (default: `htmlmixed`)
 - `required` {Boolean} (optional) enables "required" (default: `false`)

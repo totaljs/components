@@ -1,12 +1,14 @@
 {
 	"datecreated": "2015-08-05T10:00:10.000Z",
-	"dateupdated": "2018-11-08T19:40:01.000Z",
+	"dateupdated": "2020-01-09T14:00:00.000Z",
 	"name": "j-CodeMirror",
 	"tags": [
 		"syntax",
 		"highlighter",
-		"jcomponent"
+		"code",
+		"editor"
 	],
+	"darkmode": true,
 	"color": "white",
 	"version": 1,
 	"responsive": true,
