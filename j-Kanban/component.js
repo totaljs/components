@@ -19,7 +19,7 @@ COMPONENT('kanban', 'parent:parent;margin:0;padding:10;style:1', function(self, 
 		scr.remove();
 		self.append('<div class="{0}-container"><div class="{0}-body"></div></div>'.format(cls));
 		body = self.find(cls2 + '-body');
-		self.scrollbar = new SCROLLBAR(self.find(cls2 + '-container'));
+		self.scrollbar = new SCROLLBAR(self.find(cls2 + '-container'), { visibleY: 1 });
 		self.resize();
 
 		config.dblclick && self.event('dblclick', selector, function() {
@@ -129,6 +129,7 @@ COMPONENT('kanban', 'parent:parent;margin:0;padding:10;style:1', function(self, 
 
 						node = b.parentNode;
 						nodetype = 1;
+
 						break;
 					} else if (cn === (cls + '-item')) {
 						// item
@@ -162,7 +163,19 @@ COMPONENT('kanban', 'parent:parent;margin:0;padding:10;style:1', function(self, 
 					}
 				}
 
-				self.move(aid, node.parentNode.parentNode.getAttribute(adi), index, true);
+				parent = node;
+				var id;
+
+				for (var i = 0; i < 5; i++) {
+					parent = parent.parentNode;
+					if (parent !== self.dom) {
+						id = parent.getAttribute(adi);
+						if (id)
+							break;
+					}
+				}
+
+				id && self.move(aid, id, index, true);
 				break;
 
 			case 'dragstart':
