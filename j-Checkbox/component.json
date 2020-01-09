@@ -7,6 +7,7 @@
 	],
 	"color": "transparent",
 	"darkmode": true,
+	"largemode": true,
 	"version": 1,
 	"responsive": true,
 	"picture": "picture.jpg",
