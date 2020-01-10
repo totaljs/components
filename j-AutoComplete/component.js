@@ -1,7 +1,6 @@
 COMPONENT('autocomplete', 'height:200', function(self, config) {
 
 	var cls = 'ui-autocomplete';
-	var cls2 = '.' + cls;
 	var clssel = 'selected';
 
 	var container, old, searchtimeout, searchvalue, blurtimeout, datasource, offsetter, scroller;
