@@ -14,7 +14,7 @@ COMPONENT('clipboardimage', 'quality:90;maxwidth:1024;maxheight:768;type:jpg', f
 		ctx = canvas.getContext('2d');
 		img = self.find('img')[0];
 
-		$(window).on('paste', function(e) {
+		$(W).on('paste', function(e) {
 
 			if (config.disabled)
 				return;
@@ -35,7 +35,7 @@ COMPONENT('clipboardimage', 'quality:90;maxwidth:1024;maxheight:768;type:jpg', f
 	};
 
 	self.resize = function() {
-		var dpr = window.devicePixelRatio;
+		var dpr = W.devicePixelRatio;
 
 		if (dpr > 1) {
 			canvas.width = img.width / dpr;
