@@ -2,6 +2,7 @@
 
 - Font-Awesome Icons
 - singleton
+- supports pro icons
 
 __Configuration__:
 
