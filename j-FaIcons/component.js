@@ -85,7 +85,7 @@ COMPONENT('faicons', 'search:Search', function(self, config) {
 				if (icon.charAt(1) === ' ')
 					icons[i] = 'fa' + icon.replace(' ', txt);
 				else
-					icons[i] = 'fa fa-' + icons[i]
+					icons[i] = 'fa fa-' + icons[i];
 			}
 		}
 
