@@ -61,17 +61,19 @@ COMPONENT('faicons', 'search:Search', function(self, config) {
 			}
 		}
 
+		var txt = ' fa-';
+
 		if (ispro) {
 			var tmp = [];
 			for (var i = 0; i < iconspro.length; i++) {
 				var icon = iconspro[i];
 				if (icon.charAt(1) === ' ') {
-					tmp.push('fa' + icon);
+					tmp.push('fa' + icon.replace(' ', txt));
 				} else {
-					tmp.push('fas ' + icon);
-					tmp.push('far ' + icon);
-					tmp.push('fal ' + icon);
-					tmp.push('fad ' + icon);
+					tmp.push('fas ' + icon.replace(' ', txt));
+					tmp.push('far ' + icon.replace(' ', txt));
+					tmp.push('fal ' + icon.replace(' ', txt));
+					tmp.push('fad ' + icon.replace(' ', txt));
 				}
 			}
 			iconspro = tmp;
@@ -81,7 +83,9 @@ COMPONENT('faicons', 'search:Search', function(self, config) {
 			for (var i = 0; i < icons.length; i++) {
 				var icon = icons[i];
 				if (icon.charAt(1) === ' ')
-					icons[i] = 'fa' + icon;
+					icons[i] = 'fa' + icon.replace(' ', txt);
+				else
+					icons[i] = 'fa fa-' + icons[i]
 			}
 		}
 
