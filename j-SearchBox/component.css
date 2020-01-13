@@ -6,7 +6,7 @@
 .ui-searchbox-placeholder { color: gray; }
 .ui-searchbox-placeholder i { margin-right: 5px; }
 
-.ui-dark .ui-searchbox { border-color: #404040; }
+.ui-dark .ui-searchbox { border-color: #404040; background-color: #252525; }
 .ui-dark .ui-searchbox-input > div input { color: white; }
 .ui-dark .ui-searchbox-control { color: #A0A0A0; }
 .ui-large .ui-searchbox { font-size: 16px; }
