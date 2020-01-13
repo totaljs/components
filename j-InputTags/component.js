@@ -106,7 +106,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 			opt.callback = function(item, el, custom) {
 
 				// empty
-				if (item == null)
+				if (item == null || (custom && !opt.custom))
 					return;
 
 				var val = custom || (typeof(item) === 'string' ? item : item[config.dirvalue || config.value]);
