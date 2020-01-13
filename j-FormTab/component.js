@@ -109,7 +109,7 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 			setTimeout(function(obj) {
 				var el = self.findmodal(obj.id);
 				el.rclass('invisible');
-				config.onopen && EXEC(config.onopen, obj, el);
+				config.onopen && EXEC(self.makepath(config.onopen), obj, el);
 				config.autofocus && el.find('input,select,textarea').eq(0).focus();
 			}, 500, obj);
 		}

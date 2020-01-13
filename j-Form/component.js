@@ -45,13 +45,13 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config) {
 	self.readonly();
 	self.submit = function() {
 		if (config.submit)
-			EXEC(config.submit, self.hide);
+			EXEC(self.makepath(config.submit), self.hide);
 		else
 			self.hide();
 	};
 
 	self.cancel = function() {
-		config.cancel && EXEC(config.cancel, self.hide);
+		config.cancel && EXEC(self.makepath(config.cancel), self.hide);
 		self.hide();
 	};
 
@@ -183,7 +183,7 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config) {
 		self.resize();
 		self.release(false);
 
-		config.reload && EXEC(config.reload, self);
+		config.reload && EXEC(self.makepath(config.reload), self);
 		config.default && DEFAULT(config.default, true);
 
 		if (!isMOBILE && config.autofocus) {
