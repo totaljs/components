@@ -391,28 +391,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			dir.placeholder = config.dirplaceholder;
 
 			dir.callback = function(item) {
-
-				var val = item[col.ovalue];
-				var is = val != null && val !== '';
-				var name = el.attrd('name');
-
-				opt.filtervalues[col.id] = val;
-
-				if (is) {
-					if (opt.filter[name] == val)
-						return;
-					opt.filter[name] = val;
-				} else
-					delete opt.filter[name];
-
-				delete opt.filtercache[name];
-				opt.filtercl[name] = val;
-
-				forcescroll = opt.scroll = 'y';
-				opt.operation = 'filter';
-				el.parent().tclass('dg-filter-selected', is);
-				el.text(item[dir.key] || '');
-				self.fn_refresh();
+				self.applyfilterdirectory(el, col, item);
 			};
 
 			SETTER('directory', 'show', dir);
@@ -592,6 +571,31 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 				e.stopPropagation();
 			}
 		});
+
+		self.applyfilterdirectory = function(label, col, item) {
+
+			var val = item[col.ovalue];
+			var is = val != null && val !== '';
+			var name = label.attrd('name');
+
+			opt.filtervalues[col.id] = val;
+
+			if (is) {
+				if (opt.filter[name] == val)
+					return;
+				opt.filter[name] = val;
+			} else
+				delete opt.filter[name];
+
+			delete opt.filtercache[name];
+			opt.filtercl[name] = val;
+
+			forcescroll = opt.scroll = 'y';
+			opt.operation = 'filter';
+			label.parent().tclass('dg-filter-selected', is);
+			label.text(item[col.otext] || '');
+			self.fn_refresh();
+		};
 
 		var d = { is: false };
 
@@ -889,25 +893,41 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 
 	self.applyfilter = function(obj, add) {
 
+
+		if (!ready) {
+			setTimeout(self.applyfilter, 100, obj, add);
+			return;
+		}
+
 		if (!add)
 			opt.filter = {};
 
-		header.find('input,select').each(function() {
+		var keys = Object.keys(obj);
+
+		for (var i = 0; i < keys.length; i++) {
+			var key = keys[i];
+			var col = opt.cols.findItem('name', key);
+			if (col.options) {
+				var items = col.options instanceof Array ? col.options : GET(col.options);
+				if (items instanceof Array) {
+					var item = items.findItem(col.ovalue, obj[key]);
+					if (item) {
+						var el = header.find('.dg-hcol[data-index="{0}"] label'.format(col.index));
+						if (el.length)
+							self.applyfilterdirectory(el, col, item);
+					}
+				}
+			}
+		}
+
+		header.find('input').each(function() {
 			var t = this;
 			var el = $(t);
 			var val = obj[el.attrd('name')];
-			if (val !== undefined) {
-				if (t.tagName === 'SELECT') {
-					var col = opt.cols.findItem('index', +el.closest('.dg-hcol').attrd('index'));
-					if (col && col.options) {
-						var index = col.options.findIndex(col.ovalue, val);
-						if (index > -1)
-							el.val(index);
-					}
-				} else
-					el.val(val == null ? '' : val);
-			}
+			if (val !== undefined)
+				el.val(val == null ? '' : val);
 		}).trigger('change');
+
 	};
 
 	self.rebind = function(code) {
