@@ -914,7 +914,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			if (val !== undefined) {
 				if (t.tagName === 'SELECT') {
 					var col = opt.cols.findItem('index', +el.closest('.dg-hcol').attrd('index'));
-					if (col && col.options) {
+					if (col && !col.isdir && col.options) {
 						var index = col.options.findIndex(col.ovalue, val);
 						if (index > -1)
 							el.val(index);
