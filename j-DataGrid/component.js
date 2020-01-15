@@ -892,6 +892,21 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		if (!add)
 			opt.filter = {};
 
+		Object.keys(obj).forEach(function(key){
+			var col = opt.cols.findItem('name', key);
+			if (col.isdir) {
+				var data = GET(col.options);
+				if (!data)
+					return;
+				var val = data.findItem('value', obj[key]);
+				if (!val)
+					return;
+				var el = header.find('.dg-hcol[data-index={0}] label'.format(col.index));
+				el.text(val.text).parent().aclass('dg-filter-selected');
+				opt.filter[key] = val.value;
+			}
+		});
+
 		header.find('input,select').each(function() {
 			var t = this;
 			var el = $(t);
@@ -966,6 +981,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			if (col.options) {
 				!col.otext && (col.otext = 'text');
 				!col.ovalue && (col.ovalue = 'value');
+				col.isdir = !(col.options instanceof Array);
 			}
 
 			// SORT?
