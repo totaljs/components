@@ -10,6 +10,7 @@ COMPONENT('faicons', 'search:Search', function(self, config) {
 	var container;
 	var is = false;
 	var ispro = false;
+	var cachekey;
 
 	self.singleton();
 	self.readonly();
@@ -21,7 +22,13 @@ COMPONENT('faicons', 'search:Search', function(self, config) {
 		container = self.find(cls2 + '-content');
 	};
 
-	self.rendericons = function() {
+	self.rendericons = function(empty) {
+
+		var key = empty ? '1' : '0';
+		if (cachekey === key)
+			return;
+
+		cachekey = key;
 		var builder = [template.format('', '')];
 		var arr = ispro ? iconspro : icons;
 		for (var i = 0; i < arr.length; i++)
@@ -192,19 +199,26 @@ COMPONENT('faicons', 'search:Search', function(self, config) {
 			css.top += opt.offsetY;
 
 		is = true;
-		self.rendericons();
+		self.rendericons(opt.empty);
 		self.find('.noscrollbar').noscrollbar();
 		self.css(css);
 		search.focus();
 		setTimeout(self.bindevents, 50);
+		clearTimeout2(self.ID);
+	};
+
+	self.clear = function() {
+		container.empty();
+		cachekey = null;
 	};
 
 	self.hide = function() {
 		is = false;
 		self.target = null;
 		self.opt = null;
-		container.empty();
 		self.unbindevents();
 		self.aclass('hidden');
+		container.find('.hidden').rclass('hidden');
+		setTimeout2(self.ID, self.clear, 1000 * 10);
 	};
 });
