@@ -29,7 +29,10 @@ COMPONENT('faicons', 'search:Search', function(self, config) {
 			return;
 
 		cachekey = key;
-		var builder = [template.format('', '')];
+		var builder = [];
+
+		empty && builder.push(template.format('', ''));
+
 		var arr = ispro ? iconspro : icons;
 		for (var i = 0; i < arr.length; i++)
 			builder.push(template.format(arr[i].replace(/^.*?-/, '').replace(/-/g, ' ').toSearch(), arr[i]));
