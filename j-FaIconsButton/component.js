@@ -1,4 +1,4 @@
-COMPONENT('faiconsbutton', 'default:#FFFFFF;align:left;position:top', function(self, config) {
+COMPONENT('faiconsbutton', 'default:#FFFFFF;align:left;position:top;empty:1', function(self, config) {
 
 	var cls = 'ui-faiconsbutton';
 	var icon;
@@ -19,6 +19,7 @@ COMPONENT('faiconsbutton', 'default:#FFFFFF;align:left;position:top', function(s
 			opt.offsetX = config.offsetX;
 			opt.offsetY = config.offsetY;
 			opt.element = self.element;
+			opt.empty = config.empty;
 			opt.callback = function(icon) {
 				self.set(icon);
 				self.change(true);

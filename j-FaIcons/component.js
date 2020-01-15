@@ -205,7 +205,7 @@ COMPONENT('faicons', 'search:Search', function(self, config) {
 		self.rendericons(opt.empty);
 		var scrollarea = self.find('.noscrollbar').noscrollbar();
 		self.css(css);
-		if (!opt.scrolltop)
+		if (opt.scrolltop == null || opt.scrolltop)
 			scrollarea[0].scrollTop = 0;
 		search.focus();
 		setTimeout(self.bindevents, 50);

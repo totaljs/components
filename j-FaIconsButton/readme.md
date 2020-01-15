@@ -12,6 +12,7 @@ __Configuration__:
 - `offsetX` offset-x for j-ColorPicker (default: `0`)
 - `offsetY` offset-y for j-ColorPicker (default: `0`)
 - `disabled` can disabled this component (default: `false`)
+- `empty` adds an empty icon (default: true)
 
 ### Author
 
