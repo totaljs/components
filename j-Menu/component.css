@@ -16,7 +16,7 @@
 .ui-menu-divider { padding: 0 !important; background: transparent !important; cursor: default !important; color: gray; font-size: 11px !important; }
 .ui-menu-divider span { display: block; margin: 5px 12px; }
 .ui-menu-divider hr { margin: 5px 0; border-color: #E0E0E0; }
-.ui-menu li.ui-menu-disabled { color: gray; background-color: #dedede; cursor: not-allowed; }
+.ui-menu li.ui-menu-disabled { color: #a0a0a0; background-color: white; cursor: not-allowed; }
 .ui-menu li.ui-menu-disabled i { color: #c5c5c5; }
 
 .ui-dark .ui-menu b { color: #505050; }
@@ -26,5 +26,5 @@
 .ui-dark .ui-menu li:hover { background-color: #202020; }
 .ui-dark .ui-menu-divider hr { border-color: #404040; }
 .ui-dark .ui-menu-note { color: #777777; }
-.ui-dark .ui-menu li.ui-menu-disabled { background-color: #191919; }
+.ui-dark .ui-menu li.ui-menu-disabled { background-color: #303030; color: #656565; }
 .ui-dark .ui-menu li.ui-menu-disabled i { color: #525252; }
