@@ -1,4 +1,4 @@
-COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timeformat:HH:mm;offset:0;margin:0;modalalign:center', function(self, config) {
+COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timeformat:HH:mm;offset:0;margin:0;modalalign:center;visibleY:1', function(self, config) {
 
 	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
@@ -20,7 +20,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 		self.append('<div class="{0}-scroller"><div class="{0}-container"></div></div>'.format(cls, config.search));
 		container = self.find(cls2 + '-container');
 		scroller = self.find(cls2 + '-scroller');
-		self.scrollbar = SCROLLBAR(scroller);
+		self.scrollbar = SCROLLBAR(scroller, { visibleY: config.visibleY, orientation: 'y' });
 
 		self.event('click', 'label', function() {
 			var el = $(this).closest(cls2 + '-group');
