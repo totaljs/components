@@ -1,0 +1,24 @@
+.ui-treeview { padding: 0; font-size: 13px; }
+.ui-treeview-item-container { padding-left: 10px; border-left: 1px solid #E0E0E0; }
+.ui-treeview-container { padding: 5px 0; }
+.ui-treeview-container > .ui-treeview-item-container { border-left: 0; }
+.ui-treeview-item { height: 18px; overflow: hidden; overflow: hidden; }
+.ui-treeview-dragged > .ui-treeview-item > div { background-color: #F0F0F0; }
+.ui-treeview-item > div { position: relative; display: inline-block; padding: 0; border-radius: 2px; margin-right: 20px; }
+.ui-treeview-children { display: none; padding: 2px 0; }
+.ui-treeview-open > .ui-treeview-children { display: block; }
+.ui-treeview-selected > div { background-color: #F0F0F0; }
+.ui-treeview-item-container > .ui-treeview-item > i { float: right; display: none; font-size: 10px; color: gray; margin: 3px 5px 0 0; }
+.ui-treeview-arrow:before { content: '\f107'; }
+.ui-treeview-canexpand > .ui-treeview-item > i { display: block; }
+.ui-treeview-canexpand > .ui-treeview-item:hover > i { color: black; }
+.ui-treeview-open > .ui-treeview-item > i:before { content: '\f106'; }
+
+.ui-disabled.ui-treeview { cursor: not-allowed; }
+.ui-disabled.ui-treeview .ui-treeview-item, .ui-disabled.ui-treeview .ui-treeview-canexpand > .ui-treeview-item > i { color: #A0A0A0 !important; }
+.ui-dark .ui-disabled.ui-treeview .ui-treeview-item, .ui-dark .ui-disabled.ui-treeview .ui-treeview-canexpand > .ui-treeview-item > i { color: #777777 !important; }
+
+.ui-dark .ui-treeview-item-container { border-left-color: #404040; }
+.ui-dark .ui-treeview-selected > div { background-color: #404040; }
+.ui-dark .ui-treeview-dragged > .ui-treeview-item > div { background-color: #404040; }
+.ui-dark .ui-treeview-canexpand > .ui-treeview-item:hover > i { color: white; }

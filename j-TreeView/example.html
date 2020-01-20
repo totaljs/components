@@ -1,0 +1,17 @@
+<div style="width:300px;height:200px;border:1px solid #E0E0E0;margin:50px">
+	<div data---="treeview__nodes__exec:fn_selected"></div>
+</div>
+
+<script>
+	var nodes = [];
+	nodes.push({ id: '1', name: 'Item 1', html: '<b>Item 1</b>', children: null });
+	nodes.push({ id: '2', name: 'Item 2', children: null });
+	nodes.push({ id: '3', name: 'Item 3', children: [{ id: 'A', name: 'SubItem 3 / 1', children: [{ id: 'AA', name: 'SubItem 3 / 1 / 1', children: null }]}]});
+	nodes.push({ id: '4', name: 'Item 4', children: null });
+	nodes.push({ id: '5', name: 'Item 5', children: [{ id: 'B', name: 'Subitem 5 / 1', children: null }, { name: 'Subitem 5 / 2', children: [{ id: 'BB', name: 'Subitem 5 / 2 / 1', children: [{ id: 'BC', name: 'Subitem 5 / 2 / 1 / 1', children: null }]}] }, { id: 'BD', name: 'Subitem 5 / 3', children: null }]});
+
+	function fn_selected(node, isfolder) {
+		console.log('SELECTED NODE:', node, isfolder);
+	}
+
+</script>

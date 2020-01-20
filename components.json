@@ -191,5 +191,6 @@
 	"j-Gauge",
 	"j-VirtualWire",
 	"j-StatsBarSimple",
-	"j-Kanban"
+	"j-Kanban",
+	"j-TreeView"
 ]
