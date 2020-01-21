@@ -1,4 +1,4 @@
-COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:name;direxclude:true;forcevalidation:1;searchalign:1;after:\\:', function(self, config) {
+COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:name;direxclude:false;forcevalidation:1;searchalign:1;after:\\:', function(self, config) {
 
 	var cls = 'ui-input';
 	var cls2 = '.' + cls;
