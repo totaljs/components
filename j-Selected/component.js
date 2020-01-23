@@ -1,6 +1,5 @@
 COMPONENT('selected', 'class:selected;selector:a;attr:if', function(self, config) {
 
-	self.bindvisible(20);
 	self.readonly();
 
 	self.configure = function(key, value) {
