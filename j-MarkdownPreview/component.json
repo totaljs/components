@@ -1,9 +1,12 @@
 {
 	"datecreated": "2018-05-01T09:38:00.000Z",
-	"dateupdated": "2019-10-22T12:58:03.000Z",
+	"dateupdated": "2020-01-23T13:33:03.000Z",
 	"name": "j-MarkdownPreview",
 	"tags": [
-		"markdownpreview"
+		"markdown",
+		"preview",
+		"render",
+		"html"
 	],
 	"color": "transparent",
 	"version": 1,
