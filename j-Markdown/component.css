@@ -1,10 +1,13 @@
-.markdown { font-size: 16px; line-height: 22px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; color: #404040; overflow-x: hidden; }
+.markdown-small .markdown { font-size: 14px; line-height: 18px; }
+.markdown { font-size: 16px; line-height: 22px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; color: #404040; overflow-x: hidden; padding: 0; }
+.markdown *:last-child { margin-bottom: 0; }
 .markdown code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
 .markdown h1 { cursor: default; margin: 0 0 20px; font-size: 30px; padding: 0 0 13px; border-bottom: 1px solid #E0E0E0; color: black; line-height: 38px; font-family: -apple-systm, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-weight: normal; line-height: 32px; font-weight: bold; }
-.markdown h2 { cursor: default; margin: 30px 0 18px; font-weight: bold; font-size: 25px; padding: 0 0 8px; border-bottom: 1px solid #E0E0E0; color: black; line-height: 28px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; }
-.markdown h3 { cursor: default; margin: 30px 0 10px; font-size: 20px; padding: 0 0 5px; color: #404040; font-weight: bold; line-height: 22px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; }
-.markdown h4, .markdown h5 { cursor: default; margin: 20px 0 10px; font-size: 17px; color: #404040; font-weight: bold; line-height: 22px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; background-color: #F0F0F0; padding: 4px 3px; border-radius: 3px; border-bottom: 1px solid #E0E0E0; }
-.markdown p { margin: 10px 0 20px; padding-left: 0; padding-right: 0; }
+.markdown h2 { cursor: default; margin: 0 0 18px; font-weight: bold; font-size: 25px; padding: 0 0 8px; border-bottom: 1px solid #E0E0E0; color: black; line-height: 28px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; }
+.markdown h3 { cursor: default; margin: 0 0 10px; font-size: 20px; padding: 0 0 5px; color: #404040; font-weight: bold; line-height: 22px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; }
+.markdown h4, .markdown h5 { cursor: default; margin: 0 0 10px; font-size: 17px; color: #404040; font-weight: bold; line-height: 22px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; background-color: #F0F0F0; padding: 4px 3px; border-radius: 3px; border-bottom: 1px solid #E0E0E0; }
+.markdown p { margin: 0 0 20px; padding-left: 0; padding-right: 0; }
+.markdown-small p { margin-bottom: 10px; }
 .markdown p code, .markdown li code, .markdown section code, .markdown blockquote code, .markdown h1 code, .markdown h2 code, .markdown h3 code, .markdown h4 code, .markdown td code { background-color: #E0E0E0; padding: 1px 4px 2px; border-radius: 3px; font-size: 14px; }
 .markdown p code, .markdown section code, .markdown li code, .markdown blockquote code, .markdown td code { border: 1px solid #E0E0E0; background-color: #F5F5F5; }
 .markdown pre { padding: 0; border-radius: 4px; margin: 20px 0; width: 100%; }
@@ -14,8 +17,8 @@
 .markdown ul ul { margin-bottom: 0; }
 .markdown img { max-width: 100%; }
 .markdown th { background-color: #F8F8F8; }
-.markdown blockquote { color: black; margin: 10px 0 20px; padding: 10px 0 0 15px; position: relative; }
-.markdown blockquote:before { content: '\201C'; position: absolute; margin-left: -14px; margin-top: -13px; font: 45px 'PT Sans', sans-serif; color: #A0A0A0; }
+.markdown blockquote { color: black; margin: 0 0 20px; padding: 10px 0 0 20px; position: relative; font-style: italic; }
+.markdown blockquote:before { content: '\201C'; position: absolute; margin-left: -18px; margin-top: -13px; font: 45px 'PT Sans', sans-serif; color: #A0A0A0; }
 .markdown section { padding: 15px 20px; background-color: #FFFED1; margin: 10px 0 20px; border-radius: 3px; }
 .markdown hr { border-color: #E0E0E0; border-width: 2px; }
 .markdown h1 code { font-size: 28px; font-weight: normal; background-color: #DAE8F8; }

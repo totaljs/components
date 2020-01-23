@@ -35,6 +35,7 @@ __Good to know__:
 - images will be with `img-responsive` class
 - images with `![+Image description](URL)` will be formatted as inline images
 - all links are with `_target="_blank"` attribute
+- markdown registers `FUNC.markdownredraw(jQuery_selector)` for prerendering of Markdown dynamic elements like code highlight, videos or charts
 
 ### Author
 
