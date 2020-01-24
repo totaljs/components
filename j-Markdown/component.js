@@ -74,6 +74,9 @@ COMPONENT('markdown', function (self) {
 				return (/^\d+$/).test(text) ? '<sup data-id="{0}" class="footnote">{1}</sup>'.format(link.substring(1), text) : '<span data-id="{0}" class="footnote">{1}</span>'.format(link.substring(1), text);
 			}
 
+			if (link.substring(0, 4) === 'www.')
+				link = 'https://' + link;
+
 			var nofollow = link.charAt(0) === '@' ? ' rel="nofollow"' : linksexternal.test(link) ? ' target="_blank"' : '';
 			return '<a href="' + link + '"' + nofollow + '>' + text + '</a>';
 		}
