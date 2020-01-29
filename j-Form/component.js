@@ -97,7 +97,7 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config) {
 
 		if (config.scrollbar) {
 			el.css('overflow', 'hidden');
-			self.scrollbar = SCROLLBAR(el.find(cls2 + '-scrollbar'), { visibleY: 1 });
+			self.scrollbar = SCROLLBAR(el.find(cls2 + '-scrollbar'), { visibleY: 1, orientation: 'y' });
 		}
 
 		while (self.dom.children.length)
