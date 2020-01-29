@@ -135,7 +135,7 @@ COMPONENT('treeview', 'parent:parent;droppable:1;movable:1;expanded:0;autosort:1
 				reftarget.item.children.push(item.item);
 				config.move && EXEC(self.makepath(config.move), item.item, reftarget.item, refparent.item);
 				skip = true;
-				self.update();
+				self.update(true);
 				self.change(true);
 				break;
 
