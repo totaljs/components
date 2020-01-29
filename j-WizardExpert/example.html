@@ -1,0 +1,61 @@
+<style>
+	button { background-color: white; border: 1px solid #E0E0E0; font-size: 12px; padding: 5px 15px; }
+	button:hover { background-color: #F8F8F8; }
+	button:disabled { background-color: #F0F0F0; cursor: not-allowed; color: #A0A0A0; }
+</style>
+
+<div style="border:1px solid #E0E0E0;width:300px;height:150px;padding:20px;margin-bottom:20px">
+	<div data---="wizardexpert__currentstep__output:currentoutput;next:nextstep;back:prevstep;exec:steps_finish">
+		<script type="text/plain">
+			{
+				'step1': { url: 'step1.html', next: 'step2', validate: false },
+				'step2': { url: 'step2.html', next: 'step3' },
+				'step3': { url: 'step3.html' }
+			}
+		</script>
+	</div>
+
+</div>
+
+<nav data---="validation__outputdata">
+	<button data-bind="prevstep__enabled:value && value.enabled__click:steps_back" disabled>Back</button>
+	<button data-bind="nextstep__enabled:!value||value.enabled__html:value?'Next':'Finish'__click:steps_next" disabled>Next</button>
+</nav>
+
+
+<script type="text/html" id="step1">
+	WELCOME
+</script>
+
+<script type="text/html" id="step2">
+	<div data---="input__?.name__required:1">Type your name</div>
+</script>
+
+<script type="text/html" id="step3">
+	FINISH
+</script>
+
+<script>
+
+	var currentstep = 'step1';
+	var currentoutput = {};
+
+	ON('request', function(options) {
+		// Hijack response
+		if (options.url.indexOf('step') !== -1)
+			options.respond($('#' + options.url.replace('.html', '')).html());
+	});
+
+	function steps_next() {
+		SET('currentstep', 'NEXT');
+	}
+
+	function steps_back() {
+		SET('currentstep', 'BACK');
+	}
+
+	function steps_finish() {
+		alert('DONE: ' + STRINGIFY(currentoutput));
+	}
+
+</script>

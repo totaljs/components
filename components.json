@@ -192,5 +192,6 @@
 	"j-VirtualWire",
 	"j-StatsBarSimple",
 	"j-Kanban",
-	"j-TreeView"
+	"j-TreeView",
+	"j-WizzardExpert"
 ]
