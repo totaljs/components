@@ -4,8 +4,6 @@
 
 __Configuration__:
 
-Example: `data-jc-config="title:Form title;width:800;if:user;icon:home"`
-
 - `title` {String} form title
 - `width` {Number} form max-width
 - `if` {String} condition for showing of the form, it's compared with the value within of `data-jc-path`
