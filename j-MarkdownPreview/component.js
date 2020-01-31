@@ -10,24 +10,11 @@ COMPONENT('markdownpreview', 'showsecret:Show secret data;hidesecret:Hide secret
 	self.nocompile && self.nocompile();
 
 	self.make = function() {
-
 		if (!config.html) {
 			self.append('<div class="{0}-body"></div><div class="{0}-cache hidden"></div>'.format(cls));
 			elcache = self.find(cls2 + '-cache');
 			elbody = self.find(cls2 + '-body');
 		}
-
-		self.event('click', '.showsecret', function() {
-			var el = $(this);
-			var next = el.next();
-			next.tclass('hidden');
-
-			var is = next.hclass('hidden');
-			var icons = el.find('i');
-			icons.eq(0).tclass('fa-unlock', !is).tclass('fa-lock', is);
-			icons.eq(1).tclass('fa-angle-up', !is).tclass('fa-angle-down', is);
-			el.find('b').html(config[(is ? 'show' : 'hide') + 'secret']);
-		});
 	};
 
 	self.redraw = function(el) {

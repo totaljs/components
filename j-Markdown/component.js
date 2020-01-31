@@ -10,6 +10,19 @@ COMPONENT('markdown', function (self) {
 		setTimeout(function() {
 			self.remove();
 		}, 500);
+
+		$(document).on('click', '.showsecret', function() {
+			var el = $(this);
+			var next = el.next();
+			next.tclass('hidden');
+
+			var is = next.hclass('hidden');
+			var icons = el.find('i');
+			icons.eq(0).tclass('fa-unlock', !is).tclass('fa-lock', is);
+			icons.eq(1).tclass('fa-angle-up', !is).tclass('fa-angle-down', is);
+
+			el.find('b').html(el.attrd(is ? 'show' : 'hide'));
+		});
 	};
 
 	/*! Markdown | (c) 2019 Peter Sirka | www.petersirka.com */
@@ -194,11 +207,14 @@ COMPONENT('markdown', function (self) {
 			});
 		}
 
-		FUNC.markdownredraw = function(el) {
+		FUNC.markdownredraw = function(el, opt) {
+
+			if (!opt)
+				opt = EMPTYOBJECT;
 
 			el.find('.lang-secret').each(function() {
 				var el = $(this);
-				el.parent().replaceWith('<div class="secret"><span class="showsecret"><i class="fa fa-lock"></i><i class="fa pull-right fa-angle-down"></i><b>' + config.showsecret + '</b></span><div class="hidden">' + el.html().trim().markdown(secret_options) +'</div></div>');
+				el.parent().replaceWith('<div class="secret" data-show="{0}" data-hide="{1}"><span class="showsecret"><i class="fa fa-lock"></i><i class="fa pull-right fa-angle-down"></i><b>{0}</b></span><div class="hidden">'.format(opt.showsecret || 'Show secret data', opt.hidesecret || 'Hide secret data') + el.html().trim().markdown(opt.secretoptions) +'</div></div>');
 			});
 
 			el.find('.lang-video').each(function() {
