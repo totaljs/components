@@ -16,7 +16,7 @@ __Configuration__:
 - `error` {String} (optional) adds a `error` text under the input
 - `monospace` {Boolean} (optional) sets `monospace` font for the input (default: `false`)
 - `readonly` {Boolean} optional, default `false`
-- __NEW__ `scrollbar` {Boolean} optional, default `true`
+- `scrollbar` {Boolean} optional, default `true`
 
 ### Author
 
