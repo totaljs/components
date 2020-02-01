@@ -1,5 +1,7 @@
-.ui-faiconsbutton.ui-disabled { cursor: not-allowed !important; opacity: 0.6; border-color: #E0E0E0 !important; }
-.ui-faiconsbutton { border: 1px solid #E0E0E0; height: 32px; border-radius: 2px; cursor: pointer; background-color: white; color: black; }
+.ui-disabled .ui-faiconsbutton-button { cursor: not-allowed !important; opacity: 0.6; border-color: #E0E0E0 !important; }
+.ui-faiconsbutton-button { border: 1px solid #E0E0E0; height: 32px; border-radius: 2px; cursor: pointer; background-color: white; color: black; }
+.ui-faiconsbutton-label { margin-bottom: 3px; font-size: 12px; }
+.ui-faiconsbutton-label i { margin-right: 4px; }
 .ui-faiconsbutton-icon { height: 24px; margin: 0 32px 0 0; line-height: 32px; font-size: 20px; text-align: center; }
 .ui-faiconsbutton:hover { border-color: #D0D0D0; }
 .ui-faiconsbutton-arrow { width: 32px; float: right; display: block; text-align: center; line-height: 31px; height: 31px; border-left: 1px solid #E0E0E0; }
