@@ -6,8 +6,12 @@ COMPONENT('faiconsbutton', 'default:#FFFFFF;align:left;position:top;empty:1', fu
 	self.nocompile();
 
 	self.make = function() {
+
 		self.aclass(cls);
-		self.append('<span class="{0}-arrow"><i class="fa fa-angle-down"></i></span><div class="{0}-icon"></div>'.format(cls));
+
+		self.dom.innerHTML && self.element.wrapInner('<div class="{0}-label"></div>'.format(cls));
+		self.append('<div class="{0}-button"><span class="{0}-arrow"><i class="fa fa-angle-down"></i></span><div class="{0}-icon"></div></div>'.format(cls));
+
 		icon = self.find('.' + cls + '-icon');
 
 		self.event('click', function() {
