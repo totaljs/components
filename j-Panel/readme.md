@@ -4,12 +4,10 @@
 
 __Configuration__:
 
-Example: `data-jc-config="title:Panel title;if:user;icon:home"`
-
 - `title` {String} window title
 - `if` {String} condition for showing of the window, it's compared with the value within of `data-jc-path`
 - `icon` {String} Font-Awesome icon without `fa-`
-- `reload` {String} link to a global function and it's executed if the form is showing
+- `reload` {String} link to a global function and it's executed if the form is displaying
 - `enter` {Boolean} optional, captures `enter` key automatically and performs submit (default: `false`)
 - `autofocus` {Boolean/String} optional, can focus an input. `String` === `jQuery selector` for the input
 - `default` {String} optional, a short alias for `DEFAULT(default, true)`
@@ -20,10 +18,10 @@ Example: `data-jc-config="title:Panel title;if:user;icon:home"`
 - `zindex` {Number} optional, can affect z-index (default: `12`)
 - `close` {String} optional, path/method is executed as `path_to_method(com)` when the user closes the panel manually via close button
 - `scrollbar` {Boolean} optional, enables custom scrollbar (default: `true`)
-- `scrollbarY` {Boolean} optional, shows vertical custom scrollbar (default: `false`)
+- `scrollbarY` {Boolean} optional, shows vertical custom scrollbar (default: `true`)
 - `menu` {String} optional, a link to function (panel will show a button with burger icon in title bar)
-- __NEW__ `container` {String} optional, jQuery selector (this container means a container for scrollbar)
-- __NEW__ `margin` {Number} optional, a margin for `container` and its `scrollbar` (it works with `container` only)
+- `container` {String} optional, jQuery selector (this container means a container for scrollbar)
+- `margin` {Number} optional, a margin for `container` and its `scrollbar` (it works with `container` only)
 
 __Good to know__:
 

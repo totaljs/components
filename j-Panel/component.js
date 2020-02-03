@@ -1,4 +1,4 @@
-COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:false;margin:0', function(self, config) {
+COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:true;margin:0', function(self, config) {
 
 	var W = window;
 	var cls = 'ui-panel';
@@ -79,7 +79,7 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 		if (config.scrollbar && window.SCROLLBAR) {
 			if (config.container)
 				body = body.find(config.container);
-			self.scrollbar = SCROLLBAR(body, { visibleY: !!config.scrollbarY });
+			self.scrollbar = SCROLLBAR(body, { visibleY: !!config.scrollbarY, orientation: 'y' });
 			self.scrollleft = self.scrollbar.scrollLeft;
 			self.scrolltop = self.scrollbar.scrollTop;
 			self.scrollright = self.scrollbar.scrollRight;
@@ -129,8 +129,13 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 
 		var isHidden = value !== config.if;
 
-		if (self.hclass('hidden') === isHidden)
+		if (self.hclass('hidden') === isHidden) {
+			if (!isHidden) {
+				config.reload && EXEC(config.reload, self);
+				config.default && DEFAULT(config.default, true);
+			}
 			return;
+		}
 
 		setTimeout2('panelreflow', function() {
 			EMIT('reflow', self.name);
@@ -164,6 +169,7 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 		setTimeout(self.resize, 100);
 
 		config.reload && EXEC(config.reload, self);
+		config.refresh && EXEC(config.refresh, self);
 		config.default && DEFAULT(config.default, true);
 
 		if (!isMOBILE && config.autofocus) {

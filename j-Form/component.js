@@ -149,8 +149,13 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config) {
 
 		var isHidden = value !== config.if;
 
-		if (self.hclass('hidden') === isHidden)
+		if (self.hclass('hidden') === isHidden) {
+			if (!isHidden) {
+				config.reload && EXEC(config.reload, self);
+				config.default && DEFAULT(config.default, true);
+			}
 			return;
+		}
 
 		setTimeout2(cls, function() {
 			EMIT('reflow', self.name);
@@ -191,7 +196,6 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config) {
 				self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea').eq(0).focus();
 			}, 1000);
 		}
-
 
 		setTimeout(function() {
 			self.rclass('invisible');

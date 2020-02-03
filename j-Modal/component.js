@@ -207,8 +207,13 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 
 		var hidden = value !== config.if;
 
-		if (self.hclass('hidden') === hidden)
+		if (self.hclass('hidden') === hidden) {
+			if (!hidden) {
+				config.reload && EXEC(config.reload, self);
+				config.default && DEFAULT(config.default, true);
+			}
 			return;
+		}
 
 		setTimeout2(cls + 'reflow', function() {
 			EMIT('reflow', self.name);
