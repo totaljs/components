@@ -43,13 +43,12 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0', function(self, config
 					break;
 			}
 
-
 			if (current !== index)
 				EXEC(self.makepath(config.paginate), index);
 
 		});
 
-		if (config.height) {
+		if (config.parent || config.height) {
 			self.aclass(cls + '-fixed');
 			self.scrollbar = SCROLLBAR(self.find(cls2 + '-scrollbar'), { visibleY: 1, orientation: 'y' });
 		}
@@ -68,12 +67,20 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0', function(self, config
 	};
 
 	self.resize = function() {
-		if (!config.height)
-			return;
-		var parent = self.parent(config.height);
-		var height = parent.height() - config.margin - paginate.height() - 11; // 10 is padding + 1 border
-		self.find(cls2 + '-scrollbar').css('height', height);
-		self.scrollbar.resize();
+		var p = config.parent || config.height;
+		if (p) {
+
+			var margin = config.margin;
+			var responsivemargin = config['margin' + WIDTH()];
+
+			if (responsivemargin != null)
+				margin = responsivemargin;
+
+			var parent = self.parent(p);
+			var height = parent.height() - margin - paginate.height() - 11; // 10 is padding + 1 border
+			self.find(cls2 + '-scrollbar').css('height', height);
+			self.scrollbar.resize();
+		}
 	};
 
 	self.setter = function(value, path, type) {
@@ -149,10 +156,11 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0', function(self, config
 
 		paginate.find('.selected').rclass('selected');
 		paginate.find(cls2 + '-page[data-index="{0}"]'.format(value.page)).aclass('selected');
-		paginate.tclass('hidden', value.pages < 2 && !config.height);
+		paginate.tclass('hidden', value.pages < 2 && !self.scrollbar);
 		self.tclass('hidden', value.count === 0);
+
 		if (type && config.scrolltop) {
-			if (config.height)
+			if (self.scrollbar)
 				self.scrollbar.scrollTop(0);
 			else
 				$(W).scrollTop(self.element.position().top - 50);

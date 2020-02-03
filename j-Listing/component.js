@@ -1,6 +1,7 @@
-COMPONENT('listing', 'pages:3;count:20', function(self, config) {
+COMPONENT('listing', 'pages:3;count:20;scrolltop:1;margin:0', function(self, config, cls) {
 
 	var container, paginate, current, items, pages = 0;
+	var cls2 = '.' + cls;
 	var layout;
 
 	self.readonly();
@@ -16,10 +17,10 @@ COMPONENT('listing', 'pages:3;count:20', function(self, config) {
 				self.template = T;
 		});
 
-		self.aclass('ui-listing');
-		self.html('<div class="ui-listing-container"></div><div class="ui-listing-paginate"></div>');
-		container = self.find('.ui-listing-container');
-		paginate = self.find('.ui-listing-paginate');
+		self.aclass(cls);
+		self.html('<div class="{0}-scrollbar"><div class="{0}-container"></div></div><div class="{0}-paginate"></div>'.format(cls));
+		container = self.find(cls2 + '-container');
+		paginate = self.find(cls2 + '-paginate');
 		paginate.on('click', 'button', function() {
 			var index = $(this).attrd('index');
 			switch (index) {
@@ -39,6 +40,40 @@ COMPONENT('listing', 'pages:3;count:20', function(self, config) {
 			}
 			self.page(index);
 		});
+
+		if (config.parent || config.height) {
+			self.aclass(cls + '-fixed');
+			self.scrollbar = SCROLLBAR(self.find(cls2 + '-scrollbar'), { visibleY: 1, orientation: 'y' });
+		}
+
+		self.resize2();
+		self.on('resize', self.resize2);
+		$(W).on('resize', self.resize2);
+	};
+
+	self.destroy = function() {
+		$(W).off('resize', self.resize2);
+	};
+
+	self.resize2 = function() {
+		setTimeout2(self.ID, self.resize, 300);
+	};
+
+	self.resize = function() {
+		var p = config.parent || config.height;
+		if (p) {
+
+			var margin = config.margin;
+			var responsivemargin = config['margin' + WIDTH()];
+
+			if (responsivemargin != null)
+				margin = responsivemargin;
+
+			var parent = self.parent(p);
+			var height = parent.height() - margin - paginate.height() - 11; // 10 is padding + 1 border
+			self.find(cls2 + '-scrollbar').css('height', height);
+			self.scrollbar.resize();
+		}
 	};
 
 	self.page = function(index) {
@@ -94,7 +129,7 @@ COMPONENT('listing', 'pages:3;count:20', function(self, config) {
 			builder.push(template.format('-', 'left'));
 
 			for (var i = pfrom; i < pto + 1; i++)
-				builder.push('<button class="ui-listing-page" data-index="{0}">{0}</button>'.format(i));
+				builder.push('<button class="{1}-page" data-index="{0}">{0}</button>'.format(i, cls));
 
 			builder.push(template.format('+', 'right'));
 			paginate.html(builder.join(''));
@@ -106,7 +141,7 @@ COMPONENT('listing', 'pages:3;count:20', function(self, config) {
 			if (max > cur && pages > config.pages && pfrom > 1)
 				pfrom--;
 
-			paginate.find('.ui-listing-page[data-index]').each(function(index) {
+			paginate.find(cls2 + '-page[data-index]').each(function(index) {
 				var page = pfrom + index;
 				$(this).attrd('index', page).html(page);
 			});
@@ -114,9 +149,17 @@ COMPONENT('listing', 'pages:3;count:20', function(self, config) {
 		}
 
 		paginate.find('.selected').rclass('selected');
-		paginate.find('.ui-listing-page[data-index="{0}"]'.format(page)).aclass('selected');
-		paginate.tclass('hidden', pages < 2);
+		paginate.find(cls2 + '-page[data-index="{0}"]'.format(page)).aclass('selected');
+		paginate.tclass('hidden', pages < 2 && !self.scrollbar);
+
 		self.tclass('hidden', count === 0);
+
+		if (config.scrolltop) {
+			if (self.scrollbar)
+				self.scrollbar.scrollTop(0);
+			else
+				$(W).scrollTop(self.element.position().top - 50);
+		}
 	};
 
 	self.setter = function(value) {

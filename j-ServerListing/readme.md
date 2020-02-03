@@ -7,8 +7,12 @@ __Configuration__:
 - `paginate(page)` {String} link to a function for pagination
 - `pages` {Number} max. pages in pagination (default: `3` --> half + current page + half)
 - `scrolltop` {Boolean} scrolls top automatically when the user changes a page
-- `height` {String} jQuery selector for obtaining of height, enables fixed area with custom scrollbars
-- `margin` {Number} a margin for `height` (default: `0`)
+- `parent` {String} jQuery selector for obtaining of height, enables fixed area with custom scrollbars
+- `margin` {Number} a margin for `parent` (default: `0`)
+- __NEW__: `marginxs` {Number} optional, a top/bottom margin together for `xs` screen width
+- __NEW__: `marginsm` optional, a top/bottom margin together for `sm` screen width
+- __NEW__: `marginmd` optional, a top/bottom margin together for `md` screen width
+- __NEW__: `marginlg` optional, a top/bottom margin together for `lg` screen width
 
 __Model__:
 
