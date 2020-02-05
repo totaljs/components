@@ -193,5 +193,6 @@
 	"j-StatsBarSimple",
 	"j-Kanban",
 	"j-TreeView",
-	"j-WizardExpert"
+	"j-WizardExpert",
+	"j-RadioButtonExpert"
 ]

@@ -1,0 +1,18 @@
+{
+	"datecreated": "2020-02-05T13:55:00.000Z",
+	"dateupdated": null,
+	"name": "j-RadioButtonExpert",
+	"tags": [
+		"radiobutton",
+		"expert",
+		"radio"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Denis Granec",
+	"email": "denis@totalavengers.com",
+	"license": "https://www.totaljs.com/license/"
+}
