@@ -1,5 +1,5 @@
 {
-	"datecreated": "2020-02-05T13:55:00.000Z",
+	"datecreated": "2020-02-05T14:50:00.000Z",
 	"dateupdated": null,
 	"name": "j-RadioButtonExpert",
 	"tags": [
@@ -9,6 +9,8 @@
 	],
 	"color": "transparent",
 	"version": 1,
+	"darkmode": 1,
+	"largemode": 1,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

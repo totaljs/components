@@ -31,12 +31,16 @@ __Basic Styles__
 .ui-disabled .my-button:hover { background-color: #dcdcdc; color: gray; border-color: #dcdcdc; }
 .ui-disabled .my-button.selected { border-color: gray; background: #efefef; color: #5a5a5a; }
 
+/* Dark mode */
 .ui-dark .my-button { border-color: 1px solid #404040; color: #adadad; }
 .ui-dark .my-button.selected { color: white; }
 .ui-dark .my-button[data-disabled="1"] { background-color: #525252; color: gray; border-color: #525252; }
 .ui-dark .ui-disabled .my-button { background-color: #525252; color: gray; border-color: #525252; }
 .ui-dark .ui-disabled .my-button:hover { background-color: #525252; color: gray; border-color: #525252; }
 .ui-dark .ui-disabled .my-button.selected { border-color: rgba(0, 0, 0, 0.2); background: #969696; color: #ffffff; }
+
+/* Large mode */
+.ui-large .my-button { font-size: 16px; }
 ```
 
 ### Author
