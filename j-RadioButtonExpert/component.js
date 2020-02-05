@@ -1,6 +1,5 @@
-COMPONENT('radiobuttonexpert', function(self, config) {
+COMPONENT('radiobuttonexpert', function(self, config, cls) {
 
-	var cls = 'ui-radiobuttonexpert';
 	var cls2 = '.' + cls;
 	var template;
 	var recompile = false;
@@ -89,13 +88,14 @@ COMPONENT('radiobuttonexpert', function(self, config) {
 		var builder = [];
 		var propText = config.text || 'name';
 		var propValue = config.value || 'id';
+		var disabledkey = config.disabledkey || 'disabled';
 
 		var type = typeof(arr[0]);
 		var notObj = type === 'string' || type === 'number';
 
 		for (var i = 0, length = arr.length; i < length; i++) {
 			var item = arr[i];
-			item.disabled = +item.disabled || 0;
+			item[disabledkey] = +item[disabledkey] || 0;
 			builder.push(template(item).replace(reg, function(text) {
 				return text.substring(0, 2) === '$i' ? i.toString() : self.path + '[' + i + ']';
 			}));
