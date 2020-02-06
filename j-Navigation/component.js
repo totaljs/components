@@ -1,6 +1,5 @@
-COMPONENT('navigation', 'pk:id', function(self, config) {
+COMPONENT('navigation', 'pk:id', function(self, config, cls) {
 
-	var cls = 'ui-navigation';
 	var cls2 = '.' + cls;
 	var current, items, open = {};
 
@@ -12,7 +11,7 @@ COMPONENT('navigation', 'pk:id', function(self, config) {
 
 		self.event('click', 'b', function(e) {
 			var el = $(this);
-			config.options && EXEC(config.options, items[el.closest('.ui-navigation-item').attrd('id')], el);
+			config.options && EXEC(config.options, items[el.closest(cls2 + '-item').attrd('id')], el);
 			e.preventDefault();
 			e.stopPropagation();
 		});
