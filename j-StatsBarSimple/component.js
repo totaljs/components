@@ -82,7 +82,12 @@ COMPONENT('statsbarsimple', 'tooltip:1;animate:1;value:value;colors:#2e67c5,#83c
 					el.animate({ width: +el.attrd('percentage') + '%' }, 200).aclass(cls + '-show');
 				}, index * 100, el);
 			});
-		} else
+		} else {
+			bars.each(function() {
+				var el = $(this);
+				el.css({ width: +el.attrd('percentage') + '%' }, 200);
+			});
 			bars.aclass(cls + '-show');
+		}
 	};
 });
