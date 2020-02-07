@@ -4,10 +4,8 @@ COMPONENT('virtualwire', 'selector:.virtualwire', function(self, config) {
 
 	self.restore = function() {
 		if (old) {
-			for (var i = 0; i < self.dom.children.length; i++) {
-				var child = self.dom.children[i];
-				old[0].appendChild(child);
-			}
+			while (self.dom.children.length)
+				old[0].appendChild(self.dom.children[0]);
 			var exec = old.attrd('out');
 			exec && EXEC(exec);
 			old = null;
@@ -27,10 +25,8 @@ COMPONENT('virtualwire', 'selector:.virtualwire', function(self, config) {
 		self.restore();
 
 		var children = el[0].children;
-		for (var i = 0; i < children.length; i++) {
-			var child = children[i];
-			self.dom.appendChild(child);
-		}
+		while (children.length)
+			self.dom.appendChild(children[0]);
 
 		old = el;
 		var exec = el.attrd('in');
