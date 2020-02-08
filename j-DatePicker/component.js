@@ -227,6 +227,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 		if ((!(dt instanceof Date)) || isNaN(dt.getTime()))
 			dt = NOW;
 
+		opt.scope = M.scope ? M.scope() : '';
 		self.opt = opt;
 		self.time = dt.format('HH:mm:ss');
 		self.css({ left: l, top: t });
@@ -248,6 +249,8 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 			dt.setMinutes(+(time[1] || '0'));
 			dt.setSeconds(+(time[2] || '0'));
 		}
+
+		self.opt.scope && M.scope(self.opt.scope);
 
 		if (typeof(self.opt.value) === 'string')
 			SET2(self.opt.value, dt);
