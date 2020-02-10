@@ -43,7 +43,7 @@ COMPONENT('checkboxlistexpert', function(self, config, cls) {
 
 		var html = element.html();
 		element.remove();
-		html = html.replace('>', ' data-value="{{ {0} }}" data-disabled="{{ {1} }}">'.format(config.value || 'id', config.disabledkey || 'disabled'));
+		html = html.replace('>', ' data-index="$index" data-disabled="{{ {0} }}">'.format(config.disabledkey || 'disabled'));
 		template = Tangular.compile(html);
 		recompile = html.COMPILABLE();
 
@@ -53,29 +53,22 @@ COMPONENT('checkboxlistexpert', function(self, config, cls) {
 		config.type && (self.type = config.type);
 		config.disabled && self.aclass('ui-disabled');
 
-		self.event('click', '[data-value]', function() {
+		self.event('click', '[data-index]', function() {
 			var el = $(this);
 			if (config.disabled || +el.attrd('disabled'))
 				return;
 
 			var key = config.value || 'id';
-			var value = self.parser(el.attrd('value'));
+			var index = +el.attrd('index');
 			var data = self.get();
-			var index = -1;
-			if (data != null) {
-				index = data.findIndex(function(temp) {
-					return temp[key] == value;
-				});
-			}
+			var temp = -1;
+			if (data)
+				temp = data.indexOf(index);
 
-			if (index === -1) {
-				var item = datasource.findItem(function(temp) {
-					return temp[key] == value;
-				});
-				self.push(item);
-			}
+			if (temp === -1)
+				self.push(index);
 			else {
-				data.splice(index, 1);
+				data.splice(temp, 1);
 				self.set(data);
 			}
 
@@ -92,18 +85,17 @@ COMPONENT('checkboxlistexpert', function(self, config, cls) {
 		var key = config.value || 'id';
 
 		if (value && !(value instanceof Array)) {
-			var item = datasource.findItem(key, value);
-			self.set([item]);
+			self.set([value]);
 			return;
 		}
 
-		self.find('[data-value]').each(function() {
+		self.find('[data-index]').each(function() {
 			var el = $(this);
-			var data = el.attrd('value');
+			var index = el.attrd('index');
 			var selected = false;
 			if (value && value.length) {
 				for (var i = 0; i < value.length; i++) {
-					if (value[i][key] == data) {
+					if (value[i] == index) {
 						selected = true;
 						break;
 					}
