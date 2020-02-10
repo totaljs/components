@@ -23,6 +23,7 @@ __Configuration__:
 - `prselected` {Number} right padding for selected value (default: `0`)
 - `avg` {Number} average value (chart renders a new black line)
 - `xmod` {Number} performs `modulo` for points on x-axis (default: `0`)
+- `exec` {String} a path to function and it's executed after some point is hovered
 
 ### Author
 
