@@ -1,0 +1,21 @@
+{
+	"datecreated": "2020-02-05T14:59:00.000Z",
+	"dateupdated": null,
+	"name": "j-CheckboxListExpert",
+	"tags": [
+		"checkbox",
+		"checkboxlist",
+		"expert",
+		"list"
+	],
+	"color": "transparent",
+	"version": 1,
+	"darkmode": 1,
+	"largemode": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Denis Granec",
+	"email": "denis@totalavengers.com",
+	"license": "https://www.totaljs.com/license/"
+}

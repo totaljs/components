@@ -1,0 +1,41 @@
+<style>
+	.my-button { display: inline-block; padding: 20px 40px; margin-right: 10px; border: 1px solid gray; cursor: pointer; border-radius: 2px; position: relative; user-select: none; }
+	.my-button .checkbox { position: absolute; top: 10px; left: 10px; }
+	.my-button.selected .checkbox i:before { content: "\f14a"; font-weight: 900; }
+	.my-button:hover { border-color: #4285F4; }
+	.my-button.selected { color: white; background: #4285F4; border-color: rgba(0, 0, 0, 0.2); }
+	.my-button[data-disabled="1"] { background-color: #dcdcdc; color: gray; border-color: #dcdcdc; cursor: not-allowed; }
+	.ui-disabled .my-button .checkbox { color: #c3c3c3; }
+	.ui-disabled .my-button { background-color: #dcdcdc; color: gray; border-color: #dcdcdc; cursor: not-allowed; }
+	.ui-disabled .my-button:hover { background-color: #dcdcdc; color: gray; border-color: #dcdcdc; }
+	.ui-disabled .my-button.selected { border-color: gray; background: #efefef; color: #5a5a5a; }
+
+	.ui-dark .my-button { border-color: 1px solid #404040; color: #adadad; }
+	.ui-dark .my-button.selected { color: white; }
+	.ui-dark .my-button[data-disabled="1"] { background-color: #525252; color: gray; border-color: #525252; }
+	.ui-dark .ui-disabled .my-button { background-color: #525252; color: gray; border-color: #525252; }
+	.ui-dark .ui-disabled .my-button:hover { background-color: #525252; color: gray; border-color: #525252; }
+	.ui-dark .ui-disabled .my-button.selected { border-color: rgba(0, 0, 0, 0.2); background: #969696; color: #ffffff; }
+	.ui-large .my-button { font-size: 16px; }
+</style>
+
+<div data---="checkboxlistexpert__model.framework__datasource:list;disabled:1;required:true;label:Your favorite languages;type:number__2">
+	<script type="text/html">
+		<div class="my-button">
+			<div>{{ name }}</div>
+		</div>
+	</script>
+</div>
+<hr>
+<div data---="checkboxlistexpert__model.framework2__datasource:list;required:true;label:Your favorite languages;type:number__3">
+	<script type="text/html">
+		<div class="my-button">
+			<div class="checkbox"><i class="far fa-square"></i></div>
+			<div>{{ name }}</div>
+		</div>
+	</script>
+</div>
+
+<script>
+	var list = [{ name: 'Total.js', id: 1 }, { name: 'express', id: 2 }, { name: 'Hapi', id: 3, disabled: false }, { name: 'Koa', id: 4, disabled: true }, { name: 'Sails', id: 5 }, { name: 'Meteor', id: 6 }, { name: 'Adonis', id: 7 }, { name: 'Nest', id: 8 }];
+</script>
