@@ -145,15 +145,6 @@ COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;
 
 		lines.height = height - config.pt - config.pb;
 
-		// Y axis
-		for (var i = 5; i > 0; i--) {
-			var val = i * 20;
-			var y = ((lines.height / 100) * val) + config.pt;
-			config.axisY && axis.asvg('line').attr('x1', 0).attr('x2', width).attr('y1', y).attr('y2', y).attr('class', 'axis');
-			T.value = ((maxY / 100) * (100 - val)) - minY;
-			axis.asvg('text').aclass('ylabel').attr('transform', 'translate({0},{1})'.format(config.offsetX, y - config.offsetY)).text(templateY(T));
-		}
-
 		var offsetX = config.pl + config.point;
 		var posX = 0;
 		var offsetL = 0;
@@ -241,6 +232,15 @@ COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;
 
 		for (var j = 0; j < len; j++)
 			g.asvg('path').attr('d', data[j].join(' ')).aclass('line' + (j + 1));
+
+		// Y axis
+		for (var i = 5; i > 0; i--) {
+			var val = i * 20;
+			var y = ((lines.height / 100) * val) + config.pt;
+			config.axisY && axis.asvg('line').attr('x1', 0).attr('x2', width).attr('y1', y).attr('y2', y).attr('class', 'axis');
+			T.value = ((maxY / 100) * (100 - val)) - minY;
+			axis.asvg('text').aclass('ylabel').attr('transform', 'translate({0},{1})'.format(config.offsetX, y - config.offsetY)).text(templateY(T));
+		}
 
 		if (config.fill) {
 			for (var j = 0; j < len; j++)
