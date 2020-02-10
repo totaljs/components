@@ -33,8 +33,8 @@ COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;
 			var value = item.values[+arr[1]];
 
 			selectedold && selectedold.animate({ r: config.point }, 100);
-			config.exec && SEEX(self.makepath(config.exec), { name: arr.name, x: value.x, y: value.y, value: value.y });
-			selected.text(templateS({ name: arr.name, x: value.x, y: value.y, value: value.y }));
+			config.exec && SEEX(self.makepath(config.exec), { name: item.name, x: value.x, y: value.y, value: value.y });
+			selected.text(templateS({ name: item.name, x: value.x, y: value.y, value: value.y }));
 
 			selectedold = circle.animate({ r: config.point + 3 }, 100);
 
