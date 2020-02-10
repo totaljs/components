@@ -86,8 +86,6 @@ COMPONENT('radiobuttonexpert', function(self, config, cls) {
 			arr = EMPTYARRAY;
 
 		var builder = [];
-		var propText = config.text || 'name';
-		var propValue = config.value || 'id';
 		var disabledkey = config.disabledkey || 'disabled';
 
 		var type = typeof(arr[0]);

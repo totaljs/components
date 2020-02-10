@@ -10,7 +10,6 @@ __Configuration__
 - `type` {String} can contain `number` (default: `string`)
 - `class` {String} inserts a class into an element with class `.ui-radiobuttonexpert-container`
 - `datasource` {String} path to data-source (must be array or array of objects)
-- `text` {String} determines a property name for text (in data-source) (default: `name`)
 - `value` {String} determines a property name for value (in data-source) (default: `id`)
 - `disabledkey` {String} determines a property name for disabled item (in data-source) (default: `disabled`)
 
