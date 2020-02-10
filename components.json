@@ -194,5 +194,6 @@
 	"j-Kanban",
 	"j-TreeView",
 	"j-WizardExpert",
-	"j-RadioButtonExpert"
+	"j-RadioButtonExpert",
+	"j-CheckboxListExpert"
 ]
