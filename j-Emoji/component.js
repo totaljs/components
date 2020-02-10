@@ -183,6 +183,7 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 				return +c;
 			});
 
+			self.opt.scope && M.scope(self.opt.scope);
 			self.opt.callback(String.fromCodePoint.apply(null, num));
 			self.hide();
 		});
@@ -231,6 +232,9 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 			self.hide();
 			return;
 		}
+
+		if (M.scope)
+			opt.scope = M.scope();
 
 		self.target = tmp;
 		self.opt = opt;

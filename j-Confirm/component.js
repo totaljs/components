@@ -59,6 +59,10 @@ COMPONENT('confirm', function(self) {
 	};
 
 	self.show = self.confirm = function(message, buttons, fn) {
+
+		if (M.scope)
+			self.currscope = M.scope();
+
 		self.callback = fn;
 
 		var builder = [];
@@ -83,6 +87,7 @@ COMPONENT('confirm', function(self) {
 	};
 
 	self.hide = function(index) {
+		self.currscope && M.scope(self.currscope);
 		self.callback && self.callback(index);
 		self.rclass(cls + '-visible');
 		events.unbind();

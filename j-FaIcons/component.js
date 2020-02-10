@@ -114,6 +114,7 @@ COMPONENT('faicons', 'search:Search', function(self, config) {
 		});
 
 		self.event('click', cls2 + '-content span', function() {
+			self.opt.scope && M.scope(self.opt.scope);
 			self.opt.callback && self.opt.callback($(this).find('i').attr('class'));
 			self.hide();
 		});
@@ -159,6 +160,9 @@ COMPONENT('faicons', 'search:Search', function(self, config) {
 		var search = self.find(cls2 + '-search-input');
 		search.val('');
 		self.find('.clearsearch').rclass2('fa-').aclass('fa-search');
+
+		if (M.scope)
+			opt.scope = M.scope();
 
 		self.target = tmp;
 		self.opt = opt;
