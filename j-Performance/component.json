@@ -1,0 +1,19 @@
+{
+	"datecreated": "2020-02-12T00:4:00.000Z",
+	"dateupdated": null,
+	"name": "j-Performance",
+	"tags": [
+		"performance",
+		"monitor",
+		"meter"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"darkmode": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
