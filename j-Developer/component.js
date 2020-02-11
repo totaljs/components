@@ -1,4 +1,4 @@
-COMPONENT('performance', 'interval:1000;position:topleft', function(self, config, cls) {
+COMPONENT('developer', 'interval:1000;position:topleft', function(self, config, cls) {
 
 	DEF.monitor = true;
 
@@ -27,7 +27,7 @@ COMPONENT('performance', 'interval:1000;position:topleft', function(self, config
 		labels = self.find(cls2 + '-label');
 		setInterval(self.process, config.interval);
 		self.process();
-		var pos = (CACHE('performance') || '').split('x');
+		var pos = (CACHE('developer') || '').split('x');
 		self.css({ left: (pos[0] || '30') + 'px', top: (pos[1] || '30') + 'px' });
 
 		var axis = self.find(cls2 + '-axis');
@@ -70,7 +70,7 @@ COMPONENT('performance', 'interval:1000;position:topleft', function(self, config
 		var $w = $(W);
 		$w.off('mousemove', events.mmove);
 		$w.off('mouseup', events.mup);
-		CACHE('performance', (self.css('left') + 'x' + self.css('top')).replace(/px/g, ''), '1 month');
+		CACHE('developer', (self.css('left') + 'x' + self.css('top')).replace(/px/g, ''), '1 month');
 	};
 
 	self.render = function(path, points, max, index) {

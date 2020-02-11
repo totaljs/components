@@ -1,11 +1,13 @@
 {
 	"datecreated": "2020-02-12T00:4:00.000Z",
 	"dateupdated": null,
-	"name": "j-Performance",
+	"name": "j-Developer",
 	"tags": [
 		"performance",
 		"monitor",
-		"meter"
+		"meter",
+		"developer",
+		"tools"
 	],
 	"color": "white",
 	"version": 1,
