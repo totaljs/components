@@ -1,38 +1,38 @@
-.ui-performance { position: absolute; background-color: white; z-index: 10000; border: 2px solid #E0E0E0; min-height: 200px; width: 420px; font-size: 11px; box-shadow: 0 10px 15px rgba(0,0,0,0.1); color: black; user-select: none; }
-.ui-performance svg { border-bottom: 1px solid #E0E0E0; }
-.ui-performance path { stroke-width: 1px; fill: none; }
-.ui-performance line { stroke-width: 1px; stroke: #E0E0E0; }
-.ui-performance-changed { font-weight: bold; }
-.ui-performance-label i { margin-right: 5px; color: #A0A0A0; }
-.ui-performance-changed { font-weight: bold; }
-.ui-performance-live { line-height: 0; }
-.ui-performance-set { stroke: #E9573F; }
-.ui-performance-meta { padding: 10px 5px; background-color: #F8F8F8; }
-.ui-performance-info { padding: 10px 5px; border-top: 1px solid #E0E0E0; }
-.ui-performance-get { stroke: #F6BB42; }
-.ui-performance-components { stroke: #4A89DC; }
-.ui-performance-binders { stroke: #967ADC; }
-.ui-performance-exec { stroke: #D770AD; }
-.ui-performance-events { stroke: #DA4453; }
-.ui-performance-setters { stroke: #37BC9B; }
-.ui-performance-requests { stroke: #8CC152; }
-.ui-performance-irequests i { color: #8CC152; }
-.ui-performance-ievents i { color: #DA4453; }
-.ui-performance-iset i { color: #E9573F; }
-.ui-performance-iget i { color: #F6BB42; }
-.ui-performance-icomponents i { color: #4A89DC; }
-.ui-performance-ibinders i { color: #967ADC; }
-.ui-performance-iexec i { color: #D770AD; }
-.ui-performance-isetters i { color: #37BC9B; }
-.ui-performance-label { float: left; width: 50%; padding: 0 5px; height: 15px; overflow: hidden; vertical-align: top; line-height: 12px; }
-.ui-performance-label em { color: gray; font-size: 10px; font-weight: normal; }
-.ui-performance-label span { float: right; margin-left: 5px; color: #777777; font-weight: normal; }
-.ui-performance-minus { color: red !important; }
-.ui-performance-plus { color: green !important; }
+.ui-developer { position: absolute; background-color: white; z-index: 10000; border: 2px solid #E0E0E0; min-height: 200px; width: 420px; font-size: 11px; box-shadow: 0 10px 15px rgba(0,0,0,0.1); color: black; user-select: none; }
+.ui-developer svg { border-bottom: 1px solid #E0E0E0; }
+.ui-developer path { stroke-width: 1px; fill: none; }
+.ui-developer line { stroke-width: 1px; stroke: #E0E0E0; }
+.ui-developer-changed { font-weight: bold; }
+.ui-developer-label i { margin-right: 5px; color: #A0A0A0; }
+.ui-developer-changed { font-weight: bold; }
+.ui-developer-live { line-height: 0; }
+.ui-developer-set { stroke: #E9573F; }
+.ui-developer-meta { padding: 10px 5px; background-color: #F8F8F8; }
+.ui-developer-info { padding: 10px 5px; border-top: 1px solid #E0E0E0; }
+.ui-developer-get { stroke: #F6BB42; }
+.ui-developer-components { stroke: #4A89DC; }
+.ui-developer-binders { stroke: #967ADC; }
+.ui-developer-exec { stroke: #D770AD; }
+.ui-developer-events { stroke: #DA4453; }
+.ui-developer-setters { stroke: #37BC9B; }
+.ui-developer-requests { stroke: #8CC152; }
+.ui-developer-irequests i { color: #8CC152; }
+.ui-developer-ievents i { color: #DA4453; }
+.ui-developer-iset i { color: #E9573F; }
+.ui-developer-iget i { color: #F6BB42; }
+.ui-developer-icomponents i { color: #4A89DC; }
+.ui-developer-ibinders i { color: #967ADC; }
+.ui-developer-iexec i { color: #D770AD; }
+.ui-developer-isetters i { color: #37BC9B; }
+.ui-developer-label { float: left; width: 50%; padding: 0 5px; height: 15px; overflow: hidden; vertical-align: top; line-height: 12px; }
+.ui-developer-label em { color: gray; font-size: 10px; font-weight: normal; }
+.ui-developer-label span { float: right; margin-left: 5px; color: #777777; font-weight: normal; }
+.ui-developer-minus { color: red !important; }
+.ui-developer-plus { color: green !important; }
 
-.ui-dark .ui-performance { background-color: #202020; border-color: #404040; color: #E0E0E0; box-shadow: 0 5px 30px rgba(0,0,0,0.2); }
-.ui-dark .ui-performance svg { border-bottom-color: #404040; }
-.ui-dark .ui-performance-meta { background-color: #252525; }
-.ui-dark .ui-performance line { stroke: #404040; }
-.ui-dark .ui-performance-info { border-top-color: #404040; }
-.ui-dark .ui-performance-changed { color: yellow; }
+.ui-dark .ui-developer { background-color: #202020; border-color: #404040; color: #E0E0E0; box-shadow: 0 5px 30px rgba(0,0,0,0.2); }
+.ui-dark .ui-developer svg { border-bottom-color: #404040; }
+.ui-dark .ui-developer-meta { background-color: #252525; }
+.ui-dark .ui-developer line { stroke: #404040; }
+.ui-dark .ui-developer-info { border-top-color: #404040; }
+.ui-dark .ui-developer-changed { color: yellow; }
