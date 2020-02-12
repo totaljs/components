@@ -24,7 +24,7 @@ COMPONENT('developer', 'interval:1000;position:topleft', function(self, config, 
 
 	self.make = function() {
 		self.aclass(cls + ' ' + cls + '-' + config.position);
-		self.append('<div class="{0}-live"><svg viewbox="0 0 {1} {2}"><g class="{0}-axis"></g><g><path class="{0}-components" /><path class="{0}-binders" /><path class="{0}-set" /><path class="{0}-get" /><path class="{0}-setter" /><path class="{0}-exec" /><path class="{0}-requests" /><path class="{0}-events" /></g></svg></div><div class="{0}-meta"><div class="{0}-label {0}-iset"><span>0</span><i class="fa fa-square"></i>SET <em></em></div><div class="{0}-label {0}-iget"><span>0</span><i class="fa fa-square"></i>GET <em></em></div><div class="{0}-label {0}-icomponents"><span>0</span><i class="fa fa-square"></i>Components <em></em></div><div class="{0}-label {0}-ibinders"><span>0</span><i class="fa fa-square"></i>Binders <em></em></div><div class="{0}-label {0}-isetters"><span>0</span><i class="fa fa-square"></i>SETTER <em></em></div><div class="{0}-label {0}-iexec"><span>0</span><i class="fa fa-square"></i>EXEC <em></em></div><div class="{0}-label {0}-irequests"><span>0</span><i class="fa fa-square"></i>AJAX <em></em></div><div class="{0}-label {0}-ievents"><span>0</span><i class="fa fa-square"></i>Events <em></em></div><div class="clearfix"></div><hr /><div class="{0}-pluginspeak {0}-label" data-name="pluginspeak"><span></span><i class="fa fa-rocket"></i>Plugins <em></em></div><div class="{0}-idle"><i class="far fa-clock-o"></i> Idle time: <span></span></div></div><div class="{0}-info"><div class="{0}-label" data-name="components"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><span>0</span><i class="fa fa-info-circle"></i>Components <em></em></div><div class="{0}-label" data-name="binders"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><span>0</span><i class="fa fa-info-circle"></i>Binders <em></em></div><div class="{0}-label" data-name="scopes"><span class="{0}-plus">0</span><i class="fa fa-info-circle"></i>Scopes <em></em></div><div class="{0}-label" data-name="plugins"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><span>0</span><i class="fa fa-info-circle"></i>Plugins <em></em></div><div class="{0}-label" data-name="compilation"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><i class="fa fa-info-circle"></i>Compilation <em></em></div><div class="{0}-label" data-name="lazy"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><i class="fa fa-info-circle"></i>Lazy components <em></em></div><div class="{0}-label" data-name="events"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><i class="fa fa-info-circle"></i>Events <em></em></div><div class="{0}-label" data-name="watchers"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><i class="fa fa-info-circle"></i>Watchers <em></em></div><div class="{0}-label" data-name="scrollbars"><span>0x</span><i class="fa fa-info-circle"></i>Custom scrollbars</div><div class="{0}-label" data-name="requests"><span>0</span><i class="fa fa-info-circle"></i>Requests <em></em></div><div class="{0}-label" data-name="reset"><span>0</span><i class="fa fa-info-circle"></i>Reset <em></em></div><div class="{0}-label" data-name="validation"><span>0</span><i class="fa fa-info-circle"></i>Validation <em></em></div><div class="{0}-label" data-name="memoryheap"><span>0</span><i class="fa fa-info-circle"></i>Memory heap</div><div class="{0}-label" data-name="memoryused"><span>0</span><i class="fa fa-info-circle"></i>Memory used</div><div class="clearfix"></div></div><div class="{0}-clear"><i class="far fa-trash-o"></i> Reset stats</div>'.format(cls, SW, SH - 1));
+		self.append('<div class="{0}-live"><svg viewbox="0 0 {1} {2}"><g class="{0}-axis"></g><g><path class="{0}-components" /><path class="{0}-binders" /><path class="{0}-set" /><path class="{0}-get" /><path class="{0}-setter" /><path class="{0}-exec" /><path class="{0}-requests" /><path class="{0}-events" /></g></svg></div><div class="{0}-meta"><div class="{0}-label {0}-iset"><span>0</span><i class="fa fa-square"></i>SET <em></em></div><div class="{0}-label {0}-iget"><span>0</span><i class="fa fa-square"></i>GET <em></em></div><div class="{0}-label {0}-icomponents"><span>0</span><i class="fa fa-square"></i>Components <em></em></div><div class="{0}-label {0}-ibinders"><span>0</span><i class="fa fa-square"></i>Binders <em></em></div><div class="{0}-label {0}-isetters"><span>0</span><i class="fa fa-square"></i>SETTER <em></em></div><div class="{0}-label {0}-iexec"><span>0</span><i class="fa fa-square"></i>EXEC <em></em></div><div class="{0}-label {0}-irequests"><span>0</span><i class="fa fa-square"></i>AJAX <em></em></div><div class="{0}-label {0}-ievents"><span>0</span><i class="fa fa-square"></i>Events <em></em></div><div class="clearfix"></div><hr /><div class="{0}-pluginspeak {0}-label" data-name="pluginspeak"><span></span><i class="fa fa-rocket"></i>Plugins <em></em></div><div class="{0}-idle"><i class="far fa-clock-o"></i> Idle time: <span></span></div></div><div class="{0}-info"><div class="{0}-label" data-name="components"><span class="{0}-plus">+0</span><span class="{0}-minus">-0</span><span>+0</span><i class="fa fa-info-circle"></i>Components <em></em></div><div class="{0}-label" data-name="binders"><span class="{0}-plus">+0</span><span class="{0}-minus">-0</span><span>0</span><i class="fa fa-info-circle"></i>Binders <em></em></div><div class="{0}-label" data-name="scopes"><span class="{0}-plus">+0</span><i class="fa fa-info-circle"></i>Scopes <em></em></div><div class="{0}-label" data-name="plugins"><span class="{0}-plus">+0</span><span class="{0}-minus">-0</span><span>0</span><i class="fa fa-info-circle"></i>Plugins <em></em></div><div class="{0}-label" data-name="compilation"><span class="{0}-plus">+0</span><span class="{0}-minus">-0</span><i class="fa fa-info-circle"></i>Compilation <em></em></div><div class="{0}-label" data-name="lazy"><span class="{0}-plus">+0</span><span class="{0}-minus">-0</span><i class="fa fa-info-circle"></i>Lazy components <em></em></div><div class="{0}-label" data-name="events"><span class="{0}-plus">+0</span><span class="{0}-minus">-0</span><i class="fa fa-info-circle"></i>Events <em></em></div><div class="{0}-label" data-name="watchers"><span class="{0}-plus">+0</span><span class="{0}-minus">-0</span><i class="fa fa-info-circle"></i>Watchers <em></em></div><div class="{0}-label" data-name="scrollbars"><span>0x</span><i class="fa fa-info-circle"></i>Custom scrollbars</div><div class="{0}-label" data-name="requests"><span>0</span><i class="fa fa-info-circle"></i>Requests <em></em></div><div class="{0}-label" data-name="reset"><span>0</span><i class="fa fa-info-circle"></i>Reset <em></em></div><div class="{0}-label" data-name="validation"><span>0</span><i class="fa fa-info-circle"></i>Validation <em></em></div><div class="{0}-label" data-name="memoryheap"><span>0</span><i class="fa fa-info-circle"></i>Memory heap</div><div class="{0}-label" data-name="memoryused"><span>0</span><i class="fa fa-info-circle"></i>Memory used</div><div class="clearfix"></div></div><div class="{0}-clear"><i class="far fa-trash-o"></i> Reset stats</div>'.format(cls, SW, SH - 1));
 		self.find('svg');
 		paths = self.find('path');
 		labels = self.find(cls2 + '-label');
@@ -53,6 +53,7 @@ COMPONENT('developer', 'interval:1000;position:topleft', function(self, config, 
 					perf.count = 0;
 			}
 			limits = {};
+			cache = {};
 		});
 	};
 
@@ -213,53 +214,111 @@ COMPONENT('developer', 'interval:1000;position:topleft', function(self, config, 
 	};
 
 	self.bindinfo = function(name) {
+
+		var k = 'info_' + name;
 		var el = labels.filter(cls2 + '-label[data-name="' + name + '"]');
 		var span = el.find('span');
 		var perf = M.performance[name];
 		var time = 1;
+		var tmp;
+
+		if (!cache[k])
+			cache[k] = {};
 
 		switch (name) {
 			case 'lazy':
-				span.eq(0).html('+' + (perf.add || 0));
-				span.eq(1).html('-' + (perf.rem || 0));
+
+				if (cache[k].add !== perf.add) {
+					cache[k].add = perf.add;
+					span.eq(0).html('+' + (perf.add || 0));
+				}
+
+				if (cache[k].rem !== perf.rem) {
+					cache[k].rem = perf.rem;
+					span.eq(1).html('-' + (perf.rem || 0));
+				}
+
 				break;
 			case 'components':
 			case 'plugins':
 			case 'binders':
-				span.eq(0).html('+' + (perf.add || 0));
-				span.eq(1).html('-' + (perf.rem || 0));
-				span.eq(2).html((name === 'plugins' ? Object.keys(PLUGINS).length : name === 'binders' ? M.binders.length : M.components.length) + 'x');
+
+				if (cache[k].add !== perf.add) {
+					cache[k].add = perf.add;
+					span.eq(0).html('+' + (perf.add || 0));
+				}
+
+				if (cache[k].rem !== perf.rem) {
+					cache[k].rem = perf.rem;
+					span.eq(1).html('-' + (perf.rem || 0));
+				}
+
+				tmp = (name === 'plugins' ? Object.keys(PLUGINS).length : name === 'binders' ? M.binders.length : M.components.length);
+				if (cache[k].length !== tmp) {
+					cache[k].length = tmp;
+					span.eq(2).html(tmp + 'x');
+				}
+
 				break;
 			case 'compilation':
 			case 'events':
 			case 'watchers':
-				span.eq(0).html('+' + (perf.add || 0));
-				span.eq(1).html('-' + (perf.rem || 0));
+
+				if (cache[k].add !== perf.add) {
+					cache[k].add = perf.add;
+					span.eq(0).html('+' + (perf.add || 0));
+				}
+
+				if (cache[k].rem !== perf.rem) {
+					cache[k].rem = perf.rem;
+					span.eq(1).html('-' + (perf.rem || 0));
+				}
+
 				break;
 			case 'scopes':
-				span.eq(0).html('+' + (perf.add || 0));
+				if (cache[k].add !== perf.add) {
+					cache[k].add = perf.add;
+					span.eq(0).html('+' + (perf.add || 0));
+				}
 				break;
 			case 'pluginspeak':
 				perf = M.performance.plugins;
-				span.eq(0).html(perf.peak || 0);
+				if (cache[k].peak !== perf.peak) {
+					cache[k].peak = perf.peak;
+					span.eq(0).html(perf.peak || 0);
+					el.tclass(cls + '-changed', perf.peak > 0);
+				}
 				break;
 			case 'validation':
 			case 'reset':
 			case 'requests':
-				span.eq(0).html((perf.count || 0) + 'x');
+				if (cache[k].count !== perf.count) {
+					cache[k].count = perf.count;
+					span.eq(0).html((perf.count || 0) + 'x');
+				}
 				break;
 			case 'memoryused':
-				span.eq(0).html(W.performance && W.performance.memory ? self.size(performance.memory.usedJSHeapSize) : DEF.empty);
+				tmp = W.performance && W.performance.memory ? self.size(performance.memory.usedJSHeapSize) : DEF.empty;
+				if (cache[k]) {
+					cache[k] = tmp;
+					span.eq(0).html(tmp);
+				}
 				time = 0;
 				break;
 			case 'memoryheap':
-				span.eq(0).html(W.performance && W.performance.memory ? self.size(performance.memory.totalJSHeapSize) : DEF.empty);
+				tmp = W.performance && W.performance.memory ? self.size(performance.memory.totalJSHeapSize) : DEF.empty;
+				if (cache[k]) {
+					cache[k] = tmp;
+					span.eq(0).html(tmp);
+				}
 				time = 0;
 				break;
 		}
 
-		if (time)
+		if (time && cache[k].time !== time) {
+			cache[k].time = time;
 			el.find('em').html(perf.diff && perf.peak ? self.time(perf.diff) : '');
+		}
 	};
 
 	self.process = function() {
