@@ -1,14 +1,15 @@
 .ui-developer { position: absolute; background-color: white; z-index: 10000; border: 2px solid #E0E0E0; min-height: 200px; width: 420px; font-size: 11px; box-shadow: 0 10px 15px rgba(0,0,0,0.1); color: black; user-select: none; }
 .ui-developer svg { border-bottom: 1px solid #E0E0E0; }
-.ui-developer path { stroke-width: 1px; fill: none; }
+.ui-developer path { stroke-width: 2px; fill: none; }
 .ui-developer line { stroke-width: 1px; stroke: #E0E0E0; }
 .ui-developer-changed { font-weight: bold; }
-.ui-developer-label i { margin-right: 5px; color: #A0A0A0; }
+.ui-developer-label > i { margin-right: 5px; color: #A0A0A0; }
 .ui-developer-changed { font-weight: bold; }
 .ui-developer-live { line-height: 0; }
 .ui-developer-set { stroke: #E9573F; }
 .ui-developer-meta { padding: 10px 5px; background-color: #F8F8F8; }
 .ui-developer-info { padding: 10px 5px; border-top: 1px solid #E0E0E0; }
+.ui-developer-idle { margin: 5px 0 0 5px; color: gray; }
 .ui-developer-get { stroke: #F6BB42; }
 .ui-developer-components { stroke: #4A89DC; }
 .ui-developer-binders { stroke: #967ADC; }
@@ -16,17 +17,18 @@
 .ui-developer-events { stroke: #DA4453; }
 .ui-developer-setters { stroke: #37BC9B; }
 .ui-developer-requests { stroke: #8CC152; }
-.ui-developer-irequests i { color: #8CC152; }
-.ui-developer-ievents i { color: #DA4453; }
-.ui-developer-iset i { color: #E9573F; }
-.ui-developer-iget i { color: #F6BB42; }
-.ui-developer-icomponents i { color: #4A89DC; }
-.ui-developer-ibinders i { color: #967ADC; }
-.ui-developer-iexec i { color: #D770AD; }
-.ui-developer-isetters i { color: #37BC9B; }
+.ui-developer-irequests > i { color: #8CC152; }
+.ui-developer-ievents > i { color: #DA4453; }
+.ui-developer-iset > i { color: #E9573F; }
+.ui-developer-iget > i { color: #F6BB42; }
+.ui-developer-icomponents > i { color: #4A89DC; }
+.ui-developer-ibinders > i { color: #967ADC; }
+.ui-developer-iexec > i { color: #D770AD; }
+.ui-developer-isetters > i { color: #37BC9B; }
 .ui-developer-label { float: left; width: 50%; padding: 0 5px; height: 15px; overflow: hidden; vertical-align: top; line-height: 12px; }
 .ui-developer-label em { color: gray; font-size: 10px; font-weight: normal; }
 .ui-developer-label span { float: right; margin-left: 5px; color: #777777; font-weight: normal; }
+.ui-developer-label span i { margin: 0 2px; }
 .ui-developer-minus { color: red !important; }
 .ui-developer-plus { color: green !important; }
 

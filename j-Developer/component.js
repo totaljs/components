@@ -10,6 +10,9 @@ COMPONENT('developer', 'interval:1000;position:topleft', function(self, config, 
 	var interval = 0;
 	var SW = 420;
 	var SH = 70;
+	var idle = 0;
+	var limits = {};
+	var cache = {};
 
 	self.singleton();
 	self.readonly();
@@ -21,7 +24,7 @@ COMPONENT('developer', 'interval:1000;position:topleft', function(self, config, 
 
 	self.make = function() {
 		self.aclass(cls + ' ' + cls + '-' + config.position);
-		self.append('<div class="{0}-live"><svg viewbox="0 0 {1} {2}"><g class="{0}-axis"></g><g><path class="{0}-components" /><path class="{0}-binders" /><path class="{0}-set" /><path class="{0}-get" /><path class="{0}-setter" /><path class="{0}-exec" /><path class="{0}-requests" /><path class="{0}-events" /></g></svg></div><div class="{0}-meta"><div class="{0}-label {0}-iset"><span>0</span><i class="fa fa-square"></i>SET <em></em></div><div class="{0}-label {0}-iget"><span>0</span><i class="fa fa-square"></i>GET <em></em></div><div class="{0}-label {0}-icomponents"><span>0</span><i class="fa fa-square"></i>Components <em></em></div><div class="{0}-label {0}-ibinders"><span>0</span><i class="fa fa-square"></i>Binders <em></em></div><div class="{0}-label {0}-isetters"><span>0</span><i class="fa fa-square"></i>SETTER <em></em></div><div class="{0}-label {0}-iexec"><span>0</span><i class="fa fa-square"></i>EXEC <em></em></div><div class="{0}-label {0}-irequests"><span>0</span><i class="fa fa-square"></i>AJAX <em></em></div><div class="{0}-label {0}-ievents"><span>0</span><i class="fa fa-square"></i>Events <em></em></div><div class="clearfix"></div></div><div class="{0}-info"><div class="{0}-label" data-name="components"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><span>0</span><i class="fa fa-info-circle"></i>Components <em></em></div><div class="{0}-label" data-name="binders"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><span>0</span><i class="fa fa-info-circle"></i>Binders <em></em></div><div class="{0}-label" data-name="scopes"><span class="{0}-plus">0</span><i class="fa fa-info-circle"></i>Scopes <em></em></div><div class="{0}-label" data-name="plugins"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><span>0</span><i class="fa fa-info-circle"></i>Plugins <em></em></div><div class="{0}-label" data-name="compilation"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><i class="fa fa-info-circle"></i>Compilation <em></em></div><div class="{0}-label" data-name="events"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><i class="fa fa-info-circle"></i>Events <em></em></div><div class="{0}-label" data-name="watchers"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><i class="fa fa-info-circle"></i>Watchers <em></em></div><div class="{0}-label" data-name="requests"><span>0</span><i class="fa fa-info-circle"></i>Requests <em></em></div><div class="{0}-label" data-name="reset"><span>0</span><i class="fa fa-info-circle"></i>Reset <em></em></div><div class="{0}-label" data-name="validation"><span>0</span><i class="fa fa-info-circle"></i>Validation <em></em></div><div class="{0}-label" data-name="memoryheap"><span>0</span><i class="fa fa-info-circle"></i>Memory heap</div><div class="{0}-label" data-name="memoryused"><span>0</span><i class="fa fa-info-circle"></i>Memory used</div><div class="clearfix"></div></div>'.format(cls, SW, SH - 1));
+		self.append('<div class="{0}-live"><svg viewbox="0 0 {1} {2}"><g class="{0}-axis"></g><g><path class="{0}-components" /><path class="{0}-binders" /><path class="{0}-set" /><path class="{0}-get" /><path class="{0}-setter" /><path class="{0}-exec" /><path class="{0}-requests" /><path class="{0}-events" /></g></svg></div><div class="{0}-meta"><div class="{0}-label {0}-iset"><span>0</span><i class="fa fa-square"></i>SET <em></em></div><div class="{0}-label {0}-iget"><span>0</span><i class="fa fa-square"></i>GET <em></em></div><div class="{0}-label {0}-icomponents"><span>0</span><i class="fa fa-square"></i>Components <em></em></div><div class="{0}-label {0}-ibinders"><span>0</span><i class="fa fa-square"></i>Binders <em></em></div><div class="{0}-label {0}-isetters"><span>0</span><i class="fa fa-square"></i>SETTER <em></em></div><div class="{0}-label {0}-iexec"><span>0</span><i class="fa fa-square"></i>EXEC <em></em></div><div class="{0}-label {0}-irequests"><span>0</span><i class="fa fa-square"></i>AJAX <em></em></div><div class="{0}-label {0}-ievents"><span>0</span><i class="fa fa-square"></i>Events <em></em></div><div class="clearfix"></div><hr /><div class="{0}-pluginspeak {0}-label" data-name="pluginspeak"><span></span><i class="fa fa-rocket"></i>Plugins <em></em></div><div class="{0}-idle"><i class="far fa-clock-o"></i> Idle time: <span></span></div></div><div class="{0}-info"><div class="{0}-label" data-name="components"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><span>0</span><i class="fa fa-info-circle"></i>Components <em></em></div><div class="{0}-label" data-name="binders"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><span>0</span><i class="fa fa-info-circle"></i>Binders <em></em></div><div class="{0}-label" data-name="scopes"><span class="{0}-plus">0</span><i class="fa fa-info-circle"></i>Scopes <em></em></div><div class="{0}-label" data-name="plugins"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><span>0</span><i class="fa fa-info-circle"></i>Plugins <em></em></div><div class="{0}-label" data-name="compilation"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><i class="fa fa-info-circle"></i>Compilation <em></em></div><div class="{0}-label" data-name="lazy"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><i class="fa fa-info-circle"></i>Lazy components <em></em></div><div class="{0}-label" data-name="events"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><i class="fa fa-info-circle"></i>Events <em></em></div><div class="{0}-label" data-name="watchers"><span class="{0}-plus">0</span><span class="{0}-minus">0</span><i class="fa fa-info-circle"></i>Watchers <em></em></div><div class="{0}-label" data-name="scrollbars"><span>0x</span><i class="fa fa-info-circle"></i>Custom scrollbars</div><div class="{0}-label" data-name="requests"><span>0</span><i class="fa fa-info-circle"></i>Requests <em></em></div><div class="{0}-label" data-name="reset"><span>0</span><i class="fa fa-info-circle"></i>Reset <em></em></div><div class="{0}-label" data-name="validation"><span>0</span><i class="fa fa-info-circle"></i>Validation <em></em></div><div class="{0}-label" data-name="memoryheap"><span>0</span><i class="fa fa-info-circle"></i>Memory heap</div><div class="{0}-label" data-name="memoryused"><span>0</span><i class="fa fa-info-circle"></i>Memory used</div><div class="clearfix"></div></div><div class="{0}-clear"><i class="far fa-trash-o"></i> Reset stats</div>'.format(cls, SW, SH - 1));
 		self.find('svg');
 		paths = self.find('path');
 		labels = self.find(cls2 + '-label');
@@ -37,6 +40,20 @@ COMPONENT('developer', 'interval:1000;position:topleft', function(self, config, 
 			axis.asvg('<line x1="{0}" y1="0" x2="{0}" y2="70" />'.format(axisw * i));
 
 		self.event('mousedown touchstart', events.mdown);
+		self.event('click', cls2 + '-clear', function() {
+			var keys = Object.keys(M.performance);
+			for (var i = 0; i < keys.length; i++) {
+				var key = keys[i];
+				var perf = M.performance[key];
+				if (perf.add)
+					perf.add = 0;
+				if (perf.rem)
+					perf.rem = 0;
+				if (perf.count)
+					perf.count = 0;
+			}
+			limits = {};
+		});
 	};
 
 	events.mdown = function(e) {
@@ -75,7 +92,7 @@ COMPONENT('developer', 'interval:1000;position:topleft', function(self, config, 
 
 	self.render = function(path, points, max, index) {
 
-		var h = SH - 10;
+		var h = SH - 12;
 		var builder = [];
 		var bar = SW / 10 >> 0;
 		var pp = [];
@@ -86,7 +103,7 @@ COMPONENT('developer', 'interval:1000;position:topleft', function(self, config, 
 			var val = points[i] || 0;
 			var p = val && max ? Math.round((val / max) * 100) : 0;
 			var y = (p ? (h - ((h / 100) * p)) : h) + index;
-			pp.push({ x: i * bar, y: y + 10 });
+			pp.push({ x: (i * bar) + 2, y: y + 12 });
 		}
 
 		pp.push({ x: SW + 20, y: h });
@@ -119,9 +136,23 @@ COMPONENT('developer', 'interval:1000;position:topleft', function(self, config, 
 			peak[type].push(obj.peak || 0);
 
 			var label = labels.filter(cls2 + '-i' + type );
-			label.find('> span').html(obj.peak);
 
-			label.find('em').html(obj.diff && obj.peak ? self.time(obj.diff) : '');
+			if (!cache[type])
+				cache[type] = {};
+
+			if (limits[type] == null || limits[type] < obj.peak) {
+				cache[type].peak = -1;
+				limits[type] = obj.peak || 0;
+			}
+
+			if (cache[type].peak !== obj.peak)
+				label.find('> span').html((obj.peak || 0) + '/<i class="fa fa-long-arrow-up"></i>' + limits[type]);
+
+			if (cache[type].diff !== obj.diff)
+				label.find('em').html(obj.diff && obj.peak ? self.time(obj.diff) : '');
+
+			cache[type].peak = obj.peak;
+			cache[type].diff = obj.diff;
 
 			var arr = peak[type];
 			for (var j = 0; j < arr.length; j++) {
@@ -140,7 +171,7 @@ COMPONENT('developer', 'interval:1000;position:topleft', function(self, config, 
 		if (val > 60000) {
 			val = val / 60000 >> 0;
 			type = 'm';
-		} else if (val > 1000) {
+		} else if (val > 999) {
 			val = val / 1000 >> 0;
 			type = 's';
 		}
@@ -185,9 +216,13 @@ COMPONENT('developer', 'interval:1000;position:topleft', function(self, config, 
 		var el = labels.filter(cls2 + '-label[data-name="' + name + '"]');
 		var span = el.find('span');
 		var perf = M.performance[name];
-		var time = true;
+		var time = 1;
 
 		switch (name) {
+			case 'lazy':
+				span.eq(0).html('+' + (perf.add || 0));
+				span.eq(1).html('-' + (perf.rem || 0));
+				break;
 			case 'components':
 			case 'plugins':
 			case 'binders':
@@ -203,6 +238,10 @@ COMPONENT('developer', 'interval:1000;position:topleft', function(self, config, 
 				break;
 			case 'scopes':
 				span.eq(0).html('+' + (perf.add || 0));
+				break;
+			case 'pluginspeak':
+				perf = M.performance.plugins;
+				span.eq(0).html(perf.peak || 0);
 				break;
 			case 'validation':
 			case 'reset':
@@ -245,15 +284,25 @@ COMPONENT('developer', 'interval:1000;position:topleft', function(self, config, 
 		self.bindinfo('events');
 		self.bindinfo('watchers');
 		self.bindinfo('requests');
+		self.bindinfo('lazy');
+		self.bindinfo('pluginspeak');
 		self.bindinfo('memoryheap');
 		self.bindinfo('memoryused');
 
+		labels.filter(cls2 + '-label[data-name="scrollbars"] span').html(M.scrollbars.length + 'x');
+
 		if (interval % 2 === 0) {
+			idle++;
 			for (var i = 0; i < keys.length; i++) {
 				var key = keys[i];
-				perf[key].peak = 0;
+				if (perf[key].peak) {
+					perf[key].peak = 0;
+					idle = 0;
+				}
 			}
 			perf.changes = {};
 		}
+
+		self.find(cls2 + '-idle span').html(self.time(idle * 1000));
 	};
 });
