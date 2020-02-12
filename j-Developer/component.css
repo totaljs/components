@@ -6,21 +6,22 @@
 .ui-developer-label > i { margin-right: 5px; color: #A0A0A0; }
 .ui-developer-changed { font-weight: bold; }
 .ui-developer-live { line-height: 0; }
-.ui-developer-set { stroke: #E9573F; }
-.ui-developer-meta { padding: 10px 5px; background-color: #F8F8F8; }
+.ui-developer-set { stroke: #DA4453; }
+.ui-developer-meta { padding: 10px 5px 5px; background-color: #F8F8F8; }
+.ui-developer-meta hr { margin: 5px 0; border-color: #E0E0E0; }
 .ui-developer-info { padding: 10px 5px; border-top: 1px solid #E0E0E0; }
 .ui-developer-idle { margin: 5px 0 0 5px; color: gray; }
-.ui-developer-get { stroke: #F6BB42; }
+.ui-developer-get { stroke: #E0B818; }
 .ui-developer-components { stroke: #4A89DC; }
 .ui-developer-binders { stroke: #967ADC; }
 .ui-developer-exec { stroke: #D770AD; }
-.ui-developer-events { stroke: #DA4453; }
+.ui-developer-events { stroke: #998F67; }
 .ui-developer-setters { stroke: #37BC9B; }
 .ui-developer-requests { stroke: #8CC152; }
 .ui-developer-irequests > i { color: #8CC152; }
-.ui-developer-ievents > i { color: #DA4453; }
-.ui-developer-iset > i { color: #E9573F; }
-.ui-developer-iget > i { color: #F6BB42; }
+.ui-developer-ievents > i { color: #998F67; }
+.ui-developer-iset > i { color: #DA4453; }
+.ui-developer-iget > i { color: #E0B818; }
 .ui-developer-icomponents > i { color: #4A89DC; }
 .ui-developer-ibinders > i { color: #967ADC; }
 .ui-developer-iexec > i { color: #D770AD; }
@@ -31,10 +32,15 @@
 .ui-developer-label span i { margin: 0 2px; }
 .ui-developer-minus { color: red !important; }
 .ui-developer-plus { color: green !important; }
+.ui-developer-pluginspeak { float: right; }
+.ui-developer-clear { display: block; border-top: 1px solid #E0E0E0; padding: 8px 10px; cursor: pointer; color: #D14343; }
+.ui-developer-clear i { margin-right: 3px; }
 
+.ui-dark .ui-developer-clear { border-color: #404040; }
 .ui-dark .ui-developer { background-color: #202020; border-color: #404040; color: #E0E0E0; box-shadow: 0 5px 30px rgba(0,0,0,0.2); }
 .ui-dark .ui-developer svg { border-bottom-color: #404040; }
 .ui-dark .ui-developer-meta { background-color: #252525; }
 .ui-dark .ui-developer line { stroke: #404040; }
 .ui-dark .ui-developer-info { border-top-color: #404040; }
 .ui-dark .ui-developer-changed { color: yellow; }
+.ui-dark .ui-developer-meta hr  { border-color: #404040; }
