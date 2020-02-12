@@ -267,6 +267,9 @@ COMPONENT('developer', 'interval:1000;position:topleft', function(self, config, 
 		interval++;
 
 		var perf = M.performance;
+		if (!perf)
+			return;
+
 		var keys = Object.keys(perf.changes);
 		var live = ['set', 'get', 'components', 'binders', 'setters', 'exec', 'requests', 'events'];
 
