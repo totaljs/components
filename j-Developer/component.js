@@ -102,7 +102,7 @@ COMPONENT('developer', 'interval:1000;position:topleft', function(self, config, 
 		for (var i = 0; i < 11; i++) {
 			var val = points[i] || 0;
 			var p = val && max ? Math.round((val / max) * 100) : 0;
-			var y = (p ? (h - ((h / 100) * p)) : h) + index;
+			var y = (p ? (h - ((h / 100) * p)) : h) + (index * 2);
 			pp.push({ x: (i * bar) + 2, y: y + 12 });
 		}
 
