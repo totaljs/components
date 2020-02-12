@@ -1,7 +1,7 @@
 .ui-developer { position: absolute; background-color: white; z-index: 10000; border: 2px solid #E0E0E0; min-height: 200px; width: 420px; font-size: 11px; box-shadow: 0 10px 15px rgba(0,0,0,0.1); color: black; user-select: none; }
 .ui-developer svg { border-bottom: 1px solid #E0E0E0; }
 .ui-developer path { stroke-width: 2px; fill: none; }
-.ui-developer line { stroke-width: 1px; stroke: #E0E0E0; }
+.ui-developer line { stroke-width: 1px; stroke: #F0F0F0; }
 .ui-developer-changed { font-weight: bold; }
 .ui-developer-label > i { margin-right: 5px; color: #A0A0A0; }
 .ui-developer-changed { font-weight: bold; }
@@ -40,7 +40,7 @@
 .ui-dark .ui-developer { background-color: #202020; border-color: #404040; color: #E0E0E0; box-shadow: 0 5px 30px rgba(0,0,0,0.2); }
 .ui-dark .ui-developer svg { border-bottom-color: #404040; }
 .ui-dark .ui-developer-meta { background-color: #252525; }
-.ui-dark .ui-developer line { stroke: #404040; }
+.ui-dark .ui-developer line { stroke: #303030; }
 .ui-dark .ui-developer-info { border-top-color: #404040; }
 .ui-dark .ui-developer-changed { color: yellow; }
 .ui-dark .ui-developer-meta hr  { border-color: #404040; }

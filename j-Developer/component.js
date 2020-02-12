@@ -34,9 +34,9 @@ COMPONENT('developer', 'interval:1000;position:topleft', function(self, config, 
 		self.css({ left: (pos[0] || '30') + 'px', top: (pos[1] || '30') + 'px' });
 
 		var axis = self.find(cls2 + '-axis');
-		var axisw = (SW / 10) >> 0;
+		var axisw = (SW / 20) >> 0;
 
-		for (var i = 1; i < 10; i++)
+		for (var i = 1; i < 20; i++)
 			axis.asvg('<line x1="{0}" y1="0" x2="{0}" y2="70" />'.format(axisw * i));
 
 		self.event('mousedown touchstart', events.mdown);
