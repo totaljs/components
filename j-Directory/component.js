@@ -95,10 +95,8 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			if (is) {
 				while (true) {
 					var c = node.getAttribute('class') || '';
-					if (c.indexOf(cls + '-search-input') !== -1) {
-						is = false;
-						break;
-					}
+					if (c.indexOf(cls + '-search-input') !== -1)
+						return;
 					node = node.parentNode;
 					if (!node || !node.tagName || node.tagName === 'BODY' || count > 3)
 						break;
