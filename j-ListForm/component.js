@@ -12,7 +12,7 @@ COMPONENT('listform', 'empty:---', function(self, config, cls) {
 
 	self.make = function() {
 
-		self.aclass(cls);
+		self.aclass(cls + ' invisible');
 
 		var scr = self.find('script');
 		self.template = Tangular.compile(scr.eq(0).html());
@@ -202,7 +202,10 @@ COMPONENT('listform', 'empty:---', function(self, config, cls) {
 		container[0].appendChild(dom);
 	};
 
-	self.setter = function(value) {
+	self.setter = function(value, path, type) {
+
+		if (!type)
+			self.rclass('invisible');
 
 		items = value;
 		self.tclass(cls + '-empty', !value || !value.length);
