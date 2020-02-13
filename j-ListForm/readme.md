@@ -4,6 +4,7 @@ __Configuration__:
 
 - `autofocus` {String/Boolean} focuses the first input element, `string` means a custom selector (default: `false`)
 - `empty` {String} empty list text (default: `---`)
+- `default` {Boolean} performs `DEFAULT()` method for the form scope (default: `true`)
 - `required` {Boolean} controll will be "required" (default: `false`)
 - `disabled` {Boolean} disables the control (default: `false`)
 - `formclass` {String} a custom class for form container

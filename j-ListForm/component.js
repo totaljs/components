@@ -1,4 +1,4 @@
-COMPONENT('listform', 'empty:---', function(self, config, cls) {
+COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var skip = false;
@@ -52,8 +52,16 @@ COMPONENT('listform', 'empty:---', function(self, config, cls) {
 
 				case 'create':
 
+					if (!$(form).hclass('hidden') && !form.$data) {
+						self.cancel();
+						return;
+					}
+
 					fn = function(obj) {
-						SETR(self.ID, obj);
+						if (config.create || !config.default)
+							SETR(self.ID, obj);
+						else
+							DEFAULT(self.ID);
 						self.edit();
 					};
 
@@ -206,6 +214,9 @@ COMPONENT('listform', 'empty:---', function(self, config, cls) {
 
 		if (!type)
 			self.rclass('invisible');
+
+		if (!value)
+			value = [];
 
 		items = value;
 		self.tclass(cls + '-empty', !value || !value.length);
