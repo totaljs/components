@@ -229,6 +229,7 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 
 		items = value;
 		self.tclass(cls + '-empty', !value || !value.length);
+		self.cancel();
 
 		if (skip) {
 			skip = false;
