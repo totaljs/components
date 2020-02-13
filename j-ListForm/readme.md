@@ -27,6 +27,7 @@ The component watches a click event on all buttons with `name` attribute:
 - `name="remove"` removes the current item from the model
 - `name="cancel"` cancels editing
 - `name="create"` creates an empty form
+- `form` contains `ui-listform-new` class when creating a new item
 
 ### Author
 
