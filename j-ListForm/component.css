@@ -1,5 +1,5 @@
 .ui-listform-invalid .ui-listform-items { border-color: red; }
-.ui-listform-items { border: 1px solid #E0E0E0; }
+.ui-listform-items { border: 1px solid #E0E0E0; border-radius: 2px; }
 .ui-listform-form-container { background-color: #F8F8F8; padding: 15px; }
 .ui-listform-form { border-radius: 2px; border: 1px solid #E0E0E0; background-color: white; }
 .ui-listform-emptylabel { text-align: center; display: none; padding: 15px; font-size: 12px; color: gray; }

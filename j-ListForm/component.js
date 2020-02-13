@@ -27,6 +27,15 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 		self.compile();
 		container = self.find(cls2 + '-items');
 
+		var entersubmit = function() {
+			self.find('button[name="submit"]').trigger('click');
+		};
+
+		config.enter && self.event('keydown', 'input', function(e) {
+			if (config.enter && e.which === 13)
+				setTimeout2(self.ID, entersubmit, 200);
+		});
+
 		self.event('click', cls2 + '-item', function() {
 
 			if (config.disabled)
@@ -78,6 +87,10 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 					tmp = GETR(self.ID);
 					fn = function(tmp) {
 						if (tmp) {
+
+							if (!items)
+								items = [];
+
 							if (form.$target) {
 								COPY(tmp, form.$data);
 								self.redraw(form.$target, form.$data);
@@ -214,9 +227,6 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 		if (!type)
 			self.rclass('invisible');
 
-		if (!value)
-			value = [];
-
 		items = value;
 		self.tclass(cls + '-empty', !value || !value.length);
 
@@ -226,8 +236,12 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 		}
 
 		form.$data && self.cancel();
-		for (var i = 0; i < value.length; i++)
-			self.create(value[i]);
+		container.find(cls2 + '-item').remove();
+
+		if (value) {
+			for (var i = 0; i < value.length; i++)
+				self.create(value[i]);
+		}
 	};
 
 	self.state = function(type) {

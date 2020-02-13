@@ -6,6 +6,7 @@ __Configuration__:
 - `empty` {String} empty list text (default: `---`)
 - `default` {Boolean} performs `DEFAULT()` method for the form scope (default: `true`)
 - `required` {Boolean} controll will be "required" (default: `false`)
+- `enter` {Boolean} allows to use `enter` as submit (default: `false`)
 - `disabled` {Boolean} disables the control (default: `false`)
 - `formclass` {String} a custom class for form container
 - `itemclass` {String} a custom class for item container
