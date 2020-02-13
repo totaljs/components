@@ -3,6 +3,8 @@
 	button { background-color: white; border-radius: 2px; border: 1px solid #E0E0E0; font-size: 12px; height: 28px; line-height: 27px; padding: 0 10px; }
 	button i { margin-right: 5px; }
 	button:disabled { color: gray; background-color: #F8F8F8; }
+	.ui-dark button { background-color: #303030; border-color: #454545; }
+	.ui-dark button:disabled { background-color: #252525; color: #404040; }
 </style>
 
 <div style="width:400px">
@@ -33,6 +35,8 @@
 		</script>
 
 	</div>
+	<hr />
+	<div data-bind="users__text:STRINGIFY(value)" style="font-family:monospace"></div>
 
 </div>
 
