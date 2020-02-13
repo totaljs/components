@@ -1,0 +1,18 @@
+{
+	"datecreated": "2020-02-13T13:28:00.000Z",
+	"dateupdated": null,
+	"name": "j-ListForm",
+	"tags": [
+		"list",
+		"form"
+	],
+	"color": "transparent",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
