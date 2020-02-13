@@ -179,9 +179,8 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 		else
 			parent.appendChild(form);
 
-
 		setTimeout(function() {
-			var tmp = $(form).rclass('hidden');
+			$(form).tclass(cls + '-new', !el).rclass('hidden');
 			if (!isMOBILE && config.autofocus) {
 				setTimeout(function() {
 					self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea').eq(0).focus();
