@@ -66,7 +66,10 @@ COMPONENT('developer', 'interval:1000;position:topleft', function(self, config, 
 		$w.on('mousemove touchmove', events.mmove);
 		$w.on('mouseup touchend', events.mup);
 		var off = self.element.offset();
+		var $w = $(W);
 		drag.is = true;
+		drag.scrollX = $w.scrollLeft();
+		drag.scrollY = $w.scrollTop();
 		drag.x = e.pageX - off.left;
 		drag.y = e.pageY - off.top;
 	};
@@ -76,9 +79,8 @@ COMPONENT('developer', 'interval:1000;position:topleft', function(self, config, 
 
 			if (e.type === 'touchmove')
 				e = e.touches[0];
-
-			var x = e.pageX - drag.x;
-			var y = e.pageY - drag.y;
+			var x = e.pageX - drag.x - drag.scrollX;
+			var y = e.pageY - drag.y - drag.scrollY;
 			self.css({ left: x, top: y });
 		}
 	};
