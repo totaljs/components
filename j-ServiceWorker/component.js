@@ -21,7 +21,7 @@ COMPONENT('serviceworker', 'debug:false;expire:1 day', function(self, config) {
 	self.init = function() {
 		if ('serviceWorker' in navigator) {
 			$(function() {
-				navigator.serviceWorker.register('/sw.jcomponent.js').then(function(registration) {
+				navigator.serviceWorker.register('/sw-jcomponent.js').then(function(registration) {
 					messenger = registration.installing || navigator.serviceWorker.controller || registration.active;
 				})
 				.catch(console.log);
@@ -50,7 +50,7 @@ COMPONENT('serviceworker', 'debug:false;expire:1 day', function(self, config) {
 	self.updatecache = function() {
 
 		if (!messenger) {
-			setTimeout(self.updatecache, 100);
+			setTimeout(self.updatecache, 200);
 			return;
 		}
 
