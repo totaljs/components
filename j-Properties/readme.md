@@ -1,4 +1,4 @@
-## j-Properties (BETA)
+## j-Properties
 
 The component uses `j-DatePicker`, `j-TimePicker`, `j-Directory`, `j-Emoji`, `j-ColorPicker` and `j-FaIcons` components.
 
