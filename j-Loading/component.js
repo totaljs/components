@@ -8,8 +8,8 @@ COMPONENT('loading', function(self, config, cls) {
 	self.nocompile();
 
 	self.make = function() {
-		self.aclass(cls);
-		self.append('<div><div class="' + cls + '-text"></div></div>');
+		self.aclass(cls + ' ' + cls + '-' + (config.style || 1));
+		self.append('<div><div class="' + cls + '-text hellip"></div></div>');
 	};
 
 	self.show = function(text) {
@@ -31,4 +31,5 @@ COMPONENT('loading', function(self, config, cls) {
 		}, timeout || 1);
 		return self;
 	};
+
 });
