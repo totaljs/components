@@ -1,0 +1,31 @@
+.ui-miniform-noscroll, .ui-miniform-noscroll body { overflow: hidden; }
+.ui-miniform-container { width: 100%; position: fixed; left: 0; top: 0; bottom: 0; right: 0; background-color: rgba(230,233,237,0.8); z-index: 5; overflow-y: scroll; transform-style: preserve-3d; overflow-scrolling: touch; }
+.ui-dark .ui-miniform-container { background-color: rgba(100,100,100,0.2); }
+.ui-miniform-container-table { display: table; width: 100%; height: 100%; }
+.ui-miniform-container-cell { display: table-cell; width: 100%; height: 100%; vertical-align: middle; text-align: center; }
+.ui-miniform { background-color: white; border-radius: 3px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transform: scale(0); transition: all 0.15s; opacity: 0; text-align: left; position: relative; margin: 0 auto; }
+.ui-miniform .padding { padding: 15px; }
+.ui-dark .ui-miniform { background-color: #202020; }
+.ui-container-table { display: table; width: 100%; height: 100%; }
+.ui-container-cell { display: table-cell; width: 100%; height: 100%; text-align: center; vertical-align: middle; }
+.ui-miniform-animate { transform: scale(1); opacity: 1; }
+.ui-miniform-animate-click { transform: skewX(-2deg); }
+.ui-miniform-title { padding: 18px 10px; font-size: 18px; user-select: none; color: black; background-color: white; border-bottom: 1px solid #E0E0E0; height: 58px; }
+.ui-miniform-title .ui-miniform-button-close { float: right; cursor: pointer; font-size: 18px; margin: 1px 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; width: 20px; padding: 0; }
+.ui-miniform-title .ui-miniform-button-close:hover { transform: scale(1.1); }
+.ui-miniform-title > span { font-weight: bold; }
+.ui-miniform-title i { margin-right: 7px; }
+.ui-dark .ui-miniform-title { background-color: #202020; border-bottom-color: #303030; color: white; }
+.ui-miniform > nav { padding: 0 15px 0; border-top: 1px solid #E0E0E0; background-color: white; border-radius: 0 0 2px 2px; line-height: 65px; height: 65px; display: block; float: none; position: relative; }
+.ui-dark .ui-miniform > nav { background-color: #202020; border-top-color: #303030; }
+.ui-miniform > nav button { border: 0; margin: 15px 0 0; background-color: #F0F0F0; height: 34px; padding: 0 20px; color: black; cursor: pointer; font-family: Arial; line-height: 34px; vertical-align: middle; outline: 0; font-size: 14px; text-decoration: none; transition: all 0.3s; float: left; }
+.ui-dark .ui-miniform nav button { border-color: #202020; background-color: #505050; color: #E0E0E0; }
+.ui-miniform > nav button i { width: 16px; }
+.ui-miniform > nav button:hover { opacity: 0.9; }
+.ui-miniform > nav button:active { background-color: #D0D0D0; }
+.ui-miniform > nav button:disabled { background-color: #F5F5F5 !important; border-color: #E0E0E0 !important; color: silver !important; cursor: not-allowed; box-shadow: none; }
+.ui-miniform > nav button:first-child { border-top-left-radius: 2px; border-bottom-left-radius: 2px; }
+.ui-miniform > nav button:last-child { border-top-right-radius: 2px; border-bottom-right-radius: 2px; }
+.ui-miniform > nav button[name='submit'] { max-width: 120px; width: 100%; font-weight: bold; background-color: #4285F4; color: white; font-size: 14px; }
+.ui-dark .ui-miniform > nav button:active { background-color: #404040; }
+.ui-dark .ui-miniform > nav button:disabled { background-color: #303030 !important; color: #606060 !important; border-color: #202020 !important; }

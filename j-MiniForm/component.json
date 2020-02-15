@@ -1,0 +1,19 @@
+{
+	"datecreated": "2020-02-15T11:29:00.000Z",
+	"dateupdated": null,
+	"name": "j-MiniForm",
+	"tags": [
+		"mini",
+		"form",
+		"modal"
+	],
+	"color": "white",
+	"version": 2,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
