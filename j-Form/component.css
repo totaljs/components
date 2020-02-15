@@ -11,7 +11,7 @@
 .ui-form-title .ui-form-button-close:hover { transform: scale(1.2); }
 .ui-form-title > span { font-weight: bold; }
 .ui-form-title > i { margin-right: 7px; }
-.ui-dark .ui-form-title { background-color: #191919; border-bottom-color: #191919; color: white; }
+.ui-dark .ui-form-title { background-color: #202020; border-bottom-color: #303030; color: white; }
 .ui-form > nav { padding: 0 20px 0; border-top: 1px solid #E0E0E0; background-color: white; border-radius: 0 0 2px 2px; line-height: 65px; height: 65px; display: block; float: none; position: relative; }
 .ui-dark .ui-form > nav { background-color: #202020; border-top-color: #303030; }
 .ui-form > nav button { border: 0; margin: 15px 0 0; background-color: #F0F0F0; height: 34px; padding: 0 20px; color: black; cursor: pointer; font-family: Arial; line-height: 34px; vertical-align: middle; outline: 0; font-size: 14px; text-decoration: none; transition: all 0.3s; float: left; }
@@ -23,6 +23,7 @@
 .ui-form > nav button:first-child { border-top-left-radius: 2px; border-bottom-left-radius: 2px; }
 .ui-form > nav button:last-child { border-top-right-radius: 2px; border-bottom-right-radius: 2px; }
 .ui-form > nav button[name='submit'] { max-width: 250px; width: 100%; font-weight: bold; background-color: #4285F4; color: white; font-size: 14px; }
+.ui-dark .ui-form > nav button:active { background-color: #404040; }
 .ui-dark .ui-form > nav button:disabled { background-color: #303030 !important; color: #606060 !important; border-color: #202020 !important; }
 
 @media(max-width: 767px) {
