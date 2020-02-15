@@ -1,6 +1,5 @@
-COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config) {
+COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 
-	var cls = 'ui-form';
 	var cls2 = '.' + cls;
 	var container;
 	var csspos = {};
@@ -33,7 +32,7 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config) {
 			var el = $(e.target);
 			if (!(el.hclass(cls + '-container-padding') || el.hclass(cls + '-container')))
 				return;
-			var form = $(this).find('.ui-form');
+			var form = $(this).find(cls2);
 			var c = cls + '-animate-click';
 			form.aclass(c);
 			setTimeout(function() {
