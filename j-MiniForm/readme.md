@@ -1,4 +1,4 @@
-## j-Form
+## j-MiniForm
 
 - The component moves the content of this component under `<body>` tag (because of positioning)
 
@@ -21,10 +21,10 @@ __Configuration__:
 
 __Good to know__:
 
-New version of this component supports dynamic evaluation of the content of `<script type="text/html">`. The example below contains a script with HTML and the component evaluates the content if the j-Form will be displayed (only once).
+New version of this component supports dynamic evaluation of the content of `<script type="text/html">`. The example below contains a script with HTML and the component evaluates the content if the j-MiniForm will be displayed (only once).
 
 ```html
-<div data---="form__path__config">
+<div data---="miniform__path__config">
 	<script type="text/html">
 		A CONTENT
 	</script>
