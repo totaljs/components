@@ -10,6 +10,7 @@ __Configuration__:
 - `space` {Number} internal, contains a space between panels (default: `1`)
 - `border` {Number} internal, contains a border size (default: `0`)
 - `resize` {String} internal, a path to method which it's executed when the layout is resized
+- `autoresize` {Boolean} enables auto-resize (default: `true`)
 
 __Methods__:
 

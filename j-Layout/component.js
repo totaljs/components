@@ -1,4 +1,4 @@
-COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', function(self, config) {
+COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresize:1', function(self, config) {
 
 	var cls = 'ui-layout';
 	var cls2 = '.' + cls;
@@ -28,7 +28,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1', functi
 		obj.on('resize', function() {
 			for (var i = 0; i < M.components.length; i++) {
 				var com = M.components[i];
-				if (com.name === 'layout' && com.dom.offsetParent && com.$ready && !com.$removed)
+				if (com.name === 'layout' && com.dom.offsetParent && com.$ready && !com.$removed && com.config.autoresize)
 					com.resize();
 			}
 		});
