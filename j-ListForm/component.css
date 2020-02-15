@@ -1,0 +1,19 @@
+.ui-listform-invalid .ui-listform-items { border-color: red; }
+.ui-listform-items { border: 1px solid #E0E0E0; border-radius: 2px; }
+.ui-listform-form-container { background-color: #F8F8F8; padding: 15px; }
+.ui-listform-form { border-radius: 2px; border: 1px solid #E0E0E0; background-color: white; }
+.ui-listform-emptylabel { text-align: center; display: none; padding: 15px; font-size: 12px; color: gray; }
+.ui-listform-empty .ui-listform-emptylabel { display: block; }
+.ui-listform-item { border-bottom: 1px solid #E0E0E0; cursor: pointer; }
+.ui-listform-selected { font-weight: bold; background-color: #F8F8F8; }
+.ui-listform-item:last-child { border-bottom: 0; }
+.ui-disabled .ui-listform-item { cursor: not-allowed; color: gray; }
+.ui-listform-new button[name='remove'] { display: none; }
+
+.ui-dark .ui-listform-items { border-color: #404040; }
+.ui-dark .ui-listform-form-container { background-color: #282828; }
+.ui-dark .ui-listform-form { border-color: #404040; background-color: #232323; }
+.ui-dark .ui-listform-item { border-bottom-color: #404040; }
+.ui-dark .ui-listform-selected { background-color: #282828; }
+.ui-dark .ui-disabled .ui-listform-item { color: #777777; }
+.ui-dark .ui-listform-emptylabel { color: #777777; }

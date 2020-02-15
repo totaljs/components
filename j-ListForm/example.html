@@ -1,0 +1,47 @@
+<style>
+	.ui-listform-item { height: 26px; line-height: 26px; overflow: hidden; padding: 0 5px; }
+	button { background-color: white; border-radius: 2px; border: 1px solid #E0E0E0; font-size: 12px; height: 28px; line-height: 27px; padding: 0 10px; }
+	button i { margin-right: 5px; }
+	button:disabled { color: gray; background-color: #F8F8F8; }
+	.ui-dark button { background-color: #303030; border-color: #454545; }
+	.ui-dark button:disabled { background-color: #252525; color: #404040; }
+</style>
+
+<div style="width:400px">
+
+	<div data---="listform__users__autofocus:1">
+
+		<!-- LIST RENDERING -->
+		<script type="text/html">
+			<div>{{ name }}</div>
+		</script>
+
+		<!-- FORM RENDERING -->
+		<script type="text/html">
+			<div class="padding">
+				<div data---="input__?.name__required" class="m">Name</div>
+				<div data---="validation__?">
+					<button name="submit"><i class="fa fa-floppy-o"></i>Save</button>
+					<button name="remove">Remove</button>
+					<button name="cancel">Cancel</button>
+				</div>
+			</div>
+		</script>
+
+		<!-- FOOTER -->
+
+		<script type="text/html">
+			<div style="margin-top:10px"><button name="create"><i class="fa fa-plus-circle green"></i>Create new</button></div>
+		</script>
+
+	</div>
+	<hr />
+	<div data-bind="users__text:STRINGIFY(value)" style="font-family:monospace"></div>
+
+</div>
+
+<script>
+
+	var users = [{ name: 'Total.js' }, { name: 'Flow' }, { name: 'jComponent' }];
+
+</script>
