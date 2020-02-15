@@ -6,7 +6,7 @@
 .ui-dark .ui-form { background-color: #202020; }
 .ui-form-animate { transform: skewX(0deg); opacity: 1; }
 .ui-form-animate-click { transform: skewX(-2deg); }
-.ui-form-title { padding: 18px 20px; font-size: 16px; user-select: none; color: black; background-color: white; border-bottom: 1px solid #E0E0E0; height: 58px; }
+.ui-form-title { padding: 18px 10px; font-size: 16px; user-select: none; color: black; background-color: white; border-bottom: 1px solid #E0E0E0; height: 58px; }
 .ui-form-title .ui-form-button-close { float: right; cursor: pointer; font-size: 18px; margin: -2px 0 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; width: 20px; padding: 0; }
 .ui-form-title .ui-form-button-close:hover { transform: scale(1.2); }
 .ui-form-title > span { font-weight: bold; }
