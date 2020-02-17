@@ -6,13 +6,13 @@
 <div data---="LAZY emoji"></div>
 
 <div style="width:400px;float:right">
-	<div data---="properties__form__parent:window"></div>
+	<div data---="properties2__form"></div>
 </div>
 
 <script>
 	var items = [{ id: 2, name: 'Banská Bystrica' }, { id: 3, name: 'Bratislava' }];
 	var form = [];
-	form.push({ group: 'Personal', label: 'First name', name: 'firstname', type: 'string', value: 'Peter', transform: 'capitalize' });
+	form.push({ group: 'Personal', label: 'First name', name: 'firstname', type: 'string', value: 'Peter', transform: 'capitalize', note: 'Type your name' });
 	form.push({ group: 'Personal', label: 'Last name', name: 'lastname', type: 'string', value: 'Širka', placeholder: 'String' });
 	form.push({ group: 'Personal', label: 'Age', name: 'age', type: 'number', value: 33, min: 30 });
 	form.push({ group: 'Personal', label: 'Birth date', name: 'birth', type: 'date', value: NOW });

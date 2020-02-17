@@ -17,10 +17,6 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		self.append('<div><div class="{0}-container"></div></div>'.format(cls, config.search));
 		container = self.find(cls2 + '-container');
 
-		self.on('resize', self.resize2);
-		$(W).on('resize', self.resize2);
-		self.resize();
-
 		var keys = Object.keys(types);
 		for (var i = 0; i < keys.length; i++) {
 			var key = keys[i];
@@ -483,31 +479,6 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	self.nocompile();
 	self.bindvisible();
 
-	self.resize = function() {
-		var h = 0;
-
-		if (config.height > 0)
-			h = config.height;
-		else if (config.parent)
-			h = (config.parent === 'window' ? WH : config.parent === 'parent' ? self.parent().height() : self.closest(config.parent).height()) - config.offset;
-
-		h -= config.margin;
-
-		if (prevh === h)
-			return;
-
-		prevh = h;
-		// scroller.css('height', h);
-	};
-
-	self.resize2 = function() {
-		setTimeout2(self.ID, self.resize, 500);
-	};
-
-	self.destroy = function() {
-		$(W).off('resize', self.resize2);
-	};
-
 	self.render = function(item, index) {
 		var type = types[item.type === 'boolean' ? 'bool' : item.type];
 		var c = cls;
@@ -598,7 +569,6 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			container.append(el);
 		}
 
-		self.resize();
 	};
 
 });
