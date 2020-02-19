@@ -15,16 +15,14 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 		self.aclass(cls + ' invisible');
 
 		var scr = self.find('script');
+		var tmp;
+
 		self.template = Tangular.compile(scr.eq(0).html());
-		form = $('<div class="{0}-form-container hidden{2}" data-scope="{1}__isolated:1"><div class="{0}-form">{3}</div></div>'.format(cls, self.ID, config.formclass ? (' ' + config.formclass) : '', scr.eq(1).html()))[0];
-
-		var tmp = scr.eq(2).html();
+		form = '<div class="{0}-form-container hidden{2}" data-scope="{1}__isolated:1"><div class="{0}-form">{3}</div></div>'.format(cls, self.ID, config.formclass ? (' ' + config.formclass) : '', scr.eq(1).html());
+		tmp = scr.eq(2).html();
 		scr.remove();
-
-		self.append('<div class="{0}-items"><div class="{0}-emptylabel">{1}</div></div>'.format(cls, config.empty)).append(form);
+		self.append('<div class="{0}-items"><div class="{0}-emptylabel">{1}</div></div>'.format(cls, config.empty));
 		tmp && self.append('<div class="{0}-footer">{1}</div>'.format(cls, tmp));
-
-		self.compile();
 		container = self.find(cls2 + '-items');
 
 		var entersubmit = function() {
@@ -60,6 +58,8 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 			switch (this.name) {
 
 				case 'create':
+
+					self.check();
 
 					if (!$(form).hclass('hidden') && !form.$data) {
 						self.cancel();
@@ -162,8 +162,18 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 		}
 	};
 
+	self.check = function() {
+		if (!self.$$check) {
+			form = $(form)[0];
+			container.append(form);
+			self.compile();
+			self.$$check = true;
+		}
+	};
+
 	self.edit = function(el) {
 
+		self.check();
 		self.cancel();
 
 		var before;
@@ -203,11 +213,13 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 	};
 
 	self.cancel = function() {
-		if (form.parentNode !== self.dom)
-			self.dom.appendChild(form);
-		form.$target && $(form.$target).rclass(cls + '-selected');
-		form.$target = form.$data = null;
-		$(form).aclass('hidden');
+		if (self.$$check) {
+			if (form.parentNode !== self.dom)
+				self.dom.appendChild(form);
+			form.$target && $(form.$target).rclass(cls + '-selected');
+			form.$target = form.$data = null;
+			$(form).aclass('hidden');
+		}
 	};
 
 	self.redraw = function(el, data) {
