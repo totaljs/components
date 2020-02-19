@@ -1,9 +1,12 @@
 {
 	"datecreated": "2015-09-25T10:34:17.613Z",
-	"dateupdated": "2017-09-06T14:46:11.000Z",
+	"dateupdated": "2020-02-19T08:10:10.000Z",
 	"name": "j-Repeater",
 	"tags": [
-		"jcomponent"
+		"repeater",
+		"list",
+		"rendering",
+		"tangular"
 	],
 	"color": "transparent",
 	"version": 1,

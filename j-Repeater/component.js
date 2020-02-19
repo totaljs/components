@@ -22,7 +22,7 @@ COMPONENT('repeater', 'hidden:true;check:true', function(self, config) {
 		var html = element.html();
 		element.remove();
 		self.template = Tangular.compile(html);
-		recompile = (/data-jc="|data-bind="/).test(html);
+		recompile = html.COMPILABLE();
 	};
 
 	self.setter = function(value) {
