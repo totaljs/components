@@ -43,7 +43,7 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 	self.readonly();
 	self.submit = function() {
 		if (config.submit)
-			EXEC(config.submit, self.hide);
+			EXEC(config.submit, self.hide, self.element);
 		else
 			self.hide();
 	};

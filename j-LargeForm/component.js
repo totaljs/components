@@ -1,4 +1,4 @@
-COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1', function(self, config, cls) {
+COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var csspos = {};
@@ -44,7 +44,7 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1', function(self, config
 	self.readonly();
 	self.submit = function() {
 		if (config.submit)
-			EXEC(config.submit, self.hide);
+			EXEC(config.submit, self.hide, self.element);
 		else
 			self.hide();
 	};
@@ -84,6 +84,7 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1', function(self, config
 			csspos.height -= nav.height();
 
 		self.find(cls2 + '-body').css(csspos);
+		self.scrollbar && self.scrollbar.resize();
 		self.element.SETTER('*', 'resize');
 	};
 
@@ -109,6 +110,9 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1', function(self, config
 
 		self.rclass('hidden invisible');
 		self.replace(el);
+
+		if (config.scrollbar)
+			self.scrollbar = SCROLLBAR(self.find(cls2 + '-body'), { visibleY: config.visibleY, orientation: 'y' });
 
 		self.event('scroll', function() {
 			EMIT('scroll', self.name);
