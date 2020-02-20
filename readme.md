@@ -1,10 +1,10 @@
-# UI Components
+# Free UI Components
 
 [![Support](https://www.totaljs.com/img/button-support.png)](https://www.totaljs.com/support/) [![Donate](https://www.totaljs.com/img/button-donate.png)](https://www.totaljs.com/#make-a-donation)
 
 - [Documentation](https://wiki.totaljs.com/jcomponent/)
-- __CDN for pre-compiled HTML components:__ <https://cdn.componentator.com>
 - [License](https://www.totaljs.com/license/)
+- [__Preview + Download__](https://componentator.com/)
 
 ## How to add a new component?
 
