@@ -1,0 +1,18 @@
+{
+	"datecreated": "2020-02-20T09:27:00.000Z",
+	"dateupdated": null,
+	"name": "j-Submit",
+	"tags": [
+		"validation",
+		"submitter",
+		"form"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": false,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
