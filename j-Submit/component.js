@@ -1,25 +1,5 @@
 COMPONENT('submit', 'delay:100;flags:visible;loading:1;default:1;messages:1;blocked:2000;newbie:n=>!n.id;selector:button[name="submit"];update_modified:1', function(self, config, cls) {
 
-	// config.enter {String} A selector
-	// config.exec {String} A function
-	// config.fail {String} A function
-	// config.done {String} A function
-	// config.prepare {String} A function
-	// config.sending {String} A function
-
-	// config.default {Boolean} true
-	// config.loading {Boolean} true
-	// config.messages {Boolean} true
-
-	// config.url
-	// config.success {String} A message
-	// config.create {String} e.g. POST  /api/users/
-	// config.create_success {String} A message
-	// config.update {String} e.g. PATCH /api/users/{id}/
-	// config.update_success {String} A message
-	// config.newbie {String} A function
-	// config.update_modified {Boolean}
-
 	var path, old, track, enter, elements = null;
 	var flags = null;
 	var tracked = false;
@@ -104,7 +84,11 @@ COMPONENT('submit', 'delay:100;flags:visible;loading:1;default:1;messages:1;bloc
 			config.exec && SEEX(self.makepath(config.exec), response);
 			SET(self.path + '.response', response);
 
-			if (response instanceof Array) {
+			if (response instanceof Array || err) {
+
+				if (err)
+					response = [{ error: err + '' }];
+
 				config.fail && SEEX(self.makepath(config.fail), response);
 				var msg = [];
 				for (var i = 0; i < response.length; i++)
