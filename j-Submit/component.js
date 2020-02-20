@@ -117,7 +117,10 @@ COMPONENT('submit', 'delay:100;flags:visible;loading:1;default:1;messages:1;bloc
 					var msg = (isnewbie ? messages.create_success : messages.update_success) || messages.success;
 					msg && SETTER('message', 'success', msg(model));
 				}
-				config.default && DEFAULT(self.path);
+				if (config.null)
+					NULL(config.null);
+				else if (config.default)
+					DEFAULT(self.path);
 			}
 		});
 	};

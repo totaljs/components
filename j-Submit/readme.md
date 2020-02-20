@@ -31,6 +31,7 @@ __Configuration__:
 - `success` {String} A Tangular message, it's displayed if the response is successful (default for create/update)
 - `update_modified` {Boolean} copies only modified data if: `update` url contains `PATCH`
 - `blocked` {Number} in milliseconds and it's a simple prevention for double click on submit button (default: `2000`)
+- `null` {String} A path to null of value, if it's declared then the `default` will be disabled (defaut: empty)
 
 __Good to know__:
 
