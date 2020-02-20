@@ -21,7 +21,9 @@
 <script>
 	// Request mockup
 	ON('request', function(opt) {
-		opt.cancel = true;
-		opt.respond([{ error: 'This is example' }]);
+		if (opt.url === '/submit/') {
+			opt.cancel = true;
+			opt.respond([{ error: 'This is example' }]);
+		}
 	});
 </script>
