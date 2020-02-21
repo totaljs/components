@@ -109,7 +109,7 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0', function(s
 		}
 
 		self.rclass('hidden invisible');
-		self.replace(el);
+		self.replace(el, true);
 
 		if (config.scrollbar)
 			self.scrollbar = SCROLLBAR(self.find(cls2 + '-body'), { visibleY: config.visibleY, orientation: 'y' });

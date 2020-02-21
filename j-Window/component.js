@@ -54,7 +54,7 @@ COMPONENT('window', 'zindex:12;scrollbar:1', function(self, config) {
 			body.aclass(cls + '-scroll');
 
 		self.rclass('hidden');
-		self.replace(el);
+		self.replace(el, true);
 		self.event('click', 'button[name]', function() {
 			switch (this.name) {
 				case 'cancel':

@@ -74,7 +74,7 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 			body[0].appendChild(self.dom.children[0]);
 
 		self.rclass('hidden');
-		self.replace(el);
+		self.replace(el, true);
 
 		if (config.scrollbar && window.SCROLLBAR) {
 			if (config.container)
