@@ -1,5 +1,5 @@
 .ui-miniform-noscroll, .ui-miniform-noscroll body { overflow: hidden; }
-.ui-miniform-container { width: 100%; position: fixed; left: 0; top: 0; bottom: 0; right: 0; background-color: rgba(230,233,237,0.8); z-index: 5; overflow-y: scroll; transform-style: preserve-3d; overflow-scrolling: touch; }
+.ui-miniform-container { width: 100%; position: fixed; left: 0; top: 0; bottom: 0; right: 0; background-color: rgba(230,233,237,0.8); z-index: 5; overflow-y: scroll; transform-style: preserve-3d; overflow-scrolling: touch; padding: 15px; }
 .ui-dark .ui-miniform-container { background-color: rgba(100,100,100,0.2); }
 .ui-miniform-container-table { display: table; width: 100%; height: 100%; }
 .ui-miniform-container-cell { display: table-cell; width: 100%; height: 100%; vertical-align: middle; text-align: center; }
