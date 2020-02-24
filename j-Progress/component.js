@@ -1,4 +1,4 @@
-COMPONENT('progress', 'animate:true', function(self, config) {
+COMPONENT('progress', 'animate:true', function(self, config, cls) {
 
 	var container, old = null;
 
@@ -6,7 +6,7 @@ COMPONENT('progress', 'animate:true', function(self, config) {
 	self.nocompile && self.nocompile();
 
 	self.make = function() {
-		self.aclass('ui-progress');
+		self.aclass(cls);
 		self.append('<div style="width:10%">0%</div>');
 		container = self.find('div');
 	};
