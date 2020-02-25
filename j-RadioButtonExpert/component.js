@@ -34,9 +34,8 @@ COMPONENT('radiobuttonexpert', function(self, config, cls) {
 	};
 
 	self.make = function() {
-		var builder = [];
-		var element = self.find('script');
 
+		var element = self.find('script');
 		if (!element.length)
 			return;
 
@@ -47,7 +46,6 @@ COMPONENT('radiobuttonexpert', function(self, config, cls) {
 		recompile = html.COMPILABLE();
 
 		config.label && self.html('<div class="' + cls + '-label{1}">{0}</div>'.format(config.label, config.required ? (' ' + cls + '-label-required') : ''));
-
 		config.datasource && self.reconfigure('datasource:' + config.datasource);
 		config.type && (self.type = config.type);
 		config.disabled && self.aclass('ui-disabled');
@@ -88,10 +86,7 @@ COMPONENT('radiobuttonexpert', function(self, config, cls) {
 		var builder = [];
 		var disabledkey = config.disabledkey || 'disabled';
 
-		var type = typeof(arr[0]);
-		var notObj = type === 'string' || type === 'number';
-
-		for (var i = 0, length = arr.length; i < length; i++) {
+		for (var i = 0; i < arr.length; i++) {
 			var item = arr[i];
 			item[disabledkey] = +item[disabledkey] || 0;
 			builder.push(template(item).replace(reg, function(text) {
@@ -99,10 +94,11 @@ COMPONENT('radiobuttonexpert', function(self, config, cls) {
 			}));
 		}
 
-		render = builder.join('');
+		var render = builder.join('');
 		self.find(cls2 + '-container').remove();
 		self.append('<div class="{0}-container{1}">{2}</div>'.format(cls, config.class ? ' ' + config.class : '', render));
 		self.refresh();
 		recompile && self.compile();
 	};
+
 });
