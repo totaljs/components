@@ -1,6 +1,5 @@
-COMPONENT('intro', function(self, config) {
+COMPONENT('intro', function(self, config, cls) {
 
-	var cls = 'ui-intro';
 	var cls2 = '.' + cls;
 	var container = 'intro' + GUID(4);
 	var content, figures, buttons, button = null;
