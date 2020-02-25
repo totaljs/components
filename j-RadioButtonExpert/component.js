@@ -68,7 +68,7 @@ COMPONENT('radiobuttonexpert', function(self, config, cls) {
 
 		selected && selected.rclass('selected');
 
-		if (!value)
+		if (value == null)
 			return;
 
 		var el = self.find('[data-value="' + value + '"]');
