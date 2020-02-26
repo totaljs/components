@@ -1,4 +1,4 @@
-COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0', function(self, config, cls) {
+COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0;scrolltop:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var csspos = {};
@@ -71,7 +71,6 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0', function(s
 		var padding = isMOBILE ? 0 : config.padding;
 
 		var ui = self.find(cls2);
-		var fh = ui.innerHeight();
 		csspos.height = WH - (padding * 2);
 		csspos.top = padding;
 		ui.css(csspos);
@@ -161,6 +160,7 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0', function(s
 			if (!isHidden) {
 				config.reload && EXEC(config.reload, self);
 				config.default && DEFAULT(config.default, true);
+				config.scrolltop && self.scrollbar && self.scrollbar.scrollTop(0);
 			}
 			return;
 		}
@@ -193,6 +193,7 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0', function(s
 		self.rclass('hidden');
 
 		self.release(false);
+		config.scrolltop && self.scrollbar && self.scrollbar.scrollTop(0);
 
 		config.reload && EXEC(config.reload, self);
 		config.default && DEFAULT(config.default, true);

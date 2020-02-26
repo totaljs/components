@@ -18,6 +18,7 @@ __Configuration__:
 - `closebutton` {Boolean} can hide `x` button (default: `false`)
 - `zindex` {Number} can affect z-index (default: `12`)
 - `scrollbar` {Boolean} enables custom scrollbar (default: `true`)
+- `scrolltop` {Boolean} enables scrolling to top after form is displayed (default: `true`)
 
 __Good to know__:
 
