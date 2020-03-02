@@ -266,7 +266,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			var el = $(t);
 			var opt = {};
 			var item = self.finditem(t);
-			opt.element = el;
+			opt.element = el.closest(cls2 + '-date').find('input');
 			opt.value = item.value;
 			opt.callback = function(value) {
 				t.$processed = false;
@@ -277,7 +277,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		});
 	};
 	types.date.render = function(item, next) {
-		next('<div class="{0}-date"><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pdate" /></div>'.format(cls, config.dateformat.length, item.placeholder || '', item.value ? item.value.format(config.dateformat) : ''));
+		next('<div class="{0}-date"><i class="fa fa-calendar pdate"></i><div><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pdate" /></div></div>'.format(cls, config.dateformat.length, item.placeholder || '', item.value ? item.value.format(config.dateformat) : ''));
 	};
 
 	types.bool = {};
@@ -475,7 +475,6 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		next('<div class="{0}-file"><i class="far fa-folder"></i><span class="{0}-filename">{1}</span></div>'.format(cls, item.filename || item.value || DEF.empty));
 	};
 
-	self.readonly();
 	self.nocompile();
 	self.bindvisible();
 
@@ -498,12 +497,13 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		} else
 			meta.icon = '';
 
-		var el = $('<div class="{2}-item" data-index="{1}"><div class="{0}-key">{{ icon }}{{ label }}</div><div class="{0}-value">&nbsp;</div></div>'.format(cls, index, c).arg(meta));
+		var el = $('<div class="{2}-item{3}" data-index="{1}"><div class="{0}-key">{{ icon }}{{ label }}</div><div class="{0}-value">&nbsp;</div></div>'.format(cls, index, c, item.required ? (' ' + cls + '-required') : '').arg(meta));
 		type.render(item, function(html) {
 			if (item.note)
 				html += '<div class="{0}-note">{1}</div>'.format(cls, item.note);
 			el.find(cls2 + '-value').html(html);
 		});
+
 		return el;
 	};
 

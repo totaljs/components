@@ -2,25 +2,27 @@
 .ui-properties2-group:first-child { margin-top: 10px; }
 .ui-properties2-group:lastchild-child section { margin-bottom: 0; }
 .ui-properties2-group { padding: 0; margin-bottom: 20px; border: 1px solid #E0E0E0; border-radius: 2px; }
-.ui-properties2-group label { display: block; padding: 15px	; font-size: 18px; font-weight: bold; }
+.ui-properties2-group label { display: block; padding: 10px 15px; font-size: 16px; font-weight: bold; background-color: #F8F8F8; }
 .ui-properties2-group label i { width: 22px; }
 .ui-properties2-group label i:before { content: '\f146'; }
 .ui-properties2-hidden label i:before { content: '\f0fe' !important; }
 .ui-properties2-hidden section { display: none; }
-.ui-properties2-item { padding: 15px 0; background-color: white; margin-bottom: 1px; font-size: 14px; border-top: 1px solid #E0E0E0; }
-.ui-properties2-key { float: left; width: 170px; line-height: 22px; padding: 0 5px 0 15px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; color: #707070; }
+.ui-properties2-item { padding: 6px 0; background-color: white; margin-bottom: 1px; font-size: 13px; border-top: 1px solid #E0E0E0; }
+.ui-properties2-key { float: left; width: 170px; line-height: 24px; padding: 0 5px 0 15px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; color: #707070; }
 .ui-properties2-key i { margin-right: 7px; }
 .ui-properties2-value { margin: 0 10px 0 170px; line-height: 21px; }
-.ui-properties2-note { color: gray; font-size: 12px; line-height: 14px; font-weight: normal; }
+.ui-properties2-note { color: gray; font-size: 11px; line-height: 13px; font-weight: normal; }
 .ui-properties2-string, .ui-properties2-number, .ui-properties2-date, .ui-properties2-list, .ui-properties2-file { padding: 0; }
 .ui-properties2-string input, .ui-properties2-number input, .ui-properties2-date input { outline: 0; height: 21px; padding: 0; margin: 0; width: 100%; border: 0; line-height: 21px; background-color: transparent; }
+.ui-properties2-date > i { float: right; width: 18px; margin: 4px 0 0 0; text-align: right; font-size: 12px; }
+.ui-properties2-date > div { margin-right: 18px; }
 .ui-properties2-bool, .ui-properties2-list, .ui-properties2-color, .ui-properties2-fontawesome, .ui-properties2-emoji, .ui-properties2-file { line-height: 22px; }
-.ui-properties2-bool span { width: 18px; height: 18px; display: inline-block; border: 1px solid #D0D0D0; line-height: 18px; font-size: 12px; text-align: center; margin: 3px 0 5px 0; border-radius: 2px; position: relative; cursor: pointer; color: white; vertical-align: top; }
+.ui-properties2-bool span { width: 15px; height: 15px; display: inline-block; border: 1px solid #D0D0D0; line-height: 15px; font-size: 9px; text-align: center; margin: 3px 0 5px 0; border-radius: 2px; position: relative; cursor: pointer; color: white; vertical-align: top; }
 .ui-properties2-bool .checked { background-color: #4285F4; border-color: #4285F4; }
 .ui-properties2-fontawesometoggle, .ui-properties2-emojitoggle, .ui-properties2-color { width: 22px; line-height: 22px; display: block; cursor: pointer; font-size: 20px; position: relative; text-align: left; margin-bottom: 3px; }
 .ui-properties2-fontawesometoggle { height: 22px; }
 .ui-properties2-list { cursor: pointer; }
-.ui-properties2-list i { float: right; width: 20px; line-height: 22px; text-align: right; }
+.ui-properties2-list i { float: right; width: 20px; line-height: 23px; text-align: right; font-size: 12px; }
 .ui-properties2-list span { display: block; margin-right: 25px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 .ui-properties2-file { cursor: pointer; }
 .ui-properties2-file i { float: right; width: 20px; line-height: 22px; text-align: right; font-size: 10px; }
@@ -36,6 +38,7 @@
 .ui-dark .ui-properties2-group { border-color: #404040; }
 .ui-dark .ui-properties2-item { border-color: #404040; }
 .ui-dark .ui-properties2-item { background-color: #202020; }
+.ui-dark .ui-properties2-group label { background-color: #282828; }
 .ui-dark .ui-properties2-bool span { color: #202020; border-color: #404040; }
 .ui-dark .ui-properties2-bool span.checked { color: white; border-color: #4285F4; }
 .ui-dark .ui-properties2-changed .ui-properties2-key { color: white; }
