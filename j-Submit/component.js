@@ -19,12 +19,16 @@ COMPONENT('submit', 'delay:100;flags:visible;loading:1;default:1;messages:1;bloc
 			enter.on('keydown', self.onkeydown);
 		}
 
-		self.event('click', 'button[name]', function() {
+		self.event('click', 'button[name]', function(e) {
 			switch (this.name) {
 				case 'submit':
+					e.preventDefault();
+					e.stopPropagation();
 					self.submit();
 					break;
 				case 'reset':
+					e.preventDefault();
+					e.stopPropagation();
 					self.reset();
 					break;
 			}
