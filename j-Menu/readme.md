@@ -4,6 +4,7 @@
 - works with touches
 - supports __Dark mode__
 - singleton
+- __NEW__ supports large mode
 
 ## Usage
 
@@ -16,6 +17,7 @@ var opt = {};
 // opt.position {String}   : position `top` (default) or `bottom`
 // opt.hide {Function}     : NEW: is executed when the menu is hidden
 // opt.classname {String}  : NEW: adds class to the parent
+// opt.large {Boolean}     : NEW: it'll make menu bigger
 
 opt.element = YOUR_ELEMENT;
 // or if you want to use a fixed position:
