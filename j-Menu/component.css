@@ -31,4 +31,5 @@
 
 .ui-large .ui-menu-divider { font-size: 14px !important; }
 .ui-large .ui-menu li { font-size: 14px; padding: 7px 15px; }
+.ui-large.ui-menu li { font-size: 14px; padding: 7px 15px; }
 .ui-large .ui-menu-note { font-size: 13px; }
