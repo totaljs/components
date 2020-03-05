@@ -14,6 +14,11 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 
 		self.aclass(cls + ' invisible');
 
+		if (config.selector) {
+			var customselector = $(document).find(config.selector);
+			self.html(customselector.html());
+		}
+
 		var scr = self.find('script');
 		var tmp;
 
