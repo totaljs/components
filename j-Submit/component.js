@@ -72,7 +72,7 @@ COMPONENT('submit', 'delay:100;flags:visible;loading:1;default:1;messages:1;bloc
 		if (!isnewbie && url.indexOf('PATCH') !== -1 && config.update_modified) {
 			var obj = {};
 			for (var i = 0; i < modified.length; i++) {
-				var key = modified[i];
+				var key = modified[i].substring(self.path.length + 1);
 				obj[key] = data[key];
 			}
 			data = obj;

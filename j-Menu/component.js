@@ -212,6 +212,11 @@ COMPONENT('menu', function(self) {
 			parentclass = null;
 		}
 
+		if (opt.large)
+			self.aclass('ui-large');
+		else
+			self.rclass('ui-large');
+
 		isopen = false;
 		issubmenu = false;
 		prevsub = null;

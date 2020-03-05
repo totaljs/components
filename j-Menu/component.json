@@ -1,6 +1,6 @@
 {
 	"datecreated": "2018-08-17T10:28:02.000Z",
-	"dateupdated": "2020-01-17T13:03:00.000Z",
+	"dateupdated": "2020-03-05T09:29:00.000Z",
 	"name": "j-Menu",
 	"tags": [
 		"menu",
@@ -10,6 +10,7 @@
 	"version": 1,
 	"responsive": true,
 	"darkmode": true,
+	"largemode": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
 	"author": "Peter Širka",
