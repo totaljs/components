@@ -9,6 +9,7 @@
 	],
 	"color": "transparent",
 	"version": 1,
+	"darkmode": true,
 	"responsive": false,
 	"picture": "picture.jpg",
 	"dependencies": "",
