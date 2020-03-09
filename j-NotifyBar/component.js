@@ -33,6 +33,14 @@ COMPONENT('notifybar', 'timeout:5000', function(self, config, cls) {
 		self.draw(config.timeout * 2);
 	};
 
+	self.show = function() {
+		currentindex = self.history.length - 1;
+		if (currentindex >= 0) {
+			self.draw(config.timeout);
+			self.check();
+		}
+	};
+
 	self.draw = function(delay) {
 
 		prevtype && self.rclass(cls + '-' + prevtype);
@@ -62,6 +70,17 @@ COMPONENT('notifybar', 'timeout:5000', function(self, config, cls) {
 		currentindex = self.history.push({ type: 2, body: body }) - 1;
 		self.draw(config.timeout);
 		self.check();
+	};
+
+	self.done = function(message, callback) {
+		return function(response) {
+			if (response instanceof Array) {
+				self.warning(response[0].error || 'Unexpected error');
+			} else {
+				self.success(message);
+				callback && callback(response);
+			}
+		};
 	};
 
 	self.info = function(body) {
