@@ -16,7 +16,7 @@ __Methods__:
 - `component.info(message)` appends info message
 - `component.hide()` hides the bar
 - `component.show()` shows last message
-- `component.done(success_message, [callback(response)])` returns a function for AJAX callbacks, callback is evaluated if the response doesn't contain any error
+
 
 ### Author
 
