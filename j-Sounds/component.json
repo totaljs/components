@@ -1,0 +1,16 @@
+{
+	"datecreated": "2016-03-11T18:43:12.319Z",
+	"dateupdated": "2018-11-11T22:55:00.000Z",
+	"name": "j-FileUpload",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
