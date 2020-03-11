@@ -24,6 +24,25 @@ This component implements `FUNC.messageresponse` function and you can use it in 
 AJAX('GET /api/something', FUNC.messageresponse('Profile has been saved successfully'));
 ```
 
+__Works with ASETTER__:
+
+- errors are handled automatically
+
+```javascript
+// Without callback
+AJAX('POST /api/profile/', userprofile, ASETTER('message', 'response', 'Profile has been saved successfully'));
+
+// Or with a callback
+AJAX('POST /api/profile/', userprofile, ASETTER('message', 'response', 'Profile has been saved successfully', function(response) {
+	console.log(response);
+}));
+
+// Or with a callback and without message
+AJAX('POST /api/profile/', userprofile, ASETTER('message', 'response', function(response) {
+	console.log(response);
+}));
+````
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

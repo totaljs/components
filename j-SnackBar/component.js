@@ -70,4 +70,34 @@ COMPONENT('snackbar', 'timeout:4000;button:OK', function(self, config) {
 		setTimeout2(self.ID, self.hide, config.timeout + 50);
 		show = false;
 	};
+
+	self.response = function(message, callback, response) {
+
+		var fn;
+
+		if (typeof(message) === 'function') {
+			response = callback;
+			fn = message;
+			message = null;
+		} else if (typeof(callback) === 'function')
+			fn = callback;
+		else {
+			response = callback;
+			fn = null;
+		}
+
+		if (response instanceof Array) {
+			var builder = [];
+			for (var i = 0; i < response.length; i++) {
+				var err = response[i].error;
+				err && builder.push(err);
+			}
+			self.warning(builder.join('<br />'));
+		} else if (typeof(response) === 'string')
+			self.warning(response);
+		else {
+			message && self.success(message);
+			fn(response);
+		}
+	};
 });

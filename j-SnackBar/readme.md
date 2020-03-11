@@ -12,6 +12,25 @@ __Configuration__:
 - `button` {String} A label for dismiss button (default: `OK`)
 - `timeout` {Number} A timeout in milliseconds (default: `4000`)
 
+__Works with ASETTER__:
+
+- errors are handled automatically
+
+```javascript
+// Without callback
+AJAX('POST /api/profile/', userprofile, ASETTER('message', 'response', 'Profile has been saved successfully'));
+
+// Or with a callback
+AJAX('POST /api/profile/', userprofile, ASETTER('message', 'response', 'Profile has been saved successfully', function(response) {
+	console.log(response);
+}));
+
+// Or with a callback and without message
+AJAX('POST /api/profile/', userprofile, ASETTER('message', 'response', function(response) {
+	console.log(response);
+}));
+````
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

@@ -17,6 +17,24 @@ __Methods__:
 - `component.hide()` hides the bar
 - `component.show()` shows last message
 
+__Works with ASETTER__:
+
+- errors are handled automatically
+
+```javascript
+// Without callback
+AJAX('POST /api/profile/', userprofile, ASETTER('notifybar', 'response', 'Profile has been saved successfully'));
+
+// Or with a callback
+AJAX('POST /api/profile/', userprofile, ASETTER('notifybar', 'response', 'Profile has been saved successfully', function(response) {
+	console.log(response);
+}));
+
+// Or with a callback and without message
+AJAX('POST /api/profile/', userprofile, ASETTER('notifybar', 'response', function(response) {
+	console.log(response);
+}));
+````
 
 ### Author
 

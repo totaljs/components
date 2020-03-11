@@ -72,15 +72,34 @@ COMPONENT('notifybar', 'timeout:5000', function(self, config, cls) {
 		self.check();
 	};
 
-	self.done = function(message, callback) {
-		return function(response) {
-			if (response instanceof Array) {
-				self.warning(response[0].error || 'Unexpected error');
-			} else {
-				self.success(message);
-				callback && callback(response);
+	self.response = function(message, callback, response) {
+
+		var fn;
+
+		if (typeof(message) === 'function') {
+			response = callback;
+			fn = message;
+			message = null;
+		} else if (typeof(callback) === 'function')
+			fn = callback;
+		else {
+			response = callback;
+			fn = null;
+		}
+
+		if (response instanceof Array) {
+			var builder = [];
+			for (var i = 0; i < response.length; i++) {
+				var err = response[i].error;
+				err && builder.push(err);
 			}
-		};
+			self.warning(builder.join('<br />'));
+		} else if (typeof(response) === 'string')
+			self.warning(response);
+		else {
+			message && self.success(message);
+			fn(response);
+		}
 	};
 
 	self.info = function(body) {

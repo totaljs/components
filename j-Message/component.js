@@ -49,6 +49,36 @@ COMPONENT('message', function(self, config) {
 		self.content(cls + '-success', message, icon || 'check-circle');
 	};
 
+	self.response = function(message, callback, response) {
+
+		var fn;
+
+		if (typeof(message) === 'function') {
+			response = callback;
+			fn = message;
+			message = null;
+		} else if (typeof(callback) === 'function')
+			fn = callback;
+		else {
+			response = callback;
+			fn = null;
+		}
+
+		if (response instanceof Array) {
+			var builder = [];
+			for (var i = 0; i < response.length; i++) {
+				var err = response[i].error;
+				err && builder.push(err);
+			}
+			self.warning(builder.join('<br />'));
+		} else if (typeof(response) === 'string')
+			self.warning(response);
+		else {
+			message && self.success(message);
+			fn(response);
+		}
+	};
+
 	FUNC.messageresponse = function(success, callback) {
 		return function(response, err) {
 			if (err || response instanceof Array) {
