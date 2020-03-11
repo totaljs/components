@@ -98,7 +98,7 @@ COMPONENT('notifybar', 'timeout:5000', function(self, config, cls) {
 			self.warning(response);
 		else {
 			message && self.success(message);
-			fn(response);
+			fn && fn(response);
 		}
 	};
 

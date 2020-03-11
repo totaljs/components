@@ -97,7 +97,7 @@ COMPONENT('snackbar', 'timeout:4000;button:OK', function(self, config) {
 			self.warning(response);
 		else {
 			message && self.success(message);
-			fn(response);
+			fn && fn(response);
 		}
 	};
 });

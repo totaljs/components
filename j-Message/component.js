@@ -75,7 +75,7 @@ COMPONENT('message', function(self, config) {
 			self.warning(response);
 		else {
 			message && self.success(message);
-			fn(response);
+			fn && fn(response);
 		}
 	};
 
