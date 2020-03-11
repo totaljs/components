@@ -1,6 +1,6 @@
 ## j-Sounds
 
-This component contains some preddefined sounds like `beep`, `fail`, `success`, etc..
+This component contains some preddefined sounds like `beep`, `fail`, `success`, etc.. Path contains a volume control in percentage, `0` disables playing.
 
 __Configuration__:
 
