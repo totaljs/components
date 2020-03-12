@@ -3,7 +3,8 @@
 	"dateupdated": "2018-11-11T22:55:00.000Z",
 	"name": "j-FileUpload",
 	"tags": [
-		"jcomponent"
+		"files",
+		"upload"
 	],
 	"color": "transparent",
 	"version": 1,
