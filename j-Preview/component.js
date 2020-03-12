@@ -1,4 +1,4 @@
-COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customize:1;schema:{file\\:base64,name\\:filename}', function(self, config) {
+COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customize:1;schema:{file\\:base64,name\\:filename}', function(self, config, cls) {
 
 	var empty, img, canvas, name, content = null;
 
@@ -129,7 +129,7 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 
 	self.redraw = function() {
 		var label = config.label || content;
-		self.html((label ? '<div class="ui-preview-label">{0}{1}:</div>'.format(config.icon ? '<i class="fa fa-{0}"></i>'.format(config.icon) : '', label) : '') + '<input type="file" accept="image/*" class="hidden" /><img src="{0}" class="img-responsive" alt="" />'.format(empty, config.width, config.height));
+		self.html((label ? ('<div class="' + cls + '-label">{0}{1}:</div>'.format(config.icon ? '<i class="fa fa-{0}"></i>'.format(config.icon) : '', label)) : '') + '<input type="file" accept="image/*" class="hidden" /><img src="{0}" class="img-responsive" alt="" />'.format(empty, config.width, config.height));
 		img = self.find('img');
 		img.on('click', function() {
 			self.find('input').trigger('click');
@@ -139,7 +139,7 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 	self.make = function() {
 
 		content = self.html();
-		self.aclass('ui-preview');
+		self.aclass(cls);
 		self.reinit();
 		self.redraw();
 
