@@ -371,7 +371,8 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 						if (resizeY && !d && !stoph)
 							obj.top = y;
 
-						ruler.css(obj).attrd('cache', w);
+						if (!stopw)
+							ruler.css(obj).attrd('cache', w);
 
 					} else {
 
@@ -448,7 +449,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 		} else {
 
 			obj.left = evt.pageX - drag.x;
-			obj.top =  evt.pageY - drag.y;
+			obj.top = evt.pageY - drag.y;
 			drag.el.css(obj);
 
 			if (drag.isdocked) {
@@ -549,9 +550,9 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 			pos = ruler.offset();
 
 			if (meta.offset.docked !== 'bottom')
-				w = +ruler.attrd('cache');
+				w = +ruler.attrd('cache') + 1;
 			else if (meta.offset.docked === 'bottom')
-				h = +ruler.attrd('cache');
+				h = +ruler.attrd('cache') + 1;
 
 			if (meta.offset.docked === 'right')
 				pos.left = drag.ww - w;
