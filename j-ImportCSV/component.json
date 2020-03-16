@@ -1,0 +1,18 @@
+{
+	"datecreated": "2020-03-16T16:02:00.865Z",
+	"dateupdated": null,
+	"name": "j-ImportCSV",
+	"tags": [
+		"import",
+		"csv",
+		"mapper"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

@@ -207,5 +207,6 @@
 	"j-NotifyBar",
 	"j-Sounds",
 	"j-PictureUploadExpert",
-	"j-LiveStats"
+	"j-LiveStats",
+	"j-ImportCSV"
 ]
