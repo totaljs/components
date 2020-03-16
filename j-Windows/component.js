@@ -496,6 +496,10 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 			index = data.indexOf(obj);
 			if (index !== -1)
 				data.splice(index, 1);
+
+			var arr = self.get();
+			arr.splice(arr.findIndex('id', item.id), 1);
+			self.update();
 		}
 	};
 
