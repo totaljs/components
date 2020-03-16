@@ -1,0 +1,19 @@
+{
+	"datecreated": "2020-03-16T10:42:00.000Z",
+	"dateupdated": null,
+	"name": "j-LiveStats",
+	"tags": [
+		"peak",
+		"chart",
+		"live"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"darkmode": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

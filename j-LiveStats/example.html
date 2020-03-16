@@ -1,0 +1,12 @@
+<div data---="livestats__data"></div>
+
+<script>
+var data = {};
+
+setInterval(function() {
+	data.count = Math.random() * 100 >> 0;
+	data.users = Math.random() * 100 >> 0;
+	data.orders = Math.random() * 100 >> 0;
+	UPD('data');
+}, 500);
+</script>

@@ -1,0 +1,5 @@
+.ui-livestats svg { border: 1px solid #E0E0E0; }
+.ui-livestats path { stroke-width: 2px; fill: none; }
+.ui-livestats line { stroke-width: 1px; stroke: #F0F0F0; }
+.ui-dark .ui-livestats svg { border-color: #404040; }
+.ui-dark .ui-livestats line { stroke: #404040; }
