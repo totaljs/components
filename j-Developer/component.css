@@ -17,6 +17,9 @@
 .ui-developer-events { stroke: #998F67; }
 .ui-developer-setters { stroke: #37BC9B; }
 .ui-developer-requests { stroke: #8CC152; }
+.ui-developer-cmd { stroke: #FF8100; }
+.ui-developer-returns { stroke: #777777; }
+.ui-developer-label { float: left; width: 50%; padding: 0 5px; height: 15px; overflow: hidden; vertical-align: top; line-height: 12px; }
 .ui-developer-irequests > i { color: #8CC152; }
 .ui-developer-ievents > i { color: #998F67; }
 .ui-developer-iset > i { color: #DA4453; }
@@ -25,6 +28,8 @@
 .ui-developer-ibinders > i { color: #967ADC; }
 .ui-developer-iexec > i { color: #D770AD; }
 .ui-developer-isetters > i { color: #37BC9B; }
+.ui-developer-icmd > i { color: #FF8100; }
+.ui-developer-ireturns > i { color: #777777; }
 .ui-developer-label { float: left; width: 50%; padding: 0 5px; height: 15px; overflow: hidden; vertical-align: top; line-height: 12px; }
 .ui-developer-label em { color: gray; font-size: 10px; font-weight: normal; }
 .ui-developer-label span { float: right; margin-left: 5px; color: #777777; font-weight: normal; }
