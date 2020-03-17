@@ -19,8 +19,9 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reo
 
 	self.make = function() {
 		self.aclass(cls + (config.style === 2 ? (' ' + cls + '-style2') : ''));
-		self.element.wrapInner('<div class="{0}-layout" />'.format(cls));
-		self.element.append('<div class="{0}-panels"><div class="{0}-ruler hidden"></div></div>'.format(cls));
+		var el = self.element;
+		el.wrapInner('<div class="{0}-layout" />'.format(cls));
+		el.append('<div class="{0}-panels"><div class="{0}-ruler hidden"></div></div>'.format(cls));
 		layout = self.find(cls2 + '-layout');
 		ruler = self.find(cls2 + '-ruler');
 		container = self.find(cls2 + '-panels');
@@ -80,6 +81,10 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reo
 
 		for (var i = 0; i < keys.length; i++) {
 			var item = cache[keys[i]];
+
+			if (item.meta.hidden)
+				continue;
+
 			if (item.meta.offset.docked) {
 				item.titleheight = item.container.find(cls2 + '-title').height() || 0;
 				docked[item.meta.offset.docked] = item;
@@ -156,6 +161,10 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reo
 		var keys = Object.keys(cache);
 		for (var i = 0; i < keys.length; i++) {
 			var item = cache[keys[i]];
+
+			if (item.meta.hidden)
+				continue;
+
 			var meta = item.meta;
 			var offset = meta.offset;
 			switch (offset.docked) {
@@ -602,6 +611,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reo
 		obj.docked = item.meta.offset.docked;
 		obj.ww = WW;
 		obj.wh = WH;
+		obj.hidden = item.meta.hidden;
 		PREF.set(key, obj, '1 month');
 	};
 
@@ -611,6 +621,8 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reo
 	};
 
 	self.wadd = function(item) {
+
+		var hidden = '';
 
 		if (item.actions && item.actions.autosave) {
 			pos = PREF['dock_' + item.id];
@@ -629,10 +641,22 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reo
 				item.offset.width = pos.width;
 				item.offset.height = pos.height;
 				item.offset.docked = pos.docked;
+
+				var ishidden = false;
+
+				if (pos.hidden) {
+					ishidden = true;
+					item.hidden = true;
+				}
+
+				if (!ishidden)
+					ishidden = item.hidden;
+
+				hidden = ishidden ? ' hidden' : '';
 			}
 		}
 
-		var el = $('<div class="{0}-item" data-id="{id}" style="left:{x}px;top:{y}px;width:{width}px"><span class="{0}-resize {0}-resize-tl"></span><span class="{0}-resize {0}-resize-tr"></span><span class="{0}-resize {0}-resize-bl"></span><span class="{0}-resize {0}-resize-br"></span><div class="{0}-title"><i class="fa fa-times {0}-control" data-name="close"></i><span>{{ title }}</span></div><div class="{0}-body" style="height:{height}px"></div></div>'.format(cls, config.menuicon).arg(item.offset).arg(item));
+		var el = $('<div class="{0}-item{2}" data-id="{id}" style="left:{x}px;top:{y}px;width:{width}px"><span class="{0}-resize {0}-resize-tl"></span><span class="{0}-resize {0}-resize-tr"></span><span class="{0}-resize {0}-resize-bl"></span><span class="{0}-resize {0}-resize-br"></span><div class="{0}-title"><i class="fa fa-times {0}-control" data-name="close"></i><span>{{ title }}</span></div><div class="{0}-body" style="height:{height}px"></div></div>'.format(cls, config.menuicon, hidden).arg(item.offset).arg(item));
 		var body = el.find(cls2 + '-body');
 		var pos;
 
@@ -646,7 +670,12 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reo
 				el.aclass(cls + '-noresize');
 			if (item.actions.move == false)
 				el.aclass(cls + '-nomove');
-			if (item.actions.close == false)
+
+			var noclose = item.actions.close == false;
+			if (item.actions.hide)
+				noclose = false;
+
+			if (noclose)
 				el.aclass(cls + '-noclose');
 			if (item.actions.maximize == false)
 				el.aclass(cls + '-nomaximize');
@@ -744,8 +773,6 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reo
 					meta.offset.x = 0;
 					meta.offset.y = h - meta.offset.height;
 					break;
-				default:
-					break;
 			}
 
 			t.meta.offset.docked = offset || null;
@@ -772,13 +799,35 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reo
 		obj.setcommand = function(type) {
 
 			switch (type) {
+
+				case 'toggle':
+					obj.setcommand(obj.meta.hidden ? 'show' : 'hide');
+					break;
+
+				case 'show':
+					if (obj.meta.hidden) {
+						obj.meta.hidden = false;
+						obj.element.parent().rclass('hidden');
+						self.wsave(obj);
+						self.resize2();
+					}
+					break;
+
 				case 'close':
+				case 'hide':
+
+					if (type === 'hide' && obj.meta.hidden)
+						return;
+
 					if (obj.meta.close) {
 						obj.meta.close(function() {
 							self.wrem(obj.meta);
+							self.resize2();
 						});
-					} else
+					} else {
 						self.wrem(obj.meta);
+						self.resize2();
+					}
 					break;
 
 				case 'resize':
@@ -829,20 +878,28 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reo
 	self.wrem = function(item) {
 		var obj = cache[item.id];
 		if (obj) {
+
 			var main = obj.element.closest(cls2 + '-item');
-			obj.meta.destroy && obj.meta.destroy.call(obj);
-			main.off('*');
-			main.find('*').off('*');
-			main.remove();
-			delete cache[item.id];
+			if (obj.meta.actions.hide) {
+				obj.meta.hidden = true;
+				main.aclass('hidden');
+				self.wsave(obj);
+			} else {
+				obj.meta.destroy && obj.meta.destroy.call(obj);
+				main.off('*');
+				main.find('*').off('*');
+				main.remove();
+				delete cache[item.id];
 
-			var index = services.indexOf(obj);
-			if (index !== -1)
-				services.splice(index, 1);
+				var index = services.indexOf(obj);
+				if (index !== -1)
+					services.splice(index, 1);
 
-			index = data.indexOf(obj);
-			if (index !== -1)
-				data.splice(index, 1);
+				index = data.indexOf(obj);
+				if (index !== -1)
+					data.splice(index, 1);
+
+			}
 		}
 	};
 
@@ -871,6 +928,21 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reo
 
 		self.resize();
 		init = true;
+	};
+
+	self.toggle = function(id) {
+		var item = cache[id];
+		item && item.setcommand('toggle');
+	};
+
+	self.show = function(id) {
+		var item = cache[id];
+		item && item.setcommand('show');
+	};
+
+	self.hide = function(id) {
+		var item = cache[id];
+		item && item.setcommand('hide');
 	};
 
 });
