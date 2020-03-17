@@ -1,4 +1,4 @@
-COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
+COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:1', function(self, config) {
 
 	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
@@ -9,6 +9,8 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 	var prevfocused;
 	var serviceid;
 	var data = [];
+	var lastWW = WW;
+	var lastWH = WH;
 
 	self.make = function() {
 		self.aclass(cls);
@@ -71,10 +73,29 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 		setTimeout2(self.iD + 'compile', COMPILE, 50);
 	};
 
-	self.resize = function() {
+	self.resizeforce = function() {
+
 		self.element.find(cls2 + '-maximized').each(function() {
 			cache[$(this).attrd('id')].setcommand('maximize');
 		});
+
+		if (config.reoffsetresize) {
+			var diffWW = lastWW - WW;
+			var diffWH = lastWH - WH;
+
+			var keys = Object.keys(cache);
+			for (var i = 0; i < keys.length; i++) {
+				var win = cache[keys[i]];
+				win.setoffset(win.x - diffWW, win.y - diffWH);
+			}
+
+			lastWW = WW;
+			lastWH = WH;
+		}
+	};
+
+	self.resize = function() {
+		setTimeout2(self.ID + 'resize', self.resizeforce, 300);
 	};
 
 	events.service = function() {
@@ -282,6 +303,8 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 		obj.y = item.y;
 		obj.width = item.width;
 		obj.height = item.height;
+		obj.ww = WW;
+		obj.wh = WH;
 		PREF.set(key, obj, '1 month');
 	};
 
@@ -295,8 +318,17 @@ COMPONENT('windows', 'menuicon:fa fa-navicon', function(self, config) {
 		if (item.actions && item.actions.autosave) {
 			pos = PREF['win_' + item.id];
 			if (pos) {
-				item.offset.x = pos.x;
-				item.offset.y = pos.y;
+
+				var mx = 0;
+				var my = 0;
+
+				if (config.reoffsetresize && pos.ww != null && pos.wh != null) {
+					mx = pos.ww - WW;
+					my = pos.wh - WH;
+				}
+
+				item.offset.x = pos.x - mx;
+				item.offset.y = pos.y - my;
 				item.offset.width = pos.width;
 				item.offset.height = pos.height;
 			}

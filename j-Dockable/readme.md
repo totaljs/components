@@ -10,6 +10,7 @@ __Configuration__:
 - `style` {Number} `1` bottom panel will be fullwidth, `2` bottom panel will be between the left and right panel
 - `parent` {String} jquery selector due to container height (default: `window`)
 - `margin` {Number} a bottom margin (default: `0`)
+- __NEW__ `reoffsetresize` {Boolean} all floated panels will be re-offset according to `main` window dimension (default: `false`)
 
 The `dockable` component expects `Array` of objects.
 

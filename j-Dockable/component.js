@@ -1,4 +1,4 @@
-COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', function(self, config) {
+COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reoffsetresize:0', function(self, config) {
 
 	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
@@ -14,6 +14,8 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 	var ruler;
 	var container;
 	var init = false;
+	var lastWW = WW;
+	var lastWH = WH;
 
 	self.make = function() {
 		self.aclass(cls + (config.style === 2 ? (' ' + cls + '-style2') : ''));
@@ -81,8 +83,15 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 			if (item.meta.offset.docked) {
 				item.titleheight = item.container.find(cls2 + '-title').height() || 0;
 				docked[item.meta.offset.docked] = item;
+			} else if (config.reoffsetresize) {
+				var diffWW = lastWW - WW;
+				var diffWH = lastWH - WH;
+				item.setoffset(item.x - diffWW, item.y - diffWH);
 			}
 		}
+
+		lastWW = WW;
+		lastWH = WH;
 
 		var ww = self.element.width();
 		var wh = self.element.height();
@@ -591,6 +600,8 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 		obj.width = item.width;
 		obj.height = item.height;
 		obj.docked = item.meta.offset.docked;
+		obj.ww = WW;
+		obj.wh = WH;
 		PREF.set(key, obj, '1 month');
 	};
 
@@ -604,8 +615,17 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0', f
 		if (item.actions && item.actions.autosave) {
 			pos = PREF['dock_' + item.id];
 			if (pos) {
-				item.offset.x = pos.x;
-				item.offset.y = pos.y;
+
+				var mx = 0;
+				var my = 0;
+
+				if (config.reoffsetresize && pos.ww != null && pos.wh != null) {
+					mx = pos.ww - WW;
+					my = pos.wh - WH;
+				}
+
+				item.offset.x = pos.x - mx;
+				item.offset.y = pos.y - my;
 				item.offset.width = pos.width;
 				item.offset.height = pos.height;
 				item.offset.docked = pos.docked;
