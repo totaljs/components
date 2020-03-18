@@ -208,5 +208,6 @@
 	"j-Sounds",
 	"j-PictureUploadExpert",
 	"j-LiveStats",
-	"j-ImportCSV"
+	"j-ImportCSV",
+	"j-FloatingInput"
 ]

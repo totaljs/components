@@ -1,0 +1,22 @@
+<style>
+	body { background-color: #F0F0F0; }
+</style>
+
+<div data---="floatinginput__null__placeholder:Type something ..."></div>
+
+<div class="container">
+	<a href="javascript:void(0)">Type your name</a>
+</div>
+
+<script>
+	$(document).on('click', 'a', function() {
+
+		var opt = {};
+		opt.element = this;
+		opt.callback = function(value) {
+			console.log('CLICK', value);
+		};
+
+		SETTER('floatinginput/show', opt);
+	});
+</script>
