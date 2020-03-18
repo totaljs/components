@@ -71,9 +71,11 @@ COMPONENT('message', function(self, config) {
 				err && builder.push(err);
 			}
 			self.warning(builder.join('<br />'));
-		} else if (typeof(response) === 'string')
+			SETTER('!loading/hide');
+		} else if (typeof(response) === 'string') {
 			self.warning(response);
-		else {
+			SETTER('!loading/hide');
+		} else {
 			message && self.success(message);
 			fn && fn(response);
 		}

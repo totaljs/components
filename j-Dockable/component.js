@@ -623,6 +623,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reo
 	self.wadd = function(item) {
 
 		var hidden = '';
+		var ishidden = false;
 
 		if (item.actions && item.actions.autosave) {
 			pos = PREF['dock_' + item.id];
@@ -642,19 +643,17 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reo
 				item.offset.height = pos.height;
 				item.offset.docked = pos.docked;
 
-				var ishidden = false;
-
 				if (pos.hidden) {
 					ishidden = true;
 					item.hidden = true;
 				}
-
-				if (!ishidden)
-					ishidden = item.hidden;
-
-				hidden = ishidden ? ' hidden' : '';
 			}
 		}
+
+		if (!ishidden)
+			ishidden = item.hidden;
+
+		hidden = ishidden ? ' hidden' : '';
 
 		var el = $('<div class="{0}-item{2}" data-id="{id}" style="left:{x}px;top:{y}px;width:{width}px"><span class="{0}-resize {0}-resize-tl"></span><span class="{0}-resize {0}-resize-tr"></span><span class="{0}-resize {0}-resize-bl"></span><span class="{0}-resize {0}-resize-br"></span><div class="{0}-title"><i class="fa fa-times {0}-control" data-name="close"></i><span>{{ title }}</span></div><div class="{0}-body" style="height:{height}px"></div></div>'.format(cls, config.menuicon, hidden).arg(item.offset).arg(item));
 		var body = el.find(cls2 + '-body');
@@ -898,6 +897,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reo
 				index = data.indexOf(obj);
 				if (index !== -1)
 					data.splice(index, 1);
+
 			}
 		}
 	};

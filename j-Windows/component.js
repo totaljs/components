@@ -317,6 +317,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:1', function(self, c
 	self.wadd = function(item) {
 
 		var hidden = '';
+		var ishidden = false;
 
 		if (item.actions && item.actions.autosave) {
 			pos = PREF['win_' + item.id];
@@ -335,19 +336,17 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:1', function(self, c
 				item.offset.width = pos.width;
 				item.offset.height = pos.height;
 
-				var ishidden = false;
-
 				if (pos.hidden && (item.hidden == null || item.hidden)) {
 					ishidden = true;
 					item.hidden = true;
 				}
-
-				if (!ishidden)
-					ishidden = item.hidden;
-
-				hidden = ishidden ? ' hidden' : '';
 			}
 		}
+
+		if (!ishidden)
+			ishidden = item.hidden;
+
+		hidden = ishidden ? ' hidden' : '';
 
 		var el = $('<div class="{0}-item{2}" data-id="{id}" style="left:{x}px;top:{y}px;width:{width}px"><span class="{0}-resize {0}-resize-tl"></span><span class="{0}-resize {0}-resize-tr"></span><span class="{0}-resize {0}-resize-bl"></span><span class="{0}-resize {0}-resize-br"></span><div class="{0}-title"><i class="fa fa-times {0}-control" data-name="close"></i><i class="far fa-window-maximize {0}-control" data-name="maximize"></i><i class="far fa-window-minimize {0}-control" data-name="minimize"></i><i class="{1} {0}-control {0}-lastbutton" data-name="menu"></i><span>{{ title }}</span></div><div class="{0}-body" style="height:{height}px"></div></div>'.format(cls, config.menuicon, hidden).arg(item.offset).arg(item));
 		var body = el.find(cls2 + '-body');
