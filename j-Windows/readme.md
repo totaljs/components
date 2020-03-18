@@ -27,7 +27,9 @@ var win = {
 	offset: { x: 200, y: 100, width: 600, height: 400, minwidth: 200, minheight: 200, maxwidth: 1000, maxheight: 1000 }, // minwidth, maxwidth, maxheight, minheight are optional
 
 	// Default settings
-	actions: { move: true, close: true, resize: true, menu: false, minimize: true, maximize: true, autosave: false },
+	actions: { move: true, close: true, hide: true, resize: true, menu: false, minimize: true, maximize: true, autosave: false },
+	// GOOD TO KNOW:
+	// "undefined" close or "close:false" and "hide:true" doesn't destroy the instance of panel (it will be hidden only)
 
 	// A window title
 	title: 'Title for the window',
@@ -113,7 +115,10 @@ PUSH('windows', win);
 
 __Methods__:
 
-- `component.finditem(panel_id)` finds the specific window according to `ID`
+- `component.finditem(window_id)` finds the specific window according to `ID`
+- __NEW__ `component.show(window_id)` shows a window
+- __NEW__ `component.hide(window_id)` hides a window
+- __NEW__ `component.toggle(window_id)` toggles a window
 
 ### Author
 

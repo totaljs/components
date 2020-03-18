@@ -898,7 +898,6 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reo
 				index = data.indexOf(obj);
 				if (index !== -1)
 					data.splice(index, 1);
-
 			}
 		}
 	};
