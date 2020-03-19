@@ -63,7 +63,7 @@ COMPONENT('dynamicvaluelist', 'value:name;placeholder:Click to change;after:\\:'
 			icon = '<i class="{0}"></i>'.format(config.icon.indexOf(' ') === -1 ? ('fa fa-' + config.icon) : config.icon);
 
 		self.aclass(cls);
-		self.aclass(cls + '-empty')
+		self.aclass(cls + '-empty');
 		self.html('<div class="{0}-label">{1}{2}{3}</div><div class="{0}-container"></div><div class="{0}-item {0}-input"><div class="{0}-value">{4}</div></div>'.format(cls, icon, config.label, config.after || '', config.placeholder));
 		container = self.find(cls2 + '-container');
 
@@ -159,7 +159,7 @@ COMPONENT('dynamicvaluelist', 'value:name;placeholder:Click to change;after:\\:'
 			if (config.remap)
 				value = config.remap(value);
 
-				html += '<div class="{0}-item" data-index="{1}"><div class="{0}-remove"><i class="fa fa-times"></i></div><div class="{0}-value">{2}</div></div>'.format(cls, i, val)
+				html += '<div class="{0}-item" data-index="{1}"><div class="{0}-remove"><i class="fa fa-times"></i></div><div class="{0}-value">{2}</div></div>'.format(cls, i, val);
 		}
 
 		container.html(html);
