@@ -209,5 +209,6 @@
 	"j-PictureUploadExpert",
 	"j-LiveStats",
 	"j-ImportCSV",
-	"j-FloatingInput"
+	"j-FloatingInput",
+	"j-DynamicValueList"
 ]
