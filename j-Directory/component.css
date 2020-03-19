@@ -11,8 +11,8 @@
 .ui-directory .selected { background-color: #E9E9E9; color: black; }
 .ui-directory .current { background-color: #F2F2F2; color: black; }
 .ui-directory-default li { padding: 0 40px 0 10px; height: 26px; line-height: 26px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
-.ui-directory li { border-top: 1px solid #F0F0F0; font-size: 12px; background-color: white; cursor: pointer; margin: 0; }
-.ui-directory li:first-child { border-top: 0; }
+.ui-directory li { border-bottom: 1px solid #F0F0F0; font-size: 12px; background-color: white; cursor: pointer; margin: 0; }
+.ui-directory li:last-child { border-bottom: 0; }
 .ui-directory-search-hidden .ui-directory-search { height: 0; overflow: hidden; opacity: 0; }
 
 .ui-dark .ui-directory { background-color: #303030; border-color: #404040; box-shadow: 1px 5px 10px rgba(0,0,0,0.2); }

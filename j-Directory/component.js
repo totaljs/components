@@ -2,7 +2,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 
 	var cls = 'ui-directory';
 	var cls2 = '.' + cls;
-	var container, timeout, icon, plus, skipreset = false, skipclear = false, ready = false, input = null;
+	var container, timeout, icon, plus, skipreset = false, skipclear = false, ready = false, input = null, issearch = false;
 	var is = false, selectedindex = 0, resultscount = 0;
 	var templateE = '{{ name | encode | ui_directory_helper }}';
 	var templateR = '{{ name | raw }}';
@@ -43,7 +43,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		plus = self.find(cls2 + '-add');
 
 		self.event('mouseenter mouseleave', 'li', function() {
-			if (ready) {
+			if (ready && !issearch) {
 				container.find('li.current').rclass('current');
 				$(this).aclass('current');
 				var arr = container.find('li:visible');
@@ -129,7 +129,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		self.bindevents = function() {
 			if (!self.bindedevents) {
 				$(document).on('click', e_click);
-				$(window).on('resize', e_resize);
+				$(W).on('resize', e_resize);
 				self.bindedevents = true;
 			}
 		};
@@ -138,7 +138,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			if (self.bindedevents) {
 				self.bindedevents = false;
 				$(document).off('click', e_click);
-				$(window).off('resize', e_resize);
+				$(W).off('resize', e_resize);
 			}
 		};
 
@@ -188,6 +188,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		});
 
 		self.event('input', 'input', function() {
+			issearch = true;
 			setTimeout2(self.ID, self.search, 100, null, this.value);
 		});
 
@@ -198,7 +199,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		self.on('reflow', fn);
 		self.on('scroll', fn);
 		self.on('resize', fn);
-		$(window).on('scroll', fn);
+		$(W).on('scroll', fn);
 	};
 
 	self.move = function() {
@@ -244,6 +245,14 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		}
 	};
 
+	var nosearch = function() {
+		issearch = false;
+	};
+
+	self.nosearch = function() {
+		setTimeout2(self.ID + 'nosearch', nosearch, 500);
+	};
+
 	self.search = function(value) {
 
 		if (!self.opt)
@@ -259,6 +268,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 				selectedindex = 0;
 			resultscount = self.opt.items ? self.opt.items.length : 0;
 			self.move();
+			self.nosearch();
 			return;
 		}
 
@@ -285,6 +295,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 						self.opt.items = items;
 						container.html(builder);
 						self.move();
+						self.nosearch();
 					});
 				}, 300, null, val);
 			}
@@ -300,6 +311,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			});
 			skipclear = true;
 			self.move();
+			self.nosearch();
 		}
 	};
 
