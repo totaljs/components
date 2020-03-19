@@ -1,4 +1,4 @@
-COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:1', function(self, config) {
+COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, config) {
 
 	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
