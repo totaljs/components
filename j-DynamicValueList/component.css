@@ -1,0 +1,26 @@
+.ui-dynamicvaluelist-label { margin-bottom: 3px; font-size: 12px; text-align: left; }
+.ui-dynamicvaluelist-required:before { color: red; content: '***'; margin-right: 5px; }
+.ui-dynamicvaluelist-label i { margin-right: 5px; }
+.ui-dynamicvaluelist-items { }
+.ui-dynamicvaluelist-items > div:first-child { border-radius: 2px 2px 0 0; }
+.ui-dynamicvaluelist-item { line-height: 32px; background-color: white; border: 1px solid #E0E0E0; border-bottom: 0; }
+.ui-dynamicvaluelist-remove { float: right; width: 32px; text-align: center; color: #DA4453; font-size: 14px; border-left: 1px solid #E0E0E0; cursor: pointer; user-select: none; }
+.ui-dynamicvaluelist-remove:hover { opacity: 0.7; }
+.ui-dynamicvaluelist-value { padding-left: 10px; margin-right: 32px; cursor: pointer; }
+.ui-dynamicvaluelist-container > div:first-child { border-radius: 2px 2px 0 0; }
+.ui-dynamicvaluelist-input { border-radius: 0 0 2px 2px; border-bottom: 1px solid #E0E0E0; color: #737373; }
+.ui-dynamicvaluelist-empty .ui-dynamicvaluelist-input { border-radius: 2px; }
+.ui-dynamicvaluelist-invalid .ui-dynamicvaluelist-item, .ui-dynamicvaluelist-invalid .ui-dynamicvaluelist-input { border-color: red; }
+.ui-disabled.ui-dynamicvaluelist  * { cursor: not-allowed; }
+.ui-disabled .ui-dynamicvaluelist-remove { display: none; }
+.ui-disabled .ui-dynamicvaluelist-item, .ui-disabled .ui-dynamicvaluelist-input { background-color: #F0F0F0; }
+.ui-disabled .ui-dynamicvaluelist-value { color: #8c8c8c; }
+
+.ui-dark .ui-dynamicvaluelist-required:before { color: red; }
+.ui-dark .ui-dynamicvaluelist-item { background-color: #202020; border-color: #3A3A3A; }
+.ui-dark .ui-dynamicvaluelist-remove { color: #DA4453; border-left-color: #3A3A3A; }
+.ui-dark .ui-dynamicvaluelist-input { border-bottom-color: #3A3A3A; color: #707070; }
+.ui-dark .ui-dynamicvaluelist-invalid .ui-dynamicvaluelist-item, .ui-dark .ui-dynamicvaluelist-invalid .ui-dynamicvaluelist-input { border-color: red; }
+.ui-dark .ui-disabled .ui-dynamicvaluelist-item, .ui-dark .ui-disabled .ui-dynamicvaluelist-input { background-color: #282828; }
+.ui-dark .ui-disabled .ui-dynamicvaluelist-value { color: #dadada; }
+.ui-dark .ui-disabled .ui-dynamicvaluelist-input .ui-dynamicvaluelist-value { color: #8c8c8c; }
