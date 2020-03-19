@@ -1,6 +1,6 @@
 {
 	"datecreated": "2017-08-08T11:53:00.000Z",
-	"dateupdated": "2019-04-06T09:51:00.000Z",
+	"dateupdated": "2020-03-19T15:56:00.000Z",
 	"name": "j-Features",
 	"tags": [
 		"features"
@@ -8,6 +8,7 @@
 	"color": "transparent",
 	"version": 1,
 	"responsive": false,
+	"darkmode": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
 	"author": "Peter Širka",
