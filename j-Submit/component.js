@@ -37,7 +37,7 @@ COMPONENT('submit', 'delay:100;flags:visible;loading:1;default:1;messages:1;bloc
 
 	self.reset = function() {
 		if (!issending)
-			config.default && DEFAULT(self.path);
+			config.default && DEFAULT(self.path + '__{}');
 	};
 
 	self.submit = function() {
@@ -108,7 +108,7 @@ COMPONENT('submit', 'delay:100;flags:visible;loading:1;default:1;messages:1;bloc
 				if (config.null)
 					NULL(config.null);
 				else if (config.default)
-					DEFAULT(self.path);
+					DEFAULT(self.path + '__{}');
 			}
 		});
 	};
