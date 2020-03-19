@@ -6,7 +6,7 @@ This component is [j-DynamicValue](https://componentator.com/components/j-dynami
 - `label` {String} label (default is HTML content)
 - `placeholder` {String} adds a placeholder text
 - `disabled` {Boolean} disables this component
-- `click` {String} __important__ link to `function(value, next(new_value))` for binding a new value
+- `click` {String} __important__ link to `function(value/element, next(new_value))` for binding a new value (`value` is for source from `dirsource`)
 - `exec` {String} a link to `function(value, next(value))` for binding a readable `text` (__important__ value is `Array`)
 - `remap` String} a remap function (default: `null`), example: `value.length ? value[0] : null`
 - `required` {Boolean} enables "required" (default: `false`)
