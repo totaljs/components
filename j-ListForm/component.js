@@ -75,7 +75,7 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 						if (config.create || !config.default)
 							SETR(self.ID, obj);
 						else
-							DEFAULT(self.ID);
+							DEFAULT(self.ID + '__{}');
 						self.edit();
 					};
 
