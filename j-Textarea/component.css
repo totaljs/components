@@ -6,8 +6,7 @@
 .ui-textarea-required .ui-textarea-label { font-weight: bold; }
 .ui-textarea-required .ui-textarea-label:before { color: red; content: '***'; margin-right: 5px; }
 .ui-textarea-required .ui-textarea { border-color: #D0D0D0; }
-.ui-textarea-invalid .ui-textarea { border-color: #E7B8B8 !important; background-color: #FFF3F3 !important; }
-.ui-textarea-invalid textarea { background-color: #FFF3F3 !important; }
+.ui-textarea-invalid .ui-textarea { border-color: red !important; }
 .ui-textarea-monospace textarea { font-family: monospace; font-size: 14px; }
 .ui-textarea-helper { margin-top: 8px; font-size: 11px; color: red; text-align: left; display: none; }
 .ui-textarea-helper-show { display: block; }
@@ -21,8 +20,7 @@
 .ui-dark .ui-textarea textarea { color: white; background-color: #202020; }
 .ui-dark .ui-textarea-required .ui-textarea-label:before { color: red; }
 .ui-dark .ui-textarea-required .ui-textarea { border-color: #454545; }
-.ui-dark .ui-textarea-invalid .ui-textarea { border-color: red !important; background-color: #202020 !important; }
-.ui-dark .ui-textarea-invalid .ui-textarea textarea { background-color: #202020 !important; }
+.ui-dark .ui-textarea-invalid .ui-textarea { border-color: red !important; }
 .ui-dark .ui-disabled.ui-textarea { background-color: #282828; }
 .ui-dark .ui-disabled.ui-textarea textarea { background-color: #282828; color: #707070; }
 .ui-dark .ui-disabled .ui-textarea { background-color: #282828; }
