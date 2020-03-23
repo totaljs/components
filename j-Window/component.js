@@ -1,6 +1,5 @@
-COMPONENT('window', 'zindex:12;scrollbar:1', function(self, config) {
+COMPONENT('window', 'zindex:12;scrollbar:1', function(self, config, cls) {
 
-	var cls = 'ui-window';
 	var cls2 = '.' + cls;
 
 	if (!W.$$window) {
@@ -44,7 +43,7 @@ COMPONENT('window', 'zindex:12;scrollbar:1', function(self, config) {
 		var body = el.find(cls2 + '-body');
 		body[0].appendChild(self.dom);
 
-		if (config.scrollbar && window.SCROLLBAR) {
+		if (config.scrollbar && W.SCROLLBAR) {
 			self.scrollbar = SCROLLBAR(body, { visibleY: !!config.scrollbarY });
 			self.scrollleft = self.scrollbar.scrollLeft;
 			self.scrolltop = self.scrollbar.scrollTop;
@@ -126,7 +125,7 @@ COMPONENT('window', 'zindex:12;scrollbar:1', function(self, config) {
 		config.default && DEFAULT(config.default, true);
 
 		if (!isMOBILE && config.autofocus) {
-			var el = self.find(config.autofocus === true ? 'input[type="text"],input[type="password"],select,textarea' : config.autofocus);
+			var el = self.find(config.autofocus ? 'input[type="text"],input[type="password"],select,textarea' : config.autofocus);
 			el.length && setTimeout(function() {
 				el[0].focus();
 			}, 1500);
