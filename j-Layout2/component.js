@@ -296,4 +296,30 @@ COMPONENT('layout2', 'scrollbar:1;parent:window;autoresize:1;margin:0', function
 		main && main.scrollbar && main.scrollbar.instance.resize();
 	};
 
+	self.resizescrollbar = function(type) {
+		if (type === 'top')
+			top && top.scrollbar && top.scrollbar.instance.resize();
+		else if (type === 'bottom')
+			bottom && bottom.scrollbar && bottom.scrollbar.instance.resize();
+		else if (type === 'left')
+			left && left.scrollbar && left.scrollbar.instance.resize();
+		else if (type === 'right')
+			right && right.scrollbar && right.scrollbar.instance.resize();
+		else if (type === 'main')
+			main && main.scrollbar && main.scrollbar.instance.resize();
+	};
+
+	self.scrolltop = function(type) {
+		if (type === 'top')
+			top && top.scrollbar && top.scrollbar.instance.scrollTop(0);
+		else if (type === 'bottom')
+			bottom && bottom.scrollbar && bottom.scrollbar.instance.scrollTop(0);
+		else if (type === 'left')
+			left && left.scrollbar && left.scrollbar.instance.scrollTop(0);
+		else if (type === 'right')
+			right && right.scrollbar && right.scrollbar.instance.scrollTop(0);
+		else if (type === 'main')
+			main && main.scrollbar && main.scrollbar.instance.scrollTop(0);
+	};
+
 });
