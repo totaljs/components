@@ -79,6 +79,7 @@ COMPONENT('layout2', 'scrollbar:1;parent:window;autoresize:1;margin:0', function
 			item.scrollbar.resize = function(h) {
 				var t = this;
 				item.scrollbarcontainer.css('height', h - t.margin);
+				item.scrollbar.instance.resize();
 			};
 		}
 
