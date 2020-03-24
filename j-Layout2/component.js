@@ -287,4 +287,13 @@ COMPONENT('layout2', 'scrollbar:1;parent:window;autoresize:1;margin:0', function
 			init = true;
 		}
 	};
+
+	self.resizescrollbars = function() {
+		top && top.scrollbar && top.scrollbar.instance.resize();
+		bottom && bottom.scrollbar && bottom.scrollbar.instance.resize();
+		left && left.scrollbar && left.scrollbar.instance.resize();
+		right && right.scrollbar && right.scrollbar.instance.resize();
+		main && main.scrollbar && main.scrollbar.instance.resize();
+	};
+
 });

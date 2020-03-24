@@ -11,6 +11,7 @@ __Configuration__:
 __Methods__:
 
 - __IMPORTANT__ `component.show(type)` can show a specific panel for mobile devices, `type` can be `left`, `right` or `main`
+- `component.resizescrollbars()` for resizing of scrollbars
 
 __Panel types__:
 
