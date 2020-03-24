@@ -119,6 +119,7 @@ __Methods__:
 - __NEW__ `component.show(window_id)` shows a window
 - __NEW__ `component.hide(window_id)` hides a window
 - __NEW__ `component.toggle(window_id)` toggles a window
+- __NEW__ `component.focus(window_id)` focues a window
 
 ### Author
 

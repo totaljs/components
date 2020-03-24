@@ -261,6 +261,10 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 		} else {
 			obj.left = evt.pageX - drag.x - drag.offX;
 			obj.top = evt.pageY - drag.y - drag.offY;
+
+			if (obj.top < 0)
+				obj.top = 0;
+
 			drag.el.css(obj);
 		}
 
@@ -614,6 +618,11 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 	self.show = function(id) {
 		var item = cache[id];
 		item && item.setcommand('show');
+	};
+
+	self.focus = function(id) {
+		var item = cache[id];
+		item && item.setcommand('focus');
 	};
 
 	self.hide = function(id) {
