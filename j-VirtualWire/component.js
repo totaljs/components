@@ -50,7 +50,7 @@ COMPONENT('virtualwire', 'selector:.virtualwire', function(self, config) {
 		if (!value)
 			return;
 
-		waiter &&clearTimeout(waiter);
+		waiter && clearTimeout(waiter);
 		self.load(value);
 	};
 
