@@ -118,7 +118,7 @@ __Methods__:
 - `component.resetfilter()` can reset a filter
 - `component.exportrows(page_from or true from the current page, pages_count, callback(rows, internal_options), [reset_to_page or true for the current page])` can export rows with server-side rendering
 - `component.appendrow(row_object, [scrolldown])` appends and render row
-- `component.redrawrow(row_object)` redraws row
+- `component.redrawrow(row_object, [new_object_row])` redraws row or __NEW__: replaces+redraws `row_object` with a new `new_object_row`
 - `component.clear()` clears all changes
 - `component.select(row)` selects `row` must be the same object as in data-source
 - `component.editcolumn(row_index, col_index)` executes `config.change` internally (only for advanced usage)

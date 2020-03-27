@@ -1169,12 +1169,20 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		self.scrollbarY.scrollTop(y);
 	};
 
-	self.redrawrow = function(row) {
-		var index = opt.rows.indexOf(row);
+	self.redrawrow = function(oldrow, newrow) {
+		var index = opt.rows.indexOf(oldrow);
 		if (index !== -1) {
+
+			// Replaces old row with a new
+			if (newrow) {
+				if (self.selected === oldrow)
+					self.selected = newrow;
+				oldrow = opt.rows[index] = newrow;
+			}
+
 			var el = vbody.find('.dg-row[data-index="{0}"]'.format(index));
 			if (el.length) {
-				opt.render[index] = $(self.renderrow(index, row))[0];
+				opt.render[index] = $(self.renderrow(index, oldrow))[0];
 				el[0].parentNode.replaceChild(opt.render[index], el[0]);
 			}
 		}
