@@ -29,4 +29,5 @@
 
 @media(max-width: 768px) {
 	.ui-largeform-container { background: none; padding: 0; }
+	.ui-largeform { border-radius: 0; }
 }
