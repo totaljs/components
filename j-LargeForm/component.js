@@ -1,4 +1,4 @@
-COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0;scrolltop:1', function(self, config, cls) {
+COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0;scrolltop:1;closeoutside:0;style:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var csspos = {};
@@ -29,9 +29,18 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0;scrolltop:1'
 			$(W).on('resize', resize);
 
 		$(document).on('click', cls2 + '-container', function(e) {
-			var el = $(e.target);
+
+			if (e.target === this) {
+				var com = $(this).component();
+				if (com && com.config.closeoutside) {
+					com.set('');
+					return;
+				}
+			}
+
+			var el = $(this);
 			if (el.hclass(cls + '-container')) {
-				var form = $(this).find(cls2);
+				var form = el.find(cls2);
 				var c = cls + '-animate-click';
 				form.aclass(c);
 				setTimeout(function() {
@@ -69,9 +78,9 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0;scrolltop:1'
 			return;
 
 		var padding = isMOBILE ? 0 : config.padding;
-
 		var ui = self.find(cls2);
-		csspos.height = WH - (padding * 2);
+
+		csspos.height = WH - (config.style == 1 ? (padding * 2) : padding);
 		csspos.top = padding;
 		ui.css(csspos);
 
@@ -112,6 +121,9 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0;scrolltop:1'
 
 		if (config.scrollbar)
 			self.scrollbar = SCROLLBAR(self.find(cls2 + '-body'), { visibleY: config.visibleY, orientation: 'y' });
+
+		if (config.style === 2)
+			self.aclass(cls + '-style-2');
 
 		self.event('scroll', function() {
 			EMIT('scroll', self.name);

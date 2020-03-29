@@ -19,6 +19,8 @@ __Configuration__:
 - `zindex` {Number} can affect z-index (default: `12`)
 - `scrollbar` {Boolean} enables custom scrollbar (default: `true`)
 - `scrolltop` {Boolean} enables scrolling to top after form is displayed (default: `true`)
+- `style` {Number} supports two styles (1: classic (default), 2: bottom of for is without padding)
+- `closeoutside` {Boolean} closes the form when the user clicks outside of the form (default: `false`)
 
 __Good to know__:
 
