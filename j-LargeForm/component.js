@@ -39,7 +39,7 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0;scrolltop:1;
 			}
 
 			var el = $(this);
-			if (el.hclass(cls + '-container')) {
+			if (el.hclass(cls + '-container') && !el.hclass(cls + '-style-2')) {
 				var form = el.find(cls2);
 				var c = cls + '-animate-click';
 				form.aclass(c);
