@@ -518,7 +518,7 @@ COMPONENT('markdown', function (self) {
 
 					if (iscode) {
 						if (opt.code !== false)
-							builder.push('</code></pre></div>');
+							builder[builder.length - 1] += '</code></pre></div>';
 						iscode = false;
 						continue;
 					}
@@ -751,4 +751,4 @@ COMPONENT('markdown', function (self) {
 
 	})();
 
-}, ['https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css', 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.8.5/apexcharts.min.js']);
+});
