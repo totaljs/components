@@ -9,12 +9,12 @@ This component is very special component. It can keep a value for example `Numbe
 - `disabled` {Boolean} disables this component
 - `click` {String} __important__ link to `function(el, value, next(new_value))` for binding a new value
 - `exec` {String} a link to `function(element, next(value), current_value)` for binding a readable `text`
-- `url` {String} tries to bind a value via `AJAX()`, argument `{value}` in URL is replaced by the value
+- `url` {String} tries to bind a value via `AJAX()`, argument `{0}` in URL is replaced by the value
 - `html` {String} Tangular template for rendering a value (default: `{{ name }}`)
 - `remap` String} a remap function (default: `null`), example: `value.length ? value[0] : null`
 - `required` {Boolean} enables "required" (default: `false`)
 - `bind` {String} a path to method or variable where will be binded loaded value (optional)
-- `dirsource` {String} a link to method `function(search, next(items_arr))`
+- `dirsource` {String} a link to method `function(search, next(items_arr))` or __NEW__: can contain URL for search in fhe form `GET /api/partners/?q={0}`
 - `dircustom` {String/Boolean} can contain a path to function(val, next(new_val)) or can be Boolean. This option can enable adding a custom value (value not defined in data-source)
 - `dirrender` {String} a path to `function(item, text)` (must return HTML for j-Directory), this function can affect list of items in j-Directory
 - `dirminwidth` {Number} a minimum width for j-Directory, (default: `200`)
@@ -29,7 +29,7 @@ This component is very special component. It can keep a value for example `Numbe
 If the `value` will be changed then the component performs `AJAX` call automatically.
 
 ```html
-<div data-jc="dynamicvalue__path.to.property__url:/users/{value}/"></div>
+<div data---="dynamicvalue__path.to.property__url:/users/{0}/;dirsource:/users/?search={0}"></div>
 ```
 
 ### Inline usage
@@ -37,7 +37,7 @@ If the `value` will be changed then the component performs `AJAX` call automatic
 If the `value` will be changed then the component performs `config.exec` for obtaining a readable text of a value.
 
 ```html
-<div data-jc="dynamicvalue__path.to.property__exec:my_function"></div>
+<div data---="dynamicvalue__path.to.property__exec:my_function"></div>
 
 <script>
 	function my_function(value, next) {

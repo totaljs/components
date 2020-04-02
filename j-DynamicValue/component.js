@@ -79,7 +79,11 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function
 				opt.empty = config.dirempty;
 				opt.key = config.dirkey;
 				opt.items = function(value, next) {
-					EXEC(self.makepath(config.dirsource), value, next);
+					if (config.dirsource.indexOf(' ') !== -1) {
+						var val = encodeURIComponent(value);
+						AJAX(config.dirsource.format(val).arg({ value: val }), next);
+					} else
+						EXEC(self.makepath(config.dirsource), value, next);
 				};
 				opt.callback = function(selected) {
 					self.set(selected[config.dirvalue || 'id']);
@@ -137,7 +141,8 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function
 		if (value) {
 			if (config.url) {
 				config.loading && SETTER('loading', 'show');
-				AJAX('GET ' + config.url.arg({ value: encodeURIComponent(value) }), self.bindvalue);
+				var val = encodeURIComponent(value);
+				AJAX('GET ' + config.url.format(val).arg({ value: val }), self.bindvalue);
 			} else
 				EXEC(self.makepath(config.exec), value, self.bindvalue, type);
 		} else
