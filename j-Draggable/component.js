@@ -4,7 +4,6 @@ COMPONENT('draggable', function(self, config) {
 	var draggable;
 
 	self.readonly();
-	self.blind();
 
 	self.make = function() {
 		$(document).on('mousedown', config.selector, events.ondown);
@@ -65,7 +64,8 @@ COMPONENT('draggable', function(self, config) {
 					meta.offsetY = e.offsetY;
 					meta.el = $(a);
 					meta.target = $(e.target);
-					EXEC(config.exec, meta, meta.el);
+					EXEC(self.makepath(config.exec), meta, meta.el);
+					self.path && self.change(true);
 				}
 				break;
 

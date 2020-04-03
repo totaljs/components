@@ -4,7 +4,6 @@ COMPONENT('movable', function(self, config) {
 	var draggable;
 
 	self.readonly();
-	self.blind();
 
 	self.make = function() {
 		$(document).on('dragenter dragover dragexit drop dragleave dragstart', config.selector, events.ondrag).on('mousedown', config.selector, events.ondown);
@@ -58,7 +57,8 @@ COMPONENT('movable', function(self, config) {
 				else
 					parent.insertBefore(a, b.nextSibling);
 
-				config.exec && EXEC(config.exec, self.find(config.selector), a, b);
+				config.exec && EXEC(self.makepath(config.exec), self.find(config.selector), a, b);
+				self.path && self.change(true);
 				break;
 
 			case 'dragstart':

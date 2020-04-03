@@ -15,6 +15,10 @@ function exec_method(list, dragged, target) {
 }
 ```
 
+__Good to know__:
+
+- `path` performs `CHANGE()`
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
