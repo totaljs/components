@@ -1,8 +1,8 @@
-COMPONENT('pictureuploadexpert', 'width:200;height:100;background:#FFFFFF;quality:90;customize:1;class:over;multiple:true;schema:{file\\:base64,name\\:filename}', function(self, config, cls) {
+COMPONENT('pictureuploadexpert', 'width:200;height:100;background:#FFFFFF;quality:90;customize:1;class:over;schema:{file\\:base64,name\\:filename}', function(self, config, cls) {
 
-	var empty, canvas, name, input, queuefiles, queue;
+	var canvas, name, input, queuefiles, queue;
+	var tmpresponse = [];
 	var ecounter = 0;
-	var tempresponse = [];
 
 	self.readonly();
 	self.nocompile && self.nocompile();
@@ -31,7 +31,6 @@ COMPONENT('pictureuploadexpert', 'width:200;height:100;background:#FFFFFF;qualit
 		var ctx = canvas.getContext('2d');
 		ctx.fillStyle = config.background;
 		ctx.fillRect(0, 0, config.width, config.height);
-		empty = canvas.toDataURL('image/png');
 		canvas = null;
 	};
 
@@ -122,7 +121,7 @@ COMPONENT('pictureuploadexpert', 'width:200;height:100;background:#FFFFFF;qualit
 
 	self.make = function() {
 
-		self.append('<input type="file" accept="image/*" class="{0}-input" {1}/>'.format(cls, config.multiple ? 'multiple' : ''));
+		self.append('<input type="file" accept="image/*" class="{0}-input hidden" multiple />'.format(cls));
 		input = self.find('input');
 
 		self.reinit();
@@ -135,48 +134,42 @@ COMPONENT('pictureuploadexpert', 'width:200;height:100;background:#FFFFFF;qualit
 		else
 			self.event('click', self.click);
 
-
 		self.event('change', 'input', function() {
-
-			if (queue)
-				return;
-
-			SETTER('loading', 'show');
-			queuefiles = this.files;
-			queue = this.files.length;
-			self.wait();
-			this.value = '';
+			var t = this;
+			if (!queue) {
+				SETTER('loading', 'show');
+				queuefiles = t.files;
+				queue = t.files.length;
+				self.wait();
+				t.value = '';
+			}
 		});
 
 		$(document).on('dragenter dragover dragexit drop dragleave', config.dropselector, self.drop);
 	};
 
-	self.click = function(e) {
-		e.stopPropagation();
-
-		if ($(e.target).hclass(cls + '-input'))
-			return;
-
-		!config.disabled && input.click();
+	self.browse = function(e) {
+		if (!config.disabled && !$(e.target).hclass(cls + '-input')) {
+			e.stopPropagation();
+			input.click();
+		}
 	};
 
 	self.drop = function(e) {
+
 		e.stopPropagation();
 		e.preventDefault();
 
-		var types = e.originalEvent.dataTransfer.types.join(' ').toLowerCase();
+		var types = (e.originalEvent.dataTransfer.types || EMPTYARRAY).join(' ').toLowerCase();
 		if (types.indexOf('files') === -1 || config.disabled)
 			return;
 
-
-		var temp = config.dropselector.substr(1);
 		switch (e.type) {
 			case 'drop':
 				$(config.dropselector).rclass(config.class);
 				break;
 			case 'dragenter':
-				if (!ecounter)
-					$(config.dropselector).aclass(config.class);
+				!ecounter && $(config.dropselector).aclass(config.class);
 				ecounter++;
 				return;
 			case 'dragleave':
@@ -191,13 +184,10 @@ COMPONENT('pictureuploadexpert', 'width:200;height:100;background:#FFFFFF;qualit
 		}
 
 		var dt = e.originalEvent.dataTransfer;
-		if (dt && dt.files.length) {
-			if (queue)
-				return;
-
+		if (dt && dt.files.length && !queue) {
 			SETTER('loading', 'show');
 			queuefiles = e.originalEvent.dataTransfer.files;
-			queue = e.originalEvent.dataTransfer.files.length;
+			queue = queuefiles.length;
 			if (!config.multiple) {
 				queuefiles = [queuefiles[0]];
 				queue = 1;
@@ -209,17 +199,14 @@ COMPONENT('pictureuploadexpert', 'width:200;height:100;background:#FFFFFF;qualit
 
 	self.wait = function() {
 		queue = queue - 1;
-
 		if (queue < 0) {
 			self.change(true);
-			self.push(tempresponse);
-			tempresponse = [];
+			self.push(tmpresponse);
+			tmpresponse = [];
 			queue = null;
 			SETTER('loading', 'hide', 300);
-			return;
-		}
-
-		self.load(queuefiles[queue]);
+		} else
+			self.load(queuefiles[queue]);
 	};
 
 	self.load = function(file) {
@@ -250,11 +237,16 @@ COMPONENT('pictureuploadexpert', 'width:200;height:100;background:#FFFFFF;qualit
 			var data = (new Function('base64', 'filename', 'return ' + config.schema))(base64, name);
 			AJAX('POST ' + config.url.env(true), data, function(response, err) {
 				if (err) {
-					SETTER('snackbar', 'warning', err.toString());
+					config.error && SEEX(self.makepath(config.error), err + '');
 					self.wait();
 				} else {
-					var temp = response instanceof Array ? response[0] : response;
-					tempresponse.push(temp);
+					var tmp = response instanceof Array ? response[0] : response;
+					if (tmp) {
+						if (tmp.error)
+							config.error && SEEX(self.makepath(config.error), err + '');
+						else
+							tmpresponse.push(tmp);
+					}
 					self.wait();
 				}
 			});

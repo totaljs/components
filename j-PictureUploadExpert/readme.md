@@ -16,11 +16,11 @@ __Configuration__:
 - `schema` {String} prepared object for sending (default: `{file:base64,filename:filename}`, `base64` + `filename` is a value from preview)
 - `quality` {Number} JPEG quality (default: `90`)
 - `customize` {Boolean} resizes picture to the entire defined size (default: `true`)
-- `multiple` {Boolean} enables `multiple` upload (default: `true`)
 - `disabled` {Boolean} disables image upload (default: `false`)
 - `clickselector`{String} a class for custom click selector (default: `none`)
 - `dropselector` {String} a class for custom drop selector (default: `none`)
 - `class` {String} toggles class on `dropselector` if the drag over is emitted  (default: `over`)
+- `error` {String} a path to method `method(err)` when an error is thrown
 
 ### Author
 
