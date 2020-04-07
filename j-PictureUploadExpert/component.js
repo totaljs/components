@@ -1,6 +1,6 @@
 COMPONENT('pictureuploadexpert', 'width:200;height:100;background:#FFFFFF;quality:90;customize:1;class:over;schema:{file\\:base64,name\\:filename}', function(self, config, cls) {
 
-	var canvas, name, input, queuefiles, queue;
+	var canvas, name, input, queue;
 	var tmpresponse = [];
 	var ecounter = 0;
 
@@ -130,27 +130,25 @@ COMPONENT('pictureuploadexpert', 'width:200;height:100;background:#FFFFFF;qualit
 			config.class = config.class.substr(1);
 
 		if (config.clickselector)
-			$(document).on('click', config.clickselector, self.click);
+			$(document).on('click', config.clickselector, self.browse);
 		else
-			self.event('click', self.click);
+			self.event('click', self.browse);
 
 		self.event('change', 'input', function() {
-			var t = this;
-			if (!queue) {
-				SETTER('loading', 'show');
-				queuefiles = t.files;
-				queue = t.files.length;
-				self.wait();
-				t.value = '';
-			}
+			SETTER('loading/show');
+			queue = [];
+			for (var i = 0; i < this.files.length; i++)
+				queue.push(this.files[i]);
+			self.wait();
+			this.value = '';
 		});
 
 		$(document).on('dragenter dragover dragexit drop dragleave', config.dropselector, self.drop);
 	};
 
 	self.browse = function(e) {
-		if (!config.disabled && !$(e.target).hclass(cls + '-input')) {
-			e.stopPropagation();
+		if (!config.disabled && (!e || !$(e.target).hclass(cls + '-input'))) {
+			e && e.stopPropagation();
 			input.click();
 		}
 	};
@@ -185,28 +183,28 @@ COMPONENT('pictureuploadexpert', 'width:200;height:100;background:#FFFFFF;qualit
 
 		var dt = e.originalEvent.dataTransfer;
 		if (dt && dt.files.length && !queue) {
-			SETTER('loading', 'show');
-			queuefiles = e.originalEvent.dataTransfer.files;
-			queue = queuefiles.length;
-			if (!config.multiple) {
-				queuefiles = [queuefiles[0]];
-				queue = 1;
-			}
-			self.wait(queue);
+			SETTER('loading/show');
+
+			var tmp = e.originalEvent.dataTransfer.files;
+			queue = [];
+
+			for (var i = 0; i < tmp.length; i++)
+				queue.push(tmp[i]);
+
+			self.wait();
 			ecounter = 0;
 		}
 	};
 
 	self.wait = function() {
-		queue = queue - 1;
-		if (queue < 0) {
+		if (!queue || !queue.length) {
 			self.change(true);
 			self.push(tmpresponse);
 			tmpresponse = [];
 			queue = null;
-			SETTER('loading', 'hide', 300);
+			SETTER('loading/hide', 300);
 		} else
-			self.load(queuefiles[queue]);
+			self.load(queue.shift());
 	};
 
 	self.load = function(file) {
