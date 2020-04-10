@@ -50,19 +50,19 @@ COMPONENT('livestats', 'width:500;height:100;axislines:20', function(self, confi
 
 		var h = config.height - 12;
 		var builder = [];
-		var bar = config.width / (config.axislines / 2) >> 0;
+		var bar = Math.ceil(config.width / (config.axislines / 2));
 		var pp = [];
 
 		pp.push({ x: -20, y: h });
 
-		for (var i = 0; i < 11; i++) {
+		for (var i = 0; i < 10; i++) {
 			var val = points[i] || 0;
 			var p = val && max ? Math.round((val / max) * 100) : 0;
 			var y = (p ? (h - ((h / 100) * p)) : h) + (index * 2);
 			pp.push({ x: (i * bar) + 2, y: y + 12 });
 		}
 
-		pp.push({ x: config.width + config.axislines, y: h });
+		pp.push({ x: config.width + config.axislines, y: pp.last().y });
 
 		for (var i = 0; i < (pp.length - 1); i++) {
 			var d = diagonal(pp[i].x, pp[i].y, pp[i + 1].x, pp[i + 1].y);
