@@ -1,4 +1,4 @@
-.ui-barchart { position: relative; }
+.ui-barchart { position: relative; overflow: hidden; }
 .ui-barchart svg { shape-rendering: geometricPrecision; }
 .ui-barchart .bar1 { fill: #3182BD;}
 .ui-barchart .bar2 { fill: #FD8D3C; }
