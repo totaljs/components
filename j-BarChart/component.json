@@ -1,10 +1,13 @@
 {
 	"datecreated": "2017-11-03T21:04:00.000Z",
-	"dateupdated": "2018-11-08T19:40:00.000Z",
+	"dateupdated": "2020-04-10T13:45:00.000Z",
 	"name": "j-BarChart",
 	"tags": [
-		"jcomponent"
+		"barchart",
+		"chart",
+		"bar"
 	],
+	"darkmode": true,
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

@@ -14,7 +14,9 @@ COMPONENT('barchart', 'pl:20;pt:10;pb:25;prselected:0;axisX:true;axisY:true;padd
 		axis = svg.asvg('g').attr('class', 'axisy');
 		g = svg.asvg('g').attr('class', 'bars');
 		selected = svg.asvg('text').attr('class', 'selected').attr('text-anchor', 'end');
+
 		W.on('resize', self.resize);
+		self.on('resize', self.resize);
 
 		self.event('click mouseenter', 'rect', function(e) {
 			var rect = $(this);

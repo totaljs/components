@@ -12,3 +12,8 @@
 .ui-barchart .ylabel { font-size: 11px; fill: #A0A0A0; }
 .ui-barchart .selected { font-size: 16px; fill: black; font-weight: bold; }
 .ui-barchart rect { cursor: pointer; }
+
+.ui-dark .ui-barchart .axis { stroke: #282828; }
+.ui-dark .ui-barchart .xlabel { fill: white; }
+.ui-dark .ui-barchart .ylabel { fill: #606060; }
+.ui-dark .ui-barchart .selected { fill: white; }
