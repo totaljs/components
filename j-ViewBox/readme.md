@@ -18,10 +18,11 @@ __Configuration__:
 - `visibleX` {Boolean} still shows `X` scrollbar (default: `false`)
 - `margin` {Number} optional, a top/bottom margin together (default: `0`)
 - `scrolltop` {Boolean} scrolls to top automatically if the `path` is changed (default: `false`)
-- __NEW__: `marginxs` {Number} optional, a top/bottom margin together for `xs` screen width
-- __NEW__: `marginsm` optional, a top/bottom margin together for `sm` screen width
-- __NEW__: `marginmd` optional, a top/bottom margin together for `md` screen width
-- __NEW__: `marginlg` optional, a top/bottom margin together for `lg` screen width
+- `marginxs` {Number} optional, a top/bottom margin together for `xs` screen width
+- `marginsm` optional, a top/bottom margin together for `sm` screen width
+- `marginmd` optional, a top/bottom margin together for `md` screen width
+- `marginlg` optional, a top/bottom margin together for `lg` screen width
+- __NEW__: `invisible` {Boolean} if `true` then viewbox sets `invisible` class when is rendering (default: `true`)
 
 __Methods__:
 

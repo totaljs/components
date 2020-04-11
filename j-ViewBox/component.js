@@ -1,4 +1,4 @@
-COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;height:100', function(self, config) {
+COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;height:100;invisible:1', function(self, config) {
 
 	var eld, elb;
 	var scrollbar;
@@ -63,7 +63,8 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 	};
 
 	self.make = function() {
-		self.aclass('invisible');
+		if (config.invisible)
+			self.aclass('invisible');
 		config.scroll && MAIN.version > 17 && self.element.wrapInner('<div class="ui-viewbox-body"></div>');
 		self.element.prepend('<div class="ui-viewbox-disabled hidden"></div>');
 		eld = self.find('> .{0}-disabled'.format(cls)).eq(0);
