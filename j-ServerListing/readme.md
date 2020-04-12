@@ -9,10 +9,12 @@ __Configuration__:
 - `scrolltop` {Boolean} scrolls top automatically when the user changes a page
 - `parent` {String} jQuery selector for obtaining of height, enables fixed area with custom scrollbars
 - `margin` {Number} a margin for `parent` (default: `0`)
-- __NEW__: `marginxs` {Number} optional, a top/bottom margin together for `xs` screen width
-- __NEW__: `marginsm` optional, a top/bottom margin together for `sm` screen width
-- __NEW__: `marginmd` optional, a top/bottom margin together for `md` screen width
-- __NEW__: `marginlg` optional, a top/bottom margin together for `lg` screen width
+- `marginxs` {Number} optional, a top/bottom margin together for `xs` screen width
+- `marginsm` a top/bottom margin together for `sm` screen width
+- `marginmd` a top/bottom margin together for `md` screen width
+- `marginlg` a top/bottom margin together for `lg` screen width
+- __NEW__: `pluralizeitems` a pluralization for count of all items, form: `# zero,# one,# two-four,# five and more`
+- __NEW__: `pluralizepages` a pluralization for count of all items, form: `# zero,# one,# two-four,# five and more`
 
 __Model__:
 

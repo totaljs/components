@@ -1,11 +1,10 @@
-COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0', function(self, config, cls) {
+COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0;pluralizeitems:# items,# item,# items,# items;pluralizepages:# pages,# page,# pages,# pages', function(self, config, cls) {
 
 	var container, paginate;
 	var layout;
 	var cls2 = '.' + cls;
 
 	self.readonly();
-	self.nocompile && self.nocompile();
 
 	self.make = function() {
 
@@ -18,7 +17,7 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0', function(self, config
 		});
 
 		self.aclass(cls);
-		self.html('<div class="{0}-scrollbar"><div class="{0}-container"></div></div><div class="{0}-paginate"></div>'.format(cls));
+		self.html('<div class="{0}-scrollbar"><div class="{0}-container"></div></div><div class="{0}-paginate"><div class="{0}-info"></div><div class="{0}-buttons"></div></div>'.format(cls));
 		container = self.find(cls2 + '-container');
 		paginate = self.find(cls2 + '-paginate');
 		paginate.on('click', 'button', function() {
@@ -87,7 +86,7 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0', function(self, config
 
 		if (!value) {
 			container.empty();
-			paginate.empty();
+			paginate.find(cls2 + '-buttons').empty();
 			self.aclass('hidden');
 			return;
 		}
@@ -138,7 +137,7 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0', function(self, config
 				builder.push('<button class="{0}-page" data-index="{1}">{1}</button>'.format(cls, i));
 
 			builder.push(template.format('+', 'right'));
-			paginate.html(builder.join(''));
+			paginate.find(cls2 + '-buttons').html(builder.join(''));
 
 		} else {
 
@@ -154,10 +153,17 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0', function(self, config
 			});
 		}
 
+		if (value.pages != null && value.count !== null)
+			paginate.find(cls2 + '-info').html(value.pages.pluralize(config.pluralizepages) + ' / ' + value.count.pluralize(config.pluralizeitems));
+
 		paginate.find('.selected').rclass('selected');
 		paginate.find(cls2 + '-page[data-index="{0}"]'.format(value.page)).aclass('selected');
 		paginate.tclass('hidden', value.pages < 2 && !self.scrollbar);
-		self.tclass('hidden', value.count === 0);
+		self.rclass('hidden');
+		if (value.count)
+			self.find(cls2 + '-paginate').rclass('hidden');
+		else
+			self.find(cls2 + '-paginate').aclass('hidden');
 
 		if (type && config.scrolltop) {
 			if (self.scrollbar)
