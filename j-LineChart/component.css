@@ -1,4 +1,4 @@
-.ui-linechart { position: relative; padding: 10px; }
+.ui-linechart { position: relative; padding: 10px; overflow: hidden; }
 .ui-linechart svg { shape-rendering: geometricPrecision; }
 .ui-linechart .line1 { stroke: #3182BD; stroke-width: 2.5; fill: transparent; }
 .ui-linechart .line1fill { fill: #3182BD; }

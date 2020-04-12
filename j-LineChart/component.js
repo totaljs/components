@@ -16,7 +16,9 @@ COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;
 		g = svg.asvg('g').attr('class', 'lines');
 		points = svg.asvg('g').attr('class', 'points');
 		selected = svg.asvg('text').attr('class', 'selected').attr('text-anchor', 'end');
+
 		W.on('resize', self.resize);
+		self.on('resize', self.resize);
 
 		self.event('click mouseenter', 'circle', function(e) {
 
