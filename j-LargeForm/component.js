@@ -3,6 +3,7 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0;scrolltop:1;
 	var cls2 = '.' + cls;
 	var csspos = {};
 	var nav = false;
+	var init = false;;
 
 	if (!W.$$largeform) {
 
@@ -221,6 +222,13 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0;scrolltop:1;
 		setTimeout(function() {
 			self.rclass('invisible');
 			self.find(cls2).aclass(cls + '-animate');
+			if (!init && isMOBILE) {
+				$('body').aclass('hidden');
+				setTimeout(function() {
+					$('body').rclass('hidden');
+				}, 50);
+			}
+			init = true;
 		}, 300);
 
 		// Fixes a problem with freezing of scrolling in Chrome
