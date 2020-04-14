@@ -432,7 +432,8 @@ COMPONENT('markdown', function (self) {
 						beg2 = i;
 						continue;
 					} else if (beg2 > -1 && il === '&gt;') {
-						callback(val.substring(beg2, i + 4), true);
+						if (val.substring(beg2 - 6, beg2) !== '<code>')
+							callback(val.substring(beg2, i + 4), true);
 						beg2 = -1;
 						continue;
 					}
