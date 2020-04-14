@@ -155,11 +155,9 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 					case 'page-first':
 						model.page = 1;
 						SEEX(self.makepath(config.paginate), model);
-						self.operation('page');
 						break;
 					case 'page-last':
-						var tmp = model;
-						tmp.page = tmp.pages;
+						model.page = data.pages;
 						SEEX(self.makepath(config.paginate), model);
 						break;
 					case 'page-prev':
