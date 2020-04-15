@@ -1,4 +1,4 @@
-COMPONENT('floatingsearch', 'height:45', function(self, config, cls) {
+COMPONENT('floatingsearch', 'height:46', function(self, config, cls) {
 
 	var is = false;
 	var input;
@@ -6,9 +6,9 @@ COMPONENT('floatingsearch', 'height:45', function(self, config, cls) {
 	self.make = function() {
 
 		self.aclass(cls + ' hidden');
-		self.append('<div class="close"><i class="far fa-times"></i></div><div class="icon"><i class="fa fa-search"></i></div><form action="#" onsubmit="return false" class="input"><input placeholder="{1}" data-jc-bind type="text" name="input{2}" autocomplete="new-password" /></form>'.format(cls, config.placeholder, Date.now()));
+		self.append('<div class="close"><i class="fa fa-times"></i></div><div class="icon"><i class="fa fa-search"></i></div><form action="#" onsubmit="return false" class="input"><input placeholder="{1}" data-jc-bind type="text" name="input{2}" autocomplete="new-password" /></form>'.format(cls, config.placeholder, Date.now()));
 
-		if (config.height !== 45) {
+		if (config.height !== 46) {
 			self.find('.close,.icon,input').css('line-height', (config.height - 2) + 'px');
 			self.find('.close').css('width', config.height + 'px');
 			self.find('.input').css('margin-right', (config.height + 5) + 'px');
