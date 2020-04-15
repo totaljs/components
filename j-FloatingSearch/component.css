@@ -1,0 +1,11 @@
+.ui-floatingsearch { position: absolute; height: 45px; left: 0; right: 0; background-color: white; border-bottom: 1px solid #E0E0E0; border-top: 1px solid #E0E0E0; margin-top: -1px; z-index: 2; }
+.ui-floatingsearch .input { padding: 0; display: block; margin: 0 48px 0 35px; }
+.ui-floatingsearch .input input { width: 100%; line-height: 43px; border: 0; padding: 0; margin: 0; outline: 0; background-color: transparent; }
+.ui-floatingsearch .icon { float: left; width: 35px; line-height: 43px; text-align: center; }
+.ui-floatingsearch-filled .icon { color: red; cursor: pointer; }
+.ui-floatingsearch .close { float: right; width: 45px; color: red; text-align: center; font-size: 16px; line-height: 43px; border-left: 1px solid #E0E0E0; cursor: pointer; }
+.ui-floatingsearch .close:hover { background-color: #F0F0F0; }
+
+.ui-dark .ui-floatingsearch { background-color: #303030; border-bottom-color: #404040; border-top-color: #404040; }
+.ui-dark .ui-floatingsearch .close { border-left-color: #404040; }
+.ui-dark .ui-floatingsearch .close:hover { background-color: #353535; }

@@ -211,5 +211,6 @@
 	"j-ImportCSV",
 	"j-FloatingInput",
 	"j-DynamicValueList",
-	"j-Detail"
+	"j-Detail",
+	"j-FloatingSearch"
 ]
