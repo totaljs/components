@@ -1,11 +1,9 @@
-COMPONENT('imageviewer', 'selector:.img-viewer;container:body;loading:1', function(self, config) {
+COMPONENT('imageviewer', 'selector:.img-viewer;container:body;loading:1', function(self, config, cls) {
 
-	var cls = 'ui-imageviewer';
 	var cls2 = '.' + cls;
 	var isclosed = false;
 	var isrendering = false;
 	var events = {};
-	var current;
 
 	events.keydown = function(e) {
 		switch (e.which) {
@@ -78,7 +76,6 @@ COMPONENT('imageviewer', 'selector:.img-viewer;container:body;loading:1', functi
 		$('html,body').rclass(cls + '-noscroll');
 		self.aclass('hidden');
 		events.unbind();
-		current = null;
 	};
 
 	self.loading = function(is) {
@@ -121,29 +118,51 @@ COMPONENT('imageviewer', 'selector:.img-viewer;container:body;loading:1', functi
 		isrendering = true;
 
 		var image = new Image();
-		//image.crossOrigin = 'anonymous';
+		// image.crossOrigin = 'anonymous';
 		image.src = el[0].src;
 		image.onload = function() {
 
 			var img = this;
 			var ratio;
 
-			var mw = WW - 10;
-			var mh = WH - 85;
+			var w = image.width;
+			var h = image.height;
+			var tw = WW - 80;
+			var th = WH - 140;
 
-			if (img.width > img.height)
-				ratio = mw / (img.width / 100);
-			else
-				ratio = mh / (img.height / 100);
+			if (w > h) {
+				ratio = w / h;
 
-			if (ratio > 100)
-				ratio = 100;
+				if (w > tw)
+					w = tw;
+
+				h = w / ratio >> 0;
+
+				if (h > th) {
+					h = th;
+					w = h * ratio >> 0;
+				}
+
+			} else {
+
+				ratio = h / w;
+
+				if (h > th)
+					h = th;
+
+				w = h / ratio >> 0;
+
+				if (w > tw) {
+					w = tw;
+					h = w * ratio >> 0;
+				}
+			}
 
 			if (isclosed)
 				return;
 
 			events.bind();
-			self.find('img').attr('src', img.src).attr('width', img.width / 100 * ratio).attr('height', img.height / 100 * ratio);
+			self.find('img').attr('src', img.src).attr('width', w).attr('height', h);
 			self.find('.help').html(img.width + 'x' + img.height + 'px');
 			self.find('b').html(el.attr('alt') || el.attr('title') || 'Unknown image');
 			self.rclass('hidden');
@@ -159,9 +178,6 @@ COMPONENT('imageviewer', 'selector:.img-viewer;container:body;loading:1', functi
 		css.width = WW;
 		viewer.css(css);
 		loading.css(css);
-		current && setTimeout2(self.ID, function() {
-			self.show(current);
-		}, 500);
 	};
 
 });
