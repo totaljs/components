@@ -19,7 +19,8 @@
 .ui-dark .ui-imageviewer, .ui-dark .ui-imageviewer-loading { background-color: rgba(0,0,0,0.9); }
 .ui-dark .ui-imageviewer-header b { color: white; }
 .ui-dark .ui-imageviewer-header { background-color: #202020; border-bottom-color: #404040; }
+.ui-dark .ui-imageviewer-header button { border-left-color: #404040; }
 .ui-dark .ui-imageviewer-header button:hover { background-color: #404040; border-left-color: #404040; }
 .ui-dark .ui-imageviewer-buttons button { background-color: #303030; border-color: #303030; }
-.ui-dark .ui-imageviewer-buttons button:hover { background-color: #404040; border-color: #404040; }
+.ui-dark .ui-imageviewer-buttons button:hover { background-color: #4285F4; border-color: #4285F4; }
 .ui-dark .ui-imageviewer-buttons button:disabled { color: #505050; border-color: #202020; background-color: #202020; }
