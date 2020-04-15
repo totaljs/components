@@ -1,0 +1,33 @@
+<div style="width:500px">
+	<div data---="detail__form"></div>
+	<br />
+	<div>-- OR --</div>
+	<br />
+	<div data---="detail__model">
+		<script type="text/plain">
+			[
+				{ name: 'First name', path: 'firstname', type: 'string' },
+				{ name: 'Last name', path: 'lastname', type: 'string' },
+				{ name: 'Age', path: 'age', type: 'number' }
+			]
+		</script>
+	</div>
+</div>
+
+<script>
+	var model = { firstname: 'Peter', lastname: 'Širka', age: 33 };
+	var items = [{ id: 2, name: 'Banská Bystrica' }, { id: 3, name: 'Bratislava' }];
+	var form = [];
+
+	// The below values will be binded automatically from the "model" (according to the "path" field) because they contain "path" field
+	form.push({ group: 'Personal', label: 'First name', path: 'firstname', type: 'string', value: model, note: 'This is first name' });
+	form.push({ group: 'Personal', label: 'Last name', path: 'lastname', type: 'string', value: model, placeholder: 'String' });
+	form.push({ group: 'Personal', label: 'Age', path: 'age', type: 'number', value: model });
+
+	// The below values will be binded from "value" key
+	form.push({ group: 'Personal', label: 'Birth date', type: 'date', value: NOW });
+	form.push({ group: 'Additional', label: 'Newsletter', type: 'bool', value: true });
+	form.push({ group: 'Additional', label: 'City', type: 'list', value: 2, items: 'items' });
+	form.push({ group: 'Additional', label: 'Color', type: 'color', value: '#e73323' });
+	form.push({ group: 'Additional', label: 'Icon', type: 'fontawesome', value: 'fas fa-home' });
+</script>

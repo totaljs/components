@@ -210,5 +210,6 @@
 	"j-LiveStats",
 	"j-ImportCSV",
 	"j-FloatingInput",
-	"j-DynamicValueList"
+	"j-DynamicValueList",
+	"j-Detail"
 ]

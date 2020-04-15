@@ -1,0 +1,17 @@
+{
+	"datecreated": "2020-04-15T10:39:01.000Z",
+	"dateupdated": null,
+	"name": "j-Detail",
+	"tags": [
+		"detail"
+	],
+	"color": "transparent",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
