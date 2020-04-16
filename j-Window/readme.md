@@ -7,7 +7,7 @@ __Configuration__:
 - `title` {String} window title
 - `if` {String} condition for showing of the window, it's compared with the value within of `data-jc-path`
 - `icon` {String} Font-Awesome icon without `fa-`
-- `reload` {String} link to a global function and it's executed if the form is showing
+- `reload` {String} link to a global `function(window_component)` and it's executed if the form is showing
 - `enter` {Boolean} (optional) captures `enter` key automatically and performs submit (default: `false`)
 - `autofocus` {Boolean/String} (optional) can focus an input. `String` === `jQuery selector` for the input
 - `default` {String} (optional) a short alias for `DEFAULT(default, true)`

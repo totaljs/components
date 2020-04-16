@@ -37,6 +37,10 @@ __Hints__:
 - toggles boolean `data-value="!value"`
 - scopes: `data-path="?.name"` replaces `?` char with a scope path
 
+__Good to know__:
+
+- the component executes a target function in the form `function(element, event)`
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

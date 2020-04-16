@@ -11,9 +11,9 @@ __Configuration__:
 - `width` {Number} modal max-width
 - `if` {String} condition for showing of the modal, it's compared with the value within of `data-jc-path`
 - `icon` {String} Font-Awesome icon without `fa-`
-- `reload` {String} link to a global function and it's executed if the form is showing
-- `submit` {String} link to a global function and it's executed if the submit button is pressed
-- `cancel` {String} link to a global function and it's executed if the cancel button is pressed
+- `reload` {String} link to a global `function(modal_component)` and it's executed if the form is displaying
+- `submit` {String} link to a global `function(hide)` and it's executed if the submit button is pressed
+- `cancel` {String} link to a global `function(hide)` and it's executed if the cancel button is pressed
 - `enter` {Boolean} captures `enter` key automatically and performs submit (default: `false`)
 - `center` {Boolean} centers the form to middle of screen
 - `autofocus` {Boolean/String} can focus an input. `String` === `jQuery selector` for the input
