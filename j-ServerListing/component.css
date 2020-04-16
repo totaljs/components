@@ -3,8 +3,8 @@
 .ui-serverlisting-paginate button:first-child { margin-left: 0; border-bottom-left-radius: 3px; border-top-left-radius: 3px; border-left: 1px solid #4285F4; }
 .ui-serverlisting-paginate button:last-child { margin-left: 0; border-bottom-right-radius: 3px; border-top-right-radius: 3px; }
 .ui-serverlisting-paginate .selected { background-color: #4285F4 !important; color: white; }
-.ui-serverlisting-info { display: none; }
-.ui-serverlisting-fixed .ui-serverlisting-info { float: right; color: gray; font-size: 12px; padding: 5px 15px 0; display: block; }
+.ui-serverlisting-info { float: right; color: gray; font-size: 12px; padding: 5px 0; }
+.ui-serverlisting-fixed .ui-serverlisting-info { padding-right: 10px; }
 .ui-serverlisting-fixed .ui-serverlisting-paginate { padding-left: 10px; border-top: 1px solid #E0E0E0; }
 
 .ui-dark .ui-serverlisting-fixed .ui-serverlisting-paginate { border-top-color: #303030; }
