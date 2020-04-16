@@ -1,4 +1,4 @@
-COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
+COMPONENT('form', 'zindex:12;scrollbar:1;closeoutside:0', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var container;
@@ -29,12 +29,23 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 			$(W).on('resize', resize);
 
 		$(document).on('click', cls2 + '-container', function(e) {
+
 			var el = $(e.target);
+			if (e.target === this || el.hclass(cls + '-container-padding')) {
+				var com = $(this).component();
+				if (com && com.config.closeoutside) {
+					com.set('');
+					return;
+				}
+			}
+
 			if (!(el.hclass(cls + '-container-padding') || el.hclass(cls + '-container')))
 				return;
+
 			var form = $(this).find(cls2);
 			var c = cls + '-animate-click';
 			form.aclass(c);
+
 			setTimeout(function() {
 				form.rclass(c);
 			}, 300);
