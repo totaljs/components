@@ -43,6 +43,7 @@ __Data properties in data declaration__:
 - `path` {String} a path to value in model (`value` must contain a model)
 - `template` {String} A Tangular template (works only with `type:'template'` and `{{ value }}` contains a raw value)
 - `empty` {String} An empty value when the value is nullable (default: `---`)
+- `show` {String} Arrow function condition (must return boolean) and it works only with defined `path`
 
 __Allowed types in data__:
 

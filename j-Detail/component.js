@@ -10,8 +10,14 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 		self.aclass(cls + (config.small ? (' ' + cls + '-small') : ''));
 
 		var scr = self.find('script');
-		if (scr.length)
+		if (scr.length) {
 			mapping = (new Function('return ' + scr.html().trim()))();
+			for (var i = 0; i < mapping.length; i++) {
+				var item = mapping[i];
+				if (item.show)
+					item.show = FN(item.show);
+			}
+		}
 
 		self.html('<div><div class="{0}-container"></div></div>'.format(cls));
 		container = self.find(cls2 + '-container');
@@ -165,11 +171,13 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 		if (!value)
 			value = EMPTYARRAY;
 
+		var raw;
+
 		if (mapping && value && value !== EMPTYARRAY) {
-			var obj = value;
+			raw = value;
 			for (var i = 0; i < mapping.length; i++) {
 				var m = mapping[i];
-				m.value = obj;
+				m.value = raw;
 			}
 			value = mapping;
 		}
@@ -180,30 +188,12 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 
 		for (var i = 0; i < value.length; i++) {
 			var item = value[i];
+			if (raw && item.show && !item.show(raw))
+				continue;
+
 			var g = item.group || config.defaultgroup;
-
-			item.invalid = false;
-
 			if (!groups[g])
 				groups[g] = { html: [] };
-
-			switch (item.type) {
-				case 'fontawesome':
-				case 'string':
-					item.prev = item.value || '';
-					break;
-				case 'date':
-					item.prev = item.value && item.value instanceof Date ? item.value.format(item.format || config.dateformat) : null;
-					break;
-				// case 'number':
-				// case 'bool':
-				// case 'boolean':
-				// case 'list':
-				default:
-					item.prev = item.value;
-					break;
-			}
-
 			groups[g].html.push(self.render(item, i));
 		}
 

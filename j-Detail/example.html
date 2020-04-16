@@ -11,10 +11,23 @@
 			]
 		</script>
 	</div>
+	<div>-- OR MULTIPLE USAGE --</div>
+	<br />
+	<div data---="detail__model">
+		<script type="text/plain">
+			[
+				// Will be displayed, look to show condition ("m" means "model")
+				{ name: 'First name', path: 'firstname', type: 'string', show: 'm=>m.type==1' },
+				{ name: 'Last name', path: 'lastname', type: 'string', show: 'm=>m.type==1' },
+				// Won't be displayed, look to show condition ("m" means "model")
+				{ name: 'Age', path: 'age', type: 'number', show: 'm=>m.type==2' }
+			]
+		</script>
+	</div>
 </div>
 
 <script>
-	var model = { firstname: 'Peter', lastname: 'Širka', age: 33 };
+	var model = { firstname: 'Peter', lastname: 'Širka', age: 33, type: 1 };
 	var items = [{ id: 2, name: 'Banská Bystrica' }, { id: 3, name: 'Bratislava' }];
 	var form = [];
 
