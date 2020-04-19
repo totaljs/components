@@ -289,8 +289,17 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 								continue;
 							indexer.index = i;
 							resultscount++;
-							builder.push(self.opt.raw ? self.templateraw(item, indexer) : self.template(item, indexer));
+							builder.push(self.opt.ta(item, indexer));
 						}
+
+						if (self.opt.empty) {
+							item = {};
+							item[self.opt.key || 'name'] = self.opt.empty;
+							item.template = '<b>{0}</b>'.format(self.opt.empty);
+							indexer.index = -1;
+							builder.unshift(self.opt.ta(item, indexer));
+						}
+
 						skipclear = true;
 						self.opt.items = items;
 						container.html(builder);
@@ -387,8 +396,9 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		input.val('');
 
 		var builder = [];
-		var ta = opt.key ? Tangular.compile((opt.raw ? templateraw : template).replace(/\{\{\sname/g, '{{ ' + opt.key)) : opt.raw ? self.templateraw : self.template;
 		var selected = null;
+
+		opt.ta = opt.key ? Tangular.compile((opt.raw ? templateraw : template).replace(/\{\{\sname/g, '{{ ' + opt.key)) : opt.raw ? self.templateraw : self.template;
 
 		if (!opt.ajax) {
 			var indexer = {};
@@ -407,7 +417,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 				}
 
 				indexer.index = i;
-				builder.push(ta(item, indexer));
+				builder.push(opt.ta(item, indexer));
 			}
 
 			if (opt.empty) {
@@ -415,7 +425,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 				item[opt.key || 'name'] = opt.empty;
 				item.template = '<b>{0}</b>'.format(opt.empty);
 				indexer.index = -1;
-				builder.unshift(ta(item, indexer));
+				builder.unshift(opt.ta(item, indexer));
 			}
 		}
 
