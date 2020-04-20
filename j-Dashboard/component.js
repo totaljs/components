@@ -362,7 +362,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self,
 	};
 
 	var resizewidget = function(obj) {
-		obj.meta.resize.call(obj, obj.element);
+		obj.meta.resize.call(obj, obj.width, obj.height, obj.element, obj.display);
 	};
 
 	self.woffset = function(id, init) {
