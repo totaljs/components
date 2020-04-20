@@ -11,12 +11,18 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self,
 	var movable = {};
 	var serviceid;
 	var pixel;
+	var $D = $(document);
+	var $W = $(W);
 
 	self.make = function() {
+
 		self.aclass(cls);
-		$(W).on('resize', events.resize);
 		self.on('resize', events.resize);
-		$(document).on('mousedown touchstart', cls2 + '-title,' + cls2 + '-resize-button', events.ondown).on('dragstart', '[draggable]', drag.handler).on('touchstart', '[draggable]', drag.handler);
+		$W.on('resize', events.resize);
+
+		$D.on('mousedown touchstart', cls2 + '-title,' + cls2 + '-resize-button', events.ondown);
+		$D.on('dragstart', '[draggable]', drag.handler);
+		$D.on('touchstart', '[draggable]', drag.handler);
 
 		self.event('mousedown touchstart', cls2 + '-control', function(e) {
 
@@ -86,13 +92,13 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self,
 	};
 
 	drag.bind = function() {
-		$(document).on('touchmove', drag.touchmove);
-		$(document).on('touchend', drag.touchend);
+		$D.on('touchmove', drag.touchmove);
+		$D.on('touchend', drag.touchend);
 	};
 
 	drag.unbind = function() {
-		$(document).off('touchmove', drag.touchmove);
-		$(document).off('touchend', drag.touchend);
+		$D.off('touchmove', drag.touchmove);
+		$D.off('touchend', drag.touchend);
 	};
 
 	drag.handler = function(e) {
@@ -137,7 +143,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self,
 			return;
 
 		var en = 'dragenter dragover dragexit drop dragleave dragstart';
-		var el = $(document);
+		var el = $D;
 		if (is) {
 			el.on(en, events.ondrag);
 			el.on('mouseup touchend', events.onup);
@@ -270,10 +276,10 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self,
 	};
 
 	self.destroy = function() {
-		$(document).off('dragstart', '[draggable]', drag.handler);
-		$(document).off('touchstart', '[draggable]', drag.handler);
-		$(document).off('mousedown touchstart', cls2 + '-title,' + cls2 + '-resize-button', events.down);
-		$(W).off('resize', events.resize);
+		$D.off('dragstart', '[draggable]', drag.handler);
+		$D.off('touchstart', '[draggable]', drag.handler);
+		$D.off('mousedown touchstart', cls2 + '-title,' + cls2 + '-resize-button', events.down);
+		$W.off('resize', events.resize);
 		events.bind();
 		clearInterval(serviceid);
 	};
@@ -451,7 +457,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self,
 
 		tmp.meta.service && services.push(tmp);
 		tmp.meta.data && data.push(tmp);
-		setTimeout(winit, config.delay, el);
+		setTimeout(winit, obj.delay || config.delay, el);
 	};
 
 	self.setter = function(value) {

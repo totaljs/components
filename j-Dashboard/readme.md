@@ -48,6 +48,9 @@ var component = {
 	// Can disable header (default: true)
 	header: true,
 
+	// Can delay displaying (in "ms", default: config.delay)
+	delay: 0,
+
 	// A component title
 	title: 'Title for the component',
 
