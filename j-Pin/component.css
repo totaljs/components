@@ -3,6 +3,7 @@
 .ui-pin-invalid .ui-pin-input, .ui-pin-invalid input { background-color: #FFF3F3; }
 .ui-disabled .ui-pin-input { background-color: #F0F0F0; border-color: #D0D0D0; }
 .ui-disabled .ui-pin-input input { background-color: #F0F0F0; cursor: not-allowed; color: gray; }
+
 .ui-dark .ui-pin-input { background-color: #252525; border-color: #353535; }
 .ui-dark .ui-pin-input input { background-color: #252525; color: white; }
 .ui-dark .ui-disabled .ui-pin-input { background-color: #282828; border-color: #282828; }
