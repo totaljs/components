@@ -1,4 +1,4 @@
-.ui-oe { font-size: 12px; border: 1px solid #E0E0E0; padding: 10px; border-radius: 3px; box-sizing: border-box; background-color: white; }
+.ui-oe { font-size: 12px; border: 1px solid #E0E0E0; padding: 10px; border-radius: 3px; box-sizing: border-box; background-color: #FFFFFF; }
 .ui-oe input, .ui-oe textarea { font-family: Arial; font-size: 12px !important; }
 .ui-oe-group { margin: 15px 0; }
 .ui-oe-group > .ui-oe-label { font-size: 11px; color: #A0A0A0; border-bottom: 1px solid #E0E0E0; margin-bottom: 5px; padding: 3px 10px; float: none !important; width: auto !important; }
@@ -30,7 +30,7 @@
 .ui-oe-number input { background-color: transparent; border: 0; width: 100%; outline: 0; padding: 3px 5px 0; margin: 0; background-color: #F8F8F8; height: 23px; }
 .ui-oe-boolean { height: 24px; }
 .ui-oe-boolean .ui-oe-control { margin-left: 30%; height: 24px; padding: 4px 0 0 3px; }
-.ui-oe-boolean .ui-eo-checkbox { width: 15px; height: 15px; background-color: #E0E0E0; margin: 0; border-radius: 2px; text-align: center; padding: 2px 0 0; cursor: pointer; color: white; font-size: 10px; }
+.ui-oe-boolean .ui-eo-checkbox { width: 15px; height: 15px; background-color: #E0E0E0; margin: 0; border-radius: 2px; text-align: center; padding: 2px 0 0; cursor: pointer; color: #FFFFFF; font-size: 10px; }
 .ui-oe-boolean .ui-eo-checkbox .fa { display: none; }
 .ui-oe-boolean .ui-eo-checkbox.checked .fa { display: block; }
 .ui-oe-boolean .ui-eo-checkbox.checked { background-color: #4584F1; }

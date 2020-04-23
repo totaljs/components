@@ -1,6 +1,6 @@
 .ui-statsbarsimple { border-radius: 100px; border: 1px solid #E0E0E0; padding: 2px; overflow: hidden; }
 .ui-statsbarsimple-table { height: 20px; display: table; width: 100%; table-layout: fixed; }
-.ui-statsbarsimple-table > div { display: table-cell; cursor: default; font-size: 11px; line-height: 20px; padding: 0 8px; color: white; overflow: hidden; }
+.ui-statsbarsimple-table > div { display: table-cell; cursor: default; font-size: 11px; line-height: 20px; padding: 0 8px; color: #FFFFFF; overflow: hidden; }
 .ui-statsbarsimple-table > div:first-child { border-radius: 100px 0 0 100px; }
 .ui-statsbarsimple-table > div:last-child { border-radius: 0 100px 100px 0; }
 .ui-statsbarsimple-table > div:hover { opacity: 0.9; }

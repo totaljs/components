@@ -1,4 +1,4 @@
-.ui-wiki { position: fixed; right: 0; top: 0; bottom: 0; max-width: 600px; width: 100%; box-shadow: -10px 0 10px rgba(0,0,0,0.03); z-index: 32; background-color: white; }
+.ui-wiki { position: fixed; right: 0; top: 0; bottom: 0; max-width: 600px; width: 100%; box-shadow: -10px 0 10px rgba(0,0,0,0.03); z-index: 32; background-color: #FFFFFF; }
 .ui-wiki-topics-body { overflow: auto; height: 100%; }
 .ui-wiki-topic label { padding: 5px 15px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border-bottom: 1px solid #E0E0E0; cursor: pointer; color: #505050; font-size: 13px; }
 .ui-wiki-topic label i { margin-right: 5px; }
@@ -7,10 +7,10 @@
 .ui-wiki-topic-body { display: none; padding: 18px; }
 .ui-wiki-title { padding: 0; font-weight: bold; height: 50px; border-bottom: 1px solid #E0E0E0; }
 .ui-wiki-title span { display: block; margin-right: 50px; line-height: 50px; font-size: 16px; padding-left: 10px; }
-.ui-wiki-title button { float: right; width: 50px; height: 50px; background-color: red; color: white; border: 0; font-size: 16px; }
+.ui-wiki-title button { float: right; width: 50px; height: 50px; background-color: red; color: #FFFFFF; border: 0; font-size: 16px; }
 .ui-wiki-title button:hover { opacity: 0.8; }
 .ui-wiki-visible .ui-wiki-topic-body { display: block; border-bottom: 1px solid #E0E0E0; }
-.ui-wiki-visible label { background-color: #4285F4 !important; border-bottom-color: #4285F4 !important; color: white !important; }
+.ui-wiki-visible label { background-color: #4285F4 !important; border-bottom-color: #4285F4 !important; color: #FFFFFF !important; }
 .ui-wiki-visible label i:before { content: '\f078' }
 
 .ui-dark .ui-wiki { background-color: #252525; }
@@ -21,8 +21,8 @@
 
 .markdown { font-size: 15px; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; color: #404040; overflow-x: hidden; position: relative; }
 .markdown code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
-.markdown h1 { cursor: default; margin: 0 0 15px; font-size: 26px; padding: 0 0 8px; border-bottom: 1px solid #E0E0E0; color: black; line-height: 30px; font-family: -apple-systm, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; font-weight: normal; line-height: 32px; }
-.markdown h2 { cursor: default; margin: 30px 0 10px; font-weight: bold; font-size: 22px; padding: 0 0 8px; border-bottom: 1px solid #E0E0E0; color: black; line-height: 28px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
+.markdown h1 { cursor: default; margin: 0 0 15px; font-size: 26px; padding: 0 0 8px; border-bottom: 1px solid #E0E0E0; color: #000000; line-height: 30px; font-family: -apple-systm, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; font-weight: normal; line-height: 32px; }
+.markdown h2 { cursor: default; margin: 30px 0 10px; font-weight: bold; font-size: 22px; padding: 0 0 8px; border-bottom: 1px solid #E0E0E0; color: #000000; line-height: 28px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
 .markdown h3 { cursor: default; margin: 30px 0 8px; font-size: 18px; padding: 0 0 5px; color: #404040; font-weight: bold; line-height: 22px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
 .markdown h4, .markdown h5 { cursor: default; margin: 20px 0 10px; font-size: 17px; color: #404040; font-weight: bold; line-height: 22px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; background-color: #F0F0F0; padding: 4px 3px; border-radius: 3px; border-bottom: 1px solid #E0E0E0; }
 .markdown p { margin: 0 0 15px; padding-left: 0; padding-right: 0; }
@@ -46,7 +46,7 @@
 .markdown .video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
 .ui-dark .markdown { color: #A0A0A0; }
-.ui-dark .markdown h1 { color: white; border-color: #303030; }
+.ui-dark .markdown h1 { color: #FFFFFF; border-color: #303030; }
 .ui-dark .markdown h2 { color: #D0D0D0; }
 .ui-dark .markdown h3 { color: #D0D0D0; }
 .ui-dark .markdown p code, .ui-dark  .markdown li code, .ui-dark  .markdown blockquote code, .ui-dark  .markdown td code { border-color: #505050; background-color: #404040; }

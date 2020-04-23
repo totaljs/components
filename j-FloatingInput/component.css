@@ -1,6 +1,6 @@
-.ui-floatinginput { position: absolute; opacity: 0; transition: 0.25s transform cubic-bezier(0.23, 1, 0.32, 1); left: -100; top: -100; z-index: 100; box-shadow: 0 1px 20px rgba(0,0,0,0.1); background-color: white; border-radius: 3px; border: 1px solid #E0E0E0; overflow: hidden; transition: all 0.2s; }
-.ui-floatinginput-input { height: 38px; background: white; border-radius: 3px 3px 0 0; line-height: 22px; }
-.ui-floatinginput-input input { width: 100%; background-color: white; border: 0; font-size: 12px; outline: 0; padding: 0; margin: 0; line-height: 16px; outline: 0; }
+.ui-floatinginput { position: absolute; opacity: 0; transition: 0.25s transform cubic-bezier(0.23, 1, 0.32, 1); left: -100; top: -100; z-index: 100; box-shadow: 0 1px 20px rgba(0,0,0,0.1); background-color: #FFFFFF; border-radius: 3px; border: 1px solid #E0E0E0; overflow: hidden; transition: all 0.2s; }
+.ui-floatinginput-input { height: 38px; background: #FFFFFF; border-radius: 3px 3px 0 0; line-height: 22px; }
+.ui-floatinginput-input input { width: 100%; background-color: #FFFFFF; border: 0; font-size: 12px; outline: 0; padding: 0; margin: 0; line-height: 16px; outline: 0; }
 .ui-floatinginput-input > div { margin: 0 30px 0 35px; padding: 6px 10px 0 0; line-height: 24px; }
 .ui-floatinginput-input > span { float: left; width: 16px; text-align: center; padding: 8px 0 0 12px; font-size: 12px; }
 .ui-floatinginput-add { float: right !important; padding-left: 0 !important; color: #83c83c; text-align: left !important; font-size: 11px !important; cursor: pointer; width: 22px !important; }
@@ -10,5 +10,5 @@
 .ui-dark .ui-floatinginput { background-color: #303030; border-color: #404040; box-shadow: 1px 5px 10px rgba(0,0,0,0.2); }
 .ui-dark .ui-floatinginput-input { background: #303030; }
 .ui-dark .ui-floatinginput-input input { background-color: #303030; }
-.ui-dark .ui-floatinginput-add:hover { color: white; }
+.ui-dark .ui-floatinginput-add:hover { color: #FFFFFF; }
 .ui-dark .ui-floatinginput-summary { color: gray; border-bottom-color: #404040; }

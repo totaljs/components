@@ -2,12 +2,12 @@
 .ui-textboxlist-label-required:before { color: red; content: '***'; margin-right: 5px; }
 .ui-textboxlist-label i { margin-right: 5px; }
 .ui-textboxlist-items > div:first-child { border-radius: 2px 2px 0 0; }
-.ui-textboxlist-item { height: 32px; background-color: white; border: 1px solid #E0E0E0; border-bottom: 0; }
+.ui-textboxlist-item { height: 32px; background-color: #FFFFFF; border: 1px solid #E0E0E0; border-bottom: 0; }
 .ui-textboxlist-item > div:first-child { float: right; width: 32px; text-align: center; color: #DA4453; font-size: 14px; height: 31px; border-left: 1px solid #E0E0E0; }
 .ui-textboxlist-item > div:last-child { padding: 4px 0 0 0; margin-right: 32px; }
 .ui-textboxlist-item i { cursor: pointer; display: block; padding: 7px 0 2px; }
 .ui-textboxlist-item i:active { margin-top: 1px; }
-.ui-textboxlist-item input { width: 100%; background-color: transparent; border: 0; padding: 1px 10px 0; border-radius: 2px; outline: 0; font-size: 14px; color: black; }
+.ui-textboxlist-item input { width: 100%; background-color: transparent; border: 0; padding: 1px 10px 0; border-radius: 2px; outline: 0; font-size: 14px; color: #000000; }
 .ui-textboxlist-base { border-radius: 0 0 2px 2px; border-bottom: 1px solid #E0E0E0; }
 .ui-textboxlist-base i { display: none; }
 .ui-textboxlist-base > div:first-child { display: none; }
@@ -18,6 +18,6 @@
 .ui-dark .ui-textboxlist-item { border-color: #404040; }
 .ui-dark .ui-textboxlist-item { background-color: #202020; border-color: #404040; }
 .ui-dark .ui-textboxlist-item > div:first-child { color: red; border-left-color: #404040; }
-.ui-dark .ui-textboxlist-item input { background-color: transparent; color: white; }
+.ui-dark .ui-textboxlist-item input { background-color: transparent; color: #FFFFFF; }
 .ui-dark .ui-textboxlist-base { border-bottom-color: #404040; }
 .ui-dark .ui-textboxlist-helper { color: red !important; }

@@ -4,10 +4,10 @@ input:invalid { box-shadow: none; }
 .ui-right { text-align: right; }
 .ui-center { text-align: center; }
 
-.ui-textbox { height: 32px; border: 1px solid #E0E0E0; border-radius: 2px; position: relative; width: 100%; background-color: white; display: table; }
+.ui-textbox { height: 32px; border: 1px solid #E0E0E0; border-radius: 2px; position: relative; width: 100%; background-color: #FFFFFF; display: table; }
 .ui-textbox-input { display: table-cell; padding: 7px 2px 0 5px; }
-.ui-textbox-input input { font: normal 14px Arial; border: 0; outline: 0; color: black; width: 100%; background-color: white; margin: 0; padding: 0; appearance: none; border-radius: 0; vertical-align: top; line-height: 12px; }
-.ui-textbox-control { position: relative; vertical-align: middle; display: table-cell; text-align: center; white-space: nowrap; text-overflow: clip; border-left: 1px solid #E0E0E0; width: 32px; color: black; }
+.ui-textbox-input input { font: normal 14px Arial; border: 0; outline: 0; color: #000000; width: 100%; background-color: #FFFFFF; margin: 0; padding: 0; appearance: none; border-radius: 0; vertical-align: top; line-height: 12px; }
+.ui-textbox-control { position: relative; vertical-align: middle; display: table-cell; text-align: center; white-space: nowrap; text-overflow: clip; border-left: 1px solid #E0E0E0; width: 32px; color: #000000; }
 .ui-textbox .fa-times { color: red; cursor: pointer; }
 .ui-textbox-label { margin-bottom: 3px; font-size: 12px; text-align: left; }
 .ui-textbox-label i { margin-right: 3px; }
@@ -36,7 +36,7 @@ input:invalid { box-shadow: none; }
 .ui-dark input:-ms-input-placeholder, .ui-dark input:-webkit-input-placeholder, .ui-dark input:-moz-input-placeholder { color: #707070; }
 .ui-dark input[type="text"]:disabled, .ui-dark input[type="password"]:disabled { background-color: #282828; color: #707070; }
 .ui-dark .ui-textbox { border-color: #383838; background-color: #202020; }
-.ui-dark .ui-textbox-input input { color: white; background-color: #202020; }
+.ui-dark .ui-textbox-input input { color: #FFFFFF; background-color: #202020; }
 .ui-dark .ui-textbox-control { border-left-color: #383838; color: #A0A0A0; }
 .ui-dark .ui-textbox .fa-times { color: red; }
 .ui-dark .ui-textbox-required .ui-textbox-label:before { color: red; }

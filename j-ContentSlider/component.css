@@ -3,4 +3,4 @@
 .ui-contentslider-item-visible { opacity: 1 !important; transform: scale(1) rotateX(0deg) !important; }
 .ui-contentslider-pagination { text-align: center; }
 .ui-contentslider-pagination .fa { margin: 2px 3px; color: #A0A0A0; cursor: pointer; font-size: 9px; }
-.ui-contentslider-pagination-selected { color: black !important; }
+.ui-contentslider-pagination-selected { color: #000000 !important; }

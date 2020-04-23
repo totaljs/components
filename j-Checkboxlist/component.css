@@ -4,7 +4,7 @@
 .ui-checkboxlist-required .ui-checkboxlist-label:before { color: red; content: '***'; margin-right: 5px; }
 .ui-checkboxlist-item { cursor: pointer; padding-bottom: 2px; }
 .ui-checkboxlist-item span { cursor: pointer; vertical-align: middle; }
-.ui-checkboxlist-item div { position: relative; display: inline-block; width: 16px; height: 16px; border: 1px solid #D0D0D0; margin-right: 6px; vertical-align: middle; cursor: pointer; color: white; font-size: 11px; text-align: center; padding: 1px 0 0 1px; background-color: white; border-radius: 2px; }
+.ui-checkboxlist-item div { position: relative; display: inline-block; width: 16px; height: 16px; border: 1px solid #D0D0D0; margin-right: 6px; vertical-align: middle; cursor: pointer; color: #FFFFFF; font-size: 11px; text-align: center; padding: 1px 0 0 1px; background-color: #FFFFFF; border-radius: 2px; }
 .ui-checkboxlist-item .fa { display: none; }
 .ui-checkboxlist-checked div { background-color: #4285F4; border-color: #4285F4; }
 .ui-checkboxlist-checked .fa { display: block !important; }

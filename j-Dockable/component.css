@@ -1,5 +1,5 @@
 .ui-dockable-panels { width: 100%; height: 100%; position: relative; }
-.ui-dockable-item { position: absolute; border-radius: 2px; box-shadow: 0 10px 20px rgba(0,0,0,0.03); background-color: white; z-index: 80; }
+.ui-dockable-item { position: absolute; border-radius: 2px; box-shadow: 0 10px 20px rgba(0,0,0,0.03); background-color: #FFFFFF; z-index: 80; }
 .ui-dockable-title { border: 1px solid #E0E0E0; border-radius: 2px 2px 0 0; height: 20px; }
 .ui-dockable-control { float: left; width: 18px; text-align: center; line-height: 18px; cursor: pointer; font-size: 11px; color: gray; border-right: 1px solid #E0E0E0; }
 .ui-dockable-control:hover { background-color: #F9F9F9; }
@@ -18,7 +18,7 @@
 .ui-dockable-resize-bl { left: 0; bottom: 0; cursor: nesw-resize; }
 .ui-dockable-resize-br { right: 0; bottom: 0; cursor: nwse-resize; }
 .ui-dockable-block iframe, .ui-dockable-block webview { pointer-events: none; }
-.ui-dockable-ruler { width: 10px; height: 10px; background-color: black; position: absolute; z-index: 110; left: 0; top: 0; }
+.ui-dockable-ruler { width: 10px; height: 10px; background-color: #000000; position: absolute; z-index: 110; left: 0; top: 0; }
 .ui-dockable-block { z-index: 100 !important; }
 
 .ui-dockable-layout { position: absolute; }
@@ -42,6 +42,6 @@
 .ui-dark .ui-dockable-title { border-color: #404040; }
 .ui-dark .ui-dockable-body { border-color: #404040; }
 .ui-dark .ui-dockable-control { border-right-color: #404040; }
-.ui-dark .ui-dockable-ruler { background-color: white; }
+.ui-dark .ui-dockable-ruler { background-color: #FFFFFF; }
 .ui-dark .ui-dockable-dragged .ui-dockable-title { background-color: #272727; }
 .ui-dark .ui-dockable-control:hover { background-color: #404040; }

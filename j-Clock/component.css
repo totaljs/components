@@ -3,7 +3,7 @@
 .ui-clock-header { height: 40px; font-weight: bold; border-bottom: 1px solid #E0E0E0; text-align: center; font-size: 16pt; padding: 5px 10px 0; }
 .ui-clock-header span { font-size: 16pt; color: gray; }
 .ui-clock span { cursor: pointer; }
-span.ui-clock-active { color: black; }
+span.ui-clock-active { color: #000000; }
 .ui-clock-body { background-color: #f9f9f9; width: 250px; height: 220px; }
 .ui-clock-holder { position: absolute; left: 20px; border: 1px solid #ccc; background-color: #fff; border-radius: 50%; width: 200px; height: 200px; margin-top: 10px; }
 .ui-clock-dial { width: 200px; height: 200px; position: absolute; left: -1px; top: -1px; }
@@ -16,10 +16,10 @@ span.ui-clock-active { color: black; }
 
 .ui-dark .ui-clock,.ui-dark .ui-clock-body { background-color: #303030; border-color: #353535; color: #A0A0A0; box-shadow: 1px 5px 10px rgba(0,0,0,0.2); }
 .ui-dark .ui-clock-header { border-bottom-color: #404040; }
-.ui-dark .ui-clock-header a { color: white; }
-.ui-dark span.ui-clock-active { color: white; }
+.ui-dark .ui-clock-header a { color: #FFFFFF; }
+.ui-dark span.ui-clock-active { color: #FFFFFF; }
 .ui-dark .ui-clock-holder { background-color: #353535; border-color: #505050; }
 .ui-dark .ui-clock-tick { color: #EEEEEE; }
 .ui-dark .ui-clock-tick-selected { background-color: rgba(255, 255, 255, 0.3); }
-.ui-dark .ui-clock-swap { color:white; }
+.ui-dark .ui-clock-swap { color:#FFFFFF; }
 .ui-dark .ui-clock-footer { background-color: #252525; border-top-color: #404040; }

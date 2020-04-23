@@ -5,7 +5,7 @@
 .ui-editable-ok { border-bottom-color: 1px solid #9FE200 !important; }
 .ui-editable-no { border-bottom-color: 1px solid #BE0000 !important; }
 .ui-editable .invalid { color: red; border-bottom-color: red !important; }
-.ui-editable .editable .editable-tag { margin-right: 5px; margin-bottom: 3px; padding: 0px 5px; cursor: default; position: relative; display: inline-block; background-color: #4783EE; color: white; border-radius: 2px; border: 1px solid rgba(0, 0, 0, 0.2); font-size: 11px; vertical-align: text-top; }
+.ui-editable .editable .editable-tag { margin-right: 5px; margin-bottom: 3px; padding: 0px 5px; cursor: default; position: relative; display: inline-block; background-color: #4783EE; color: #FFFFFF; border-radius: 2px; border: 1px solid rgba(0, 0, 0, 0.2); font-size: 11px; vertical-align: text-top; }
 .ui-editable .editable .editable-tag i { margin-right: 4px; font-size: 10px; cursor: pointer; transition: transform 0.1s; display: none; }
 .ui-editable .editable .editable-tag i:hover { transform: scale(1.2); }
 .ui-editable-enabled .editable .editable-tag i { display: inline-block; }

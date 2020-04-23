@@ -1,13 +1,13 @@
 .ui-inlineform-container { position: absolute; width: 100%; }
-.ui-inlineform { background-color: white; border-radius: 2px; box-shadow: 0 2px 20px rgba(0,0,0,0.1); transform: translate(0, 10px); transition: all 0.2s; opacity: 0; border: 1px solid #E0E0E0; }
+.ui-inlineform { background-color: #FFFFFF; border-radius: 2px; box-shadow: 0 2px 20px rgba(0,0,0,0.1); transform: translate(0, 10px); transition: all 0.2s; opacity: 0; border: 1px solid #E0E0E0; }
 .ui-inlineform-animate { transform: skewX(0deg); opacity: 1; }
 .ui-inlineform .padding { padding: 15px; }
-.ui-inlineform-title { padding: 15px 0 12px 15px; font-size: 12px; user-select: none; color: black; background-color: #F0F0F0; border-bottom: 1px solid #E0E0E0; }
+.ui-inlineform-title { padding: 15px 0 12px 15px; font-size: 12px; user-select: none; color: #000000; background-color: #F0F0F0; border-bottom: 1px solid #E0E0E0; }
 .ui-inlineform-title .ui-inlineform-close { float: right; cursor: pointer; font-size: 14px; margin: -2px 0 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: #DD2925; width: 40px; }
 .ui-inlineform-title > span { font-weight: bold; }
 .ui-inlineform-title > .fa { margin-right: 7px; }
 .ui-inlineform-body > div:last-child { padding: 10px 15px; border-top: 1px solid #F0F0F0; }
-.ui-inlineform-body > div:last-child button { border: 1px solid #E0E0E0; background-color: white; border-radius: 2px; height: 25px; padding: 0 10px; color: black; margin: 0; cursor: pointer; font-family: Arial; vertical-align: middle; outline: 0; font-size: 11px; text-decoration: none; transition: all 0.3s; }
+.ui-inlineform-body > div:last-child button { border: 1px solid #E0E0E0; background-color: #FFFFFF; border-radius: 2px; height: 25px; padding: 0 10px; color: #000000; margin: 0; cursor: pointer; font-family: Arial; vertical-align: middle; outline: 0; font-size: 11px; text-decoration: none; transition: all 0.3s; }
 .ui-inlineform-body > div:last-child button .fa { width: 16px; }
 .ui-inlineform-body > div:last-child button:hover { border-color: silver; }
 .ui-inlineform-body > div:last-child button:active { background-color: #D0D0D0; }
@@ -22,5 +22,5 @@
 .ui-dark .ui-inlineform-body > div:last-child { border-top-color: #151515; }
 .ui-dark .ui-inlineform-body > div:last-child button { border-color: #202020; background-color: #505050; color: #E0E0E0; }
 .ui-dark .ui-inlineform-body > div:last-child button:hover { background-color: #606060; }
-.ui-dark .ui-inlineform-body > div:last-child button[name="submit"] { color: white; }
+.ui-dark .ui-inlineform-body > div:last-child button[name="submit"] { color: #FFFFFF; }
 .ui-dark .ui-inlineform-body > div:last-child button:disabled { background-color: #303030 !important; color: #606060 !important; border-color: #202020 !important; }

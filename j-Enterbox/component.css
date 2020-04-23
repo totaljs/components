@@ -1,6 +1,6 @@
-.ui-enterbox { border: 1px solid #E0E0E0; border-radius: 3px; padding: 0 1px; background-color: white; }
-.ui-enterbox-input input { width: 100%; border: 0; background: white; outline: 0; font-size: 16px; }
+.ui-enterbox { border: 1px solid #E0E0E0; border-radius: 3px; padding: 0 1px; background-color: #FFFFFF; }
+.ui-enterbox-input input { width: 100%; border: 0; background: #FFFFFF; outline: 0; font-size: 16px; }
 .ui-enterbox-input { margin-right: 60px; padding: 10px 10px 0; height: 40px; }
 .ui-enterbox-button { float: right; width: 60px; border-left: 1px solid #E0E0E0; }
-.ui-enterbox-button button { width: 100%; background-color: white; outline: 0; border: 0; font-size: 22px; height: 40px; cursor: pointer; }
+.ui-enterbox-button button { width: 100%; background-color: #FFFFFF; outline: 0; border: 0; font-size: 22px; height: 40px; cursor: pointer; }
 .ui-enterbox-button button:hover { background-color: #F8F8F8; }

@@ -7,7 +7,7 @@
 .ui-detail-group label i:before { content: '\f146'; }
 .ui-detail-hidden label i:before { content: '\f0fe' !important; }
 .ui-detail-hidden section { display: none; }
-.ui-detail-item { padding: 6px 0; background-color: white; margin-bottom: 1px; font-size: 13px; border-top: 1px solid #E0E0E0; }
+.ui-detail-item { padding: 6px 0; background-color: #FFFFFF; margin-bottom: 1px; font-size: 13px; border-top: 1px solid #E0E0E0; }
 .ui-detail-key { float: left; width: 170px; line-height: 24px; padding: 0 5px 0 15px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; color: #707070; }
 .ui-detail-key i { margin-right: 7px; }
 .ui-detail-value { margin: 0 10px 0 170px; line-height: 21px; }
@@ -17,7 +17,7 @@
 .ui-detail-date > i { float: right; width: 18px; margin: 4px 0 0 0; text-align: right; font-size: 12px; }
 .ui-detail-date > div { margin-right: 18px; }
 .ui-detail-bool, .ui-detail-list, .ui-detail-color, .ui-detail-fontawesome, .ui-detail-emoji, .ui-detail-file { line-height: 22px; }
-.ui-detail-bool span { width: 15px; height: 15px; display: inline-block; border: 1px solid #D0D0D0; line-height: 15px; font-size: 9px; text-align: center; margin: 4px 0 5px 0; border-radius: 2px; position: relative; color: white; vertical-align: top; }
+.ui-detail-bool span { width: 15px; height: 15px; display: inline-block; border: 1px solid #D0D0D0; line-height: 15px; font-size: 9px; text-align: center; margin: 4px 0 5px 0; border-radius: 2px; position: relative; color: #FFFFFF; vertical-align: top; }
 .ui-detail-bool.checked span { background-color: #4285F4; border-color: #4285F4; }
 .ui-detail-fontawesome, .ui-detail-emoji, .ui-detail-color { line-height: 22px; display: block; font-size: 20px; position: relative; text-align: left; margin-bottom: 2px; }
 .ui-detail-list i { float: right; width: 20px; line-height: 23px; text-align: right; font-size: 12px; }
@@ -41,5 +41,5 @@
 .ui-dark .ui-detail-item { background-color: #202020; }
 .ui-dark .ui-detail-group label { background-color: #282828; }
 .ui-dark .ui-detail-bool span { color: #202020; border-color: #404040; }
-.ui-dark .ui-detail-bool.checked span { color: white; border-color: #4285F4; }
+.ui-dark .ui-detail-bool.checked span { color: #FFFFFF; border-color: #4285F4; }
 .ui-dark .ui-detail-note { color: #606060; }

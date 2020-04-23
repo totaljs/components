@@ -3,7 +3,7 @@
 .ui-dynamicvaluelist-label i { margin-right: 5px; }
 .ui-dynamicvaluelist-items { }
 .ui-dynamicvaluelist-items > div:first-child { border-radius: 2px 2px 0 0; }
-.ui-dynamicvaluelist-item { line-height: 32px; background-color: white; border: 1px solid #E0E0E0; border-bottom: 0; }
+.ui-dynamicvaluelist-item { line-height: 32px; background-color: #FFFFFF; border: 1px solid #E0E0E0; border-bottom: 0; }
 .ui-dynamicvaluelist-remove { float: right; width: 32px; text-align: center; color: #DA4453; font-size: 14px; border-left: 1px solid #E0E0E0; cursor: pointer; user-select: none; }
 .ui-dynamicvaluelist-remove:hover { opacity: 0.7; }
 .ui-dynamicvaluelist-value { padding-left: 10px; margin-right: 32px; cursor: pointer; }

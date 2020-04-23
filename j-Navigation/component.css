@@ -1,5 +1,5 @@
 .ui-navigation-item > div { display: none; }
-.ui-navigation-item span { display: block; width: 96%; border: 0; text-align: left; padding: 2px 5px; background-color: transparent; color: black; outline: 0; text-decoration: none; margin: 0 auto 2px; cursor: pointer; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.ui-navigation-item span { display: block; width: 96%; border: 0; text-align: left; padding: 2px 5px; background-color: transparent; color: #000000; outline: 0; text-decoration: none; margin: 0 auto 2px; cursor: pointer; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 .ui-navigation-item span .far { width: 20px; text-align: center; margin-right: 5px; }
 .ui-navigation-item span .far:before { content: '\f15c'; }
 .ui-navigation-item span b { float: right; font-size: 10px; margin: 2px 0 0; display: none; }
@@ -17,4 +17,4 @@
 
 .ui-dark .ui-navigation-item span { color: #A0A0A0; }
 .ui-dark .ui-navigation-selected { background-color: #353535; }
-.ui-dark .ui-navigation-selected span { color: white; }
+.ui-dark .ui-navigation-selected span { color: #FFFFFF; }

@@ -2,10 +2,10 @@
 .ui-tour-background { display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 9997; background-color: #000; opacity: 0.8; }
 .ui-tour { display: none; position: absolute !important; z-index: 9997; background: inherit; border-radius: 2px; }
 .ui-tour-element { position: relative !important; z-index: 9998 !important; }
-.ui-tour-info { display: none; position: absolute; z-index: 9999; background-color: white; border-radius: 2px; width: 340px; border: 1px solid #BBBBBB; }
+.ui-tour-info { display: none; position: absolute; z-index: 9999; background-color: #FFFFFF; border-radius: 2px; width: 340px; border: 1px solid #BBBBBB; }
 .ui-tour-info-body { font-size: 13px; padding: 10px 10px; }
 .ui-tour-info-footer { padding: 10px 10px; padding-top: 0; }
-.ui-tour-info-footer button { background: white; border: 1px solid #bbb; height: 20px; font-size: 12px; }
+.ui-tour-info-footer button { background: #FFFFFF; border: 1px solid #bbb; height: 20px; font-size: 12px; }
 .ui-tour-info-footer button.close { border-radius: 2px; float: right; min-width: 45px; }
 .ui-tour-info-footer button.back { border-top-left-radius: 2px; border-bottom-left-radius: 2px; min-width: 60px; }
 .ui-tour-info-footer button.back i { margin-right: 5px; }

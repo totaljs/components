@@ -1,4 +1,4 @@
-.ui-formtab-modal { position: fixed; min-width: 200px; background-color: white; margin-left: 8px; text-align: left; border: 1px solid #D0D0D0; border-bottom: 0; z-index: 100; bottom: 0; right: 0; overflow: hidden; border-radius: 2px 2px 0 0; }
+.ui-formtab-modal { position: fixed; min-width: 200px; background-color: #FFFFFF; margin-left: 8px; text-align: left; border: 1px solid #D0D0D0; border-bottom: 0; z-index: 100; bottom: 0; right: 0; overflow: hidden; border-radius: 2px 2px 0 0; }
 .ui-formtab-body { display: none; }
 .ui-formtab-open { box-shadow: 0 0 20px rgba(0,0,0,0.05); }
 .ui-formtab-open .ui-formtab-body { display: block; }
@@ -10,7 +10,7 @@
 .ui-formtab-title { height: 30px; line-height: 30px; background-color: #F0F0F0; padding: 0 5px; width: 200px; border-radius: 2px 2px 0 0; color: gray; }
 .ui-formtab-title:hover { background-color: #F4F4F4; }
 .ui-formtab-title i { float: right; width: 24px; height: 24px; line-height: 24px; text-align: center; cursor: pointer; margin: 3px 0 0; border-radius: 2px; font-size: 12px; color: gray; }
-.ui-formtab-title i:hover { background-color: rgba(0,0,0,0.1); color: black; }
+.ui-formtab-title i:hover { background-color: rgba(0,0,0,0.1); color: #000000; }
 .ui-formtab-title label { margin-right: 65px; display: block; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; padding-left: 3px; cursor: pointer; font-size: 11px; }
 .ui-formtab-open .ui-formtab-title label { font-size: 13px; }
 .ui-formtab-layer { position: fixed; left: 0; right: 0; bottom: 0; top: 0; background-color: rgba(255,255,255,0.6); z-index: 101; display: none; }
@@ -19,5 +19,5 @@
 .ui-dark .ui-formtab-modal { background-color: #252525; border-color: #404040; }
 .ui-dark .ui-formtab-title { background-color: #404040; }
 .ui-dark .ui-formtab-title:hover { background-color: #444444; }
-.ui-dark .ui-formtab-title i:hover { color: white; }
+.ui-dark .ui-formtab-title i:hover { color: #FFFFFF; }
 .ui-dark .ui-formtab-layer { background-color: rgba(0,0,0,0.6); }

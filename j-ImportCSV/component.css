@@ -1,6 +1,6 @@
 .ui-importcsv { border: 1px solid #E0E0E0; }
 .ui-importcsv-head, .ui-importcsv-row { height: 20px; overflow: hidden; border-top: 1px solid #E0E0E0; font-size: 12px; }
-.ui-importcsv-head { background-color: white; height: 30px; border-top: 0; cursor: pointer; }
+.ui-importcsv-head { background-color: #FFFFFF; height: 30px; border-top: 0; cursor: pointer; }
 .ui-importcsv-head > div:hover { background-color: #F8F8F8; }
 .ui-importcsv-head i { margin-right: 5px; }
 .ui-importcsv-head > div, .ui-importcsv-row > div { float: left; width: 200px; line-height: 20px; border-left: 1px solid #E0E0E0; padding: 0 8px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
@@ -10,7 +10,7 @@
 
 .ui-dark .ui-importcsv { border-color: #404040; }
 .ui-dark .ui-importcsv-head, .ui-dark .ui-importcsv-row { border-top-color: #404040; }
-.ui-dark .ui-importcsv-head { background-color: #262626; color: white; }
+.ui-dark .ui-importcsv-head { background-color: #262626; color: #FFFFFF; }
 .ui-dark .ui-importcsv-head > div:hover { background-color: #303030; }
 .ui-dark .ui-importcsv-head > div, .ui-dark .ui-importcsv-row > div { border-left-color: #404040; }
 .ui-dark .ui-importcsv-empty { color: #777777; }

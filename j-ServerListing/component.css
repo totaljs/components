@@ -1,8 +1,8 @@
 .ui-serverlisting-paginate { padding: 10px 0 0; height: 50px; }
-.ui-serverlisting-paginate button { width: 28px; height: 28px; background-color: white; border: 1px solid #4285F4; border-left: 0; outline: 0; border-radius: 0; font-size: 12px; color: #4285F4; padding: 1px 0 0; margin: 0; user-select: none; }
+.ui-serverlisting-paginate button { width: 28px; height: 28px; background-color: #FFFFFF; border: 1px solid #4285F4; border-left: 0; outline: 0; border-radius: 0; font-size: 12px; color: #4285F4; padding: 1px 0 0; margin: 0; user-select: none; }
 .ui-serverlisting-paginate button:first-child { margin-left: 0; border-bottom-left-radius: 3px; border-top-left-radius: 3px; border-left: 1px solid #4285F4; }
 .ui-serverlisting-paginate button:last-child { margin-left: 0; border-bottom-right-radius: 3px; border-top-right-radius: 3px; }
-.ui-serverlisting-paginate .selected { background-color: #4285F4 !important; color: white; }
+.ui-serverlisting-paginate .selected { background-color: #4285F4 !important; color: #FFFFFF; }
 .ui-serverlisting-info { float: right; color: gray; font-size: 12px; padding: 5px 0; }
 .ui-serverlisting-fixed .ui-serverlisting-info { padding-right: 10px; }
 .ui-serverlisting-fixed .ui-serverlisting-paginate { padding-left: 10px; border-top: 1px solid #E0E0E0; }

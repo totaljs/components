@@ -11,7 +11,7 @@
 .ui-treeview-item-container > .ui-treeview-item > i { float: right; display: none; font-size: 10px; color: gray; margin: 3px 5px 0 0; }
 .ui-treeview-arrow:before { content: '\f107'; }
 .ui-treeview-canexpand > .ui-treeview-item > i { display: block; }
-.ui-treeview-canexpand > .ui-treeview-item:hover > i { color: black; }
+.ui-treeview-canexpand > .ui-treeview-item:hover > i { color: #000000; }
 .ui-treeview-open > .ui-treeview-item > i:before { content: '\f106'; }
 
 .ui-disabled.ui-treeview { cursor: not-allowed; }
@@ -21,4 +21,4 @@
 .ui-dark .ui-treeview-item-container { border-left-color: #404040; }
 .ui-dark .ui-treeview-selected > div { background-color: #404040; }
 .ui-dark .ui-treeview-dragged > .ui-treeview-item > div { background-color: #404040; }
-.ui-dark .ui-treeview-canexpand > .ui-treeview-item:hover > i { color: white; }
+.ui-dark .ui-treeview-canexpand > .ui-treeview-item:hover > i { color: #FFFFFF; }

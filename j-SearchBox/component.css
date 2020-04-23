@@ -1,13 +1,13 @@
 .ui-searchbox { border-radius: 100px; border: 1px solid #E0E0E0; padding: 5px 10px; font-size: 14px; }
 .ui-searchbox-input > div { margin-right: 20px; }
-.ui-searchbox-input > div input { width: 100%; border: 0; padding: 0; margin: 0; outline: 0; background-color: transparent; color: black; }
+.ui-searchbox-input > div input { width: 100%; border: 0; padding: 0; margin: 0; outline: 0; background-color: transparent; color: #000000; }
 .ui-searchbox-type { float: left; cursor: default; }
 .ui-searchbox-control { float: right; width: 20px; color: gray; text-align: right; cursor: pointer; }
 .ui-searchbox-placeholder { color: gray; }
 .ui-searchbox-placeholder i { margin-right: 5px; }
 
 .ui-dark .ui-searchbox { border-color: #404040; background-color: #252525; }
-.ui-dark .ui-searchbox-input > div input { color: white; }
+.ui-dark .ui-searchbox-input > div input { color: #FFFFFF; }
 .ui-dark .ui-searchbox-control { color: #A0A0A0; }
 .ui-large .ui-searchbox { font-size: 16px; }
 .ui-large .ui-searchbox-control { margin-top: 1px; }

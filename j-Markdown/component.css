@@ -2,8 +2,8 @@
 .markdown { font-size: 16px; line-height: 22px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; color: #404040; overflow-x: hidden; padding: 0; }
 .markdown *:last-child { margin-bottom: 0; }
 .markdown code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
-.markdown h1 { cursor: default; margin: 0 0 20px; font-size: 30px; padding: 0 0 13px; border-bottom: 1px solid #E0E0E0; color: black; line-height: 38px; font-family: -apple-systm, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-weight: normal; line-height: 32px; font-weight: bold; }
-.markdown h2 { cursor: default; margin: 0 0 18px; font-weight: bold; font-size: 25px; padding: 0 0 8px; border-bottom: 1px solid #E0E0E0; color: black; line-height: 28px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; }
+.markdown h1 { cursor: default; margin: 0 0 20px; font-size: 30px; padding: 0 0 13px; border-bottom: 1px solid #E0E0E0; color: #000000; line-height: 38px; font-family: -apple-systm, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-weight: normal; line-height: 32px; font-weight: bold; }
+.markdown h2 { cursor: default; margin: 0 0 18px; font-weight: bold; font-size: 25px; padding: 0 0 8px; border-bottom: 1px solid #E0E0E0; color: #000000; line-height: 28px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; }
 .markdown h3 { cursor: default; margin: 0 0 10px; font-size: 20px; padding: 0 0 5px; color: #404040; font-weight: bold; line-height: 22px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; }
 .markdown h4, .markdown h5 { cursor: default; margin: 0 0 10px; font-size: 17px; color: #404040; font-weight: bold; line-height: 22px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; background-color: #F0F0F0; padding: 4px 3px; border-radius: 3px; border-bottom: 1px solid #E0E0E0; }
 .markdown p { margin: 0 0 20px; padding-left: 0; padding-right: 0; }
@@ -17,7 +17,7 @@
 .markdown ul ul { margin-bottom: 0; }
 .markdown img { max-width: 100%; }
 .markdown th { background-color: #F8F8F8; }
-.markdown blockquote { color: black; margin: 0 0 20px; padding: 10px 0 0 20px; position: relative; font-style: italic; }
+.markdown blockquote { color: #000000; margin: 0 0 20px; padding: 10px 0 0 20px; position: relative; font-style: italic; }
 .markdown blockquote:before { content: '\201C'; position: absolute; margin-left: -18px; margin-top: -13px; font: 45px 'PT Sans', sans-serif; color: #A0A0A0; }
 .markdown section { padding: 15px 20px; background-color: #FFFED1; margin: 10px 0 20px; border-radius: 3px; }
 .markdown hr { border-color: #E0E0E0; border-width: 2px; }
@@ -35,11 +35,11 @@
 .markdown .secret > div { padding: 15px 5px 1px; border-radius: 0 0 2px 2px; background-color: #F8F8F8; }
 
 .ui-dark .markdown { color: #C0C0C0; }
-.ui-dark .markdown blockquote { color: white; }
+.ui-dark .markdown blockquote { color: #FFFFFF; }
 .ui-dark .markdown blockquote:before { color: #707070; }
 .ui-dark .markdown th { background-color: #404040; }
-.ui-dark .markdown h2 { color: white; border-bottom-color: #404040; }
-.ui-dark .markdown h1 { color: white; border-bottom-color: #404040; }
+.ui-dark .markdown h2 { color: #FFFFFF; border-bottom-color: #404040; }
+.ui-dark .markdown h1 { color: #FFFFFF; border-bottom-color: #404040; }
 .ui-dark .markdown h1 code { background-color: #404040; }
 .ui-dark .markdown hr { border-color: #404040; }
 .ui-dark .markdown h2 code { background-color: #404040; }

@@ -1,7 +1,7 @@
 .ui-listform-invalid .ui-listform-items { border-color: red; }
 .ui-listform-items { border: 1px solid #E0E0E0; border-radius: 2px; }
 .ui-listform-form-container { background-color: #F8F8F8; padding: 15px; }
-.ui-listform-form { border-radius: 2px; border: 1px solid #E0E0E0; background-color: white; }
+.ui-listform-form { border-radius: 2px; border: 1px solid #E0E0E0; background-color: #FFFFFF; }
 .ui-listform-emptylabel { text-align: center; display: none; padding: 15px; font-size: 12px; color: gray; }
 .ui-listform-empty .ui-listform-emptylabel { display: block; }
 .ui-listform-item { border-bottom: 1px solid #E0E0E0; cursor: pointer; }
