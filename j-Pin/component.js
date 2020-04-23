@@ -1,4 +1,4 @@
-COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true', function(self, config) {
+COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true', function(self, config, cls) {
 
 	var reg_validation = /[0-9]/;
 	var inputs = null;
@@ -34,7 +34,7 @@ COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true', function(self, config
 
 	self.make = function() {
 
-		self.aclass('ui-pin');
+		self.aclass(cls);
 		self.redraw();
 
 		self.event('keypress', 'input', function(e) {
@@ -65,7 +65,7 @@ COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true', function(self, config
 		});
 
 		self.event('keydown', 'input', function(e) {
-			if (e.which === 8) {
+			if (e.which === 8) {
 
 				var el = $(this);
 				if (!el.val()) {
@@ -83,7 +83,7 @@ COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true', function(self, config
 		inputs = self.find('input');
 	};
 
-    self.maskforce2 = function() {
+	self.maskforce2 = function() {
 		self.maskforce(this);
 	};
 
@@ -102,7 +102,11 @@ COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true', function(self, config
 	};
 
 	self.focus = function() {
-		self.find('input').eq(0).focus();
+		var el = self.find('input').eq(0);
+		if (el.length)
+			el.focus();
+		else
+			setTimeout(self.focus, 500);
 	};
 
 	self.getter = function() {
@@ -146,6 +150,6 @@ COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true', function(self, config
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		self.tclass('ui-pin-invalid', invalid);
+		self.tclass(cls + '-invalid', invalid);
 	};
 });
