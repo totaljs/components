@@ -48,11 +48,11 @@
 .dg-row-empty { height: 28px; font-size: 12px; border-bottom: 1px solid #F0F0F0; background-color: #FFFFFF !important; cursor: default; }
 .dg-footer { border: 1px solid #E0E0E0; border-top: 0; height: 32px; }
 .dg-pagination { float: left; }
-.dg-pagination button { background-color: #FFF; border: 0; border-left: 1px solid #E0E0E0; height: 31px; width: 40px; color: #000000; font-size: 12px; text-align: center; outline: 0; }
+.dg-pagination button { background-color: #FFFFFF; border: 0; border-left: 1px solid #E0E0E0; height: 31px; width: 34px; color: #000000; font-size: 12px; text-align: center; outline: 0; }
 .dg-pagination button:hover { background-color: #F0F0F0; }
 .dg-pagination button:disabled { background-color: #F9F9F9; color: #A0A0A0; }
 .dg-pagination button:first-child { border-left: 0; }
-.dg-pagination button[name="page-prev"] { border-right: 1px solid #E0E0E0; width: 41px; }
+.dg-pagination button[name="page-prev"] { border-right: 1px solid #E0E0E0; width: 34px; }
 .dg-pagination button[name="page-last"] { border-right: 1px solid #E0E0E0; }
 .dg-pagination input { width: 40px; text-align: center; border: 0; outline: 0; font-size: 12px; padding: 0; margin: 0; background: transparent; }
 .dg-pagination > div { position: relative; display: inline-block; }
