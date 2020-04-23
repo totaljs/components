@@ -3,6 +3,8 @@
 .ui-listing-paginate button:first-child { margin-left: 0; border-bottom-left-radius: 3px; border-top-left-radius: 3px; border-left: 1px solid #4285F4; }
 .ui-listing-paginate button:last-child { margin-left: 0; border-bottom-right-radius: 3px; border-top-right-radius: 3px; }
 .ui-listing-paginate .selected { background-color: #4285F4 !important; color: #FFFFFF; }
+.ui-listing-info { float: right; color: gray; font-size: 12px; padding: 5px 0; }
+.ui-listing-fixed .ui-listing-info { padding-right: 10px; }
 .ui-listing-fixed .ui-listing-paginate { padding-left: 10px; border-top: 1px solid #E0E0E0; }
 
 .ui-dark .ui-listing-fixed .ui-listing-paginate { border-top-color: #303030; }

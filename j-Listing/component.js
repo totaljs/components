@@ -1,4 +1,4 @@
-COMPONENT('listing', 'pages:3;count:20;scrolltop:1;margin:0', function(self, config, cls) {
+COMPONENT('listing', 'pages:3;count:20;scrolltop:1;margin:0;pluralizeitems:# items,# item,# items,# items;pluralizepages:# pages,# page,# pages,# pages', function(self, config, cls) {
 
 	var container, paginate, current, items, pages = 0;
 	var cls2 = '.' + cls;
@@ -18,7 +18,7 @@ COMPONENT('listing', 'pages:3;count:20;scrolltop:1;margin:0', function(self, con
 		});
 
 		self.aclass(cls);
-		self.html('<div class="{0}-scrollbar"><div class="{0}-container"></div></div><div class="{0}-paginate"></div>'.format(cls));
+		self.html('<div class="{0}-scrollbar"><div class="{0}-container"></div></div><div class="{0}-paginate"><div class="{0}-info"></div><div class="{0}-buttons"></div></div>'.format(cls));
 		container = self.find(cls2 + '-container');
 		paginate = self.find(cls2 + '-paginate');
 		paginate.on('click', 'button', function() {
@@ -132,7 +132,7 @@ COMPONENT('listing', 'pages:3;count:20;scrolltop:1;margin:0', function(self, con
 				builder.push('<button class="{1}-page" data-index="{0}">{0}</button>'.format(i, cls));
 
 			builder.push(template.format('+', 'right'));
-			paginate.html(builder.join(''));
+			paginate.find(cls2 + '-buttons').html(builder.join(''));
 		} else {
 
 			var max = half * 2 + 1;
@@ -145,9 +145,9 @@ COMPONENT('listing', 'pages:3;count:20;scrolltop:1;margin:0', function(self, con
 				var page = pfrom + index;
 				$(this).attrd('index', page).html(page);
 			});
-
 		}
 
+		paginate.find(cls2 + '-info').html(pages ? (pages.pluralize(config.pluralizepages) + ' / ' + items.length.pluralize(config.pluralizeitems)) : '');
 		paginate.find('.selected').rclass('selected');
 		paginate.find(cls2 + '-page[data-index="{0}"]'.format(page)).aclass('selected');
 		paginate.tclass('hidden', pages < 2 && !self.scrollbar);
@@ -169,7 +169,8 @@ COMPONENT('listing', 'pages:3;count:20;scrolltop:1;margin:0', function(self, con
 		} else {
 			items = null;
 			container.empty();
-			paginate.empty();
+			paginate.find(cls2 + '-buttons').empty();
+			paginate.find(cls2 + '-info').aclass('hidden');
 		}
 	};
 });
