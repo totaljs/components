@@ -8,13 +8,8 @@ __Configuration__:
 
 - `firstday` {Number} first day in the week
 - `today` {String} a label for `Set today` button
-- `close` {String} a label for close button
 - `days` {String} days e.g. `SU,MO,TU,WE,TH,FR,SA` (default).
 - `months` {String} months e.g. `January,February,...` (default).
-- `yearselect` {Boolean} dropdown with years (default `true`).
-- `monthselect` {Boolean} dropdown with months (default `true`).
-- `yearfrom` {String} sets minimum year limit in dropdown e.g. `-5 years` `current`  (default `-100 years`).
-- `yearto` {String} sets maximum year limit in dropdown  `+5 years` `current` (default `current`).
 
 The component must be called manually or works with `j-Input` component automatically. The component is a singleton.
 
@@ -38,7 +33,13 @@ opt.callback = function(newdate) {
 // opt.offsetY {Number} "y" offset
 // opt.close {Function} optional, this function can determine closing of DatePicker
 
-SETTER('datepicker', 'show', opt);
+// NEW and OPTIONAL
+opt.badges = function(date, append) {
+	// Appends small and red badges to the current view/month
+	append([date1, date2, date3]);
+};
+
+SETTER('datepicker/show', opt);
 ```
 
 ### Author
