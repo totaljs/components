@@ -1,11 +1,10 @@
-COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;monthselect:true;yearfrom:-70 years;yearto:5 years', function(self, config) {
+COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls) {
 
-	var cls = 'ui-datepicker';
 	var cls2 = '.' + cls;
 	var skip = false;
 	var visible = false;
-	var touchdiff;
-	var startX;
+	var current;
+	var elyears, elmonths, elbody;
 
 	self.days = EMPTYARRAY;
 	self.months = EMPTYARRAY;
@@ -51,16 +50,16 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 
 			case 'yearfrom':
 				if (value.indexOf('current') !== -1)
-					self.years_from = +(new Date().format('yyyy'));
+					self.years_from = +(NOW.format('yyyy'));
 				else
-					self.years_from = +(new Date().add(value).format('yyyy'));
+					self.years_from = +(NOW.add(value).format('yyyy'));
 				break;
 
 			case 'yearto':
 				if (value.indexOf('current') !== -1)
-					self.years_to = +(new Date().format('yyyy'));
+					self.years_to = +(NOW.format('yyyy'));
 				else
-					self.years_to = +(new Date().add(value).format('yyyy'));
+					self.years_to = +(NOW.add(value).format('yyyy'));
 				break;
 		}
 	};
@@ -82,10 +81,10 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 
 		var d = new Date(year, month, 1, 12, 0);
 		var output = { header: [], days: [], month: month, year: year };
-		var firstDay = config.firstday;
-		var firstCount = 0;
-		var frm = d.getDay() - firstDay;
-		var today = new Date();
+		var firstday = config.firstday;
+		var firstcount = 0;
+		var frm = d.getDay() - firstday;
+		var today = NOW;
 		var ty = today.getFullYear();
 		var tm = today.getMonth();
 		var td = today.getDate();
@@ -97,11 +96,11 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 		if (frm < 0)
 			frm = 7 + frm;
 
-		while (firstCount++ < 7) {
-			output.header.push({ index: firstDay, name: self.days[firstDay] });
-			firstDay++;
-			if (firstDay > 6)
-				firstDay = 0;
+		while (firstcount++ < 7) {
+			output.header.push({ index: firstday, name: self.days[firstday] });
+			firstday++;
+			if (firstday > 6)
+				firstday = 0;
 		}
 
 		var index = 0;
@@ -112,28 +111,28 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 
 		for (var i = 0; i < days + frm; i++) {
 
-			var obj = { isToday: false, isSelected: false, isEmpty: false, isFuture: false, number: 0, index: ++count };
+			var obj = { today: false, selected: false, empty: false, future: false, number: 0, index: ++count };
 
 			if (i >= frm) {
 				obj.number = ++index;
-				obj.isSelected = sy === year && sm === month && sd === index;
-				obj.isToday = ty === year && tm === month && td === index;
-				obj.isFuture = ty < year;
-				if (!obj.isFuture && year === ty) {
+				obj.selected = sy === year && sm === month && sd === index;
+				obj.today = ty === year && tm === month && td === index;
+				obj.future = ty < year;
+				if (!obj.future && year === ty) {
 					if (tm < month)
-						obj.isFuture = true;
+						obj.future = true;
 					else if (tm === month)
-						obj.isFuture = td < index;
+						obj.future = td < index;
 				}
 
 			} else {
 				indexEmpty++;
 				obj.number = prev + indexEmpty;
-				obj.isEmpty = true;
+				obj.empty = true;
 				cur = d.add('-' + indexEmpty + ' days');
 			}
 
-			if (!obj.isEmpty)
+			if (!obj.empty)
 				cur = d.add(i + ' days');
 
 			obj.month = i >= frm && obj.number <= days ? d.getMonth() : cur.getMonth();
@@ -146,7 +145,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 
 		for (var i = count; i < 42; i++) {
 			var cur = d.add(i + ' days');
-			var obj = { isToday: false, isSelected: false, isEmpty: true, isFuture: true, number: ++indexEmpty, index: ++count };
+			var obj = { today: false, selected: false, empty: true, future: true, number: ++indexEmpty, index: ++count };
 			obj.month = cur.getMonth();
 			obj.year = cur.getFullYear();
 			obj.date = cur;
@@ -237,7 +236,6 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 		self.bindevents();
 		self.target = dom;
 		visible = true;
-		return self;
 	};
 
 	self.setdate = function(dt) {
@@ -263,138 +261,183 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 		self.aclass(cls + ' hidden');
 
 		var conf = {};
+		var reconfigure = false;
 
 		if (!config.days) {
 			conf.days = [];
 			for (var i = 0; i < DAYS.length; i++)
 				conf.days.push(DAYS[i].substring(0, 2).toUpperCase());
+			reconfigure = true;
 		}
 
-		!config.months && (conf.months = MONTHS);
-		self.reconfigure(conf);
+		if (!config.months) {
+			conf.months = MONTHS;
+			reconfigure = true;
+		}
 
-		self.event('click', cls2 + '-today-a', function() {
-			self.setdate(new Date());
-			self.hide();
-		});
+		reconfigure && self.reconfigure(conf);
+		W.$datepicker = self;
 
-		self.event('click touchend', cls2 + '-day', function() {
-			if (Date.now() - touchdiff > 500)
-				return;
-			var arr = this.getAttribute('data-date').split('-');
-			var dt = new Date(+arr[0], +arr[1], +arr[2], 12, 0);
-			self.find(cls2 + '-selected').rclass(cls + '-selected');
-			var el = $(this).aclass(cls + '-selected');
-			skip = !el.hclass(cls + '-disabled');
-			self.setdate(dt);
-			self.hide();
-		});
-
-		self.event('click touchend', cls2 + '-cancel', function() {
-			if (typeof(self.opt.value) === 'string')
-				SET2(self.opt.value, null);
-			else
-				self.opt.callback(null);
-			self.hide();
-		});
-
-		self.event('click', cls2 + '-header', function(e) {
+		self.event('click', function(e) {
 			e.stopPropagation();
 		});
-
-		self.event('change', cls2 + '-year', function(e) {
-
-			clearTimeout2('datepickerhide');
-			e.preventDefault();
-			e.stopPropagation();
-
-			var arr = $(this).attrd('date').split('-');
-			var dt = new Date(+arr[0], +arr[1], 1, 12, 0);
-			dt.setFullYear(this.value);
-			self.date(dt, true);
-		});
-
-		self.event('change', cls2 + '-month', function(e){
-
-			clearTimeout2('datepickerhide');
-			e.preventDefault();
-			e.stopPropagation();
-
-			var arr = $(this).attrd('date').split('-');
-			var dt = new Date(+arr[0], +arr[1], 1, 12, 0);
-			dt.setMonth(this.value);
-			self.date(dt, true);
-		});
-
-		self.event('click', 'button', function(e) {
-
-			e.preventDefault();
-			e.stopPropagation();
-
-			var arr = $(this).attrd('date').split('-');
-			var dt = new Date(+arr[0], +arr[1], 1, 12, 0);
-			switch (this.name) {
-				case 'prev':
-					dt.setMonth(dt.getMonth() - 1);
-					break;
-				case 'next':
-					dt.setMonth(dt.getMonth() + 1);
-					break;
-			}
-
-			self.date(dt, true);
-		});
-
-		self.event('touchstart touchmove', cls2 + '-table',function(e){
-
-			e.stopPropagation();
-			e.preventDefault();
-
-			var x = e.originalEvent.touches[0].pageX;
-
-			if (e.type === 'touchstart') {
-				startX = x;
-				touchdiff = Date.now();
-				return;
-			}
-
-			var diffX = startX - x;
-			if (diffX > 70 || diffX < -70) {
-				var arr = $(this).data('date').split('-');
-				var dt = new Date(+arr[0], +arr[1], 1, 12, 0);
-				dt.setMonth(dt.getMonth() + (diffX > 50 ? 1 : -1));
-				self.date(dt, true);
-			}
-		});
-
-		window.$datepicker = self;
 
 		var hide = function() {
-			visible && window.$datepicker && window.$datepicker.hide();
+			visible && W.$datepicker && W.$datepicker.hide();
 		};
 
 		var hide2 = function() {
 			visible && setTimeout2('datepickerhide', function() {
-				window.$datepicker && window.$datepicker.hide();
+				W.$datepicker && W.$datepicker.hide();
 			}, 20);
 		};
 
 		self.bindevents = function() {
 			if (!visible)
-				$(window).on('scroll click', hide2);
+				$(W).on('scroll click', hide2);
 		};
 
 		self.unbindevents = function() {
 			if (visible)
-				$(window).off('scroll click', hide2);
+				$(W).off('scroll click', hide2);
 		};
 
 		self.on('reflow + scroll + resize', hide);
 	};
 
+	self.makehtml = function() {
+		var builder = [];
+		builder.push('<div class="{0}-header"><span class="{0}-next"><i class="fa fa-angle-right"></i></span><span class="{0}-prev"><i class="fa fa-angle-left"></i></span><div class="{0}-info"><span class="{0}-month">---</span><span class="{0}-year">---</span></div></div><div class="{0}-years hidden"></div><div class="{0}-months"></div><div class="{0}-body hidden"><div class="{0}-week">'.format(cls));
+		for (var i = 0; i < 7; i++)
+			builder.push('<div></div>');
+		builder.push('</div><div class="{0}-days">'.format(cls));
+
+		for (var i = 0; i < 42; i++)
+			builder.push('<div class="{0}-date"><div></div></div>'.format(cls, i));
+		builder.push('</div></div><div class="{0}-footer"><span class="{0}-now">{2}</span></div>'.format(cls, config.close, config.today));
+		self.html(builder.join(''));
+
+		builder = [];
+		elbody = self.find(cls2 + '-body');
+		elmonths = self.find(cls2 + '-months');
+		for (var i = 0; i < 12; i++)
+			builder.push('<div class="{0}-month" data-index="{1}"><div></div></div>'.format(cls, i));
+		elmonths.html(builder.join(''));
+
+		builder = [];
+		elyears = self.find(cls2 + '-years');
+		for (var i = 0; i < 25; i++)
+			builder.push('<div class="{0}-year"><div></div></div>'.format(cls));
+		elyears.html(builder.join(''));
+
+		self.makehtml = null;
+
+		self.find(cls2 + '-month').on('click', function(e) {
+
+			var el = $(this);
+			var index = el.attrd('index');
+			var h = 'hidden';
+
+			if (index) {
+				current.setMonth(+index);
+				self.date(current, true);
+			} else if (!elmonths.hclass(h))
+				index = 1;
+
+			elyears.aclass(h);
+
+			if (index)
+				elmonths.aclass(h);
+			else {
+				elmonths.find(cls2 + '-today').rclass(cls + '-today');
+				elmonths.find(cls2 + '-month').eq(current.getMonth()).aclass(cls + '-today');
+				elmonths.rclass(h);
+			}
+
+			elbody.tclass(h, !elmonths.hclass(h));
+			e.preventDefault();
+			e.stopPropagation();
+
+		});
+
+		self.find(cls2 + '-year').on('click', function(e) {
+			var el = $(this);
+			var year = el.attrd('year');
+			var h = 'hidden';
+
+			if (year) {
+				current.setFullYear(+year);
+				self.date(current, true);
+			} else if (!elyears.hclass(h))
+				year = 1;
+
+			elmonths.aclass(h);
+
+			if (year)
+				elyears.aclass(h);
+			else {
+				self.years();
+				elyears.rclass(h);
+			}
+
+			elbody.tclass(h, !elyears.hclass(h));
+			e.preventDefault();
+			e.stopPropagation();
+		});
+
+		self.years = function() {
+			dom = self.find(cls2 + '-years').find(cls2 + '-year');
+			var year = current.getFullYear();
+			var index = 12;
+			for (var i = 0; i < 25; i++) {
+				var val = year - (index--);
+				$(dom[i]).tclass(cls + '-today', val === year).attrd('year', val).find('div')[0].innerHTML = val;
+			}
+		};
+
+		self.find(cls2 + '-date').on('click', function(e) {
+			var dt = $(this).attrd('date').split('-');
+			self.setdate(new Date(+dt[0], +dt[1], +dt[2], 12, 0, 0));
+			self.hide();
+		});
+
+		self.find(cls2 + '-now').on('click', function(e) {
+			self.setdate(new Date());
+			self.hide();
+		});
+
+		self.find(cls2 + '-next').on('click', function(e) {
+
+			if (elyears.hclass('hidden')) {
+				current.setMonth(current.getMonth() + 1);
+				self.date(current, true);
+			} else {
+				current.setFullYear(current.getFullYear() + 25);
+				self.years();
+			}
+
+			e.preventDefault();
+			e.stopPropagation();
+		});
+
+		self.find(cls2 + '-prev').on('click', function(e) {
+
+			if (elyears.hclass('hidden')) {
+				current.setMonth(current.getMonth() - 1);
+				self.date(current, true);
+			} else {
+				current.setFullYear(current.getFullYear() - 25);
+				self.years();
+			}
+
+			e.preventDefault();
+			e.stopPropagation();
+		});
+	};
+
 	self.date = function(value, skipday) {
 
-		var clssel = cls + '-selected';
+		self.makehtml && self.makehtml();
 
 		if (typeof(value) === 'string')
 			value = value.parseDate();
@@ -420,55 +463,65 @@ COMPONENT('datepicker', 'today:Set today;firstday:0;close:Close;yearselect:true;
 			return;
 		}
 
-		if (!value)
-			value = NOW = new Date();
+		value = new Date((value || NOW).getTime());
 
 		var output = self.calculate(value.getFullYear(), value.getMonth(), value);
-		var builder = [];
+		var dom = self.find(cls2 + '-date');
+
+		self.find(cls2 + '-body').rclass('hidden');
+		self.find(cls2 + '-months,' + cls2 + '-years').aclass('hidden');
+
+		current = value;
 
 		for (var i = 0; i < 42; i++) {
 
 			var item = output.days[i];
+			var classes = [cls + '-date'];
 
-			if (i % 7 === 0) {
-				builder.length && builder.push('</tr>');
-				builder.push('<tr>');
+			if (item.empty)
+				classes.push(cls + '-disabled');
+
+			if (!empty && item.selected)
+				classes.push(cls + '-selected');
+
+			if (item.today)
+				classes.push(cls + '-day-today');
+
+			var el = $(dom[i]);
+			el.attrd('date', item.year + '-' + item.month + '-' + item.number);
+			el.find('div').html(item.number);
+			el.find('i').remove();
+			el.rclass().aclass(classes.join(' '));
+		}
+
+		if (!skipday) {
+
+			dom = self.find(cls2 + '-week').find('div');
+			for (var i = 0; i < 7; i++)
+				dom[i].innerHTML = output.header[i].name;
+
+			dom = self.find(cls2 + '-months').find(cls2 + '-month');
+			for (var i = 0; i < 12; i++)
+				$(dom[i]).find('div').attrd('index', i)[0].innerHTML = self.months_short[i];
+		}
+
+		self.opt.badges && self.opt.badges(current, function(date) {
+
+			if (!(date instanceof Array))
+				date = [date];
+
+			for (var i = 0; i < date.length; i++) {
+				var dt = date[i].getFullYear() + '-' + date[i].getMonth() + '-' + date[i].getDate();
+				var el = self.find(cls2 + '-date[data-date="{0}"]'.format(dt));
+				if (el.find('i').length === -1)
+					el.append('<i class="fa fa-circle"></i>');
 			}
 
-			var classes = [];
+		});
 
-			item.isEmpty && classes.push(cls + '-disabled');
-			classes.push(cls + '-day');
+		var info = self.find(cls2 + '-info');
+		info.find(cls2 + '-month').html(self.months[current.getMonth()]);
+		info.find(cls2 + '-year').html(current.getFullYear());
 
-			!empty && item.isSelected && classes.push(clssel);
-			item.isToday && classes.push(cls + '-day-today');
-			builder.push('<td class="{0}" data-date="{1}-{2}-{3}"><div>{3}</div></td>'.format(classes.join(' '), item.year, item.month, item.number));
-		}
-
-		builder.push('</tr>');
-
-		var header = [];
-		for (var i = 0; i < 7; i++)
-			header.push('<th>{0}</th>'.format(output.header[i].name));
-
-		var years = value.getFullYear();
-		if (config.yearselect) {
-			years = '';
-			var current_year = value.getFullYear();
-			for (var i = self.years_from; i <= self.years_to; i++)
-				years += '<option value="{0}" {1}>{0}</option>'.format(i, i === current_year ? 'selected' : '');
-			years = '<select data-date="{0}-{1}" class="ui-datepicker-year">{2}</select>'.format(output.year, output.month, years);
-		}
-
-		var months = self.months[value.getMonth()];
-		if (config.monthselect) {
-			months = '';
-			var current_month = value.getMonth();
-			for (var i = 0, l = self.months.length; i < l; i++)
-				months += '<option value="{0}" {2}>{1}</option>'.format(i, self.months[i], i === current_month ? 'selected' : '');
-			months = '<select data-date="{0}-{1}" class="ui-datepicker-month">{2}</select>'.format(output.year, output.month, months);
-		}
-
-		self.html('<div class="ui-datepicker-header"><button class="ui-datepicker-header-prev" name="prev" data-date="{0}-{1}"><span class="fa fa-arrow-left"></span></button><div class="ui-datepicker-header-info">{2} {3}</div><button class="ui-datepicker-header-next" name="next" data-date="{0}-{1}"><span class="fa fa-arrow-right"></span></button></div><div class="ui-datepicker-table" data-date="{0}-{1}"><table cellpadding="0" cellspacing="0" border="0"><thead>{4}</thead><tbody>{5}</tbody></table></div>'.format(output.year, output.month, months, years, header.join(''), builder.join('')) + (self.opt.cancel ? ('<div class="ui-datepicker-cancel">' + self.opt.cancel + '</div>') : '') + (config.today ? '<div class="ui-datepicker-today"><span class="link">{0}</span><span class="link ui-datepicker-today-a"><i class="fa fa-datepicker"></i>{1}</span></div>'.format(config.close, config.today) : ''));
 	};
 });

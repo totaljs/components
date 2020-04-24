@@ -1,5 +1,5 @@
 <a href="#datepicker">SHOW DATEPICKER: <b data-bind="form.date__html:value.format('dd.MM.yyyy')"></b></a>
-<div data-jc="datepicker__null__today:Set today;firstday:0"></div>
+<div data---="datepicker__null__today:Set today;firstday:0"></div>
 
 <script>
 	var form = {};
@@ -9,6 +9,15 @@
 		var opt = {};
 		opt.value = 'form.date';
 		opt.element = this;
+
+
+		// Append badges
+		opt.badges = function(date, append) {
+			setTimeout(function() {
+				append([date.add('-5 days'), date.add('-2 days'), date.add('3 days'), date.add('8 days')])
+			}, 1000);
+		};
+
 		SETTER('datepicker', 'show', opt);
 	});
 </script>
