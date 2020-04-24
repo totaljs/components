@@ -513,7 +513,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 			for (var i = 0; i < date.length; i++) {
 				var dt = date[i].getFullYear() + '-' + date[i].getMonth() + '-' + date[i].getDate();
 				var el = self.find(cls2 + '-date[data-date="{0}"]'.format(dt));
-				if (el.find('i').length === -1)
+				if (el.length && !el.find('i').length)
 					el.append('<i class="fa fa-circle"></i>');
 			}
 
