@@ -34,7 +34,7 @@ opt.callback = function(newdate) {
 // opt.close {Function} optional, this function can determine closing of DatePicker
 
 // NEW and OPTIONAL
-// It's callend when the calendar change year/month
+// It's callend when the DatePicker changes year/month
 opt.badges = function(date, append) {
 	// Appends small and red badges to the current view/month
 	append([date1, date2, date3]);
