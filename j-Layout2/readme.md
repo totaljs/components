@@ -36,6 +36,10 @@ __Attributes__:
 
 - `data-type` must contain a type of section `top`, `top2` ,`left`, `right`, `bottom`, `bottom2` or `main`
 - `data-size` contains a size of section `LG,MD,SM,XS` --> in pixels or percentage, example: `200,200,200,0` (`0` means hidden) or `20%` (all values will inherit `20%`)
+- `data-scrollbar="margin:50;visible:1"` enables scrollbar, possible values:
+	- `selector` {String} optional, jQuery selector for scrollbar container
+	- `margin` {Number} scrollbar margin (default: `0`)
+	- `visible` {Boolean} shows the scrollbar
 
 __Good to know__:
 

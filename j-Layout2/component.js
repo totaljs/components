@@ -237,7 +237,7 @@ COMPONENT('layout2', 'scrollbar:1;parent:window;autoresize:1;margin:0', function
 					delete left.css.width;
 				left.sizecache = tmp;
 				left.el.css(left.css);
-				left.scrollbar && left.scrollbar.resize(sizeleft);
+				left.scrollbar && left.scrollbar.resize(left.css.height);
 			}
 		}
 
@@ -265,7 +265,7 @@ COMPONENT('layout2', 'scrollbar:1;parent:window;autoresize:1;margin:0', function
 					delete right.css.width;
 				right.sizecache = tmp;
 				right.el.css(right.css);
-				right.scrollbar && right.scrollbar.resize(sizeright);
+				right.scrollbar && right.scrollbar.resize(right.css.height);
 			}
 		}
 
