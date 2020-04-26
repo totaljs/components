@@ -586,14 +586,15 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					});
 				}
 				self.tclass(cls + '-dropdown', !!value);
+				input.prop('readonly', !!config.disabled || !!config.dirsource);
 				break;
 			case 'disabled':
-				self.tclass('ui-disabled', value == true);
-				input.prop('readonly', value === true);
+				self.tclass('ui-disabled', !!value);
+				input.prop('readonly', !!value || !!config.dirsource);
 				self.reset();
 				break;
 			case 'required':
-				self.tclass(cls + '-required', value == true);
+				self.tclass(cls + '-required', !!value);
 				self.reset();
 				break;
 			case 'type':
