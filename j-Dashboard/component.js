@@ -368,7 +368,8 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self,
 	};
 
 	var resizewidget = function(obj) {
-		obj.meta.resize.call(obj, obj.width, obj.height, obj.element, obj.display);
+		obj.meta.resize && obj.meta.resize.call(obj, obj.width, obj.height, obj.element, obj.display);
+		!config.noemitresize && obj.element.EXEC('resize');
 	};
 
 	self.woffset = function(id, init) {
@@ -392,12 +393,8 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self,
 		obj.display = d;
 		obj.element.css({ height: obj.height });
 
-		if (obj.meta.resize) {
-			if (init)
-				obj.meta.resize.call(obj, obj.width, obj.height, obj.element, obj.display);
-			else if (prevw !== obj.width && prevh !== obj.height)
-				setTimeout2(self.ID + 'resizeitem', resizewidget, 200, null, obj);
-		}
+		if (init || prevw !== obj.width || prevh !== obj.height)
+			setTimeout2(self.ID + 'resizeitem', resizewidget, 200, null, obj);
 	};
 
 	self.send = function(type, body) {

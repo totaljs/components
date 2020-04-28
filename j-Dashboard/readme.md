@@ -25,6 +25,7 @@ __Configuration__:
 	- `meta.offsetY`
 	- `meta.target`
 	- `meta.d` a display mode `xs`, `sm`, `md` or `lg`
+- `noemitresize` disables executing of `resize` method in all nested component (default: `false`)
 
 ```javascript
 // Component declaration
