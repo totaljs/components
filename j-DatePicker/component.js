@@ -7,6 +7,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 	var elyears, elmonths, elbody;
 
 	self.days = EMPTYARRAY;
+	self.days_short = EMPTYARRAY;
 	self.months = EMPTYARRAY;
 	self.months_short = EMPTYARRAY;
 	self.years_from;
@@ -19,14 +20,17 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 	self.configure = function(key, value) {
 		switch (key) {
 			case 'days':
-				if (value instanceof Array)
+
+			if (value instanceof Array)
 					self.days = value;
 				else
 					self.days = value.split(',').trim();
 
+				self.days_short = [];
+
 				for (var i = 0; i < DAYS.length; i++) {
 					DAYS[i] = self.days[i];
-					self.days[i] = DAYS[i].substring(0, 2).toUpperCase();
+					self.days_short[i] = DAYS[i].substring(0, 2).toUpperCase();
 				}
 
 				break;
@@ -97,7 +101,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 			frm = 7 + frm;
 
 		while (firstcount++ < 7) {
-			output.header.push({ index: firstday, name: self.days[firstday] });
+			output.header.push({ index: firstday, name: self.days_short[firstday] });
 			firstday++;
 			if (firstday > 6)
 				firstday = 0;
@@ -266,7 +270,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 		if (!config.days) {
 			conf.days = [];
 			for (var i = 0; i < DAYS.length; i++)
-				conf.days.push(DAYS[i].substring(0, 2).toUpperCase());
+				conf.days.push(DAYS[i]);
 			reconfigure = true;
 		}
 
@@ -334,7 +338,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 
 		self.find(cls2 + '-month').on('click', function(e) {
 
-			var el = $(this);
+			var el = $(this);
 			var index = el.attrd('index');
 			var h = 'hidden';
 
@@ -361,7 +365,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 		});
 
 		self.find(cls2 + '-year').on('click', function(e) {
-			var el = $(this);
+			var el = $(this);
 			var year = el.attrd('year');
 			var h = 'hidden';
 
@@ -395,13 +399,13 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 			}
 		};
 
-		self.find(cls2 + '-date').on('click', function(e) {
+		self.find(cls2 + '-date').on('click', function() {
 			var dt = $(this).attrd('date').split('-');
 			self.setdate(new Date(+dt[0], +dt[1], +dt[2], 12, 0, 0));
 			self.hide();
 		});
 
-		self.find(cls2 + '-now').on('click', function(e) {
+		self.find(cls2 + '-now').on('click', function() {
 			self.setdate(new Date());
 			self.hide();
 		});
