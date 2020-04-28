@@ -1,15 +1,31 @@
-COMPONENT('lazyimages', function(self) {
+COMPONENT('lazyimages', 'type:position', function(self, config) {
 
 	var is = null;
-	var regtest = /[?./]/;
+	var regtest = /[?.\/]/;
+	var scrollcontainer;
 
 	self.readonly();
-	self.singleton();
+
+	self.customscrollbar = function() {
+		var area = self.closest('.ui-scrollbar-area');
+		if (area.length) {
+			is = true;
+			area.on('scroll', self.refresh);
+			scrollcontainer = area;
+			setTimeout(self.refresh, 1000);
+		} else
+			setTimeout(self.customscrollbar, 500);
+	};
 
 	self.make = function() {
-		is = true;
-		$(W).on('scroll', self.refresh);
-		setTimeout(self.refresh, 1000);
+		if (config.customscrollbar) {
+			self.customscrollbar();
+		} else {
+			is = true;
+			scrollcontainer = $(W);
+			scrollcontainer.on('scroll', self.refresh);
+			setTimeout(self.refresh, 1000);
+		}
 	};
 
 	self.refresh = function() {
@@ -20,18 +36,27 @@ COMPONENT('lazyimages', function(self) {
 	self.setter = self.refresh;
 
 	self.prepare = function() {
-		var scroll = $(W).scrollTop();
+		var scroll = scrollcontainer[0].scrollTop;
 		var beg = scroll;
 		var end = beg + WH;
 		var off = 50;
-		var arr = document.querySelectorAll('img[data-src]');
+		var arr = self.dom.querySelectorAll('img[data-src]');
 		for (var i = 0; i < arr.length; i++) {
 			var t = arr[i];
 			if (!t.$lazyload) {
 				var src = t.getAttribute('data-src');
 				if (src && regtest.test(src)) {
+
 					var el = $(t);
-					var top = (is ? 0 : scroll) + el.offset().top;
+
+					if (config.offsetter)
+						el = el.closest(config.offsetter);
+
+					var top = (is ? 0 : scroll) + (config.type === 'position' ? el.position() : el.offset()).top;
+
+					if (config.customscrollbar)
+						top += scroll;
+
 					if ((top + off) >= beg && (top - off) <= end) {
 						t.setAttribute('src', src);
 						t.$lazyload = true;
