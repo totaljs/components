@@ -1,22 +1,22 @@
 .dg { color: #000000; position: relative; visibility: hidden; }
-.dg .ui-scrollbar-y { margin-top: 58px; }
+.dg .ui-scrollbar-y { margin-top: 54px; }
 .dg .dg-header-scrollbar > .ui-scrollbar-area { overflow-y: hidden; }
 .dg .dg-body-scrollbar > .ui-scrollbar-area { overflow-x: hidden; }
 .dg-container { overflow: hidden; border-top: 1px solid #E0E0E0; border-left: 1px solid #E0E0E0; position: relative; }
 .dg-mobile .dg-container { border-right: 1px solid #E0E0E0; border-bottom: 1px solid #E0E0E0; }
 .dg-header { position: relative; border-bottom: 1px solid #E0E0E0; }
-.dg-hrow { height: 57px; }
-.dg-hcol { float: left; border-left: 1px solid #E0E0E0; height: 58px; font-weight: bold; position: relative; }
-.dg-sort { float: right; font-size: 11px; width: 20px; text-align: center; padding: 11px 0 0 0; color: #4285F4; }
-.dg-btn-columns { cursor: pointer; color: #D0D0D0; font-size: 20px; position: absolute; right: 0; height: 59px; background-color: #D0D0D0; width: 13px; text-align: left; z-index: 3; }
+.dg-hrow { height: 53px; }
+.dg-hcol { float: left; border-left: 1px solid #E0E0E0; height: 54px; font-weight: bold; position: relative; }
+.dg-sort { float: right; font-size: 11px; width: 20px; text-align: center; padding: 9px 0 0 0; color: #4285F4; }
+.dg-btn-columns { cursor: pointer; color: #D0D0D0; font-size: 20px; position: absolute; right: 0; height: 55px; background-color: #D0D0D0; width: 13px; text-align: left; z-index: 3; }
 .dg-btn-columns span { display: block; padding-top: 4px; font-size: 6px; color: gray; text-align: center; }
 .dg-btn-columns i { position: absolute; margin-left: -5px; top: 26px; }
 .dg-btn-columns:hover { background-color: #D9D9D9; color: #D9D9D9; }
 .dg-sorting { cursor: pointer; }
 .dg-sorting .fa-sort { color: gray; }
 .dg-hcol:first-child { border-left: 0; }
-.dg-resize { position: absolute; width: 10px; cursor: col-resize; height: 34px; border-right: 1px solid #D0D0D0; z-index: 2; }
-.dg-label { padding: 8px 5px 0; height: 34px; font-size: 12px; user-select: none; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+.dg-resize { position: absolute; width: 10px; cursor: col-resize; height: 30px; border-right: 1px solid #D0D0D0; z-index: 2; }
+.dg-label { padding: 8px 5px 0; height: 30px; font-size: 12px; user-select: none; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
 .dg-sorting .dg-label.center { padding-left: 25px; padding-right: 0; }
 .dg-sorting .dg-label { margin-right: 24px; }
 .dg-filter { padding: 0 5px; border-top: 1px solid #E0E0E0; height: 23px; }
@@ -25,7 +25,7 @@
 .dg-filter.center input { text-align: center; }
 .dg-filter.right input { text-align: right; }
 .dg-filter-empty { border-top: 1px solid #E0E0E0; height: 23px; cursor: not-allowed !important; background: repeating-linear-gradient(45deg,#FFFFFF,#FFFFFF 10px,#F9F9F9 10px,#F9F9F9 20px); }
-.dg-hcol .dg-label { padding-top: 9px; }
+.dg-hcol .dg-label { padding-top: 7px; }
 .dg-filter-selected { background-color: #FBF0CA !important; }
 .dg-filter-selected label { color: #000000; }
 .dg-filter i { position: absolute; right: 5px; margin-top: 6px; font-size: 10px; color: red; display: none; cursor: pointer; }
@@ -59,17 +59,20 @@
 .dg-pagination-items { float: right; font-size: 12px; margin: 7px 10px 0 0; font-weight: bold; }
 .dg-pagination-pages { float: left; font-size: 12px; margin: 7px 0 0 10px; }
 .dg-visible { visibility: visible; }
-.dg-columns:before { content: ' '; position: absolute; width: 0; height: 0; margin-top: -8px; margin-left: 158px; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 8px solid #404040; }
-.dg-columns { position: absolute; right: 0; top: 43px; width: 182px; background-color: #404040; z-index: 1; box-shadow: 0 5px 10px rgba(0,0,0,0.1); border-radius: 2px; font-size: 12px; line-height: 16px; z-index: 6; color: #FFFFFF; }
-.dg-columns > div { border-bottom: 1px solid #303030; overflow: hidden; }
-.dg-columns-body { max-height: 180px; overflow-scrolling: touch; overflow-y: auto; padding: 8px 50px 10px 10px; width: 210px; overflow-x: hidden; }
+.dg-columns { position: absolute; right: 0; top: 35px; width: 182px; background-color: #FFFFFF; z-index: 1; box-shadow: 0 5px 20px rgba(0,0,0,0.1); border-radius: 2px; font-size: 12px; line-height: 16px; z-index: 6; color: #000000; border: 1px solid #E0E0E0; user-select: none; }
+.dg-columns-checkbox > span { border-radius: 2px; border: 1px solid #D0D0D0; margin: 2px 5px 0 0; font-size: 8px; color: #FFFFFF; width: 12px; height: 12px; line-height: 12px; float: left; text-align: center; }
+.dg-columns-checkbox > span i { visibility: hidden; }
+.dg-columns-checkbox-checked > span { background-color: #000000; border-color: #000000; }
+.dg-columns-checkbox-checked > span i { visibility: visible; }
+.dg-columns > div { border-bottom: 1px solid #D0D0D0; overflow: hidden; }
+.dg-columns-body { max-height: 180px; overflow-scrolling: touch; overflow-y: auto; padding: 8px 50px 10px 3px; width: 210px; overflow-x: hidden; }
 .dg-columns label { display: block; cursor: pointer; overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .dg-columns label input { vertical-align: middle; }
 .dg-columns label span { vertical-align: middle; margin-left: 5px; }
-.dg-columns-button { margin: 10px 10px 0; display: block; width: 160px; background-color: #888888; border-radius: 2px; color: #FFFFFF; border: 0; font-size: 11px; height: 20px; }
-.dg-columns-button:hover { background-color: #999999; }
+.dg-columns-button { margin: 10px 10px 0; display: block; width: 160px; background-color: #000000; border-radius: 2px; color: #FFFFFF; border: 0; font-size: 11px; height: 24px; }
+.dg-columns-button:hover { background-color: #404040; }
 .dg-columns-button i { margin-right: 6px; }
-.dt-columns-reset { display: block; font-size: 11px; padding: 5px 0 8px 10px; cursor: pointer; }
+.dt-columns-reset { display: block; font-size: 11px; padding: 3px 0 8px 10px; cursor: pointer; color: #888888; }
 .dt-columns-reset:hover { text-decoration: underline; }
 .dg-hcol .dg-checkbox { margin-top: 0; }
 .dg-checkbox { width: 15px; height: 15px; border: 1px solid #D0D0D0; vertical-align: middle; cursor: pointer; font-size: 11px; text-align: center; padding: 1px 0 0 1px; background-color: #FFFFFF; border-radius: 2px; margin: 5px auto 0; }
@@ -101,7 +104,7 @@
 .dg-header-scrollbar-container { height: 58px; overflow: hidden; }
 .dg-resize-line { position: absolute; width: 1px; background-color: #E0E0E0; z-index: 6; }
 
-.ui-dark .dg, .ui-dark .dg-body { background-color: #202020; }
+.ui-dark .dg, .ui-dark .dg-body { background-color: #232323; }
 .ui-dark .dg-container { border-top-color: #353535; border-left-color: #353535; }
 .ui-dark .dg-mobile .dg-container { border-right-color: #404040; border-bottom-color: #404040; }
 .ui-dark .dg-header { border-bottom-color: #353535; }
@@ -120,6 +123,10 @@
 .ui-dark .dg-row-empty { background-color: #202020 !important; border-bottom-color: #353535; }
 .ui-dark .dg-row { border-bottom-color: #353535; }
 .ui-dark .dg-selected { background-color: rgba(200,200,200,0.06) !important; }
+.ui-dark .dg-columns { background-color: #232323; color: #FFFFFF; border-color: #505050; }
+.ui-dark .dg-columns-checkbox > span { border-color: #505050; color: #202020; }
+.ui-dark .dg-columns-checkbox-checked > span { background-color: #505050; border-color: #505050; color: #D0D0D0; }
+.ui-dark .dg-columns > div { border-bottom-color: #505050; }
 /*.ui-dark .dg-body > div > div:nth-child(even) > .dg-row  { background-color: rgba(0,0,0,0.1); }*/
 .ui-dark .dg-row:hover { background-color: rgba(0,0,0,0.2); }
 .ui-dark .dg-row-changed:hover { background-color: rgba(208,31,33,0.2) !important; }

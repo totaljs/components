@@ -246,14 +246,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		isecolumns = false;
 		ecolumns.aclass('hidden');
 		if (use) {
-			var hidden = {};
-			ecolumns.find('input').each(function() {
-				hidden[this.value] = !this.checked;
+			var nothidden = {};
+			ecolumns.find('.dg-columns-checkbox-checked').each(function() {
+				nothidden[this.getAttribute('data-id')] = true;
 			});
 			self.cols(function(cols) {
 				for (var i = 0; i < cols.length; i++) {
 					var col = cols[i];
-					col.hidden = hidden[col.id] === true;
+					col.hidden = nothidden[col.id] !== true;
 				}
 			});
 		}
@@ -297,7 +297,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		if (config.exec)
 			pagination = '<div class="dg-footer hidden"><div class="dg-pagination-items hidden-xs"></div><div class="dg-pagination"><button name="page-first" disabled><i class="fa fa-angle-double-left"></i></button><button name="page-prev" disabled><i class="fa fa-angle-left"></i></button><div><input type="text" name="page" maxlength="5" class="dg-pagination-input" /></div><button name="page-next" disabled><i class="fa fa-angle-right"></i></button><button name="page-last" disabled><i class="fa fa-angle-double-right"></i></button></div><div class="dg-pagination-pages"></div></div>';
 
-		self.dom.innerHTML = '<div class="dg-btn-columns"><i class="fa fa-caret-left"></i><span class="fa fa-columns"></span></div><div class="dg-columns hidden"><div><div class="dg-columns-body"></div></div><button class="dg-columns-button" name="columns-apply"><i class="fa fa-columns"></i>{1}</button><span class="dt-columns-reset">{2}</span></div><div class="dg-container"><span class="dg-resize-line hidden"></span><div class="dg-header-scrollbar"><div class="dg-header"></div><div class="dg-body-scrollbar"><div class="dg-body"></div></div></div></div>{0}'.format(pagination, config.buttonapply, config.buttonreset);
+		self.dom.innerHTML = '<div class="dg-btn-columns"><i class="fa fa-caret-left"></i><span class="fa fa-columns"></span></div><div class="dg-columns hidden"><div><div class="dg-columns-body"></div></div><button class="dg-columns-button" name="columns-apply"><i class="fa fa-check-circle"></i>{1}</button><span class="dt-columns-reset">{2}</span></div><div class="dg-container"><span class="dg-resize-line hidden"></span><div class="dg-header-scrollbar"><div class="dg-header"></div><div class="dg-body-scrollbar"><div class="dg-body"></div></div></div></div>{0}'.format(pagination, config.buttonapply, config.buttonreset);
 
 		header = self.find('.dg-header');
 		vbody = self.find('.dg-body');
@@ -308,7 +308,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		sheader = self.find('.dg-header-scrollbar');
 		sbody = self.find('.dg-body-scrollbar');
 
-		self.scrollbarY = SCROLLBAR(sbody, { visibleY: true, orientation: 'y', controls: container, marginY: 58 });
+		self.scrollbarY = SCROLLBAR(sbody, { visibleY: true, orientation: 'y', controls: container, marginY: 54 });
 		self.scrollbarX = SCROLLBAR(sheader, { visibleX: true, orientation: 'x', controls: container });
 
 		// self.scrollbar.sync(sheader, 'x');
@@ -366,7 +366,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 
 				for (var i = 0; i < opt.cols.length; i++) {
 					var col = opt.cols[i];
-					(col.listcolumn && !col.$hidden) && builder.push('<div><label><input type="checkbox" value="{0}"{1} /><span>{2}</span></label></div>'.format(col.id, col.hidden ? '' : ' checked', col.text));
+					(col.listcolumn && !col.$hidden) && builder.push('<div><label class="dg-columns-checkbox{1}" data-id="{0}"><span><i class="fa fa-check"></i></span>{2}</label></div>'.format(col.id, col.hidden ? '' : ' dg-columns-checkbox-checked', col.text));
 				}
 
 				ecolumns.find('.dg-columns-body')[0].innerHTML = builder.join('');
@@ -747,6 +747,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 				delete opt.checked[val];
 
 			self.fn_in_checked();
+		});
+
+		self.event('click', '.dg-columns-checkbox', function() {
+			$(this).tclass('dg-columns-checkbox-checked');
 		});
 
 		self.event('click', 'button', function(e) {
