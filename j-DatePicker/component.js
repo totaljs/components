@@ -194,8 +194,6 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 		var height = 305 + (opt.cancel ? 25 : 0);
 		var s = 250;
 
-		console.log(off.left, opt.align, w, el.width(), el.innerWidth());
-
 		if (opt.element) {
 			switch (opt.align) {
 				case 'center':
