@@ -36,7 +36,7 @@ COMPONENT('lazyimages', 'type:position', function(self, config) {
 	self.setter = self.refresh;
 
 	self.prepare = function() {
-		var scroll = scrollcontainer[0].scrollTop;
+		var scroll = config.customscrollbar ? scrollcontainer[0].scrollTop : scrollcontainer.scrollTop();
 		var beg = scroll;
 		var end = beg + WH;
 		var off = 50;
