@@ -3,9 +3,12 @@
 	"dateupdated": "2017-08-01T08:55:01.000Z",
 	"name": "j-Centered",
 	"tags": [
-		"jcomponent"
+		"centered",
+		"window",
+		"modal"
 	],
 	"color": "white",
+	"darkmode": 1,
 	"version": 1,
 	"responsive": true,
 	"picture": "picture.jpg",
