@@ -73,7 +73,7 @@ COMPONENT('confirm', function(self, config, cls) {
 
 				var tmp = icon + '';
 				if (tmp.indexOf(' ') == -1)
-					icon = 'fa fa-' + tmp;
+					tmp = 'fa fa-' + tmp;
 
 				item = item.replace(icon, '').trim();
 				icon = '<i class="{0}"></i>'.format(tmp.replace(/"/g, ''));
