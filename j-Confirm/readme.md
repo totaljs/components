@@ -30,7 +30,7 @@ SETTER('confirm', 'show2', 'Are you sure you want to remove selected item?', ['"
 
 // "Confirm" button will be "green" with Font-Awesome icon called: "checked-circle"
 SETTER('confirm', 'show2', 'Are you sure you want to confirm selected items?', ['"checked-circle" Confirm #2BA433', 'Cancel'], REMOVE_FUNCTION);
-````
+```
 
 ### Author
 

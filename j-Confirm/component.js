@@ -1,6 +1,5 @@
-COMPONENT('confirm', function(self) {
+COMPONENT('confirm', function(self, config, cls) {
 
-	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
 	var is;
 	var events = {};
@@ -69,10 +68,15 @@ COMPONENT('confirm', function(self) {
 
 		for (var i = 0; i < buttons.length; i++) {
 			var item = buttons[i];
-			var icon = item.match(/"[a-z0-9-]+"/);
+			var icon = item.match(/"[a-z0-9-\s]+"/);
 			if (icon) {
+
+				var tmp = icon + '';
+				if (tmp.indexOf(' ') == -1)
+					icon = 'fa fa-' + tmp;
+
 				item = item.replace(icon, '').trim();
-				icon = '<i class="fa fa-{0}"></i>'.format(icon.toString().replace(/"/g, ''));
+				icon = '<i class="{0}"></i>'.format(tmp.replace(/"/g, ''));
 			} else
 				icon = '';
 
