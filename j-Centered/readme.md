@@ -9,6 +9,7 @@ __Configuration__:
 - `zindex` {Number} can affect z-index (default: `12`)
 - `closebutton` {Boolean} can hide `x` button (default: `false`)
 - `closeoutside` {Boolean} closes the form when the user clicks outside of the form (default: `false`)
+- `closeesc` {Boolean} closes the form when the user presses `ESC`
 
 __Good to know__:
 

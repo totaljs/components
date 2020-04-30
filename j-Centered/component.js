@@ -1,4 +1,4 @@
-COMPONENT('centered', 'closebutton:1;esc:1', function(self, config, cls) {
+COMPONENT('centered', 'closebutton:1;closeesc:1', function(self, config, cls) {
 
 	var events = {};
 
@@ -61,7 +61,7 @@ COMPONENT('centered', 'closebutton:1;esc:1', function(self, config, cls) {
 		if (is === hs) {
 			if (is) {
 				self.makeforce && self.makeforce();
-				config.esc && events.bind();
+				config.closeesc && events.bind();
 				config.default && DEFAULT(config.default, true);
 				config.reload && EXEC(config.reload, self);
 				config.zindex && self.css('z-index', config.zindex);
@@ -73,7 +73,7 @@ COMPONENT('centered', 'closebutton:1;esc:1', function(self, config, cls) {
 				}
 
 			} else
-				config.esc && events.unbind();
+				config.closeesc && events.unbind();
 			self.tclass('hidden', !is);
 			$('html').tclass(cls + '-noscroll', is);
 		}
