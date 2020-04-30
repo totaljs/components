@@ -5,7 +5,7 @@
 .ui-approve-content { padding: 50px 30px; text-align: center; }
 .ui-approve-content > i { font-size: 50px; display: block; margin-bottom: 10px; }
 .ui-approve-buttons { height: 40px; }
-.ui-approve button { font-size: 12px; float: left; cursor: pointer; outline: 0; background-color: #E0E0E0; border: 0; border-radius: 0; color: gray; padding: 0; width: 50%; height: 40px; font-weight: normal; margin: 0; }
+.ui-approve button { font-size: 12px; float: left; cursor: pointer; outline: 0; background-color: #E0E0E0; border: 0; border-radius: 0; color: gray; padding: 0; width: 50%; height: 40px; font-weight: normal; margin: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .ui-approve button i { margin-right: 5px; }
 .ui-approve button:hover { opacity: 0.9; }
 .ui-approve-close { position: absolute; color: #C0C0C0; font-size: 11px; right: 8px; top: 5px; cursor: pointer; }
