@@ -1,8 +1,30 @@
-## j-Centered
+- The component moves the content of this component under `<body>` tag (because of positioning)
 
 __Configuration__:
 
-`if` {String} a condition for showing
+- `if` {String} condition for showing of the form, it's compared with the value within of `data-jc-path`
+- `reload` {String} link to a global `function(form_component)` and it's executed if the form is displaying
+- `autofocus` {Boolean/String} can focus an input. `String` === `jQuery selector` for the input
+- `default` {String} a short alias for `DEFAULT(default, true)`
+- `zindex` {Number} can affect z-index (default: `12`)
+- `closebutton` {Boolean} can hide `x` button (default: `false`)
+- `closeoutside` {Boolean} closes the form when the user clicks outside of the form (default: `false`)
+- `closeesc` {Boolean} closes the form when the user presses `ESC`
+
+__Good to know__:
+
+New version of this component supports dynamic evaluation of the content of `<script type="text/html">`. The example below contains a script with HTML and the component evaluates the content if the j-Form will be displayed (only once).
+
+```html
+<div data---="form__path__config">
+	<script type="text/html">
+		A CONTENT
+	</script>
+</div>
+```
+
+- all buttons with `name="close"` attribute closes the component automatically
+- all elements with `data-name="close"` attribute closes the component automatically
 
 ### Author
 

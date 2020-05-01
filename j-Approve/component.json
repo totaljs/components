@@ -1,16 +1,16 @@
 {
-	"datecreated": "2016-03-11T18:07:56.072Z",
-	"dateupdated": "2020-04-30T16:33:02.000Z",
-	"name": "j-Centered",
+	"datecreated": "2020-04-30T15:40:01.000Z",
+	"dateupdated": null,
+	"name": "j-Approve",
 	"tags": [
-		"centered",
-		"window",
-		"modal"
+		"approve",
+		"confirm",
+		"floating"
 	],
-	"color": "white",
-	"darkmode": 1,
+	"color": "transparent",
 	"version": 1,
 	"responsive": true,
+	"darkmode": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
 	"author": "Peter Širka",

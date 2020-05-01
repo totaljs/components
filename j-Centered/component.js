@@ -1,16 +1,81 @@
-COMPONENT('centered', function(self, config) {
+COMPONENT('centered', 'closebutton:1;closeesc:1', function(self, config, cls) {
+
+	var events = {};
+
+	events.bind = function() {
+		if (!events.is) {
+			events.is = true;
+			$(W).on('keydown', events.keydown);
+		}
+	};
+
+	events.keydown = function(e) {
+		if (e.which === 27)
+			self.set('');
+	};
+
+	events.unbind = function() {
+		if (events.is) {
+			events.is = false;
+			$(W).off('keydown', events.keydown);
+		}
+	};
 
 	self.readonly();
+
 	self.make = function() {
-		self.aclass('ui-centered-container hidden');
-		self.element.wrapInner('<div class="ui-centered-content"><div class="ui-centered-body"></div></div>');
-		self.element.prepend('<span class="fa fa-times ui-centered-button"></span>');
-		self.event('click', '.ui-centered-button', function() {
+		self.aclass(cls + '-container hidden');
+		self.event('click', '[data-name="close"],[name="close"]', function() {
 			self.set('');
+		});
+
+		if (self.dom.children[0].nodeName === ('SCRI' + 'PT')) {
+			var html = self.dom.children[0].innerHTML;
+			self.makeforce = function() {
+				self.html('<span class="fas fa-times {0}-button{2}" data-name="close"></span><div class="{0}-content"><div class="{0}-body">{1}</div></div>'.format(cls, html, config.closebutton ? '' : ' hidden'));
+				if (html.COMPILABLE())
+					COMPILE();
+				self.makeforce = null;
+			};
+		} else {
+			var container = document.createElement('DIV');
+			container.setAttribute('class', cls + '-content');
+			var div = document.createElement('DIV');
+			div.setAttribute('class', cls + '-body');
+			for (var i = 0; i < self.dom.children.length; i++)
+				div.appendChild(self.dom.children[i]);
+			container.appendChild(div);
+			self.dom.appendChild(container);
+			self.element.prepend('<span class="fas fa-times {0}-button{1}" data-name="close"></span>'.format(cls, config.closebutton ? '' : ' hidden'));
+		}
+
+		config.closeoutside && self.element.on('click', function(e) {
+			if (e.target === self.dom)
+				self.set('');
 		});
 	};
 
 	self.setter = function(value) {
-		self.toggle('hidden', value !== config.if);
+		var is = value === config.if;
+		var hs = self.hclass('hidden');
+		if (is === hs) {
+			if (is) {
+				self.makeforce && self.makeforce();
+				config.closeesc && events.bind();
+				config.default && DEFAULT(config.default, true);
+				config.reload && EXEC(config.reload, self);
+				config.zindex && self.css('z-index', config.zindex);
+
+				if (!isMOBILE && config.autofocus) {
+					setTimeout(function() {
+						self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea').eq(0).focus();
+					}, 1000);
+				}
+
+			} else
+				config.closeesc && events.unbind();
+			self.tclass('hidden', !is);
+			$('html').tclass(cls + '-noscroll', is);
+		}
 	};
 });
