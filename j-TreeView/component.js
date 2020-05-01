@@ -1,4 +1,4 @@
-COMPONENT('treeview', 'parent:parent;droppable:1;movable:1;expanded:0;autosort:1;margin:0;cachexpand:1;arrows:1;visibleY:1;', function(self, config, cls) {
+COMPONENT('treeview', 'parent:parent;droppable:1;movable:1;expanded:0;autosort:1;margin:0;cachexpand:1;arrows:1;visibleY:1;parentselectable:1', function(self, config, cls) {
 
 	var events = {};
 	var cls2 = '.' + cls;
@@ -27,6 +27,13 @@ COMPONENT('treeview', 'parent:parent;droppable:1;movable:1;expanded:0;autosort:1
 				var is = el.hclass(cls + '-open');
 				if (config.cachexpand)
 					cache[el[0].$treeview.id] = is;
+
+				if (is && config.parentselectable) {
+					var classname = cls + '-selected';
+					prevselected && prevselected.rclass(classname);
+					prevselected = el.find('> ' + cls2 + '-item:first-child').aclass(classname);
+				}
+
 				is && config.exec && SEEX(self.makepath(config.exec), el[0].$treeview.item, true);
 			}
 		});

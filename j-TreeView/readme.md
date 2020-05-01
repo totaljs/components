@@ -17,6 +17,7 @@ __Configuration__:
 - `marginmd` top/bottom margin together for `md` screen width
 - `marginlg` top/bottom margin together for `lg` screen width
 - `disabled` {Boolean} disables the entire component
+- `parentselectable` {Boolean} parent will be selectable (default: `true`)
 
 __Data structure__:
 
