@@ -1,6 +1,5 @@
-COMPONENT('message', function(self, config) {
+COMPONENT('message', 'button:OK', function(self, config, cls) {
 
-	var cls = 'ui-message';
 	var cls2 = '.' + cls;
 	var is, visible = false;
 
@@ -9,11 +8,10 @@ COMPONENT('message', function(self, config) {
 	self.nocompile && self.nocompile();
 
 	self.make = function() {
-		self.aclass(cls + ' hidden');
 
-		self.event('click', 'button', function() {
-			self.hide();
-		});
+		var pls = (config.style === 2 ? (' ' + cls + '2') : '');
+		self.aclass(cls + ' hidden' + pls);
+		self.event('click', 'button', self.hide);
 
 		$(window).on('keyup', function(e) {
 			visible && e.which === 27 && self.hide();
@@ -110,15 +108,19 @@ COMPONENT('message', function(self, config) {
 	};
 
 	self.content = function(classname, text, icon) {
-		!is && self.html('<div><div class="ui-message-icon"><i class="fa fa-' + icon + '"></i></div><div class="ui-message-body"><div class="text"></div><hr /><button>' + (config.button || 'OK') + '</button></div></div>');
+
+		if (icon.indexOf(' ') === -1)
+			icon = 'fa fa-' + icon;
+
+		!is && self.html('<div><div class="{0}-icon"><i class="{1}"></i></div><div class="{0}-body"><div class="{0}-text"></div><hr /><button>{2}</button></div></div>'.format(cls, icon, config.button));
 		visible = true;
 		self.rclass2(cls + '-').aclass(classname);
 		self.find(cls2 + '-body').rclass().aclass(cls + '-body');
 
 		if (is)
-			self.find(cls2 + '-icon').find('.fa').rclass2('fa-').aclass('fa-' + icon);
+			self.find(cls2 + '-icon').find('.fa').rclass2('fa').aclass(icon);
 
-		self.find('.text').html(text);
+		self.find(cls2 + '-text').html(text);
 		self.rclass('hidden');
 		is = true;
 		setTimeout(function() {

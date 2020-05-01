@@ -5,7 +5,8 @@
 
 __Configuration__:
 
-- `button` {String} a button label (default `OK`)
+- `button` {String} a button label (default: `OK`)
+- `style` {Number} can change a style (default: `1`), style `2` is similiar to `j-Approve` component
 
 __Usage__:
 
