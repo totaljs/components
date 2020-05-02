@@ -3,7 +3,7 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0;scrolltop:1;
 	var cls2 = '.' + cls;
 	var csspos = {};
 	var nav = false;
-	var init = false;;
+	var init = false;
 
 	if (!W.$$largeform) {
 
