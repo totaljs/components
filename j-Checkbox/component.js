@@ -1,4 +1,4 @@
-COMPONENT('checkbox', function(self, config) {
+COMPONENT('checkbox', function(self, config, cls) {
 
 	self.nocompile && self.nocompile();
 
@@ -14,7 +14,7 @@ COMPONENT('checkbox', function(self, config) {
 				self.find('span').html(value);
 				break;
 			case 'required':
-				self.find('span').tclass('ui-checkbox-label-required', value);
+				self.find('span').tclass(cls + '-label-required', value);
 				break;
 			case 'disabled':
 				self.tclass('ui-disabled', value);
@@ -26,18 +26,19 @@ COMPONENT('checkbox', function(self, config) {
 	};
 
 	self.make = function() {
-		self.aclass('ui-checkbox');
-		self.html('<div><i class="fa fa-{2}"></i></div><span{1}>{0}</span>'.format(config.label || self.html(), config.required ? ' class="ui-checkbox-label-required"' : '', config.checkicon || 'check'));
+		self.aclass(cls);
+		self.html('<div><i class="fa fa-{2}"></i></div><span{1}>{0}</span>'.format(config.label || self.html(), config.required ? (' class="' + cls + '-label-required"') : '', config.checkicon || 'check'));
 		config.disabled && self.aclass('ui-disabled');
 		self.event('click', function() {
-			if (config.disabled)
-				return;
-			self.dirty(false);
-			self.getter(!self.get());
+			if (!config.disabled) {
+				self.dirty(false);
+				self.getter(!self.get());
+			}
 		});
 	};
 
 	self.setter = function(value) {
-		self.tclass('ui-checkbox-checked', !!value);
+		var is = config.reverse ? !value : !!value;
+		self.tclass(cls + '-checked', is);
 	};
 });
