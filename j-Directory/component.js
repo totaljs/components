@@ -1,6 +1,5 @@
-COMPONENT('directory', 'minwidth:200', function(self, config) {
+COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 
-	var cls = 'ui-directory';
 	var cls2 = '.' + cls;
 	var container, timeout, icon, plus, skipreset = false, skipclear = false, ready = false, input = null, issearch = false;
 	var is = false, selectedindex = 0, resultscount = 0;
@@ -8,6 +7,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 	var templateR = '{{ name | raw }}';
 	var template = '<li data-index="{{ $.index }}" data-search="{{ name }}" {{ if selected }} class="current selected{{ if classname }} {{ classname }}{{ fi }}"{{ else if classname }} class="{{ classname }}"{{ fi }}>{0}</li>';
 	var templateraw = template.format(templateR);
+	var parentclass;
 
 	template = template.format(templateE);
 
@@ -283,8 +283,10 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 					self.opt && self.opt.ajax(val, function(items) {
 						var builder = [];
 						var indexer = {};
+						var item;
+
 						for (var i = 0; i < items.length; i++) {
-							var item = items[i];
+							item = items[i];
 							if (self.opt.exclude && self.opt.exclude(item))
 								continue;
 							indexer.index = i;
@@ -341,6 +343,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 		// opt.exclude    --> function(item) must return Boolean
 		// opt.search
 		// opt.selected   --> only for String Array "opt.items"
+		// opt.classname
 
 		var el = opt.element instanceof jQuery ? opt.element[0] : opt.element;
 
@@ -348,6 +351,16 @@ COMPONENT('directory', 'minwidth:200', function(self, config) {
 			opt.items = EMPTYARRAY;
 
 		self.tclass(cls + '-default', !opt.render);
+
+		if (parentclass) {
+			self.rclass(parentclass);
+			parentclass = null;
+		}
+
+		if (opt.classname) {
+			self.aclass(opt.classname);
+			parentclass = opt.classname;
+		}
 
 		if (!opt.minwidth)
 			opt.minwidth = 200;
