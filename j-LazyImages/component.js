@@ -54,6 +54,9 @@ COMPONENT('lazyimages', 'type:position', function(self, config) {
 
 					var top = (is ? 0 : scroll) + (config.type === 'position' ? el.position() : el.offset()).top;
 
+					if (isMOBILE && !top)
+						continue;
+
 					if (config.customscrollbar)
 						top += scroll;
 
