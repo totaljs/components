@@ -11,3 +11,7 @@ i.ui-intro-button { margin: 14px 3px 0; cursor: pointer; color: silver; font-siz
 .ui-intro-pagination button { float: right; border: 0; background-color: #4783EE; color: #FFFFFF; border-radius: 0 0 3px 0; font: normal 11px Arial; text-transform: uppercase; font-weight: bold; height: 40px; width: 150px; padding: 0; margin: 0; outline: 0; }
 .ui-intro-pagination button:hover { opacity: 0.8; }
 .ui-intro-pagination button i { margin-left: 5px; }
+
+@media(max-width: 768px) {
+	.ui-intro-body { max-width: auto; width: 86%; }
+}
