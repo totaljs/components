@@ -1,0 +1,46 @@
+<div data---="datatable__data__highlight:1;exec:paginate;editable:editable;checked:checked;margin:22">
+	<script type="text/html">
+		[
+			{ name: 'name', text: 'Opportunity name', width: 200, sort: 1, editable: 1 },
+			{ name: 'value', text: 'Value', width: 100, sort: 1, type: 'number', format: 2 },
+			{ name: 'status', text: 'Status', width: 100, editable: 1 },
+			{ name: 'owner', text: 'Owner', width: 200 },
+			{ name: 'newsletter', text: 'Newsletter', width: 100, type: 'boolean' },
+			{ name: 'date', text: 'Date', width: 200, sort: 1, type: 'date' }
+		]
+	</script>
+</div>
+
+<script>
+
+	function checked(rows) {
+		console.log(rows);
+	}
+
+	function editable(opt) {
+		// opt.row
+		// opt.col
+		// opt.value
+		// opt.next(NEW_VALUE);
+		opt.next(opt.value + ' (modified)');
+	}
+
+	function paginate(page, sort) {
+		console.log('Page:', page, 'sort:', sort);
+	}
+
+		var data = {};
+
+		data.items = [];
+		data.pages = 53;
+		data.page = 3;
+
+		// data.cols.push({ name: 'name', text: 'Opportunity name', width: 200, sort: true });
+		// data.cols.push({ name: 'value', text: 'Value', width: 100, sort: true });
+		// data.cols.push({ name: 'status', text: 'Status', width: 100 });
+		// data.cols.push({ name: 'owner', text: 'Owner', width: 200 });
+		// data.cols.push({ name: 'date', text: 'Date', width: 200, sort: true });
+
+		for (var i = 0; i < 50; i++)
+			data.items.push({ name: GUID(20), value: Math.random() * 1000 >> 0, status: GUID(10), owner: 'Peter Širka', newsletter: i % 3 === 0, date: NOW });
+</script>

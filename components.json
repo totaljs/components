@@ -213,5 +213,6 @@
 	"j-DynamicValueList",
 	"j-Detail",
 	"j-FloatingSearch",
-	"j-Approve"
+	"j-Approve",
+	"j-DataTable"
 ]
