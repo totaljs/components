@@ -13,15 +13,15 @@
 .ui-datatable-row-odd_BK { background-color: #F9F9F9; }
 .ui-datatable-col.asc > i:before { content: '\f106'; }
 .ui-datatable-col.desc > i:before { content: '\f107'; }
-.ui-datatable-pagination { height: 31px; background-color: white; }
+.ui-datatable-pagination { height: 31px; background-color: #FFFFFF; }
 .ui-datatable-pages { float: left; margin: 5px 0 0 5px; }
-.ui-datatable-pages button { border: 0; background-color: white; height: 20px; margin: 0; padding: 0; width: 20px; float: left; font-size: 11px; }
+.ui-datatable-pages button { border: 0; background-color: #FFFFFF; height: 20px; margin: 0; padding: 0; width: 20px; float: left; font-size: 11px; }
 .ui-datatable-pages button:disabled { color: #C0C0C0; }
 .ui-datatable-pages button[name='prev'] { border-radius: 2px 0 0 2px; }
 .ui-datatable-pages input { height: 20px; line-height: 20px; float: left; width: 30px; text-align: center; outline: 0; border: 0; background-color: transparent; font-weight: bold; font-size: 11px; }
 .ui-datatable-pages input:disabled { background-color: transparent; color: #C0C0C0; }
 .ui-datatable-pages button[name='next'] { border-radius: 0 2px 2px 0; }
-.ui-datatable-info { line-height: 26px; float: right; color: gray; padding: 0 5px 0 0; font-size: 11px; }
+.ui-datatable-info { line-height: 30px; float: right; color: gray; padding: 0 5px 0 0; font-size: 11px; }
 .ui-datatable-changed { background-image: url(data:image/gif;base64,R0lGODdhBgAGAIAAAP8mAAAAACH5BAEAAAEALAAAAAAGAAYAAAIKhI8QGGvt4JKhAAA7); background-repeat: no-repeat; background-position: 0 0; }
 .ui-datatable-cols-scroller { overflow: hidden; }
 .ui-datatable-checked { background-color: rgba(249,232,196,0.5) !important; }
