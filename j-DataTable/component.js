@@ -4,7 +4,7 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 	var container_rows;
 	var container_cols;
 	var container_pages;
-	var template_col = Tangular.compile('<div data-name="{{ name }}" class="{0}-col{{ if sort }} {0}-sortable{{ fi }}{{ if alignheader }} {{ alignheader }}{{ fi }}" style="width:{{ width }}px">{{ if sort }}<i class="fa"></i>{{ fi }}<span>{{ text }}</span></div>'.format(cls));
+	var template_col = Tangular.compile('<div data-name="{{ name }}" class="{0}-col{{ if sort }} {0}-sortable{{ fi }}{{ if alignheader }} {{ alignheader }}{{ fi }}" style="width:{{ width }}px">{{ if sort }}<i class="fa"></i>{{ fi }}<span>{{ text | raw }}</span></div>'.format(cls));
 	var meta = {};
 	var temp = {};
 
