@@ -279,11 +279,17 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 	};
 
 	self.page = function(page) {
-		config.exec && EXEC(self.makepath(config.exec), page, meta.sort);
+		config.exec && EXEC(self.makepath(config.exec), meta.sort, page);
 	};
 
 	self.resize = function() {
 		setTimeout2(self.ID, self.resizeforce, 500);
+	};
+
+	self.cacheempty = function() {
+		var emptycontainer = container_rows.find(cls2 + '-empty-container')[0];
+		if (emptycontainer)
+			meta.empty = container_rows[0].removeChild(emptycontainer);
 	};
 
 	self.resizeforce = function() {
@@ -299,9 +305,17 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 				diff = 0;
 
 			if (meta.hd !== diff) {
-				container_rows.find(cls2 + '-empty').remove();
-				for (var i = 0; i < diff; i++)
-					container_rows.append(meta.empty);
+
+				if (diff > 0) {
+					if (meta.empty) {
+						container_rows[0].appendChild(meta.empty);
+						meta.empty = null;
+					}
+				} else {
+					if (!meta.empty)
+						self.cacheempty();
+				}
+
 				self.tclass(cls + '-noscroll', diff > 0);
 				self.scrollbar.scrollTop(0);
 				meta.hd = diff;
@@ -494,11 +508,21 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 
 			builder.push(template_col(col));
 			empty.push('<div class="{0}-row-col" style="width:{1}px">&nbsp;</div>'.format(cls, col.width));
-			meta.empty = '<div class="{0}-empty">{1}</div>'.format(cls, empty.join(''));
 		}
 
 		var sw = self.scrollbar.pathy.width();
 		container_cols.css('width', meta.width + sw).html(builder.join(''));
+
+		var tmp = Math.ceil((screen.height - 100) / config.rowheight);
+		meta.empty = '<div class="{0}-empty">{1}</div>'.format(cls, empty.join(''));
+		empty = [];
+		for (var i = 0; i < tmp; i++)
+			empty.push(meta.empty);
+
+		var div = document.createElement('DIV');
+		div.setAttribute('class', cls + '-empty-container');
+		div.innerHTML = empty.join('');
+		meta.empty = div;
 	};
 
 	self.select = function(row) {
@@ -513,9 +537,6 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 	};
 
 	self.setter = function(value, path, type) {
-
-		var dom = container_rows[0];
-		dom.innerHTML = '';
 
 		if (!value) {
 			self.page(1);
@@ -532,6 +553,11 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 		meta.checked = [];
 		meta.changed = [];
 		temp.index = -1;
+
+		var dom = container_rows[0];
+
+		self.cacheempty();
+		dom.innerHTML = '';
 
 		for (var i = 0; i < rows.length; i++)
 			dom.appendChild(self.renderrow(i, rows[i]));
