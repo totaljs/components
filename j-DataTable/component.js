@@ -194,6 +194,10 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 			var name = el.attrd('name');
 			var col = meta.cols.findItem('name', name);
 			var elrow = el.parent();
+
+			if (elrow.hclass(cls + '-empty'))
+				return;
+
 			var index = +elrow.attrd('index');
 			var row = meta.rows[index];
 
