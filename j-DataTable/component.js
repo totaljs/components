@@ -1,4 +1,4 @@
-COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# items,# items;pluralizepages:# pages,# page,# pages,# pages;unhighlight:0;colwidth:150', function(self, config, cls) {
+COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# items,# items;pluralizepages:# pages,# page,# pages,# pages;unhighlight:0;colwidth:150;rowheight:24;clickid:id', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var container_rows;
@@ -108,6 +108,10 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 
 			var elcol = $(this);
 			var elrow = elcol.parent();
+
+			if (elrow.hclass(cls + '-empty'))
+				return;
+
 			var oldindex = temp.index;
 
 			temp.index = +elrow.attrd('index');
@@ -129,7 +133,6 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 			if (W.DATATABLEMETA) {
 				var row = meta.rows[temp.index];
 				if (row && meta.checked.indexOf(row) === -1) {
-					console.log(row);
 					meta.checked.push(row);
 					self.redrawchecked();
 				}
@@ -169,6 +172,7 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 		};
 
 		temp.bindevents = function() {
+			container_rows.on('mouseleave', temp.unbindevents);
 			container_rows.on('mouseup', temp.unbindevents);
 			container_rows.on('mousemove', cls2 + '-row', temp.onmove);
 		};
@@ -180,6 +184,7 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 			meta.selected = null;
 
 			container_rows.off('mouseup', temp.unbindevents);
+			container_rows.off('mouseleave', temp.unbindevents);
 			container_rows.off('mousemove', cls2 + '-row', temp.onmove);
 		};
 
@@ -278,9 +283,26 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 	};
 
 	self.resizeforce = function() {
-		var parent = self.parent(config.parent);
+		var parent = self.parent(config.parent || config.height);
 		var width = parent.width();
-		var height = parent.height() - container_cols.height() - container_pages.height();
+		var height = parent.height() - container_cols.height() - container_pages.height() - config.margin;
+
+		if (meta.rows) {
+			var h = meta.rows.length * config.rowheight;
+			var diff = Math.ceil((height - h) / config.rowheight);
+
+			if (diff < 0)
+				diff = 0;
+
+			if (meta.hd !== diff) {
+				container_rows.find(cls2 + '-empty').remove();
+				for (var i = 0; i < diff; i++)
+					container_rows.append(meta.empty);
+				self.tclass(cls + '-noscroll', diff > 0);
+				self.scrollbar.scrollTop(0);
+				meta.hd = diff;
+			}
+		}
 
 		if (meta.ww === width && meta.wh === height) {
 			self.scrollbar.resize();
@@ -294,6 +316,7 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 		meta.width && container_rows.width(meta.width);
 		container_cols.css('min-width', width);
 		self.scrollbar.resize();
+
 	};
 
 	self.onscroll = function(e) {
@@ -384,10 +407,12 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 
 		var key = 'datatable' + HASH(cols);
 		var builder = [];
+		var empty = [];
 
 		meta.id = key;
 		meta.width = 0;
 		meta.cols = [];
+		meta.empty = '';
 
 		for (var i = 0; i < cols.length; i++) {
 			var col = cols[i];
@@ -397,8 +422,32 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 				continue;
 			}
 
+			if (col.sort == null)
+				col.sort = true;
+
+			if (!col.width)
+				col.width = config.colwidth;
+
 			meta.cols.push(col);
-			meta.width += col.width || config.colwidth;
+			meta.width += col.width;
+
+			if (col.align === 0)
+				col.align = 'left';
+
+			if (col.align === 1)
+				col.align = 'center';
+
+			if (col.align === 2)
+				col.align = 'right';
+
+			if (col.alignheader === 0)
+				col.alignheader = 'left';
+
+			if (col.alignheader === 1)
+				col.alignheader = 'center';
+
+			if (col.alignheader === 2)
+				col.alignheader = 'right';
 
 			if (!col.template && col.type) {
 				switch (col.type.toLowerCase()) {
@@ -410,7 +459,10 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 							col.alignheader = 'center';
 						break;
 					case 'currency':
-						col.template = '{{ {0} | currency({1}) }}'.format(col.name, col.currency || col.format);
+						var curr = col.currency || col.format;
+						if (curr)
+							curr = '\'' + curr + '\'';
+						col.template = '{{ {0} | currency({1}) }}'.format(col.name, curr);
 						if (!col.align)
 							col.align = 'right';
 						if (!col.alignheader)
@@ -431,11 +483,14 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 							col.alignheader = 'center';
 						break;
 				}
-				if (col.template)
-					col.template = Tangular.compile(col.template);
 			}
 
+			if (col.template)
+				col.template = Tangular.compile(col.template);
+
 			builder.push(template_col(col));
+			empty.push('<div class="{0}-row-col" style="width:{1}px">&nbsp;</div>'.format(cls, col.width));
+			meta.empty = '<div class="{0}-empty">{1}</div>'.format(cls, empty.join(''));
 		}
 
 		var sw = self.scrollbar.pathy.width();
@@ -448,17 +503,25 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 			var el = container_rows.find(cls2 + '-row[data-index="{0}"]'.format(index));
 			meta.selected && meta.selected.rclass(cls + '-selected');
 			meta.selected = el.aclass(cls + '-selected');
+			meta.value = row[config.clickid];
 			config.click && SEEX(self.makepath(config.click), row, self, el);
 		}
 	};
 
 	self.setter = function(value, path, type) {
 
+		var dom = container_rows[0];
+		dom.innerHTML = '';
+
+		if (!value) {
+			self.page(1);
+			return;
+		}
+
 		value.cols && self.redrawcols(value.cols);
 
 		var rows = value.rows || value.items;
 		meta.rows = rows;
-
 		meta.page = value.page || 1;
 		meta.pages = value.pages || 1;
 		meta.count = value.count;
@@ -466,12 +529,10 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 		meta.changed = [];
 		temp.index = -1;
 
-		var dom = container_rows[0];
-		dom.innerHTML = '';
-
 		for (var i = 0; i < rows.length; i++)
 			dom.appendChild(self.renderrow(i, rows[i]));
 
+		meta.hd = null;
 		self.resizeforce();
 
 		if (type !== 'noscroll')
@@ -484,11 +545,15 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 		buttons[1].disabled = meta.page >= meta.pages;
 		container_pages.find('input').val(meta.page)[0].disabled = meta.pages === 1;
 
-		if (config.autoselect && rows && rows.length) {
-			setTimeout(function(rows) {
-				var index = meta.selected ? +meta.selected.attrd('index') : 0;
+		var selectindex = meta.selected ? +meta.selected.attrd('index') : null;
+
+		if (selectindex == null && config.autoselect && rows && rows.length)
+			selectindex = 0;
+
+		if (selectindex != null) {
+			setTimeout(function(rows, index) {
 				self.select(rows[index]);
-			}, 1, rows);
+			}, 1, rows, selectindex);
 		}
 	};
 

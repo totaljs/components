@@ -1,24 +1,24 @@
 .ui-datatable { overflow: hidden; position: relative; font-size: 12px; border:1px solid #E0E0E0; }
-.ui-datatable-cols { height: 26px; font-size: 12px; border-bottom: 1px solid #E0E0E0; background-color: #F5F5F5; }
-.ui-datatable-col { float: left; height: 25px; line-height: 25px; padding: 0 5px; border-right: 1px solid #E0E0E0; user-select: none; }
-.ui-datatable-col > i { float: right; width: 12px; text-align: center; line-height: 25px; display: none; }
+.ui-datatable-cols { height: 31px; font-size: 12px; border-bottom: 1px solid #E0E0E0; background-color: #F5F5F5; }
+.ui-datatable-col { float: left; height: 30px; line-height: 30px; padding: 0 5px; border-right: 1px solid #E0E0E0; user-select: none; }
+.ui-datatable-col > i { float: right; width: 12px; text-align: center; line-height: 30px; display: none; }
 .ui-datatable-col > span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ui-datatable-col.asc > i, .ui-datatable-col.desc > i { display: block; }
 .ui-datatable-col.asc > span, .ui-datatable-col.desc > span { margin-right: 12px; }
 .ui-datatable-sortable { cursor: pointer; }
-.ui-datatable-row { border-bottom: 1px solid #E0E0E0; height: 24px; }
+.ui-datatable-row, .ui-datatable-empty { border-bottom: 1px solid #E0E0E0; height: 24px; }
 .ui-datatable-row:hover { background-color: #F0F0F0; }
 .ui-datatable-selected { background-color: rgba(249,232,196,0.5) !important; }
 .ui-datatable-row-col { float: left; overflow: hidden; border-right: 1px solid #E0E0E0; height: 24px; padding: 0 5px; line-height: 23px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor: default; }
 .ui-datatable-row-odd_BK { background-color: #F9F9F9; }
 .ui-datatable-col.asc > i:before { content: '\f106'; }
 .ui-datatable-col.desc > i:before { content: '\f107'; }
-.ui-datatable-pagination { height: 26px; background-color: white; }
-.ui-datatable-pages { float: left; margin: 3px 0 0 5px; }
+.ui-datatable-pagination { height: 31px; background-color: white; }
+.ui-datatable-pages { float: left; margin: 5px 0 0 5px; }
 .ui-datatable-pages button { border: 0; background-color: white; height: 20px; margin: 0; padding: 0; width: 20px; float: left; font-size: 11px; }
 .ui-datatable-pages button:disabled { color: #C0C0C0; }
 .ui-datatable-pages button[name='prev'] { border-radius: 2px 0 0 2px; }
-.ui-datatable-pages input { height: 20px; line-height: 21px; float: left; width: 30px; text-align: center; outline: 0; border: 0; background-color: transparent; font-weight: bold; font-size: 11px; }
+.ui-datatable-pages input { height: 20px; line-height: 20px; float: left; width: 30px; text-align: center; outline: 0; border: 0; background-color: transparent; font-weight: bold; font-size: 11px; }
 .ui-datatable-pages input:disabled { background-color: transparent; color: #C0C0C0; }
 .ui-datatable-pages button[name='next'] { border-radius: 0 2px 2px 0; }
 .ui-datatable-info { line-height: 26px; float: right; color: gray; padding: 0 5px 0 0; font-size: 11px; }
@@ -30,11 +30,13 @@
 .ui-datatable-checkbox-checked { background-color: #4285F4; border-color: #4285F4; color: #FFFFFF; }
 .ui-datatable-checkbox-checked i { display: block; }
 .ui-datatable-cols { font-weight: bold; }
+.ui-datatable-noscroll .ui-scrollbar-area { overflow-y: hidden; }
+.ui-datatable-noscroll .ui-scrollbar-y span { visibility: hidden; }
 
 .ui-dark .ui-datatable { border-color: #404040; }
 .ui-dark .ui-datatable-cols { border-bottom-color: #404040; background-color: #303030; }
 .ui-dark .ui-datatable-col { border-right-color: #404040; }
-.ui-dark .ui-datatable-row { border-bottom-color: #404040; }
+.ui-dark .ui-datatable-row, .ui-datatable-empty { border-bottom-color: #404040; }
 .ui-dark .ui-datatable-row:hover { background-color: #343434; }
 .ui-dark .ui-datatable-selected { background-color: rgba(100,100,100,0.3) !important; }
 .ui-dark .ui-datatable-row-col { border-right-color: #404040; }
