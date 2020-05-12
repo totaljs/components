@@ -162,7 +162,16 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 			meta.currentindex = index;
 			meta.checked = [];
 
-			for (var i = temp.index; i <= index; i++) {
+			var a = temp.index;
+			var b = index;
+
+			if (a > b) {
+				var tmp = a;
+				a = b;
+				b = tmp;
+			}
+
+			for (var i = a; i <= b; i++) {
 				var row = meta.rows[i];
 				if (meta.checked.indexOf(row) === -1)
 					meta.checked.push(row);
