@@ -120,7 +120,16 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 				e.preventDefault();
 
 			if (W.DATATABLESHIFT && oldindex !== -1) {
-				for (var i = oldindex; i <= temp.index; i++) {
+
+				var a = oldindex;
+				var b = temp.index;
+				if (a > b) {
+					var tmp = a;
+					a = b;
+					b = tmp;
+				}
+
+				for (var i = a; i <= b; i++) {
 					var row = meta.rows[i];
 					if (meta.checked.indexOf(row) === -1)
 						meta.checked.push(row);
