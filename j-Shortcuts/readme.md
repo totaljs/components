@@ -19,32 +19,37 @@ __Shortcuts__:
 - `left`, `up`, `right`, `down`
 - `F1`, `F2`, `F3`, `F4`, `F5`, `F6`, `F7`, `F8`, `F9`, `F10`, `F11`, `F12`
 - or custom key-codes `{Number}` or key-characters `{String(1)}`
-- __NEW__: `ins`
-- __NEW__ `remove` means`backspace` or `delete`
+- `ins`
+- `remove` means`backspace` or `delete`
+- __NEW__ supports `.shortcut`, read more below
 
 __Example__:
 
 ```javascript
-
 // SETTER(true, ...) --> works in jComponent +v9.0.0
 
-SETTER(true, 'shortcuts', 'register', 'cmd + enter', function(e) {
+SETTER(true, 'shortcuts/register', 'cmd + enter', function(e) {
     console.log('PRESSED: CMD + ENTER');
 });
 
-SETTER(true, 'shortcuts', 'register', 'alt + p', function(e) {
+SETTER(true, 'shortcuts/register', 'alt + p', function(e) {
     console.log('PRESSED: ALT + P');
 });
 
-SETTER(true, 'shortcuts', 'register', 'esc', function(e) {
+SETTER(true, 'shortcuts/register', 'esc', function(e) {
     console.log('PRESSED: esc');
 });
 
 // +v3 supports multiple shortcuts at the one time:
-SETTER(true, 'shortcuts', 'register', 'cmd+enter, ctrl+enter', function(e) {
+SETTER(true, 'shortcuts/register', 'cmd+enter, ctrl+enter', function(e) {
     console.log('PRESSED: CMD + ENTER');
 });
+```
 
+__New inline declaration__:
+
+```html
+<button class="exec shortcut" data-shortcut="F1" data-exec="METHO_TO_CALL">Help</button>
 ```
 
 ### Author
