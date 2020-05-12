@@ -3,7 +3,6 @@ COMPONENT('shortcuts', function(self) {
 	var items = [];
 	var length = 0;
 	var keys = {};
-	var elements;
 
 	self.singleton();
 	self.readonly();
@@ -18,8 +17,18 @@ COMPONENT('shortcuts', function(self) {
 
 		$(W).on('keydown', function(e) {
 
-			// cache
-			if ((e.metaKey && !keys.meta) || (e.altKey && !keys.alt) || (e.ctrlKey && !keys.ctrl) || (e.shiftKey && !keys.shift) || (!keys[e.keyCode] && !keys[e.key]))
+			var f = e.key;
+			var c = e.keyCode;
+
+			if (f.length > 1 && f.charAt(0) === 'F')
+				c = 0;
+			else
+				f = '-';
+
+			// ctrl,alt,shift,meta,fkey,code
+			var key = (e.ctrlKey ? 1 : 0) + '' + (e.altKey ? 1 : 0) + '' + (e.shiftKey ? 1 : 0) + '' + (e.metaKey ? 1 : 0) + f + c;
+
+			if (!keys[key])
 				return;
 
 			if (length && !e.isPropagationStopped()) {
@@ -59,7 +68,6 @@ COMPONENT('shortcuts', function(self) {
 			var shortcut = arr[i].getAttribute('data-shortcut');
 			shortcut && self.register(shortcut, self.execshortcut, true, arr[i]);
 		}
-
 	};
 
 	self.execshortcut = function(e, owner) {
@@ -75,78 +83,93 @@ COMPONENT('shortcuts', function(self) {
 		item && item.callback(EMPTYOBJECT, item.owner);
 	};
 
-	self.key = function(num) {
-		keys[num] = 1;
-	};
-
 	self.register = function(shortcut, callback, prevent, owner) {
 		shortcut.split(',').trim().forEach(function(shortcut) {
+
 			var builder = [];
 			var alias = [];
+			var cachekey = [0, 0, 0, 0, '-', 0]; // ctrl,alt,shift,meta,fkey,code
+
 			shortcut.split('+').trim().forEach(function(item) {
 				var lower = item.toLowerCase();
 				alias.push(lower);
+
+				switch (lower) {
+					case 'ctrl':
+						cachekey[0] = 1;
+						break;
+					case 'alt':
+						cachekey[1] = 1;
+						break;
+					case 'shift':
+						cachekey[2] = 1;
+						break;
+					case 'win':
+					case 'meta':
+					case 'cmd':
+						cachekey[3] = 1;
+						break;
+				}
+
 				switch (lower) {
 					case 'ctrl':
 					case 'alt':
 					case 'shift':
 						builder.push('e.{0}Key'.format(lower));
-						keys[lower] = 1;
 						return;
 					case 'win':
 					case 'meta':
 					case 'cmd':
 						builder.push('e.metaKey');
-						keys.meta = 1;
 						return;
 					case 'ins':
 						builder.push('e.keyCode===45');
-						self.key(45);
+						cachekey[5] = 45;
 						return;
 					case 'space':
 						builder.push('e.keyCode===32');
-						self.key(32);
+						cachekey[5] = 32;
 						return;
 					case 'tab':
 						builder.push('e.keyCode===9');
-						self.key(9);
+						cachekey[5] = 9;
 						return;
 					case 'esc':
 						builder.push('e.keyCode===27');
-						self.key(28);
+						cachekey[5] = 27;
 						return;
 					case 'enter':
 						builder.push('e.keyCode===13');
-						self.key(13);
+						cachekey[5] = 13;
 						return;
 					case 'backspace':
 						builder.push('e.keyCode===8');
-						self.key(8);
+						cachekey[5] = 8;
 						break;
 					case 'del':
 					case 'delete':
 						builder.push('e.keyCode===46');
-						self.key(46);
+						cachekey[5] = 46;
 						return;
 					case 'remove':
 						builder.push('(e.keyCode===8||e.keyCode===46)');
-						self.key(46);
+						cachekey[5] = -1;
 						return;
 					case 'up':
 						builder.push('e.keyCode===38');
-						self.key(38);
+						cachekey[5] = 38;
 						return;
 					case 'down':
 						builder.push('e.keyCode===40');
-						self.key(40);
+						cachekey[5] = 40;
 						return;
 					case 'right':
 						builder.push('e.keyCode===39');
-						self.key(39);
+						cachekey[5] = 39;
 						return;
 					case 'left':
 						builder.push('e.keyCode===37');
-						self.key(37);
+						cachekey[5] = 37;
 						return;
 					case 'f1':
 					case 'f2':
@@ -162,27 +185,40 @@ COMPONENT('shortcuts', function(self) {
 					case 'f12':
 						var a = item.toUpperCase();
 						builder.push('e.key===\'{0}\''.format(a));
-						keys[a] = 1;
+						cachekey[4] = a;
 						return;
 					case 'capslock':
 						builder.push('e.which===20');
-						self.key(20);
+						cachekey[5] = 20;
 						return;
 				}
 
 				var num = item.parseInt();
 				if (num) {
 					builder.push('e.which===' + num);
-					self.key(num);
+					cachekey[5] = num;
 				} else {
 					num = item.toUpperCase().charCodeAt(0);
-					self.key(num);
+					cachekey[5] = num;
 					builder.push('e.keyCode==={0}'.format(num));
 				}
 			});
 
 			items.push({ shortcut: alias.join('+'), fn: new Function('e', 'return ' + builder.join('&&')), callback: callback, prevent: prevent, owner: owner });
 			length = items.length;
+
+			var k;
+
+			// Remove
+			if (cachekey[5] === -1) {
+				cachekey[5] = 8;
+				k = cachekey.join('');
+				keys[k] = 1;
+				cachekey[5] = 46;
+			}
+
+			k = cachekey.join('');
+			keys[k] = 1;
 		});
 
 		if (!owner)
