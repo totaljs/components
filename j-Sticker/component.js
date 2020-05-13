@@ -1,4 +1,4 @@
-COMPONENT('stickerparent', 'margin:0;marginparent:0;lg:1;md:1;sm:1;xs:0;type:offset', function(self, config) {
+COMPONENT('sticker', 'margin:0;marginparent:0;lg:1;md:1;sm:1;xs:0;type:offset', function(self, config) {
 
 	var raf = W.requestAnimationFrame ? W.requestAnimationFrame : function(cb) { setTimeout(cb, 1); };
 	var ca = null;
