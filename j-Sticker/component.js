@@ -1,13 +1,15 @@
-COMPONENT('sticker', 'margin:0;lg:1;md:1;sm:0;xs:0', function(self, config) {
+COMPONENT('stickerparent', 'margin:0;marginparent:0;lg:1;md:1;sm:1;xs:0;type:offset', function(self, config) {
 
+	var raf = W.requestAnimationFrame ? W.requestAnimationFrame : function(cb) { setTimeout(cb, 1); };
 	var ca = null;
 	var cb = null;
 	var enabled = false;
 	var is = false;
 	var ready = false;
 	var top = 0;
+	var maxtop = 0;
 	var events = {};
-	var raf = W.requestAnimationFrame ? W.requestAnimationFrame : function(cb) { cb(); };
+	var parent;
 
 	self.readonly();
 
@@ -22,6 +24,9 @@ COMPONENT('sticker', 'margin:0;lg:1;md:1;sm:0;xs:0', function(self, config) {
 				break;
 			case 'off':
 				cb = value;
+				break;
+			case 'parent':
+				parent = config.parent ? self.parent(config.parent) : null;
 				break;
 		}
 	};
@@ -46,7 +51,7 @@ COMPONENT('sticker', 'margin:0;lg:1;md:1;sm:0;xs:0', function(self, config) {
 		ready = false;
 
 		WAIT(function() {
-			top = self.element.offset().top;
+			top = self.element[config.type]().top;
 			return top > 0;
 		}, function() {
 			ready = true;
@@ -62,6 +67,7 @@ COMPONENT('sticker', 'margin:0;lg:1;md:1;sm:0;xs:0', function(self, config) {
 			return;
 
 		self.container = parentscroll(self.dom);
+
 		if (self.container) {
 			self.resize();
 			events.bind();
@@ -82,18 +88,29 @@ COMPONENT('sticker', 'margin:0;lg:1;md:1;sm:0;xs:0', function(self, config) {
 			return;
 		}
 
+		var t = top + config.margin;
 		var y = W.pageYOffset || self.container.scrollTop;
 
-		is = y >= (top + config.margin);
+		is = y >= t;
+
 		if (is) {
+
 			if (!enabled) {
+				enabled = true;
 				ca && el.rclass(ca);
 				cb && el.aclass(cb);
-				enabled = true;
+				if (parent)
+					maxtop = (parent.height() - el.height()) - config.marginparent;
 			}
+
+			if (parent && y < (maxtop + t))
+				self.dom.style.top = y + 'px';
+
 		} else if (enabled) {
 			cb && el.rclass(cb);
 			ca && el.aclass(ca);
+			if (parent)
+				self.dom.style.top = t + 'px';
 			enabled = false;
 		}
 	};
