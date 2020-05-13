@@ -1,4 +1,4 @@
-COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0;pluralizeitems:# items,# item,# items,# items;pluralizepages:# pages,# page,# pages,# pages', function(self, config, cls) {
+COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0;pluralizeitems:# items,# item,# items,# items;pluralizepages:# pages,# page,# pages,# pages', function(self, config, cls) {
 
 	var container, paginate;
 	var layout;
@@ -99,6 +99,19 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0;pluralizeitems:# items,
 			builder.push(self.template(value.items[i], g));
 		}
 
+		if (config.modulo) {
+			var count = value.items.length;
+			var diff = count % config.modulo;
+			if (diff) {
+				diff = config.modulo - diff;
+				var empty = { EMPTY: 1 };
+				for (var i = 0; i < diff; i++) {
+					g.index = value.items.length + i;
+					builder.push(self.template(empty, g));
+				}
+			}
+		}
+
 		container.html(layout ? layout({ page: value.page, pages: value.pages, body: builder.join(''), count: value.count }) : builder.join(''));
 
 		var half = Math.ceil(config.pages / 2);
@@ -158,12 +171,13 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0;pluralizeitems:# items,
 
 		paginate.find('.selected').rclass('selected');
 		paginate.find(cls2 + '-page[data-index="{0}"]'.format(value.page)).aclass('selected');
-		paginate.tclass('hidden', value.pages < 2 && !self.scrollbar);
-		self.rclass('hidden');
-		if (value.count)
-			self.find(cls2 + '-paginate').rclass('hidden');
+
+		if (config.nopages && !self.scrollbar)
+			paginate.tclass('hidden', value.pages <= 1);
 		else
-			self.find(cls2 + '-paginate').aclass('hidden');
+			paginate.rclass('hidden');
+
+		self.rclass('hidden');
 
 		if (type && config.scrolltop) {
 			if (self.scrollbar)
