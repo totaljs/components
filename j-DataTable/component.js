@@ -525,7 +525,7 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 				col.template = Tangular.compile(col.template);
 
 			builder.push(template_col(col));
-			empty.push('<div class="{0}-row-col" style="width:{1}px">&nbsp;</div>'.format(cls, col.width));
+			empty.push('<div class="{0}-row-col" style="width:{1}px"></div>'.format(cls, col.width));
 		}
 
 		var sw = self.scrollbar.pathy.width();
