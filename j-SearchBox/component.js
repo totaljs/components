@@ -82,6 +82,10 @@ COMPONENT('searchbox', 'cleartype:0;keypress:0;autotrim:1', function(self, confi
 		self.refresh();
 	};
 
+	self.show = function() {
+		els.placeholder.trigger('click');
+	};
+
 	self.enter = function() {
 		self.modifiedvalue('input', true);
 	};

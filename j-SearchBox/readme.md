@@ -17,6 +17,7 @@ __Methods__:
 
 - `component.type(html, id, [noemit])` adds a new type before the search input
 - `component.enter()` performs searching manually
+- __NEW__: `component.show()` focuses the input
 
 ### Author
 
