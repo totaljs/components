@@ -1,5 +1,3 @@
-/* eslint-disabled */
-/* eslint-disable */
 /*! jQuery v3.4.1 | (c) JS Foundation and other contributors | jquery.org/license */
 /*! jComponent v18 | (c) 2014-2019 Peter Sirka | www.petersirka.com */
 if (typeof(module)=='object'){window.module=module;module=undefined}
