@@ -1,3 +1,4 @@
+
 COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# items,# items;pluralizepages:# pages,# page,# pages,# pages;unhighlight:0;colwidth:150;rowheight:24;clickid:id', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
@@ -594,7 +595,6 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 		container_pages.find('input').val(meta.page)[0].disabled = meta.pages === 1;
 
 		var selectindex = meta.selected ? +meta.selected.attrd('index') : null;
-
 		if (selectindex == null && config.autoselect && rows && rows.length)
 			selectindex = 0;
 
@@ -603,6 +603,8 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 				self.select(rows[index]);
 			}, 1, rows, selectindex);
 		}
+
+		config.checked && SEEX(self.makepath(config.checked), meta.checked, self);
 	};
 
 });
