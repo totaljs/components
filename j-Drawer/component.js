@@ -1,20 +1,42 @@
-COMPONENT('drawer', 'align:left', function(self, config) {
+COMPONENT('drawer', 'align:left;width:250', function(self, config, cls) {
+
+	var container;
+	var old;
 
 	self.readonly();
 
 	self.make = function() {
-		self.aclass('ui-drawer ui-drawer-a' + config.align);
-		self.element.wrapInner('<div class="ui-drawer-nav"></div>');
+		self.aclass(cls + ' ' + cls + '-a' + config.align);
+		self.element.wrapInner('<div class="' + cls + '-nav"></div>');
+		container = self.find('.' + cls + '-nav');
+
 		self.event('click', function() {
 			self.set('');
 		});
+
+		// Moves drawer under <body
+		if (self.dom.parentNode.tagName !== 'BODY')
+			document.body.appendChild(self.dom);
+
+		$(W).on('resize', self.resize);
+		self.resize();
+	};
+
+	self.resize = function() {
+		var d = WIDTH();
+		var w = config[d] || config.width;
+		if (w !== old) {
+			old = w;
+			container.css('width', w);
+		}
 	};
 
 	self.setter = function(value) {
+		var c = cls + '-visible';
 		if (value === config.if) {
 			self.rclass('hidden');
-			self.aclass('ui-drawer-visible', 100);
+			self.aclass(c, 100);
 		} else
-			self.rclass('ui-drawer-visible').aclass('hidden', 800);
+			self.rclass(c).aclass('hidden', 800);
 	};
 });
