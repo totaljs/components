@@ -16,11 +16,13 @@ var opt = {};
 
 opt.element = YOUR_ELEMENT;
 
-// opt.offsetX {Number}    : "x" offset
-// opt.offsetY {Number}    : "y" offset
-// opt.width {Number}      : width (default: 280)
-// opt.align {String}      : align `left` (default), `center` or `right`
-// opt.position {String}   : position `top` (default) or `bottom`
+// opt.offsetX {Number}     : "x" offset
+// opt.offsetY {Number}     : "y" offset
+// opt.width {Number}       : width (default: 280)
+// opt.align {String}       : align `left` (default), `center` or `right`
+// opt.position {String}    : position `top` (default) or `bottom`
+// opt.enter {Boolean}      : (NEW) component will watch ENTER in all input elements for applying of filter (default: false)
+// opt.autofocus {Boolean}  : (NEW) focuses the first input (default: true)
 
 // Can contain preddefined values for filter
 // NEW: opt.value is optional, the component creates own and attach it to element
