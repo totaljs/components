@@ -14,8 +14,8 @@
 .ui-filter-checkbox-checked { background-color: #4285F4 !important; color: #FFFFFF; border-color: #4285F4 !important; }
 .ui-filter-checkbox-checked i { display: block; }
 .ui-filter-option { font-size: 11px; padding: 0 5px; line-height: 27px; cursor: pointer; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; height: 26px; }
-.ui-filter-buttons { height: 30px; }
-.ui-filter-buttons button { border: 0; background: #FFFFFF; width: 33%; font-size: 12px; float: left; margin: 0; padding: 0; background-color: #F0F0F0; height: 30px; outline: 0; }
+.ui-filter-buttons { height: 26px; }
+.ui-filter-buttons button { border: 0; background: #FFFFFF; width: 33%; font-size: 12px; float: left; margin: 0; padding: 0; background-color: #F0F0F0; height: 26px; outline: 0; }
 .ui-filter-buttons button i { margin-right: 5px; }
 .ui-filter-buttons button[name="reset"] { border-radius: 0 0 0 2px; }
 .ui-filter-buttons button[name="apply"] { background-color: #4285F4 !important; color: #FFFFFF; font-weight: bold; width: 34%; }

@@ -4,7 +4,7 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 	var cls2 = '.' + cls;
 	var events = {};
 	var is = false;
-	var container, timeout;
+	var container, timeout, prev;
 
 	self.singleton();
 	self.readonly();
@@ -24,6 +24,11 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 		self.aclass(cls + ' hidden');
 		self.append('<div class="' + cls + '-items"></div><div class="' + cls + '-buttons"><button name="reset">{reset}</button><button name="apply"><i class="fa fa-filter"></i>{apply}</button><button name="cancel">{cancel}</button></div>'.arg(config));
 		container = self.find(cls2 + '-items');
+
+		self.event('keydown', 'input', function(e) {
+			if (e.which === 13 && self.opt && self.opt.enter)
+				setTimeout2(self.ID + 'enter', self.apply, 200);
+		});
 
 		self.event('click', 'button', function(e) {
 			e.preventDefault();
@@ -242,6 +247,20 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 			}
 		}
 
+		if (!opt.value) {
+			if (!el.$filter)
+				el.$filter = {};
+			opt.value = el.$filter;
+		}
+
+		var cache = JSON.stringify(opt.items);
+		var isprerender = false;
+
+		if (cache !== prev) {
+			prev = cache;
+			isprerender = true;
+		}
+
 		var builder = [];
 		for (var i = 0; i < opt.items.length; i++) {
 			var item = opt.items[i];
@@ -280,6 +299,7 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 						value = '<div class="{0}-checkbox"><i class="fa fa-check"></i></div>'.format(cls);
 						break;
 					case 'Time':
+					case 'time':
 						item.input = true;
 						item.iconclick = true;
 						item.icon = 'clock-o';
@@ -290,22 +310,26 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 				}
 			}
 
-			if (item.input) {
-				value = '<input type="text" />';
-				if (item.maxlength)
-					value = value.replace('/>', 'maxlength="' + item.maxlength + '" />');
-			}
+			if (isprerender) {
 
-			if (item.icon)
-				value = '<div class="{0}-item-icon{3}">{1}</div><div class="{0}-item-input">{2}</div>'.format(cls, item.icon.charAt(0) === '!' ? item.icon.substring(1) : '<i class="fa fa-{0}"></i>'.format(item.icon), value, item.iconclick ? (' ' + cls + '-icon-click') : '');
+				if (item.input) {
+					value = '<input type="text" />';
+					if (item.maxlength)
+						value = value.replace('/>', 'maxlength="' + item.maxlength + '" />');
+				}
+
+				if (item.icon)
+					value = '<div class="{0}-item-icon{3}">{1}</div><div class="{0}-item-input">{2}</div>'.format(cls, item.icon.charAt(0) === '!' ? item.icon.substring(1) : '<i class="fa fa-{0}"></i>'.format(item.icon), value, item.iconclick ? (' ' + cls + '-icon-click') : '');
+
+				builder.push('<div class="{0}-item" data-index="{3}"><div class="{0}-item-label">{1}</div><div class="{0}-item-value"><div class="{0}-placeholder">{4}</div>{2}</div></div>'.format(cls, item.label || item.name, value, i, item.placeholder || ''));
+			}
 
 			if (opt.value && !item.current)
 				item.current = opt.value[item.name];
-
-			builder.push('<div class="{0}-item" data-index="{3}"><div class="{0}-item-label">{1}</div><div class="{0}-item-value"><div class="{0}-placeholder">{4}</div>{2}</div></div>'.format(cls, item.label || item.name, value, i, item.placeholder || ''));
 		}
 
-		container.html(builder.join(''));
+		if (isprerender)
+			container.html(builder.join(''));
 
 		if (!opt.value)
 			opt.value = {};
@@ -317,10 +341,16 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 			var el = $(this);
 			var index = +el.attrd('index');
 			self.val(el, self.opt.items[index].current, true);
+			if (!isprerender) {
+				var t = el.find('input')[0];
+				if (t) {
+					t.$prev = t.value;
+					el.find(cls2 + '-placeholder').tclass('hidden', !!t.value);
+				}
+			}
 		});
 
 		el = $(el);
-
 		self.rclass('hidden');
 
 		var css = {};
@@ -351,10 +381,20 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 		if (opt.offsetY)
 			css.top += opt.offsetY;
 
+		if (!isMOBILE && opt.autofocus !== false) {
+			setTimeout(function() {
+				self.find('input').eq(0).focus();
+			}, 500);
+		}
+
 		self.element.css(css);
 		self.aclass(cls + '-visible', 100);
 		self.bindevents();
 		is = true;
+	};
+
+	self.apply = function() {
+		self.find('button[name="apply"]').trigger('click');
 	};
 
 	self.hide = function(sleep) {

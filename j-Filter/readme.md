@@ -23,6 +23,7 @@ opt.element = YOUR_ELEMENT;
 // opt.position {String}   : position `top` (default) or `bottom`
 
 // Can contain preddefined values for filter
+// NEW: opt.value is optional, the component creates own and attach it to element
 opt.value = { from: new Date(), price: 10, brand: 'VWFS', city: 1 };
 
 // Fields in filter:
