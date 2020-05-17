@@ -8,7 +8,9 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 
 	var autohide = function(e) {
 		var tmp = e.target;
-		while (tmp && tmp.tagName !== 'BODY') {
+		while (tmp) {
+			if (tmp.tagName === 'BODY' || tmp.tagName === 'HTML' || !tmp.getAttribute)
+				break;
 			var cc = tmp.getAttribute('class');
 			if (regnohide.test(cc))
 				return false;
