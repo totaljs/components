@@ -1,23 +1,45 @@
-COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, config) {
+COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, config, cls) {
 
-	var cls = 'ui-filter';
 	var cls2 = '.' + cls;
 	var events = {};
 	var is = false;
 	var container, timeout, prev;
+	var regnohide = /ui-datepicker|ui-timepicker|ui-directory|ui-filter/g;
+
+	var autohide = function(e) {
+		var tmp = e.target;
+		while (tmp && tmp.tagName !== 'BODY') {
+			var cc = tmp.getAttribute('class');
+			if (regnohide.test(cc))
+				return false;
+			tmp = tmp.parentNode;
+		}
+		return true;
+	};
 
 	self.singleton();
 	self.readonly();
 	self.nocompile && self.nocompile();
 
 	self.bindevents = function() {
-		if (!is)
+		if (!is) {
 			$(W).on('scroll', events.resize).on('resize', events.resize);
+			$(document).on('click', events.click);
+			is = true;
+		}
 	};
 
 	self.unbindevents = function() {
-		if (is)
+		if (is) {
+			is = false;
 			$(W).off('scroll', events.resize).off('resize', events.resize);
+			$(document).off('click', events.click);
+		}
+	};
+
+	events.click = function(e) {
+		if (autohide(e))
+			self.hide(1);
 	};
 
 	self.make = function() {
@@ -389,8 +411,7 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 
 		self.element.css(css);
 		self.aclass(cls + '-visible', 100);
-		self.bindevents();
-		is = true;
+		setTimeout(self.bindevents, 500);
 	};
 
 	self.apply = function() {
@@ -406,7 +427,6 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 			self.rclass(cls + '-visible').aclass('hidden');
 			if (self.opt)
 				self.opt = null;
-			is = false;
 		}, sleep ? sleep : 100);
 	};
 });
