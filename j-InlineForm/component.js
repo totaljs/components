@@ -1,9 +1,10 @@
-COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
+COMPONENT('inlineform', 'autohide:1', function(self, config, cls) {
 
-	var cls = 'ui-inlineform';
 	var cls2 = '.' + cls;
+	var regnohide = /ui-datepicker|ui-timepicker|ui-directory|ui-inlineform/g;
 	var dw = 300;
 	var options;
+	var events = {};
 
 	if (!W.$$inlineform) {
 		W.$$inlineform = true;
@@ -15,6 +16,19 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 			SETTER(self.name, 'hide');
 		});
 	}
+
+	var autohide = function(e) {
+		var tmp = e.target;
+		while (tmp) {
+			if (tmp.tagName === 'BODY' || tmp.tagName === 'HTML' || !tmp.getAttribute)
+				break;
+			var cc = tmp.getAttribute('class');
+			if (regnohide.test(cc))
+				return;
+			tmp = tmp.parentNode;
+		}
+		self.hide();
+	};
 
 	self.readonly();
 
@@ -37,12 +51,29 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 			self.aclass('hidden');
 			self.find(cls2).rclass(cls + '-animate');
 			config.hide && EXEC(config.hide);
+			events.unbind();
 		}
 	};
 
 	self.icon = function(value) {
 		var el = this.rclass2('fa');
-		value.icon && el.aclass('fa fa-' + value.icon);
+		value.icon && el.aclass((value.icon.indexOf(' ') === -1 ? 'fa fa-' : '') + value.icon);
+	};
+
+	events.bind = function() {
+		if (!events.is) {
+			events.is = true;
+			if (config.autohide)
+				$(document).on('click', autohide);
+		}
+	};
+
+	events.unbind = function() {
+		if (events.is) {
+			events.is = false;
+			if (config.autohide)
+				$(document).off('click', autohide);
+		}
 	};
 
 	self.make = function() {
@@ -143,6 +174,8 @@ COMPONENT('inlineform', 'icon:circle-o', function(self, config) {
 			el = self.find('input[type="text"],select,textarea');
 			el.length && el[0].focus();
 		}
+
+		events.bind();
 
 		setTimeout(function() {
 			self.find(cls2).aclass(cls + '-animate');
