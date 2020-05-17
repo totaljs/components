@@ -5,17 +5,16 @@
 
 __Configuration__:
 
-Example: `data-jc-config="title:Form title;width:200;icon:home"`
-
 - `title` {String} form title
 - `width` {Number} form max-width
-- `icon` {String} Font-Awesome icon without `fa-`
+- `icon` {String} Font-Awesome icon without `fa-` or the whole declaration e.g. `fa fa-home`
 - `reload` {String} a link to a global function and it's executed if the form is showing
 - `submit` {String} a link to a global function and it's executed if the submit button is pressed
 - `cancel` {String} a link to a global function and it's executed if the cancel button is pressed
 - `hide` {String} a link to a global function and it's executed if the form is hiding
-- `enter` {Boolean} (optional) captures `enter` key automatically and performs submit (default: `false`)
-- `default` {String} (optional) a short alias for `DEFAULT(default, true)`
+- `enter` {Boolean} captures `enter` key automatically and performs submit (default: `false`)
+- `default` {String} a short alias for `DEFAULT(default, true)`
+- `autohide` {Boolean} enables auto-hide (default: `true`)
 
 __Methods__:
 
