@@ -1,4 +1,3 @@
-
 COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# items,# items;pluralizepages:# pages,# page,# pages,# pages;unhighlight:0;colwidth:150;rowheight:24;clickid:id', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
@@ -90,6 +89,13 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 					meta.selected = null;
 				} else
 					self.select(row);
+			}
+		});
+
+		container_rows.on('contextmenu', function(e) {
+			if (config.contextmenu) {
+				e.preventDefault();
+				EXEC(self.makepath(config.contextmenu), e, self);
 			}
 		});
 

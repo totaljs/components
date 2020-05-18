@@ -335,6 +335,13 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 			events.unbind();
 		};
 
+		container.on('contextmenu', function(e) {
+			if (config.contextmenu) {
+				e.preventDefault();
+				EXEC(self.makepath(config.contextmenu), e, self);
+			}
+		});
+
 		events.unbind = function() {
 			$(W).off('mouseup', events.mouseup).off('mousemove', events.mousemove);
 		};

@@ -39,7 +39,8 @@ __Configuration__:
 - `dblclick` {String} a link to `function(row, grid, row_el)` method, it's executed if the user double-clicks on a row
 - `noborder` {Boolean} can disable a border around the grid (default: `false`)
 - `colwidth` {Number} a default width for columns (default: `150`)
-- `editable` {String a link to `function(opt)` when the user performs editing
+- `editable` {String} a link to `function(opt)` when the user performs editing
+- `contextmenu` {String} a link to `function(e, grid)` when the user raises context menu
 
 __Column properties__:
 
