@@ -1,17 +1,17 @@
 .ui-properties2-container { padding: 0 0 20px 0; }
 .ui-properties2-group:first-child { margin-top: 10px; }
-.ui-properties2-group:lastchild-child section { margin-bottom: 0; }
+.ui-properties2-group:last-child section { margin-bottom: 0; }
 .ui-properties2-group { padding: 0; margin-bottom: 20px; border: 1px solid #E0E0E0; border-radius: 2px; }
 .ui-properties2-group label { display: block; padding: 10px 15px; font-size: 16px; font-weight: bold; background-color: #F8F8F8; }
 .ui-properties2-group label i { width: 22px; }
 .ui-properties2-group label i:before { content: '\f146'; }
 .ui-properties2-hidden label i:before { content: '\f0fe' !important; }
 .ui-properties2-hidden section { display: none; }
-.ui-properties2-item { padding: 6px 0; background-color: #FFFFFF; margin-bottom: 1px; font-size: 13px; border-top: 1px solid #E0E0E0; }
+.ui-properties2-item { padding: 6px 0; background-color: #FFFFFF; margin-bottom: 1px; font-size: 12px; border-top: 1px solid #E0E0E0; }
 .ui-properties2-key { float: left; width: 170px; line-height: 24px; padding: 0 5px 0 15px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; color: #707070; }
 .ui-properties2-key i { margin-right: 7px; }
 .ui-properties2-value { margin: 0 10px 0 170px; line-height: 21px; }
-.ui-properties2-note { color: gray; font-size: 11px; line-height: 13px; font-weight: normal; }
+.ui-properties2-note { color: #A0A0A0; font-size: 11px; line-height: 13px; font-weight: normal; }
 .ui-properties2-string, .ui-properties2-number, .ui-properties2-date, .ui-properties2-list, .ui-properties2-file { padding: 0; }
 .ui-properties2-string input, .ui-properties2-number input, .ui-properties2-date input { outline: 0; height: 21px; padding: 0; margin: 0; width: 100%; border: 0; line-height: 21px; background-color: transparent; }
 .ui-properties2-date > i { float: right; width: 18px; margin: 4px 0 0 0; text-align: right; font-size: 12px; }
