@@ -7,11 +7,8 @@ __Configuration__:
 - `dateformat` {String} a date format (default: `yyyy-MM-dd`)
 - `timeformat` {String} a time format (default: `HH:mm`)
 - `datetimeformat` {String} a date/time format (default: `yyyy-MM-dd HH:mm`)
-- `height` {Number} a height of the element (default: `undefined`)
-- `parent` {String} jQuery selector for auto setup of height (can be `window`, `parent` or `custom`)
-- `margin` {Number} vertical margin (default: `0`)
 - `change` {String} a path to method `method(item, replace_text(new_text))` (executed if some value is changed) and `replace_text` argument is optional
-- `visibleY` {Boolean} shows a scrollbar (default: `true`)
+- `modalalign` {String} aligment for modal windows (default: `center`)
 
 __Data declaration__:
 

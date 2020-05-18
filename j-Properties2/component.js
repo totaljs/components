@@ -1,9 +1,8 @@
-COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timeformat:HH:mm;offset:0;margin:0;modalalign:center;visibleY:1', function(self, config, cls) {
+COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timeformat:HH:mm;modalalign:center', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var container;
 	var types = {};
-	var prevh = -1;
 	var skip = false;
 	var values, funcs;
 
@@ -14,7 +13,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		if (!$('#propertie2supload').length)
 			$(document.body).append('<input type="file" id="properties2upload" />');
 
-		self.append('<div><div class="{0}-container"></div></div>'.format(cls, config.search));
+		self.append('<div><div class="{0}-container"></div></div>'.format(cls));
 		container = self.find(cls2 + '-container');
 
 		var keys = Object.keys(types);
