@@ -610,6 +610,7 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 			}, 1, rows, selectindex);
 		}
 
+		config.click && SEEX(self.makepath(config.click), null, self);
 		config.checked && SEEX(self.makepath(config.checked), meta.checked, self);
 	};
 
