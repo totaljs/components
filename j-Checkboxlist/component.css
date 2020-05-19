@@ -1,6 +1,6 @@
 .ui-checkboxlist-checkbox { line-height: 16px; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
 .ui-checkboxlist-label i { margin-right: 5px; }
-.ui-checkboxlist-label { margin-bottom: 8px; font-size: 12px; border-bottom: 1px solid #E0E0E0; padding-bottom: 5px; }
+.ui-checkboxlist-label { margin-bottom: 8px; font-size: 12px; border-bottom: 1px solid #E0E0E0; padding-bottom: 3px; }
 .ui-checkboxlist-required .ui-checkboxlist-label:before { color: red; content: '***'; margin-right: 5px; }
 .ui-checkboxlist-item { cursor: pointer; padding-bottom: 2px; font-size: 12px; }
 .ui-checkboxlist-item span { cursor: pointer; vertical-align: middle; }
