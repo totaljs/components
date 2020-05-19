@@ -1,13 +1,11 @@
-COMPONENT('validation', 'delay:100;flags:visible', function(self, config) {
+COMPONENT('validation', 'delay:100;flags:visible', function(self, config, cls) {
 
 	var path, elements = null;
 	var def = 'button[name="submit"]';
 	var flags = null;
 	var tracked = false;
 	var reset = 0;
-	var cls = 'ui-validation';
-	var old;
-	var track;
+	var old, track;
 
 	self.readonly();
 
@@ -36,6 +34,10 @@ COMPONENT('validation', 'delay:100;flags:visible', function(self, config) {
 		}
 	};
 
+	var settracked = function() {
+		tracked = 0;
+	};
+
 	self.setter = function(value, path, type) {
 
 		var is = path === self.path || path.length < self.path.length;
@@ -54,27 +56,27 @@ COMPONENT('validation', 'delay:100;flags:visible', function(self, config) {
 			}
 			if (tracked === 1) {
 				tracked = 2;
-				setTimeout(function() {
-					tracked = 0;
-				}, config.delay * 3);
+				setTimeout(settracked, config.delay * 3);
 			}
+		}
+	};
+
+	var check = function() {
+		var disabled = tracked ? !VALID(path, flags) : DISABLED(path, flags);
+		if (!disabled && config.if)
+			disabled = !EVALUATE(self.path, config.if);
+		if (disabled !== old) {
+			elements.prop('disabled', disabled);
+			self.tclass(cls + '-ok', !disabled);
+			self.tclass(cls + '-no', disabled);
+			old = disabled;
 		}
 	};
 
 	self.state = function(type, what) {
 		if (type === 3 || what === 3)
 			tracked = 0;
-		setTimeout2(self.ID, function() {
-			var disabled = tracked ? !VALID(path, flags) : DISABLED(path, flags);
-			if (!disabled && config.if)
-				disabled = !EVALUATE(self.path, config.if);
-			if (disabled !== old) {
-				elements.prop('disabled', disabled);
-				self.tclass(cls + '-ok', !disabled);
-				self.tclass(cls + '-no', disabled);
-				//self.tclass(cls + '-modified',
-				old = disabled;
-			}
-		}, config.delay);
+		setTimeout2(self.ID, check, config.delay);
 	};
+
 });
