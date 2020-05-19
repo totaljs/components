@@ -1,7 +1,9 @@
-COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
+COMPONENT('checkboxlist', 'checkicon:check', function(self, config, cls) {
 
 	var W = window;
-	!W.$checkboxlist && (W.$checkboxlist = Tangular.compile('<div{{ if $.class }} class="{{ $.class }}"{{ fi }}><div class="ui-checkboxlist-item" data-index="{{ index }}"><div><i class="fa fa-{{ $.checkicon }}"></i></div><span>{{ text }}</span></div></div>'));
+	var cls2 = '.' + cls;
+
+	!W.$checkboxlist && (W.$checkboxlist = Tangular.compile('<div{{ if $.class }} class="{{ $.class }}"{{ fi }}><div class="' + cls + '-item" data-index="{{ index }}"><div><i class="fa fa-{{ $.checkicon }}"></i></div><span>{{ text }}</span></div></div>'));
 
 	var template = W.$checkboxlist;
 	var container, data, datasource, content, dataold, render = null;
@@ -26,7 +28,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 				break;
 
 			case 'checkicon':
-				self.find('i').rclass().aclass('fa fa-' + value);
+				self.find('i').rclass().aclass((value.indexOf(' ') === -1 ? 'fa fa-' : '') + value);
 				break;
 
 			case 'disabled':
@@ -41,12 +43,12 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 				break;
 
 			case 'icon':
-				if (!self.find('.ui-checkboxlist-label').find('i').rclass().aclass('fa fa-' + value).length)
+				if (!self.find(cls2 + '-label').find('i').rclass().aclass((value.indexOf(' ') === -1 ? 'fa fa-' : '') + value).length)
 					redraw = true;
 				break;
 
 			case 'required':
-				self.tclass('ui-checkboxlist-required', value);
+				self.tclass(cls + '-required', value);
 				self.state(1, 1);
 				break;
 
@@ -84,7 +86,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 
 	self.make = function() {
 
-		self.aclass('ui-checkboxlist');
+		self.aclass(cls);
 		content = self.html();
 		config.type && (self.type = config.type);
 		config.disabled && self.aclass('ui-disabled');
@@ -97,7 +99,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 		else
 			self.bind('', null);
 
-		self.event('click', '.ui-checkboxlist-item', function(e) {
+		self.event('click', cls2 + '-item', function(e) {
 
 			e.stopPropagation();
 
@@ -105,8 +107,8 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 				return;
 
 			var el = $(this);
-			var is = !el.hasClass('ui-checkboxlist-checked');
-			var index = +el.attr('data-index');
+			var is = !el.hasClass(cls + '-checked');
+			var index = +el.attrd('index');
 			var value = data[index];
 
 			if (value == null)
@@ -133,10 +135,18 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 	};
 
 	self.redraw = function() {
+
 		var label = config.label || content;
-		self.tclass('ui-checkboxlist-required', config.required == true);
-		self.html((label ? '<div class="ui-checkboxlist-label">{1}{0}</div>'.format(label, config.icon ? '<i class="fa fa-{0}"></i>'.format(config.icon) : '') : '') + '<div class="ui-checkboxlist-container"></div>');
-		container = self.find('.ui-checkboxlist-container');
+		var icon = config.icon ? ((config.icon.indexOf(' ') === -1 ? 'fa fa-' : '') + config.icon) : '';
+
+		self.tclass(cls + '-required', !!config.required);
+
+		if (label)
+			label = '<div class="{0}-label">{1}{2}:</div>'.format(cls, icon ? '<i class="{0}"></i>'.format(icon) : '', label);
+
+		self.html(label + '<div class="' + cls + '-container"></div>');
+		container = self.find(cls2 + '-container');
+
 	};
 
 	self.selectall = function() {
@@ -145,7 +155,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 			return;
 
 		var arr = [];
-		var inputs = self.find('.ui-checkboxlist-item');
+		var inputs = self.find(cls2 + '-item');
 		var value = self.get();
 
 		self.change(true);
@@ -157,7 +167,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 
 		inputs.each(function() {
 			var el = $(this);
-			arr.push(self.parser(data[+el.attr('data-index')].value));
+			arr.push(self.parser(data[+el.attrd('index')].value));
 		});
 
 		self.set(arr);
@@ -193,26 +203,26 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config) {
 	};
 
 	self.setter = function(value) {
-		container.find('.ui-checkboxlist-item').each(function() {
+		container.find(cls2 + '-item').each(function() {
 			var el = $(this);
-			var index = +el.attr('data-index');
+			var index = +el.attrd('index');
 			var checked = false;
 			if (!value || !value.length)
 				checked = false;
 			else if (data[index])
 				checked = data[index];
 			checked && (checked = value.indexOf(checked.value) !== -1);
-			el.tclass('ui-checkboxlist-checked', checked);
+			el.tclass(cls + '-checked', checked);
 		});
 	};
 
 	self.state = function(type) {
-		if (!type)
-			return;
-		var invalid = config.required ? self.isInvalid() : false;
-		if (invalid === self.$oldstate)
-			return;
-		self.$oldstate = invalid;
-		self.tclass('ui-checkboxlist-invalid', invalid);
+		if (type) {
+			var invalid = config.required ? self.isInvalid() : false;
+			if (invalid !== self.$oldstate) {
+				self.$oldstate = invalid;
+				self.tclass(cls + '-invalid', invalid);
+			}
+		}
 	};
 });
