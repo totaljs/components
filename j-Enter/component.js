@@ -6,7 +6,7 @@ COMPONENT('enter', 'validate:1', function(self, config) {
 				if (config.trigger)
 					self.find(config.trigger).trigger('click');
 				else
-					EXEC(config.exec, self);
+					EXEC(self.makepath(config.exec), self);
 			}
 		});
 	};
