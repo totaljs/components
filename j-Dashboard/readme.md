@@ -15,6 +15,7 @@ __Configuration__:
 - `axisY` {Number} a size of grid of Y axis (default: `144`)
 - `padding` {Number} a padding between widgets (default: `10`)
 - `delay` {Number} init delay (default: `200`)
+- `serviceinterval` {Number} a service interval (default: `5000`)
 - `ondrop` {String} a path to method `function(meta) {}`, is executed if someone drops some element into area
 	- `meta.x` X grid position
 	- `meta.y` Y grid position
@@ -113,6 +114,10 @@ var component = {
 
 PUSH('components', component);
 ```
+
+__Methods__:
+
+- `SETTER('dashboard/send', type, body)` sends data to all widgets which contain `data` delegate
 
 ### Author
 

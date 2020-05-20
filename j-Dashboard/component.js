@@ -1,6 +1,5 @@
-COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self, config) {
+COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:5000', function(self, config, cls) {
 
-	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
 	var cache = {};
 	var data = [];
@@ -48,7 +47,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self,
 			e.preventDefault();
 		});
 
-		serviceid = setInterval(events.service, 5000);
+		serviceid = setInterval(events.service, config.serviceinterval);
 	};
 
 	drag.touchmove = function(e) {
@@ -469,6 +468,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self,
 
 		self.resize_pixel();
 		services = [];
+		data = [];
 
 		var keys = Object.keys(cache);
 		for (var i = 0; i < keys.length; i++) {
@@ -481,11 +481,12 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10', function(self,
 
 		for (var i = 0; i < value.length; i++) {
 			var obj = value[i];
-			if (cache[obj.id]) {
-				if (cache[obj.id].meta === obj) {
+			var item = cache[obj.id];
+			if (item) {
+				if (item.meta === obj) {
 					self.wupd(obj.id);
-					obj.meta.services && services.push(obj);
-					obj.meta.data && data.push(obj);
+					obj.service && services.push(item);
+					obj.data && data.push(item);
 					continue;
 				} else
 					self.wdestroy(obj.id);
