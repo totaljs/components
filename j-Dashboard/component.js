@@ -343,6 +343,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 	self.wdestroy = function(id, bind) {
 		var obj = cache[id];
 		if (obj) {
+			delete cache[id];
 			var el = obj.container;
 			obj.meta.destroy && obj.meta.destroy.call(obj, obj.element);
 			el.find('*').off();
@@ -478,7 +479,6 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 				delete cache[key];
 			}
 		}
-
 		for (var i = 0; i < value.length; i++) {
 			var obj = value[i];
 			var item = cache[obj.id];
