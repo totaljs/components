@@ -5,7 +5,7 @@
 
 __Configuration__:
 
-- `items` {String} needs to contain `value 1|text 1;value 2|text 2` or `text 1;text 2`
+- `items` {String} needs to contain `text 1|value 1;text 2|value 2` or `text 1;text 2`
 - `required` {Boolean} enables `required`
 - `disabled` {Boolean} disables this control
 - `label` {String} can change the content (default: `innerHTML`)
