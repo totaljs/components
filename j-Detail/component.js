@@ -48,7 +48,7 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 	types.template.init = NOOP;
 	types.template.render = function(item, next) {
 		var value = self.mapvalue(item);
-		next('<div class="{0}-template">{1}</div>'.format(cls, Tangular.render(item.template, { value: value })));
+		next('<div class="{0}-template">{1}</div>'.format(cls, Tangular.render(item.template, { value: value, item: item })));
 	};
 
 	types.string = {};

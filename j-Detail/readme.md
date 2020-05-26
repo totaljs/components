@@ -41,7 +41,7 @@ __Data properties in data declaration__:
 - `items` {Object Array/String} items for `list` type only, string can contain a path to `Array` or `URL address` to search
 - `value` {Object} a value or model with values (then `path` is required)
 - `path` {String} a path to value in model (`value` must contain a model)
-- `template` {String} A Tangular template (works only with `type:'template'` and `{{ value }}` contains a raw value)
+- `template` {String} A Tangular template (works only with `type:'template'` and `{{ value }}` contains a raw value, and `{{ item }}` contains the entire item)
 - `empty` {String} An empty value when the value is nullable (default: `---`)
 - `show` {String} Arrow function condition (must return boolean) and it works only with defined `path`
 
