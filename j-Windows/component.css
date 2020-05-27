@@ -9,7 +9,7 @@
 .ui-windows-title span { cursor: default; line-height: 31px; display: block; margin-right: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 0 0 10px; font-weight: bold; }
 .ui-windows-nomove .ui-windows-title span { cursor: default; }
 .ui-windows-title span i { margin-right: 5px; }
-.ui-windows-body { border: 1px solid #E0E0E0; border-top: 0; border-radius: 0 0 2px 2px; }
+.ui-windows-body { border: 1px solid #E0E0E0; border-top: 0; border-radius: 0 0 2px 2px; overflow-x: hidden; }
 .ui-windows-dragged { z-index: 100; }
 .ui-windows-dragged .ui-windows-title { background-color: #FAFAFA; }
 .ui-windows-focused { z-index: 90; }
