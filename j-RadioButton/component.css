@@ -1,4 +1,4 @@
-.ui-radiobutton { color: #000000; font-size: 14px; }
+.ui-radiobutton { color: #000000; font-size: 12px; }
 .ui-radiobutton div[data-value] { cursor: pointer; margin: 0 10px 10px 0; line-height: 16px; position: relative; display: inline-block; }
 .ui-radiobutton span { vertical-align: middle; }
 .ui-radiobutton-block div[data-value] { margin-bottom: 4px; display: block; }

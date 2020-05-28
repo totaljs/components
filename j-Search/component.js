@@ -1,6 +1,4 @@
-COMPONENT('search', 'class:hidden;delay:50;attribute:data-search', function(self, config) {
-
-	var cls = 'ui-search';
+COMPONENT('search', 'class:hidden;delay:50;attribute:data-search', function(self, config, cls) {
 
 	self.readonly();
 	self.setter = function(value) {
@@ -14,7 +12,7 @@ COMPONENT('search', 'class:hidden;delay:50;attribute:data-search', function(self
 			if (!value) {
 				elements.rclass(config.class);
 				self.rclass2(cls + '-');
-				config.exec && EXEC(config.exec, 0, search);
+				config.exec && EXEC(self.makepath(config.exec), 0, search);
 				return;
 			}
 
@@ -33,7 +31,7 @@ COMPONENT('search', 'class:hidden;delay:50;attribute:data-search', function(self
 			});
 
 			self.tclass(cls + '-empty', !count);
-			config.exec && EXEC(config.exec, count, search);
+			config.exec && EXEC(self.makepath(config.exec), count, search);
 
 		}, config.delay);
 	};
