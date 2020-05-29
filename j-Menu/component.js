@@ -1,10 +1,9 @@
-COMPONENT('menu', function(self) {
+COMPONENT('menu', function(self, config, cls) {
 
 	self.singleton();
 	self.readonly();
 	self.nocompile && self.nocompile();
 
-	var cls = 'ui-menu';
 	var cls2 = '.' + cls;
 
 	var is = false;
@@ -155,7 +154,7 @@ COMPONENT('menu', function(self) {
 			var icon = '';
 
 			if (item.icon)
-				icon = '<i class="{0}"></i>'.format(item.icon.charAt(0) === '!' ? item.icon.substring(1) : ('fa fa-' + item.icon));
+				icon = '<i class="{0}"></i>'.format(item.icon.charAt(0) === '!' ? item.icon.substring(1) : item.icon.indexOf(' ') === -1 ? ('fa fa-' + item.icon) : item.icon);
 			else
 				cn = (cn ? (cn + ' ') : '') + cls + '-nofa';
 
