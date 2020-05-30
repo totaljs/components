@@ -1,13 +1,12 @@
-COMPONENT('features', 'height:37', function(self, config) {
+COMPONENT('features', 'height:37', function(self, config, cls) {
 
-	var cls = 'ui-features';
 	var cls2 = '.' + cls;
 	var container, timeout, input, search, scroller = null;
 	var is = false, results = false, selectedindex = 0, resultscount = 0;
 
 	self.oldsearch = '';
 	self.items = null;
-	self.template = Tangular.compile('<li data-search="{{ $.search }}" data-index="{{ $.index }}"{{ if selected }} class="selected"{{ fi }}>{{ if icon }}<i class="fa fa-{{ icon }}"></i>{{ fi }}{{ name | raw }}</li>');
+	self.template = Tangular.compile('<li data-search="{{ $.search }}" data-index="{{ $.index }}"{{ if selected }} class="selected"{{ fi }}>{{ if icon }}<i class="{{ icon }}"></i>{{ fi }}{{ name | raw }}</li>');
 	self.callback = null;
 	self.readonly();
 	self.singleton();
@@ -191,6 +190,10 @@ COMPONENT('features', 'height:37', function(self, config) {
 			item = items[i];
 			indexer.index = i;
 			indexer.search = (item.name + ' ' + (item.keywords || '')).trim().toSearch();
+
+			if (item.icon && item.indexOf(' ') === -1)
+				item.icon = 'fa fa-' + item.icon;
+
 			!item.value && (item.value = item.name);
 			builder.push(self.template(item, indexer));
 		}
