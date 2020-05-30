@@ -154,7 +154,7 @@ COMPONENT('menu', function(self, config, cls) {
 			var icon = '';
 
 			if (item.icon)
-				icon = '<i class="{0}"></i>'.format(item.icon.charAt(0) === '!' ? item.icon.substring(1) : item.icon.indexOf(' ') === -1 ? ('fa fa-' + item.icon) : item.icon);
+				icon = '<i class="{0}"></i>'.format(item.icon.charAt(0) === '!' ? item.icon.substring(1) : item.icon.indexOf('fa-') === -1 ? ('fa fa-' + item.icon) : item.icon);
 			else
 				cn = (cn ? (cn + ' ') : '') + cls + '-nofa';
 
