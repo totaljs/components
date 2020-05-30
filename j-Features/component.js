@@ -191,7 +191,7 @@ COMPONENT('features', 'height:37', function(self, config, cls) {
 			indexer.index = i;
 			indexer.search = (item.name + ' ' + (item.keywords || '')).trim().toSearch();
 
-			if (item.icon && item.indexOf(' ') === -1)
+			if (item.icon && item.icon.indexOf(' ') === -1)
 				item.icon = 'fa fa-' + item.icon;
 
 			!item.value && (item.value = item.name);
