@@ -9,7 +9,7 @@
 .ui-features-container { max-height: 200px; overflow-x: hidden; overflow-y: auto; overflow-scrolling: touch; }
 .ui-features ul { list-style-type: none; margin: 0; padding: 0; }
 .ui-features li { border-bottom: 1px solid #E5E5E5; font-size: 14px; padding: 8px 15px 0; background-color: #FFFFFF; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; height: 37px; }
-.ui-features li .fa { margin-right: 10px; width: 25px; border-right: 1px solid #E0E0E0; }
+.ui-features li i { margin-right: 10px; width: 25px; border-right: 1px solid #E0E0E0; }
 .ui-features li:hover { background-color: #F8F8F8; }
 .ui-features-noscroll { overflow: hidden !important; }
 
@@ -18,5 +18,5 @@
 .ui-dark .ui-features-search input { background-color: #202020; }
 .ui-dark .ui-features .selected { background-color: #303030; color: #FFFFFF !important; }
 .ui-dark .ui-features li { border-bottom-color: #404040; background-color: #202020; }
-.ui-dark .ui-features li .fa { border-right-color: #404040; }
+.ui-dark .ui-features li i { border-right-color: #404040; }
 .ui-dark .ui-features li:hover { background-color: #282828; }
