@@ -8,7 +8,7 @@
 .ui-form-title .ui-form-button-close { float: right; cursor: pointer; font-size: 18px; margin: -2px 0 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; width: 20px; padding: 0; }
 .ui-form-title .ui-form-button-close:hover { transform: scale(1.2); }
 .ui-form-title > span { font-weight: bold; }
-.ui-form-title > i { margin-right: 7px; }
+.ui-form-title > i { margin: 0 7px 0 10px; }
 .ui-form > nav { padding: 0 20px 0; border-top: 1px solid #E0E0E0; background-color: #FFFFFF; border-radius: 0 0 2px 2px; line-height: 65px; height: 65px; display: block; float: none; position: relative; }
 .ui-form > nav button { border: 0; margin: 15px 0 0; background-color: #F0F0F0; height: 34px; padding: 0 20px; color: #000000; cursor: pointer; font-family: Arial; line-height: 34px; vertical-align: middle; outline: 0; font-size: 14px; text-decoration: none; transition: all 0.3s; float: left; }
 .ui-form > nav button i { width: 14px; margin-right: 5px; }

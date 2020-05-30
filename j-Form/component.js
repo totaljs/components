@@ -72,6 +72,7 @@ COMPONENT('form', 'zindex:12;scrollbar:1;closeoutside:0', function(self, config,
 	self.icon = function(value) {
 		var el = this.rclass2('fa');
 		value.icon && el.aclass(value.icon.indexOf(' ') === -1 ? ('fa fa-' + value.icon) : value.icon);
+		el.tclass('hidden', !value);
 	};
 
 	self.resize = function() {
