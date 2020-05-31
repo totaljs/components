@@ -301,7 +301,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 	};
 
 	var wsavecallback = function(item) {
-		var key = 'win_' + item.meta.id;
+		var key = 'win_' + item.meta.cachekey;
 		var obj = {};
 		obj.x = item.x;
 		obj.y = item.y;
@@ -315,7 +315,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 
 	self.wsave = function(obj) {
 		if (obj.meta.actions && obj.meta.actions.autosave)
-			setTimeout2(self.ID + '_win_' + obj.meta.id, wsavecallback, 500, null, obj);
+			setTimeout2(self.ID + '_win_' + obj.meta.cachekey, wsavecallback, 500, null, obj);
 	};
 
 	self.wadd = function(item) {
@@ -323,8 +323,11 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 		var hidden = '';
 		var ishidden = false;
 
+		if (!item.cachekey)
+			item.cachekey = item.id;
+
 		if (item.actions && item.actions.autosave) {
-			pos = PREF['win_' + item.id];
+			pos = PREF['win_' + item.cachekey];
 			if (pos) {
 
 				var mx = 0;

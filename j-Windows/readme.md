@@ -20,6 +20,10 @@ var win = {
 	// Component ID
 	id: 'WINDOW_ID',
 
+	// NEW: cachekey for similar windows
+	// Optional, default: window ID
+	cachekey: 'WINDOW_ID',
+
 	// Positioning
 	// You can define specific display size and if the display size is not specified then the window tries to find a size for larger display
 	html: 'THE CONTENT OF WINDOW', // or can be raw HTMLElement
