@@ -126,8 +126,6 @@ COMPONENT('imageuploader', function(self, config) {
 
 	self.wait = function() {
 		if (!queue || !queue.length) {
-			tmpresponse = [];
-			tmperror = [];
 			self.opt.callback(tmpresponse, tmperror);
 			self.opt = null;
 			queue = null;
@@ -161,7 +159,7 @@ COMPONENT('imageuploader', function(self, config) {
 
 	self.uploadforce = function(base64) {
 		if (base64) {
-			var data = (new Function('base64', 'filename', 'return ' + self.opt.schema || '{file:base64,name:filename}'))(base64, name);
+			var data = (new Function('base64', 'filename', 'return ' + (self.opt.schema || '{file:base64,name:filename}')))(base64, name);
 			AJAX('POST ' + self.opt.url.env(true), data, function(response, err) {
 				if (err) {
 					tmperror.push(err + '');
