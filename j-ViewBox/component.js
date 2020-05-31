@@ -28,6 +28,10 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		});
 	};
 
+	self.destroy = function() {
+		scrollbar && scrollbar.destroy();
+	};
+
 	self.configure = function(key, value, init) {
 		switch (key) {
 			case 'disabled':
