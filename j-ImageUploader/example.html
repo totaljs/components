@@ -1,0 +1,19 @@
+<div data---="imageuploader"></div>
+<div onclick="uploadphoto()">Click to upload</div>
+
+<script>
+
+	function uploadphoto() {
+		var opt = {};
+		opt.width = 200;
+		opt.height = 200;
+		opt.url = '/api/upload/base64/';
+		opt.background = '#FFFFFF';
+		opt.multiple = true;
+		opt.callback = function(response, err) {
+			console.log(response, err);
+		};
+		SETTER('imageuploader/upload', opt);
+	}
+
+</script>

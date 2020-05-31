@@ -214,5 +214,6 @@
 	"j-Detail",
 	"j-FloatingSearch",
 	"j-Approve",
-	"j-DataTable"
+	"j-DataTable",
+	"j-ImageUploader"
 ]
