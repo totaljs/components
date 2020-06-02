@@ -2,7 +2,6 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function
 
 	var cls2 = '.' + cls;
 
-	self.readonly();
 	self.nocompile();
 	self.bindvisible(50);
 
