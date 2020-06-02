@@ -10,7 +10,7 @@ COMPONENT('permissionsop', 'placeholder:Search;types:CRUD;default:R;labelrole:Ro
 	self.configure = function(key, value) {
 		switch (key) {
 			case 'disabled':
-				self.tclass(cls + '-disabled', value);
+				self.tclass(cls + '-disabled', !!value);
 				break;
 		}
 	};
