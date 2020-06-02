@@ -34,7 +34,7 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 
 	self.mapvalue = function(item) {
 		var val = item.path ? item.path.indexOf('.') === -1 ? item.value[item.path] : GET(item.path, item.value) : item.value;
-		return val == null || val == '' ? (item.empty || DEF.empty) : val;
+		return val === false || val === true ? val : val == null || val === '' ? (item.empty || DEF.empty) : val;
 	};
 
 	self.register = function(name, init, render) {
