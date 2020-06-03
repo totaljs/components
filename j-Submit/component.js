@@ -60,14 +60,14 @@ COMPONENT('submit', 'delay:100;flags:visible;loading:1;default:1;messages:1;bloc
 
 		var model = data;
 
-		config.prepare && SEEX(self.makepath(config.prepare), data);
+		config.prepare && SEEX(self.makepath(config.prepare), data, self.element);
 
 		if (!data)
 			return;
 
 		issending = true;
 		config.loading && SETTER('loading', 'show');
-		config.sending && SEEX(self.makepath(config.sending), true, model);
+		config.sending && SEEX(self.makepath(config.sending), true, model, self.element);
 
 		if (!isnewbie && url.indexOf('PATCH') !== -1 && config.update_modified) {
 			var obj = {};
@@ -82,10 +82,10 @@ COMPONENT('submit', 'delay:100;flags:visible;loading:1;default:1;messages:1;bloc
 
 			model.response = data.response = response;
 			config.loading && SETTER('loading', 'hide', 500);
-			config.sending && SEEX(self.makepath(config.sending), false, model);
+			config.sending && SEEX(self.makepath(config.sending), false, model, self.element);
 			issending = false;
 
-			config.exec && SEEX(self.makepath(config.exec), response);
+			config.exec && SEEX(self.makepath(config.exec), response, self.element);
 			SET(self.path + '.response', response);
 
 			if (response instanceof Array || err) {
@@ -93,14 +93,14 @@ COMPONENT('submit', 'delay:100;flags:visible;loading:1;default:1;messages:1;bloc
 				if (err)
 					response = [{ error: err + '' }];
 
-				config.fail && SEEX(self.makepath(config.fail), response);
+				config.fail && SEEX(self.makepath(config.fail), response, self.element);
 				var msg = [];
 				for (var i = 0; i < response.length; i++)
 					msg.push(response[i].error);
 				config.messages && SETTER('message', 'warning', msg.join('<br />'));
 			} else {
 				self.rclass(cls + '-modified');
-				response.success && config.done && SEEX(self.makepath(config.done), response);
+				response.success && config.done && SEEX(self.makepath(config.done), response, self.element);
 				if (config.messages) {
 					var msg = (isnewbie ? messages.create_success : messages.update_success) || messages.success;
 					msg && SETTER('message', 'success', msg(model));

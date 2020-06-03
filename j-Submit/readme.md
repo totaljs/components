@@ -14,9 +14,9 @@ __Configuration__:
 	- `visible` validates all components which are visible
 - `track` {String} can contain paths divided by comma which evaluate validation (executors for paths aren't components, but these methods `SET()`, `UPD()`, `INC()`, etc.)
 - `enter` {String} a closest selector for element where will be captured `ENTER` event (default: empty)
-- `exec` {String} a link to the function `function(response)`, executed if the response is processed
-- `fail` {String} a link to the function `function(response)`, executed if the response contains an error
-- `done` {String} a link to the function `function(response)`, executed if the response is successful
+- `exec` {String} a link to the function `function(response, el)`, executed if the response is processed
+- `fail` {String} a link to the function `function(response, el)`, executed if the response contains an error
+- `done` {String} a link to the function `function(response, el)`, executed if the response is successful
 - `prepare` {String} a link to the function `function(data)`, it's used for editing of data before send (keep a reference)
 - `sending` {String} a link to the function `function(issending, data)`, executed when the AJAX begins and ends
 - `default` {Boolean} resets the form if the response is successful (default: `true`)
@@ -31,7 +31,7 @@ __Configuration__:
 - `success` {String} A Tangular message, it's displayed if the response is successful (default for create/update)
 - `update_modified` {Boolean} copies only modified data if: `update` url contains `PATCH`
 - `blocked` {Number} in milliseconds and it's a simple prevention for double click on submit button (default: `2000`)
-- `null` {String} A path to null of value, if it's declared then the `default` will be disabled (defaut: empty)
+- `null` {String} A path to value which will be nulled
 
 __Good to know__:
 
