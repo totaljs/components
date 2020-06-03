@@ -11,18 +11,17 @@
 	names.push({ id: '3', name: 'Tomáš' });
 	names.push({ id: '4', name: 'Lucka' });
 	names.push({ id: '5', name: 'Lenka' });
-};
 
-function getusers(value, next) {
-	var temp = [];
-	for (var i = 0; i < value.length; i++)
-		temp.push(names[value[i].userid]);
-	next(temp);
-}
+	function getusers(value, next) {
+		var temp = [];
+		for (var i = 0; i < value.length; i++)
+			temp.push(names[value[i].userid]);
+		next(temp);
+	}
 
-function findusers(search, next) {
-	var items = names.slice(0);
-	next(items);
-}
+	function findusers(search, next) {
+		var items = names.slice(0);
+		next(items);
+	}
 
 </script>
