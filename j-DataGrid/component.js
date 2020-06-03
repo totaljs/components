@@ -1720,6 +1720,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 
 		if (value && value.schema && schemas.$current !== value.schema) {
 			schemas.$current = value.schema;
+			self.selected = null;
 			self.rebind(value.schema);
 			setTimeout(function() {
 				self.setter(value, path, type);
