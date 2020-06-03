@@ -27,7 +27,7 @@
 
 .ui-detail-small .ui-detail-value { line-height: 20px; }
 .ui-detail-small .ui-detail-bool { line-height: 18px; }
-.ui-detail-small .ui-detail-bool span { width: 13px; height: 13px; line-height: 12px; font-size: 7px; margin: 4px 0px 3px;;  }
+.ui-detail-small .ui-detail-bool span { width: 13px; height: 13px; line-height: 12px; font-size: 7px; margin: 4px 0px 3px;  }
 .ui-detail-small .ui-detail-group label { padding: 5px 8px; font-size: 13px; }
 .ui-detail-small .ui-detail-item { font-size: 12px; padding: 3px 0; min-height: 24px; }
 .ui-detail-small .ui-detail-key { padding-left: 8px; line-height: 20px; }
