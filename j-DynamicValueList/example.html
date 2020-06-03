@@ -1,7 +1,7 @@
 <div data---="directory"></div>
 
 <div class="m" style="width:300px">
-	<div data---="dynamicvaluelist__common.users__read:getusers;dirsource:findusers">Users</div>
+	<div data---="dynamicvaluelist__common.users__read:getusers;dirsource:findusers;placeholder:Add user">Users</div>
 </div>
 
 <script>
@@ -14,8 +14,10 @@
 
 	function getusers(value, next) {
 		var temp = [];
-		for (var i = 0; i < value.length; i++)
-			temp.push(names[value[i].userid]);
+		for (var i = 0; i < value.length; i++) {
+			var user = names.findItem('id', value[i]);
+			user && temp.push(user);
+		}
 		next(temp);
 	}
 
