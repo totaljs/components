@@ -27,7 +27,7 @@ This component is very special component. It can keep values for example `Number
 
 ### AJAX usage
 
-If the `value` will be changed then the component performs `AJAX` call automatically.
+If the `value` will be changed then the component performs `AJAX` call automatically. Server must response with `Array`.
 
 ```html
 <div data---="dynamicvaluelist__path.to.property__url:/users/?id={0};dirsource:GET /users/?search={0}"></div>
