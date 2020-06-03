@@ -1,27 +1,32 @@
-COMPONENT('dynamicvaluelist', 'value:name;placeholder:Click to change;after:\\:', function(self, config, cls) {
+COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:1000;dirvalue:id', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
+	var template = '<div class="{0}-item"><div class="{0}-icon"><i class="fa fa-times"></i></div><div class="{0}-value">{1}</div></div>'.format(cls, config.placeholder);
 	var container;
+	var skip = false;
 
-	self.readonly();
 	self.nocompile();
+	self.bindvisible(50);
 
 	self.validate = function(value) {
-		return !config.required || config.disabled ? true : !!(value && value.length);
+		return !config.required || config.disabled ? true : !!value;
 	};
 
 	self.state = function(type) {
-		if (!type)
-			return;
-		var invalid = config.required ? self.isInvalid() : false;
-		if (invalid === self.$oldstate)
-			return;
-		self.$oldstate = invalid;
-		self.tclass(cls + '-invalid', invalid);
+		if (type) {
+			var invalid = config.required ? self.isInvalid() : false;
+			if (invalid !== self.$oldstate) {
+				self.$oldstate = invalid;
+				self.tclass(cls + '-invalid', invalid);
+			}
+		}
 	};
 
 	self.configure = function(key, value) {
 		switch (key) {
+			case 'html':
+				config.html = Tangular.compile(value);
+				break;
 			case 'label':
 				var label = self.find(cls2 + '-label');
 				label.tclass('hidden', !value);
@@ -30,11 +35,7 @@ COMPONENT('dynamicvaluelist', 'value:name;placeholder:Click to change;after:\\:'
 			case 'required':
 				self.noValid(!value);
 				!value && self.state(1, 1);
-				var el = self.find(cls2 + '-label');
-				if (value)
-					el.aclass(cls + '-required');
-				else
-					el.rclass(cls + '-required');
+				self.tclass(cls + '-required', value);
 				break;
 			case 'disabled':
 				self.tclass('ui-disabled', value);
@@ -58,124 +59,205 @@ COMPONENT('dynamicvaluelist', 'value:name;placeholder:Click to change;after:\\:'
 		if (!config.label)
 			config.label = self.html();
 
-		var icon = '';
-		if (config.icon)
-			icon = '<i class="{0}"></i>'.format(config.icon.indexOf(' ') === -1 ? ('fa fa-' + config.icon) : config.icon);
-
 		self.aclass(cls);
-		self.aclass(cls + '-empty');
-		self.html('<div class="{0}-label">{1}{2}{3}</div><div class="{0}-container"></div><div class="{0}-item {0}-input"><div class="{0}-value">{4}</div></div>'.format(cls, icon, config.label, config.after || '', config.placeholder));
+		self.html('<div class="{0}-label{1}"><i class="fa hidden"></i><span>{2}:</span></div><div class="{0}-border"><div class="{0}-container hidden"></div>{3}</div>'.format(cls, config.label ? '' : ' hidden', config.label, template.replace('-item', '-item ' + cls + '-search').replace('fa-times', 'fa-' + config.icon2)));
 		container = self.find(cls2 + '-container');
 
-		self.event('click', cls2 + '-value', function(e) {
-
-			var parent = $(this).parent();
-			var index = parent.attrd('index');
-			if (config.disabled || parent.hclass(cls + '-input'))
-				return;
-
-			self.bind(parent, index);
-		});
-
-		self.event('click', cls2 + '-input', function(e) {
+		self.event('click', cls2 + '-item', function() {
 
 			if (config.disabled)
 				return;
 
-			var data = self.get();
-			var index = (data || []).length;
-			var el = $(this);
-			self.bind(el, index);
+			var t = this;
+
+			if (config.dirsource) {
+				var opt = {};
+				opt.element = $(t);
+				opt.offsetY = -1;
+				opt.placeholder = config.dirplaceholder;
+				opt.render = config.dirrender ? GET(self.makepath(config.dirrender)) : null;
+				opt.custom = !!config.dircustom;
+				opt.offsetWidth = 2;
+				opt.minwidth = config.dirminwidth || 200;
+				opt.maxwidth = config.dirmaxwidth;
+				opt.key = config.dirkey || config.key;
+				opt.empty = config.dirempty;
+				opt.key = config.dirkey;
+
+				var model = self.get();
+				var key = config.key || config.dirvalue;
+				opt.items = function(value, next) {
+
+					var processor = function(values) {
+						if (model && model.length) {
+							var arr = [];
+							for (var i = 0; i < values.length; i++) {
+								if (model.indexOf(values[i][key]) === -1)
+									arr.push(values[i]);
+							}
+							values = arr;
+						}
+						next(values);
+					};
+
+					if (config.dirsource.indexOf(' ') !== -1) {
+						var val = encodeURIComponent(value);
+						AJAX(config.dirsource.format(val).arg({ value: val }), processor);
+					} else
+						EXEC(self.makepath(config.dirsource), [value], processor);
+				};
+				opt.callback = function(selected) {
+					var val = selected[config.dirvalue];
+					var arr = self.get() || [];
+					if (arr.indexOf(val) !== -1)
+						return;
+					skip = true;
+					self.bindsinglevalue([val], t.$dlid);
+					if (t.$dlid)
+						self.update();
+					else {
+						arr.push(val);
+						self.set(arr);
+					}
+					self.change();
+					config.required && setTimeout(self.validate2, 100);
+				};
+				SETTER('directory/show', opt);
+			} else {
+				EXEC(self.makepath(config.click || config.find), self.element, function(value) {
+					var arr = self.get() || [];
+					if (arr.indexOf(value) !== -1)
+						return;
+					skip = true;
+					if (t.$dlid)
+						self.update();
+					else {
+						arr.push(value);
+						self.set(arr);
+					}
+					self.change();
+					config.required && setTimeout(self.validate2, 100);
+					self.bindsinglevalue([value], t.$dlid);
+				}, self.get());
+			}
 		});
 
-		self.event('click', cls2 + '-remove', function(e) {
-
-			if (config.disabled)
-				return;
-
-			var data = self.get();
-			var parent = $(this).parent();
-			var index = +parent.attrd('index');
-			parent.remove();
-			data.splice(index, 1);
-			self.set(data);
-			self.change();
+		self.event('click', cls2 + '-icon', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			if (!config.disabled) {
+				var el = $(this).closest(cls2 + '-item');
+				if (el[0].$dlid) {
+					var source = self.get();
+					var index = source.indexOf(el[0].$dlid);
+					if (index !== -1) {
+						skip = true;
+						source.splice(index, 1);
+						container.tclass('hidden', !source.length);
+						self.change();
+						self.update();
+					}
+					el.remove();
+				} else
+					el.trigger('click');
+			}
 		});
 	};
 
-	self.bind = function(el, index) {
-		if (config.dirsource) {
-			var opt = {};
-			opt.element = el;
-			opt.offsetY = -1;
-			opt.placeholder = config.dirplaceholder;
-			opt.render = config.dirrender ? GET(self.makepath(config.dirrender)) : null;
-			opt.custom = !!config.dircustom;
-			opt.offsetWidth = 2;
-			opt.minwidth = config.dirminwidth || 200;
-			opt.maxwidth = config.dirmaxwidth;
-			opt.key = config.dirkey || config.key;
-			opt.empty = config.dirempty;
-			opt.key = config.dirkey;
+	self.bindvalue = function(value) {
 
-			opt.items = function(value, next) {
-				EXEC(self.makepath(config.dirsource), value, next);
-			};
+		if (!value)
+			value = [];
 
-			opt.callback = function(selected) {
-				var data = self.get();
-				data[index] = selected;
-				self.set(data);
-				self.change();
-				config.required && setTimeout(self.validate2, 100);
-			};
+		config.bind && SEEX(self.makepath(config.bind), value);
 
-			SETTER('directory', 'show', opt);
-		} else {
-			EXEC(self.makepath(config.click), el, function(value) {
-				var data = self.get();
-				data[index] = value;
-				self.set(data);
-				self.change();
-				config.required && setTimeout(self.validate2, 100);
-			}, self.get());
+		if (config.remap) {
+			for (var i = 0; i < value.length; i++)
+				value[i] = config.remap(value[i]);
+		}
+
+		container.empty();
+
+		for (var i = 0; i < value.length; i++)
+			el_insert(value[i]);
+
+		self.tclass(cls + '-is', !!value.length);
+		container.tclass('hidden', !value.length);
+		config.loading && SETTER('loading/hide', 200);
+	};
+
+	var el_update = function(item, value) {
+		var arr = container.find(cls2 + '-item');
+		var key = config.key || config.dirvalue;
+		for (var i = 0; i < arr.length; i++) {
+			if (arr[i].$dlid === value) {
+				var model = self.get();
+				var index = model.indexOf(value);
+				if (index !== -1) {
+					model[index] = item[key];
+					skip = true;
+					self.update();
+					self.change();
+				}
+				arr[i].$dlid = item[key];
+				$(arr[i]).find(cls2 + '-value').html(config.html(item));
+				break;
+			}
 		}
 	};
 
-	self.bindvalue = function(values) {
+	var el_insert = function(item) {
+		var el = $(template);
+		el[0].$dlid = item[config.key || config.dirvalue];
+		el.find(cls2 + '-value').html(config.html(item));
+		container[0].appendChild(el[0]);
+	};
 
-		if (!(values instanceof Array))
-			values = [];
-
-		var html = '';
-		for (var i = 0; i < values.length; i++) {
-			var value = values[i];
-			var val;
-
-			config.bind && SEEX(self.makepath(config.bind), value);
-
-			val = (value instanceof Object ? value[config.value] : value);
-
-			if (config.remap)
-				value = config.remap(value);
-
-				html += '<div class="{0}-item" data-index="{1}"><div class="{0}-remove"><i class="fa fa-times"></i></div><div class="{0}-value">{2}</div></div>'.format(cls, i, val);
+	self.bindsinglevalue = function(value, oldid) {
+		if (value) {
+			if (config.url) {
+				config.loading && SETTER('loading/show');
+				var val = encodeURIComponent(value.join(','));
+				AJAX('GET ' + config.url.format(val).arg({ value: val }), function(response) {
+					config.loading && SETTER('loading/hide');
+					if (response instanceof Array && response.length) {
+						if (oldid == null)
+							el_insert(response[0]);
+						else
+							el_update(response[0], oldid);
+						container.rclass('hidden');
+					}
+				});
+			} else {
+				EXEC(self.makepath(config.exec || config.read), value, function(response) {
+					if (response instanceof Array && response.length) {
+						if (oldid == null)
+							el_insert(response[0]);
+						else
+							el_update(response[0], oldid);
+						container.rclass('hidden');
+					}
+				});
+			}
 		}
-
-		container.html(html);
-
-		self.tclass(cls + '-empty', !values.length);
 	};
 
 	self.setter = function(value, path, type) {
-		if (!value) {
-			self.set([], 0);
+
+		if (skip) {
+			skip = false;
+			self.tclass(cls + '-is', value && value.length > 0);
 			return;
 		}
 
-		if (value)
-				EXEC(self.makepath(config.exec), value, self.bindvalue, type);
-		else
+		if (value) {
+			if (config.url) {
+				config.loading && SETTER('loading/show');
+				var val = encodeURIComponent(value.join(','));
+				AJAX('GET ' + config.url.format(val).arg({ value: val }), self.bindvalue);
+			} else
+				EXEC(self.makepath(config.exec || config.read), value, self.bindvalue, type);
+		} else
 			self.bindvalue(value);
 	};
 

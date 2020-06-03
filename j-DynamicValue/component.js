@@ -91,7 +91,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function
 				};
 				SETTER('directory', 'show', opt);
 			} else {
-				EXEC(self.makepath(config.click), self.element, function(value) {
+				EXEC(self.makepath(config.click || config.find), self.element, function(value) {
 					self.set(value);
 					self.change();
 					config.required && setTimeout(self.validate2, 100);
@@ -143,7 +143,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function
 				var val = encodeURIComponent(value);
 				AJAX('GET ' + config.url.format(val).arg({ value: val }), self.bindvalue);
 			} else
-				EXEC(self.makepath(config.exec), value, self.bindvalue, type);
+				EXEC(self.makepath(config.exec || config.read), value, self.bindvalue, type);
 		} else
 			self.bindvalue(value);
 	};

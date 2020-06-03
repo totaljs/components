@@ -7,8 +7,8 @@ This component is very special component. It can keep a value for example `Numbe
 - `icon2` {String} icon in the right box e.g. home, cog, etc. (default: `angle-down`)
 - `placeholder` {String} adds a placeholder text
 - `disabled` {Boolean} disables this component
-- `click` {String} __important__ link to `function(el, value, next(new_value))` for binding a new value
-- `exec` {String} a link to `function(element, next(value), current_value)` for binding a readable `text`
+- `find` {String} __important__ link to `function(el, next(value))` for binding a new value
+- `read` {String} a link to `function(value, next(response))` for binding a readable `text`
 - `url` {String} tries to bind a value via `AJAX()`, argument `{0}` in URL is replaced by the value
 - `html` {String} Tangular template for rendering a value (default: `{{ name }}`)
 - `remap` String} a remap function (default: `null`), example: `value.length ? value[0] : null`
@@ -29,7 +29,7 @@ This component is very special component. It can keep a value for example `Numbe
 If the `value` will be changed then the component performs `AJAX` call automatically.
 
 ```html
-<div data---="dynamicvalue__path.to.property__url:/users/{0}/;dirsource:/users/?search={0}"></div>
+<div data---="dynamicvalue__path.to.property__url:/users/{0}/;dirsource:GET /users/?search={0}"></div>
 ```
 
 ### Inline usage

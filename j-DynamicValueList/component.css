@@ -1,26 +1,37 @@
 .ui-dynamicvaluelist-label { margin-bottom: 3px; font-size: 12px; text-align: left; }
-.ui-dynamicvaluelist-required:before { color: red; content: '***'; margin-right: 5px; }
 .ui-dynamicvaluelist-label i { margin-right: 5px; }
-.ui-dynamicvaluelist-items { }
-.ui-dynamicvaluelist-items > div:first-child { border-radius: 2px 2px 0 0; }
-.ui-dynamicvaluelist-item { line-height: 32px; background-color: #FFFFFF; border: 1px solid #E0E0E0; border-bottom: 0; }
-.ui-dynamicvaluelist-remove { float: right; width: 32px; text-align: center; color: #DA4453; font-size: 14px; border-left: 1px solid #E0E0E0; cursor: pointer; user-select: none; }
-.ui-dynamicvaluelist-remove:hover { opacity: 0.7; }
-.ui-dynamicvaluelist-value { padding-left: 10px; margin-right: 32px; cursor: pointer; }
-.ui-dynamicvaluelist-container > div:first-child { border-radius: 2px 2px 0 0; }
-.ui-dynamicvaluelist-input { border-radius: 0 0 2px 2px; border-bottom: 1px solid #E0E0E0; color: #737373; }
-.ui-dynamicvaluelist-empty .ui-dynamicvaluelist-input { border-radius: 2px; }
-.ui-dynamicvaluelist-invalid .ui-dynamicvaluelist-item, .ui-dynamicvaluelist-invalid .ui-dynamicvaluelist-input { border-color: red; }
-.ui-disabled.ui-dynamicvaluelist  * { cursor: not-allowed; }
-.ui-disabled .ui-dynamicvaluelist-remove { display: none; }
-.ui-disabled .ui-dynamicvaluelist-item, .ui-disabled .ui-dynamicvaluelist-input { background-color: #F0F0F0; }
-.ui-disabled .ui-dynamicvaluelist-value { color: #8c8c8c; }
+.ui-dynamicvaluelist-item { height: 32px; border-top: 1px solid #E0E0E0; background-color: #FFFFFF; cursor: pointer; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; color: #777777; }
+.ui-dynamicvaluelist-item:first-child { border-top: 0; }
+.ui-dynamicvaluelist-border > .ui-dynamicvaluelist-item:last-child { border-top: 0; border-radius: 3px; }
+.ui-dynamicvaluelist-border { border: 1px solid #E0E0E0; border-radius: 3px; }
+.ui-dynamicvaluelist-is .ui-dynamicvaluelist-border > .ui-dynamicvaluelist-item:last-child { border-top-left-radius: 0; border-top-right-radius: 0; }
+.ui-dynamicvaluelist-value { cursor: pointer; display: block; padding: 9px 7px 0 5px; margin-right: 32px; user-select: none; font: normal 13px Arial; color: gray; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+.ui-dynamicvaluelist-icon { color: #000000; cursor: pointer; width: 32px; float: right; border-left: 1px solid #E0E0E0; height: 32px; text-align: center; padding: 6px 0 0; }
+.ui-dynamicvaluelist-is .ui-dynamicvaluelist-container .ui-dynamicvaluelist-value { color: #000000; }
+.ui-dynamicvaluelist-is .ui-dynamicvaluelist-container .ui-dynamicvaluelist-item:first-child { border-top-left-radius: 3px; border-top-right-radius: 3px; }
+.ui-dynamicvaluelist-is .fa-times { color: red; }
+.ui-dynamicvaluelist-container { border-bottom: 1px solid #E0E0E0; }
+.ui-dynamicvaluelist-required .ui-dynamicvaluelist-label { font-weight: bold; }
+.ui-dynamicvaluelist-required .ui-dynamicvaluelist-label:before { color: red; content: '***'; margin-right: 5px; }
+.ui-dynamicvaluelist-required .ui-dynamicvaluelist-icon { border-left-color: #D0D0D0; }
+.ui-dynamicvaluelist-required .ui-dynamicvaluelist { border-color: #D0D0D0; }
+.ui-dynamicvaluelist-invalid .ui-dynamicvaluelist { border: 1px solid red; }
+.ui-dynamicvaluelist-invalid .ui-dynamicvaluelist-icon { border-left-color: red; color: red; }
 
-.ui-dark .ui-dynamicvaluelist-required:before { color: red; }
-.ui-dark .ui-dynamicvaluelist-item { background-color: #202020; border-color: #3A3A3A; }
-.ui-dark .ui-dynamicvaluelist-remove { color: #DA4453; border-left-color: #3A3A3A; }
-.ui-dark .ui-dynamicvaluelist-input { border-bottom-color: #3A3A3A; color: #707070; }
-.ui-dark .ui-dynamicvaluelist-invalid .ui-dynamicvaluelist-item, .ui-dark .ui-dynamicvaluelist-invalid .ui-dynamicvaluelist-input { border-color: red; }
-.ui-dark .ui-disabled .ui-dynamicvaluelist-item, .ui-dark .ui-disabled .ui-dynamicvaluelist-input { background-color: #282828; }
-.ui-dark .ui-disabled .ui-dynamicvaluelist-value { color: #dadada; }
-.ui-dark .ui-disabled .ui-dynamicvaluelist-input .ui-dynamicvaluelist-value { color: #8c8c8c; }
+.ui-disabled .ui-dynamicvaluelist * { cursor: not-allowed; }
+.ui-disabled .ui-dynamicvaluelist { background-color: #F0F0F0; }
+.ui-disabled .ui-dynamicvaluelist-value { color: gray; }
+.ui-disabled .ui-dynamicvaluelist-icon i { color: gray !important; }
+
+.ui-dark .ui-dynamicvaluelist-item { border-color: #3A3A3A; background-color: #202020; color: #707070; }
+.ui-dark .ui-dynamicvaluelist-border { border-color: #404040; }
+.ui-dark .ui-dynamicvaluelist-container { border-bottom-color: #404040; }
+.ui-dark .ui-dynamicvaluelist-icon { border-left-color: #3A3A3A; color: #707070; }
+.ui-dark .ui-dynamicvaluelist-is .ui-dynamicvaluelist-container .ui-dynamicvaluelist-value { color: #FFFFFF; }
+.ui-dark .ui-dynamicvaluelist-required .ui-dynamicvaluelist-label:before { color: red; }
+.ui-dark .ui-dynamicvaluelist-required .ui-dynamicvaluelist-icon { border-color: #424242; }
+.ui-dark .ui-dynamicvaluelist-required .ui-dynamicvaluelist { border-color: #424242; }
+.ui-dark .ui-dynamicvaluelist-invalid .ui-dynamicvaluelist { border-color: red !important; background-color: #202020 !important; }
+.ui-dark .ui-dynamicvaluelist-invalid .ui-dynamicvaluelist-icon { border-left-color: red; color: red; }
+.ui-dark .ui-disabled .ui-dynamicvaluelist { background-color: #282828; }
+.ui-dark .ui-disabled .ui-dynamicvaluelist-value { color: #777777; }

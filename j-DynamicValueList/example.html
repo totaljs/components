@@ -1,30 +1,28 @@
 <div data---="directory"></div>
 
 <div class="m" style="width:300px">
-	<div data---="dynamicvaluelist__common.users__exec:getuser;dirsource:finduser">Users</div>
+	<div data---="dynamicvaluelist__common.users__read:getusers;dirsource:findusers">Users</div>
 </div>
 
 <script>
-var names = {
-	'68355001ya51b': 'Denis',
-	'68356001rj51b': 'Peter',
-	'68356002rj50b': 'Tomáš',
-	'68356003rj51b': 'Lucka',
-	'68356004rj50b': 'Lenka'
+	var names = [];
+	names.push({ id: '1', name: 'Denis' });
+	names.push({ id: '2', name: 'Peter' });
+	names.push({ id: '3', name: 'Tomáš' });
+	names.push({ id: '4', name: 'Lucka' });
+	names.push({ id: '5', name: 'Lenka' });
 };
 
-function getuser(value, next) {
+function getusers(value, next) {
 	var temp = [];
-	for (var i = 0; i < value.length; i++) {
+	for (var i = 0; i < value.length; i++)
 		temp.push(names[value[i].userid]);
-	}
 	next(temp);
 }
 
-function finduser(search, next) {
-	var items = [{ name: 'User 1', userid: '68355001ya51b' }, { name: 'User 2', userid: '68356001rj51b' }, { name: 'User 3', userid: '68356002rj50b' }, { name: 'User 4', userid: '68356003rj51b' }, { name: 'User 5', userid: '68356004rj50b' }];
+function findusers(search, next) {
+	var items = names.slice(0);
 	next(items);
 }
-
 
 </script>

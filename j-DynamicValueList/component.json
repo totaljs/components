@@ -1,5 +1,5 @@
 {
-	"datecreated": "2020-03-19T13:35:00.000Z",
+	"datecreated": "2020-06-03T12:35:00.000Z",
 	"dateupdated": null,
 	"name": "j-DynamicValueList",
 	"tags": [
@@ -14,7 +14,7 @@
 	"darkmode": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
-	"author": "Denis Granec",
+	"author": "Peter Širka",
 	"email": "denisa@totalavengers.com",
 	"license": "https://www.totaljs.com/license/"
 }
