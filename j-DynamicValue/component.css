@@ -1,7 +1,7 @@
 .ui-dynamicvalue-label { margin-bottom: 3px; font-size: 12px; text-align: left; }
 .ui-dynamicvalue-label i { margin-right: 5px; }
 .ui-dynamicvalue { height: 32px; border: 1px solid #E0E0E0; border-radius: 3px; background-color: #FFFFFF; cursor: pointer; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
-.ui-dynamicvalue-value { cursor: pointer; display: block; padding: 8px 7px 0 5px; margin-right: 32px; user-select: none; font: normal 14px Arial; color: gray; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+.ui-dynamicvalue-value { cursor: pointer; display: block; padding: 8px 7px 0 5px; margin-right: 32px; user-select: none; font: normal 13px Arial; color: gray; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
 .ui-dynamicvalue-icon { color: #000000; cursor: pointer; width: 32px; float: right; border-left: 1px solid #E0E0E0; height: 30px; text-align: center; padding: 5px 0 0; }
 .ui-dynamicvalue-is .ui-dynamicvalue-value { color: #000000; }
 .ui-dynamicvalue-is .fa-times { color: red; }
