@@ -1,5 +1,6 @@
-COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:true;presentation:true;animate:true', function(self, config) {
+COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:true;presentation:true;animate:true', function(self, config, cls) {
 
+	var cls2 = '.' + cls;
 	var svg, g, selected, tooltip;
 	var strokew = 0;
 	var animate = true;
@@ -12,11 +13,11 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:true;pres
 	self.nocompile && self.nocompile();
 
 	self.make = function() {
-		self.aclass('ui-donutchart');
-		self.append('<div class="ui-donutchart-tooltip"></div><svg></svg>');
+		self.aclass(cls);
+		self.append('<div class="' + cls + '-tooltip"></div><svg></svg>');
 		svg = self.find('svg');
 		g = svg.asvg('g').attr('class', 'pieces');
-		tooltip = self.find('.ui-donutchart-tooltip');
+		tooltip = self.find(cls2 + '-tooltip');
 
 		W.on('resize', self.resize);
 
@@ -28,6 +29,7 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:true;pres
 	};
 
 	self.select = function(index) {
+
 		var item = self.get()[index];
 		if (item === selected)
 			return;
@@ -44,7 +46,8 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:true;pres
 		}
 
 		config.select && EXEC(config.select, item);
-		el.css('stroke-width', strokew.inc('+15%')).aclass('selected');
+		config.animate && el.css('stroke-width', strokew.inc('+15%'));
+		el.aclass('selected');
 		indexer = index;
 	};
 
@@ -150,7 +153,7 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:true;pres
 				continue;
 			if (item.end === 360)
 				item.end = 359.99;
-			pieces.push(g.asvg('path').attr('data-index', i).attr('data-beg', item.beg).attr('data-end', item.end).attr('stroke-width', strokew).attr('class', 'piece piece' + (i + 1)).attr('d', arc(half, half, midpoint, item.beg, animate ? item.beg : item.end)));
+			pieces.push(g.asvg('path').attrd('index', i).attrd('beg', item.beg).attrd('end', item.end).attr('stroke-width', strokew).attr('class', 'piece piece' + (i + 1)).attr('d', arc(half, half, midpoint, item.beg, animate ? item.beg : item.end)));
 		}
 
 		animate && pieces.wait(function(item, next) {
