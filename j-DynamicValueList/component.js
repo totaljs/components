@@ -250,7 +250,7 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 			return;
 		}
 
-		if (value) {
+		if (value && value.length) {
 			if (config.url) {
 				config.loading && SETTER('loading/show');
 				var val = encodeURIComponent(value.join(','));
