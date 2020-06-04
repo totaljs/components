@@ -5,4 +5,4 @@ This component evaluates some method if the user press `enter`. Important: compo
 __Configuration__:
 - `exec` {String} a method name for execution
 - `validate` {Boolean} enables validate (default: `true`)
-- `trigger` {String} can contain a selector for triggering a real `click` event
+- `trigger` {String} can contain a selector for triggering a real `click` event (default: `button[name="submit"]`)
