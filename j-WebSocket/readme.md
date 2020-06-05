@@ -7,6 +7,7 @@ __Configuration__:
 - `url` {String} URL for websocket, it can be relative or absolute
 - `reconnect` {Number} can contain only number (milliseconds, default: `2000`)
 - `bind` {Boolean} enables a binding of value according to the component `path` (default: `false`)
+- `encoder` {Boolean} performs encode/decode messages via `URI` (default: `true`)
 
 __Methods__:
 

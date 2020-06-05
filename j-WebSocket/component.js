@@ -1,4 +1,4 @@
-COMPONENT('websocket', 'reconnect:3000', function(self, config) {
+COMPONENT('websocket', 'reconnect:3000;encoder:true', function(self, config) {
 
 	var ws, url;
 	var queue = [];
@@ -17,7 +17,11 @@ COMPONENT('websocket', 'reconnect:3000', function(self, config) {
 	};
 
 	self.send = function(obj) {
-		queue.push(encodeURIComponent(JSON.stringify(obj)));
+		var data = JSON.stringify(obj);
+		if (config.encoder)
+			queue.push(encodeURIComponent(data));
+		else
+			queue.push(data);
 		self.process();
 		return self;
 	};
@@ -65,7 +69,7 @@ COMPONENT('websocket', 'reconnect:3000', function(self, config) {
 			return;
 		}
 
-		e.reason && WARN('WebSocket:', decodeURIComponent(e.reason));
+		e.reason && WARN('WebSocket:', config.encoder ? decodeURIComponent(e.reason) : e.reason);
 		self.close(true);
 		setTimeout(self.connect, config.reconnect);
 	}
@@ -73,7 +77,7 @@ COMPONENT('websocket', 'reconnect:3000', function(self, config) {
 	function onMessage(e) {
 		var data;
 		try {
-			data = PARSE(decodeURIComponent(e.data));
+			data = PARSE(config.encoder ? decodeURIComponent(e.data) : e.data);
 			self.attrd('jc-path') && self.set(data);
 		} catch (e) {
 			WARN('WebSocket "{0}": {1}'.format(url, e.toString()));
