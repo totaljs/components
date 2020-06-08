@@ -1,0 +1,17 @@
+{
+	"datecreated": "2020-06-08T21:26:00.000Z",
+	"dateupdated": null,
+	"name": "j-Carousel",
+	"tags": [
+		"carousel"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"darkmode": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
