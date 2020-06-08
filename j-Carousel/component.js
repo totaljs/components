@@ -1,7 +1,7 @@
 COMPONENT('carousel', 'animate:3000', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
-	var container, body, items = [], interval, skip = false, can = true;
+	var container, body, items = [], interval, skip = false, can = true, enabled = false;
 
 	self.readonly();
 
@@ -33,16 +33,17 @@ COMPONENT('carousel', 'animate:3000', function(self, config, cls) {
 
 		if (config.animate) {
 			interval = setInterval(function() {
-				skip = true;
-				self.right();
+				if (enabled) {
+					skip = true;
+					self.right();
+				}
 			}, config.animate);
 		}
 
 		var pageX = 0;
 
-		var move = function(e) {
-
-			if (!can)
+		var mmove = function(e) {
+			if (!can || !enabled)
 				return;
 			var x = (e.touches ? e.touches[0].pageX : e.pageX) - pageX;
 			can = false;
@@ -51,17 +52,17 @@ COMPONENT('carousel', 'animate:3000', function(self, config, cls) {
 				self.left();
 			else
 				self.right();
+		};
 
+		var mmup = function() {
+			$(W).off('mousemove touchmove', mmove).off('mouseup touchend mouseleave', mmup);
 		};
 
 		self.event('mousedown touchstart', function(e) {
 			pageX = e.touches ? e.touches[0].pageX : e.pageX;
-			self.element.on('mousemove touchmove', move);
+			$(W).on('mousemove touchmove', mmove).on('mouseup touchend mouseleave', mmup);
 		});
 
-		self.event('mouseup touchend', function() {
-			self.element.off('mousemove touchmove', move);
-		});
 	};
 
 	self.resize = function() {
@@ -70,7 +71,7 @@ COMPONENT('carousel', 'animate:3000', function(self, config, cls) {
 
 	self.prepare = function() {
 
-		if (!items.length)
+		if (!items.length || !enabled)
 			return;
 
 		var b = body[0];
@@ -83,7 +84,7 @@ COMPONENT('carousel', 'animate:3000', function(self, config, cls) {
 
 	self.left = function() {
 
-		if (!items.length)
+		if (!items.length || !enabled)
 			return;
 
 		if (!skip && interval) {
@@ -107,7 +108,7 @@ COMPONENT('carousel', 'animate:3000', function(self, config, cls) {
 
 	self.right = function() {
 
-		if (!items.length)
+		if (!items.length || !enabled)
 			return;
 
 		if (!skip && interval) {
@@ -147,14 +148,29 @@ COMPONENT('carousel', 'animate:3000', function(self, config, cls) {
 
 		body.css('width', width * 2);
 		self.css('height', height);
-		width = self.width();
-		container.css({ width: self.width(), height: height + 50 });
+		var mainwidth = self.width();
+		enabled = mainwidth < width;
+		container.css({ width: mainwidth, height: height + 50 });
+
+		if (enabled) {
+			var last = items.last();
+			if (last)
+				container[0].scrollLeft = +last.getAttribute('data-width');
+		} else
+			container[0].scrollLeft = 0;
+
 	};
 
 	self.setter = function(value) {
 
-		if (!value || !(value instanceof Array))
+		if (!value || !(value instanceof Array)) {
+			if (self.template) {
+				enabled = false;
+				body.html('');
+				self.aclass('hidden');
+			}
 			return;
+		}
 
 		var builder = [];
 		for (var i = 0; i < value.length; i++) {
@@ -162,10 +178,14 @@ COMPONENT('carousel', 'animate:3000', function(self, config, cls) {
 			builder.push('<figure>' + self.template(item) + '</figure>');
 		}
 
+		container[0].scrollLeft = 0;
 		body.html(builder.join(''));
+		container[0].scrollLeft = 0;
+		self.rclass('hidden');
 		items = body.find('> figure').toArray();
 		self.resizeforce();
 		self.prepare();
+		self.resize();
 	};
 
 });
