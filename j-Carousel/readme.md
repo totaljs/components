@@ -7,6 +7,11 @@ __Configuration__:
 
 - `animate` {Number} animation interval (default: `3000`, zero `0` disables animation)
 
+__Methods__:
+
+- `left` moves the content to left
+- `right` moves the content to right
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
