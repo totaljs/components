@@ -1,10 +1,10 @@
 {
 	"datecreated": "2017-12-21T09:16:04.000Z",
-	"dateupdated": null,
+	"dateupdated": "2020-06-08T21:34:04.000Z",
 	"name": "j-MobileCarousel",
 	"tags": [
-		"jcomponent",
-		"bootstrap"
+		"mobile",
+		"carousel"
 	],
 	"color": "transparent",
 	"version": 1,

@@ -1,5 +1,6 @@
-COMPONENT('mobilecarousel', 'count:1;selector:.col-sm-4;margin:15;snapping:true;animate:5000', function(self, config) {
+COMPONENT('mobilecarousel', 'count:1;selector:.col-sm-4;margin:15;snapping:true;animate:5000', function(self, config, cls) {
 
+	var cls2 = '.' + cls;
 	var width = 0;
 	var count = 0;
 	var index = 0;
@@ -14,13 +15,13 @@ COMPONENT('mobilecarousel', 'count:1;selector:.col-sm-4;margin:15;snapping:true;
 	self.blind();
 
 	self.make = function() {
-		self.element.wrapInner('<div class="ui-mobilecarousel-container"><div class="ui-mobilecarousel-body"></div></div>');
+		self.element.wrapInner('<div class="{0}-container"><div class="{0}-body"></div></div>'.format(cls));
 		$(W).on('resize', self.resize);
 		setTimeout(self.resize, 50);
 		setTimeout(self.resize, 500);
 		setTimeout(self.resize, 2000);
-		CSS('.ui-mobilecarousel .ui-mobilecarousel-{0} {1}{margin:0 0 0 {2}px;padding:0;float:left;vertical-align:top;display:inline-block}.ui-mobilecarousel .ui-mobilecarousel-{0} {1}:first-child{margin-left:0}'.format(self.id, config.selector, config.margin));
-		container = self.find('.ui-mobilecarousel-container').aclass('ui-mobilecarousel-' + self.id);
+		CSS('.{3} .{3}-{0} {1}{margin:0 0 0 {2}px;padding:0;float:left;vertical-align:top;display:inline-block}.{3} .{3}-{0} {1}:first-child{margin-left:0}'.format(self.id, config.selector, config.margin, cls));
+		container = self.find(cls2 + '-container').aclass(cls + '-' + self.id);
 		config.snapping && container.on('scroll', function() {
 			!skip && setTimeout2(self.id, self.snap, 200);
 		}).on('touchmove', function() {
@@ -53,7 +54,7 @@ COMPONENT('mobilecarousel', 'count:1;selector:.col-sm-4;margin:15;snapping:true;
 	};
 
 	self.snap = function() {
-		var x = container.prop('scrollLeft');
+		var x = container[0].scrollLeft;
 		var off = Math.round(x / width);
 		skip = true;
 		move = true;
@@ -73,14 +74,14 @@ COMPONENT('mobilecarousel', 'count:1;selector:.col-sm-4;margin:15;snapping:true;
 			old = '1';
 			count = 0;
 			width = 0;
-			self.rclass('ui-mobilecarousel');
+			self.rclass(cls);
 			self.css('height', '');
-			self.find('.ui-mobilecarousel-body').css('width', '');
+			self.find(cls2 + '-body').css('width', '');
 			self.find(config.selector).css('width', '');
 			return;
 		}
 
-		self.aclass('ui-mobilecarousel');
+		self.aclass(cls);
 
 		self.width(function(w) {
 
@@ -104,7 +105,7 @@ COMPONENT('mobilecarousel', 'count:1;selector:.col-sm-4;margin:15;snapping:true;
 
 			old = k;
 			self.css('height', (height >> 0) + 15);
-			self.find('.ui-mobilecarousel-body').css('width', sum);
+			self.find(cls2 + '-body').css('width', sum);
 		});
 	};
 });
