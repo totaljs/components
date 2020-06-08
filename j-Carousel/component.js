@@ -146,9 +146,9 @@ COMPONENT('carousel', 'animate:3000', function(self, config, cls) {
 		}
 
 		body.css('width', width * 2);
-		self.css('height', h);
+		self.css('height', height);
 		width = self.width();
-		container.css({ width: self.width(), height: h + 50 });
+		container.css({ width: self.width(), height: height + 50 });
 	};
 
 	self.setter = function(value) {
