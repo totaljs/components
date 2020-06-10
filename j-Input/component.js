@@ -412,6 +412,8 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				return value.isPhone();
 			case 'url':
 				return value.isURL();
+			case 'zip':
+				return (/^\d{5}(?:[-\s]\d{4})?$/).test(value);
 			case 'currency':
 			case 'number':
 				value = value.parseFloat();
