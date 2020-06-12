@@ -5,26 +5,24 @@
 <div data---="spotlight__null__placeholder:Search ..."></div>
 
 <div class="container">
-	<a href="javascript:features()">Show features</a>
+	<a href="javascript:spotlight()">Show Spotlight</a>
 </div>
 
 <script>
-	function features() {
+	function spotlight() {
 
 		var opt = {};
 
-
-
-		opt.next = function(value, next) {
+		opt.search = function(value, next) {
 			// console.log(value);
-			next([{ name: 'Dashboard' }, { name: 'Invoices' }, { name: 'Orders' }, { name: 'Products' }, { name: 'Pages' }, { name: 'Notes' }, { name: 'Users', icon: 'user' }, { name: 'Settings' }]);
+			next([{ name: 'Dashboard' }, { name: 'Invoices' }, { name: 'Orders' }, { name: 'Products' }, { name: 'Pages' }, { name: 'Notes' }, { name: 'Users' }, { name: 'Settings' }]);
 		};
 
-		opt.callback = function() {
-
+		opt.callback = function(item) {
+			console.log('Selected item:', item);
 		};
 
 		SETTER('spotlight', 'show', opt);
 	}
-	setTimeout(features, 500);
+	setTimeout(spotlight, 500);
 </script>
