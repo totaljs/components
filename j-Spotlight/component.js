@@ -1,4 +1,4 @@
-COMPONENT('spotlight', 'height:40;placeholder:Search;recent:3 days', function(self, config, cls) {
+COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var container, timeout, input, search, scroller = null;
@@ -188,6 +188,10 @@ COMPONENT('spotlight', 'height:40;placeholder:Search;recent:3 days', function(se
 
 		$(document).on('touchstart mousedown', onclick);
 		self.opt = opt;
+
+		if (opt.recent == null)
+			opt.recent = '3 days';
+
 		self.rclass('hidden');
 
 		if (opt.clear)
