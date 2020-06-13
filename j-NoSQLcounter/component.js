@@ -32,6 +32,15 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config, cls) {
 		if (!value)
 			value = [];
 
+		// Total v4 improvement
+		for (var i = 0; i < value.length; i++) {
+			var item = value[i];
+			if (item.value == null) {
+				item.id = item.date;
+				item.value = value[i].sum;
+			}
+		}
+
 		var dt = new Date();
 		dt.setDate(1);
 		var current = dt.format('yyyyMM');
