@@ -173,7 +173,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 
 	self.init = function() {
 
-		$(window).on('resize', function() {
+		$(W).on('resize', function() {
 			setTimeout2('datagridresize', function() {
 				SETTER('datagrid', 'resize');
 			}, 500);
@@ -1031,6 +1031,20 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 				col.search = col.search === true ? Tangular.compile(col.template) : Tangular.compile(col.search);
 			}
 
+			if (!col.align) {
+				switch (col.type) {
+					case 'date':
+						col.align = 1;
+						break;
+					case 'number':
+						col.align = 2;
+						break;
+					case 'boolean':
+						col.align = 1;
+						break;
+				}
+			}
+
 			if (col.align && col.align !== 'left') {
 				col.align = align(col.align);
 				col.align = ' ' + col.align;
@@ -1055,7 +1069,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 				col.templatecustom = true;
 				col.template = TC((col.template.indexOf('<button') === -1 ? ('<div class="dg-value' + cls + '">{0}</div>') : '{0}').format(col.template));
 			} else
-				col.template = TC(('<div class="' + (isbool ? 'dg-bool' : 'dg-value') + cls + '"' + (config.allowtitles ? ' title="{{ {0} }}"' : '') + '>{{ {0} }}</div>').format(col.name + (col.format != null ? ' | format({0}) '.format(typeof(col.format) === 'string' ? ('\'' + col.format + '\'') : col.format) : '') + (col.empty ? ' | def({0})'.format(col.empty === true || col.empty == '1' ? '' : ('\'' + col.empty + '\'')) : '') + (isbool ? ' | ui_datagrid_checkbox' : '')));
+				col.template = TC(('<div class="' + (isbool ? 'dg-bool' : 'dg-value') + cls + '"' + (config.allowtitles ? ' title="{{ {0} }}"' : '') + '>{{ {0} }}</div>').format(col.name + (col.currency ? ' | currency(\'{0}\')'.format(col.currency) : col.format != null ? ' | format({0})'.format(col.format && typeof(col.format) === 'string' ? ('\'' + col.format + '\'') : col.format) : '') + (col.empty ? ' | def({0})'.format(col.empty === true || col.empty == '1' ? '' : ('\'' + col.empty + '\'')) : '') + (isbool ? ' | ui_datagrid_checkbox' : '')));
 
 			if (col.header)
 				col.header = TC(col.header);
@@ -1468,7 +1482,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		if (config.fullwidth_xs && WIDTH() === 'xs' && isMOBILE) {
 			var isfrm = false;
 			try {
-				isfrm = window.self !== window.top;
+				isfrm = W.self !== W.top;
 			} catch (e) {
 				isfrm = true;
 			}
