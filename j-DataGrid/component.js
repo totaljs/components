@@ -2157,9 +2157,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 
 							var eledit = elcol.find('.dg-editable');
 							if (eledit.length) {
-								setTimeout(function() {
+								setTimeout(function(meta, elcol) {
 									self.editcolumn(meta.rowindex, +elcol.attr('class').match(/\d+/)[0]);
-								}, 200);
+								}, 200, meta, elcol);
 								break;
 							}
 						}
