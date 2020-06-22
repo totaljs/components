@@ -7,8 +7,9 @@ __Configuration__:
 - `presentation` {Boolean} enables presentation mode (default: `true`)
 - `select` {String} a path to method if a `value` is selected
 - `redraw` {String} a path to method if the chart is redrawn
-- `animate` {Boolean} enables/disables animations (default: `true`)
+- `animate` {Boolean} enables/disables animations (default: `false`)
 - `size` {Number} width/height of donut (default: `0` = auto)
+- `highlight` {Boolean} enables/disables highlight of pieces (default: `true`)
 
 ### Author
 

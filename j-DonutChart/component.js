@@ -1,4 +1,4 @@
-COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:true;presentation:true;animate:true', function(self, config, cls) {
+COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:1;presentation:1;animate:0;highlight:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var svg, g, selected, tooltip;
@@ -46,7 +46,7 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:true;pres
 		}
 
 		config.select && EXEC(config.select, item);
-		config.animate && el.css('stroke-width', strokew.inc('+15%'));
+		config.highlight && el.css('stroke-width', strokew.inc('+15%'));
 		el.aclass('selected');
 		indexer = index;
 	};
