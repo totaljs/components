@@ -20,16 +20,25 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 		var item = self.items[index];
 		if (item) {
 
-			var key = 'spotlight' + (self.opt.id || '');
 			self.opt.callback && self.opt.callback(item);
 
-			if (self.opt.recent) {
-				var arr = PREF[key] || [];
-				arr.unshift(item);
-				if (arr.length > 10)
-					arr.pop();
-				PREF.set(key, arr, self.opt.recent);
-			}
+			if (!self.opt.recent)
+				return;
+
+			var key = 'spotlight' + (self.opt.id || '');
+			var arr = PREF[key] || [];
+			var id = HASH(item) + '';
+			item.spotlightid = id;
+
+			if (arr.length && arr.findItem('spotlightid', id))
+				return;
+
+			arr.unshift(item);
+
+			if (arr.length > 10)
+				arr.pop();
+
+			PREF.set(key, arr, typeof(self.opt.recent) === 'string' ? self.opt.recent : '1 month');
 		}
 	};
 
@@ -188,11 +197,10 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 
 		$(document).on('touchstart mousedown', onclick);
 		self.opt = opt;
+		self.rclass('hidden');
 
 		if (opt.recent == null)
 			opt.recent = '3 days';
-
-		self.rclass('hidden');
 
 		if (opt.clear)
 			input.val('');
@@ -204,7 +212,6 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 			else
 				self.render([]);
 		}
-
 
 		var w = ((WW / (isMOBILE ? 1.1 : 1.3)) >> 0);
 		search.css({ width: w, left: ((WW - w) / 2) });
