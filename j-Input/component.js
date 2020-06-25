@@ -1,7 +1,7 @@
 COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:name;direxclude:false;forcevalidation:1;searchalign:1;after:\\:', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
-	var input, placeholder, dirsource, binded, customvalidator, mask, isdirvisible = false, nobindcamouflage = false, focused = false;
+	var input, placeholder, dirsource, binded, customvalidator, mask, rawvalue, isdirvisible = false, nobindcamouflage = false, focused = false;
 
 	self.nocompile();
 	self.bindvisible(20);
@@ -10,7 +10,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		Thelpers.ui_input_icon = function(val) {
 			return val.charAt(0) === '!' ? ('<span class="ui-input-icon-custom">' + val.substring(1) + '</span>') : ('<i class="fa fa-' + val + '"></i>');
 		};
-		W.ui_input_template = Tangular.compile(('{{ if label }}<div class="{0}-label">{{ if icon }}<i class="fa fa-{{ icon }}"></i>{{ fi }}{{ label | raw }}{{ after | raw }}</div>{{ fi }}<div class="{0}-control{{ if licon }} {0}-licon{{ fi }}{{ if ricon || (type === \'number\' && increment) }} {0}-ricon{{ fi }}">{{ if ricon || (type === \'number\' && increment) }}<div class="{0}-icon-right{{ if type === \'number\' && increment && !ricon }} {0}-increment{{ else if riconclick || type === \'date\' || type === \'time\' || (type === \'search\' && searchalign === 1) || type === \'password\' }} {0}-click{{ fi }}">{{ if type === \'number\' && !ricon }}<i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i>{{ else }}{{ ricon | ui_input_icon }}{{ fi }}</div>{{ fi }}{{ if licon }}<div class="{0}-icon-left{{ if liconclick || (type === \'search\' && searchalign !== 1) }} {0}-click{{ fi }}">{{ licon | ui_input_icon }}</div>{{ fi }}<div class="{0}-input{{ if align === 1 || align === \'center\' }} center{{ else if align === 2 || align === \'right\' }} right{{ fi }}">{{ if placeholder && !innerlabel }}<div class="{0}-placeholder">{{ placeholder }}</div>{{ fi }}<input type="{{ if !dirsource && type === \'password\' }}password{{ else }}text{{ fi }}"{{ if autofill }} autocomplete="on" name="{{ PATH }}"{{ else }} name="input' + Date.now() + '" autocomplete="off"{{ fi }}{{ if dirsource }} readonly{{ else }} data-jc-bind=""{{ fi }}{{ if maxlength > 0}} maxlength="{{ maxlength }}"{{ fi }}{{ if autofocus }} autofocus{{ fi }} /></div></div>{{ if error }}<div class="{0}-error hidden"><i class="fa fa-warning"></i> {{ error }}</div>{{ fi }}').format(cls));
+		W.ui_input_template = Tangular.compile(('{{ if label }}<div class="{0}-label">{{ if icon }}<i class="fa fa-{{ icon }}"></i>{{ fi }}{{ label | raw }}{{ after | raw }}</div>{{ fi }}<div class="{0}-control{{ if licon }} {0}-licon{{ fi }}{{ if ricon || (type === \'number\' && increment) }} {0}-ricon{{ fi }}">{{ if ricon || (type === \'number\' && increment) }}<div class="{0}-icon-right{{ if type === \'number\' && increment && !ricon }} {0}-increment{{ else if riconclick || type === \'date\' || type === \'time\' || (type === \'search\' && searchalign === 1) || type === \'password\' }} {0}-click{{ fi }}">{{ if type === \'number\' && !ricon }}<i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i>{{ else }}{{ ricon | ui_input_icon }}{{ fi }}</div>{{ fi }}{{ if licon }}<div class="{0}-icon-left{{ if liconclick || (type === \'search\' && searchalign !== 1) }} {0}-click{{ fi }}">{{ licon | ui_input_icon }}</div>{{ fi }}<div class="{0}-input{{ if align === 1 || align === \'center\' }} center{{ else if align === 2 || align === \'right\' }} right{{ fi }}">{{ if placeholder && !innerlabel }}<div class="{0}-placeholder">{{ placeholder }}</div>{{ fi }}{{ if dirsource || type === \'icon\' || type === \'emoji\' || type === \'color\' }}<div class="{0}-value"></div>{{ else }}<input type="{{ if type === \'password\' }}password{{ else }}text{{ fi }}"{{ if autofill }} autocomplete="on" name="{{ PATH }}"{{ else }} name="input' + Date.now() + '" autocomplete="off"{{ fi }} data-jc-bind=""{{ if maxlength > 0}} maxlength="{{ maxlength }}"{{ fi }}{{ if autofocus }} autofocus{{ fi }} />{{ fi }}</div></div>{{ if error }}<div class="{0}-error hidden"><i class="fa fa-warning"></i> {{ error }}</div>{{ fi }}').format(cls));
 	};
 
 	self.make = function() {
@@ -199,7 +199,42 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 		self.event('click', cls2 + '-control', function() {
 
-			if (!config.dirsource || config.disabled || isdirvisible)
+			if (config.disabled || isdirvisible)
+				return;
+
+			if (config.type === 'icon') {
+				opt = {};
+				opt.element = self.element;
+				opt.value = self.get();
+				opt.callback = function(val) {
+					self.change(true);
+					self.set(val);
+				};
+				SETTER('faicons', 'show', opt);
+				return;
+			} else if (config.type === 'color') {
+				opt = {};
+				opt.element = self.element;
+				opt.value = self.get();
+				opt.callback = function(al) {
+					self.change(true);
+					self.set(al);
+				};
+				SETTER('colorpicker', 'show', opt);
+				return;
+			} else if (config.type === 'emoji') {
+				opt = {};
+				opt.element = self.element;
+				opt.value = self.get();
+				opt.callback = function(al) {
+					self.change(true);
+					self.set(al);
+				};
+				SETTER('emoji', 'show', opt);
+				return;
+			}
+
+			if (!config.dirsource)
 				return;
 
 			isdirvisible = true;
@@ -310,18 +345,18 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					opt = {};
 					opt.element = self.element;
 					opt.value = self.get();
-					opt.callback = function(date) {
+					opt.callback = function(val) {
 						self.change(true);
-						self.set(date);
+						self.set(val);
 					};
 					SETTER('datepicker', 'show', opt);
 				} else if (config.type === 'time') {
 					opt = {};
 					opt.element = self.element;
 					opt.value = self.get();
-					opt.callback = function(date) {
+					opt.callback = function(val) {
 						self.change(true);
-						self.set(date);
+						self.set(val);
 					};
 					SETTER('timepicker', 'show', opt);
 				} else if (config.type === 'search')
@@ -498,7 +533,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 	self.check = function() {
 
-		var is = !!input[0].value;
+		var is = input.length ? !!input[0].value : !!rawvalue.text();
 
 		if (binded === is)
 			return;
@@ -513,9 +548,10 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 	self.bindvalue = function() {
 
+		var value = self.get();
+
 		if (dirsource) {
 
-			var value = self.get();
 			var item;
 
 			for (var i = 0; i < dirsource.length; i++) {
@@ -534,10 +570,23 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			if (value && item == null && config.dircustom)
 				item = value;
 
-			input.val(item || '');
+			rawvalue.text(item || '');
 
 		} else if (config.dirsource)
-			input.val(self.get() || '');
+			rawvalue.text(value || '');
+		else {
+			switch (config.type) {
+				case 'color':
+					rawvalue.css('background-color', value || '');
+					break;
+				case 'icon':
+					rawvalue.html('<i class="{0}"></i>'.format(value || ''));
+					break;
+				case 'emoji':
+					rawvalue.html(value);
+					break;
+			}
+		}
 
 		self.check();
 	};
@@ -549,6 +598,10 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				config.ricon = 'angle-down';
 			else if (config.type === 'date') {
 				config.ricon = 'calendar';
+				if (!config.align && !config.innerlabel)
+					config.align = 1;
+			} else if (config.type === 'icon' || config.type === 'color' || config.type === 'emoji') {
+				config.ricon = 'angle-down';
 				if (!config.align && !config.innerlabel)
 					config.align = 1;
 			} else if (config.type === 'time') {
@@ -569,8 +622,14 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		}
 
 		self.tclass(cls + '-masked', !!config.mask);
+		self.rclass2(cls + '-type-');
+
+		if (config.type)
+			self.aclass(cls + '-type-' + config.type);
+
 		self.html(W.ui_input_template(config));
 		input = self.find('input');
+		rawvalue = self.find(cls2 + '-value');
 		placeholder = self.find(cls2 + '-placeholder');
 	};
 

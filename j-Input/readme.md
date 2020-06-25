@@ -4,7 +4,7 @@ __j-Input__ is multifuncional `input` component which supports a lot of features
 
 __Configuration__:
 
-- `type` {String} optional, can be `email`, `phone`, `password`, `zip`, `date`, `time` (supports only 24 hours time), `url`, `number`, `search`, `lower`, `upper` or empty (default)
+- `type` {String} optional, can be `email`, `phone`, `password`, `zip`, `date` (needs `datepicker` component), `time`, `color` (needs `colorpicker` component), `icon` (needs `faicons` component), `emoji` (needs `emoji` component), `url`, `number`, `search`, `lower`, `upper` or empty (default)
 - `required` {Boolean} optional, enables "required" (default: `false`)
 - `icon` {String} optional, icon for label e.g. `home`, `cog`, etc.
 - `licon` {String} optional, left icon e.g. `home`, `cog`, etc.
