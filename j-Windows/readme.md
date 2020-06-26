@@ -33,7 +33,7 @@ var win = {
 	// Default settings
 	actions: { move: true, close: true, hide: true, resize: true, menu: false, minimize: true, maximize: true, autosave: false },
 	// GOOD TO KNOW:
-	// "undefined" close or "close:false" and "hide:true" doesn't destroy the instance of panel (it will be hidden only)
+	// "undefined" close or "close:false" and "hide:true" doesn't destroy the instance of window (it will be hidden only)
 
 	// A window title
 	title: 'Title for the window',
