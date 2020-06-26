@@ -127,7 +127,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 					break;
 				case 'right':
 					offset = w;
-					drag.min = (cache.left ? s.left.width() : 0) + 50;
+					drag.min = (cache.left ? s.left.width() : 0) + 50 + min;
 					drag.max = offset - (min || ch.size);
 					break;
 				case 'bottom':
