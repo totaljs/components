@@ -70,7 +70,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 	};
 
 	self.recompile = function() {
-		setTimeout2(self.iD + 'compile', COMPILE, 50);
+		setTimeout2(self.ID + 'compile', COMPILE, 50);
 	};
 
 	self.resizeforce = function() {
@@ -162,6 +162,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 			if (drag.resize) {
 				if (drag.item.meta.actions.resize == false)
 					return;
+				drag.resize = drag.item.meta.actions.resize;
 			} else {
 				if (drag.item.meta.actions.move == false)
 					return;
@@ -200,12 +201,17 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 					if ((off.minwidth && w < off.minwidth) || (off.minheight && h < off.minheight) || (off.maxwidth && w > off.maxwidth) || (off.maxheight && h > off.maxheight))
 						break;
 
-					obj.width = w;
-					drag.el.css(obj);
-					obj.height = h;
-					delete obj.width;
-					delete obj.top;
-					drag.body.css(obj);
+					if (drag.resize === true || drag.resize === 'width') {
+						obj.width = w;
+						drag.el.css(obj);
+					}
+
+					if (drag.resize === true || drag.resize === 'height') {
+						obj.height = h;
+						delete obj.width;
+						delete obj.top;
+						drag.body.css(obj);
+					}
 					break;
 
 				case 'tr':
@@ -215,13 +221,19 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 					if ((off.minwidth && w < off.minwidth) || (off.minheight && h < off.minheight) || (off.maxwidth && w > off.maxwidth) || (off.maxheight && h > off.maxheight))
 						break;
 
-					obj.width = w;
-					obj.top = y;
-					drag.el.css(obj);
-					obj.height = h;
-					delete obj.width;
-					delete obj.top;
-					drag.body.css(obj);
+					if (drag.resize === true || drag.resize === 'width') {
+						obj.width = w;
+						obj.top = y;
+						drag.el.css(obj);
+					}
+
+					if (drag.resize === true || drag.resize === 'height') {
+						obj.height = h;
+						delete obj.width;
+						delete obj.top;
+						drag.body.css(obj);
+					}
+
 					break;
 
 				case 'bl':
@@ -232,12 +244,18 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 					if ((off.minwidth && w < off.minwidth) || (off.minheight && h < off.minheight) || (off.maxwidth && w > off.maxwidth) || (off.maxheight && h > off.maxheight))
 						break;
 
-					obj.left = x;
-					obj.width = w;
-					drag.el.css(obj);
-					delete obj.width;
-					obj.height = h;
-					drag.body.css(obj);
+					if (drag.resize === true || drag.resize === 'width') {
+						obj.left = x;
+						obj.width = w;
+						drag.el.css(obj);
+						delete obj.width;
+					}
+
+					if (drag.resize === true || drag.resize === 'height') {
+						obj.height = h;
+						drag.body.css(obj);
+					}
+
 					break;
 
 				case 'br':
@@ -247,11 +265,17 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 					if ((off.minwidth && w < off.minwidth) || (off.minheight && h < off.minheight) || (off.maxwidth && w > off.maxwidth) || (off.maxheight && h > off.maxheight))
 						break;
 
-					obj.width = w;
-					drag.el.css(obj);
-					delete obj.width;
-					obj.height = h;
-					drag.body.css(obj);
+					if (drag.resize === true || drag.resize === 'width') {
+						obj.width = w;
+						drag.el.css(obj);
+						delete obj.width;
+					}
+
+					if (drag.resize === true || drag.resize === 'height') {
+						obj.height = h;
+						drag.body.css(obj);
+					}
+
 					break;
 			}
 
@@ -326,6 +350,9 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 		if (!item.cachekey)
 			item.cachekey = item.id;
 
+		if (item.cachekey)
+			item.cachekey += '' + item.offset.width + 'x' + item.offset.height;
+
 		if (item.actions && item.actions.autosave) {
 			pos = PREF['win_' + item.cachekey];
 			if (pos) {
@@ -333,13 +360,21 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 				var mx = 0;
 				var my = 0;
 
+				var keys = Object.keys(cache);
+				var plus = 0;
+
+				for (var i = 0; i < keys.length; i++) {
+					if (cache[keys[i]].meta.cachekey === item.cachekey)
+						plus += 50;
+				}
+
 				if (config.reoffsetresize && pos.ww != null && pos.wh != null) {
 					mx = pos.ww - WW;
 					my = pos.wh - WH;
 				}
 
-				item.offset.x = pos.x - mx;
-				item.offset.y = pos.y - my;
+				item.offset.x = (pos.x - mx) + plus;
+				item.offset.y = (pos.y - my) + plus;
 				item.offset.width = pos.width;
 				item.offset.height = pos.height;
 
@@ -556,6 +591,10 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 		obj.meta.data && data.push(obj);
 
 		self.append(el);
+
+		setTimeout(function(obj) {
+			obj.setcommand('focus');
+		}, 100, obj);
 		return obj;
 	};
 
