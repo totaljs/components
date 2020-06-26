@@ -637,12 +637,6 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		input = self.find('input');
 		rawvalue = self.find(cls2 + '-value');
 		placeholder = self.find(cls2 + '-placeholder');
-
-		if (input.length) {
-			setTimeout(function(input) {
-				input.prop('autocomplete', 'off');
-			}, 1000);
-		}
 	};
 
 	self.configure = function(key, value) {
