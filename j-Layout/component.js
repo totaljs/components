@@ -1,6 +1,5 @@
-COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresize:1', function(self, config) {
+COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresize:1', function(self, config, cls) {
 
-	var cls = 'ui-layout';
 	var cls2 = '.' + cls;
 	var cache = {};
 	var drag = {};
