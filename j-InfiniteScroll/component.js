@@ -1,6 +1,5 @@
-COMPONENT('infinitescroll', 'margin:0;padding:50;autoscroll:100', function(self, config) {
+COMPONENT('infinitescroll', 'margin:0;padding:50;autoscroll:100', function(self, config, cls) {
 
-	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
 	var init = false;
 	var isloading = true;
@@ -31,7 +30,7 @@ COMPONENT('infinitescroll', 'margin:0;padding:50;autoscroll:100', function(self,
 		self.aclass(cls);
 		self.element.wrapInner('<div class="{0}-container"></div>'.format(cls));
 		container = self.find(cls2 + '-container');
-		self.scrollbar = new SCROLLBAR(container, { visibleY: true, onscroll: self.onscroll });
+		self.scrollbar = new SCROLLBAR(container, { visibleY: true, orientation: 'y', onscroll: self.onscroll });
 		body = self.scrollbar.area.find('.ui-scrollbar-body');
 		self.resize();
 		setTimeout(function() {
@@ -69,7 +68,7 @@ COMPONENT('infinitescroll', 'margin:0;padding:50;autoscroll:100', function(self,
 		if (self.release())
 			return;
 
-		var el = config.parent ? config.parent === 'window' ? $(W) : config.parent === 'parent' ? self.parent() : self.element.closest(config.parent) : self.parent();
+		var el = self.parent(config.parent);
 		var h = el.height();
 		var w = el.width();
 
