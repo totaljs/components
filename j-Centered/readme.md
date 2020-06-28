@@ -10,6 +10,8 @@ __Configuration__:
 - `closebutton` {Boolean} can hide `x` button (default: `false`)
 - `closeoutside` {Boolean} closes the form when the user clicks outside of the form (default: `false`)
 - `closeesc` {Boolean} closes the form when the user presses `ESC`
+- `scrollbar` {Boolean} enables custom scrollbar (default: `true`)
+- `visibleY` {Boolean} shows vertical scrollbar (default: `false`)
 
 __Good to know__:
 

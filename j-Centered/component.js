@@ -1,6 +1,7 @@
-COMPONENT('centered', 'closebutton:1;closeesc:1', function(self, config, cls) {
+COMPONENT('centered', 'closebutton:1;closeesc:1;scrollbar:1;visibleY:0', function(self, config, cls) {
 
 	var events = {};
+	var container, scroller;
 
 	events.bind = function() {
 		if (!events.is) {
@@ -21,10 +22,23 @@ COMPONENT('centered', 'closebutton:1;closeesc:1', function(self, config, cls) {
 		}
 	};
 
+	self.resize = function() {
+		setTimeout2(self.ID, self.resizeforce, 300);
+	};
+
+	self.resizeforce = function() {
+		var css = { width: WW, height: WH };
+		self.css(css);
+		$(scroller).css(css);
+		$(container).css({ 'min-height': WH });
+		self.scrollbar && self.scrollbar.resize();
+	};
+
 	self.readonly();
 
 	self.make = function() {
-		self.aclass(cls + '-container hidden');
+
+		self.aclass(cls + '-container hidden invisible');
 		self.event('click', '[data-name="close"],[name="close"]', function() {
 			self.set('');
 		});
@@ -38,14 +52,22 @@ COMPONENT('centered', 'closebutton:1;closeesc:1', function(self, config, cls) {
 				self.makeforce = null;
 			};
 		} else {
-			var container = document.createElement('DIV');
+			container = document.createElement('DIV');
 			container.setAttribute('class', cls + '-content');
 			var div = document.createElement('DIV');
 			div.setAttribute('class', cls + '-body');
 			for (var i = 0; i < self.dom.children.length; i++)
 				div.appendChild(self.dom.children[i]);
+
 			container.appendChild(div);
-			self.dom.appendChild(container);
+
+			scroller = document.createElement('DIV');
+			scroller.appendChild(container);
+
+			if (config.scrollbar)
+				self.scrollbar = SCROLLBAR($(scroller), { visibleY: config.visibleY });
+
+			self.dom.appendChild(scroller);
 			self.element.prepend('<span class="fas fa-times {0}-button{1}" data-name="close"></span>'.format(cls, config.closebutton ? '' : ' hidden'));
 		}
 
@@ -53,6 +75,12 @@ COMPONENT('centered', 'closebutton:1;closeesc:1', function(self, config, cls) {
 			if (e.target === self.dom)
 				self.set('');
 		});
+
+		$(W).on('resize', self.resize);
+	};
+
+	self.destroy = function() {
+		$(W).off('resize', self.resize);
 	};
 
 	self.setter = function(value) {
@@ -65,7 +93,6 @@ COMPONENT('centered', 'closebutton:1;closeesc:1', function(self, config, cls) {
 				config.default && DEFAULT(config.default, true);
 				config.reload && EXEC(config.reload, self);
 				config.zindex && self.css('z-index', config.zindex);
-
 				if (!isMOBILE && config.autofocus) {
 					setTimeout(function() {
 						self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea').eq(0).focus();
@@ -74,7 +101,10 @@ COMPONENT('centered', 'closebutton:1;closeesc:1', function(self, config, cls) {
 
 			} else
 				config.closeesc && events.unbind();
+
 			self.tclass('hidden', !is);
+			self.resizeforce();
+			self.rclass('invisible');
 			$('html').tclass(cls + '-noscroll', is);
 		}
 	};
