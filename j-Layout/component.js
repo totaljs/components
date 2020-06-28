@@ -452,8 +452,15 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 			cssright.top = istop2 ? config.border : (top ? (top + config.space) : 0);
 			cssright.height = isbottom2 ? (height - top2 - config.border) : (height - top2 - bottom2 - (config.space * space));
 			cssright.height += topbottomoffset;
+
 			s.right.css(cssright);
 			cssright.width = s.right.width();
+
+			if ((cssright.width + cssright.left) === width) {
+				s.right.css('left', 0);
+				cssright.width++;
+			}
+
 			s.rightlock.css(cssright);
 			delete cssright.width;
 
