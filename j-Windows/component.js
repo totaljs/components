@@ -111,6 +111,8 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 
 	events.down = function(e) {
 
+		var E = e;
+
 		if (e.type === 'touchstart') {
 			drag.touch = true;
 			e = e.touches[0];
@@ -129,7 +131,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 		drag.resize = el.hclass(cls + '-resize');
 		drag.is = false;
 
-		e.preventDefault();
+		E.preventDefault();
 
 		var myoffset = self.element.position();
 		var pos;
