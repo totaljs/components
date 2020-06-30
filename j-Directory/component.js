@@ -70,7 +70,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		});
 
 		self.event('click', cls2 + '-add', function() {
-			if (self.opt.callback) {
+			if (self.opt.custom && self.opt.callback) {
 				self.opt.scope && M.scope(self.opt.scope);
 				self.opt.callback(input.val(), self.opt.element, true);
 				self.hide();
@@ -159,7 +159,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 						self.opt.scope && M.scope(self.opt.scope);
 						if (sel.length)
 							self.opt.callback(self.opt.items[+sel.attrd('index')], self.opt.element);
-						else
+						else if (self.opt.custom)
 							self.opt.callback(this.value, self.opt.element, true);
 					}
 					self.hide();
