@@ -1,0 +1,6 @@
+.ui-select {  }
+.ui-select > button { border-radius: 3px; border: 1px solid #d0d0d0; padding: .4em .6em; text-align: left; min-width: 80px; }
+.ui-select > button > i.fa { margin-left: .4em; margin-top: .2em; float: right; }
+.ui-select-select { background-color: #f6f6f6; border-radius: 3px; border: 1px solid #cdcdcd; width: fit-content; padding: 0.3em 0; margin-top: 2px; }
+.ui-select-option { color: #3b3b3b; background-color: #f6f6f6; display: block; height: 1.8em; padding: 0.1em 0.5em; }
+.ui-select-option:hover { text-decoration: none; background-color: #e8e8e8; }

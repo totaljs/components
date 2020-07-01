@@ -1,0 +1,17 @@
+{
+	"datecreated": "2020-07-01T10:36:00.000Z",
+	"dateupdated": null,
+	"name": "j-Select",
+	"tags": [
+		"jcomponent"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"darkmode": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Martin Smola",
+	"email": "smola.martin@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
