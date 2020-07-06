@@ -30,7 +30,7 @@ COMPONENT('centered', 'closebutton:1;closeesc:1;scrollbar:1;visibleY:0', functio
 		var css = { width: WW, height: WH };
 		self.css(css);
 		$(scroller).css(css);
-		$(container).css({ 'min-height': WH });
+		$(container).css({ height: WH });
 		self.scrollbar && self.scrollbar.resize();
 	};
 
