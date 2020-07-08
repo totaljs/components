@@ -2,7 +2,7 @@ COMPONENT('centered', 'closebutton:1;closeesc:1;scrollbar:1;visibleY:0', functio
 
 	var cls2 = '.' + cls;
 	var events = {};
-	var container, scroller, body;
+	var container, scroller;
 
 	events.bind = function() {
 		if (!events.is) {
