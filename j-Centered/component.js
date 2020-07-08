@@ -1,7 +1,8 @@
 COMPONENT('centered', 'closebutton:1;closeesc:1;scrollbar:1;visibleY:0', function(self, config, cls) {
 
+	var cls2 = '.' + cls;
 	var events = {};
-	var container, scroller;
+	var container, scroller, body;
 
 	events.bind = function() {
 		if (!events.is) {
@@ -71,8 +72,8 @@ COMPONENT('centered', 'closebutton:1;closeesc:1;scrollbar:1;visibleY:0', functio
 			self.element.prepend('<span class="fas fa-times {0}-button{1}" data-name="close"></span>'.format(cls, config.closebutton ? '' : ' hidden'));
 		}
 
-		config.closeoutside && self.element.on('click', function(e) {
-			if (e.target === self.dom)
+		config.closeoutside && self.find(cls2 + '-body').on('click', function(e) {
+			if (e.target === this)
 				self.set('');
 		});
 
