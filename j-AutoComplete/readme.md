@@ -32,6 +32,7 @@ opt.callback = function(value, input) {
 // opf.offsetWidth {Number} "width" offset
 // opt.offsetX {Number} "x" offset
 // opt.offsetX {Number} "y" offset
+// opt.autoselect {Boolean} selects first suggestion automatically (default: false)
 
 SETTER('autocomplete', 'show', opt);
 ```

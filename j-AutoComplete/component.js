@@ -1,6 +1,5 @@
-COMPONENT('autocomplete', 'height:200', function(self, config) {
+COMPONENT('autocomplete', 'height:200', function(self, config, cls) {
 
-	var cls = 'ui-autocomplete';
 	var clssel = 'selected';
 
 	var container, old, searchtimeout, searchvalue, blurtimeout, datasource, offsetter, scroller;
@@ -9,7 +8,7 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 	var is = false;
 	var prev;
 
-	self.template = Tangular.compile('<li{{ if index === 0 }} class="' + clssel + '"{{ fi }} data-index="{{ index }}"><span>{{ name }}</span><span>{{ type }}</span></li>');
+	self.template = Tangular.compile('<li{{ if select }} class="' + clssel + '"{{ fi }} data-index="{{ index }}"><span>{{ name }}</span><span>{{ type }}</span></li>');
 	self.readonly();
 	self.singleton();
 	self.nocompile && self.nocompile();
@@ -47,8 +46,8 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 			is && self.visible(false);
 		});
 
-		$(window).on('resize', function() {
-			self.resize();
+		$(W).on('resize', function() {
+			is && self.visible(false);
 		});
 
 		self.on('scroll', function() {
@@ -248,8 +247,12 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 		}
 
 		var builder = [];
-		for (var i = 0, length = arr.length; i < length; i++) {
+		for (var i = 0; i < arr.length; i++) {
 			var obj = arr[i];
+
+			if (!i && self.opt.autoselect)
+				obj.select = true;
+
 			obj.index = i;
 			if (!obj.name)
 				obj.name = obj.text;
@@ -266,8 +269,6 @@ COMPONENT('autocomplete', 'height:200', function(self, config) {
 
 		prev = container.find('.' + clssel);
 		self.visible(true);
-		setTimeout(function() {
-			scroller.noscrollbar(true);
-		}, 100);
+		setTimeout(scroller.noscrollbar, 100, true);
 	};
 });
