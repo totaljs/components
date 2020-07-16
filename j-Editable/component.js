@@ -554,10 +554,10 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 			}
 
 			changed[meta.path.substring(self.path.length + 1)] = 1;
-			config.changed && SEEX(config.changed, self.changed());
-			config.invalid && EXEC(config.invalid, el, false, meta);
+			meta.changed && SEEX(meta.changed, self.changed());
+			meta.invalid && EXEC(meta.invalid, el, false, meta);
 		} else {
-			meta.invalid && EXEC(config.invalid, el, true, meta);
+			meta.invalid && EXEC(meta.invalid, el, true, meta);
 			el.aclass((meta.required ? 'invalid ' : '') + 'changed');
 		}
 
