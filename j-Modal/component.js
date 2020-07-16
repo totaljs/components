@@ -144,7 +144,7 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 				self.tclass(cls + '-bg', !!value);
 				break;
 			case 'title':
-				eheader && eheader.find('label').html(value);
+				eheader && eheader.find('label').text(value);
 				break;
 			case 'width':
 				emodal && emodal.css('max-width', config.width);
