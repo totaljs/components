@@ -554,10 +554,12 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 			}
 
 			changed[meta.path.substring(self.path.length + 1)] = 1;
-			meta.changed && SEEX(meta.changed, self.changed());
-			meta.invalid && EXEC(meta.invalid, el, false, meta);
+			config.changed && SEEX(self.makepath(config.changed), self.changed());
+			config.invalid && EXEC(self.makepath(config.invalid), el, false, meta);
+			meta.invalid && EXEC(self.makepath(meta.invalid), el, false, meta);
 		} else {
-			meta.invalid && EXEC(meta.invalid, el, true, meta);
+			config.invalid && EXEC(self.makepath(config.invalid), el, true, meta);
+			meta.invalid && EXEC(self.makepath(meta.invalid), el, true, meta);
 			el.aclass((meta.required ? 'invalid ' : '') + 'changed');
 		}
 
@@ -663,14 +665,14 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 
 			if (changed) {
 				changed = null;
-				config.changed && SEEX(config.changed);
+				config.changed && SEEX(self.makepath(config.changed));
 			}
 
 			var el = self.find('.invalid');
 
 			if (config.invalid) {
 				for (var i = 0; i < el.length; i++)
-					EXEC(config.invalid, el[0], false, el[0].$editable);
+					EXEC(self.makepath(config.invalid), el[0], false, el[0].$editable);
 			}
 
 			el.rclass('invalid');
