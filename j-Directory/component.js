@@ -212,13 +212,16 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		var was = false;
 		var last = -1;
 		var lastselected = 0;
+		var plus = (hli * 2);
+		var sh = (li.length * hli);
 
-		li.each(function(index) {
-			var el = $(this);
+		for (var i = 0; i < li.length; i++) {
+
+			var el = $(li[i]);
 
 			if (el.hclass('hidden')) {
 				el.rclass('current');
-				return;
+				continue;
 			}
 
 			var is = selectedindex === counter;
@@ -227,17 +230,14 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 			if (is) {
 				was = true;
 				var t = (hli * (counter || 1));
-				var f = Math.ceil((h / hli) / 2);
-				if (counter > f)
-					scroller[0].scrollTop = (t + f) - (h / 2.8 >> 0);
-				else
-					scroller[0].scrollTop = 0;
+				var p = (t / sh) * 100;
+				scroller[0].scrollTop = (t + p) - plus;
 			}
 
 			counter++;
-			last = index;
+			last = i;
 			lastselected++;
-		});
+		}
 
 		if (!was && last >= 0) {
 			selectedindex = lastselected;
