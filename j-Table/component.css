@@ -1,5 +1,5 @@
 .ui-table-border > table { border: 1px solid #E0E0E0; }
-.ui-table-border .ui-table-head > thead > tr > th, .ui-table-border .ui-table-tbody > tr > td { border-left: 1px solid #E0E0E0; border-right: 1px solid #E0E0E0; }
+.ui-table-border .ui-table-head > thead > tr > th, .ui-table-border .ui-table-tbody > tr > td { border-left: 1px solid #E0E0E0; border-right: 1px solid #E0E0E0; padding-left: 8px; padding-right: 8px; }
 .ui-table-border .ui-table-head > thead > tr > th:first-child, .ui-table-border .ui-table-tbody > tr > td:first-child { border-left: 0 !important; }
 .ui-table-table, .ui-table-head { width: 100%; margin: 0; padding: 0; font-size: 13px; table-layout: fixed; }
 .ui-table-head { border-bottom: 0; }
@@ -9,11 +9,16 @@
 .ui-table-border .ui-table-scrollbar .ui-table-head { border-right: 1px solid #E0E0E0; }
 .ui-table-head th { padding: 8px 4px; }
 .ui-table-head .sort { cursor: pointer; user-select: none; }
-.ui-table-head .sort i { width: 12px; text-align: left; color: #4783EE; }
-.ui-table-head .sort .fa-sort { color: #000000; }
+.ui-table-head .sort i { text-align: left; color: #4783EE; }
+.ui-table-head .sort .fa-long-arrow-up, .ui-table-head .sort .fa-long-arrow-down { width: 12px; }
+.ui-table-head .sort .fa-sort { color: black; }
 .ui-table-nohead, .ui-table-nohead tr, .ui-table-nohead th { height: 0 !important; overflow: hidden !important; padding: 0 !important; margin: 0 !important; border-bottom: 0; }
 .ui-table-tbody > tr { border-bottom: 1px solid #E0E0E0; }
 .ui-table-tbody > tr > td { padding: 5px 4px; }
+.ui-table-tbody button { width: 28px; background-color: transparent; border: 0; border-left: 1px solid #E0E0E0; border-radius: 0; color: #777777; font-size: 12px; }
+.ui-table-tbody button:hover { color: #000000; }
+.ui-table-tbody button:disabled, .ui-table-tbody button:disabled i { color: #B0B0B0 !important; cursor: not-allowed; }
+.ui-table-tbody button:first-child { border-left: 0; }
 .ui-table-selectable .ui-table-tbody tr { cursor: pointer; }
 .ui-table-selectable .ui-table-tbody tr:hover { background-color: rgba(100,100,100,.05); }
 .ui-table-selected { background-color: rgba(253,255,191,.41) !important; }
@@ -25,7 +30,7 @@
 .ui-table-border > .ui-table-container { border: 1px solid #E0E0E0; }
 .ui-table-footer { border: 1px solid #E0E0E0; border-top: 0; height: 32px; }
 .ui-table-pagination { float: left; }
-.ui-table-pagination button { background-color: #FFF; border: 0; border-left: 1px solid #E0E0E0; height: 31px; width: 40px; color: #000000; font-size: 12px; text-align: center; outline: 0; }
+.ui-table-pagination button { background-color: #FFF; border: 0; border-left: 1px solid #E0E0E0; height: 31px; width: 40px; color: black; font-size: 12px; text-align: center; outline: 0; }
 .ui-table-pagination button:hover { background-color: #F0F0F0; }
 .ui-table-pagination button:disabled { background-color: #F9F9F9; color: #A0A0A0; }
 .ui-table-pagination button:first-child { border-left: 0; }
@@ -38,6 +43,7 @@
 
 .ui-dark .ui-table-border > .ui-table-container { border-color: #404040; }
 .ui-dark .ui-table-border > .ui-table-headcontainer { border-color: #404040; }
+.ui-dark .ui-table-head { color: #FFFFFF; }
 .ui-dark .ui-table-head .sort .fa-sort { color: #FFFFFF; }
 .ui-dark .ui-table-footer { border-color: #404040; }
 .ui-dark .ui-table-border .ui-table-headcontainer thead > tr > th, .ui-dark .ui-table-border .ui-table-tbody > tr > td { border-left: 1px solid #404040; border-right: 1px solid #404040; }
@@ -47,7 +53,10 @@
 .ui-dark .ui-table-selected { background-color: rgba(100,100,100,.3) !important; }
 .ui-dark .ui-table-empty { border-top-color: #404040; border-bottom-color: #404040; }
 .ui-dark .ui-table-pagination button { background-color: #303030; color: #A0A0A0; border-color: #404040; }
-.ui-dark .ui-table-pagination button:hover { background-color: #404040; color: #FFFFFF; }
+.ui-dark .ui-table-pagination button:hover { background-color: #404040; color: white; }
 .ui-dark .ui-table-pagination button:first-child { border-left-color: #404040; }
 .ui-dark .ui-table-pagination button[name="remove"] { background-color: #282828; color: red; }
 .ui-dark .ui-table-pagination button:disabled { background-color: #252525 !important; color: #505050 !important; }
+.ui-dark .ui-table-tbody button { border-left-color: #404040; color: #999999; }
+.ui-dark .ui-table-tbody button:hover { color: #FFFFFF; }
+.ui-dark .ui-table-tbody button:disabled, .ui-table-tbody button:disabled i { color: #303030 !important; }
