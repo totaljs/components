@@ -24,8 +24,9 @@
 .ui-modal-align-2 .ui-modal { left: 25px; bottom: 25px; top: auto; }
 .ui-modal-align-3 .ui-modal { left: 25px; top: 25px; }
 .ui-modal-align-4 .ui-modal { left: auto; right: 25px; top: 25px; }
+
 .ui-dark .ui-modal { background-color: #202020; border-color: #404040; }
-.ui-dark .ui-modal-bg { background-color: rgba(100,100,100,0.1); }
+.ui-dark .ui-modal-bg { background-color: rgba(50,50,50,0.9); }
 .ui-dark .ui-modal-footer { border-top-color: #303030; }
 .ui-dark .ui-modal-header { border-bottom-color: #303030; }
 .ui-dark .ui-modal-header label { color: #FFFFFF; }

@@ -22,7 +22,7 @@
 .ui-largeform-style-2 .ui-largeform { border-bottom-right-radius: 0; border-bottom-left-radius: 0; }
 
 .ui-dark .ui-largeform { background-color: #202020; }
-.ui-dark .ui-largeform-container { background-color: rgba(100,100,100,0.2); }
+.ui-dark .ui-largeform-container { background-color: rgba(50,50,50,0.9); }
 .ui-dark .ui-largeform-title { background-color: #202020; border-bottom-color: #303030; color: #FFFFFF; }
 .ui-dark .ui-largeform > nav { background-color: #202020; border-top-color: #303030; }
 .ui-dark .ui-largeform > nav button { border-color: #202020; background-color: #505050; color: #E0E0E0; }
