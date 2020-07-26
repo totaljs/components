@@ -59,4 +59,4 @@
 .ui-dark .ui-table-pagination button:disabled { background-color: #252525 !important; color: #505050 !important; }
 .ui-dark .ui-table-tbody button { border-left-color: #404040; color: #999999; }
 .ui-dark .ui-table-tbody button:hover { color: #FFFFFF; }
-.ui-dark .ui-table-tbody button:disabled, .ui-table-tbody button:disabled i { color: #303030 !important; }
+.ui-dark .ui-table-tbody button:disabled, .ui-dark .ui-table-tbody button:disabled i { color: #303030 !important; }
