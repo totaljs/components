@@ -1,6 +1,5 @@
-COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reoffsetresize:0', function(self, config) {
+COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reoffsetresize:0', function(self, config, cls) {
 
-	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
 	var cache = {};
 	var services = [];

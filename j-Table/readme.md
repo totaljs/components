@@ -19,8 +19,9 @@ __Configuration__:
 - `paginate` {String} a link to `function(model)` for performing of pagination `{ page: 1, limit: 10, sort: [] }`
 - `redraw` {String} a link to function, it's evaluated when the table is redrawing
 - `filter` {String} a link to function, it's evaluated before the table is rendering
-- __NEW__ `dblclick` {String} a link to function, it's evaluated when the user performs double-click
-- __NEW__ `datasource` {String} path to data-source (for other extra data in template. Usage: `{{ $.data.something }}`)
+- `dblclick` {String} a link to function, it's evaluated when the user performs double-click
+- `datasource` {String} path to data-source (for other extra data in template. Usage: `{{ $.data.something }}`)
+- __NEW__ `flat` {Boolean} removes padding in cells (default: `false`)
 
 __Good to know__:
 

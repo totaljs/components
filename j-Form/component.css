@@ -19,7 +19,7 @@
 .ui-form > nav button:last-child { border-top-right-radius: 2px; border-bottom-right-radius: 2px; }
 .ui-form > nav button[name='submit'] { max-width: 250px; width: 100%; font-weight: bold; background-color: #4285F4; color: #FFFFFF; font-size: 14px; }
 
-.ui-dark .ui-form-container { background-color: rgba(0,0,0,0.8); }
+.ui-dark .ui-form-container { background-color: rgba(50,50,50,0.9); }
 .ui-dark .ui-form { background-color: #202020; }
 .ui-dark .ui-form-title { background-color: #202020; border-bottom-color: #303030; color: #FFFFFF; }
 .ui-dark .ui-form > nav { background-color: #202020; border-top-color: #303030; }

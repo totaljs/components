@@ -7,19 +7,21 @@
 
 	<!-- WITHOUT HEADERS -->
 
-	<script type="text/html" data-size="0,120px,120px" data-head="Name,Price,Date" data-align="0,2,1" data-sort="name,price,created">
+	<script type="text/html" data-size="0,120px,120px" data-head="Name,Price,Controls" data-align="0,2,1" data-sort="name,price,">
 		<tr>
 			<td><b>{{ $.data.author }}:</b> {{ name }}</td>
 			<td class="right">{{ price | format(2) }} &euro;</td>
-			<td class="center">{{ created | format('yyyy-MM-dd') }}</td>
+			<td class="center"><button><i class="fa fa-search"></i></button><button><i class="fa fa-pencil"></i></button><button class="red" disabled><i class="fa fa-trash"></i></button></td>
 		</tr>
 	</script>
 
 	<script type="text/html" data-type="detail">
-		<div>Author: <b>{{ $.data.author }}</b></div>
-		<div>Role: <b>{{ $.data.role }}</b></div>
-		<div>Name: <b>{{ name }}</b></div>
-		<div>Description: <b>{{ description }}</b></div>
+		<div class="padding npt npb">
+			<div>Author: <b>{{ $.data.author }}</b></div>
+			<div>Role: <b>{{ $.data.role }}</b></div>
+			<div>Name: <b>{{ name }}</b></div>
+			<div>Description: <b>{{ description }}</b></div>
+		</div>
 	</script>
 
 	<script type="text/html" data-type="empty">

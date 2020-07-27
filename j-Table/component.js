@@ -1,6 +1,5 @@
-COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visibleY:1;scrollbar:0;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;margin:0', function(self, config) {
+COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visibleY:1;scrollbar:0;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;margin:0', function(self, config, cls) {
 
-	var cls = 'ui-table';
 	var cls2 = '.' + cls;
 	var etable, ebody, eempty, ehead, eheadsize, efooter, container;
 	var opt = { selected: [] };
@@ -20,7 +19,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 
 	self.make = function() {
 
-		self.aclass(cls + ' invisible' + (config.detail ? (' ' + cls + '-detailed') : '') + ((config.highlight || config.click || config.exec) ? (' ' + cls + '-selectable') : '') + (config.border ? (' ' + cls + '-border') : ''));
+		self.aclass(cls + ' invisible' + (config.detail ? (' ' + cls + '-detailed') : '') + ((config.highlight || config.click || config.exec) ? (' ' + cls + '-selectable') : '') + (config.border ? (' ' + cls + '-border') : '') + (config.flat ? (' ' + cls + '-flat') : ''));
 
 		self.find('script').each(function() {
 
@@ -185,10 +184,10 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 			var i = th.find('i');
 			var type;
 
-			if (i.hclass('fa-sort')) {
+			if (i.attr('class') === 'fa') {
 				// no sort
-				prevsort && prevsort.el.find('i').rclass2('fa-').aclass('fa-sort');
-				i.rclass('fa-sort').aclass('fa-long-arrow-up');
+				prevsort && prevsort.el.find('i').rclass2('fa-');
+				i.aclass('fa-long-arrow-up');
 				type = 'asc';
 			} else if (i.hclass('fa-long-arrow-up')) {
 				// ascending
@@ -196,7 +195,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 				type = 'desc';
 			} else if (i.hclass('fa-long-arrow-down')) {
 				// descending
-				i.rclass('fa-long-arrow-down').aclass('fa-sort');
+				i.rclass('fa-long-arrow-down');
 				type = '';
 			}
 
@@ -332,7 +331,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 		if (config.height > 0)
 			self.find(cls2 + '-container').css('height', config.height - config.margin);
 		else if (config.height) {
-			var el = config.height === 'window' ? $(W) : config.height === 'parent' ? self.parent() : self.closest(config.height);
+			var el = self.parent(config.height);
 			var header = self.find(cls2 + '-head');
 			var footer = config.paginate ? (self.find(cls2 + '-footer').height() + 2) : 0;
 			self.find(cls2 + '-container').css('height', el.height() - header.height() - footer - 2 - config.margin);
@@ -523,7 +522,6 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 			return;
 		}
 
-
 		var data = value ? value.items ? value.items : value : value;
 		var empty = !data || !data.length;
 		var clsh = 'hidden';
@@ -555,7 +553,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 
 				for (var i = 0; i < arr.length; i++) {
 					var w = !size || size[i] === '0' ? 'auto' : size[i];
-					builder.push('<th style="width:{0};text-align:{2}"{3}>{1}</th>'.format(w, (sort && sort[i] ? '<i class="fa fa-sort"></i>' : '') + (name ? name[i] : ''), align ? align[i] : 'left', sort && sort[i] ? ' class="sort"' : ''));
+					builder.push('<th style="width:{0};text-align:{2}"{3}>{1}</th>'.format(w, (sort && sort[i] ? '<i class="fa"></i>' : '') + (name ? name[i] : ''), align ? align[i] : 'left', sort && sort[i] ? ' class="sort"' : ''));
 					buildersize.push('<th style="width:{0}"></th>'.format(w));
 				}
 
