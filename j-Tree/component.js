@@ -37,7 +37,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 			e.preventDefault();
 			e.stopPropagation();
 			var el = $(this);
-			var index = +el.closest(cls2 + 'item').attrd('index');
+			var index = +el.closest(cls2 + '-item').attrd('index');
 			config.options && EXEC(self.makepath(config.options), cache[index], el);
 		});
 
