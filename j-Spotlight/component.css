@@ -9,6 +9,7 @@
 .ui-spotlight img { vertical-align: middle; }
 .ui-spotlight-container { max-height: 200px; overflow-x: hidden; overflow-y: auto; overflow-scrolling: touch; width:  }
 .ui-spotlight figure { border-bottom: 1px solid #E5E5E5; font-size: 14px; padding: 0 10px 0; background-color: #FFFFFF; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; height: 40px; margin: 0; display: block; line-height: 39px; }
+.ui-spotlight figure i { width: 15px; text-align: center; margin-right: 7px; }
 .ui-spotlight figure:hover { background-color: #F8F8F8; }
 .ui-spotlight-noscroll { overflow: hidden !important; }
 
