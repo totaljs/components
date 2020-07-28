@@ -24,6 +24,10 @@ Method: `component.show(options)`
 - `options.remap` {Function} optional, it can remap results `items => items.map(...)`
 - `options.clear` {Boolean} optional, it clears previous results (default: `false`)
 
+__Good to know__:
+
+- `html` field in items will be rendered as a plain HTML
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
