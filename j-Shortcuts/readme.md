@@ -21,7 +21,7 @@ __Shortcuts__:
 - or custom key-codes `{Number}` or key-characters `{String(1)}`
 - `ins`
 - `remove` means`backspace` or `delete`
-- __NEW__ supports `.shortcut`, read more below
+-  supports `.shortcut`, read more below
 
 __Example__:
 
@@ -51,6 +51,22 @@ __New inline declaration__:
 ```html
 <button class="exec shortcut" data-shortcut="F1" data-exec="METHO_TO_CALL">Help</button>
 ```
+
+__New session shortcuts__:
+
+```javascript
+// Open session for new shortcuts
+// The methods disables all registered shortcuts while session is not end
+SETTER('shortcuts/session', function(register) {
+	register('esc', function() {
+
+		// Cancels session
+		SETTER('shortcuts/end');
+
+	});
+});
+````
+
 
 ### Author
 

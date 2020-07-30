@@ -3,6 +3,8 @@ COMPONENT('shortcuts', function(self) {
 	var items = [];
 	var length = 0;
 	var keys = {};
+	var keys_session = {};
+	var issession = false;
 
 	self.singleton();
 	self.readonly();
@@ -28,8 +30,13 @@ COMPONENT('shortcuts', function(self) {
 			// ctrl,alt,shift,meta,fkey,code
 			var key = (e.ctrlKey ? 1 : 0) + '' + (e.altKey ? 1 : 0) + '' + (e.shiftKey ? 1 : 0) + '' + (e.metaKey ? 1 : 0) + f + c;
 
-			if (!keys[key])
-				return;
+			if (issession) {
+				if (!keys_session[key])
+					return;
+			} else {
+				if (!keys[key])
+					return;
+			}
 
 			if (length && !e.isPropagationStopped()) {
 				for (var i = 0; i < length; i++) {
@@ -70,6 +77,16 @@ COMPONENT('shortcuts', function(self) {
 		}
 	};
 
+	self.session = function(callback) {
+		issession = true;
+		keys_session = {};
+		callback(self.register);
+	};
+
+	self.end = function() {
+		issession = false;
+	};
+
 	self.execshortcut = function(e, owner) {
 		$(owner).trigger('click');
 	};
@@ -84,6 +101,9 @@ COMPONENT('shortcuts', function(self) {
 	};
 
 	self.register = function(shortcut, callback, prevent, owner) {
+
+		var currentkeys = issession ? keys_session : keys;
+
 		shortcut.split(',').trim().forEach(function(shortcut) {
 
 			var builder = [];
@@ -213,12 +233,12 @@ COMPONENT('shortcuts', function(self) {
 			if (cachekey[5] === -1) {
 				cachekey[5] = 8;
 				k = cachekey.join('');
-				keys[k] = 1;
+				currentkeys[k] = 1;
 				cachekey[5] = 46;
 			}
 
 			k = cachekey.join('');
-			keys[k] = 1;
+			currentkeys[k] = 1;
 		});
 
 		if (!owner)
