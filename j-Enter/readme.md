@@ -6,3 +6,4 @@ __Configuration__:
 - `exec` {String} a method name for execution
 - `validate` {Boolean} enables validate (default: `true`)
 - `trigger` {String} can contain a selector for triggering a real `click` event (default: `button[name="submit"]`)
+- __NEW__ `timeout` {Number} a timeout as a prevention for multi-press of `enter` key (default: `1500`)
