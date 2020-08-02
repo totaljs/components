@@ -1,4 +1,4 @@
-COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maximum limit', function (self, config, cls) {
+COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maximum limit;movable:false', function (self, config, cls) {
 
 	var container, content;
 	var empty = {};
@@ -12,7 +12,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 	self.getter = null;
 	self.nocompile && self.nocompile();
 
-	self.template = Tangular.compile('<div class="' + cls + '-item"><div><i class="fa fa-times"></i></div><div><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder }}"{{ if disabled}} disabled="disabled"{{ fi }} value="{{ value }}" /></div></div>');
+	self.template = Tangular.compile(('<div class="{0}-item"><div>'  + (config.movable ? '<i class="fa fa-angle-up {0}-up"></i><i class="fa fa-angle-down {0}-down"></i>' : '') + '<i class="fa fa-times {0}-remove"></i></div><div><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder }}"{{ if disabled}} disabled="disabled"{{ fi }} value="{{ value }}" /></div></div>').format(cls));
 
 	self.configure = function (key, value, init, prev) {
 
@@ -59,10 +59,10 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 		var html = config.label || content;
 
 		if (config.icon)
-			icon = '<i class="fa fa-{0}"></i>'.format(config.icon);
+			icon = '<i class="{0}"></i>'.format(config.icon.indexOf(' ') === -1 ? ('fa fa-' + config.icon) : config.icon);
 
 		empty.value = '';
-
+		self.tclass(cls + '-movable', !!config.movable);
 		self.html((html ? ('<div class="' + cls + '-label{2}">{1}{0}:</div>').format(html, icon, config.required ? (' ' + cls + '-required') : '') : '') + ('<div class="' + cls + '-items"></div>' + self.template(empty).replace('-item"', '-item ' + cls + '-base"')));
 		container = self.find(cls2 + '-items');
 	};
@@ -81,7 +81,37 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 		self.aclass(cls);
 		self.redraw();
 
-		self.event('click', '.fa-times', function () {
+		self.move = function(offset, el) {
+
+			var arr = self.get();
+			var index = el.index();
+			var tmp;
+
+			if (offset === 1) {
+				if (arr[index] == null || arr[index + 1] == null)
+					return;
+			} else {
+				if (arr[index] == null || arr[index - 1] == null)
+					return;
+			}
+
+			tmp = arr[index];
+			arr[index] = arr[index + offset];
+			arr[index + offset] = tmp;
+			var items = self.find(cls2 + '-item');
+			items.eq(index).find('input').val(arr[index]);
+			items.eq(index + offset).find('input').val(arr[index + offset]);
+		};
+
+		self.event('click', cls2 + '-up', function () {
+			self.move(-1, $(this).closest(cls2 + '-item'));
+		});
+
+		self.event('click', cls2 + '-down', function () {
+			self.move(1, $(this).closest(cls2 + '-item'));
+		});
+
+		self.event('click', cls2 + '-remove', function () {
 
 			if (config.disabled)
 				return;

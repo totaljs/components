@@ -4,15 +4,16 @@
 
 __Configuration__:
 
-- `icon` {String} (optional) icon for label without `fa-` e.g. `home`, `cog`, etc.
-- `label` {String} (optional) label (default `innerHTML`)
-- `placeholder` {String} (optional) adds a `placeholder` text into the input
-- `maxlength` {Number} (optional) sets a maximum length of chars
-- `disabled` {Boolean} (optional) disables this component
-- `limit` {Number} (optional) sets a maximum length of lists
-- `error` {String} (optional) error message when limit is reached (default `You reach the maximum limit`)
-- `required` {Boolean} (optional) whether list is required (default `false`)
-- `type` {String} (optional) can be `email`, `url`, `currency`, `number`, `date` or empty (default)
+- `icon` {String} icon for label
+- `label` {String} label (default `innerHTML`)
+- `placeholder` {String} adds a `placeholder` text into the input
+- `maxlength` {Number} sets a maximum length of chars
+- `disabled` {Boolean} disables this component
+- `limit` {Number} sets a maximum length of lists
+- `error` {String} error message when limit is reached (default `You reach the maximum limit`)
+- `required` {Boolean} whether list is required (default `false`)
+- `type` {String} can be `email`, `url`, `currency`, `number`, `date` or empty (default)
+- __NEW__ `movable` {Boolean} enables changing of position for existing items
 
 ### Author
 
