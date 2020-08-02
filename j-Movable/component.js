@@ -6,7 +6,8 @@ COMPONENT('movable', function(self, config) {
 	self.readonly();
 
 	self.make = function() {
-		$(document).on('dragenter dragover dragexit drop dragleave dragstart', config.selector, events.ondrag).on('mousedown', config.selector, events.ondown);
+		var target = config.global ? $(document) : config.parent ? self.parent(config.parent) : self.element;
+		target.on('dragenter dragover dragexit drop dragleave dragstart', config.selector, events.ondrag).on('mousedown', config.selector, events.ondown);
 	};
 
 	events.ondrag = function(e) {
@@ -81,4 +82,3 @@ COMPONENT('movable', function(self, config) {
 		$(document).off('dragenter dragover dragexit drop dragleave dragstart', config.selector, events.ondrag).off('mousedown', config.selector, events.ondown);
 	};
 });
-
