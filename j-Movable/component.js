@@ -57,7 +57,7 @@ COMPONENT('movable', function(self, config) {
 				else
 					parent.insertBefore(a, b.nextSibling);
 
-				config.exec && EXEC(self.makepath(config.exec), self.find(config.selector), a, b);
+				config.exec && EXEC(self.makepath(config.exec), $(parent).find(config.selector), a, b);
 				self.path && self.change(true);
 				break;
 
@@ -81,3 +81,4 @@ COMPONENT('movable', function(self, config) {
 		$(document).off('dragenter dragover dragexit drop dragleave dragstart', config.selector, events.ondrag).off('mousedown', config.selector, events.ondown);
 	};
 });
+
