@@ -2,6 +2,7 @@ COMPONENT('message', 'button:OK', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var is, visible = false;
+	var events = {};
 
 	self.readonly();
 	self.singleton();
@@ -12,10 +13,25 @@ COMPONENT('message', 'button:OK', function(self, config, cls) {
 		var pls = (config.style === 2 ? (' ' + cls + '2') : '');
 		self.aclass(cls + ' hidden' + pls);
 		self.event('click', 'button', self.hide);
+	};
 
-		$(window).on('keyup', function(e) {
-			visible && e.which === 27 && self.hide();
-		});
+	events.keyup = function(e) {
+		if (e.which === 27)
+			self.hide();
+	};
+
+	events.bind = function() {
+		if (!events.is) {
+			$(W).on('keyup', events.keyup);
+			events.is = false;
+		}
+	};
+
+	events.unbind = function() {
+		if (events.is) {
+			events.is = false;
+			$(W).off('keyup', events.keyup);
+		}
 	};
 
 	self.warning = function(message, icon, fn) {
@@ -79,29 +95,8 @@ COMPONENT('message', 'button:OK', function(self, config, cls) {
 		}
 	};
 
-	FUNC.messageresponse = function(success, callback) {
-		return function(response, err) {
-			if (err || response instanceof Array) {
-
-				var msg = [];
-				var template = '<div class="' + cls + '-error"><i class="fa fa-warning"></i>{0}</div>';
-
-				if (response instanceof Array) {
-					for (var i = 0; i < response.length; i++)
-						msg.push(template.format(response[i].error));
-					msg = msg.join('');
-				} else
-					msg = template.format(err.toString());
-
-				self.warning(msg);
-			} else {
-				self.success(success);
-				callback && callback(response);
-			}
-		};
-	};
-
 	self.hide = function() {
+		events.unbind();
 		self.callback && self.callback();
 		self.aclass('hidden');
 		visible = false;
@@ -123,6 +118,7 @@ COMPONENT('message', 'button:OK', function(self, config, cls) {
 		self.find(cls2 + '-text').html(text);
 		self.rclass('hidden');
 		is = true;
+		events.bind();
 		setTimeout(function() {
 			self.aclass(cls + '-visible');
 			setTimeout(function() {
