@@ -18,7 +18,7 @@
 .ui-largeform > nav button:disabled i { color: silver !important; }
 .ui-largeform > nav button:first-child { border-top-left-radius: 2px; border-bottom-left-radius: 2px; }
 .ui-largeform > nav button:last-child { border-top-right-radius: 2px; border-bottom-right-radius: 2px; }
-.ui-largeform > nav button[name='submit'] { min-width: 120px; font-weight: bold; background-color: #4285F4; color: #FFFFFF; font-size: 14px; }
+.ui-largeform > nav button[name='submit'] { min-width: 180px; font-weight: bold; background-color: #4285F4; color: #FFFFFF; font-size: 14px; }
 .ui-largeform-style-2 .ui-largeform { border-bottom-right-radius: 0; border-bottom-left-radius: 0; }
 
 .ui-dark .ui-largeform { background-color: #202020; }
