@@ -706,9 +706,13 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		if (value) {
 			switch (config.type) {
 				case 'lower':
-					return value.toString().toLowerCase();
+					return (value + '').toLowerCase();
 				case 'upper':
-					return value.toString().toUpperCase();
+					return (value + '').toUpperCase();
+				case 'phone':
+					return (value + '').replace(/\s/g, '');
+				case 'email':
+					return (value + '').toLowerCase();
 				case 'date':
 					return value.format(config.format || 'yyyy-MM-dd');
 				case 'time':
@@ -733,10 +737,14 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 						tmp = '';
 					return value + (tmp ? (' ' + tmp) : '');
 				case 'lower':
+				case 'email':
 					value = value.toLowerCase();
 					break;
 				case 'upper':
 					value = value.toUpperCase();
+					break;
+				case 'phone':
+					value = value.replace(/\s/g, '');
 					break;
 				case 'time':
 					tmp = value.split(':');
@@ -754,14 +762,14 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 	});
 
 	self.state = function(type) {
-		if (!type)
-			return;
-		var invalid = config.required ? self.isInvalid() : self.forcedvalidation() ? self.isInvalid() : false;
-		if (invalid === self.$oldstate)
-			return;
-		self.$oldstate = invalid;
-		self.tclass(cls + '-invalid', invalid);
-		config.error && self.find(cls2 + '-error').tclass('hidden', !invalid);
+		if (type) {
+			var invalid = config.required ? self.isInvalid() : self.forcedvalidation() ? self.isInvalid() : false;
+			if (invalid === self.$oldstate)
+				return;
+			self.$oldstate = invalid;
+			self.tclass(cls + '-invalid', invalid);
+			config.error && self.find(cls2 + '-error').tclass('hidden', !invalid);
+		}
 	};
 
 	self.forcedvalidation = function() {
