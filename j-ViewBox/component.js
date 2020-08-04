@@ -1,8 +1,7 @@
-COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;height:100;invisible:1', function(self, config) {
+COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;height:100;invisible:1', function(self, config, cls) {
 
 	var eld, elb;
 	var scrollbar;
-	var cls = 'ui-viewbox';
 	var cls2 = '.' + cls;
 	var init = false;
 
