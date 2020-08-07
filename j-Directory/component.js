@@ -208,7 +208,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		var scroller = container.parent();
 		var h = scroller.height();
 		var li = container.find('li');
-		var hli = li.eq(0).innerHeight() || 30;
+		var hli = (li.eq(0).innerHeight() || 30) + 1;
 		var was = false;
 		var last = -1;
 		var lastselected = 0;
@@ -230,8 +230,8 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 			if (is) {
 				was = true;
 				var t = (hli * (counter || 1));
-				var p = (t / sh) * 100;
-				scroller[0].scrollTop = (t + p) - plus;
+				// var p = (t / sh) * 100;
+				scroller[0].scrollTop = t - plus;
 			}
 
 			counter++;
@@ -312,14 +312,15 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 			}
 		} else if (value) {
 			value = value.toSearch();
-			container.find('li').each(function() {
-				var el = $(this);
+			var arr = container.find('li');
+			for (var i = 0; i < arr.length; i++) {
+				var el = $(arr[i]);
 				var val = el.attrd('search').toSearch();
 				var is = val.indexOf(value) === -1;
 				el.tclass('hidden', is);
 				if (!is)
 					resultscount++;
-			});
+			}
 			skipclear = true;
 			self.move();
 			self.nosearch();
@@ -424,10 +425,12 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 				if (opt.exclude && opt.exclude(item))
 					continue;
 
-				if (item.selected) {
+				if (item.selected || opt.selected === item) {
 					selected = i;
 					skipreset = true;
-				}
+					item.selected = true;
+				} else
+					item.selected = false;
 
 				indexer.index = i;
 				builder.push(opt.ta(item, indexer));
@@ -498,7 +501,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 			if (selected == null)
 				scroller[0].scrollTop = 0;
 			else {
-				var h = container.find('li:first-child').height();
+				var h = container.find('li:first-child').innerHeight() + 1;
 				var y = (container.find('li.selected').index() * h) - (h * 2);
 				scroller[0].scrollTop = y < 0 ? 0 : y;
 			}
