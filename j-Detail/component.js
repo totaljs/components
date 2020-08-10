@@ -19,7 +19,7 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 			}
 		}
 
-		self.html('<div><div class="{0}-container"></div></div>'.format(cls));
+		self.html('<div class="{0}-container"></div>'.format(cls));
 		container = self.find(cls2 + '-container');
 
 		var keys = Object.keys(types);
@@ -138,9 +138,6 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 		var value = self.mapvalue(item);
 		next('<div class="{0}-emoji">{1}</div>'.format(cls, value || DEF.empty));
 	};
-
-	self.nocompile();
-	self.bindvisible();
 
 	self.render = function(item, index) {
 		var type = types[item.type === 'boolean' ? 'bool' : item.type];
