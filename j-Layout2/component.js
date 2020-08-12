@@ -120,7 +120,7 @@ COMPONENT('layout2', 'scrollbar:1;parent:window;autoresize:1;margin:0', function
 	};
 
 	self.resize = function() {
-		setTimeout2(self.ID, self.resize2, 200);
+		setTimeout2(self.ID, self.resize2, 50);
 	};
 
 	self.show = function(type) {
