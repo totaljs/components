@@ -15,12 +15,12 @@ __Other functionality__
 
 ```javascript
 // Binder
-FIND('keyvalue').binder = function(type, value) {
+SETTER('keyvalue/binder', function(type, value) {
     if (type === 'key')
         return value.toUpperCase();
     else // type === 'value'
         return value;
-};
+});
 ```
 
 ### Author

@@ -1,14 +1,19 @@
-COMPONENT('keyvalue', 'maxlength:100', function(self, config) {
+COMPONENT('keyvalue', 'maxlength:100', function(self, config, cls) {
 
+	var cls2 = '.' + cls;
 	var container, content = null;
 	var cempty = 'empty';
 	var skip = false;
 	var empty = {};
 
 	self.nocompile && self.nocompile();
-	self.template = Tangular.compile('<div class="ui-keyvalue-item"><div class="ui-keyvalue-item-remove"><i class="fa fa-times"></i></div><div class="ui-keyvalue-item-key"><input type="text" name="key" maxlength="{{ max }}"{{ if disabled }} disabled="disabled"{{ fi }} placeholder="{{ placeholder_key }}" value="{{ key }}" /></div><div class="ui-keyvalue-item-value"><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder_value }}" value="{{ value }}" /></div></div>');
+	self.template = Tangular.compile('<div class="{0}-item"><div class="{0}-item-remove"><i class="fa fa-times"></i></div><div class="{0}-item-key"><input type="text" name="key" maxlength="{{ max }}"{{ if disabled }} disabled="disabled"{{ fi }} placeholder="{{ placeholder_key }}" value="{{ key }}" /></div><div class="{0}-item-value"><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder_value }}" value="{{ value }}" /></div></div>'.format(cls));
 
-	self.binder = function(type, value) {
+	self.binder = function(fn) {
+		self.binder2 = fn;
+	};
+
+	self.binder2 = function(type, value) {
 		return value;
 	};
 
@@ -35,7 +40,7 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config) {
 				break;
 			case 'icon':
 				if (value && prev)
-					self.find('i').rclass('fa').aclass('fa fa-' + value);
+					self.find('i').rclass2('fa').aclass(value.indexOf(' ') === -1 ? ('fa fa-' + value) : value);
 				else
 					redraw = true;
 				break;
@@ -56,13 +61,16 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config) {
 		var icon = config.icon;
 		var label = config.label || content;
 
-		if (icon)
-			icon = '<i class="fa fa-{0}"></i>'.format(icon);
+		if (icon) {
+			if (icon.indexOf(' ') === -1)
+				icon = 'fa fa-' + icon;
+			icon = '<i class="{0}"></i>'.format(icon);
+		}
 
 		empty.value = '';
 
-		self.html((label ? '<div class="ui-keyvalue-label">{1}{0}:</div>'.format(label, icon) : '') + '<div class="ui-keyvalue-items"></div>' + self.template(empty).replace('-item"', '-item ui-keyvalue-base"'));
-		container = self.find('.ui-keyvalue-items');
+		self.html((label ? '<div class="' + cls + '-label">{1}{0}:</div>'.format(label, icon) : '') + '<div class="' + cls + '-items"></div>' + self.template(empty).replace('-item"', '-item ' + cls + '-base"'));
+		container = self.find(cls2 + '-items');
 	};
 
 	self.make = function() {
@@ -75,7 +83,7 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config) {
 
 		content = self.html();
 
-		self.aclass('ui-keyvalue');
+		self.aclass(cls);
 		self.disabled && self.aclass('ui-disabled');
 		self.redraw();
 
@@ -85,7 +93,7 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config) {
 				return;
 
 			var el = $(this);
-			var parent = el.closest('.ui-keyvalue-item');
+			var parent = el.closest(cls2 + '-item');
 			var inputs = parent.find('input');
 			var obj = self.get();
 			!obj && (obj = {});
@@ -103,14 +111,14 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config) {
 				return;
 
 			var el = $(this);
-			var inputs = el.closest('.ui-keyvalue-item').find('input');
-			var key = self.binder('key', inputs[0].value);
-			var value = self.binder('value', inputs.get(1).value);
+			var inputs = el.closest(cls2 + '-item').find('input');
+			var key = self.binder2('key', inputs[0].value);
+			var value = self.binder2('value', inputs.get(1).value);
 
 			if (!key || !value)
 				return;
 
-			var base = el.closest('.ui-keyvalue-base').length > 0;
+			var base = el.closest(cls2 + '-base').length > 0;
 			if (base && e.type === 'change')
 				return;
 
