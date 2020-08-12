@@ -286,6 +286,8 @@ COMPONENT('layout2', 'scrollbar:1;parent:window;autoresize:1;margin:0', function
 			self.rclass('invisible hidden');
 			init = true;
 		}
+
+		self.element.SETTER('*/resize');
 	};
 
 	self.resizescrollbars = function() {

@@ -1,6 +1,5 @@
-COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;limit:0;selectedtext:{0} selected', function(self, config) {
+COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;limit:0;selectedtext:{0} selected', function(self, config, cls) {
 
-	var cls = 'ui-dropdowncheckbox';
 	var cls2 = '.' + cls;
 	var data = [], render = '';
 	var container, values, content, datasource = null;
@@ -44,7 +43,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 				break;
 
 			case 'checkicon':
-				self.find('i').rclass().aclass('fa fa-' + value);
+				self.find('i').rclass().aclass(value.indexOf(' ') === -1 ? ('fa fa-' + value) : value);
 				break;
 
 			case 'icon':
@@ -85,7 +84,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 
 		var html = '<div class="{0}"><i class="fa fa-angle-down"></i><div class="{0}-selected"></div></div><div class="{0}-values hidden">{1}</div>'.format(cls, render);
 		if (content.length)
-			self.html('<div class="{0}-label">{1}{2}:</div>'.format(cls, config.icon ? ('<i class="fa fa-' + config.icon + '"></i>') : '', content) + html);
+			self.html('<div class="{0}-label">{1}{2}:</div>'.format(cls, config.icon ? ('<i class="' + (config.icon.indexOf(' ') === -1 ? ('fa fa-' + config.icon) : config.icon) + '"></i>') : '', content) + html);
 		else
 			self.html(html);
 

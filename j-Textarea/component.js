@@ -1,6 +1,5 @@
-COMPONENT('textarea', 'scrollbar:true', function(self, config) {
+COMPONENT('textarea', 'scrollbar:true', function(self, config, cls) {
 
-	var cls = 'ui-textarea';
 	var cls2 = '.' + cls;
 	var input, placeholder, content = null;
 

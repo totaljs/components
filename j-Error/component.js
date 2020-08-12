@@ -1,10 +1,10 @@
-COMPONENT('error', function(self, config) {
+COMPONENT('error', function(self, config, cls) {
 
 	self.readonly();
 	self.nocompile && self.nocompile();
 
 	self.make = function() {
-		self.aclass('ui-error hidden');
+		self.aclass(cls + ' hidden');
 	};
 
 	self.setter = function(value) {

@@ -1,6 +1,5 @@
-COMPONENT('snackbar', 'timeout:4000;button:OK', function(self, config) {
+COMPONENT('snackbar', 'timeout:4000;button:OK', function(self, config, cls) {
 
-	var cls = 'ui-snackbar';
 	var cls2 = '.' + cls;
 	var show = true;
 	var callback;
@@ -56,7 +55,11 @@ COMPONENT('snackbar', 'timeout:4000;button:OK', function(self, config) {
 
 		callback = close;
 
-		self.find(cls2 + '-icon').html('<i class="fa {0}"></i>'.format(icon || 'fa-info-circle'));
+		var ico = icon || 'fa-info-circle';
+		if (ico.indexOf(' ') === -1)
+			ico = 'fa fa-' + ico;
+
+		self.find(cls2 + '-icon').html('<i class="{0}"></i>'.format(ico));
 		self.find(cls2 + '-body').html(message).attr('title', message);
 		self.find(cls2 + '-dismiss').html(button || config.button);
 

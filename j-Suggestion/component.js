@@ -1,8 +1,9 @@
-COMPONENT('suggestion', function(self, config) {
+COMPONENT('suggestion', function(self, config, cls) {
 
 	var container, arrow, timeout, icon, input = null;
 	var is = false, selectedindex = 0, resultscount = 0;
 	var ajax = null;
+	var cls2 = '.' + cls;
 
 	self.items = null;
 	self.template = Tangular.compile('<li data-index="{{ $.index }}"{{ if selected }} class="selected"{{ fi }}>{{ name | raw }}</li>');
@@ -23,12 +24,12 @@ COMPONENT('suggestion', function(self, config) {
 
 	self.make = function() {
 
-		self.aclass('ui-suggestion hidden');
-		self.append('<span class="ui-suggestion-arrow"></span><div class="ui-suggestion-body"><div class="ui-suggestion-search"><span class="ui-suggestion-button"><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="ui-suggestion-search-input" /></div></div><div class="ui-suggestion-container"><ul></ul></div></div>'.format(config.placeholder));
+		self.aclass(cls + ' hidden');
+		self.append('<span class="{1}-arrow"></span><div class="{1}-body"><div class="{1}-search"><span class="{1}-button"><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" /></div></div><div class="{1}-container"><ul></ul></div></div>'.format(config.placeholder, cls));
 		container = self.find('ul');
-		arrow = self.find('.ui-suggestion-arrow');
+		arrow = self.find(cls2 + '-arrow');
 		input = self.find('input');
-		icon = self.find('.ui-suggestion-button').find('.fa');
+		icon = self.find(cls2 + '-button').find('.fa');
 
 		self.event('mouseenter mouseleave', 'li', function() {
 			container.find('li.selected').rclass('selected');
@@ -42,7 +43,7 @@ COMPONENT('suggestion', function(self, config) {
 			}
 		});
 
-		self.event('click', '.ui-suggestion-button', function(e) {
+		self.event('click', cls2 + '-button', function(e) {
 			input.val('');
 			self.search();
 			e.stopPropagation();
@@ -57,10 +58,10 @@ COMPONENT('suggestion', function(self, config) {
 		});
 
 		$(document).on('click', function(e) {
-			is && !$(e.target).hclass('ui-suggestion-search-input') && self.hide(0);
+			is && !$(e.target).hclass(cls + '-search-input') && self.hide(0);
 		});
 
-		$(window).on('resize', function() {
+		$(W).on('resize', function() {
 			is && self.hide(0);
 		});
 
@@ -273,7 +274,7 @@ COMPONENT('suggestion', function(self, config) {
 
 		self.rclass('hidden');
 		setTimeout(function() {
-			self.aclass('ui-suggestion-visible');
+			self.aclass(cls + '-visible');
 			self.emit('suggestion', true, self, self.target);
 		}, 100);
 
@@ -292,7 +293,7 @@ COMPONENT('suggestion', function(self, config) {
 			return;
 		clearTimeout(timeout);
 		timeout = setTimeout(function() {
-			self.rclass('ui-suggestion-visible').aclass('hidden');
+			self.rclass(cls + '-visible').aclass('hidden');
 			self.emit('suggestion', false, self, self.target);
 			self.callback = null;
 			self.target = null;

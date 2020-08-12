@@ -1,13 +1,13 @@
-COMPONENT('mainprogress', function(self) {
+COMPONENT('mainprogress', function(self, cls) {
 
 	var old = null;
 
 	self.singleton();
 	self.readonly();
-	self.nocompile && self.nocompile();
+	self.nocompile();
 
 	self.make = function() {
-		self.aclass('ui-mainprogress hidden');
+		self.aclass(cls + ' hidden');
 	};
 
 	self.setter = function(value) {

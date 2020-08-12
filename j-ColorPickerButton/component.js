@@ -1,6 +1,5 @@
-COMPONENT('colorpickerbutton', 'default:#FFFFFF;align:left;position:top', function(self, config) {
+COMPONENT('colorpickerbutton', 'default:#FFFFFF;align:left;position:top', function(self, config, cls) {
 
-	var cls = 'ui-colorpickerbutton';
 	var cls2 = '.' + cls;
 
 	self.nocompile();

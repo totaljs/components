@@ -21,6 +21,7 @@ __Shortcuts__:
 - or custom key-codes `{Number}` or key-characters `{String(1)}`
 - `ins`
 - `remove` means`backspace` or `delete`
+- `save`
 -  supports `.shortcut`, read more below
 
 __Example__:

@@ -1,4 +1,4 @@
-COMPONENT('barchart', 'pl:20;pt:10;pb:25;prselected:0;axisX:true;axisY:true;paddingbars:5;limit:0;paddinggroup:10;radius:2;offsetX:10;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }};height:0', function(self, config) {
+COMPONENT('barchart', 'pl:20;pt:10;pb:25;prselected:0;axisX:true;axisY:true;paddingbars:5;limit:0;paddinggroup:10;radius:2;offsetX:10;offsetY:10;templateY:{{ value | format(0) }};templateX:{{ value }};height:0', function(self, config, cls) {
 
 	var svg, g, axis, selected;
 	var templateX, templateY;
@@ -8,7 +8,7 @@ COMPONENT('barchart', 'pl:20;pt:10;pb:25;prselected:0;axisX:true;axisY:true;padd
 	self.nocompile && self.nocompile();
 
 	self.make = function() {
-		self.aclass('ui-barchart');
+		self.aclass(cls);
 		self.empty().append('<svg></svg>');
 		svg = self.find('svg');
 		axis = svg.asvg('g').attr('class', 'axisy');
