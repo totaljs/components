@@ -441,6 +441,8 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 
 	self.date = function(value, skipday) {
 
+		var clssel = cls + '-selected';
+
 		self.makehtml && self.makehtml();
 
 		if (typeof(value) === 'string')

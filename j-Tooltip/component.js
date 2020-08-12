@@ -1,6 +1,5 @@
-COMPONENT('tooltip', function(self) {
+COMPONENT('tooltip', function(self, config, cls) {
 
-	var cls = 'ui-tooltip';
 	var is = false;
 
 	self.singleton();
