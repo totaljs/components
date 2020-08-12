@@ -1427,6 +1427,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 	var resizecache = {};
 
 	self.resize = function() {
+		setTimeout2(self.ID + 'resize', self.resizeforce, 300);
+	};
+
+	self.resizeforce = function() {
 
 		if (!opt.cols || HIDDEN(self.dom))
 			return;
