@@ -21,7 +21,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 		switch (key) {
 			case 'days':
 
-			if (value instanceof Array)
+				if (value instanceof Array)
 					self.days = value;
 				else
 					self.days = value.split(',').trim();
