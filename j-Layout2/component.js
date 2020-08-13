@@ -61,9 +61,9 @@ COMPONENT('layout2', 'scrollbar:1;parent:window;autoresize:1;margin:0', function
 
 			var screl;
 
-			if (item.scrollbar.selector)
+			if (item.scrollbar.selector) {
 				screl = el.find(item.scrollbar.selector);
-			else {
+			} else {
 				var dom = el[0];
 				var div = document.createElement('DIV');
 				while (dom.children.length)
@@ -73,12 +73,12 @@ COMPONENT('layout2', 'scrollbar:1;parent:window;autoresize:1;margin:0', function
 				screl = $(div);
 			}
 
-			var opt = { visibleY: item.scrollbar.visible || item.scrollbar.visibleY, orientation: 'y', parent: el };
+			var opt = { visibleY: item.scrollbar.visible || item.scrollbar.visibleY, orientation: 'y' };
 			item.scrollbarcontainer = screl;
 			item.scrollbar.instance = SCROLLBAR(screl, opt);
 			item.scrollbar.resize = function(h) {
 				var t = this;
-				item.scrollbarcontainer.css('height', h - t.margin);
+				item.scrollbarcontainer.css('height', h - (t.margin || 0));
 				item.scrollbar.instance.resize();
 			};
 		}
