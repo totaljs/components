@@ -1,4 +1,4 @@
-COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# item,# items,# items', function(self, config) {
+COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# item,# items,# items', function(self, config, cls) {
 
 	var cachePages = 0;
 	var cacheCount = 0;
@@ -10,7 +10,7 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# it
 	self.readonly();
 
 	self.make = function() {
-		self.aclass('ui-pagination hidden');
+		self.aclass(cls + ' hidden');
 		self.append('<div></div><nav></nav>');
 		nav = self.find('nav');
 		info = self.find('div');
@@ -21,7 +21,7 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# it
 			var el = $(this);
 			self.find('.selected').rclass('selected');
 			el.aclass('selected');
-			self.page && self.page(+el.attr('data-page'), el);
+			self.page && self.page(+el.attrd('page'), el);
 		});
 	};
 
