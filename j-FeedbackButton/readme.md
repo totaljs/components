@@ -11,6 +11,7 @@ __Configuration__:
 - `color` {String} background color setting (default: `#333`)
 - `position` {String} a position, can be `left` or `right` (default: `right`)
 - `expire` {String} sets the expiration date (default: `3 days`)
+- `label` {String} a label for the button (default: `Feedback`)
 - `exec` {String} a link to method `function(hide)` which will be executed after click on the button
 
 ### Author
