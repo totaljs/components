@@ -1,0 +1,17 @@
+{
+	"datecreated": "2020-08-25T12:18:00.000Z",
+	"dateupdated": null,
+	"name": "j-FeedbackButton",
+	"tags": [
+		"feedback",
+		"button"
+	],
+	"color": "transparent",
+	"version": 1,
+	"darkmode": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Jozef Marton",
+	"email": "dodo@totalavengers.com",
+	"license": "https://www.totaljs.com/license/"
+}

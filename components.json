@@ -217,5 +217,6 @@
 	"j-DataTable",
 	"j-ImageUploader",
 	"j-Carousel",
-	"j-Spotlight"
+	"j-Spotlight",
+	"j-FeedbackButton"
 ]
