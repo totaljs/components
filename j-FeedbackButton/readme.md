@@ -12,8 +12,10 @@ __Configuration__:
 - `position` {String} a position, can be `left` or `right` (default: `right`)
 - `expire` {String} sets the expiration date (default: `3 days`)
 - `icon` {String} a font-awesome icon name (default: `fa fa-comment-alt`)
+- `animate` {Boolean} enables animation (default: `true`)
 - `label` {String} a label for the button (default: `Feedback`)
-- `exec` {String} a link to method `function(hide)` which will be executed after click on the button
+- `url` {String} a link to URL address which will be open if the user click on the button
+- or `exec` {String} a link to method `function(hide)` which will be executed after click on the button
 
 ### Author
 
