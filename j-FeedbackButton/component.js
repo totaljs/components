@@ -1,4 +1,4 @@
-COMPONENT('feedbackbutton', 'color:#333;position:right;expire:3 days;label:Telegram;icon:fa fa-comment-alt;animate:1', function(self, config, cls) {
+COMPONENT('feedbackbutton', 'color:#333;position:right;expire:3 days;label:Feedback;icon:fa fa-comment-alt;animate:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 
