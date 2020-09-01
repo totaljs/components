@@ -13,6 +13,8 @@
 .ui-stats24-bar div.online { background-color: #4584F1 !important; color: #FFFFFF; }
 .ui-stats24-bar div.online span { border-bottom-color: #6398F4 !important; }
 .ui-stats24-bar > span { background-color: #3D6ECC; padding: 1px 0; display: block; color: #FFFFFF; font-weight: bold; }
+.ui-stats24-bar div.now { background-color: red !important; }
+.ui-stats24-bar div.now span { border-bottom-color: red !important; }
 .ui-stats24-smallsize .ui-stats24-bar div span { display: none; }
 .ui-stats24-smallsize .ui-stats24-bar > span { display: none; }
 

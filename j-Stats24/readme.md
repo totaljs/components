@@ -8,6 +8,7 @@ __Configuration__:
 - `tooltip` {Boolean} enables tooltips (default: `true`)
 - `tooltiptext` {String} Tooltip text (default: `{0}`)
 - `border` {Boolean} enables border (default: `true`)
+- `highlight` {Boolean} highlights current hour (default: `false`)
 
 ### Author
 

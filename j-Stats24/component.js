@@ -1,4 +1,4 @@
-COMPONENT('stats24', 'height:120;tooltiplarge:0;tooltip:1;tooltiptext:{0};border:1', function(self, config, cls) {
+COMPONENT('stats24', 'height:120;tooltiplarge:0;tooltip:1;tooltiptext:{0};border:1;highlight:0', function(self, config, cls) {
 
 	var old = '';
 	var bars = [];
@@ -59,6 +59,8 @@ COMPONENT('stats24', 'height:120;tooltiplarge:0;tooltip:1;tooltiptext:{0};border
 
 		container.css('height', config.height);
 
+		var current = NOW.getHours();
+
 		self.width(function(width) {
 
 			old = sum;
@@ -98,7 +100,8 @@ COMPONENT('stats24', 'height:120;tooltiplarge:0;tooltip:1;tooltiptext:{0};border
 				if (val > 1000)
 					val = (val / 1000).floor(1) + ' K';
 
-				bars[i].css('height', h + 'px').tclass('online', value[i] > 0).find('span').html(smallsize ? '' : val);
+				bars[i].css('height', (h >> 0) + 'px').tclass('online', value[i] > 0).find('span').html(smallsize ? '' : val);
+				config.hightlight && bars[i].tclass('now', i === current);
 			}
 		});
 	};
