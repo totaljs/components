@@ -9,6 +9,7 @@ COMPONENT('tooltip', function(self, config, cls) {
 
 	self.make = function() {
 		self.aclass(cls + ' hidden');
+		self.on('scroll + resize', self.hide);
 	};
 
 	self.hide = function(force) {
