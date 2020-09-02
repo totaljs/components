@@ -209,8 +209,10 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 			selectedindex = 0;
 			if (recent && recent.length)
 				self.render(recent, true);
-			else
+			else {
 				self.render([]);
+				opt.init && self.search('');
+			}
 		}
 
 		var w = ((WW / (isMOBILE ? 1.1 : 1.3)) >> 0);

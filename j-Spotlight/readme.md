@@ -21,8 +21,9 @@ Method: `component.show(options)`
 - `options.search` {String} URL address for saerching of values in the form `GET /api/search/?={0}`
 - or `options.search` {Function} a link to `function(search, next(ARR_ITEMS))` for searching
 - `options.cache` {String} enables cache, can contain an expiration format e.g. `1 day` or `session`
-- `options.remap` {Function} optional, it can remap results `items => items.map(...)`
-- `options.clear` {Boolean} optional, it clears previous results (default: `false`)
+- `options.remap` {Function} it can remap results `items => items.map(...)`
+- `options.clear` {Boolean} it clears previous results (default: `false`)
+- `options.init` {Boolean} makes empty search when the component is called (default: `false`)
 
 __Good to know__:
 

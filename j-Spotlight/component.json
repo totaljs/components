@@ -1,9 +1,10 @@
 {
 	"datecreated": "2020-06-12T09:02:03.000Z",
-	"dateupdated": null,
+	"dateupdated": "2020-09-02T12:42:03.000Z",
 	"name": "j-Spotlight",
 	"tags": [
-		"features"
+		"spotlight",
+		"search"
 	],
 	"color": "transparent",
 	"version": 1,
