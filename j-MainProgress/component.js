@@ -1,4 +1,4 @@
-COMPONENT('mainprogress', function(self, cls) {
+COMPONENT('mainprogress', function(self, config, cls) {
 
 	var old = null;
 
@@ -7,7 +7,8 @@ COMPONENT('mainprogress', function(self, cls) {
 	self.nocompile();
 
 	self.make = function() {
-		self.aclass(cls + ' hidden');
+		var temp = config.position === 'bottom' ? ' ' + cls + '-bottom' : '';
+		self.aclass(cls + temp + ' hidden');
 	};
 
 	self.setter = function(value) {
