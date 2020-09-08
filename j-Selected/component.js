@@ -6,7 +6,7 @@ COMPONENT('selected', 'class:selected;selector:a;attr:if', function(self, config
 		switch (key) {
 			case 'datasource':
 				self.datasource(value, function() {
-					self.refresh();
+					setTimeout(self.refresh, 50);
 				});
 				break;
 		}
