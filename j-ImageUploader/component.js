@@ -1,4 +1,4 @@
-COMPONENT('imageuploader', function(self, config) {
+COMPONENT('imageuploader', function(self) {
 
 	var name, input, queue;
 	var tmpresponse = [];
