@@ -103,7 +103,6 @@ COMPONENT('imageviewer', 'selector:.img-viewer;container:body;loading:1', functi
 		var arr = parent.find(config.selector).toArray();
 		var index = arr.indexOf(el[0]);
 		var buttons = self.find(cls2 + '-buttons').find('button');
-		current = el;
 
 		buttons[0].disabled = index === 0; // prev
 		buttons[1].disabled = index >= arr.length - 1; // next
