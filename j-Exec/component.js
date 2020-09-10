@@ -8,7 +8,7 @@ COMPONENT('exec', function(self, config) {
 		var scopepath = function(el, val) {
 			if (!scope)
 				scope = el.scope();
-			return scope ? scope.makepath ? scope.makepath(val) : val.replace(/\?/g, el.scope().path) : val;
+			return val == null ? scope : scope ? scope.makepath ? scope.makepath(val) : val.replace(/\?/g, el.scope().path) : val;
 		};
 
 		var fn = function(plus) {
@@ -31,8 +31,13 @@ COMPONENT('exec', function(self, config) {
 				}
 
 				if (attr) {
-					if (attr.indexOf('?') !== -1)
-						attr = scopepath(el, attr);
+					if (attr.indexOf('?') !== -1) {
+						var tmp = scopepath(el);
+						if (tmp) {
+							M.scope(tmp.path);
+							attr = tmp.makepath ? tmp.makepath(attr) : attr.replace(/\?/g, tmp.path);
+						}
+					}
 					EXEC(attr, el, e);
 				}
 
