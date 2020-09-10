@@ -24,7 +24,7 @@ COMPONENT('menu', function(self, config, cls) {
 
 			var el = $(this);
 			if (!el.hclass(cls + '-divider') && !el.hclass(cls + '-disabled')) {
-
+				self.opt.scope && M.scope(self.opt.scope);
 				var index = el.attrd('index').split('-');
 				if (index.length > 1) {
 					// submenu
@@ -205,6 +205,7 @@ COMPONENT('menu', function(self, config, cls) {
 
 		self.target = tmp;
 		self.opt = opt;
+		opt.scope = M.scope();
 
 		if (parentclass && opt.classname !== parentclass) {
 			self.rclass(parentclass);
