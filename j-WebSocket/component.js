@@ -58,8 +58,15 @@ COMPONENT('websocket', 'reconnect:3000;encoder:true', function(self, config) {
 		ws.onopen = ws.onclose = ws.onmessage = null;
 		!isClosed && ws.close();
 		ws = null;
-		EMIT('online', false);
+		self.isonline(false);
 		return self;
+	};
+
+	self.isonline = function(is) {
+		if (config.online)
+			EXEC(self.makepath(config.online), is);
+		else
+			EMIT('online', true);
 	};
 
 	function onClose(e) {
@@ -75,20 +82,25 @@ COMPONENT('websocket', 'reconnect:3000;encoder:true', function(self, config) {
 	}
 
 	function onMessage(e) {
+
 		var data;
+
 		try {
 			data = PARSE(config.encoder ? decodeURIComponent(e.data) : e.data);
-			self.attrd('jc-path') && self.set(data);
 		} catch (e) {
-			WARN('WebSocket "{0}": {1}'.format(url, e.toString()));
+			return;
 		}
-		data && EMIT('message', data);
+
+		if (config.message)
+			EXEC(self.makepath(config.message), data);
+		else
+			EMIT('message', data);
 	}
 
 	function onOpen() {
 		self.online = true;
 		self.process(function() {
-			EMIT('online', true);
+			self.isonline(true);
 		});
 	}
 
