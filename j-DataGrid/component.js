@@ -128,7 +128,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 				}
 
 				self.scroll && self.scroll();
-				config.change && SEEX(self.makepath(config.change), null, null, self.grid);
+				config.change && SEEX(self.grid.makepath(config.change), null, null, self.grid);
 			}
 		};
 
