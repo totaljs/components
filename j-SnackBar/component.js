@@ -35,15 +35,15 @@ COMPONENT('snackbar', 'timeout:4000;button:OK', function(self, config, cls) {
 	};
 
 	self.waiting = function(message, button, close) {
-		self.show(message, button, close, 'fa-spinner fa-pulse');
+		self.show(message, button, close, 'spinner fa-pulse');
 	};
 
 	self.success = function(message, button, close) {
-		self.show(message, button, close, 'fa-check-circle');
+		self.show(message, button, close, 'check-circle');
 	};
 
 	self.warning = function(message, button, close) {
-		self.show(message, button, close, 'fa-times-circle');
+		self.show(message, button, close, 'times-circle');
 	};
 
 	self.show = function(message, button, close, icon) {
@@ -55,7 +55,7 @@ COMPONENT('snackbar', 'timeout:4000;button:OK', function(self, config, cls) {
 
 		callback = close;
 
-		var ico = icon || 'fa-info-circle';
+		var ico = icon || 'info-circle';
 		if (ico.indexOf(' ') === -1)
 			ico = 'fa fa-' + ico;
 
