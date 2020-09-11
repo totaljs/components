@@ -8,6 +8,8 @@ __Configuration__:
 - `reconnect` {Number} can contain only number (milliseconds, default: `2000`)
 - `bind` {Boolean} enables a binding of value according to the component `path` (default: `false`)
 - `encoder` {Boolean} performs encode/decode messages via `URI` (default: `true`)
+- __NEW__ `message` {String} a link to method `function(msg)`
+- __NEW__ `online` {String} a link to method `function(isonline)`
 
 __Methods__:
 
