@@ -25,11 +25,11 @@ COMPONENT('markdown', function (self) {
 		});
 	};
 
-	/*! Markdown | (c) 2019 Peter Sirka | www.petersirka.com */
+	/*! Markdown | (c) 2019-2020 Peter Sirka | www.petersirka.com */
 	(function Markdown() {
 
 		var keywords = /\{.*?\}\(.*?\)/g;
-		var linksexternal = /(https|http):\/\//;
+		var linksexternal = /(https|http):\/\/|\.\w+$/;
 		var format = /__.*?__|_.*?_|\*\*.*?\*\*|\*.*?\*|~~.*?~~|~.*?~/g;
 		var ordered = /^[a-z|0-9]{1}\.\s|^-\s/i;
 		var orderedsize = /^(\s|\t)+/;
@@ -42,10 +42,6 @@ COMPONENT('markdown', function (self) {
 		var encode = function(val) {
 			return '&' + (val === '<' ? 'lt' : 'gt') + ';';
 		};
-
-		function markdown_code(value) {
-			return '<code>' + value.substring(1, value.length - 1) + '</code>';
-		}
 
 		function markdown_imagelinks(value) {
 			var end = value.lastIndexOf(')') + 1;
@@ -198,7 +194,7 @@ COMPONENT('markdown', function (self) {
 				var len = url.length;
 				var l = url.charAt(len - 1);
 				var f = url.charAt(0);
-				if (l === '.' || l === ',')
+				if (l === '.' || l === ',' || l === ')')
 					url = url.substring(0, len - 1);
 				else
 					l = '';
@@ -369,14 +365,15 @@ COMPONENT('markdown', function (self) {
 			// opt.icons = true;
 			// opt.tables = true;
 			// opt.br = true;
+			// opt.newline = true;
 			// opt.headlines = true;
 			// opt.hr = true;
 			// opt.blockquotes = true;
 			// opt.sections = true;
-			// opt.custom
 			// opt.footnotes = true;
 			// opt.urlify = true;
 			// opt.keywords = true;
+			// opt.custom
 
 			var str = this;
 
@@ -392,6 +389,7 @@ COMPONENT('markdown', function (self) {
 			var prev;
 			var prevsize = 0;
 			var tmp;
+			var codes = [];
 
 			if (opt.wrap == null)
 				opt.wrap = true;
@@ -404,6 +402,15 @@ COMPONENT('markdown', function (self) {
 					var text = ul.pop();
 					builder.push('</' + text + '>');
 				}
+			};
+
+			var formatcode = function(value) {
+				var index = codes.push('<code>' + value.substring(1, value.length - 1) + '</code>') - 1;
+				return '\0code{0}\0'.format(index);
+			};
+
+			var formatcodeflush = function(value) {
+				return codes[+value.substring(5, value.length - 1)];
 			};
 
 			var formatlinks = function(val) {
@@ -511,7 +518,7 @@ COMPONENT('markdown', function (self) {
 				return val;
 			};
 
-			for (var i = 0, length = lines.length; i < length; i++) {
+			for (var i = 0; i < lines.length; i++) {
 
 				lines[i] = lines[i].replace(encodetags, encode);
 
@@ -542,6 +549,9 @@ COMPONENT('markdown', function (self) {
 
 				var line = lines[i];
 
+				if (opt.br !== false)
+					line = line.replace(/&lt;br(\s\/)?&gt;/g, '<br />');
+
 				if (opt.urlify !== false && opt.links !== false)
 					line = markdown_urlify(line);
 
@@ -549,7 +559,7 @@ COMPONENT('markdown', function (self) {
 					line = opt.custom(line);
 
 				if (opt.formatting !== false)
-					line = line.replace(format, markdown_format).replace(code, markdown_code);
+					line = line.replace(code, formatcode).replace(format, markdown_format);
 
 				if (opt.images !== false)
 					line = imagescope(line);
@@ -747,7 +757,7 @@ COMPONENT('markdown', function (self) {
 			closeul();
 			table && opt.tables !== false && builder.push('</tbody></table>');
 			iscode && opt.code !== false && builder.push('</code></pre>');
-			return (opt.wrap ? '<div class="markdown">' : '') + builder.join('\n').replace(/\t/g, '    ') + (opt.wrap ? '</div>' : '');
+			return (opt.wrap ? '<div class="markdown">' : '') + builder.join('\n').replace(/\0code\d+\0/g, formatcodeflush).replace(/\t/g, '    ') + (opt.wrap ? '</div>' : '');
 		};
 
 	})();

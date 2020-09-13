@@ -33,7 +33,8 @@ console.log(text.markdown(opt));
 __Good to know__:
 
 - images will be with `img-responsive` class
-- images with `![+Image description](URL)` will be formatted as inline images
+- images with `![+Image description](URL)` will be formatted as an inline image
+- images with `![-Image description](URL)` will be rendered as an inline image with class `gallery` instead of `img-responsive`
 - all links are with `_target="_blank"` attribute
 - markdown registers `FUNC.markdownredraw(jQuery_selector)` for prerendering of Markdown dynamic elements like code highlight, videos or charts
 
