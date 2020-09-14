@@ -1,9 +1,7 @@
 COMPONENT('checkboxlistexpert', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
-	var template;
 	var recompile = false;
-	var selected;
 	var datasource;
 	var reg = /\$(index|path)/g;
 
@@ -35,40 +33,38 @@ COMPONENT('checkboxlistexpert', function(self, config, cls) {
 	};
 
 	self.make = function() {
-		var builder = [];
-		var element = self.find('script');
 
-		if (!element.length)
+		var el = self.find('script');
+
+		if (!el.length)
 			return;
 
-		var html = element.html();
-		element.remove();
-		html = html.replace('>', ' data-index="$index" data-disabled="{{ {0} }}">'.format(config.disabledkey || 'disabled'));
-		template = Tangular.compile(html);
+		var html = el.html();
+		self.template = Tangular.compile(html.replace('>', ' data-index="$index" data-disabled="{{ {0} }}">'.format(config.disabledkey || 'disabled')));
 		recompile = html.COMPILABLE();
 
+		el.remove();
 		config.label && self.html('<div class="' + cls + '-label{1}">{0}</div>'.format(config.label, config.required ? (' ' + cls + '-label-required') : ''));
-
 		config.datasource && self.reconfigure('datasource:' + config.datasource);
 		config.type && (self.type = config.type);
 		config.disabled && self.aclass('ui-disabled');
 
 		self.event('click', '[data-index]', function() {
 			var el = $(this);
+
 			if (config.disabled || +el.attrd('disabled'))
 				return;
 
 			var key = config.value || 'id';
 			var index = +el.attrd('index');
-			var data = self.get();
-			var temp = -1;
-			if (data)
-				temp = data.indexOf(index);
+			var data = self.get() || [];
+			var val = datasource[index] ? datasource[index][key] : null;
+			var valindex = data.indexOf(val);
 
-			if (temp === -1)
-				self.push(index);
-			else {
-				data.splice(temp, 1);
+			if (valindex === -1) {
+				self.push(val);
+			} else {
+				data.splice(valindex, 1);
 				self.set(data);
 			}
 
@@ -91,43 +87,37 @@ COMPONENT('checkboxlistexpert', function(self, config, cls) {
 
 		self.find('[data-index]').each(function() {
 			var el = $(this);
-			var index = el.attrd('index');
+			var index = +el.attrd('index');
 			var selected = false;
 			if (value && value.length) {
-				for (var i = 0; i < value.length; i++) {
-					if (value[i] == index) {
-						selected = true;
-						break;
-					}
-				}
+				var val = datasource[index][key];
+				selected = value.indexOf(val) !== -1;
 			}
 			el.tclass('selected', selected);
 		});
 	};
 
 	self.bind = function(path, arr) {
+
 		if (!arr)
 			arr = EMPTYARRAY;
 
 		var builder = [];
 		datasource = [];
+
 		var disabledkey = config.disabledkey || 'disabled';
 
-		var type = typeof(arr[0]);
-		var notObj = type === 'string' || type === 'number';
-
-		for (var i = 0, length = arr.length; i < length; i++) {
+		for (var i = 0; i < arr.length; i++) {
 			var item = arr[i];
 			item[disabledkey] = +item[disabledkey] || 0;
 			datasource.push(item);
-			builder.push(template(item).replace(reg, function(text) {
+			builder.push(self.template(item).replace(reg, function(text) {
 				return text.substring(0, 2) === '$i' ? i.toString() : self.path + '[' + i + ']';
 			}));
 		}
 
-		render = builder.join('');
 		self.find(cls2 + '-container').remove();
-		self.append('<div class="{0}-container{1}">{2}</div>'.format(cls, config.class ? ' ' + config.class : '', render));
+		self.append('<div class="{0}-container{1}">{2}</div>'.format(cls, config.class ? ' ' + config.class : '', builder.join('')));
 		self.refresh();
 		recompile && self.compile();
 	};
