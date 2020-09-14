@@ -1824,7 +1824,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 
 				if (opt.filtercl[column] != null) {
 					is = opt.filtercl[column] == val;
-					return is;
+					if (!is)
+						return false;
 				}
 
 				if (val2 == null) {
