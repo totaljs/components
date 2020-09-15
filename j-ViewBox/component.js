@@ -110,6 +110,9 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		if (responsivemargin != null)
 			margin = responsivemargin;
 
+		if (margin === 'auto')
+			margin = self.element.offset().top;
+
 		if (h === 0 || w === 0) {
 			self.$waiting && clearTimeout(self.$waiting);
 			self.$waiting = setTimeout(self.resize, 234);
