@@ -7,7 +7,7 @@
 .ui-container-table { display: table; width: 100%; height: 100%; }
 .ui-container-cell { display: table-cell; width: 100%; height: 100%; text-align: center; vertical-align: middle; }
 .ui-miniform-animate { transform: scale(1); opacity: 1; }
-.ui-miniform-animate-click { transform: skewX(-2deg); }
+/*.ui-miniform-animate-click { transform: skewX(-2deg); }*/
 .ui-miniform-title { padding: 18px 10px; font-size: 18px; user-select: none; color: #000000; background-color: #FFFFFF; border-bottom: 1px solid #E0E0E0; height: 58px; }
 .ui-miniform-title .ui-miniform-button-close { float: right; cursor: pointer; font-size: 18px; margin: 1px 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; width: 20px; padding: 0; }
 .ui-miniform-title .ui-miniform-button-close:hover { transform: scale(1.1); }
