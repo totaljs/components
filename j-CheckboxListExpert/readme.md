@@ -9,7 +9,7 @@ __Configuration__
 - `disabled` {Boolean} disables this control (default: `false`)
 - `type` {String} can contain `number` (default: `string`)
 - `class` {String} inserts a class into an element with class `.ui-checkboxlistexpert-container`
-- `datasource` {String} path to data-source (must be array or array of objects)
+- `datasource` {String} path to data-source (must be array or array of objects) or __NEW__: `id|name,id|name`
 - `value` {String} determines a property name for value (in data-source) (default: `id`)
 - `disabledkey` {String} determines a property name for disabled item (in data-source) (default: `disabled`)
 

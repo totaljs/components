@@ -26,10 +26,26 @@ COMPONENT('checkboxlistexpert', function(self, config, cls) {
 				self.find(cls2 + '-label').html(value);
 				break;
 			case 'datasource':
-				self.datasource(value, self.bind);
+				if (value.indexOf(',') === -1)
+					self.datasource(value, self.bind);
+				else
+					self.bind('', parsearray(value));
 				break;
 		}
 
+	};
+
+	var parsearray = function(value) {
+		var arr = value.split(',');
+		var output = [];
+		for (var i = 0; i < arr.length; i++) {
+			var item = arr[i].split('|');
+			var id = item[0];
+			if (self.type === 'number' || config.type === 'number')
+				id = id.parseInt();
+			output.push({ id: id, name: item[1] });
+		}
+		return output;
 	};
 
 	self.make = function() {

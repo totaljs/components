@@ -664,6 +664,19 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		placeholder = self.find(cls2 + '-placeholder');
 	};
 
+	var parsearray = function(value) {
+		var arr = value.split(',');
+		var output = [];
+		for (var i = 0; i < arr.length; i++) {
+			var item = arr[i].split('|');
+			var id = item[0];
+			if (self.type === 'number' || config.type === 'number')
+				id = id.parseInt();
+			output.push({ id: id, name: item[1] });
+		}
+		return output;
+	};
+
 	self.configure = function(key, value) {
 		switch (key) {
 			case 'dirsource':
@@ -671,10 +684,15 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					dirsource = null;
 					self.bindvalue();
 				} else {
-					self.datasource(value, function(path, value) {
-						dirsource = value;
+					if (value.indexOf(',') !== -1) {
+						dirsource = parsearray(value);
 						self.bindvalue();
-					});
+					} else {
+						self.datasource(value, function(path, value) {
+							dirsource = value;
+							self.bindvalue();
+						});
+					}
 				}
 				self.tclass(cls + '-dropdown', !!value);
 				input.prop('readonly', !!config.disabled || !!config.dirsource);
