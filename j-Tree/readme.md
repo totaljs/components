@@ -14,6 +14,7 @@ __Configuration__:
 - `rename` {String} optional, a path to `function(item, newname, fn_accept(true))`
 - `unselectexpand` {Boolean} optional, can `unselect` selected item when the user clicks on the expandable item (default: `false`)
 - `reselect` {Boolean} optional, evaluates `exec` again if the tree is refreshed (default: `false`)
+- __NEW__: `raw` {Boolean} enables tags in text (default: `false`)
 
 __Data structure__:
 
