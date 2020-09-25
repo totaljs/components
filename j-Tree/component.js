@@ -203,7 +203,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 	self.expand = function(index) {
 		if (index == null) {
 			self.find(cls2 + '-expand').each(function() {
-				$(this).parent().aclass('show');
+				$(this).parent().aclass(cls + '-show');
 			});
 		} else {
 			self.find('[data-index="{0}"]'.format(index)).each(function() {
@@ -240,7 +240,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 						if (!el.hclass(cls + '-expand'))
 							break;
 						el.parent().rclass(cls + '-show');
-						var parent = el.parent().aclass('show');
+						var parent = el.parent().aclass(cls + '-show');
 						var tmp = +parent.find('> .item').attrd('index');
 						var item = cache[tmp];
 						var key = config.pk ? item[config.pk] : counter;
@@ -290,6 +290,8 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 		counter = 0;
 		cache = {};
 
+		var isexpand = false;
+
 		value && value.forEach(function(item) {
 			counter++;
 			item.$pointer = counter;
@@ -298,6 +300,10 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 			if (key === selected)
 				selindex = counter;
 			builder.push('<div class="{0}-node{1}">'.format(cls, expanded[key] && item.children ? ' ui-tree-show' : '') + self.template(item));
+
+			if (expanded[key])
+				isexpand = true;
+
 			if (item.children)
 				self.renderchildren(builder, item, 1, selected);
 			else if (!cache.first)
@@ -312,6 +318,9 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 			self.select(selindex, !config.reselect, true);
 		} else
 			config.first !== false && cache.first && setTimeout(self.first, 100);
+
+		if (!isexpand && config.expand)
+			self.expand();
 
 		config.checked && EXEC(self.makepath(config.checked), EMPTYARRAY, self);
 	};
