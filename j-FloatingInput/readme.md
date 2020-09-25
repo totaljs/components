@@ -20,6 +20,7 @@ Method: `component.show(options)`
 - `options.close` {Function} optional, can determine closing of panel
 - `options.align` {String} optional, `left` (default), `right` or `center`
 - `options.position` {String} optional, `top` (default), `bottom`
+- `options.summary` {String} additional help content
 
 Method: `component.hide()`
 
