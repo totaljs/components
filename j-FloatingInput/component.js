@@ -235,6 +235,7 @@ COMPONENT('floatinginput', 'minwidth:200', function(self, config, cls) {
 			input.focus();
 		}, 200);
 
+		self.tclass(cls + '-monospace', !!opt.monospace);
 		self.rclass('hidden');
 
 		setTimeout(function() {
