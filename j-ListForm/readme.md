@@ -13,7 +13,7 @@ __Configuration__:
 - `create` {String} a link to a function `function(callback(DEFAULT_ITEM_OBJECT))`
 - `submit` {String} a link to a function `function(form_data, callback(NEW_DATA))`
 - `remove` {String} a link to a function `function(remove_item, callback(really_remove?))`
-- `selector` {String} a jQuery selector for custom template (outside of the component). Works like `custom template` in [data-binding](https://wiki.totaljs.com/jcomponent/08-data-binding/) 
+- `selector` {String} a jQuery selector for custom template (outside of the component). Works like `custom template` in [data-binding](https://wiki.totaljs.com/jcomponent/08-data-binding/)
 
 The component needs to have defined 3 templates wrapped in `<script type="text/html">`:
 
@@ -30,6 +30,12 @@ The component watches a click event on all buttons with `name` attribute:
 - `name="cancel"` cancels editing
 - `name="create"` creates an empty form
 - `form` contains `ui-listform-new` class when creating a new item
+
+__Listing buttons:__
+
+- __NEW__: `name="remove"` removes item
+- __NEW__: `name="up"` moves item to up
+- __NEW__: `name="down"` moves item to down
 
 ### Author
 
