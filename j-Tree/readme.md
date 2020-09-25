@@ -14,7 +14,6 @@ __Configuration__:
 - `rename` {String} optional, a path to `function(item, newname, fn_accept(true))`
 - `unselectexpand` {Boolean} optional, can `unselect` selected item when the user clicks on the expandable item (default: `false`)
 - `reselect` {Boolean} optional, evaluates `exec` again if the tree is refreshed (default: `false`)
-- __NEW__: `raw` {Boolean} enables tags in text (default: `false`)
 
 __Data structure__:
 
@@ -22,6 +21,7 @@ __Data structure__:
 - Object has to contain `name:String` and `children:[another similar object]` or `children:null` (with no children)
 - Object item can contain `..., icon: 'home' }`, it can change a file icon
 - Object item can contain `..., classname: 'css_custom_class' }`, it adds a CSS class onto "label" element
+- Object item can contain `..., html: 'RAW_HTML'` {String} renders HTML tags instead of `name` field
 
 __Methods__:
 
