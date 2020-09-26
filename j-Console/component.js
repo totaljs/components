@@ -1,6 +1,5 @@
-COMPONENT('console', function(self, config) {
+COMPONENT('console', function(self, config, cls) {
 
-	var cls = 'ui-console';
 	var cls2 = '.' + cls;
 	var etabs, source ,elogs, current;
 	var ready = false;
@@ -36,6 +35,9 @@ COMPONENT('console', function(self, config) {
 
 	self.render_tabs = function() {
 
+		if (!source)
+			return;
+
 		var keys = Object.keys(source);
 		var builder = [];
 
@@ -45,7 +47,8 @@ COMPONENT('console', function(self, config) {
 			if (!current)
 				current = keys[i];
 
-			builder.push(('<span title="{1}" data-id="{2}" class="' + cls + '-tab{3}"><i class="fa fa-{0}"></i></span>').format(item.icon, item.name, keys[i], current === keys[i] ? (' ' + cls + '-selected') : ''));
+			var icon = item.icon.indexOf(' ') === -1 ? ('fa ' + item.icon) : item.icon;
+			builder.push(('<span title="{1}" data-id="{2}" class="' + cls + '-tab{3}"><i class="{0}"></i>{1}</span>').format(icon + (item.name ? '' : '" style="margin-right:0'), item.name, keys[i], current === keys[i] ? (' ' + cls + '-selected') : ''));
 		}
 
 		etabs.html(builder.join(''));
