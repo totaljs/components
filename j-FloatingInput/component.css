@@ -6,9 +6,12 @@
 .ui-floatinginput-add { float: right !important; padding-left: 0 !important; color: #83c83c; text-align: left !important; font-size: 11px !important; cursor: pointer; width: 22px !important; }
 .ui-floatinginput-visible { opacity: 1; }
 .ui-floatinginput-summary { font-size: 11px; color: gray; border-bottom: 1px solid #E0E0E0; padding: 5px 10px 8px; line-height: 14px; }
+.ui-floatinginput-summary code { background-color: #F8F8F8; padding: 1px 2px; border-radius: 2px; }
+.ui-floatinginput-monospace input { font-family: monospace; }
 
 .ui-dark .ui-floatinginput { background-color: #303030; border-color: #404040; box-shadow: 1px 5px 10px rgba(0,0,0,0.2); }
 .ui-dark .ui-floatinginput-input { background: #303030; }
 .ui-dark .ui-floatinginput-input input { background-color: #303030; }
 .ui-dark .ui-floatinginput-add:hover { color: #FFFFFF; }
+.ui-dark .ui-floatinginput-summary code { background-color: #272727; padding: 1px 2px; border-radius: 2px; }
 .ui-dark .ui-floatinginput-summary { color: gray; border-bottom-color: #404040; }

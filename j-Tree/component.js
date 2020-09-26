@@ -1,4 +1,4 @@
-COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(self, config, cls) {
+COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false;iconoptions:fa fa-ellipsis-h', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var cache = null;
@@ -15,7 +15,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 	self.make = function() {
 
 		self.aclass(cls);
-		self.template = Tangular.compile(('<div' + (config.dragdrop ? ' draggable="true"' : '') + ' class="{0}-item{{ if children }} {0}-expand{{ fi }}" title="{{ name }}" data-index="{{ $pointer }}">' + (config.checked ? '<div class="{0}-checkbox"><i class="fa fa-check"></i></div><div class="{0}-label">' : '') + '<i class="far {{ if children }}{0}-folder{{ else }}{{ icon | def(\'fa-file-o\') }}{{ fi }}"></i>' + (config.options ? '<span class="{0}-options"><i class="fa fa-ellipsis-h"></i></span>' : '') + '<div class="{0}-item-name{{ if classname }} {{ classname }}{{ fi }}">{{ name' + (config.raw ? ' | raw' : '') + ' }}</div></div>' + (config.checked ? '</div>' : '')).format(cls));
+		self.template = Tangular.compile(('<div' + (config.dragdrop ? ' draggable="true"' : '') + ' class="{0}-item{{ if children }} {0}-expand{{ fi }}" title="{{ name }}" data-index="{{ $pointer }}">' + (config.checked ? '<div class="{0}-checkbox"><i class="fa fa-check"></i></div><div class="{0}-label">' : '') + '<i class="far {{ if children }}{0}-folder{{ else }}{{ icon | def(\'fa-file-o\') }}{{ fi }}"></i>' + (config.options ? ('<span class="{0}-options"><i class="' + config.iconoptions + '"></i></span>') : '') + '<div class="{0}-item-name{{ if classname }} {{ classname }}{{ fi }}">{{ if html }}{{ html | raw }}{{ else }}{{ name }}{{ fi }}</div></div>' + (config.checked ? '</div>' : '')).format(cls));
 
 		self.event('click', cls2 + '-checkbox', function(e) {
 			e.stopPropagation();
@@ -203,7 +203,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 	self.expand = function(index) {
 		if (index == null) {
 			self.find(cls2 + '-expand').each(function() {
-				$(this).parent().aclass('show');
+				$(this).parent().aclass(cls + '-show');
 			});
 		} else {
 			self.find('[data-index="{0}"]'.format(index)).each(function() {
@@ -240,7 +240,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 						if (!el.hclass(cls + '-expand'))
 							break;
 						el.parent().rclass(cls + '-show');
-						var parent = el.parent().aclass('show');
+						var parent = el.parent().aclass(cls + '-show');
 						var tmp = +parent.find('> .item').attrd('index');
 						var item = cache[tmp];
 						var key = config.pk ? item[config.pk] : counter;
@@ -290,6 +290,8 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 		counter = 0;
 		cache = {};
 
+		var isexpand = false;
+
 		value && value.forEach(function(item) {
 			counter++;
 			item.$pointer = counter;
@@ -298,6 +300,10 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 			if (key === selected)
 				selindex = counter;
 			builder.push('<div class="{0}-node{1}">'.format(cls, expanded[key] && item.children ? ' ui-tree-show' : '') + self.template(item));
+
+			if (expanded[key])
+				isexpand = true;
+
 			if (item.children)
 				self.renderchildren(builder, item, 1, selected);
 			else if (!cache.first)
@@ -312,6 +318,9 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false', function(
 			self.select(selindex, !config.reselect, true);
 		} else
 			config.first !== false && cache.first && setTimeout(self.first, 100);
+
+		if (!isexpand && config.expanded)
+			self.expand();
 
 		config.checked && EXEC(self.makepath(config.checked), EMPTYARRAY, self);
 	};

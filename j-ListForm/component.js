@@ -56,8 +56,41 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 			if (config.disabled)
 				return;
 
-			var is = false;
+			var el = $(this);
+			var parent = el.closest(cls2 + '-item');
 			var tmp;
+
+			if (parent) {
+				var tmp = parent[0].$data;
+				self.cancel();
+				e.stopPropagation();
+				switch (this.name) {
+					case 'up':
+					case 'down':
+						var index = items.indexOf(tmp);
+						var tmp = index + (this.name === 'up' ? -1 : 1);
+						if (tmp < 0 || index > items.length)
+							return;
+						var a = items[tmp];
+						items[tmp] = items[index];
+						items[index] = a;
+						NODEMOVE(parent[0], this.name === 'up');
+						skip = true;
+						self.set(items, 2);
+						self.change(true);
+						break;
+					case 'remove':
+						items.splice(items.indexOf(tmp), 1);
+						skip = true;
+						self.set(items, 2);
+						self.change(true);
+						parent.remove();
+						break;
+				}
+				return;
+			}
+
+			var is = false;
 			var fn;
 
 			switch (this.name) {
