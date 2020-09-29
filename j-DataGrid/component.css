@@ -103,6 +103,7 @@
 .dg-header-scrollbar { overflow-y: hidden; }
 .dg-header-scrollbar-container { height: 58px; overflow: hidden; }
 .dg-resize-line { position: absolute; width: 1px; background-color: #E0E0E0; z-index: 6; }
+.dg-colorize { padding: 2px 3px; border-radius: 2px; color: #FFF; }
 
 .ui-dark .dg, .ui-dark .dg-body { background-color: #232323; }
 .ui-dark .dg-container { border-top-color: #353535; border-left-color: #353535; }

@@ -100,12 +100,13 @@ __Column properties__:
 - `buttonapply` {String} optional, a label for `Apply` button in columns, default: `Apply`
 - `class` {String} optional, a custom column class name
 - `empty` {String/Boolean} optional, can rewrite empty value with the value defined in empty field (`true` value uses `---` as a default value)
-- __NEW__ `min` {Number} __editable only__ a min. number value
-- __NEW__ `max` {Number} __editable only__ a max. number value
-- __NEW__ `required` {Boolean} __editable only__
-- __NEW__ `dirsearch` {String/Boolean} a placeholder for `j-Directory` search, boolean with `false` will disable search
-- __NEW__ `type` {String} optional, can contain a data-type (`string`, `boolean`, `date` or `number`) for the field
-- __NEW__ `editable` {Boolean} enables editing
+- `min` {Number} __editable only__ a min. number value
+- `max` {Number} __editable only__ a max. number value
+- `required` {Boolean} __editable only__
+- `dirsearch` {String/Boolean} a placeholder for `j-Directory` search, boolean with `false` will disable search
+- `type` {String} optional, can contain a data-type (`string`, `boolean`, `date` or `number`) for the field
+- `editable` {Boolean} enables editing
+- __NEW__ `colorize` {Boolean} enables a colorization of the value
 
 __Filtering__:
 
