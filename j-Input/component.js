@@ -265,6 +265,9 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			opt.key = config.dirkey || config.key;
 			opt.empty = config.dirempty;
 
+			if (config.dirraw)
+				opt.raw = true;
+
 			if (config.dirsearch === false)
 				opt.search = false;
 
@@ -601,10 +604,16 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			if (value && item == null && config.dircustom)
 				item = value;
 
-			rawvalue.text(item || '');
+			if (config.dirraw)
+				rawvalue.html(item || '');
+			else
+				rawvalue.text(item || '');
 
 		} else if (config.dirsource)
-			rawvalue.text(value || '');
+			if (config.dirraw)
+				rawvalue.html(value || '');
+			else
+				rawvalue.text(value || '');
 		else {
 			switch (config.type) {
 				case 'color':
