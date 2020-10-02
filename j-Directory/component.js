@@ -206,14 +206,12 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 
 		var counter = 0;
 		var scroller = container.parent();
-		var h = scroller.height();
 		var li = container.find('li');
 		var hli = (li.eq(0).innerHeight() || 30) + 1;
 		var was = false;
 		var last = -1;
 		var lastselected = 0;
 		var plus = (hli * 2);
-		var sh = (li.length * hli);
 
 		for (var i = 0; i < li.length; i++) {
 
@@ -296,8 +294,10 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 
 						if (self.opt.empty) {
 							item = {};
-							item[self.opt.key || 'name'] = self.opt.empty;
-							item.template = '<b>{0}</b>'.format(self.opt.empty);
+							var tmp = self.opt.raw ? '<b>{0}</b>'.format(self.opt.empty) : self.opt.empty;
+							item[self.opt.key || 'name'] = tmp;
+							if (!self.opt.raw)
+								item.template = '<b>{0}</b>'.format(self.opt.empty);
 							indexer.index = -1;
 							builder.unshift(self.opt.ta(item, indexer));
 						}
@@ -438,8 +438,10 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 
 			if (opt.empty) {
 				item = {};
-				item[opt.key || 'name'] = opt.empty;
-				item.template = '<b>{0}</b>'.format(opt.empty);
+				var tmp = opt.raw ? '<b>{0}</b>'.format(opt.empty) : opt.empty;
+				item[opt.key || 'name'] = tmp;
+				if (!opt.raw)
+					item.template = '<b>{0}</b>'.format(opt.empty);
 				indexer.index = -1;
 				builder.unshift(opt.ta(item, indexer));
 			}
