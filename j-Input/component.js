@@ -675,6 +675,10 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 	self.configure = function(key, value) {
 		switch (key) {
+			case 'icon':
+				if (value && value.indexOf(' ') === -1)
+					config.icon = 'fa fa-' + value;
+				break;
 			case 'dirsource':
 				if (config.dirajax || value.indexOf('/') !== -1) {
 					dirsource = null;
