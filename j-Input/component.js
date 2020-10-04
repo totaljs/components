@@ -709,7 +709,10 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				customvalidator = value ? (/\(|=|>|<|\+|-|\)/).test(value) ? FN('value=>' + value) : (function(path) { return function(value) { return GET(path)(value); }; })(value) : null;
 				break;
 			case 'innerlabel':
-				self.tclass(cls + '-inner', value);
+				self.tclass(cls + '-inner', !!value);
+				break;
+			case 'monospace':
+				self.tclass(cls + '-monospace', !!value);
 				break;
 			case 'maskregexp':
 				if (value) {

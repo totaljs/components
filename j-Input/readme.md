@@ -46,12 +46,13 @@ __Configuration__:
 - `mask` {String} optional, can contain a mask in the form `###/##` (`#` is replaced for a char)
 - `maskregexp` {String} optional, can contain RegExp for each char in the form `\d,\d,\d,null,\d,\d` (`,` is delimiter)
 - `masktidy` {Boolean} optional, the component returns only raw chars without fixed chars (default: `false`)
-- __NEW__ `autosource` {String} a path to `search` function in `autocomplete`, `function(search, render(arr))`
-- __NEW__ `autovalue` {String} a property path for the value in `autosource`, default: `name`
-- __NEW__ `autoexec` {String} a path method `function(item, next(value_to_input))`
-- __NEW__ `searchalign` {Number} can align icon on `type:search` to left (`2`) or right (`1`, default)
-- __NEW__ `forcevalidation` {Boolean} enables for force validation for `phone` and `email` (default: `true`)
-- __NEW__ `camouflage` {Boolean/String} masks the value in the input after is triggered `blur` event (default: `false`) or it can be `String` which will be used as a camouflage
+- `autosource` {String} a path to `search` function in `autocomplete`, `function(search, render(arr))`
+- `autovalue` {String} a property path for the value in `autosource`, default: `name`
+- `autoexec` {String} a path method `function(item, next(value_to_input))`
+- `searchalign` {Number} can align icon on `type:search` to left (`2`) or right (`1`, default)
+- `forcevalidation` {Boolean} enables for force validation for `phone` and `email` (default: `true`)
+- `camouflage` {Boolean/String} masks the value in the input after is triggered `blur` event (default: `false`) or it can be `String` which will be used as a camouflage
+- `monospace` {Boolean} enables `monospaced` font (default: `false`)
 
 __Interesting:__
 
