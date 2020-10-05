@@ -29,6 +29,7 @@ console.log(text.markdown(opt));
 - `opt.footnotes = true` enables footnotes `#1: foot note description` and usage in links `[link](#1)`
 - `opt.urlify = true` converts URL addresses to links
 - `opt.keywords = true` parses keywords in the form `{keyword}(type)`
+- `opt.noredraw = true` skips redrawing of code/video/section/block parts (default: `false`)
 
 __Good to know__:
 
@@ -38,6 +39,7 @@ __Good to know__:
 - all links are with `_target="_blank"` attribute
 - markdown registers `FUNC.markdownredraw(jQuery_selector)` for prerendering of Markdown dynamic elements like code highlight, videos or charts
 - secret section is defined like code with syntax `secret`
+- class `markdown-small` can decrease font sizes
 
 __Toggleable section:__
 
