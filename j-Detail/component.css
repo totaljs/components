@@ -2,12 +2,13 @@
 .ui-detail-group:first-child { margin-top: 10px; }
 .ui-detail-group:lastchild-child section { margin-bottom: 0; }
 .ui-detail-group { padding: 0; margin-bottom: 20px; border: 1px solid #E0E0E0; border-radius: 2px; }
-.ui-detail-group label { display: block; padding: 10px 15px; font-size: 16px; font-weight: bold; background-color: #F8F8F8; }
+.ui-detail-group label { display: block; padding: 10px 15px; font-size: 16px; font-weight: bold; background-color: #F8F8F8; border-bottom: 1px solid #E0E0E0; }
 .ui-detail-group label i { width: 22px; }
 .ui-detail-group label i:before { content: '\f146'; }
 .ui-detail-hidden label i:before { content: '\f0fe' !important; }
 .ui-detail-hidden section { display: none; }
 .ui-detail-item { padding: 6px 0; background-color: #FFFFFF; margin-bottom: 1px; font-size: 13px; border-top: 1px solid #E0E0E0; }
+.ui-detail-item:first-child { border-top: 0; }
 .ui-detail-key { float: left; width: 170px; line-height: 24px; padding: 0 5px 0 15px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; color: #707070; }
 .ui-detail-key i { margin-right: 7px; }
 .ui-detail-value { margin: 0 10px 0 170px; line-height: 21px; }
@@ -37,9 +38,8 @@
 .ui-detail-small .ui-detail-list { line-height: 18px; }
 
 .ui-dark .ui-detail-group { border-color: #404040; }
-.ui-dark .ui-detail-item { border-color: #404040; }
-.ui-dark .ui-detail-item { background-color: #202020; }
-.ui-dark .ui-detail-group label { background-color: #282828; }
+.ui-dark .ui-detail-item { background-color: #202020; border-color: #404040; }
+.ui-dark .ui-detail-group label { background-color: #282828; border-color: #404040; }
 .ui-dark .ui-detail-bool span { color: #202020; border-color: #404040; }
 .ui-dark .ui-detail-bool.checked span { color: #FFFFFF; border-color: #4285F4; }
 .ui-dark .ui-detail-note { color: #606060; }
