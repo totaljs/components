@@ -58,6 +58,10 @@ __Allowed types in data__:
 - `password`
 - `template`
 
+__Good to know__:
+
+- if group contains only the one char then the name of group is not rendered
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
