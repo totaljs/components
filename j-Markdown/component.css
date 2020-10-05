@@ -27,13 +27,20 @@
 .markdown h3 code { font-size: 18px; font-weight: normal; background-color: #DAE8F8; }
 .markdown h4 code { font-size: 17px; font-weight: normal; background-color: #DAE8F8; }
 .markdown a code { background-color: #DAE8F8; text-decoration: none !important; border-color: #D5DFEB; }
-.markdown .footnote { background-color: rgba(0,0,0,0.1); padding: 0 2px; border-radius: 2px; cursor: help; }
-.markdown .footnotebody { font-size: 11px; border-top: 1px solid #E0E0E0; font-family: Arial; color: #505050; }
-.markdown .showsecret { cursor: pointer; display: block; padding: 8px 15px; user-select: none; }
-.markdown .showsecret b { margin-left: 8px; }
-.markdown .showsecret .pull-right { margin: 2px 0 0; }
-.markdown .secret { padding: 0; border-radius: 2px; border: 1px solid #E0E0E0; }
-.markdown .secret > div { padding: 15px 5px 1px; border-radius: 0 0 2px 2px; background-color: #F8F8F8; }
+.markdown-footnote { background-color: rgba(0,0,0,0.1); padding: 0 2px; border-radius: 2px; cursor: help; }
+.markdown-footnotebody { font-size: 11px; border-top: 1px solid #E0E0E0; font-family: Arial; color: #505050; }
+.markdown-showsecret { cursor: pointer; display: block; padding: 8px 15px; user-select: none; font-size: 14px; }
+.markdown-showsecret b { margin-left: 8px; }
+.markdown-showsecret .pull-right { margin: 2px 0 0; }
+.markdown-secret { padding: 0; border-radius: 2px; border: 1px solid #E0E0E0; }
+.markdown-secret > div { padding: 15px 5px 1px; border-radius: 0 0 2px 2px; background-color: #F8F8F8; }
+.markdown-small p code, .markdown-small li code, .markdown-small section code, .markdown-small blockquote code, .markdown-small h1 code, .markdown-small h2 code, .markdown-small h3 code, .markdown-small h4 code, .markdown-small td code, .markdown-small pre code { font-size: 12px; }
+.markdown-tasks { list-style-type: none; padding-left: 12px !important; }
+.markdown-tasks li > i:first-child { margin-right: 5px; }
+.markdown-code { margin-bottom: 15px; }
+.markdown-block { margin: 0 20px; }
+.markdown-block > div { margin-bottom: 15px; }
+.markdown-block:last-child { margin-bottom: 15px; }
 
 .ui-dark .markdown { color: #C0C0C0; }
 .ui-dark .markdown blockquote { color: #FFFFFF; }
@@ -50,8 +57,8 @@
 .ui-dark .markdown a code { background-color: #303030; border-color: #454545; }
 .ui-dark .markdown h4, .ui-dark .markdown h5 { color: #C0C0C0; background-color: #505050; border-bottom: 1px solid #404040; }
 .ui-dark .markdown p code, .ui-dark .markdown section code, .ui-dark .markdown li code, .ui-dark .markdown blockquote code, .ui-dark .markdown td code { border-color: #404040; background-color: #505050; }
-.ui-dark .markdown .footnote { background-color: rgba(255,255,255,0.1); }
-.ui-dark .markdown .footnotebody { border-top-color: #505050; color: #888888; }
+.ui-dark .markdown-footnote { background-color: rgba(255,255,255,0.1); }
+.ui-dark .markdown-footnotebody { border-top-color: #505050; color: #888888; }
 
-.ui-dark .markdown .secret { border: 1px solid #404040; }
-.ui-dark .markdown .secret > div { background-color: #303030; }
+.ui-dark .markdown-secret { border: 1px solid #404040; }
+.ui-dark .markdown-secret > div { background-color: #303030; }

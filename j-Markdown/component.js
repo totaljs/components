@@ -11,16 +11,19 @@ COMPONENT('markdown', function (self) {
 			self.remove();
 		}, 500);
 
-		$(document).on('click', '.showsecret', function() {
+		$(document).on('click', '.markdown-showsecret,.markdown-showblock', function() {
 			var el = $(this);
 			var next = el.next();
 			next.tclass('hidden');
-
 			var is = next.hclass('hidden');
 			var icons = el.find('i');
-			icons.eq(0).tclass('fa-unlock', !is).tclass('fa-lock', is);
-			icons.eq(1).tclass('fa-angle-up', !is).tclass('fa-angle-down', is);
-
+			if (el.hclass('markdown-showsecret')) {
+				icons.eq(0).tclass('fa-unlock', !is).tclass('fa-lock', is);
+				icons.eq(1).tclass('fa-angle-up', !is).tclass('fa-angle-down', is);
+			} else {
+				icons.eq(0).tclass('fa-minus', !is).tclass('fa-plus', is);
+				el.tclass('markdown-showblock-visible', !is);
+			}
 			el.find('b').html(el.attrd(is ? 'show' : 'hide'));
 		});
 	};
@@ -29,19 +32,24 @@ COMPONENT('markdown', function (self) {
 	(function Markdown() {
 
 		var keywords = /\{.*?\}\(.*?\)/g;
-		var linksexternal = /(https|http):\/\/|\.\w+$/;
+		var linksexternal = /(https|http):\/\//;
 		var format = /__.*?__|_.*?_|\*\*.*?\*\*|\*.*?\*|~~.*?~~|~.*?~/g;
 		var ordered = /^[a-z|0-9]{1}\.\s|^-\s/i;
 		var orderedsize = /^(\s|\t)+/;
 		var code = /`.*?`/g;
 		var encodetags = /<|>/g;
 		var regdash = /-{2,}/g;
-		var regicons = /(^|[^\w]):[a-z-]+:([^\w]|$)/g;
+		var regicons = /(^|[^\w]):((fab\s|far\s|fas\s|fal\s|fad|fa\s)fa-)?[a-z-]+:([^\w]|$)/g;
 		var regemptychar = /\s|\W/;
+		var regtags = /<[^>]*>/g;
 
 		var encode = function(val) {
 			return '&' + (val === '<' ? 'lt' : 'gt') + ';';
 		};
+
+		function markdown_code(value) {
+			return '<code>' + value.substring(1, value.length - 1) + '</code>';
+		}
 
 		function markdown_imagelinks(value) {
 			var end = value.lastIndexOf(')') + 1;
@@ -80,7 +88,7 @@ COMPONENT('markdown', function (self) {
 
 			if ((/^#\d+$/).test(link)) {
 				// footnotes
-				return (/^\d+$/).test(text) ? '<sup data-id="{0}" class="footnote">{1}</sup>'.format(link.substring(1), text) : '<span data-id="{0}" class="footnote">{1}</span>'.format(link.substring(1), text);
+				return (/^\d+$/).test(text) ? '<sup data-id="{0}" class="markdown-footnote">{1}</sup>'.format(link.substring(1), text) : '<span data-id="{0}" class="markdown-footnote">{1}</span>'.format(link.substring(1), text);
 			}
 
 			if (link.substring(0, 4) === 'www.')
@@ -107,13 +115,13 @@ COMPONENT('markdown', function (self) {
 				text = text.substring(1);
 			}
 
-			return '<img src="' + link + '" alt="' + text + '"' + (responsive === 1 ? ' class="img-responsive"' : responsive === 3 ? ' class="gallery"' : '') + ' border="0" loading="lazy" />';
+			return '<img src="' + link + '" alt="' + text + '"' + (responsive === 1 ? ' class="img-responsive"' : responsive === 3 ? ' class="markdown-gallery"' : '') + ' border="0" loading="lazy" />';
 		}
 
 		function markdown_keywords(value) {
 			var keyword = value.substring(1, value.indexOf('}'));
 			var type = value.substring(value.lastIndexOf('(') + 1, value.lastIndexOf(')'));
-			return '<span class="keyword" data-type="{0}">{1}</span>'.format(type, keyword);
+			return '<span class="markdown-keyword" data-type="{0}">{1}</span>'.format(type, keyword);
 		}
 
 		function markdown_links2(value) {
@@ -157,18 +165,8 @@ COMPONENT('markdown', function (self) {
 		}
 
 		function markdown_id(value) {
-
-			var end = '';
-			var beg = '';
-
-			if (value.charAt(0) === '<')
-				beg = '-';
-
-			if (value.charAt(value.length - 1) === '>')
-				end = '-';
-
-			// return (beg + value.replace(regtags, '').toLowerCase().replace(regid, '-') + end).replace(regdash, '-');
-			return (beg + value.slug() + end).replace(regdash, '-');
+			value = value.replace(regtags, '');
+			return value.slug().replace(regdash, '-');
 		}
 
 		function markdown_icon(value) {
@@ -186,7 +184,10 @@ COMPONENT('markdown', function (self) {
 				}
 			}
 
-			return value.substring(0, beg - 1) + '<i class="fa fa-' + value.substring(beg, end) + '"></i>' + value.substring(end + 1);
+			var icon = value.substring(beg, end);
+			if (icon.indexOf(' ') === -1)
+				icon = 'fa fa-' + icon;
+			return value.substring(0, beg - 1) + '<i class="' + icon + '"></i>' + value.substring(end + 1);
 		}
 
 		function markdown_urlify(str) {
@@ -194,7 +195,7 @@ COMPONENT('markdown', function (self) {
 				var len = url.length;
 				var l = url.charAt(len - 1);
 				var f = url.charAt(0);
-				if (l === '.' || l === ',' || l === ')')
+				if (l === '.' || l === ',')
 					url = url.substring(0, len - 1);
 				else
 					l = '';
@@ -210,7 +211,7 @@ COMPONENT('markdown', function (self) {
 
 			el.find('.lang-secret').each(function() {
 				var el = $(this);
-				el.parent().replaceWith('<div class="secret" data-show="{0}" data-hide="{1}"><span class="showsecret"><i class="fa fa-lock"></i><i class="fa pull-right fa-angle-down"></i><b>{0}</b></span><div class="hidden">'.format(opt.showsecret || 'Show secret data', opt.hidesecret || 'Hide secret data') + el.html().trim().markdown(opt.secretoptions) +'</div></div>');
+				el.parent().replaceWith('<div class="markdown-secret" data-show="{0}" data-hide="{1}"><span class="markdown-showsecret"><i class="fa fa-lock"></i><i class="fa pull-right fa-angle-down"></i><b>{0}</b></span><div class="hidden">'.format(opt.showsecret || 'Show secret data', opt.hidesecret || 'Hide secret data') + el.html().trim().markdown(opt.secretoptions, true) +'</div></div>');
 			});
 
 			el.find('.lang-video').each(function() {
@@ -221,9 +222,9 @@ COMPONENT('markdown', function (self) {
 				var el = $(t);
 				var html = el.html();
 				if (html.indexOf('youtube') !== -1)
-					el.parent().replaceWith('<div class="video"><iframe src="https://www.youtube.com/embed/' + html.split('v=')[1] + '" frameborder="0" allowfullscreen></iframe></div>');
+					el.parent().replaceWith('<div class="markdown-video"><iframe src="https://www.youtube.com/embed/' + html.split('v=')[1] + '" frameborder="0" allowfullscreen></iframe></div>');
 				else if (html.indexOf('vimeo') !== -1)
-					el.parent().replaceWith('<div class="video"><iframe src="//player.vimeo.com/video/' + html.substring(html.lastIndexOf('/') + 1) + '" frameborder="0" allowfullscreen></iframe></div>');
+					el.parent().replaceWith('<div class="markdown-video"><iframe src="//player.vimeo.com/video/' + html.substring(html.lastIndexOf('/') + 1) + '" frameborder="0" allowfullscreen></iframe></div>');
 			});
 
 			el.find('.lang-barchart').each(function() {
@@ -268,7 +269,7 @@ COMPONENT('markdown', function (self) {
 				chart.render();
 			});
 
-			el.find('.lang-linerchar').each(function() {
+			el.find('.lang-linerchart').each(function() {
 
 				var t = this;
 				if (t.$mdloaded)
@@ -318,7 +319,7 @@ COMPONENT('markdown', function (self) {
 				t.$mdloaded = 1;
 
 				var el = $(t);
-				el.parent().replaceWith('<div class="iframe">' + el.html().replace(/&lt;/g, '<').replace(/&gt;/g, '>') + '</div>');
+				el.parent().replaceWith('<div class="markdown-iframe">' + el.html().replace(/&lt;/g, '<').replace(/&gt;/g, '>') + '</div>');
 			});
 
 			el.find('pre code').each(function(i, block) {
@@ -350,10 +351,10 @@ COMPONENT('markdown', function (self) {
 					el.attr('target', '_blank');
 			});
 
-			el.find('.code').rclass('hidden');
+			el.find('.markdown-code').rclass('hidden');
 		};
 
-		String.prototype.markdown = function(opt) {
+		String.prototype.markdown = function(opt, nested) {
 
 			// opt.wrap = true;
 			// opt.linetag = 'p';
@@ -365,15 +366,14 @@ COMPONENT('markdown', function (self) {
 			// opt.icons = true;
 			// opt.tables = true;
 			// opt.br = true;
-			// opt.newline = true;
 			// opt.headlines = true;
 			// opt.hr = true;
 			// opt.blockquotes = true;
 			// opt.sections = true;
+			// opt.custom
 			// opt.footnotes = true;
 			// opt.urlify = true;
 			// opt.keywords = true;
-			// opt.custom
 
 			var str = this;
 
@@ -385,11 +385,13 @@ COMPONENT('markdown', function (self) {
 			var ul = [];
 			var table = false;
 			var iscode = false;
+			var isblock = false;
 			var ishead = false;
+			var isprevblock = false;
 			var prev;
 			var prevsize = 0;
+			var previndex;
 			var tmp;
-			var codes = [];
 
 			if (opt.wrap == null)
 				opt.wrap = true;
@@ -402,15 +404,6 @@ COMPONENT('markdown', function (self) {
 					var text = ul.pop();
 					builder.push('</' + text + '>');
 				}
-			};
-
-			var formatcode = function(value) {
-				var index = codes.push('<code>' + value.substring(1, value.length - 1) + '</code>') - 1;
-				return '\0code{0}\0'.format(index);
-			};
-
-			var formatcodeflush = function(value) {
-				return codes[+value.substring(5, value.length - 1)];
 			};
 
 			var formatlinks = function(val) {
@@ -518,11 +511,39 @@ COMPONENT('markdown', function (self) {
 				return val;
 			};
 
-			for (var i = 0; i < lines.length; i++) {
+			for (var i = 0, length = lines.length; i < length; i++) {
 
 				lines[i] = lines[i].replace(encodetags, encode);
+				var three = lines[i].substring(0, 3);
 
-				if (lines[i].substring(0, 3) === '```') {
+				if (!iscode && (three === ':::' || (three === '==='))) {
+
+					if (isblock) {
+						if (opt.blocks !== false)
+							builder[builder.length - 1] += '</div></div>';
+						isblock = false;
+						isprevblock = true;
+						continue;
+					}
+
+					closeul();
+					isblock = true;
+					if (opt.blocks !== false) {
+						line = lines[i].substring(3).trim();
+						if (opt.formatting !== false)
+							line = line.replace(format, markdown_format).replace(code, markdown_code);
+						builder.push('<div class="markdown-block"><span class="markdown-showblock"><i class="fa fa-plus"></i>{0}</span><div class="hidden">'.format(line));
+					}
+					prev = '';
+					continue;
+				}
+
+				if (!isblock && lines[i] && isprevblock) {
+					builder.push('<br />');
+					isprevblock = false;
+				}
+
+				if (three === '```') {
 
 					if (iscode) {
 						if (opt.code !== false)
@@ -534,7 +555,7 @@ COMPONENT('markdown', function (self) {
 					closeul();
 					iscode = true;
 					if (opt.code !== false)
-						tmp = '<div class="code hidden"><pre><code class="lang-' + lines[i].substring(3) + '">';
+						tmp = '<div class="markdown-code hidden"><pre><code class="lang-' + lines[i].substring(3) + '">';
 					prev = 'code';
 					continue;
 				}
@@ -549,37 +570,33 @@ COMPONENT('markdown', function (self) {
 
 				var line = lines[i];
 
-				if (opt.br !== false)
-					line = line.replace(/&lt;br(\s\/)?&gt;/g, '<br />');
-
-				if (opt.urlify !== false && opt.links !== false)
+				if (line.length > 10 && opt.urlify !== false && opt.links !== false)
 					line = markdown_urlify(line);
 
 				if (opt.custom)
 					line = opt.custom(line);
 
-				if (opt.formatting !== false)
-					line = line.replace(code, formatcode).replace(format, markdown_format);
+				if (line.length > 2 && line !== '***' && line !== '---') {
+					if (opt.formatting !== false)
+						line = line.replace(format, markdown_format).replace(code, markdown_code);
+					if (opt.images !== false)
+						line = imagescope(line);
+					if (opt.links !== false) {
+						linkscope(line, 0, function(text, inline) {
+							if (inline)
+								line = line.replace(text, markdown_links2);
+							else if (opt.images !== false)
+								line = line.replace(text, markdown_imagelinks);
+							else
+								line = line.replace(text, formatlinks);
+						});
+					}
+					if (opt.keywords !== false)
+						line = line.replace(keywords, markdown_keywords);
 
-				if (opt.images !== false)
-					line = imagescope(line);
-
-				if (opt.links !== false) {
-					linkscope(line, 0, function(text, inline) {
-						if (inline)
-							line = line.replace(text, markdown_links2);
-						else if (opt.images !== false)
-							line = line.replace(text, markdown_imagelinks);
-						else
-							line = line.replace(text, formatlinks);
-					});
+					if (opt.icons !== false)
+						line = line.replace(regicons, markdown_icon);
 				}
-
-				if (opt.keywords !== false)
-					line = line.replace(keywords, markdown_keywords);
-
-				if (opt.icons !== false)
-					line = line.replace(regicons, markdown_icon);
 
 				if (!line) {
 					if (table) {
@@ -680,7 +697,7 @@ COMPONENT('markdown', function (self) {
 				if (tmp === '---' || tmp === '***') {
 					prev = 'hr';
 					if (opt.hr !== false)
-						builder.push('<hr class="line' + (tmp.charAt(0) === '-' ? '1' : '2') + '" />');
+						builder.push('<hr class="markdown-line' + (tmp.charAt(0) === '-' ? '1' : '2') + '" />');
 					continue;
 				}
 
@@ -688,7 +705,7 @@ COMPONENT('markdown', function (self) {
 				if ((/^#\d+:(\s)+/).test(line)) {
 					if (opt.footnotes !== false) {
 						tmp = line.indexOf(':');
-						builder.push('<div class="footnotebody" data-id="{0}"><span>{0}:</span> {1}</div>'.format(line.substring(1, tmp).trim(), line.substring(tmp + 1).trim()));
+						builder.push('<div class="markdown-footnotebody" data-id="{0}"><span>{0}:</span> {1}</div>'.format(line.substring(1, tmp).trim(), line.substring(tmp + 1).trim()));
 					}
 					continue;
 				}
@@ -739,13 +756,23 @@ COMPONENT('markdown', function (self) {
 						var subtype;
 						if (type === 'ol')
 							subtype = tmpline.charAt(0);
-						builder.push('<' + type + (subtype ? (' type="' + subtype + '"') : '') + '>');
+						previndex = builder.push('<' + type + (subtype ? (' type="' + subtype + '"') : '') + '>') - 1;
 						ul.push(type + (append ? '></li' : ''));
 						prev = type;
 						prevsize = size;
 					}
 
-					builder.push('<li>' + (type === 'ol' ? tmpline.substring(tmpline.indexOf('.') + 1) : tmpline.substring(2)).trim().replace(/\[x\]/g, '<i class="fa fa-check-square green"></i>').replace(/\[\s\]/g, '<i class="far fa-square"></i>') + '</li>');
+					var tmpstr = (type === 'ol' ? tmpline.substring(tmpline.indexOf('.') + 1) : tmpline.substring(2));
+					if (type !== 'ol') {
+						var tt = tmpstr.substring(0, 3);
+						if (tt === '[ ]' || tt === '[x]') {
+							if (previndex != null)
+								builder[previndex] = builder[previndex].replace('<ul', '<ul class="markdown-tasks"');
+							previndex = null;
+						}
+					}
+
+					builder.push('<li>' + tmpstr.trim().replace(/\[x\]/g, '<i class="fa fa-check-square green"></i>').replace(/\[\s\]/g, '<i class="far fa-square"></i>') + '</li>');
 
 				} else {
 					closeul();
@@ -757,7 +784,7 @@ COMPONENT('markdown', function (self) {
 			closeul();
 			table && opt.tables !== false && builder.push('</tbody></table>');
 			iscode && opt.code !== false && builder.push('</code></pre>');
-			return (opt.wrap ? '<div class="markdown">' : '') + builder.join('\n').replace(/\0code\d+\0/g, formatcodeflush).replace(/\t/g, '    ') + (opt.wrap ? '</div>' : '');
+			return (opt.wrap ? ('<div class="markdown' + (nested ? '' : ' markdown-container') + '">') : '') + builder.join('\n').replace(/\t/g, '    ') + (opt.wrap ? '</div>' : '');
 		};
 
 	})();

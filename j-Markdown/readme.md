@@ -37,6 +37,15 @@ __Good to know__:
 - images with `![-Image description](URL)` will be rendered as an inline image with class `gallery` instead of `img-responsive`
 - all links are with `_target="_blank"` attribute
 - markdown registers `FUNC.markdownredraw(jQuery_selector)` for prerendering of Markdown dynamic elements like code highlight, videos or charts
+- secret section is defined like code with syntax `secret`
+
+__Toggleable section:__
+
+```html
+::: Name of section
+Another markdown content
+:::
+```
 
 ### Author
 
