@@ -206,11 +206,18 @@ COMPONENT('markdown', function (self) {
 
 		FUNC.markdownredraw = function(el, opt) {
 
+			if (!el)
+				el = $('body');
+
 			if (!opt)
 				opt = EMPTYOBJECT;
 
 			el.find('.lang-secret').each(function() {
-				var el = $(this);
+				var t = this;
+				if (t.$mdloaded)
+					return;
+				t.$mdloaded = 1;
+				var el = $(t);
 				el.parent().replaceWith('<div class="markdown-secret" data-show="{0}" data-hide="{1}"><span class="markdown-showsecret"><i class="fa fa-lock"></i><i class="fa pull-right fa-angle-down"></i><b>{0}</b></span><div class="hidden">'.format(opt.showsecret || 'Show secret data', opt.hidesecret || 'Hide secret data') + el.html().trim().markdown(opt.secretoptions, true) +'</div></div>');
 			});
 
@@ -326,8 +333,10 @@ COMPONENT('markdown', function (self) {
 				var t = this;
 				if (t.$mdloaded)
 					return;
-				t.$mdloaded = 1;
-				hljs.highlightBlock(block);
+				if (W.hljs) {
+					t.$mdloaded = 1;
+					W.hljs.highlightBlock(block);
+				}
 			});
 
 			el.find('a').each(function() {
@@ -784,9 +793,11 @@ COMPONENT('markdown', function (self) {
 			closeul();
 			table && opt.tables !== false && builder.push('</tbody></table>');
 			iscode && opt.code !== false && builder.push('</code></pre>');
+			if (!opt.noredraw)
+				setTimeout(FUNC.markdownredraw, 1, null, opt);
 			return (opt.wrap ? ('<div class="markdown' + (nested ? '' : ' markdown-container') + '">') : '') + builder.join('\n').replace(/\t/g, '    ') + (opt.wrap ? '</div>' : '');
 		};
 
 	})();
 
-});
+}, ['https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css']);
