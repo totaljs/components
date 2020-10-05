@@ -6,16 +6,16 @@
 <script>
 	var markdown = '# Hello `world`\nLorem ipsum dolor sit amet, **consectetur** adipisicing elit. Eius [1](#1), ~~illo~~.\n\n> This is a simple blockquote\n\n< And this one is section\n\n```javascript \nalert(\'Markdown Preview\');\n```\n\n::: Toggleable section\nHello world!\n:::\n\n```secret\nHello world\n```\n\n#1: footnote';
 
-	$(document).on('mouseenter mouseleave click', '.footnote', function(e) {
+	$(document).on('mouseenter mouseleave click', '.markdown-footnote', function(e) {
 		if (e.type === 'mouseenter' || e.type === 'click') {
 			var el = $(this);
 			var opt = {};
 			opt.element = this;
 			opt.offsetX = 10;
-			opt.html = $('.footnotebody[data-id="{0}"]'.format(el.attrd('id'))).html();
-			SETTER('info', 'show', opt);
+			opt.html = $('.markdown-footnotebody[data-id="{0}"]'.format(el.attrd('id'))).html();
+			SETTER('info/show', opt);
 		} else
-			SETTER('!info', 'hide', true);
+			SETTER('!info/hide', true);
 	});
 
 </script>
