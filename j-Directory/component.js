@@ -5,8 +5,9 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 	var is = false, selectedindex = 0, resultscount = 0;
 	var templateE = '{{ name | encode | ui_directory_helper }}';
 	var templateR = '{{ name | raw }}';
-	var template = '<li data-index="{{ $.index }}" data-search="{{ name }}" {{ if selected }} class="current selected{{ if classname }} {{ classname }}{{ fi }}"{{ else if classname }} class="{{ classname }}"{{ fi }}>{0}</li>';
+	var template = '<li data-index="{{ $.index }}" data-search="{{ $.search }}" {{ if selected }} class="current selected{{ if classname }} {{ classname }}{{ fi }}"{{ else if classname }} class="{{ classname }}"{{ fi }}>{0}</li>';
 	var templateraw = template.format(templateR);
+	var regstrip = /(&nbsp;|<([^>]+)>)/ig;
 	var parentclass;
 
 	template = template.format(templateE);
@@ -282,12 +283,14 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 						var builder = [];
 						var indexer = {};
 						var item;
+						var key = (self.opt.search == true ? self.opt.key : (self.opt.search || self.opt.key)) || 'name';
 
 						for (var i = 0; i < items.length; i++) {
 							item = items[i];
 							if (self.opt.exclude && self.opt.exclude(item))
 								continue;
 							indexer.index = i;
+							indexer.search = item[key] ? item[key].replace(regstrip, '') : '';
 							resultscount++;
 							builder.push(self.opt.ta(item, indexer));
 						}
@@ -416,7 +419,9 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 
 		if (!opt.ajax) {
 			var indexer = {};
+			var key = (opt.search == true ? opt.key : (opt.search || opt.key)) || 'name';
 			for (var i = 0; i < items.length; i++) {
+
 				item = items[i];
 
 				if (typeof(item) === 'string')
@@ -433,6 +438,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 					item.selected = false;
 
 				indexer.index = i;
+				indexer.search = item[key] ? item[key].replace(regstrip, '') : '';
 				builder.push(opt.ta(item, indexer));
 			}
 
