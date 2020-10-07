@@ -318,9 +318,10 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 	};
 
 	self.resizeforce = function() {
-		var parent = self.parent(config.parent || config.height);
+
+		var parent = config.height > 0 ? self.parent() : self.parent(config.parent || config.height);
 		var width = parent.width();
-		var height = parent.height() - container_cols.height() - container_pages.height() - config.margin;
+		var height = config.height > 0 ? (config.height - config.margin) : (parent.height() - container_cols.height() - container_pages.height() - config.margin);
 
 		if (meta.rows) {
 			var h = meta.rows.length * config.rowheight;

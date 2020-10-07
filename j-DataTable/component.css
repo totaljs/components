@@ -36,7 +36,7 @@
 .ui-dark .ui-datatable { border-color: #404040; }
 .ui-dark .ui-datatable-cols { border-bottom-color: #404040; background-color: #303030; }
 .ui-dark .ui-datatable-col { border-right-color: #404040; }
-.ui-dark .ui-datatable-row, .ui-datatable-empty { border-bottom-color: #404040; }
+.ui-dark .ui-datatable-row, .ui-dark .ui-datatable-empty { border-bottom-color: #404040; }
 .ui-dark .ui-datatable-row:hover { background-color: #343434; }
 .ui-dark .ui-datatable-selected { background-color: rgba(100,100,100,0.3) !important; }
 .ui-dark .ui-datatable-row-col { border-right-color: #404040; }
