@@ -268,8 +268,8 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			if (config.dirraw)
 				opt.raw = true;
 
-			if (config.dirsearch === false)
-				opt.search = false;
+			if (config.dirsearch != null)
+				opt.search = config.dirsearch;
 
 			var val = self.get();
 			opt.selected = val;
