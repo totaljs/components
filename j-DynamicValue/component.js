@@ -141,7 +141,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function
 			if (config.url) {
 				config.loading && SETTER('loading', 'show');
 				var val = encodeURIComponent(value);
-				AJAX('GET ' + config.url.format(val).arg({ value: val }), self.bindvalue);
+				AJAX((config.url.indexOf(' ') === -1 ? 'GET ' : '') + config.url.format(val).arg({ value: val }), self.bindvalue);
 			} else
 				EXEC(self.makepath(config.exec || config.read), value, self.bindvalue, type);
 		} else
