@@ -296,8 +296,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 			var index = +el.attrd('index');
 			if (index > -1) {
 
-				var is = el.hclass(cls + '-selected');
-
+				var is = config.highlight ? el.hclass(cls + '-selected') : true;
 				if (isdblclick && config.dblclick && is) {
 					self.forceselectid && clearTimeout(self.forceselectid);
 					SEEX(self.makepath(config.dblclick), opt.items[index], el);
