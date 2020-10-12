@@ -1,4 +1,4 @@
-COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# items,# items;pluralizepages:# pages,# page,# pages,# pages;unhighlight:0;colwidth:150;rowheight:24;clickid:id', function(self, config, cls) {
+COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# items,# items;pluralizepages:# pages,# page,# pages,# pages;unhighlight:0;colwidth:150;rowheight:24;clickid:id;minheight:300', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var container_rows;
@@ -49,7 +49,8 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 		container_rows = self.find(cls2 + '-rows');
 		container_pages = self.find(cls2 + '-pagination');
 
-		self.scrollbar = SCROLLBAR(container_rows.parent(), { onscroll: self.onscroll, visibleX: 1, visibleY: 1 });
+		var p = config.height || config.parent;
+		self.scrollbar = SCROLLBAR(container_rows.parent(), { onscroll: self.onscroll, visibleX: 1, visibleY: p === 'fluid' ? 0 : 1 });
 
 		self.event('click', cls2 + '-sortable', function() {
 
@@ -319,13 +320,18 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 
 	self.resizeforce = function() {
 
-		var parent = config.height > 0 ? self.parent() : self.parent(config.parent || config.height);
-		var width = parent.width();
-		var height = config.height > 0 ? (config.height - config.margin) : (parent.height() - container_cols.height() - container_pages.height() - config.margin);
+		var parent = config.height > 0 ? self.parent() : config.height === 'fluid' ? null : self.parent(config.height);
+		var width = parent ? parent.width() : self.parent().width();
+		var height = config.height > 0 ? (config.height - config.margin) : parent ? (parent.height() - container_cols.height() - container_pages.height() - config.margin) : 0;
 
 		if (meta.rows) {
+
 			var h = meta.rows.length * config.rowheight;
-			var diff = Math.ceil((height - h) / config.rowheight);
+
+			if (!parent)
+				height = h;
+
+			var diff = parent ? Math.ceil((height - h) / config.rowheight) : Math.ceil((config.minheight - h) / config.rowheight);
 
 			if (diff < 0)
 				diff = 0;
@@ -352,6 +358,12 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 			self.scrollbar.resize();
 			meta.width && container_rows.width(meta.width);
 			return;
+		}
+
+		if (!parent) {
+			height = h;
+			if (height < config.minheight)
+				height = config.minheight;
 		}
 
 		meta.ww = width;
