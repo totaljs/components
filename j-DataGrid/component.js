@@ -1,4 +1,4 @@
-COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;limit:80;filterlabel:Filter;height:auto;margin:0;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;unhighlight:true;autoselect:false;buttonapply:Apply;buttonreset:Reset;allowtitles:false;fullwidth_xs:true;clickid:id;dirplaceholder:Search', function(self, config) {
+COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clusterize:true;limit:80;filterlabel:Filter;height:auto;margin:0;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;unhighlight:true;autoselect:false;buttonapply:Apply;buttonreset:Reset;allowtitles:false;fullwidth_xs:true;clickid:id;dirplaceholder:Search', function(self, config) {
 
 	var opt = { filter: {}, filtercache: {}, filtercl: {}, filtervalues: {}, scroll: false, selected: {}, operation: '' };
 	var header, vbody, footer, container, ecolumns, isecolumns = false, ready = false;
@@ -182,16 +182,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		Thelpers.ui_datagrid_checkbox = function(val) {
 			return '<div class="dg-checkbox' + (val ? ' dg-checked' : '') + '" data-custom="1"><i class="fa fa-check"></i></div>';
 		};
-
-		Thelpers.ui_datagrid_colorize = function(val, encode) {
-			var hash = HASH(val + '');
-			var color = '#';
-			for (var i = 0; i < 3; i++) {
-				var value = (hash >> (i * 8)) & 0xFF;
-				color += ('00' + value.toString(16)).substr(-2);
-			}
-			return '<span style="background:{0}" class="dg-colorize">{1}</span>'.format(color, encode ? Thelpers.encode(val) : val);
-		};
 	};
 
 	self.readonly();
@@ -289,7 +279,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 	self.make = function() {
 
 		self.IDCSS = GUID(5);
-		self.aclass('dg dg-noscroll dg-' + self.IDCSS);
+		self.aclass('dg dg-noscroll dg-' + self.IDCSS + (config.height === 'fluid' ? ' dg-fluid' : ''));
 
 		self.find('script').each(function() {
 			var el = $(this);
@@ -318,7 +308,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		sheader = self.find('.dg-header-scrollbar');
 		sbody = self.find('.dg-body-scrollbar');
 
-		self.scrollbarY = SCROLLBAR(sbody, { visibleY: true, orientation: 'y', controls: container, marginY: isMOBILE ? 0 : 54 });
+		self.scrollbarY = config.height !== 'fluid' ? SCROLLBAR(sbody, { visibleY: true, orientation: 'y', controls: container, marginY: isMOBILE ? 0 : 54 }) : null;
 		self.scrollbarX = SCROLLBAR(sheader, { visibleX: true, orientation: 'x', controls: container });
 
 		// self.scrollbar.sync(sheader, 'x');
@@ -1079,7 +1069,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 				col.templatecustom = true;
 				col.template = TC((col.template.indexOf('<button') === -1 ? ('<div class="dg-value' + cls + '">{0}</div>') : '{0}').format(col.template));
 			} else
-				col.template = TC(('<div class="' + (isbool ? 'dg-bool' : 'dg-value') + cls + '"' + (config.allowtitles ? ' title="{{ {0} }}"' : '') + '>{{ {0} }}</div>').format(col.name + (col.currency ? ' | currency(\'{0}\')'.format(col.currency) : col.format != null ? ' | format({0})'.format(col.format && typeof(col.format) === 'string' ? ('\'' + col.format + '\'') : col.format) : '') + (col.empty ? ' | def({0})'.format(col.empty === true || col.empty == '1' ? '' : ('\'' + col.empty + '\'')) : '') + (isbool ? ' | ui_datagrid_checkbox' : '') + (col.colorize ? (' | ui_datagrid_colorize(' + (col.currency || col.format ? 0 : 1) + ')') : '')));
+				col.template = TC(('<div class="' + (isbool ? 'dg-bool' : 'dg-value') + cls + '"' + (config.allowtitles ? ' title="{{ {0} }}"' : '') + '>{{ {0} }}</div>').format(col.name + (col.currency ? ' | currency(\'{0}\')'.format(col.currency) : col.format != null ? ' | format({0})'.format(col.format && typeof(col.format) === 'string' ? ('\'' + col.format + '\'') : col.format) : '') + (col.empty ? ' | def({0})'.format(col.empty === true || col.empty == '1' ? '' : ('\'' + col.empty + '\'')) : '') + (isbool ? ' | ui_datagrid_checkbox' : '')));
 
 			if (col.header)
 				col.header = TC(col.header);
@@ -1196,12 +1186,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 
 	self.redraw = function(update) {
 		var x = self.scrollbarX.scrollLeft();
-		var y = self.scrollbarY.scrollTop();
+		var y = self.scrollbarY ? self.scrollbarY.scrollTop() : 0;
 		isredraw = update ? 2 : 1;
 		self.refreshfilter();
 		isredraw = 0;
 		self.scrollbarX.scrollLeft(x);
-		self.scrollbarY.scrollTop(y);
+		self.scrollbarY && self.scrollbarY.scrollTop(y);
 	};
 
 	self.redrawrow = function(oldrow, newrow) {
@@ -1319,7 +1309,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		for (var i = 0, length = rows.length; i < length; i++)
 			output.push(self.renderrow(i, rows[i], plus));
 
-		var min = (((opt.height - 120) / config.rowheight) >> 0) + 1;
+		var min = ((((opt.height || config.minheight) - 120) / config.rowheight) >> 0) + 1;
 		var is = output.length < min;
 		if (is) {
 			for (var i = output.length; i < min + 1; i++)
@@ -1330,7 +1320,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 
 		if (noscroll) {
 			self.scrollbarX.scrollLeft(0);
-			self.scrollbarY.scrollTop(0);
+			self.scrollbarY && self.scrollbarY.scrollTop(0);
 		}
 
 		opt.render = output;
@@ -1460,6 +1450,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 				el = self.element.parent();
 				opt.height = (el.height() - config.margin);
 				break;
+			case 'fluid':
+				opt.height = (opt.rows ? opt.rows.length : 0) * config.rowheight;
+				break;
 			default:
 				if (config.height > 0) {
 					opt.height = config.height;
@@ -1474,6 +1467,12 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		var h = opt.height - footerh;
 		var sh = SCROLLBARWIDTH();
 
+		if (config.height === 'fluid') {
+			var mh = config.minheight;
+			if (h < mh)
+				h = mh;
+		}
+
 		var ismobile = isMOBILE && isTOUCH;
 
 		if (resizecache.mobile !== ismobile && !config.noborder) {
@@ -1487,7 +1486,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		}
 
 		var tmpsh = h - (sh ? (sh + self.scrollbarX.thinknessX - 2) : (footerh - 2));
-
 		resizecache.tmpsh = h;
 		sbody.css('height', tmpsh + self.scrollbarX.marginY + (config.exec && self.scrollbarX.size.empty ? footerh : 0));
 
@@ -1541,7 +1539,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 		}
 
 		self.scrollbarX.resize();
-		self.scrollbarY.resize();
+		self.scrollbarY && self.scrollbarY.resize();
 
 		ready = true;
 		// header.parent().css('width', self.scrollbar.area.width());
@@ -1589,7 +1587,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;clusterize:true;l
 
 			if (opt.scroll) {
 
-				if ((/y/).test(opt.scroll))
+				if (self.scrollbarY && (/y/).test(opt.scroll))
 					self.scrollbarY.scrollTop(0);
 
 				if ((/x/).test(opt.scroll)) {
