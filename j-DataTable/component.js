@@ -1,4 +1,4 @@
-COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# items,# items;pluralizepages:# pages,# page,# pages,# pages;unhighlight:0;colwidth:150;rowheight:24;clickid:id;minheight:300', function(self, config, cls) {
+COMPONENT('datatable', 'height:parent;margin:0;pluralizeitems:# items,# item,# items,# items;pluralizepages:# pages,# page,# pages,# pages;unhighlight:0;colwidth:150;rowheight:24;clickid:id;minheight:300', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var container_rows;
@@ -9,6 +9,7 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 	var temp = {};
 
 	self.init = function() {
+
 		Thelpers.ui_datatable_checkbox = function(val) {
 			return ('<div class="{0}-checkbox' + (val ? ' {0}-checkbox-checked' : '') + '"><i class="fa fa-check"></i></div>').format(cls);
 		};
@@ -49,7 +50,7 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 		container_rows = self.find(cls2 + '-rows');
 		container_pages = self.find(cls2 + '-pagination');
 
-		var p = config.height || config.parent;
+		var p = config.height;
 		self.scrollbar = SCROLLBAR(container_rows.parent(), { onscroll: self.onscroll, visibleX: 1, visibleY: p === 'fluid' ? 0 : 1 });
 
 		self.event('click', cls2 + '-sortable', function() {
@@ -320,15 +321,26 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 
 	self.resizeforce = function() {
 
-		var parent = config.height > 0 ? self.parent() : config.height === 'fluid' ? null : self.parent(config.height);
+		var parent = config.height > 0 ? self.parent() : config.height === 'fluid' || config.height === 'auto' ? null : self.parent(config.height);
 		var width = parent ? parent.width() : self.parent().width();
-		var height = config.height > 0 ? (config.height - config.margin) : parent ? (parent.height() - container_cols.height() - container_pages.height() - config.margin) : 0;
+		var height = 0;
+		var wh;
+
+		if (config.height > 0)
+			height = (config.height - config.margin);
+		else if (config.height === 'auto') {
+			wh = (config.parent ? self.parent(config.parent).height() : WH) - self.element.offset().top;
+		} else if (parent)
+			wh = parent.height();
+
+		if (wh)
+			height = (wh - container_cols.height() - container_pages.height() - config.margin);
 
 		if (meta.rows) {
 
 			var h = meta.rows.length * config.rowheight;
 
-			if (!parent)
+			if (!parent && config.height !== 'auto')
 				height = h;
 
 			var diff = parent ? Math.ceil((height - h) / config.rowheight) : Math.ceil((config.minheight - h) / config.rowheight);
@@ -361,7 +373,6 @@ COMPONENT('datatable', 'parent:parent;margin:0;pluralizeitems:# items,# item,# i
 		}
 
 		if (!parent) {
-			height = h;
 			if (height < config.minheight)
 				height = config.minheight;
 		}

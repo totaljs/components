@@ -28,7 +28,8 @@ __Configuration__:
 - `pluralizepages` {String} pluralization for pages (optional, default: `# pages,# page,# pages,# pages`)
 - `pluralizeitems` {String} pluralization for items (optional, default: `# items,# item,# items,# items`)
 - `height` {Number/String} height of grid, supported values: `auto` (default), __NEW__ `fluid`, `parent` or `NUMBER` as height or `selector` for jQuery.closest()
-- __NEW__ `minheight` {Number} minimal height of grid, works ony with `fluid` height (default: `300`)
+- __NEW__ `minheight` {Number} minimal height of grid, works with `fluid` and `auto` height (default: `300`)
+- __NEW__ `parent` {String} selector for `auto` height option (default: `window`)
 - `margin` {Number} a top margin for height (optional, default: `0`)
 - `click` {String} a link to `function(row, grid, row_el)`, it's executed if the user clicks on a row
 - `highlight` {Boolean} each selected row (after `click`) will be highlighted (default: `false`)
