@@ -9,6 +9,7 @@ __Configuration__:
 - `class` {String} this class will be used if the element is not found (default: `hidden`)
 - `delay` {Number} typing delay (default: `50` ms)
 - `exec` {String} a link to method which will be evaluated if the component searches for something
+- __NEW__ `datasource` {String} a path to data-source for watching of changes
 
 __Good to know__:
 

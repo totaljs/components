@@ -1,6 +1,13 @@
 COMPONENT('search', 'class:hidden;delay:50;attribute:data-search', function(self, config, cls) {
 
 	self.readonly();
+
+	self.make = function() {
+		config.datasource && self.datasource(config.datasource, function() {
+			self.refresh();
+		});
+	};
+
 	self.setter = function(value) {
 
 		if (!config.selector || !config.attribute || value == null)
