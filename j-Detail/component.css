@@ -1,6 +1,6 @@
 .ui-detail-container { padding: 0 0 20px 0; }
-.ui-detail-group:first-child { margin-top: 10px; }
-.ui-detail-group:lastchild-child section { margin-bottom: 0; }
+.ui-detail-group:first-child label { margin-top: 10px; }
+.ui-detail-group:last-child section { margin-bottom: 0; }
 .ui-detail-group { padding: 0; margin-bottom: 20px; border: 1px solid #E0E0E0; border-radius: 2px; }
 .ui-detail-group label { display: block; padding: 10px 15px; font-size: 16px; font-weight: bold; background-color: #F8F8F8; border-bottom: 1px solid #E0E0E0; }
 .ui-detail-group label i { width: 22px; }
