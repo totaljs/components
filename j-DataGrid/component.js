@@ -1450,8 +1450,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 		switch (config.height) {
 			case 'auto':
+				var wh = config.parent ? self.parent(config.parent).height() : WH;
 				el = self.element;
-				opt.height = (WH - (el.offset().top + config.margin));
+				opt.height = (wh - (el.offset().top + config.margin));
 				break;
 			case 'window':
 				opt.height = WH - config.margin;
@@ -1478,6 +1479,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 		var sh = SCROLLBARWIDTH();
 
 		if (config.height === 'fluid') {
+			var mh = config.minheight;
+			if (h < mh)
+				h = mh;
+		} else if (config.height === 'auto') {
 			var mh = config.minheight;
 			if (h < mh)
 				h = mh;
