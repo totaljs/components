@@ -620,6 +620,12 @@ EXTENSION('flow:operations', function(self, config) {
 		return true;
 	};
 
+	self.op.modify = function(instance, type) {
+		if (!instance.changes)
+			instance.changes = {};
+		instance.changes[type] = 1;
+	};
+
 	self.op.disconnect = function(fromid, toid, fromindex, toindex, noundo) {
 
 		if (typeof(fromid) === 'object') {
@@ -637,6 +643,9 @@ EXTENSION('flow:operations', function(self, config) {
 			return false;
 
 		var ac = a.instance;
+
+		self.op.modify(a.instance, 'disconnect');
+		self.op.modify(b.instance, 'disconnect');
 
 		toindex += '';
 		fromindex += '';
@@ -869,6 +878,7 @@ EXTENSION('flow:components', function(self, config) {
 			data.onmove && data.onmove(drag.target, data);
 			config.onmove && EXEC(self.makepath(config.onmove), drag.target, data);
 			self.op.modified();
+			self.op.modify(data, 'move');
 			// self.el.lines.find('.from{0},.to{0}'.format(D + drag.id)).rclass('highlight');
 		}
 
@@ -982,6 +992,7 @@ EXTENSION('flow:connections', function(self, config) {
 			else
 				delete model.paused[key];
 
+			self.op.modify(model[drag.pos.id], 'pause');
 			setTimeout2(self.ID + 'clean', self.op.clean, 2000);
 			self.op.modified();
 			return;
@@ -1140,6 +1151,8 @@ EXTENSION('flow:connections', function(self, config) {
 		if (ac.connections[key] == null)
 			ac.connections[key] = [];
 
+		self.op.modify(ac, 'connect');
+		self.op.modify(bc, 'connect');
 
 		var arr = ac.connections[key];
 		var bindex = b.index + '';
@@ -1267,9 +1280,10 @@ EXTENSION('flow:commands', function(self) {
 
 	self.command('flow.components.add', function(com) {
 		if (!com.id)
-			com.id = 'F' + Date.now() + '';
+			com.id = Date.now().toString(36);
 		var data = self.get();
 		data[com.id] = com;
+		self.op.modify(com, 'newbie');
 		self.op.modified();
 		self.refresh(true);
 	});
