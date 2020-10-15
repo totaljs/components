@@ -46,7 +46,7 @@ __Configuration__:
 - `filterlabel` {String} a default placeholder for all filters (optional)
 - `pluralizepages` {String} pluralization for pages (optional, default: `# pages,# page,# pages,# pages`)
 - `pluralizeitems` {String} pluralization for items (optional, default: `# items,# item,# items,# items`)
-- `height` {Number/String} height of grid, supported values: `auto` (default), __NEW__ `fluid`, `parent` or `NUMBER` as height or `selector` for jQuery.closest()
+- `height` {Number/String} height of grid, supported values: `auto` (default), __NEW__ `fluid`, `parent` (or `parent1`, `parent2`) or `NUMBER` as height or `selector` for jQuery.closest()
 - __NEW__ `minheight` {Number} minimal height of grid, works with `fluid` and `auto` height (default: `300`)
 - __NEW__ `parent` {String} selector for `auto` height option (default: `window`)
 - `margin` {Number} a top margin for height (optional, default: `0`)

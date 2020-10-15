@@ -1448,30 +1448,41 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 		var el;
 		var footerh = opt.footer = footer.length ? footer.height() : 0;
 
-		switch (config.height) {
-			case 'auto':
-				var wh = config.parent ? self.parent(config.parent).height() : WH;
-				el = self.element;
-				opt.height = (wh - (el.offset().top + config.margin));
-				break;
-			case 'window':
-				opt.height = WH - config.margin;
-				break;
-			case 'parent':
-				el = self.element.parent();
-				opt.height = (el.height() - config.margin);
-				break;
-			case 'fluid':
-				opt.height = (opt.rows ? opt.rows.length : 0) * config.rowheight;
-				break;
-			default:
-				if (config.height > 0) {
-					opt.height = config.height;
-				} else {
-					el = self.element.closest(config.height);
-					opt.height = ((el.length ? el.height() : 200) - config.margin);
-				}
-				break;
+		if (typeof(config.height) === 'string' && config.height.substring(0, 6) === 'parent') {
+
+			el = self.element.parent();
+
+			var count = +config.height.substring(6);
+			if (count) {
+				for (var i = 0; i < count; i++)
+					el = el.parent();
+			}
+
+			opt.height = (el.height() - config.margin);
+
+		} else {
+			switch (config.height) {
+				case 'auto':
+					var wh = config.parent ? self.parent(config.parent).height() : WH;
+					el = self.element;
+					opt.height = (wh - (el.offset().top + config.margin));
+					break;
+				case 'window':
+					opt.height = WH - config.margin;
+					break;
+				case 'fluid':
+					opt.height = (opt.rows ? opt.rows.length : 0) * config.rowheight;
+					break;
+				default:
+
+					if (config.height > 0) {
+						opt.height = config.height;
+					} else {
+						el = self.element.closest(config.height);
+						opt.height = ((el.length ? el.height() : 200) - config.margin);
+					}
+					break;
+			}
 		}
 
 		var mr = (vbody.parent().css('margin-right') || '').parseInt();
