@@ -22,6 +22,7 @@ __Configuration__:
 - `ondisconnect` {String} a path to method `fn(meta)`, it's executed when the two components are disconnected
 - `horizontal` {Boolean} outputs will be rendered horizontally (default: `false`)
 - `steplines` {Boolean} enables step lines (default: `false`)
+- `animationradius` {Boolean} animation radius in pixels (default: `6`)
 
 __Commands__:
 
@@ -36,6 +37,7 @@ __Commands__:
 - `flow.components.add` adds a new component, argument: `component_declaration`
 - `flow.components.find` finds a component, argument: `component_id`
 - `flow.clean` cleans data and non-exist connections
+- __NEW__ `flow.traffic(component_id, output_id, [count_circles], [speed], [radius])`
 
 __Adding a new component__:
 

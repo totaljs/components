@@ -25,6 +25,7 @@
 .ui-flow svg { margin: -1px 0 0 -1px; }
 .ui-flow-grid { stroke: #F8F8F8; stroke-width: 2; }
 .ui-flow .output.connected i.fa-times, .ui-flow .input.connected i.fa-times, .ui-flow .output i.fa-times, .ui-flow .input i.fa-times { background-color: red !important; color: #FFFFFF; }
+.ui-flow .traffic { fill: #4285F4; }
 
 .ui-dark .ui-flow-grid { stroke: #303030; }
 .ui-dark .ui-flow .component { border-color: #404040; background-color: #303030; }

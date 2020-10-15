@@ -1,4 +1,4 @@
-COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horizontal:0;steplines:0', function(self, config) {
+COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horizontal:0;steplines:0;animationradius:6', function(self, config) {
 
 	// config.infopath {String}, output: { zoom: Number, selected: Object }
 	// config.undopath {String}, output: {Object Array}
@@ -14,6 +14,8 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 	self.op = {};     // operations
 	self.cache = {};  // cache
 	self.paused = {};
+	self.animations = {};
+	self.animations_token = 0;
 	self.info = { zoom: 100 };
 	self.undo = [];
 	self.redo = [];
@@ -21,8 +23,9 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 	self.make = function() {
 		self.aclass(cls);
 
-		self.html('<svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="svg-grid" width="{grid}" height="{grid}" patternunits="userSpaceOnUse"><path d="M {grid} 0 L 0 0 0 {grid}" fill="none" class="ui-flow-grid" shape-rendering="crispEdges" /></pattern></defs><rect width="100%" height="100%" fill="url(#svg-grid)" shape-rendering="crispEdges" /><g class="lines"></g></svg>'.arg(config));
+		self.html('<svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="svg-grid" width="{grid}" height="{grid}" patternunits="userSpaceOnUse"><path d="M {grid} 0 L 0 0 0 {grid}" fill="none" class="ui-flow-grid" shape-rendering="crispEdges" /></pattern></defs><rect width="100%" height="100%" fill="url(#svg-grid)" shape-rendering="crispEdges" /><g class="lines"></g><g class="anim"></g></svg>'.arg(config));
 		self.el.svg = self.find('svg');
+		self.el.anim = self.el.svg.find('g.anim');
 		self.el.lines = self.el.svg.find('g.lines');
 		self.template = Tangular.compile('<div class="component invisible{{ if inputs && inputs.length }} hasinputs{{ fi }}{{ if outputs && outputs.length }} hasoutputs{{ fi }}" data-id="{{ id }}" style="top:{{ y }}px;left:{{ x }}px"><div class="area">{{ if inputs && inputs.length }}<div class="inputs">{{ foreach m in inputs }}<div class="input" data-index="{{ if m.id }}{{ m.id }}{{ else }}{{ $index }}{{ fi }}"><i class="fa component-io"></i></div>{{ end }}</div>{{ fi }}<div class="content">{{ html | raw }}</div>{{ if outputs && outputs.length }}<div class="outputs">{{ foreach m in outputs }}<div class="output" data-index="{{ if m.id }}{{ m.id }}{{ else }}{{ $index }}{{ fi }}"><i class="fa component-io"></i><span>{{ if m.name }}{{ m.name | raw }}{{ else }}{{ m | raw }}{{ fi }}</span></div>{{ end }}</div>{{ fi }}</div></div>');
 		self.aclass(cls + '-' + (config.horizontal ? 'h' : 'v'));
@@ -117,6 +120,8 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 
 		self.cache = {};
 		self.paused = {};
+		self.animations_token = Date.now();
+		self.animations = {};
 
 		for (var i = 0; i < keys.length; i++) {
 
@@ -163,11 +168,12 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 
 			if (rebuild) {
 				tmp && tmp.el.aclass('removed').attrd('id', 'removed');
-				var html = self.template(com);
+				var html = $(self.template(com));
 				self.append(html);
 				el = self.find('.component[data-id="{id}"]'.arg(com));
 				com.onmake && com.onmake(el, com);
 				onmake && onmake(el, com);
+				com.element = html.find('.content').eq(0);
 				if (!ischanged && com.connections && Object.keys(com.connections).length)
 					ischanged = true;
 				if (type === 1)
@@ -1224,7 +1230,7 @@ EXTENSION('flow:connections', function(self, config) {
 
 });
 
-EXTENSION('flow:commands', function(self) {
+EXTENSION('flow:commands', function(self, config) {
 
 	var zoom = 1;
 
@@ -1266,6 +1272,74 @@ EXTENSION('flow:commands', function(self) {
 	self.command('flow.selected.remove', function() {
 		remove();
 		self.op.unselect();
+	});
+
+	function translate_path(count, path) {
+		var l = path.getTotalLength();
+		var t = (l / 100) * count;
+		var p = path.getPointAtLength(t);
+		return 'translate(' + p.x + ',' + p.y + ')';
+	}
+
+
+	self.command('flow.traffic', function(componentid, outputid, count, speed, radius) {
+
+		var id = componentid + '__' + outputid;
+		var path = self.el.lines.find('.from__' + id);
+
+		if (!path.length)
+			return;
+
+		var add = function(next) {
+
+			var el = self.el.anim.asvg('circle').aclass('traffic').attr('r', radius || config.animationradius);
+			var dom = el[0];
+
+			dom.$path = path[0];
+			dom.$count = 0;
+			dom.$token = self.animations_token;
+
+			if (self.animations[id])
+				self.animations[id]++;
+			else
+				self.animations[id] = 1;
+
+			var fn = function() {
+
+				dom.$count += (speed || 3);
+
+				if (document.hidden || !dom.$path || dom.$token !== self.animations_token) {
+					el.remove();
+					self.animations[id]--;
+					return;
+				}
+
+				if (dom.$count >= 100) {
+					self.animations[id]--;
+					el.remove();
+				} else
+					el.attr('transform', translate_path(dom.$count, dom.$path));
+
+				requestAnimationFrame(fn);
+			};
+
+			requestAnimationFrame(fn);
+			next && setTimeout(next, 100);
+		};
+
+		if (!count || count === 1) {
+			add();
+			return;
+		}
+
+		var arr = [];
+		for (var i = 0; i < count; i++)
+			arr.push(add);
+
+		arr.wait(function(fn, next) {
+			fn(next);
+		});
+
 	});
 
 	self.command('flow.selected.clear', function() {
