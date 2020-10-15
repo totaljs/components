@@ -1,0 +1,17 @@
+{
+	"datecreated": "2020-10-15T14:45:00.000Z",
+	"dateupdated": null,
+	"name": "j-InfoWindows",
+	"tags": [
+		"windows"
+	],
+	"color": "white",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

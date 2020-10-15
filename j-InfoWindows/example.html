@@ -1,0 +1,27 @@
+<style>
+	body{padding:0;margin:0;overflow:hidden;}
+</style>
+
+<div data---="infowindows__mywindows"></div>
+
+<script>
+
+	var mywindows = [];
+
+	mywindows.push({
+		id: 'A',
+		offset: { x: 200, y: 100, width: 600, height: 400, minwidth: 200, minheight: 200 },
+		title: 'A',
+		html: '<div class="padding">Lorem ipsum dolor sit amet.</div>',
+		actions: { minimize: true, maximize: true, move: true, resize: true, close: true }
+	});
+
+	mywindows.push({
+		id: 'B',
+		offset: { x: 600, y: 300, width: 600, height: 400, minwidth: 200, minheight: 200 },
+		title: 'B',
+		html: '<div class="padding">Lorem ipsum dolor sit amet.</div>',
+		actions: { minimize: true, maximize: false, move: true, resize: true, close: true }
+	});
+
+</script>
