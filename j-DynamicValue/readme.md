@@ -23,6 +23,7 @@ This component is very special component. It can keep a value for example `Numbe
 - `dirempty` {String} adds an empty field for j-Directory
 - `dirkey` {String} a key name for reading of text in dirsource (default: `name`)
 - `dirvalue` {String} a key name for reading of value in dirsource (default: `id`)
+- `onresponse` {String} a path to property or `function(response)`, executed if the response is processed (default: `undefined`)
 
 ### AJAX usage
 
@@ -45,6 +46,10 @@ If the `value` will be changed then the component performs `config.exec` for obt
 	}
 </script>
 ```
+
+__Good to know__:
+
+- `component.response` contains a raw response from the result
 
 ### Author
 

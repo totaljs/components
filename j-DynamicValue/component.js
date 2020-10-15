@@ -134,6 +134,8 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function
 			body.html(val);
 
 		config.loading && SETTER('loading', 'hide', 200);
+		self.response = value;
+		config.onresponse && SEEX(self.makepath(config.onresponse), value);
 	};
 
 	self.setter = function(value, path, type) {
