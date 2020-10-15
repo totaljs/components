@@ -1,40 +1,27 @@
-/*
-.ui-windows { width: 700px; height: 700px; overflow: hidden; position: absolute; border: 2px solid red; left: 500px; top: 100px; }
-*/
-.ui-windows-item { position: absolute; border-radius: 2px; box-shadow: 0 10px 20px rgba(0,0,0,0.03); background-color: #FFFFFF; z-index: 80; }
-.ui-windows-title { border: 1px solid #E0E0E0; border-radius: 2px 2px 0 0; height: 32px; }
-.ui-windows-control { float: right; width: 30px; text-align: center; border-left: 1px solid #E0E0E0; line-height: 30px; cursor: pointer; font-size: 13px; }
-.ui-windows-control:hover { background-color: #F9F9F9; }
-.ui-windows-control.fa-times { color: red; }
-.ui-windows-title span { cursor: default; line-height: 31px; display: block; margin-right: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 0 0 10px; font-weight: bold; }
-.ui-windows-nomove .ui-windows-title span { cursor: default; }
-.ui-windows-title span i { margin-right: 5px; }
-.ui-windows-body { border: 1px solid #E0E0E0; border-top: 0; border-radius: 0 0 2px 2px; overflow-x: hidden; }
-.ui-windows-dragged { z-index: 100; }
-.ui-windows-dragged .ui-windows-title { background-color: #FAFAFA; }
-.ui-windows-focused { z-index: 90; }
-.ui-windows-maximized { box-shadow: none; }
-.ui-windows-maximized .ui-windows-title { border-left: 0; border-right: 0; border-radius: 0; border-top: 0 }
-.ui-windows-maximized .ui-windows-control { height: 31px; }
-.ui-windows-maximized .ui-windows-body { border: 0; }
-.ui-windows-maximized .ui-windows-title .fa-window-maximize:before { content: '\f2d2'; }
-.ui-windows-minimized .ui-windows-body { display: none; }
-.ui-windows-nominimize .ui-windows-control[data-name='minimize'] { display: none; }
-.ui-windows-nomaximize .ui-windows-control[data-name='maximize'] { display: none; }
-.ui-windows-noclose .ui-windows-control[data-name='close'] { display: none; }
-.ui-windows-nomenu .ui-windows-control[data-name='menu'] { display: none; }
-.ui-windows-noresize .ui-windows-resize { display: none; }
-.ui-windows-minimized .ui-windows-resize { display: none; }
-.ui-windows-resize { position: absolute; width: 5px; height: 5px; }
-.ui-windows-resize-tl { left: 0; top: 0; cursor: nwse-resize; }
-.ui-windows-resize-tr { right: 0; top: 0; cursor: nesw-resize; }
-.ui-windows-resize-bl { left: 0; bottom: 0; cursor: nesw-resize; }
-.ui-windows-resize-br { right: 0; bottom: 0; cursor: nwse-resize; }
-.ui-windows-block iframe, .ui-windows-block webview { pointer-events: none; }
+.ui-infowindows-item { position: absolute; border-radius: 2px; box-shadow: 0 10px 20px rgba(0,0,0,0.03); background-color: #FFFFFF; z-index: 80; }
+.ui-infowindows-title { border: 1px solid #E0E0E0; border-radius: 2px 2px 0 0; height: 22px; user-select: none; color: gray; }
+.ui-infowindows-control { float: left; width: 20px; text-align: center; border-right: 1px solid #E0E0E0; line-height: 20px; cursor: pointer; font-size: 10px; }
+.ui-infowindows-control:hover { background-color: #F9F9F9; }
+.ui-infowindows-control.fa-times { color: red; }
+.ui-infowindows-title span { cursor: default; line-height: 21px; display: block; margin: 0 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 0 0 5px; font-size: 11px; text-align: center; }
+.ui-infowindows-nomove .ui-infowindows-title span { cursor: default; }
+.ui-infowindows-title span i { margin-right: 5px; }
+.ui-infowindows-body { border: 1px solid #E0E0E0; border-top: 0; border-radius: 0 0 2px 2px; overflow: hidden; }
+.ui-infowindows-noclose .ui-infowindows-control[data-name='close'] { display: none; }
+.ui-infowindows-noresize .ui-infowindows-resize { display: none; }
+.ui-infowindows-dragged { z-index: 100; }
+.ui-infowindows-dragged .ui-infowindows-title { background-color: #FAFAFA; }
+.ui-infowindows-focused { z-index: 90; }
+.ui-infowindows-resize { position: absolute; width: 5px; height: 5px; }
+.ui-infowindows-resize-tl { left: 0; top: 0; cursor: nwse-resize; }
+.ui-infowindows-resize-tr { right: 0; top: 0; cursor: nesw-resize; }
+.ui-infowindows-resize-bl { left: 0; bottom: 0; cursor: nesw-resize; }
+.ui-infowindows-resize-br { right: 0; bottom: 0; cursor: nwse-resize; }
+.ui-infowindows-block iframe, .ui-infowindows-block webview { pointer-events: none; }
 
-.ui-dark .ui-windows-item { background-color: #202020; box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
-.ui-dark .ui-windows-title { border-color: #404040; }
-.ui-dark .ui-windows-body { border-color: #404040; }
-.ui-dark .ui-windows-control { border-color: #404040; }
-.ui-dark .ui-windows-control:hover { background-color: #272727; }
-.ui-dark .ui-windows-dragged .ui-windows-title { background-color: #272727; }
+.ui-dark .ui-infowindows-item { background-color: #202020; box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+.ui-dark .ui-infowindows-title { border-color: #404040; color: #777777; }
+.ui-dark .ui-infowindows-body { border-color: #404040; }
+.ui-dark .ui-infowindows-control { border-color: #404040; }
+.ui-dark .ui-infowindows-control:hover { background-color: #272727; }
+.ui-dark .ui-infowindows-dragged .ui-infowindows-title { background-color: #272727; }
