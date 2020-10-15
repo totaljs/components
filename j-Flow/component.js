@@ -74,7 +74,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			meta.offsetY = e.offsetY;
 			meta.el = drag.el;
 			meta.target = $(e.target);
-			config.ondrop && EXEC(config.ondrop, meta, self);
+			config.ondrop && EXEC(self.makepath(config.ondrop), meta, self);
 		};
 
 		$(document).on('dragstart', '[draggable]', drag.handler).on('touchstart', '[draggable]', drag.handler);
@@ -457,7 +457,7 @@ EXTENSION('flow:operations', function(self, config) {
 				meta.toindex = conn.index;
 				next.instance.ondisconnect && next.instance.ondisconnect.call(next.instance, meta);
 				removed.instance.ondisconnect && removed.instance.ondisconnect.call(removed.instance, meta);
-				config.ondisconnect && EXEC(config.ondisconnect, meta);
+				config.ondisconnect && EXEC(self.makepath(config.ondisconnect), meta);
 			}
 
 			return is;
@@ -561,7 +561,7 @@ EXTENSION('flow:operations', function(self, config) {
 			return false;
 
 		tmp.instance.onremove && tmp.instance.onremove(tmp.el, tmp.instance);
-		config.onremove && EXEC(config.onremove, tmp.el, tmp.instance);
+		config.onremove && EXEC(self.makepath(config.onremove), tmp.el, tmp.instance);
 
 		delete self.cache[id];
 		delete self.get()[id];
@@ -715,7 +715,7 @@ EXTENSION('flow:operations', function(self, config) {
 	};
 
 	self.op.refreshinfo = function() {
-		config.infopath && SEEX(config.infopath, self.info);
+		config.infopath && SEEX(self.makepath(config.infopath), self.info);
 	};
 
 	self.op.undo = function(value) {
@@ -724,7 +724,7 @@ EXTENSION('flow:operations', function(self, config) {
 			if (self.undo.length > 50)
 				self.undo.shift();
 		}
-		config.undopath && SEEX(config.undopath, self.undo);
+		config.undopath && SEEX(self.makepath(config.undopath), self.undo);
 	};
 
 	self.op.redo = function(value) {
@@ -733,7 +733,7 @@ EXTENSION('flow:operations', function(self, config) {
 			if (self.redo.length > 50)
 				self.redo.shift();
 		}
-		config.redopath && SEEX(config.redopath, self.redo);
+		config.redopath && SEEX(self.makepath(config.redopath), self.redo);
 	};
 
 	self.op.resize = function() {
@@ -867,7 +867,7 @@ EXTENSION('flow:components', function(self, config) {
 			data.x = drag.css.left;
 			data.y = drag.css.top;
 			data.onmove && data.onmove(drag.target, data);
-			config.onmove && EXEC(config.onmove, drag.target, data);
+			config.onmove && EXEC(self.makepath(config.onmove), drag.target, data);
 			self.op.modified();
 			// self.el.lines.find('.from{0},.to{0}'.format(D + drag.id)).rclass('highlight');
 		}
@@ -1168,7 +1168,7 @@ EXTENSION('flow:connections', function(self, config) {
 		meta.path = path;
 		ac.onconnect && ac.onconnect.call(ac, meta);
 		bc.onconnect && bc.onconnect.call(bc, meta);
-		config.onconnect && EXEC(config.onconnect, meta);
+		config.onconnect && EXEC(self.makepath(config.onconnect), meta);
 
 		if (!init) {
 			self.op.undo({ type: 'connect', fromid: meta.fromid, toid: meta.toid, fromindex: meta.fromindex + '', toindex: meta.toindex + '' });
