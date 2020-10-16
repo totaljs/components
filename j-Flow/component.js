@@ -1324,7 +1324,7 @@ EXTENSION('flow:commands', function(self, config) {
 			};
 
 			requestAnimationFrame(fn);
-			next && setTimeout(next, 100);
+			next && setTimeout(next, 50);
 		};
 
 		if (!count || count === 1) {
