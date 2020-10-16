@@ -1281,59 +1281,65 @@ EXTENSION('flow:commands', function(self, config) {
 		return 'translate(' + p.x + ',' + p.y + ')';
 	}
 
+	self.command('flow.traffic', function(id, opt) {
 
-	self.command('flow.traffic', function(componentid, outputid, count, speed, radius) {
+		if (!opt)
+			opt = { speed: 3, count: 1, delay: 50 };
 
-		var id = componentid + '__' + outputid;
 		var path = self.el.lines.find('.from__' + id);
 
-		if (!path.length)
+		if (!path.length || (self.animations[id] > (opt.limit || 20)))
 			return;
 
 		var add = function(next) {
 
-			var el = self.el.anim.asvg('circle').aclass('traffic').attr('r', radius || config.animationradius);
-			var dom = el[0];
+			for (var i = 0; i < path.length; i++) {
 
-			dom.$path = path[0];
-			dom.$count = 0;
-			dom.$token = self.animations_token;
+				var el = self.el.anim.asvg('circle').aclass('traffic').attr('r', opt.radius || config.animationradius);
+				var dom = el[0];
 
-			if (self.animations[id])
-				self.animations[id]++;
-			else
-				self.animations[id] = 1;
+				dom.$path = path[i];
+				dom.$count = 0;
+				dom.$token = self.animations_token;
 
-			var fn = function() {
+				if (self.animations[id])
+					self.animations[id]++;
+				else
+					self.animations[id] = 1;
 
-				dom.$count += (speed || 3);
+				(function(self, el, dom, opt) {
+					var fn = function() {
 
-				if (document.hidden || !dom.$path || dom.$token !== self.animations_token) {
-					el.remove();
-					self.animations[id]--;
-					return;
-				}
+						dom.$count += (opt.speed || 3);
 
-				if (dom.$count >= 100) {
-					self.animations[id]--;
-					el.remove();
-				} else
-					el.attr('transform', translate_path(dom.$count, dom.$path));
+						if (document.hidden || !dom.$path || dom.$token !== self.animations_token) {
+							el.remove();
+							self.animations[id]--;
+							return;
+						}
 
-				requestAnimationFrame(fn);
-			};
+						if (dom.$count >= 100) {
+							self.animations[id]--;
+							el.remove();
+						} else
+							el.attr('transform', translate_path(dom.$count, dom.$path));
 
-			requestAnimationFrame(fn);
-			next && setTimeout(next, 50);
+						requestAnimationFrame(fn);
+					};
+					requestAnimationFrame(fn);
+				})(self, el, dom, opt);
+			}
+
+			next && setTimeout(next, opt.delay || 50);
 		};
 
-		if (!count || count === 1) {
+		if (!opt.count || opt.count === 1) {
 			add();
 			return;
 		}
 
 		var arr = [];
-		for (var i = 0; i < count; i++)
+		for (var i = 0; i < opt.count; i++)
 			arr.push(add);
 
 		arr.wait(function(fn, next) {
