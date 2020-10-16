@@ -1312,7 +1312,7 @@ EXTENSION('flow:commands', function(self, config) {
 
 						dom.$count += (opt.speed || 3);
 
-						if (document.hidden || !dom.$path || dom.$token !== self.animations_token) {
+						if (document.hidden || !dom.$path || !dom.$path.parentNode || dom.$token !== self.animations_token) {
 							el.remove();
 							self.animations[id]--;
 							return;
