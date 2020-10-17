@@ -218,6 +218,10 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			self.find('.removed').remove();
 		}, 300);
 
+		self.undo = [];
+		self.redo = [];
+		self.op.undo();
+		self.op.redo();
 		self.op.refreshinfo();
 	};
 
@@ -1481,12 +1485,14 @@ EXTENSION('flow:commands', function(self, config) {
 
 	// Resets editor
 	self.command('flow.reset', function() {
-		self.undo = [];
-		self.redo = [];
 		self.cache = {};
 		self.refresh();
 		self.info.selected = null;
 		self.op.refreshinfo();
+		self.undo = [];
+		self.redo = [];
+		self.op.undo();
+		self.op.redo();
 	});
 
 });
