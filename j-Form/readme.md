@@ -19,6 +19,8 @@ __Configuration__:
 - `zindex` {Number} can affect z-index (default: `12`)
 - `scrollbar` {Boolean} enables custom scrollbar (default: `true`)
 - `closeoutside` {Boolean} closes the form when the user clicks outside of the form (default: `false`)
+- __NEW__ `closeesc` {Boolean} closes the form when the user presses `ESC` key
+- __NEW__ `independent` {Boolean} closing doesn't depent on the condition according to the path
 
 __Good to know__:
 

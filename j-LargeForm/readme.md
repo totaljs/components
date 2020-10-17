@@ -21,6 +21,8 @@ __Configuration__:
 - `scrolltop` {Boolean} enables scrolling to top after form is displayed (default: `true`)
 - `style` {Number} supports two styles (1: classic (default), 2: bottom of for is without padding)
 - `closeoutside` {Boolean} closes the form when the user clicks outside of the form (default: `false`)
+- __NEW__ `closeesc` {Boolean} closes the form when the user presses `ESC` key
+- __NEW__ `independent` {Boolean} closing doesn't depent on the condition according to the path
 
 __Good to know__:
 

@@ -1,4 +1,4 @@
-COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0;scrolltop:1;closeoutside:0;style:1', function(self, config, cls) {
+COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var csspos = {};
@@ -65,6 +65,9 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0;scrolltop:1;
 	};
 
 	self.hide = function() {
+		if (config.independent)
+			self.hideforce();
+		self.esc(false);
 		self.set('');
 	};
 
@@ -161,11 +164,47 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0;scrolltop:1;
 		}
 	};
 
+	self.esc = function(bind) {
+		if (bind) {
+			if (!self.$esc) {
+				self.$esc = true;
+				$(W).on('keydown', self.esc_keydown);
+			}
+		} else {
+			if (self.$esc) {
+				self.$esc = false;
+				$(W).off('keydown', self.esc_keydown);
+			}
+		}
+	};
+
+	self.esc_keydown = function(e) {
+		if (e.which === 27 && !e.isPropagationStopped()) {
+			var val = self.get();
+			if (!val || config.if === val) {
+				e.preventDefault();
+				e.stopPropagation();
+				self.hide();
+			}
+		}
+	};
+
+	self.hideforce = function() {
+		if (!self.hclass('hidden')) {
+			self.aclass('hidden');
+			self.release(true);
+			self.find(cls2).rclass(cls + '-animate');
+			W.$$largeform_level--;
+		}
+	};
+
+	var allowscrollbars = function() {
+		$('html').tclass(cls + '-noscroll', !!$(cls2 + '-container').not('.hidden').length);
+	};
+
 	self.setter = function(value) {
 
-		setTimeout2(cls + '-noscroll', function() {
-			$('html').tclass(cls + '-noscroll', !!$(cls2 + '-container').not('.hidden').length);
-		}, 50);
+		setTimeout2(self.name + '-noscroll', allowscrollbars, 50);
 
 		var isHidden = value !== config.if;
 
@@ -183,10 +222,8 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0;scrolltop:1;
 		}, 10);
 
 		if (isHidden) {
-			self.aclass('hidden');
-			self.release(true);
-			self.find(cls2).rclass(cls + '-animate');
-			W.$$largeform_level--;
+			if (!config.independent)
+				self.hideforce();
 			return;
 		}
 
@@ -235,5 +272,7 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;visibleY:0;scrolltop:1;
 		setTimeout2(self.ID, function() {
 			self.css('z-index', (W.$$largeform_level * config.zindex) + 1);
 		}, 500);
+
+		config.closeesc && self.esc(true);
 	};
 });
