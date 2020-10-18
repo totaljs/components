@@ -61,7 +61,7 @@ COMPONENT('radiobuttonexpert', function(self, config, cls) {
 	};
 
 	self.validate = function(value) {
-		return config.disabled || !config.required ? true : !!value;
+		return (config.disabled || !config.required) ? true : !!value;
 	};
 
 	self.setter = function(value) {
