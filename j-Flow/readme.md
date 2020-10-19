@@ -23,6 +23,7 @@ __Configuration__:
 - `horizontal` {Boolean} outputs will be rendered horizontally (default: `false`)
 - `steplines` {Boolean} enables step lines (default: `false`)
 - `animationradius` {Boolean} animation radius in pixels (default: `6`)
+- `contextmenu` {String} a path to `function(e, type, instance)` (type can be `map` or `component`)
 
 __Commands__:
 

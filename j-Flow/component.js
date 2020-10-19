@@ -765,7 +765,7 @@ EXTENSION('flow:operations', function(self, config) {
 		$(W).on('resize', self.op.resize);
 });
 
-EXTENSION('flow:map', function(self) {
+EXTENSION('flow:map', function(self, config) {
 
 	var events = {};
 	var drag = {};
@@ -789,20 +789,38 @@ EXTENSION('flow:map', function(self) {
 	};
 
 	events.bind = function() {
-		self.element.on('mouseup', events.up);
-		self.element.on('mousemove', events.move);
-		self.element.on('touchend', events.up);
-		self.element.on('touchmove', events.movetouch);
+		if (!events.is) {
+			events.is = true;
+			self.element.on('mouseup', events.up);
+			self.element.on('mousemove', events.move);
+			self.element.on('touchend', events.up);
+			self.element.on('touchmove', events.movetouch);
+		}
 	};
 
 	events.unbind = function() {
-		self.element.off('mouseup', events.up);
-		self.element.off('mousemove', events.move);
-		self.element.off('touchend', events.up);
-		self.element.off('touchmove', events.movetouch);
+		if (events.is) {
+			events.is = false;
+			self.element.off('mouseup', events.up);
+			self.element.off('mousemove', events.move);
+			self.element.off('touchend', events.up);
+			self.element.off('touchmove', events.movetouch);
+		}
 	};
 
+	self.event('contextmenu', function(e) {
+		events.is && events.up();
+		config.contextmenu && SEEX(self.makepath(config.contextmenu), e, 'map');
+		e.preventDefault();
+		e.stopPropagation();
+	});
+
 	self.event('mousedown touchstart', function(e) {
+
+		if (events.is) {
+			events.up();
+			return;
+		}
 
 		if (e.target.tagName !== 'rect')
 			return;
@@ -896,20 +914,40 @@ EXTENSION('flow:components', function(self, config) {
 	};
 
 	events.bind = function() {
-		self.element.on('mouseup', events.up);
-		self.element.on('mousemove', events.move);
-		self.element.on('touchend', events.up);
-		self.element.on('touchmove', events.movetouch);
+		if (!events.is) {
+			events.is = true;
+			self.element.on('mouseup', events.up);
+			self.element.on('mousemove', events.move);
+			self.element.on('touchend', events.up);
+			self.element.on('touchmove', events.movetouch);
+		}
 	};
 
 	events.unbind = function() {
-		self.element.off('mouseup', events.up);
-		self.element.off('mousemove', events.move);
-		self.element.off('touchend', events.up);
-		self.element.off('touchmove', events.movetouch);
+		if (events.is) {
+			events.is = false;
+			self.element.off('mouseup', events.up);
+			self.element.off('mousemove', events.move);
+			self.element.off('touchend', events.up);
+			self.element.off('touchmove', events.movetouch);
+		}
 	};
 
+	self.event('contextmenu', '.area', function(e) {
+		events.is && events.up();
+		var el = $(this);
+		var id = el.closest('.component').attrd('id');
+		config.contextmenu && SEEX(self.makepath(config.contextmenu), e, 'component', self.cache[id].instance);
+		e.preventDefault();
+		e.stopPropagation();
+	});
+
 	self.event('mousedown touchstart', '.area', function(e) {
+
+		if (events.is) {
+			events.up();
+			return;
+		}
 
 		e.preventDefault();
 
