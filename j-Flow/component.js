@@ -822,7 +822,7 @@ EXTENSION('flow:map', function(self, config) {
 			return;
 		}
 
-		if (e.target.tagName !== 'rect')
+		if (e.button || e.target.tagName !== 'rect')
 			return;
 
 		var evt = e.touches ? e.touches[0] : e;
@@ -1095,6 +1095,9 @@ EXTENSION('flow:connections', function(self, config) {
 
 	self.event('mousedown touchstart', '.output,.input', function(e) {
 
+		if (e.button)
+			return;
+
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -1240,6 +1243,7 @@ EXTENSION('flow:connections', function(self, config) {
 	};
 
 	self.event('mousedown touchstart', '.connection', function(e) {
+
 		var el = $(this);
 		var cls = 'connection-selected';
 
