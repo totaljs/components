@@ -106,6 +106,9 @@
 .dg-colorize { padding: 2px 3px; border-radius: 2px; color: #FFF; }
 .dg-fluid { border-right: 1px solid #E0E0E0; }
 .dg-noborder.dg-fluid { border-right: 0; }
+.dg-monospace { font-family: Menlo,Consolas,monospace; font-size: 11px; }
+.dg-link { color: inherit; }
+.dg-link i { margin-right: 5px; }
 
 .ui-dark .dg, .ui-dark .dg-body { background-color: #232323; }
 .ui-dark .dg-container { border-top-color: #353535; border-left-color: #353535; }

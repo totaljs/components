@@ -1,4 +1,4 @@
-COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clusterize:true;limit:80;filterlabel:Filter;height:auto;margin:0;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;unhighlight:true;autoselect:false;buttonapply:Apply;buttonreset:Reset;allowtitles:false;fullwidth_xs:true;clickid:id;dirplaceholder:Search', function(self, config) {
+COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clusterize:true;limit:80;filterlabel:Filter;height:auto;margin:0;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;unhighlight:true;autoselect:false;buttonapply:Apply;buttonreset:Reset;allowtitles:false;fullwidth_xs:true;clickid:id;dirplaceholder:Search;autoformat:1', function(self, config) {
 
 	var opt = { filter: {}, filtercache: {}, filtercl: {}, filtervalues: {}, scroll: false, selected: {}, operation: '' };
 	var header, vbody, footer, container, ecolumns, isecolumns = false, ready = false;
@@ -128,7 +128,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 				}
 
 				self.scroll && self.scroll();
-				config.change && SEEX(self.grid.makepath(config.change), null, null, self.grid);
+				config.change && self.grid.SEEX(config.change, null, null, self.grid);
 			}
 		};
 
@@ -175,9 +175,21 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 		$(W).on('resize', function() {
 			setTimeout2('datagridresize', function() {
-				SETTER('datagrid', 'resize');
+				SETTER('datagrid/resize');
 			}, 500);
 		});
+
+		Thelpers.ui_datagrid_autoformat = function(val, type) {
+
+			switch (type) {
+				case 'email':
+					return val && val.length > 2 ? '<a href="mailto:{0}" class="dg-link"><i class="far fa-envelope"></i>{0}</a>'.format(val) : val;
+				case 'phone':
+					return val && val.length > 2 ? '<a href="tel:{0}" class="dg-link"><i class="fas fa-phone"></i>{0}</a>'.format(val) : val;
+			}
+
+			return val;
+		};
 
 		Thelpers.ui_datagrid_checkbox = function(val) {
 			return '<div class="dg-checkbox' + (val ? ' dg-checked' : '') + '" data-custom="1"><i class="fa fa-check"></i></div>';
@@ -270,11 +282,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 	};
 
 	self.fn_in_changed = function(arr) {
-		config.changed && SEEX(self.makepath(config.changed), arr || self.changed(), self);
+		config.changed && self.SEEX(config.changed, arr || self.changed(), self);
 	};
 
 	self.fn_in_checked = function(arr) {
-		config.checked && SEEX(self.makepath(config.checked), arr || self.checked(), self);
+		config.checked && self.SEEX(config.checked, arr || self.checked(), self);
 	};
 
 	self.fn_refresh = function() {
@@ -348,7 +360,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 		container.on('contextmenu', function(e) {
 			if (config.contextmenu) {
 				e.preventDefault();
-				EXEC(self.makepath(config.contextmenu), e, self);
+				self.EXEC(config.contextmenu, e, self);
 			}
 		});
 
@@ -440,7 +452,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 					return;
 
 				if (config.dblclick && dblclick.ticks && dblclick.ticks > now && dblclick.row === row) {
-					config.dblclick && SEEX(self.makepath(config.dblclick), row, self, elrow, target);
+					config.dblclick && self.SEEX(config.dblclick, row, self, elrow, target);
 					if (config.highlight && self.selected !== row) {
 						opt.cluster.el.find('.' + cls).rclass(cls);
 						self.selected = row;
@@ -464,7 +476,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 						rowarg = self.selected = null;
 				}
 
-				config.click && SEEX(self.makepath(config.click), rowarg, self, elrow, target);
+				config.click && self.SEEX(config.click, rowarg, self, elrow, target);
 			}
 		});
 
@@ -719,7 +731,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			if (!row || index === -1) {
 				self.selected = null;
 				opt.cluster && opt.cluster.el.find('.' + cls).rclass(cls);
-				config.highlight && config.click && SEEX(self.makepath(config.click), null, self);
+				config.highlight && config.click && self.SEEX(config.click, null, self);
 				return;
 			}
 
@@ -731,7 +743,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 				elrow.aclass(cls);
 			}
 
-			config.click && SEEX(self.makepath(config.click), row, self, elrow, null);
+			config.click && self.SEEX(config.click, row, self, elrow, null);
 		};
 
 		self.event('click', '.dg-checkbox', function() {
@@ -799,7 +811,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 				default:
 					var el = $(this);
 					var row = opt.rows[+el.closest('.dg-row').attrd('index')];
-					config.button && SEEX(self.makepath(config.button), this.name, row, el, e);
+					config.button && self.SEEX(config.button, this.name, row, el, e);
 					break;
 			}
 		});
@@ -823,7 +835,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			value.page = 1;
 
 		var keys = Object.keys(opt.filter);
-		SEEX(self.makepath(config.exec), type, keys.length ? opt.filter : null, opt.sort && opt.sort.sort ? [(opt.sort.name + '_' + (opt.sort.sort === 1 ? 'asc' : 'desc'))] : null, value.page, self);
+		self.SEEX(config.exec, type, keys.length ? opt.filter : null, opt.sort && opt.sort.sort ? [(opt.sort.name + '_' + (opt.sort.sort === 1 ? 'asc' : 'desc'))] : null, value.page, self);
 
 		switch (type) {
 			case 'sort':
@@ -907,7 +919,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 		};
 
 		if (config.change)
-			EXEC(self.makepath(config.change), data, cb, self);
+			self.EXEC(config.change, data, cb, self);
 		else
 			self.datagrid_edit(data, cb);
 	};
@@ -1072,14 +1084,23 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 					cls += ' dg-required';
 			}
 
+			if (config.autoformat) {
+				switch (col.type) {
+					case 'number':
+						if (col.monospace == null)
+							col.monospace = true;
+						break;
+				}
+			}
+
 			var isbool = col.type && col.type.substring(0, 4) === 'bool';
 			var TC = Tangular.compile;
 
 			if (col.template) {
 				col.templatecustom = true;
-				col.template = TC((col.template.indexOf('<button') === -1 ? ('<div class="dg-value' + cls + '">{0}</div>') : '{0}').format(col.template));
+				col.template = TC((col.template.indexOf('<button') === -1 ? ('<div class="dg-value' + (col.monospace ? ' dg-monospace' : '') + cls + '">{0}</div>') : '{0}').format(col.template));
 			} else
-				col.template = TC(('<div class="' + (isbool ? 'dg-bool' : 'dg-value') + cls + '"' + (config.allowtitles ? ' title="{{ {0} }}"' : '') + '>{{ {0} }}</div>').format(col.name + (col.currency ? ' | currency(\'{0}\')'.format(col.currency) : col.format != null ? ' | format({0})'.format(col.format && typeof(col.format) === 'string' ? ('\'' + col.format + '\'') : col.format) : '') + (col.empty ? ' | def({0})'.format(col.empty === true || col.empty == '1' ? '' : ('\'' + col.empty + '\'')) : '') + (isbool ? ' | ui_datagrid_checkbox' : '') + (col.colorize ? (' | ui_datagrid_colorize(' + (col.currency || col.format ? 0 : 1) + ')') : '')));
+				col.template = TC(('<div class="' + (isbool ? 'dg-bool' : ('dg-value' + (col.monospace ? ' dg-monospace' : ''))) + cls + '"' + (config.allowtitles ? ' title="{{ {0} }}"' : '') + '>{{ {0} }}</div>').format(col.name + (col.currency ? ' | currency(\'{0}\')'.format(col.currency) : col.format != null ? ' | format({0})'.format(col.format && typeof(col.format) === 'string' ? ('\'' + col.format + '\'') : col.format) : '') + (col.type && config.autoformat ? ' | ui_datagrid_autoformat(\'{0}\')'.format(col.type) : '') + (col.empty ? ' | def({0})'.format(col.empty === true || col.empty == '1' ? '' : ('\'' + col.empty + '\'')) : '') + (isbool ? ' | ui_datagrid_checkbox' : '') + (col.colorize ? (' | ui_datagrid_colorize(' + (col.currency || col.format ? 0 : 1) + ')') : '')));
 
 			if (col.header)
 				col.header = TC(col.header);

@@ -77,8 +77,9 @@ __Configuration__:
 - `columns` {String} a path to definition of `columns {Array}`
 - `dblclick` {String} a link to `function(row, grid, row_el)` method, it's executed if the user double-clicks on a row
 - `noborder` {Boolean} can disable a border around the grid (default: `false`)
-- __NEW__ `clusterize` {Boolean} can disable clustered scrolling (default: `true`)
-- __NEW__ `contextmenu` {String} a link to `function(e, grid)` when the user raises context menu
+- `clusterize` {Boolean} can disable clustered scrolling (default: `true`)
+- `contextmenu` {String} a link to `function(e, grid)` when the user raises context menu
+- __NEW__ `autoformat` {Boolean} enables auto-format types like `email`, `phone` and `number` (default: `true`)
 
 __Column properties__:
 
@@ -109,6 +110,7 @@ __Column properties__:
 - `type` {String} optional, can contain a data-type (`string`, `boolean`, `date` or `number`) for the field
 - `editable` {Boolean} enables editing
 - __NEW__ `colorize` {Boolean} enables a colorization of the value
+- __NEW__ `monospace` {Boolean} enables monospace font type
 
 __Filtering__:
 
