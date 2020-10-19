@@ -186,6 +186,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 					return val && val.length > 2 ? '<a href="mailto:{0}" class="dg-link"><i class="far fa-envelope"></i>{0}</a>'.format(val) : val;
 				case 'phone':
 					return val && val.length > 2 ? '<a href="tel:{0}" class="dg-link"><i class="fas fa-phone"></i>{0}</a>'.format(val) : val;
+				case 'url':
+					return val && val.length > 7 && (/http(s):\/\//i).test(val) ? '<a href="{0}" target="_blank" class="dg-link"><i class="fas fa-globe"></i>{0}</a>'.format(val) : val;
 			}
 
 			return val;
