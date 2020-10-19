@@ -117,6 +117,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 		var ischanged = false;
 		var tmp;
 		var el;
+		var recompile = false;
 
 		self.cache = {};
 		self.paused = {};
@@ -168,7 +169,12 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 
 			if (rebuild) {
 				tmp && tmp.el.aclass('removed').attrd('id', 'removed');
-				var html = $(self.template(com));
+				var html = self.template(com);
+
+				if (!recompile && html && html.COMPILABLE())
+					recompile = true;
+
+				html = $(html);
 				self.append(html);
 				el = self.find('.component[data-id="{id}"]'.arg(com));
 				com.onmake && com.onmake(el, com);
@@ -223,6 +229,8 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 		self.op.undo();
 		self.op.redo();
 		self.op.refreshinfo();
+
+		COMPILE();
 	};
 
 	self.reconnect = function(m) {
