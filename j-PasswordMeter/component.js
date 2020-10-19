@@ -1,6 +1,5 @@
-COMPONENT('passwordmeter', 'numbers:true;chars:true;special:false;casesensitive:true;sequence:true;min:4;valid:40;weak:Weak;good:Good;strong:Strong;text:Password strength;short:Short password', function(self, config) {
+COMPONENT('passwordmeter', 'numbers:true;chars:true;special:false;casesensitive:true;sequence:true;min:4;valid:40;weak:Weak;good:Good;strong:Strong;text:Password strength;short:Short password;showprogress:1', function(self, config, cls) {
 
-	var cls = 'ui-passwordmeter';
 	var cls2 = '.' + cls;
 	var elp, elr, p;
 
@@ -8,7 +7,7 @@ COMPONENT('passwordmeter', 'numbers:true;chars:true;special:false;casesensitive:
 
 	self.make = function() {
 		self.aclass(cls);
-		self.element.prepend('<div class="{0}-progress"><div></div></div><div class="{0}-help"><div class="{0}-rating"></div>'.format(cls));
+		self.element.prepend('<div class="{0}-progress{1}"><div></div></div><div class="{0}-help"><div class="{0}-rating"></div>'.format(cls, config.showprogress ? '' : ' hidden'));
 		elp = $(self.find(cls2 + '-progress > div')[0]);
 		elr = self.find(cls2 + '-rating');
 	};
@@ -118,6 +117,7 @@ COMPONENT('passwordmeter', 'numbers:true;chars:true;special:false;casesensitive:
 		self.rclass2(cls + '-').aclass(cls + '-' + rating);
 		elr.html('<b>{0}:</b>'.format(config.text) + config[rating]);
 
+		config.progress && self.SEEX(config.progress, { progress: p, rating: rating, numbers: numbers, chars: chars, special: special, upper: upper, lower: lower, unicode: unicode, points: points });
 		type && self.change(true);
 	};
 

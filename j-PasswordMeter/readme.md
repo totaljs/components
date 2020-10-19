@@ -13,6 +13,8 @@ __Configuration__:
 - `short` {String} a label for short password (default: `Short password`)
 - `text` {String} a label for label (default: `Password strength`)
 - `valid` {Number} min. valid criteria in percentage (default: `40`)
+- __NEW__ `showprogress` {Boolean} shows a progress bar (default: `true`)
+- __NEW__ `progress` {String} a path to `function({ progress: Number, rating: Number, numbers: Number, chars: Number, special: Number, upper: Number, lower: Number, unicode: Number, points: Number })`
 
 __Good to know__:
 This component evaluates password according to the rating. Rating is counted as a percentage: `100%` = Strong, `50%` = Good, `0%` = Weak.
