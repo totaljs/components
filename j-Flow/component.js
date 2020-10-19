@@ -77,7 +77,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			meta.offsetY = e.offsetY;
 			meta.el = drag.el;
 			meta.target = $(e.target);
-			config.ondrop && EXEC(self.makepath(config.ondrop), meta, self);
+			config.ondrop && self.EXEC(config.ondrop, meta, self);
 		};
 
 		$(document).on('dragstart', '[draggable]', drag.handler).on('touchstart', '[draggable]', drag.handler);
@@ -467,7 +467,7 @@ EXTENSION('flow:operations', function(self, config) {
 				meta.toindex = conn.index;
 				next.instance.ondisconnect && next.instance.ondisconnect.call(next.instance, meta);
 				removed.instance.ondisconnect && removed.instance.ondisconnect.call(removed.instance, meta);
-				config.ondisconnect && EXEC(self.makepath(config.ondisconnect), meta);
+				config.ondisconnect && self.EXEC(config.ondisconnect, meta);
 			}
 
 			return is;
@@ -571,7 +571,7 @@ EXTENSION('flow:operations', function(self, config) {
 			return false;
 
 		tmp.instance.onremove && tmp.instance.onremove(tmp.el, tmp.instance);
-		config.onremove && EXEC(self.makepath(config.onremove), tmp.el, tmp.instance);
+		config.onremove && self.EXEC(config.onremove, tmp.el, tmp.instance);
 
 		delete self.cache[id];
 		delete self.get()[id];
@@ -734,7 +734,7 @@ EXTENSION('flow:operations', function(self, config) {
 	};
 
 	self.op.refreshinfo = function() {
-		config.infopath && SEEX(self.makepath(config.infopath), self.info);
+		config.infopath && self.SEEX(config.infopath, self.info);
 	};
 
 	self.op.undo = function(value) {
@@ -743,7 +743,7 @@ EXTENSION('flow:operations', function(self, config) {
 			if (self.undo.length > 50)
 				self.undo.shift();
 		}
-		config.undopath && SEEX(self.makepath(config.undopath), self.undo);
+		config.undopath && self.SEEX(config.undopath, self.undo);
 	};
 
 	self.op.redo = function(value) {
@@ -752,7 +752,7 @@ EXTENSION('flow:operations', function(self, config) {
 			if (self.redo.length > 50)
 				self.redo.shift();
 		}
-		config.redopath && SEEX(self.makepath(config.redopath), self.redo);
+		config.redopath && self.SEEX(config.redopath, self.redo);
 	};
 
 	self.op.resize = function() {
@@ -810,7 +810,7 @@ EXTENSION('flow:map', function(self, config) {
 
 	self.event('contextmenu', function(e) {
 		events.is && events.up();
-		config.contextmenu && SEEX(self.makepath(config.contextmenu), e, 'map');
+		config.contextmenu && self.SEEX(config.contextmenu, e, 'map');
 		e.preventDefault();
 		e.stopPropagation();
 	});
@@ -904,7 +904,7 @@ EXTENSION('flow:components', function(self, config) {
 			data.x = drag.css.left;
 			data.y = drag.css.top;
 			data.onmove && data.onmove(drag.target, data);
-			config.onmove && EXEC(self.makepath(config.onmove), drag.target, data);
+			config.onmove && self.EXEC(config.onmove, drag.target, data);
 			self.op.modified();
 			self.op.modify(data, 'move');
 			// self.el.lines.find('.from{0},.to{0}'.format(D + drag.id)).rclass('highlight');
@@ -937,9 +937,14 @@ EXTENSION('flow:components', function(self, config) {
 		events.is && events.up();
 		var el = $(this);
 		var id = el.closest('.component').attrd('id');
-		config.contextmenu && SEEX(self.makepath(config.contextmenu), e, 'component', self.cache[id].instance);
+		config.contextmenu && self.SEEX(config.contextmenu, e, 'component', self.cache[id].instance);
 		e.preventDefault();
 		e.stopPropagation();
+	});
+
+	self.event('dblclick', '.area', function() {
+		var target = $(this).closest('.component');
+		config.dblclick && self.SEEX(config.dblclick, self.cache[target.attrd('id')].instance);
 	});
 
 	self.event('mousedown touchstart', '.area', function(e) {
@@ -1080,17 +1085,23 @@ EXTENSION('flow:connections', function(self, config) {
 	};
 
 	events.bind = function() {
-		self.element.on('mouseup', events.up);
-		self.element.on('mousemove', events.move);
-		self.element.on('touchend', events.up);
-		self.element.on('touchmove', events.movetouch);
+		if (!events.is) {
+			events.is = true;
+			self.element.on('mouseup', events.up);
+			self.element.on('mousemove', events.move);
+			self.element.on('touchend', events.up);
+			self.element.on('touchmove', events.movetouch);
+		}
 	};
 
 	events.unbind = function() {
-		self.element.off('mouseup', events.up);
-		self.element.off('mousemove', events.move);
-		self.element.off('touchend', events.up);
-		self.element.off('touchmove', events.movetouch);
+		if (events.is) {
+			events.is = false;
+			self.element.off('mouseup', events.up);
+			self.element.off('mousemove', events.move);
+			self.element.off('touchend', events.up);
+			self.element.off('touchmove', events.movetouch);
+		}
 	};
 
 	self.event('mousedown touchstart', '.output,.input', function(e) {
@@ -1232,7 +1243,7 @@ EXTENSION('flow:connections', function(self, config) {
 		meta.path = path;
 		ac.onconnect && ac.onconnect.call(ac, meta);
 		bc.onconnect && bc.onconnect.call(bc, meta);
-		config.onconnect && EXEC(self.makepath(config.onconnect), meta);
+		config.onconnect && self.EXEC(config.onconnect, meta);
 
 		if (!init) {
 			self.op.undo({ type: 'connect', fromid: meta.fromid, toid: meta.toid, fromindex: meta.fromindex + '', toindex: meta.toindex + '' });
@@ -1241,6 +1252,33 @@ EXTENSION('flow:connections', function(self, config) {
 
 		return true;
 	};
+
+	self.event('contextmenu', '.connection', function(e) {
+		events.is && events.up();
+
+		var el = $(this);
+		var meta = {};
+		var classes = el.attr('class').split(' ');
+
+		for (var i = 0; i < classes.length; i++) {
+			var cls = classes[i];
+			if (cls.substring(0, 6) === 'conn__') {
+				var arr = cls.split('__');
+				meta.fromid = arr[1];
+				meta.toid = arr[2];
+				meta.fromindex = arr[3];
+				meta.toindex = arr[4];
+				meta.from = self.cache[meta.fromid].instance;
+				meta.to = self.cache[meta.toid].instance;
+				break;
+			}
+		}
+
+		meta.fromid && config.contextmenu && self.SEEX(config.contextmenu, e, 'connection', meta);
+
+		e.preventDefault();
+		e.stopPropagation();
+	});
 
 	self.event('mousedown touchstart', '.connection', function(e) {
 

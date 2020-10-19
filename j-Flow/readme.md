@@ -22,8 +22,9 @@ __Configuration__:
 - `ondisconnect` {String} a path to method `fn(meta)`, it's executed when the two components are disconnected
 - `horizontal` {Boolean} outputs will be rendered horizontally (default: `false`)
 - `steplines` {Boolean} enables step lines (default: `false`)
-- `animationradius` {Boolean} animation radius in pixels (default: `6`)
-- `contextmenu` {String} a path to `function(e, type, instance)` (type can be `map` or `component`)
+- __NEW__ `animationradius` {Boolean} animation radius in pixels (default: `6`)
+- __NEW__ `contextmenu` {String} a path to `function(e, type, component/meta)` (type can be `map`, `component` or `connection`)
+- __NEW__ `dblclick` {String} a path to `function(component)`
 
 __Commands__:
 
