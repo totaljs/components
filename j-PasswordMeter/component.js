@@ -84,10 +84,8 @@ COMPONENT('passwordmeter', 'numbers:true;chars:true;special:false;casesensitive:
 		}
 
 		if (config.casesensitive) {
-			max += 2;
-			if (lower)
-				points++;
-			if (upper)
+			max += 1;
+			if (lower && upper)
 				points++;
 		}
 
