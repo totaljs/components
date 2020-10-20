@@ -56,6 +56,10 @@ var component = {
 	// A component title
 	title: 'Title for the component',
 
+	// Custom properties which will be assigned to the instance
+	template: Object,
+	config: Object,
+
 	// Handlers (optional):
 	destroy: function() {
 		// @el {jQuery} a content of the component

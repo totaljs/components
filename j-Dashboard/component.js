@@ -443,6 +443,8 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		tmp.container = el;
 		tmp.element = el.find('figure');
 		isdom && tmp.element[0].appendChild(obj.html);
+		tmp.config = tmp.options = obj.config;
+		tmp.template = obj.template;
 		tmp.meta = obj;
 		tmp.main = self;
 		self.woffset(obj.id, true);
