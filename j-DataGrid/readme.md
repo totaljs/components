@@ -131,7 +131,9 @@ __Methods__:
 - `component.applyfilter(obj)` can apply a custom filter `{ name: 'Peter', age: '20 - 50' }`
 - `component.resetcolumns()` resets columns
 - `component.readfilter()` returns a current filter
-- __NEW__ `component.rebind(schemaname__or__columnsdeclaration)` the method rebinds the schema
+- `component.rebind(schemaname__or__columnsdeclaration)` the method rebinds the schema
+- __NEW__: `component.reload()` executes `config.exec` with the current filter and sorting
+- __NEW__: `component.empty()` empties all rows
 
 __Properties__:
 

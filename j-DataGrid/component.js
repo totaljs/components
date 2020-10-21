@@ -482,6 +482,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			}
 		});
 
+		self.reload = function() {
+			self.operation('refresh');
+		};
+
+		self.empty = function() {
+			self.set({ page: 1, pages: 0, count: 0, items: [], limit: 0 });
+		};
+
 		self.released = function(is) {
 			!is && setTimeout(self.resize, 500);
 		};
@@ -1738,6 +1746,16 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			return;
 
 		var value = self.get();
+
+		if (!value.page)
+			value.page = 1;
+
+		if (value.pages == null)
+			value.pages = 0;
+
+		if (value.count == null)
+			value.count = 0;
+
 		var is = false;
 
 		if (value.page === 1 || (value.pages != null && value.count != null)) {
@@ -1759,7 +1777,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 					dis = value.page === 1;
 					break;
 				case 'page-last':
-					dis = !value.page || value.page === pagecache.pages;
+					dis = !value.page || value.page >= pagecache.pages;
 					break;
 				case 'page-first':
 					dis = value.page === 1;
