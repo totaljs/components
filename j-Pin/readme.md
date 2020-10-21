@@ -8,7 +8,8 @@ __Configuration__:
 - `required` {Boolean} enables "required" (default: `false`)
 - `disabled` {Boolean} can disabled this control
 - `hide` {Boolean} disables displaying of numbers (default: `false`)
--  __NEW__ `mask` {Boolean} disables the mask (default: `true`)
+- `mask` {Boolean} disables the mask (default: `true`)
+- __NEW__ `exec` {String} a path to `function(pin)`
 
 __Good to know__:
 

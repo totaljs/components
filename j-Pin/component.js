@@ -113,14 +113,16 @@ COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true', function(self, config
 		setTimeout2(self.id + '.getter', function() {
 			var value = '';
 
-			inputs.each(function() {
-				value += this.getAttribute('data-value') || ' ';
-			});
+			for (var i = 0; i < inputs.length; i++)
+				value += inputs[i].getAttribute('data-value') || ' ';
 
 			if (self.get() !== value) {
 				self.change(true);
 				skip = true;
-				self.set(value.trim());
+				var val = value.trim();
+				self.set(val);
+				if (config.exec && val.indexOf(' ') === -1 && val.length === config.count)
+					self.SEEX(config.exec, val);
 			}
 
 		}, 100);
@@ -144,12 +146,12 @@ COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true', function(self, config
 	};
 
 	self.state = function(type) {
-		if (!type)
-			return;
-		var invalid = config.required ? self.isInvalid() : false;
-		if (invalid === self.$oldstate)
-			return;
-		self.$oldstate = invalid;
-		self.tclass(cls + '-invalid', invalid);
+		if (type) {
+			var invalid = config.required ? self.isInvalid() : false;
+			if (invalid !== self.$oldstate) {
+				self.$oldstate = invalid;
+				self.tclass(cls + '-invalid', invalid);
+			}
+		}
 	};
 });
