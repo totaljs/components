@@ -97,8 +97,18 @@ COMPONENT('notifybar', 'timeout:5000', function(self, config, cls) {
 		} else if (typeof(response) === 'string')
 			self.warning(response);
 		else {
-			message && self.success(message);
-			fn && fn(response);
+
+			if (message) {
+				if (message.length < 40 && message.charAt(0) === '?')
+					SET(message, response);
+				else
+					self.success(message);
+			}
+
+			if (typeof(fn) === 'string')
+				SET(fn, response);
+			else if (fn)
+				fn(response);
 		}
 	};
 

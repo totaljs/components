@@ -101,8 +101,18 @@ COMPONENT('snackbar', 'timeout:4000;button:OK', function(self, config, cls) {
 			self.warning(response);
 			SETTER('!loading/hide');
 		} else {
-			message && self.success(message);
-			fn && fn(response);
+
+			if (message) {
+				if (message.length < 40 && message.charAt(0) === '?')
+					SET(message, response);
+				else
+					self.success(message);
+			}
+
+			if (typeof(fn) === 'string')
+				SET(fn, response);
+			else if (fn)
+				fn(response);
 		}
 	};
 });

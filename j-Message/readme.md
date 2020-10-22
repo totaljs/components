@@ -22,17 +22,21 @@ __Works with ASETTER__:
 
 ```javascript
 // Without callback
-AJAX('POST /api/profile/', userprofile, ASETTER('message', 'response', 'Profile has been saved successfully'));
+AJAX('POST /api/profile/', userprofile, ASETTER('message/response', 'Profile has been saved successfully'));
 
 // Or with a callback
-AJAX('POST /api/profile/', userprofile, ASETTER('message', 'response', 'Profile has been saved successfully', function(response) {
+AJAX('POST /api/profile/', userprofile, ASETTER('message/response', 'Profile has been saved successfully', function(response) {
 	console.log(response);
 }));
 
 // Or with a callback and without message
-AJAX('POST /api/profile/', userprofile, ASETTER('message', 'response', function(response) {
+AJAX('POST /api/profile/', userprofile, ASETTER('message/response', function(response) {
 	console.log(response);
 }));
+
+// With auto-binding
+AJAX('POST /api/profile/', userprofile, ASETTER('message/response', '?.response'));
+AJAX('POST /api/profile/', userprofile, ASETTER('message/response', 'Your message', '?.response'));
 ````
 
 ### Author
