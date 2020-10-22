@@ -84,8 +84,10 @@ COMPONENT('passwordmeter', 'numbers:true;chars:true;special:false;casesensitive:
 		}
 
 		if (config.casesensitive) {
-			max += 1;
-			if (lower && upper)
+			max += 2;
+			if (lower)
+				points++;
+			if (upper)
 				points++;
 		}
 
@@ -113,7 +115,7 @@ COMPONENT('passwordmeter', 'numbers:true;chars:true;special:false;casesensitive:
 
 		elp.animate({ width: p + '%' }, 300);
 		self.rclass2(cls + '-').aclass(cls + '-' + rating);
-		elr.html('<b>{0}:</b>'.format(config.text) + config[rating]);
+		elr.html((config.text ? '<b>{0}:</b>'.format(config.text) : '') + config[rating]);
 
 		config.progress && self.SEEX(config.progress, { progress: p, rating: rating, numbers: numbers, chars: chars, special: special, upper: upper, lower: lower, unicode: unicode, points: points });
 		type && self.change(true);
