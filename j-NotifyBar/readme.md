@@ -1,9 +1,9 @@
-## j-Snackbar
+## j-NotifyBar
 
 - singleton
-- success message `SETTER('notifybar', 'success', 'MESSAGE')`
-- warning message `SETTER('notifybar', 'warning', 'MESSAGE')`
-- info message `SETTER('notifybar', 'info', 'MESSAGE', '[BUTTON_LABEL]', [callback_dismiss])`
+- success message `SETTER('notifybar/success', 'MESSAGE')`
+- warning message `SETTER('notifybar/warning', 'MESSAGE')`
+- info message `SETTER('notifybar/info', 'MESSAGE', '[BUTTON_LABEL]', [callback_dismiss])`
 
 __Configuration__:
 

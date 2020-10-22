@@ -1,0 +1,10 @@
+.ui-searchinput { height: 30px; border: 1px solid #E0E0E0; }
+.ui-searchinput-left > span { float: left; }
+.ui-searchinput-left > div { margin-left: 28px; }
+.ui-searchinput-right > span { float: right; }
+.ui-searchinput-right > div { margin-right: 28px; }
+.ui-searchinput input { border: 0; width: 100%; background-color: transparent; outline: 0; margin: 0; padding: 0; height: 28px; font-size: 12px; }
+.ui-searchinput span { width: 28px; text-align: center; font-size: 12px; line-height: 29px; color: gray; }
+.ui-searchinput-is span { cursor: pointer; color: red; }
+
+.ui-dark .ui-searchinput { border-color: #404040; }

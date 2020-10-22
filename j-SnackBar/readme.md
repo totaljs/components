@@ -1,10 +1,10 @@
 ## j-SnackBar
 
 - singleton
-- info message `SETTER('snackbar', 'show', 'MESSAGE', '[BUTTON_LABEL]', [callback_dismiss])`
-- success message `SETTER('snackbar', 'success', 'MESSAGE', '[BUTTON_LABEL]', [callback_dismiss])`
-- warning message `SETTER('snackbar', 'warning', 'MESSAGE', '[BUTTON_LABEL]', [callback_dismiss])`
-- __NEW__ waiting message `SETTER('snackbar', 'waiting', 'MESSAGE', '[BUTTON_LABEL]', [callback_dismiss])`
+- info message `SETTER('snackbar/show', 'MESSAGE', '[BUTTON_LABEL]', [callback_dismiss])`
+- success message `SETTER('snackbar/success', 'MESSAGE', '[BUTTON_LABEL]', [callback_dismiss])`
+- warning message `SETTER('snackbar/warning', 'MESSAGE', '[BUTTON_LABEL]', [callback_dismiss])`
+- __NEW__ waiting message `SETTER('snackbar/waiting', 'MESSAGE', '[BUTTON_LABEL]', [callback_dismiss])`
 - `message` can contain `HTML` code
 
 __Configuration__:

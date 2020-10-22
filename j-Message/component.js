@@ -1,7 +1,7 @@
 COMPONENT('message', 'button:OK', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
-	var is, visible = false;
+	var is;
 	var events = {};
 
 	self.readonly();
@@ -109,7 +109,6 @@ COMPONENT('message', 'button:OK', function(self, config, cls) {
 		events.unbind();
 		self.callback && self.callback();
 		self.aclass('hidden');
-		visible = false;
 	};
 
 	self.content = function(classname, text, icon) {
@@ -118,7 +117,7 @@ COMPONENT('message', 'button:OK', function(self, config, cls) {
 			icon = 'fa fa-' + icon;
 
 		!is && self.html('<div><div class="{0}-icon"><i class="{1}"></i></div><div class="{0}-body"><div class="{0}-text"></div><hr /><button>{2}</button></div></div>'.format(cls, icon, config.button));
-		visible = true;
+
 		self.rclass2(cls + '-').aclass(classname);
 		self.find(cls2 + '-body').rclass().aclass(cls + '-body');
 
