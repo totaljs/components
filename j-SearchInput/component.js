@@ -1,4 +1,4 @@
-COMPONENT('searchinput', 'searchicon:far fa-search;cancelicon:fa fa-times;align:left', function(self, config, cls) {
+COMPONENT('searchinput', 'searchicon:fa fa-search;cancelicon:fa fa-times;align:left', function(self, config, cls) {
 
 	var input;
 	var icon;

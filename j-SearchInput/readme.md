@@ -1,5 +1,7 @@
 ## j-SearchInput
 
+Customizable search input.
+
 __Configuration__:
 
 - `searchicon` {String} search icon (default: `far fa-search`)
