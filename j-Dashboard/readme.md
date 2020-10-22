@@ -1,4 +1,4 @@
-## j-Dashboard (BETA)
+## j-Dashboard
 
 - Works only with `+v18`
 - Supports mobile devices
@@ -27,6 +27,7 @@ __Configuration__:
 	- `meta.target`
 	- `meta.d` a display mode `xs`, `sm`, `md` or `lg`
 - `noemitresize` disables executing of `resize` method in all nested component (default: `false`)
+- `parent` {String} a parent container which sets a minimal height (default: `null`)
 
 ```javascript
 // Component declaration

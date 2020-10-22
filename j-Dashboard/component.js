@@ -86,6 +86,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 			e.pageY = drag.lastY;
 			e.offsetX = e.pageX - pos.left;
 			e.offsetY = e.pageY - pos.top;
+			self.change(true);
 			drag.drop(e);
 		}
 	};
@@ -118,7 +119,8 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		meta.x = (meta.offsetX / pixel) >> 0;
 		meta.y = (meta.offsetY / pixel) >> 0;
 		meta.d = WIDTH();
-		config.ondrop && EXEC(config.ondrop, meta, self);
+		config.ondrop && self.EXEC(config.ondrop, meta, self);
+		self.change(true);
 	};
 
 	events.service = function() {
@@ -281,6 +283,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		$W.off('resize', events.resize);
 		events.bind();
 		clearInterval(serviceid);
+		self.change(true);
 	};
 
 	self.resize_container = function() {
@@ -291,7 +294,10 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 			var y = (+item.container.css('top').replace('px', '')) + (+item.container.css('height').replace('px', ''));
 			max = Math.max(y, max);
 		}
-		self.css('height', max + 20);
+
+		var h = config.parent ? self.parent(config.parent).height() : 0;
+		max += 20;
+		self.css('height', max < h ? h : max);
 	};
 
 	self.resize_pixel = function() {
