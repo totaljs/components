@@ -10,6 +10,7 @@ __Configuration__:
 - `hide` {Boolean} disables displaying of numbers (default: `false`)
 - `mask` {Boolean} disables the mask (default: `true`)
 - __NEW__ `exec` {String} a path to `function(pin)`
+- __NEW__ `allowpaste` {Boolean} enables pin pasting (default: `true`)
 
 __Good to know__:
 

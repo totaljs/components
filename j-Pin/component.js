@@ -1,4 +1,4 @@
-COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true', function(self, config, cls) {
+COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true;allowpaste:true', function(self, config, cls) {
 
 	var reg_validation = /[0-9]/;
 	var inputs = null;
@@ -78,6 +78,24 @@ COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true', function(self, config
 				el.attrd('value', '');
 				self.getter();
 			}
+		});
+
+		self.event('paste', 'input', function(e) {
+
+			e.preventDefault();
+			if (!config.allowpaste)
+				return;
+
+			var text = e.originalEvent.clipboardData.getData('text');
+			var paste = text.replace(/\s+/g,'');
+			if (!paste.parseInt() || config.count !== paste.length)
+				return;
+
+			var lastinput = inputs.length - 1;
+			inputs[lastinput].focus();
+			self.set(paste, 2);
+			self.change(true);
+			config.exec && self.SEEX(config.exec, paste);
 		});
 
 		inputs = self.find('input');
