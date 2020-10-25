@@ -456,7 +456,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 			s.right.css(cssright);
 			cssright.width = s.right.width();
 
-			if ((cssright.left - cssright.width) <= 0) {
+			if (!isright2 && (cssright.left - cssright.width) <= 0) {
 				s.right.css('left', 0);
 				cssright.width++;
 			}
