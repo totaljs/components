@@ -1,0 +1,11 @@
+.ui-section { overflow: hidden; -ms-overflow-style: none; box-sizing: content-box }
+.ui-section-header { height: 45px; border-bottom: 1px solid #E0E0E0; position: relative; color: #000; }
+.ui-section-header label { display: block; height: 45px; line-height: 45px; text-align: center; font-weight: bold; }
+.ui-section-header span { position: absolute; top: 12px; left: 15px; cursor: pointer; color: #4285F4; }
+.ui-section-header span:hover { text-decoration: underline; }
+.ui-section-header span i { margin-right: 6px; }
+.ui-section-hidden { visibility: hidden; }
+.ui-section-section { transition: all 0.3s; }
+.ui-section-animate { position: absolute; }
+
+.ui-dark .ui-section-header { border-bottom-color: #404040; color: #FFF; }
