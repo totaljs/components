@@ -460,7 +460,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			var type = e.target.tagName;
 			var target = $(e.target);
 
-			if ((type === 'DIV' || type === 'SPAN') && !findclass(e.target, 'dg-checkbox', 'dg-editable')) {
+			if ((type === 'DIV' || type === 'SPAN')) {
 
 				var cls = 'dg-selected';
 				var elrow = el.closest('.dg-row');
@@ -469,7 +469,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 				if (!row)
 					return;
 
-				if (config.dblclick && dblclick.ticks && dblclick.ticks > now && dblclick.row === row) {
+				if (config.dblclick && dblclick.ticks && dblclick.ticks > now && dblclick.row === row && !findclass(e.target, 'dg-checkbox', 'dg-editable')) {
 					config.dblclick && self.SEEX(config.dblclick, row, self, elrow, target);
 					if (config.highlight && self.selected !== row) {
 						opt.cluster.el.find('.' + cls).rclass(cls);
