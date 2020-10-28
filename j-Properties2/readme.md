@@ -9,6 +9,7 @@ __Configuration__:
 - `datetimeformat` {String} a date/time format (default: `yyyy-MM-dd HH:mm`)
 - `change` {String} a path to method `method(item, replace_text(new_text))` (executed if some value is changed) and `replace_text` argument is optional
 - `modalalign` {String} aligment for modal windows (default: `center`)
+- __NEW__ `style` {Number} supports a new style `2` like `iOS` settings (default: `1`)
 
 __Data declaration__:
 
@@ -58,6 +59,9 @@ __Allowed types in data__:
 - `color`
 - `emoji`
 - `fontawesome`
+- `exec` (can exec `exec` method)
+- `text` (readonly value)
+- `menu` (it's similar to list but the component will execute `j-Menu`)
 
 __Missing types__:
 
