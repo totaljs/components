@@ -1,4 +1,4 @@
-COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timeformat:HH:mm;modalalign:center', function(self, config, cls) {
+COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timeformat:HH:mm;modalalign:center;style:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var container;
@@ -8,7 +8,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 	self.make = function() {
 
-		self.aclass(cls);
+		self.aclass(cls + (config.style === 2 ? (' ' + cls + '-2') : ''));
 
 		if (!$('#propertie2supload').length)
 			$(document.body).append('<input type="file" id="properties2upload" />');
@@ -116,7 +116,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		});
 	};
 	types.string.render = function(item, next) {
-		next('<div class="{0}-string"><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pstring" /></div>'.format(cls, item.maxlength, item.placeholder || '', Thelpers.encode(item.value)));
+		next('<div class="{0}-string"><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pstring"{4} /></div>'.format(cls, item.maxlength, item.placeholder || '', Thelpers.encode(item.value), item.disabled ? ' disabled' : ''));
 	};
 
 	types.password = {};
@@ -156,7 +156,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		});
 	};
 	types.password.render = function(item, next) {
-		next('<div class="{0}-string"><input type="password" maxlength="{1}" placeholder="{2}" value="{3}" class="ppassword" /></div>'.format(cls, item.maxlength, item.placeholder || '', Thelpers.encode(item.value)));
+		next('<div class="{0}-string"><input type="password" maxlength="{1}" placeholder="{2}" value="{3}" class="ppassword"{4} /></div>'.format(cls, item.maxlength, item.placeholder || '', Thelpers.encode(item.value), item.disabled ? ' disabled' : ''));
 	};
 
 	types.number = {};
@@ -219,7 +219,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		});
 	};
 	types.number.render = function(item, next) {
-		next('<div class="{0}-number"><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pnumber" /></div>'.format(cls, 20, item.placeholder || '', Thelpers.encode((item.value == null ? '' : item.value) + '')));
+		next('<div class="{0}-number"><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pnumber"{4} /></div>'.format(cls, 20, item.placeholder || '', Thelpers.encode((item.value == null ? '' : item.value) + ''), item.disabled ? ' disabled' : ''));
 	};
 
 	types.date = {};
@@ -284,8 +284,12 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		self.event('click', cls2 + '-booltoggle', function() {
 			var t = this;
 			var el = $(t);
-			el.tclass('checked');
 			var item = self.finditem(t);
+
+			if (item.disabled)
+				return;
+
+			el.tclass('checked');
 			item.value = el.hclass('checked');
 			item.changed = item.prev !== item.value;
 			self.findel(t).tclass(cls + '-changed', item.changed);
@@ -295,7 +299,27 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		});
 	};
 	types.bool.render = function(item, next) {
-		next('<div class="{0}-bool"><span class="{0}-booltoggle{1}"><i class="fa fa-check"></i></span></div>'.format(cls, item.value ? ' checked' : ''));
+		next('<div class="{0}-bool"><span class="{0}-booltoggle{1}"><i></i></span></div>'.format(cls, item.value ? ' checked' : ''));
+	};
+
+
+	types.exec = {};
+	types.exec.init = function() {
+		self.event('click', cls2 + '-exec', function() {
+			var t = this;
+			var el = $(t);
+			var item = self.finditem(t);
+			if (!item.disabled && item.exec)
+				self.EXEC(item.exec, item, el);
+		});
+	};
+	types.exec.render = function(item, next) {
+		next('<div class="{0}-exec">{1}</div>'.format(cls, item.value ? Thelpers.encode(item.value) : ''));
+	};
+
+	types.text = {};
+	types.text.render = function(item, next) {
+		next('<div class="{0}-text">{1}</div>'.format(cls, item.value ? Thelpers.encode(item.value) : ''));
 	};
 
 	types.list = {};
@@ -303,9 +327,12 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		self.event('click', cls2 + '-list', function() {
 			var t = this;
 			var item = self.finditem(t);
+
+			if (item.disabled)
+				return;
+
 			var opt = {};
 			opt.offsetY = -5;
-			opt.offsetX = 6;
 			opt.element = $(t);
 			opt.items = typeof(item.items) === 'string' ? item.items.indexOf('/') === -1 ? GET(item.items) : item.items : item.items;
 			opt.custom = item.dircustom;
@@ -344,7 +371,64 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	};
 
 	types.list.render = function(item, next) {
-		var template = '<div class="{0}-list"><i class="fa fa-chevron-down"></i><span>{1}</span></div>';
+		var template = '<div class="{0}-list">' + (config.style === 2 ? '' : '<i class="fa fa-chevron-down"></i>')  + '<span>{1}</span></div>';
+		if (item.detail) {
+			AJAX('GET ' + item.detail.format(encodeURIComponent(item.value)), function(response) {
+				next(template.format(cls, response[item.dirkey || 'name'] || item.placeholder || DEF.empty));
+			});
+		} else {
+			var arr = typeof(item.items) === 'string' ? GET(item.items) : item.items;
+			var m = (arr || EMPTYARRAY).findValue(item.dirvalue || 'id', item.value, item.dirkey || 'name', item.placeholder || DEF.empty);
+			next(template.format(cls, m));
+		}
+	};
+
+	types.menu = {};
+	types.menu.init = function() {
+		self.event('click', cls2 + '-menu', function() {
+			var t = this;
+			var item = self.finditem(t);
+
+			if (item.disabled)
+				return;
+
+			var opt = {};
+			if (config.style === 2)
+				opt.align = 'right';
+			opt.offsetY = -5;
+			opt.element = $(t);
+			opt.items = typeof(item.items) === 'string' ? item.items.indexOf('/') === -1 ? GET(item.items) : item.items : item.items;
+			opt.callback = function(value) {
+
+				if (typeof(value) === 'string') {
+					opt.element.find('span').text(value);
+					item.value = value;
+				} else {
+					opt.element.find('span').html(value[item.dirkey || 'name']);
+					item.value = value[item.dirvalue || 'id'];
+				}
+
+				if (item.dircustom && item.dirappend !== false) {
+					if (!opt.items)
+						opt.items = [];
+					if (opt.items.indexOf(item.value) === -1)
+						opt.items.push(item.value);
+				}
+
+				item.changed = item.prev !== item.value;
+				self.findel(t).tclass(cls + '-changed', item.changed);
+				config.change && EXEC(self.makepath(config.change), item, function(val) {
+					opt.element.find('span').text(val);
+				});
+				self.change(true);
+				self.modifyval(item);
+			};
+			SETTER('menu', 'show', opt);
+		});
+	};
+
+	types.menu.render = function(item, next) {
+		var template = '<div class="{0}-menu">' + (config.style === 2 ? '' : '<i class="fa fa-chevron-down"></i>') + '<span>{1}</span></div>';
 		if (item.detail) {
 			AJAX('GET ' + item.detail.format(encodeURIComponent(item.value)), function(response) {
 				next(template.format(cls, response[item.dirkey || 'name'] || item.placeholder || DEF.empty));
@@ -361,6 +445,10 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		self.event('click', cls2 + '-colortoggle', function() {
 			var t = this;
 			var item = self.finditem(t);
+
+			if (item.disabled)
+				return;
+
 			var opt = {};
 			// opt.offsetY = -5;
 			// opt.offsetX = 6;
@@ -389,6 +477,10 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		self.event('click', cls2 + '-fontawesometoggle', function() {
 			var t = this;
 			var item = self.finditem(t);
+
+			if (item.disabled)
+				return;
+
 			var opt = {};
 			opt.align = config.modalalign;
 			opt.element = $(t);
@@ -415,6 +507,10 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		self.event('click', cls2 + '-emojitoggle', function() {
 			var t = this;
 			var item = self.finditem(t);
+
+			if (item.disabled)
+				return;
+
 			var opt = {};
 			opt.align = config.modalalign;
 			opt.element = $(t);
@@ -442,6 +538,10 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			// Loads file
 			var t = this;
 			var item = self.finditem(t);
+
+			if (item.disabled)
+				return;
+
 			var file = $('#propertiesupload');
 
 			if (item.accept)
@@ -490,17 +590,24 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 		if (item.icon) {
 			var tmp = item.icon;
+			var color;
+			tmp = tmp.replace(/#[a-f0-9]+/gi, function(text) {
+				color = text;
+				return '';
+			}).trim();
 			if (tmp.indexOf(' ') === -1)
 				tmp = 'fa fa-' + tmp;
-			meta.icon = '<i class="{0}"></i>'.format(tmp);
+			meta.icon = Tangular.render('<i class="{{ icon }}"{{ if color }} style="{{ type }}color:{{ color }}"{{ fi }}></i>', { icon: tmp, color: color, type: config.style === 2 ? 'background-' : '' });
 		} else
 			meta.icon = '';
 
-		var el = $('<div class="{2}-item{3}" data-index="{1}"><div class="{0}-key">{{ icon }}{{ label }}</div><div class="{0}-value">&nbsp;</div></div>'.format(cls, index, c, item.required ? (' ' + cls + '-required') : '').arg(meta));
+		var el = $(('<div class="{2}-item{3}' + (item.icon ? ' {2}-isicon' : '') + (item.note ? ' {2}-isnote' : '') + '" data-index="{1}">' + (config.style === 2 ? '{{ icon }}<div>' : '') + '<div class="{0}-key">' + (config.style === 2 ? '' : '{{ icon }}') + '{{ label }}</div>' + (config.style === 2 ? '<div class="{0}-value">&nbsp;</div><div class="{0}-note">{1}</div>'.format(cls, Thelpers.encode(item.note)) : '<div class="{0}-value">&nbsp;</div>') + '</div>' + (config.style === 2 ? '</div>' : '')).format(cls, index, c, item.required ? (' ' + cls + '-required') : '').arg(meta));
+
 		type.render(item, function(html) {
-			if (item.note)
+			if (item.note && config.style !== 2)
 				html += '<div class="{0}-note">{1}</div>'.format(cls, item.note);
 			el.find(cls2 + '-value').html(html);
+			item.disabled && el.aclass('ui-disabled');
 		});
 
 		return el;

@@ -9,6 +9,7 @@ __Configuration__:
 - `datetimeformat` {String} a date/time format (default: `yyyy-MM-dd HH:mm`)
 - `change` {String} a path to method `method(item, replace_text(new_text))` (executed if some value is changed) and `replace_text` argument is optional
 - `modalalign` {String} aligment for modal windows (default: `center`)
+- __NEW__ `style` {Number} supports a new style `2` like `iOS` settings (default: `1`)
 
 __Data declaration__:
 
@@ -47,6 +48,7 @@ __Data properties in data declaration__:
 - `detail` {String} URL address for obtaining of data for `list` type, example: `/users/{0}/` and `{0}` will be replaced with the value from list
 - `items` {Object Array/String} items for `list` type only, string can contain a path to `Array` or `URL address` to search
 - `show` {Arrow function}, example: `data => data.KEY === 'SOMETHING'` --> will show the item if the condition will valid
+- `icon` {String} Font-Awesome icon, can contain a color e.g. `fa fa-home #00000`
 
 __Allowed types in data__:
 
@@ -58,6 +60,9 @@ __Allowed types in data__:
 - `color`
 - `emoji`
 - `fontawesome`
+- `exec` (can exec `exec` method)
+- `text` (readonly value)
+- `menu` (it's similar to list but the component will execute `j-Menu`)
 
 __Missing types__:
 
