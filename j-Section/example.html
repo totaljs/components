@@ -6,7 +6,8 @@
 
 	<section class="hidden invisible" data-if="1" data-title="Section 1">
 		<div style="background-color:#F0F0F0;margin:30px auto;padding:30px;max-width:600px;border-radius:10px">
-			SECTION 1
+			<div>SECTION 1</div>
+			<div><span class="link" data-bind="null__click:showsection2">Show section 2</span></div>
 		</div>
 	</section>
 
@@ -22,5 +23,11 @@
 
 
 <script>
-	SET('common.section', '2', 1000);
+
+	function showsection2() {
+		SET('common.section', '2');
+	}
+
+	setTimeout(showsection2, 1000);
+
 </script>
