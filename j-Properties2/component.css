@@ -5,7 +5,7 @@
 .ui-properties2-2 .ui-properties2-group { border: 0; }
 .ui-properties2-group label { display: block; padding: 10px 15px; font-size: 16px; font-weight: bold; background-color: #F8F8F8; border-radius: 3px 3px 0 0; }
 .ui-properties2-2 label { background: transparent; font-size: 11px; color: #A0A0A0; font-weight: normal; padding-bottom: 5px; }
-.ui-properties2-2 section { background: #FFF; border-radius: 15px; padding: 10px 0; }
+.ui-properties2-2 section { background: #FFF; border-radius: 15px; padding: 10px 0; border: 1px solid #F0F0F0; }
 .ui-properties2-group label i { width: 22px; }
 .ui-properties2-group label i:before { content: '\f146'; }
 .ui-properties2-hidden label i:before { content: '\f0fe' !important; }
@@ -67,6 +67,7 @@
 .ui-dark .ui-properties2-item { border-color: #303030; background-color: #202020; }
 .ui-dark .ui-properties2-item > div { border-bottom-color: #404040; }
 .ui-dark .ui-properties2-2 section, .ui-dark .ui-properties2-2 .ui-properties2-item { background-color: #282828; }
+.ui-dark .ui-properties2-2 section { border-color: #252525; }
 .ui-dark .ui-properties2-key { color: #A0A0A0; }
 .ui-dark .ui-properties2-2 .ui-properties2-key { color: #FFF; }
 .ui-dark .ui-properties2-group label { background-color: #282828; }
