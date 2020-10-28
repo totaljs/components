@@ -48,6 +48,7 @@ __Data properties in data declaration__:
 - `detail` {String} URL address for obtaining of data for `list` type, example: `/users/{0}/` and `{0}` will be replaced with the value from list
 - `items` {Object Array/String} items for `list` type only, string can contain a path to `Array` or `URL address` to search
 - `show` {Arrow function}, example: `data => data.KEY === 'SOMETHING'` --> will show the item if the condition will valid
+- `icon` {String} Font-Awesome icon, can contain a color e.g. `fa fa-home #00000`
 
 __Allowed types in data__:
 

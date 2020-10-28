@@ -39,7 +39,7 @@
 	form2.push({ group: 'Additional', label: 'Icon', name: 'icon', type: 'fontawesome', value: 'fas fa-home' });
 	form2.push({ group: 'Additional', label: 'Emoji', name: 'emoji', type: 'emoji', value: '', show: 'n => n.age === 33' });
 	form2.push({ group: 'Additional', label: 'Exec', exec: 'myexec', type: 'exec', value: 'Some text to exec' });
-	form2.push({ group: 'Additional', label: 'Readonly', name: 'something', type: 'text', value: 'Readonly value' });
+	form2.push({ group: 'Additional', label: 'Readonly', name: 'something', type: 'text', value: 'Readonly value', icon: 'fa fa-home #000' });
 
 	function myexec(item, el) {
 		console.log(item, el);
