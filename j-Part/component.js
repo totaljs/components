@@ -1,9 +1,8 @@
-COMPONENT('part', 'hide:1;loading:1', function(self, config) {
+COMPONENT('part', 'hide:1;loading:1', function(self, config, cls) {
 
 	var init = false;
 	var clid = null;
 	var downloading = false;
-	var cls = 'ui-' + self.name;
 	var isresizing = false;
 
 	self.releasemode && self.releasemode('true');
