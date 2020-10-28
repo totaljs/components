@@ -437,6 +437,22 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 		var dblclick = { ticks: 0, id: null, row: null };
 		r.line = container.find('.dg-resize-line');
 
+		var findclass = function(node) {
+
+			var count = 0;
+
+			while (true) {
+				for (var i = 1; i < arguments.length; i++) {
+					if (node.classList.contains(arguments[i]))
+						return true;
+				}
+				node = node.parentNode;
+				if ((count++) > 4)
+					break;
+			}
+
+		};
+
 		self.event('click', '.dg-row', function(e) {
 
 			var now = Date.now();
@@ -444,13 +460,13 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			var type = e.target.tagName;
 			var target = $(e.target);
 
-			if ((type === 'DIV' || type === 'SPAN') && !target.closest('.dg-checkbox').length) {
+			if ((type === 'DIV' || type === 'SPAN') && !findclass(e.target, 'dg-checkbox', 'dg-editable')) {
 
 				var cls = 'dg-selected';
 				var elrow = el.closest('.dg-row');
 				var index = +elrow.attrd('index');
 				var row = opt.rows[index];
-				if (row == null)
+				if (!row)
 					return;
 
 				if (config.dblclick && dblclick.ticks && dblclick.ticks > now && dblclick.row === row) {
