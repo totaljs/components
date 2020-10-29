@@ -1,7 +1,8 @@
-COMPONENT('aselected', 'selector:a;attr:href;class:selected', function(self, config) {
+COMPONENT('aselected', 'selector:a;attr:href;class:selected;delay:300', function(self, config) {
 
 	self.readonly();
-	self.blind();
+
+	var timeoutid;
 
 	self.make = function() {
 		self.refresh();
@@ -9,6 +10,8 @@ COMPONENT('aselected', 'selector:a;attr:href;class:selected', function(self, con
 	};
 
 	self.refresh = function() {
+		timeoutid && clearTimeout(timeoutid);
+		timeoutid = null;
 		var arr = self.find(config.selector);
 		var url = location.pathname;
 		for (var i = 0; i < arr.length; i++) {
@@ -18,4 +21,10 @@ COMPONENT('aselected', 'selector:a;attr:href;class:selected', function(self, con
 			el.tclass(config.class, selected);
 		}
 	};
+
+	self.setter = function() {
+		timeoutid && clearTimeout(timeoutid);
+		timeoutid = setTimeout(self.refresh, config.delay);
+	};
+
 });
