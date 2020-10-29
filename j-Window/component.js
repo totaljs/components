@@ -158,8 +158,8 @@ COMPONENT('window', 'zindex:12;scrollbar:1', function(self, config, cls) {
 		self.release(false);
 		self.resize();
 
-		config.reload && EXEC(config.reload, self);
-		config.default && DEFAULT(config.default, true);
+		config.reload && self.EXEC(config.reload, self);
+		config.default && DEFAULT(self.makepath(config.default), true);
 
 		if (!isMOBILE && config.autofocus) {
 			var el = self.find(config.autofocus ? 'input[type="text"],input[type="password"],select,textarea' : config.autofocus);

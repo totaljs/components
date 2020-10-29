@@ -54,13 +54,13 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', f
 	self.readonly();
 	self.submit = function() {
 		if (config.submit)
-			EXEC(config.submit, self.hide, self.element);
+			self.EXEC(config.submit, self.hide, self.element);
 		else
 			self.hide();
 	};
 
 	self.cancel = function() {
-		config.cancel && EXEC(config.cancel, self.hide);
+		config.cancel && self.EXEC(config.cancel, self.hide);
 		self.hide();
 	};
 
@@ -210,8 +210,8 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', f
 
 		if (self.hclass('hidden') === isHidden) {
 			if (!isHidden) {
-				config.reload && EXEC(config.reload, self);
-				config.default && DEFAULT(config.default, true);
+				config.reload && self.EXEC(config.reload, self);
+				config.default && DEFAULT(self.makepath(config.default), true);
 				config.scrolltop && self.scrollbar && self.scrollbar.scrollTop(0);
 			}
 			return;
@@ -245,8 +245,8 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', f
 		self.release(false);
 		config.scrolltop && self.scrollbar && self.scrollbar.scrollTop(0);
 
-		config.reload && EXEC(config.reload, self);
-		config.default && DEFAULT(config.default, true);
+		config.reload && self.EXEC(config.reload, self);
+		config.default && DEFAULT(self.makepath(config.default), true);
 
 		if (!isMOBILE && config.autofocus) {
 			setTimeout(function() {

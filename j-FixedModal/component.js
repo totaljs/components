@@ -45,14 +45,14 @@ COMPONENT('fixedmodal', 'zindex:12;width:500', function(self, config) {
 
 	self.submit = function() {
 		if (config.submit)
-			EXEC(config.submit, self.hide);
+			self.EXEC(config.submit, self.hide);
 		else
 			self.hide();
 	};
 
 	self.cancel = function() {
 		if (config.cancel)
-			EXEC(config.cancel, self.hide);
+			self.EXEC(config.cancel, self.hide);
 		else
 			self.hide();
 	};
@@ -131,8 +131,8 @@ COMPONENT('fixedmodal', 'zindex:12;width:500', function(self, config) {
 		self.resize();
 		self.release(false);
 
-		config.reload && EXEC(config.reload, self);
-		config.default && DEFAULT(config.default, true);
+		config.reload && self.EXEC(config.reload, self);
+		config.default && DEFAULT(self.makepath(config.default), true);
 
 		if (!isMOBILE && config.autofocus) {
 			var el = self.find(config.autofocus ? 'input[type="text"],input[type="password"],select,textarea' : config.autofocus);

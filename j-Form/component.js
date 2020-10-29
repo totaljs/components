@@ -55,13 +55,13 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 	self.readonly();
 	self.submit = function() {
 		if (config.submit)
-			EXEC(config.submit, self.hide, self.element);
+			self.EXEC(config.submit, self.hide, self.element);
 		else
 			self.hide();
 	};
 
 	self.cancel = function() {
-		config.cancel && EXEC(config.cancel, self.hide);
+		config.cancel && self.EXEC(config.cancel, self.hide);
 		self.hide();
 	};
 
@@ -201,8 +201,8 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 
 		if (self.hclass('hidden') === isHidden) {
 			if (!isHidden) {
-				config.reload && EXEC(config.reload, self);
-				config.default && DEFAULT(config.default, true);
+				config.reload && self.EXEC(config.reload, self);
+				config.default && DEFAULT(self.makepath(config.default), true);
 			}
 			return;
 		}
@@ -236,8 +236,8 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 		self.resize();
 		self.release(false);
 
-		config.reload && EXEC(config.reload, self);
-		config.default && DEFAULT(config.default, true);
+		config.reload && self.EXEC(config.reload, self);
+		config.default && DEFAULT(self.makepath(config.default), true);
 
 		if (!isMOBILE && config.autofocus) {
 			setTimeout(function() {
