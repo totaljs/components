@@ -35,8 +35,8 @@ __Scopes__:
 j-Modificator supports jComponent scopes but each path in the scope needs to contain `?` question mark e.g. `data-m="?.name"` which is replaced with a scope path. __Important:__ jComponent scope needs to contain some jComponents.
 
 ```html
-<div data-jc-scope="user">
-	<div data-jc="textbox" data-jc-path="name">Your name</div>
+<div data-scope="user">
+	<div data---="textbox__?.name">Your name</div>
 	<div data-m="?.name"></div>
 </div>
 ```

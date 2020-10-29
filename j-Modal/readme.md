@@ -9,7 +9,7 @@ __Configuration__:
 
 - `title` {String} modal title (it replaces a `HTML` in label element in the header)
 - `width` {Number} modal max-width
-- `if` {String} condition for showing of the modal, it's compared with the value within of `data-jc-path`
+- `if` {String} condition for showing of the modal, it's compared with the value within of `path`
 - `icon` {String} Font-Awesome icon without `fa-`
 - `reload` {String} link to a global `function(modal_component)` and it's executed if the form is displaying
 - `submit` {String} link to a global `function(hide)` and it's executed if the submit button is pressed

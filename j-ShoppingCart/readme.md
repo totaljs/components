@@ -4,7 +4,7 @@
 - supports discount
 - data are stored in localStorage
 
-Example: `data-jc-config="discount:10"`
+__Configuration__:
 
 - `discount` {Number} a discount in percentage (optional, default: `0`)
 - `expiration` {String} data expiration (default: `6 days`)

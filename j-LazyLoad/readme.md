@@ -6,8 +6,6 @@
 
 __Configuration__:
 
-Example: `data-jc-config="selector:img;container:.photos;exec:function_name"`
-
 - `container` {String} a selector as a scrolling container (default: `window`)
 - `selector` {String} (__important__) selector for lazy elements
 - `exec` {String} a link to method, executed if the lazy element is visible

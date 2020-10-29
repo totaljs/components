@@ -2,7 +2,7 @@
 	body { background-color: #F0F0F0; }
 </style>
 
-<div data-jc="contextmenu"></div>
+<div data---="contextmenu"></div>
 
 <div class="container">
 	<a href="javascript:void(0)">Edit</a>
@@ -10,7 +10,7 @@
 
 <script>
 	$(document).on('click', 'a', function() {
-		FIND('contextmenu').show('left', this, [{ name: 'Print', icon: 'fa-print', value: 'print' }, { name: 'Copy', icon: 'fa-copy', value: 'copy' }, { name: 'Remove', icon: 'fa-times-circle', value: 'remove' }], function(item) {
+		SETTER('contextmenu/show', 'left', this, [{ name: 'Print', icon: 'fa-print', value: 'print' }, { name: 'Copy', icon: 'fa-copy', value: 'copy' }, { name: 'Remove', icon: 'fa-times-circle', value: 'remove' }], function(item) {
 			console.log('CLICK', item);
 		});
 	});

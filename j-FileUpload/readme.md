@@ -7,7 +7,7 @@ __Configuration__:
 - `url` {String} a target URL for the uploading
 - `accept` {String} (optional) can contain a content-type frow browsing files e.g. `image/*`
 - `multiple` enables `multiple` files upload (default: `false`)
-- `array` {Boolean} enables pushing an uploaded value to array (`data-jc-path` must be the array)
+- `array` {Boolean} enables pushing an uploaded value to array (`path` must be the array)
 - `label` {String} (optional) changes a current `innerHTML` (default: `innerHTML`)
 - `disabled` {Boolean} disables
 

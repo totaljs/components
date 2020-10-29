@@ -6,7 +6,7 @@
 __Configuration__:
 
 - `width` {Number} modal max-width
-- `if` {String} condition for showing of the modal, it's compared with the value within of `data-jc-path`
+- `if` {String} condition for showing of the modal, it's compared with the value within of `path`
 - `reload` {String} link to a global function and it's executed if the form is showing
 - `submit` {String} link to a global function and it's executed if the submit button is pressed
 - `cancel` {String} link to a global function and it's executed if the cancel button is pressed

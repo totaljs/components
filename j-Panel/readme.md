@@ -5,7 +5,7 @@
 __Configuration__:
 
 - `title` {String} window title
-- `if` {String} condition for showing of the window, it's compared with the value within of `data-jc-path`
+- `if` {String} condition for showing of the window, it's compared with the value within of `path`
 - `icon` {String} Font-Awesome icon without `fa-`
 - `reload` {String} link to a global function and it's executed if the form is displaying
 - `enter` {Boolean} optional, captures `enter` key automatically and performs submit (default: `false`)
@@ -28,7 +28,7 @@ __Good to know__:
 New version of this component supports dynamic evaluation of the content of `<script type="text/html">`. The example below contains a script with HTML and the component evaluates the content if the j-Panel will be displayed (only once).
 
 ```html
-<div data-jc="panel__path__config">
+<div data---="panel__path__config">
 	<script type="text/html">
 		A CONTENT
 	</script>

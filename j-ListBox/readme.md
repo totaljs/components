@@ -15,7 +15,7 @@ __Configuration__:
 - `disabled` {Boolean} disables this component
 - `search` {String} enables search box with this value as a placeholder
 - `height` {Number/String} height (default: `200`), `string` can contain `parent`, `window` or `.parent_selector`
-- `multiple` {Boolean} `true` expects `Array` in `data-jc-path` (default: `false`)
+- `multiple` {Boolean} `true` expects `Array` in `path` (default: `false`)
 - `exec` {String} a link to function which is executed when the user click on the item
 
 ### Author
