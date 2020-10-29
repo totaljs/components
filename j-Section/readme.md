@@ -22,6 +22,7 @@ __Configuration__:
 - `marginlg` optional, a top/bottom margin together for `lg` screen width
 - `invisible` {Boolean} if `true` then section sets `invisible` class when is rendering (default: `true`)
 - `back` {String} a title for back button (default: `Back`)
+- `delayanim` {Number} animation delay (default: `100`)
 
 __Methods__:
 
@@ -58,6 +59,10 @@ __Definition__:
 
 </div>
 ```
+
+__Good to know__:
+
+If you want to add an additional content into the header to right side, just append inside of component e.g. `<div>BUTTON</div>`.
 
 ### Author
 

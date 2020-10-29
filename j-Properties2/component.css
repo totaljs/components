@@ -1,3 +1,4 @@
+.ui-properties2-container { padding: 0 0 20px 0; }
 .ui-properties2-group:first-child { margin-top: 10px; }
 .ui-properties2-group:last-child section { margin-bottom: 0; }
 .ui-properties2-group { padding: 0; margin-bottom: 20px; border: 1px solid #E0E0E0; border-radius: 3px 3px 0 0; }
@@ -13,13 +14,13 @@
 .ui-properties2-2 .ui-properties2-item { border-top-color: #ECECEC; margin: 0 15px; }
 .ui-properties2-2 .ui-properties2-item:last-child div { border-bottom: 0; }
 .ui-properties2-item > i { float: left; width: 24px; height: 24px; margin: 10px 5px 0 0; font-size: 20px; }
-.ui-properties2-2 .ui-properties2-item > i { margin-top: 8px; background: #606060; border-radius: 6px; font-size: 14px; color: #FFF; text-align: center; line-height: 28px; width: 28px; height: 28px; }
+.ui-properties2-2 .ui-properties2-item > i { margin-top: 8px; background: #606060; border-radius: 6px; font-size: 14px; color: #FFF; text-align: center; line-height: 24px; width: 24px; height: 24px; }
 .ui-properties2-isnote > i { margin-top: 17px !important; }
 .ui-properties2-key { float: left; width: 170px; line-height: 24px; padding: 0 5px 0 15px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; color: #707070; }
 .ui-properties2-key i { margin-right: 7px; }
 .ui-properties2-2 .ui-properties2-value { margin-left: 170px; text-align: right; color: #777; margin-right: 0; line-height: 20px; font-weight: normal !important; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ui-properties2-2 .ui-properties2-item { font-size: 13px; padding: 0; border-top: 0; }
-.ui-properties2-2 .ui-properties2-item > div { padding: 13px 0 8px; border-bottom: 1px solid #E0E0E0; }
+.ui-properties2-2 .ui-properties2-item > div { padding: 10px 0 8px; border-bottom: 1px solid #E0E0E0; }
 .ui-properties2-2 .ui-properties2-isicon > div { margin-left: 40px; }
 .ui-properties2-2 .ui-properties2-key { color: #000; padding-left: 0; line-height: 20px; }
 .ui-properties2-2 .ui-properties2-color span b { width: 19px; border-radius: 100%; }
@@ -45,6 +46,7 @@
 .ui-properties2-fontawesometoggle { height: 22px; }
 .ui-properties2-2 .ui-properties2-fontawesometoggle { height: auto; }
 .ui-properties2-list, .ui-properties2-menu, .ui-properties2-exec { cursor: pointer; }
+.ui-properties2-list i, .ui-properties2-menu i, .ui-properties2-exec i { margin-left: 7px; }
 .ui-properties2-list i, .ui-properties2-menu i { float: right; width: 20px; line-height: 23px; text-align: right; font-size: 12px; }
 .ui-properties2-list span, .ui-properties2-menu span { display: block; margin-right: 25px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 .ui-properties2-2 .ui-properties2-list span, .ui-properties2-2 .ui-properties2-menu span { margin-right: 0 !important; }

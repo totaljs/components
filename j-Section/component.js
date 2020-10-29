@@ -1,4 +1,4 @@
-COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;height:100;invisible:1;back:Back', function(self, config, cls) {
+COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;height:100;invisible:1;back:Back;delayanim:100', function(self, config, cls) {
 
 	var elb, elh;
 	var scrollbar;
@@ -68,17 +68,20 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 	self.make = function() {
 
 		self.aclass(cls);
-		self.element.find('> section').aclass(cls + '-section');
+		self.element.find('> section[data-if]').aclass(cls + '-section');
+
+		var dom = self.element.find('> div');
 
 		config.invisible && self.aclass('invisible');
 		config.scroll && self.element.wrapInner('<div class="' + cls + '-body"></div></div>');
 
-		self.element.prepend('<div class="{0}-header"><span class="hidden"><i class="fa fa-chevron-left"></i>{1}</span><label></label></div>'.format(cls, config.back));
+		self.element.prepend('<div class="{0}-header"><span class="{0}-back hidden"><i class="fa fa-chevron-left"></i>{1}</span><label></label></div>'.format(cls, config.back));
 
 		elb = self.find('> .{0}-body'.format(cls)).eq(0);
 		elh = self.find('> .{0}-header'.format(cls)).eq(0);
+		elh.prepend(dom);
 
-		elh.find('span').on('click', function() {
+		elh.find(cls2 + '-back').on('click', function() {
 			self.set($(this).attrd('parent'));
 		});
 
@@ -93,6 +96,7 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 				self.find(cls2 + '-body').aclass('noscrollbar');
 			}
 		}
+
 		self.resize();
 	};
 
@@ -158,16 +162,24 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		scrollbar && scrollbar.resize();
 	};
 
+	var done_close_cb = function(el) {
+		el.aclass('hidden invisible').rclass(cls + '-animate');
+	};
+
 	var done_close = function() {
-		$(this).aclass('hidden invisible').rclass(cls + '-animate');
+		setTimeout(done_close_cb, config.delayanim, $(this));
+	};
+
+	var done_open_cb = function(el) {
+		el.rclass(cls + '-animate');
 	};
 
 	var done_open = function() {
-		$(this).rclass(cls + '-animate');
+		setTimeout(done_open_cb, config.delayanim, $(this));
 		setTimeout(self.resize, config.delay, config.scrolltop);
 	};
 
-	self.setter = function(value) {
+	self.setter = function(value, path, type) {
 
 		if (current === value) {
 			setTimeout(self.resize, config.delay, config.scrolltop);
@@ -184,11 +196,14 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		if (visible.length) {
 			parent = visible.attrd('parent');
 			ltr = parent === value;
-			visible.rclass(cls + '-visible').aclass(cls + '-animate').animate({ 'margin-left': ltr ? ww : -ww }, 300, done_close);
+			visible.rclass(cls + '-visible').aclass(cls + '-animate').animate({ 'margin-left': ltr ? ww : -ww }, config.delayanim, done_close);
 		}
 
 		if (section.length) {
-			elh.find('label').html(Thelpers.encode(section.attrd('title')));
+
+			var icon = section.attrd('icon');
+
+			elh.find('label').html((icon ? '<i class="{0}"></i>'.format(icon) : '') + Thelpers.encode(section.attrd('title')));
 
 			var child = section[0].children[0];
 			if (child && (child.tagName === ('SCR' + 'IPT') || child.tagName === 'TEMPLATE')) {
@@ -197,8 +212,14 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 					COMPILE();
 			}
 
-			section.rclass('hidden invisible').css({ 'margin-left': ltr ? -ww : ww }).aclass(cls + '-visible ' + cls + '-animate').animate({ 'margin-left': 0 }, 300, done_open);
 			parent = section.attrd('parent');
+			section.rclass('hidden invisible');
+
+			if (type)
+				section.css({ 'margin-left': ltr ? -ww : ww }).aclass(cls + '-visible ' + cls + '-animate').animate({ 'margin-left': 0 }, config.delayanim, done_open);
+			else
+				section.aclass(cls + '-visible');
+
 			elh.find('span').tclass('hidden', !parent).attrd('parent', parent || '');
 		}
 

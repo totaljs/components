@@ -105,7 +105,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				item.value = val;
 				item.changed = item.prev !== val;
 				el.tclass(cls + '-changed', item.changed);
-				config.change && EXEC(self.makepath(config.change), item);
+				config.change && self.EXEC(config.change, item);
 				self.modifyval(item);
 				self.change(true);
 			}
@@ -145,7 +145,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				item.value = val;
 				item.changed = item.prev !== val;
 				el.tclass(cls + '-changed', item.changed);
-				config.change && EXEC(self.makepath(config.change), item);
+				config.change && self.EXEC(config.change, item);
 				self.modifyval(item);
 				self.change(true);
 			}
@@ -191,7 +191,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				item.value = val;
 				item.changed = item.prev !== val;
 				el.tclass(cls + '-changed', item.changed);
-				config.change && EXEC(self.makepath(config.change), item);
+				config.change && self.EXEC(config.change, item);
 				self.modifyval(item);
 				self.change(true);
 			}
@@ -240,7 +240,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			item.value = val;
 			item.changed = !item.prev || item.prev.format(config.dateformat) !== val.format(config.dateformat);
 			self.findel(t).tclass(cls + '-changed', item.changed);
-			config.change && EXEC(self.makepath(config.change), item, function(val) {
+			config.change && self.EXEC(config.change, item, function(val) {
 				t.value = val;
 			});
 			self.change(true);
@@ -293,7 +293,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			item.value = el.hclass('checked');
 			item.changed = item.prev !== item.value;
 			self.findel(t).tclass(cls + '-changed', item.changed);
-			config.change && EXEC(self.makepath(config.change), item);
+			config.change && self.EXEC(config.change, item);
 			self.change(true);
 			self.modifyval(item);
 		});
@@ -301,7 +301,6 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	types.bool.render = function(item, next) {
 		next('<div class="{0}-bool"><span class="{0}-booltoggle{1}"><i></i></span></div>'.format(cls, item.value ? ' checked' : ''));
 	};
-
 
 	types.exec = {};
 	types.exec.init = function() {
@@ -314,7 +313,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		});
 	};
 	types.exec.render = function(item, next) {
-		next('<div class="{0}-exec">{1}</div>'.format(cls, item.value ? Thelpers.encode(item.value) : ''));
+		next('<div class="{0}-exec">{1}<i class="fa fa-angle-right"></i></div>'.format(cls, item.value ? Thelpers.encode(item.value) : ''));
 	};
 
 	types.text = {};
@@ -360,7 +359,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 				item.changed = item.prev !== item.value;
 				self.findel(t).tclass(cls + '-changed', item.changed);
-				config.change && EXEC(self.makepath(config.change), item, function(val) {
+				config.change && self.EXEC(config.change, item, function(val) {
 					opt.element.find('span').text(val);
 				});
 				self.change(true);
@@ -417,7 +416,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 				item.changed = item.prev !== item.value;
 				self.findel(t).tclass(cls + '-changed', item.changed);
-				config.change && EXEC(self.makepath(config.change), item, function(val) {
+				config.change && self.EXEC(config.change, item, function(val) {
 					opt.element.find('span').text(val);
 				});
 				self.change(true);
@@ -459,7 +458,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				item.value = value;
 				item.changed = item.prev !== item.value;
 				self.findel(t).tclass(cls + '-changed', item.changed);
-				config.change && EXEC(self.makepath(config.change), item, function(val) {
+				config.change && self.EXEC(config.change, item, function(val) {
 					opt.element.find('b').css('background-color', val);
 				});
 				self.change(true);
@@ -489,7 +488,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				item.value = value;
 				item.changed = item.prev !== item.value;
 				self.findel(t).tclass(cls + '-changed', item.changed);
-				config.change && EXEC(self.makepath(config.change), item, function(val) {
+				config.change && self.EXEC(config.change, item, function(val) {
 					opt.element.find('i').rclass().aclass(val);
 				});
 				self.modifyval(item);
@@ -519,7 +518,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				item.value = value;
 				item.changed = item.prev !== item.value;
 				self.findel(t).tclass(cls + '-changed', item.changed);
-				config.change && EXEC(self.makepath(config.change), item, function(val) {
+				config.change && self.EXEC(config.change, item, function(val) {
 					opt.element.html(val);
 				});
 				self.change(true);
@@ -558,7 +557,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 					item.value = response;
 					item.changed = item.prev !== item.value;
 					self.findel(t).tclass(cls + '-changed', item.changed);
-					config.change && EXEC(self.makepath(config.change), item, function(val) {
+					config.change && self.EXEC(config.change, item, function(val) {
 						self.findel(cls2 + '-filename').text(val);
 					});
 					SETTER('loading', 'hide', 1000);
@@ -604,8 +603,10 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		var el = $(('<div class="{2}-item{3}' + (item.icon ? ' {2}-isicon' : '') + (item.note ? ' {2}-isnote' : '') + '" data-index="{1}">' + (config.style === 2 ? '{{ icon }}<div>' : '') + '<div class="{0}-key">' + (config.style === 2 ? '' : '{{ icon }}') + '{{ label }}</div>' + (config.style === 2 ? '<div class="{0}-value">&nbsp;</div><div class="{0}-note">{1}</div>'.format(cls, Thelpers.encode(item.note)) : '<div class="{0}-value">&nbsp;</div>') + '</div>' + (config.style === 2 ? '</div>' : '')).format(cls, index, c, item.required ? (' ' + cls + '-required') : '').arg(meta));
 
 		type.render(item, function(html) {
+
 			if (item.note && config.style !== 2)
 				html += '<div class="{0}-note">{1}</div>'.format(cls, item.note);
+
 			el.find(cls2 + '-value').html(html);
 			item.disabled && el.aclass('ui-disabled');
 		});
