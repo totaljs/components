@@ -53,6 +53,13 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 	types.string = {};
 	types.string.init = function() {
+
+		self.event('click', cls2 + '-tstring', function() {
+			var el = $(this);
+			if (!el.hclass('ui-disabled'))
+				el.find('input').focus();
+		});
+
 		self.event('change', '.pstring', function() {
 			var t = this;
 			var item = self.finditem(t);
@@ -115,12 +122,20 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			t.$processed = true;
 		});
 	};
+
 	types.string.render = function(item, next) {
 		next('<div class="{0}-string"><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pstring"{4} /></div>'.format(cls, item.maxlength, item.placeholder || '', Thelpers.encode(item.value), item.disabled ? ' disabled' : ''));
 	};
 
 	types.password = {};
 	types.password.init = function() {
+
+		self.event('click', cls2 + '-tpassword', function() {
+			var el = $(this);
+			if (!el.hclass('ui-disabled'))
+				el.find('input').focus();
+		});
+
 		self.event('focus', '.ppassword', function() {
 			$(this).attr('type', 'text');
 		});
@@ -161,6 +176,12 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 	types.number = {};
 	types.number.init = function() {
+
+		self.event('click', cls2 + '-tnumber', function() {
+			var el = $(this);
+			if (!el.hclass('ui-disabled'))
+				el.find('input').focus();
+		});
 
 		self.event('blur change', '.pnumber', function() {
 			var t = this;
@@ -225,6 +246,12 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	types.date = {};
 	types.date.init = function() {
 
+		self.event('click', cls2 + '-tdate', function() {
+			var el = $(this);
+			if (!el.hclass('ui-disabled'))
+				el.find('input').focus();
+		});
+
 		self.event('blur change', '.pdate', function(e) {
 
 			var t = this;
@@ -281,7 +308,20 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 	types.bool = {};
 	types.bool.init = function() {
-		self.event('click', cls2 + '-booltoggle', function() {
+
+		if (config.style === 2) {
+			self.event('click', cls2 + '-tbool', function(e) {
+				e.stopPropagation();
+				e.preventDefault();
+				$(this).find(cls2 + '-booltoggle').trigger('click');
+			});
+		}
+
+		self.event('click', cls2 + '-booltoggle', function(e) {
+
+			e.preventDefault();
+			e.stopPropagation();
+
 			var t = this;
 			var el = $(t);
 			var item = self.finditem(t);
@@ -304,7 +344,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 	types.exec = {};
 	types.exec.init = function() {
-		self.event('click', cls2 + '-exec', function() {
+		self.event('click', cls2 + '-' + (config.style === 2 ? 't' : '') + 'exec', function() {
 			var t = this;
 			var el = $(t);
 			var item = self.finditem(t);
@@ -323,7 +363,20 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 	types.list = {};
 	types.list.init = function() {
-		self.event('click', cls2 + '-list', function() {
+
+		if (config.style === 2) {
+			self.event('click', cls2 + '-tlist', function(e) {
+				e.stopPropagation();
+				e.preventDefault();
+				$(this).find(cls2 + '-list').trigger('click');
+			});
+		}
+
+		self.event('click', cls2 + '-list', function(e) {
+
+			e.preventDefault();
+			e.stopPropagation();
+
 			var t = this;
 			var item = self.finditem(t);
 
@@ -384,6 +437,15 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 	types.menu = {};
 	types.menu.init = function() {
+
+		if (config.style === 2) {
+			self.event('click', cls2 + '-tmenu', function(e) {
+				e.stopPropagation();
+				e.preventDefault();
+				$(this).find(cls2 + '-menu').trigger('click');
+			});
+		}
+
 		self.event('click', cls2 + '-menu', function() {
 			var t = this;
 			var item = self.finditem(t);
@@ -441,7 +503,20 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 	types.color = {};
 	types.color.init = function() {
-		self.event('click', cls2 + '-colortoggle', function() {
+
+		if (config.style === 2) {
+			self.event('click', cls2 + '-tcolor', function(e) {
+				e.stopPropagation();
+				e.preventDefault();
+				$(this).find(cls2 + '-colortoggle').trigger('click');
+			});
+		}
+
+		self.event('click', cls2 + '-colortoggle', function(e) {
+
+			e.preventDefault();
+			e.stopPropagation();
+
 			var t = this;
 			var item = self.finditem(t);
 
@@ -473,7 +548,20 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 	types.fontawesome = {};
 	types.fontawesome.init = function() {
-		self.event('click', cls2 + '-fontawesometoggle', function() {
+
+		if (config.style === 2) {
+			self.event('click', cls2 + '-tfontawesome', function(e) {
+				e.stopPropagation();
+				e.preventDefault();
+				$(this).find(cls2 + '-fontawesometoggle').trigger('click');
+			});
+		}
+
+		self.event('click', cls2 + '-fontawesometoggle', function(e) {
+
+			e.preventDefault();
+			e.stopPropagation();
+
 			var t = this;
 			var item = self.finditem(t);
 
@@ -503,7 +591,20 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 	types.emoji = {};
 	types.emoji.init = function() {
-		self.event('click', cls2 + '-emojitoggle', function() {
+
+		if (config.style === 2) {
+			self.event('click', cls2 + '-temoji', function(e) {
+				e.stopPropagation();
+				e.preventDefault();
+				$(this).find(cls2 + '-emojitoggle').trigger('click');
+			});
+		}
+
+		self.event('click', cls2 + '-emojitoggle', function(e) {
+
+			e.preventDefault();
+			e.stopPropagation();
+
 			var t = this;
 			var item = self.finditem(t);
 
@@ -533,7 +634,20 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 	types.file = {};
 	types.file.init = function() {
-		self.event('click', cls2 + '-file', function() {
+
+		if (config.style === 2) {
+			self.event('click', cls2 + '-tfile', function(e) {
+				e.stopPropagation();
+				e.preventDefault();
+				$(this).find(cls2 + '-file').trigger('click');
+			});
+		}
+
+		self.event('click', cls2 + '-file', function(e) {
+
+			e.preventDefault();
+			e.stopPropagation();
+
 			// Loads file
 			var t = this;
 			var item = self.finditem(t);
@@ -577,6 +691,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	self.bindvisible();
 
 	self.render = function(item, index) {
+
 		var type = types[item.type === 'boolean' ? 'bool' : item.type];
 		var c = cls;
 
@@ -585,7 +700,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				c = 'hidden ' + c;
 		}
 
-		var meta = { label: item.label };
+		var meta = { label: item.label, type: item.type };
 
 		if (item.icon) {
 			var tmp = item.icon;
@@ -600,7 +715,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		} else
 			meta.icon = '';
 
-		var el = $(('<div class="{2}-item{3}' + (item.icon ? ' {2}-isicon' : '') + (item.note ? ' {2}-isnote' : '') + '" data-index="{1}">' + (config.style === 2 ? '{{ icon }}<div>' : '') + '<div class="{0}-key">' + (config.style === 2 ? '' : '{{ icon }}') + '{{ label }}</div>' + (config.style === 2 ? '<div class="{0}-value">&nbsp;</div><div class="{0}-note">{1}</div>'.format(cls, Thelpers.encode(item.note)) : '<div class="{0}-value">&nbsp;</div>') + '</div>' + (config.style === 2 ? '</div>' : '')).format(cls, index, c, item.required ? (' ' + cls + '-required') : '').arg(meta));
+		var el = $(('<div class="{2}-item{3} {2}-t{type}' + (item.icon ? ' {2}-isicon' : '') + (item.note ? ' {2}-isnote' : '') + '" data-index="{1}">' + (config.style === 2 ? '{{ icon }}<div>' : '') + '<div class="{0}-key">' + (config.style === 2 ? '' : '{{ icon }}') + '{{ label }}</div>' + (config.style === 2 ? '<div class="{0}-value">&nbsp;</div><div class="{0}-note">{1}</div>'.format(cls, Thelpers.encode(item.note)) : '<div class="{0}-value">&nbsp;</div>') + '</div>' + (config.style === 2 ? '</div>' : '')).format(cls, index, c, item.required ? (' ' + cls + '-required') : '').arg(meta));
 
 		type.render(item, function(html) {
 
@@ -609,7 +724,8 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 			el.find(cls2 + '-value').html(html);
 			item.disabled && el.aclass('ui-disabled');
-		});
+
+		}, el);
 
 		return el;
 	};
@@ -666,13 +782,16 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 		var keys = Object.keys(groups);
 		for (var i = 0; i < keys.length; i++) {
+
 			var key = keys[i];
 			var group = groups[key];
 			var hash = 'g' + HASH(key, true);
 			var el = $('<div class="{0}-group" data-id="{2}"><label>{1}</label><section></section></div>'.format(cls, key, hash));
 			var section = el.find('section');
+
 			for (var j = 0; j < group.html.length; j++)
 				section.append(group.html[j]);
+
 			container.append(el);
 		}
 
