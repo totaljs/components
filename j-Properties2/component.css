@@ -16,6 +16,7 @@
 .ui-properties2-item > i { float: left; width: 24px; height: 24px; margin: 10px 5px 0 0; font-size: 20px; }
 .ui-properties2-2 .ui-properties2-item > i { margin-top: 8px; background: #606060; border-radius: 6px; font-size: 14px; color: #FFF; text-align: center; line-height: 24px; width: 24px; height: 24px; }
 .ui-properties2-isnote > i { margin-top: 17px !important; }
+.ui-properties2-required .ui-properties2-key:after { content: '*'; color: red; margin-left: 5px; font-weight: bold; }
 .ui-properties2-key { float: left; width: 170px; line-height: 24px; padding: 0 5px 0 15px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; color: #707070; }
 .ui-properties2-key i { margin-right: 7px; }
 .ui-properties2-2 .ui-properties2-item { cursor: pointer; }

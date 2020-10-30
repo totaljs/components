@@ -1,10 +1,25 @@
-COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timeformat:HH:mm;modalalign:center;style:1', function(self, config, cls) {
+COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timeformat:HH:mm;modalalign:center;style:1;validation:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var container;
 	var types = {};
 	var skip = false;
 	var values, funcs;
+
+	self.nocompile();
+	self.bindvisible();
+
+	self.validate = function(value) {
+
+		if (config.validation) {
+			for (var i = 0; i < value.length; i++) {
+				if (value[i].invalid)
+					return false;
+			}
+		}
+
+		return true;
+	};
 
 	self.make = function() {
 
@@ -85,7 +100,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 					break;
 			}
 
-			var isvalid = item.required == true ? !!val : true;
+			var isvalid = item.required ? !!val : true;
 			if (isvalid) {
 
 				// Is RegExp?
@@ -114,12 +129,13 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				el.tclass(cls + '-changed', item.changed);
 				config.change && self.EXEC(config.change, item);
 				self.modifyval(item);
-				self.change(true);
 			}
 
+			self.change(true);
 			item.invalid = !isvalid;
 			el.tclass(cls + '-invalid', item.invalid);
 			t.$processed = true;
+			item.required && self.validate2();
 		});
 	};
 
@@ -147,7 +163,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			var item = self.finditem(t);
 			var val = t.value.trim();
 
-			var isvalid = item.required == true ? !!val : true;
+			var isvalid = item.required ? !!val : true;
 			if (isvalid) {
 				// Is RegExp?
 				if (typeof(item.validate) === 'object')
@@ -162,12 +178,13 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				el.tclass(cls + '-changed', item.changed);
 				config.change && self.EXEC(config.change, item);
 				self.modifyval(item);
-				self.change(true);
 			}
 
 			item.invalid = !isvalid;
 			el.tclass(cls + '-invalid', item.invalid);
 			t.$processed = true;
+			self.change(true);
+			item.required && self.validate2();
 		});
 	};
 	types.password.render = function(item, next) {
@@ -214,11 +231,12 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				el.tclass(cls + '-changed', item.changed);
 				config.change && self.EXEC(config.change, item);
 				self.modifyval(item);
-				self.change(true);
 			}
 
 			el.tclass(cls + '-invalid', item.invalid);
 			t.$processed = true;
+			self.change(true);
+			item.required && self.validate2();
 		});
 
 		self.event('keydown', '.pnumber', function(e) {
@@ -270,8 +288,9 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			config.change && self.EXEC(config.change, item, function(val) {
 				t.value = val;
 			});
-			self.change(true);
 			self.modifyval(item);
+			self.change(true);
+			item.required && self.validate2();
 			t.$processed = true;
 		});
 
@@ -334,8 +353,9 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			item.changed = item.prev !== item.value;
 			self.findel(t).tclass(cls + '-changed', item.changed);
 			config.change && self.EXEC(config.change, item);
-			self.change(true);
 			self.modifyval(item);
+			self.change(true);
+			item.required && self.validate2();
 		});
 	};
 	types.bool.render = function(item, next) {
@@ -415,8 +435,9 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				config.change && self.EXEC(config.change, item, function(val) {
 					opt.element.find('span').text(val);
 				});
-				self.change(true);
 				self.modifyval(item);
+				self.change(true);
+				item.required && self.validate2();
 			};
 			SETTER('directory', 'show', opt);
 		});
@@ -481,8 +502,9 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				config.change && self.EXEC(config.change, item, function(val) {
 					opt.element.find('span').text(val);
 				});
-				self.change(true);
 				self.modifyval(item);
+				self.change(true);
+				item.required && self.validate2();
 			};
 			SETTER('menu', 'show', opt);
 		});
@@ -536,8 +558,9 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				config.change && self.EXEC(config.change, item, function(val) {
 					opt.element.find('b').css('background-color', val);
 				});
-				self.change(true);
 				self.modifyval(item);
+				self.change(true);
+				item.required && self.validate2();
 			};
 			SETTER('colorpicker', 'show', opt);
 		});
@@ -581,6 +604,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				});
 				self.modifyval(item);
 				self.change(true);
+				item.required && self.validate2();
 			};
 			SETTER('faicons', 'show', opt);
 		});
@@ -622,8 +646,9 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				config.change && self.EXEC(config.change, item, function(val) {
 					opt.element.html(val);
 				});
-				self.change(true);
 				self.modifyval(item);
+				self.change(true);
+				item.required && self.validate2();
 			};
 			SETTER('emoji', 'show', opt);
 		});
@@ -676,8 +701,9 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 					});
 					SETTER('loading', 'hide', 1000);
 					file.value = '';
-					self.change(true);
 					self.modifyval(item);
+					self.change(true);
+					item.required && self.validate2();
 				});
 			}).trigger('click');
 		});
@@ -686,9 +712,6 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	types.file.render = function(item, next) {
 		next('<div class="{0}-file"><i class="far fa-folder"></i><span class="{0}-filename">{1}</span></div>'.format(cls, item.filename || item.value || DEF.empty));
 	};
-
-	self.nocompile();
-	self.bindvisible();
 
 	self.render = function(item, index) {
 
@@ -715,7 +738,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		} else
 			meta.icon = '';
 
-		var el = $(('<div class="{2}-item{3} {2}-t{type}' + (item.icon ? ' {2}-isicon' : '') + (item.note ? ' {2}-isnote' : '') + '" data-index="{1}">' + (config.style === 2 ? '{{ icon }}<div>' : '') + '<div class="{0}-key">' + (config.style === 2 ? '' : '{{ icon }}') + '{{ label }}</div>' + (config.style === 2 ? '<div class="{0}-value">&nbsp;</div><div class="{0}-note">{1}</div>'.format(cls, Thelpers.encode(item.note)) : '<div class="{0}-value">&nbsp;</div>') + '</div>' + (config.style === 2 ? '</div>' : '')).format(cls, index, c, item.required ? (' ' + cls + '-required') : '').arg(meta));
+		var el = $(('<div class="{2}-item{3} {2}-t{type}' + (item.required ? ' {2}-required' : '') + (item.icon ? ' {2}-isicon' : '') + (item.note ? ' {2}-isnote' : '') + '" data-index="{1}">' + (config.style === 2 ? '{{ icon }}<div>' : '') + '<div class="{0}-key">' + (config.style === 2 ? '' : '{{ icon }}') + '{{ label }}</div>' + (config.style === 2 ? '<div class="{0}-value">&nbsp;</div><div class="{0}-note">{1}</div>'.format(cls, Thelpers.encode(item.note)) : '<div class="{0}-value">&nbsp;</div>') + '</div>' + (config.style === 2 ? '</div>' : '')).format(cls, index, c, item.required ? (' ' + cls + '-required') : '').arg(meta));
 
 		type.render(item, function(html) {
 
@@ -777,6 +800,10 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				funcs[item.name + '_show'] = typeof(item.show) === 'string' ? FN(item.show) : item.show;
 
 			values[item.name] = item.value;
+
+			if (item.required)
+				item.invalid = !item.value;
+
 			groups[g].html.push(self.render(item, i));
 		}
 
@@ -795,6 +822,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			container.append(el);
 		}
 
+		self.validate2();
 	};
 
 });

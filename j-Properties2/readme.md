@@ -10,6 +10,7 @@ __Configuration__:
 - `change` {String} a path to method `method(item, replace_text(new_text))` (executed if some value is changed) and `replace_text` argument is optional
 - `modalalign` {String} aligment for modal windows (default: `center`)
 - __NEW__ `style` {Number} supports a new style `2` like `iOS` settings (default: `1`)
+- __NEW__ `validation` {Boolean} enables validation for required fields (default: `true`)
 
 __Data declaration__:
 
