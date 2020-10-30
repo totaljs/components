@@ -156,6 +156,7 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 			self.rclass('invisible', 250);
 			init = true;
 		}
+
 	};
 
 	self.resizescrollbar = function() {
@@ -221,6 +222,9 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 				section.aclass(cls + '-visible');
 
 			elh.find('span').tclass('hidden', !parent).attrd('parent', parent || '');
+			config.autofocus && setTimeout(function() {
+				section.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea').eq(0).focus();
+			}, config.delayanim * 2);
 		}
 
 	};

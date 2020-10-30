@@ -21,6 +21,7 @@ __Configuration__:
 - `marginmd` optional, a top/bottom margin together for `md` screen width
 - `marginlg` optional, a top/bottom margin together for `lg` screen width
 - `invisible` {Boolean} if `true` then section sets `invisible` class when is rendering (default: `true`)
+- `autofocus` {Boolean/String} can focus an input. `String` === `jQuery selector` for the input
 - `back` {String} a title for back button (default: `Back`)
 - `delayanim` {Number} animation delay (default: `100`)
 
