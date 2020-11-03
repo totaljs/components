@@ -17,6 +17,7 @@ COMPONENT('fileuploader', function(self) {
 
 		self.find('input').attr('accept', opt.accept || '*/*').prop('multiple', !!opt.multiple);
 		self.opt = opt;
+		input[0].value = '';
 		input.click();
 	};
 
@@ -25,13 +26,13 @@ COMPONENT('fileuploader', function(self) {
 		self.append('<input type="file" multiple />');
 		input = self.find('input');
 		self.event('change', 'input', function(e) {
-			self.upload(e.target.files);
+			self.uploadfiles(e.target.files);
 			this.value = '';
 		});
 	};
 
 
-	self.upload = function(files) {
+	self.uploadfiles = function(files) {
 
 		var data = new FormData();
 
