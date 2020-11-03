@@ -222,5 +222,6 @@
 	"j-InfoWindows",
 	"j-SearchInput",
 	"j-Section",
-	"j-FileUploader"
+	"j-FileUploader",
+	"j-RawInput"
 ]
