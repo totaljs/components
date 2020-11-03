@@ -221,5 +221,6 @@
 	"j-FeedbackButton",
 	"j-InfoWindows",
 	"j-SearchInput",
-	"j-Section"
+	"j-Section",
+	"j-fileuploader"
 ]

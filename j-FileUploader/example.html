@@ -1,0 +1,21 @@
+<a href="javascript:void(0)" data-bind="null__click:upload">Upload</a>
+
+<script>
+	function upload() {
+		var opt = {};
+
+		opt.url = '/api/upload/';
+
+		// opt.multiple = true;
+		// opt.accept = 'text/*';
+
+		opt.callback = function(response, err) {
+			console.log(response, err);
+		};
+		opt.progress = function(percentage) {
+			console.log(percentage);
+		};
+
+		SETTER('fileuploader/upload', opt);
+	}
+</script>
