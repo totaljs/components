@@ -124,6 +124,10 @@ __Methods__:
 
 - `SETTER('dashboard/send', type, body)` sends data to all widgets which contain `data` delegate
 
+__Good to know__:
+
+- each component (in the Dashboard) contains `d-COMPONENTNAME` class
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

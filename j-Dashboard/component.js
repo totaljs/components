@@ -442,6 +442,8 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		if (obj.header !== false)
 			classname.push(cls + '-header');
 
+		classname.push('d-' + obj.component);
+
 		var isdom = obj.html && typeof(obj.html) !== 'string';
 		var el = $(('<div class="{1} invisible" data-id="{2}"><div class="{0}-body" style="margin:{5}px"><div class="{0}-title">{4}</div><figure>{3}</figure><span class="{0}-resize-button"></span></div></div>').format(cls, classname.join(' '), obj.id, isdom ? '' : obj.html, '<span class="fa fa-trash-o ui-dashboard-control" data-name="remove"></span><span class="fa fa-cog ui-dashboard-control" data-name="settings"></span>' + obj.title, config.padding));
 		self.dom.appendChild(el[0]);
