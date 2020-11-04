@@ -1120,7 +1120,7 @@ EXTENSION('flow:connections', function(self, config) {
 		e.preventDefault();
 		e.stopPropagation();
 
-		if (config.horizontal && e.target.nodeName !== 'I')
+		if (config.horizontal && !e.target.classList.contains('component-io'))
 			return;
 
 		drag.click = true;
@@ -1205,9 +1205,9 @@ EXTENSION('flow:connections', function(self, config) {
 
 		if (init) {
 			var kp = 'input' + D + b.id + D + b.index;
-			input.find('i').tclass('fa-times', !!self.paused[kp]);
+			input.find('.component-io').tclass('fa-times', !!self.paused[kp]);
 			kp = 'output' + D + a.id + D + a.index;
-			output.find('i').tclass('fa-times', !!self.paused[kp]);
+			output.find('.component-io').tclass('fa-times', !!self.paused[kp]);
 		}
 
 		var data = self.get();
