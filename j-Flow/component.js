@@ -1452,12 +1452,13 @@ EXTENSION('flow:commands', function(self, config) {
 
 	self.command('flow.components.add', function(com) {
 		if (!com.id)
-			com.id = Date.now().toString(36);
+			com.id = 'f' + Date.now().toString(36);
 		var data = self.get();
 		data[com.id] = com;
 		self.op.modify(com, 'newbie');
 		self.op.modified();
 		self.refresh(true);
+		self.op.undo({ type: 'component', id: com.id });
 	});
 
 	self.command('flow.zoom', function(type) {
