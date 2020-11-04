@@ -102,6 +102,10 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 	};
 
 	drag.handler = function(e) {
+
+		if (HIDDEN(self.element))
+			return;
+
 		drag.el = $(e.target);
 		e.touches && drag.bind();
 		var dt = e.originalEvent.dataTransfer;
@@ -143,14 +147,11 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		if (events.is === is)
 			return;
 
-		var en = 'dragenter dragover dragexit drop dragleave dragstart';
 		var el = $D;
 		if (is) {
-			el.on(en, events.ondrag);
 			el.on('mouseup touchend', events.onup);
 			el.on('mousemove touchmove', events.onmove);
 		} else {
-			el.off(en, events.drag);
 			el.off('mouseup touchend', events.onup);
 			el.off('mousemove touchmove', events.onmove);
 		}
