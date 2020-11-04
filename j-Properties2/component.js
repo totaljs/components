@@ -11,7 +11,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 	self.validate = function(value) {
 
-		if (config.validation) {
+		if (config.validation && value && value.length) {
 			for (var i = 0; i < value.length; i++) {
 				if (value[i].invalid)
 					return false;
