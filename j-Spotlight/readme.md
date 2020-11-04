@@ -8,8 +8,6 @@ __Configuration__:
 - `height` {Number} a default height of each item (default: `40`, must be defined in CSS too)
 - `placeholder` {String} a default placeholder (default: `Search`)
 
-### Methods
-
 __Methods__:
 
 Method: `component.show(options)`
@@ -24,6 +22,7 @@ Method: `component.show(options)`
 - `options.remap` {Function} it can remap results `items => items.map(...)`
 - `options.clear` {Boolean} it clears previous results (default: `false`)
 - `options.init` {Boolean} makes empty search when the component is called (default: `false`)
+- `options.delay` {Number} a delay in `ms` for performing of searching (default: `100`)
 
 __Good to know__:
 

@@ -103,7 +103,7 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 
 		self.event('keyup', 'input', function() {
 			if (!skip)
-				setTimeout2(self.id, self.search, 100, null, this.value);
+				setTimeout2(self.id, self.search, self.opt.delay || 100, null, this.value);
 		});
 	};
 
