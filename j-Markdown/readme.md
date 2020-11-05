@@ -20,7 +20,8 @@ console.log(text.markdown(opt));
 - `opt.formatting = true` enables basic text formatting
 - `opt.icons = true` enables Font-Awesome icons via `:home:` or `:cog:`
 - `opt.tables = true` enables tables
-- `opt.br = true` enables adding empty lines
+- `opt.br = true` enables new lines via `<br>`
+- `opt.emptynewline = true` empty lines will be rendered as empty lines
 - `opt.headlines = true` enables headlines
 - `opt.hr = true` enables page breaks
 - `opt.blockquotes = true` enables blockquotes `< blockqote`

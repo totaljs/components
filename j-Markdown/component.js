@@ -383,6 +383,7 @@ COMPONENT('markdown', function (self) {
 			// opt.footnotes = true;
 			// opt.urlify = true;
 			// opt.keywords = true;
+			// opt.emptynewline = true;
 
 			var str = this;
 
@@ -520,7 +521,7 @@ COMPONENT('markdown', function (self) {
 				return val;
 			};
 
-			for (var i = 0, length = lines.length; i < length; i++) {
+			for (var i = 0; i < lines.length; i++) {
 
 				lines[i] = lines[i].replace(encodetags, encode);
 				var three = lines[i].substring(0, 3);
@@ -579,6 +580,9 @@ COMPONENT('markdown', function (self) {
 
 				var line = lines[i];
 
+				if (opt.br !== false)
+					line = line.replace(/&lt;br(\s\/)?&gt;/g, '<br />');
+
 				if (line.length > 10 && opt.urlify !== false && opt.links !== false)
 					line = markdown_urlify(line);
 
@@ -617,7 +621,7 @@ COMPONENT('markdown', function (self) {
 
 				if (line === '' && lines[i - 1] === '') {
 					closeul();
-					if (opt.br !== false)
+					if (opt.emptynewline !== false)
 						builder.push('<br />');
 					prev = 'br';
 					continue;
