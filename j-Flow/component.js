@@ -1,10 +1,9 @@
-COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horizontal:0;steplines:0;animationradius:6', function(self, config) {
+COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horizontal:0;steplines:0;animationradius:6', function(self, config, cls) {
 
 	// config.infopath {String}, output: { zoom: Number, selected: Object }
 	// config.undopath {String}, output: {Object Array}
 	// config.redopath {String}, output: {Object Array}
 
-	var cls = 'ui-flow';
 	var D = '__';
 	var drag = {};
 
@@ -63,6 +62,10 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 		};
 
 		drag.handler = function(e) {
+
+			if (HIDDEN(self.element))
+				return;
+
 			drag.el = $(e.target);
 			e.touches && drag.bind();
 			var dt = e.originalEvent.dataTransfer;
@@ -94,10 +97,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 
 	self.destroy = function() {
 		$(document).off('dragstart', drag.handler);
-		if (W.OP)
-			W.OP.off('resize', self.op.resize);
-		else
-			$(W).off('resize', self.op.resize);
+		$(W).off('resize', self.op.resize);
 	};
 
 	self.getOffset = function() {
@@ -110,9 +110,9 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			return;
 
 		var keys = Object.keys(value);
-		var onmake = config.onmake ? GET(config.onmake) : null;
-		var ondone = config.ondone ? GET(config.ondone) : null;
-		var onremove = config.onremove ? GET(config.onremove) : null;
+		var onmake = config.onmake ? GET(self.makepath(config.onmake)) : null;
+		var ondone = config.ondone ? GET(self.makepath(config.ondone)) : null;
+		var onremove = config.onremove ? GET(self.makepath(config.onremove)) : null;
 		var prev = self.cache;
 		var ischanged = false;
 		var tmp;
@@ -1378,9 +1378,15 @@ EXTENSION('flow:commands', function(self, config) {
 		if (!opt)
 			opt = { speed: 3, count: 1, delay: 50 };
 
+		if (!opt.limit)
+			opt.limit = 20;
+
 		var path = self.el.lines.find('.from__' + id);
 
-		if (!path.length || (self.animations[id] > (opt.limit || 20)))
+		if (opt.count > opt.limit)
+			opt.count = opt.limit;
+
+		if (!path.length || (self.animations[id] > opt.limit) || document.hidden)
 			return;
 
 		var add = function(next) {
@@ -1406,12 +1412,14 @@ EXTENSION('flow:commands', function(self, config) {
 
 						if (document.hidden || !dom.$path || !dom.$path.parentNode || dom.$token !== self.animations_token) {
 							el.remove();
-							self.animations[id]--;
+							if (self.animations[id])
+								self.animations[id]--;
 							return;
 						}
 
 						if (dom.$count >= 100) {
-							self.animations[id]--;
+							if (self.animations[id] > 0)
+								self.animations[id]--;
 							el.remove();
 						} else
 							el.attr('transform', translate_path(dom.$count, dom.$path));
@@ -1574,7 +1582,6 @@ EXTENSION('flow:commands', function(self, config) {
 
 	// Resets editor
 	self.command('flow.reset', function() {
-		self.cache = {};
 		self.refresh();
 		self.info.selected = null;
 		self.op.refreshinfo();
