@@ -12,6 +12,7 @@
 .markdown p code, .markdown section code, .markdown li code, .markdown blockquote code, .markdown td code { border: 1px solid #E0E0E0; background-color: #F5F5F5; }
 .markdown pre { padding: 0; border-radius: 4px; margin: 20px 0; width: 100%; }
 .markdown pre code { padding: 10px; font-size: 14px; line-height: 18px; overflow-scrolling: touch; border-radius: 3px; }
+.markdown { white-space: break-spaces; }
 .markdown table { margin: 0 0 15px; width: auto !important; }
 .markdown ul { margin: 0 0 20px 0; padding: 0 0 0 2em; }
 .markdown ul ul { margin-bottom: 0; }
