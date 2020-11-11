@@ -17,6 +17,13 @@ COMPONENT('searchinput', 'searchicon:fa fa-search;cancelicon:fa fa-times;align:l
 			prev && self.set('');
 		});
 
+		if (config.autofocus && !isMOBILE)
+			input.focus();
+
+	};
+
+	self.focus = function() {
+		input && input.focus();
 	};
 
 	self.check = function() {
