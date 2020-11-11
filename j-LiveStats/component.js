@@ -1,4 +1,4 @@
-COMPONENT('livestats', 'width:500;height:100;axislines:20', function(self, config, cls) {
+COMPONENT('livestats', 'width:500;height:100;axislines:20;max:0', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var cache = {};
@@ -74,8 +74,11 @@ COMPONENT('livestats', 'width:500;height:100;axislines:20', function(self, confi
 
 	self.setter = function(value) {
 
+		if (!value)
+			return;
+
 		var keys = Object.keys(value);
-		var max = 0;
+		var max = config.max;
 		var bars = (config.axislines / 2) >> 0;
 
 		for (var i = 0; i < keys.length; i++) {
@@ -97,12 +100,14 @@ COMPONENT('livestats', 'width:500;height:100;axislines:20', function(self, confi
 		}
 
 		// Finds max
-		for (var i = 0; i < keys.length; i++) {
-			var key = keys[i];
-			for (var j = 0; j < peak[key].length; j++) {
-				var val = peak[key][j];
-				if (max < val)
-					max = val;
+		if (!max) {
+			for (var i = 0; i < keys.length; i++) {
+				var key = keys[i];
+				for (var j = 0; j < peak[key].length; j++) {
+					var val = peak[key][j];
+					if (max < val)
+						max = val;
+				}
 			}
 		}
 
