@@ -8,8 +8,9 @@ __Configuration__:
 - `attribute` {String} element attribute which contains a search phrase (default: `data-search`)
 - `class` {String} this class will be used if the element is not found (default: `hidden`)
 - `delay` {Number} typing delay (default: `50` ms)
-- `exec` {String} a link to method which will be evaluated if the component searches for something
+- __UPD__ `exec` {String} a link to `function(stats:{ total: Number, count: Number, hidden: Number, search: String, is: Boolean })` which will be evaluated if the component searches for something
 - __NEW__ `datasource` {String} a path to data-source for watching of changes
+- __NEW__ `splitwords` {Boolean} tries to find word in various position (default: `true`)
 
 __Good to know__:
 
