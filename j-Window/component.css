@@ -8,6 +8,6 @@
 .ui-window-button-close { float: right; cursor: pointer; font-size: 18px; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; padding: 0; width: auto; }
 .ui-window-button-close:hover { transform: scale(1.2); }
 .ui-window-title > span { font-weight: bold; }
-.ui-window-title > .fa { margin-right: 7px; }
+.ui-window-title > i { margin-right: 7px; }
 .ui-dark .ui-window { background-color: #202020; }
 .ui-dark .ui-window-title { background-color: #202020; border-bottom-color: #191919; color: #FFFFFF; }
