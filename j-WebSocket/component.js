@@ -14,6 +14,15 @@ COMPONENT('websocket', 'reconnect:3000;encoder:true', function(self, config) {
 			url = (location.protocol.length === 6 ? 'wss' : 'ws') + '://' + location.host + (url.substring(0, 1) !== '/' ? '/' : '') + url;
 		setTimeout(self.connect, 500);
 		self.destroy = self.close;
+
+		$(W).on('offline', function() {
+			self.close();
+		});
+
+		$(W).on('online', function() {
+			setTimeout(self.connect, config.reconnect);
+		});
+
 	};
 
 	self.send = function(obj) {
@@ -64,9 +73,9 @@ COMPONENT('websocket', 'reconnect:3000;encoder:true', function(self, config) {
 
 	self.isonline = function(is) {
 		if (config.online)
-			EXEC(self.makepath(config.online), is);
+			self.EXEC(config.online, is);
 		else
-			EMIT('online', true);
+			EMIT('online', is);
 	};
 
 	function onClose(e) {
@@ -92,7 +101,7 @@ COMPONENT('websocket', 'reconnect:3000;encoder:true', function(self, config) {
 		}
 
 		if (config.message)
-			EXEC(self.makepath(config.message), data);
+			self.EXEC(config.message, data);
 		else
 			EMIT('message', data);
 	}
@@ -106,7 +115,7 @@ COMPONENT('websocket', 'reconnect:3000;encoder:true', function(self, config) {
 
 	self.connect = function() {
 		ws && self.close();
-		setTimeout2(self.id, function() {
+		setTimeout2(self.ID, function() {
 			ws = new WebSocket(url.env(true));
 			ws.onopen = onOpen;
 			ws.onclose = onClose;
