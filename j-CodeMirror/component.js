@@ -182,7 +182,7 @@ COMPONENT('codemirror', 'linenumbers:true;required:false;trim:false;tabs:true', 
 		self.$oldstate = invalid;
 		container.tclass(cls + '-invalid', invalid);
 	};
-}, ['//cdnjs.cloudflare.com/ajax/libs/codemirror/5.45.0/codemirror.min.css', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.45.0/codemirror.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.45.0/mode/javascript/javascript.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.45.0/mode/htmlmixed/htmlmixed.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.45.0/mode/xml/xml.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.45.0/mode/css/css.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.45.0/mode/markdown/markdown.min.js', function(next) {
+}, ['//cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/htmlmixed/htmlmixed.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/xml/xml.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/css/css.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/markdown/markdown.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/addon/mode/overlay.min.js', function(next) {
 
 	CodeMirror.defineMode('totaljsresources', function() {
 		var REG_KEY = /^[a-z0-9_\-.#]+/i;
