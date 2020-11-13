@@ -110,16 +110,14 @@ COMPONENT('menu', function(self, config, cls) {
 
 	self.bindevents = function() {
 		events.is = true;
-		$(document).on('touchstart mouseenter mousedown', cls2 + '-children', events.children);
-		$(document).on('touchstart mousedown', events.click);
+		$(document).on('touchstart mouseenter mousedown', cls2 + '-children', events.children).on('touchstart mousedown', events.click);
 		$(window).on('scroll', events.hide);
 		self.element.on('mouseenter', 'li', events.hidechildren);
 	};
 
 	self.unbindevents = function() {
 		events.is = false;
-		$(document).off('touchstart mouseenter mousedown', cls2 + '-children', events.children);
-		$(document).off('touchstart mousedown', events.click);
+		$(document).off('touchstart mouseenter mousedown', cls2 + '-children', events.children).off('touchstart mousedown', events.click);
 		$(window).off('scroll', events.hide);
 		self.element.off('mouseenter', 'li', events.hidechildren);
 	};
@@ -274,6 +272,19 @@ COMPONENT('menu', function(self, config, cls) {
 
 		if (opt.offsetY)
 			css.top += opt.offsetY;
+
+		var mw = w;
+		var mh = self.height();
+
+		if (css.left < 0)
+			css.left = 10;
+		else if ((mw + css.left) > WW)
+			css.left = (WW - mw) - 10;
+
+		if (css.top < 0)
+			css.top = 10;
+		else if ((mh + css.top) > WH)
+			css.top = (WH - mh) - 10;
 
 		self.element.css(css);
 	};
