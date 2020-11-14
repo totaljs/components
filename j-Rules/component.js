@@ -64,7 +64,7 @@ COMPONENT('rules', 'dirsearch:Search', function(self, config, cls) {
 		self.event('click', cls2 + '-boolean', function() {
 			var el = $(this);
 			var is = el.find('span').tclass('checked').hclass('checked');
-			var id = el.closest(cls + '-item').attrd('name');
+			var id = el.closest(cls2 + '-item').attrd('name');
 			items.findItem('name', id).value = is;
 			self.forcechange();
 		});
