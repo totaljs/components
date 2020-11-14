@@ -22,7 +22,7 @@ __Data properties in data declaration__:
 - `label` {String} a label (required)
 - `note` {String} a small note under control
 - `type` {String} a type, lower-case (required)
-- `items` {Object Array} items for `string` type only `{ id: String, name: String }`
+- `items` {Object Array} items for `string` type only  in the form `[{ id: String, name: String }]`
 - `enabled` {Boolean} enables item
 - `comparer` {String} can be `==`, `!=`, `>`, `>=`, `<=`, `<` (required)
 - `value` {Number/Boolean/String} a value
