@@ -1,0 +1,13 @@
+<div data---="LAZY directory"></div>
+
+<div style="width:600px;padding:20px">
+	<div data---="rules__form"></div>
+</div>
+
+<script>
+	var form = [];
+	form.push({ enabled: true, label: 'CPU', name: 'cpu', type: 'number', comparer: '==', placeholder: '', value: 0, note: 'Value in mega bytes' });
+	form.push({ enabled: false, label: 'Memory', name: 'memory', type: 'number', comparer: '>', placeholder: '', value: 0 });
+	form.push({ enabled: true, label: 'Error', name: 'error', type: 'string', comparer: '==', items: [{ name: 'Error', id: 'error' }, { name: 'Obsolete', id: 'obsolete' }] });
+	form.push({ enabled: false, label: 'Offline', name: 'offline', type: 'boolean', comparer: '==', value: 0 });
+</script>

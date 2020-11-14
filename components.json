@@ -223,5 +223,6 @@
 	"j-SearchInput",
 	"j-Section",
 	"j-FileUploader",
-	"j-RawInput"
+	"j-RawInput",
+	"j-Rules"
 ]
