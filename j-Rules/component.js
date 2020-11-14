@@ -1,6 +1,5 @@
 COMPONENT('rules', 'dirsearch:Search', function(self, config, cls) {
 
-	var schema;
 	var skip = false;
 	var cls2 = '.' + cls;
 	var items;
@@ -9,7 +8,7 @@ COMPONENT('rules', 'dirsearch:Search', function(self, config, cls) {
 	self.renders = {};
 
 	self.renders.number = function(item) {
-		return '<div class="{0}-number"><input type="text"{1} value="{2}" /></div>'.format(cls, item.enabled ? '' : ' disabled', item.value);
+		return '<div class="{0}-number"><input type="text"{1} value="{2}" /></div>'.format(cls, item.enabled ? '' : ' disabled', Thelpers.encode(item.value));
 	};
 
 	self.renders.string = function(item) {
@@ -17,11 +16,11 @@ COMPONENT('rules', 'dirsearch:Search', function(self, config, cls) {
 			var m = item.items.findItem('id', item.value);
 			return '<div class="{0}-string"><div class="{0}-list">{2}</div></div>'.format(cls, item.enabled ? '' : ' disabled', m ? m.name : '');
 		} else
-			return '<div class="{0}-string"><input type="text"{1} value="{2}" /></div>'.format(cls, item.enabled ? '' : ' disabled', item.value);
+			return '<div class="{0}-string"><input type="text"{1} value="{2}" /></div>'.format(cls, item.enabled ? '' : ' disabled', Thelpers.encode(item.value));
 	};
 
 	self.renders.boolean = function(item) {
-		return '<div class="{0}-boolean"><span class="{0}-checkbox"><i></i></span></div>';
+		return '<div class="{0}-boolean"><span class="{0}-checkbox{1}"><i></i></span></div>'.format(item.value ? ' checked' : '');
 	};
 
 	self.renders.item = function(item) {
