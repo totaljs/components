@@ -20,7 +20,7 @@ COMPONENT('rules', 'dirsearch:Search', function(self, config, cls) {
 	};
 
 	self.renders.boolean = function(item) {
-		return '<div class="{0}-boolean"><span class="{0}-checkbox{1}"><i></i></span></div>'.format(item.value ? ' checked' : '');
+		return '<div class="{0}-boolean"><span class="{0}-checkbox{1}"><i></i></span></div>'.format(cls, item.value ? ' checked' : '');
 	};
 
 	self.renders.item = function(item) {
