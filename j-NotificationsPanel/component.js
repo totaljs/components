@@ -1,6 +1,5 @@
-COMPONENT('notificationspanel', 'top:0;visibleY:1;title:Notifications;autoremove:1', function(self, config) {
+COMPONENT('notificationspanel', 'top:0;visibleY:1;title:Notifications;autoremove:1', function(self, config, cls) {
 
-	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
 	var container, scrollbar, elclear, items;
 
@@ -20,7 +19,7 @@ COMPONENT('notificationspanel', 'top:0;visibleY:1;title:Notifications;autoremove
 		elclear.on('click', self.clear);
 		self.event('click', cls2 + '-item', function() {
 			var el = $(this);
-			config.click && EXEC(config.click, items[+el.attrd('index')], el);
+			config.click && self.EXEC(config.click, items[+el.attrd('index')], el);
 			if (config.autoremove) {
 				el.remove();
 				elclear.tclass('hidden', !container.find(cls2 + '-item').length);
@@ -76,7 +75,7 @@ COMPONENT('notificationspanel', 'top:0;visibleY:1;title:Notifications;autoremove
 
 	self.setter = function(value) {
 		if (value) {
-			EXEC(config.exec, function(value) {
+			self.EXEC(config.exec, function(value) {
 				self.rclass('hidden');
 				self.render(value);
 			});
