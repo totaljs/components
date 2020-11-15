@@ -113,6 +113,9 @@ COMPONENT('rules', 'dirsearch:Search', function(self, config, cls) {
 			return;
 		}
 
+		if (!value)
+			value = [];
+
 		items = value;
 		var builder = [];
 		for (var i = 0; i < value.length; i++)
