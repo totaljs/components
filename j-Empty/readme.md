@@ -5,7 +5,7 @@
 __Configuration__:
 
 - `icon` {String} a default icon (default: `fa fa-database`)
-- `parent` {String} a parent container which sets a minimal height (default: `null`)
+- `parent` {String} a parent container which sets a minimal height (default: `parent`)
 
 ### Author
 
