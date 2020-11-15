@@ -1,7 +1,11 @@
 ## j-Empty
 
-- easy usage
-- works with Bootstrap
+- `path` must contain a data-source which will be watched
+
+__Configuration__:
+
+- `icon` {String} a default icon (default: `fa fa-database`)
+- `parent` {String} a parent container which sets a minimal height (default: `null`)
 
 ### Author
 

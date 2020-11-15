@@ -2,10 +2,9 @@
 
 <script>
 
-	var datasource = true;
+	var datasource = [];
 
-	setInterval(function() {
-		TOGGLE('datasource');
-	}, 5000);
+	// Empty component will be hidden after 5 seconds
+	PUSH('datasource', { item: 1 }, 5000);
 
 </script>
