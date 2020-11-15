@@ -10,7 +10,7 @@ COMPONENT('empty', 'icon:fa fa-database;parent:parent;margin:0', function(self, 
 
 		self.aclass(cls);
 
-		var scr = self.find('> script');
+		var scr = self.find('> scri' + 'pt,> template');
 		var text = scr.length ? scr.html() : self.html();
 		var html = '<div class="{0}-table hidden"><div class="{0}-cell"><i class="{1}"></i><div>{2}</div></div></div>'.format(cls, config.icon, text);
 
