@@ -1,4 +1,4 @@
-COMPONENT('empty', 'icon:fa fa-database;parent:auto;margin:0', function(self, config, cls) {
+COMPONENT('empty', 'icon:fa fa-database;parent:parent;margin:0', function(self, config, cls) {
 
 	var visible = false;
 	var special = false;
@@ -10,7 +10,7 @@ COMPONENT('empty', 'icon:fa fa-database;parent:auto;margin:0', function(self, co
 
 		self.aclass(cls);
 
-		var scr = self.find('> script,> template');
+		var scr = self.find('> script');
 		var text = scr.length ? scr.html() : self.html();
 		var html = '<div class="{0}-table hidden"><div class="{0}-cell"><i class="{1}"></i><div>{2}</div></div></div>'.format(cls, config.icon, text);
 
@@ -27,6 +27,8 @@ COMPONENT('empty', 'icon:fa fa-database;parent:auto;margin:0', function(self, co
 			if (!visible)
 				self.resize();
 		});
+
+		self.rclass('hidden');
 	};
 
 	self.resize = function() {
@@ -35,7 +37,7 @@ COMPONENT('empty', 'icon:fa fa-database;parent:auto;margin:0', function(self, co
 
 	self.resizeforce = function() {
 		var parent = self.parent(config.parent);
-		var wh = parent.height();
+		var wh = parent.height() - 10;
 		table.css('height', wh < 100 ? 'auto' : wh - config.margin);
 	};
 
