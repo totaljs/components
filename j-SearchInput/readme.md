@@ -7,7 +7,7 @@ __Configuration__:
 - `searchicon` {String} search icon (default: `fa fa-search`)
 - `cancelicon` {String} cancel icon (default: `fa fa-times`)
 - `align` {String} icon align (default: `left`)
-- `autofocus` {Boolean} enables auto-focus for non-mobile devices (default: `false`)
+- `autofocus` {Boolean/Number} enables auto-focus for non-mobile devices (number means a delay for auto-focus, default: `false`)
 
 __Methods__:
 
