@@ -6,7 +6,7 @@ COMPONENT('empty', 'icon:fa fa-database;parent:parent', function(self, config, c
 	self.nocompile();
 
 	self.make = function() {
-		self.aclass(cls);
+		self.aclass(cls + ' hidden');
 		self.element.wrapInner('<div class="{0}-table"><div class="{0}-cell"><div></div></div></div>'.format(cls)).find('> div > div').prepend('<i class="{0}"></i>'.format(config.icon));
 		self.on('resize2 + resize', function() {
 			if (!visible)
