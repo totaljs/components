@@ -19,7 +19,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 
 	self.make = function() {
 
-		self.aclass(cls + ' invisible' + (config.detail ? (' ' + cls + '-detailed') : '') + ((config.highlight || config.click || config.exec) ? (' ' + cls + '-selectable') : '') + (config.border ? (' ' + cls + '-border') : '') + (config.flat ? (' ' + cls + '-flat') : ''));
+		self.aclass(cls + ' invisible' + (config.detail ? (' ' + cls + '-detailed') : '') + ((config.highlight || config.click || config.exec) ? (' ' + cls + '-selectable') : '') + (config.border ? (' ' + cls + '-border') : '') + (config.flat ? (' ' + cls + '-flat') : '') + (config.noborder ? (' noborder') : ''));
 
 		self.find('script').each(function() {
 
@@ -116,7 +116,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 			if (config.click) {
 				var btn = $(this);
 				var row = opt.items[+btn.closest('tr').attrd('index')];
-				SEEX(self.makepath(config.click), btn[0].name, row, btn);
+				self.SEEX(config.click, btn[0].name, row, btn);
 			}
 		});
 
@@ -153,19 +153,19 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 				switch (this.name) {
 					case 'page-first':
 						model.page = 1;
-						SEEX(self.makepath(config.paginate), model);
+						self.SEEX(config.paginate, model);
 						break;
 					case 'page-last':
 						model.page = data.pages;
-						SEEX(self.makepath(config.paginate), model);
+						self.SEEX(config.paginate, model);
 						break;
 					case 'page-prev':
 						model.page -= 1;
-						SEEX(self.makepath(config.paginate), model);
+						self.SEEX(config.paginate, model);
 						break;
 					case 'page-next':
 						model.page += 1;
-						SEEX(self.makepath(config.paginate), model);
+						self.SEEX(config.paginate, model);
 						break;
 				}
 			});
@@ -209,7 +209,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 				model.page = data.page;
 				model.limit = data.limit;
 				model.sort = type ? (prevsort.name + '_' + type) : undefined;
-				SEEX(self.makepath(config.paginate), model);
+				self.SEEX(config.paginate, model);
 			} else if (prevsort.name) {
 				opt.items = (data.items ? data.items : data).slice(0);
 				if (type)
@@ -220,7 +220,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 					prevsort = null;
 				}
 				opt.sort = type ? (prevsort.name + '_' + type) : undefined;
-				config.filter && EXEC(self.makepath(config.filter), opt, 'sort');
+				config.filter && self.EXEC(config.filter, opt, 'sort');
 				self.redraw();
 			}
 		});
@@ -231,7 +231,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 		var forceselect = function(el, index, is) {
 
 			if (!config.highlight) {
-				config.exec && SEEX(self.makepath(config.exec), opt.items[index], el);
+				config.exec && self.SEEX(config.exec, opt.items[index], el);
 				return;
 			}
 
@@ -241,11 +241,11 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 						el.rclass(cls + '-selected');
 						config.detail && self.row_detail(el);
 						opt.selected = opt.selected.remove(index);
-						config.exec && SEEX(self.makepath(config.exec), self.selected(), el);
+						config.exec && self.SEEX(config.exec, self.selected(), el);
 					}
 				} else {
 					el.aclass(cls + '-selected');
-					config.exec && SEEX(self.makepath(config.exec), self.selected(), el);
+					config.exec && self.SEEX(config.exec, self.selected(), el);
 					config.detail && self.row_detail(el);
 					opt.selected.push(index);
 				}
@@ -263,14 +263,14 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 
 				// Was selected
 				if (is) {
-					config.exec && SEEX(self.makepath(config.exec));
+					config.exec && self.SEEX(config.exec);
 					return;
 				}
 
 				opt.selindex = index;
 				opt.selrow = el;
 				el.aclass(cls + '-selected');
-				config.exec && SEEX(self.makepath(config.exec), opt.items[index], el);
+				config.exec && self.SEEX(config.exec, opt.items[index], el);
 				config.detail && self.row_detail(el);
 			}
 		};
@@ -299,7 +299,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 				var is = config.highlight ? el.hclass(cls + '-selected') : true;
 				if (isdblclick && config.dblclick && is) {
 					self.forceselectid && clearTimeout(self.forceselectid);
-					SEEX(self.makepath(config.dblclick), opt.items[index], el);
+					self.SEEX(config.dblclick, opt.items[index], el);
 					return;
 				}
 
@@ -365,7 +365,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 					dcompile && COMPILE(tmp);
 				} else {
 					tmp = eld.find('td');
-					EXEC(self.makepath(config.detail), row, function(row) {
+					self.EXEC(config.detail, row, function(row) {
 						var is = typeof(row) === 'string';
 						tmp.html(is ? row : templates.detail(row, { index: index, user: window.user, data: extradata }));
 						if ((is && row.COMPILABLE()) || dcompile)
@@ -438,7 +438,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 		count && ebody.html(builder.join(''));
 		eempty.tclass(clsh, count > 0);
 		etable.tclass(clsh, count == 0);
-		config.redraw && EXEC(self.makepath(config.redraw), self);
+		config.redraw && self.EXEC(config.redraw, self);
 	};
 
 	self.redrawpagination = function() {
@@ -517,7 +517,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 			model.page = 1;
 			if (prevsort)
 				model.sort = prevsort && prevsort.type ? (prevsort.name + '_' + prevsort.type) : '';
-			EXEC(self.makepath(config.paginate), model);
+			self.EXEC(config.paginate, model);
 			return;
 		}
 
@@ -578,8 +578,8 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 		opt.sort = prevsort;
 
 		self.redrawpagination();
-		config.filter && EXEC(self.makepath(config.filter), opt, 'refresh');
-		config.exec && SEEX(self.makepath(config.exec), config.multiple ? [] : null);
+		config.filter && self.EXEC(config.filter, opt, 'refresh');
+		config.exec && self.SEEX(config.exec, config.multiple ? [] : null);
 
 		if (empty) {
 			etable.aclass(clsh);

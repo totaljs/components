@@ -41,6 +41,9 @@
 .ui-table-pagination > div { position: relative; display: inline-block; }
 .ui-table-pagination-items { float: right; font-size: 12px; margin: 7px 10px 0 0; font-weight: bold; }
 .ui-table-pagination-pages { float: left; font-size: 12px; margin: 7px 0 0 10px; }
+.noborder .ui-table-headcontainer { border: 0; }
+.noborder .ui-table-container { border-left: 0; border-right: 0; border-bottom: 0; }
+.noborder .ui-table-headcontainer.ui-table-scrollbar { border-right: 0; }
 
 .ui-dark .ui-table-border > .ui-table-container { border-color: #404040; }
 .ui-dark .ui-table-border > .ui-table-headcontainer { border-color: #404040; }

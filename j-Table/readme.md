@@ -22,7 +22,8 @@ __Configuration__:
 - `dblclick` {String} a link to function, it's evaluated when the user performs double-click
 - `datasource` {String} path to data-source (for other extra data in template. Usage: `{{ $.data.something }}`)
 - `click` {String} a path to `function(button_name, row, button_element)`, is executed when the user will click on the button
-- __NEW__ `flat` {Boolean} removes padding in cells (default: `false`)
+- `flat` {Boolean} removes padding in cells (default: `false`)
+- __NEW__ `noborder` {Boolean} removes border around (default: `false`)
 
 __Good to know__:
 
