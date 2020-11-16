@@ -332,8 +332,9 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 		else if (config.height) {
 			var el = self.parent(config.height);
 			var header = self.find(cls2 + '-head');
-			var footer = config.paginate ? (self.find(cls2 + '-footer').height() + 2) : 0;
-			self.find(cls2 + '-container').css('height', el.height() - header.height() - footer - 2 - config.margin);
+			var plus = (config.noborder ? 0 : 2);
+			var footer = config.paginate ? (self.find(cls2 + '-footer').height() + plus) : 0;
+			self.find(cls2 + '-container').css('height', el.height() - header.height() - footer - plus - config.margin);
 		}
 
 		self.scrollbar && self.scrollbar.resize();
