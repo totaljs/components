@@ -33,7 +33,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 			var id = el.closest(cls2 + '-item').attrd('id');
 			var tmp = cache[id];
 			if (name === 'settings')
-				tmp.meta.settings && tmp.meta.settings.call(tmp, tmp.element);
+				tmp.meta.settings && tmp.meta.settings.call(tmp, tmp.config, tmp.element);
 			else if (name === 'remove')
 				self.wdestroy(id, true);
 		});

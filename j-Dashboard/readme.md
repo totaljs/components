@@ -95,6 +95,14 @@ var component = {
 		// is executed when data are sent via SETTER('dashboard', 'send', 'TYPE', 'DATA')
 	},
 
+	settings: function(config, el) {
+
+		// @config {Object}
+		// @el {jQuery} a content element of the component
+
+		// is executed when the users clicks on the settings icon
+	},
+
 	resize: function(width, height, el, display) {
 
 		// @width {Number}
