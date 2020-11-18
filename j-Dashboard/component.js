@@ -388,10 +388,26 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		var y = tmp.y * pixel + config.padding;
 		var w = tmp.width * pixel;
 		var h = tmp.height * pixel;
+		var classes = [];
 
-		obj.container.css({ left: x, top: y, width: w, height: h });
+		classes.push('d_col' + tmp.width);
+		classes.push('d_row' + tmp.height);
+		classes.push('d_' + tmp.width + 'x' + tmp.height);
 
-		var title = obj.container.find(cls2 + '-title').height() || 0;
+		if (tmp.width === 1 && tmp.height > 1)
+			classes.push('d_vertical');
+
+		if (tmp.width > 1 && tmp.height === 1)
+			classes.push('d_horizontal');
+
+		if (tmp.width === tmp.height)
+			classes.push('d_square');
+
+		var fs = ((((Math.min(tmp.width, tmp.height) / 12) * 100) * pixel).floor(3) / 80);
+		obj.container.css({ left: x, top: y, width: w, height: h, 'font-size': fs + 'px' });
+
+		var body = obj.container.find('> ' + cls2 + '-body').rclass2('d_').aclass(classes.join(' '));
+		var title = body.find('> ' + cls2 + '-title').height() || 0;
 		var prevw = obj.width;
 		var prevh = obj.height;
 
@@ -457,7 +473,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		tmp.meta = obj;
 		tmp.main = self;
 		self.woffset(obj.id, true);
-		tmp.meta.make && tmp.meta.make.call(tmp, tmp.element);
+		tmp.meta.make && tmp.meta.make.call(tmp, tmp.meta, tmp.element);
 		el[0].$dashboard = tmp;
 
 		if (!isdom && obj.html)
