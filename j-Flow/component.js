@@ -106,7 +106,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 
 	self.setter = function(value, path, type) {
 
-		if (type === 2)
+		if (type === 2 || !value)
 			return;
 
 		var keys = Object.keys(value);
