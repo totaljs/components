@@ -224,5 +224,6 @@
 	"j-Section",
 	"j-FileUploader",
 	"j-RawInput",
-	"j-Rules"
+	"j-Rules",
+	"j-MinHeight"
 ]

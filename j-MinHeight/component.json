@@ -1,0 +1,18 @@
+{
+	"datecreated": "2020-11-19T10:57:00.000Z",
+	"dateupdated": null,
+	"name": "j-MinHeight",
+	"tags": [
+		"height",
+		"minheight"
+	],
+	"darkmode": true,
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
