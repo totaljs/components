@@ -7,6 +7,8 @@ __Configuration__:
 - `icon` {String} a default icon (default: `fa fa-database`)
 - `parent` {String} a parent container which sets a minimal height (default: `parent`)
 - `margin` {Number} a margin (default: `0`)
+- `topoffset` {Boolean} applies `element.offset().top` as a margin (default: `false`)
+- `topposition` {Boolean} applies `element.position().top` as a margin (default: `false`)
 
 __Use-case 1__:
 
