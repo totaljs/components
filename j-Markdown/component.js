@@ -28,7 +28,6 @@ COMPONENT('markdown', function (self) {
 		});
 	};
 
-	/*! Markdown | (c) 2019-2020 Peter Sirka | www.petersirka.com */
 	(function Markdown() {
 
 		var keywords = /\{.*?\}\(.*?\)/g;
@@ -426,6 +425,7 @@ COMPONENT('markdown', function (self) {
 				var beg2 = -1;
 				var can = false;
 				var skip = false;
+				var find = false;
 				var n;
 
 				for (var i = index; i < val.length; i++) {
@@ -434,6 +434,7 @@ COMPONENT('markdown', function (self) {
 					if (c === '[') {
 						beg = i;
 						can = false;
+						find = true;
 						continue;
 					}
 
@@ -448,7 +449,7 @@ COMPONENT('markdown', function (self) {
 					if (skip)
 						continue;
 
-					if (codescope === '<code>') {
+					if (!find && codescope === '<code>') {
 						skip = true;
 						continue;
 					}
@@ -467,6 +468,7 @@ COMPONENT('markdown', function (self) {
 					if (c === ']') {
 
 						can = false;
+						find = false;
 
 						if (beg === -1)
 							continue;
@@ -485,6 +487,7 @@ COMPONENT('markdown', function (self) {
 						n = val.charAt(beg - 1);
 						callback(val.substring(beg - (n === '!' ? 1 : 0), i + 1));
 						can = false;
+						find = false;
 						beg = -1;
 					}
 				}
