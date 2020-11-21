@@ -69,7 +69,7 @@ var component = {
 		// is executed when the component is destroyed
 	},
 
-	make: function(el) {
+	make: function(meta, el) {
 
 		// @el {jQuery} a content of the component
 		// @this {Instance}
@@ -135,6 +135,12 @@ __Methods__:
 __Good to know__:
 
 - each component (in the Dashboard) contains `d-COMPONENTNAME` class
+- component adds classes to component's body:
+	- `d_colNUMBER` determins count of taken columns e.g. `d_col2`
+	- `d_rowNUMBER` determins count of taken rows e.g. `d_row3`
+	- `d_square` the component has same width/height
+	- `d_vertical` the component has only 1 step of width and more than 1 steps of height
+	- `d_horizontal` the component has only 1 step of height and more than 1 steps of width
 
 ### Author
 
