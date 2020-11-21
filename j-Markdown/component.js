@@ -86,8 +86,8 @@ COMPONENT('markdown', function (self) {
 			var text = value.substring(img ? 2 : 1, end);
 			var link = value.substring(end + 2, value.length - 1);
 
+			// footnotes
 			if ((/^#\d+$/).test(link)) {
-				// footnotes
 				return (/^\d+$/).test(text) ? '<sup data-id="{0}" class="markdown-footnote">{1}</sup>'.format(link.substring(1), text) : '<span data-id="{0}" class="markdown-footnote">{1}</span>'.format(link.substring(1), text);
 			}
 
@@ -126,7 +126,7 @@ COMPONENT('markdown', function (self) {
 
 		function markdown_links2(value) {
 			value = value.substring(4, value.length - 4);
-			return '<a href="' + (value.indexOf('@') !== -1 ? 'mailto:' : linksexternal.test(value) ? '' : 'http://') + value + '" target="_blank">' + value + '</a>';
+			return '<a href="' + (value.isEmail() ? 'mailto:' : linksexternal.test(value) ? '' : 'http://') + value + '" target="_blank">' + value + '</a>';
 		}
 
 		function markdown_format(value, index, text) {
@@ -425,6 +425,7 @@ COMPONENT('markdown', function (self) {
 				var beg = -1;
 				var beg2 = -1;
 				var can = false;
+				var skip = false;
 				var n;
 
 				for (var i = index; i < val.length; i++) {
@@ -436,14 +437,29 @@ COMPONENT('markdown', function (self) {
 						continue;
 					}
 
+					var codescope = val.substring(i, i + 6);
+
+					if (skip && codescope === '</code') {
+						skip = false;
+						i += 7;
+						continue;
+					}
+
+					if (skip)
+						continue;
+
+					if (codescope === '<code>') {
+						skip = true;
+						continue;
+					}
+
 					var il = val.substring(i, i + 4);
 
 					if (il === '&lt;') {
 						beg2 = i;
 						continue;
 					} else if (beg2 > -1 && il === '&gt;') {
-						if (val.substring(beg2 - 6, beg2) !== '<code>')
-							callback(val.substring(beg2, i + 4), true);
+						callback(val.substring(beg2, i + 4), true);
 						beg2 = -1;
 						continue;
 					}
@@ -797,7 +813,7 @@ COMPONENT('markdown', function (self) {
 			closeul();
 			table && opt.tables !== false && builder.push('</tbody></table>');
 			iscode && opt.code !== false && builder.push('</code></pre>');
-			if (!opt.noredraw)
+			if (!opt.noredraw && typeof(window) === 'object')
 				setTimeout(FUNC.markdownredraw, 1, null, opt);
 			return (opt.wrap ? ('<div class="markdown' + (nested ? '' : ' markdown-container') + '">') : '') + builder.join('\n').replace(/\t/g, '    ') + (opt.wrap ? '</div>' : '');
 		};
