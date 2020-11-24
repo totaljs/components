@@ -466,6 +466,14 @@ COMPONENT('datatable', 'height:parent;margin:0;pluralizeitems:# items,# item,# i
 		}
 	};
 
+	self.reload = function() {
+		self.page(meta.page);
+	};
+
+	self.empty = function() {
+		self.set({ page: 1, pages: 0, count: 0, items: [], limit: 0 });
+	};
+
 	self.clear = function() {
 		self.refresh();
 	};

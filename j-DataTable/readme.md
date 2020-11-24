@@ -65,6 +65,8 @@ __Methods__:
 - `component.clear()` clears all changes
 - `component.select(row)` selects `row` must be the same object as in data-source
 - `component.rebind(columnsdeclaration)` the method rebinds the schema
+- __NEW__: `component.reload()` executes `config.exec` with the current filter and sorting
+- __NEW__: `component.empty()` empties all rows
 
 __Good to know__:
 
