@@ -16,7 +16,7 @@ __Show options__:
 - `opt.offsetX` {Number} `x` offset (default: `0`)
 - `opt.offsetY` {Number} `y` offset (default: `0`)
 - `opt.offsetWidth` {Number} `width` offset (default: `0`)
-- `opt.callback` {Function} a callback is executed when the element is hidden
+- `opt.callback` {Function(isvisible)} a callback is executed when the element is hidden
 - `opt.class` {String} a custom class name
 - __NEW__ `opt.position` {String} position `top` (default) or `bottom`
 - __NEW__ `opt.x` {Number} enables absolute position (must be declared with `opt.y`)

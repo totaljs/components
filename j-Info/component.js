@@ -70,13 +70,25 @@ COMPONENT('info', function(self, config, cls) {
 		// opt.maxwidth
 		// opt.callback
 		// opt.class
+		// opt.x
+		// opt.y
 
 		var target = opt.element ? opt.element instanceof jQuery ? opt.element[0] : opt.element.element ? opt.element.element[0] : opt.element : null;
 
+		timeout && clearTimeout(timeout);
+		timeout = null;
+
 		if (is) {
-			clearTimeout(timeout);
-			if (target && self.target === target)
-				return self.hide(1);
+			if (target && self.target === target) {
+				self.forcehide();
+				return;
+			}
+
+			if (self.opt) {
+				self.opt.class && self.rclass(self.opt.class);
+				self.opt.callback && self.opt.callback(true);
+			}
+
 		}
 
 		if (!opt.align)
@@ -102,7 +114,6 @@ COMPONENT('info', function(self, config, cls) {
 			opt.maxwidth = 280;
 
 		self.rclass('hidden');
-
 		opt.class && self.aclass(opt.class);
 
 		var offset = target ? target.offset() : EMPTYOBJECT;
@@ -137,33 +148,41 @@ COMPONENT('info', function(self, config, cls) {
 			options.left = 0;
 
 		sum = options.top + height;
+
 		if (sum > WH)
 			options.top = WH - height - 10;
 
 		self.element.css(options);
 		self.bindevents();
 		canhide = true;
+		opt.hide = false;
 
-		if (is)
-			return;
-
-		self.aclass(cls + '-visible', 100);
-		is = true;
+		if (!is) {
+			self.aclass(cls + '-visible', 100);
+			is = true;
+		}
 	};
 
 	self.forcehide = function() {
 
-		self.unbindevents();
-		self.rclass(cls + '-visible').aclass('hidden', 50);
+		if (self.opt.hide)
+			return;
+
+		self.opt.hide = true;
 
 		if (self.opt) {
 			self.opt.class && self.rclass(self.opt.class);
 			self.opt.callback && self.opt.callback();
 		}
 
+		if (is) {
+			self.unbindevents();
+			self.rclass(cls + '-visible').aclass('hidden');
+			is = false;
+		}
+
 		self.target = null;
 		self.opt = null;
-		is = false;
 	};
 
 	self.hide = function(sleep) {
