@@ -7,7 +7,7 @@
 __Show options__:
 
 - `opt.element` {jQuery} an element where will be `j-Info` displayed
-- `opt.align` {String} align `left` (default), `center` or `right`
+- `opt.align` {String} align `left` (default), `center`, `right` or `half`
 - `opt.html` {String} a HTML content
 - `opt.name` {String} a name of Tangular template, must be defined in `j-Info` body like example below
 - `opt.value` {Object} a model for Tangular template
@@ -19,6 +19,8 @@ __Show options__:
 - `opt.callback` {Function} a callback is executed when the element is hidden
 - `opt.class` {String} a custom class name
 - __NEW__ `opt.position` {String} position `top` (default) or `bottom`
+- __NEW__ `opt.x` {Number} enables absolute position (must be declared with `opt.y`)
+- __NEW__ `opt.y` {Number} enables absolute position (must be declared with `opt.x`)
 
 ```javascript
 var opt = {};

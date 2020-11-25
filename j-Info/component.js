@@ -1,6 +1,5 @@
-COMPONENT('info', function(self) {
+COMPONENT('info', function(self, config, cls) {
 
-	var cls = 'ui-info';
 	var is = false;
 	var canhide = false;
 	var timeout;
@@ -40,21 +39,21 @@ COMPONENT('info', function(self) {
 	};
 
 	self.bindevents = function() {
-		if (events.is)
-			return;
-		events.is = true;
-		$(document).on('touchstart mousedown', ehide);
-		$(W).on('scroll', events.scroll);
-		ON('scroll', events.scroll);
+		if (!events.is) {
+			events.is = true;
+			$(document).on('touchstart mousedown', ehide);
+			$(W).on('scroll', events.scroll);
+			ON('scroll', events.scroll);
+		}
 	};
 
 	self.unbindevents = function() {
-		if (!events.is)
-			return;
-		events.is = false;
-		$(document).off('touchstart mousedown', ehide);
-		$(W).off('scroll', events.scroll);
-		OFF('scroll', events.scroll);
+		if (events.is) {
+			events.is = false;
+			$(document).off('touchstart mousedown', ehide);
+			$(W).off('scroll', events.scroll);
+			OFF('scroll', events.scroll);
+		}
 	};
 
 	self.show = function(opt) {
@@ -72,11 +71,11 @@ COMPONENT('info', function(self) {
 		// opt.callback
 		// opt.class
 
-		var target = opt.element instanceof jQuery ? opt.element[0] : opt.element.element ? opt.element.element[0] : opt.element;
+		var target = opt.element ? opt.element instanceof jQuery ? opt.element[0] : opt.element.element ? opt.element.element[0] : opt.element : null;
 
 		if (is) {
 			clearTimeout(timeout);
-			if (self.target === target)
+			if (target && self.target === target)
 				return self.hide(1);
 		}
 
@@ -86,7 +85,8 @@ COMPONENT('info', function(self) {
 		self.target = target;
 		self.opt = opt;
 
-		target = $(target);
+		if (target)
+			target = $(target);
 
 		if (opt.html) {
 			self.html(opt.html);
@@ -105,9 +105,10 @@ COMPONENT('info', function(self) {
 
 		opt.class && self.aclass(opt.class);
 
-		var offset = target.offset();
+		var offset = target ? target.offset() : EMPTYOBJECT;
 		var options = {};
 		var width = self.element.innerWidth() + (opt.offsetWidth || 0);
+		var height = self.element.height();
 
 		if (opt.maxwidth && width > opt.maxwidth)
 			options.width = width = opt.maxwidth;
@@ -118,16 +119,26 @@ COMPONENT('info', function(self) {
 		if (width > WW)
 			width = WW;
 
-		options.left = (opt.align === 'center' ? Math.ceil(offset.left - ((width / 2) - (target.innerWidth() / 2))) : opt.align === 'left' ? offset.left - 8 : (offset.left - width) + target.innerWidth()) + (opt.offsetX || 0);
-		options.top = (opt.position === 'bottom' ? (offset.top - self.element.height() - 10) : (offset.top + target.innerHeight() + 10)) + (opt.offsetY || 0);
+		var tw = target ? target.innerWidth() : 0;
+		var th = target ? target.height() : 0;
+
+		options.left = opt.x || offset.left;
+		options.left = (opt.align === 'half' ? Math.ceil(options.left - (width / 2)) : opt.align === 'center' ? Math.ceil(options.left - ((width / 2) - (tw / 2))) : opt.align === 'left' ? options.left - 8 : (options.left - width) + tw) + (opt.offsetX || 0);
+
+		options.top = opt.y || offset.opt;
+		options.top = (opt.position === 'bottom' ? (options.top - self.element.height() - 10) : (options.top + th + 10)) + (opt.offsetY || 0);
 
 		var sum = options.left + width;
 
 		if (sum > WW)
-			options.left = WW - width;
+			options.left = WW - width - 10;
 
 		if (options.left < 0)
 			options.left = 0;
+
+		sum = options.top + height;
+		if (sum > WH)
+			options.top = WH - height - 10;
 
 		self.element.css(options);
 		self.bindevents();
@@ -136,17 +147,14 @@ COMPONENT('info', function(self) {
 		if (is)
 			return;
 
-		setTimeout(function() {
-			self.aclass(cls + '-visible');
-		}, 100);
-
+		self.aclass(cls + '-visible', 100);
 		is = true;
 	};
 
 	self.forcehide = function() {
 
 		self.unbindevents();
-		self.rclass(cls + '-visible').aclass('hidden', 100);
+		self.rclass(cls + '-visible').aclass('hidden', 50);
 
 		if (self.opt) {
 			self.opt.class && self.rclass(self.opt.class);
@@ -163,10 +171,14 @@ COMPONENT('info', function(self) {
 		if (!is || (!canhide && sleep !== true))
 			return;
 
-		if (sleep == true)
+		if (sleep === true)
 			sleep = 1000;
 
-		clearTimeout(timeout);
-		timeout = setTimeout(self.forcehide, sleep > 0 ? sleep : 800);
+		timeout && clearTimeout(timeout);
+		if (sleep < 10) {
+			self.forcehide();
+			timeout = null;
+		} else
+			timeout = setTimeout(self.forcehide, sleep > 0 ? sleep : 800);
 	};
 });
