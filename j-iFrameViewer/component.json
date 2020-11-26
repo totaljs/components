@@ -1,0 +1,18 @@
+{
+	"datecreated": "2020-11-26T17:22:00.000Z",
+	"dateupdated": null,
+	"name": "j-iFrameViewer",
+	"tags": [
+		"iframe",
+		"viewer"
+	],
+	"color": "transparent",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

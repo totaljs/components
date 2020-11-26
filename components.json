@@ -225,5 +225,6 @@
 	"j-FileUploader",
 	"j-RawInput",
 	"j-Rules",
-	"j-MinHeight"
+	"j-MinHeight",
+	"j-iFrameViewer"
 ]

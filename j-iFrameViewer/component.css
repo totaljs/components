@@ -1,0 +1,13 @@
+.ui-ifraweviewer { position: fixed; left: 0; top: 0; z-index: 10; }
+.ui-ifraweviewer iframe { display: block; margin: 0 auto; }
+.ui-ifraweviewer-fixed iframe { display: block; margin: 0 auto; box-shadow: 0 0 10px rgba(0,0,0,0.05); border: 1px solid #E0E0E0; border-radius: 4px; background: #F0F0F0; }
+.ui-ifraweviewer-header { height: 45px; border-bottom: 1px solid #E0E0E0; }
+.ui-ifraweviewer-header > label { line-height: 45px; padding-left: 10px; font-weight: bold; color: #000; }
+.ui-ifraweviewer-header > span { float: right; line-height: 44px; width: 45px; text-align: center; color: red; cursor: pointer; border-left: 1px solid #E0E0E0; }
+.ui-ifraweviewer-header > span:hover { background: #F8F8F8; }
+
+.ui-dark .ui-ifraweviewer-fixed iframe { box-shadow: 0 0 10px rgba(0,0,0,0.5); border-color: #404040; background: #151515; }
+.ui-dark .ui-ifraweviewer-header > label { color: #FFF; }
+.ui-dark .ui-ifraweviewer-header { border-bottom-color: #404040; }
+.ui-dark .ui-ifraweviewer-header > span { color: red; border-left-color: #404040; }
+.ui-dark .ui-ifraweviewer-header > span:hover { background: #303030; }
