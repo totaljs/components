@@ -1,4 +1,4 @@
-COMPONENT('ifraweviewer', function(self, config, cls) {
+COMPONENT('iframeviewer', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var events = {};
@@ -29,13 +29,13 @@ COMPONENT('ifraweviewer', function(self, config, cls) {
 
 	self.make = function() {
 
-		W.ifraweviewerload = function() {
+		W.iframeviewerload = function() {
 			self.opt && self.opt.ready && self.opt.ready(iframe[0]);
 			SETTER('!loading/hide', 1000);
 		};
 
 		self.aclass(cls + ' hidden');
-		self.append('<div class="{0}-container"><div class="{0}-header"><span><i class="fa fa-times"></i></span><label></label></div><div class="{0}-body"><iframe src="about:blank" frameborder="0" onload="ifraweviewerload()"></iframe></div></div>'.format(cls));
+		self.append('<div class="{0}-container"><div class="{0}-header"><span><i class="fa fa-times"></i></span><label></label></div><div class="{0}-body"><iframe src="about:blank" frameborder="0" onload="iframeviewerload()"></iframe></div></div>'.format(cls));
 		iframe = self.find('iframe');
 		self.find(cls2 + '-header > span').on('click', self.hide);
 		self.on('resize + resize2', self.resize);
