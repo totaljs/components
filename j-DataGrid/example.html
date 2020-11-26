@@ -1,5 +1,5 @@
 <div data---="LAZY directory"></div>
-<div data---="datagrid__items__margin:22">
+<div data---="datagrid__items__margin:22;button:clicked">
 	<script type="text/plain">
 		[
 			{ name: 'name', text: 'Name', width: 200 },
@@ -13,7 +13,13 @@
 </div>
 
 <script>
+
 	var items = [];
 	for (var i = 1; i < 90; i++)
 		items.push({ name: '{0} Lorem ipsum dolor'.format(i), published: i % 5 !== 0, description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, mollitia!', price: i + 100, created: new Date().add('-5 days') });
+
+	function clicked(btnname, row, button, e) {
+		console.log(btnname, row);
+	}
+
 </script>

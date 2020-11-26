@@ -118,6 +118,7 @@ __Row controls (NEW)__:
 - can be defined as column type `controls`
 - must defined column `template` (Tangular, `row` is a model for Tangular for each row)
 - look to example
+- button `click` event is captured to `config.button`
 
 __Filtering__:
 
