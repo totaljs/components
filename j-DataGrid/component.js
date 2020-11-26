@@ -919,7 +919,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 					break;
 				default:
 					var el = $(this);
-					var index = +(el.hclass('dg-controls') ? el.attrd('index') : el.closest('.dg-row').attrd('index'));
+					var index = +el.closest('.dg-row,.dg-controls').attrd('index');
 					var row = opt.rows[index];
 					config.button && self.SEEX(config.button, this.name, row, el, e);
 					break;
