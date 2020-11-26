@@ -2,6 +2,8 @@
 
 This component show a layer (over the content) with a iframe.
 
+- singleton
+
 __Options__:
 
 - `name` {String} a label name to header
