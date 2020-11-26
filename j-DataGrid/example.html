@@ -6,7 +6,8 @@
 			{ name: 'price', text: 'Price', align: 1, alignfilter: 1 },
 			{ name: 'published', text: 'Public', align: 1, options: [{ text: 'yes', value: true }, { text: 'no', value: false }], type: 'boolean' },
 			{ name: 'description', text: 'Description', filter: 'Search in description' },
-			{ name: 'created', text: 'Created', align: 1, template: '{{ created | format(\'dd.MM.yyyy\') }}', align: 2, alignfilter: 2, alignheader: 2 }
+			{ name: 'created', text: 'Created', align: 1, template: '{{ created | format(\'dd.MM.yyyy\') }}', align: 2, alignfilter: 2, alignheader: 2 },
+			{ type: 'controls', template: '<button name="edit"><i class="fa fa-search"></i><span>Show</span></button><button name="edit"><i class="fa fa-pencil"></i></button><button name="edit"><i class="fa fa-trash-o red"></i></button>' }
 		]
 	</script>
 </div>

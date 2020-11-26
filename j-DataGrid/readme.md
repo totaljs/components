@@ -80,6 +80,7 @@ __Configuration__:
 - `clusterize` {Boolean} can disable clustered scrolling (default: `true`)
 - `contextmenu` {String} a link to `function(e, grid)` when the user raises context menu
 - __NEW__ `autoformat` {Boolean} enables auto-format types like `email`, `phone` and `number` (default: `true`)
+- __NEW__ `controls` {Boolean} enables controls defined in `columns` (default: `true`)
 
 __Column properties__:
 
@@ -111,6 +112,12 @@ __Column properties__:
 - `editable` {Boolean} enables editing
 - __NEW__ `colorize` {Boolean} enables a colorization of the value
 - __NEW__ `monospace` {Boolean} enables monospace font type
+
+__Row controls (NEW)__:
+
+- can be defined as column type `controls`
+- must defined column `template` (Tangular, `row` is a model for Tangular for each row)
+- look to example
 
 __Filtering__:
 

@@ -38,7 +38,6 @@
 /*.dg-body > div > div:nth-child(even) > .dg-row { background-color: rgba(0,0,0,0.02); }*/
 .dg-row-changed { background-color: rgba(208,31,33,0.07); }
 .dg-row.dg-selected { background-color: rgba(249,232,196,0.5) !important; }
-.dg-row:hover { background-color: rgba(130,130,130,0.07); }
 .dg-col { float: left; border-left: 1px solid #E0E0E0; height: 27px; overflow: hidden; min-width: 30px; }
 .dg-col:first-child { border-left: 0; }
 .dg-col-changed { background-image: url(data:image/gif;base64,R0lGODdhBgAGAIAAAP8mAAAAACH5BAEAAAEALAAAAAAGAAYAAAIKhI8QGGvt4JKhAAA7); background-repeat: no-repeat; background-position: 0 0; }
@@ -109,6 +108,16 @@
 .dg-noborder.dg-fluid { border-right: 0; }
 .dg-link { color: inherit; }
 .dg-link i { margin-right: 5px; }
+.dg-controls { position: absolute; right: 20px; background-color: #FFF; border: 1px solid #D0D0D0; height: 34px; color: #000; z-index: 1; margin-right: 5px; border-radius: 2px; box-shadow: 1px 0 15px rgba(0,0,0,0.1); transition: all 0.1s; transform: scale(0); }
+.dg-controls button { border: 0; min-width: 34px; height: 32px; background-color: #F0F0F0; border-left: 1px solid #E0E0E0; background-color: transparent; font-size: 12px; float: left; color: #000; }
+.dg-controls button i { font-size: 14px; }
+.dg-controls button span { padding: 0 5px; }
+.dg-controls button:hover { background-color: #F0F0F0; }
+.dg-controls button:first-child { border-left: 0; }
+.dg-controls button:disabled { color: #A0A0A0; cursor: not-allowed; background-color: transparent !important; }
+.dg-controls button:disabled i { color: #A0A0A0 !important; }
+.dg-controls-visible { transform: scale(1); }
+.dg-row:hover, .dg-row-hover { background-color:rgba(130,130,130,0.07); }
 
 .ui-dark .dg, .ui-dark .dg-body { background-color: #232323; }
 .ui-dark .dg-container { border-top-color: #353535; border-left-color: #353535; }
@@ -134,7 +143,6 @@
 .ui-dark .dg-columns-checkbox-checked > span { background-color: #505050; border-color: #505050; color: #D0D0D0; }
 .ui-dark .dg-columns > div { border-bottom-color: #505050; }
 /*.ui-dark .dg-body > div > div:nth-child(even) > .dg-row  { background-color: rgba(0,0,0,0.1); }*/
-.ui-dark .dg-row:hover { background-color: rgba(0,0,0,0.2); }
 .ui-dark .dg-row-changed:hover { background-color: rgba(208,31,33,0.2) !important; }
 .ui-dark .dg-row-changed { background-color: rgba(208,31,33,0.12) !important; }
 .ui-dark .dg-row-changed.dg-row:nth-child(even) { background-color: rgba(208,31,33,0.12); }
@@ -158,3 +166,9 @@
 .ui-dark .dg-editable { background-color: rgba(255,241,164,0.05); }
 .ui-dark .dg-resize-line { background-color: #404040; }
 .ui-dark .dg-fluid { border-right-color: #404040; }
+.ui-dark .dg-controls { background-color: #333; border-color: #404040; box-shadow: 1px 0 15px rgba(0,0,0,0.3); }
+.ui-dark .dg-controls button { border-left-color: #404040; color: #FFF; }
+.ui-dark .dg-controls button:disabled { color: #505050; }
+.ui-dark .dg-controls button:disabled i { color: #505050 !important; }
+.ui-dark .dg-controls button:hover { background-color: #404040; }
+.ui-dark .dg-row:hover, .ui-dark .dg-row-hover { background-color: rgba(0,0,0,0.2); }
