@@ -79,6 +79,7 @@ COMPONENT('info', function(self, config, cls) {
 		timeout = null;
 
 		if (is) {
+
 			if (target && self.target === target) {
 				self.forcehide();
 				return;
@@ -165,7 +166,7 @@ COMPONENT('info', function(self, config, cls) {
 
 	self.forcehide = function() {
 
-		if (self.opt.hide)
+		if (!self.opt || self.opt.hide)
 			return;
 
 		self.opt.hide = true;
