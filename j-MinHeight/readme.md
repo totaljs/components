@@ -9,6 +9,11 @@ __Configuration__:
 - `topoffset` {Boolean} applies `element.offset().top` as a margin (default: `false`)
 - `topposition` {Boolean} applies `element.position().top` as a margin (default: `false`)
 - `attr` {String} CSS attribute for setting of height (default: `min-height`)
+- `minheight` {Number} a min. height (default: not defined)
+- `disabledxs` {Boolean} disables height for `xs` display
+- `disabledsm` {Boolean} disables height for `sm` display
+- `disabledmd` {Boolean} disables height for `md` display
+- `disabledlg` {Boolean} disables height for `lg` display
 
 ### Author
 
