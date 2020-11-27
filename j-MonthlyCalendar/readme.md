@@ -31,6 +31,10 @@ __Methods__:
 	- event object: `{ id: String, html: String, icon: String, color: String, background: Boolean }`
 - `component.clear()` removes all events
 
+__Localization__:
+
+Month and day names are taken from `MONTHS` and `DAYS` properties defined in jComponent library.
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
