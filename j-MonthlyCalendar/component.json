@@ -1,0 +1,18 @@
+{
+	"datecreated": "2020-11-27T08:56:00.000Z",
+	"dateupdated": null,
+	"name": "j-MonthlyCalendar",
+	"tags": [
+		"monthly",
+		"calendar"
+	],
+	"color": "transparent",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

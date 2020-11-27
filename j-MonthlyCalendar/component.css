@@ -1,0 +1,41 @@
+.ui-monthlycalendar-header { height: 30px; }
+.ui-monthlycalendar-header > div { width: 14.285%; height: 30px; float: left; overflow-y: hidden; background-color: #FFF; font-size: 14px; text-align: right; line-height: 30px; padding: 0 5px; font-weight: bold; border-bottom: 1px solid #E0E0E0; }
+.ui-monthlycalendar-days { border-left: 1px solid #E0E0E0; }
+.ui-monthlycalendar-days > div { width: 14.2857%; height: 16.6667%; float: left; overflow: hidden; background-color: #FFF; border-right: 1px solid #E0E0E0; border-bottom: 1px solid #E0E0E0; font-size: 14px; cursor: default; }
+.ui-monthlycalendar-day { text-align: right; color: #000; height: 30px; line-height: 30px; padding: 0 3px; }
+.ui-monthlycalendar-day b { position: relative; display: inline-block; width: 24px; height: 24px; border-radius: 100px; color: #FFF; background-color: red; text-align: center; line-height: 24px; }
+.ui-monthlycalendar-day > span { float: left; color: #A0A0A0; }
+.ui-monthlycalendar-day-prev > div, .ui-monthlycalendar-day-next > div { color: #A0A0A0; }
+div.ui-monthlycalendar-weekend { background-color: #F7F7F7; }
+.ui-monthlycalendar-noborder .ui-monthlycalendar-days { border-left: 0 !important; }
+.ui-monthlycalendar-noborder .ui-monthlycalendar-6 { border-right: 0 !important; }
+.ui-monthlycalendar-noborder .ui-monthlycalendar-lastrow { border-bottom: 0; }
+.ui-monthlycalendar-data { position: relative; }
+.ui-monthlycalendar-event { height: 14px; line-height: 14px; font-size: 10px; background-color: #E0E0E0; margin-bottom: 2px; padding: 0 4px; color: #FFF; position: absolute; z-index: 1; overflow: hidden; cursor: default; }
+.ui-monthlycalendar-event i { font-size: 8px; float: left; margin: 3px 5px 0 0; }
+.ui-monthlycalendar-event-first { border-top-left-radius: 2px; border-bottom-left-radius: 2px; }
+.ui-monthlycalendar-event-last { border-top-right-radius: 2px; border-bottom-right-radius: 2px; }
+.ui-monthlycalendar-event-more { background: transparent; color: #000; cursor: pointer; padding-left: 2px; }
+.ui-monthlycalendar-event-more:hover { color: #777; }
+.ui-monthlycalendar-events > .ui-monthlycalendar-event { position: relative; display: block; margin-left: 3px; margin-right: 3px; border-radius: 2px; }
+.ui-monthlycalendar-transparent { background-color: transparent; color: #000; }
+.ui-monthlycalendar-selected { opacity: 0.7; }
+.ui-monthlycalendar-selected i { color: #FFF !important; }
+.ui-monthlycalendar-transparent.ui-monthlycalendar-selected { background-color: #4285F4; color: #FFF !important; }
+.ui-monthlycalendar-hover { background-color: #F8F6DE !important; }
+
+.ui-dark .ui-monthlycalendar-header > div { background-color: #202020; border-bottom-color: #404040; }
+.ui-dark .ui-monthlycalendar-days { border-left-color: #404040; }
+.ui-dark .ui-monthlycalendar-days > div { background-color: #282828; border-right-color: #404040; border-bottom-color: #404040; }
+.ui-dark .ui-monthlycalendar-day { color: #D0D0D0; }
+.ui-dark .ui-monthlycalendar-day b { color: #FFF; background-color: red; }
+.ui-dark .ui-monthlycalendar-day > span { color: #777; }
+.ui-dark .ui-monthlycalendar-day-prev > div, .ui-dark .ui-monthlycalendar-day-next > div { color: #777; }
+.ui-dark div.ui-monthlycalendar-weekend { background-color: #303030; }
+.ui-dark .ui-monthlycalendar-event { background-color: #404040; color: #FFF; }
+.ui-dark .ui-monthlycalendar-event-more { background: transparent; color: #FFF; }
+.ui-dark .ui-monthlycalendar-event-more:hover { color: #777; }
+.ui-dark .ui-monthlycalendar-transparent { background-color: transparent; color: #FFF; }
+.ui-dark .ui-monthlycalendar-selected i { color: #FFF !important; }
+.ui-dark .ui-monthlycalendar-transparent.ui-monthlycalendar-selected { background-color: #404040; color: #FFF !important; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.ui-dark .ui-monthlycalendar-hover { background-color: #505050 !important; }
