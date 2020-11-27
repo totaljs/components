@@ -62,6 +62,23 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 		datacontainer = self.find(cls2 + '-data');
 		self.resizeforce();
 
+		self.event('dblclick', cls2 + '-event', function(e) {
+			if (config.dblclick) {
+				var el = $(this);
+
+				if (el.hclass(cls + '-event-more'))
+					return;
+
+				var id = el.attrd('id');
+				var selected = cls + '-selected';
+				self.find(cls2 + '-event[data-id="{0}"]'.format(id)).aclass(selected);
+				config.dblclick && self.SEEX(config.dblclick, events.findItem('id', id), el, e);
+
+				e.stopPropagation();
+				e.preventDefault();
+			}
+		});
+
 		self.event('click', cls2 + '-event', function(e) {
 
 			var el = $(this);
@@ -70,6 +87,8 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 			// Contains events
 			if (el.hclass(cls + '-event-more')) {
 				config.eventmore && self.SEEX(config.eventmore, el.attrd('date').parseDate('yyyyMMdd'), el, e);
+				e.preventDefault();
+				e.stopPropagation();
 				return;
 			}
 
@@ -91,11 +110,8 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 		});
 
 		container.on('mousedown', '[data-index]', function(e) {
-			if (config.selectable) {
-				eventsbinder.mdown.call(this, e);
-				eventsbinder.on();
-				e.preventDefault();
-			}
+			eventsbinder.mdown.call(this, e);
+			e.preventDefault();
 		});
 	};
 
@@ -117,15 +133,35 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 		}
 	};
 
-	eventsbinder.mdown = function() {
-		eventsbinder.endcache = null;
-		eventsbinder.beg = $(this);
-		eventsbinder.begindex = eventsbinder.endindex = +eventsbinder.beg.attrd('index');
+	var dblclickdate;
+
+	eventsbinder.mdown = function(e) {
+
+		var tmp = Date.now();
+
+		if (config.dblclickdate) {
+			if (dblclickdate && ((tmp - dblclickdate) < 300)) {
+				eventsbinder.dblclicktimeout && clearTimeout(eventsbinder.dblclicktimeout);
+				eventsbinder.dblclicktimeout = null;
+				config.dblclickdate && self.SEEX(config.dblclickdate, eventsbinder.beg.attrd('date').parseDate('yyyy-MM-dd'), eventsbinder.beg, e);
+				return;
+			}
+			dblclickdate = tmp;
+		}
+
+		if (config.selectable) {
+			eventsbinder.on();
+			eventsbinder.endcache = null;
+			eventsbinder.beg = $(this);
+			eventsbinder.begindex = eventsbinder.endindex = +eventsbinder.beg.attrd('index');
+			eventsbinder.beg.aclass(cls + '-hover');
+		}
+
 	};
 
 	eventsbinder.mmove = function() {
 		var t = this;
-		if (eventsbinder.endcache !== t) {
+		if (eventsbinder.endcache !== t && config.selectable) {
 			eventsbinder.endcache = t;
 			eventsbinder.end = $(t);
 			eventsbinder.endindex = +eventsbinder.end.attrd('index');
@@ -149,15 +185,20 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 		}
 	};
 
-	eventsbinder.mup = function() {
+	eventsbinder.mup = function(e) {
+
 		container.find(cls2 + '-hover').rclass(cls + '-hover');
 		eventsbinder.off();
+
 		var begel = container[0].children[eventsbinder.begindex];
 		var beg = begel.getAttribute('data-date').parseDate('yyyy-MM-dd');
 		var endel = container[0].children[eventsbinder.endindex];
 		var end = endel.getAttribute('data-date').parseDate('yyyy-MM-dd');
 		var data = { beg: beg, end: end };
-		config.create && self.EXEC(config.create, data, $(begel), $(endel));
+
+		eventsbinder.dblclicktimeout = setTimeout(function() {
+			config.create && self.EXEC(config.create, data, $(begel), $(endel), e);
+		}, eventsbinder.endcache || !config.dblclick ? 50 : 300);
 	};
 
 	self.redraw = function(date) {
