@@ -541,8 +541,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			var type = e.target.tagName;
 			var target = $(e.target);
 
-			controls.hide();
-
 			if ((type === 'DIV' || type === 'SPAN')) {
 
 				var cls = 'dg-selected';
@@ -576,6 +574,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 					} else
 						rowarg = self.selected = null;
 				}
+
+				if (controls.is)
+					controls.hide();
+				else if (rowarg)
+					controls.show(el[0]);
 
 				config.click && self.SEEX(config.click, rowarg, self, elrow, target);
 			}
