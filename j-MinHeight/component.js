@@ -17,6 +17,11 @@ COMPONENT('minheight', 'parent:auto;margin:0;attr:min-height', function(self, co
 
 	self.resizeforce = function() {
 
+		if (config['disabled' + WIDTH()]) {
+			self.css(config.attr, config.minheight || '');
+			return;
+		}
+
 		var parent = self.parent(config.parent);
 		var h = parent.height() - config.margin;
 
@@ -25,6 +30,9 @@ COMPONENT('minheight', 'parent:auto;margin:0;attr:min-height', function(self, co
 
 		if (config.topposition)
 			h -= self.element.position().top;
+
+		if (config.minheight && h < config.minheight)
+			h = config.minheight;
 
 		self.css(config.attr, h);
 	};

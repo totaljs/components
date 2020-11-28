@@ -1,16 +1,16 @@
 {
-	"datecreated": "2018-06-20T07:59:00.000Z",
-	"dateupdated": "2020-11-26T10:23:00.000Z",
-	"name": "j-DataGrid",
+	"datecreated": "2020-11-27T08:56:02.000Z",
+	"dateupdated": null,
+	"name": "j-MonthlyCalendar",
 	"tags": [
-		"datagrid",
-		"grid"
+		"monthly",
+		"calendar"
 	],
 	"color": "transparent",
-	"version": 2,
+	"version": 1,
 	"darkmode": true,
 	"responsive": true,
-	"picture": "picture.gif",
+	"picture": "picture.jpg",
 	"dependencies": "",
 	"author": "Peter Širka",
 	"email": "petersirka@gmail.com",

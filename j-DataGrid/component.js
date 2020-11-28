@@ -332,9 +332,19 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 			var div = controls.cache[index];
 
+			if (div === null) {
+				controls.hide();
+				return;
+			}
+
 			if (!div) {
-				div = controls.cache[index] = $('<div>' + opt.controls(opt.rows[+index]) + '</div>')[0];
+				var html = opt.controls(opt.rows[+index]);
+				div = controls.cache[index] = html ? $('<div>' + html + '</div>')[0] : null;
 				controls.cache[index] = div;
+				if (div === null) {
+					controls.hide();
+					return;
+				}
 			}
 
 			while (true) {
@@ -531,8 +541,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			var type = e.target.tagName;
 			var target = $(e.target);
 
-			controls.hide();
-
 			if ((type === 'DIV' || type === 'SPAN')) {
 
 				var cls = 'dg-selected';
@@ -566,6 +574,11 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 					} else
 						rowarg = self.selected = null;
 				}
+
+				if (controls.is)
+					controls.hide();
+				else if (rowarg)
+					controls.show(el[0]);
 
 				config.click && self.SEEX(config.click, rowarg, self, elrow, target);
 			}
