@@ -31,7 +31,6 @@ COMPONENT('fileuploader', function(self) {
 		});
 	};
 
-
 	self.uploadfiles = function(files) {
 
 		var data = new FormData();
