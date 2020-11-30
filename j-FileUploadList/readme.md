@@ -8,6 +8,7 @@ __Configuration__:
 - `accept` {String} Optional, a content type for filtering files e.g. `image/*`
 - `multiple` {Boolean} Optional, enables multiple files uploading (default: `true`)
 - `progress` {String} a path to `function(percentage)`
+- `text` {String} a key name for rendering of `text` value (default: `name`)
 
 __Model__:
 

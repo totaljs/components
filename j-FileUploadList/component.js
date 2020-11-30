@@ -1,19 +1,22 @@
-COMPONENT('fileuploadlist', 'multiple:true;url:/api/upload/', function(self, config, cls) {
+COMPONENT('fileuploadlist', 'multiple:true;url:/api/upload/;text:name', function(self, config, cls) {
 
 	var id = 'fileuploadlist' + self.id;
 	var input = null;
 	var cls2 = '.' + cls;
 
-	self.template = Tangular.compile('<div class="{0}-item" data-id="{{ $.index }}"><div class="{0}-remove"><i class="fa fa-times"></i></div><div class="{0}-name">{{ if url }}<a href="{{ url }}" target="_blank">{{ fi }}{{ name }}{{ if url }}</a>{{ fi }}</div></div>'.format(cls));
-
 	self.readonly();
 	self.nocompile && self.nocompile();
 
 	self.configure = function(key, value, init) {
-		if (init)
+
+		if (init && key !== 'text')
 			return;
+
 		var el;
 		switch (key) {
+			case 'text':
+				self.template = Tangular.compile(('<div class="{0}-item" data-id="{{ $.index }}"><div class="{0}-remove"><i class="fa fa-times"></i></div><div class="{0}-name">{{ if url }}<a href="{{ url }}" target="_blank">{{ fi }}{{ ' + config.text + ' }}{{ if url }}</a>{{ fi }}</div></div>').format(cls));
+				break;
 			case 'disabled':
 				self.tclass('ui-disabled', value);
 				break;
