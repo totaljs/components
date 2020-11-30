@@ -38,8 +38,10 @@ COMPONENT('info', function(self, config, cls) {
 	};
 
 	var eclick = function() {
-		if (self.opt && self.opt.closeclick)
+		if (self.opt && self.opt.closeclick) {
+			canhide = true;
 			self.hide(100);
+		}
 	};
 
 	self.bindevents = function() {
