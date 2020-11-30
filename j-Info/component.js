@@ -37,10 +37,15 @@ COMPONENT('info', function(self, config, cls) {
 		canhide && self.hide(100);
 	};
 
+	var eclick = function() {
+		if (self.opt && self.opt.closeclick)
+			self.hide(100);
+	};
+
 	self.bindevents = function() {
 		if (!events.is) {
 			events.is = true;
-			$(document).on('touchstart mousedown', ehide);
+			$(document).on('touchstart mousedown', ehide).on('click', eclick);
 			$(W).on('scroll', events.scroll);
 			self.on('scroll + reflow + resize2', events.scroll);
 		}
@@ -49,7 +54,7 @@ COMPONENT('info', function(self, config, cls) {
 	self.unbindevents = function() {
 		if (events.is) {
 			events.is = false;
-			$(document).off('touchstart mousedown', ehide);
+			$(document).off('touchstart mousedown', ehide).off('click', eclick);
 			$(W).off('scroll', events.scroll);
 			self.off('scroll + reflow + resize2', events.scroll);
 		}
@@ -72,6 +77,7 @@ COMPONENT('info', function(self, config, cls) {
 		// opt.x
 		// opt.y
 		// opt.type (position/offset)
+		// opt.closeclick
 
 		var target = opt.element ? opt.element instanceof jQuery ? opt.element[0] : opt.element.element ? opt.element.element[0] : opt.element : null;
 

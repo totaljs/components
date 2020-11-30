@@ -18,6 +18,7 @@ __Show options__:
 - `opt.offsetWidth` {Number} `width` offset (default: `0`)
 - `opt.callback` {Function(isvisible)} a callback is executed when the element is hidden
 - `opt.class` {String} a custom class name
+- `opt.closeclick` {Boolean} closes info when user performs mouse click (default: `false`)
 - __NEW__ `opt.position` {String} position `top` (default) or `bottom`
 - __NEW__ `opt.x` {Number} enables absolute position (must be declared with `opt.y`)
 - __NEW__ `opt.y` {Number} enables absolute position (must be declared with `opt.x`)
