@@ -494,6 +494,16 @@ COMPONENT('markdown', function (self) {
 
 			};
 
+			var formatline = function(line) {
+				var tmp = [];
+				return line.replace(code, function(text) {
+					tmp.push(text);
+					return '\0';
+				}).replace(format, markdown_format).replace(/\0/g, function() {
+					return markdown_code(tmp.shift());
+				});
+			};
+
 			var imagescope = function(val) {
 
 				var beg = -1;
@@ -560,7 +570,7 @@ COMPONENT('markdown', function (self) {
 					if (opt.blocks !== false) {
 						line = lines[i].substring(3).trim();
 						if (opt.formatting !== false)
-							line = line.replace(format, markdown_format).replace(code, markdown_code);
+							line = formatline(line);
 						builder.push('<div class="markdown-block"><span class="markdown-showblock"><i class="fa fa-plus"></i>{0}</span><div class="hidden">'.format(line));
 					}
 					prev = '';
@@ -610,7 +620,7 @@ COMPONENT('markdown', function (self) {
 
 				if (line.length > 2 && line !== '***' && line !== '---') {
 					if (opt.formatting !== false)
-						line = line.replace(format, markdown_format).replace(code, markdown_code);
+						line = formatline(line);
 					if (opt.images !== false)
 						line = imagescope(line);
 					if (opt.links !== false) {
