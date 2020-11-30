@@ -20,7 +20,7 @@ COMPONENT('tooltip', function(self, config, cls) {
 
 	self.make = function() {
 		self.aclass(cls + ' hidden');
-		self.on('scroll + resize', function() {
+		self.on('scroll + resize + reflow', function() {
 			self.hide(true);
 			can = false;
 			setTimeout2(self.ID + 'can', self.enable, 1000);

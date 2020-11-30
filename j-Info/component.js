@@ -31,7 +31,6 @@ COMPONENT('info', function(self, config, cls) {
 				timeout = null;
 			}
 		});
-
 	};
 
 	var ehide = function() {
@@ -43,7 +42,7 @@ COMPONENT('info', function(self, config, cls) {
 			events.is = true;
 			$(document).on('touchstart mousedown', ehide);
 			$(W).on('scroll', events.scroll);
-			ON('scroll', events.scroll);
+			self.on('scroll + reflow + resize2', events.scroll);
 		}
 	};
 
@@ -52,7 +51,7 @@ COMPONENT('info', function(self, config, cls) {
 			events.is = false;
 			$(document).off('touchstart mousedown', ehide);
 			$(W).off('scroll', events.scroll);
-			OFF('scroll', events.scroll);
+			self.off('scroll + reflow + resize2', events.scroll);
 		}
 	};
 
@@ -72,6 +71,7 @@ COMPONENT('info', function(self, config, cls) {
 		// opt.class
 		// opt.x
 		// opt.y
+		// opt.type (position/offset)
 
 		var target = opt.element ? opt.element instanceof jQuery ? opt.element[0] : opt.element.element ? opt.element.element[0] : opt.element : null;
 
@@ -89,7 +89,6 @@ COMPONENT('info', function(self, config, cls) {
 				self.opt.class && self.rclass(self.opt.class);
 				self.opt.callback && self.opt.callback(true);
 			}
-
 		}
 
 		if (!opt.align)
@@ -117,7 +116,7 @@ COMPONENT('info', function(self, config, cls) {
 		self.rclass('hidden');
 		opt.class && self.aclass(opt.class);
 
-		var offset = target ? target.offset() : EMPTYOBJECT;
+		var offset = target ? opt.type === 'position' ? target.position() : target.offset() : EMPTYOBJECT;
 		var options = {};
 		var width = self.element.innerWidth() + (opt.offsetWidth || 0);
 		var height = self.element.height();
