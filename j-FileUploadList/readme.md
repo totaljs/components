@@ -7,6 +7,7 @@ __Configuration__:
 - `url` {String} URL to upload (default: `/api/upload/`)
 - `accept` {String} Optional, a content type for filtering files e.g. `image/*`
 - `multiple` {Boolean} Optional, enables multiple files uploading (default: `true`)
+- `progress` {String} a path to `function(percentage)`
 
 __Model__:
 

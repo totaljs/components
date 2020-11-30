@@ -95,7 +95,7 @@ COMPONENT('fileuploadlist', 'multiple:true;url:/api/upload/', function(self, con
 
 			self.change(true);
 			self.push(response);
-		});
+		}, config.progress);
 	};
 
 	self.setter = function(value) {
