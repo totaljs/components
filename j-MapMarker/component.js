@@ -171,7 +171,7 @@ COMPONENT('mapmarker', 'parent:auto;type:roadmap;draggable:false;markerwidth:40;
 		var pos = self.parseGPS(opt.gps);
 		var icon = { url: opt.icon, scaledSize: new google.maps.Size(config.markerwidth, config.markerheight), origin: new google.maps.Point(0, 0), anchor: new google.maps.Point(config.markerwidth / 2 >> 0, config.markerheight) };
 		var marker = new MarkerWithLabel({ position: pos, map: self.map, draggable: false, raiseOnDrag: false, labelStyle: { opacity: config.labelopacity }, labelAnchor: new google.maps.Point(config.infox, config.infoy), labelClass: cls + '-marker', labelInBackground: false, icon: icon, title: opt.tooltip, zIndex: 1 });
-		var html = $('<div class="{0}-marker-body"></div>'.format(cls));
+		var html = $('<div class="{0}-marker"></div>'.format(cls));
 		marker.set('labelContent', html[0]);
 		markers.push(marker);
 

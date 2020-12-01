@@ -1,4 +1,8 @@
-<div data---="mapmarker__mygps__zoom:16;draggable:false;animation:bounce;height:500;heightxs:250;onready:mapready"></div>
+<style>
+	.ui-mapmarker-marker { width: 150px; background-color: #FFF; padding: 2px 5px; text-align: center; border-radius: 3px; }
+</style>
+
+<div data---="mapmarker__mygps__zoom:16;draggable:false;animation:bounce;height:500;heightxs:250;onready:mapready;key:AIzaSyDQlDL78kVOnGf1dho0IbJxw_btbzI04IA;markerwidth:50;infox:70;infoy:-10"></div>
 
 <script>
 	var mygps = '48.727903,19.157763';
@@ -8,9 +12,9 @@
 		opt.gps = mygps;
 		opt.icon = 'https://cdn1.iconfinder.com/data/icons/maps-and-navigation-free/32/Maps_Maps_Navigation_Gps_Pin_Location-06-512.png';
 		opt.callback = function(opt) {
-			opt.element.html('Our little big city');
+			opt.element.html('My home');
 		};
-		SETTER('mapmarker/add', opt);
+		SETTER(true, 'mapmarker/add', opt);
 	}
 
 </script>

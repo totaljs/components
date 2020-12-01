@@ -5,4 +5,4 @@
 .ui-mapmarker-cluster-1, .ui-mapmarker-cluster-1::before, .ui-mapmarker-cluster-1::after { background-color: #52A731; }
 .ui-mapmarker-cluster-2, .ui-mapmarker-cluster-2::before, .ui-mapmarker-cluster-2::after { background-color: #ff9b00; }
 .ui-mapmarker-cluster-3, .ui-mapmarker-cluster-3::before, .ui-mapmarker-cluster-3::after { background-color: #ff6969; }
-.ui-mapmarker-marker-body {}
+.ui-mapmarker-marker {}
