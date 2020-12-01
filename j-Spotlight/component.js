@@ -59,7 +59,7 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 			e.stopPropagation();
 		});
 
-		$(W).on('resize', function() {
+		self.on('resize2', function() {
 			is && self.hide(0);
 		});
 

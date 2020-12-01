@@ -1,7 +1,6 @@
-COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self, config) {
-	var cls = 'ui-modal';
+COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self, config, cls) {
+
 	var cls2 = '.' + cls;
-	var W = window;
 	var eheader, earea, ebody, efooter, emodal, icon, first = true;
 
 	if (W.$$modal == null) {
@@ -10,13 +9,12 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 		var resizemodal = function() {
 			SETTER('modal', 'resize');
 		};
+
 		var resize = function() {
 			setTimeout2(cls, resizemodal, 300);
 		};
-		if (W.OP)
-			W.OP.on('resize', resize);
-		else
-			$(W).on('resize', resize);
+
+		ON('resize2', resize);
 	}
 
 	self.readonly();

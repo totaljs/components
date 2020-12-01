@@ -312,7 +312,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 			setTimeout2(self.ID, self.resize, 500);
 		};
 
-		$(W).on('resize', resize);
+		self.on('resize2 + resize', resize);
 	};
 
 	self.resize2 = function() {

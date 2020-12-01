@@ -306,7 +306,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 				$(W).off('scroll click', hide2);
 		};
 
-		self.on('reflow + scroll + resize', hide);
+		self.on('reflow + scroll + resize + resize2', hide);
 	};
 
 	self.makehtml = function() {

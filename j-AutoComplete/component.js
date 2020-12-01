@@ -46,11 +46,7 @@ COMPONENT('autocomplete', 'height:200', function(self, config, cls) {
 			is && self.visible(false);
 		});
 
-		$(W).on('resize', function() {
-			is && self.visible(false);
-		});
-
-		self.on('scroll', function() {
+		self.on('scroll + resize + reflow + resize2', function() {
 			is && self.visible(false);
 		});
 	};

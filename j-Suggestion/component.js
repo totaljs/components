@@ -61,7 +61,7 @@ COMPONENT('suggestion', function(self, config, cls) {
 			is && !$(e.target).hclass(cls + '-search-input') && self.hide(0);
 		});
 
-		$(W).on('resize', function() {
+		self.on('resize + resize2 + reflow + scroll', function() {
 			is && self.hide(0);
 		});
 

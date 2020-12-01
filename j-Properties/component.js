@@ -43,8 +43,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 			PREF.set(prefkey, prop, '1 month');
 		});
 
-		self.on('resize', self.resize2);
-		$(W).on('resize', self.resize2);
+		self.on('resize + resize2', self.resize2);
 		self.resize();
 		self.scrollbar.resize();
 

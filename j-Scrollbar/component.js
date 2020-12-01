@@ -25,10 +25,7 @@ COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;marginsm:0;marginmd:0;mar
 			setTimeout2('scrollbar', resize, 300);
 		};
 
-		if (W.OP)
-			W.OP.on('resize', resizedelay);
-		else
-			$(W).on('resize', resizedelay);
+		ON('resize2', resizedelay);
 	};
 
 	self.make = function() {
@@ -41,13 +38,13 @@ COMPONENT('scrollbar', 'reset:true;margin:0;marginxs:0;marginsm:0;marginmd:0;mar
 
 	self.resize = function() {
 		if (config.parent) {
-			var parent = config.parent === 'window' ? $(window) : self.element.closest(config.parent);
+			var parent = self.parent(config.parent);
 			self.element.css('height', parent.height() - (config.offset ? self.element.offset().top : 0) - config.margin - config['margin' + WIDTH()]);
 		}
 		self.scrollbar.resize();
 	};
 
-	self.on('resize', self.resize);
+	self.on('resize + reflow', self.resize);
 	self.done = self.resize;
 
 	self.scroll = function(x, y) {

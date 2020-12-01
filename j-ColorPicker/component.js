@@ -42,7 +42,7 @@ COMPONENT('colorpicker', function(self) {
 			self.hide();
 		};
 
-		self.on('scroll + reflow', self.hide);
+		self.on('scroll + reflow + resize + resize2', self.hide);
 	};
 
 	self.bindevents = function() {

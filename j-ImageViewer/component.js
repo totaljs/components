@@ -46,7 +46,7 @@ COMPONENT('imageviewer', 'selector:.img-viewer;container:body;loading:1', functi
 		self.append('<div class="{0}-header"><button name="close"><i class="fa fa-times"></i></button><div><b>Name</b><div class="help">Dimension</div></div></div><div class="{0}-loading hidden"><div></div></div><div class="{0}-buttons"><button name="prev"><i class="fa fa-arrow-left"></i></button><button name="next"><i class="fa fa-arrow-right"></i></button></div><div class="{0}-viewer"><div class="{0}-cell"><img /></div></div>'.format(cls));
 		self.resize();
 
-		$(W).on('resize', self.resize);
+		self.on('resize2', self.resize);
 
 		$(document.body).on('click', config.selector, function() {
 			var el = $(this);

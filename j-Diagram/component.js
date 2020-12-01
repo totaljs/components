@@ -1,9 +1,9 @@
-COMPONENT('diagram', 'parent:parent;margin:0;reverse:0', function(self, config) {
+COMPONENT('diagram', 'parent:parent;margin:0;reverse:0', function(self, config, cls) {
 
-	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
 	var init = false;
 	var body;
+	var cachedsize;
 
 	self.readonly();
 	self.make = function() {
@@ -17,13 +17,8 @@ COMPONENT('diagram', 'parent:parent;margin:0;reverse:0', function(self, config) 
 		body = self.find(cls2 + '-body');
 		self.scrollbar = new SCROLLBAR(self.find(cls2 + '-container'), { visibleX: true, visibleY: true });
 
-		$(W).on('resize', self.resize2);
-		self.on('resize', self.resize2);
+		self.on('resize + resize2', self.resize2);
 		self.resize2();
-	};
-
-	self.destroy = function() {
-		$(W).off('resize', self.resize2);
 	};
 
 	self.resize2 = function() {
@@ -40,21 +35,28 @@ COMPONENT('diagram', 'parent:parent;margin:0;reverse:0', function(self, config) 
 		if (self.release())
 			return;
 
-		var el = config.parent ? config.parent === 'window' ? $(W) : config.parent === 'parent' ? self.parent() : self.element.closest(config.parent) : self.parent();
+		var el = self.parent(config.parent);
 		var h = el.height();
 		var w = el.width();
 		var width = WIDTH();
-		var margin = config.margin;
-		var responsivemargin = config['margin' + width];
-
-		if (responsivemargin != null)
-			margin = responsivemargin;
 
 		if (h === 0 || w === 0) {
 			self.$waiting && clearTimeout(self.$waiting);
 			self.$waiting = setTimeout(self.resize, 234);
 			return;
 		}
+
+		var key = width + 'x' + w + 'h';
+		if (cachedsize === key)
+			return;
+
+		cachedsize = key;
+
+		var margin = config.margin;
+		var responsivemargin = config['margin' + width];
+
+		if (responsivemargin != null)
+			margin = responsivemargin;
 
 		var css = {};
 		var elw = self.find(cls2 + '-padding');

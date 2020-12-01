@@ -1,6 +1,5 @@
-COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', function(self, config) {
+COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', function(self, config, cls) {
 
-	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
 	var clsm = 'maximized';
 	var skip = false;
@@ -56,7 +55,7 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 
 			if (t.name === 'submit') {
 				if (config.submit)
-					EXEC(self.makepath(config.submit), self.get().findItem('id', id), scope ? scope.get() : null, function() {
+					self.EXEC(config.submit, self.get().findItem('id', id), scope ? scope.get() : null, function() {
 						self.closeforce(id);
 					});
 			} else
@@ -74,11 +73,7 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 		}
 
 		self.resize();
-
-		if (W.OP)
-			W.OP.on('resize', self.resize2);
-		else
-			$(W).on('resize', self.resize2);
+		self.on('resize + resize2', self.resize);
 	};
 
 	self.resize2 = function() {
@@ -109,7 +104,7 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 			setTimeout(function(obj) {
 				var el = self.findmodal(obj.id);
 				el.rclass('invisible');
-				config.onopen && EXEC(self.makepath(config.onopen), obj, el);
+				config.onopen && self.EXEC(config.onopen, obj, el);
 				config.autofocus && el.find('input,select,textarea').eq(0).focus();
 			}, 500, obj);
 		}
@@ -162,7 +157,7 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 
 	self.close = function(id) {
 		if (config.onclose) {
-			EXEC(self.makepath(config.onclose), self.get().findItem('id', id), function() {
+			self.EXEC(config.onclose, self.get().findItem('id', id), function() {
 				self.closeforce(id);
 			});
 		} else

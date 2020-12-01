@@ -129,7 +129,7 @@ COMPONENT('faicons', 'search:Search', function(self, config, cls) {
 			self.hide();
 		};
 
-		self.on('reflow + scroll + resize', self.hide);
+		self.on('reflow + scroll + resize + resize2', self.hide);
 		self.redraw();
 	};
 

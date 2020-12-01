@@ -207,7 +207,7 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 			self.hide();
 		};
 
-		self.on('reflow + scroll + resize', self.hide);
+		self.on('reflow + scroll + resize + resize2', self.hide);
 	};
 
 	self.bindevents = function() {

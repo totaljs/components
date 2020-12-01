@@ -18,7 +18,7 @@ COMPONENT('drawer', 'align:left;width:250', function(self, config, cls) {
 		if (self.dom.parentNode.tagName !== 'BODY')
 			document.body.appendChild(self.dom);
 
-		$(W).on('resize', self.resize);
+		self.on('resize2', self.resize);
 		self.resize();
 	};
 

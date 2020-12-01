@@ -1,21 +1,20 @@
-COMPONENT('gallery', function(self) {
+COMPONENT('gallery', function(self, config, cls) {
 
 	var images, container, current = 0;
+	var cls2 = '.' + cls;
 
 	self.readonly();
 	self.blind();
 	self.nocompile && self.nocompile();
 
 	self.init = function() {
-		$('body').append('<div class="ui-gallery-preview hidden"><button name="prev"><i class="fa fa-caret-left"></i></button><button name="next"><i class="fa fa-caret-right"></i></button><div class="ui-gallery-table"><div class="ui-gallery-cell"><div><img src="" alt="" /></div></div></div></div>');
 
-		var W = window;
+		$('body').append('<div class="{0}-preview hidden"><button name="prev"><i class="fa fa-caret-left"></i></button><button name="next"><i class="fa fa-caret-right"></i></button><div class="{0}-table"><div class="{0}-cell"><div><img src="" alt="" /></div></div></div></div>'.format(cls));
+		W.uigallerycontainer = $('.' + cls +'-preview');
 
-		W.uigallerycontainer = $('.ui-gallery-preview');
-
-		$(W).on('resize', function() {
-			setTimeout2('uigallery', function() {
-				$('.ui-gallery-preview').css({ width: WW, height: WH });
+		ON('resize2 + resize', function() {
+			setTimeout2(cls, function() {
+				$(cls2 + '-preview').css({ width: WW, height: WH });
 			}, 500);
 		});
 
@@ -37,18 +36,18 @@ COMPONENT('gallery', function(self) {
 			}
 		});
 
-		window.uigallerycontainer.on('click', 'button', function() {
-			window.uigalleryinstance && window.uigalleryinstance[this.name]();
+		W.uigallerycontainer.on('click', 'button', function() {
+			W.uigalleryinstance && W.uigalleryinstance[this.name]();
 		});
 
-		window.uigallerycontainer.on('click', 'img', function() {
-			window.uigalleryinstance && window.uigalleryinstance.close();
+		W.uigallerycontainer.on('click', 'img', function() {
+			W.uigalleryinstance && W.uigalleryinstance.close();
 		});
 	};
 
 	self.make = function() {
 
-		self.aclass('ui-gallery');
+		self.aclass(cls);
 
 		images = self.find('img');
 
@@ -58,7 +57,7 @@ COMPONENT('gallery', function(self) {
 		});
 
 		images = images.toArray();
-		container = $($('.ui-gallery-preview')[0]);
+		container = $($(cls2 + '-preview')[0]);
 
 		self.event('click', 'img', function() {
 			var img = $(this);
@@ -72,13 +71,13 @@ COMPONENT('gallery', function(self) {
 
 	self.close = function() {
 		container.aclass('hidden');
-		$('html,body').rclass('ui-gallery-noscroll');
-		window.uigalleryinstance = null;
+		$('html,body').rclass(cls + '-noscroll');
+		W.uigalleryinstance = null;
 	};
 
 	self.show = function(index) {
 
-		window.uigalleryinstance = self;
+		W.uigalleryinstance = self;
 
 		current = index;
 		var img = images[current];
@@ -86,8 +85,8 @@ COMPONENT('gallery', function(self) {
 		// Loads image
 		container.find('img').attr('src', $(img).attrd('src'));
 		container.rclass('hidden');
-		container.css('height', $(window).height() + 5);
-		$('html,body').aclass('ui-gallery-noscroll');
+		container.css('height', $(W).height() + 5);
+		$('html,body').aclass(cls + '-noscroll');
 	};
 
 	self.next = function() {

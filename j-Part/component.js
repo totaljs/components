@@ -22,10 +22,6 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config, cls) {
 		}
 	};
 
-	self.destroy = function() {
-		isresizing && $(W).off('resize', self.resize);
-	};
-
 	self.setter = function(value) {
 
 		if (config.if !== value) {
@@ -43,7 +39,7 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config, cls) {
 		}
 
 		if (config.absolute && !isresizing) {
-			$(W).on('resize', self.resize);
+			self.on('resize2', self.resize);
 			isresizing = true;
 		}
 

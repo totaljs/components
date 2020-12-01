@@ -125,10 +125,7 @@ COMPONENT('floatinginput', 'minwidth:200', function(self, config, cls) {
 			is && self.hide(1);
 		};
 
-		self.on('reflow', fn);
-		self.on('scroll', fn);
-		self.on('resize', fn);
-		$(W).on('scroll', fn);
+		self.on('reflow + scroll + resize + resize2', fn);
 	};
 
 	self.show = function(opt) {

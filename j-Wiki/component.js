@@ -1,6 +1,5 @@
-COMPONENT('wiki', 'title:Wiki', function(self, config) {
+COMPONENT('wiki', 'title:Wiki', function(self, config, cls) {
 
-	var cls = 'ui-wiki';
 	var cls2 = '.' + cls;
 	var etopics, container;
 
@@ -19,7 +18,7 @@ COMPONENT('wiki', 'title:Wiki', function(self, config) {
 		self.scrollright = self.scrollbar.scrollRight;
 		self.scrollbottom = self.scrollbar.scrollBottom;
 
-		$(W).on('resize', self.resize);
+		self.on('resize2', self.resize);
 		self.resize();
 
 		self.event('click', 'label', function() {

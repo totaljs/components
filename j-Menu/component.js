@@ -45,9 +45,7 @@ COMPONENT('menu', function(self, config, cls) {
 		};
 
 		self.event('scroll', events.hide);
-		self.on('reflow', events.hide);
-		self.on('scroll', events.hide);
-		self.on('resize', events.hide);
+		self.on('reflow + scroll + resize + resize2', events.hide);
 
 		events.click = function(e) {
 			if (is && !isopen && (!self.target || (self.target !== e.target && !self.target.contains(e.target))))

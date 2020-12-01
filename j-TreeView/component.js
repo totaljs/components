@@ -60,18 +60,13 @@ COMPONENT('treeview', 'parent:parent;droppable:1;movable:1;expanded:0;autosort:1
 			self.event('mousedown', cls2 + '-item-container', events.ondown);
 		}
 
-		$(W).on('resize', self.resize2);
-		self.on('resize', self.resize2);
+		self.on('resize + resize2', self.resize2);
 		self.resize();
 		self.resize2();
 	};
 
 	self.resize2 = function() {
 		setTimeout2(self.ID, self.resize, 300);
-	};
-
-	self.destroy = function() {
-		$(W).off('resize', self.resize2);
 	};
 
 	self.configure = function(key, value) {

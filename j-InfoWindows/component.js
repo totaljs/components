@@ -37,7 +37,7 @@ COMPONENT('infowindows', 'reoffsetresize:0', function(self, config, cls) {
 		});
 
 		self.event('mousedown touchstart', cls2 + '-title,' + cls2 + '-resize', events.down);
-		$(W).on('resize', self.resize2);
+		self.on('resize2', self.resize2);
 		serviceid = setInterval(events.service, 5000);
 	};
 
@@ -51,7 +51,6 @@ COMPONENT('infowindows', 'reoffsetresize:0', function(self, config, cls) {
 	};
 
 	self.destroy = function() {
-		$(W).off('resize', self.resize2);
 		clearInterval(serviceid);
 	};
 

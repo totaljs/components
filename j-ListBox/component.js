@@ -1,6 +1,5 @@
-COMPONENT('listbox', function(self, config) {
+COMPONENT('listbox', function(self, config, cls) {
 
-	var cls = 'ui-listbox';
 	var cls2 = '.' + cls;
 	var Eitems = null;
 	var skip = false;
@@ -22,10 +21,7 @@ COMPONENT('listbox', function(self, config) {
 			}, 100);
 		};
 
-		if (W.OP)
-			W.OP.on('resize', resize);
-		else
-			$(W).on('resize', resize);
+		ON('resize2', resize);
 	};
 
 	self.validate = function(value) {
@@ -76,8 +72,7 @@ COMPONENT('listbox', function(self, config) {
 			!config.disabled && setTimeout2(self.id, self.search, 500);
 		});
 
-		self.on('resize', self.resize2);
-		self.on('reflow', self.resize2);
+		self.on('resize + reflow', self.resize2);
 	};
 
 	self.configure = function(key, value) {

@@ -97,7 +97,6 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 
 	self.destroy = function() {
 		$(document).off('dragstart', drag.handler);
-		$(W).off('resize', self.op.resize);
 	};
 
 	self.getOffset = function() {
@@ -767,10 +766,7 @@ EXTENSION('flow:operations', function(self, config) {
 		setTimeout2(self.ID + 'reposition', self.op.reposition, 300);
 	};
 
-	if (W.OP)
-		W.OP.on('resize', self.op.resize);
-	else
-		$(W).on('resize', self.op.resize);
+	self.on('resize + resize2', self.op.resize);
 });
 
 EXTENSION('flow:map', function(self, config) {

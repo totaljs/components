@@ -51,7 +51,7 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reo
 		});
 
 		self.event('mousedown touchstart', cls2 + '-title,' + cls2 + '-resize', events.down);
-		$(W).on('resize', self.resize2);
+		self.on('resize + resize2', self.resize2);
 		serviceid = setInterval(events.service, 5000);
 		self.resizelayout();
 	};
@@ -66,7 +66,6 @@ COMPONENT('dockable', 'menuicon:fa fa-navicon;style:2;parent:window;margin:0;reo
 	};
 
 	self.destroy = function() {
-		$(W).off('resize', self.resize2);
 		clearInterval(serviceid);
 	};
 

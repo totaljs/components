@@ -12,7 +12,7 @@ COMPONENT('inlineform', 'autohide:1', function(self, config, cls) {
 			SETTER(self.name, 'hide');
 		});
 
-		$(W).on('resize', function() {
+		ON('resize2 + reflow + scroll + resize', function() {
 			SETTER(self.name, 'hide');
 		});
 	}

@@ -1,6 +1,5 @@
-COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5;margin:0', function(self, config) {
+COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5;margin:0', function(self, config, cls) {
 
-	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
 	var container, search, scroller, skip;
 
@@ -183,14 +182,9 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5;margin:0',
 			UPD(self.path, 2);
 		});
 
-		$(W).on('resize', self.resize2);
-		self.on('resize', self.resize2);
+		self.on('resize + resize2', self.resize2);
 		self.resize();
 		self.scrollbar.resize();
-	};
-
-	self.destroy = function() {
-		$(W).off('resize', self.resize2);
 	};
 
 	self.setter = function(value) {

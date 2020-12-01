@@ -25,7 +25,7 @@ COMPONENT('console', function(self, config, cls) {
 			self.set(false);
 		});
 
-		$(W).on('resize', self.resize);
+		self.on('resize2 + resize', self.resize);
 		self.resize();
 	};
 

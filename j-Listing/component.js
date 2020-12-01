@@ -47,12 +47,7 @@ COMPONENT('listing', 'pages:3;count:20;scrolltop:1;margin:0;pluralizeitems:# ite
 		}
 
 		self.resize2();
-		self.on('resize', self.resize2);
-		$(W).on('resize', self.resize2);
-	};
-
-	self.destroy = function() {
-		$(W).off('resize', self.resize2);
+		self.on('resize + resize2', self.resize2);
 	};
 
 	self.resize2 = function() {

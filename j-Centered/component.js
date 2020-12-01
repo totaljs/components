@@ -77,11 +77,7 @@ COMPONENT('centered', 'closebutton:1;closeesc:1;scrollbar:1;visibleY:0', functio
 				self.set('');
 		});
 
-		$(W).on('resize', self.resize);
-	};
-
-	self.destroy = function() {
-		$(W).off('resize', self.resize);
+		self.on('resize2', self.resize);
 	};
 
 	self.setter = function(value) {

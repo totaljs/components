@@ -22,10 +22,7 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 			}, 200);
 		};
 
-		if (W.OP)
-			W.OP.on('resize', resize);
-		else
-			$(W).on('resize', resize);
+		ON('resize2', resize);
 
 		$(document).on('click', cls2 + '-container', function(e) {
 			var el = $(e.target);

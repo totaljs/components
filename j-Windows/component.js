@@ -46,7 +46,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 		});
 
 		self.event('mousedown touchstart', cls2 + '-title,' + cls2 + '-resize', events.down);
-		$(W).on('resize', self.resize2);
+		self.on('resize2', self.resize2);
 		serviceid = setInterval(events.service, 5000);
 	};
 
@@ -60,7 +60,6 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 	};
 
 	self.destroy = function() {
-		$(W).off('resize', self.resize2);
 		clearInterval(serviceid);
 	};
 

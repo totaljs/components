@@ -30,7 +30,7 @@ COMPONENT('notificationspanel', 'top:0;visibleY:1;title:Notifications;autoremove
 			self.set(!self.get());
 		});
 
-		$(W).on('resize', self.resize);
+		self.on('resize2', self.resize);
 		self.resize();
 	};
 

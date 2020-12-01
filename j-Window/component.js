@@ -15,10 +15,7 @@ COMPONENT('window', 'zindex:12;scrollbar:1', function(self, config, cls) {
 			}
 		};
 
-		if (W.OP)
-			W.OP.on('resize', resize);
-		else
-			$(W).on('resize', resize);
+		ON('resize2', resize);
 	}
 
 	self.readonly();

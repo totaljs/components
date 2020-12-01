@@ -16,7 +16,7 @@ COMPONENT('mobilecarousel', 'count:1;selector:.col-sm-4;margin:15;snapping:true;
 
 	self.make = function() {
 		self.element.wrapInner('<div class="{0}-container"><div class="{0}-body"></div></div>'.format(cls));
-		$(W).on('resize', self.resize);
+		self.on('resize2', self.resize);
 		setTimeout(self.resize, 50);
 		setTimeout(self.resize, 500);
 		setTimeout(self.resize, 2000);

@@ -9,6 +9,7 @@ COMPONENT('kanban', 'parent:parent;margin:0;padding:10;style:1', function(self, 
 	var selector = cls2 + '-item';
 	var adi = 'data-id';
 	var skip = false;
+	var cachesize;
 
 	self.readonly();
 	self.make = function() {
@@ -25,12 +26,12 @@ COMPONENT('kanban', 'parent:parent;margin:0;padding:10;style:1', function(self, 
 		config.dblclick && self.event('dblclick', selector, function() {
 			var el = $(this);
 			var group = self.findgroup(el.attrd('id'));
-			group && SEEX(self.makepath(config.dblclick), group);
+			group && self.SEEX(config.dblclick, group);
 		});
 
 		self.event('dragenter dragover dragexit drop dragleave dragstart', events.ondrag);
 		$(document).on('mousedown', selector, events.ondown);
-		$(W).on('resize', self.resize2);
+		self.on('resize2 + resize', self.resize2);
 	};
 
 	self.findgroup = function(id) {
@@ -77,7 +78,7 @@ COMPONENT('kanban', 'parent:parent;margin:0;padding:10;style:1', function(self, 
 
 		if (config.move) {
 			target = { group: target, item: item, index: toindex };
-			EXEC(self.makepath(config.move), group, target);
+			self.EXEC(config.move, group, target);
 		}
 
 		self.resizebody();
@@ -93,7 +94,7 @@ COMPONENT('kanban', 'parent:parent;margin:0;padding:10;style:1', function(self, 
 				group.group.items.splice(group.index, 1);
 				skip = true;
 				self.update();
-				config.remove && EXEC(self.makepath(config.remove), group);
+				config.remove && self.EXEC(config.remove, group);
 				return true;
 			}
 		}
@@ -163,7 +164,7 @@ COMPONENT('kanban', 'parent:parent;margin:0;padding:10;style:1', function(self, 
 					}
 				}
 
-				parent = node;
+				var parent = node;
 				var id;
 
 				for (var i = 0; i < 5; i++) {
@@ -201,7 +202,6 @@ COMPONENT('kanban', 'parent:parent;margin:0;padding:10;style:1', function(self, 
 
 	self.destroy = function() {
 		$(document).off('mousedown', selector, events.ondown);
-		$(W).off('resize', self.resize2);
 	};
 
 	self.resize = function() {
@@ -212,18 +212,25 @@ COMPONENT('kanban', 'parent:parent;margin:0;padding:10;style:1', function(self, 
 		var el = self.parent(config.parent);
 		var h = el.height();
 		var w = el.width();
-		var width = WIDTH();
-		var margin = config.margin;
-		var responsivemargin = config['margin' + width];
-
-		if (responsivemargin != null)
-			margin = responsivemargin;
 
 		if (h === 0 || w === 0) {
 			self.$waiting && clearTimeout(self.$waiting);
 			self.$waiting = setTimeout(self.resize, 234);
 			return;
 		}
+
+		var width = WIDTH();
+		var key = width + 'x' + w + 'x' + h;
+		if (cachesize === key)
+			return;
+
+		cachesize = key;
+
+		var margin = config.margin;
+		var responsivemargin = config['margin' + width];
+
+		if (responsivemargin != null)
+			margin = responsivemargin;
 
 		var css = {};
 
@@ -245,6 +252,7 @@ COMPONENT('kanban', 'parent:parent;margin:0;padding:10;style:1', function(self, 
 	};
 
 	self.resizebody = function() {
+
 		var arr = body.find(cls2 + '-group');
 		var sum = config.padding * 2;
 

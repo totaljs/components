@@ -1,6 +1,5 @@
-COMPONENT('layer', 'offset:65;scrollbar:true', function(self, config) {
+COMPONENT('layer', 'offset:65;scrollbar:true', function(self, config, cls) {
 
-	var cls = 'ui-layer';
 	var cls2 = '.' + cls;
 	var visible = false;
 	var csspos = {};
@@ -14,10 +13,7 @@ COMPONENT('layer', 'offset:65;scrollbar:true', function(self, config) {
 				SETTER('layer', 'resize');
 			}, 100);
 		};
-		if (W.OP)
-			W.OP.on('resize', W.$$layer_resize);
-		else
-			$(W).on('resize', W.$$layer_resize);
+		ON('resize2', W.$$layer_resize);
 	}
 
 	self.readonly();

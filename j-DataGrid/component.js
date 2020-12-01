@@ -174,7 +174,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 	self.init = function() {
 
-		$(W).on('resize', function() {
+		ON('resize + resize2', function() {
 			setTimeout2('datagridresize', function() {
 				SETTER('datagrid/resize');
 			}, 500);

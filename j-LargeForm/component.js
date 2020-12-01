@@ -24,10 +24,7 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', f
 			}, 200);
 		};
 
-		if (W.OP)
-			W.OP.on('resize', resize);
-		else
-			$(W).on('resize', resize);
+		ON('resize2', resize);
 
 		$(document).on('click', cls2 + '-container', function(e) {
 
