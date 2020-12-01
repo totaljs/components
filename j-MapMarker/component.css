@@ -1,0 +1,8 @@
+.ui-mapmarker-cluster { border-radius: 100%; font-size: 15px; color: #FFF; display: flex; align-items: center; font-weight: bold; }
+.ui-mapmarker-cluster::before, .ui-mapmarker-cluster:after { content: ''; display: block; position: absolute; width: 100%; height: 100%; transform: translate(-50%, -50%); top: 50%; left: 50%; opacity: 0.2; border-radius: 100%; background-color: red; }
+.ui-mapmarker-cluster::before { padding: 20px; }
+.ui-mapmarker-cluster::after { padding: 25px; }
+.ui-mapmarker-cluster-1, .ui-mapmarker-cluster-1::before, .ui-mapmarker-cluster-1::after { background-color: #52A731; }
+.ui-mapmarker-cluster-2, .ui-mapmarker-cluster-2::before, .ui-mapmarker-cluster-2::after { background-color: #ff9b00; }
+.ui-mapmarker-cluster-3, .ui-mapmarker-cluster-3::before, .ui-mapmarker-cluster-3::after { background-color: #ff6969; }
+.ui-mapmarker-marker-body {}

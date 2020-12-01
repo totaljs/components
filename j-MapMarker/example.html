@@ -1,0 +1,13 @@
+<div data---="mapmarker__mygps__zoom:16;draggable:false;animation:bounce;height:500;heightxs:250;onready:mapready"></div>
+
+<script>
+	var mygps = '48.727903,19.157763';
+
+	function mapready() {
+		var opt = {};
+		opt.gps = gps;
+		opt.icon = 'https://cdn1.iconfinder.com/data/icons/maps-and-navigation-free/32/Maps_Maps_Navigation_Gps_Pin_Location-06-512.png';
+		SETTER('mapmarker/add', opt);
+	}
+
+</script>
