@@ -5,8 +5,11 @@
 
 	function mapready() {
 		var opt = {};
-		opt.gps = gps;
+		opt.gps = mygps;
 		opt.icon = 'https://cdn1.iconfinder.com/data/icons/maps-and-navigation-free/32/Maps_Maps_Navigation_Gps_Pin_Location-06-512.png';
+		opt.callback = function(opt) {
+			opt.element.html('Our little big city');
+		};
 		SETTER('mapmarker/add', opt);
 	}
 
