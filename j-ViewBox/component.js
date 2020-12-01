@@ -99,14 +99,15 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		var el = self.parent(config.parent);
 		var h = el.height();
 		var w = el.width();
+		var width = WIDTH();
+		var mywidth = self.element.width();
 
-		var key = w + 'x' + h;
+		var key = width + 'x' + mywidth + 'x' + w + 'x' + h;
 		if (cache === key)
 			return;
 
 		cache = key;
 
-		var width = WIDTH();
 		var margin = config.margin;
 		var responsivemargin = config['margin' + width];
 
@@ -128,7 +129,7 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 			h = config.minheight;
 
 		css.height = h;
-		css.width = self.element.width();
+		css.width = mywidth;
 		eld.css(css);
 
 		css.width = null;
