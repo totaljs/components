@@ -1,0 +1,17 @@
+{
+	"datecreated": "2020-12-01T22:40:00.000Z",
+	"dateupdated": null,
+	"name": "j-Columns",
+	"darkmode": 1,
+	"tags": [
+		"columns"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

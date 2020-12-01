@@ -1,0 +1,5 @@
+.ui-columns > section { float: left; border-left: 1px solid #E0E0E0; }
+.ui-columns > section:first-child { border-left: 0; }
+.ui-columns-noborder > section { border-left: 0 !important; }
+
+.ui-dark .ui-columns > section { border-left-color: #404040; }
