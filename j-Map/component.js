@@ -1,6 +1,5 @@
 COMPONENT('map', function(self, config) {
 
-	// TODO: more makers (array), methods for add maker, remove maker, change maker animation
 	self.readonly();
 	self.nocompile && self.nocompile();
 
@@ -18,6 +17,7 @@ COMPONENT('map', function(self, config) {
 	};
 
 	self.make = function() {
+		IMPORT('https://maps.googleapis.com/maps/api/js?key={0} .js'.format(config.key));
 		WAIT('google', function() {
 			var animations = { drop: google.maps.Animation.DROP, bounce: google.maps.Animation.BOUNCE };
 			var options = {};
@@ -65,25 +65,22 @@ COMPONENT('map', function(self, config) {
 		}
 
 		self.geo.geocode({ 'address': lat, 'partialmatch': true }, function(response, status) {
-			if (status !== 'OK' || !response.length)
-				return;
-			var result = response[0].geometry;
-			self.map.fitBounds(result.viewport);
-			self.marker.setPosition(result.location);
+			if (status === 'OK' && response.length) {
+				var result = response[0].geometry;
+				self.map.fitBounds(result.viewport);
+				self.marker.setPosition(result.location);
+			}
 		});
 
 		return self;
 	};
 
 	self.reset = function(lat, lng) {
-
 		google.maps.event.trigger(self.map, 'resize');
-
 		if(lng !== undefined){
 			var position = new google.maps.LatLng(lat, lng);
 			self.map.setCenter(position);
 		}
-
 		return self;
 	};
 
@@ -102,10 +99,12 @@ COMPONENT('map', function(self, config) {
 		var index = value.indexOf(';');
 		if (index === -1)
 			index = value.indexOf(',');
+
 		if (index === -1)
 			return;
+
 		var lat = value.substring(0, index).parseFloat();
 		var lng = value.substring(index + 1).parseFloat();
 		self.search(lat, lng);
 	};
-}, ['https://maps.googleapis.com/maps/api/js?key=AIzaSyDRRKKSG8td8bT-W_rkuLtZCKiTlS_iIX8 .js']);
+});

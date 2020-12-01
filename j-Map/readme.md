@@ -7,6 +7,7 @@
 
 __Configuration__:
 
+- `key` __IMPORTANT__ Google API key
 - `type` (optional) has to contain a map type (`roadmap` (default), `satellite`, `hybrid`, `terrain`)
 - `draggable` (optional) for drag & drop marker (default: `false`)
 - `click` (optional) has to contain a function name and this method is evaluated when the user click on the marker
