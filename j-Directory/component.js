@@ -476,10 +476,10 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 
 		switch (opt.align) {
 			case 'center':
-				options.left = Math.ceil((offset.left - width / 2) + (width / 2));
+				options.left = Math.ceil((offset.left - width / 2) + (opt.element.innerWidth() / 2));
 				break;
 			case 'right':
-				options.left = (offset.left - width) + w;
+				options.left = (offset.left - width) + opt.element.innerWidth();
 				break;
 			default:
 				options.left = offset.left;
@@ -494,6 +494,19 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 
 		if (opt.offsetY)
 			options.top += opt.offsetY;
+
+		var mw = width;
+		var mh = self.height();
+
+		if (options.left < 0)
+			options.left = 10;
+		else if ((mw + options.left) > WW)
+			options.left = (WW - mw) - 10;
+
+		if (options.top < 0)
+			options.top = 10;
+		else if ((mh + options.top) > WH)
+			options.top = (WH - mh) - 10;
 
 		self.css(options);
 

@@ -111,14 +111,14 @@ COMPONENT('menu', function(self, config, cls) {
 	self.bindevents = function() {
 		events.is = true;
 		$(document).on('touchstart mouseenter mousedown', cls2 + '-children', events.children).on('touchstart mousedown', events.click);
-		$(window).on('scroll', events.hide);
+		$(W).on('scroll', events.hide);
 		self.element.on('mouseenter', 'li', events.hidechildren);
 	};
 
 	self.unbindevents = function() {
 		events.is = false;
 		$(document).off('touchstart mouseenter mousedown', cls2 + '-children', events.children).off('touchstart mousedown', events.click);
-		$(window).off('scroll', events.hide);
+		$(W).off('scroll', events.hide);
 		self.element.off('mouseenter', 'li', events.hidechildren);
 	};
 
