@@ -4,25 +4,21 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 	var scrollbar;
 	var cls2 = '.' + cls;
 	var init = false;
+	var cache;
 
 	self.readonly();
 
 	self.init = function() {
-		var obj;
-		if (W.OP)
-			obj = W.OP;
-		else
-			obj = $(W);
 
 		var resize = function() {
 			for (var i = 0; i < M.components.length; i++) {
 				var com = M.components[i];
 				if (com.name === 'viewbox' && com.dom.offsetParent && com.$ready && !com.$removed)
-					com.resize();
+					com.resizeforce();
 			}
 		};
 
-		obj.on('resize', function() {
+		ON('resize2', function() {
 			setTimeout2('viewboxresize', resize, 200);
 		});
 	};
@@ -66,10 +62,9 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 	};
 
 	self.make = function() {
-		if (config.invisible)
-			self.aclass('invisible');
-		config.scroll && MAIN.version > 17 && self.element.wrapInner('<div class="ui-viewbox-body"></div>');
-		self.element.prepend('<div class="ui-viewbox-disabled hidden"></div>');
+		config.invisible && self.aclass('invisible');
+		config.scroll && MAIN.version > 17 && self.element.wrapInner('<div class="' + cls + '-body"></div>');
+		self.element.prepend('<div class="' + cls + '-disabled hidden"></div>');
 		eld = self.find('> .{0}-disabled'.format(cls)).eq(0);
 		elb = self.find('> .{0}-body'.format(cls)).eq(0);
 		self.aclass('{0} {0}-hidden'.format(cls));
@@ -95,14 +90,22 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 
 	var css = {};
 
-	self.resize = function(scrolltop) {
+	self.resize = function() {
+		setTimeout2(self.ID, self.resizeforce, 200);
+	};
 
-		if (self.release())
-			return;
+	self.resizeforce = function(scrolltop) {
 
 		var el = self.parent(config.parent);
 		var h = el.height();
 		var w = el.width();
+
+		var key = w + 'x' + h;
+		if (cache === key)
+			return;
+
+		cache = key;
+
 		var width = WIDTH();
 		var margin = config.margin;
 		var responsivemargin = config['margin' + width];
