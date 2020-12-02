@@ -161,7 +161,7 @@ COMPONENT('timepicker', function(self, config) {
 			return;
 		}
 
-		var value = opt.value || opt.date || opt.time;
+		var value = opt.value || opt.date || opt.time || NOW;
 
 		if (typeof(value) === 'string') {
 			opt.path = value;
