@@ -4,7 +4,6 @@ COMPONENT('columns', 'parent:window;margin:0', function(self, config, cls) {
 	var cache;
 
 	self.readonly();
-	self.nocompile();
 
 	self.make = function() {
 		self.aclass(cls + (config.noborder ? (' ' + cls + '-noborder') : ''));
