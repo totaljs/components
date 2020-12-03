@@ -5,19 +5,30 @@
 <div data---="directory__null__placeholder:Search ..."></div>
 
 <div class="container">
-	<a href="javascript:void(0)">Open directory</a>
+	<div><a href="javascript:void(0)" data-name="classic">Open directory - classic</a></div>
+	<div><a href="javascript:void(0)" data-name="checkboxes">Open directory - checkboxes</a></div>
 </div>
 
 <script>
 	$(document).on('click', 'a', function() {
 
+
 		var opt = {};
-		opt.element = this;
-		opt.items = [{ name: 'Total.js', template: '<b>{{ name }}</b>' }, { name: 'Express.js' }, { name: 'Meteor.js' }, { name: 'Koa.js' }, { name: 'ASP.NET' }, { name: 'PHP' }, { name: 'Python' }, { name: 'Node.js' }];
+		opt.element = $(this);
+
+		if (opt.element.attrd('name') === 'checkboxes') {
+			opt.checkbox = true;
+			opt.items = [{ name: 'Total.js', selected: true }, { name: 'Express.js', selected: true }, { name: 'Meteor.js' }, { name: 'Koa.js' }, { name: 'ASP.NET' }, { name: 'PHP' }, { name: 'Python' }, { name: 'Node.js' }];
+		} else
+			opt.items = [{ name: 'Total.js', template: '<b>{{ name }}</b>' }, { name: 'Express.js' }, { name: 'Meteor.js' }, { name: 'Koa.js' }, { name: 'ASP.NET' }, { name: 'PHP' }, { name: 'Python' }, { name: 'Node.js' }];
+
 		opt.callback = function(value) {
-			console.log('CLICK', value);
+			if (opt.checkbox)
+				console.log('SELECTED:', value);
+			else
+				console.log('CLICKED:', value);
 		};
 
-		SETTER('directory', 'show', opt);
+		SETTER('directory/show', opt);
 	});
 </script>

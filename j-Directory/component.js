@@ -2,10 +2,10 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var container, timeout, icon, plus, skipreset = false, skipclear = false, ready = false, input = null, issearch = false;
-	var is = false, selectedindex = 0, resultscount = 0;
+	var is = false, selectedindex = 0, resultscount = 0, skiphide = false;
 	var templateE = '{{ name | encode | ui_directory_helper }}';
 	var templateR = '{{ name | raw }}';
-	var template = '<li data-index="{{ $.index }}" data-search="{{ $.search }}" {{ if selected }} class="current selected{{ if classname }} {{ classname }}{{ fi }}"{{ else if classname }} class="{{ classname }}"{{ fi }}>{0}</li>';
+	var template = '<li data-index="{{ $.index }}" data-search="{{ $.search }}" {{ if selected }} class="current selected{{ if classname }} {{ classname }}{{ fi }}"{{ else if classname }} class="{{ classname }}"{{ fi }}>{{ if $.checkbox }}<span class="' + cls + '-checkbox"><i class="fa fa-check"></i></span>{{ fi }}{0}</li>';
 	var templateraw = template.format(templateR);
 	var regstrip = /(&nbsp;|<([^>]+)>)/ig;
 	var parentclass;
@@ -79,17 +79,42 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		});
 
 		self.event('click', 'li', function(e) {
+
 			if (self.opt.callback) {
 				self.opt.scope && M.scope(self.opt.scope);
-				self.opt.callback(self.opt.items[+this.getAttribute('data-index')], self.opt.element);
+				var item = self.opt.items[+this.getAttribute('data-index')];;
+				if (self.opt.checkbox) {
+					item.selected = !item.selected;
+					$(this).tclass('selected', item.selected);
+					var response = [];
+					for (var i = 0; i < self.opt.items.length; i++) {
+						var m = self.opt.items[i];
+						if (m.selected)
+							response.push(m);
+					}
+					self.opt.callback(response, self.opt.element);
+					skiphide = true;
+				} else
+					self.opt.callback(item, self.opt.element);
 			}
+
 			is = true;
-			self.hide(0);
-			e.preventDefault();
-			e.stopPropagation();
+
+			if (!self.opt.checkbox) {
+				self.hide(0);
+				e.preventDefault();
+				e.stopPropagation();
+			}
+
 		});
 
 		var e_click = function(e) {
+
+			if (skiphide) {
+				skiphide = false
+				return;
+			}
+
 			var node = e.target;
 			var count = 0;
 
@@ -289,6 +314,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 								continue;
 							indexer.index = i;
 							indexer.search = item[key] ? item[key].replace(regstrip, '') : '';
+							indexer.checkbox = opt.checkbox === true;
 							resultscount++;
 							builder.push(self.opt.ta(item, indexer));
 						}
@@ -435,6 +461,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 				} else
 					item.selected = false;
 
+				indexer.checkbox = opt.checkbox === true;
 				indexer.index = i;
 				indexer.search = item[key] ? item[key].replace(regstrip, '') : '';
 				builder.push(opt.ta(item, indexer));

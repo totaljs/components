@@ -33,6 +33,7 @@ Method: `component.show(options)`
 - `options.position` {String} optional, `top` (default), `bottom`
 - `options.raw` {Boolean} optional, this option disables escaping of characters (in other words: HTML content will be allowed in labels of items, default: `false`)
 - `options.classname` {String} optional, a custom container class for all items
+- __NEW__ `options.checkbox` {Boolean} optional, enables checkboxes
 
 Method: `component.hide()`
 
