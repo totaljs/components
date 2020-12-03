@@ -1,13 +1,15 @@
 COMPONENT('inlineform', 'autohide:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
-	var regnohide = /ui-datepicker|ui-timepicker|ui-directory|ui-inlineform/g;
+	var regnohide = /ui-datepicker|ui-timepicker|ui-directory|ui-inlineform|ui-floatinginput|ui-inlineform/g;
 	var dw = 300;
 	var options;
 	var events = {};
+	var skip = false;
 
 	if (!W.$$inlineform) {
 		W.$$inlineform = true;
+
 		$(document).on('click', cls2 + '-close', function() {
 			SETTER(self.name, 'hide');
 		});
@@ -17,14 +19,27 @@ COMPONENT('inlineform', 'autohide:1', function(self, config, cls) {
 		});
 	}
 
+	var disableskip = function() {
+		skip = false;
+	};
+
 	var autohide = function(e) {
+
+		if (skip)
+			return;
+
 		var tmp = e.target;
 		while (tmp) {
 			if (tmp.tagName === 'BODY' || tmp.tagName === 'HTML' || !tmp.getAttribute)
 				break;
 			var cc = tmp.getAttribute('class');
-			if (regnohide.test(cc))
+
+			if (regnohide.test(cc)) {
+				skip = true;
+				setTimeout(disableskip, 100);
 				return;
+			}
+
 			tmp = tmp.parentNode;
 		}
 		self.hide();
@@ -34,23 +49,23 @@ COMPONENT('inlineform', 'autohide:1', function(self, config, cls) {
 
 	self.submit = function() {
 		if (config.submit)
-			EXEC(config.submit, self.hide);
+			self.EXEC(config.submit, self.hide);
 		else
 			self.hide();
 		options.callback && options.callback(self.hide);
 	};
 
 	self.cancel = function() {
-		config.cancel && EXEC(config.cancel, self);
+		config.cancel && self.EXEC(config.cancel, self);
 		self.hide();
 	};
 
 	self.hide = function() {
 		if (!self.hclass('hidden')) {
 			self.release(true);
-			self.aclass('hidden');
+			self.aclass('hidden invisible');
 			self.find(cls2).rclass(cls + '-animate');
-			config.hide && EXEC(config.hide);
+			config.hide && self.EXEC(config.hide);
 			events.unbind();
 		}
 	};
@@ -86,8 +101,9 @@ COMPONENT('inlineform', 'autohide:1', function(self, config, cls) {
 
 		el.find(cls2)[0].appendChild(self.dom);
 		self.aclass(cls + '-body');
-		self.rclass('hidden');
+		self.rclass('hidden invisible');
 		self.replace(el);
+
 		self.event('click', 'button[name]', function() {
 			var t = this;
 			var el = $(this);
@@ -105,9 +121,7 @@ COMPONENT('inlineform', 'autohide:1', function(self, config, cls) {
 		});
 
 		config.enter && self.event('keydown', 'input', function(e) {
-			e.which === 13 && !self.find('button[name="submit"]')[0].disabled && setTimeout(function() {
-				self.submit(self.hide);
-			}, 500);
+			e.which === 13 && !self.find('button[name="submit"]')[0].disabled && setTimeout(self.submit, 500, self.hide);
 		});
 	};
 
@@ -138,8 +152,8 @@ COMPONENT('inlineform', 'autohide:1', function(self, config, cls) {
 			return;
 		}
 
-		self.rclass('hidden');
 		self.release(false);
+		self.rclass('hidden');
 
 		var offset = el.offset();
 		var w = config.width || dw;
@@ -175,9 +189,9 @@ COMPONENT('inlineform', 'autohide:1', function(self, config, cls) {
 			el.length && el[0].focus();
 		}
 
-		events.bind();
-
 		setTimeout(function() {
+			events.bind();
+			self.rclass('invisible');
 			self.find(cls2).aclass(cls + '-animate');
 		}, 300);
 	};
