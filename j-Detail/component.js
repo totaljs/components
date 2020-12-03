@@ -7,7 +7,7 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 
 	self.make = function() {
 
-		self.aclass(cls + (config.small ? (' ' + cls + '-small') : ''));
+		self.aclass(cls + ' ' + cls + '-style-' + (config.style || 1) + (config.small ? (' ' + cls + '-small') : ''));
 
 		var scr = self.find('script');
 		if (scr.length) {
@@ -198,7 +198,7 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 		for (var i = 0; i < keys.length; i++) {
 			var key = keys[i];
 			var group = groups[key];
-			var hash = 'g' + HASH(key, true);
+			var hash = 'g' + HASH(key).toString(36);
 			var el = $(('<div class="{0}-group" data-id="{2}">' + (key.length > 1 ? '<label>{1}</label>' : '') + '<section></section></div>').format(cls, key, hash));
 			var section = el.find('section');
 			for (var j = 0; j < group.html.length; j++)
