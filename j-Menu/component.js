@@ -13,7 +13,7 @@ COMPONENT('menu', function(self, config, cls) {
 	var ul, children, prevsub, parentclass;
 
 	self.make = function() {
-		self.aclass(cls + ' hidden');
+		self.aclass(cls + ' hidden ' + cls + '-style-' + (config.style || 1));
 		self.append('<div class="{0}-items"><ul></ul></div><div class="{0}-submenu hidden"><ul></ul></div>'.format(cls));
 		ul = self.find(cls2 + '-items').find('ul');
 		children = self.find(cls2 + '-submenu');

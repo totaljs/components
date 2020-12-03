@@ -6,6 +6,10 @@
 - singleton
 - __NEW__ supports large mode
 
+__Configuration__:
+
+- __NEW__ `style` {Number} changes style (supported style `2` and default is `1`)
+
 ## Usage
 
 ```javascript
