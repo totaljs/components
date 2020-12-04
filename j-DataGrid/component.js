@@ -848,7 +848,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 				index = opt.rows.indexOf(row);
 
 			var cls = 'dg-selected';
-
 			if (!row || index === -1) {
 				self.selected = null;
 				opt.cluster && opt.cluster.el.find('.' + cls).rclass(cls);
@@ -1473,8 +1472,21 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			plus = (val.page - 1) * val.limit;
 		}
 
-		for (var i = 0, length = rows.length; i < length; i++)
+		var is = false;
+
+		for (var i = 0, length = rows.length; i < length; i++) {
+			var row = rows[i];
+			if (!is && self.selected) {
+				if (self.selected === row) {
+					is = true;
+				} else if (config.clickid && self.selected[config.clickid] === row[config.clickid]) {
+					self.selected = row;
+					is = true;
+				}
+			}
+
 			output.push(self.renderrow(i, rows[i], plus));
+		}
 
 		var min = ((((opt.height || config.minheight) - 120) / config.rowheight) >> 0) + 1;
 		var is = output.length < min;
@@ -1809,13 +1821,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			var sel = self.selected;
 			if (config.autoselect && output && output.length) {
 				setTimeout(function() {
-					self.select(sel ? output.findItem(config.clickid, sel.id) : output[0]);
+					var index = sel ? output.indexOf(sel) : 0;
+					if (index === -1)
+						index = 0;
+					self.select(output[index]);
 				}, 1);
-			} else if (opt.operation !== 'sort') {
-				self.select(sel ? output.findItem(config.clickid, sel.id) : null);
 			} else {
-				var tmp = sel ? output.findItem(config.clickid, sel.id) : null;
-				tmp && self.select(tmp);
+				var index = sel ? output.indexOf(sel) : -1;
+				self.select(index === -1 ? null : output[index]);
 			}
 		}
 	};
