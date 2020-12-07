@@ -82,7 +82,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 
 			if (self.opt.callback) {
 				self.opt.scope && M.scope(self.opt.scope);
-				var item = self.opt.items[+this.getAttribute('data-index')];;
+				var item = self.opt.items[+this.getAttribute('data-index')];
 				if (self.opt.checkbox) {
 					item.selected = !item.selected;
 					$(this).tclass('selected', item.selected);
@@ -111,7 +111,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		var e_click = function(e) {
 
 			if (skiphide) {
-				skiphide = false
+				skiphide = false;
 				return;
 			}
 
@@ -314,7 +314,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 								continue;
 							indexer.index = i;
 							indexer.search = item[key] ? item[key].replace(regstrip, '') : '';
-							indexer.checkbox = opt.checkbox === true;
+							indexer.checkbox = self.opt.checkbox === true;
 							resultscount++;
 							builder.push(self.opt.ta(item, indexer));
 						}
