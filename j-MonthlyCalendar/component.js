@@ -62,6 +62,18 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 		datacontainer = self.find(cls2 + '-data');
 		self.resizeforce();
 
+		self.event('contextmenu', cls2 + '-event', function(e) {
+			if (config.contextmenu) {
+				var el = $(this);
+				if (el.hclass(cls + '-event-more'))
+					return;
+				var id = el.attrd('id');
+				var selected = cls + '-selected';
+				self.find(cls2 + '-event[data-id="{0}"]'.format(id)).aclass(selected);
+				self.SEEX(config.contextmenu, events.findItem('id', id), el, e);
+			}
+		});
+
 		self.event('dblclick', cls2 + '-event', function(e) {
 			if (config.dblclick) {
 				var el = $(this);
@@ -72,7 +84,7 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 				var id = el.attrd('id');
 				var selected = cls + '-selected';
 				self.find(cls2 + '-event[data-id="{0}"]'.format(id)).aclass(selected);
-				config.dblclick && self.SEEX(config.dblclick, events.findItem('id', id), el, e);
+				self.SEEX(config.dblclick, events.findItem('id', id), el, e);
 
 				e.stopPropagation();
 				e.preventDefault();
@@ -211,26 +223,33 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 
 		var beg = new Date(date.getTime());
 		var end = new Date(date.getFullYear(), date.getMonth(), 0);
+
 		var today = function(dt) {
 			return dt.getMonth() === NOW.getMonth() && dt.getFullYear() === NOW.getFullYear() && dt.getDate() === NOW.getDate();
 		};
 
 		beg.setDate(1);
 
-		var days = end.getDate();
+		var days = end.getDate() - 1;
 		var first = beg.getDay();
 		var diff;
 		var dt;
 
 		dates = [];
 
-		for (var i = 0; i < days - 1; i++) {
+		for (var i = 0; i < days; i++) {
 			dt = beg.add(i + ' days');
 			dates.push({ date: dt, type: 'current', today: today(dt), number: +dt.format('yyyyMMdd') });
 		}
 
 		if (first !== config.firstday) {
-			diff = 7 - Math.abs(config.firstday - first);
+
+			// diff = 7 - Math.abs(config.firstday - first);
+			diff = Math.abs(7 - config.firstday + first);
+
+			if (diff > 7)
+				diff -= 7;
+
 			for (var i = 0; i < diff; i++) {
 				dt = beg.add('-' + (i + 1) + ' days');
 				dates.unshift({ date: dt, type: 'prev', today: today(dt), number: +dt.format('yyyyMMdd') });
@@ -256,6 +275,7 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 			var item = dates[i];
 			var el = $(div.children[0]);
 			var classes = [];
+
 			el.html((i % 7 ? '' : ('<span>' + item.date.format('ww') + '</span>')) + (item.today ? '<b>' : '') + item.date.format('d') + (item.today ? '</b>' : '') + (item.date.getDate() === 1 ? (' ' + MONTHS[item.date.getMonth()].substring(0, 3)) : ''));
 
 			if (i % 7 === 0)

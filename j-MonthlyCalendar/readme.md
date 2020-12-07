@@ -13,6 +13,7 @@ __Configuration__:
 - `create` {String} a path to `Function({ beg: Date, end: Date }, beg_element, end_element)`
 - `dblclick` {String} a path to `Function(item_event, el, e)`
 - `dblclickdate` {String} a path to `Function(date, el, e)`
+- `contextmenu` {String} a path to `Function(item_event, el, e)`
 - `rebind` {String} a path to `Function({ dates: Array, date: Date })` is executed when the calendar is rebinded
 - `topoffset` {Boolean} subtracts `offset.top` from `height` (default: `false`)
 - `topposition` {Boolean} subtracts `position.top` from `height` (default: `false`)
