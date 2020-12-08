@@ -1,9 +1,10 @@
 {
 	"datecreated": "2017-06-27T13:13:30.000Z",
-	"dateupdated": "2017-08-01T08:45:00.000Z",
+	"dateupdated": "2020-12-08T17:49:00.000Z",
 	"name": "j-SplashScreen",
 	"tags": [
-		"jcomponent"
+		"splashscreen",
+		"intro"
 	],
 	"color": "white",
 	"version": 1,
