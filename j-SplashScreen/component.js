@@ -34,11 +34,11 @@ COMPONENT('splashscreen', 'timeout:3000;autoremove:1', function(self, config, cl
 		setTimeout(function() {
 			self.aclass(cls + '-removing');
 			setTimeout(function() {
-				self.rclass(cls + '-removing');
 				if (config.autoremove)
 					self.remove();
 				else
 					self.aclass('hidden');
+				self.rclass(cls + '-removing', 100);
 			}, 500);
 		}, config.timeout);
 	};
