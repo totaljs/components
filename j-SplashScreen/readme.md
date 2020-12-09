@@ -5,7 +5,8 @@ A splash screen for single page applications. The body has to be wrapped into th
 __Configuration__:
 
 - `timeout` a timeout in milliseconds for destroying of splash screen (default: `3000`)
-- `autoremove:true` automatically removes component.
+- `autoremove:true {Boolean}` automatically removes component.
+- `remember {String}` e.g. `1 day` or `1 week` - it doesn't show splash screen (default: `empty` = disabled)
 
 __Methods__:
 
