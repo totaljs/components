@@ -45,9 +45,10 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config, cls) {
 		dt.setDate(1);
 		var current = dt.format('yyyyMM');
 		var stats = null;
+		var max;
 
 		if (config.lastvalues) {
-			var max = value.length - maxbars;
+			max = value.length - maxbars;
 			if (max < 0)
 				max = 0;
 			stats = value.slice(max, value.length);
@@ -62,12 +63,14 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config, cls) {
 			stats.reverse();
 		}
 
-		var max = null;
-		for (var i = 0; i < stats.length; i++) {
-			if (max == null)
-				max = stats[i].value;
-			else
-				max = Math.max(stats[i].value, max);
+		max = config.limit;
+		if (!max) {
+			for (var i = 0; i < stats.length; i++) {
+				if (max == null)
+					max = stats[i].value;
+				else
+					max = Math.max(stats[i].value, max);
+			}
 		}
 
 		var bar = 100 / maxbars;
@@ -77,7 +80,7 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config, cls) {
 		var min = ((20 / config.height) * 100) >> 0;
 		var sum = '';
 
-		for (var i = 0, length = stats.length; i < length; i++) {
+		for (var i = 0; i < stats.length; i++) {
 			var item = stats[i];
 			var val = item.value;
 
