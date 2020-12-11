@@ -1,6 +1,5 @@
 COMPONENT('serviceworker', 'debug:false;expire:1 day', function(self, config) {
 
-	var worker;
 	var messenger;
 	var datasource;
 
@@ -8,7 +7,7 @@ COMPONENT('serviceworker', 'debug:false;expire:1 day', function(self, config) {
 	self.nocompile();
 	self.novalidate();
 
-	self.configure = function(key, value, init, prev) {
+	self.configure = function(key, value) {
 
 		switch (key) {
 			case 'datasource':
@@ -23,8 +22,7 @@ COMPONENT('serviceworker', 'debug:false;expire:1 day', function(self, config) {
 			$(function() {
 				navigator.serviceWorker.register('/sw-jcomponent.js').then(function(registration) {
 					messenger = registration.installing || navigator.serviceWorker.controller || registration.active;
-				})
-				.catch(console.log);
+				}).catch(console.log);
 			});
 		}
 	};
