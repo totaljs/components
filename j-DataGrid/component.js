@@ -571,14 +571,17 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 					if (!config.unhighlight || self.selected !== row) {
 						self.selected = row;
 						elrow.aclass(cls);
-					} else
+						controls.show(el[0]);
+					} else {
 						rowarg = self.selected = null;
+						controls.is && controls.hide();
+					}
+				} else {
+					if (controls.is)
+						controls.hide();
+					else if (rowarg)
+						controls.show(el[0]);
 				}
-
-				if (controls.is)
-					controls.hide();
-				else if (rowarg)
-					controls.show(el[0]);
 
 				config.click && self.SEEX(config.click, rowarg, self, elrow, target);
 			}
