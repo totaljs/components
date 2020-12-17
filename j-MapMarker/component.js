@@ -1,4 +1,4 @@
-COMPONENT('mapmarker', 'parent:auto;type:roadmap;draggable:false;markerwidth:40;markerheight:50;infox:0;infoy:0;labelopacity:0.75;markercluster:1', function(self, config, cls) {
+COMPONENT('mapmarker', 'parent:auto;type:roadmap;draggable:false;markerwidth:40;markerheight:50;infox:0;infoy:0;labelopacity:0.75;markercluster:1;markeroffsetx:1;markeroffsety:0', function(self, config, cls) {
 
 	var markers = [];
 	var skip = false;
@@ -174,7 +174,7 @@ COMPONENT('mapmarker', 'parent:auto;type:roadmap;draggable:false;markerwidth:40;
 		// opt.tooltip
 
 		var pos = self.parseGPS(opt.gps);
-		var icon = { url: opt.icon, scaledSize: new google.maps.Size(config.markerwidth, config.markerheight), origin: new google.maps.Point(0, 0), anchor: new google.maps.Point((config.markerwidth + (config.markerwidth / 2)) >> 0, config.markerheight) };
+		var icon = { url: opt.icon, scaledSize: new google.maps.Size(config.markerwidth, config.markerheight), origin: new google.maps.Point(0, 0), anchor: new google.maps.Point(((config.markerwidth + (config.markerwidth / 2)) >> 0) + config.markeroffsetx, config.markerheight  + config.markeroffsety) };
 		var marker = new MarkerWithLabel({ position: pos, map: self.map, draggable: false, raiseOnDrag: false, labelStyle: { opacity: config.labelopacity }, labelAnchor: new google.maps.Point(config.infox, config.infoy), labelClass: cls + '-marker', labelInBackground: false, icon: icon, title: opt.tooltip, zIndex: 1 });
 		var html = $('<div class="{0}-marker"></div>'.format(cls));
 		marker.set('labelContent', html[0]);

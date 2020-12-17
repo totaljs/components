@@ -30,6 +30,8 @@ __Configuration__:
 - `marginxs` {Number} top/bottom margin of the map (default: `undefined`)
 - `markerwidth` {Number} marker width, default `40`
 - `markerheight` {Number} marker height, default: `50`
+- `markeroffsetx` {Number} marker X offset, default `1`
+- `markeroffsety` {Number} marker Y offset, default: `0`
 - `infox` {Number} label offset Y, default: `0`
 - `infoy` {Number} label offset X, default: `0`
 - `labelopacity` {Number} marker label opacity, default: `0.75`
