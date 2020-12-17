@@ -103,8 +103,11 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		var mywidth = self.element.width();
 
 		var key = width + 'x' + mywidth + 'x' + w + 'x' + h;
-		if (cache === key)
+		if (cache === key) {
+			scrollbar && scrollbar.resize();
+			scrolltop && self.scrolltop(0);
 			return;
+		}
 
 		cache = key;
 
