@@ -73,7 +73,7 @@ COMPONENT('columns', 'parent:window;margin:0', function(self, config, cls) {
 					total += size;
 					css.width = size;
 					css.height = wh;
-					el.css(css).rclass('hidden');
+					el.css(css).rclass('hidden invisible');
 				} else
 					el.aclass('hidden');
 			} else
