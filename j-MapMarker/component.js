@@ -215,8 +215,10 @@ COMPONENT('mapmarker', 'parent:auto;type:roadmap;draggable:false;markerwidth:40;
 		});
 
 		opt.callback && opt.callback(opt);
-		opt.center && setTimeout2(self.ID + 'move', function(pos) {
-			self.map.setCenter(pos);
+
+		setTimeout2(self.ID + 'move', function(pos) {
+			opt.center && self.map.setCenter(pos);
+			self.onscroll();
 		}, 500, null, pos);
 	};
 
