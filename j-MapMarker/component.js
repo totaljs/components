@@ -29,15 +29,20 @@ COMPONENT('mapmarker', 'parent:auto;type:roadmap;draggable:false;markerwidth:40;
 	};
 
 	self.onscroll = function() {
+
+		var visible = [];
+
 		for (var i = 0; i < markers.length; i++) {
 			var opt = markers[i].custom;
 			opt.gps = self.gps;
 			opt.zoom = self.map.zoom;
 			opt.onposition && opt.onposition();
+			if (self.map.getBounds().contains(markers[i].getPosition()))
+				visible.push(opt);
 		}
 
 		EMIT('reflow');
-		config.onposition && self.SEEX(config.onposition, self);
+		config.onposition && self.SEEX(config.onposition, self, visible);
 	};
 
 	self.make = function() {

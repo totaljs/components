@@ -34,7 +34,7 @@ __Configuration__:
 - `infoy` {Number} label offset X, default: `0`
 - `labelopacity` {Number} marker label opacity, default: `0.75`
 - `markercluster` {Boolean} enables marker clusterer (default: `true`)
-- `onposition` {String} a path to `function(component)` - evaluated when the position on the map is changed
+- `onposition` {String} a path to `function(component, visible_markers)` - evaluated when the position on the map is changed
 - `onready` {String} a path to `function(component)` - evaluated when the map is ready to use
 
 __Methods__:
