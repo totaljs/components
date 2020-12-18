@@ -72,6 +72,14 @@ COMPONENT('intro', 'closebutton:0;width:400;height:366', function(self, config, 
 	self.resizeforce = function() {
 		var css = {};
 		css.top = (WH / 2 >> 0) - config.height / 2 >> 0;
+
+		if (WIDTH() === 'xs') {
+			css['max-width'] = 'auto';
+			css.width = '86%';
+		} else {
+			css.width = '';
+		}
+
 		body.css(css);
 	};
 
