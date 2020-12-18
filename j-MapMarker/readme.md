@@ -10,10 +10,11 @@ __Google API__:
 
 __Configuration__:
 
-- `key` __IMPORTANT__ Google API key
-- `type` needs to contain a map type (`roadmap` (default), `satellite`, `hybrid`, `terrain`)
-- `draggable` for drag & drop marker (default: `false`)
-- `zoom`, default `13`
+- `key` {String} __IMPORTANT__ Google API key
+- `type` {String} needs to contain a map type (`roadmap` (default), `satellite`, `hybrid`, `terrain`)
+- `draggable` {Boolean} for drag & drop marker (default: `false`)
+- `zoom` {Number}, default `13`
+- `autocomplete` {Boolean} enables auto-complete API (default: `false` and input must be attached by `mapmarker/autocomplete` method)
 - `icon` needs to contain a URL to a new icon marker
 - `animation` needs to contain a animation type (`bounce` and `drop`)
 - `darkmode` {Boolean} enables dark mode (default: `false`)
@@ -41,6 +42,7 @@ __Configuration__:
 
 __Methods__:
 
+- `component.autocomplete(input)` input for autocomplete
 - `component.clear()` Removes all markers
 - `component.add(opt)` Adds marker
 	- `opt.icon` URL address to icon

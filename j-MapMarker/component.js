@@ -1,12 +1,28 @@
-COMPONENT('mapmarker', 'parent:auto;type:roadmap;draggable:false;markerwidth:40;markerheight:50;infox:0;infoy:0;labelopacity:0.75;markercluster:1;markeroffsetx:1;markeroffsety:0', function(self, config, cls) {
+COMPONENT('mapmarker', 'parent:auto;type:roadmap;draggable:false;markerwidth:40;markerheight:50;infox:0;infoy:0;labelopacity:0.75;markercluster:1;markeroffsetx:1;markeroffsety:0;autocomplete:0', function(self, config, cls) {
 
 	var markers = [];
 	var skip = false;
 
 	self.readonly();
 
+	self.autocomplete = function(el) {
+
+		el = $(el);
+
+		var input;
+
+		if (el[0].tagName === 'INPUT')
+			input = el[0];
+		else
+			input = el.find('input')[0];
+
+		var autocomplete = new google.maps.places.Autocomplete(input);
+		autocomplete.bindTo('bounds', self.map);
+		autocomplete.setFields(['address_components', 'geometry', 'icon', 'name']);
+	};
+
 	self.init = function() {
-		IMPORT('https://maps.googleapis.com/maps/api/js?key={0}&libraries=geometry .js'.format(config.key));
+		IMPORT(('https://maps.googleapis.com/maps/api/js?key={0}&libraries=geometry' + (config.autocomplete ? ',places' : '') + ' .js').format(config.key));
 	};
 
 	self.parseGPS = function(val) {
