@@ -8,6 +8,9 @@ __Configuration__:
 - `page` {String} optional, a link to method `function(page) {}` it's executed when page is changed
 - `exec` {String} optional, a link to method `function() {}` it's executed when the intro is closed
 - `remove` {Boolean} optional, when `true` then the component will be removed after close (default: `false`)
+- `closebutton` {Boolean} shows close button at the right top corner (default: `false`)
+- `width` {Number} a maximum width (default: `400`)
+- `height` {Number} height (default: `366`)
 
 __Good to know__:
 - each button with `name="next"` will be used as `next` button
