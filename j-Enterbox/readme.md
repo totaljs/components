@@ -8,3 +8,4 @@ __Configuration__:
 - `icon` {String} icon
 - `placeholder` {String} a placeholder for the input control
 - `exec` {String} optional, a link to a function in the window scope (otherwise `data-jc-path` is required)
+- `button` {String} adds a label to the button (default: `empty`)
