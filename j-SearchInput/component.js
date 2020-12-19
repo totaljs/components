@@ -38,8 +38,15 @@ COMPONENT('searchinput', 'searchicon:fa fa-search;cancelicon:fa fa-times;align:l
 		}
 	};
 
+	self.clear = function() {
+		input.value = '';
+		config.exec && self.SEEX(config.exec, input.value);
+		self.check();
+	};
+
 	self.setter = function(value) {
 		input.value = value || '';
+		config.exec && self.SEEX(config.exec, input.value);
 		self.check();
 	};
 
