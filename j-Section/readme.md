@@ -58,6 +58,9 @@ __Definition__:
 
 	</section>
 
+	<!-- Template from URL address -->
+	<section data-if="4" data-parent="2" data-label="Label for header" data-url="LINK_TO_HTML_TEMPLATE"></section>
+
 </div>
 ```
 

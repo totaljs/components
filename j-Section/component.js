@@ -10,12 +10,7 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 	self.readonly();
 
 	self.init = function() {
-		var obj;
-
-		if (W.OP)
-			obj = W.OP;
-		else
-			obj = $(W);
+		var obj = $(W);
 
 		var resize = function() {
 			for (var i = 0; i < M.components.length; i++) {
@@ -180,6 +175,22 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		setTimeout(self.resize, config.delay, config.scrolltop);
 	};
 
+	var show = function(parent, section, type, ltr) {
+
+		parent = section.attrd('parent');
+		section.rclass('invisible');
+
+		if (type)
+			section.css({ 'margin-left': ltr ? -ww : ww }).aclass(cls + '-visible ' + cls + '-animate').animate({ 'margin-left': 0 }, config.delayanim, done_open);
+		else
+			section.aclass(cls + '-visible');
+
+		elh.find('span').tclass('hidden', !parent).attrd('parent', parent || '');
+		config.autofocus && setTimeout(function() {
+			section.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea').eq(0).focus();
+		}, config.delayanim * 2);
+	};
+
 	self.setter = function(value, path, type) {
 
 		if (current === value) {
@@ -213,19 +224,16 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 					COMPILE();
 			}
 
-			parent = section.attrd('parent');
-			section.rclass('hidden invisible');
+			section.rclass('hidden');
 
-			if (type)
-				section.css({ 'margin-left': ltr ? -ww : ww }).aclass(cls + '-visible ' + cls + '-animate').animate({ 'margin-left': 0 }, config.delayanim, done_open);
-			else
-				section.aclass(cls + '-visible');
-
-			elh.find('span').tclass('hidden', !parent).attrd('parent', parent || '');
-			config.autofocus && setTimeout(function() {
-				section.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea').eq(0).focus();
-			}, config.delayanim * 2);
+			var url = section.attrd('url');
+			if (url) {
+				section.attrd('url', '');
+				IMPORT(url, section, function() {
+					show(parent, section, type, ltr);
+				});
+			} else
+				show(parent, section, type, ltr);
 		}
-
 	};
 });
