@@ -43,7 +43,7 @@
 .ui-properties2-bool .checked { background-color: #4285F4; border-color: #4285F4; }
 .ui-properties2-bool .checked i { margin-left: 14px; }
 .ui-disabled .ui-properties2-bool .checked { background-color: #A0A0A0; border-color: #A0A0A0; }
-.ui-properties2-fontawesometoggle, .ui-properties2-emojitoggle, .ui-properties2-color { width: 22px; line-height: 22px; display: block; cursor: pointer; font-size: 20px; position: relative; text-align: left; margin-bottom: 3px; display: inline-block; }
+.ui-properties2-fontawesometoggle, .ui-properties2-emojitoggle, .ui-properties2-color { width: 22px; line-height: 22px; display: block; cursor: pointer; font-size: 20px; position: relative; text-align: left; margin-bottom: 3px; display: inline-block; margin-right: 1px; }
 .ui-properties2-2 .ui-properties2-fontawesometoggle, .ui-properties2-2 .ui-properties2-emojitoggle, .ui-properties2-2 .ui-properties2-color { margin-bottom: 0; }
 .ui-properties2-fontawesometoggle { height: 22px; }
 .ui-properties2-2 .ui-properties2-fontawesometoggle { height: auto; }
