@@ -25,6 +25,7 @@ __Configuration__:
 - `autoexec` {String} a path method `function(item, next(value_to_input))`
 - `forcevalidation` {Boolean} enables for force validation for `phone` and `email` (default: `true`)
 - `monospace` {Boolean} enables `monospaced` font (default: `false`)
+- `enter` {String} a link to `function(val, com)` - evaluated when the user presses enter
 
 ### Author
 

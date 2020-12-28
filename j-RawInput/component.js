@@ -122,6 +122,11 @@ COMPONENT('rawinput', 'type:text', function(self, config, cls) {
 		var $input = self.find('input');
 		input = $input[0];
 
+		config.enter && $input.on('keydown', function(e) {
+			if (e.which === 13)
+				self.SEEX(config.enter, input.value, self);
+		});
+
 		$input.on('focus', function() {
 
 			var el = $(this);
