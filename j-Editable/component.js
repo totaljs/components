@@ -1,6 +1,5 @@
-COMPONENT('editable', 'disabled:0', function(self, config) {
+COMPONENT('editable', 'disabled:0', function(self, config, cls) {
 
-	var cls = 'ui-editable';
 	var rtrue = /1|true/i;
 	var events = {};
 	var changed = null;
@@ -362,7 +361,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 				self.detach(el);
 				if (config.escape) {
 					setTimeout(function() {
-						EXEC(config.escape, meta.path, GET(meta.path));
+						self.EXEC(config.escape, meta.path, GET(meta.path), el);
 					}, 100);
 				}
 				return;
@@ -388,7 +387,7 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 
 					if (config.enter) {
 						setTimeout(function() {
-							EXEC(config.enter, meta.path, GET(meta.path));
+							self.EXEC(config.enter, meta.path, GET(meta.path), el);
 						}, 100);
 					}
 
@@ -554,12 +553,12 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 			}
 
 			changed[meta.path.substring(self.path.length + 1)] = 1;
-			config.changed && SEEX(self.makepath(config.changed), self.changed());
-			config.invalid && EXEC(self.makepath(config.invalid), el, false, meta);
-			meta.invalid && EXEC(self.makepath(meta.invalid), el, false, meta);
+			config.changed && self.SEEX(config.changed, self.changed());
+			config.invalid && self.EXEC(config.invalid, el, false, meta);
+			meta.invalid && self.EXEC(meta.invalid, el, false, meta);
 		} else {
-			config.invalid && EXEC(self.makepath(config.invalid), el, true, meta);
-			meta.invalid && EXEC(self.makepath(meta.invalid), el, true, meta);
+			config.invalid && self.EXEC(config.invalid, el, true, meta);
+			meta.invalid && self.EXEC(meta.invalid, el, true, meta);
 			el.aclass((meta.required ? 'invalid ' : '') + 'changed');
 		}
 
@@ -665,14 +664,14 @@ COMPONENT('editable', 'disabled:0', function(self, config) {
 
 			if (changed) {
 				changed = null;
-				config.changed && SEEX(self.makepath(config.changed));
+				config.changed && self.SEEX(config.changed);
 			}
 
 			var el = self.find('.invalid');
 
 			if (config.invalid) {
 				for (var i = 0; i < el.length; i++)
-					EXEC(self.makepath(config.invalid), el[0], false, el[0].$editable);
+					self.EXEC(config.invalid, el[0], false, el[0].$editable);
 			}
 
 			el.rclass('invalid');

@@ -8,8 +8,8 @@ __Configuration__:
 - `validate` {Boolean} can disable validation (default: `true`)
 - `disabled` {Boolean} can disable editing (it adds `ui-editable-disabled` and `ui-editable-enabled` class), default: `false`
 - `changed` {String} optional, a link to a method or path --> it will contain the object with changed values only
-- `enter` {String} optional, a link to a method `method(path, value)`, the method is executed if the user presses `ENTER`
-- `escape` {String} optional, a link to a method `method(path, value)`, the method is executed if the user presses `ESC`
+- `enter` {String} optional, a link to a method `method(path, value, el)`, the method is executed if the user presses `ENTER`
+- `escape` {String} optional, a link to a method `method(path, value, el)`, the method is executed if the user presses `ESC`
 - `can` {String} optional, a link to method `method(opt, el)` must return `boolean`, it means `can edit?`
 - `invalid` {String} optional, a link to method `method(el, isInvalid, meta)` is evaluated when the item is invalid and vice-versa
 
