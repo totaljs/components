@@ -16,7 +16,7 @@ __Configuration__:
 - `delay` {Number} `msec.` resizes the box again if the value is changed according to the path (default: `100`)
 - `visibleY` {Boolean} still shows `Y` scrollbar (default: `false`)
 - `visibleX` {Boolean} still shows `X` scrollbar (default: `false`)
-- `scrolltop` {Boolean} scrolls to top automatically if the `path` is changed (default: `false`)
+- `scrollto` {String} scrolls to top/bottom automatically if the `path` is changed (default: `EMPTY`, can be `top` or `bottom`)
 - `margin` {Number} optional, a top/bottom margin together (supports `auto` which is counted from `offset.top`, default: `0`)
 - `marginxs` {Number} optional, a top/bottom margin together for `xs` screen width
 - `marginsm` optional, a top/bottom margin together for `sm` screen width

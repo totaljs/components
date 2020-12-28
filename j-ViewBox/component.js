@@ -90,11 +90,11 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 
 	var css = {};
 
-	self.resize = function() {
-		setTimeout2(self.ID, self.resizeforce, 200);
+	self.resize = function(scrollto) {
+		setTimeout2(self.ID, self.resizeforce, 200, null, scrollto);
 	};
 
-	self.resizeforce = function(scrolltop) {
+	self.resizeforce = function(scrollto) {
 
 		var el = self.parent(config.parent);
 		var h = el.height();
@@ -105,7 +105,12 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		var key = width + 'x' + mywidth + 'x' + w + 'x' + h;
 		if (cache === key) {
 			scrollbar && scrollbar.resize();
-			scrolltop && self.scrolltop(0);
+			if (scrollto) {
+				if (scrollto ==='bottom')
+					self.scrollbottom(0);
+				else
+					self.scrolltop(0);
+			}
 			return;
 		}
 
@@ -142,7 +147,13 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		var c = cls + '-hidden';
 		self.hclass(c) && self.rclass(c, 100);
 		scrollbar && scrollbar.resize();
-		scrolltop && self.scrolltop(0);
+
+		if (scrollto) {
+			if (scrollto ==='bottom')
+				self.scrollbottom(0);
+			else
+				self.scrolltop(0);
+		}
 
 		if (!init) {
 			self.rclass('invisible', 250);
@@ -155,6 +166,6 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 	};
 
 	self.setter = function() {
-		setTimeout(self.resize, config.delay, config.scrolltop);
+		setTimeout(self.resize, config.delay, config.scrollto || config.scrolltop);
 	};
 });
