@@ -67,6 +67,11 @@ COMPONENT('animation', 'style:2;delay:200;init:1000;cleaner:1000;visible:0;offse
 				if (counter < delay)
 					counter = delay;
 
+				if (el.hclass('hidden') || el.hclass('invisible')) {
+					el.rclass('animation ' + clsname + '-init');
+					return;
+				}
+
 				setTimeout(function(el) {
 					if (!self.removed) {
 						if (opt.noanimation)
