@@ -1,4 +1,4 @@
-COMPONENT('animation', 'style:2;delay:500;init:1000;cleaner:1000;visible:0;offset:50', function(self, config, cls) {
+COMPONENT('animation', 'style:2;delay:200;init:1000;cleaner:1000;visible:0;offset:50', function(self, config, cls) {
 
 	self.readonly();
 	self.blind();
