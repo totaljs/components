@@ -6,7 +6,7 @@ __Configuration__:
 
 - `style {Number}` style of animation
 	- `1` opacity
-	- `2` scale from big to normal
+	- `2` __default__ scale from big to normal
 	- `3` scale from small to normal
 	- `4` rotation Z
 	- `5` changing of X position
