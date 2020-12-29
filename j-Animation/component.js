@@ -1,10 +1,23 @@
-COMPONENT('animation', 'style:2;delay:500;init:1000;cleaner:1000', function(self, config, cls) {
+COMPONENT('animation', 'style:2;delay:500;init:1000;cleaner:1000;visible:0;offset:50', function(self, config, cls) {
 
 	self.readonly();
 	self.blind();
 
+	self.destroy = function() {
+		self.visibleinterval && clearInterval(self.interval);
+	};
+
 	self.make = function() {
-		setTimeout(self.animate, config.init);
+		if (config.visible) {
+			self.visibleinterval = setInterval(function() {
+				if (VISIBLE(self.dom, config.offset)) {
+					self.visibleinterval = null;
+					clearInterval(self.visibleinterval);
+					self.animate();
+				}
+			}, 500);
+		} else
+			setTimeout(self.animate, config.init);
 	};
 
 	self.animate = function() {
@@ -14,7 +27,14 @@ COMPONENT('animation', 'style:2;delay:500;init:1000;cleaner:1000', function(self
 
 		setTimeout(function() {
 
+			if (self.removed)
+				return;
+
 			setTimeout(function(el) {
+
+				if (self.removed)
+					return;
+
 				el.rclass2(clsname);
 			}, config.cleaner * el.length, el);
 
@@ -27,6 +47,10 @@ COMPONENT('animation', 'style:2;delay:500;init:1000;cleaner:1000', function(self
 				var el = $(this);
 				var opt = (el.attrd('animation') || '').parseConfig();
 				setTimeout(function(el) {
+
+					if (self.removed)
+						return;
+
 					if (opt.noanimation)
 						el.rclass('animation ' + clsname + '-init');
 					else

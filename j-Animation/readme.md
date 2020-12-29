@@ -15,6 +15,8 @@ __Configuration__:
 - `init {Number}` initialization delay (default: `1000`)
 - `cleaner {Number`} delay for cleaner of animation classes (default: `1000` is multipled by count of elements)
 - `together {Boolean}` all elements will be animated together (default: `false`)
+- `visible {Boolean}` performs animation when the element with animation is visible (default: `false`)
+- `offset {Number}` offset (threshold) for visibility (default: `50`)
 
 ### Element configuration
 
