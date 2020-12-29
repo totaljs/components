@@ -39,10 +39,10 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 			if (el.hclass(cls + '-container-cell')) {
 				var form = $(this).find(cls2);
 				var c = cls + '-animate-click';
-				form.aclass(c);
-				setTimeout(function() {
-					form.rclass(c);
-				}, 300);
+				form.aclass(c).rclass(c, 300);
+				var com = el.parent().component();
+				if (com && com.config.closeoutside)
+					com.set('');
 			}
 		});
 	}
