@@ -104,6 +104,7 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 	self.icon = function(value) {
 		var el = this.rclass2('fa');
 		value.icon && el.aclass(value.icon.indexOf(' ') === -1 ? ('fa fa-' + value.icon) : value.icon);
+		this.tclass('hidden', !value.icon);
 	};
 
 	self.resize = function() {
