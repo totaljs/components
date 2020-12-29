@@ -1,0 +1,17 @@
+{
+	"datecreated": "2020-12-29T11:34:00.000Z",
+	"dateupdated": null,
+	"name": "j-Ready",
+	"tags": [
+		"ready"
+	],
+	"color": "transparent",
+	"version": 1,
+	"darkmode": false,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
