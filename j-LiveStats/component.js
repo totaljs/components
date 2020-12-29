@@ -10,7 +10,7 @@ COMPONENT('livestats', 'width:500;height:100;axislines:20;max:0', function(self,
 
 	function diagonal(x1, y1, x2, y2) {
 		return 'M' + x1 + ',' + y1 + 'C' + (x1 && x2 ? ((x1 + x2 ) / 2) : 0) + ',' + y1 + ' ' + (x1 && x2 ? ((x1 + x2) / 2) : 0) + ',' + y2 + ' ' + x2 + ',' + y2;
-	}; // Due to minification
+	}
 
 	self.color = function(value) {
 		var hash = HASH(value, true);
@@ -43,7 +43,7 @@ COMPONENT('livestats', 'width:500;height:100;axislines:20;max:0', function(self,
 		var axisw = (config.width / config.axislines) >> 0;
 
 		for (var i = 1; i < config.axislines; i++)
-			axis.asvg('<line x1="{0}" y1="0" x2="{0}" y2="{1}" />'.format(axisw * i, config.height));
+			axis.asvg('<line x1="{0}" y1="0" x2="{0}" y2="{1}"></line>'.format(axisw * i, config.height));
 	};
 
 	self.render = function(path, points, max, index) {
