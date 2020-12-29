@@ -231,5 +231,6 @@
 	"j-MapMarker",
 	"j-Columns",
 	"j-Ready",
-	"j-Animation"
+	"j-Animation",
+	"j-RawEditable"
 ]
