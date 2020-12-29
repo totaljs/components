@@ -16,9 +16,9 @@ __Configuration__:
 - `cleaner {Number`} delay for cleaner of animation classes (default: `1000` is multipled by count of elements)
 - `together {Boolean}` all elements will be animated together (default: `false`)
 
-__Element configuration__:
+### Element configuration
 
-Element configuration can be defined in `data-animation=""` attribute and it's optional.
+Element configuration can be defined in `data-animation="delay:100;order:3"` attribute and it's optional:
 
 - `noanimation {Boolean}` disables animation for this element (only removes `.animation` class)
 - `delay {Number}` animation delay (default: `config.delay`)
