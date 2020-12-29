@@ -7,8 +7,6 @@ __Configuration__:
 - `type` {String} optional, can be `email`, `phone`, `password`, `zip`, `date`, `time`, `url`, `number`, `search`, `lower`, `upper` or empty (default)
 - `required` {Boolean} optional, enables "required" (default: `false`)
 - `autofocus` {Boolean} optional, focuses the input (default: `false`)
-- `align` {String} optional, `left` (default), `2` / `right` or `1` / `center`
-- `after` {String} optional, it means a char after label (default: `:`)
 - `autofill` {Boolean} optional, enables browser's autofill feature (default: `false`)
 - `placeholder` {String} optional, adds a `placeholder` text into the input
 - `maxlength` {Number} optional, sets a maximum length of chars (default: `200`)
