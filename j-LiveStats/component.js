@@ -10,7 +10,7 @@ COMPONENT('livestats', 'width:500;height:100;axislines:20;max:0', function(self,
 
 	function diagonal(x1, y1, x2, y2) {
 		return 'M' + x1 + ',' + y1 + 'C' + (x1 && x2 ? ((x1 + x2 ) / 2) : 0) + ',' + y1 + ' ' + (x1 && x2 ? ((x1 + x2) / 2) : 0) + ',' + y2 + ' ' + x2 + ',' + y2;
-	}
+	}; // Due to minification
 
 	self.color = function(value) {
 		var hash = HASH(value, true);
