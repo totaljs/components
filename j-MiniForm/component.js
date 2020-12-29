@@ -25,7 +25,17 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 		ON('resize2', resize);
 
 		$(document).on('click', cls2 + '-container', function(e) {
+
+			if (e.target === this) {
+				var com = $(this).component();
+				if (com && com.config.closeoutside) {
+					com.set('');
+					return;
+				}
+			}
+
 			var el = $(e.target);
+
 			if (el.hclass(cls + '-container-cell')) {
 				var form = $(this).find(cls2);
 				var c = cls + '-animate-click';
@@ -51,7 +61,44 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 	};
 
 	self.hide = function() {
+		if (config.independent)
+			self.hideforce();
+		self.esc(false);
 		self.set('');
+	};
+
+	self.esc = function(bind) {
+		if (bind) {
+			if (!self.$esc) {
+				self.$esc = true;
+				$(W).on('keydown', self.esc_keydown);
+			}
+		} else {
+			if (self.$esc) {
+				self.$esc = false;
+				$(W).off('keydown', self.esc_keydown);
+			}
+		}
+	};
+
+	self.esc_keydown = function(e) {
+		if (e.which === 27 && !e.isPropagationStopped()) {
+			var val = self.get();
+			if (!val || config.if === val) {
+				e.preventDefault();
+				e.stopPropagation();
+				self.hide();
+			}
+		}
+	};
+
+	self.hideforce = function() {
+		if (!self.hclass('hidden')) {
+			self.aclass('hidden');
+			self.release(true);
+			self.find(cls2).rclass(cls + '-animate');
+			W.$$miniform_level--;
+		}
 	};
 
 	self.icon = function(value) {
@@ -146,10 +193,8 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 		}, 10);
 
 		if (isHidden) {
-			self.aclass('hidden');
-			self.release(true);
-			self.find(cls2).rclass(cls + '-animate');
-			W.$$miniform_level--;
+			if (!config.independent)
+				self.hideforce();
 			return;
 		}
 
@@ -189,5 +234,7 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 		setTimeout2(self.ID, function() {
 			self.css('z-index', (W.$$miniform_level * config.zindex) + 1);
 		}, 500);
+
+		config.closeesc && self.esc(true);
 	};
 });
