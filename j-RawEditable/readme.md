@@ -5,6 +5,7 @@ __j-RawEditable__ is a simple component with a big hidden functionality. It's ta
 __Configuration__:
 
 - `type` {String} optional, can be `email`, `phone`, `zip`, `date`, `time`, `url`, `number`, `search`, `lower`, `upper` or empty (default)
+- `formatting` {Boolean} enables formatting bold, italic, etc., default: `false`
 - `required` {Boolean} optional, enables "required" (default: `false`)
 - `placeholder` {String} optional, adds a `placeholder` text into the input
 - `maxlength` {Number} optional, sets a maximum length of chars (default: `200`)
