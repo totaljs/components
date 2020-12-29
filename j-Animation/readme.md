@@ -4,7 +4,7 @@ This component can animate elements with `.animation` class.
 
 __Configuration__:
 
-- `style {Number}` style of animation
+- `style {Number}` style of animation:
 	- `1` opacity
 	- `2` __default__ scale from big to normal
 	- `3` scale from small to normal
@@ -17,6 +17,7 @@ __Configuration__:
 - `together {Boolean}` all elements will be animated together (default: `false`)
 - `visible {Boolean}` performs animation when the element with animation is visible (default: `false`)
 - `offset {Number}` offset (threshold) for visibility (default: `50`)
+- `exec {String}` a link to method which will be executed after animation
 
 ### Element configuration
 
@@ -25,6 +26,7 @@ Element configuration can be defined in `data-animation="delay:100;order:3"` att
 - `noanimation {Boolean}` disables animation for this element (only removes `.animation` class)
 - `delay {Number}` animation delay (default: `config.delay`)
 - `order {Number}` animation order index, must start with `1` ... (elements with same order will be displayed together)
+- `style {Number}` a custom style for the element
 
 ### Author
 

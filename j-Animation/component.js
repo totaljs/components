@@ -23,7 +23,16 @@ COMPONENT('animation', 'style:2;delay:500;init:1000;cleaner:1000;visible:0;offse
 	self.animate = function() {
 
 		var clsname = cls + '-' + config.style;
-		var el = self.find('.animation').aclass(clsname + '-init');
+		var el = self.find('.animation');
+
+		if (!config.together) {
+			el.each(function() {
+				var el = $(this);
+				var opt = (el.attrd('animation') || '').parseConfig();
+				this.$animopt = opt;
+				el.aclass(cls + '-' + (opt.style || config.style) + '-init');
+			});
+		}
 
 		setTimeout(function() {
 
@@ -31,33 +40,46 @@ COMPONENT('animation', 'style:2;delay:500;init:1000;cleaner:1000;visible:0;offse
 				return;
 
 			setTimeout(function(el) {
-
-				if (self.removed)
-					return;
-
-				el.rclass2(clsname);
+				if (!self.removed)
+					el.rclass2(clsname);
 			}, config.cleaner * el.length, el);
 
+			var counter = 0;
+
 			if (config.together) {
+
 				el.rclass('animation').aclass(clsname + '-run');
+
+				config.exec && setTimeout(function() {
+					self.EXEC(config.exec, self.element);
+				}, 1500);
+
 				return;
 			}
 
 			el.each(function(index) {
+
 				var el = $(this);
-				var opt = (el.attrd('animation') || '').parseConfig();
+				var opt = this.$animopt;
+				var delay = (opt.order || index) * (opt.delay || config.delay);
+				var clsname = cls + '-' + (opt.style || config.style);
+
+				if (counter < delay)
+					counter = delay;
+
 				setTimeout(function(el) {
-
-					if (self.removed)
-						return;
-
-					if (opt.noanimation)
-						el.rclass('animation ' + clsname + '-init');
-					else
-						el.rclass('animation').aclass(clsname + '-run');
-
-				}, (opt.order || index) * (opt.delay || config.delay), el);
+					if (!self.removed) {
+						if (opt.noanimation)
+							el.rclass('animation ' + clsname + '-init');
+						else
+							el.rclass('animation').aclass(clsname + '-run');
+					}
+				}, delay, el);
 			});
+
+			config.exec && setTimeout(function() {
+				self.EXEC(config.exec, self.element);
+			}, (counter || 500) + 1000);
 
 		}, config.init / 10 >> 0);
 	};
