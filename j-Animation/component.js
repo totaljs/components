@@ -1,7 +1,9 @@
 COMPONENT('animation', 'style:2;delay:200;init:1000;cleaner:1000;visible:0;offset:50', function(self, config, cls) {
 
 	self.readonly();
-	self.blind();
+
+	if (!config.if)
+		self.blind();
 
 	self.destroy = function() {
 		self.visibleinterval && clearInterval(self.interval);
@@ -17,62 +19,94 @@ COMPONENT('animation', 'style:2;delay:200;init:1000;cleaner:1000;visible:0;offse
 				}
 			}, 500);
 		} else
-			setTimeout(self.animate, config.init);
+			setTimeout2(self.ID, self.animate, config.init);
+
+		config.datasource && self.datasource(config.datasource, function() {
+			setTimeout2(self.ID, self.animate, config.init);
+		});
+	};
+
+	self.restore = function() {
+		self.find('.animated').aclass('animation').rclass('animated');
 	};
 
 	self.animate = function() {
 
-		var clsname = cls + '-' + config.style;
 		var el = self.find('.animation');
+		var arr = [];
 
-		if (!config.together) {
-			el.each(function() {
-				var el = $(this);
-				var opt = (el.attrd('animation') || '').parseConfig();
-				this.$animopt = opt;
-				el.aclass(cls + '-' + (opt.style || config.style) + '-init');
-			});
+		for (var i = 0; i < el.length; i++) {
+
+			var t = el[i];
+
+			if (!t.$anim) {
+				var $t = $(t);
+
+				if (!t.$animopt) {
+					var opt = ($t.attrd('animation') || '').parseConfig();
+					t.$animopt = opt;
+				}
+
+				t.$anim = cls + '-' + (t.$animopt.style || config.style);
+				$t.aclass(t.$anim + '-init animating');
+				arr.push($t);
+			}
 		}
 
-		setTimeout(function() {
+		if (!arr.length)
+			return;
+
+		setTimeout(function(arr) {
 
 			if (self.removed)
 				return;
 
-			setTimeout(function(el) {
-				if (!self.removed)
-					el.rclass2(clsname);
-			}, config.cleaner * el.length, el);
-
-			var counter = 0;
+			var maxdelay = 500;
 
 			if (config.together) {
 
-				el.rclass('animation').aclass(clsname + '-run');
+				for (var i = 0; i < arr.length; i++) {
+					var el = arr[i];
+					var c = el[0].$anim;
+					var opt = el[0].$animopt;
+					if (!self.removed) {
+						if (opt.noanimation)
+							el.rclass('animation ' + c + '-init');
+						else
+							el.rclass('animation').aclass(c + '-run');
+					}
+				}
 
-				config.exec && setTimeout(function() {
-					self.EXEC(config.exec, self.element);
+				setTimeout(function() {
+					if (!self.removed) {
+						for (var i = 0; i < arr.length; i++) {
+							var c = arr[i][0].$anim;
+							arr[i].rclass(c + '-init ' + c + '-run animating').aclass('animated');
+							delete arr[i][0].$anim;
+						}
+						config.exec && self.EXEC(config.exec, self.element);
+					}
 				}, 1500);
 
 				return;
 			}
 
-			el.each(function(index) {
+			arr.wait(function(el, next, index) {
 
-				var el = $(this);
-				var opt = this.$animopt;
+				var opt = el[0].$animopt;
 				var delay = (opt.order || index) * (opt.delay || config.delay);
 				var clsname = cls + '-' + (opt.style || config.style);
 
-				if (counter < delay)
-					counter = delay;
+				if (maxdelay < delay)
+					maxdelay = delay;
 
 				if (el.hclass('hidden') || el.hclass('invisible')) {
-					el.rclass('animation ' + clsname + '-init');
+					el.rclass('animation ' + clsname + '-init').aclass('animated');
+					next();
 					return;
 				}
 
-				setTimeout(function(el) {
+				el[0].$animtime = setTimeout(function(el) {
 					if (!self.removed) {
 						if (opt.noanimation)
 							el.rclass('animation ' + clsname + '-init');
@@ -80,13 +114,31 @@ COMPONENT('animation', 'style:2;delay:200;init:1000;cleaner:1000;visible:0;offse
 							el.rclass('animation').aclass(clsname + '-run');
 					}
 				}, delay, el);
+
+				next();
+
+			}, function() {
+
+				setTimeout(function() {
+					for (var i = 0; i < arr.length; i++) {
+						var c = arr[i][0].$anim;
+						arr[i].rclass(c + '-init ' + c + '-run animating').aclass('animated');
+						delete arr[i][0].$anim;
+					}
+					config.exec && self.EXEC(config.exec, self.element);
+				}, maxdelay + 1000);
 			});
 
-			config.exec && setTimeout(function() {
-				self.EXEC(config.exec, self.element);
-			}, (counter || 500) + 1000);
+		}, config.init / 10 >> 0, arr);
+	};
 
-		}, config.init / 10 >> 0);
+	self.setter = function(value) {
+		if (config.if) {
+			if (value === config.if)
+				setTimeout2(self.ID, self.animate, config.init);
+			else
+				self.restore();
+		}
 	};
 
 });

@@ -18,6 +18,8 @@ __Configuration__:
 - `visible {Boolean}` performs animation when the element with animation is visible (default: `false`)
 - `offset {Number}` offset (threshold) for visibility (default: `50`)
 - `exec {String}` a link to method which will be executed after animation
+- `datasource {String}` a link to data-source (if the data-source will be modified then the animation will be performed again)
+- `if {String}` a condition for path (same feature like `j-Part`), if the value will be same as `if` value then the animation will be executed (otherwise will all elements restored for previous state)
 
 ### Element configuration
 
