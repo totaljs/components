@@ -1,6 +1,5 @@
-COMPONENT('togglebox', 'dragdrop:true;text:name;hidden:hidden;replace:0', function(self, config) {
+COMPONENT('togglebox', 'dragdrop:true;text:name;hidden:hidden;replace:0', function(self, config, cls) {
 
-	var cls = 'ui-' + self.name;
 	var container, dragdrop;
 	var touch = {};
 	var skip = false;

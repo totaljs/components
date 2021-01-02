@@ -1,6 +1,5 @@
-COMPONENT('selectbox', function(self, config) {
+COMPONENT('selectbox', function(self, config, cls) {
 
-	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
 
 	var Eitems, Eselected, datasource, condition;
