@@ -30,18 +30,27 @@ COMPONENT('inlineform', 'autohide:1', function(self, config, cls) {
 
 		var tmp = e.target;
 		while (tmp) {
+
 			if (tmp.tagName === 'BODY' || tmp.tagName === 'HTML' || !tmp.getAttribute)
 				break;
-			var cc = tmp.getAttribute('class');
 
-			if (regnohide.test(cc)) {
+			var cc = tmp.getAttribute('class') || '';
+
+			if (cc && regnohide.test(cc)) {
 				skip = true;
 				setTimeout(disableskip, 100);
 				return;
 			}
 
+			// Due to removed elements in some nested component
 			tmp = tmp.parentNode;
+			if (!tmp) {
+				skip = true;
+				setTimeout(disableskip, 100);
+				return;
+			}
 		}
+
 		self.hide();
 	};
 
