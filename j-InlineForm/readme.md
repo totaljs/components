@@ -15,6 +15,7 @@ __Configuration__:
 - `enter` {Boolean} captures `enter` key automatically and performs submit (default: `false`)
 - `default` {String} a short alias for `DEFAULT(default, true)`
 - `autohide` {Boolean} enables auto-hide (default: `true`)
+- `autofocus` {Boolean} performs auto-focus to nearest input (default: `false`)
 
 __Methods__:
 

@@ -193,9 +193,11 @@ COMPONENT('inlineform', 'autohide:1', function(self, config, cls) {
 
 		self.css(offset);
 
-		if (!isMOBILE) {
-			el = self.find('input[type="text"],select,textarea');
-			el.length && el[0].focus();
+		if (!isMOBILE && config.autofocus) {
+			setTimeout(function(el) {
+				el = self.find('input[type="text"],select,textarea');
+				el.length && el[0].focus();
+			}, 500, el);
 		}
 
 		setTimeout(function() {
