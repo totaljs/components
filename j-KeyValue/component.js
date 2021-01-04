@@ -7,7 +7,7 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config, cls) {
 	var empty = {};
 
 	self.nocompile && self.nocompile();
-	self.template = Tangular.compile('<div class="{0}-item"><div class="{0}-item-remove"><i class="fa fa-times"></i></div><div class="{0}-item-key"><input type="text" name="key" maxlength="{{ max }}"{{ if disabled }} disabled="disabled"{{ fi }} placeholder="{{ placeholder_key }}" value="{{ key }}" /></div><div class="{0}-item-value"><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder_value }}" value="{{ value }}" /></div></div>'.format(cls));
+	self.template = Tangular.compile('<div class="{0}-item"><div class="{0}-item-remove"><i class="fa fa-times"></i></div><div class="{0}-item-key"><input type="text" name="key" maxlength="{{ max }}"{{ if disabled }} disabled="disabled"{{ fi }} placeholder="{{ placeholder_key }}" value="{{ key }}" autocomplete="new-password" /></div><div class="{0}-item-value"><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder_value }}" value="{{ value }}" autocomplete="new-password" /></div></div>'.format(cls));
 
 	self.binder = function(fn) {
 		self.binder2 = fn;
@@ -169,14 +169,15 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config, cls) {
 		}
 
 		var builder = [];
+		var keys = Object.keys(value);
 
-		Object.keys(value).forEach(function(key) {
-			empty.key = key;
-			empty.value = value[key];
+		for (var i = 0; i < keys.length; i++) {
+			empty.key = keys[i];
+			empty.value = value[empty.key];
 			builder.push(self.template(empty));
-		});
+		}
 
-		self.tclass(cempty, builder.length === 0);
+		self.tclass(cempty, !builder.length);
 		container.empty().append(builder.join(''));
 	};
 });

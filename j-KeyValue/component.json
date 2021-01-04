@@ -1,12 +1,13 @@
 {
 	"datecreated": "2017-01-18T17:05:00.000Z",
-	"dateupdated": "2021-01-04T08:58:00.000Z",
+	"dateupdated": "2021-01-04T08:58:01.000Z",
 	"name": "j-KeyValue",
 	"tags": [
 		"keyvalue"
 	],
 	"color": "transparent",
 	"version": 1,
+	"darkmode": true,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
