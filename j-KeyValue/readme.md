@@ -4,12 +4,13 @@ A simple component for create key/value pairs values.
 
 __Configuration__:
 
-- `placeholderkey` {String} (optional) a placeholder for the key input
-- `placeholdervalue` {String} (optional) a placeholder for the value input
-- `icon` {String} (optional) a label icon without `fa-`
-- `maxlength` {Number} (optional) max. lenght for inputs
-- `label` {String} (optional) a label (default: `innerHTML`)
-- `disabled` {Boolean} (optional) can disabled this control
+- `placeholderkey` {String} a placeholder for the key input
+- `placeholdervalue` {String} a placeholder for the value input
+- `icon` {String} a label icon without `fa-`
+- `maxlength` {Number} max. lenght for inputs
+- `label` {String} a label (default: `innerHTML`)
+- `disabled` {Boolean} can disabled this control
+- `autocomplete` {String} a link to `function(input, component)` which is executed when an `input` is focused
 
 __Other functionality__
 

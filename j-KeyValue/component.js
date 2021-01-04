@@ -105,6 +105,10 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config, cls) {
 			self.change(true);
 		});
 
+		self.event('focus', 'input', function() {
+			config.autocomplete && self.EXEC(config.autocomplete, $(this), self);
+		});
+
 		self.event('change keypress', 'input', function(e) {
 
 			if (config.disabled || (e.type !== 'change' && e.which !== 13))
