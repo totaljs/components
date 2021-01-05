@@ -1,0 +1,32 @@
+<style>
+	.changed {}
+	.changed::after { float: right; content: '+'; margin-left: 5px; font-weight: normal; color: orange; }
+</style>
+
+<div data---="LAZY floatinginput"></div>
+
+<div data---="edit__null__exec:editelement">
+	<div style="width:500px;padding:10px;border:1px solid #E0E0E0">
+		<div class="edit">Edit me with double click</div>
+		<div class="edit" data-edit="custom:value;something:else">Edit me with double click</div>
+	</div>
+</div>
+
+<script>
+
+	function editelement(meta) {
+
+		console.log(meta);
+
+		var opt = {};
+		opt.element = meta.element;
+		opt.value = meta.element.html();
+		opt.callback = function(val) {
+			if (val)
+				meta.element.text(val);
+		};
+
+		SETTER('floatinginput/show');
+	}
+
+</script>
