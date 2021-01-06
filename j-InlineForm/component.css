@@ -5,7 +5,7 @@
 .ui-inlineform-title { padding: 8px 0 8px 15px; font-size: 12px; user-select: none; color: #000000; background-color: #FFFFFF; border-bottom: 1px solid #E0E0E0; }
 .ui-inlineform-title .ui-inlineform-close { float: right; cursor: pointer; font-size: 14px; margin: -2px 0 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: #DD2925; width: 40px; }
 .ui-inlineform-title > span { font-weight: bold; }
-.ui-inlineform-title > .fa { margin-right: 7px; }
+.ui-inlineform-title > i { margin-right: 7px; }
 .ui-inlineform-body > nav { padding: 0; height: 30px; }
 .ui-inlineform-body > nav button { border: 0; border-top: 1px solid #E0E0E0; background-color: #FFFFFF; border-radius: 0; height: 30px; padding: 0 10px; color: #000000; margin: 0; cursor: pointer; font-family: Arial; vertical-align: middle; outline: 0; font-size: 11px; text-decoration: none; transition: all 0.3s; float: left; }
 .ui-inlineform-body > nav button i { width: 16px; }
