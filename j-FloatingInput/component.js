@@ -229,8 +229,10 @@ COMPONENT('floatinginput', 'minwidth:200', function(self, config, cls) {
 		self.css(options);
 
 		!isMOBILE && setTimeout(function() {
+			opt.select && input[0].select();
 			input.focus();
 		}, 200);
+
 
 		self.tclass(cls + '-monospace', !!opt.monospace);
 		self.rclass('hidden');

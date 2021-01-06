@@ -22,6 +22,7 @@ Method: `component.show(options)`
 - `options.position` {String} optional, `top` (default), `bottom`
 - `options.summary` {String} additional help content
 - __NEW__: `options.monospace` {Boolean} enables monospace font
+- __NEW__: `options.select` {Boolean} selects text
 
 Method: `component.hide()`
 
