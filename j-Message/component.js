@@ -12,7 +12,16 @@ COMPONENT('message', 'button:OK', function(self, config, cls) {
 
 		var pls = (config.style === 2 ? (' ' + cls + '2') : '');
 		self.aclass(cls + ' hidden' + pls);
-		self.event('click', 'button', self.hide);
+
+		if (config.closeoutside)
+			self.event('click', function(e) {
+				var node = e.target;
+				var skip = { SPAN: 1, A: 1, I: 1 };
+				if (!skip[node.tagName])
+					self.hide();
+			});
+		else
+			self.event('click', 'button', self.hide);
 	};
 
 	events.keyup = function(e) {
