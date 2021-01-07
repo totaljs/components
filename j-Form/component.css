@@ -23,7 +23,8 @@
 .ui-dark .ui-form { background-color: #202020; }
 .ui-dark .ui-form-title { background-color: #202020; border-bottom-color: #303030; color: #FFF; }
 .ui-dark .ui-form > nav { background-color: #202020; border-top-color: #303030; }
-.ui-dark .ui-form nav button { border-color: #202020; background-color: #505050; color: #E0E0E0; }
+.ui-dark .ui-form > nav button { border-color: #202020; background-color: #505050; color: #E0E0E0; }
+.ui-dark .ui-form > nav button[name='submit'] { background-color: #4285F4; }
 .ui-dark .ui-form > nav button:active { background-color: #404040; }
 .ui-dark .ui-form > nav button:disabled { background-color: #303030 !important; color: #606060 !important; border-color: #202020 !important; }
 
