@@ -1,4 +1,7 @@
 COMPONENT('exec', function(self, config) {
+
+	var regparent = /\?\d/;
+
 	self.readonly();
 	self.blind();
 	self.make = function() {
@@ -34,8 +37,12 @@ COMPONENT('exec', function(self, config) {
 					if (attr.indexOf('?') !== -1) {
 						var tmp = scopepath(el);
 						if (tmp) {
-							M.scope(tmp.path);
+							var isparent = regparent.test(attr);
 							attr = tmp.makepath ? tmp.makepath(attr) : attr.replace(/\?/g, tmp.path);
+							if (isparent && attr.indexOf('/') !== -1)
+								M.scope(attr.split('/')[0]);
+							else
+								M.scope(tmp.path);
 						}
 					}
 					EXEC(attr, el, e);
