@@ -94,7 +94,7 @@ COMPONENT('fullform', 'zindex:12;padding:20;scrollbar:1;scrolltop:1;style:1', fu
 		if (nav)
 			csspos.height -= nav.height();
 
-		self.find(cls2 + '-body').css(csspos);
+		self.find(cls2 + '-body').css(csspos).parent().css({ width: WW - p });
 		self.scrollbar && self.scrollbar.resize();
 		self.element.SETTER('*', 'resize');
 	};
