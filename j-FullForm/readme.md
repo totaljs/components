@@ -7,7 +7,7 @@ __Configuration__:
 - `title` {String} form title
 - `if` {String} condition for showing of the form, it's compared with the value within of `path`
 - `icon` {String} Font-Awesome icon without `fa-` or __new__: `far fa-home`
-- `reload` {String} link to a global `function(largeform_component)` and it's executed if the form is displaying
+- `reload` {String} link to a global `function(fullform_component)` and it's executed if the form is displaying
 - `submit` {String} link to a global `function(hide)` and it's executed if the submit button is pressed
 - `cancel` {String} link to a global `function(hide)` and it's executed if the cancel button is pressed
 - `enter` {Boolean} captures `enter` key automatically and performs submit (default: `false`)
