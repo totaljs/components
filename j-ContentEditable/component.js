@@ -1,4 +1,4 @@
-COMPONENT('contenteditable', function(self) {
+COMPONENT('contenteditable', function(self, config, cls) {
 
 	var timers = {};
 	var current = { bold: false, underline: false, italic: false, focused: false, node: null };
@@ -21,7 +21,7 @@ COMPONENT('contenteditable', function(self) {
 	self.make = function() {
 
 		self.attr('contenteditable', 'true');
-		self.aclass('ui-contenteditable');
+		self.aclass(cls);
 
 		var el = self.element;
 

@@ -1,8 +1,8 @@
 .ui-layer-noscroll { overflow: hidden !important; }
-.ui-layer { position: fixed; right: -60px; top: 0; height: 100%; box-shadow: -10px 10px 20px rgba(0,0,0,0.1); transition: all 0.3s; opacity: 0; background-color: #FFFFFF; border-left: 1px solid #E0E0E0; }
+.ui-layer { position: fixed; right: -60px; top: 0; height: 100%; box-shadow: -10px 10px 20px rgba(0,0,0,0.1); transition: all 0.3s; opacity: 0; background-color: #FFF; border-left: 1px solid #E0E0E0; }
 .ui-layer-toolbar { height: 55px; border-bottom: 1px solid #E0E0E0; }
 .ui-layer-toolbar-back { border-right: 1px solid #E0E0E0; float: left; }
-.ui-layer-toolbar-back button { height: 54px; border: 0; background-color: #FFFFFF; cursor: pointer; width: 65px; transition: background 0.3s; outline: 0; color: red; font-size: 16px !important; }
+.ui-layer-toolbar-back button { height: 54px; border: 0; background-color: #FFF; cursor: pointer; width: 65px; transition: background 0.3s; outline: 0; color: red; font-size: 16px !important; }
 .ui-layer-toolbar-back button:hover { background-color: #E0E0E0; }
 .ui-layer-toolbar-caption { font-size: 18px; font-weight: bold; float: left; margin: 15px 0 0 20px; color: #000000; }
 .ui-layer-visible { right: 0; opacity: 1; }
@@ -10,6 +10,6 @@
 .ui-dark .ui-layer-toolbar-back { border-right-color: #101010; }
 .ui-dark .ui-layer-toolbar-back button { background-color: #303030; }
 .ui-dark .ui-layer-toolbar-back button:hover { background-color: #353535; }
-.ui-dark .ui-layer-toolbar { background-color: #191919; border-bottom-color: #101010; color: #FFFFFF; }
-.ui-dark .ui-layer-toolbar-caption { color: #FFFFFF; }
+.ui-dark .ui-layer-toolbar { background-color: #191919; border-bottom-color: #101010; color: #FFF; }
+.ui-dark .ui-layer-toolbar-caption { color: #FFF; }
 .ui-dark .ui-layer { background-color: #202020; border-left: 1px solid #101010; }

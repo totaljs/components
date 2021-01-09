@@ -17,7 +17,7 @@ div.ui-monthlycalendar-weekend { background-color: #F7F7F7; }
 .ui-monthlycalendar-event-last { border-top-right-radius: 2px; border-bottom-right-radius: 2px; }
 .ui-monthlycalendar-event-more { background: transparent; color: #000; cursor: pointer; padding-left: 2px; }
 .ui-monthlycalendar-event-more:hover { color: #777; }
-.ui-monthlycalendar-events > .ui-monthlycalendar-event { position: relative; display: block; margin-left: 3px; margin-right: 3px; border-radius: 2px; }
+.ui-monthlycalendar-events > .ui-monthlycalendar-event { position: relative; display: block; margin-left: 3px; margin-right: 3px; border-radius: var(--radius); }
 .ui-monthlycalendar-transparent { background-color: transparent; color: #000; }
 .ui-monthlycalendar-selected { opacity: 0.7; }
 .ui-monthlycalendar-selected i { color: #FFF !important; }

@@ -1,7 +1,7 @@
 .ui-dropdowncheckbox-container { display: block; text-align: left; position: relative; font-size:14px; }
-.ui-dropdowncheckbox { border: 1px solid #E0E0E0; padding: 0 10px; border-radius: 2px; outline: 0; overflow: hidden; width: 100%; background-color: #FFFFFF; height: 32px; cursor: pointer; }
-.ui-dropdowncheckbox div { padding: 5px 0 0 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #000000; }
-.ui-dropdowncheckbox > i { float: right; width: 22px; text-align: right; margin: 0; padding: 6px 1px 8px 0; font-size: 17px; border-left: 1px solid #E0E0E0; color: #000000; }
+.ui-dropdowncheckbox { border: 1px solid #E0E0E0; padding: 0 10px; border-radius: var(--radius); outline: 0; overflow: hidden; width: 100%; background-color: #FFF; height: 32px; cursor: pointer; }
+.ui-dropdowncheckbox div { padding: 5px 0 0 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #000; }
+.ui-dropdowncheckbox > i { float: right; width: 22px; text-align: right; margin: 0; padding: 6px 1px 8px 0; font-size: 17px; border-left: 1px solid #E0E0E0; color: #000; }
 .ui-dropdowncheckbox-label i { width: 14px; }
 .ui-dropdowncheckbox-label { margin-bottom: 3px; font-size: 12px; }
 .ui-dropdowncheckbox-placeholder { color: #686868; }
@@ -10,10 +10,10 @@
 .ui-dropdowncheckbox-required .ui-dropdowncheckbox-label:before { color: red; content: '***'; margin-right: 5px; }
 .ui-dropdowncheckbox-required .ui-dropdowncheckbox-label { font-weight: bold; }
 .ui-dropdowncheckbox-required .ui-dropdowncheckbox i { border-left-color: #D0D0D0; }
-.ui-dropdowncheckbox-values { position: absolute; width: 100%; z-index: 2; background-color: #FFFFFF; border: 1px solid #D0D0D0; padding: 5px 10px; border-radius: 0 0 3px 3px; line-height: 18px; margin-top: -1px; box-shadow: 0 3px 5px rgba(0,0,0,0.08); overflow: auto; max-height: 250px; font-size: 12px; }
+.ui-dropdowncheckbox-values { position: absolute; width: 100%; z-index: 2; background-color: #FFF; border: 1px solid #D0D0D0; padding: 5px 10px; border-radius: 0 0 var(--radius) var(--radius); line-height: 18px; margin-top: -1px; box-shadow: 0 3px 5px rgba(0,0,0,0.08); overflow: auto; max-height: 250px; font-size: 12px; }
 .ui-dropdowncheckbox-item { cursor: pointer; padding-bottom: 2px; }
 .ui-dropdowncheckbox-item span { cursor: pointer; vertical-align: middle; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; margin-left: 20px; }
-.ui-dropdowncheckbox-item div { float: left; width: 16px; height: 16px; border: 1px solid #E0E0E0; margin: 1px 6px 0 0; vertical-align: middle; cursor: pointer; color: #FFFFFF; font-size: 11px; text-align: center; padding: 1px 0 0 1px; background-color: #FFFFFF; border-radius: 2px; }
+.ui-dropdowncheckbox-item div { float: left; width: 16px; height: 16px; border: 1px solid #E0E0E0; margin: 1px 6px 0 0; vertical-align: middle; cursor: pointer; color: #FFF; font-size: 11px; text-align: center; padding: 1px 0 0 1px; background-color: #FFF; border-radius: var(--radius); }
 .ui-dropdowncheckbox-item i { display: none; }
 .ui-dropdowncheckbox-checked div { background-color: #4285F4; border-color: #4285F4; }
 .ui-dropdowncheckbox-checked i { display: block !important; }
@@ -25,12 +25,12 @@
 .ui-disabled .ui-dropdowncheckbox { background-color: #F0F0F0; }
 .ui-disabled .ui-dropdowncheckbox i { color: #A0A0A0; cursor: not-allowed; }
 
-.ui-dark .ui-dropdowncheckbox { border-color: #404040; background-color: #303030; color: #FFFFFF; }
+.ui-dark .ui-dropdowncheckbox { border-color: #404040; background-color: #303030; color: #FFF; }
 .ui-dark .ui-dropdowncheckbox i { border-left-color: #404040; color: gray; }
 .ui-dark .ui-dropdowncheckbox-placeholder { color: gray; }
 .ui-dark .ui-dropdowncheckbox-values { background-color: #303030; border-color: #404040; }
 .ui-dark .ui-dropdowncheckbox-item div { border-color: #3A3A3A; background-color: #303030; }
 .ui-dark .ui-dropdowncheckbox-checked div { background-color: #4285F4; border-color: #4285F4; }
-.ui-dark .ui-dropdowncheckbox div { color: #FFFFFF; }
+.ui-dark .ui-dropdowncheckbox div { color: #FFF; }
 .ui-dark .ui-dropdowncheckbox-invalid .ui-dropdowncheckbox { border: 1px solid #404040 !important; background-color: #303030 !important; }
 .ui-dark .ui-dropdowncheckbox-invalid .ui-dropdowncheckbox i { border-left-color: #404040 !important; }

@@ -1,2 +1,2 @@
-.ui-contenteditable { outline: 0; background-color: #FFFFFF; color: #000000; border: 1px solid #E0E0E0; padding: 10px; }
+.ui-contenteditable { outline: 0; background-color: #FFF; color: #000; border: 1px solid #E0E0E0; padding: 10px; border-radius: var(--radius) }
 .ui-contenteditable-invalid { background-color: #FFF3F3; }

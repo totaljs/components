@@ -13,21 +13,21 @@
 .ui-datatable-row-odd_BK { background-color: #F9F9F9; }
 .ui-datatable-col.asc > i:before { content: '\f106'; }
 .ui-datatable-col.desc > i:before { content: '\f107'; }
-.ui-datatable-pagination { height: 31px; background-color: #FFFFFF; }
+.ui-datatable-pagination { height: 31px; background-color: #FFF; }
 .ui-datatable-pages { float: left; margin: 5px 0 0 5px; }
-.ui-datatable-pages button { border: 0; background-color: #FFFFFF; height: 20px; margin: 0; padding: 0; width: 20px; float: left; font-size: 11px; }
+.ui-datatable-pages button { border: 0; background-color: #FFF; height: 20px; margin: 0; padding: 0; width: 20px; float: left; font-size: 11px; }
 .ui-datatable-pages button:disabled { color: #C0C0C0; }
-.ui-datatable-pages button[name='prev'] { border-radius: 2px 0 0 2px; }
+.ui-datatable-pages button[name='prev'] { border-radius: var(--radius) 0 0 var(--radius); }
 .ui-datatable-pages input { height: 20px; line-height: 20px; float: left; width: 30px; text-align: center; outline: 0; border: 0; background-color: transparent; font-weight: bold; font-size: 11px; }
 .ui-datatable-pages input:disabled { background-color: transparent; color: #C0C0C0; }
-.ui-datatable-pages button[name='next'] { border-radius: 0 2px 2px 0; }
+.ui-datatable-pages button[name='next'] { border-radius: 0 var(--radius) var(--radius) 0; }
 .ui-datatable-info { line-height: 30px; float: right; color: gray; padding: 0 5px 0 0; font-size: 11px; }
 .ui-datatable-changed { background-image: url(data:image/gif;base64,R0lGODdhBgAGAIAAAP8mAAAAACH5BAEAAAEALAAAAAAGAAYAAAIKhI8QGGvt4JKhAAA7); background-repeat: no-repeat; background-position: 0 0; }
 .ui-datatable-cols-scroller { overflow: hidden; }
 .ui-datatable-checked { background-color: rgba(249,232,196,0.5) !important; }
-.ui-datatable-checkbox { width: 14px; height: 14px; border: 1px solid #D0D0D0; vertical-align: middle; cursor: pointer; font-size: 9px; padding: 1px 0 0; background-color: #FFFFFF; border-radius: 2px; position: relative; display: inline-block; }
+.ui-datatable-checkbox { width: 14px; height: 14px; border: 1px solid #D0D0D0; vertical-align: middle; cursor: pointer; font-size: 9px; padding: 1px 0 0; background-color: #FFF; border-radius: var(--radius); position: relative; display: inline-block; }
 .ui-datatable-checkbox i { display: none; }
-.ui-datatable-checkbox-checked { background-color: #4285F4; border-color: #4285F4; color: #FFFFFF; }
+.ui-datatable-checkbox-checked { background-color: #4285F4; border-color: #4285F4; color: #FFF; }
 .ui-datatable-checkbox-checked i { display: block; }
 .ui-datatable-cols { font-weight: bold; }
 .ui-datatable-noscroll .ui-scrollbar-area { overflow-y: hidden; }
@@ -48,4 +48,4 @@
 .ui-dark .ui-datatable-info { color: gray; }
 .ui-dark .ui-datatable-checked { background-color: rgba(100,100,100,0.3) !important; }
 .ui-dark .ui-datatable-checkbox { border-color: #505050; background-color: #202020; }
-.ui-dark .ui-datatable-checkbox-checked { background-color: #4285F4; border-color: #4285F4; color: #FFFFFF; }
+.ui-dark .ui-datatable-checkbox-checked { background-color: #4285F4; border-color: #4285F4; color: #FFF; }

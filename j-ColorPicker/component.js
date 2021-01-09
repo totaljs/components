@@ -1,6 +1,5 @@
-COMPONENT('colorpicker', function(self) {
+COMPONENT('colorpicker', function(self, config, cls) {
 
-	var cls = 'ui-colorpicker';
 	var cls2 = '.' + cls;
 	var is = false;
 	var events = {};

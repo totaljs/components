@@ -1,17 +1,17 @@
 .ui-inlineform-container { position: absolute; width: 100%; }
-.ui-inlineform { background-color: #FFFFFF; border-radius: 2px; box-shadow: 0 2px 20px rgba(0,0,0,0.1); transform: translate(0, 10px); transition: all 0.2s; opacity: 0; border: 1px solid #E0E0E0; }
+.ui-inlineform { background-color: #FFF; border-radius: var(--radius); box-shadow: 0 2px 20px rgba(0,0,0,0.1); transform: translate(0, 10px); transition: all 0.2s; opacity: 0; border: 1px solid #E0E0E0; }
 .ui-inlineform-animate { transform: skewX(0deg); opacity: 1; }
 .ui-inlineform .padding { padding: 15px; }
-.ui-inlineform-title { padding: 8px 0 8px 15px; font-size: 12px; user-select: none; color: #000000; background-color: #FFFFFF; border-bottom: 1px solid #E0E0E0; }
+.ui-inlineform-title { padding: 8px 0 8px 15px; font-size: 12px; user-select: none; color: #000; background-color: #FFF; border-bottom: 1px solid #E0E0E0; }
 .ui-inlineform-title .ui-inlineform-close { float: right; cursor: pointer; font-size: 14px; margin: -2px 0 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: #DD2925; width: 40px; }
 .ui-inlineform-title > span { font-weight: bold; }
 .ui-inlineform-title > i { margin-right: 7px; }
 .ui-inlineform-body > nav { padding: 0; height: 30px; }
-.ui-inlineform-body > nav button { border: 0; border-top: 1px solid #E0E0E0; background-color: #FFFFFF; border-radius: 0; height: 30px; padding: 0 10px; color: #000000; margin: 0; cursor: pointer; font-family: Arial; vertical-align: middle; outline: 0; font-size: 11px; text-decoration: none; transition: all 0.3s; float: left; }
+.ui-inlineform-body > nav button { border: 0; border-top: 1px solid #E0E0E0; background-color: #FFF; border-radius: 0; height: 30px; padding: 0 10px; color: #000; margin: 0; cursor: pointer; font-family: Arial; vertical-align: middle; outline: 0; font-size: 11px; text-decoration: none; transition: all 0.3s; float: left; }
 .ui-inlineform-body > nav button i { width: 16px; }
 .ui-inlineform-body > nav button:hover { opacity: 0.8; }
 .ui-inlineform-body > nav button:disabled { background-color: #F0F0F0 !important; border-top-color: #E0E0E0 !important; color: #C0C0C0 !important; cursor: not-allowed; box-shadow: none; opacity: 1; }
-.ui-inlineform-body > nav button[name='submit'] { width: 70%; font-weight: bold; background-color: #4285F4; color: #FFFFFF; border-top-color: #4285F4; }
+.ui-inlineform-body > nav button[name='submit'] { width: 70%; font-weight: bold; background-color: #4285F4; color: #FFF; border-top-color: #4285F4; }
 .ui-inlineform-body > nav button[name='cancel'] { width: 30%; color: #777777; }
 .ui-inlineform-body > nav button[name='cancel']:hover { background-color: #F8F8F8; }
 .ui-inlineform-body > nav div { position: relative; display: inline-block; vertical-align: middle; }
@@ -19,7 +19,7 @@
 
 .ui-dark .ui-inlineform { background-color: #252525; border-color: #404040; }
 .ui-dark .ui-inlineform-title { background-color: #252525; border-bottom-color: #404040; color: #E0E0E0; }
-.ui-dark .ui-inlineform-body > nav button[name='submit'] { background-color: #4285F4; color: #FFFFFF; border-top-color: #4285F4; }
+.ui-dark .ui-inlineform-body > nav button[name='submit'] { background-color: #4285F4; color: #FFF; border-top-color: #4285F4; }
 .ui-dark .ui-inlineform-body > nav button[name='cancel']:hover { background-color: #303030; }
 .ui-dark .ui-inlineform-body > nav button { border-top-color: #404040; background-color: #252525; color: #E0E0E0; }
 .ui-dark .ui-inlineform-body > nav button:disabled { background-color: #202020 !important; color: #404040 !important; border-color: #404040 !important; }

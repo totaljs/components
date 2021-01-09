@@ -4,17 +4,17 @@ input:invalid { box-shadow: none; }
 .ui-right { text-align: right; }
 .ui-center { text-align: center; }
 
-.ui-textbox { height: 32px; border: 1px solid #E0E0E0; border-radius: 2px; position: relative; width: 100%; background-color: #FFFFFF; display: table; }
+.ui-textbox { height: 32px; border: 1px solid #E0E0E0; border-radius: var(--radius); position: relative; width: 100%; background-color: #FFF; display: table; }
 .ui-textbox-input { display: table-cell; padding: 7px 2px 0 5px; }
-.ui-textbox-input input { font: normal 14px Arial; border: 0; outline: 0; color: #000000; width: 100%; background-color: #FFFFFF; margin: 0; padding: 0; appearance: none; border-radius: 0; vertical-align: top; line-height: 12px; }
-.ui-textbox-control { position: relative; vertical-align: middle; display: table-cell; text-align: center; white-space: nowrap; text-overflow: clip; border-left: 1px solid #E0E0E0; width: 32px; color: #000000; }
+.ui-textbox-input input { font: normal 14px Arial; border: 0; outline: 0; color: #000; width: 100%; background-color: #FFF; margin: 0; padding: 0; appearance: none; border-radius: 0; vertical-align: top; line-height: 12px; }
+.ui-textbox-control { position: relative; vertical-align: middle; display: table-cell; text-align: center; white-space: nowrap; text-overflow: clip; border-left: 1px solid #E0E0E0; width: 32px; color: #000; }
 .ui-textbox .fa-times { color: red; cursor: pointer; }
 .ui-textbox-label { margin-bottom: 3px; font-size: 12px; text-align: left; }
 .ui-textbox-label i { margin-right: 3px; }
 .ui-textbox-innerlabel { position: relative; }
 .ui-textbox-innerlabel input { font-size: 12px; }
 .ui-textbox-innerlabel .ui-textbox-label { position: absolute; z-index: 1; margin: 9px 0 0 6px; }
-.ui-textbox-innerlabel.ui-textbox-filled .ui-textbox-label { margin: 2px 0 0 6px; font-size: 10px; color: #777777; }
+.ui-textbox-innerlabel.ui-textbox-filled .ui-textbox-label { margin: 2px 0 0 6px; font-size: 10px; color: #777; }
 .ui-textbox-innerlabel.ui-textbox-filled .ui-textbox-label i { margin-right: 2px; }
 .ui-textbox-innerlabel.ui-textbox-filled input { padding-top: 6px; }
 .ui-textbox-required .ui-textbox-label { font-weight: bold; }
@@ -36,7 +36,7 @@ input:invalid { box-shadow: none; }
 .ui-dark input:-ms-input-placeholder, .ui-dark input:-webkit-input-placeholder, .ui-dark input:-moz-input-placeholder { color: #707070; }
 .ui-dark input[type="text"]:disabled, .ui-dark input[type="password"]:disabled { background-color: #282828; color: #707070; }
 .ui-dark .ui-textbox { border-color: #383838; background-color: #202020; }
-.ui-dark .ui-textbox-input input { color: #FFFFFF; background-color: #202020; }
+.ui-dark .ui-textbox-input input { color: #FFF; background-color: #202020; }
 .ui-dark .ui-textbox-control { border-left-color: #383838; color: #A0A0A0; }
 .ui-dark .ui-textbox .fa-times { color: red; }
 .ui-dark .ui-textbox-required .ui-textbox-label:before { color: red; }
@@ -45,6 +45,6 @@ input:invalid { box-shadow: none; }
 .ui-dark .ui-textbox-invalid .ui-textbox { border-color: red !important; background-color: #202020 !important; }
 .ui-dark .ui-textbox-invalid .ui-textbox input { background-color: #202020 !important; }
 .ui-dark .ui-textbox-invalid .ui-textbox-control { border-color: red !important; background-color: #202020 !important; }
-.ui-dark .ui-textbox-container.ui-disabled .ui-textbox { background-color: #282828; color: #777777; }
+.ui-dark .ui-textbox-container.ui-disabled .ui-textbox { background-color: #282828; color: #777; }
 .ui-dark .ui-textbox-container.ui-disabled .ui-textbox input { background-color: #282828; }
-.ui-dark .ui-textbox-container.ui-disabled .ui-textbox-control { color: #777777; }
+.ui-dark .ui-textbox-container.ui-disabled .ui-textbox-control { color: #777; }

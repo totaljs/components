@@ -1,6 +1,5 @@
-COMPONENT('chunkyscroll', 'parent:parent;limit:80;margin:0;rowheight:0;scrolltop:1', function(self, config) {
+COMPONENT('chunkyscroll', 'parent:parent;limit:80;margin:0;rowheight:0;scrolltop:1', function(self, config, cls) {
 
-	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
 
 	var opt = {};

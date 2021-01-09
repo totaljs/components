@@ -1,4 +1,4 @@
-COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
+COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 
 	var canvas, context;
 	var img = new Image();
@@ -79,7 +79,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config) {
 
 	self.make = function() {
 
-		self.aclass('ui-crop');
+		self.aclass(cls);
 		self.append('<input type="file" style="display:none" accept="image/*" /><ul><li data-type="upload"><span class="fa fa-folder"></span></li><li data-type="plus"><span class="fa fa-plus"></span></li><li data-type="refresh"><span class="fa fa-refresh"></span></li><li data-type="minus"><span class="fa fa-minus"></span></li></ul><canvas></canvas>');
 
 		canvas = self.find('canvas')[0];

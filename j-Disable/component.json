@@ -1,9 +1,9 @@
 {
 	"datecreated": "2016-02-16T05:35:33.783Z",
-	"dateupdated": "2017-11-09T18:55:02.000Z",
+	"dateupdated": "2017-11-09T18:55:03.000Z",
 	"name": "j-Disable",
 	"tags": [
-		"jcomponent"
+		"disable"
 	],
 	"color": "transparent",
 	"version": 1,

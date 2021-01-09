@@ -2,7 +2,7 @@
 .ui-codemirror-label .fa { width: 14px; }
 .ui-codemirror-label-required:before { color: red; content: '***'; margin-right: 5px; }
 .ui-codemirror-invalid .CodeMirror { border: 1px solid red !important; }
-.CodeMirror { border: 1px solid #E0E0E0; border-radius: 2px; }
+.CodeMirror { border: 1px solid #E0E0E0; border-radius: var(--radius); }
 .ui-disabled .ui-codemirror { cursor: not-allowed; }
 .CodeMirror-scrollbar-filler { background-color: #303030; }
 .CodeMirror-simplescroll-horizontal div, .CodeMirror-simplescroll-vertical div { position: absolute; background: #A0A0A0; }
@@ -28,9 +28,9 @@
 .ui-dark .cm-variable-J { background-color: rgba(73,111,51,.35); color: #90ff2f; }
 .ui-dark .cm-variable-E { background-color: rgba(108,150,20,.15); color: #6C9614; }
 .ui-dark .cm-variable-B { background-color: rgba(27,27,27,.35); color: #84d087; }
-.ui-dark .CodeMirror-dialog button { background-color: #505050; color: #FFFFFF; }
+.ui-dark .CodeMirror-dialog button { background-color: #505050; color: #FFF; }
 .ui-dark .CodeMirror-dialog { color: #A0A0A0; border-bottom-color: #404040; box-shadow: 0 2px 3px rgba(0,0,0,0.05); }
-.ui-dark .CodeMirror-dialog input { color: #FFFFFF; }
+.ui-dark .CodeMirror-dialog input { color: #FFF; }
 .ui-dark .CodeMirror { background-color: #303030; color: #A0A0A0; border-color: #404040; }
 .ui-dark .CodeMirror-activeline-background { background-color: rgba(0,0,0,0.1); }
 .ui-dark .cm-s-default .cm-qualifier { color: gray; }
@@ -39,7 +39,7 @@
 .ui-dark .CodeMirror-line::selection, .ui-dark .CodeMirror-line > span::selection, .ui-dark .CodeMirror-line > span > span::selection { background: rgba(70, 70, 70, .99); }
 .ui-dark .CodeMirror-line::-moz-selection, .ui-dark .CodeMirror-line > span::-moz-selection, .ui-dark .CodeMirror-line > span > span::-moz-selection { background: rgba(70, 70, 70, .99); }
 .ui-dark .CodeMirror-gutters { background: #404040; border-right: 0px; }
-.ui-dark .CodeMirror-guttermarker { color: #FFFFFF; }
+.ui-dark .CodeMirror-guttermarker { color: #FFF; }
 .ui-dark .CodeMirror-guttermarker-subtle { color: #d0d0d0; }
 .ui-dark .CodeMirror-linenumber { color: gray; }
 .ui-dark .CodeMirror-cursor { border-left: 1px solid #f8f8f0; }

@@ -1,9 +1,9 @@
 {
 	"datecreated": "2017-07-18T22:00:00.000Z",
-	"dateupdated": "2020-08-12T09:11:01.000Z",
+	"dateupdated": "2020-08-12T09:11:02.000Z",
 	"name": "j-Suggestion",
 	"tags": [
-		"jcomponent"
+		"suggestion"
 	],
 	"color": "transparent",
 	"version": 1,

@@ -1,7 +1,7 @@
-.ui-gauge text { font-family: Arial; fill: #000000; font-weight: bold; }
-.ui-gauge-pointer path { fill: #000000; }
-.ui-gauge-pointer circle { fill: #000000; }
+.ui-gauge text { font-family: Arial; fill: #000; font-weight: bold; }
+.ui-gauge-pointer path { fill: #000; }
+.ui-gauge-pointer circle { fill: #000; }
 
-.ui-dark .ui-gauge text { fill: #FFFFFF; }
-.ui-dark .ui-gauge-pointer path { fill: #FFFFFF; }
-.ui-dark .ui-gauge-pointer circle { fill: #FFFFFF; }
+.ui-dark .ui-gauge text { fill: #FFF; }
+.ui-dark .ui-gauge-pointer path { fill: #FFF; }
+.ui-dark .ui-gauge-pointer circle { fill: #FFF; }

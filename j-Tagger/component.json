@@ -1,9 +1,9 @@
 {
 	"datecreated": "2018-10-30T14:17:00.000Z",
-	"dateupdated": "2019-01-07T11:37:00.000Z",
+	"dateupdated": "2019-01-07T11:38:00.000Z",
 	"name": "j-Tagger",
 	"tags": [
-		"jcomponent"
+		"tagger"
 	],
 	"color": "silver",
 	"version": 1,

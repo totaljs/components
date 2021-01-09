@@ -1,42 +1,42 @@
-.ui-multioptions { background-color: #FFFFFF; padding: 0; border: 1px solid #E0E0E0; border-radius: 3px; }
+.ui-multioptions { background-color: #FFF; padding: 0; border: 1px solid #E0E0E0; border-radius: var(--radius); }
 .ui-multioptions-item { height: 36px; padding: 0 10px; background-color: #F5F5F5; border-top: 1px solid #E0E0E0; }
-.ui-multioptions-item:first-child { border-top: 0; border-top-right-radius: 3px; border-top-left-radius: 3px; }
-.ui-multioptions-item:last-child { border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; }
+.ui-multioptions-item:first-child { border-top: 0; border-top-right-radius: var(--radius); border-top-left-radius: var(--radius); }
+.ui-multioptions-item:last-child { border-bottom-right-radius: var(--radius); border-bottom-left-radius: var(--radius); }
 .ui-multioptions-multiline { height: 58px; }
 .ui-multioptions select::-ms-expand { display: none; }
 
 .ui-moi-name { float: left; width: 30%; font-size: 12px; margin: 10px 0 0 0; padding-right: 10px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .ui-moi-value { float: right; width: 70%; }
-.ui-moi-value-inputtext { font-size: 11px; border: 0; background-color: #FFFFFF; width: 100%; margin: 8px 0 0 0; padding: 0 6px 0; color: #000000; outline: 0; height: 20px; line-height: 15px; }
-.ui-moi-value-inputarea { font-size: 11px; border: 0; background-color: #FFFFFF; width: 100%; margin: 8px 0 0 0; padding: 2px 6px; color: #000000; outline: 0; height: 42px; line-height: 12px; resize: none; }
-.ui-moi-value-inputnumber input { font-size: 11px; border: 0; background-color: #FFFFFF; width: 100%; margin: 8px 0 0 0; padding: 0 6px 0; color: #000000; outline: 0; height: 20px; line-height: 15px; }
+.ui-moi-value-inputtext { font-size: 11px; border: 0; background-color: #FFF; width: 100%; margin: 8px 0 0 0; padding: 0 6px 0; color: #000; outline: 0; height: 20px; line-height: 15px; }
+.ui-moi-value-inputarea { font-size: 11px; border: 0; background-color: #FFF; width: 100%; margin: 8px 0 0 0; padding: 2px 6px; color: #000; outline: 0; height: 42px; line-height: 12px; resize: none; }
+.ui-moi-value-inputnumber input { font-size: 11px; border: 0; background-color: #FFF; width: 100%; margin: 8px 0 0 0; padding: 0 6px 0; color: #000; outline: 0; height: 20px; line-height: 15px; }
 .ui-moi-value-inputnumber { margin-left: 40px; }
 .ui-moi-value-inputnumber-buttons { float: left; width: 40px; }
 .ui-moi-value-inputnumber-buttons span { width: 19px; float: left; text-align: center; margin: 8px 1px 0 0; padding: 3px 0 0 0; height: 20px; cursor: pointer; color: #656D78; font-size: 12px; background-color: #CCD1D9; }
-.ui-moi-value-inputnumber-buttons span:hover { background-color: #656D78; color: #FFFFFF; }
+.ui-moi-value-inputnumber-buttons span:hover { background-color: #656D78; color: #FFF; }
 
-.ui-moi-value-inputpath input { font-size: 11px; border: 0; background-color: #FFFFFF; width: 100%; margin: 8px 0 0 0; padding: 0 6px 0; color: #000000; outline: 0; height: 20px; line-height: 15px; }
+.ui-moi-value-inputpath input { font-size: 11px; border: 0; background-color: #FFF; width: 100%; margin: 8px 0 0 0; padding: 0 6px 0; color: #000; outline: 0; height: 20px; line-height: 15px; }
 .ui-moi-value-inputpath { margin-left: 20px; }
 .ui-moi-value-inputpath-buttons { float: left; width: 20px; }
 .ui-moi-value-inputpath-buttons span { width: 19px; float: left; text-align: center; margin: 8px 1px 0 0; padding: 2px 0 0 0; height: 20px; cursor: pointer; color: #656D78; font-size: 12px; background-color: #CCD1D9; }
-.ui-moi-value-inputpath-buttons span:hover { background-color: #656D78; color: #FFFFFF; }
+.ui-moi-value-inputpath-buttons span:hover { background-color: #656D78; color: #FFF; }
 
-.ui-moi-value-inputdate input { font-size: 11px; border: 0; background-color: #FFFFFF; width: 100%; margin: 8px 0 0 0; padding: 0 6px 0; color: #000000; outline: 0; height: 20px; line-height: 15px; }
+.ui-moi-value-inputdate input { font-size: 11px; border: 0; background-color: #FFF; width: 100%; margin: 8px 0 0 0; padding: 0 6px 0; color: #000; outline: 0; height: 20px; line-height: 15px; }
 .ui-moi-value-inputdate { margin-left: 20px; }
 .ui-moi-value-inputdate-buttons { float: left; width: 20px; }
 .ui-moi-value-inputdate-buttons span { width: 19px; float: left; text-align: center; margin: 8px 1px 0 0; padding: 2px 0 0 0; height: 20px; cursor: pointer; color: #656D78; font-size: 12px; background-color: #CCD1D9; }
-.ui-moi-value-inputdate-buttons span:hover { background-color: #656D78; color: #FFFFFF; }
+.ui-moi-value-inputdate-buttons span:hover { background-color: #656D78; color: #FFF; }
 
 .ui-moi-value-colors { margin: 8px 0 0 0; }
-.ui-moi-value-colors span { width: 4%; height: 20px; float: left; text-align: center; cursor: pointer; color: #FFFFFF; font-size: 11px; }
+.ui-moi-value-colors span { width: 4%; height: 20px; float: left; text-align: center; cursor: pointer; color: #FFF; font-size: 11px; }
 .ui-moi-value-colors .fa { display: none; }
 .ui-moi-value-colors .selected .fa { display: block; line-height: 20px; }
 
-.ui-moi-value-select { background-color: #FFFFFF; position: relative; width: 100%; overflow: hidden; margin: 7px 0 0 0; }
-.ui-moi-value-select select { width: 120%; outline: 0; border: 0; height: 20px; background-color: #FFFFFF; font-size: 11px; float: left; cursor: pointer; padding: 0; margin: 2px 0 0 8px; color: #000000; appearance: none; -moz-appearance: none; -webkit-appearance: none; }
+.ui-moi-value-select { background-color: #FFF; position: relative; width: 100%; overflow: hidden; margin: 7px 0 0 0; }
+.ui-moi-value-select select { width: 120%; outline: 0; border: 0; height: 20px; background-color: #FFF; font-size: 11px; float: left; cursor: pointer; padding: 0; margin: 2px 0 0 8px; color: #000; appearance: none; -moz-appearance: none; -webkit-appearance: none; }
 .ui-moi-value-select .fa { position: absolute; right: 7px; top: 5px; font-size: 10px; color: gray; }
 
-.ui-moi-value-boolean { margin: 9px 0 0 0; width: 18px; height: 18px; border: 1px solid #D0D0D0; text-align: center; font-size: 12px; color: #FFFFFF; cursor: pointer; background-color: #FFFFFF; border-radius: 2px; }
+.ui-moi-value-boolean { margin: 9px 0 0 0; width: 18px; height: 18px; border: 1px solid #D0D0D0; text-align: center; font-size: 12px; color: #FFF; cursor: pointer; background-color: #FFF; border-radius: var(--radius); }
 .ui-moi-value-boolean .fa { display: none; }
 .ui-moi-value-boolean.checked .fa { display: block; line-height: 18px; }
 .ui-moi-value-boolean.checked { background-color: #017CCA; border-color: #017CCA; }
@@ -46,11 +46,11 @@
 .ui-dark .ui-moi-value-inputdate input { background-color: #404040; }
 .ui-dark .ui-moi-value-inputpath input { background-color: #404040; }
 .ui-dark .ui-moi-value-inputtext { background-color: #404040; }
-.ui-dark .ui-moi-value-inputarea { background-color: #404040; color: #FFFFFF; }
-.ui-dark .ui-moi-value-select select { background-color: #404040; color: #FFFFFF; }
+.ui-dark .ui-moi-value-inputarea { background-color: #404040; color: #FFF; }
+.ui-dark .ui-moi-value-select select { background-color: #404040; color: #FFF; }
 .ui-dark .ui-moi-value-select { background-color: #404040; }
 .ui-dark .ui-moi-value-inputnumber input { background-color: #404040; color: gray; }
-.ui-dark .ui-moi-value-inputnumber-buttons span { color: #FFFFFF; background-color: #505050; }
-.ui-dark .ui-moi-value-inputnumber-buttons span:hover { background-color: #606060; color: #FFFFFF; }
+.ui-dark .ui-moi-value-inputnumber-buttons span { color: #FFF; background-color: #505050; }
+.ui-dark .ui-moi-value-inputnumber-buttons span:hover { background-color: #606060; color: #FFF; }
 .ui-dark .ui-moi-value-boolean { border: 1px solid #505050; background-color: #202020; }
 .ui-dark .ui-moi-value-boolean.checked { background-color: #017CCA; border-color: #017CCA; }

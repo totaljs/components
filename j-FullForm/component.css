@@ -1,0 +1,36 @@
+.ui-fullform-noscroll, .ui-fullform-noscroll body { overflow: hidden; }
+.ui-fullform-container { width: 100%; position: fixed; left: 0; top: 0; bottom: 0; right: 0; background-color: rgba(230,233,237,0.8); z-index: 5; overflow: hidden; transform-style: preserve-3d; }
+.ui-fullform { background-color: #FFF; border-radius: var(--radius); box-shadow: 0 10px 30px rgba(0,0,0,0.1); transform: scale(0); transition: all 0.15s; opacity: 0; text-align: left; position: relative; margin: 0 auto; }
+.ui-fullform .padding { padding: 15px; }
+.ui-fullform-animate { transform: scale(1); opacity: 1; }
+.ui-fullform-title { padding: 0 15px; line-height: 57px; font-size: 18px; user-select: none; color: #000; background-color: #FFF; border-bottom: 1px solid #E0E0E0; height: 58px; border-radius: var(--radius) var(--radius) 0 0; }
+.ui-fullform-title .ui-fullform-button-close { float: right; cursor: pointer; font-size: 18px; margin: 1px 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; width: 20px; padding: 0; }
+.ui-fullform-title .ui-fullform-button-close:hover { transform: scale(1.1); }
+.ui-fullform-title > span { font-weight: bold; }
+.ui-fullform-title i { margin-right: 7px; }
+.ui-fullform > nav { padding: 0 15px 0; border-top: 1px solid #E0E0E0; background-color: #FFF; border-radius: 0 0 var(--radius) var(--radius); line-height: 75px; height: 75px; display: block; float: none; width: 100%; }
+.ui-fullform > nav button { border: 0; margin: 15px 0 0; background-color: #F0F0F0; height: 40px; padding: 0 20px; color: #000; cursor: pointer; font-family: Arial; line-height: 40px; vertical-align: middle; outline: 0; font-size: 14px; text-decoration: none; transition: all 0.3s; float: left; width: 50%; }
+.ui-fullform > nav button i { width: 15px; text-align: center; margin-right: 5px; }
+.ui-fullform > nav button:hover { opacity: 0.9; }
+.ui-fullform > nav button:active { background-color: #D0D0D0; }
+.ui-fullform > nav button:disabled { background-color: #F5F5F5 !important; border-color: #E0E0E0 !important; color: silver !important; cursor: not-allowed; box-shadow: none; }
+.ui-fullform > nav button:disabled i { color: silver !important; }
+.ui-fullform > nav button:first-child { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
+.ui-fullform > nav button:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
+.ui-fullform > nav button[name='submit'] { font-weight: bold; background-color: var(--color); color: #FFF; font-size: 14px; }
+.ui-fullform-style-2 .ui-fullform { border-bottom-right-radius: 0; border-bottom-left-radius: 0; }
+
+.ui-dark .ui-fullform { background-color: #202020; }
+.ui-dark .ui-fullform-container { background-color: rgba(50,50,50,0.9); }
+.ui-dark .ui-fullform-title { background-color: #202020; border-bottom-color: #303030; color: #FFF; }
+.ui-dark .ui-fullform > nav { background-color: #202020; border-top-color: #303030; }
+.ui-dark .ui-fullform > nav button { border-color: #202020; background-color: #505050; color: #E0E0E0; }
+.ui-dark .ui-fullform > nav button[name='submit'] { background-color: var(--color); }
+.ui-dark .ui-fullform > nav button:active { background-color: #404040; }
+.ui-dark .ui-fullform > nav button:disabled i { color: #606060 !important; }
+.ui-dark .ui-fullform > nav button:disabled { background-color: #303030 !important; color: #606060 !important; border-color: #202020 !important; }
+
+@media(max-width: 768px) {
+	.ui-fullform-container { background: none; padding: 0; }
+	.ui-fullform { border-radius: 0; }
+}

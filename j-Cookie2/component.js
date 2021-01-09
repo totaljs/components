@@ -1,4 +1,4 @@
-COMPONENT('cookie2', 'redirect:about\\:blank;agree:ACCEPT COOKIES;cancel:CANCEL', function(self, config) {
+COMPONENT('cookie2', 'redirect:about\\:blank;agree:ACCEPT COOKIES;cancel:CANCEL', function(self, config, cls) {
 
 	self.singleton();
 	self.readonly();
@@ -36,7 +36,7 @@ COMPONENT('cookie2', 'redirect:about\\:blank;agree:ACCEPT COOKIES;cancel:CANCEL'
 			return;
 		}
 
-		self.aclass('ui-cookie2');
+		self.aclass(cls);
 		self.rclass('hidden');
 		self.element.prepend('<div class="ui-cookie2-icon"><i class="fa fa-cookie-bite"></i></div');
 		self.append('<div class="ui-cookie2-buttons"><button name="agree">{0}</button><button name="cancel">{1}</button></div>'.format(config.agree, config.cancel));

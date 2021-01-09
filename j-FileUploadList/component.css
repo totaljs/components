@@ -1,6 +1,6 @@
-.ui-fileuploadlist { border: 1px solid #E0E0E0; background-color: #FFFFFF; border-radius: 3px; font-size: 12px; }
+.ui-fileuploadlist { border: 1px solid #E0E0E0; background-color: #FFF; border-radius: var(--radius); font-size: 12px; }
 .ui-fileuploadlist-item { border-top: 1px solid #E0E0E0; padding: 0; }
-.ui-fileuploadlist-item a { color: #000000; }
+.ui-fileuploadlist-item a { color: #000; }
 .ui-fileuploadlist-item:first-child { border-top: 0; }
 .ui-fileuploadlist-name { margin-right: 30px; padding: 5px 10px; height: 24px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; max-width: 500px; }
 .ui-fileuploadlist-remove { float: right; width: 30px; cursor: pointer; color: red; text-align: center; border-left: 1px solid #E0E0E0; height: 24px; line-height: 24px; }

@@ -1,12 +1,12 @@
-.ui-contextmenu { position: absolute; opacity: 0; transition: 0.25s transform cubic-bezier(0.23, 1, 0.32, 1); left: -100; top: -100; z-index: 20; width: 200px; box-shadow: 0 2px 15px rgba(0,0,0,0.05); transform: translate(0px,20px); background-color: #FFFFFF; border-radius: 4px; border: 1px solid #E0E0E0; }
+.ui-contextmenu { position: absolute; opacity: 0; transition: 0.25s transform cubic-bezier(0.23, 1, 0.32, 1); left: -100; top: -100; z-index: 20; width: 200px; box-shadow: 0 2px 15px rgba(0,0,0,0.05); transform: translate(0px,20px); background-color: #FFF; border-radius: 4px; border: 1px solid #E0E0E0; }
 .ui-contextmenu .selected { font-weight: bold; }
 .ui-contextmenu .selected * { color: #1484FC !important; }
 .ui-contextmenu-arrow { position: absolute; top: -10px; left: 107px; width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #E0E0E0; }
-.ui-contextmenu-arrow:before { content: ' '; position: absolute; width: 0; height: 0; margin-top: 2px; margin-left: -8px; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 8px solid #FFFFFF; }
+.ui-contextmenu-arrow:before { content: ' '; position: absolute; width: 0; height: 0; margin-top: 2px; margin-left: -8px; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 8px solid #FFF; }
 .ui-contextmenu-visible { opacity: 1; transform: translate(0px,0px); }
-.ui-contextmenu-items > div { border-top: 1px solid #F0F0F0; font-size: 12px; height: 28px; background-color: #FFFFFF; cursor: pointer; }
+.ui-contextmenu-items > div { border-top: 1px solid #F0F0F0; font-size: 12px; height: 28px; background-color: #FFF; cursor: pointer; }
 .ui-contextmenu-items > div:hover { background: linear-gradient(white,#F8F8F8); }
 .ui-contextmenu-items i { float: left; width: 30px; text-align: center; padding: 7px 0 3px; font-size: 14px; color: #A0A0A0; }
-.ui-contextmenu-items span { float: left; color: #000000; width: 140px; margin: 6px 0 0 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; height: 20px; }
-.ui-contextmenu-items > div:first-child { border-width: 0; border-top-left-radius: 4px; border-top-right-radius: 4px; }
-.ui-contextmenu-items > div:last-child { border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; }
+.ui-contextmenu-items span { float: left; color: #000; width: 140px; margin: 6px 0 0 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; height: 20px; }
+.ui-contextmenu-items > div:first-child { border-width: 0; border-top-left-radius: var(--radius); border-top-right-radius: var(--radius); }
+.ui-contextmenu-items > div:last-child { border-bottom-left-radius: var(--radius); border-bottom-right-radius: var(--radius); }

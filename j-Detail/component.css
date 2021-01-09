@@ -1,5 +1,5 @@
 .ui-detail-group:last-child, .ui-detail-group:last-child section { margin-bottom: 0; }
-.ui-detail-group { padding: 0; margin-bottom: 20px; border: 1px solid #E0E0E0; border-radius: 2px; background-color: #FFF; }
+.ui-detail-group { padding: 0; margin-bottom: 20px; border: 1px solid #E0E0E0; border-radius: var(--radius); background-color: #FFF; }
 .ui-detail-group label { display: block; padding: 10px 15px; font-size: 16px; font-weight: bold; background-color: #F8F8F8; border-bottom: 1px solid #E0E0E0; }
 .ui-detail-group label i { width: 22px; }
 .ui-detail-group label i:before { content: '\f146'; }
@@ -13,13 +13,13 @@
 .ui-detail-date > i { float: right; width: 18px; margin: 4px 0 0 0; text-align: right; font-size: 12px; }
 .ui-detail-date > div { margin-right: 18px; }
 .ui-detail-bool, .ui-detail-list, .ui-detail-color, .ui-detail-fontawesome, .ui-detail-emoji, .ui-detail-file { line-height: 22px; }
-.ui-detail-bool span { width: 15px; height: 15px; display: inline-block; border: 1px solid #D0D0D0; line-height: 15px; font-size: 9px; text-align: center; margin: 4px 0 5px 0; border-radius: 2px; position: relative; color: #FFF; vertical-align: top; }
+.ui-detail-bool span { width: 15px; height: 15px; display: inline-block; border: 1px solid #D0D0D0; line-height: 15px; font-size: 9px; text-align: center; margin: 4px 0 5px 0; border-radius: var(--radius); position: relative; color: #FFF; vertical-align: top; }
 .ui-detail-bool.checked span { background-color: #4285F4; border-color: #4285F4; }
 .ui-detail-fontawesome, .ui-detail-emoji, .ui-detail-color { line-height: 22px; display: block; font-size: 20px; position: relative; text-align: left; margin-bottom: 2px; }
 .ui-detail-list i { float: right; width: 20px; line-height: 23px; text-align: right; font-size: 12px; }
 .ui-detail-list span { display: block; margin-right: 25px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 .ui-detail-color { padding: 3px 0 0; }
-.ui-detail-color span b { height: 18px; display: block; border-radius: 1px; color: gray; width: 60px }
+.ui-detail-color span b { height: 18px; display: block; border-radius: var(--radius); color: gray; width: 60px }
 .ui-detail-style-1 .ui-detail-item { padding: 6px 0; background-color: #FFF; margin-bottom: 1px; font-size: 13px; border-top: 1px solid #E0E0E0; }
 .ui-detail-style-1 .ui-detail-item:first-child { border-top: 0; }
 .ui-detail-style-1 .ui-detail-key { float: left; width: 170px; line-height: 24px; padding: 0 5px 0 15px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; color: #707070; }

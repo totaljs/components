@@ -1,6 +1,5 @@
-COMPONENT('duplicator', function(self) {
+COMPONENT('duplicator', function(self, config, cls) {
 
-	var cls = 'ui-duplicator';
 	var cls2 = '.' + cls;
 	var open = [];
 	var ready = false;

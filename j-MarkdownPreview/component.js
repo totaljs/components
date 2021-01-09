@@ -1,6 +1,5 @@
-COMPONENT('markdownpreview', 'showsecret:Show secret data;hidesecret:Hide secret data', function(self, config) {
+COMPONENT('markdownpreview', 'showsecret:Show secret data;hidesecret:Hide secret data', function(self, config, cls) {
 
-	var cls = 'ui-markdownpreview';
 	var cls2  = '.' + cls;
 	var elcache;
 	var elbody;

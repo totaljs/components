@@ -11,18 +11,18 @@
 .ui-linechart .line5 { stroke: #969696; stroke-width: 2.5; fill: transparent; }
 .ui-linechart .line5fill { fill: #969696;}
 .ui-linechart .points circle { cursor: pointer; }
-.ui-linechart .point1 { stroke: #3182BD; stroke-width: 2; fill: #FFFFFF; }
-.ui-linechart .point2 { stroke: #FD8D3C; stroke-width: 2; fill: #FFFFFF; }
-.ui-linechart .point3 { stroke: #74C476; stroke-width: 2; fill: #FFFFFF; }
-.ui-linechart .point4 { stroke: #9E9AC8; stroke-width: 2; fill: #FFFFFF; }
-.ui-linechart .point5 { stroke: #969696; stroke-width: 2; fill: #FFFFFF; }
+.ui-linechart .point1 { stroke: #3182BD; stroke-width: 2; fill: #FFF; }
+.ui-linechart .point2 { stroke: #FD8D3C; stroke-width: 2; fill: #FFF; }
+.ui-linechart .point3 { stroke: #74C476; stroke-width: 2; fill: #FFF; }
+.ui-linechart .point4 { stroke: #9E9AC8; stroke-width: 2; fill: #FFF; }
+.ui-linechart .point5 { stroke: #969696; stroke-width: 2; fill: #FFF; }
 .ui-linechart .axis { stroke: #F0F0F0; shape-rendering: optimizeSpeed; }
-.ui-linechart .axis-avg { stroke: #000000; stroke-width: 2; shape-rendering: optimizeSpeed; }
+.ui-linechart .axis-avg { stroke: #000; stroke-width: 2; shape-rendering: optimizeSpeed; }
 .ui-linechart .selected { opacity: 0.8; filter: alpha(opacity=80); }
 .ui-linechart .xlabel { font-size: 11px; fill: gray; }
-.ui-linechart .ylabel { font-size: 11px; fill: #777777; font-weight: bold; }
-.ui-linechart .ylabel-avg { font-size: 11px; fill: #000000; }
-.ui-linechart .selected { font-size: 16px; fill: #000000; font-weight: bold; }
+.ui-linechart .ylabel { font-size: 11px; fill: #777; font-weight: bold; }
+.ui-linechart .ylabel-avg { font-size: 11px; fill: #000; }
+.ui-linechart .selected { font-size: 16px; fill: #000; font-weight: bold; }
 
 .ui-dark .ui-linechart .axis { stroke: #282828; }
 .ui-dark .ui-linechart .point1 { fill: #282828; }
@@ -30,6 +30,6 @@
 .ui-dark .ui-linechart .point3 { fill: #282828; }
 .ui-dark .ui-linechart .point4 { fill: #282828; }
 .ui-dark .ui-linechart .point5 { fill: #282828; }
-.ui-dark .ui-linechart .ylabel-avg { fill: #FFFFFF; }
-.ui-dark .ui-linechart .selected { fill: #FFFFFF; }
-.ui-dark .ui-linechart .axis-avg { stroke: #FFFFFF; }
+.ui-dark .ui-linechart .ylabel-avg { fill: #FFF; }
+.ui-dark .ui-linechart .selected { fill: #FFF; }
+.ui-dark .ui-linechart .axis-avg { stroke: #FFF; }

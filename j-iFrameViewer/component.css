@@ -1,6 +1,6 @@
 .ui-iframeviewer { position: fixed; left: 0; top: 0; z-index: 10; background-color: #FFF; }
 .ui-iframeviewer iframe { display: block; margin: 0 auto; }
-.ui-iframeviewer-fixed iframe { display: block; margin: 0 auto; box-shadow: 0 0 10px rgba(0,0,0,0.05); border: 1px solid #E0E0E0; border-radius: 4px; background: #F0F0F0; }
+.ui-iframeviewer-fixed iframe { display: block; margin: 0 auto; box-shadow: 0 0 10px rgba(0,0,0,0.05); border: 1px solid #E0E0E0; border-radius: var(--radius); background: #F0F0F0; }
 .ui-iframeviewer-header { height: 45px; border-bottom: 1px solid #E0E0E0; }
 .ui-iframeviewer-header > label { line-height: 45px; padding-left: 10px; font-weight: bold; color: #000; }
 .ui-iframeviewer-header > span { float: right; line-height: 44px; width: 45px; text-align: center; color: red; cursor: pointer; border-left: 1px solid #E0E0E0; }

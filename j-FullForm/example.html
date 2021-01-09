@@ -1,0 +1,22 @@
+<div data---="fullform__common.form__if:user;title:Title;submit:userform_submit" class="hidden">
+	<div class="padding">
+		SOME CONTENT
+	</div>
+	<nav>
+		<button name="submit">SUBMIT</button>
+		<button name="cancel">CANCEL</button>
+	</nav>
+</div>
+
+<script>
+
+	function userform_submit(hide) {
+		alert('SUBMIT');
+		hide();
+	}
+
+	var common = {};
+
+	// Show the form
+	common.form = 'user';
+</script>

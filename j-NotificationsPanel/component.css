@@ -3,7 +3,7 @@
 .ui-notificationspanel-clear { float: right; cursor: pointer; line-height: 27px; color: #A0A0A0; margin-right: 10px; font-size: 11px; }
 .ui-notificationspanel-clear:hover { color: #e73323 !important; }
 .ui-notificationspanel-close { float: right; cursor: pointer; line-height: 29px; color: #e73323; border-left: 1px solid #E0E0E0; text-align: center; width: 29px; }
-.ui-notificationspanel-close:hover { background-color: red; color: #FFFFFF; }
+.ui-notificationspanel-close:hover { background-color: red; color: #FFF; }
 
 .ui-dark .ui-notificationspanel-header { border-bottom-color: #303030; }
 .ui-dark .ui-notificationspanel-clear { color: #505050; }

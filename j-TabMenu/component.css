@@ -1,6 +1,6 @@
 .tabmenu { border-bottom: 1px solid #E0E0E0; padding: 0; margin: 0; display: block; position: relative; font-size: 12px; margin-bottom: 20px; list-style-type: none; }
-.tabmenu li { position: relative; display: inline-block; border: 1px solid #FFFFFF; border-bottom: 0; margin: 0 0 0 10px; padding: 0; border-radius: 3px 3px 0 0; background-color: #F8F8F8; text-align: center; padding: 8px 10px; color: gray; cursor: pointer; min-width: 120px; }
+.tabmenu li { position: relative; display: inline-block; border: 1px solid #FFF; border-bottom: 0; margin: 0 0 0 10px; padding: 0; border-radius: var(--radius) var(--radius) 0 0; background-color: #F8F8F8; text-align: center; padding: 8px 10px; color: gray; cursor: pointer; min-width: 120px; }
 .tabmenu li:first-child { margin-left: 0; }
-.tabmenu .selected { background-color: #FFFFFF; top: 1px; border-color: #E0E0E0; color: #000000; }
+.tabmenu .selected { background-color: #FFF; top: 1px; border-color: #E0E0E0; color: #000; }
 .tabmenu .fa { margin-right: 8px; }
 .tabmenu.ui-disabled li { cursor: not-allowed; color: #A0A0A0; }

@@ -1,6 +1,7 @@
-COMPONENT('clock', 'twelvehour:false', function(self, config) {
+COMPONENT('clock', 'twelvehour:false', function(self, config, cls) {
 
 	var visible = false;
+	var cls2 = '.' + cls;
 	var dialRadius = 100, outerRadius = 80,	innerRadius = 54, tickRadius = 13;
 
 	self.readonly();
@@ -9,7 +10,7 @@ COMPONENT('clock', 'twelvehour:false', function(self, config) {
 
 	self.hide = function() {
 		self.aclass('hidden');
-		self.rclass('ui-clock-visible');
+		self.rclass(cls + '-visible');
 		visible = false;
 		return self;
 	};
@@ -46,15 +47,15 @@ COMPONENT('clock', 'twelvehour:false', function(self, config) {
 		self.click = callback;
 		self.time(value);
 		visible = true;
-		self.aclass('ui-clock-visible', 50);
+		self.aclass(cls + '-visible', 50);
 		return self;
 	};
 
 	self.make = function() {
 
-		self.aclass('ui-clock hidden');
+		self.aclass(cls + ' hidden');
 
-		self.event('click', '.ui-clock-tick', function(e) {
+		self.event('click', cls2 + '-tick', function(e) {
 			clearTimeout2('clockhide');
 			e.preventDefault();
 			e.stopPropagation();
@@ -67,7 +68,7 @@ COMPONENT('clock', 'twelvehour:false', function(self, config) {
 			self.click && self.click(val);
 		});
 
-		self.event('click', '.ui-clock-header-twelve, .ui-clock-swap', function(e) {
+		self.event('click', cls2 + '-header-twelve, .ui-clock-swap', function(e) {
 			clearTimeout2('clockhide');
 			e.preventDefault();
 			e.stopPropagation();
@@ -82,7 +83,7 @@ COMPONENT('clock', 'twelvehour:false', function(self, config) {
 			self.time(val, self.activeMinutes);
 		});
 
-		self.event('click', '.ui-clock-header-hours', function(e) {
+		self.event('click', cls2 + '-header-hours', function(e) {
 			clearTimeout2('clockhide');
 			e.preventDefault();
 			e.stopPropagation();
@@ -91,7 +92,7 @@ COMPONENT('clock', 'twelvehour:false', function(self, config) {
 			self.time(val);
 		});
 
-		self.event('click', '.ui-clock-header-minutes', function(e) {
+		self.event('click', cls2 + '-header-minutes', function(e) {
 			clearTimeout2('clockhide');
 			e.preventDefault();
 			e.stopPropagation();
@@ -100,7 +101,7 @@ COMPONENT('clock', 'twelvehour:false', function(self, config) {
 			self.time(val, true);
 		});
 
-		self.event('click', '.ui-clock-header, .ui-clock-body', function(e) {
+		self.event('click', cls2 + '-header, .ui-clock-body', function(e) {
 			e.stopPropagation();
 		});
 

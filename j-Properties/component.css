@@ -10,14 +10,14 @@
 .ui-properties-group section > div:first-child { border-top-left-radius: 2px; border-top-right-radius: 2px; }
 .ui-properties-group section > div:last-child { border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; }
 .ui-properties-hidden section { display: none; }
-.ui-properties-item { height: 22px; background-color: #FFFFFF; margin-bottom: 1px; font-size: 12px; }
+.ui-properties-item { height: 22px; background-color: #FFF; margin-bottom: 1px; font-size: 12px; }
 .ui-properties-key { float: left; width: 40%; border-right: 1px solid #E0E0E0; line-height: 22px; padding: 0 5px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
 .ui-properties-value { float: right; width: 60%; line-height: 21px; }
 .ui-properties-string, .ui-properties-number, .ui-properties-date, .ui-properties-list, .ui-properties-file { padding: 0 6px; }
 .ui-properties-string input, .ui-properties-number input, .ui-properties-date input { outline: 0; height: 21px; padding: 0; margin: 0; width: 100%; border: 0; line-height: 21px; background-color: transparent; }
 .ui-properties-bool, .ui-properties-list, .ui-properties-color, .ui-properties-fontawesome, .ui-properties-emoji, .ui-properties-file { line-height: 22px; }
-.ui-properties-bool span { width: 14px; height: 14px; display: inline-block; border: 1px solid #D0D0D0; line-height: 14px; font-size: 9px; text-align: center; margin: 4px 0 0 6px; border-radius: 2px; position: relative; cursor: pointer; color: #FFFFFF; vertical-align: top; }
-.ui-properties-bool .checked { background-color: #4285F4; border-color: #4285F4; }
+.ui-properties-bool span { width: 14px; height: 14px; display: inline-block; border: 1px solid #D0D0D0; line-height: 14px; font-size: 9px; text-align: center; margin: 4px 0 0 6px; border-radius: var(--radius); position: relative; cursor: pointer; color: #FFF; vertical-align: top; }
+.ui-properties-bool .checked { background-color: var(--color); border-color: var(--color); }
 .ui-properties-fontawesometoggle, .ui-properties-emojitoggle, .ui-properties-color { width: 34px; line-height: 22px; display: block; cursor: pointer; font-size: 14px; position: relative; border-right: 1px solid #E0E0E0; text-align: center; }
 .ui-properties-fontawesometoggle { height: 22px; }
 .ui-properties-list { cursor: pointer; }
@@ -28,7 +28,7 @@
 .ui-properties-file span { display: block; margin-right: 25px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 .ui-properties-changed { font-weight: bold; }
 .ui-properties-color { padding: 3px 6px; }
-.ui-properties-color span b { height: 16px; display: block; border-radius: 1px; color: gray; }
+.ui-properties-color span b { height: 16px; display: block; border-radius: var(--radius); color: gray; }
 .ui-properties-invalid { font-weight: bold; color: red !important; }
 .ui-properties-invalid .ui-properties-key { border-right-color: red !important; }
 #propertiesupload { position: absolute; left: -100px; top: -100px; opacity: 0; }
@@ -44,5 +44,5 @@
 .ui-dark .ui-properties-key { border-right-color: #404040; }
 .ui-dark .ui-properties-fontawesometoggle, .ui-dark .ui-properties-emojitoggle, .ui-dark .ui-properties-color { border-right-color: #404040; }
 .ui-dark .ui-properties-bool span { color: #252525; border-color: #404040; }
-.ui-dark .ui-properties-bool span.checked { color: #FFFFFF; border-color: #4285F4; }
-.ui-dark .ui-properties-changed { color: #FFFFFF; }
+.ui-dark .ui-properties-bool span.checked { color: #FFF; border-color: var(--color); }
+.ui-dark .ui-properties-changed { color: #FFF; }

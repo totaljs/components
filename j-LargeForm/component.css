@@ -16,9 +16,9 @@
 .ui-largeform > nav button:active { background-color: #D0D0D0; }
 .ui-largeform > nav button:disabled { background-color: #F5F5F5 !important; border-color: #E0E0E0 !important; color: silver !important; cursor: not-allowed; box-shadow: none; }
 .ui-largeform > nav button:disabled i { color: silver !important; }
-.ui-largeform > nav button:first-child { border-top-left-radius: 2px; border-bottom-left-radius: 2px; }
-.ui-largeform > nav button:last-child { border-top-right-radius: 2px; border-bottom-right-radius: 2px; }
-.ui-largeform > nav button[name='submit'] { font-weight: bold; background-color: #4285F4; color: #FFF; font-size: 14px; }
+.ui-largeform > nav button:first-child { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
+.ui-largeform > nav button:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
+.ui-largeform > nav button[name='submit'] { font-weight: bold; background-color: var(--color); color: #FFF; font-size: 14px; }
 .ui-largeform-style-2 .ui-largeform { border-bottom-right-radius: 0; border-bottom-left-radius: 0; }
 
 .ui-dark .ui-largeform { background-color: #202020; }
@@ -26,7 +26,7 @@
 .ui-dark .ui-largeform-title { background-color: #202020; border-bottom-color: #303030; color: #FFF; }
 .ui-dark .ui-largeform > nav { background-color: #202020; border-top-color: #303030; }
 .ui-dark .ui-largeform > nav button { border-color: #202020; background-color: #505050; color: #E0E0E0; }
-.ui-dark .ui-largeform > nav button[name='submit'] { background-color: #4285F4; }
+.ui-dark .ui-largeform > nav button[name='submit'] { background-color: var(--color); }
 .ui-dark .ui-largeform > nav button:active { background-color: #404040; }
 .ui-dark .ui-largeform > nav button:disabled i { color: #606060 !important; }
 .ui-dark .ui-largeform > nav button:disabled { background-color: #303030 !important; color: #606060 !important; border-color: #202020 !important; }

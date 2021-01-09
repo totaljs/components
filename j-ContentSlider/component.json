@@ -1,9 +1,9 @@
 {
 	"datecreated": "2016-10-30T17:23:00.000Z",
-	"dateupdated": "2018-11-08T19:40:00.000Z",
+	"dateupdated": "2018-11-08T19:40:01.000Z",
 	"name": "j-ContentSlider",
 	"tags": [
-		"jcomponent"
+		"slider"
 	],
 	"color": "transparent",
 	"version": 1,

@@ -1,8 +1,8 @@
-COMPONENT('contentslider', 'interval:3000;selector:a', function(self, config) {
+COMPONENT('contentslider', 'interval:3000;selector:a', function(self, config, cls) {
 
-	var cssv = 'ui-contentslider-item-visible';
-	var cssi = 'ui-contentslider-item';
-	var cssp = 'ui-contentslider-pagination';
+	var cssv = cls + '-item-visible';
+	var cssi = cls + '-item';
+	var cssp = cls + '-pagination';
 	var css = { 'min-height': 0 };
 	var container;
 	var length = 0;
@@ -15,7 +15,7 @@ COMPONENT('contentslider', 'interval:3000;selector:a', function(self, config) {
 
 	self.make = function() {
 
-		self.aclass('ui-contentslider');
+		self.aclass(cls);
 		self.element.wrapInner('<div class="ui-contentslider-items" />');
 		self.find(config.selector).wrap('<div class="{0}" />'.format(cssi));
 		self.append('<div class="{0}" />'.format(cssp));

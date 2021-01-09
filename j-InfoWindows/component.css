@@ -1,12 +1,12 @@
-.ui-infowindows-item { position: absolute; border-radius: 2px; box-shadow: 0 10px 20px rgba(0,0,0,0.03); background-color: #FFFFFF; z-index: 80; }
-.ui-infowindows-title { border: 1px solid #E0E0E0; border-radius: 2px 2px 0 0; height: 22px; user-select: none; color: gray; }
+.ui-infowindows-item { position: absolute; border-radius: var(--radius); box-shadow: 0 10px 20px rgba(0,0,0,0.03); background-color: #FFF; z-index: 80; }
+.ui-infowindows-title { border: 1px solid #E0E0E0; border-radius: var(--radius) var(--radius) 0 0; height: 22px; user-select: none; color: gray; }
 .ui-infowindows-control { float: left; width: 20px; text-align: center; border-right: 1px solid #E0E0E0; line-height: 20px; cursor: pointer; font-size: 10px; }
 .ui-infowindows-control:hover { background-color: #F9F9F9; }
 .ui-infowindows-control.fa-times { color: red; }
 .ui-infowindows-title span { cursor: default; line-height: 21px; display: block; margin: 0 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 0 0 5px; font-size: 11px; text-align: center; }
 .ui-infowindows-nomove .ui-infowindows-title span { cursor: default; }
 .ui-infowindows-title span i { margin-right: 5px; }
-.ui-infowindows-body { border: 1px solid #E0E0E0; border-top: 0; border-radius: 0 0 2px 2px; overflow: hidden; }
+.ui-infowindows-body { border: 1px solid #E0E0E0; border-top: 0; border-radius: 0 0 var(--radius) var(--radius); overflow: hidden; }
 .ui-infowindows-noclose .ui-infowindows-control[data-name='close'] { display: none; }
 .ui-infowindows-noresize .ui-infowindows-resize { display: none; }
 .ui-infowindows-dragged { z-index: 100; }
@@ -20,7 +20,7 @@
 .ui-infowindows-block iframe, .ui-infowindows-block webview { pointer-events: none; }
 
 .ui-dark .ui-infowindows-item { background-color: #202020; box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
-.ui-dark .ui-infowindows-title { border-color: #404040; color: #777777; }
+.ui-dark .ui-infowindows-title { border-color: #404040; color: #777; }
 .ui-dark .ui-infowindows-body { border-color: #404040; }
 .ui-dark .ui-infowindows-control { border-color: #404040; }
 .ui-dark .ui-infowindows-control:hover { background-color: #272727; }

@@ -1,6 +1,5 @@
-COMPONENT('togglebutton', function(self, config) {
+COMPONENT('togglebutton', function(self, config, cls) {
 
-	var cls = 'ui-togglebutton';
 	var icon;
 
 	self.nocompile();

@@ -1,4 +1,4 @@
-.ui-cookie { font-size: 11px; padding: 3px 20px 5px; border-bottom: 1px solid #E0E0E0; text-align: center; background-color: #FFFFFF; }
-.ui-cookie button { position: relative; display: inline-block; padding: 1px 5px; border-radius: 3px; font-size: 10px; background-color: #000000; color: #FFFFFF; border: 0; margin-left: 5px; cursor: pointer; outline: 0; }
+.ui-cookie { font-size: 11px; padding: 3px 20px 5px; border-bottom: 1px solid #E0E0E0; text-align: center; background-color: #FFF; }
+.ui-cookie button { position: relative; display: inline-block; padding: 1px 5px; border-radius: 3px; font-size: 10px; background-color: #000; color: #FFF; border: 0; margin-left: 5px; cursor: pointer; outline: 0; }
 .ui-cookie button:hover { background-color: #303030; }
 .ui-cookie button[name="cancel"] { background-color: #F0F0F0; color: gray; }

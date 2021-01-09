@@ -1,6 +1,5 @@
-COMPONENT('expander', function(self, config) {
+COMPONENT('expander', function(self, config, cls) {
 
-	var cls = 'ui-expander';
 	var cls2 = '.' + cls;
 
 	self.readonly();

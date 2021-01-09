@@ -8,10 +8,10 @@
 .ui-diagram li:only-child::after, .ui-diagram li:only-child::before { display: none; }
 .ui-diagram li:only-child { padding-top: 0; }
 .ui-diagram li:first-child::before, .ui-diagram li:last-child::after { border: 0 none; }
-.ui-diagram li:last-child::before { border-right: 1px solid #D0D0D0; border-radius: 0 2px 0 0; }
-.ui-diagram li:first-child::after { border-radius: 2px 0 0 0; }
+.ui-diagram li:last-child::before { border-right: 1px solid #D0D0D0; border-radius: 0 var(--radius) 0 0; }
+.ui-diagram li:first-child::after { border-radius: var(--radius) 0 0 0; }
 .ui-diagram ul ul::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 1px solid #D0D0D0; width: 0; height: 15px; }
-.ui-diagram li .ui-diagram-item { border: 1px solid #D0D0D0; padding: 0; text-decoration: none; display: inline-block; border-radius: 2px; position: relative; top: 1px; }
+.ui-diagram li .ui-diagram-item { border: 1px solid #D0D0D0; padding: 0; text-decoration: none; display: inline-block; border-radius: var(--radius); position: relative; top: 1px; }
 .ui-diagram li .ui-diagram-item:hover, .ui-diagram li .ui-diagram-item:hover + ul li .ui-diagram-item { border: 1px solid #4285F4 !important; cursor: default; }
 .ui-diagram li .ui-diagram-item:hover + ul li::after, .ui-diagram li .ui-diagram-item:hover + ul li::before, .ui-diagram li .ui-diagram-item:hover + ul::before, .ui-diagram li .ui-diagram-item:hover + ul ul::before { border-color: #4285F4; }
 
