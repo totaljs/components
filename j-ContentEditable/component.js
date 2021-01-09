@@ -96,12 +96,13 @@ COMPONENT('contenteditable', function(self, config, cls) {
 				e.preventDefault();
 				e.stopPropagation();
 
-				if (!self.getSelection())
-					return;
-
-				var url = '#tmp' + Date.now();
-				document.execCommand('CreateLink', false, url);
-				self.event('link', url);
+				var html = self.getSelection();
+				if (html) {
+					var id = '#URL' + Date.now();
+					document.execCommand('CreateLink', false, id);
+					var a = self.find('a[href="{0}"]'.format(id)).attr('target', '_blank').attr('href', html);
+					self.event('link', a);
+				}
 				return;
 			}
 
@@ -208,6 +209,6 @@ COMPONENT('contenteditable', function(self, config, cls) {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		self.toggle('ui-contenteditable-invalid', invalid);
+		self.tclass(cls + '-invalid', invalid);
 	};
 });
