@@ -2,7 +2,6 @@ COMPONENT('contenteditable', function(self, config, cls) {
 
 	var timers = {};
 	var current = { bold: false, underline: false, italic: false, focused: false, node: null };
-	var required = self.attrd('required') === 'true';
 
 	self.validate = function(value) {
 		var type = typeof(value);
@@ -16,12 +15,13 @@ COMPONENT('contenteditable', function(self, config, cls) {
 		return value.length > 0;
 	};
 
-	!required && self.noValid();
+	if (!config.required)
+		self.noValid();
 
 	self.make = function() {
 
-		self.attr('contenteditable', 'true');
 		self.aclass(cls);
+		self.attr('contenteditable', 'true');
 
 		var el = self.element;
 
