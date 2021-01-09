@@ -1,0 +1,17 @@
+{
+	"datecreated": "2021-01-09T16:01:00.000Z",
+	"dateupdated": null,
+	"name": "j-Wysiwyg",
+	"tags": [
+		"wysiwyg"
+	],
+	"color": "white",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

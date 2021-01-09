@@ -234,5 +234,6 @@
 	"j-Animation",
 	"j-RawEditable",
 	"j-Edit",
-	"j-FullForm"
+	"j-FullForm",
+	"j-Wysiwyg"
 ]
