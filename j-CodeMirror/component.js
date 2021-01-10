@@ -1,4 +1,4 @@
-COMPONENT('codemirror', 'linenumbers:true;required:false;trim:false;tabs:true', function(self, config, cls) {
+COMPONENT('codemirror', 'linenumbers:true;required:false;trim:false;tabs:true;height:200', function(self, config, cls) {
 
 	var editor, container;
 	var cls2 = '.' + cls;
@@ -40,6 +40,20 @@ COMPONENT('codemirror', 'linenumbers:true;required:false;trim:false;tabs:true', 
 				break;
 		}
 
+	};
+
+	self.resize = function() {
+		setTimeout2(self.ID, self.resizeforce, 300);
+	};
+
+	self.resizeforce = function() {
+		if (config.parent) {
+			var parent = self.parent(config.parent);
+			var h = parent.height();
+			editor.setSize('100%', (h - config.margin) + 'px');
+			self.css('height', h - config.margin);
+		} else
+			editor.setSize('100%', config.height + 'px');
 	};
 
 	self.make = function() {
@@ -151,6 +165,9 @@ COMPONENT('codemirror', 'linenumbers:true;required:false;trim:false;tabs:true', 
 			}, 200);
 
 		});
+
+		self.resize();
+		self.on('resize + resize2', self.resize);
 	};
 
 	self.setter = function(value, path, type) {
