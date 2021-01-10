@@ -132,12 +132,6 @@ COMPONENT('codemirror', 'linenumbers:true;required:false;trim:false;tabs:true;he
 
 		});
 
-		if (config.height !== 'auto') {
-			var is = typeof(config.height) === 'number';
-			editor.setSize('100%', is ? (config.height + 'px') : (config.height || '200px'));
-			!is && self.css('height', config.height);
-		}
-
 		if (config.disabled) {
 			self.aclass('ui-disabled');
 			editor.readOnly = true;
