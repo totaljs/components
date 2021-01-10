@@ -11,7 +11,7 @@
 .ui-modal-header .cancel { float: right; line-height: 50px; width: 28px; color: red; transition: transform 0.2s; font-size: 16px; }
 .ui-modal-header .cancel:hover { transform: scale(1.2); }
 .ui-modal-footer { border-top: 1px solid #E0E0E0; height: 60px; padding: 0 15px; line-height: 58px; text-align: right; }
-.ui-modal-footer button { height: 33px; border: 0; background-color: var(--color); color: #FFF; border-radius: var(--radius); padding: 0 15px; margin: 0; line-height: 28px; font-weight: bold; }
+.ui-modal-footer button { height: 33px; border: 0; background-color: #404040; color: #FFF; border-radius: 5px; padding: 0 15px; margin: 0; line-height: 28px; font-weight: bold; }
 .ui-modal-footer button:disabled { background-color: #E0E0E0; color: #A0A0A0; cursor: not-allowed; }
 .ui-modal-footer .link { font-size: 12px; vertical-align: middle; position: relative; display: inline-block; margin: 0 10px; }
 .ui-modal-footer i { margin-right: 5px; }
