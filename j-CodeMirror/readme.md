@@ -14,8 +14,9 @@ __Configuration__:
 - `label {String}` label (default is HTML content)
 - `disabled {Boolean}` disables this component
 - `tabs {Boolean}` enables indent with tabs (default: `false`)
-- `trim {Boolean}` performs right auto-trim and removes empty begin/end lines (default: `false`)
+- `trim {Boolean}` performs auto-trim and removes empty begin/end lines (default: `false`)
 - __NEW__: `parent {String}` can set height by parent element
+- __NEW__: `minheight {Number}` a minimal height for `parent` option (default: `200`)
 
 __Method__:
 

@@ -1,4 +1,4 @@
-COMPONENT('codemirror', 'linenumbers:true;required:false;trim:false;tabs:true;height:200', function(self, config, cls) {
+COMPONENT('codemirror', 'linenumbers:true;required:false;trim:false;tabs:true;height:200;minheight:200', function(self, config, cls) {
 
 	var editor, container;
 	var cls2 = '.' + cls;
@@ -50,6 +50,10 @@ COMPONENT('codemirror', 'linenumbers:true;required:false;trim:false;tabs:true;he
 		if (config.parent) {
 			var parent = self.parent(config.parent);
 			var h = parent.height();
+
+			if (h < config.minheight)
+				h = config.minheight;
+
 			editor.setSize('100%', (h - config.margin) + 'px');
 			self.css('height', h - config.margin);
 		} else
