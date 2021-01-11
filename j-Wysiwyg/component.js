@@ -109,7 +109,6 @@ COMPONENT('wysiwyg', function(self, config, cls) {
 					var selection = self.getSelection();
 					if (selection) {
 						node = self.getSelection(true);
-						console.log(node);
 					} else {
 						node = findparent(self.getNode());
 						node && clean(node);
@@ -149,9 +148,9 @@ COMPONENT('wysiwyg', function(self, config, cls) {
 		editor.on('focus', function() {
 			clearTimeout(timers.focused);
 			clearInterval(timers.changes);
+			timers.changes = null;
 			self.focused = true;
 			self.event('focus', self);
-			timers.changes = setInterval(self.save, 1000);
 			placeholder.aclass('hidden');
 		});
 
@@ -169,6 +168,7 @@ COMPONENT('wysiwyg', function(self, config, cls) {
 			placeholder.tclass('hidden', !!t);
 			clearTimeout(timers.focused);
 			clearInterval(timers.changes);
+			timers.changes = null;
 			self.save();
 			timers.focused = setTimeout(function() {
 				self.event('blur', self);
@@ -184,6 +184,9 @@ COMPONENT('wysiwyg', function(self, config, cls) {
 		});
 
 		editor.on('keydown', function(e) {
+
+			if (!timers.changes)
+				timers.changes = setInterval(self.save, 1000);
 
 			if (!e.metaKey && !e.ctrlKey)
 				return;
@@ -345,15 +348,18 @@ COMPONENT('wysiwyg', function(self, config, cls) {
 		return node ? container : container.innerHTML;
 	};
 
-	self.setter = function(value) {
+	self.focus = function() {
+		editor.focus();
+	};
 
-		if (skip) {
+	self.setter = function(value, path, type) {
+
+		if (skip && type === 2) {
 			skip = false;
 			return;
 		}
 
 		var val = value ? (value + '').trim() : '';
-
 		self.reset();
 		editor.html(val);
 		placeholder.tclass('hidden', !!val);
@@ -363,9 +369,9 @@ COMPONENT('wysiwyg', function(self, config, cls) {
 		if (!type)
 			return;
 		var invalid = self.isInvalid();
-		if (invalid === self.$oldstate)
-			return;
-		self.$oldstate = invalid;
-		self.tclass(cls + '-invalid', invalid);
+		if (invalid !== self.$oldstate) {
+			self.$oldstate = invalid;
+			self.tclass(cls + '-invalid', invalid);
+		}
 	};
 });
