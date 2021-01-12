@@ -17,7 +17,7 @@
 .ui-form > nav button:disabled { background-color: #F5F5F5 !important; border-color: #E0E0E0 !important; color: silver !important; cursor: not-allowed; box-shadow: none; }
 .ui-form > nav button:first-child { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
 .ui-form > nav button:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
-.ui-form > nav button[name='submit'] { font-weight: bold; background-color: var(--color); color: #FFF; font-size: 14px; }
+.ui-form > nav button[name='submit'] { font-weight: bold; background-color: var(--color); color: #FFF; }
 
 .ui-dark .ui-form-container { background-color: rgba(50,50,50,0.9); }
 .ui-dark .ui-form { background-color: #202020; }
