@@ -23,6 +23,7 @@ __Configuration__:
 - `marginmd` optional, a top/bottom margin together for `md` screen width
 - `marginlg` optional, a top/bottom margin together for `lg` screen width
 - __NEW__: `invisible` {Boolean} if `true` then viewbox sets `invisible` class when is rendering (default: `true`)
+- __NEW__: `scrollbarshadow` {Boolean} if `true` then the custom scrollbars will contain vertical shadow (default: `false`)
 
 __Methods__:
 
