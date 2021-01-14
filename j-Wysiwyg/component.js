@@ -172,7 +172,6 @@ COMPONENT('wysiwyg', function(self, config, cls) {
 			self.save();
 			timers.focused = setTimeout(function() {
 				self.event('blur', self);
-				self.reset(true);
 			}, 200);
 		});
 
