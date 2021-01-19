@@ -231,11 +231,11 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		var counter = 0;
 		var scroller = container.parent();
 		var li = container.find('li');
-		var hli = (li.eq(0).innerHeight() || 30) + 1;
+		var hli = 0;
 		var was = false;
 		var last = -1;
 		var lastselected = 0;
-		var plus = (hli * 2);
+		var plus = 0;
 
 		for (var i = 0; i < li.length; i++) {
 
@@ -250,9 +250,10 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 			el.tclass('current', is);
 
 			if (is) {
+				hli = (el.innerHeight() || 30) + 1;
+				plus = (hli * 2);
 				was = true;
 				var t = (hli * (counter || 1));
-				// var p = (t / sh) * 100;
 				scroller[0].scrollTop = t - plus;
 			}
 
@@ -338,13 +339,22 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 				}, 300, null, val);
 			}
 		} else if (value) {
-			value = value.toSearch();
+			value = value.toSearch().split(' ');
 			var arr = container.find('li');
 			for (var i = 0; i < arr.length; i++) {
 				var el = $(arr[i]);
 				var val = el.attrd('search').toSearch();
-				var is = val.indexOf(value) === -1;
+				var is = false;
+
+				for (var j = 0; j < value.length; j++) {
+					if (val.indexOf(value[j]) === -1) {
+						is = true;
+						break;
+					}
+				}
+
 				el.tclass('hidden', is);
+
 				if (!is)
 					resultscount++;
 			}
