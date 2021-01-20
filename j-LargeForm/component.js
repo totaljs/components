@@ -87,7 +87,12 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', f
 
 		var el = self.find(cls2 + '-title');
 		var th = el.height();
-		csspos = { height: csspos.height - th, width: ui.width() };
+		var w = ui.width();
+
+		if (w > WW)
+			w = WW;
+
+		csspos = { height: csspos.height - th, width: w };
 
 		if (nav)
 			csspos.height -= nav.height();

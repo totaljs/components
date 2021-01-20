@@ -1958,7 +1958,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 		if (config.exec && (value == null || value.items == null)) {
 			self.operation('refresh');
-			return;
+			if (value && value.items == null)
+				value.items = [];
+			else
+				return;
 		}
 
 		if (value && value.schema && schemas.$current !== value.schema) {

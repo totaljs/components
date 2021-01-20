@@ -31,7 +31,7 @@
 .ui-dark .ui-largeform > nav button:disabled i { color: #606060 !important; }
 .ui-dark .ui-largeform > nav button:disabled { background-color: #303030 !important; color: #606060 !important; border-color: #202020 !important; }
 
-@media(max-width: 768px) {
+@media(max-width: 767px) {
 	.ui-largeform-container { background: none; padding: 0; }
 	.ui-largeform { border-radius: 0; }
 }
