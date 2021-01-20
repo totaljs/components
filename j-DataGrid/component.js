@@ -1956,7 +1956,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 		controls.hide();
 
-		if (config.exec && value == null) {
+		if (config.exec && (value == null || value.items == null)) {
 			self.operation('refresh');
 			return;
 		}
