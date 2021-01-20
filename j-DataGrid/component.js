@@ -1738,6 +1738,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			opt.width2 = w;
 		}
 
+		opt.height = h + footerh;
 		self.scrollbarX.resize();
 		self.scrollbarY && self.scrollbarY.resize();
 
