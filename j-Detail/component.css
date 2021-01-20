@@ -1,3 +1,4 @@
+.ui-detail-group-nolabel .ui-detail-item:first-child { border-radius: var(--radius) var(--radius) 0 0; }
 .ui-detail-group:last-child, .ui-detail-group:last-child section { margin-bottom: 0; }
 .ui-detail-group { padding: 0; margin-bottom: 20px; border: 1px solid #E0E0E0; border-radius: var(--radius); background-color: #FFF; }
 .ui-detail-group label { display: block; padding: 10px 15px; font-size: 16px; font-weight: bold; background-color: #F8F8F8; border-bottom: 1px solid #E0E0E0; border-radius: var(--radius) var(--radius) 0 0; }

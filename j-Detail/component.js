@@ -199,7 +199,7 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 			var key = keys[i];
 			var group = groups[key];
 			var hash = 'g' + HASH(key).toString(36);
-			var el = $(('<div class="{0}-group" data-id="{2}">' + (key.length > 1 ? '<label>{1}</label>' : '') + '<section></section></div>').format(cls, key, hash));
+			var el = $(('<div class="{0}-group' + (key.length > 1 ? '' : ' {0}-group-nolabel') + '" data-id="{2}">' + (key.length > 1 ? '<label>{1}</label>' : '') + '<section></section></div>').format(cls, key, hash));
 			var section = el.find('section');
 			for (var j = 0; j < group.html.length; j++)
 				section.append(group.html[j]);
