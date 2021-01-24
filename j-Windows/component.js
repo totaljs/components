@@ -493,11 +493,11 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 
 					if (obj.meta.close) {
 						obj.meta.close(function() {
-							self.wrem(obj.meta);
+							self.wrem(obj.meta, true);
 							self.resize2();
 						});
 					} else {
-						self.wrem(obj.meta);
+						self.wrem(obj.meta, true);
 						self.resize2();
 					}
 					break;
@@ -598,7 +598,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 		return obj;
 	};
 
-	self.wrem = function(item) {
+	self.wrem = function(item, notify) {
 		var obj = cache[item.id];
 		if (obj) {
 			var main = obj.element.closest(cls2 + '-item');
@@ -624,7 +624,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 
 				var arr = self.get();
 				arr.splice(arr.findIndex('id', item.id), 1);
-				self.update();
+				notify && self.update();
 			}
 		}
 	};
