@@ -253,7 +253,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 						opt.filter = {};
 						opt.scroll = '';
 						opt.selected = {};
-						self.rebind(value);
+						self.rebind(value, true);
 						type && self.setter(null);
 					}
 				});
@@ -315,6 +315,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 			if (!schemas.default)
 				schemas.default = el.html();
+
 		});
 
 		controls.show = function(dom) {
@@ -1088,7 +1089,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 	};
 
-	self.rebind = function(code) {
+	self.rebind = function(code, prerender) {
 
 		if (code.length < 30 && code.indexOf(' ') === -1) {
 			schemas.$current = code;
@@ -1259,6 +1260,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 		cols.quicksort('index');
 		opt.cols = cols;
 		self.rebindcss();
+		prerender && self.rendercols();
 		controls.hide();
 
 		// self.scrollbar.scroll(0, 0);
@@ -1968,7 +1970,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 		if (value && value.schema && schemas.$current !== value.schema) {
 			schemas.$current = value.schema;
 			self.selected = null;
-			self.rebind(value.schema);
+			self.rebind(schemas[value.schema], true);
 			setTimeout(function() {
 				self.setter(value, path, type);
 			}, 100);
