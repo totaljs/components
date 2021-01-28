@@ -7,6 +7,8 @@ Thelpers.jsonformat = function(json, format) {
 	}).replace(/\/span>(false|true)/g, function(val) {
 		val = val.substring(6);
 		return '/span><span class="json-boolean json-' + val + '">' + val + '</span>';
+	}).replace(/\/span>[\0-9.]+/g, function(val) {
+		return '/span><span class="json-number">' + val.substring(6) + '</span>';
 	}).replace(/\/span>[\d.]+/g, function(val) {
 		return '/span><span class="json-number">' + val.substring(6) + '</span>';
 	}).replace(/\/span>"[\dT:\-.Z]+"/g, function(val) {
