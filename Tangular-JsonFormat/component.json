@@ -1,0 +1,17 @@
+{
+	"datecreated": "2021-01-28T09:30:03.000Z",
+	"dateupdated": null,
+	"name": "Tangular-JsonFormat",
+	"tags": [
+		"tangular",
+		"helpers"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

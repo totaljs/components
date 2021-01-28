@@ -235,5 +235,6 @@
 	"j-RawEditable",
 	"j-Edit",
 	"j-FullForm",
-	"j-Wysiwyg"
+	"j-Wysiwyg",
+	"Tangular-JsonFormat"
 ]
