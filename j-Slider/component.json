@@ -1,0 +1,17 @@
+{
+	"datecreated": "2021-01-28T13:41:40.557Z",
+	"dateupdated": null,
+	"name": "j-Slider",
+	"tags": [
+		"slider"
+	],
+	"color": "transparent",
+	"version": 1,
+	"darkmode": true,
+	"responsive": false,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
