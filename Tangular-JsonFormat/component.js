@@ -9,7 +9,7 @@ Thelpers.jsonformat = function(json, format) {
 		return '/span><span class="json-boolean json-' + val + '">' + val + '</span>';
 	}).replace(/\/span>[\d.]+/g, function(val) {
 		return '/span><span class="json-number">' + val.substring(6) + '</span>';
-	}).replace(/\/span>"[\d\-]+T[\d:\.]+Z"/g, function(val) {
+	}).replace(/\/span>"[\d-]+T[\d:.]+Z"/g, function(val) {
 		return '/span><span class="json-date">' + new Date(val.substring(7, val.length - 1)).format(format || 'yyyy-MM-dd HH:mm:ss') + '</span>';
 	}).replace(/\/span>null/g, function() {
 		return '/span><span class="json-null">null</span>';
