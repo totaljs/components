@@ -10,6 +10,7 @@ __Configuration__:
 - `numberformat` {Number} a default number format (default: empty)
 - `small` {Boolean} enables smaller design (default: `false`)
 - `style` {Number} component style (default: `1`), supports style `2`
+- `defaultgroup` {String} a default group name (default: `Default`)
 
 __Data declaration__:
 
