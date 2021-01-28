@@ -1,0 +1,13 @@
+.ui-slider-required .ui-slider-label:before { content: '***'; color: red; margin-right: 3px; }
+.ui-slider-label { margin-bottom: 3px; font-size: 12px; }
+.ui-slider-label i { margin-right: 4px; }
+.ui-slider-body { height: 32px; position: relative; line-height: 32px; }
+.ui-slider-thumb { position: absolute; left: 0; top: 1px; width: 26px; height: 26px; background: #333; z-index: 10; border-radius: 100px; cursor: grab; }
+.ui-slider-thumb:hover { background: #444; }
+.ui-slider-track { height: 14px; border-radius: 10px; background: #E0E0E0; display: inline-block; position: relative; width: 100%; }
+.ui-disabled .ui-slider-thumb { cursor: not-allowed; background: #888 !important; }
+
+.ui-dark .ui-slider-thumb { background: #888; }
+.ui-dark .ui-slider-thumb:hover { background: #C0C0C0; }
+.ui-dark .ui-slider-track { background: #333; }
+.ui-dark .ui-disabled .ui-slider-thumb { background: #555 !important; }
