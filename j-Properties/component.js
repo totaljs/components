@@ -1,6 +1,5 @@
-COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timeformat:HH:mm;offset:0;margin:0;modalalign:center;visibleY:1', function(self, config) {
+COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timeformat:HH:mm;offset:0;margin:0;modalalign:center;visibleY:1;scrollbar:1', function(self, config, cls) {
 
-	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
 	var container;
 	var scroller;
@@ -19,8 +18,11 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 
 		self.append('<div class="{0}-scroller"><div class="{0}-container"></div></div>'.format(cls, config.search));
 		container = self.find(cls2 + '-container');
-		scroller = self.find(cls2 + '-scroller');
-		self.scrollbar = SCROLLBAR(scroller, { visibleY: config.visibleY, orientation: 'y' });
+
+		if (config.scrollbar) {
+			scroller = self.find(cls2 + '-scroller');
+			self.scrollbar = SCROLLBAR(scroller, { visibleY: config.visibleY, orientation: 'y' });
+		}
 
 		self.event('click', 'label', function() {
 			var el = $(this).closest(cls2 + '-group');
@@ -45,7 +47,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 
 		self.on('resize + resize2', self.resize2);
 		self.resize();
-		self.scrollbar.resize();
+		self.scrollba && self.scrollbar.resize();
 
 		var keys = Object.keys(types);
 		for (var i = 0; i < keys.length; i++) {
@@ -510,22 +512,18 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 	self.bindvisible();
 
 	self.resize = function() {
-		var h = 0;
 
-		if (config.height > 0)
-			h = config.height;
-		else if (config.parent)
-			h = (config.parent === 'window' ? WH : config.parent === 'parent' ? self.parent().height() : self.closest(config.parent).height()) - config.offset;
-
-		h -= config.margin;
+		var h = self.parent(config.parent).height() - config.margin;
 
 		if (prevh === h)
 			return;
 
 		prevh = h;
 
-		scroller.css('height', h);
-		self.scrollbar.resize();
+		if (self.scrollbar) {
+			scroller.css('height', h);
+			self.scrollbar.resize();
+		}
 	};
 
 	self.resize2 = function() {
