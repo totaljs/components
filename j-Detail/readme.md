@@ -9,7 +9,7 @@ __Configuration__:
 - `datetimeformat` {String} a date/time format (default: `yyyy-MM-dd HH:mm`)
 - `numberformat` {Number} a default number format (default: empty)
 - `small` {Boolean} enables smaller design (default: `false`)
-- `style` {Number} component style (default: `1`), supports style `2`
+- `style` {Number} component style (default: `1`), supports style `2` and `3` (minimal)
 - `defaultgroup` {String} a default group name (default: `Default`)
 
 __Data declaration__:
