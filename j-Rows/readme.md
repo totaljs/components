@@ -15,7 +15,7 @@ __Configuration__:
 
 __Good to know__:
 
-Each column must be wrappend in `<section>`, try to understand from example.
+Each row must be wrappend in `<section>`, try to understand from example.
 
 __Attributes__:
 
