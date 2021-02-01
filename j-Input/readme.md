@@ -60,6 +60,7 @@ __Interesting:__
 - `type:time` needs __`timerpicker`__ component
 - `dirsource:path.to.datasource` needs __`directory`__ component
 - if `licon` or `ricon` starts with `!` then the component render a raw value instead of `icon`
+- `ui-input-ok` class is binded when the input is validated and filled
 
 ### Author
 

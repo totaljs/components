@@ -799,11 +799,12 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 	self.state = function(type) {
 		if (type) {
 			var invalid = config.required ? self.isInvalid() : self.forcedvalidation() ? self.isInvalid() : false;
-			if (invalid === self.$oldstate)
-				return;
-			self.$oldstate = invalid;
-			self.tclass(cls + '-invalid', invalid);
-			config.error && self.find(cls2 + '-error').tclass('hidden', !invalid);
+			if (invalid !== self.$oldstate) {
+				self.$oldstate = invalid;
+				self.tclass(cls + '-invalid', invalid);
+				self.tclass(cls + '-ok', !invalid);
+				config.error && self.find(cls2 + '-error').tclass('hidden', !invalid);
+			}
 		}
 	};
 
