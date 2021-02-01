@@ -75,7 +75,6 @@ COMPONENT('rows', 'parent:window;margin:0;fontsize:0', function(self, config, cl
 					if (p)
 						s = s.substring(0, s.length - 1);
 
-
 					if (p) {
 						size = +s;
 						size = (wh / 100) * size;

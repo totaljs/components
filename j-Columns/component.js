@@ -1,4 +1,4 @@
-COMPONENT('columns', 'parent:window;margin:0', function(self, config, cls) {
+COMPONENT('columns', 'parent:window;margin:0;fontsize:0', function(self, config, cls) {
 
 	var columns;
 	var cache;
@@ -69,10 +69,24 @@ COMPONENT('columns', 'parent:window;margin:0', function(self, config, cls) {
 					s = 0;
 
 				if (s) {
-					size = +s;
+
+					var p = s.charAt(s.length - 1) === '%';
+					if (p)
+						s = s.substring(0, s.length - 1);
+
+					if (p) {
+						size = +s;
+						size = (w / 100) * size;
+					} else
+						size = +s;
+
 					total += size;
 					css.width = size;
 					css.height = wh;
+
+					if (config.fontsize)
+						css['font-size'] = Math.ceil((size / w) * 100) + '%';
+
 					el.css(css).rclass('hidden invisible');
 				} else
 					el.aclass('hidden');
@@ -86,6 +100,10 @@ COMPONENT('columns', 'parent:window;margin:0', function(self, config, cls) {
 			var el = notdefined[i];
 			css.width = sum;
 			css.height = wh;
+
+			if (config.fontsize)
+				css['font-size'] = Math.ceil((sum / w) * 100) + '%';
+
 			el.css(css);
 		}
 
