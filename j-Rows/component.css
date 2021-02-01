@@ -1,0 +1,5 @@
+.ui-rows > section { border-top: 1px solid #E0E0E0; }
+.ui-rows > section:first-child { border-top: 0; }
+.ui-rows-noborder > section { border-top: 0 !important; }
+
+.ui-dark .ui-rows > section { border-top-color: #404040; }
