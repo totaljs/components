@@ -83,12 +83,13 @@ COMPONENT('centered', 'closebutton:1;closeesc:1;scrollbar:1;visibleY:0', functio
 	self.setter = function(value) {
 		var is = value === config.if;
 		var hs = self.hclass('hidden');
+
 		if (is === hs) {
 			if (is) {
 				self.makeforce && self.makeforce();
 				config.closeesc && events.bind();
-				config.default && DEFAULT(config.default, true);
-				config.reload && EXEC(config.reload, self);
+				config.default && DEFAULT(self.makepath(config.default), true);
+				config.reload && self.EXEC(config.reload, self);
 				config.zindex && self.css('z-index', config.zindex);
 				if (!isMOBILE && config.autofocus) {
 					setTimeout(function() {
