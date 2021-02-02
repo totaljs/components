@@ -30,16 +30,16 @@ COMPONENT('banners', 'class:ui-banners-hidden;interval:3000;icon:fa fa-circle', 
 		self.button(indexer);
 
 		self.event('click', 'li', function() {
-			self.show($(this).parent().index());
+			self.show($(this).index());
 		});
 
 		self.rclass('invisible hidden', 500);
 	};
 
 	self.show = function(index) {
-		if (index !== undefined && interval)
+		if (index != null && interval)
 			clearInterval(interval);
-		else if (index === undefined) {
+		else if (index == null) {
 			indexer++;
 			if (indexer >= divs.length)
 				indexer = 0;
