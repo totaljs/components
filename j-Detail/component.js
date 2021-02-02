@@ -32,9 +32,9 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 	self.nocompile();
 	self.bindvisible();
 
-	self.mapvalue = function(item) {
+	self.mapvalue = function(item, raw) {
 		var val = item.path ? item.path.indexOf('.') === -1 ? item.value[item.path] : GET(item.path, item.value) : item.value;
-		return val === false || val === true ? val : val == null || val === '' ? (item.empty || DEF.empty) : val;
+		return raw ? val : (val === false || val === true ? val : val == null || val === '' ? (item.empty || DEF.empty) : val);
 	};
 
 	self.register = function(name, init, render) {
@@ -185,7 +185,11 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 
 		for (var i = 0; i < value.length; i++) {
 			var item = value[i];
+
 			if (raw && item.show && !item.show(raw))
+				continue;
+
+			if (config.notnull && self.mapvalue(item, true) == null)
 				continue;
 
 			var g = item.group || config.defaultgroup;

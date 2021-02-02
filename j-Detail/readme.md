@@ -11,6 +11,7 @@ __Configuration__:
 - `small` {Boolean} enables smaller design (default: `false`)
 - `style` {Number} component style (default: `1`), supports style `2` and `3` (minimal)
 - `defaultgroup` {String} a default group name (default: `Default`)
+- `notnull` {Boolean} skips nullable values (default: `false`)
 
 __Data declaration__:
 
