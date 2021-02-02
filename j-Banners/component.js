@@ -1,4 +1,4 @@
-COMPONENT('banners', 'class:ui-banners-hidden;interval:3000', function(self, config, cls) {
+COMPONENT('banners', 'class:ui-banners-hidden;interval:3000;icon:far fa-circle', function(self, config, cls) {
 
 	var divs, nav, interval, indexer = 0;
 
@@ -22,7 +22,7 @@ COMPONENT('banners', 'class:ui-banners-hidden;interval:3000', function(self, con
 
 		var builder = [];
 		for (var i = 0, length = divs.length; i < length; i++)
-			builder.push('<li><i class="fa fa-circle-o"></i></li>');
+			builder.push('<li><i class="' + config.icon + '"></i></li>');
 
 		self.append('<img src="{0}" class="img-responsive" alt="" /><ul>{1}</ul>'.format(config.empty, builder.join('')));
 		nav = self.find('li');
@@ -48,7 +48,7 @@ COMPONENT('banners', 'class:ui-banners-hidden;interval:3000', function(self, con
 	};
 
 	self.button = function(index) {
-		nav.find('.fa-circle').rclass('fa-circle').aclass('fa-circle-o');
-		nav.eq(index).find('i').rclass('fa-circle-o').aclass('fa-circle');
+		nav.filter('.selected').rclass('selected');
+		nav.eq(index).aclass('selected');
 	};
 });
