@@ -1,0 +1,4 @@
+.ui-carousel2 { overflow: hidden; }
+.ui-carousel2 .ui-carousel2-container { width: 100%; overflow-x: scroll; overflow-y: hidden; overflow-scrolling: touch; -webkit-overflow-scrolling: touch; }
+.ui-carousel2 .ui-carousel2-body { padding-bottom: 30px; }
+.ui-carousel2 .ui-carousel2-body > figure { float: left; cursor: grab; }
