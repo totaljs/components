@@ -1,4 +1,4 @@
-COMPONENT('banners', 'class:ui-banners-hidden;interval:3000;icon:far fa-circle', function(self, config, cls) {
+COMPONENT('banners', 'class:ui-banners-hidden;interval:3000;icon:fa fa-circle', function(self, config, cls) {
 
 	var divs, nav, interval, indexer = 0;
 
@@ -28,7 +28,8 @@ COMPONENT('banners', 'class:ui-banners-hidden;interval:3000;icon:far fa-circle',
 		self.append('<img src="{0}" class="img-responsive" alt="" /><ul>{1}</ul>'.format(config.empty, builder.join('')));
 		nav = self.find('li');
 		self.button(indexer);
-		self.event('click', '.fa', function() {
+
+		self.event('click', 'li', function() {
 			self.show($(this).parent().index());
 		});
 
