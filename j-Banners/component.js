@@ -11,6 +11,7 @@ COMPONENT('banners', 'class:ui-banners-hidden;interval:3000;icon:far fa-circle',
 	};
 
 	self.make = function() {
+
 		self.element.wrapInner('<div />');
 		self.aclass(cls);
 
@@ -30,6 +31,8 @@ COMPONENT('banners', 'class:ui-banners-hidden;interval:3000;icon:far fa-circle',
 		self.event('click', '.fa', function() {
 			self.show($(this).parent().index());
 		});
+
+		self.rclass('invisible hidden', 500);
 	};
 
 	self.show = function(index) {
