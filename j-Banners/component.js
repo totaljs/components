@@ -1,17 +1,20 @@
-COMPONENT('banners', 'class:ui-banners-hidden;interval:3000', function(self, config) {
+COMPONENT('banners', 'class:ui-banners-hidden;interval:3000', function(self, config, cls) {
 
 	var divs, nav, interval, indexer = 0;
 
 	self.readonly();
-	self.nocompile && self.nocompile();
+	self.nocompile();
+
+	self.destroy = function() {
+		interval && clearInterval(interval);
+		interval = null;
+	};
 
 	self.make = function() {
 		self.element.wrapInner('<div />');
-		self.aclass('ui-banners');
+		self.aclass(cls);
 
-		interval = setInterval(function() {
-			self.show();
-		}, config.interval);
+		interval = setInterval(self.show, config.interval);
 
 		divs = self.find('div > div');
 		divs.aclass(config.class);
