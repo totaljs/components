@@ -1,4 +1,4 @@
-COMPONENT('carousel2', 'count:1;selector:figure;margin:10;snapping:true;animate:0;delay:2000', function(self, config, cls) {
+COMPONENT('carousel2', 'count:1;selector:figure;margin:10;snapping:true;animate:5000;delay:2000', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var width = 0;
