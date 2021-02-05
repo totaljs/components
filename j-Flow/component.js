@@ -703,6 +703,10 @@ EXTENSION('flow:operations', function(self, config) {
 
 			var path = $(this);
 			var meta = self.helpers.parseconnection(path);
+
+			if (!meta)
+				return;
+
 			var output = self.find('.component[data-id="{0}"]'.format(meta.fromid)).find('.output[data-index="{0}"]'.format(meta.fromindex));
 			var input = self.find('.component[data-id="{0}"]'.format(meta.toid)).find('.input[data-index="{0}"]'.format(meta.toindex));
 			var a = self.helpers.position(output, true);
