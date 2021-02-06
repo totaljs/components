@@ -1,6 +1,6 @@
 COMPONENT('validation', 'delay:100;flags:visible', function(self, config, cls) {
 
-	var path, elements = null;
+	var elements = null;
 	var def = 'button[name="submit"]';
 	var flags = null;
 	var tracked = false;
@@ -11,7 +11,6 @@ COMPONENT('validation', 'delay:100;flags:visible', function(self, config, cls) {
 
 	self.make = function() {
 		elements = self.find(config.selector || def);
-		path = self.path.replace(/\.\*$/, '');
 	};
 
 	self.configure = function(key, value, init) {
@@ -62,9 +61,10 @@ COMPONENT('validation', 'delay:100;flags:visible', function(self, config, cls) {
 	};
 
 	var check = function() {
+		var path = self.path.replace(/\.\*$/, '');
 		var disabled = tracked ? !VALID(path, flags) : DISABLED(path, flags);
 		if (!disabled && config.if)
-			disabled = !EVALUATE(self.path, config.if);
+			disabled = !EVALUATE(path, config.if);
 		if (disabled !== old) {
 			elements.prop('disabled', disabled);
 			self.tclass(cls + '-ok', !disabled);
