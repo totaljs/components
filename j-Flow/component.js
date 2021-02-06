@@ -22,7 +22,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 	self.make = function() {
 		self.aclass(cls);
 
-		self.html('<svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="svg-grid" width="{grid}" height="{grid}" patternunits="userSpaceOnUse"><path d="M {grid} 0 L 0 0 0 {grid}" fill="none" class="ui-flow-grid" shape-rendering="crispEdges" /></pattern></defs><rect width="100%" height="100%" fill="url(#svg-grid)" shape-rendering="crispEdges" /><g class="lines"></g><g class="anim"></g></svg>'.arg(config));
+		self.html('<svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="jflowgrid" width="{grid}" height="{grid}" patternunits="userSpaceOnUse"><path d="M {grid} 0 L 0 0 0 {grid}" fill="none" class="ui-flow-grid" shape-rendering="crispEdges" /></pattern></defs><rect width="100%" height="100%" fill="url(#jflowgrid)" shape-rendering="crispEdges" /><g class="lines"></g><g class="anim"></g></svg>'.arg(config));
 		self.el.svg = self.find('svg');
 		self.el.anim = self.el.svg.find('g.anim');
 		self.el.lines = self.el.svg.find('g.lines');
