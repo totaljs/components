@@ -185,7 +185,7 @@ COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;
 
 				if (config.type === 'curves') {
 					if (i)
-						data[j].push(self.diagonal(prev[j][0], prev[j][1], mx, my + r));
+						data[j].push(self.diagonal(prev[j][0], prev[j][1] + r, mx, my + r));
 					else
 						data[j].push('M{0} {1}'.format(mx, my + r));
 				} else
