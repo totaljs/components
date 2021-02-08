@@ -18,12 +18,18 @@ COMPONENT('columns', 'parent:window;margin:0;fontsize:0', function(self, config,
 	};
 
 	self.resizeforce = function() {
+
 		var parent = self.parent(config.parent);
 		var wh = parent.height();
-		var w = self.element.width();
+		var w = self.element.width() || parent.width();
+
+		if (!w)
+			return;
+
 		var key = w + 'x' + wh;
 		if (cache === key)
 			return;
+
 		cache = key;
 		var notdefined = [];
 		var total = 0;
