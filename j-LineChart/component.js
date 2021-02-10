@@ -1,4 +1,4 @@
-COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;fill:false;point:5;fillopacity:0.1;offsetX:0;offsetY:10;selected:{{ value | format(0) }};templateY:{{ value | format(0) }};templateX:{{ value }};axisY:true;axisX:true;height:0;width:0', function(self, config, cls) {
+COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;fill:false;point:5;fillopacity:0.1;offsetX:0;offsetY:10;selected:{{ value | format(0) }};templateY:{{ value | format(0) }};templateX:{{ value }};axisY:true;axisX:true;height:0;width:0;yaxis:4', function(self, config, cls) {
 
 	var svg, g, axis, selected, points, fills, selectedold;
 	var templateX, templateY, templateS;
@@ -120,7 +120,7 @@ COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;
 		for (var i = 0; i < len; i++) {
 			var item = value[i];
 			labels.push(item.name);
-			for (var j = 0, length = item.values.length; j < length; j++) {
+			for (var j = 0; j < item.values.length; j++) {
 				var val = item.values[j];
 				maxY = maxY == null ? val.y : maxY < val.y ? val.y : maxY;
 				minY = minY == null ? val.y : minY > val.y ? val.y : minY;
@@ -230,19 +230,27 @@ COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;
 		if (typeof(config.avg) === 'number') {
 			var at = 100 - ((config.avg / maxY) * 100);
 			var ay = ((lines.height / 100) * at) + config.pt;
-			axis.asvg('line').attr('x1', 0).attr('x2', width).attr('y1', ay).attr('y2', ay).attr('class', 'axis-avg');
 			T.value = config.avg;
 			axis.asvg('text').aclass('ylabel-avg').attr('transform', 'translate({0},{1})'.format(width - config.pr - config.offsetX, ay - config.offsetY)).text(templateY(T));
+			axis.asvg('line').attr('x1', 0).attr('x2', width).attr('y1', ay).attr('y2', ay).attr('class', 'axis-avg');
 		}
 
 		for (var j = 0; j < len; j++)
 			g.asvg('path').attr('d', data[j].join(' ')).aclass('line' + (j + 1));
 
 		// Y axis
-		for (var i = 5; i > 0; i--) {
-			var val = i * 20;
+		var yaxis = config.yaxis;
+		var m = 100 / yaxis;
+
+		for (var i = yaxis; i > 0; i--) {
+			var val = i * m;
 			var y = ((lines.height / 100) * val) + config.pt;
 			config.axisY && axis.asvg('line').attr('x1', 0).attr('x2', width).attr('y1', y).attr('y2', y).attr('class', 'axis');
+		}
+
+		for (var i = yaxis; i > 0; i--) {
+			var val = i * m;
+			var y = ((lines.height / 100) * val) + config.pt;
 			T.value = ((maxY / 100) * (100 - val)) - minY;
 			axis.asvg('text').aclass('ylabel').attr('transform', 'translate({0},{1})'.format(config.offsetX, y - config.offsetY)).text(templateY(T));
 		}
