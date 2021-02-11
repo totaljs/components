@@ -129,17 +129,16 @@ COMPONENT('message', 'button:OK', function(self, config, cls) {
 
 		self.rclass2(cls + '-').aclass(classname);
 		self.find(cls2 + '-body').rclass().aclass(cls + '-body');
-
-		if (is)
-			self.find(cls2 + '-icon').find('.fa').rclass2('fa').aclass(icon);
-
+		is && self.find(cls2 + '-icon').find('.fa').rclass2('fa').aclass(icon);
 		self.find(cls2 + '-text').html(text);
 		self.rclass('hidden');
+		self.element.focus();
 		is = true;
 		events.bind();
 		setTimeout(function() {
 			self.aclass(cls + '-visible');
 			setTimeout(function() {
+				self.element.focus();
 				self.find(cls2 + '-icon').aclass(cls + '-icon-animate');
 			}, 300);
 		}, 100);
