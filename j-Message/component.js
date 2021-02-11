@@ -135,11 +135,12 @@ COMPONENT('message', 'button:OK', function(self, config, cls) {
 		self.element.focus();
 		is = true;
 		events.bind();
+		document.activeElement && document.activeElement.blur();
 		setTimeout(function() {
 			self.aclass(cls + '-visible');
 			setTimeout(function() {
-				self.element.focus();
 				self.find(cls2 + '-icon').aclass(cls + '-icon-animate');
+				document.activeElement && document.activeElement.blur();
 			}, 300);
 		}, 100);
 	};

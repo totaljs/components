@@ -21,10 +21,7 @@ COMPONENT('loading', function(self, config, cls) {
 		}
 
 		self.rclass('hidden');
-		self.element.focus();
-		setTimeout(function() {
-			self.element.focus();
-		}, 100);
+		document.activeElement && document.activeElement.blur();
 		return self;
 	};
 

@@ -95,10 +95,7 @@ COMPONENT('approve', 'cancel:Cancel', function(self, config, cls) {
 		self.rclass('hidden');
 		events.bind();
 		self.aclass(cls + '-visible', 5);
-		self.element.focus();
-		setTimeout(function() {
-			self.element.focus();
-		}, 1000);
+		document.activeElement && document.activeElement.blur();
 	};
 
 	self.hide = function(index) {
