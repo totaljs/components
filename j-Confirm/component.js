@@ -109,6 +109,10 @@ COMPONENT('confirm', function(self, config, cls) {
 		events.bind();
 		setTimeout2(self.id, function() {
 			self.aclass(cls + '-visible');
+			self.element.focus();
+			setTimeout(function() {
+				self.element.focus();
+			}, 1000);
 		}, 5);
 	};
 });
