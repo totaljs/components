@@ -1,8 +1,9 @@
-COMPONENT('websocket', 'reconnect:3000;encoder:true', function(self, config) {
+COMPONENT('websocket', 'reconnect:3000;encoder:false', function(self, config) {
 
 	var ws, url;
 	var queue = [];
 	var sending = false;
+	var isidle = false;
 
 	self.online = false;
 	self.readonly();
@@ -11,18 +12,12 @@ COMPONENT('websocket', 'reconnect:3000;encoder:true', function(self, config) {
 	self.make = function() {
 		url = (config.url || '').env(true);
 		if (!url.match(/^(ws|wss):\/\//))
-			url = (location.protocol.length === 6 ? 'wss' : 'ws') + '://' + location.host + (url.substring(0, 1) !== '/' ? '/' : '') + url;
+			url = location.origin.replace('http', 'ws') + (url.charAt(0) !== '/' ? '/' : '') + url;
 		setTimeout(self.connect, 500);
-		self.destroy = self.close;
-
-		$(W).on('offline', function() {
+		self.destroy = function() {
+			isidle = true;
 			self.close();
-		});
-
-		$(W).on('online', function() {
-			setTimeout(self.connect, config.reconnect);
-		});
-
+		};
 	};
 
 	self.send = function(obj) {
@@ -35,6 +30,20 @@ COMPONENT('websocket', 'reconnect:3000;encoder:true', function(self, config) {
 		return self;
 	};
 
+	self.idletime = function(is) {
+		if (isidle !== is) {
+			isidle = is;
+			if (is) {
+				// close
+				ws && self.close();
+			} else {
+				// open
+				if (!ws)
+					self.connect();
+			}
+		}
+	};
+
 	self.process = function(callback) {
 
 		if (!ws || !ws.send || sending || !queue.length || ws.readyState !== 1) {
@@ -43,6 +52,7 @@ COMPONENT('websocket', 'reconnect:3000;encoder:true', function(self, config) {
 		}
 
 		sending = true;
+
 		var async = queue.splice(0, 3);
 
 		async.wait(function(item, next) {
@@ -61,21 +71,14 @@ COMPONENT('websocket', 'reconnect:3000;encoder:true', function(self, config) {
 	};
 
 	self.close = function(isClosed) {
-		if (!ws)
-			return self;
-		self.online = false;
-		ws.onopen = ws.onclose = ws.onmessage = null;
-		!isClosed && ws.close();
-		ws = null;
-		self.isonline(false);
+		if (ws) {
+			self.online = false;
+			ws.onopen = ws.onclose = ws.onmessage = null;
+			!isClosed && ws.close();
+			ws = null;
+			EMIT('online', false);
+		}
 		return self;
-	};
-
-	self.isonline = function(is) {
-		if (config.online)
-			self.EXEC(config.online, is);
-		else
-			EMIT('online', is);
 	};
 
 	function onClose(e) {
@@ -87,39 +90,37 @@ COMPONENT('websocket', 'reconnect:3000;encoder:true', function(self, config) {
 
 		e.reason && WARN('WebSocket:', config.encoder ? decodeURIComponent(e.reason) : e.reason);
 		self.close(true);
-		setTimeout(self.connect, config.reconnect);
+
+		if (!isidle)
+			setTimeout(self.connect, config.reconnect);
 	}
 
 	function onMessage(e) {
-
 		var data;
-
 		try {
 			data = PARSE(config.encoder ? decodeURIComponent(e.data) : e.data);
+			self.path && self.set(data);
 		} catch (e) {
-			return;
+			WARN('WebSocket "{0}": {1}'.format(url, e.toString()));
 		}
-
-		if (config.message)
-			self.EXEC(config.message, data);
-		else
-			EMIT('message', data);
+		data && EMIT('message', data);
 	}
 
 	function onOpen() {
 		self.online = true;
 		self.process(function() {
-			self.isonline(true);
+			EMIT('online', true);
 		});
 	}
 
 	self.connect = function() {
 		ws && self.close();
-		setTimeout2(self.ID, function() {
+		setTimeout2(self.id, function() {
 			ws = new WebSocket(url.env(true));
 			ws.onopen = onOpen;
 			ws.onclose = onClose;
 			ws.onmessage = onMessage;
+			self.ws = ws;
 		}, 100);
 		return self;
 	};

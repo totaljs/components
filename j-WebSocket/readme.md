@@ -16,6 +16,7 @@ __Methods__:
 - `component.send(obj)` - sends JSON serialized object to the server
 - `component.close()` - closes connection
 - `component.connect()` - opens connection
+- `component.idle(is)` - __NEW__ can cancel/reopen connection
 
 __Events__:
 
