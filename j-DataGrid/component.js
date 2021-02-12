@@ -175,9 +175,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 	self.init = function() {
 
 		ON('resize + resize2', function() {
-			setTimeout2('datagridresize', function() {
-				SETTER('datagrid/resize');
-			}, 500);
+			setTimeout2('datagridresize', ASETTER('datagrid/resize'), 500);
 		});
 
 		Thelpers.ui_datagrid_autoformat = function(val, type) {
