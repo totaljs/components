@@ -1,4 +1,4 @@
-COMPONENT('carousel2', 'count:1;selector:figure;margin:10;snapping:true;animate:5000;delay:2000', function(self, config, cls) {
+COMPONENT('carousel2', 'count:1;selector:figure;margin:10;snapping:true;animate:5000;delay:2000;marginheight:0', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var width = 0;
@@ -16,7 +16,6 @@ COMPONENT('carousel2', 'count:1;selector:figure;margin:10;snapping:true;animate:
 	var treset;
 
 	self.readonly();
-	self.blind();
 
 	self.destroy = function() {
 		if (anim) {
@@ -25,15 +24,19 @@ COMPONENT('carousel2', 'count:1;selector:figure;margin:10;snapping:true;animate:
 		}
 	};
 
+	self.refresh = function() {
+		setTimeout(self.resizeforce, 50);
+		setTimeout(self.resizeforce, 500);
+		setTimeout(self.resizeforce, 2000);
+		container = self.find(cls2 + '-container');
+	};
+
 	self.make = function() {
 
 		self.aclass(cls + ' invisible');
 		self.element.wrapInner('<div class="{0}-container"><div class="{0}-body"></div></div>'.format(cls));
 		self.on('resize2', self.resize);
-		setTimeout(self.resizeforce, 50);
-		setTimeout(self.resizeforce, 500);
-		setTimeout(self.resizeforce, 2000);
-		container = self.find(cls2 + '-container');
+		self.refresh();
 
 		drag.tmove = function() {
 			if (anim) {
@@ -137,21 +140,25 @@ COMPONENT('carousel2', 'count:1;selector:figure;margin:10;snapping:true;animate:
 		}
 
 		var sum = 0;
-		var height = 0;
 
 		width = w / config.count;
 		margin = config.margin / config.count;
 		count = 0;
 
 		var arr = self.find(config.selector);
+		var height = config.parent ? (self.parent(config.parent).height() - config.marginheight) : 0;
+		var countheight = !height;
 
 		arr.each(function() {
 			var el = $(this);
-			height = Math.max(el.innerHeight(), height);
+			if (countheight)
+				height = Math.max(el.innerHeight(), height);
 			var css = {};
 			sum += width + config.margin;
 			css.width = width - (config.margin - margin);
 			css['margin-right'] = config.margin;
+			if (!countheight)
+				css.height = height;
 			el.css(css);
 			count++;
 		});
@@ -172,4 +179,10 @@ COMPONENT('carousel2', 'count:1;selector:figure;margin:10;snapping:true;animate:
 		}
 
 	};
+
+	self.setter = function() {
+		self.refresh();
+		container.stop().animate({ scrollLeft: 0 }, 300);
+	};
+
 });
