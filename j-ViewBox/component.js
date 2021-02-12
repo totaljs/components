@@ -5,6 +5,7 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 	var cls2 = '.' + cls;
 	var init = false;
 	var cache;
+	var scrolltoforce;
 
 	self.readonly();
 
@@ -90,11 +91,11 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 
 	var css = {};
 
-	self.resize = function(scrollto) {
-		setTimeout2(self.ID, self.resizeforce, 200, null, scrollto);
+	self.resize = function() {
+		setTimeout2(self.ID, self.resizeforce, 200);
 	};
 
-	self.resizeforce = function(scrollto) {
+	self.resizeforce = function() {
 
 		var el = self.parent(config.parent);
 		var h = el.height();
@@ -105,11 +106,12 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		var key = width + 'x' + mywidth + 'x' + w + 'x' + h;
 		if (cache === key) {
 			scrollbar && scrollbar.resize();
-			if (scrollto) {
-				if (scrollto ==='bottom')
+			if (scrolltoforce) {
+				if (scrolltoforce ==='bottom')
 					self.scrollbottom(0);
 				else
 					self.scrolltop(0);
+				scrolltoforce = null;
 			}
 			return;
 		}
@@ -148,11 +150,12 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		self.hclass(c) && self.rclass(c, 100);
 		scrollbar && scrollbar.resize();
 
-		if (scrollto) {
-			if (scrollto ==='bottom')
+		if (scrolltoforce) {
+			if (scrolltoforce ==='bottom')
 				self.scrollbottom(0);
 			else
 				self.scrolltop(0);
+			scrolltoforce = null;
 		}
 
 		if (!init) {
@@ -166,6 +169,14 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 	};
 
 	self.setter = function() {
-		setTimeout(self.resize, config.delay, config.scrollto || config.scrolltop);
+		scrolltoforce = config.scrollto || config.scrolltop;
+		if (scrolltoforce) {
+			if (scrolltoforce ==='bottom')
+				self.scrollbottom(0);
+			else
+				self.scrolltop(0);
+			scrolltoforce = null;
+		}
+		setTimeout(self.resize, config.delay, scrolltoforce);
 	};
 });
