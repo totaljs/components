@@ -494,7 +494,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			var el = $(this);
 			var index = +el.closest('.dg-hcol').attrd('index');
 			var col = opt.cols[index];
-			var opts = col.options instanceof Array ? col.options : GET(col.options);
+			var opts = col.options instanceof Array ? col.options : GET(self.makepath(col.options));
 			var dir = {};
 
 			controls.hide();
@@ -817,7 +817,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 			if (col.options) {
 				if (val)
-					val = (col.options instanceof Array ? col.options : GET(col.options))[+val][col.ovalue];
+					val = (col.options instanceof Array ? col.options : GET(self.makepath(col.options)))[+val][col.ovalue];
 				else
 					val = null;
 			}
@@ -1067,7 +1067,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			var key = keys[i];
 			var col = opt.cols.findItem('name', key);
 			if (col.options) {
-				var items = col.options instanceof Array ? col.options : GET(col.options);
+				var items = col.options instanceof Array ? col.options : GET(self.makepath(col.options));
 				if (items instanceof Array) {
 					var item = items.findItem(col.ovalue, obj[key]);
 					if (item) {
@@ -1331,7 +1331,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 		for (var i = 0; i < opt.cols.length; i++) {
 			var col = opt.cols[i];
 			if (!col.hidden) {
-				var filteritems = col.options ? col.options instanceof Array ? col.options : GET(col.options) : null;
+				var filteritems = col.options ? col.options instanceof Array ? col.options : GET(self.makepath(col.options)) : null;
 				var filtervalue = opt.filtervalues[col.id];
 				var obj = { index: i, ts: NOW.getTime(), label: col.header(col), filter: col.filter, reorder: config.reorder, sorting: col.sorting, name: col.name, alignfilter: col.alignfilter, alignheader: col.alignheader, filterval: filtervalue == null ? null : filteritems ? filteritems.findValue(col.ovalue, filtervalue, col.otext, '???') : filtervalue, labeltitle: col.title || col.text, options: filteritems };
 				opt.width += col.width;
@@ -2272,6 +2272,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			var opt = {};
 			opt.element = el;
 			opt.items = meta.col.options;
+
+			if (typeof(opt.items) === 'string')
+				opt.items = self.makepath(opt.items);
+
 			opt.key = meta.col.otext;
 			opt.placeholder = meta.col.dirsearch ? meta.col.dirsearch : '';
 			if (meta.col.dirsearch === false)
