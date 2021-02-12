@@ -2239,7 +2239,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 		if (current && current.is) {
 			current.is = false;
 			force && current.el.replaceWith(current.backup);
-			current.input.off();
+			current.input && current.input.off();
 			$(W).off('keydown', current.fn).off('click', current.fn);
 		}
 	};
