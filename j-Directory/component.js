@@ -423,7 +423,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		var item;
 
 		if (type === 'string') {
-			items = GET(items);
+			items = opt.items = GET(items);
 			type = typeof(items);
 		}
 
