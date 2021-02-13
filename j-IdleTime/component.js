@@ -10,11 +10,15 @@ COMPONENT('idletime', 'count:300', function(self, config) {
 	var $W = $(W);
 
 	self.singleton();
-	self.blind();
 	self.readonly();
 
 	function rebind() {
-		is && EMIT('idletime', false);
+
+		if (is) {
+			EMIT('idletime', false);
+			self.path && self.set(false);
+		}
+
 		is = false;
 		countfocus = 0;
 		count = 0;
@@ -72,7 +76,8 @@ COMPONENT('idletime', 'count:300', function(self, config) {
 
 			if ((count > config.count || countfocus > config.count) && !is) {
 				is = true;
-				EMIT('idletime', true);
+				self.path && self.set(is);
+				EMIT('idletime', is);
 			} else
 				count++;
 
