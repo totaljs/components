@@ -783,7 +783,7 @@ EXTENSION('flow:map', function(self, config) {
 		var y = (drag.y - e.pageY);
 
 		if (drag.target[0]) {
-			drag.target[0].scrollTop +=  ((y / 6) / drag.zoom) >> 0;
+			drag.target[0].scrollTop += ((y / 6) / drag.zoom) >> 0;
 			drag.target[0].scrollLeft += ((x / 6) / drag.zoom) >> 0;
 		}
 	};
