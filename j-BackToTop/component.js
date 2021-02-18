@@ -25,7 +25,7 @@ COMPONENT('backtotop', 'icon:fa fa-arrow-circle-up', function(self, config, cls)
 	self.make = function() {
 
 		self.aclass(cls);
-		self.html('<span><i class="{0}"></i></span>'.format(self.icon(config.icon)));
+		self.html('<span><i class="{0}"></i></span>'.format(self.faicon(config.icon)));
 
 		self.event('click', function() {
 			document.body.scrollTop = 0;
