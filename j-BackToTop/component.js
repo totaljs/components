@@ -2,6 +2,7 @@ COMPONENT('backtotop', function(self, config, cls) {
 
 	var visible = false;
 	var timeout = null;
+	var $W;
 
 	self.singleton();
 	self.nocompile && self.nocompile();
@@ -31,7 +32,7 @@ COMPONENT('backtotop', function(self, config, cls) {
 			document.documentElement.scrollTop = 0;
 		});
 
-		var $W = $(W);
+		$W = $(W);
 
 		$W.on('scroll', function() {
 			timeout && clearTimeout(timeout);
