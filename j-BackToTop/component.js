@@ -1,43 +1,42 @@
-COMPONENT('backtotop', function(self) {
+COMPONENT('backtotop', function(self, config, cls) {
 
-	var height = 0;
 	var visible = false;
+	var timeout = null;
 
 	self.singleton();
 	self.nocompile && self.nocompile();
 
+	self.onscroll = function() {
+		timeout = null;
+		var position = $W.scrollTop();
+		if (position > WH) {
+			if (visible)
+				return;
+			visible = true;
+		} else {
+			if (!visible)
+				return;
+			visible = false;
+		}
+		self.tclass('active', visible);
+	};
+
 	self.make = function() {
 
-		var $w = $(window);
-
-		self.aclass('ui-backtotop');
-		self.html('<a href="javascript:void(0)"><i class="fa fa-arrow-circle-up"></i></a>');
+		self.aclass(cls);
+		self.html('<span><i class="fa fa-arrow-circle-up"></i></span>');
 
 		self.event('click', function() {
 			document.body.scrollTop = 0;
 			document.documentElement.scrollTop = 0;
 		});
 
-		height = $w.height();
+		var $W = $(W);
 
-		$w.on('resize', function() {
-			height = $w.height();
-		});
-
-		$w.on('scroll', function() {
-			setTimeout2(self.id, function() {
-				var position = $w.scrollTop();
-				if (position > height) {
-					if (visible)
-						return;
-					visible = true;
-				} else {
-					if (!visible)
-						return;
-					visible = false;
-				}
-				self.tclass('active', visible);
-			}, 200);
+		$W.on('scroll', function() {
+			timeout && clearTimeout(timeout);
+			timeout = setTimeout(self.onscroll, 200);
 		});
 	};
+
 });

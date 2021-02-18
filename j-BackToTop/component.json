@@ -1,9 +1,10 @@
 {
 	"datecreated": "2017-12-12T19:59:00.000Z",
-	"dateupdated": "2018-11-08T19:40:00.000Z",
+	"dateupdated": "2021-02-18T13:41:00.000Z",
 	"name": "j-BackToTop",
 	"tags": [
-		"jcomponent"
+		"up",
+		"button"
 	],
 	"color": "silver",
 	"version": 1,
