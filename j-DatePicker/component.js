@@ -390,7 +390,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 		});
 
 		self.years = function() {
-			dom = self.find(cls2 + '-years').find(cls2 + '-year');
+			var dom = self.find(cls2 + '-years').find(cls2 + '-year');
 			var year = current.getFullYear();
 			var index = 12;
 			for (var i = 0; i < 25; i++) {
