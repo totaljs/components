@@ -265,6 +265,8 @@ COMPONENT('menu', function(self, config, cls) {
 			css.top = opt.y;
 		}
 
+		css.top -= 10;
+
 		if (opt.offsetX)
 			css.left += opt.offsetX;
 

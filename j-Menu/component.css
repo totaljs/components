@@ -1,4 +1,4 @@
-.ui-menu { position: absolute; z-index: 100; transform-origin: top left; }
+.ui-menu { position: absolute; z-index: 100; transform-origin: top left; padding: 10px 0; }
 .ui-menu-items { background-color: #FFF; padding: 5px 0; border-radius: var(--radius); box-shadow: 2px 5px 10px rgba(0,0,0,0.05); border: 1px solid #E0E0E0; position: relative; }
 .ui-menu-submenu { position: absolute; z-index: 101; background-color: #FFF; padding: 5px 0; border-radius: var(--radius); box-shadow: 2px 5px 10px rgba(0,0,0,0.05); border: 1px solid #E0E0E0; }
 .ui-menu-visible {}
