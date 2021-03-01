@@ -100,6 +100,7 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		var el = self.parent(config.parent);
 		var h = el.height();
 		var w = el.width();
+
 		var width = WIDTH();
 		var mywidth = self.element.width();
 
@@ -142,7 +143,7 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		css.width = mywidth;
 		eld.css(css);
 
-		css.width = null;
+		css.width = '';
 		self.css(css);
 		elb.length && elb.css(css);
 		self.element.SETTER('*', 'resize');
