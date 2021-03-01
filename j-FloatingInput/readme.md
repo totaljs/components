@@ -21,8 +21,10 @@ Method: `component.show(options)`
 - `options.align` {String} optional, `left` (default), `right` or `center`
 - `options.position` {String} optional, `top` (default), `bottom`
 - `options.summary` {String} additional help content
-- __NEW__: `options.monospace` {Boolean} enables monospace font
-- __NEW__: `options.select` {Boolean} selects text
+- `options.monospace` {Boolean} enables monospace font
+- `options.select` {Boolean} selects text
+- __NEW__ `options.multiline` {Boolean} enables multiline
+- __NEW__ `options.height` {Number} a height for multiline (default: `100`)
 
 Method: `component.hide()`
 

@@ -1,7 +1,7 @@
 COMPONENT('floatinginput', 'minwidth:200', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
-	var timeout, icon, plus, input, summary;
+	var timeout, icon, plus, input, summary, area;
 	var is = false;
 	var plusvisible = false;
 
@@ -22,15 +22,17 @@ COMPONENT('floatinginput', 'minwidth:200', function(self, config, cls) {
 	self.make = function() {
 
 		self.aclass(cls + ' hidden');
-		self.append('<div class="{1}-summary hidden"></div><div class="{1}-input"><span class="{1}-add hidden"><i class="fa fa-plus"></i></span><span class="{1}-button"><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" name="dir{2}" autocomplete="dir{2}" /></div></div'.format(config.placeholder, cls, Date.now()));
+		self.append('<div class="{1}-summary hidden"></div><div class="{1}-input"><span class="{1}-add hidden"><i class="fa fa-plus"></i></span><span class="{1}-button"><i class="fa fa-search"></i></span><div class="{1}-control"><input type="text" placeholder="{0}" class="{1}-search-input" name="dir{2}" autocomplete="dir{2}" /><textarea class="{1}-search-area" name="dirt{2}" placeholder="{0}"></textarea></div></div'.format(config.placeholder, cls, Date.now()));
 
 		input = self.find('input');
 		icon = self.find(cls2 + '-button').find('i');
 		plus = self.find(cls2 + '-add');
 		summary = self.find(cls2 + '-summary');
+		area = self.find('textarea');
 
 		self.event('click', cls2 + '-button', function(e) {
 			input.val('');
+			area.val('');
 			self.search();
 			e.stopPropagation();
 			e.preventDefault();
@@ -39,22 +41,24 @@ COMPONENT('floatinginput', 'minwidth:200', function(self, config, cls) {
 		self.event('click', cls2 + '-add', function() {
 			if (self.opt.callback) {
 				self.opt.scope && M.scope(self.opt.scope);
-				self.opt.callback(input.val(), self.opt.element, true);
+				self.opt.callback(self.opt.multiline ? area.val() : input.val(), self.opt.element, true);
 				self.hide();
 			}
 		});
 
-		self.event('keydown', 'input', function(e) {
+		self.event('keydown', 'input,textarea', function(e) {
 			switch (e.which) {
 				case 27:
 					self.hide();
 					break;
 				case 13:
-					if (self.opt.callback) {
-						self.opt.scope && M.scope(self.opt.scope);
-						self.opt.callback(this.value, self.opt.element);
+					if (!self.opt.multiline) {
+						if (self.opt.callback) {
+							self.opt.scope && M.scope(self.opt.scope);
+							self.opt.callback(this.value, self.opt.element);
+						}
+						self.hide();
 					}
-					self.hide();
 					break;
 			}
 		});
@@ -113,7 +117,7 @@ COMPONENT('floatinginput', 'minwidth:200', function(self, config, cls) {
 			}
 		};
 
-		self.event('input', 'input', function() {
+		self.event('input', 'input,textarea', function() {
 			var is = !!this.value;
 			if (plusvisible !== is) {
 				plusvisible = is;
@@ -168,8 +172,15 @@ COMPONENT('floatinginput', 'minwidth:200', function(self, config, cls) {
 		self.opt = opt;
 		opt.class && self.aclass(opt.class);
 
-		input.val(opt.value || '');
-		input.prop('maxlength', opt.maxlength || 50);
+		if (opt.multiline) {
+			area.val(opt.value || '');
+			area.prop('maxlength', opt.maxlength || 50);
+			input.val('');
+		} else {
+			input.val(opt.value || '');
+			input.prop('maxlength', opt.maxlength || 50);
+			area.val('');
+		}
 
 		self.target = element[0];
 
@@ -200,7 +211,9 @@ COMPONENT('floatinginput', 'minwidth:200', function(self, config, cls) {
 		} else
 			plus.aclass('hidden');
 
-		self.find('input').prop('placeholder', opt.placeholder || config.placeholder);
+		var tmp = opt.multiline ? area : input;
+		tmp.prop('placeholder', opt.placeholder || config.placeholder);
+
 		var options = { left: 0, top: 0, width: width };
 
 		summary.tclass('hidden', !opt.summary).html(opt.summary || '');
@@ -220,6 +233,14 @@ COMPONENT('floatinginput', 'minwidth:200', function(self, config, cls) {
 		options.top = opt.position === 'bottom' ? ((offset.top - self.height()) + element.height()) : offset.top;
 		options.scope = M.scope ? M.scope() : '';
 
+		area.tclass('hidden', opt.multiline != true);
+		input.tclass('hidden', opt.multiline == true);
+
+		self.tclass(cls + '-multiline', opt.multiline == true);
+
+		if (opt.multiline)
+			area.css('height', (typeof(opt.height) === 'number' ? (opt.height + 'px') : opt.height) || '100px');
+
 		if (opt.offsetX)
 			options.left += opt.offsetX;
 
@@ -229,10 +250,9 @@ COMPONENT('floatinginput', 'minwidth:200', function(self, config, cls) {
 		self.css(options);
 
 		!isMOBILE && setTimeout(function() {
-			opt.select && input[0].select();
-			input.focus();
+			opt.select && tmp[0].select();
+			tmp.focus();
 		}, 200);
-
 
 		self.tclass(cls + '-monospace', !!opt.monospace);
 		self.rclass('hidden');
