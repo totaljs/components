@@ -12,6 +12,7 @@ __Methods__:
 	- `opt.multiple` {Boolean} enables multiple file uploading (default: `false`)
 	- `opt.accept` {String} accept type (default: `*/*`)
 	- `opt.prefix` {String} a name prefix `<input name="file{0}"` (default: `file{0}`)
+	- __NEW__ `opt.files` {FileList} optional (if you use e.g Drag & Drop)
 
 __Friendly components__:
 This component works with `loading` when the file is uploading.

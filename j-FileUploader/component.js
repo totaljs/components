@@ -15,10 +15,14 @@ COMPONENT('fileuploader', function(self) {
 		// opt.accept {String}
 		// opt.prefix = 'file{0}'
 
-		self.find('input').attr('accept', opt.accept || '*/*').prop('multiple', !!opt.multiple);
-		self.opt = opt;
-		input[0].value = '';
-		input.click();
+		if (opt.files) {
+			self.uploadfiles(opt.files);
+		} else {
+			self.find('input').attr('accept', opt.accept || '*/*').prop('multiple', !!opt.multiple);
+			self.opt = opt;
+			input[0].value = '';
+			input.click();
+		}
 	};
 
 	self.make = function() {
