@@ -174,11 +174,11 @@ COMPONENT('floatinginput', 'minwidth:200', function(self, config, cls) {
 
 		if (opt.multiline) {
 			area.val(opt.value || '');
-			area.prop('maxlength', opt.maxlength || 50);
+			area.prop('maxlength', opt.maxlength || 1000);
 			input.val('');
 		} else {
 			input.val(opt.value || '');
-			input.prop('maxlength', opt.maxlength || 50);
+			input.prop('maxlength', opt.maxlength || 100);
 			area.val('');
 		}
 
