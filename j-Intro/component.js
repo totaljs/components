@@ -1,4 +1,4 @@
-COMPONENT('intro', 'closebutton:0;width:400;height:366', function(self, config, cls) {
+COMPONENT('intro', 'closebutton:0;width:400;height:300;nexticon:fa fa-chevron-right;doneicon:fa fa-check-circle;delay:500', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var container = 'intro' + GUID(4);
@@ -44,6 +44,10 @@ COMPONENT('intro', 'closebutton:0;width:400;height:366', function(self, config, 
 		button = self.find(cls2 + '-pagination').find('button');
 
 		self.event('click', 'button[name="next"]', function() {
+
+			if (config.delay && BLOCKED(self.ID, config.delay))
+				return;
+
 			index++;
 			if (index >= figures.length) {
 				self.set('');
@@ -56,7 +60,6 @@ COMPONENT('intro', 'closebutton:0;width:400;height:366', function(self, config, 
 		});
 
 		self.event('click', 'button[name="close"]', self.hide);
-
 		self.event('click', cls2 + '-button', function() {
 			self.move(+this.getAttribute('data-index'));
 		});
@@ -70,17 +73,24 @@ COMPONENT('intro', 'closebutton:0;width:400;height:366', function(self, config, 
 	};
 
 	self.resizeforce = function() {
+
+		if (!visible)
+			return;
+
 		var css = {};
-		css.top = (WH / 2 >> 0) - config.height / 2 >> 0;
+		var footer = self.find(cls2 + '-pagination').innerHeight();
+
+		css.top = (WH / 2 >> 0) - (config.height + footer) / 2 >> 0;
 
 		if (WIDTH() === 'xs') {
 			css['max-width'] = 'auto';
 			css.width = '86%';
-		} else {
+		} else
 			css.width = '';
-		}
 
+		css.height = config.height + footer;
 		body.css(css);
+		figures.css('height', config.height);
 	};
 
 	self.move = function(indexer) {
@@ -88,7 +98,10 @@ COMPONENT('intro', 'closebutton:0;width:400;height:366', function(self, config, 
 		buttons.filter('.selected').rclass('selected');
 		figures.eq(indexer).aclass('visible');
 		buttons.eq(indexer).aclass('selected');
-		button.html(indexer < buttons.length - 1 ? ((config.next || 'Next') + '<i class="fa fa-chevron-right"></i>') : (config.close || 'Done'));
+		var isnext = indexer < buttons.length - 1;
+		button.html(isnext ? ((config.next || 'Next') + '<i class="{0}"></i>'.format(config.nexticon)) : ('<i class="{0}"></i>'.format(config.doneicon) + (config.close || 'Done')));
+		button.tclass('next', isnext);
+		button.tclass('done', !isnext);
 		index = indexer;
 		return self;
 	};
@@ -101,8 +114,9 @@ COMPONENT('intro', 'closebutton:0;width:400;height:366', function(self, config, 
 		self.move(0);
 		visible = is;
 		self.tclass('hidden', !is);
+		self.resizeforce();
 		setTimeout(function() {
 			self.find(cls2 + '-body').tclass(cls + '-body-visible', is);
-		}, 100);
+		}, 200);
 	};
 });

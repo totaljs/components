@@ -10,11 +10,16 @@ __Configuration__:
 - `remove` {Boolean} optional, when `true` then the component will be removed after close (default: `false`)
 - `closebutton` {Boolean} shows close button at the right top corner (default: `false`)
 - `width` {Number} a maximum width (default: `400`)
-- `height` {Number} height (default: `366`)
+- `height` {Number} height (default: `300`)
+- __NEW__: `delay` {Number} a delay for `next` button between clicks
+- __NEW__: `nexticon` {String} a done icon (default: `fa fa-chevron-right`)
+- __NEW__: `doneicon` {String} a done icon (default: `fa fa-check-circle`)
 
 __Good to know__:
 - each button with `name="next"` will be used as `next` button
 - each button with `name="close"` will be used as `close` button
+- __next__ button contains `next` class
+- __done__ button contains `done` class
 
 ### Author
 
