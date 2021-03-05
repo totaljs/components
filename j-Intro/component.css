@@ -7,8 +7,8 @@
 .ui-intro .visible { display: table-cell; }
 .ui-intro figure { display: none; vertical-align: middle; text-align: center; width: 100%; height: 100%; overflow: hidden; }
 i.ui-intro-button { margin: 14px 3px 0; cursor: pointer; color: silver; font-size: 11px; }
-.ui-intro-pagination { padding: 0 0 0 10px; border-top: 1px solid ar(--color); }
-.ui-intro-pagination .selected { color: ar(--color); }
+.ui-intro-pagination { padding: 0 0 0 10px; border-top: 1px solid var(--color); }
+.ui-intro-pagination .selected { color: var(--color); }
 .ui-intro-pagination button { float: right; border: 0; background-color: var(--color); color: #FFF; border-radius: 0 0 var(--radius) 0; font: normal 11px Arial; text-transform: uppercase; font-weight: bold; height: 40px; width: 150px; padding: 0; margin: 0; outline: 0; }
 .ui-intro-pagination button:hover { opacity: 0.8; }
 .ui-intro-pagination button i { margin-left: 5px; }
