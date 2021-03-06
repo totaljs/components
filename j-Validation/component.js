@@ -62,7 +62,7 @@ COMPONENT('validation', 'delay:100;flags:visible', function(self, config, cls) {
 
 	var check = function() {
 		var path = self.path.replace(/\.\*$/, '');
-		var disabled = tracked ? !VALID(path, flags) : DISABLED(path, flags);
+		var disabled = tracked || config.validonly ? !VALID(path, flags) : DISABLED(path, flags);
 		if (!disabled && config.if)
 			disabled = !EVALUATE(path, config.if);
 		if (disabled !== old) {
