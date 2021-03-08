@@ -370,7 +370,6 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					opt.callback = function(val) {
 						self.change(true);
 						self.set(val);
-						input.focus();
 					};
 					SETTER('datepicker', 'show', opt);
 				} else if (config.type === 'time') {
@@ -380,7 +379,6 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					opt.callback = function(val) {
 						self.change(true);
 						self.set(val);
-						input.focus();
 					};
 					SETTER('timepicker', 'show', opt);
 				} else if (config.type === 'search')
