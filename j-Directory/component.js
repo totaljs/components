@@ -183,10 +183,11 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 					var sel = self.find('li.current');
 					if (self.opt.callback) {
 						self.opt.scope && M.scope(self.opt.scope);
-						if (sel.length)
-							self.opt.callback(self.opt.items[+sel.attrd('index')], self.opt.element);
-						else if (self.opt.custom)
+						var index = +sel.attrd('index');
+						if (self.opt.custom && (!sel.length || index === -1))
 							self.opt.callback(this.value, self.opt.element, true);
+						else
+							self.opt.callback(self.opt.items[index], self.opt.element);
 					}
 					self.hide();
 					break;
