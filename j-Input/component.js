@@ -191,7 +191,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 		});
 
-		self.event('blur', 'input', function() {
+		self.event('blur', 'input,' + cls2 + '-value', function() {
 			focused = false;
 			self.camouflage(true);
 			self.rclass(cls + '-focused');
@@ -567,7 +567,12 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 	self.check = function() {
 
-		var is = input.length ? !!input[0].value : !!self.get();
+		var is = false;
+
+		if (config.type !== 'color' && config.type !== 'icon' && config.type !== 'emoji')
+			is = !!rawvalue.text();
+		else
+			is = input.length ? !!input[0].value : !!self.get();
 
 		if (binded === is)
 			return;
