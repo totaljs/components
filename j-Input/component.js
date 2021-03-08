@@ -69,6 +69,10 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			} else if (config.dirsource && (config.autofocus != false && config.autofocus != 0)) {
 				if (!isdirvisible)
 					self.find(cls2 + '-control').trigger('click');
+			} else if (config.type === 'date' || config.type === 'time') {
+				setTimeout(function() {
+					self.element.find(cls2 + '-icon-right').trigger('click');
+				}, 300);
 			}
 		});
 
@@ -569,7 +573,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 		var is = false;
 
-		if (config.type !== 'color' && config.type !== 'icon' && config.type !== 'emoji')
+		if (config.dirsource)
 			is = !!rawvalue.text();
 		else
 			is = input.length ? !!input[0].value : !!self.get();
