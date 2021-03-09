@@ -14,6 +14,13 @@ COMPONENT('sticker', 'margin:0;marginparent:0;lg:1;md:1;sm:1;xs:0;type:offset', 
 	self.readonly();
 
 	function parentscroll(node) {
+
+		if (node) {
+			var cls = node.getAttribute('class');
+			if (cls && cls.indexOf('ui-scrollbar-area') !== -1)
+				return node;
+		}
+
 		return node ? (node.scrollHeight > node.clientHeight ? node : parentscroll(node.parentNode)) : null;
 	}
 
@@ -93,6 +100,10 @@ COMPONENT('sticker', 'margin:0;marginparent:0;lg:1;md:1;sm:1;xs:0;type:offset', 
 
 		is = y >= t;
 
+		var scrollheight = self.container.scrollHeight || WH;
+		if (config.minheight && config.minheight > scrollheight)
+			is = false;
+
 		if (is) {
 
 			if (!enabled) {
@@ -114,4 +125,9 @@ COMPONENT('sticker', 'margin:0;marginparent:0;lg:1;md:1;sm:1;xs:0;type:offset', 
 			enabled = false;
 		}
 	};
+
+	self.setter = function() {
+		setTimeout(self.resize, 300);
+	};
+
 });

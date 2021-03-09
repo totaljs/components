@@ -9,9 +9,10 @@ __Configuration__:
 - `sm` {Boolean} enables sticker for small display (default: `true`)
 - `md` {Boolean} enables sticker for medium display (default: `true`)
 - `lg` {Boolean} enables sticker for large display (default: `true`)
-- __NEW__: `type` {String} a method name for obtaining of position `offset` (default) or `position`
-- __NEW__: `marginparent` {Number} a margin for `parent` scrolling (default: `0`)
-- __NEW__: `parent` {String} optional, a parent selector (look to example for understanding)
+- `type` {String} a method name for obtaining of position `offset` (default) or `position`
+- `marginparent` {Number} a margin for `parent` scrolling (default: `0`)
+- `parent` {String} optional, a parent selector (look to example for understanding)
+- __NEW__: `minheight` {Number} a minimal height of scroll area for applying of classes
 
 ### Author
 
