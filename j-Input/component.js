@@ -803,8 +803,15 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		return value ? config.spaces === false ? value.replace(/\s/g, '') : value : value;
 	});
 
-	self.state = function(type) {
+	self.state = function(type, what) {
 		if (type) {
+
+			if (type === 1 && what === 4) {
+				self.rclass(cls + '-ok ' + cls + '-invalid');
+				self.$oldstate = null;
+				return;
+			}
+
 			var invalid = config.required ? self.isInvalid() : self.forcedvalidation() ? self.isInvalid() : false;
 			if (invalid !== self.$oldstate) {
 				self.$oldstate = invalid;
