@@ -1,14 +1,14 @@
-# Free UI Components
+# Free JavaScript UI components for everyone
 
-[![Support](https://www.totaljs.com/img/button-support.png)](https://www.totaljs.com/support/) [![Donate](https://www.totaljs.com/img/button-donate.png)](https://www.totaljs.com/#make-a-donation)
+- [Website](https://componentator.com)
+- [__Documentation__](https://docs.totaljs.com/components/)
+- [Chat support](https://platform.totaljs.com/?open=messenger)
+- [Join __Total.js Telegram__](https://t.me/totalplatform)
+- [Support](https://www.totaljs.com/support/)
 
-- [Documentation](https://wiki.totaljs.com/jcomponent/)
-- [License](https://www.totaljs.com/license/)
-- [__Preview + Download__](https://componentator.com/)
+## How to add a new component to componentator?
 
-## How to add a new component?
-
-Contact us.
+Please contact us on <info@totaljs.com>.
 
 ## Contributors
 
