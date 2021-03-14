@@ -275,7 +275,7 @@ COMPONENT('markdown', function (self) {
 				chart.render();
 			});
 
-			el.find('.lang-linerchart').each(function() {
+			el.find('.lang-linechart').each(function() {
 
 				var t = this;
 				if (t.$mdloaded)

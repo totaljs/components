@@ -45,6 +45,8 @@
 .markdown-showblock { cursor: pointer; display: block; padding: 3px 0; user-select: none; border-bottom: 1px solid #E0E0E0; }
 .markdown-showblock i { width: 16px; font-size: 12px; padding: 6px 0 0; float: left; }
 .markdown-showblock-visible { border-bottom: 0; }
+.markdown-video { position: relative; padding-bottom: 56.25%; padding-top: 25px; height: 0; margin-bottom: 15px; }
+.markdown-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
 .ui-dark .markdown { color: #C0C0C0; }
 .ui-dark .markdown blockquote { color: #FFF; }
