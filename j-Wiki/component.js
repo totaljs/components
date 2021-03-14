@@ -1,4 +1,4 @@
-COMPONENT('wiki', 'title:Wiki;margin:20', function(self, config, cls) {
+COMPONENT('wiki', 'title:Wiki;margin:20;width:400', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var etopics, container;
@@ -7,6 +7,8 @@ COMPONENT('wiki', 'title:Wiki;margin:20', function(self, config, cls) {
 	self.readonly();
 
 	self.make = function() {
+
+		self.css('max-width', config.width);
 		self.aclass(cls + ' hidden');
 		self.append('<div class="{0}-title"><button><i class="fa fa-times"></i></button><span></span></div><div class="{0}-topics"><div class="{0}-topics-body markdown-small"></div></div>'.format(cls));
 		etopics = self.find(cls2 + '-topics-body');
