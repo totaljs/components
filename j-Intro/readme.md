@@ -18,8 +18,8 @@ __Configuration__:
 __Good to know__:
 - each button with `name="next"` will be used as `next` button
 - each button with `name="close"` will be used as `close` button
-- __next__ button contains `next` class
-- __done__ button contains `done` class
+- a link with `next` class provides will be used as a `next` button
+- a link with `close` class provides will be used as a `close` button
 
 ### Author
 

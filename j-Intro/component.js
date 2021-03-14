@@ -43,7 +43,7 @@ COMPONENT('intro', 'closebutton:0;width:400;height:300;nexticon:fa fa-chevron-ri
 		buttons = self.find(cls2 + '-button');
 		button = self.find(cls2 + '-pagination').find('button');
 
-		self.event('click', 'button[name="next"]', function() {
+		self.event('click', 'button[name="next"],.next', function() {
 
 			if (config.delay && BLOCKED(self.ID, config.delay))
 				return;
@@ -59,9 +59,9 @@ COMPONENT('intro', 'closebutton:0;width:400;height:300;nexticon:fa fa-chevron-ri
 			}
 		});
 
-		self.event('click', 'button[name="close"]', self.hide);
+		self.event('click', 'button[name="close"],.close', self.hide);
 		self.event('click', cls2 + '-button', function() {
-			self.move(+this.getAttribute('data-index'));
+			self.move(+$(this).attrd('index'));
 		});
 
 		self.on('resize2', self.resize);
