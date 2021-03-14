@@ -1,89 +1,51 @@
-.ui-wiki { position: fixed; right: 0; top: 0; bottom: 0; max-width: 600px; width: 100%; box-shadow: -10px 0 10px rgba(0,0,0,0.03); z-index: 32; background-color: #FFF; }
+.ui-wiki { position: fixed; right: 20px; top: 20px; bottom: 20px; max-width: 600px; width: 100%; box-shadow: 0 0 30px rgba(0,0,0,0.1); z-index: 32; background-color: #FFF; border-radius: var(--radius); }
 .ui-wiki-topics-body { overflow: auto; height: 100%; }
-.ui-wiki-topic label { padding: 5px 15px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border-bottom: 1px solid #E0E0E0; cursor: pointer; color: #505050; font-size: 13px; }
-.ui-wiki-topic label i { margin-right: 5px; }
+.ui-wiki-topic label { padding: 8px 15px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border-bottom: 1px solid #E0E0E0; cursor: pointer; color: #505050; font-size: 18px; }
+.ui-wiki-topic label i { width: 24px; }
 .ui-wiki-topic label i:before { content: '\f054' }
 .ui-wiki-topic label:hover { background-color: #F0F0F0; }
 .ui-wiki-topic-body { display: none; padding: 18px; }
-.ui-wiki-title { padding: 0; font-weight: bold; height: 50px; border-bottom: 1px solid #E0E0E0; }
-.ui-wiki-title span { display: block; margin-right: 50px; line-height: 50px; font-size: 16px; padding-left: 10px; }
-.ui-wiki-title button { float: right; width: 50px; height: 50px; background-color: red; color: #FFF; border: 0; font-size: 16px; }
-.ui-wiki-title button:hover { opacity: 0.8; }
+.ui-wiki-title { padding: 0; font-weight: bold; height: 60px; border-bottom: 1px solid #E0E0E0; border-radius: var(--radius) var(--radius) 0 0; }
+.ui-wiki-title span { display: block; margin-right: 50px; line-height: 60px; font-size: 20px; padding-left: 15px; }
+.ui-wiki-title button { float: right; width: 50px; height: 50px; background: transparent; color: #A0A0A0; border: 0; font-size: 20px; margin: 5px 5px 0 0; }
+.ui-wiki-title button:hover { color: #000; }
 .ui-wiki-visible .ui-wiki-topic-body { display: block; border-bottom: 1px solid #E0E0E0; }
 .ui-wiki-visible label { background-color: var(--color) !important; border-bottom-color: var(--color) !important; color: #FFF !important; }
 .ui-wiki-visible label i:before { content: '\f078' }
 
-.ui-dark .ui-wiki { background-color: #252525; }
-.ui-dark .ui-wiki-title { border-bottom-color: #404040; }
-.ui-dark .ui-wiki-topic label { border-bottom-color: #404040; color: gray; }
-.ui-dark .ui-wiki-topic label:hover { background-color: #303030; }
+.ui-dark .ui-wiki { background-color: #303030; box-shadow: 0 0 30px rgba(0,0,0,0.3); }
+.ui-dark .ui-wiki-title { border-bottom-color: #404040; color: #FFF; }
+.ui-dark .ui-wiki-topic label { border-bottom-color: #404040; color: #C0C0C0; }
+.ui-dark .ui-wiki-topic label:hover { background-color: #353535; }
+.ui-dark .ui-wiki-title button:hover { color: #FFF; }
 .ui-dark .ui-wiki-visible .ui-wiki-topic-body { border-bottom-color: #404040; }
 
-.markdown { font-size: 15px; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; color: #404040; overflow-x: hidden; position: relative; }
-.markdown code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
-.markdown h1 { cursor: default; margin: 0 0 15px; font-size: 26px; padding: 0 0 8px; border-bottom: 1px solid #E0E0E0; color: #000; line-height: 30px; font-family: -apple-systm, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; font-weight: normal; line-height: 32px; }
-.markdown h2 { cursor: default; margin: 30px 0 10px; font-weight: bold; font-size: 22px; padding: 0 0 8px; border-bottom: 1px solid #E0E0E0; color: #000; line-height: 28px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
-.markdown h3 { cursor: default; margin: 30px 0 8px; font-size: 18px; padding: 0 0 5px; color: #404040; font-weight: bold; line-height: 22px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
-.markdown h4, .markdown h5 { cursor: default; margin: 20px 0 10px; font-size: 17px; color: #404040; font-weight: bold; line-height: 22px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; background-color: #F0F0F0; padding: 4px 3px; border-radius: var(--radius); border-bottom: 1px solid #E0E0E0; }
-.markdown p { margin: 0 0 15px; padding-left: 0; padding-right: 0; }
-.markdown p code, .markdown li code, .markdown blockquote code, .markdown h1 code, .markdown h2 code, .markdown h3 code, .markdown h4 code, .markdown td code { background-color: #E0E0E0; padding: 1px 4px 2px; border-radius: var(--radius); font-size: 14px; }
-.markdown p code, .markdown li code, .markdown blockquote code, .markdown td code { border: 1px solid #E0E0E0; background-color: #F5F5F5; }
-.markdown pre { padding: 0; border-radius: var(--radius); margin: 15px 0; width: 100%; }
-.markdown pre code { padding: 10px; font-size: 14px; line-height: 18px; overflow-scrolling: touch; border-radius: var(--radius); display: block; }
-.markdown table { width: 100%; margin: 0 0 20px; }
-.markdown ul { margin: 0 0 15px 0; padding: 0 0 0 2em; }
-.markdown img { max-width: 100%; }
-.markdown th { background-color: #F8F8F8; }
-.markdown blockquote { padding: 15px 20px; color: #777; border: 1px solid #DDD; margin: 10px 5px; border-radius: var(--radius); }
-.markdown blockquote:before { content: '\201C'; position: absolute; margin-left: -18px; margin-top: -17px; font: 45px 'PT Sans', sans-serif; color: #A0A0A0; }
-.markdown hr { border-color: #E0E0E0; border-width: 2px; }
-.markdown h1 code { font-size: 28px; font-weight: normal; background-color: #DAE8F8; }
-.markdown h2 code { font-size: 23px; font-weight: normal; background-color: #DAE8F8; }
-.markdown h3 code { font-size: 18px; font-weight: normal; background-color: #DAE8F8; }
-.markdown h4 code { font-size: 17px; font-weight: normal; background-color: #DAE8F8; }
-.markdown a code { background-color: #DAE8F8; text-decoration: none !important; border-color: #d5dfeb; }
-.markdown .video { position: relative; padding-bottom: 56.25%; padding-top: 25px; height: 0; margin-bottom: 15px; }
-.markdown .video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.ui-wiki .hljs{color:#333;background:#f8f8f8}
+.ui-wiki .hljs-comment,.hljs-quote{color:#998}
+.ui-wiki .hljs-keyword,.hljs-selector-tag,.hljs-subst{color:#333}
+.ui-wiki .hljs-number,.hljs-literal,.hljs-variable,.hljs-template-variable,.hljs-tag .hljs-attr{color:#008080}
+.ui-wiki .hljs-string,.hljs-doctag{color:#d14}
+.ui-wiki .hljs-title,.hljs-section,.hljs-selector-id{color:#900}
+.ui-wiki .hljs-subst{font-weight:normal}
+.ui-wiki .hljs-type,.hljs-class .hljs-title{color:#458}
+.ui-wiki .hljs-tag,.hljs-name,.hljs-attribute{color:#000080}
+.ui-wiki .hljs-regexp,.hljs-link{color:#009926}
+.ui-wiki .hljs-symbol,.hljs-bullet{color:#990073}
+.ui-wiki .hljs-built_in,.hljs-builtin-name{color:#0086b3}
+.ui-wiki .hljs-meta{color:#999}
+.ui-wiki .hljs-deletion{background:#fdd}
+.ui-wiki .hljs-addition{background:#dfd}
 
-.ui-dark .markdown { color: #A0A0A0; }
-.ui-dark .markdown h1 { color: #FFF; border-color: #303030; }
-.ui-dark .markdown h2 { color: #D0D0D0; }
-.ui-dark .markdown h3 { color: #D0D0D0; }
-.ui-dark .markdown p code, .ui-dark  .markdown li code, .ui-dark  .markdown blockquote code, .ui-dark  .markdown td code { border-color: #505050; background-color: #404040; }
-.ui-dark .markdown blockquote { border-color: #404040; }
-.ui-dark .markdown h1 code { font-size: 28px; font-weight: normal; background-color: #404040; }
-.ui-dark .markdown h2 code { font-size: 23px; font-weight: normal; background-color: #404040; }
-.ui-dark .markdown h3 code { font-size: 18px; font-weight: normal; background-color: #404040; }
-.ui-dark .markdown h4 code { font-size: 17px; font-weight: normal; background-color: #404040; }
-.ui-dark .markdown hr { border-color: #404040; }
-.ui-dark .markdown a code { background-color: #404040; text-decoration: none !important; border-color: #505050; }
-
-.hljs{color:#333;background:#f8f8f8}
-.hljs-comment,.hljs-quote{color:#998}
-.hljs-keyword,.hljs-selector-tag,.hljs-subst{color:#333}
-.hljs-number,.hljs-literal,.hljs-variable,.hljs-template-variable,.hljs-tag .hljs-attr{color:#008080}
-.hljs-string,.hljs-doctag{color:#d14}
-.hljs-title,.hljs-section,.hljs-selector-id{color:#900}
-.hljs-subst{font-weight:normal}
-.hljs-type,.hljs-class .hljs-title{color:#458}
-.hljs-tag,.hljs-name,.hljs-attribute{color:#000080}
-.hljs-regexp,.hljs-link{color:#009926}
-.hljs-symbol,.hljs-bullet{color:#990073}
-.hljs-built_in,.hljs-builtin-name{color:#0086b3}
-.hljs-meta{color:#999}
-.hljs-deletion{background:#fdd}
-.hljs-addition{background:#dfd}
-
-.ui-dark .hljs{color:gray;background:#191919}
-.ui-dark .hljs-comment,.hljs-quote{color:#505050}
-.ui-dark .hljs-keyword,.hljs-selector-tag,.hljs-subst{color:#333}
-.ui-dark .hljs-number,.hljs-literal,.hljs-variable,.hljs-template-variable,.hljs-tag .hljs-attr{color:#008080}
-.ui-dark .hljs-string,.hljs-doctag{color:#d14}.hljs-title,.hljs-section,.hljs-selector-id{color:#900}
-.ui-dark .hljs-type,.hljs-class .hljs-title{color:#458}
-.ui-dark .hljs-tag,.hljs-name,.hljs-attribute{color:#000080}
-.ui-dark .hljs-regexp,.hljs-link{color:#009926}
-.ui-dark .hljs-symbol,.hljs-bullet{color:#990073}
-.ui-dark .hljs-built_in,.hljs-builtin-name{color:#0086b3}
-.ui-dark .hljs-meta{color:#999}
-.ui-dark .hljs-deletion{background:#fdd}
-.ui-dark .hljs-addition{background:#dfd}
+.ui-dark .ui-wiki .hljs{color:gray;background:#191919}
+.ui-dark .ui-wiki .hljs-comment,.hljs-quote{color:#505050}
+.ui-dark .ui-wiki .hljs-keyword,.hljs-selector-tag,.hljs-subst{color:#333}
+.ui-dark .ui-wiki .hljs-number,.hljs-literal,.hljs-variable,.hljs-template-variable,.hljs-tag .hljs-attr{color:#008080}
+.ui-dark .ui-wiki .hljs-string,.hljs-doctag{color:#d14}.hljs-title,.hljs-section,.hljs-selector-id{color:#900}
+.ui-dark .ui-wiki .hljs-type,.hljs-class .hljs-title{color:#458}
+.ui-dark .ui-wiki .hljs-tag,.hljs-name,.hljs-attribute{color:#000080}
+.ui-dark .ui-wiki .hljs-regexp,.hljs-link{color:#009926}
+.ui-dark .ui-wiki .hljs-symbol,.hljs-bullet{color:#990073}
+.ui-dark .ui-wiki .hljs-built_in,.hljs-builtin-name{color:#0086b3}
+.ui-dark .ui-wiki .hljs-meta{color:#999}
+.ui-dark .ui-wiki .hljs-deletion{background:#fdd}
+.ui-dark .ui-wiki .hljs-addition{background:#dfd}
