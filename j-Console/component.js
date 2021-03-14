@@ -47,7 +47,7 @@ COMPONENT('console', function(self, config, cls) {
 			if (!current)
 				current = keys[i];
 
-			var icon = item.icon.indexOf(' ') === -1 ? ('fa fa-' + item.icon) : item.icon;
+			var icon = self.faicon(item.icon);
 			builder.push(('<span title="{1}" data-id="{2}" class="' + cls + '-tab{3}"><i class="{0}"></i>{1}</span>').format(icon + (item.name ? '' : '" style="margin-right:0'), item.name, keys[i], current === keys[i] ? (' ' + cls + '-selected') : ''));
 		}
 
