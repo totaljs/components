@@ -1,0 +1,16 @@
+<div style="width:300px">
+	<div data-scope="form">
+		<div data---="extend__null__name:test"></div>
+	</div>
+</div>
+
+<script>
+	ON('extend_test', function(opt) {
+
+		// Here you can use IMPORT() method
+
+		opt.element.append('<div>Extended:</div>');
+		ADD('input__?.name__required:1;label:Name', opt.element);
+
+	});
+</script>

@@ -1,0 +1,17 @@
+{
+	"datecreated": "2021-03-14T11:06:00.000Z",
+	"dateupdated": null,
+	"name": "j-Extend",
+	"tags": [
+		"extend",
+		"extender"
+	],
+	"color": "silver",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Pete Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
