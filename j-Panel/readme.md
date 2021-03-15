@@ -22,6 +22,7 @@ __Configuration__:
 - `menu` {String} optional, a link to function (panel will show a button with burger icon in title bar)
 - `container` {String} optional, jQuery selector (this container means a container for scrollbar)
 - `margin` {Number} optional, a margin for `container` and its `scrollbar` (it works with `container` only)
+- `closeicon` {String} optional, Font-Awesome icon (default: `fa fa-times`)
 
 __Good to know__:
 

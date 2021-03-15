@@ -1,22 +1,23 @@
-.ui-panel { background-color: #FFF; margin: 0 0 0 auto; transform: scale(0.8); transition: all 0.2s; opacity: 0; width: 100%; }
+.ui-panel { background-color: #FFF; margin: 0 0 0 auto; transform: scale(0.8); transition: all 0.2s; opacity: 0; width: 100%; border-radius: var(--radius); box-shadow: 0 0 15px rgba(0,0,0,0.1); }
 .ui-panel-noscroll, .ui-panel-noscroll body { overflow: hidden; }
-.ui-panel-container { width: 100%; position: fixed; left: 0; top: 0; bottom: 0; right: 0; background-color: rgba(230,233,237,0.8); z-index: 5; overflow: none; transform-style: preserve-3d; height: 100%; }
-.ui-panel-inline { right: 0; left: auto; background: transparent; }
-.ui-panel-inline .ui-panel { border-left: 1px solid #E0E0E0; background-color: rgba(255,255,255,0.9) }
+.ui-panel-container { width: 100%; position: fixed; left: 0; top: 0; bottom: 0; right: 0; background-color: rgba(230,233,237,0.8); z-index: 5; overflow: none; transform-style: preserve-3d; padding: 20px; }
+.ui-panel-inline { top: 20px; bottom: 20px; right: 20px; left: auto; background: transparent; padding: 0; }
+.ui-panel-inline .ui-panel { background-color: rgba(255,255,255,0.9) }
 .ui-panel-header { height: 45px; }
 .ui-panel-scroll { overflow-scrolling: touch; overflow-y: auto; }
 .ui-panel-animate .ui-panel { transform: scale(1); opacity: 1; }
 .ui-panel-inline.ui-panel-animate { transition: box-shadow 0.5s; box-shadow: -10px 0 20px rgba(0,0,0,0.02); }
-.ui-panel-title { padding: 0 0 0 20px; font-size: 14px; user-select: none; color: #000; background-color: #FFF; border-bottom: 1px solid #E0E0E0; position: absolute; left: 0; right: 0; top: 0; height: 45px; box-shadow: 0 5px 10px rgba(0,0,0,0.05); }
-.ui-panel-title .ui-panel-button-menu { float: right; cursor: pointer; font-size: 14px; transition: all 0.2s; background: none; border: 0; outline: 0; color: gray; text-align: center; !important; padding: 0; width: auto; border: 0; width: 44px; height: 44px; }
-.ui-panel-title .ui-panel-button-menu:hover { color: #000; transform: rotate(-90deg); }
-.ui-panel-title .ui-panel-button-close { float: right; cursor: pointer; font-size: 14px; transition: all 0.2s; background: none; border: 0; outline: 0; color: red; text-align: center; !important; padding: 0; width: auto; border-left: 1px solid #E0E0E0; width: 44px; height: 44px; }
-.ui-panel-title .ui-panel-button-close:hover { background-color: #EB3324; color: #FFF; }
+.ui-panel-title { padding: 0 3px 0 15px; font-size: 14px; user-select: none; color: #000; background-color: #FFF; border-bottom: 1px solid #E0E0E0; position: absolute; left: 0; right: 0; top: 0; height: 45px; border-radius: var(--radius) var(--radius) 0 0; }
+.ui-panel-title .ui-panel-button-menu { float: right; cursor: pointer; font-size: 14px; background: none; border: 0; outline: 0; color: gray; text-align: center; !important; padding: 0; margin: 7px 0 0 0; border: 0; width: 40px; height: 30px; border-right: 1px solid #E9E9E9; }
+.ui-panel-title .ui-panel-button-menu i { transition: all 0.2s; }
+.ui-panel-title .ui-panel-button-menu:hover i { color: #000; transform: rotate(-90deg); }
+.ui-panel-title .ui-panel-button-close { float: right; cursor: pointer; font-size: 14px; transition: all 0.2s; background: none; border: 0; outline: 0; color: #777; text-align: center; !important; padding: 0; margin: 7px 2px 0 0; width: 34px; height: 30px; border-radius: var(--radius); }
+.ui-panel-title .ui-panel-button-close:hover { color: red; }
 .ui-panel-title > span { font-weight: bold; max-width: 70%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; display: inline-block; vertical-align: middle; line-height: 45px; }
 .ui-panel-title > i { margin-right: 7px; line-height: 45px; float: left; }
 
-.ui-dark .ui-panel { background-color: #252525; }
-.ui-dark .ui-panel-title { color: #FFF; background-color: #252525; border-bottom-color: #101010; }
+.ui-dark .ui-panel { background-color: #303000; }
+.ui-dark .ui-panel-title { color: #FFF; background-color: #303030; border-bottom-color: #252525; }
 .ui-dark .ui-panel-container { background-color: rgba(30,30,30,0.8); }
 .ui-dark .ui-panel-inline { background-color: transparent; }
 .ui-dark .ui-panel-inline .ui-panel { border-left-color: #202020; background-color: rgba(40,40,40,0.9); }

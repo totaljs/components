@@ -1,7 +1,5 @@
-COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:true;margin:0', function(self, config) {
+COMPONENT('panel', 'width:350;icon:home;zindex:12;scrollbar:true;scrollbarY:true;margin:0;padding:20;closeicon:fa fa-times', function(self, config, cls) {
 
-	var W = window;
-	var cls = 'ui-panel';
 	var cls2 = '.' + cls;
 
 	if (!W.$$panel) {
@@ -18,8 +16,8 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 				var com = parent.component();
 				if (!main || com.config.bgclose) {
 
-					if (config.close)
-						EXEC(config.close, com);
+					if (com.config.close)
+						com.EXEC(com.config.close, com);
 					else
 						com.hide();
 
@@ -30,14 +28,17 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 		});
 
 		var resize = function() {
-			SETTER('panel', 'resize');
+			SETTER('panel/resize');
 		};
 
-		var e = W.OP ? W.OP : $(W);
-		e.on('resize', function() {
+		ON('resize + resize2', function() {
 			setTimeout2('panelresize', resize, 100);
 		});
 	}
+
+	self.icon = function(value, path, el) {
+		el.rclass().aclass(cls + '-icon ' + self.faicon(value.icon));
+	};
 
 	self.readonly();
 
@@ -47,27 +48,18 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 
 	self.resize = function() {
 		var el = self.element.find(cls2 + '-body');
-		var h = WH - self.find(cls2 + '-header').height();
+		var h = WH - self.find(cls2 + '-header').height() - (config.padding * 2);
 		el.height(h);
-
-		if (config.container)
-			el.find(config.container).height(h - config.margin);
-
+		config.container && el.find(config.container).height(h - config.margin);
 		self.scrollbar && self.scrollbar.resize();
-	};
-
-	self.icon = function(value) {
-		var el = this.rclass2('fa');
-		value.icon && el.aclass('fa fa-' + value.icon);
 	};
 
 	self.make = function() {
 
 		var scr = self.find('> script');
 		self.template = scr.length ? scr.html() : '';
-		$(document.body).append('<div id="{0}" class="hidden {5}-container{3}"><div class="{5}" style="max-width:{1}px"><div data-bind="@config__change .ui-panel-icon:@icon__html span:value.title" class="{5}-title"><button name="cancel" class="{5}-button-close{2}"><i class="fa fa-caret-square-down"></i></button><button name="menu" class="{5}-button-menu{4}"><i class="fa fa-ellipsis-h"></i></button><i class="{5}-icon"></i><span></span></div><div class="{5}-header"></div><div class="{5}-body"></div></div>'.format(self.ID, config.width, config.closebutton == false ? ' hidden' : '', config.bg ? '' : ' ui-panel-inline', config.menu ? '' : ' hidden', cls));
+		$(document.body).append('<div id="{0}" class="hidden {5}-container{3}"><div class="{5}" style="max-width:{1}px"><div data-bind="@config__change .ui-panel-icon:@icon__html span:value.title" class="{5}-title"><button name="cancel" class="{5}-button-close{2}"><i class="{6}"></i></button><button name="menu" class="{5}-button-menu{4}"><i class="fa fa-ellipsis-h"></i></button><i class="{5}-icon"></i><span></span></div><div class="{5}-header"></div><div class="{5}-body"></div></div>'.format(self.ID, config.width, config.closebutton == false ? ' hidden' : '', config.bg ? '' : ' ui-panel-inline', config.menu ? '' : ' hidden', cls, config.closeicon));
 		var el = $('#' + self.ID);
-
 		var body = el.find(cls2 + '-body');
 
 		while (self.dom.children.length)
@@ -131,8 +123,8 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 
 		if (self.hclass('hidden') === isHidden) {
 			if (!isHidden) {
-				config.reload && EXEC(config.reload, self);
-				config.default && DEFAULT(config.default, true);
+				config.reload && self.EXEC(config.reload, self);
+				config.default && DEFAULT(self.makepath(config.default), true);
 			}
 			return;
 		}
@@ -168,9 +160,9 @@ COMPONENT('panel', 'width:350;icon:circle-o;zindex:12;scrollbar:true;scrollbarY:
 		self.release(false);
 		setTimeout(self.resize, 100);
 
-		config.reload && EXEC(config.reload, self);
-		config.refresh && EXEC(config.refresh, self);
-		config.default && DEFAULT(config.default, true);
+		config.reload && self.EXEC(config.reload, self);
+		config.refresh && self.EXEC(config.refresh, self);
+		config.default && DEFAULT(self.makepath(config.default), true);
 
 		if (!isMOBILE && config.autofocus) {
 			var el = self.find(config.autofocus ? 'input[type="text"],select,textarea' : config.autofocus);
