@@ -74,8 +74,10 @@ COMPONENT('validation', 'delay:100;flags:visible', function(self, config, cls) {
 	};
 
 	self.state = function(type, what) {
-		if (type === 3 || what === 3)
+		if (type === 3 || what === 3) {
+			self.rclass(cls + '-modified');
 			tracked = 0;
+		}
 		setTimeout2(self.ID, check, config.delay);
 	};
 
