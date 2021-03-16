@@ -7,7 +7,7 @@
 .dg-header { position: relative; border-bottom: 1px solid #E0E0E0; }
 .dg-hrow { height: 53px; }
 .dg-hcol { float: left; border-left: 1px solid #E0E0E0; height: 54px; font-weight: bold; position: relative; }
-.dg-sort { float: right; font-size: 11px; width: 20px; text-align: center; padding: 9px 0 0 0; color: #4285F4; }
+.dg-sort { float: right; font-size: 11px; width: 20px; text-align: center; padding: 9px 0 0 0; color: var(--color); }
 .dg-monospace { font-family: Menlo,Consolas,monospace; font-size: 11px; }
 .dg-btn-columns { cursor: pointer; color: #D0D0D0; font-size: 20px; position: absolute; right: 0; height: 55px; background-color: #D0D0D0; width: 13px; text-align: left; z-index: 3; }
 .dg-btn-columns span { display: block; padding-top: 4px; font-size: 6px; color: gray; text-align: center; }
@@ -35,7 +35,6 @@
 .dg-clickable .dg-row { cursor: pointer; }
 .dg-body { outline: 0 !important; }
 .dg-row { height: 28px; font-size: 12px; border-bottom: 1px solid #E0E0E0; -webkit-transform: translateZ(0); }
-/*.dg-body > div > div:nth-child(even) > .dg-row { background-color: rgba(0,0,0,0.02); }*/
 .dg-row-changed { background-color: rgba(208,31,33,0.07); }
 .dg-row.dg-selected { background-color: rgba(249,232,196,0.5) !important; }
 .dg-col { float: left; border-left: 1px solid #E0E0E0; height: 27px; overflow: hidden; min-width: 30px; }
@@ -52,8 +51,8 @@
 .dg-pagination button:hover { background-color: #F0F0F0; }
 .dg-pagination button:disabled { background-color: #F9F9F9; color: #A0A0A0; }
 .dg-pagination button:first-child { border-left: 0; }
-.dg-pagination button[name="page-prev"] { border-right: 1px solid #E0E0E0; width: 34px; }
-.dg-pagination button[name="page-last"] { border-right: 1px solid #E0E0E0; }
+.dg-pagination button[name='page-prev'] { border-right: 1px solid #E0E0E0; width: 34px; }
+.dg-pagination button[name='page-last'] { border-right: 1px solid #E0E0E0; }
 .dg-pagination input { width: 40px; text-align: center; border: 0; outline: 0; font-size: 12px; padding: 0; margin: 0; background: transparent; }
 .dg-pagination > div { position: relative; display: inline-block; }
 .dg-pagination-items { float: right; font-size: 12px; margin: 7px 10px 0 0; font-weight: bold; }
@@ -77,21 +76,21 @@
 .dg-hcol .dg-checkbox { margin-top: 0; }
 .dg-checkbox { width: 15px; height: 15px; border: 1px solid #D0D0D0; vertical-align: middle; font-size: 11px; text-align: center; padding: 1px 0 0 1px; background-color: #FFF; border-radius: var(--radius); margin: 5px auto 0; }
 .dg-checkbox i { display: none; }
-.dg-checked { background-color: #4285F4; border-color: #4285F4; color: #FFF; }
+.dg-checked { background-color: var(--color); border-color: var(--color); color: #FFF; }
 .dg-checked i { display: block; }
 .dg-required:before { content: '*'; font-size: 14px; color: red; font-weight: bold; margin-right: 3px; vertical-align: top; }
 .dg input:-ms-input-placeholder { color: #A0A0A0 !important; }
 .dg input::placeholder { color: #A0A0A0; opacity: 1; }
 .dg input::-ms-input-placeholder { color: #A0A0A0 !important; }
 .dg-col button { margin: 4px 0 0; border: 0; background-color: #FFF; font-size: 10px; color: #404040; height: 19px; border: 1px solid #E0E0E0; border-left: 0; padding: 0 3px; outline: 0; line-height: 10px; min-width: 20px; }
-.dg-col button:hover { background-color: #4285F4; color: #FFF; }
-.dg-col button[name="remove"] { background-color: #ffe5dd; color: red; }
-.dg-col button[name="remove"]:hover { background-color: red; color: #FFF; }
+.dg-col button:hover { background-color: var(--color); color: #FFF; }
+.dg-col button[name='remove'] { background-color: #ffe5dd; color: red; }
+.dg-col button[name='remove']:hover { background-color: red; color: #FFF; }
 .dg-col button:first-child { border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-left: 1px solid #E0E0E0; }
 .dg-col button:last-child { border-top-right-radius: 3px; border-bottom-right-radius: 3px; }
 .dg-col button:disabled { background-color: #F0F0F0 !important; color: silver !important; cursor: not-allowed; }
 .dg-editable .dg-checkbox { position: relative; display: inline-block; margin-left: 5px; margin-right: 5px; }
-.dg-editable > div > .dg-checkbox { border-color: #4285F4; }
+.dg-editable > div > .dg-checkbox { border-color: var(--color); }
 .dg-bool { height: 28px; }
 .dg-bool .dg-checked { background-color: #D0D0D0; border-color: #D0D0D0; color: gray; }
 .dg-editable { background-color: rgba(255,241,164,0.1); }
@@ -150,18 +149,18 @@
 .ui-dark .dg-col button { background-color: #303030; color: #A0A0A0; border-color: #404040; }
 .ui-dark .dg-col button:hover { background-color: #404040; color: #FFF; }
 .ui-dark .dg-col button:first-child { border-left-color: #404040; }
-.ui-dark .dg-col button[name="remove"] { background-color: #282828; color: red; }
+.ui-dark .dg-col button[name='remove'] { background-color: #282828; color: red; }
 .ui-dark .dg-col button:disabled { background-color: #252525 !important; color: #505050 !important; }
 .ui-dark .dg-checkbox { background-color: #303030; border-color: #3A3A3A; }
-.ui-dark .dg-checked { background-color: #4285F4; border-color: #4285F4; color: #FFF; }
+.ui-dark .dg-checked { background-color: var(--color); border-color: var(--color); color: #FFF; }
 .ui-dark .dg-btn-columns { color: #323232; background-color: #323232; }
 .ui-dark .dg-btn-columns span { color: #606060; }
 .ui-dark .dg-btn-columns:hover { background-color: #353535; color: #353535; }
 .ui-dark .dg-pagination button { background-color: #303030; border-left-color: #404040; color: #FFF; }
 .ui-dark .dg-pagination button:hover { background-color: #353535; }
 .ui-dark .dg-pagination button:disabled { background-color: #202020; color: gray; }
-.ui-dark .dg-pagination button[name="page-prev"] { border-right-color: #404040; }
-.ui-dark .dg-pagination button[name="page-last"] { border-right-color: #404040; }
+.ui-dark .dg-pagination button[name='page-prev'] { border-right-color: #404040; }
+.ui-dark .dg-pagination button[name='page-last'] { border-right-color: #404040; }
 .ui-dark .dg-bool .dg-checked { background-color: #505050; border-color: #505050; color: gray; }
 .ui-dark .dg-editable { background-color: rgba(255,241,164,0.05); }
 .ui-dark .dg-resize-line { background-color: #404040; }
