@@ -8,10 +8,10 @@
 .ui-panel-animate .ui-panel { transform: scale(1); opacity: 1; }
 .ui-panel-inline.ui-panel-animate { transition: box-shadow 0.5s; box-shadow: -10px 0 20px rgba(0,0,0,0.02); }
 .ui-panel-title { padding: 0 3px 0 15px; font-size: 14px; user-select: none; color: #000; background-color: #FFF; border-bottom: 1px solid #E0E0E0; position: absolute; left: 0; right: 0; top: 0; height: 45px; border-radius: var(--radius) var(--radius) 0 0; }
-.ui-panel-title .ui-panel-button-menu { float: right; cursor: pointer; font-size: 14px; background: none; border: 0; outline: 0; color: gray; text-align: center; !important; padding: 0; margin: 7px 0 0 0; border: 0; width: 40px; height: 30px; border-right: 1px solid #E9E9E9; }
+.ui-panel-title .ui-panel-button-menu { float: right; cursor: pointer; font-size: 14px; background: none; border: 0; outline: 0; color: gray; text-align: center !important; padding: 0; margin: 7px 0 0 0; border: 0; width: 40px; height: 30px; border-right: 1px solid #E9E9E9; }
 .ui-panel-title .ui-panel-button-menu i { transition: all 0.2s; }
 .ui-panel-title .ui-panel-button-menu:hover i { color: #000; transform: rotate(-90deg); }
-.ui-panel-title .ui-panel-button-close { float: right; cursor: pointer; font-size: 14px; transition: all 0.2s; background: none; border: 0; outline: 0; color: #777; text-align: center; !important; padding: 0; margin: 7px 2px 0 0; width: 34px; height: 30px; border-radius: var(--radius); }
+.ui-panel-title .ui-panel-button-close { float: right; cursor: pointer; font-size: 14px; transition: all 0.2s; background: none; border: 0; outline: 0; color: #777; text-align: center !important; padding: 0; margin: 7px 2px 0 0; width: 34px; height: 30px; border-radius: var(--radius); }
 .ui-panel-title .ui-panel-button-close:hover { color: red; }
 .ui-panel-title > span { font-weight: bold; max-width: 70%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; display: inline-block; vertical-align: middle; line-height: 45px; }
 .ui-panel-title > i { margin-right: 7px; line-height: 45px; float: left; }
