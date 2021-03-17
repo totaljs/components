@@ -1,6 +1,6 @@
 ## j-Masonry
 
-The component renders an Array according to the display size to columns.
+A simple Masonry component. The component renders an Array according to the display size to columns.
 
 __Configuration__:
 
