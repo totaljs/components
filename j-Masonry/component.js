@@ -28,7 +28,7 @@ COMPONENT('masonry', 'lg:25;md:33.33;sm:50;xs:100', function(self, config, cls) 
 	self.setter = function(value) {
 
 		if (!value) {
-			self.empty();
+			container.empty();
 			return;
 		}
 
