@@ -14,6 +14,7 @@ __Configuration__:
 - `closebutton` {Boolean} (optional) can hide `x` button (default: `false`)
 - `zindex` {Number} (optional) can affect z-index (default: `12`)
 - `scrollbar` {Boolean} enables custom scrollbar (default: `true`)
+- `scrollbarshadow` {Boolean} optional, enables a shadow in scrollbar (default: `false`)
 - __NEW__ `closeesc` {Boolean} closes the form when the user presses `ESC` key
 - __NEW__ `independent` {Boolean} closing doesn't depent on the condition according to the path
 

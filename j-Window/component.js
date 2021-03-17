@@ -44,7 +44,7 @@ COMPONENT('window', 'zindex:12;scrollbar:1', function(self, config, cls) {
 		body[0].appendChild(self.dom);
 
 		if (config.scrollbar && W.SCROLLBAR) {
-			self.scrollbar = SCROLLBAR(body, { visibleY: !!config.scrollbarY });
+			self.scrollbar = SCROLLBAR(body, { shadow: config.scrollbarshadow, visibleY: !!config.scrollbarY });
 			self.scrollleft = self.scrollbar.scrollLeft;
 			self.scrolltop = self.scrollbar.scrollTop;
 			self.scrollright = self.scrollbar.scrollRight;

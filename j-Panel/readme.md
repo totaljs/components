@@ -19,6 +19,7 @@ __Configuration__:
 - `close` {String} optional, path/method is executed as `path_to_method(com)` when the user closes the panel manually via close button
 - `scrollbar` {Boolean} optional, enables custom scrollbar (default: `true`)
 - `scrollbarY` {Boolean} optional, shows vertical custom scrollbar (default: `true`)
+- `scrollbarshadow` {Boolean} optional, enables a shadow in scrollbar (default: `false`)
 - `menu` {String} optional, a link to function (panel will show a button with burger icon in title bar)
 - `container` {String} optional, jQuery selector (this container means a container for scrollbar)
 - `margin` {Number} optional, a margin for `container` and its `scrollbar` (it works with `container` only)

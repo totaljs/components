@@ -71,7 +71,7 @@ COMPONENT('panel', 'width:350;icon:home;zindex:12;scrollbar:true;scrollbarY:true
 		if (config.scrollbar && window.SCROLLBAR) {
 			if (config.container)
 				body = body.find(config.container);
-			self.scrollbar = SCROLLBAR(body, { visibleY: !!config.scrollbarY, orientation: 'y' });
+			self.scrollbar = SCROLLBAR(body, { shadow: config.scrollbarshadow, visibleY: !!config.scrollbarY, orientation: 'y' });
 			self.scrollleft = self.scrollbar.scrollLeft;
 			self.scrolltop = self.scrollbar.scrollTop;
 			self.scrollright = self.scrollbar.scrollRight;
