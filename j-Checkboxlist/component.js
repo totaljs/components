@@ -1,6 +1,5 @@
 COMPONENT('checkboxlist', 'checkicon:check', function(self, config, cls) {
 
-	var W = window;
 	var cls2 = '.' + cls;
 
 	!W.$checkboxlist && (W.$checkboxlist = Tangular.compile('<div{{ if $.class }} class="{{ $.class }}"{{ fi }}><div class="' + cls + '-item" data-index="{{ index }}"><div><i class="fa fa-{{ $.checkicon }}"></i></div><span>{{ text }}</span></div></div>'));
