@@ -88,7 +88,7 @@ COMPONENT('fileuploadlist', 'multiple:true;url:/api/upload/;text:name', function
 		SETTER('loading', 'show');
 		UPLOAD(config.url, data, function(response, err) {
 
-			input.value = '';
+			input.val('');
 			SETTER('loading', 'hide', 500);
 
 			if (err) {
