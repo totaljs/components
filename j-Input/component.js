@@ -792,9 +792,9 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					tmp = value.split(':');
 					var dt = self.get();
 					value = dt ? new Date(dt.getTime()) : new Date();
-					value.setHours(+(tmp[0] || '0'));
-					value.setMinutes(+(tmp[1] || '0'));
-					value.setSeconds(+(tmp[2] || '0'));
+					value.setHours((tmp[0] || '0').parseInt());
+					value.setMinutes((tmp[1] || '0').parseInt());
+					value.setSeconds((tmp[2] || '0').parseInt());
 					break;
 			}
 		}
