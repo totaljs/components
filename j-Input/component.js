@@ -791,12 +791,10 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				case 'time':
 					tmp = value.split(':');
 					var dt = self.get();
-					if (dt == null)
-						dt = new Date();
-					dt.setHours(+(tmp[0] || '0'));
-					dt.setMinutes(+(tmp[1] || '0'));
-					dt.setSeconds(+(tmp[2] || '0'));
-					value = dt;
+					value = dt ? new Date(dt.getTime()) : new Date();
+					value.setHours(+(tmp[0] || '0'));
+					value.setMinutes(+(tmp[1] || '0'));
+					value.setSeconds(+(tmp[2] || '0'));
 					break;
 			}
 		}
