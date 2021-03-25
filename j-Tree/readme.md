@@ -15,7 +15,7 @@ __Configuration__:
 - `unselectexpand` {Boolean} optional, can `unselect` selected item when the user clicks on the expandable item (default: `false`)
 - `reselect` {Boolean} optional, evaluates `exec` again if the tree is refreshed (default: `false`)
 - __NEW__ `iconoptions` {String} Font-Awesome icon to options (default: `fa fa-ellipsis-h`)
-- __NEW__ `expand` {Boolean} expands all children (default: `false`)
+- __NEW__ `expanded` {Boolean} expands all children (default: `false`)
 
 __Data structure__:
 
