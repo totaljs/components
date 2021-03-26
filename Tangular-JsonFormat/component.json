@@ -1,5 +1,5 @@
 {
-	"datecreated": "2021-01-28T09:30:05.000Z",
+	"datecreated": "2021-01-28T09:30:06.000Z",
 	"dateupdated": null,
 	"name": "Tangular-JsonFormat",
 	"tags": [
@@ -8,6 +8,7 @@
 	],
 	"color": "transparent",
 	"version": 1,
+	"darkmode": true,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
