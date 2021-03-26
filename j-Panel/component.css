@@ -15,7 +15,7 @@
 .ui-panel-title > span { font-weight: bold; max-width: 70%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; display: inline-block; vertical-align: middle; line-height: 45px; }
 .ui-panel-title > i { margin-right: 7px; line-height: 45px; float: left; }
 
-.ui-dark .ui-panel { background-color: #303000; }
+.ui-dark .ui-panel { background-color: #303030; }
 .ui-dark .ui-panel-title { color: #FFF; background-color: #303030; border-bottom-color: #252525; }
 .ui-dark .ui-panel-container { background-color: rgba(30,30,30,0.8); }
 .ui-dark .ui-panel-inline { background-color: transparent; }
