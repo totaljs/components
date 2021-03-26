@@ -2,7 +2,6 @@
 .ui-panel-noscroll, .ui-panel-noscroll body { overflow: hidden; }
 .ui-panel-container { width: 100%; position: fixed; left: 0; top: 0; bottom: 0; right: 0; background-color: rgba(230,233,237,0.8); z-index: 5; overflow: none; transform-style: preserve-3d; padding: 20px; }
 .ui-panel-inline { top: 20px; bottom: 20px; right: 20px; left: auto; background: transparent; padding: 0; }
-.ui-panel-inline .ui-panel { background-color: rgba(255,255,255,0.9) }
 .ui-panel-header { height: 45px; }
 .ui-panel-scroll { overflow-scrolling: touch; overflow-y: auto; }
 .ui-panel-animate .ui-panel { transform: scale(1); opacity: 1; }
@@ -20,6 +19,6 @@
 .ui-dark .ui-panel-title { color: #FFF; background-color: #303030; border-bottom-color: #252525; }
 .ui-dark .ui-panel-container { background-color: rgba(30,30,30,0.8); }
 .ui-dark .ui-panel-inline { background-color: transparent; }
-.ui-dark .ui-panel-inline .ui-panel { border-left-color: #202020; background-color: rgba(40,40,40,0.9); }
+.ui-dark .ui-panel-inline .ui-panel { border-left-color: #202020; }
 .ui-dark .ui-panel-button-close { border-left-color: #101010; }
 .ui-dark .ui-panel-title .ui-panel-button-menu:hover { color: #FFF; }
