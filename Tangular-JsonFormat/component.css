@@ -1,4 +1,4 @@
-.json { font-family: Menlo, Consolas, monospace; color: #000; tab-size: 2; overflow: hidden; }
+.json { font-family: Menlo, Consolas, monospace; color: #000; tab-size: 2; overflow: hidden; white-space: pre-wrap; }
 .json-key { color: #1A8B95; }
 .json-number { color: #2F6447; }
 .json-true { color: #1B7F16; }
