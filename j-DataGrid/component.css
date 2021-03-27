@@ -108,7 +108,7 @@
 .dg-link { color: inherit; }
 .dg-link i { margin-right: 5px; }
 .dg-controls { position: absolute; right: 20px; background-color: #FFF; border: 1px solid #D0D0D0; height: 34px; color: #000; z-index: 1; margin-right: 5px; border-radius: var(--radius); box-shadow: 1px 0 15px rgba(0,0,0,0.1); transition: all 0.1s; transform: scale(0); }
-.dg-controls button { border: 0; min-width: 34px; height: 32px; background-color: #F0F0F0; border-left: 1px solid #E0E0E0; background-color: transparent; font-size: 12px; float: left; color: #000; padding: 0 7px; }
+.dg-controls button { border: 0; min-width: 34px; height: 32px; background-color: #F0F0F0; border-left: 1px solid #E0E0E0; background-color: transparent; font-size: 12px; float: left; color: #000; padding: 0 10px; }
 .dg-controls button i { font-size: 14px; }
 .dg-controls button span { padding: 0 5px; }
 .dg-controls button:hover { background-color: #F0F0F0; }
