@@ -47,8 +47,6 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config, cls) {
 			isresizing = true;
 		}
 
-		config.hide && self.rclass('hidden');
-
 		if (self.dom.hasChildNodes()) {
 
 			if (clid) {
@@ -57,10 +55,20 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config, cls) {
 			}
 
 			self.release(false);
-			config.reload && EXEC(replace(config.reload));
-			config.default && DEFAULT(replace(config.default), true);
-			isresizing && setTimeout(self.resize, 50);
-			setTimeout(self.emitresize, 200);
+
+			var done = function() {
+				config.hide && self.rclass('hidden');
+				config.reload && EXEC(replace(config.reload));
+				config.default && DEFAULT(replace(config.default), true);
+				self.hclass('invisible') && self.rclass('invisible', 500);
+				isresizing && setTimeout(self.resize, 50);
+				setTimeout(self.emitresize, 200);
+			};
+
+			if (config.check)
+				EXEC(replace(config.check), done);
+			else
+				done();
 
 		} else {
 
@@ -82,6 +90,7 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config, cls) {
 				}
 
 				self.import(replace(config.url), function() {
+
 					downloading = false;
 
 					if (!init) {
@@ -89,14 +98,23 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config, cls) {
 						init = true;
 					}
 
-					self.release(false);
-					config.reload && EXEC(replace(config.reload), true);
-					config.default && DEFAULT(replace(config.default), true);
-					config.loading && SETTER('loading', 'hide', 500);
+					var done = function() {
+						config.hide && self.rclass('hidden');
+						self.release(false);
+						config.reload && EXEC(replace(config.reload), true);
+						config.default && DEFAULT(replace(config.default), true);
+						config.loading && SETTER('loading', 'hide', 500);
+						self.hclass('invisible') && self.rclass('invisible', 500);
+						isresizing && setTimeout(self.resize, 50);
+						setTimeout(self.emitresize, 200);
+					};
+
 					EMIT('parts.' + config.if, self.element, self);
-					self.hclass('invisible') && self.rclass('invisible', 500);
-					isresizing && setTimeout(self.resize, 50);
-					setTimeout(self.emitresize, 200);
+
+					if (config.check)
+						EXEC(replace(config.check), done);
+					else
+						done();
 
 				}, true, preparator);
 
