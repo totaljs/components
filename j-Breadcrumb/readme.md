@@ -6,6 +6,7 @@
 __Configuration__:
 
 - `icon {String}` home icon (default: `fa fa-home`)
+- `exec {String}` path to the method `function(url)` for manual processing of links
 - `historyapi {Boolean}` enables redirecting via `REDIRECT()` (default `true`)
 
 ## Data-source example
@@ -18,16 +19,7 @@ __Configuration__:
 	},
 	{
 		name: 'Products',  // A link label
-		url: '/',          // URL address
-		buttons: [         // Optional, custom buttons in the breadcrumb
-			{
-				name: 'Add',
-				icon: 'far fa-plus-circle',
-				click: function(el) {
-
-				}
-			}
-		]
+		url: '/'           // URL address
 	}
 ];
 ```
