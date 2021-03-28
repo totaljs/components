@@ -18,9 +18,13 @@ __Configuration__:
 - __NEW__ `replace` {String} optional, a link to method `function(content) { return content }` which can modify downloaded template
 - __NEW__ `absolute` {Boolean} optional, enables absolute position (default `false`)
 
-__Good to know__:
+__Good to know 1__:
 
-Part component emits an event in the form: `parts.` + `config.if` for extending of parts. This can be very usefull for some plugin systems. Example:
+All `~PATH~` phrases will be replaced by `config.path` or `config.if` automatically.
+
+__Good to know 2__:
+
+Part component emits an `event` in the form: `parts.` + `config.if` for extending of parts. This can be very usefull for some plugin systems. Example:
 
 ```javascript
 ON('parts.pages', function(element, partcomponent) {

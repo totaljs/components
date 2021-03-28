@@ -67,12 +67,15 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config, cls) {
 			downloading = true;
 			setTimeout(function() {
 
-				var preparator = config.path == null ? null : function(content) {
-					return content.replace(/~PATH~/g, config.path);
-				};
+				var preparator;
 
-				if (preparator == null && config.replace)
+				if (config.replace)
 					preparator = GET(self.makepath(config.replace));
+				else {
+					preparator = function(content) {
+						return content.replace(/~PATH~/g, config.path || config.if);
+					};
+				}
 
 				self.import(config.url, function() {
 					downloading = false;
