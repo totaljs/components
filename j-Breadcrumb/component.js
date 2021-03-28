@@ -8,9 +8,10 @@ COMPONENT('breadcrumb', 'icon:fa fa-home;historyapi:1', function(self, config, c
 		self.element.prepend('<nav></nav>');
 		nav = self.find('> nav');
 
-		self.event('click', 'a', function(e) {
+		nav.event('click', 'a,span', function(e) {
 			e.preventDefault();
-			var url = $(this).attr('href');
+			var el = $(this);
+			var url = el.attrd('id') || el.attr('href');
 
 			if (config.exec) {
 				self.SEEX(config.exec, url);
@@ -32,7 +33,7 @@ COMPONENT('breadcrumb', 'icon:fa fa-home;historyapi:1', function(self, config, c
 
 		for (var i = 0; i < value.length; i++) {
 			var item = value[i];
-			builder.push('<a href="{0}">{1}</a>'.format(item.url, Thelpers.encode(item.name)));
+			builder.push('<{0}="{1}">{2}</{3}>'.format(config.exec ? 'span data-id' : 'a href', item.url || item.id, Thelpers.encode(item.name), config.exec ? 'span' : 'a'));
 		}
 
 		var html = builder.join('<i class="fa fa-angle-right"></i>');

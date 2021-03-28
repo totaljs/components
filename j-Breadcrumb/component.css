@@ -1,6 +1,7 @@
 .ui-breadcrumb { font-size: 13px; height: 42px; line-height: 40px; color: #888; border: 1px solid #E0E0E0; margin-bottom: 10px; border-radius: var(--radius); padding: 0 10px; }
-.ui-breadcrumb > nav a { margin-left: 5px; color: #444; }
-.ui-breadcrumb > nav a:last-child { font-weight: bold; }
+.ui-breadcrumb > nav a, .ui-breadcrumb > nav span { margin-left: 5px; color: #444; cursor: pointer }
+.ui-breadcrumb > nav a:hover, .ui-breadcrumb > nav span:hover {  text-decoration: underline; }
+.ui-breadcrumb > nav a:last-child, .ui-breadcrumb > nav span:last-child { font-weight: bold; }
 .ui-breadcrumb > nav i { width: 14px; text-align: center; }
 .ui-breadcrumb > nav i:first-child { margin-right: 3px; }
 .ui-breadcrumb > nav .fa-angle-right { margin: 0 0 0 5px; font-size: 12px; }
