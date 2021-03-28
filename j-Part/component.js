@@ -4,14 +4,12 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config, cls) {
 	var clid = null;
 	var downloading = false;
 	var isresizing = false;
-	var scope;
 
 	self.releasemode && self.releasemode('true');
 	self.readonly();
 
 	self.make = function() {
 		self.aclass(cls);
-		scope = self.scope();
 	};
 
 	self.resize = function() {
@@ -25,7 +23,7 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config, cls) {
 	};
 
 	var replace = function(value) {
-		return scope ? self.makepath(value) : value.replace(/\?/g, config.if);
+		return self.scope ? self.makepath(value) : value.replace(/\?/g, config.if);
 	};
 
 	self.setter = function(value) {
