@@ -83,7 +83,7 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config, cls) {
 					};
 				}
 
-				self.import(config.url, function() {
+				self.import(replace(config.url), function() {
 					downloading = false;
 
 					if (!init) {
