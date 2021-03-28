@@ -26,7 +26,11 @@ __Good to know 2__:
 
 Part component emits an `event` in the form: `parts.` + `config.if` for extending of parts. This can be very usefull for some plugin systems. Example:
 
-```javascript
+__Good to know 3__:
+
+If the part component isn't within scope then the value from the `config.if` will replace `?` characters in all config keys.
+
+```js
 ON('parts.pages', function(element, partcomponent) {
 	// It's executed only when the part is initialized
 });

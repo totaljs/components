@@ -4,12 +4,14 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config, cls) {
 	var clid = null;
 	var downloading = false;
 	var isresizing = false;
+	var scope;
 
 	self.releasemode && self.releasemode('true');
 	self.readonly();
 
 	self.make = function() {
 		self.aclass(cls);
+		scope = self.scope();
 	};
 
 	self.resize = function() {
@@ -22,12 +24,16 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config, cls) {
 		}
 	};
 
+	var replace = function(value) {
+		return scope ? self.makepath(value) : value.replace(/\?/g, config.if);
+	};
+
 	self.setter = function(value) {
 
 		if (config.if !== value) {
 
 			if (!self.hclass('hidden')) {
-				config.hidden && EXEC(self.makepath(config.hidden));
+				config.hidden && EXEC(replace(config.hidden));
 				config.hide && self.aclass('hidden');
 				self.release(true);
 			}
@@ -53,8 +59,8 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config, cls) {
 			}
 
 			self.release(false);
-			config.reload && EXEC(self.makepath(config.reload));
-			config.default && DEFAULT(self.makepath(config.default), true);
+			config.reload && EXEC(replace(config.reload));
+			config.default && DEFAULT(replace(config.default), true);
 			isresizing && setTimeout(self.resize, 50);
 			setTimeout(self.emitresize, 200);
 
@@ -70,10 +76,10 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config, cls) {
 				var preparator;
 
 				if (config.replace)
-					preparator = GET(self.makepath(config.replace));
+					preparator = GET(replace(config.replace));
 				else {
 					preparator = function(content) {
-						return content.replace(/~PATH~/g, config.path || config.if);
+						return content.replace(/~PATH~/g, replace(config.path || config.if));
 					};
 				}
 
@@ -81,13 +87,13 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config, cls) {
 					downloading = false;
 
 					if (!init) {
-						config.init && EXEC(self.makepath(config.init));
+						config.init && EXEC(replace(config.init));
 						init = true;
 					}
 
 					self.release(false);
-					config.reload && EXEC(self.makepath(config.reload), true);
-					config.default && DEFAULT(self.makepath(config.default), true);
+					config.reload && EXEC(replace(config.reload), true);
+					config.default && DEFAULT(replace(config.default), true);
 					config.loading && SETTER('loading', 'hide', 500);
 					EMIT('parts.' + config.if, self.element, self);
 					self.hclass('invisible') && self.rclass('invisible', 500);
@@ -118,7 +124,7 @@ COMPONENT('part', 'hide:1;loading:1', function(self, config, cls) {
 
 	self.clean = function() {
 		if (self.hclass('hidden')) {
-			config.clean && EXEC(self.makepath(config.clean));
+			config.clean && EXEC(replace(config.clean));
 			setTimeout(function() {
 				self.empty();
 				init = false;
