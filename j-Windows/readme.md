@@ -1,4 +1,4 @@
-## j-Windows (BETA)
+## j-Windows
 
 - Works only with `+v18`
 - Supports mobile devices
