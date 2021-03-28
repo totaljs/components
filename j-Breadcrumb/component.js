@@ -8,7 +8,7 @@ COMPONENT('breadcrumb', 'icon:fa fa-home;historyapi:1', function(self, config, c
 		self.element.prepend('<nav></nav>');
 		nav = self.find('> nav');
 
-		nav.event('click', 'a,span', function(e) {
+		nav.on('click', 'a,span', function(e) {
 			e.preventDefault();
 			var el = $(this);
 			var url = el.attrd('id') || el.attr('href');
