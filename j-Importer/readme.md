@@ -14,6 +14,14 @@ __New update__:
 
 j-Importer can contain `<script type="text/html">` with a content which will be evaluated as HTML if the condition will be valid.
 
+__Good to know 1__:
+
+All `~PATH~` phrases will be replaced by `config.path` or `config.if` automatically.
+
+__Good to know 2__:
+
+If the part component isn't within scope then the value from the `config.if` will replace `?` characters in all config keys.
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

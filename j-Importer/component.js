@@ -5,6 +5,10 @@ COMPONENT('importer', function(self, config) {
 	var pending = false;
 	var content = '';
 
+	var replace = function(value) {
+		return self.scope ? self.makepath(value) : value.replace(/\?/g, config.if || config.path);
+	};
+
 	self.readonly();
 
 	self.make = function() {
@@ -13,7 +17,7 @@ COMPONENT('importer', function(self, config) {
 	};
 
 	self.reload = function(recompile) {
-		config.reload && EXEC(config.reload);
+		config.reload && EXEC(replace(config.reload));
 		recompile && COMPILE();
 		setTimeout(function() {
 			pending = false;
@@ -45,14 +49,14 @@ COMPONENT('importer', function(self, config) {
 		}
 
 		if (content) {
-			self.html(content);
+			self.html(replace(content));
 			setTimeout(self.reload, 50, true);
 		} else
-			self.import(config.url, self.reload);
+			self.import(config.url, self.reload, true, replace);
 	};
 
 	self.clean = function() {
-		config.clean && EXEC(config.clean);
+		config.clean && EXEC(replace(config.clean));
 		setTimeout(function() {
 			self.empty();
 			init = false;
