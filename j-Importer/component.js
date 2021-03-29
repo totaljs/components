@@ -6,7 +6,11 @@ COMPONENT('importer', function(self, config) {
 	var content = '';
 
 	var replace = function(value) {
-		return self.scope ? self.makepath(value) : value.replace(/\?/g, config.if || config.path);
+		return self.scope ? self.makepath(value) : value.replace(/\?/g, config.path || config.if);
+	};
+
+	var replace2 = function(value) {
+		return value ? value.replace(/~PATH~/g, config.path || config.if) : value;
 	};
 
 	self.readonly();
@@ -49,10 +53,10 @@ COMPONENT('importer', function(self, config) {
 		}
 
 		if (content) {
-			self.html(replace(content));
+			self.html(replace2(content));
 			setTimeout(self.reload, 50, true);
 		} else
-			self.import(config.url, self.reload, true, replace);
+			self.import(config.url, self.reload, true, replace2);
 	};
 
 	self.clean = function() {
