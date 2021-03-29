@@ -44,7 +44,7 @@
 .ui-detail-style-3 .ui-detail-note { display: none; }
 .ui-detail-style-3 .ui-detail-key { float: left; width: 150px; line-height: 20px; padding: 0 5px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; color: #707070; }
 .ui-detail-style-3 .ui-detail-key i { margin-right: 7px; }
-.ui-detail-style-3 .ui-detail-value { margin: 0 10px 0 150px; line-height: 20px; border-left: 1px solid #E0E0E0; padding: 0 5px; height: 22px; }
+.ui-detail-style-3 .ui-detail-value { margin: 0 10px 0 150px; line-height: 20px; border-left: 1px solid #E0E0E0; padding: 0 5px; height: 22px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
 .ui-detail-style-3 .ui-detail-fontawesome, .ui-detail-style-3 .ui-detail-emoji, .ui-detail-style-3 .ui-detail-color { line-height: 20px; font-size: 14px; margin-bottom: 0; }
 .ui-detail-style-3 .ui-detail-color span b { height: 14px; }
 .ui-detail-small .ui-detail-value { line-height: 20px; }
