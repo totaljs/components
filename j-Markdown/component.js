@@ -47,10 +47,14 @@ COMPONENT('markdown', function (self) {
 		};
 
 		function markdown_code(value) {
-			return '<code>' + value.substring(1, value.length - 1) + '</code>';
+			return value ? ('<code>' + value.substring(1, value.length - 1) + '</code>') : '';
 		}
 
 		function markdown_imagelinks(value) {
+
+			if (!value)
+				return '';
+
 			var end = value.lastIndexOf(')') + 1;
 			var img = value.substring(0, end);
 			var url = value.substring(end + 2, value.length - 1);
@@ -80,6 +84,10 @@ COMPONENT('markdown', function (self) {
 		}
 
 		function markdown_links(value) {
+
+			if (!value)
+				return '';
+
 			var end = value.lastIndexOf(']');
 			var img = value.charAt(0) === '!';
 			var text = value.substring(img ? 2 : 1, end);
