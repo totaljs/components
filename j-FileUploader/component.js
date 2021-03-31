@@ -14,6 +14,7 @@ COMPONENT('fileuploader', function(self) {
 		// opt.multiple {Boolean}
 		// opt.accept {String}
 		// opt.prefix = 'file{0}'
+		// opt.data = { key: value };
 
 		self.opt = opt;
 
@@ -52,6 +53,11 @@ COMPONENT('fileuploader', function(self) {
 				filename = filename.substring(index + 1);
 
 			data.append((self.opt.prefix || 'file{0}').format(i), files[i], filename);
+		}
+
+		if (self.opt.data) {
+			for (var key in self.opt.data)
+				data.append(key, self.opt.data[key]);
 		}
 
 		SETTER('loading/show');
