@@ -1,5 +1,6 @@
+.ui-pin { margin: 0 -5px; }
 .ui-pin-input { position: relative; display: inline-block; }
-.ui-pin-input div { border: 2px solid #000; pdading: 8px 2px; border-radius: var(--radius); background-color: #FFF; }
+.ui-pin-input div { border: 2px solid #000; padding: 8px 2px; border-radius: var(--radius); background-color: #FFF; margin: 5px; }
 .ui-pin-input input { width: 100%; border: 0; background-color: #FFF; outline: 0; font-size: 20px; text-align: center; font-weight: bold; border-radius: 0; appearance: none; color: #000; }
 .ui-pin-invalid .ui-pin-input, .ui-pin-invalid input { background-color: #FFF3F3; }
 .ui-disabled .ui-pin-input div { background-color: #F0F0F0; border-color: #D0D0D0; }
