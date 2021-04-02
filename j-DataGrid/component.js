@@ -2265,6 +2265,20 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 				meta.col.type = typeof(meta.value);
 		}
 
+		if (typeof(meta.col.editable) === 'string') {
+			meta.next = function(value) {
+				if (value !== undefined)
+					meta.value = value;
+				next(meta);
+				self.datagrid_cancel(meta);
+			};
+			meta.cancel = function() {
+				self.datagrid_cancel(meta);
+			};
+			self.EXEC(meta.col.editable, meta);
+			return;
+		}
+
 		if (meta.col.options) {
 			current.el = el;
 			var opt = {};
