@@ -27,8 +27,9 @@ COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true;allowpaste:true', funct
 	self.redraw = function() {
 		var builder = [];
 		count = config.count;
+		var w = (100 / count).floor(3);
 		for (var i = 0; i < count; i++)
-			builder.push('<div data-index="{0}" class="ui-pin-input"><input type="{1}" maxlength="1" autocomplete="pin{2}" name="pin{2}" pattern="[0-9]" /></div>'.format(i, isMOBILE ? 'tel' : 'text', Date.now() + i));
+			builder.push('<div data-index="{0}" class="ui-pin-input" style="width:{3}%"><div><input type="{1}" maxlength="1" autocomplete="pin{2}" name="pin{2}" pattern="[0-9]" /></div></div>'.format(i, isMOBILE ? 'tel' : 'text', Date.now() + i, w));
 		self.html(builder.join(''));
 	};
 

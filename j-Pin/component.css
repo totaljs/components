@@ -1,10 +1,11 @@
-.ui-pin-input { width: 44px; border: 2px solid #000; position: relative; display: inline-block; margin: 0 8px 8px 0; border-radius: var(--radius); padding: 8px 2px; background-color: #FFF; }
+.ui-pin-input { position: relative; display: inline-block; }
+.ui-pin-input div { border: 2px solid #000; pdading: 8px 2px; border-radius: var(--radius); background-color: #FFF; }
 .ui-pin-input input { width: 100%; border: 0; background-color: #FFF; outline: 0; font-size: 20px; text-align: center; font-weight: bold; border-radius: 0; appearance: none; color: #000; }
 .ui-pin-invalid .ui-pin-input, .ui-pin-invalid input { background-color: #FFF3F3; }
-.ui-disabled .ui-pin-input { background-color: #F0F0F0; border-color: #D0D0D0; }
+.ui-disabled .ui-pin-input div { background-color: #F0F0F0; border-color: #D0D0D0; }
 .ui-disabled .ui-pin-input input { background-color: #F0F0F0; cursor: not-allowed; color: gray; }
 
-.ui-dark .ui-pin-input { background-color: #252525; border-color: #353535; }
+.ui-dark .ui-pin-input div { background-color: #252525; border-color: #353535; }
 .ui-dark .ui-pin-input input { background-color: #252525; color: #FFF; }
-.ui-dark .ui-disabled .ui-pin-input { background-color: #282828; border-color: #282828; }
+.ui-dark .ui-disabled .ui-pin-input div { background-color: #282828; border-color: #282828; }
 .ui-dark .ui-disabled .ui-pin-input input { background-color: #282828; color: gray; }
