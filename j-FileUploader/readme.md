@@ -9,7 +9,6 @@ __Methods__:
 	- `opt.callback(response, errors)` {Function} a callback __important__
 	- `opt.multiple` {Boolean} supports multiple files (default: `false`)
 	- `opt.progress(percentage)` {Function}
-	- `opt.multiple` {Boolean} enables multiple file uploading (default: `false`)
 	- `opt.accept` {String} accept type (default: `*/*`)
 	- `opt.prefix` {String} a name prefix `<input name="file{0}"` (default: `file{0}`)
 	- __NEW__ `opt.files` {FileList} optional (if you use e.g Drag & Drop)
