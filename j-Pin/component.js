@@ -41,6 +41,7 @@ COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true;allowpaste:true', funct
 		self.event('keypress', 'input', function(e) {
 			var c = e.which;
 			var t = this;
+
 			if (c >= 48 && c <= 57) {
 				var c = String.fromCharCode(e.charCode);
 				if (t.value !== c)
@@ -58,9 +59,10 @@ COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true;allowpaste:true', funct
 				}
 
 				setTimeout(function(el) {
-					var next = el.parent().next().find('input');
+					var next = el.closest('.' + cls + '-input').next().find('input');
 					next.length && next.focus();
 				}, 50, $(t));
+
 			} else if (c > 30)
 				e.preventDefault();
 		});
@@ -70,7 +72,7 @@ COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true;allowpaste:true', funct
 
 				var el = $(this);
 				if (!el.val()) {
-					var prev = el.parent().prev().find('input');
+					var prev = el.closest('.' + cls + '-input').prev().find('input');
 					prev.val('').focus();
 					prev.attrd('value', '');
 					config.mask && self.mask();
