@@ -77,11 +77,14 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		});
 
 		self.event('paste', 'input', function(e) {
+
 			if (config.mask) {
 				var val = (e.originalEvent.clipboardData || window.clipboardData).getData('text');
 				self.set(val.replace(/\s|\t/g, ''));
 				e.preventDefault();
 			}
+
+			self.check();
 		});
 
 		self.event('keydown', 'input', function(e) {
