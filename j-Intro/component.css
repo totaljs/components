@@ -13,3 +13,10 @@ i.ui-intro-button { margin: 14px 5px 0; cursor: pointer; color: silver; font-siz
 .ui-intro-pagination button:hover { opacity: 0.9; }
 .ui-intro-pagination button.next i { margin-left: 5px; }
 .ui-intro-pagination button.done i { margin-right: 5px; }
+
+.ui-dark .ui-intro { background-color: rgba(0,0,0,0.8); color: #000; }
+.ui-dark .ui-intro-body { background-color: #202020; }
+.ui-dark .ui-intro-body > span { color: red; }
+.ui-dark i.ui-intro-button { color: #666; }
+.ui-dark .ui-intro-pagination { background-color: #303030; }
+.ui-dark .ui-intro-pagination .selected { color: var(--color); }

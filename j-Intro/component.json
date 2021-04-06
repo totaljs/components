@@ -1,6 +1,6 @@
 {
 	"datecreated": "2017-05-16T14:10:00.000Z",
-	"dateupdated": "2021-03-14T09:59:05.000Z",
+	"dateupdated": "2021-04-06T22:17:05.000Z",
 	"name": "j-Intro",
 	"tags": [
 		"intro",
@@ -8,6 +8,7 @@
 	],
 	"color": "transparent",
 	"version": 1,
+	"darkmode": true,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
