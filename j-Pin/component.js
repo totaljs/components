@@ -8,7 +8,7 @@ COMPONENT('pin', 'blank:●;count:6;hide:false;mask:true;allowpaste:true', funct
 	self.nocompile && self.nocompile();
 
 	self.validate = function(value, init) {
-		return init ? true : config.required || config.disabled ? !!(value && value.indexOf(' ') === -1) : true;
+		return init ? true : config.required || config.disabled ? !!(value && value.indexOf(' ') === -1 && value.length === config.count) : true;
 	};
 
 	self.configure = function(key, value, init) {
