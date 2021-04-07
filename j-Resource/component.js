@@ -2,12 +2,12 @@ COMPONENT('resource', function(self) {
 
 	self.readonly();
 	self.blind();
-	self.nocompile && self.nocompile();
+	self.nocompile();
 
 	self.init = function() {
-		window.RESOURCEDB = {};
-		window.RESOURCE = function(name, def) {
-			return RESOURCEDB[name] || def || name;
+		W.RESOURCEDB = {};
+		W.RESOURCE = function(name, def) {
+			return W.RESOURCEDB[name] || def || name;
 		};
 	};
 
@@ -26,12 +26,14 @@ COMPONENT('resource', function(self) {
 	};
 
 	self.prepare = function(value) {
-		var w = window;
-		value.split('\n').forEach(function(line) {
 
-			var clean = line.trim();
+		var arr = value.split('\n');
+
+		for (var i = 0; i < arr.length; i++) {
+
+			var clean = arr[i].trim();
 			if (clean.substring(0, 2) === '//')
-				return;
+				continue;
 
 			var index = clean.indexOf(':');
 			if (index === -1)
@@ -40,8 +42,9 @@ COMPONENT('resource', function(self) {
 			var key = clean.substring(0, index).trim();
 			var value = clean.substring(index + 1).trim();
 
-			w.RESOURCEDB[key] = value;
-		});
+			W.RESOURCEDB[key] = value;
+		}
+
 		return self;
 	};
 
