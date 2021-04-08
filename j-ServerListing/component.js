@@ -3,6 +3,7 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0;pluralizeitems:# items,
 	var container, paginate;
 	var layout;
 	var cls2 = '.' + cls;
+	var prevcount;
 
 	self.readonly();
 
@@ -136,7 +137,8 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0;pluralizeitems:# items,
 				pto--;
 		}
 
-		if (page < 2) {
+		if (page < 2 || prevcount != pages) {
+
 			var template = '<button data-index="{0}"><i class="fa fa-caret-{1}"></i></button>';
 			builder = [];
 			builder.push(template.format('-', 'left'));
@@ -146,6 +148,7 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0;pluralizeitems:# items,
 
 			builder.push(template.format('+', 'right'));
 			paginate.find(cls2 + '-buttons').html(builder.join(''));
+			prevcount = pages;
 
 		} else {
 
@@ -155,10 +158,11 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0;pluralizeitems:# items,
 			if (max > cur && pages > config.pages && pfrom > 1)
 				pfrom--;
 
-			paginate.find(cls2 + '-page[data-index]').each(function(index) {
-				var page = pfrom + index;
-				$(this).attrd('index', page).html(page);
-			});
+			var arr = paginate.find(cls2 + '-page[data-index]');
+			for (var i = 0; i < arr.length; i++) {
+				var page = pfrom + i;
+				$(arr[i]).attrd('index', page).html(page);
+			}
 		}
 
 		if (value.pages != null && value.count !== null)
