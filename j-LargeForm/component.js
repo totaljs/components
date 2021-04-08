@@ -242,11 +242,11 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', f
 		W.$$largeform_level++;
 
 		self.css('z-index', W.$$largeform_level * config.zindex);
+		self.aclass('invisible');
 		self.rclass('hidden');
-
 		self.release(false);
-		config.scrolltop && self.scrollbar && self.scrollbar.scrollTop(0);
 
+		config.scrolltop && self.scrollbar && self.scrollbar.scrollTop(0);
 		config.reload && self.EXEC(config.reload, self);
 		config.default && DEFAULT(self.makepath(config.default), true);
 
@@ -268,7 +268,7 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', f
 				}, 50);
 			}
 			init = true;
-		}, 300);
+		}, 200);
 
 		// Fixes a problem with freezing of scrolling in Chrome
 		setTimeout2(self.ID, function() {
