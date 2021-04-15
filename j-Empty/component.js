@@ -28,7 +28,7 @@ COMPONENT('empty', 'icon:fa fa-database;parent:parent;margin:0', function(self, 
 				self.resize();
 		});
 
-		self.rclass('hidden');
+		self.rclass('hidden invisible');
 	};
 
 	self.resize = function() {
