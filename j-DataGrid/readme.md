@@ -61,7 +61,7 @@ __Configuration__:
 - `alignheader` {String/Number} align for header `right` (or `2`) or `center` (or `1`) (optional, default: `left`)
 - `alignfilter` {String/Number} align for filter input `right` (or `2`) or `center` (or `1`) (optional, default: `left`)
 - `align` {String/Number} align for a column value `right` (or `2`) or `center` (or `1`) (optional, default: `left`)
-- `click` {String} a link to `function(row, grid, row_el)`, it's executed if the user clicks on a row
+- `click` {String} a link to a path or `function(row, grid, row_el)`, a record will be assigned/executed if the user clicks on a row
 - `clickid` {String} an identificator/property name for backwards redrawing (for previous row highlight), default: `id`
 - `highlight` {Boolean} each selected row (after `click`) will be highlighted (default: `false`)
 - `unhighlight` {Boolean} enables `undo highlighting` of selected row (default: `true`)
