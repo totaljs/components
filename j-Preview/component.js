@@ -28,6 +28,7 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 			self.redraw();
 			self.refresh();
 		}, 50);
+
 	};
 
 	self.reinit = function() {
@@ -70,6 +71,11 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 			if (config.percentage) {
 				config.width = (image.width / 100) * config.percentage >> 0;
 				config.height = (image.height / 100) * config.percentage >> 0;
+				canvas.width = config.width;
+				canvas.height = config.height;
+				ctx.fillStyle = config.background;
+				ctx.fillRect(0, 0, config.width, config.height);
+				empty = canvas.toDataURL('image/png');
 			}
 
 			if (image.width > config.width || image.height > config.height) {
@@ -220,6 +226,8 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 	self.setter = function(value) {
 		if (value && config.preview)
 			value = FN(config.preview)(value);
+		if (!value && config.default)
+			value = config.default;
 		img.attr('src', value ? value : empty);
 	};
 
