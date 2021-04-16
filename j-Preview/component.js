@@ -211,6 +211,8 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 	};
 
 	self.setter = function(value) {
+		if (value && config.preview)
+			value = FN(config.preview)(value);
 		img.attr('src', value ? value : empty);
 	};
 
