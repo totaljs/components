@@ -25,6 +25,8 @@ __Configuration__:
 - `customize {Boolean}` resizes picture to the defined size (default: `true`)
 - `preview {String}` prepares a value preview URL address (default: `null`)
 	- example: `value => '/download/' + value + '.jpg'`
+- `map {String}` prepares response value to a value (default: `null`)
+	- example: `value => value.id`
 
 ### Author
 

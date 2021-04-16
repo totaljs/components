@@ -211,7 +211,7 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 					SETTER('snackbar', 'warning', err.toString());
 				} else {
 					self.change(true);
-					self.set(response);
+					self.set(config.map ? FN(config.map)(response) : response);
 				}
 			});
 		}
