@@ -66,6 +66,12 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 		var diff = 0;
 
 		if (config.customize) {
+
+			if (config.percentage) {
+				config.width = (image.width / 100) * config.percentage >> 0;
+				config.height = (image.height / 100) * config.percentage >> 0;
+			}
+
 			if (image.width > config.width || image.height > config.height) {
 				if (image.width > image.height) {
 

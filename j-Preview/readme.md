@@ -17,6 +17,7 @@ __Configuration__:
 - `url {String}` (__IMPORTANT__) upload URL, can contain a method too (required)
 - `width {Number}` a picture width (required)
 - `height {Number}` a picture height (required)
+- `percentage {Number}` resizes a picture according to the percentage (then `width` and `height` aren't required)
 - `icon {String}` (optional) the label icon without `fa`, (default: `null`)
 - `background {String}` (optional) a background color (default: `white`)
 - `schema {String}` prepared object for sending (default: `{file:base64,filename:filename}`, `base64` + `filename` is a value from preview)
