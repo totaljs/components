@@ -14,7 +14,7 @@ The value/response (from the upload) will be used as a URL address for preview.
 
 __Configuration__:
 
-- `url {String}` (__IMPORTANT__) upload URL (required)
+- `url {String}` (__IMPORTANT__) upload URL, can contain a method too (required)
 - `width {Number}` a picture width (required)
 - `height {Number}` a picture height (required)
 - `icon {String}` (optional) the label icon without `fa`, (default: `null`)

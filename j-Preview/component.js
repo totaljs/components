@@ -198,7 +198,8 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 		if (base64) {
 			var data = (new Function('base64', 'filename', 'return ' + config.schema))(base64, name);
 			SETTER('loading', 'show');
-			AJAX('POST ' + config.url.env(true), data, function(response, err) {
+			var url = config.url.env(true);
+			AJAX((url.indexOf(' ') === -1 ? 'POST ' : '') + url, data, function(response, err) {
 				SETTER('loading', 'hide', 100);
 				if (err) {
 					SETTER('snackbar', 'warning', err.toString());
