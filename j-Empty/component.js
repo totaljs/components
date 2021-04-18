@@ -36,6 +36,12 @@ COMPONENT('empty', 'icon:fa fa-database;parent:parent;margin:0', function(self, 
 	};
 
 	self.resizeforce = function() {
+
+		if (config.height) {
+			table.css('height', config.height);
+			return;
+		}
+
 		var parent = self.parent(config.parent);
 		var wh = parent.height() - 10;
 
