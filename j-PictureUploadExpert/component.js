@@ -235,13 +235,13 @@ COMPONENT('pictureuploadexpert', 'width:200;height:100;background:#FFFFFF;qualit
 			var data = (new Function('base64', 'filename', 'return ' + config.schema))(base64, name);
 			AJAX('POST ' + config.url.env(true), data, function(response, err) {
 				if (err) {
-					config.error && SEEX(self.makepath(config.error), err + '');
+					config.error && self.SEEX(config.error, err + '');
 					self.wait();
 				} else {
 					var tmp = response instanceof Array ? response[0] : response;
 					if (tmp) {
 						if (tmp.error)
-							config.error && SEEX(self.makepath(config.error), err + '');
+							config.error && self.SEEX(config.error, err + '');
 						else
 							tmpresponse.push(tmp);
 					}
@@ -303,8 +303,19 @@ COMPONENT('pictureuploadexpert', 'width:200;height:100;background:#FFFFFF;qualit
 				case 7: ctx.transform(0, -1, -1, 0, height, width); break;
 				case 8: ctx.transform(0, -1, 1, 0, 0, width); break;
 			}
+
 			ctx.drawImage(img, 0, 0);
-			callback(canvas.toDataURL());
+
+			if (srcOrientation === 6) {
+				var canvas2 = document.createElement('canvas');
+				canvas2.width = width;
+				canvas2.height = height;
+				var ctx2 = canvas2.getContext('2d');
+				ctx2.scale(-1, 1);
+				ctx2.drawImage(canvas, -width, 0);
+				callback(canvas2.toDataURL());
+			} else
+				callback(canvas.toDataURL());
 		};
 		img.src = src;
 	};
