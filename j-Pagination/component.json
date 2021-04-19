@@ -1,12 +1,13 @@
 {
 	"datecreated": "2016-03-01T09:09:28.634Z",
-	"dateupdated": "2020-01-07T16:08:01.000Z",
+	"dateupdated": "2021-04-19T10:13:00.000Z",
 	"name": "j-Pagination",
 	"tags": [
 		"pagination",
 		"paginate",
 		"pages"
 	],
+	"darkmode": true,
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

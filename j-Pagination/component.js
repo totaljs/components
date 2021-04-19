@@ -20,7 +20,6 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# it
 			e.stopPropagation();
 			var el = $(this);
 			self.find('.selected').rclass('selected');
-			el.aclass('selected');
 			self.page && self.page(+el.attrd('page'), el);
 		});
 	};
@@ -30,7 +29,7 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# it
 	};
 
 	self.page = function(page, el) {
-		config.exec && SEEX(self.makepath(config.exec), page, el);
+		config.exec && self.SEEX(config.exec, page, el);
 	};
 
 	self.getPagination = function(page, pages, max, fn) {
@@ -84,7 +83,16 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# it
 		if (!value)
 			return;
 
-		var is = false;
+		var is;
+
+		if (config.nopages) {
+			is = value.pages < 2;
+			self.tclass('hidden', is);
+			if (is)
+				return;
+		}
+
+		is = false;
 
 		if (value.pages !== undefined) {
 			if (value.pages !== cachePages || value.count !== cacheCount) {
@@ -100,7 +108,7 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# it
 			var prev = value.page - 1;
 			if (prev <= 0)
 				prev = cachePages;
-			builder.push('<span class="page" data-page="{0}"><i class="fa fa-arrow-left"></i></span>'.format(prev));
+			builder.push('<span class="page" data-page="{0}"><i class="fa fa-chevron-left"></i></span>'.format(prev));
 		}
 
 		var max = config.max || 8;
@@ -113,7 +121,7 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# it
 			var next = value.page + 1;
 			if (next > cachePages)
 				next = 1;
-			builder.push('<span class="page" data-page="{0}"><i class="fa fa-arrow-right"></i></span>'.format(next));
+			builder.push('<span class="page" data-page="{0}"><i class="fa fa-chevron-right"></i></span>'.format(next));
 		}
 
 		nav.html(builder.join('')).tclass('hidden', builder.length <= 0);
