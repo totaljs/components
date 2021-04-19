@@ -1,3 +1,5 @@
 .ui-preview-label { margin-bottom: 5px; font-size: 12px; text-align: left; }
 .ui-preview-label i { margin-right: 5px; }
 .ui-preview img { cursor: pointer; border: 2px solid #E0E0E0; border-radius: var(--radius); min-width: 150px; }
+
+.ui-dark .ui-preview img {border-color: #404040; }
