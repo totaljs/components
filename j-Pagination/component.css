@@ -1,5 +1,5 @@
 .ui-pagination { height: 60px; border-top: 2px solid #F0F0F0; padding-top: 20px; margin-top: 20px; }
-.ui-pagination nav { border: 1px solid #E0E0E0; position: relative; display: inline-block; border-radius: var(--radius); }
+.ui-pagination nav { border: 1px solid #E0E0E0; position: relative; display: inline-block; border-radius: var(--radius); user-select: none; }
 .ui-pagination span { font-size: 11px; border-left: 1px solid #E0E0E0; width: 26px; padding: 5px 0; position: relative; display: inline-block; text-align: center; color: gray; text-decoration: none; cursor: pointer; vertical-align: top; }
 .ui-pagination span:first-child { border-left: 0; }
 .ui-pagination i { color: var(--color); }
