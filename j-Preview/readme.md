@@ -27,6 +27,7 @@ __Configuration__:
 	- example: `value => '/download/' + value + '.jpg'`
 - `map {String}` prepares response value to a value (default: `null`)
 	- example: `value => value.id`
+- `empty {String}` a link to the empty image
 
 ### Author
 
