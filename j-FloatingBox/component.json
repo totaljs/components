@@ -1,0 +1,18 @@
+{
+	"datecreated": "2021-04-20T11:51:00.000Z",
+	"dateupdated": null,
+	"name": "j-FloatingBox",
+	"tags": [
+		"floating",
+		"box"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"darkmode": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

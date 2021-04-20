@@ -1,0 +1,13 @@
+<div data---="floatingbox"></div>
+<div data-bind="null__click:showbox">Show box</div>
+
+<script>
+
+	function showbox(el) {
+		var opt = {};
+		opt.element = el;
+		opt.html = '<div class="padding">Custom content</div>';
+		SETTER('floatingbox/show', opt);
+	}
+
+</script>
