@@ -47,6 +47,18 @@ opt.import = '/url/part.html';
 // IMPORTANT: the content will cached for future usage
 ```
 
+### Good to know
+
+- elements with `selectable` class will be selectable
+
+__Methods__:
+
+- `component.up()` selects item above
+- `component.down()` selects item below
+- `component.select([el])` selects item
+
+You can combine methods with `j-Shortcuts` component.
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

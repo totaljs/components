@@ -1,7 +1,7 @@
 COMPONENT('floatingbox', 'minwidth:200;height:200', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
-	var container, timeout;
+	var container, timeout, prevtop, previndex;
 	var is = false, skiphide = false;
 	var parentclass;
 	var imported = {};
@@ -19,18 +19,15 @@ COMPONENT('floatingbox', 'minwidth:200;height:200', function(self, config, cls) 
 		container = self.find(cls2 + '-container');
 
 		self.event('click', '.selectable', function(e) {
-
 			var el = $(this);
-
 			if (self.opt.callback) {
 				self.opt.scope && M.scope(self.opt.scope);
 				self.opt.callback(el);
+				is = true;
+				self.hide(0);
+				e.preventDefault();
+				e.stopPropagation();
 			}
-
-			is = true;
-			self.hide(0);
-			e.preventDefault();
-			e.stopPropagation();
 		});
 
 		var e_click = function(e) {
@@ -89,8 +86,78 @@ COMPONENT('floatingbox', 'minwidth:200;height:200', function(self, config, cls) 
 			is && self.hide(1);
 		};
 
-		self.on('reflow + scroll + resize + resize2', fn);
+		self.on('reflow + resize + resize2', fn);
+		self.on('scroll', function(el) {
+			if (is && (!el || !el[0] || el[0].parentNode.$scrollbar !== self.scrollbar))
+				self.hide(1);
+		});
+
 		$(W).on('scroll', fn);
+	};
+
+	self.up = function() {
+		is && self.move(-1);
+	};
+
+	self.down = function() {
+		is && self.move(1);
+	};
+
+	self.select = function(el) {
+		if (is && self.opt.callback) {
+			if (el) {
+				self.opt.scope && M.scope(self.opt.scope);
+				self.opt.callback(selected);
+			} else {
+				var selected = container.find('.selected');
+				if (selected.length) {
+					self.opt.scope && M.scope(self.opt.scope);
+					self.opt.callback(selected);
+				}
+			}
+			self.hide(0);
+		}
+	};
+
+	self.move = function(step) {
+
+		var arr = self.element.find('.selectable');
+		var index = -1;
+
+		for (var i = 0; i < arr.length; i++) {
+			var el = arr[i];
+			if (el.classList.contains('selected')) {
+				index = i;
+				break;
+			}
+		}
+
+		var newindex = index + step;
+
+		if (previndex === newindex)
+			return;
+
+		if (arr[index])
+			arr[index].classList.remove('selected');
+
+		index = newindex;
+		previndex = newindex;
+
+		if (index > arr.length - 1)
+			index = arr.length - 1;
+		else if (index < 0)
+			index = 0;
+
+		if (arr[index]) {
+			arr[index].classList.add('selected');
+			var top = arr[index].offsetTop;
+			if (prevtop !== top) {
+				prevtop = top;
+				var h = self.scrollbar.element.height();
+				self.scrollbar.scrollTop(top - 30);
+			}
+		}
+
 	};
 
 	self.show = function(opt) {
@@ -111,6 +178,8 @@ COMPONENT('floatingbox', 'minwidth:200;height:200', function(self, config, cls) 
 
 		var el = opt.element instanceof jQuery ? opt.element[0] : opt.element;
 
+		prevtop = null;
+		previndex = null;
 		self.tclass(cls + '-default', !opt.render);
 
 		if (parentclass) {
