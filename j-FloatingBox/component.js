@@ -8,7 +8,6 @@ COMPONENT('floatingbox', 'minwidth:200;height:200', function(self, config, cls) 
 
 	self.readonly();
 	self.singleton();
-	self.nocompile();
 
 	self.make = function() {
 

@@ -3,6 +3,7 @@ COMPONENT('searchinput', 'searchicon:fa fa-search;cancelicon:fa fa-times;align:l
 	var input;
 	var icon;
 	var prev;
+	var prev2;
 
 	self.novalidate();
 
@@ -15,6 +16,7 @@ COMPONENT('searchinput', 'searchicon:fa fa-search;cancelicon:fa fa-times;align:l
 
 		self.event('click', 'span', function() {
 			prev && self.set('');
+			prev2 = '';
 		});
 
 		if (config.autofocus && !isMOBILE) {
@@ -44,9 +46,15 @@ COMPONENT('searchinput', 'searchicon:fa fa-search;cancelicon:fa fa-times;align:l
 		self.check();
 	};
 
-	self.setter = function(value) {
+	self.setter = function(value, path, type) {
+
 		input.value = value || '';
-		config.exec && self.SEEX(config.exec, input.value, self.element);
+
+		if (prev2 !== input.value) {
+			prev2 = input.value;
+			type && config.exec && self.SEEX(config.exec, input.value, self.element);
+		}
+
 		self.check();
 	};
 
