@@ -1,7 +1,7 @@
 ## j-FloatingBox
 
 - singleton
-- support custom scrollbars
+- supports custom scrollbars
 - supports __dark mode__
 
 __Methods__:
