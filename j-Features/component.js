@@ -204,9 +204,9 @@ COMPONENT('features', 'height:35', function(self, config, cls) {
 
 		container.html(builder);
 
-		var W = $(window);
-		var top = ((W.height() / 2) - (search.height() / 2)) - scroller.css('max-height').parseInt();
-		var options = { top: top, left: (W.width() / 2) - (search.width() / 2) };
+		var w = $(W);
+		var top = ((w.height() / 2) - (search.height() / 2)) - self.scrollbar.element.height();
+		var options = { top: top, left: (w.width() / 2) - (search.width() / 2) };
 
 		search.css(options);
 		self.move();
