@@ -1,4 +1,4 @@
-COMPONENT('features', 'height:37', function(self, config, cls) {
+COMPONENT('features', 'height:35', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var container, timeout, input, search, scroller = null;
@@ -25,9 +25,10 @@ COMPONENT('features', 'height:37', function(self, config, cls) {
 	self.make = function() {
 
 		self.aclass(cls + '-layer hidden');
-		self.append('<div class="{1}"><div class="{1}-search"><span><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" /></div></div><div class="{1}-container noscrollbar"><ul></ul></div></div>'.format(config.placeholder, cls));
+		self.append('<div class="{1}"><div class="{1}-search"><span><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" /></div></div><div class="{1}-scrollbar"><div class="{1}-container"><ul></ul></div></div></div>'.format(config.placeholder, cls));
 
 		container = self.find('ul');
+		self.scrollbar = SCROLLBAR(self.find(cls2 + '-scrollbar'), { visibleY: true, orientation: 'y' });
 		input = self.find('input');
 		search = self.find(cls2);
 		scroller = self.find(cls2 + '-container');
@@ -43,7 +44,7 @@ COMPONENT('features', 'height:37', function(self, config, cls) {
 			is && !$(e.target).hclass(cls + '-search-input') && self.hide(0);
 		});
 
-		$(window).on('resize', function() {
+		$(W).on('resize', function() {
 			is && self.hide(0);
 		});
 
@@ -113,8 +114,9 @@ COMPONENT('features', 'height:37', function(self, config, cls) {
 		resultscount = 0;
 		selectedindex = 0;
 
-		container.find('li').each(function() {
-			var el = $(this);
+		var li = container.find('li');
+		for (var j = 0; j < li.length; j++) {
+			var el = $(li[j]);
 			var val = el.attrd('search');
 			var h = false;
 
@@ -132,29 +134,34 @@ COMPONENT('features', 'height:37', function(self, config, cls) {
 
 			el.tclass('hidden', h);
 			el.rclass('selected');
-		});
+		}
+
+		self.scrollbar.resize();
 		self.move();
 	};
 
 	self.move = function() {
+
 		var counter = 0;
 		var h = scroller.css('max-height').parseInt();
 
-		container.find('li').each(function() {
-			var el = $(this);
+		var li = container.find('li');
+
+		for (var i = 0; i < li.length; i++) {
+			var el = $(li[i]);
 			if (el.hclass('hidden'))
-				return;
+				continue;
 			var is = selectedindex === counter;
 			el.tclass('selected', is);
 			if (is) {
 				var t = (config.height * counter) - config.height;
 				if ((t + config.height * 5) > h)
-					scroller.scrollTop(t);
+					self.scrollbar.scrollTop(t);
 				else
-					scroller.scrollTop(0);
+					self.scrollbar.scrollTop(0);
 			}
 			counter++;
-		});
+		}
 	};
 
 	self.show = function(items, callback) {
@@ -186,14 +193,11 @@ COMPONENT('features', 'height:37', function(self, config, cls) {
 		var builder = [];
 		var indexer = {};
 
-		for (var i = 0, length = items.length; i < length; i++) {
+		for (var i = 0; i < items.length; i++) {
 			item = items[i];
 			indexer.index = i;
 			indexer.search = (item.name + ' ' + (item.keywords || '')).trim().toSearch();
-
-			if (item.icon && item.icon.indexOf(' ') === -1)
-				item.icon = 'fa fa-' + item.icon;
-
+			item.icon = self.faicon(item.icon);
 			!item.value && (item.value = item.name);
 			builder.push(self.template(item, indexer));
 		}

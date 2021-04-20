@@ -4,19 +4,15 @@
 .ui-features-search input { width: 100%; background-color: #FFF; border: 0; font-size: 20px; outline: 0; }
 .ui-features-search > div { margin-left: 42px; padding: 15px 10px 0 0; }
 .ui-features-search > span { float: left; width: 32px; text-align: right; padding: 17px 0 0 0; font-size: 18px; }
-.ui-features .selected { font-weight: bold; background-color: #F8F8F8; color: #1484FC !important; }
+.ui-features .selected { font-weight: bold; background-color: var(--color); color: #FFF !important; }
 .ui-features-visible { opacity: 1; transform: scale(1); }
-.ui-features-container { max-height: 200px; overflow-x: hidden; overflow-y: auto; overflow-scrolling: touch; }
-.ui-features ul { list-style-type: none; margin: 0; padding: 0; }
-.ui-features li { border-bottom: 1px solid #E5E5E5; font-size: 14px; padding: 8px 15px 0; background-color: #FFF; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; height: 37px; }
-.ui-features li i { margin-right: 10px; width: 25px; border-right: 1px solid #E0E0E0; }
-.ui-features li:hover { background-color: #F8F8F8; }
+.ui-features-scrollbar { height: 200px; }
+.ui-features ul { list-style-type: none; margin: 0; padding: 10px 0; }
+.ui-features li { font-size: 14px; margin: 2px 10px; padding: 0 10px; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 35px; border-radius: var(--radius); }
+.ui-features li i { width: 18px; text-align: center; margin-right: 5px; }
+.ui-features li:hover { background-color: var(--color); color: #FFF; }
 .ui-features-noscroll { overflow: hidden !important; }
 
-.ui-dark .ui-features { background-color: #404040; }
+.ui-dark .ui-features { background-color: #303030; }
 .ui-dark .ui-features-search { background: #202020; border-bottom-color: #404040; }
 .ui-dark .ui-features-search input { background-color: #202020; }
-.ui-dark .ui-features .selected { background-color: #303030; color: #FFF !important; }
-.ui-dark .ui-features li { border-bottom-color: #404040; background-color: #202020; }
-.ui-dark .ui-features li i { border-right-color: #404040; }
-.ui-dark .ui-features li:hover { background-color: #282828; }
