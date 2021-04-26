@@ -759,7 +759,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				case 'email':
 					return (value + '').toLowerCase();
 				case 'date':
-					return value.format(config.format || 'yyyy-MM-dd');
+					return value.format(config.format || DEF.dateformat || 'yyyy-MM-dd');
 				case 'time':
 					return value.format(config.format || 'HH:mm');
 				case 'number':
