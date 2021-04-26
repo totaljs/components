@@ -3,12 +3,12 @@ COMPONENT('click', function(self, config) {
 	self.readonly();
 
 	self.click = function() {
-		if (config.disabled)
-			return;
-		if (config.value)
-			self.set(self.parser(config.value));
-		else
-			self.get(self.attrd('jc-path'))(self);
+		if (!config.disabled) {
+			if (config.value)
+				self.set(self.parser(config.value));
+			else
+				self.EXEC(self.path, self.element);
+		}
 	};
 
 	self.make = function() {
