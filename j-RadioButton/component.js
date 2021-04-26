@@ -24,7 +24,7 @@ COMPONENT('radiobutton', 'inline:1', function(self, config, cls) {
 			case 'items':
 				self.find('div[data-value]').remove();
 				var builder = [];
-				value.split(',').forEach(function(item) {
+				value.split(/[^\\],/).forEach(function(item) {
 					item = item.split('|');
 					builder.push(template.format(item[0] || item[1], item[1] || item[0]));
 				});
