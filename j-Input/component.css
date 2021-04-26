@@ -11,6 +11,7 @@
 .ui-input-control input::-ms-expand { display: none; }
 .ui-input-icon-left { width: 32px; height: 30px; line-height: 32px; float: left; text-align: center; border-right: 1px solid #E0E0E0; }
 .ui-input-icon-right { width: 32px; height: 30px; line-height: 32px; float: right; border-left: 1px solid #E0E0E0; text-align: center; }
+.ui-input-required .ui-input-label { font-weight: bold; }
 .ui-input-required .ui-input-icon-left { border-color: #D0D0D0; }
 .ui-input-required .ui-input-icon-right { border-color: #D0D0D0; }
 .ui-input-ricon .ui-input-input { margin-right: 35px; }
