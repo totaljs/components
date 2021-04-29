@@ -2,12 +2,12 @@
 
 __Configuration__:
 
-- `if` {String} can contain JS condition for evaluation(optional)
+- `if` {String} can contain JS condition for evaluation
 	- `value` {Object} contains entire model
 	- `path` {String} contains changed path
 	- __must return boolean__
-- `selector` {String} jQuery selector for disabling (optional, default: `button[name="submit"]`)
-- `timeout` {Number} a timeout for validation (optional, default: `100`)
+- `selector` {String} jQuery selector for disabling (default: `button[name="submit"]`)
+- `delay` {Number} a timeout for validation (default: `100`)
 - `flags` {String} `+v13.0.0` flags for better validation, can contain `visible,hidden,enabled,disabled` components
 	- `enabled` validates all components which are enabled `input`, `textarea` or `select` elements
 	- `disabled` validates all components which are disabled `input`, `textarea` or `select` elements
