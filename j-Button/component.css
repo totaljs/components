@@ -1,0 +1,18 @@
+.ui-button button { background-color: #FFF; border-radius: var(--radius); border: 1px solid #E0E0E0; box-shadow: 0 1px 2px rgba(0,0,0,.1); outline: 0; cursor: pointer; width: 100%; display: block; color: #000; user-select: none; }
+.ui-button button i { margin-right: 5px; }
+.ui-button button:hover { border-color: #D0D0D0; }
+.ui-button button:active { box-shadow: none; background-color: var(--color); border-color: var(--color); color: #FFF; }
+.ui-button button:active i { color: #FFF !important; }
+.ui-button button:disabled { background-color: #F0F0F0; color: #777; cursor: not-allowed; box-shadow: none; border-color: #E0E0E0; }
+.ui-button-big button { height: 60px; font-size: 18px; }
+.ui-button-big button i { margin-right: 8px; }
+.ui-button-large button { height: 45px; font-size: 16px; }
+.ui-button-normal button { height: 36px; font-size: 13px; }
+.ui-button-small button { height: 24px; font-size: 11px; }
+
+.ui-dark .ui-button button { background-color: #333; border-color: #353535; color: #FFF; box-shadow: 0 1px 2px rgba(0,0,0,.3); }
+.ui-dark .ui-button button:hover { border-color: #404040; }
+.ui-dark .ui-button button:active { box-shadow: none; background-color: var(--color); border-color: var(--color); color: #FFF; }
+.ui-dark .ui-button button:active i { color: #FFF !important; }
+.ui-dark .ui-button button:disabled { background-color: #303030; color: #777; border-color: #353535; }
+.ui-dark .ui-button button:disabled i { color: #777 !important; }

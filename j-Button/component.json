@@ -1,0 +1,17 @@
+{
+	"datecreated": "2021-04-29T20:15:00.000Z",
+	"dateupdated": null,
+	"name": "j-Button",
+	"tags": [
+		"button"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"darkmode": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
