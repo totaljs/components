@@ -4,6 +4,7 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0;pluralizeitems:# items,
 	var layout;
 	var cls2 = '.' + cls;
 	var prevcount;
+	var isinit = false;
 
 	self.readonly();
 
@@ -176,7 +177,11 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0;pluralizeitems:# items,
 		else
 			paginate.rclass('hidden');
 
-		self.rclass('hidden');
+		if (!isinit) {
+			self.rclass('hidden');
+			self.rclass('invisible', 500);
+			isinit = false;
+		}
 
 		if (type && config.scrolltop) {
 			if (self.scrollbar)
