@@ -31,6 +31,7 @@ COMPONENT('view', 'cache:session', function(self, config, cls) {
 
 	self.make = function() {
 		self.aclass(cls);
+		self.download();
 	};
 
 	self.setter = function(value, p, type) {
