@@ -1,0 +1,17 @@
+{
+	"datecreated": "2021-04-29T14:03:06.000Z",
+	"dateupdated": null,
+	"name": "j-View",
+	"tags": [
+		"views"
+	],
+	"color": "white",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
