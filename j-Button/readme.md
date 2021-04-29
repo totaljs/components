@@ -3,6 +3,7 @@
 A simple button component with great features.
 
 - fully responsive
+- supports validation
 
 __Configuration__:
 
