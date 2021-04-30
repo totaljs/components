@@ -220,7 +220,7 @@ COMPONENT('floatinginput', 'minwidth:200', function(self, config, cls) {
 
 		switch (opt.align) {
 			case 'center':
-				options.left = Math.ceil((offset.left - width / 2) + (width / 2));
+				options.left = Math.ceil((offset.left + w / 2) - (width / 2));
 				break;
 			case 'right':
 				options.left = (offset.left - width) + w;
