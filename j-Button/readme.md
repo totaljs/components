@@ -13,6 +13,11 @@ __Configuration__:
 - `validation {Boolean}` Enables validation for all components on the path (default: `true`)
 - `delay` {Number} a timeout for validation (default: `100`)
 - `name {String}` a name for the `name` attribute (default: `submit`)
+- `size {String}` a size:
+	- `small`
+	- `normal` (default)
+	- `large`
+	- `big`
 - `ddos {String}` A simple DDOS prevetion for multiple clicks, possible values:
 	- `undefined` disables prevention
 	- `10 seconds`
