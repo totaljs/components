@@ -88,6 +88,9 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0;pluralizeitems:# items,
 			return;
 		}
 
+		if (!value.pages)
+			value.pages = 1;
+
 		var builder = [];
 		var g = { count: value.count, page: value.page, pages: value.pages };
 
@@ -143,6 +146,9 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0;pluralizeitems:# items,
 			var template = '<button data-index="{0}"><i class="fa fa-caret-{1}"></i></button>';
 			builder = [];
 			builder.push(template.format('-', 'left'));
+
+			if (!pto)
+				pto = 1;
 
 			for (var i = pfrom; i < pto + 1; i++)
 				builder.push('<button class="{0}-page" data-index="{1}">{1}</button>'.format(cls, i));
