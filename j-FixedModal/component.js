@@ -1,8 +1,6 @@
-COMPONENT('fixedmodal', 'zindex:12;width:500', function(self, config) {
+COMPONENT('fixedmodal', 'zindex:12;width:500', function(self, config, cls) {
 
-	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
-	var W = window;
 	var body, first = true;
 
 	self.readonly();
