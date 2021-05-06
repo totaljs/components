@@ -35,7 +35,7 @@
 .markdown-showsecret .pull-right { margin: 2px 0 0; }
 .markdown-secret { padding: 0; border-radius: var(--radius); border: 1px solid #E0E0E0; }
 .markdown-secret > div { padding: 15px 15px 1px; border-radius: 0 0 var(--radius) var(--radius); background-color: #F8F8F8; }
-.markdown-small p code, .markdown-small li code, .markdown-small section code, .markdown-small blockquote code, .markdown-small h1 code, .markdown-small h2 code, .markdown-small h3 code, .markdown-small h4 code, .markdown-small td code, .markdown-small pre code { font-size: 12px; }
+.markdown-small p code, .markdown-small li code, .markdown-small section code, .markdown-small blockquote code, .markdown-small td code, .markdown-small pre code { font-size: 12px; }
 .markdown-tasks { list-style-type: none; padding-left: 12px !important; }
 .markdown-tasks li > i:first-child { margin-right: 5px; }
 .markdown-code { margin-bottom: 15px; }
