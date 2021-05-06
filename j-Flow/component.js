@@ -314,7 +314,7 @@ EXTENSION('flow:helpers', function(self, config) {
 	self.helpers = {};
 
 	self.helpers.checksum = function(obj) {
-		var checksum = (obj.outputs ? obj.outputs.length : 0) + ',' + (obj.inputs ? obj.inputs.length : 0) + ',' + (obj.html || '');
+		var checksum = (obj.outputs ? obj.outputs.length : 0) + ',' + (obj.inputs ? obj.inputs.length : 0) + ',' + (obj.html || '') + ',' + obj.x + ',' + obj.y;
 		return HASH(checksum, true);
 	};
 
