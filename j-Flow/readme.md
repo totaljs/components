@@ -25,6 +25,10 @@ __Configuration__:
 - __NEW__ `animationradius` {Boolean} animation radius in pixels (default: `6`)
 - __NEW__ `contextmenu` {String} a path to `function(e, type, component/meta)` (type can be `map`, `component` or `connection`)
 - __NEW__ `dblclick` {String} a path to `function(component)`
+- `outputoffsetX` {Number} a default X offset for output point (default: `10`)
+- `outputoffsetY` {Number} a default Y offset for output point (default: `12`)
+- `inputoffsetX` {Number} a default X offset for input point (default: `10`)
+- `inputoffsetY` {Number} a default Y offset for input point (default: `12`)
 
 __Commands__:
 
