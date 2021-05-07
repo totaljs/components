@@ -104,10 +104,16 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 	};
 
 	var rebuilding = false;
+	var rebuildagain = false;
 
 	self.setter = function(value, path, type) {
 
-		if (type === 2 || !value || rebuilding)
+		if (rebuilding) {
+			rebuildagain = true;
+			return;
+		}
+
+		if (type === 2 || !value)
 			return;
 
 		var keys = Object.keys(value);
@@ -222,6 +228,11 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			}
 			self.find('.removed').remove();
 			rebuilding = false;
+
+			if (rebuildagain)
+				self.refresh();
+
+			rebuildagain = false;
 		}, 300);
 
 		self.undo = [];
