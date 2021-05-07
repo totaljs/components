@@ -192,9 +192,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 		}
 
 		// Remove unused components
-		keys = Object.keys(prev);
-		for (var i = 0; i < keys.length; i++) {
-			var key = keys[i];
+		for (var key in prev) {
 			tmp = prev[key];
 			tmp.instance.onremove && tmp.instance.onremove(tmp.el, tmp.instance);
 			onremove && onremove(tmp.el, tmp.instance);
@@ -202,9 +200,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			tmp.el.remove();
 		}
 
-		keys = Object.keys(self.cache);
-		for (var i = 0; i < keys.length; i++) {
-			var key = keys[i];
+		for (var key in self.cache) {
 			tmp = self.cache[key];
 			tmp.instance.ondone && tmp.instance.ondone(tmp.el, tmp.instance);
 			ondone && ondone(tmp.el, tmp.instance);
@@ -233,9 +229,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 	};
 
 	self.reconnect = function(m) {
-		var indexes = Object.keys(m.instance.connections);
-		for (var i = 0; i < indexes.length; i++) {
-			var index = indexes[i];
+		for (var index in m.instance.connections) {
 			var output = m.el.find('.output[data-index="{0}"]'.format(index));
 			var inputs = m.instance.connections[index];
 			var problem = false;
@@ -327,7 +321,7 @@ EXTENSION('flow:helpers', function(self, config) {
 		var y3 = y1 + y;
 		var s = ' ';
 		var padding = config.steplines ? Math.ceil(15 * ((index + 1) / 100) * 50) : 15;
-		// var padding = 15;
+		var can = config.steplines && Math.abs(x1 - x4) > 200 && Math.abs(y1 - y4) > 200;
 
 		if (config.curvedlines)
 			return self.helpers.diagonal(x1, y1, x4, y4);
@@ -338,16 +332,18 @@ EXTENSION('flow:helpers', function(self, config) {
 
 		if (config.horizontal) {
 
-			if (config.steplines)
+			if (can)
 				x2 += padding * 2;
 
 			x2 += padding;
 
 			builder.push('L' + (x2 >> 0) + s + (y1 >> 0));
 
-			if (config.steplines) {
+			if (can) {
 				if ((x1 !== x4 || y1 !== y4)) {
+					y2 += padding * 2;
 					builder.push('L' + (x2 >> 0) + s + (y2 >> 0));
+					y3 += padding * 2;
 					x3 -= padding * 3;
 					builder.push('L' + (x3 >> 0) + s + (y3 >> 0));
 				}
@@ -357,12 +353,12 @@ EXTENSION('flow:helpers', function(self, config) {
 			x4 -= padding;
 			builder.push('L' + (x4 >> 0) + s + (y4 >> 0));
 
-			if (config.steplines)
+			if (can)
 				x4 += padding * 2;
 
 			x4 += padding;
 
-		} else if (config.steplines) {
+		} else if (can) {
 			if ((x1 !== x4 || y1 !== y4)) {
 				builder.push('L' + (x2 >> 0) + s + (y2 >> 0));
 				builder.push('L' + (x3 >> 0) + s + (y3 >> 0));
@@ -469,7 +465,6 @@ EXTENSION('flow:operations', function(self, config) {
 	var removeconnections = function(next, removed) {
 
 		var connections = next.instance.connections;
-		var keys = Object.keys(connections);
 		var meta = {};
 		var onremove = function(conn) {
 
@@ -488,8 +483,7 @@ EXTENSION('flow:operations', function(self, config) {
 			return is;
 		};
 
-		for (var i = 0; i < keys.length; i++) {
-			var index = keys[i];
+		for (var index in connections) {
 			var conn = connections[index];
 			meta.fromindex = index;
 			connections[index] = conn = conn.remove(onremove);
@@ -529,17 +523,13 @@ EXTENSION('flow:operations', function(self, config) {
 	self.op.clean = function() {
 
 		var model = self.get();
-		var keys = Object.keys(model);
 		var subkeys;
 
-		for (var i = 0; i < keys.length; i++) {
-			var key = keys[i];
+		for (var key in model) {
 
 			if (key === 'paused') {
 				var count = 0;
-				subkeys = Object.keys(model.paused);
-				for (var j = 0; j < subkeys.length; j++) {
-					var subkey = subkeys[j];
+				for (var subkey in model.paused) {
 					var tmp = subkey.split(D);
 					if (!model[tmp[1]] || !model[tmp[1]].connections || !model[tmp[1]].connections[tmp[2]])
 						delete model.paused[subkey];
@@ -553,10 +543,8 @@ EXTENSION('flow:operations', function(self, config) {
 
 			// check connections
 			var com = model[key];
-			subkeys = Object.keys(com.connections);
-			for (var j = 0; j < subkeys.length; j++) {
+			for (var subkey in com.connections) {
 
-				var subkey = subkeys[j];
 				var tmp = model[key].connections[subkey];
 				var index = 0;
 
@@ -595,17 +583,12 @@ EXTENSION('flow:operations', function(self, config) {
 		self.el.lines.find('.to' + D + id).remove();
 
 		// browse all components and find dependencies to this component
-		var keys = Object.keys(self.cache);
-		for (var i = 0; i < keys.length; i++) {
-			var key = keys[i];
+		for (var key in self.cache)
 			removeconnections(self.cache[key], tmp);
-		}
 
 		var connections = tmp.instance.connections;
-		keys = Object.keys(connections);
 
-		for (var i = 0; i < keys.length; i++) {
-			var index = keys[i];
+		for (var index in connections) {
 			var conns = connections[index];
 			for (var j = 0; j < conns.length; j++) {
 				var conn = conns[j];
@@ -925,7 +908,6 @@ EXTENSION('flow:components', function(self, config) {
 			config.onmove && self.EXEC(config.onmove, drag.target, data);
 			self.op.modified();
 			self.op.modify(data, 'move');
-			// self.el.lines.find('.from{0},.to{0}'.format(D + drag.id)).rclass('highlight');
 		}
 
 		events.unbind();
