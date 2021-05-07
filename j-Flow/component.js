@@ -1,4 +1,4 @@
-COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horizontal:1;steplines:1;animationradius:6', function(self, config, cls) {
+COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horizontal:1;steplines:1;animationradius:6;outputoffsetY:10;outputoffsetX:12;inputoffsetY:10;inputoffsetX:12', function(self, config, cls) {
 
 	// config.infopath {String}, output: { zoom: Number, selected: Object }
 	// config.undopath {String}, output: {Object Array}
@@ -423,8 +423,8 @@ EXTENSION('flow:helpers', function(self, config) {
 		var pos = el.offset();
 		var mainoffset = el.closest('.ui-flow').offset();
 
-		var x = (pos.left - mainoffset.left) + 12;
-		var y = (pos.top - mainoffset.top) + 10;
+		var x = (pos.left - mainoffset.left) + (isout ? config.outputoffsetX : config.inputoffsetX);
+		var y = (pos.top - mainoffset.top) + (isout ? config.outputoffsetY : config.inputoffsetY);
 
 		if (config.horizontal) {
 			var zoom = self.info.zoom / 100;
