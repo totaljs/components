@@ -312,20 +312,29 @@ EXTENSION('flow:helpers', function(self, config) {
 		return HASH(checksum, true);
 	};
 
-	self.helpers.connect = function(x1, y1, x4, y4, index) {
+	self.helpers.connect = function(x1, y1, x4, y4, findex, tindex) {
 
-		var y = (y4 - y1) / ((index || 0) + 2);
+		if (tindex === -1)
+			tindex = 0;
+
+		if (findex === -1)
+			findex = 0;
+
+		// var y = (y4 - y1) / ((index || 0) + 2);
+		var y = (y4 - y1) / 2;
+
 		var x2 = x1;
 		var y2 = y1 + y;
 		var x3 = x4;
 		var y3 = y1 + y;
 		var s = ' ';
-		var padding = config.steplines ? Math.ceil(15 * ((index + 1) / 100) * 50) : 15;
-		var can = config.steplines && Math.abs(x1 - x4) > 200 && Math.abs(y1 - y4) > 200;
 
 		if (config.curvedlines)
 			return self.helpers.diagonal(x1, y1, x4, y4);
 
+		var paddingO = config.steplines ? Math.ceil(15 * ((findex + 1) / 100) * 50) : 15;
+		var paddingI = config.steplines ? Math.ceil(15 * ((tindex + 1) / 100) * 50) : 15;
+		var can = config.steplines && Math.abs(x1 - x4) > 200 && Math.abs(y1 - y4) > 200;
 		var builder = [];
 
 		builder.push('M' + (x1 >> 0) + s + (y1 >> 0));
@@ -333,30 +342,30 @@ EXTENSION('flow:helpers', function(self, config) {
 		if (config.horizontal) {
 
 			if (can)
-				x2 += padding * 2;
+				x2 += paddingO * 2;
 
-			x2 += padding;
+			x2 += paddingO * 2;
 
 			builder.push('L' + (x2 >> 0) + s + (y1 >> 0));
-
 			if (can) {
 				if ((x1 !== x4 || y1 !== y4)) {
-					y2 += padding * 2;
+					var d = Math.abs(paddingO - paddingI) / 2 >> 0;
+					y2 += d;
 					builder.push('L' + (x2 >> 0) + s + (y2 >> 0));
-					y3 += padding * 2;
-					x3 -= padding * 3;
+					y3 += d;
+					x3 -= paddingI * 2;
 					builder.push('L' + (x3 >> 0) + s + (y3 >> 0));
 				}
-				x4 -= padding * 2;
+				x4 -= paddingI;
 			}
 
-			x4 -= padding;
+			x4 -= paddingI;
 			builder.push('L' + (x4 >> 0) + s + (y4 >> 0));
 
 			if (can)
-				x4 += padding * 2;
+				x4 += paddingI * 2;
 
-			x4 += padding;
+			x4 += paddingI;
 
 		} else if (can) {
 			if ((x1 !== x4 || y1 !== y4)) {
@@ -369,9 +378,9 @@ EXTENSION('flow:helpers', function(self, config) {
 		return builder.join(s);
 	};
 
-	self.helpers.move1 = function(x1, y1, conn, realindex) {
+	self.helpers.move1 = function(x1, y1, conn, findex, tindex) {
 		var pos = conn.attrd('offset').split(',');
-		conn.attr('d', self.helpers.connect(x1, y1, +pos[2], +pos[3], realindex));
+		conn.attr('d', self.helpers.connect(x1, y1, +pos[2], +pos[3], findex, tindex));
 		conn.attrd('offset', x1 + ',' + y1 + ',' + pos[2] + ',' + pos[3]);
 	};
 
@@ -389,9 +398,9 @@ EXTENSION('flow:helpers', function(self, config) {
 		self.find('.component[data-id="{0}"]'.format(id)).find('.input[data-index="{0}"]'.format(index)).tclass('connected', is);
 	};
 
-	self.helpers.move2 = function(x4, y4, conn, realindex) {
+	self.helpers.move2 = function(x4, y4, conn, findex, tindex) {
 		var pos = conn.attrd('offset').split(',');
-		conn.attr('d', self.helpers.connect(+pos[0], +pos[1], x4, y4, realindex));
+		conn.attr('d', self.helpers.connect(+pos[0], +pos[1], x4, y4, findex, tindex));
 		conn.attrd('offset', pos[0] + ',' + pos[1] + ',' + x4 + ',' + y4);
 	};
 
@@ -430,7 +439,7 @@ EXTENSION('flow:helpers', function(self, config) {
 		var id = component.attrd('id');
 		var indexid = el.attrd('index');
 
-		return { x: x >> 0, y: y >> 0, id: id, index: indexid };
+		return { x: x >> 0, y: y >> 0, id: id, index: indexid, indexoffset: el.index() };
 	};
 
 	self.helpers.parseconnection = function(line) {
@@ -716,7 +725,9 @@ EXTENSION('flow:operations', function(self, config) {
 			path.attrd('offset', a.x + ',' + a.y + ',' + b.x + ',' + b.y);
 			path.attrd('fromindex', a.index);
 			path.attrd('toindex', b.index);
-			path.attr('d', self.helpers.connect(a.x, a.y, b.x, b.y, output.index()));
+			path.attrd('fromindexoffset', a.indexoffset);
+			path.attrd('toindexoffset', b.indexoffset);
+			path.attr('d', self.helpers.connect(a.x, a.y, b.x, b.y, a.indexoffset, b.indexoffset));
 		});
 	};
 
@@ -877,9 +888,12 @@ EXTENSION('flow:components', function(self, config) {
 			var conn = $(drag.output[i]);
 			var pos = self.helpers.position(conn, true);
 			var arr = self.el.lines.find('.from' + D + pos.id + D + pos.index);
-			var realindex = conn.index();
-			for (var j = 0; j < arr.length; j++)
-				self.helpers.move1(zoom(pos.x + drag.zoomoffset), zoom(pos.y), $(arr[j]), realindex);
+			for (var j = 0; j < arr.length; j++) {
+				var ce = $(arr[j]);
+				var findex = +ce.attrd('fromindexoffset');
+				var tindex = +ce.attrd('toindexoffset');
+				self.helpers.move1(zoom(pos.x + drag.zoomoffset), zoom(pos.y), ce, findex, tindex);
+			}
 		}
 
 		// move all input connections
@@ -887,9 +901,14 @@ EXTENSION('flow:components', function(self, config) {
 			var conn = $(drag.input[i]);
 			var pos = self.helpers.position(conn);
 			var arr = self.el.lines.find('.to' + D + pos.id + D + pos.index);
-			var realindex = conn.index();
-			for (var j = 0; j < arr.length; j++)
-				self.helpers.move2(zoom(pos.x - 6), zoom(pos.y), $(arr[j]), realindex);
+			var findex = +conn.attrd('fromindexoffset');
+			var tindex = +conn.attrd('toindexoffset');
+			for (var j = 0; j < arr.length; j++) {
+				var ce = $(arr[j]);
+				var findex = +ce.attrd('fromindexoffset');
+				var tindex = +ce.attrd('toindexoffset');
+				self.helpers.move2(zoom(pos.x - 6), zoom(pos.y), ce, findex, tindex);
+			}
 		}
 	};
 
@@ -1012,7 +1031,7 @@ EXTENSION('flow:connections', function(self, config) {
 	events.move = function(e) {
 		var x = (e.pageX - drag.x) + drag.offsetX;
 		var y = (e.pageY - drag.y) + drag.offsetY;
-		drag.path.attr('d', drag.input ? self.helpers.connect(zoom(x), zoom(y), zoom(drag.pos.x), zoom(drag.pos.y), drag.realindex) : self.helpers.connect(zoom(drag.pos.x), zoom(drag.pos.y), zoom(x), zoom(y), drag.realindex));
+		drag.path.attr('d', drag.input ? self.helpers.connect(zoom(x), zoom(y), zoom(drag.pos.x), zoom(drag.pos.y), -1, drag.realindex) : self.helpers.connect(zoom(drag.pos.x), zoom(drag.pos.y), zoom(x), zoom(y), drag.realindex, -1));
 		if (drag.click)
 			drag.click = false;
 	};
@@ -1196,7 +1215,9 @@ EXTENSION('flow:connections', function(self, config) {
 		path.attrd('offset', a.x + ',' + a.y + ',' + b.x + ',' + b.y);
 		path.attrd('fromindex', a.index);
 		path.attrd('toindex', b.index);
-		path.attr('d', self.helpers.connect(a.x, a.y, b.x, b.y, output.index()));
+		path.attrd('fromindexoffset', a.indexoffset);
+		path.attrd('toindexoffset', b.indexoffset);
+		path.attr('d', self.helpers.connect(a.x, a.y, b.x, b.y, a.indexoffset, b.indexoffset));
 
 		input.add(output).aclass('connected');
 
