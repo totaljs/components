@@ -103,9 +103,11 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 		return self.element.offset();
 	};
 
+	var rebuilding = false;
+
 	self.setter = function(value, path, type) {
 
-		if (type === 2 || !value)
+		if (type === 2 || !value || rebuilding)
 			return;
 
 		var keys = Object.keys(value);
@@ -117,6 +119,8 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 		var tmp;
 		var el;
 		var recompile = false;
+
+		rebuilding = true;
 
 		self.cache = {};
 		self.paused = {};
@@ -207,16 +211,17 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 		}
 
 		// ischanged && self.el.lines.find('path').rclass().aclass('connection removed hidden');
-		ischanged && self.el.lines.find('path').aclass('removed');
+		self.el.lines.find('path').aclass('removed');
 
 		setTimeout(function() {
 			for (var i = 0; i < keys.length; i++) {
 				var key = keys[i];
 				tmp = self.cache[key];
 				tmp.el.rclass('invisible');
-				ischanged && tmp.instance.connections && self.reconnect(tmp);
+				tmp.instance.connections && self.reconnect(tmp);
 			}
 			self.find('.removed').remove();
+			rebuilding = false;
 		}, 300);
 
 		self.undo = [];
@@ -308,7 +313,7 @@ EXTENSION('flow:helpers', function(self, config) {
 	self.helpers = {};
 
 	self.helpers.checksum = function(obj) {
-		var checksum = (obj.outputs ? obj.outputs.length : 0) + ',' + (obj.inputs ? obj.inputs.length : 0) + ',' + (obj.html || '') + ',' + obj.x + ',' + obj.y;
+		var checksum = JSON.stringify({ a: obj.outputs, b: obj.inputs, c: obj.html, d: obj.x, e: obj.y, f: obj.connections });
 		return HASH(checksum, true);
 	};
 
@@ -334,7 +339,7 @@ EXTENSION('flow:helpers', function(self, config) {
 
 		var paddingO = config.steplines ? Math.ceil(15 * ((findex + 1) / 100) * 50) : 15;
 		var paddingI = config.steplines ? Math.ceil(15 * ((tindex + 1) / 100) * 50) : 15;
-		var can = config.steplines && Math.abs(x1 - x4) > 200 && Math.abs(y1 - y4) > 200;
+		var can = config.steplines && Math.abs(x1 - x4) > 50 && Math.abs(y1 - y4) > 50;
 		var builder = [];
 
 		builder.push('M' + (x1 >> 0) + s + (y1 >> 0));
@@ -342,7 +347,7 @@ EXTENSION('flow:helpers', function(self, config) {
 		if (config.horizontal) {
 
 			if (can)
-				x2 += paddingO * 2;
+				x2 += paddingO;
 
 			x2 += paddingO * 2;
 
@@ -353,13 +358,13 @@ EXTENSION('flow:helpers', function(self, config) {
 					y2 += d;
 					builder.push('L' + (x2 >> 0) + s + (y2 >> 0));
 					y3 += d;
-					x3 -= paddingI * 2;
+					x3 -= paddingI * 3;
 					builder.push('L' + (x3 >> 0) + s + (y3 >> 0));
 				}
 				x4 -= paddingI;
 			}
 
-			x4 -= paddingI;
+			x4 -= paddingI * 2;
 			builder.push('L' + (x4 >> 0) + s + (y4 >> 0));
 
 			if (can)
@@ -1050,7 +1055,7 @@ EXTENSION('flow:connections', function(self, config) {
 
 		if (drag.click && (Date.now() - drag.ticks) < 150) {
 			var icon = drag.target.find('.component-io');
-			var clsp = 'fa-times';
+			var clsp = 'disabled';
 			icon.tclass(clsp);
 
 			var key = (drag.input ? 'input' : 'output') + D + drag.pos.id + D + drag.pos.index;
@@ -1173,8 +1178,8 @@ EXTENSION('flow:connections', function(self, config) {
 			drag.offsetX = drag.x - off.left;
 			drag.offsetY = drag.y - off.top;
 		} else {
-			drag.offsetX = (targetoffset.left - offset.left) + evt.offsetX + (drag.input ? 0 : 5);
-			drag.offsetY = (targetoffset.top - offset.top) + evt.offsetY + (drag.input ? 0 : 2);
+			drag.offsetX = (targetoffset.left - offset.left) + evt.offsetX + (drag.input ? 2 : 5);
+			drag.offsetY = (targetoffset.top - offset.top) + evt.offsetY + (drag.input ? 2 : 2);
 		}
 
 		if (config.horizontal) {
@@ -1223,9 +1228,9 @@ EXTENSION('flow:connections', function(self, config) {
 
 		if (init) {
 			var kp = 'input' + D + b.id + D + b.index;
-			input.find('.component-io').tclass('fa-times', !!self.paused[kp]);
+			input.find('.component-io').tclass('disabled', !!self.paused[kp]);
 			kp = 'output' + D + a.id + D + a.index;
-			output.find('.component-io').tclass('fa-times', !!self.paused[kp]);
+			output.find('.component-io').tclass('disabled', !!self.paused[kp]);
 		}
 
 		var data = self.get();
