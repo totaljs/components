@@ -1,4 +1,4 @@
-COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horizontal:0;steplines:0;animationradius:6;outputoffsetY:10;outputoffsetX:12;inputoffsetY:10;inputoffsetX:12', function(self, config, cls) {
+COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horizontal:1;steplines:1;animationradius:6', function(self, config, cls) {
 
 	// config.infopath {String}, output: { zoom: Number, selected: Object }
 	// config.undopath {String}, output: {Object Array}
@@ -26,7 +26,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 		self.el.svg = self.find('svg');
 		self.el.anim = self.el.svg.find('g.anim');
 		self.el.lines = self.el.svg.find('g.lines');
-		self.template = Tangular.compile('<div class="component invisible{{ if inputs && inputs.length }} hasinputs{{ fi }}{{ if outputs && outputs.length }} hasoutputs{{ fi }} f-{{ component }}" data-id="{{ id }}" style="top:{{ y }}px;left:{{ x }}px"><div class="area">{{ if inputs && inputs.length }}<div class="inputs">{{ foreach m in inputs }}<div class="input" data-index="{{ if m.id }}{{ m.id }}{{ else }}{{ $index }}{{ fi }}"><i class="fa component-io"></i></div>{{ end }}</div>{{ fi }}<div class="content">{{ html | raw }}</div>{{ if outputs && outputs.length }}<div class="outputs">{{ foreach m in outputs }}<div class="output" data-index="{{ if m.id }}{{ m.id }}{{ else }}{{ $index }}{{ fi }}"><i class="fa component-io"></i><span>{{ if m.name }}{{ m.name | raw }}{{ else }}{{ m | raw }}{{ fi }}</span></div>{{ end }}</div>{{ fi }}</div></div>');
+		self.template = Tangular.compile('<div class="component invisible{{ if inputs && inputs.length }} hasinputs{{ fi }}{{ if outputs && outputs.length }} hasoutputs{{ fi }} f-{{ component }}" data-id="{{ id }}" style="top:{{ y }}px;left:{{ x }}px"><div class="area"><div class="content">{{ html | raw }}</div>{{ if inputs && inputs.length }}<div class="inputs">{{ foreach m in inputs }}<div class="input" data-index="{{ if m.id }}{{ m.id }}{{ else }}{{ $index }}{{ fi }}"><i class="component-io"></i><span>{{ if m.name }}{{ m.name | raw }}{{ else }}{{ m | raw }}{{ fi }}</span></div>{{ end }}</div>{{ fi }}{{ if outputs && outputs.length }}<div class="outputs">{{ foreach m in outputs }}<div class="output" data-index="{{ if m.id }}{{ m.id }}{{ else }}{{ $index }}{{ fi }}"><i class="component-io"></i><span>{{ if m.name }}{{ m.name | raw }}{{ else }}{{ m | raw }}{{ fi }}</span></div>{{ end }}</div>{{ fi }}</div></div>');
 		self.aclass(cls + '-' + (config.horizontal ? 'h' : 'v'));
 
 		drag.touchmove = function(e) {
@@ -320,13 +320,15 @@ EXTENSION('flow:helpers', function(self, config) {
 
 	self.helpers.connect = function(x1, y1, x4, y4, index) {
 
+		index = +index;
+
 		var y = (y4 - y1) / ((index || 0) + 2);
 		var x2 = x1;
 		var y2 = y1 + y;
 		var x3 = x4;
 		var y3 = y1 + y;
 		var s = ' ';
-		var padding = 15;
+		var padding = config.steplines ? Math.ceil(15 * ((index + 1) / 100) * 50) : 15;
 
 		if (config.curvedlines)
 			return self.helpers.diagonal(x1, y1, x4, y4);
@@ -337,12 +339,29 @@ EXTENSION('flow:helpers', function(self, config) {
 
 		if (config.horizontal) {
 
+			if (config.steplines)
+				x2 += padding * 2;
+
 			x2 += padding;
+
 			builder.push('L' + (x2 >> 0) + s + (y1 >> 0));
 
-			y4 -= padding;
+			if (config.steplines) {
+				if ((x1 !== x4 || y1 !== y4)) {
+					builder.push('L' + (x2 >> 0) + s + (y2 >> 0));
+					x3 -= padding * 3;
+					builder.push('L' + (x3 >> 0) + s + (y3 >> 0));
+				}
+				x4 -= padding * 2;
+			}
+
+			x4 -= padding;
 			builder.push('L' + (x4 >> 0) + s + (y4 >> 0));
-			y4 += padding;
+
+			if (config.steplines)
+				x4 += padding * 2;
+
+			x4 += padding;
 
 		} else if (config.steplines) {
 			if ((x1 !== x4 || y1 !== y4)) {
@@ -388,6 +407,9 @@ EXTENSION('flow:helpers', function(self, config) {
 		var coid = self.cache[co.attrd('id')];
 		var ciid = self.cache[ci.attrd('id')];
 
+		if (coid.id === ciid.id)
+			return true;
+
 		if (coid.actions.disabled || coid.actions.connect === false || ciid.actions.disabled || ciid.actions.connect === false)
 			return true;
 
@@ -401,30 +423,17 @@ EXTENSION('flow:helpers', function(self, config) {
 		var pos = el.offset();
 		var mainoffset = el.closest('.ui-flow').offset();
 
-		var x = (pos.left - mainoffset.left) + (isout ? config.outputoffsetX : config.inputoffsetX);
-		var y = (pos.top - mainoffset.top) + (isout ? config.outputoffsetY : config.inputoffsetY);
+		var x = (pos.left - mainoffset.left) + 12;
+		var y = (pos.top - mainoffset.top) + 10;
 
-		if (isout && config.horizontal) {
+		if (config.horizontal) {
 			var zoom = self.info.zoom / 100;
-			x += (component.width() * zoom) - 13;
+			if (isout)
+				x += (component.width() * zoom) - 13;
 		}
 
 		var id = component.attrd('id');
 		var indexid = el.attrd('index');
-
-		/*
-		var index = -1;
-		var tmp = self.cache[id].instance;
-
-		if (isout) {
-			index = tmp.outputs.indexOf(indexid);
-			if (index === -1)
-				index = tmp.outputs.findIndex('id', indexid);
-		} else {
-			index = tmp.inputs.indexOf(indexid);
-			if (index === -1)
-				index = tmp.inputs.findIndex('id', indexid);
-		}*/
 
 		return { x: x >> 0, y: y >> 0, id: id, index: indexid };
 	};
@@ -1165,8 +1174,12 @@ EXTENSION('flow:connections', function(self, config) {
 			drag.offsetY = (targetoffset.top - offset.top) + evt.offsetY + (drag.input ? 0 : 2);
 		}
 
-		if (config.horizontal && !drag.input)
-			drag.offsetX = drag.offsetX + (com.width() * drag.zoom) - 10;
+		if (config.horizontal) {
+			if (drag.input)
+				drag.offsetX -= 10;
+			else
+				drag.offsetX = drag.offsetX + (com.width() * drag.zoom) - 10;
+		}
 
 		drag.path = self.el.lines.asvg('path');
 		drag.path.aclass('connection connection-draft');

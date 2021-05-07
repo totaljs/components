@@ -1,16 +1,22 @@
 .ui-flow { position: relative; transform-origin: top left; transition: transform 0.3s; }
 .ui-flow .component { position: absolute; left: 150px; top: 150px; border: 2px solid #E0E0E0; background-color: #FFF; border-radius: var(--radius); box-shadow: 1px 1px 10px rgba(0,0,0,0.03); }
-.ui-flow .inputs { position: absolute; width: 100%; top: -8px; left: 4px; }
-.ui-flow .input { float: left; font-size: 11px; margin-right: 5px; }
+.ui-flow-v .inputs { position: absolute; width: 100%; top: -8px; left: 4px; }
+.ui-flow-v .input { float: left; font-size: 11px; margin-right: 5px; }
+.ui-flow-v .input span { display: none; }
 .ui-flow-v .outputs { position: absolute; width: 100%; margin: -10px 0 0 8px; }
 .ui-flow-v .output { float: left; border-radius: var(--radius); background-color: #FFF; padding: 2px 5px; font-size: 11px; border: 1px solid #E0E0E0; margin-right: 5px; color: gray; }
 .ui-flow-v .output .component-io { margin-right: 5px; }
+.ui-flow-h .inputs { margin: 0; position: relative; top: 0; left: 0; }
+.ui-flow-h .input { background-color: #FFF; padding: 0 8px; font-size: 11px; color: gray; border-top: 1px solid #E0E0E0; line-height: 20px; }
+.ui-flow-h .input > span { display: block; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; margin-left: 2px; }
+.ui-flow-h .input .component-io { float: left; margin: 3px 0 0 -15px; }
+.ui-flow-h .input:last-child { border-radius: 0 0 var(--radius) var(--radius); }
 .ui-flow-h .outputs { margin: 0; }
 .ui-flow-h .output { background-color: #FFF; padding: 0 8px; font-size: 11px; color: gray; border-top: 1px solid #E0E0E0; line-height: 20px; }
 .ui-flow-h .output > span { display: block; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
-.ui-flow-h .output .component-io { float: right; margin: 3px -14px 0 0; }
+.ui-flow-h .output .component-io { float: right; margin: 3px -15px 0 0; }
 .ui-flow-h .output:last-child { border-radius: 0 0 var(--radius) var(--radius); }
-.ui-flow .component-io { width: 12px; height: 12px; line-height: 12px; border-radius: 100px; background-color: #A0A0A0; text-align: center; float: left; margin-top: 1px; font-size: 9px; }
+.ui-flow .component-io { width: 12px; height: 12px; line-height: 12px; border-radius: var(--radius); background-color: #A0A0A0; text-align: center; float: left; margin-top: 1px; font-size: 9px; }
 .ui-flow .content { padding: 10px 8px; min-width: 200px; min-height: 24px; cursor: default; }
 .ui-flow-v .output.connected { border-color: #000; color: #000; }
 .ui-flow-h .output.connected { color: #000; }
