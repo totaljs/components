@@ -325,9 +325,7 @@ EXTENSION('flow:helpers', function(self, config) {
 		if (findex === -1)
 			findex = 0;
 
-		// var y = (y4 - y1) / ((index || 0) + 2);
 		var y = (y4 - y1) / 2;
-
 		var x2 = x1;
 		var y2 = y1 + y;
 		var x3 = x4;
@@ -352,6 +350,7 @@ EXTENSION('flow:helpers', function(self, config) {
 			x2 += paddingO * 2;
 
 			builder.push('L' + (x2 >> 0) + s + (y1 >> 0));
+
 			if (can) {
 				if ((x1 !== x4 || y1 !== y4)) {
 					var d = Math.abs(paddingO - paddingI) / 2 >> 0;
@@ -364,7 +363,11 @@ EXTENSION('flow:helpers', function(self, config) {
 				x4 -= paddingI;
 			}
 
-			x4 -= paddingI * 2;
+			if (can)
+				x4 -= paddingI * 2;
+			else
+				x4 -= paddingI;
+
 			builder.push('L' + (x4 >> 0) + s + (y4 >> 0));
 
 			if (can)
