@@ -320,8 +320,6 @@ EXTENSION('flow:helpers', function(self, config) {
 
 	self.helpers.connect = function(x1, y1, x4, y4, index) {
 
-		index = +index;
-
 		var y = (y4 - y1) / ((index || 0) + 2);
 		var x2 = x1;
 		var y2 = y1 + y;
@@ -329,6 +327,7 @@ EXTENSION('flow:helpers', function(self, config) {
 		var y3 = y1 + y;
 		var s = ' ';
 		var padding = config.steplines ? Math.ceil(15 * ((index + 1) / 100) * 50) : 15;
+		// var padding = 15;
 
 		if (config.curvedlines)
 			return self.helpers.diagonal(x1, y1, x4, y4);
@@ -374,9 +373,9 @@ EXTENSION('flow:helpers', function(self, config) {
 		return builder.join(s);
 	};
 
-	self.helpers.move1 = function(x1, y1, conn) {
+	self.helpers.move1 = function(x1, y1, conn, realindex) {
 		var pos = conn.attrd('offset').split(',');
-		conn.attr('d', self.helpers.connect(x1, y1, +pos[2], +pos[3], +conn.attrd('fromindex')));
+		conn.attr('d', self.helpers.connect(x1, y1, +pos[2], +pos[3], realindex));
 		conn.attrd('offset', x1 + ',' + y1 + ',' + pos[2] + ',' + pos[3]);
 	};
 
@@ -394,9 +393,9 @@ EXTENSION('flow:helpers', function(self, config) {
 		self.find('.component[data-id="{0}"]'.format(id)).find('.input[data-index="{0}"]'.format(index)).tclass('connected', is);
 	};
 
-	self.helpers.move2 = function(x4, y4, conn) {
+	self.helpers.move2 = function(x4, y4, conn, realindex) {
 		var pos = conn.attrd('offset').split(',');
-		conn.attr('d', self.helpers.connect(+pos[0], +pos[1], x4, y4, +conn.attrd('fromindex')));
+		conn.attr('d', self.helpers.connect(+pos[0], +pos[1], x4, y4, realindex));
 		conn.attrd('offset', pos[0] + ',' + pos[1] + ',' + x4 + ',' + y4);
 	};
 
@@ -734,7 +733,7 @@ EXTENSION('flow:operations', function(self, config) {
 			path.attrd('offset', a.x + ',' + a.y + ',' + b.x + ',' + b.y);
 			path.attrd('fromindex', a.index);
 			path.attrd('toindex', b.index);
-			path.attr('d', self.helpers.connect(a.x, a.y, b.x, b.y, a.index));
+			path.attr('d', self.helpers.connect(a.x, a.y, b.x, b.y, output.index()));
 		});
 	};
 
@@ -895,8 +894,9 @@ EXTENSION('flow:components', function(self, config) {
 			var conn = $(drag.output[i]);
 			var pos = self.helpers.position(conn, true);
 			var arr = self.el.lines.find('.from' + D + pos.id + D + pos.index);
+			var realindex = conn.index();
 			for (var j = 0; j < arr.length; j++)
-				self.helpers.move1(zoom(pos.x + drag.zoomoffset), zoom(pos.y), $(arr[j]));
+				self.helpers.move1(zoom(pos.x + drag.zoomoffset), zoom(pos.y), $(arr[j]), realindex);
 		}
 
 		// move all input connections
@@ -904,8 +904,9 @@ EXTENSION('flow:components', function(self, config) {
 			var conn = $(drag.input[i]);
 			var pos = self.helpers.position(conn);
 			var arr = self.el.lines.find('.to' + D + pos.id + D + pos.index);
+			var realindex = conn.index();
 			for (var j = 0; j < arr.length; j++)
-				self.helpers.move2(zoom(pos.x - 6), zoom(pos.y), $(arr[j]));
+				self.helpers.move2(zoom(pos.x - 6), zoom(pos.y), $(arr[j]), realindex);
 		}
 	};
 
@@ -1029,7 +1030,7 @@ EXTENSION('flow:connections', function(self, config) {
 	events.move = function(e) {
 		var x = (e.pageX - drag.x) + drag.offsetX;
 		var y = (e.pageY - drag.y) + drag.offsetY;
-		drag.path.attr('d', drag.input ? self.helpers.connect(zoom(x), zoom(y), zoom(drag.pos.x), zoom(drag.pos.y), drag.index) : self.helpers.connect(zoom(drag.pos.x), zoom(drag.pos.y), zoom(x), zoom(y), drag.index));
+		drag.path.attr('d', drag.input ? self.helpers.connect(zoom(x), zoom(y), zoom(drag.pos.x), zoom(drag.pos.y), drag.realindex) : self.helpers.connect(zoom(drag.pos.x), zoom(drag.pos.y), zoom(x), zoom(y), drag.realindex));
 		if (drag.click)
 			drag.click = false;
 	};
@@ -1149,6 +1150,7 @@ EXTENSION('flow:connections', function(self, config) {
 		drag.input = target.hclass('input');
 		drag.target = target;
 		drag.index = +target.attrd('index');
+		drag.realindex = target.index();
 		drag.x = evt.pageX;
 		drag.y = evt.pageY;
 		drag.zoom = self.info.zoom / 100;
@@ -1212,7 +1214,7 @@ EXTENSION('flow:connections', function(self, config) {
 		path.attrd('offset', a.x + ',' + a.y + ',' + b.x + ',' + b.y);
 		path.attrd('fromindex', a.index);
 		path.attrd('toindex', b.index);
-		path.attr('d', self.helpers.connect(a.x, a.y, b.x, b.y, a.index));
+		path.attr('d', self.helpers.connect(a.x, a.y, b.x, b.y, output.index()));
 
 		input.add(output).aclass('connected');
 
