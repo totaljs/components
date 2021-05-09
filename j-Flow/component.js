@@ -201,12 +201,18 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			self.cache[key] = { id: key, instance: com, el: el, checksum: checksum, actions: com.actions || {}};
 		}
 
+		var removedconn = [];
+
 		// Remove unused components
 		for (var key in prev) {
 			tmp = prev[key];
 			tmp.instance.onremove && tmp.instance.onremove(tmp.el, tmp.instance);
 			onremove && onremove(tmp.el, tmp.instance);
-			self.el.lines.find('.from' + D + key + ', .to' + D + key).aclass('connection removed hidden');
+			var conn = self.el.lines.find('.from' + D + key + ',.to' + D + key).aclass('connection removed hidden');
+			for (var i = 0; i < conn.length; i++) {
+				var dom = conn[i];
+				removedconn.push({ fromid: dom.getAttribute('data-from'), fromindex: dom.getAttribute('data-fromindex'), toid: dom.getAttribute('data-to'), toindex: dom.getAttribute('data-toindex') });
+			}
 			tmp.el.remove();
 		}
 
@@ -216,23 +222,32 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			ondone && ondone(tmp.el, tmp.instance);
 		}
 
-		// ischanged && self.el.lines.find('path').rclass().aclass('connection removed hidden');
 		self.el.lines.find('path').aclass('removed');
+		keys = Object.keys(self.cache);
 
 		setTimeout(function() {
+
 			for (var i = 0; i < keys.length; i++) {
 				var key = keys[i];
 				tmp = self.cache[key];
 				tmp.el.rclass('invisible');
 				tmp.instance.connections && self.reconnect(tmp);
 			}
+
 			self.find('.removed').remove();
 			rebuilding = false;
 
-			if (rebuildagain)
-				self.refresh();
+			for (var i = 0; i < removedconn.length; i++) {
+				var conn = removedconn[i];
+				self.helpers.checkconnectedinput(conn.toid, conn.toindex);
+				self.helpers.checkconnectedoutput(conn.fromid, conn.fromindex);
+				var com = self.find('.component[data-id="' + conn.fromid + '"]');
+				com.tclass('connected', self.el.lines.find('.from' + D + '_' + conn.fromid).length > 0);
+			}
 
+			rebuildagain && self.refresh();
 			rebuildagain = false;
+
 		}, 300);
 
 		self.undo = [];
@@ -551,7 +566,6 @@ EXTENSION('flow:operations', function(self, config) {
 	self.op.clean = function() {
 
 		var model = self.get();
-		var subkeys;
 
 		for (var key in model) {
 
@@ -721,13 +735,22 @@ EXTENSION('flow:operations', function(self, config) {
 		self.el.lines.find('.connection').each(function() {
 
 			var path = $(this);
+			if (path.hclass('removed'))
+				return;
+
 			var meta = self.helpers.parseconnection(path);
 
 			if (!meta)
 				return;
 
 			var output = self.find('.component[data-id="{0}"]'.format(meta.fromid)).find('.output[data-index="{0}"]'.format(meta.fromindex));
+			if (!output.length)
+				return;
+
 			var input = self.find('.component[data-id="{0}"]'.format(meta.toid)).find('.input[data-index="{0}"]'.format(meta.toindex));
+			if (!input.length)
+				return;
+
 			var a = self.helpers.position(output, true);
 			var b = self.helpers.position(input);
 
@@ -742,6 +765,8 @@ EXTENSION('flow:operations', function(self, config) {
 			}
 
 			path.attrd('offset', a.x + ',' + a.y + ',' + b.x + ',' + b.y);
+			path.attrd('from', a.id);
+			path.attrd('to', b.id);
 			path.attrd('fromindex', a.index);
 			path.attrd('toindex', b.index);
 			path.attrd('fromindexoffset', a.indexoffset);
@@ -1236,6 +1261,8 @@ EXTENSION('flow:connections', function(self, config) {
 		path.attrd('toindex', b.index);
 		path.attrd('fromindexoffset', a.indexoffset);
 		path.attrd('toindexoffset', b.indexoffset);
+		path.attrd('from', a.id);
+		path.attrd('to', b.id);
 		path.attr('d', self.helpers.connect(a.x, a.y, b.x, b.y, a.indexoffset, b.indexoffset));
 
 		input.add(output).aclass('connected');
