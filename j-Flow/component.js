@@ -1017,6 +1017,19 @@ EXTENSION('flow:components', function(self, config) {
 			return;
 		}
 
+		var index = 5;
+		var target = e.target;
+		while ((index--)>0) {
+			var t = target.tagName;
+			if (!t)
+				break;
+			if (t === 'BUTTON' || t === 'A')
+				return;
+			target = target.parentNode;
+			if (!target || target === self.dom)
+				break;
+		}
+
 		e.preventDefault();
 
 		var evt = e.touches ? e.touches[0] : e;
@@ -1026,7 +1039,6 @@ EXTENSION('flow:components', function(self, config) {
 		var tmp = self.cache[drag.id];
 
 		self.op.unselect('connections');
-
 		if (tmp.actions.select !== false)
 			self.op.select(drag.id);
 
