@@ -5,30 +5,31 @@
 
 __Configuration__:
 
-- `width` {Number} a width of Flow designer, default: `6000`
-- `height` {Number} a height of Flow designer, default: `6000`
-- `grid` {Number} a size of background grid, default: `25`
-- `paddingX` {Number} internal padding, default: `6`
-- `curvedlines` {Boolean} enables curved lines, default: `false`
-- `infopath` {String} a path to variable/method, response: `{ zoom: Number, selected: Object }`
-- `undopath` {String} a path to variable/method, response is Object array
-- `redopath` {String} a path to variable/method, response is Object array
-- `ondrop` {String} a path to method `fn(dropmeta, grid)`
-- `onmake` {String} a path to method `fn(el, com)`, it's executed when the component is creating
-- `ondone` {String} a path to method `fn(el, com)`, it's executed when the component is created
-- `onmove` {String} a path to method `fn(el, com)`, it's executed when the component is moving
-- `onremove` {String} a path to method `fn(el, com)`, it's executed when the component is removed
-- `onconnect` {String} a path to method `fn(meta)`, it's executed when the two components are connected
-- `ondisconnect` {String} a path to method `fn(meta)`, it's executed when the two components are disconnected
-- `horizontal` {Boolean} outputs will be rendered horizontally (default: `false`)
-- `steplines` {Boolean} enables step lines (default: `false`)
-- __NEW__ `animationradius` {Boolean} animation radius in pixels (default: `6`)
-- __NEW__ `contextmenu` {String} a path to `function(e, type, component/meta)` (type can be `map`, `component` or `connection`)
-- __NEW__ `dblclick` {String} a path to `function(component)`
-- `outputoffsetX` {Number} a default X offset for output point (default: `10`)
-- `outputoffsetY` {Number} a default Y offset for output point (default: `12`)
-- `inputoffsetX` {Number} a default X offset for input point (default: `10`)
-- `inputoffsetY` {Number} a default Y offset for input point (default: `12`)
+- `width {Number}` a width of Flow designer, default: `6000`
+- `height {Number}` a height of Flow designer, default: `6000`
+- `grid {Number}` a size of background grid, default: `25`
+- `paddingX {Number}` internal padding, default: `6`
+- `curvedlines {Boolean}` enables curved lines, default: `false`
+- `infopath {String}` a path to variable/method, response: `{ zoom: Number, selected: Object }`
+- `undopath {String}` a path to variable/method, response is Object array
+- `redopath {String}` a path to variable/method, response is Object array
+- `ondrop {String}` a path to method `fn(dropmeta, grid)`
+- `onmake {String}` a path to method `fn(el, com)`, it's executed when the component is creating
+- `ondone {String}` a path to method `fn(el, com)`, it's executed when the component is created
+- `onmove {String}` a path to method `fn(el, com)`, it's executed when the component is moving
+- `onremove {String}` a path to method `fn(el, com)`, it's executed when the component is removed
+- `onconnect {String}` a path to method `fn(meta)`, it's executed when the two components are connected
+- `ondisconnect {String}` a path to method `fn(meta)`, it's executed when the two components are disconnected
+- `horizontal {Boolean}` outputs will be rendered horizontally (default: `false`)
+- `steplines {Boolean}` enables step lines (default: `false`)
+- `animationradius {Boolean}` animation radius in pixels (default: `6`)
+- `contextmenu {String}` a path to `function(e, type, component/meta)` (type can be `map`, `component` or `connection`)
+- `dblclick {String}` a path to `function(component)`
+- `outputoffsetX {Number}` a default X offset for output point (default: `10`)
+- `outputoffsetY {Number}` a default Y offset for output point (default: `12`)
+- `inputoffsetX {Number}` a default X offset for input point (default: `10`)
+- `inputoffsetY {Number}` a default Y offset for input point (default: `12`)
+- `snapping {Number}` snapping in pixels (default: `0` = disabled)
 
 __Commands__:
 

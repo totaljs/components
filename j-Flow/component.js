@@ -1,4 +1,4 @@
-COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horizontal:1;steplines:1;animationradius:6;outputoffsetY:10;outputoffsetX:12;inputoffsetY:10;inputoffsetX:12', function(self, config, cls) {
+COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horizontal:1;steplines:1;snapping:0;animationradius:6;outputoffsetY:10;outputoffsetX:12;inputoffsetY:10;inputoffsetX:12', function(self, config, cls) {
 
 	// config.infopath {String}, output: { zoom: Number, selected: Object }
 	// config.undopath {String}, output: {Object Array}
@@ -540,7 +540,9 @@ EXTENSION('flow:operations', function(self, config) {
 	};
 
 	self.op.unselect = function(type) {
+
 		var cls = 'connection-selected';
+
 		if (type == null || type === 'connections') {
 			self.el.lines.find('.' + cls).rclass(cls);
 			self.el.lines.find('.highlight').rclass('highlight');
@@ -919,8 +921,11 @@ EXTENSION('flow:components', function(self, config) {
 		var x = (e.pageX - drag.x);
 		var y = (e.pageY - drag.y);
 
-		drag.css.left = zoom(drag.posX + x);
-		drag.css.top = zoom(drag.posY + y);
+		if (!config.snapping || x % config.snapping === 0)
+			drag.css.left = zoom(drag.posX + x);
+
+		if (!config.snapping || y % config.snapping === 0)
+			drag.css.top = zoom(drag.posY + y);
 
 		if (!drag.is)
 			drag.is = true;
