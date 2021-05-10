@@ -38,7 +38,7 @@
 .ui-dark .ui-flow .component { border-color: #404040; background-color: #303030; }
 .ui-dark .ui-flow .output .component-io { color: #606060; }
 .ui-dark .ui-flow .input .component-io { color: #606060; }
-.ui-dark .ui-flow .output { background-color: #303030; color: #FFF; border-color: #404040; }
+.ui-dark .ui-flow .output, .ui-dark .ui-flow .input { background-color: #303030; color: #FFF; border-color: #404040; }
 .ui-dark .ui-flow .connection { stroke: gray; }
 .ui-dark .ui-flow .connection-draft { stroke: var(--color); }
 .ui-dark .ui-flow path.highlight { stroke: var(--color); }
