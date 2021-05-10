@@ -386,6 +386,10 @@ COMPONENT('markdown', function (self) {
 			el.find('.markdown-code').rclass('hidden');
 		};
 
+		Thelpers.markdown = function(val, opt) {
+			return val ? (val + '').markdown(opt) : val;
+		};
+
 		String.prototype.markdown = function(opt, nested) {
 
 			// opt.wrap = true;

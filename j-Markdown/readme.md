@@ -43,6 +43,7 @@ __Good to know__:
 - secret section is defined like code with syntax `secret`
 - class `markdown-small` can decrease font sizes
 - event `ON('markdown', function(el, opt) {})` is executed if the markdown is pre-rendered (`el {jQuery}` is `<body` element in most cases)
+- components registers `Thelpers.markdown([opt])` helper
 
 __Toggleable section:__
 
