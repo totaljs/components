@@ -42,7 +42,7 @@ __Good to know__:
 - markdown registers `FUNC.markdownredraw(jQuery_selector, [markdown_options])` for prerendering of Markdown dynamic elements like code highlight, videos or charts
 - secret section is defined like code with syntax `secret`
 - class `markdown-small` can decrease font sizes
-- event `ON('markdown', function(el) {})` is executed if the markdown is pre-rendered (`el {jQuery}` is `<body` element in most cases)
+- event `ON('markdown', function(el, opt) {})` is executed if the markdown is pre-rendered (`el {jQuery}` is `<body` element in most cases)
 
 __Toggleable section:__
 

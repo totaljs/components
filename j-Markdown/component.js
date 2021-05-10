@@ -382,7 +382,7 @@ COMPONENT('markdown', function (self) {
 					el.attr('target', '_blank');
 			});
 
-			EMIT('markdown', el);
+			EMIT('markdown', el, opt);
 			el.find('.markdown-code').rclass('hidden');
 		};
 
