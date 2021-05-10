@@ -969,14 +969,12 @@ EXTENSION('flow:components', function(self, config) {
 
 		if (drag.is) {
 
-			if (config.snapping)
+			if (config.snapping) {
 				drag.css.left = drag.css.left - (drag.css.left % config.snapping);
-
-			if (config.snapping)
 				drag.css.top = drag.css.top - (drag.css.top % config.snapping);
-
-			drag.target.css(drag.css);
-			events.reposition();
+				drag.target.css(drag.css);
+				events.reposition();
+			}
 
 			var data = self.get()[drag.id];
 			self.op.undo({ type: 'move', id: drag.id, x: data.x, y: data.y, newx: drag.css.left, newy: drag.css.top });
