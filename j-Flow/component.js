@@ -18,6 +18,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 	self.info = { zoom: 100 };
 	self.undo = [];
 	self.redo = [];
+	self.focused = null;
 
 	self.make = function() {
 		self.aclass(cls);
@@ -1023,11 +1024,6 @@ EXTENSION('flow:components', function(self, config) {
 		config.dblclick && self.SEEX(config.dblclick, self.cache[target.attrd('id')].instance);
 	});
 
-	function bringtofront(parent, children, dom) {
-		if (children[children.length - 1] !== dom)
-			parent.appendChild(dom);
-	}
-
 	self.event('mousedown touchstart', '.area', function(e) {
 
 		if (events.is) {
@@ -1064,11 +1060,9 @@ EXTENSION('flow:components', function(self, config) {
 		drag.posX = pos.left;
 		drag.posY = pos.top;
 
-		var dom = target[0];
-		var parent = dom.parentNode;
-		var children = parent.children;
+		self.focused && self.focused.rclass('component-focused');
+		self.focused = target.aclass('component-focused');
 
-		setTimeout(bringtofront, 80, parent, children, dom);
 		events.bind();
 	});
 

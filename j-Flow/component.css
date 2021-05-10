@@ -26,6 +26,7 @@
 .ui-flow .connection-draft { stroke: var(--color); }
 .ui-flow .component-selected { border-color: var(--color); }
 .ui-flow .connection-selected { stroke: var(--color); }
+.ui-flow .component-focused { z-index: 1; }
 .ui-flow .area { position: relative; }
 .ui-flow-v .hasoutputs .content { padding-bottom: 20px; }
 .ui-flow path.highlight { stroke: var(--color); }
