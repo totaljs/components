@@ -916,22 +916,7 @@ EXTENSION('flow:components', function(self, config) {
 
 	drag.css = {};
 
-	events.move = function(e) {
-
-		var x = (e.pageX - drag.x);
-		var y = (e.pageY - drag.y);
-
-		if (!config.snapping || x % config.snapping === 0)
-			drag.css.left = zoom(drag.posX + x);
-
-		if (!config.snapping || y % config.snapping === 0)
-			drag.css.top = zoom(drag.posY + y);
-
-		if (!drag.is)
-			drag.is = true;
-
-		drag.target.css(drag.css);
-
+	events.reposition = function() {
 		// move all output connections
 		for (var i = 0; i < drag.output.length; i++) {
 			var conn = $(drag.output[i]);
@@ -961,6 +946,21 @@ EXTENSION('flow:components', function(self, config) {
 		}
 	};
 
+	events.move = function(e) {
+
+		var x = (e.pageX - drag.x);
+		var y = (e.pageY - drag.y);
+
+		drag.css.left = zoom(drag.posX + x);
+		drag.css.top = zoom(drag.posY + y);
+
+		if (!drag.is)
+			drag.is = true;
+
+		drag.target.css(drag.css);
+		events.reposition();
+	};
+
 	events.movetouch = function(e) {
 		events.move(e.touches[0]);
 	};
@@ -968,6 +968,16 @@ EXTENSION('flow:components', function(self, config) {
 	events.up = function() {
 
 		if (drag.is) {
+
+			if (config.snapping)
+				drag.css.left = drag.css.left - (drag.css.left % config.snapping);
+
+			if (config.snapping)
+				drag.css.top = drag.css.top - (drag.css.top % config.snapping);
+
+			drag.target.css(drag.css);
+			events.reposition();
+
 			var data = self.get()[drag.id];
 			self.op.undo({ type: 'move', id: drag.id, x: data.x, y: data.y, newx: drag.css.left, newy: drag.css.top });
 			data.x = drag.css.left;
