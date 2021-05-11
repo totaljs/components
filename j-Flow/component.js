@@ -1546,10 +1546,10 @@ EXTENSION('flow:commands', function(self, config) {
 
 		switch (type) {
 			case 'in':
-				zoom -= 0.05;
+				zoom += 0.05;
 				break;
 			case 'out':
-				zoom += 0.05;
+				zoom -= 0.05;
 				break;
 			case 'reset':
 				zoom = 1;
