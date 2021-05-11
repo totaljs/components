@@ -1031,12 +1031,28 @@ EXTENSION('flow:components', function(self, config) {
 			return;
 		}
 
-		e.preventDefault();
+		var parent = e.target;
+		var target;
 
-		var evt = e.touches ? e.touches[0] : e;
-		var target = $(e.target).closest('.component');
+		while (true) {
+
+			var cl = parent.classList;
+
+			if (parent === self.dom || cl.contains('selectable'))
+				return;
+
+			if (cl.contains('component')) {
+				target = $(parent);
+				break;
+			}
+
+			parent = parent.parentNode;
+		}
+
+		e.preventDefault();
 		drag.id = target.attrd('id');
 
+		var evt = e.touches ? e.touches[0] : e;
 		var tmp = self.cache[drag.id];
 
 		self.op.unselect('connections');

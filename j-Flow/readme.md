@@ -100,6 +100,7 @@ __Flow output__:
 __Good to know__:
 
 - each component (in the Flow) contains `f-COMPONENTNAME` class
+- `selectable` class in the component element enables copying text and disables moving
 
 ### Author
 
