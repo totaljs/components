@@ -1,0 +1,14 @@
+<div data---="filebrowser"></div>
+<a href="javascript:fopen()">OPEN FILE</a>
+
+<script>
+	function fopen() {
+		var opt = {};
+		opt.multiple = true;
+		// opt.accept = 'image/*';
+		opt.callback = function(files, e) {
+			console.log(files, e);
+		};
+		SETTER('filebrowser/open', opt);
+	}
+</script>

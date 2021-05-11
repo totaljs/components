@@ -3,8 +3,11 @@
 
 <script>
 	function fopen() {
-		SETTER('filereader', 'open', function(file) {
+		var opt = {};
+		opt.accept = 'text/*';
+		opt.callback = function(file) {
 			$(document.body).append('<div><pre><code>{0}</code></pre></div>'.format(JSON.stringify(file, null, '    ').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')));
-		});
+		};
+		SETTER('filereader/open', opt);
 	}
 </script>

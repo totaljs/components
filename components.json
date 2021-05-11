@@ -246,5 +246,6 @@
 	"j-Masonry",
 	"j-FloatingBox",
 	"j-View",
-	"j-Button"
+	"j-Button",
+	"j-FileBrowser"
 ]
