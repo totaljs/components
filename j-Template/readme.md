@@ -1,6 +1,11 @@
 ## j-Template
 
 - supports multiple templates
+- drag & drop
+- custom scrollbars
+- context menu
+
+Templates must be defined in `<script type="text/html">` tag
 
 __Configuration__:
 

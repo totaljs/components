@@ -1,20 +1,24 @@
+<div>
+	<span data-name="list" onclick="changetemplate(this)" style="text-decoration:underline;cursor:pointer;margin-right:5px">List</span>
+	<span data-name="icons" onclick="changetemplate(this)" style="text-decoration:underline;cursor:pointer">Icons</span>
+</div>
+<br />
 
-<div style="width:500px;height:300px">
-
+<div style="width:500px;height:300px;border:1px solid #E0E0E0">
 	<div data---="template__myfiles__template:mytemplate;drop:template_drop">
 
 		<script type="text/html" data-name="list">
-			<div class="list">
+			<div class="list padding">
 				{{ foreach m in value }}
-					<div draggable{{ if m.isfolder }} class="droppable"{{ fi }}>{{ m.name }}</div>
+					<div draggable="true"{{ if m.isfolder }} class="droppable"{{ fi }}>{{ m.name }}</div>
 				{{ end }}
 			</div>
 		</script>
 
 		<script type="text/html" data-name="icons">
-			<div class="icons">
+			<div class="icons padding">
 				{{ foreach m in value }}
-					<span draggable class="mr5 {{ if m.isfolder }} droppable{{ fi }}"><i class="{{ m.icon }}" class="mr5"></i>{{ m.name }}</span>
+					<span draggable="true" class="mr5 {{ if m.isfolder }} droppable{{ fi }}"><i class="{{ m.icon }} mr5"></i>{{ m.name }}</span>
 				{{ end }}
 			</div>
 		</script>
@@ -22,10 +26,27 @@
 	</div>
 
 </div>
+<br />
+<div><b>Without multiple templates:</b></div>
+<div style="width:500px;height:300px;border:1px solid #E0E0E0;margin-top:10px">
+	<div data---="template__myfiles">
+		<script type="text/html">
+			<div class="list padding">
+				{{ foreach m in value }}
+					<div draggable="true"{{ if m.isfolder }} class="droppable"{{ fi }}>{{ m.name }}</div>
+				{{ end }}
+			</div>
+		</script>
+	</div>
+</div>
 
 <script>
 	var myfiles = [{ icon: 'fa fa-folder', name: 'temp', isfolder: true }, { icon: 'fa fa-file', name: 'logo.png' }, { icon: 'fa fa-file', name: 'logo.svg' }];
 	var mytemplate = 'list';
+
+	function changetemplate(el) {
+		SET('mytemplate', el.getAttribute('data-name'));
+	}
 
 	function template_drop(e, target, item) {
 
