@@ -1,4 +1,4 @@
-COMPONENT('template', 'scrollbar:1;scrolltop:1;visibleY:1;margin:0;parent:auto', function(self, config, cls) {
+COMPONENT('template', 'scrollbar:1;scrolltop:1;visibleY:1;margin:0', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var eitems;

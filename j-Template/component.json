@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
 	"datecreated": "2021-05-12T08:38:02.000Z",
 	"dateupdated": null,
+=======
+	"datecreated": "2015-08-05T05:36:06.000Z",
+	"dateupdated": "2019-04-06T09:46:00.000Z",
+>>>>>>> parent of e7700d55 (Added new component `j-Template`.)
 	"name": "j-Template",
 	"tags": [
 		"Tangular",
