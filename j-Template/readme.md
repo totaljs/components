@@ -5,8 +5,6 @@
 - custom scrollbars
 - context menu
 
-Templates must be defined in `<script type="text/html">` tag
-
 __Configuration__:
 
 - `template {String}` a path to the watching a template name
@@ -19,6 +17,8 @@ __Configuration__:
 - `drop {String}` a path to the method `function(e, target, selel)`
 	- the method is evaluated if the user drops some files, then `selel` is undefined
 	- or the user drags & drops element with the `draggable` attribute (`selel` argument) into the `target` argument (target must contain `droppable` class)
+
+Templates must be defined in `<script type="text/html" data-name="NAME_OF_TEMPLATE">Tangular template</script>` element.
 
 ### Author
 
