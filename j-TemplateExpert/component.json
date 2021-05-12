@@ -1,0 +1,17 @@
+{
+	"datecreated": "2021-05-12T08:38:02.000Z",
+	"dateupdated": null,
+	"name": "j-Template",
+	"tags": [
+		"Tangular",
+		"templates"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

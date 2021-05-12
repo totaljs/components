@@ -247,5 +247,6 @@
 	"j-FloatingBox",
 	"j-View",
 	"j-Button",
-	"j-FileBrowser"
+	"j-FileBrowser",
+	"j-TemplateExpert"
 ]
