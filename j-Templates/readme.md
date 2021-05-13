@@ -1,6 +1,6 @@
-## j-TemplateExpert
+## j-Templates
 
-- supports multiple templates
+- multiple templates
 - drag & drop
 - custom scrollbars
 - context menu
