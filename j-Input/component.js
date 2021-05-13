@@ -566,7 +566,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		self.setterin(value, path, type);
 		self.bindvalue();
 
-		config.camouflage && !focused && setTimeout(self.camouflage, type === 1 ? 1000 : 1, true);
+		config.camouflage && !focused && setTimeout(self.camouflage, 1, true);
 
 		if (config.type === 'password')
 			self.password(true);
