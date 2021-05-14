@@ -1,4 +1,4 @@
-COMPONENT('selected', 'class:selected;selector:a;attr:if', function(self, config) {
+COMPONENT('selected', 'class:selected;selector:a;attr:if;attror:or', function(self, config) {
 
 	self.readonly();
 
@@ -16,7 +16,8 @@ COMPONENT('selected', 'class:selected;selector:a;attr:if', function(self, config
 		var cls = config.class;
 		self.find(config.selector).each(function() {
 			var el = $(this);
-			if (el.attrd(config.attr) === value)
+			var or = el.attrd(config.attror) || '';
+			if (el.attrd(config.attr) === value || (or && or.indexOf(value) !== -1))
 				el.aclass(cls);
 			else
 				el.hclass(cls) && el.rclass(cls);
