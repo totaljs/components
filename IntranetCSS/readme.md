@@ -1,6 +1,6 @@
 ## Intranet CSS
 
-- only CSS
+- only CSS for intranet applications
 
 ### Author
 
