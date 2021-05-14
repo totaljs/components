@@ -6,7 +6,7 @@
 __Configuration__:
 
 - `icon {String}` home icon (default: `fa fa-home`)
-- `exec {String}` path to the method `function(url)` for manual processing of links
+- `exec {String}` path to the method `function(url, el)` for manual processing of links
 - `historyapi {Boolean}` enables redirecting via `REDIRECT()` (default `true`)
 
 ## Data-source example

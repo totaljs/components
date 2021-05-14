@@ -14,7 +14,7 @@ COMPONENT('breadcrumb', 'icon:fa fa-home;historyapi:1', function(self, config, c
 			var url = el.attrd('id') || el.attr('href');
 
 			if (config.exec) {
-				self.SEEX(config.exec, url);
+				self.SEEX(config.exec, url, el);
 				return;
 			}
 
