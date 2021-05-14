@@ -1,0 +1,27 @@
+.bg-smoke { background-color: #F8F8F8; }
+.ui-dark .bg-smoke { background-color: #282828; }
+
+.panel { background-color: #FFF; border-radius: var(--radius); border: 1px solid #E0E0E0; }
+.panel > .toolbar { float: right; margin: 13px 10px 0 10px; }
+.panel > label { display: block; padding: 15px; border-bottom: 1px solid #E0E0E0; font-size: 16px; color: #000; font-weight: bold; border-radius: var(--radius) var(--radius) 0 0; }
+.panel > label i { margin-right: 7px; }
+.ui-dark .panel { background-color: #202020; border-color: #404040; }
+.ui-dark .panel > label { border-bottom-color: #404040; color: #FFF; }
+
+.toolbar button { outline: 0; background: linear-gradient(#FFF,#F8F8F8); border: 1px solid #E0E0E0; border-left: 0; font-size: 11px; height: 26px; padding: 0 8px; color: #000; min-width: 80px; text-align: center; vertical-align: top; background-color: #FFF; line-height: 24px; float: left; }
+.toolbar button i { margin-right: 5px; }
+.toolbar button .fa-plus-circle, .toolbar button .fa-check-circle { color: #68B25B; }
+.toolbar button:first-child { border-left: 1px solid #E0E0E0; border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
+.toolbar button:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
+.toolbar button:hover { border-color: #D0D0D0; }
+.toolbar button:active { background: #F0F0F0; color: #888; border-color: #DFDFDF; }
+.toolbar button:disabled { color: silver; cursor: not-allowed; border-color: #E0E0E0 !important; background: linear-gradient(#F8F8F8,#F0F0F0); }
+.toolbar button:disabled i { color: silver !important; }
+.toolbar button.right { float: right; margin-left: 5px; margin-right: 0; text-align: center; }
+
+.ui-dark .toolbar button { background: linear-gradient(#292929,#262626); border-color: #333; color: #FFF; background-color: #202020; }
+.ui-dark .toolbar button:first-child { border-left-color: #333; }
+.ui-dark .toolbar button:hover { border-color: #404040; }
+.ui-dark .toolbar button:active { background: #222; color: #A0A0A0; border-color: #333; }
+.ui-dark .toolbar button:disabled { color: #666; border-color: #404040 !important; background: linear-gradient(#303030,#333); }
+.ui-dark .toolbar button:disabled i { color: #666 !important; }
