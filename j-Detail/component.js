@@ -6,6 +6,16 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 	var mapping;
 	var track;
 
+	var colorize = function(val, encode) {
+		var hash = HASH(val + '');
+		var color = '#';
+		for (var i = 0; i < 3; i++) {
+			var value = (hash >> (i * 8)) & 0xFF;
+			color += ('00' + value.toString(16)).substr(-2);
+		}
+		return ('<span style="background:{0}" class="' + cls + '-colorize">{1}</span>').format(color, encode ? Thelpers.encode(val) : val);
+	};
+
 	self.make = function() {
 
 		self.aclass(cls + ' ' + cls + '-style-' + (config.style || 1) + (config.small ? (' ' + cls + '-small') : ''));
@@ -55,8 +65,18 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 	types.string = {};
 	types.string.init = NOOP;
 	types.string.render = function(item, next) {
-		var value = self.mapvalue(item);
-		next('<div class="{0}-string">{1}</div>'.format(cls, Thelpers.encode(value)));
+
+		var value = Thelpers.encode(self.mapvalue(item));
+		if (item.autoformat) {
+			var text = item.colorize ? colorize(value) : value;
+			if (value.isEmail())
+				value = '<a href="mailto:{0}">{1}</a>'.format(value, text);
+			else if (value.length > 5 && (/^[0-9+-\s]+$/).test(value))
+				value = '<a href="tel:{0}">{1}</a>'.format(value.replace(/\s/g, ''), text);
+		} else if (item.colorize)
+			value = colorize(value);
+
+		next('<div class="{0}-string">{1}</div>'.format(cls, value));
 	};
 
 	types.password = {};
@@ -86,14 +106,15 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 		var value = self.mapvalue(item);
 		var format = item.format || config.numberformat;
 		value = format ? value.format(format) : value;
-		next('<div class="{0}-number">{1}</div>'.format(cls, Thelpers.encode(value + '')));
+		next('<div class="{0}-number">{1}</div>'.format(cls, item.colorize ? colorize(value + '', true) : Thelpers.encode(value + '')));
 	};
 
 	types.date = {};
 	types.date.init = NOOP;
 	types.date.render = function(item, next) {
 		var value = self.mapvalue(item);
-		next('<div class="{0}-date">{1}</div>'.format(cls, value ? value.format(item.format || config.dateformat) : ''));
+		value = value ? value.format(item.format || config.dateformat) : '';
+		next('<div class="{0}-date">{1}</div>'.format(cls, item.colorize ? colorize(value) : value));
 	};
 
 	types.bool = {};

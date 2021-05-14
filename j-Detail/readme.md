@@ -9,7 +9,7 @@ __Configuration__:
 - `datetimeformat` {String} a date/time format (default: `yyyy-MM-dd HH:mm`)
 - `numberformat` {Number} a default number format (default: empty)
 - `small` {Boolean} enables smaller design (default: `false`)
-- `style` {Number} component style (default: `1`), supports style `2` and `3` (minimal)
+- `style` {Number} component style (default: `1`), supports style `2`, `3` (minimal) and `4` (modern)
 - `defaultgroup` {String} a default group name (default: `Default`)
 - `notnull` {Boolean} skips nullable values (default: `false`)
 - `track` {String} can contain paths divided by comma, this property will watch only changes in trakced keys
@@ -48,6 +48,8 @@ __Data properties in data declaration__:
 - `template` {String} A Tangular template (works only with `type:'template'` and `{{ value }}` contains a raw value, and `{{ item }}` contains the entire item)
 - `empty` {String} An empty value when the value is nullable (default: `---`)
 - `show` {String} Arrow function condition (must return boolean) and it works only with defined `path`
+- __NEW__ `autoformat` {Boolean} enables auto-format for `email`, or `phones`, and only for `string` type (default: `false`)
+- __NEW__ `colorize` {Boolean} colorizes the value with except `list`, `color` and `icon` type
 
 __Allowed types in data__:
 

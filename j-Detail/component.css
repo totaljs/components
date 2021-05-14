@@ -21,6 +21,8 @@
 .ui-detail-list span { display: block; margin-right: 25px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 .ui-detail-color { padding: 3px 0 0; }
 .ui-detail-color span b { height: 18px; display: block; border-radius: var(--radius); color: gray; width: 60px }
+.ui-detail-colorize { padding: 2px 3px; border-radius: var(--radius); color: #FFF; }
+
 .ui-detail-style-1 .ui-detail-item { padding: 6px 0; margin-bottom: 1px; font-size: 13px; border-top: 1px solid #E0E0E0; }
 .ui-detail-style-1 .ui-detail-item:first-child { border-top: 0; }
 .ui-detail-style-1 .ui-detail-key { float: left; width: 170px; line-height: 24px; padding: 0 5px 0 15px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; color: #707070; }
@@ -47,6 +49,19 @@
 .ui-detail-style-3 .ui-detail-value { margin: 0 10px 0 150px; line-height: 20px; border-left: 1px solid #E0E0E0; padding: 0 5px; height: 22px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
 .ui-detail-style-3 .ui-detail-fontawesome, .ui-detail-style-3 .ui-detail-emoji, .ui-detail-style-3 .ui-detail-color { line-height: 20px; font-size: 14px; margin-bottom: 0; }
 .ui-detail-style-3 .ui-detail-color span b { height: 14px; }
+
+.ui-detail-style-4 .ui-detail-item { padding: 1px 0; margin-bottom: 1px; font-size: 13px; border-top: 0; }
+.ui-detail-style-4 .ui-detail-item:first-child { border-top: 0; }
+.ui-detail-style-4 .ui-detail-key { float: left; width: 170px; line-height: 20px; padding: 0 5px 0 0; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; color: #999; }
+.ui-detail-style-4 .ui-detail-key i { margin-right: 7px; }
+.ui-detail-style-4 .ui-detail-value { margin: 0 0 0 170px; line-height: 18px; }
+.ui-detail-style-4 .ui-detail-group { background-color: transparent; border: 0; padding: 0 5px; margin-bottom: 0; }
+.ui-detail-style-4 .ui-detail-group label { background-color: transparent; border: 0; border-bottom: 1px solid #E0E0E0; padding: 6px 0; margin-bottom: 5px; }
+.ui-detail-style-4 .ui-detail-group section { padding: 5px 0; }
+.ui-detail-style-4.ui-detail-small .ui-detail-item { font-size: 12px; padding: 2px 0; min-height: 14px; }
+.ui-detail-style-4.ui-detail-small .ui-detail-key { padding-left: 8px; line-height: 14px; }
+.ui-detail-style-4.ui-detail-small .ui-detail-value { line-height: 14px; }
+
 .ui-detail-small .ui-detail-value { line-height: 20px; }
 .ui-detail-small .ui-detail-bool { line-height: 18px; }
 .ui-detail-small .ui-detail-bool span { width: 13px; height: 13px; line-height: 12px; font-size: 7px; margin: 4px 0px 3px;  }
@@ -76,3 +91,6 @@
 .ui-dark .ui-detail-style-3 .ui-detail-item { background-color: #333; }
 .ui-dark .ui-detail-style-3 .ui-detail-key { color: #999; }
 .ui-dark .ui-detail-style-3 .ui-detail-value { border-left-color: #282828; }
+.ui-dark .ui-detail-style-4 .ui-detail-key { color: #999; }
+.ui-dark .ui-detail-style-4 .ui-detail-group { background-color: transparent; }
+.ui-dark .ui-detail-style-4 .ui-detail-group label { background-color: transparent; border-bottom-color: #404040; }
