@@ -55,7 +55,7 @@
 .ui-detail-style-4 .ui-detail-key { float: left; width: 170px; line-height: 20px; padding: 0 5px 0 0; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; color: #999; }
 .ui-detail-style-4 .ui-detail-key i { margin-right: 7px; }
 .ui-detail-style-4 .ui-detail-value { margin: 0 0 0 170px; line-height: 18px; }
-.ui-detail-style-4 .ui-detail-group { background-color: transparent; border: 0; padding: 0 5px; margin-bottom: 0; }
+.ui-detail-style-4 .ui-detail-group { background-color: transparent; border: 0; padding: 0; margin-bottom: 0; }
 .ui-detail-style-4 .ui-detail-group label { background-color: transparent; border: 0; border-bottom: 1px solid #E0E0E0; padding: 6px 0; margin-bottom: 5px; }
 .ui-detail-style-4 .ui-detail-group section { padding: 5px 0; }
 .ui-detail-style-4.ui-detail-small .ui-detail-item { font-size: 12px; padding: 2px 0; min-height: 14px; }

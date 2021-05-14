@@ -26,6 +26,18 @@
 			]
 		</script>
 	</div>
+	<br />
+	<div data---="detail__model__style:4">
+		<script type="text/plain">
+			[
+				// Will be displayed, look to show condition ("m" means "model")
+				{ name: 'First name', path: 'firstname', type: 'string', show: 'm=>m.type==1' },
+				{ name: 'Last name', path: 'lastname', type: 'string', show: 'm=>m.type==1' },
+				// Won't be displayed, look to show condition ("m" means "model")
+				{ name: 'Age', path: 'age', type: 'number', show: 'm=>m.type==2' }
+			]
+		</script>
+	</div>
 </div>
 
 <script>
