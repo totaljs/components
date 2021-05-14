@@ -12,6 +12,7 @@ __Configuration__:
 - `style` {Number} component style (default: `1`), supports style `2` and `3` (minimal)
 - `defaultgroup` {String} a default group name (default: `Default`)
 - `notnull` {Boolean} skips nullable values (default: `false`)
+- `track` {String} can contain paths divided by comma, this property will watch only changes in trakced keys
 
 __Data declaration__:
 

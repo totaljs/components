@@ -4,6 +4,7 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 	var types = {};
 	var container;
 	var mapping;
+	var track;
 
 	self.make = function() {
 
@@ -163,10 +164,30 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 		return el;
 	};
 
-	self.setter = function(value) {
+	self.configure = function(key, value) {
+		if (key === 'track')
+			track = value.split(',').trim();
+	};
+
+	self.setter = function(value, path, type) {
 
 		if (!value)
 			value = EMPTYARRAY;
+
+		if ((type === 1 || type === 2) && track && track.length) {
+			var tracked = 0;
+			var diff = path.substring(self.path.length);
+			if (diff) {
+				for (var i = 0; i < track.length; i++) {
+					if (path.indexOf(track[i]) !== -1) {
+						tracked = 1;
+						break;
+					}
+				}
+				if (tracked != 1)
+					return;
+			}
+		}
 
 		var raw;
 
