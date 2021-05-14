@@ -1,5 +1,5 @@
 {
-	"datecreated": "2021-05-14T15:09:00.000Z",
+	"datecreated": "2021-05-14T15:10:00.000Z",
 	"dateupdated": null,
 	"name": "Intranet CSS",
 	"tags": [
@@ -7,7 +7,8 @@
 		"styles",
 		"css"
 	],
-	"color": "blue",
+	"darkmode": true,
+	"color": "silver",
 	"version": 5,
 	"responsive": true,
 	"picture": "picture.jpg",
