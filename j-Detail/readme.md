@@ -50,6 +50,7 @@ __Data properties in data declaration__:
 - `show` {String} Arrow function condition (must return boolean) and it works only with defined `path`
 - __NEW__ `autoformat` {Boolean} enables auto-format for `email`, or `phones`, and only for `string` type (default: `false`)
 - __NEW__ `colorize` {Boolean} colorizes the value with except `list`, `color` and `icon` type
+- __NEW__ `plus` {String} adds a value to end of rendered value for `number` and `string` types
 
 __Allowed types in data__:
 

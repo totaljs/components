@@ -76,7 +76,7 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 		} else if (item.colorize)
 			value = colorize(value);
 
-		next('<div class="{0}-string">{1}</div>'.format(cls, value));
+		next('<div class="{0}-string">{1}{2}</div>'.format(cls, value, item.plus));
 	};
 
 	types.password = {};
@@ -106,7 +106,8 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 		var value = self.mapvalue(item);
 		var format = item.format || config.numberformat;
 		value = format ? value.format(format) : value;
-		next('<div class="{0}-number">{1}</div>'.format(cls, item.colorize ? colorize(value + '', true) : Thelpers.encode(value + '')));
+
+		next('<div class="{0}-number">{1}{2}</div>'.format(cls, item.colorize ? colorize(value + '', true) : Thelpers.encode(value + ''), item.plus));
 	};
 
 	types.date = {};
@@ -114,7 +115,7 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 	types.date.render = function(item, next) {
 		var value = self.mapvalue(item);
 		value = value ? value.format(item.format || config.dateformat) : '';
-		next('<div class="{0}-date">{1}</div>'.format(cls, item.colorize ? colorize(value) : value));
+		next('<div class="{0}-date">{1}{2}</div>'.format(cls, item.colorize ? colorize(value) : value, item.plus));
 	};
 
 	types.bool = {};
