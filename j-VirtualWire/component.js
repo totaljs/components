@@ -36,11 +36,16 @@ COMPONENT('virtualwire', 'selector:.virtualwire', function(self, config) {
 	self.load = function(value) {
 		waiter && clearTimeout(waiter);
 		waiter = null;
-		var el = $(config.selector + '[data-if="{0}",data-scope="{0}"]'.format(value));
+		var el = $(config.selector + '[data-if="' + value + '"]');
 		if (el.length)
 			self.backup(el);
-		else
-			waiter = setTimeout(self.load, 100, value);
+		else {
+			el = $(config.selector + '[data-scope="' + value + '"]');
+			if (el.length)
+				self.backup(el);
+			else
+				waiter = setTimeout(self.load, 100, value);
+		}
 	};
 
 	self.setter = function(value) {
