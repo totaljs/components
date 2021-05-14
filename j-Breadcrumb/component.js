@@ -25,7 +25,7 @@ COMPONENT('breadcrumb', 'icon:fa fa-home;historyapi:1', function(self, config, c
 		});
 	};
 
-	self.setter = function(value) {
+	self.setter = function(value, path, type) {
 		if (!value)
 			value = EMPTYARRAY;
 
@@ -42,6 +42,9 @@ COMPONENT('breadcrumb', 'icon:fa fa-home;historyapi:1', function(self, config, c
 			html = '<i class="{0}"></i>'.format(config.icon) + html;
 
 		nav.html(html);
+
+		if (!type)
+			nav.rclass('hidden invisible');
 	};
 
 });
