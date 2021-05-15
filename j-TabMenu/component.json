@@ -1,6 +1,6 @@
 {
 	"datecreated": "2016-04-05T18:02:13.668Z",
-	"dateupdated": "2019-10-22T16:24:00.000Z",
+	"dateupdated": "2021-05-15T15:33:00.000Z",
 	"name": "j-TabMenu",
 	"tags": [
 		"tabs"
@@ -8,6 +8,7 @@
 	"color": "silver",
 	"version": 1,
 	"responsive": true,
+	"darkmode": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
 	"author": "Peter Širka",

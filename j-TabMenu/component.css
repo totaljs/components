@@ -1,6 +1,12 @@
-.tabmenu { border-bottom: 1px solid #E0E0E0; padding: 0; margin: 0; display: block; position: relative; font-size: 12px; margin-bottom: 20px; list-style-type: none; }
-.tabmenu li { position: relative; display: inline-block; border: 1px solid #FFF; border-bottom: 0; margin: 0 0 0 10px; padding: 0; border-radius: var(--radius) var(--radius) 0 0; background-color: #F8F8F8; text-align: center; padding: 8px 10px; color: gray; cursor: pointer; min-width: 120px; }
-.tabmenu li:first-child { margin-left: 0; }
-.tabmenu .selected { background-color: #FFF; top: 1px; border-color: #E0E0E0; color: #000; }
-.tabmenu .fa { margin-right: 8px; }
-.tabmenu.ui-disabled li { cursor: not-allowed; color: #A0A0A0; }
+.ui-tabmenu { padding: 0; margin: 0 0 10px; display: block; position: relative; font-size: 12px; list-style-type: none; height: 26px; }
+.ui-tabmenu li { float: left; line-height: 26px; border: 0; margin: 0 1px 0 0; padding: 0; background-color: #F0F0F0; text-align: center; color: gray; cursor: pointer; min-width: 80px; }
+.ui-tabmenu li:first-child { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
+.ui-tabmenu li:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
+.ui-tabmenu .selected { background-color: var(--color); color: #FFF; }
+.ui-tabmenu i { margin-right: 5px; }
+.ui-tabmenu.ui-disabled .selected { background-color: #E0E0E0; }
+.ui-tabmenu.ui-disabled li { cursor: not-allowed; color: #A0A0A0; }
+.ui-dark .ui-tabmenu li { background-color: #303030; color: #A0A0A0; }
+.ui-dark .ui-tabmenu .selected { background-color: var(--color); color: #FFF; }
+.ui-dark .ui-tabmenu.ui-disabled .selected { background-color: #404040; }
+.ui-dark .ui-tabmenu.ui-disabled li { color: #888; }

@@ -1,11 +1,13 @@
-COMPONENT('tabmenu', 'class:selected;selector:li', function(self, config) {
+COMPONENT('tabmenu', 'class:selected;selector:li', function(self, config, cls) {
+
 	var old, oldtab;
 
 	self.readonly();
-	self.nocompile && self.nocompile();
+	self.nocompile();
 	self.bindvisible();
 
 	self.make = function() {
+		self.aclass(cls);
 		self.event('click', config.selector, function() {
 			if (!config.disabled) {
 				var el = $(this);
