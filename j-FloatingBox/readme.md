@@ -44,7 +44,7 @@ __Importing content__:
 ```js
 var opt = {};
 opt.import = '/url/part.html';
-// IMPORTANT: the content will cached for future usage
+// IMPORTANT: the content will be cached for the future usage
 ```
 
 ### Good to know
