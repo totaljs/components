@@ -65,7 +65,7 @@
 .ui-properties2-invalid { font-weight: bold; color: red !important; }
 .ui-properties2-invalid .ui-properties2-key { border-right-color: red !important; }
 .ui-properties2-camouflage input { filter: blur(3px); }
-.ui-properties2-camouflage input:focus { filter: unset;  }
+.ui-properties2-camouflage input:focus { filter: unset; }
 .ui-properties2-ricon { float: right; width: 34px; height: 24px; line-height: 20px; text-align: center; color: gray; font-weight: normal; }
 .ui-properties2-ricon i { font-size: 14px; color: #000; padding: 5px 0 0; display: block; }
 .ui-properties2-isricon .ui-properties2-value { margin-right: 34px; }
