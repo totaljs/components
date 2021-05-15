@@ -64,6 +64,15 @@
 .ui-properties2-color span b { height: 18px; display: block; border-radius: var(--radius); color: gray; width: 60px }
 .ui-properties2-invalid { font-weight: bold; color: red !important; }
 .ui-properties2-invalid .ui-properties2-key { border-right-color: red !important; }
+.ui-properties2-camouflage input { filter: blur(3px); }
+.ui-properties2-camouflage input:focus { filter: unset;  }
+.ui-properties2-ricon { float: right; width: 34px; height: 24px; line-height: 20px; text-align: center; color: gray; font-weight: normal; }
+.ui-properties2-ricon i { font-size: 14px; color: #000; padding: 5px 0 0; display: block; }
+.ui-properties2-isricon .ui-properties2-value { margin-right: 34px; }
+.ui-properties2-2 .ui-properties2-ricon i { padding: 3px 0 0; }
+.ui-properties2-2 .ui-properties2-ricon { line-height: 20px; }
+.ui-properties2-value.right input { text-align: right; }
+.ui-properties2-value.center input { text-align: center; }
 #properties2upload { position: absolute; left: -100px; top: -100px; opacity: 0; }
 
 .ui-dark .ui-properties2-group { border-color: #404040; }
@@ -80,3 +89,5 @@
 .ui-dark .ui-properties2-changed .ui-properties2-key { color: #FFF; }
 .ui-dark .ui-properties2-note { color: #606060; }
 .ui-dark .ui-properties2-list i, .ui-dark .ui-properties2-menu i, .ui-dark .ui-properties2-date { color: gray; }
+.ui-dark .ui-properties2-ricon { color: #888; }
+.ui-dark .ui-properties2-ricon i { color: #FFF; }

@@ -9,6 +9,17 @@
 <div style="width:600px;padding:20px;background-color:#F0F0F0">
 	<div data---="properties2__form"></div>
 	<div data---="properties2__form2__style:2"></div>
+
+	<!-- PERSISTENT MODE -->
+	<div data---="properties2__form3__style:2">
+		<script type="text/plain">
+			[
+				{ group: 'Personal', label: 'First name', name: 'firstname', type: 'string',transform: 'capitalize', note: 'Type your name' }),
+				{ group: 'Personal', label: 'Last name', name: 'lastname', type: 'string', placeholder: 'String' }),
+				{ group: 'Personal', label: 'Token', name: 'token', type: 'string', placeholder: 'String', camouflage: true })
+			]
+		</script>
+	</div>
 </div>
 
 <script>
@@ -38,6 +49,11 @@
 	form2.push({ group: 'Additional', label: 'Emoji', name: 'emoji', type: 'emoji', value: '', show: 'n => n.age === 33' });
 	form2.push({ group: 'Additional', label: 'Exec', exec: 'myexec', type: 'exec', value: 'Some text to exec' });
 	form2.push({ group: 'Additional', label: 'Readonly', name: 'something', type: 'text', value: 'Readonly value', icon: 'fa fa-home #000' });
+
+	var form3 = {};
+	form3.firstname = 'Peter';
+	form3.lastname = 'Širka';
+	form3.token = GUID(30);
 
 	function myexec(item, el) {
 		console.log(item, el);

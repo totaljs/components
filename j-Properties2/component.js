@@ -1,23 +1,22 @@
-COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timeformat:HH:mm;modalalign:center;style:1;validation:1', function(self, config, cls) {
+COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timeformat:HH:mm;modalalign:center;style:1;validation:1;encodenotes:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var container;
 	var types = {};
+	var paths = {};
 	var skip = false;
-	var values, funcs;
+	var values, funcs, datasource, rendered = false;
 
 	self.nocompile();
 	self.bindvisible();
 
 	self.validate = function(value) {
-
 		if (config.validation && value && value.length) {
 			for (var i = 0; i < value.length; i++) {
 				if (value[i].invalid)
 					return false;
 			}
 		}
-
 		return true;
 	};
 
@@ -25,22 +24,43 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 		self.aclass(cls + (config.style === 2 ? (' ' + cls + '-2') : ''));
 
+		var scr = self.find('> script');
+		datasource = scr.length ? scr.html().trim() : null;
+		scr.remove();
+
+		if (datasource) {
+			datasource = new Function('return ' + datasource)();
+			for (var i = 0; i < datasource.length; i++)
+				paths[datasource[i].name] = 1;
+		}
+
 		if (!$('#propertie2supload').length)
 			$(document.body).append('<input type="file" id="properties2upload" />');
+
+		self.event('click', cls2 + '-ricon', function() {
+			var el = self.findel($(this));
+			var index = +el.attrd('index');
+			var arr = datasource || self.get();
+			var item = index >= 0 ? arr[index] : null;
+			if (item && item.riconclick) {
+				item.element = el;
+				self.EXEC(item.riconclick, item, function(val) {
+					types[item.type].set(el, val, item);
+				});
+			}
+		});
 
 		self.append('<div><div class="{0}-container"></div></div>'.format(cls));
 		container = self.find(cls2 + '-container');
 
-		var keys = Object.keys(types);
-		for (var i = 0; i < keys.length; i++) {
-			var key = keys[i];
+		for (var key in types)
 			types[key].init && types[key].init();
-		}
 	};
 
 	self.finditem = function(el) {
 		var index = +$(el).closest(cls2 + '-item').attrd('index');
-		return index >= 0 ? self.get()[index] : null;
+		var arr = datasource || self.get();
+		return index >= 0 ? arr[index] : null;
 	};
 
 	self.findel = function(el) {
@@ -48,15 +68,25 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	};
 
 	self.modifyval = function(item) {
+
 		values[item.name] = item.value;
-		var items = self.get();
+		var items = datasource || self.get();
 		for (var i = 0; i < items.length; i++) {
-			var item = items[i];
-			if (!item.show)
-				continue;
-			var is = funcs[item.name + '_show'](values);
-			self.find(cls2 + '-item[data-index="{0}"]'.format(i)).tclass('hidden', !is);
+			var m = items[i];
+			if (m.show) {
+				var is = funcs[m.name + '_show'](values);
+				self.find(cls2 + '-item[data-index="{0}"]'.format(i)).tclass('hidden', !is);
+			}
 		}
+
+		skip = true;
+
+		if (datasource) {
+			self.get()[item.name] = item.value;
+			UPD(self.path + '.' + item.name);
+		} else
+			UPD(self.path);
+
 	};
 
 	self.register = function(name, init, render) {
@@ -140,7 +170,10 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	};
 
 	types.string.render = function(item, next) {
-		next('<div class="{0}-string"><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pstring"{4} /></div>'.format(cls, item.maxlength, item.placeholder || '', Thelpers.encode(item.value), item.disabled ? ' disabled' : ''));
+		next('<div class="{0}-string{5}"><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pstring"{4} /></div>'.format(cls, item.maxlength, item.placeholder || '', Thelpers.encode(item.value), item.disabled ? ' disabled' : '', item.camouflage ? (' ' + cls + '–camouflage') : ''));
+	};
+	types.string.set = function(el, value) {
+		el.find('input').val(value == null ? '' : (value + ''));
 	};
 
 	types.password = {};
@@ -189,6 +222,9 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	};
 	types.password.render = function(item, next) {
 		next('<div class="{0}-string"><input type="password" maxlength="{1}" placeholder="{2}" value="{3}" class="ppassword"{4} /></div>'.format(cls, item.maxlength, item.placeholder || '', Thelpers.encode(item.value), item.disabled ? ' disabled' : ''));
+	};
+	types.password.set = function(el, value) {
+		el.find('input').val(value == null ? '' : (value + ''));
 	};
 
 	types.number = {};
@@ -260,6 +296,9 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	types.number.render = function(item, next) {
 		next('<div class="{0}-number"><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pnumber"{4} /></div>'.format(cls, 20, item.placeholder || '', Thelpers.encode((item.value == null ? '' : item.value) + ''), item.disabled ? ' disabled' : ''));
 	};
+	types.number.set = function(el, value) {
+		el.find('input').val(value == null ? '' : (value + ''));
+	};
 
 	types.date = {};
 	types.date.init = function() {
@@ -324,6 +363,9 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	types.date.render = function(item, next) {
 		next('<div class="{0}-date"><i class="fa fa-calendar pdate"></i><div><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pdate" /></div></div>'.format(cls, config.dateformat.length, item.placeholder || '', item.value ? item.value.format(config.dateformat) : ''));
 	};
+	types.date.set = function(el, value) {
+		el.find('input').val(value == null ? '' : (value + ''));
+	};
 
 	types.bool = {};
 	types.bool.init = function() {
@@ -361,6 +403,9 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	types.bool.render = function(item, next) {
 		next('<div class="{0}-bool"><span class="{0}-booltoggle{1}"><i></i></span></div>'.format(cls, item.value ? ' checked' : ''));
 	};
+	types.bool.set = function(el, value) {
+		el.find(cls2 + '-booltoggle').tclass('checked', !!value);
+	};
 
 	types.exec = {};
 	types.exec.init = function() {
@@ -379,6 +424,9 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	types.text = {};
 	types.text.render = function(item, next) {
 		next('<div class="{0}-text">{1}</div>'.format(cls, item.value ? Thelpers.encode(item.value) : ''));
+	};
+	types.text.set = function(el, value) {
+		el.find(cls2 + '-text').html(item.value ? Thelpers.encode(item.value) : '');
 	};
 
 	types.list = {};
@@ -406,13 +454,14 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			var opt = {};
 			opt.offsetY = -5;
 			opt.element = $(t);
-			opt.items = typeof(item.items) === 'string' ? item.items.indexOf('/') === -1 ? GET(item.items) : item.items : item.items;
+			opt.items = typeof(item.items) === 'string' ? item.items.indexOf('/') === -1 ? GET(self.makepath(item.items)) : item.items : item.items;
 			opt.custom = item.dircustom;
 			opt.minwidth = 80;
 			if (item.dirsearch)
 				opt.placeholder = item.dirsearch;
 			else if (item.dirsearch == false)
 				opt.search = false;
+
 			opt.callback = function(value) {
 
 				if (typeof(value) === 'string') {
@@ -444,7 +493,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	};
 
 	types.list.render = function(item, next) {
-		var template = '<div class="{0}-list">' + (config.style === 2 ? '' : '<i class="fa fa-chevron-down"></i>')  + '<span>{1}</span></div>';
+		var template = '<div class="{0}-list">' + (config.style === 2 ? '' : '<i class="fa fa-chevron-down"></i>') + '<span>{1}</span></div>';
 		if (item.detail) {
 			AJAX('GET ' + item.detail.format(encodeURIComponent(item.value)), function(response) {
 				next(template.format(cls, response[item.dirkey || 'name'] || item.placeholder || DEF.empty));
@@ -454,6 +503,11 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			var m = (arr || EMPTYARRAY).findValue(item.dirvalue || 'id', item.value, item.dirkey || 'name', item.placeholder || DEF.empty);
 			next(template.format(cls, m));
 		}
+	};
+	types.list.set = function(el, value, item) {
+		var items = typeof(item.items) === 'string' ? item.items.indexOf('/') === -1 ? GET(self.makepath(item.items)) : item.items : item.items;
+		var val = items instanceof Array ? items.findValue(item.dirvalue || 'id', value, item.dirkey || 'name') : '';
+		el.find('span').text(value);
 	};
 
 	types.menu = {};
@@ -479,7 +533,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				opt.align = 'right';
 			opt.offsetY = -5;
 			opt.element = $(t);
-			opt.items = typeof(item.items) === 'string' ? item.items.indexOf('/') === -1 ? GET(item.items) : item.items : item.items;
+			opt.items = typeof(item.items) === 'string' ? item.items.indexOf('/') === -1 ? GET(self.makepath(item.items)) : item.items : item.items;
 			opt.callback = function(value) {
 
 				if (typeof(value) === 'string') {
@@ -521,6 +575,11 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			var m = (arr || EMPTYARRAY).findValue(item.dirvalue || 'id', item.value, item.dirkey || 'name', item.placeholder || DEF.empty);
 			next(template.format(cls, m));
 		}
+	};
+	types.menu.set = function(el, value, item) {
+		var items = typeof(item.items) === 'string' ? item.items.indexOf('/') === -1 ? GET(self.makepath(item.items)) : item.items : item.items;
+		var val = items instanceof Array ? items.findValue(item.dirvalue || 'id', value, item.dirkey || 'name') : '';
+		el.find('span').text(value);
 	};
 
 	types.color = {};
@@ -568,6 +627,9 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	types.color.render = function(item, next) {
 		next('<div class="{0}-color"><span class="{0}-colortoggle"><b{1}>&nbsp;</b></span></div>'.format(cls, item.value ? (' style="background-color:' + item.value + '"') : ''));
 	};
+	types.color.set = function(el, value) {
+		el.find('b').css('background-color', value || '');
+	};
 
 	types.fontawesome = {};
 	types.fontawesome.init = function() {
@@ -611,6 +673,9 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	};
 	types.fontawesome.render = function(item, next) {
 		next('<div class="{0}-fontawesome"><span class="{0}-fontawesometoggle"><i class="{1}"></i></span></div>'.format(cls, item.value || ''));
+	};
+	types.fontawesome.set = function(el, value) {
+		el.find('i').rclass2('fa').class(value || '');
 	};
 
 	types.emoji = {};
@@ -656,6 +721,9 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	types.emoji.render = function(item, next) {
 		next('<div class="{0}-emoji"><span class="{0}-emojitoggle">{1}</span></div>'.format(cls, item.value || DEF.empty));
 	};
+	types.emoji.set = function(el, value) {
+		el.find('span').html(item.value || DEF.empty);
+	};
 
 	types.file = {};
 	types.file.init = function() {
@@ -697,7 +765,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 					item.changed = item.prev !== item.value;
 					self.findel(t).tclass(cls + '-changed', item.changed);
 					config.change && self.EXEC(config.change, item, function(val) {
-						self.findel(cls2 + '-filename').text(val);
+						self.findel(t).find(cls2 + '-filename').text(val);
 					});
 					SETTER('loading', 'hide', 1000);
 					file.value = '';
@@ -732,13 +800,23 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				color = text;
 				return '';
 			}).trim();
-			if (tmp.indexOf(' ') === -1)
-				tmp = 'fa fa-' + tmp;
+			tmp = self.faicon(tmp);
 			meta.icon = Tangular.render('<i class="{{ icon }}"{{ if color }} style="{{ type }}color:{{ color }}"{{ fi }}></i>', { icon: tmp, color: color, type: config.style === 2 ? 'background-' : '' });
 		} else
 			meta.icon = '';
 
-		var el = $(('<div class="{2}-item{3} {2}-t{type}' + (item.required ? ' {2}-required' : '') + (item.icon ? ' {2}-isicon' : '') + (item.note ? ' {2}-isnote' : '') + '" data-index="{1}">' + (config.style === 2 ? '{{ icon }}<div>' : '') + '<div class="{0}-key">' + (config.style === 2 ? '' : '{{ icon }}') + '{{ label }}</div>' + (config.style === 2 ? '<div class="{0}-value">&nbsp;</div><div class="{0}-note">{1}</div>'.format(cls, Thelpers.encode(item.note)) : '<div class="{0}-value">&nbsp;</div>') + '</div>' + (config.style === 2 ? '</div>' : '')).format(cls, index, c, item.required ? (' ' + cls + '-required') : '').arg(meta));
+		var plus = '';
+
+		if (item.ricon)
+			plus = '<div class="{0}-ricon">{1}</div>'.format(cls, item.ricon.charAt(0) === '!' ? item.ricon.substring(1) : '<i class="{0}"></i>'.format(item.ricon));
+
+		var el = $(('<div class="{2}-item{3} {2}-t{type}' + (item.required ? ' {2}-required' : '') + (item.icon ? ' {2}-isicon' : '') + (item.note ? ' {2}-isnote' : '') + '" data-index="{1}">' + (config.style === 2 ? '{{ icon }}<div>' : '') + '<div class="{0}-key">' + (config.style === 2 ? '' : '{{ icon }}') + '{{ label }}</div>' + (config.style === 2 ? (plus + '<div class="{0}-value">&nbsp;</div><div class="{0}-note">{1}</div>').format(cls, config.encodenotes ? Thelpers.encode(item.note) : item.note) : (plus + '<div class="{0}-value">&nbsp;</div>')) + '</div>' + (config.style === 2 ? '</div>' : '')).format(cls, index, c, item.required ? (' ' + cls + '-required') : '').arg(meta));
+
+		if (plus)
+			el.aclass(cls + '-isricon');
+
+		if (item.align)
+			el.find(cls2 + '-value').aclass(item.align);
 
 		type.render(item, function(html) {
 
@@ -753,9 +831,11 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		return el;
 	};
 
-	self.setter = function(value) {
+	self.setter = function(value, path, type) {
 
-		if (skip) {
+		var p = path.substring(self.path.length + 1);
+
+		if (skip || (p && !paths[p])) {
 			skip = false;
 			return;
 		}
@@ -763,16 +843,20 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		if (!value)
 			value = EMPTYARRAY;
 
-		container.empty();
-
 		var groups = {};
+		var items = datasource || value;
+		var is = !datasource || !rendered;
+
+		if (is)
+			container.empty();
 
 		values = {};
 		funcs = {};
 
-		for (var i = 0; i < value.length; i++) {
-			var item = value[i];
+		for (var i = 0; i < items.length; i++) {
+			var item = items[i];
 			var g = item.group || 'Default';
+			var val = datasource ? value[item.name] : item.value;
 
 			item.invalid = false;
 
@@ -782,47 +866,63 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			switch (item.type) {
 				case 'fontawesome':
 				case 'string':
-					item.prev = item.value || '';
+					item.prev = val || '';
 					break;
 				case 'date':
-					item.prev = item.value ? item.value.format(config.dateformat) : null;
+					item.prev = val ? val.format(config.dateformat) : null;
 					break;
 				// case 'number':
 				// case 'bool':
 				// case 'boolean':
 				// case 'list':
 				default:
-					item.prev = item.value;
+					item.prev = val;
 					break;
 			}
 
-			if (item.show)
+			if (item.show && is)
 				funcs[item.name + '_show'] = typeof(item.show) === 'string' ? FN(item.show) : item.show;
 
-			values[item.name] = item.value;
+			values[item.name] = val;
 
 			if (item.required)
-				item.invalid = !item.value;
+				item.invalid = !val;
 
-			groups[g].html.push(self.render(item, i));
+			if (is) {
+				item.value = val;
+				groups[g].html.push(self.render(item, i));
+			} else {
+				if (!item.element)
+					item.element = self.find(cls2 + '-item[data-index="{0}"]'.format(i));
+				types[item.type].set(item.element, val, item);
+			}
 		}
 
-		var keys = Object.keys(groups);
-		for (var i = 0; i < keys.length; i++) {
+		if (is) {
+			for (var key in groups) {
+				var group = groups[key];
+				var hash = 'g' + HASH(key, true);
+				var el = $('<div class="{0}-group" data-id="{2}"><label>{1}</label><section></section></div>'.format(cls, key, hash));
+				var section = el.find('section');
+				for (var j = 0; j < group.html.length; j++)
+					section.append(group.html[j]);
+				container.append(el);
+			}
+		}
 
-			var key = keys[i];
-			var group = groups[key];
-			var hash = 'g' + HASH(key, true);
-			var el = $('<div class="{0}-group" data-id="{2}"><label>{1}</label><section></section></div>'.format(cls, key, hash));
-			var section = el.find('section');
-
-			for (var j = 0; j < group.html.length; j++)
-				section.append(group.html[j]);
-
-			container.append(el);
+		if (!is) {
+			self.find(cls2 + '-item').rclass(cls + '-invalid ' + cls + '-changed');
+			for (var i = 0; i < items.length; i++) {
+				var item = items[i];
+				if (item.show) {
+					var can = funcs[item.name + '_show'](values);
+					self.find(cls2 + '-item[data-index="{0}"]'.format(i)).tclass('hidden', !can);
+				}
+			}
 		}
 
 		self.validate2();
+		rendered = true;
 	};
 
 });
