@@ -1,13 +1,34 @@
 <style>
-	.ui-breadcrumb .toolbar { margin: 7px 0 0; float: right; }
+	.ui-breadcrumb .toolbar { margin: 9px 0 0; float: right; }
+	.ui-breadcrumb button { height: 22px; line-height: 20px; min-width: 60px; }
 </style>
 
 <div style="width:400px" class="padding">
+
+	<div>
+		<span class="badge">Badge</span>
+		<span class="badge badge-red">Badge</span>
+		<span class="badge badge-green">Badge</span>
+		<span class="badge badge-large badge-silver">Badge</span>
+		<span class="badge badge-medium badge-purple">Badge</span>
+		<span class="badge badge-small badge-yellow">Badge</span>
+	</div>
+
+	<br />
 
 	<div data---="breadcrumb__common.breadcrumb" class="invisible">
 		<div class="toolbar">
 			<button><i class="fa fa-plus-circle green"></i>Add</button>
 		</div>
+	</div>
+
+	<div class="nav">
+		<nav>
+			<label>Navigation</label>
+			<div class="selected"><i class="fa fa-home"></i>Home</div>
+			<div><i class="fa fa-users"></i>Users</div>
+			<div class="disabled"><i class="fa fa-cog"></i>Settings</div>
+		</nav>
 	</div>
 
 	<br />
@@ -36,10 +57,42 @@
 
 	<br />
 
+	<div class="listing">
+		<figure>
+			<section>
+				<div>Item 1</div>
+				<div class="help nmt">Description</div>
+			</section>
+		</figure>
+		<figure>
+			<section>Item 2</section>
+		</figure>
+		<figure>
+			<section>Item 3</section>
+		</figure>
+		<figure>
+			<section>Item 4</section>
+		</figure>
+	</div>
+
+	<br />
+
 	<div class="toolbar">
 		<button><i class="fa fa-plus-circle"></i>Add</button>
 		<button><i class="fa fa-pencil"></i>Edit</button>
 		<button disabled><i class="fa fa-trash-o red"></i>Remove</button>
+	</div>
+
+	<br />
+
+	<div class="toolbar toolbar-bg">
+		<div class="pull-right">
+			<button><i class="fa fa-cog"></i>Options</button>
+			<button disabled><i class="fa fa-trash-o red"></i>Remove</button>
+		</div>
+		<div>
+			<button><i class="fa fa-plus-circle"></i>Add</button>
+		</div>
 	</div>
 
 </div>
