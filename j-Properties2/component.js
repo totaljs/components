@@ -426,7 +426,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		next('<div class="{0}-text">{1}</div>'.format(cls, item.value ? Thelpers.encode(item.value) : ''));
 	};
 	types.text.set = function(el, value) {
-		el.find(cls2 + '-text').html(item.value ? Thelpers.encode(item.value) : '');
+		el.find(cls2 + '-text').html(value ? Thelpers.encode(value) : '');
 	};
 
 	types.list = {};
@@ -507,7 +507,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	types.list.set = function(el, value, item) {
 		var items = typeof(item.items) === 'string' ? item.items.indexOf('/') === -1 ? GET(self.makepath(item.items)) : item.items : item.items;
 		var val = items instanceof Array ? items.findValue(item.dirvalue || 'id', value, item.dirkey || 'name') : '';
-		el.find('span').text(value);
+		el.find('span').text(val);
 	};
 
 	types.menu = {};
@@ -579,7 +579,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	types.menu.set = function(el, value, item) {
 		var items = typeof(item.items) === 'string' ? item.items.indexOf('/') === -1 ? GET(self.makepath(item.items)) : item.items : item.items;
 		var val = items instanceof Array ? items.findValue(item.dirvalue || 'id', value, item.dirkey || 'name') : '';
-		el.find('span').text(value);
+		el.find('span').text(val);
 	};
 
 	types.color = {};
@@ -722,7 +722,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		next('<div class="{0}-emoji"><span class="{0}-emojitoggle">{1}</span></div>'.format(cls, item.value || DEF.empty));
 	};
 	types.emoji.set = function(el, value) {
-		el.find('span').html(item.value || DEF.empty);
+		el.find('span').html(value || DEF.empty);
 	};
 
 	types.file = {};
@@ -831,7 +831,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		return el;
 	};
 
-	self.setter = function(value, path, type) {
+	self.setter = function(value, path) {
 
 		var p = path.substring(self.path.length + 1);
 
