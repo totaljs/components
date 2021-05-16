@@ -34,7 +34,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				paths[datasource[i].name] = 1;
 		}
 
-		if (!$('#propertie2supload').length)
+		if (!$('#properties2upload').length)
 			$(document.body).append('<input type="file" id="properties2upload" />');
 
 		self.event('click', cls2 + '-ricon', function() {
