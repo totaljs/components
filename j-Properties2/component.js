@@ -34,8 +34,9 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				paths[datasource[i].name] = 1;
 		}
 
-		if (!$('#properties2upload').length)
-			$(document.body).append('<input type="file" id="properties2upload" />');
+		var elu = $('#properties2upload');
+		if (!elu.length)
+			$(document.body).append('<inp' + 'ut type="file" id="prope' + 'rties2upload" /' + '>');
 
 		self.event('click', cls2 + '-ricon', function() {
 			var el = self.findel($(this));
