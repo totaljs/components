@@ -4,7 +4,7 @@
 
 __Configuration__:
 
-- `parent` {String} can contain `parent`, `window` or jQuery selector for closest method (default: `window`)
+- `parent` {String} can contain `parent`, `window` or jQuery selector for the `closest` method (default: `window`)
 - `margin` {Number} adds margin for the `height` (default: `0`)
 - `remember` {Boolean} can remember last settings of layout for resizing (default: `true`)
 - `space` {Number} internal, contains a space between panels (default: `1`)

@@ -15,7 +15,7 @@ __Configuration__:
 - `autoresize {Boolean}` enables auto-resizing (default: `true`)
 - `position {String}` navigation position (default: `left`)
 - `margin {Number}` adds margin for `height` (default: `0`)
-- `parent {String}` can contain `parent`, `window` or jQuery selector for closest method (default: `window`)
+- `parent {String}` can contain `parent`, `window` or jQuery selector for the `closest` method (default: `window`)
 
 ### Author
 
