@@ -5,7 +5,7 @@
 __Configuration__:
 
 - `parent` {String} can contain `parent`, `window` or jQuery selector for closest method (default: `window`)
-- `margin` {Number} add margin for `height` of this component (default: `0`)
+- `margin` {Number} adds margin for the `height` (default: `0`)
 - `autoresize` {Boolean} enables auto-resize (default: `true`)
 
 __Methods__:
