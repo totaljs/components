@@ -249,5 +249,6 @@
 	"j-Button",
 	"j-FileBrowser",
 	"j-Templates",
-	"IntranetCSS"
+	"IntranetCSS",
+	"j-NavLayout"
 ]
