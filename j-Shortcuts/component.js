@@ -19,7 +19,7 @@ COMPONENT('shortcuts', function(self) {
 
 		$(W).on('keydown', function(e) {
 
-			var f = e.key;
+			var f = e.key || '';
 			var c = e.keyCode;
 
 			if (f.length > 1 && f.charAt(0) === 'F')
