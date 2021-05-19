@@ -41,7 +41,6 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 	};
 
 	self.nocompile();
-	self.bindvisible();
 
 	self.mapvalue = function(item, raw) {
 		var val = item.path ? item.path.indexOf('.') === -1 ? item.value[item.path] : GET(item.path, item.value) : item.value;
@@ -198,7 +197,7 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 
 		if ((type === 1 || type === 2) && track && track.length) {
 			var tracked = 0;
-			var diff = path.substring(self.path.length);
+			var diff = path.substring(self.path.length + 1);
 			if (diff) {
 				for (var i = 0; i < track.length; i++) {
 					if (path.indexOf(track[i]) !== -1) {
@@ -241,9 +240,7 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 			groups[g].html.push(self.render(item, i));
 		}
 
-		var keys = Object.keys(groups);
-		for (var i = 0; i < keys.length; i++) {
-			var key = keys[i];
+		for (var key in groups) {
 			var group = groups[key];
 			var hash = 'g' + HASH(key).toString(36);
 			var el = $(('<div class="{0}-group' + (key.length > 1 ? '' : ' {0}-group-nolabel') + '" data-id="{2}">' + (key.length > 1 ? '<label>{1}</label>' : '') + '<section></section></div>').format(cls, key, hash));
