@@ -92,10 +92,10 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 						if (m.selected)
 							response.push(m);
 					}
-					self.opt.callback(response, self.opt.element);
+					self.opt.callback(response, self.opt.element, e);
 					skiphide = true;
 				} else
-					self.opt.callback(item, self.opt.element);
+					self.opt.callback(item, self.opt.element, e);
 			}
 
 			is = true;

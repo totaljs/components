@@ -22,7 +22,7 @@ Method: `component.show(options)`
 - `options.custom` {Boolean} optional, enables returning a value not defined in `options.items`, default: `false`
 - `options.minwidth` {Number} optional, a minimal width, default `200`
 - `options.maxwidth` {Number} optional, a maximal width, default `infinite`
-- `options.callback(selected_item, element) {Function}` is triggered when the user clicks on the item
+- `options.callback(selected_item, element, e) {Function}` is triggered when the user clicks on the item
 - `options.key` {String} optional, a default `key` for `text` value (default: `name`)
 - `options.empty` {String} optional, adds empty field
 - `options.exclude` {Function} optional, can exclude items and must return a boolean `function(item) { return item.id !== 100 }`
