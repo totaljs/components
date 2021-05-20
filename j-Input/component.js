@@ -447,6 +447,9 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		if ((!config.required || config.disabled) && !self.forcedvalidation())
 			return true;
 
+		if (config.disabled)
+			return true;
+
 		if (config.dirsource)
 			return !!value;
 
