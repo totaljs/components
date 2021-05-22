@@ -412,9 +412,9 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		var prevw = obj.width;
 		var prevh = obj.height;
 
-		obj.height = h - title - config.padding * 2;
-		obj.width = obj.element.width();
-		obj.display = d;
+		obj.meta.height = obj.height = h - title - config.padding * 2;
+		obj.meta.width = obj.width = obj.element.width();
+		obj.meta.display = obj.display = d;
 		obj.element.css({ height: obj.height });
 
 		if (init || prevw !== obj.width || prevh !== obj.height)
