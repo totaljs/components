@@ -158,6 +158,9 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 	events.ondown = function(e) {
 
 		var el = $(this);
+
+		self.aclass(cls + '-mousedown');
+
 		movable.type = el.hclass(cls + '-title') ? 1 : 2;
 		el = el.closest(cls2 + '-item');
 		movable.id = el.attrd('id');
@@ -194,6 +197,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 	};
 
 	events.onup = function() {
+		self.rclass(cls + '-mousedown');
 		movable.el.rclass(cls + '-selected');
 		movable.is = false;
 		events.bind();

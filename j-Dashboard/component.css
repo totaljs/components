@@ -13,6 +13,7 @@
 .ui-dashboard-control[data-name='remove']:hover { color: red; }
 .ui-dashboard-canremove .ui-dashboard-control[data-name='remove'] { display: block; }
 .ui-dashboard-cansettings .ui-dashboard-control[data-name='settings'] { display: block; }
+.ui-dashboard-mousedown figure { pointer-events: none; }
 
 .ui-dark .ui-dashboard-item figure { border-color: #404040; }
 .ui-dark .ui-dashboard-title { border-color: #404040; background-color: #202020; }
