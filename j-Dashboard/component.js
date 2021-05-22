@@ -242,8 +242,11 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 				diffY = tmp;
 			}
 
-			obj.offset.width = diffX;
-			obj.offset.height = diffY;
+			if (obj.meta.actions.resizeX == null || obj.meta.actions.resizeX)
+				obj.offset.width = diffX;
+
+			if (obj.meta.actions.resizeY == null || obj.meta.actions.resizeY)
+				obj.offset.height = diffY;
 
 			self.woffset(movable.id);
 			return;
