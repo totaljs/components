@@ -61,18 +61,56 @@ var component = {
 	template: Object,
 	config: Object,
 
-	// Handlers (optional):
-	destroy: function() {
+	make: function(exports, config, el) {
+
+		// @exports {Object}
+		// @config {Object}
 		// @el {jQuery} a content of the component
-		// @this {Instance}
 
-		// is executed when the component is destroyed
-	},
+		// Handlers (optional):
+		exports.destroy = function() {
+			// @el {jQuery} a content of the component
+			// @this {Instance}
 
-	make: function(meta, el) {
+			// is executed when the component is destroyed
+		};
 
-		// @el {jQuery} a content of the component
-		// @this {Instance}
+		exports.data = function(type, data, el) {
+			// @type {String}
+			// @data {Object}
+			// @this {Instance}
+			// @el {jQuery} a content element of the component
+			// is executed when data are sent via SETTER('dashboard', 'send', 'TYPE', 'DATA')
+		};
+
+		exports.service = function(counter, el) {
+			// @counter {Number} count of calls
+			// @el {jQuery} a content of the component
+			// @this {Instance}
+			// dashboard will execute this handler each 5 seconds
+		};
+
+		exports.resize = function(width, height, el, display) {
+			// @width {Number}
+			// @height {Number}
+			// @el {jQuery} a content of the component
+			// @display {String} a current display size "xs", "sm", "md" or "lg"
+			// @this {Instance}
+			// is executed when the component is resized
+			// @this {Instance}
+		};
+
+		exports.settings = function(config, el, elbtn) {
+			// @config {Object}
+			// @el {jQuery} a content element of the component
+			// @elbtn {jQuery} button element
+			// is executed when the users clicks on the settings icon
+		};
+
+		exports.configure = function(config) {
+			// @config {Object}
+			// is executed when the configuration is changed
+		};
 
 		// this.meta {Object} a reference to component object
 		// this.element {jQuery} a content element of the component
@@ -83,45 +121,6 @@ var component = {
 		// this.display {String} a current display size "xs", "sm", "md" or "lg"
 
 		// is executed when the component is making
-	},
-
-	data: function(type, data, el) {
-
-		// @type {String}
-		// @data {Object}
-		// @this {Instance}
-		// @el {jQuery} a content element of the component
-
-		// is executed when data are sent via SETTER('dashboard', 'send', 'TYPE', 'DATA')
-	},
-
-	settings: function(config, el) {
-
-		// @config {Object}
-		// @el {jQuery} a content element of the component
-
-		// is executed when the users clicks on the settings icon
-	},
-
-	resize: function(width, height, el, display) {
-
-		// @width {Number}
-		// @height {Number}
-		// @el {jQuery} a content of the component
-		// @display {String} a current display size "xs", "sm", "md" or "lg"
-		// @this {Instance}
-
-		// is executed when the component is resized
-		// @this {Instance}
-	},
-
-	service: function(counter, el) {
-
-		// @counter {Number} count of calls
-		// @el {jQuery} a content of the component
-		// @this {Instance}
-
-		// dashboard will execute this handler each 5 seconds
 	}
 };
 

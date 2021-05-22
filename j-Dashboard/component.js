@@ -33,7 +33,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 			var id = el.closest(cls2 + '-item').attrd('id');
 			var tmp = cache[id];
 			if (name === 'settings')
-				tmp.meta.settings && tmp.meta.settings.call(tmp, tmp.config, tmp.element);
+				tmp.meta.settings && tmp.meta.settings.call(tmp, tmp.config, tmp.element, el);
 			else if (name === 'remove')
 				self.wdestroy(id, true);
 		});
@@ -464,6 +464,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		isdom && tmp.element[0].appendChild(obj.html);
 		tmp.config = tmp.options = obj.config;
 		tmp.template = obj.template;
+		tmp.cachedconfig = STRINGIFY(obj.config);
 		tmp.meta = obj;
 		tmp.main = self;
 		self.woffset(obj.id, true);
@@ -516,17 +517,19 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 			var item = cache[obj.id];
 			if (item) {
 				if (item.meta === obj) {
+
 					self.wupd(obj.id);
 
-					if (obj.configure && STRINGIFY(item.config) !== STRINGIFY(obj.config)) {
+					var tmp = STRINGIFY(obj.config);
+					if (obj.configure && item.cachedconfig !== tmp) {
+						item.cachedconfig = tmp;
 						item.config = obj.config;
-						item.configure && item.configure(item.config);
+						obj.configure && obj.configure(item.config);
 					}
 
 					obj.service && services.push(item);
 					obj.data && data.push(item);
 					continue;
-
 				} else
 					self.wdestroy(obj.id);
 			}
