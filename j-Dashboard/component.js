@@ -16,7 +16,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 	self.make = function() {
 
 		self.aclass(cls);
-		self.on('resize', events.resize);
+		self.on('resize + resize2', events.resize);
 		$W.on('resize', events.resize);
 
 		$D.on('mousedown touchstart', cls2 + '-title,' + cls2 + '-resize-button', events.ondown);
@@ -147,14 +147,10 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		if (events.is === is)
 			return;
 
-		var el = $D;
-		if (is) {
-			el.on('mouseup touchend', events.onup);
-			el.on('mousemove touchmove', events.onmove);
-		} else {
-			el.off('mouseup touchend', events.onup);
-			el.off('mousemove touchmove', events.onmove);
-		}
+		if (is)
+			$(W).on('mouseup touchend', events.onup).on('mousemove touchmove', events.onmove);
+		else
+			$(W).off('mouseup touchend', events.onup).off('mousemove touchmove', events.onmove);
 
 		events.is = is;
 	};
@@ -288,10 +284,9 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 	};
 
 	self.resize_container = function() {
-		var keys = Object.keys(cache);
 		var max = 0;
-		for (var i = 0; i < keys.length; i++) {
-			var item = cache[keys[i]];
+		for (var key in cache) {
+			var item = cache[key];
 			var y = (+item.container.css('top').replace('px', '')) + (+item.container.css('height').replace('px', ''));
 			max = Math.max(y, max);
 		}
@@ -308,9 +303,8 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 
 	self.resize = function() {
 		self.resize_pixel();
-		var keys = Object.keys(cache);
-		for (var i = 0; i < keys.length; i++)
-			self.woffset(keys[i]);
+		for (var key in cache)
+			self.woffset(key);
 		self.resize_container();
 	};
 
@@ -473,7 +467,19 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		tmp.meta = obj;
 		tmp.main = self;
 		self.woffset(obj.id, true);
-		tmp.meta.make && tmp.meta.make.call(tmp, tmp.meta, tmp.element);
+
+		obj.element = tmp.element;
+		obj.refresh = function() {
+			var t = this;
+			var container = t.element.closest(cls2 + '-item');
+			var actions = t.actions;
+			container.tclass(cls + '-canresize', actions.resize !== false);
+			container.tclass(cls + '-canremove', actions.remove !== false);
+			container.tclass(cls + '-cansettings', actions.settings !== false);
+			container.tclass(cls + '-header', actions.header !== false);
+		};
+
+		tmp.meta.make && tmp.meta.make.call(tmp, tmp.meta, tmp.config, tmp.element);
 		el[0].$dashboard = tmp;
 
 		if (!isdom && obj.html)
@@ -498,23 +504,29 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		services = [];
 		data = [];
 
-		var keys = Object.keys(cache);
-		for (var i = 0; i < keys.length; i++) {
-			var key = keys[i];
+		for (var key in cache) {
 			if (!value.findItem('id', key)) {
 				self.wdestroy(key);
 				delete cache[key];
 			}
 		}
+
 		for (var i = 0; i < value.length; i++) {
 			var obj = value[i];
 			var item = cache[obj.id];
 			if (item) {
 				if (item.meta === obj) {
 					self.wupd(obj.id);
+
+					if (obj.configure && STRINGIFY(item.config) !== STRINGIFY(obj.config)) {
+						item.config = obj.config;
+						item.configure && item.configure(item.config);
+					}
+
 					obj.service && services.push(item);
 					obj.data && data.push(item);
 					continue;
+
 				} else
 					self.wdestroy(obj.id);
 			}
