@@ -411,8 +411,10 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 	};
 
 	var resizewidget = function(obj) {
-		obj.meta.resize && obj.meta.resize.call(obj, obj.width, obj.height, obj.element, obj.display);
-		!config.noemitresize && obj.element.EXEC('resize');
+		if (obj && obj.meta) {
+			obj.meta.resize && obj.meta.resize.call(obj, obj.width, obj.height, obj.element, obj.display);
+			!config.noemitresize && obj.element.EXEC('resize');
+		}
 	};
 
 	var click = function() {
@@ -463,8 +465,8 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		obj.meta.display = obj.display = d;
 		obj.element.css({ height: obj.height });
 
-		if (init || prevw !== obj.width || prevh !== obj.height)
-			setTimeout2(self.ID + 'resizeitem', resizewidget, 200, null, obj);
+		if (!init && (prevw !== obj.width || prevh !== obj.height))
+			setTimeout(resizewidget, 2, obj);
 	};
 
 	self.send = function(id, body) {
