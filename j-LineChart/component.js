@@ -109,6 +109,13 @@ COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;
 		var size = value[0].values.length;
 		var width = typeof(config.width) === 'string' ? self.parent(config.width).width() : config.width || self.element.width();
 		var height = typeof(config.height) === 'string' ? self.parent(config.height).height() : config.height || (width / 100) * 60;
+
+		if (config.marginW)
+			width -= config.marginW;
+
+		if (config.marginH)
+			height -= config.marginH;
+
 		var barwidth = ((width - config.point - (config.pl + config.pr)) / (size * len)).floor(2);
 
 		for (var i = 0; i < len; i++) {

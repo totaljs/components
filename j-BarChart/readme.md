@@ -19,6 +19,8 @@ __Configuration__:
 - `pt` {Number} lines top padding (default: `10`)
 - `pb` {Number} lines bottom padding (default: `25`)
 - `prselected` {Number} right padding for selected value (default: `0`)
+- `marginW` {Number} a margin for `width`
+- `marginH` {Number} a margin for `height`
 
 ### Author
 

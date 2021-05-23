@@ -25,6 +25,8 @@ __Configuration__:
 - `xmod` {Number} performs `modulo` for points on x-axis (default: `0`)
 - `yaxis` {nubmer} a count of y-axis points (default: `4`)
 - `exec` {String} a path to function and it's executed after some point is hovered
+- `marginW` {Number} a margin for `width`
+- `marginH` {Number} a margin for `height`
 
 ### Author
 

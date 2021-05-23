@@ -85,6 +85,13 @@ COMPONENT('barchart', 'pl:20;pt:10;pb:25;prselected:0;axisX:true;axisY:true;padd
 		var size = value[0].values.length;
 		var width = typeof(config.width) === 'string' ? self.parent(config.width).width() : config.width || self.element.width();
 		var height = typeof(config.height) === 'string' ? self.parent(config.height).height() : config.height || (width / 100) * 60;
+
+		if (config.marginW)
+			width -= config.marginW;
+
+		if (config.marginH)
+			height -= config.marginH;
+
 		var barwidth = ((width - paddingbars - paddinggroup - config.pl) / (size * len));
 		var lines = {};
 
