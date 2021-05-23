@@ -412,13 +412,13 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		!config.noemitresize && obj.element.EXEC('resize');
 	};
 
-	var click = function(e) {
+	var click = function() {
 		var el = $(this);
 		if (el.css('z-index') !== '2') {
 			self.find(cls2 + '-item').css('z-index', '');
 			el.css('z-index', 2);
 		}
-	}
+	};
 
 	self.woffset = function(id, init) {
 		var d = current_display;
