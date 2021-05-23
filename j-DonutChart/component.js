@@ -7,10 +7,9 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:1;present
 	var indexer = 0;
 	var indexerskip = false;
 	var force = false;
-	var W = $(window);
 
 	self.readonly();
-	self.nocompile && self.nocompile();
+	self.nocompile();
 
 	self.make = function() {
 		self.aclass(cls);
@@ -19,7 +18,7 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:1;present
 		g = svg.asvg('g').attr('class', 'pieces');
 		tooltip = self.find(cls2 + '-tooltip');
 
-		W.on('resize', self.resize);
+		self.on('resize + resize2', self.resize);
 
 		self.event('mouseenter touchstart', '.piece', function() {
 			self.select(+this.getAttribute('data-index'));
@@ -45,14 +44,10 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:1;present
 			tooltip.html('<b>' + item.name + '</b><br />' + Tangular.render(config.format, item));
 		}
 
-		config.select && EXEC(config.select, item);
+		config.select && self.EXEC(config.select, item);
 		config.highlight && el.css('stroke-width', strokew.inc('+15%'));
 		el.aclass('selected');
 		indexer = index;
-	};
-
-	self.destroy = function() {
-		W.off('resize', self.resize);
 	};
 
 	self.resize = function() {
@@ -177,7 +172,7 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:1;present
 		animate = true;
 		force = false;
 
-		config.redraw && EXEC(config.redraw);
+		config.redraw && self.EXEC(config.redraw);
 
 		self.select(0);
 		if (config.presentation) {
@@ -197,7 +192,7 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:1;present
 			self.redraw(config.size, value);
 		} else {
 			self.width(function(width) {
-				self.redraw(width, value);
+				self.redraw(width - (config.margin || 0), value);
 			});
 		}
 	};

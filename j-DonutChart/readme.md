@@ -10,6 +10,7 @@ __Configuration__:
 - `animate` {Boolean} enables/disables animations (default: `false`)
 - `size` {Number} width/height of donut (default: `0` = auto)
 - `highlight` {Boolean} enables/disables highlight of pieces (default: `true`)
+- `margin` {Number} adds a margin to `size` (default: `0`)
 
 ### Author
 
