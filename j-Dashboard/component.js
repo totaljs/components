@@ -14,6 +14,8 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 	var $W = $(W);
 	var current_display;
 
+	self.readonly();
+
 	self.make = function() {
 
 		self.aclass(cls);
