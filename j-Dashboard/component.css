@@ -1,19 +1,19 @@
 .ui-dashboard { position: relative; min-height: 200px; }
 .ui-dashboard-item { position: absolute; z-index: 1; overflow: hidden; }
 .ui-dashboard-item figure { position: relative; border: 1px solid #E0E0E0; border-radius: 0 0 var(--radius) var(--radius); background-color: #FFF; overflow: hidden; }
-.ui-dashboard-title { background-color: #FFF; height: 0; border: 1px solid #E0E0E0; border-bottom: 0; line-height: 30px; padding: 0 10px; font-size: 12px; border-radius: var(--radius) var(--radius) 0 0; cursor: grab; font-weight: bold; display: none; }
+.ui-dashboard-title { background-color: #FFF; height: 0; border: 1px solid #E0E0E0; border-bottom: 0; line-height: 30px; padding: 0 5px 0 10px; font-size: 12px; border-radius: var(--radius) var(--radius) 0 0; cursor: grab; font-weight: bold; display: none; }
+.ui-dashboard-title > div { margin-right: 40px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
 .ui-dashboard-body { position: relative; }
-.ui-dashboard-control { float: right; margin: 9px 0 0 7px; cursor: pointer; color: gray; display: none; }
+.ui-dashboard-control { float: right; line-height: 29px; cursor: pointer; color: gray; display: none; width: 18px; text-align: center; }
 .ui-dashboard-selected { z-index: 2; }
 .ui-dashboard-selected .ui-dashboard-title { border-color: #D0D0D0; }
 .ui-dashboard-selected .ui-dashboard-body figure { border-color: #D0D0D0; }
 .ui-dashboard-canresize .ui-dashboard-resize-button { position: absolute; border: 2px solid gray; border-top: 0; border-left: 0; width: 10px; height: 10px; right: 0; bottom: 0; cursor: nwse-resize; }
 .ui-dashboard-canresize .ui-dashboard-resize-button:hover { border-color: #000; }
 .ui-dashboard-header .ui-dashboard-title { height: 30px; display: block; }
-.ui-dashboard-control[data-name='remove']:hover { color: red; }
+.ui-dashboard-control:hover { opacity: 0.9; }
 .ui-dashboard-canremove .ui-dashboard-control[data-name='remove'] { display: block; }
 .ui-dashboard-cansettings .ui-dashboard-control[data-name='settings'] { display: block; }
-.ui-dashboard-mousedown figure { pointer-events: none; }
 
 .ui-dark .ui-dashboard-item figure { border-color: #404040; }
 .ui-dark .ui-dashboard-title { border-color: #404040; background-color: #202020; }

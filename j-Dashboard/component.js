@@ -1,4 +1,4 @@
-COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:5000', function(self, config, cls) {
+COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:5000;minsizexs:2;minsizesm:2;minsizemd:1;minsizelg:1;iconremove:fa fa-trash-o;iconsettings:fa fa-cog', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var cache = {};
@@ -162,7 +162,6 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 	events.ondown = function(e) {
 
 		var el = $(this);
-
 		self.aclass(cls + '-mousedown');
 
 		movable.type = el.hclass(cls + '-title') ? 1 : 2;
@@ -267,6 +266,14 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 				}
 			}
 
+			var min = config['minsize' + current_display];
+
+			if (obj.offset.width < min)
+				obj.offset.width = min;
+
+			if (obj.offset.height < min)
+				obj.offset.height = min;
+
 			self.woffset(movable.id);
 			return;
 		}
@@ -319,6 +326,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 	};
 
 	self.resize_pixel = function() {
+		current_display = WIDTH(self.element);
 		var width = self.element.width() - (config.padding * 2);
 		pixel = (width / config.axisX).floor(3);
 	};
@@ -354,6 +362,14 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 
 		if (!tmp)
 			tmp = { x: 0, y: 0, width: 3, height: 3 };
+
+		var min = config['minsize' + current_display];
+
+		if (tmp.width < min)
+			tmp.width = min;
+
+		if (tmp.height < min)
+			tmp.height = min;
 
 		return tmp;
 	};
@@ -396,11 +412,20 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		!config.noemitresize && obj.element.EXEC('resize');
 	};
 
+	var click = function(e) {
+		var el = $(this);
+		if (el.css('z-index') !== '2') {
+			self.find(cls2 + '-item').css('z-index', '');
+			el.css('z-index', 2);
+		}
+	}
+
 	self.woffset = function(id, init) {
 		var d = current_display;
 		var obj = cache[id];
 		var tmp = self.wsize(d, obj.meta.offset);
 		obj.offset = tmp;
+
 		var x = tmp.x * pixel + config.padding;
 		var y = tmp.y * pixel + config.padding;
 		var w = tmp.width * pixel;
@@ -476,8 +501,9 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		classname.push('d-' + obj.component);
 
 		var isdom = obj.html && typeof(obj.html) !== 'string';
-		var el = $(('<div class="{1} invisible" data-id="{2}"><div class="{0}-body" style="margin:{5}px"><div class="{0}-title">{4}</div><figure>{3}</figure><span class="{0}-resize-button"></span></div></div>').format(cls, classname.join(' '), obj.id, isdom ? '' : obj.html, '<span class="fa fa-trash-o ui-dashboard-control" data-name="remove"></span><span class="fa fa-cog ui-dashboard-control" data-name="settings"></span>' + obj.title, config.padding));
+		var el = $(('<div class="{1} invisible" data-id="{2}"><div class="{0}-body" style="margin:{5}px"><div class="{0}-title">{4}</div><figure>{3}</figure><span class="{0}-resize-button"></span></div></div>').format(cls, classname.join(' '), obj.id, isdom ? '' : obj.html, ('<span class="{1} ui-dashboard-control" data-name="remove"></span><span class="{0} ui-dashboard-control" data-name="settings"></span>').format(config.iconsettings, config.iconremove) + '<div>' + obj.title + '</div>', config.padding));
 		self.dom.appendChild(el[0]);
+		el.on('click', click);
 		var tmp = cache[obj.id] = {};
 		tmp.container = el;
 		tmp.element = el.find('figure');
