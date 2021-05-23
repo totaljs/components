@@ -46,7 +46,8 @@ var component = {
 	html: 'THE CONTENT OF COMPONENT', // or can be raw HTMLElement
 
 	// Default settings
-	actions: { move: true, remove: true, resize: true, resizeX: true, resizeY: true, settings: true },
+	actions: { move: true, remove: true, resize: true, resizeX: true, resizeY: true, resizeP: false, settings: true },
+	// resizeP means: resize "proportionally"
 
 	// Can disable header (default: true)
 	header: true,

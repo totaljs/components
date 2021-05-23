@@ -220,6 +220,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		var obj = cache[movable.id];
 		var diffX = e.pageX - movable.pageX;
 		var diffY = e.pageY - movable.pageY;
+		var axis = diffX !== 0 ? 'x' : diffY !== 0 ? 'y' : '';
 
 		movable.changed = true;
 
@@ -255,6 +256,16 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 
 			if (obj.meta.actions.resizeY == null || obj.meta.actions.resizeY)
 				obj.offset.height = diffY;
+
+			if (obj.meta.actions.resizeP) {
+				if (axis === 'x') {
+					obj.offset.width = diffX;
+					obj.offset.height = diffX;
+				} else if (axis === 'y') {
+					obj.offset.width = diffY;
+					obj.offset.height = diffY;
+				}
+			}
 
 			self.woffset(movable.id);
 			return;
