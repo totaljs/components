@@ -189,7 +189,8 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:1;present
 		}
 
 		if (config.size) {
-			self.redraw(config.size, value);
+			var w = typeof(config.size) === 'string' ? self.parent(config.size).width() : config.size;
+			self.redraw(w, value);
 		} else {
 			self.width(function(width) {
 				self.redraw(width - (config.margin || 0), value);

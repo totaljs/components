@@ -11,8 +11,8 @@ __Configuration__:
 - `offsetY` {Number} An offset Y for value tooltip (default: `10`)
 - `templateX` {String} Tangular template for X axis (default: `{{ value }}`)
 - `templateY` {String} Tangular template for Y axis (default: `{{ value | format(0) }}`)
-- `height` {Number/String} height (default: `0` = auto-height) or `string` is meant as parent element
-- `width` {Number/String} width (default: `0` = auto-width) or `string` is meant as parent element
+- `height` {Number/String} height (default: `0` = auto-height) or `string` is meant as a parent element
+- `width` {Number/String} width (default: `0` = auto-width) or `string` is meant as a parent element
 - `limit` {Number} a maximum limit of value for Y axis (default: `0`)
 - `pl` {Number} left padding for axis (default: `0`)
 - `pr` {Number} lines right padding (default: `10`)
