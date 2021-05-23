@@ -2,10 +2,9 @@ COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;
 
 	var svg, g, axis, selected, points, fills, selectedold;
 	var templateX, templateY, templateS;
-	var W = $(window);
 
 	self.readonly();
-	self.nocompile && self.nocompile();
+	self.nocompile();
 
 	self.make = function() {
 		self.aclass(cls);
@@ -17,8 +16,7 @@ COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;
 		points = svg.asvg('g').attr('class', 'points');
 		selected = svg.asvg('text').attr('class', 'selected').attr('text-anchor', 'end');
 
-		W.on('resize', self.resize);
-		self.on('resize', self.resize);
+		self.on('resize + resize2', self.resize);
 
 		self.event('click mouseenter', 'circle', function(e) {
 
@@ -35,7 +33,7 @@ COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;
 			var value = item.values[+arr[1]];
 
 			selectedold && selectedold.animate({ r: config.point }, 100);
-			config.exec && SEEX(self.makepath(config.exec), { name: item.name, x: value.x, y: value.y, value: value.y });
+			config.exec && self.SEEX(config.exec, { name: item.name, x: value.x, y: value.y, value: value.y });
 			selected.text(templateS({ name: item.name, x: value.x, y: value.y, value: value.y }));
 
 			selectedold = circle.animate({ r: config.point + 3 }, 100);
@@ -44,17 +42,13 @@ COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;
 				setTimeout2(self.id, function() {
 					selectedold && selectedold.animate({ r: config.point }, 100);
 					selectedold = null;
-					config.exec && SEEX(self.makepath(config.exec), null);
+					config.exec && self.SEEX(config.exec, null);
 					selected.text('');
 				}, 2000);
 			} else
 				clearTimeout2(self.id);
 		});
 
-	};
-
-	self.destroy = function() {
-		W.off('resize', self.resize);
 	};
 
 	self.resize = function() {
@@ -113,8 +107,8 @@ COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;
 		var labels = [];
 		var len = value.length;
 		var size = value[0].values.length;
-		var width = config.width ? config.width : self.element.width();
-		var height = config.height ? config.height : (width / 100) * 60;
+		var width = typeof(config.width) === 'string' ? self.parent(config.width).width() : config.width || self.element.width();
+		var height = typeof(config.height) === 'string' ? self.parent(config.height).height() : config.height || (width / 100) * 60;
 		var barwidth = ((width - config.point - (config.pl + config.pr)) / (size * len)).floor(2);
 
 		for (var i = 0; i < len; i++) {

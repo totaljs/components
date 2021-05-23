@@ -2,10 +2,9 @@ COMPONENT('barchart', 'pl:20;pt:10;pb:25;prselected:0;axisX:true;axisY:true;padd
 
 	var svg, g, axis, selected;
 	var templateX, templateY;
-	var W = $(window);
 
 	self.readonly();
-	self.nocompile && self.nocompile();
+	self.nocompile();
 
 	self.make = function() {
 		self.aclass(cls);
@@ -15,8 +14,7 @@ COMPONENT('barchart', 'pl:20;pt:10;pb:25;prselected:0;axisX:true;axisY:true;padd
 		g = svg.asvg('g').attr('class', 'bars');
 		selected = svg.asvg('text').attr('class', 'selected').attr('text-anchor', 'end');
 
-		W.on('resize', self.resize);
-		self.on('resize', self.resize);
+		self.on('resize + resize2', self.resize);
 
 		self.event('click mouseenter', 'rect', function(e) {
 			var rect = $(this);
@@ -38,10 +36,6 @@ COMPONENT('barchart', 'pl:20;pt:10;pb:25;prselected:0;axisX:true;axisY:true;padd
 				clearTimeout2(self.id);
 		});
 
-	};
-
-	self.destroy = function() {
-		W.off('resize', self.resize);
 	};
 
 	self.resize = function() {
@@ -89,8 +83,8 @@ COMPONENT('barchart', 'pl:20;pt:10;pb:25;prselected:0;axisX:true;axisY:true;padd
 		var paddinggroup = config.paddinggroup;
 		var len = value.length;
 		var size = value[0].values.length;
-		var width = config.width ? config.width : self.element.width();
-		var height = config.height ? config.height : (width / 100) * 60;
+		var width = typeof(config.width) === 'string' ? self.parent(config.width).width() : config.width || self.element.width();
+		var height = typeof(config.height) === 'string' ? self.parent(config.height).height() : config.height || (width / 100) * 60;
 		var barwidth = ((width - paddingbars - paddinggroup - config.pl) / (size * len));
 		var lines = {};
 

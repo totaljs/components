@@ -9,8 +9,8 @@ __Configuration__:
 - `templateX` {String} Tangular template for X axis (default: `{{ value }}`)
 - `templateY` {String} Tangular template for Y axis (default: `{{ value | format(0) }}`)
 - `selected` {String} Tangular template for selected values (default: `{{ value | format(0) }}`)
-- `height` {Number} height (default: `0` = auto-height)
-- `width` {Number} width (default: `0` = auto-width)
+- `height` {Number/String} height (default: `0` = auto-height) or `string` is meant as parent element
+- `width` {Number/String} width (default: `0` = auto-width) or `string` is meant as parent element
 - `limit` {Number} a maximum limit of value for Y axis (default: `0`)
 - `fill` {Boolean} enables filling (default: `false`)
 - `fillopacity` {Number} filling opacity (default: `0.1`)
