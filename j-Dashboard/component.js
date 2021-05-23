@@ -459,9 +459,6 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 
 	self.wadd = function(obj) {
 
-		if (!obj.html)
-			obj.html = '&nbsp;';
-
 		var classname = [cls + '-item'];
 
 		if (obj.actions.resize !== false)
