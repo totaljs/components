@@ -12,6 +12,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 	var pixel;
 	var $D = $(document);
 	var $W = $(W);
+	var current_display;
 
 	self.make = function() {
 
@@ -47,6 +48,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 			e.preventDefault();
 		});
 
+		current_display = WIDTH(self.element);
 		serviceid = setInterval(events.service, config.serviceinterval);
 	};
 
@@ -122,7 +124,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		meta.target = $(e.target);
 		meta.x = (meta.offsetX / pixel) >> 0;
 		meta.y = (meta.offsetY / pixel) >> 0;
-		meta.d = WIDTH();
+		meta.d = current_display;
 		config.ondrop && self.EXEC(config.ondrop, meta, self);
 		self.change(true);
 	};
@@ -309,6 +311,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 	};
 
 	self.resize = function() {
+		current_display = WIDTH(self.element);
 		self.resize_pixel();
 		for (var key in cache)
 			self.woffset(key);
@@ -381,7 +384,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 	};
 
 	self.woffset = function(id, init) {
-		var d = WIDTH();
+		var d = current_display;
 		var obj = cache[id];
 		var tmp = self.wsize(d, obj.meta.offset);
 		obj.offset = tmp;
