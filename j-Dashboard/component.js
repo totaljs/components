@@ -467,12 +467,12 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 			setTimeout2(self.ID + 'resizeitem', resizewidget, 200, null, obj);
 	};
 
-	self.send = function(id, body, type) {
+	self.send = function(id, body) {
 		var comid = id.charAt(0) === '@' ? id.substring(1) : '';
 		for (var i = 0; i < data.length; i++) {
 			var item = data[i];
 			if (id == null || item.meta.id === id || (comid && comid === item.meta.component))
-				item.meta.data(body, type, item.element);
+				item.meta.data(body, item.element);
 		}
 	};
 
