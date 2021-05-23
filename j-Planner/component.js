@@ -8,18 +8,9 @@ COMPONENT('planner', 'days:# days,# day,# days,# days;parent:parent', function(s
 	var scrolldays;
 	var scrollcalendar;
 
-	self.resize = function() {
+	self.resize2 = function() {
 
-		var tmp;
-		var parent = config.parent;
-
-		if (parent === 'window') {
-			tmp = $(W);
-		} else if (parent === 'parent')
-			tmp = self.parent();
-		else
-			tmp = self.closest(parent);
-
+		var tmp = self.parent(config.parent);
 		var dw = 20;
 		var WW = tmp.width();
 		var WH = tmp.height();
@@ -33,8 +24,8 @@ COMPONENT('planner', 'days:# days,# day,# days,# days;parent:parent', function(s
 		self.scrollbar.resize();
 	};
 
-	self.resize2 = function() {
-		setTimeout2(self.ID, self.resize, 200);
+	self.resize = function() {
+		setTimeout2(self.ID, self.resize2, 200);
 	};
 
 	self.make = function() {
@@ -87,7 +78,7 @@ COMPONENT('planner', 'days:# days,# day,# days,# days;parent:parent', function(s
 
 		self.event('click', cls2 + '-item', function() {
 			var el = $(this);
-			config.exec && SEEX(config.exec, self.get().items.findItem('id', el.attrd('id')), el);
+			config.exec && self.SEEX(config.exec, self.get().items.findItem('id', el.attrd('id')), el);
 		});
 
 		self.event('mousedown mouseup', function(e) {
@@ -105,13 +96,7 @@ COMPONENT('planner', 'days:# days,# day,# days,# days;parent:parent', function(s
 			}
 		});
 
-		var o = W.OP ? W.OP : $(W);
-		o.on('resize', self.resize2);
-	};
-
-	self.destroy = function() {
-		var o = W.OP ? W.OP : $(W);
-		o.off('resize', self.resize2);
+		self.on('resize + resize2', self.resize);
 	};
 
 	self.configure = function(key, value) {
@@ -242,7 +227,7 @@ COMPONENT('planner', 'days:# days,# day,# days,# days;parent:parent', function(s
 			}, 500);
 		}
 
-		config.exec && SEEX(config.exec, null);
+		config.exec && self.SEEX(config.exec, null);
 	};
 
 });
