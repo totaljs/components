@@ -1,4 +1,4 @@
-COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:5000;minsizexs:2;minsizesm:2;minsizemd:1;minsizelg:1;iconremove:fa fa-trash-o;iconsettings:fa fa-cog', function(self, config, cls) {
+COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:5000;minsizexs:3;minsizesm:3;minsizemd:1;minsizelg:1;iconremove:fa fa-trash-o;iconsettings:fa fa-cog', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var cache = {};
@@ -168,6 +168,8 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		el = el.closest(cls2 + '-item');
 		movable.id = el.attrd('id');
 
+		click.call(this, e);
+
 		var tmp = cache[movable.id];
 
 		if (movable.type === 2) {
@@ -180,12 +182,11 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 
 		movable.istouch = e.type === 'touchstart';
 
-		if (movable.istouch) {
+		e.stopPropagation();
+		e.preventDefault();
+
+		if (movable.istouch)
 			e = e.touches[0];
-		} else {
-			e.stopPropagation();
-			e.preventDefault();
-		}
 
 		movable.is = true;
 		movable.el = el;
@@ -360,7 +361,9 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 			}
 		}
 
-		if (!tmp)
+		if (tmp)
+			tmp = CLONE(tmp);
+		else
 			tmp = { x: 0, y: 0, width: 3, height: 3 };
 
 		var min = config['minsize' + current_display];
@@ -424,6 +427,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		var d = current_display;
 		var obj = cache[id];
 		var tmp = self.wsize(d, obj.meta.offset);
+
 		obj.offset = tmp;
 
 		var x = tmp.x * pixel + config.padding;
@@ -453,6 +457,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		var prevw = obj.width;
 		var prevh = obj.height;
 
+		obj.meta.offset[current_display] = tmp;
 		obj.meta.height = obj.height = h - title - config.padding * 2;
 		obj.meta.width = obj.width = obj.element.width();
 		obj.meta.display = obj.display = d;
@@ -462,9 +467,13 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 			setTimeout2(self.ID + 'resizeitem', resizewidget, 200, null, obj);
 	};
 
-	self.send = function(type, body) {
-		for (var i = 0; i < data.length; i++)
-			data[i].meta.data(type, body, data[i].element);
+	self.send = function(id, body, type) {
+		var comid = id.charAt(0) === '@' ? id.substring(1) : '';
+		for (var i = 0; i < data.length; i++) {
+			var item = data[i];
+			if (id == null || item.meta.id === id || (comid && comid === item.meta.component))
+				item.meta.data(body, type, item.element);
+		}
 	};
 
 	self.wupd = function(id) {

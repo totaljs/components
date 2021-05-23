@@ -82,12 +82,11 @@ var component = {
 			// is executed when the component is destroyed
 		};
 
-		exports.data = function(type, data, el) {
-			// @type {String}
+		exports.data = function(data, el) {
 			// @data {Object}
 			// @this {Instance}
 			// @el {jQuery} a content element of the component
-			// is executed when data are sent via SETTER('dashboard', 'send', 'TYPE', 'DATA')
+			// It can be executed via SETTER('dashboard/send', ....)
 		};
 
 		exports.service = function(counter, el) {
@@ -136,7 +135,11 @@ PUSH('components', component);
 
 __Methods__:
 
-- `SETTER('dashboard/send', type, body)` sends data to all widgets which contain `data` delegate
+- `SETTER('dashboard/send', id, body)` sends data to all widgets which contain `data` delegate
+	- `id {String}`
+		- `null` sends to all components
+		- `@component` sends to the specific components according to the component name
+		- `string` sends to a specific component according to the identifier
 
 __Good to know__:
 
