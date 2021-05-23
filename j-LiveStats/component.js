@@ -5,6 +5,10 @@ COMPONENT('livestats', 'width:500;height:100;axislines:20;max:0', function(self,
 	var colors = {};
 	var peak = {};
 	var paths;
+	var cachedsize;
+	var cachedwidth;
+	var cachedheight;
+	var cachedlines;
 
 	self.readonly();
 
@@ -36,21 +40,54 @@ COMPONENT('livestats', 'width:500;height:100;axislines:20;max:0', function(self,
 
 	self.make = function() {
 		self.aclass(cls);
-		self.append('<svg viewbox="0 0 {1} {2}"><g class="{0}-axis"></g><g class="{0}-paths"></g></svg>'.format(cls, config.width, config.height));
+		self.append('<svg><g class="{0}-axis"></g><g class="{0}-paths"></g></svg>'.format(cls));
 		paths = self.find(cls2 + '-paths');
+		self.resizeforce();
+		self.on('resize + resize2', self.resize);
+	};
 
+	self.resize = function() {
+		setTimeout2(self.ID, self.resizeforce, 300);
+	};
+
+	self.resizeforce = function() {
+
+		var width = typeof(config.width) === 'string' ? self.parent(config.width).width() : config.width || self.element.width();
+		var height = typeof(config.height) === 'string' ? self.parent(config.height).height() : config.height || self.element.height();
+		var tmp = width + 'x' + height;
+
+		if (tmp === cachedsize)
+			return;
+
+		if (config.marginW)
+			width -= config.marginW;
+
+		if (config.marginH)
+			height -= config.marginH;
+
+		cachedwidth = width;
+		cachedheight = height;
+		cachedsize = tmp;
+		self.find('svg').attr('viewBox', '0 0 ' + width + ' ' + height);
+
+		cachedlines = config.axislines === 'auto' ? Math.ceil(width / 20) : config.axislines;
+
+		var axisw = (width / cachedlines) >> 0;
 		var axis = self.find(cls2 + '-axis');
-		var axisw = (config.width / config.axislines) >> 0;
 
-		for (var i = 1; i < config.axislines; i++)
-			axis.asvg('<line x1="{0}" y1="0" x2="{0}" y2="{1}"></line>'.format(axisw * i, config.height));
+		if (axis[0].children.length)
+			axis.empty();
+
+		for (var i = 1; i < cachedlines; i++)
+			axis.asvg('<line x1="{0}" y1="0" x2="{0}" y2="{1}"></line>'.format(axisw * i, height));
+
 	};
 
 	self.render = function(path, points, max, index) {
 
-		var h = config.height - 12;
+		var h = cachedheight - 12;
 		var builder = [];
-		var bar = Math.ceil(config.width / (config.axislines / 2));
+		var bar = Math.ceil(cachedwidth / (cachedlines / 2));
 		var pp = [];
 
 		pp.push({ x: -20, y: h });
@@ -62,7 +99,7 @@ COMPONENT('livestats', 'width:500;height:100;axislines:20;max:0', function(self,
 			pp.push({ x: (i * bar) + 2, y: y + 12 });
 		}
 
-		pp.push({ x: config.width + config.axislines, y: pp.last().y });
+		pp.push({ x: cachedwidth + cachedlines, y: pp.last().y });
 
 		for (var i = 0; i < (pp.length - 1); i++) {
 			var d = diagonal(pp[i].x, pp[i].y, pp[i + 1].x, pp[i + 1].y);
@@ -79,7 +116,7 @@ COMPONENT('livestats', 'width:500;height:100;axislines:20;max:0', function(self,
 
 		var keys = Object.keys(value);
 		var max = config.max;
-		var bars = (config.axislines / 2) >> 0;
+		var bars = (cachedlines / 2) >> 0;
 
 		for (var i = 0; i < keys.length; i++) {
 			var key = keys[i];
