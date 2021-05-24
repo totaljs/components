@@ -1,4 +1,4 @@
-COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:5000;minsizexs:3;minsizesm:2;minsizemd:2;minsizelg:1;iconremove:fa fa-trash-o;iconsettings:fa fa-cog', function(self, config, cls) {
+COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serviceinterval:5000;minsizexs:3;minsizesm:2;minsizemd:2;minsizelg:1;iconremove:fa fa-trash-o;iconsettings:fa fa-cog', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var cache = {};
@@ -13,6 +13,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 	var $D = $(document);
 	var $W = $(W);
 	var current_display;
+	var isinit = true;
 
 	self.readonly();
 
@@ -39,6 +40,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 				tmp.meta.settings && tmp.meta.settings.call(tmp, tmp.config, tmp.element, el);
 			else if (name === 'remove')
 				self.wdestroy(id, true);
+
 		});
 
 		self.event('dragenter dragover dragexit drop dragleave', function(e) {
@@ -163,6 +165,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 
 		var el = $(this);
 		self.aclass(cls + '-mousedown');
+		$(document.body).aclass(cls + '-noscroll');
 
 		movable.type = el.hclass(cls + '-title') ? 1 : 2;
 		el = el.closest(cls2 + '-item');
@@ -201,6 +204,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 	};
 
 	events.onup = function() {
+		$(document.body).rclass(cls + '-noscroll');
 		self.rclass(cls + '-mousedown');
 		movable.el.rclass(cls + '-selected');
 		movable.is = false;
@@ -314,7 +318,9 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 	};
 
 	self.resize_container = function() {
+
 		var max = 0;
+
 		for (var key in cache) {
 			var item = cache[key];
 			var y = (+item.container.css('top').replace('px', '')) + (+item.container.css('height').replace('px', ''));
@@ -426,6 +432,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 	};
 
 	self.woffset = function(id, init) {
+
 		var d = current_display;
 		var obj = cache[id];
 		var tmp = self.wsize(d, obj.meta.offset);
@@ -489,8 +496,17 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		self.woffset(id);
 	};
 
-	var winit = function(el) {
-		el.rclass('invisible');
+	var wanim = function(el) {
+		el.rclass('invisible').aclass(cls + '-' + config.animation + '-run');
+	};
+
+	var winit = function(el, obj, isinit) {
+		if (isinit && config.animation) {
+			var def = isMOBILE ? 40 : 100;
+			var delay = obj ? (def * (obj.offset.x + 1)) + (def * (obj.offset.y) + 1) : 10;
+			setTimeout(wanim, delay, el);
+		} else
+			el.rclass('invisible');
 	};
 
 	self.wadd = function(obj) {
@@ -512,7 +528,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 		classname.push('d-' + obj.component);
 
 		var isdom = obj.html && typeof(obj.html) !== 'string';
-		var el = $(('<div class="{1} invisible" data-id="{2}"><div class="{0}-body" style="margin:{5}px"><div class="{0}-title">{4}</div><figure>{3}</figure><span class="{0}-resize-button"></span></div></div>').format(cls, classname.join(' '), obj.id, isdom ? '' : obj.html, ('<span class="{1} ui-dashboard-control" data-name="remove"></span><span class="{0} ui-dashboard-control" data-name="settings"></span>').format(config.iconsettings, config.iconremove) + '<div>' + obj.title + '</div>', config.padding));
+		var el = $(('<div class="{1} invisible{6}" data-id="{2}"><div class="{0}-body" style="margin:{5}px"><div class="{0}-title">{4}</div><figure>{3}</figure><span class="{0}-resize-button"></span></div></div>').format(cls, classname.join(' '), obj.id, isdom ? '' : obj.html, ('<span class="{1} ui-dashboard-control" data-name="remove"></span><span class="{0} ui-dashboard-control" data-name="settings"></span>').format(config.iconsettings, config.iconremove) + '<div>' + obj.title + '</div>', config.padding, config.animation && isinit ? (' ' + cls + '-' + config.animation + '-init') : ''));
 		self.dom.appendChild(el[0]);
 		el.on('click', click);
 		var tmp = cache[obj.id] = {};
@@ -545,7 +561,7 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 
 		tmp.meta.service && services.push(tmp);
 		tmp.meta.data && data.push(tmp);
-		setTimeout(winit, obj.delay || config.delay, el);
+		setTimeout(winit, obj.delay || config.delay, el, tmp, isinit);
 	};
 
 	self.setter = function(value) {
@@ -592,6 +608,9 @@ COMPONENT('dashboard', 'delay:200;axisX:12;axisY:144;padding:10;serviceinterval:
 			}
 			self.wadd(obj);
 		}
+
+		if (value.length)
+			isinit = false;
 
 		self.resize_container();
 	};

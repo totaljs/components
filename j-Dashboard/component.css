@@ -15,6 +15,19 @@
 .ui-dashboard-canremove .ui-dashboard-control[data-name='remove'] { display: block; }
 .ui-dashboard-cansettings .ui-dashboard-control[data-name='settings'] { display: block; }
 .ui-dashboard-mousedown .ui-dashboard-body { pointer-events: none; }
+.ui-dashboard-noscroll { touch-action: none; }
+.ui-dashboard-1-init { transition: all 0.2s; opacity: 0; }
+.ui-dashboard-1-run { opacity: 1; }
+.ui-dashboard-2-init { transition: all 0.2s; transform: scale(1.5); }
+.ui-dashboard-2-run { transform: scale(1); }
+.ui-dashboard-3-init { transition: all 0.2s; transform: scale(0.5); }
+.ui-dashboard-3-run { transform: scale(1); }
+.ui-dashboard-4-init { transition: all 0.2s; transform: rotateY(-90deg); }
+.ui-dashboard-4-run { transform: rotateY(-1deg); }
+.ui-dashboard-5-init { transition: all 0.2s; transform: translate(-100px); opacity: 0; }
+.ui-dashboard-5-run { transform: translate(0); opacity: 1; }
+.ui-dashboard-6-init { transition: all 0.2s; transform: translate(0, -100px); opacity: 0; }
+.ui-dashboard-6-run { transform: translate(0, 0); opacity: 1; }
 
 .ui-dark .ui-dashboard-item figure { border-color: #404040; }
 .ui-dark .ui-dashboard-title { border-color: #404040; background-color: #202020; }

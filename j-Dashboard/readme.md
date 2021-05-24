@@ -34,6 +34,13 @@ __Configuration__:
 - `minsizelg {Number}` a minimal column/row size for large displays (default: `1`)
 - `iconsettings {String}` settings icon
 - `iconremove {String}` remove icon
+- `animation {Number}` style of animation:
+	- `1` opacity
+	- `2` scale from big to normal
+	- `3` scale from small to normal (__default__)
+	- `4` rotation Z
+	- `5` changing of X position
+	- `6` changing of Y position
 
 ```js
 // Component declaration
