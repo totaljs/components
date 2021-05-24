@@ -89,7 +89,8 @@ __Column properties__:
 - `title` {String} a column tooltip (optional)
 - `width` {Number} a column width (optional, default `config.colwidth`)
 - `filter` {String/Boolean} a placeholder for the filter or `boolean` can disable filter for this column (optional)
-- __NEW__ `filtervalue` {Object} optional, a preddefined filter value (default: `undefined`)
+- `filtervalue` {Object} optional, a preddefined filter value (default: `undefined`)
+- `filtertype` {Number/String}, `1` disables smart searching (default: `0` - it means enabled smart searching)
 - `align` {String} can be `center` or `right` (optional, default: `left`)
 - `template` {String} can be a Tangular template and the model is the entire object of row
 - `sorting` {Boolean} enables sorting (optional, default: `true`)

@@ -1050,7 +1050,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 	self.applyfilter = function(obj, add) {
 
-
 		if (!ready) {
 			setTimeout(self.applyfilter, 100, obj, add);
 			return;
@@ -1059,10 +1058,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 		if (!add)
 			opt.filter = {};
 
-		var keys = Object.keys(obj);
-
-		for (var i = 0; i < keys.length; i++) {
-			var key = keys[i];
+		for (var key in obj) {
 			var col = opt.cols.findItem('name', key);
 			if (col.options) {
 				var items = col.options instanceof Array ? col.options : GET(self.makepath(col.options));
@@ -1110,6 +1106,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 		opt.rowclasstemplate = null;
 		opt.search = false;
+		opt.colsfilter = {};
 
 		for (var i = 0; i < cols.length; i++) {
 			var col = cols[i];
@@ -1253,6 +1250,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 					tmp = tmp(col);
 				opt.filter[col.name] = opt.filtervalues[col.id] = tmp;
 			}
+
+			opt.colsfilter[col.name] = col;
 		}
 
 		cols.quicksort('index');
@@ -1764,7 +1763,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			self.fn_in_checked(EMPTYARRAY);
 		}
 
-		for (var i = 0, length = items.length; i < length; i++) {
+		for (var i = 0; i < items.length; i++) {
 			var item = items[i];
 
 			item.ROW = i;
@@ -2057,13 +2056,17 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 						return false;
 				}
 
+				var col = opt.colsfilter[column];
+
 				if (val2 == null) {
 					val2 = opt.filtercache[column] = filter.split(REG_STRING).trim();
-					for (var j = 0; j < val2.length; j++)
-						val2[j] = val2[j].toSearch();
+					if (!col.filtertype) {
+						for (var j = 0; j < val2.length; j++)
+							val2[j] = val2[j].toSearch();
+					}
 				}
 
-				var s = val.toSearch();
+				var s = col.filtertype ? val : val.toSearch();
 
 				for (var j = 0; j < val2.length; j++) {
 					if (s.indexOf(val2[j]) !== -1) {
