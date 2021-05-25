@@ -183,11 +183,20 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 			container.find('input').each(function () {
 				var temp = this.value.trim();
 				switch (config.type) {
+					case 'lower':
+						temp = temp.toLowerCase();
+						break;
+					case 'upper':
+						temp = temp.toUpperCase();
+						break;
 					case 'number':
 						temp = temp.parseInt();
 						break;
 					case 'date':
 						temp = temp.parseDate();
+						break;
+					case 'a-z':
+						temp = temp.toLowerCase().replace(/[^a-z]/g, '');
 						break;
 				}
 

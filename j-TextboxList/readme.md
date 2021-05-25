@@ -12,7 +12,7 @@ __Configuration__:
 - `limit` {Number} sets a maximum length of lists
 - `error` {String} error message when limit is reached (default `You reach the maximum limit`)
 - `required` {Boolean} whether list is required (default `false`)
-- `type` {String} can be `email`, `url`, `currency`, `number`, `date` or empty (default)
+- `type` {String} can be `email`, `url`, `currency`, `number`, `date`, `lower`, `upper`, `a-z` or empty (default)
 - __NEW__ `movable` {Boolean} enables changing of position for existing items
 
 ### Author
