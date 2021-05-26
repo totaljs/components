@@ -18,6 +18,8 @@ __Configuration__:
 - `replace` {String} optional, a link to method `function(content) { return content }` which can modify downloaded template
 - `absolute` {Boolean} optional, enables absolute position (default `false`)
 - __NEW__ `check` {String} optional, a link to function `function(next) { next(); }`, it's executed when the part is wanting to show
+- __NEW__ `invisible` {Boolean} enables adding of `invisible` class when the part is going to hide (default: `false`)
+- __NEW__ `delay` {Number} a delay (in ms) for removing of `invisible` class and hiding of `loading` (default: `500`)
 
 __Good to know 1__:
 
