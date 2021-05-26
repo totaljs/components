@@ -14,7 +14,7 @@ COMPONENT('exec', function(self, config) {
 			return val == null ? scope : scope ? scope.makepath ? scope.makepath(val) : val.replace(/\?/g, el.scope().path) : val;
 		};
 
-		var fn = function(plus) {
+		var fn = function(plus, forceprevent) {
 			return function(e) {
 
 				var el = $(this);
@@ -26,8 +26,7 @@ COMPONENT('exec', function(self, config) {
 
 				scope = null;
 
-				var prevent = el.attrd('prevent' + plus);
-
+				var prevent = forceprevent ? '1' : el.attrd('prevent' + plus);
 				if (prevent === 'true' || prevent === '1') {
 					e.preventDefault();
 					e.stopPropagation();
@@ -74,6 +73,7 @@ COMPONENT('exec', function(self, config) {
 			};
 		};
 
+		self.event('contextmenu', config.selector3 || '.exec3', fn('3', true));
 		self.event('dblclick', config.selector2 || '.exec2', fn('2'));
 		self.event('click', config.selector || '.exec', fn(''));
 	};

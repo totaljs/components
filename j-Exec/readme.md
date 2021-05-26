@@ -5,6 +5,7 @@ The component has a similar functionality like `j-Click` but it can handle multi
 __Configuration__:
 - `selector` is a selector for capturing `click` (default: `.exec`)
 - `selector2` is a selector for capturing `dblclick` (default: `.exec2`)
+- `selector3` is a selector for capturing `contextmenu` (default: `.exec3`)
 
 __Elements__:
 
@@ -15,22 +16,31 @@ __Elements__:
 __Attributes__:
 
 - `data-exec="METHOD_NAME"` executes a method when user clicks (supports scope via `?` char)
-- `data-prevent="true"` prevents continuing `click` event
+- `data-prevent="true"` prevents continuing in the `click` event
 - `data-href="URL"` performs `REDIRECT()`
 - `data-path="path.to.property"` a path for setting of value (supports scope via `?` char)
 - `data-value=""` sets a value according to the `data-path=""` attribute
 - `data-def="path.*"` performs default values (supports scope via `?` char)
 - `data-reset="path.*"` performs a state reseting (supports scope via `?` char)
 
-__Attributes for double click__:
+__Attributes for the double click__:
 
 - `data-exec2="METHOD_NAME"` executes a method when user clicks (supports scope via `?` char)
-- `data-prevent2="true"` prevents continuing `click` event
+- `data-prevent2="true"` prevents continuing in the `click` event
 - `data-href2="URL"` performs `REDIRECT()`
 - `data-path2="path.to.property"` a path for setting of value (supports scope via `?` char)
 - `data-value2=""` sets a value according to the `data-path=""` attribute
 - `data-def2="path.*"` performs default values (supports scope via `?` char)
 - `data-reset2="path.*"` performs a state reseting (supports scope via `?` char)
+
+__Attributes for the context-menu__:
+
+- `data-exec3="METHOD_NAME"` executes a method when user clicks (supports scope via `?` char)
+- `data-href3="URL"` performs `REDIRECT()`
+- `data-path3="path.to.property"` a path for setting of value (supports scope via `?` char)
+- `data-value3=""` sets a value according to the `data-path=""` attribute
+- `data-def3="path.*"` performs default values (supports scope via `?` char)
+- `data-reset3="path.*"` performs a state reseting (supports scope via `?` char)
 
 __Hints__:
 
