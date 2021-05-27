@@ -580,7 +580,25 @@ EXTENSION('flow:operations', function(self, config) {
 				var count = 0;
 				for (var subkey in model.paused) {
 					var tmp = subkey.split(D);
-					if (!model[tmp[1]] || !model[tmp[1]].connections || !model[tmp[1]].connections[tmp[2]])
+					var rem = false;
+					var m = model[tmp[1]];
+
+					if (!m)
+						rem = true;
+
+					if (!rem) {
+						var arr = tmp[0] === 'input' ? m.inputs : m.outputs;
+						if (arr && arr.length > 0) {
+							if (typeof(arr[0]) === 'object') {
+								if (!arr.findItem('id', tmp[2]))
+									rem = true;
+							} else if (!arr[+tmp[2]])
+								rem = true;
+						} else
+							rem = true;
+					}
+
+					if (rem)
 						delete model.paused[subkey];
 					else
 						count++;
