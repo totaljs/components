@@ -10,7 +10,8 @@
 .ui-windows-nomove .ui-windows-title span { cursor: default; }
 .ui-windows-title span i { margin-right: 5px; }
 .ui-windows-body { border: 1px solid #E0E0E0; border-top: 0; border-radius: 0 0 var(--radius) var(--radius); overflow-x: hidden; }
-.ui-windows-dragged { z-index: 100; }
+.ui-windows-moving .ui-windows-item { pointer-events: none; }
+.ui-windows-dragged { z-index: 100; pointer-events: unset !important; }
 .ui-windows-dragged .ui-windows-title { background-color: #FAFAFA; }
 .ui-windows-focused { z-index: 90; }
 .ui-windows-maximized { box-shadow: none; }

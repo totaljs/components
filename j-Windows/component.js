@@ -130,6 +130,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 		drag.is = false;
 
 		E.preventDefault();
+		self.aclass(cls + '-moving');
 
 		var myoffset = self.element.position();
 		var pos;
@@ -298,6 +299,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 
 	events.up = function() {
 
+		self.rclass(cls + '-moving');
 		drag.el.rclass(cls + '-dragged').rclass(cls + '-block');
 		$(W).off('mousemove touchmove', events.move).off('mouseup touchend', events.up);
 
