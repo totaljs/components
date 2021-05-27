@@ -69,7 +69,7 @@ COMPONENT('console', function(self, config, cls) {
 			var item = arr[i];
 			var type = item.type || 'info';
 			var icon = type === 'error' ? 'bug' : type === 'warning' ? type : type === 'success' ? 'check-circle' : 'info-circle';
-			builder.push('<div class="{0}-message {0}-{2}"><i class="fa fa-{3}"></i>{1}</div>'.format(cls, item.encode === true || item.encode == null ? Thelpers.encode(item.body) : item.body, type, icon));
+			builder.push('<div class="{0}-message {0}-{2}"><i class="fa fa-{3}"></i>{1}</div>'.format(cls, obj.encode === true || obj.encode == null ? Thelpers.encode(item.body) : item.body, type, icon));
 		}
 
 		elogs.html(builder.join(''));
