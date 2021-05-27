@@ -1,6 +1,12 @@
 ## j-Paste
 
-The component captures pasting text from the clipboard.
+The component captures `paste` event.
+
+```js
+ON('paste', function(text, e) {
+	// @text {String}
+});
+```
 
 ### Author
 
