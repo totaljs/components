@@ -7,7 +7,9 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 	var D = '__';
 	var drag = {};
 
+	self.bindvisible();
 	self.readonly();
+
 	self.meta = {};
 	self.el = {};     // elements
 	self.op = {};     // operations
@@ -246,7 +248,9 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 				com.tclass('connected', self.el.lines.find('.from' + D + '_' + conn.fromid).length > 0);
 			}
 
-			rebuildagain && self.refresh();
+			if (rebuildagain)
+				self.refresh();
+
 			rebuildagain = false;
 
 		}, 300);
@@ -845,6 +849,11 @@ EXTENSION('flow:map', function(self, config) {
 		events.unbind();
 	};
 
+	events.leave = function(e) {
+		if (!e.relatedTarget)
+			events.up();
+	};
+
 	events.bind = function() {
 		if (!events.is) {
 			events.is = true;
@@ -852,6 +861,7 @@ EXTENSION('flow:map', function(self, config) {
 			self.element.on('mousemove', events.move);
 			self.element.on('touchend', events.up);
 			self.element.on('touchmove', events.movetouch);
+			$(W).on('mouseleave', events.leave);
 		}
 	};
 
@@ -862,6 +872,7 @@ EXTENSION('flow:map', function(self, config) {
 			self.element.off('mousemove', events.move);
 			self.element.off('touchend', events.up);
 			self.element.off('touchmove', events.movetouch);
+			$(W).off('mouseleave', events.leave);
 		}
 	};
 
@@ -990,6 +1001,11 @@ EXTENSION('flow:components', function(self, config) {
 		events.unbind();
 	};
 
+	events.leave = function(e) {
+		if (!e.relatedTarget)
+			events.up();
+	};
+
 	events.bind = function() {
 		if (!events.is) {
 			events.is = true;
@@ -997,6 +1013,7 @@ EXTENSION('flow:components', function(self, config) {
 			self.element.on('mousemove', events.move);
 			self.element.on('touchend', events.up);
 			self.element.on('touchmove', events.movetouch);
+			$(W).on('mouseout', events.leave);
 		}
 	};
 
@@ -1007,6 +1024,7 @@ EXTENSION('flow:components', function(self, config) {
 			self.element.off('mousemove', events.move);
 			self.element.off('touchend', events.up);
 			self.element.off('touchmove', events.movetouch);
+			$(W).off('mouseout', events.leave);
 		}
 	};
 
