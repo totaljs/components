@@ -4,7 +4,7 @@
 
 __Configuration__:
 
-- `secodns` {Boolean} optional, enables seconds (default: `false`)
+- `seconds` {Boolean} optional, enables seconds (default: `false`)
 - `ampm` {Boolean} optional, enables 12 hours time (default: `false`)
 
 The component must be called manually or works with `j-Input` component automatically. This component is a singleton.
