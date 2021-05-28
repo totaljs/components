@@ -1055,9 +1055,9 @@ EXTENSION('flow:components', function(self, config) {
 		e.stopPropagation();
 	});
 
-	self.event('dblclick', '.area', function() {
+	self.event('dblclick', '.area', function(e) {
 		var target = $(this).closest('.component');
-		config.dblclick && self.SEEX(config.dblclick, self.cache[target.attrd('id')].instance);
+		config.dblclick && self.SEEX(config.dblclick, self.cache[target.attrd('id')].instance, e);
 	});
 
 	self.event('mousedown touchstart', '.area', function(e) {
