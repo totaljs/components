@@ -1622,6 +1622,8 @@ EXTENSION('flow:commands', function(self, config) {
 		if (prev == null)
 			return;
 
+		var item;
+
 		self.op.undo();
 		self.op.redo(prev);
 
@@ -1644,6 +1646,11 @@ EXTENSION('flow:commands', function(self, config) {
 
 		if (prev.type === 'move') {
 			self.find('.component[data-id="{0}"]'.format(prev.id)).css({ left: prev.x, top: prev.y });
+			item = self.get()[prev.id];
+			item.x = prev.x;
+			item.y = prev.y;
+			item.onmove && item.onmove(item.element, item);
+			config.onmove && self.EXEC(config.onmove, item.element, item);
 			self.op.reposition();
 			return;
 		}
@@ -1665,6 +1672,8 @@ EXTENSION('flow:commands', function(self, config) {
 		var next = self.redo.pop();
 		if (next == null)
 			return;
+
+		var item;
 
 		self.op.redo();
 		self.op.undo(next);
@@ -1694,6 +1703,13 @@ EXTENSION('flow:commands', function(self, config) {
 
 		if (next.type === 'move') {
 			self.find('.component[data-id="{0}"]'.format(next.id)).css({ left: next.newx, top: next.newy });
+
+			item = self.get()[next.id];
+			item.x = next.newx;
+			item.y = next.newy;
+			item.onmove && item.onmove(item.element, item);
+			config.onmove && self.EXEC(config.onmove, item.element, item);
+
 			self.op.reposition();
 			return;
 		}
