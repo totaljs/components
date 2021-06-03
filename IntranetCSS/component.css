@@ -35,7 +35,7 @@
 .nav { background-color: #F0F0F0; }
 .nav nav { padding: 10px 5px; display: block; }
 .nav nav > div, .nav nav > a { display: block; height: 30px; margin: 0 5px 2px; line-height: 30px; padding: 0 10px; border-radius: var(--radius); cursor: pointer; font-size: 13px; color: #888; border: 0; text-decoration: none !important; }
-.nav nav > div > i, .nav nav > div > a { width: 14px; text-align: center; margin-right: 10px; }
+.nav nav > div > i, .nav nav > a i { width: 14px; text-align: center; margin-right: 10px; }
 .nav nav > div:hover { background-color: rgba(0,0,0,0.05); color: #000; text-decoration: none !important; }
 .nav nav > div.ui-disabled, .nav nav > a.ui-disabled, .nav nav > div.disabled, .nav nav > a.disabled { cursor: not-allowed; color: #C0C0C0; background-color: transparent !important; }
 .nav nav .selected { background-color: rgba(100,100,100,0.1); color: #000; }
