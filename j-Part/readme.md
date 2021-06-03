@@ -13,7 +13,7 @@ __Configuration__:
 - `hide` {Boolean} optional, auto-hide element if the `if` condition is not valid (default: `true`)
 - `cleaner` {Number} optional, idle time (in minutes) for running of cleaning (default: `0`)
 - `clean` {String} optional, a link to function, it's executed before the part is cleaned
-- `loading` {Bollean} optional, enables loading via `SETTER('loading')` (default: `true`)
+- `loading` {Boolean} optional, enables loading via `SETTER('loading')` (default: `true`)
 - `path` {String} optional, the component replace all `~PATH~` phrases for the value of the `path` in the downloaded template
 - `replace` {String} optional, a link to method `function(content) { return content }` which can modify downloaded template
 - `absolute` {Boolean} optional, enables absolute position (default `false`)
