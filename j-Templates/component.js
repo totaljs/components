@@ -1,4 +1,4 @@
-COMPONENT('templates', 'scrollbar:1;scrolltop:1;visibleY:1;margin:0;parent:auto', function(self, config, cls) {
+COMPONENT('templates', 'scrollbar:1;scrolltop:1;visibleY:1;margin:0;parent:auto;emptyif:!value||!value.length', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var eitems;
@@ -6,6 +6,7 @@ COMPONENT('templates', 'scrollbar:1;scrolltop:1;visibleY:1;margin:0;parent:auto'
 	var templates = {};
 	var rendered = false;
 	var template = 'default';
+	var isempty = false;
 
 	self.readonly();
 	self.nocompile();
@@ -26,7 +27,8 @@ COMPONENT('templates', 'scrollbar:1;scrolltop:1;visibleY:1;margin:0;parent:auto'
 
 		self.find('script').each(function() {
 			var el = $(this);
-			templates[el.attrd('name') || 'default'] = Tangular.compile(el.html());
+			var name = el.attrd('name') || 'default';
+			templates[name] = name !== 'empty' ? Tangular.compile(el.html()) : el.html();
 		});
 
 		self.html('<div class="{0}-path"></div><div class="{0}-scrollbar"><div class="{0}-items"></div></div>'.format(cls));
@@ -101,8 +103,10 @@ COMPONENT('templates', 'scrollbar:1;scrolltop:1;visibleY:1;margin:0;parent:auto'
 	self.resizeforce = function() {
 		var el = self.parent(config.parent);
 		if (self.scrollbar) {
-			self.scrollbar.element.css('height', el.height() - config.margin);
+			var h = el.height() - config.margin;
+			self.scrollbar.element.css('height', h);
 			self.scrollbar.resize();
+			eitems.css('min-height', h);
 		}
 	};
 
@@ -122,7 +126,19 @@ COMPONENT('templates', 'scrollbar:1;scrolltop:1;visibleY:1;margin:0;parent:auto'
 	self.setter = function(value) {
 
 		if (template) {
-			eitems.html(templates[template]({ value: value }));
+
+			if (templates.empty && FN('value=>' + config.emptyif)({ value: value })) {
+				if (!isempty) {
+					isempty = true;
+					self.aclass(cls + '-empty');
+					eitems.html('<div>' + templates.empty + '</div>');
+				}
+			} else {
+				isempty = false;
+				self.rclass(cls + '-empty');
+				eitems.html(templates[template]({ value: value }));
+			}
+
 			config.scrolltop && self.scrolltop(1);
 		}
 
