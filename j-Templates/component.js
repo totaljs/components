@@ -127,7 +127,7 @@ COMPONENT('templates', 'scrollbar:1;scrolltop:1;visibleY:1;margin:0;parent:auto;
 
 		if (template) {
 
-			if (templates.empty && FN('value=>' + config.emptyif)({ value: value })) {
+			if (templates.empty && FN('value=>' + config.emptyif)(value)) {
 				if (!isempty) {
 					isempty = true;
 					self.aclass(cls + '-empty');
