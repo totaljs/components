@@ -5,7 +5,7 @@
 .ui-properties2-2 .ui-properties2-group { border: 0; }
 .ui-properties2-group label { display: block; padding: 10px 15px; font-size: 16px; font-weight: bold; background-color: #F8F8F8; border-radius: var(--radius) var(--radius) 0 0; }
 .ui-properties2-2 label { background: transparent; font-size: 11px; color: #A0A0A0; font-weight: normal; padding-bottom: 5px; }
-.ui-properties2-2 section { background: #FFF; border-radius: 15px; padding: 10px 0; border: 1px solid #F0F0F0; }
+.ui-properties2-2 section { background: #FFF; border-radius: 15px; padding: 10px 0; border: 1px solid #E0E0E0; }
 .ui-properties2-group label i { width: 22px; }
 .ui-properties2-group label i:before { content: '\f146'; }
 .ui-properties2-hidden label i:before { content: '\f0fe' !important; }
@@ -20,7 +20,7 @@
 .ui-properties2-key { float: left; width: 170px; line-height: 24px; padding: 0 5px 0 15px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; color: #707070; }
 .ui-properties2-key i { margin-right: 7px; }
 .ui-properties2-2 .ui-properties2-item { cursor: pointer; }
-.ui-properties2-2 .ui-properties2-value { margin-left: 170px; text-align: right; color: #777; margin-right: 0; line-height: 20px; font-weight: normal !important; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ui-properties2-2 .ui-properties2-value { margin-left: 170px; text-align: right; color: #777; margin-right: 0; line-height: 21px; font-weight: normal !important; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ui-properties2-2 .ui-properties2-item { font-size: 13px; padding: 0; border-top: 0; }
 .ui-properties2-2 .ui-properties2-item > div { padding: 10px 0 8px; border-bottom: 1px solid #E0E0E0; }
 .ui-properties2-2 .ui-properties2-isicon > div { margin-left: 40px; }
