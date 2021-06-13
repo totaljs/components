@@ -1,8 +1,7 @@
-COMPONENT('stats7', 'height:120;border:1;highlight:0;firstday:0', function(self, config, cls) {
+COMPONENT('stats12', 'height:120;border:1;highlight:0', function(self, config, cls) {
 
 	var old = '';
-	var days = [];
-	var days2 = {};
+	var months = [];
 	var bars = [];
 	var binded = false;
 	var cls2 = '.' + cls;
@@ -14,26 +13,18 @@ COMPONENT('stats7', 'height:120;border:1;highlight:0;firstday:0', function(self,
 
 		self.aclass(cls);
 
-		var index = config.firstday;
-
-		for (var i = 0; i < 7; i++) {
-			var day = {};
-			day.pos = i;
-			day.index = index;
-			day.name = DAYS[index].substring(0, 2).toUpperCase();
-			days.push(day);
-			days2[i] = day;
-
-			index++;
-
-			if (index > 6)
-				index = 0;
+		for (var i = 0; i < 12; i++) {
+			var month = {};
+			month.pos = i;
+			month.index = i;
+			month.name = MONTHS[i].substring(0, 3);
+			months.push(month);
 		}
 
 
 		var builder = [];
-		for (var i = 0; i < 7; i++)
-			builder.push('<div class="{0}-bar"><div><span></span></div><span>{1}</span></div>'.format(cls, days[i].name));
+		for (var i = 0; i < 12; i++)
+			builder.push('<div class="{0}-bar"><div><span></span></div><span>{1}</span></div>'.format(cls, months[i].name));
 
 		self.append('<div class="{0}-body"><div class="{0}-container hidden">{1}</div></div>'.format(cls, builder.join('')));
 		self.find(cls2 + '-bar').each(function() {
@@ -61,19 +52,20 @@ COMPONENT('stats7', 'height:120;border:1;highlight:0;firstday:0', function(self,
 
 		container.css('height', config.height);
 
-		var current = days.findItem('index', NOW.getDay()).pos;
-		old = sum;
+		var current = NOW.getMonth();
 		var max = config.max;
+
+		old = sum;
 
 		if (!max) {
 			max = 0;
-			for (var i = 0; i < 7; i++) {
+			for (var i = 0; i < 12; i++) {
 				if (value[i] > max)
 					max = value[i];
 			}
 		}
 
-		for (var i = 0; i < 7; i++) {
+		for (var i = 0; i < 12; i++) {
 
 			var num = value[i];
 
@@ -93,10 +85,10 @@ COMPONENT('stats7', 'height:120;border:1;highlight:0;firstday:0', function(self,
 			if (val > 1000)
 				val = (val / 1000).floor(1) + ' K';
 
-			var day = days2[i];
+			var month = months[i];
 
-			bars[day.index].css('height', (h >> 0) + 'px').tclass('online', value[i] > 0).find('span').html(val);
-			config.highlight && bars[day.index].tclass('now', day.index === current);
+			bars[i].css('height', (h >> 0) + 'px').tclass('online', value[i] > 0).find('span').html(val);
+			config.highlight && bars[i].tclass('now', i === current);
 		}
 	};
 });

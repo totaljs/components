@@ -17,7 +17,7 @@ COMPONENT('stats24', 'height:120;tooltiplarge:0;tooltip:1;tooltiptext:{0};border
 		for (var i = 0; i < 24; i++)
 			builder.push('<div class="{0}-bar"><div><span></span></div><span>{1}</span></div>'.format(cls, i));
 
-		self.append('<div class="ui-stats24-body"><div class="{0}-container hidden">{1}</div></div>'.format(cls, builder.join('')));
+		self.append('<div class="{0}-body"><div class="{0}-container hidden">{1}</div></div>'.format(cls, builder.join('')));
 		self.find(cls2 + '-bar').each(function() {
 			bars.push($(this).find('div').eq(0));
 		});
