@@ -41,7 +41,9 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				return;
 			}
 
-			self.set(!self.get());
+			self.change(true);
+			self.check();
+			self.set(!self.get(), 2);
 		});
 
 		self.event('focus', 'input,' + cls2 + '-value', function() {
@@ -228,7 +230,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				opt.empty = true;
 				opt.callback = function(val) {
 					self.change(true);
-					self.set(val);
+					self.set(val, 2);
 					self.check();
 					rawvalue.focus();
 				};
@@ -241,7 +243,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				opt.empty = true;
 				opt.callback = function(al) {
 					self.change(true);
-					self.set(al);
+					self.set(al, 2);
 					self.check();
 					rawvalue.focus();
 				};
@@ -254,7 +256,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				opt.empty = true;
 				opt.callback = function(al) {
 					self.change(true);
-					self.set(al);
+					self.set(al, 2);
 					self.check();
 					rawvalue.focus();
 				};
@@ -321,13 +323,13 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					var fn = GET(config.dircustom);
 					fn(val, function(val) {
 						self.set(val, 2);
-						self.change();
+						self.change(true);
 						self.bindvalue();
 					});
 				} else if (custom) {
 					if (val) {
 						self.set(val, 2);
-						self.change();
+						self.change(true);
 						if (dirsource)
 							self.bindvalue();
 						else
@@ -335,7 +337,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					}
 				} else {
 					self.set(val, 2);
-					self.change();
+					self.change(true);
 					if (dirsource)
 						self.bindvalue();
 					else
@@ -466,8 +468,11 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		if (customvalidator)
 			return customvalidator(value);
 
-		if (self.type === 'date')
+		if (config.type === 'date')
 			return value instanceof Date && !isNaN(value.getTime());
+
+		if (config.type === 'checkbox')
+			return value === true;
 
 		if (value == null)
 			value = '';
@@ -480,7 +485,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		if (config.minlength && value.length < config.minlength)
 			return false;
 
-		switch (self.type) {
+		switch (config.type) {
 			case 'email':
 				return value.isEmail();
 			case 'phone':
@@ -515,7 +520,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 	self.preparevalue = function(value) {
 
-		if (self.type === 'number' && (config.minvalue != null || config.maxvalue != null)) {
+		if (config.type === 'number' && (config.minvalue != null || config.maxvalue != null)) {
 			var tmp = typeof(value) === 'string' ? +value.replace(',', '.') : value;
 			if (config.minvalue > tmp)
 				value = config.minvalue;
@@ -577,7 +582,9 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		}
 
 		self.setterin(value, path, type);
-		self.bindvalue();
+
+		if (config.type !== 'checkbox')
+			self.bindvalue();
 
 		config.camouflage && !focused && setTimeout(self.camouflage, type === 'show' ? 2000 : 1, true);
 
@@ -858,11 +865,15 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		if (!config.forcevalidation)
 			return false;
 
-		if (self.type === 'number')
+		if (config.type === 'number')
 			return false;
 
 		var val = self.get();
-		return (self.type === 'phone' || self.type === 'email') && (val != null && (typeof(val) === 'string' && val.length !== 0));
+
+		if (config.type === 'checkbox')
+			return val === true;
+
+		return (config.type === 'phone' || config.type === 'email') && (val != null && (typeof(val) === 'string' && val.length !== 0));
 	};
 
 });
