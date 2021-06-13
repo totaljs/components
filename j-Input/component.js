@@ -42,8 +42,8 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			}
 
 			self.change(true);
-			self.check();
 			self.set(!self.get(), 2);
+			self.bindvalue();
 		});
 
 		self.event('focus', 'input,' + cls2 + '-value', function() {
@@ -656,6 +656,9 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					break;
 				case 'emoji':
 					rawvalue.html(value);
+					break;
+				case 'checkbox':
+					self.tclass(cls + '-checked', value === true);
 					break;
 			}
 		}
