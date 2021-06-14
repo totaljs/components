@@ -1,6 +1,6 @@
 .ui-passwordmeter { color: #A0A0A0; }
 .ui-passwordmeter-progress { border: 1px solid #E0E0E0; padding: 1px; border-radius: var(--radius); margin-top: 10px; }
-.ui-passwordmeter-progress > div { height: 8px; background-color: #E0E0E0; width: 0; background-color: #DA4453; }
+.ui-passwordmeter-progress > div { height: 8px; background-color: #E0E0E0; width: 0; background-color: #DA4453; border-radius: var(--radius); }
 .ui-passwordmeter-rating { font-size: 11px; margin: 3px 0 0 0; }
 .ui-passwordmeter-rating b { margin-right: 5px; }
 .ui-passwordmeter-weak .ui-passwordmeter-progress div { background-color: #DA4453; }
