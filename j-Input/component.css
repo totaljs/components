@@ -42,7 +42,7 @@
 .ui-input-inner { line-height: 17px; }
 .ui-input-inner .ui-input-label { position: absolute; z-index: 1; margin: 11px 0 0 9px; font-size: 13px; }
 .ui-input-inner.ui-input-binded .ui-input-label { font-size: 11px; margin: -9px 0 0 4px; background: #FFF; padding: 0 2px; border-radius: var(--radius); }
-.ui-input-inner .ui-input-input { padding-top: 7px; }
+.ui-input-inner .ui-input-input { padding-top: 8px; }
 .ui-input-inner .ui-input-control { min-height: 38px; }
 .ui-input-inner .ui-input-icon-left, .ui-input-inner .ui-input-icon-right { height: 36px; line-height: 36px; }
 .ui-input-inner.ui-input-required .ui-input-label:before { content: '*'; }
