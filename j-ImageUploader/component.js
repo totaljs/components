@@ -16,6 +16,7 @@ COMPONENT('imageuploader', function(self) {
 		// opt.width
 		// opt.height
 		// opt.url
+		// opt.keeporiginal
 		// opt.callback
 		// opt.background
 		// opt.quality
@@ -141,8 +142,15 @@ COMPONENT('imageuploader', function(self) {
 			reader.onload = function () {
 				var img = new Image();
 				img.onload = function() {
-					self.resizeforce(img);
-					self.change(true);
+
+					if (self.opt.keeporiginal && img.width == self.opt.width && img.height == self.opt.height) {
+						self.upload(reader.result);
+						self.change(true);
+					} else {
+						self.resizeforce(img);
+						self.change(true);
+					}
+
 				};
 				img.crossOrigin = 'anonymous';
 				if (orient < 2) {
