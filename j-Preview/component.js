@@ -188,9 +188,14 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 			reader.onload = function () {
 				var img = new Image();
 				img.onload = function() {
-					self.resizeforce(img);
-					self.change(true);
+					if (config.keeporignal && img.width === config.width && img.height === config.height) {
+						self.upload(reader.result);
+					} else {
+						self.resizeforce(img);
+						self.change(true);
+					}
 				};
+
 				img.crossOrigin = 'anonymous';
 				if (orient < 2) {
 					img.src = reader.result;
