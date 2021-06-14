@@ -1,4 +1,4 @@
-COMPONENT('stats7', 'height:120;border:1;highlight:0;firstday:0', function(self, config, cls) {
+COMPONENT('stats7', 'height:120;border:1;firstday:0', function(self, config, cls) {
 
 	var old = '';
 	var days = [];
@@ -22,7 +22,7 @@ COMPONENT('stats7', 'height:120;border:1;highlight:0;firstday:0', function(self,
 			day.index = index;
 			day.name = DAYS[index].substring(0, 2).toUpperCase();
 			days.push(day);
-			days2[i] = day;
+			days2[index] = day;
 
 			index++;
 
@@ -30,6 +30,7 @@ COMPONENT('stats7', 'height:120;border:1;highlight:0;firstday:0', function(self,
 				index = 0;
 		}
 
+		console.log(days2);
 
 		var builder = [];
 		for (var i = 0; i < 7; i++)
@@ -95,8 +96,8 @@ COMPONENT('stats7', 'height:120;border:1;highlight:0;firstday:0', function(self,
 
 			var day = days2[i];
 
-			bars[day.index].css('height', (h >> 0) + 'px').tclass('online', value[i] > 0).find('span').html(val);
-			config.highlight && bars[day.index].tclass('now', day.index === current);
+			bars[day.pos].css('height', (h >> 0) + 'px').tclass('online', value[i] > 0).find('span').html(val);
+			config.highlight && bars[day.pos].tclass('now', day.pos === current);
 		}
 	};
 });
