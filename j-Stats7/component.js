@@ -30,8 +30,6 @@ COMPONENT('stats7', 'height:120;border:1;firstday:0', function(self, config, cls
 				index = 0;
 		}
 
-		console.log(days2);
-
 		var builder = [];
 		for (var i = 0; i < 7; i++)
 			builder.push('<div class="{0}-bar"><div><span></span></div><span>{1}</span></div>'.format(cls, days[i].name));
