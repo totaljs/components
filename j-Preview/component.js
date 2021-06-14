@@ -188,7 +188,7 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 			reader.onload = function () {
 				var img = new Image();
 				img.onload = function() {
-					if (config.keeporignal && img.width === config.width && img.height === config.height) {
+					if (config.keeporiginal && img.width == config.width && img.height == config.height) {
 						self.upload(reader.result);
 					} else {
 						self.resizeforce(img);
