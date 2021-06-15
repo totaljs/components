@@ -60,7 +60,7 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 			var parent = el.closest(cls2 + '-item');
 			var tmp;
 
-			if (parent) {
+			if (parent.length) {
 				var tmp = parent[0].$data;
 				self.cancel();
 				e.stopPropagation();
