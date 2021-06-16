@@ -35,6 +35,7 @@ __Allowed properties__:
 - `min {Number}` optional, supports only `number` type
 - `max {Number}` optional, supports only `number` type
 - `increment {Number}` optional, an increment count - supports only `number` type (default: `1`)
+- `multiple {Boolean}` optional, works with `selectable` type (a value will be array)
 
 Declaration must be defined in the component's element body wrapped in the `<script type="text/plain">` element. Example:
 
@@ -55,10 +56,9 @@ Declaration must be defined in the component's element body wrapped in the `<scr
 		summary: 'Lorem, ipsum dolor sit amet consectetur, adipisicing elit. Iste eos, illum voluptas assumenda sunt possimus necessitatibus nobis provident dicta deserunt.',
 		required: true
 	},
+	... other items
 ]
 ````
-
-__Types__:
 
 ### Author
 
