@@ -539,9 +539,22 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		else if ((mw + options.left) > WW)
 			options.left = (WW - mw) - 10;
 
+		var dom = opt.element[0].parentNode;
+		var restrict = true;
+
+		while (dom) {
+			if (dom.tagName === 'BODY') {
+				restrict = false;
+				break;
+			}
+			if (dom.classList.contains('ui-scrollbar-area'))
+				break;
+			dom = dom.parentNode;
+		}
+
 		if (options.top < 0)
 			options.top = 10;
-		else if ((mh + options.top) > WH)
+		else if (restrict && (mh + options.top) > WH)
 			options.top = (WH - mh) - 10;
 
 		self.css(options);

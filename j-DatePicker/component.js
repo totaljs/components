@@ -223,7 +223,20 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 		if (l + s > WW)
 			l = (l + w) - s;
 
-		if (t + height > WH)
+		var restrict = true;
+		var parent = dom.parentNode;
+
+		while (parent) {
+			if (parent.tagName === 'BODY') {
+				restrict = false;
+				break;
+			}
+			if (parent.classList.contains('ui-scrollbar-area'))
+				break;
+			parent = parent.parentNode;
+		}
+
+		if (restrict && (t + height) > WH)
 			t = (t + h) - height;
 
 		var dt = typeof(opt.value) === 'string' ? GET(opt.value) : opt.value;
