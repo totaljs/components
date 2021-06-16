@@ -1,11 +1,10 @@
 {
-	"datecreated": "2020-04-30T15:40:05.000Z",
-	"dateupdated": "2021-02-11T08:41:01.000Z",
-	"name": "j-Approve",
+	"datecreated": "2021-06-16T23:29:01.000Z",
+	"dateupdated": null,
+	"name": "j-Configuration",
 	"tags": [
-		"approve",
-		"confirm",
-		"floating"
+		"config",
+		"form"
 	],
 	"color": "transparent",
 	"version": 1,
