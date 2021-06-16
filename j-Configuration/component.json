@@ -1,0 +1,19 @@
+{
+	"datecreated": "2020-04-30T15:40:05.000Z",
+	"dateupdated": "2021-02-11T08:41:01.000Z",
+	"name": "j-Approve",
+	"tags": [
+		"approve",
+		"confirm",
+		"floating"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"darkmode": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

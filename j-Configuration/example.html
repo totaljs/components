@@ -1,0 +1,115 @@
+<div data---="configuration__config" class="invisible">
+	<script type="text/plain">
+		[
+			{
+				text: 'My group',
+				type: 'group',
+				summary: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam, nostrum.',
+				icon: 'fa fa-home'
+			},
+			{
+				name: 'name',
+				text: 'Application name',
+				type: 'string',
+				icon: 'fa fa-home',
+				disable: 'model => model.interval < 100',
+				button: 'Verify',
+				note: 'ajldksasdljsalj',
+				summary: 'Lorem, ipsum dolor sit amet consectetur, adipisicing elit. Iste eos, illum voluptas assumenda sunt possimus necessitatibus nobis provident dicta deserunt.',
+				required: true
+			},
+			{
+				name: 'name',
+				text: 'Application name',
+				type: 'string',
+				icon: 'fa fa-home',
+				note: 'ajldksasdljsalj',
+				summary: 'Lorem, ipsum dolor sit amet consectetur, adipisicing elit. Iste eos, illum voluptas assumenda sunt possimus necessitatibus nobis provident dicta deserunt.',
+				camouflage: true,
+				required: true
+			},
+			{
+				name: 'date',
+				text: 'Date',
+				type: 'date',
+				disable: 'model => model.interval < 100',
+				placeholder: 'Test',
+				summary: 'Lorem, ipsum dolor sit amet consectetur, adipisicing elit. Iste eos, illum voluptas assumenda sunt possimus necessitatibus nobis provident dicta deserunt.'
+			},
+			{
+				name: 'interval',
+				text: 'Backup interval',
+				type: 'number',
+				min: 1,
+				summary: 'Lorem, ipsum dolor sit amet consectetur, adipisicing elit. Iste eos, illum voluptas assumenda sunt possimus necessitatibus nobis provident dicta deserunt.'
+			},
+			{
+				name: 'color',
+				text: 'Color',
+				type: 'color',
+				disable: 'model => model.interval < 100',
+				summary: 'Lorem, ipsum dolor sit amet consectetur, adipisicing elit. Iste eos, illum voluptas assumenda sunt possimus necessitatibus nobis provident dicta deserunt.'
+			},
+			{
+				name: 'icon',
+				text: 'Icon',
+				type: 'icon',
+				disable: 'model => model.interval < 100',
+				summary: 'Lorem, ipsum dolor sit amet consectetur, adipisicing elit. Iste eos, illum voluptas assumenda sunt possimus necessitatibus nobis provident dicta deserunt.'
+			},
+			{
+				name: 'interval',
+				text: 'Backup interval',
+				type: 'number'
+			},
+			{
+				name: 'interval',
+				disable: 'model => model.interval < 100',
+				text: 'Backup interval',
+				type: 'number'
+			},
+			{
+				name: 'city',
+				items: [{ id: 'bb', name: 'BB', icon: 'fa fa-map-marker' }, { id: 'ba', name: 'BA', icon: 'fa fa-map-marker' }, { id: 'zv', name: 'ZV', icon: 'fa fa-map-marker' }, { id: 'se', name: 'SE', icon: 'fa fa-map-marker' }, { id: 'br', name: 'ZVasdlkasjdadlsjkas', icon: 'fa fa-map-marker' }],
+				text: 'City',
+				multiple: false,
+				dirempty: 'Empty',
+				type: 'selectable'
+			},
+			{
+				name: 'city',
+				items: [{ id: 'bb', name: 'Banská Bystrica' }, { id: 'ba', name: 'Bratislava' }, { id: 'zv', name: 'Zvolen' }],
+				text: 'City',
+				noborder: 1,
+				dirempty: 'Empty',
+				placeholder: 'Choose city',
+				disable: 'model => model.interval < 100',
+				type: 'dropdown'
+			},
+			{
+				text: 'System',
+				type: 'group',
+				summary: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam, nostrum.',
+				icon: 'fa fa-home'
+			},
+			{
+				name: 'notes',
+				text: 'Multiline',
+				type: 'multiline',
+				placeholder: 'Test placeholder',
+				summary: 'Lorem, ipsum dolor sit amet consectetur, adipisicing elit. Iste eos, illum voluptas assumenda sunt possimus necessitatibus nobis provident dicta deserunt.'
+			},
+			{
+				name: 'newsletter',
+				text: 'Allow newsletter',
+				type: 'boolean',
+				disable: 'model => model.interval < 100',
+				summary: 'Lorem, ipsum dolor sit amet consectetur, adipisicing elit. Iste eos, illum voluptas assumenda sunt possimus necessitatibus nobis provident dicta deserunt.'
+			}
+		]
+	</script>
+</div>
+
+<script>
+	var config = { interval: 100, icon: 'fa fa-home', color: '#A0A0A0', newsletter: false, name: 'Peter Širka', city: '' };
+</script>

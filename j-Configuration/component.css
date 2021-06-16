@@ -1,0 +1,105 @@
+.ui-configuration-group { font-size: 16px; font-weight: bold; margin: 20px 0 10px; padding: 5px 0; border-bottom: 2px solid #E0E0E0; }
+.ui-configuration-group i { margin-right: 7px; }
+.ui-configuration-group-summary { font-size: 12px; color: #777; line-height: 15px; margin: 5px 0 25px; }
+.ui-configuration-group:first-child { margin-top: 0; }
+.ui-configuration-items { margin: 0 0 15px 3px; padding-left: 20px; border-left: 2px solid #F0F0F0; }
+.ui-configuration-items:before { content: ' '; width: 10px; height: 10px; background-color: #F0F0F0; display: block; border-radius: 100px; margin: -15px 0 0 -26px; }
+.ui-configuration-items:after { content: ' '; width: 10px; height: 10px; background-color: #F0F0F0; display: block; border-radius: 100px; margin: -15px 0 0 -26px; }
+.ui-configuration-button { margin-top: 8px; }
+.ui-configuration-button button { font-size: 11px; border: 1px solid #E0E0E0; border-radius: var(--radius); background-color: #FFF; color: #333; padding: 2px 5px; min-width: 50px; }
+.ui-configuration-button button:hover { border-color: #D0D0D0; }
+.ui-configuration-button button:disabled { color: #B0B0B0; cursor: not-allowed; border-color: #F0F0F0; background-color: #F8F8F8; }
+.ui-configuration-button i { margin-right: 5px; }
+.ui-configuration-item { padding: 15px 0 15px; border-bottom: 1px solid #E0E0E0; }
+.ui-configuration-item-label { font-size: 13px; font-weight: bold; }
+.ui-configuration-item-label i { width: 14px; text-align: center; margin-right: 5px; }
+.ui-configuration-item-summary { font-size: 12px; color: #777; line-height: 15px; margin: 5px 0; }
+.ui-configuration-item-note { font-size: 11px; color: #A0A0A0; line-height: 12px; margin: 2px 0 0; }
+.ui-configuration-item-control { margin: 7px 0; }
+.ui-configuration-noborder { border: 0; }
+.ui-configuration-type-string input { border: 0; width: 100%; height: 34px; padding: 0 8px; margin: 0; outline: 0; background-color: transparent; border: 1px solid #D0D0D0; border-radius: var(--radius); font-size: 12px; }
+.ui-configuration-type-string input:disabled, .ui-configuration-type-number input:disabled { background-color: #F0F0F0; color: #A0A0A0; }
+.ui-configuration-type-multiline textarea { border: 0; width: 100%; height: 34px; padding: 8px; margin: 0; outline: 0; background-color: transparent; border: 1px solid #D0D0D0; border-radius: var(--radius); font-size: 12px; resize: none; height: 100px; }
+.ui-configuration-type-multiline textarea:disabled { background-color: #F0F0F0; color: #A0A0A0; }
+.ui-configuration-type-number input { border: 0; width: 100%; height: 32px; padding: 0 8px; margin: 0; outline: 0; background-color: transparent; border: 0; font-size: 12px; border-radius: var(--radius);}
+.ui-configuration-type-number { max-width: 200px; width: 100%; border-radius: var(--radius); border: 1px solid #D0D0D0; }
+.ui-configuration-type-number > div { margin-right: 33px; }
+.ui-configuration-type-number > span { float: right; border-left: 1px solid #D0D0D0; width: 33px; height: 32px; text-align: center; padding: 4px 0 0; }
+.ui-configuration-type-number > span i { display: block; line-height: 12px; cursor: pointer; }
+.ui-configuration-type-number input { text-align: center; }
+.ui-configuration-disabled .ui-configuration-type-number { background-color: #F0F0F0; color: #A0A0A0; }
+.ui-configuration-disabled .ui-configuration-type-number > span i { cursor: not-allowed; }
+.ui-configuration-type-boolean { height: 28px; position: relative; }
+.ui-configuration-type-boolean div { width: 48px; height: 24px; border-radius: 100px; float: left; border: 1px solid #D0D0D0; margin: 0; padding: 0; line-height: 0; cursor: pointer; }
+.ui-configuration-type-boolean span { border-radius: 100px; border: 1px solid #D0D0D0; position: absolute; top: 0; left: 0; height: 24px; width: 24px; text-align: center; background-color: #F0F0F0; transition: all 0.2s; }
+.ui-configuration-type-boolean i { display: none; }
+.ui-configuration-disabled .ui-configuration-type-boolean div { cursor: not-allowed; background-color: #F0F0F0; }
+.ui-configuration-required .ui-configuration-item-label:before { content: '*'; margin-right: 5px; color: red; }
+.ui-configuration-checked .ui-configuration-type-boolean div { background-color: var(--color); border-color: var(--color); }
+.ui-configuration-checked span { left: 26px; top: 2px; border: 0; height: 20px; width: 20px; line-height: 22px; font-size: 11px; background-color: #FFF; }
+.ui-configuration-checked i { display: inline-block; color: var(--color); }
+.ui-configuration-type-color { width: 50px; border: 1px solid #D0D0D0; border-radius: var(--radius); padding: 2px; cursor: pointer; }
+.ui-configuration-type-color div { height: 44px; border-radius: var(--radius); }
+.ui-configuration-disabled .ui-configuration-type-color { cursor: not-allowed; }
+.ui-configuration-type-icon { width: 50px; height: 50px; border: 1px solid #D0D0D0; border-radius: var(--radius); text-align: center; cursor: pointer; line-height: 49px; font-size: 28px; }
+.ui-configuration-disabled .ui-configuration-type-icon { cursor: not-allowed; color: #A0A0A0; }
+.ui-configuration-type-date { height: 28px; position: relative; cursor: pointer; max-width: 200px; }
+.ui-configuration-type-date label { position: absolute; font-size: 12px; line-height: 34px; pointer-events: none; color: #A0A0A0; padding-left: 10px; }
+.ui-configuration-type-date div { height: 34px; border: 1px solid #D0D0D0; margin: 0; padding: 0; border-radius: var(--radius); font-size: 12px; line-height: 34px; padding: 0 8px; text-align: center; }
+.ui-configuration-type-date span { float: right; width: 34px; height: 34px; border-left: 1px solid #D0D0D0; line-height: 34px; text-align: center; }
+.ui-configuration-disabled .ui-configuration-type-date { cursor: not-allowed; color: #A0A0A0; }
+.ui-configuration-disabled .ui-configuration-type-date div { background-color: #F0F0F0; }
+.ui-configuration-type-dropdown { height: 28px; position: relative; cursor: pointer; }
+.ui-configuration-type-dropdown label { position: absolute; font-size: 12px; line-height: 34px; padding: 0 10px; pointer-events: none; color: #A0A0A0; }
+.ui-configuration-type-dropdown div { height: 34px; border: 1px solid #D0D0D0; margin: 0; padding: 0; border-radius: var(--radius); font-size: 12px; line-height: 34px; padding: 0 8px; }
+.ui-configuration-type-dropdown span { float: right; width: 34px; height: 34px; border-left: 1px solid #D0D0D0; line-height: 34px; text-align: center; }
+.ui-configuration-disabled .ui-configuration-type-dropdown { cursor: not-allowed; color: #A0A0A0; }
+.ui-configuration-disabled .ui-configuration-type-dropdown div { background-color: #F0F0F0; }
+.ui-configuration-type-selectable-item { position: relative; display: inline-block; width: 80px; height: 60px; text-align: center; border: 1px solid #D0D0D0; padding: 11px 0 0; font-size: 11px; margin: 5px 5px 0 0; border-radius: var(--radius); cursor: pointer; }
+.ui-configuration-type-selectable-item:hover { background-color: #F8F8F8; }
+.ui-configuration-selected.ui-configuration-type-selectable-item { background-color: var(--color); border-color: var(--color); color: #FFF; }
+.ui-configuration-type-selectable-item i { display: block; font-size: 20px; margin-bottom: 5px; }
+.ui-configuration-type-selectable-item span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; }
+
+.ui-dark .ui-configuration-group { border-bottom-color: #404040; }
+.ui-dark .ui-configuration-group-summary { color: #777; }
+.ui-dark .ui-configuration-items { border-left-color: #303030; }
+.ui-dark .ui-configuration-items:before { background-color: #303030; }
+.ui-dark .ui-configuration-items:after { background-color: #303030; }
+.ui-dark .ui-configuration-button button { border-color: #404040; background-color: #202020; color: #F0F0F0; }
+.ui-dark .ui-configuration-button button:hover { border-color: #454545; }
+.ui-dark .ui-configuration-button button:disabled { color: #777; border-color: #303030; background-color: #383838; }
+.ui-dark .ui-configuration-item { border-bottom-color: #404040; }
+.ui-dark .ui-configuration-item-summary { color: #777; }
+.ui-dark .ui-configuration-item-note { color: #666; }
+.ui-dark .ui-configuration-type-string input { background-color: transparent; border-color: #404040; }
+.ui-dark .ui-configuration-type-string input:disabled, .ui-dark .ui-configuration-type-number input:disabled { background-color: #303030; color: #666; }
+.ui-dark .ui-configuration-type-multiline textarea { background-color: transparent; border-color: #404040; }
+.ui-dark .ui-configuration-type-multiline textarea:disabled { background-color: #303030; color: #666; }
+.ui-dark .ui-configuration-type-number input { background-color: transparent; }
+.ui-dark .ui-configuration-type-number { border-color: #404040; }
+.ui-dark .ui-configuration-type-number > span { border-left-color: #404040; }
+.ui-dark .ui-configuration-disabled .ui-configuration-type-number { background-color: #303030; color: #666; }
+.ui-dark .ui-configuration-type-boolean div { border-color: #404040; }
+.ui-dark .ui-configuration-type-boolean span { border-color: #404040; background-color: #303030; }
+.ui-dark .ui-configuration-disabled .ui-configuration-type-boolean div { background-color: #303030; }
+.ui-dark .ui-configuration-required .ui-configuration-item-label:before { color: red; }
+.ui-dark .ui-configuration-checked .ui-configuration-type-boolean div { background-color: var(--color); border-color: var(--color); }
+.ui-dark .ui-configuration-checked span { background-color: #FFF; }
+.ui-dark .ui-configuration-checked i { color: var(--color); }
+.ui-dark .ui-configuration-type-color { border-color: #404040; }
+.ui-dark .ui-configuration-type-icon { border-color: #404040; }
+.ui-dark .ui-configuration-disabled .ui-configuration-type-icon { color: #666; }
+.ui-dark .ui-configuration-type-date label { color: #666; }
+.ui-dark .ui-configuration-type-date div { border-color: #404040; }
+.ui-dark .ui-configuration-type-date span { border-left-color: #404040; }
+.ui-dark .ui-configuration-disabled .ui-configuration-type-date { color: #666; }
+.ui-dark .ui-configuration-disabled .ui-configuration-type-date div { background-color: #303030; }
+.ui-dark .ui-configuration-type-dropdown label { color: #666; }
+.ui-dark .ui-configuration-type-dropdown div { border-color: #404040; }
+.ui-dark .ui-configuration-type-dropdown span { border-left-color: #404040; }
+.ui-dark .ui-configuration-disabled .ui-configuration-type-dropdown { color: #666; }
+.ui-dark .ui-configuration-disabled .ui-configuration-type-dropdown div { background-color: #303030; }
+.ui-dark .ui-configuration-type-selectable-item { border-color: #404040; }
+.ui-dark .ui-configuration-type-selectable-item:hover { background-color: #383838; }
+.ui-dark .ui-configuration-selected.ui-configuration-type-selectable-item { background-color: var(--color); border-color: var(--color); color: #FFF; }
