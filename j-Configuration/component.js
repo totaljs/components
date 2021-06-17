@@ -230,7 +230,10 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 		var builder = ['<div>'];
 		builder.push('<div class="{0}-group">{1}</div>'.format(cls, icon + item.text));
-		item.summary && builder.push('<div class="{0}-group-summary">{1}</div>'.format(cls, item.summary));
+		if (item.summary)
+			builder.push('<div class="{0}-group-summary">{1}</div>'.format(cls, item.summary));
+		else
+			builder.push('<br />');
 		return builder.join('') + '</div>';
 	};
 
