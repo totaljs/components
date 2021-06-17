@@ -175,7 +175,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			return val;
 		};
 
-		el.append('<div class="{0}-type-string"{1}><input type="text" placeholder="{2}" /></div>'.format(cls, item.width ? ' style="max-width:{0}px'.format(item.width) : '', item.placeholder));
+		el.append('<div class="{0}-type-string"{1}><input type="text" placeholder="{2}" /></div>'.format(cls, item.width ? ' style="max-width:{0}px"'.format(item.width) : '', item.placeholder));
 
 		var input = el.find('input');
 		item.maxlength && input.prop('maxlength', item.maxlength);
@@ -271,7 +271,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		};
 
 		el.parent().aclass(cls + '-border');
-		el.append('<div class="{0}-type-number"{1}><span><i class="fa fa-angle-up"></i><i class="fa fa-angle-down"></i></span><div><input type="text" placeholder="{2}" /></div></div>'.format(cls, item.width ? ' style="max-width:{0}px'.format(item.width) : '', item.placeholder));
+		el.append('<div class="{0}-type-number"{1}><span><i class="fa fa-angle-up"></i><i class="fa fa-angle-down"></i></span><div><input type="text" placeholder="{2}" /></div></div>'.format(cls, item.width ? ' style="max-width:{0}px"'.format(item.width) : '', item.placeholder));
 
 		var input = el.find('input');
 		input.prop('maxlength', item.maxlength || 12);
