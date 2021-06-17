@@ -13,7 +13,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 		for (var i = 0; i < items.length; i++) {
 			var item = items[i];
-			if (item.required && !item.isdisabled && item.isvisible) {
+			if (item.required && item.isdisabled !== true && item.isvisible !== false) {
 				var val = value[item.name];
 				var is = item.validate(item.prepare(val));
 				item.element.tclass(cls + '-invalid', !is);
@@ -27,31 +27,11 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 	self.reload = function() {
 		var model = self.get();
-		var prev;
-
 		for (var i = 0; i < items.length; i++) {
 			var item = items[i];
-
 			item.$disable && item.disable(item.$disable(model));
-
-			var is = true;
-			if (item.$visible) {
-				is = item.$visible(model);
-				item.element.tclass('hidden', !is);
-			}
-
-			if (item.element[0].getAttribute('class').indexOf(cls + '-last') !== -1)
-				item.element.rclass(cls + '-last');
-
-			if (prev && prev.group !== item.group)
-				prev.element.aclass(cls + '-last');
-
-			if (is)
-				prev = item;
+			item.$visible && item.element.tclass('hidden', !item.$visible(model));
 		}
-
-		if (prev)
-			prev.element.aclass(cls + '-last');
 	};
 
 	self.types = {};
@@ -63,7 +43,6 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			icon = '<i class="' + self.faicon(item.icon) + '"></i>';
 
 		var builder = [];
-		item.group && builder.push('<div class="{0}-group">{1}</div>'.format(cls, item.group));
 		builder.push('<div class="{0}-item">'.format(cls));
 		builder.push('<div class="{0}-item-label">{1}{2}</div>'.format(cls, icon, item.text));
 		item.summary && builder.push('<div class="{0}-item-summary">{1}</div>'.format(cls, item.summary));
@@ -71,7 +50,6 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		item.note && builder.push('<div class="{0}-item-note">{1}</div>'.format(cls, item.note));
 		item.button && builder.push('<div class="{0}-button"><button>{1}</button></div>'.format(cls, item.button));
 		item.html && builder.push(item.html);
-
 		builder.push('</div>');
 
 		var T;
@@ -107,25 +85,30 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 		if (fndisable) {
 			type.$disable = function(model) {
-				var is = fndisable(model);
+				var is = !!fndisable(model);
 				item.button && type.element.find(cls2 + '-button button').prop('disabled', is);
 				type.isdisabled = is;
 				return is;
 			};
-		} else
+		} else {
 			type.$disable = null;
+			type.isdisabled = false;
+		}
 
 		var fnvisible = item.visible ? FN(item.visible) : null;
 		if (fnvisible) {
 			type.$visible = function(model) {
-				var is = fnvisible(model);
+				var is = !!fnvisible(model);
 				type.isvisible = is;
 				return is;
 			};
-		} else
+		} else {
 			type.$visible = null;
+			type.isvisible = true;
+		}
+
 		item.noborder && el.aclass(cls + '-noborder');
-		item.click && self.find(cls2 + '-button button').on('click', function() {
+		item.click && el.find(cls2 + '-button button').on('click', function() {
 			var meta = {};
 			meta.item = item;
 			meta.value = get();
@@ -194,7 +177,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			return val;
 		};
 
-		el.append('<div class="{0}-type-string"{1}><input type="text" placeholder="{2}" /></div>'.format(cls, item.width ? ' style="max-width:{0}px'.format(item.width) : '', item.placeholder));
+		el.append('<div class="{0}-type-string"{1}><input type="text" placeholder="{2}" /></div>'.format(cls, item.width ? ' style="max-width:{0}px"'.format(item.width) : '', (item.placeholder || '').encode()));
 
 		var input = el.find('input');
 		item.maxlength && input.prop('maxlength', item.maxlength);
@@ -211,6 +194,8 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			}
 		});
 
+		item.monospace && input.aclass(cls + '-monospace');
+		item.bold && input.aclass('b');
 		return obj;
 	};
 
@@ -233,12 +218,14 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			return val != null ? (val + '').trim() : '';
 		};
 
-		el.append('<div class="{0}-type-multiline"{2}><textarea placeholder="{1}"></textarea></div>'.format(cls, item.placeholder, item.height ? ' style="height:{0}"'.format(item.height) : ''));
+		el.append('<div class="{0}-type-multiline"{2}><textarea placeholder="{1}"></textarea></div>'.format(cls, (item.placeholder || '').encode(), item.height ? ' style="height:{0}"'.format(item.height) : ''));
 
-		el.find('textarea').on('change', function() {
+		var input = el.find('textarea').on('change', function() {
 			set(this.value);
 		});
 
+		item.monospace && input.aclass(cls + '-monospace');
+		item.bold && input.aclass('b');
 		return obj;
 	};
 
@@ -253,7 +240,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		if (item.summary)
 			builder.push('<div class="{0}-group-summary">{1}</div>'.format(cls, item.summary));
 		else
-			builder.push('<br />');
+			builder.push('<br>');
 		return builder.join('') + '</div>';
 	};
 
@@ -285,13 +272,17 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			return type === 'string' ? val.parseFloat() : type === 'number' ? val : 0;
 		};
 
-		el.append('<div class="{0}-type-number"{1}><span><i class="fa fa-angle-up"></i><i class="fa fa-angle-down"></i></span><div><input type="text" placeholder="{2}" /></div></div>'.format(cls, item.width ? ' style="max-width:{0}px'.format(item.width) : '', item.placeholder));
+		el.parent().aclass(cls + '-border');
+		el.append('<div class="{0}-type-number"{1}><span><i class="fa fa-angle-up"></i><i class="fa fa-angle-down"></i></span><div><input type="text" placeholder="{2}" /></div></div>'.format(cls, item.width ? ' style="max-width:{0}px"'.format(item.width) : '', (item.placeholder || '').encode()));
 
 		var input = el.find('input');
 		input.prop('maxlength', item.maxlength || 12);
 		input.on('change blur', function() {
 			set(this.value);
 		});
+
+		item.monospace && input.aclass(cls + '-monospace');
+		item.bold && item.aclass('b');
 
 		el.find('span i').on('click', function() {
 
@@ -331,6 +322,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			return !!val;
 		};
 
+		el.parent().aclass(cls + '-border');
 		el.append('<div class="{0}-type-boolean"><div><span><i class="fa fa-check"></i></span></div></div>'.format(cls));
 		el.find(cls2 + '-type-boolean > div').on('click', function() {
 			if (!el.parent().hclass(cls + '-disabled')) {
@@ -369,7 +361,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			return val == null ? '' : (val + '');
 		};
 
-		el.append('<div class="{0}-type-dropdown"><span><i class="fa fa-angle-down"></i></span><label>{1}</label><div class="{0}-value"></div></div>'.format(cls, item.placeholder));
+		el.append('<div class="{0}-type-dropdown"><span><i class="fa fa-angle-down"></i></span><label>{1}</label><div class="{0}-value"></div></div>'.format(cls, (item.placeholder || ).encode()));
 
 		el.find(cls2 + '-type-dropdown').on('click', function() {
 			if (!el.parent().hclass(cls + '-disabled')) {
@@ -484,7 +476,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			return type === 'string' ? val.parseDate() : type === 'number' ? new Date(val) : val instanceof Date ? val : null;
 		};
 
-		el.append('<div class="{0}-type-date"><span><i class="fa fa-calendar"></i></span><label>{1}</label><div class="{0}-value"></div></div>'.format(cls, item.placeholder));
+		el.append('<div class="{0}-type-date"><span><i class="fa fa-calendar"></i></span><label>{1}</label><div class="{0}-value"></div></div>'.format(cls, (item.placeholder || '').encode()));
 
 		el.find(cls2 + '-type-date').on('click', function() {
 			if (!el.parent().hclass(cls + '-disabled')) {
@@ -584,19 +576,25 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		self.empty();
 
 		var container = self.element;
-		var group;
+		var was = false;
+		var count = 0;
 
 		for (var i = 0; i < datasource.length; i++) {
 			var item = datasource[i];
 			if (item.type === 'group') {
-				group = item;
+
+				if (count && !was) {
+					self.append('<br>');
+				}
+
+				was = true;
 				self.append(self.types.group(item));
 				var div = document.createElement('DIV');
 				self.append(div);
 				container = $(div).aclass(cls + '-items');
 			} else {
+				count++;
 				item = self.types.template(item);
-				item.group = group;
 				container.append(item.element);
 				items.push(item);
 			}
@@ -617,7 +615,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			for (var j = 0; j < items.length; j++) {
 				var item = items[j];
 				if (item.name === key && item.type !== 'group' && (!diff || diff.indexOf(path) === -1))
-					item.bind(val);
+					item.bind(item.prepare(val));
 			}
 		}
 		self.reload();
