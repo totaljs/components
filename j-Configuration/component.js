@@ -13,7 +13,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 		for (var i = 0; i < items.length; i++) {
 			var item = items[i];
-			if (item.required && !item.isdisabled && item.isvisible) {
+			if (item.required && item.isdisabled !== false && item.isvisible !== false) {
 				var val = value[item.name];
 				var is = item.validate(item.prepare(val));
 				item.element.tclass(cls + '-invalid', !is);
@@ -21,6 +21,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 					errors.push(item);
 			}
 		}
+
 
 		return !errors.length;
 	};
