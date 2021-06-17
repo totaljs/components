@@ -13,7 +13,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 		for (var i = 0; i < items.length; i++) {
 			var item = items[i];
-			if (item.required && item.isdisabled !== false && item.isvisible !== false) {
+			if (item.required && item.isdisabled !== true && item.isvisible !== false) {
 				var val = value[item.name];
 				var is = item.validate(item.prepare(val));
 				item.element.tclass(cls + '-invalid', !is);
@@ -21,7 +21,6 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 					errors.push(item);
 			}
 		}
-
 
 		return !errors.length;
 	};
@@ -86,23 +85,27 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 		if (fndisable) {
 			type.$disable = function(model) {
-				var is = fndisable(model);
+				var is = !!fndisable(model);
 				item.button && type.element.find(cls2 + '-button button').prop('disabled', is);
 				type.isdisabled = is;
 				return is;
 			};
-		} else
+		} else {
 			type.$disable = null;
+			type.isdisabled = false;
+		}
 
 		var fnvisible = item.visible ? FN(item.visible) : null;
 		if (fnvisible) {
 			type.$visible = function(model) {
-				var is = fnvisible(model);
+				var is = !!fnvisible(model);
 				type.isvisible = is;
 				return is;
 			};
-		} else
+		} else {
 			type.$visible = null;
+			type.isvisible = true;
+		}
 
 		item.noborder && el.aclass(cls + '-noborder');
 		item.click && el.find(cls2 + '-button button').on('click', function() {
