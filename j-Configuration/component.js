@@ -43,7 +43,6 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			icon = '<i class="' + self.faicon(item.icon) + '"></i>';
 
 		var builder = [];
-		item.group && builder.push('<div class="{0}-group">{1}</div>'.format(cls, item.group));
 		builder.push('<div class="{0}-item">'.format(cls));
 		builder.push('<div class="{0}-item-label">{1}{2}</div>'.format(cls, icon, item.text));
 		item.summary && builder.push('<div class="{0}-item-summary">{1}</div>'.format(cls, item.summary));
@@ -51,7 +50,6 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		item.note && builder.push('<div class="{0}-item-note">{1}</div>'.format(cls, item.note));
 		item.button && builder.push('<div class="{0}-button"><button>{1}</button></div>'.format(cls, item.button));
 		item.html && builder.push(item.html);
-
 		builder.push('</div>');
 
 		var T;
@@ -106,7 +104,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			type.$visible = null;
 
 		item.noborder && el.aclass(cls + '-noborder');
-		item.click && self.find(cls2 + '-button button').on('click', function() {
+		item.click && el.find(cls2 + '-button button').on('click', function() {
 			var meta = {};
 			meta.item = item;
 			meta.value = get();
