@@ -2,14 +2,14 @@
 .ui-textboxlist-label-required:before { color: red; content: '***'; margin-right: 5px; }
 .ui-textboxlist-label i { margin-right: 5px; }
 .ui-textboxlist-items > div:first-child { border-radius: var(--radius) var(--radius) 0 0; }
-.ui-textboxlist-item { height: 32px; background-color: #FFF; border: 1px solid #E0E0E0; border-bottom: 0; }
-.ui-textboxlist-item > div:first-child { float: right; width: 32px; text-align: center; color: #555555; font-size: 14px; height: 31px; border-left: 1px solid #E0E0E0; }
+.ui-textboxlist-item { height: 36px; background-color: #FFF; border: 1px solid #E0E0E0; border-bottom: 0; }
+.ui-textboxlist-item > div:first-child { float: right; width: 36px; text-align: center; color: #555; font-size: 14px; height: 35px; border-left: 1px solid #E0E0E0; }
 .ui-textboxlist-remove { color: #DA4453; }
-.ui-textboxlist-item > div:last-child { padding: 4px 0 0 0; margin-right: 32px; }
-.ui-textboxlist-item i { cursor: pointer; display: block; line-height: 31px; text-align: center; float: left; width: 32px; border-left: 1px solid #E0E0E0; }
+.ui-textboxlist-item > div:last-child { padding: 4px 0 0 0; margin-right: 36px; }
+.ui-textboxlist-item i { cursor: pointer; display: block; line-height: 35px; text-align: center; float: left; width: 36px; border-left: 1px solid #E0E0E0; }
 .ui-textboxlist-item i:first-child { border-left: 0; }
 .ui-textboxlist-item i:active { margin-top: 1px; }
-.ui-textboxlist-item input { width: 100%; background-color: transparent; border: 0; padding: 1px 10px 0; border-radius: var(--radius); outline: 0; font-size: 13px; color: #000; }
+.ui-textboxlist-item input { width: 100%; background-color: transparent; border: 0; padding: 1px 10px 0; border-radius: var(--radius); outline: 0; font-size: 13px; color: #000; line-height: 26px; }
 .ui-textboxlist-base { border-radius: 0 0 var(--radius) var(--radius); border-bottom: 1px solid #E0E0E0; }
 .ui-textboxlist-base > div:first-child { display: none; }
 .ui-textboxlist-helper { margin-top: 8px; font-size: 11px; color: red !important; text-align: left; }
