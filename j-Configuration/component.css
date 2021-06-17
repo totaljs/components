@@ -11,6 +11,7 @@
 .ui-configuration-button button:disabled { color: #B0B0B0; cursor: not-allowed; border-color: #F0F0F0; background-color: #F8F8F8; }
 .ui-configuration-button i { margin-right: 5px; }
 .ui-configuration-item { padding: 15px 0 15px; border-bottom: 1px solid #E0E0E0; }
+.ui-configuration-monospace { font-family: Menlo, Consolas, monospace; }
 .ui-configuration-item-label { font-size: 13px; font-weight: bold; }
 .ui-configuration-item-label i { width: 14px; text-align: center; margin-right: 5px; }
 .ui-configuration-item-summary { font-size: 12px; color: #777; line-height: 15px; margin: 5px 0; }

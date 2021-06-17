@@ -36,6 +36,9 @@ __Allowed properties__:
 - `max {Number}` optional, supports only `number` type
 - `increment {Number}` optional, an increment count - supports only `number` type (default: `1`)
 - `multiple {Boolean}` optional, works with `selectable` type (a value will be array)
+- `monospace {Boolean}` optional, works with `string` and `number` types
+- `bold {Boolean}` optional, works with `string` and `number` types
+- `placeholder {String}` optional
 
 Declaration must be defined in the component's element body wrapped in the `<script type="text/plain">` element. Example:
 

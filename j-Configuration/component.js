@@ -104,6 +104,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			};
 		} else
 			type.$visible = null;
+
 		item.noborder && el.aclass(cls + '-noborder');
 		item.click && self.find(cls2 + '-button button').on('click', function() {
 			var meta = {};
@@ -191,6 +192,8 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			}
 		});
 
+		item.monospace && input.aclass(cls + '-monospace');
+		item.bold && input.aclass('b');
 		return obj;
 	};
 
@@ -215,10 +218,12 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 		el.append('<div class="{0}-type-multiline"{2}><textarea placeholder="{1}"></textarea></div>'.format(cls, item.placeholder, item.height ? ' style="height:{0}"'.format(item.height) : ''));
 
-		el.find('textarea').on('change', function() {
+		var input = el.find('textarea').on('change', function() {
 			set(this.value);
 		});
 
+		item.monospace && input.aclass(cls + '-monospace');
+		item.bold && input.aclass('b');
 		return obj;
 	};
 
@@ -233,7 +238,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		if (item.summary)
 			builder.push('<div class="{0}-group-summary">{1}</div>'.format(cls, item.summary));
 		else
-			builder.push('<br />');
+			builder.push('<br>');
 		return builder.join('') + '</div>';
 	};
 
@@ -273,6 +278,9 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		input.on('change blur', function() {
 			set(this.value);
 		});
+
+		item.monospace && input.aclass(cls + '-monospace');
+		item.bold && item.aclass('b');
 
 		el.find('span i').on('click', function() {
 
@@ -566,15 +574,24 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		self.empty();
 
 		var container = self.element;
+		var was = false;
+		var count = 0;
 
 		for (var i = 0; i < datasource.length; i++) {
 			var item = datasource[i];
 			if (item.type === 'group') {
+
+				if (count && !was) {
+					self.append('<br>');
+				}
+
+				was = true;
 				self.append(self.types.group(item));
 				var div = document.createElement('DIV');
 				self.append(div);
 				container = $(div).aclass(cls + '-items');
 			} else {
+				count++;
 				item = self.types.template(item);
 				container.append(item.element);
 				items.push(item);
