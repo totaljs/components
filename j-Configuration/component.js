@@ -615,7 +615,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			for (var j = 0; j < items.length; j++) {
 				var item = items[j];
 				if (item.name === key && item.type !== 'group' && (!diff || diff.indexOf(path) === -1))
-					item.bind(val);
+					item.bind(item.prepare(val));
 			}
 		}
 		self.reload();
