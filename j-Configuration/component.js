@@ -27,11 +27,31 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 	self.reload = function() {
 		var model = self.get();
+		var prev;
+
 		for (var i = 0; i < items.length; i++) {
 			var item = items[i];
+
 			item.$disable && item.disable(item.$disable(model));
-			item.$visible && item.element.tclass('hidden', !item.$visible(model));
+
+			var is = true;
+			if (item.$visible) {
+				is = item.$visible(model);
+				item.element.tclass('hidden', !is);
+			}
+
+			if (item.element[0].getAttribute('class').indexOf(cls + '-last') !== -1)
+				item.element.rclass(cls + '-last');
+
+			if (prev && prev.group !== item.group)
+				prev.element.aclass(cls + '-last');
+
+			if (is)
+				prev = item;
 		}
+
+		if (prev)
+			prev.element.aclass(cls + '-last');
 	};
 
 	self.types = {};
@@ -361,7 +381,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			return val == null ? '' : (val + '');
 		};
 
-		el.append('<div class="{0}-type-dropdown"><span><i class="fa fa-angle-down"></i></span><label>{1}</label><div class="{0}-value"></div></div>'.format(cls, (item.placeholder || ).encode()));
+		el.append('<div class="{0}-type-dropdown"><span><i class="fa fa-angle-down"></i></span><label>{1}</label><div class="{0}-value"></div></div>'.format(cls, (item.placeholder || '').encode()));
 
 		el.find(cls2 + '-type-dropdown').on('click', function() {
 			if (!el.parent().hclass(cls + '-disabled')) {
@@ -577,17 +597,17 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 		var container = self.element;
 		var was = false;
+		var group;
 		var count = 0;
 
 		for (var i = 0; i < datasource.length; i++) {
 			var item = datasource[i];
 			if (item.type === 'group') {
 
-				if (count && !was) {
+				if (count && !was)
 					self.append('<br>');
-				}
 
-				was = true;
+				group = item;
 				self.append(self.types.group(item));
 				var div = document.createElement('DIV');
 				self.append(div);
@@ -595,6 +615,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			} else {
 				count++;
 				item = self.types.template(item);
+				item.group = group;
 				container.append(item.element);
 				items.push(item);
 			}
