@@ -43,7 +43,6 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 			self.change(true);
 			self.set(!self.get(), 2);
-			self.bindvalue();
 		});
 
 		self.event('focus', 'input,' + cls2 + '-value', function() {
@@ -581,6 +580,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 		if (config.mask) {
 			if (value) {
+
 				if (config.masktidy) {
 					var index = 0;
 					var val = [];
@@ -603,15 +603,13 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					}
 					value = arr.join('');
 				}
+
 			} else
 				value = config.mask;
 		}
 
 		self.setterin(value, path, type);
-
-		if (config.type !== 'checkbox')
-			self.bindvalue();
-
+		self.bindvalue();
 		config.camouflage && !focused && setTimeout(self.camouflage, type === 'show' ? 2000 : 1, true);
 
 		if (config.type === 'password')
@@ -675,12 +673,12 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			else
 				rawvalue.text(item || '');
 
-		} else if (config.dirsource)
+		} else if (config.dirsource) {
 			if (config.dirraw)
 				rawvalue.html(value || '');
 			else
 				rawvalue.text(value || '');
-		else {
+		} else {
 			switch (config.type) {
 				case 'color':
 					rawvalue.css('background-color', value || '');
