@@ -53,6 +53,7 @@ __Configuration__:
 - `forcevalidation` {Boolean} enables for force validation for `phone` and `email` (default: `true`)
 - `camouflage` {Boolean/String} masks the value in the input after is triggered `blur` event (default: `false`) or it can be `String` which will be used as a camouflage
 - `monospace` {Boolean} enables `monospaced` font (default: `false`)
+- `multiple` {Boolean} enables checkboxes if `dirsource` is not empty
 
 __Interesting:__
 

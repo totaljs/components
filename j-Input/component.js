@@ -285,6 +285,20 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			opt.maxwidth = config.dirmaxwidth;
 			opt.key = config.dirkey || config.key;
 			opt.empty = config.dirempty;
+			opt.checkbox = config.multiple === true;
+
+			var val = self.get();
+
+			if (config.multiple) {
+				for (var i = 0; i < opt.items.length; i++) {
+					var item = opt.items[i];
+					if (val instanceof Array)
+						item.selected = val.indexOf(item[config.dirvalue || config.value]) !== -1;
+					else
+						item.selected = false;
+				}
+			} else
+				opt.selected = val;
 
 			if (config.dirraw)
 				opt.raw = true;
@@ -292,10 +306,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			if (config.dirsearch != null)
 				opt.search = config.dirsearch;
 
-			var val = self.get();
-			opt.selected = val;
-
-			if (dirsource && config.direxclude == false) {
+			if (dirsource && config.direxclude == false && !config.multiple) {
 				for (var i = 0; i < dirsource.length; i++) {
 					var item = dirsource[i];
 					if (item)
@@ -310,11 +321,26 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			opt.callback = function(item, el, custom) {
 
 				// empty
-				if (item == null) {
+				if (item == null || (config.multiple && !item.length)) {
 					rawvalue.html('');
-					self.set(null, 2);
+					self.set(config.multiple ? [] : null, 2);
 					self.change();
 					self.check();
+					return;
+				}
+
+				if (config.multiple) {
+
+					var arr = [];
+
+					for (var i = 0; i < item.length; i++) {
+						var m = item[i];
+						arr.push(m[config.dirvalue || config.value]);
+					}
+
+					self.set(arr, 2);
+					self.change(true);
+					// self.bindvalue();
 					return;
 				}
 
@@ -619,6 +645,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		if (dirsource) {
 
 			var item;
+			var text = [];
 
 			for (var i = 0; i < dirsource.length; i++) {
 				item = dirsource[i];
@@ -626,6 +653,11 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					if (item === value)
 						break;
 					item = null;
+				} else if (config.multiple) {
+					var v = item[config.dirvalue || config.value];
+					var index = value instanceof Array ? value.indexOf(v) : -1;
+					if (index !== -1)
+						text.push(item[config.dirkey || config.key]);
 				} else if (item[config.dirvalue || config.value] === value) {
 					item = item[config.dirkey || config.key];
 					break;
@@ -633,7 +665,9 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					item = null;
 			}
 
-			if (value && item == null && config.dircustom)
+			if (config.multiple) {
+				item = text.join(', ');
+			} else if (value && item == null && config.dircustom)
 				item = value;
 
 			if (config.dirraw)
