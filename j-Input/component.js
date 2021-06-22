@@ -456,7 +456,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				var t = input[0];
 				var arr = t.value.split('');
 				for (var i = 0; i < arr.length; i++)
-					arr[i] = typeof(config.camouflage) === 'string' ? config.camouflage : '*';
+					arr[i] = typeof(config.camouflage) === 'string' ? config.camouflage : '•';
 				nobindcamouflage = true;
 				t.value = arr.join('');
 			} else {
