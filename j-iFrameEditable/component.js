@@ -1,4 +1,4 @@
-COMPONENT('iframeeditable', 'bind:body', function(self, config) {
+COMPONENT('iframeeditable', 'bind:body', function(self, config, cls) {
 
 	var iframe, skip = false;
 
@@ -15,7 +15,7 @@ COMPONENT('iframeeditable', 'bind:body', function(self, config) {
 
 	self.make = function() {
 		W.iframeeditableinstances[self.ID] = self;
-		self.aclass('ui-iframeeditable');
+		self.aclass(cls);
 		self.html('<iframe src="about:blank" frameborder="0" scrolling="no"></iframe>');
 		iframe = self.find('iframe');
 	};

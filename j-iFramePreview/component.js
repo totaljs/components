@@ -1,4 +1,4 @@
-COMPONENT('iframepreview', function(self) {
+COMPONENT('iframepreview', function(self, config, cls) {
 
 	var iframe;
 
@@ -6,7 +6,7 @@ COMPONENT('iframepreview', function(self) {
 	self.nocompile && self.nocompile();
 
 	self.make = function() {
-		self.aclass('ui-iframepreview');
+		self.aclass(cls);
 		self.html('<iframe src="about:blank" frameborder="0" scrolling="no"></iframe>');
 		iframe = self.find('iframe');
 	};
