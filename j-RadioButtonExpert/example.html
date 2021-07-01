@@ -1,5 +1,5 @@
 <style>
-	.my-button { display: inline-block; padding: 20px; margin-right: 10px; border: 1px solid gray; cursor: pointer; border-radius: 2px; }
+	.my-button { display: inline-block; padding: 10px 20px; margin-right: 10px; border: 1px solid gray; cursor: pointer; border-radius: 2px; }
 	.my-button:hover { border-color: #4285F4; }
 	.my-button.selected { color: white; background: #4285F4; border-color: rgba(0, 0, 0, 0.2); }
 	.my-button[data-disabled="1"] { background-color: #dcdcdc; color: gray; border-color: #dcdcdc; cursor: not-allowed;}
@@ -31,14 +31,13 @@
 	</script>
 </div>
 <hr>
-<div data---="radiobuttonexpert__model.framework__datasource:list;required:true;label:Your favorite language;type:number__2">
-	<script type="text/html">
-		<div class="my-button">
-			<div>{{ name }}</div>
-			<div class="center" data-bind="timer__text__format:dd.MM.yyyy mm:HH:ss"></div>
-		</div>
-	</script>
-</div>
+<div data---="radiobuttonexpert__model.framework__selector:#mybutton;datasource:list;required:true;label:Your favorite language;type:number__2"></div>
+<script type="text/html" id="mybutton">
+	<div class="my-button">
+		<div>{{ name }}</div>
+		<div class="center" style="font-size:11px" data-bind="timer__text"></div>
+	</div>
+</script>
 <hr>
 <div data---="radiobuttonexpert__model.rating__datasource:rating;class:star-rating;label:Please, rate us">
 <script type="text/html">
