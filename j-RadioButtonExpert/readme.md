@@ -12,6 +12,7 @@ __Configuration__
 - `datasource` {String} path to data-source (must be array or array of objects) or __NEW__: `id|name,id|name`
 - `value` {String} determines a property name for value (in data-source) (default: `id`)
 - `disabledkey` {String} determines a property name for disabled item (in data-source) (default: `disabled`)
+- __NEW__ `selector` {String} a jQuery selector for custom template (outside of the component). Works like `custom template` in [data-binding](https://wiki.totaljs.com/jcomponent/08-data-binding/)
 
 __Good to know__
 

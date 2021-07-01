@@ -38,14 +38,22 @@ COMPONENT('checkboxlistexpert', function(self, config, cls) {
 
 		var el = self.find('script');
 
-		if (!el.length)
+		if (!el.length && !config.selector)
 			return;
 
-		var html = el.html();
+		var html;
+		if (config.selector) {
+			var customselector = $(document).find(config.selector);
+			html = customselector.html();
+			self.html(html);
+		} else {
+			html = el.html();
+			el.remove();
+		}
+
 		self.template = Tangular.compile(html.replace('>', ' data-index="$index" data-disabled="{{ {0} }}">'.format(config.disabledkey || 'disabled')));
 		recompile = html.COMPILABLE();
 
-		el.remove();
 		config.label && self.html('<div class="' + cls + '-label{1}">{0}</div>'.format(config.label, config.required ? (' ' + cls + '-label-required') : ''));
 		config.datasource && self.reconfigure('datasource:' + config.datasource);
 		config.type && (self.type = config.type);

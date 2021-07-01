@@ -36,11 +36,19 @@ COMPONENT('radiobuttonexpert', function(self, config, cls) {
 	self.make = function() {
 
 		var element = self.find('script');
-		if (!element.length)
+		if (!element.length && !config.selector)
 			return;
 
-		var html = element.html();
-		element.remove();
+		var html;
+		if (config.selector) {
+			var customselector = $(document).find(config.selector);
+			html = customselector.html();
+			self.html(html);
+		} else {
+			html = element.html();
+			element.remove();
+		}
+
 		html = html.replace('>', ' data-value="{{ {0} }}" data-disabled="{{ {1} }}">'.format(config.value || 'id', config.disabledkey || 'disabled'));
 		template = Tangular.compile(html);
 		recompile = html.COMPILABLE();
