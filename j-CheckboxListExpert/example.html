@@ -27,14 +27,13 @@
 	</script>
 </div>
 <hr>
-<div data---="checkboxlistexpert__model.framework2__datasource:list;required:true;label:Your favorite frameworks;type:number__0">
-	<script type="text/html">
-		<div class="my-button">
-			<div class="checkbox"><i class="far fa-square"></i></div>
-			<div>{{ name }}</div>
-		</div>
-	</script>
-</div>
+<div data---="checkboxlistexpert__model.framework2__selector:#mybutton;datasource:list;required:true;label:Your favorite frameworks;type:number__0"></div>
+<script type="text/html" id="mybutton">
+	<div class="my-button">
+		<div class="checkbox"><i class="far fa-square"></i></div>
+		<div>{{ name }}</div>
+	</div>
+</script>
 
 <script>
 	var list = [{ name: 'Total.js', id: 1 }, { name: 'express', id: 2 }, { name: 'Hapi', id: 3, disabled: false }, { name: 'Koa', id: 4, disabled: true }, { name: 'Sails', id: 5 }, { name: 'Meteor', id: 6 }, { name: 'Adonis', id: 7 }, { name: 'Nest', id: 8 }];
