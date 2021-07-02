@@ -39,6 +39,9 @@ __Allowed properties__:
 - `monospace {Boolean}` optional, works with `string` and `number` types
 - `bold {Boolean}` optional, works with `string` and `number` types
 - `placeholder {String}` optional
+- `items {String/Object Array}` optional for `dropdown` and `selectable` in the form `[{ id: 'VALUE', name: 'TEXT' }]`
+	 - type `string` a path to the `Object Array` (works with scopes)
+	 - type `Object Array` fixed defined array
 
 Declaration must be defined in the component's element body wrapped in the `<script type="text/plain">` element. Example:
 
