@@ -33,6 +33,16 @@ COMPONENT('exec', function(self, config) {
 				}
 
 				if (attr) {
+
+					// Run for the current component
+					if (attr.charCodeAt(0) === '@') {
+						attr = attr.substring(1);
+						var com = el.component();
+						if (com && typeof(com[attr]) === 'function')
+							com[attr](el, e);
+						return;
+					}
+
 					if (attr.indexOf('?') !== -1) {
 						var tmp = scopepath(el);
 						if (tmp) {
@@ -44,6 +54,7 @@ COMPONENT('exec', function(self, config) {
 								M.scope(tmp.path);
 						}
 					}
+
 					EXEC(attr, el, e);
 				}
 

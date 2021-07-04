@@ -50,6 +50,7 @@ __Hints__:
 __Good to know__:
 
 - the component executes a target function in the form `function(element, event)`
+- __NEW__: `data-exec=`, `data-exec2=`, `data-exec3=` can contain `@METHOD_NAME` that will be executed in the current component scope `component/METHOD_NAME(element, e)`
 
 ### Author
 
