@@ -103,3 +103,9 @@
 .badge-small { font-size: 10px; padding: 0px 3px 1px; }
 .badge-medium { font-size: 11px; padding: 2px 6px; }
 .badge-medium i { margin-right: 5px; }
+
+.caption > .toolbar { float: right; margin: 10px 0 0 10px; }
+.caption > .toolbar button { height: 22px; line-height: 20px; min-width: 60px; }
+.caption > label { display: block; padding: 10px 0; border-bottom: 1px solid #E0E0E0; font-size: 15px; color: #000; font-weight: bold; }
+.caption > label i { margin-right: 7px; }
+.ui-dark .caption > label { border-bottom-color: #404040; color: #FFF; }
