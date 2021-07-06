@@ -9,6 +9,9 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		if (config.disabled)
 			return true;
 
+		if (!value)
+			value = EMPTYOBJECT;
+
 		var errors = [];
 
 		for (var i = 0; i < items.length; i++) {
@@ -32,11 +35,11 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		for (var i = 0; i < items.length; i++) {
 			var item = items[i];
 
-			item.$disable && item.disable(item.$disable(model));
+			item.$disable && item.disable(item.$disable(model || EMPTYOBJECT));
 
 			var is = true;
 			if (item.$visible) {
-				is = item.$visible(model);
+				is = item.$visible(model || EMPTYOBJECT);
 				item.element.tclass('hidden', !is);
 			}
 
@@ -75,17 +78,26 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		var T;
 
 		var get = function() {
-			var model = self.get();
+			var model = self.get() || EMPTYOBJECT;
 			return model[item.name];
 		};
 
 		var set = function(val) {
 			var model = self.get();
+			var empty = false;
+			if (!model) {
+				empty = true;
+				model = {};
+			}
+
 			var old = model[item.name];
 			val = T.prepare(val);
 			if (old != val) {
 				model[item.name] = val;
-				UPD(self.path + '.' + item.name, 2);
+				if (empty)
+					SET(self.path, model);
+				else
+					UPD(self.path + '.' + item.name, 2);
 				self.change(true);
 				return true;
 			}
@@ -280,6 +292,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		};
 
 		obj.prepare = function(val) {
+
 			if (val == null)
 				return 0;
 
@@ -378,7 +391,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		};
 
 		obj.prepare = function(val) {
-			return val == null ? '' : (val + '');
+			return val == null ? null : val;
 		};
 
 		el.append('<div class="{0}-type-dropdown"><span><i class="fa fa-angle-down"></i></span><label>{1}</label><div class="{0}-value"></div></div>'.format(cls, (item.placeholder || '').encode()));
@@ -629,6 +642,9 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 	self.setter = function(value, path) {
 
+		if (!value)
+			value = {};
+
 		var diff = path.substring(self.path.length + 1);
 
 		for (var key in value) {
@@ -639,6 +655,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 					item.bind(item.prepare(val));
 			}
 		}
+
 		self.reload();
 		self.rclass('invisible');
 	};
