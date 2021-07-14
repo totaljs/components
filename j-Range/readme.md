@@ -4,11 +4,11 @@
 
 __Attributes__:
 
-- `data-max="100"` maximum value
-- `data-min="0"` minimum value
-- `data-step="1"` step size
-- `data-required="true"` highlights the label as required
-- `$type:number` converts the value to number (otherwise will be `string`)
+- `max` {Number} maximum value (default: `100`)
+- `min` {Number} minimum value (default: `0`)
+- `step` {Number} step size (default: `1`)
+- `required` {Boolean} optional, enables "required" (default: `false`)
+- `type` {String} optional, can be `number` and converts the value to number (default: `string`)
 
 ### Author
 
