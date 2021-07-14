@@ -1,4 +1,4 @@
-COMPONENT('breadcrumb', 'icon:fa fa-home;historyapi:1', function(self, config, cls) {
+COMPONENT('breadcrumb', 'icon:fa fa-home;historyapi:1;root:Root', function(self, config, cls) {
 
 	var nav;
 
@@ -25,6 +25,24 @@ COMPONENT('breadcrumb', 'icon:fa fa-home;historyapi:1', function(self, config, c
 		});
 	};
 
+	self.add = function(name, url) {
+		var arr = [];
+
+		arr.push({ name: config.root, url: '/' });
+
+		var fn = function(name, url) {
+			if (name && url)
+				arr.push({ name: name, url: url });
+			return fn;
+		};
+
+		setTimeout(function() {
+			self.set(arr);
+		}, 1);
+
+		return fn(name, url);
+	};
+
 	self.setter = function(value, path, type) {
 
 		if (!value)
@@ -39,7 +57,7 @@ COMPONENT('breadcrumb', 'icon:fa fa-home;historyapi:1', function(self, config, c
 
 		var html = builder.join('<i class="fa fa-angle-right"></i>');
 
-		if (config.icon)
+		if (config.icon && html)
 			html = '<i class="{0}"></i>'.format(config.icon) + html;
 
 		nav.html(html);

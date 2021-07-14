@@ -11,7 +11,7 @@ __Configuration__:
 
 ## Data-source example
 
-```javascript
+```js
 [
 	{
 		name: 'Home',      // A link label
@@ -23,6 +23,10 @@ __Configuration__:
 	}
 ];
 ```
+
+## Methods
+
+- `component.add(name1, url1)(name2, url2)(name3, url3)...`
 
 ### Author
 
