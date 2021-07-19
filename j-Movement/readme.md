@@ -4,7 +4,7 @@ This component captures basic keyboard keys like `arrows`, `enter` and `esc`.
 
 __Methods__:
 
-- `component.assign(ondown(key, e), [onexit])`
+- `component.assign(ondown(key, e), [onunassign])`
 
 The `assign` method will clear previous assignments and applies new ones. We recommend calling the `assign` method to your elements when they are focused, or the user clicks on them.
 
