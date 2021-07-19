@@ -1,5 +1,5 @@
 {
-	"datecreated": "2021-07-19T11:30:04.000Z",
+	"datecreated": "2021-07-19T11:30:05.000Z",
 	"dateupdated": null,
 	"name": "j-Movement",
 	"tags": [
@@ -8,7 +8,7 @@
 	],
 	"color": "transparent",
 	"version": 1,
-	"darkmode": true,
+	"darkmode": false,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
