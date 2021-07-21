@@ -244,8 +244,12 @@ COMPONENT('floatingbox', 'minwidth:200;height:200', function(self, config, cls) 
 			isnew && COMPILE(container);
 
 		} else {
-			if (typeof(opt.html) !== 'string')
-				opt.parent = $(opt.html).parent();
+			if (typeof(opt.html) !== 'string') {
+				var tmp = $(opt.html);
+				opt.ishidden = tmp.hclass('hidden');
+				opt.isinvisible = tmp.hclass('invisible');
+				opt.parent = tmp.rclass('hidden invisible').parent();
+			}
 			container.empty().append(opt.html);
 		}
 
@@ -327,10 +331,21 @@ COMPONENT('floatingbox', 'minwidth:200;height:200', function(self, config, cls) 
 				}
 
 				if (self.opt.parent) {
+
 					var parent = self.opt.parent[0];
-					for (var i = 0; i < self.container.children.length; i++)
-						parent.appendChild(self.container.children[i]);
+					var first = $(container[0].children[0]);
+
+					if (self.opt.ishidden)
+						first.aclass('hidden');
+
+					if (self.opt.isinvisible)
+						first.aclass('invisible');
+
+					while (container[0].children.length)
+						parent.appendChild(container[0].children[0]);
+
 				}
+
 				self.opt.parent = null;
 				self.opt.close && self.opt.close();
 				self.opt.class && self.rclass(self.opt.class);
