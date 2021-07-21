@@ -36,7 +36,7 @@ COMPONENT('breadcrumb', 'icon:fa fa-home;historyapi:1;root:Root', function(self,
 
 		config.root && arr.push({ name: config.root, url: '/' });
 
-		var fn = function(name, url) {
+		var fn = function(name, url, callback) {
 			if (name && url)
 				arr.push({ name: name, url: url, callback: callback });
 			return fn;
