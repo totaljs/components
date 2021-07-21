@@ -14,19 +14,20 @@ __Configuration__:
 ```js
 [
 	{
-		name: 'Home',      // A link label
-		url: '/'           // URL address
+		name: 'Home',                // A link label
+		url: '/'                     // URL address
+		callback: Function(el, e)    // Optional, a callback for click event
 	},
 	{
-		name: 'Products',  // A link label
-		url: '/'           // URL address
+		name: 'Products',            // A link label
+		url: '/'                     // URL address
 	}
 ];
 ```
 
 ## Methods
 
-- `component.add(name1, url1)(name2, url2)(name3, url3)...`
+- `component.add(name1, url1, [callback])(name2, url2)(name3, url3)...`
 
 ### Author
 

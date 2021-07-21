@@ -7,6 +7,8 @@
 .ui-breadcrumb > nav .fa-angle-right { margin: 0 0 0 5px; font-size: 12px; }
 .ui-breadcrumb > nav { float: left; margin: 0; }
 .ui-breadcrumb > div { float: right; }
+.ui-breadcrumb-children { background-color: rgba(0,0,0,.05); padding: 2px 4px; border-radius: var(--radius); }
 
 .ui-dark .ui-breadcrumb { color: #D0D0D0; border-color: #404040; }
 .ui-dark .ui-breadcrumb > nav a { color: #C0C0C0; }
+.ui-dark .ui-breadcrumb-children { background-color: rgba(255,255,255,.08); }

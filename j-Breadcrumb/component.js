@@ -12,6 +12,12 @@ COMPONENT('breadcrumb', 'icon:fa fa-home;historyapi:1;root:Root', function(self,
 			e.preventDefault();
 			var el = $(this);
 			var url = el.attrd('id') || el.attr('href');
+			var items = self.get();
+			var item = items.findItem('url', url);
+			if (item && item.callback) {
+				item.callback(el, e);
+				return;
+			}
 
 			if (config.exec) {
 				self.SEEX(config.exec, url, el);
@@ -25,14 +31,14 @@ COMPONENT('breadcrumb', 'icon:fa fa-home;historyapi:1;root:Root', function(self,
 		});
 	};
 
-	self.add = function(name, url) {
+	self.add = function(name, url, callback) {
 		var arr = [];
 
-		arr.push({ name: config.root, url: '/' });
+		config.root && arr.push({ name: config.root, url: '/' });
 
 		var fn = function(name, url) {
 			if (name && url)
-				arr.push({ name: name, url: url });
+				arr.push({ name: name, url: url, callback: callback });
 			return fn;
 		};
 
@@ -40,7 +46,7 @@ COMPONENT('breadcrumb', 'icon:fa fa-home;historyapi:1;root:Root', function(self,
 			self.set(arr);
 		}, 1);
 
-		return fn(name, url);
+		return fn(name, url, callback);
 	};
 
 	self.setter = function(value, path, type) {
@@ -52,7 +58,7 @@ COMPONENT('breadcrumb', 'icon:fa fa-home;historyapi:1;root:Root', function(self,
 
 		for (var i = 0; i < value.length; i++) {
 			var item = value[i];
-			builder.push('<{0}="{1}">{2}</{3}>'.format(config.exec ? 'span data-id' : 'a href', item.url || item.id, Thelpers.encode(item.name), config.exec ? 'span' : 'a'));
+			builder.push('<{0}="{1}"{4}>{2}</{3}>'.format(config.exec ? 'span data-id' : 'a href', item.url || item.id, Thelpers.encode(item.name), config.exec ? 'span' : 'a', item.callback ? ' class="{0}-children"'.format(cls) : ''));
 		}
 
 		var html = builder.join('<i class="fa fa-angle-right"></i>');
