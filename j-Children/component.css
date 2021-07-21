@@ -1,0 +1,4 @@
+.ui-children-item { cursor: grabbing; }
+.ui-children-empty { text-align: center; color: #777; }
+.ui-children-empty i { margin-right: 5px; }
+.ui-dark .ui-children-empty { text-align: center; color: #; }
