@@ -16,7 +16,7 @@ __Configuration__:
 	{
 		name: 'Home',                // A link label
 		url: '/'                     // URL address
-		callback: Function(el, e)    // Optional, a callback for click event
+		callback: Function(el, e)    // Optional, a callback for the click event
 	},
 	{
 		name: 'Products',            // A link label
