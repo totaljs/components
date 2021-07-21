@@ -15,6 +15,10 @@ __Template__:
 
 Try to understand the functionality from the example.
 
+__Good to know__:
+
+- `component.db {Object}` contains all references of all items in the form `db[item.id] = item`
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
