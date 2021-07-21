@@ -5,7 +5,8 @@ COMPONENT('children', function(self, config, cls) {
 	var dragdrop;
 	var delay;
 
-	self.db = {};
+	self.items = {};
+	self.parents = {};
 	self.novalidate();
 	self.nocompile();
 	self.getter = null;
@@ -111,7 +112,8 @@ COMPONENT('children', function(self, config, cls) {
 		for (var i = 0; i < children.length; i++) {
 			var item = children[i];
 			var childrenhtml = renderchildren(item, level + 1);
-			self.db[item.id] = item;
+			self.parents[item.id] = parent;
+			self.items[item.id] = item;
 			builder.push(template.arg({ id: item.id, html: self.template({ value: item, level: level }) + childrenhtml }));
 		}
 
@@ -125,12 +127,14 @@ COMPONENT('children', function(self, config, cls) {
 			value = EMPTYARRAY;
 
 		self.db = {};
+		self.parents = {};
+
 		var builder = [];
 
 		for (var i = 0; i < value.length; i++) {
 			var item = value[i];
 			var childrenhtml = renderchildren(item, 1);
-			self.db[item.id] = item;
+			self.items[item.id] = item;
 			builder.push(template.arg({ id: item.id, html: self.template({ value: item }) + childrenhtml, level: 0 }));
 		}
 

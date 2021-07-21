@@ -17,7 +17,8 @@ Try to understand the functionality from the example.
 
 __Good to know__:
 
-- `component.db {Object}` contains all references of all items in the form `db[item.id] = item`
+- `component.items {Object}` contains all references of all items in the form `items[item.id] = item`
+- `component.parents {Object}` contains all references of all parents in the form `parents[item.id] = parent`
 
 ### Author
 
