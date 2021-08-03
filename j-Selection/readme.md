@@ -9,6 +9,7 @@ __Configuration__:
 - `selector {String}` a jQuery selector for elements (default: `.selection`)
 - `class {String}` selected class (default: `selected`)
 - `dblclickselectall {Boolean}` enables reverse selection after double-click (default: `true`)
+- `cancel {String}` a path to the variable (if the variable is changed then the selection is resetted, default: empty)
 
 __Methods__:
 

@@ -15,6 +15,8 @@ COMPONENT('selection', 'remember:1;key:id;class:selected;selector:.selection;att
 				self.selecttoggle();
 			});
 		}
+
+		config.cancel && self.watch(self.makepath(self.cancel), self.selectnone);
 	};
 
 	self.selectall = function() {
@@ -30,13 +32,16 @@ COMPONENT('selection', 'remember:1;key:id;class:selected;selector:.selection;att
 	};
 
 	self.selectnone = function() {
-		var arr = self.find(config.selector);
-		for (var i = 0; i < arr.length; i++) {
-			var el = $(arr[i]);
-			el.rclass(config.class);
+		var model = self.get();
+		if (model && model.length) {
+			var arr = self.find(config.selector);
+			for (var i = 0; i < arr.length; i++) {
+				var el = $(arr[i]);
+				el.rclass(config.class);
+			}
+			skip = true;
+			self.set([]);
 		}
-		skip = true;
-		self.set([]);
 	};
 
 	self.selecttoggle = function() {
