@@ -16,7 +16,7 @@ COMPONENT('selection', 'remember:1;key:id;class:selected;selector:.selection;att
 			});
 		}
 
-		config.cancel && self.watch(self.makepath(self.cancel), self.selectnone);
+		config.cancel && self.watch(self.makepath(config.cancel), self.selectnone);
 	};
 
 	self.selectall = function() {
