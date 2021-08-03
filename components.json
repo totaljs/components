@@ -256,5 +256,6 @@
 	"j-Stats12",
 	"j-Configuration",
 	"j-Movement",
-	"j-Children"
+	"j-Children",
+	"j-Selection"
 ]

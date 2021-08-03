@@ -1,0 +1,17 @@
+{
+	"datecreated": "2021-08-03T14:34:00.000Z",
+	"dateupdated": null,
+	"name": "j-Selection",
+	"tags": [
+		"selection"
+	],
+	"color": "white",
+	"darkmode": 1,
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
