@@ -78,7 +78,7 @@ COMPONENT('selection', 'remember:1;key:id;class:selected;selector:.selection;att
 		var el = self.find(config.selector + '[data-{0}="{1}"]'.format(config.attr, id));
 		skip = true;
 		el.tclass(config.class, added);
-		self.update();
+		self.update(true);
 	};
 
 	self.recalc = function() {
