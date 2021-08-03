@@ -1,12 +1,12 @@
 {
-	"datecreated": "2021-08-03T14:35:00.000Z",
+	"datecreated": "2021-08-03T14:36:00.000Z",
 	"dateupdated": null,
 	"name": "j-Selection",
 	"tags": [
 		"selection"
 	],
 	"color": "white",
-	"darkmode": 1,
+	"darkmode": 0,
 	"version": 1,
 	"responsive": true,
 	"picture": "picture.jpg",
