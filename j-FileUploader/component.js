@@ -66,12 +66,9 @@ COMPONENT('fileuploader', function(self) {
 			input[0].value = '';
 			SETTER('loading/hide', 500);
 
-			if (err) {
+			if (!response && err)
 				self.opt.callback(null, err);
-				return;
-			}
-
-			if (response instanceof Array && response[0] && response[0].error)
+			else if (response instanceof Array && response[0] && response[0].error)
 				self.opt.callback(null, response[0].error);
 			else
 				self.opt.callback(response);
