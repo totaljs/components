@@ -1,4 +1,4 @@
-COMPONENT('empty', 'icon:fa fa-database;parent:parent;margin:0', function(self, config, cls) {
+COMPONENT('empty', 'icon:fa fa-database;parent:parent;margin:0;wait:1', function(self, config, cls) {
 
 	var visible = false;
 	var special = false;
@@ -54,8 +54,12 @@ COMPONENT('empty', 'icon:fa fa-database;parent:parent;margin:0', function(self, 
 		table.css('height', wh < 100 ? 'auto' : wh - config.margin);
 	};
 
-	self.setter = function(value) {
+	self.setter = function(value, path, type) {
 
+		if (type === 1 && config.wait)
+			return;
+
+		var value = self.get();
 		visible = false;
 
 		if (value instanceof Array)
