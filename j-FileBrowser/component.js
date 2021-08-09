@@ -6,7 +6,7 @@ COMPONENT('filebrowser', function(self) {
 	self.readonly();
 	self.nocompile();
 
-	self.show = self.browse = function(opt, callback) {
+	self.open = self.show = self.browse = function(opt, callback) {
 
 		// opt.callback {Function(files, event)}
 		// opt.multiple {Boolean}
