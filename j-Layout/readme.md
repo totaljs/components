@@ -4,13 +4,13 @@
 
 __Configuration__:
 
-- `parent` {String} can contain `parent`, `window` or jQuery selector for the `closest` method (default: `window`)
-- `margin` {Number} adds margin for the `height` (default: `0`)
-- `remember` {Boolean} can remember last settings of layout for resizing (default: `true`)
-- `space` {Number} internal, contains a space between panels (default: `1`)
-- `border` {Number} internal, contains a border size (default: `0`)
-- `resize` {String} internal, a path to method which it's executed when the layout is resized
-- `autoresize` {Boolean} enables auto-resize (default: `true`)
+- `parent {String}` can contain `parent`, `window` or jQuery selector for the `closest` method (default: `window`)
+- `margin {Number}` adds margin for the `height` (default: `0`)
+- `remember {Boolean}` can remember last settings of layout for resizing (default: `true`)
+- `space {Number}` internal, contains a space between panels (default: `1`)
+- `border {Number}` internal, contains a border size (default: `0`)
+- `resize {String}` internal, a path to method which it's executed when the layout is resized
+- `autoresize {Boolean}` enables auto-resize (default: `true`)
 
 __Methods__:
 
@@ -36,12 +36,13 @@ __Layout__:
 
 Making of layout is very easy and with a lot of possibilities. Layout must have own HTML structure. Look to example. The example below describes only meta data of the layout.
 
-- `size` {Number/String} can contain a height/width of panel according to the panel type. Number `120` defines pixels and String `100%` can define percentage
-- `minsize` {Number/String} is a minimal size of panel when the panel is resizing (default: `size` value)
-- `resize` {Boolean} enables resizing of the panel with except `main` panel (it's counted automatically)
-- `show` {Boolean} enables visibility (default: `false`)
+- `size {Number/String}` can contain a height/width of panel according to the panel type. Number `120` defines pixels and String `100%` can define percentage
+- `minsize {Number/String}` is a minimal size of the panel while the panel is resizing (default: `size` value)
+- `maxsize {Number/String}` is a maximal size of the panel while the panel is resizing (default: auto-counted)
+- `resize {Boolean}` enables resizing of the panel with except `main` panel (it's counted automatically)
+- `show {Boolean}` enables visibility (default: `false`)
 
-```javascript
+```js
 {
 	top: { size: 80, resize: true, minsize: 50 }, // top panel
 	right: { size: 100 },

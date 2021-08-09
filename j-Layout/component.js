@@ -1,4 +1,4 @@
-COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresize:1', function(self, config, cls) {
+COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresize:1;minsize:50', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var cache = {};
@@ -50,7 +50,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 						break;
 				}
 			}
-			el.aclass(cls + '-' + type + ' hidden ui-layout-section');
+			el.aclass('{0}-{1} hidden {0}-section'.format(cls, type));
 			el.after('<div class="{0}-resize-{1} {0}-resize" data-type="{1}"></div>'.format(cls, type));
 			el.after('<div class="{0}-lock hidden" data-type="{1}"></div>'.format(cls, type));
 			s[type] = el;
@@ -73,17 +73,17 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 		}
 
 		events.bind = function() {
-			var el = self.element;
+			var el = $(W);
 			el.bind('mousemove', events.mmove);
 			el.bind('mouseup', events.mup);
-			el.bind('mouseleave', events.mup);
+			self.element.bind('mouseleave', events.mup);
 		};
 
 		events.unbind = function() {
-			var el = self.element;
+			var el = $(W);
 			el.unbind('mousemove', events.mmove);
 			el.unbind('mouseup', events.mup);
-			el.unbind('mouseleave', events.mup);
+			self.element.unbind('mouseleave', events.mup);
 		};
 
 		events.mdown = function(e) {
@@ -99,7 +99,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 			drag.cur = self.element.offset();
 			drag.cur.top -= 10;
 			drag.cur.left -= 8;
-			drag.offset = target.offset();
+			drag.offset = target.position();
 			drag.el = target;
 			drag.x = e.pageX;
 			drag.y = e.pageY;
@@ -107,31 +107,54 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 			drag.type = type;
 			drag.plusX = 10;
 			drag.plusY = 10;
+			drag.newx = -1;
+			drag.newy = -1;
+			drag.w = w;
+			drag.h = h;
 
 			var ch = cache[type];
-			var offset = 0;
 			var min = ch.minsize ? (ch.minsize.value - 1) : 0;
+			var max = ch.maxsize ? (ch.maxsize.value - 1) : 0;
 
 			target.aclass(cls + '-drag');
 
 			switch (type) {
 				case 'top':
 					drag.min = min || (ch.size - m);
-					drag.max = (h - (cache.bottom ? s.bottom.height() : 0) - 50);
+					drag.max = (cache.bottom ? (h - s.bottom.height() - config.minsize) : 0);
+					if (max && drag.max > max)
+						drag.max = max;
 					break;
+
 				case 'right':
-					offset = w;
-					drag.min = (cache.left ? s.left.width() : 0) + 50 + min;
-					drag.max = offset - (min || ch.size);
+					drag.min = (min || ch.size);
+					drag.max = (cache.left ? (w - s.left.width() - config.minsize) : 0);
+					if (max && drag.max > max)
+						drag.max = max;
 					break;
+
 				case 'bottom':
-					offset = h;
-					drag.min = (cache.top ? s.top.height() : 0) + 50;
-					drag.max = offset - (min || ch.size);
+
+					drag.min = (min || ch.size);
+					drag.max = (cache.top ? (h - s.top.height() - config.minsize) : 0);
+
+					if (max && drag.max > max)
+						drag.max = max;
+
 					break;
+
 				case 'left':
+
 					drag.min = min || (ch.size - m);
-					drag.max = w - (cache.right ? s.right.width() : 0) - 50;
+
+					if (drag.min < config.minsize)
+						drag.min = config.minsize;
+
+					drag.max = (cache.right ? (w - s.right.width() - config.minsize) : 0);
+
+					if (max && drag.max > max)
+						drag.max = max;
+
 					break;
 			}
 
@@ -139,8 +162,13 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 		};
 
 		events.mmove = function(e) {
+
 			if (drag.horizontal) {
-				var x = drag.offset.left + (e.pageX - drag.x) - drag.plusX - drag.cur.left;
+
+				var x = drag.offset.left + (e.pageX - drag.x);
+
+				if (drag.type === 'right')
+					x = drag.w - x;
 
 				if (x < drag.min)
 					x = drag.min + 1;
@@ -148,17 +176,30 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 				if (x > drag.max)
 					x = drag.max - 1;
 
+				if (drag.type === 'right')
+					x = drag.w - x;
+
+				drag.newy = x;
 				drag.el.css('left', x + 'px');
 
 			} else {
-				var y = drag.offset.top + (e.pageY - drag.y) - drag.plusY;
+
+				var y = drag.offset.top + (e.pageY - drag.y);
+
+				if (drag.type === 'bottom')
+					y = drag.h - y;
 
 				if (y < drag.min)
 					y = drag.min + 1;
+
 				if (y > drag.max)
 					y = drag.max - 1;
 
-				drag.el.css('top', (y - drag.cur.top) + 'px');
+				if (drag.type === 'bottom')
+					y = drag.h - y;
+
+				drag.newy = y;
+				drag.el.css('top', y + 'px');
 			}
 		};
 
@@ -166,7 +207,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 
 			self.element.find('iframe').css('pointer-events', '');
 
-			var offset = drag.el.offset();
+			var offset = drag.el.position();
 			var d = WIDTH();
 			var pk = prefkey + '_' + layout + '_' + drag.type + '_' + d;
 
@@ -174,40 +215,20 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 
 			if (drag.horizontal) {
 
-				offset.left -= drag.cur.left;
-
-				if (offset.left < drag.min)
-					offset.left = drag.min;
-
-				if (offset.left > drag.max)
-					offset.left = drag.max;
-
-				var w = offset.left - (drag.offset.left - drag.cur.left);
+				var w = offset.left;
 
 				if (!isright2 && drag.type === 'right')
-					w = w * -1;
+					w = self.width() - w;
 
-				drag.el.css('left', offset.left);
-				w = s[drag.type].width() + w;
 				s[drag.type].css('width', w);
 				config.remember && PREF.set(pk, w, prefexpire);
-
 			} else {
 
-				offset.top -= drag.cur.top;
+				var h = offset.top;
 
-				if (offset.top < drag.min)
-					offset.top = drag.min;
-				if (offset.top > drag.max)
-					offset.top = drag.max;
-
-				drag.el.css('top', offset.top);
-
-				var h = offset.top - (drag.offset.top - drag.cur.top);
 				if (drag.type === 'bottom' || drag.type === 'preview')
-					h = h * -1;
+					h = self.height() - h;
 
-				h = s[drag.type].height() + h;
 				s[drag.type].css('height', h);
 				config.remember && PREF.set(pk, h, prefexpire);
 			}
@@ -348,8 +369,6 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 			cached = 0;
 		}
 
-		c.minsize = opt.minwidth ? parseSize(opt.minwidth, w) : opt.minsize ? parseSize(opt.minsize, w) : 0;
-
 		var def = getSize(d, settings);
 		var width = (opt.size || opt.width) || (def[type] ? def[type].width : 0);
 		var height = (opt.size || opt.height) || (def[type] ? def[type].height : 0);
@@ -361,7 +380,14 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 			is = 1;
 		}
 
-		c.minsize = opt.minheight ? parseSize(opt.minheight, w) : opt.minsize ? parseSize(opt.minsize, w) : 0;
+		if (type === 'left' || type === 'right') {
+			c.minsize = opt.minsize ? parseSize(opt.minsize, w) : 0;
+			c.maxsize = opt.maxsize ? parseSize(opt.maxsize, w) : 0;
+		} else if (type === 'top' || type === 'bottom') {
+			c.minsize = opt.minsize ? parseSize(opt.minsize, h) : 0;
+			c.maxsize = opt.maxsize ? parseSize(opt.maxsize, h) : 0;
+		}
+
 		if (height && (type === 'top' || type === 'bottom')) {
 			size = parseSize(height, h);
 			c.size = size.value;
