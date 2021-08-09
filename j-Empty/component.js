@@ -56,7 +56,7 @@ COMPONENT('empty', 'icon:fa fa-database;parent:parent;margin:0;wait:1', function
 
 	self.setter = function(value, path, type) {
 
-		if (type === 1 && config.wait)
+		if (type === 0 && config.wait)
 			return;
 
 		visible = false;
