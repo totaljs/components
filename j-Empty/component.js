@@ -59,7 +59,6 @@ COMPONENT('empty', 'icon:fa fa-database;parent:parent;margin:0;wait:1', function
 		if (type === 1 && config.wait)
 			return;
 
-		var value = self.get();
 		visible = false;
 
 		if (value instanceof Array)
