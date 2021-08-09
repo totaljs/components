@@ -50,7 +50,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 						break;
 				}
 			}
-			el.aclass('{0}-{1} hidden {0}-section'.format(cls, type));
+			el.aclass(cls + '-' + type + ' hidden ui-layout-section');
 			el.after('<div class="{0}-resize-{1} {0}-resize" data-type="{1}"></div>'.format(cls, type));
 			el.after('<div class="{0}-lock hidden" data-type="{1}"></div>'.format(cls, type));
 			s[type] = el;
@@ -111,51 +111,27 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 			var ch = cache[type];
 			var offset = 0;
 			var min = ch.minsize ? (ch.minsize.value - 1) : 0;
-			
 
 			target.aclass(cls + '-drag');
+
 			switch (type) {
 				case 'top':
 					drag.min = min || (ch.size - m);
-					
-					if(cache.top.maxsize){
-						drag.max = (h - (cache.bottom ? s.bottom.height() : 0) - 50) > cache.top.maxsize ? cache.top.maxsize  : (h - (cache.bottom ? s.bottom.height() : 0) - 50);
-					} else {
-						drag.max = (h - (cache.bottom ? s.bottom.height() : 0) - 50);
-					}
+					drag.max = (h - (cache.bottom ? s.bottom.height() : 0) - 50);
 					break;
-
 				case 'right':
 					offset = w;
-					
-					if (cache.right.minsize){
-						drag.min =( self.width() - cache.right.maxsize ) > ((cache.left ? s.left.width() : 0) + 50 ) ?   self.width() - cache.right.maxsize : ((cache.left ? s.left.width() : 0) + 50 ) ;
-					} else {
-						drag.min = (cache.left ? s.left.width() : 0) + 50;
-					}
+					drag.min = (cache.left ? s.left.width() : 0) + 50 + min;
 					drag.max = offset - (min || ch.size);
 					break;
-
 				case 'bottom':
 					offset = h;
-					if (cache.bottom.minsize){
-						
-						drag.min = (((cache.top ? s.top.height() : 0) + 50) > h - cache.bottom.maxsize) ? ((cache.top ? s.top.height() : 0) + 50) :  h - cache.bottom.maxsize;
-
-					} else {
-						drag.min = ((cache.top ? s.top.height() : 0) + 50);
-					}
-
+					drag.min = (cache.top ? s.top.height() : 0) + 50;
 					drag.max = offset - (min || ch.size);
 					break;
-
 				case 'left':
 					drag.min = min || (ch.size - m);
-					if(cache.left.maxsize){
-						drag.max = cache.left.maxsize > (w - (cache.right ? s.right.width() : 0) - 50) ? (w - (cache.right ? s.right.width() : 0) - 50) : cache.left.maxsize;
-					} else {
-						drag.max = w - (cache.right ? s.right.width() : 0) - 50;
-					}
+					drag.max = w - (cache.right ? s.right.width() : 0) - 50;
 					break;
 			}
 
@@ -165,24 +141,24 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 		events.mmove = function(e) {
 			if (drag.horizontal) {
 				var x = drag.offset.left + (e.pageX - drag.x) - drag.plusX - drag.cur.left;
-				
-					if (x < drag.min)
-						x = drag.min + 1;
 
-					if (x > drag.max)
-						x = drag.max - 1;
+				if (x < drag.min)
+					x = drag.min + 1;
+
+				if (x > drag.max)
+					x = drag.max - 1;
 
 				drag.el.css('left', x + 'px');
 
 			} else {
-				
 				var y = drag.offset.top + (e.pageY - drag.y) - drag.plusY;
+
 				if (y < drag.min)
 					y = drag.min + 1;
 				if (y > drag.max)
 					y = drag.max - 1;
 
-				drag.el.css('top', y + 'px');
+				drag.el.css('top', (y - drag.cur.top) + 'px');
 			}
 		};
 
@@ -200,15 +176,14 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 
 				offset.left -= drag.cur.left;
 
-				if (offset.left < drag.min){
+				if (offset.left < drag.min)
 					offset.left = drag.min;
-				}
-				if (offset.left > drag.max){
+
+				if (offset.left > drag.max)
 					offset.left = drag.max;
-				}
-					
+
 				var w = offset.left - (drag.offset.left - drag.cur.left);
-				
+
 				if (!isright2 && drag.type === 'right')
 					w = w * -1;
 
@@ -374,7 +349,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 		}
 
 		c.minsize = opt.minwidth ? parseSize(opt.minwidth, w) : opt.minsize ? parseSize(opt.minsize, w) : 0;
-		
+
 		var def = getSize(d, settings);
 		var width = (opt.size || opt.width) || (def[type] ? def[type].width : 0);
 		var height = (opt.size || opt.height) || (def[type] ? def[type].height : 0);
@@ -386,23 +361,13 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 			is = 1;
 		}
 
-		if( type === 'left' || type === 'right'){ 
-			c.minsize = opt.minsize ? parseSize(opt.minsize, w) : 0;
-		} else if (type === 'top' || type === 'bottom'){
-			c.minsize = opt.minsize ? parseSize(opt.minsize, h) : 0;
-			console.log('c.minsize',type, opt.minsize, h, c.minsize, parseSize(opt.minsize, h));
-		}	
-
-
-		
+		c.minsize = opt.minheight ? parseSize(opt.minheight, w) : opt.minsize ? parseSize(opt.minsize, w) : 0;
 		if (height && (type === 'top' || type === 'bottom')) {
 			size = parseSize(height, h);
 			c.size = size.value;
 			css.height = (cached ? cached : size.value);
 			is = 1;
 		}
-		c.maxsize = (type === 'left' || type === 'right') ?  (opt.maxsize ? parseSize(opt.maxsize,w).value: w ) : (opt.maxsize ? parseSize(opt.maxsize, h).value : h) ;
-
 
 		if (opt.show == null)
 			opt.show = true;
