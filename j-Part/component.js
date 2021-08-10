@@ -75,7 +75,7 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 			if (downloading)
 				return;
 
-			config.loading && SETTER('loading', 'show');
+			config.loading && SETTER('loading/show');
 			downloading = true;
 			setTimeout(function() {
 
@@ -103,7 +103,7 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 						self.release(false);
 						config.reload && EXEC(replace(config.reload), true);
 						config.default && DEFAULT(replace(config.default), true);
-						config.loading && SETTER('loading', 'hide', self.delay);
+						config.loading && SETTER('loading/hide', self.delay);
 						self.hclass('invisible') && self.rclass('invisible', self.delay);
 						isresizing && setTimeout(self.resize, 50);
 						setTimeout(self.emitresize, 200);
