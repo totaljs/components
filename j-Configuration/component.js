@@ -66,7 +66,14 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			icon = '<i class="' + self.faicon(item.icon) + '"></i>';
 
 		var builder = [];
-		builder.push('<div class="{0}-item">'.format(cls));
+		var align = item.align || 0;
+
+		if (align === 'center')
+			align = 1;
+		else if (align === 'right')
+			align = 2;
+
+		builder.push('<div class="{0}-item{1}">'.format(cls, align ? (' ' + cls + '-align-' + align) : ''));
 		builder.push('<div class="{0}-item-label">{1}{2}</div>'.format(cls, icon, item.text));
 		item.summary && builder.push('<div class="{0}-item-summary">{1}</div>'.format(cls, item.summary));
 		builder.push('<div class="{0}-item-control"></div>'.format(cls));

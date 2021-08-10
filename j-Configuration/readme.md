@@ -23,6 +23,7 @@ __Allowed properties__:
 	- `selectable`
 - `text {String}` a text/title
 - `name {String}` a name of property in the model
+- `align {Number}` align for inputs (`0` left (default), `1` center, `2` right)
 - `icon {String}` optional, font-awesome icon identifier
 - `summary {String}` optional, a summarization
 - `note {String}` optional, a note
