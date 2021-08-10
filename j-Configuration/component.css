@@ -62,6 +62,8 @@
 .ui-configuration-type-selectable-item i { display: block; font-size: 20px; margin-bottom: 5px; }
 .ui-configuration-type-selectable-item span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; }
 .ui-configuration-last { border-bottom: 0; }
+.ui-configuration-align-1 input { text-align: center; }
+.ui-configuration-align-2 input { text-align: right; }
 
 .ui-dark .ui-configuration-group { border-bottom-color: #404040; }
 .ui-dark .ui-configuration-group-summary { color: #777; }
