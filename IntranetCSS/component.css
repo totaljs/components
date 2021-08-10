@@ -100,9 +100,9 @@
 .message-success { border-color: #68B25B; color: #4A7543; }
 
 .ui-dark .message { border-color: #666; color: #999; }
-.ui-dark .message-error { color: #DC7772; }
-.ui-dark .message-alert { color: #D2BA62; }
-.ui-dark .message-success { color: #6DAD63; }
+.ui-dark .message-error { border-color: #D63A32; color: #DC7772; }
+.ui-dark .message-alert { border-color: #DEBA31; color: #D2BA62; }
+.ui-dark .message-success { border-color: #68B25B; color: #6DAD63; }
 
 .badge { font-size: 12px; padding: 4px 6px; border-radius: var(--radius); background-color: var(--color); line-height: 12px; vertical-align: middle; margin-top: -2px; position: relative; display: inline-block; color: #FFF; }
 .badge i { margin-right: 3px; }
