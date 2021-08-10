@@ -42,7 +42,17 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			}
 
 			self.change(true);
-			self.set(!self.get(), 2);
+			var val = self.get();
+
+			if (val === 1)
+				val = 0;
+			else if (val === 0)
+				val = 1;
+			else if (val === true)
+				val = false;
+			else
+				val = true;
+			self.set(val, 2);
 		});
 
 		self.event('focus', 'input,' + cls2 + '-value', function() {
@@ -497,7 +507,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			return value instanceof Date && !isNaN(value.getTime());
 
 		if (config.type === 'checkbox')
-			return value === true;
+			return value === true || value === 1;
 
 		if (value == null)
 			value = '';
@@ -690,7 +700,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					rawvalue.html(value);
 					break;
 				case 'checkbox':
-					self.tclass(cls + '-checked', value === true);
+					self.tclass(cls + '-checked', value === true || value === 1);
 					break;
 			}
 		}
@@ -906,7 +916,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		var val = self.get();
 
 		if (config.type === 'checkbox')
-			return val === true;
+			return val === true || val === 1;
 
 		return (config.type === 'phone' || config.type === 'email') && (val != null && (typeof(val) === 'string' && val.length !== 0));
 	};
