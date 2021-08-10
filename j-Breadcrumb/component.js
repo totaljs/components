@@ -4,7 +4,7 @@ COMPONENT('breadcrumb', 'icon:fa fa-home;historyapi:1;root:Root', function(self,
 
 	self.make = function() {
 
-		self.aclass(cls);
+		self.aclass(cls + (config.style === 2 ? (' ' + cls + '-style2') : ''));
 		self.element.prepend('<nav></nav>');
 		nav = self.find('> nav');
 

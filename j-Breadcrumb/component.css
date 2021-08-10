@@ -9,6 +9,10 @@
 .ui-breadcrumb > div { float: right; }
 .ui-breadcrumb-children { background-color: rgba(0,0,0,.05); padding: 2px 4px; border-radius: var(--radius); }
 
+.ui-breadcrumb-style2 { border: 0; border-radius: 0; border-bottom: 1px solid #E0E0E0; height: 60px; margin: 0; padding: 0 15px; }
+.ui-breadcrumb-style2 > nav { padding: 10px 0 0 0; }
+.ui-breadcrumb-style2 .toolbar { margin: 18px 0 0 0; }
+
 .ui-dark .ui-breadcrumb { color: #D0D0D0; border-color: #404040; }
 .ui-dark .ui-breadcrumb > nav a { color: #C0C0C0; }
 .ui-dark .ui-breadcrumb-children { background-color: rgba(255,255,255,.08); }
