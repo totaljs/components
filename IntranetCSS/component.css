@@ -93,11 +93,16 @@
 .ui-dark .configuration > section > article { border-top-color: #404040; }
 .ui-dark .configuration > section label { color: #FFF; border-top-color: #404040; }
 
-.message { padding: 5px; border: 2px solid var(--color); border-radius: var(--radius); font-size: 12px; color: var(--color); margin-bottom: 10px; }
+.message { padding: 10px; border: 2px solid #E0E0E0; border-radius: var(--radius); font-size: 12px; margin-bottom: 10px; }
 .message i { margin-right: 5px; }
-.message-error { border-color: #D63A32; color: #D63A32; }
-.message-alert { border-color: #DEBA31; color: #DEBA31; }
-.message-success { border-color: #68B25B; color: #68B25B; }
+.message-error { border-color: #D63A32; color: #A72C26; }
+.message-alert { border-color: #DEBA31; color: #8c7727; }
+.message-success { border-color: #68B25B; color: #4A7543; }
+
+.ui-dark .message { border-color: #666; color: #999; }
+.ui-dark .message-error { color: #DC7772; }
+.ui-dark .message-alert { color: #D2BA62; }
+.ui-dark .message-success { color: #6DAD63; }
 
 .badge { font-size: 12px; padding: 4px 6px; border-radius: var(--radius); background-color: var(--color); line-height: 12px; vertical-align: middle; margin-top: -2px; position: relative; display: inline-block; color: #FFF; }
 .badge i { margin-right: 3px; }
