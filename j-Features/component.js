@@ -144,7 +144,6 @@ COMPONENT('features', 'height:35', function(self, config, cls) {
 
 		var counter = 0;
 		var h = scroller.css('max-height').parseInt();
-
 		var li = container.find('li');
 
 		for (var i = 0; i < li.length; i++) {
@@ -164,13 +163,19 @@ COMPONENT('features', 'height:35', function(self, config, cls) {
 		}
 	};
 
-	self.show = function(items, callback) {
+	self.open = function(opt, callback) {
+		self.show(opt.items, opt.callback || callback, opt.placeholder);
+	};
+
+	self.show = function(items, callback, placeholder) {
 
 		if (is) {
 			clearTimeout(timeout);
 			self.hide(0);
 			return;
 		}
+
+		self.find('input').prop('placeholder', placeholder == null ? config.placeholder : placeholder);
 
 		var type = typeof(items);
 		var item;
