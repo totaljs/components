@@ -107,11 +107,12 @@ COMPONENT('mapmarker', 'parent:auto;type:roadmap;draggable:false;markerwidth:40;
 			if (config.icon)
 				options.icon = config.icon;
 
-			config.onready && self.SEEX(config.onready, self);
 			self.resize();
 
 			if (config.markercluster)
 				self.markercluster = new MarkerClusterer(self.map, [], { styles: [{ width: 30, height: 30, className: cls + '-cluster-1', }, { width: 40, height: 40, className: cls + '-cluster-2', }, {width: 50, height: 50, className: cls + '-cluster-3' }], clusterClass: cls + '-cluster' });
+
+			config.onready && self.SEEX(config.onready, self);
 
 		});
 	};
