@@ -56,6 +56,17 @@ COMPONENT('panel', 'width:350;icon:home;zindex:12;scrollbar:true;scrollbarY:true
 		}
 	};
 
+	self.esc_keydown = function(e) {
+		if (e.which === 27 && !e.isPropagationStopped()) {
+			var val = self.get();
+			if (!val || config.if === val) {
+				e.preventDefault();
+				e.stopPropagation();
+				self.hide();
+			}
+		}
+	};
+
 	self.hide = function() {
 		self.set('');
 	};
