@@ -165,7 +165,10 @@ COMPONENT('features', 'height:35', function(self, config, cls) {
 
 	self.open = self.show = function(opt, callback) {
 
-		opt.scrolltop && self.scrollbar.scrollTop(0);
+		if (opt.scrolltop) {
+			selectedindex = 0;
+			self.scrollbar.scrollTop(0);
+		}
 
 		if (opt instanceof Array)
 			self.render.apply(self. arguments);
