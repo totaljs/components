@@ -146,6 +146,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 			if (!self.enabled) {
 				self.frame = 1000000;
+			} else if (config.height === 'fluid') {
+				self.limit = 1000000;
 			} else if (self.limit * 2 > rows.length) {
 				self.limit = rows.length;
 				self.frame = self.limit * self.row;
@@ -359,7 +361,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			econtrols.css(css).rclass('hidden').aclass('dg-controls-visible', 50).attrd('index', index);
 			controls.timeout = null;
 			controls.is = true;
-			controls.y = self.scrollbarY.scrollTop();
+			controls.y = self.scrollbarY ? self.scrollbarY.scrollTop() : 0;
 		};
 
 		controls.hide = function(type) {
@@ -367,7 +369,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 				// scrollbar
 				if (type === 1) {
-					var y = self.scrollbarY.scrollTop();
+					var y = self.scrollbarY ? self.scrollbarY.scrollTop() : 0;
 					if (controls.y === y)
 						return;
 				} else if (type === 2) {
@@ -1643,7 +1645,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 					opt.height = WH - config.margin;
 					break;
 				case 'fluid':
-					opt.height = ((opt.rows ? opt.rows.length : 0) * config.rowheight) + header.outerHeight();
+					opt.height = ((opt.rows ? opt.rows.length : 0) * config.rowheight) + header.outerHeight() + 6;
 					break;
 				default:
 
