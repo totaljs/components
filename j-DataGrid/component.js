@@ -1643,7 +1643,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 					opt.height = WH - config.margin;
 					break;
 				case 'fluid':
-					opt.height = (opt.rows ? opt.rows.length : 0) * config.rowheight;
+					opt.height = ((opt.rows ? opt.rows.length : 0) * config.rowheight) + header.outerHeight();
 					break;
 				default:
 
