@@ -14,6 +14,7 @@ Method: `component.open(opt)`
     - `icon {String}` (optional) icon without `fa-`
     - `keywords {String}` (optional) additional keywords for searching
     - `value {Object/String/Number}` a value
+- `opt.scrolltop {Boolean}` scrolls to top until it's displaying the window (default: `false`)
 - `opt.callback(selected) {Function}` a callback which is called when the user performs click for some feature. `selected` argument contains selected item.
 
 Method: `component.hide()`

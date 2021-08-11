@@ -164,6 +164,9 @@ COMPONENT('features', 'height:35', function(self, config, cls) {
 	};
 
 	self.open = self.show = function(opt, callback) {
+
+		opt.scrolltop && self.scrollbar.scrollTop(0);
+
 		if (opt instanceof Array)
 			self.render.apply(self. arguments);
 		else
@@ -223,10 +226,7 @@ COMPONENT('features', 'height:35', function(self, config, cls) {
 			return;
 
 		self.rclass('hidden');
-
-		setTimeout(function() {
-			self.aclass(cls + '-visible');
-		}, 100);
+		self.aclass(cls + '-visible', 100);
 
 		!isMOBILE && setTimeout(function() {
 			input.focus();
