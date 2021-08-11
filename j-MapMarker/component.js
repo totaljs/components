@@ -203,7 +203,7 @@ COMPONENT('mapmarker', 'parent:auto;type:roadmap;draggable:false;markerwidth:40;
 		opt.zoom = self.zoom;
 		opt.gps = self.gps;
 		opt.map = self.map;
-		self.markercluster.addMarker(marker);
+		self.markercluster && self.markercluster.addMarker(marker);
 
 		opt.remove = function() {
 			markers.splice(markers.indexOf(opt.marker), 1);
