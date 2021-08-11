@@ -115,11 +115,11 @@
 .badge-purple { background-color: #967ADC; }
 .badge-pink { background-color: #D770AD; }
 .badge-silver { background-color: #E0E0E0; color: gray; }
-.badge-large { padding: 3px 8px; font-size: 14px; line-height: 16px; }
-.badge-large i { margin-right: 5px; }
+.badge-large, .badge.large { padding: 3px 8px; font-size: 14px; line-height: 16px; }
+.badge-large i, .badge.large i { margin-right: 5px; }
 .badge-small, .badge.small { font-size: 10px; padding: 0px 3px 1px; }
-.badge-medium { font-size: 11px; padding: 2px 6px; }
-.badge-medium i { margin-right: 5px; }
+.badge-medium, .badge.medium { font-size: 11px; padding: 2px 6px; }
+.badge-medium i, .badge.medium i { margin-right: 5px; }
 
 .caption > .toolbar { float: right; margin: 10px 0 0 10px; }
 .caption > .toolbar button { height: 22px; line-height: 20px; min-width: 60px; }
