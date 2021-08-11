@@ -163,11 +163,14 @@ COMPONENT('features', 'height:35', function(self, config, cls) {
 		}
 	};
 
-	self.open = function(opt, callback) {
-		self.show(opt.items, opt.callback || callback, opt.placeholder);
+	self.open = self.show = function(opt, callback) {
+		if (opt instanceof Array)
+			self.render.apply(self. arguments);
+		else
+			self.render(opt.items, opt.callback || callback, opt.placeholder);
 	};
 
-	self.show = function(items, callback, placeholder) {
+	self.render = function(items, callback, placeholder) {
 
 		if (is) {
 			clearTimeout(timeout);
