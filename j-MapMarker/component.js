@@ -217,7 +217,7 @@ COMPONENT('mapmarker', 'parent:auto;type:roadmap;draggable:false;markerwidth:40;
 		};
 
 		opt.setPosition = function(gps) {
-			if (opt.gps !== gps && gps) {
+			if (gps) {
 				opt.gps = gps;
 				opt.marker.setPosition(self.parseGPS(gps));
 			}
