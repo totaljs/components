@@ -871,13 +871,16 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			controls.hide();
 		};
 
-		self.event('click', '.dg-checkbox', function() {
+		self.event('click', '.dg-checkbox', function(e) {
 
 			var t = $(this);
 			var custom = t.attrd('custom');
 
 			if (custom === '1')
 				return;
+
+			e.preventDefault();
+			e.stopPropagation();
 
 			t.tclass('dg-checked');
 
