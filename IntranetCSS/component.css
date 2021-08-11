@@ -117,7 +117,7 @@
 .badge-silver { background-color: #E0E0E0; color: gray; }
 .badge-large { padding: 3px 8px; font-size: 14px; line-height: 16px; }
 .badge-large i { margin-right: 5px; }
-.badge-small { font-size: 10px; padding: 0px 3px 1px; }
+.badge-small, .badge.small { font-size: 10px; padding: 0px 3px 1px; }
 .badge-medium { font-size: 11px; padding: 2px 6px; }
 .badge-medium i { margin-right: 5px; }
 
@@ -130,6 +130,8 @@
 .keyvalue.small { font-size: 11px; min-height: 14px; line-height: 14px; }
 .keyvalue.small > span i { width: 12px; }
 .keyvalue.small > div i { width: 12px; }
+.keyvalue.small .badge { padding: 2px 4px; }
+.keyvalue.small .badge.small { padding: 0 3px 1px; }
 .keyvalue { min-height: 20px; font-size: 13px; margin-bottom: 2px; line-height: 17px; }
 .keyvalue > span { width: 120px; float: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #777; }
 .keyvalue > span i { width: 14px; margin-right: 5px; }
