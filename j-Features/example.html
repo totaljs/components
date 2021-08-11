@@ -10,9 +10,12 @@
 
 <script>
 	function features() {
-		SETTER('features', 'show', [{ name: 'Dashboard' }, { name: 'Invoices' }, { name: 'Orders' }, { name: 'Products' }, { name: 'Pages' }, { name: 'Notes' }, { name: 'Users', icon: 'user' }, { name: 'Settings' }], function(value) {
-			console.log('CLICK', value);
-		});
+		var opt = {};
+		opt.items = [{ name: 'Dashboard' }, { name: 'Invoices' }, { name: 'Orders' }, { name: 'Products' }, { name: 'Pages' }, { name: 'Notes' }, { name: 'Users', icon: 'user' }, { name: 'Settings' }];
+		opt.callback = function(selected) {
+			console.log('CLICK', selected);
+		};
+		SETTER('features/open', opt);
 	}
 	setTimeout(features, 500);
 </script>
