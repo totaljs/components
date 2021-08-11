@@ -65,7 +65,6 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 	self.hide = function() {
 		if (config.independent)
 			self.hideforce();
-		self.esc(false);
 		self.set('');
 	};
 
@@ -181,6 +180,7 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 		if (!self.hclass('hidden')) {
 			self.aclass('hidden');
 			self.release(true);
+			self.esc(false);
 			self.find(cls2).rclass(cls + '-animate');
 			W.$$form_level--;
 		}

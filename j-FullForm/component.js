@@ -64,7 +64,6 @@ COMPONENT('fullform', 'zindex:12;padding:20;scrollbar:1;scrolltop:1;style:1', fu
 	self.hide = function() {
 		if (config.independent)
 			self.hideforce();
-		self.esc(false);
 		self.set('');
 	};
 
@@ -192,6 +191,7 @@ COMPONENT('fullform', 'zindex:12;padding:20;scrollbar:1;scrolltop:1;style:1', fu
 		if (!self.hclass('hidden')) {
 			self.aclass('hidden');
 			self.release(true);
+			self.esc(false);
 			self.find(cls2).rclass(cls + '-animate');
 			W.$$fullform_level--;
 		}

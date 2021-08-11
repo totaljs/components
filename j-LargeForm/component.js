@@ -64,7 +64,6 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', f
 	self.hide = function() {
 		if (config.independent)
 			self.hideforce();
-		self.esc(false);
 		self.set('');
 	};
 
@@ -195,6 +194,7 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', f
 		if (!self.hclass('hidden')) {
 			self.aclass('hidden');
 			self.release(true);
+			self.esc(false);
 			self.find(cls2).rclass(cls + '-animate');
 			W.$$largeform_level--;
 		}
