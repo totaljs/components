@@ -42,6 +42,20 @@ COMPONENT('panel', 'width:350;icon:home;zindex:12;scrollbar:true;scrollbarY:true
 
 	self.readonly();
 
+	self.esc = function(bind) {
+		if (bind) {
+			if (!self.$esc) {
+				self.$esc = true;
+				$(W).on('keydown', self.esc_keydown);
+			}
+		} else {
+			if (self.$esc) {
+				self.$esc = false;
+				$(W).off('keydown', self.esc_keydown);
+			}
+		}
+	};
+
 	self.hide = function() {
 		self.set('');
 	};
@@ -136,6 +150,7 @@ COMPONENT('panel', 'width:350;icon:home;zindex:12;scrollbar:true;scrollbarY:true
 		if (isHidden) {
 			self.aclass('hidden');
 			self.release(true);
+			self.esc(false);
 			self.rclass(cls + '-animate');
 			W.$$panel_level--;
 			return;
@@ -183,5 +198,7 @@ COMPONENT('panel', 'width:350;icon:home;zindex:12;scrollbar:true;scrollbarY:true
 		setTimeout2(self.id, function() {
 			self.css('z-index', (W.$$panel_level * config.zindex) + 1);
 		}, 1000);
+
+		config.closeesc && self.esc(true);
 	};
 });

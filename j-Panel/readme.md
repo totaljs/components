@@ -24,6 +24,7 @@ __Configuration__:
 - `container` {String} optional, jQuery selector (this container means a container for scrollbar)
 - `margin` {Number} optional, a margin for `container` and its `scrollbar` (it works with `container` only)
 - `closeicon` {String} optional, Font-Awesome icon (default: `fa fa-times`)
+- __NEW__ `closeesc` {Boolean} closes the form when the user presses `ESC` key
 
 __Good to know__:
 
