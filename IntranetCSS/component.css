@@ -126,3 +126,14 @@
 .caption > label { display: block; padding: 10px 0; border-bottom: 1px solid #E0E0E0; font-size: 15px; color: #000; font-weight: bold; }
 .caption > label i { margin-right: 7px; }
 .ui-dark .caption > label { border-bottom-color: #404040; color: #FFF; }
+
+.keyvalue.small { font-size: 11px; min-height: 14px; line-height: 14px; }
+.keyvalue.small > span i { width: 12px; }
+.keyvalue.small > div i { width: 12px; }
+.keyvalue { min-height: 20px; font-size: 13px; margin-bottom: 2px; line-height: 17px; }
+.keyvalue > span { width: 120px; float: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #777; }
+.keyvalue > span i { width: 14px; margin-right: 5px; }
+.keyvalue > div { margin-left: 120px; }
+.keyvalue > div i { width: 14px; margin-right: 5px; }
+
+p { font-size: 13px; color: #777; }

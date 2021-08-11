@@ -1,178 +1,203 @@
-<style>
-	.ui-breadcrumb .toolbar { margin: 9px 0 0; float: right; }
-	.ui-breadcrumb button { height: 22px; line-height: 20px; min-width: 60px; }
-</style>
+	<style>
+		.ui-breadcrumb .toolbar { margin: 9px 0 0; float: right; }
+		.ui-breadcrumb button { height: 22px; line-height: 20px; min-width: 60px; }
+	</style>
 
-<div style="width:400px" class="padding">
+	<div style="width:400px" class="padding">
 
-	<div>
-		<span class="badge">Badge</span>
-		<span class="badge badge-red">Badge</span>
-		<span class="badge badge-green">Badge</span>
-		<span class="badge badge-large badge-silver">Badge</span>
-		<span class="badge badge-medium badge-purple">Badge</span>
-		<span class="badge badge-small badge-yellow">Badge</span>
-	</div>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat, eaque tenetur quo reiciendis impedit rerum, similique veniam consequuntur aliquam soluta?</p>
 
-	<br />
-
-	<div data---="breadcrumb__common.breadcrumb" class="invisible">
-		<div class="toolbar">
-			<button><i class="fa fa-plus-circle green"></i>Add</button>
+		<div>
+			<span class="badge">Badge</span>
+			<span class="badge badge-red">Badge</span>
+			<span class="badge badge-green">Badge</span>
+			<span class="badge badge-large badge-silver">Badge</span>
+			<span class="badge badge-medium badge-purple">Badge</span>
+			<span class="badge badge-small badge-yellow">Badge</span>
 		</div>
-	</div>
-	<br />
 
-	<div class="nav">
-		<nav>
-			<label>Navigation</label>
-			<div class="selected"><i class="fa fa-home"></i>Home</div>
-			<div><i class="fa fa-users"></i>Users</div>
-			<div class="disabled"><i class="fa fa-cog"></i>Settings</div>
-		</nav>
-	</div>
+		<br />
 
-	<br />
-
-	<div class="panel">
-		<div class="toolbar">
-			<button><i class="fa fa-plus-circle green"></i>Add</button>
+		<div class="caption m">
+			<label>Key/Value</label>
 		</div>
-		<label>Label</label>
-		<div class="padding">
-			Total.js Platform
+
+		<div class="keyvalue">
+			<span>Key</span>
+			<div class="right"><i class="fa fa-home"></i>Value</div>
 		</div>
-	</div>
-
-	<br />
-
-	<div class="panel">
-		<div class="toolbar">
-			<button disabled><i class="fa fa-plus-circle"></i>Add</button>
+		<div class="keyvalue">
+			<span>Key</span>
+			<div class="right">Value</div>
 		</div>
-		<label class="bg-smoke">Label</label>
-		<div class="padding">
-			Total.js Platform
+		<hr />
+		<div class="keyvalue small">
+			<span><i class="fa fa-key"></i>Key</span>
+			<div>Value</div>
 		</div>
-	</div>
-
-	<br />
-
-	<div class="caption">
-		<div class="toolbar">
-			<button disabled><i class="fa fa-plus-circle"></i>Add</button>
+		<div class="keyvalue small">
+			<span>Key</span>
+			<div>Value</div>
 		</div>
-		<label>Caption</label>
-	</div>
+		<br />
 
-	<br />
+		<div data---="breadcrumb__common.breadcrumb" class="invisible">
+			<div class="toolbar">
+				<button><i class="fa fa-plus-circle green"></i>Add</button>
+			</div>
+		</div>
+		<br />
 
-	<div class="message"><i class="fa fa-warning"></i>Some success message</div>
-	<div class="message message-error"><i class="fa fa-warning"></i>Some error message</div>
-	<div class="message message-alert"><i class="fa fa-warning"></i>Some error message</div>
-	<div class="message message-success"><i class="fa fa-warning"></i>Some error message</div>
+		<div class="nav">
+			<nav>
+				<label>Navigation</label>
+				<div class="selected"><i class="fa fa-home"></i>Home</div>
+				<div><i class="fa fa-users"></i>Users</div>
+				<div class="disabled"><i class="fa fa-cog"></i>Settings</div>
+			</nav>
+		</div>
 
-	<br />
-	<div class="configuration">
+		<br />
 
-		<section>
+		<div class="panel">
+			<div class="toolbar">
+				<button><i class="fa fa-plus-circle green"></i>Add</button>
+			</div>
+			<label>Label</label>
+			<div class="padding">
+				Total.js Platform
+			</div>
+		</div>
 
+		<br />
+
+		<div class="panel">
 			<div class="toolbar">
 				<button disabled><i class="fa fa-plus-circle"></i>Add</button>
 			</div>
+			<label class="bg-smoke">Label</label>
+			<div class="padding">
+				Total.js Platform
+			</div>
+		</div>
 
-			<label>Settings 1</label>
-			<article class="padding">
-				Content
-			</article>
-		</section>
+		<br />
 
-		<section>
-			<label class="bg-smoke"><i class="fa fa-cog"></i>Settings 2</label>
-			<article class="padding">
-				Content
-			</article>
-		</section>
+		<div class="caption">
+			<div class="toolbar">
+				<button disabled><i class="fa fa-plus-circle"></i>Add</button>
+			</div>
+			<label>Caption</label>
+		</div>
 
-		<section>
-			<label>Settings 3 - hidden</label>
-			<article class="hidden padding">
-				Content
-			</article>
-		</section>
+		<br />
 
-	</div>
+		<div class="message"><i class="fa fa-warning"></i>Some success message</div>
+		<div class="message message-error"><i class="fa fa-warning"></i>Some error message</div>
+		<div class="message message-alert"><i class="fa fa-warning"></i>Some error message</div>
+		<div class="message message-success"><i class="fa fa-warning"></i>Some error message</div>
 
-	<br />
+		<br />
+		<div class="configuration">
 
-	<div class="caption m">
-		<label>Listing 1</label>
-	</div>
-
-	<div class="listing">
-		<figure>
 			<section>
-				<div>Item 1</div>
-				<div class="help nmt">Description</div>
+
+				<div class="toolbar">
+					<button disabled><i class="fa fa-plus-circle"></i>Add</button>
+				</div>
+
+				<label>Settings 1</label>
+				<article class="padding">
+					Content
+				</article>
 			</section>
-		</figure>
-		<figure>
-			<section>Item 2</section>
-		</figure>
-		<figure>
-			<section>Item 3</section>
-		</figure>
-		<figure>
-			<section>Item 4</section>
-		</figure>
-	</div>
-	<br />
 
-	<div class="caption m">
-		<label>Listing 2</label>
-	</div>
-
-	<div class="listing2">
-		<figure>
 			<section>
-				<div>Item 1</div>
-				<div class="help nmt">Description</div>
+				<label class="bg-smoke"><i class="fa fa-cog"></i>Settings 2</label>
+				<article class="padding">
+					Content
+				</article>
 			</section>
-		</figure>
-		<figure>
-			<section>Item 2</section>
-		</figure>
-		<figure>
-			<section>Item 3</section>
-		</figure>
-		<figure>
-			<section>Item 4</section>
-		</figure>
-	</div>
 
-	<br />
+			<section>
+				<label>Settings 3 - hidden</label>
+				<article class="hidden padding">
+					Content
+				</article>
+			</section>
 
-	<div class="toolbar">
-		<button><i class="fa fa-plus-circle"></i>Add</button>
-		<button><i class="fa fa-pencil"></i>Edit</button>
-		<button disabled><i class="fa fa-trash-o red"></i>Remove</button>
-	</div>
+		</div>
 
-	<br />
+		<br />
 
-	<div class="toolbar toolbar-bg">
-		<div class="pull-right">
-			<button><i class="fa fa-cog"></i>Options</button>
+		<div class="caption m">
+			<label>Listing 1</label>
+		</div>
+
+		<div class="listing">
+			<figure>
+				<section>
+					<div>Item 1</div>
+					<div class="help nmt">Description</div>
+				</section>
+			</figure>
+			<figure>
+				<section>Item 2</section>
+			</figure>
+			<figure>
+				<section>Item 3</section>
+			</figure>
+			<figure>
+				<section>Item 4</section>
+			</figure>
+		</div>
+		<br />
+
+		<div class="caption m">
+			<label>Listing 2</label>
+		</div>
+
+		<div class="listing2">
+			<figure>
+				<section>
+					<div>Item 1</div>
+					<div class="help nmt">Description</div>
+				</section>
+			</figure>
+			<figure>
+				<section>Item 2</section>
+			</figure>
+			<figure>
+				<section>Item 3</section>
+			</figure>
+			<figure>
+				<section>Item 4</section>
+			</figure>
+		</div>
+
+		<br />
+
+		<div class="toolbar">
+			<button><i class="fa fa-plus-circle"></i>Add</button>
+			<button><i class="fa fa-pencil"></i>Edit</button>
 			<button disabled><i class="fa fa-trash-o red"></i>Remove</button>
 		</div>
-		<div>
-			<button><i class="fa fa-plus-circle"></i>Add</button>
+
+		<br />
+
+		<div class="toolbar toolbar-bg">
+			<div class="pull-right">
+				<button><i class="fa fa-cog"></i>Options</button>
+				<button disabled><i class="fa fa-trash-o red"></i>Remove</button>
+			</div>
+			<div>
+				<button><i class="fa fa-plus-circle"></i>Add</button>
+			</div>
 		</div>
+
 	</div>
 
-</div>
-
-<script>
-	var common = {};
-	common.breadcrumb = [{ name: 'Home', url: '/' }, { name: 'Entities', url: '/entities/' }];
-</script>
+	<script>
+		var common = {};
+		common.breadcrumb = [{ name: 'Home', url: '/' }, { name: 'Entities', url: '/entities/' }];
+	</script>
