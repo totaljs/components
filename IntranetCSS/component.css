@@ -120,6 +120,7 @@
 .badge-small, .badge.small { font-size: 10px; padding: 0px 3px 1px; }
 .badge-medium, .badge.medium { font-size: 11px; padding: 2px 6px; }
 .badge-medium i, .badge.medium i { margin-right: 5px; }
+.ui-dark .badge-silver { background-color: #666; color: #FFF; }
 
 .caption > .toolbar { float: right; margin: 10px 0 0 10px; }
 .caption > .toolbar button { height: 22px; line-height: 20px; min-width: 60px; }
