@@ -4,16 +4,15 @@
 .ui-codemirror-invalid .CodeMirror { border: 1px solid red !important; }
 .CodeMirror { border: 1px solid #E0E0E0; border-radius: var(--radius); }
 .ui-disabled .ui-codemirror { cursor: not-allowed; }
-.CodeMirror-scrollbar-filler { background-color: #303030; }
-.CodeMirror-simplescroll-horizontal div, .CodeMirror-simplescroll-vertical div { position: absolute; background: #A0A0A0; }
-.CodeMirror-simplescroll-horizontal, .CodeMirror-simplescroll-vertical { position: absolute; z-index: 6; background: #D0D0D0; }
+.CodeMirror-scrollbar-filler { background-color: #F0F0F0; }
+.CodeMirror-simplescroll-horizontal div, .CodeMirror-simplescroll-vertical div { position: absolute; background: #D0D0D0; box-sizing: border-box; border-radius: var(--radius); }
+.CodeMirror-simplescroll-horizontal, .CodeMirror-simplescroll-vertical { position: absolute; z-index: 6; background: #F0F0F0; }
 .CodeMirror-simplescroll-horizontal { bottom: 0; left: 0; height: 8px; }
 .CodeMirror-simplescroll-horizontal div { bottom: 0; height: 100%; }
 .CodeMirror-simplescroll-vertical { right: 0; top: 0; width: 8px; }
 .CodeMirror-simplescroll-vertical div { right: 0; width: 100%; }
 .CodeMirror-overlayscroll .CodeMirror-scrollbar-filler, .CodeMirror-overlayscroll .CodeMirror-gutter-filler { display: none; }
-.CodeMirror-overlayscroll-horizontal div, .CodeMirror-overlayscroll-vertical div { position: absolute; background: #A0A0A0; }
-.CodeMirror-scrollbar-filler { background: #D0D0D0 !important; }
+.CodeMirror-overlayscroll-horizontal div, .CodeMirror-overlayscroll-vertical div { position: absolute; background: #D0D0D0; border-radius: var(--radius); }
 .CodeMirror-overlayscroll-horizontal, .CodeMirror-overlayscroll-vertical { position: absolute; z-index: 6; }
 .CodeMirror-overlayscroll-horizontal { bottom: 0; left: 0; height: 6px; }
 .CodeMirror-overlayscroll-horizontal div { bottom: 0; height: 100%; }
@@ -44,10 +43,10 @@
 .ui-dark .CodeMirror-linenumber { color: gray; }
 .ui-dark .CodeMirror-cursor { border-left: 1px solid #f8f8f0; }
 .ui-dark .CodeMirror { border-color: #404040; }
-.ui-dark .CodeMirror-simplescroll-horizontal div, .ui-dark .CodeMirror-simplescroll-vertical div { background: #151515; }
-.ui-dark .CodeMirror-simplescroll-horizontal, .ui-dark .CodeMirror-simplescroll-vertical { background: #303030; }
-.ui-dark .CodeMirror-overlayscroll-horizontal div, .ui-dark .CodeMirror-overlayscroll-vertical div { background: #151515; }
-.ui-dark .CodeMirror-scrollbar-filler { background-color: #202020; }
+.ui-dark .CodeMirror-scrollbar-filler { background-color: #303030; }
+.ui-dark .CodeMirror-simplescroll-horizontal div, .ui-dark .CodeMirror-simplescroll-vertical div { background: #505050; }
+.ui-dark .CodeMirror-simplescroll-horizontal, .ui-dark .CodeMirror-simplescroll-vertical { background: #404040; }
+.ui-dark .CodeMirror-overlayscroll-horizontal div, .ui-dark .CodeMirror-overlayscroll-vertical div { background: #505050; }
 .ui-dark .cm-tab { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAALUlEQVR4AWNwL/AZ0njEe2DUA6Me+P//vzGQAaZBeCjwR5PQ4MGjHhj1wKgHANFXkNnNqgRuAAAAAElFTkSuQmCC) no-repeat 100% 50%; }
 .ui-dark span.cm-variable { color: #f8f8f2; }
 .ui-dark span.cm-variable-2 { color: #9effff; }
