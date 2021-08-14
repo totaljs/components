@@ -10,23 +10,25 @@ __Configuration__:
 
 __Methods__:
 
-Method: `component.show(options)`
+Method: `component.show(opt)`
 
-- `options.id` {String} optional, an identifier for recent items (default: `empty`)
-- `optiont.recent` {String} enables recent items, must contain an expiration format (default: `3 days`, empty=disabled)
-- `options.callback(selected_item)` {Function} is triggered when the user clicks on the item
-- `options.cancel` {Function} is triggered then the user cancels component
-- `options.search` {String} URL address for saerching of values in the form `GET /api/search/?={0}`
-- or `options.search` {Function} a link to `function(search, next(ARR_ITEMS))` for searching
-- `options.cache` {String} enables cache, can contain an expiration format e.g. `1 day` or `session`
-- `options.remap` {Function} it can remap results `items => items.map(...)`
-- `options.clear` {Boolean} it clears previous results (default: `false`)
-- `options.init` {Boolean} makes empty search when the component is called (default: `false`)
-- `options.delay` {Number} a delay in `ms` for performing of searching (default: `100`)
+- `opt.id {String}` optional, an identifier for recent items (default: `empty`)
+- `optiont.recent {String}` enables recent items, must contain an expiration format (default: `3 days`, empty=disabled)
+- `opt.callback(selected_item) {Function}` is triggered when the user clicks on the item
+- `opt.cancel {Function}` is triggered then the user cancels component
+- `opt.search {String}` URL address for saerching of values in the form `GET /api/search/?={0}`
+- or `opt.search {Function}` a link to `function(search, next(ARR_ITEMS))` for searching
+- `opt.cache {String}` enables cache, can contain an expiration format e.g. `1 day` or `session`
+- `opt.remap {Function}` it can remap results `items => items.map(...)`
+- `opt.clear {Boolean}` it clears previous results (default: `false`)
+- `opt.init {Boolean}` makes empty search when the component is called (default: `false`)
+- `opt.delay {Number}` a delay in `ms` for performing of searching (default: `100`)
+- `opt.height {Number}` a height of item (default: `config.height`)
+- `opt.class {String}` adds a custom class to the container
 
 __Good to know__:
 
-- `html` field in items will be rendered as a plain HTML
+- `.items = [{ html }]` -> `html` field ( in items) will be rendered as a plain HTML
 
 ### Author
 

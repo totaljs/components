@@ -3,6 +3,7 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 	var cls2 = '.' + cls;
 	var container, timeout, input, search, scroller = null;
 	var is = false, selectedindex = 0, resultscount = 0, skip = false, checksum;
+	var prevclass;
 
 	self.items = null;
 	self.template = Tangular.compile('<figure data-index="{{ $.index }}"{{ if selected }} class="selected"{{ fi }}>{{ if icon }}<i class="{{ icon }}"></i>{{ fi }}{{ if html }}{{ html | raw }}{{ else }}{{ name | raw }}{{ fi }}</figure>');
@@ -120,6 +121,7 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 	};
 
 	self.move = function() {
+		var itemheight = self.opt.height || config.height;
 		var counter = 0;
 		var h = scroller.css('max-height').parseInt();
 		container.find('figure').each(function() {
@@ -129,8 +131,8 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 			var is = selectedindex === counter;
 			el.tclass('selected', is);
 			if (is) {
-				var t = (config.height * counter) - config.height;
-				if ((t + config.height * 5) > h)
+				var t = (itemheight * counter) - itemheight;
+				if ((t + itemheight * 5) > h)
 					scroller.scrollTop(t);
 				else
 					scroller.scrollTop(0);
@@ -175,8 +177,8 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 		for (var i = 0; i < self.items.length; i++) {
 			var item = items[i];
 			indexer.index = i;
-			if (item.icon && item.icon.indexOf(' ') === -1)
-				item.icon = 'fa fa-' + item.icon;
+			if (item.icon)
+				item.icon = self.faicon(item.icon);
 			builder.push(self.template(item, indexer));
 		}
 
@@ -197,6 +199,15 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 
 		$(document).on('touchstart mousedown', onclick);
 		self.opt = opt;
+
+		prevclass && self.rclass(prevclass);
+		prevclass = null;
+
+		if (opt.class) {
+			prevclass = opt.class;
+			self.aclass(opt.class);
+		}
+
 		self.rclass('hidden');
 
 		if (opt.recent == null)
