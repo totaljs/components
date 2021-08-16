@@ -43,6 +43,8 @@ __Allowed properties__:
 - `items {String/Object Array}` optional for `dropdown` and `selectable` in the form `[{ id: 'VALUE', name: 'TEXT' }]`
 	 - type `string` a path to the `Object Array` (works with scopes)
 	 - type `Object Array` fixed defined array
+- `dirplaceholder {String}` optional, placeholder for `j-Directory`
+- `dirsearch {Boolean}` optional, enables/disables `search` field in `j-Directory` (default: `true`)
 
 Declaration must be defined in the component's element body wrapped in the `<script type="text/plain">` element. Example:
 

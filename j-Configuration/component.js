@@ -384,7 +384,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			if (typeof(items) === 'string')
 				items = GET(self.makepath(items));
 
-			var obj = (item.items || EMPTYARRAY).findItem('id', val);
+			var obj = (items || EMPTYARRAY).findItem('id', val);
 			el.find('label').tclass('hidden', !!obj);
 			el.find(cls2 + '-value').text(obj ? obj.name : '');
 		};
@@ -535,7 +535,13 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 		var obj = {};
 		var prev;
-		var items = item.items || EMPTYARRAY;
+		var items = item.items;
+
+		if (typeof(items) === 'string')
+			items = GET(self.makepath(items));
+
+		if (!(items instanceof Array))
+			items = (items || EMPTYARRAY);
 
 		obj.bind = function(val) {
 
@@ -568,9 +574,6 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		};
 
 		var builder = [];
-
-		if (typeof(items) === 'string')
-			items = GET(self.makepath(items)) || EMPTYARRAY;
 
 		for (var i = 0; i < items.length; i++)
 			builder.push('<div class="{0}-type-selectable-item"><i class="{icon}"></i><span>{name}</div>'.format(cls).arg(items[i]));
