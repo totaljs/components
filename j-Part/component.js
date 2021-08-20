@@ -23,7 +23,7 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 	};
 
 	var replace = function(value) {
-		return self.scope ? self.makepath(value) : value.replace(/\?/g, config.if);
+		return value.replace(/\?/g, config.path || config.if);
 	};
 
 	self.setter = function(value) {
