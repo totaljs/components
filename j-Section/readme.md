@@ -31,6 +31,10 @@ __Methods__:
 - `component.scrollbottom(val)` scrolls Y from bottom side
 - `component.resize()` resizes container (it reacts on `resize` events automatically)
 - `component.resizescrollbar()` resizes custom scrollbar (targeted for special cases)
+- __NEW__: `component.import(url)` imports a new section from the URL address, response must be in the form `<section data-if="...."`
+- __NEW__: `component.import(html)` imports a new section from the HTML in the form `<section data-if="...."`
+- __NEW__: `component.import(element)` imports a new section from the raw `SECTION` element
+- __NEW__: `component.cancel(id)` removes section dynamically
 
 __Definition__:
 
@@ -66,7 +70,9 @@ __Definition__:
 
 __Good to know__:
 
-If you want to add an additional content into the header to right side, just append inside of component e.g. `<div>BUTTON</div>`.
+- If you want to add an additional content into the header to right side, just append inside of component e.g. `<div>BUTTON</div>`.
+- You can dynamically insert/remove sections via `component.import()` or `component.cancel()` methods.
+- All section's attributes can be changed dynamically (e.g. `data-title`, `data-parent`, etc.).
 
 ### Author
 

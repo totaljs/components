@@ -6,6 +6,7 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 	var init = false;
 	var ww = 0;
 	var current;
+	var container;
 
 	self.readonly();
 
@@ -81,14 +82,16 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		});
 
 		self.aclass('{0} {0}-hidden'.format(cls));
+
 		if (config.scroll) {
 			if (config.scrollbar) {
 				scrollbar = W.SCROLLBAR(self.find(cls2 + '-body'), { visibleY: config.visibleY, visibleX: config.visibleX, orientation: config.visibleX ? null : 'y', parent: self.element });
 				self.scrolltop = scrollbar.scrollTop;
 				self.scrollbottom = scrollbar.scrollBottom;
+				container = scrollbar.body;
 			} else {
 				self.aclass(cls + '-scroll');
-				self.find(cls2 + '-body').aclass('noscrollbar');
+				container = self.find(cls2 + '-body').aclass('noscrollbar');
 			}
 		}
 
@@ -189,6 +192,45 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		config.autofocus && setTimeout(function() {
 			section.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea').eq(0).focus();
 		}, config.delayanim * 2);
+	};
+
+	var importprepare = function() {
+		var arr = container.find('> section');
+		for (var i = 0; i < arr.length; i++) {
+			var el = $(arr[i]);
+			if (!el.hclass(cls + '-visible'))
+				el.aclass('hidden invisible ' + cls + '-section');
+		}
+	};
+
+	self.import = function(url, callback) {
+		if (typeof(url) === 'string') {
+			if (url.indexOf('<') !== -1) {
+				// html
+				container.append(url);
+			} else {
+				// URL
+				IMPORT(url, container, function() {
+					importprepare();
+					callback && callback();
+				});
+				return;
+			}
+		} else {
+			// DOM
+			container.append(url);
+		}
+
+		callback && callback();
+		importprepare();
+	};
+
+	self.cancel = function(id) {
+		var value = self.get();
+		container.find('> section[data-if="{0}"]'.format(id)).remove();
+		FREE();
+		if (value === id)
+			self.set('');
 	};
 
 	self.setter = function(value, path, type) {
