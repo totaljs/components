@@ -80,8 +80,8 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		elh.find(cls2 + '-back').on('click', function() {
 			var el = $(this);
 			var back = el.attrd('back');
-			back && self.EXEC(back, el);
 			self.set(el.attrd('parent'));
+			back && self.EXEC(back, el);
 		});
 
 		self.aclass('{0} {0}-hidden'.format(cls));
