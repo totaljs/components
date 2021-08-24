@@ -53,7 +53,7 @@ __Definition__:
 	</section>
 
 	<!-- GOOD TO KNOW: Dynamic compilation -->
-	<section data-if="3" data-parent="2" data-label="Label for header">
+	<section data-if="3" data-parent="2" data-label="Label for header" data-back="link_to_function">
 
 		<!-- SCRIPT or TEMPLATE -–>
 		<script type="text/html">

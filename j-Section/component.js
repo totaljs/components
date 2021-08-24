@@ -78,7 +78,10 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		elh.prepend(dom);
 
 		elh.find(cls2 + '-back').on('click', function() {
-			self.set($(this).attrd('parent'));
+			var el = $(this);
+			var back = el.attrd('back');
+			back && self.EXEC(back, el);
+			self.set(el.attrd('parent'));
 		});
 
 		self.aclass('{0} {0}-hidden'.format(cls));
@@ -203,7 +206,12 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		}
 	};
 
+	self.container = function() {
+		return container;
+	};
+
 	self.import = function(url, callback) {
+
 		if (typeof(url) === 'string') {
 			if (url.indexOf('<') !== -1) {
 				// html
@@ -222,6 +230,7 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		}
 
 		callback && callback();
+		COMPILE();
 		importprepare();
 	};
 
