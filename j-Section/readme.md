@@ -34,7 +34,7 @@ __Methods__:
 - __NEW__: `component.import(url)` imports a new section from the URL address, response must be in the form `<section data-if="...."`
 - __NEW__: `component.import(html)` imports a new section from the HTML in the form `<section data-if="...."`
 - __NEW__: `component.import(element)` imports a new section from the raw `SECTION` element
-- __NEW__: `component.cancel(id)` removes section dynamically
+- __NEW__: `component.cancel([id])` removes section dynamically
 
 __Definition__:
 

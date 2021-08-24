@@ -225,12 +225,15 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		importprepare();
 	};
 
-	self.cancel = function(id) {
-		var value = self.get();
-		container.find('> section[data-if="{0}"]'.format(id)).remove();
+	self.cancel = self.free = function(id) {
+		if (id) {
+			var value = self.get();
+			container.find('> section[data-if="{0}"]'.format(id)).remove();
+			if (value === id)
+				self.set('');
+		} else
+			container.find('> section').remove();
 		FREE();
-		if (value === id)
-			self.set('');
 	};
 
 	self.setter = function(value, path, type) {
