@@ -85,6 +85,12 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 				var item = self.opt.items[+this.getAttribute('data-index')];
 				if (self.opt.checkbox) {
 					item.selected = !item.selected;
+
+					if (item.selected)
+						item.selectedts = Date.now();
+					else
+						delete item.selectedts;
+
 					$(this).tclass('selected', item.selected);
 					var response = [];
 					for (var i = 0; i < self.opt.items.length; i++) {
@@ -92,6 +98,8 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 						if (m.selected)
 							response.push(m);
 					}
+
+					response.quicksort('selectedts');
 					self.opt.callback(response, self.opt.element, false, e);
 					skiphide = true;
 				} else

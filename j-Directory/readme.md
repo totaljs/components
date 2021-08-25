@@ -88,6 +88,10 @@ opt.callback = function(selected) {
 SETTER('directory', 'show', opt);
 ```
 
+__Good to know__:
+
+- if `checkboxes:true` then the component extend items by adding a timestamp `selectedts {Number}` due to order
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
