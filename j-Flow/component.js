@@ -1170,6 +1170,7 @@ EXTENSION('flow:connections', function(self, config) {
 				delete model.paused[key];
 
 			self.op.modify(model[drag.pos.id], 'pause');
+			config.onpause && self.SEEX(config.onpause, key, model.paused[key] === 1);
 			setTimeout2(self.ID + 'clean', self.op.clean, 2000);
 			self.op.modified();
 			return;
