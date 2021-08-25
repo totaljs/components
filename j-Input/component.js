@@ -301,9 +301,10 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			if (config.multiple) {
 				for (var i = 0; i < opt.items.length; i++) {
 					var item = opt.items[i];
-					if (val instanceof Array)
-						item.selected = val.indexOf(item[config.dirvalue || config.value]) !== -1;
-					else
+					if (val instanceof Array) {
+						item.selectedts = val.indexOf(item[config.dirvalue || config.value]);
+						item.selected = item.selectedts !== -1;
+					} else
 						item.selected = false;
 				}
 			} else
@@ -665,7 +666,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					var v = item[config.dirvalue || config.value];
 					var index = value instanceof Array ? value.indexOf(v) : -1;
 					if (index !== -1)
-						text.push(item[config.dirkey || config.key]);
+						text.push({ index: index, value: item[config.dirkey || config.key] });
 				} else if (item[config.dirvalue || config.value] === value) {
 					item = item[config.dirkey || config.key];
 					break;
@@ -674,6 +675,11 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			}
 
 			if (config.multiple) {
+
+				text.quicksort('index');
+				for (var i = 0; i < text.length; i++)
+					text[i] = text[i].value;
+
 				item = text.join(', ');
 			} else if (value && item == null && config.dircustom)
 				item = value;
