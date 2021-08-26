@@ -8,7 +8,8 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 	var template = '<li data-index="{{ $.index }}" data-search="{{ $.search }}" {{ if selected }} class="current selected{{ if classname }} {{ classname }}{{ fi }}"{{ else if classname }} class="{{ classname }}"{{ fi }}>{{ if $.checkbox }}<span class="' + cls + '-checkbox"><i class="fa fa-check"></i></span>{{ fi }}{0}</li>';
 	var templateraw = template.format(templateR);
 	var regstrip = /(&nbsp;|<([^>]+)>)/ig;
-	var parentclass;
+	var parentclass = null;
+	var selectedcache = null;
 
 	template = template.format(templateE);
 
@@ -92,11 +93,27 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 						delete item.selectedts;
 
 					$(this).tclass('selected', item.selected);
-					var response = [];
-					for (var i = 0; i < self.opt.items.length; i++) {
-						var m = self.opt.items[i];
-						if (m.selected)
-							response.push(m);
+
+					if (self.opt.checked) {
+						var tmpindex = self.opt.checked.indexOf(item.id);
+						if (item.selected) {
+							if (tmpindex === -1)
+								self.opt.checked.push(item.id);
+						} else if (tmpindex !== -1)
+							self.opt.checked.splice(tmpindex, 1);
+					}
+
+					var response = null;
+
+					if (self.opt.checked) {
+						response = self.opt.checked.slice(0);
+					} else {
+						response = [];
+						for (var i = 0; i < self.opt.items.length; i++) {
+							var m = self.opt.items[i];
+							if (m.selected)
+								response.push(m);
+						}
 					}
 
 					response.quicksort('selectedts');
@@ -319,13 +336,20 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 						var key = (self.opt.search == true ? self.opt.key : (self.opt.search || self.opt.key)) || 'name';
 
 						for (var i = 0; i < items.length; i++) {
+
 							item = items[i];
+
 							if (self.opt.exclude && self.opt.exclude(item))
 								continue;
+
+							if (self.opt.checked)
+								item.selected = self.opt.checked.indexOf(item.id) !== -1;
+
 							indexer.index = i;
 							indexer.search = item[key] ? item[key].replace(regstrip, '') : '';
 							indexer.checkbox = self.opt.checkbox === true;
 							resultscount++;
+
 							builder.push(self.opt.ta(item, indexer));
 						}
 
@@ -391,6 +415,11 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		// opt.search
 		// opt.selected   --> only for String Array "opt.items"
 		// opt.classname
+		// opt.checkbox
+		// opt.checked;
+
+		if (opt.checked == true)
+			opt.checked = [];
 
 		var el = opt.element instanceof jQuery ? opt.element[0] : opt.element;
 
@@ -479,6 +508,9 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 					item.selected = true;
 				} else
 					item.selected = false;
+
+				if (opt.checked && item.selected)
+					opt.checked.push(item.id);
 
 				indexer.checkbox = opt.checkbox === true;
 				indexer.index = i;
