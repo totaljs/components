@@ -4,8 +4,6 @@ The component can set a specific class to a specific element according to the si
 
 __Configuration__:
 
-Example: `data-jc-config="class:selected;selector:a"`
-
 - `class` {String} is a class name for selected element (default: `selected`)
 - `selector` {String} is a jQuery selector (default: `a`)
 - `attr` {String} attribute for comparing (default: `if` and it means `data-if`)
