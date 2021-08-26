@@ -2,7 +2,7 @@
 .ui-windows { width: 700px; height: 700px; overflow: hidden; position: absolute; border: 2px solid red; left: 500px; top: 100px; }
 */
 .ui-windows-item { position: absolute; border-radius: var(--radius); box-shadow: 0 10px 20px rgba(0,0,0,0.03); background-color: #FFF; z-index: 80; }
-.ui-windows-title { border: 1px solid #E0E0E0; border-radius: var(--radius) var(--radius) 0 0; height: 31px; }
+.ui-windows-title { border: 1px solid #E0E0E0; border-radius: var(--radius) var(--radius) 0 0; height: 32px; }
 .ui-windows-control { float: right; width: 30px; text-align: center; border-left: 1px solid #E0E0E0; line-height: 30px; cursor: pointer; font-size: 13px; }
 .ui-windows-control:hover { background-color: #F9F9F9; }
 .ui-windows-control.fa-times { color: red; border-radius: 0 var(--radius) 0 0; }
