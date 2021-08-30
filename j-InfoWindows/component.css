@@ -1,4 +1,4 @@
-.ui-infowindows-item { position: absolute; border-radius: var(--radius); box-shadow: 0 10px 20px rgba(0,0,0,0.03); background-color: #FFF; z-index: 80; }
+.ui-infowindows-item { position: absolute; border-radius: var(--radius); box-shadow: 0 10px 20px rgba(0,0,0,0.03); background-color: #FFF; z-index: 4; }
 .ui-infowindows-title { border: 1px solid #E0E0E0; border-radius: var(--radius) var(--radius) 0 0; height: 22px; user-select: none; color: gray; }
 .ui-infowindows-control { float: left; width: 20px; text-align: center; border-right: 1px solid #E0E0E0; line-height: 20px; cursor: pointer; font-size: 10px; }
 .ui-infowindows-control:hover { background-color: #F9F9F9; }
@@ -9,15 +9,16 @@
 .ui-infowindows-body { border: 1px solid #E0E0E0; border-top: 0; border-radius: 0 0 var(--radius) var(--radius); overflow: hidden; }
 .ui-infowindows-noclose .ui-infowindows-control[data-name='close'] { display: none; }
 .ui-infowindows-noresize .ui-infowindows-resize { display: none; }
-.ui-infowindows-dragged { z-index: 100; }
+.ui-infowindows-dragged { z-index: 6; }
 .ui-infowindows-dragged .ui-infowindows-title { background-color: #FAFAFA; }
-.ui-infowindows-focused { z-index: 90; }
+.ui-infowindows-focused { z-index: 5; }
 .ui-infowindows-resize { position: absolute; width: 5px; height: 5px; }
 .ui-infowindows-resize-tl { left: 0; top: 0; cursor: nwse-resize; }
 .ui-infowindows-resize-tr { right: 0; top: 0; cursor: nesw-resize; }
 .ui-infowindows-resize-bl { left: 0; bottom: 0; cursor: nesw-resize; }
 .ui-infowindows-resize-br { right: 0; bottom: 0; cursor: nwse-resize; }
 .ui-infowindows-block iframe, .ui-infowindows-block webview { pointer-events: none; }
+.ui-infowindows-resizer { position:absolute; border-radius:var(--radius); border: 1px dashed #C0C0C0; z-index: 6; pointer-events: none; }
 
 .ui-dark .ui-infowindows-item { background-color: #202020; box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
 .ui-dark .ui-infowindows-title { border-color: #404040; color: #777; }
@@ -25,3 +26,4 @@
 .ui-dark .ui-infowindows-control { border-color: #404040; }
 .ui-dark .ui-infowindows-control:hover { background-color: #272727; }
 .ui-dark .ui-infowindows-dragged .ui-infowindows-title { background-color: #272727; }
+.ui-dark .ui-infowindows-resizer { border-color: #777; }

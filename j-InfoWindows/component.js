@@ -10,9 +10,14 @@ COMPONENT('infowindows', 'reoffsetresize:0', function(self, config, cls) {
 	var data = [];
 	var lastWW = WW;
 	var lastWH = WH;
+	var resizer;
 
 	self.make = function() {
+
 		self.aclass(cls);
+		self.append('<div class="{0}-resizer hidden"></div>'.format(cls));
+		resizer = self.find(cls2 + '-resizer');
+
 		self.event('click', cls2 + '-control', function() {
 			var el = $(this);
 			var name = el.attrd('name');
@@ -136,7 +141,9 @@ COMPONENT('infowindows', 'reoffsetresize:0', function(self, config, cls) {
 			drag.x = pos.left;
 			drag.y = pos.top;
 			drag.width = drag.el.width();
-			drag.height = drag.body.height();
+			drag.title = drag.el.find(cls2 + '-title').height();
+			drag.height = drag.body.height() + drag.title + 2;
+			resizer.css({ left: drag.x, top: drag.y, width: drag.width, height: drag.height }).rclass('hidden');
 		} else {
 			drag.el = el.closest(cls2 + '-item');
 			pos = drag.el.position();
@@ -192,11 +199,8 @@ COMPONENT('infowindows', 'reoffsetresize:0', function(self, config, cls) {
 						break;
 
 					obj.width = w;
-					drag.el.css(obj);
 					obj.height = h;
-					delete obj.width;
-					delete obj.top;
-					drag.body.css(obj);
+					resizer.css(obj);
 					break;
 
 				case 'tr':
@@ -208,41 +212,34 @@ COMPONENT('infowindows', 'reoffsetresize:0', function(self, config, cls) {
 
 					obj.width = w;
 					obj.top = y;
-					drag.el.css(obj);
 					obj.height = h;
-					delete obj.width;
-					delete obj.top;
-					drag.body.css(obj);
+					resizer.css(obj);
 					break;
 
 				case 'bl':
 
 					w = drag.width - (x - drag.x);
-					h = y - drag.y - 30;
+					h = y - drag.y;
 
 					if ((off.minwidth && w < off.minwidth) || (off.minheight && h < off.minheight) || (off.maxwidth && w > off.maxwidth) || (off.maxheight && h > off.maxheight))
 						break;
 
 					obj.left = x;
 					obj.width = w;
-					drag.el.css(obj);
-					delete obj.width;
 					obj.height = h;
-					drag.body.css(obj);
+					resizer.css(obj);
 					break;
 
 				case 'br':
 					w = x - drag.x;
-					h = y - drag.y - 30;
+					h = y - drag.y;
 
 					if ((off.minwidth && w < off.minwidth) || (off.minheight && h < off.minheight) || (off.maxwidth && w > off.maxwidth) || (off.maxheight && h > off.maxheight))
 						break;
 
 					obj.width = w;
-					drag.el.css(obj);
-					delete obj.width;
 					obj.height = h;
-					drag.body.css(obj);
+					resizer.css(obj);
 					break;
 			}
 
@@ -267,21 +264,24 @@ COMPONENT('infowindows', 'reoffsetresize:0', function(self, config, cls) {
 
 		drag.el.rclass(cls + '-dragged').rclass(cls + '-block');
 		$(W).off('mousemove touchmove', events.move).off('mouseup touchend', events.up);
+		resizer.aclass('hidden', 1);
 
 		if (!drag.is)
 			return;
 
 		var item = drag.item;
 		var meta = item.meta;
-		var pos = drag.el.position();
+		var pos = drag.resize ? resizer.position() : drag.el.position();
 
 		drag.is = false;
 		drag.x = meta.offset.x = item.x = pos.left;
 		drag.y = meta.offset.y = item.y = pos.top;
 
 		if (drag.resize) {
-			item.width = meta.offset.width = drag.el.width();
-			item.height = meta.offset.height = drag.body.height();
+			item.width = meta.offset.width = resizer.width();
+			item.height = meta.offset.height = resizer.height() - drag.title;
+			drag.el.css({ left: drag.x, top: drag.y, width: item.width });
+			drag.body.css({ height: item.height });
 			meta.resize && meta.resize.call(item, item.width, item.height, drag.body, item.x, item.y);
 			self.element.SETTER('*', 'resize');
 		}

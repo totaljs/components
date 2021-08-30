@@ -316,16 +316,13 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 
 		var item = drag.item;
 		var meta = item.meta;
-		var pos = drag.el.position();
+		var pos = drag.resize ? resizer.position() : drag.el.position();
 
 		drag.is = false;
 		drag.x = meta.offset.x = item.x = pos.left;
 		drag.y = meta.offset.y = item.y = pos.top;
 
 		if (drag.resize) {
-			var pos = resizer.position();
-			drag.x = pos.left;
-			drag.y = pos.top;
 			item.width = meta.offset.width = resizer.width();
 			item.height = meta.offset.height = resizer.height() - drag.title;
 			drag.el.css({ left: drag.x, top: drag.y, width: item.width });
