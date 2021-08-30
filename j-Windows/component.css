@@ -1,7 +1,7 @@
 /*
 .ui-windows { width: 700px; height: 700px; overflow: hidden; position: absolute; border: 2px solid red; left: 500px; top: 100px; }
 */
-.ui-windows-item { position: absolute; border-radius: var(--radius); box-shadow: 0 10px 20px rgba(0,0,0,0.03); background-color: #FFF; z-index: 80; }
+.ui-windows-item { position: absolute; border-radius: var(--radius); box-shadow: 0 10px 20px rgba(0,0,0,0.03); background-color: #FFF; z-index: 4; }
 .ui-windows-title { border: 1px solid #E0E0E0; border-radius: var(--radius) var(--radius) 0 0; height: 32px; }
 .ui-windows-control { float: right; width: 30px; text-align: center; border-left: 1px solid #E0E0E0; line-height: 30px; cursor: pointer; font-size: 13px; }
 .ui-windows-control:hover { background-color: #F9F9F9; }
@@ -11,9 +11,9 @@
 .ui-windows-title span i { margin-right: 5px; }
 .ui-windows-body { border: 1px solid #E0E0E0; border-top: 0; border-radius: 0 0 var(--radius) var(--radius); overflow-x: hidden; }
 .ui-windows-moving .ui-windows-item { pointer-events: none; }
-.ui-windows-dragged { z-index: 100; pointer-events: unset !important; }
+.ui-windows-dragged { z-index: 6; pointer-events: unset !important; }
 .ui-windows-dragged .ui-windows-title { background-color: #FAFAFA; }
-.ui-windows-focused { z-index: 90; }
+.ui-windows-focused { z-index: 5; }
 .ui-windows-maximized { box-shadow: none; }
 .ui-windows-maximized .ui-windows-title { border-left: 0; border-right: 0; border-radius: 0; border-top: 0 }
 .ui-windows-maximized .ui-windows-control { height: 31px; }
@@ -32,6 +32,7 @@
 .ui-windows-resize-bl { left: 0; bottom: 0; cursor: nesw-resize; }
 .ui-windows-resize-br { right: 0; bottom: 0; cursor: nwse-resize; }
 .ui-windows-block iframe, .ui-windows-block webview { pointer-events: none; }
+.ui-windows-resizer { position: absolute; border-radius: var(--radius); border: 1px dashed #C0C0C0; z-index: 7; pointer-events: none; }
 
 .ui-dark .ui-windows-item { background-color: #202020; box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
 .ui-dark .ui-windows-title { border-color: #404040; }
@@ -39,3 +40,4 @@
 .ui-dark .ui-windows-control { border-color: #404040; }
 .ui-dark .ui-windows-control:hover { background-color: #272727; }
 .ui-dark .ui-windows-dragged .ui-windows-title { background-color: #272727; }
+.ui-dark .ui-windows-resizer { border-color: #777; }
