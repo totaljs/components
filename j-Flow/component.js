@@ -1375,6 +1375,7 @@ EXTENSION('flow:connections', function(self, config) {
 		meta.fromindex = a.index;
 		meta.toindex = b.index;
 		meta.path = path;
+		meta.init = init;
 		ac.onconnect && ac.onconnect.call(ac, meta);
 		bc.onconnect && bc.onconnect.call(bc, meta);
 		config.onconnect && self.EXEC(config.onconnect, meta);
