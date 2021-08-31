@@ -111,6 +111,7 @@ __Column properties__:
 - `dirsearch` {String/Boolean} a placeholder for `j-Directory` search, boolean with `false` will disable search
 - `type` {String} optional, can contain a data-type (`string`, `boolean`, `date` or `number`) for the field
 - `editable` {Boolean} enables editing
+- `currency` {String} a currency name (must be defined in `DEF.currencies`)
 - __NEW__ `editable` {String} A path to custom editable `function(meta)`, important: `meta.next(new_value)` or `meta.cancel()`
 - __NEW__ `colorize` {Boolean} enables a colorization of the value
 - __NEW__ `monospace` {Boolean} enables monospace font type
