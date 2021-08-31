@@ -690,7 +690,16 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				rawvalue.text(item || '');
 
 		} else if (config.dirsource) {
-			if (config.dirraw)
+			if (config.dirdetail) {
+				self.EXEC(config.dirdetail, value, function(val) {
+					if (config.dirraw)
+						rawvalue.html(val || '');
+					else
+						rawvalue.text(val || '');
+					self.check();
+				});
+				return;
+			} else if (config.dirraw)
 				rawvalue.html(value || '');
 			else
 				rawvalue.text(value || '');
