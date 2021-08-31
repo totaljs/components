@@ -1,12 +1,18 @@
-COMPONENT('selected', 'class:selected;selector:a;attr:if;attror:or', function(self, config) {
+COMPONENT('selected', 'class:selected;selector:a;attr:if;attror:or;delay:50', function(self, config) {
 
 	self.readonly();
+
+	self.refresh2 = function() {
+		self.refreshid = null;
+		self.refresh();
+	};
 
 	self.configure = function(key, value) {
 		switch (key) {
 			case 'datasource':
 				self.datasource(value, function() {
-					setTimeout(self.refresh, 50);
+					self.refreshid && clearTimeout(self.refreshid);
+					self.refreshid = setTimeout(self.refresh2, config.delay);
 				});
 				break;
 		}
