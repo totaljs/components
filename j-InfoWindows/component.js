@@ -570,4 +570,9 @@ COMPONENT('infowindows', 'reoffsetresize:0', function(self, config, cls) {
 		item && item.setcommand('hide');
 	};
 
+	self.close = function(id) {
+		var item = cache[id];
+		item && item.setcommand('close');
+	};
+
 });

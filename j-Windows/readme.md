@@ -120,10 +120,11 @@ PUSH('windows', win);
 __Methods__:
 
 - `component.finditem(window_id)` finds the specific window according to `ID`
-- __NEW__ `component.show(window_id)` shows a window
-- __NEW__ `component.hide(window_id)` hides a window
-- __NEW__ `component.toggle(window_id)` toggles a window
-- __NEW__ `component.focus(window_id)` focues a window
+- `component.show(window_id)` shows a window
+- `component.hide(window_id)` hides a window
+- `component.toggle(window_id)` toggles a window
+- `component.focus(window_id)` focuses a window
+- `component.hide(window_id)` closes a window
 
 ### Author
 

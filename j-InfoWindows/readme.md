@@ -116,7 +116,8 @@ __Methods__:
 - `component.show(window_id)` shows a window
 - `component.hide(window_id)` hides a window
 - `component.toggle(window_id)` toggles a window
-- `component.focus(window_id)` focues a window
+- `component.focus(window_id)` focuses a window
+- `component.close(window_id)` closes a window
 
 ### Author
 

@@ -684,4 +684,9 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 		item && item.setcommand('hide');
 	};
 
+	self.close = function(id) {
+		var item = cache[id];
+		item && item.setcommand('close');
+	};
+
 });
