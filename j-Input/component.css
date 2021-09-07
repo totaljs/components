@@ -32,7 +32,7 @@
 .ui-input .right input, .ui-input .right .ui-input-placeholder { text-align: right; }
 .ui-input .center input, .ui-input .center .ui-input-placeholder { text-align: center; }
 .ui-input-dropdown, .ui-input-dropdown input, .ui-input-dropdown .ui-input-placeholder { cursor: pointer; }
-.ui-input-invalid .ui-input-control, .ui-input-invalid .ui-input-icon-left, .ui-input-invalid .ui-input-icon-right { border-color: red; }
+.ui-input-invalid .ui-input-control, .ui-input-invalid .ui-input-icon-left, .ui-input-invalid .ui-input-icon-right { border-color: red !important; }
 .ui-input.ui-disabled .ui-input-control { background-color: #F0F0F0; color: #777; }
 .ui-input.ui-disabled input { background-color: #F0F0F0; color: #A0A0A0; }
 .ui-input.ui-disabled .ui-input-placeholder { color: #A0A0A0; }
