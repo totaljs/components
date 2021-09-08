@@ -119,6 +119,7 @@
 .dg-row:hover, .dg-row-hover { background-color:rgba(130,130,130,0.07); }
 
 .ui-dark .dg, .ui-dark .dg-body { background-color: #232323; }
+.ui-dark .dg-footer { border-color: #404040; }
 .ui-dark .dg-container { border-top-color: #353535; border-left-color: #353535; border-right-color: #353535;  }
 .ui-dark .dg-mobile .dg-container { border-right-color: #404040; border-bottom-color: #404040; }
 .ui-dark .dg-header { border-bottom-color: #353535; }
