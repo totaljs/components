@@ -1,4 +1,4 @@
-COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horizontal:1;steplines:1;snapping:0;animationradius:6;outputoffsetY:10;outputoffsetX:12;inputoffsetY:10;inputoffsetX:12', function(self, config, cls) {
+COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horizontal:1;steplines:1;snapping:0;animationradius:6;outputoffsetY:10;outputoffsetX:12;inputoffsetY:10;inputoffsetX:12;history:100;multiple:1', function(self, config, cls) {
 
 	// config.infopath {String}, output: { zoom: Number, selected: Object }
 	// config.undopath {String}, output: {Object Array}
@@ -21,6 +21,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 	self.undo = [];
 	self.redo = [];
 	self.focused = null;
+	self.groupid = '';
 
 	self.make = function() {
 		self.aclass(cls);
@@ -228,7 +229,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 		self.el.lines.find('path').aclass('removed');
 		keys = Object.keys(self.cache);
 
-		setTimeout(function() {
+		var reconnect = function() {
 
 			for (var i = 0; i < keys.length; i++) {
 				var key = keys[i];
@@ -253,14 +254,19 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 
 			rebuildagain = false;
 
-		}, 300);
+		};
 
-		self.undo = [];
-		self.redo = [];
-		self.op.undo();
-		self.op.redo();
+		if (type === 'refresh') {
+			reconnect();
+		} else {
+			setTimeout(reconnect, 300);
+			self.undo = [];
+			self.redo = [];
+			self.op.undo();
+			self.op.redo();
+		}
+
 		self.op.refreshinfo();
-
 		COMPILE();
 	};
 
@@ -544,7 +550,7 @@ EXTENSION('flow:operations', function(self, config) {
 		self.helpers.checkconnected(next);
 	};
 
-	self.op.unselect = function(type) {
+	self.op.unselect = function(type, id) {
 
 		var cls = 'connection-selected';
 
@@ -555,10 +561,12 @@ EXTENSION('flow:operations', function(self, config) {
 
 		cls = 'component-selected';
 
-		if (type == null || type === 'component')
-			self.find('.' + cls).rclass(cls);
+		if (type == null || type === 'component') {
+			var el = id ? self.find('.' + cls + '[data-id="' + id + '"]') : self.find('.' + cls);
+			el.rclass(cls);
+		}
 
-		if (self.info.selected) {
+		if (self.info.selected && (!id || self.info.selected.id === id)) {
 			self.info.selected = null;
 			self.op.refreshinfo();
 		}
@@ -671,14 +679,17 @@ EXTENSION('flow:operations', function(self, config) {
 		return true;
 	};
 
-	self.op.select = function(id) {
+	self.op.select = function(id, noremove) {
 
 		var com = self.cache[id];
 		if (com == null)
 			return false;
 
 		var cls = 'component-selected';
-		self.find('.' + cls).rclass(cls);
+
+		if (!noremove)
+			self.find('.' + cls).rclass(cls);
+
 		self.find('.component[data-id="{0}"]'.format(id)).aclass(cls);
 
 		var connections = self.el.lines.find('.from{0},.to{0}'.format(D + id)).aclass('highlight');
@@ -815,23 +826,37 @@ EXTENSION('flow:operations', function(self, config) {
 		return obj;
 	};
 
-	self.op.refreshinfo = function() {
+	var notifytimeout = null;
+	var notifyinfo = function() {
+		notifytimeout = null;
 		config.infopath && self.SEEX(config.infopath, self.info);
 	};
 
+	self.op.refreshinfo = function() {
+		notifytimeout && clearTimeout(notifytimeout);
+		notifytimeout = setTimeout(notifyinfo, 100);
+	};
+
 	self.op.undo = function(value) {
+
 		if (value) {
+
+			if (self.groupid)
+				value.groupid = self.groupid;
+
 			self.undo.push(value);
-			if (self.undo.length > 50)
+
+			if (self.undo.length > config.history)
 				self.undo.shift();
 		}
+
 		config.undopath && self.SEEX(config.undopath, self.undo);
 	};
 
 	self.op.redo = function(value) {
 		if (value) {
 			self.redo.push(value);
-			if (self.redo.length > 50)
+			if (self.redo.length > config.history)
 				self.redo.shift();
 		}
 		config.redopath && self.SEEX(config.redopath, self.redo);
@@ -911,6 +936,9 @@ EXTENSION('flow:map', function(self, config) {
 		if (e.button || e.target.tagName !== 'rect')
 			return;
 
+		// Unselects all selected components/connections
+		self.op.unselect();
+
 		var evt = e.touches ? e.touches[0] : e;
 		var et = $(e.target);
 		var target = et.closest('.ui-scrollbar-area');
@@ -929,8 +957,6 @@ EXTENSION('flow:map', function(self, config) {
 		events.bind();
 		e.preventDefault();
 
-		// Unselects all selected components/connections
-		self.op.unselect();
 	});
 });
 
@@ -948,30 +974,34 @@ EXTENSION('flow:components', function(self, config) {
 
 	events.reposition = function() {
 		// move all output connections
-		for (var i = 0; i < drag.output.length; i++) {
-			var conn = $(drag.output[i]);
-			var pos = self.helpers.position(conn, true);
-			var arr = self.el.lines.find('.from' + D + pos.id + D + pos.index);
-			for (var j = 0; j < arr.length; j++) {
-				var ce = $(arr[j]);
-				var findex = +ce.attrd('fromindexoffset');
-				var tindex = +ce.attrd('toindexoffset');
-				self.helpers.move1(zoom(pos.x + drag.zoomoffset), zoom(pos.y), ce, findex, tindex);
-			}
-		}
 
-		// move all input connections
-		for (var i = 0; i < drag.input.length; i++) {
-			var conn = $(drag.input[i]);
-			var pos = self.helpers.position(conn);
-			var arr = self.el.lines.find('.to' + D + pos.id + D + pos.index);
-			var findex = +conn.attrd('fromindexoffset');
-			var tindex = +conn.attrd('toindexoffset');
-			for (var j = 0; j < arr.length; j++) {
-				var ce = $(arr[j]);
-				var findex = +ce.attrd('fromindexoffset');
-				var tindex = +ce.attrd('toindexoffset');
-				self.helpers.move2(zoom(pos.x - 6), zoom(pos.y), ce, findex, tindex);
+		for (var j = 0; j < drag.selected.length; j++) {
+			var node = drag.selected[j];
+			for (var i = 0; i < node.output.length; i++) {
+				var conn = $(node.output[i]);
+				var pos = self.helpers.position(conn, true);
+				var arr = self.el.lines.find('.from' + D + pos.id + D + pos.index);
+				for (var k = 0; k < arr.length; k++) {
+					var ce = $(arr[k]);
+					var findex = +ce.attrd('fromindexoffset');
+					var tindex = +ce.attrd('toindexoffset');
+					self.helpers.move1(zoom(pos.x + drag.zoomoffset), zoom(pos.y), ce, findex, tindex);
+				}
+			}
+
+			// move all input connections
+			for (var i = 0; i < node.input.length; i++) {
+				var conn = $(node.input[i]);
+				var pos = self.helpers.position(conn);
+				var arr = self.el.lines.find('.to' + D + pos.id + D + pos.index);
+				var findex = +conn.attrd('fromindexoffset');
+				var tindex = +conn.attrd('toindexoffset');
+				for (var k = 0; k < arr.length; k++) {
+					var ce = $(arr[k]);
+					var findex = +ce.attrd('fromindexoffset');
+					var tindex = +ce.attrd('toindexoffset');
+					self.helpers.move2(zoom(pos.x - 6), zoom(pos.y), ce, findex, tindex);
+				}
 			}
 		}
 	};
@@ -981,13 +1011,14 @@ EXTENSION('flow:components', function(self, config) {
 		var x = (e.pageX - drag.x);
 		var y = (e.pageY - drag.y);
 
-		drag.css.left = zoom(drag.posX + x);
-		drag.css.top = zoom(drag.posY + y);
+		for (var i = 0; i < drag.selected.length; i++) {
+			var instance = drag.selected[i];
+			instance.node.css({ left: zoom(instance.pos.left + x), top: zoom(instance.pos.top + y) });
+		}
 
 		if (!drag.is)
 			drag.is = true;
 
-		drag.target.css(drag.css);
 		events.reposition();
 	};
 
@@ -999,21 +1030,30 @@ EXTENSION('flow:components', function(self, config) {
 
 		if (drag.is) {
 
-			if (config.snapping) {
-				drag.css.left = drag.css.left - (drag.css.left % config.snapping);
-				drag.css.top = drag.css.top - (drag.css.top % config.snapping);
-				drag.target.css(drag.css);
-				events.reposition();
+			var undo = [];
+
+			for (var i = 0; i < drag.selected.length; i++) {
+				var instance = drag.selected[i];
+				var pos = instance.node.position();
+
+				if (config.snapping) {
+					pos.left = pos.left - (pos.left % config.snapping);
+					pos.top = pos.top - (pos.top % config.snapping);
+					instance.node.css(pos);
+				}
+
+				var data = self.get()[instance.id];
+				undo.push({ id: instance.id, x: data.x, y: data.y, newx: pos.left, newy: pos.top, groupid: self.groupid });
+				data.x = pos.left;
+				data.y = pos.top;
+				data.onmove && data.onmove(instance.node, data);
+				config.onmove && self.EXEC(config.onmove, instance.node, data);
+				self.op.modify(data, 'move');
 			}
 
-			var data = self.get()[drag.id];
-			self.op.undo({ type: 'move', id: drag.id, x: data.x, y: data.y, newx: drag.css.left, newy: drag.css.top });
-			data.x = drag.css.left;
-			data.y = drag.css.top;
-			data.onmove && data.onmove(drag.target, data);
-			config.onmove && self.EXEC(config.onmove, drag.target, data);
+			self.op.undo({ type: 'move', multiple: undo });
+			events.reposition();
 			self.op.modified();
-			self.op.modify(data, 'move');
 		}
 
 		events.unbind();
@@ -1068,6 +1108,7 @@ EXTENSION('flow:components', function(self, config) {
 		}
 
 		var parent = e.target;
+		var clssel = 'component-selected';
 		var target;
 
 		while (true) {
@@ -1085,36 +1126,65 @@ EXTENSION('flow:components', function(self, config) {
 			parent = parent.parentNode;
 		}
 
-		e.preventDefault();
+		var selectconnections = function() {
+			var clscon = 'connection-selected';
+			var more = self.find('.' + clssel);
+			self.el.lines.find('.' + clscon).rclass(clscon);
+			for (var i = 0; i < more.length; i++) {
+				var sel = $(more[i]);
+				var selid = sel.attrd('id');
+				var selector = '.from__{0},.to__{0}'.format(selid);
+				self.el.lines.find(selector).aclass(clscon);
+			}
+		};
+
 		drag.id = target.attrd('id');
+
+		var more = self.find('.' + clssel);
+		var ismeta = config.multiple && (e.metaKey || e.ctrlKey || e.shiftKey);
+		if (ismeta) {
+			if (target.hclass(clssel)) {
+				self.op.unselect('component', more.length > 1 ? drag.id : null);
+				setTimeout(selectconnections, 5);
+				return;
+			}
+		}
+
+		e.preventDefault();
 
 		var evt = e.touches ? e.touches[0] : e;
 		var tmp = self.cache[drag.id];
 
 		self.op.unselect('connections');
-		if (tmp.actions.select !== false)
-			self.op.select(drag.id);
+
+		if (tmp.actions.select !== false) {
+			var is = ismeta;
+			if (!is)
+				is = target.hclass(clssel);
+			self.op.select(drag.id, is);
+		}
+
+		setTimeout(selectconnections, 5);
 
 		if (tmp.actions.move === false)
 			return;
 
+		var nodes = self.find('.' + clssel);
 		drag.target = target;
 		drag.x = evt.pageX;
 		drag.y = evt.pageY;
 		drag.zoom = self.info.zoom / 100;
 		drag.zoomoffset = ((100 - self.info.zoom) / 10) + (self.info.zoom > 100 ? 1 : -1);
-
 		drag.is = false;
-		drag.output = target.find('.output');
-		drag.input = target.find('.input');
+		drag.selected = [];
 
-		var pos = target.position();
-		drag.posX = pos.left;
-		drag.posY = pos.top;
+		for (var i = 0; i < nodes.length; i++) {
+			var node = $(nodes[i]);
+			drag.selected.push({ id: node.attrd('id'), node: node, pos: node.position(), output: node.find('.output'), input: node.find('.input') });
+		}
 
 		self.focused && self.focused.rclass('component-focused');
 		self.focused = target.aclass('component-focused');
-
 		events.bind();
 	});
 
@@ -1576,9 +1646,11 @@ EXTENSION('flow:commands', function(self, config) {
 	});
 
 	self.command('flow.selected.clear', function() {
+		self.groupid = GUID(5);
 		disconnect();
 		remove();
 		self.op.unselect();
+		self.groupid = '';
 	});
 
 	self.command('flow.clean', function() {
@@ -1620,105 +1692,97 @@ EXTENSION('flow:commands', function(self, config) {
 
 	self.command('flow.undo', function() {
 
-		var prev = self.undo.pop();
-		if (prev == null)
-			return;
-
 		var item;
+		var prev;
 
-		self.op.undo();
-		self.op.redo(prev);
+		while (true) {
 
-		if (prev.type === 'disconnect') {
-			var output = self.find('.component[data-id="{0}"]'.format(prev.fromid)).find('.output[data-index="{0}"]'.format(prev.fromindex));
-			var input = self.find('.component[data-id="{0}"]'.format(prev.toid)).find('.input[data-index="{0}"]'.format(prev.toindex));
-			self.el.connect(output, input, true);
-			return;
-		}
+			prev = self.undo.pop();
 
-		if (prev.type === 'connect') {
-			self.op.disconnect(prev.fromid, prev.toid, prev.fromindex, prev.toindex, true);
-			return;
-		}
+			if (!prev)
+				return;
 
-		if (prev.type === 'component') {
-			self.op.remove(prev.id, true);
-			return;
-		}
+			self.op.undo();
+			self.op.redo(prev);
 
-		if (prev.type === 'move') {
-			self.find('.component[data-id="{0}"]'.format(prev.id)).css({ left: prev.x, top: prev.y });
-			item = self.get()[prev.id];
-			item.x = prev.x;
-			item.y = prev.y;
-			item.onmove && item.onmove(item.element, item);
-			config.onmove && self.EXEC(config.onmove, item.element, item);
-			self.op.reposition();
-			return;
-		}
+			if (prev.type === 'disconnect') {
+				var output = self.find('.component[data-id="{0}"]'.format(prev.fromid)).find('.output[data-index="{0}"]'.format(prev.fromindex));
+				var input = self.find('.component[data-id="{0}"]'.format(prev.toid)).find('.input[data-index="{0}"]'.format(prev.toindex));
+				self.el.connect(output, input, true);
+			} else if (prev.type === 'connect') {
+				self.op.disconnect(prev.fromid, prev.toid, prev.fromindex, prev.toindex, true);
+			} else if (prev.type === 'component') {
+				self.op.remove(prev.id, true);
+			} else if (prev.type === 'move') {
+				var arr = prev.multiple || [prev];
+				for (var i = 0; i < arr.length; i++) {
+					var tmp = arr[i];
+					self.find('.component[data-id="{0}"]'.format(tmp.id)).css({ left: tmp.x, top: tmp.y });
+					item = self.get()[tmp.id];
+					item.x = tmp.x;
+					item.y = tmp.y;
+					item.onmove && item.onmove(item.element, item);
+					config.onmove && self.EXEC(config.onmove, item.element, item);
+				}
+				self.op.reposition();
+			} else if (prev.type === 'remove') {
+				var com = prev.instance;
+				com.id = prev.id;
+				var data = self.get();
+				data[com.id] = com;
+				self.op.modified();
+				self.update('refresh');
+			}
 
-		if (prev.type === 'remove') {
-			var com = prev.instance;
-			com.id = prev.id;
-			var data = self.get();
-			data[com.id] = com;
-			self.op.modified();
-			self.update('refresh');
-			return;
+			if (!prev.groupid || (!self.undo.length || prev.groupid !== self.undo[self.undo.length - 1].groupid))
+				return;
 		}
 
 	});
 
 	self.command('flow.redo', function() {
 
-		var next = self.redo.pop();
-		if (next == null)
-			return;
-
+		var next;
 		var item;
 
-		self.op.redo();
-		self.op.undo(next);
-		self.op.refreshinfo();
+		while (true) {
 
-		if (next.type === 'disconnect') {
-			self.op.disconnect(next.fromid, next.toid, next.fromindex, next.toindex, true);
-			return;
-		}
+			next = self.redo.pop();
 
-		if (next.type === 'connect') {
-			var output = self.find('.component[data-id="{0}"]'.format(next.fromid)).find('.output[data-index="{0}"]'.format(next.fromindex));
-			var input = self.find('.component[data-id="{0}"]'.format(next.toid)).find('.input[data-index="{0}"]'.format(next.toindex));
-			self.el.connect(output, input, true);
-			return;
-		}
+			if (next == null)
+				return;
 
-		if (next.type === 'component') {
-			var com = next.instance;
-			com.id = next.id;
-			var data = self.get();
-			data[com.id] = com;
-			self.op.modified();
-			self.refresh(true);
-			return;
-		}
+			self.op.redo();
+			self.op.undo(next);
+			self.op.refreshinfo();
 
-		if (next.type === 'move') {
-			self.find('.component[data-id="{0}"]'.format(next.id)).css({ left: next.newx, top: next.newy });
+			if (next.type === 'disconnect') {
+				self.op.disconnect(next.fromid, next.toid, next.fromindex, next.toindex, true);
+			} else if (next.type === 'connect') {
+				var output = self.find('.component[data-id="{0}"]'.format(next.fromid)).find('.output[data-index="{0}"]'.format(next.fromindex));
+				var input = self.find('.component[data-id="{0}"]'.format(next.toid)).find('.input[data-index="{0}"]'.format(next.toindex));
+				self.el.connect(output, input, true);
+			} else if (next.type === 'component') {
+				var com = next.instance;
+				com.id = next.id;
+				var data = self.get();
+				data[com.id] = com;
+				self.op.modified();
+				self.refresh(true);
+			} else if (next.type === 'move') {
+				self.find('.component[data-id="{0}"]'.format(next.id)).css({ left: next.newx, top: next.newy });
+				item = self.get()[next.id];
+				item.x = next.newx;
+				item.y = next.newy;
+				item.onmove && item.onmove(item.element, item);
+				config.onmove && self.EXEC(config.onmove, item.element, item);
+				self.op.reposition();
+			} else if (next.type === 'remove') {
+				self.op.remove(next.id, true);
+			}
 
-			item = self.get()[next.id];
-			item.x = next.newx;
-			item.y = next.newy;
-			item.onmove && item.onmove(item.element, item);
-			config.onmove && self.EXEC(config.onmove, item.element, item);
-
-			self.op.reposition();
-			return;
-		}
-
-		if (next.type === 'remove') {
-			self.op.remove(next.id, true);
-			return;
+			if (!next.groupid || (!self.redo.length || next.groupid !== self.redo[self.redo.length - 1].groupid))
+				return;
 		}
 
 	});

@@ -31,6 +31,8 @@ __Configuration__:
 - `inputoffsetX {Number}` a default X offset for input point (default: `10`)
 - `inputoffsetY {Number}` a default Y offset for input point (default: `12`)
 - `snapping {Number}` snapping in pixels (default: `0` = disabled)
+- __NEW__ `multiple {Boolean}` enables multiple selecting of the component (default: `true`)
+- __NEW__ `history {Number}` a count of steps in the undo/redo history (default: `100`)
 
 __Commands__:
 
