@@ -236,8 +236,10 @@ COMPONENT('shortcuts', function(self) {
 			// Remove
 			if (cachekey[5] === -1) {
 				cachekey[5] = 8;
+				cachekey[3] = 1;
 				k = cachekey.join('');
 				currentkeys[k] = 1;
+				cachekey[3] = 0;
 				cachekey[5] = 46;
 			}
 
