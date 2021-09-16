@@ -172,8 +172,9 @@ COMPONENT('shortcuts', function(self) {
 						cachekey[5] = 46;
 						return;
 					case 'save':
-						builder.push('(e.metaKey&&e.keyCode===115)');
-						cachekey[5] = -1;
+						builder.push('(e.metaKey&&e.keyCode===83)');
+						cachekey[3] = 1;
+						cachekey[5] = 83;
 						return;
 					case 'remove':
 						builder.push('((e.metaKey&&e.keyCode===8)||e.keyCode===46)');
