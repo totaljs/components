@@ -113,6 +113,10 @@ COMPONENT('console', function(self, config, cls) {
 
 		if (value) {
 			self.rclass('hidden');
+
+			if (typeof(value) === 'string')
+				self.show(value);
+
 			self.aclass(cls + '-visible', 100);
 		} else {
 			self.rclass('hidden', 100);

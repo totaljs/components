@@ -10,6 +10,10 @@ __Configuration__:
 
 - `datasource` {String} a path to data-source (learn from example)
 
+__Good to know__:
+
+- `path` can be `{String}` with the `appid` due to focusing logs
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
