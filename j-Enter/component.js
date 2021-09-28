@@ -13,11 +13,11 @@ COMPONENT('enter', 'validate:1;trigger:button[name="submit"];flags:visible;timeo
 	self.readonly();
 	self.make = function() {
 		self.event('keydown', 'input', function(e) {
-			if (e.which === 13 && (!config.validate || CAN(self.path, flags))) {
+			if (e.which === 13 && (!config.validate || !self.path || CAN(self.path, flags))) {
 				if (config.exec) {
 					if (!BLOCKED(self.ID, config.timeout)) {
 						delay && clearTimeout(delay);
-						delay && setTimeout(submit, config.delay);
+						delay = setTimeout(submit, config.delay);
 					}
 				} else {
 					var btn = self.find(config.trigger);
