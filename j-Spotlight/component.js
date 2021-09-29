@@ -200,6 +200,8 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 		$(document).on('touchstart mousedown', onclick);
 		self.opt = opt;
 
+		input.prop('placeholder', opt.placeholder || config.placeholder);
+
 		prevclass && self.rclass(prevclass);
 		prevclass = null;
 
