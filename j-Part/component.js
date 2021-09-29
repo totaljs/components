@@ -34,53 +34,81 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 			if (downloading)
 				return;
 
-			config.loading && SETTER('loading/show');
-			downloading = true;
-			setTimeout(function() {
+			if (config.absolute && !isresizing) {
+				self.on('resize2', self.resize);
+				isresizing = true;
+			}
 
-				var preparator;
+			if (self.dom.hasChildNodes()) {
 
-				if (config.replace)
-					preparator = GET(replace(config.replace));
-				else {
-					preparator = function(content) {
-						return content.replace(/~PATH~/g, replace(config.path || config.if));
-					};
+				if (clid) {
+					clearTimeout(clid);
+					clid = null;
 				}
 
-				self.import(replace(config.url), function() {
+				self.release(false);
 
-					downloading = false;
+				var done = function() {
+					config.hide && self.rclass('hidden');
+					config.reload && EXEC(replace(config.reload));
+					config.default && DEFAULT(replace(config.default), true);
+					self.hclass('invisible') && self.rclass('invisible', config.delay);
+					isresizing && setTimeout(self.resize, 50);
+					setTimeout(self.emitresize, 200);
+				};
 
-					if (!init) {
-						config.init && EXEC(replace(config.init));
-						init = true;
+				if (config.check)
+					EXEC(replace(config.check), done);
+				else
+					done();
+
+			} else {
+
+				config.loading && SETTER('loading/show');
+				downloading = true;
+				setTimeout(function() {
+
+					var preparator;
+
+					if (config.replace)
+						preparator = GET(replace(config.replace));
+					else {
+						preparator = function(content) {
+							return content.replace(/~PATH~/g, replace(config.path || config.if));
+						};
 					}
 
-					var done = function() {
-						config.hide && self.rclass('hidden');
-						self.release(false);
-						config.reload && EXEC(replace(config.reload), true);
-						config.default && DEFAULT(replace(config.default), true);
-						config.loading && SETTER('loading/hide', self.delay);
-						self.hclass('invisible') && self.rclass('invisible', self.delay);
-						isresizing && setTimeout(self.resize, 50);
-						setTimeout(self.emitresize, 200);
-					};
+					self.import(replace(config.url), function() {
 
-					EMIT('parts.' + config.if, self.element, self);
+						if (!init) {
+							config.init && EXEC(replace(config.init));
+							init = true;
+						}
 
-					if (config.check)
-						EXEC(replace(config.check), done);
-					else
-						done();
+						var done = function() {
+							config.hide && self.rclass('hidden');
+							self.release(false);
+							config.reload && EXEC(replace(config.reload), true);
+							config.default && DEFAULT(replace(config.default), true);
+							config.loading && SETTER('loading/hide', self.delay);
+							self.hclass('invisible') && self.rclass('invisible', self.delay);
+							isresizing && setTimeout(self.resize, 50);
+							setTimeout(self.emitresize, 200);
+							downloading = false;
+						};
 
-				}, true, preparator);
+						EMIT('parts.' + config.if, self.element, self);
 
-			}, 200);
+						if (config.check)
+							EXEC(replace(config.check), done);
+						else
+							done();
 
+					}, true, preparator);
+
+				}, 200);
+			}
 		} else {
-
 
 			if (!self.hclass('hidden')) {
 				config.hidden && EXEC(replace(config.hidden));
@@ -90,38 +118,8 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 
 			if (config.cleaner && init && !clid)
 				clid = setTimeout(self.clean, config.cleaner * 60000);
-
-			return;
 		}
 
-		if (config.absolute && !isresizing) {
-			self.on('resize2', self.resize);
-			isresizing = true;
-		}
-
-		if (self.dom.hasChildNodes()) {
-
-			if (clid) {
-				clearTimeout(clid);
-				clid = null;
-			}
-
-			self.release(false);
-
-			var done = function() {
-				config.hide && self.rclass('hidden');
-				config.reload && EXEC(replace(config.reload));
-				config.default && DEFAULT(replace(config.default), true);
-				self.hclass('invisible') && self.rclass('invisible', config.delay);
-				isresizing && setTimeout(self.resize, 50);
-				setTimeout(self.emitresize, 200);
-			};
-
-			if (config.check)
-				EXEC(replace(config.check), done);
-			else
-				done();
-		}
 	};
 
 	self.emitresize = function() {
