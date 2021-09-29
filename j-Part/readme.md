@@ -5,7 +5,7 @@ This component can handle different contents asynchronously. __If the element do
 __Configuration__:
 
 - `url` {String} required, a relative URL address
-- `if` {String} required, condition, it's compared with the value within of `path`
+- `if` {String} required, condition, it's compared with the value within of `path` (__NEW__: supports multiple paths divided by `comma`)
 - `reload` {String} optional, a link to function `function(init) {}`, it's executed when the part is visible (always)
 - `hidden` {String} optional, a link to function, it's executed when the part is hidden (always)
 - `init` {String} optional, a link to function, it's executed when the part is visible and onetime
@@ -17,9 +17,9 @@ __Configuration__:
 - `path` {String} optional, the component replace all `~PATH~` phrases for the value of the `path` in the downloaded template
 - `replace` {String} optional, a link to method `function(content) { return content }` which can modify downloaded template
 - `absolute` {Boolean} optional, enables absolute position (default `false`)
-- __NEW__ `check` {String} optional, a link to function `function(next) { next(); }`, it's executed when the part is wanting to show
-- __NEW__ `invisible` {Boolean} enables adding of `invisible` class when the part is going to hide (default: `false`)
-- __NEW__ `delay` {Number} a delay (in ms) for removing of `invisible` class and hiding of `loading` (default: `500`)
+- `check` {String} optional, a link to function `function(next) { next(); }`, it's executed when the part is wanting to show
+- `invisible` {Boolean} enables adding of `invisible` class when the part is going to hide (default: `false`)
+- `delay` {Number} a delay (in ms) for removing of `invisible` class and hiding of `loading` (default: `500`)
 
 __Good to know 1__:
 

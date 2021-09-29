@@ -4,6 +4,7 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 	var clid = null;
 	var downloading = false;
 	var isresizing = false;
+	var cache = {};
 
 	self.releasemode && self.releasemode('true');
 	self.readonly();
@@ -28,49 +29,7 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 
 	self.setter = function(value) {
 
-		if (config.if !== value) {
-
-			if (!self.hclass('hidden')) {
-				config.hidden && EXEC(replace(config.hidden));
-				config.hide && self.aclass('hidden' + (config.invisible ? ' invisible' : ''));
-				self.release(true);
-			}
-
-			if (config.cleaner && init && !clid)
-				clid = setTimeout(self.clean, config.cleaner * 60000);
-
-			return;
-		}
-
-		if (config.absolute && !isresizing) {
-			self.on('resize2', self.resize);
-			isresizing = true;
-		}
-
-		if (self.dom.hasChildNodes()) {
-
-			if (clid) {
-				clearTimeout(clid);
-				clid = null;
-			}
-
-			self.release(false);
-
-			var done = function() {
-				config.hide && self.rclass('hidden');
-				config.reload && EXEC(replace(config.reload));
-				config.default && DEFAULT(replace(config.default), true);
-				self.hclass('invisible') && self.rclass('invisible', config.delay);
-				isresizing && setTimeout(self.resize, 50);
-				setTimeout(self.emitresize, 200);
-			};
-
-			if (config.check)
-				EXEC(replace(config.check), done);
-			else
-				done();
-
-		} else {
+		if (cache[value]) {
 
 			if (downloading)
 				return;
@@ -119,6 +78,49 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 				}, true, preparator);
 
 			}, 200);
+
+		} else {
+
+
+			if (!self.hclass('hidden')) {
+				config.hidden && EXEC(replace(config.hidden));
+				config.hide && self.aclass('hidden' + (config.invisible ? ' invisible' : ''));
+				self.release(true);
+			}
+
+			if (config.cleaner && init && !clid)
+				clid = setTimeout(self.clean, config.cleaner * 60000);
+
+			return;
+		}
+
+		if (config.absolute && !isresizing) {
+			self.on('resize2', self.resize);
+			isresizing = true;
+		}
+
+		if (self.dom.hasChildNodes()) {
+
+			if (clid) {
+				clearTimeout(clid);
+				clid = null;
+			}
+
+			self.release(false);
+
+			var done = function() {
+				config.hide && self.rclass('hidden');
+				config.reload && EXEC(replace(config.reload));
+				config.default && DEFAULT(replace(config.default), true);
+				self.hclass('invisible') && self.rclass('invisible', config.delay);
+				isresizing && setTimeout(self.resize, 50);
+				setTimeout(self.emitresize, 200);
+			};
+
+			if (config.check)
+				EXEC(replace(config.check), done);
+			else
+				done();
 		}
 	};
 
@@ -129,7 +131,12 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 	self.configure = function(key, value) {
 		switch (key) {
 			case 'if':
-				config.if = value + '';
+
+				var tmp = (value + '').split(',').trim();
+				cache = {};
+				for (var i = 0; i < tmp.length; i++)
+					cache[tmp[i]] = 1;
+
 				break;
 			case 'absolute':
 				var is = !!value;
