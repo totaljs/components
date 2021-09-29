@@ -1,4 +1,4 @@
-COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selectable:1;morebutton:+{{ count }} more', function(self, config, cls) {
+COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selectable:1;morebutton:+{{ count }} more;badgecolor:red', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var eventsbinder = {};
@@ -10,10 +10,12 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 	var datacontainer;
 	var tmpresize;
 	var events = [];
+	var badges = [];
 	var eventssingle = [];
 	var eventsmore = {};
 
 	self.readonly();
+	self.nocompile();
 
 	self.make = function() {
 		self.aclass(cls);
@@ -125,6 +127,7 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 			eventsbinder.mdown.call(this, e);
 			e.preventDefault();
 		});
+
 	};
 
 	eventsbinder.on = function() {
@@ -209,8 +212,38 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 		var data = { beg: beg, end: end };
 
 		eventsbinder.dblclicktimeout = setTimeout(function() {
-			config.create && self.EXEC(config.create, data, $(begel), $(endel), e);
+			begel = $(begel);
+			endel = $(endel);
+			config.hover && self.SEEX(config.hover, data, begel, endel, e);
+			config.create && self.EXEC(config.create, data, begel, endel, e);
 		}, eventsbinder.endcache || !config.dblclick ? 50 : 300);
+	};
+
+	self.hover = function(beg, end) {
+
+		container.find(cls2 + '-hover').rclass(cls + '-hover');
+
+		var bid = beg.format('yyyy-MM-dd');
+		var eid = end ? end.format('yyyy-MM-dd') : '';
+		var bel = container.find('> div[data-date="{0}"]'.format(bid));
+		var eel = eid ? container.find('> div[data-date="{0}"]'.format(eid)) : null;
+
+		var bindex = bel.length ? +bel.attrd('index') : 0;
+		var eindex = eel ? +eel.attrd('index') : end ? 32 : -1;
+
+		if (eindex !== -1) {
+			for (var i = bindex; i < eindex; i++)
+				$(container[0].children[i]).aclass(cls + '-hover');
+		} else
+			bel.aclass(cls + '-hover');
+
+		var data = { beg: beg, end: end };
+		config.hover && self.SEEX(config.hover, data, bel, eel);
+	};
+
+	self.unhover = function() {
+		container.find(cls2 + '-hover').rclass(cls + '-hover');
+		config.hover && self.SEEX(config.hover);
 	};
 
 	self.redraw = function(date) {
@@ -309,8 +342,10 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 			self.SEEX(config.rebind, meta);
 		}
 
-		isready = true;
+		if (Object.keys(badges).length)
+			self.refresh_badges();
 
+		isready = true;
 	};
 
 	self.resize = function() {
@@ -636,6 +671,12 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 		});
 	};
 
+	self.addbadge = function(date, color) {
+		var id = date.format('yyyy-MM-dd');
+		badges[id] = color || config.badgecolor;
+		setTimeout2(self.ID + 'badges', self.refresh_badges, 500);
+	};
+
 	self.addevent = function(item) {
 
 		var h = (container.height() / 6).floor(3);
@@ -696,8 +737,25 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 	self.clear = function() {
 		eventssingle = [];
 		events = [];
+		badges = [];
 		eventsmore = {};
 		self.find(cls2 + '-event').remove();
+	};
+
+	self.refresh_badges = function() {
+		var arr = container.find('> div');
+		for (var i = 0; i < arr.length; i++) {
+			var el = $(arr[i]);
+			var badge = el.find(cls2 + '-badge');
+			var id = el.attrd('date');
+			if (badges[id]) {
+				if (badge.length)
+					badge.find('span').css('background', badges[id]);
+				else
+					el.prepend('<div class="{0}-badge"><span style="background:{1}"></span></div>'.format(cls, badges[id]));
+			} else
+				badge.remove();
+		}
 	};
 
 });

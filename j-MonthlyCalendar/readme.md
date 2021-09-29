@@ -22,17 +22,21 @@ __Configuration__:
 - `marginsm` {Number} top/bottom margin together for `sm` screen width
 - `marginmd` {Number} top/bottom margin together for `md` screen width
 - `marginlg` {Number} top/bottom margin together for `lg` screen width
+- `hover` {String} a path to `Function({ beg: Date, end: Date }, beg_element, end_element)` (same like `create`, but it's called on `component.hover()` and `component.unhover()` methods)
 
 __Methods__:
 
 - `component.addevents(events)` adds events
 	- `events` means Array of object below:
 	- `[{ id: String, beg: Date, end: Date, html: String, icon: String, color: String, background: Boolean }]`
-- `component.addevent(event)` adds event
+- `component.addevent(event)` adds an event
 	- can't be combined with `addevents` method
 	- can be executed multiple times
 	- event object: `{ id: String, html: String, icon: String, color: String, background: Boolean }`
-- `component.clear()` removes all events
+- __NEW__: `component.addbadge(date, [color])` adds a badge
+- __NEW__: `component.hover(beg, end)`
+- __NEW__: `component.unhover()`
+- `component.clear()` removes all events and badges
 
 __Localization__:
 

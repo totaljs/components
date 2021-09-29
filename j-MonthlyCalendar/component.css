@@ -23,6 +23,8 @@ div.ui-monthlycalendar-weekend { background-color: #F7F7F7; }
 .ui-monthlycalendar-selected i { color: #FFF !important; }
 .ui-monthlycalendar-transparent.ui-monthlycalendar-selected { background-color: #4285F4; color: #FFF !important; }
 .ui-monthlycalendar-hover { background-color: #F8F6DE !important; }
+.ui-monthlycalendar-badge { position: relative; }
+.ui-monthlycalendar-badge span { position: absolute; right: 35px; margin: 10px 0 0 0; width: 12px; height: 12px; border-radius: 100px; }
 
 .ui-dark .ui-monthlycalendar-header > div { background-color: #202020; border-bottom-color: #404040; }
 .ui-dark .ui-monthlycalendar-days { border-left-color: #404040; }
