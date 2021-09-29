@@ -224,6 +224,17 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 		var beg = begel.getAttribute('data-date').parseDate('yyyy-MM-dd');
 		var endel = container[0].children[eventsbinder.endindex];
 		var end = endel.getAttribute('data-date').parseDate('yyyy-MM-dd');
+		var tmp;
+
+		if (beg > end) {
+			tmp = beg;
+			beg = end;
+			end = tmp;
+			tmp = begel;
+			begel = endel;
+			endel = tmp;
+		}
+
 		var data = { beg: beg, end: end };
 
 		eventsbinder.dblclicktimeout = setTimeout(function() {
@@ -242,6 +253,7 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 		var eid = end ? end.format('yyyy-MM-dd') : '';
 		var bel = container.find('> div[data-date="{0}"]'.format(bid));
 		var eel = eid ? container.find('> div[data-date="{0}"]'.format(eid)) : null;
+		var tmp;
 
 		var bindex = bel.length ? +bel.attrd('index') : 0;
 		var eindex = eel ? +eel.attrd('index') : end ? 32 : -1;
@@ -251,6 +263,15 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 				$(container[0].children[i]).aclass(cls + '-hover');
 		} else
 			bel.aclass(cls + '-hover');
+
+		if (end && beg > end) {
+			tmp = beg;
+			beg = end;
+			end = tmp;
+			tmp = bel;
+			bel = eel;
+			eel = tmp;
+		}
 
 		var data = { beg: beg, end: end || beg };
 		config.hover && self.SEEX(config.hover, data, bel, eel || bel);
