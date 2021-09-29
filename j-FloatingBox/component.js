@@ -155,44 +155,48 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 		opt.prevscope = M.scope();
 		opt.scope && M.scope(opt.scope);
 		self.aclass(cls + '-visible');
-
 		opt.init && opt.init();
 
 		if (!opt.initialized && opt.config.init)
 			EXEC(makepath(opt.config.init, opt.scope), opt.box);
 
 		opt.config.reload && EXEC(makepath(opt.config.reload, opt.scope), opt.box);
+		opt.mouseleave && opt.box.on('mouseleave', function(e) {
+			opt.mouseleave(e, function() {
+				close(opt);
+			});
+		});
+
 		is = true;
 	};
 
-	self.hide = function(all) {
-
-		if (all) {
-			var prevscope = '';
-			for (var item of open) {
-				item.box.rclass(clsvisible);
-				item.hide && item.hide(item.box);
-				item.config.hide && EXEC(makepath(item.config.hide, item.scope), item.box);
-				if (item.prevscope)
-					prevscope = item.prevscope;
-			}
-			open = [];
-			self.rclass(cls + '-visible');
-			self.unbindevents();
-			prevscope && M.scope(prevscope);
-			return;
-		}
-
-		var item = open.pop();
+	var close = function(item) {
 		if (item) {
 			item.box.rclass(clsvisible);
 			item.hide && item.hide(item.box);
 			item.config.hide && EXEC(makepath(item.config.hide, item.scope), item.box);
+			item.mouseleave && item.box.off('mouseleave', item.mouseleave);
 			item.prevscope && M.scope(item.prevscope);
-			if (!open.length) {
-				self.rclass(cls + '-visible');
-				self.unbindevents();
+		}
+	};
+
+	self.hide = function(all) {
+		if (all) {
+			if (typeof(all) === 'string') {
+				var index = open.findIndex('id', all);
+				var count = open.length - index;
+				for (var i = 0; i <= count; i++)
+					close(open.pop());
+			} else {
+				while (open.length)
+					close(open.pop());
 			}
+		} else
+			close(open.pop());
+
+		if (!open.length) {
+			self.rclass(cls + '-visible');
+			self.unbindevents();
 		}
 	};
 

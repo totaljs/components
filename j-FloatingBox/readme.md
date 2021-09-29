@@ -21,7 +21,10 @@ __Methods__:
 	- `opt.position {String}` align `top` (default), `bottom`
 	- `opt.minwidth {Number}`
 	- `opt.maxwidth {Number}`
-- `component.hide([all])` hides last or all boxes
+	- `opt.mouseleave {String}` a link to the method, it's executed when the mouse cursor leaves the box `function(e, close)}`
+- `component.hide()` hides the last open box
+- `component.hide([box_id])` hides the specific box and its all nested boxes
+- `component.hide(true)` hides all boxes
 
 ### Boxes
 
