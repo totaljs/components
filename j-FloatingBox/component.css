@@ -1,4 +1,5 @@
-.ui-floatingbox { position: absolute; opacity: 0; transition: 0.25s transform cubic-bezier(0.23, 1, 0.32, 1); left: -100; top: -100; z-index: 100; box-shadow: 0 1px 20px rgba(0,0,0,0.1); background-color: #FFF; border-radius: var(--radius); border: 1px solid #E0E0E0; overflow: hidden; transition: all 0.2s; }
-.ui-floatingbox-visible { opacity: 1; }
+.ui-floatingbox-visible { position: fixed; width: 100vw; height: 100vw; left: 0; top: 0; }
+.floatingbox { position: absolute; z-index: 0; visibility: hidden; background-color: #FFF; box-shadow: rgb(15 15 15 / 5%) 0 0 0 1px, rgb(15 15 15 / 10%) 0 3px 6px, rgb(15 15 15 / 20%) 0 9px 24px; border-radius: var(--radius); transition: all 0.08s; transform: scale(0.7); }
+.floatingbox-visible { z-index: 10; visibility: visible; transform: scale(1); }
 
-.ui-dark .ui-floatingbox { background-color: #303030; border-color: #404040; box-shadow: 1px 5px 10px rgba(0,0,0,0.2); }
+.ui-dark .floatingbox { background-color: #303030; box-shadow: rgb(15 15 15 / 5%) 0 0 0 1px, rgb(15 15 15 / 10%) 0 3px 6px, rgb(15 15 15 / 20%) 0 9px 24px; }

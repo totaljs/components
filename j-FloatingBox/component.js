@@ -1,66 +1,25 @@
-COMPONENT('floatingbox', 'minwidth:200;height:200', function(self, config, cls) {
+COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 
-	var cls2 = '.' + cls;
-	var container, timeout, prevtop, previndex;
-	var is = false, skiphide = false;
-	var parentclass;
-	var imported = {};
+	var clsvisible = 'floatingbox-visible';
+	var is = false;
+	var open = [];
+
+	var makepath = function(val, scope) {
+		return val.replace(/\?/g, scope);
+	};
 
 	self.readonly();
 	self.singleton();
 
 	self.make = function() {
 
-		self.aclass(cls + ' hidden');
-		self.append('<div class="{0}-scrollbar"><div class="{0}-container"></div></div>'.format(cls));
-
-		self.scrollbar = SCROLLBAR(self.find(cls2 + '-scrollbar'), { orientation: 'y' });
-		container = self.find(cls2 + '-container');
-
-		self.event('click', '.selectable', function(e) {
-			var el = $(this);
-			if (self.opt.callback) {
-				self.opt.scope && M.scope(self.opt.scope);
-				self.opt.callback(el);
-				is = true;
-				self.hide(0);
-				e.preventDefault();
-				e.stopPropagation();
-			}
-		});
-
 		var e_click = function(e) {
-
-			if (skiphide) {
-				skiphide = false;
-				return;
-			}
-
-			var node = e.target;
-			var count = 0;
-
-			is = true;
-
-			while (true) {
-				var c = node.getAttribute('class') || '';
-				if (c.indexOf(cls) !== -1) {
-					is = false;
-					break;
-				}
-				node = node.parentNode;
-				if (!node || !node.tagName || node.tagName === 'BODY' || count > 4)
-					break;
-				count++;
-			}
-
-			if (is)
-				self.hide(0);
-			else
-				self.opt.scope && M.scope(self.opt.scope);
+			if (e.target === self.dom)
+				self.hide();
 		};
 
 		var e_resize = function() {
-			is && self.hide(0);
+			is && self.hide(true);
 		};
 
 		self.bindedevents = false;
@@ -82,91 +41,25 @@ COMPONENT('floatingbox', 'minwidth:200;height:200', function(self, config, cls) 
 		};
 
 		var fn = function() {
-			is && self.hide(1);
+			is && self.hide(true);
 		};
 
+		self.css('z-index', config.zindex);
 		self.on('reflow + resize + resize2', fn);
-		self.on('scroll', function(el) {
-			if (is && (!el || !el[0] || el[0].parentNode.$scrollbar !== self.scrollbar))
-				self.hide(1);
-		});
-
 		$(W).on('scroll', fn);
 	};
 
-	self.up = function() {
-		is && self.move(-1);
-	};
-
-	self.down = function() {
-		is && self.move(1);
-	};
-
-	self.select = function(el) {
-		if (is && self.opt.callback) {
-			if (el) {
-				self.opt.scope && M.scope(self.opt.scope);
-				self.opt.callback(selected);
-			} else {
-				var selected = container.find('.selected');
-				if (selected.length) {
-					self.opt.scope && M.scope(self.opt.scope);
-					self.opt.callback(selected);
-				}
-			}
-			self.hide(0);
-		}
-	};
-
-	self.move = function(step) {
-
-		var arr = self.element.find('.selectable');
-		var index = -1;
-
-		for (var i = 0; i < arr.length; i++) {
-			var el = arr[i];
-			if (el.classList.contains('selected')) {
-				index = i;
-				break;
-			}
-		}
-
-		var newindex = index + step;
-
-		if (previndex === newindex)
-			return;
-
-		if (arr[index])
-			arr[index].classList.remove('selected');
-
-		index = newindex;
-		previndex = newindex;
-
-		if (index > arr.length - 1)
-			index = arr.length - 1;
-		else if (index < 0)
-			index = 0;
-
-		if (arr[index]) {
-			arr[index].classList.add('selected');
-			var top = arr[index].offsetTop;
-			if (prevtop !== top) {
-				prevtop = top;
-				var h = self.scrollbar.element.height();
-				self.scrollbar.scrollTop(top - 30);
-			}
-		}
-
+	var animate = function(el) {
+		el.aclass(clsvisible);
 	};
 
 	self.show = function(opt) {
 
+		// opt.id
 		// opt.element
-		// opt.items
 		// opt.callback(value, el)
 		// opt.offsetX     --> offsetX
 		// opt.offsetY     --> offsetY
-		// opt.offsetWidth --> plusWidth
 		// opt.placeholder
 		// opt.render
 		// opt.custom
@@ -174,46 +67,35 @@ COMPONENT('floatingbox', 'minwidth:200;height:200', function(self, config, cls) 
 		// opt.maxwidth
 		// opt.classname
 		// opt.height
+		// opt.scope;
 
-		var el = opt.element instanceof jQuery ? opt.element[0] : opt.element;
+		opt.box = $('.floatingbox[data-id="{0}"]'.format(opt.id));
 
-		prevtop = null;
-		previndex = null;
-		self.tclass(cls + '-default', !opt.render);
-
-		if (parentclass) {
-			self.rclass(parentclass);
-			parentclass = null;
+		if (!opt.box.length) {
+			setTimeout(self.show, 500, opt);
+			return;
 		}
 
-		if (opt.classname) {
-			self.aclass(opt.classname);
-			parentclass = opt.classname;
+		opt.config = (opt.box.attrd('config') || '').parseConfig();
+
+		if (opt.config.scope)
+			opt.scope = opt.config.scope;
+		else if (opt.config.path)
+			opt.path = opt.config.path;
+
+		opt.initialized = true;
+
+		if (!opt.box[0].$processed) {
+			opt.initialized = false;
+			opt.box[0].$processed = true;
+			self.dom.appendChild(opt.box[0]);
+			opt.box.rclass('invisible hidden');
 		}
-
-		if (!opt.minwidth)
-			opt.minwidth = 200;
-
-		if (is) {
-			var me = self.target === el;
-			self.hide(0);
-			if (me)
-				return;
-		}
-
-		self.initializing = true;
-		self.target = el;
 
 		var element = $(opt.element);
-
 		setTimeout(self.bindevents, 500);
 
-		self.opt = opt;
-		opt.class && self.aclass(opt.class);
-
-		self.target = element[0];
-
-		var w = element.width();
+		var w = opt.box.width();
 		var offset = element.offset();
 		var width = w + (opt.offsetWidth || 0);
 
@@ -222,38 +104,7 @@ COMPONENT('floatingbox', 'minwidth:200;height:200', function(self, config, cls) 
 		else if (opt.maxwidth && width > opt.maxwidth)
 			width = opt.maxwidth;
 
-		if (opt.import) {
-
-			var isnew = false;
-			var arr;
-
-			if (imported[opt.import]) {
-				arr = imported[opt.import];
-				container.empty();
-			} else {
-				var tmp = $('<div data-import="url:{0}"></div>'.format(opt.import));
-				arr = imported[opt.import] = [];
-				isnew = true;
-				for (var i = 0; i < tmp.length; i++)
-					arr.push(tmp[i]);
-			}
-
-			for (var i = 0; i < arr.length; i++)
-				container[0].appendChild(arr[i]);
-
-			isnew && COMPILE(container);
-
-		} else {
-			if (typeof(opt.html) !== 'string') {
-				var tmp = $(opt.html);
-				opt.ishidden = tmp.hclass('hidden');
-				opt.isinvisible = tmp.hclass('invisible');
-				opt.parent = tmp.rclass('hidden invisible').parent();
-			}
-			container.empty().append(opt.html);
-		}
-
-		var options = { left: 0, top: 0, width: width };
+		var options = { left: 0, top: 0 };
 
 		switch (opt.align) {
 			case 'center':
@@ -267,8 +118,7 @@ COMPONENT('floatingbox', 'minwidth:200;height:200', function(self, config, cls) 
 				break;
 		}
 
-		options.top = opt.position === 'bottom' ? ((offset.top - self.height()) + element.height()) : offset.top;
-		options.scope = M.scope ? M.scope() : '';
+		options.top = opt.position === 'bottom' ? ((offset.top - opt.box.height()) + element.height()) : offset.top;
 
 		if (opt.offsetX)
 			options.left += opt.offsetX;
@@ -289,75 +139,59 @@ COMPONENT('floatingbox', 'minwidth:200;height:200', function(self, config, cls) 
 		else if ((mh + options.top) > WH)
 			options.top = (WH - mh) - 10;
 
-		self.css(options);
-		self.scrollbar.element.css('height', mh);
+		options['z-index'] = opt.config.zindex || (config.zindex + open.length + 1);
+		opt.box.css(options);
 
-		setTimeout(function() {
-			self.scrollbar.resize();
-			self.initializing = false;
-			self.opt.init && self.opt.init();
-			is = true;
-		}, 100);
+		setTimeout(animate, 50, opt.box);
 
-		if (is)
-			return;
+		if (!open.findItem('id', opt.id))
+			open.push(opt);
 
-		self.rclass('hidden');
+		if (!opt.scope)
+			opt.scope = opt.box.attrd('scope');
 
-		setTimeout(function() {
-			if (self.opt && self.target && self.target.offsetParent)
-				self.aclass(cls + '-visible');
-			else
-				self.hide(1);
-		}, 105);
+		opt.prevscope = M.scope();
+		opt.scope && M.scope(opt.scope);
+		self.aclass(cls + '-visible');
+
+		opt.init && opt.init();
+
+		if (!opt.initialized && opt.config.init)
+			EXEC(makepath(opt.config.init, opt.scope), opt.box);
+
+		opt.config.reload && EXEC(makepath(opt.config.reload, opt.scope), opt.box);
+		is = true;
 	};
 
-	self.hide = function(sleep) {
+	self.hide = function(all) {
 
-		if (!is || self.initializing)
-			return;
-
-		var hideforce = function() {
-			self.unbindevents();
-			self.rclass(cls + '-visible').aclass('hidden');
-			if (self.opt) {
-
-				if (self.opt.import) {
-					var arr = [];
-					var dom = container[0];
-					while (dom.children.length)
-						arr.push(dom.removeChild(dom.children[0]));
-					imported[self.opt.import] = arr;
-				}
-
-				if (self.opt.parent) {
-
-					var parent = self.opt.parent[0];
-					var first = $(container[0].children[0]);
-
-					if (self.opt.ishidden)
-						first.aclass('hidden');
-
-					if (self.opt.isinvisible)
-						first.aclass('invisible');
-
-					while (container[0].children.length)
-						parent.appendChild(container[0].children[0]);
-
-				}
-
-				self.opt.parent = null;
-				self.opt.close && self.opt.close();
-				self.opt.class && self.rclass(self.opt.class);
-				self.opt = null;
+		if (all) {
+			var prevscope = '';
+			for (var item of open) {
+				item.box.rclass(clsvisible);
+				item.hide && item.hide(item.box);
+				item.config.hide && EXEC(makepath(item.config.hide, item.scope), item.box);
+				if (item.prevscope)
+					prevscope = item.prevscope;
 			}
-			is = false;
-		};
+			open = [];
+			self.rclass(cls + '-visible');
+			self.unbindevents();
+			prevscope && M.scope(prevscope);
+			return;
+		}
 
-		timeout && clearTimeout(timeout);
-		if (sleep)
-			timeout = setTimeout(hideforce, sleep ? sleep : 100);
-		else
-			hideforce();
+		var item = open.pop();
+		if (item) {
+			item.box.rclass(clsvisible);
+			item.hide && item.hide(item.box);
+			item.config.hide && EXEC(makepath(item.config.hide, item.scope), item.box);
+			item.prevscope && M.scope(item.prevscope);
+			if (!open.length) {
+				self.rclass(cls + '-visible');
+				self.unbindevents();
+			}
+		}
 	};
+
 });

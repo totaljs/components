@@ -244,7 +244,7 @@
 	"j-Breadcrumb",
 	"j-Extend",
 	"j-Masonry",
-	"j-FloatingBox",
+	"j-FloatingPanel",
 	"j-View",
 	"j-Button",
 	"j-FileBrowser",
@@ -257,5 +257,6 @@
 	"j-Configuration",
 	"j-Movement",
 	"j-Children",
-	"j-Selection"
+	"j-Selection",
+	"j-FloatingBox"
 ]
