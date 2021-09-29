@@ -1,0 +1,13 @@
+<div data---="floatingpanel"></div>
+<div data-bind="null__click:showpanel" style="color:#2A6CEC;cursor:pointer;text-decoration:underline">Show panel</div>
+
+<script>
+
+	function showpanel(el) {
+		var opt = {};
+		opt.element = el;
+		opt.html = '<div class="padding">Custom content</div>';
+		SETTER('floatingpanel/show', opt);
+	}
+
+</script>
