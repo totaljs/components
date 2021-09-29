@@ -1,4 +1,4 @@
-COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selectable:1;morebutton:+{{ count }} more;badgecolor:red', function(self, config, cls) {
+COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selectable:1;keepselected:0;morebutton:+{{ count }} more;badgecolor:red', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var eventsbinder = {};
@@ -202,7 +202,9 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 
 	eventsbinder.mup = function(e) {
 
-		container.find(cls2 + '-hover').rclass(cls + '-hover');
+		if (!config.keepselected)
+			container.find(cls2 + '-hover').rclass(cls + '-hover');
+
 		eventsbinder.off();
 
 		var begel = container[0].children[eventsbinder.begindex];
@@ -237,8 +239,8 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 		} else
 			bel.aclass(cls + '-hover');
 
-		var data = { beg: beg, end: end };
-		config.hover && self.SEEX(config.hover, data, bel, eel);
+		var data = { beg: beg, end: end || beg };
+		config.hover && self.SEEX(config.hover, data, bel, eel || bel);
 	};
 
 	self.unhover = function() {
