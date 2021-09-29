@@ -240,6 +240,7 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 
 		is = true;
 		$('html,body').aclass(cls + '-noscroll');
+		opt.autosearch && self.search(opt.autosearch == true ? '' : opt.autosearch);
 	};
 
 	self.hide = function(sleep) {
