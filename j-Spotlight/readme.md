@@ -26,6 +26,7 @@ Method: `component.show(opt)`
 - `opt.height {Number}` a height of item (default: `config.height`)
 - `opt.class {String}` adds a custom class to the container
 - __NEW__ `placeholder` {String} search placeholder (default: `config.placeholder`)
+
 __Good to know__:
 
 - `.items = [{ html }]` -> `html` field ( in items) will be rendered as a plain HTML
