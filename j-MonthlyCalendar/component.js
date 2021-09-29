@@ -164,6 +164,13 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 			dblclickdate = tmp;
 		}
 
+		var selected = container.find(cls2 + '-hover');
+
+		if (config.keepselected)
+			eventsbinder.selected = selected;
+
+		selected.rclass(cls + '-hover');
+
 		if (config.selectable) {
 			eventsbinder.on();
 			eventsbinder.endcache = null;
@@ -202,10 +209,16 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 
 	eventsbinder.mup = function(e) {
 
-		if (!config.keepselected)
-			container.find(cls2 + '-hover').rclass(cls + '-hover');
-
 		eventsbinder.off();
+
+		if (config.keepselected) {
+			if (eventsbinder.selected.length === 1 && eventsbinder.selected[0] === container[0].children[eventsbinder.begindex]) {
+				container.find(cls2 + '-hover').rclass(cls + '-hover');
+				config.hover && self.SEEX(config.hover, null, null, null, e);
+				return;
+			}
+		} else
+			container.find(cls2 + '-hover').rclass(cls + '-hover');
 
 		var begel = container[0].children[eventsbinder.begindex];
 		var beg = begel.getAttribute('data-date').parseDate('yyyy-MM-dd');
