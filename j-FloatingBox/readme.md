@@ -7,6 +7,22 @@ __Configuration__:
 
 - `zindex {Number}` a default z-index for forms (default: `10`)
 
+__Methods__:
+
+- `component.show(opt)` shows a box
+	- `opt.id {String}` __required__ - a box identifier
+	- `opt.element {HTML Element}` __required__ - target element
+		- or you can use absolute position:
+		- `opt.x {Number}`
+		- `opt.y {Number}`
+	- `opt.offsetX {Number}` affects offset X
+	- `opt.offsetY {Number}` affects offset Y
+	- `opt.align {String}` align `left` (default), `center` or `right`
+	- `opt.position {String}` align `top` (default), `bottom`
+	- `opt.minwidth {Number}`
+	- `opt.maxwidth {Number}`
+- `component.hide([all])` hides last or all boxes
+
 ### Boxes
 
 ```html

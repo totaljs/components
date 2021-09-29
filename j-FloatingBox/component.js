@@ -57,7 +57,6 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 
 		// opt.id
 		// opt.element
-		// opt.callback(value, el)
 		// opt.offsetX     --> offsetX
 		// opt.offsetY     --> offsetY
 		// opt.placeholder
@@ -83,42 +82,45 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 		else if (opt.config.path)
 			opt.path = opt.config.path;
 
-		opt.initialized = true;
+		opt.initialized = 1;
 
 		if (!opt.box[0].$processed) {
-			opt.initialized = false;
+			opt.initialized = 0;
 			opt.box[0].$processed = true;
 			self.dom.appendChild(opt.box[0]);
 			opt.box.rclass('invisible hidden');
 		}
 
-		var element = $(opt.element);
+		var element = opt.element ? $(opt.element) : null;
 		setTimeout(self.bindevents, 500);
 
 		var w = opt.box.width();
-		var offset = element.offset();
+		var offset = element ? element.offset() : null;
 		var width = w + (opt.offsetWidth || 0);
+		var options = { left: opt.x || 0, top: top.y || 0 };
 
-		if (opt.minwidth && width < opt.minwidth)
+		if (opt.minwidth && width < opt.minwidth) {
 			width = opt.minwidth;
-		else if (opt.maxwidth && width > opt.maxwidth)
+			options.width = width;
+		} else if (opt.maxwidth && width > opt.maxwidth) {
 			width = opt.maxwidth;
-
-		var options = { left: 0, top: 0 };
-
-		switch (opt.align) {
-			case 'center':
-				options.left = Math.ceil((offset.left - width / 2) + (opt.element.innerWidth() / 2));
-				break;
-			case 'right':
-				options.left = (offset.left - width) + opt.element.innerWidth();
-				break;
-			default:
-				options.left = offset.left;
-				break;
+			options.width = width;
 		}
 
-		options.top = opt.position === 'bottom' ? ((offset.top - opt.box.height()) + element.height()) : offset.top;
+		if (element) {
+			switch (opt.align) {
+				case 'center':
+					options.left = Math.ceil((offset.left - width / 2) + (opt.element.innerWidth() / 2));
+					break;
+				case 'right':
+					options.left = (offset.left - width) + opt.element.innerWidth();
+					break;
+				default:
+					options.left = offset.left;
+					break;
+			}
+			options.top = opt.position === 'bottom' ? ((offset.top - opt.box.height()) + element.height()) : offset.top;
+		}
 
 		if (opt.offsetX)
 			options.left += opt.offsetX;
@@ -127,7 +129,7 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 			options.top += opt.offsetY;
 
 		var mw = width;
-		var mh = opt.height || config.height;
+		var mh = opt.box.height();
 
 		if (options.left < 0)
 			options.left = 10;
