@@ -33,6 +33,7 @@ COMPONENT('livestats', 'width:500;height:100;axislines:20;max:0', function(self,
 				for (var i = 0; i < tmp.length; i++) {
 					var kv = tmp[i].split('=').trim();
 					colors[kv[0]] = kv[1];
+					cache[kv[0]] && cache[kv[0]].attr('stroke', kv[1]);
 				}
 				break;
 		}
