@@ -25,7 +25,6 @@ Method: `component.show(opt)`
 - `opt.delay {Number}` a delay in `ms` for performing of searching (default: `100`)
 - `opt.height {Number}` a height of item (default: `config.height`)
 - `opt.class {String}` adds a custom class to the container
-- __NEW__: `opt.autosearch {Boolean/String}` performs auto-search
 
 __Good to know__:
 
