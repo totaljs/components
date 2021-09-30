@@ -34,6 +34,18 @@
 .ui-flow-grid { stroke: #F8F8F8; stroke-width: 2; }
 .ui-flow .output.connected .component-io.disabled, .ui-flow .input.connected .component-io.disabled, .ui-flow .output .component-io.disabled, .ui-flow .input .component-io.disabled { background-color: red !important; color: #FFF; }
 .ui-flow .traffic { fill: var(--color); }
+.ui-flow-connections { position: absolute; pointer-events: none; }
+.ui-flow-connections path { pointer-events: auto; }
+.ui-flow-groups { position: relative; }
+.ui-flow-group { position: absolute; background: rgba(0,0,0,0.05); border-radius: var(--radius); border: 2px solid rgba(0,0,0,0.05); color: #000; }
+.ui-flow-group > div { position: relative; width: 100%; height: 100%; }
+.ui-flow-group > div > span { border-color: rgba(0,0,0,0.3); width: 15px; height: 15px; border-style: solid; position: absolute; border-width: 0; }
+.ui-flow-group > div > label { display: block; padding: 15px; font-size: 18px; font-weight: bold; }
+.ui-flow .group-selected { border-color: var(--color); }
+.ui-flow-resize-tl { border-top-width: 2px !important; border-left-width: 2px !important; top: -2px; left: -2px; border-radius: var(--radius) 0 0 0; }
+.ui-flow-resize-tr { border-top-width: 2px !important; border-right-width: 2px !important; right: -2px; top: -2px; border-radius: 0 var(--radius) 0 0; }
+.ui-flow-resize-br { border-bottom-width: 2px !important; border-right-width: 2px !important; right: -2px; bottom: -2px; border-radius: 0 0 var(--radius) 0; }
+.ui-flow-resize-bl { border-bottom-width: 2px !important; border-left-width: 2px !important; bottom: -2px; left: -2px; border-radius: 0 0 0 var(--radius); }
 
 .ui-dark .ui-flow-grid { stroke: #303030; }
 .ui-dark .ui-flow .component { border-color: #404040; background-color: #303030; }
@@ -45,3 +57,6 @@
 .ui-dark .ui-flow path.highlight { stroke: var(--color); }
 .ui-dark .ui-flow .component-selected { border-color: var(--color); }
 .ui-dark .ui-flow .connection-selected { stroke: var(--color); }
+.ui-dark .ui-flow-group { background: rgba(0,0,0,0.3); border-color: rgba(0,0,0,0.3); color: #FFF; }
+.ui-dark .ui-flow-group > div > span { border-color: rgba(180,180,180,0.3); }
+.ui-dark .ui-flow .group-selected { border-color: var(--color); }

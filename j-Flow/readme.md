@@ -48,14 +48,16 @@ __Commands__:
 - `flow.components.find` finds a component, argument: `component_id`
 - `flow.clean` cleans data and non-exist connections
 - `flow.traffic(componentid__outputid, { count: 3, speed: 3, limit: 20, delay: 50 })` loads animation
+- __NEW__ `flow.groups.find` finds a group, argument: `group_id`
 - __NEW__ `flow.check` a new faster alternative to the `flow.refresh` command
+- __NEW__ `flow.find` finds a component or group, argument: `component_id` or `group_id`
 
 __Adding a new component__:
 
 - the component automatically creates ID of component
 - `connections` is `{Object}`
 
-```javascript
+```js
 // Component declaration
 var component = {
 	x: 100,
@@ -77,7 +79,7 @@ var component = {
 CMD('flow.components.add', component);
 ```
 
-```javascript
+```js
 // Connection object
 // connections: { '0': [CONNECTION_OBJECT1, CONNECTION_OBJECT2, CONNECTION_OBJECT3] }
 {
@@ -91,13 +93,16 @@ __Flow output__:
 
 - returns `Object` which keys are `ID` of components
 
-```javascript
+```js
 {
 	'F1562743923216': { x: 1, y: 1, connections: [], ... },
 	'F1562743965303': { x: 1, y: 1, connections: [], ... },
 
 	// Contains paused endpoints
-	paused: { 'input__COMPONENTID__INDEXID': 1, 'output__COMPONENTID__INDEXID': 1 }
+	paused: { 'input__COMPONENTID__INDEXID': 1, 'output__COMPONENTID__INDEXID': 1 },
+
+	// Contains groups
+	groups: [{ id: 'GroupID', name: 'Name', x: 100, y: 100, width: 100, height: 100, background: 'rgba(0,0,0,0.1)', color: '#000', border: 'rgba(0,0,0,0.1)' }, ...];
 }
 ````
 

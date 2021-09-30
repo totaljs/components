@@ -19,7 +19,8 @@
 <script>
 
 	var flowmodel = {
-		'F1562743923216': { x: 100, y: 50, html: 'Component 1', outputs: ['Done', 'Error'], connections: { '0': [{ id: 'F1562743965303', index: '2', disabled: false }] }},
+		groups: [{ id: 'G12345', name: 'My group', x: 150, y: 50, width: 300, height: 300 }],
+		'F1562743923216': { x: 100, y: 150, html: 'Component 1', outputs: ['Done', 'Error'], connections: { '0': [{ id: 'F1562743965303', index: '2', disabled: false }] }},
 		'F1562743965303': { x: 500, y: 250, html: 'Component 2', inputs: ['1', '2', '3'] }
 	};
 
