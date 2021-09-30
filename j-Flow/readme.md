@@ -47,7 +47,8 @@ __Commands__:
 - `flow.components.add` adds a new component, argument: `component_declaration`
 - `flow.components.find` finds a component, argument: `component_id`
 - `flow.clean` cleans data and non-exist connections
-- __NEW__ `flow.traffic(componentid__outputid, { count: 3, speed: 3, limit: 20, delay: 50 })` loads animation
+- `flow.traffic(componentid__outputid, { count: 3, speed: 3, limit: 20, delay: 50 })` loads animation
+- __NEW__ `flow.check` a new faster alternative to the `flow.refresh` command
 
 __Adding a new component__:
 

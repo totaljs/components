@@ -126,9 +126,9 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 		var onremove = config.onremove ? GET(self.makepath(config.onremove)) : null;
 		var prev = self.cache;
 		var ischanged = false;
+		var recompile = false;
 		var tmp;
 		var el;
-		var recompile = false;
 
 		rebuilding = true;
 
@@ -235,6 +235,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 				var key = keys[i];
 				tmp = self.cache[key];
 				tmp.el.rclass('invisible');
+				tmp.width = tmp.el.width();
 				tmp.instance.connections && self.reconnect(tmp);
 			}
 
@@ -1536,6 +1537,18 @@ EXTENSION('flow:commands', function(self, config) {
 		for (var i = 0; i < arr.length; i++)
 			self.op.remove($(arr[i]).attrd('id'));
 	};
+
+	self.command('flow.check', function() {
+		for (var key in self.cache) {
+			var instance = self.cache[key];
+			var width = instance.el.width();
+			if (instance.width !== width) {
+				instance.width = width;
+				self.op.reposition();
+				break;
+			}
+		}
+	});
 
 	self.command('flow.refresh', self.op.reposition);
 
