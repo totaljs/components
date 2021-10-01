@@ -1772,14 +1772,20 @@ EXTENSION('flow:commands', function(self, config, cls) {
 		self.op.undo({ type: 'group', id: item.id });
 	});
 
-	self.command('flow.zoom', function(type) {
+	self.command('flow.zoom', function(type, value) {
 
 		switch (type) {
 			case 'in':
-				zoom += 0.05;
+				if (value)
+					zoom = value / 100 >> 0;
+				else
+					zoom += 0.05;
 				break;
 			case 'out':
-				zoom -= 0.05;
+				if (value)
+					zoom = value / 100 >> 0;
+				else
+					zoom -= 0.05;
 				break;
 			case 'reset':
 				zoom = 1;

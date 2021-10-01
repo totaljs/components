@@ -40,7 +40,7 @@ __Commands__:
 - `flow.selected.disconnect` disconnects selected connection
 - `flow.selected.remove` removes selected component
 - `flow.selected.clear` removes selected component or connection
-- `flow.zoom` performs zoom, argument: `type` (can be: `in`, `out`, `reset`)
+- `flow.zoom` performs zoom, argument: `type` (can be: `in`, `out`, `reset`), second optional argument: `percentage`
 - `flow.undo` performs undo step
 - `flow.redo` performs redo step
 - `flow.reset` resets editor
