@@ -1287,6 +1287,11 @@ EXTENSION('flow:connections', function(self, config) {
 		events.move(evt);
 	};
 
+	events.leave = function(e) {
+		if (!e.relatedTarget)
+			events.up(e);
+	};
+
 	events.up = function(e) {
 
 		drag.path.remove();
@@ -1355,6 +1360,7 @@ EXTENSION('flow:connections', function(self, config) {
 			self.element.on('mousemove', events.move);
 			self.element.on('touchend', events.up);
 			self.element.on('touchmove', events.movetouch);
+			$(W).on('mouseleave', events.leave);
 		}
 	};
 
@@ -1365,6 +1371,7 @@ EXTENSION('flow:connections', function(self, config) {
 			self.element.off('mousemove', events.move);
 			self.element.off('touchend', events.up);
 			self.element.off('touchmove', events.movetouch);
+			$(W).off('mouseleave', events.leave);
 		}
 	};
 
@@ -1980,6 +1987,7 @@ EXTENSION('flow:groups', function(self, config, cls) {
 		if (!events.is) {
 			events.is = true;
 			self.element.on('mousemove touchmove', events.move).on('mouseup touchend', events.up);
+			$(W).on('mouseleave', events.leave);
 		}
 	};
 
@@ -1987,7 +1995,13 @@ EXTENSION('flow:groups', function(self, config, cls) {
 		if (events.is) {
 			events.is = false;
 			self.element.off('mousemove touchmove', events.move).off('mouseup touchend', events.up);
+			$(W).off('mouseleave', events.leave);
 		}
+	};
+
+	events.leave = function(e) {
+		if (!e.relatedTarget)
+			events.up(e);
 	};
 
 	events.move = function(e) {
