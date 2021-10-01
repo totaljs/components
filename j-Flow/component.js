@@ -565,14 +565,17 @@ EXTENSION('flow:operations', function(self, config, cls) {
 
 	self.op.isoutcache = function() {
 		var parent = self.parent('auto');
-		var offset = parent.offset();
-		if (!offset.left && !offset.top)
-			offset = parent.position();
-		isoutcache.is = parent[0] !== W && parent[0].tagName !== 'BODY' && parent[0].tagName !== 'HTML';
-		isoutcache.left = offset.left + 10;
-		isoutcache.top = offset.top + 10;
-		isoutcache.width = parent.width() - 10;
-		isoutcache.height = parent.height() - 10;
+		var offset = parent[0] === W ? null : parent.offset();
+		if (offset) {
+			if (!offset.left && !offset.top)
+				offset = parent.position();
+			isoutcache.is = parent[0] !== W && parent[0].tagName !== 'BODY' && parent[0].tagName !== 'HTML';
+			isoutcache.left = offset.left + 10;
+			isoutcache.top = offset.top + 10;
+			isoutcache.width = parent.width() - 10;
+			isoutcache.height = parent.height() - 10;
+		} else
+			isoutcache.is = false;
 	};
 
 	self.op.isout = function(e) {
