@@ -1777,13 +1777,13 @@ EXTENSION('flow:commands', function(self, config, cls) {
 		switch (type) {
 			case 'in':
 				if (value)
-					zoom = value / 100 >> 0;
+					zoom = value / 100;
 				else
 					zoom += 0.05;
 				break;
 			case 'out':
 				if (value)
-					zoom = value / 100 >> 0;
+					zoom = value / 100;
 				else
 					zoom -= 0.05;
 				break;
