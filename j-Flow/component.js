@@ -1049,7 +1049,7 @@ EXTENSION('flow:map', function(self, config, cls) {
 	});
 });
 
-EXTENSION('flow:components', function(self, config, cls) {
+EXTENSION('flow:components', function(self, config) {
 
 	var D = '__';
 	var events = {};
@@ -1172,7 +1172,6 @@ EXTENSION('flow:components', function(self, config, cls) {
 			self.element.on('mousemove', events.move);
 			self.element.on('touchend', events.up);
 			self.element.on('touchmove', events.movetouch);
-			$(W).on('mouseleave', events.leave);
 		}
 	};
 
@@ -1183,7 +1182,6 @@ EXTENSION('flow:components', function(self, config, cls) {
 			self.element.off('mousemove', events.move);
 			self.element.off('touchend', events.up);
 			self.element.off('touchmove', events.movetouch);
-			$(W).off('mouseleave', events.leave);
 		}
 	};
 
@@ -2271,7 +2269,7 @@ EXTENSION('flow:groups', function(self, config, cls) {
 			g.border && css.push('border-color:{0}'.format(g.border));
 
 			if (db[g.id]) {
-				db[g.id].attr('style', css.join(';'));
+				db[g.id].attr('style', css.join(';')).find('label').text(g.name);
 				delete db[g.id];
 			} else
 				self.el.groups.append('<div class="{0}-group" style="{1}" data-id="{3}"><div><span class="{0}-resize-tl"></span><span class="{0}-resize-tr"></span><span class="{0}-resize-bl"></span><span class="{0}-resize-br"></span><label>{2}</label></div></div>'.format(cls, css.join(';'), g.name.encode(), g.id));
