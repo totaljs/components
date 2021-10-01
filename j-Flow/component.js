@@ -561,6 +561,31 @@ EXTENSION('flow:operations', function(self, config, cls) {
 		self.helpers.checkconnected(next);
 	};
 
+	var isoutcache = {};
+
+	self.op.isoutcache = function() {
+		var parent = self.parent('auto');
+		var offset = parent.offset();
+		if (!offset.left && !offset.top)
+			offset = parent.position();
+		isoutcache.is = parent[0] !== W && parent[0].tagName !== 'BODY' && parent[0].tagName !== 'HTML';
+		isoutcache.left = offset.left + 10;
+		isoutcache.top = offset.top + 10;
+		isoutcache.width = parent.width() - 10;
+		isoutcache.height = parent.height() - 10;
+	};
+
+	self.op.isout = function(e) {
+		if (isoutcache.is) {
+			if (e.pageX < isoutcache.left || e.pageY < isoutcache.top)
+				return true;
+			if (isoutcache.width && isoutcache.height) {
+				if (e.pageX > (isoutcache.left + isoutcache.width) || e.pageY > (isoutcache.top + isoutcache.height))
+					return true;
+			}
+		}
+	};
+
 	self.op.unselect = function(type, id) {
 
 		var cls = 'connection-selected';
@@ -953,7 +978,7 @@ EXTENSION('flow:map', function(self, config, cls) {
 
 	events.leave = function(e) {
 		if (!e.relatedTarget)
-			events.up();
+			events.up(e);
 	};
 
 	events.bind = function() {
@@ -1022,7 +1047,7 @@ EXTENSION('flow:map', function(self, config, cls) {
 	});
 });
 
-EXTENSION('flow:components', function(self, config) {
+EXTENSION('flow:components', function(self, config, cls) {
 
 	var D = '__';
 	var events = {};
@@ -1070,6 +1095,11 @@ EXTENSION('flow:components', function(self, config) {
 	};
 
 	events.move = function(e) {
+
+		if (self.op.isout(e)) {
+			events.up(e);
+			return;
+		}
 
 		var x = (e.pageX - drag.x);
 		var y = (e.pageY - drag.y);
@@ -1129,18 +1159,17 @@ EXTENSION('flow:components', function(self, config) {
 	};
 
 	events.leave = function(e) {
-		if (!e.relatedTarget)
-			events.up();
+		events.up(e);
 	};
 
 	events.bind = function() {
 		if (!events.is) {
 			events.is = true;
+			self.op.isoutcache();
 			self.element.on('mouseup', events.up);
 			self.element.on('mousemove', events.move);
 			self.element.on('touchend', events.up);
 			self.element.on('touchmove', events.movetouch);
-			self.element.on('mouseleave', events.leave);
 			$(W).on('mouseleave', events.leave);
 		}
 	};
@@ -1152,7 +1181,6 @@ EXTENSION('flow:components', function(self, config) {
 			self.element.off('mousemove', events.move);
 			self.element.off('touchend', events.up);
 			self.element.off('touchmove', events.movetouch);
-			self.element.off('mouseleave', events.leave);
 			$(W).off('mouseleave', events.leave);
 		}
 	};
@@ -1275,6 +1303,12 @@ EXTENSION('flow:connections', function(self, config) {
 	};
 
 	events.move = function(e) {
+
+		if (self.op.isout(e)) {
+			events.up(e);
+			return;
+		}
+
 		var x = (e.pageX - drag.x) + drag.offsetX;
 		var y = (e.pageY - drag.y) + drag.offsetY;
 		drag.path.attr('d', drag.input ? self.helpers.connect(zoom(x), zoom(y), zoom(drag.pos.x), zoom(drag.pos.y), -1, drag.realindex) : self.helpers.connect(zoom(drag.pos.x), zoom(drag.pos.y), zoom(x), zoom(y), drag.realindex, -1));
@@ -1287,11 +1321,6 @@ EXTENSION('flow:connections', function(self, config) {
 		drag.lastX = evt.pageX;
 		drag.lastY = evt.pageY;
 		events.move(evt);
-	};
-
-	events.leave = function(e) {
-		if (!e.relatedTarget)
-			events.up(e);
 	};
 
 	events.up = function(e) {
@@ -1358,12 +1387,11 @@ EXTENSION('flow:connections', function(self, config) {
 	events.bind = function() {
 		if (!events.is) {
 			events.is = true;
+			self.op.isoutcache();
 			self.element.on('mouseup', events.up);
 			self.element.on('mousemove', events.move);
 			self.element.on('touchend', events.up);
 			self.element.on('touchmove', events.movetouch);
-			self.element.on('mouseleave', events.leave);
-			$(W).on('mouseleave', events.leave);
 		}
 	};
 
@@ -1374,8 +1402,6 @@ EXTENSION('flow:connections', function(self, config) {
 			self.element.off('mousemove', events.move);
 			self.element.off('touchend', events.up);
 			self.element.off('touchmove', events.movetouch);
-			self.element.off('mouseleave', events.leave);
-			$(W).off('mouseleave', events.leave);
 		}
 	};
 
@@ -1989,6 +2015,7 @@ EXTENSION('flow:groups', function(self, config, cls) {
 
 	events.bind = function() {
 		if (!events.is) {
+			self.op.isoutcache();
 			events.is = true;
 			self.element.on('mousemove touchmove', events.move).on('mouseup touchend', events.up);
 			self.element.on('mouseleave', events.leave);
@@ -2006,13 +2033,18 @@ EXTENSION('flow:groups', function(self, config, cls) {
 	};
 
 	events.leave = function(e) {
-		if (!e.relatedTarget)
-			events.up(e);
+		events.up(e);
 	};
 
 	events.move = function(e) {
 
 		var evt = e.type === 'touchmove' ? e.touches[0] : e;
+
+		if (self.op.isout(evt)) {
+			events.up(evt);
+			return;
+		}
+
 		var x = (evt.pageX + drag.plusX) - drag.pageX;
 		var y = (evt.pageY + drag.plusY) - drag.pageY;
 
