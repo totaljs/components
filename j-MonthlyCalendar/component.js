@@ -301,6 +301,7 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 
 		var days = end.getDate() - 1;
 		var first = beg.getDay();
+		var begdays = (new Date(beg.getFullYear(), beg.getMonth(), 0)).getDate() - 1;
 		var diff;
 		var dt;
 
@@ -326,8 +327,9 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 		}
 
 		diff = 42 - dates.length;
+
 		if (diff > 0) {
-			end = new Date().add('1 month');
+			end = new Date().add((begdays - beg.getDate()) + ' days');
 			end.setDate(1);
 			for (var i = 0; i < diff; i++) {
 				dt = end.add(i + ' days');
@@ -420,6 +422,7 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 			cache[elements[i].getAttribute('data-offset')] = $(elements[i]);
 
 		datacontainer.find(cls2 + '-event').each(function() {
+
 			var el = $(this);
 			var arr = el.attrd('offset').split('x');
 			// 0:row, 1:begcol, 2:endcol, 3:plusleft, 4:pluswidth, 5:top
@@ -431,8 +434,14 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 			var end = cache[arr[0] + 'x' + arr[2]];
 			var begoff = beg.offset();
 			var endoff = end.offset();
+			var from = (endoff.left - begoff.left);
 
-			el.css({ top: (((+arr[0]) * h) + plus) + 60, left: (begoff.left - off.left) + plusleft, width: (endoff.left - begoff.left) + end.width() + pluswidth });
+			if (from < plusleft) {
+				from = plusleft;
+				pluswidth -= from;
+			}
+
+			el.css({ top: (((+arr[0]) * h) + plus) + 60, left: (begoff.left - off.left) + plusleft, width: from + end.width() + pluswidth });
 		});
 
 	};
@@ -705,6 +714,9 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 			var key = offset[0] + 'x' + offset[1];
 			el.html(morebutton({ count: counter[key].total - counter[key].count }));
 		});
+
+		tmpresize = '';
+		self.resizeforce();
 	};
 
 	self.addbadge = function(date, color) {

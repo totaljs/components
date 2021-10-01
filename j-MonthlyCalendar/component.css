@@ -11,7 +11,7 @@ div.ui-monthlycalendar-weekend { background-color: #F7F7F7; }
 .ui-monthlycalendar-noborder .ui-monthlycalendar-6 { border-right: 0 !important; }
 .ui-monthlycalendar-noborder .ui-monthlycalendar-lastrow { border-bottom: 0; }
 .ui-monthlycalendar-data { position: relative; }
-.ui-monthlycalendar-event { height: 14px; line-height: 14px; font-size: 10px; background-color: #E0E0E0; margin-bottom: 2px; padding: 0 4px; color: #FFF; position: absolute; z-index: 1; overflow: hidden; cursor: default; user-select: none; }
+.ui-monthlycalendar-event { height: 14px; line-height: 14px; font-size: 11px; background-color: #E0E0E0; margin-bottom: 2px; padding: 0 4px; color: #FFF; position: absolute; z-index: 1; overflow: hidden; cursor: default; user-select: none; }
 .ui-monthlycalendar-event i { font-size: 8px; float: left; margin: 3px 5px 0 0; }
 .ui-monthlycalendar-event-first { border-top-left-radius: 2px; border-bottom-left-radius: 2px; }
 .ui-monthlycalendar-event-last { border-top-right-radius: 2px; border-bottom-right-radius: 2px; }
