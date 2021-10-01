@@ -291,30 +291,31 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 		current = tmp;
 
 		var beg = new Date(date.getTime());
-		var end = new Date(date.getFullYear(), date.getMonth(), 0);
+		var end = new Date(date.getFullYear(), date.getMonth() + 1, 0, 12);
 
 		var today = function(dt) {
 			return dt.getMonth() === NOW.getMonth() && dt.getFullYear() === NOW.getFullYear() && dt.getDate() === NOW.getDate();
 		};
 
+		beg.setHours(12);
 		beg.setDate(1);
 
-		var days = end.getDate() - 1;
+		var days = end.getDate();
 		var first = beg.getDay();
-		var begdays = (new Date(beg.getFullYear(), beg.getMonth(), 0)).getDate() - 1;
+		var date = new Date(beg.getTime());
 		var diff;
 		var dt;
 
 		dates = [];
 
-		for (var i = 0; i < days; i++) {
-			dt = beg.add(i + ' days');
+		for (var i = 1; i <= days; i++) {
+			date.setDate(i);
+			dt = new Date(date.getTime());
 			dates.push({ date: dt, type: 'current', today: today(dt), number: +dt.format('yyyyMMdd') });
 		}
 
 		if (first !== config.firstday) {
 
-			// diff = 7 - Math.abs(config.firstday - first);
 			diff = Math.abs(7 - config.firstday + first);
 
 			if (diff > 7)
@@ -329,10 +330,10 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 		diff = 42 - dates.length;
 
 		if (diff > 0) {
-			end = new Date().add((begdays - beg.getDate()) + ' days');
-			end.setDate(1);
+			end = new Date(beg.getFullYear(), beg.getMonth() + 1, 1, 12, 1);
+			end.setMonth(end.getMonth());
 			for (var i = 0; i < diff; i++) {
-				dt = end.add(i + ' days');
+				dt = i ? end.add(i + ' days') : new Date(end.getTime());
 				dates.push({ date: dt, type: 'next', today: today(dt), number: +dt.format('yyyyMMdd') });
 			}
 		}
