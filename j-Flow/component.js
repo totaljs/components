@@ -1659,7 +1659,10 @@ EXTENSION('flow:commands', function(self, config, cls) {
 		}
 	});
 
-	self.command('flow.refresh', self.op.reposition);
+	self.command('flow.refresh', function() {
+		self.op.reposition();
+		self.refresh_groups();
+	});
 
 	var flow_find_groups = function(id) {
 		var item = self.groups.findItem('id', id);
