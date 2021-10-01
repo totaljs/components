@@ -1140,7 +1140,8 @@ EXTENSION('flow:components', function(self, config) {
 			self.element.on('mousemove', events.move);
 			self.element.on('touchend', events.up);
 			self.element.on('touchmove', events.movetouch);
-			$(W).on('mouseout', events.leave);
+			self.element.on('mouseleave', events.leave);
+			$(W).on('mouseleave', events.leave);
 		}
 	};
 
@@ -1151,7 +1152,8 @@ EXTENSION('flow:components', function(self, config) {
 			self.element.off('mousemove', events.move);
 			self.element.off('touchend', events.up);
 			self.element.off('touchmove', events.movetouch);
-			$(W).off('mouseout', events.leave);
+			self.element.off('mouseleave', events.leave);
+			$(W).off('mouseleave', events.leave);
 		}
 	};
 
@@ -1360,6 +1362,7 @@ EXTENSION('flow:connections', function(self, config) {
 			self.element.on('mousemove', events.move);
 			self.element.on('touchend', events.up);
 			self.element.on('touchmove', events.movetouch);
+			self.element.on('mouseleave', events.leave);
 			$(W).on('mouseleave', events.leave);
 		}
 	};
@@ -1371,6 +1374,7 @@ EXTENSION('flow:connections', function(self, config) {
 			self.element.off('mousemove', events.move);
 			self.element.off('touchend', events.up);
 			self.element.off('touchmove', events.movetouch);
+			self.element.off('mouseleave', events.leave);
 			$(W).off('mouseleave', events.leave);
 		}
 	};
@@ -1987,6 +1991,7 @@ EXTENSION('flow:groups', function(self, config, cls) {
 		if (!events.is) {
 			events.is = true;
 			self.element.on('mousemove touchmove', events.move).on('mouseup touchend', events.up);
+			self.element.on('mouseleave', events.leave);
 			$(W).on('mouseleave', events.leave);
 		}
 	};
@@ -1995,6 +2000,7 @@ EXTENSION('flow:groups', function(self, config, cls) {
 		if (events.is) {
 			events.is = false;
 			self.element.off('mousemove touchmove', events.move).off('mouseup touchend', events.up);
+			self.element.off('mouseleave', events.leave);
 			$(W).off('mouseleave', events.leave);
 		}
 	};
