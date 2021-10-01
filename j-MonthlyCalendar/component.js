@@ -1,4 +1,4 @@
-COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selectable:1;keepselected:0;morebutton:+{{ count }} more;badgecolor:red', function(self, config, cls) {
+COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selectable:1;keepselected:0;scalewidth:0;morebutton:+{{ count }} more;badgecolor:red', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var eventsbinder = {};
@@ -394,7 +394,9 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 	self.resizeforce = function() {
 
 		var parent = self.parent(config.parent);
-		var h = parent.height() - config.margin - (self.find(cls2 + '-header').height() || 30); // 30 is a default height of header
+		var width = parent.width();
+		var height = parent.height();
+		var h = (config.scalewidth ? width : height) - config.margin - (self.find(cls2 + '-header').height() || 30); // 30 is a default height of header
 
 		var m = config['margin' + WIDTH()];
 		if (m)

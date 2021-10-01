@@ -23,7 +23,8 @@ __Configuration__:
 - `marginmd` {Number} top/bottom margin together for `md` screen width
 - `marginlg` {Number} top/bottom margin together for `lg` screen width
 - __NEW__: `keepselected {Boolean}` keeps selected (hovered) days (default: `false`)
-- __NEW__: `hover` {String} a path to `Function({ beg: Date, end: Date }, beg_element, end_element)` (same like `create`, but it's called on `component.hover()` and `component.unhover()` methods)
+- __NEW__: `hover {String}` a path to `Function({ beg: Date, end: Date }, beg_element, end_element)` (same like `create`, but it's called on `component.hover()` and `component.unhover()` methods)
+- __NEW__: `scalewidth {Boolean}` scales the height according to the width of the parent element
 
 __Methods__:
 
