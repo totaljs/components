@@ -24,10 +24,13 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 	self.groupid = '';
 
 	self.make = function() {
-		self.aclass(cls);
 
-		self.html('<div class="{0}-groups"></div><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg" class="{0}-connections"><g class="lines"></g><g class="anim"></g></svg><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="jflowgrid" width="{grid}" height="{grid}" patternunits="userSpaceOnUse"><path d="M {grid} 0 L 0 0 0 {grid}" fill="none" class="ui-flow-grid" shape-rendering="crispEdges" /></pattern></defs><rect width="100%" height="100%" fill="url(#jflowgrid)" shape-rendering="crispEdges" /></svg>'.format(cls).arg(config));
-		self.el.svg = self.find('.' + cls + '-connections');
+		self.aclass(cls);
+		self.html('<div class="{0}-groups"></div><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg" class="{0}-connections"><g class="lines"></g><g class="anim"></g></svg><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="jflowgrid" width="{grid}" height="{grid}" patternunits="userSpaceOnUse"><path d="M {grid} 0 L 0 0 0 {grid}" fill="none" class="{0}-grid" shape-rendering="crispEdges" /></pattern></defs><rect width="100%" height="100%" fill="url(#jflowgrid)" shape-rendering="crispEdges" /></svg>'.format(cls).arg(config));
+
+		var svg = self.find('svg');
+		self.el.svg = svg.eq(0);
+		self.el.grid = svg.eq(1);
 		self.el.anim = self.el.svg.find('g.anim');
 		self.el.lines = self.el.svg.find('g.lines');
 		self.el.groups = self.find('.' + cls + '-groups');
@@ -90,7 +93,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 
 		$(document).on('dragstart', '[draggable]', drag.handler).on('touchstart', '[draggable]', drag.handler);
 
-		self.el.svg.on('dragenter dragover dragexit drop dragleave', function(e) {
+		self.el.grid.on('dragenter dragover dragexit drop dragleave', function(e) {
 			switch (e.type) {
 				case 'drop':
 					drag.drop(e);
@@ -2080,7 +2083,9 @@ EXTENSION('flow:groups', function(self, config, cls) {
 			var id = drag.element.attrd('id');
 			var group = self.groups.findItem('id', id);
 			var pos = drag.element.position();
-			var history = { id: id, x: group.x, y: group.y, newx: pos.left, newy: pos.top, width: group.width, height: group.height, newwidth: drag.element.width(), newheight: drag.element.height(), type: 'group' };
+			var w = drag.element.width();
+			var h = drag.element.height();
+			var history = { id: id, x: group.x, y: group.y, newx: pos.left, newy: pos.top, width: group.width, height: group.height, newwidth: w, newheight: h, type: 'group' };
 			if (drag.selected.length) {
 				self.components_moved(evt, drag, zoom);
 				self.undo.last().multiple.push(history);
@@ -2088,6 +2093,8 @@ EXTENSION('flow:groups', function(self, config, cls) {
 				self.op.undo({ type: 'move', multiple: [history] });
 			group.x = pos.left;
 			group.y = pos.top;
+			group.width = w;
+			group.height = h;
 		}
 		events.unbind();
 	};
@@ -2155,7 +2162,6 @@ EXTENSION('flow:groups', function(self, config, cls) {
 		if (!drag.ismeta) {
 			for (var key in self.cache) {
 				var item = self.cache[key];
-				var instance = item.instance;
 				var w = item.el.width();
 				var h = item.el.height();
 				var node = item.el;
@@ -2172,7 +2178,6 @@ EXTENSION('flow:groups', function(self, config, cls) {
 	self.refresh_groups = function() {
 
 		var groups = self.el.groups.find('> div');
-		var processed = {};
 		var db = {};
 
 		for (var i = 0; i < groups.length; i++) {
