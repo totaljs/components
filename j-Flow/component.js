@@ -2026,7 +2026,6 @@ EXTENSION('flow:groups', function(self, config, cls) {
 			events.is = true;
 			self.element.on('mousemove touchmove', events.move).on('mouseup touchend', events.up);
 			self.element.on('mouseleave', events.leave);
-			$(W).on('mouseleave', events.leave);
 		}
 	};
 
@@ -2035,7 +2034,6 @@ EXTENSION('flow:groups', function(self, config, cls) {
 			events.is = false;
 			self.element.off('mousemove touchmove', events.move).off('mouseup touchend', events.up);
 			self.element.off('mouseleave', events.leave);
-			$(W).off('mouseleave', events.leave);
 		}
 	};
 
@@ -2047,15 +2045,16 @@ EXTENSION('flow:groups', function(self, config, cls) {
 
 		var evt = e.type === 'touchmove' ? e.touches[0] : e;
 
-		if (self.op.isout(evt)) {
-			events.up(evt);
-			return;
-		}
-
 		var x = (evt.pageX + drag.plusX) - drag.pageX;
 		var y = (evt.pageY + drag.plusY) - drag.pageY;
 
 		if (drag.type === 'move') {
+
+			if (self.op.isout(evt)) {
+				events.up(evt);
+				return;
+			}
+
 			drag.element.css({ left: zoom(drag.pos.left + x), top: zoom(drag.pos.top + y) });
 			if (drag.selected.length) {
 				for (var i = 0; i < drag.selected.length; i++) {
@@ -2064,6 +2063,7 @@ EXTENSION('flow:groups', function(self, config, cls) {
 				}
 				self.components_reposition(drag, zoom);
 			}
+
 		} else if (drag.type === 'resize') {
 
 			var obj = {};
@@ -2145,6 +2145,13 @@ EXTENSION('flow:groups', function(self, config, cls) {
 			var w = drag.element.width();
 			var h = drag.element.height();
 			var history = { id: id, x: group.x, y: group.y, newx: pos.left, newy: pos.top, width: group.width, height: group.height, newwidth: w, newheight: h, type: 'group' };
+
+			if (config.snapping) {
+				pos.left = pos.left - (pos.left % config.snapping);
+				pos.top = pos.top - (pos.top % config.snapping);
+				drag.element.css(pos);
+			}
+
 			if (drag.selected.length) {
 				self.components_moved(evt, drag, zoom);
 				self.undo.last().multiple.push(history);
