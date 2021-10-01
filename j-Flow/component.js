@@ -916,18 +916,26 @@ EXTENSION('flow:operations', function(self, config, cls) {
 	self.on('resize + resize2', self.op.resize);
 });
 
-EXTENSION('flow:map', function(self, config) {
+EXTENSION('flow:map', function(self, config, cls) {
 
 	var events = {};
 	var drag = {};
 
 	events.move = function(e) {
+
+		if (!drag.is) {
+			self.aclass(cls + '-drag');
+			drag.is = true;
+		}
+
 		var x = (drag.x - e.pageX);
 		var y = (drag.y - e.pageY);
+		var plusY = (y / drag.zoom) >> 0;
+		var plusX = (x / drag.zoom) >> 0;
 
 		if (drag.target[0]) {
-			drag.target[0].scrollTop += ((y / 6) / drag.zoom) >> 0;
-			drag.target[0].scrollLeft += ((x / 6) / drag.zoom) >> 0;
+			drag.target[0].scrollLeft = drag.left + plusX;
+			drag.target[0].scrollTop = drag.top + plusY;
 		}
 	};
 
@@ -936,6 +944,7 @@ EXTENSION('flow:map', function(self, config) {
 	};
 
 	events.up = function() {
+		self.rclass(cls + '-drag');
 		events.unbind();
 	};
 
@@ -996,10 +1005,13 @@ EXTENSION('flow:map', function(self, config) {
 				return;
 		}
 
+		drag.is = false;
 		drag.target = target;
 		drag.zoom = self.info.zoom / 100;
 		drag.x = evt.pageX;
 		drag.y = evt.pageY;
+		drag.top = drag.target[0].scrollTop;
+		drag.left = drag.target[0].scrollLeft;
 
 		events.bind();
 		e.preventDefault();
@@ -1977,8 +1989,9 @@ EXTENSION('flow:groups', function(self, config, cls) {
 
 	events.move = function(e) {
 
-		var x = (e.pageX + drag.plusX) - drag.pageX;
-		var y = (e.pageY + drag.plusY) - drag.pageY;
+		var evt = e.type === 'touchmove' ? e.touches[0] : e;
+		var x = (evt.pageX + drag.plusX) - drag.pageX;
+		var y = (evt.pageY + drag.plusY) - drag.pageY;
 
 		if (drag.type === 'move') {
 			drag.element.css({ left: zoom(drag.pos.left + x), top: zoom(drag.pos.top + y) });
@@ -2062,13 +2075,14 @@ EXTENSION('flow:groups', function(self, config, cls) {
 	};
 
 	events.up = function(e) {
+		var evt = e.type === 'touchend' ? e.touches[0] : e;
 		if (drag.is) {
 			var id = drag.element.attrd('id');
 			var group = self.groups.findItem('id', id);
 			var pos = drag.element.position();
 			var history = { id: id, x: group.x, y: group.y, newx: pos.left, newy: pos.top, width: group.width, height: group.height, newwidth: drag.element.width(), newheight: drag.element.height(), type: 'group' };
 			if (drag.selected.length) {
-				self.components_moved(e, drag, zoom);
+				self.components_moved(evt, drag, zoom);
 				self.undo.last().multiple.push(history);
 			} else
 				self.op.undo({ type: 'move', multiple: [history] });
