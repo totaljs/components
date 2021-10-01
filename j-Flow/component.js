@@ -151,7 +151,6 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			}
 
 			if (key === 'groups') {
-				self.groups = value[key];
 				self.refresh_groups();
 				continue;
 			}
@@ -2235,6 +2234,7 @@ EXTENSION('flow:groups', function(self, config, cls) {
 
 	self.refresh_groups = function() {
 
+		self.groups = self.get().groups || EMPTYARRAY;
 		var groups = self.el.groups.find('> div');
 		var db = {};
 
