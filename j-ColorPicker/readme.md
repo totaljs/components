@@ -13,6 +13,7 @@ var opt = {};
 // opt.offsetY {Number}    : adds Y offset (default: 0)
 // opt.align {String}      : align `left` (default), `center` or `right`
 // opt.position {String}   : position `top` (default) or `bottom`
+// opt.opacity {Number}    : converts hex color to RGBA with the opacity e.g. 0.3
 
 opt.element = YOUR_ELEMENT;
 // or if you want to use a fixed position:
