@@ -1888,12 +1888,12 @@ EXTENSION('flow:commands', function(self, config, cls) {
 						item = (self.get().groups || EMPTYARRAY).findItem('id', tmp.id);
 						if (item) {
 							var el = self.find('.' + cls + '-group[data-id="{0}"]'.format(tmp.id)).css({ left: tmp.x, top: tmp.y, width: tmp.width, height: tmp.height });
-							item.onmove && item.onmove(el, item);
-							config.onmove && self.EXEC(config.onmove, el, item, 'group');
 							item.x = tmp.x;
 							item.y = tmp.y;
 							item.width = tmp.width;
 							item.height = tmp.height;
+							item.onmove && item.onmove(el, item);
+							config.onmove && self.EXEC(config.onmove, el, item, 'group');
 						}
 					} else {
 						self.find('.component[data-id="{0}"]'.format(tmp.id)).css({ left: tmp.x, top: tmp.y });
@@ -1971,12 +1971,12 @@ EXTENSION('flow:commands', function(self, config, cls) {
 						item = (self.get().groups || EMPTYARRAY).findItem('id', tmp.id);
 						if (item) {
 							var el = self.find('.' + cls + '-group[data-id="{0}"]'.format(tmp.id)).css({ left: tmp.newx, top: tmp.newy, width: tmp.newwidth, height: tmp.newheight });
-							item.onmove && item.onmove(el, item);
-							config.onmove && self.EXEC(config.onmove, el, item, 'group');
 							item.x = tmp.newx;
 							item.y = tmp.newy;
 							item.width = tmp.newwidth;
 							item.height = tmp.newheight;
+							item.onmove && item.onmove(el, item);
+							config.onmove && self.EXEC(config.onmove, el, item, 'group');
 						}
 					} else {
 						self.find('.component[data-id="{0}"]'.format(tmp.id)).css({ left: tmp.newx, top: tmp.newy });
@@ -2151,12 +2151,12 @@ EXTENSION('flow:groups', function(self, config, cls) {
 			} else
 				self.op.undo({ type: 'move', multiple: [history] });
 
-			group.onmove && group.onmove(drag.element, group);
-			config.onmove && self.EXEC(config.onmove, drag.element, group, 'group');
 			group.x = pos.left;
 			group.y = pos.top;
 			group.width = w;
 			group.height = h;
+			group.onmove && group.onmove(drag.element, group);
+			config.onmove && self.EXEC(config.onmove, drag.element, group, 'group');
 		}
 		events.unbind();
 	};
