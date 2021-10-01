@@ -1,10 +1,10 @@
 .ui-colorpicker-container { position: absolute; z-index: 109; }
-.ui-colorpicker { border: 1px solid #E0E0E0; font-size: 14px; color: #000; width: 240px; background-color: #FFF; box-shadow: 0 5px 10px rgba(0,0,0,0.08); border-radius: var(--radius); overflow: hidden; margin: 0; padding: 7px 0 3px; }
+.ui-colorpicker { border: 1px solid #E0E0E0; font-size: 14px; color: #000; width: 254px; background-color: #FFF; box-shadow: 0 5px 10px rgba(0,0,0,0.08); border-radius: var(--radius); overflow: hidden; margin: 0; padding: 7px 0 3px; }
 .ui-colorpicker-body { text-align: center; }
 .ui-colorpicker-body div:nth-child(1) { margin-bottom: 0; }
 .ui-colorpicker-body div:nth-child(2) { margin-bottom: 8px; padding-bottom: 2px; border-bottom: 1px solid #E0E0E0; }
-.ui-colorpicker-cell { cursor: pointer; width: 19px; height: 15px; display: inline-block; }
-.ui-colorpicker-cell span { display: block; height: 15px; margin: 0 2px; border-radius: 2px; border: 1px solid rgba(0,0,0,0.1); }
+.ui-colorpicker-cell { cursor: pointer; width: 20px; height: 16px; display: inline-block; vertical-align: top; }
+.ui-colorpicker-cell span { display: block; height: 16px; margin: 0 2px; border-radius: 2px; border: 1px solid rgba(0,0,0,0.1); font-size: 9px; line-height: 15px; color: red; }
 .ui-colorpicker-body span:hover { border-color: rgba(0,0,0,0.3); }
 
 .ui-dark .ui-colorpicker { background-color: #252525; border-color: #404040; }
