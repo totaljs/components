@@ -16,7 +16,7 @@ __Configuration__:
 - `ondrop {String}` a path to method `fn(dropmeta, grid)`
 - `onmake {String}` a path to method `fn(el, com)`, it's executed when the component is creating
 - `ondone {String}` a path to method `fn(el, com)`, it's executed when the component is created
-- `onmove {String}` a path to method `fn(el, com)`, it's executed when the component is moving
+- `onmove {String}` a path to method `fn(el, com/group, type)`, it's executed when the component/group is moving
 - `onremove {String}` a path to method `fn(el, com)`, it's executed when the component is removed
 - `onconnect {String}` a path to method `fn(meta)`, it's executed when the two components are connected
 - `ondisconnect {String}` a path to method `fn(meta)`, it's executed when the two components are disconnected

@@ -1148,7 +1148,7 @@ EXTENSION('flow:components', function(self, config, cls) {
 				data.x = pos.left;
 				data.y = pos.top;
 				data.onmove && data.onmove(instance.node, data);
-				config.onmove && self.EXEC(config.onmove, instance.node, data);
+				config.onmove && self.EXEC(config.onmove, instance.node, data, 'component');
 				self.op.modify(data, 'move');
 			}
 
@@ -1887,8 +1887,9 @@ EXTENSION('flow:commands', function(self, config, cls) {
 					if (tmp.type === 'group') {
 						item = (self.get().groups || EMPTYARRAY).findItem('id', tmp.id);
 						if (item) {
-							self.find('.' + cls + '-group[data-id="{0}"]'.format(tmp.id)).css({ left: tmp.x, top: tmp.y, width: tmp.width, height: tmp.height });
-							item.onmove && item.onmove(item.element, item);
+							var el = self.find('.' + cls + '-group[data-id="{0}"]'.format(tmp.id)).css({ left: tmp.x, top: tmp.y, width: tmp.width, height: tmp.height });
+							item.onmove && item.onmove(el, item);
+							config.onmove && self.EXEC(config.onmove, el, item, 'group');
 							item.x = tmp.x;
 							item.y = tmp.y;
 							item.width = tmp.width;
@@ -1900,7 +1901,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 						item.x = tmp.x;
 						item.y = tmp.y;
 						item.onmove && item.onmove(item.element, item);
-						config.onmove && self.EXEC(config.onmove, item.element, item);
+						config.onmove && self.EXEC(config.onmove, item.element, item, 'component');
 					}
 				}
 				self.op.reposition();
@@ -1969,8 +1970,9 @@ EXTENSION('flow:commands', function(self, config, cls) {
 					if (tmp.type === 'group') {
 						item = (self.get().groups || EMPTYARRAY).findItem('id', tmp.id);
 						if (item) {
-							self.find('.' + cls + '-group[data-id="{0}"]'.format(tmp.id)).css({ left: tmp.newx, top: tmp.newy, width: tmp.newwidth, height: tmp.newheight });
-							item.onmove && item.onmove(item.element, item);
+							var el = self.find('.' + cls + '-group[data-id="{0}"]'.format(tmp.id)).css({ left: tmp.newx, top: tmp.newy, width: tmp.newwidth, height: tmp.newheight });
+							item.onmove && item.onmove(el, item);
+							config.onmove && self.EXEC(config.onmove, el, item, 'group');
 							item.x = tmp.newx;
 							item.y = tmp.newy;
 							item.width = tmp.newwidth;
@@ -1982,7 +1984,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 						item.x = tmp.newx;
 						item.y = tmp.newy;
 						item.onmove && item.onmove(item.element, item);
-						config.onmove && self.EXEC(config.onmove, item.element, item);
+						config.onmove && self.EXEC(config.onmove, item.element, item, 'component');
 					}
 				}
 				self.op.reposition();
@@ -2148,6 +2150,9 @@ EXTENSION('flow:groups', function(self, config, cls) {
 				self.undo.last().multiple.push(history);
 			} else
 				self.op.undo({ type: 'move', multiple: [history] });
+
+			group.onmove && group.onmove(drag.element, group);
+			config.onmove && self.EXEC(config.onmove, drag.element, group, 'group');
 			group.x = pos.left;
 			group.y = pos.top;
 			group.width = w;
