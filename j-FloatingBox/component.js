@@ -67,6 +67,7 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 		// opt.classname
 		// opt.height
 		// opt.scope;
+		// opt.autofocus
 
 		opt.box = $('.floatingbox[data-id="{0}"]'.format(opt.id));
 
@@ -166,6 +167,12 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 				close(opt);
 			});
 		});
+
+		if (!isMOBILE && opt.autofocus) {
+			setTimeout(function(opt) {
+				opt.box.find(typeof(opt.autofocus) === 'string' ? opt.autofocus : 'input[type="text"],select,textarea').eq(0).focus();
+			}, 1000, opt);
+		}
 
 		is = true;
 	};
