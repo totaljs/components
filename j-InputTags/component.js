@@ -349,7 +349,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 	};
 
 	self.resize = function() {
-		var h = (self.find(cls2 + '-input').height() + 7) + 'px'; // 7 == padding
+		var h = self.find(cls2 + '-input').innerHeight() + 'px';
 		self.find('.{0}-icon-right,.{0}-icon-left'.format(cls)).css({ height: h, 'line-height': h });
 	};
 
