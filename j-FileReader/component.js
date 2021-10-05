@@ -27,7 +27,6 @@ COMPONENT('filereader', function(self) {
 	};
 
 	self.process = function(files) {
-		var el = this;
 
 		SETTER('loading', 'show');
 
@@ -50,7 +49,7 @@ COMPONENT('filereader', function(self) {
 			reader.readAsText(file);
 		}, function() {
 			SETTER('loading', 'hide', 1000);
-			el.value = '';
+			input[0].value = '';
 		});
 	};
 });
