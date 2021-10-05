@@ -20,6 +20,7 @@ __Configuration__:
 - `check` {String} optional, a link to function `function(next) { next(); }`, it's executed when the part is wanting to show
 - `invisible` {Boolean} enables adding of `invisible` class when the part is going to hide (default: `false`)
 - `delay` {Number} a delay (in ms) for removing of `invisible` class and hiding of `loading` (default: `500`)
+- `autofocus` {Boolean/String} focuses the first input, textarea (default: `false`)
 
 __Good to know 1__:
 

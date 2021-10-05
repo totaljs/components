@@ -9,7 +9,8 @@ __Configuration__:
 - `reload` {String} link to a global function and it's executed if the form is showing
 - `container` {String} jQuery selector for auto-height dimension (default: `.ui-layer-body`)
 - `default` {String} (optional) a short alias for `DEFAULT(default, true)`
-- __NEW__: `scrollbar` {Boolean} enables custom scrollbar (default: `true`)
+- `scrollbar` {Boolean} enables custom scrollbar (default: `true`)
+- __NEW__: `autofocus` {Boolean/String} focuses the first input, textarea (default: `false`)
 
 ### Author
 
