@@ -27,6 +27,16 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 		return value.replace(/\?/g, config.path || config.if);
 	};
 
+	var autofocus = function(counter) {
+		if (!counter || counter < 10) {
+			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea');
+			if (el.length)
+				el.eq(0).focus();
+			else
+				setTimeout(autofocus, 200, (counter || 1) + 1);
+		}
+	};
+
 	self.setter = function(value) {
 
 		if (cache[value]) {
@@ -52,6 +62,10 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 					config.hide && self.rclass('hidden');
 					config.reload && EXEC(replace(config.reload));
 					config.default && DEFAULT(replace(config.default), true);
+
+					if (!isMOBILE && config.autofocus)
+						autofocus();
+
 					self.hclass('invisible') && self.rclass('invisible', config.delay);
 					isresizing && setTimeout(self.resize, 50);
 					setTimeout(self.emitresize, 200);

@@ -75,6 +75,16 @@ COMPONENT('layer', 'offset:65;scrollbar:true', function(self, config, cls) {
 		}
 	};
 
+	var autofocus = function(counter) {
+		if (!counter || counter < 10) {
+			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea');
+			if (el.length)
+				el.eq(0).focus();
+			else
+				setTimeout(autofocus, 200, (counter || 1) + 1);
+		}
+	};
+
 	self.setter = function(value) {
 
 		$('html').tclass(cls + '-noscroll', value.length > 0);
@@ -105,6 +115,7 @@ COMPONENT('layer', 'offset:65;scrollbar:true', function(self, config, cls) {
 		self.release(false);
 		config.reload && EXEC(config.reload);
 		config.default && DEFAULT(config.default, true);
+		config.autofocus && autofocus();
 
 		setTimeout(function() {
 			self.aclass(cls + '-visible');

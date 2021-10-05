@@ -53,6 +53,16 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 		el.aclass(clsvisible);
 	};
 
+	var autofocus = function(counter) {
+		if (!counter || counter < 10) {
+			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea');
+			if (el.length)
+				el.eq(0).focus();
+			else
+				setTimeout(autofocus, 200, (counter || 1) + 1);
+		}
+	};
+
 	self.show = function(opt) {
 
 		// opt.id
@@ -168,11 +178,8 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 			});
 		});
 
-		if (!isMOBILE && opt.autofocus) {
-			setTimeout(function(opt) {
-				opt.box.find(typeof(opt.autofocus) === 'string' ? opt.autofocus : 'input[type="text"],select,textarea').eq(0).focus();
-			}, 1000, opt);
-		}
+		if (!isMOBILE && opt.autofocus)
+			autofocus();
 
 		is = true;
 	};
