@@ -101,6 +101,10 @@ COMPONENT('layer', 'offset:65;scrollbar:true', function(self, config, cls) {
 			csspos.width = (WW - config.offset) - (config.offset * index);
 			self.attrd('index', index);
 			self.css(csspos);
+
+			if (!isMOBILE && config.autofocus)
+				autofocus();
+
 			setTimeout(self.resize, 100);
 			return;
 		}
@@ -115,7 +119,9 @@ COMPONENT('layer', 'offset:65;scrollbar:true', function(self, config, cls) {
 		self.release(false);
 		config.reload && EXEC(config.reload);
 		config.default && DEFAULT(config.default, true);
-		config.autofocus && autofocus();
+
+		if (!isMOBILE && config.autofocus)
+			autofocus();
 
 		setTimeout(function() {
 			self.aclass(cls + '-visible');

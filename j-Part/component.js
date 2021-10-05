@@ -109,6 +109,10 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 							isresizing && setTimeout(self.resize, 50);
 							setTimeout(self.emitresize, 200);
 							downloading = false;
+
+							if (!isMOBILE && config.autofocus)
+								autofocus();
+
 						};
 
 						EMIT('parts.' + config.if, self.element, self);
