@@ -11,10 +11,13 @@ __Methods__:
 	- `opt.callback {Function(file)}` a callback
 - `component.process(files)` - internal, processing `files` object
 
-```javascript
-SETTER('filereader', 'open', 'text/*', function(file) {
-
-});
+```js
+var opt = {};
+opt.accept = 'text/*';
+opt.callback = function(file) {
+	console.log(file);
+};
+SETTER('filereader/open', opt);
 ```
 
 ### Author
