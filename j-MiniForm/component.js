@@ -173,16 +173,6 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 		}
 	};
 
-	var autofocus = function(counter) {
-		if (!counter || counter < 10) {
-			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea')[0];
-			if (el)
-				el.focus();
-			else
-				setTimeout(autofocus, 200, (counter || 1) + 1);
-		}
-	};
-
 	self.setter = function(value) {
 
 		setTimeout2(cls + '-noscroll', function() {
@@ -233,10 +223,7 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 		setTimeout(function() {
 			self.rclass('invisible');
 			self.find(cls2).aclass(cls + '-animate');
-
-			if (!isMOBILE && config.autofocus)
-				setTimeout(autofocus, 100);
-
+			config.autofocus && self.autofocus(config.autofocus);
 		}, 200);
 
 		// Fixes a problem with freezing of scrolling in Chrome

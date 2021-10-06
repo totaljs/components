@@ -75,16 +75,6 @@ COMPONENT('layer', 'offset:65;scrollbar:true', function(self, config, cls) {
 		}
 	};
 
-	var autofocus = function(counter) {
-		if (!counter || counter < 10) {
-			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea')[0];
-			if (el)
-				el.focus();
-			else
-				setTimeout(autofocus, 200, (counter || 1) + 1);
-		}
-	};
-
 	self.setter = function(value) {
 
 		$('html').tclass(cls + '-noscroll', value.length > 0);
@@ -101,10 +91,7 @@ COMPONENT('layer', 'offset:65;scrollbar:true', function(self, config, cls) {
 			csspos.width = (WW - config.offset) - (config.offset * index);
 			self.attrd('index', index);
 			self.css(csspos);
-
-			if (!isMOBILE && config.autofocus)
-				setTimeout(autofocus, 100);
-
+			config.autofocus && self.autofocus(config.autofocus);
 			setTimeout(self.resize, 100);
 			return;
 		}
@@ -123,10 +110,7 @@ COMPONENT('layer', 'offset:65;scrollbar:true', function(self, config, cls) {
 		setTimeout(function() {
 			self.aclass(cls + '-visible');
 			setTimeout(self.resize, 100);
-
-			if (!isMOBILE && config.autofocus)
-				setTimeout(autofocus, 100);
-
+			config.autofocus && self.autofocus(config.autofocus);
 		}, 200);
 	};
 });

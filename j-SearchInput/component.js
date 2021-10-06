@@ -19,12 +19,7 @@ COMPONENT('searchinput', 'searchicon:fa fa-search;cancelicon:fa fa-times;align:l
 			prev2 = '';
 		});
 
-		if (config.autofocus && !isMOBILE) {
-			setTimeout(function() {
-				input.focus();
-			}, config.autofocus == true ? 500 : config.autofocus);
-		}
-
+		config.autofocus && self.autofocus();
 	};
 
 	self.focus = function() {

@@ -192,13 +192,7 @@ COMPONENT('inlineform', 'autohide:1', function(self, config, cls) {
 		config.default && DEFAULT(config.default, true);
 
 		self.css(offset);
-
-		if (!isMOBILE && config.autofocus) {
-			setTimeout(function(el) {
-				el = self.find('input[type="text"],select,textarea');
-				el.length && el[0].focus();
-			}, 500, el);
-		}
+		config.autofocus && self.autofocus(config.autofocus);
 
 		setTimeout(function() {
 			events.bind();

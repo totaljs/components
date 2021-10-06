@@ -204,16 +204,6 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', f
 		$('html').tclass(cls + '-noscroll', !!$(cls2 + '-container').not('.hidden').length);
 	};
 
-	var autofocus = function(counter) {
-		if (!counter || counter < 10) {
-			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea')[0];
-			if (el)
-				el.focus();
-			else
-				setTimeout(autofocus, 200, (counter || 1) + 1);
-		}
-	};
-
 	self.setter = function(value) {
 
 		setTimeout2(self.name + '-noscroll', allowscrollbars, 50);
@@ -272,9 +262,7 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', f
 				}, 50);
 			}
 
-			if (!isMOBILE && config.autofocus)
-				setTimeout(autofocus, 100);
-
+			config.autofocus && self.autofocus(config.autofocus);
 			init = true;
 		}, 200);
 

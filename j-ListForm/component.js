@@ -242,12 +242,7 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 
 		setTimeout(function() {
 			$(form).tclass(cls + '-new', !el).rclass('hidden');
-			if (!isMOBILE && config.autofocus) {
-				setTimeout(function() {
-					var input = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea')[0];
-					input && input.focus();
-				}, 100);
-			}
+			config.autofocus && self.autofocus(config.autofocus);
 		}, 150);
 	};
 

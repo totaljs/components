@@ -138,16 +138,6 @@ COMPONENT('panel', 'width:350;icon:home;zindex:12;scrollbar:true;scrollbarY:true
 		}
 	};
 
-	var autofocus = function(counter) {
-		if (!counter || counter < 10) {
-			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea')[0];
-			if (el)
-				el.focus();
-			else
-				setTimeout(autofocus, 200, (counter || 1) + 1);
-		}
-	};
-
 	self.setter = function(value) {
 
 		setTimeout2(cls + '-noscroll', function() {
@@ -206,10 +196,7 @@ COMPONENT('panel', 'width:350;icon:home;zindex:12;scrollbar:true;scrollbarY:true
 			else
 				container.scrollTop(0);
 			self.aclass(cls + '-animate');
-
-			if (!isMOBILE && config.autofocus)
-				setTimeout(autofocus, 100);
-
+			config.autofocus && self.autofocus(config.autofocus);
 		}, 300);
 
 		// Fixes a problem with freezing of scrolling in Chrome

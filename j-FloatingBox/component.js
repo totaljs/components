@@ -53,16 +53,6 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 		el.aclass(clsvisible);
 	};
 
-	var autofocus = function(counter) {
-		if (!counter || counter < 10) {
-			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea')[0];
-			if (el)
-				el.focus();
-			else
-				setTimeout(autofocus, 200, (counter || 1) + 1);
-		}
-	};
-
 	self.show = function(opt) {
 
 		// opt.id
@@ -178,9 +168,7 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 			});
 		});
 
-		if (!isMOBILE && opt.autofocus)
-			setTimeout(autofocus, 100);
-
+		opt.autofocus && self.autofocus(opt.autofocus);
 		is = true;
 	};
 

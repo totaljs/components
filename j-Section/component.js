@@ -192,10 +192,7 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 			section.aclass(cls + '-visible');
 
 		elh.find('span').tclass('hidden', !parent).attrd('parent', parent || '');
-		config.autofocus && setTimeout(function() {
-			var input = section.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea')[0];
-			input && input.focus();
-		}, config.delayanim * 2);
+		config.autofocus && self.autofocus(config.autofocus);
 	};
 
 	var importprepare = function() {

@@ -405,12 +405,8 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 		if (opt.offsetY)
 			css.top += opt.offsetY;
 
-		if (!isMOBILE && opt.autofocus !== false) {
-			setTimeout(function() {
-				var input = self.find('input')[0];
-				input && input.focus();
-			}, 400);
-		}
+		if (opt.autofocus !== false)
+			self.autofocus();
 
 		self.element.css(css);
 		self.aclass(cls + '-visible', 100);

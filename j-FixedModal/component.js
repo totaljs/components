@@ -131,13 +131,7 @@ COMPONENT('fixedmodal', 'zindex:12;width:500', function(self, config, cls) {
 
 		config.reload && self.EXEC(config.reload, self);
 		config.default && DEFAULT(self.makepath(config.default), true);
-
-		if (!isMOBILE && config.autofocus) {
-			var el = self.find(config.autofocus ? 'input[type="text"],input[type="password"],select,textarea' : config.autofocus);
-			el.length && setTimeout(function() {
-				el[0].focus();
-			}, 1500);
-		}
+		config.autofocus && self.autofocus(config.autofocus);
 
 		var delay = first ? 500 : 0;
 

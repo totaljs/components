@@ -244,7 +244,7 @@ COMPONENT('textbox', function(self, config) {
 				input.rclass(input.attr('class')).aclass('ui-' + value || 'left');
 				break;
 			case 'autofocus':
-				input.focus();
+				input[0].focus();
 				break;
 			case 'icon2click': // backward compatibility
 			case 'iconclick':

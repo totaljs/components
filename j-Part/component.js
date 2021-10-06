@@ -27,16 +27,6 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 		return value.replace(/\?/g, config.path || config.if);
 	};
 
-	var autofocus = function(counter) {
-		if (!counter || counter < 10) {
-			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea')[0];
-			if (el)
-				el.focus();
-			else
-				setTimeout(autofocus, 200, (counter || 1) + 1);
-		}
-	};
-
 	self.setter = function(value) {
 
 		if (cache[value]) {
@@ -67,10 +57,7 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 					invisible && self.rclass('invisible', config.delay);
 					isresizing && setTimeout(self.resize, 50);
 					setTimeout(self.emitresize, 200);
-
-					if (!isMOBILE && config.autofocus)
-						setTimeout(autofocus, (invisible ? config.delay : 0) + 400);
-
+					config.autofocus && self.autofocus(config.autofocus);
 				};
 
 				if (config.check)
@@ -112,9 +99,7 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 							isresizing && setTimeout(self.resize, 50);
 							setTimeout(self.emitresize, 200);
 							downloading = false;
-
-							if (!isMOBILE && config.autofocus)
-								setTimeout(autofocus, (invisible ? config.delay : 0) + 400);
+							config.autofocus && self.autofocus(config.autofocus);
 						};
 
 						EMIT('parts.' + config.if, self.element, self);
