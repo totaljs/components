@@ -1138,8 +1138,8 @@ EXTENSION('flow:components', function(self, config) {
 				var pos = instance.node.position();
 
 				if (config.snapping) {
-					pos.left = pos.left - (pos.left % config.snapping);
-					pos.top = pos.top - (pos.top % config.snapping);
+					pos.left = zoom2(pos.left - (pos.left % config.snapping));
+					pos.top = zoom2(pos.top - (pos.top % config.snapping));
 					instance.node.css(pos);
 				}
 
@@ -2145,8 +2145,8 @@ EXTENSION('flow:groups', function(self, config, cls) {
 			var history = { id: id, x: group.x, y: group.y, newx: pos.left, newy: pos.top, width: group.width, height: group.height, newwidth: w, newheight: h, type: 'group' };
 
 			if (config.snapping) {
-				pos.left = pos.left - (pos.left % config.snapping);
-				pos.top = pos.top - (pos.top % config.snapping);
+				pos.left = zoom(pos.left - (pos.left % config.snapping));
+				pos.top = zoom(pos.top - (pos.top % config.snapping));
 				drag.element.css(pos);
 			}
 
