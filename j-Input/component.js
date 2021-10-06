@@ -241,7 +241,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					self.change(true);
 					self.set(val, 2);
 					self.check();
-					rawvalue.focus();
+					rawvalue[0].focus();
 				};
 				SETTER('faicons', 'show', opt);
 				return;
@@ -254,7 +254,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					self.change(true);
 					self.set(al, 2);
 					self.check();
-					rawvalue.focus();
+					rawvalue[0].focus();
 				};
 				SETTER('colorpicker', 'show', opt);
 				return;
@@ -267,7 +267,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					self.change(true);
 					self.set(al, 2);
 					self.check();
-					rawvalue.focus();
+					rawvalue[0].focus();
 				};
 				SETTER('emoji', 'show', opt);
 				return;
@@ -380,7 +380,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 						input.val(val);
 				}
 
-				rawvalue.focus();
+				rawvalue[0].focus();
 			};
 
 			SETTER('directory', 'show', opt);
@@ -393,10 +393,10 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					e.stopPropagation();
 					self.find(cls2 + '-control').trigger('click');
 				} else if (!config.camouflage || $(e.target).hclass(cls + '-placeholder')) {
-					if (input.length)
-						input.focus();
-					else
-						rawvalue.focus();
+					if (input.length) {
+						input[0].focus();
+					} else
+						rawvalue[0].focus();
 				}
 			}
 		});
