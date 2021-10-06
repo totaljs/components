@@ -62,12 +62,14 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 					config.hide && self.rclass('hidden');
 					config.reload && EXEC(replace(config.reload));
 					config.default && DEFAULT(replace(config.default), true);
-					self.hclass('invisible') && self.rclass('invisible', config.delay);
+
+					var invisible = self.hclass('invisible');
+					invisible && self.rclass('invisible', config.delay);
 					isresizing && setTimeout(self.resize, 50);
 					setTimeout(self.emitresize, 200);
 
 					if (!isMOBILE && config.autofocus)
-						setTimeout(autofocus, 100);
+						setTimeout(autofocus, (invisible ? config.delay : 0) + 400);
 
 				};
 
@@ -105,13 +107,14 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 							config.reload && EXEC(replace(config.reload), true);
 							config.default && DEFAULT(replace(config.default), true);
 							config.loading && SETTER('loading/hide', self.delay);
-							self.hclass('invisible') && self.rclass('invisible', self.delay);
+							var invisible = self.hclass('invisible');
+							invisible && self.rclass('invisible', self.delay);
 							isresizing && setTimeout(self.resize, 50);
 							setTimeout(self.emitresize, 200);
 							downloading = false;
 
 							if (!isMOBILE && config.autofocus)
-								setTimeout(autofocus, 100);
+								setTimeout(autofocus, (invisible ? config.delay : 0) + 400);
 						};
 
 						EMIT('parts.' + config.if, self.element, self);
