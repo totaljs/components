@@ -80,6 +80,16 @@ COMPONENT('centered', 'closebutton:1;closeesc:1;scrollbar:1;visibleY:0', functio
 		self.on('resize2', self.resize);
 	};
 
+	var autofocus = function(counter) {
+		if (!counter || counter < 10) {
+			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea')[0];
+			if (el)
+				el.focus();
+			else
+				setTimeout(autofocus, 200, (counter || 1) + 1);
+		}
+	};
+
 	self.setter = function(value) {
 		var is = value === config.if;
 		var hs = self.hclass('hidden');
@@ -91,12 +101,8 @@ COMPONENT('centered', 'closebutton:1;closeesc:1;scrollbar:1;visibleY:0', functio
 				config.default && DEFAULT(self.makepath(config.default), true);
 				config.reload && self.EXEC(config.reload, self);
 				config.zindex && self.css('z-index', config.zindex);
-				if (!isMOBILE && config.autofocus) {
-					setTimeout(function() {
-						self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea').eq(0).focus();
-					}, 1000);
-				}
-
+				if (!isMOBILE && config.autofocus)
+					setTimeout(autofocus, 100);
 			} else
 				config.closeesc && events.unbind();
 

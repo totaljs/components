@@ -105,7 +105,10 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 				var el = self.findmodal(obj.id);
 				el.rclass('invisible');
 				config.onopen && self.EXEC(config.onopen, obj, el);
-				config.autofocus && el.find('input,select,textarea').eq(0).focus();
+				if (config.autofocus) {
+					var input = el.find('input,select,textarea')[0];
+					input && input.focus();
+				}
 			}, 500, obj);
 		}
 	};

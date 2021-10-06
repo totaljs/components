@@ -201,6 +201,16 @@ COMPONENT('fullform', 'zindex:12;padding:20;scrollbar:1;scrolltop:1;style:1', fu
 		$('html').tclass(cls + '-noscroll', !!$(cls2 + '-container').not('.hidden').length);
 	};
 
+	var autofocus = function(counter) {
+		if (!counter || counter < 10) {
+			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea')[0];
+			if (el)
+				el.focus();
+			else
+				setTimeout(autofocus, 200, (counter || 1) + 1);
+		}
+	};
+
 	self.setter = function(value) {
 
 		setTimeout2(self.name + '-noscroll', allowscrollbars, 50);
@@ -247,12 +257,6 @@ COMPONENT('fullform', 'zindex:12;padding:20;scrollbar:1;scrolltop:1;style:1', fu
 		config.reload && EXEC(config.reload, self);
 		config.default && DEFAULT(self.makepath(config.default), true);
 
-		if (!isMOBILE && config.autofocus) {
-			setTimeout(function() {
-				self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea').eq(0).focus();
-			}, 1000);
-		}
-
 		self.resize();
 
 		setTimeout(function() {
@@ -265,12 +269,14 @@ COMPONENT('fullform', 'zindex:12;padding:20;scrollbar:1;scrolltop:1;style:1', fu
 				}, 50);
 			}
 			init = true;
+			if (!isMOBILE && config.autofocus)
+				setTimeout(autofocus, 100);
 		}, 200);
 
 		// Fixes a problem with freezing of scrolling in Chrome
 		setTimeout2(self.ID, function() {
 			self.css('z-index', (W.$$fullform_level * config.zindex) + 1);
-		}, 500);
+		}, 400);
 
 		config.closeesc && self.esc(true);
 	};

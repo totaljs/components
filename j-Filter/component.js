@@ -407,8 +407,9 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 
 		if (!isMOBILE && opt.autofocus !== false) {
 			setTimeout(function() {
-				self.find('input').eq(0).focus();
-			}, 500);
+				var input = self.find('input')[0];
+				input && input.focus();
+			}, 400);
 		}
 
 		self.element.css(css);

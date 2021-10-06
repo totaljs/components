@@ -175,9 +175,9 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 
 	var autofocus = function(counter) {
 		if (!counter || counter < 10) {
-			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea');
-			if (el.length)
-				el.eq(0).focus();
+			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea')[0];
+			if (el)
+				el.focus();
 			else
 				setTimeout(autofocus, 200, (counter || 1) + 1);
 		}
@@ -230,18 +230,19 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 		config.reload && self.EXEC(config.reload, self);
 		config.default && DEFAULT(self.makepath(config.default), true);
 
-		if (!isMOBILE && config.autofocus)
-			autofocus();
-
 		setTimeout(function() {
 			self.rclass('invisible');
 			self.find(cls2).aclass(cls + '-animate');
-		}, 300);
+
+			if (!isMOBILE && config.autofocus)
+				setTimeout(autofocus, 100);
+
+		}, 200);
 
 		// Fixes a problem with freezing of scrolling in Chrome
 		setTimeout2(self.ID, function() {
 			self.css('z-index', (W.$$miniform_level * config.zindex) + 1);
-		}, 500);
+		}, 400);
 
 		config.closeesc && self.esc(true);
 	};

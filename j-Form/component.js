@@ -192,9 +192,9 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 
 	var autofocus = function(counter) {
 		if (!counter || counter < 10) {
-			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea');
-			if (el.length)
-				el.eq(0).focus();
+			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea')[0];
+			if (el)
+				el.focus();
 			else
 				setTimeout(autofocus, 200, (counter || 1) + 1);
 		}
@@ -250,9 +250,6 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 		config.reload && self.EXEC(config.reload, self);
 		config.default && DEFAULT(self.makepath(config.default), true);
 
-		if (!isMOBILE && config.autofocus)
-			autofocus();
-
 		setTimeout(function() {
 			self.rclass('invisible');
 			if (self.scrollbar)
@@ -260,6 +257,10 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 			else
 				self.element.scrollTop(0);
 			self.find(cls2).aclass(cls + '-animate');
+
+			if (!isMOBILE && config.autofocus)
+				setTimeout(autofocus, 100);
+
 		}, 200);
 
 		// Fixes a problem with freezing of scrolling in Chrome

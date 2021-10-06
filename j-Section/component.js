@@ -193,7 +193,8 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 
 		elh.find('span').tclass('hidden', !parent).attrd('parent', parent || '');
 		config.autofocus && setTimeout(function() {
-			section.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea').eq(0).focus();
+			var input = section.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea')[0];
+			input && input.focus();
 		}, config.delayanim * 2);
 	};
 

@@ -206,9 +206,9 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', f
 
 	var autofocus = function(counter) {
 		if (!counter || counter < 10) {
-			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea');
-			if (el.length)
-				el.eq(0).focus();
+			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea')[0];
+			if (el)
+				el.focus();
 			else
 				setTimeout(autofocus, 200, (counter || 1) + 1);
 		}
@@ -260,9 +260,6 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', f
 		config.reload && self.EXEC(config.reload, self);
 		config.default && DEFAULT(self.makepath(config.default), true);
 
-		if (!isMOBILE && config.autofocus)
-			autofocus();
-
 		self.resize();
 
 		setTimeout(function() {
@@ -274,6 +271,10 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', f
 					$('body').rclass('hidden');
 				}, 50);
 			}
+
+			if (!isMOBILE && config.autofocus)
+				setTimeout(autofocus, 100);
+
 			init = true;
 		}, 200);
 

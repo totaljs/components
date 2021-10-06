@@ -55,9 +55,9 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 
 	var autofocus = function(counter) {
 		if (!counter || counter < 10) {
-			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea');
-			if (el.length)
-				el.eq(0).focus();
+			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea')[0];
+			if (el)
+				el.focus();
 			else
 				setTimeout(autofocus, 200, (counter || 1) + 1);
 		}
@@ -179,7 +179,7 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 		});
 
 		if (!isMOBILE && opt.autofocus)
-			autofocus();
+			setTimeout(autofocus, 100);
 
 		is = true;
 	};

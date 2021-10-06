@@ -29,9 +29,9 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 
 	var autofocus = function(counter) {
 		if (!counter || counter < 10) {
-			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea');
-			if (el.length)
-				el.eq(0).focus();
+			var el = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea')[0];
+			if (el)
+				el.focus();
 			else
 				setTimeout(autofocus, 200, (counter || 1) + 1);
 		}
@@ -62,13 +62,13 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 					config.hide && self.rclass('hidden');
 					config.reload && EXEC(replace(config.reload));
 					config.default && DEFAULT(replace(config.default), true);
-
-					if (!isMOBILE && config.autofocus)
-						autofocus();
-
 					self.hclass('invisible') && self.rclass('invisible', config.delay);
 					isresizing && setTimeout(self.resize, 50);
 					setTimeout(self.emitresize, 200);
+
+					if (!isMOBILE && config.autofocus)
+						setTimeout(autofocus, 100);
+
 				};
 
 				if (config.check)
@@ -111,8 +111,7 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 							downloading = false;
 
 							if (!isMOBILE && config.autofocus)
-								autofocus();
-
+								setTimeout(autofocus, 100);
 						};
 
 						EMIT('parts.' + config.if, self.element, self);

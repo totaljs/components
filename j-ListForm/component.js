@@ -244,7 +244,8 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 			$(form).tclass(cls + '-new', !el).rclass('hidden');
 			if (!isMOBILE && config.autofocus) {
 				setTimeout(function() {
-					self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea').eq(0).focus();
+					var input = self.find(typeof(config.autofocus) === 'string' ? config.autofocus : 'input[type="text"],select,textarea')[0];
+					input && input.focus();
 				}, 100);
 			}
 		}, 150);
