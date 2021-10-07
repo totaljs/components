@@ -29,7 +29,7 @@ Thelpers.time = function(value) {
 };
 
 Thelpers.time2 = function(value) {
-	return '<span class="ta-time" data-time="{0}" title="{2}">{1}</span>'.format(value.getTime(), Thelpers.time(value), value.format(null));
+	return value ? '<span class="ta-time" data-time="{0}" title="{2}">{1}</span>'.format(value.getTime(), Thelpers.time(value), value.format(null)) : value;
 };
 
 ON('knockknock', function() {
