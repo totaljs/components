@@ -48,6 +48,16 @@ COMPONENT('message', 'button:OK;style:2', function(self, config, cls) {
 			fn = icon;
 			icon = undefined;
 		}
+
+		if (message instanceof Array) {
+			var builder = [];
+			for (var i = 0; i < message.length; i++) {
+				var err = message[i].error;
+				err && builder.push(err);
+			}
+			message = builder.join('<br />');
+		}
+
 		self.callback = fn;
 		self.content(cls + '-warning', message, icon || 'warning');
 	};
@@ -57,6 +67,16 @@ COMPONENT('message', 'button:OK;style:2', function(self, config, cls) {
 			fn = icon;
 			icon = undefined;
 		}
+
+		if (message instanceof Array) {
+			var builder = [];
+			for (var i = 0; i < message.length; i++) {
+				var err = message[i].error;
+				err && builder.push(err);
+			}
+			message = builder.join('<br />');
+		}
+
 		self.callback = fn;
 		self.content(cls + '-info', message, icon || 'info-circle');
 	};
