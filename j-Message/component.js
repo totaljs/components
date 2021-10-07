@@ -1,4 +1,4 @@
-COMPONENT('message', 'button:OK', function(self, config, cls) {
+COMPONENT('message', 'button:OK;style:2', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var is;
