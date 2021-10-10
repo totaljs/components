@@ -45,6 +45,7 @@ __Allowed properties__:
 	 - type `Object Array` fixed defined array
 - `dirplaceholder {String}` optional, placeholder for `j-Directory`
 - `dirsearch {Boolean}` optional, enables/disables `search` field in `j-Directory` (default: `true`)
+- __NEW__: `datasource {String}` optional, a path to the data-source for config items
 
 Declaration must be defined in the component's element body wrapped in the `<script type="text/plain">` element. Example:
 

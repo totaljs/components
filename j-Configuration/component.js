@@ -608,9 +608,20 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		return obj;
 	};
 
+	self.configure = function(key, value) {
+		if (key === 'datasource') {
+			self.datasource(value, function(path, value) {
+				datasource = value;
+				self.redraw();
+				self.refresh();
+			}, true);
+		}
+	};
+
 	self.rebind = function(val) {
 		datasource = new Function('val', 'return ' + val.trim())(val);
 		self.redraw();
+		self.refresh();
 	};
 
 	self.redraw = function() {
@@ -647,7 +658,8 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 	self.make = function() {
 		self.aclass(cls);
-		self.rebind(self.find('script').html());
+		var template = self.find('script').html();
+		template && self.rebind(template);
 	};
 
 	self.setter = function(value, path) {
