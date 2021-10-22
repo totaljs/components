@@ -86,7 +86,7 @@ COMPONENT('livestats', 'width:500;height:100;axislines:20;max:0', function(self,
 
 	self.render = function(path, points, max, index) {
 
-		var h = cachedheight - 12;
+		var h = cachedheight - 14;
 		var builder = [];
 		var bar = Math.ceil(cachedwidth / (cachedlines / 2));
 		var pp = [];
