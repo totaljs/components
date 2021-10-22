@@ -7,13 +7,15 @@
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia harum accusamus debitis aut sunt, deserunt magni alias neque unde reprehenderit ipsa ea laboriosam eveniet! Distinctio pariatur sed, a aut nobis.
 
 <script>
-	SETTER('notify', 'append', 'This is "success" message.');
+	setTimeout(function() {
+		SETTER('notify/success', 'This is "success" message.');
+	}, 1000);
 
 	setTimeout(function() {
-		SETTER('notify', 'append', 'This is "warning" message.', 2);
+		SETTER('notify/warning', 'This is "warning" message.', 2);
+	}, 2000);
+
+	setTimeout(function() {
+		SETTER('notify/info', 'This is "info" message.', 3);
 	}, 3000);
-
-	setTimeout(function() {
-		SETTER('notify', 'append', 'This is "info" message.', 3);
-	}, 6000);
 </script>
