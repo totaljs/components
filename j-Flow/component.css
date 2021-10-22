@@ -30,7 +30,7 @@
 .ui-flow .area { position: relative; }
 .ui-flow-v .hasoutputs .content { padding-bottom: 20px; }
 .ui-flow path.highlight { stroke: var(--color); }
-.ui-flow svg { margin: -1px 0 0 -1px; }
+.ui-flow > svg { margin: -1px 0 0 -1px; }
 .ui-flow-grid { stroke: #F8F8F8; stroke-width: 2; }
 .ui-flow .output.connected .component-io.disabled, .ui-flow .input.connected .component-io.disabled, .ui-flow .output .component-io.disabled, .ui-flow .input .component-io.disabled { background-color: red !important; color: #FFF; }
 .ui-flow .traffic { fill: var(--color); }
