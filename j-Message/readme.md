@@ -11,7 +11,7 @@ __Configuration__:
 
 __Usage__:
 
-```javascript
+```js
 SETTER('message/warning', 'Some warning');
 SETTER('message/success', 'Some success message');
 SETTER('message/info', 'Some info message');
@@ -21,7 +21,7 @@ __Works with ASETTER__:
 
 - errors are handled automatically
 
-```javascript
+```js
 // Without callback
 AJAX('POST /api/profile/', userprofile, ASETTER('message/response', 'Profile has been saved successfully'));
 
