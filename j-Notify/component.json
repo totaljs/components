@@ -1,12 +1,14 @@
 {
-	"datecreated": "2017-08-31T13:39:00.000Z",
-	"dateupdated": "2018-11-08T19:45:01.000Z",
+	"datecreated": "2021-10-22T18:31:00.000Z",
+	"dateupdated": null,
 	"name": "j-Notify",
 	"tags": [
-		"notifications"
+		"notifications",
+		"message"
 	],
 	"color": "white",
 	"version": 1,
+	"darkmode": true,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",

@@ -6,17 +6,38 @@
 __Configuration__:
 
 - `timeout` {Number} has to contain a timeout (milliseconds) for the expiration of notification (default: `3000`)
-- `position` {String} can be `top`, `top left`, `top right`, `bottom` (default), `bottom left` and `bottom right`
+- `position` {String} can be `top`, `top left`, `top right` (default), `bottom` , `bottom left` and `bottom right`
 
 __Methods__:
 
-- `component.append(icon, message, [type])` for creating a new notification
+```js
+SETTER('notify/warning', 'Some warning');
+SETTER('notify/success', 'Some success message');
+SETTER('notify/info', 'Some info message');
+```
 
-__Types__:
+__Works with ASETTER__:
 
-- type `1`: success message (green)
-- type `2`: warning message (red)
-- type `3`: info message (blue)
+- errors are handled automatically
+
+```js
+// Without callback
+AJAX('POST /api/profile/', userprofile, ASETTER('notify/response', 'Profile has been saved successfully'));
+
+// Or with a callback
+AJAX('POST /api/profile/', userprofile, ASETTER('notify/response', 'Profile has been saved successfully', function(response) {
+	console.log(response);
+}));
+
+// Or with a callback and without notify
+AJAX('POST /api/profile/', userprofile, ASETTER('notify/response', function(response) {
+	console.log(response);
+}));
+
+// With auto-binding
+AJAX('POST /api/profile/', userprofile, ASETTER('notify/response', '?.response'));
+AJAX('POST /api/profile/', userprofile, ASETTER('notify/response', 'Your message', '?.response'));
+````
 
 ### Author
 
