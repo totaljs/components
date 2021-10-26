@@ -497,6 +497,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			var opts = col.options instanceof Array ? col.options : GET(self.makepath(col.options));
 			var dir = {};
 
+			if (typeof opts === 'function')
+				opts = opts();
+
 			controls.hide();
 			dir.element = el;
 			dir.items = opts;
