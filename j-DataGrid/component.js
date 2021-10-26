@@ -1144,7 +1144,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 			if (col.hidden) {
 				col.$hidden = FN(col.hidden)(col) === true;
-				col.hidden = true;
+				col.hidden = col.$hidden;
 			}
 
 			if (col.hide) {
