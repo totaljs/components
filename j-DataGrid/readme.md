@@ -81,6 +81,8 @@ __Configuration__:
 - `contextmenu` {String} a link to `function(e, grid)` when the user raises context menu
 - __NEW__ `autoformat` {Boolean} enables auto-format types like `email`, `phone` and `number` (default: `true`)
 - __NEW__ `controls` {Boolean} enables controls defined in `columns` (default: `true`)
+- __NEW__ `hfunc` {String} a link to `function(el)` method, it's executed if the user clicks on the icon added to very first header row. usefull to integrate other component with DataGrid. e.g. j-filter
+- __NEW__ `hfuncicon` {String} hfunc icon e.g. home, cog, etc.
 
 __Column properties__:
 
