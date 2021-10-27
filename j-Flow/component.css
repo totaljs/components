@@ -47,6 +47,7 @@
 .ui-flow-resize-br { cursor: nwse-resize; right: -2px; bottom: -2px; border-radius: 0 0 var(--radius) 0; }
 .ui-flow-resize-bl { cursor: nesw-resize; bottom: -2px; left: -2px; border-radius: 0 0 0 var(--radius); }
 .ui-flow-drag { cursor: grab !important; }
+.ui-flow-dragged .ui-flow-groups { pointer-events: none; }
 
 .ui-dark .ui-flow-grid { stroke: #303030; }
 .ui-dark .ui-flow .component { border-color: #404040; background-color: #303030; }

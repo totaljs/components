@@ -70,14 +70,18 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 		};
 
 		drag.handler = function(e) {
+			if (!HIDDEN(self.element)) {
+				drag.el = $(e.target);
+				self.aclass(cls + '-dragged');
+				e.touches && drag.bind();
+				var dt = e.originalEvent.dataTransfer;
+				dt && dt.setData('text', '1');
+			}
+		};
 
-			if (HIDDEN(self.element))
-				return;
-
-			drag.el = $(e.target);
-			e.touches && drag.bind();
-			var dt = e.originalEvent.dataTransfer;
-			dt && dt.setData('text', '1');
+		drag.handler_end = function(e) {
+			console.log('SOM TU');
+			self.rclass(cls + '-dragged');
 		};
 
 		drag.drop = function(e) {
@@ -91,7 +95,9 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			config.ondrop && self.EXEC(config.ondrop, meta, self);
 		};
 
-		$(document).on('dragstart', '[draggable]', drag.handler).on('touchstart', '[draggable]', drag.handler);
+		var doc = $(document);
+		doc.on('dragstart touchstart', '[draggable]', drag.handler);
+		doc.on('dragend touchend', '[draggable]', drag.handler_end);
 
 		self.el.grid.on('dragenter dragover dragexit drop dragleave', function(e) {
 			switch (e.type) {
@@ -104,7 +110,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 	};
 
 	self.destroy = function() {
-		$(document).off('dragstart', drag.handler);
+		$(document).off('dragstart touchstart', drag.handler).off('dragend touchend', drag.handler_end);
 	};
 
 	self.getOffset = function() {
