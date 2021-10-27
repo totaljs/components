@@ -758,11 +758,9 @@ EXTENSION('flow:operations', function(self, config, cls) {
 			if (group) {
 				self.find('.group-selected,.connection-selected,.component-selected').rclass('group-selected connection-selected component-selected');
 				group.aclass('group-selected');
-				var prev = self.info.selected;
 				self.info.selected = (self.get().groups || EMPTYARRAY).findItem('id', group.attrd('id'));
 				self.info.type = 'group';
-				if (self.info.selected !== prev)
-					self.op.refreshinfo();
+				self.op.refreshinfo();
 				return true;
 			} else
 				return false;
@@ -785,13 +783,9 @@ EXTENSION('flow:operations', function(self, config, cls) {
 			parent.appendChild(dom);
 		}
 
-		var prev = self.info.selected;
 		self.info.selected = com.instance;
 		self.info.type = 'component';
-
-		if (self.info.selected !== prev)
-			self.op.refreshinfo();
-
+		self.op.refreshinfo();
 		return true;
 	};
 
@@ -1669,12 +1663,9 @@ EXTENSION('flow:connections', function(self, config) {
 		conn.frominstance = self.cache[conn.fromid].instance;
 		conn.toinstance = self.cache[conn.toid].instance;
 
-		var prev = self.info.selected;
 		self.info.selected = conn;
 		self.info.type = 'connection';
-
-		if (self.info.selected !== prev)
-			self.op.refreshinfo();
+		self.op.refreshinfo();
 
 		var dom = el[0];
 		var parent = el.parent()[0];
@@ -2250,12 +2241,9 @@ EXTENSION('flow:groups', function(self, config, cls) {
 		drag.id = drag.element.attrd('id');
 
 		drag.element.aclass('group-selected');
-		var prev = self.info.selected;
 		self.info.selected = (self.get().groups || EMPTYARRAY).findItem('id', drag.id);
 		self.info.type = 'group';
-
-		if (self.info.selected !== prev)
-			self.op.refreshinfo();
+		self.op.refreshinfo();
 
 		drag.css = {};
 		drag.is = false;
