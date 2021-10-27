@@ -1209,7 +1209,7 @@ EXTENSION('flow:components', function(self, config) {
 
 			var cl = parent.classList;
 
-			if (parent === self.dom || cl.contains('selectable'))
+			if (parent === self.dom || cl.contains('selectable') || parent.tagName === 'BUTTON' || parent.tagName === 'A')
 				return;
 
 			if (cl.contains('component')) {
@@ -1238,7 +1238,7 @@ EXTENSION('flow:components', function(self, config) {
 
 			var cl = parent.classList;
 
-			if (parent === self.dom || cl.contains('selectable'))
+			if (parent === self.dom || cl.contains('selectable') || parent.tagName === 'BUTTON' || parent.tagName === 'A')
 				return;
 
 			if (cl.contains('component')) {
