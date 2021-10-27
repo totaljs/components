@@ -172,3 +172,4 @@
 .ui-dark .dg-controls button:disabled i { color: #505050 !important; }
 .ui-dark .dg-controls button:hover { background-color: #404040; }
 .ui-dark .dg-row:hover, .ui-dark .dg-row-hover { background-color: rgba(0,0,0,0.2); }
+.dg-hfunc { width: 15px; height: 15px; vertical-align: middle; font-size: 11px; text-align: center; background-color: #FFF; margin: 0px auto 0; }
