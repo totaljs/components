@@ -258,6 +258,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 					}
 				});
 				break;
+			case 'hfunc':
+				if (value && value.SCOPE)
+					config.hfunc = value.SCOPE(self, value);
+				break;
 		}
 
 		setTimeout2(self.ID + 'reconfigure', reconfig);
@@ -874,6 +878,15 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			controls.hide();
 		};
 
+		self.event('click', '.dg-hfunc', function(e) {
+			var t = $(this);
+
+			e.preventDefault();
+			e.stopPropagation();
+
+			SEEX(config.hfunc, t);
+		});
+
 		self.event('click', '.dg-checkbox', function(e) {
 
 			var t = $(this);
@@ -1325,6 +1338,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 	self.rendercols = function() {
 
 		var Trow = '<div class="dg-hrow dg-row-{0}">{1}</div>';
+
+		if(config.hfunc)
+			config.numbering = '<div class="dg-hfunc dg-hfunc-main" data-value="-1"><i class="{0}"></i></div>'.format(config.hfuncicon);
+
 		var column = config.numbering !== false ? Theadercol({ index: -1, label: config.numbering, filter: false, name: '$', sorting: false }) : '';
 		var resize = [];
 
