@@ -1186,7 +1186,13 @@ EXTENSION('flow:components', function(self, config) {
 	};
 
 	self.event('contextmenu', '.area', function(e) {
+
 		events.is && events.up();
+
+		var tagName = e.target.tagName;
+		if (tagName === 'INPUT' || tagName === 'TEXTAREA' || tagName === 'SELECT')
+			return;
+
 		var el = $(this);
 		var id = el.closest('.component').attrd('id');
 		config.contextmenu && self.SEEX(config.contextmenu, e, 'component', self.cache[id].instance);
@@ -1195,7 +1201,25 @@ EXTENSION('flow:components', function(self, config) {
 	});
 
 	self.event('dblclick', '.area', function(e) {
-		var target = $(this).closest('.component');
+
+		var parent = e.target;
+		var target;
+
+		while (true) {
+
+			var cl = parent.classList;
+
+			if (parent === self.dom || cl.contains('selectable'))
+				return;
+
+			if (cl.contains('component')) {
+				target = $(parent);
+				break;
+			}
+
+			parent = parent.parentNode;
+		}
+
 		config.dblclick && self.SEEX(config.dblclick, self.cache[target.attrd('id')].instance, e);
 	});
 
