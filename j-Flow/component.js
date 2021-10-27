@@ -836,7 +836,21 @@ EXTENSION('flow:operations', function(self, config, cls) {
 		return true;
 	};
 
-	self.op.reposition = function() {
+	var repositionpending = false;
+	var reposition = function() {
+
+		if (self.$removed)
+			return;
+
+		if (HIDDEN(self.element)) {
+			if (!repositionpending) {
+				repositionpending = true;
+				setTimeout(reposition, 300);
+			}
+			return;
+		}
+
+		repositionpending = false;
 
 		var dzoom = self.info.zoom / 100;
 		var dzoomoffset = ((100 - self.info.zoom) / 10) + (self.info.zoom > 100 ? 1 : -1);
@@ -845,24 +859,26 @@ EXTENSION('flow:operations', function(self, config, cls) {
 			return Math.ceil(val / dzoom) - dzoomoffset;
 		};
 
-		self.el.lines.find('.connection').each(function() {
+		var arr = self.el.lines.find('.connection');
 
-			var path = $(this);
+		for (var i = 0; i < arr.length; i++) {
+
+			var path = $(arr[i]);
 			if (path.hclass('removed'))
-				return;
+				continue;
 
 			var meta = self.helpers.parseconnection(path);
 
 			if (!meta)
-				return;
+				continue;
 
 			var output = self.find('.component[data-id="{0}"]'.format(meta.fromid)).find('.output[data-index="{0}"]'.format(meta.fromindex));
 			if (!output.length)
-				return;
+				continue;
 
 			var input = self.find('.component[data-id="{0}"]'.format(meta.toid)).find('.input[data-index="{0}"]'.format(meta.toindex));
 			if (!input.length)
-				return;
+				continue;
 
 			var a = self.helpers.position(output, true);
 			var b = self.helpers.position(input);
@@ -885,7 +901,14 @@ EXTENSION('flow:operations', function(self, config, cls) {
 			path.attrd('fromindexoffset', a.indexoffset);
 			path.attrd('toindexoffset', b.indexoffset);
 			path.attr('d', self.helpers.connect(a.x, a.y, b.x, b.y, a.indexoffset, b.indexoffset));
-		});
+		}
+	};
+
+	self.op.reposition = function() {
+		if (!repositionpending) {
+			repositionpending = true;
+			reposition();
+		}
 	};
 
 	self.op.position = function() {
