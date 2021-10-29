@@ -438,7 +438,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					self.set('');
 				else if (config.type === 'password')
 					self.password();
-				else if (config.type === 'number') {
+				else if (config.type === 'number' || config.type === 'number2') {
 					var tmp = $(e.target);
 					if (tmp.attr('class').indexOf('fa-') !== -1) {
 						var n = tmp.hclass('fa-caret-up') ? 1 : -1;
@@ -532,6 +532,9 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				return (/^\d{5}(?:[-\s]\d{4})?$/).test(value);
 			case 'currency':
 			case 'number':
+			case 'number2':
+				if (config.type === 'number2' && (value == null || value == ''))
+					return false;
 				value = value.parseFloat();
 				if ((config.minvalue != null && value < config.minvalue) || (config.maxvalue != null && value > config.maxvalue))
 					return false;
@@ -555,15 +558,13 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 	};
 
 	self.preparevalue = function(value) {
-
-		if (config.type === 'number' && (config.minvalue != null || config.maxvalue != null)) {
+		if (config.type === 'number' && (config.type !== 'number2' || value) && (config.minvalue != null || config.maxvalue != null)) {
 			var tmp = typeof(value) === 'string' ? +value.replace(',', '.') : value;
 			if (config.minvalue > tmp)
 				value = config.minvalue;
 			if (config.maxvalue < tmp)
 				value = config.maxvalue;
 		}
-
 		return value;
 	};
 
@@ -747,7 +748,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					config.licon = 'search';
 			else if (config.type === 'password')
 				config.ricon = 'eye';
-			else if (config.type === 'number') {
+			else if (config.type === 'number' || config.type === 'number2') {
 				if (!config.align && !config.innerlabel)
 					config.align = 1;
 			}
@@ -767,7 +768,10 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			html = '<div class="{0}-checkbox"><span><i class="{checkicon}"></i></span><label>{label}</label></div>'.format(cls).arg(config);
 		} else {
 			is = true;
-			html = W.ui_input_template(config);
+			var opt = CLONE(config);
+			if (opt.type === 'number2')
+				opt.type = 'number';
+			html = W.ui_input_template(opt);
 		}
 
 		self.html(html);
@@ -861,6 +865,8 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					return value.format(config.format || 'HH:mm');
 				case 'number':
 					return config.format ? value.format(config.format) : value;
+				case 'number2':
+					return value == null ? '' : config.format ? value.format(config.format) : value;
 			}
 		}
 
@@ -888,6 +894,16 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				case 'phone':
 					value = value.replace(/\s/g, '');
 					break;
+				case 'number2':
+					if (value) {
+						var type = typeof(value);
+						if (type === 'string' && (/^[\-0-9\.\,]$/).test(value))
+							value = value.parseFloat();
+						else if (type !== 'number')
+							value = null;
+					} else
+						value = null;
+					break;
 				case 'time':
 					tmp = value.split(':');
 					var dt = self.get();
@@ -897,7 +913,18 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 					value.setSeconds((tmp[2] || '0').parseInt());
 					break;
 			}
+		} else {
+			switch (config.type) {
+				case 'number':
+					value = 0;
+					break;
+				case 'number2':
+				case 'date':
+					value = null;
+					break;
+			}
 		}
+
 		return value ? config.spaces === false ? value.replace(/\s/g, '') : value : value;
 	});
 
@@ -925,7 +952,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		if (!config.forcevalidation)
 			return false;
 
-		if (config.type === 'number')
+		if (config.type === 'number' || config.type === 'number2')
 			return false;
 
 		var val = self.get();
