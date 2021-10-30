@@ -26,7 +26,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 	self.make = function() {
 
 		self.aclass(cls);
-		self.html('<div class="{0}-groups"></div><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg" class="{0}-connections"><g class="lines"></g><g class="anim"></g></svg><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="jflowgrid" width="{grid}" height="{grid}" patternunits="userSpaceOnUse"><path d="M {grid} 0 L 0 0 0 {grid}" fill="none" class="{0}-grid" shape-rendering="crispEdges" /></pattern></defs><rect width="100%" height="100%" fill="url(#jflowgrid)" shape-rendering="crispEdges" /></svg>'.format(cls).arg(config));
+		self.html(('<div class="{0}-groups"></div><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg" class="{0}-connections"><g class="lines"></g><g class="anim"></g></svg><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">' + (config.grid ? '<defs><pattern id="jflowgrid" width="{grid}" height="{grid}" patternunits="userSpaceOnUse"><path d="M {grid} 0 L 0 0 0 {grid}" fill="none" class="{0}-grid" shape-rendering="crispEdges" /></pattern></defs><rect width="100%" height="100%" fill="url(#jflowgrid)" shape-rendering="crispEdges" />' : '') + '</svg>').format(cls).arg(config));
 
 		var svg = self.find('svg');
 		self.el.svg = svg.eq(0);
@@ -34,7 +34,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 		self.el.anim = self.el.svg.find('g.anim');
 		self.el.lines = self.el.svg.find('g.lines');
 		self.el.groups = self.find('.' + cls + '-groups');
-		self.template = Tangular.compile('<div class="component invisible{{ if inputs && inputs.length }} hasinputs{{ fi }}{{ if outputs && outputs.length }} hasoutputs{{ fi }} f-{{ component }}" data-id="{{ id }}" style="top:{{ y }}px;left:{{ x }}px"><div class="area"><div class="content">{{ html | raw }}</div>{{ if inputs && inputs.length }}<div class="inputs">{{ foreach m in inputs }}<div class="input" data-index="{{ if m.id }}{{ m.id }}{{ else }}{{ $index }}{{ fi }}"><i class="component-io"></i><span>{{ if m.name }}{{ m.name | raw }}{{ else }}{{ m | raw }}{{ fi }}</span></div>{{ end }}</div>{{ fi }}{{ if outputs && outputs.length }}<div class="outputs">{{ foreach m in outputs }}<div class="output" data-index="{{ if m.id }}{{ m.id }}{{ else }}{{ $index }}{{ fi }}"><i class="component-io"></i><span>{{ if m.name }}{{ m.name | raw }}{{ else }}{{ m | raw }}{{ fi }}</span></div>{{ end }}</div>{{ fi }}</div></div>');
+		self.template = Tangular.compile('<div class="component invisible{{ if inputs && inputs.length }} hasinputs{{ fi }}{{ if outputs && outputs.length }} hasoutputs{{ fi }}{{ if component }} f-{{ component }}{{ fi }}" data-id="{{ id }}" style="top:{{ y }}px;left:{{ x }}px"><div class="area"><div class="content">{{ html | raw }}</div>{{ if inputs && inputs.length }}<div class="inputs">{{ foreach m in inputs }}<div class="input" data-index="{{ if m.id }}{{ m.id }}{{ else }}{{ $index }}{{ fi }}"><i class="component-io"></i><span>{{ if m.name }}{{ m.name | raw }}{{ else }}{{ m | raw }}{{ fi }}</span></div>{{ end }}</div>{{ fi }}{{ if outputs && outputs.length }}<div class="outputs">{{ foreach m in outputs }}<div class="output" data-index="{{ if m.id }}{{ m.id }}{{ else }}{{ $index }}{{ fi }}"><i class="component-io"></i><span>{{ if m.name }}{{ m.name | raw }}{{ else }}{{ m | raw }}{{ fi }}</span></div>{{ end }}</div>{{ fi }}</div></div>');
 		self.aclass(cls + '-' + (config.horizontal ? 'h' : 'v'));
 
 		drag.touchmove = function(e) {
@@ -156,6 +156,9 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 				continue;
 			}
 
+			if (key === 'tabs')
+				continue;
+
 			if (key === 'groups') {
 				self.refresh_groups();
 				continue;
@@ -205,6 +208,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 				html = $(html);
 				self.append(html);
 				el = self.find('.component[data-id="{id}"]'.arg(com));
+				com.tab && el.aclass('tab-' + com.tab);
 				com.onmake && com.onmake(el, com);
 				onmake && onmake(el, com);
 				com.element = html.find('.content').eq(0);
@@ -1546,6 +1550,7 @@ EXTENSION('flow:connections', function(self, config) {
 		}
 
 		var path = self.el.lines.asvg('path');
+
 		path.aclass('connection from' + D + a.id + ' to' + D + b.id + ' from' + D + a.id + D + a.index + ' to' + D + b.id + D + b.index + ' conn' + D + a.id + D + b.id + D + a.index + D + b.index);
 		path.attrd('offset', a.x + ',' + a.y + ',' + b.x + ',' + b.y);
 		path.attrd('fromindex', a.index);
@@ -1569,6 +1574,9 @@ EXTENSION('flow:connections', function(self, config) {
 		var ac = data[a.id];
 		var bc = data[b.id];
 		var key = a.index + '';
+
+		ac.tab && path.aclass('tab-' + ac.tab);
+		bc.tab && path.aclass('tab-' + bc.tab);
 
 		if (ac.connections == null)
 			ac.connections = {};
@@ -1819,7 +1827,6 @@ EXTENSION('flow:commands', function(self, config, cls) {
 							el.remove();
 						} else
 							el.attr('transform', translate_path(dom.$count, dom.$path));
-
 						requestAnimationFrame(fn);
 					};
 					requestAnimationFrame(fn);
@@ -2325,7 +2332,7 @@ EXTENSION('flow:groups', function(self, config, cls) {
 				db[g.id].attr('style', css.join(';')).find('label').text(g.name);
 				delete db[g.id];
 			} else
-				self.el.groups.append('<div class="{0}-group" style="{1}" data-id="{3}"><div><span class="{0}-resize-tl"></span><span class="{0}-resize-tr"></span><span class="{0}-resize-bl"></span><span class="{0}-resize-br"></span><label>{2}</label></div></div>'.format(cls, css.join(';'), g.name.encode(), g.id));
+				self.el.groups.append('<div class="{0}-group{4}" style="{1}" data-id="{3}"><div><span class="{0}-resize-tl"></span><span class="{0}-resize-tr"></span><span class="{0}-resize-bl"></span><span class="{0}-resize-br"></span><label>{2}</label></div></div>'.format(cls, css.join(';'), g.name.encode(), g.id, g.tab ? (' tab-' + g.tab) : ''));
 		}
 
 		for (var key in db)
