@@ -208,7 +208,13 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 				html = $(html);
 				self.append(html);
 				el = self.find('.component[data-id="{id}"]'.arg(com));
-				com.tab && el.aclass('tab-' + com.tab);
+
+				if (com.tab) {
+					el.aclass('tab-' + com.tab);
+					el[0].$flowtab = com.tab;
+				} else
+					el[0].$flowtab = '';
+
 				com.onmake && com.onmake(el, com);
 				onmake && onmake(el, com);
 				com.element = html.find('.content').eq(0);
@@ -216,6 +222,16 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 					ischanged = true;
 				if (type === 1)
 					self.op.undo({ type: 'component', id: com.id, instance: com });
+			} else if (el) {
+				var tab = el[0].$flowtab;
+				if (tab !== com.tab) {
+					tab && el.rclass2(tab);
+					if (com.tab) {
+						el.aclass('tab-' + com.tab);
+						el[0].$flowtab = com.tab;
+					} else
+						el[0].$flowtab = '';
+				}
 			}
 
 			if (!com.connections)
