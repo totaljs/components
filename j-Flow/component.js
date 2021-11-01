@@ -1260,7 +1260,7 @@ EXTENSION('flow:components', function(self, config) {
 
 			var cl = parent.classList;
 
-			if (parent === self.dom || cl.contains('selectable') || parent.tagName === 'BUTTON' || parent.tagName === 'A')
+			if (parent === self.dom || cl.contains('selectable') || parent.tagName === 'BUTTON' || parent.tagName === 'A' || cl.contains('output') || cl.contains('input'))
 				return;
 
 			if (cl.contains('component')) {
