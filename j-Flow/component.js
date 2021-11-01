@@ -1,4 +1,4 @@
-COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horizontal:1;steplines:1;snapping:0;animationradius:6;outputoffsetY:10;outputoffsetX:12;inputoffsetY:10;inputoffsetX:12;history:100;multiple:1', function(self, config, cls) {
+COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horizontal:1;steplines:1;snapping:0;animationradius:6;outputoffsetY:10;outputoffsetX:12;inputoffsetY:10;inputoffsetX:12;history:100;multiple:1;animationlimit:100;animationlimitconnection:5', function(self, config, cls) {
 
 	// config.infopath {String}, output: { zoom: Number, selected: Object }
 	// config.undopath {String}, output: {Object Array}
@@ -79,7 +79,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			}
 		};
 
-		drag.handler_end = function(e) {
+		drag.handler_end = function() {
 			self.rclass(cls + '-dragged');
 		};
 
@@ -1708,6 +1708,7 @@ EXTENSION('flow:connections', function(self, config) {
 EXTENSION('flow:commands', function(self, config, cls) {
 
 	var zoom = 1;
+	var animationcount = 0;
 
 	var disconnect = function() {
 		var arr = self.el.lines.find('.connection-selected');
@@ -1812,13 +1813,26 @@ EXTENSION('flow:commands', function(self, config, cls) {
 			return;
 
 		var add = function(next) {
-
 			for (var i = 0; i < path.length; i++) {
+
+				if ((config.animationlimit && animationcount >= config.animationlimit))
+					break;
+
+				var line = path[i];
+				if (line.$flowanimcount > config.animationlimitconnection)
+					break;
 
 				var el = self.el.anim.asvg('circle').aclass('traffic').attr('r', opt.radius || config.animationradius);
 				var dom = el[0];
 
-				dom.$path = path[i];
+				animationcount++;
+
+				if (line.$flowanimcount)
+					line.$flowanimcount++;
+				else
+					line.$flowanimcount = 1;
+
+				dom.$path = line;
 				dom.$count = 0;
 				dom.$token = self.animations_token;
 
@@ -1828,6 +1842,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 					self.animations[id] = 1;
 
 				(function(self, el, dom, opt) {
+
 					var fn = function() {
 
 						dom.$count += (opt.speed || 3);
@@ -1836,15 +1851,25 @@ EXTENSION('flow:commands', function(self, config, cls) {
 							el.remove();
 							if (self.animations[id])
 								self.animations[id]--;
+							if (animationcount > 0)
+								animationcount--;
+							if (line.$flowanimcount > 0)
+								line.$flowanimcount--;
 							return;
 						}
 
 						if (dom.$count >= 100) {
+							if (animationcount > 0)
+								animationcount--;
 							if (self.animations[id] > 0)
 								self.animations[id]--;
+							if (line.$flowanimcount > 0)
+								line.$flowanimcount--;
 							el.remove();
+							return;
 						} else
 							el.attr('transform', translate_path(dom.$count, dom.$path));
+
 						requestAnimationFrame(fn);
 					};
 					requestAnimationFrame(fn);

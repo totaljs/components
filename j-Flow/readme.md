@@ -33,6 +33,8 @@ __Configuration__:
 - `snapping {Number}` snapping in pixels (default: `0` = disabled)
 - __NEW__ `multiple {Boolean}` enables multiple selecting of the component (default: `true`)
 - __NEW__ `history {Number}` a count of steps in the undo/redo history (default: `100`)
+- __NEW__ `animationlimit {Number}` a maximum count of dots for all animations (default: `100`)
+- __NEW__ `animationlimitconnection {Number}` a maximum count of dots per connection (default: `5`)
 
 __Commands__:
 
