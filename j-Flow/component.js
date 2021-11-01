@@ -80,7 +80,6 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 		};
 
 		drag.handler_end = function(e) {
-			console.log('SOM TU');
 			self.rclass(cls + '-dragged');
 		};
 
@@ -239,6 +238,9 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 
 			self.cache[key] = { id: key, instance: com, el: el, checksum: checksum, actions: com.actions || {}};
 		}
+
+		if (!value.groups)
+			self.el.groups.find('> div').remove();
 
 		var removedconn = [];
 
