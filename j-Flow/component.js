@@ -871,10 +871,8 @@ EXTENSION('flow:operations', function(self, config, cls) {
 			return;
 
 		if (HIDDEN(self.element)) {
-			if (!repositionpending) {
-				repositionpending = true;
-				setTimeout(reposition, 300);
-			}
+			repositionpending = true;
+			setTimeout(reposition, 300);
 			return;
 		}
 
@@ -929,6 +927,7 @@ EXTENSION('flow:operations', function(self, config, cls) {
 			path.attrd('fromindexoffset', a.indexoffset);
 			path.attrd('toindexoffset', b.indexoffset);
 			path.attr('d', self.helpers.connect(a.x, a.y, b.x, b.y, a.indexoffset, b.indexoffset));
+			path.rclass('hidden');
 		}
 	};
 
@@ -1569,7 +1568,7 @@ EXTENSION('flow:connections', function(self, config) {
 
 		var path = self.el.lines.asvg('path');
 
-		path.aclass('connection from' + D + a.id + ' to' + D + b.id + ' from' + D + a.id + D + a.index + ' to' + D + b.id + D + b.index + ' conn' + D + a.id + D + b.id + D + a.index + D + b.index);
+		path.aclass('connection from' + D + a.id + ' to' + D + b.id + ' from' + D + a.id + D + a.index + ' to' + D + b.id + D + b.index + ' conn' + D + a.id + D + b.id + D + a.index + D + b.index + (HIDDEN(self.element) ? ' hidden' : ''));
 		path.attrd('offset', a.x + ',' + a.y + ',' + b.x + ',' + b.y);
 		path.attrd('fromindex', a.index);
 		path.attrd('toindex', b.index);
