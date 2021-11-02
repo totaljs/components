@@ -540,11 +540,11 @@ EXTENSION('flow:helpers', function(self, config) {
 		}
 	};
 
-	self.helpers.diagonal = function(x1, y1, x4, y4) {
+	self.helpers.diagonal = function(x1, y1, x2, y2) {
 		if (config.horizontal)
-			return 'M' + x1 + ',' + y1 + 'C' + ((x1 + x4) / 2) + ',' + y1 + ' ' + x4 + ',' + ((y1 + y4) / 2) + ' ' + x4 + ',' + y4;
+			return 'M' + x1 + ',' + y1 + 'C' + ((x1 + x2) / 2) + ',' + y1 + ' ' + ((x1 + x2) / 2) + ',' + y2 + ' ' + x2 + ',' + y2;
 		else
-			return 'M' + x1 + ',' + y1 + 'C' + x1 +  ',' + ((y1 + y4) / 2) + ' ' + x4 + ',' + ((y1 + y4) / 2) + ' ' + x4 + ',' + y4;
+			return 'M' + x1 + ',' + y1 + 'C' + x1 +  ',' + ((y1 + y2) / 2) + ' ' + x2 + ',' + ((y1 + y2) / 2) + ' ' + x2 + ',' + y2;
 	};
 
 });
