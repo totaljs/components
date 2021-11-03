@@ -397,8 +397,8 @@ EXTENSION('flow:helpers', function(self, config) {
 	self.helpers = {};
 
 	self.helpers.checksum = function(obj) {
-		var checksum = JSON.stringify({ a: obj.outputs, b: obj.inputs, c: obj.html, d: obj.x, e: obj.y, f: obj.connections });
-		return HASH(checksum, true);
+		var checksum = JSON.stringify({ a: obj.outputs || EMPTYARRAY, b: obj.inputs || EMPTYARRAY, c: obj.html, d: obj.x, e: obj.y, f: obj.connections || EMPTYOBJECT });
+		return HASH(checksum, true).toString(36);
 	};
 
 	self.helpers.connect = function(x1, y1, x4, y4, findex, tindex) {
