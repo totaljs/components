@@ -308,6 +308,13 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 		COMPILE();
 	};
 
+	self.configure = function(key, value, init) {
+		if (!init) {
+			if (key === 'curvedlines')
+				setTimeout(self.op.reposition, 100);
+		}
+	};
+
 	self.reconnect = function(m) {
 		for (var index in m.instance.connections) {
 			var output = m.el.find('.output[data-index="{0}"]'.format(index));
