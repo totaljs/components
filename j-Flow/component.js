@@ -542,8 +542,8 @@ EXTENSION('flow:helpers', function(self, config) {
 
 	self.helpers.diagonal = function(x1, y1, x2, y2) {
 		var diff = Math.abs(x1 - x2);
-		var a = diff < 200 ? 2 : 1.8;
-		var b = diff < 200 ? 2 : 2.2;
+		var a = diff < 200 ? 2 : 1.9;
+		var b = diff < 200 ? 2 : 2.1;
 		if (config.horizontal)
 			return 'M' + x1 + ',' + y1 + 'C' + ((x1 + x2) / a) + ',' + y1 + ' ' + ((x1 + x2) / b) + ',' + y2 + ' ' + x2 + ',' + y2;
 		else
