@@ -193,6 +193,8 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 			if (tmp) {
 				if (tmp.checksum === checksum)
 					rebuild = false;
+				else
+					tmp.checksum = checksum;
 				delete prev[key];
 				el = tmp.el;
 			}
