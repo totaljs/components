@@ -1,4 +1,4 @@
-COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:1;horizontal:1;steplines:1;snapping:0;animationradius:6;outputoffsetY:0;outputoffsetX:0;inputoffsetY:0;inputoffsetX:0;history:100;multiple:1;animationlimit:100;animationlimitconnection:5', function(self, config, cls) {
+COMPONENT('flow', 'width:6000;height:6000;grid:25;curvedlines:1;horizontal:1;steplines:1;snapping:0;animationradius:6;outputoffsetY:0;outputoffsetX:0;inputoffsetY:0;inputoffsetX:0;history:100;multiple:1;animationlimit:100;animationlimitconnection:5', function(self, config, cls) {
 
 	// config.infopath {String}, output: { zoom: Number, selected: Object }
 	// config.undopath {String}, output: {Object Array}
@@ -522,12 +522,13 @@ EXTENSION('flow:helpers', function(self, config) {
 		var component = self.op.cacheclosest(el, '.component');
 		var mainoffset = self.op.cacheclosest(el, '.ui-flow').offset();
 		var conn = self.op.cacheclosest(el, isout ? '.output' : '.input');
+		var container = self.op.cacheclosest(el, isout ? '.outputs' : '.inputs');
 		var pos = component.position();
 		var offset = conn.position();
-		var a = self.op.position();
+		var containeroffset = container.position();
 
 		var x = self.op.zoom(pos.left + offset.left, true) + (isout ? config.outputoffsetX : config.inputoffsetX);
-		var y = self.op.zoom(pos.top + offset.top, true) + (isout ? config.outputoffsetY : config.inputoffsetY) + mainoffset.top + a.scrollTop;
+		var y = self.op.zoom(pos.top + containeroffset.top + offset.top, true) + (isout ? config.outputoffsetY : config.inputoffsetY) + (el.height() / 2 + 2);
 
 		var plusX = 0;
 
