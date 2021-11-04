@@ -1973,13 +1973,16 @@ EXTENSION('flow:commands', function(self, config, cls) {
 
 		var item;
 		var prev;
+		var is = false;
 
 		while (true) {
 
 			prev = self.undo.pop();
 
-			if (!prev)
+			if (!prev) {
+				is && COMPILE();
 				return;
+			}
 
 			self.op.undo();
 			self.op.redo(prev);
@@ -1992,6 +1995,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 				self.op.disconnect(prev.fromid, prev.toid, prev.fromindex, prev.toindex, true);
 			} else if (prev.type === 'component' || prev.type === 'group') {
 				self.op.remove(prev.id, true);
+				is = true;
 			} else if (prev.type === 'move') {
 				var arr = prev.multiple || [prev];
 				for (var i = 0; i < arr.length; i++) {
@@ -2017,6 +2021,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 					}
 				}
 				self.op.reposition();
+				is = true;
 			} else if (prev.type === 'remove') {
 				var com = prev.instance;
 				com.id = prev.id;
@@ -2031,10 +2036,13 @@ EXTENSION('flow:commands', function(self, config, cls) {
 
 				self.op.modified();
 				self.update('refresh');
+				is = true;
 			}
 
-			if (!prev.groupid || (!self.undo.length || prev.groupid !== self.undo[self.undo.length - 1].groupid))
+			if (!prev.groupid || (!self.undo.length || prev.groupid !== self.undo[self.undo.length - 1].groupid)) {
+				is && COMPILE();
 				return;
+			}
 		}
 
 	});
@@ -2043,13 +2051,16 @@ EXTENSION('flow:commands', function(self, config, cls) {
 
 		var next;
 		var item;
+		var is = false;
 
 		while (true) {
 
 			next = self.redo.pop();
 
-			if (next == null)
+			if (next == null) {
+				is && COMPILE();
 				return;
+			}
 
 			self.op.redo();
 			self.op.undo(next);
@@ -2068,6 +2079,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 				data[com.id] = com;
 				self.op.modified();
 				self.refresh(true);
+				is = true;
 			} else if (next.type === 'group') {
 				var com = next.instance;
 				com.id = next.id;
@@ -2075,6 +2087,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 				data.push(com);
 				self.op.modified();
 				self.refresh(true);
+				is = true;
 			} else if (next.type === 'move') {
 				var arr = next.multiple || [next];
 				for (var i = 0; i < arr.length; i++) {
@@ -2100,13 +2113,17 @@ EXTENSION('flow:commands', function(self, config, cls) {
 					}
 				}
 				self.op.reposition();
-			} else if (next.type === 'remove')
+				is = true;
+			} else if (next.type === 'remove') {
 				self.op.remove(next.id, true);
+				is = true;
+			}
 
-			if (!next.groupid || (!self.redo.length || next.groupid !== self.redo[self.redo.length - 1].groupid))
+			if (!next.groupid || (!self.redo.length || next.groupid !== self.redo[self.redo.length - 1].groupid)) {
+				is && COMPILE();
 				return;
+			}
 		}
-
 	});
 
 	// Resets editor
