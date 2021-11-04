@@ -957,6 +957,13 @@ EXTENSION('flow:operations', function(self, config, cls) {
 		return Math.ceil(val / zoom) - offset;
 	};
 
+	self.op.zoom_reverse = function(val) {
+		if (self.info.zoom === 100)
+			return val;
+		var zoom = self.info.zoom / 100;
+		return Math.ceil(val * zoom);
+	};
+
 	self.op.position = function() {
 		var obj = {};
 		var scroll = self.op.cacheclosest(self.element, '.ui-scrollbar-area')[0];
@@ -1202,8 +1209,10 @@ EXTENSION('flow:components', function(self, config) {
 				var pos = instance.node.position();
 
 				if (config.snapping) {
-					pos.left = self.op.zoom(pos.left) - (self.op.zoom(pos.left) % self.op.zoom(config.snapping));
-					pos.top = self.op.zoom(pos.top) - (self.op.zoom(pos.top) % self.op.zoom(config.snapping));
+					pos.left = self.op.zoom(pos.left);
+					pos.top = self.op.zoom(pos.top);
+					pos.left += pos.left % self.op.zoom_reverse(config.snapping);
+					pos.top += pos.top % self.op.zoom_reverse(config.snapping);
 					instance.node.css(pos);
 				}
 
@@ -1537,23 +1546,8 @@ EXTENSION('flow:connections', function(self, config) {
 			drag.offsetY = drag.y - offset.top;
 		}
 
-		if (config.horizontal) {
-			/*
-			if (drag.input)
-				drag.offsetX -= 10;
-			else
-				drag.offsetX = drag.offsetX + (com.width() * drag.zoom) - 10;
-			*/
-
-			// drag.offsetX = drag.offsetX - self.op.zoom(com.innerWidth(), true);
-			// console.log(drag.offsetX);
-			//if (!drag.input)
-			//	drag.offsetX = drag.offsetX + (com.width() * drag.zoom) - 10;
-		}
-
 		drag.path = self.el.lines.asvg('path');
 		drag.path.aclass('connection connection-draft');
-
 		events.bind();
 	});
 
@@ -2259,8 +2253,10 @@ EXTENSION('flow:groups', function(self, config, cls) {
 			var history = { id: id, x: group.x, y: group.y, newx: pos.left, newy: pos.top, width: group.width, height: group.height, newwidth: w, newheight: h, type: 'group' };
 
 			if (config.snapping) {
-				pos.left = self.op.zoom(pos.left) - (self.op.zoom(pos.left) % self.op.zoom(config.snapping));
-				pos.top = self.op.zoom(pos.top) - (self.op.zoom(pos.top) % self.op.zoom(config.snapping));
+				pos.left = self.op.zoom(pos.left);
+				pos.top = self.op.zoom(pos.top);
+				pos.left += pos.left % self.op.zoom_reverse(config.snapping);
+				pos.top += pos.top % self.op.zoom_reverse(config.snapping);
 				drag.element.css(pos);
 			}
 
