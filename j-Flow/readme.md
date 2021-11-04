@@ -21,7 +21,6 @@ __Configuration__:
 - `onconnect {String}` a path to method `fn(meta)`, it's executed when the two components are connected
 - `ondisconnect {String}` a path to method `fn(meta)`, it's executed when the two components are disconnected
 - __NEW__ `onpause {String}` a path to method `fn(path, is)`, it's executed when the output/input is paused
-- `horizontal {Boolean}` outputs will be rendered horizontally (default: `false`)
 - `steplines {Boolean}` enables step lines (default: `false`)
 - `animationradius {Boolean}` animation radius in pixels (default: `6`)
 - `contextmenu {String}` a path to `function(e, type, component/meta)` (type can be `map`, `component` or `connection`)

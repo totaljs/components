@@ -1,4 +1,4 @@
-COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horizontal:1;steplines:1;snapping:0;animationradius:6;outputoffsetY:10;outputoffsetX:12;inputoffsetY:10;inputoffsetX:12;history:100;multiple:1;animationlimit:100;animationlimitconnection:5', function(self, config, cls) {
+COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:1;horizontal:1;steplines:1;snapping:0;animationradius:6;outputoffsetY:0;outputoffsetX:0;inputoffsetY:0;inputoffsetX:0;history:100;multiple:1;animationlimit:100;animationlimitconnection:5', function(self, config, cls) {
 
 	// config.infopath {String}, output: { zoom: Number, selected: Object }
 	// config.undopath {String}, output: {Object Array}
@@ -24,6 +24,9 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 	self.groupid = '';
 
 	self.make = function() {
+
+		// @TODO: add support again for a vertical mode
+		config.horizontal = 1;
 
 		self.aclass(cls);
 		self.html(('<div class="{0}-groups"></div><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg" class="{0}-connections"><g class="lines"></g><g class="anim"></g></svg><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">' + (config.grid ? '<defs><pattern id="jflowgrid" width="{grid}" height="{grid}" patternunits="userSpaceOnUse"><path d="M {grid} 0 L 0 0 0 {grid}" fill="none" class="{0}-grid" shape-rendering="crispEdges" /></pattern></defs><rect width="100%" height="100%" fill="url(#jflowgrid)" shape-rendering="crispEdges" />' : '') + '</svg>').format(cls).arg(config));
@@ -516,23 +519,28 @@ EXTENSION('flow:helpers', function(self, config) {
 
 	self.helpers.position = function(el, isout) {
 
-		var component = el.closest('.component');
-		var pos = el.offset();
-		var mainoffset = el.closest('.ui-flow').offset();
+		var component = self.op.cacheclosest(el, '.component');
+		var mainoffset = self.op.cacheclosest(el, '.ui-flow').offset();
+		var conn = self.op.cacheclosest(el, isout ? '.output' : '.input');
+		var pos = component.position();
+		var offset = conn.position();
+		var a = self.op.position();
 
-		var x = (pos.left - mainoffset.left) + (isout ? config.outputoffsetX : config.inputoffsetX);
-		var y = (pos.top - mainoffset.top) + (isout ? config.outputoffsetY : config.inputoffsetY);
+		var x = self.op.zoom(pos.left + offset.left, true) + (isout ? config.outputoffsetX : config.inputoffsetX);
+		var y = self.op.zoom(pos.top + offset.top, true) + (isout ? config.outputoffsetY : config.inputoffsetY) + mainoffset.top + a.scrollTop;
+
+		var plusX = 0;
 
 		if (config.horizontal) {
-			var zoom = self.info.zoom / 100;
 			if (isout)
-				x += (component.width() * zoom) - 13;
+				plusX = conn.innerWidth() + 2;
+			else
+				plusX += self.op.zoom(6);
 		}
 
 		var id = component.attrd('id');
 		var indexid = el.attrd('index');
-
-		return { x: x >> 0, y: y >> 0, id: id, index: indexid, indexoffset: el.index() };
+		return { x: (x + plusX) >> 0, y: y >> 0, id: id, index: indexid, indexoffset: el.index() };
 	};
 
 	self.helpers.parseconnection = function(line) {
@@ -891,15 +899,7 @@ EXTENSION('flow:operations', function(self, config, cls) {
 
 		repositionpending = false;
 
-		var dzoom = self.info.zoom / 100;
-		var dzoomoffset = ((100 - self.info.zoom) / 10) + (self.info.zoom > 100 ? 1 : -1);
-
-		var zoom = function(val) {
-			return Math.ceil(val / dzoom) - dzoomoffset;
-		};
-
 		var arr = self.el.lines.find('.connection');
-
 		for (var i = 0; i < arr.length; i++) {
 
 			var path = $(arr[i]);
@@ -922,16 +922,6 @@ EXTENSION('flow:operations', function(self, config, cls) {
 			var a = self.helpers.position(output, true);
 			var b = self.helpers.position(input);
 
-			// I don't know why :-D
-			b.x -= config.paddingX;
-
-			if (dzoom !== 1) {
-				b.x = zoom(b.x);
-				b.y = zoom(b.y);
-				a.x = zoom(a.x);
-				a.y = zoom(a.y);
-			}
-
 			path.attrd('offset', a.x + ',' + a.y + ',' + b.x + ',' + b.y);
 			path.attrd('from', a.id);
 			path.attrd('to', b.id);
@@ -944,6 +934,13 @@ EXTENSION('flow:operations', function(self, config, cls) {
 		}
 	};
 
+	self.op.cacheclosest = function(el, selector) {
+		var cache = el[0].$flowcache;
+		if (!cache)
+			cache = el[0].$flowcache = {};
+		return cache[selector] ? cache[selector] : cache[selector] = el.closest(selector);
+	};
+
 	self.op.reposition = function() {
 		if (!repositionpending) {
 			repositionpending = true;
@@ -951,9 +948,17 @@ EXTENSION('flow:operations', function(self, config, cls) {
 		}
 	};
 
+	self.op.zoom = function(val, nooffset) {
+		if (self.info.zoom === 100)
+			return val;
+		var zoom = self.info.zoom / 100;
+		var offset = nooffset ? 0 : (((100 - self.info.zoom) / 10) + (self.info.zoom > 100 ? 1 : -1));
+		return Math.ceil(val / zoom) - offset;
+	};
+
 	self.op.position = function() {
 		var obj = {};
-		var scroll = self.closest('.ui-scrollbar-area')[0];
+		var scroll = self.op.cacheclosest(self.element, '.ui-scrollbar-area')[0];
 
 		if (scroll) {
 			obj.scrollTop = scroll.scrollTop;
@@ -1118,16 +1123,11 @@ EXTENSION('flow:components', function(self, config) {
 	var events = {};
 	var drag = {};
 
-	var zoom = function(val) {
-		return Math.ceil(val / drag.zoom) - drag.zoomoffset;
-	};
-
 	drag.css = {};
 
-	self.components_reposition = function(obj, zoom) {
+	self.components_reposition = function(obj) {
 
-		// move all output connections
-
+		// move all output connection
 		for (var j = 0; j < obj.selected.length; j++) {
 			var node = obj.selected[j];
 			for (var i = 0; i < node.output.length; i++) {
@@ -1138,7 +1138,7 @@ EXTENSION('flow:components', function(self, config) {
 					var ce = $(arr[k]);
 					var findex = +ce.attrd('fromindexoffset');
 					var tindex = +ce.attrd('toindexoffset');
-					self.helpers.move1(zoom(pos.x + obj.zoomoffset), zoom(pos.y), ce, findex, tindex);
+					self.helpers.move1(pos.x, pos.y, ce, findex, tindex);
 				}
 			}
 
@@ -1153,7 +1153,7 @@ EXTENSION('flow:components', function(self, config) {
 					var ce = $(arr[k]);
 					var findex = +ce.attrd('fromindexoffset');
 					var tindex = +ce.attrd('toindexoffset');
-					self.helpers.move2(zoom(pos.x - 6), zoom(pos.y), ce, findex, tindex);
+					self.helpers.move2(pos.x, pos.y, ce, findex, tindex);
 				}
 			}
 		}
@@ -1171,26 +1171,23 @@ EXTENSION('flow:components', function(self, config) {
 
 		for (var i = 0; i < drag.selected.length; i++) {
 			var instance = drag.selected[i];
-			instance.node.css({ left: zoom(instance.pos.left + x), top: zoom(instance.pos.top + y) });
+			instance.node.css({ left: self.op.zoom(instance.pos.left + x), top: self.op.zoom(instance.pos.top + y) });
 		}
 
 		if (!drag.is)
 			drag.is = true;
 
-		self.components_reposition(drag, zoom);
+		self.components_reposition(drag);
 	};
 
 	events.movetouch = function(e) {
 		events.move(e.touches[0]);
 	};
 
-	self.components_moved = events.up = function(e, obj, zoom2) {
+	self.components_moved = events.up = function(e, obj) {
 
 		if (!obj)
 			obj = drag;
-
-		if (!zoom2)
-			zoom2 = zoom;
 
 		if (obj.is) {
 
@@ -1201,8 +1198,8 @@ EXTENSION('flow:components', function(self, config) {
 				var pos = instance.node.position();
 
 				if (config.snapping) {
-					pos.left = zoom2(pos.left) - (zoom2(pos.left) % zoom2(config.snapping));
-					pos.top = zoom2(pos.top) - (zoom2(pos.top) % zoom2(config.snapping));
+					pos.left = self.op.zoom(pos.left) - (self.op.zoom(pos.left) % self.op.zoom(config.snapping));
+					pos.top = self.op.zoom(pos.top) - (self.op.zoom(pos.top) % self.op.zoom(config.snapping));
 					instance.node.css(pos);
 				}
 
@@ -1216,7 +1213,7 @@ EXTENSION('flow:components', function(self, config) {
 			}
 
 			self.op.undo({ type: 'move', multiple: undo });
-			self.components_reposition(obj, zoom2);
+			self.components_reposition(obj);
 			setTimeout(self.op.modified, 1);
 		}
 
@@ -1385,10 +1382,6 @@ EXTENSION('flow:connections', function(self, config) {
 
 	drag.css = {};
 
-	var zoom = function(val) {
-		return Math.ceil(val / drag.zoom) - drag.zoomoffset;
-	};
-
 	events.move = function(e) {
 
 		if (self.op.isout(e)) {
@@ -1396,9 +1389,11 @@ EXTENSION('flow:connections', function(self, config) {
 			return;
 		}
 
-		var x = (e.pageX - drag.x) + drag.offsetX;
-		var y = (e.pageY - drag.y) + drag.offsetY;
-		drag.path.attr('d', drag.input ? self.helpers.connect(zoom(x), zoom(y), zoom(drag.pos.x), zoom(drag.pos.y), -1, drag.realindex) : self.helpers.connect(zoom(drag.pos.x), zoom(drag.pos.y), zoom(x), zoom(y), drag.realindex, -1));
+		var x = drag.offsetX + (e.pageX - drag.x);
+		var y = drag.offsetY + (e.pageY - drag.y);
+
+		drag.path.attr('d', drag.input ? self.helpers.connect(self.op.zoom(x), self.op.zoom(y), drag.pos.x, drag.pos.y, -1, drag.realindex) : self.helpers.connect(drag.pos.x, drag.pos.y, self.op.zoom(x), self.op.zoom(y), drag.realindex, -1));
+
 		if (drag.click)
 			drag.click = false;
 	};
@@ -1500,9 +1495,6 @@ EXTENSION('flow:connections', function(self, config) {
 		e.preventDefault();
 		e.stopPropagation();
 
-		if (config.horizontal && !e.target.classList.contains('component-io'))
-			return;
-
 		drag.click = true;
 		drag.ticks = Date.now();
 
@@ -1515,7 +1507,7 @@ EXTENSION('flow:connections', function(self, config) {
 			return;
 
 		var offset = self.getOffset();
-		var targetoffset = target.offset();
+		var targetoffset = target.position();
 
 		drag.input = target.hclass('input');
 		drag.target = target;
@@ -1523,8 +1515,6 @@ EXTENSION('flow:connections', function(self, config) {
 		drag.realindex = target.index();
 		drag.x = evt.pageX;
 		drag.y = evt.pageY;
-		drag.zoom = self.info.zoom / 100;
-		drag.zoomoffset = ((100 - self.info.zoom) / 10) + (self.info.zoom > 100 ? 1 : -1);
 
 		drag.pos = self.helpers.position(target, !drag.input);
 		drag.target.add(com).aclass('connecting');
@@ -1534,23 +1524,27 @@ EXTENSION('flow:connections', function(self, config) {
 		drag.lastX = null;
 		drag.lastY = null;
 
-		if (drag.input)
-			drag.pos.x -= config.paddingX;
-
 		if (evt.offsetX == null || evt.offsetY == null) {
 			var off = self.op.position();
 			drag.offsetX = drag.x - off.left;
 			drag.offsetY = drag.y - off.top;
 		} else {
-			drag.offsetX = (targetoffset.left - offset.left) + evt.offsetX + (drag.input ? 2 : 5);
-			drag.offsetY = (targetoffset.top - offset.top) + evt.offsetY + (drag.input ? 2 : 2);
+			drag.offsetX = drag.x - offset.left;
+			drag.offsetY = drag.y - offset.top;
 		}
 
 		if (config.horizontal) {
+			/*
 			if (drag.input)
 				drag.offsetX -= 10;
 			else
 				drag.offsetX = drag.offsetX + (com.width() * drag.zoom) - 10;
+			*/
+
+			// drag.offsetX = drag.offsetX - self.op.zoom(com.innerWidth(), true);
+			// console.log(drag.offsetX);
+			//if (!drag.input)
+			//	drag.offsetX = drag.offsetX + (com.width() * drag.zoom) - 10;
 		}
 
 		drag.path = self.el.lines.asvg('path');
@@ -1564,21 +1558,8 @@ EXTENSION('flow:connections', function(self, config) {
 		if (!output[0] || !input[0])
 			return false;
 
-		drag.zoom = self.info.zoom / 100;
-		drag.zoomoffset = ((100 - self.info.zoom) / 10) - 1;
-
 		var a = self.helpers.position(output, true);
 		var b = self.helpers.position(input);
-
-		b.x -= config.paddingX;
-
-		if (drag.zoom !== 1) {
-			b.x = zoom(b.x);
-			b.y = zoom(b.y);
-			a.x = zoom(a.x);
-			a.y = zoom(a.y);
-		}
-
 		var path = self.el.lines.asvg('path');
 
 		path.aclass('connection from' + D + a.id + ' to' + D + b.id + ' from' + D + a.id + D + a.index + ' to' + D + b.id + D + b.index + ' conn' + D + a.id + D + b.id + D + a.index + D + b.index + (HIDDEN(self.element) ? ' hidden' : ''));
@@ -2146,10 +2127,6 @@ EXTENSION('flow:groups', function(self, config, cls) {
 	var events = {};
 	var drag = {};
 
-	var zoom = function(val) {
-		return Math.ceil(val / drag.zoom) - drag.zoomoffset;
-	};
-
 	events.bind = function() {
 		if (!events.is) {
 			self.op.isoutcache();
@@ -2185,13 +2162,14 @@ EXTENSION('flow:groups', function(self, config, cls) {
 				return;
 			}
 
-			drag.element.css({ left: zoom(drag.pos.left + x), top: zoom(drag.pos.top + y) });
+			drag.element.css({ left: self.op.zoom(drag.pos.left + x), top: self.op.zoom(drag.pos.top + y) });
+
 			if (drag.selected.length) {
 				for (var i = 0; i < drag.selected.length; i++) {
 					var instance = drag.selected[i];
-					instance.node.css({ left: zoom(instance.pos.left + x), top: zoom(instance.pos.top + y) });
+					instance.node.css({ left: self.op.zoom(instance.pos.left + x), top: self.op.zoom(instance.pos.top + y) });
 				}
-				self.components_reposition(drag, zoom);
+				self.components_reposition(drag);
 			}
 
 		} else if (drag.type === 'resize') {
@@ -2204,14 +2182,14 @@ EXTENSION('flow:groups', function(self, config, cls) {
 
 				case 'tl':
 
-					w = drag.width - zoom(x);
-					h = drag.height - zoom(y);
+					w = drag.width - self.op.zoom(x);
+					h = drag.height - self.op.zoom(y);
 
 					if (w < drag.min || h < drag.min)
 						break;
 
-					obj.left = zoom(drag.pos.left + x);
-					obj.top = zoom(drag.pos.top + y);
+					obj.left = self.op.zoom(drag.pos.left + x);
+					obj.top = self.op.zoom(drag.pos.top + y);
 					obj.width = w;
 					obj.height = h;
 					drag.element.css(obj);
@@ -2219,13 +2197,13 @@ EXTENSION('flow:groups', function(self, config, cls) {
 
 				case 'tr':
 
-					w = drag.width + zoom(x);
-					h = drag.height - zoom(y);
+					w = drag.width + self.op.zoom(x);
+					h = drag.height - self.op.zoom(y);
 
 					if (w < drag.min || h < drag.min)
 						break;
 
-					obj.top = zoom(drag.pos.top + y);
+					obj.top = self.op.zoom(drag.pos.top + y);
 					obj.width = w;
 					obj.height = h;
 					drag.element.css(obj);
@@ -2233,22 +2211,22 @@ EXTENSION('flow:groups', function(self, config, cls) {
 
 				case 'bl':
 
-					w = drag.width + zoom(x);
-					h = drag.height + zoom(y);
+					w = drag.width + self.op.zoom(x);
+					h = drag.height + self.op.zoom(y);
 
 					if (w < drag.min || h < drag.min)
 						break;
 
-					obj.left = zoom(drag.pos.left + x);
-					obj.width = drag.width - zoom(x);
+					obj.left = self.op.zoom(drag.pos.left + x);
+					obj.width = drag.width - self.op.zoom(x);
 					obj.height = h;
 					drag.element.css(obj);
 					break;
 
 				case 'br':
 
-					w = drag.width + zoom(x);
-					h = drag.height + zoom(y);
+					w = drag.width + self.op.zoom(x);
+					h = drag.height + self.op.zoom(y);
 
 					if (w < drag.min || h < drag.min)
 						break;
@@ -2277,13 +2255,13 @@ EXTENSION('flow:groups', function(self, config, cls) {
 			var history = { id: id, x: group.x, y: group.y, newx: pos.left, newy: pos.top, width: group.width, height: group.height, newwidth: w, newheight: h, type: 'group' };
 
 			if (config.snapping) {
-				pos.left = zoom(pos.left) - (zoom(pos.left) % zoom(config.snapping));
-				pos.top = zoom(pos.top) - (zoom(pos.top) % zoom(config.snapping));
+				pos.left = self.op.zoom(pos.left) - (self.op.zoom(pos.left) % self.op.zoom(config.snapping));
+				pos.top = self.op.zoom(pos.top) - (self.op.zoom(pos.top) % self.op.zoom(config.snapping));
 				drag.element.css(pos);
 			}
 
 			if (drag.selected.length) {
-				self.components_moved(evt, drag, zoom);
+				self.components_moved(evt, drag);
 				self.undo.last().multiple.push(history);
 			} else
 				self.op.undo({ type: 'move', multiple: [history] });
@@ -2308,8 +2286,9 @@ EXTENSION('flow:groups', function(self, config, cls) {
 		var evt = e.type === 'touchstart' ? e.touches[0] : e;
 
 		self.op.unselect();
-		evt.preventDefault();
-		evt.stopPropagation();
+
+		e.preventDefault();
+		e.stopPropagation();
 
 		var parent = self.op.position();
 		var plusX = (parent.scrollLeft || 0) + parent.left;
@@ -2339,7 +2318,7 @@ EXTENSION('flow:groups', function(self, config, cls) {
 		drag.ismeta = (evt.metaKey || evt.ctrlKey || evt.shiftKey);
 		drag.selected = [];
 
-		var rect1 = { x: zoom(drag.pos.left), y: zoom(drag.pos.top), width: zoom(drag.element.width()), height: zoom(drag.element.height()) };
+		var rect1 = { x: self.op.zoom(drag.pos.left), y: self.op.zoom(drag.pos.top), width: drag.element.width(), height: drag.element.height() };
 
 		if (evt.target.tagName === 'SPAN') {
 
@@ -2365,7 +2344,7 @@ EXTENSION('flow:groups', function(self, config, cls) {
 				var h = item.el.height();
 				var node = item.el;
 				var pos = node.position();
-				var rect2 = { x: zoom(pos.left), y: zoom(pos.top), width: zoom(w), height: zoom(h) };
+				var rect2 = { x: self.op.zoom(pos.left), y: self.op.zoom(pos.top), width: w, height: h };
 				if (rect1.x < rect2.x + rect2.width && rect1.x + rect1.width > rect2.x && rect1.y < rect2.y + rect2.height && rect1.y + rect1.height > rect2.y) {
 					if (!item.actions || item.actions.move !== false)
 						drag.selected.push({ id: node.attrd('id'), node: node, pos: pos, output: node.find('.output'), input: node.find('.input') });
