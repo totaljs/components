@@ -963,6 +963,9 @@ EXTENSION('flow:operations', function(self, config, cls) {
 		if (scroll) {
 			obj.scrollTop = scroll.scrollTop;
 			obj.scrollLeft = scroll.scrollLeft;
+		} else {
+			obj.scrollTop = 0;
+			obj.scrollLeft = 0;
 		}
 
 		var offset = self.el.svg.offset();
