@@ -2339,7 +2339,7 @@ EXTENSION('flow:groups', function(self, config, cls) {
 		drag.ismeta = (evt.metaKey || evt.ctrlKey || evt.shiftKey);
 		drag.selected = [];
 
-		var rect1 = { x: drag.pos.left, y: drag.pos.top, width: drag.element.width(), height: drag.element.height() };
+		var rect1 = { x: zoom(drag.pos.left), y: zoom(drag.pos.top), width: zoom(drag.element.width()), height: zoom(drag.element.height()) };
 
 		if (evt.target.tagName === 'SPAN') {
 
