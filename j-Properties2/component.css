@@ -20,6 +20,7 @@
 .ui-properties2-key { float: left; width: 170px; line-height: 24px; padding: 0 5px 0 15px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; color: #707070; }
 .ui-properties2-key i { margin-right: 7px; }
 .ui-properties2-2 .ui-properties2-item { cursor: pointer; }
+.ui-properties2-2 .ui-properties2-text:empty::after { content: "\00a0\0020"; }
 .ui-properties2-2 .ui-properties2-value { margin-left: 170px; text-align: right; color: #777; margin-right: 0; line-height: 21px; font-weight: normal !important; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ui-properties2-2 .ui-properties2-item { font-size: 13px; padding: 0; border-top: 0; }
 .ui-properties2-2 .ui-properties2-item > div { padding: 10px 0 8px; border-bottom: 1px solid #E0E0E0; }
