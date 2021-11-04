@@ -233,6 +233,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;paddingX:6;curvedlines:0;horiz
 					} else
 						el[0].$flowtab = '';
 				}
+				el.css({ left: com.x, top: com.y });
 			}
 
 			if (!com.connections)
@@ -397,7 +398,7 @@ EXTENSION('flow:helpers', function(self, config) {
 	self.helpers = {};
 
 	self.helpers.checksum = function(obj) {
-		var checksum = JSON.stringify({ a: obj.outputs || EMPTYARRAY, b: obj.inputs || EMPTYARRAY, c: obj.html, d: obj.x, e: obj.y, f: obj.connections || EMPTYOBJECT });
+		var checksum = JSON.stringify({ a: obj.outputs || EMPTYARRAY, b: obj.inputs || EMPTYARRAY, c: obj.html });
 		return HASH(checksum, true).toString(36);
 	};
 
