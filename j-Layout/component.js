@@ -271,11 +271,23 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 		return data;
 	};
 
+	var checktimeout = null;
+	var check = function() {
+		checktimeout = null;
+		self.resize();
+	};
+
 	self.resize = function() {
 
 		if (self.dom.offsetParent == null) {
-			setTimeout(self.resize, 100);
+			if (!checktimeout)
+				checktimeout = setTimeout(check, 500);
 			return;
+		}
+
+		if (checktimeout) {
+			clearTimeout(checktimeout);
+			checktimeout = null;
 		}
 
 		if (settings == null)
@@ -298,19 +310,16 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 		}
 
 		var size = getSize(d, tmp);
-		var keys = Object.keys(s);
-
 		height -= config.margin;
 		resizecache = key;
 		self.css({ width: width, height: height });
 
-		for (var i = 0; i < keys.length; i++) {
-			var key = keys[i];
-			el = s[key];
-			self.update(key, size[key] ? size[key] : settings[key]);
+		for (var k in s) {
+			el = s[k];
+			self.update(k, size[k] ? size[k] : settings[k]);
 		}
 
-		config.resize && EXEC(config.resize, d, width, height);
+		config.resize && self.EXEC(config.resize, d, width, height);
 	};
 
 	var parseSize = function(val, size) {
@@ -551,7 +560,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 		s.main && s.main.css(css);
 		s.mainlock && s.mainlock.css(css);
 
-		self.element.SETTER('*', 'resize');
+		self.element.SETTER('*/resize');
 
 		if (loaded == false) {
 			loaded = true;
