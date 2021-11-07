@@ -1,4 +1,4 @@
-COMPONENT('flow', 'width:6000;height:6000;grid:25;curvedlines:1;horizontal:1;steplines:1;snapping:0;animationradius:6;outputoffsetY:0;outputoffsetX:0;inputoffsetY:0;inputoffsetX:0;history:100;multiple:1;animationlimit:100;animationlimitconnection:5', function(self, config, cls) {
+COMPONENT('flow', 'width:6000;height:6000;grid:25;curvedlines:1;horizontal:1;steplines:1;snapping:0;animationradius:6;outputoffsetY:0;outputoffsetX:0;inputoffsetY:0;inputoffsetX:0;history:100;multiple:1;animationlimit:100;animationlimitconnection:5;allowpause:1', function(self, config, cls) {
 
 	// config.infopath {String}, output: { zoom: Number, selected: Object }
 	// config.undopath {String}, output: {Object Array}
@@ -1423,7 +1423,7 @@ EXTENSION('flow:connections', function(self, config) {
 		drag.path.remove();
 		events.unbind();
 
-		if (drag.click && (Date.now() - drag.ticks) < 150) {
+		if (config.allowpause && drag.click && (Date.now() - drag.ticks) < 150) {
 			var icon = drag.target.find('.component-io');
 			var clsp = 'disabled';
 			icon.tclass(clsp);
