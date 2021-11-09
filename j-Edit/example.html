@@ -1,27 +1,44 @@
-<div data---="LAZY floatinginput"></div>
+<div data---="edit"></div>
 
-<div data---="edit__null__exec:editelement">
-	<div style="width:500px;padding:10px;border:1px solid #E0E0E0">
-		<div class="edit">Edit me with double click</div>
-		<div class="edit" data-edit="custom:value;something:else">Edit me with double click</div>
+<div style="width:500px;padding:10px;border:1px solid #E0E0E0" data-scope="form">
+
+	<div class="row m">
+		<div class="col-xs-3">
+			Name:
+		</div>
+		<div class="col-xs-9">
+			<div class="edit2" data-edit="required:1" data-bind="?.name__html" style="height:24px;background-color:#E0E0E0"></div>
+		</div>
+	</div>
+	<div class="row m">
+		<div class="col-xs-3">
+			Email:
+		</div>
+		<div class="col-xs-9">
+			<div class="edit" data-edit="required:1;type:email;exec:save_email" style="height:24px;background-color:#E0E0E0">@</div>
+		</div>
+	</div>
+	<div class="row m">
+		<div class="col-xs-3">
+			HTML:
+		</div>
+		<div class="col-xs-9">
+			<div class="edit" data-edit="multiline:1;type:html" data-bind="form.html__html" style="min-height:24px;background-color:#E0E0E0"></div>
+		</div>
 	</div>
 </div>
+<pre data-bind="form__html:JSON.stringify(value, null, '  ')"></pre>
 
 <script>
 
-	function editelement(meta) {
-
-		console.log(meta);
-
-		var opt = {};
-		opt.element = meta.element;
-		opt.value = meta.element.html();
-		opt.callback = function(val) {
-			if (val)
-				meta.element.text(val);
-		};
-
-		SETTER('floatinginput/show', opt);
+	function save_email(opt, next) {
+		SET('form.email', opt.value);
+		// next(true);
+		next(opt.value.toUpperCase());
 	}
+
+	var form = {};
+	form.html = '<b>Hello world!</b>';
+	form.name = 'UI components';
 
 </script>

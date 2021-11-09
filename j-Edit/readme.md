@@ -1,27 +1,33 @@
 ## j-Edit
 
-This component can edit elements with `edit` class, in other words: the component executes only the method which can execute e.g. `FloatingInput`, `ColorPicker`, etc..
+The component enables `contenteditable` attribute for elements with `edit` or `edit2` classes.
+
+- singleton
+- put the component under `<body` element like `j-Directory` or `j-DatePicker`
+
+__Good to know__:
+
+- each element with the `edit` class is possible to edit with a single click
+- each element with the `edit2` class is possible to edit with a double click
 
 __Configuration__:
 
-- `type {String}` event type `click` or __`dblclick`__ (default)
-- `id {String}` attribute for obtaining of identifier, components browses all parent elements (default: `data-id`)
-- `exec {String}` a link to `function(meta, e)` which is executed if the user tries to edit element
-    - `meta` contains all custom values from defines in `data-edit` attribute
-	- `meta.element` element which has `edit` class
-	- `meta.path` contains a path defined in `j-Edit` component
-	- `meta.component` contains an instance of `j-Edit` component
-	- `meta.model` contains a value/object according to the `component.path`
-	- `meta.event` contains click event object
-	- `meta.id` contains an identifier according to the `config.id`
-	- `meta.parent` contains an element which contained `config.id`
+- `dateformat` {String} a default format for parsing dates (default: `yyyy-MM-dd`)
 
 ---
 
-`data-edit` attribute can contains
+`data-edit` attribute supports:
 
-- `exec {String}` a link to `function(meta, e)`
-- or your custom values `key:value` in the form of jComponent configuration structure
+- `required` {Boolean} optional, enables "required" (default: `false`)
+- `type` {String} optional, can be `string` (default), `date`, `number`, `boolean`, `email` or `html` __NEW__ `tags`
+- `check {String}` optional, a path to `function(opt, el)` must return `boolean`, it means `Can the user edit that field?`
+- `exec {String}` optional, a path to `function(opt, accept(boolean/html_value_for_the_element))`
+- `format {String}` optional, a format for `date`, default: `yyyy-MM-dd`
+- `maxlength {Number}` a maxlength
+- `minvalue {Number}` a min. value for number type (default: `undefined`)
+- `maxvalue {Number}` a max. value for number type (default: `undefined`)
+- `bind {Boolean}` if `true` rebinds `data-bind` on this element only (default: `true`)
+- `multiline {Boolean}` optional, enables multiline + appends class `editable-multiline` (`inline-block` + `width:100%`) when it's editing (default: `false`)
 
 ### Author
 
