@@ -1,5 +1,15 @@
 ## j-Alter
 
+The component enables `contenteditable` attribute for elements with `alter` or `alter2` classes.
+
+- singleton
+- put the component under `<body` element like `j-Directory` or `j-DatePicker`
+
+__Good to know__:
+
+- each element with the `alter` class is possible to edit with a single click
+- each element with the `alter2` class is possible to edit with a double click
+
 __Configuration__:
 
 - `dateformat` {String} a default format for parsing dates (default: `yyyy-MM-dd`)
