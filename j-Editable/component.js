@@ -300,7 +300,7 @@ COMPONENT('editable', 'disabled:0', function(self, config, cls) {
 					}
 				};
 
-				SETTER('directory', 'show', attr);
+				SETTER('directory/show', attr);
 
 			} else if (opt.type === 'boolean') {
 				TOGGLE(opt.path, 2);
@@ -436,7 +436,7 @@ COMPONENT('editable', 'disabled:0', function(self, config, cls) {
 					el.html(attr.value);
 					self.approve2(el);
 				};
-				SETTER('autocomplete', 'show', opt);
+				SETTER('autocomplete/show', opt);
 				return;
 			}
 
@@ -451,7 +451,10 @@ COMPONENT('editable', 'disabled:0', function(self, config, cls) {
 
 		var opt = el[0].$editable;
 
-		SETTER('!autocomplete', 'hide');
+		SETTER('!autocomplete/hide');
+		SETTER('!datepicker/hide');
+		SETTER('!faicons/hide');
+		SETTER('!colorpicker/hide');
 
 		var cur = el.html();
 
@@ -505,11 +508,10 @@ COMPONENT('editable', 'disabled:0', function(self, config, cls) {
 				break;
 			case 'date':
 				if (!opt.empty) {
-					SETTER('!datepicker', 'hide');
+					SETTER('!datepicker/hide');
 					opt.value = opt.value ? opt.value.parseDate(opt.format) : null;
-					if (opt.required && !opt.value) {
+					if (opt.required && !opt.value)
 						return false;
-					}
 				}
 				break;
 			case 'boolean':
@@ -635,7 +637,7 @@ COMPONENT('editable', 'disabled:0', function(self, config, cls) {
 					el.html(date.format(o.format));
 					self.approve(el);
 				};
-				SETTER('datepicker', 'show', opt);
+				SETTER('datepicker/show', opt);
 			}
 		}
 	};
