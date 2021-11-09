@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+COMPONENT('flow', 'width:6000;height:6000;grid:25;curvedlines:1;horizontal:1;steplines:1;snapping:0;allowpause:1;animationradius:6;outputoffsetY:0;outputoffsetX:0;inputoffsetY:0;inputoffsetX:0;history:100;multiple:1;animationlimit:100;animationlimitconnection:5', function(self, config, cls) {
+=======
 COMPONENT('flow', 'width:6000;height:6000;grid:25;curvedlines:1;horizontal:1;steplines:1;snapping:0;animationradius:6;outputoffsetY:0;outputoffsetX:0;inputoffsetY:0;inputoffsetX:0;history:100;multiple:1;animationlimit:100;animationlimitconnection:5;allowpause:1', function(self, config, cls) {
+>>>>>>> 8e7de1289cfb1161b276b92ccfd3d6a8aea1bdc1
 
 	// config.infopath {String}, output: { zoom: Number, selected: Object }
 	// config.undopath {String}, output: {Object Array}
@@ -1520,7 +1524,6 @@ EXTENSION('flow:connections', function(self, config) {
 			return;
 
 		var offset = self.getOffset();
-		var targetoffset = target.position();
 
 		drag.input = target.hclass('input');
 		drag.target = target;
@@ -1593,8 +1596,10 @@ EXTENSION('flow:connections', function(self, config) {
 		if (ac.connections[key] == null)
 			ac.connections[key] = [];
 
-		self.op.modify(ac, 'connect');
-		self.op.modify(bc, 'connect');
+		if (!init) {
+			self.op.modify(ac, 'connect');
+			self.op.modify(bc, 'connect');
+		}
 
 		var arr = ac.connections[key];
 		var bindex = b.index + '';
