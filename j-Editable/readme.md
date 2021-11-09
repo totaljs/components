@@ -12,6 +12,7 @@ __Configuration__:
 - `escape` {String} optional, a link to a method `method(path, value, el)`, the method is executed if the user presses `ESC`
 - `can` {String} optional, a link to method `method(opt, el)` must return `boolean`, it means `can edit?`
 - `invalid` {String} optional, a link to method `method(el, isInvalid, meta)` is evaluated when the item is invalid and vice-versa
+- __NEW__ `class {String}` optional, adds a class name in the form `ui-editable-CLASS`  (default: `default`)
 
 ---
 

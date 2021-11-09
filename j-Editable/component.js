@@ -1,4 +1,4 @@
-COMPONENT('editable', 'disabled:0', function(self, config, cls) {
+COMPONENT('editable', 'disabled:0;class:default', function(self, config, cls) {
 
 	var rtrue = /1|true/i;
 	var events = {};
@@ -178,7 +178,7 @@ COMPONENT('editable', 'disabled:0', function(self, config, cls) {
 
 	self.make = function() {
 
-		self.aclass(cls);
+		self.aclass(cls + (config.class ? (' ' + cls + '-' + config.class) : ''));
 		self.event('click', '[data-editable]', function(e) {
 
 			if (config.disabled)
@@ -202,7 +202,7 @@ COMPONENT('editable', 'disabled:0', function(self, config, cls) {
 
 			var target = $(e.target);
 			if (opt.type === 'tags') {
-				if (target.hclass('fa')) {
+				if (target.hclass('fa') || target.hclass('remove')) {
 					var temp = GET(opt.path);
 					var index = target.parent().eq(0).index();
 					temp.splice(index, 1);
@@ -300,7 +300,7 @@ COMPONENT('editable', 'disabled:0', function(self, config, cls) {
 					}
 				};
 
-				SETTER('directory/show', attr);
+				SETTER('directory', 'show', attr);
 
 			} else if (opt.type === 'boolean') {
 				TOGGLE(opt.path, 2);
@@ -436,7 +436,7 @@ COMPONENT('editable', 'disabled:0', function(self, config, cls) {
 					el.html(attr.value);
 					self.approve2(el);
 				};
-				SETTER('autocomplete/show', opt);
+				SETTER('autocomplete', 'show', opt);
 				return;
 			}
 
@@ -451,10 +451,7 @@ COMPONENT('editable', 'disabled:0', function(self, config, cls) {
 
 		var opt = el[0].$editable;
 
-		SETTER('!autocomplete/hide');
-		SETTER('!datepicker/hide');
-		SETTER('!faicons/hide');
-		SETTER('!colorpicker/hide');
+		SETTER('!autocomplete', 'hide');
 
 		var cur = el.html();
 
@@ -508,10 +505,11 @@ COMPONENT('editable', 'disabled:0', function(self, config, cls) {
 				break;
 			case 'date':
 				if (!opt.empty) {
-					SETTER('!datepicker/hide');
+					SETTER('!datepicker', 'hide');
 					opt.value = opt.value ? opt.value.parseDate(opt.format) : null;
-					if (opt.required && !opt.value)
+					if (opt.required && !opt.value) {
 						return false;
+					}
 				}
 				break;
 			case 'boolean':
@@ -637,7 +635,7 @@ COMPONENT('editable', 'disabled:0', function(self, config, cls) {
 					el.html(date.format(o.format));
 					self.approve(el);
 				};
-				SETTER('datepicker/show', opt);
+				SETTER('datepicker', 'show', opt);
 			}
 		}
 	};

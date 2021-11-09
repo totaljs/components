@@ -8,6 +8,7 @@
 		"contenteditable"
 	],
 	"color": "transparent",
+	"darkmode": true,
 	"version": 1,
 	"responsive": true,
 	"picture": "picture.jpg",
