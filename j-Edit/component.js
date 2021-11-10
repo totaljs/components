@@ -197,8 +197,7 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10', function(self, config, cls
 		opt.keypressed = 0;
 		opt.html = el.html();
 		opt.element = el;
-
-		self.attach(floating);
+		self.attach(opt.floating ? floating : el);
 	};
 
 	self.approve = function(el) {
@@ -310,7 +309,6 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10', function(self, config, cls
 
 	self.detach = function(el) {
 		if (el[0].$editevents) {
-
 			el.off('keydown', events.keydown);
 			el.off('blur', events.blur);
 			el.off('paste', events.paste);
