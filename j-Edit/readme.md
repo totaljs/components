@@ -19,7 +19,7 @@ __Configuration__:
 `data-edit` attribute supports:
 
 - `required` {Boolean} optional, enables "required" (default: `false`)
-- `type` {String} optional, can be `string` (default), `date`, `number`, `boolean`, `email` or `html` __NEW__ `tags`
+- `type` {String} optional, can be `string` (default), `date`, `number`, `boolean`, `email` or `html`
 - `check {String}` optional, a path to `function(opt, el)` must return `boolean`, it means `Can the user edit that field?`
 - `exec {String}` optional, a path to `function(opt, accept(boolean/html_value_for_the_element))`
 - `format {String}` optional, a format for `date`, default: `yyyy-MM-dd`
