@@ -134,7 +134,7 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 		});
 
 		config.enter && self.event('keydown', 'input', function(e) {
-			e.which === 13 && !self.find('button[name="submit"]')[0].disabled && setTimeout(self.submit, 800);
+			e.which === 13 && !self.find('button[name="submit"]')[0].disabled && setTimeout2(self.ID + 'enter', self.submit, 500);
 		});
 	};
 
