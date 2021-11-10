@@ -1,6 +1,8 @@
-COMPONENT('edit', 'dateformat:yyyy-MM-dd', function(self, config) {
+COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10', function(self, config, cls) {
 
+	var cls2 = '.' + cls;
 	var events = {};
+	var floating;
 
 	self.readonly();
 	self.singleton();
@@ -76,6 +78,9 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd', function(self, config) {
 
 	self.make = function() {
 
+		self.aclass(cls);
+		self.append('<div class="{0}-window hidden"></div>'.format(cls));
+		floating = self.find(cls2 + '-window');
 		$(document).on('click', '.edit', self.edit).on('dblclick', '.edit2', self.edit);
 
 		events.keydown = function(e) {
@@ -177,10 +182,23 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd', function(self, config) {
 		if (!opt || (opt.checkforce && !opt.checkforce(el)))
 			return;
 
+		if (opt.floating) {
+			var offset = opt.floating === 'position' ? el.position() : el.offset();
+			floating.css({ width: opt.width || (el.width() + (config.padding * 2) + (opt.offsetWidth || 0)), left: (offset.left - config.padding) + (opt.offsetX || 0), top: (offset.top - config.padding) + (opt.offsetY || 0), font: el.css('font') });
+			floating.html(el.html());
+			floating.rclass('hidden');
+			floating[0].$edit = opt;
+		} else {
+			floating.aclass('hidden');
+			delete floating[0].$edit;
+		}
+
 		opt.is = true;
 		opt.keypressed = 0;
 		opt.html = el.html();
-		self.attach(el);
+		opt.element = el;
+
+		self.attach(floating);
 	};
 
 	self.approve = function(el) {
@@ -252,11 +270,11 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd', function(self, config) {
 			if (typeof(fn) === 'function') {
 				fn(opt, function(body) {
 					if (body === true)
-						el.html(opt.value);
+						opt.element.html(opt.value);
 					else if (body == null)
-						el.html(opt.html);
+						opt.element.html(opt.html);
 					else
-						el.html(body + '');
+						opt.element.html(body + '');
 				});
 				return;
 			}
@@ -264,7 +282,7 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd', function(self, config) {
 
 		if (!opt.nobind && opt.bind !== true) {
 			setTimeout(function() {
-				var b = el.binder();
+				var b = opt.element.binder();
 				if (b) {
 					b.disabled = true;
 					b.exec(opt.value, b.path);
@@ -292,13 +310,18 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd', function(self, config) {
 
 	self.detach = function(el) {
 		if (el[0].$editevents) {
+
 			el.off('keydown', events.keydown);
 			el.off('blur', events.blur);
 			el.off('paste', events.paste);
 			el[0].$editevents = false;
+
+			if (el[0] === floating[0])
+				floating.aclass('hidden');
+
 			var opt = el[0].$edit;
 			if (opt.html != null)
-				el.html(opt.html);
+				opt.element.html(opt.html);
 			opt.is = false;
 			el.rclass('edit-open edit-multiline');
 			el.attr('contenteditable', false);

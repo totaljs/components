@@ -28,6 +28,10 @@ __Configuration__:
 - `maxvalue {Number}` a max. value for number type (default: `undefined`)
 - `bind {Boolean}` if `true` rebinds `data-bind` on this element only (default: `true`)
 - `multiline {Boolean}` optional, enables multiline + appends class `editable-multiline` (`inline-block` + `width:100%`) when it's editing (default: `false`)
+- `floating {Boolean/String}` optional, enables floating window for the element (default: `false`, `string` can contain `position` or `offset` values)
+- `offsetX {Number}` optional, additional X offset for the floating window
+- `offsetY {Number}` optional, additional Y offset for the floating window
+- `offsetWidth {Number}` optional, additional width for the floating window
 
 ### Author
 

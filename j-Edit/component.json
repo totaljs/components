@@ -1,6 +1,6 @@
 {
 	"datecreated": "2021-11-09T15:44:02.000Z",
-	"dateupdated": null,
+	"dateupdated": "2021-11-10T15:35:00.000Z",
 	"name": "j-Edit",
 	"tags": [
 		"alter",
@@ -9,6 +9,7 @@
 	],
 	"color": "transparent",
 	"version": 1,
+	"darkmode": true,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
