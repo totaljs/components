@@ -520,7 +520,6 @@ EXTENSION('flow:helpers', function(self, config) {
 	self.helpers.position = function(el, isout) {
 
 		var component = self.op.cacheclosest(el, '.component');
-		var mainoffset = self.op.cacheclosest(el, '.ui-flow').offset();
 		var conn = self.op.cacheclosest(el, isout ? '.output' : '.input');
 		var container = self.op.cacheclosest(el, isout ? '.outputs' : '.inputs');
 		var pos = component.position();
@@ -1636,6 +1635,7 @@ EXTENSION('flow:connections', function(self, config) {
 	};
 
 	self.event('contextmenu', '.connection', function(e) {
+
 		events.is && events.up();
 
 		var el = $(this);
@@ -1660,6 +1660,7 @@ EXTENSION('flow:connections', function(self, config) {
 
 		e.preventDefault();
 		e.stopPropagation();
+
 	});
 
 	self.event('mousedown touchstart', '.connection', function(e) {
