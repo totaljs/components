@@ -1194,7 +1194,7 @@ EXTENSION('flow:components', function(self, config) {
 		events.move(e.touches[0]);
 	};
 
-	self.components_moved = events.up = function(e, obj) {
+	self.components_moved = events.up = function(e, obj, nosnapping) {
 
 		if (!obj)
 			obj = drag;
@@ -1207,7 +1207,7 @@ EXTENSION('flow:components', function(self, config) {
 				var instance = obj.selected[i];
 				var pos = instance.node.position();
 
-				if (config.snapping) {
+				if (config.snapping && nosnapping !== true) {
 					pos.left = self.op.zoom(pos.left);
 					pos.top = self.op.zoom(pos.top);
 					pos.left += pos.left % self.op.zoom_reverse(config.snapping);
@@ -2263,7 +2263,7 @@ EXTENSION('flow:groups', function(self, config, cls) {
 			}
 
 			if (drag.selected.length) {
-				self.components_moved(evt, drag);
+				self.components_moved(evt, drag, true);
 				self.undo.last().multiple.push(history);
 			} else
 				self.op.undo({ type: 'move', multiple: [history] });
