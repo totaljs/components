@@ -2254,13 +2254,14 @@ EXTENSION('flow:groups', function(self, config, cls) {
 			var h = drag.element.height();
 			var history = { id: id, x: group.x, y: group.y, newx: pos.left, newy: pos.top, width: group.width, height: group.height, newwidth: w, newheight: h, type: 'group' };
 
+			/*
 			if (config.snapping) {
 				pos.left = self.op.zoom(pos.left);
 				pos.top = self.op.zoom(pos.top);
 				pos.left += pos.left % self.op.zoom_reverse(config.snapping);
 				pos.top += pos.top % self.op.zoom_reverse(config.snapping);
 				drag.element.css(pos);
-			}
+			}*/
 
 			if (drag.selected.length) {
 				self.components_moved(evt, drag, true);
