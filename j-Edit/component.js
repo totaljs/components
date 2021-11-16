@@ -155,12 +155,6 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10', function(self, config, cls
 			text && document.execCommand('insertText', false, meta.multiline ? text.trim() : text.replace(/\n|\r/g, '').trim());
 		};
 
-		events.focus = function(e) {
-			var t = this;
-			var jcbind = e.target.$jcbind || {};
-			if (jcbind.empty && jcbind.empty == e.target.innerText)
-				$(e.target).empty();
-		};
 	};
 
 	self.edit = function(e) {
@@ -182,21 +176,31 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10', function(self, config, cls
 		if (!opt || (opt.checkforce && !opt.checkforce(el)))
 			return;
 
+		var value = el.html();
+		var empty = false;
+
+		var jcbind = el[0].$jcbind || {};
+		if (jcbind.empty && jcbind.empty == el[0].innerText) {
+			empty = true;
+		}
+
 		if (opt.floating) {
 			var offset = opt.floating === 'position' ? el.position() : el.offset();
 			floating.css({ width: opt.width || (el.width() + (config.padding * 2) + (opt.offsetWidth || 0)), left: (offset.left - config.padding) + (opt.offsetX || 0), top: (offset.top - config.padding) + (opt.offsetY || 0), font: el.css('font') });
-			floating.html(el.html());
+			floating.html(empty ? '' : value);
 			floating.rclass('hidden');
 			floating[0].$edit = opt;
 		} else {
 			floating.aclass('hidden');
 			delete floating[0].$edit;
+			empty && el.empty();
 		}
 
 		opt.is = true;
 		opt.keypressed = 0;
-		opt.html = el.html();
+		opt.html = value;
 		opt.element = el;
+
 		self.attach(opt.floating ? floating : el);
 	};
 
@@ -297,7 +301,6 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10', function(self, config, cls
 			var o = el[0].$edit;
 			el[0].$editevents = true;
 			el.aclass('edit-open' + (o.multiline ? ' edit-multiline' : ''));
-			el.on('focus', events.focus);
 			el.on('keydown', events.keydown);
 			el.on('blur', events.blur);
 			el.on('paste', events.paste);
