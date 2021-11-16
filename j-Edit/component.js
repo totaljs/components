@@ -185,11 +185,15 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10', function(self, config, cls
 		}
 
 		if (opt.floating) {
-			var offset = opt.floating === 'position' ? el.position() : el.offset();
-			floating.css({ width: opt.width || (el.width() + (config.padding * 2) + (opt.offsetWidth || 0)), left: (offset.left - config.padding) + (opt.offsetX || 0), top: (offset.top - config.padding) + (opt.offsetY || 0), font: el.css('font') });
+
+			var target = opt.parent ? (opt.parent === 'parent' ? el.parent() : el.closest(opt.parent)) : el;
+			var offset = opt.floating === 'position' ? target.position() : target.offset();
+
+			floating.css({ width: opt.width || (target.width() + (config.padding * 2) + (opt.offsetWidth || 0)), left: (offset.left - config.padding) + (opt.offsetX || 0), top: (offset.top - config.padding) + (opt.offsetY || 0), font: el.css('font') });
 			floating.html(empty ? '' : value);
 			floating.rclass('hidden');
 			floating[0].$edit = opt;
+
 		} else {
 			floating.aclass('hidden');
 			delete floating[0].$edit;

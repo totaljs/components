@@ -32,6 +32,7 @@ __Configuration__:
 - `offsetX {Number}` optional, additional X offset for the floating window
 - `offsetY {Number}` optional, additional Y offset for the floating window
 - `offsetWidth {Number}` optional, additional width for the floating window
+- `parent {String}` optional, a selector for obtaining of offset (can contain `parent` or jQuery selector for `.closest()` method)
 
 ### Author
 
