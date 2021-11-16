@@ -1,8 +1,9 @@
 COMPONENT('masonry', 'lg:25;md:33.33;sm:50;xs:100', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
-	var container;
+	var compilable = false;
 	var display = WIDTH();
+	var container;
 
 	self.readonly();
 
@@ -10,7 +11,9 @@ COMPONENT('masonry', 'lg:25;md:33.33;sm:50;xs:100', function(self, config, cls) 
 
 		var scr = self.find('script');
 		self.aclass(cls);
-		self.template = Tangular.compile(scr.html());
+		var html = scr.html();
+		compilable = html.COMPILABLE();
+		self.template = Tangular.compile(html);
 		scr.remove();
 
 		ON('resize + resize2', function() {
@@ -57,6 +60,7 @@ COMPONENT('masonry', 'lg:25;md:33.33;sm:50;xs:100', function(self, config, cls) 
 		}
 
 		container.html(builder.join(''));
+		compilable && self.compile();
 	};
 
 });
