@@ -213,7 +213,7 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10', function(self, config, cls
 		var opt = el[0].$edit;
 		var cur = el.html();
 
-		if (!opt.required && opt.html === cur)
+		if (opt.html === cur)
 			return true;
 
 		var val = cur;
