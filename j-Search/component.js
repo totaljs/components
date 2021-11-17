@@ -40,7 +40,7 @@ COMPONENT('search', 'class:hidden;delay:50;attribute:data-search;splitwords:1;de
 
 			if (custom) {
 
-				is = !!custom(el, search);
+				is = !custom(el, search);
 				el.tclass(config.class, is);
 
 				if (is)
