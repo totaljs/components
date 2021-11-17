@@ -10,8 +10,9 @@ __Configuration__:
 - `delay` {Number} typing delay (default: `50` ms)
 - `delaydatasource` {Number} a delay for re-search when the data-source is changed (default: `100` ms)
 - __UPD__ `exec` {String} a link to `function(stats:{ total: Number, count: Number, hidden: Number, search: String, is: Boolean })` which will be evaluated if the component searches for something
-- __NEW__ `datasource` {String} a path to data-source for watching of changes
-- __NEW__ `splitwords` {Boolean} tries to find word in various position (default: `true`)
+- `datasource` {String} a path to data-source for watching of changes
+- `splitwords` {Boolean} tries to find word in various position (default: `true`)
+- __NEW__ `custom` {String} a path to the `Function(element, search) must return Boolean` for custom searching
 
 __Good to know__:
 

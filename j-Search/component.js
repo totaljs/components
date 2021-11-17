@@ -26,6 +26,7 @@ COMPONENT('search', 'class:hidden;delay:50;attribute:data-search;splitwords:1;de
 		var search = value.toSearch();
 		var count = 0;
 		var hidden = 0;
+		var custom = config.custom ? GET(self.makepath(config.custom)) : null;
 
 		if (config.splitwords)
 			search = search.split(' ');
@@ -35,8 +36,22 @@ COMPONENT('search', 'class:hidden;delay:50;attribute:data-search;splitwords:1;de
 		for (var i = 0; i < length; i++) {
 
 			var el = elements.eq(i);
-			var val = (el.attr(config.attribute) || '').toSearch();
 			var is = false;
+
+			if (custom) {
+
+				is = !!custom(el, search);
+				el.tclass(config.class, is);
+
+				if (is)
+					hidden++;
+				else
+					count++;
+
+				continue;
+			}
+
+			var val = (el.attr(config.attribute) || '').toSearch();
 
 			if (search instanceof Array) {
 				for (var j = 0; j < search.length; j++) {
