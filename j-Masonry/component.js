@@ -39,28 +39,30 @@ COMPONENT('masonry', 'lg:25;md:33.33;sm:50;xs:100', function(self, config, cls) 
 		var w = config[display];
 		var count = (100 / w) >> 0;
 		var counter = [];
+		var builder = [];
 
 		for (var i = 0; i < value.length; i++) {
 			var item = value[i];
 			var index = i % count;
 			var data = { value: item, index: counter[index] || 0, column: index, counter: i };
-			if (columns[index]) {
-				columns[index] += self.template(data);
-				counter[index]++;
+
+			if (config.vdom) {
+				builder.push(self.template(data));
 			} else {
-				counter[index] = 1;
-				columns[index] = self.template(data);
+				if (columns[index]) {
+					columns[index] += self.template(data);
+					counter[index]++;
+				} else {
+					counter[index] = 1;
+					columns[index] = self.template(data);
+				}
 			}
 		}
 
-		var builder = [];
 
-		for (var i = 0; i < columns.length; i++) {
-			var html = columns[i];
-			if (config.vdom)
-				builder.push(html);
-			else
-				builder.push('<section style="width:{0}%">{1}</section>'.format(w, html));
+		if (!config.vdom) {
+			for (var i = 0; i < columns.length; i++)
+				builder.push('<section style="width:{0}%">{1}</section>'.format(w, columns[i]));
 		}
 
 		if (config.vdom) {
@@ -77,8 +79,7 @@ COMPONENT('masonry', 'lg:25;md:33.33;sm:50;xs:100', function(self, config, cls) 
 			container[0].innerHTML = '';
 
 			var cols = [];
-			for (var i = 0; i < columns.length; i++) {
-				var html = columns[i];
+			for (var i = 0; i < count; i++) {
 				cols.push($('<section style="width:{0}%"></section>'.format(w)));
 				container[0].appendChild(cols[i][0]);
 			}
