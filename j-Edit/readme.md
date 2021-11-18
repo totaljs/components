@@ -19,7 +19,7 @@ __Configuration__:
 `data-edit` attribute supports:
 
 - `required` {Boolean} optional, enables "required" (default: `false`)
-- `type` {String} optional, can be `string` (default), `date`, `number`, `boolean`, `email` or `html`
+- `type` {String} optional, can be `string` (default), `date`, `number`, `boolean`, `email`, `url`, or `html`
 - `check {String}` optional, a path to `function(opt, el)` must return `boolean`, it means `Can the user edit that field?`
 - `exec {String}` optional, a path to `function(opt, accept(boolean/html_value_for_the_element))`
 - `format {String}` optional, a format for `date`, default: `yyyy-MM-dd`
@@ -33,6 +33,8 @@ __Configuration__:
 - `offsetY {Number}` optional, additional Y offset for the floating window
 - `offsetWidth {Number}` optional, additional width for the floating window
 - `parent {String}` optional, a selector for obtaining of offset (can contain `parent` or jQuery selector for `.closest()` method)
+- `selectall {Boolean}` optional, selects all text
+- `cursor {String}` optional, a cursor position `beg` or `end` (default)
 
 ### Author
 

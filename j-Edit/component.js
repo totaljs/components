@@ -243,6 +243,13 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10', function(self, config, cls
 				} else if (opt.value && !opt.value.isPhone())
 					return false;
 				break;
+			case 'url':
+				if (opt.required) {
+					if (!opt.value.isURL())
+						return false;
+				} else if (opt.value && !opt.value.isURL())
+					return false;
+				break;
 			case 'email':
 				if (opt.required) {
 					if ((!opt.value || !opt.value.isEmail()))
@@ -310,7 +317,17 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10', function(self, config, cls
 			el.on('paste', events.paste);
 			el.attr('contenteditable', true);
 			el.focus();
-			self.movecursor(el, o.clear ? 1 : 0);
+
+			if (o.clear || o.cursor === 'beg' || o.cursor === 'begin')
+				setTimeout(self.movecursor, 10, el, 1);
+			else
+				self.movecursor(el, 0);
+
+			if (o.select || o.selectall) {
+				setTimeout(function() {
+					document.execCommand('selectAll', false, null);
+				}, 20);
+			}
 		}
 	};
 
