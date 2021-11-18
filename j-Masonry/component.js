@@ -54,12 +54,50 @@ COMPONENT('masonry', 'lg:25;md:33.33;sm:50;xs:100', function(self, config, cls) 
 		}
 
 		var builder = [];
+
 		for (var i = 0; i < columns.length; i++) {
 			var html = columns[i];
-			builder.push('<section style="width:{0}%">{1}</section>'.format(w, html));
+			if (config.vdom)
+				builder.push(html);
+			else
+				builder.push('<section style="width:{0}%">{1}</section>'.format(w, html));
 		}
 
-		container.html(builder.join(''));
+		if (config.vdom) {
+
+			var div = document.createElement('DIV');
+			var children = container[0].children;
+
+			for (var child of children) {
+				while (child.children.length)
+					div.appendChild(child.children[0]);
+			}
+
+			DIFFDOM($(div), config.vdom, builder.join(''), config.vdomattr);
+			container[0].innerHTML = '';
+
+			var cols = [];
+			for (var i = 0; i < columns.length; i++) {
+				var html = columns[i];
+				cols.push($('<section style="width:{0}%"></section>'.format(w)));
+				container[0].appendChild(cols[i][0]);
+			}
+
+			var index = 0;
+			while (div.children.length) {
+				var item = div.children[0];
+				if (item) {
+					var col = cols[index];
+					index++;
+					if (index === cols.length)
+						index = 0;
+					col[0].appendChild(item);
+				}
+			}
+
+		} else
+			container.html(builder.join(''));
+
 		compilable && self.compile();
 	};
 
