@@ -9,7 +9,7 @@ __Configuration__:
 - `sm {Number}` (small display) column width in percentage (default: `50`)
 - `xs {Number}` (extra-small display) column width in percentage (default: `100`)
 - __NEW__ `vdom {String}` optional, an item jQuery selector for virtual dom comparing
-- __NEW__ `vdomattr {String}` optional, an attribute name for comparing virtual dom (a value from the attribute will be compared only)
+- __NEW__ `vdomattr {String}` optional, an attribute name for comparing virtual dom elements (values from the attribute will be compared between each other)
 
 __Tangular model__:
 
