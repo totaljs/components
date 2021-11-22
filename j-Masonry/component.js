@@ -1,8 +1,8 @@
-COMPONENT('masonry', 'lg:25;md:33.33;sm:50;xs:100', function(self, config, cls) {
+COMPONENT('masonry', 'lg:33.33;md:33.33;sm:50;xs:100', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var compilable = false;
-	var display = WIDTH();
+	var display;
 	var container;
 
 	self.readonly();
@@ -17,7 +17,7 @@ COMPONENT('masonry', 'lg:25;md:33.33;sm:50;xs:100', function(self, config, cls) 
 		scr.remove();
 
 		ON('resize + resize2', function() {
-			var d = WIDTH();
+			var d = WIDTH(self.element);
 			if (d !== display) {
 				display = d;
 				self.refresh();
@@ -34,6 +34,10 @@ COMPONENT('masonry', 'lg:25;md:33.33;sm:50;xs:100', function(self, config, cls) 
 			container.empty();
 			return;
 		}
+
+
+		if (!display)
+			display = WIDTH(self.element);
 
 		var columns = [];
 		var w = config[display];
