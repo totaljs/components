@@ -1,4 +1,4 @@
-COMPONENT('masonry', 'lg:33.33;md:33.33;sm:50;xs:100', function(self, config, cls) {
+COMPONENT('masonry', 'lg:25;md:33.33;sm:50;xs:100', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var compilable = false;
