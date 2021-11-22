@@ -7,6 +7,14 @@ COMPONENT('masonry', 'lg:25;md:33.33;sm:50;xs:100', function(self, config, cls) 
 
 	self.readonly();
 
+	self.resize2 = function() {
+		var d = WIDTH(self.element);
+		if (d !== display) {
+			display = d;
+			self.refresh();
+		}
+	};
+
 	self.make = function() {
 
 		var scr = self.find('script');
@@ -15,15 +23,9 @@ COMPONENT('masonry', 'lg:25;md:33.33;sm:50;xs:100', function(self, config, cls) 
 		compilable = html.COMPILABLE();
 		self.template = Tangular.compile(html);
 		scr.remove();
-
-		ON('resize + resize2', function() {
-			var d = WIDTH(self.element);
-			if (d !== display) {
-				display = d;
-				self.refresh();
-			}
+		self.on('resize + resize2', function() {
+			setTimeout2(self.ID + 'resize', self.resize2, 300);
 		});
-
 		self.append('<div class="{0}-items"></div><div class="clearfix"></div>'.format(cls));
 		container = self.find(cls2 + '-items');
 	};
@@ -34,7 +36,6 @@ COMPONENT('masonry', 'lg:25;md:33.33;sm:50;xs:100', function(self, config, cls) 
 			container.empty();
 			return;
 		}
-
 
 		if (!display)
 			display = WIDTH(self.element);
