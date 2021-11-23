@@ -196,9 +196,10 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 		movable.ticks = Date.now();
 		movable.pageX = e.pageX;
 		movable.pageY = e.pageY;
-		movable.changed = false;
 		movable.x = movable.type === 1 ? tmp.offset.x : tmp.offset.width;
 		movable.y = movable.type === 1 ? tmp.offset.y : tmp.offset.height;
+		var tmp = cache[movable.id].offset;
+		movable.old = (tmp.x || 0) + 'x' + (tmp.y || 0) + 'x' + (tmp.width || 0) + 'x' + (tmp.height || 0);
 		events.bind(true);
 		el.aclass(cls + '-selected');
 	};
@@ -208,9 +209,16 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 		self.rclass(cls + '-mousedown');
 		movable.el.rclass(cls + '-selected');
 		movable.is = false;
+
 		events.bind();
 		self.resize_container();
-		movable.changed && self.modified();
+
+		var tmp = cache[movable.id].offset;
+		var curr = (tmp.x || 0) + 'x' + (tmp.y || 0) + 'x' + (tmp.width || 0) + 'x' + (tmp.height || 0);
+		if (movable.old !== curr) {
+			movewidget(cache[movable.id]);
+			self.modified();
+		}
 	};
 
 	events.onmove = function(e) {
@@ -225,8 +233,6 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 		var diffX = e.pageX - movable.pageX;
 		var diffY = e.pageY - movable.pageY;
 		var axis = diffX !== 0 ? 'x' : diffY !== 0 ? 'y' : '';
-
-		movable.changed = true;
 
 		diffX = diffX / pixel >> 0;
 		diffY = diffY / pixel >> 0;
@@ -303,7 +309,6 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 
 		obj.offset.x = diffX;
 		obj.offset.y = diffY;
-
 		self.woffset(movable.id);
 	};
 
@@ -389,17 +394,17 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 		self.update(true);
 	};
 
-	self.wdestroy = function(id, bind) {
+	self.wdestroy = function(id, manual) {
 		var obj = cache[id];
 		if (obj) {
 			delete cache[id];
 			var el = obj.container;
-			obj.meta.destroy && obj.meta.destroy.call(obj, obj.element);
+			obj.meta.destroy && obj.meta.destroy.call(obj, obj.element, manual);
 			el.find('*').off();
 			el.off();
 			el.remove();
 			var index;
-			if (bind) {
+			if (manual) {
 				var model = self.get();
 				index = model.indexOf(obj.meta);
 				if (index !== -1) {
@@ -417,10 +422,16 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 	};
 
 	var resizewidget = function(obj) {
-		if (obj && obj.meta) {
-			obj.meta.resize && obj.meta.resize.call(obj, obj.width, obj.height, obj.element, obj.display);
+		if (obj) {
+			obj.meta && obj.meta.resize && obj.meta.resize.call(obj, obj.width, obj.height, obj.element, obj.display);
 			!config.noemitresize && obj.element.EXEC('resize');
 		}
+	};
+
+	var movewidget = function(obj) {
+		movable.timeout = null;
+		if (obj && obj.meta)
+			obj.meta.move && obj.meta.move.call(obj, obj.meta.offset, obj.display);
 	};
 
 	var click = function() {
@@ -437,12 +448,19 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 		var obj = cache[id];
 		var tmp = self.wsize(d, obj.meta.offset);
 
+		if (tmp.x == null)
+			tmp.x = 0;
+
+		if (tmp.y == null)
+			tmp.y = 0;
+
 		obj.offset = tmp;
 
-		var x = tmp.x * pixel + config.padding;
-		var y = tmp.y * pixel + config.padding;
+		var x = (tmp.x || 0) * pixel + config.padding;
+		var y = (tmp.y || 0) * pixel + config.padding;
 		var w = tmp.width * pixel;
 		var h = tmp.height * pixel;
+
 		var classes = [];
 
 		classes.push('d_col' + tmp.width);
@@ -525,7 +543,7 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 		if (obj.header !== false)
 			classname.push(cls + '-header');
 
-		classname.push('d-' + obj.component);
+		// classname.push('d-' + obj.component);
 
 		var isdom = obj.html && typeof(obj.html) !== 'string';
 		var el = $(('<div class="{1} invisible{6}" data-id="{2}"><div class="{0}-body" style="margin:{5}px"><div class="{0}-title">{4}</div><figure>{3}</figure><span class="{0}-resize-button"></span></div></div>').format(cls, classname.join(' '), obj.id, isdom ? '' : obj.html, ('<span class="{1} ui-dashboard-control" data-name="remove"></span><span class="{0} ui-dashboard-control" data-name="settings"></span>').format(config.iconsettings, config.iconremove) + '<div>' + obj.title + '</div>', config.padding, config.animation && isinit ? (' ' + cls + '-' + config.animation + '-init') : ''));
@@ -579,7 +597,8 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 		data = [];
 
 		for (var key in cache) {
-			if (!value.findItem('id', key)) {
+			var item = value.findItem('id', key);
+			if (!item || item.reset) {
 				self.wdestroy(key);
 				delete cache[key];
 			}

@@ -74,6 +74,7 @@ var component = {
 	// Custom properties which will be assigned to the instance
 	template: Object,
 	config: Object,
+	// reset: true, // NEW: reloads the component again
 
 	make: function(exports, config, el) {
 
@@ -150,7 +151,6 @@ __Methods__:
 
 __Good to know__:
 
-- each component (in the Dashboard) contains `d-COMPONENTNAME` class
 - component adds classes to component's body:
 	- `d_colNUMBER` determins count of taken columns e.g. `d_col2`
 	- `d_rowNUMBER` determins count of taken rows e.g. `d_row3`
