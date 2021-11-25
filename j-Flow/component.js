@@ -1213,6 +1213,9 @@ EXTENSION('flow:components', function(self, config) {
 					pos.left += pos.left % self.op.zoom_reverse(config.snapping);
 					pos.top += pos.top % self.op.zoom_reverse(config.snapping);
 					instance.node.css(pos);
+				} else {
+					pos.left = self.op.zoom(pos.left);
+					pos.top = self.op.zoom(pos.top);
 				}
 
 				var data = self.get()[instance.id];
@@ -2269,8 +2272,8 @@ EXTENSION('flow:groups', function(self, config, cls) {
 			} else
 				self.op.undo({ type: 'move', multiple: [history] });
 
-			group.x = pos.left;
-			group.y = pos.top;
+			group.x = self.op.zoom(pos.left);
+			group.y = self.op.zoom(pos.top);
 			group.width = w;
 			group.height = h;
 			group.onmove && group.onmove(drag.element, group);
