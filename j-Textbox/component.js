@@ -41,7 +41,7 @@ COMPONENT('textbox', function(self, config) {
 				return value > 0;
 		}
 
-		return config.validation ? !!self.evaluate(value, config.validation, true) : value.length > 0;
+		return config.validation ? !!EVALUATE(value, config.validation, true) : value.length > 0;
 	};
 
 	self.make = function() {
