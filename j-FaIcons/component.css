@@ -4,7 +4,7 @@
 .ui-faicons-nav { padding: 13px 5px 6px 5px; text-align: center; }
 .ui-faicons-nav span { cursor: pointer; font-size: 24px; width: 11%; display: inline-block; user-select: none; }
 .ui-faicons-search { padding: 0 10px; }
-.ui-faicons-search span { float: left; width: 30px; text-align: center; height: 30px; padding: 7px 0 0; font-size: 12px; background-color: #FFF; border: 1px solid #e0e0e0; border-radius: var(--radius) 0 0 var(--radius); color: #A0A0A0; cursor: pointer; }
+.ui-faicons-search span { float: left; width: 12.5%; text-align: center; height: 30px; padding: 7px 0 0; font-size: 12px; background-color: #FFF; border: 1px solid #e0e0e0; border-radius: var(--radius) 0 0 var(--radius); color: #A0A0A0; cursor: pointer; }
 .ui-faicons-search .fa-times { color: #ff0000; }
 .ui-faicons-search div { margin-left: 30px; }
 .ui-faicons-search-input { margin: 0; width: 100%; border: 1px solid #e0e0e0; padding: 0 9px; height: 30px; border-radius: 0 var(--radius) var(--radius) 0; border-left: 0; appearance: none; }
