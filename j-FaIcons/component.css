@@ -1,5 +1,5 @@
 .ui-faicons-container { position: absolute; z-index: 110; }
-.ui-faicons { border: 1px solid #E0E0E0; font-size: 14px; color: #000; width: 340px; z-index: 10; background-color: #FFF; box-shadow: 0 5px 10px rgba(0,0,0,0.08); border-radius: var(--radius); z-index: 80; overflow: hidden; }
+.ui-faicons { border: 1px solid #E0E0E0; font-size: 14px; color: #000; width: 330px; z-index: 10; background-color: #FFF; box-shadow: 0 5px 10px rgba(0,0,0,0.08); border-radius: var(--radius); z-index: 80; overflow: hidden; }
 .ui-faicons-header { height: 50px; background-color: #fcfcfc; border-bottom: 1px solid #e0e0e0; padding: 10px 0 0; }
 .ui-faicons-nav { padding: 13px 5px 6px 5px; text-align: center; }
 .ui-faicons-nav span { cursor: pointer; font-size: 24px; width: 11%; display: inline-block; user-select: none; }
@@ -10,9 +10,10 @@
 .ui-faicons-search-input { margin: 0; width: 100%; border: 1px solid #e0e0e0; padding: 0 9px; height: 30px; border-radius: 0 var(--radius) var(--radius) 0; border-left: 0; appearance: none; }
 .ui-faicons-search-input:focus { outline: none; }
 .ui-faicons-scroll { overflow: auto; height: 305px; }
-.ui-faicons-content { position: relative; height: 305px; padding: 0 10px 10px; }
+.ui-faicons-content { position: relative; padding: 5px; }
 .ui-faicons-content span { padding: 5px; cursor: pointer; font-size: 20px; min-width: 39px; height: 30px; display: inline-block; text-align: center; user-select: none; color: #404040; }
 .ui-faicons-content span:hover { transform: scale(1.15); color: #000; }
+.ui-faicons-scrollbar { height: 305px; }
 
 .ui-dark .ui-faicons { background-color: #202020; border-color: #303030; }
 .ui-dark .ui-faicons-header { background-color: #202020; border-color: #303030; }
