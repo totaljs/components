@@ -1,6 +1,5 @@
-COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,127828,127937;height:295;history:49;empty:No emoji match your search;emptyemoji:128557;speed:500;footer:Choose skin tone;toneemoji:9995;search:Search', function(self, config) {
+COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,127828,127937;height:295;history:49;empty:No emoji match your search;emptyemoji:128557;speed:500;footer:Choose skin tone;toneemoji:9995;search:Search', function(self, config, cls) {
 
-	var cls = 'ui-emoji';
 	var cls2 = '.' + cls;
 	var template = '<span data-id="{2}" {3}>{0}{1}</span>';
 	var tone = ['', '&#127995;', '&#127996;', '&#127997;', '&#127998;', '&#127999;'];
