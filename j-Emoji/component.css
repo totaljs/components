@@ -1,5 +1,5 @@
 .ui-emoji-container { position: absolute; z-index: 110; }
-.ui-emoji { border: 1px solid #E0E0E0; font-size: 14px; color: #000; width: 340px; z-index: 10; background-color: #FFF; box-shadow: 0 5px 10px rgba(0,0,0,0.08); border-radius: var(--radius); z-index: 80; overflow: hidden; }
+.ui-emoji { border: 1px solid #E0E0E0; font-size: 14px; color: #000; width: 330px; z-index: 10; background-color: #FFF; box-shadow: 0 5px 10px rgba(0,0,0,0.08); border-radius: var(--radius); z-index: 80; overflow: hidden; }
 .ui-emoji-header { height: 100px; background-color: #fcfcfc; border-bottom: 1px solid #e0e0e0; }
 .ui-emoji-nav { padding: 13px 5px 6px 5px; text-align: center; }
 .ui-emoji-nav span { cursor: pointer; font-size: 26px; width: 11%; display: inline-block; user-select: none; }
@@ -14,7 +14,7 @@
 .ui-emoji-content { position: relative; height: 305px; padding: 0 10px 10px; }
 .ui-emoji-content-title { margin: 25px 0 5px; padding: 0 0 5px; border-bottom: 1px solid #e0e0e0; text-transform: capitalize; color: #777; }
 .ui-emoji div.ui-emoji-content-title:first-child { margin: 15px 0 5px; }
-.ui-emoji-content span { padding: 5px; cursor: pointer; font-size: 24px; min-width: 39px; height: 30px; display: inline-block; text-align: center; user-select: none; }
+.ui-emoji-content span { padding: 5px; cursor: pointer; font-size: 24px; width: 12.5%; height: 30px; display: inline-block; text-align: center; user-select: none; }
 .ui-emoji-content span:hover { transform: scale(1.15); }
 .ui-emoji-empty { text-align: center; top: 40%; left: 22%; position: absolute; color: #a5a5a5; }
 .ui-emoji-empty div { font-size: 50px; line-height: 50px; opacity: 0.4; user-select: none; }
