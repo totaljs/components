@@ -79,7 +79,8 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;initdelay:250;scrollbar:0;v
 					self.aclass(cls + '-scroll');
 			} else {
 				self.aclass(cls + '-scroll');
-				self.find(cls2 + '-body').aclass('noscrollbar');
+				if (M.version < 19)
+					self.find(cls2 + '-body').aclass('noscrollbar');
 			}
 		}
 		self.resize();
