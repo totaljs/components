@@ -268,7 +268,6 @@ COMPONENT('kanban', 'parent:parent;margin:0;padding:10;style:1', function(self, 
 		self.scrollbar.resize();
 
 		arr = body.find(cls2 + '-scrollbar');
-
 		var prop = config.style === 1 ? 'height' : 'max-height';
 
 		for (var i = 0; i < arr.length; i++) {
@@ -307,7 +306,8 @@ COMPONENT('kanban', 'parent:parent;margin:0;padding:10;style:1', function(self, 
 				g = ge[0];
 				groups[group.id] = g;
 				body[0].appendChild(g);
-				SCROLLBAR(ge.find(cls2 + '-scrollbar'), { visibleY: 1 });
+				if (config.style === 1)
+					SCROLLBAR(ge.find(cls2 + '-scrollbar'), { visibleY: 1 });
 			}
 
 			builder.push(grouphtml);
