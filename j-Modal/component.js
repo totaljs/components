@@ -116,6 +116,7 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 			css.width = width;
 
 		emodal.css(css);
+		earea.tclass(cls + '-noscrollbar', !config.scrollbar);
 
 		if (config.scrollbar) {
 			var nh = 0;
@@ -132,7 +133,6 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 		} else {
 			earea[0].$noscrollbarwidth = 0;
 			earea.css({ 'max-height': h - hh - hf, width: width });
-			earea.noscrollbar();
 		}
 	};
 

@@ -37,6 +37,7 @@ COMPONENT('listbox', function(self, config, cls) {
 		config.items && self.reconfigure('items:' + config.items);
 
 		self.event('click', 'li', function() {
+
 			if (config.disabled)
 				return;
 
@@ -138,8 +139,7 @@ COMPONENT('listbox', function(self, config, cls) {
 	};
 
 	self.redraw = function() {
-		self.html((typeof(config.search) === 'string' ? '<div class="{0}-search"><span><i class="fa fa-search {0}-search-icon"></i></span><div><input type="text" placeholder="{1}" /></div></div><div><div class="{0}-search-empty"></div>'.format(cls, config.search) : '') + '<div class="{0}-container"><ul style="height:{1}px" class="noscrollbar"></ul></div>'.format(cls, config.height || '200'));
-		self.find('.noscrollbar').noscrollbar();
+		self.html((typeof(config.search) === 'string' ? '<div class="{0}-search"><span><i class="fa fa-search {0}-search-icon"></i></span><div><input type="text" placeholder="{1}" /></div></div><div><div class="{0}-search-empty"></div>'.format(cls, config.search) : '') + '<div class="{0}-container"><ul style="height:{1}px" class="{0}-noscrollbar"></ul></div>'.format(cls, config.height || '200'));
 		Eitems = self.find('ul');
 		self.resize();
 	};
@@ -150,7 +150,7 @@ COMPONENT('listbox', function(self, config, cls) {
 	};
 
 	self.resize = function() {
-		self.width(function(width) {
+		self.width(function() {
 			var h = 0;
 			var css = {};
 			if (typeof(config.height) === 'string') {

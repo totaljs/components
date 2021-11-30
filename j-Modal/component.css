@@ -24,6 +24,8 @@
 .ui-modal-align-2 .ui-modal { left: 25px; bottom: 25px; top: auto; }
 .ui-modal-align-3 .ui-modal { left: 25px; top: 25px; }
 .ui-modal-align-4 .ui-modal { left: auto; right: 25px; top: 25px; }
+.ui-modal-noscrollbar::-webkit-scrollbar { display: none; }
+.ui-modal-noscrollbar { overflow-y: scroll; -ms-overflow-style: none; scrollbar-width: none; }
 
 .ui-dark .ui-modal { background-color: #202020; border-color: #404040; }
 .ui-dark .ui-modal-bg { background-color: rgba(50,50,50,0.9); }
