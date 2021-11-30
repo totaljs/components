@@ -10,6 +10,7 @@ COMPONENT('kanban', 'parent:parent;margin:0;padding:10;style:1', function(self, 
 	var adi = 'data-id';
 	var skip = false;
 	var cachesize;
+	var groups = {};
 
 	self.readonly();
 	self.make = function() {
@@ -266,7 +267,7 @@ COMPONENT('kanban', 'parent:parent;margin:0;padding:10;style:1', function(self, 
 		body.css('width', sum < w ? 'auto' : (sum + 'px'));
 		self.scrollbar.resize();
 
-		arr = body.find(cls2 + '-group-items');
+		arr = body.find(cls2 + '-scrollbar');
 
 		var prop = config.style === 1 ? 'height' : 'max-height';
 
@@ -275,6 +276,7 @@ COMPONENT('kanban', 'parent:parent;margin:0;padding:10;style:1', function(self, 
 			var wh = h - el.position().top - (config.padding * 2);
 			el.parent().parent().css(prop, wh);
 			el.css(prop, wh);
+			el[0].$scrollbar && el[0].$scrollbar.resize();
 		}
 
 	};
@@ -289,24 +291,47 @@ COMPONENT('kanban', 'parent:parent;margin:0;padding:10;style:1', function(self, 
 		if (!value)
 			value = EMPTYARRAY;
 
-		var builder = [];
 		var obj = {};
+		var hash = GUID(5);
+		var builder = [];
+
 		for (var i = 0; i < value.length; i++) {
 			var group = value[i];
 			var items = group.items;
 			var tmp = [];
+
+			var g = groups[group.id];
+			var grouphtml = '<section class="{0}-group" data-id="{2}"><div class="{0}-group-body">{1}<div class="{0}-scrollbar"><div class="{0}-group-items"></div></div></div></section>'.format(cls, gtemplate(group), group.id);
+			if (!g) {
+				var ge = $(grouphtml);
+				g = ge[0];
+				groups[group.id] = g;
+				body[0].appendChild(g);
+				SCROLLBAR(ge.find(cls2 + '-scrollbar'), { visibleY: 1 });
+			}
+
+			builder.push(grouphtml);
+			g.$hash = hash;
 
 			for (var j = 0; j < items.length; j++) {
 				obj.value = items[j];
 				tmp.push('<figure class="{0}-item" draggable="true" data-id="{1}">{2}</figure>'.format(cls, items[j].id, self.template(items[j])));
 			}
 
-			builder.push('<section class="{0}-group" data-id="{1}"><div class="{0}-group-body">{2}<div class="{0}-group-items noscrollbar">{3}</div></div></section>'.format(cls, group.id, gtemplate(group), tmp.join('')));
+			var html = tmp.join('');
+			DIFFDOM($(g).find(cls2 + '-group-items'), cls2 + '-item', html, html.COMPILABLE() ? 'data-id' : '');
 		}
 
-		body.html(builder.join(''));
+		for (var key in groups) {
+			var item = groups[key];
+			if (item.$hash !== hash) {
+				item.parentNode.removeChild(item);
+				delete groups[key];
+			}
+		}
+
+		DIFFDOM($(body), cls2 + '-group', builder.join(''), 'data-id');
 		self.resizebody();
-		self.element.find('.noscrollbar').noscrollbar();
 	};
 
 });
