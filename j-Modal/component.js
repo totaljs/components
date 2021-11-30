@@ -253,7 +253,7 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 		if (config.scrollbar) {
 			!self.scrollbar && (self.scrollbar = SCROLLBAR(self.find(cls2 + '-body-area'), { visibleY: true }));
 		} else
-			$(cls2 + '-body-area').noscrollbar();
+			$(cls2 + '-body-area').aclass(cls + '-noscrollbar');
 
 		if (!isMOBILE && config.autofocus) {
 			var el = self.find(config.autofocus ? 'input[type="text"],input[type="password"],select,textarea' : config.autofocus);
