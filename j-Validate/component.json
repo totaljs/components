@@ -1,0 +1,17 @@
+{
+	"datecreated": "2021-11-13T15:48:14.000Z",
+	"dateupdated": null,
+	"name": "j-Validate",
+	"tags": [
+		"validation",
+		"validator"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": false,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

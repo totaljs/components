@@ -1,0 +1,23 @@
+<!-- REMOVE -->
+<div data-scope="model">
+	<div data---="input__?.name__required:true">Name</div>
+	<br />
+	<br />
+	<div data---="validate__?">
+		<button name="submit" disabled="disabled" onclick="show_me()">SUBMIT FORM</button>
+	</div>
+</div>
+
+<style type="text/css">
+	button:disabled {
+		background-color: #cccccc;
+		color: #666666;
+		cursor: not-allowed;
+	}
+</style>
+
+<script>
+    function show_me() {
+        alert('ok');
+    }
+</script>
