@@ -897,7 +897,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				case 'number2':
 					if (value) {
 						var type = typeof(value);
-						if (type === 'string' && (/^[\-0-9\.\,]$/).test(value))
+						if (type === 'string' && (/^[\-0-9\.\,]+$/).test(value))
 							value = value.parseFloat();
 						else if (type !== 'number')
 							value = null;
