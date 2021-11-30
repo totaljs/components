@@ -15,6 +15,8 @@
 .ui-disabled.ui-textarea textarea { background-color: #F0F0F0; color: gray; }
 .ui-disabled .ui-textarea { background-color: #F0F0F0; }
 .ui-disabled .ui-textarea textarea { background-color: #F0F0F0; cursor: not-allowed; color: gray; }
+.ui-textarea-noscrollbar textarea::-webkit-scrollbar { display: none; }
+.ui-textarea-noscrollbar textarea { -ms-overflow-style: none; scrollbar-width: none; }
 
 .ui-dark .ui-textarea { border-color: #353535; background-color: #202020; }
 .ui-dark .ui-textarea textarea { color: #FFF; background-color: #202020; }

@@ -110,10 +110,9 @@ COMPONENT('textarea', 'scrollbar:true', function(self, config, cls) {
 		input = self.find('textarea');
 		placeholder = self.find(cls2 + '-placeholder');
 
-		if (!config.scrollbar) {
-			input.noscrollbar();
-			input.css('padding-right', (SCROLLBARWIDTH() + 5) + 'px');
-		}
+		if (!config.scrollbar)
+			self.aclass(cls + '-noscrollbar');
+
 	};
 
 	self.make = function() {
