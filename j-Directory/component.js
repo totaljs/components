@@ -9,7 +9,6 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 	var templateraw = template.format(templateR);
 	var regstrip = /(&nbsp;|<([^>]+)>)/ig;
 	var parentclass = null;
-	var selectedcache = null;
 
 	template = template.format(templateE);
 
