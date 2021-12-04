@@ -1637,8 +1637,16 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 	self.resizeforce = function() {
 
-		if (!opt.cols || HIDDEN(self.dom))
+		if (!opt.cols || HIDDEN(self.dom)) {
+			resizecache.timeout && clearTimeout(resizecache.timeout);
+			resizecache.timeout = setTimeout(self.resizeforce, ready ? 1000 : 400);
 			return;
+		}
+
+		if (resizecache.timeout) {
+			clearTimeout(resizecache.timeout);
+			resizecache.timeout = null;
+		}
 
 		var el;
 		var footerh = opt.footer = footer.length ? footer.height() : 0;
