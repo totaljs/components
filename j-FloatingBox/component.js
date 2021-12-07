@@ -98,7 +98,7 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 		var w = opt.box.width();
 		var offset = element ? element.offset() : null;
 		var width = w + (opt.offsetWidth || 0);
-		var options = { left: opt.x || 0, top: top.y || 0 };
+		var options = { left: opt.x || 0, top: opt.y || 0 };
 
 		if (opt.minwidth && width < opt.minwidth) {
 			width = opt.minwidth;
