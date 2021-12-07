@@ -4,7 +4,6 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 	var input, placeholder, dirsource, binded, customvalidator, mask, rawvalue, isdirvisible = false, nobindcamouflage = false, focused = false;
 
 	self.nocompile();
-	self.bindvisible(20);
 
 	self.init = function() {
 		Thelpers.ui_input_icon = function(val) {
