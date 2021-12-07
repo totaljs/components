@@ -23,6 +23,7 @@ __Methods__:
 	- `opt.maxwidth {Number}`
 	- `opt.mouseleave {String}` a link to the method, it's executed when the mouse cursor leaves the box `function(e, close)}`
 	- `opt.autofocus {Boolean}` tries to focus first input/textarea
+	- `opt.hide {String}` a link to the method `function(box_element)`
 - `component.hide()` hides the last open box
 - `component.hide([box_id])` hides the specific box and its all nested boxes
 - `component.hide(true)` hides all boxes
