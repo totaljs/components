@@ -1,6 +1,7 @@
 COMPONENT('minheight', 'parent:auto;margin:0;attr:min-height', function(self, config, cls) {
 
 	var timeout;
+	var init = false;
 
 	self.readonly();
 
@@ -35,6 +36,12 @@ COMPONENT('minheight', 'parent:auto;margin:0;attr:min-height', function(self, co
 			h = config.minheight;
 
 		self.css(config.attr, h);
+
+		if (!init) {
+			init = true;
+			self.rclass('invisible hidden');
+		}
+
 	};
 
 });
