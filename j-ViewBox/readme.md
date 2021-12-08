@@ -22,9 +22,10 @@ __Configuration__:
 - `marginsm` optional, a top/bottom margin together for `sm` screen width
 - `marginmd` optional, a top/bottom margin together for `md` screen width
 - `marginlg` optional, a top/bottom margin together for `lg` screen width
-- __NEW__: `invisible` {Boolean} if `true` then viewbox sets `invisible` class when is rendering (default: `true`)
-- __NEW__: `scrollbarshadow` {Boolean} if `true` then the custom scrollbars will contain vertical shadow (default: `false`)
-- __NEW__: `initdelay` {Number} removes `inivisible` class after specified time (default: `250` ms)
+- `invisible` {Boolean} if `true` then viewbox sets `invisible` class when is rendering (default: `true`)
+- `scrollbarshadow` {Boolean} if `true` then the custom scrollbars will contain vertical shadow (default: `false`)
+- `initdelay` {Number} removes `inivisible` class after specified time (default: `250` ms)
+- __NEW__: `centered {Boolean}` enables vertical and horitonzal centering for the content (default: `false`)
 
 __Methods__:
 

@@ -63,12 +63,21 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;initdelay:250;scrollbar:0;v
 	};
 
 	self.make = function() {
+
+		var centered = '';
+
+		if (config.centered)
+			centered = '<div class="{0}-centered-table"><div class="{0}-centered-cell"></div></div>';
+
 		config.invisible && self.aclass('invisible');
-		config.scroll && MAIN.version > 17 && self.element.wrapInner('<div class="' + cls + '-body"></div>');
+		config.scroll && MAIN.version > 17 && self.element.wrapInner('<div class="' + cls + '-body">' + centered + '</div>');
+
 		self.element.prepend('<div class="' + cls + '-disabled hidden"></div>');
 		eld = self.find('> .{0}-disabled'.format(cls)).eq(0);
 		elb = self.find('> .{0}-body'.format(cls)).eq(0);
+
 		self.aclass('{0} {0}-hidden'.format(cls));
+
 		if (config.scroll) {
 			if (config.scrollbar) {
 				if (MAIN.version > 17) {
@@ -83,6 +92,7 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;initdelay:250;scrollbar:0;v
 					self.find(cls2 + '-body').aclass('noscrollbar');
 			}
 		}
+
 		self.resize();
 	};
 

@@ -1,3 +1,5 @@
 .ui-viewbox { overflow: hidden; -ms-overflow-style: none; box-sizing: content-box }
 .ui-viewbox-disabled { z-index: 5; position: absolute; background-color: rgba(255,255,255,0.8); }
 .ui-viewbox-hidden { visibility: hidden; }
+.ui-viewbox-centered-table { display: table; width: 100%; height: 100%; }
+.ui-viewbox-centered-cell { display: table-cell; width: 100%; height: 100%; vertical-align: middle; text-align: center; }
