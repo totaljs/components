@@ -17,7 +17,7 @@
 .ui-emoji-content span { padding: 5px; cursor: pointer; font-size: 24px; width: 12.5%; height: 30px; display: inline-block; text-align: center; user-select: none; }
 .ui-emoji-content span:hover { transform: scale(1.15); }
 .ui-emoji-empty { text-align: center; top: 40%; left: 22%; position: absolute; color: #a5a5a5; }
-.ui-emoji-empty div { font-size: 50px; line-height: 50px; opacity: 0.4; user-select: none; }
+.ui-emoji-empty div { font-size: 50px; margin-bottom: 10px; line-height: 50px; opacity: 0.4; user-select: none; }
 .ui-emoji-footer { text-align: right; padding: 6px 10px 3px 0; font-size: 18px; border-top: 1px solid #e0e0e0; background-color: #fcfcfc; }
 .ui-emoji-footer .ui-emoji-footer-text { font-size: 12px; text-align: left; float: left; margin-top: 4px; margin-left: 10px; color: #808080; }
 .ui-emoji-footer span { padding: 0 0px 0 6px; cursor: pointer; user-select: none; }
