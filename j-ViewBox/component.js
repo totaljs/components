@@ -67,7 +67,7 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;initdelay:250;scrollbar:0;v
 		var centered = '';
 
 		if (config.centered)
-			centered = '<div class="{0}-centered-table"><div class="{0}-centered-cell"></div></div>';
+			centered = '<div class="{0}-centered-table"><div class="{0}-centered-cell"></div></div>'.format(cls);
 
 		config.invisible && self.aclass('invisible');
 		config.scroll && MAIN.version > 17 && self.element.wrapInner('<div class="' + cls + '-body">' + centered + '</div>');
@@ -149,6 +149,9 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;initdelay:250;scrollbar:0;v
 
 		if (config.minheight && h < config.minheight)
 			h = config.minheight;
+
+		if (config.centered)
+			elb.find(cls2 + '-centered-table').css('min-height', h);
 
 		css.height = h;
 		css.width = mywidth;
