@@ -92,9 +92,9 @@ COMPONENT('part', 'hide:1;loading:1;delay:500;delayloading:800', function(self, 
 							self.release(false);
 							config.reload && EXEC(replace(config.reload), true);
 							config.default && DEFAULT(replace(config.default), true);
-							config.loading && SETTER('loading/hide', self.delayloading);
+							config.loading && SETTER('loading/hide', config.delayloading);
 							var invisible = self.hclass('invisible');
-							invisible && self.rclass('invisible', self.delay);
+							invisible && self.rclass('invisible', config.delay);
 							isresizing && setTimeout(self.resize, 50);
 							setTimeout(self.emitresize, 200);
 							downloading = false;
