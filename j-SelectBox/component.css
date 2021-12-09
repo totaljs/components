@@ -1,8 +1,9 @@
 .ui-selectbox { border: 1px solid #E0E0E0; font-size: 14px; color: #000; }
-.ui-selectbox-container  { position:  relative; left: 0; right: 0; overflow: hidden; }
-.ui-selectbox-area  { height:  100%; position:  absolute; left:  0; right:  0; overflow:  hidden; }
-.ui-selectbox-container .ui-selectbox-area: last-child  { left:  50%; }
-.ui-selectbox .ui-selectbox-body  { list-style-type: none; width: 100%; height: 100%; float: left; overflow: auto; margin: 0; padding: 0; background-color:  #FFF; border-left: 1px solid #E0E0E0; font-weight: bold; }
+.ui-selectbox-container { position: relative; left: 0; right: 0; overflow: hidden; }
+.ui-selectbox-area { height: 100%; position: absolute; left: 0; right: 0; overflow: hidden; }
+.ui-selectbox-container .ui-selectbox-area: last-child { left: 50%; }
+.ui-selectbox .ui-selectbox-body { list-style-type: none; width: 100%; height: 100%; float: left; overflow: auto; margin: 0; padding: 0; background-color: #FFF; border-left: 1px solid #E0E0E0; font-weight: bold; overflow-y: scroll; -ms-overflow-style: none; scrollbar-width: none; }
+.ui-selectbox .ui-selectbox-body::-webkit-scrollbar { display: none; }
 .ui-selectbox .ui-selectbox-area:first-child .ui-selectbox-body { border-left: 0; font-weight: normal; }
 .ui-selectbox .ui-selectbox-body span { border-bottom: 1px solid #E0E0E0; padding: 5px 10px; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; color: #000; }
 .ui-selectbox .ui-selectbox-body span:hover { background-color: #F0F0F0; text-decoration: none; }
@@ -23,7 +24,7 @@
 .ui-dark .ui-selectbox-search span { background-color: #202020; }
 .ui-dark .ui-selectbox-search input { background-color: #202020; color: #FFF; }
 .ui-dark .ui-selectbox { border-color: #3A3A3A; background-color: #202020; }
-.ui-dark .ui-selectbox .ui-selectbox-body { border-left-color: #3A3A3A;  background-color:  #202020; }
+.ui-dark .ui-selectbox .ui-selectbox-body { border-left-color: #3A3A3A; background-color: #202020; }
 .ui-dark .ui-selectbox .ui-selectbox-body span { border-bottom-color: #3A3A3A; color: #FFF; }
 .ui-dark .ui-selectbox .ui-selectbox-body span:hover { background-color: #303030 !important; }
 .ui-dark .ui-selectbox-invalid { border-color: red; background-color: #202020 !important; }
