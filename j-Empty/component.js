@@ -38,6 +38,9 @@ COMPONENT('empty', 'icon:fa fa-database;parent:parent;margin:0;wait:1', function
 
 	self.resizeforce = function() {
 
+		if (visible)
+			return;
+
 		if (config.height) {
 			table.css('height', config.height);
 
@@ -46,6 +49,7 @@ COMPONENT('empty', 'icon:fa fa-database;parent:parent;margin:0;wait:1', function
 				invisible = false;
 			}
 
+			table.tclass('hidden', visible);
 			return;
 		}
 
@@ -65,6 +69,7 @@ COMPONENT('empty', 'icon:fa fa-database;parent:parent;margin:0;wait:1', function
 			invisible = false;
 		}
 
+		table.rclass('hidden');
 	};
 
 	self.setter = function(value, path, type) {
@@ -79,10 +84,10 @@ COMPONENT('empty', 'icon:fa fa-database;parent:parent;margin:0;wait:1', function
 		else if (value)
 			visible = value.items && !!value.items.length;
 
-		table.tclass('hidden', visible);
-
-		if (!visible)
-			self.resizeforce();
+		if (visible)
+			table.aclass('hidden');
+		else
+			self.resize();
 
 		if (special) {
 			for (var i = 1; i < self.dom.children.length; i++)
