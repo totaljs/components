@@ -21,6 +21,7 @@ __Configuration__:
 - `invisible` {Boolean} enables adding of `invisible` class when the part is going to hide (default: `false`)
 - `delay` {Number} a delay (in ms) for removing of `invisible` class and hiding of `loading` (default: `500`)
 - `autofocus` {Boolean/String} focuses the first input, textarea (default: `false`)
+- __NEW__: `delayloading` {Number} a delay (in ms) for hiding of of `loading` (default: `800`)
 
 __Good to know 1__:
 

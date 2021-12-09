@@ -1,4 +1,4 @@
-COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
+COMPONENT('part', 'hide:1;loading:1;delay:500;delayloading:800', function(self, config, cls) {
 
 	var init = false;
 	var clid = null;
@@ -52,7 +52,6 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 					config.hide && self.rclass('hidden');
 					config.reload && EXEC(replace(config.reload));
 					config.default && DEFAULT(replace(config.default), true);
-
 					var invisible = self.hclass('invisible');
 					invisible && self.rclass('invisible', config.delay);
 					isresizing && setTimeout(self.resize, 50);
@@ -93,7 +92,7 @@ COMPONENT('part', 'hide:1;loading:1;delay:500', function(self, config, cls) {
 							self.release(false);
 							config.reload && EXEC(replace(config.reload), true);
 							config.default && DEFAULT(replace(config.default), true);
-							config.loading && SETTER('loading/hide', self.delay);
+							config.loading && SETTER('loading/hide', self.delayloading);
 							var invisible = self.hclass('invisible');
 							invisible && self.rclass('invisible', self.delay);
 							isresizing && setTimeout(self.resize, 50);
