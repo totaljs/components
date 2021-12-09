@@ -10,7 +10,7 @@ __Configuration__:
 - `margin {Number}` a margin (default: `0`)
 - `topoffset {Boolean}` applies `element.offset().top` as a margin (default: `false`)
 - `topposition {Boolean}` applies `element.position().top` as a margin (default: `false`)
-- __NEW__ `wait {Boolean}` waits for the data (default: `true`)
+- __NEW__ `wait {Boolean}` waits for the data (default: `false`)
 
 __Use-case 1__:
 

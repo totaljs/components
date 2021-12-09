@@ -2,6 +2,7 @@ COMPONENT('empty', 'icon:fa fa-database;parent:parent;margin:0;wait:1', function
 
 	var visible = false;
 	var special = false;
+	var invisible = true;
 	var table;
 
 	self.readonly();
@@ -28,7 +29,7 @@ COMPONENT('empty', 'icon:fa fa-database;parent:parent;margin:0;wait:1', function
 				self.resize();
 		});
 
-		self.rclass('hidden invisible');
+		self.rclass('hidden');
 	};
 
 	self.resize = function() {
@@ -39,6 +40,12 @@ COMPONENT('empty', 'icon:fa fa-database;parent:parent;margin:0;wait:1', function
 
 		if (config.height) {
 			table.css('height', config.height);
+
+			if (invisible) {
+				self.rclass('invisible', 100);
+				invisible = false;
+			}
+
 			return;
 		}
 
@@ -52,11 +59,17 @@ COMPONENT('empty', 'icon:fa fa-database;parent:parent;margin:0;wait:1', function
 			wh -= self.element.position().top;
 
 		table.css('height', wh < 100 ? 'auto' : wh - config.margin);
+
+		if (invisible) {
+			self.rclass('invisible', 100);
+			invisible = false;
+		}
+
 	};
 
 	self.setter = function(value, path, type) {
 
-		if (type === 0 && config.wait)
+		if (!value && type === 0 && config.wait)
 			return;
 
 		visible = false;
