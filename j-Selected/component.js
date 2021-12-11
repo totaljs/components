@@ -23,7 +23,7 @@ COMPONENT('selected', 'class:selected;selector:a;attr:if;attror:or;delay:50', fu
 		self.find(config.selector).each(function() {
 			var el = $(this);
 			var or = el.attrd(config.attror) || '';
-			if (el.attrd(config.attr) === value || (or && or.indexOf(value) !== -1))
+			if (el.attrd(config.attr) === value || (or && value.indexOf(or) !== -1))
 				el.aclass(cls);
 			else
 				el.hclass(cls) && el.rclass(cls);
