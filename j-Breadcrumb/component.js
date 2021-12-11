@@ -1,4 +1,4 @@
-COMPONENT('breadcrumb', 'icon:fa fa-home;historyapi:1;root:Root', function(self, config, cls) {
+COMPONENT('breadcrumb', 'icon:fa fa-home;historyapi:1;root:Root;rooturl:/', function(self, config, cls) {
 
 	var nav;
 
@@ -34,7 +34,7 @@ COMPONENT('breadcrumb', 'icon:fa fa-home;historyapi:1;root:Root', function(self,
 	self.add = function(name, url, callback) {
 		var arr = [];
 
-		config.root && arr.push({ name: config.root, url: '/' });
+		config.root && arr.push({ name: config.root, url: config.rooturl });
 
 		var fn = function(name, url, callback) {
 			if (name && url)
