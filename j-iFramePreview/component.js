@@ -11,34 +11,42 @@ COMPONENT('iframepreview', function(self, config, cls) {
 		iframe = self.find('iframe');
 	};
 
+	self.destroy = function() {
+		iframe = null;
+	};
+
 	self.write = function(content) {
+		var win = iframe && iframe[0] ? iframe[0].contentWindow : null;
+		if (win) {
 
-		var is = false;
-		var offset = '<div id="IFPOFFSET"></div>';
+			var is = false;
+			var offset = '<div id="IFPOFFSET"></div>';
 
-		content = content.replace(/<\/body>/i, function() {
-			is = true;
-			return offset + '</body>';
-		});
+			content = content.replace(/<\/body>/i, function() {
+				is = true;
+				return offset + '</body>';
+			});
 
-		if (!is)
-			content += offset;
+			if (!is)
+				content += offset;
 
-		var doc = iframe[0].contentWindow.document;
-		doc.open();
-		doc.write(content);
-		doc.close();
-		self.resize();
-		setTimeout(self.resize, 500);
-		setTimeout(self.resize, 1000);
-		setTimeout(self.resize, 2000);
-		setTimeout(self.resize, 3000);
+			var doc = win.document;
+			doc.open();
+			doc.write(content);
+			doc.close();
+			self.resize();
+			setTimeout(self.resize, 500);
+			setTimeout(self.resize, 1000);
+			setTimeout(self.resize, 2000);
+			setTimeout(self.resize, 3000);
+		}
 	};
 
 	self.resize = function() {
-		if (iframe && iframe[0] && iframe[0].contentWindow) {
-			var el = $(iframe[0].contentWindow.document.getElementById('IFPOFFSET'));
-			if (el) {
+		var win = iframe && iframe[0] ? iframe[0].contentWindow : null;
+		if (win) {
+			var el = $(win.document.getElementById('IFPOFFSET'));
+			if (el.length) {
 				var offset = el.offset();
 				if (offset) {
 					self.element.css('height', offset.top);
