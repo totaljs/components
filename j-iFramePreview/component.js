@@ -36,13 +36,15 @@ COMPONENT('iframepreview', function(self, config, cls) {
 	};
 
 	self.resize = function() {
-		var el = $(iframe[0].contentWindow.document.getElementById('IFPOFFSET'));
-		if (el) {
-			var offset = el.offset();
-			if (offset) {
-				self.element.css('height', offset.top);
-				if (offset.top == 0)
-					setTimeout(self.resize, 1000);
+		if (iframe && iframe[0] && iframe[0].contentWindow) {
+			var el = $(iframe[0].contentWindow.document.getElementById('IFPOFFSET'));
+			if (el) {
+				var offset = el.offset();
+				if (offset) {
+					self.element.css('height', offset.top);
+					if (offset.top == 0)
+						setTimeout(self.resize, 1000);
+				}
 			}
 		}
 	};
