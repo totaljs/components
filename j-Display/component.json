@@ -1,11 +1,10 @@
 {
-	"datecreated": "2016-03-11T18:07:56.072Z",
-	"dateupdated": "2021-10-06T19:25:00.000Z",
-	"name": "j-Centered",
+	"datecreated": "2021-12-21T17:54:00.000Z",
+	"dateupdated": null,
+	"name": "j-Display",
 	"tags": [
-		"centered",
-		"window",
-		"modal"
+		"display",
+		"responsive"
 	],
 	"color": "white",
 	"darkmode": 1,
