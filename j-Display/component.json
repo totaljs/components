@@ -1,0 +1,19 @@
+{
+	"datecreated": "2016-03-11T18:07:56.072Z",
+	"dateupdated": "2021-10-06T19:25:00.000Z",
+	"name": "j-Centered",
+	"tags": [
+		"centered",
+		"window",
+		"modal"
+	],
+	"color": "white",
+	"darkmode": 1,
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
