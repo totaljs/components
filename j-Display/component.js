@@ -8,7 +8,7 @@ COMPONENT('display', 'delay:100', function(self, config, cls) {
 	self.make = function() {
 		self.aclass(cls);
 		self.resizeforce();
-		self.on('resize', self.resize);
+		self.on('resize + resize2', self.resize);
 	};
 
 	self.resizeforce = function() {
