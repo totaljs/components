@@ -144,6 +144,7 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 
 		options['z-index'] = opt.config.zindex || (config.zindex + open.length + 1);
 		opt.box.css(options);
+		opt.box.SETTER('*/resize');
 
 		setTimeout(animate, 50, opt.box);
 
