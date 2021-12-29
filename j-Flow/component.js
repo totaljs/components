@@ -1928,30 +1928,34 @@ EXTENSION('flow:commands', function(self, config, cls) {
 
 	self.command('flow.zoom', function(type, value) {
 
-		switch (type) {
-			case 'in':
-				if (value)
-					zoom = value / 100;
-				else
-					zoom += 0.05;
-				break;
-			case 'out':
-				if (value)
-					zoom = value / 100;
-				else
-					zoom -= 0.05;
-				break;
-			case 'reset':
-				zoom = 1;
-				break;
+		if (typeof(type) === 'number') {
+			zoom = type / 100;
+		} else {
+			switch (type) {
+				case 'in':
+					if (value)
+						zoom = value / 100;
+					else
+						zoom += 0.05;
+					break;
+				case 'out':
+					if (value)
+						zoom = value / 100;
+					else
+						zoom -= 0.05;
+					break;
+				case 'reset':
+					zoom = 1;
+					break;
+			}
 		}
 
-		if (zoom < 0.3 || zoom > 1.7)
-			return;
+		if (zoom >= 0.3 || zoom <= 1.7) {
+			self.info.zoom = 100 * zoom;
+			self.op.refreshinfo();
+			self.element.css('transform', 'scale({0})'.format(zoom));
+		}
 
-		self.info.zoom = 100 * zoom;
-		self.op.refreshinfo();
-		self.element.css('transform', 'scale({0})'.format(zoom));
 	});
 
 	self.command('flow.undo', function() {
