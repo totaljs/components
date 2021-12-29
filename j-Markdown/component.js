@@ -75,10 +75,10 @@ COMPONENT('markdown', function (self) {
 
 			for (var i = 0; i < columns.length; i++) {
 				var column = columns[i].trim();
-				if (column.charAt(0) == '-')
-					continue;
-				var a = align[i];
-				builder += '<' + (ishead ? 'th' : 'td') + (a && a !== 'left' ? (' class="' + a + '"') : '') + '>' + column + '</' + (ishead ? 'th' : 'td') + '>';
+				if (column.charAt(0) != '-') {
+					var a = align[i];
+					builder += '<' + (ishead ? 'th' : 'td') + (a && a !== 'left' ? (' class="' + a + '"') : '') + '>' + column + '</' + (ishead ? 'th' : 'td') + '>';
+				}
 			}
 
 			return '<tr>' + builder + '</tr>';
@@ -423,7 +423,7 @@ COMPONENT('markdown', function (self) {
 			var table = false;
 			var iscode = false;
 			var isblock = false;
-			var ishead = false;
+			var ishead = 0;
 			var isprevblock = false;
 			var prev;
 			var prevsize = 0;
@@ -686,34 +686,46 @@ COMPONENT('markdown', function (self) {
 
 				if (line[0] === '|') {
 					closeul();
+
 					if (!table) {
 						var next = lines[i + 1];
 						if (next[0] === '|') {
-							table = [];
-							var columns = next.substring(1, next.length - 1).split('|');
-							for (var j = 0; j < columns.length; j++) {
-								var column = columns[j].trim();
-								var align = 'left';
-								if (column.charAt(column.length - 1) === ':')
-									align = column[0] === ':' ? 'center' : 'right';
-								table.push(align);
+							if (next.indexOf('--') === -1) {
+								if (opt.tables !== false)
+									builder.push('<table class="table table-bordered"><thead>');
+								table = [];
+								prev = 'table';
+								ishead = 2;
+							} else {
+								table = [];
+								var columns = next.substring(1, next.length - 1).split('|');
+								for (var j = 0; j < columns.length; j++) {
+									var column = columns[j].trim();
+									var align = 'left';
+									if (column.charAt(column.length - 1) === ':')
+										align = column[0] === ':' ? 'center' : 'right';
+									table.push(align);
+								}
+								if (opt.tables !== false)
+									builder.push('<table class="table table-bordered"><thead>');
+								prev = 'table';
+								ishead = 1;
+								i++;
 							}
-							if (opt.tables !== false)
-								builder.push('<table class="table table-bordered"><thead>');
-							prev = 'table';
-							ishead = true;
-							i++;
 						} else
 							continue;
 					}
 
 					if (opt.tables !== false) {
-						if (ishead)
+						if (ishead === 1)
 							builder.push(markdown_table(line, table, true) + '</thead><tbody>');
+						else if (ishead === 2)
+							builder.push('<tbody>' + markdown_table(line, table));
 						else
 							builder.push(markdown_table(line, table));
 					}
-					ishead = false;
+
+					ishead = 0;
 					continue;
 				}
 
