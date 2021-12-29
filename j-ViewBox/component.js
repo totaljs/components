@@ -82,6 +82,7 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;initdelay:250;scrollbar:1;v
 			if (config.scrollbar) {
 				if (MAIN.version > 17) {
 					scrollbar = W.SCROLLBAR(self.find(cls2 + '-body'), { shadow: config.scrollbarshadow, visibleY: config.visibleY, visibleX: config.visibleX, orientation: config.visibleX ? null : 'y', parent: self.element });
+					self.scrollbar = scrollbar;
 					self.scrolltop = scrollbar.scrollTop;
 					self.scrollbottom = scrollbar.scrollBottom;
 				} else
