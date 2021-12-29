@@ -97,7 +97,7 @@ COMPONENT('shortcuts', function(self) {
 
 	self.exec = function(shortcut) {
 		var item = items.findItem('shortcut', shortcut.toLowerCase().replace(/\s/g, ''));
-		item && item.callback(EMPTYOBJECT, item.owner);
+		item && item.callback(null, item.owner);
 	};
 
 	self.register = function(shortcut, callback, prevent, owner) {
