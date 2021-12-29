@@ -1,4 +1,4 @@
-COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;initdelay:250;scrollbar:0;visibleY:1;height:100;invisible:1', function(self, config, cls) {
+COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;initdelay:250;scrollbar:1;visibleY:1;height:100;invisible:1', function(self, config, cls) {
 
 	var eld, elb;
 	var scrollbar;
