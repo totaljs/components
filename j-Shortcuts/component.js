@@ -103,6 +103,9 @@ COMPONENT('shortcuts', function(self) {
 	self.register = function(shortcut, callback, prevent, owner) {
 
 		var currentkeys = issession ? keys_session : keys;
+		var ismac = M.ua.os.toLowerCase() === 'mac';
+		var special = ismac ? 'metaKey' : 'ctrlKey';
+		var specialindex = ismac ? 3 : 0;
 
 		shortcut.split(',').trim().forEach(function(shortcut) {
 
@@ -172,13 +175,42 @@ COMPONENT('shortcuts', function(self) {
 						cachekey[5] = 46;
 						return;
 					case 'save':
-						builder.push('(e.metaKey&&e.keyCode===83)');
-						cachekey[3] = 1;
+						builder.push('(e.{0}&&e.keyCode===83)'.format(special));
+						cachekey[specialindex] = 1;
 						cachekey[5] = 83;
 						return;
 					case 'remove':
-						builder.push('((e.metaKey&&e.keyCode===8)||e.keyCode===46)');
+						builder.push('((e.{0}&&e.keyCode===8)||e.keyCode===46)'.format(special));
 						cachekey[5] = -1;
+						return;
+					case 'clone':
+						builder.push('(e.{0}&&e.keyCode===68)'.format(special));
+						cachekey[specialindex] = 1;
+						cachekey[5] = 68;
+						return;
+					case 'selectall':
+						builder.push('(e.{0}&&e.keyCode===65)'.format(special));
+						cachekey[specialindex] = 1;
+						cachekey[5] = 65;
+						return;
+					case 'copy':
+						builder.push('(e.{0}&&e.keyCode===67)'.format(special));
+						cachekey[specialindex] = 1;
+						cachekey[5] = 67;
+						return;
+					case 'undo':
+						builder.push('(e.{0}&&e.keyCode===90)'.format(special));
+						cachekey[specialindex] = 1;
+						cachekey[5] = 90;
+						return;
+					case 'redo':
+						builder.push('(e.{0}&&e.shiftKey&&e.keyCode===90)'.format(special));
+						cachekey[specialindex] = 1;
+						cachekey[5] = 90;
+						return;
+					case 'refresh':
+						builder.push('e.key===\'F5\'');
+						cachekey[5] = 116;
 						return;
 					case 'up':
 						builder.push('e.keyCode===38');

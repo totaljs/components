@@ -22,6 +22,10 @@ __Shortcuts__:
 - `ins`
 - `remove` means`backspace` or `delete`
 - `save`
+- `selectall`
+- `clone`
+- `undo`
+- `redo`
 -  supports `.shortcut`, read more below
 
 __Example__:
