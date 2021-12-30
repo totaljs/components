@@ -53,26 +53,26 @@
 .listing figure { cursor: pointer; }
 .listing figure > section { margin: -1px 10px 0; border-bottom: 1px solid #E0E0E0; padding: 10px 0; }
 .listing figure:first-child section { margin-top: 0; }
-.listing figure:hover { background-color: #F0F0F0; border-radius: var(--radius); }
-.listing figure:hover > section { border-bottom-color: transparent; }
+.listing figure.selected, .listing figure:hover { background-color: #F0F0F0; border-radius: var(--radius); }
+.listing figure.selected > section, .listing figure:hover > section { border-bottom-color: transparent; }
 .listing figure:last-child > section { border-bottom-color: transparent; }
 
 .ui-dark .listing figure > section { border-color: #303030; }
-.ui-dark .listing figure:hover > section { background-color: #303030; }
+.ui-dark .listing figure.selected > section, .ui-dark .listing figure:hover > section { background-color: #303030; }
+.ui-dark .listing figure.selected, .ui-dark .listing figure:hover { background-color: #303030; }
 .ui-dark .listing figure:last-child > section { border-bottom-color: transparent; }
-.ui-dark .listing figure:hover { background-color: #303030; }
 
 .listing2 figure { cursor: pointer; background-color: rgba(0,0,0,0.05); margin-bottom: 2px; border-radius: var(--radius); }
 .listing2 figure > section { padding: 10px; }
 .listing2 figure:first-child section { margin-top: 0; }
-.listing2 figure:hover { background-color: rgba(0,0,0,0.08); }
-.listing2 figure:hover > section { border-bottom-color: transparent; }
+.listing2 figure.selected, .listing2 figure:hover { background-color: rgba(0,0,0,0.08); }
+.listing2 figure.selected > section, .listing2 figure:hover > section { border-bottom-color: transparent; }
 .listing2 figure:last-child > section { border-bottom-color: transparent; }
 
 .ui-dark .listing2 figure > section { border-color: #303030; }
-.ui-dark .listing2 figure:hover > section { background-color: #303030; }
+.ui-dark .listing2 figure.selected > section, .ui-dark .listing2 figure:hover > section { background-color: #303030; }
+.ui-dark .listing2 figure.selected, .ui-dark .listing2 figure:hover { background-color: #303030; }
 .ui-dark .listing2 figure:last-child > section { border-bottom-color: transparent; }
-.ui-dark .listing2 figure:hover { background-color: #303030; }
 
 .configuration { background-color: #FFF; border-radius: var(--radius); border: 1px solid #E0E0E0; }
 .configuration p { margin: 0 0 15px 0; font-size: 13px; padding: 0; color: #666; }
