@@ -53,8 +53,8 @@
 .listing figure { cursor: pointer; }
 .listing figure > section { margin: -1px 10px 0; border-bottom: 1px solid #E0E0E0; padding: 10px 0; }
 .listing figure:first-child section { margin-top: 0; }
-.listing figure:hover { background-color: #F0F0F0; border-radius: var(--radius); }
 .listing figure.selected { background-color: #F8F8F8; border-radius: var(--radius); }
+.listing figure:hover { background-color: #F0F0F0; border-radius: var(--radius); }
 .listing figure.selected > section, .listing figure:hover > section { border-bottom-color: transparent !important; }
 .listing figure:last-child > section { border-bottom-color: transparent; }
 
