@@ -106,7 +106,7 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 
 					fn = function(obj) {
 						if (config.create || !config.default)
-							SETR(self.ID, obj);
+							SET('{0} @reset'.format(self.ID), obj);
 						else
 							DEFAULT(self.ID + '__{}');
 						self.edit();
@@ -229,7 +229,7 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 			}
 			form.$target = el;
 			form.$data = el.$data;
-			SETR(self.ID, CLONE(el.$data));
+			SET('{0} @reset'.format(self.ID), CLONE(el.$data));
 			$(el).aclass(cls + '-selected');
 		} else {
 			parent = container[0];
