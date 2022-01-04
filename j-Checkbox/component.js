@@ -27,7 +27,7 @@ COMPONENT('checkbox', function(self, config, cls) {
 
 	self.make = function() {
 		self.aclass(cls);
-		self.html('<div><i class="fa fa-{2}"></i></div><span{1}>{0}</span>'.format(config.label || self.html(), config.required ? (' class="' + cls + '-label-required"') : '', config.checkicon || 'check'));
+		self.html('<span><i class="fa fa-{2}"></i></span><label{1}>{0}</label>'.format(config.label || self.html(), config.required ? (' class="' + cls + '-label-required"') : '', config.checkicon || 'check'));
 		config.disabled && self.aclass('ui-disabled');
 		self.event('click', function() {
 			if (!config.disabled) {
