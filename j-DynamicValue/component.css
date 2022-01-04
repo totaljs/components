@@ -1,16 +1,15 @@
-.ui-dynamicvalue-label { margin-bottom: 3px; font-size: 12px; text-align: left; }
+.ui-dynamicvalue-label { margin-bottom: 3px; font-size: 12px; text-align: left; color: #777; }
 .ui-dynamicvalue-label i { margin-right: 5px; }
-.ui-dynamicvalue { height: 32px; border: 1px solid #E0E0E0; border-radius: var(--radius); background-color: #FFF; cursor: pointer; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
-.ui-dynamicvalue-value { cursor: pointer; display: block; padding: 8px 7px 0 5px; margin-right: 32px; user-select: none; font: normal 13px Arial; color: gray; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
-.ui-dynamicvalue-icon { color: #000; cursor: pointer; width: 32px; float: right; border-left: 1px solid #E0E0E0; height: 30px; text-align: center; padding: 0; line-height: 30px; }
+.ui-dynamicvalue { height: 36px; border: 1px solid #E0E0E0; border-radius: var(--radius); background-color: #FFF; cursor: pointer; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+.ui-dynamicvalue-value { cursor: pointer; display: block; padding: 0 0 0 8px; margin-right: 36px; user-select: none; font: normal 13px Arial; color: gray; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; line-height: 35px; }
+.ui-dynamicvalue-icon { color: #000; cursor: pointer; width: 36px; float: right; border-left: 1px solid #E0E0E0; text-align: center; padding: 0; line-height: 35px; }
 .ui-dynamicvalue-is .ui-dynamicvalue-value { color: #000; }
-.ui-dynamicvalue-is .fa-times { color: red; width: 31px; display: block; height: 30px; line-height: 30px; }
-.ui-dynamicvalue-required .ui-dynamicvalue-label { font-weight: bold; }
-.ui-dynamicvalue-required .ui-dynamicvalue-label:before { color: red; content: '***'; margin-right: 5px; }
+.ui-dynamicvalue-is .fa-times { color: red; width: 35px; display: block; line-height: 35px; }
+.ui-dynamicvalue-required .ui-dynamicvalue-label:before { color: red; content: '*'; margin-right: 3px; }
 .ui-dynamicvalue-required .ui-dynamicvalue-icon { border-left-color: #D0D0D0; }
 .ui-dynamicvalue-required .ui-dynamicvalue { border-color: #D0D0D0; }
 .ui-dynamicvalue-invalid .ui-dynamicvalue { border: 1px solid red; }
-.ui-dynamicvalue-invalid .ui-dynamicvalue-icon { border-left-color: red; color: red; }
+.ui-dynamicvalue-invalid .ui-dynamicvalue-icon { border-left-color: red; }
 
 .ui-disabled .ui-dynamicvalue * { cursor: not-allowed; }
 .ui-disabled .ui-dynamicvalue { background-color: #F0F0F0; }
