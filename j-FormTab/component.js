@@ -95,7 +95,7 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 			var template = '<div data-id="{4}" class="invisible {0}-modal{8}"><div class="{0}-title"><i class="fa fa-times {0}-op" data-name="close"></i><i class="fa fa-expand-arrows-alt {0}-op{9}" data-name="maximize"></i><i class="fa fa-minus {0}-op{9}" data-name="minimize"></i><label>{3}</label></div><div class="{0}-body" data-scope="{2}" data-id="{4}" style="width:{5}px;min-height:{6}px">{7}</div></div>'.format(cls, self.ID, scope, obj.name, obj.id, config.width, config.height, self.template(obj), (obj.minimized ? '' : (' ' + cls + '-open')) + maximized, (ismobile ? ' hidden-xs' : ''));
 
 			if (obj.data)
-				SETR(scope, CLONE(obj.data));
+				SET('{0} @reset'.format(scope), CLONE(obj.data));
 
 			self.append(template);
 			self.resize2();
