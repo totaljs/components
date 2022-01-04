@@ -2069,7 +2069,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			if (type === 'number') {
 
 				if (val2 == null)
-					val2 = opt.filtercache[column] = self.parseNumber(filter);
+					val2 = opt.filtercache[column] = typeof(filter) === 'number' ? filter : self.parseNumber(filter + '');
 
 				if (val2.length === 1 && val !== val2[0])
 					return false;
