@@ -121,8 +121,9 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 					break;
 
 				case 'submit':
+				case 'update':
 
-					tmp = GETR(self.ID);
+					tmp = GET('{0} @reset'.format(self.ID));
 					fn = function(tmp) {
 						if (tmp) {
 
@@ -143,8 +144,8 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 						self.cancel();
 					};
 
-					if (config.submit)
-						EXEC(self.makepath(config.submit), tmp, fn);
+					if (config[this.name])
+						EXEC(self.makepath(config[this.name]), tmp, fn);
 					else
 						fn(tmp);
 

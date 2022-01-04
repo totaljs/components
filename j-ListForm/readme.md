@@ -12,6 +12,7 @@ __Configuration__:
 - `itemclass` {String} a custom class for item container
 - `create` {String} a link to a function `function(callback(DEFAULT_ITEM_OBJECT))`
 - `submit` {String} a link to a function `function(form_data, callback(NEW_DATA))`
+- `update` {String} a link to a function `function(form_data, callback(NEW_DATA))`
 - `remove` {String} a link to a function `function(remove_item, callback(really_remove?))`
 - `selector` {String} a jQuery selector for custom template (outside of the component). Works like `custom template` in [data-binding](https://wiki.totaljs.com/jcomponent/08-data-binding/)
 
@@ -26,6 +27,7 @@ __Good to know:__
 The component watches a click event on all buttons with `name` attribute:
 
 - `name="submit"` performs submit/save of data to the model
+- `name="update"` performs submit/save of data to the model
 - `name="remove"` removes the current item from the model
 - `name="cancel"` cancels editing
 - `name="create"` creates an empty form
