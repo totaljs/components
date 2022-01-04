@@ -58,7 +58,7 @@ COMPONENT('exec', function(self, config) {
 					EXEC(attr, el, e);
 				}
 
-				href && NAV.redirect(href);
+				href && REDIRECT(href);
 
 				if (def) {
 					if (def.indexOf('?') !== -1)
