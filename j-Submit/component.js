@@ -46,7 +46,7 @@ COMPONENT('submit', 'delay:100;flags:visible;loading:1;default:1;messages:1;bloc
 			return;
 
 		var modified = MODIFIED(self.path);
-		var data = CLONE(GETR(self.path));
+		var data = CLONE(GET('{0} @reset'.format(self.path)));
 		var isnewbie = config.newbie && FN(config.newbie)(data);
 		var url = (isnewbie ? config.create : config.update) || config.url;
 
