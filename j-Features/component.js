@@ -228,6 +228,7 @@ COMPONENT('features', 'height:35', function(self, config, cls) {
 		if (is)
 			return;
 
+		isMOBILE && self.find(cls2).css({ left: '30px', width: WW - (30 * 2) });
 		self.rclass('hidden');
 		self.aclass(cls + '-visible', 100);
 
