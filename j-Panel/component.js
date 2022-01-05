@@ -75,6 +75,7 @@ COMPONENT('panel', 'width:350;icon:home;zindex:12;scrollbar:true;scrollbarY:true
 		var el = self.element.find(cls2 + '-body');
 		var h = WH - self.find(cls2 + '-header').height() - (config.padding * 2);
 		el.height(h);
+		self.find(cls2).css('max-width', isMOBILE ? WW - 40 : '');
 		config.container && el.find(config.container).height(h - config.margin);
 		self.scrollbar && self.scrollbar.resize();
 	};
@@ -93,7 +94,7 @@ COMPONENT('panel', 'width:350;icon:home;zindex:12;scrollbar:true;scrollbarY:true
 		self.rclass('hidden');
 		self.replace(el, true);
 
-		if (config.scrollbar && window.SCROLLBAR) {
+		if (config.scrollbar && W.SCROLLBAR) {
 			if (config.container)
 				body = body.find(config.container);
 			self.scrollbar = SCROLLBAR(body, { shadow: config.scrollbarshadow, visibleY: !!config.scrollbarY, orientation: 'y' });
