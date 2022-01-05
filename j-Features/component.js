@@ -33,7 +33,7 @@ COMPONENT('features', 'height:35', function(self, config, cls) {
 		search = self.find(cls2);
 		scroller = self.find(cls2 + '-container');
 
-		self.event('touchstart mousedown', 'li[data-index]', function(e) {
+		self.event('click', 'li[data-index]', function(e) {
 			self.callback && self.callback(self.items[+this.getAttribute('data-index')]);
 			self.hide();
 			e.preventDefault();
@@ -41,7 +41,8 @@ COMPONENT('features', 'height:35', function(self, config, cls) {
 		});
 
 		$(document).on('touchstart mousedown', function(e) {
-			is && !$(e.target).hclass(cls + '-search-input') && self.hide(0);
+			if (is && e.target.tagName !== 'INPUT' && !container[0].contains(e.target))
+				self.hide(0);
 		});
 
 		$(W).on('resize', function() {
