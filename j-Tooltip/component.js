@@ -25,6 +25,9 @@ COMPONENT('tooltip', function(self, config, cls) {
 			can = false;
 			setTimeout2(self.ID + 'can', self.enable, 1000);
 		});
+		$(document).on('click', function() {
+			self.hide(true);
+		});
 	};
 
 	self.hide = function(force) {
