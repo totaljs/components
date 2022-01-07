@@ -2,6 +2,7 @@ COMPONENT('tooltip', function(self, config, cls) {
 
 	var is = false;
 	var can = true;
+	var prev;
 
 	self.singleton();
 	self.readonly();
@@ -12,10 +13,16 @@ COMPONENT('tooltip', function(self, config, cls) {
 		can = true;
 	};
 
+	var prevcleaner = function() {
+		prev = null;
+	};
+
 	self.hideforce = function() {
+		prev = self.opt.element[0];
 		self.aclass('hidden');
 		self.rclass(cls + '-visible');
 		is = false;
+		setTimeout2(self.ID + 'prev', prevcleaner, 1000);
 	};
 
 	self.make = function() {
@@ -25,6 +32,7 @@ COMPONENT('tooltip', function(self, config, cls) {
 			can = false;
 			setTimeout2(self.ID + 'can', self.enable, 1000);
 		});
+
 		$(document).on('click', function() {
 			self.hide(true);
 		});
@@ -40,6 +48,9 @@ COMPONENT('tooltip', function(self, config, cls) {
 			return;
 
 		var tmp = opt.element ? opt.element instanceof jQuery ? opt.element[0] : opt.element.element ? opt.element.dom : opt.element : null;
+
+		if (prev === tmp)
+			return;
 
 		if (is && tmp && self.target === tmp) {
 			self.hide();
