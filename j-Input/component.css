@@ -49,7 +49,7 @@
 .ui-input-inner .ui-input-increment { padding: 8px 0 0; }
 .ui-input-inner .ui-input-increment i { line-height: 10px; }
 .ui-input-masked input { letter-spacing: 1px; font-family: Menlo,Consolas,monospace; }
-.ui-input-monospace input { font-family: Menlo,Consolas,monospace; }
+.ui-input-monospace input, .ui-input-monospace textarea { font-family: Menlo,Consolas,monospace; }
 .ui-input-icon-custom { font-size: 11px; }
 .ui-input-inner .ui-input-value { line-height: 13px; height: 14px; margin-top: 3px; font-size: 13px !important; }
 .ui-input-type-icon .ui-input-value, .ui-input-type-emoji .ui-input-value { font-size: 15px; }
