@@ -1,3 +1,4 @@
+.ui-datepicker-container { position: absolute; left: 0; right: 0; bottom: 0; top: 0; z-index: 99; }
 .ui-datepicker { font-size: 12px; width: 247px; height: 300px; position: absolute; background-color: #FFF; border: 1px solid #E0E0E0; left: 100px; top: 100px; border-radius: var(--radius); z-index: 100; color: gray; box-shadow: 0 5px 25px rgba(0,0,0,0.1); opacity: 0; transform: scale(0.6); transition: all 0.2s; }
 .ui-datepicker-visible { transform: scale(1); opacity: 1; }
 .ui-datepicker-disabled { color: silver !important; cursor: pointer; }

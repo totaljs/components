@@ -5,6 +5,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 	var visible = false;
 	var current;
 	var elyears, elmonths, elbody;
+	var main;
 
 	self.days = EMPTYARRAY;
 	self.days_short = EMPTYARRAY;
@@ -246,10 +247,10 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 		opt.scope = M.scope ? M.scope() : '';
 		self.opt = opt;
 		self.time = dt.format('HH:mm:ss');
-		self.css({ left: l, top: t });
 		self.rclass('hidden');
 		self.date(dt);
-		self.aclass(cls + '-visible', 50);
+		main.css({ left: l, top: t });
+		main.aclass(cls + '-visible', 50);
 		self.bindevents();
 		self.target = dom;
 		visible = true;
@@ -268,14 +269,14 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 		self.opt.scope && M.scope(self.opt.scope);
 
 		if (typeof(self.opt.value) === 'string')
-			SET2(self.opt.value, dt);
+			SET(self.opt.value + ' @change', dt);
 		else
 			self.opt.callback(dt);
 	};
 
 	self.make = function() {
 
-		self.aclass(cls + ' hidden');
+		self.aclass(cls + '-container hidden');
 
 		var conf = {};
 		var reconfigure = false;
@@ -311,13 +312,18 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 
 		self.bindevents = function() {
 			if (!visible)
-				$(W).on('scroll click', hide2);
+				$(W).on('scroll', hide2);
 		};
 
 		self.unbindevents = function() {
 			if (visible)
-				$(W).off('scroll click', hide2);
+				$(W).off('scroll', hide2);
 		};
+
+		self.element.on('click', function(e) {
+			if (e.target === self.dom)
+				hide();
+		});
 
 		self.on('reflow + scroll + resize + resize2', hide);
 	};
@@ -332,7 +338,9 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 		for (var i = 0; i < 42; i++)
 			builder.push('<div class="{0}-date"><div></div></div>'.format(cls, i));
 		builder.push('</div></div><div class="{0}-footer"><span class="{0}-now">{2}</span></div>'.format(cls, config.close, config.today));
-		self.html(builder.join(''));
+
+		self.html('<div class="{0}">{1}</div>'.format(cls, builder.join('')));
+		main = $(self.find(cls2)[0]);
 
 		builder = [];
 		elbody = self.find(cls2 + '-body');
