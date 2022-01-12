@@ -9,6 +9,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 	var templateraw = template.format(templateR);
 	var regstrip = /(&nbsp;|<([^>]+)>)/ig;
 	var parentclass = null;
+	var main;
 
 	template = template.format(templateE);
 
@@ -36,8 +37,10 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 
 	self.make = function() {
 
-		self.aclass(cls + ' hidden');
-		self.append('<div class="{1}-search"><span class="{1}-add hidden"><i class="fa fa-plus"></i></span><span class="{1}-button"><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" name="dir{2}" autocomplete="new-password" /></div></div><div class="{1}-container"><ul></ul></div>'.format(config.placeholder, cls, Date.now()));
+		self.aclass('hidden ' + cls + '-area');
+		self.append('<div class="{1}"><div class="{1}-search"><span class="{1}-add hidden"><i class="fa fa-plus"></i></span><span class="{1}-button"><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" name="dir{2}" autocomplete="new-password" /></div></div><div class="{1}-container"><ul></ul></div></div>'.format(config.placeholder, cls, Date.now()));
+
+		main = self.find(cls2);
 		container = self.find('ul');
 		input = self.find('input');
 		icon = self.find(cls2 + '-button').find('.fa');
@@ -55,6 +58,11 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 					}
 				}
 			}
+		});
+
+		self.element.on('click', function(e) {
+			if (e.target === self.dom)
+				self.hide(1);
 		});
 
 		self.event('focus', 'input', function() {
@@ -178,7 +186,6 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 
 		self.bindevents = function() {
 			if (!self.bindedevents) {
-				$(document).on('click', e_click);
 				$(W).on('resize', e_resize);
 				self.bindedevents = true;
 			}
@@ -187,7 +194,6 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		self.unbindevents = function() {
 			if (self.bindedevents) {
 				self.bindedevents = false;
-				$(document).off('click', e_click);
 				$(W).off('resize', e_resize);
 			}
 		};
@@ -433,7 +439,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		}
 
 		if (opt.classname) {
-			self.aclass(opt.classname);
+			main.aclass(opt.classname);
 			parentclass = opt.classname;
 		}
 
@@ -479,7 +485,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		self.tclass(cls + '-search-hidden', opt.search === false);
 
 		self.opt = opt;
-		opt.class && self.aclass(opt.class);
+		opt.class && main.aclass(opt.class);
 
 		input.val('');
 
@@ -582,12 +588,15 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		var restrict = true;
 
 		while (dom) {
+
 			if (dom.tagName === 'BODY') {
 				restrict = false;
 				break;
 			}
+
 			if (dom.classList.contains('ui-scrollbar-area'))
 				break;
+
 			dom = dom.parentNode;
 		}
 
@@ -596,7 +605,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		else if (restrict && (mh + options.top) > WH)
 			options.top = (WH - mh) - 10;
 
-		self.css(options);
+		main.css(options);
 
 		!isMOBILE && setTimeout(function() {
 			ready = true;
@@ -630,7 +639,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 
 		setTimeout(function() {
 			if (self.opt && self.target && self.target.offsetParent)
-				self.aclass(cls + '-visible');
+				main.aclass(cls + '-visible');
 			else
 				self.hide(1);
 		}, 100);
