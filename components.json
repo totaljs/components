@@ -261,5 +261,6 @@
 	"j-FloatingBox",
 	"j-Validate",
 	"j-Display",
-	"j-InlineDatePicker"
+	"j-InlineDatePicker",
+	"j-Box"
 ]

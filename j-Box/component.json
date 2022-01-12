@@ -1,0 +1,20 @@
+{
+	"datecreated": "2022-01-12T20:14:00.000Z",
+	"dateupdated": null,
+	"name": "j-Box",
+	"tags": [
+		"large",
+		"full",
+		"form",
+		"modal"
+	],
+	"color": "white",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
