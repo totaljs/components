@@ -6,6 +6,7 @@
 
 	function loadcontent(id, next) {
 		// next(html/element)
+		console.log('LOAD:', id);
 		next('<div>{0}</div>'.format(id));
 	}
 
