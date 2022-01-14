@@ -1282,6 +1282,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 		// self.scrollbar.scroll(0, 0);
 	};
 
+	var cssnameindex = 0;
+
 	self.rebindcss = function() {
 
 		var cols = opt.cols;
@@ -1304,7 +1306,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			}
 		}
 
-		CSS(css, self.ID);
+		var previd = cssnameindex;;
+		CSS(css, self.ID + (cssnameindex++));
+		previd && $('#css' + self.ID + cssnameindex).remove();
 
 		var w = self.width();
 		if (w > opt.width)
