@@ -262,5 +262,6 @@
 	"j-Validate",
 	"j-Display",
 	"j-InlineDatePicker",
-	"j-Box"
+	"j-Box",
+	"j-NoScrollbar"
 ]
