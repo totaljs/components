@@ -263,5 +263,6 @@
 	"j-Display",
 	"j-InlineDatePicker",
 	"j-Box",
-	"j-NoScrollbar"
+	"j-NoScrollbar",
+	"j-Stash"
 ]
