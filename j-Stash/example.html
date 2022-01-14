@@ -1,0 +1,28 @@
+<div data---="stash__common.id__load:loadcontent"></div>
+
+<script>
+
+	var common = {};
+
+	function loadcontent(id, next) {
+		// next(html/element)
+		next('<div>{0}</div>'.format(id));
+	}
+
+	setTimeout(function() {
+		SET('common.id', 'component_settings_1');
+	}, 1000);
+
+	setTimeout(function() {
+		SET('common.id', 'component_settings_2');
+	}, 3000);
+
+	setTimeout(function() {
+		SET('common.id', 'component_settings_3');
+	}, 6000);
+
+	setTimeout(function() {
+		SET('common.id', 'component_settings_1');
+	}, 9000);
+
+</script>

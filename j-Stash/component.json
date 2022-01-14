@@ -1,0 +1,17 @@
+{
+	"datecreated": "2022-01-14T20:49:00.000Z",
+	"dateupdated": null,
+	"name": "j-Stash",
+	"tags": [
+		"stash",
+		"repository"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Denis Granec",
+	"email": "denis@granec.cz",
+	"license": "https://www.totaljs.com/license/"
+}
