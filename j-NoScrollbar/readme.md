@@ -1,6 +1,6 @@
 ## j-NoScrollbar
 
-- great usage for intranet applications
+- this component is something like `j-ViewBox` without native/custom scrollbar
 - optimized for jComponent `+v18`
 
 __Configuration__:
