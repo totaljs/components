@@ -1,4 +1,4 @@
-COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', function(self, config, cls) {
+COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20;useminheight:false;bottom:0;right:0', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var clsm = 'maximized';
@@ -17,7 +17,9 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 		self.template = Tangular.compile(scr.html());
 		scr.remove();
 
-		$(document.body).append('<div class="{0}" id="{1}"><div class="{0}-layer"></div></div>'.format(cls, self.ID));
+		var clsss = self.attr('class');
+
+		$(document.body).append('<div class="{0}" id="{1}"><div class="{0}-layer"></div></div>'.format(cls + (clsss ? (' ' + clsss) : ''), self.ID));
 		self.replace($('#' + self.ID), true);
 
 		self.event('click', cls2 + '-title', function() {
@@ -91,11 +93,14 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 				self.aclass(cls + '-ismaximized');
 			}
 
-			var scope = self.ID + 'p' + GUID(5);
-			var template = '<div data-id="{4}" class="invisible {0}-modal{8}"><div class="{0}-title"><i class="fa fa-times {0}-op" data-name="close"></i><i class="fa fa-expand-arrows-alt {0}-op{9}" data-name="maximize"></i><i class="fa fa-minus {0}-op{9}" data-name="minimize"></i><label>{3}</label></div><div class="{0}-body" data-scope="{2}" data-id="{4}" style="width:{5}px;min-height:{6}px">{7}</div></div>'.format(cls, self.ID, scope, obj.name, obj.id, config.width, config.height, self.template(obj), (obj.minimized ? '' : (' ' + cls + '-open')) + maximized, (ismobile ? ' hidden-xs' : ''));
+			var scope = obj.scope == false || obj.scope === null ? null : (obj.scope || (self.ID + 'p' + GUID(5)));
+			var template = '<div data-id="{4}" class="invisible {0}-modal{8}"><div class="{0}-title"><i class="fa fa-times {0}-op" data-name="close"></i><i class="fa fa-expand-arrows-alt {0}-op{9}" data-name="maximize"></i><i class="fa fa-minus {0}-op{9}" data-name="minimize"></i><label>{3}</label></div><div class="{0}-body"{2} data-id="{4}" style="width:{5}px;min-height:{6}px">{7}</div></div>'.format(cls, self.ID, scope ? (' data-scope="' + scope + '"') : '', obj.name, obj.id, config.width, config.height, self.template(obj), (obj.minimized ? '' : (' ' + cls + '-open')) + maximized, (ismobile ? ' hidden-xs' : ''));
 
-			if (obj.data)
+			if (scope && obj.data) {
+				if (scope.indexOf(' '))
+					scope = scope.split(' ')[0];
 				SET('{0} @reset'.format(scope), CLONE(obj.data));
+			}
 
 			self.append(template);
 			self.resize2();
@@ -190,10 +195,11 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 		var arr = self.find(cls2 + '-modal');
 		var cssa = {};
 		var cssb = {};
-		var offset = mn;
-		var w = $(W).width();
+		var offset = mn + config.right;
+		var w = WW;
 
 		for (var i = 0; i < arr.length; i++) {
+
 			var el = $(arr[i]);
 			var body = el.find(cls2 + '-body');
 
@@ -203,6 +209,7 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 				cssa['min-height'] = '';
 				cssa.left = cssa.top = mf;
 				cssa.right = '';
+				cssa.bottom = '';
 				cssb.width = cssa.width;
 				cssb.height = cssa.height - body.position().top;
 				cssb['min-height'] = '';
@@ -210,14 +217,18 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 
 				cssa.height = '';
 				cssa.right = offset + 'px';
+				cssa.bottom = config.bottom;
 				cssa.width = cssa.height = cssa.left = cssa.top = '';
 				cssb.width = config['width' + wd] || config.width;
 
 				if (el.hclass(cls + '-open'))
 					cssa.width = cssb.width;
 
-				cssb['min-height'] = config['height' + wd] || config.height;
-				cssb.height = '';
+				if (config.useminheight) {
+					cssb['min-height'] = config['height' + wd] || config.height;
+					cssb.height = '';
+				} else
+					cssb['height'] = config['height' + wd] || config.height;
 			}
 
 			el.css(cssa);
@@ -238,6 +249,9 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20', funct
 			skip = false;
 			return;
 		}
+
+		if (!value)
+			value = EMPTYARRAY;
 
 		// Remove non-existent
 		var arr = self.find(cls2 + '-modal');

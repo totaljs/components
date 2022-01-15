@@ -1,10 +1,10 @@
-.ui-formtab-modal { position: fixed; min-width: 200px; background-color: #FFF; margin-left: 8px; text-align: left; border: 1px solid #D0D0D0; border-bottom: 0; z-index: 100; bottom: 0; right: 0; overflow: hidden; border-radius: var(--radius) var(--radius) 0 0; }
+.ui-formtab-modal { position: fixed; min-width: 200px; background-color: #FFF; margin-left: 8px; text-align: left; border: 1px solid #D0D0D0; z-index: 100; bottom: 0; right: 0; overflow: hidden; border-radius: var(--radius) var(--radius) 0 0; }
 .ui-formtab-body { display: none; }
 .ui-formtab-open { box-shadow: 0 0 20px rgba(0,0,0,0.05); }
 .ui-formtab-open .ui-formtab-body { display: block; }
 .ui-formtab-open .ui-formtab-title .fa-expand-arrows-alt { display: block; }
 .ui-formtab-open .ui-formtab-title { width: 100%; }
-.ui-formtab-maximized { z-index: 102; border-bottom: 1px solid #E0E0E0; margin: 0; right: auto; bottom: auto; }
+.ui-formtab-maximized { z-index: 102; margin: 0; right: auto; bottom: auto; }
 .ui-formtab-title .fa-expand-arrows-alt { display: none; }
 .ui-formtab-open .ui-formtab-title .fa-times { color: red !important; }
 .ui-formtab-title { height: 30px; line-height: 30px; background-color: #F0F0F0; padding: 0 5px; width: 200px; border-radius: var(--radius) var(--radius) 0 0; color: gray; }

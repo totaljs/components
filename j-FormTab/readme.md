@@ -31,6 +31,9 @@ __Configuration__:
 - `onclose` {String} a link to function `function(item, close)` (optional)
 - `onopen` {String} a link to function `function(item, el)` (optional)
 - `autofocus` {Boolean} enables auto-focus for the first input (default: `false`)
+- __NEW__ `right {Number}` right margin (defualt: `0`)
+- __NEW__ `bottom {Number}` bottom margin (defualt: `0`)
+- __NEW__ `useminheight {Boolean}` use `min-height` instead of `height` CSS attribute (default: `false`)
 
 __Good to know__:
 
@@ -48,6 +51,8 @@ __Data-Source__:
 		// Optional
 		minimized: true,
 		data: { blabla: '"data" will be cloned into the form scope' }
+		// NEW: scope: false (disables scope)
+		// NEW: scope: mycustomscopepath
 	}
 ]
 ````
