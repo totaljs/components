@@ -75,6 +75,7 @@ var component = {
 	template: Object,
 	config: Object,
 	// reset: true, // NEW: reloads the component again
+	// class: String // adds a class to the item
 
 	make: function(exports, config, el) {
 
