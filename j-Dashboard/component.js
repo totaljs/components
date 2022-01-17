@@ -543,7 +543,8 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 		if (obj.header !== false)
 			classname.push(cls + '-header');
 
-		// classname.push('d-' + obj.component);
+		if (obj.class)
+			classname.push(obj.class);
 
 		var isdom = obj.html && typeof(obj.html) !== 'string';
 		var el = $(('<div class="{1} invisible{6}" data-id="{2}"><div class="{0}-body" style="margin:{5}px"><div class="{0}-title">{4}</div><figure>{3}</figure><span class="{0}-resize-button"></span></div></div>').format(cls, classname.join(' '), obj.id, isdom ? '' : obj.html, ('<span class="{1} ui-dashboard-control" data-name="remove"></span><span class="{0} ui-dashboard-control" data-name="settings"></span>').format(config.iconsettings, config.iconremove) + '<div>' + obj.title + '</div>', config.padding, config.animation && isinit ? (' ' + cls + '-' + config.animation + '-init') : ''));
@@ -569,6 +570,7 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 			container.tclass(cls + '-canremove', actions.remove !== false);
 			container.tclass(cls + '-cansettings', actions.settings !== false);
 			container.tclass(cls + '-header', actions.header !== false);
+			container.find(cls2 + '-title').find('div').text(tmp.meta.title);
 		};
 
 		tmp.meta.make && tmp.meta.make.call(tmp, tmp.meta, tmp.config, tmp.element);
