@@ -158,6 +158,7 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 		else
 			$(W).off('mouseup touchend', events.onup).off('mousemove touchmove', events.onmove);
 
+		$('body').css('pointer-events', is ? 'none' : '');
 		events.is = is;
 	};
 
@@ -205,6 +206,7 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 	};
 
 	events.onup = function() {
+
 		$(document.body).rclass(cls + '-noscroll');
 		self.rclass(cls + '-mousedown');
 		movable.el.rclass(cls + '-selected');
