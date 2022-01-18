@@ -1,4 +1,5 @@
-.ui-menu { position: absolute; z-index: 100; transform-origin: top left; padding: 10px 0; }
+.ui-menu-area { position: absolute; left: 0; right: 0; bottom: 0; top: 0; z-index: 100; }
+.ui-menu { position: absolute; z-index: 1; transform-origin: top left; padding: 10px 0; }
 .ui-menu-items { background-color: #FFF; padding: 5px 0; border-radius: var(--radius); box-shadow: 2px 5px 10px rgba(0,0,0,0.05); border: 1px solid #E0E0E0; position: relative; }
 .ui-menu-submenu { position: absolute; z-index: 101; background-color: #FFF; padding: 5px 0; border-radius: var(--radius); box-shadow: 2px 5px 10px rgba(0,0,0,0.05); border: 1px solid #E0E0E0; }
 .ui-menu-visible {}
@@ -39,4 +40,4 @@
 .ui-large .ui-menu-divider { font-size: 14px !important; }
 .ui-large .ui-menu li { font-size: 14px; padding: 7px 15px; }
 .ui-large.ui-menu li { font-size: 14px; padding: 7px 15px; }
-.ui-large .ui-menu-note { font-size: 13px; }
+.ui-large .ui-menu-note { font-size: 13px; }

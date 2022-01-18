@@ -1,4 +1,4 @@
-COMPONENT('menu', function(self, config, cls) {
+COMPONENT('menu', 'style:2', function(self, config, cls) {
 
 	self.singleton();
 	self.readonly();
@@ -8,19 +8,23 @@ COMPONENT('menu', function(self, config, cls) {
 
 	var is = false;
 	var issubmenu = false;
-	var isopen = false;
 	var events = {};
-	var ul, children, prevsub, parentclass;
+	var ul, children, prevsub, parentclass, container;
 
 	self.make = function() {
-		self.aclass(cls + ' hidden ' + cls + '-style-' + (config.style || 1));
-		self.append('<div class="{0}-items"><ul></ul></div><div class="{0}-submenu hidden"><ul></ul></div>'.format(cls));
+
+		self.aclass('hidden ' + cls + '-area');
+		self.append('<div class="{0} {0}-style-{1}"><div class="{0}-items"><ul></ul></div><div class="{0}-submenu hidden"><ul></ul></div>'.format(cls, config.style));
+		container = self.find('> ' + cls2);
 		ul = self.find(cls2 + '-items').find('ul');
 		children = self.find(cls2 + '-submenu');
 
-		self.event('click', 'li', function(e) {
+		self.element.on('click', function(e) {
+			if (e.target === self.dom)
+				self.hide();
+		});
 
-			clearTimeout2(self.ID);
+		self.event('click', 'li', function(e) {
 
 			var el = $(this);
 			if (!el.hclass(cls + '-divider') && !el.hclass(cls + '-disabled')) {
@@ -47,11 +51,6 @@ COMPONENT('menu', function(self, config, cls) {
 		self.event('scroll', events.hide);
 		self.on('reflow + scroll + resize + resize2', events.hide);
 
-		events.click = function(e) {
-			if (is && !isopen && (!self.target || (self.target !== e.target && !self.target.contains(e.target))))
-				setTimeout2(self.ID, self.hide, isMOBILE ? 700 : 300);
-		};
-
 		events.hidechildren = function() {
 			if ($(this.parentNode.parentNode).hclass(cls + '-items')) {
 				if (prevsub && prevsub[0] !== this) {
@@ -71,11 +70,6 @@ COMPONENT('menu', function(self, config, cls) {
 			}
 
 			issubmenu = true;
-			isopen = true;
-
-			setTimeout(function() {
-				isopen = false;
-			}, 500);
 
 			var el = prevsub = $(this);
 			var index = +el.attrd('index');
@@ -108,14 +102,14 @@ COMPONENT('menu', function(self, config, cls) {
 
 	self.bindevents = function() {
 		events.is = true;
-		$(document).on('touchstart mouseenter mousedown', cls2 + '-children', events.children).on('touchstart mousedown', events.click);
+		$(document).on('touchstart mouseenter mousedown', cls2 + '-children', events.children);
 		$(W).on('scroll', events.hide);
 		self.element.on('mouseenter', 'li', events.hidechildren);
 	};
 
 	self.unbindevents = function() {
 		events.is = false;
-		$(document).off('touchstart mouseenter mousedown', cls2 + '-children', events.children).off('touchstart mousedown', events.click);
+		$(document).off('touchstart mouseenter mousedown', cls2 + '-children', events.children);
 		$(W).off('scroll', events.hide);
 		self.element.off('mouseenter', 'li', events.hidechildren);
 	};
@@ -208,19 +202,14 @@ COMPONENT('menu', function(self, config, cls) {
 			parentclass = null;
 		}
 
-		if (opt.large)
-			self.aclass('ui-large');
-		else
-			self.rclass('ui-large');
+		self.tclass('ui-large', opt.large == true);
 
-		isopen = false;
 		issubmenu = false;
 		prevsub = null;
 
 		var css = {};
 		children.aclass('hidden');
 		children.find('ul').empty();
-		clearTimeout2(self.ID);
 
 		ul.html(self.makehtml(opt.items));
 
@@ -232,7 +221,7 @@ COMPONENT('menu', function(self, config, cls) {
 		if (is) {
 			css.left = 0;
 			css.top = 0;
-			self.element.css(css);
+			container.css(css);
 		} else {
 			self.rclass('hidden');
 			self.aclass(cls + '-visible', 100);
@@ -242,7 +231,7 @@ COMPONENT('menu', function(self, config, cls) {
 		}
 
 		var target = $(opt.element);
-		var w = self.width();
+		var w = container.width();
 		var offset = target.offset();
 
 		if (opt.element) {
@@ -257,8 +246,7 @@ COMPONENT('menu', function(self, config, cls) {
 					css.left = offset.left;
 					break;
 			}
-
-			css.top = opt.position === 'bottom' ? (offset.top - self.element.height() - 10) : (offset.top + target.innerHeight() + 10);
+			css.top = opt.position === 'bottom' ? (offset.top - container.height() - 10) : (offset.top + target.innerHeight() + 10);
 
 		} else {
 			css.left = opt.x;
@@ -277,7 +265,7 @@ COMPONENT('menu', function(self, config, cls) {
 			css.top += opt.offsetY;
 
 		var mw = w;
-		var mh = self.height();
+		var mh = container.height();
 
 		if (css.left < 0)
 			css.left = 10;
@@ -289,7 +277,7 @@ COMPONENT('menu', function(self, config, cls) {
 		else if ((mh + css.top) > WH)
 			css.top = (WH - mh) - 10;
 
-		self.element.css(css);
+		container.css(css);
 	};
 
 	self.hide = function() {
