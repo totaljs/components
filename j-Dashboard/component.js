@@ -200,6 +200,7 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 		movable.x = movable.type === 1 ? tmp.offset.x : tmp.offset.width;
 		movable.y = movable.type === 1 ? tmp.offset.y : tmp.offset.height;
 		var tmp = cache[movable.id].offset;
+		movable.diff = tmp.width - tmp.height;
 		movable.old = (tmp.x || 0) + 'x' + (tmp.y || 0) + 'x' + (tmp.width || 0) + 'x' + (tmp.height || 0);
 		events.bind(true);
 		el.aclass(cls + '-selected');
@@ -263,29 +264,41 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 				diffY = tmp;
 			}
 
-			if (obj.meta.actions.resizeX == null || obj.meta.actions.resizeX)
-				obj.offset.width = diffX;
-
-			if (obj.meta.actions.resizeY == null || obj.meta.actions.resizeY)
-				obj.offset.height = diffY;
-
 			if (obj.meta.actions.resizeP) {
+
 				if (axis === 'x') {
+					tmp = diffX - movable.diff;
+
+					if (tmp < 1 || diffX < 1)
+						return;
+
 					obj.offset.width = diffX;
-					obj.offset.height = diffX;
-				} else if (axis === 'y') {
-					obj.offset.width = diffY;
-					obj.offset.height = diffY;
+					obj.offset.height = tmp;
 				}
+
+			} else {
+				if (obj.meta.actions.resizeX == null || obj.meta.actions.resizeX)
+					obj.offset.width = diffX;
+
+				if (obj.meta.actions.resizeY == null || obj.meta.actions.resizeY)
+					obj.offset.height = diffY;
 			}
 
 			var min = config['minsize' + current_display];
 
-			if (obj.offset.width < min)
-				obj.offset.width = min;
+			if (obj.meta.actions.resizeP) {
 
-			if (obj.offset.height < min)
-				obj.offset.height = min;
+				if (obj.offset.width < min) {
+					obj.offset.width = min;
+					obj.offset.height = min - movable.diff;
+				}
+
+			} else {
+				if (obj.offset.width < min)
+					obj.offset.width = min;
+				if (obj.offset.height < min)
+					obj.offset.height = min;
+			}
 
 			self.woffset(movable.id);
 			return;
@@ -357,8 +370,9 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 		setTimeout2(self.ID + 'resize', self.resize, 500);
 	};
 
-	self.wsize = function(d, offset) {
+	self.wsize = function(d, obj) {
 
+		var offset = obj.meta.offset;
 		var tmp = offset[d];
 		if (!tmp) {
 			if (d === 'xs')
@@ -381,11 +395,18 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 
 		var min = config['minsize' + current_display];
 
-		if (tmp.width < min)
-			tmp.width = min;
-
-		if (tmp.height < min)
-			tmp.height = min;
+		if (obj.meta.actions.resizeP) {
+			var diff = tmp.width - tmp.height;
+			if (tmp.width < min) {
+				tmp.width = min;
+				tmp.height = min - diff;
+			}
+		} else {
+			if (tmp.width < min)
+				tmp.width = min;
+			if (tmp.height < min)
+				tmp.height = min;
+		}
 
 		return tmp;
 	};
@@ -448,7 +469,7 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 
 		var d = current_display;
 		var obj = cache[id];
-		var tmp = self.wsize(d, obj.meta.offset);
+		var tmp = self.wsize(d, obj);
 
 		if (tmp.x == null)
 			tmp.x = 0;
