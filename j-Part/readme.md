@@ -21,11 +21,13 @@ __Configuration__:
 - `invisible` {Boolean} enables adding of `invisible` class when the part is going to hide (default: `false`)
 - `delay` {Number} a delay (in ms) for removing of `invisible` class and hiding of `loading` (default: `500`)
 - `autofocus` {Boolean/String} focuses the first input, textarea (default: `false`)
-- __NEW__: `delayloading` {Number} a delay (in ms) for hiding of of `loading` (default: `800`)
+- `delayloading` {Number} a delay (in ms) for hiding of of `loading` (default: `800`)
+- __NEW__: `id` {String} a custom identifier for replacing `~ID~` phrases in the imported HTML (default: empty)
 
 __Good to know 1__:
 
-All `~PATH~` phrases will be replaced by `config.path` or `config.if` automatically.
+- all `~PATH~` phrases will be replaced by `config.path` or `config.if` automatically
+- all `~ID~` phrases will be replaced by `config.id` automatically
 
 __Good to know 2__:
 

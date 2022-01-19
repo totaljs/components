@@ -9,6 +9,7 @@ __Configuration__:
 - `reload` {String} a link to method in the global scope, it's executed if the __condition__ is valid
 - `cleaner` {Number} (optional) idle time (in minutes) for running of cleaning (default: `0`)
 - `clean` {String} (optional) a link to function, it's executed before the importer is cleaned
+- __NEW__: `id` {String} a custom identifier for replacing `~ID~` phrases in the imported HTML (default: empty)
 
 __New update__:
 
@@ -16,7 +17,8 @@ j-Importer can contain `<script type="text/html">` with a content which will be 
 
 __Good to know 1__:
 
-All `~PATH~` phrases will be replaced by `config.path` or `config.if` automatically.
+- all `~PATH~` phrases will be replaced by `config.path` or `config.if` automatically
+- all `~ID~` phrases will be replaced by `config.id` automatically
 
 __Good to know 2__:
 

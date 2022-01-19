@@ -10,7 +10,7 @@ COMPONENT('importer', function(self, config) {
 	};
 
 	var replace2 = function(value) {
-		return value ? value.replace(/~PATH~/g, config.path || config.if) : value;
+		return value ? value.replace(/~PATH~/g, config.path || config.if).replace(/~ID~/g, config.id || '') : value;
 	};
 
 	self.readonly();
