@@ -20,6 +20,9 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 		if (isMOBILE && config.autofocus)
 			config.autofocus = false;
 
+		if (config.placeholder == 0)
+			config.placeholder = '0';
+
 		config.PATH = self.path.replace(/\./g, '_');
 
 		self.aclass(cls + ' invisible');
