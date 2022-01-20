@@ -34,6 +34,7 @@ __Configuration__:
 - `minsizelg {Number}` a minimal column/row size for large displays (default: `1`)
 - `iconsettings {String}` settings icon
 - `iconremove {String}` remove icon
+- `change {String}` a path to the method `function(type, id)` (executed if the dashboard captures a change `move` or `remove`)
 - `animation {Number}` style of animation:
 	- `1` opacity
 	- `2` scale from big to normal

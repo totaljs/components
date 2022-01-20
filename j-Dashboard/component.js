@@ -220,7 +220,7 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 		var curr = (tmp.x || 0) + 'x' + (tmp.y || 0) + 'x' + (tmp.width || 0) + 'x' + (tmp.height || 0);
 		if (movable.old !== curr) {
 			movewidget(cache[movable.id]);
-			self.modified();
+			self.modified('move', movable.id);
 		}
 	};
 
@@ -411,10 +411,11 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 		return tmp;
 	};
 
-	self.modified = function() {
+	self.modified = function(type, id) {
 		skip = true;
 		self.change(true);
 		self.update(true);
+		config.change && self.SEEX(config.change, type, id);
 	};
 
 	self.wdestroy = function(id, manual) {
@@ -432,7 +433,7 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 				index = model.indexOf(obj.meta);
 				if (index !== -1) {
 					model.splice(index, 1);
-					self.modified();
+					self.modified('remove', id);
 				}
 			}
 			index = services.indexOf(obj);
