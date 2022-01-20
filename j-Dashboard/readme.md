@@ -123,6 +123,11 @@ var component = {
 			// is executed when the users clicks on the settings icon
 		};
 
+		exports.remove = function(remove) {
+			// remove {Function} removes that widget
+			remove();
+		};
+
 		exports.configure = function(config) {
 			// @config {Object}
 			// is executed when the configuration is changed

@@ -36,10 +36,16 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 			var name = el.attrd('name');
 			var id = el.closest(cls2 + '-item').attrd('id');
 			var tmp = cache[id];
-			if (name === 'settings')
+			if (name === 'settings') {
 				tmp.meta.settings && tmp.meta.settings.call(tmp, tmp.config, tmp.element, el);
-			else if (name === 'remove')
-				self.wdestroy(id, true);
+			} else if (name === 'remove') {
+				if (tmp.meta.remove) {
+					tmp.meta.remove.call(tmp, function() {
+						self.wdestroy(id, true);
+					});
+				} else
+					self.wdestroy(id, true);
+			}
 
 		});
 
