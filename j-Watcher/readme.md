@@ -9,6 +9,7 @@ This component executes the code defined in `<script type="text/js"></script>` t
 	// path {String} a path where the value was binded
 	// type {Number} binding type (0: init, 1: manually, 2: by input, 3: default value)
 	// element {jQuery element} a current element
+	// component {jComponent}
 
 </script>
 ```
