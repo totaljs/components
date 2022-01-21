@@ -76,7 +76,7 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1', function(self, config) {
 	};
 
 	self.make = function() {
-		self.append('<iframe src="1.html?id={0}" frameborder="0" scrolling="no" allowtransparency="true" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *" style="width:100%"></iframe>'.format(self.ID));
+		self.append('<iframe src="{1}//cdn.componentator.com/editor/1.html?id={0}" frameborder="0" scrolling="no" allowtransparency="true" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *" style="width:100%"></iframe>'.format(self.ID, location.protocol));
 		iframe = self.find('iframe');
 		self.resize();
 		$(W).on('message', onmessage);
