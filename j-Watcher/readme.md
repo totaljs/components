@@ -7,11 +7,13 @@ This component executes the code defined in `<script type="text/js"></script>` t
 
 	// value {Object} a value binded according to the path
 	// path {String} a path where the value was binded
-	// type {Number}
+	// type {Number} binding type (0: init, 1: manually, 2: by input, 3: default value)
 	// element {jQuery element} a current element
 
 </script>
 ```
+
+__Configuration__:
 
 - `delay {Number}` a delay for evaluating code (default: `0`)
 
