@@ -1,0 +1,16 @@
+{
+	"datecreated": "2022-01-21T15:10:00.000Z",
+	"dateupdated": null,
+	"name": "j-Watcher",
+	"tags": [
+		"watcher",
+		"watch"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

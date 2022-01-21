@@ -1,0 +1,13 @@
+<div data---="watcher__common.value">
+	<script type="text/js">
+		console.log('-->', value, path, type);
+		element.html(value);
+	</script>
+</div>
+
+<script>
+	var common = { value: 'init' };
+	setInterval(function() {
+		SET('common.value', new Date().format('HH:mm:ss'));
+	}, 1000);
+</script>
