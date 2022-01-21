@@ -26,8 +26,3 @@ __Method__:
 
 - Peter Širka <petersirka@gmail.com>
 - [License](https://www.totaljs.com/license/)
-
-### Author
-
-- Peter Širka <petersirka@gmail.com>
-- License: MIT
