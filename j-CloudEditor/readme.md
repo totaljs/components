@@ -3,6 +3,7 @@
 - supports multiple cursors (`shift + cmd + arrow-down/up`)
 - supports finding selected text (`cmd + d`)
 - supports custom scrollbars
+- supports diff tracker
 - source-code: <https://github.com/totaljs/editor>
 - it uses editor: [CodeMirror](https://codemirror.net/)
 
