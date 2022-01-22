@@ -1,12 +1,15 @@
 ## j-CloudEditor (BETA)
 
+- it works in the iframe
 - supports multiple cursors (`shift + cmd + arrow-down/up`)
 - supports finding selected text (`cmd + d`)
 - supports custom scrollbars
 - supports diff tracker
-- supports simple emmet plugin
+- supports a simple emmet plugin
+- supports real-time collaboration
 - source-code: <https://github.com/totaljs/editor>
 - it uses editor: [CodeMirror](https://codemirror.net/)
+- very small code
 
 __Configuration__:
 
