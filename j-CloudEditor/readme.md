@@ -4,6 +4,7 @@
 - supports finding selected text (`cmd + d`)
 - supports custom scrollbars
 - supports diff tracker
+- supports simple emmet plugin
 - source-code: <https://github.com/totaljs/editor>
 - it uses editor: [CodeMirror](https://codemirror.net/)
 

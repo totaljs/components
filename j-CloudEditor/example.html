@@ -1,14 +1,30 @@
 <div data---="LAZY menu"></div>
 
-<div style="width:600px;height:300px;border:1px solid #E0E0E0">
-	<div data---="cloudeditor__editormodel__contextmenu:editor_contextmenu;event:editor_event"></div>
+<div style="width:600px;height:200px;border:1px solid #E0E0E0">
+	<div data---="cloudeditor__editormodel__contextmenu:editor_contextmenu;event:editor_event;realtime:1"></div>
+</div>
+<br />
+<div style="width:600px;height:200px;border:1px solid #E0E0E0">
+	<div data---="cloudeditor__editormirrored__readonly:1;$id:mirrored"></div>
 </div>
 
+<div class="clearfix"></div>
+
 <script>
-	var editormodel = { mode: 'clientside', body: '<h1>HELLO WORLD</h1>' };
+
+	var editorbody = '\n\n<h1>HELLO WORLD</h1>\n\n';
+	var editormodel = { mode: 'clientside', body: editorbody };
+	var editormirrored = { mode: 'clientside', body: editorbody };
 
 	function editor_event(type, value) {
-		console.log(type, value);
+		switch (type) {
+			case 'change':
+				SETTER('#mirrored/change', value);
+				break;
+			case 'cursor':
+				SETTER('#mirrored/marker', 'Peter', value.from);
+				break;
+		}
 		SETTER('!menu/hide');
 	}
 

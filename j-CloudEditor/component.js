@@ -23,10 +23,14 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1;realtime:0', function(self, con
 			callbacks[id] = callback;
 		}
 
+		msg.id = self.ID;
 		iframe[0].contentWindow.postMessage(STRINGIFY(msg), '*');
 	};
 
 	var onmessage = function(e) {
+
+		if (e.originalEvent.source !== iframe[0].contentWindow)
+			return;
 
 		var msg = e.originalEvent ? e.originalEvent.data : '';
 
@@ -80,7 +84,7 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1;realtime:0', function(self, con
 		var protocol = location.protocol;
 		if (protocol === 'file:')
 			protocol = 'http:';
-		self.append('<iframe src="{1}//cdn.componentator.com/editor/1.html?id={0}" frameborder="0" scrolling="no" allowtransparency="true" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *" style="width:100%"></iframe>'.format(self.ID, protocol));
+		self.append('<iframe src="{1}//cdn.componentator.com/editor/1.min.html?id={0}" frameborder="0" scrolling="no" allowtransparency="true" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *" style="width:100%"></iframe>'.format(self.ID, protocol));
 		iframe = self.find('iframe');
 		self.resize();
 		$(W).on('message', onmessage);
@@ -92,6 +96,10 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1;realtime:0', function(self, con
 
 	self.replace = function(text, to) {
 		send({ TYPE: 'replace', value: text, to: to });
+	};
+
+	self.readonly = function(is) {
+		send({ TYPE: 'readonly', value: is });
 	};
 
 	self.search = function(text, callback) {
@@ -177,7 +185,7 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1;realtime:0', function(self, con
 		if (init) {
 			settertimeout = null;
 			var model = self.get();
-			model && send({ TYPE: 'init', realtime: config.realtime, mode: model.type || 'clientside', value: model.body, darkmode: $('body').hclass('ui-dark') });
+			model && send({ TYPE: 'init', realtime: config.realtime, readonly: config.readonly, mode: model.type || 'clientside', value: model.body, darkmode: $('body').hclass('ui-dark') });
 		} else {
 			settertimeout && clearTimeout(settertimeout);
 			settertimeout = setTimeout(self.setter, 100);
