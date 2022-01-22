@@ -88,7 +88,7 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 
 		if (config.scroll) {
 			if (config.scrollbar) {
-				scrollbar = W.SCROLLBAR(self.find(cls2 + '-body'), { visibleY: config.visibleY, visibleX: config.visibleX, orientation: config.visibleX ? null : 'y', parent: self.element });
+				scrollbar = W.SCROLLBAR(self.find(cls2 + '-body'), { visibleY: config.visibleY, visibleX: config.visibleX, orientation: config.visibleX ? null : 'y' });
 				self.scrolltop = scrollbar.scrollTop;
 				self.scrollbottom = scrollbar.scrollBottom;
 				container = scrollbar.body;
@@ -131,8 +131,6 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 			return;
 		}
 
-		// var offsetH = self.find(cls2 + '-header').height();
-
 		h = ((h / 100) * config.height) - margin;
 
 		if (config.minheight && h < config.minheight)
@@ -146,10 +144,16 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 
 		css.width = null;
 		self.css(css);
-		elb.length && elb.css(css);
-		self.element.SETTER('*', 'resize');
+
+		if (elb.length) {
+			css.height -= self.find(cls2 + '-header').height() + 1;
+			elb.css(css);
+		}
+
+		self.element.SETTER('*/resize');
 		var c = cls + '-hidden';
 		self.hclass(c) && self.rclass(c, 100);
+
 		scrollbar && scrollbar.resize();
 		scrolltop && self.scrolltop(0);
 
