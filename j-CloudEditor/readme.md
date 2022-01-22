@@ -12,7 +12,13 @@ __Configuration__:
 - `parent {String}` a selector for the main container (default: `auto`)
 - `autosave {Boolean}` auto rebinds value from the editor to the component's path (default: `true`)
 - `event {String}` a path to the `function(name, value)`
+	- `click`
+	- `errors`
+	- `shortcut`
+	- `cursor` contains cursor position
+	- `change` contains a chunked changes for real-time collaboration (`config.realtime` must be `true`)
 - `contextmenu {String}` a path to the `function(opt)`
+- `realtime {Boolean}` enables realtime sending changes to the `event` method (event name is `change`)
 
 __Method__:
 
@@ -23,8 +29,8 @@ __Method__:
 - `component.goto(pos)`
 - `component.focus()`
 - `component.save(callback(value))`
-- `component.markeradd(from, to, name, [color])`
-- `component.markerrem(name)`
+- `component.marker(name, [from], [to], [color])` adds + modifies (with `from`) and removes (without `from` argument) marker
+- `component.change(changes)` for the real-time collaboration (`changes` can be generated in the `config.event` function)
 - `component.clear()` clears all changes
 - `component.replaceselections(selections)`
 - `component.replaceselection(selection)`

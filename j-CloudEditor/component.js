@@ -1,4 +1,4 @@
-COMPONENT('cloudeditor', 'parent:auto;autosave:1', function(self, config) {
+COMPONENT('cloudeditor', 'parent:auto;autosave:1;realtime:0', function(self, config) {
 
 	var iframe;
 	var savetimeout;
@@ -53,6 +53,7 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1', function(self, config) {
 			case 'click':
 			case 'shortcut':
 			case 'errors':
+			case 'change':
 				config.event && self.SEEX(config.event, msg.TYPE, msg.value);
 				break;
 			case 'menu':
@@ -76,7 +77,10 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1', function(self, config) {
 	};
 
 	self.make = function() {
-		self.append('<iframe src="{1}//cdn.componentator.com/editor/1.html?id={0}" frameborder="0" scrolling="no" allowtransparency="true" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *" style="width:100%"></iframe>'.format(self.ID, location.protocol));
+		var protocol = location.protocol;
+		if (protocol === 'file:')
+			protocol = 'http:';
+		self.append('<iframe src="{1}//cdn.componentator.com/editor/1.html?id={0}" frameborder="0" scrolling="no" allowtransparency="true" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *" style="width:100%"></iframe>'.format(self.ID, protocol));
 		iframe = self.find('iframe');
 		self.resize();
 		$(W).on('message', onmessage);
@@ -118,6 +122,10 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1', function(self, config) {
 		send({ TYPE: 'replacerange', value: val, from: from, to: to });
 	};
 
+	self.change = function(arr) {
+		send({ TYPE: 'change', value: arr });
+	};
+
 	self.focus = function() {
 		iframe.focus();
 		send({ TYPE: 'focus' });
@@ -149,12 +157,8 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1', function(self, config) {
 		iframe.css({ width: w, height: h });
 	};
 
-	self.markeradd = function(from, to, name, color) {
-		send({ TYPE: 'markeradd', from: from, to: to, value: name, color: color });
-	};
-
-	self.markerrem = function(name) {
-		send({ TYPE: 'markerrem', value: name });
+	self.marker = function(name, from, to, color) {
+		send({ TYPE: 'marker', from: from, to: to, value: name, color: color });
 	};
 
 	self.darkmode = function() {
@@ -173,7 +177,7 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1', function(self, config) {
 		if (init) {
 			settertimeout = null;
 			var model = self.get();
-			model && send({ TYPE: 'init', mode: model.type || 'clientside', value: model.body, darkmode: $('body').hclass('ui-dark') });
+			model && send({ TYPE: 'init', realtime: config.realtime, mode: model.type || 'clientside', value: model.body, darkmode: $('body').hclass('ui-dark') });
 		} else {
 			settertimeout && clearTimeout(settertimeout);
 			settertimeout = setTimeout(self.setter, 100);
