@@ -16,7 +16,7 @@ __Configuration__:
 	- `errors`
 	- `shortcut`
 	- `cursor` contains cursor position
-	- `change` contains a chunked changes for real-time collaboration (`config.realtime` must be `true`)
+	- `change` contains partial changes for real-time collaboration (`config.realtime` must be `true`)
 - `contextmenu {String}` a path to the `function(opt)`
 - `realtime {Boolean}` enables realtime sending changes to the `event` method (event name is `change`)
 
