@@ -9,6 +9,13 @@ COMPONENT('watcher', 'delay:0', function(self, config) {
 		var scr = self.find('scri' + 'pt').eq(0);
 		var js = scr.html();
 		if (js) {
+
+			if (self.scope) {
+				js = js.replace(/\?(.|\/)+/g, function(val) {
+					return val.replace(/\?/g, self.scope.path);
+				});
+			}
+
 			fn = new Function('value', 'path', 'type', 'element', 'component', js);
 			scr.remove();
 		}
