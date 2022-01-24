@@ -9,7 +9,7 @@ __Configuration__:
 - `init {Boolean}` executes initial value (default: `false`)
 - `input {Boolean}` executes value binded by the input (default: `true`)
 - `manually {Boolean}` executes value binded manually via `SET()`, `INC()`, etc. method (default: `false`)
-- `track {String}` can contain parial paths divided by the comma
+- `track {String}` can contain partial paths divided by the comma
 
 ### Author
 
