@@ -241,7 +241,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 
 		if (is) {
 			skip = true;
-			self.push(rawvalue);
+			self.push(rawvalue, 2);
 			self.change(true);
 		}
 
@@ -257,7 +257,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 		skip = true;
 		tags.find('span').eq(index).remove();
 		self.get().splice(index, 1);
-		self.update(true);
+		self.update(true, 2);
 		self.change(true);
 		self.check();
 	};
