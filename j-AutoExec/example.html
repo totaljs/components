@@ -1,0 +1,16 @@
+<div data---="autoexec__common.value__exec:autoexec"></div>
+
+<script>
+
+	function autoexec(el, value) {
+		console.log('Exec:', value);
+		el.html(value);
+	}
+
+	var common = {};
+
+	setInterval(function() {
+		SET('common.value', new Date().format('HH:mm:ss'));
+	}, 3000);
+
+</script>
