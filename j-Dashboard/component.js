@@ -170,6 +170,10 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 
 	events.ondown = function(e) {
 
+		// Maybe you will need to change title directly and this attribute can help
+		if (e.target && e.target.getAttribute('data-prevent'))
+			return;
+
 		var el = $(this);
 		self.aclass(cls + '-mousedown');
 		$(document.body).aclass(cls + '-noscroll');
