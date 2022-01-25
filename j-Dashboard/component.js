@@ -600,7 +600,7 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 			container.tclass(cls + '-canremove', actions.remove !== false);
 			container.tclass(cls + '-cansettings', actions.settings !== false);
 			container.tclass(cls + '-header', actions.header !== false);
-			container.find(cls2 + '-title').find('div').text(tmp.meta.title);
+			container.find(cls2 + '-title').find('div > span').text(tmp.meta.title);
 		};
 
 		tmp.meta.make && tmp.meta.make.call(tmp, tmp.meta, tmp.config, tmp.element);
