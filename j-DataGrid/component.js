@@ -1,4 +1,4 @@
-COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clusterize:true;limit:80;filterlabel:Filter;height:auto;margin:0;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;unhighlight:true;autoselect:false;buttonapply:Apply;buttonreset:Reset;allowtitles:false;fullwidth_xs:false;clickid:id;dirplaceholder:Search;autoformat:1;controls:1;hfuncicon:square-root-alt', function(self, config) {
+COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clusterize:true;limit:80;filterlabel:Filter;height:auto;margin:0;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;unhighlight:true;autoselect:false;buttonapply:Apply;buttonreset:Reset;allowtitles:false;fullwidth_xs:false;clickid:id;dirplaceholder:Search;autoformat:1;controls:1;hfuncicon:square-root-alt;pagination:true', function(self, config) {
 
 	var opt = { filter: {}, filtercache: {}, filtercl: {}, filtervalues: {}, scroll: false, selected: {}, operation: '' };
 	var header, vbody, footer, container, ecolumns, isecolumns = false, ready = false;
@@ -12,7 +12,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 	self.meta = opt;
 
-	function Cluster(el) {
+	function Cluster(el, config) {
 
 		var self = this;
 		var dom = el[0];
@@ -45,7 +45,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			var posto = pos + (self.limit * 2);
 
 			set.css('height', t);
-			seb.css('height', b < 2 ? isMOBILE ? (config.exec ? (self.row + 1) : (self.row * 2.25)) >> 0 : 3 : b);
+			seb.css('height', b < 2 ? isMOBILE ? (config.exec && config.pagination ? (self.row + 1) : (self.row * 2.25)) >> 0 : 3 : b);
 
 			var tmp = self.scrollbar[0].scrollTop;
 			var node = self.el[0];
@@ -61,7 +61,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			for (var i = pos; i < posto; i++) {
 				if (typeof(self.rows[i]) === 'string')
 					self.rows[i] = $(self.rows[i])[0];
-
 				if (self.rows[i])
 					node.appendChild(self.rows[i]);
 				else
@@ -131,6 +130,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 				self.scroll && self.scroll();
 				config.change && self.grid.SEEX(config.change, null, null, self.grid);
 			}
+
+			if (self.grid.config.exec && !self.grid.config.pagination && !self.grid.isloading) {
+				var tmp = self.height + y;
+				if (tmp >= self.scrollbar[0].scrollHeight) {
+					self.grid.isloading = true;
+					self.grid.operation('page');
+				}
+			}
 		};
 
 		self.update = function(rows, noscroll) {
@@ -138,11 +145,13 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			if (noscroll != true)
 				self.el[0].scrollTop = 0;
 
-			self.limit = config.limit;
+			self.limit = self.grid.config.limit;
 			self.pos = -1;
 			self.rows = rows;
 			self.max = Math.ceil(rows.length / self.limit) - 1;
 			self.frame = self.limit * self.row;
+			self.height = self.scrollbar.height();
+			self.grid.isloading = false;
 
 			if (!self.enabled) {
 				self.frame = 1000000;
@@ -400,7 +409,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 		});
 
 		var pagination = '';
-		if (config.exec)
+		if (config.exec && config.pagination)
 			pagination = '<div class="dg-footer hidden"><div class="dg-pagination-items hidden-xs"></div><div class="dg-pagination"><button name="page-first" disabled><i class="fa fa-angle-double-left"></i></button><button name="page-prev" disabled><i class="fa fa-angle-left"></i></button><div><input type="text" name="page" maxlength="5" class="dg-pagination-input" /></div><button name="page-next" disabled><i class="fa fa-angle-right"></i></button><button name="page-last" disabled><i class="fa fa-angle-double-right"></i></button></div><div class="dg-pagination-pages"></div></div>';
 
 		self.dom.innerHTML = '<div class="dg-btn-columns"><i class="fa fa-caret-left"></i><span class="fa fa-columns"></span></div><div class="dg-columns hidden"><div><div class="dg-columns-body"></div></div><button class="dg-columns-button" name="columns-apply"><i class="fa fa-check-circle"></i>{1}</button><span class="dt-columns-reset">{2}</span></div><div class="dg-container"><div class="dg-controls"></div><span class="dg-resize-line hidden"></span><div class="dg-header-scrollbar"><div class="dg-header"></div><div class="dg-body-scrollbar"><div class="dg-body"></div></div></div></div>{0}'.format(pagination, config.buttonapply, config.buttonreset);
@@ -1921,7 +1930,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 	self.redrawpagination = function() {
 
-		if (!config.exec)
+		if (!config.exec || !config.pagination)
 			return;
 
 		var value = self.get();
@@ -1987,11 +1996,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 		controls.hide();
 
-		if (config.exec && (value == null || value.items == null)) {
+		if (config.exec && (value == null || (config.pagination && value.items == null))) {
 			self.operation('refresh');
-			if (value && value.items == null)
-				value.items = [];
-			else
+			if (config.pagination) {
+				if (value && value.items == null)
+					value.items = [];
+				else
+					return;
+			} else
 				return;
 		}
 
@@ -2014,7 +2026,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			opt.scroll = forcescroll;
 			forcescroll = '';
 		} else
-			opt.scroll = type !== 'noscroll' ? 'xy' : '';
+			opt.scroll = type !== 'noscroll' && !self.isloading ? 'xy' : '';
 
 		self.applycolumns();
 		self.refreshfilter();
@@ -2028,7 +2040,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			return;
 
 		config.exec && self.rendercols();
-		opt.cluster = new Cluster(vbody);
+		opt.cluster = new Cluster(vbody, config);
 		opt.cluster.grid = self;
 		opt.cluster.scroll = self.scrolling;
 		opt.render && opt.cluster.update(opt.render);

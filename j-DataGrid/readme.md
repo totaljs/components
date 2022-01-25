@@ -24,7 +24,7 @@ __TO-DO__:
 
 __Data-source__ needs to contain:
 
-```javascript
+```js
 {
 	schema: 'schema_id', // NEW: optional, DataGrid supports multiple schemas (it means: multiple declaration of columns)
     items: [{ name: 'Row 1' }, { name: 'Row 2' }, ...] // items
@@ -37,7 +37,7 @@ __Data-source__ needs to contain:
 
 or raw `Array` but you can't use pagination and external filters:
 
-```javascript
+```js
 [{ name: 'Row 1' }, { name: 'Row 2' }];
 ```
 
@@ -79,10 +79,12 @@ __Configuration__:
 - `noborder` {Boolean} can disable a border around the grid (default: `false`)
 - `clusterize` {Boolean} can disable clustered scrolling (default: `true`)
 - `contextmenu` {String} a link to `function(e, grid)` when the user raises context menu
-- __NEW__ `autoformat` {Boolean} enables auto-format types like `email`, `phone` and `number` (default: `true`)
-- __NEW__ `controls` {Boolean} enables controls defined in `columns` (default: `true`)
-- __NEW__ `hfunc` {String} a link to `function(el)` method, it's executed if the user clicks on the icon added to very first header row. usefull to integrate other component with DataGrid. e.g. j-filter
-- __NEW__ `hfuncicon` {String} hfunc icon e.g. home, cog, etc.
+- `autoformat` {Boolean} enables auto-format types like `email`, `phone` and `number` (default: `true`)
+- `controls` {Boolean} enables controls defined in `columns` (default: `true`)
+- `hfunc` {String} a link to `function(el)` method, it's executed if the user clicks on the icon added to very first header row. usefull to integrate other component with DataGrid. e.g. j-filter
+- `hfuncicon` {String} hfunc icon e.g. home, cog, etc.
+- `pagination` {Boolean} enables/disables pagination (default: `true`)
+	- `config.exec` will be executed if the scrollbar is at the end, and you can use as the raw response array
 
 __Column properties__:
 
