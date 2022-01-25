@@ -84,7 +84,7 @@ __Configuration__:
 - `hfunc` {String} a link to `function(el)` method, it's executed if the user clicks on the icon added to very first header row. usefull to integrate other component with DataGrid. e.g. j-filter
 - `hfuncicon` {String} hfunc icon e.g. home, cog, etc.
 - `pagination` {Boolean} enables/disables pagination (default: `true`)
-	- `config.exec` will be executed if the scrollbar is at the end, and you can use as the raw response array
+	- `config.exec` will be executed if the scrollbar is at the end, and you can use as the raw response `array` of rows
 
 __Column properties__:
 
