@@ -577,7 +577,7 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 			classname.push(obj.class);
 
 		var isdom = obj.html && typeof(obj.html) !== 'string';
-		var el = $(('<div class="{1} invisible{6}" data-id="{2}"><div class="{0}-body" style="margin:{5}px"><div class="{0}-title">{4}</div><figure>{3}</figure><span class="{0}-resize-button"></span></div></div>').format(cls, classname.join(' '), obj.id, isdom ? '' : obj.html, ('<span class="{1} ui-dashboard-control" data-name="remove"></span><span class="{0} ui-dashboard-control" data-name="settings"></span>').format(config.iconsettings, config.iconremove) + '<div>' + obj.title + '</div>', config.padding, config.animation && isinit ? (' ' + cls + '-' + config.animation + '-init') : ''));
+		var el = $(('<div class="{1} invisible{6}" data-id="{2}"><div class="{0}-body" style="margin:{5}px"><div class="{0}-title">{4}</div><figure>{3}</figure><span class="{0}-resize-button"></span></div></div>').format(cls, classname.join(' '), obj.id, isdom ? '' : obj.html, ('<span class="{1} ui-dashboard-control" data-name="remove"></span><span class="{0} ui-dashboard-control" data-name="settings"></span>').format(config.iconsettings, config.iconremove) + '<div><span>' + obj.title + '</span></div>', config.padding, config.animation && isinit ? (' ' + cls + '-' + config.animation + '-init') : ''));
 		self.dom.appendChild(el[0]);
 		el.on('click', click);
 		var tmp = cache[obj.id] = {};
@@ -612,6 +612,13 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 		tmp.meta.service && services.push(tmp);
 		tmp.meta.data && data.push(tmp);
 		setTimeout(winit, obj.delay || config.delay, el, tmp, isinit);
+	};
+
+	self.call = function(name, a, b, c, d) {
+		for (var key in cache) {
+			var item = cache[key];
+			item.meta[name] && item.meta[name](a, b, c, d);
+		}
 	};
 
 	self.setter = function(value) {

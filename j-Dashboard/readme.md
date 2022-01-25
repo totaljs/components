@@ -155,6 +155,7 @@ __Methods__:
 		- `null` sends to all components
 		- `@component` sends to the specific components according to the component name
 		- `string` sends to a specific component according to the identifier
+- `SETTER('dashboard/call', method_name, [a], [b], [c], [d])` executes a method in each widget
 
 __Good to know__:
 
