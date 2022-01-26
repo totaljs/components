@@ -133,7 +133,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 			if (self.grid.config.exec && !self.grid.config.pagination && !self.grid.isloading) {
 				var tmp = self.height + y;
-				if (tmp >= self.scrollbar[0].scrollHeight) {
+				var h = self.scrollbar[0].scrollHeight;
+				if (!self.grid.hclass('noscroll') && tmp >= h && h !== self.scrollheight) {
+					self.scrollheight = h;
 					self.grid.isloading = true;
 					self.grid.operation('page');
 				}
