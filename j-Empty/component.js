@@ -2,7 +2,6 @@ COMPONENT('empty', 'icon:fa fa-database;parent:parent;margin:0;wait:1', function
 
 	var visible = false;
 	var special = false;
-	var invisible = true;
 	var table;
 
 	self.readonly();
