@@ -57,6 +57,11 @@ COMPONENT('map', function(self, config) {
 
 	self.search = function(lat, lng) {
 
+		if (!self.map) {
+			setTimeout(self.search, 100, lat, lng);
+			return;
+		}
+
 		if (lng !== undefined) {
 			var position = new google.maps.LatLng(lat, lng);
 			self.map.setCenter(position);
