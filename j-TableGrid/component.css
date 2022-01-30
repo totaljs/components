@@ -1,0 +1,5 @@
+.ui-tablegrid-row > div { float: left; }
+.ui-tablegrid-bl { border-left: 1px solid #EBECF2; }
+.ui-tablegrid-bt { border-top: 1px solid #EBECF2; }
+.ui-dark .ui-tablegrid-bl { border-left: 1px solid #373737; }
+.ui-dark .ui-tablegrid-bt { border-top: 1px solid #373737; }
