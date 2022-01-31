@@ -64,9 +64,12 @@ COMPONENT('keyselection', 'selector:input;class:selected;autoselect:true;selecto
 			e.preventDefault();
 			selected.index++;
 			self.select();
-		} else if (key === 'enter' && selected.element && config.exec) {
+		} else if (key === 'enter' && selected.element) {
 			var el = $(selected.element);
-			self.EXEC(config.exec, el);
+			if (config.exec)
+				self.EXEC(config.exec, el);
+			else
+				el.trigger('click');
 		}
 	};
 
