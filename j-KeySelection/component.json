@@ -1,0 +1,19 @@
+{
+	"datecreated": "2022-01-31T19:16:00.000Z",
+	"dateupdated": null,
+	"name": "j-KeySelection",
+	"tags": [
+		"keyboard",
+		"selection",
+		"up",
+		"down"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

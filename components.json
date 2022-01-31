@@ -268,5 +268,6 @@
 	"j-Watcher",
 	"j-CloudEditor",
 	"j-AutoExec",
-	"j-TableGrid"
+	"j-TableGrid",
+	"j-KeySelection"
 ]
