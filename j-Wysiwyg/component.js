@@ -306,7 +306,7 @@ COMPONENT('wysiwyg', function(self, config, cls) {
 
 		if (type === 'click' || type === 'cursor') {
 
-			var format = loadformat(self.getNode());
+			var format = loadformat();
 			var keys = Object.keys(buttons);
 
 			for (var i = 0; i < keys.length; i++) {
