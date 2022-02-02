@@ -50,7 +50,10 @@ COMPONENT('keyselection', 'selector:input;class:selected;autoselect:true;selecto
 		if (arr[selected.index]) {
 			arr[selected.index].classList.add(config.class);
 			selected.element = arr[selected.index];
-			config.autoscroll && selected.element.scrollIntoView(true);
+			if (config.autoscroll) {
+				var el = arr[selected.index - 1];
+				el && el.scrollIntoView(true);
+			}
 		} else
 			selected.element = null;
 	};
