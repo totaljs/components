@@ -3,6 +3,7 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 	var clsvisible = 'floatingbox-visible';
 	var is = false;
 	var open = [];
+	var processed = {};
 
 	var makepath = function(val, scope) {
 		return val.replace(/\?/g, scope);
@@ -68,10 +69,27 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 		// opt.height
 		// opt.scope;
 		// opt.autofocus
+		// opt.delay
+		// opt.url
+		// |-- opt.path
+		// |-- opt.ID
 
 		opt.box = $('.floatingbox[data-id="{0}"]'.format(opt.id));
 
 		if (!opt.box.length) {
+
+			if (opt.url) {
+				if (!processed[opt.url]) {
+					processed[opt.url] = 1;
+					IMPORT(opt.url, function() {
+						setTimeout(self.show, 100, opt);
+					}, function(content) {
+						return content.replace(/~PATH~/g, opt.path || '').replace(/~ID~/g, opt.ID || opt.id || '');
+					});
+					return;
+				}
+			}
+
 			setTimeout(self.show, 500, opt);
 			return;
 		}
@@ -156,7 +174,7 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 
 		opt.prevscope = M.scope();
 		opt.scope && M.scope(opt.scope);
-		self.aclass(cls + '-visible');
+		self.aclass(cls + '-visible', opt.delay || 0);
 		opt.init && opt.init();
 
 		if (!opt.initialized && opt.config.init)
@@ -175,7 +193,9 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 
 	var close = function(item) {
 		if (item) {
+			var pos = '-' + (WW + 100) + 'px';
 			item.box.rclass(clsvisible);
+			item.box.css({ left: pos, top: pos });
 			item.hide && item.hide(item.box);
 			item.config.hide && EXEC(makepath(item.config.hide, item.scope), item.box);
 			item.mouseleave && item.box.off('mouseleave', item.mouseleave);

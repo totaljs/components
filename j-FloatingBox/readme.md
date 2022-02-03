@@ -24,6 +24,10 @@ __Methods__:
 	- `opt.mouseleave {String}` a link to the method, it's executed when the mouse cursor leaves the box `function(e, close)}`
 	- `opt.autofocus {Boolean}` tries to focus first input/textarea
 	- `opt.hide {String}` a link to the method `function(box_element)`
+	- __NEW__: `opt.delay {Number}` a simple delay for rendering (default: `0`)
+	- __NEW__: `opt.url {String}` optional, URL address for the content
+		- `opt.path {String}` will replace all `~PATH~` phrases in the downloaded template
+		- `opt.ID {String}` will replace all `~ID~` phrases in the downloaded template
 - `component.hide()` hides the last open box
 - `component.hide([box_id])` hides the specific box and its all nested boxes
 - `component.hide(true)` hides all boxes
