@@ -607,7 +607,12 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 			container.find(cls2 + '-title').find('div > span').text(tmp.meta.title);
 		};
 
-		tmp.meta.make && tmp.meta.make.call(tmp, tmp.meta, tmp.config, tmp.element);
+		try {
+			tmp.meta.make && tmp.meta.make.call(tmp, tmp.meta, tmp.config, tmp.element);
+		} catch (e) {
+			console.error && console.error('Dashboard:', tmp.meta, e);
+		}
+
 		el[0].$dashboard = tmp;
 
 		if (!isdom && obj.html)
