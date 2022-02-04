@@ -23,13 +23,16 @@ COMPONENT('search', 'class:hidden;delay:50;attribute:data-search;splitwords:1;de
 			return;
 		}
 
-		var search = value.toSearch();
+		var raw = value.trim();
+		var search = raw.toSearch();
 		var count = 0;
 		var hidden = 0;
 		var custom = config.custom ? GET(self.makepath(config.custom)) : null;
 
-		if (config.splitwords)
+		if (config.splitwords) {
 			search = search.split(' ');
+			raw = raw.split(' ');
+		}
 
 		self.aclass(cls + '-used');
 
@@ -51,17 +54,29 @@ COMPONENT('search', 'class:hidden;delay:50;attribute:data-search;splitwords:1;de
 				continue;
 			}
 
-			var val = (el.attr(config.attribute) || '').toSearch();
+			var val = (el.attr(config.attribute) || '').trim();
+			var fuzzy = val.toSearch();
 
 			if (search instanceof Array) {
-				for (var j = 0; j < search.length; j++) {
-					if (val.indexOf(search[j]) === -1) {
+
+				for (var j = 0; j < raw.length; j++) {
+					if (val.indexOf(raw[j]) === -1) {
 						is = true;
 						break;
 					}
 				}
+
+				if (is) {
+					is = false;
+					for (var j = 0; j < search.length; j++) {
+						if (fuzzy.indexOf(search[j]) === -1) {
+							is = true;
+							break;
+						}
+					}
+				}
 			} else
-				is = val.indexOf(search) === -1;
+				is = fuzzy.indexOf(search) === -1 && val.indexOf(raw) === -1;
 
 			el.tclass(config.class, is);
 
