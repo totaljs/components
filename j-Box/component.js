@@ -80,7 +80,7 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 		if (self.hclass('hidden'))
 			return;
 
-		var padding = isMOBILE || WIDTH() === 'xs' ? 0 : config.padding;
+		var padding = WIDTH() === 'xs' ? 0 : config.padding;
 		var ui = self.find(cls2);
 
 		csspos.height = WH - (config.style == 1 ? (padding * 2) : padding);
