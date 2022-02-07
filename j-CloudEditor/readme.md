@@ -23,6 +23,7 @@ __Configuration__:
 	- `change` contains partial changes for real-time collaboration (`config.realtime` must be `true`)
 - `contextmenu {String}` a path to the `function(opt)`
 - `realtime {Boolean}` enables realtime sending changes to the `event` method (event name is `change`)
+- `keywords {String}` custom keywords in the form e.g. `ID,PATH`
 
 __Method__:
 

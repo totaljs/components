@@ -185,7 +185,7 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1;realtime:0', function(self, con
 		if (init) {
 			settertimeout = null;
 			var model = self.get();
-			model && send({ TYPE: 'init', realtime: config.realtime, readonly: config.readonly, mode: model.type || 'clientside', value: model.body, darkmode: $('body').hclass('ui-dark') });
+			model && send({ TYPE: 'init', realtime: config.realtime, readonly: config.readonly, mode: model.type || 'clientside', value: model.body, keywords: model.keywords || config.keywords, darkmode: $('body').hclass('ui-dark') });
 		} else {
 			settertimeout && clearTimeout(settertimeout);
 			settertimeout = setTimeout(self.setter, 100);
