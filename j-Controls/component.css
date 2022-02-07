@@ -1,0 +1,33 @@
+.ui-controls-area { position: absolute; left: 0; right: 0; bottom: 0; top: 0; z-index: 100; }
+.ui-controls { position: absolute; z-index: 1; transform-origin: top left; padding: 10px 0; }
+.ui-controls-items { background-color: #FFF; padding: 5px; border-radius: var(--radius); box-shadow: 2px 5px 10px rgba(0,0,0,0.05); border: 1px solid #E0E0E0; position: relative; }
+.ui-controls-submenu { position: absolute; z-index: 101; background-color: #FFF; padding: 5px 3px; border-radius: var(--radius); box-shadow: 2px 5px 10px rgba(0,0,0,0.05); border: 1px solid #E0E0E0; }
+.ui-controls-visible {}
+.ui-controls-items ul { margin: 0; padding: 0; height: 26px; }
+.ui-controls-items li { margin: 0 2px; padding: 0 5px; list-style-type: none; font-size: 12px; cursor: pointer; max-width: 150px; float: left; line-height: 26px; height: 26px; border-radius: var(--radius); }
+.ui-controls-submenu ul { margin: 0; padding: 0; }
+.ui-controls-submenu li { margin: 0 2px; padding: 0 5px; list-style-type: none; font-size: 12px; cursor: pointer; max-width: 150px; line-height: 26px; height: 26px; border-radius: var(--radius); }
+.ui-controls-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ui-controls-selected { background-color: #F5F5F5; border-radius: var(--radius); }
+.ui-controls li:hover { background-color: #F0F0F0; }
+.ui-controls-name i { width: 16px; margin: 0; text-align: center; color: #000; }
+.ui-controls-name span { margin-left: 5px; }
+.ui-controls-divider { padding: 0 !important; background: transparent !important; cursor: default !important; color: gray; font-size: 11px !important; border-right: 1px solid #E0E0E0; height: 24px;  border-radius: 0 !important; }
+.ui-controls-divider span { display: block; padding: 0 10px 0 5px; }
+.ui-controls-divider hr { margin: 5px 0; border-color: #E0E0E0; }
+.ui-controls li.ui-controls-disabled { color: #a0a0a0; background-color: #FFF; cursor: not-allowed; }
+.ui-controls li.ui-controls-disabled i { color: #c5c5c5; }
+
+.ui-dark .ui-controls-items, .ui-dark .ui-controls-submenu { background-color: #303030; border-color: #353535; box-shadow: 1px 5px 10px rgba(0,0,0,0.2); }
+.ui-dark .ui-controls-name i { color: #FFF; }
+.ui-dark .ui-controls-selected { background-color: #252525; }
+.ui-dark .ui-controls li:hover { background-color: #202020; }
+.ui-dark .ui-controls-divider { border-color: #404040; }
+.ui-dark .ui-controls li.ui-controls-disabled { background-color: #303030; color: #656565; }
+.ui-dark .ui-controls li.ui-controls-disabled i { color: #525252; }
+
+.ui-large .ui-controls-items li { line-height: 32px; height: 32px; }
+.ui-large .ui-controls-items ul { height: 32px; }
+.ui-large .ui-controls-submenu li { line-height: 30px; height: 30px; }
+.ui-large .ui-controls-divider { font-size: 14px !important; }
+.ui-large .ui-controls li { font-size: 14px; padding: 0 10px; }

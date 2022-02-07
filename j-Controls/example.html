@@ -1,0 +1,29 @@
+<style>
+	body { background-color: #E0E0E0; }
+</style>
+
+<div data---="controls"></div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-xs-4 col-xs-offset-4" style="text-align:center">
+			<a href="javascript:void(0)" style="color:black;font-size:20px"><i class="fa fa-ellipsis-v"></i></a>
+		</div>
+	</div>
+</div>
+
+<script>
+	$(document).on('click', 'a', function() {
+
+		var opt = {};
+		opt.items = ['Label', { icon: 'print', classname: 'custom_class_name' }, { icon: 'home', disabled: true, title: 'Home' }, '-', { icon: '!far fa-envelope', children: [{ name: 'Submenu item 1', icon: 'cog' }, { name: 'Submenu item 2', icon: 'home' }] }, { name: 'Selected', icon: 'check-circle', selected: true }];
+		opt.align = 'center';
+		opt.element = this;
+		// opt.large = true;
+		opt.callback = function(selected) {
+			console.log(selected);
+		};
+		SETTER('controls/show', opt);
+	});
+
+</script>

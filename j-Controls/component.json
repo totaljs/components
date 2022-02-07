@@ -1,0 +1,20 @@
+{
+	"datecreated": "2022-02-07T09:02:00.000Z",
+	"dateupdated": null,
+	"name": "j-Controls",
+	"tags": [
+		"menu",
+		"controls",
+		"contextmenu"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"darkmode": true,
+	"largemode": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
