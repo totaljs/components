@@ -1700,9 +1700,7 @@ EXTENSION('flow:connections', function(self, config) {
 
 		parent.removeChild(dom);
 		parent.appendChild(dom);
-
 		e.preventDefault();
-		e.stopPropagation();
 	});
 
 });
@@ -2302,9 +2300,7 @@ EXTENSION('flow:groups', function(self, config, cls) {
 		var evt = e.type === 'touchstart' ? e.touches[0] : e;
 
 		self.op.unselect();
-
 		e.preventDefault();
-		e.stopPropagation();
 
 		var parent = self.op.position();
 		var plusX = (parent.scrollLeft || 0) + parent.left;
