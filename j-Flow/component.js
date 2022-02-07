@@ -47,12 +47,16 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;curvedlines:1;horizontal:1;ste
 		};
 
 		drag.touchend = function(e) {
+
+			drag.unbind();
+
+			if (!drag.lastX || !drag.lastY)
+				return;
+
 			e.target = document.elementFromPoint(drag.lastX, drag.lastY);
 
 			if (e.target && e.target.tagName !== 'SVG')
 				e.target = $(e.target).closest('svg')[0];
-
-			drag.unbind();
 
 			if (e.target) {
 				var pos = self.op.position();
@@ -60,7 +64,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;curvedlines:1;horizontal:1;ste
 				e.pageY = drag.lastY;
 				e.offsetX = e.pageX - pos.left;
 				e.offsetY = e.pageY - pos.top;
-				drag.drop(e);
+				setTimeout(drag.drop, 100, e);
 			}
 		};
 
@@ -80,6 +84,8 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;curvedlines:1;horizontal:1;ste
 				var dt = e.originalEvent.dataTransfer;
 				dt && dt.setData('text', '1');
 			}
+			drag.lastX = 0;
+			drag.lastY = 0;
 		};
 
 		drag.handler_end = function() {
