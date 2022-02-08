@@ -1,0 +1,17 @@
+<div data---="releaser__common.form__if:userform">
+	<script type="text/html">
+		<i class="fa fa-thumbs-up"></i> THE CONTENT IS RENDERED
+	</script>
+</div>
+<hr />
+<button data-bind="null__click:releaser_show">Show</button> <button data-bind="null__click:releaser_release">Release</button>
+
+<script>
+	function releaser_show() {
+		SET('common.form', 'userform');
+	}
+
+	function releaser_release() {
+		NUL('common.form');
+	}
+</script>
