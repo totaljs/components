@@ -86,6 +86,8 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;curvedlines:1;horizontal:1;ste
 			}
 			drag.lastX = 0;
 			drag.lastY = 0;
+			drag.clickX = e.offsetX;
+			drag.clickY = e.offsetY;
 		};
 
 		drag.handler_end = function() {
@@ -98,6 +100,8 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;curvedlines:1;horizontal:1;ste
 			meta.pageY = e.pageY;
 			meta.offsetX = e.offsetX;
 			meta.offsetY = e.offsetY;
+			meta.clickX = drag.clickX;
+			meta.clickY = drag.clickY;
 			meta.el = drag.el;
 			meta.target = $(e.target);
 			config.ondrop && self.EXEC(config.ondrop, meta, self);
