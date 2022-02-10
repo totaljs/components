@@ -145,11 +145,11 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1;realtime:0', function(self, con
 
 	self.save = function(callback) {
 		send({ TYPE: 'body' }, function(msg) {
-			skip = true;
 			send({ TYPE: 'clear' });
 			if (callback) {
 				callback(msg.value);
 			} else {
+				skip = true;
 				self.get().body = msg.value;
 				self.update(true);
 			}
