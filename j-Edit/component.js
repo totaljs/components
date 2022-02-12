@@ -285,7 +285,7 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10', function(self, config, cls
 				fn(opt, function(body) {
 					if (body === true)
 						opt.element.html(opt.value);
-					else if (body == null)
+					else if (body == null || body === false)
 						opt.element.html(opt.html);
 					else
 						opt.element.html(body + '');
