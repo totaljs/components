@@ -129,9 +129,9 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 	self.resizeforce = function() {
 		var parent = self.parent(config.parent);
 		var w = parent.width();
-		var h = parent.height();
+		var h = parent.height() - config.margin;
 		if (parth !== h || partw !== w) {
-			parth = h - config.margin;
+			parth = h;
 			partw = w;
 			self.find('> div').css({ width: w, height: h });
 			self.element.SETTER('*/resize');
