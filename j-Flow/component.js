@@ -1435,7 +1435,7 @@ EXTENSION('flow:connections', function(self, config) {
 		drag.path.remove();
 		events.unbind();
 
-		if (config.allowpause && drag.click && (Date.now() - drag.ticks) < 150) {
+		if (config.allowpause && e.target.tagName === 'I' && drag.click && (Date.now() - drag.ticks) < 150) {
 			var icon = drag.target.find('.component-io');
 			var clsp = 'disabled';
 			icon.tclass(clsp);
