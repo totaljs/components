@@ -131,9 +131,9 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 		var w = parent.width();
 		var h = parent.height();
 		if (parth !== h || partw !== w) {
-			parth = h;
+			parth = h - config.margin;
 			partw = w;
-			self.find('> div').css({ width: w, height: h - config.margin });
+			self.find('> div').css({ width: w, height: h });
 			self.element.SETTER('*/resize');
 		}
 	};
