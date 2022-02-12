@@ -1,0 +1,33 @@
+<div data---="exec"></div>
+
+<div data-bind="myparts__template">
+	<script type="text/html">
+		{{ foreach m in value }}
+		<button class="exec" data-exec="changepart" data-id="{{ m.id }}"><i class="fa fa-times exec mr5" data-prevent="true" data-exec="closepart"></i>{{ m.name }}</button>
+		{{ end }}
+	</script>
+</div>
+<br />
+
+<div style="width:600px;height:300px;border:1px solid #E0E0E0">
+	<div data---="parts__myparts__parent:auto"></div>
+</div>
+
+<script>
+	var myparts = [];
+
+	myparts.push({ id: '1', name: 'Part 1', html: '<div class="padding">Part 1</div>' });
+	myparts.push({ id: '2', name: 'Part 2', html: '<div class="padding">Part 2</div>' });
+	myparts.push({ id: '3', name: 'Part 3', html: '<div class="padding">Part 3</div>' });
+
+	function changepart(el ,e) {
+		var id = ATTRD(el);
+		SETTER('parts/focus', id);
+	}
+
+	function closepart(el, e) {
+		var id = ATTRD(el);
+		SETTER('parts/close', id);
+	}
+
+</script>
