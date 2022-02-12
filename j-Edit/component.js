@@ -270,7 +270,6 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10', function(self, config, cls
 				break;
 		}
 
-		opt.html = null;
 		self.save(el);
 		return true;
 	};
