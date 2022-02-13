@@ -47,6 +47,7 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 
 		self.css('z-index', config.zindex);
 		self.on('reflow + resize + resize2', fn);
+		self.aclass(cls + '-container');
 		$(W).on('scroll', fn);
 	};
 
@@ -193,9 +194,7 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 
 	var close = function(item) {
 		if (item) {
-			var pos = '-' + (WW + 100) + 'px';
 			item.box.rclass(clsvisible);
-			item.box.css({ left: pos, top: pos });
 			item.hide && item.hide(item.box);
 			item.config.hide && EXEC(makepath(item.config.hide, item.scope), item.box);
 			item.mouseleave && item.box.off('mouseleave', item.mouseleave);
