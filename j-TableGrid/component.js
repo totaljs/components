@@ -1,11 +1,16 @@
-COMPONENT('tablegrid', 'count:3', function(self, config, cls) {
+COMPONENT('tablegrid', 'count:3;fill:0;scrollbar:1;visibleY:1;margin:0;row:0', function(self, config, cls) {
 
+	var cls2 = '.' + cls;
 	var empty = '';
+	var container;
+	var area;
 	var display;
+	var isinit = false;
 
 	self.readonly();
 
 	self.make = function() {
+
 		self.aclass(cls);
 
 		var templates = self.find('scri' + 'pt');
@@ -17,7 +22,14 @@ COMPONENT('tablegrid', 'count:3', function(self, config, cls) {
 				self.template = Tangular.compile(html);
 		}
 
+		self.html('<div class="{0}-scrollbar"><div class="{0}-container"></div></div>'.format(cls));
+		container = self.find(cls2 + '-container');
+		area = self.find(cls2 + '-scrollbar');
+		self.scrollbar = config.scrollbar ? SCROLLBAR(area, { shadow: config.scrollbarshadow, visibleY: config.visibleY, orientation: 'y' }) : null;
 		self.on('resize + resize2', self.resize);
+		isinit = true;
+		self.resizeforce();
+		isinit = false;
 	};
 
 	self.resize = function() {
@@ -25,9 +37,22 @@ COMPONENT('tablegrid', 'count:3', function(self, config, cls) {
 	};
 
 	self.resizeforce = function() {
-		var tmp = config.parent ? WIDTH(self.parent(config.parent)) : WIDTH();
-		if (tmp !== display)
-			self.refresh();
+
+		if (!config.parent)
+			return;
+
+		var parent = self.parent(config.parent);
+
+		if (self.scrollbar)
+			area.css({ width: parent.width(), height: parent.height() - config.margin });
+
+		var tmp = WIDTH(parent);
+		if (tmp !== display) {
+			display = tmp;
+			if (!isinit)
+				self.refresh();
+		}
+
 	};
 
 	self.setter = function(value) {
@@ -37,16 +62,31 @@ COMPONENT('tablegrid', 'count:3', function(self, config, cls) {
 			return;
 		}
 
-		display = config.parent ? WIDTH(self.parent(config.parent)) : WIDTH();
+		if (display == null)
+			display = config.parent ? WIDTH(self.parent(config.parent)) : WIDTH();
 
 		var rows = [];
-		var count = config['count' + display] || config.count;
 		var cols = [];
+		var count = config['count' + display] || config.count;
 		var items = value.slice(0);
 		var width = (100 / count).floor(2);
+		var rowheight = config['row' + display] || config.row;
+		var noscroll = false;
 
 		while (items.length % count)
 			items.push(null);
+
+		if (config.fill && config.scrollbar) {
+			var diff = Math.ceil(area.height() / rowheight);
+			var rowcount = items.length / count;
+			for (var i = rowcount; i < diff; i++) {
+				noscroll = true;
+				for (var j = 0; j < count; j++)
+					items.push(null);
+			}
+		}
+
+		var cssheight = rowheight ? ';height:{0}px'.format(rowheight) : '';
 
 		for (var i = 0; i < items.length; i++) {
 
@@ -69,21 +109,26 @@ COMPONENT('tablegrid', 'count:3', function(self, config, cls) {
 			if (row === count - 1)
 				c.push(cls + '-last');
 
-			cols.push('<div class="{0}" style="width:{1}%">{2}</div>'.format(c.join(' '), width, item == null ? empty : self.template({ value: item })));
+			cols.push('<div class="{0}" style="width:{1}%{3}">{2}</div>'.format(c.join(' '), width, item ? self.template({ value: item }) : empty, cssheight));
 
 			if (row === count - 1) {
-				rows.push('<div class="{0}-row">{1}</div><div class="clearfix"></div>'.format(cls, cols.join('')));
+				rows.push('<div><div class="{0}-row">{1}</div><div class="clearfix"></div></div>'.format(cls, cols.join('')));
 				cols.length = 0;
 			}
 
 		}
 
 		if (cols.length)
-			rows.push('<div class="{0}-row">{1}</div><div class="clearfix"></div>'.format(cls, cols.join('')));
+			rows.push('<div><div class="{0}-row">{1}</div><div class="clearfix"></div></div>'.format(cls, cols.join('')));
 
 		var html = rows.join('');
-		self.html(html);
-		html.COMPILABLE() && COMPILE();
+		container.html(html);
+
+		if (config.scrollbar)
+			area.tclass('ui-scrollbar-noscroll', noscroll);
+
+		html.COMPILABLE() && COMPILE(container);
+
 	};
 
 });

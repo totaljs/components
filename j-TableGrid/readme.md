@@ -8,6 +8,15 @@ __Configuration__:
 - `countmd {Number}` items per row for medium display
 - `countlg {Number}` items per row for large display
 - `parent {String}` for obtaining of size (default: `window`)
+- `margin {Number}` a vertical margin (default: `0`)
+- `scrollbar {Boolean}` enables custom scrollbar (default: `false`)
+- `fill {Boolean}` fills the grid with empty rowsm need to define `row` and `scrollbar`
+- `row {Number}` a default row height for all displays (default: `0`)
+- `rowxs {Number}` a default row height for mobile display (default: `0`)
+- `rowsm {Number}` a default row height for small display (default: `0`)
+- `rowmd {Number}` a default row height for medium display (default: `0`)
+- `rowlg {Number}` a default row height for large display (default: `0`)
+
 
 __Classes__:
 
