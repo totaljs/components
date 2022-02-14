@@ -25,7 +25,7 @@ COMPONENT('tablegrid', 'count:3;fill:0;scrollbar:1;visibleY:1;margin:0;row:0', f
 		self.html('<div class="{0}-scrollbar"><div class="{0}-container"></div></div>'.format(cls));
 		container = self.find(cls2 + '-container');
 		area = self.find(cls2 + '-scrollbar');
-		self.scrollbar = config.scrollbar ? SCROLLBAR(area, { shadow: config.scrollbarshadow, visibleY: config.visibleY, orientation: 'y' }) : null;
+		self.scrollbar = config.scrollbar && config.parent ? SCROLLBAR(area, { shadow: config.scrollbarshadow, visibleY: config.visibleY, orientation: 'y' }) : null;
 		self.on('resize + resize2', self.resize);
 		isinit = true;
 		self.resizeforce();
