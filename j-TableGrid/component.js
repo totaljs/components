@@ -44,7 +44,7 @@ COMPONENT('tablegrid', 'count:3;fill:0;scrollbar:1;visibleY:1;margin:0;row:0', f
 		var parent = self.parent(config.parent);
 
 		if (self.scrollbar)
-			area.css({ width: parent.width(), height: parent.height() - config.margin });
+			area.css({ height: parent.height() - config.margin });
 
 		var tmp = WIDTH(parent);
 		if (tmp !== display) {
@@ -58,7 +58,7 @@ COMPONENT('tablegrid', 'count:3;fill:0;scrollbar:1;visibleY:1;margin:0;row:0', f
 	self.setter = function(value) {
 
 		if (!value) {
-			self.empty();
+			container.empty();
 			return;
 		}
 
