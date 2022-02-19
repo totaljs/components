@@ -2,7 +2,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var container, timeout, icon, plus, skipreset = false, skipclear = false, ready = false, input = null, issearch = false;
-	var is = false, selectedindex = 0, resultscount = 0, skiphide = false;
+	var is = false, selectedindex = 0, resultscount = 0;
 	var templateE = '{{ name | encode | ui_directory_helper }}';
 	var templateR = '{{ name | raw }}';
 	var template = '<li data-index="{{ $.index }}" data-search="{{ $.search }}" {{ if selected }} class="current selected{{ if classname }} {{ classname }}{{ fi }}"{{ else if classname }} class="{{ classname }}"{{ fi }}>{{ if $.checkbox }}<span class="' + cls + '-checkbox"><i class="fa fa-check"></i></span>{{ fi }}{0}</li>';
@@ -125,7 +125,6 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 
 					response.quicksort('selectedts');
 					self.opt.callback(response, self.opt.element, false, e);
-					skiphide = true;
 				} else
 					self.opt.callback(item, self.opt.element, false, e);
 			}
@@ -139,44 +138,6 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 			}
 
 		});
-
-		var e_click = function(e) {
-
-			if (skiphide) {
-				skiphide = false;
-				return;
-			}
-
-			var node = e.target;
-			var count = 0;
-
-			if (is) {
-				while (true) {
-					var c = node.getAttribute('class') || '';
-					if (c.indexOf(cls + '-search-input') !== -1)
-						return;
-					node = node.parentNode;
-					if (!node || !node.tagName || node.tagName === 'BODY' || count > 3)
-						break;
-					count++;
-				}
-			} else {
-				is = true;
-				while (true) {
-					var c = node.getAttribute('class') || '';
-					if (c.indexOf(cls) !== -1) {
-						is = false;
-						break;
-					}
-					node = node.parentNode;
-					if (!node || !node.tagName || node.tagName === 'BODY' || count > 4)
-						break;
-					count++;
-				}
-			}
-
-			is && self.hide(0);
-		};
 
 		var e_resize = function() {
 			is && self.hide(0);
@@ -546,7 +507,6 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 			width = opt.maxwidth;
 
 		ready = false;
-
 		opt.ajaxold = null;
 		plus.aclass('hidden');
 		self.find('input').prop('placeholder', opt.placeholder || config.placeholder);
@@ -616,13 +576,15 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		setTimeout(function() {
 			self.initializing = false;
 			is = true;
-			if (selected == null)
-				scroller[0].scrollTop = 0;
-			else {
+
+			if (selected) {
 				var h = container.find('li:first-child').innerHeight() + 1;
 				var y = (container.find('li.selected').index() * h) - (h * 2);
 				scroller[0].scrollTop = y < 0 ? 0 : y;
-			}
+			} else
+				scroller[0].scrollTop = 0;
+
+			self.rclass('invisible');
 		}, 100);
 
 		if (is) {
@@ -635,6 +597,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		skipclear = true;
 
 		self.search();
+		self.aclass('invisible');
 		self.rclass('hidden');
 
 		setTimeout(function() {
