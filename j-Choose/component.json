@@ -1,0 +1,20 @@
+{
+	"datecreated": "2022-02-21T15:11:00.000Z",
+	"dateupdated": null,
+	"name": "j-Choose",
+	"tags": [
+		"selection",
+		"choose",
+		"radiobutton",
+		"checkbox"
+	],
+	"color": "white",
+	"darkmode": 0,
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
