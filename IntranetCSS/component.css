@@ -141,3 +141,14 @@
 .keyvalue > div i { width: 14px; margin-right: 5px; }
 
 p { font-size: 13px; color: #777; margin: 0 0 15px 0; }
+
+.iconmenu { height: 60px; text-align: center; }
+.iconmenu i { font-size: 20px; display: block; padding: 10px 0 0; }
+.iconmenu span { font-size: 12px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 3px 5px 0; color: #777; }
+.iconmenu > div.selected { background-color: rgba(0,0,0,0.07); }
+.iconmenu > div { height: 60px; width: 75px; border: 1px solid #E0E0E0; border-left-width: 0; float: left; }
+.iconmenu > div:first-child { border-left-width: 1px; border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
+.iconmenu > div:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
+
+.ui-dark .iconmenu > div.selected { background-color: rgba(255,255,255,0.1); }
+.ui-dark .iconmenu > div { border-color: #404040; }
