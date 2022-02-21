@@ -273,5 +273,6 @@
 	"j-Controls",
 	"j-Releaser",
 	"j-Parts",
-	"j-Choose"
+	"j-Choose",
+	"j-DropdownList"
 ]

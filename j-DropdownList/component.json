@@ -1,0 +1,18 @@
+{
+	"datecreated": "2022-02-21T18:14:00.000Z",
+	"dateupdated": null,
+	"name": "j-DropdownList",
+	"tags": [
+		"dropdown",
+		"list"
+	],
+	"color": "white",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
