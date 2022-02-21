@@ -43,16 +43,15 @@ COMPONENT('tablegrid', 'count:3;fill:0;scrollbar:1;visibleY:1;margin:0;row:0', f
 
 		var parent = self.parent(config.parent);
 
-		if (self.scrollbar)
+		if (self.scrollbar) {
 			area.css({ height: parent.height() - config.margin });
-
-		var tmp = WIDTH(parent);
-		if (tmp !== display) {
-			display = tmp;
-			if (!isinit)
-				self.refresh();
+			self.scrollbar.resize();
 		}
 
+		display = WIDTH(parent);
+
+		if (!isinit)
+			self.refresh();
 	};
 
 	self.setter = function(value) {
@@ -62,8 +61,10 @@ COMPONENT('tablegrid', 'count:3;fill:0;scrollbar:1;visibleY:1;margin:0;row:0', f
 			return;
 		}
 
+		var parent = config.parent ? self.parent(config.parent) : null;
+
 		if (display == null)
-			display = config.parent ? WIDTH(self.parent(config.parent)) : WIDTH();
+			display = config.parent ? WIDTH(parent) : WIDTH();
 
 		var rows = [];
 		var cols = [];
@@ -75,6 +76,8 @@ COMPONENT('tablegrid', 'count:3;fill:0;scrollbar:1;visibleY:1;margin:0;row:0', f
 
 		while (items.length % count)
 			items.push(null);
+
+		self.scrollbar && self.scrollbar.resize();
 
 		if (config.fill && config.scrollbar) {
 			var diff = Math.ceil(area.height() / rowheight);
