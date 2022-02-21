@@ -11,6 +11,7 @@ __Configuration__:
 - `class {String}` selected class (default: `selected`)
 - `type {String}` converting type, supports `string` or `number` (default: `string`)
 - `uncheck {Boolean}` allows to uncheck selected value for `limit:1` (default: `false`)
+- `disabled {Boolean}` disables the component
 
 ### Author
 

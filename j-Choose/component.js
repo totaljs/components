@@ -48,9 +48,11 @@ COMPONENT('choose', 'limit:1;attr:id;key:id;selector:.selection;event:click;clas
 					self.set(id);
 			} else {
 				var index = model.indexOf(id);
-				if (index === -1)
+				if (index === -1) {
+					if (config.limit >= model.length)
+						model.pop();
 					model.push(id);
-				else
+				} else
 					model.splice(index, 1);
 				self.update(true);
 			}
