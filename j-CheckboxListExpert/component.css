@@ -1,5 +1,5 @@
 .ui-checkboxlistexpert { color: #000; font-size: 14px; vertical-align: baseline; position: relative; }
 .ui-checkboxlistexpert-label { margin-bottom: 5px; font-size: 12px; text-align: left; }
-.ui-checkboxlistexpert-label-required:before { color: red; content: '***'; margin-right: 5px; }
+.ui-checkboxlistexpert-label-required:before { color: red; content: '*'; margin-right: 5px; }
 .ui-large .ui-checkboxlistexpert-label { font-size: 14px; }
 .ui-checkboxlistexpert-container { }

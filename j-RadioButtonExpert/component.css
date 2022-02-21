@@ -1,5 +1,5 @@
 .ui-radiobuttonexpert { color: #000; font-size: 14px; vertical-align: baseline; position: relative; }
 .ui-radiobuttonexpert-label { margin-bottom: 5px; font-size: 12px; text-align: left; }
-.ui-radiobuttonexpert-label-required:before { color: red; content: '***'; margin-right: 5px; }
+.ui-radiobuttonexpert-label-required:before { color: red; content: '*'; margin-right: 5px; }
 .ui-large .ui-radiobuttonexpert-label { font-size: 14px; }
 .ui-radiobuttonexpert-container { }
