@@ -7,6 +7,7 @@ The component can postpone elements without destructing and detaching from the D
 __Configuration__:
 
 - `load {String}` a path to the method `function(id, next(html/element))` that is evaluated if the content wasn't loaded before
+- __NEW__: `class {String}` a class name for the stash container (default: `hidden`)
 
 __Methods__:
 

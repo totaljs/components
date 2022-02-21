@@ -1,4 +1,4 @@
-COMPONENT('stash', 'internal:false', function(self, config, cls) {
+COMPONENT('stash', 'internal:false;class:hidden', function(self, config, cls) {
 
 	var repo = document.createElement('DIV');
 	var compiled = {};
@@ -10,7 +10,7 @@ COMPONENT('stash', 'internal:false', function(self, config, cls) {
 	self.make = function() {
 
 		if (!config.internal) {
-			$(repo).aclass('invisible').css({ left: '-1000px', top: '-1000px', position: 'absolute' });
+			$(repo).aclass(config.class).css({ left: '-1000px', top: '-1000px', position: 'absolute' });
 			document.body.insertBefore(repo, document.body.children[0]);
 		}
 
@@ -126,7 +126,5 @@ COMPONENT('stash', 'internal:false', function(self, config, cls) {
 			}
 
 		}
-
 	};
-
 });
