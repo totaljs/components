@@ -96,11 +96,11 @@ COMPONENT('dropdownlist', 'limit:3;check:true', function(self, config, cls) {
 	};
 
 	self.configure = function(key, value) {
-		if (key === 'disabled') {
+		if (key === 'datasource') {
 			if (config.datasource.indexOf(',') !== -1)
 				config.datasource = self.parsesource(config.datasource);
+		} else if (key === 'disabled')
 			self.tclass('ui-disabled', value);
-		}
 	};
 
 	self.check = function() {
