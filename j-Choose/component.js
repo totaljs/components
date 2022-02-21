@@ -49,7 +49,7 @@ COMPONENT('choose', 'limit:1;attr:id;key:id;selector:.selection;event:click;clas
 			} else {
 				var index = model.indexOf(id);
 				if (index === -1) {
-					if (config.limit >= model.length)
+					if (config.limit <= model.length)
 						model.pop();
 					model.push(id);
 				} else
