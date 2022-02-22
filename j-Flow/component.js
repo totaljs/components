@@ -1248,11 +1248,8 @@ EXTENSION('flow:components', function(self, config) {
 		delete self.preventreposition;
 		switch (tmp) {
 			case 2:
-				self.op.reposition();
-				break;
 			case 3:
 				self.op.reposition();
-				self.refresh_groups();
 				break;
 		}
 	};
@@ -2321,11 +2318,8 @@ EXTENSION('flow:groups', function(self, config, cls) {
 		delete self.preventreposition;
 		switch (tmp) {
 			case 2:
-				self.op.reposition();
-				break;
 			case 3:
 				self.op.reposition();
-				self.refresh_groups();
 				break;
 		}
 	};
