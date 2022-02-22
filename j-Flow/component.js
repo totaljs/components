@@ -1845,7 +1845,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 				else
 					self.animations[id] = 1;
 
-				(function(self, el, dom, opt) {
+				(function(self, el, dom, opt, line2) {
 
 					var fn = function() {
 
@@ -1857,8 +1857,8 @@ EXTENSION('flow:commands', function(self, config, cls) {
 								self.animations[id]--;
 							if (animationcount > 0)
 								animationcount--;
-							if (line.$flowanimcount > 0)
-								line.$flowanimcount--;
+							if (line2.$flowanimcount > 0)
+								line2.$flowanimcount--;
 							return;
 						}
 
@@ -1867,8 +1867,8 @@ EXTENSION('flow:commands', function(self, config, cls) {
 								animationcount--;
 							if (self.animations[id] > 0)
 								self.animations[id]--;
-							if (line.$flowanimcount > 0)
-								line.$flowanimcount--;
+							if (line2.$flowanimcount > 0)
+								line2.$flowanimcount--;
 							el.remove();
 							return;
 						} else
@@ -1877,7 +1877,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 						requestAnimationFrame(fn);
 					};
 					requestAnimationFrame(fn);
-				})(self, el, dom, opt);
+				})(self, el, dom, opt, line);
 			}
 
 			next && setTimeout(next, opt.delay || 50);
