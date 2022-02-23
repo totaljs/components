@@ -1,4 +1,4 @@
-COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serviceinterval:5000;minsizexs:3;minsizesm:2;minsizemd:2;minsizelg:1;iconremove:fa fa-trash-o;iconsettings:fa fa-cog', function(self, config, cls) {
+COMPONENT('dashboard', 'grid:1;delay:700;axisX:12;axisY:144;padding:10;animation:3;serviceinterval:5000;minsizexs:3;minsizesm:2;minsizemd:2;minsizelg:1;iconremove:fa fa-trash-o;iconsettings:fa fa-cog', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var cache = {};
