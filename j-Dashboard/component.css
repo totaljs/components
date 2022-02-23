@@ -28,10 +28,13 @@
 .ui-dashboard-5-run { transform: translate(0); opacity: 1; }
 .ui-dashboard-6-init { transition: all 0.2s; transform: translate(0, -100px); opacity: 0; }
 .ui-dashboard-6-run { transform: translate(0, 0); opacity: 1; }
-.ui-dashboard-grid { stroke: #F0F0F0; stroke-width: 2; }
-.ui-dashboard > svg { margin: 10px 0 0 10px; }
+.ui-dashboard-grid { stroke: #F0F0F0; stroke-width: 2px; }
+.ui-dashboard > svg { border: 4px solid #FFF; }
+.ui-dashboard > svg rect { stroke: #FFF; stroke-width: 2px; }
 .ui-dashboard-nogrid svg { display: none; }
 
+.ui-dark .ui-dashboard > svg { border-color: #202020; }
+.ui-dark .ui-dashboard > svg rect { stroke: #202020; stroke-width: 2px; }
 .ui-dark .ui-dashboard-item figure { border-color: #404040; }
 .ui-dark .ui-dashboard-title { border-color: #404040; background-color: #202020; }
 .ui-dark .ui-dashboard-item figure { background-color: #202020; }
