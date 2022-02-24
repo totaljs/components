@@ -5,7 +5,6 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5;margin:0',
 
 	self.readonly();
 	self.nocompile();
-	self.bindvisible();
 
 	self.init = function() {
 		Thelpers.ui_parameters_value = function(val, format) {
@@ -33,12 +32,13 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5;margin:0',
 	};
 
 	self.resize = function() {
+
 		var h = 0;
 
 		if (config.height > 0)
 			h = config.height;
 		else if (config.parent)
-			h = (config.parent === 'window' ? WH : config.parent === 'parent' ? self.parent().height() : self.closest(config.parent).height()) - search.height() - config.offset;
+			h = self.parent(config.parent).height() - search.height() - config.offset;
 
 		h -= config.margin;
 		scroller.css('height', h);

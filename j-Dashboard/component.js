@@ -1,4 +1,4 @@
-COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serviceinterval:5000;minsizexs:3;minsizesm:2;minsizemd:2;minsizelg:1;iconremove:fa fa-trash-o;iconsettings:fa fa-cog', function(self, config, cls) {
+COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation:3;serviceinterval:5000;minsizexs:3;minsizesm:2;minsizemd:2;minsizelg:1;iconremove:fa fa-trash-o;iconsettings:fa fa-cog', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var cache = {};
@@ -26,6 +26,16 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 		$D.on('mousedown touchstart', cls2 + '-title,' + cls2 + '-resize-button', events.ondown);
 		$D.on('dragstart', '[draggable]', drag.handler);
 		$D.on('touchstart', '[draggable]', drag.handler);
+
+		self.append('<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="jdashboardgrid" width="0" height="0" patternunits="userSpaceOnUse"><path d="M 0 0 L 0 0 0 0" fill="none" class="{0}-grid" /></pattern></defs><rect width="100%" height="100%" fill="url(#jdashboardgrid)" shape-rendering="crispEdges" /></svg>'.format(cls));
+
+		if (!config.grid)
+			self.aclass(cls + '-nogrid');
+
+		self.updategrid = function() {
+			self.find('svg').attr({ width: 12 * pixel + 1, height: self.height() }).css({ margin: (config.padding / 2) + ' 0 0 ' + (config.padding / 2) });
+			self.find('pattern').attr({ width: pixel, height: pixel }).find('path').attr('d', 'M {0} 0 L 0 0 0 {0}'.format(pixel));
+		};
 
 		self.event('mousedown touchstart', cls2 + '-control', function(e) {
 
@@ -357,9 +367,18 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 			max = Math.max(y, max);
 		}
 
-		var h = config.parent ? self.parent(config.parent).height() : 0;
+		var parent = config.parent ? self.parent(config.parent) : null;
+		var h = parent ? parent.height() : 0;
 		max += 20;
-		self.css('height', max < h ? h : max);
+
+		var css = {};
+		css.height = max < h ? h : max;
+		self.css(css);
+	};
+
+	self.configure = function(key, value) {
+		if (key === 'grid')
+			self.tclass(cls + '-nogrid', !value);
 	};
 
 	self.resize_pixel = function() {
@@ -374,6 +393,7 @@ COMPONENT('dashboard', 'delay:700;axisX:12;axisY:144;padding:10;animation:3;serv
 		for (var key in cache)
 			self.woffset(key);
 		self.resize_container();
+		self.updategrid();
 	};
 
 	self.resize2 = function() {

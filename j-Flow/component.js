@@ -1256,6 +1256,15 @@ EXTENSION('flow:components', function(self, config) {
 		}
 
 		events.unbind();
+
+		var tmp = self.preventreposition;
+		delete self.preventreposition;
+		switch (tmp) {
+			case 2:
+			case 3:
+				self.op.reposition();
+				break;
+		}
 	};
 
 	events.leave = function(e) {
@@ -1389,6 +1398,8 @@ EXTENSION('flow:components', function(self, config) {
 
 		if (tmp.actions.move === false)
 			return;
+
+		self.preventreposition = true;
 
 		var nodes = self.find('.' + clssel);
 		drag.target = target;
@@ -1747,15 +1758,24 @@ EXTENSION('flow:commands', function(self, config, cls) {
 			var width = instance.el.width();
 			if (instance.width !== width) {
 				instance.width = width;
-				self.op.reposition();
+				if (self.preventreposition) {
+					if (self.preventreposition === 1)
+						self.preventreposition = 2;
+				} else
+					self.op.reposition();
 				break;
 			}
 		}
 	});
 
 	self.command('flow.refresh', function() {
-		self.op.reposition();
-		self.refresh_groups();
+		if (self.preventreposition) {
+			if (self.preventreposition < 3)
+				self.preventreposition = 3;
+		} else {
+			self.op.reposition();
+			self.refresh_groups();
+		}
 	});
 
 	var flow_find_groups = function(id) {
@@ -2304,7 +2324,17 @@ EXTENSION('flow:groups', function(self, config, cls) {
 			group.onmove && group.onmove(drag.element, group);
 			config.onmove && self.EXEC(config.onmove, drag.element, group, 'group');
 		}
+
 		events.unbind();
+
+		var tmp = self.preventreposition;
+		delete self.preventreposition;
+		switch (tmp) {
+			case 2:
+			case 3:
+				self.op.reposition();
+				break;
+		}
 	};
 
 	self.event('dblclick',  '.' + cls + '-group', function(e) {
@@ -2316,6 +2346,7 @@ EXTENSION('flow:groups', function(self, config, cls) {
 
 		var evt = e.type === 'touchstart' ? e.touches[0] : e;
 
+		self.preventreposition = true;
 		self.op.unselect();
 		e.preventDefault();
 

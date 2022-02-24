@@ -42,6 +42,7 @@ __Configuration__:
 	- `4` rotation Z
 	- `5` changing of X position
 	- `6` changing of Y position
+- `grid {Boolean}` renders background grid (default: `false`)
 
 ```js
 // Component declaration
