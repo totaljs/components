@@ -7,9 +7,9 @@
 .ui-parameters-modified { font-weight: bold; }
 .ui-parameters-modified input::placeholder { font-weight: normal; }
 .ui-parameters-item { height: 24px; font-size: 11px; border-bottom: 1px solid #E0E0E0; }
-.ui-parameters-name { width: 40%; float: left; line-height: 23px; padding: 0 5px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
-.ui-parameters-type { float: right; width: 20%; line-height: 23px; padding: 0 5px; text-overflow: ellipsis; overflow: hidden; text-overflow: ellipsis; border-left: 1px solid #E0E0E0; border-right: 1px solid #E0E0E0; color: gray; background-color: #F9F9F9; }
-.ui-parameters-value { float: right; width: 40%; padding: 0 0 0 5px; user-select: none; }
+.ui-parameters-name { width: 40%; float: left; line-height: 23px; padding: 0 8px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.ui-parameters-type { float: right; width: 20%; line-height: 23px; padding: 0 8px; text-overflow: ellipsis; overflow: hidden; text-overflow: ellipsis; border-left: 1px solid #E0E0E0; border-right: 1px solid #E0E0E0; color: gray; background-color: #F9F9F9; }
+.ui-parameters-value { float: right; width: 40%; padding: 0 0 0 8px; user-select: none; }
 .ui-parameters-value div { display: block; line-height: 23px; }
 .ui-parameters-value input { border: 0; background: transparent; width: 100%; outline: 0; height: 23px; font-size: 11px; line-height: 23px; padding: 0; margin: 0; }
 .ui-parameters-unit div { margin-right: 30px; }
