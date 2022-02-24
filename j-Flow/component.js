@@ -569,15 +569,28 @@ EXTENSION('flow:helpers', function(self, config) {
 	};
 
 	self.helpers.diagonal = function(x1, y1, x2, y2) {
-		var diff = Math.abs(x1 - x2);
-		var a = diff < 200 ? 2 : 1.9;
-		var b = diff < 200 ? 2 : 2.1;
-		if (config.horizontal)
-			return 'M' + x1 + ',' + y1 + 'C' + ((x1 + x2) / a) + ',' + y1 + ' ' + ((x1 + x2) / b) + ',' + y2 + ' ' + x2 + ',' + y2;
-		else
-			return 'M' + x1 + ',' + y1 + 'C' + x1 +  ',' + ((y1 + y2) / a) + ' ' + x2 + ',' + ((y1 + y2) / b) + ' ' + x2 + ',' + y2;
+		var minx = Math.min(x1, x2);
+		var miny = Math.min(y1, y2);
+		var mx = minx + (Math.abs(x1 - x2) / 2);
+		var my = miny + (Math.abs(y1 - y2) / 2);
+		var distx = mx - minx;
+		var disty = my - miny;
+		if (config.horizontal) {
+			var dist = range(range(20, 70, disty), range(70, 180, mx), distx);
+			return 'M' + x1 + ',' + y1 +' Q ' + (x1+dist) + ' ' + y1 + ' ' + mx + ' ' + my + ' Q ' + (x2-dist) + ' ' + y2 + ' ' + x2 + ' ' + y2;
+		} else {
+			var dist = range(range(20, 70, distx), range(70, 180, my), disty);
+			return 'M' + x1 + ',' + y1 +' Q ' + x1 + ' ' + (y1+dist) + ' ' + mx + ' ' + my + ' Q ' + x2 + ' ' + (y2-dist) + ' ' + x2 + ' ' + y2;
+		}
 	};
 
+	function range(min, max, val) {
+		if (val < min)
+			return min;
+		if (val > max)
+			return max;
+		return val;
+	};
 });
 
 EXTENSION('flow:operations', function(self, config, cls) {
