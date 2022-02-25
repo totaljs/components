@@ -21,7 +21,6 @@ COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation
 
 		self.aclass(cls);
 		self.on('resize + resize2', events.resize);
-		$W.on('resize', events.resize);
 
 		$D.on('mousedown touchstart', cls2 + '-title,' + cls2 + '-resize-button', events.ondown);
 		$D.on('dragstart', '[draggable]', drag.handler);
@@ -352,7 +351,6 @@ COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation
 		$D.off('dragstart', '[draggable]', drag.handler);
 		$D.off('touchstart', '[draggable]', drag.handler);
 		$D.off('mousedown touchstart', cls2 + '-title,' + cls2 + '-resize-button', events.down);
-		$W.off('resize', events.resize);
 		events.bind();
 		clearInterval(serviceid);
 		self.change(true);

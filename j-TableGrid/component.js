@@ -45,7 +45,7 @@ COMPONENT('tablegrid', 'count:3;fill:0;scrollbar:1;visibleY:1;margin:0;row:0', f
 
 		if (self.scrollbar) {
 			area.css({ height: parent.height() - config.margin });
-			self.scrollbar.resize();
+			setTimeout(self.scrollbar.resize, 10);
 		}
 
 		display = WIDTH(parent);
