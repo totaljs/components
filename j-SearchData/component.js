@@ -14,7 +14,7 @@ COMPONENT('searchdata', 'class:hidden;delay:50;key:name;splitwords:1', function(
 
 		if (!value) {
 			self.rclass2(cls + '-');
-			config.output && self.SEEX(config.output, datasource);
+			config.output && SET(self.makepath(config.output), datasource);
 			return;
 		}
 
@@ -61,7 +61,7 @@ COMPONENT('searchdata', 'class:hidden;delay:50;key:name;splitwords:1', function(
 		}
 
 		self.tclass(cls + '-empty', !output.length);
-		config.output && self.SEEX(config.output, output);
+		config.output && SET(self.makepath(config.output), output);
 	};
 
 	self.search = function() {
