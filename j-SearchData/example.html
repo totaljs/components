@@ -1,0 +1,24 @@
+<div data---="textbox__search__type:search"></div>
+<br />
+<div data---="searchdata__search__datasource:searchitems;output:searchoutput">
+	<div data-bind="searchoutput__template">
+		<script type="text/html">
+			{{ foreach m in value }}
+				<div>{{ m.name }}</div>
+			{{ end }}
+		</script>
+	</div>
+</div>
+
+<script>
+
+	// Search phrase
+	var search = '';
+
+	// Datasource for filtering
+	var searchitems = [{ name: 'Apples' }, { name: 'Oranges' }, { name: 'Pears' }, { name: 'Black-eye bean' }, { name: 'Broccoli' }];
+
+	// Here will be stored all filtered items
+	var searchoutput = [];
+
+</script>
