@@ -7,7 +7,7 @@ __Configuration__:
 - `datasource {String}` __required__ - a path to the data-source with list of items `Array`
 - `output {String}` __required__ - a path for filtered items
 - `key {String}` __required__ - a key/property name for searching (default: `name`)
-- `delay` {Number} typing delay (default: `50` ms)
+- `delay {Number}` a delay (default: `50` ms)
 - `splitwords {Boolean}` tries to find word in various position (default: `true`)
 
 __Good to know__:
