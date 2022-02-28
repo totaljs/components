@@ -1,4 +1,4 @@
-COMPONENT('listing', 'pages:3;count:20;scrolltop:1;margin:0;pluralizeitems:# items,# item,# items,# items;pluralizepages:# pages,# page,# pages,# pages', function(self, config, cls) {
+COMPONENT('listing', 'pages:3;count:20;scrolltop:1;margin:0;pluralizeitems:# items,# item,# items,# items;pluralizepages:# pages,# page,# pages,# pages', function(self, config, cls) {
 
 	var container, paginate, current, items, pages = 0;
 	var cls2 = '.' + cls;
@@ -43,7 +43,7 @@ COMPONENT('listing', 'pages:3;count:20;scrolltop:1;margin:0;pluralizeitems:# ite
 
 		if (config.parent || config.height) {
 			self.aclass(cls + '-fixed');
-			self.scrollbar = SCROLLBAR(self.find(cls2 + '-scrollbar'), { visibleY: 1, orientation: 'y' });
+			self.scrollbar = SCROLLBAR(self.find(cls2 + '-scrollbar'), { shadow: config.scrollbarshadow, visibleY: 1, orientation: 'y' });
 		}
 
 		self.resize2();
