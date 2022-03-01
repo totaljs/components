@@ -123,10 +123,12 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 			var child = self.dom.children[0];
 			if (child.tagName === 'NAV') {
 				nav = $(child);
-				if (counter)
+				if (counter) {
 					body.parentNode.appendChild(child);
-				else
+				} else {
 					el.find(cls2 + '-title')[0].appendChild(child);
+					nav = null;
+				}
 			} else
 				body.appendChild(child);
 			counter++;
