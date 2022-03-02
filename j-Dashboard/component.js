@@ -21,7 +21,6 @@ COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation
 
 		self.aclass(cls);
 		self.on('resize + resize2', events.resize);
-		$W.on('resize', events.resize);
 
 		$D.on('mousedown touchstart', cls2 + '-title,' + cls2 + '-resize-button', events.ondown);
 		$D.on('dragstart', '[draggable]', drag.handler);
@@ -33,7 +32,8 @@ COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation
 			self.aclass(cls + '-nogrid');
 
 		self.updategrid = function() {
-			self.find('svg').attr({ width: 12 * pixel + 1, height: self.height() }).css({ margin: (config.padding / 2) + ' 0 0 ' + (config.padding / 2) });
+			var padding = (config.padding / 2);
+			self.find('svg').attr({ width: 12 * pixel + 1 + padding, height: self.height() }).css({ margin: padding + ' 0 0 ' + padding });
 			self.find('pattern').attr({ width: pixel, height: pixel }).find('path').attr('d', 'M {0} 0 L 0 0 0 {0}'.format(pixel));
 		};
 
@@ -351,7 +351,6 @@ COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation
 		$D.off('dragstart', '[draggable]', drag.handler);
 		$D.off('touchstart', '[draggable]', drag.handler);
 		$D.off('mousedown touchstart', cls2 + '-title,' + cls2 + '-resize-button', events.down);
-		$W.off('resize', events.resize);
 		events.bind();
 		clearInterval(serviceid);
 		self.change(true);

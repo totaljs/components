@@ -1,13 +1,12 @@
 {
-	"datecreated": "2022-01-30T11:03:02.000Z",
-	"dateupdated": "2022-02-27T09:53:00.000Z",
-	"name": "j-TableGrid",
+	"datecreated": "2022-02-26T20:52:02.000Z",
+	"dateupdated": null,
+	"name": "j-SearchData",
 	"tags": [
-		"table",
-		"grid"
+		"search",
+		"fulltext"
 	],
-	"color": "white",
-	"darkmode": 1,
+	"color": "transparent",
 	"version": 1,
 	"responsive": true,
 	"picture": "picture.jpg",

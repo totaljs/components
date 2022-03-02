@@ -1,4 +1,4 @@
-COMPONENT('tablegrid', 'count:3;fill:0;scrollbar:1;visibleY:1;margin:0;row:0', function(self, config, cls) {
+COMPONENT('tablegrid', 'count:3;fill:0;scrollbar:1;visibleY:1;margin:0;row:0;scrolltop:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var empty = '';
@@ -45,7 +45,7 @@ COMPONENT('tablegrid', 'count:3;fill:0;scrollbar:1;visibleY:1;margin:0;row:0', f
 
 		if (self.scrollbar) {
 			area.css({ height: parent.height() - config.margin });
-			self.scrollbar.resize();
+			setTimeout(self.scrollbar.resize, 10);
 		}
 
 		display = WIDTH(parent);
@@ -127,8 +127,10 @@ COMPONENT('tablegrid', 'count:3;fill:0;scrollbar:1;visibleY:1;margin:0;row:0', f
 		var html = rows.join('');
 		container.html(html);
 
-		if (config.scrollbar)
+		if (config.scrollbar) {
 			area.tclass('ui-scrollbar-noscroll', noscroll);
+			config.scrolltop && self.scrollbar.scrollTop(0);
+		}
 
 		html.COMPILABLE() && COMPILE(container);
 

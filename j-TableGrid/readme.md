@@ -16,6 +16,7 @@ __Configuration__:
 - `rowsm {Number}` a default row height for small display (default: `0`)
 - `rowmd {Number}` a default row height for medium display (default: `0`)
 - `rowlg {Number}` a default row height for large display (default: `0`)
+- `scrolltop {Boolean}` scrolls to top after change data (default: `true`)
 
 
 __Classes__:
