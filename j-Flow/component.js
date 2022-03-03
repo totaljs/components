@@ -1107,9 +1107,9 @@ EXTENSION('flow:map', function(self, config, cls) {
 	};
 
 	self.event('contextmenu', function(e) {
-        var selectedText = document.getSelection().toString();
-        if (selectedText)
-            return;
+		var selectedText = document.getSelection().toString();
+		if (selectedText)
+			return;
 		events.is && events.up();
 		config.contextmenu && self.SEEX(config.contextmenu, e, 'map');
 		e.preventDefault();
