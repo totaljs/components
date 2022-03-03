@@ -1107,13 +1107,13 @@ EXTENSION('flow:map', function(self, config, cls) {
 	};
 
 	self.event('contextmenu', function(e) {
-		var selectedText = document.getSelection().toString();
-		if (selectedText)
-			return;
-		events.is && events.up();
-		config.contextmenu && self.SEEX(config.contextmenu, e, 'map');
-		e.preventDefault();
-		e.stopPropagation();
+		var selected = document.getSelection().toString();
+		if (!selected) {
+			events.is && events.up();
+			config.contextmenu && self.SEEX(config.contextmenu, e, 'map');
+			e.preventDefault();
+			e.stopPropagation();
+		}
 	});
 
 	self.event('mousedown touchstart', function(e) {
