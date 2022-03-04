@@ -1107,13 +1107,10 @@ EXTENSION('flow:map', function(self, config, cls) {
 	};
 
 	self.event('contextmenu', function(e) {
-		var selected = document.getSelection().toString();
-		if (!selected) {
-			events.is && events.up();
-			config.contextmenu && self.SEEX(config.contextmenu, e, 'map');
-			e.preventDefault();
-			e.stopPropagation();
-		}
+		events.is && events.up();
+		config.contextmenu && self.SEEX(config.contextmenu, e, 'map');
+		e.preventDefault();
+		e.stopPropagation();
 	});
 
 	self.event('mousedown touchstart', function(e) {
@@ -1296,17 +1293,19 @@ EXTENSION('flow:components', function(self, config) {
 	};
 
 	self.event('contextmenu', '.area', function(e) {
+		var selected = document.getSelection().toString();
+		if (!selected) {
+			events.is && events.up();
 
-		events.is && events.up();
+			var tagName = e.target.tagName;
+			if (tagName === 'INPUT' || tagName === 'TEXTAREA' || tagName === 'SELECT')
+				return;
 
-		var tagName = e.target.tagName;
-		if (tagName === 'INPUT' || tagName === 'TEXTAREA' || tagName === 'SELECT')
-			return;
-
-		var el = $(this);
-		var id = el.closest('.component').attrd('id');
-		config.contextmenu && self.SEEX(config.contextmenu, e, 'component', self.cache[id].instance);
-		e.preventDefault();
+			var el = $(this);
+			var id = el.closest('.component').attrd('id');
+			config.contextmenu && self.SEEX(config.contextmenu, e, 'component', self.cache[id].instance);
+			e.preventDefault();
+		}
 		e.stopPropagation();
 	});
 
