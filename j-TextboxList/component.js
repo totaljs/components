@@ -101,6 +101,8 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 			var items = self.find(cls2 + '-item');
 			items.eq(index).find('input').val(arr[index]);
 			items.eq(index + offset).find('input').val(arr[index + offset]);
+			UPD(self.path, 2);
+			self.change(true);
 		};
 
 		self.event('click', cls2 + '-up', function () {
