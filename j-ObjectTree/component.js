@@ -1,46 +1,49 @@
-COMPONENT('objecttree', function(self, config, cls) {
-	var tmpl_expand = '<i class="fa fa-chevron-down"></i>';
-	var tmpl_toolbox = '<div class="toolbox"><i class="fa fa-copy" title="Copy data"></i><i class="fa fa-link" title="Copy path"></i></div>';
-	var tmpl_beg = '<div class="ui-objecttree-item" data-path="{0}" title="{0}"><div class="ui-objecttree-item-key"><span class="ui-objecttree-key {1}">{2}</span>{4}{3}<span class="dots hidden"> ...</span>{5}</div>';
-	var tmpl_end = '<div>{0}{1}</div></div>';
-	var tmpl_simple = '<div class="ui-objecttree-item ui-objecttree-item-key" data-path="{0}" title="{0}"><span class="ui-objecttree-key mr5">"{1}":</span><span class="ui-objecttree-{2} mr5">{3}</span>{4}</div>';
-	var data;
+COMPONENT('objecttree', 'copydata:Copy data;copypath:Copy path', function(self, config, cls) {
+
 	var cls2 = '.' + cls;
+	var tmpl_expand = '<i class="fa fa-chevron-down"></i>';
+	var tmpl_toolbox = '<div class="toolbox"><i class="fa fa-copy" title="{copydata}"></i><i class="fa fa-link" title="{copypath}"></i></div>'.arg(config);
+	var tmpl_beg = '<div class="CLS-item" data-path="{0}" title="{0}"><div class="CLS-item-key"><span class="CLS-key {1}">{2}</span>{4}{3}<span class="dots hidden"> ...</span>{5}</div>'.replace(/CLS/g, cls);
+	var tmpl_end = '<div>{0}{1}</div></div>';
+	var tmpl_simple = '<div class="CLS-item CLS-item-key" data-path="{0}" title="{0}"><span class="CLS-key mr5">"{1}":</span><span class="CLS-{2} mr5">{3}</span>{4}</div>'.replace(/CLS/g, cls);
+	var data;
 
 	const get = (obj, path) => path.split(".").reduce((r, k) => r?.[k], obj);
 
 	self.readonly();
 
 	self.make = function() {
+
 		self.aclass(cls);
+
 		self.event('click', 'i.fa-chevron-down', function() {
 			var el = $(this);
 			el.tclass('fa-rotate-270');
 			el.parent().find('.dots').tclass('hidden');
-			el.closest(cls2 + '-item').find('> div.ui-objecttree-item').tclass('hidden');
+			el.closest(cls2 + '-item').find('> div' + cls2 + '-item').tclass('hidden');
 		});
+
 		self.event('click', '.toolbox i', function() {
 			var el = $(this);
 			var ispath = el.hclass('fa-link');
 			var path = el.closest(cls2 + '-item').attrd('path');
 			var data2;
-			if (ispath)
-				data2 = path;
-			else
-				data2 = get(data, path);
+			data2 = ispath ? path : get(data, path);
 			navigator.clipboard.writeText(ispath ? data2 : STRINGIFY(data2)).catch(e => {});
-			config.exec && EXEC(config.exec, ispath ? 'path' : 'data', data2);
+			config.exec && self.EXEC(config.exec, ispath ? 'path' : 'data', data2);
 		});
 	};
 
 	self.setter = function(value) {
+
 		if (!value || typeof value !== 'object') {
 			self.html(value);
 			return;
 		}
+
 		data = value;
 		var isArr = value instanceof Array;
-		var html = '<div class="" data-path="{0}" title="{0}"><div><span class="ui-objecttree-key {1}"></span>{2}</div>'.format('', '', isArr ? '[' : '{');
+		var html = ('<div class="" data-path="{0}" title="{0}"><div><span class="' + cls + '-key {1}"></span>{2}</div>').format('', '', isArr ? '[' : '{');
 		html += isArr ? self.treeArray(value, '', 0) : self.tree(value, '', 0);
 		html += tmpl_end.format(isArr ? ']' : '}');
 		self.html(html);
@@ -97,7 +100,7 @@ COMPONENT('objecttree', function(self, config, cls) {
 					value += tmpl_end.format('}', last ? '' : ',');
 					break;
 				default:
-					value = '<div class="ui-objecttree-item ui-objecttree-item-key" data-path="{0}" title="{0}"><span class="ui-objecttree-key mr5"></span><span class="ui-objecttree-{1} mr5">{2}</span>{3}{4}</div>'.format(path2, type, simpleformat(type, item), last  ? '' : ',', tmpl_toolbox);
+					value = '<div class="{5}-item {5}-item-key" data-path="{0}" title="{0}"><span class="{5}-key mr5"></span><span class="{5}-{1} mr5">{2}</span>{3}{4}</div>'.format(path2, type, simpleformat(type, item), last  ? '' : ',', tmpl_toolbox, cls);
 			}
 			tmp += value;
 		}
