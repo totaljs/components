@@ -1,27 +1,28 @@
-COMPONENT('objecttree', function(self, config) {
+COMPONENT('objecttree', function(self, config, cls) {
 	var tmpl_expand = '<i class="fa fa-chevron-down"></i>';
 	var tmpl_toolbox = '<div class="toolbox"><i class="fa fa-copy" title="Copy data"></i><i class="fa fa-link" title="Copy path"></i></div>';
-	var tmpl_beg = '<div class="objecttree-item" data-path="{0}" title="{0}"><div class="objecttree-item-key"><span class="objecttree-key {1}">{2}</span>{4}{3}<span class="dots hidden"> ...</span>{5}</div>';
+	var tmpl_beg = '<div class="ui-objecttree-item" data-path="{0}" title="{0}"><div class="ui-objecttree-item-key"><span class="ui-objecttree-key {1}">{2}</span>{4}{3}<span class="dots hidden"> ...</span>{5}</div>';
 	var tmpl_end = '<div>{0}{1}</div></div>';
-	var tmpl_simple = '<div class="objecttree-item objecttree-item-key" data-path="{0}" title="{0}"><span class="objecttree-key mr5">"{1}":</span><span class="objecttree-{2} mr5">{3}</span>{4}</div>';
+	var tmpl_simple = '<div class="ui-objecttree-item ui-objecttree-item-key" data-path="{0}" title="{0}"><span class="ui-objecttree-key mr5">"{1}":</span><span class="ui-objecttree-{2} mr5">{3}</span>{4}</div>';
 	var data;
+	var cls2 = '.' + cls;
 
 	const get = (obj, path) => path.split(".").reduce((r, k) => r?.[k], obj);
 
 	self.readonly();
 
 	self.make = function() {
-		self.aclass('objecttree');
+		self.aclass(cls);
 		self.event('click', 'i.fa-chevron-down', function() {
 			var el = $(this);
 			el.tclass('fa-rotate-270');
 			el.parent().find('.dots').tclass('hidden');
-			el.closest('.objecttree-item').find('> div.objecttree-item').tclass('hidden');
+			el.closest(cls2 + '-item').find('> div.ui-objecttree-item').tclass('hidden');
 		});
 		self.event('click', '.toolbox i', function() {
 			var el = $(this);
 			var ispath = el.hclass('fa-link');
-			var path = el.closest('.objecttree-item').attrd('path');
+			var path = el.closest(cls2 + '-item').attrd('path');
 			var data2;
 			if (ispath)
 				data2 = path;
@@ -39,7 +40,7 @@ COMPONENT('objecttree', function(self, config) {
 		}
 		data = value;
 		var isArr = value instanceof Array;
-		var html = '<div class="" data-path="{0}" title="{0}"><div><span class="objecttree-key {1}"></span>{2}</div>'.format('', '', isArr ? '[' : '{');
+		var html = '<div class="" data-path="{0}" title="{0}"><div><span class="ui-objecttree-key {1}"></span>{2}</div>'.format('', '', isArr ? '[' : '{');
 		html += isArr ? self.treeArray(value, '', 0) : self.tree(value, '', 0);
 		html += tmpl_end.format(isArr ? ']' : '}');
 		self.html(html);
@@ -96,7 +97,7 @@ COMPONENT('objecttree', function(self, config) {
 					value += tmpl_end.format('}', last ? '' : ',');
 					break;
 				default:
-					value = '<div class="objecttree-item objecttree-item-key" data-path="{0}" title="{0}"><span class="objecttree-key mr5"></span><span class="objecttree-{1} mr5">{2}</span>{3}{4}</div>'.format(path2, type, simpleformat(type, item), last  ? '' : ',', tmpl_toolbox);
+					value = '<div class="ui-objecttree-item ui-objecttree-item-key" data-path="{0}" title="{0}"><span class="ui-objecttree-key mr5"></span><span class="ui-objecttree-{1} mr5">{2}</span>{3}{4}</div>'.format(path2, type, simpleformat(type, item), last  ? '' : ',', tmpl_toolbox);
 			}
 			tmp += value;
 		}
