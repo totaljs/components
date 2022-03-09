@@ -1,0 +1,18 @@
+{
+	"datecreated": "2022-03-09T12:00:00.000Z",
+	"dateupdated": null,
+	"name": "j-ObjectTree",
+	"tags": [
+		"object",
+		"json",
+		"tree"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Martin Smola",
+	"email": "martin@totaljs.com",
+	"license": "https://www.totaljs.com/license/"
+}
