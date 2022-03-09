@@ -33,8 +33,11 @@ Method: `component.show(options)`
 - `options.position` {String} optional, `top` (default), `bottom`
 - `options.raw` {Boolean} optional, this option disables escaping of characters (in other words: HTML content will be allowed in labels of items, default: `false`)
 - `options.classname` {String} optional, a custom container class for all items
+- __NEW__: absolute positioning works only if `options.element` is not defined
+	- `options.x` {Number} absolute position X
+	- `options.y` {Number} absolute position y
 - `options.checkbox` {Boolean} optional, enables checkboxes
-- __NEW__ `options.checked` {Array String} optional, identifiers of checked items
+- `options.checked` {Array String} optional, identifiers of checked items
 	- targeted for `options.items {Function(q, next)}`
 	- the callback returns only raw identifiers `Array {String}`
 

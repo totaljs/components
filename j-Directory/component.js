@@ -405,7 +405,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		}
 
 		if (!opt.minwidth)
-			opt.minwidth = 200;
+			opt.minwidth = config.minwidth;
 
 		if (is) {
 			clearTimeout(timeout);
@@ -420,7 +420,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		opt.ajax = null;
 		self.ajaxold = null;
 
-		var element = $(opt.element);
+		var element = opt.element ? $(opt.element) : null;
 		var callback = opt.callback;
 		var items = opt.items;
 		var type = typeof(items);
@@ -495,10 +495,10 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 			}
 		}
 
-		self.target = element[0];
+		self.target = element ? element[0] : null;
 
-		var w = element.width();
-		var offset = element.offset();
+		var w = element ? element.width() : config.minwidth;
+		var offset = element ? element.offset() : EMPTYOBJECT;
 		var width = w + (opt.offsetWidth || 0);
 
 		if (opt.minwidth && width < opt.minwidth)
@@ -515,19 +515,25 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 
 		var options = { left: 0, top: 0, width: width };
 
-		switch (opt.align) {
-			case 'center':
-				options.left = Math.ceil((offset.left - width / 2) + (opt.element.innerWidth() / 2));
-				break;
-			case 'right':
-				options.left = (offset.left - width) + opt.element.innerWidth();
-				break;
-			default:
-				options.left = offset.left;
-				break;
+		if (opt.element) {
+			switch (opt.align) {
+				case 'center':
+					options.left = Math.ceil((offset.left - width / 2) + (opt.element.innerWidth() / 2));
+					break;
+				case 'right':
+					options.left = (offset.left - width) + opt.element.innerWidth();
+					break;
+				default:
+					options.left = offset.left;
+					break;
+			}
+
+			options.top = opt.position === 'bottom' ? ((offset.top - self.height()) + element.height()) : offset.top;
+		} else {
+			options.top = opt.y;
+			options.left = opt.x;
 		}
 
-		options.top = opt.position === 'bottom' ? ((offset.top - self.height()) + element.height()) : offset.top;
 		options.scope = M.scope ? M.scope() : '';
 
 		if (opt.offsetX)
@@ -544,7 +550,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		else if ((mw + options.left) > WW)
 			options.left = (WW - mw) - 10;
 
-		var dom = opt.element[0].parentNode;
+		var dom = opt.element ? opt.element[0].parentNode : null;
 		var restrict = true;
 
 		while (dom) {
@@ -585,6 +591,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 				scroller[0].scrollTop = 0;
 
 			self.rclass('invisible');
+
 		}, 100);
 
 		if (is) {
@@ -601,7 +608,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		self.rclass('hidden');
 
 		setTimeout(function() {
-			if (self.opt && self.target && self.target.offsetParent)
+			if (self.opt && ((self.opt.x != null && self.opt.y != null) || (self.target && self.target.offsetParent)))
 				main.aclass(cls + '-visible');
 			else
 				self.hide(1);
