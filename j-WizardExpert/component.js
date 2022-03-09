@@ -65,7 +65,7 @@ COMPONENT('wizardexpert', 'validate:1', function(self, config, cls) {
 	};
 
 	self.finish = function() {
-		config.exec && EXEC(self.makepath(config.exec), GET(self.makepath(config.output)));
+		config.exec && self.EXEC(config.exec, GET(self.makepath(config.output)));
 		history.length = 0;
 		skip = true;
 		self.set('');
@@ -114,10 +114,10 @@ COMPONENT('wizardexpert', 'validate:1', function(self, config, cls) {
 		var step = self.steps[id];
 		if (step && step.element) {
 			if (!step.$init) {
-				step.init && SEEX(self.makepath(step.init), step);
+				step.init && self.SEEX(step.init, step);
 				step.$init = true;
 			}
-			step.refresh && SEEX(self.makepath(step.refresh), step);
+			step.refresh && self.SEEX(step.refresh, step);
 		}
 	};
 

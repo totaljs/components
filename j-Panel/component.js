@@ -108,7 +108,7 @@ COMPONENT('panel', 'width:350;icon:home;zindex:12;scrollbar:true;scrollbarY:true
 		self.event('click', 'button[name],.cancel', function() {
 			switch (this.name) {
 				case 'menu':
-					EXEC(config.menu, $(this), self);
+					self.EXEC(config.menu, $(this), self);
 					break;
 				case 'cancel':
 					self.hide();

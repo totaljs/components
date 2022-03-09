@@ -29,7 +29,7 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/;key:name', funct
 		else
 			tmp = null;
 
-		config.drop && EXEC(config.drop, files, self.get(), tmp ? self.opt.items[+tmp.attrd('index')] : null);
+		config.drop && self.EXEC(config.drop, files, self.get(), tmp ? self.opt.items[+tmp.attrd('index')] : null);
 	};
 
 	self.make = function() {
@@ -76,7 +76,7 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/;key:name', funct
 			e.preventDefault();
 			var el = $(this);
 			var index = +el.closest(cls2 + '-item').attrd('index');
-			config.options && EXEC(config.options, self.opt.items[index], el);
+			config.options && self.EXEC(config.options, self.opt.items[index], el);
 		});
 
 		self.event('click', cls2 + '-up', function() {
@@ -117,7 +117,7 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/;key:name', funct
 			} else if (el.hclass(cls + '-file')) {
 				var c = cls + '-selected';
 				item = self.opt.selected = self.opt.items[index];
-				config.click && SEEX(config.click, item);
+				config.click && self.SEEX(config.click, item);
 				eselected && eselected.rclass(c);
 				eselected = el.aclass(c);
 			}
@@ -147,7 +147,7 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/;key:name', funct
 	};
 
 	self.checked2 = function() {
-		config.checked && SEEX(config.checked, self.checked(), self);
+		config.checked && self.SEEX(config.checked, self.checked(), self);
 	};
 
 	self.renderpath = function(path) {
@@ -202,7 +202,7 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/;key:name', funct
 
 		if (selindex !== -1) {
 			eselected = eitems.find(cls2 + '-item[data-index="{0}"]'.format(selindex)).aclass(cls + '-selected');
-			config.click && SEEX(config.click, items[selindex]);
+			config.click && self.SEEX(config.click, items[selindex]);
 		} else
 			eselected = null;
 
@@ -222,7 +222,7 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/;key:name', funct
 		// value === path
 		value = self.tidypath(value);
 		self.renderpath(value || '');
-		config.browse && EXEC(config.browse, self.makepath(value), self.renderitems, self.opt.selected);
+		config.browse && self.EXEC(config.browse, self.makepath(value), self.renderitems, self.opt.selected);
 		self.resize();
 		self.opt.selected = null;
 	};

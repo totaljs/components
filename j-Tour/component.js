@@ -1,6 +1,5 @@
-COMPONENT('tour', 'skiptext:Skip;nexttext:Next;backtext:Back;endtext:End;escape:1', function(self, config) {
+COMPONENT('tour', 'skiptext:Skip;nexttext:Next;backtext:Back;endtext:End;escape:1', function(self, config, cls) {
 
-	var cls = 'ui-tour';
 	var cls2 = '.' + cls;
 	var data, lastindex;
 	var $container, $info, $last;
@@ -24,9 +23,7 @@ COMPONENT('tour', 'skiptext:Skip;nexttext:Next;backtext:Back;endtext:End;escape:
 	self.make = function() {
 		var builder = [];
 
-		builder.push('<div class="' + cls + '-background"></div>');
-		builder.push('<div class="' + cls + '"></div>');
-		builder.push('<div class="' + cls + '-info"></div>');
+		builder.push('<div class="{0}-background"></div><div class="{0}"></div><div class="{0}-info"></div>'.format(cls));
 
 		var html = builder.join('');
 
@@ -101,7 +98,7 @@ COMPONENT('tour', 'skiptext:Skip;nexttext:Next;backtext:Back;endtext:End;escape:
 	self.hideintro = function(type) {
 		$last && $last.rclass(cls + '-element');
 		self.rclass(cls + '-visible');
-		config.hide && EXEC(self.makepath(config.hide), type);
+		config.hide && self.EXEC(config.hide, type);
 		$W.off('keydown', self.keydown);
 	};
 

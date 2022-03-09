@@ -56,14 +56,14 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 
 	self.submit = function() {
 		if (config.submit)
-			EXEC(config.submit, self.hide);
+			self.EXEC(config.submit, self.hide);
 		else
 			self.hide();
 	};
 
 	self.cancel = function() {
 		if (config.cancel)
-			EXEC(config.cancel, self.hide);
+			self.EXEC(config.cancel, self.hide);
 		else
 			self.hide();
 	};
@@ -207,8 +207,8 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 
 		if (self.hclass('hidden') === hidden) {
 			if (!hidden) {
-				config.reload && EXEC(config.reload, self);
-				config.default && DEFAULT(config.default, true);
+				config.reload && self.EXEC(config.reload, self);
+				config.default && DEFAULT(self.makepath(config.default), true);
 			}
 			return;
 		}
@@ -247,8 +247,8 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 		self.resize();
 		self.release(false);
 
-		config.reload && EXEC(config.reload, self);
-		config.default && DEFAULT(config.default, true);
+		config.reload && self.EXEC(config.reload, self);
+		config.default && DEFAULT(self.makepath(config.default), true);
 
 		if (config.scrollbar) {
 			!self.scrollbar && (self.scrollbar = SCROLLBAR(self.find(cls2 + '-body-area'), { visibleY: true }));

@@ -1,6 +1,5 @@
-COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:plus-square;placeholder:Write text and press ENTER', function(self, config) {
+COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:plus-square;placeholder:Write text and press ENTER', function(self, config, cls) {
 
-	var cls = 'ui-listmenueditable';
 	var cls2 = '.' + cls;
 	var container;
 	var last, editing, selected;
@@ -37,11 +36,11 @@ COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:p
 			parent.aclass('selected');
 
 			selected = index;
-			config.click && EXEC(config.click, parent, items[index], index);
+			config.click && self.EXEC(config.click, parent, items[index], index);
 		});
 
 		self.event('click', cls2 + '-header ' + cls2 + '-icon', function() {
-			config.addclick && EXEC(config.addclick);
+			config.addclick && self.EXEC(config.addclick);
 		});
 
 		self.event('keydown', 'input', function(e) {
@@ -58,7 +57,7 @@ COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:p
 
 		self.event('click', cls2 + '-item ' + cls2 + '-icon', function() {
 			var parent = $(this).closest(cls2 + '-item');
-			config.editclick && EXEC(config.editclick, parent, parent.attrd('index'), $(this));
+			config.editclick && self.EXEC(config.editclick, parent, parent.attrd('index'), $(this));
 		});
 
 		self.event('click', cls2 + '-deleteicon', function() {

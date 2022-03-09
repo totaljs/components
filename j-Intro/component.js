@@ -12,7 +12,7 @@ COMPONENT('intro', 'closebutton:0;width:400;height:300;nexticon:fa fa-chevron-ri
 	self.hide = function() {
 		if (visible) {
 			self.set('');
-			config.exec && EXEC(config.exec, true);
+			config.exec && self.EXEC(config.exec, true);
 			config.remove && self.remove();
 		}
 	};
@@ -51,11 +51,11 @@ COMPONENT('intro', 'closebutton:0;width:400;height:300;nexticon:fa fa-chevron-ri
 			index++;
 			if (index >= figures.length) {
 				self.set('');
-				config.exec && EXEC(config.exec);
+				config.exec && self.EXEC(config.exec);
 				config.remove && self.remove();
 			} else {
 				self.move(index);
-				config.page && EXEC(config.page, index);
+				config.page && self.EXEC(config.page, index);
 			}
 		});
 

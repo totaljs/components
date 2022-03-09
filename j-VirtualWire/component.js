@@ -7,7 +7,7 @@ COMPONENT('virtualwire', 'selector:.virtualwire', function(self, config) {
 			while (self.dom.children.length)
 				old[0].appendChild(self.dom.children[0]);
 			var exec = old.attrd('out');
-			exec && EXEC(exec);
+			exec && self.EXEC(exec);
 			old = null;
 		}
 	};
@@ -30,7 +30,7 @@ COMPONENT('virtualwire', 'selector:.virtualwire', function(self, config) {
 
 		old = el;
 		var exec = el.attrd('in');
-		exec && EXEC(exec);
+		exec && self.EXEC(exec);
 	};
 
 	self.load = function(value) {

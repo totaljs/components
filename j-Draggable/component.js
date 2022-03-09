@@ -64,7 +64,7 @@ COMPONENT('draggable', function(self, config) {
 					meta.offsetY = e.offsetY;
 					meta.el = $(a);
 					meta.target = $(e.target);
-					EXEC(self.makepath(config.exec), meta, meta.el);
+					self.EXEC(config.exec, meta, meta.el);
 					self.path && self.change(true);
 				}
 				break;

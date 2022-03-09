@@ -35,7 +35,7 @@ COMPONENT('infinitescroll', 'margin:0;padding:50;autoscroll:100', function(self,
 		self.resize();
 		setTimeout(function() {
 			isloading = false;
-			config.exec && EXEC(config.exec, self.add, body, true);
+			config.exec && self.EXEC(config.exec, self.add, body, true);
 		}, 200);
 	};
 
@@ -45,7 +45,7 @@ COMPONENT('infinitescroll', 'margin:0;padding:50;autoscroll:100', function(self,
 			if (y >= sb.size.scrollHeight) {
 				isloading = true;
 				self.scrollbar.area.css('overflow-y', 'hidden');
-				config.exec && EXEC(config.exec, self.add, self.scrollbar.area, false);
+				config.exec && self.EXEC(config.exec, self.add, self.scrollbar.area, false);
 			}
 		}
 	};

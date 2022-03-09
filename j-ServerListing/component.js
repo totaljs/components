@@ -45,7 +45,7 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0;pluralizeitems:# items,
 			}
 
 			if (current !== index)
-				EXEC(self.makepath(config.paginate), index);
+				self.EXEC(config.paginate, index);
 
 		});
 

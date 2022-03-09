@@ -113,7 +113,7 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 					};
 
 					if (config.create)
-						EXEC(self.makepath(config.create), fn);
+						self.EXEC(config.create, fn);
 					else
 						fn({});
 
@@ -145,7 +145,7 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 					};
 
 					if (config[this.name])
-						EXEC(self.makepath(config[this.name]), tmp, fn);
+						self.EXEC(config[this.name], tmp, fn);
 					else
 						fn(tmp);
 
@@ -174,7 +174,7 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 					};
 
 					if (config.remove)
-						EXEC(self.makepath(config.remove), data, fn);
+						self.EXEC(config.remove, data, fn);
 					else
 						fn();
 

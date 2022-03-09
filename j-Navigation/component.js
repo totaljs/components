@@ -11,7 +11,7 @@ COMPONENT('navigation', 'pk:id', function(self, config, cls) {
 
 		self.event('click', 'b', function(e) {
 			var el = $(this);
-			config.options && EXEC(config.options, items[el.closest(cls2 + '-item').attrd('id')], el);
+			config.options && self.EXEC(config.options, items[el.closest(cls2 + '-item').attrd('id')], el);
 			e.preventDefault();
 			e.stopPropagation();
 		});
@@ -33,7 +33,7 @@ COMPONENT('navigation', 'pk:id', function(self, config, cls) {
 					parent.aclass(cls + '-selected');
 					current && current.rclass(cls + '-selected');
 					current = parent;
-					EXEC(config.exec, items[index]);
+					self.EXEC(config.exec, items[index]);
 					if (config.pk)
 						open.selected = items[index][config.pk];
 				}
@@ -42,7 +42,7 @@ COMPONENT('navigation', 'pk:id', function(self, config, cls) {
 				current && current.rclass(cls + '-selected');
 				current = parent;
 				parent.aclass(cls + '-selected');
-				EXEC(config.exec, items[index]);
+				self.EXEC(config.exec, items[index]);
 				if (config.pk)
 					open.selected = items[index][config.pk];
 			}

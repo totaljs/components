@@ -10,11 +10,8 @@ COMPONENT('feedbackbutton', 'color:#333;position:right;expire:3 days;label:Feedb
 		var hidden = !!CACHE(cls);
 		self.tclass('hidden', hidden);
 		config.animate && self.aclass(cls + '-animate');
-
 		var button = config.url ? '<a class="{0}-inner" href="{3}" target="_blank"><i class="{2}"></i><span>{1}</span></a>'.format(cls, config.label, config.icon, config.url) : '<div class="{0}-inner"><i class="{2}"></i><span>{1}</span></div>'.format(cls, config.label, config.icon);
-
 		self.html(('<div class="{0} {0}-{2}" style="background-color:{1}">' + button + '<div class="{0}-close"><i class="fa fa-times"></i></div></div>').format(cls, config.color, config.position));
-
 	};
 
 	self.hide = function() {
@@ -24,7 +21,7 @@ COMPONENT('feedbackbutton', 'color:#333;position:right;expire:3 days;label:Feedb
 
 	self.event('click', cls2 + '-close', self.hide);
 	self.event('click', cls2 + '-inner', function() {
-		config.exec && EXEC(config.exec, self.hide);
+		config.exec && self.EXEC(config.exec, self.hide);
 	});
 
 });

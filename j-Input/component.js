@@ -67,7 +67,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			focused = true;
 			self.camouflage(false);
 			self.aclass(cls + '-focused');
-			config.autocomplete && EXEC(self.makepath(config.autocomplete), self, input.parent());
+			config.autocomplete && self.EXEC(config.autocomplete, self, input.parent());
 			if (config.autosource) {
 				var opt = {};
 				opt.element = self.element;
@@ -75,7 +75,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 				opt.callback = function(value) {
 					var val = typeof(value) === 'string' ? value : value[config.autovalue];
 					if (config.autoexec) {
-						EXEC(self.makepath(config.autoexec), value, function(val) {
+						self.EXEC(config.autoexec, value, function(val) {
 							self.set(val, 2);
 							self.change();
 							self.bindvalue();
@@ -453,9 +453,9 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 			}
 
 			if (left && config.liconclick)
-				EXEC(self.makepath(config.liconclick), self, el);
+				self.EXEC(config.liconclick, self, el);
 			else if (config.riconclick)
-				EXEC(self.makepath(config.riconclick), self, el);
+				self.EXEC(config.riconclick, self, el);
 			else if (left && config.type === 'search')
 				self.set('');
 

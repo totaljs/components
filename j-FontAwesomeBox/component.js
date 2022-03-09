@@ -1,6 +1,5 @@
-COMPONENT('fontawesomebox', 'height:300', function(self, config) {
+COMPONENT('fontawesomebox', 'height:300', function(self, config, cls) {
 
-	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
 	var container, input, icon, prev;
 	var template = '<li data-search="{0}"><i class="{1}"></i></li>';
@@ -35,7 +34,7 @@ COMPONENT('fontawesomebox', 'height:300', function(self, config) {
 				val = el.find('i').attr('class');
 
 			skip = true;
-			config.exec && EXEC(config.exec, val, self);
+			config.exec && self.EXEC(config.exec, val, self);
 			self.set(val);
 			self.change(true);
 		});

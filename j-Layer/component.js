@@ -68,7 +68,7 @@ COMPONENT('layer', 'offset:65;scrollbar:true', function(self, config, cls) {
 		self.css('height', WH);
 		var h = WH - el.offset().top;
 		el.css('height', h);
-		config.resize && EXEC(config.resize, h);
+		config.resize && self.EXEC(config.resize, h);
 		if (self.scrollbar) {
 			self.scrollbar.resize();
 			setTimeout(self.scrollbar.resize, 500);
@@ -104,8 +104,8 @@ COMPONENT('layer', 'offset:65;scrollbar:true', function(self, config, cls) {
 		self.rclass('hidden');
 		self.resize();
 		self.release(false);
-		config.reload && EXEC(config.reload);
-		config.default && DEFAULT(config.default, true);
+		config.reload && self.EXEC(config.reload);
+		config.default && DEFAULT(self.makepath(config.default), true);
 
 		setTimeout(function() {
 			self.aclass(cls + '-visible');

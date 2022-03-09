@@ -26,7 +26,7 @@ COMPONENT('dragdropfiles', 'click:true;class:ui-dragdropfiles;accept:*/*;', func
 
 		file.on('change', function(e) {
 			var self2 = this;
-			EXEC(self.makepath(config.exec), this.files, e);
+			self.EXEC(config.exec, this.files, e);
 			setTimeout(function() {
 				self2.value = '';
 			}, 1000);
@@ -56,7 +56,7 @@ COMPONENT('dragdropfiles', 'click:true;class:ui-dragdropfiles;accept:*/*;', func
 					return;
 			}
 
-			EXEC(self.makepath(config.exec), e.originalEvent.dataTransfer.files, e);
+			self.EXEC(config.exec, e.originalEvent.dataTransfer.files, e);
 		});
 	};
 });

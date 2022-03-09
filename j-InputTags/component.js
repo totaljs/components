@@ -1,11 +1,10 @@
-COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\:', function(self, config) {
+COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\:', function(self, config, cls) {
 
-	var cls = 'ui-inputtags';
 	var cls2 = '.' + cls;
 	var input, placeholder, dirsource, binded, customvalidator, tags, skip = false;
 
 	self.nocompile();
-	self.bindvisible(50);
+	// self.bindvisible(50);
 
 	self.init = function() {
 		Thelpers.ui_inputtags_icon = function(val) {
@@ -41,7 +40,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 
 		self.event('focus', cls2 + '-editable', function() {
 			self.aclass(cls + '-focused');
-			config.autocomplete && EXEC(config.autocomplete, self, input.parent());
+			config.autocomplete && self.EXEC(config.autocomplete, self, input.parent());
 			if (config.autosource) {
 				var opt = {};
 				opt.element = self.element;
@@ -150,9 +149,9 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 			}
 
 			if (left && config.liconclick)
-				EXEC(self.makepath(config.liconclick), self, el);
+				self.EXEC(config.liconclick, self, el);
 			else if (config.riconclick)
-				EXEC(self.makepath(config.riconclick), self, el);
+				self.EXEC(config.riconclick, self, el);
 
 		});
 	};
@@ -298,7 +297,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 		if (dirsource) {
 
 			if (typeof(dirsource) === 'function') {
-				EXEC(self.makepath(config.dirinit), value, function(dirsource) {
+				self.EXEC(config.dirinit, value, function(dirsource) {
 
 					var item;
 

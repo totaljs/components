@@ -1,11 +1,12 @@
-COMPONENT('textbox', function(self, config) {
+COMPONENT('textbox', function(self, config, cls) {
 
+	var cls2 = '.' + cls;
 	var input, content = null, isfilled = false;
 	var innerlabel = function() {
 		var is = !!input[0].value;
 		if (isfilled !== is) {
 			isfilled = is;
-			self.tclass('ui-textbox-filled', isfilled);
+			self.tclass(cls + '-filled', isfilled);
 		}
 	};
 
@@ -70,11 +71,11 @@ COMPONENT('textbox', function(self, config) {
 			}
 		});
 
-		self.event('click', '.ui-textbox-label', function() {
+		self.event('click', cls2 + '-label', function() {
 			input.focus();
 		});
 
-		self.event('click', '.ui-textbox-control-icon', function() {
+		self.event('click', cls2 + '-control-icon', function() {
 			if (config.disabled || config.readonly)
 				return;
 			if (self.type === 'search') {
@@ -88,12 +89,12 @@ COMPONENT('textbox', function(self, config) {
 				input.attr('type', type === 'text' ? 'password' : 'text');
 				el.rclass2('fa-').aclass(type === 'text' ? 'fa-eye' : 'fa-eye-slash');
 			} else if (config.iconclick)
-				EXEC(config.iconclick, self);
+				self.EXEC(config.iconclick, self);
 		});
 
 		self.event('focus', 'input', function() {
 			if (!config.disabled && !config.readonly && config.autocomplete)
-				EXEC(config.autocomplete, self);
+				self.EXEC(config.autocomplete, self);
 		});
 
 		self.event('input', 'input', innerlabel);
@@ -106,7 +107,7 @@ COMPONENT('textbox', function(self, config) {
 			if (self.$stateremoved && !value)
 				return;
 			self.$stateremoved = !value;
-			self.find('.ui-textbox-control-icon').tclass('fa-times', !!value).tclass('fa-search', !value);
+			self.find(cls2 + '-control-icon').tclass('fa-times', !!value).tclass('fa-search', !value);
 		}
 		innerlabel();
 	};
@@ -128,7 +129,7 @@ COMPONENT('textbox', function(self, config) {
 		}
 
 		self.tclass('ui-disabled', !!config.disabled);
-		self.tclass('ui-textbox-required', !!config.required);
+		self.tclass(cls + '-required', !!config.required);
 		self.type = config.type;
 		attrs.attr('type', tmp);
 		config.placeholder && !config.innerlabel && attrs.attr('placeholder', config.placeholder);
@@ -152,7 +153,7 @@ COMPONENT('textbox', function(self, config) {
 		config.align && attrs.attr('class', 'ui-' + config.align);
 		!isMOBILE && config.autofocus && attrs.attr('autofocus');
 
-		builder.push('<div class="ui-textbox-input"><input {0} /></div>'.format(attrs.join(' ')));
+		builder.push('<div class="{0}-input"><input {1} /></div>'.format(cls, attrs.join(' ')));
 
 		var icon = config.icon;
 		var icon2 = config.icon2;
@@ -164,28 +165,28 @@ COMPONENT('textbox', function(self, config) {
 		else if (self.type === 'search')
 			icon2 = 'search';
 
-		icon2 && builder.push('<div class="ui-textbox-control"><span class="fa fa-{0} ui-textbox-control-icon"></span></div>'.format(icon2));
-		config.increment && !icon2 && builder.push('<div class="ui-textbox-control"><span class="fa fa-caret-up"></span><span class="fa fa-caret-down"></span></div>');
+		icon2 && builder.push('<div class="{0}-control"><span class="fa fa-{1} {0}-control-icon"></span></div>'.format(cls, icon2));
+		config.increment && !icon2 && builder.push('<div class="{0}-control"><span class="fa fa-caret-up"></span><span class="fa fa-caret-down"></span></div>'.format(cls));
 
 		if (config.label)
 			content = config.label;
 
-		self.tclass('ui-textbox-innerlabel', !!config.innerlabel);
+		self.tclass(cls + '-innerlabel', !!config.innerlabel);
 
 		if (content.length) {
 			var html = builder.join('');
 			builder = [];
-			builder.push('<div class="ui-textbox-label">');
+			builder.push('<div class="' + cls + '-label">');
 			icon && builder.push('<i class="fa fa-{0}"></i> '.format(icon));
 			builder.push('<span>' + content + (content.substring(content.length - 1) === '?' ? '' : ':') + '</span>');
-			builder.push('</div><div class="ui-textbox">{0}</div>'.format(html));
-			config.error && builder.push('<div class="ui-textbox-helper"><i class="fa fa-warning" aria-hidden="true"></i> {0}</div>'.format(config.error));
+			builder.push('</div><div class="{0}">{1}</div>'.format(cls, html));
+			config.error && builder.push('<div class="{0}-helper"><i class="fa fa-warning" aria-hidden="true"></i> {1}</div>'.format(cls, config.error));
 			self.html(builder.join(''));
 			self.aclass('ui-textbox-container');
 			input = self.find('input');
 		} else {
-			config.error && builder.push('<div class="ui-textbox-helper"><i class="fa fa-warning" aria-hidden="true"></i> {0}</div>'.format(config.error));
-			self.aclass('ui-textbox ui-textbox-container');
+			config.error && builder.push('<div class="{0}-helper"><i class="fa fa-warning" aria-hidden="true"></i> {1}</div>'.format(cls, config.error));
+			self.aclass(cls + ' ' + cls + '-container');
 			self.html(builder.join(''));
 			input = self.find('input');
 		}
@@ -214,7 +215,7 @@ COMPONENT('textbox', function(self, config) {
 			case 'required':
 				self.noValid(!value);
 				!value && self.state(1, 1);
-				self.tclass('ui-textbox-required', value === true);
+				self.tclass(cls + '-required', value === true);
 				break;
 			case 'placeholder':
 				input.prop('placeholder', value || '');
@@ -227,7 +228,7 @@ COMPONENT('textbox', function(self, config) {
 				break;
 			case 'label':
 				if (content && value)
-					self.find('.ui-textbox-label span').html(value);
+					self.find(cls2 + '-label span').html(value);
 				else
 					redraw = true;
 				content = value;
@@ -249,10 +250,10 @@ COMPONENT('textbox', function(self, config) {
 			case 'icon2click': // backward compatibility
 			case 'iconclick':
 				config.iconclick = value;
-				self.find('.ui-textbox-control').css('cursor', value ? 'pointer' : 'default');
+				self.find(cls2 + '-control').css('cursor', value ? 'pointer' : 'default');
 				break;
 			case 'icon':
-				var tmp = self.find('.ui-textbox-label .fa');
+				var tmp = self.find(cls2 + '-label .fa');
 				if (tmp.length)
 					tmp.rclass2('fa-').aclass('fa-' + value);
 				else
@@ -308,8 +309,8 @@ COMPONENT('textbox', function(self, config) {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		self.tclass('ui-textbox-invalid', invalid);
-		config.error && self.find('.ui-textbox-helper').tclass('ui-textbox-helper-show', invalid);
+		self.tclass(cls + '-invalid', invalid);
+		config.error && self.find(cls2 + '-helper').tclass(cls + '-helper-show', invalid);
 	};
 
 	self.forcedvalidation = function() {

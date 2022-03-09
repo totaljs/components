@@ -1,12 +1,12 @@
-COMPONENT('textboxtags', function(self, config) {
+COMPONENT('textboxtags', function(self, config, cls) {
 
+	var cls2 = '.' + cls;
 	var isString = false;
 	var container, content = null;
 	var refresh = false;
-	var W = window;
 
 	if (!W.$textboxtagstemplate)
-		W.$textboxtagstemplate = Tangular.compile('<div class="ui-textboxtags-tag" data-name="{{ name }}">{{ name }}<i class="fa fa-times"></i></div>');
+		W.$textboxtagstemplate = Tangular.compile('<div class="' + cls + '-tag" data-name="{{ name }}">{{ name }}<i class="fa fa-times"></i></div>');
 
 	var template = W.$textboxtagstemplate;
 
@@ -29,11 +29,11 @@ COMPONENT('textboxtags', function(self, config) {
 				self.reset();
 				break;
 			case 'required':
-				self.tclass('ui-textboxtags-required', value);
+				self.tclass(cls + '-required', value);
 				self.state(1, 1);
 				break;
 			case 'icon':
-				var fa = self.find('.ui-textboxtags-label > i');
+				var fa = self.find(cls2 + '-label > i');
 				if (fa.length && value)
 					fa.rclass().aclass('fa fa-' + value);
 				else
@@ -44,7 +44,7 @@ COMPONENT('textboxtags', function(self, config) {
 				self.find('input').prop('placeholder', value);
 				break;
 			case 'height':
-				self.find('.ui-textboxtags-values').css('height', value);
+				self.find(cls2 + '-values').css('height', value);
 				break;
 			case 'label':
 				redraw = true;
@@ -66,25 +66,25 @@ COMPONENT('textboxtags', function(self, config) {
 
 	self.redraw = function() {
 		var label = config.label || content;
-		var html = '<div class="ui-textboxtags-values"' + (config.height ? ' style="min-height:' + config.height + 'px"' : '') + '><input type="text" placeholder="' + (config.placeholder || '') + '" /></div>';
+		var html = '<div class="' + cls + '-values"' + (config.height ? ' style="min-height:' + config.height + 'px"' : '') + '><input type="text" placeholder="' + (config.placeholder || '') + '" /></div>';
 
 		isString = self.type === 'string';
 
 		if (content.length) {
-			self.html('<div class="ui-textboxtags-label">{0}{1}:</div><div class="ui-textboxtags">{2}</div>'.format((config.icon ? '<i class="fa fa-' + config.icon + '"></i> ' : ''), label, html));
+			self.html(('<div class="' + cls + '-label">{0}{1}:</div><div class="' + cls + '">{2}</div>').format((config.icon ? '<i class="fa fa-' + config.icon + '"></i> ' : ''), label, html));
 		} else {
-			self.aclass('ui-textboxtags');
+			self.aclass(cls);
 			self.html(html);
 		}
 
-		container = self.find('.ui-textboxtags-values');
+		container = self.find(cls2 + '-values');
 		config.disabled && self.reconfigure('disabled:true');
 	};
 
 	self.make = function() {
 
-		self.aclass('ui-textboxtags-container');
-		config.required && self.aclass('ui-textboxtags-required');
+		self.aclass(cls + '-container');
+		config.required && self.aclass(cls + '-required');
 		content = self.html();
 		self.type = config.type || '';
 		self.redraw();
@@ -106,7 +106,7 @@ COMPONENT('textboxtags', function(self, config) {
 			if (!arr || !(arr instanceof Array) || !arr.length)
 				return;
 
-			var index = arr.indexOf(el.parent().attr('data-name'));
+			var index = arr.indexOf(el.parent().attrd('name'));
 			if (index === -1)
 				return;
 
@@ -120,7 +120,7 @@ COMPONENT('textboxtags', function(self, config) {
 		});
 
 		self.event('focus', 'input', function() {
-			config.focus && EXEC(config.focus, $(this), self);
+			config.focus && self.EXEC(config.focus, $(this), self);
 		});
 
 		self.event('keydown', 'input', function(e) {
@@ -190,7 +190,7 @@ COMPONENT('textboxtags', function(self, config) {
 			return;
 
 		refresh = false;
-		container.find('.ui-textboxtags-tag').remove();
+		container.find(cls2 + '-tag').remove();
 
 		if (!value || !value.length)
 			return;
@@ -210,6 +210,6 @@ COMPONENT('textboxtags', function(self, config) {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		self.tclass('ui-textboxtags-invalid', invalid);
+		self.tclass(cls + '-invalid', invalid);
 	};
 });

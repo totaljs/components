@@ -58,7 +58,7 @@ COMPONENT('movable', function(self, config) {
 				else
 					parent.insertBefore(a, b.nextSibling);
 
-				config.exec && EXEC(self.makepath(config.exec), $(parent).find(config.selector), a, b);
+				config.exec && self.EXEC(config.exec, $(parent).find(config.selector), a, b);
 				self.path && self.change(true);
 				break;
 

@@ -51,13 +51,13 @@ COMPONENT('fullform', 'zindex:12;padding:20;scrollbar:1;scrolltop:1;style:1', fu
 	self.readonly();
 	self.submit = function() {
 		if (config.submit)
-			EXEC(config.submit, self.hide, self.element);
+			self.EXEC(config.submit, self.hide, self.element);
 		else
 			self.hide();
 	};
 
 	self.cancel = function() {
-		config.cancel && EXEC(config.cancel, self.hide);
+		config.cancel && self.EXEC(config.cancel, self.hide);
 		self.hide();
 	};
 
@@ -95,7 +95,7 @@ COMPONENT('fullform', 'zindex:12;padding:20;scrollbar:1;scrolltop:1;style:1', fu
 
 		self.find(cls2 + '-body').css(csspos).parent().css({ width: WW - p });
 		self.scrollbar && self.scrollbar.resize();
-		self.element.SETTER('*', 'resize');
+		self.element.SETTER('*/resize');
 	};
 
 	self.make = function() {
@@ -209,7 +209,7 @@ COMPONENT('fullform', 'zindex:12;padding:20;scrollbar:1;scrolltop:1;style:1', fu
 
 		if (self.hclass('hidden') === isHidden) {
 			if (!isHidden) {
-				config.reload && EXEC(config.reload, self);
+				config.reload && self.EXEC(config.reload, self);
 				config.default && DEFAULT(self.makepath(config.default), true);
 				config.scrolltop && self.scrollbar && self.scrollbar.scrollTop(0);
 			}
@@ -244,7 +244,7 @@ COMPONENT('fullform', 'zindex:12;padding:20;scrollbar:1;scrolltop:1;style:1', fu
 		self.release(false);
 
 		config.scrolltop && self.scrollbar && self.scrollbar.scrollTop(0);
-		config.reload && EXEC(config.reload, self);
+		config.reload && self.EXEC(config.reload, self);
 		config.default && DEFAULT(self.makepath(config.default), true);
 
 		self.resize();

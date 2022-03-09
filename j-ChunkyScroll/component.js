@@ -153,7 +153,7 @@ COMPONENT('chunkyscroll', 'parent:parent;limit:80;margin:0;rowheight:0;scrolltop
 				break;
 		}
 
-		config.redraw && EXEC(self.makepath(config.redraw), self, pos);
+		config.redraw && self.EXEC(config.redraw, self, pos);
 	};
 
 	self.scroll = function() {

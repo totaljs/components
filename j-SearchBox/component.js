@@ -1,6 +1,5 @@
-COMPONENT('searchbox', 'cleartype:0;keypress:0;autotrim:1', function(self, config) {
+COMPONENT('searchbox', 'cleartype:0;keypress:0;autotrim:1', function(self, config, cls) {
 
-	var cls = 'ui-' + self.name;
 	var cls2 = '.' + cls;
 	var els = {};
 	var isvisible = false;
@@ -28,7 +27,7 @@ COMPONENT('searchbox', 'cleartype:0;keypress:0;autotrim:1', function(self, confi
 			self.refresh();
 			forcefocus();
 			if (!initialized) {
-				config.init && EXEC(self.makepath(config.init), self);
+				config.init && self.EXEC(config.init, self);
 				initialized = true;
 			}
 		});
@@ -65,7 +64,7 @@ COMPONENT('searchbox', 'cleartype:0;keypress:0;autotrim:1', function(self, confi
 		els.type.on('click', function() {
 			hidetimeout && clearTimeout(hidetimeout);
 			isvisible = true;
-			config.clicktype && EXEC(self.makepath(config.clicktype), self, type, els.searchinput.val());
+			config.clicktype && self.EXEC(config.clicktype, self, type, els.searchinput.val());
 		});
 	};
 
@@ -91,7 +90,7 @@ COMPONENT('searchbox', 'cleartype:0;keypress:0;autotrim:1', function(self, confi
 	};
 
 	self.focus = function() {
-		config.autocomplete && EXEC(self.makepath(config.autocomplete), self, els.searchinput);
+		config.autocomplete && self.EXEC(config.autocomplete, self, els.searchinput);
 	};
 
 	var forcefocus = function() {

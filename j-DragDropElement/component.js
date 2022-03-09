@@ -10,7 +10,7 @@ COMPONENT('dragdropelement', 'class:ui-dragdropelement;text:Drag & drop files he
 
 	self.make = function () {
 		var hidden = true;
-		var id = 'modal' + self.ID;
+		var id = 'dde' + self.ID;
 
 		self.append('<div id="{0}" class="{1} hidden"><span>{2}</span></div>'.format(id, config.class, config.text));
 
@@ -44,7 +44,7 @@ COMPONENT('dragdropelement', 'class:ui-dragdropelement;text:Drag & drop files he
 		};
 
 		const finish = function (e) {
-			EXEC(config.exec, e.originalEvent.dataTransfer.files, e);
+			self.EXEC(config.exec, e.originalEvent.dataTransfer.files, e);
 		};
 
 		modal.on('dragenter dragover', show);

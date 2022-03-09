@@ -53,10 +53,10 @@ COMPONENT('listbox', function(self, config, cls) {
 				else
 					selected = selected.remove(value.value);
 				self.set(selected);
-				config.exec && EXEC(config.exec, selected);
+				config.exec && self.EXEC(config.exec, selected);
 			} else {
 				self.set(value.value);
-				config.exec && EXEC(config.exec, value.value);
+				config.exec && self.EXEC(config.exec, value.value);
 			}
 
 			self.change(true);

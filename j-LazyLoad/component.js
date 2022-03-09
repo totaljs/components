@@ -38,7 +38,7 @@ COMPONENT('lazyload', 'offset:50', function(self, config) {
 				var top = (is ? 0 : scroll) + el.offset().top;
 				if ((top + off) >= beg && (top - off) <= end) {
 					el.attrd('lazyload', true);
-					config.exec && EXEC(config.exec, el);
+					config.exec && self.EXEC(config.exec, el);
 				}
 			}
 		});

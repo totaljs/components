@@ -87,7 +87,7 @@ COMPONENT('datatable', 'height:parent;margin:0;pluralizeitems:# items,# item,# i
 			if (config.highlight) {
 				if (config.unhighlight && meta.selected && meta.selected[0] === this) {
 					meta.selected.rclass(cls + '-selected');
-					config.click && EXEC(self.makepath(config.click), null, self);
+					config.click && self.EXEC(config.click, null, self);
 					meta.selected = null;
 				} else
 					self.select(row);
@@ -97,7 +97,7 @@ COMPONENT('datatable', 'height:parent;margin:0;pluralizeitems:# items,# item,# i
 		container_rows.on('contextmenu', function(e) {
 			if (config.contextmenu) {
 				e.preventDefault();
-				EXEC(self.makepath(config.contextmenu), e, self);
+				self.EXEC(config.contextmenu, e, self);
 			}
 		});
 
@@ -174,7 +174,7 @@ COMPONENT('datatable', 'height:parent;margin:0;pluralizeitems:# items,# item,# i
 			if (meta.selected) {
 				meta.selected.rclass(cls + '-selected');
 				meta.selected = null;
-				config.click && EXEC(self.makepath(config.click), null, self);
+				config.click && self.EXEC(config.click, null, self);
 			}
 
 			meta.currentindex = index;
@@ -207,7 +207,7 @@ COMPONENT('datatable', 'height:parent;margin:0;pluralizeitems:# items,# item,# i
 		temp.unbindevents = function() {
 
 			meta.selected && meta.selected.rclass(cls + '-selected');
-			config.click && EXEC(self.makepath(config.click), null, self);
+			config.click && self.EXEC(config.click, null, self);
 			meta.selected = null;
 
 			container_rows.off('mouseup', temp.unbindevents);
@@ -229,7 +229,7 @@ COMPONENT('datatable', 'height:parent;margin:0;pluralizeitems:# items,# item,# i
 			var row = meta.rows[index];
 
 			if (!col.editable) {
-				config.dblclick && SEEX(self.makepath(config.dblclick), row, self, elrow);
+				config.dblclick && self.SEEX(config.dblclick, row, self, elrow);
 				return;
 			}
 
@@ -261,7 +261,7 @@ COMPONENT('datatable', 'height:parent;margin:0;pluralizeitems:# items,# item,# i
 				}
 			};
 
-			config.editable && EXEC(self.makepath(config.editable), opt);
+			config.editable && self.EXEC(config.editable, opt);
 		});
 
 		container_pages.on('click', 'button', function() {
@@ -306,7 +306,7 @@ COMPONENT('datatable', 'height:parent;margin:0;pluralizeitems:# items,# item,# i
 	};
 
 	self.page = function(page) {
-		config.exec && EXEC(self.makepath(config.exec), meta.sort, page);
+		config.exec && self.EXEC(config.exec, meta.sort, page);
 	};
 
 	self.resize = function() {
@@ -442,7 +442,7 @@ COMPONENT('datatable', 'height:parent;margin:0;pluralizeitems:# items,# item,# i
 			if (meta.checked.indexOf(row) !== -1)
 				$(el).aclass(cls + '-checked');
 		}
-		config.checked && SEEX(self.makepath(config.checked), meta.checked, self);
+		config.checked && self.SEEX(config.checked, meta.checked, self);
 	};
 
 	self.redrawrow = function(index) {
@@ -589,7 +589,7 @@ COMPONENT('datatable', 'height:parent;margin:0;pluralizeitems:# items,# item,# i
 			meta.selected && meta.selected.rclass(cls + '-selected');
 			meta.selected = el.aclass(cls + '-selected');
 			meta.value = row[config.clickid];
-			config.click && SEEX(self.makepath(config.click), row, self, el);
+			config.click && self.SEEX(config.click, row, self, el);
 		}
 	};
 
@@ -642,8 +642,8 @@ COMPONENT('datatable', 'height:parent;margin:0;pluralizeitems:# items,# item,# i
 			}, 1, rows, selectindex);
 		}
 
-		config.click && SEEX(self.makepath(config.click), null, self);
-		config.checked && SEEX(self.makepath(config.checked), meta.checked, self);
+		config.click && self.SEEX(config.click, null, self);
+		config.checked && self.SEEX(config.checked, meta.checked, self);
 	};
 
 });

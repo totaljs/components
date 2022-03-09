@@ -20,7 +20,7 @@ COMPONENT('jsontree', function(self, config) {
 
 		self.event('click', 'span', function(){
 			var path = $(this).parent().attrd('path');
-			config.click && EXEC(config.click, path, self);
+			config.click && self.EXEC(config.click, path, self);
 		});
 
 		self.event('click', 'button', function(){

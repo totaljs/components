@@ -138,7 +138,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 				item.value = val;
 				item.changed = item.prev !== val;
 				el.tclass(cls + '-changed', item.changed);
-				config.change && EXEC(self.makepath(config.change), item);
+				config.change && self.EXEC(config.change, item);
 				self.modifyval(item);
 				self.change(true);
 			}
@@ -178,7 +178,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 				item.value = val;
 				item.changed = item.prev !== val;
 				el.tclass(cls + '-changed', item.changed);
-				config.change && EXEC(self.makepath(config.change), item);
+				config.change && self.EXEC(config.change, item);
 				self.modifyval(item);
 				self.change(true);
 			}
@@ -224,7 +224,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 				item.value = val;
 				item.changed = item.prev !== val;
 				el.tclass(cls + '-changed', item.changed);
-				config.change && EXEC(self.makepath(config.change), item);
+				config.change && self.EXEC(config.change, item);
 				self.modifyval(item);
 				self.change(true);
 			}
@@ -273,7 +273,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 			item.value = val;
 			item.changed = !item.prev || item.prev.format(config.dateformat) !== val.format(config.dateformat);
 			self.findel(t).tclass(cls + '-changed', item.changed);
-			config.change && EXEC(self.makepath(config.change), item, function(val) {
+			config.change && self.EXEC(config.change, item, function(val) {
 				t.value = val;
 			});
 			self.change(true);
@@ -322,7 +322,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 			item.value = el.hclass('checked');
 			item.changed = item.prev !== item.value;
 			self.findel(t).tclass(cls + '-changed', item.changed);
-			config.change && EXEC(self.makepath(config.change), item);
+			config.change && self.EXEC(config.change, item);
 			self.change(true);
 			self.modifyval(item);
 		});
@@ -366,7 +366,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 
 				item.changed = item.prev !== item.value;
 				self.findel(t).tclass(cls + '-changed', item.changed);
-				config.change && EXEC(self.makepath(config.change), item, function(val) {
+				config.change && self.EXEC(config.change, item, function(val) {
 					opt.element.find('span').text(val);
 				});
 				self.change(true);
@@ -404,7 +404,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 				item.value = value;
 				item.changed = item.prev !== item.value;
 				self.findel(t).tclass(cls + '-changed', item.changed);
-				config.change && EXEC(self.makepath(config.change), item, function(val) {
+				config.change && self.EXEC(config.change, item, function(val) {
 					opt.element.find('b').css('background-color', val);
 				});
 				self.change(true);
@@ -430,7 +430,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 				item.value = value;
 				item.changed = item.prev !== item.value;
 				self.findel(t).tclass(cls + '-changed', item.changed);
-				config.change && EXEC(self.makepath(config.change), item, function(val) {
+				config.change && self.EXEC(config.change, item, function(val) {
 					opt.element.find('i').rclass().aclass(val);
 				});
 				self.modifyval(item);
@@ -456,7 +456,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 				item.value = value;
 				item.changed = item.prev !== item.value;
 				self.findel(t).tclass(cls + '-changed', item.changed);
-				config.change && EXEC(self.makepath(config.change), item, function(val) {
+				config.change && self.EXEC(config.change, item, function(val) {
 					opt.element.html(val);
 				});
 				self.change(true);
@@ -491,7 +491,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 					item.value = response;
 					item.changed = item.prev !== item.value;
 					self.findel(t).tclass(cls + '-changed', item.changed);
-					config.change && EXEC(self.makepath(config.change), item, function(val) {
+					config.change && self.EXEC(config.change, item, function(val) {
 						self.findel(cls2 + '-filename').text(val);
 					});
 					SETTER('loading', 'hide', 1000);

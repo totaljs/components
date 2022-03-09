@@ -59,7 +59,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 			var el = this;
 			if (el.type === 'checkbox') {
 				el && !el.value && self.checked(el.checked);
-				config.checked && EXEC(config.checked, el, self);
+				config.checked && self.EXEC(config.checked, el, self);
 			}
 		});
 
@@ -100,17 +100,17 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 		tbody.on('click', 'button', function() {
 			var btn = $(this);
 			var tr = btn.closest('tr');
-			config.button && EXEC(config.button, btn, options.items[+tr.attrd('index')], self);
+			config.button && self.EXEC(config.button, btn, options.items[+tr.attrd('index')], self);
 		});
 
 		var ALLOWED = { INPUT: 1, SELECT: 1 };
 
 		tbody.on('click', '.ui-grid-row', function(e) {
-			!ALLOWED[e.target.nodeName] && config.click && EXEC(config.click, options.items[+$(this).attrd('index')], self);
+			!ALLOWED[e.target.nodeName] && config.click && self.EXEC(config.click, options.items[+$(this).attrd('index')], self);
 		});
 
 		self.on('resize', self.resize);
-		config.init && EXEC(config.init);
+		config.init && self.EXEC(config.init);
 		wheight = WH;
 	};
 
@@ -304,7 +304,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 	self.operation = function(type) {
 		if (type === 'filter')
 			cache.page = 1;
-		config.exec && EXEC(config.exec, type, isFilter ? options.filter : null, options.lastsort ? options.lastsort : null, cache.page, self);
+		config.exec && self.EXEC(config.exec, type, isFilter ? options.filter : null, options.lastsort ? options.lastsort : null, cache.page, self);
 	};
 
 	self.sort = function(data) {
@@ -566,6 +566,6 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 		}
 
 		self.redraw();
-		config.checked && EXEC(config.checked, null, self);
+		config.checked && self.EXEC(config.checked, null, self);
 	};
 });

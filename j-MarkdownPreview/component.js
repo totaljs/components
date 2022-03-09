@@ -73,7 +73,7 @@ COMPONENT('markdownpreview', 'showsecret:Show secret data;hidesecret:Hide secret
 
 		elbody.html(vdom);
 		self.redraw(elbody);
-		config.render && EXEC(self.makepath(config.render), elbody);
+		config.render && self.EXEC(config.render, elbody);
 	};
 
 	self.readingtime = function() {

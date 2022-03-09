@@ -55,7 +55,7 @@ COMPONENT('clipboardimage', 'quality:90;maxwidth:1024;maxheight:768;type:jpg', f
 
 		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 		var data = config.type === 'png' ? canvas.toDataURL('image/png') : canvas.toDataURL('image/jpeg', config.quality * 0.01);
-		config.exec && EXEC(config.exec, data);
+		config.exec && self.EXEC(config.exec, data);
 		EMIT('clipboardimage', data);
 	};
 });

@@ -17,13 +17,13 @@ COMPONENT('page', function(self, config) {
 
 		if (type === 2 || !is) {
 			self.tclass('hidden', !is);
-			is && config.reload && EXEC(config.reload);
+			is && config.reload && self.EXEC(config.reload);
 			self.release(!is);
 			EMIT('resize');
 			return;
 		}
 
-		SETTER('loading', 'show');
+		SETTER('loading/show');
 		type = 1;
 
 		self.import(config.url, function() {
@@ -34,8 +34,8 @@ COMPONENT('page', function(self, config) {
 				typeof(fn) === 'function' && fn(self);
 			}
 
-			config.reload && EXEC(config.reload);
-			config.default && DEFAULT(config.default, true);
+			config.reload && self.EXEC(config.reload);
+			config.default && DEFAULT(self.makepath(config.default), true);
 
 			setTimeout(function() {
 				self.tclass('hidden', !is);
@@ -43,7 +43,7 @@ COMPONENT('page', function(self, config) {
 			}, 200);
 
 			self.release(false);
-			SETTER('loading', 'hide', 1000);
+			SETTER('loading/hide', 1000);
 		}, false);
 	};
 });

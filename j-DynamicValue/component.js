@@ -3,7 +3,6 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function
 	var cls2 = '.' + cls;
 
 	self.nocompile();
-	self.bindvisible(50);
 
 	self.validate = function(value) {
 		return !config.required || config.disabled ? true : !!value;
@@ -82,7 +81,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function
 						var val = encodeURIComponent(value);
 						AJAX(config.dirsource.format(val).arg({ value: val }), next);
 					} else
-						EXEC(self.makepath(config.dirsource), value, next);
+						self.EXEC(config.dirsource, value, next);
 				};
 				opt.callback = function(selected) {
 					self.set(selected[config.dirvalue || 'id']);
@@ -91,7 +90,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function
 				};
 				SETTER('directory', 'show', opt);
 			} else {
-				EXEC(self.makepath(config.click || config.find), self.element, function(value) {
+				self.EXEC(config.click || config.find, self.element, function(value) {
 					self.set(value);
 					self.change();
 					config.required && setTimeout(self.validate2, 100);
@@ -112,7 +111,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function
 
 	self.bindvalue = function(value) {
 
-		config.bind && SEEX(self.makepath(config.bind), value);
+		config.bind && self.SEEX(config.bind, value);
 
 		if (config.remap)
 			value = config.remap(value);
@@ -135,7 +134,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function
 
 		config.loading && SETTER('loading', 'hide', 200);
 		self.response = value;
-		config.onresponse && SEEX(self.makepath(config.onresponse), value);
+		config.onresponse && self.SEEX(config.onresponse, value);
 	};
 
 	self.setter = function(value, path, type) {
@@ -145,7 +144,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function
 				var val = encodeURIComponent(value);
 				AJAX((config.url.indexOf(' ') === -1 ? 'GET ' : '') + config.url.format(val).arg({ value: val }), self.bindvalue);
 			} else
-				EXEC(self.makepath(config.exec || config.read), value, self.bindvalue, type);
+				self.EXEC(config.exec || config.read, value, self.bindvalue, type);
 		} else
 			self.bindvalue(value);
 	};

@@ -7,7 +7,7 @@ COMPONENT('scrollpercentage', function(self, config) {
 
 	self.make = function() {
 		if (self.element[0].tagName === 'BODY') {
-			$(window).on('scroll', self.refresh);
+			$(W).on('scroll', self.refresh);
 			container = document.documentElement;
 		} else
 			container = self.element.on('scroll', self.refresh)[0];
@@ -20,7 +20,7 @@ COMPONENT('scrollpercentage', function(self, config) {
 		var h = t.scrollHeight;
 		var p = (pos / (h - t.clientHeight)) * 100;
 		if (config.exec)
-			EXEC(config.exec, p, container);
+			self.EXEC(config.exec, p, container);
 		else
 			SET(self.path, p, 2);
 	};

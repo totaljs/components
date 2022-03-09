@@ -37,7 +37,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false;iconoptions
 			e.stopPropagation();
 			var el = $(this);
 			var index = +el.closest(cls2 + '-item').attrd('index');
-			config.options && EXEC(self.makepath(config.options), cache[index], el);
+			config.options && self.EXEC(config.options, cache[index], el);
 		});
 
 		self.event('focusout', 'input', function() {
@@ -95,12 +95,12 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false;iconoptions
 			if (e.originalEvent.dataTransfer.files.length) {
 				if (ddfile)
 					index = +ddfile.attrd('index');
-				config.upload && EXEC(self.makepath(config.upload), cache[index], e.originalEvent.dataTransfer.files);
+				config.upload && self.EXEC(config.upload, cache[index], e.originalEvent.dataTransfer.files);
 			} else {
 				var tmp = $(e.target);
 				if (!tmp.hclass(cls + '-item'))
 					tmp = tmp.closest(cls2 + '-item');
-				tmp.length && config.dragdrop && EXEC(self.makepath(config.dragdrop), cache[+dragged.attrd('index')], cache[+tmp.attrd('index')], dragged, tmp);
+				tmp.length && config.dragdrop && self.EXEC(config.dragdrop, cache[+dragged.attrd('index')], cache[+tmp.attrd('index')], dragged, tmp);
 				dragged = null;
 			}
 
@@ -121,7 +121,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false;iconoptions
 					var index = +input.closest(cls2 + '-item').attrd('index');
 					var item = cache[index];
 					var newname = item.path.substring(0, item.path.length - item.name.length) + val;
-					EXEC(self.makepath(config.rename), cache[index], newname, function(is) {
+					self.EXEC(config.rename, cache[index], newname, function(is) {
 						el.html(is ? val : el[0].$def);
 						if (is) {
 							item.path = newname;
@@ -322,6 +322,6 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false;iconoptions
 		if (!isexpand && config.expanded)
 			self.expand();
 
-		config.checked && EXEC(self.makepath(config.checked), EMPTYARRAY, self);
+		config.checked && self.EXEC(config.checked, EMPTYARRAY, self);
 	};
 });

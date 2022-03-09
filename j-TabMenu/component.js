@@ -14,7 +14,7 @@ COMPONENT('tabmenu', 'class:selected;selector:li', function(self, config, cls) {
 				if (!el.hclass(config.class)) {
 					var val = el.attrd('value');
 					if (config.exec)
-						EXEC(self.makepath(config.exec), val);
+						self.EXEC(config.exec, val);
 					else
 						self.set(val);
 				}

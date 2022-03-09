@@ -188,8 +188,8 @@ COMPONENT('inlineform', 'autohide:1', function(self, config, cls) {
 		if (opt.offsetY)
 			offset.top += opt.offsetY;
 
-		config.reload && EXEC(config.reload, self);
-		config.default && DEFAULT(config.default, true);
+		config.reload && self.EXEC(config.reload, self);
+		config.default && DEFAULT(self.makepath(config.default), true);
 
 		self.css(offset);
 		config.autofocus && self.autofocus(config.autofocus);

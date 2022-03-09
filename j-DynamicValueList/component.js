@@ -104,7 +104,7 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 						var val = encodeURIComponent(value);
 						AJAX(config.dirsource.format(val).arg({ value: val }), processor);
 					} else
-						EXEC(self.makepath(config.dirsource), [value], processor);
+						self.EXEC(config.dirsource, [value], processor);
 				};
 				opt.callback = function(selected) {
 					var val = selected[config.dirvalue];
@@ -124,7 +124,7 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 				};
 				SETTER('directory/show', opt);
 			} else {
-				EXEC(self.makepath(config.click || config.find), self.element, function(value) {
+				self.EXEC(config.click || config.find, self.element, function(value) {
 					var arr = self.get() || [];
 					if (arr.indexOf(value) !== -1)
 						return;
@@ -169,7 +169,7 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 		if (!value)
 			value = [];
 
-		config.bind && SEEX(self.makepath(config.bind), value);
+		config.bind && self.SEEX(config.bind, value);
 
 		if (config.remap) {
 			for (var i = 0; i < value.length; i++)
@@ -229,7 +229,7 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 					}
 				});
 			} else {
-				EXEC(self.makepath(config.exec || config.read), value, function(response) {
+				self.EXEC(config.exec || config.read, value, function(response) {
 					if (response instanceof Array && response.length) {
 						if (oldid == null)
 							el_insert(response[0]);
@@ -256,7 +256,7 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 				var val = encodeURIComponent(value.join(','));
 				AJAX('GET ' + config.url.format(val).arg({ value: val }), self.bindvalue);
 			} else
-				EXEC(self.makepath(config.exec || config.read), value, self.bindvalue, type);
+				self.EXEC(config.exec || config.read, value, self.bindvalue, type);
 		} else
 			self.bindvalue(value);
 	};

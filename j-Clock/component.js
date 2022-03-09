@@ -106,9 +106,7 @@ COMPONENT('clock', 'twelvehour:false', function(self, config, cls) {
 		});
 
 		$(window).on('scroll click', function() {
-			visible && setTimeout2('clockhide', function() {
-				EXEC('$clock.hide');
-			}, 20);
+			visible && setTimeout2('clockhide', AEXEC('$clock.hide'), 20);
 		});
 
 		window.$clock = self;
