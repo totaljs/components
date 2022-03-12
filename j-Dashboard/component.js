@@ -21,14 +21,15 @@ COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation
 
 		self.aclass(cls);
 		self.on('resize + resize2', events.resize);
+		$W.on('resize', events.resize);
 
 		$D.on('mousedown touchstart', cls2 + '-title,' + cls2 + '-resize-button', events.ondown);
 		$D.on('dragstart', '[draggable]', drag.handler);
 		$D.on('touchstart', '[draggable]', drag.handler);
 
-		self.append('<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="jdashboardgrid" width="0" height="0" patternunits="userSpaceOnUse"><path d="M 0 0 L 0 0 0 0" fill="none" class="{0}-grid" /></pattern></defs><rect width="100%" height="100%" fill="url(#jdashboardgrid)" shape-rendering="crispEdges" /></svg>'.format(cls));
-
-		if (!config.grid)
+		if (config.grid)
+			self.append('<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="jdashboardgrid" width="0" height="0" patternunits="userSpaceOnUse"><path d="M 0 0 L 0 0 0 0" fill="none" class="{0}-grid" /></pattern></defs><rect width="100%" height="100%" fill="url(#jdashboardgrid)" shape-rendering="crispEdges" /></svg>'.format(cls));
+		else
 			self.aclass(cls + '-nogrid');
 
 		self.updategrid = function() {
@@ -351,6 +352,7 @@ COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation
 		$D.off('dragstart', '[draggable]', drag.handler);
 		$D.off('touchstart', '[draggable]', drag.handler);
 		$D.off('mousedown touchstart', cls2 + '-title,' + cls2 + '-resize-button', events.down);
+		$W.off('resize', events.resize);
 		events.bind();
 		clearInterval(serviceid);
 		self.change(true);
@@ -384,6 +386,7 @@ COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation
 		current_display = WIDTH(self.element);
 		var width = self.element.width() - (config.padding * 2);
 		pixel = (width / config.axisX).floor(3);
+		self.pixel = pixel;
 	};
 
 	self.resize = function() {
