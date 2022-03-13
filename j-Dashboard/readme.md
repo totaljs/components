@@ -158,6 +158,7 @@ __Methods__:
 		- `string` sends to a specific component according to the identifier
 - `SETTER('dashboard/call', method_name, [a], [b], [c], [d])` executes a method in each widget
 - `RETURN('dashboard/pixel')` returns a size of the pixel (square)
+- `RETURN('dashboard/display')` returns a current display width
 
 __Good to know__:
 

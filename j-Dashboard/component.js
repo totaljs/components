@@ -383,10 +383,20 @@ COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation
 	};
 
 	self.resize_pixel = function() {
+
+		var prev = current_display;
+
 		current_display = WIDTH(self.element);
+
+		if (prev !== current_display) {
+			prev && self.rclass(cls2 + '-' + prev);
+			self.aclass(cls2 + '-' + current_display);
+		}
+
 		var width = self.element.width() - (config.padding * 2);
 		pixel = (width / config.axisX).floor(3);
 		self.pixel = pixel;
+		self.display = current_display;
 	};
 
 	self.resize = function() {
