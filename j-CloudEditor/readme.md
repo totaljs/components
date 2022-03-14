@@ -42,6 +42,8 @@ __Method__:
 - `component.replaceselections(selections)`
 - `component.replaceselection(selection)`
 - `component.replacerange(value, from, [to])`
+- `component.command(cmd)` executes `codemirror.execCommand()` method
+- `component.exec(a, [b], [c])` executes `document.execCommand(a, b, c)` method
 
 __IMPORTANT__:
 

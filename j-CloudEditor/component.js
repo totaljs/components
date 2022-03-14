@@ -139,6 +139,14 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1;realtime:0;margin:0', function(
 		send({ TYPE: 'focus' });
 	};
 
+	self.command = function(value) {
+		send({ TYPE: 'command', value: value });
+	};
+
+	self.exec = function(a, b, c) {
+		send({ TYPE: 'exec', a: a, b: b, c: c });
+	};
+
 	self.insert = function(value) {
 		send({ TYPE: 'insert', value: value });
 	};
@@ -189,7 +197,7 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1;realtime:0;margin:0', function(
 		if (init) {
 			settertimeout = null;
 			var model = self.get();
-			model && send({ TYPE: 'init', realtime: config.realtime, readonly: config.readonly, mode: model.type || 'clientside', value: model.body, keywords: model.keywords || config.keywords, darkmode: $('body').hclass('ui-dark') });
+			model && send({ TYPE: 'init', linenumbers: model.linenumbers, realtime: config.realtime, readonly: config.readonly, mode: model.type || 'clientside', value: model.body, keywords: model.keywords || config.keywords, darkmode: $('body').hclass('ui-dark') });
 		} else {
 			settertimeout && clearTimeout(settertimeout);
 			settertimeout = setTimeout(self.setter, 100);
