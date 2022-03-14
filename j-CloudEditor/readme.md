@@ -24,6 +24,8 @@ __Configuration__:
 - `contextmenu {String}` a path to the `function(opt)`
 - `realtime {Boolean}` enables realtime sending changes to the `event` method (event name is `change`)
 - `keywords {String}` custom keywords in the form e.g. `ID,PATH`
+- `minheight {Number}` optional, a minimal height (default: `0`)
+- `margin {Number}` optional, a vertical margin (default: `0`)
 
 __Method__:
 

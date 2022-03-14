@@ -1,4 +1,4 @@
-COMPONENT('cloudeditor', 'parent:auto;autosave:1;realtime:0', function(self, config) {
+COMPONENT('cloudeditor', 'parent:auto;autosave:1;realtime:0;margin:0', function(self, config) {
 
 	var iframe;
 	var savetimeout;
@@ -161,7 +161,11 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1;realtime:0', function(self, con
 	self.resize = function() {
 		var parent = self.parent(config.parent);
 		var w = parent.width();
-		var h = parent.height();
+		var h = parent.height() - config.margin;
+
+		if (config.minheight && h < config.minheight)
+			h = config.minheight;
+
 		iframe.css({ width: w, height: h });
 	};
 
