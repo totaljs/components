@@ -129,7 +129,7 @@ COMPONENT('tablegrid', 'count:3;fill:0;scrollbar:1;visibleY:1;margin:0;row:0;scr
 
 		if (config.scrollbar) {
 			area.tclass('ui-scrollbar-noscroll', noscroll);
-			config.scrolltop && self.scrollbar.scrollTop(0);
+			config.scrolltop && self.scrollbar && self.scrollbar.scrollTop(0);
 		}
 
 		html.COMPILABLE() && COMPILE(container);
