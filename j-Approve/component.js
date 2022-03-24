@@ -57,6 +57,8 @@ COMPONENT('approve', 'cancel:Cancel', function(self, config, cls) {
 
 	self.show = function(message, a, b, fn) {
 
+		clearTimeout2(self.id);
+
 		if (typeof(b) === 'function') {
 			fn = b;
 			b = config.cancel;
