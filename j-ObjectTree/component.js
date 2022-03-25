@@ -85,6 +85,8 @@ COMPONENT('objecttree', 'copydata:Copy data;copypath:Copy path', function(self, 
 		for (let i = 0; i < arr.length; i++) {
 			var item = arr[i];
 			var type = item instanceof Array ? 'array' : item instanceof Date ? 'date' : typeof(item);
+			if (item == null)
+				type = 'null';
 			var value = '';
 			var path2 = path + (path === '' ? path : '.') + i;
 			var last = i === (arr.length - 1);
