@@ -1,0 +1,19 @@
+{
+	"datecreated": "2022-03-26T19:55:10.000Z",
+	"dateupdated": null,
+	"name": "j-CloudEditorSimple",
+	"tags": [
+		"syntax",
+		"code",
+		"editor"
+	],
+	"darkmode": true,
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
