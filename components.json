@@ -277,5 +277,6 @@
 	"j-DropdownList",
 	"j-SearchData",
 	"j-ObjectTree",
-	"j-CloudEditorSimple"
+	"j-CloudEditorSimple",
+	"j-CheckPath"
 ]
