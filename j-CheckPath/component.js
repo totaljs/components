@@ -3,7 +3,7 @@ COMPONENT('checkpath', 'position:3', function(self, config, cls) {
 	self.readonly();
 	self.singleton();
 	self.nocompile();
-	self.nobind();
+	self.blind();
 
 	self.make = function() {
 		self.aclass(cls + ' hidden ' + cls + '-' + config.position);
