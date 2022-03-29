@@ -23,7 +23,7 @@
 .dg-sorting .dg-label { margin-right: 24px; }
 .dg-filter { padding: 0 8px; border-top: 1px solid #E0E0E0; height: 23px; }
 .dg-filter input, .dg-filter label { width: 100%; outline: 0; font-size: 10px; background-color: transparent; border: 0; margin: 0; padding: 0; line-height: 23px; height: 23px; }
-.dg-filter label { color: #A0A0A0; cursor: pointer; display: block; }
+.dg-filter label { color: #A0A0A0; cursor: pointer; display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 .dg-filter.center input { text-align: center; }
 .dg-filter.right input { text-align: right; }
 .dg-filter-empty { border-top: 1px solid #E0E0E0; height: 23px; cursor: not-allowed !important; background: repeating-linear-gradient(45deg,#FFF,#FFF 10px,#F9F9F9 10px,#F9F9F9 20px); }
