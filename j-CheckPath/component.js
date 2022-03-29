@@ -11,7 +11,8 @@ COMPONENT('checkpath', 'position:3', function(self, config, cls) {
 		self.event('click', function(e) {
 			e.preventDefault();
 			e.stopPropagation();
-			self.aclass('hidden');
+			if (e.target.tagName !== 'SPAN')
+				self.aclass('hidden');
 		});
 
 		self.event('click', '.fa-copy', function(e) {
