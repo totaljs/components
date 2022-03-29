@@ -1,5 +1,5 @@
 {
-	"datecreated": "2022-03-29T15:58:00.000Z",
+	"datecreated": "2022-03-29T15:58:01.000Z",
 	"dateupdated": null,
 	"name": "j-CheckPath",
 	"tags": [
@@ -11,7 +11,7 @@
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
-	"author": "Kirill Zlobin & Peter Širka",
+	"author": "Kirill Zlobin",
 	"email": "info@totaljs.com",
 	"license": "https://www.totaljs.com/license/"
 }
