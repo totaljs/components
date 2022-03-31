@@ -1,10 +1,10 @@
-COMPONENT('clipboard', function(self) {
+COMPONENT('clipboard', function(self, config, cls) {
 
 	var container;
 
 	self.singleton();
 	self.readonly();
-	self.nocompile && self.nocompile();
+	self.nocompile();
 
 	self.copy = function(value) {
 		container.val(value);
@@ -16,7 +16,7 @@ COMPONENT('clipboard', function(self) {
 
 	self.make = function() {
 		var id = 'clipboard' + self.id;
-		$(document.body).append('<textarea id="{0}" class="ui-clipboard"></textarea>'.format(id));
+		$(document.body).append('<textarea id="{0}" class="{1}"></textarea>'.format(id, cls));
 		container = $('#' + id);
 	};
 
