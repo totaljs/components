@@ -11,7 +11,7 @@ COMPONENT('clipboard', function(self, config, cls) {
 		$(document.body).append('<textarea id="{0}" class="{1}"></textarea>'.format(id, cls));
 		container = $('#' + id);
 
-		if (navigator.clipboard && window.isSecureContext) {
+		if (navigator.clipboard && W.isSecureContext) {
 			self.copy = function(value) {
 				navigator.clipboard.writeText(value).catch(err => console.error(err));
 			};
