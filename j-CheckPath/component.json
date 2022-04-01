@@ -1,0 +1,18 @@
+{
+	"datecreated": "2022-03-29T15:58:08.000Z",
+	"dateupdated": null,
+	"name": "j-CheckPath",
+	"tags": [
+		"path",
+		"debug"
+	],
+	"darkmode": true,
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Kirill Zlobin",
+	"email": "info@totaljs.com",
+	"license": "https://www.totaljs.com/license/"
+}
