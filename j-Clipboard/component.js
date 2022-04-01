@@ -6,18 +6,24 @@ COMPONENT('clipboard', function(self, config, cls) {
 	self.readonly();
 	self.nocompile();
 
-	self.copy = function(value) {
-		container.val(value);
-		container.focus();
-		container.select();
-		document.execCommand('copy');
-		container.blur();
-	};
-
 	self.make = function() {
 		var id = 'clipboard' + self.id;
 		$(document.body).append('<textarea id="{0}" class="{1}"></textarea>'.format(id, cls));
 		container = $('#' + id);
+
+		if (navigator.clipboard && window.isSecureContext) {
+			self.copy = function(value) {
+				navigator.clipboard.writeText(value).catch(err => console.error(err));
+			};
+		} else {
+			self.copy = function(value) {
+				container.val(value);
+				container.focus();
+				container.select();
+				document.execCommand('copy');
+				container.blur();
+			};
+		}
 	};
 
 	self.setter = function(value) {
