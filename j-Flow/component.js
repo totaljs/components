@@ -590,7 +590,7 @@ EXTENSION('flow:helpers', function(self, config) {
 		if (val > max)
 			return max;
 		return val;
-	};
+	}
 });
 
 EXTENSION('flow:operations', function(self, config, cls) {
