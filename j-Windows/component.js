@@ -170,7 +170,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 			if (drag.resize) {
 				if (drag.item.meta.actions.resize == false)
 					return;
-				drag.resize = drag.item.meta.actions.resize;
+				drag.resize = true;
 			} else {
 				if (drag.item.meta.actions.move == false)
 					return;
