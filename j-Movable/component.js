@@ -12,8 +12,10 @@ COMPONENT('movable', function(self, config) {
 
 	events.ondrag = function(e) {
 
-		if (!draggable)
+		if (!draggable) {
+			e.preventDefault();
 			return;
+		}
 
 		if (e.type !== 'dragstart') {
 			e.stopPropagation();
@@ -29,6 +31,8 @@ COMPONENT('movable', function(self, config) {
 				var ai = -1;
 				var bi = -1;
 				var is = false;
+
+				draggable = null;
 
 				while (true) {
 					if (b.parentNode === parent) {
@@ -74,7 +78,11 @@ COMPONENT('movable', function(self, config) {
 		}
 	};
 
-	events.ondown = function() {
+	events.ondown = function(e) {
+		if (e.target.nodeName === 'INPUT' || e.target.nodeName === 'TEXTAREA') {
+			draggable = null
+			return;
+		}
 		draggable = this;
 	};
 
