@@ -80,7 +80,7 @@ COMPONENT('movable', function(self, config) {
 
 	events.ondown = function(e) {
 		if (e.target.nodeName === 'INPUT' || e.target.nodeName === 'TEXTAREA') {
-			draggable = null
+			draggable = null;
 			return;
 		}
 		draggable = this;
