@@ -1,0 +1,30 @@
+name: Upload to KeyCDN
+
+on: workflow_dispatch
+
+jobs:
+  ftp-upload:
+    name: 🎉 Upload
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2
+      
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '14'
+
+    - name: Generating components
+      run: |
+        npm install total4
+        node cdn.js
+        ls 0cdn/ -la
+        
+    - name: FTP Deployer
+      uses: sand4rt/ftp-deployer@v1.3
+      with:
+        host: ${{ secrets.KEYCDN_SERVER }}
+        username: ${{ secrets.KEYCDN_USERNAME }}
+        password: ${{ secrets.KEYCDN_PASSWORD }}
+        remote_folder: /
+        local_folder: 0cdn/ # optional, local path, default is: dist
