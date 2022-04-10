@@ -135,7 +135,7 @@ COMPONENT('children', function(self, config, cls) {
 			var item = value[i];
 			var childrenhtml = renderchildren(item, 1);
 			self.items[item.id] = item;
-			builder.push(template.arg({ id: item.id, html: self.template({ value: item }) + childrenhtml, level: 0 }));
+			builder.push(template.arg({ id: item.id, html: self.template({ value: item, level: 0 }) + childrenhtml, level: 0 }));
 		}
 
 		self.html(builder.length ? builder.join('') : config.empty ? '<div class="{0}-empty">{1}</div>'.format(cls, config.empty) : '');
