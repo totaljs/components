@@ -4,6 +4,7 @@
 <div class="mt10" data-bind="testvalue__template">
 	<script type="text/html">
 		<div>{{ value.date | format }}</div>
+		<div>{{ value.date | format('[ts]') }}</div>
 		<div>{{ value.number | format(2) }}</div>
 	</script>
 </div>
