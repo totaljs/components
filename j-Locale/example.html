@@ -1,3 +1,13 @@
 <div data---="locale__mylocale"></div>
 <hr />
 <pre data-bind="mylocale__text:JSON.stringify(value, null, '  ')"></pre>
+<div class="mt10" data-bind="testvalue__template">
+	<script type="text/html">
+		<div>{{ value.date | format }}</div>
+		<div>{{ value.number | format(2) }}</div>
+	</script>
+</div>
+
+<script>
+	var testvalue = { date: new Date(), number: 1234567.89 };
+</script>

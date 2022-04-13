@@ -5,6 +5,7 @@ This component sets current browser locale (number format, date format and time 
 - easy usage
 - singleton
 - `path` will contain current's browser locale
+- sets `DEF.dateformat` and it creates environment value called `[ts]`
 
 __Output__:
 
