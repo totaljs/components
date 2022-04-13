@@ -1,10 +1,11 @@
 COMPONENT('shoppingcart', 'discount:0;expiration:6 days', function(self, config) {
 
 	var self = this;
+	var Name = self.name;
 
 	self.singleton();
 	self.readonly();
-	self.nocompile && self.nocompile();
+	self.nocompile();
 
 	self.configure = function(key, value, init) {
 		if (init)
@@ -17,7 +18,7 @@ COMPONENT('shoppingcart', 'discount:0;expiration:6 days', function(self, config)
 	};
 
 	self.make = function() {
-		var items = CACHE('shoppingcart');
+		var items = CACHE(Name);
 		if (items && items.length) {
 			var datasource = self.prepare();
 			datasource.items = items;
@@ -34,7 +35,7 @@ COMPONENT('shoppingcart', 'discount:0;expiration:6 days', function(self, config)
 			datasource.items = [];
 			datasource.price = 0;
 			datasource.count = 0;
-			datasource.sum = 0;
+			datasource.total = 0;
 			datasource.discount = config.discount;
 			self.set(datasource);
 		}
@@ -59,19 +60,56 @@ COMPONENT('shoppingcart', 'discount:0;expiration:6 days', function(self, config)
 		return id ? datasource.findItem('id', id) != null : datasource.length > 0;
 	};
 
+	self.count = function(id) {
+		var datasource = self.prepare().items;
+		return id ? datasource.findValue('id', id, 'count', 0) : 0;
+	};
+
 	self.add = function(id, price, count, name) {
+
 		var datasource = self.prepare();
 		var item = datasource.items.findItem('id', id);
 		if (item) {
 			item.price = price;
 			item.count += count || 1;
 		} else {
-			item = { id: id, price: price, count: count || 1, name: name, created: new Date() };
+			item = { id: id, price: price, count: count || 1, name: name, date: new Date() };
 			datasource.items.push(item);
 		}
 
 		setTimeout2(self.id + '.sum', self.sum, 100);
-		EMIT('shoppingcart.add', item);
+		EMIT(Name + '.add', item);
+	};
+
+	self.buy = function(id, price, count, name) {
+
+		var datasource = self.prepare();
+		var item = datasource.items.findItem('id', id);
+
+		if (!count || count <= 0) {
+			if (item) {
+				var index = datasource.items.indexOf(item);
+				datasource.items.splice(index, 1);
+				setTimeout2(self.id + '.sum', self.sum, 100);
+				EMIT(Name + '.add', item);
+			}
+			return;
+		}
+
+		if (item) {
+
+			if (item.count === count)
+				return;
+
+			item.count = count;
+
+		} else {
+			item = { id: id, price: price, count: count, name: name, date: new Date() };
+			datasource.items.push(item);
+		}
+
+		setTimeout2(self.id + '.sum', self.sum, 100);
+		EMIT(Name + '.add', item);
 	};
 
 	self.upd = function(id, count) {
@@ -79,7 +117,7 @@ COMPONENT('shoppingcart', 'discount:0;expiration:6 days', function(self, config)
 		var item = datasource.items.findItem('id', id);
 		if (item) {
 			item.count = count;
-			EMIT('shoppingcart.upd', item);
+			EMIT(Name + '.upd', item);
 			setTimeout2(self.id + '.sum', self.sum, 100);
 		}
 	};
@@ -101,14 +139,14 @@ COMPONENT('shoppingcart', 'discount:0;expiration:6 days', function(self, config)
 		var datasource = self.prepare();
 		datasource.items = datasource.items.remove('id', id);
 		setTimeout2(self.id + '.sum', self.sum, 100);
-		EMIT('shoppingcart.rem', id);
+		EMIT(Name + '.rem', id);
 	};
 
 	self.clear = function() {
 		var datasource = self.prepare();
 		datasource.items = [];
 		self.sum();
-		EMIT('shoppingcart.clear');
+		EMIT(Name + '.clear');
 	};
 
 	self.sum = function(init) {
@@ -116,21 +154,21 @@ COMPONENT('shoppingcart', 'discount:0;expiration:6 days', function(self, config)
 
 		datasource.count = 0;
 		datasource.price = 0;
-		datasource.sum = 0;
 
-		datasource.items.forEach(function(item) {
+		for (var item of datasource.items) {
+			item.total = item.price * item.count;
 			datasource.count += item.count;
-			datasource.price += item.price * item.count;
-			item.sum = config.discount ? item.price - ((item.price / 100) * config.discount) : item.price;
-		});
+			datasource.price += item.total;
+		}
 
 		if (config.discount)
-			datasource.sum = datasource.price - ((datasource.price / 100) * config.discount);
+			datasource.total = datasource.price - ((datasource.price / 100) * config.discount);
 		else
-			datasource.sum = datasource.price;
+			datasource.total = datasource.price;
 
-		!init && CACHE('shoppingcart', datasource.items, config.expiration);
+		!init && CACHE(Name, datasource.items, config.expiration);
 		self.update(true);
-		EMIT('shoppingcart.sum', datasource);
+		EMIT(Name + '.total', datasource);
 	};
+
 });

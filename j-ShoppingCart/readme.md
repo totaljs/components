@@ -9,10 +9,30 @@ __Configuration__:
 - `discount` {Number} a discount in percentage (optional, default: `0`)
 - `expiration` {String} data expiration (default: `6 days`)
 
+__Output__:
+
+```js
+{
+	items: [
+		{
+			name: String,
+			price: Number,
+			total: Number,
+			count: Number,
+			date: Date
+		}
+	],
+	price: Number,
+	total: Number,
+	count: Number
+}
+````
+
 ### Methods
 
 - `instance.add(id, price, count, [name])` adds new product or increase count if the product exists
 - `instance.upd(id, count)` updates product's count
+- `instance.buy(id, price, count, [name])` creates/updates product
 - `instance.rem(id)` removes product
 - `instance.has(id)` checks product
 - `instance.read(id)` reads product
