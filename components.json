@@ -278,5 +278,6 @@
 	"j-SearchData",
 	"j-ObjectTree",
 	"j-CloudEditorSimple",
-	"j-CheckPath"
+	"j-CheckPath",
+	"j-Locale"
 ]
