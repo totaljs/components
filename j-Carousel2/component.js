@@ -1,4 +1,4 @@
-COMPONENT('carousel2', 'count:1;selector:figure;margin:10;snapping:true;animate:5000;delay:2000;marginheight:0', function(self, config, cls) {
+COMPONENT('carousel2', 'selector:figure;margin:10;snapping:true;animate:5000;delay:2000;marginheight:0;duration:300;durationsnap:200;offsetwidth:0;scrolldivider:3', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var width = 0;
@@ -47,18 +47,23 @@ COMPONENT('carousel2', 'count:1;selector:figure;margin:10;snapping:true;animate:
 		};
 
 		config.snapping && container.on('scroll', function() {
-			!skip && setTimeout2(self.id, self.snap, 300);
+			!skip && setTimeout2(self.ID, self.snap, 300);
 		}).on('touchmove', drag.tmove);
 
 		drag.mmove = function(e) {
+
 			var offset = (drag.x - e.pageX) / 2;
+			var diff = width || (self.width() / config.scrolldivider >> 0);
+
 			if (Math.abs(offset) > 30) {
-				var plus = (config.snapping ? ((width / 100) * 80) : width) + config.margin;
+
+				var plus = (config.snapping ? ((diff / 100) * 80) : diff) + config.margin;
 				if (offset > 0)
 					offset = plus;
 				else
 					offset = -plus;
-				container.stop().animate({ scrollLeft: container[0].scrollLeft + offset }, 300);
+
+				container.stop().animate({ scrollLeft: container[0].scrollLeft + offset }, config.duration);
 				drag.mup();
 			}
 		};
@@ -78,7 +83,9 @@ COMPONENT('carousel2', 'count:1;selector:figure;margin:10;snapping:true;animate:
 			e.preventDefault();
 		});
 
-		config.animate && (anim = setTimeout(self.animate, config.animate));
+		if (config.animate)
+			anim = setTimeout(self.animate, config.animate);
+
 		self.event('resize + resize2', self.resize);
 	};
 
@@ -86,6 +93,13 @@ COMPONENT('carousel2', 'count:1;selector:figure;margin:10;snapping:true;animate:
 		skip = false;
 		anim = null;
 		treset = null;
+	};
+
+	self.move = function(type, offset) {
+		var x = container[0].scrollLeft;
+		var diff = width || offset || (self.width() / config.scrolldivider >> 0);
+		var w = type === 'left' || type === 'next' ? diff : -diff;
+		container.stop().animate({ scrollLeft: x + w }, config.durationsnap, config.snapping ? self.snap : NOOP);
 	};
 
 	self.animate = function() {
@@ -103,7 +117,9 @@ COMPONENT('carousel2', 'count:1;selector:figure;margin:10;snapping:true;animate:
 		skip = true;
 		anim = null;
 
-		container.animate({ scrollLeft: index * (width + config.margin) }, 200);
+		if (!NOTFOCUSED())
+			container.animate({ scrollLeft: index * (width + config.margin) }, config.durationsnap);
+
 		treset && clearTimeout(treset);
 		treset = setTimeout(reset, 400);
 		anim = setTimeout(self.animate, config.delay);
@@ -115,13 +131,43 @@ COMPONENT('carousel2', 'count:1;selector:figure;margin:10;snapping:true;animate:
 	};
 
 	self.snap = function() {
+		var diff = width || (self.width / config.scrolldivider) >> 0;
 		var x = container[0].scrollLeft;
-		var off = Math.round(x / (width + config.margin));
+		var off = Math.round(x / (diff + config.margin));
 		skip = true;
 		move = true;
-		container.stop().animate({ scrollLeft: off * (width + margin) }, 200);
+
+		var pos = off * (diff + margin);
+		var arr = self.find(config.selector);
+		var sum = 0;
+
+		for (var dom of arr)
+			sum += +dom.getAttribute('data-width') + config.margin;
+
+		container.stop().animate({ scrollLeft: pos }, config.durationsnap);
 		treset && clearTimeout(treset);
 		treset = setTimeout(reset2, 400);
+	};
+
+	self.focus = function(id) {
+
+		var arr = self.find(config.selector);
+		var sum = 0;
+		var is = false;
+		for (var dom of arr) {
+			if (ATTRD(dom) === id) {
+				is = true;
+				break;
+			}
+			sum += +dom.getAttribute('data-width') + config.margin;
+		}
+
+		if (!is)
+			return;
+
+		var diff = sum;
+		var w = self.width() - diff;
+		container.stop().animate({ scrollLeft: w }, config.durationsnap, config.snapping ? self.snap : NOOP);
 	};
 
 	self.resize = function() {
@@ -141,27 +187,38 @@ COMPONENT('carousel2', 'count:1;selector:figure;margin:10;snapping:true;animate:
 
 		var sum = 0;
 
-		width = w / config.count;
-		margin = config.margin / config.count;
+		width = config.count ? (w / config.count) : 0;
+		margin = config.count ? (config.margin / config.count) : 0;
 		count = 0;
 
 		var arr = self.find(config.selector);
 		var height = config.parent ? (self.parent(config.parent).height() - config.marginheight) : 0;
 		var countheight = !height;
+		var css = {};
 
-		arr.each(function() {
-			var el = $(this);
+		for (var dom of arr) {
+
+			var el = $(dom);
+
 			if (countheight)
 				height = Math.max(el.innerHeight(), height);
-			var css = {};
-			sum += width + config.margin;
-			css.width = width - (config.margin - margin);
+
+			var w = width || el.width();
+
+			sum += w + config.margin;
+
+			if (config.count)
+				css.width = w - (config.margin - margin);
+
 			css['margin-right'] = config.margin;
+
 			if (!countheight)
 				css.height = height;
+
+			el.attrd('width', w);
 			el.css(css);
 			count++;
-		});
+		}
 
 		var k = sum + 'x' + height;
 
@@ -171,7 +228,7 @@ COMPONENT('carousel2', 'count:1;selector:figure;margin:10;snapping:true;animate:
 		old = k;
 		container.css('height', height + 40);
 		self.css('height', (height >> 0) + 2);
-		self.find(cls2 + '-body').css('width', sum);
+		self.find(cls2 + '-body').css('width', sum + config.offsetwidth);
 
 		if (!ready) {
 			self.rclass('invisible hidden');
@@ -182,7 +239,7 @@ COMPONENT('carousel2', 'count:1;selector:figure;margin:10;snapping:true;animate:
 
 	self.setter = function() {
 		self.refresh();
-		container.stop().animate({ scrollLeft: 0 }, 300);
+		container.stop().animate({ scrollLeft: 0 }, config.duration);
 	};
 
 });
