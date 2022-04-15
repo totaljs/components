@@ -6,7 +6,6 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 	var skip = false;
 
 	self.nocompile();
-	self.bindvisible(50);
 
 	self.validate = function(value) {
 		return !config.required || config.disabled ? true : !!value;
