@@ -36,7 +36,7 @@ __Interesting:__
 
 - `dirsource:path.to.datasource` needs __`directory`__ component
 - if `licon` or `ricon` starts with `!` then the component render a raw value instead of `icon`
-- `dirinit` and `dirsource` with paths to methods can load data asynchronously
+- `dirsource` with paths to methods can load data asynchronously
 
 ### Author
 
