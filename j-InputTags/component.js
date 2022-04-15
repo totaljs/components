@@ -8,7 +8,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 
 	self.init = function() {
 		Thelpers.ui_inputtags_icon = function(val) {
-			return val.charAt(0) === '!' ? ('<span class="ui-inputtags-icon-custom">' + val.substring(1) + '</span>') : ('<i class="fa fa-' + val + '"></i>');
+			return val.charAt(0) === '!' ? ('<span class="' + cls + '-icon-custom">' + val.substring(1) + '</span>') : ('<i class="fa fa-' + val + '"></i>');
 		};
 		W.ui_inputtags_template = Tangular.compile(('{{ if label }}<div class="{0}-label">{{ if icon }}<i class="fa fa-{{ icon }}"></i>{{ fi }}{{ label }}{{ after }}</div>{{ fi }}<div class="{0}-control{{ if dirsource }} {0}-dropdown{{ fi }}{{ if licon }} {0}-licon{{ fi }}{{ if ricon }} {0}-ricon{{ fi }}">{{ if ricon }}<div class="{0}-icon-right">{{ ricon | ui_inputtags_icon }}</div>{{ fi }}{{ if licon }}<div class="{0}-icon-left{{ if liconclick }} {0}-click{{ fi }}">{{ licon | ui_inputtags_icon }}</div>{{ fi }}<div class="{0}-input{{ if align === 1 || align === \'center\' }} center{{ else if align === 2 || align === \'right\' }} right{{ fi }}">{{ if placeholder && !innerlabel }}<div class="{0}-placeholder">{{ placeholder }}</div>{{ fi }}<div class="{0}-tags"><span class="{0}-editable" contenteditable="true"></span></div></div></div>{{ if error }}<div class="{0}-error hidden"><i class="fa fa-warning"></i> {{ error }}</div>{{ fi }}').format(cls));
 	};
@@ -50,7 +50,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 					self.appendval(typeof(value) === 'string' ? value : value[config.autovalue]);
 					self.check();
 				};
-				SETTER('autocomplete', 'show', opt);
+				SETTER('autocomplete/show', opt);
 			}
 		});
 
@@ -121,7 +121,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 					self.appendval(typeof(dirsource) === 'function' ? item : val);
 			};
 
-			SETTER('directory', 'show', opt);
+			SETTER('directory/show', opt);
 		});
 
 		self.event('click', cls2 + '-placeholder,' + cls2 + '-label,' + cls2 + '-input', function(e) {
@@ -297,7 +297,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 		if (dirsource) {
 
 			if (typeof(dirsource) === 'function') {
-				self.EXEC(config.dirinit, value, function(dirsource) {
+				dirsource(value, function(dirsource) {
 
 					var item;
 
@@ -321,9 +321,8 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 				item = dirsource[i];
 				item.name = self.transform(item.name);
 				if (typeof(item) === 'string') {
-					if (value.indexOf(item) === -1)
-						continue;
-					arr.push(item);
+					if (value.indexOf(item) !== -1)
+						arr.push(item);
 				} else if (value.indexOf(item[config.dirvalue || config.value]) != -1)
 					arr.push(item[config.dirkey || config.key]);
 			}
@@ -431,7 +430,6 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 					return value.toString().toUpperCase();
 			}
 		}
-
 		return value;
 	});
 
