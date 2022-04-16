@@ -135,6 +135,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 		drag.is = false;
 
 		E.preventDefault();
+		$('body').aclass(cls + '-prevent');
 		self.aclass(cls + '-moving');
 
 		var myoffset = self.element.position();
@@ -161,7 +162,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 			drag.y = e.pageY - pos.top;
 		}
 
-		drag.el.aclass(cls + '-block');
+		$('body').aclass(cls + '-block');
 		drag.offX = myoffset.left;
 		drag.offY = myoffset.top;
 		drag.item = cache[drag.el.attrd('id')];
@@ -307,7 +308,8 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 	events.up = function() {
 
 		self.rclass(cls + '-moving');
-		drag.el.rclass(cls + '-dragged').rclass(cls + '-block');
+		drag.el.rclass(cls + '-dragged');
+		$('body').rclass(cls + '-block');
 		$(W).off('mousemove touchmove', events.move).off('mouseup touchend', events.up);
 		resizer.aclass('hidden', 1);
 

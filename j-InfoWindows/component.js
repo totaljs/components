@@ -151,7 +151,7 @@ COMPONENT('infowindows', 'reoffsetresize:0', function(self, config, cls) {
 			drag.y = e.pageY - pos.top;
 		}
 
-		drag.el.aclass(cls + '-block');
+		$('body').aclass(cls + '-block');
 		drag.offX = myoffset.left;
 		drag.offY = myoffset.top;
 		drag.item = cache[drag.el.attrd('id')];
@@ -262,7 +262,8 @@ COMPONENT('infowindows', 'reoffsetresize:0', function(self, config, cls) {
 
 	events.up = function() {
 
-		drag.el.rclass(cls + '-dragged').rclass(cls + '-block');
+		drag.el.rclass(cls + '-dragged');
+		$('body').rclass(cls + '-block');
 		$(W).off('mousemove touchmove', events.move).off('mouseup touchend', events.up);
 		resizer.aclass('hidden', 1);
 
