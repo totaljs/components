@@ -346,6 +346,7 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10', function(self, config, cls
 			if (!opt.detached && opt.html != null)
 				opt.element.html(opt.html);
 
+			delete opt.detached;
 			opt.is = false;
 			el.rclass('edit-open edit-multiline');
 			el.attr('contenteditable', false);
