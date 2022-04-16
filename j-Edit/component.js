@@ -281,6 +281,7 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10', function(self, config, cls
 		if (fn) {
 			fn = GET(opt.scope ? opt.scope.makepath(fn) : fn);
 			if (typeof(fn) === 'function') {
+				opt.detached = true;
 				fn(opt, function(body) {
 					if (body === true)
 						opt.element.html(opt.value);
@@ -341,8 +342,10 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10', function(self, config, cls
 				floating.aclass('hidden');
 
 			var opt = el[0].$edit;
-			if (opt.html != null)
+
+			if (!opt.detached && opt.html != null)
 				opt.element.html(opt.html);
+
 			opt.is = false;
 			el.rclass('edit-open edit-multiline');
 			el.attr('contenteditable', false);
