@@ -1875,7 +1875,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 
 				var line = path[i];
 
-				if (color && line.attrd('color') !== color)
+				if (color && line.getAttribute('data-color') !== color)
 					continue;
 
 				if (line.$flowanimcount > config.animationlimitconnection)
