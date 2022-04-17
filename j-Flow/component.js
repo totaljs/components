@@ -332,6 +332,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;curvedlines:1;horizontal:1;ste
 	};
 
 	self.reconnect = function(m) {
+
 		for (var index in m.instance.connections) {
 			var output = m.el.find('.output[data-index="{0}"]'.format(index));
 			var inputs = m.instance.connections[index];
@@ -340,7 +341,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;curvedlines:1;horizontal:1;ste
 				var com = inputs[j];
 				var el = self.find('.component[data-id="{0}"]'.format(com.id));
 				var input = el.find('.input[data-index="{0}"]'.format(com.index));
-				if (!self.el.connect(output, input, true)) {
+				if (!self.el.connect(output, input, true, com)) {
 					inputs[j] = null;
 					problem = true;
 				}
@@ -590,7 +591,7 @@ EXTENSION('flow:helpers', function(self, config) {
 		if (val > max)
 			return max;
 		return val;
-	}
+	};
 });
 
 EXTENSION('flow:operations', function(self, config, cls) {
@@ -1295,6 +1296,7 @@ EXTENSION('flow:components', function(self, config) {
 	self.event('contextmenu', '.area', function(e) {
 		var selected = document.getSelection().toString();
 		if (!selected) {
+
 			events.is && events.up();
 
 			var tagName = e.target.tagName;
@@ -1588,7 +1590,7 @@ EXTENSION('flow:connections', function(self, config) {
 		events.bind();
 	});
 
-	self.el.connect = function(output, input, init) {
+	self.el.connect = function(output, input, init, conn) {
 
 		if (!output[0] || !input[0])
 			return false;
@@ -1606,6 +1608,12 @@ EXTENSION('flow:connections', function(self, config) {
 		path.attrd('from', a.id);
 		path.attrd('to', b.id);
 		path.attr('d', self.helpers.connect(a.x, a.y, b.x, b.y, a.indexoffset, b.indexoffset));
+
+		if (conn) {
+			var color = conn.color || '';
+			path.attrd('color', color);
+			path.css({ stroke: color });
+		}
 
 		input.add(output).aclass('connected');
 
@@ -1731,6 +1739,7 @@ EXTENSION('flow:connections', function(self, config) {
 		parent.removeChild(dom);
 		parent.appendChild(dom);
 		e.preventDefault();
+
 	});
 
 });
@@ -1837,6 +1846,13 @@ EXTENSION('flow:commands', function(self, config, cls) {
 
 	self.command('flow.traffic', function(id, opt) {
 
+		var color = '';
+		var index = id.lastIndexOf('#');
+		if (index !== -1) {
+			color = id.substring(index);
+			id = id.substring(0, index);
+		}
+
 		if (!opt)
 			opt = { speed: 3, count: 1, delay: 50 };
 
@@ -1858,6 +1874,10 @@ EXTENSION('flow:commands', function(self, config, cls) {
 					break;
 
 				var line = path[i];
+
+				if (color && line.attrd('color') !== color)
+					continue;
+
 				if (line.$flowanimcount > config.animationlimitconnection)
 					break;
 
