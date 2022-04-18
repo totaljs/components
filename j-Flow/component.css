@@ -18,14 +18,14 @@
 .ui-flow .connection { stroke-width: 2; stroke: #000; fill: none; }
 .ui-flow .connection-draft { stroke: var(--color); }
 .ui-flow .component-selected { border-color: var(--color); }
-.ui-flow .connection-selected { stroke: var(--color); }
+.ui-flow .connection-selected { stroke-width: 6px !important; }
 .ui-flow .component-focused { z-index: 1; }
 .ui-flow .area { position: relative; }
-.ui-flow path.highlight { stroke: var(--color); }
+.ui-flow path.highlight { stroke-width: 3.5px !important; }
 .ui-flow > svg { margin: -1px 0 0 -1px; }
 .ui-flow-grid { stroke: #F8F8F8; stroke-width: 2; }
 .ui-flow .output.connected .component-io.disabled, .ui-flow .input.connected .component-io.disabled, .ui-flow .output .component-io.disabled, .ui-flow .input .component-io.disabled { background-color: red !important; color: #FFF; }
-.ui-flow .traffic { fill: var(--color); }
+.ui-flow .traffic { fill: transparent; stroke-width: 3px; }
 .ui-flow-connections { position: absolute; pointer-events: none; }
 .ui-flow-connections path { pointer-events: auto; }
 .ui-flow-groups { position: relative; }
@@ -46,10 +46,8 @@
 .ui-dark .ui-flow .output .component-io { color: #606060; }
 .ui-dark .ui-flow .input .component-io { color: #606060; }
 .ui-dark .ui-flow .output, .ui-dark .ui-flow .input { background-color: #303030; color: #FFF; border-color: #404040; }
-.ui-dark .ui-flow .connection { stroke: gray; }
+.ui-dark .ui-flow .connection { stroke: #999; }
 .ui-dark .ui-flow .connection-draft { stroke: var(--color); }
-.ui-dark .ui-flow path.highlight { stroke: var(--color); }
 .ui-dark .ui-flow .component-selected { border-color: var(--color); }
-.ui-dark .ui-flow .connection-selected { stroke: var(--color); }
 .ui-dark .ui-flow-group { background: rgba(0,0,0,0.3); border-color: rgba(0,0,0,0.3); color: #FFF; }
 .ui-dark .ui-flow .group-selected { border-color: var(--color); }

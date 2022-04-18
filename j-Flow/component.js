@@ -1,4 +1,4 @@
-COMPONENT('flow', 'width:6000;height:6000;grid:25;curvedlines:1;horizontal:1;steplines:1;snapping:0;animationradius:6;outputoffsetY:0;outputoffsetX:0;inputoffsetY:0;inputoffsetX:0;history:100;multiple:1;animationlimit:100;animationlimitconnection:5;allowpause:1', function(self, config, cls) {
+COMPONENT('flow', 'width:6000;height:6000;grid:25;curvedlines:1;horizontal:1;steplines:1;snapping:0;animationradius:5;outputoffsetY:0;outputoffsetX:0;inputoffsetY:0;inputoffsetX:0;history:100;multiple:1;animationlimit:100;animationlimitconnection:5;allowpause:1', function(self, config, cls) {
 
 	// config.infopath {String}, output: { zoom: Number, selected: Object }
 	// config.undopath {String}, output: {Object Array}
@@ -1860,6 +1860,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 			opt.limit = 20;
 
 		var path = self.el.lines.find('.from__' + id);
+		var dark = document.body.classList.contains('ui-dark');
 
 		if (opt.count > opt.limit)
 			opt.count = opt.limit;
@@ -1874,8 +1875,9 @@ EXTENSION('flow:commands', function(self, config, cls) {
 					break;
 
 				var line = path[i];
+				var linecolor = line.getAttribute('data-color') || '';
 
-				if (color && line.getAttribute('data-color') !== color)
+				if (linecolor && color && linecolor !== color)
 					continue;
 
 				if (line.$flowanimcount > config.animationlimitconnection)
@@ -1883,6 +1885,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 
 				var el = self.el.anim.asvg('circle').aclass('traffic').attr('r', opt.radius || config.animationradius);
 				var dom = el[0];
+				el.attr({ stroke: color || (dark ? '#FFF' : '#000') });
 
 				animationcount++;
 
@@ -1908,6 +1911,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 
 						if (document.hidden || !dom.$path || !dom.$path.parentNode || dom.$token !== self.animations_token) {
 							el.remove();
+							el = null;
 							if (self.animations[id])
 								self.animations[id]--;
 							if (animationcount > 0)
@@ -1925,6 +1929,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 							if (line2.$flowanimcount > 0)
 								line2.$flowanimcount--;
 							el.remove();
+							el = null;
 							return;
 						} else
 							el.attr('transform', translate_path(dom.$count, dom.$path));

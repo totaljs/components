@@ -22,7 +22,7 @@ __Configuration__:
 - `ondisconnect {String}` a path to method `fn(meta)`, it's executed when the two components are disconnected
 - __NEW__ `onpause {String}` a path to method `fn(path, is)`, it's executed when the output/input is paused
 - `steplines {Boolean}` enables step lines (default: `false`)
-- `animationradius {Boolean}` animation radius in pixels (default: `6`)
+- `animationradius {Number}` animation radius in pixels (default: `5`)
 - `contextmenu {String}` a path to `function(e, type, component/meta)` (type can be `map`, `component` or `connection`)
 - `dblclick {String}` a path to `function(component)`
 - `outputoffsetX {Number}` a default X offset for output point (default: `10`)
