@@ -9,7 +9,7 @@ __Configuration__:
 - `attr {String}` attribute for comparing (default: `if` and it means `data-if`)
 - `attror {String}` attribute for secondary comparing (default: `or` and it means `data-or`)
 - `datasource {String}` a path to data-source for list of items
-- `delay {Number}` a delay for rel-selecting of value (targeted for `datasource` option)
+- `delay {Number}` a delay for rel-selecting of value (default: `50`)
 
 __Usage__:
 

@@ -2,31 +2,30 @@ COMPONENT('selected', 'class:selected;selector:a;attr:if;attror:or;delay:50', fu
 
 	self.readonly();
 
-	self.refresh2 = function() {
-		self.refreshid = null;
-		self.refresh();
+	var highlight = function() {
+		var cls = config.class;
+		var val = self.get() || '';
+		self.find(config.selector).each(function() {
+			var el = $(this);
+			var or = el.attrd(config.attror) || '';
+			if (el.attrd(config.attr) === val || (or && val.indexOf(or) !== -1))
+				el.aclass(cls);
+			else if (el.hclass(cls))
+				el.rclass(cls);
+		});
 	};
 
 	self.configure = function(key, value) {
 		switch (key) {
 			case 'datasource':
 				self.datasource(value, function() {
-					self.refreshid && clearTimeout(self.refreshid);
-					self.refreshid = setTimeout(self.refresh2, config.delay);
+					setTimeout2(self.ID, highlight, config.delay);
 				});
 				break;
 		}
 	};
 
-	self.setter = function(value) {
-		var cls = config.class;
-		self.find(config.selector).each(function() {
-			var el = $(this);
-			var or = el.attrd(config.attror) || '';
-			if (el.attrd(config.attr) === value || (or && value.indexOf(or) !== -1))
-				el.aclass(cls);
-			else
-				el.hclass(cls) && el.rclass(cls);
-		});
+	self.setter = function() {
+		setTimeout2(self.ID, highlight, config.delay);
 	};
 });
