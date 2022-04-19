@@ -279,5 +279,6 @@
 	"j-ObjectTree",
 	"j-CloudEditorSimple",
 	"j-CheckPath",
-	"j-Locale"
+	"j-Locale",
+	"j-AutoFill"
 ]
