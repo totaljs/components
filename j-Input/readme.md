@@ -15,7 +15,7 @@ __Configuration__:
 - `autofocus` {Boolean} optional, focuses the input (default: `false`)
 - `align` {String} optional, `left` (default), `2` / `right` or `1` / `center`
 - `after` {String} optional, it means a char after label (default: `:`)
-- `autofill` {Boolean} optional, enables browser's autofill feature (default: `false`)
+- `autofill` {Boolean/String} optional, enables browser's autofill feature (`string` will be used as an input name, default: `false`)
 - `placeholder` {String} optional, adds a `placeholder` text into the input
 - `maxlength` {Number} optional, sets a maximum length of chars (default: `200`)
 - `minlength` {Number} optional, sets a minimum length of chars
