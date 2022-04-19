@@ -25,10 +25,10 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 		if (config.autofill) {
 			if (typeof(config.autofill) === 'string') {
-				config.PATH = config.autofill;
+				config.NAME = config.autofill;
 			} else {
 				var index = self.path.lastIndexOf('.');
-				config.PATH = index === -1 ? self.path : self.path.substring(index + 1);
+				config.NAME = index === -1 ? self.path : self.path.substring(index + 1);
 			}
 		}
 
