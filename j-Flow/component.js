@@ -2400,7 +2400,7 @@ EXTENSION('flow:groups', function(self, config, cls) {
 		drag.offset = self.getOffset();
 		drag.zoom = self.info.zoom / 100;
 		drag.zoomoffset = ((100 - self.info.zoom) / 10) + (self.info.zoom > 100 ? 1 : -1);
-		drag.min = 200;
+		drag.min = 100;
 		drag.pos = drag.element.position();
 		drag.ismeta = (evt.metaKey || evt.ctrlKey || evt.shiftKey);
 		drag.selected = [];
