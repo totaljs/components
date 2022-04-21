@@ -82,14 +82,16 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', f
 
 		csspos.height = WH - (config.style == 1 ? (padding * 2) : padding);
 		csspos.top = padding;
+
+		var w = ui.css('max-width').parseInt();
+		if (w > WW)
+			w = WW;
+
+		csspos.width = w;
 		ui.css(csspos);
 
 		var el = self.find(cls2 + '-title');
 		var th = el.height();
-		var w = ui.width();
-
-		if (w > WW)
-			w = WW;
 
 		csspos = { height: csspos.height - th, width: w };
 
@@ -156,7 +158,10 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', f
 		if (!init) {
 			switch (key) {
 				case 'width':
-					value !== prev && self.find(cls2).css('max-width', value + 'px');
+					if (value !== prev) {
+						self.find(cls2).css('max-width', value + 'px');
+						self.rsize();
+					}
 					break;
 				case 'closebutton':
 					self.find(cls2 + '-button-close').tclass('hidden', value !== true);

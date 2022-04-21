@@ -85,14 +85,16 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 
 		csspos.height = WH - (config.style == 1 ? (padding * 2) : padding);
 		csspos.top = config.style === 3 ? 0 : padding;
+
+		var w = ui.css('max-width').parseInt();
+		if (w > WW)
+			w = WW;
+
+		csspos.width = w;
 		ui.css(csspos);
 
 		var el = self.find(cls2 + '-title');
 		var th = el.height();
-		var w = ui.width();
-
-		if (w > WW)
-			w = WW;
 
 		csspos = { height: csspos.height - th, width: w };
 
@@ -177,7 +179,10 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 					self.rclass2(cls + '-align').aclass(cls + '–align-' + value);
 					break;
 				case 'width':
-					value !== prev && self.find(cls2).css('max-width', value + 'px');
+					if (value !== prev) {
+						self.find(cls2).css('max-width', value + 'px');
+						self.resize();
+					}
 					break;
 				case 'closebutton':
 					self.find(cls2 + '-button-close').tclass('hidden', value !== true);
@@ -266,6 +271,7 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 		self.aclass('invisible');
 		self.rclass('hidden');
 		self.release(false);
+		self.find(cls2).css({ 'max-width': value + 'px', width: '' });
 
 		config.scrolltop && self.scrollbar && self.scrollbar.scrollTop(0);
 		config.reload && self.EXEC(config.reload, self);
