@@ -985,6 +985,8 @@ COMPONENT('locale', function(self, config) {
 		DEF.thousandsseparator = nf === 4 ? ',' : nf === 3 ? '.' : ' ';
 
 		ENV('ts', df + ' - ' + DEF.timeformat);
+		ENV('date', DEF.dateformat);
+		ENV('time', DEF.timeformat);
 		CONFIG('datepicker,firstday', 'firstday:' + fdw);
 		CONFIG('timepicker', 'ampm:' + tf === 12 ? 'true' : 'false');
 
