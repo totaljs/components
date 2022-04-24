@@ -12,6 +12,10 @@ __Methods__:
 
 - `instance.write(data)` writes data into the terminal component
 
+__Dependencies__:
+
+- [Xterm.js](https://xtermjs.org/)
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
