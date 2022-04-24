@@ -1,6 +1,6 @@
 ﻿## j-Xterm
 
-The component renders a terminal output/input directly in the web browser.
+The component renders a terminal output/input directly in the web browser. __IMPORTANT__: the example doesn't work as you expect, it needs a real terminal output.
 
 __Configuration__:
 
