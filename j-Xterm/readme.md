@@ -12,9 +12,10 @@ __Methods__:
 
 - `instance.write(data)` writes data into the terminal component
 
-__Dependencies__:
+__Used dependencies__:
 
 - [Xterm.js](https://xtermjs.org/)
+- [Full example](https://github.com/totaljs/examples/tree/master/remote-terminal)
 
 ### Author
 
