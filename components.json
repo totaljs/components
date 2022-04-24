@@ -280,5 +280,6 @@
 	"j-CloudEditorSimple",
 	"j-CheckPath",
 	"j-Locale",
-	"j-AutoFill"
+	"j-AutoFill",
+	"j-Xterm"
 ]
