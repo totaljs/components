@@ -1,4 +1,4 @@
-﻿## j-XTerm
+﻿## j-Xterm
 
 The component renders a terminal output/input directly in the web browser.
 
