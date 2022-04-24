@@ -37,7 +37,6 @@ COMPONENT('xterm', 'cols:80;rows:24', function(self, config, cls) {
 		};
 
 		new attach.attach(term, fakews);
-		console.log(term);
 	};
 
 	self.write = function(data) {
