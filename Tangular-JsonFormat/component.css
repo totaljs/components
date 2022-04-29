@@ -1,6 +1,6 @@
 .json { font-family: Menlo, Consolas, monospace; color: #000; tab-size: 2; overflow: hidden; white-space: pre-wrap; }
 .json-key { color: #1A8B95; }
-.json-number { color: #2F6447; }
+.json-number { color: #3990B5; }
 .json-true { color: #1B7F16; }
 .json-false { color: #9C251D; }
 .json-null { color: #777; font-style: italic; }
@@ -8,6 +8,6 @@
 .json-color i { margin-right: 5px; vertical-align: middle; }
 .json-icon { color: #451393; }
 .json-icon i { margin-right: 5px; vertical-align: middle; }
-.json-date { color: #4C167F; }
+.json-date { color: #BF3CB3; }
 
 .ui-dark .json { color: #A0A0A0; }
