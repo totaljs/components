@@ -365,7 +365,7 @@ COMPONENT('input', 'maxlength:200;dirkey:name;dirvalue:id;increment:1;autovalue:
 
 				var val = custom || typeof(item) === 'string' ? item : item[config.dirvalue || config.value];
 				if (custom && typeof(config.dircustom) === 'string') {
-					var fn = GET(config.dircustom);
+					var fn = GET(self.makepath(config.dircustom));
 					fn(val, function(val) {
 						self.set(val, 2);
 						self.change(true);
