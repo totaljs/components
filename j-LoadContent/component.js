@@ -1,4 +1,4 @@
-COMPONENT('loadcontent', 'wait:0;replace:SCR', function(self, config) {
+COMPONENT('loadcontent', 'wait:0', function(self, config) {
 
 	self.readonly();
 	self.blind();
@@ -6,8 +6,16 @@ COMPONENT('loadcontent', 'wait:0;replace:SCR', function(self, config) {
 	self.make = function() {
 		var template = $(config.selector);
 		if (template.length) {
-			var reg = new RegExp(config.replace, 'g');
-			self.html(template.html().replace(reg, 'scr' + 'ipt'));
+
+			var content = template.html().replace(/SCR/g, 'scr' + 'ipt');
+			var replace = (config.replace || '').split(',').trim();
+
+			for (var m of replace) {
+				var tmp = m.split('=');
+				content = content.replace(new RegExp(tmp[0], 'g'), tmp[1]);
+			}
+
+			self.html(content);
 			COMPILE();
 			config.exec && self.SEEX(config.exec, self.element);
 		} else if (config.wait && self.dom)
