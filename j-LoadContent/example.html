@@ -1,8 +1,22 @@
 <script type="text/html" id="template">
-	AAA BBB CCC <SCR>document.write('JS code');</SCR>
+	<div>AAA BBB CCC</div>
+	<div data-bind="cities__template">
+		<SCR type="text/html">
+			{{ foreach m in value }}
+				<div>{{ m }}</div>
+			{{ end }}
+		</SCR>
+	</div>
 </script>
 
 <div data---="loadcontent__null__selector:#template"></div>
+<br />
 <div data---="loadcontent__null__selector:#template"></div>
+<br />
 <div data---="loadcontent__null__selector:#template"></div>
+<br />
 <div data---="loadcontent__null__selector:#template"></div>
+
+<script>
+	var cities = ['Bratislava', 'Berlin', 'Barcelona'];
+</script>
