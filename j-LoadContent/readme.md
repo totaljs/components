@@ -1,6 +1,6 @@
 ## j-LoadContent
 
-The component loads a content from some template `<script type="text/html">` and appends it into the element content. It's a great solution for reusable content.
+The component loads a content from the template `<script type="text/html">` and appends it into the element. It's a great solution for reusable content.
 
 __Configuration__:
 
