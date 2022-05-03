@@ -281,5 +281,6 @@
 	"j-CheckPath",
 	"j-Locale",
 	"j-AutoFill",
-	"j-Xterm"
+	"j-Xterm",
+	"j-LoadContent"
 ]
