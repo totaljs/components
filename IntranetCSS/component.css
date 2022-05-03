@@ -146,7 +146,7 @@ p { font-size: 13px; color: #777; margin: 0 0 15px 0; }
 .iconmenu i { font-size: 20px; display: block; padding: 8px 0 0; }
 .iconmenu span { font-size: 11px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 3px 5px 0; color: #777; }
 .iconmenu > div.selected { background-color: rgba(0,0,0,0.07); }
-.iconmenu > div { height: 54px; width: 75px; border: 1px solid #E0E0E0; border-left-width: 0; float: left; }
+.iconmenu > div { height: 54px; width: 75px; border: 1px solid #E0E0E0; border-left-width: 0; float: left; cursor: pointer; }
 .iconmenu > div:first-child { border-left-width: 1px; border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
 .iconmenu > div:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
 
