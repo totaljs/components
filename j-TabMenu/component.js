@@ -4,7 +4,6 @@ COMPONENT('tabmenu', 'class:selected;selector:li', function(self, config, cls) {
 
 	self.readonly();
 	self.nocompile();
-	self.bindvisible();
 
 	self.make = function() {
 		self.aclass(cls);
