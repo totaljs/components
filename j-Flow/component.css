@@ -40,6 +40,7 @@
 .ui-flow-resize-bl { cursor: nesw-resize; bottom: -2px; left: -2px; border-radius: 0 0 0 var(--radius); }
 .ui-flow-drag { cursor: grab !important; }
 .ui-flow-dragged .ui-flow-groups { pointer-events: none; }
+.ui-flow-selection { background: rgba(0,0,0,0.1); position: absolute; left: 0; top: 0; width: 0; height: 0; }
 
 .ui-dark .ui-flow-grid { stroke: #303030; }
 .ui-dark .ui-flow .component { border-color: #404040; background-color: #303030; }
@@ -51,3 +52,4 @@
 .ui-dark .ui-flow .component-selected { border-color: var(--color); }
 .ui-dark .ui-flow-group { background: rgba(0,0,0,0.3); border-color: rgba(0,0,0,0.3); color: #FFF; }
 .ui-dark .ui-flow .group-selected { border-color: var(--color); }
+.ui-dark .ui-flow-selection { background: rgba(255,255,255,0.1); }

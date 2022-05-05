@@ -29,11 +29,12 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;curvedlines:1;horizontal:1;ste
 		config.horizontal = 1;
 
 		self.aclass(cls);
-		self.html(('<div class="{0}-groups"></div><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg" class="{0}-connections"><g class="lines"></g><g class="anim"></g></svg><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">' + (config.grid ? '<defs><pattern id="jflowgrid" width="{grid}" height="{grid}" patternunits="userSpaceOnUse"><path d="M {grid} 0 L 0 0 0 {grid}" fill="none" class="{0}-grid" shape-rendering="crispEdges" /></pattern></defs><rect width="100%" height="100%" fill="url(#jflowgrid)" shape-rendering="crispEdges" />' : '') + '</svg>').format(cls).arg(config));
+		self.html(('<div class="{0}-selection hidden"></div><div class="{0}-groups"></div><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg" class="{0}-connections"><g class="lines"></g><g class="anim"></g></svg><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">' + (config.grid ? '<defs><pattern id="jflowgrid" width="{grid}" height="{grid}" patternunits="userSpaceOnUse"><path d="M {grid} 0 L 0 0 0 {grid}" fill="none" class="{0}-grid" shape-rendering="crispEdges" /></pattern></defs><rect width="100%" height="100%" fill="url(#jflowgrid)" shape-rendering="crispEdges" />' : '') + '</svg>').format(cls).arg(config));
 
 		var svg = self.find('svg');
 		self.el.svg = svg.eq(0);
 		self.el.grid = svg.eq(1);
+		self.el.selection = self.find('.' + cls + '-selection');
 		self.el.anim = self.el.svg.find('g.anim');
 		self.el.lines = self.el.svg.find('g.lines');
 		self.el.groups = self.find('.' + cls + '-groups');
@@ -1052,6 +1053,7 @@ EXTENSION('flow:map', function(self, config, cls) {
 
 	var events = {};
 	var drag = {};
+	var css = {};
 
 	events.move = function(e) {
 
@@ -1060,12 +1062,32 @@ EXTENSION('flow:map', function(self, config, cls) {
 			drag.is = true;
 		}
 
-		var x = (drag.x - e.pageX);
-		var y = (drag.y - e.pageY);
+		var x = drag.x - e.pageX;
+		var y = drag.y - e.pageY;
 		var plusY = (y / drag.zoom) >> 0;
 		var plusX = (x / drag.zoom) >> 0;
 
-		if (drag.target[0]) {
+		if (drag.meta) {
+
+			if (x < 0) {
+				css.left = self.op.zoom(drag.x);
+				css.width = self.op.zoom((x * -1) - drag.offset.left);
+			} else {
+				css.left = self.op.zoom(drag.x - x - drag.offset.left);
+				css.width = self.op.zoom(drag.x) - css.left;
+			}
+
+			if (y < 0) {
+				css.top = self.op.zoom(drag.y);
+				css.height = self.op.zoom((y * -1) - drag.offset.top);
+			} else {
+				css.top = self.op.zoom(drag.y - y - drag.offset.top);
+				css.height = self.op.zoom(drag.y) - css.top;
+			}
+
+			self.el.selection.css(css);
+
+		} else if (drag.target[0]) {
 			drag.target[0].scrollLeft = drag.left + plusX;
 			drag.target[0].scrollTop = drag.top + plusY;
 		}
@@ -1076,7 +1098,26 @@ EXTENSION('flow:map', function(self, config, cls) {
 	};
 
 	events.up = function() {
+
 		self.rclass(cls + '-drag');
+
+		if (drag.meta) {
+
+			var sel = self.el.selection;
+			var pos = sel.position();
+
+			pos.width = pos.left + sel.css('width').parseInt();
+			pos.height = pos.top + sel.css('height').parseInt();
+			sel.aclass('hidden');
+
+			for (var key in self.cache) {
+				var instance = self.cache[key].instance;
+				if (instance.x > pos.left && instance.x < pos.width && instance.y > pos.top && instance.y < pos.height)
+					self.op.select(key, true);
+			}
+
+		}
+
 		events.unbind();
 	};
 
@@ -1131,19 +1172,29 @@ EXTENSION('flow:map', function(self, config, cls) {
 		var et = $(e.target);
 		var target = et.closest('.ui-scrollbar-area');
 
-		if (!target[0]) {
-			target = et.closest('.ui-viewbox');
-			if (!target[0])
-				return;
-		}
-
 		drag.is = false;
 		drag.target = target;
 		drag.zoom = self.info.zoom / 100;
 		drag.x = evt.pageX;
 		drag.y = evt.pageY;
-		drag.top = drag.target[0].scrollTop;
-		drag.left = drag.target[0].scrollLeft;
+		drag.meta = evt.metaKey || e.metaKey;
+
+		if (e.metaKey) {
+			drag.offset = self.getOffset();
+			drag.x = drag.x - drag.offset.left;
+			drag.y = drag.y - drag.offset.top;
+			css.left = self.op.zoom(drag.x);
+			css.top = self.op.zoom(drag.y);
+			css.width = 0;
+			css.height = 0;
+			self.el.selection.rclass('hidden').css(css);
+		} else if (!target[0]) {
+			target = et.closest('.ui-viewbox');
+			if (!target[0])
+				return;
+			drag.top = drag.target[0].scrollTop;
+			drag.left = drag.target[0].scrollLeft;
+		}
 
 		events.bind();
 		e.preventDefault();
