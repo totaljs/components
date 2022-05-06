@@ -1177,9 +1177,9 @@ EXTENSION('flow:map', function(self, config, cls) {
 		drag.zoom = self.info.zoom / 100;
 		drag.x = evt.pageX;
 		drag.y = evt.pageY;
-		drag.meta = evt.metaKey || e.metaKey;
+		drag.meta = evt.metaKey || e.metaKey || evt.ctrlKey || .ctrlKey;
 
-		if (e.metaKey) {
+		if (drag.meta) {
 			drag.offset = self.getOffset();
 			drag.x = drag.x - drag.offset.left;
 			drag.y = drag.y - drag.offset.top;
