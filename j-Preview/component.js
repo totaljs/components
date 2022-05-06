@@ -130,7 +130,6 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 				w = (image.width * (config.height / image.height)) >> 0;
 				x = (config.width / 2) - (w / 2);
 			}
-
 		}
 
 		ctx.drawImage(image, x, y, w, h);
@@ -182,7 +181,9 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 	};
 
 	self.load = function(file) {
-		name = file.name;
+
+		name = file.name.replace(/\.(png|gif|jpeg|svg|webp)$/i, '.jpg');
+
 		self.getOrientation(file, function(orient) {
 			var reader = new FileReader();
 			reader.onload = function () {
