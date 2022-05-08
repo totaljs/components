@@ -50,6 +50,7 @@ __Commands__:
 - `flow.components.find` finds a component, argument: `component_id`
 - `flow.clean` cleans data and non-exist connections
 - `flow.traffic(componentid__outputid, { count: 3, speed: 3, limit: 20, delay: 50, reverse: false })` loads animation
+	- `reverse` animation can be enabled by adding `_` as a starting char of identifier `_componentid__outputid`
 - __NEW__ `flow.groups.find` finds a group, argument: `group_id`
 - __NEW__ `flow.check` a new faster alternative to the `flow.refresh` command
 - __NEW__ `flow.find` finds a component or group, argument: `component_id` or `group_id`

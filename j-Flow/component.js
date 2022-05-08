@@ -1914,6 +1914,12 @@ EXTENSION('flow:commands', function(self, config, cls) {
 		if (!opt.limit)
 			opt.limit = 20;
 
+		if (id.charAt(0) === '_') {
+			// reverse
+			opt.reverse = true;
+			id = id.substring(1);
+		}
+
 		var path = self.el.lines.find('.from__' + id);
 		var dark = document.body.classList.contains('ui-dark');
 
