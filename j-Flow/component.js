@@ -1,4 +1,4 @@
-COMPONENT('flow', 'width:6000;height:6000;grid:25;curvedlines:1;horizontal:1;steplines:1;snapping:0;animationradius:5;outputoffsetY:0;outputoffsetX:0;inputoffsetY:0;inputoffsetX:0;history:100;multiple:1;animationlimit:100;animationlimitconnection:5;allowpause:1', function(self, config, cls) {
+COMPONENT('flow', 'width:6000;height:6000;grid:25;markers:1;curvedlines:1;horizontal:1;steplines:1;snapping:0;animationradius:5;outputoffsetY:0;outputoffsetX:0;inputoffsetY:0;inputoffsetX:0;history:100;multiple:1;animationlimit:100;animationlimitconnection:5;allowpause:1', function(self, config, cls) {
 
 	// config.infopath {String}, output: { zoom: Number, selected: Object }
 	// config.undopath {String}, output: {Object Array}
@@ -29,7 +29,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;curvedlines:1;horizontal:1;ste
 		config.horizontal = 1;
 
 		self.aclass(cls);
-		self.html(('<div class="{0}-selection hidden"></div><div class="{0}-groups"></div><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg" class="{0}-connections"><g class="lines"></g><g class="anim"></g></svg><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">' + (config.grid ? '<defs><pattern id="jflowgrid" width="{grid}" height="{grid}" patternunits="userSpaceOnUse"><path d="M {grid} 0 L 0 0 0 {grid}" fill="none" class="{0}-grid" shape-rendering="crispEdges" /></pattern></defs><rect width="100%" height="100%" fill="url(#jflowgrid)" shape-rendering="crispEdges" />' : '') + '</svg>').format(cls).arg(config));
+		self.html(('<div class="{0}-selection hidden"></div><div class="{0}-groups"></div><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg" class="{0}-connections"><defs><marker id="{0}-arrow" viewbox="0 0 10 10" refX="5" refY="5" markerwidth="4" markerheight="4" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" /></marker></defs><g class="lines"></g><g class="anim"></g></svg><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">' + (config.grid ? '<defs><pattern id="jflowgrid" width="{grid}" height="{grid}" patternunits="userSpaceOnUse"><path d="M {grid} 0 L 0 0 0 {grid}" fill="none" class="{0}-grid" shape-rendering="crispEdges" /></pattern></defs><rect width="100%" height="100%" fill="url(#jflowgrid)" shape-rendering="crispEdges" />' : '') + '</svg>').format(cls).arg(config));
 
 		var svg = self.find('svg');
 		self.el.svg = svg.eq(0);
@@ -417,7 +417,13 @@ EXTENSION('flow:helpers', function(self, config) {
 		return HASH(checksum, true).toString(36);
 	};
 
-	self.helpers.connect = function(x1, y1, x4, y4, findex, tindex) {
+	self.helpers.connect = function(x1, y1, x4, y4, findex, tindex, reverse) {
+
+		if (config.markers) {
+			if (reverse)
+				x1 += 11;
+			x4 -= 14;
+		}
 
 		if (tindex === -1)
 			tindex = 0;
@@ -488,7 +494,7 @@ EXTENSION('flow:helpers', function(self, config) {
 
 	self.helpers.move1 = function(x1, y1, conn, findex, tindex) {
 		var pos = conn.attrd('offset').split(',');
-		conn.attr('d', self.helpers.connect(x1, y1, +pos[2], +pos[3], findex, tindex));
+		conn.attr('d', self.helpers.connect(x1, y1, +pos[2], +pos[3], findex, tindex, conn.hclass('connection-transform')));
 		conn.attrd('offset', x1 + ',' + y1 + ',' + pos[2] + ',' + pos[3]);
 	};
 
@@ -508,7 +514,7 @@ EXTENSION('flow:helpers', function(self, config) {
 
 	self.helpers.move2 = function(x4, y4, conn, findex, tindex) {
 		var pos = conn.attrd('offset').split(',');
-		conn.attr('d', self.helpers.connect(+pos[0], +pos[1], x4, y4, findex, tindex));
+		conn.attr('d', self.helpers.connect(+pos[0], +pos[1], x4, y4, findex, tindex, conn.hclass('connection-transform')));
 		conn.attrd('offset', pos[0] + ',' + pos[1] + ',' + x4 + ',' + y4);
 	};
 
@@ -954,7 +960,7 @@ EXTENSION('flow:operations', function(self, config, cls) {
 			path.attrd('toindex', b.index);
 			path.attrd('fromindexoffset', a.indexoffset);
 			path.attrd('toindexoffset', b.indexoffset);
-			path.attr('d', self.helpers.connect(a.x, a.y, b.x, b.y, a.indexoffset, b.indexoffset));
+			path.attr('d', self.helpers.connect(a.x, a.y, b.x, b.y, a.indexoffset, b.indexoffset, path.hclass('connection-transform')));
 			path.rclass('hidden');
 		}
 	};
@@ -1477,7 +1483,7 @@ EXTENSION('flow:components', function(self, config) {
 
 });
 
-EXTENSION('flow:connections', function(self, config) {
+EXTENSION('flow:connections', function(self, config, cls) {
 
 	var D = '__';
 	var events = {};
@@ -1496,7 +1502,7 @@ EXTENSION('flow:connections', function(self, config) {
 		var x = drag.offsetX + (e.pageX - drag.x);
 		var y = drag.offsetY + (e.pageY - drag.y);
 
-		drag.path.attr('d', drag.input ? self.helpers.connect(self.op.zoom(x), self.op.zoom(y), drag.pos.x, drag.pos.y, -1, drag.realindex) : self.helpers.connect(drag.pos.x, drag.pos.y, self.op.zoom(x), self.op.zoom(y), drag.realindex, -1));
+		drag.path.attr('d', drag.input ? self.helpers.connect(self.op.zoom(x), self.op.zoom(y), drag.pos.x, drag.pos.y, -1, drag.realindex, drag.reverse) : self.helpers.connect(drag.pos.x, drag.pos.y, self.op.zoom(x), self.op.zoom(y), drag.realindex, -1, drag.reverse));
 
 		if (drag.click)
 			drag.click = false;
@@ -1616,6 +1622,7 @@ EXTENSION('flow:connections', function(self, config) {
 		drag.target = target;
 		drag.index = +target.attrd('index');
 		drag.realindex = target.index();
+		drag.reverse = target.hclass('connection-transform');
 		drag.x = evt.pageX;
 		drag.y = evt.pageY;
 
@@ -1650,7 +1657,7 @@ EXTENSION('flow:connections', function(self, config) {
 		var b = self.helpers.position(input);
 		var path = self.el.lines.asvg('path');
 
-		path.aclass('connection from' + D + a.id + ' to' + D + b.id + ' from' + D + a.id + D + a.index + ' to' + D + b.id + D + b.index + ' conn' + D + a.id + D + b.id + D + a.index + D + b.index + (HIDDEN(self.element) ? ' hidden' : '') + (conn.type ? (' connection-' + conn.type) : ''));
+		path.aclass('connection from' + D + a.id + ' to' + D + b.id + ' from' + D + a.id + D + a.index + ' to' + D + b.id + D + b.index + ' conn' + D + a.id + D + b.id + D + a.index + D + b.index + (HIDDEN(self.element) ? ' hidden' : ''));
 		path.attrd('offset', a.x + ',' + a.y + ',' + b.x + ',' + b.y);
 		path.attrd('fromindex', a.index);
 		path.attrd('toindex', b.index);
@@ -1658,7 +1665,9 @@ EXTENSION('flow:connections', function(self, config) {
 		path.attrd('toindexoffset', b.indexoffset);
 		path.attrd('from', a.id);
 		path.attrd('to', b.id);
-		path.attr('d', self.helpers.connect(a.x, a.y, b.x, b.y, a.indexoffset, b.indexoffset));
+
+		if (config.markers)
+			path.attr('marker-end', 'url(#{0}-arrow)'.format(cls));
 
 		if (conn) {
 			var color = conn.color || '';
@@ -1679,6 +1688,15 @@ EXTENSION('flow:connections', function(self, config) {
 		var ac = data[a.id];
 		var bc = data[b.id];
 		var key = a.index + '';
+
+		var outputmeta = typeof(ac.outputs[0]) === 'object' ? ac.outputs.findItem('id', a.index) : null;
+		if (outputmeta) {
+			path.aclass('connection-' + outputmeta.type);
+			if (config.markers && outputmeta.type === 'transform')
+				path.attr('marker-start', 'url(#{0}-arrow)'.format(cls));
+		}
+
+		path.attr('d', self.helpers.connect(a.x, a.y, b.x, b.y, a.indexoffset, b.indexoffset, outputmeta && outputmeta.type === 'transform'));
 
 		ac.tab && path.aclass('tab-' + ac.tab);
 		bc.tab && path.aclass('tab-' + bc.tab);

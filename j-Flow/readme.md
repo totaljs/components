@@ -30,11 +30,12 @@ __Configuration__:
 - `inputoffsetX {Number}` a default X offset for input point (default: `10`)
 - `inputoffsetY {Number}` a default Y offset for input point (default: `12`)
 - `snapping {Number}` snapping in pixels (default: `0` = disabled)
-- __NEW__ `multiple {Boolean}` enables multiple selecting of the component (default: `true`)
-- __NEW__ `history {Number}` a count of steps in the undo/redo history (default: `100`)
-- __NEW__ `animationlimit {Number}` a maximum count of dots for all animations (default: `100`)
-- __NEW__ `animationlimitconnection {Number}` a maximum count of dots per connection (default: `5`)
-- __NEW__ `allowpause {Boolean}` allows pausing on outputs/inputs (default: `true`)
+- `multiple {Boolean}` enables multiple selecting of the component (default: `true`)
+- `history {Number}` a count of steps in the undo/redo history (default: `100`)
+- `animationlimit {Number}` a maximum count of dots for all animations (default: `100`)
+- `animationlimitconnection {Number}` a maximum count of dots per connection (default: `5`)
+- `allowpause {Boolean}` allows pausing on outputs/inputs (default: `true`)
+- `markers {Boolean}` adds arrow markers to the connection (default: `true`)
 
 __Commands__:
 
@@ -69,7 +70,7 @@ var component = {
 
 	outputs: ['1 output name', '2 output name'],
 	// or
-	// outputs: [{ id: 'A', 'A output name' }, { id: 'B', 'B output name' }],
+	// outputs: [{ id: 'A', name: 'A output name' }, { id: 'B', name: 'B output name' }],
 
 	connections: { '0': [{ id: '0002', index: '2', disabled: false }] }, // Look to the connection object below
 	// or
