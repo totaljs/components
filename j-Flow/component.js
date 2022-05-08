@@ -1215,10 +1215,12 @@ EXTENSION('flow:map', function(self, config, cls) {
 			css.width = 0;
 			css.height = 0;
 			self.el.selection.rclass('hidden').css(css);
-		} else if (!target[0]) {
-			target = et.closest('.ui-viewbox');
-			if (!target[0])
-				return;
+		} else {
+			if (!target[0]) {
+				target = et.closest('.ui-viewbox');
+				if (!target[0])
+					return;
+			}
 			drag.top = drag.target[0].scrollTop;
 			drag.left = drag.target[0].scrollLeft;
 		}
