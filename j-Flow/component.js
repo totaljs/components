@@ -964,7 +964,7 @@ EXTENSION('flow:operations', function(self, config, cls) {
 
 				path.rclass2('connection-type-');
 
-				if (output.type) {
+				if (output && output.type) {
 					path.aclass('connection-type-' + output.type);
 					if (config.markers && output.type === 'transform')
 						marker = 'url(#{0}-arrow)'.format(cls);
@@ -1669,8 +1669,12 @@ EXTENSION('flow:connections', function(self, config, cls) {
 		drag.path = self.el.lines.asvg('path');
 		drag.path.aclass('connection connection-draft');
 
-		if (config.markers)
-			drag.path.attr('marker-end', 'url(#{0}-arrow)'.format(cls));
+		if (config.markers) {
+			if (drag.input)
+				drag.path.attr('marker-start', 'url(#{0}-arrow)'.format(cls));
+			else
+				drag.path.attr('marker-end', 'url(#{0}-arrow)'.format(cls));
+		}
 
 		events.bind();
 	});
