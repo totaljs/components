@@ -1670,7 +1670,7 @@ EXTENSION('flow:connections', function(self, config, cls) {
 		drag.path.aclass('connection connection-draft');
 
 		if (config.markers)
-			path.attr('marker-end', 'url(#{0}-arrow)'.format(cls));
+			drag.path.attr('marker-end', 'url(#{0}-arrow)'.format(cls));
 
 		events.bind();
 	});
