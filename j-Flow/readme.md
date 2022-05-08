@@ -112,7 +112,7 @@ __Good to know__:
 
 - each component (in the Flow) contains `f-COMPONENTNAME` class
 - `selectable` class in the component element enables copying text and disables moving
-- `connections` supports `type:"reverse"` with dashed line
+- `connections` supports `type:"transform"` with dashed line
 
 ### Author
 
