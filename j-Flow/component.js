@@ -1929,7 +1929,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 
 	function translate_path(count, path, reverse) {
 
-		if (!reverse)
+		if (reverse)
 			count = 100 - count;
 
 		var l = path.getTotalLength();
