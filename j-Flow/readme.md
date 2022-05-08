@@ -49,7 +49,7 @@ __Commands__:
 - `flow.components.add` adds a new component, argument: `component_declaration`
 - `flow.components.find` finds a component, argument: `component_id`
 - `flow.clean` cleans data and non-exist connections
-- `flow.traffic(componentid__outputid, { count: 3, speed: 3, limit: 20, delay: 50 })` loads animation
+- `flow.traffic(componentid__outputid, { count: 3, speed: 3, limit: 20, delay: 50, reverse: false })` loads animation
 - __NEW__ `flow.groups.find` finds a group, argument: `group_id`
 - __NEW__ `flow.check` a new faster alternative to the `flow.refresh` command
 - __NEW__ `flow.find` finds a component or group, argument: `component_id` or `group_id`
@@ -112,6 +112,7 @@ __Good to know__:
 
 - each component (in the Flow) contains `f-COMPONENTNAME` class
 - `selectable` class in the component element enables copying text and disables moving
+- `connections` supports `type:"reverse"` with dashed line
 
 ### Author
 

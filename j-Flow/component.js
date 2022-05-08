@@ -1650,7 +1650,7 @@ EXTENSION('flow:connections', function(self, config) {
 		var b = self.helpers.position(input);
 		var path = self.el.lines.asvg('path');
 
-		path.aclass('connection from' + D + a.id + ' to' + D + b.id + ' from' + D + a.id + D + a.index + ' to' + D + b.id + D + b.index + ' conn' + D + a.id + D + b.id + D + a.index + D + b.index + (HIDDEN(self.element) ? ' hidden' : ''));
+		path.aclass('connection from' + D + a.id + ' to' + D + b.id + ' from' + D + a.id + D + a.index + ' to' + D + b.id + D + b.index + ' conn' + D + a.id + D + b.id + D + a.index + D + b.index + (HIDDEN(self.element) ? ' hidden' : '') + (conn.type ? (' connection-' + conn.type) : ''));
 		path.attrd('offset', a.x + ',' + a.y + ',' + b.x + ',' + b.y);
 		path.attrd('fromindex', a.index);
 		path.attrd('toindex', b.index);
@@ -1888,11 +1888,15 @@ EXTENSION('flow:commands', function(self, config, cls) {
 		self.op.unselect();
 	});
 
-	function translate_path(count, path) {
+	function translate_path(count, path, reverse) {
+
+		if (!reverse)
+			count = 100 - count;
+
 		var l = path.getTotalLength();
 		var t = (l / 100) * count;
 		var p = path.getPointAtLength(t);
-		return 'translate(' + p.x + ',' + p.y + ')';
+		return 'translate(' + (p.x >> 0) + ',' + (p.y >> 0) + ')';
 	}
 
 	self.command('flow.traffic', function(id, opt) {
@@ -1983,7 +1987,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 							el = null;
 							return;
 						} else
-							el.attr('transform', translate_path(dom.$count, dom.$path));
+							el.attr('transform', translate_path(dom.$count, dom.$path, opt.reverse));
 
 						requestAnimationFrame(fn);
 					};

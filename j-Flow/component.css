@@ -41,6 +41,7 @@
 .ui-flow-drag { cursor: grab !important; }
 .ui-flow-dragged .ui-flow-groups { pointer-events: none; }
 .ui-flow-selection { background: rgba(0,0,0,0.1); position: absolute; left: 0; top: 0; width: 0; height: 0; }
+.ui-flow .connection-reverse { stroke-dasharray: 8; }
 
 .ui-dark .ui-flow-grid { stroke: #303030; }
 .ui-dark .ui-flow .component { border-color: #404040; background-color: #303030; }
