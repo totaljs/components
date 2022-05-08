@@ -494,7 +494,7 @@ EXTENSION('flow:helpers', function(self, config) {
 
 	self.helpers.move1 = function(x1, y1, conn, findex, tindex) {
 		var pos = conn.attrd('offset').split(',');
-		conn.attr('d', self.helpers.connect(x1, y1, +pos[2], +pos[3], findex, tindex, conn.hclass('connection-transform')));
+		conn.attr('d', self.helpers.connect(x1, y1, +pos[2], +pos[3], findex, tindex, conn.hclass('connection-type-transform')));
 		conn.attrd('offset', x1 + ',' + y1 + ',' + pos[2] + ',' + pos[3]);
 	};
 
@@ -514,7 +514,7 @@ EXTENSION('flow:helpers', function(self, config) {
 
 	self.helpers.move2 = function(x4, y4, conn, findex, tindex) {
 		var pos = conn.attrd('offset').split(',');
-		conn.attr('d', self.helpers.connect(+pos[0], +pos[1], x4, y4, findex, tindex, conn.hclass('connection-transform')));
+		conn.attr('d', self.helpers.connect(+pos[0], +pos[1], x4, y4, findex, tindex, conn.hclass('connection-type-transform')));
 		conn.attrd('offset', pos[0] + ',' + pos[1] + ',' + x4 + ',' + y4);
 	};
 
@@ -931,6 +931,7 @@ EXTENSION('flow:operations', function(self, config, cls) {
 		repositionpending = false;
 
 		var arr = self.el.lines.find('.connection');
+
 		for (var i = 0; i < arr.length; i++) {
 
 			var path = $(arr[i]);
@@ -953,6 +954,26 @@ EXTENSION('flow:operations', function(self, config, cls) {
 			var a = self.helpers.position(output, true);
 			var b = self.helpers.position(input);
 
+			var tmp = self.cache[meta.fromid];
+
+			if (tmp && tmp.instance) {
+
+				var instance = tmp.instance;
+				var output = instance.outputs && typeof(instance.outputs[0]) === 'object' ? instance.outputs.findItem('id', meta.fromindex) : null;
+				var marker = '';
+
+				path.rclass2('connection-type-');
+
+				if (output.type) {
+					path.aclass('connection-type-' + output.type);
+					if (config.markers && output.type === 'transform')
+						marker = 'url(#{0}-arrow)'.format(cls);
+				}
+
+				path.attr('marker-start', marker);
+			} else
+				continue;
+
 			path.attrd('offset', a.x + ',' + a.y + ',' + b.x + ',' + b.y);
 			path.attrd('from', a.id);
 			path.attrd('to', b.id);
@@ -960,7 +981,7 @@ EXTENSION('flow:operations', function(self, config, cls) {
 			path.attrd('toindex', b.index);
 			path.attrd('fromindexoffset', a.indexoffset);
 			path.attrd('toindexoffset', b.indexoffset);
-			path.attr('d', self.helpers.connect(a.x, a.y, b.x, b.y, a.indexoffset, b.indexoffset, path.hclass('connection-transform')));
+			path.attr('d', self.helpers.connect(a.x, a.y, b.x, b.y, a.indexoffset, b.indexoffset, path.hclass('connection-type-transform')));
 			path.rclass('hidden');
 		}
 	};
@@ -1622,7 +1643,7 @@ EXTENSION('flow:connections', function(self, config, cls) {
 		drag.target = target;
 		drag.index = +target.attrd('index');
 		drag.realindex = target.index();
-		drag.reverse = target.hclass('connection-transform');
+		drag.reverse = target.hclass('connection-type-transform');
 		drag.x = evt.pageX;
 		drag.y = evt.pageY;
 
@@ -1691,7 +1712,7 @@ EXTENSION('flow:connections', function(self, config, cls) {
 
 		var outputmeta = typeof(ac.outputs[0]) === 'object' ? ac.outputs.findItem('id', a.index) : null;
 		if (outputmeta) {
-			path.aclass('connection-' + outputmeta.type);
+			path.aclass('connection-type-' + outputmeta.type);
 			if (config.markers && outputmeta.type === 'transform')
 				path.attr('marker-start', 'url(#{0}-arrow)'.format(cls));
 		}
