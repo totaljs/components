@@ -598,7 +598,7 @@ EXTENSION('flow:helpers', function(self, config) {
 		if (val > max)
 			return max;
 		return val;
-	};
+	}
 });
 
 EXTENSION('flow:operations', function(self, config, cls) {
@@ -1668,6 +1668,10 @@ EXTENSION('flow:connections', function(self, config, cls) {
 
 		drag.path = self.el.lines.asvg('path');
 		drag.path.aclass('connection connection-draft');
+
+		if (config.markers)
+			path.attr('marker-end', 'url(#{0}-arrow)'.format(cls));
+
 		events.bind();
 	});
 
