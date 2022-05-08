@@ -419,7 +419,7 @@ EXTENSION('flow:helpers', function(self, config) {
 
 	self.helpers.connect = function(x1, y1, x4, y4, findex, tindex, reverse) {
 
-		if (config.markers) {
+		if (config.markers && tindex !== -1 && findex !== -1) {
 			if (reverse)
 				x1 += 11;
 			x4 -= 14;
@@ -1525,7 +1525,7 @@ EXTENSION('flow:connections', function(self, config, cls) {
 		var x = drag.offsetX + (e.pageX - drag.x);
 		var y = drag.offsetY + (e.pageY - drag.y);
 
-		drag.path.attr('d', drag.input ? self.helpers.connect(self.op.zoom(x), self.op.zoom(y), drag.pos.x, drag.pos.y, -1, drag.realindex, drag.reverse) : self.helpers.connect(drag.pos.x, drag.pos.y, self.op.zoom(x), self.op.zoom(y), drag.realindex, -1, drag.reverse));
+		drag.path.attr('d', drag.input ? self.helpers.connect(self.op.zoom(x), self.op.zoom(y), drag.pos.x, drag.pos.y, -1, drag.realindex) : self.helpers.connect(drag.pos.x, drag.pos.y, self.op.zoom(x), self.op.zoom(y), drag.realindex, -1));
 
 		if (drag.click)
 			drag.click = false;
