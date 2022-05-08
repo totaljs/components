@@ -88,7 +88,9 @@ COMPONENT('shortcuts', function(self) {
 	};
 
 	self.execshortcut = function(e, owner) {
-		$(owner).trigger('click');
+		var evt = $.Event('click');
+		evt.shortcutEvent = evt.shortcut = e;
+		$(owner).trigger(evt);
 	};
 
 	self.refresh = function() {

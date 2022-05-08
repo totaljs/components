@@ -57,6 +57,9 @@ __New inline declaration__:
 <button class="exec shortcut" data-shortcut="F1" data-exec="METHO_TO_CALL">Help</button>
 ```
 
+- `.shortcut` class will emit `click` event
+- property `e.shortcut` will contain Event instance from the `keydown` event
+
 __New session shortcuts__:
 
 ```javascript
@@ -71,7 +74,6 @@ SETTER('shortcuts/session', function(register) {
 	});
 });
 ````
-
 
 ### Author
 
