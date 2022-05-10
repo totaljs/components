@@ -1,9 +1,15 @@
 COMPONENT('exec', function(self, config) {
 
 	var regparent = /\?\d/;
+	var extensions = [];
 
 	self.readonly();
 	self.blind();
+
+	self.register = function(fn) {
+		extensions.push(fn);
+	};
+
 	self.make = function() {
 
 		var scope = null;
@@ -33,6 +39,13 @@ COMPONENT('exec', function(self, config) {
 				}
 
 				if (attr) {
+
+					if (extensions.length) {
+						for (var ext of extensions) {
+							if (ext(attr, el, e, plus))
+								return;
+						}
+					}
 
 					// Run for the current component
 					if (attr.charCodeAt(0) === '@') {

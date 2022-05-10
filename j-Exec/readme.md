@@ -50,7 +50,31 @@ __Hints__:
 __Good to know__:
 
 - the component executes a target function in the form `function(element, event)`
-- __NEW__: `data-exec=`, `data-exec2=`, `data-exec3=` can contain `@METHOD_NAME` that will be executed in the current component scope `component/METHOD_NAME(element, e)`
+- `data-exec=`, `data-exec2=`, `data-exec3=` can contain `@METHOD_NAME` that will be executed in the current component scope `component/METHOD_NAME(element, e)`
+
+
+__NEW: Extensions__:
+
+```js
+SETTER('exec/register', function(exec, el, e, type) {
+
+	// @exec {String} a value from data-exec
+	// @el {jQuery element}
+	// @e {Event}
+	// @type {String} empty '': cick, '2': double-click '3': context menu
+	// registers a new extension
+
+	if (exec.charAt(0) === '/') {
+
+		EXEC('myinstance.' + exec.substring(1), el, e);
+
+		// "return true" stops the next processing of j-Exec
+		return true;
+
+	}
+
+});
+```
 
 ### Author
 
