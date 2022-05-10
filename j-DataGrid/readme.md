@@ -113,7 +113,7 @@ __Column properties__:
 - `max` {Number} __editable only__ a max. number value
 - `required` {Boolean} __editable only__
 - `dirsearch` {String/Boolean} a placeholder for `j-Directory` search, boolean with `false` will disable search
-- `type` {String} optional, can contain a data-type (`string`, `boolean`, `date` or `number`) for the field
+- `type` {String} optional, can contain a data-type (`string`, `boolean`, `date`, `number`, `email`, `phone` or `url`) for the field
 - `editable` {Boolean} enables editing
 - `currency` {String} a currency name (must be defined in `DEF.currencies`)
 - __NEW__ `editable` {String} A path to custom editable `function(meta)`, important: `meta.next(new_value)` or `meta.cancel()`
