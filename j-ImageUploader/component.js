@@ -103,7 +103,6 @@ COMPONENT('imageuploader', function(self) {
 				w = (image.width * (opt.height / image.height)) >> 0;
 				x = (opt.width / 2) - (w / 2);
 			}
-
 		}
 
 		ctx.drawImage(image, x, y, w, h);
@@ -136,7 +135,7 @@ COMPONENT('imageuploader', function(self) {
 	};
 
 	self.load = function(file) {
-		name = file.name;
+		name = file.name.replace(/\.(ico|png|jpeg|gif|svg|webp)$/, '.jpg');
 		self.getorientation(file, function(orient) {
 			var reader = new FileReader();
 			reader.onload = function () {
