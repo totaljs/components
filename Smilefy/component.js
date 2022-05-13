@@ -6,7 +6,7 @@ FUNC.smilefy = function(str) {
 		var str = arguments[4];
 
 		var c = str.charAt(index + 1);
-		if (c !== ',' && c !== '.' && c !== '')
+		if (c !== ':' && c !== '8' && c !== ';' && c !== '+')
 			return match;
 
 		var beg = match.charAt(0);
