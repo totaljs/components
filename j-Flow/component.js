@@ -1227,8 +1227,10 @@ EXTENSION('flow:map', function(self, config, cls) {
 
 		events.bind();
 		e.preventDefault();
-
+		e.stopPropagation();
+		self.el.svg.focus();
 	});
+
 });
 
 EXTENSION('flow:components', function(self, config) {
@@ -1441,7 +1443,7 @@ EXTENSION('flow:components', function(self, config) {
 		}
 
 		var selectconnections = function() {
-			var clscon = 'connection-selected';
+			var clscon = 'highlight';
 			var more = self.find('.' + clssel);
 			self.el.lines.find('.' + clscon).rclass(clscon);
 			for (var i = 0; i < more.length; i++) {
