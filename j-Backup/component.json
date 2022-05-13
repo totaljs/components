@@ -1,0 +1,18 @@
+{
+	"datecreated": "2022-05-09T13:09:00.000Z",
+	"dateupdated": null,
+	"name": "j-Backup",
+	"tags": [
+		"tree",
+		"navigation"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"darkmode": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Kirill Zlobin",
+	"email": "jsdevzk@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

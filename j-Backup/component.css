@@ -1,0 +1,11 @@
+.ui-backup { display: flex; width: 180px; justify-content: space-between; border-radius: var(--radius); overflow: hidden; font-size: 12px; }
+.ui-backup button { display: block; width: 50%; height: 26px; line-height: 26px; border: 0; transition: all .2s ease-in-out; background-color: #f0f0f0; }
+.ui-backup button i { margin-right: 5px; color: #555d; }
+.ui-backup button:hover { background-color: #dfdfdf; }
+.ui-backup button:first-child { border-right: 1px solid #fff; }
+
+.ui-dark .ui-backup { border: 0; }
+.ui-dark .ui-backup button { background-color: #505050; color: #fff;  }
+.ui-dark .ui-backup button i { margin-right: 5px; color: #fff; }
+.ui-dark .ui-backup button:hover { background-color: #5f5f5f;  }
+.ui-dark .ui-backup button:first-child { border-right: 1px solid #000; }
