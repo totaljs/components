@@ -61,11 +61,8 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config, cls) {
 		var icon = config.icon;
 		var label = config.label || content;
 
-		if (icon) {
-			if (icon.indexOf(' ') === -1)
-				icon = 'fa fa-' + icon;
-			icon = '<i class="{0}"></i>'.format(icon);
-		}
+		if (icon)
+			icon = '<i class="{0}"></i>'.format(self.faicon(icon));
 
 		empty.value = '';
 
@@ -109,9 +106,9 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config, cls) {
 			config.autocomplete && self.EXEC(config.autocomplete, $(this), self);
 		});
 
-		self.event('change keypress', 'input', function(e) {
+		self.event('change keydown', 'input', function(e) {
 
-			if (config.disabled || (e.type !== 'change' && e.which !== 13))
+			if (config.disabled || (e.type === 'keydown' && e.which !== 13))
 				return;
 
 			var el = $(this);
@@ -123,9 +120,6 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config, cls) {
 				return;
 
 			var base = el.closest(cls2 + '-base').length > 0;
-			if (base && e.type === 'change')
-				return;
-
 			if (base) {
 				var tmp = self.get();
 				!tmp && (tmp = {});
@@ -140,14 +134,15 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config, cls) {
 			var keyvalue = {};
 			var k;
 
-			container.find('input').each(function() {
-				if (this.name === 'key') {
-					k = this.value.trim();
+			var arr = container.find('input');
+			for (var m of arr) {
+				if (m.name === 'key') {
+					k = m.value.trim();
 				} else if (k) {
-					keyvalue[k] = this.value.trim();
+					keyvalue[k] = m.value.trim();
 					k = '';
 				}
-			});
+			}
 
 			skip = true;
 			SET(self.path, keyvalue, 2);
