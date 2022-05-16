@@ -149,6 +149,7 @@ __Methods__:
 - `component.rebind(schemaname__or__columnsdeclaration)` the method rebinds the schema
 - __NEW__: `component.reload()` executes `config.exec` with the current filter and sorting
 - __NEW__: `component.empty()` empties all rows
+- __NEW__: `component.redrawcolumns()` redraw columns without reset them.
 
 __Properties__:
 
