@@ -1915,6 +1915,14 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 		controls.hide();
 	};
 
+	self.redrawcolumns = function() {
+		self.rebind(opt.declaration);
+		self.cols(NOOP);
+		ecolumns.aclass('hidden');
+		isecolumns = false;
+		controls.hide();
+	};
+	
 	self.resetfilter = function() {
 		opt.filter = {};
 		opt.filtercache = {};
