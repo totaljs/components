@@ -55,7 +55,7 @@ SETTER(true, 'shortcuts/register', 'cmd+enter, ctrl+enter', function(e) {
     console.log('PRESSED: CMD + ENTER');
 }, function(e) {
 	// You can enable/disable shortcut manually in the "preparation function"
-	// but you need to "return {Boolean}", true will approve shortcut and calling of the shortcut "callback"
+	// but you need to "return {Boolean}", true will approve shortcut (it calls of the shortcut "callback")
 	// otherwise "returning false" the shorcut will be skipped
 	return e.target.tagName !== 'INPUT';
 });
