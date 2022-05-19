@@ -39,13 +39,19 @@ COMPONENT('shortcuts', function(self) {
 			}
 
 			if (length && !e.isPropagationStopped()) {
+
 				for (var i = 0; i < length; i++) {
 					var o = items[i];
 					if (o.fn(e)) {
+
+						if (o.prepare && !o.prepare(e, e.target))
+							continue;
+
 						if (o.prevent) {
 							e.preventDefault();
 							e.stopPropagation();
 						}
+
 						setTimeout(cb, 100, o, e);
 						return;
 					}
@@ -73,7 +79,7 @@ COMPONENT('shortcuts', function(self) {
 
 		for (var i = 0; i < arr.length; i++) {
 			var shortcut = arr[i].getAttribute('data-shortcut');
-			shortcut && self.register(shortcut, self.execshortcut, true, arr[i]);
+			shortcut && self.register(shortcut, self.execshortcut, true, null, arr[i]);
 		}
 	};
 
@@ -99,10 +105,16 @@ COMPONENT('shortcuts', function(self) {
 
 	self.exec = function(shortcut) {
 		var item = items.findItem('shortcut', shortcut.toLowerCase().replace(/\s/g, ''));
-		item && item.callback(null, item.owner);
+		item && item.callback(null, $(item.owner));
 	};
 
-	self.register = function(shortcut, callback, prevent, owner) {
+	self.register = function(shortcut, callback, prevent, prepare, owner) {
+
+		if (typeof(prevent) === 'function') {
+			var tmp = prepare;
+			prepare = prevent;
+			prevent = tmp;
+		}
 
 		var currentkeys = issession ? keys_session : keys;
 		var ismac = M.ua.os.toLowerCase() === 'mac';
@@ -116,6 +128,7 @@ COMPONENT('shortcuts', function(self) {
 			var cachekey = [0, 0, 0, 0, '-', 0]; // ctrl,alt,shift,meta,fkey,code
 
 			shortcut.split('+').trim().forEach(function(item) {
+
 				var lower = item.toLowerCase();
 				alias.push(lower);
 
@@ -263,7 +276,7 @@ COMPONENT('shortcuts', function(self) {
 				}
 			});
 
-			items.push({ shortcut: alias.join('+'), fn: new Function('e', 'return ' + builder.join('&&')), callback: callback, prevent: prevent, owner: owner });
+			items.push({ shortcut: alias.join('+'), fn: new Function('e', 'return ' + builder.join('&&')), callback: callback, prevent: prevent, owner: owner, prepare: prepare });
 			length = items.length;
 
 			var k;

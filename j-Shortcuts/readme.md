@@ -3,7 +3,7 @@
 This component can help with creating keyboard shortcuts. The component __is singleton__.
 
 __Methods__:
-- `component.register(shortcut, callback(e), [prevent])` - registers a new shortcut
+- `component.register(shortcut, callback(e), [prevent], [preparation(e)])` - registers a new shortcut
 - `component.exec('shortcut')` - evaluates shortcut
 
 __Shortcuts__:
@@ -48,6 +48,16 @@ SETTER(true, 'shortcuts/register', 'esc', function(e) {
 // +v3 supports multiple shortcuts at the one time:
 SETTER(true, 'shortcuts/register', 'cmd+enter, ctrl+enter', function(e) {
     console.log('PRESSED: CMD + ENTER');
+});
+
+// NEW: you can make preparation for the shortcut
+SETTER(true, 'shortcuts/register', 'cmd+enter, ctrl+enter', function(e) {
+    console.log('PRESSED: CMD + ENTER');
+}, function(e) {
+	// You can enable/disable shortcut manually in the "preparation function"
+	// but you need to "return {Boolean}", true will approve shortcut and calling of the shortcut "callback"
+	// otherwise "returning false" the shorcut will be skipped
+	return e.target.tagName !== 'INPUT';
 });
 ```
 
