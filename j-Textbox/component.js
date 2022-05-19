@@ -25,8 +25,6 @@ COMPONENT('textbox', function(self, config, cls) {
 		else
 			value = value.toString();
 
-		EMIT('reflow', self.name);
-
 		if (config.minlength && value.length < config.minlength)
 			return false;
 
