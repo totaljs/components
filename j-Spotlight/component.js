@@ -197,6 +197,9 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 		var key = 'spotlight' + (opt.id || '');
 		var recent = PREF[key];
 
+		if (self.opt && self.opt.id !== opt.id)
+			self.items = [];
+
 		$(document).on('touchstart mousedown', onclick);
 		self.opt = opt;
 
@@ -230,7 +233,7 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 
 		var w = ((WW / (isMOBILE ? 1.1 : 1.3)) >> 0);
 		search.css({ width: w, left: ((WW - w) / 2) });
-		scroller.css({ width: w + 50, 'max-height': (WH / 1.3) >> 0 });
+		scroller.css({ width: w + 50, 'max-height': (WH / (isMOBILE ? 2.3 : 1.3)) >> 0 });
 
 		setTimeout(function() {
 			self.aclass(cls + '-visible');
