@@ -1,9 +1,10 @@
 {
 	"datecreated": "2016-10-27T10:00:00.000Z",
-	"dateupdated": "2019-09-25T09:11:01.000Z",
+	"dateupdated": "2021-05-26T14:29:00.000Z",
 	"name": "j-Page",
 	"tags": [
-		"jcomponent"
+		"page",
+		"pages"
 	],
 	"color": "transparent",
 	"version": 1,
