@@ -190,6 +190,9 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		parent = section.attrd('parent');
 		section.rclass('invisible');
 
+		var reload = section.attrd('reload');
+		reload && self.EXEC(reload.replace(/\?/g, section.attrd('if')), section);
+
 		if (type)
 			section.css({ 'margin-left': ltr ? -ww : ww }).aclass(cls + '-visible ' + cls + '-animate').animate({ 'margin-left': 0 }, config.delayanim, done_open);
 		else

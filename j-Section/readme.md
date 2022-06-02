@@ -55,7 +55,7 @@ __Definition__:
 	<!-- GOOD TO KNOW: Dynamic compilation -->
 	<section data-if="3" data-parent="2" data-label="Label for header" data-back="link_to_function">
 
-		<!-- SCRIPT or TEMPLATE -–>
+		<!-- SCRIPT or TEMPLATE -->
 		<script type="text/html">
 			Will be compiled and rendered when the section will be displayed
 		</script>
@@ -67,6 +67,15 @@ __Definition__:
 
 </div>
 ```
+
+__Section attributes__:
+
+- `data-if` must contain a condition for displaying
+- `data-parent` can contain a parent `data-if`
+- `data-label` contains a label/title for the section
+- `data-reload` can contain a link to the `function(el)` (optional)
+- `data-id` contains a custom identifier for replacing of all `~ID~` phrases in the content (optional)
+- `data-url` can contain a link to the template (optional)
 
 __Good to know__:
 
