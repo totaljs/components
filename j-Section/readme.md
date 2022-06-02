@@ -42,18 +42,18 @@ __Definition__:
 <div data---="section__path">
 
 	<!-- path must have same value as "data-if" attribute -->
-	<section data-if="1" data-label="Label for header">
+	<section data-if="1" data-title="A title">
 
 	</section>
 
 	<!-- path must have same value as "data-if" attribute -->
 	<!-- "data-parent" enables Back button in the header and after click the component sets value from "data-parent" attribute -->
-	<section data-if="2" data-parent="1" data-label="Label for header">
+	<section data-if="2" data-parent="1" data-title="A title">
 
 	</section>
 
 	<!-- GOOD TO KNOW: Dynamic compilation -->
-	<section data-if="3" data-parent="2" data-label="Label for header" data-back="link_to_function">
+	<section data-if="3" data-parent="2" data-title="A title" data-back="link_to_function">
 
 		<!-- SCRIPT or TEMPLATE -->
 		<script type="text/html">
@@ -63,7 +63,7 @@ __Definition__:
 	</section>
 
 	<!-- Template from URL address -->
-	<section data-if="4" data-parent="2" data-label="Label for header" data-url="LINK_TO_HTML_TEMPLATE"></section>
+	<section data-if="4" data-parent="2" data-title="A title" data-url="LINK_TO_HTML_TEMPLATE"></section>
 
 </div>
 ```
@@ -72,7 +72,7 @@ __Section attributes__:
 
 - `data-if` must contain a condition for displaying
 - `data-parent` can contain a parent `data-if`
-- `data-label` contains a label/title for the section
+- `data-title` contains a label/title for the section
 - `data-reload` can contain a link to the `function(el)` (optional)
 - `data-id` contains a custom identifier for replacing of all `~ID~` phrases in the content (optional)
 - `data-url` can contain a link to the template (optional)
