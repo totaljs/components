@@ -292,7 +292,7 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 
 				section.attrd('url', '');
 				IMPORT(url, section, function() {
-					show(parent, section, type, ltr);
+					setTimeout(show, 500, parent, section, type, ltr);
 				}, function(response) {
 					return response.replace(/~PATH~/g, path).replace(/~ID~/g, id || '');
 				});
