@@ -88,7 +88,7 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 
 		if (config.scroll) {
 			if (config.scrollbar) {
-				scrollbar = W.SCROLLBAR(self.find(cls2 + '-body'), { visibleY: config.visibleY, visibleX: config.visibleX, orientation: config.visibleX ? null : 'y' });
+				scrollbar = W.SCROLLBAR(self.find(cls2 + '-body'), { visibleY: config.visibleY, visibleX: config.visibleX, orientation: config.visibleX ? null : 'y', shadow: config.scrollbarshadow });
 				self.scrolltop = scrollbar.scrollTop;
 				self.scrollbottom = scrollbar.scrollBottom;
 				container = scrollbar.body;

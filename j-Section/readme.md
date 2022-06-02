@@ -24,6 +24,7 @@ __Configuration__:
 - `autofocus` {Boolean/String} can focus an input. `String` === `jQuery selector` for the input
 - `back` {String} a title for back button (default: `Back`)
 - `delayanim` {Number} animation delay (default: `100`)
+- __NEW__ `scrollbarshadow` {Boolean} adds shadow for scrollbars (default: `false`)
 
 __Methods__:
 
