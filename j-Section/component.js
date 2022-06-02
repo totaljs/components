@@ -270,12 +270,14 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		if (section.length) {
 
 			var icon = section.attrd('icon');
+			var path = section.attrd('if');
+			var id = section.attrd('id');
 
 			elh.find('label').html((icon ? '<i class="{0}"></i>'.format(icon) : '') + Thelpers.encode(section.attrd('title')));
 
 			var child = section[0].children[0];
 			if (child && (child.tagName === ('SCR' + 'IPT') || child.tagName === 'TEMPLATE')) {
-				section[0].innerHTML = child.innerHTML;
+				section[0].innerHTML = child.innerHTML.replace(/~PATH~/g, path).replace(/~ID~/g, id || '');
 				if (child.innerHTML.COMPILABLE())
 					COMPILE();
 			}
@@ -284,9 +286,12 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 
 			var url = section.attrd('url');
 			if (url) {
+
 				section.attrd('url', '');
 				IMPORT(url, section, function() {
 					show(parent, section, type, ltr);
+				}, function(response) {
+					return response.replace(/~PATH~/g, path).replace(/~ID~/g, id || '');
 				});
 			} else
 				show(parent, section, type, ltr);

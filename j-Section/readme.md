@@ -73,6 +73,8 @@ __Good to know__:
 - If you want to add an additional content into the header to right side, just append inside of component e.g. `<div>BUTTON</div>`.
 - You can dynamically insert/remove sections via `component.import()` or `component.cancel()` methods.
 - All section's attributes can be changed dynamically (e.g. `data-title`, `data-parent`, etc.).
+- __NEW__: all `~PATH~` phrases will be replaced for the `data-if` attribute value
+- __NEW__: all `~ID~` phrases will be replaced for the `data-if` attribute value
 
 ### Author
 
