@@ -78,7 +78,14 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		elh.prepend(dom);
 
 		elh.find(cls2 + '-back').on('click', function() {
+
 			var el = $(this);
+
+			if (config.backexec) {
+				self.SEEX(config.backexec, el.attrd('parent'));
+				return;
+			}
+
 			var back = el.attrd('back');
 			self.set(el.attrd('parent'));
 			back && self.EXEC(back, el);

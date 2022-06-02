@@ -25,6 +25,7 @@ __Configuration__:
 - `back` {String} a title for back button (default: `Back`)
 - `delayanim` {Number} animation delay (default: `100`)
 - __NEW__ `scrollbarshadow` {Boolean} adds shadow for scrollbars (default: `false`)
+- __NEW__ `backexec` {String} a link to the `function(parent)` that captures back button (it prevents standard behaviour)
 
 __Methods__:
 
