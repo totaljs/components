@@ -266,14 +266,15 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 
 		var section = elb.find(cls2 + '-section[data-if="' + value + '"]');
 		var visible = elb.find(cls2 + '-visible');
-		var ltr = false;
+		var ltr = type === 'right';
 		var parent;
 
 		current = value;
 
 		if (visible.length) {
 			parent = visible.attrd('parent');
-			ltr = parent === value;
+			if (!ltr)
+				ltr = parent === value;
 			visible.rclass(cls + '-visible').aclass(cls + '-animate').animate({ 'margin-left': ltr ? ww : -ww }, config.delayanim, done_close);
 		}
 

@@ -86,6 +86,7 @@ __Good to know__:
 - All section's attributes can be changed dynamically (e.g. `data-title`, `data-parent`, etc.).
 - __NEW__: all `~PATH~` phrases will be replaced for the `data-if` attribute value
 - __NEW__: all `~ID~` phrases will be replaced for the `data-if` attribute value
+- `SET('path', 'if', 'right')` will animated the content to the right side
 
 ### Author
 
