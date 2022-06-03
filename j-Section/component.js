@@ -299,11 +299,10 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 
 			var url = section.attrd('url');
 			if (url) {
-
 				section.attrd('url', '');
 				IMPORT(url, section, function() {
+					hide();
 					setTimeout(function() {
-						hide();
 						show(parent, section, type, ltr);
 					}, 500);
 				}, function(response) {
