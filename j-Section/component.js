@@ -271,12 +271,14 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 
 		current = value;
 
-		if (visible.length) {
-			parent = visible.attrd('parent');
-			if (!ltr)
-				ltr = parent === value;
-			visible.rclass(cls + '-visible').aclass(cls + '-animate').animate({ 'margin-left': ltr ? ww : -ww }, config.delayanim, done_close);
-		}
+		var hide = function() {
+			if (visible.length) {
+				parent = visible.attrd('parent');
+				if (!ltr)
+					ltr = parent === value;
+				visible.rclass(cls + '-visible').aclass(cls + '-animate').animate({ 'margin-left': ltr ? ww : -ww }, config.delayanim, done_close);
+			}
+		};
 
 		if (section.length) {
 
@@ -300,12 +302,18 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 
 				section.attrd('url', '');
 				IMPORT(url, section, function() {
-					setTimeout(show, 500, parent, section, type, ltr);
+					setTimeout(function() {
+						hide();
+						show(parent, section, type, ltr);
+					}, 500);
 				}, function(response) {
 					return response.replace(/~PATH~/g, path).replace(/~ID~/g, id || '');
 				});
-			} else
+			} else {
+				hide();
 				show(parent, section, type, ltr);
-		}
+			}
+		} else
+			hide();
 	};
 });

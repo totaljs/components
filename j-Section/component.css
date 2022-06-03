@@ -6,6 +6,6 @@
 .ui-section-header span i { margin-right: 6px; }
 .ui-section-hidden { visibility: hidden; }
 .ui-section-section { transition: all 0.3s; }
-.ui-section-animate { position: absolute; }
+.ui-section-animate { position: absolute; top: 0; left: 0; }
 
 .ui-dark .ui-section-header { border-bottom-color: #404040; color: #FFF; }
