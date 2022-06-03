@@ -1,4 +1,4 @@
-COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;height:100;invisible:1;back:Back;delayanim:100', function(self, config, cls) {
+COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;height:100;invisible:1;back:Back;delayanim:200', function(self, config, cls) {
 
 	var elb, elh;
 	var scrollbar;
@@ -185,6 +185,7 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 
 	var done_open_cb = function(el) {
 		el.rclass(cls + '-animate');
+		scrollbar && scrollbar.resize();
 	};
 
 	var done_open = function() {
@@ -195,15 +196,17 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 	var show = function(parent, section, type, ltr) {
 
 		parent = section.attrd('parent');
-		section.rclass('invisible');
 
 		var reload = section.attrd('reload');
 		reload && self.EXEC(reload.replace(/\?/g, section.attrd('if')), section);
 
-		if (type)
-			section.css({ 'margin-left': ltr ? -ww : ww }).aclass(cls + '-visible ' + cls + '-animate').animate({ 'margin-left': 0 }, config.delayanim, done_open);
-		else
-			section.aclass(cls + '-visible');
+		if (type) {
+			section.css({ 'margin-left': ltr ? -ww : ww });
+			setTimeout(function() {
+				section.aclass(cls + '-visible ' + cls + '-animate').rclass('invisible').animate({ 'margin-left': 0 }, config.delayanim, done_open);
+			}, config.delayanim / 2 >> 0);
+		} else
+			section.rclass('invisible').aclass(cls + '-visible');
 
 		elh.find('span').tclass('hidden', !parent).attrd('parent', parent || '');
 		config.autofocus && self.autofocus(config.autofocus);
@@ -276,7 +279,7 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 				parent = visible.attrd('parent');
 				if (!ltr)
 					ltr = parent === value;
-				visible.rclass(cls + '-visible').aclass(cls + '-animate').animate({ 'margin-left': ltr ? ww : -ww }, config.delayanim, done_close);
+				visible.rclass(cls + '-visible').aclass(cls + '-animate').stop().animate({ 'margin-left': ltr ? ww : -ww }, config.delayanim, done_close);
 			}
 		};
 
@@ -302,9 +305,7 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 				section.attrd('url', '');
 				IMPORT(url, section, function() {
 					hide();
-					setTimeout(function() {
-						show(parent, section, type, ltr);
-					}, 500);
+					setTimeout(show, 100, parent, section, type, ltr);
 				}, function(response) {
 					return response.replace(/~PATH~/g, path).replace(/~ID~/g, id || '');
 				});
