@@ -1,7 +1,7 @@
 .ui-section { overflow: hidden; -ms-overflow-style: none; box-sizing: content-box }
-.ui-section-header { height: 45px; border-bottom: 1px solid #E0E0E0; position: relative; color: #000; }
-.ui-section-header label { display: block; height: 45px; line-height: 45px; text-align: center; font-weight: bold; }
-.ui-section-header span { position: absolute; top: 12px; left: 15px; cursor: pointer; color: var(--color); }
+.ui-section-header { height: 45px; border-bottom: 1px solid #E0E0E0; position: relative; color: #000; display: flex; align-items: center; }
+.ui-section-header div { flex: 1; text-align: center; font-weight: bold; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 50px; }
+.ui-section-header span { display: block; cursor: pointer; color: var(--color); width: 50px; text-align: center; }
 .ui-section-header span:hover { text-decoration: underline; }
 .ui-section-header span i { margin-right: 6px; }
 .ui-section-hidden { visibility: hidden; }

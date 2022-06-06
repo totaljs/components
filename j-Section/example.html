@@ -5,16 +5,20 @@
 <div data---="section__common.section__parent:window;scrollbar:1__''">
 
 	<section class="hidden invisible" data-if="1" data-title="Section 1">
-		<div style="background-color:#F0F0F0;margin:30px auto;padding:30px;max-width:600px;border-radius:10px">
-			<div>SECTION 1</div>
-			<div><span class="link" data-bind="null__click:showsection2">Show section 2</span></div>
+		<div class="padding">
+			<div style="background-color:#F0F0F0;margin:30px auto;padding:30px;max-width:600px;border-radius:10px">
+				<div>SECTION 1</div>
+				<div><span class="link" data-bind="null__click:showsection2">Show section 2</span></div>
+			</div>
 		</div>
 	</section>
 
 	<section class="hidden invisible" data-if="2" data-parent="1" data-title="Section 2">
 		<script type="text/html">
-			<div style="background-color:#F0F0F0;margin:30px auto;padding:30px;max-width:600px;border-radius:10px">
-				SECTION 2
+			<div class="padding">
+				<div style="background-color:#F0F0F0;margin:30px auto;padding:30px;max-width:600px;border-radius:10px">
+					SECTION 2
+				</div>
 			</div>
 		</script>
 	</section>

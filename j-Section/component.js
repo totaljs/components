@@ -1,4 +1,4 @@
-COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;height:100;invisible:1;back:Back;delayanim:200', function(self, config, cls) {
+COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;back:fa fa-chevron-left;visibleY:1;height:100;invisible:1;delayanim:200', function(self, config, cls) {
 
 	var elb, elh;
 	var scrollbar;
@@ -71,7 +71,7 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		config.invisible && self.aclass('invisible');
 		config.scroll && self.element.wrapInner('<div class="' + cls + '-body"></div></div>');
 
-		self.element.prepend('<div class="{0}-header"><span class="{0}-back hidden"><i class="fa fa-chevron-left"></i>{1}</span><label></label></div>'.format(cls, config.back));
+		self.element.prepend('<div class="{0}-header"><span class="{0}-back invisible"><i class="{1}"></i></span><div><label></label></div></div>'.format(cls, config.back));
 
 		elb = self.find('> .{0}-body'.format(cls)).eq(0);
 		elh = self.find('> .{0}-header'.format(cls)).eq(0);
@@ -208,7 +208,7 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		} else
 			section.rclass('invisible').aclass(cls + '-visible');
 
-		elh.find('span').tclass('hidden', !parent).attrd('parent', parent || '');
+		var back = elh.find('span').tclass('invisible', !parent).attrd('parent', parent || '');
 		config.autofocus && self.autofocus(config.autofocus);
 	};
 
