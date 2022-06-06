@@ -7,5 +7,6 @@
 .ui-section-hidden { visibility: hidden; }
 .ui-section-section { transition: all 0.2s; }
 .ui-section-animate { position: absolute; top: 0; }
+.ui-section-body { position: relative; }
 
 .ui-dark .ui-section-header { border-bottom-color: #404040; color: #FFF; }
