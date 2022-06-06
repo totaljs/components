@@ -585,7 +585,12 @@ EXTENSION('flow:helpers', function(self, config) {
 		var disty = my - miny;
 		if (config.horizontal) {
 			var dist = range(range(20, 70, disty), range(70, 180, mx), distx);
-			return 'M' + x1 + ',' + y1 +' Q ' + (x1+dist) + ' ' + y1 + ' ' + mx + ' ' + my + ' Q ' + (x2-dist) + ' ' + y2 + ' ' + x2 + ' ' + y2;
+			if (disty < distx) {
+				var d = distx - disty;
+				d = distx / d;
+				dist = dist - (dist / d);
+			}
+			return 'M' + x1 + ',' + y1 +' Q ' + (x1+dist) + ' ' + (y1) + ' ' + mx + ' ' + my + ' T ' + x2 + ' ' + y2;
 		} else {
 			var dist = range(range(20, 70, distx), range(70, 180, my), disty);
 			return 'M' + x1 + ',' + y1 +' Q ' + x1 + ' ' + (y1+dist) + ' ' + mx + ' ' + my + ' Q ' + x2 + ' ' + (y2-dist) + ' ' + x2 + ' ' + y2;
