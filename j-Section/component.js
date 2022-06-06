@@ -1,4 +1,4 @@
-COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;height:100;invisible:1;back:Back;delayanim:100', function(self, config, cls) {
+COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;height:100;invisible:1;back:Back;delayanim:200', function(self, config, cls) {
 
 	var elb, elh;
 	var scrollbar;
@@ -78,7 +78,14 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 		elh.prepend(dom);
 
 		elh.find(cls2 + '-back').on('click', function() {
+
 			var el = $(this);
+
+			if (config.backexec) {
+				self.SEEX(config.backexec, el.attrd('parent'));
+				return;
+			}
+
 			var back = el.attrd('back');
 			self.set(el.attrd('parent'));
 			back && self.EXEC(back, el);
@@ -88,7 +95,7 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 
 		if (config.scroll) {
 			if (config.scrollbar) {
-				scrollbar = W.SCROLLBAR(self.find(cls2 + '-body'), { visibleY: config.visibleY, visibleX: config.visibleX, orientation: config.visibleX ? null : 'y' });
+				scrollbar = W.SCROLLBAR(self.find(cls2 + '-body'), { visibleY: config.visibleY, visibleX: config.visibleX, orientation: config.visibleX ? null : 'y', shadow: config.scrollbarshadow });
 				self.scrolltop = scrollbar.scrollTop;
 				self.scrollbottom = scrollbar.scrollBottom;
 				container = scrollbar.body;
@@ -178,6 +185,7 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 
 	var done_open_cb = function(el) {
 		el.rclass(cls + '-animate');
+		scrollbar && scrollbar.resize();
 	};
 
 	var done_open = function() {
@@ -188,12 +196,17 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 	var show = function(parent, section, type, ltr) {
 
 		parent = section.attrd('parent');
-		section.rclass('invisible');
 
-		if (type)
-			section.css({ 'margin-left': ltr ? -ww : ww }).aclass(cls + '-visible ' + cls + '-animate').animate({ 'margin-left': 0 }, config.delayanim, done_open);
-		else
-			section.aclass(cls + '-visible');
+		var reload = section.attrd('reload');
+		reload && self.EXEC(reload.replace(/\?/g, section.attrd('if')), section);
+
+		if (type) {
+			section.css({ 'margin-left': ltr ? -ww : ww });
+			setTimeout(function() {
+				section.aclass(cls + '-visible ' + cls + '-animate').rclass('invisible').animate({ 'margin-left': 0 }, config.delayanim, done_open);
+			}, config.delayanim / 2 >> 0);
+		} else
+			section.rclass('invisible').aclass(cls + '-visible');
 
 		elh.find('span').tclass('hidden', !parent).attrd('parent', parent || '');
 		config.autofocus && self.autofocus(config.autofocus);
@@ -256,26 +269,31 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 
 		var section = elb.find(cls2 + '-section[data-if="' + value + '"]');
 		var visible = elb.find(cls2 + '-visible');
-		var ltr = false;
+		var ltr = type === 'right';
 		var parent;
 
 		current = value;
 
-		if (visible.length) {
-			parent = visible.attrd('parent');
-			ltr = parent === value;
-			visible.rclass(cls + '-visible').aclass(cls + '-animate').animate({ 'margin-left': ltr ? ww : -ww }, config.delayanim, done_close);
-		}
+		var hide = function() {
+			if (visible.length) {
+				parent = visible.attrd('parent');
+				if (!ltr)
+					ltr = parent === value;
+				visible.rclass(cls + '-visible').aclass(cls + '-animate').stop().animate({ 'margin-left': ltr ? ww : -ww }, config.delayanim, done_close);
+			}
+		};
 
 		if (section.length) {
 
 			var icon = section.attrd('icon');
+			var path = section.attrd('if');
+			var id = section.attrd('id');
 
 			elh.find('label').html((icon ? '<i class="{0}"></i>'.format(icon) : '') + Thelpers.encode(section.attrd('title')));
 
 			var child = section[0].children[0];
 			if (child && (child.tagName === ('SCR' + 'IPT') || child.tagName === 'TEMPLATE')) {
-				section[0].innerHTML = child.innerHTML;
+				section[0].innerHTML = child.innerHTML.replace(/~PATH~/g, path).replace(/~ID~/g, id || '');
 				if (child.innerHTML.COMPILABLE())
 					COMPILE();
 			}
@@ -286,10 +304,16 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;visibleY:1;heig
 			if (url) {
 				section.attrd('url', '');
 				IMPORT(url, section, function() {
-					show(parent, section, type, ltr);
+					hide();
+					setTimeout(show, 100, parent, section, type, ltr);
+				}, function(response) {
+					return response.replace(/~PATH~/g, path).replace(/~ID~/g, id || '');
 				});
-			} else
+			} else {
+				hide();
 				show(parent, section, type, ltr);
-		}
+			}
+		} else
+			hide();
 	};
 });

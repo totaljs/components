@@ -48,7 +48,7 @@ COMPONENT('exec', function(self, config) {
 					}
 
 					// Run for the current component
-					if (attr.charCodeAt(0) === '@') {
+					if (attr.charAt(0) === '@') {
 						attr = attr.substring(1);
 						var com = el.component();
 						if (com && typeof(com[attr]) === 'function')

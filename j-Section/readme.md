@@ -24,6 +24,8 @@ __Configuration__:
 - `autofocus` {Boolean/String} can focus an input. `String` === `jQuery selector` for the input
 - `back` {String} a title for back button (default: `Back`)
 - `delayanim` {Number} animation delay (default: `100`)
+- __NEW__ `scrollbarshadow` {Boolean} adds shadow for scrollbars (default: `false`)
+- __NEW__ `backexec` {String} a link to the `function(parent)` that captures back button (it prevents standard behaviour)
 
 __Methods__:
 
@@ -42,20 +44,20 @@ __Definition__:
 <div data---="section__path">
 
 	<!-- path must have same value as "data-if" attribute -->
-	<section data-if="1" data-label="Label for header">
+	<section data-if="1" data-title="A title">
 
 	</section>
 
 	<!-- path must have same value as "data-if" attribute -->
 	<!-- "data-parent" enables Back button in the header and after click the component sets value from "data-parent" attribute -->
-	<section data-if="2" data-parent="1" data-label="Label for header">
+	<section data-if="2" data-parent="1" data-title="A title">
 
 	</section>
 
 	<!-- GOOD TO KNOW: Dynamic compilation -->
-	<section data-if="3" data-parent="2" data-label="Label for header" data-back="link_to_function">
+	<section data-if="3" data-parent="2" data-title="A title" data-back="link_to_function">
 
-		<!-- SCRIPT or TEMPLATE -–>
+		<!-- SCRIPT or TEMPLATE -->
 		<script type="text/html">
 			Will be compiled and rendered when the section will be displayed
 		</script>
@@ -63,16 +65,28 @@ __Definition__:
 	</section>
 
 	<!-- Template from URL address -->
-	<section data-if="4" data-parent="2" data-label="Label for header" data-url="LINK_TO_HTML_TEMPLATE"></section>
+	<section data-if="4" data-parent="2" data-title="A title" data-url="LINK_TO_HTML_TEMPLATE"></section>
 
 </div>
 ```
+
+__Section attributes__:
+
+- `data-if` must contain a condition for displaying
+- `data-parent` can contain a parent `data-if`
+- `data-title` contains a label/title for the section
+- `data-reload` can contain a link to the `function(el)` (optional)
+- `data-id` contains a custom identifier for replacing of all `~ID~` phrases in the content (optional)
+- `data-url` can contain a link to the template (optional)
 
 __Good to know__:
 
 - If you want to add an additional content into the header to right side, just append inside of component e.g. `<div>BUTTON</div>`.
 - You can dynamically insert/remove sections via `component.import()` or `component.cancel()` methods.
 - All section's attributes can be changed dynamically (e.g. `data-title`, `data-parent`, etc.).
+- __NEW__: all `~PATH~` phrases will be replaced for the `data-if` attribute value
+- __NEW__: all `~ID~` phrases will be replaced for the `data-if` attribute value
+- `SET('path', 'if', 'right')` will animated the content to the right side
 
 ### Author
 

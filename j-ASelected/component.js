@@ -13,7 +13,7 @@ COMPONENT('aselected', 'selector:a;attr:href;class:selected;delay:300', function
 		timeoutid && clearTimeout(timeoutid);
 		timeoutid = null;
 		var arr = self.find(config.selector);
-		var url = location.pathname;
+		var url = NAV.url;
 		for (var i = 0; i < arr.length; i++) {
 			var el = $(arr[i]);
 			var href = el.attr(config.attr);
