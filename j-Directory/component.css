@@ -20,6 +20,11 @@
 .ui-directory li:last-child { border-bottom: 0; }
 .ui-directory-search-hidden .ui-directory-search { height: 0; overflow: hidden; opacity: 0; }
 
+.jc-xs .ui-directory-default li { height: 34px; line-height: 34px; }
+.jc-xs .ui-directory li { font-size: 14px; }
+.jc-xs .ui-directory-search input { font-size: 14px; }
+.jc-xs .ui-directory-search > span { font-size: 14px; }
+
 .ui-dark .ui-directory { background-color: #303030; border-color: #404040; box-shadow: 1px 5px 10px rgba(0,0,0,0.2); }
 .ui-dark .ui-directory-search { background: #303030; }
 .ui-dark .ui-directory li { background-color: #303030; border-color: #404040; }
