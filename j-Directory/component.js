@@ -9,6 +9,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 	var templateraw = template.format(templateR);
 	var regstrip = /(&nbsp;|<([^>]+)>)/ig;
 	var parentclass = null;
+	var skiphide = false;
 	var main;
 
 	template = template.format(templateE);
@@ -65,7 +66,16 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 				self.hide(1);
 		});
 
+		var skiphidedelay;
+
 		self.event('focus', 'input', function() {
+
+			skiphide = true;
+			skiphidedelay && clearTimeout(skiphidedelay);
+			skiphidedelay = setTimeout(function() {
+				skiphide = false;
+			}, 800);
+
 			if (self.opt.search === false)
 				$(this).blur();
 		});
@@ -211,7 +221,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		});
 
 		var fn = function() {
-			is && self.hide(1);
+			is && !skiphide && self.hide(1);
 		};
 
 		self.on('reflow + scroll + resize + resize2', fn);
