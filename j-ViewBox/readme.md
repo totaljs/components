@@ -25,7 +25,8 @@ __Configuration__:
 - `invisible` {Boolean} if `true` then viewbox sets `invisible` class when is rendering (default: `true`)
 - `scrollbarshadow` {Boolean} if `true` then the custom scrollbars will contain vertical shadow (default: `false`)
 - `initdelay` {Number} removes `inivisible` class after specified time (default: `250` ms)
-- __NEW__: `centered {Boolean}` enables vertical and horitonzal centering for the content (default: `false`)
+- `centered {Boolean}` enables vertical and horitonzal centering for the content (default: `false`)
+- `resizedelay {Number}` delay for resizing (default: `200`)
 
 __Methods__:
 

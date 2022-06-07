@@ -1,4 +1,4 @@
-COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;initdelay:250;scrollbar:1;visibleY:1;height:100;invisible:1', function(self, config, cls) {
+COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;resizedelay:200;initdelay:250;scrollbar:1;visibleY:1;height:100;invisible:1', function(self, config, cls) {
 
 	var eld, elb;
 	var scrollbar;
@@ -104,7 +104,7 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;initdelay:250;scrollbar:1;v
 	var css = {};
 
 	self.resize = function() {
-		setTimeout2(self.ID, self.resizeforce, 200);
+		setTimeout2(self.ID, self.resizeforce, config.resizedelay);
 	};
 
 	self.resizeforce = function() {
