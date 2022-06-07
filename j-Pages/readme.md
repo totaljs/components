@@ -1,6 +1,6 @@
 ## j-Pages
 
-The component is a better alternative to the `j-Section` component. As a result, you can easily make a multi-page app with dynamic content loading when needed.
+The component is a better alternative to the `j-Section` component. As a result, you can easily make a multi-page app with dynamic content loading when needed. The result looks very intuitive for mobile devices or desktop computers.
 
 __Main configuration__:
 
