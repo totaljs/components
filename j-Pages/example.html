@@ -1,0 +1,57 @@
+<style>
+	body { padding: 0; margin: 0; overflow: hidden; }
+</style>
+
+<div data---="pages__common.page__parent:window">
+
+	<section class="hidden invisible" data-config="if:page1;anim:left">
+		<div class="padding">
+			<div style="background-color:#F0F0F0;margin:30px auto;padding:30px;max-width:600px;border-radius:10px">
+				PAGE 1
+			</div>
+		</div>
+	</section>
+
+	<section class="hidden invisible" data-config="if:page2;anim:right">
+		<div class="padding">
+			<div style="background-color:#F0F0F0;margin:30px auto;padding:30px;max-width:600px;border-radius:10px">
+				PAGE 2
+			</div>
+		</div>
+	</section>
+
+	<section class="hidden invisible" data-config="if:page3;anim:bottom">
+		<div class="padding">
+			<div style="background-color:#F0F0F0;margin:30px auto;padding:30px;max-width:600px;border-radius:10px">
+				PAGE 3
+			</div>
+		</div>
+	</section>
+</div>
+
+
+<script>
+
+	function togglepage() {
+
+		var val = common.page;
+
+		switch (val) {
+			case 'page1':
+				val = 'page2';
+				break;
+			case 'page2':
+				val = 'page3';
+				break;
+			case 'page3':
+				val = 'page1';
+				break;
+		}
+
+		SET('common.page', val);
+	}
+
+	setInterval(togglepage, 2000);
+	togglepage();
+
+</script>

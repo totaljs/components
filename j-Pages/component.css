@@ -1,0 +1,7 @@
+.ui-pages { overflow: hidden; position: relative; }
+.ui-pages > section { position: absolute; left: 0; right: 0; top: 0; overflow: hidden; }
+.ui-pages-visible { display: block; }
+.ui-pages-hide-left { transform: translate(-100%, 0); }
+.ui-pages-hide-top { transform: translate(0, -100%); }
+.ui-pages-hide-right { transform: translate(100%, 0); }
+.ui-pages-hide-bottom { transform: translate(0, 100%); }
