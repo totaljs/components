@@ -15,12 +15,14 @@ __Configuration__:
 	- `visible` validates all components which are visible
 - `track {String}` can contain paths divided by the comma, and manual changing of each path (via `SET()`, `UPD()`, `INC()`, etc. methods) will evaluate the validation
 - `validonly {Boolean}` skips `dirty` state (default: `false`)
-
+- __NEW__ `changes {Boolean}` enables comparing changes only between the input model and the form (default: `false`)
+- __NEW__ `strictchanges {Boolean}` enables strict comparing changes (otherwise `null`, `false`, `empty strings` and `0` values will be removed), default: `false`
 
 __Good to know__:
 
-- component adds `ui-validation-ok` to the element if the model is valid
-- component adds `ui-validation-no` to the element if the model is invalid
+- component adds `ui-validation-ok` class to the element if the model is valid
+- component adds `ui-validation-no` class to the element if the model is invalid
+- component adds `ui-validation-modified` class to the element if the model is changed
 
 ### Author
 
