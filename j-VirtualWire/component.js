@@ -1,6 +1,10 @@
-COMPONENT('virtualwire', 'selector:.virtualwire', function(self, config) {
+COMPONENT('virtualwire', 'selector:.virtualwire;max:50;repeat:100', function(self, config, cls) {
 
 	var old, waiter;
+
+	self.make = function() {
+		self.aclass(cls);
+	};
 
 	self.restore = function() {
 		if (old) {
@@ -33,19 +37,19 @@ COMPONENT('virtualwire', 'selector:.virtualwire', function(self, config) {
 		exec && self.EXEC(exec);
 	};
 
-	self.load = function(value) {
+	self.load = function(value, count) {
+
 		waiter && clearTimeout(waiter);
 		waiter = null;
-		var el = $(config.selector + '[data-if="' + value + '"]');
+
+		if (count > config.max)
+			return;
+
+		var el = $(config.selector + '[data-if="' + value + '"],' + config.selector + '[data-scope="' + value + '"]');
 		if (el.length)
 			self.backup(el);
-		else {
-			el = $(config.selector + '[data-scope="' + value + '"]');
-			if (el.length)
-				self.backup(el);
-			else
-				waiter = setTimeout(self.load, 100, value);
-		}
+		else
+			waiter = setTimeout(self.load, config.repeat, value, (count || 0) + 1);
 	};
 
 	self.setter = function(value) {
