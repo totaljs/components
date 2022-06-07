@@ -208,7 +208,7 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;back:fa fa-chev
 		} else
 			section.rclass('invisible').aclass(cls + '-visible');
 
-		var back = elh.find('span').tclass('invisible', !parent).attrd('parent', parent || '');
+		elh.find('span').tclass('invisible', !parent).attrd('parent', parent || '');
 		config.autofocus && self.autofocus(config.autofocus);
 	};
 
