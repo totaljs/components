@@ -1,15 +1,27 @@
 COMPONENT('virtualwire', 'selector:.virtualwire;max:50;repeat:100', function(self, config, cls) {
 
-	var old, waiter;
+	var old, waiter, div;
 
 	self.make = function() {
+		div = document.createElement('DIV');
+		div.style = 'position:absolute;left:-1000px;top:-1000px;z-index:-1;visibility:hidden';
+		document.body.appendChild(div);
 		self.aclass(cls);
+	};
+
+	self.destroy = function() {
+		div.parentNode.removeChild(div);
+		div = null;
 	};
 
 	self.restore = function() {
 		if (old) {
-			while (self.dom.children.length)
-				old[0].appendChild(self.dom.children[0]);
+
+			div.appendChild(old[0]);
+
+			// while (self.dom.children.length)
+			// 	old[0].appendChild(self.dom.children[0]);
+
 			var exec = old.attrd('out');
 			exec && self.EXEC(exec);
 			old = null;
@@ -28,9 +40,11 @@ COMPONENT('virtualwire', 'selector:.virtualwire;max:50;repeat:100', function(sel
 
 		self.restore();
 
-		var children = el[0].children;
-		while (children.length)
-			self.dom.appendChild(children[0]);
+		el.rclass('hidden invisible');
+		self.dom.appendChild(el[0]);
+		// var children = el[0].children;
+		// while (children.length)
+		// 	self.dom.appendChild(children[0]);
 
 		old = el;
 		var exec = el.attrd('in');
