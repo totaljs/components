@@ -44,11 +44,12 @@ or raw `Array` but you can't use pagination and external filters:
 __Configuration__:
 
 - `filterlabel` {String} a default placeholder for all filters (optional)
+- __NEW__ `rememberfilter {Boolean}` with true it remembers filters for every schema (default: `true`)
 - `pluralizepages` {String} pluralization for pages (optional, default: `# pages,# page,# pages,# pages`)
 - `pluralizeitems` {String} pluralization for items (optional, default: `# items,# item,# items,# items`)
 - `height` {Number/String} height of grid, supported values: `auto` (default), __NEW__ `fluid`, `parent` (or `parent1`, `parent2`) or `NUMBER` as height or `selector` for jQuery.closest()
-- __NEW__ `minheight` {Number} minimal height of grid, works with `fluid` and `auto` height (default: `200`)
-- __NEW__ `parent` {String} selector for `auto` height option (default: `window`)
+- `minheight` {Number} minimal height of grid, works with `fluid` and `auto` height (default: `200`)
+- `parent` {String} selector for `auto` height option (default: `window`)
 - `margin` {Number} a top margin for height (optional, default: `0`)
 - `boolean` {String} a values for filtering of boolean values (optional, default: `true|on|yes`)
 - `resize` {Boolean} enables resizing of columns (optional, default: `true`)

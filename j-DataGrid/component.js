@@ -1,4 +1,4 @@
-COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clusterize:true;limit:80;filterlabel:Filter;height:auto;margin:0;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;unhighlight:true;autoselect:false;buttonapply:Apply;buttonreset:Reset;allowtitles:false;fullwidth_xs:false;clickid:id;dirplaceholder:Search;autoformat:1;controls:1;hfuncicon:square-root-alt;pagination:true', function(self, config) {
+COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clusterize:true;limit:80;rememberfilter:1;filterlabel:Filter;height:auto;margin:0;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;unhighlight:true;autoselect:false;buttonapply:Apply;buttonreset:Reset;allowtitles:false;fullwidth_xs:false;clickid:id;dirplaceholder:Search;autoformat:1;controls:1;hfuncicon:square-root-alt;pagination:true', function(self, config) {
 
 	var opt = { filter: {}, filtercache: {}, filtercl: {}, filtervalues: {}, scroll: false, selected: {}, operation: '' };
 	var header, vbody, footer, container, ecolumns, isecolumns = false, ready = false;
@@ -316,20 +316,26 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 		}, 50);
 	};
 
+	var makeopt = function() {
+		return { filter: {}, filtervalues: {}, filtercl: {}, filtercache: {} };
+	};
+
 	self.make = function() {
 
 		self.IDCSS = GUID(5);
 		self.aclass('dg dg-noscroll dg-' + self.IDCSS + (config.height === 'fluid' ? ' dg-fluid' : ''));
 
 		self.find('script').each(function() {
+
 			var el = $(this);
 			var id = el.attrd('id');
+			var html = el.html();
 
 			if (id)
-				schemas[id] = el.html();
+				schemas[id] = { schema: html, opt: makeopt() };
 
 			if (!schemas.default)
-				schemas.default = el.html();
+				schemas.default = { schema: html, opt: makeopt() };
 
 		});
 
@@ -433,7 +439,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 		self.scrollbarX = SCROLLBAR(sheader, { visibleX: true, orientation: 'x', controls: container });
 
 		if (schemas.default) {
-			self.rebind(schemas.default);
+			self.rebind(schemas.default.schema);
 			schemas.$current = 'default';
 		}
 
@@ -1117,7 +1123,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 
 		if (code.length < 30 && code.indexOf(' ') === -1) {
 			schemas.$current = code;
-			schemas[code] && self.rebind(schemas[code]);
+			if (schemas[code]) {
+				opt = schemas[code].opt;
+				self.rebind(schemas[code].schema);
+			}
 			return;
 		}
 
@@ -1155,7 +1164,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 				continue;
 			}
 
-			col.id = GUID(5);
+			col.id = col.id || HASH(i.padLeft(2) + (col.name || '') + (col.text || '') + (col.width || '') + (col.template || '')).toString(36);
 			col.realindex = i;
 
 			if (!col.name)
@@ -1274,6 +1283,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 			if (col.filter !== false && !col.filter)
 				col.filter = config.filterlabel;
 
+			if (!col.filtervalue && opt.filtervalues != null)
+				col.filtervalue = opt.filtervalues[col.id];
+
 			if (col.filtervalue != null) {
 				tmp = col.filtervalue;
 				if (typeof(tmp) === 'function')
@@ -1289,8 +1301,6 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 		self.rebindcss();
 		prerender && self.rendercols();
 		controls.hide();
-
-		// self.scrollbar.scroll(0, 0);
 	};
 
 	self.rebindcss = function() {
@@ -1922,7 +1932,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 		isecolumns = false;
 		controls.hide();
 	};
-	
+
 	self.resetfilter = function() {
 		opt.filter = {};
 		opt.filtercache = {};
@@ -2018,12 +2028,58 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;rowheight:28;minheight:200;clu
 		}
 
 		if (value && value.schema && schemas.$current !== value.schema) {
+
+			var tmp = schemas[schemas.$current];
+
+			if (config.rememberfilter) {
+				for (var key in opt.filter)
+					tmp.opt.filter[key] = opt.filter[key];
+
+				for (var key in opt.filtercache)
+					tmp.opt.filtercache[key] = opt.filtercache[key];
+
+				for (var key in opt.filtercl)
+					tmp.opt.filtercl[key] = opt.filtercl[key];
+
+				for (var key in opt.filtervalues)
+					tmp.opt.filtervalues[key] = opt.filtervalues[key];
+			}
+
 			schemas.$current = value.schema;
 			self.selected = null;
-			self.rebind(schemas[value.schema], true);
-			setTimeout(function() {
-				self.setter(value, path, type);
-			}, 100);
+
+			tmp = schemas[value.schema];
+
+			opt.filter = {};
+			if (config.rememberfilter) {
+				for (var key in tmp.opt.filter)
+					opt.filter[key] = tmp.opt.filter[key];
+			}
+
+			opt.filtercache = {};
+			if (config.rememberfilter) {
+				for (var key in tmp.opt.filtercache)
+					opt.filtercache[key] = tmp.opt.filtercache[key];
+			}
+
+			opt.filtercl = {};
+			if (config.rememberfilter) {
+				for (var key in tmp.opt.filtercl)
+					opt.filtercl[key] = tmp.opt.filtercl[key];
+			}
+
+			opt.filtervalues = {};
+
+			if (config.rememberfilter) {
+				for (var key in tmp.opt.filtervalues)
+					opt.filtervalues[key] = tmp.opt.filtervalues[key];
+			} else {
+				for (var col of opt.cols)
+					col.filtervalue = null;
+			}
+
+			self.rebind(tmp.schema, true);
+			setTimeout(self.setter, 100, value, path, type);
 			return;
 		}
 
