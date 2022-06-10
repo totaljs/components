@@ -45,6 +45,7 @@ __Configuration__:
 
 - `filterlabel` {String} a default placeholder for all filters (optional)
 - __NEW__ `rememberfilter {Boolean}` with true it remembers filters for every schema (default: `true`)
+- __NEW__ `schema {String}` a default schema (default: `default`)
 - `pluralizepages` {String} pluralization for pages (optional, default: `# pages,# page,# pages,# pages`)
 - `pluralizeitems` {String} pluralization for items (optional, default: `# items,# item,# items,# items`)
 - `height` {Number/String} height of grid, supported values: `auto` (default), __NEW__ `fluid`, `parent` (or `parent1`, `parent2`) or `NUMBER` as height or `selector` for jQuery.closest()
@@ -148,9 +149,10 @@ __Methods__:
 - `component.resetcolumns()` resets columns
 - `component.readfilter()` returns a current filter
 - `component.rebind(schemaname__or__columnsdeclaration)` the method rebinds the schema
-- __NEW__: `component.reload()` executes `config.exec` with the current filter and sorting
-- __NEW__: `component.empty()` empties all rows
-- __NEW__: `component.redrawcolumns()` redraw columns without reset them
+- `component.reload()` executes `config.exec` with the current filter and sorting
+- `component.empty()` empties all rows
+- `component.redrawcolumns()` redraw columns without reset them
+- __NEW__: `component.schema(name)` changes a schema and refreshes data
 
 __Properties__:
 
