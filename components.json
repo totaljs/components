@@ -284,5 +284,6 @@
 	"j-Xterm",
 	"j-LoadContent",
 	"j-Backup",
-	"j-Pages"
+	"j-Pages",
+	"j-DropFiles"
 ]
