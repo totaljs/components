@@ -1,6 +1,6 @@
-.ui-dropfiles { position: fixed; left: 10px; top: 10px; right: 10px; bottom: 10px; z-index: -1; display: none; background-color: rgba(0,0,0,0.1); border: 2px dashed rgba(0,0,0,0.2); border-radius: var(--radius); pointer-events: none; }
+.ui-dropfiles { position: fixed; left: 10px; top: 10px; right: 10px; bottom: 10px; z-index: -1; display: none; background-color: rgba(0,0,0,0.1); border: 2px dashed rgba(0,0,0,0.2); border-radius: var(--radius); }
 .ui-dropfiles-visible { display: block; z-index: 500; }
-.ui-dropfiles > div { display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; font-size: 16px; color: #777; }
+.ui-dropfiles > div { display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; font-size: 16px; color: #777; pointer-events: none; }
 
 .ui-dark .ui-dropfiles { background-color: rgba(200,200,200,0.1); border: 2px dashed rgba(200,200,200,0.2); }
 .ui-dropfiles > div { color: #A0A0A0; }
