@@ -230,6 +230,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:28;mi
 
 	self.configure = function(key, value, init) {
 		switch (key) {
+			case 'schema':
+				!init && self.schema(value);
+				break;
 			case 'noborder':
 				self.tclass('dg-noborder', !!value);
 				break;
