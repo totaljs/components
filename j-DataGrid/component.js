@@ -987,6 +987,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:28;mi
 			isecolumns && self.applycolumns();
 		});
 
+
+		self.resize();
 		// config.exec && self.operation('init');
 	};
 
