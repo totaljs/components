@@ -22,6 +22,7 @@ __Item specification__:
 - `item.html {String}` a HTML content or use `item.url`
 - `item.import {String}` URL address for the part content
 - `item.path {String}` optional, it replaces all `~PATH~` phrases automatically
+- __NEW__ `item.attrd {Object}` adds `data-key` attributes into the item element
 
 __Extendend by the component__:
 

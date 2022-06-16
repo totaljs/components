@@ -98,6 +98,16 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 		div.aclass(cls + '-item');
 		div.attrd('id', item.id);
 
+		if (item.attr) {
+			for (var key in item.attr)
+				div.attr(key, item.attr[key]);
+		}
+
+		if (item.attrd) {
+			for (var key in item.attrd)
+				div.attrd(key, item.attrd[key]);
+		}
+
 		if (parth || partw)
 			div.css({ width: partw, height: parth });
 
@@ -169,5 +179,3 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 	};
 
 });
-// End: j-Parts
-
