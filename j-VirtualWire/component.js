@@ -67,14 +67,11 @@ COMPONENT('virtualwire', 'selector:.virtualwire;max:50;repeat:100', function(sel
 	};
 
 	self.setter = function(value) {
-
 		self.restore();
-
-		if (!value)
-			return;
-
-		waiter && clearTimeout(waiter);
-		self.load(value);
+		if (value) {
+			waiter && clearTimeout(waiter);
+			self.load(value);
+		}
 	};
 
 });
