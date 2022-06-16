@@ -48,27 +48,30 @@
 .fs11 { font-size: 11px; }
 .fs12 { font-size: 12px; }
 .noscrollbar::-webkit-scrollbar { display: none; }
-.noscrollbar { overflow-y: scroll;-ms-overflow-style: none; scrollbar-width: none; }
+.noscrollbar { overflow-y: scroll; -ms-overflow-style: none; scrollbar-width: none; }
+
 .ui-scrollbar { overflow: hidden; }
 .ui-scrollbar-area { overflow: scroll; overflow-scrolling: touch;-webkit-overflow-scrolling: touch; }
 .ui-scrollbar-body { margin: 0; float: left; }
 .ui-scrollbar-path { position: relative; z-index: 2; }
-.ui-scrollbar>.ui-scrollbar-path { visibility: hidden; }
+.ui-scrollbar > .ui-scrollbar-path { visibility: hidden; }
 .ui-scrollbar-y { width: 6px; height: 100%; position: absolute; right: 0; top: 0; z-index: 5; }
 .ui-scrollbar-x { height: 6px; width: 100%; position: absolute; left: 0; bottom: 0; z-index: 5; }
 .ui-scrollbar-y span { height: 30px; width: 100%; display: block; position: relative; padding: 5px 0; }
 .ui-scrollbar-path b { width: 100%; height: 100%; display: block; background-color: rgba(0,0,0,0.2); border-radius: 5px; }
 .ui-scrollbar-x span { vertical-align: top; width: 30px; height: 100%; display: block; position: relative; padding: 0 14px 0 5px; }
+.ui-scrollbar-y span: hover b,.ui-scrollbar-x span: hover b { background-color: rgba(0,0,0,0.3)}
 .ui-scrollbar-isx .ui-scrollbar-padding { padding-right: 30px; }
 .ui-scrollbar-hidden span { display: none!important; }
 .ui-scrollbar-notready { display: none!important; }
-.ui-dark .ui-scrollbar-y b,.ui-dark .ui-scrollbar-x b { background-color: rgba(0,0,0,0.8)}
+.ui-dark .ui-scrollbar-y b,.ui-dark .ui-scrollbar-x b { background-color: rgba(0,0,0,0.5)}
+.ui-dark .ui-scrollbar-y span: hover b,.ui-dark .ui-scrollbar-x span: hover b { background-color: rgba(0,0,0,0.5)}
 .ui-scrollbar-touch .ui-scrollbar-y { display: none!important; }
 .ui-scrollbar-touch .ui-scrollbar-x { display: none!important; }
 .ui-scrollbar-touch .ui-scrollbar-body { margin: 0!important; }
 .ui-scrollbar-touch .ui-scrollbar-padding { padding-right: 0; }
-.ui-scrollbar-y:hover:not(.ui-scrollbar-hidden),.ui-scrollbar-y-show { width: 10px!important; margin-left: -4px!important; }
-.ui-scrollbar-x:hover:not(.ui-scrollbar-hidden),.ui-scrollbar-x-show { height: 10px!important; margin-top: -4px!important; }
+.ui-scrollbar-y:hover:not(.ui-scrollbar-hidden),.ui-scrollbar-y-show { visibility: visible; width: 10px !important; margin-left: -4px !important; }
+.ui-scrollbar-x:hover:not(.ui-scrollbar-hidden),.ui-scrollbar-x-show { visibility: visible; height: 10px !important; margin-top: -4px !important; }
 .nogutters { margin-right: 0; margin-left: 0; }
 .nogutters>[class*='col-'] { padding-right: 0; padding-left: 0; }
 .ui-scrollbar-shadow { position: relative; pointer-events: none; }
@@ -83,10 +86,11 @@
 .ui-dark .ui-scrollbar-shadow-top { background: linear-gradient(#0000006b,transparent)}
 .ui-scrollbar-shadow-bottom { background: linear-gradient(transparent,#00000024)}
 .ui-dark .ui-scrollbar-shadow-bottom { background: linear-gradient(transparent,#0000006b)}
-.ui-scrollbar: hover>.ui-scrollbar-path { visibility: visible; }
+.ui-scrollbar:hover>.ui-scrollbar-path { visibility: visible; }
 .ui-scrollbar-noscroll>.ui-scrollbar-area { overflow: hidden!important; }
 .ui-scrollbar-noscroll>.ui-scrollbar-path { display: none!important; }
 .ui-scrollbar-noscroll>.ui-scrollbar-shadow { display: none!important; }
+
 .monospace { font-family: Menlo,Consolas,monospace; }
 .ml5 { margin-left: 5px; }
 .ml10 { margin-left: 10px; }
