@@ -108,7 +108,7 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 
 		item.processed = true;
 		var div = $('<div></div>');
-		div.aclass(cls + '-item');
+		div.aclass(cls + '-item invisible');
 		div.attrd('id', item.id);
 
 		if (item.attr) {
@@ -140,6 +140,7 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 		config.create && self.EXEC(config.create, item);
 		self.append(div);
 		setTimeout2(self.ID + 'focus', self.focus, 100, null, item.id);
+		div.rclass('invisible', item.delay || 10);
 
 		if (!item.import)
 			item.init && self.EXEC(itempath(item, item.init), div, item);
