@@ -20,7 +20,7 @@ __Item specification__:
 - `item.focus {String}` or `item.reload {String}` optional, a link to the `function(element, item)` if the part is focused
 - `item.remove {String}` optional, a link to the `function(element, item)` if the part is removed
 - `item.html {String}` a HTML content or use `item.url`
-- `item.url {String}` URL address for the part content
+- `item.import {String}` URL address for the part content
 - `item.path {String}` optional, it replaces all `~PATH~` phrases automatically
 
 __Extendend by the component__:

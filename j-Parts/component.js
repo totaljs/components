@@ -16,7 +16,7 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 	};
 
 	var itempath = function(item, path) {
-		return item.scope ? path.replace(/\?/g, item.scope) : path;
+		return path.replace(/\?/g, item.scope || item.path || item.id || '?');
 	};
 
 	self.focus = function(id, fromsetter) {
@@ -169,3 +169,5 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 	};
 
 });
+// End: j-Parts
+
