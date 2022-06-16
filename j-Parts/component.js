@@ -58,6 +58,16 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 		}
 	};
 
+	self.rename = function(id, name) {
+		var model = self.get();
+		var item = model.findItem('id', id);
+		if (item) {
+			model.name = name;
+			skip = true;
+			self.update(true);
+		}
+	};
+
 	self.close = function(id) {
 
 		var model = self.get();

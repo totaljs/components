@@ -28,3 +28,9 @@ __Extendend by the component__:
 
 - `item.focused {Boolean}` determines if the part is focused or not
 - `item.element {jQuery}` part element
+
+__Methods__:
+
+- `component.close(id)` closes part
+- `component.focus(id)` focuses part
+- `component.rename(id, name)` renames part
