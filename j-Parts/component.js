@@ -58,11 +58,14 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 		}
 	};
 
-	self.rename = function(id, name) {
+	self.rename = function(id, name, icon) {
 		var model = self.get();
 		var item = model.findItem('id', id);
 		if (item) {
-			item.name = name;
+			if (name)
+				item.name = name;
+			if (icon)
+				item.icon = icon;
 			skip = true;
 			self.update(true);
 		}

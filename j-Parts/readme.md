@@ -33,4 +33,4 @@ __Methods__:
 
 - `component.close(id)` closes part
 - `component.focus(id)` focuses part
-- `component.rename(id, name)` renames part
+- `component.rename(id, name, [icon])` renames part
