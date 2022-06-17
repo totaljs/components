@@ -17,7 +17,9 @@ COMPONENT('map', function(self, config) {
 	};
 
 	self.make = function() {
-		IMPORT('https://maps.googleapis.com/maps/api/js?key={0} .js'.format(config.key));
+
+		IMPORT('ONCE https://maps.googleapis.com/maps/api/js?key={0} .js'.format(config.key));
+
 		WAIT('google', function() {
 			var animations = { drop: google.maps.Animation.DROP, bounce: google.maps.Animation.BOUNCE };
 			var options = {};
