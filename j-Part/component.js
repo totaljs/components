@@ -93,9 +93,8 @@ COMPONENT('part', 'hide:1;loading:1;delay:500;delayloading:800', function(self, 
 							config.reload && EXEC(replace(config.reload), true);
 							config.default && DEFAULT(replace(config.default), true);
 							config.loading && SETTER('loading/hide', config.delayloading);
-							var invisible = self.hclass('invisible');
-							invisible && self.rclass('invisible', config.delay);
-							isresizing && setTimeout(self.resize, 50);
+							isresizing && self.resize();
+							self.hclass('invisible') && self.rclass('invisible', config.delay);
 							setTimeout(self.emitresize, 200);
 							downloading = false;
 							config.autofocus && self.autofocus(config.autofocus);
