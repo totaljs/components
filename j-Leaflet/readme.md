@@ -1,6 +1,6 @@
 ## j-Leaflet (BETA)
 
-This component uses [Leaflet](https://leafletjs.com/) library with [OpenStreetMap](https://www.openstreetmap.org/). The component uses 3rd party dependencies.
+This component uses [Leaflet](https://leafletjs.com/) library with the [OpenStreetMap](https://www.openstreetmap.org/) map engine. The component uses 3rd party dependencies.
 
 __Configuration__:
 
