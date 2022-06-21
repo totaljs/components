@@ -285,5 +285,6 @@
 	"j-LoadContent",
 	"j-Backup",
 	"j-Pages",
-	"j-DropFiles"
+	"j-DropFiles",
+	"j-Leaflet"
 ]
