@@ -1,1 +1,6 @@
-.ui-dark .ui-leaflet .map-tiles { filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7); }
+.leaflet-container { font-size: 11px !important; font-family: Arial; }
+.leaflet-container .leaflet-control-attribution { color: #777; }
+.leaflet-container .leaflet-control-attribution a { color: #777; }
+.ui-dark .leaflet-container .leaflet-control-attribution { background: rgba(0,0,0,.5); color: #A0A0A0; }
+.ui-dark .leaflet-container .leaflet-control-attribution a { color: #A0A0A0; }
+.ui-dark .ui-leaflet .leaflet-tile { filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7); }
