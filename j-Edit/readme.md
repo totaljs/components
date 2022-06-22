@@ -36,6 +36,7 @@ __Configuration__:
 - `parent {String}` optional, a selector for obtaining of offset (can contain `parent` or jQuery selector for `.closest()` method)
 - `selectall {Boolean}` optional, selects all text
 - `cursor {String}` optional, a cursor position `beg` or `end` (default)
+- __NEW__: `notify {String}` optional, a path to `function(opt)` that will be notified after successful change
 
 ### Author
 

@@ -283,12 +283,12 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10', function(self, config, cls
 			if (typeof(fn) === 'function') {
 				opt.detached = true;
 				fn(opt, function(body) {
-					if (body === true)
-						opt.element.html(opt.value);
-					else if (body == null || body === false)
-						opt.element.html(opt.html);
-					else
-						opt.element.html(body + '');
+					if (body == null || body === false)
+						opt.value = opt.html;
+					else if (body !== true)
+						opt.value = body + '';
+					opt.element.html(opt.value + '');
+					opt.notify && EXEC(opt.scope ? opt.scope.makepath(opt.notify) : opt.notify, opt);
 				});
 				return;
 			}
@@ -302,6 +302,7 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10', function(self, config, cls
 					b.exec(opt.value, b.path);
 					SET(b.path, opt.value, 2);
 					b.disabled = false;
+					opt.notify && EXEC(opt.scope ? opt.scope.makepath(opt.notify) : opt.notify, opt);
 				}
 			}, 100);
 		}
