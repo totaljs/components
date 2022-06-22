@@ -112,6 +112,17 @@ COMPONENT('leaflet', 'height:200;zoom:11;draggable:0;marker:1;margin:0;maxzoom:1
 			return;
 		}
 
+		var address = config.center;
+
+		if (value) {
+			// check
+			var tmp = value.replace(/\.|,|\s/g, '');
+			if (!(/^\d+$/).test(tmp)) {
+				address = tmp;
+				value = '';
+			}
+		}
+
 		if (value) {
 
 			skipmove = true;
@@ -158,8 +169,8 @@ COMPONENT('leaflet', 'height:200;zoom:11;draggable:0;marker:1;margin:0;maxzoom:1
 				}
 			}
 		} else {
-			if (config.center) {
-				self.search(config.center, function(response) {
+			if (address) {
+				self.search(address, function(response) {
 					var item = response[0];
 					if (item) {
 						var pos = self.parse(item.pos);
