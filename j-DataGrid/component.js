@@ -221,7 +221,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:28;mi
 	};
 
 	self.readonly();
-	self.bindvisible();
+	// self.bindvisible();
 	self.nocompile();
 
 	var reconfig = function() {
