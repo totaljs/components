@@ -277,7 +277,7 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10', function(self, config, cls
 	self.save = function(el) {
 
 		var opt = el[0].$edit;
-		var fn = opt.exec || opt.save;
+		var fn = opt.exec || opt.save || config.exec;
 		if (fn) {
 			fn = GET(opt.scope ? opt.scope.makepath(fn) : fn);
 			if (typeof(fn) === 'function') {

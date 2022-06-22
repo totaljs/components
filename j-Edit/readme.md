@@ -12,7 +12,8 @@ __Good to know__:
 
 __Configuration__:
 
-- `dateformat` {String} a default format for parsing dates (default: `yyyy-MM-dd`)
+- `dateformat {String}` a default format for parsing dates (default: `yyyy-MM-dd`)
+- __NEW__: `exec {String}` optional, a default path to `function(opt, accept(boolean/html_value_for_the_element))`
 
 ---
 
