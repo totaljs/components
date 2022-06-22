@@ -39,7 +39,7 @@ COMPONENT('leaflet', 'height:200;zoom:11;draggable:0;marker:1;margin:0;maxzoom:1
 
 			if (config.move) {
 				var pos = meta.map.getCenter();
-				self.SEEX(pos.lat + ',' + pos.lng, meta.map.getZoom());
+				self.SEEX(config.move, pos.lat + ',' + pos.lng, meta.map.getZoom());
 			}
 
 		};
