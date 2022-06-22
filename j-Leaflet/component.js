@@ -105,6 +105,44 @@ COMPONENT('leaflet', 'height:200;zoom:11;draggable:0;marker:1;margin:0;maxzoom:1
 		});
 	};
 
+	self.marker = function(pos) {
+		if (config.marker) {
+			if (meta.marker) {
+				meta.marker.setLatLng(pos);
+			} else {
+
+				var opt = {};
+
+				if (config.draggable)
+					opt.draggable = true;
+
+				if (config.icon) {
+
+					var iconopt = {};
+					iconopt.iconUrl = config.icon;
+
+					if (config.iconanchor)
+						iconopt.iconAnchor = self.parse(config.iconanchor);
+
+					if (config.iconsize)
+						iconopt.iconSize = self.parse(config.iconsize);
+
+					opt.icon = new L.Icon(iconopt);
+				}
+				meta.marker = L.marker(pos, opt);
+				meta.marker.addTo(meta.map);
+				meta.markers.push(meta.marker);
+				meta.marker.on('click', function(e) {
+					config.click && self.SEEX(config.click, e.latlng.lat + ',' + e.latlng.lng, e);
+				});
+				meta.marker.on('move', function(e) {
+					skip = true;
+					self.set(e.latlng.lat + ',' + e.latlng.lng);
+				});
+			}
+		}
+	};
+
 	self.setter = function(value) {
 
 		if (skip) {
@@ -118,7 +156,7 @@ COMPONENT('leaflet', 'height:200;zoom:11;draggable:0;marker:1;margin:0;maxzoom:1
 			// check
 			var tmp = value.replace(/\.|,|\s/g, '');
 			if (!(/^\d+$/).test(tmp)) {
-				address = tmp;
+				address = value;
 				value = '';
 			}
 		}
@@ -127,54 +165,18 @@ COMPONENT('leaflet', 'height:200;zoom:11;draggable:0;marker:1;margin:0;maxzoom:1
 
 			skipmove = true;
 			var pos = self.parse(value);
-
 			meta.map.setView(pos.slice(0, 2), pos[2]);
+			self.marker(pos);
 
-			if (config.marker) {
-
-				if (meta.marker) {
-					meta.marker.setLatLng(pos);
-				} else {
-
-					var opt = {};
-
-					if (config.draggable)
-						opt.draggable = true;
-
-					if (config.icon) {
-
-						var iconopt = {};
-						iconopt.iconUrl = config.icon;
-
-						if (config.iconanchor)
-							iconopt.iconAnchor = self.parse(config.iconanchor);
-
-						if (config.iconsize)
-							iconopt.iconSize = self.parse(config.iconsize);
-
-						opt.icon = new L.Icon(iconopt);
-					}
-
-					meta.marker = L.marker(pos, opt);
-					meta.marker.addTo(meta.map);
-					meta.markers.push(meta.marker);
-					meta.marker.on('click', function(e) {
-						config.click && self.SEEX(config.click, e.latlng.lat + ',' + e.latlng.lng, e);
-					});
-
-					meta.marker.on('move', function(e) {
-						skip = true;
-						self.set(e.latlng.lat + ',' + e.latlng.lng);
-					});
-				}
-			}
 		} else {
 			if (address) {
 				self.search(address, function(response) {
 					var item = response[0];
 					if (item) {
-						var pos = self.parse(item.pos);
-						meta.map.setView(pos.slice(0, 2), pos[2]);
+						var gps = self.parse(item.pos);
+						var pos = gps.slice(0, 2);
+						meta.map.setView(pos, gps[2]);
+						self.marker(pos);
 						skip = true;
 						self.set(item.pos);
 					}
