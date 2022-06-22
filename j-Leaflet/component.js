@@ -135,9 +135,10 @@ COMPONENT('leaflet', 'height:200;zoom:11;draggable:0;marker:1;margin:0;maxzoom:1
 				meta.marker.on('click', function(e) {
 					config.click && self.SEEX(config.click, e.latlng.lat + ',' + e.latlng.lng, e);
 				});
-				meta.marker.on('move', function(e) {
+				meta.marker.on('moveend', function(e) {
 					skip = true;
-					self.set(e.latlng.lat + ',' + e.latlng.lng);
+					var pos = e.target._latlng;
+					self.set(pos.lat + ',' + pos.lng);
 				});
 			}
 		}
