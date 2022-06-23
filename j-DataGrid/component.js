@@ -1,4 +1,4 @@
-COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:28;minheight:200;clusterize:true;limit:80;rememberfilter:1;filterlabel:Filter;height:auto;margin:0;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;unhighlight:true;autoselect:false;buttonapply:Apply;buttonreset:Reset;allowtitles:false;fullwidth_xs:false;clickid:id;dirplaceholder:Search;autoformat:1;controls:1;hfuncicon:square-root-alt;pagination:true', function(self, config) {
+COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:28;minheight:200;clusterize:true;limit:80;rememberfilter:1;filterlabel:Filter;height:auto;margin:0;resize:true;reorder:true;sorting:true;boolean:true,on,yes;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;remember:true;highlight:false;unhighlight:true;autoselect:false;buttonapply:Apply;buttonreset:Reset;allowtitles:false;fullwidth_xs:false;clickid:id;dirplaceholder:Search;autoformat:1;controls:1;hfuncicon:square-root-alt;pagination:true;ovalue:id;otext:name', function(self, config) {
 
 	var opt = { filter: {}, filtercache: {}, filtercl: {}, filtervalues: {}, scroll: false, selected: {}, operation: '' };
 	var header, vbody, footer, container, ecolumns, isecolumns = false, ready = false;
@@ -1262,8 +1262,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:28;mi
 			}
 
 			if (col.options) {
-				!col.otext && (col.otext = 'text');
-				!col.ovalue && (col.ovalue = 'value');
+				!col.otext && (col.otext = config.otext);
+				!col.ovalue && (col.ovalue = config.ovalue);
 			}
 
 			// SORT?

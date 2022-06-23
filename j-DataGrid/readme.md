@@ -87,6 +87,8 @@ __Configuration__:
 - `hfuncicon` {String} hfunc icon e.g. home, cog, etc.
 - `pagination` {Boolean} enables/disables pagination (default: `true`)
 	- `config.exec` will be executed if the scrollbar is at the end, and you can use as the raw response `array` of rows
+- __NEW__ `ovalue {String}` a default key for obtaining of `value` from `column.options` (default: `id`)
+- __NEW__ `otext {String}` a default key for obtaining of `text` from `column.options` (default: `name`)
 
 __Column properties__:
 
@@ -106,8 +108,8 @@ __Column properties__:
 - `listcolumn` {Boolean} default:true, false for removing column from columns list
 - `hidden` {String} as an arrow function `column => true` --> column will be hidden (e.g. for restricting user)
 - `options` {Object Array} optional, a custom filter for example `[{ text: 'yes', value: true }, { text: 'no', value: false }]` or {String} link to data-source
-- `otext` {String} optional, a key for `text` field in `options`, default `text`
-- `ovalue` {String} optional, a key for `value` field in `options`, default `value`
+- `otext` {String} optional, a key for `text` field in `options`, default `config.otext`
+- `ovalue` {String} optional, a key for `value` field in `options`, default `config.ovalue`
 - `buttonapply` {String} optional, a label for `Apply` button in columns, default: `Apply`
 - `class` {String} optional, a custom column class name
 - `empty` {String/Boolean} optional, can rewrite empty value with the value defined in empty field (`true` value uses `---` as a default value)
