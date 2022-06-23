@@ -37,6 +37,7 @@ __Configuration__:
 - `selectall {Boolean}` optional, selects all text
 - `cursor {String}` optional, a cursor position `beg` or `end` (default)
 - __NEW__: `notify {String}` optional, a path to `function(opt)` that will be notified after successful change
+- __NEW__: `prevent {Boolean}` optional, executes `.preventDefault()` and `.stopPropagation()` in the click event
 
 ### Author
 

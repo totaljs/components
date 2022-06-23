@@ -176,6 +176,11 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10', function(self, config, cls
 		if (!opt || (opt.checkforce && !opt.checkforce(el)))
 			return;
 
+		if (opt.prevent) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
 		var value = el.html();
 		var empty = false;
 
