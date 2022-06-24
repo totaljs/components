@@ -1,7 +1,7 @@
 <div data---="watch__common.value__exec:changedvalue"></div>
 
 <div class="padding">
-	<div class="help">Look on the <b>title</b></div>
+	<div id="mytitle"></div>
 </div>
 
 <script>
@@ -13,7 +13,7 @@
 	}, 1000);
 
 	function changedvalue(value, element, type, path) {
-		document.title = value;
+		$('#mytitle').html(value);
 	}
 
 </script>
