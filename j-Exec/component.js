@@ -57,7 +57,7 @@ COMPONENT('exec', function(self, config) {
 					}
 
 					if (attr.indexOf('?') !== -1) {
-						var tmp = el.scope();
+						var tmp = scopepath(el);
 						if (tmp) {
 							var isparent = regparent.test(attr);
 							attr = tmp.makepath ? tmp.makepath(attr) : attr.replace(/\?/g, tmp.path);
