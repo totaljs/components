@@ -57,7 +57,7 @@ COMPONENT('exec', function(self, config) {
 					}
 
 					if (attr.indexOf('?') !== -1) {
-						var tmp = scopepath(el);
+						var tmp = el.scope();
 						if (tmp) {
 							var isparent = regparent.test(attr);
 							attr = tmp.makepath ? tmp.makepath(attr) : attr.replace(/\?/g, tmp.path);
@@ -65,6 +65,17 @@ COMPONENT('exec', function(self, config) {
 								M.scope(attr.split('/')[0]);
 							else
 								M.scope(tmp.path);
+						}
+
+						if (scope && scope.plugin) {
+							var index = attr.indexOf('/');
+							if (index !== -1) {
+								var method = attr.substring(index + 1).trim();
+								if (method) {
+									scope.plugin[method].call(scope.plugin, el, e);
+									return;
+								}
+							}
 						}
 					}
 
