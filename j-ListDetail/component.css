@@ -1,0 +1,10 @@
+.ui-listdetail-resizer { display: none; }
+.ui-listdetail-detail { border-left: 1px solid #E0E0E0; float: right; }
+.ui-listdetail-visible .ui-listdetail-resizer { display: block; width: 1px; background-color: #E0E0E0; position: absolute; cursor: ew-resize; z-index: 2; }
+.ui-listdetail-visible .ui-listdetail-resizer:hover { background-color: #D0D0D0; }
+.ui-listdetail-resizing .ui-listdetail-resizer { background-color: #C0C0C0 !important; }
+
+.ui-dark .ui-listdetail-detail { border-left-color: #404040; }
+.ui-dark .ui-listdetail-visible .ui-listdetail-resizer { background-color: #404040; }
+.ui-dark .ui-listdetail-visible .ui-listdetail-resizer:hover { background-color: #383838; }
+.ui-dark .ui-listdetail-resizing .ui-listdetail-resizer { background-color: #323232 !important; }

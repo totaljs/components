@@ -1,0 +1,19 @@
+{
+	"datecreated": "2022-06-24T11:56:00.000Z",
+	"dateupdated": null,
+	"name": "j-ListDetail",
+	"tags": [
+		"list",
+		"detail",
+		"layout"
+	],
+	"color": "transparent",
+	"darkmode": true,
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
