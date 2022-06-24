@@ -1,0 +1,15 @@
+{
+	"datecreated": "2022-06-24T12:16:00.000Z",
+	"dateupdated": null,
+	"name": "j-Watch",
+	"tags": [
+		"watch"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

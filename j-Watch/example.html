@@ -1,0 +1,19 @@
+<div data---="watch__common.value__exec:changedvalue"></div>
+
+<div class="padding">
+	<div class="help">Look on the <b>title</b></div>
+</div>
+
+<script>
+
+	var common = { value: 'init' };
+
+	setInterval(function() {
+		SET('common.value', new Date().format('HH:mm:ss'));
+	}, 1000);
+
+	function changedvalue(value, element, type, path) {
+		document.title = value;
+	}
+
+</script>
