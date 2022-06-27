@@ -7,6 +7,10 @@ This component sets current browser locale (number format, date format and time 
 - `path` will contain current's browser locale
 - sets `DEF.dateformat` and it creates environment value called `[ts]`
 
+__Configuration__:
+
+- `language {String}` optional, a custom language (default: `navigator.language`)
+
 __Environments__:
 
 - `[ts]` full timestamp

@@ -995,8 +995,13 @@ COMPONENT('locale', function(self, config) {
 	};
 
 	self.make = function() {
+
 		var language = navigator.language.toLowerCase();
-		!self.use(language) && !self.use(language.split('-')[0]) && config.language && self.use(config.language);
+		if (config.language)
+			self.use(config.language);
+		else if (!self.use(language))
+			self.use(language.split('-')[0]);
+
 	};
 
 });
