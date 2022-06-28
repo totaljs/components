@@ -5,7 +5,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 	var is = false, selectedindex = 0, resultscount = 0;
 	var templateE = '{{ name | encode | ui_directory_helper }}';
 	var templateR = '{{ name | raw }}';
-	var template = '<li data-index="{{ $.index }}" data-search="{{ $.search }}" {{ if selected }} class="current selected{{ if classname }} {{ classname }}{{ fi }}"{{ else if classname }} class="{{ classname }}"{{ fi }}>{{ if $.checkbox }}<span class="' + cls + '-checkbox"><i class="fa fa-check"></i></span>{{ fi }}{0}</li>';
+	var template = '<li data-index="{{ $.index }}" data-search="{{ $.search }}" class="{{ $.classes }}">{{ if $.checkbox }}<span class="' + cls + '-checkbox"><i class="fa fa-check"></i></span>{{ fi }}{0}</li>';
 	var templateraw = template.format(templateR);
 	var regstrip = /(&nbsp;|<([^>]+)>)/ig;
 	var parentclass = null;
@@ -24,7 +24,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 
 	self.readonly();
 	self.singleton();
-	self.nocompile && self.nocompile();
+	self.nocompile();
 
 	self.configure = function(key, value, init) {
 		if (init)
@@ -98,9 +98,15 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 
 		self.event('click', 'li', function(e) {
 
+			var el = $(this);
+			if (el.hclass('ui-disabled'))
+				return;
+
 			if (self.opt.callback) {
+
 				self.opt.scope && M.scope(self.opt.scope);
-				var item = self.opt.items[+this.getAttribute('data-index')];
+				var item = self.opt.items[+el.attrd('index')];
+
 				if (self.opt.checkbox) {
 					item.selected = !item.selected;
 
@@ -109,7 +115,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 					else
 						delete item.selectedts;
 
-					$(this).tclass('selected', item.selected);
+					el.tclass('selected', item.selected);
 
 					if (self.opt.checked) {
 						var tmpindex = self.opt.checked.indexOf(item.id);
@@ -182,6 +188,8 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 				case 13:
 					o = true;
 					var sel = self.find('li.current');
+					if (sel.hclass('ui-disabled'))
+						return;
 					if (self.opt.callback) {
 						self.opt.scope && M.scope(self.opt.scope);
 						var index = +sel.attrd('index');
@@ -488,6 +496,18 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 				if (opt.checked && item.selected)
 					opt.checked.push(item.id);
 
+				var c = '';
+
+				if (item.selected)
+					c += (c ? ' ' : 'selected current');
+
+				if (item.classname)
+					c += (c ? ' ' : item.classname);
+
+				if (item.disabled)
+					c += (c ? ' ' : 'ui-disabled');
+
+				indexer.classes = c;
 				indexer.checkbox = opt.checkbox === true;
 				indexer.index = i;
 				indexer.search = item[key] ? item[key].replace(regstrip, '') : '';

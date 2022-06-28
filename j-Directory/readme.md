@@ -46,9 +46,17 @@ Method: `component.hide()`
 __Configuration__:
 - `placeholder` - a placeholder for the search input
 
+__Supported item fields__:
+
+- `name {String}` a label name
+- `template {String}` optional, a custom Tangular template
+- `classname {String}` optional, adds additional classes into the `<li>` element
+- `disabled {Boolean}` optional, it can disable item
+- `selected {Boolean}` optional, it selects item
+
 __Formatting via Tangular__:
 
-```javascript
+```js
 var opt = {};
 opt.items = [];
 opt.push({ name: 'Total.js', template: '<b>{{ name }}</b>' });
@@ -56,7 +64,7 @@ opt.push({ name: 'Total.js', template: '<b>{{ name }}</b>' });
 
 __Formatting via custom function__:
 
-```javascript
+```js
 var opt = {};
 opt.items = [];
 opt.push({ name: 'Total.js' });
@@ -69,7 +77,7 @@ opt.render = function(item, name) {
 
 __Adding of custom class__:
 
-```javascript
+```js
 var opt = {};
 opt.items = [];
 opt.push({ name: 'Total.js', classname: 'your_class_name' });
@@ -77,7 +85,7 @@ opt.push({ name: 'Total.js', classname: 'your_class_name' });
 
 __Server-side searching__:
 
-```javascript
+```js
 
 var opt = {};
 
@@ -91,7 +99,7 @@ opt.callback = function(selected) {
 	console.log(selected);
 };
 
-SETTER('directory', 'show', opt);
+SETTER('directory/show', opt);
 ```
 
 __Good to know__:

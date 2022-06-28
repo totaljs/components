@@ -1,30 +1,27 @@
 .ui-directory-area { position: absolute; left: 0; top: 0; right: 0; bottom: 0; z-index: 99; }
 .ui-directory { position: absolute; opacity: 0; transition: 0.25s transform cubic-bezier(0.23, 1, 0.32, 1); left: -100; top: -100; z-index: 100; box-shadow: 0 1px 20px rgba(0,0,0,0.1); background-color: #FFF; border-radius: var(--radius); border: 1px solid #E0E0E0; overflow: hidden; transition: all 0.2s; }
-.ui-directory-search { height: 38px; background: #FFF; border-radius: var(--radius) var(--radius) 0 0; border-bottom: 1px solid #E0E0E0; line-height: 22px; }
-.ui-directory-search input { width: 100%; background-color: #FFF; border: 0; font-size: 12px; outline: 0; padding: 0; margin: 0; line-height: 16px; outline: 0; }
+.ui-directory-search { height: 42px; background: #FFF; border-radius: var(--radius) var(--radius) 0 0; border-bottom: 1px solid #E0E0E0; line-height: 26px; }
+.ui-directory-search input { width: 100%; background-color: #FFF; border: 0; font-size: 14px; outline: 0; padding: 0; margin: 0; line-height: 28px; outline: 0; }
 .ui-directory-search > div { margin: 0 30px 0 35px; padding: 6px 10px 0 0; line-height: 24px; }
-.ui-directory-search > span { float: left; width: 16px; text-align: center; padding: 8px 0 0 12px; font-size: 12px; }
+.ui-directory-search > span { float: left; width: 16px; text-align: center; padding: 7px 0 0 12px; font-size: 14px; }
 .ui-directory-add { float: right !important; padding-left: 0 !important; color: #83c83c; text-align: left !important; font-size: 11px !important; cursor: pointer; width: 22px !important; }
+.ui-directory .ui-disabled { color: #A0A0A0 !important; cursor: not-allowed; }
 .ui-directory-search .fa-times { color: red; cursor: pointer; }
 .ui-directory-visible { opacity: 1; }
-.ui-directory-container { height: 150px; overflow-x: hidden; overflow-y: auto; overflow-scrolling: touch; margin: 0 30px 0 0; padding: 0; }
+.ui-directory-container { height: 180px; overflow-x: hidden; overflow-y: auto; overflow-scrolling: touch; margin: 0 30px 0 0; padding: 0; }
 .ui-directory ul { list-style-type: none; margin: 0; padding: 0; }
 .ui-directory .selected { background-color: #F8F8F8; color: #000; }
 .ui-directory .current { background-color: #F2F2F2; color: #000; }
-.ui-directory-default li { padding: 0 40px 0 10px; height: 26px; line-height: 26px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
-.ui-directory li { border-bottom: 1px solid #F0F0F0; font-size: 12px; background-color: #FFF; cursor: pointer; margin: 0; }
-.ui-directory-checkbox { width: 16px; height: 16px; float: left; border: 1px solid #D0D0D0; border-radius: var(--radius); font-size: 10px; line-height: 16px; margin: 4px 6px 0 0; text-align: center; background-color: #FFF; }
+.ui-directory-default li { padding: 0 40px 0 10px; height: 32px; line-height: 32px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.ui-directory li { border-bottom: 1px solid #F0F0F0; font-size: 14px; background-color: #FFF; cursor: pointer; margin: 0; }
+.ui-directory-checkbox { width: 16px; height: 16px; float: left; border: 1px solid #D0D0D0; border-radius: var(--radius); font-size: 10px; line-height: 16px; margin: 8px 6px 0 0; text-align: center; background-color: #FFF; }
 .ui-directory-checkbox i { visibility: hidden; }
 .ui-directory .selected .ui-directory-checkbox { background-color: #4285F4; border-color: #4285F4; color: #FFF; }
 .ui-directory .selected .ui-directory-checkbox i { visibility: visible; }
 .ui-directory li:last-child { border-bottom: 0; }
 .ui-directory-search-hidden .ui-directory-search { height: 0; overflow: hidden; opacity: 0; }
 
-.jc-xs .ui-directory-default li { height: 34px; line-height: 34px; }
-.jc-xs .ui-directory li { font-size: 14px; }
-.jc-xs .ui-directory-search input { font-size: 14px; }
-.jc-xs .ui-directory-search > span { font-size: 14px; }
-
+.ui-dark .ui-directory .ui-disabled { color: #666 !important; }
 .ui-dark .ui-directory { background-color: #303030; border-color: #404040; box-shadow: 1px 5px 10px rgba(0,0,0,0.2); }
 .ui-dark .ui-directory-search { background: #303030; }
 .ui-dark .ui-directory li { background-color: #303030; border-color: #404040; }
