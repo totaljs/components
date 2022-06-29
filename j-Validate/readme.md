@@ -17,6 +17,7 @@ __Configuration__:
 - `validonly {Boolean}` skips `dirty` state (default: `false`)
 - __NEW__ `changes {Boolean}` enables comparing changes only between the input model and the form (default: `false`)
 - __NEW__ `strictchanges {Boolean}` enables strict comparing changes (otherwise `null`, `false`, `empty strings` and `0` values will be removed), default: `false`
+- __NEW__ `exec {String}` optional, a link to the `function(data)` that is executed when the model is validated and changed
 
 __Good to know__:
 

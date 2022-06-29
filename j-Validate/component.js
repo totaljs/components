@@ -6,6 +6,7 @@ COMPONENT('validate', 'delay:100;flags:visible;changes:0;strictchanges:0', funct
 	var tracked = false;
 	var reset = 0;
 	var old, track;
+	var currentvalue;
 
 	self.readonly();
 
@@ -42,6 +43,7 @@ COMPONENT('validate', 'delay:100;flags:visible;changes:0;strictchanges:0', funct
 
 	self.setter = function(value, path, type) {
 
+		currentvalue = value;
 		var is = path === self.path || path.length < self.path.length;
 
 		if (config.changes) {
@@ -88,6 +90,10 @@ COMPONENT('validate', 'delay:100;flags:visible;changes:0;strictchanges:0', funct
 			self.tclass(cls + '-no', disabled);
 			old = disabled;
 		}
+
+		if (!disabled && config.exec)
+			self.EXEC(config.exec, currentvalue);
+
 	};
 
 	self.state = function(type, what) {
