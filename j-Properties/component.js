@@ -50,7 +50,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 
 		self.on('resize + resize2', self.resize2);
 		self.resize();
-		self.scrollba && self.scrollbar.resize();
+		self.scrollbar && self.scrollbar.resize();
 
 		var keys = Object.keys(types);
 		for (var i = 0; i < keys.length; i++) {
@@ -85,6 +85,12 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 				self.find(cls2 + '-item[data-index="{0}"]'.format(i)).tclass('hidden', !is);
 			}
 		}
+
+		if (predefined) {
+			skip = true;
+			self.update(true);
+		}
+
 	};
 
 	self.register = function(name, init, render) {
@@ -520,17 +526,13 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 	self.bindvisible();
 
 	self.resize = function() {
-
-		var h = self.parent(config.parent).height() - config.margin;
-
-		if (prevh === h)
-			return;
-
-		prevh = h;
-
 		if (self.scrollbar) {
-			scroller.css('height', h);
-			self.scrollbar.resize();
+			var h = self.parent(config.parent).height() - config.margin;
+			if (prevh !== h) {
+				prevh = h;
+				scroller.css('height', h);
+				self.scrollbar.resize();
+			}
 		}
 	};
 
