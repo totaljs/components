@@ -7,11 +7,14 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 	var prevh = -1;
 	var skip = false;
 	var prefkey = 'jcproperties';
-	var values, funcs;
+	var values, funcs, predefined;
 
 	self.make = function() {
 
 		self.aclass(cls);
+		var scr = self.find('script')[0];
+		if (scr)
+			predefined = new Function('return (' + scr.innerHTML + ')')();
 
 		if (!$('#propertiesupload').length)
 			$(document.body).append('<input type="file" id="propertiesupload" />');
@@ -58,7 +61,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 
 	self.finditem = function(el) {
 		var index = +$(el).closest(cls2 + '-item').attrd('index');
-		return index >= 0 ? self.get()[index] : null;
+		return index >= 0 ? (predefined ? predefined[index] : self.get()[index]) : null;
 	};
 
 	self.findel = function(el) {
@@ -66,14 +69,21 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 	};
 
 	self.modifyval = function(item) {
+
 		values[item.name] = item.value;
+
 		var items = self.get();
-		for (var i = 0; i < items.length; i++) {
-			var item = items[i];
-			if (!item.show)
-				continue;
-			var is = funcs[item.name + '_show'](values);
-			self.find(cls2 + '-item[data-index="{0}"]'.format(i)).tclass('hidden', !is);
+		var arr = predefined || items;
+
+		if (predefined)
+			items[item.name] = item.value;
+
+		for (var i = 0; i < arr.length; i++) {
+			var item = arr[i];
+			if (item.show) {
+				var is = funcs[item.name + '_show'](values);
+				self.find(cls2 + '-item[data-index="{0}"]'.format(i)).tclass('hidden', !is);
+			}
 		}
 	};
 
@@ -263,7 +273,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 			var t = this;
 
 			if (e.type === 'change')
-				SETTER('!datepicker', 'hide');
+				SETTER('!datepicker/hide');
 
 			if (t.$processed)
 				return;
@@ -305,7 +315,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 				t.value = value.format(config.dateformat);
 				el.trigger('change');
 			};
-			SETTER('datepicker', 'show', opt);
+			SETTER('datepicker/show', opt);
 		});
 	};
 	types.date.render = function(item, next) {
@@ -372,7 +382,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 				self.change(true);
 				self.modifyval(item);
 			};
-			SETTER('directory', 'show', opt);
+			SETTER('directory/show', opt);
 		});
 	};
 
@@ -410,7 +420,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 				self.change(true);
 				self.modifyval(item);
 			};
-			SETTER('colorpicker', 'show', opt);
+			SETTER('colorpicker/show', opt);
 		});
 	};
 	types.color.render = function(item, next) {
@@ -436,7 +446,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 				self.modifyval(item);
 				self.change(true);
 			};
-			SETTER('faicons', 'show', opt);
+			SETTER('faicons/show', opt);
 		});
 	};
 	types.fontawesome.render = function(item, next) {
@@ -462,7 +472,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 				self.change(true);
 				self.modifyval(item);
 			};
-			SETTER('emoji', 'show', opt);
+			SETTER('emoji/show', opt);
 		});
 	};
 	types.emoji.render = function(item, next) {
@@ -486,15 +496,13 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 				var file = this;
 				var data = new FormData();
 				data.append('file', file.files[0]);
-				SETTER('loading', 'show');
+				SETTER('loading/show');
 				UPLOAD(item.url, data, function(response) {
 					item.value = response;
 					item.changed = item.prev !== item.value;
 					self.findel(t).tclass(cls + '-changed', item.changed);
-					config.change && self.EXEC(config.change, item, function(val) {
-						self.findel(cls2 + '-filename').text(val);
-					});
-					SETTER('loading', 'hide', 1000);
+					config.change && self.EXEC(config.change, item, val => self.findel(cls2 + '-filename').text(val));
+					SETTER('loading/hide', 1000);
 					file.value = '';
 					self.change(true);
 					self.modifyval(item);
@@ -535,6 +543,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 	};
 
 	self.render = function(item, index) {
+
 		var type = types[item.type === 'boolean' ? 'bool' : item.type];
 		var c = cls;
 
@@ -567,9 +576,16 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 		values = {};
 		funcs = {};
 
-		for (var i = 0; i < value.length; i++) {
-			var item = value[i];
+		var arr = predefined ? predefined : value;
+
+		for (var i = 0; i < arr.length; i++) {
+
+			var item = arr[i];
 			var g = item.group || 'Default';
+			var val = predefined ? value[item.name] : item.value;
+
+			if (predefined)
+				item.value = val;
 
 			item.invalid = false;
 
@@ -579,24 +595,24 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 			switch (item.type) {
 				case 'fontawesome':
 				case 'string':
-					item.prev = item.value || '';
+					item.prev = val || '';
 					break;
 				case 'date':
-					item.prev = item.value ? item.value.format(config.dateformat) : null;
+					item.prev = val ? val.format(config.dateformat) : null;
 					break;
 				// case 'number':
 				// case 'bool':
 				// case 'boolean':
 				// case 'list':
 				default:
-					item.prev = item.value;
+					item.prev = val;
 					break;
 			}
 
 			if (item.show)
 				funcs[item.name + '_show'] = typeof(item.show) === 'string' ? FN(item.show) : item.show;
 
-			values[item.name] = item.value;
+			values[item.name] = val;
 			groups[g].html.push(self.render(item, i));
 		}
 

@@ -68,6 +68,27 @@ __Missing types__:
 - `file`
 - `months`
 
+### Persistent mode
+
+```html
+<div data---="properties__form__parent:window">
+	<script type="text/html">
+		[
+			{ group: 'Personal', label: 'First name', name: 'firstname', type: 'string', transform: 'capitalize' },
+			{ group: 'Personal', label: 'Last name', name: 'lastname', type: 'string', placeholder: 'String' },
+			...
+			...
+			...
+			{ group: 'Additional', label: 'Emoji', name: 'emoji', type: 'emoji', show: 'n => n.age === 33' }
+		]
+	</script>
+</div>
+
+<script>
+	var form = { firstname: 'John', lastname: 'Connor' };
+</script>
+```
+
 ### Good to know
 
 The component extends the Array by adding:
