@@ -3,7 +3,7 @@
 - singleton
 - readonly
 
-The component automatically applies dark mode.
+The component automatically applies dark mode according to the operation system.
 
 __Configuration__:
 
