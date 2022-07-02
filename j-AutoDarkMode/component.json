@@ -1,0 +1,17 @@
+{
+	"datecreated": "2022-07-02T18:08:00.000Z",
+	"dateupdated": null,
+	"name": "j-AutoDarkMode",
+	"tags": [
+		"auto",
+		"darkmode"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": false,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

@@ -288,5 +288,6 @@
 	"j-DropFiles",
 	"j-Leaflet",
 	"j-ListDetail",
-	"j-Watch"
+	"j-Watch",
+	"j-AutoDarkMode"
 ]
