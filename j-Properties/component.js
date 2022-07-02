@@ -88,7 +88,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 
 		if (predefined) {
 			skip = true;
-			self.update(true);
+			self.update(true, 2);
 		}
 
 	};
