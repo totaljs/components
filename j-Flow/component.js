@@ -1096,30 +1096,35 @@ EXTENSION('flow:map', function(self, config, cls) {
 
 		var x = drag.x - e.pageX;
 		var y = drag.y - e.pageY;
-		var plusY = (y / drag.zoom) >> 0;
-		var plusX = (x / drag.zoom) >> 0;
 
 		if (drag.meta) {
 
+			x -= drag.left;
+			y -= drag.top;
+
 			if (x < 0) {
 				css.left = self.op.zoom(drag.x);
-				css.width = self.op.zoom((x * -1) - drag.offset.left);
+				css.width = self.op.zoom((x * -1) - drag.offset.left - drag.left);
 			} else {
-				css.left = self.op.zoom(drag.x - x - drag.offset.left);
+				css.left = self.op.zoom(drag.x - x - drag.offset.left - drag.left);
 				css.width = self.op.zoom(drag.x) - css.left;
 			}
 
 			if (y < 0) {
 				css.top = self.op.zoom(drag.y);
-				css.height = self.op.zoom((y * -1) - drag.offset.top);
+				css.height = self.op.zoom((y * -1) - drag.offset.top - drag.top);
 			} else {
-				css.top = self.op.zoom(drag.y - y - drag.offset.top);
+				css.top = self.op.zoom(drag.y - y - drag.offset.top - drag.top);
 				css.height = self.op.zoom(drag.y) - css.top;
 			}
 
 			self.el.selection.css(css);
 
 		} else if (drag.target[0]) {
+
+			var plusY = (y / drag.zoom) >> 0;
+			var plusX = (x / drag.zoom) >> 0;
+
 			drag.target[0].scrollLeft = drag.left + plusX;
 			drag.target[0].scrollTop = drag.top + plusY;
 		}
@@ -1215,17 +1220,26 @@ EXTENSION('flow:map', function(self, config, cls) {
 			drag.offset = self.getOffset();
 			drag.x = drag.x - drag.offset.left;
 			drag.y = drag.y - drag.offset.top;
+
+			if (target[0]) {
+				drag.top = drag.target[0].scrollTop;
+				drag.left = drag.target[0].scrollLeft;
+			}
+
 			css.left = self.op.zoom(drag.x);
 			css.top = self.op.zoom(drag.y);
 			css.width = 0;
 			css.height = 0;
+
 			self.el.selection.rclass('hidden').css(css);
 		} else {
+
 			if (!target[0]) {
 				target = et.closest('.ui-viewbox');
 				if (!target[0])
 					return;
 			}
+
 			drag.top = drag.target[0].scrollTop;
 			drag.left = drag.target[0].scrollLeft;
 		}
