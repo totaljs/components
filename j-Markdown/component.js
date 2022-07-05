@@ -620,7 +620,7 @@ COMPONENT('markdown', function (self) {
 					closeul();
 					iscode = true;
 					if (opt.code !== false)
-						tmp = '<div class="markdown-code hidden noscrollbar"><pre><code class="lang-' + lines[i].substring(3) + '">';
+						tmp = '<div class="markdown-code hidden"><pre class="noscrollbar"><code class="lang-' + lines[i].substring(3) + '">';
 					prev = 'code';
 					continue;
 				}
