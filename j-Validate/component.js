@@ -89,10 +89,10 @@ COMPONENT('validate', 'delay:100;flags:visible;changes:0;strictchanges:0', funct
 			self.tclass(cls + '-ok', !disabled);
 			self.tclass(cls + '-no', disabled);
 			old = disabled;
-			if (!old && config.exec)
-				self.EXEC(config.exec, currentvalue);
+			if (!old)
+				self.SEEX(config.exec, currentvalue);
+			config.output && self.SEEX(config.output, !disabled);
 		}
-
 
 	};
 
