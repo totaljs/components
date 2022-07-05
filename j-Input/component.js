@@ -140,7 +140,9 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				return;
 			}
 
-			if (config.tabs && e.tagName === 'TEXTAREA' && e.keyCode === 9) {
+			if (config.tabs && t.tagName === 'TEXTAREA' && e.keyCode === 9) {
+				t.setRangeText('\t', t.selectionStart, t.selectionEnd, 'end');
+				self.check();
 				e.preventDefault();
 				return;
 			}
