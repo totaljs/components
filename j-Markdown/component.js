@@ -214,173 +214,171 @@ COMPONENT('markdown', function (self) {
 
 		FUNC.markdownredraw = function(el, opt) {
 
-			if (!el)
-				el = opt.element ||  $('body');
-
 			if (!opt)
 				opt = EMPTYOBJECT;
 
+			if (!el)
+				el = opt.element ||  $('body');
+
+			var arr;
+
 			if (!opt.nosecret) {
-				el.find('.lang-secret').each(function() {
-					var t = this;
-					if (t.$mdloaded)
-						return;
-					t.$mdloaded = 1;
-					var el = $(t);
-					el.parent().replaceWith('<div class="markdown-secret" data-show="{0}" data-hide="{1}"><span class="markdown-showsecret"><i class="fa fa-lock"></i><i class="fa pull-right fa-angle-down"></i><b>{0}</b></span><div class="hidden">'.format(opt.showsecret || 'Show secret data', opt.hidesecret || 'Hide secret data') + el.html().trim().markdown(opt.secretoptions, true) +'</div></div>');
-				});
+				arr = el.find('.lang-secret');
+				for (var t of arr) {
+					if (!t.$mdloaded) {
+						t.$mdloaded = 1;
+						var el = $(t);
+						el.parent().replaceWith('<div class="markdown-secret" data-show="{0}" data-hide="{1}"><span class="markdown-showsecret"><i class="fa fa-lock"></i><i class="fa pull-right fa-angle-down"></i><b>{0}</b></span><div class="hidden">'.format(opt.showsecret || 'Show secret data', opt.hidesecret || 'Hide secret data') + el.html().trim().markdown(opt.secretoptions, true) +'</div></div>');
+					}
+				}
 			}
 
 			if (!opt.novideo) {
-				el.find('.lang-video').each(function() {
-					var t = this;
-					if (t.$mdloaded)
-						return;
-					t.$mdloaded = 1;
-					var el = $(t);
-					var html = el.html();
-					if (html.indexOf('youtube') !== -1)
-						el.parent().replaceWith('<div class="markdown-video"><iframe src="https://www.youtube.com/embed/' + html.split('v=')[1] + '" frameborder="0" allowfullscreen></iframe></div>');
-					else if (html.indexOf('vimeo') !== -1)
-						el.parent().replaceWith('<div class="markdown-video"><iframe src="//player.vimeo.com/video/' + html.substring(html.lastIndexOf('/') + 1) + '" frameborder="0" allowfullscreen></iframe></div>');
-				});
+				arr = el.find('.lang-video');
+				for (var t of arr) {
+					if (!t.$mdloaded) {
+						t.$mdloaded = 1;
+						var el = $(t);
+						var html = el.html();
+						if (html.indexOf('youtube') !== -1)
+							el.parent().replaceWith('<div class="markdown-video"><iframe src="https://www.youtube.com/embed/' + html.split('v=')[1] + '" frameborder="0" allowfullscreen></iframe></div>');
+						else if (html.indexOf('vimeo') !== -1)
+							el.parent().replaceWith('<div class="markdown-video"><iframe src="//player.vimeo.com/video/' + html.substring(html.lastIndexOf('/') + 1) + '" frameborder="0" allowfullscreen></iframe></div>');
+					}
+				}
 			}
 
 			if (!opt.nochart) {
-				el.find('.lang-barchart').each(function() {
+				arr = el.find('.lang-barchart');
+				for (var t of arr) {
+					if (!t.$mdloaded) {
+						t.$mdloaded = 1;
+						var el = $(t);
+						var arr = el.html().split('\n').trim();
+						var series = [];
+						var categories = [];
+						var y = '';
 
-					var t = this;
-					if (t.$mdloaded)
-						return;
-
-					t.$mdloaded = 1;
-					var el = $(t);
-					var arr = el.html().split('\n').trim();
-					var series = [];
-					var categories = [];
-					var y = '';
-
-					for (var i = 0; i < arr.length; i++) {
-						var line = arr[i].split('|').trim();
-						for (var j = 1; j < line.length; j++) {
-							if (i === 0)
-								series.push({ name: line[j], data: [] });
+						for (var i = 0; i < arr.length; i++) {
+							var line = arr[i].split('|').trim();
+							for (var j = 1; j < line.length; j++) {
+								if (i === 0)
+									series.push({ name: line[j], data: [] });
+								else
+									series[j - 1].data.push(+line[j]);
+							}
+							if (i)
+								categories.push(line[0]);
 							else
-								series[j - 1].data.push(+line[j]);
+								y = line[0];
 						}
-						if (i)
-							categories.push(line[0]);
-						else
-							y = line[0];
+
+						var options = {
+							chart: {
+								height: 300,
+								type: 'bar',
+							},
+							yaxis: { title: { text: y }},
+							series: series,
+							xaxis: { categories: categories, },
+							fill: { opacity: 1 },
+						};
+
+						var chart = new W.ApexCharts(el.parent().empty()[0], options);
+						chart.render();
 					}
+				}
 
-					var options = {
-						chart: {
-							height: 300,
-							type: 'bar',
-						},
-						yaxis: { title: { text: y }},
-						series: series,
-						xaxis: { categories: categories, },
-						fill: { opacity: 1 },
-					};
+				arr = el.find('.lang-linechart');
+				for (var t of arr) {
+					if (!t.$mdloaded) {
 
-					var chart = new ApexCharts($(this).parent().empty()[0], options);
-					chart.render();
-				});
+						t.$mdloaded = 1;
 
-				el.find('.lang-linechart').each(function() {
+						if (!W.ApexCharts)
+							return;
 
-					var t = this;
-					if (t.$mdloaded)
-						return;
+						var el = $(t);
+						var arr = el.html().split('\n').trim();
+						var series = [];
+						var categories = [];
+						var y = '';
 
-					t.$mdloaded = 1;
-
-					if (!W.ApexCharts)
-						return;
-
-					var el = $(t);
-					var arr = el.html().split('\n').trim();
-					var series = [];
-					var categories = [];
-					var y = '';
-
-					for (var i = 0; i < arr.length; i++) {
-						var line = arr[i].split('|').trim();
-						for (var j = 1; j < line.length; j++) {
-							if (i === 0)
-								series.push({ name: line[j], data: [] });
+						for (var i = 0; i < arr.length; i++) {
+							var line = arr[i].split('|').trim();
+							for (var j = 1; j < line.length; j++) {
+								if (i === 0)
+									series.push({ name: line[j], data: [] });
+								else
+									series[j - 1].data.push(+line[j]);
+							}
+							if (i)
+								categories.push(line[0]);
 							else
-								series[j - 1].data.push(+line[j]);
+								y = line[0];
 						}
-						if (i)
-							categories.push(line[0]);
-						else
-							y = line[0];
+
+						var options = {
+							chart: {
+								height: 300,
+								type: 'line',
+							},
+							yaxis: { title: { text: y }},
+							series: series,
+							xaxis: { categories: categories, },
+							fill: { opacity: 1 },
+						};
+
+						var chart = new W.ApexCharts(el.parent().empty()[0], options);
+						chart.render();
 					}
-
-					var options = {
-						chart: {
-							height: 300,
-							type: 'line',
-						},
-						yaxis: { title: { text: y }},
-						series: series,
-						xaxis: { categories: categories, },
-						fill: { opacity: 1 },
-					};
-
-					var chart = new ApexCharts($(this).parent().empty()[0], options);
-					chart.render();
-				});
+				}
 			}
 
 			if (!opt.noiframe) {
-				el.find('.lang-iframe').each(function() {
+				arr = el.find('.lang-iframe');
+				for (var t of arr) {
+					if (!t.$mdloaded) {
+						t.$mdloaded = 1;
+						var el = $(t);
+						el.parent().replaceWith('<div class="markdown-iframe">' + el.html().replace(/&lt;/g, '<').replace(/&gt;/g, '>') + '</div>');
+					}
+				}
+			}
 
-					var t = this;
-					if (t.$mdloaded)
-						return;
+			if (!opt.nocode && W.hljs) {
+				arr = el.find('.markdown-code');
+				for (var t of arr) {
+					if (!t.$mdloaded) {
+						t.$mdloaded = 1;
+						var sub = $(t).find('pre code');
+						for (var block of sub)
+							W.hljs.highlightBlock(block);
+					}
+				}
+			}
+
+			arr = el.find('a');
+
+			for (var t of arr) {
+				if (!t.$mdloaded) {
 					t.$mdloaded = 1;
-
 					var el = $(t);
-					el.parent().replaceWith('<div class="markdown-iframe">' + el.html().replace(/&lt;/g, '<').replace(/&gt;/g, '>') + '</div>');
-				});
+					var href = el.attr('href');
+					var c = href.substring(0, 1);
+					if (href === '#') {
+						var beg = '';
+						var end = '';
+						var text = el.html();
+						if (text.substring(0, 1) === '<')
+							beg = '-';
+						if (text.substring(text.length - 1) === '>')
+							end = '-';
+						el.attr('href', '#' + (beg + markdown_id(el.text()) + end));
+					} else if (c !== '/' && c !== '#')
+						el.attr('target', '_blank');
+				}
 			}
-
-			if (!opt.nocode) {
-				el.find('.markdown-code').each(function() {
-					var t = this;
-					if (t.$mdloaded)
-						return;
-					t.$mdloaded = true;
-					W.hljs && $(this).find('pre code').each(function(i, block) {
-						W.hljs.highlightBlock(block);
-					});
-				});
-			}
-
-			el.find('a').each(function() {
-				var t = this;
-				if (t.$mdloaded)
-					return;
-				t.$mdloaded = 1;
-				var el = $(t);
-				var href = el.attr('href');
-				var c = href.substring(0, 1);
-				if (href === '#') {
-					var beg = '';
-					var end = '';
-					var text = el.html();
-					if (text.substring(0, 1) === '<')
-						beg = '-';
-					if (text.substring(text.length - 1) === '>')
-						end = '-';
-					el.attr('href', '#' + (beg + markdown_id(el.text()) + end));
-				} else if (c !== '/' && c !== '#')
-					el.attr('target', '_blank');
-			});
 
 			EMIT('markdown', el, opt);
 			el.find('.markdown-code').rclass('hidden');
@@ -873,4 +871,4 @@ COMPONENT('markdown', function (self) {
 
 	})();
 
-}, ['https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css']);
+});
