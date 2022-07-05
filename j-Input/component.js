@@ -1,4 +1,4 @@
-COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:id;increment:1;autovalue:name;direxclude:false;checkicon:fa fa-check;forcevalidation:1;searchalign:1;height:80;after:\\:', function(self, config, cls) {
+COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:id;increment:1;autovalue:name;direxclude:false;checkicon:fa fa-check;forcevalidation:1;searchalign:1;height:80;tabs:1;after:\\:', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var input, placeholder, dirsource, binded, customvalidator, mask, rawvalue, isdirvisible = false, nobindcamouflage = false, focused = false;
@@ -137,6 +137,11 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					e.preventDefault();
 					e.stopPropagation();
 				}
+				return;
+			}
+
+			if (config.tabs && e.tagName === 'TEXTAREA' && e.keyCode === 9) {
+				e.preventDefault();
 				return;
 			}
 

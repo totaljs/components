@@ -56,6 +56,7 @@ __Configuration__:
 - `monospace {Boolean}` enables `monospaced` font (default: `false`)
 - `multiple {Boolean}` enables checkboxes if `dirsource` is not empty
 - __NEW__ `tabindex {Number}` adds a tabindex (default: `0`)
+- __NEW__ `tabs {Boolean}` enables tabs for multiline (default: `true`)
 
 __Interesting:__
 
