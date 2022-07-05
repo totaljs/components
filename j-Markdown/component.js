@@ -871,4 +871,4 @@ COMPONENT('markdown', function (self) {
 
 	})();
 
-});
+}, ['https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css']);
