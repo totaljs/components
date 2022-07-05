@@ -1224,8 +1224,6 @@ EXTENSION('flow:map', function(self, config, cls) {
 		// 		return;
 		// }
 
-		console.log(target);
-
 		if (drag.meta) {
 			drag.offset = self.getOffset();
 			drag.x = drag.x - drag.offset.left;
