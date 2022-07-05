@@ -1214,7 +1214,17 @@ EXTENSION('flow:map', function(self, config, cls) {
 		drag.zoom = self.info.zoom / 100;
 		drag.x = evt.pageX;
 		drag.y = evt.pageY;
+		drag.left = 0;
+		drag.top = 0;
 		drag.meta = evt.metaKey || e.metaKey || evt.ctrlKey || e.ctrlKey;
+
+		// if (!target[0]) {
+		// 	target = et.closest('.ui-viewbox');
+		// 	if (!target[0])
+		// 		return;
+		// }
+
+		console.log(target);
 
 		if (drag.meta) {
 			drag.offset = self.getOffset();
@@ -1232,14 +1242,7 @@ EXTENSION('flow:map', function(self, config, cls) {
 			css.height = 0;
 
 			self.el.selection.rclass('hidden').css(css);
-		} else {
-
-			if (!target[0]) {
-				target = et.closest('.ui-viewbox');
-				if (!target[0])
-					return;
-			}
-
+		} else if (drag.target[0]) {
 			drag.top = drag.target[0].scrollTop;
 			drag.left = drag.target[0].scrollLeft;
 		}
