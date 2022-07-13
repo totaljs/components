@@ -608,8 +608,17 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 	self.setterin = self.setter;
 
 	self.setter = function(value, path, type) {
-
-		if (config.mask) {
+		
+		if (config.autotitle) {
+			if (config.dirsource && value) {
+				var _source = GET(config.dirsource);
+				var _id = config.dirvalue || 'id';
+				var _dirkey = config.dirkey || 'name';
+				var _obj = _source.find(x => x[_id] == value);
+				var _value = _obj[_dirkey];
+				self.element[0].title = _value;
+			}
+		} else if (config.mask) {
 			if (value) {
 
 				if (config.masktidy) {
