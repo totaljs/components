@@ -1,5 +1,6 @@
 .ui-input { position: relative; font-size: 13px; }
-.ui-input textarea { tab-size: 2; }
+.ui-input textarea { tab-size: 2; overflow-y: scroll; -ms-overflow-style: none; scrollbar-width: none; }
+.ui-input textarea:::-webkit-scrollbar { display: none; }
 .ui-input-required .ui-input-control { border-color: #D0D0D0; }
 .ui-input-label { margin-bottom: 3px; font-size: 12px; color: #777; }
 .ui-input-label i { margin-right: 4px; }
