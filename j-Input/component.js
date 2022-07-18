@@ -880,13 +880,19 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				case 'email':
 					return (value + '').toLowerCase();
 				case 'date':
+					var format = config.format;
+					if (format === 'auto')
+						format = '';
 					return value.format(config.format || DEF.dateformat || 'yyyy-MM-dd');
 				case 'time':
+					var format = config.format;
+					if (format === 'auto')
+						format = '';
 					return value.format(config.format || 'HH:mm');
 				case 'number':
-					return config.format ? value.format(config.format) : value;
+					return config.format ? (config.format === 'auto' ? value.format() : value.format(config.format)) : value;
 				case 'number2':
-					return value == null ? '' : config.format ? value.format(config.format) : value;
+					return value == null ? '' : config.format ? (config.format === 'auto' ? value.format() : value.format(config.format)) : value;
 			}
 		}
 

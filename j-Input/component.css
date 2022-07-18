@@ -46,7 +46,7 @@
 .ui-input-increment i:first-child { margin-left: 0; }
 
 .ui-input-required.ui-input-inner .ui-input-label:after { content: '*'; color: red; margin-left: 3px; }
-.ui-input-inner { background-color: #F5F5F5; border: 1px solid #E5E5E5; padding: 10px; width: 100%; border-radius: var(--radius); }
+.ui-input-inner { background-color: #F5F5F5; border: 1px solid #E5E5E5; padding: 10px 5px 10px 10px; width: 100%; border-radius: var(--radius); }
 .ui-input-inner .ui-input-increment { padding-top: 2px; color: #777; }
 .ui-input-inner .ui-input-label { height: 18px; margin: 0; color: #6A7280; font-weight: bold; }
 .ui-input-inner .ui-input-placeholder { color: #9DA4B0; }
