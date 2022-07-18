@@ -883,12 +883,12 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					var format = config.format;
 					if (format === 'auto')
 						format = '';
-					return value.format(config.format || DEF.dateformat || 'yyyy-MM-dd');
+					return value.format(format || DEF.dateformat || 'yyyy-MM-dd');
 				case 'time':
 					var format = config.format;
 					if (format === 'auto')
 						format = '';
-					return value.format(config.format || 'HH:mm');
+					return value.format(format || 'HH:mm');
 				case 'number':
 					return config.format ? (config.format === 'auto' ? value.format() : value.format(config.format)) : value;
 				case 'number2':
