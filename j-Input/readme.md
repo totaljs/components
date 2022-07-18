@@ -23,7 +23,7 @@ __Configuration__:
 - `maxvalue {Number}` optional, a maximal value for `number` type
 - `increment {Number}` optional, sets a value for incrementing (default: `1`)
 - `validate {String}` optional, a condition for validating of value, can contain a link to `function(value)` or `!!value.match(/[a-z]+/)`
-- `format {String}` optional, output formatting e.g. for `date` type: `yyyy-MM-dd`, for `time` type: `HH:mm`, for `number` you can define max. decimals
+- `format {String}` optional, output formatting e.g. for `date` type: `yyyy-MM-dd`, for `time` type: `HH:mm`, for `number` you can define max. decimals (Default: `auto`)
 - `disabled {Boolean}` optional, disables this component
 - `error {String}` optional, adds a `string` text under the component
 - `autocomplete {String}` optional, needs to contain a link to a function, is triggered on `focus` event
