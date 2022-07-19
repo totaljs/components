@@ -14,6 +14,9 @@ __Configuration__:
 
 - `dateformat {String}` a default format for parsing dates (default: `yyyy-MM-dd`)
 - __NEW__: `exec {String}` optional, a default path to `function(opt, accept(boolean/html_value_for_the_element))`
+- `floating {Boolean}` optional, can enables floating by default (default: `false`)
+- `minwidth {Number}` optional, a min width
+
 
 ---
 
@@ -33,6 +36,7 @@ __Configuration__:
 - `offsetX {Number}` optional, additional X offset for the floating window
 - `offsetY {Number}` optional, additional Y offset for the floating window
 - `offsetWidth {Number}` optional, additional width for the floating window
+- `width {Number}` optional, a fixed width for floating panel
 - `parent {String}` optional, a selector for obtaining of offset (can contain `parent` or jQuery selector for `.closest()` method)
 - `selectall {Boolean}` optional, selects all text
 - `cursor {String}` optional, a cursor position `beg` or `end` (default)
