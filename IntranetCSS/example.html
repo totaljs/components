@@ -1,6 +1,7 @@
 <style>
 	.ui-breadcrumb .toolbar { margin: 9px 0 0; float: right; }
 	.ui-breadcrumb button { height: 22px; line-height: 20px; min-width: 60px; }
+	.monospace { margin-bottom: 5px; }
 </style>
 
 <div class="padding">
@@ -8,8 +9,10 @@
 	<div class="row">
 		<div class="col-sm-6">
 
+			<div class="monospace fs11">&lt;p&gt;</div>
 			<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat, eaque tenetur quo reiciendis impedit rerum, similique veniam consequuntur aliquam soluta?</p>
 
+			<div class="monospace fs11">.badge.badge-color</div>
 			<div>
 				<span class="badge">Badge</span>
 				<span class="badge badge-red">Badge</span>
@@ -25,6 +28,7 @@
 				<label>Key/Value</label>
 			</div>
 
+			<div class="monospace fs11">.keyvalue > span + div</div>
 			<div class="keyvalue">
 				<span>Key</span>
 				<div class="right"><i class="fa fa-home"></i>Value</div>
@@ -34,6 +38,7 @@
 				<div class="right">Value</div>
 			</div>
 			<hr />
+			<div class="monospace fs11">.keyvalue.small > span + div</div>
 			<div class="keyvalue small">
 				<span><i class="fa fa-key"></i>Key</span>
 				<div>Value</div>
@@ -51,6 +56,7 @@
 			</div>
 			<br />
 
+			<div class="monospace fs11">.nav > nav</div>
 			<div class="nav">
 				<nav>
 					<label>Navigation</label>
@@ -61,7 +67,9 @@
 			</div>
 
 			<br />
+			<br />
 
+			<div class="monospace fs11">.panel > label + div.padding</div>
 			<div class="panel">
 				<div class="toolbar">
 					<button><i class="fa fa-plus-circle green"></i>Add</button>
@@ -73,19 +81,9 @@
 			</div>
 
 			<br />
-
-			<div class="panel">
-				<div class="toolbar">
-					<button disabled><i class="fa fa-plus-circle"></i>Add</button>
-				</div>
-				<label class="bg-smoke">Label</label>
-				<div class="padding">
-					Total.js Platform
-				</div>
-			</div>
-
 			<br />
 
+			<div class="monospace fs11 nmb">.caption > label</div>
 			<div class="caption">
 				<div class="toolbar">
 					<button disabled><i class="fa fa-plus-circle"></i>Add</button>
@@ -94,7 +92,9 @@
 			</div>
 
 			<br />
+			<br />
 
+			<div class="monospace fs11">.iconmenu > div > i + span</div>
 			<div class="iconmenu">
 				<div class="selected">
 					<i class="fa fa-home"></i>
@@ -114,15 +114,36 @@
 				</div>
 			</div>
 
+			<br />
+			<br />
+
+			<div class="monospace fs11">.detail > figure > span + div</div>
+			<div class="detail">
+				<figure>
+					<span>Key</span>
+					<div>Value</div>
+				</figure>
+				<figure>
+					<span>Key</span>
+					<div>Value</div>
+				</figure>
+				<figure>
+					<span>Key</span>
+					<div>Value</div>
+				</figure>
+			</div>
+
 		</div>
 		<div class="col-sm-6">
 
+			<div class="monospace fs11">.message.message-color</div>
 			<div class="message"><i class="fa fa-warning"></i>Some success message</div>
 			<div class="message message-error"><i class="fa fa-warning"></i>Some error message</div>
 			<div class="message message-alert"><i class="fa fa-warning"></i>Some error message</div>
 			<div class="message message-success"><i class="fa fa-warning"></i>Some error message</div>
 
 			<br />
+			<div class="monospace fs11">.configuration > section > label + article</div>
 			<div class="configuration">
 
 				<section>
@@ -159,6 +180,7 @@
 				<label>Listing 1</label>
 			</div>
 
+			<div class="monospace fs11">.listing > figure > section</div>
 			<div class="listing">
 				<figure>
 					<section>
@@ -182,6 +204,7 @@
 				<label>Listing 2</label>
 			</div>
 
+			<div class="monospace fs11">.listing2 > figure > section</div>
 			<div class="listing2">
 				<figure>
 					<section>
@@ -202,6 +225,7 @@
 
 			<br />
 
+			<div class="monospace fs11">.toolbar > button</div>
 			<div class="toolbar">
 				<button><i class="fa fa-plus-circle"></i>Add</button>
 				<button><i class="fa fa-pencil"></i>Edit</button>
@@ -210,6 +234,7 @@
 
 			<br />
 
+			<div class="monospace fs11">.toolbar.toolbar-bg > button</div>
 			<div class="toolbar toolbar-bg">
 				<div class="pull-right">
 					<button><i class="fa fa-cog"></i>Options</button>

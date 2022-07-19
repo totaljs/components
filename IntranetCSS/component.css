@@ -152,3 +152,11 @@ p { font-size: 13px; color: #777; margin: 0 0 15px 0; }
 
 .ui-dark .iconmenu > div.selected { background-color: rgba(255,255,255,0.1); }
 .ui-dark .iconmenu > div { border-color: #404040; }
+
+.detail figure { min-height: 35px; padding: 8px 0 5px; border-top: 1px solid #E0E0E0; font-size: 13px; }
+.detail figure > p { margin: 0 0 20px; }
+.detail figure:first-child { border-top: 0; }
+.detail figure > span { float: left; width: 140px; color: #777; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; padding-right: 5px; }
+.detail figure > span i { width: 14px; margin-right: 5px; text-align: center; }
+.detail figure > div { margin-left: 150px; }
+.ui-dark .detail figure { border-top-color: #404040; }
