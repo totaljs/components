@@ -13,6 +13,7 @@ COMPONENT('imageuploader', function(self) {
 		tmpresponse = [];
 		tmperror = [];
 
+		// opt.files optional
 		// opt.width
 		// opt.height
 		// opt.url
@@ -22,9 +23,19 @@ COMPONENT('imageuploader', function(self) {
 		// opt.quality
 		// opt.multiple
 
-		self.find('input').prop('multiple', !!opt.multiple);
 		self.opt = opt;
-		input.click();
+
+		if (opt.files) {
+			SETTER('loading/show');
+			queue = [];
+			for (var i = 0; i < opt.files.length; i++)
+				queue.push(opt.files[i]);
+			self.wait();
+		} else {
+			self.find('input').prop('multiple', !!opt.multiple);
+			input.click();
+		}
+
 	};
 
 	var resizewidth = function(w, h, size) {
@@ -116,11 +127,12 @@ COMPONENT('imageuploader', function(self) {
 		input = self.find('input');
 		self.event('change', 'input', function() {
 			SETTER('loading/show');
+			var t = this;
 			queue = [];
-			for (var i = 0; i < this.files.length; i++)
-				queue.push(this.files[i]);
+			for (var i = 0; i < t.files.length; i++)
+				queue.push(t.files[i]);
 			self.wait();
-			this.value = '';
+			t.value = '';
 		});
 	};
 

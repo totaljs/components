@@ -14,6 +14,10 @@ __Methods__:
 	- `opt.quality {Number}` default `90`
 	- `opt.callback(response, errors)` a callback __important__
 	- `opt.keeporiginal {Boolean}` keeps the original image if the dimension is the same as the width/height defined in the configuration (default: `false`)
+	- __NEW__ `opt.files` {FileList} optional (if you use e.g Drag & Drop)
+
+__Friendly components__:
+This component works with `loading` when the file is uploading.
 
 ### Author
 
