@@ -13,9 +13,9 @@ __Good to know__:
 __Configuration__:
 
 - `dateformat {String}` a default format for parsing dates (default: `yyyy-MM-dd`)
-- __NEW__: `exec {String}` optional, a default path to `function(opt, accept(boolean/html_value_for_the_element))`
-- `floating {Boolean}` optional, can enables floating by default (default: `false`)
-- `minwidth {Number}` optional, a min width
+- `exec {String}` optional, a default path to `function(opt, accept(boolean/html_value_for_the_element))`
+- __NEW__ `floating {Boolean}` optional, can enables floating by default (default: `false`)
+- __NEW__ `minwidth {Number}` optional, a min width
 
 
 ---
