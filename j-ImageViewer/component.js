@@ -1,4 +1,4 @@
-COMPONENT('imageviewer', 'selector:.img-viewer;container:body;loading:1', function(self, config, cls) {
+COMPONENT('imageviewer', 'selector:.img-viewer;container:body;loading:1;unknown:Unknown image', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var isclosed = false;
@@ -42,8 +42,9 @@ COMPONENT('imageviewer', 'selector:.img-viewer;container:body;loading:1', functi
 	self.nocompile && self.nocompile();
 
 	self.make = function() {
+
 		self.aclass(cls + ' hidden');
-		self.append('<div class="{0}-header"><button name="close"><i class="fa fa-times"></i></button><div><b>Name</b><div class="help">Dimension</div></div></div><div class="{0}-loading hidden"><div></div></div><div class="{0}-buttons"><button name="prev"><i class="fa fa-arrow-left"></i></button><button name="next"><i class="fa fa-arrow-right"></i></button></div><div class="{0}-viewer"><div class="{0}-cell"><img /></div></div>'.format(cls));
+		self.append('<div class="{0}-header"><button name="close"><i class="fa fa-times"></i></button><div><b></b><div class="help"></div></div></div><div class="{0}-loading hidden"><div></div></div><div class="{0}-buttons"><button name="prev"><i class="fa fa-arrow-left"></i></button><button name="next"><i class="fa fa-arrow-right"></i></button></div><div class="{0}-viewer"><div class="{0}-cell"><img /></div></div>'.format(cls));
 		self.resize();
 
 		self.on('resize2', self.resize);
@@ -67,6 +68,11 @@ COMPONENT('imageviewer', 'selector:.img-viewer;container:body;loading:1', functi
 		self.find('img').on('load', function() {
 			isrendering = false;
 			self.loading(false);
+		});
+
+		self.event('click', cls2 + '-buttons', function(e) {
+			if (e.target === this)
+				self.close();
 		});
 	};
 
@@ -163,7 +169,7 @@ COMPONENT('imageviewer', 'selector:.img-viewer;container:body;loading:1', functi
 			events.bind();
 			self.find('img').attr('src', img.src).attr('width', w).attr('height', h);
 			self.find('.help').html(img.width + 'x' + img.height + 'px');
-			self.find('b').html(el.attr('alt') || el.attr('title') || 'Unknown image');
+			self.find('b').html(el.attr('alt') || el.attr('title') || config.unknown);
 			self.rclass('hidden');
 			$('html,body').aclass(cls + '-noscroll');
 		};
