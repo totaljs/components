@@ -7,6 +7,7 @@
 __Configuration__:
 
 - `exec {String}` a link to the `function(files, e)`
+- __NEW__: `check {String}` optional, a link to the `function(e)` that must return `true` (allows drag&drop) or `false` (disallow)
 
 ### Author
 

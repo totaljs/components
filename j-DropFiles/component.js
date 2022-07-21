@@ -7,12 +7,14 @@ COMPONENT('dropfiles', function(self, config, cls) {
 	var has = false;
 	var is = false;
 	var events = 'dragenter dragover dragexit drop dragleave';
+	var check = null;
 
 	var hide = function() {
 		is = false;
 		self.rclass(cls + '-visible');
 		config.class && has && self.rclass('over');
 		has = false;
+		check = null;
 	};
 
 	self.destroy = function() {
@@ -25,7 +27,16 @@ COMPONENT('dropfiles', function(self, config, cls) {
 		$(W).on(events, self.filehandler);
 	};
 
-	self.filehandler = function (e) {
+	self.filehandler = function(e) {
+
+		if (config.check) {
+			if (!check)
+				check = GET(self.makepath(config.check));
+			if (check && !check(e)) {
+				hide();
+				return;
+			}
+		}
 
 		if (config.disabled)
 			return;
