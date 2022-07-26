@@ -15,7 +15,7 @@ COMPONENT('display', 'delay:100', function(self, config, cls) {
 		var size = WIDTH(self.element);
 		if (!prev || prev.substring(3) !== size) {
 			prev && self.rclass(prev);
-			prev = 'jc-' + size;
+			prev = (M.version < 19 ? 'jc-' : 'd-') + size;
 			self.aclass(prev);
 			self.path && self.set(size);
 			if (!initialized) {
