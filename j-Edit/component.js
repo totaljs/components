@@ -24,6 +24,12 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 		if (opt.type === 'date' && !opt.format)
 			opt.format = config.dateformat;
 
+		if (opt.offsetX == null)
+			opt.offsetX = config.offsetX;
+
+		if (opt.offsetY == null)
+			opt.offsetY = config.offsetY;
+
 		if (opt.floating == null)
 			opt.floating = config.floating;
 

@@ -16,7 +16,8 @@ __Configuration__:
 - `exec {String}` optional, a default path to `function(opt, accept(boolean/html_value_for_the_element))`
 - __NEW__ `floating {Boolean}` optional, can enables floating by default (default: `false`)
 - __NEW__ `minwidth {Number}` optional, a min width
-
+- __NEW__ `offsetX {Number}` optional, X offset
+- __NEW__ `offsetY {Number}` optional, Y offset
 
 ---
 
