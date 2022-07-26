@@ -211,7 +211,7 @@ COMPONENT('rawinput', 'type:text', function(self, config, cls) {
 	};
 
 	self.setter = function(value) {
-		input.value = value == null ? '' : (value + '');
+		input.value = self.formatter(value == null ? '' : value);
 	};
 
 	self.state = function(type) {
