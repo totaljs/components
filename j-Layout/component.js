@@ -562,6 +562,8 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 
 		self.element.SETTER('*/resize');
 
+		config.resize && self.EXEC(config.resize, WIDTH(), width, height);
+
 		if (loaded == false) {
 			loaded = true;
 			self.rclass('invisible');
