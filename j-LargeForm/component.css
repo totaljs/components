@@ -3,7 +3,7 @@
 .ui-largeform { background-color: #FFF; border-radius: 3px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transform: scale(0); transition: all 0.15s; opacity: 0; text-align: left; position: relative; margin: 0 auto; }
 .ui-largeform-animate { transform: scale(1); opacity: 1; }
 /*.ui-largeform-animate-click { transform: skewX(-2deg); }*/
-.ui-largeform-title { padding: 0 var(--gap); line-height: 57px; font-size: 18px; user-select: none; color: #000; background-color: #FFF; border-bottom: 1px solid #E0E0E0; height: 58px; border-radius: 3px 3px 0 0; }
+.ui-largeform-title { padding: 0 10px 0 var(--gap); line-height: 57px; font-size: 18px; user-select: none; color: #000; background-color: #FFF; border-bottom: 1px solid #E0E0E0; height: 58px; border-radius: 3px 3px 0 0; }
 .ui-largeform-title .ui-largeform-button-close { float: right; cursor: pointer; font-size: 18px; margin: 1px 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; width: 20px; padding: 0; }
 .ui-largeform-title .ui-largeform-button-close:hover { transform: scale(1.1); }
 .ui-largeform-title > span { font-weight: bold; }
