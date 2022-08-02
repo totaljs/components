@@ -1,4 +1,4 @@
-COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timeformat:HH:mm;modalalign:center;style:1;validation:1;encodenotes:1', function(self, config, cls) {
+COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timeformat:HH:mm;modalalign:center;style:1;validation:1;encodenotes:1;defaultgroup:Default', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var container;
@@ -8,7 +8,6 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	var values, funcs, datasource, rendered = false;
 
 	self.nocompile();
-	self.bindvisible();
 
 	self.validate = function(value) {
 		if (config.validation && value && value.length) {
@@ -856,7 +855,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 		for (var i = 0; i < items.length; i++) {
 			var item = items[i];
-			var g = item.group || 'Default';
+			var g = item.group || config.defaultgroup;
 			var val = datasource ? value[item.name] : item.value;
 
 			item.invalid = false;
