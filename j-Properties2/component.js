@@ -10,10 +10,13 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	self.nocompile();
 
 	self.validate = function(value) {
-		if (config.validation && value && value.length) {
-			for (var i = 0; i < value.length; i++) {
-				if (value[i].invalid)
-					return false;
+		if (config.validation && value) {
+			var arr = value instanceof Array ? value : datasource;
+			if (arr && arr.length) {
+				for (var item of arr) {
+					if (item.invalid)
+						return false;
+				}
 			}
 		}
 		return true;
@@ -783,7 +786,8 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 	self.render = function(item, index) {
 
-		var type = types[item.type === 'boolean' ? 'bool' : item.type];
+		var typename = item.type === 'boolean' ? 'bool' : item.type;
+		var type = types[typename];
 		var c = cls;
 
 		if (item.show) {
@@ -894,7 +898,8 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			} else {
 				if (!item.element)
 					item.element = self.find(cls2 + '-item[data-index="{0}"]'.format(i));
-				types[item.type].set(item.element, val, item);
+				var typename = item.type === 'boolean' ? 'bool' : item.type;
+				types[typename].set(item.element, val, item);
 			}
 		}
 
