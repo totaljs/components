@@ -367,7 +367,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		next('<div class="{0}-date"><i class="fa fa-calendar pdate"></i><div><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pdate" /></div></div>'.format(cls, config.dateformat.length, item.placeholder || '', item.value ? item.value.format(config.dateformat) : ''));
 	};
 	types.date.set = function(el, value) {
-		el.find('input').val(value == null ? '' : (value + ''));
+		el.find('input').val(value == null ? '' : (value instanceof Date ? value.format(config.dateformat) : (value + '')));
 	};
 
 	types.bool = {};
