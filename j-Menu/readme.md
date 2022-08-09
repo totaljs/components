@@ -23,6 +23,7 @@ var opt = {};
 // opt.class {String}        : adds class to the parent
 // opt.large {Boolean}       : it will make menu bigger
 // opt.fixedwidth {Boolean}  : NEW: enables fixed width according to the target element
+// opt.offsetWidth {Number}  : increases width of the menu
 
 opt.element = YOUR_ELEMENT;
 // or if you want to use a fixed position:

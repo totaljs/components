@@ -240,7 +240,7 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 		} else
 			container.css({ 'max-width': '', width: '' });
 
-		var w = container.width();
+		var w = container.width() + (opt.offsetWidth || 0);
 		var offset = target.offset();
 
 		if (opt.element) {
