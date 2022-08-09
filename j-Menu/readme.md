@@ -20,7 +20,7 @@ var opt = {};
 // opt.align {String}        : align `left` (default), `center` or `right`
 // opt.position {String}     : position `top` (default) or `bottom`
 // opt.hide {Function}       : is executed when the menu is hidden
-// opt.class {String}    : adds class to the parent
+// opt.class {String}        : adds class to the parent
 // opt.large {Boolean}       : it will make menu bigger
 // opt.fixedwidth {Boolean}  : NEW: enables fixed width according to the target element
 
@@ -31,13 +31,13 @@ opt.element = YOUR_ELEMENT;
 
 opt.items = ['Label', { name: 'Item 1', icon: 'print', class: 'custom_class_name' }, { name: 'Item 2', icon: 'home', note: 'A simple description for this item' }, '-', { name: 'Item 3', icon: 'far fa-envelope', children: [{ name: 'Submenu item 1', icon: 'cog' }, { name: 'Submenu item 2', icon: 'home' }] }, { name: 'Selected', icon: 'check-circle', selected: true }, { name: 'Item 4', icon: 'gear', disabled: true }];
 // Item properties
-// name {String}           : Item name
-// icon {String}           : Icon
-// class {String}          : class to be added to li element
-// note {String}           : text bellow Item name
-// selected {Boolean}      : item will be highlighted
-// disabled {Boolean}      : item will be disabled(not clickable)
-// children {Array}        : array of subitems
+// name {String}             : Item name
+// icon {String}             : Icon
+// class {String}            : class to be added to li element
+// note {String}             : text bellow Item name
+// selected {Boolean}        : item will be highlighted
+// disabled {Boolean}        : item will be disabled(not clickable)
+// children {Array}          : array of subitems
 
 opt.callback = function(item) {
 	console.log(item);
