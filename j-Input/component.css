@@ -47,6 +47,7 @@
 
 .ui-input-required.ui-input-inner .ui-input-label:after { content: '*'; color: red; margin-left: 3px; }
 .ui-input-inner { background-color: #F5F5F5; border: 1px solid #E5E5E5; padding: 10px 5px 10px 10px; width: 100%; border-radius: var(--radius); }
+.ui-input-inner.ui-disabled .ui-input-control { background-color: transparent !important; }
 .ui-input-inner .ui-input-increment { padding-top: 2px; color: #777; }
 .ui-input-inner .ui-input-label { height: 18px; margin: 0; color: #6A7280; font-weight: bold; }
 .ui-input-inner .ui-input-placeholder { color: #9DA4B0; }
@@ -78,6 +79,7 @@
 .ui-dark .ui-input-checkbox span { border-color: #404040; background: #252525; }
 
 .ui-dark .ui-input-inner { background-color: #252525; border-color: #303030; }
+.ui-dark .ui-input-inner.ui-disabled .ui-input-control { background-color: transparent !important; }
 .ui-dark .ui-input-inner.ui-input-focused { border-color: var(--color); box-shadow: 0 0 #0000,0 0 #0000,0px 0px 0px 4px #4AAEFF3F; }
 .ui-dark .ui-input-inner.ui-input-invalid { border-color: #8E3D3D; box-shadow: 0 0 #0000,0 0 #0000,0px 0px 0px 4px #D85A5A42; }
 .ui-dark .ui-disabled .ui-input-checkbox span { background-color: #282828; color: #999; border-color: #303003; }
