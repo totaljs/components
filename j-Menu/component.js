@@ -140,7 +140,7 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 				continue;
 			}
 
-			var cn = item.classname || '';
+			var cn = item.classname || item.class || '';
 			var icon = '';
 
 			if (item.icon)
@@ -197,7 +197,9 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 		self.opt = opt;
 		opt.scope = M.scope();
 
-		if (parentclass && opt.classname !== parentclass) {
+		var c = opt.classname || opt.class;
+
+		if (parentclass && c !== parentclass) {
 			self.rclass(parentclass);
 			parentclass = null;
 		}
@@ -213,9 +215,9 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 
 		ul.html(self.makehtml(opt.items));
 
-		if (!parentclass && opt.classname) {
-			self.aclass(opt.classname);
-			parentclass = opt.classname;
+		if (!parentclass && c) {
+			self.aclass(c);
+			parentclass = c;
 		}
 
 		if (is) {
@@ -231,6 +233,13 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 		}
 
 		var target = $(opt.element);
+
+		if (opt.fixedwidth) {
+			var tmpw = target.width();
+			container.css({ 'max-width': tmpw, width: tmpw });
+		} else
+			container.css({ 'max-width': '', width: '' });
+
 		var w = container.width();
 		var offset = target.offset();
 
