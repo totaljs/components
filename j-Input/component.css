@@ -41,7 +41,7 @@
 .ui-input.ui-disabled input { background-color: #F0F0F0; color: #A0A0A0; }
 .ui-input.ui-disabled .ui-input-placeholder { color: #A0A0A0; }
 .ui-input.ui-disabled .ui-input-icon-left, .ui-input.ui-disabled .ui-input-icon-right { color: gray; }
-.ui-input-dropdown.ui-disabled { cursor: not-allowed; }
+.ui-input-dropdown.ui-disabled .ui-input-control { cursor: not-allowed; }
 .ui-input-raw .ui-input-increment { padding: 6px 0 0 !important; }
 .ui-input-increment i { line-height: 10px; font-size: 14px; cursor: pointer; display: block; }
 .ui-input-increment i:first-child { margin-left: 0; }
