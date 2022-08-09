@@ -233,14 +233,16 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 		}
 
 		var target = $(opt.element);
+		var plusW = opt.offsetWidth || 0;
 
 		if (opt.fixedwidth) {
-			var tmpw = target.width();
+			var tmpw = target.width() + plusW;
 			container.css({ 'max-width': tmpw, width: tmpw });
+			plusW = 0;
 		} else
 			container.css({ 'max-width': '', width: '' });
 
-		var w = container.width() + (opt.offsetWidth || 0);
+		var w = container.width();
 		var offset = target.offset();
 
 		if (opt.element) {
