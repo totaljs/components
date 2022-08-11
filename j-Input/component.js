@@ -579,6 +579,10 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 	self.preparevalue = function(value) {
 		if (config.type === 'number' && (config.type !== 'number2' || value) && (config.minvalue != null || config.maxvalue != null)) {
 			var tmp = typeof(value) === 'string' ? +value.replace(',', '.') : value;
+
+			if (isNaN(tmp))
+				tmp = 0;
+
 			if (config.minvalue > tmp)
 				value = config.minvalue;
 			if (config.maxvalue < tmp)

@@ -79,9 +79,9 @@
 .configuration p { margin: 0 0 15px 0; font-size: 13px; padding: 0; color: #666; }
 .configuration > section > .toolbar { float: right; margin: 10px 10px 0 10px; }
 .configuration > section > .toolbar button { height: 22px; line-height: 20px; min-width: 60px; }
-.configuration > section label { display: block; padding: 10px; font-size: 15px; color: #000; font-weight: bold; border-top: 1px solid #E0E0E0; }
-.configuration > section label i { margin: 3px 6px 0 0; width: 15px; text-align: center; float: left; }
-.configuration > section:first-child label { border-top: 0; border-radius: var(--radius) var(--radius) 0 0; }
+.configuration > section > label { display: block; padding: 10px; font-size: 15px; color: #000; font-weight: bold; border-top: 1px solid #E0E0E0; }
+.configuration > section > label i { margin: 3px 6px 0 0; width: 15px; text-align: center; float: left; }
+.configuration > section:first-child > label { border-top: 0; border-radius: var(--radius) var(--radius) 0 0; }
 .configuration > section > article { border-top: 1px solid #E0E0E0; }
 .configuration > section:first-child article:first-child { border-top: 0; border-radius: var(--radius) var(--radius) 0 0; }
 .configuration .padding { padding: 15px 10px; }
@@ -105,7 +105,7 @@
 .ui-dark .message-alert { border-color: #DEBA31; color: #D2BA62; }
 .ui-dark .message-success { border-color: #68B25B; color: #6DAD63; }
 
-.badge { font-size: 12px; padding: 4px 6px; border-radius: var(--radius); background-color: var(--color); line-height: 12px; vertical-align: middle; margin-top: -2px; position: relative; display: inline-block; color: #FFF; }
+.badge { font-size: 12px; padding: 4px 6px; border-radius: var(--radius); background-color: var(--color); line-height: 12px; vertical-align: middle; position: relative; display: inline-block; color: #FFF; }
 .badge i { margin-right: 3px; }
 .badge-blue { background-color: #0E68A6; }
 .badge-red { background-color: #D63B32; }

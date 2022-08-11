@@ -173,7 +173,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 				if (x < drag.min)
 					x = drag.min + 1;
 
-				if (x > drag.max)
+				if (drag.max && x > drag.max)
 					x = drag.max - 1;
 
 				if (drag.type === 'right')
@@ -192,7 +192,7 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 				if (y < drag.min)
 					y = drag.min + 1;
 
-				if (y > drag.max)
+				if (drag.max && y > drag.max)
 					y = drag.max - 1;
 
 				if (drag.type === 'bottom')
@@ -561,7 +561,6 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 		s.mainlock && s.mainlock.css(css);
 
 		self.element.SETTER('*/resize');
-
 		config.resize && self.EXEC(config.resize, WIDTH(), width, height);
 
 		if (loaded == false) {

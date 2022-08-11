@@ -4,13 +4,14 @@ The component uses `j-DatePicker`, `j-TimePicker`, `j-Directory`, `j-Emoji`, `j-
 
 __Configuration__:
 
-- `dateformat` {String} a date format (default: `yyyy-MM-dd`)
-- `timeformat` {String} a time format (default: `HH:mm`)
-- `datetimeformat` {String} a date/time format (default: `yyyy-MM-dd HH:mm`)
-- `change` {String} a path to method `method(item, replace_text(new_text))` (executed if some value is changed) and `replace_text` argument is optional
-- `modalalign` {String} aligment for modal windows (default: `center`)
-- `style` {Number} supports a new style `2` like `iOS` settings (default: `1`)
-- `validation` {Boolean} enables validation for required fields (default: `true`)
+- `dateformat {String}` a date format (default: `yyyy-MM-dd`)
+- `timeformat {String}` a time format (default: `HH:mm`)
+- `datetimeformat {String}` a date/time format (default: `yyyy-MM-dd HH:mm`)
+- `change {String}` a path to method `method(item, replace_text(new_text))` (executed if some value is changed) and `replace_text` argument is optional
+- `modalalign {String}` aligment for modal windows (default: `center`)
+- `style {Number}` supports a new style `2` like `iOS` settings (default: `1`)
+- `validation {Boolean}` enables validation for required fields (default: `true`)
+- `defaultgroup {String}` a default group name (default: `Default`)
 
 __Data declaration__:
 

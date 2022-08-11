@@ -196,8 +196,13 @@ COMPONENT('rawinput', 'type:text', function(self, config, cls) {
 
 		if (self.type === 'number' && (config.minvalue != null || config.maxvalue != null)) {
 			var tmp = typeof(value) === 'string' ? +value.replace(',', '.') : value;
+
+			if (isNaN(tmp))
+				tmp = 0;
+
 			if (config.minvalue > tmp)
 				value = config.minvalue;
+
 			if (config.maxvalue < tmp)
 				value = config.maxvalue;
 		}

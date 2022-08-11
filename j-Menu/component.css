@@ -4,7 +4,7 @@
 .ui-menu-submenu { position: absolute; z-index: 101; background-color: #FFF; padding: 5px 0; border-radius: var(--radius); box-shadow: 2px 5px 10px rgba(0,0,0,0.05); border: 1px solid #E0E0E0; }
 .ui-menu-visible {}
 .ui-menu ul { margin: 0; padding: 0; }
-.ui-menu li { margin: 0; padding: 5px; list-style-type: none; font-size: 12px; cursor: pointer; max-width: 220px; }
+.ui-menu li { margin: 0; padding: 5px; list-style-type: none; font-size: 12px; cursor: pointer; }
 .ui-menu-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 15px; }
 .ui-menu-note { font-size: 10px; margin: 0 10px 3px 35px; color: #A0A0A0; line-height: 11px; }
 .ui-menu-nofa .ui-menu-note { margin-left: 0; }

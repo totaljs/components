@@ -1,4 +1,4 @@
-COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timeformat:HH:mm;modalalign:center;style:1;validation:1;encodenotes:1', function(self, config, cls) {
+COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timeformat:HH:mm;modalalign:center;style:1;validation:1;encodenotes:1;defaultgroup:Default', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var container;
@@ -8,13 +8,15 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	var values, funcs, datasource, rendered = false;
 
 	self.nocompile();
-	self.bindvisible();
 
 	self.validate = function(value) {
-		if (config.validation && value && value.length) {
-			for (var i = 0; i < value.length; i++) {
-				if (value[i].invalid)
-					return false;
+		if (config.validation && value) {
+			var arr = value instanceof Array ? value : datasource;
+			if (arr && arr.length) {
+				for (var item of arr) {
+					if (item.invalid)
+						return false;
+				}
 			}
 		}
 		return true;
@@ -365,7 +367,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		next('<div class="{0}-date"><i class="fa fa-calendar pdate"></i><div><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pdate" /></div></div>'.format(cls, config.dateformat.length, item.placeholder || '', item.value ? item.value.format(config.dateformat) : ''));
 	};
 	types.date.set = function(el, value) {
-		el.find('input').val(value == null ? '' : (value + ''));
+		el.find('input').val(value == null ? '' : (value instanceof Date ? value.format(config.dateformat) : (value + '')));
 	};
 
 	types.bool = {};
@@ -785,7 +787,8 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 	self.render = function(item, index) {
 
-		var type = types[item.type === 'boolean' ? 'bool' : item.type];
+		var typename = item.type === 'boolean' ? 'bool' : item.type;
+		var type = types[typename];
 		var c = cls;
 
 		if (item.show) {
@@ -857,7 +860,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 		for (var i = 0; i < items.length; i++) {
 			var item = items[i];
-			var g = item.group || 'Default';
+			var g = item.group || config.defaultgroup;
 			var val = datasource ? value[item.name] : item.value;
 
 			item.invalid = false;
@@ -896,7 +899,8 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			} else {
 				if (!item.element)
 					item.element = self.find(cls2 + '-item[data-index="{0}"]'.format(i));
-				types[item.type].set(item.element, val, item);
+				var typename = item.type === 'boolean' ? 'bool' : item.type;
+				types[typename].set(item.element, val, item);
 			}
 		}
 

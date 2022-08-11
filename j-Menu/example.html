@@ -16,7 +16,7 @@
 	$(document).on('click', 'a', function() {
 
 		var opt = {};
-		opt.items = ['Label', { name: 'Item 1', icon: 'print', classname: 'custom_class_name' }, { name: 'Item 2', icon: 'home', note: 'A simple description for this item' }, '-', { name: 'Item 3', icon: '!far fa-envelope', children: [{ name: 'Submenu item 1', icon: 'cog' }, { name: 'Submenu item 2', icon: 'home' }] }, { name: 'Selected', icon: 'check-circle', selected: true }];
+		opt.items = ['Label', { name: 'Item 1', icon: 'print', class: 'custom_class_name' }, { name: 'Item 2', icon: 'home', note: 'A simple description for this item' }, '-', { name: 'Item 3', icon: '!far fa-envelope', children: [{ name: 'Submenu item 1', icon: 'cog' }, { name: 'Submenu item 2', icon: 'home' }] }, { name: 'Selected', icon: 'check-circle', selected: true }];
 		opt.align = 'center';
 		opt.element = this;
 		opt.callback = function(selected) {
