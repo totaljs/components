@@ -423,6 +423,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	types.exec.render = function(item, next) {
 		next('<div class="{0}-exec">{1}<i class="fa fa-angle-right"></i></div>'.format(cls, item.value ? Thelpers.encode(item.value) : ''));
 	};
+	types.exec.set = NOOP;
 
 	types.text = {};
 	types.text.render = function(item, next) {
