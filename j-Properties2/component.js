@@ -679,7 +679,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		next('<div class="{0}-fontawesome"><span class="{0}-fontawesometoggle"><i class="{1}"></i></span></div>'.format(cls, item.value || ''));
 	};
 	types.fontawesome.set = function(el, value) {
-		el.find('i').rclass2('fa').class(value || '');
+		el.find('i').rclass2('fa').aclass(value || '');
 	};
 
 	types.emoji = {};
