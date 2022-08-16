@@ -511,7 +511,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	types.list.set = function(el, value, item) {
 		var items = typeof(item.items) === 'string' ? item.items.indexOf('/') === -1 ? GET(self.makepath(item.items)) : item.items : item.items;
 		var val = items instanceof Array ? items.findValue(item.dirvalue || 'id', value, item.dirkey || 'name') : '';
-		el.find('span').text(val);
+		el.find('span').text(val || DEF.empty);
 	};
 
 	types.menu = {};
