@@ -127,6 +127,9 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 		if (item.import) {
 			IMPORT(item.import, div, function() {
 				item.init && self.EXEC(itempath(item, item.init), div, item);
+				setTimeout2(self.ID + 'focus', self.focus, 100, null, item.id);
+				div.rclass('invisible', item.delay || 10);
+				item.import = null;
 			}, true, function(content) {
 				return itemreplace(item, content);
 			});
@@ -139,11 +142,12 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 		item.element = div;
 		config.create && self.EXEC(config.create, item);
 		self.append(div);
-		setTimeout2(self.ID + 'focus', self.focus, 100, null, item.id);
-		div.rclass('invisible', item.delay || 10);
 
-		if (!item.import)
-			item.init && self.EXEC(itempath(item, item.init), div, item);
+		if (!item.import) {
+			setTimeout2(self.ID + 'focus', self.focus, 100, null, item.id);
+			div.rclass('invisible', item.delay || 10);
+			item.init && self.EXEC(true, itempath(item, item.init), div, item);
+		}
 	};
 
 	self.resize = function() {
