@@ -6,6 +6,7 @@ COMPONENT('validation', 'delay:100;flags:visible;changes:0;strictchanges:0', fun
 	var tracked = false;
 	var reset = 0;
 	var old, track;
+	var currentvalue;
 
 	self.readonly();
 
@@ -42,6 +43,7 @@ COMPONENT('validation', 'delay:100;flags:visible;changes:0;strictchanges:0', fun
 
 	self.setter = function(value, path, type) {
 
+		currentvalue = value;
 		var is = path === self.path || path.length < self.path.length;
 
 		if (config.changes) {
@@ -87,13 +89,18 @@ COMPONENT('validation', 'delay:100;flags:visible;changes:0;strictchanges:0', fun
 			self.tclass(cls + '-ok', !disabled);
 			self.tclass(cls + '-no', disabled);
 			old = disabled;
+			if (!old && config.exec)
+				self.SEEX(config.exec, currentvalue);
+			config.output && self.SEEX(config.output, !disabled);
 		}
+
 	};
 
 	self.state = function(type, what) {
 		if (type === 3 || what === 3) {
 			self.rclass(cls + '-modified');
 			tracked = 0;
+			backup = current;
 		}
 		setTimeout2(self.ID, check, config.delay);
 	};

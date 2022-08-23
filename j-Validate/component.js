@@ -100,6 +100,7 @@ COMPONENT('validate', 'delay:100;flags:visible;changes:0;strictchanges:0', funct
 		if (type === 3 || what === 3) {
 			self.rclass(cls + '-modified');
 			tracked = 0;
+			backup = current;
 		}
 		setTimeout2(self.ID, check, config.delay);
 	};
