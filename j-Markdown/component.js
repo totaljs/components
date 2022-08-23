@@ -363,8 +363,8 @@ COMPONENT('markdown', function (self) {
 			for (var t of arr) {
 				if (!t.$mdloaded) {
 					t.$mdloaded = 1;
-					var el = $(t);
-					var href = el.attr('href');
+					var a = $(t);
+					var href = a.attr('href');
 					var c = href.substring(0, 1);
 					if (href === '#') {
 						var beg = '';
@@ -374,9 +374,9 @@ COMPONENT('markdown', function (self) {
 							beg = '-';
 						if (text.substring(text.length - 1) === '>')
 							end = '-';
-						el.attr('href', '#' + (beg + markdown_id(el.text()) + end));
+						a.attr('href', '#' + (beg + markdown_id(a.text()) + end));
 					} else if (c !== '/' && c !== '#')
-						el.attr('target', '_blank');
+						a.attr('target', '_blank');
 				}
 			}
 
