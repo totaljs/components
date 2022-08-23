@@ -647,6 +647,11 @@ EXTENSION('flow:operations', function(self, config, cls) {
 
 	var isoutcache = {};
 
+	self.op.deselect = function() {
+		var selection = W.getSelection ? W.getSelection() : null;
+		selection && selection.removeAllRanges();
+	};
+
 	self.op.isoutcache = function() {
 		var parent = self.parent('auto');
 		var offset = parent[0] === W ? null : parent.offset();
@@ -865,6 +870,7 @@ EXTENSION('flow:operations', function(self, config, cls) {
 		self.info.selected = com.instance;
 		self.info.type = 'component';
 		self.op.refreshinfo();
+		self.op.deselect();
 		return true;
 	};
 
@@ -1094,30 +1100,29 @@ EXTENSION('flow:map', function(self, config, cls) {
 			drag.is = true;
 		}
 
-		var x = drag.x - e.pageX;
-		var y = drag.y - e.pageY;
+		var x = (drag.x + drag.offset.left) - (e.pageX + drag.offset.left);
+		var y = (drag.y + drag.offset.top) - (e.pageY + drag.offset.top);
 
 		if (drag.meta) {
 
-			x -= drag.left;
-			y -= drag.top;
-
 			if (x < 0) {
 				css.left = self.op.zoom(drag.x);
-				css.width = self.op.zoom((x * -1) - drag.offset.left - drag.left);
+				css.width = self.op.zoom((x * -1));
 			} else {
-				css.left = self.op.zoom(drag.x - x - drag.offset.left - drag.left);
+				css.left = self.op.zoom(drag.x - x);
 				css.width = self.op.zoom(drag.x) - css.left;
 			}
 
 			if (y < 0) {
 				css.top = self.op.zoom(drag.y);
-				css.height = self.op.zoom((y * -1) - drag.offset.top - drag.top);
+				css.height = self.op.zoom(y * -1);
 			} else {
-				css.top = self.op.zoom(drag.y - y - drag.offset.top - drag.top);
+				css.top = self.op.zoom(drag.y - y);
 				css.height = self.op.zoom(drag.y) - css.top;
 			}
 
+			css.left -= self.op.zoom(drag.offset.left);
+			css.top -= self.op.zoom(drag.offset.top);
 			self.el.selection.css(css);
 
 		} else if (drag.target[0]) {
@@ -1143,19 +1148,24 @@ EXTENSION('flow:map', function(self, config, cls) {
 			var sel = self.el.selection;
 			var pos = sel.position();
 
-			pos.width = pos.left + sel.css('width').parseInt();
-			pos.height = pos.top + sel.css('height').parseInt();
+			var fromX = (self.op.zoom(pos.left)) >> 0;
+			var fromY = (self.op.zoom(pos.top)) >> 0;
 
-			pos.left = self.op.zoom(pos.left);
-			pos.top = self.op.zoom(pos.top);
-			pos.width = self.op.zoom(pos.width);
-			pos.height = self.op.zoom(pos.height);
+			var toX = fromX + sel.css('width').parseInt();
+			var toY = fromY + sel.css('height').parseInt();
 
 			sel.aclass('hidden');
 
 			for (var key in self.cache) {
 				var instance = self.cache[key].instance;
-				if (instance.x > pos.left && instance.x < pos.width && instance.y > pos.top && instance.y < pos.height)
+
+				var fx = instance.x;
+				var fy = instance.y;
+				var el = instance.element.closest('.component');
+				var tx = instance.x + el.width();
+				var ty = instance.y + el.height();
+
+				if (fromX < fx && toX > tx && fromY < fy && toY > ty)
 					self.op.select(key, true);
 			}
 
@@ -1192,6 +1202,7 @@ EXTENSION('flow:map', function(self, config, cls) {
 	};
 
 	self.event('contextmenu', function(e) {
+		self.op.deselect();
 		events.is && events.up();
 		config.contextmenu && self.SEEX(config.contextmenu, e, 'map');
 		e.preventDefault();
@@ -1210,6 +1221,7 @@ EXTENSION('flow:map', function(self, config, cls) {
 
 		// Unselects all selected components/connections
 		self.op.unselect();
+		self.op.deselect();
 
 		var evt = e.touches ? e.touches[0] : e;
 		var et = $(e.target);
@@ -1223,17 +1235,9 @@ EXTENSION('flow:map', function(self, config, cls) {
 		drag.left = 0;
 		drag.top = 0;
 		drag.meta = evt.metaKey || e.metaKey || evt.ctrlKey || e.ctrlKey;
-
-		// if (!target[0]) {
-		// 	target = et.closest('.ui-viewbox');
-		// 	if (!target[0])
-		// 		return;
-		// }
+		drag.offset = self.getOffset();
 
 		if (drag.meta) {
-			drag.offset = self.getOffset();
-			drag.x = drag.x - drag.offset.left;
-			drag.y = drag.y - drag.offset.top;
 
 			if (target[0]) {
 				drag.top = drag.target[0].scrollTop;
@@ -1255,6 +1259,7 @@ EXTENSION('flow:map', function(self, config, cls) {
 		e.preventDefault();
 		e.stopPropagation();
 		self.el.svg.focus();
+		self.op.deselect();
 	});
 
 });
@@ -1530,6 +1535,7 @@ EXTENSION('flow:components', function(self, config) {
 		self.focused && self.focused.rclass('component-focused');
 		self.focused = target.aclass('component-focused');
 		events.bind();
+		self.op.deselect();
 	});
 
 });
