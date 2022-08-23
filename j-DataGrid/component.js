@@ -216,7 +216,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:28;mi
 				var value = (hash >> (i * 8)) & 0xFF;
 				color += ('00' + value.toString(16)).substr(-2);
 			}
-			return '<span style="background:{0}" class="dg-colorize">{1}</span>'.format(color, encode ? Thelpers.encode(val) : val);
+			var tmp = encode ? Thelpers.encode(val) : val;
+			return tmp ? '<span style="background:{0}" class="dg-colorize">{1}</span>'.format(color, tmp) : '';
 		};
 	};
 
