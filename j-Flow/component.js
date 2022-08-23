@@ -1145,6 +1145,12 @@ EXTENSION('flow:map', function(self, config, cls) {
 
 			pos.width = pos.left + sel.css('width').parseInt();
 			pos.height = pos.top + sel.css('height').parseInt();
+
+			pos.left = self.op.zoom(pos.left);
+			pos.top = self.op.zoom(pos.top);
+			pos.width = self.op.zoom(pos.width);
+			pos.height = self.op.zoom(pos.height);
+
 			sel.aclass('hidden');
 
 			for (var key in self.cache) {
