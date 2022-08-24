@@ -1,8 +1,8 @@
 ## j-UIBuilder
 
-__BETA__: This component renders application designed via UI Builder (we will releas it soon).
+__BETA__: This component renders application designed via UI Builder (we will release it soon).
 
-The app can be loaded via `path`. The path can contain URL address to the `JSON` app schema or it can contain the app object (parsed JSON).
+You can load the app via the `path` specified in the component or via the `config.url` option. The path can contain a URL address to the `JSON` app schema or the app object (parsed JSON).
 
 __Configuration__:
 
