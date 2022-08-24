@@ -55,11 +55,11 @@ COMPONENT('stash', 'internal:false;class:hidden', function(self, config, cls) {
 		loaded = {};
 		compiled = {};
 
-		if (!config.internal)
-			document.body.removeChild(repo);
-
 		while (repo.children.length)
 			repo.removeChild(repo.children[0]);
+
+		if (!config.internal)
+			document.body.removeChild(repo);
 
 		FREE();
 	};
