@@ -289,5 +289,6 @@
 	"j-Leaflet",
 	"j-ListDetail",
 	"j-Watch",
-	"j-AutoDarkMode"
+	"j-AutoDarkMode",
+	"j-UIBuilder"
 ]
