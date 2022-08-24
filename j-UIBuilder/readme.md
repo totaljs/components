@@ -6,16 +6,16 @@ You can load the app via the `path` specified in the component or via the `confi
 
 __Configuration__:
 
-- `app {String}` a link to the method/variable where will be stored app instance
+- `app {String}` a link to the method/variable where will be stored `app` instance
 - `url {String}` a link to the app schema (must be in the `json` format)
 
 __Methods__:
 
-- `component.load(data)` the method loads app into the current element
+- `component.load(data)` the method loads `app` into the current element
 
 __Properties__:
 
-- `component.app` contains app instance
+- `component.app` contains an `app` instance
 
 ### Author
 
