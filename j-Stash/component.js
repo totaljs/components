@@ -58,14 +58,14 @@ COMPONENT('stash', 'internal:false;class:hidden', function(self, config, cls) {
 		while (repo.children.length)
 			repo.removeChild(repo.children[0]);
 
-		if (!config.internal)
+		if (config.internal && repo.parentNode)
 			document.body.removeChild(repo);
 
 		FREE();
 	};
 
 	self.destroy = function() {
-		if (!config.internal)
+		if (!config.internal && repo.parentNode)
 			document.body.removeChild(repo);
 		loaded = null;
 		compiled = null;
