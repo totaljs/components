@@ -16,7 +16,7 @@
 .ui-disabled .ui-input-checkbox { color: #A0A0A0; }
 .ui-disabled.ui-input *, .ui-disabled.ui-input { cursor: not-allowed !important; }
 .ui-disabled .ui-input-checkbox span { background-color: #F0F0F0; color: #B0B0B0; border-color: #E0E0E0; }
-.ui-input-placeholder { position: absolute; color: gray; margin: 0; user-select: none; cursor: text; width: 100%; text-align: left; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.ui-input-placeholder { pointer-events: none; position: absolute; color: gray; margin: 0; user-select: none; width: 100%; text-align: left; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 .ui-input-control input, .ui-input-control textarea { border: 0; outline: 0; background: transparent !important; width: 100%; padding: 0; margin: 0; line-height: 16px; font-size: 13px; color: #000; font-family: Arial; resize: none; }
 .ui-input-control textarea { padding: 4px 0; }
 .ui-input-control .ui-input-value { line-height: 24px; height: 22px; cursor: pointer; border-radius: var(--radius); outline: 0; }
