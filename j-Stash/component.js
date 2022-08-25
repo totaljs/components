@@ -54,6 +54,10 @@ COMPONENT('stash', 'internal:false;class:hidden', function(self, config, cls) {
 
 		loaded = {};
 		compiled = {};
+		curr = null;
+
+		while (self.dom.children.length)
+			self.dom.removeChild(self.dom.children[0]);
 
 		while (repo.children.length)
 			repo.removeChild(repo.children[0]);
