@@ -31,4 +31,4 @@ COMPONENT('uibuilder', function(self, config, cls) {
 		}
 	};
 
-}, ['https://cdn.componentator.com/uibuilder.min.js']);
+}, ['https://cdn.componentator.com/uibuilder.min@1.js']);
