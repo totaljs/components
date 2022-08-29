@@ -1,4 +1,5 @@
-.dg { color: #000; position: relative; visibility: hidden; }
+.dg { color: #000; position: relative; visibility: hidden; background-color: #FFF; }
+.dg-body { outline: 0 !important; background-color: #FFF; }
 .dg .ui-scrollbar-y { margin-top: 54px; }
 .dg .dg-header-scrollbar > .ui-scrollbar-area { overflow-y: hidden; }
 .dg .dg-body-scrollbar > .ui-scrollbar-area { overflow-x: hidden; }
@@ -34,7 +35,6 @@
 .dg-filter-selected i { display: block; }
 .dg-filter-selected input { padding-right: 12px; }
 .dg-clickable .dg-row { cursor: pointer; }
-.dg-body { outline: 0 !important; }
 .dg-row { height: 28px; font-size: 12px; border-bottom: 1px solid #E0E0E0; -webkit-transform: translateZ(0); }
 .dg-row-changed { background-color: rgba(208,31,33,0.07); }
 .dg-row.dg-selected { background-color: rgba(249,232,196,0.5) !important; }
