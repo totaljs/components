@@ -143,8 +143,9 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 			var cn = item.classname || item.class || '';
 			var icon = '';
 
+			var color = item.color ? 'style="{0}"'.format('color:' + item.color) : '';
 			if (item.icon)
-				icon = '<i class="{0}"></i>'.format(item.icon.charAt(0) === '!' ? item.icon.substring(1) : item.icon.indexOf('fa-') === -1 ? ('fa fa-' + item.icon) : item.icon);
+				icon = '<i class="{0}" {1}></i>'.format(item.icon.charAt(0) === '!' ? item.icon.substring(1) : item.icon.indexOf('fa-') === -1 ? ('fa fa-' + item.icon) : item.icon, color);
 			else
 				cn = (cn ? (cn + ' ') : '') + cls + '-nofa';
 
