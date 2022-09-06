@@ -8,8 +8,8 @@ __Configuration__:
 
 __Usage__:
 
-- `SETTER('loading', 'show', [text])` - shows loading
-- `SETTER('loading', 'hide', [sleep])` - hides loading
+- `SETTER('loading/show', [text])` - shows loading (`text` optional)
+- `SETTER('loading/hide', [sleep])` - hides loading (`sleep` optional and in milliseconds)
 
 ### Author
 
