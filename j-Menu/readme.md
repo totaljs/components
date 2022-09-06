@@ -39,7 +39,7 @@ opt.items = ['Label', { name: 'Item 1', icon: 'print', class: 'custom_class_name
 // selected {Boolean}        : item will be highlighted
 // disabled {Boolean}        : item will be disabled(not clickable)
 // children {Array}          : array of subitems
-// color {String}          	 : icon color
+// color {String}            : icon color
 
 opt.callback = function(item) {
 	console.log(item);
