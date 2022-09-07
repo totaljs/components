@@ -195,7 +195,8 @@ COMPONENT('pages', 'margin:0;delay:220;margintype:offset;scrollbar:1', function(
 					cfg.url = null;
 					run(cfg);
 				}, true, function(content) {
-					return content.replace(/~PATH~/g, cfg.path || cfg.if).replace(/~ID~/g, cfg.id || '');
+					var path = cfg.path || cfg.if;
+					return content.replace(/~PATH~/g, path).replace(/~ID~/g, cfg.id || '').replace('PLUGIN(function(', 'PLUGIN(\'{0}\', function('.format(path));
 				});
 			} else
 				run(cfg);

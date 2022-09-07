@@ -38,7 +38,7 @@ __Good to know 3__:
 If the part component isn't within scope then the value from the `config.if` will replace `?` characters in all config keys.
 
 ```js
-ON('parts.pages', function(element, partcomponent) {
+ON('parts.YOURIFCONDITION', function(element, pagecomponent) {
 	// It's executed only when the part is initialized
 });
 ```

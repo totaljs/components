@@ -76,7 +76,8 @@ COMPONENT('part', 'hide:1;loading:1;delay:500;delayloading:800', function(self, 
 						preparator = GET(replace(config.replace));
 					else {
 						preparator = function(content) {
-							return content.replace(/~PATH~/g, replace(config.path || config.if)).replace(/~ID~/g, config.id || '');
+							var path = replace(config.path || config.if);
+							return content.replace(/~PATH~/g, path).replace(/~ID~/g, config.id || '').replace('PLUGIN(function(', 'PLUGIN(\'{0}\', function('.format(path));
 						};
 					}
 
