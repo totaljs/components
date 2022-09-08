@@ -10,7 +10,8 @@ COMPONENT('importer', function(self, config) {
 	};
 
 	var replace2 = function(value) {
-		return value ? value.replace(/~PATH~/g, config.path || config.if).replace(/~ID~/g, config.id || '') : value;
+		var path = config.path || config.if;
+		return value ? value.replace(/~PATH~/g, path).replace(/~ID~/g, config.id || '').replace('PLUGIN(function(', 'PLUGIN(\'{0}\', function('.format(path)) : value;
 	};
 
 	self.readonly();
