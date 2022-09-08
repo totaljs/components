@@ -527,7 +527,7 @@ COMPONENT('datatable', 'height:parent;margin:0;pluralizeitems:# items,# item,# i
 			if (!col.template && col.type) {
 				switch (col.type.toLowerCase()) {
 					case 'number':
-						col.template = '{{ {0} | format({1}) }}'.format(col.name, col.format || '0');
+						col.template = col.format ? '{{ {0} | format({1}) }}'.format(col.name, col.format || '0') : '{{ {0} }}'.format(col.name);
 						if (!col.align)
 							col.align = 'right';
 						if (!col.alignheader)
