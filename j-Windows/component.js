@@ -517,51 +517,75 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 					break;
 
 				case 'maximize':
-					c = cls + '-maximized';
+					if (obj.meta.maximize) {
+						obj.meta.maximize();
+					} else {
+						c = cls + '-maximized';
 
-					if (!el.hclass(c)) {
-						obj.prevwidth = obj.width;
-						obj.prevheight = obj.height;
-						obj.prevx = obj.x;
-						obj.prevy = obj.y;
-						el.aclass(c);
-						obj.setcommand('resetminimize');
+						if (!el.hclass(c)) {
+							obj.prevwidth = obj.width;
+							obj.prevheight = obj.height;
+							obj.prevx = obj.x;
+							obj.prevy = obj.y;
+							el.aclass(c);
+							obj.setcommand('resetminimize');
+						}
+
+						var ww = self.element.width() || WW;
+						var wh = self.element.height() || WH;
+						obj.setoffset(0, 0);
+						obj.setsize(ww, wh - obj.element.position().top);
 					}
-
-					var ww = self.element.width() || WW;
-					var wh = self.element.height() || WH;
-					obj.setoffset(0, 0);
-					obj.setsize(ww, wh - obj.element.position().top);
 					break;
 
 				case 'resetmaximize':
-					c = cls + '-maximized';
-					if (el.hclass(c)) {
-						obj.setoffset(obj.prevx, obj.prevy);
-						obj.setsize(obj.prevwidth, obj.prevheight);
-						el.rclass(c);
+					if (obj.meta.maximize) {
+						obj.meta.maximize('reset');
+					} else {
+						c = cls + '-maximized';
+						if (el.hclass(c)) {
+							obj.setoffset(obj.prevx, obj.prevy);
+							obj.setsize(obj.prevwidth, obj.prevheight);
+							el.rclass(c);
+						}
 					}
 					break;
 
 				case 'togglemaximize':
-					c = cls + '-maximized';
-					obj.setcommand(el.hclass(c) ? 'resetmaximize' : 'maximize');
+					if (obj.meta.maximize) {
+						obj.meta.maximize('toggle');
+					} else {
+						c = cls + '-maximized';
+						obj.setcommand(el.hclass(c) ? 'resetmaximize' : 'maximize');
+					}
 					break;
 
 				case 'minimize':
-					c = cls + '-minimized';
-					if (!el.hclass(c))
-						el.aclass(c);
+					if (obj.meta.minimize) {
+						obj.meta.minimize();
+					} else {
+						c = cls + '-minimized';
+						if (!el.hclass(c))
+							el.aclass(c);
+					}
 					break;
 
 				case 'resetminimize':
-					c = cls + '-minimized';
-					el.hclass(c) && el.rclass(c);
+					if (obj.meta.minimize) {
+						obj.meta.minimize('reset');
+					} else {
+						c = cls + '-minimized';
+						el.hclass(c) && el.rclass(c);
+					}
 					break;
 
 				case 'toggleminimize':
-					c = cls + '-minimized';
-					obj.setcommand(el.hclass(c) ? 'resetminimize' : 'minimize');
+					if (obj.meta.minimize) {
+						obj.meta.minimize('toggle');
+					} else {
+						c = cls + '-minimized';
+						obj.setcommand(el.hclass(c) ? 'resetminimize' : 'minimize');
+					}
 					break;
 
 				case 'resize':

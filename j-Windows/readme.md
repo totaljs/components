@@ -114,6 +114,16 @@ var win = {
 		// @this {Instance}
 
 		// the component will execute this handler each 5 seconds
+	},
+
+	// Optional, this delegate rewrites built-in functionality
+	minimize: function(type) {
+		// @type {String} optional, "reset", "toggle" or undefined (it means minimize right now)
+	},
+
+	// Optional, this delegate rewrites built-in functionality
+	maximize: function(type) {
+		// @type {String} optional, "reset", "toggle" or undefined (it means maximize right now)
 	}
 };
 
