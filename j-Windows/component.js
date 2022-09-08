@@ -47,7 +47,13 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 					return;
 				prevfocused.rclass(cls + '-focused');
 			}
-			prevfocused = $(this).aclass(cls + '-focused');
+			var el = $(this);
+			var id = el.attrd('id');
+			prevfocused = el.aclass(cls + '-focused');
+			var meta = cache[id];
+			if (meta && meta.focus)
+				meta.focus();
+
 		});
 
 		self.event('mousedown touchstart', cls2 + '-title,' + cls2 + '-resize', events.down);
