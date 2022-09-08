@@ -124,6 +124,10 @@ var win = {
 	// Optional, this delegate rewrites built-in functionality
 	maximize: function(type) {
 		// @type {String} optional, "reset", "toggle" or undefined (it means maximize right now)
+	},
+
+	focus: function() {
+		// window is focused
 	}
 };
 

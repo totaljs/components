@@ -600,6 +600,8 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 					obj.setcommand('resetminimize');
 					prevfocused && prevfocused.rclass(cls + '-focused');
 					prevfocused = obj.element.parent().aclass(cls + '-focused');
+					if (obj.meta.focus)
+						obj.meta.focus();
 					break;
 				default:
 					if (obj.meta.buttons) {
