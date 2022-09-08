@@ -51,8 +51,8 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 			var id = el.attrd('id');
 			prevfocused = el.aclass(cls + '-focused');
 			var meta = cache[id];
-			if (meta && meta.focus)
-				meta.focus();
+			if (meta && meta.meta.focus)
+				meta.meta.focus();
 
 		});
 
