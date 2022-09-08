@@ -6,6 +6,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 	var types = {};
 	var prevh = -1;
 	var skip = false;
+	var init = false;
 	var prefkey = 'jcproperties';
 	var values, funcs, predefined;
 
@@ -523,7 +524,6 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 
 	self.readonly();
 	self.nocompile();
-	self.bindvisible();
 
 	self.resize = function() {
 		if (self.scrollbar) {
@@ -533,6 +533,10 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 				scroller.css('height', h);
 				self.scrollbar.resize();
 			}
+		}
+		if (!init) {
+			init = true;
+			self.rclass('invisible hidden');
 		}
 	};
 
