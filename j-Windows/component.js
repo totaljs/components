@@ -448,6 +448,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 		obj.y = item.offset.y;
 		obj.width = item.offset.width;
 		obj.height = item.offset.height;
+		item.element = el;
 
 		if (item.buttons) {
 			var builder = [];
