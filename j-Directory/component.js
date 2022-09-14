@@ -10,6 +10,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 	var regstrip = /(&nbsp;|<([^>]+)>)/ig;
 	var parentclass = null;
 	var skiphide = false;
+	var skipmouse = false;
 	var main;
 
 	template = template.format(templateE);
@@ -48,7 +49,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		plus = self.find(cls2 + '-add');
 
 		self.event('mouseenter mouseleave', 'li', function() {
-			if (ready && !issearch) {
+			if (ready && !issearch && !skipmouse) {
 				container.find('li.current').rclass('current');
 				$(this).aclass('current');
 				var arr = container.find('li:visible');
@@ -67,6 +68,16 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		});
 
 		var skiphidedelay;
+		var skipmousedelay;
+		var skipmousefalse = function() {
+			skipmousedelay = null;
+			skipmouse = false;
+		};
+		var skipmouseforce = function() {
+			skipmouse = true;
+			skipmousedelay && clearTimeout(skipmousedelay);
+			skipmousedelay = setTimeout(skipmousefalse, 500);
+		};
 
 		self.event('focus', 'input', function() {
 
@@ -217,6 +228,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 			}
 
 			if (o) {
+				skipmouseforce();
 				e.preventDefault();
 				e.stopPropagation();
 			}
