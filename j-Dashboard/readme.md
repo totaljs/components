@@ -107,6 +107,10 @@ var component = {
 			// dashboard will execute this handler each 5 seconds
 		};
 
+		exports.focus = function() {
+			// Optional, when the "window" is focused the delegate will be executed
+		};
+
 		exports.resize = function(width, height, el, display) {
 			// @width {Number}
 			// @height {Number}

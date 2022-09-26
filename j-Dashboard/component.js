@@ -14,6 +14,7 @@ COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation
 	var $W = $(W);
 	var current_display;
 	var isinit = true;
+	var dtfocus;
 
 	self.readonly();
 
@@ -22,6 +23,7 @@ COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation
 		self.aclass(cls);
 		self.on('resize + resize2', events.resize);
 		$W.on('resize', events.resize);
+		$W.on('focus', events.focus);
 
 		$D.on('mousedown touchstart', cls2 + '-title,' + cls2 + '-resize-button', events.ondown);
 		$D.on('dragstart', '[draggable]', drag.handler);
@@ -163,6 +165,21 @@ COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation
 
 	events.resize = function() {
 		self.resize2();
+	};
+
+	events.focus = function() {
+
+		var now = Date.now();
+
+		if (dtfocus && (now - dtfocus) < 5000)
+			return;
+
+		dtfocus = now;
+
+		for (var key in cache) {
+			var item = cache[key];
+			item.meta.focus && item.meta.focus();
+		}
 	};
 
 	events.bind = function(is) {
@@ -353,8 +370,9 @@ COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation
 		$D.off('touchstart', '[draggable]', drag.handler);
 		$D.off('mousedown touchstart', cls2 + '-title,' + cls2 + '-resize-button', events.down);
 		$W.off('resize', events.resize);
-		events.bind();
+		$W.off('focus', events.focus);
 		clearInterval(serviceid);
+		events.bind();
 		self.change(true);
 	};
 
