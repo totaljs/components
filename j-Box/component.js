@@ -86,19 +86,28 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 		csspos.height = WH - (config.style == 1 ? (padding * 2) : padding);
 		csspos.top = config.style === 3 ? 0 : padding;
 
-		var w = ui.css('max-width').parseInt();
-		if (w > WW)
-			w = WW - padding;
+		var w = config.width;
+		if (w > WW) {
+			// w = WW - padding;
+			csspos.width = '';
+			csspos.maxwidth = '';
+			w = 0;
+		} else {
+			csspos.width = w + 'px';
+			csspos.maxwidth = w + 'px';
+		}
 
-		csspos.width = w;
+		// csspos.width = w;
 		ui.css(csspos);
-
 		self.element.css('padding', '0 ' + padding + 'px');
 
 		var el = self.find(cls2 + '-title');
 		var th = el.height();
 
-		csspos = { height: csspos.height - th, width: w };
+		csspos = { height: csspos.height - th };
+
+		if (w)
+			csspos.width = w;
 
 		if (nav)
 			csspos.height -= nav.height() + 5;
