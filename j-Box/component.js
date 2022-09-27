@@ -88,10 +88,12 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 
 		var w = ui.css('max-width').parseInt();
 		if (w > WW)
-			w = WW;
+			w = WW - padding;
 
 		csspos.width = w;
 		ui.css(csspos);
+
+		self.element.css('padding', '0 ' + padding + 'px');
 
 		var el = self.find(cls2 + '-title');
 		var th = el.height();
