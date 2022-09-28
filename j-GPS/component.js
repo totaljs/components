@@ -9,8 +9,8 @@ COMPONENT('gps', 'watcher:1', function(self, config) {
 
 		var coords = pos.coords;
 		var obj = {};
-		obj.lat = coords.latitude.floor(4);
-		obj.lng = coords.longitude.floor(4);
+		obj.lat = coords.latitude.floor(6);
+		obj.lng = coords.longitude.floor(6);
 		obj.speed = coords.speed;
 		obj.altitude = coords.altitude;
 		obj.accuracy = coords.accuracy;
