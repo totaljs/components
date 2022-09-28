@@ -7,7 +7,7 @@ The component tries to read GPS coordinates.
 
 __Configuration__:
 
-- `watcher {Boolean}` enables real-time watchers (default: `true`)
+- `watcher {Boolean}` enables a real-time watcher for GPS (default: `true`)
 
 __Good to know__:
 
