@@ -1,3 +1,4 @@
+.ui-wysiwyg { position: relative; }
 .ui-wysiwyg-toolbar { border-radius: var(--radius) var(--radius) 0 0; border: 1px solid #E0E0E0; height: 45px; padding-left: 10px; }
 .ui-wysiwyg-toolbar button { float: left; width: 24px; height: 24px; line-height: 24px; outline: 0; text-align: center; border: 0; background-color: #FFF; margin: 10px 5px 0 0; font-size: 12px; border-radius: var(--radius); }
 .ui-wysiwyg-toolbar button:hover, .ui-wysiwyg-toolbar button.selected { background-color: #F0F0F0; }

@@ -193,7 +193,7 @@ COMPONENT('wysiwyg', 'required:0;links:true;ul:true;code:true;ul:true', function
 
 		editor.on('blur', function() {
 			var t = editor.text().trim();
-			placeholder.tclass('hidden', !!t);
+			placeholder.tclass('hidden', !!t || editor.find('li').length > 0);
 			clearTimeout(timers.focused);
 			clearInterval(timers.changes);
 			timers.changes = null;
