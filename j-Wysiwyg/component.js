@@ -1,4 +1,4 @@
-COMPONENT('wysiwyg', function(self, config, cls) {
+COMPONENT('wysiwyg', 'required:0;links:true;ul:true;code:true;ul:true', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var timers = {};
@@ -50,6 +50,10 @@ COMPONENT('wysiwyg', function(self, config, cls) {
 	};
 
 	self.validate = function(value) {
+
+		if (!config.required)
+			return true;
+
 		var type = typeof(value);
 
 		if (type === 'undefined' || type === 'object')
@@ -65,7 +69,20 @@ COMPONENT('wysiwyg', function(self, config, cls) {
 
 		self.aclass(cls);
 		self.attr('wysiwyg', 'true');
-		self.append('<div class="{0}-toolbar"><button name="bold"><i class="fa fa-bold"></i></button><button name="italic"><i class="fa fa-italic"></i></button><button name="underline"><i class="fa fa-underline"></i></button></button><button name="link"><i class="fa fa-link"></i></button><button name="code"><i class="fa fa-highlighter"></i></button></div><div class="{0}-placeholder">{1}</div><div class="{0}-body" contenteditable="true"></div>'.format(cls, config.placeholder));
+
+		var buttons = [];
+		buttons.push('<button name="bold"><i class="fa fa-bold"></i></button><button name="italic"><i class="fa fa-italic"></i></button><button name="underline"><i class="fa fa-underline"></i></button></button>');
+
+		if (config.links)
+			buttons.push('<button name="link"><i class="fa fa-link"></i></button>');
+
+		if (config.code)
+			buttons.push('<button name="code"><i class="fa fa-highlighter"></i></button>');
+
+		if (config.ul)
+			buttons.push('<button name="ul"><i class="fa fa-list-ul"></i></button>');
+
+		self.append('<div class="{0}-toolbar">{2}</div><div class="{0}-placeholder">{1}</div><div class="{0}-body" contenteditable="true"></div>'.format(cls, config.placeholder, buttons.join('')));
 		editor = self.find(cls2 + '-body');
 		placeholder = self.find(cls2 + '-placeholder');
 
@@ -79,12 +96,21 @@ COMPONENT('wysiwyg', function(self, config, cls) {
 				case 'bold':
 					D.execCommand('Bold', false, null);
 					break;
+
 				case 'italic':
 					D.execCommand('Italic', false, null);
 					break;
+
 				case 'underline':
 					D.execCommand('Underline', false, null);
 					break;
+
+				case 'ul':
+					var node = self.getNode();
+					var selection = self.getSelection();
+					selection && D.execCommand('insertHtml', false, '<ul><li>{0}</li></ul>'.format(node === editor[0] ? selection : node.innerHTML));
+					break;
+
 				case 'mark':
 					var node = self.getNode();
 					var tag = check(node, 'SPAN');
@@ -95,6 +121,7 @@ COMPONENT('wysiwyg', function(self, config, cls) {
 						selection && D.execCommand('insertHtml', false, '<span class="marked">{0}</span>'.format(node === editor[0] ? selection : node.innerHTML));
 					}
 					break;
+
 				case 'code':
 					var node = self.getNode();
 					var tag = check(node, 'CODE');
@@ -105,6 +132,7 @@ COMPONENT('wysiwyg', function(self, config, cls) {
 						selection && D.execCommand('insertHtml', false, '<code>{0}</code>'.format(node === editor[0] ? selection : node.innerHTML));
 					}
 					break;
+
 				case 'clean':
 					var selection = self.getSelection();
 					if (selection) {
@@ -113,10 +141,9 @@ COMPONENT('wysiwyg', function(self, config, cls) {
 						node = findparent(self.getNode());
 						node && clean(node);
 					}
-
 					break;
-				case 'link':
 
+				case 'link':
 					var node = self.getNode();
 					var tag = check(node, 'A');
 					if (tag) {
