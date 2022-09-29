@@ -1,4 +1,4 @@
-COMPONENT('wysiwyg', 'required:0;links:true;ul:true;code:true;ul:true', function(self, config, cls) {
+COMPONENT('wysiwyg', 'required:0;links:false;ul:true;code:true;ul:true', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var timers = {};
@@ -73,14 +73,14 @@ COMPONENT('wysiwyg', 'required:0;links:true;ul:true;code:true;ul:true', function
 		var buttons = [];
 		buttons.push('<button name="bold"><i class="fa fa-bold"></i></button><button name="italic"><i class="fa fa-italic"></i></button><button name="underline"><i class="fa fa-underline"></i></button></button>');
 
-		if (config.links)
-			buttons.push('<button name="link"><i class="fa fa-link"></i></button>');
+		if (config.ul)
+			buttons.push('<button name="ul"><i class="fa fa-list-ul"></i></button>');
 
 		if (config.code)
 			buttons.push('<button name="code"><i class="fa fa-highlighter"></i></button>');
 
-		if (config.ul)
-			buttons.push('<button name="ul"><i class="fa fa-list-ul"></i></button>');
+		if (config.links)
+			buttons.push('<button name="link"><i class="fa fa-link"></i></button>');
 
 		self.append('<div class="{0}-toolbar">{2}</div><div class="{0}-placeholder">{1}</div><div class="{0}-body" contenteditable="true"></div>'.format(cls, config.placeholder, buttons.join('')));
 		editor = self.find(cls2 + '-body');
