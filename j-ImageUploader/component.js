@@ -53,8 +53,11 @@ COMPONENT('imageuploader', function(self) {
 		var ctx = canvas.getContext('2d');
 		canvas.width = opt.width;
 		canvas.height = opt.height;
-		ctx.fillStyle = opt.background || '#FFFFFF';
-		ctx.fillRect(0, 0, opt.width, opt.height);
+
+		if (opt.background !== 'transparent') {
+			ctx.fillStyle = opt.background || '#FFFFFF';
+			ctx.fillRect(0, 0, opt.width, opt.height);
+		}
 
 		var w = 0;
 		var h = 0;
@@ -117,7 +120,8 @@ COMPONENT('imageuploader', function(self) {
 		}
 
 		ctx.drawImage(image, x, y, w, h);
-		var base64 = canvas.toDataURL('image/jpeg', (opt.quality || 90) * 0.01);
+
+		var base64 = opt.background === 'transparent' ? canvas.toDataURL('image/png') : canvas.toDataURL('image/jpeg', (opt.quality || 90) * 0.01);
 		self.uploadforce(base64);
 	};
 
@@ -147,7 +151,7 @@ COMPONENT('imageuploader', function(self) {
 	};
 
 	self.load = function(file) {
-		name = file.name.replace(/\.(ico|png|jpeg|gif|svg|webp)$/, '.jpg');
+		name = file.name.replace(/\.(ico|png|jpeg|gif|svg|webp)$/, self.opt.background === 'transparent' ? '.png' : '.jpg');
 		self.getorientation(file, function(orient) {
 			var reader = new FileReader();
 			reader.onload = function () {

@@ -7,7 +7,7 @@ __Methods__:
 - `imageuploader/upload(opt)` shows a file dialog
 	- `opt.width {Number}`
 	- `opt.height {Number}`
-	- `opt.background {String}` a default background color
+	- `opt.background {String}` a default background color (__NEW__: supports the `transparent` value and output will be `.png`)
 	- `opt.url {String}` __important__ URL where will be image uploaded
 	- `opt.multiple {Boolean}` supports multiple files (default: `false`)
 	- `opt.schema {String}` default `{ file: base64, name: filename }`
