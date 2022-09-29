@@ -92,6 +92,7 @@ COMPONENT('wysiwyg', 'required:0;links:true;ul:true;code:true;ul:true', function
 		});
 
 		self.find('button').on('click', function() {
+			editor.focus();
 			switch (this.name) {
 				case 'bold':
 					D.execCommand('Bold', false, null);
@@ -108,7 +109,7 @@ COMPONENT('wysiwyg', 'required:0;links:true;ul:true;code:true;ul:true', function
 				case 'ul':
 					var node = self.getNode();
 					var selection = self.getSelection();
-					selection && D.execCommand('insertHtml', false, '<ul><li>{0}</li></ul>'.format(node === editor[0] ? selection : node.innerHTML));
+					D.execCommand('insertHtml', false, '<ul><li>{0}</li></ul>'.format((node === editor[0] ? selection : node.innerHTML) || ''));
 					break;
 
 				case 'mark':
