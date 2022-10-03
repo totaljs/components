@@ -35,10 +35,6 @@
 		win.title = 'Example';
 		win.html = div;
 
-		win.maximize = function() {
-			SET('common.detach', false);
-		};
-
 		win.close = function(next) {
 			SET('common.detach', false);
 			var index = common.windows.findIndex('id', id);
