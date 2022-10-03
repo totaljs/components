@@ -44,6 +44,12 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 			e.stopPropagation();
 		});
 
+		self.event('contextmenu', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			self.hide();
+		});
+
 		events.hide = function() {
 			is && self.hide();
 		};
