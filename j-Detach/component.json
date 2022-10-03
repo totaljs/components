@@ -1,0 +1,16 @@
+{
+	"datecreated": "2022-10-03T20:25:03.000Z",
+	"dateupdated": null,
+	"name": "j-Detach",
+	"tags": [
+		"detach"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

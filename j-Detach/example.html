@@ -1,0 +1,79 @@
+<style>
+	body { padding: 0; margin: 0; overflow: hidden; }
+</style>
+
+<div data---="windows__common.windows"></div>
+
+<div class="center padding"><button onclick="togglewindow()">Toggle windowed mode</button></div>
+
+<div style="margin:30px auto;border:1px solid #E0E0E0;max-width:500px;width:100%">
+	<div data---="detach__common.detach__detach:el_detach;attach:el_attach;remove:el_remove">
+		<div class="padding">
+			<h2>Your content</h2>
+			<div><img src="https://www.totaljs.com/download/sn1v001gi41d.svg" width="200" /></div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+	var common = {};
+
+	common.detach = false;
+	common.windows = [];
+
+	function el_detach(children, element) {
+
+		var id = 'mywin';
+		var div = document.createElement('DIV');
+
+		var win = {};
+		win.id = id;
+		win.cachekey = id;
+		win.offset = { x: 200, y: 100, width: 840, height: 500, minwidth: 450, minheight: 300 };
+		win.actions = { move: true, close: true, resize: true, maximize: true, minimize: false, autosave: true };
+		win.title = 'Example';
+		win.html = div;
+
+		win.maximize = function() {
+			TOGGLE('common.detach', true);
+		};
+
+		win.close = function(next) {
+			var index = common.windows.findIndex('id', id);
+			common.windows.splice(index, 1);
+			UPD('common.windows');
+			next();
+		};
+
+		for (var m of children)
+			div.appendChild(m);
+
+		PUSH('common.windows', win);
+	}
+
+	function el_attach(children, element) {
+
+		var id = 'mywin';
+
+		for (var m of children)
+			element[0].appendChild(m);
+
+		common.windows.splice(common.windows.findIndex('id', id), 1);
+		UPD('common.windows');
+	}
+
+	function el_remove(children) {
+		var id = 'mywin';
+		var index = common.windows.findIndex('id', id);
+		if (index !== -1) {
+			common.windows.splice(index, 1);
+			UPD('common.windows');
+		}
+	}
+
+	function togglewindow() {
+		TOGGLE('common.detach');
+	}
+
+</script>
