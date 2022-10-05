@@ -1,4 +1,4 @@
-COMPONENT('keyselection', 'selector:input;class:selected;autoselect:true;selectoritem:.item;autoscroll:true', function(self, config) {
+COMPONENT('keyselection', 'selector:input;class:selected;autoselect:true;selectoritem:.item;autoscroll:true;delay:100', function(self, config) {
 
 	var TYPE = { '38': 'up', '40': 'down', '13': 'enter' };
 	var selected = { index: -1, element: null };
@@ -76,8 +76,14 @@ COMPONENT('keyselection', 'selector:input;class:selected;autoselect:true;selecto
 		}
 	};
 
+	self.autoselect = function() {
+		setTimeout2(self.ID, () => self.refresh(), config.delay);
+	};
+
 	self.make = function() {
 		self.assign();
+		self.autoselect();
+		config.datasource && self.datasource(config.datasource, self.autoselect);
 	};
 
 	self.setter = function() {

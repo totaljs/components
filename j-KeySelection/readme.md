@@ -12,6 +12,8 @@ __Configuration__
 - `autoselect {Boolean}` it should select first item (default: `true`)
 - `autoscroll {Boolean}` enables/disables auto-scroll (default: `true`)
 - `exec {String}` a link to the `function(jqueryel)`, evaluated by the `enter` key (optional, otherwise will be trigger `click` event)
+- `delay {Number}` a delay for auto-selecting first value
+- `datasource {String}` a link to the data-source that can help you with a dynamic list
 
 ### Author
 
