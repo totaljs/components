@@ -62,7 +62,7 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 		// opt.offsetX     --> offsetX
 		// opt.offsetY     --> offsetY
 		// opt.placeholder
-		// opt.render
+		// opt.show
 		// opt.custom
 		// opt.minwidth
 		// opt.maxwidth
