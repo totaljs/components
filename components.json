@@ -292,5 +292,6 @@
 	"j-AutoDarkMode",
 	"j-UIBuilder",
 	"j-GPS",
-	"j-Detach"
+	"j-Detach",
+	"j-Unsaved"
 ]

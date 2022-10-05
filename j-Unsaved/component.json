@@ -1,0 +1,18 @@
+{
+	"datecreated": "2022-10-05T15:09:55.000Z",
+	"dateupdated": null,
+	"name": "j-Unsaved",
+	"tags": [
+		"unsaved",
+		"message"
+	],
+	"darkmode": true,
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
