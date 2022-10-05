@@ -191,7 +191,7 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 		opt.autofocus && self.autofocus(opt.autofocus);
 		is = true;
 
-		opt.config.show && EXEC(makepath(opt.config.show, opt.scope), opt.box);
+		opt.show && EXEC(makepath(opt.show, opt.scope), opt.box);
 	};
 
 	var close = function(item) {
