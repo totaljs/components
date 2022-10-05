@@ -6,10 +6,8 @@
 		"unsaved",
 		"message"
 	],
-	"darkmode": true,
 	"color": "white",
 	"version": 1,
-	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
 	"author": "Peter Širka",
