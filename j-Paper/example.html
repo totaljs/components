@@ -1,0 +1,90 @@
+<style>
+	.paper { max-width: 800px; width: 100%; margin: 30px auto; border: 2px solid #E0E0E0; padding: 20px 50px; border-radius: var(--radius); }
+</style>
+
+<div data---="LAZY menu"></div>
+<div data---="LAZY colorpicker"></div>
+<div data---="LAZY faicons"></div>
+<div data---="LAZY fileuploader"></div>
+<div data---="LAZY imageuploader"></div>
+<div data---="directory"></div>
+
+<div class="paper" data-scope="paperdata">
+	<div class="help m nmt">Start to write with the <code>/</code> backslash character</div>
+	<div data---="paper__?.data__readonly:0;parent:auto;margin:80;command:?/command;upload:?/upload;change:?/change;format:?/format;icon:?/icon" class="padding hidden invisible"></div>
+</div>
+
+<script>
+
+	var paperdata = {};
+
+	// JSON data:
+	paperdata.data = [{"id":"l8wsuldr","widget":"h1","config":{"html":"Paper example"}},{"id":"l8wsuo6j","widget":"html","config":{"html":"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi sapiente, adipisci quaerat quos eaque, veniam eum. Magni totam hic asperiores."}},{"id":"l8wsuzva","widget":"ol","config":{"items":[{"id":"l8wsuzvd","name":"Oranges"},{"id":"l8wsv1ng","name":"Apples"},{"id":"l8wsv29x","name":"Bananas"}]}},{"id":"l8wsv6lu","widget":"hr","config":{}},{"id":"l8wsvajq","widget":"tasks","config":{"items":[{"id":"l8wsvajt","name":"Task 1","checked":false},{"id":"l8wsvd8d","name":"Task 2","checked":false},{"id":"l8wsve1q","name":"Task 3","checked":false}]}},{"id":"l8wsvhjj","widget":"notes","config":{"html":"Lorem ipsum dolor sit amet consectetur adipisicing, elit. Tenetur, fugiat laborum porro inventore labore quod nihil vitae voluptatibus vel. Consequuntur."}},{"id":"l8wt03v8","widget":"code","config":{"code":"function sum(a, b) {\n\treturn a + b;\n}\n"}}];
+
+	PLUGIN('paperdata', function(exports) {
+
+		exports.upload = function(opt) {
+
+			// You can use Total.js OpenFiles as a FileStorage
+			// Docs: https://docs.totaljs.com/openfiles/
+
+			opt.url = 'https://youropenfilesinstance.com/upload/files/?token=YOUR_TOKEN&hostname=1';
+			var callback = opt.callback;
+
+			opt.callback = function(files) {
+				if (files && !(files instanceof Array))
+					files = [files];
+				callback(files);
+			};
+
+			var component = opt.width && opt.height ? 'imageuploader' : 'fileuploader';
+			SETTER(component +'/upload', opt);
+		};
+
+		exports.command = function(cmd) {
+			var opt = {};
+			opt.element = cmd.element;
+			opt.offsetY = 0;
+			opt.offsetX = -5;
+			opt.items = papercache.widgets;
+			opt.callback = function(selected) {
+				cmd.append(selected.id);
+			};
+			SETTER('directory/show', opt);
+		};
+
+		exports.change = function(model) {
+			// model is changed
+		};
+
+		exports.format = function(opt) {
+			// current format
+		};
+
+		exports.icon = function(opt, save) {
+			opt.callback = function(val) {
+				opt.element.rclass2('fa').aclass(val);
+				save();
+			};
+			SETTER('faicons/show', opt);
+		};
+
+		$(document).on('contextmenu', '.widget', function(e) {
+
+			e.preventDefault();
+			e.stopPropagation();
+
+			var el = $(this);
+			var opt = {};
+			opt.x = e.pageX;
+			opt.y = e.pageY;
+			opt.items = [];
+			opt.items.push({ id: 'remove', name: 'Remove', icon: 'far fa-trash-alt red' });
+			opt.callback = function() {
+				el[0].$widget.remove();
+			};
+			SETTER('menu/show', opt);
+		});
+	});
+
+</script>

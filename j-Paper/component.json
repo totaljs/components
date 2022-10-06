@@ -1,0 +1,20 @@
+{
+	"datecreated": "2022-10-06T10:47:00.000Z",
+	"dateupdated": null,
+	"name": "j-Paper",
+	"tags": [
+		"paper",
+		"wysiwyg",
+		"rich",
+		"widgets"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"darkmode": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
