@@ -2,6 +2,7 @@
 
 - a very complex component
 - output is a simple `Object Array` structure
+- widgets repository: https://github.com/totaljs/parts/tree/main/paper
 
 __Configuration__:
 
