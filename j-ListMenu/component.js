@@ -14,7 +14,7 @@ COMPONENT('listmenu', 'class:selected;selector:a;property:id;click:true', functi
 	self.configure = function(name, value) {
 		switch (name) {
 			case 'datasource':
-				self.datasource(self.makepath(value), self.rebind);
+				self.datasource(value, self.rebind);
 				break;
 		}
 	};
