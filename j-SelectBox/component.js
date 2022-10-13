@@ -2,9 +2,9 @@ COMPONENT('selectbox', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 
-	var Eitems, Eselected, datasource, condition;
+	var Eitems, Eselected, condition;
 
-	self.datasource = EMPTYARRAY;
+	self.datasource2 = EMPTYARRAY;
 	self.template = Tangular.compile('<span data-search="{{ search }}" data-index="{{ index }}">{{ text }}</span>');
 	self.nocompile && self.nocompile();
 
@@ -52,8 +52,7 @@ COMPONENT('selectbox', function(self, config, cls) {
 				self.bind('', arr);
 				break;
 			case 'datasource':
-				datasource = value;
-				self.datasource(datasource, self.bind);
+				self.datasource(value, self.bind);
 				break;
 		}
 
@@ -85,7 +84,7 @@ COMPONENT('selectbox', function(self, config, cls) {
 		var kv = config.value || 'id';
 		var builder = [];
 
-		self.datasource = [];
+		self.datasource2 = [];
 
 		if (value) {
 			var index = 0;
@@ -106,7 +105,7 @@ COMPONENT('selectbox', function(self, config, cls) {
 				}
 
 				item = { text: text, value: val, index: index++, search: text.toSearch() };
-				self.datasource.push(item);
+				self.datasource2.push(item);
 				builder.push(self.template(item));
 			}
 		}
@@ -132,7 +131,7 @@ COMPONENT('selectbox', function(self, config, cls) {
 
 			var selected = self.get() || [];
 			var index = +this.getAttribute('data-index');
-			var value = self.datasource[index];
+			var value = self.datasource2[index];
 
 			if (selected.indexOf(value.value) === -1)
 				selected.push(value.value);
@@ -160,7 +159,7 @@ COMPONENT('selectbox', function(self, config, cls) {
 		var selected = {};
 		var builder = [];
 
-		var ds = self.datasource;
+		var ds = self.datasource2;
 		var dsl = ds.length;
 
 		if (value) {
