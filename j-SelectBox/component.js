@@ -52,8 +52,7 @@ COMPONENT('selectbox', function(self, config, cls) {
 				self.bind('', arr);
 				break;
 			case 'datasource':
-				datasource && self.unwatch(datasource, self.bind);
-				self.watch(value, self.bind, true);
+				self.datasource(datasource, self.bind);
 				datasource = value;
 				break;
 		}
