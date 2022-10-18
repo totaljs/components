@@ -10,8 +10,8 @@ COMPONENT('choose', 'limit:1;attr:id;key:id;selector:.selection;event:click;clas
 	};
 
 	self.getter = null;
-	self.validate = function(value, init) {
-		if (init || config.disabled || !config.required)
+	self.validate = function(value) {
+		if (config.disabled || !config.required)
 			return true;
 		return config.limit === 1 ? value != null : value && value.length > 0;
 	};
