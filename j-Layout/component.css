@@ -1,4 +1,4 @@
-.ui-layout { border: 0; position: absolute; }
+.ui-layout { border: 0; position: absolute; z-index: 1; }
 .ui-layout > section { position: absolute; overflow: hidden; }
 .ui-layout > div { position: absolute; }
 .ui-layout-resize-top { height: 2px; cursor: row-resize; }
