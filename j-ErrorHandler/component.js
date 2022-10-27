@@ -38,7 +38,7 @@ COMPONENT('errorhandler', 'keywords:401=login', function(self, config) {
 			if (config.exec) {
 				self.SEEX(config.exec, arr);
 			} else {
-				var name = M.$components.message ? 'message' : M.$components.snackbar ? 'snackbar' : M.$components.notifybar ? 'notifybar' : M.$components.notify ? 'notify' : '';
+				var name = self.caniuse('message') ? 'message' : self.caniuse('snackbar') ? 'snackbar' : self.caniuse('notifybar') ? 'notifybar' : self.caniuse('notify') ? 'notify' : '';
 				if (name)
 					SETTER(name + '/warning', response.items.join('<br />'));
 				else if (W.console)
