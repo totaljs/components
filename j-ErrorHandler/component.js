@@ -35,6 +35,7 @@ COMPONENT('errorhandler', 'keywords:401=login', function(self, config) {
 			}
 
 			response.items = arr;
+
 			if (config.exec) {
 				response.message = arr.join('<br />');
 				self.SEEX(config.exec, arr);
@@ -45,6 +46,8 @@ COMPONENT('errorhandler', 'keywords:401=login', function(self, config) {
 				else if (W.console)
 					console.error('ERROR():', response.items.join('<br />'));
 			}
+
+			SETTER('!loading/hide', 100);
 		});
 	};
 
