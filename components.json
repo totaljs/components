@@ -294,5 +294,6 @@
 	"j-GPS",
 	"j-Detach",
 	"j-Unsaved",
-	"j-Paper"
+	"j-Paper",
+	"j-ErrorHandler"
 ]
