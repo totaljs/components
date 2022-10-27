@@ -1,24 +1,10 @@
-<div data---="autocomplete__null__height:200"></div>
-
-<div style="margin: 80px auto 0;width:300px;">
-	<input type="text" style="width:100%;padding:5px 10px;border:1px solid #E0E0E0" placeholder="Type something ..." />
-</div>
+<div data---="errorhandler"></div>
+<div data---="LAZY message"></div>
 
 <script>
-	var opt = {};
-	opt.element = $('input');
-	opt.offsetY = 17;
-	opt.offsetWidth = 21;
-	opt.callback = function(value, input) {
-		alert('autocomplete selected --> ' + JSON.stringify(value));
-		input.val('');
-	};
 
-	opt.search = function(q, render) {
-		console.log('---> autocomplete search query:', q);
-		// e.g. we have to call e.g. AJAX or another datasource
-		render([{ name: 'Item 1', type: 'pages' }, { name: 'Item 2', type: 'widgets' }, { name: 'Item 3' }, { name: 'Item 4' }, { name: 'Item 5' }, { name: 'Item 6' }, { name: 'Item 7' }, { name: 'Item 8' }, { name: 'Item 9' }, { name: 'Item 10' }]);
-	};
+	setTimeout(function() {
+		ERROR([{ error: 'Error 1' }, { error: 'Error 2' }]);
+	}, 3000);
 
-	SETTER(true, 'autocomplete', 'show', opt);
 </script>

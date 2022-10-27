@@ -1,4 +1,4 @@
-COMPONENT('errorhandling', 'keywords:401=login', function(self, config) {
+COMPONENT('errorhandler', 'keywords:401=login', function(self, config) {
 
 	self.readonly();
 	self.singleton();

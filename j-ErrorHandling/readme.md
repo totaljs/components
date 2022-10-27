@@ -1,4 +1,4 @@
-## j-ErrorHandling
+## j-ErrorHandler
 
 This component captures the `ON('ERROR', function(err` event trigger from the `ERROR()` method and tries to display form more comfortably.
 
