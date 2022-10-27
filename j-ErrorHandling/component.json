@@ -1,0 +1,17 @@
+{
+	"datecreated": "2022-10-27T08:36:00.000Z",
+	"dateupdated": null,
+	"name": "j-ErrorHandling",
+	"tags": [
+		"error",
+		"handling"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
