@@ -11,6 +11,7 @@ __Configuration__:
 	- must be in the form `search1=target_property,search2=target_property`
 - `exec {String}` a link to the `function(response)`, output:
 	- `response.items {String Array}`
+	- `response.message {String}`
 	- `response.keyword_target_property {Boolean}` optional, according to the `keywords` settings
 
 The component tries using `j-Message`, `j-Snackbar`, `j-NotifyBar` or `j-Notify` for displaying of errors if you don't have defined `exec` configuration.
