@@ -38,7 +38,7 @@ COMPONENT('errorhandler', 'keywords:401=login', function(self, config) {
 
 			if (config.exec) {
 				response.message = arr.join('<br />');
-				self.SEEX(config.exec, arr);
+				self.SEEX(config.exec, response);
 			} else {
 				var name = self.caniuse('message') ? 'message' : self.caniuse('snackbar') ? 'snackbar' : self.caniuse('notifybar') ? 'notifybar' : self.caniuse('notify') ? 'notify' : '';
 				if (name)
