@@ -104,7 +104,7 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 						var fn = config.tapi ? TAPI : AJAX;
 						fn(config.dirsource.format(val).arg({ value: val }), processor);
 					} else
-						self.EXEC(config.dirsource, [value], processor);
+						self.EXEC(config.dirsource, value, processor);
 				};
 				opt.callback = function(selected) {
 					var val = selected[config.dirvalue];
@@ -112,7 +112,7 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 					if (arr.indexOf(val) !== -1)
 						return;
 					skip = true;
-					self.bindsinglevalue([val], t.$dlid);
+					self.bindsinglevalue(val, t.$dlid);
 					if (t.$dlid)
 						self.update();
 					else {
@@ -137,7 +137,7 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 					}
 					self.change();
 					config.required && setTimeout(self.validate2, 100);
-					self.bindsinglevalue([value], t.$dlid);
+					self.bindsinglevalue(value, t.$dlid);
 				}, self.get());
 			}
 		});
@@ -218,7 +218,7 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 		if (value) {
 			if (config.url) {
 				config.loading && SETTER('loading/show');
-				var val = encodeURIComponent(value.join(','));
+				var val = encodeURIComponent(value);
 				var fn = function(response) {
 					config.loading && SETTER('loading/hide');
 					if (response instanceof Array && response.length) {

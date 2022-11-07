@@ -14,7 +14,7 @@ This component is very special component. It can keep values for example `Number
 - `remap {String}` a remap function (default: `null`), example: `value.length ? value[0] : null`
 - `required {Boolean}` enables "required" (default: `false`)
 - `bind {String}` a path to method or variable where will be binded loaded value (optional)
-- `dirsource {String}` a link to method `function(search, next(items_arr))` or __NEW__: can contain URL for search in fhe form `GET /api/partners/?q={0}`
+- `dirsource {String}` a link to method `function(search_string, next(items_arr))` or __NEW__: can contain URL for search in fhe form `GET /api/partners/?q={0}`
 - `dircustom {String/Boolean}` can contain a path to function(val, next(new_val)) or can be Boolean. This option can enable adding a custom value (value not defined in data-source)
 - `dirrender {String}` a path to `function(item, text)` (must return HTML for j-Directory), this function can affect list of items in j-Directory
 - `dirminwidth {Number}` a minimum width for j-Directory, (default: `200`)
