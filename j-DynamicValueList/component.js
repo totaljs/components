@@ -1,4 +1,4 @@
-COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:1000;dirvalue:id', function(self, config, cls) {
+COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:1000;dirvalue:id;tapi:0', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var template = '<div class="{0}-item"><div class="{0}-icon"><i class="fa fa-times"></i></div><div class="{0}-value">{1}</div></div>'.format(cls, config.placeholder);
@@ -101,7 +101,8 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 
 					if (config.dirsource.indexOf(' ') !== -1) {
 						var val = encodeURIComponent(value);
-						AJAX(config.dirsource.format(val).arg({ value: val }), processor);
+						var fn = config.tapi ? TAPI : AJAX;
+						fn(config.dirsource.format(val).arg({ value: val }), processor);
 					} else
 						self.EXEC(config.dirsource, [value], processor);
 				};
@@ -213,11 +214,12 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 	};
 
 	self.bindsinglevalue = function(value, oldid) {
+
 		if (value) {
 			if (config.url) {
 				config.loading && SETTER('loading/show');
 				var val = encodeURIComponent(value.join(','));
-				AJAX('GET ' + config.url.format(val).arg({ value: val }), function(response) {
+				var fn = function(response) {
 					config.loading && SETTER('loading/hide');
 					if (response instanceof Array && response.length) {
 						if (oldid == null)
@@ -226,7 +228,13 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 							el_update(response[0], oldid);
 						container.rclass('hidden');
 					}
-				});
+				};
+
+				if (config.tapi)
+					TAPI(config.url.format(val).arg({ value: val }), fn);
+				else
+					AJAX('GET ' + config.url.format(val).arg({ value: val }), fn);
+
 			} else {
 				self.EXEC(config.exec || config.read, value, function(response) {
 					if (response instanceof Array && response.length) {
@@ -253,7 +261,10 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 			if (config.url) {
 				config.loading && SETTER('loading/show');
 				var val = encodeURIComponent(value.join(','));
-				AJAX('GET ' + config.url.format(val).arg({ value: val }), self.bindvalue);
+				if (config.tapi)
+					TAPI(config.url.format(val).arg({ value: val }), self.bindvalue);
+				else
+					AJAX('GET ' + config.url.format(val).arg({ value: val }), self.bindvalue);
 			} else
 				self.EXEC(config.exec || config.read, value, self.bindvalue, type);
 		} else
