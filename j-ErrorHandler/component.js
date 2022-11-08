@@ -40,7 +40,7 @@ COMPONENT('errorhandler', 'keywords:401=login', function(self, config) {
 				response.message = arr.join('<br />');
 				self.SEEX(config.exec, response);
 			} else {
-				var name = self.caniuse('message') ? 'message' : self.caniuse('snackbar') ? 'snackbar' : self.caniuse('notifybar') ? 'notifybar' : self.caniuse('notify') ? 'notify' : '';
+				var name = self.caniuse('message') ? 'message' : self.caniuse('notify') ? 'notify' : self.caniuse('notifybar') ? 'notifybar' : self.caniuse('snackbar') ? 'snackbar' : '';
 				if (name)
 					SETTER(name + '/warning', response.items.join('<br />'));
 				else if (W.console)
