@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Total.js Icons</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=10" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@19.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@19.js"></script>
+	<style>
+		.size10 i { font-size: 10px; width: 12px; }
+		.size11 i { font-size: 11px; width: 14px; }
+		.size12 i { font-size: 12px; width: 16px; }
+		.size14 i { font-size: 14px; width: 18px; }
+		.size16 i { font-size: 16px; width: 20px; }
+		.size18 i { font-size: 18px; width: 24px; }
+		.size24 i { font-size: 24px; width: 28px; }
+		.size30 i { font-size: 30px; width: 36px; }
+		.icons { font-size: 14px; }
+		.icons i { text-align: center; display: inline-block; }
+		.icons .hellip { margin-bottom: 4px; }
+		.fontsize { height: 30px; float: right; font-size: 12px; margin: 5px 0 0; }
+		.fontsize span { margin-right: 5px; }
+	</style>
+</head>
+<body>
+
+	<div class="container">
+		<div class="padding">
+			<div class="fontsize" data-bind="null__click .link:setsize">
+				Size:
+				<span class="link">10</span>
+				<span class="link">11</span>
+				<span class="link">12</span>
+				<span class="link">14</span>
+				<span class="link">16</span>
+				<span class="link">18</span>
+				<span class="link">24</span>
+				<span class="link">30</span>
+			</div>
+			<h2 style="margin:0 0 10px;padding:0">Total.js Icons</h2>
+			<div data-bind="icons__template" class="row icons size14">
+				<script type="text/html">
+					{{ foreach m in value }}
+						<div class="col-md-2 col-sm-3 col-xs-4 hellip"><i class="ti ti-{{ m }} mr5"></i>{{ m }}</div>
+					{{ end }}
+				</script>
+			</div>
+		</div>
+	</div>
+
+	<script>
+
+		AJAX('GET https://cdn.componentator.com/icons.json', 'icons');
+
+		function setsize(el) {
+			$('.icons').rclass2('size').aclass('size' + el.text());
+		}
+
+	</script>
+
+</body>
+</html>
