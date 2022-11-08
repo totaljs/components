@@ -13,7 +13,7 @@ COMPONENT('icons', 'search:Search;scrollbarshadow:0', function(self, config, cls
 	self.nocompile();
 
 	self.redraw = function() {
-		self.html('<div class="{0}"><div class="{0}-header"><div class="{0}-search"><span><i class="fa fa-search clearsearch"></i></span><div><input type="text" placeholder="{1}" class="{0}-search-input"></div></div></div><div class="{0}-scrollbar"><div class="{0}-content"></div></div></div>'.format(cls, config.search));
+		self.html('<div class="{0}"><div class="{0}-header"><div class="{0}-search"><span><i class="ti ti-search clearsearch"></i></span><div><input type="text" placeholder="{1}" class="{0}-search-input"></div></div></div><div class="{0}-scrollbar"><div class="{0}-content"></div></div></div>'.format(cls, config.search));
 		container = self.find(cls2 + '-content');
 		self.scrollbar = SCROLLBAR(self.find(cls2 + '-scrollbar'), { visibleY: 1, shadow: config.scrollbarshadow });
 	};
