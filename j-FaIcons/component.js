@@ -33,10 +33,17 @@ COMPONENT('faicons', 'search:Search;scrollbarshadow:0', function(self, config, c
 
 		empty && builder.push(template.format('', ''));
 
-		var arr = ispro ? iconspro : icons;
-		for (var i = 0; i < arr.length; i++)
-			builder.push(template.format(arr[i].replace(/^.*?-/, '').replace(/-/g, ' ').toSearch(), arr[i]));
-		self.find(cls2 + '-content').html(builder.join(''));
+		AJAX('GET https://cdn.componentator.com/icons.json', function(response) {
+			for (var icon of response)
+				builder.push(template.format(icon.toSearch(), 'ti ti-' + icon));
+
+			var arr = ispro ? iconspro : icons;
+			for (var i = 0; i < arr.length; i++)
+				builder.push(template.format(arr[i].replace(/^.*?-/, '').replace(/-/g, ' ').toSearch(), arr[i]));
+
+			self.find(cls2 + '-content').html(builder.join(''));
+		});
+
 	};
 
 	self.search = function(value) {
