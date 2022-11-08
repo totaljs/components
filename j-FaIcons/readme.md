@@ -24,8 +24,8 @@ opt.element = YOUR_ELEMENT;
 // opt.x {Number}          : `x` position
 // opt.y {Number}          : `y` position
 
-opt.callback = function(emoji) {
-	console.log(emoji); // callback parameter has String.fromCodePoint() value
+opt.callback = function(icon) {
+	console.log(icon);
 };
 
 SETTER('faicons', 'show', opt);
