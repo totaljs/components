@@ -1,0 +1,29 @@
+.ui-icons-container { position: absolute; z-index: 110; }
+.ui-icons { border: 1px solid #E0E0E0; font-size: 14px; color: #000; width: 330px; z-index: 10; background-color: #FFF; box-shadow: 0 5px 10px rgba(0,0,0,0.08); border-radius: var(--radius); z-index: 80; overflow: hidden; }
+.ui-icons-header { height: 50px; background-color: #fcfcfc; border-bottom: 1px solid #e0e0e0; padding: 10px 0 0; }
+.ui-icons-nav { padding: 13px 5px 6px 5px; text-align: center; }
+.ui-icons-nav span { cursor: pointer; font-size: 24px; width: 11%; display: inline-block; user-select: none; }
+.ui-icons-search { padding: 0 10px; }
+.ui-icons-search span { float: left; width: 30px; text-align: center; height: 30px; padding: 7px 0 0; font-size: 12px; background-color: #FFF; border: 1px solid #e0e0e0; border-radius: var(--radius) 0 0 var(--radius); color: #A0A0A0; cursor: pointer; }
+.ui-icons-search .fa-times { color: #ff0000; }
+.ui-icons-search div { margin-left: 30px; }
+.ui-icons-search-input { margin: 0; width: 100%; border: 1px solid #e0e0e0; padding: 0 9px; height: 30px; border-radius: 0 var(--radius) var(--radius) 0; border-left: 0; appearance: none; }
+.ui-icons-search-input:focus { outline: none; }
+.ui-icons-scroll { overflow: auto; height: 305px; }
+.ui-icons-content { position: relative; padding: 5px; }
+.ui-icons-content span { padding: 5px; cursor: pointer; font-size: 20px; width: 12.5%; height: 30px; display: inline-block; text-align: center; user-select: none; color: #404040; }
+.ui-icons-content span:hover { transform: scale(1.15); color: #000; }
+.ui-icons-scrollbar { height: 305px; }
+
+.ui-dark .ui-icons { background-color: #202020; border-color: #303030; }
+.ui-dark .ui-icons-header { background-color: #202020; border-color: #303030; }
+.ui-dark .ui-icons-content { color: #A0A0A0; }
+.ui-dark .ui-icons-search span { background-color: #252525; border-color: #303030; color: #A0A0A0; }
+.ui-dark .ui-icons-search-input { border-color: #303030; background-color: #1f1f1f; color: #FFF; }
+.ui-dark .ui-icons-content span { color: #A0A0A0; }
+.ui-dark .ui-icons-content span:hover { color: #FFF; }
+
+@media(max-width: 767px) {
+	.ui-icons .ui-icons-nav span { cursor: pointer; font-size: 26px; }
+	.ui-icons .ui-icons-content span { min-width: 45px; }
+}

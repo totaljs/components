@@ -1,0 +1,22 @@
+<div data---="faicons"></div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-xs-4 col-xs-offset-4" style="text-align:center">
+			<a href="javascript:void(0)" style="color:black;font-size:30px"><i class="far fa-grin-alt"></i></a>
+		</div>
+	</div>
+</div>
+
+<script>
+$(document).on('click', 'a', function() {
+	var opt = {};
+	opt.align = 'center';
+	opt.position = 'top';
+	opt.element = this;
+	opt.callback = function(selected) {
+		console.log(selected);
+	};
+	SETTER('icons/show', opt);
+});
+</script>

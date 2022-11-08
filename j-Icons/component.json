@@ -1,0 +1,17 @@
+{
+	"datecreated": "2022-11-08T10:32:00.000Z",
+	"dateupdated": null,
+	"name": "j-Icons",
+	"tags": [
+		"icons"
+	],
+	"color": "white",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "info@totalavengers.com",
+	"license": "https://www.totaljs.com/license/"
+}
