@@ -1,14 +1,14 @@
-COMPONENT('tagger', 'text:name', function(self, config) {
+COMPONENT('tagger', 'text:name', function(self, config, cls) {
 
-	self.bindvisible();
+	// self.bindvisible();
 	self.nocompile && self.nocompile();
 
-	var obj = VBINDARRAY('<div class="ui-tagger-item"><i class="fa fa-times"></i><span data-bind=".{0}__text__title"></span></div>'.format(config.text), self);
+	var obj = VBINDARRAY('<div class="{0}-item"><i class="fa fa-times"></i><span data-bind=".{1}__text__title"></span></div>'.format(cls, config.text), self);
 
 	self.make = function() {
 
-		self.aclass('ui-tagger');
-		config.fullwidth && self.aclass('ui-tagger-fullwidth');
+		self.aclass(cls);
+		config.fullwidth && self.aclass(cls + '-fullwidth');
 
 		self.event('click', 'i', function() {
 			var el = $(this);
@@ -23,7 +23,7 @@ COMPONENT('tagger', 'text:name', function(self, config) {
 		switch (key) {
 			case 'fullwidth':
 				if (!init || value)
-					self.tclass('ui-tagger-fullwidth', !!value);
+					self.tclass(cls + '-fullwidth', !!value);
 				break;
 		}
 	};

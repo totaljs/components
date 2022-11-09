@@ -7,7 +7,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;markers:1;curvedlines:1;horizo
 	var D = '__';
 	var drag = {};
 
-	self.bindvisible();
+	// self.bindvisible();
 	self.readonly();
 
 	self.meta = {};

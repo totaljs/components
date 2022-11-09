@@ -4,7 +4,7 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config, cls) {
 	var months = MONTHS;
 	var container, labels;
 
-	self.bindvisible();
+	// self.bindvisible();
 	self.readonly();
 	self.nocompile && self.nocompile();
 

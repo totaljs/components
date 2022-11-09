@@ -4,7 +4,7 @@ COMPONENT('codemirror', 'linenumbers:true;required:false;trim:false;tabs:true;he
 	var cls2 = '.' + cls;
 
 	self.getter = null;
-	self.bindvisible();
+	// self.bindvisible();
 	self.nocompile();
 
 	self.reload = function() {

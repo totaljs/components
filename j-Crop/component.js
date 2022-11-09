@@ -10,7 +10,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 	var cache = { x: 0, y: 0, zoom: 0 };
 	var width = 0;
 
-	self.bindvisible();
+	// self.bindvisible();
 	self.novalidate();
 	self.nocompile && self.nocompile();
 	self.getter = null;

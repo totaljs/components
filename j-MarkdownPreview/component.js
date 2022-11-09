@@ -4,7 +4,7 @@ COMPONENT('markdownpreview', 'showsecret:Show secret data;hidesecret:Hide secret
 	var elcache;
 	var elbody;
 
-	self.bindvisible();
+	// self.bindvisible();
 	self.readonly();
 	self.nocompile && self.nocompile();
 

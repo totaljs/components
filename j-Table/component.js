@@ -15,7 +15,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 
 	self.readonly();
 	self.nocompile();
-	self.bindvisible();
+	// self.bindvisible();
 
 	self.make = function() {
 
