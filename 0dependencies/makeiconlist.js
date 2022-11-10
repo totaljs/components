@@ -8,5 +8,5 @@ Fs.readFile('totaljs.json', function(err, buffer) {
 	for (var item of items.icons)
 		list.push(item.properties.name);
 
-	Fs.writeFile('icons.json', JSON.stringify(list), function() {});
+	Fs.writeFile('icons-db.html', list.join(','), function() {});
 });
