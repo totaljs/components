@@ -109,9 +109,10 @@ COMPONENT('approve', 'cancel:Cancel', function(self, config, cls) {
 
 		self.rclass(cls + '-visible');
 		events.unbind();
+
 		setTimeout2(self.id, function() {
 			$('html').rclass(cls + '-noscroll');
 			self.aclass('hidden');
-		}, 1000);
+		}, 50);
 	};
 });
