@@ -1,12 +1,23 @@
+require('total4');
 const Fs = require('fs');
+var filename = 'selection.json';
 
-Fs.readFile('totaljs.json', function(err, buffer) {
+Fs.readFile(filename, function(err, buffer) {
+
+	if (err) {
+		console.error(err);
+		return;
+	}
 
 	var items = JSON.parse(buffer.toString('utf8'));
 	var list = [];
 
-	for (var item of items.icons)
-		list.push(item.properties.name);
+	for (var item of items.icons) {
+		var name = item.properties.name.split(',').trim();
+		for (var m of name)
+			list.push(m);
+	}
 
 	Fs.writeFile('icons-db.html', list.join(','), function() {});
+	Fs.unlink(filename, NOOP);
 });
