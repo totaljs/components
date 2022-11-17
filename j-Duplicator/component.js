@@ -4,7 +4,7 @@ COMPONENT('duplicator', function(self, config, cls) {
 	var open = [];
 	var ready = false;
 	var templates = {};
-
+	
 	self.readonly();
 
 	self.make = function() {
@@ -85,11 +85,13 @@ COMPONENT('duplicator', function(self, config, cls) {
 
 		for (var i = 0; i < arr.length; i++) {
 			var item = arr[i];
-			if (open.indexOf(arr) === -1) {
+			if (open.indexOf(item) === -1) {
 				self.insert(item, null, function(item) {
 					cache[item.scopename()] = 1;
 					setTimeout2(self.ID + 'compile', COMPILE, 100);
 				});
+			} else { 
+				cache[item.scopename()] = 1;
 			}
 		}
 
