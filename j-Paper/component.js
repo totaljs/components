@@ -254,7 +254,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 			if (e.keyCode === 13) {
 
-				if (!opt.multiline || e.shiftKey) {
+				if (!opt.multiline || e.shiftKey || e.metaKey) {
 					e.preventDefault();
 					e.stopPropagation();
 					openeditor.key = 13;
@@ -557,6 +557,10 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		};
 
 		meta.widgets.load = function(el, arr) {
+
+			if (!el || !arr || !(arr instanceof Array) || !arr.length)
+				return;
+
 			var builder = [];
 			for (var item of arr) {
 				settings[item.id] = item.config;
@@ -886,11 +890,11 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		var body = $(el || self.element);
 		var items = [];
 		var arr = body.find('> section > .widget');
-		for (var el of arr) {
-			el = $(el);
-			var name = el.attrd('widget');
-			var id = ATTRD(el);
-			var w = el[0].$widget;
+		for (var child of arr) {
+			var child = $(child);
+			var name = child.attrd('widget');
+			var id = ATTRD(child);
+			var w = child[0].$widget;
 			var cfg;
 			try {
 				cfg = w.save ? w.save() : {};
