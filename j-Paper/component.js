@@ -148,6 +148,13 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		document.execCommand('Bold', false, null);
 	};
 
+	self.format.code = function() {
+		var url = '#' + Date.now().toString(36);
+		document.execCommand('CreateLink', false, url);
+		var a = openeditor.element.find('a[href="{0}"]'.format(url));
+		a.replaceWith('<span class="paper-code">' + a.html() + '</span>');
+	};
+
 	self.format.italic = function() {
 		document.execCommand('Italic', false, null);
 	};
@@ -336,6 +343,15 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 				return;
 			}
 
+			if (e.keyCode === 77) {
+				// code
+				if (opt.format && (opt.code == null || opt.code == true))
+					self.format.code();
+				e.preventDefault();
+				e.stopPropagation();
+				return;
+			}
+
 			if (e.keyCode === 76) {
 				// link
 				if (opt.format && (opt.link == null || opt.link == true))
@@ -476,7 +492,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		if (config.autosave) {
 			self.save(function(response) {
 				skip = true;
-				self.set(response);
+				self.set(response, 2);
 			});
 		}
 	};
