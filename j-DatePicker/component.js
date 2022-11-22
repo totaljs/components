@@ -1,4 +1,4 @@
-COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls) {
+COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:0', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var skip = false;
@@ -258,6 +258,11 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 
 	self.setdate = function(dt) {
 
+		if (!dt) {
+			self.opt.callback(dt);
+			return;
+		}
+
 		var time = self.time.split(':');
 
 		if (time.length > 1) {
@@ -337,7 +342,7 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 
 		for (var i = 0; i < 42; i++)
 			builder.push('<div class="{0}-date"><div></div></div>'.format(cls, i));
-		builder.push('</div></div><div class="{0}-footer"><span class="{0}-now">{2}</span></div>'.format(cls, config.close, config.today));
+		builder.push('</div></div><div class="{0}-footer"><span class="{0}-now">{2}</span><span class="{0}-clear">{3}</span></div>'.format(cls, config.close, config.today, config.clear));
 
 		self.html('<div class="{0}">{1}</div>'.format(cls, builder.join('')));
 		main = $(self.find(cls2)[0]);
@@ -428,6 +433,11 @@ COMPONENT('datepicker', 'today:Set today;firstday:0', function(self, config, cls
 
 		self.find(cls2 + '-now').on('click', function() {
 			self.setdate(new Date());
+			self.hide();
+		});
+
+		self.find(cls2 + '-clear').on('click', function() {
+			self.setdate(null);
 			self.hide();
 		});
 
