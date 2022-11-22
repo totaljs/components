@@ -99,7 +99,7 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 
 			var w = children.width();
 			var left = offset.left + css.left + w;
-			if (left > WW + 30)
+			if (left > (WW + 30))
 				css.left = (offsetX - w) + 5;
 
 			children.css(css);
