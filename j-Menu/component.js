@@ -109,8 +109,6 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 			var suboffset = childrenwidth + leftoffset;
 			if (suboffset > WW) 
 				children.css('left', -childrenwidth);
-			
-		
 		};
 	};
 
