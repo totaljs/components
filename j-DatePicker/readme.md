@@ -28,6 +28,7 @@ opt.value = new Date();
 opt.callback = function(newdate) {
 	console.log('date has been changed');
 };
+//IMPORTANT - opt.callback() can receive "null" value as a parameter, so this check should be taken into consideration when callback function is being created.
 
 // opt.offsetX {Number} "x" offset
 // opt.offsetY {Number} "y" offset
