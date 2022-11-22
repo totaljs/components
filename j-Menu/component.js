@@ -99,10 +99,16 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 
 			var w = children.width();
 			var left = offset.left + css.left + w;
-			if (left > WW + 30)
+			if (left > (WW + 30))
 				css.left = (offsetX - w) + 5;
 
 			children.css(css);
+
+			var leftoffset = children.offset().left;
+			var childrenwidth = children.width();
+			var suboffset = childrenwidth + leftoffset;
+			if (suboffset > WW) 
+				children.css('left', -childrenwidth);
 		};
 	};
 
