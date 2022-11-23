@@ -262,7 +262,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					self.check();
 					rawvalue[0].focus();
 				};
-				SETTER('faicons/show', opt);
+				SETTER((self.caniuse('icons') ? 'icons' : 'faicons') + '/show', opt);
 				return;
 			} else if (config.type === 'color') {
 				opt = {};
