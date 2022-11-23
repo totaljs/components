@@ -943,8 +943,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					value.setSeconds((tmp[2] || '0').parseInt());
 					break;
 				case 'slug':
-					value = value.slug();
-					
+					value = value.slug();	
 					break;
 			}
 		} else {
