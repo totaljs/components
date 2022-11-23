@@ -944,6 +944,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					break;
 				case 'slug':
 					value = value.slug();
+					break;
 			}
 		} else {
 			switch (config.type) {
