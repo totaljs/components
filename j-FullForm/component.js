@@ -119,6 +119,8 @@ COMPONENT('fullform', 'zindex:12;padding:20;scrollbar:1;scrolltop:1;style:1', fu
 		}
 
 		self.rclass('hidden invisible');
+		var csscls = self.attr('class');
+		csscls && el.aclass(csscls);
 		self.replace(el, true);
 
 		if (config.scrollbar)

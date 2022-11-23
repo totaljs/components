@@ -136,6 +136,8 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 			body.appendChild(self.dom.children[0]);
 
 		self.rclass('hidden invisible');
+		var csscls = self.attr('class');
+		csscls && el.aclass(csscls);
 		self.replace(el, true);
 
 		self.event('scroll', function() {
