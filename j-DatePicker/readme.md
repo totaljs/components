@@ -25,12 +25,12 @@ opt.value = new Date();
 // opt.align {String}      : align "left" (default), "center" or "right"
 // opt.position {String}   : position "top" (default) or "bottom"
 
-opt.clear = false; //Removes "clear" button from datepicker. If this property is not specified as "false" - "clear" button will be shown
+opt.clear = false; // Removes "clear" button from datepicker. If this property is not specified as "false" - "clear" button will be shown
 
 opt.callback = function(newdate) {
 	console.log('date has been changed');
 };
-//IMPORTANT - opt.callback() can receive "null" value as a parameter, so this check should be taken into consideration when callback function is being created.
+// IMPORTANT - opt.callback() can receive "null" value as a parameter, so this check should be taken into consideration when callback function is being created.
 
 // opt.offsetX {Number} "x" offset
 // opt.offsetY {Number} "y" offset
