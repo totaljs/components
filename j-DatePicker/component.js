@@ -343,11 +343,11 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:0', function(self,
 			builder.push('<div></div>');
 		builder.push('</div><div class="{0}-days">'.format(cls));
 
-		var elclear = self.opt.clear === false ? null : '<span class="{0}-clear">{1}</span>'.format(cls, config.clear);
+		var btnclear = self.opt.clear === false ? null : '<span class="{0}-clear">{1}</span>'.format(cls, config.clear);
 
 		for (var i = 0; i < 42; i++)
 			builder.push('<div class="{0}-date"><div></div></div>'.format(cls, i));
-		builder.push('</div></div><div class="{0}-footer"><span class="{0}-now">{2}</span><span class="{0}-clear">{3}</span></div>'.format(cls, config.close, config.today, elclear));
+		builder.push('</div></div><div class="{0}-footer"><span class="{0}-now">{2}</span><span class="{0}-clear">{3}</span></div>'.format(cls, config.close, config.today, btnclear));
 
 		self.html('<div class="{0}">{1}</div>'.format(cls, builder.join('')));
 		main = $(self.find(cls2)[0]);
