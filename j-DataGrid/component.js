@@ -1647,7 +1647,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:28;mi
 		if (pages_count > source.pages)
 			pages_count = source.pages;
 
-		for (var i = page_from; i < pages_count; i++)
+		for (var i = page_from; i < pages_count + 1; i++)
 			arr.push(i);
 
 		!arr.length && arr.push(page_from);

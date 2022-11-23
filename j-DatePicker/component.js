@@ -259,7 +259,10 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:0', function(self,
 	self.setdate = function(dt) {
 
 		if (!dt) {
-			self.opt.callback(dt);
+			if (typeof(self.opt.value) === 'string')
+				SET(self.opt.value + ' @change', dt);
+			else
+				self.opt.callback(dt);
 			return;
 		}
 
