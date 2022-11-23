@@ -529,6 +529,9 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 		if (config.type === 'checkbox')
 			return value === true || value === 1;
 
+		if (config.type === 'slug')
+			return value.slug();
+
 		if (value == null)
 			value = '';
 		else
