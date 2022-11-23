@@ -1,10 +1,6 @@
 {
 	"datecreated": "2019-02-06T21:33:00.000Z",
-<<<<<<< HEAD
 	"dateupdated": "2022-11-23T09:41:23.000Z",
-=======
-	"dateupdated": "2022-11-22T15:55:00.000Z",
->>>>>>> 52dbe27fecc1b8f82f635381f09d50d2d7b81bc9
 	"name": "j-DatePicker",
 	"tags": [
 		"datepicker",
