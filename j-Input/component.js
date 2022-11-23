@@ -529,9 +529,6 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 		if (config.type === 'checkbox')
 			return value === true || value === 1;
 
-		if (config.type === 'slug')
-			return value.slug();
-
 		if (value == null)
 			value = '';
 		else
@@ -945,6 +942,8 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					value.setMinutes((tmp[1] || '0').parseInt());
 					value.setSeconds((tmp[2] || '0').parseInt());
 					break;
+				case 'slug':
+					value = value.slug();
 			}
 		} else {
 			switch (config.type) {
