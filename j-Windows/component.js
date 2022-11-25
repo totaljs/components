@@ -454,7 +454,7 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0', function(self, c
 			var builder = [];
 			for (var i = 0; i < item.buttons.length; i++) {
 				var btn = item.buttons[i];
-				var icon = btn.icon.indexOf(' ') === -1 ? ('ti ti-' + btn.icon) : btn.icon;
+				var icon = self.faicon(btn.icon);
 				builder.push('<i class="ti ti-{1} {0}-control" data-name="{2}"></i>'.format(cls, icon, btn.name));
 			}
 			builder.length && el.find(cls2 + '-lastbutton').before(builder.join(''));
