@@ -2,7 +2,7 @@
 .ui-wiki-topics-body { overflow: auto; height: 100%; }
 .ui-wiki-topic label { padding: 8px 15px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border-bottom: 1px solid #E0E0E0; cursor: pointer; color: #505050; font-size: 18px; }
 .ui-wiki-topic label i { width: 24px; }
-.ui-wiki-topic label i:before { content: '\f054' }
+.ui-wiki-topic label i:before { content: '\e910' }
 .ui-wiki-topic label:hover { background-color: #F0F0F0; }
 .ui-wiki-topic-body { display: none; padding: 18px; }
 .ui-wiki-title { padding: 0; font-weight: bold; height: 60px; border-bottom: 1px solid #E0E0E0; border-radius: var(--radius) var(--radius) 0 0; }
@@ -11,7 +11,7 @@
 .ui-wiki-title button:hover { color: #000; }
 .ui-wiki-visible .ui-wiki-topic-body { display: block; border-bottom: 1px solid #E0E0E0; }
 .ui-wiki-visible label { background-color: var(--color) !important; border-bottom-color: var(--color) !important; color: #FFF !important; }
-.ui-wiki-visible label i:before { content: '\f078' }
+.ui-wiki-visible label i:before { content: '\e90e' }
 
 .ui-dark .ui-wiki { background-color: #303030; box-shadow: 0 0 30px rgba(0,0,0,0.3); }
 .ui-dark .ui-wiki-title { border-bottom-color: #404040; color: #FFF; }
