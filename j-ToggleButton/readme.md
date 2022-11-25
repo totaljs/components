@@ -7,7 +7,7 @@ __Configuration__:
 - `icontrue` {String} optional, toggles FontAwesome icons if the value is `true`
 - `iconfalse` {String} optional, toggles FontAwesome icons if the value is `false`
 
-Icons can be in the form: `moon` or `far fa-moon`.
+Icons can be in the form: `circle` or `ti ti-circle`.
 
 ### Author
 

@@ -22,7 +22,7 @@ COMPONENT('togglemore', function(self) {
 		after.tclass('hidden', !showed);
 		before.tclass('hidden', showed);
 		arrowcontainer.tclass('down', showed);
-		arrow.rclass2('fa-chevron').aclass('fa-chevron-' + (showed ? 'down' : 'right'));
+		arrow.rclass2('ti-chevron').aclass('ti-chevron-' + (showed ? 'down' : 'right'));
 	};
 
 	self.prepare = function() {
@@ -31,7 +31,7 @@ COMPONENT('togglemore', function(self) {
 			$(this).aclass(cls + '-' + (index === 0 ? 'before' : 'after'));
 		});
 
-		self.element.prepend('<div class="' + cls +'-arrow"><i class="fas fa-chevron-right fa-sm"></i></div>');
+		self.element.prepend('<div class="' + cls +'-arrow"><i class="ti ti-chevron-right ti-sm"></i></div>');
 		before = self.find(cls2 + '-before');
 		after = self.find(cls2 + '-after');
 		arrowcontainer = self.find(cls2 + '-arrow');
