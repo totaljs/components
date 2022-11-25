@@ -2,3 +2,4 @@
 .ui-togglemore .ui-togglemore-after { margin-left: 20px; line-height: 20px; }
 .ui-togglemore .ui-togglemore-arrow { float: left; cursor: pointer; user-select: none; color: gray; position: absolute; width: 15px; margin-top: -1px; text-align: center; }
 .ui-togglemore .ui-togglemore-arrow.down { margin-top: 0; }
+.ui-togglemore .ui-togglemore-arrow.down { font-size: 14px; }
