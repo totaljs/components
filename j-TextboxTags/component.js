@@ -6,7 +6,7 @@ COMPONENT('textboxtags', function(self, config, cls) {
 	var refresh = false;
 
 	if (!W.$textboxtagstemplate)
-		W.$textboxtagstemplate = Tangular.compile('<div class="' + cls + '-tag" data-name="{{ name }}">{{ name }}<i class="fa fa-times"></i></div>');
+		W.$textboxtagstemplate = Tangular.compile('<div class="' + cls + '-tag" data-name="{{ name }}">{{ name }}<i class="ti ti-times"></i></div>');
 
 	var template = W.$textboxtagstemplate;
 
@@ -35,7 +35,7 @@ COMPONENT('textboxtags', function(self, config, cls) {
 			case 'icon':
 				var fa = self.find(cls2 + '-label > i');
 				if (fa.length && value)
-					fa.rclass().aclass('fa fa-' + value);
+					fa.rclass().aclass('ti ti-' + value);
 				else
 					redraw = true;
 				break;
@@ -71,7 +71,7 @@ COMPONENT('textboxtags', function(self, config, cls) {
 		isString = self.type === 'string';
 
 		if (content.length) {
-			self.html(('<div class="' + cls + '-label">{0}{1}:</div><div class="' + cls + '">{2}</div>').format((config.icon ? '<i class="fa fa-' + config.icon + '"></i> ' : ''), label, html));
+			self.html(('<div class="' + cls + '-label">{0}{1}:</div><div class="' + cls + '">{2}</div>').format((config.icon ? '<i class="ti ti-' + config.icon + '"></i> ' : ''), label, html));
 		} else {
 			self.aclass(cls);
 			self.html(html);
@@ -89,7 +89,7 @@ COMPONENT('textboxtags', function(self, config, cls) {
 		self.type = config.type || '';
 		self.redraw();
 
-		self.event('click', '.fa-times', function(e) {
+		self.event('click', '.ti-times', function(e) {
 
 			if (config.disabled)
 				return;
