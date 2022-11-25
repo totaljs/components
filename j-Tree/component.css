@@ -17,7 +17,7 @@
 .ui-tree-checkbox-checked { background-color: #4285F4 !important; border-color: #4285F4 !important; color: #FFF; }
 .ui-tree-checkbox-checked i { display: block !important; }
 
-.ui-tree-folder:before { content: '\e9a6'; font-weight: 900; }
+.ui-tree-folder:before { content: '\e9a6'; font-weight: normal; }
 .ui-tree-show > .ui-tree-expand .ui-tree-folder:before { content: '\e9a4'; }
 
 .ui-tree-children1 .ui-tree-item { padding-left: 33px; }
