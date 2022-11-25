@@ -1,7 +1,7 @@
-.ui-tree { background-color: #FFFFFF; height: 100%; }
+.ui-tree { background-color: #FFF; height: 100%; }
 .ui-tree-children { display: none; }
 .ui-tree-item i { width: 16px; margin-right: 3px; }
-.ui-tree-item span { position: absolute; right: 5px; color: #000000; cursor: pointer; font-size: 12px; margin: 2px 0 0 0; top: 7px; display: none; }
+.ui-tree-item span { position: absolute; right: 5px; color: #000; cursor: pointer; font-size: 12px; margin: 2px 0 0 0; top: 7px; display: none; }
 .ui-tree-item { cursor: pointer; padding: 7px 18px; font-size: 13px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; border-bottom: 1px solid #E8E8E8; position: relative; user-select: none; line-height: 0; }
 .ui-tree-item:hover { background-color: #F8F8F8; }
 .ui-tree-item:hover span { display: block; }
@@ -10,15 +10,15 @@
 .ui-tree-show > .ui-tree-item { font-weight: bold; }
 .ui-tree-label { margin-left: 25px; display: block !important; padding: 2px 0 0; position: static !important; }
 .ui-tree-selected { background-color: #FFFDE1 !important; }
-.ui-tree input { padding: 0; margin: 0; outline: 0; background-color: #FFFFFF; border: 1px solid #E0E0E0; line-height: 0; color: #000000; outline: 0; }
+.ui-tree input { padding: 0; margin: 0; outline: 0; background-color: #FFF; border: 1px solid #E0E0E0; line-height: 0; color: #000; outline: 0; }
 .ui-tree .ui-tree-ddhere { background-color: #F0F0F0 !important; }
-.ui-tree-checkbox { width: 16px; height: 16px; line-height: 16px; border-radius: 2px; background-color: #FFFFFF; border: 1px solid #E0E0E0; font-size: 11px; text-align: center; float: left; padding: 1px 0 0; }
+.ui-tree-checkbox { width: 16px; height: 16px; line-height: 16px; border-radius: 2px; background-color: #FFF; border: 1px solid #E0E0E0; font-size: 11px; text-align: center; float: left; padding: 1px 0 0; }
 .ui-tree-checkbox i { display: none; margin: 0; width: 100% !important; }
-.ui-tree-checkbox-checked { background-color: #4285F4 !important; border-color: #4285F4 !important; color: #FFFFFF; }
+.ui-tree-checkbox-checked { background-color: #4285F4 !important; border-color: #4285F4 !important; color: #FFF; }
 .ui-tree-checkbox-checked i { display: block !important; }
 
-.ui-tree-folder:before { content: '\f07b'; font-weight: 900; }
-.ui-tree-show > .ui-tree-expand .ui-tree-folder:before { content: '\f07c'; }
+.ui-tree-folder:before { content: '\e9a6'; font-weight: 900; }
+.ui-tree-show > .ui-tree-expand .ui-tree-folder:before { content: '\e9a4'; }
 
 .ui-tree-children1 .ui-tree-item { padding-left: 33px; }
 .ui-tree-children2 .ui-tree-item { padding-left: 48px; }
@@ -34,8 +34,8 @@
 .ui-dark .ui-tree-ddhere { background-color: #404040 !important; }
 .ui-dark .ui-tree { background-color: #282828; color: #A0A0A0; }
 .ui-dark .ui-tree-item { border-bottom-color: #404040; }
-.ui-dark .ui-tree-selected { background-color: #404040 !important; color: #FFFFFF; }
+.ui-dark .ui-tree-selected { background-color: #404040 !important; color: #FFF; }
 .ui-dark .ui-tree-item:hover { background-color: #303030; }
 .ui-dark .ui-tree-show > .ui-tree-item { font-weight: bold; background-color: #353535; color: #D0D0D0; }
 .ui-dark .ui-tree-checkbox { background-color: #303030; border-color: #404040; }
-.ui-dark .ui-tree-item span { color: #FFFFFF; }
+.ui-dark .ui-tree-item span { color: #FFF; }
