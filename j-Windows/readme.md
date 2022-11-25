@@ -8,7 +8,7 @@
 
 __Configuration__:
 
-- `menuicon` {String} a menu icon in window title bar (default `fa fa-navicon`)
+- `menuicon` {String} a menu icon in window title bar (default `ti ti-navicon`)
 - __NEW__ `reoffsetresize` {Boolean} all windows will be re-offset according to `main` window dimension (default: `true`)
 
 The `windows` component expects `Array` of objects.
