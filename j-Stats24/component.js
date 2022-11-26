@@ -31,7 +31,7 @@ COMPONENT('stats24', 'height:120;tooltiplarge:0;tooltip:1;tooltiptext:{0};border
 				var toindex = index + 1;
 				if (toindex === 24)
 					toindex = 0;
-				opt.html = '<b>' + config.tooltiptext.format(val[index] || 0).format(0) + '</b><br /><i class="far fa-clock"></i> ' + index.padLeft(2, '0') + ':00 - ' + (toindex).padLeft(2, '0') + ':00';
+				opt.html = '<b>' + config.tooltiptext.format(val[index] || 0).format(0) + '</b><br /><i class="ti ti-clock"></i> ' + index.padLeft(2, '0') + ':00 - ' + (toindex).padLeft(2, '0') + ':00';
 				opt.align = 'bottom';
 				opt.timeout = 2000;
 				SETTER('tooltip', 'show', opt);

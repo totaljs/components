@@ -73,8 +73,8 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 			for (i = 0; i < name.length; i++) {
 				name[i] = name[i].trim().replace(/'[a-z-\s]+'/, function(val) {
 					if (val.indexOf(' ') === -1)
-						val = val + ' fa';
-					return '<i class="fa-{0}"></i>'.format(val.replace(/'/g, ''));
+						val = val + ' ti';
+					return '<i class="ti-{0}"></i>'.format(val.replace(/'/g, ''));
 				});
 			}
 
@@ -121,7 +121,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 		});
 
 		if (config.paginate) {
-			self.append('<div class="{0}-footer"><div class={0}-pagination-items hidden-xs"></div><div class="{0}-pagination"><button name="page-first" disabled><i class="fa fa-angle-double-left"></i></button><button name="page-prev" disabled><i class="fa fa-angle-left"></i></button><div><input type="text" name="page" maxlength="5" class="{0}-pagination-input" /></div><button name="page-next" disabled><i class="fa fa-angle-right"></i></button><button name="page-last" disabled><i class="fa fa-angle-double-right"></i></button></div><div class="{0}-pagination-pages"></div></div>'.format(cls));
+			self.append('<div class="{0}-footer"><div class={0}-pagination-items hidden-xs"></div><div class="{0}-pagination"><button name="page-first" disabled><i class="ti ti-angle-double-left"></i></button><button name="page-prev" disabled><i class="ti ti-angle-left"></i></button><div><input type="text" name="page" maxlength="5" class="{0}-pagination-input" /></div><button name="page-next" disabled><i class="ti ti-angle-right"></i></button><button name="page-last" disabled><i class="ti ti-angle-double-right"></i></button></div><div class="{0}-pagination-pages"></div></div>'.format(cls));
 			efooter = self.find(cls2 + '-footer');
 
 			efooter.on('change', cls2 + '-pagination-input', function() {
@@ -184,18 +184,18 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 			var i = th.find('i');
 			var type;
 
-			if (i.attr('class') === 'fa') {
+			if (i.attr('class') === 'ti') {
 				// no sort
-				prevsort && prevsort.el.find('i').rclass2('fa-');
-				i.aclass('fa-long-arrow-up');
+				prevsort && prevsort.el.find('i').rclass2('ti-');
+				i.aclass('ti-long-arrow-up');
 				type = 'asc';
-			} else if (i.hclass('fa-long-arrow-up')) {
+			} else if (i.hclass('ti-long-arrow-up')) {
 				// ascending
-				i.rclass('fa-long-arrow-up').aclass('fa-long-arrow-down');
+				i.rclass('ti-long-arrow-up').aclass('ti-long-arrow-down');
 				type = 'desc';
-			} else if (i.hclass('fa-long-arrow-down')) {
+			} else if (i.hclass('ti-long-arrow-down')) {
 				// descending
-				i.rclass('fa-long-arrow-down');
+				i.rclass('ti-long-arrow-down');
 				type = '';
 			}
 
@@ -553,7 +553,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 
 				for (var i = 0; i < arr.length; i++) {
 					var w = !size || size[i] === '0' ? 'auto' : size[i];
-					builder.push('<th style="width:{0};text-align:{2}"{3}>{1}</th>'.format(w, (sort && sort[i] ? '<i class="fa"></i>' : '') + (name ? name[i] : ''), align ? align[i] : 'left', sort && sort[i] ? ' class="sort"' : ''));
+					builder.push('<th style="width:{0};text-align:{2}"{3}>{1}</th>'.format(w, (sort && sort[i] ? '<i class="ti"></i>' : '') + (name ? name[i] : ''), align ? align[i] : 'left', sort && sort[i] ? ' class="sort"' : ''));
 					buildersize.push('<th style="width:{0}"></th>'.format(w));
 				}
 

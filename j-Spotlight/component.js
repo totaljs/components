@@ -46,7 +46,7 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 	self.make = function() {
 
 		self.aclass(cls + '-layer hidden');
-		self.append('<div class="{1}"><div class="{1}-search"><span><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" /></div></div><div class="{1}-container"><div class="{1}-items"></div></div></div>'.format(config.placeholder, cls));
+		self.append('<div class="{1}"><div class="{1}-search"><span><i class="ti ti-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" /></div></div><div class="{1}-container"><div class="{1}-items"></div></div></div>'.format(config.placeholder, cls));
 
 		container = self.find(cls2 + '-items');
 		scroller = self.find(cls2 + '-container');

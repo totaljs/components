@@ -12,7 +12,7 @@
     }
 
     function searchbox_init(component) {
-    	component.type('<i class="fa fa-user"></i> By name', 'name', true);
+    	component.type('<i class="ti ti-user"></i> By name', 'name', true);
     }
 
     function searchbox_type(component) {
@@ -21,7 +21,7 @@
 		opt.align = 'left';
 		opt.element = component.element;
 		opt.callback = function(selected) {
-			component.type('<i class="fa fa-{0}"></i> {1}'.format(selected.icon, selected.name), selected.value, true);
+			component.type('<i class="ti ti-{0}"></i> {1}'.format(selected.icon, selected.name), selected.value, true);
 		};
 		SETTER('menu', 'show', opt);
     }

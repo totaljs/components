@@ -10,7 +10,7 @@ COMPONENT('statusinput', function(self) {
 
 	self.make = function() {
 		self.aclass(cls + ' hidden');
-		self.append('<label class="{0}-placeholder"></label><nav><button name="ok" disabled><i class="fa fa-check"></i></button><button name="no"><i class="fa fa-times"></i></button></nav><div class="{0}-input"><input type="text" /></div>'.format(cls));
+		self.append('<label class="{0}-placeholder"></label><nav><button name="ok" disabled><i class="ti ti-check"></i></button><button name="no"><i class="ti ti-times"></i></button></nav><div class="{0}-input"><input type="text" /></div>'.format(cls));
 
 		input = self.find('input');
 		placeholder = self.find(cls2 + '-placeholder');
@@ -74,7 +74,7 @@ COMPONENT('statusinput', function(self) {
 		input.val(opt.value || '');
 		isplaceholder = false;
 		placeholder.tclass('hidden', !!opt.value);
-		placeholder.html((opt.icon ? '<i class="fa fa-{0}"></i>'.format(opt.icon) : '') + opt.placeholder || '');
+		placeholder.html((opt.icon ? '<i class="ti ti-{0}"></i>'.format(opt.icon) : '') + opt.placeholder || '');
 		submit.prop('disabled', true);
 		self.rclass('hidden');
 

@@ -1,7 +1,7 @@
 .ui-selectbox { border: 1px solid #E0E0E0; font-size: 14px; color: #000; }
 .ui-selectbox-container { position: relative; left: 0; right: 0; overflow: hidden; }
 .ui-selectbox-area { width: 50%; height: 100%; position: absolute; left: 0; right: 0; overflow: hidden; }
-.ui-selectbox-container .ui-selectbox-area: last-child { left: 50%; }
+.ui-selectbox-container .ui-selectbox-area:last-child { left: 50%; }
 .ui-selectbox .ui-selectbox-body { list-style-type: none; width: 100%; height: 100%; float: left; overflow: auto; margin: 0; padding: 0; background-color: #FFF; border-left: 1px solid #E0E0E0; font-weight: bold; overflow-y: scroll; -ms-overflow-style: none; scrollbar-width: none; }
 .ui-selectbox .ui-selectbox-body::-webkit-scrollbar { display: none; }
 .ui-selectbox .ui-selectbox-area:first-child .ui-selectbox-body { border-left: 0; font-weight: normal; }
@@ -11,7 +11,7 @@
 .ui-selectbox-search { border-bottom: 1px solid #E0E0E0; height: 34px; background-color: #FFF; }
 .ui-selectbox-search input { width: 100%; outline: 0; background-color: #FFF; font: normal normal 12px Arial; border: 0; margin: 0; padding: 0; height: 33px; line-height: 33px; }
 .ui-selectbox-search span { float: left; width: 30px; text-align: center; height: 33px; line-height: 33px; font-size: 12px; color: #A0A0A0; }
-.ui-selectbox-search .fa-times { color: red; cursor: pointer; }
+.ui-selectbox-search .ti-times { color: red; cursor: pointer; }
 .ui-selectbox-search div { margin-left: 30px; }
 .ui-selectbox-invalid { border-color: #E1A1A1; background-color: #FFF3F3 !important; }
 .ui-selectbox-invalid .ui-selectbox-search { border-color: #E1A1A1; }
