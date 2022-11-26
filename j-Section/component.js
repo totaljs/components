@@ -1,4 +1,4 @@
-COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;back:fa fa-chevron-left;visibleY:1;height:100;invisible:1;delayanim:200', function(self, config, cls) {
+COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;back:ti ti-chevron-left;visibleY:1;height:100;invisible:1;delayanim:200', function(self, config, cls) {
 
 	var elb, elh;
 	var scrollbar;
