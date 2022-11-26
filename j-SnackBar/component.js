@@ -35,7 +35,7 @@ COMPONENT('snackbar', 'timeout:4000;button:OK', function(self, config, cls) {
 	};
 
 	self.waiting = function(message, button, close) {
-		self.show(message, button, close, 'spinner fa-pulse');
+		self.show(message, button, close, 'spinner ti-pulse');
 	};
 
 	self.success = function(message, button, close) {
@@ -57,7 +57,7 @@ COMPONENT('snackbar', 'timeout:4000;button:OK', function(self, config, cls) {
 
 		var ico = icon || 'info-circle';
 		if (ico.indexOf(' ') === -1)
-			ico = 'fa fa-' + ico;
+			ico = 'ti ti-' + ico;
 
 		self.find(cls2 + '-icon').html('<i class="{0}"></i>'.format(ico));
 		self.find(cls2 + '-body').html(message).attr('title', message);
