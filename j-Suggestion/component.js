@@ -25,11 +25,11 @@ COMPONENT('suggestion', function(self, config, cls) {
 	self.make = function() {
 
 		self.aclass(cls + ' hidden');
-		self.append('<span class="{1}-arrow"></span><div class="{1}-body"><div class="{1}-search"><span class="{1}-button"><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" /></div></div><div class="{1}-container"><ul></ul></div></div>'.format(config.placeholder, cls));
+		self.append('<span class="{1}-arrow"></span><div class="{1}-body"><div class="{1}-search"><span class="{1}-button"><i class="ti ti-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" /></div></div><div class="{1}-container"><ul></ul></div></div>'.format(config.placeholder, cls));
 		container = self.find('ul');
 		arrow = self.find(cls2 + '-arrow');
 		input = self.find('input');
-		icon = self.find(cls2 + '-button').find('.fa');
+		icon = self.find(cls2 + '-button').find('.ti');
 
 		self.event('mouseenter mouseleave', 'li', function() {
 			container.find('li.selected').rclass('selected');
@@ -144,7 +144,7 @@ COMPONENT('suggestion', function(self, config, cls) {
 
 	self.search = function(value) {
 
-		icon.tclass('fa-times', !!value).tclass('fa-search', !value);
+		icon.tclass('ti-times', !!value).tclass('ti-search', !value);
 
 		if (!value) {
 			container.find('li').rclass('hidden');
