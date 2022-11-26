@@ -40,13 +40,13 @@ COMPONENT('singleupload', 'title:{{ name }};url:/api/upload/', function(self, co
 		$(document.body).append('<input type="file" id="{0}" class="hidden"{1} />'.format(id, config.accept ? ' accept="{0}"'.format(config.accept) : ''));
 		input = $('#' + id);
 
-		self.html('<i class="fa fa-times"></i><span>{0}</span>'.format(config.label));
+		self.html('<i class="ti ti-times"></i><span>{0}</span>'.format(config.label));
 
 		self.event('click', 'span', function() {
 			!config.disabled && input.click();
 		});
 
-		self.event('click', '.fa-times', function() {
+		self.event('click', '.ti-times', function() {
 			if (!config.disabled) {
 				self.change();
 				self.set(null);
