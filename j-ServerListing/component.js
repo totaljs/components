@@ -143,7 +143,7 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0;pluralizeitems:# items,
 
 		if (page < 2 || prevcount != pages) {
 
-			var template = '<button data-index="{0}"><i class="fa fa-caret-{1}"></i></button>';
+			var template = '<button data-index="{0}"><i class="ti ti-caret-{1}"></i></button>';
 			builder = [];
 			builder.push(template.format('-', 'left'));
 
