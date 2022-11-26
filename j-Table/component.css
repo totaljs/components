@@ -11,8 +11,8 @@
 .ui-table-head th { padding: 8px 4px; }
 .ui-table-head .sort { cursor: pointer; user-select: none; }
 .ui-table-head .sort i { text-align: left; color: #4783EE; }
-.ui-table-head .sort .fa-long-arrow-up, .ui-table-head .sort .fa-long-arrow-down { width: 12px; }
-.ui-table-head .sort .fa-sort { color: black; }
+.ui-table-head .sort .ti-long-arrow-up, .ui-table-head .sort .ti-long-arrow-down { width: 12px; }
+.ui-table-head .sort .ti-sort { color: black; }
 .ui-table-nohead, .ui-table-nohead tr, .ui-table-nohead th { height: 0 !important; overflow: hidden !important; padding: 0 !important; margin: 0 !important; border-bottom: 0; }
 .ui-table-tbody > tr { border-bottom: 1px solid #E0E0E0; }
 .ui-table-tbody > tr > td { padding: 5px 4px; }
@@ -48,7 +48,7 @@
 .ui-dark .ui-table-border > .ui-table-container { border-color: #404040; }
 .ui-dark .ui-table-border > .ui-table-headcontainer { border-color: #404040; }
 .ui-dark .ui-table-head { color: #FFF; background-color: #202020; }
-.ui-dark .ui-table-head .sort .fa-sort { color: #FFF; }
+.ui-dark .ui-table-head .sort .ti-sort { color: #FFF; }
 .ui-dark .ui-table-scrollbar { background-color: #333; }
 .ui-dark .ui-table-footer { border-color: #404040; }
 .ui-dark .ui-table-border .ui-table-headcontainer thead > tr > th, .ui-dark .ui-table-border .ui-table-tbody > tr > td { border-left: 1px solid #404040; border-right: 1px solid #404040; }
