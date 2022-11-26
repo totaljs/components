@@ -65,11 +65,11 @@ COMPONENT('selectbox', function(self, config, cls) {
 			var el = $(this);
 			el.tclass('hidden', el.attrd('search').indexOf(search) === -1);
 		});
-		self.find(cls2 + '-search-icon').tclass('fa-search', search.length === 0).tclass('fa-times', search.length > 0);
+		self.find(cls2 + '-search-icon').tclass('ti-search', search.length === 0).tclass('ti-times', search.length > 0);
 	};
 
 	self.redraw = function() {
-		self.html((typeof(config.search) === 'string' ? '<div class="{0}-search"><span><i class="fa fa-search {0}-search-icon"></i></span><div><input type="text" placeholder="{1}" /></div></div><div>'.format(cls, config.search) : '') + '<div class="{0}-container" style="height:{1}px"><div class="{0}-area {0}-main"><div class="{0}-body noscrollbar"></div></div><div class="{0}-area"><div class="{0}-body noscrollbar" style="height:{1}px"></div></div></div>'.format(cls, config.height || '200'));
+		self.html((typeof(config.search) === 'string' ? '<div class="{0}-search"><span><i class="ti ti-search {0}-search-icon"></i></span><div><input type="text" placeholder="{1}" /></div></div><div>'.format(cls, config.search) : '') + '<div class="{0}-container" style="height:{1}px"><div class="{0}-area {0}-main"><div class="{0}-body noscrollbar"></div></div><div class="{0}-area"><div class="{0}-body noscrollbar" style="height:{1}px"></div></div></div>'.format(cls, config.height || '200'));
 		self.find(cls2 + '-body').each(function(index) {
 			if (index)
 				Eselected = $(this);
@@ -142,7 +142,7 @@ COMPONENT('selectbox', function(self, config, cls) {
 			self.change(true);
 		});
 
-		self.event('click', '.fa-times', function() {
+		self.event('click', '.ti-times', function() {
 			if (!config.disabled) {
 				self.find('input').val('');
 				self.search();

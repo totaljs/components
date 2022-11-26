@@ -11,7 +11,7 @@
 .ui-selectbox-search { border-bottom: 1px solid #E0E0E0; height: 34px; background-color: #FFF; }
 .ui-selectbox-search input { width: 100%; outline: 0; background-color: #FFF; font: normal normal 12px Arial; border: 0; margin: 0; padding: 0; height: 33px; line-height: 33px; }
 .ui-selectbox-search span { float: left; width: 30px; text-align: center; height: 33px; line-height: 33px; font-size: 12px; color: #A0A0A0; }
-.ui-selectbox-search .fa-times { color: red; cursor: pointer; }
+.ui-selectbox-search .ti-times { color: red; cursor: pointer; }
 .ui-selectbox-search div { margin-left: 30px; }
 .ui-selectbox-invalid { border-color: #E1A1A1; background-color: #FFF3F3 !important; }
 .ui-selectbox-invalid .ui-selectbox-search { border-color: #E1A1A1; }
