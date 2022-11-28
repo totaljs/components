@@ -7,7 +7,7 @@ __Configuration__:
 
 - `title` {String} form title
 - `width` {Number} form max-width
-- `icon` {String} Font-Awesome icon without `fa-` or the whole declaration e.g. `fa fa-home`
+- `icon` {String} Total icon without `ti-` or the whole declaration e.g. `ti ti-home`
 - `reload` {String} a link to a global function and it's executed if the form is showing
 - `submit` {String} a link to a global function and it's executed if the submit button is pressed
 - `cancel` {String} a link to a global function and it's executed if the cancel button is pressed
