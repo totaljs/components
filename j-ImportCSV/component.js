@@ -128,7 +128,7 @@ COMPONENT('importcsv', 'parent:parent;margin:0;skipfirst:1;notdefined:---;dirsea
 		builder.push('<div class="{0}-head">'.format(cls));
 		for (var j = 0; j < keys.length; j++) {
 			var col = columns[j];
-			builder.push('<div data-id="{1}" class="column{2}"><i class="fa fa-columns"></i><span>{0}</span></div>'.format(col ? (col.name || col.id) : config.notdefined, col ? col.id : '', col ? '' : (' ' + cls + '-empty')));
+			builder.push('<div data-id="{1}" class="column{2}"><i class="ti ti-columns"></i><span>{0}</span></div>'.format(col ? (col.name || col.id) : config.notdefined, col ? col.id : '', col ? '' : (' ' + cls + '-empty')));
 		}
 		builder.push('</div>');
 
