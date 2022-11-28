@@ -212,7 +212,7 @@ COMPONENT('features', 'height:35', function(self, config, cls) {
 			item = items[i];
 			indexer.index = i;
 			indexer.search = (item.name + ' ' + (item.keywords || '')).trim().toSearch();
-			item.icon = self.tiicon(item.icon);
+			item.icon = self.faicon(item.icon);
 			!item.value && (item.value = item.name);
 			builder.push(self.template(item, indexer));
 		}
