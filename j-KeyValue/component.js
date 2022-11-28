@@ -7,7 +7,7 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config, cls) {
 	var empty = {};
 
 	self.nocompile && self.nocompile();
-	self.template = Tangular.compile('<div class="{0}-item"><div class="{0}-item-remove"><i class="fa fa-times"></i></div><div class="{0}-item-key"><input type="text" name="key" maxlength="{{ max }}"{{ if disabled }} disabled="disabled"{{ fi }} placeholder="{{ placeholder_key }}" value="{{ key }}" autocomplete="new-password" /></div><div class="{0}-item-value"><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder_value }}" value="{{ value }}" autocomplete="new-password" /></div></div>'.format(cls));
+	self.template = Tangular.compile('<div class="{0}-item"><div class="{0}-item-remove"><i class="ti ti-times"></i></div><div class="{0}-item-key"><input type="text" name="key" maxlength="{{ max }}"{{ if disabled }} disabled="disabled"{{ fi }} placeholder="{{ placeholder_key }}" value="{{ key }}" autocomplete="new-password" /></div><div class="{0}-item-value"><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder_value }}" value="{{ value }}" autocomplete="new-password" /></div></div>'.format(cls));
 
 	self.binder = function(fn) {
 		self.binder2 = fn;
@@ -40,7 +40,7 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config, cls) {
 				break;
 			case 'icon':
 				if (value && prev)
-					self.find('i').rclass2('fa').aclass(value.indexOf(' ') === -1 ? ('fa fa-' + value) : value);
+					self.find('i').rclass2('ti').aclass(value.indexOf(' ') === -1 ? ('ti ti-' + value) : value);
 				else
 					redraw = true;
 				break;
@@ -84,7 +84,7 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config, cls) {
 		self.disabled && self.aclass('ui-disabled');
 		self.redraw();
 
-		self.event('click', '.fa-times', function() {
+		self.event('click', '.ti-times', function() {
 
 			if (config.disabled)
 				return;
