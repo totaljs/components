@@ -23,7 +23,7 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5;margin:0',
 
 	self.search = function() {
 		var val = search.find('input').val().toSearch();
-		search.find('i').rclass('fa-').tclass('fa-search', !val).tclass('fa-times', !!val);
+		search.find('i').rclass('ti-').tclass('ti-search', !val).tclass('ti-times', !!val);
 		self.find(cls2 + '-item').each(function() {
 			var el = $(this);
 			el.tclass('hidden', val ? el.attrd('search').indexOf(val) === -1 : false);
@@ -52,7 +52,7 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5;margin:0',
 	self.make = function() {
 
 		self.aclass(cls + (config.hidetype ? (' ' + cls + '-hidetype') : ''));
-		self.append('<div class="{0}-search"><span><i class="fa fa-search"></i></span><div><input type="text" placeholder="{1}" maxlength="50" class="{0}-searchinput" /></div></div><div class="{0}-scroller"><div class="{0}-container"></div></div>'.format(cls, config.search));
+		self.append('<div class="{0}-search"><span><i class="ti ti-search"></i></span><div><input type="text" placeholder="{1}" maxlength="50" class="{0}-searchinput" /></div></div><div class="{0}-scroller"><div class="{0}-container"></div></div>'.format(cls, config.search));
 		container = self.find(cls2 + '-container');
 		search = self.find(cls2 + '-search');
 		scroller = self.find(cls2 + '-scroller');
@@ -104,7 +104,7 @@ COMPONENT('parameters', 'search:Search;dateformat:yyyy-MM-dd;offset:5;margin:0',
 			this.value = val + '';
 		});
 
-		search.on('click', '.fa-times', function() {
+		search.on('click', '.ti-times', function() {
 			search.find('input').val('');
 			self.search();
 		});

@@ -63,7 +63,7 @@
 
 		exports.icon = function(opt, save) {
 			opt.callback = function(val) {
-				opt.element.rclass2('fa').aclass(val);
+				opt.element.rclass2('ti').aclass(val);
 				save();
 			};
 			SETTER('faicons/show', opt);
@@ -79,7 +79,7 @@
 			opt.x = e.pageX;
 			opt.y = e.pageY;
 			opt.items = [];
-			opt.items.push({ id: 'remove', name: 'Remove', icon: 'far fa-trash-alt red' });
+			opt.items.push({ id: 'remove', name: 'Remove', icon: 'ti ti-trash-alt red' });
 			opt.callback = function() {
 				el[0].$widget.remove();
 			};

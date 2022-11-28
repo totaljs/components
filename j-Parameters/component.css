@@ -1,7 +1,7 @@
 .ui-parameters { font-size: 11px; border: 1px solid #E0E0E0; }
 .ui-parameters-search { height: 30px; background-color: #FFF; font-size: 12px; border-bottom: 1px solid #E0E0E0; }
 .ui-parameters-search span { float: left; width: 30px; line-height: 30px; text-align: center; }
-.ui-parameters-search .fa-times { color: red; cursor: pointer; }
+.ui-parameters-search .ti-times { color: red; cursor: pointer; }
 .ui-parameters-search div { margin-left: 30px; }
 .ui-parameters-search input { width: 100%; border: 0; outline: 0; background: transparent; font-size: 12px; height: 30px; }
 .ui-parameters-modified { font-weight: bold; }

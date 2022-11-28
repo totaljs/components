@@ -108,7 +108,7 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# it
 			var prev = value.page - 1;
 			if (prev <= 0)
 				prev = cachePages;
-			builder.push('<span class="page" data-page="{0}"><i class="fa fa-chevron-left"></i></span>'.format(prev));
+			builder.push('<span class="page" data-page="{0}"><i class="ti ti-chevron-left"></i></span>'.format(prev));
 		}
 
 		var max = config.max || 8;
@@ -121,7 +121,7 @@ COMPONENT('pagination', 'pages:# pages,# page,# pages,# pages;items:# items,# it
 			var next = value.page + 1;
 			if (next > cachePages)
 				next = 1;
-			builder.push('<span class="page" data-page="{0}"><i class="fa fa-chevron-right"></i></span>'.format(next));
+			builder.push('<span class="page" data-page="{0}"><i class="ti ti-chevron-right"></i></span>'.format(next));
 		}
 
 		nav.html(builder.join('')).tclass('hidden', builder.length <= 0);

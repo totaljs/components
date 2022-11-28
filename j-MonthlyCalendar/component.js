@@ -700,7 +700,7 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 						css['background-color'] = item.color || colorize(item.html);
 					} else {
 						el.aclass(cls + '-transparent');
-						el.html('<i class="{0}" style="color:{1}"></i>'.format(item.icon || 'fa fa-circle', item.color || colorize(item.html)) + item.html);
+						el.html('<i class="{0}" style="color:{1}"></i>'.format(item.icon || 'ti ti-circle', item.color || colorize(item.html)) + item.html);
 					}
 				}
 
@@ -757,7 +757,7 @@ COMPONENT('monthlycalendar', 'parent:auto;margin:0;firstday:0;noborder:0;selecta
 						builder.css(css);
 					} else {
 						builder.aclass(cls + '-transparent');
-						builder.html('<i class="{0}" style="color:{1}"></i>'.format(item.icon || 'fa fa-circle', item.color || colorize(name)) + name);
+						builder.html('<i class="{0}" style="color:{1}"></i>'.format(item.icon || 'ti ti-circle', item.color || colorize(name)) + name);
 					}
 
 					parent.append(builder);

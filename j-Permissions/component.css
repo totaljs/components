@@ -7,7 +7,7 @@
 .ui-permissions td { border-left: 1px solid #E0E0E0; padding: 4px 8px; }
 .ui-permissions tr:first-child { border-top: 0; }
 .ui-permissions td:first-child { border-left: 0; }
-.ui-permissions .fa-times { margin-right: 5px; cursor: pointer; }
+.ui-permissions .ti-times { margin-right: 5px; cursor: pointer; }
 .ui-permissions-type { width: 40px; color: #A0A0A0; font-size: 10px; cursor: pointer; text-align: center; padding-left: 0 !important; padding-right: 0 !important; }
 .ui-permissions-type i { margin-right: 3px; color: #E0E0E0; }
 .ui-permissions-type i:before { content: '\f111'; }
@@ -20,7 +20,7 @@
 .ui-permissions-disabled .green { display: none; }
 .ui-permissions-disabled .ui-permissions-header:hover { cursor: default; color: gray; }
 .ui-permissions-disabled .ui-permissions-type { cursor: not-allowed; }
-.ui-permissions-disabled .fa-times { display: none; }
+.ui-permissions-disabled .ti-times { display: none; }
 
 .ui-dark .ui-permissions-container { border-color: #404040; }
 .ui-dark .ui-permissions tr { border-color: #404040; background-color: #252525; }

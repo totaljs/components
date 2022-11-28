@@ -7,7 +7,7 @@ __Configuration__:
 - `title` {String} form title
 - `width` {Number} form max-width
 - `if` {String} condition for showing of the form, it's compared with the value within of `ßpath`
-- `icon` {String} Font-Awesome icon without `fa-` or __new__: `far fa-home`
+- `icon` {String} Total icon without `ti-` or __new__: `ti ti-home`
 - `reload` {String} link to a global `function(miniform_component)` and it's executed if the form is displaying
 - `submit` {String} link to a global `function(hide)` and it's executed if the submit button is pressed
 - `cancel` {String} link to a global `function(hide)` and it's executed if the cancel button is pressed

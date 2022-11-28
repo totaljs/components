@@ -8,3 +8,4 @@
 .jsontree-textarea { height: 400px; }
 .jsontree-label { padding-bottom: 10px; }
 .jsontree-label > button { float:right; background: red; color: #FFF; cursor: pointer; padding: 2px 5px; outline: 0; font-size: 11px; border: 0; border-radius: 3px; }
+.ti-rotate-90 { -webkit-transform: rotate(90deg); transform: rotate(90deg); }
