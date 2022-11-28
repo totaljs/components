@@ -1,4 +1,4 @@
-COMPONENT('button', 'delay:100;icon:home;flags:visible;validation:1;name:submit;size:normal', function(self, config, cls) {
+COMPONENT('button', 'delay:100;icon:ti ti-home;flags:visible;validation:1;name:submit;size:normal', function(self, config, cls) {
 
 	var ihtml, old, track;
 	var flags = null;
