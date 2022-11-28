@@ -94,7 +94,7 @@ COMPONENT('formtab', 'width:500;height:400;margin:10;marginfullscreen:20;useminh
 			}
 
 			var scope = obj.scope == false || obj.scope === null ? null : (obj.scope || (self.ID + 'p' + GUID(5)));
-			var template = '<div data-id="{4}" class="invisible {0}-modal{8}"><div class="{0}-title"><i class="fa fa-times {0}-op" data-name="close"></i><i class="fa fa-expand-arrows-alt {0}-op{9}" data-name="maximize"></i><i class="fa fa-minus {0}-op{9}" data-name="minimize"></i><label>{3}</label></div><div class="{0}-body"{2} data-id="{4}" style="width:{5}px;min-height:{6}px">{7}</div></div>'.format(cls, self.ID, scope ? (' data-scope="' + scope + '"') : '', obj.name, obj.id, config.width, config.height, self.template(obj), (obj.minimized ? '' : (' ' + cls + '-open')) + maximized, (ismobile ? ' hidden-xs' : ''));
+			var template = '<div data-id="{4}" class="invisible {0}-modal{8}"><div class="{0}-title"><i class="ti ti-times {0}-op" data-name="close"></i><i class="ti ti-expand {0}-op{9}" data-name="maximize"></i><i class="ti ti-minus {0}-op{9}" data-name="minimize"></i><label>{3}</label></div><div class="{0}-body"{2} data-id="{4}" style="width:{5}px;min-height:{6}px">{7}</div></div>'.format(cls, self.ID, scope ? (' data-scope="' + scope + '"') : '', obj.name, obj.id, config.width, config.height, self.template(obj), (obj.minimized ? '' : (' ' + cls + '-open')) + maximized, (ismobile ? ' hidden-xs' : ''));
 
 			if (scope && obj.data) {
 				if (scope.indexOf(' '))
