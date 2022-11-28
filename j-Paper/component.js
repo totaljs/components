@@ -167,7 +167,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 		// Font-Awesome icon
 		var tag = openeditor.element[0].nodeName.toLowerCase();
-		var icon = '<i class="fa fa-flag {0}-icon"></i>&nbsp;'.format(cls);
+		var icon = '<i class="ti ti-flag {0}-icon"></i>&nbsp;'.format(cls);
 
 		switch (tag) {
 			case 'span':
