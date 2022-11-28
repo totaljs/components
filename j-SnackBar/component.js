@@ -35,7 +35,7 @@ COMPONENT('snackbar', 'timeout:4000;button:OK', function(self, config, cls) {
 	};
 
 	self.waiting = function(message, button, close) {
-		self.show(message, button, close, 'spinner ti-pulse');
+		self.show(message, button, close, 'spinner');
 	};
 
 	self.success = function(message, button, close) {
