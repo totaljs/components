@@ -119,7 +119,7 @@ COMPONENT('listing', 'pages:3;count:20;scrolltop:1;margin:0;pluralizeitems:# ite
 		}
 
 		if (page < 2) {
-			var template = '<button data-index="{0}"><i class="fa fa-caret-{1}"></i></button>';
+			var template = '<button data-index="{0}"><i class="ti ti-caret-{1}"></i></button>';
 			var builder = [];
 			builder.push(template.format('-', 'left'));
 
