@@ -17,7 +17,7 @@
 .ui-calendar-header-prev { float: left; margin-top: 9px; }
 .ui-calendar-header-next { float: right; margin-top: 9px; }
 .ui-calendar-today { padding: 8px 10px; border-top: 1px solid #E0E0E0; background-color: #F0F0F0; }
-.ui-calendar-today .fa { margin-right: 6px; }
+.ui-calendar-today .ti { margin-right: 6px; }
 .ui-calendar-header select { background-color: #FFFFFF; border: 1px solid #E0E0E0; height: 23px; outline: 0; cursor: pointer; appearance: none; padding: 0 10px; border-radius: 3px; }
 .ui-calendar-today a:first-child { float: right; color: #B7292E; font-weight: bold; }
 .ui-calendar select::-ms-expand { display: none; }

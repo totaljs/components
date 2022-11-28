@@ -15,7 +15,7 @@ COMPONENT('clickbox', function(self, config) {
 		self.aclass('ui-clickbox');
 		var el = self.element;
 		el.wrapInner('<nav></nav>');
-		el.prepend('<div><i class="fa fa-caret-down"></i><span></span></div>');
+		el.prepend('<div><i class="ti ti-caret-down"></i><span></span></div>');
 		self.event('click', function() {
 
 			var cls = 'ui-clickbox-visible';

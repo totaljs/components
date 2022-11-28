@@ -38,9 +38,9 @@ COMPONENT('button', 'delay:100;icon:home;flags:visible;validation:1;name:submit;
 				break;
 			case 'icon':
 				if (self.button) {
-					var i = self.find('i').rclass2('fa');
+					var i = self.find('i').rclass2('ti');
 					if (value)
-						i.aclass(self.faicon(value)).rclass('hidden');
+						i.aclass(self.tiicon(value)).rclass('hidden');
 					else
 						i.aclass('hidden');
 				}
@@ -57,7 +57,7 @@ COMPONENT('button', 'delay:100;icon:home;flags:visible;validation:1;name:submit;
 	};
 
 	self.redraw = function() {
-		var html = '<i class="{0}"></i>'.format(config.icon ? (self.faicon(config.icon) + (config.color ? (' ' + config.color) : '')) : 'hidden') + ihtml;
+		var html = '<i class="{0}"></i>'.format(config.icon ? (self.tiicon(config.icon) + (config.color ? (' ' + config.color) : '')) : 'hidden') + ihtml;
 		self.html('<button' + (config.disabled || (self.path && config.validation) ? ' disabled' : '') + (config.name ? (' name="' + config.name + '"') : '') + '>' + html + '</button>');
 		self.button = self.find('button');
 		if (ready) {
