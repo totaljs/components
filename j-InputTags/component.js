@@ -8,9 +8,9 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 
 	self.init = function() {
 		Thelpers.ui_inputtags_icon = function(val) {
-			return val.charAt(0) === '!' ? ('<span class="' + cls + '-icon-custom">' + val.substring(1) + '</span>') : ('<i class="fa fa-' + val + '"></i>');
+			return val.charAt(0) === '!' ? ('<span class="' + cls + '-icon-custom">' + val.substring(1) + '</span>') : ('<i class="ti ti-' + val + '"></i>');
 		};
-		W.ui_inputtags_template = Tangular.compile(('{{ if label }}<div class="{0}-label">{{ if icon }}<i class="fa fa-{{ icon }}"></i>{{ fi }}{{ label }}{{ after }}</div>{{ fi }}<div class="{0}-control{{ if dirsource }} {0}-dropdown{{ fi }}{{ if licon }} {0}-licon{{ fi }}{{ if ricon }} {0}-ricon{{ fi }}">{{ if ricon }}<div class="{0}-icon-right">{{ ricon | ui_inputtags_icon }}</div>{{ fi }}{{ if licon }}<div class="{0}-icon-left{{ if liconclick }} {0}-click{{ fi }}">{{ licon | ui_inputtags_icon }}</div>{{ fi }}<div class="{0}-input{{ if align === 1 || align === \'center\' }} center{{ else if align === 2 || align === \'right\' }} right{{ fi }}">{{ if placeholder && !innerlabel }}<div class="{0}-placeholder">{{ placeholder }}</div>{{ fi }}<div class="{0}-tags"><span class="{0}-editable" contenteditable="true"></span></div></div></div>{{ if error }}<div class="{0}-error hidden"><i class="fa fa-warning"></i> {{ error }}</div>{{ fi }}').format(cls));
+		W.ui_inputtags_template = Tangular.compile(('{{ if label }}<div class="{0}-label">{{ if icon }}<i class="ti ti-{{ icon }}"></i>{{ fi }}{{ label }}{{ after }}</div>{{ fi }}<div class="{0}-control{{ if dirsource }} {0}-dropdown{{ fi }}{{ if licon }} {0}-licon{{ fi }}{{ if ricon }} {0}-ricon{{ fi }}">{{ if ricon }}<div class="{0}-icon-right">{{ ricon | ui_inputtags_icon }}</div>{{ fi }}{{ if licon }}<div class="{0}-icon-left{{ if liconclick }} {0}-click{{ fi }}">{{ licon | ui_inputtags_icon }}</div>{{ fi }}<div class="{0}-input{{ if align === 1 || align === \'center\' }} center{{ else if align === 2 || align === \'right\' }} right{{ fi }}">{{ if placeholder && !innerlabel }}<div class="{0}-placeholder">{{ placeholder }}</div>{{ fi }}<div class="{0}-tags"><span class="{0}-editable" contenteditable="true"></span></div></div></div>{{ if error }}<div class="{0}-error hidden"><i class="ti ti-warning"></i> {{ error }}</div>{{ fi }}').format(cls));
 	};
 
 	self.make = function() {
@@ -58,7 +58,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 			self.rclass(cls + '-focused');
 		});
 
-		self.event('click', '.fa-times', function(e) {
+		self.event('click', '.ti-times', function(e) {
 			var index = $(this).parent().index();
 			self.removetag(index);
 			e.stopPropagation();
@@ -249,7 +249,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 	};
 
 	self.appendtag = function(text) {
-		input.before('<span class="{0}-tag"><i class="fa fa-times"></i>{1}</span>'.format(cls, Thelpers.encode(text)));
+		input.before('<span class="{0}-tag"><i class="ti ti-times"></i>{1}</span>'.format(cls, Thelpers.encode(text)));
 	};
 
 	self.removetag = function(index) {
@@ -278,7 +278,7 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 		self.tclass(cls + '-binded', is);
 
 		if (config.type === 'search')
-			self.find(cls2 + '-icon-right').find('i').tclass(config.ricon, !is).tclass('fa-times', is);
+			self.find(cls2 + '-icon-right').find('i').tclass(config.ricon, !is).tclass('ti-times', is);
 	};
 
 	self.dirinitchecksum = 0;
