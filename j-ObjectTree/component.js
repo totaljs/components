@@ -1,8 +1,8 @@
 COMPONENT('objecttree', 'copydata:Copy data;copypath:Copy path', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
-	var tmpl_expand = '<i class="fa fa-chevron-down"></i>';
-	var tmpl_toolbox = '<div class="toolbox"><i class="fa fa-copy" title="{copydata}"></i><i class="fa fa-link" title="{copypath}"></i></div>'.arg(config);
+	var tmpl_expand = '<i class="ti ti-chevron-down"></i>';
+	var tmpl_toolbox = '<div class="toolbox"><i class="ti ti-copy" title="{copydata}"></i><i class="ti ti-link" title="{copypath}"></i></div>'.arg(config);
 	var tmpl_beg = '<div class="CLS-item" data-path="{0}" title="{0}"><div class="CLS-item-key"><span class="CLS-key {1}">{2}</span>{4}{3}<span class="dots hidden"> ...</span>{5}</div>'.replace(/CLS/g, cls);
 	var tmpl_end = '<div>{0}{1}</div></div>';
 	var tmpl_simple = '<div class="CLS-item CLS-item-key" data-path="{0}" title="{0}"><span class="CLS-key mr5">"{1}":</span><span class="CLS-{2} mr5">{3}</span>{4}</div>'.replace(/CLS/g, cls);
@@ -16,16 +16,16 @@ COMPONENT('objecttree', 'copydata:Copy data;copypath:Copy path', function(self, 
 
 		self.aclass(cls);
 
-		self.event('click', 'i.fa-chevron-down', function() {
+		self.event('click', 'i.ti-chevron-down', function() {
 			var el = $(this);
-			el.tclass('fa-rotate-270');
+			el.tclass('ti-rotate-270');
 			el.parent().find('.dots').tclass('hidden');
 			el.closest(cls2 + '-item').find('> div' + cls2 + '-item').tclass('hidden');
 		});
 
 		self.event('click', '.toolbox i', function() {
 			var el = $(this);
-			var ispath = el.hclass('fa-link');
+			var ispath = el.hclass('ti-link');
 			var path = el.closest(cls2 + '-item').attrd('path');
 			var data2;
 			data2 = ispath ? path : get(data, path);

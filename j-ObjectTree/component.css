@@ -13,12 +13,13 @@
 .ui-objecttree .toolbox i:hover { margin-right: 4px; color: black; }
 .ui-objecttree .toolbox i:last-child{ margin-right: 0; }
 .ui-objecttree .ml { margin-left: 16px; }
-.ui-objecttree .fa.fa-chevron-down { font-size: 10px; margin-right: 4px; padding: 1px 2px; background-color: #c6c6c6; border-radius: 2px; cursor: pointer; }
-.ui-objecttree .fa.fa-chevron-down.fa-rotate-270 { background-color: #9fb0ff; }
+.ti-rotate-270 { -webkit-transform: rotate(270deg); transform: rotate(270deg); }
+.ui-objecttree .ti.ti-chevron-down { font-size: 10px; margin-right: 4px; padding: 1px 2px; background-color: #c6c6c6; border-radius: 2px; cursor: pointer; }
+.ui-objecttree .ti.ti-chevron-down.ti-rotate-270 { background-color: #9fb0ff; }
 
 .ui-dark .ui-objecttree { color: #A0A0A0; background-color: #404040; }
 .ui-dark .ui-objecttree-item-key:hover { background-color: #353535; }
 .ui-dark .ui-objecttree .toolbox { background-color: #6e6e6e; color: #cbcbcb; }
-.ui-dark .ui-objecttree .fa.fa-chevron-down { background-color: #414141; }
-.ui-dark .ui-objecttree .fa.fa-chevron-down.fa-rotate-270 { background-color: #9fb0ff; color: #e5e5e5; }
+.ui-dark .ui-objecttree .ti.ti-chevron-down { background-color: #414141; }
+.ui-dark .ui-objecttree .ti.ti-chevron-down.ti-rotate-270 { background-color: #9fb0ff; color: #e5e5e5; }
 .ui-dark .ui-objecttree .toolbox i:hover { color: white; }
