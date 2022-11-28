@@ -18,6 +18,7 @@ Fs.readFile(filename, function(err, buffer) {
 			list.push(m);
 	}
 
+	list.sort();
 	Fs.writeFile('icons-db.html', list.join(','), function() {});
 	Fs.unlink(filename, NOOP);
 });
