@@ -121,7 +121,7 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 	types.bool.init = NOOP;
 	types.bool.render = function(item, next) {
 		var value = self.mapvalue(item);
-		next('<div class="{0}-bool{1}"><span><i class="fa fa-check"></i></span></div>'.format(cls, value ? ' checked' : ''));
+		next('<div class="{0}-bool{1}"><span><i class="ti ti-check"></i></span></div>'.format(cls, value ? ' checked' : ''));
 	};
 
 	types.list = {};
@@ -170,7 +170,7 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 		if (item.icon) {
 			var tmp = item.icon;
 			if (tmp.indexOf(' ') === -1)
-				tmp = 'fa fa-' + tmp;
+				tmp = 'ti ti-' + tmp;
 			meta.icon = '<i class="{0}"></i>'.format(tmp);
 		} else
 			meta.icon = '';

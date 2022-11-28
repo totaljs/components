@@ -4,7 +4,7 @@
 .ui-dynamicvalue-value { cursor: pointer; display: block; padding: 0 0 0 8px; margin-right: 36px; user-select: none; font: normal 13px Arial; color: gray; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; line-height: 35px; }
 .ui-dynamicvalue-icon { color: #000; cursor: pointer; width: 36px; float: right; border-left: 1px solid #E0E0E0; text-align: center; padding: 0; line-height: 35px; }
 .ui-dynamicvalue-is .ui-dynamicvalue-value { color: #000; }
-.ui-dynamicvalue-is .fa-times { color: red; width: 35px; display: block; line-height: 35px; }
+.ui-dynamicvalue-is .ti-times { color: red; width: 35px; display: block; line-height: 35px; }
 .ui-dynamicvalue-required .ui-dynamicvalue-label:before { color: red; content: '*'; margin-right: 3px; }
 .ui-dynamicvalue-required .ui-dynamicvalue-icon { border-left-color: #D0D0D0; }
 .ui-dynamicvalue-required .ui-dynamicvalue { border-color: #D0D0D0; }

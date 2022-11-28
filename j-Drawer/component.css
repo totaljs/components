@@ -14,7 +14,7 @@
 .ui-drawer-nav hr { margin: 10px 0; }
 .ui-drawer-nav button:hover, .ui-drawer-nav a:hover { background-color: rgba(0,0,0,0.05); text-decoration: none; color: #000; }
 .ui-drawer .selected { background-color: rgba(0,0,0,0.07); color: #000; }
-.ui-drawer-nav .fa, .ui-drawer-nav .fal { width: 25px; margin: 0 10px; }
+.ui-drawer-nav .ti, .ui-drawer-nav .ti { width: 25px; margin: 0 10px; }
 
 .ui-dark .ui-drawer { background-color: rgba(0,0,0,0.5); }
 .ui-dark .ui-drawer-nav { background-color: #303030; }

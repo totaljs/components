@@ -25,7 +25,7 @@ COMPONENT('features', 'height:35', function(self, config, cls) {
 	self.make = function() {
 
 		self.aclass(cls + '-layer hidden');
-		self.append('<div class="{1}"><div class="{1}-search"><span><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" /></div></div><div class="{1}-scrollbar"><div class="{1}-container"><ul></ul></div></div></div>'.format(config.placeholder, cls));
+		self.append('<div class="{1}"><div class="{1}-search"><span><i class="ti ti-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" /></div></div><div class="{1}-scrollbar"><div class="{1}-container"><ul></ul></div></div></div>'.format(config.placeholder, cls));
 
 		container = self.find('ul');
 		self.scrollbar = SCROLLBAR(self.find(cls2 + '-scrollbar'), { visibleY: true, orientation: 'y' });
@@ -212,7 +212,7 @@ COMPONENT('features', 'height:35', function(self, config, cls) {
 			item = items[i];
 			indexer.index = i;
 			indexer.search = (item.name + ' ' + (item.keywords || '')).trim().toSearch();
-			item.icon = self.faicon(item.icon);
+			item.icon = self.tiicon(item.icon);
 			!item.value && (item.value = item.name);
 			builder.push(self.template(item, indexer));
 		}
