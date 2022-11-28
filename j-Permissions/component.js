@@ -17,15 +17,15 @@ COMPONENT('permissions', 'placeholder:Search;types:R,W,RW;default:R', function(s
 		self.aclass(cls);
 		config.disabled && self.aclass(cls + '-disabled');
 
-		var builder = ['<tr data-index="{{ index }}"><td class="{0}-text"><i class="fa fa-times red"></i>{{ text | raw }}</td>'];
+		var builder = ['<tr data-index="{{ index }}"><td class="{0}-text"><i class="ti ti-times red"></i>{{ text | raw }}</td>'];
 		var types = config.types.split(',').trim();
 
 		for (var i = 0; i < types.length; i++)
-			builder.push('<td class="{0}-type{{ if value === \'{1}\' }} {0}-checked{{ fi }}" data-type="{1}"><i class="far"></i>{1}</td>'.format(cls, types[i]));
+			builder.push('<td class="{0}-type{{ if value === \'{1}\' }} {0}-checked{{ fi }}" data-type="{1}"><i class="ti"></i>{1}</td>'.format(cls, types[i]));
 
 		builder.push('</tr>');
 		self.template = Tangular.compile(builder.join('').format(cls));
-		self.html('<div class="{0}-header"><i class="fa fa-plus-circle green"></i><span>{1}</span></div><div class="{0}-container"><table><tbody></tbody></table></div>'.format(cls, self.html()));
+		self.html('<div class="{0}-header"><i class="ti ti-plus-circle green"></i><span>{1}</span></div><div class="{0}-container"><table><tbody></tbody></table></div>'.format(cls, self.html()));
 		tbody = self.find('tbody');
 
 		self.event('click', cls2 + '-header', function() {
@@ -63,7 +63,7 @@ COMPONENT('permissions', 'placeholder:Search;types:R,W,RW;default:R', function(s
 			GETU(self.path)[index].value = el.attrd('type');
 		});
 
-		self.event('click', '.fa-times', function(e) {
+		self.event('click', '.ti-times', function(e) {
 
 			if (config.disabled)
 				return;
@@ -85,7 +85,7 @@ COMPONENT('permissions', 'placeholder:Search;types:R,W,RW;default:R', function(s
 		tbody.empty();
 
 		if (!value || !value.length) {
-			config.empty && tbody.append('<tr><td class="{0}-empty"><i class="fa fa-database"></i>{1}</td></tr>'.format(cls, config.empty));
+			config.empty && tbody.append('<tr><td class="{0}-empty"><i class="ti ti-database"></i>{1}</td></tr>'.format(cls, config.empty));
 			return;
 		}
 
