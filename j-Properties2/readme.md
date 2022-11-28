@@ -24,7 +24,7 @@ form.push({ group: 'Personal', label: 'Birth date', name: 'user.birth', type: 'd
 form.push({ group: 'Additional', label: 'Newsletter', name: 'user.newsletter', type: 'bool', value: true });
 form.push({ group: 'Additional', label: 'City', name: 'user.city', type: 'list', value: 2, items: 'items', dirsearch: 'Search city', dircustom: true });
 form.push({ group: 'Additional', label: 'Color', name: 'user.color', type: 'color', value: '#e73323' });
-form.push({ group: 'Additional', label: 'Icon', name: 'user.icon', type: 'fontawesome', value: 'fas fa-home' });
+form.push({ group: 'Additional', label: 'Icon', name: 'user.icon', type: 'fontawesome', value: 'ti ti-home' });
 form.push({ group: 'Additional', label: 'Emoji', name: 'user.emoji', type: 'emoji', value: '', show: 'n => n.age === 33' });
 ```
 
@@ -50,7 +50,7 @@ __Data properties in data declaration__:
 - `detail` {String} URL address for obtaining of data for `list` type, example: `/users/{0}/` and `{0}` will be replaced with the value from list
 - `items` {Object Array/String} items for `list` type only, string can contain a path to `Array` or `URL address` to search
 - `show` {Arrow function}, example: `data => data.KEY === 'SOMETHING'` --> will show the item if the condition will valid
-- `icon` {String} Font-Awesome icon, can contain a color e.g. `fa fa-home #00000`
+- `icon` {String} Total icon, can contain a color e.g. `ti ti-home #00000`
 - __NEW__ `ricon` {String} Right Font-Awesome icon or text e.g. `!HTML text`
 - __NEW__ `riconclick` {String} a path to the method `function(item, set(new_val))`
 - __NEW__ `camouflage` {Boolean} only for `string` type
