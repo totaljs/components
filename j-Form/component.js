@@ -69,8 +69,8 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 	};
 
 	self.icon = function(value) {
-		var el = this.rclass2('fa');
-		value.icon && el.aclass(value.icon.indexOf(' ') === -1 ? ('fa fa-' + value.icon) : value.icon);
+		var el = this.rclass2('ti');
+		value.icon && el.aclass(value.icon.indexOf(' ') === -1 ? ('ti ti-' + value.icon) : value.icon);
 		el.tclass('hidden', !value.icon);
 	};
 
@@ -94,7 +94,7 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 
 	self.make = function() {
 
-		$(document.body).append('<div id="{0}" class="hidden {4}-container invisible"><div class="{4}-scrollbar"><div class="{4}-container-padding"><div class="{4}" style="max-width:{1}px"><div data-bind="@config__text span:value.title__change .{4}-icon:@icon" class="{4}-title"><button name="cancel" class="{4}-button-close{3}" data-path="{2}"><i class="fa fa-times"></i></button><i class="{4}-icon"></i><span></span></div></div></div></div>'.format(self.ID, config.width || 800, self.path, config.closebutton == false ? ' hidden' : '', cls));
+		$(document.body).append('<div id="{0}" class="hidden {4}-container invisible"><div class="{4}-scrollbar"><div class="{4}-container-padding"><div class="{4}" style="max-width:{1}px"><div data-bind="@config__text span:value.title__change .{4}-icon:@icon" class="{4}-title"><button name="cancel" class="{4}-button-close{3}" data-path="{2}"><i class="ti ti-times"></i></button><i class="{4}-icon"></i><span></span></div></div></div></div>'.format(self.ID, config.width || 800, self.path, config.closebutton == false ? ' hidden' : '', cls));
 
 		var scr = self.find('> script');
 		self.template = scr.length ? scr.html().trim() : '';
