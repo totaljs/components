@@ -192,7 +192,7 @@ COMPONENT('floatinginput', 'minwidth:200', function(self, config, cls) {
 		else if (opt.maxwidth && width > opt.maxwidth)
 			width = opt.maxwidth;
 
-		var ico = opt.icon ? self.tiicon(opt.icon) : 'ti ti-pencil-alt';
+		var ico = opt.icon ? self.faicon(opt.icon) : 'ti ti-pencil-alt';
 		icon.rclass2('ti').aclass(ico).rclass('hidden');
 
 		if (opt.value) {
