@@ -6,7 +6,7 @@ __Configuration__:
 
 - `title` {String} window title
 - `if` {String} condition for showing of the window, it's compared with the value within of `path`
-- `icon` {String} Font-Awesome icon without `fa-`
+- `icon` {String} Total icon without `ti-`
 - `reload` {String} link to a global function and it's executed if the form is displaying
 - `enter` {Boolean} optional, captures `enter` key automatically and performs submit (default: `false`)
 - `autofocus` {Boolean/String} optional, can focus an input. `String` === `jQuery selector` for the input
@@ -23,7 +23,7 @@ __Configuration__:
 - `menu` {String} optional, a link to function (panel will show a button with burger icon in title bar)
 - `container` {String} optional, jQuery selector (this container means a container for scrollbar)
 - `margin` {Number} optional, a margin for `container` and its `scrollbar` (it works with `container` only)
-- `closeicon` {String} optional, Font-Awesome icon (default: `fa fa-times`)
+- `closeicon` {String} optional, Font-Awesome icon (default: `ti ti-times`)
 - __NEW__ `closeesc` {Boolean} closes the form when the user presses `ESC` key
 
 __Good to know__:

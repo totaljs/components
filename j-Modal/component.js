@@ -159,12 +159,12 @@ COMPONENT('modal', 'zindex:12;width:800;bg:true;scrollbar:false', function(self,
 			case 'icon':
 				if (eheader) {
 					if (icon) {
-						prev && icon.rclass('fa-' + prev);
+						prev && icon.rclass('ti-' + prev);
 					} else {
-						eheader.prepend('<i class="{0}-icon fa"></i>'.format(cls));
+						eheader.prepend('<i class="{0}-icon ti"></i>'.format(cls));
 						icon = eheader.find(cls2 + '-icon');
 					}
-					value && icon.aclass('fa-' + value);
+					value && icon.aclass('ti-' + value);
 				}
 				break;
 		}

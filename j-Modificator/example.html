@@ -6,7 +6,7 @@
 
 <script>
 
-	CSS('.sending{color:black;font-weight:bold;cursor:not-allowed}.done{color:green;font-weight:bold;}button .fa{margin-right:5px;}');
+	CSS('.sending{color:black;font-weight:bold;cursor:not-allowed}.done{color:green;font-weight:bold;}button .ti{margin-right:5px;}');
 
 	// Register modificator schemas
 
@@ -32,7 +32,7 @@
 				e.html = element.html();
 				break;
 			case 'click':
-				e.icon.rclass().aclass('fa fa-spin fa-refresh');
+				e.icon.rclass().aclass('ti ti-spinner ti-refresh');
 				element.prop('disabled', true).find('b').html('Sending...');
 				break;
 			default:
@@ -40,7 +40,7 @@
 				element.prop('disabled', false);
 				element.find('b').html(e.html);
 				if (value != null)
-					e.icon.aclass('fa ' + (value ? 'fa-check-circle' : 'fa-times-circle'));
+					e.icon.aclass('ti ' + (value ? 'ti-check-circle' : 'ti-times-circle'));
 				break;
 		}
 	});

@@ -25,7 +25,7 @@ COMPONENT('range', function(self, config) {
 
 			case 'icon':
 				if (value && prev)
-					self.find('i').rclass().aclass('fa fa-' + value);
+					self.find('i').rclass().aclass('ti ti-' + value);
 				else
 					redraw = true;
 				break;
@@ -55,7 +55,7 @@ COMPONENT('range', function(self, config) {
 		var html = '';
 
 		if (label)
-			html = '<div class="ui-range-label{1}">{2}{0}:</div>'.format(label, config.required ? ' ui-range-label-required' : '', (config.icon ? '<i class="fa fa-{0}"></i>'.format(config.icon) : ''));
+			html = '<div class="ui-range-label{1}">{2}{0}:</div>'.format(label, config.required ? ' ui-range-label-required' : '', (config.icon ? '<i class="ti ti-{0}"></i>'.format(config.icon) : ''));
 
 		var attrs = [];
 		config.step && attrs.attr('step', config.step);

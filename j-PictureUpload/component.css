@@ -1,3 +1,3 @@
 .ui-pictureupload-label { margin-bottom: 5px; font-size: 12px; text-align: left; }
-.ui-pictureupload-label .fa { margin-right: 5px; }
+.ui-pictureupload-label .ti { margin-right: 5px; }
 .ui-pictureupload img { cursor: pointer; border: 2px solid #E0E0E0; border-radius: var(--radius); min-width: 150px; }

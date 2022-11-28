@@ -6,7 +6,7 @@ Component for editable list menu
 
 __Configuration__:
 
-- `iconremove` {String} optional, change `remove` button icon. It's fontawesome icon without `fa-` part (default: `times`)
+- `iconremove` {String} optional, change `remove` button icon. It's fontawesome icon without `ti-` part (default: `times`)
 - `defaulticon` {String} optional, change `edit` button icon (default: `pencil-alt`)
 - `addicon` {String} optional, will change `add` button icon (default: `plus-square`)
 - `placeholder` {String} optional, a placeholder for input (default: `Write text and press ENTER`)
@@ -31,7 +31,7 @@ Supports dynamic evaluation of the content of `<script type="text/html">`. The e
 <div data---="listmenueditable__tags">
 	<script type="text/html">
 		{{ if mycolor }}
-			<i class="fas fa-circle" style="color: {{ mycolor }}"></i>
+			<i class="ti ti-circle" style="color: {{ mycolor }}"></i>
 		{{ fi }}
 		{{ name }}
 	</script>

@@ -345,7 +345,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 		});
 	};
 	types.bool.render = function(item, next) {
-		next('<div class="{0}-bool"><span class="{0}-booltoggle{1}"><i class="fa fa-check"></i></span></div>'.format(cls, item.value ? ' checked' : ''));
+		next('<div class="{0}-bool"><span class="{0}-booltoggle{1}"><i class="ti ti-check"></i></span></div>'.format(cls, item.value ? ' checked' : ''));
 	};
 
 	types.list = {};
@@ -394,7 +394,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 	};
 
 	types.list.render = function(item, next) {
-		var template = '<div class="{0}-list"><i class="fa fa-caret-down"></i><span>{1}</span></div>';
+		var template = '<div class="{0}-list"><i class="ti ti-caret-down"></i><span>{1}</span></div>';
 		if (item.detail) {
 			AJAX('GET ' + item.detail.format(encodeURIComponent(item.value)), function(response) {
 				next(template.format(cls, response[item.dirkey || 'name'] || item.placeholder || DEF.empty));
@@ -519,7 +519,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 	};
 
 	types.file.render = function(item, next) {
-		next('<div class="{0}-file"><i class="far fa-folder"></i><span class="{0}-filename">{1}</span></div>'.format(cls, item.filename || item.value || DEF.empty));
+		next('<div class="{0}-file"><i class="ti ti-folder"></i><span class="{0}-filename">{1}</span></div>'.format(cls, item.filename || item.value || DEF.empty));
 	};
 
 	self.readonly();
@@ -628,7 +628,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 			var key = keys[i];
 			var group = groups[key];
 			var hash = 'g' + HASH(key, true);
-			var el = $('<div class="{0}-group{3}" data-id="{2}"><label><i class="far"></i>{1}</label><section></section></div>'.format(cls, key, hash, def[hash] ? (' ' + cls + '-hidden') : ''));
+			var el = $('<div class="{0}-group{3}" data-id="{2}"><label><i class="ti"></i>{1}</label><section></section></div>'.format(cls, key, hash, def[hash] ? (' ' + cls + '-hidden') : ''));
 			var section = el.find('section');
 			for (var j = 0; j < group.html.length; j++)
 				section.append(group.html[j]);

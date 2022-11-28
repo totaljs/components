@@ -21,7 +21,7 @@ COMPONENT('layer', 'offset:65;scrollbar:true', function(self, config, cls) {
 	self.make = function() {
 
 		// Move element to safe place
-		$(document.body).append('<div id="{1}" class="{0}"><div class="{0}-toolbar"><div class="{0}-toolbar-back"><button class="{0}-toolbar-backbutton"><i class="fa fa-times"></i></button></div><div class="{0}-toolbar-caption" data-bind="@config.title__html:value"></div></div><div class="{0}-body"><div class="{0}-scrollbar"></div></div></div>'.format(cls, self.ID));
+		$(document.body).append('<div id="{1}" class="{0}"><div class="{0}-toolbar"><div class="{0}-toolbar-back"><button class="{0}-toolbar-backbutton"><i class="ti ti-times"></i></button></div><div class="{0}-toolbar-caption" data-bind="@config.title__html:value"></div></div><div class="{0}-body"><div class="{0}-scrollbar"></div></div></div>'.format(cls, self.ID));
 
 		var el = $('#' + self.ID);
 		el.find(cls2 + '-scrollbar')[0].appendChild(self.dom);

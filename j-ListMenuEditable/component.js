@@ -3,8 +3,8 @@ COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:p
 	var cls2 = '.' + cls;
 	var container;
 	var last, editing, selected;
-	var template = '<div class="' + cls + '-item {{ if selected }}selected{{ fi }} {{ classname }}" data-index="{{ index }}" {{ if value }} data-value="{{ value }}" {{ fi }}>{{ if editable }}<span class="' + cls + '-icon"><i class="fa fa-{{ icon }}"></i></span>{{ fi }}<div class="' + cls + '-text"><span>{{ name | encode | ui_listmenueditable_helper }}</span></div></div>';
-	var templateinput = '<div class="' + cls + '-item" {{ if index != null }}data-index="{{ index }}"{{ fi }}><span class="' + cls + '-deleteicon"><i class="fa fa-' + config.iconremove + '"></i></span><div class="' + cls + '-text"><input placeholder="' + config.placeholder + '" {{ if index != null }}value="{{ text }}"{{ fi }} type="text" /></div></div>';
+	var template = '<div class="' + cls + '-item {{ if selected }}selected{{ fi }} {{ classname }}" data-index="{{ index }}" {{ if value }} data-value="{{ value }}" {{ fi }}>{{ if editable }}<span class="' + cls + '-icon"><i class="ti ti-{{ icon }}"></i></span>{{ fi }}<div class="' + cls + '-text"><span>{{ name | encode | ui_listmenueditable_helper }}</span></div></div>';
+	var templateinput = '<div class="' + cls + '-item" {{ if index != null }}data-index="{{ index }}"{{ fi }}><span class="' + cls + '-deleteicon"><i class="ti ti-' + config.iconremove + '"></i></span><div class="' + cls + '-text"><input placeholder="' + config.placeholder + '" {{ if index != null }}value="{{ text }}"{{ fi }} type="text" /></div></div>';
 	var layout;
 
 	Thelpers.ui_listmenueditable_helper = function(val) {
@@ -20,7 +20,7 @@ COMPONENT('listmenueditable', 'iconremove:times;defaulticon:pencil-alt;addicon:p
 		layout = scr.length ? scr.html() : null;
 
 		self.aclass(cls);
-		config.title && self.html('<div class="{0}-header"><span class="{0}-icon"><i class="fas fa-{1}"></i></span><div class="{0}-text"><span>{2}</span></div></div>'.format(cls, config.addicon, config.title));
+		config.title && self.html('<div class="{0}-header"><span class="{0}-icon"><i class="ti ti-{1}"></i></span><div class="{0}-text"><span>{2}</span></div></div>'.format(cls, config.addicon, config.title));
 		self.append('<div class="' + cls + '-container"></div>');
 
 		self.event('click', cls2 + '-item' + ' ' + cls2 + '-text', function() {
