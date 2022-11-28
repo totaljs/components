@@ -63,7 +63,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 		var icon = '';
 		if (item.icon)
-			icon = '<i class="' + self.tiicon(item.icon) + '"></i>';
+			icon = '<i class="' + self.faicon(item.icon) + '"></i>';
 
 		var builder = [];
 		var align = item.align || 0;
@@ -272,7 +272,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 		var icon = '';
 		if (item.icon)
-			icon = '<i class="' + self.tiicon(item.icon) + '"></i>';
+			icon = '<i class="' + self.faicon(item.icon) + '"></i>';
 
 		var builder = ['<div>'];
 		builder.push('<div class="{0}-group">{1}</div>'.format(cls, icon + item.text));
