@@ -28,7 +28,7 @@
 .ui-table-detail td { padding: 20px 4px !important; }
 .ui-table-empty { font-size: 12px; color: gray; padding: 30px 0; text-align: center; }
 .ui-table-empty i { margin-right: 5px; }
-.ui-table-border > .ui-table-container { border: 1px solid #E0E0E0; }
+.ui-table-border > .ui-table-container { border-left: 1px solid #E0E0E0; border-top: 1px solid #E0E0E0; }
 .ui-table-footer { border: 1px solid #E0E0E0; border-top: 0; height: 32px; }
 .ui-table-pagination { float: left; }
 .ui-table-pagination button { background-color: #FFF; border: 0; border-left: 1px solid #E0E0E0; height: 31px; width: 40px; color: black; font-size: 12px; text-align: center; outline: 0; }
