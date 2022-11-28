@@ -12,7 +12,7 @@ COMPONENT('jsontree', function(self, config) {
 		var title = self.html();
 		self.empty();
 		self.aclass('jsontree');
-		self.append('<div class="jsontree-label"><i class="fa fa-code-fork fa-rotate-90"></i>&nbsp;{0}<button>Clear</button></div>'.format(title || 'JSON tree'));
+		self.append('<div class="jsontree-label"><i class="ti ti-code-branch ti-rotate-90"></i>&nbsp;{0}<button>Clear</button></div>'.format(title || 'JSON tree'));
 		self.append('<div class="jsontree-textarea"><div data-jc="textarea__{0}__height:400" data-jc-noscope="true"></div></div>'.format(self.path));
 		self.append('<div class="jsontree-tree hidden"></div>');
 		$textarea = self.find('.jsontree-textarea');
