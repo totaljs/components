@@ -1,7 +1,7 @@
 .ui-clickbox { position: relative; width: 100%; display: block; min-height: 32px; }
 .ui-clickbox > a { display: none; }
 .ui-clickbox div { height: 32px; background-color: #FFF; font-size: 14px; border-radius: var(--radius); border: 1px solid #D0D0D0; padding: 5px 8px 0; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-.ui-clickbox div .fa { float: right; margin: 3px 3px 0 0; }
+.ui-clickbox div .ti { float: right; margin: 3px 3px 0 0; }
 .ui-clickbox div span { display: block; margin-right: 15px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; font-weight: bold; color: #000; }
 .ui-clickbox nav a { display: block; border-top: 1px solid #E0E0E0; font-size: 12px; padding: 3px 8px; }
 .ui-clickbox nav a:first-child { border-top: 0; }
