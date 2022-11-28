@@ -37,7 +37,7 @@ COMPONENT('colorselector', 'colors:#DA4453,#E9573F,#F6BB42,#8CC152,#37BC9B,#3BAF
 	self.redraw = function() {
 		var builder = [];
 		var label = config.label || content;
-		label && builder.push('<div class="ui-colorselector-label{1}">{2}{0}</div>'.format(label, config.required ? ' ui-colorselector-required' : '', config.icon ? '<i class="fa fa-{0}"></i>'.format(config.icon) : ''));
+		label && builder.push('<div class="ui-colorselector-label{1}">{2}{0}</div>'.format(label, config.required ? ' ui-colorselector-required' : '', config.icon ? '<i class="ti ti-{0}"></i>'.format(config.icon) : ''));
 		builder.push('<ul class="ui-colorselector">');
 
 		for (var i = 0, length = colors.length; i < length; i++) {

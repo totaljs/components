@@ -9,7 +9,7 @@ COMPONENT('gallery', function(self, config, cls) {
 
 	self.init = function() {
 
-		$('body').append('<div class="{0}-preview hidden"><button name="prev"><i class="fa fa-caret-left"></i></button><button name="next"><i class="fa fa-caret-right"></i></button><div class="{0}-table"><div class="{0}-cell"><div><img src="" alt="" /></div></div></div></div>'.format(cls));
+		$('body').append('<div class="{0}-preview hidden"><button name="prev"><i class="ti ti-caret-left"></i></button><button name="next"><i class="ti ti-caret-right"></i></button><div class="{0}-table"><div class="{0}-cell"><div><img src="" alt="" /></div></div></div></div>'.format(cls));
 		W.uigallerycontainer = $('.' + cls +'-preview');
 
 		ON('resize2 + resize', function() {

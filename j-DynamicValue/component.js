@@ -37,12 +37,12 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function
 				self.tclass('ui-disabled', value);
 				break;
 			case 'icon':
-				var fa = self.find(cls2 + '-label').find('i');
-				fa.rclass2('fa-').rclass('hidden');
+				var ti = self.find(cls2 + '-label').find('i');
+				ti.rclass2('ti-').rclass('hidden');
 				if (value)
-					fa.aclass('fa-' + value);
+					ti.aclass('ti-' + value);
 				else
-					fa.aclass('hidden');
+					ti.aclass('hidden');
 				break;
 			case 'remap':
 				config.remap = value ? FN(value) : null;
@@ -56,7 +56,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function
 			config.label = self.html();
 
 		self.aclass(cls + '-container');
-		self.html('<div class="{2}-label{3}"><i class="fa hidden"></i><span>{1}:</span></div><div class="{2}"><div class="{2}-icon"><i class="fa fa-times"></i></div><div class="{2}-value">{0}</div></div>'.format(config.placeholder, config.label, cls, config.label ? '' : ' hidden'));
+		self.html('<div class="{2}-label{3}"><i class="ti hidden"></i><span>{1}:</span></div><div class="{2}"><div class="{2}-icon"><i class="ti ti-times"></i></div><div class="{2}-value">{0}</div></div>'.format(config.placeholder, config.label, cls, config.label ? '' : ' hidden'));
 
 		self.event('click', '.' + cls, function() {
 
@@ -99,7 +99,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function
 
 		});
 
-		self.event('click', '.fa-times', function(e) {
+		self.event('click', '.ti-times', function(e) {
 			e.preventDefault();
 			e.stopPropagation();
 			if (!config.disabled) {
@@ -117,14 +117,14 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function
 			value = config.remap(value);
 
 		self.tclass(cls + '-is', !!value);
-		var fa = self.find(cls2 + '-icon').find('i');
+		var ti = self.find(cls2 + '-icon').find('i');
 
-		fa.rclass2('fa-');
+		ti.rclass2('ti-');
 
 		if (value)
-			fa.aclass('fa-times');
+			ti.aclass('ti-times');
 		else
-			fa.aclass('fa-' + config.icon2);
+			ti.aclass('ti-' + config.icon2);
 
 		var val = (value ? config.html(value) : config.placeholder) || '';
 		var body = self.find(cls2 + '-value');

@@ -349,7 +349,7 @@ COMPONENT('infowindows', 'reoffsetresize:0', function(self, config, cls) {
 
 		hidden = ishidden ? ' hidden' : '';
 
-		var el = $('<div class="{0}-item{1}" data-id="{id}" style="left:{x}px;top:{y}px;width:{width}px"><span class="{0}-resize {0}-resize-tl"></span><span class="{0}-resize {0}-resize-tr"></span><span class="{0}-resize {0}-resize-bl"></span><span class="{0}-resize {0}-resize-br"></span><div class="{0}-title"><i class="fa fa-times {0}-control" data-name="close"></i><span>{{ title }}</span></div><div class="{0}-body" style="height:{height}px"></div></div>'.format(cls, hidden).arg(item.offset).arg(item));
+		var el = $('<div class="{0}-item{1}" data-id="{id}" style="left:{x}px;top:{y}px;width:{width}px"><span class="{0}-resize {0}-resize-tl"></span><span class="{0}-resize {0}-resize-tr"></span><span class="{0}-resize {0}-resize-bl"></span><span class="{0}-resize {0}-resize-br"></span><div class="{0}-title"><i class="ti ti-times {0}-control" data-name="close"></i><span>{{ title }}</span></div><div class="{0}-body" style="height:{height}px"></div></div>'.format(cls, hidden).arg(item.offset).arg(item));
 		var body = el.find(cls2 + '-body');
 		var pos;
 
@@ -385,8 +385,8 @@ COMPONENT('infowindows', 'reoffsetresize:0', function(self, config, cls) {
 			var builder = [];
 			for (var i = 0; i < item.buttons.length; i++) {
 				var btn = item.buttons[i];
-				var icon = btn.icon.indexOf(' ') === -1 ? ('fa fa-' + btn.icon) : btn.icon;
-				builder.push('<i class="fa fa-{1} {0}-control" data-name="{2}"></i>'.format(cls, icon, btn.name));
+				var icon = btn.icon.indexOf(' ') === -1 ? ('ti ti-' + btn.icon) : btn.icon;
+				builder.push('<i class="ti ti-{1} {0}-control" data-name="{2}"></i>'.format(cls, icon, btn.name));
 			}
 			builder.length && el.find(cls2 + '-lastbutton').before(builder.join(''));
 		}

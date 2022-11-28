@@ -4,14 +4,14 @@ COMPONENT('datatable', 'height:parent;margin:0;pluralizeitems:# items,# item,# i
 	var container_rows;
 	var container_cols;
 	var container_pages;
-	var template_col = Tangular.compile('<div data-name="{{ name }}" class="{0}-col{{ if sort }} {0}-sortable{{ fi }}{{ if alignheader }} {{ alignheader }}{{ fi }}" style="width:{{ width }}px">{{ if sort }}<i class="fa"></i>{{ fi }}<span>{{ text | raw }}</span></div>'.format(cls));
+	var template_col = Tangular.compile('<div data-name="{{ name }}" class="{0}-col{{ if sort }} {0}-sortable{{ fi }}{{ if alignheader }} {{ alignheader }}{{ fi }}" style="width:{{ width }}px">{{ if sort }}<i class="ti"></i>{{ fi }}<span>{{ text | raw }}</span></div>'.format(cls));
 	var meta = {};
 	var temp = {};
 
 	self.init = function() {
 
 		Thelpers.ui_datatable_checkbox = function(val) {
-			return ('<div class="{0}-checkbox' + (val ? ' {0}-checkbox-checked' : '') + '"><i class="fa fa-check"></i></div>').format(cls);
+			return ('<div class="{0}-checkbox' + (val ? ' {0}-checkbox-checked' : '') + '"><i class="ti ti-check"></i></div>').format(cls);
 		};
 
 		var resize = function() {
@@ -42,7 +42,7 @@ COMPONENT('datatable', 'height:parent;margin:0;pluralizeitems:# items,# item,# i
 		scr.remove();
 
 		self.aclass(cls);
-		self.append('<div class="{0}-cols-scroller"><div class="{0}-cols"></div></div><div class="{0}-rows-scroller"><div class="{0}-rows"></div></div><div class="{0}-pagination"><div class="{0}-info"></div><div class="{0}-pages"><button name="prev" disabled><i class="fa fa-chevron-left"></i></button><input value="1" type="text" maxlength="4" disabled /><button name="next" disabled><i class="fa fa-chevron-right"></i></button></div></div>'.format(cls));
+		self.append('<div class="{0}-cols-scroller"><div class="{0}-cols"></div></div><div class="{0}-rows-scroller"><div class="{0}-rows"></div></div><div class="{0}-pagination"><div class="{0}-info"></div><div class="{0}-pages"><button name="prev" disabled><i class="ti ti-chevron-left"></i></button><input value="1" type="text" maxlength="4" disabled /><button name="next" disabled><i class="ti ti-chevron-right"></i></button></div></div>'.format(cls));
 
 		config.noborder && self.css('border', '0');
 

@@ -8,7 +8,7 @@
 .ui-fontawesome-search { border-bottom: 1px solid #E0E0E0; height: 34px; }
 .ui-fontawesome-search input { width: 100%; outline: 0; background-color: #FFF; font: normal normal 12px Arial; border: 0; margin: 0; padding: 0; }
 .ui-fontawesome-search span { float: left; width: 30px; text-align: center; height: 30px; padding: 10px 0 0 0; font-size: 12px; color: #A0A0A0; }
-.ui-fontawesome-search .fa-times { color: red; cursor: pointer; }
+.ui-fontawesome-search .ti-times { color: red; cursor: pointer; }
 .ui-fontawesome-search div { margin-left: 30px; padding: 8px 10px 0 0; }
 .ui-fontawesome .hidden { display: none !important; }
 
