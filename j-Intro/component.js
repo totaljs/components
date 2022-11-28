@@ -1,4 +1,4 @@
-COMPONENT('intro', 'closebutton:0;width:400;height:300;nexticon:fa fa-chevron-right;doneicon:fa fa-check-circle;delay:500', function(self, config, cls) {
+COMPONENT('intro', 'closebutton:0;width:400;height:300;nexticon:ti ti-chevron-right;doneicon:ti ti-check-circle;delay:500', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var container = 'intro' + GUID(4);
@@ -31,11 +31,11 @@ COMPONENT('intro', 'closebutton:0;width:400;height:300;nexticon:fa fa-chevron-ri
 		var items = [];
 
 		figures.each(function(index) {
-			items.push('<i class="fa fa-circle {0}-button" data-index="{1}"></i>'.format(cls, index));
+			items.push('<i class="ti ti-circle {0}-button" data-index="{1}"></i>'.format(cls, index));
 		});
 
 		if (config.closebutton) {
-			body.prepend('<span><i class="fa fa-times"></i></span>');
+			body.prepend('<span><i class="ti ti-times"></i></span>');
 			body.find('span').on('click', self.hide);
 		}
 
