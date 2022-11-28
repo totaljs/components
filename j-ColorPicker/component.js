@@ -17,7 +17,7 @@ COMPONENT('colorpicker', function(self, config, cls) {
 			html += '<div>';
 			for (var j = 0; j < colors[i].length; j++) {
 				var color = colors[i][j];
-				html += '<span class="{0}-cell" data-color="{2}"><span style="{1}">{3}</span></span>'.format(cls, color ? ('background-color:#' + color) : '', color, color ? '' : '<i class="fa fa-ban"></i>');
+				html += '<span class="{0}-cell" data-color="{2}"><span style="{1}">{3}</span></span>'.format(cls, color ? ('background-color:#' + color) : '', color, color ? '' : '<i class="ti ti-ban"></i>');
 			}
 			html += '</div>';
 		}
