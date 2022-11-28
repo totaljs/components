@@ -14,7 +14,7 @@ COMPONENT('markdowneditor', function (self, config) {
 		var label = config.label || content;
 		var builder = ['<div>'];
 
-		label && builder.push((config.required ? '<div class="ui-markdown-editor-label ui-markdown-editor-label-required"><i class="fa fa-pencil"></i>{0}:</div>' : '<div class="ui-markdown-editor-label">{0}:</div>').format(label));
+		label && builder.push((config.required ? '<div class="ui-markdown-editor-label ui-markdown-editor-label-required"><i class="ti ti-pencil"></i>{0}:</div>' : '<div class="ui-markdown-editor-label">{0}:</div>').format(label));
 		builder.push('<textarea></textarea></div>');
 		self.html(builder.join(''));
 
