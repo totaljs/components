@@ -19,7 +19,7 @@ COMPONENT('ajaxloading', 'icon:true', function(self) {
 				self.html(value);
 				break;
 			case 'icon':
-				self.html((value ? '<i class="fas fa-spinner fa-pulse"></i>' : '') + html);
+				self.html((value ? '<i class="ti ti-spinner ti-pulse"></i>' : '') + html);
 				break;
 		}
 	};
