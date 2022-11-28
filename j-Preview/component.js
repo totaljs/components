@@ -140,7 +140,7 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 
 	self.redraw = function() {
 		var label = config.label || content;
-		self.html((label ? ('<div class="' + cls + '-label">{0}{1}:</div>'.format(config.icon ? '<i class="{0}"></i>'.format(config.icon.indexOf(' ') === -1 ? ('fa fa-' + config.icon) : config.icon) : '', label)) : '') + '<input type="file" accept="image/*" class="hidden" /><img src="{0}" class="img-responsive" alt="" />'.format(empty, config.width, config.height));
+		self.html((label ? ('<div class="' + cls + '-label">{0}{1}:</div>'.format(config.icon ? '<i class="{0}"></i>'.format(config.icon.indexOf(' ') === -1 ? ('ti ti-' + config.icon) : config.icon) : '', label)) : '') + '<input type="file" accept="image/*" class="hidden" /><img src="{0}" class="img-responsive" alt="" />'.format(empty, config.width, config.height));
 		img = self.find('img');
 		img.on('click', function() {
 			self.find('input').trigger('click');
