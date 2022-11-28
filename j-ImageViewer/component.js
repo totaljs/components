@@ -44,7 +44,7 @@ COMPONENT('imageviewer', 'selector:.img-viewer;container:body;loading:1;unknown:
 	self.make = function() {
 
 		self.aclass(cls + ' hidden');
-		self.append('<div class="{0}-header"><button name="close"><i class="fa fa-times"></i></button><div><b></b><div class="help"></div></div></div><div class="{0}-loading hidden"><div></div></div><div class="{0}-buttons"><button name="prev"><i class="fa fa-arrow-left"></i></button><button name="next"><i class="fa fa-arrow-right"></i></button></div><div class="{0}-viewer"><div class="{0}-cell"><img /></div></div>'.format(cls));
+		self.append('<div class="{0}-header"><button name="close"><i class="ti ti-times"></i></button><div><b></b><div class="help"></div></div></div><div class="{0}-loading hidden"><div></div></div><div class="{0}-buttons"><button name="prev"><i class="ti ti-arrow-left"></i></button><button name="next"><i class="ti ti-arrow-right"></i></button></div><div class="{0}-viewer"><div class="{0}-cell"><img /></div></div>'.format(cls));
 		self.resize();
 
 		self.on('resize2', self.resize);
