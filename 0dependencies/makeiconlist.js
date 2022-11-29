@@ -14,8 +14,7 @@ Fs.readFile(filename, function(err, buffer) {
 
 	for (var item of items.icons) {
 		var name = item.properties.name.split(',').trim();
-		for (var m of name)
-			list.push(m);
+		list.push(name[0]);
 	}
 
 	list.sort();
