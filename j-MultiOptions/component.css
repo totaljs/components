@@ -12,7 +12,7 @@
 .ui-moi-value-inputnumber input { font-size: 11px; border: 0; background-color: #FFF; width: 100%; margin: 8px 0 0 0; padding: 0 6px 0; color: #000; outline: 0; height: 20px; line-height: 15px; }
 .ui-moi-value-inputnumber { margin-left: 40px; }
 .ui-moi-value-inputnumber-buttons { float: left; width: 40px; }
-.ui-moi-value-inputnumber-buttons span { width: 19px; float: left; text-align: center; margin: 8px 1px 0 0; padding: 3px 0 0 0; height: 20px; cursor: pointer; color: #656D78; font-size: 12px; background-color: #CCD1D9; }
+.ui-moi-value-inputnumber-buttons span { width: 19px; float: left; text-align: center; margin: 8px 1px 0 0; height: 20px; line-height: 20px; cursor: pointer; color: #656D78; font-size: 12px; background-color: #CCD1D9; }
 .ui-moi-value-inputnumber-buttons span:hover { background-color: #656D78; color: #FFF; }
 
 .ui-moi-value-inputpath input { font-size: 11px; border: 0; background-color: #FFF; width: 100%; margin: 8px 0 0 0; padding: 0 6px 0; color: #000; outline: 0; height: 20px; line-height: 15px; }
@@ -38,7 +38,7 @@
 
 .ui-moi-value-boolean { margin: 9px 0 0 0; width: 18px; height: 18px; border: 1px solid #D0D0D0; text-align: center; font-size: 12px; color: #FFF; cursor: pointer; background-color: #FFF; border-radius: var(--radius); }
 .ui-moi-value-boolean .ti { display: none; }
-.ui-moi-value-boolean.checked .ti { display: block; line-height: 18px; }
+.ui-moi-value-boolean.checked .ti { display: block; line-height: 16px; }
 .ui-moi-value-boolean.checked { background-color: #017CCA; border-color: #017CCA; }
 
 .ui-dark .ui-multioptions { background-color: #303030; border-color: #505050; }

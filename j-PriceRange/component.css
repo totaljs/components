@@ -6,3 +6,4 @@
 .ui-pricerange-slider-value { background: #3BAFDA linear-gradient(#FFCE54, #F6BB42); border-radius: 20px; color: #000; padding: 1px 10px 0; box-shadow: 0 4px 5px rgba(0,0,0,0.2); }
 .ui-pricerange-slider-value span { cursor: col-resize; }
 .ui-pricerange-slider-value > span:first-child { float: right; }
+.ui-pricerange-slider .ui-pricerange-slider-value .ti.ti-angle-right, .ui-pricerange-slider .ui-pricerange-slider-value .ti.ti-angle-left { font-size: 12px; }

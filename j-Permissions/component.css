@@ -1,6 +1,6 @@
 .ui-permissions-header { height: 36px; cursor: pointer; color: gray; }
 .ui-permissions-header:hover { color: #000; }
-.ui-permissions-header .green { float: right; width: 30px; line-height: 35px; text-align: right; }
+.ui-permissions-header .green { float: right; width: 30px; line-height: 35px; text-align: right; transform: scale(1); font-size: 16px; }
 .ui-permissions-header span { margin: 0 30px 0 0; display: block; line-height: 35px; }
 .ui-permissions table { width: 100%; table-layout: fixed; font-size: 12px; }
 .ui-permissions tr { border-top: 1px solid #E0E0E0; }
@@ -10,12 +10,12 @@
 .ui-permissions .ti-times { margin-right: 5px; cursor: pointer; }
 .ui-permissions-type { width: 40px; color: #A0A0A0; font-size: 10px; cursor: pointer; text-align: center; padding-left: 0 !important; padding-right: 0 !important; }
 .ui-permissions-type i { margin-right: 3px; color: #E0E0E0; }
-.ui-permissions-type i:before { content: '\f111'; }
+.ui-permissions-type i:before { content: '\ea8c'; }
 .ui-permissions-checked { background-color: #FFFED5; color: #000; }
 .ui-permissions-checked i { color: #68B25B; }
 .ui-permissions-empty { color: #A0A0A0; padding: 10px 20px !important; text-align: center; }
 .ui-permissions-empty i { margin-right: 5px; }
-.ui-permissions-type.ui-permissions-checked i:before { content: '\f058'; }
+.ui-permissions-type.ui-permissions-checked i:before { content: '\e955'; }
 .ui-permissions-container { border: 1px solid #E0E0E0; border-radius: var(--radius); }
 .ui-permissions-disabled .green { display: none; }
 .ui-permissions-disabled .ui-permissions-header:hover { cursor: default; color: gray; }
