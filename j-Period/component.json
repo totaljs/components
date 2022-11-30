@@ -1,6 +1,6 @@
 {
-	"datecreated": "2022-11-30T08:45:58.000Z",
-	"dateupdated": "",
+	"datecreated": "2022-11-30T08:45:59.000Z",
+	"dateupdated": null,
 	"name": "j-Period",
 	"tags": [
 		"period",
@@ -14,7 +14,7 @@
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
-	"author": "Kirill Zlobin / Total.js",
+	"author": "Kirill Zlobin",
 	"email": "jsdevzk@gmail.com",
 	"license": "https://www.totaljs.com/license/"
 }
