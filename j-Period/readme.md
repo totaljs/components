@@ -11,6 +11,7 @@ Method: `component.show(options)`
 - `options.element` {Element/jQuery Element} - all allignment calculations will be relative to this element
 - `options.align` Align the component relatively to the element in `options.element` property. Available properties: 'center', 'left' and 'right'. The default value - 'right'
 - `options.callback` Function, which will be executed by clicking on 'Apply' button of the component - receives two parameters: start and end date objects
+- `options.start`, `options.end` {String} - In order to predifine selected period, **both** of these properties should be specified. The value is any type of date string format, for example: '10/11/2022' - which is 11th of October
 
 
 __Configuration__:

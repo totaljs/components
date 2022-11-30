@@ -454,6 +454,16 @@ COMPONENT('period', 'firstday:monday;apply:Apply;cancel:Cancel;custom:Custom;mon
         var componentw = component.width();
         var css = { top: top };
 
+        if (opt.start && opt.end) {
+            selected.start = new Date(opt.start);
+            selected.end = new Date(opt.end);
+            range = op.calcrange(selected.start, selected.end);
+            op.showdates(selected);
+            op.enable();
+            counter = 2;
+            op.fillgrids(now, next);
+        }
+
         if (!opt.align)
             opt.align = 'right';
 
