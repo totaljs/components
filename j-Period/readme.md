@@ -15,7 +15,7 @@ Method: `component.show(options)`
 
 __Configuration__:
 
-- `format` - {String} - Allows to set the format of the calendar. The defaul value is 'eu' - Days of the week start from Monday. 'us' -  Days of the week start from Sunday.
+- `firstday` - {String} - Allows to set the first day of the week to Monday. The defaul value is 'monday' - Days of the week start from Monday. 'sunday' -  days of the week start from Sunday.
 - `dateformat` - {String} - Specifies the date format. The default value - `DEF.dateformat`
 - `apply` - {String} - Label for "Apply" button
 - `cancel` - {String} - Label for "Cancel" button

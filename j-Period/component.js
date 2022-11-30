@@ -1,11 +1,11 @@
-COMPONENT('period', 'format:eu;apply:Apply;cancel:Cancel;custom:Custom;month:Current month;thisY:This year;lastY:Last year', function (self, config, cls) {
+COMPONENT('period', 'firstday:monday;apply:Apply;cancel:Cancel;custom:Custom;month:Current month;thisY:This year;lastY:Last year', function (self, config, cls) {
 
     self.singleton();
 
     if (!config.dateformat)
         config.dateformat = DEF.dateformat;
 
-    var format = config.format;
+    var firstday = config.firstday;
     var cls2 = '.' + cls;
     var now = new Date();
     var next = new Date(now.getFullYear(), now.getMonth() + 1, 1);
@@ -29,7 +29,7 @@ COMPONENT('period', 'format:eu;apply:Apply;cancel:Cancel;custom:Custom;month:Cur
     var months = MONTHS;
     var days = DAYS.map(d => d.substring(0, 2).toUpperCase());
 
-    if (config.format === 'eu') {
+    if (firstday === 'monday') {
         var sunday = days.shift();
         days.push(sunday);
     }
@@ -45,7 +45,51 @@ COMPONENT('period', 'format:eu;apply:Apply;cancel:Cancel;custom:Custom;month:Cur
 
         self.aclass(cls + ' invisible hidden');
 
-        self.append('<div class="{0}-overlay"><div class="{0}-menu"><div class="{0}-content"><div class="{0}-periods"><div class="{0}-period" data-period="lastyear">{7}</div><div class="{0}-period" data-period="thisyear">{6}</div><div class="{0}-period" data-period="thismonth">{5}</div><div class="{0}-period" data-period="custom">{4}</div></div><div class="{0}-calendar"><div class="{0}-leftmonth {0}-month"><div class="{0}-monthheader"><div class="{0}-btnprev {0}-arrow"><</div><div><span class="{0}-hmonth"></span><span class="{0}-hyear"></span></div></div>{1}<div class="{0}-daysgrid"></div></div><div class="{0}-leftmonth {0}-month"><div class="{0}-monthheader"><div><span class="{0}-hmonth"></span><span class="{0}-hyear"></span></div><div class="{0}-btnnext {0}-arrow">></div></div>{1}<div class="{0}-daysgrid"></div></div></div></div><div class="{0}-controls"><span class="{0}-fromdate"></span><span class="{0}-todate"></span><div class="{0}-btncontrol {0}-btncancel">{3}</div><button disabled class="{0}-btncontrol {0}-btnapply">{2}</button></div></div></div>'.format(cls, week.prop('outerHTML'), config.apply, config.cancel, config.custom, config.month, config.thisY, config.lastY));
+        self.append(
+                `<div class="{0}-overlay">
+                    <div class="{0}-menu">
+                        <div class="{0}-content">
+                            <div class="{0}-periods">
+                                <div class="{0}-period" data-period="lastyear">{7}</div>
+                                <div class="{0}-period" data-period="thisyear">{6}</div>
+                                <div class="{0}-period" data-period="thismonth">{5}</div>
+                                <div class="{0}-period" data-period="custom">{4}</div>
+                            </div>
+                            <div class="{0}-calendar">
+                                <div class="{0}-leftmonth {0}-month">
+                                    <div class="{0}-monthheader">
+                                        <div class="{0}-btnprev {0}-arrow"><</div>
+                                        <div>
+                                            <span class="{0}-hmonth"></span>
+                                            <span class="{0}-hyear"></span>
+                                        </div>
+                                    </div>
+                                    {1}
+                                    <div class="{0}-daysgrid"></div>
+                                </div>
+                                <div class="{0}-leftmonth {0}-month">
+                                    <div class="{0}-monthheader">
+                                        <div>
+                                            <span class="{0}-hmonth"></span>
+                                            <span class="{0}-hyear"></span>
+                                        </div>
+                                        <div class="{0}-btnnext {0}-arrow">></div>
+                                    </div>
+                                    {1}
+                                    <div class="{0}-daysgrid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="{0}-controls">
+                            <span class="{0}-fromdate"></span>
+                            <span class="{0}-todate"></span>
+                            <div class="{0}-btncontrol {0}-btncancel">{3}</div>
+                            <button disabled class="{0}-btncontrol {0}-btnapply">{2}</button>
+                        </div>
+                    </div>
+                </div>
+        `.format(cls, week.prop('outerHTML'), config.apply, config.cancel, config.custom, config.month, config.thisY, config.lastY));
 
         menu = self.find(cls2 + '-menu');
         overlay = self.find(cls2 + '-overlay');
@@ -382,7 +426,7 @@ COMPONENT('period', 'format:eu;apply:Apply;cancel:Cancel;custom:Custom;month:Cur
         var currentmonthdates = op.monthdates(month, year);
         var prevmonthdates = op.monthdates(prevmonth, prevyear);
 
-        var firstweekday = currentmonthdates[0].getDay() - (format === 'eu' ? 1 : 0);
+        var firstweekday = currentmonthdates[0].getDay() - (firstday === 'monday' ? 1 : 0);
         grid.empty();
 
         op.fillbeg(grid, prevmonthdates, firstweekday, currentmonthdates);
