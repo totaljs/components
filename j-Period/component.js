@@ -455,8 +455,14 @@ COMPONENT('period', 'firstday:monday;apply:Apply;cancel:Cancel;custom:Custom;mon
         var css = { top: top };
 
         if (opt.start && opt.end) {
-            selected.start = new Date(opt.start);
-            selected.end = new Date(opt.end);
+            var startY = opt.start.getFullYear();
+            var startM = opt.start.getMonth();
+            var startD = opt.start.getDate();
+            var endY = opt.end.getFullYear();
+            var endM = opt.end.getMonth();
+            var endD = opt.end.getDate();
+            selected.start = new Date(startY, startM, startD);
+            selected.end = new Date(endY, endM, endD);
             range = op.calcrange(selected.start, selected.end);
             op.showdates(selected);
             op.enable();
