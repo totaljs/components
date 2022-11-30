@@ -1,0 +1,96 @@
+.ui-period-widget { position: relative; width: 200px; height: 60px; box-shadow: 0 2px 8px -2px rgb(0 0 0 / 20%); border-radius: 16px; cursor: pointer; }
+.ui-period-caption { display: block; height: 100%; line-height: 60px; text-align: center; font-size: 15px; }
+.ui-period-menu {  width: 735px; box-shadow: 0 26px 49px rgba(0,0,0,.05); border-radius: 14px; padding: 20px; background-color: #fff; z-index: 100; position: absolute; }
+.ui-period-widget .opened { display: block; }
+.ui-period-overlay { position: absolute; inset: 0; z-index: 1000; }
+.ui-period-content { display: flex; border-bottom: 1px solid #f2f5f8; }
+.ui-period-periods { width: 158px; padding-right: 18px; flex-shrink: 0; border-right: 1px solid #f2f5f8; }
+.ui-period-period { padding: 8px 12px; font-size: 1.4rem; line-height: 28px; letter-spacing: .005em; border-radius: 10px; color: #76879e; white-space: nowrap; margin-bottom: 5px; cursor: pointer; }
+.ui-period-period.selected { background-color: #e9f4ff; color: #004eef; }
+.ui-period-period:hover { background-color: #e9f4ff; color: #004eef; }
+.ui-period-calendar { padding: 8px; display: flex; flex-grow: 1; gap: 16px; }
+.ui-period-calendar > div { flex-basis: 50%; }
+.ui-period-monthheader { display: flex; justify-content: space-between; align-items: center; line-height: 38px; font-size: 22px; margin-bottom: 20px; padding: 0 10px; }
+.ui-period-arrow { width: 38px; height: 44px; font-weight: 400; line-height: 38px; text-align: center; color: #76879e; border: 1px solid #d5dbe2; border-radius: 12px; cursor: pointer; user-select: none; }
+.ui-period-arrow:hover { background-color: #eee; }
+.ui-period-week { display: flex; justify-content: center; padding: 0 0px; overflow: hidden; font-size: 9px; text-align: center; color: #76879e; }
+.ui-period-week > div { border-bottom: 1px solid #f2f2f2; width: 10px; flex-grow: 1; border-radius: 5px; }
+.ui-period-daysgrid { display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 5px; }
+.ui-period-griditem { text-align: center; font-size: 12px; height: 46px; line-height: 46px; font-weight: 500; }
+.ui-period-griditem:nth-child(7n) { border-radius: 0 12px 12px 0; }
+.ui-period-griditem:nth-child(7n):hover { border-radius: 0 12px 12px 0; }
+.ui-period-griditem:nth-child(7n + 1) { border-radius: 12px 0 0 12px; }
+.ui-period-griditem:nth-child(7n + 1):hover { border-radius: 12px 0 0 12px; }
+.ui-period-date { cursor: pointer; }
+.ui-period-date:hover { background-color: #eee; border-radius: 3px; }
+.ui-period-date.selected { background-color: #014eef; color: #fff; border-radius: 11px; }
+.ui-period-date.singleselected { background-color: #bfd834 !important; color: #fff; border-radius: 11px; }
+.ui-period-date.selected { background-color: #014eef; color: #fff; border-radius: 11px; }
+.ui-period-selectedstart { color: #fff; border-radius: 11px 0 0 11px !important; background-color: #a2c1f4; }
+.ui-period-selectedend { color: #fff; border-radius: 0 11px 11px 0 !important; background-color: #a2c1f4; }
+.ui-period-prevreminder,
+.ui-period-nextreminder { color: #999; cursor: not-allowed; }
+.ui-period-prevreminder.selected,
+.ui-period-nextreminder.selected { background-color: #e9f4ff; }
+.ui-period-nextreminder.selectedend { background-color: #014eef; color: #fff; border-radius: 0 11px 11px 0; }
+.ui-period-nextreminder.datebetween {background-color: #e9f4ff; }
+.ui-period-date.datebetween { background-color: #e9f4ff; }
+.ui-period-date.datebetween.selected { background-color: #014eef; color: #fff; border-radius: 11px; }
+.ui-period-date.datebetween.selectedstart { background-color: #014eef; color: #fff; border-radius: 11px 0 0 11px; }
+.ui-period-date.datebetween.selectedend { background-color: #014eef; color: #fff; border-radius: 0 11px 11px 0; }
+.ui-period-controls { display: flex; gap: 8px; padding: 8px; justify-content: end; align-items: center; }
+.ui-period-controls > span { min-width: 72px; font-size: 14px; }
+.ui-period-btncontrol { width: 163px; height: 54px; display: grid; place-items: center; border: 1px solid #d5dbe2; border-radius: 16px; cursor: pointer; }
+.ui-period-btnapply { background-color: #004eef; color: #fff; }
+.ui-period-btnapply:disabled { background-color: #d5dbe3; cursor: not-allowed; }
+
+.ui-dark .ui-period-menu { background-color: #232323; border: 1px solid #363636; }
+.ui-dark .ui-period-periods { border-right: 1px solid #363636; }
+.ui-dark .ui-period-content { border-bottom: 1px solid #363636; }
+.ui-dark .ui-period-arrow { border: 1px solid #505050; color: #e0e0e0; }
+.ui-dark .ui-period-arrow:hover { background-color: #505050; }
+.ui-dark .ui-period-week > div { border-bottom: 1px solid #505050; }
+.ui-dark .ui-period-date.datebetween { background-color: #363636; }
+.ui-dark .ui-period-date[class*="selected"] { background-color: #505050; }
+.ui-dark .ui-period-nextreminder.datebetween { background-color: #232323; }
+.ui-dark .ui-period-prevreminder.selected { background-color: #232323; }
+.ui-dark .ui-period-prevreminder.ui-period-selectedstart ,
+.ui-dark .ui-period-nextreminder.ui-period-selectedstart,
+.ui-dark .ui-period-prevreminder.ui-period-selectedend ,
+.ui-dark .ui-period-nextreminder.ui-period-selectedend { background-color: #232323; }
+.ui-dark .ui-period-date:hover { background-color: #363636; }
+.ui-dark .ui-period-date.singleselected { background-color: #777 !important; }
+.ui-dark .ui-period-period { color: #b0b0b0; }
+.ui-dark .ui-period-period.selected,
+.ui-dark .ui-period-period:hover { background-color: #505050; color: #e0e0e0; }
+.ui-dark .ui-period-btncancel { background-color: #505050; }
+.ui-dark .ui-period-btnapply { background-color: #505050; }
+.ui-dark .ui-period-btnapply:disabled { background-color: #232323; border-color: #555; color: #555; }
+
+@media (max-width: 768px) {
+    .ui-period-widget { position: static; }
+    .ui-period-menu { width: 100vw; inset: 0; background-color: #fff; padding: 0; border-radius: 0; box-shadow: none; }
+    .ui-period-periods { display: flex; width: 100%; min-width: 460px; justify-content: flex-end; gap: 5px; padding: 12px 8px; }
+    .ui-period-period { height: 60px; line-height: 60px; padding: 0 12px; }
+    .ui-period-content { flex-direction: column; }
+}
+
+@media (max-width: 575px) {
+    .ui-period-calendar { flex-direction: column; }
+    .ui-period-daysgrid  { row-gap: 1px; }
+    .ui-period-griditem { font-weight: 400; }
+    .ui-period-monthheader { justify-content: center; position: relative; }
+    .ui-period-hmonth,
+    .ui-period-hyear { font-size: 18px; font-weight: 400; }
+    .ui-period-arrow { width: 75px; height: 28px; line-height: 23px; position: absolute; }
+    .ui-period-btnprev { left: 5px; }
+    .ui-period-btnnext { right: 5px; }
+    .ui-period-griditem { height: 28px; line-height: 28px; }
+    .ui-period-fromdate,
+    .ui-period-todate { font-size: 12px !important; }
+}
+
+@media (max-width: 460px) {
+    .ui-period-periods { min-width: 100%; justify-content: space-around; gap: 2px; }
+    .ui-period-period { height: 40px; line-height: 40px; padding: 0 6px; font-size: 12px; }
+}
