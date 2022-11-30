@@ -91,17 +91,17 @@ COMPONENT('textarea', 'scrollbar:true', function(self, config, cls) {
 		var label = config.label || content;
 
 		if (!label.length) {
-			config.error && builder.push('<div class="{0}-helper"><i class="fa fa-warning" aria-hidden="true"></i> {1}</div>'.format(cls, config.error));
+			config.error && builder.push('<div class="{0}-helper"><i class="ti ti-warning" aria-hidden="true"></i> {1}</div>'.format(cls, config.error));
 			self.aclass(cls + ' ' + cls + '-container');
 			self.html(builder.join(''));
 		} else {
 			var html = builder.join('');
 			builder = [];
 			builder.push('<div class="' + cls + '-label">');
-			config.icon && builder.push('<i class="fa fa-{0}"></i>'.format(config.icon));
+			config.icon && builder.push('<i class="ti ti-{0}"></i>'.format(config.icon));
 			builder.push(label);
 			builder.push(':</div><div class="{0}">{1}</div>'.format(cls, html));
-			config.error && builder.push('<div class="{0}-helper"><i class="fa fa-warning" aria-hidden="true"></i> {1}</div>'.format(cls, config.error));
+			config.error && builder.push('<div class="{0}-helper"><i class="ti ti-warning" aria-hidden="true"></i> {1}</div>'.format(cls, config.error));
 			self.html(builder.join(''));
 			self.rclass(cls);
 			self.aclass(cls + '-container');

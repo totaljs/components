@@ -5,7 +5,7 @@ COMPONENT('listbox', function(self, config, cls) {
 	var skip = false;
 
 	self.items = EMPTYARRAY;
-	self.template = Tangular.compile('<li data-search="{{ search }}" data-index="{{ index }}" style="padding-right:{0}px">{{ if icon }}<i class="fa fa-{{ icon }}"></i>{{ fi }}{{ text }}</li>'.format(SCROLLBARWIDTH()));
+	self.template = Tangular.compile('<li data-search="{{ search }}" data-index="{{ index }}" style="padding-right:{0}px">{{ if icon }}<i class="ti ti-{{ icon }}"></i>{{ fi }}{{ text }}</li>'.format(SCROLLBARWIDTH()));
 	self.nocompile && self.nocompile();
 
 	self.init = function() {
@@ -62,7 +62,7 @@ COMPONENT('listbox', function(self, config, cls) {
 			self.change(true);
 		});
 
-		self.event('click', '.fa-times', function() {
+		self.event('click', '.ti-times', function() {
 			if (!config.disabled) {
 				self.find('input').val('');
 				self.search();
@@ -133,13 +133,13 @@ COMPONENT('listbox', function(self, config, cls) {
 			if (!first && el.hclass(cls + '-selected'))
 				first = el;
 		});
-		self.find(cls2 + '-search-icon').tclass('fa-search', search.length === 0).tclass('fa-times', search.length > 0);
+		self.find(cls2 + '-search-icon').tclass('ti-search', search.length === 0).tclass('ti-times', search.length > 0);
 		!skip && first && first[0].scrollIntoView(true);
 		skip = false;
 	};
 
 	self.redraw = function() {
-		self.html((typeof(config.search) === 'string' ? '<div class="{0}-search"><span><i class="fa fa-search {0}-search-icon"></i></span><div><input type="text" placeholder="{1}" /></div></div><div><div class="{0}-search-empty"></div>'.format(cls, config.search) : '') + '<div class="{0}-container"><ul style="height:{1}px" class="{0}-noscrollbar"></ul></div>'.format(cls, config.height || '200'));
+		self.html((typeof(config.search) === 'string' ? '<div class="{0}-search"><span><i class="ti ti-search {0}-search-icon"></i></span><div><input type="text" placeholder="{1}" /></div></div><div><div class="{0}-search-empty"></div>'.format(cls, config.search) : '') + '<div class="{0}-container"><ul style="height:{1}px" class="{0}-noscrollbar"></ul></div>'.format(cls, config.height || '200'));
 		Eitems = self.find('ul');
 		self.resize();
 	};

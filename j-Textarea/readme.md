@@ -6,7 +6,7 @@
 __Configuration__:
 
 - `required` {Boolean} (optional) enables "required" (default: `false`)
-- `icon` {String} (optional) icon for label without `fa-` e.g. `home`, `cog`, etc.
+- `icon` {String} (optional) icon for label without `ti-` e.g. `home`, `cog`, etc.
 - `label` {String} (optional) label (default `innerHTML`)
 - `autofocus` {Boolean} (optional) focuses the input (default: `false`)
 - `placeholder` {String} (optional) adds a `placeholder` text into the input

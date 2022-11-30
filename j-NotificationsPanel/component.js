@@ -10,7 +10,7 @@ COMPONENT('notificationspanel', 'top:0;visibleY:1;title:Notifications;autoremove
 		var scr = self.find('script');
 		self.aclass(cls + ' hidden');
 		self.template = Tangular.compile('<div class="{0}-item" data-index="{{ index }}">{1}</div>'.format(cls, scr.html().trim()));
-		self.html('<div class="{0}-header"><span class="{0}-close"><i class="fa fa-caret-square-down"></i></span><i class="fa fa-trash-o {0}-clear"></i><span>{1}</span></div><div class="{0}-container"><div class="{0}-items"></div></div>'.format(cls, config.title));
+		self.html('<div class="{0}-header"><span class="{0}-close"><i class="ti ti-caret-square-down"></i></span><i class="ti ti-trash {0}-clear"></i><span>{1}</span></div><div class="{0}-container"><div class="{0}-items"></div></div>'.format(cls, config.title));
 		scrollbar = SCROLLBAR(self.find(cls2 + '-container'), { visibleY: config.visibleY, parent: self.element });
 		container = self.find('.ui-scrollbar-body');
 		self.scrolltop = scrollbar.scrollTop;

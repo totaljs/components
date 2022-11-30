@@ -1,6 +1,6 @@
 .ui-range { width: 100%; }
 .ui-range-label { margin-bottom: 0; font-size: 12px; color: #656D78; text-align: left; }
-.ui-range-label .fa { width: 14px; }
+.ui-range-label .ti { width: 14px; }
 .ui-range-label-required:before { color: red; content: '***'; margin-right: 5px; }
 .ui-range input[type=range] { appearance: none; margin: 10px 0; width: 100%; }
 .ui-range input[type=range]:focus { outline: none; }

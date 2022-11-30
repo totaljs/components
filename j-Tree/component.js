@@ -1,4 +1,4 @@
-COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false;iconoptions:fa fa-ellipsis-h', function(self, config, cls) {
+COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false;iconoptions:ti ti-ellipsis-h', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var cache = null;
@@ -15,7 +15,7 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false;iconoptions
 	self.make = function() {
 
 		self.aclass(cls);
-		self.template = Tangular.compile(('<div' + (config.dragdrop ? ' draggable="true"' : '') + ' class="{0}-item{{ if children }} {0}-expand{{ fi }}" title="{{ name }}" data-index="{{ $pointer }}">' + (config.checked ? '<div class="{0}-checkbox"><i class="fa fa-check"></i></div><div class="{0}-label">' : '') + '<i class="far {{ if children }}{0}-folder{{ else }}{{ icon | def(\'fa-file-o\') }}{{ fi }}"></i>' + (config.options ? ('<span class="{0}-options"><i class="' + config.iconoptions + '"></i></span>') : '') + '<div class="{0}-item-name{{ if classname }} {{ classname }}{{ fi }}">{{ if html }}{{ html | raw }}{{ else }}{{ name }}{{ fi }}</div></div>' + (config.checked ? '</div>' : '')).format(cls));
+		self.template = Tangular.compile(('<div' + (config.dragdrop ? ' draggable="true"' : '') + ' class="{0}-item{{ if children }} {0}-expand{{ fi }}" title="{{ name }}" data-index="{{ $pointer }}">' + (config.checked ? '<div class="{0}-checkbox"><i class="ti ti-check"></i></div><div class="{0}-label">' : '') + '<i class="ti {{ if children }}{0}-folder{{ else }}{{ icon | def(\'ti-file-alt\') }}{{ fi }}"></i>' + (config.options ? ('<span class="{0}-options"><i class="' + config.iconoptions + '"></i></span>') : '') + '<div class="{0}-item-name{{ if classname }} {{ classname }}{{ fi }}">{{ if html }}{{ html | raw }}{{ else }}{{ name }}{{ fi }}</div></div>' + (config.checked ? '</div>' : '')).format(cls));
 
 		self.event('click', cls2 + '-checkbox', function(e) {
 			e.stopPropagation();

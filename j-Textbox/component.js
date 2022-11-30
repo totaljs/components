@@ -50,7 +50,7 @@ COMPONENT('textbox', function(self, config, cls) {
 		self.type = config.type;
 		self.format = config.format;
 
-		self.event('click', '.fa-calendar', function(e) {
+		self.event('click', '.ti-calendar', function(e) {
 			if (!config.disabled && !config.readonly && config.type === 'date') {
 				e.preventDefault();
 				SETTER('calendar', 'toggle', self.element, self.get(), function(date) {
@@ -60,10 +60,10 @@ COMPONENT('textbox', function(self, config, cls) {
 			}
 		});
 
-		self.event('click', '.fa-caret-up,.fa-caret-down', function() {
+		self.event('click', '.ti-caret-up,.ti-caret-down', function() {
 			if (!config.disabled && !config.readonly && config.increment) {
 				var el = $(this);
-				var inc = el.hclass('fa-caret-up') ? 1 : -1;
+				var inc = el.hclass('ti-caret-up') ? 1 : -1;
 				self.change(true);
 				self.inc(inc);
 			}
@@ -78,14 +78,14 @@ COMPONENT('textbox', function(self, config, cls) {
 				return;
 			if (self.type === 'search') {
 				self.$stateremoved = false;
-				$(this).rclass('fa-times').aclass('fa-search');
+				$(this).rclass('ti-times').aclass('ti-search');
 				self.set('');
 			} else if (self.type === 'password') {
 				var el = $(this);
 				var type = input.attr('type');
 
 				input.attr('type', type === 'text' ? 'password' : 'text');
-				el.rclass2('fa-').aclass(type === 'text' ? 'fa-eye' : 'fa-eye-slash');
+				el.rclass2('ti-').aclass(type === 'text' ? 'ti-eye' : 'ti-lock');
 			} else if (config.iconclick)
 				self.EXEC(config.iconclick, self);
 		});
@@ -105,7 +105,7 @@ COMPONENT('textbox', function(self, config, cls) {
 			if (self.$stateremoved && !value)
 				return;
 			self.$stateremoved = !value;
-			self.find(cls2 + '-control-icon').tclass('fa-times', !!value).tclass('fa-search', !value);
+			self.find(cls2 + '-control-icon').tclass('ti-times', !!value).tclass('ti-search', !value);
 		}
 		innerlabel();
 	};
@@ -163,8 +163,8 @@ COMPONENT('textbox', function(self, config, cls) {
 		else if (self.type === 'search')
 			icon2 = 'search';
 
-		icon2 && builder.push('<div class="{0}-control"><span class="fa fa-{1} {0}-control-icon"></span></div>'.format(cls, icon2));
-		config.increment && !icon2 && builder.push('<div class="{0}-control"><span class="fa fa-caret-up"></span><span class="fa fa-caret-down"></span></div>'.format(cls));
+		icon2 && builder.push('<div class="{0}-control"><span class="ti ti-{1} {0}-control-icon"></span></div>'.format(cls, icon2));
+		config.increment && !icon2 && builder.push('<div class="{0}-control"><span class="ti ti-caret-up"></span><span class="ti ti-caret-down"></span></div>'.format(cls));
 
 		if (config.label)
 			content = config.label;
@@ -175,15 +175,15 @@ COMPONENT('textbox', function(self, config, cls) {
 			var html = builder.join('');
 			builder = [];
 			builder.push('<div class="' + cls + '-label">');
-			icon && builder.push('<i class="fa fa-{0}"></i> '.format(icon));
+			icon && builder.push('<i class="ti ti-{0}"></i> '.format(icon));
 			builder.push('<span>' + content + (content.substring(content.length - 1) === '?' ? '' : ':') + '</span>');
 			builder.push('</div><div class="{0}">{1}</div>'.format(cls, html));
-			config.error && builder.push('<div class="{0}-helper"><i class="fa fa-warning" aria-hidden="true"></i> {1}</div>'.format(cls, config.error));
+			config.error && builder.push('<div class="{0}-helper"><i class="ti ti-warning" aria-hidden="true"></i> {1}</div>'.format(cls, config.error));
 			self.html(builder.join(''));
 			self.aclass('ui-textbox-container');
 			input = self.find('input');
 		} else {
-			config.error && builder.push('<div class="{0}-helper"><i class="fa fa-warning" aria-hidden="true"></i> {1}</div>'.format(cls, config.error));
+			config.error && builder.push('<div class="{0}-helper"><i class="ti ti-warning" aria-hidden="true"></i> {1}</div>'.format(cls, config.error));
 			self.aclass(cls + ' ' + cls + '-container');
 			self.html(builder.join(''));
 			input = self.find('input');
@@ -251,9 +251,9 @@ COMPONENT('textbox', function(self, config, cls) {
 				self.find(cls2 + '-control').css('cursor', value ? 'pointer' : 'default');
 				break;
 			case 'icon':
-				var tmp = self.find(cls2 + '-label .fa');
+				var tmp = self.find(cls2 + '-label .ti');
 				if (tmp.length)
-					tmp.rclass2('fa-').aclass('fa-' + value);
+					tmp.rclass2('ti-').aclass('ti-' + value);
 				else
 					redraw = true;
 				break;

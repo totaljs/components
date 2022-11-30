@@ -10,7 +10,7 @@ COMPONENT('wiki', 'title:Wiki;margin:20;width:400', function(self, config, cls) 
 
 		self.css('max-width', config.width);
 		self.aclass(cls + ' hidden');
-		self.append('<div class="{0}-title"><button><i class="fa fa-times"></i></button><span></span></div><div class="{0}-topics"><div class="{0}-topics-body markdown-small"></div></div>'.format(cls));
+		self.append('<div class="{0}-title"><button><i class="ti ti-times"></i></button><span></span></div><div class="{0}-topics"><div class="{0}-topics-body markdown-small"></div></div>'.format(cls));
 		etopics = self.find(cls2 + '-topics-body');
 		container = self.find(cls2 + '-topics');
 
@@ -55,7 +55,7 @@ COMPONENT('wiki', 'title:Wiki;margin:20;width:400', function(self, config, cls) 
 
 	self.rebind = function(path, value) {
 		var builder = [];
-		var template = '<div class="{0}-topic"><label data-index="{1}"><i class="fa"></i>{2}</label><div class="{0}-topic-body"></div></div>';
+		var template = '<div class="{0}-topic"><label data-index="{1}"><i class="ti"></i>{2}</label><div class="{0}-topic-body"></div></div>';
 		for (var i = 0; i < (value || EMPTYARRAY).length; i++)
 			builder.push(template.format(cls, i, value[i].name));
 		etopics.html(builder.join(''));

@@ -71,16 +71,16 @@ COMPONENT('wysiwyg', 'required:0;links:false;ul:true;code:true;ul:true', functio
 		self.attr('wysiwyg', 'true');
 
 		var buttons = [];
-		buttons.push('<button name="bold"><i class="fa fa-bold"></i></button><button name="italic"><i class="fa fa-italic"></i></button><button name="underline"><i class="fa fa-underline"></i></button></button>');
+		buttons.push('<button name="bold"><i class="ti ti-bold"></i></button><button name="italic"><i class="ti ti-italic"></i></button><button name="underline"><i class="ti ti-underline"></i></button></button>');
 
 		if (config.ul)
-			buttons.push('<button name="ul"><i class="fa fa-list-ul"></i></button>');
+			buttons.push('<button name="ul"><i class="ti ti-list"></i></button>');
 
 		if (config.code)
-			buttons.push('<button name="code"><i class="fa fa-highlighter"></i></button>');
+			buttons.push('<button name="code"><i class="ti ti-highlighter"></i></button>');
 
 		if (config.links)
-			buttons.push('<button name="link"><i class="fa fa-link"></i></button>');
+			buttons.push('<button name="link"><i class="ti ti-link"></i></button>');
 
 		self.append('<div class="{0}-toolbar">{2}</div><div class="{0}-placeholder">{1}</div><div class="{0}-body" contenteditable="true"></div>'.format(cls, config.placeholder, buttons.join('')));
 		editor = self.find(cls2 + '-body');

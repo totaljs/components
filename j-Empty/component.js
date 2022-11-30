@@ -1,4 +1,4 @@
-COMPONENT('empty', 'icon:fa fa-database;parent:parent;margin:0;wait:1', function(self, config, cls) {
+COMPONENT('empty', 'icon:ti ti-database;parent:parent;margin:0;wait:1', function(self, config, cls) {
 
 	var visible = false;
 	var special = false;

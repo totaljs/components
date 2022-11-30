@@ -1,4 +1,4 @@
-COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:id;increment:1;format:auto;autovalue:name;direxclude:false;checkicon:fa fa-check;forcevalidation:1;searchalign:1;height:80;tabs:1;after:\\:', function(self, config, cls) {
+COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:id;increment:1;format:auto;autovalue:name;direxclude:false;checkicon:ti ti-check;forcevalidation:1;searchalign:1;height:80;tabs:1;after:\\:', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var input, placeholder, dirsource, binded, customvalidator, mask, rawvalue, isdirvisible = false, nobindcamouflage = false, focused = false;
@@ -7,9 +7,9 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 
 	self.init = function() {
 		Thelpers.ui_input_icon = function(val) {
-			return val.charAt(0) === '!' || val.indexOf(' ') !== -1 ? ('<span class="ui-input-icon-custom">' + (val.charAt(0) === '!' ? val.substring(1) : ('<i class="' + val) + '"></i>') + '</span>') : ('<i class="fa fa-' + val + '"></i>');
+			return val.charAt(0) === '!' || val.indexOf(' ') !== -1 ? ('<span class="ui-input-icon-custom">' + (val.charAt(0) === '!' ? val.substring(1) : ('<i class="' + val) + '"></i>') + '</span>') : ('<i class="ti ti-' + val + '"></i>');
 		};
-		W.ui_input_template = Tangular.compile(('{{ if label }}<div class="{0}-label">{{ if icon }}<i class="{{ icon }}"></i>{{ fi }}{{ label | raw }}{{ after | raw }}</div>{{ fi }}<div class="{0}-control{{ if licon }} {0}-licon{{ fi }}{{ if ricon || (type === \'number\' && increment) }} {0}-ricon{{ fi }}">{{ if ricon || (type === \'number\' && increment) }}<div class="{0}-icon-right{{ if type === \'number\' && increment && !ricon }} {0}-increment{{ else if riconclick || type === \'date\' || type === \'time\' || (type === \'search\' && searchalign === 1) || type === \'password\' }} {0}-click{{ fi }}">{{ if type === \'number\' && !ricon }}<i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i>{{ else }}{{ ricon | ui_input_icon }}{{ fi }}</div>{{ fi }}{{ if licon }}<div class="{0}-icon-left{{ if liconclick || (type === \'search\' && searchalign !== 1) }} {0}-click{{ fi }}">{{ licon | ui_input_icon }}</div>{{ fi }}<div class="{0}-input{{ if align === 1 || align === \'center\' }} center{{ else if align === 2 || align === \'right\' }} right{{ fi }}">{{ if placeholder }}<div class="{0}-placeholder">{{ placeholder }}</div>{{ fi }}{{ if dirsource || type === \'icon\' || type === \'emoji\' || type === \'color\' }}<div class="{0}-value" tabindex="{{ tabindex }}"></div>{{ else }}{{ if type === \'multiline\' }}<textarea data-jc-bind="" style="height:{{ height }}px" tabindex="{{ tabindex }}"></textarea>{{ else }}<input type="{{ if type === \'password\' }}password{{ else }}text{{ fi }}" tabindex="{{ tabindex }}" {{ if autofill }} autocomplete="on" name="{{ NAME }}"{{ else }} name="input' + Date.now() + '" autocomplete="new-password"{{ fi }} data-jc-bind=""{{ if maxlength > 0}} maxlength="{{ maxlength }}"{{ fi }}{{ if autofocus }} autofocus{{ fi }} />{{ fi }}{{ fi }}</div></div>{{ if error }}<div class="{0}-error hidden"><i class="fa fa-warning"></i> {{ error }}</div>{{ fi }}').format(cls));
+		W.ui_input_template = Tangular.compile(('{{ if label }}<div class="{0}-label">{{ if icon }}<i class="{{ icon }}"></i>{{ fi }}{{ label | raw }}{{ after | raw }}</div>{{ fi }}<div class="{0}-control{{ if licon }} {0}-licon{{ fi }}{{ if ricon || (type === \'number\' && increment) }} {0}-ricon{{ fi }}">{{ if ricon || (type === \'number\' && increment) }}<div class="{0}-icon-right{{ if type === \'number\' && increment && !ricon }} {0}-increment{{ else if riconclick || type === \'date\' || type === \'time\' || (type === \'search\' && searchalign === 1) || type === \'password\' }} {0}-click{{ fi }}">{{ if type === \'number\' && !ricon }}<i class="ti ti-caret-up"></i><i class="ti ti-caret-down"></i>{{ else }}{{ ricon | ui_input_icon }}{{ fi }}</div>{{ fi }}{{ if licon }}<div class="{0}-icon-left{{ if liconclick || (type === \'search\' && searchalign !== 1) }} {0}-click{{ fi }}">{{ licon | ui_input_icon }}</div>{{ fi }}<div class="{0}-input{{ if align === 1 || align === \'center\' }} center{{ else if align === 2 || align === \'right\' }} right{{ fi }}">{{ if placeholder }}<div class="{0}-placeholder">{{ placeholder }}</div>{{ fi }}{{ if dirsource || type === \'icon\' || type === \'emoji\' || type === \'color\' }}<div class="{0}-value" tabindex="{{ tabindex }}"></div>{{ else }}{{ if type === \'multiline\' }}<textarea data-jc-bind="" style="height:{{ height }}px" tabindex="{{ tabindex }}"></textarea>{{ else }}<input type="{{ if type === \'password\' }}password{{ else }}text{{ fi }}" tabindex="{{ tabindex }}" {{ if autofill }} autocomplete="on" name="{{ NAME }}"{{ else }} name="input' + Date.now() + '" autocomplete="new-password"{{ fi }} data-jc-bind=""{{ if maxlength > 0}} maxlength="{{ maxlength }}"{{ fi }}{{ if autofocus }} autofocus{{ fi }} />{{ fi }}{{ fi }}</div></div>{{ if error }}<div class="{0}-error hidden"><i class="ti ti-warning"></i> {{ error }}</div>{{ fi }}').format(cls));
 	};
 
 	self.make = function() {
@@ -262,7 +262,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					self.check();
 					rawvalue[0].focus();
 				};
-				SETTER('faicons/show', opt);
+				SETTER((self.caniuse('icons') ? 'icons' : 'faicons') + '/show', opt);
 				return;
 			} else if (config.type === 'color') {
 				opt = {};
@@ -459,8 +459,8 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					self.password();
 				else if (config.type === 'number' || config.type === 'number2') {
 					var tmp = $(e.target);
-					if (tmp.attr('class').indexOf('fa-') !== -1) {
-						var n = tmp.hclass('fa-caret-up') ? 1 : -1;
+					if (tmp.attr('class').indexOf('ti-') !== -1) {
+						var n = tmp.hclass('ti-caret-up') ? 1 : -1;
 						self.change(true);
 						var val = self.preparevalue((self.get() || 0) + (config.increment * n));
 						self.set(val, 2);
@@ -573,7 +573,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 	self.password = function(show) {
 		var visible = show == null ? input.attr('type') === 'text' : show;
 		input.attr('type', visible ? 'password' : 'text');
-		self.find(cls2 + '-icon-right').find('i').tclass(config.ricon, visible).tclass('fa-eye-slash', !visible);
+		self.find(cls2 + '-icon-right').find('i').tclass(config.ricon, visible).tclass('ti-lock', !visible);
 	};
 
 	self.preparevalue = function(value) {
@@ -668,7 +668,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 		self.tclass(cls + '-binded', is);
 
 		if (config.type === 'search')
-			self.find(cls2 + '-icon-' + (config.searchalign === 1 ? 'right' : 'left')).find('i').tclass(config.searchalign === 1 ? config.ricon : config.licon, !is).tclass('fa-times', is);
+			self.find(cls2 + '-icon-' + (config.searchalign === 1 ? 'right' : 'left')).find('i').tclass(config.searchalign === 1 ? config.ricon : config.licon, !is).tclass('ti-times', is);
 	};
 
 	self.bindvalue = function() {
@@ -811,7 +811,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 		switch (key) {
 			case 'icon':
 				if (value && value.indexOf(' ') === -1)
-					config.icon = 'fa fa-' + value;
+					config.icon = 'ti ti-' + value;
 				break;
 			case 'dirsource':
 				if (config.dirajax || value.indexOf('/') !== -1) {
@@ -941,6 +941,9 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					value.setHours((tmp[0] || '0').parseInt());
 					value.setMinutes((tmp[1] || '0').parseInt());
 					value.setSeconds((tmp[2] || '0').parseInt());
+					break;
+				case 'slug':
+					value = value.slug();	
 					break;
 			}
 		} else {

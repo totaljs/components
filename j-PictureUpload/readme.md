@@ -9,7 +9,7 @@ __Configuration__:
 
 - `width` {Number} a picture width (required)
 - `height` {Number} a picture height (required)
-- `icon` {String} (optional) the label icon without `fa`, (default: `null`)
+- `icon` {String} (optional) the label icon without `ti`, (default: `null`)
 - `url` {String}" (optional) upload URL (default: current URL)
 - `background` {String} (optional) a background color (default: white)
 - `src` {String} an image path (default: `null`), e.g. `/img/{0}.jpg`

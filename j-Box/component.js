@@ -119,7 +119,7 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 
 	self.make = function() {
 
-		var html = '<div id="{0}" class="hidden {4}-container invisible{6}"><div class="{4}{5}"{1}><div data-bind="@config__text .{4}-label:value.title__exec .{4}-icon:@icon" class="{4}-title"><button name="cancel" class="{4}-button-close{3}" data-path="{2}"><i class="fa fa-times"></i></button><i class="{4}-icon"></i><span class="{4}-label"></span></div><div class="{4}-body"></div></div>'.format(self.ID, config.width ? (' style="max-width:' + config.width + 'px"') : '', self.path, config.closebutton == false ? ' hidden' : '', cls, config.align === 'center' ? '' : (' ' + cls + '-align-' + config.align), ' ' + cls + '-' + (config.background ? '' : 'no') + 'bg');
+		var html = '<div id="{0}" class="hidden {4}-container invisible{6}"><div class="{4}{5}"{1}><div data-bind="@config__text .{4}-label:value.title__exec .{4}-icon:@icon" class="{4}-title"><button name="cancel" class="{4}-button-close{3}" data-path="{2}"><i class="ti ti-times"></i></button><i class="{4}-icon"></i><span class="{4}-label"></span></div><div class="{4}-body"></div></div>'.format(self.ID, config.width ? (' style="max-width:' + config.width + 'px"') : '', self.path, config.closebutton == false ? ' hidden' : '', cls, config.align === 'center' ? '' : (' ' + cls + '-align-' + config.align), ' ' + cls + '-' + (config.background ? '' : 'no') + 'bg');
 		$(document.body).append(html);
 
 		var scr = self.find('> script');
@@ -148,6 +148,8 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 		}
 
 		self.rclass('hidden invisible');
+		var csscls = self.attr('class');
+		csscls && el.aclass(csscls);
 		self.replace(el, true);
 
 		if (config.scrollbar)

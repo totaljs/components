@@ -7,14 +7,14 @@ COMPONENT('notifications', 'timeout:8000', function(self, config) {
 	self.singleton();
 	self.readonly();
 	self.nocompile && self.nocompile();
-	self.template = Tangular.compile('<div class="ui-notification" data-id="{{ id }}" style="border-left-color:{{ color }}{{ if callback }};cursor:pointer{{ fi }}"><i class="fa fa-times-circle"></i><div class="ui-notification-message"><div class="ui-notification-icon"><i class="fa {{ icon }}" style="color:{{ color }}"></i></div><div class="ui-notification-datetime">{{ date | format(\'{0}\') }}</div>{{ message | raw }}</div></div>'.format(config.date || 'yyyy-MM-dd HH:mm'));
+	self.template = Tangular.compile('<div class="ui-notification" data-id="{{ id }}" style="border-left-color:{{ color }}{{ if callback }};cursor:pointer{{ fi }}"><i class="ti ti-times-circle"></i><div class="ui-notification-message"><div class="ui-notification-icon"><i class="ti {{ icon }}" style="color:{{ color }}"></i></div><div class="ui-notification-datetime">{{ date | format(\'{0}\') }}</div>{{ message | raw }}</div></div>'.format(config.date || 'yyyy-MM-dd HH:mm'));
 	self.items = {};
 
 	self.make = function() {
 
 		self.aclass('ui-notification-container');
 
-		self.event('click', '.fa-times-circle', function() {
+		self.event('click', '.ti-times-circle', function() {
 			var el = $(this).closest('.ui-notification');
 			self.close(+el.attr('data-id'));
 			clearTimeout(autoclosing);
@@ -65,8 +65,8 @@ COMPONENT('notifications', 'timeout:8000', function(self, config) {
 	};
 
 	self.append = function(icon, message, date, callback, color) {
-		if (icon && icon.substring(0, 3) !== 'fa-')
-			icon = 'fa-' + icon;
+		if (icon && icon.substring(0, 3) !== 'ti-')
+			icon = 'ti-' + icon;
 
 		if (typeof(date) === 'function') {
 			color = callback;
@@ -74,7 +74,7 @@ COMPONENT('notifications', 'timeout:8000', function(self, config) {
 			date = null;
 		}
 
-		var obj = { id: Math.floor(Math.random() * 100000), icon: icon || 'fa-info-circle', message: message, date: date || new Date(), callback: callback, color: color || 'black' };
+		var obj = { id: Math.floor(Math.random() * 100000), icon: icon || 'ti-info-circle', message: message, date: date || new Date(), callback: callback, color: color || 'black' };
 		var focus = document.hasFocus();
 
 		self.items[obj.id] = obj;

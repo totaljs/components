@@ -19,14 +19,14 @@ COMPONENT('permissionsop', 'placeholder:Search;types:CRUD;default:R;labelrole:Ro
 		self.aclass(cls);
 		config.disabled && self.aclass(cls + '-disabled');
 
-		var builder = ['<tr data-index="{{ index }}"><td class="{0}-text"><i class="fa fa-times red"></i>{{ text | raw }}</td>'];
+		var builder = ['<tr data-index="{{ index }}"><td class="{0}-text"><i class="ti ti-times red"></i>{{ text | raw }}</td>'];
 
 		for (var i = 0; i < types.length; i++)
-			builder.push('<td class="{0}-type{{ if value.indexOf(\'{1}\') !== -1 }} {0}-checked{{ fi }}" data-type="{1}"><i class="far"></i>{1}</td>'.format(cls, types[i]));
+			builder.push('<td class="{0}-type{{ if value.indexOf(\'{1}\') !== -1 }} {0}-checked{{ fi }}" data-type="{1}"><i class="ti"></i>{1}</td>'.format(cls, types[i]));
 
 		builder.push('</tr>');
 		self.template = Tangular.compile(builder.join('').format(cls));
-		self.html('<div class="{0}-header"><i class="fa fa-plus-circle green"></i><span>{1}</span></div><div class="{0}-container"><table><tbody></tbody></table></div>'.format(cls, self.html()));
+		self.html('<div class="{0}-header"><i class="ti ti-plus-circle green"></i><span>{1}</span></div><div class="{0}-container"><table><tbody></tbody></table></div>'.format(cls, self.html()));
 		tbody = self.find('tbody');
 
 		self.event('click', cls2 + '-header', function() {
@@ -82,7 +82,7 @@ COMPONENT('permissionsop', 'placeholder:Search;types:CRUD;default:R;labelrole:Ro
 			self.serialize();
 		});
 
-		self.event('click', '.fa-times', function() {
+		self.event('click', '.ti-times', function() {
 			if (config.disabled)
 				return;
 			var el = $(this);
@@ -160,7 +160,7 @@ COMPONENT('permissionsop', 'placeholder:Search;types:CRUD;default:R;labelrole:Ro
 	};
 
 	self.empty = function() {
-		config.empty && tbody.html('<tr><td class="{0}-empty"><i class="fa fa-database"></i>{1}</td></tr>'.format(cls, config.empty));
+		config.empty && tbody.html('<tr><td class="{0}-empty"><i class="ti ti-database"></i>{1}</td></tr>'.format(cls, config.empty));
 	};
 
 	self.setter = function(value) {

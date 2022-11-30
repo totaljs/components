@@ -6,7 +6,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 	var prepared = false;
 	var W = window;
 
-	!W.$dropdowncheckboxtemplate && (W.$dropdowncheckboxtemplate = Tangular.compile('<div class="' + cls + '-item" data-index="{{ index }}"><div><i class="fa fa-{{ $.checkicon }}"></i></div><span>{{ text }}</span></div>'));
+	!W.$dropdowncheckboxtemplate && (W.$dropdowncheckboxtemplate = Tangular.compile('<div class="' + cls + '-item" data-index="{{ index }}"><div><i class="ti ti-{{ $.checkicon }}"></i></div><span>{{ text }}</span></div>'));
 	var template = W.$dropdowncheckboxtemplate;
 
 	self.nocompile && self.nocompile();
@@ -43,7 +43,7 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 				break;
 
 			case 'checkicon':
-				self.find('i').rclass().aclass(value.indexOf(' ') === -1 ? ('fa fa-' + value) : value);
+				self.find('i').rclass().aclass(value.indexOf(' ') === -1 ? ('ti ti-' + value) : value);
 				break;
 
 			case 'icon':
@@ -82,9 +82,9 @@ COMPONENT('dropdowncheckbox', 'checkicon:check;visible:0;alltext:All selected;li
 
 	self.redraw = function() {
 
-		var html = '<div class="{0}"><i class="fa fa-angle-down"></i><div class="{0}-selected"></div></div><div class="{0}-values hidden">{1}</div>'.format(cls, render);
+		var html = '<div class="{0}"><i class="ti ti-angle-down"></i><div class="{0}-selected"></div></div><div class="{0}-values hidden">{1}</div>'.format(cls, render);
 		if (content.length)
-			self.html('<div class="{0}-label">{1}{2}:</div>'.format(cls, config.icon ? ('<i class="' + (config.icon.indexOf(' ') === -1 ? ('fa fa-' + config.icon) : config.icon) + '"></i>') : '', content) + html);
+			self.html('<div class="{0}-label">{1}{2}:</div>'.format(cls, config.icon ? ('<i class="' + (config.icon.indexOf(' ') === -1 ? ('ti ti-' + config.icon) : config.icon) + '"></i>') : '', content) + html);
 		else
 			self.html(html);
 

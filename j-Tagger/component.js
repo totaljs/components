@@ -3,7 +3,7 @@ COMPONENT('tagger', 'text:name', function(self, config, cls) {
 	// self.bindvisible();
 	self.nocompile && self.nocompile();
 
-	var obj = VBINDARRAY('<div class="{0}-item"><i class="fa fa-times"></i><span data-bind=".{1}__text__title"></span></div>'.format(cls, config.text), self);
+	var obj = VBINDARRAY('<div class="{0}-item"><i class="ti ti-times"></i><span data-bind=".{1}__text__title"></span></div>'.format(cls, config.text), self);
 
 	self.make = function() {
 

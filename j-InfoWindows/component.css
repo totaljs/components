@@ -2,7 +2,7 @@
 .ui-infowindows-title { border: 1px solid #E0E0E0; border-radius: var(--radius) var(--radius) 0 0; height: 22px; user-select: none; color: gray; }
 .ui-infowindows-control { float: left; width: 20px; text-align: center; border-right: 1px solid #E0E0E0; line-height: 20px; cursor: pointer; font-size: 10px; }
 .ui-infowindows-control:hover { background-color: #F9F9F9; }
-.ui-infowindows-control.fa-times { color: red; }
+.ui-infowindows-control.ti-times { color: red; }
 .ui-infowindows-title span { cursor: default; line-height: 21px; display: block; margin: 0 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 0 0 5px; font-size: 11px; text-align: center; }
 .ui-infowindows-nomove .ui-infowindows-title span { cursor: default; }
 .ui-infowindows-title span i { margin-right: 5px; }

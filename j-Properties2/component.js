@@ -364,7 +364,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		});
 	};
 	types.date.render = function(item, next) {
-		next('<div class="{0}-date"><i class="fa fa-calendar pdate"></i><div><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pdate" /></div></div>'.format(cls, config.dateformat.length, item.placeholder || '', item.value ? item.value.format(config.dateformat) : ''));
+		next('<div class="{0}-date"><i class="ti ti-calendar pdate"></i><div><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pdate" /></div></div>'.format(cls, config.dateformat.length, item.placeholder || '', item.value ? item.value.format(config.dateformat) : ''));
 	};
 	types.date.set = function(el, value) {
 		el.find('input').val(value == null ? '' : (value instanceof Date ? value.format(config.dateformat) : (value + '')));
@@ -421,7 +421,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		});
 	};
 	types.exec.render = function(item, next) {
-		next('<div class="{0}-exec">{1}<i class="fa fa-angle-right"></i></div>'.format(cls, item.value ? Thelpers.encode(item.value) : ''));
+		next('<div class="{0}-exec">{1}<i class="ti ti-angle-right"></i></div>'.format(cls, item.value ? Thelpers.encode(item.value) : ''));
 	};
 	types.exec.set = NOOP;
 
@@ -497,7 +497,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	};
 
 	types.list.render = function(item, next) {
-		var template = '<div class="{0}-list">' + (config.style === 2 ? '' : '<i class="fa fa-chevron-down"></i>') + '<span>{1}</span></div>';
+		var template = '<div class="{0}-list">' + (config.style === 2 ? '' : '<i class="ti ti-chevron-down"></i>') + '<span>{1}</span></div>';
 		if (item.detail) {
 			AJAX('GET ' + item.detail.format(encodeURIComponent(item.value)), function(response) {
 				next(template.format(cls, response[item.dirkey || 'name'] || item.placeholder || DEF.empty));
@@ -569,7 +569,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	};
 
 	types.menu.render = function(item, next) {
-		var template = '<div class="{0}-menu">' + (config.style === 2 ? '' : '<i class="fa fa-chevron-down"></i>') + '<span>{1}</span></div>';
+		var template = '<div class="{0}-menu">' + (config.style === 2 ? '' : '<i class="ti ti-chevron-down"></i>') + '<span>{1}</span></div>';
 		if (item.detail) {
 			AJAX('GET ' + item.detail.format(encodeURIComponent(item.value)), function(response) {
 				next(template.format(cls, response[item.dirkey || 'name'] || item.placeholder || DEF.empty));
@@ -679,7 +679,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		next('<div class="{0}-fontawesome"><span class="{0}-fontawesometoggle"><i class="{1}"></i></span></div>'.format(cls, item.value || ''));
 	};
 	types.fontawesome.set = function(el, value) {
-		el.find('i').rclass2('fa').aclass(value || '');
+		el.find('i').rclass2('ti').aclass(value || '');
 	};
 
 	types.emoji = {};
@@ -782,7 +782,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	};
 
 	types.file.render = function(item, next) {
-		next('<div class="{0}-file"><i class="far fa-folder"></i><span class="{0}-filename">{1}</span></div>'.format(cls, item.filename || item.value || DEF.empty));
+		next('<div class="{0}-file"><i class="ti ti-folder"></i><span class="{0}-filename">{1}</span></div>'.format(cls, item.filename || item.value || DEF.empty));
 	};
 
 	self.render = function(item, index) {

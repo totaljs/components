@@ -1,9 +1,9 @@
 .ui-singleupload.ui-disabled { color: gray !important; }
 .ui-singleupload.ui-disabled * { cursor: not-allowed; }
-.ui-singleupload.ui-disabled .fa-times { color: gray; cursor: not-allowed; }
+.ui-singleupload.ui-disabled .ti-times { color: gray; cursor: not-allowed; }
 .ui-singleupload { color: var(--color); }
 .ui-singleupload span { cursor: pointer; }
 .ui-singleupload span i { margin-right: 7px; }
-.ui-singleupload .fa-times { color: red; cursor: pointer; width: 16px; display: none; }
-.ui-singleupload-is .fa-times { display: inline-block; }
+.ui-singleupload .ti-times { color: red; cursor: pointer; width: 16px; display: none; }
+.ui-singleupload-is .ti-times { display: inline-block; }
 .ui-singleupload-is span i { display: none; }
