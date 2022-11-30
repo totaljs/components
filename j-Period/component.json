@@ -1,6 +1,6 @@
 {
-	"datecreated": "2022-11-30T08:45:58.000Z",
-	"dateupdated": "",
+	"datecreated": "2022-11-30T10:40:14.595Z",
+	"dateupdated": null,
 	"name": "j-Period",
 	"tags": [
 		"period",
@@ -12,7 +12,7 @@
 	"version": 1,
 	"darkmode": true,
 	"responsive": true,
-	"picture": "picture.png",
+	"picture": "picture.jpg",
 	"dependencies": "",
 	"author": "Kirill Zlobin",
 	"email": "jsdevzk@gmail.com",

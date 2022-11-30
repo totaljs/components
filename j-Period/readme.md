@@ -2,7 +2,7 @@
 
 The component for picking a time period.
 
--singleton
+- singleton
 
 __Methods__:
 

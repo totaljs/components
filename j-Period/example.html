@@ -4,19 +4,15 @@
 
 <script>
 
-    $(document).find('.button2').on('click', function() {
-
+    $(document).on('click', '.btn', function() {
         var opt = {};
-
         opt.element = $(this);
-        opt.align = 'right';
+        opt.align = 'left';
         opt.callback = function(start, end) {
             console.log(start);
             console.log(end);
-        }
-
+        };
         SETTER('period/show', opt);
-
     });
 
 
