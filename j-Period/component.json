@@ -12,9 +12,9 @@
 	"version": 1,
 	"darkmode": true,
 	"responsive": true,
-	"picture": "picture.png",
+	"picture": "picture.jpg",
 	"dependencies": "",
-	"author": "Kirill Zlobin",
+	"author": "Kirill Zlobin / Total.js",
 	"email": "jsdevzk@gmail.com",
 	"license": "https://www.totaljs.com/license/"
 }
