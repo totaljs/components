@@ -43,7 +43,7 @@
 .ui-input.ui-disabled .ui-input-icon-left, .ui-input.ui-disabled .ui-input-icon-right { color: gray; }
 .ui-input-dropdown.ui-disabled .ui-input-control { cursor: not-allowed !important; }
 .ui-input-raw .ui-input-increment { padding: 6px 0 0 !important; }
-.ui-input-increment i { line-height: 10px; font-size: 14px; cursor: pointer; display: block; }
+.ui-input-increment i { line-height: 10px; font-size: 12px; cursor: pointer; display: block; }
 .ui-input-increment i:first-child { margin-left: 0; }
 
 .ui-input-required.ui-input-inner .ui-input-label:after { content: '*'; color: red; margin-left: 3px; }
