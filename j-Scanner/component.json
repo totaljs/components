@@ -1,0 +1,19 @@
+{
+	"datecreated": "2022-12-01T15:41:25.000Z",
+	"dateupdated": "",
+	"name": "j-Scanner",
+	"tags": [
+		"scanner",
+		"camera",
+        "photo"
+	],
+	"color": "transparent",
+	"version": 1,
+	"darkmode": false,
+	"responsive": true,
+	"picture": "picture.png",
+	"dependencies": "",
+	"author": "Kirill Zlobin",
+	"email": "jsdevzk@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
