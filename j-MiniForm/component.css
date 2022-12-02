@@ -6,7 +6,8 @@
 .ui-miniform .padding { padding: 15px; }
 .ui-miniform-animate { transform: scale(1); opacity: 1; }
 .ui-miniform-title { padding: 18px 10px 18px 15px; font-size: 18px; user-select: none; color: #000; background-color: #FFF; border-bottom: 1px solid #E0E0E0; height: 58px; border-radius: var(--radius) var(--radius) 0 0; }
-.ui-miniform-title .ui-miniform-button-close { float: right; cursor: pointer; font-size: 18px; margin: 1px 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; width: 20px; padding: 0; font-weight: bold; }
+.ui-miniform-title .ui-miniform-button-close { float: right; cursor: pointer; font-size: 18px; margin: 1px 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; width: 20px; padding: 0; }
+.ui-miniform-title .ui-miniform-button-close i { font-weight: bold; }
 .ui-miniform-title .ui-miniform-button-close:hover { transform: scale(1.1); }
 .ui-miniform-title > span { font-weight: bold; }
 .ui-miniform-title i { margin-right: 7px; }
