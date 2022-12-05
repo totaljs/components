@@ -5,6 +5,7 @@ Simple table, which displays the data from an array of objects
 __Component Configuration__:
 
 - `margin` - {Number} - The height of the table2 component by default equals to its parent height. The **margin** specifies the number of pixels, which will be deducted from the hight of the table.
+- `click` - {String} - The parameter string represents **path** to a callback function, which will be executed when a particular table row is clicked. This function receives **id** as a parameter
 
 __Columns Configuration__
 
