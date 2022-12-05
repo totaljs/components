@@ -556,7 +556,7 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:0', function(self,
 				var dt = date[i].getFullYear() + '-' + date[i].getMonth() + '-' + date[i].getDate();
 				var el = self.find(cls2 + '-date[data-date="{0}"]'.format(dt));
 				if (el.length && !el.find('i').length)
-					el.append('<i class="ti ti-circle"></i>');
+					el.append('<i class="ti ti-circle-alt"></i>');
 			}
 
 		});
