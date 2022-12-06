@@ -11,7 +11,7 @@
 .ui-period-calendar { padding: 8px; display: flex; flex-grow: 1; gap: 16px; }
 .ui-period-calendar > div { flex-basis: 50%; }
 .ui-period-monthheader { display: flex; justify-content: space-between; align-items: center; line-height: 38px; font-size: 22px; margin-bottom: 20px; padding: 0 10px; }
-.ui-period-arrow { width: 38px; height: 44px; font-weight: 400; line-height: 38px; text-align: center; color: #76879e; border: 1px solid #d5dbe2; border-radius: 12px; cursor: pointer; user-select: none; }
+.ui-period-arrow { width: 38px; height: 44px; font-weight: 400; line-height: 44px; text-align: center; color: #76879e; border: 1px solid #d5dbe2; border-radius: 12px; cursor: pointer; user-select: none; }
 .ui-period-arrow:hover { background-color: #eee; }
 .ui-period-week { display: flex; justify-content: center; padding: 0 0px; overflow: hidden; font-size: 9px; text-align: center; color: #76879e; }
 .ui-period-week > div { border-bottom: 1px solid #f2f2f2; width: 10px; flex-grow: 1; border-radius: 5px; }
