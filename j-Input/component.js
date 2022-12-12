@@ -761,7 +761,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				if (!config.align && !config.innerlabel)
 					config.align = 1;
 			} else if (config.type === 'time') {
-				config.ricon = 'clock-o';
+				config.ricon = 'clock';
 				if (!config.align && !config.innerlabel)
 					config.align = 1;
 			} else if (config.type === 'search')
