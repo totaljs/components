@@ -6,7 +6,7 @@ COMPONENT('colorpickerbutton', 'default:#FFFFFF;align:left;position:top', functi
 
 	self.make = function() {
 		self.aclass(cls);
-		self.append('<span class="{0}-arrow"><i class="fa fa-angle-down"></i></span><div class="{0}-color"></div>'.format(cls));
+		self.append('<span class="{0}-arrow"><i class="ti ti-angle-down"></i></span><div class="{0}-color"></div>'.format(cls));
 		self.event('click', function() {
 			if (config.disabled)
 				return;

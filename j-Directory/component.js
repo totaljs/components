@@ -5,7 +5,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 	var is = false, selectedindex = 0, resultscount = 0;
 	var templateE = '{{ name | encode | ui_directory_helper }}';
 	var templateR = '{{ name | raw }}';
-	var template = '<li data-index="{{ $.index }}" data-search="{{ $.search }}" class="{{ $.classes }}">{{ if $.checkbox }}<span class="' + cls + '-checkbox"><i class="fa fa-check"></i></span>{{ fi }}{0}</li>';
+	var template = '<li data-index="{{ $.index }}" data-search="{{ $.search }}" class="{{ $.classes }}">{{ if $.checkbox }}<span class="' + cls + '-checkbox"><i class="ti ti-check"></i></span>{{ fi }}{0}</li>';
 	var templateraw = template.format(templateR);
 	var regstrip = /(&nbsp;|<([^>]+)>)/ig;
 	var parentclass = null;
@@ -40,12 +40,12 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 	self.make = function() {
 
 		self.aclass('hidden ' + cls + '-area');
-		self.append('<div class="{1}"><div class="{1}-search"><span class="{1}-add hidden"><i class="fa fa-plus"></i></span><span class="{1}-button"><i class="fa fa-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" name="dir{2}" autocomplete="new-password" /></div></div><div class="{1}-container"><ul></ul></div></div>'.format(config.placeholder, cls, Date.now()));
+		self.append('<div class="{1}"><div class="{1}-search"><span class="{1}-add hidden"><i class="ti ti-plus"></i></span><span class="{1}-button"><i class="ti ti-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" name="dir{2}" autocomplete="new-password" /></div></div><div class="{1}-container"><ul></ul></div></div>'.format(config.placeholder, cls, Date.now()));
 
 		main = self.find(cls2);
 		container = self.find('ul');
 		input = self.find('input');
-		icon = self.find(cls2 + '-button').find('.fa');
+		icon = self.find(cls2 + '-button').find('.ti');
 		plus = self.find(cls2 + '-add');
 
 		self.event('mouseenter mouseleave', 'li', function() {
@@ -303,7 +303,7 @@ COMPONENT('directory', 'minwidth:200', function(self, config, cls) {
 		if (!self.opt)
 			return;
 
-		icon.tclass('fa-times', !!value).tclass('fa-search', !value);
+		icon.tclass('ti-times', !!value).tclass('ti-search', !value);
 		self.opt.custom && plus.tclass('hidden', !value);
 
 		if (!value && !self.opt.ajax) {

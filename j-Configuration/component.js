@@ -313,7 +313,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		};
 
 		el.parent().aclass(cls + '-border');
-		el.append('<div class="{0}-type-number"{1}><span><i class="fa fa-angle-up"></i><i class="fa fa-angle-down"></i></span><div><input type="text" placeholder="{2}" /></div></div>'.format(cls, item.width ? ' style="max-width:{0}px"'.format(item.width) : '', (item.placeholder || '').encode()));
+		el.append('<div class="{0}-type-number"{1}><span><i class=ti ti-angle-up"></i><i class="ti ti-angle-down"></i></span><div><input type="text" placeholder="{2}" /></div></div>'.format(cls, item.width ? ' style="max-width:{0}px"'.format(item.width) : '', (item.placeholder || '').encode()));
 
 		var input = el.find('input');
 		input.prop('maxlength', item.maxlength || 12);
@@ -363,7 +363,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		};
 
 		el.parent().aclass(cls + '-border');
-		el.append('<div class="{0}-type-boolean"><div><span><i class="fa fa-check"></i></span></div></div>'.format(cls));
+		el.append('<div class="{0}-type-boolean"><div><span><i class="ti ti-check"></i></span></div></div>'.format(cls));
 		el.find(cls2 + '-type-boolean > div').on('click', function() {
 			if (!el.parent().hclass(cls + '-disabled')) {
 				el.tclass(tcls);
@@ -401,7 +401,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			return val == null ? null : val;
 		};
 
-		el.append('<div class="{0}-type-dropdown"><span><i class="fa fa-angle-down"></i></span><label>{1}</label><div class="{0}-value"></div></div>'.format(cls, (item.placeholder || '').encode()));
+		el.append('<div class="{0}-type-dropdown"><span><i class="ti ti-angle-down"></i></span><label>{1}</label><div class="{0}-value"></div></div>'.format(cls, (item.placeholder || '').encode()));
 
 		el.find(cls2 + '-type-dropdown').on('click', function() {
 			if (!el.parent().hclass(cls + '-disabled')) {
@@ -486,7 +486,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 				var opt = {};
 				opt.element = $(this);
 				opt.callback = set;
-				SETTER('faicons/show', opt);
+				SETTER('icons/show', opt);
 			}
 		});
 
@@ -516,7 +516,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			return type === 'string' ? val.parseDate() : type === 'number' ? new Date(val) : val instanceof Date ? val : null;
 		};
 
-		el.append('<div class="{0}-type-date"><span><i class="fa fa-calendar"></i></span><label>{1}</label><div class="{0}-value"></div></div>'.format(cls, (item.placeholder || '').encode()));
+		el.append('<div class="{0}-type-date"><span><i class="ti ti-calendar"></i></span><label>{1}</label><div class="{0}-value"></div></div>'.format(cls, (item.placeholder || '').encode()));
 
 		el.find(cls2 + '-type-date').on('click', function() {
 			if (!el.parent().hclass(cls + '-disabled')) {

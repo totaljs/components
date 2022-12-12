@@ -2,7 +2,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 
-	!W.$checkboxlist && (W.$checkboxlist = Tangular.compile('<div{{ if $.class }} class="{{ $.class }}"{{ fi }}><div class="' + cls + '-item" data-index="{{ index }}"><div><i class="fa fa-{{ $.checkicon }}"></i></div><span>{{ text }}</span></div></div>'));
+	!W.$checkboxlist && (W.$checkboxlist = Tangular.compile('<div{{ if $.class }} class="{{ $.class }}"{{ fi }}><div class="' + cls + '-item" data-index="{{ index }}"><div><i class="ti ti-{{ $.checkicon }}"></i></div><span>{{ text }}</span></div></div>'));
 
 	var template = W.$checkboxlist;
 	var container, data, datasource, content, dataold, render = null;
@@ -27,7 +27,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config, cls) {
 				break;
 
 			case 'checkicon':
-				self.find('i').rclass().aclass((value.indexOf(' ') === -1 ? 'fa fa-' : '') + value);
+				self.find('i').rclass().aclass((value.indexOf(' ') === -1 ? 'ti ti-' : '') + value);
 				break;
 
 			case 'disabled':
@@ -42,7 +42,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config, cls) {
 				break;
 
 			case 'icon':
-				if (!self.find(cls2 + '-label').find('i').rclass().aclass((value.indexOf(' ') === -1 ? 'fa fa-' : '') + value).length)
+				if (!self.find(cls2 + '-label').find('i').rclass().aclass((value.indexOf(' ') === -1 ? 'ti ti-' : '') + value).length)
 					redraw = true;
 				break;
 
@@ -136,7 +136,7 @@ COMPONENT('checkboxlist', 'checkicon:check', function(self, config, cls) {
 	self.redraw = function() {
 
 		var label = config.label || content;
-		var icon = config.icon ? ((config.icon.indexOf(' ') === -1 ? 'fa fa-' : '') + config.icon) : '';
+		var icon = config.icon ? ((config.icon.indexOf(' ') === -1 ? 'ti ti-' : '') + config.icon) : '';
 
 		self.tclass(cls + '-required', !!config.required);
 

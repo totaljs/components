@@ -1,5 +1,5 @@
 .ui-codemirror-label { margin-bottom: 5px; font-size: 12px; text-align: left; }
-.ui-codemirror-label .fa { width: 14px; }
+.ui-codemirror-label .ti { width: 14px; }
 .ui-codemirror-label-required:before { color: red; content: '***'; margin-right: 5px; }
 .ui-codemirror-invalid .CodeMirror { border: 1px solid red !important; }
 .CodeMirror { border: 1px solid #E0E0E0; border-radius: var(--radius); }

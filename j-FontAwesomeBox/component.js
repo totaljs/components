@@ -17,7 +17,7 @@ COMPONENT('fontawesomebox', 'height:300', function(self, config, cls) {
 
 		self.aclass(cls);
 		self.css('height', config.height + 'px');
-		self.append('<div class="{2}-search"><span><i class="fa fa-search clearsearch"></i></span><div><input type="text" maxlength="50" placeholder="{0}" /></div></div><div class="{2}-search-empty"></div><div class="{2}-icons"><ul style="height:{1}px" class="noscrollbar"></ul></div>'.format(config.search, config.height - 40, cls));
+		self.append('<div class="{2}-search"><span><i class="ti ti-search clearsearch"></i></span><div><input type="text" maxlength="50" placeholder="{0}" /></div></div><div class="{2}-search-empty"></div><div class="{2}-icons"><ul style="height:{1}px" class="noscrollbar"></ul></div>'.format(config.search, config.height - 40, cls));
 		container = $(self.find(cls2 + '-icons').find('ul')[0]);
 		input = self.find('input');
 		icon = self.find(cls2 + '-search').find('i');
@@ -53,7 +53,7 @@ COMPONENT('fontawesomebox', 'height:300', function(self, config, cls) {
 				});
 				$(hide).aclass('hidden');
 				$(show).rclass('hidden');
-				icon.tclass('fa-times', !!value).tclass('fa-search', !value);
+				icon.tclass('ti-times', !!value).tclass('ti-search', !value);
 			}, 300);
 		});
 	};
@@ -85,7 +85,7 @@ COMPONENT('fontawesomebox', 'height:300', function(self, config, cls) {
 		var icons = W.fontawesomeicons;
 		for (var i = 0, length = icons.length; i < length; i++) {
 			var icon = icons[i];
-			builder.push(template.format(icon, icon.indexOf(' ') === -1 ? ('fa fa-' + icon) : icon.replace(' ', ' fa-')));
+			builder.push(template.format(icon, icon.indexOf(' ') === -1 ? ('ti ti-' + icon) : icon.replace(' ', ' ti-')));
 		}
 		container.empty();
 		input.val('').trigger('keydown');
@@ -123,8 +123,8 @@ COMPONENT('fontawesomebox', 'height:300', function(self, config, cls) {
 	self.setter = function(value) {
 		prev && prev.rclass('selected');
 		if (value) {
-			if (value.indexOf('fa-') === -1)
-				value = 'fa-' + value;
+			if (value.indexOf('ti-') === -1)
+				value = 'ti-' + value;
 
 			var index = value.indexOf(' ');
 			if (index === -1)

@@ -1,4 +1,4 @@
-COMPONENT('banners', 'class:ui-banners-hidden;interval:3000;icon:fa fa-circle', function(self, config, cls) {
+COMPONENT('banners', 'class:ui-banners-hidden;interval:3000;icon:ti ti-circle', function(self, config, cls) {
 
 	var divs, nav, interval, indexer = 0;
 

@@ -3,7 +3,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:28;mi
 	var opt = { filter: {}, filtercache: {}, filtercl: {}, filtervalues: {}, scroll: false, selected: {}, operation: '' };
 	var header, vbody, footer, container, ecolumns, isecolumns = false, ready = false;
 	var sheader, sbody, econtrols;
-	var Theadercol = Tangular.compile('<div class="dg-hcol dg-col-{{ index }}{{ if sorting }} dg-sorting{{ fi }}" data-index="{{ index }}">{{ if sorting }}<i class="dg-sort fa fa-sort"></i>{{ fi }}<div class="dg-label{{ alignheader }}"{{ if labeltitle }} title="{{ labeltitle }}"{{ fi }}{{ if reorder }} draggable="true"{{ fi }}>{{ label | raw }}</div>{{ if filter }}<div class="dg-filter{{ alignfilter }}{{ if filterval != null && filterval !== \'\' }} dg-filter-selected{{ fi }}"><i class="fa dg-filter-cancel fa-times"></i>{{ if options }}<label data-name="{{ name }}">{{ if filterval }}{{ filterval }}{{ else }}{{ filter }}{{ fi }}</label>{{ else }}<input autocomplete="new-password" type="text" placeholder="{{ filter }}" class="dg-filter-input" name="{{ name }}{{ ts }}" data-name="{{ name }}" value="{{ filterval }}" />{{ fi }}</div>{{ else }}<div class="dg-filter-empty">&nbsp;</div>{{ fi }}</div>');
+	var Theadercol = Tangular.compile('<div class="dg-hcol dg-col-{{ index }}{{ if sorting }} dg-sorting{{ fi }}" data-index="{{ index }}">{{ if sorting }}<i class="dg-sort ti ti-sort"></i>{{ fi }}<div class="dg-label{{ alignheader }}"{{ if labeltitle }} title="{{ labeltitle }}"{{ fi }}{{ if reorder }} draggable="true"{{ fi }}>{{ label | raw }}</div>{{ if filter }}<div class="dg-filter{{ alignfilter }}{{ if filterval != null && filterval !== \'\' }} dg-filter-selected{{ fi }}"><i class="ti dg-filter-cancel ti-times"></i>{{ if options }}<label data-name="{{ name }}">{{ if filterval }}{{ filterval }}{{ else }}{{ filter }}{{ fi }}</label>{{ else }}<input autocomplete="new-password" type="text" placeholder="{{ filter }}" class="dg-filter-input" name="{{ name }}{{ ts }}" data-name="{{ name }}" value="{{ filterval }}" />{{ fi }}</div>{{ else }}<div class="dg-filter-empty">&nbsp;</div>{{ fi }}</div>');
 	var isIE = (/msie|trident/i).test(navigator.userAgent);
 	var isredraw = false;
 	var forcescroll = '';
@@ -195,18 +195,18 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:28;mi
 
 			switch (type) {
 				case 'email':
-					return val && val.length > 2 ? '<a href="mailto:{0}" class="dg-link"><i class="far fa-envelope"></i>{0}</a>'.format(val) : val;
+					return val && val.length > 2 ? '<a href="mailto:{0}" class="dg-link"><i class="ti ti-envelope"></i>{0}</a>'.format(val) : val;
 				case 'phone':
-					return val && val.length > 2 ? '<a href="tel:{0}" class="dg-link"><i class="fas fa-phone"></i>{0}</a>'.format(val) : val;
+					return val && val.length > 2 ? '<a href="tel:{0}" class="dg-link"><i class="ti ti-phone"></i>{0}</a>'.format(val) : val;
 				case 'url':
-					return val && val.length > 7 && (/http(s):\/\//i).test(val) ? '<a href="{0}" target="_blank" class="dg-link"><i class="fas fa-globe"></i>{0}</a>'.format(val) : val;
+					return val && val.length > 7 && (/http(s):\/\//i).test(val) ? '<a href="{0}" target="_blank" class="dg-link"><i class="ti ti-globe-world"></i>{0}</a>'.format(val) : val;
 			}
 
 			return val;
 		};
 
 		Thelpers.ui_datagrid_checkbox = function(val) {
-			return '<div class="dg-checkbox' + (val ? ' dg-checked' : '') + '" data-custom="1"><i class="fa fa-check"></i></div>';
+			return '<div class="dg-checkbox' + (val ? ' dg-checked' : '') + '" data-custom="1"><i class="ti ti-check"></i></div>';
 		};
 
 		Thelpers.ui_datagrid_colorize = function(val, encode) {
@@ -422,9 +422,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:28;mi
 
 		var pagination = '';
 		if (config.exec && config.pagination)
-			pagination = '<div class="dg-footer hidden"><div class="dg-pagination-items hidden-xs"></div><div class="dg-pagination"><button name="page-first" disabled><i class="fa fa-angle-double-left"></i></button><button name="page-prev" disabled><i class="fa fa-angle-left"></i></button><div><input type="text" name="page" maxlength="5" class="dg-pagination-input" /></div><button name="page-next" disabled><i class="fa fa-angle-right"></i></button><button name="page-last" disabled><i class="fa fa-angle-double-right"></i></button></div><div class="dg-pagination-pages"></div></div>';
+			pagination = '<div class="dg-footer hidden"><div class="dg-pagination-items hidden-xs"></div><div class="dg-pagination"><button name="page-first" disabled><i class=ti ti-angle-double-left"></i></button><button name="page-prev" disabled><i class="ti ti-angle-left"></i></button><div><input type="text" name="page" maxlength="5" class="dg-pagination-input" /></div><button name="page-next" disabled><i class="ti ti-angle-right"></i></button><button name="page-last" disabled><i class="ti ti-angle-double-right"></i></button></div><div class="dg-pagination-pages"></div></div>';
 
-		self.dom.innerHTML = '<div class="dg-btn-columns"><i class="fa fa-caret-left"></i><span class="fa fa-columns"></span></div><div class="dg-columns hidden"><div><div class="dg-columns-body"></div></div><button class="dg-columns-button" name="columns-apply"><i class="fa fa-check-circle"></i>{1}</button><span class="dt-columns-reset">{2}</span></div><div class="dg-container"><div class="dg-controls"></div><span class="dg-resize-line hidden"></span><div class="dg-header-scrollbar"><div class="dg-header"></div><div class="dg-body-scrollbar"><div class="dg-body"></div></div></div></div>{0}'.format(pagination, config.buttonapply, config.buttonreset);
+		self.dom.innerHTML = '<div class="dg-btn-columns"><i class="ti ti-caret-left"></i><span class="ti ti-columns"></span></div><div class="dg-columns hidden"><div><div class="dg-columns-body"></div></div><button class="dg-columns-button" name="columns-apply"><i class="ti ti-check-circle"></i>{1}</button><span class="dt-columns-reset">{2}</span></div><div class="dg-container"><div class="dg-controls"></div><span class="dg-resize-line hidden"></span><div class="dg-header-scrollbar"><div class="dg-header"></div><div class="dg-body-scrollbar"><div class="dg-body"></div></div></div></div>{0}'.format(pagination, config.buttonapply, config.buttonreset);
 
 		header = self.find('.dg-header');
 		vbody = self.find('.dg-body');
@@ -508,7 +508,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:28;mi
 
 				for (var i = 0; i < opt.cols.length; i++) {
 					var col = opt.cols[i];
-					(col.listcolumn && !col.$hidden) && builder.push('<div><label class="dg-columns-checkbox{1}" data-id="{0}"><span><i class="fa fa-check"></i></span>{2}</label></div>'.format(col.id, col.hidden ? '' : ' dg-columns-checkbox-checked', col.text));
+					(col.listcolumn && !col.$hidden) && builder.push('<div><label class="dg-columns-checkbox{1}" data-id="{0}"><span><i class="ti ti-check"></i></span>{2}</label></div>'.format(col.id, col.hidden ? '' : ' dg-columns-checkbox-checked', col.text));
 				}
 
 				ecolumns.find('.dg-columns-body')[0].innerHTML = builder.join('');
@@ -1446,7 +1446,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:28;mi
 		opt.width = (config.numbering !== false ? 40 : 0) + (config.checkbox ? 40 : 0) + 30;
 
 		if (config.checkbox)
-			column += Theadercol({ index: -1, label: '<div class="dg-checkbox dg-checkbox-main" data-value="-1"><i class="fa fa-check"></i></div>', filter: false, name: '$', sorting: false });
+			column += Theadercol({ index: -1, label: '<div class="dg-checkbox dg-checkbox-main" data-value="-1"><i class="ti ti-check"></i></div>', filter: false, name: '$', sorting: false });
 
 		for (var i = 0; i < opt.cols.length; i++) {
 			var col = opt.cols[i];
@@ -1570,7 +1570,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:28;mi
 			column += Tcol.format(-1, '<div class="dg-number">{0}</div>'.format(index + 1 + (plus || 0)));
 
 		if (config.checkbox)
-			column += Tcol.format(-1, '<div class="dg-checkbox-main dg-checkbox{1}" data-value="{0}"><i class="fa fa-check"></i></div>'.format(row.ROW, opt.checked[row.ROW] ? ' dg-checked' : ''));
+			column += Tcol.format(-1, '<div class="dg-checkbox-main dg-checkbox{1}" data-value="{0}"><i class="ti ti-check"></i></div>'.format(row.ROW, opt.checked[row.ROW] ? ' dg-checked' : ''));
 
 		for (var j = 0; j < opt.cols.length; j++) {
 			var col = opt.cols[j];
@@ -1973,16 +1973,16 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:28;mi
 			var el = $(arr[i]);
 			var col = opt.cols[+el.attrd('index')];
 			if (col) {
-				var fa = el.find('.dg-sort').rclass2('fa-');
+				var ti = el.find('.dg-sort').rclass2('ti-');
 				switch (col.sort) {
 					case 1:
-						fa.aclass('fa-arrow-up');
+						ti.aclass('ti-arrow-up');
 						break;
 					case 2:
-						fa.aclass('fa-arrow-down');
+						ti.aclass('ti-arrow-down');
 						break;
 					default:
-						fa.aclass('fa-sort');
+						ti.aclass('ti-sort');
 						break;
 				}
 			}
@@ -2446,7 +2446,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:28;mi
 		}
 
 		var align = meta.col.align;
-		el.rclass('dg-value').html(meta.col.type.substring(0, 4) === 'bool' ? '<div{1}><div class="dg-checkbox{0}" data-custom="2"><i class="fa fa-check"></i></div></div>'.format(meta.value ? ' dg-checked' : '', align ? (' class="' + align.trim() + '"') : '') : '<input type="{0}" maxlength="{1}"{2} />'.format(meta.col.ispassword ? 'password' : 'text', meta.col.maxlength || 100, align ? (' class="' + align.trim() + '"') : ''));
+		el.rclass('dg-value').html(meta.col.type.substring(0, 4) === 'bool' ? '<div{1}><div class="dg-checkbox{0}" data-custom="2"><i class="ti ti-check"></i></div></div>'.format(meta.value ? ' dg-checked' : '', align ? (' class="' + align.trim() + '"') : '') : '<input type="{0}" maxlength="{1}"{2} />'.format(meta.col.ispassword ? 'password' : 'text', meta.col.maxlength || 100, align ? (' class="' + align.trim() + '"') : ''));
 		current.el = el;
 
 		var input = meta.elcol.find('input');
