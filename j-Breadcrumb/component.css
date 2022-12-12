@@ -4,7 +4,7 @@
 .ui-breadcrumb > nav a:last-child, .ui-breadcrumb > nav span:last-child { font-weight: bold; }
 .ui-breadcrumb > nav i { width: 14px; text-align: center; }
 .ui-breadcrumb > nav i:first-child { margin-right: 3px; }
-.ui-breadcrumb > nav .ti-angle-right { margin: 0 0 0 5px; font-size: 12px; }
+.ui-breadcrumb > nav .fa-angle-right { margin: 0 0 0 5px; font-size: 12px; }
 .ui-breadcrumb > nav { float: left; margin: 0; }
 .ui-breadcrumb > div { float: right; }
 .ui-breadcrumb-children { background-color: rgba(0,0,0,.05); padding: 2px 4px; border-radius: var(--radius); }

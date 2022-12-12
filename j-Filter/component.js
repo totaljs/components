@@ -46,7 +46,7 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 
 	self.make = function() {
 		self.aclass(cls + ' hidden');
-		self.append('<div class="' + cls + '-items"></div><div class="' + cls + '-buttons"><button name="reset">{reset}</button><button name="apply"><i class="ti ti-filter"></i>{apply}</button><button name="cancel">{cancel}</button></div>'.arg(config));
+		self.append('<div class="' + cls + '-items"></div><div class="' + cls + '-buttons"><button name="reset">{reset}</button><button name="apply"><i class="fa fa-filter"></i>{apply}</button><button name="cancel">{cancel}</button></div>'.arg(config));
 		container = self.find(cls2 + '-items');
 
 		self.event('keydown', 'input', function(e) {
@@ -320,7 +320,7 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 						item.iconclick = true;
 						break;
 					case Boolean:
-						value = '<div class="{0}-checkbox"><i class="ti ti-check"></i></div>'.format(cls);
+						value = '<div class="{0}-checkbox"><i class="fa fa-check"></i></div>'.format(cls);
 						break;
 					case 'Time':
 					case 'time':
@@ -343,7 +343,7 @@ COMPONENT('filter', 'reset:Reset;apply:Apply;cancel:Cancel', function(self, conf
 				}
 
 				if (item.icon)
-					value = '<div class="{0}-item-icon{3}">{1}</div><div class="{0}-item-input">{2}</div>'.format(cls, item.icon.charAt(0) === '!' ? item.icon.substring(1) : '<i class="ti ti-{0}"></i>'.format(item.icon), value, item.iconclick ? (' ' + cls + '-icon-click') : '');
+					value = '<div class="{0}-item-icon{3}">{1}</div><div class="{0}-item-input">{2}</div>'.format(cls, item.icon.charAt(0) === '!' ? item.icon.substring(1) : '<i class="fa fa-{0}"></i>'.format(item.icon), value, item.iconclick ? (' ' + cls + '-icon-click') : '');
 
 				builder.push('<div class="{0}-item" data-index="{3}"><div class="{0}-item-label">{1}</div><div class="{0}-item-value"><div class="{0}-placeholder">{4}</div>{2}</div></div>'.format(cls, item.label || item.name, value, i, item.placeholder || ''));
 			}

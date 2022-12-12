@@ -1,4 +1,4 @@
-COMPONENT('button', 'delay:100;icon:ti ti-home;flags:visible;validation:1;name:submit;size:normal', function(self, config, cls) {
+COMPONENT('button', 'delay:100;icon:home;flags:visible;validation:1;name:submit;size:normal', function(self, config, cls) {
 
 	var ihtml, old, track;
 	var flags = null;
@@ -38,7 +38,7 @@ COMPONENT('button', 'delay:100;icon:ti ti-home;flags:visible;validation:1;name:s
 				break;
 			case 'icon':
 				if (self.button) {
-					var i = self.find('i').rclass2('ti');
+					var i = self.find('i').rclass2('fa');
 					if (value)
 						i.aclass(self.faicon(value)).rclass('hidden');
 					else

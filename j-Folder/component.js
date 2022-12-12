@@ -8,7 +8,7 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/;key:name', funct
 	self.opt = {};
 	self.readonly();
 	self.nocompile();
-	self.template = Tangular.compile('<div data-index="{{ $.index }}" class="{0}-item {0}-{{ if type === 1 }}folder{{ else }}file{{ fi }}"><span class="{0}-item-options"><i class="ti ti-ellipsis-h"></i></span>{{ if checkbox }}<div class="{0}-checkbox{{ if checked }} {0}-checkbox-checked{{ fi }}"><i class="ti ti-check"></i></div>{{ fi }}<span class="{0}-item-icon"><i class="ti-{{ icon | def(\'chevron-right\') }}"></i></span><div class="{0}-item-name{{ if classname }} {{ classname }}{{ fi }}">{{ name }}</div></div>'.format(cls));
+	self.template = Tangular.compile('<div data-index="{{ $.index }}" class="{0}-item {0}-{{ if type === 1 }}folder{{ else }}file{{ fi }}"><span class="{0}-item-options"><i class="fa fa-ellipsis-h"></i></span>{{ if checkbox }}<div class="{0}-checkbox{{ if checked }} {0}-checkbox-checked{{ fi }}"><i class="fa fa-check"></i></div>{{ fi }}<span class="{0}-item-icon"><i class="far fa-{{ icon | def(\'chevron-right\') }}"></i></span><div class="{0}-item-name{{ if classname }} {{ classname }}{{ fi }}">{{ name }}</div></div>'.format(cls));
 
 	drag.drop = function(e) {
 
@@ -174,7 +174,7 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/;key:name', funct
 		}
 
 		builder.unshift(template.format(cls, config.root, ''));
-		epath.html(builder.join('<i class="ti ti-caret-right"></i>'));
+		epath.html(builder.join('<i class="fa fa-caret-right"></i>'));
 		epath.tclass('hidden', !path.length);
 	};
 

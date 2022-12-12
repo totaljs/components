@@ -14,7 +14,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 
 		var meta = self.find('script').html();
 		self.aclass('ui-grid-container' + (config.autosize ? '' : ' hidden'));
-		self.html('<div class="ui-grid"><table class="ui-grid-header"><thead></thead></table><div class="ui-grid-scroller"><table class="ui-grid-data"><thead></thead><tbody></tbody></table></div></div>' + (config.pagination ? '<div class="ui-grid-footer hidden"><div class="ui-grid-meta"></div><div class="ui-grid-pagination"><button class="ui-grid-button" name="first"><i class="ti ti-angle-double-left"></i></button><button class="ui-grid-button" name="prev"><i class="ti ti-angle-left"></i></button><div class="page"><input type="text" maxlength="5" class="ui-grid-input" /></div><button class="ui-grid-button" name="next"><i class="ti ti-angle-right"></i></button><button class="ui-grid-button" name="last"><i class="ti ti-angle-double-right"></i></button></div><div class="ui-grid-pages"></div></div></div>' : ''));
+		self.html('<div class="ui-grid"><table class="ui-grid-header"><thead></thead></table><div class="ui-grid-scroller"><table class="ui-grid-data"><thead></thead><tbody></tbody></table></div></div>' + (config.pagination ? '<div class="ui-grid-footer hidden"><div class="ui-grid-meta"></div><div class="ui-grid-pagination"><button class="ui-grid-button" name="first"><i class="fa fa-angle-double-left"></i></button><button class="ui-grid-button" name="prev"><i class="fa fa-angle-left"></i></button><div class="page"><input type="text" maxlength="5" class="ui-grid-input" /></div><button class="ui-grid-button" name="next"><i class="fa fa-angle-right"></i></button><button class="ui-grid-button" name="last"><i class="fa fa-angle-double-right"></i></button></div><div class="ui-grid-pages"></div></div></div>' : ''));
 
 		var body = self.find('.ui-grid-data');
 		tbody = $(body.find('tbody')[0]);
@@ -211,7 +211,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 			var width = typeof(col.size) === 'string' ? col.size : ((((col.size || 1) / size) * 100).floor(2) + '%');
 
 			data.push('<td style="width:{0}" data-index="{1}" class="{2}"></td>'.format(width, i, self.cls(0, col.classtd, col.class)));
-			header.push('<th class="ui-grid-columnname{3}{5}" style="width:{0};text-align:center" data-index="{1}" title="{6}" data-name="{4}"><div class="wrap"><i class="ti hidden ui-grid-ti"></i>{2}</div></th>'.format(width, i, col.header ? col.header(col) : (col.text || col.name), self.cls(1, col.classth, col.class), col.name, col.sort === false ? '' : ' ui-grid-columnsort', col.title || col.text || col.name));
+			header.push('<th class="ui-grid-columnname{3}{5}" style="width:{0};text-align:center" data-index="{1}" title="{6}" data-name="{4}"><div class="wrap"><i class="fa hidden ui-grid-fa"></i>{2}</div></th>'.format(width, i, col.header ? col.header(col) : (col.text || col.name), self.cls(1, col.classth, col.class), col.name, col.sort === false ? '' : ' ui-grid-columnsort', col.title || col.text || col.name));
 			if (col.filter === false)
 				filter.push('<th class="ui-grid-columnfilterempty ui-grid-columnfilter{1}" style="width:{0}">&nbsp;</th>'.format(width, self.cls(1, col.classfilter, col.class)));
 			else
@@ -309,10 +309,10 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 
 	self.sort = function(data) {
 
-		options.lastsortelement && options.lastsortelement.rclass('ti-caret-down ti-caret-up').aclass('hidden');
+		options.lastsortelement && options.lastsortelement.rclass('fa-caret-down fa-caret-up').aclass('hidden');
 
 		if (data.column.sorting === 'desc') {
-			options.lastsortelement.find('.ui-grid-ti').rclass('ti-caret-down ti-caret-up').aclass('hidden');
+			options.lastsortelement.find('.ui-grid-fa').rclass('fa-caret-down fa-caret-up').aclass('hidden');
 			options.lastsortelement = null;
 			options.lastsort = null;
 			data.column.sorting = null;
@@ -324,7 +324,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 
 		} else if (data.column) {
 			data.column.sorting = data.column.sorting === 'asc' ? 'desc' : 'asc';
-			options.lastsortelement = thead.find('th[data-name="{0}"]'.format(data.column.name)).find('.ui-grid-ti').rclass('hidden').tclass('ti-caret-down', data.column.sorting === 'asc').tclass('ti-caret-up', data.column.sorting === 'desc');
+			options.lastsortelement = thead.find('th[data-name="{0}"]'.format(data.column.name)).find('.ui-grid-fa').rclass('hidden').tclass('fa-caret-down', data.column.sorting === 'asc').tclass('fa-caret-up', data.column.sorting === 'desc');
 			options.lastsort = data.column;
 
 			var name = data.column.name;
@@ -477,7 +477,7 @@ COMPONENT('grid', 'filter:true;external:false;fillcount:50;filterlabel:Filtering
 		isFilter = false;
 		thead.find('input').val('');
 		thead.find('.ui-grid-selected').rclass('ui-grid-selected');
-		options.lastsortelement && options.lastsortelement.rclass('ti-caret-down ti-caret-up');
+		options.lastsortelement && options.lastsortelement.rclass('fa-caret-down fa-caret-up');
 		options.lastsortelement = null;
 		if (options.lastsort)
 			options.lastsort.sorting = null;

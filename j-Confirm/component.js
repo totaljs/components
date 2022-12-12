@@ -73,7 +73,7 @@ COMPONENT('confirm', function(self, config, cls) {
 
 				var tmp = icon + '';
 				if (tmp.indexOf(' ') == -1)
-					tmp = 'ti ti-' + tmp;
+					tmp = 'fa fa-' + tmp;
 
 				item = item.replace(icon, '').trim();
 				icon = '<i class="{0}"></i>'.format(tmp.replace(/"/g, ''));
@@ -103,7 +103,7 @@ COMPONENT('confirm', function(self, config, cls) {
 
 	self.content = function(text) {
 		$('html').aclass(cls + '-noscroll');
-		!is && self.html('<div><div class="{0}-body"><span class="{0}-close"><i class="ti ti-times"></i></span></div></div>'.format(cls));
+		!is && self.html('<div><div class="{0}-body"><span class="{0}-close"><i class="fa fa-times"></i></span></div></div>'.format(cls));
 		self.find(cls2 + '-body').append(text);
 		self.rclass('hidden');
 		events.bind();

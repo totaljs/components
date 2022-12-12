@@ -7,7 +7,7 @@
 .ui-checkpath > div { margin-left: 50px; height: 18px; }
 .ui-checkpath > div > span { float: left; max-width: 400px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; margin-left: 15px; }
 .ui-checkpath > div > span > span { margin-right: 5px; background-color: #F0F0F0; padding: 2px 3px; border-radius: var(--radius); }
-.ui-checkpath > div .ti-copy { float: right; margin: 2px 0 0 10px; cursor: pointer; transition: all 0.2s; }
+.ui-checkpath > div .fa-copy { float: right; margin: 2px 0 0 10px; cursor: pointer; transition: all 0.2s; }
 .ui-checkpath > div b { width: 70px; float: left; }
 .ui-checkpath-animate { transform: scale(1.3); }
 

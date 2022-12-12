@@ -20,14 +20,14 @@ COMPONENT('checkbox', function(self, config, cls) {
 				self.tclass('ui-disabled', value);
 				break;
 			case 'checkicon':
-				self.find('i').rclass2('ti-').aclass('ti-' + value);
+				self.find('i').rclass2('fa-').aclass('fa-' + value);
 				break;
 		}
 	};
 
 	self.make = function() {
 		self.aclass(cls);
-		self.html('<span><i class="ti ti-{2}"></i></span><label{1}>{0}</label>'.format(config.label || self.html(), config.required ? (' class="' + cls + '-label-required"') : '', config.checkicon || 'check'));
+		self.html('<span><i class="fa fa-{2}"></i></span><label{1}>{0}</label>'.format(config.label || self.html(), config.required ? (' class="' + cls + '-label-required"') : '', config.checkicon || 'check'));
 		config.disabled && self.aclass('ui-disabled');
 		self.event('click', function() {
 			if (!config.disabled) {

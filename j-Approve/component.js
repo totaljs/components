@@ -12,7 +12,7 @@ COMPONENT('approve', 'cancel:Cancel', function(self, config, cls) {
 	self.make = function() {
 
 		self.aclass(cls + ' hidden');
-		self.html('<div><div class="{0}-body"><span class="{0}-close"><i class="ti ti-times"></i></span><div class="{0}-content"></div><div class="{0}-buttons"><button data-index="0"></button><button data-index="1"></button></div></div></div>'.format(cls));
+		self.html('<div><div class="{0}-body"><span class="{0}-close"><i class="fa fa-times"></i></span><div class="{0}-content"></div><div class="{0}-buttons"><button data-index="0"></button><button data-index="1"></button></div></div></div>'.format(cls));
 
 		buttons = self.find(cls2 + '-buttons').find('button');
 
@@ -74,7 +74,7 @@ COMPONENT('approve', 'cancel:Cancel', function(self, config, cls) {
 
 			var tmp = icon + '';
 			if (tmp.indexOf(' ') == -1)
-				tmp = 'ti ti-' + tmp;
+				tmp = 'fa fa-' + tmp;
 
 			a = a.replace(icon, '').trim();
 			icon = '<i class="{0}"></i>'.format(tmp.replace(/"/g, ''));

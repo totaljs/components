@@ -2,11 +2,11 @@
 .ui-formtab-body { display: none; }
 .ui-formtab-open { box-shadow: 0 0 20px rgba(0,0,0,0.05); }
 .ui-formtab-open .ui-formtab-body { display: block; }
-.ui-formtab-open .ui-formtab-title .ti-expand-arrows-alt { display: block; }
+.ui-formtab-open .ui-formtab-title .fa-expand-arrows-alt { display: block; }
 .ui-formtab-open .ui-formtab-title { width: 100%; }
 .ui-formtab-maximized { z-index: 102; margin: 0; right: auto; bottom: auto; }
-.ui-formtab-title .ti-expand-arrows-alt { display: none; }
-.ui-formtab-open .ui-formtab-title .ti-times { color: red !important; }
+.ui-formtab-title .fa-expand-arrows-alt { display: none; }
+.ui-formtab-open .ui-formtab-title .fa-times { color: red !important; }
 .ui-formtab-title { height: 30px; line-height: 30px; background-color: #F0F0F0; padding: 0 5px; width: 200px; border-radius: var(--radius) var(--radius) 0 0; color: gray; }
 .ui-formtab-title:hover { background-color: #F4F4F4; }
 .ui-formtab-title i { float: right; width: 24px; height: 24px; line-height: 24px; text-align: center; cursor: pointer; margin: 3px 0 0; border-radius: var(--radius); font-size: 12px; color: gray; }

@@ -22,7 +22,7 @@ COMPONENT('floatinginput', 'minwidth:200', function(self, config, cls) {
 	self.make = function() {
 
 		self.aclass(cls + ' hidden');
-		self.append('<div class="{1}-summary hidden"></div><div class="{1}-input"><span class="{1}-add hidden"><i class="ti ti-plus"></i></span><span class="{1}-button"><i class="ti ti-pencil"></i></span><div class="{1}-control"><input type="text" placeholder="{0}" name="dir{2}" autocomplete="dir{2}" /><textarea name="dirt{2}" placeholder="{0}"></textarea></div></div'.format(config.placeholder, cls, Date.now()));
+		self.append('<div class="{1}-summary hidden"></div><div class="{1}-input"><span class="{1}-add hidden"><i class="fa fa-plus"></i></span><span class="{1}-button"><i class="fa fa-pencil"></i></span><div class="{1}-control"><input type="text" placeholder="{0}" name="dir{2}" autocomplete="dir{2}" /><textarea name="dirt{2}" placeholder="{0}"></textarea></div></div'.format(config.placeholder, cls, Date.now()));
 
 		input = self.find('input');
 		icon = self.find(cls2 + '-button').find('i');
@@ -192,8 +192,8 @@ COMPONENT('floatinginput', 'minwidth:200', function(self, config, cls) {
 		else if (opt.maxwidth && width > opt.maxwidth)
 			width = opt.maxwidth;
 
-		var ico = opt.icon ? self.faicon(opt.icon) : 'ti ti-pencil-alt';
-		icon.rclass2('ti').aclass(ico).rclass('hidden');
+		var ico = opt.icon ? self.faicon(opt.icon) : 'fa fa-pencil-alt';
+		icon.rclass2('fa').aclass(ico).rclass('hidden');
 
 		if (opt.value) {
 			plusvisible = true;

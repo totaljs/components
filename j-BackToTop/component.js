@@ -1,4 +1,4 @@
-COMPONENT('backtotop', 'icon:ti ti-arrow-circle-up', function(self, config, cls) {
+COMPONENT('backtotop', 'icon:fa fa-arrow-circle-up', function(self, config, cls) {
 
 	var visible = false;
 	var timeout = null;

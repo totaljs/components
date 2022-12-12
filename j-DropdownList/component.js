@@ -4,7 +4,7 @@ COMPONENT('dropdownlist', 'limit:3;check:true', function(self, config, cls) {
 	var items;
 	var nocheck = false;
 
-	self.template = Tangular.compile('<div class="{0}-item" data-id="{{ id }}"><span class="{0}-control {0}-remove"><i class="ti ti-times"></i></span><div class="name">{{ if icon }}<i class="{{ icon }}"></i>{{ fi }}{{ name }}</div></div>'.format(cls));
+	self.template = Tangular.compile('<div class="{0}-item" data-id="{{ id }}"><span class="{0}-control {0}-remove"><i class="fa fa-times"></i></span><div class="name">{{ if icon }}<i class="{{ icon }}"></i>{{ fi }}{{ name }}</div></div>'.format(cls));
 	self.getter = null;
 
 	self.validate = function(value) {
@@ -21,7 +21,7 @@ COMPONENT('dropdownlist', 'limit:3;check:true', function(self, config, cls) {
 
 		var label = self.element.text() || config.label;
 		self.aclass(cls + (config.required ? (' ' + cls + '-required') : ''));
-		self.html('<label>{2}:</label><div class="{0}-values"><div class="{0}-add"><span class="{0}-control"><i class="ti ti-angle-down"></i></span>{1}</div><div class="{0}-items"></div></div>'.format(cls, config.placeholder, label));
+		self.html('<label>{2}:</label><div class="{0}-values"><div class="{0}-add"><span class="{0}-control"><i class="fa fa-angle-down"></i></span>{1}</div><div class="{0}-items"></div></div>'.format(cls, config.placeholder, label));
 		items = self.find(cls2 + '-items');
 		self.event('click', cls2 + '-add', function() {
 

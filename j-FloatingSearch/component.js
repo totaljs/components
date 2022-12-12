@@ -6,7 +6,7 @@ COMPONENT('floatingsearch', 'height:46', function(self, config, cls) {
 	self.make = function() {
 
 		self.aclass(cls + ' hidden');
-		self.append('<div class="close"><i class="ti ti-times"></i></div><div class="icon"><i class="ti ti-search"></i></div><form action="#" onsubmit="return false" class="input"><input placeholder="{1}" data-jc-bind type="text" name="input{2}" autocomplete="new-password" /></form>'.format(cls, config.placeholder, Date.now()));
+		self.append('<div class="close"><i class="fa fa-times"></i></div><div class="icon"><i class="fa fa-search"></i></div><form action="#" onsubmit="return false" class="input"><input placeholder="{1}" data-jc-bind type="text" name="input{2}" autocomplete="new-password" /></form>'.format(cls, config.placeholder, Date.now()));
 
 		if (config.height !== 46) {
 			self.find('.close,.icon,input').css('line-height', (config.height - 2) + 'px');
@@ -34,7 +34,7 @@ COMPONENT('floatingsearch', 'height:46', function(self, config, cls) {
 		var tmp = !!input.value;
 		if (is !== tmp) {
 			is = tmp;
-			self.find('.icon').find('i').tclass('ti-search', !is).tclass('ti-times', is);
+			self.find('.icon').find('i').tclass('fa-search', !is).tclass('fa-times', is);
 			self.tclass(cls + '-filled', is);
 		}
 	};

@@ -33,7 +33,7 @@ COMPONENT('contentslider', 'interval:3000;selector:a', function(self, config, cl
 		self.rclass('hidden');
 		self.show(indexer++);
 
-		self.event('click', '.ti', function() {
+		self.event('click', '.fa', function() {
 			clearInterval(interval);
 			self.show($(this).attrd('index').parseInt());
 		});
@@ -51,7 +51,7 @@ COMPONENT('contentslider', 'interval:3000;selector:a', function(self, config, cl
 		length = self.find('.' + cssi).length;
 		var builder = '';
 		for (var i = 0; i < length; i++)
-			builder += '<i class="ti ti-circle" data-index="{0}"></i>'.format(i);
+			builder += '<i class="fa fa-circle" data-index="{0}"></i>'.format(i);
 		noredraw !== true && self.find('.' + cssp).empty().html(builder);
 	};
 

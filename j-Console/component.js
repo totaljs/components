@@ -10,7 +10,7 @@ COMPONENT('console', function(self, config, cls) {
 	self.make = function() {
 
 		self.aclass(cls + ' hidden');
-		self.append('<div class="{0}-body"><div class="{0}-tabs"><span class="{0}-close"><i class="ti ti-times"></i></span><div></div></div><div class="{0}-output"></div></div>'.format(cls));
+		self.append('<div class="{0}-body"><div class="{0}-tabs"><span class="{0}-close"><i class="fa fa-times"></i></span><div></div></div><div class="{0}-output"></div></div>'.format(cls));
 
 		etabs = self.find(cls2 + '-tabs > div');
 		elogs = self.find(cls2 + '-output');
@@ -47,7 +47,7 @@ COMPONENT('console', function(self, config, cls) {
 			if (!current)
 				current = keys[i];
 
-			var icon = self.tiicon(item.icon);
+			var icon = self.faicon(item.icon);
 			builder.push(('<span title="{1}" data-id="{2}" class="' + cls + '-tab{3}"><i class="{0}"></i>{1}</span>').format(icon + (item.name ? '' : '" style="margin-right:0'), item.name, keys[i], current === keys[i] ? (' ' + cls + '-selected') : ''));
 		}
 
@@ -69,7 +69,7 @@ COMPONENT('console', function(self, config, cls) {
 			var item = arr[i];
 			var type = item.type || 'info';
 			var icon = type === 'error' ? 'bug' : type === 'warning' ? type : type === 'success' ? 'check-circle' : 'info-circle';
-			builder.push('<div class="{0}-message {0}-{2}"><i class="ti ti-{3}"></i>{1}</div>'.format(cls, obj.encode === true || obj.encode == null ? Thelpers.encode(item.body) : item.body, type, icon));
+			builder.push('<div class="{0}-message {0}-{2}"><i class="fa fa-{3}"></i>{1}</div>'.format(cls, obj.encode === true || obj.encode == null ? Thelpers.encode(item.body) : item.body, type, icon));
 		}
 
 		elogs.html(builder.join(''));

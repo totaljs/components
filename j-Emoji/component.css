@@ -6,7 +6,7 @@
 .ui-emoji-nav span.active { border-bottom: 2px solid #e0e0e0; }
 .ui-emoji-search { padding: 0 10px; }
 .ui-emoji-search span { float: left; width: 30px; text-align: center; height: 30px; padding: 7px 0 0; font-size: 12px; background-color: #FFF; border: 1px solid #e0e0e0; border-radius: var(--radius) 0 0 var(--radius); color: #A0A0A0; cursor: pointer; }
-.ui-emoji-search .ti-times { color: #ff0000; }
+.ui-emoji-search .fa-times { color: #ff0000; }
 .ui-emoji-search div { margin-left: 30px; }
 .ui-emoji-search-input { margin: 0; width: 100%; border: 1px solid #e0e0e0; padding: 0 9px; height: 30px; border-radius: 0 var(--radius) var(--radius) 0; border-left: 0; appearance: none; }
 .ui-emoji-search-input:focus { outline: none; }

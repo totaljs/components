@@ -36,7 +36,7 @@ COMPONENT('codemirror', 'linenumbers:true;required:false;trim:false;tabs:true;he
 				self.state(1, 1);
 				break;
 			case 'icon':
-				self.find('i').rclass().aclass(value.indexOf(' ') === -1 ? ('ti ti-' + value) : value);
+				self.find('i').rclass().aclass(value.indexOf(' ') === -1 ? ('fa fa-' + value) : value);
 				break;
 		}
 
@@ -85,7 +85,7 @@ COMPONENT('codemirror', 'linenumbers:true;required:false;trim:false;tabs:true;he
 		};
 
 		var content = config.label || self.html();
-		self.html(((content ? '<div class="{0}-label' + (config.required ? ' {0}-label-required' : '') + '">' + (config.icon ? '<i class="ti ti-' + config.icon + '"></i> ' : '') + content + ':</div>' : '') + '<div class="{0}"></div>').format(cls));
+		self.html(((content ? '<div class="{0}-label' + (config.required ? ' {0}-label-required' : '') + '">' + (config.icon ? '<i class="fa fa-' + config.icon + '"></i> ' : '') + content + ':</div>' : '') + '<div class="{0}"></div>').format(cls));
 		container = self.find(cls2);
 
 		var options = {};

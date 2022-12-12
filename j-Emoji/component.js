@@ -43,7 +43,7 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 
 	self.changepage = function() {
 		self.find(cls2 + '-search-input').val('');
-		self.find('.clearsearch').rclass2('ti-').aclass('ti-search');
+		self.find('.clearsearch').rclass2('fa-').aclass('fa-search');
 		self.find(cls2 + '-nav span').rclass('active');
 		self.find(cls2 	+ '-nav span[data-type="' + page +'"]').tclass('active');
 		content.html(allemoticons[page]);
@@ -52,7 +52,7 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 	};
 
 	self.redraw = function() {
-		self.html('<div class="{12}"><div class="{12}-header"><div class="{12}-nav"><span data-type="0">{0}</span><span data-type="1">{1}</span><span data-type="2">{2}</span><span data-type="3">{3}</span><span data-type="4">{4}</span><span data-type="5">{5}</span><span data-type="6">{6}</span><span data-type="7">{7}</span><span data-type="8">{8}</span></div><div class="{12}-search"><span><i class="ti ti-search clearsearch"></i></span><div><input type="text" placeholder="{13}" class="{12}-search-input"></div></div></div><div class="{12}-scrollbar" style="height:{9}px"><div class="{12}-content"></div></div><div class="{12}-footer"><div class="{12}-footer-text">{10}</div><span data-type="0">&#{11};</span><span data-type="1">&#{11};&#127995;</span><span data-type="2">&#{11};&#127996;</span><span data-type="3">&#{11};&#127997;</span><span data-type="4">&#{11};&#127998;</span><span data-type="5">&#{11};&#127999;</span></div></div>'.format(categories[0], categories[1], categories[2], categories[3], categories[4], categories[5], categories[6], categories[7], categories[8], config.height, config.footer, config.toneemoji, cls, config.search));
+		self.html('<div class="{12}"><div class="{12}-header"><div class="{12}-nav"><span data-type="0">{0}</span><span data-type="1">{1}</span><span data-type="2">{2}</span><span data-type="3">{3}</span><span data-type="4">{4}</span><span data-type="5">{5}</span><span data-type="6">{6}</span><span data-type="7">{7}</span><span data-type="8">{8}</span></div><div class="{12}-search"><span><i class="fa fa-search clearsearch"></i></span><div><input type="text" placeholder="{13}" class="{12}-search-input"></div></div></div><div class="{12}-scrollbar" style="height:{9}px"><div class="{12}-content"></div></div><div class="{12}-footer"><div class="{12}-footer-text">{10}</div><span data-type="0">&#{11};</span><span data-type="1">&#{11};&#127995;</span><span data-type="2">&#{11};&#127996;</span><span data-type="3">&#{11};&#127997;</span><span data-type="4">&#{11};&#127998;</span><span data-type="5">&#{11};&#127999;</span></div></div>'.format(categories[0], categories[1], categories[2], categories[3], categories[4], categories[5], categories[6], categories[7], categories[8], config.height, config.footer, config.toneemoji, cls, config.search));
 		self.scrollbar = SCROLLBAR(self.find(cls2 + '-scrollbar'), { visibleY: 1 });
 		content = self.find(cls2 + '-content');
 		self.renderemoji();
@@ -111,10 +111,10 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 	self.search = function(value) {
 
 		var search = self.find('.clearsearch');
-		search.rclass2('ti-');
+		search.rclass2('fa-');
 
 		if (!value.length) {
-			search.aclass('ti-search');
+			search.aclass('fa-search');
 			self.changepage();
 			return;
 		}
@@ -122,7 +122,7 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 		var html = '';
 		value = value.toSearch();
 		content.html('');
-		search.aclass('ti-times');
+		search.aclass('fa-times');
 
 		for (var i = 0, len = W.emoticons_search.length; i < len; i++) {
 			if (W.emoticons_search[i].search.indexOf(value) !== -1) {
@@ -149,10 +149,10 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 			}, 300);
 		});
 
-		self.event('click', '.ti-times', function() {
+		self.event('click', '.fa-times', function() {
 			self.find(cls2 + '-search-input').val('');
 			self.changepage();
-			$(this).rclass2('ti-').aclass('ti-search');
+			$(this).rclass2('fa-').aclass('fa-search');
 		});
 
 		self.event('click', cls2 + '-nav span', function() {

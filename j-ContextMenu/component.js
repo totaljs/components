@@ -3,7 +3,7 @@ COMPONENT('contextmenu', function(self) {
 	var is = false;
 	var timeout, container, arrow;
 
-	self.template = Tangular.compile('<div data-index="{{ index }}"{{ if selected }} class="selected"{{ fi }}><i class="ti {{ icon }}"></i><span>{{ name | raw }}</span></div>');
+	self.template = Tangular.compile('<div data-index="{{ index }}"{{ if selected }} class="selected"{{ fi }}><i class="fa {{ icon }}"></i><span>{{ name | raw }}</span></div>');
 	self.singleton();
 	self.readonly();
 	self.nocompile && self.nocompile();
@@ -80,10 +80,10 @@ COMPONENT('contextmenu', function(self) {
 			item = items[i];
 			item.index = i;
 			if (item.icon) {
-				if (item.icon.substring(0, 3) !== 'ti-')
-					item.icon = 'ti-' + item.icon;
+				if (item.icon.substring(0, 3) !== 'fa-')
+					item.icon = 'fa-' + item.icon;
 			} else
-				item.icon = 'ti-caret-right';
+				item.icon = 'fa-caret-right';
 
 			builder.push(self.template(item));
 		}

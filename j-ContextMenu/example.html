@@ -10,7 +10,7 @@
 
 <script>
 	$(document).on('click', 'a', function() {
-		SETTER('contextmenu/show', 'left', this, [{ name: 'Print', icon: 'ti-print', value: 'print' }, { name: 'Copy', icon: 'ti-copy', value: 'copy' }, { name: 'Remove', icon: 'ti-times-circle', value: 'remove' }], function(item) {
+		SETTER('contextmenu/show', 'left', this, [{ name: 'Print', icon: 'fa-print', value: 'print' }, { name: 'Copy', icon: 'fa-copy', value: 'copy' }, { name: 'Remove', icon: 'fa-times-circle', value: 'remove' }], function(item) {
 			console.log('CLICK', item);
 		});
 	});

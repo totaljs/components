@@ -1,7 +1,7 @@
 COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:1000;dirvalue:id;tapi:0', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
-	var template = '<div class="{0}-item"><div class="{0}-icon"><i class="ti ti-times"></i></div><div class="{0}-value">{1}</div></div>'.format(cls, config.placeholder);
+	var template = '<div class="{0}-item"><div class="{0}-icon"><i class="fa fa-times"></i></div><div class="{0}-value">{1}</div></div>'.format(cls, config.placeholder);
 	var container;
 	var skip = false;
 
@@ -40,12 +40,12 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 				self.tclass('ui-disabled', value);
 				break;
 			case 'icon':
-				var ti = self.find(cls2 + '-label').find('i');
-				ti.rclass2('ti-').rclass('hidden');
+				var fa = self.find(cls2 + '-label').find('i');
+				fa.rclass2('fa-').rclass('hidden');
 				if (value)
-					ti.aclass('ti-' + value);
+					fa.aclass('fa-' + value);
 				else
-					ti.aclass('hidden');
+					fa.aclass('hidden');
 				break;
 			case 'remap':
 				config.remap = value ? FN(value) : null;
@@ -59,7 +59,7 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 			config.label = self.html();
 
 		self.aclass(cls);
-		self.html('<div class="{0}-label{1}"><i class="ti hidden"></i><span>{2}:</span></div><div class="{0}-border"><div class="{0}-container hidden"></div>{3}</div>'.format(cls, config.label ? '' : ' hidden', config.label, template.replace('-item', '-item ' + cls + '-search').replace('ti-times', 'ti-' + config.icon2)));
+		self.html('<div class="{0}-label{1}"><i class="fa hidden"></i><span>{2}:</span></div><div class="{0}-border"><div class="{0}-container hidden"></div>{3}</div>'.format(cls, config.label ? '' : ' hidden', config.label, template.replace('-item', '-item ' + cls + '-search').replace('fa-times', 'fa-' + config.icon2)));
 		container = self.find(cls2 + '-container');
 
 		self.event('click', cls2 + '-item', function() {

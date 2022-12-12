@@ -202,7 +202,7 @@ COMPONENT('editable', 'disabled:0;class:default', function(self, config, cls) {
 
 			var target = $(e.target);
 			if (opt.type === 'tags') {
-				if (target.hclass('ti') || target.hclass('remove')) {
+				if (target.hclass('fa') || target.hclass('remove')) {
 					var temp = GET(opt.path);
 					var index = target.parent().eq(0).index();
 					temp.splice(index, 1);

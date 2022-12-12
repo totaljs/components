@@ -11,7 +11,7 @@
 .ui-grid-noscroll .ui-grid-scroller { overflow: hidden !important; }
 .ui-grid-noscroll .emptyfill { display: table-row; }
 .ui-grid td, .ui-grid th { overflow: hidden; cursor: default; border-left: 1px solid #E0E0E0; }
-.ui-grid th .ti { margin-right: 5px; font-size: 11px; }
+.ui-grid th .fa { margin-right: 5px; font-size: 11px; }
 .ui-grid td { height: 30px; font-size: 12px; vertical-align: middle; }
 .ui-grid td:first-child, .ui-grid th:first-child { border-left: 0; }
 .ui-grid tbody tr { border-top: 1px solid #E0E0E0; background-color: #FFF; }

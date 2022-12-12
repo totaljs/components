@@ -15,7 +15,7 @@ COMPONENT('checkpath', 'position:3', function(self, config, cls) {
 				self.aclass('hidden');
 		});
 
-		self.event('click', '.ti-copy', function(e) {
+		self.event('click', '.fa-copy', function(e) {
 			e.preventDefault();
 			e.stopPropagation();
 			var el = $(this);
@@ -34,10 +34,10 @@ COMPONENT('checkpath', 'position:3', function(self, config, cls) {
 			var bind = el.binder();
 			var builder = [];
 			if (com || scope || bind) {
-				builder.push('<i class="ti ti-info-circle"></i>');
-				builder.push('<div><i class="ti ti-copy"></i><b>Scope</b><span class="monospace">{0}</span></div>');
-				builder.push('<div><i class="ti ti-copy"></i><b>Component</b><span class="monospace">{1}</span></div>');
-				builder.push('<div><i class="ti ti-copy"></i><b>Binder</b><span class="monospace">{2}</span></div>');
+				builder.push('<i class="fa fa-info-circle"></i>');
+				builder.push('<div><i class="far fa-copy"></i><b>Scope</b><span class="monospace">{0}</span></div>');
+				builder.push('<div><i class="far fa-copy"></i><b>Component</b><span class="monospace">{1}</span></div>');
+				builder.push('<div><i class="far fa-copy"></i><b>Binder</b><span class="monospace">{2}</span></div>');
 				self.html(builder.join('').format(scope ? scope.path : DEF.empty, com ? ('<span>{0}</span>'.format(com.name) + com.path) : DEF.empty, bind ? bind.path : DEF.empty));
 				self.rclass('hidden');
 			} else

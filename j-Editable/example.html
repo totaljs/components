@@ -62,7 +62,7 @@
 </div>
 
 <script type="text/html" id="countrytags">
-	{{ foreach m in value }}<span class="editable-tag"><i class="ti ti-times"></i>{{ m }}</span>{{ end }}
+	{{ foreach m in value }}<span class="editable-tag"><i class="fa fa-times"></i>{{ m }}</span>{{ end }}
 </script>
 
 
@@ -72,7 +72,7 @@
 	function myfunc(data, path, el) {
 		if (!data)
 			return el.html('');
-		var template = '<span class="tag"><i class="ti ti-times"></i>{0}</span>';
+		var template = '<span class="tag"><i class="fa fa-times"></i>{0}</span>';
 		var html = '';
 		for (var i = 0; i < data.length; i++)
 			html += template.format(data[i]);
