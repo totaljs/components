@@ -1,0 +1,14 @@
+{
+	"datecreated": "2022-12-14T10:27:05.000Z",
+	"dateupdated": null,
+	"name": "j-Title",
+	"tags": [
+		"title"
+	],
+	"version": 1,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Pavol Danko",
+	"email": "palodanko5@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
