@@ -1,4 +1,4 @@
-COMPONENT('title', 'separator:-', function(self, config, cls) {
+COMPONENT('title', 'separator:-', function(self, config) {
 
 	self.singleton();
 
