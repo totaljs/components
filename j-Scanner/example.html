@@ -3,14 +3,17 @@
 
 <script>
 
-    $(document).find('.button').on('click', function() {
-        var opt = {};
+	$(document).find('.button').on('click', function() {
 
-        opt.callback = function(base64) {
-            console.log(base64);
-        }
+		var opt = {};
+		opt.size = '';
+		opt.points = [40, 30];
 
-        SETTER('scanner/show', opt);
-    });
+		opt.callback = function(base64) {
+			console.log(base64);
+		}
+
+		SETTER('scanner/show', opt);
+	});
 
 </script>
