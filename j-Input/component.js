@@ -573,7 +573,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 	self.password = function(show) {
 		var visible = show == null ? input.attr('type') === 'text' : show;
 		input.attr('type', visible ? 'password' : 'text');
-		self.find(cls2 + '-icon-right').find('i').tclass(config.ricon, visible).tclass('ti-lock', !visible);
+		self.find(cls2 + '-icon-right').find('i').tclass(config.ricon, visible).tclass('ti-eye-slash', !visible);
 	};
 
 	self.preparevalue = function(value) {
