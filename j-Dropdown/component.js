@@ -78,7 +78,7 @@ COMPONENT('dropdown', function(self, config) {
 				break;
 		}
 
-		redraw && setTimeout2(self.id + '.redraw', 100);
+		redraw && setTimeout2(self.id + '.redraw', self.redraw, 100);
 	};
 
 	self.bind = function(path, arr) {
