@@ -33,9 +33,8 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 		switch (name) {
 			case 'categories':
 				categories = value.split(',');
-				for (var i = categories.length - 1; i >= 0; i--) {
+				for (var i = categories.length - 1; i >= 0; i--)
 					categories[i] = '&#{0};'.format(categories[i]);
-				}
 				self.redraw();
 				break;
 		}
