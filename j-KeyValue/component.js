@@ -44,7 +44,6 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config, cls) {
 				else
 					redraw = true;
 				break;
-
 			case 'label':
 				redraw = true;
 				break;
