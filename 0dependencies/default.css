@@ -49,7 +49,7 @@
 .fs12 { font-size: 12px; }
 .noscrollbar::-webkit-scrollbar { display: none; }
 .noscrollbar { overflow-y: scroll; -ms-overflow-style: none; scrollbar-width: none; }
-ui-component { display: block; }
+ui-component, ui-plugin { display: block; }
 
 .ui-scrollbar { overflow: hidden; }
 .ui-scrollbar-area { overflow: scroll; overflow-scrolling: touch;-webkit-overflow-scrolling: touch; }
