@@ -207,11 +207,11 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 			if (width < config.minwidth)
 				width = config.minwidth;
 
-			floating.css({ width: width, left: (offset.left - config.padding) + (opt.offsetX || 0), top: (offset.top - config.padding) + (opt.offsetY || 0), font: el.css('font') });
+			var align = opt.align || '';
+			floating.css({ width: width, left: (offset.left - config.padding) + (opt.offsetX || 0), top: (offset.top - config.padding) + (opt.offsetY || 0), font: el.css('font'), 'text-align': align });
 			floating.html(empty ? '' : value);
 			floating.rclass('hidden');
 			floating[0].$edit = opt;
-
 		} else {
 			floating.aclass('hidden');
 			delete floating[0].$edit;
