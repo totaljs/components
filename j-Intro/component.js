@@ -50,9 +50,15 @@ COMPONENT('intro', 'closebutton:0;width:400;height:300;nexticon:ti ti-chevron-ri
 
 			index++;
 			if (index >= figures.length) {
-				self.set('');
-				config.exec && self.EXEC(config.exec);
-				config.remove && self.remove();
+				var done = function() {
+					self.set('');
+					config.exec && self.EXEC(config.exec);
+					config.remove && self.remove();
+				};
+				if (config.check) {
+					self.EXEC(config.check, done);
+				} else
+					done();
 			} else {
 				self.move(index);
 				config.page && self.EXEC(config.page, index);
