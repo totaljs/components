@@ -1,4 +1,4 @@
-COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0', function(self, config, cls) {
+COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var cache = {};
@@ -11,6 +11,7 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0', function(self, c
 	var lastWW = WW;
 	var lastWH = WH;
 	var resizer;
+	var position = [];
 
 	self.make = function() {
 
@@ -42,17 +43,23 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0', function(self, c
 		});
 
 		self.event('mousedown touchstart', cls2 + '-item', function() {
+
 			if (prevfocused) {
 				if (prevfocused[0] == this)
 					return;
 				prevfocused.rclass(cls + '-focused');
 			}
+
 			var el = $(this);
 			var id = el.attrd('id');
 			prevfocused = el.aclass(cls + '-focused');
 			var meta = cache[id];
 			if (meta && meta.meta.focus)
 				meta.meta.focus();
+
+			var index = position.indexOf(meta);
+			position.push(position.splice(index, 1)[0]);
+			self.reorder();
 
 		});
 
@@ -362,6 +369,11 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0', function(self, c
 			setTimeout2(self.ID + '_win_' + obj.meta.cachekey, wsavecallback, 500, null, obj);
 	};
 
+	self.reorder = function() {
+		for (var index = 0; index < position.length; index++)
+			position[index].container.css('z-index', config.zindex + index);
+	};
+
 	self.wadd = function(item) {
 
 		var hidden = '';
@@ -524,6 +536,7 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0', function(self, c
 					break;
 
 				case 'maximize':
+
 					if (obj.meta.maximize) {
 						obj.meta.maximize();
 					} else {
@@ -604,11 +617,18 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0', function(self, c
 					break;
 
 				case 'focus':
+
 					obj.setcommand('resetminimize');
 					prevfocused && prevfocused.rclass(cls + '-focused');
 					prevfocused = obj.element.parent().aclass(cls + '-focused');
+
 					if (obj.meta.focus)
 						obj.meta.focus();
+
+					var index = position.indexOf(obj);
+					var item = position.splice(index, 1)[0];
+					position.push(item);
+					self.reorder();
 					break;
 				default:
 					if (obj.meta.buttons) {
@@ -638,6 +658,7 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0', function(self, c
 		obj.meta.data && data.push(obj);
 
 		self.append(el);
+		position.push(obj);
 
 		setTimeout(function(obj) {
 			obj.setcommand('focus');
@@ -648,6 +669,7 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0', function(self, c
 	self.wrem = function(item, notify) {
 		var obj = cache[item.id];
 		if (obj) {
+
 			var main = obj.element.closest(cls2 + '-item');
 
 			if (obj.meta.actions.hide) {
@@ -655,6 +677,11 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0', function(self, c
 				main.aclass('hidden');
 				self.wsave(obj);
 			} else {
+
+				var index = position.indexOf(obj);
+				if (index !== -1)
+					position.splice(index, 1);
+
 				obj.meta.destroy && obj.meta.destroy.call(obj);
 				main.off('*');
 				main.find('*').off('*');

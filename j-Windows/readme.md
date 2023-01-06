@@ -8,8 +8,9 @@
 
 __Configuration__:
 
-- `menuicon` {String} a menu icon in window title bar (default `ti ti-navicon`)
-- __NEW__ `reoffsetresize` {Boolean} all windows will be re-offset according to `main` window dimension (default: `true`)
+- `menuicon {String}` a menu icon in window title bar (default `ti ti-navicon`)
+- `reoffsetresize {Boolean}` all windows will be re-offset according to `main` window dimension (default: `true`)
+- `zindex {Number}` a start z-index positioning (default: `5`)
 
 The `windows` component expects `Array` of objects.
 
