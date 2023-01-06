@@ -15,6 +15,7 @@ i.ui-windows-control { transform: scale(1); font-size: 16px; }
 .ui-windows-dragged { z-index: 6; pointer-events: unset !important; }
 .ui-windows-dragged .ui-windows-title { background-color: #FAFAFA; }
 .ui-windows-maximized { box-shadow: none; }
+.ui-windows-maximized .ui-windows-title .ui-windows-control.ti-maximize:before { content: '\ea01'; }
 .ui-windows-maximized .ui-windows-title { border-left: 0; border-right: 0; border-radius: 0; border-top: 0 }
 .ui-windows-maximized .ui-windows-control { height: 31px; }
 .ui-windows-maximized .ui-windows-body { border: 0; }
