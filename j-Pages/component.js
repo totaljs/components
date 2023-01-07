@@ -196,7 +196,7 @@ COMPONENT('pages', 'margin:0;delay:220;margintype:offset;scrollbar:1', function(
 					run(cfg);
 				}, true, function(content) {
 					var path = cfg.path || cfg.if;
-					return content.replace(/~PATH~/g, path).replace(/~ID~/g, cfg.id || '').replace('PLUGIN(function(', 'PLUGIN(\'{0}\', function('.format(path));
+					return ADAPT(path, cfg.id, content);
 				});
 			} else
 				run(cfg);

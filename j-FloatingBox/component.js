@@ -85,7 +85,7 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 					IMPORT(opt.url, function() {
 						setTimeout(self.show, 100, opt);
 					}, function(content) {
-						return content.replace(/~PATH~/g, opt.path || '').replace(/~ID~/g, opt.ID || opt.id || '');
+						return ADAPT(opt.path, opt.ID || opt.id || '', content);
 					});
 					return;
 				}

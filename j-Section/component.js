@@ -293,7 +293,7 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;back:ti ti-chev
 
 			var child = section[0].children[0];
 			if (child && (child.tagName === ('SCR' + 'IPT') || child.tagName === 'TEMPLATE')) {
-				section[0].innerHTML = child.innerHTML.replace(/~PATH~/g, path).replace(/~ID~/g, id || '');
+				section[0].innerHTML = ADAPT(path, id, child.innerHTML);
 				if (child.innerHTML.COMPILABLE())
 					COMPILE();
 			}
@@ -307,7 +307,7 @@ COMPONENT('section', 'margin:0;scroll:true;delay:100;scrollbar:0;back:ti ti-chev
 					hide();
 					setTimeout(show, 100, parent, section, type, ltr);
 				}, function(response) {
-					return response.replace(/~PATH~/g, path).replace(/~ID~/g, id || '');
+					return ADAPT(path, id, response);
 				});
 			} else {
 				hide();
