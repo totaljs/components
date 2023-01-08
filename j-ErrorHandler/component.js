@@ -31,7 +31,7 @@ COMPONENT('errorhandler', 'keywords:401=login', function(self, config) {
 						response[k[1]] = true;
 				}
 
-				arr.push(m.error);
+				arr.push(m.error.toString().encode());
 			}
 
 			response.items = arr;
