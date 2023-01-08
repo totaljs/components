@@ -68,12 +68,6 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 		self.set('');
 	};
 
-	self.icon = function(value) {
-		var el = this.rclass2('ti');
-		value.icon && el.aclass(value.icon.indexOf(' ') === -1 ? ('ti ti-' + value.icon) : value.icon);
-		el.tclass('hidden', !value.icon);
-	};
-
 	self.resize = function() {
 
 		if (self.scrollbar) {
@@ -94,7 +88,7 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 
 	self.make = function() {
 
-		$(document.body).append('<div id="{0}" class="hidden {4}-container invisible"><div class="{4}-scrollbar"><div class="{4}-container-padding"><div class="{4}" style="max-width:{1}px"><div data-bind="@config__text span:value.title__change .{4}-icon:@icon" class="{4}-title"><button name="cancel" class="{4}-button-close{3}" data-path="{2}"><i class="ti ti-times"></i></button><i class="{4}-icon"></i><span></span></div></div></div></div>'.format(self.ID, config.width || 800, self.path, config.closebutton == false ? ' hidden' : '', cls));
+		$(document.body).append('<div id="{0}" class="hidden {4}-container invisible"><div class="{4}-scrollbar"><div class="{4}-container-padding"><div class="{4}" style="max-width:{1}px"><div class="{4}-title"><button name="cancel" class="{4}-button-close{3}" data-path="{2}"><i class="ti ti-times"></i></button><i class="{4}-icon hidden"></i><span></span></div></div></div></div>'.format(self.ID, config.width || 800, self.path, config.closebutton == false ? ' hidden' : '', cls));
 
 		var scr = self.find('> script');
 		self.template = scr.length ? scr.html().trim() : '';
@@ -141,14 +135,24 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 	};
 
 	self.configure = function(key, value, init, prev) {
-		if (init)
-			return;
 		switch (key) {
+			case 'title':
+				self.find(cls2 + '-title > span').text(value);
+				break;
+			case 'icon':
+				var icon = self.find(cls2 + '-icon');
+				icon.rclass2('fa ti');
+				if (value)
+					icon.aclass(self.faicon(value)).rclass('hidden');
+				else
+					icon.aclass('hidden');
+				break;
+
 			case 'width':
-				value !== prev && self.find(cls2).css('max-width', value + 'px');
+				!init && value !== prev && self.find(cls2).css('max-width', value + 'px');
 				break;
 			case 'closebutton':
-				self.find(cls2 + '-button-close').tclass('hidden', value !== true);
+				!init && self.find(cls2 + '-button-close').tclass('hidden', value !== true);
 				break;
 		}
 	};

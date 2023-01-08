@@ -67,14 +67,6 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 		self.set('');
 	};
 
-	self.icon = function(value) {
-		var el = this.rclass2('fa');
-		if (value.icon)
-			el.aclass(self.faicon(value.icon)).rclass('hidden');
-		else
-			el.aclass('hidden');
-	};
-
 	self.resize = function() {
 
 		if (self.hclass('hidden'))
@@ -119,7 +111,7 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 
 	self.make = function() {
 
-		var html = '<div id="{0}" class="hidden {4}-container invisible{6}"><div class="{4}{5}"{1}><div data-bind="@config__text .{4}-label:value.title__exec .{4}-icon:@icon" class="{4}-title"><button name="cancel" class="{4}-button-close{3}" data-path="{2}"><i class="ti ti-times"></i></button><i class="{4}-icon"></i><span class="{4}-label"></span></div><div class="{4}-body"></div></div>'.format(self.ID, config.width ? (' style="max-width:' + config.width + 'px"') : '', self.path, config.closebutton == false ? ' hidden' : '', cls, config.align === 'center' ? '' : (' ' + cls + '-align-' + config.align), ' ' + cls + '-' + (config.background ? '' : 'no') + 'bg');
+		var html = '<div id="{0}" class="hidden {4}-container invisible{6}"><div class="{4}{5}"{1}><div class="{4}-title"><button name="cancel" class="{4}-button-close{3}" data-path="{2}"><i class="ti ti-times"></i></button><i class="{4}-icon hidden"></i><span class="{4}-label"></span></div><div class="{4}-body"></div></div>'.format(self.ID, config.width ? (' style="max-width:' + config.width + 'px"') : '', self.path, config.closebutton == false ? ' hidden' : '', cls, config.align === 'center' ? '' : (' ' + cls + '-align-' + config.align), ' ' + cls + '-' + (config.background ? '' : 'no') + 'bg');
 		$(document.body).append(html);
 
 		var scr = self.find('> script');
@@ -183,24 +175,33 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 	};
 
 	self.configure = function(key, value, init, prev) {
-		if (!init) {
-			switch (key) {
-				case 'background':
-					self.tclass(cls + '-bg', !!value);
-					break;
-				case 'algin':
-					self.rclass2(cls + '-align').aclass(cls + '–align-' + value);
-					break;
-				case 'width':
-					if (value !== prev) {
-						self.find(cls2).css('max-width', value + 'px');
-						self.resize();
-					}
-					break;
-				case 'closebutton':
-					self.find(cls2 + '-button-close').tclass('hidden', value !== true);
-					break;
-			}
+		switch (key) {
+			case 'title':
+				self.find(cls2 + '-label').text(value);
+				break;
+			case 'icon':
+				var icon = self.find(cls2 + '-icon');
+				icon.rclass2('fa ti');
+				if (value)
+					icon.aclass(self.faicon(value)).rclass('hidden');
+				else
+					icon.aclass('hidden');
+				break;
+			case 'background':
+				!init && self.tclass(cls + '-bg', !!value);
+				break;
+			case 'algin':
+				!init && self.rclass2(cls + '-align').aclass(cls + '–align-' + value);
+				break;
+			case 'width':
+				if (!init && value !== prev) {
+					self.find(cls2).css('max-width', value + 'px');
+					self.resize();
+				}
+				break;
+			case 'closebutton':
+				!init && self.find(cls2 + '-button-close').tclass('hidden', value !== true);
+				break;
 		}
 	};
 
