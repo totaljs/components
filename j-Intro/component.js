@@ -31,7 +31,7 @@ COMPONENT('intro', 'closebutton:0;width:400;height:300;nexticon:ti ti-chevron-ri
 		var items = [];
 
 		figures.each(function(index) {
-			items.push('<i class="ti ti-bull {0}-button" data-index="{1}"></i>'.format(cls, index));
+			items.push('<i class="ti ti-circle-alt {0}-button" data-index="{1}"></i>'.format(cls, index));
 		});
 
 		if (config.closebutton) {
