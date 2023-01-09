@@ -1,7 +1,8 @@
-COMPONENT('sounds', 'url:https://cdn.componentator.com/sounds/', function(self, config) {
+COMPONENT('sounds', 'url:https://cdn.componentator.com/sounds/;volume:50', function(self, config) {
 
 	var volume = 0;
 	var can = false;
+	var muted = false;
 
 	self.items = [];
 	self.readonly();
@@ -64,7 +65,7 @@ COMPONENT('sounds', 'url:https://cdn.componentator.com/sounds/', function(self, 
 
 	self.playurl = function(url) {
 
-		if (!can || !volume)
+		if (!can || !volume || !muted)
 			return;
 
 		var audio = new W.Audio();
@@ -129,8 +130,17 @@ COMPONENT('sounds', 'url:https://cdn.componentator.com/sounds/', function(self, 
 
 	self.setter = function(value) {
 
-		if (value === undefined)
-			value = 0.5;
+		if (typeof(value) === 'boolean') {
+
+			if (value == null)
+				volume = config.volume / 100;
+
+			muted = !value;
+			return;
+		}
+
+		if (value == null)
+			value = config.volume / 100;
 		else
 			value = (value / 100);
 
