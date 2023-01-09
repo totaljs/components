@@ -1,4 +1,4 @@
-COMPONENT('colorselector', 'colors:#DA4453,#E9573F,#F6BB42,#8CC152,#37BC9B,#3BAFDA,#4A89DC,#967ADC,#D770AD,#656D7D;empty:true', function(self, config) {
+COMPONENT('colorselector', 'colors:#DA4453,#E9573F,#F6BB42,#68B25B,#37BC9B,#3BAFDA,#4285F4,#967ADC,#D770AD,#656D7D;empty:true', function(self, config) {
 
 	var selected, list, content, colors = null;
 
