@@ -60,7 +60,7 @@
 .dg-pagination-pages { float: left; font-size: 12px; margin: 7px 0 0 10px; }
 .dg-visible { visibility: visible; }
 .dg-columns { position: absolute; right: 0; top: 35px; width: 182px; background-color: #FFF; z-index: 1; box-shadow: 0 5px 20px rgba(0,0,0,0.1); border-radius: var(--color); font-size: 12px; line-height: 16px; z-index: 6; color: #000; border: 1px solid #E0E0E0; user-select: none; }
-.dg-columns-checkbox > span { border-radius: var(--radius); border: 1px solid #D0D0D0; margin: 2px 5px 0 0; font-size: 8px; color: #FFF; width: 12px; height: 12px; line-height: 12px; float: left; text-align: center; }
+.dg-columns-checkbox > span { border-radius: 4px; border: 1px solid #D0D0D0; margin: 2px 5px 0 0; font-size: 8px; color: #FFF; width: 12px; height: 12px; line-height: 12px; float: left; text-align: center; }
 .dg-columns-checkbox > span i { visibility: hidden; }
 .dg-columns-checkbox-checked > span { background-color: #000; border-color: #000; }
 .dg-columns-checkbox-checked > span i { visibility: visible; }
@@ -103,7 +103,7 @@
 .dg-header-scrollbar { overflow-y: hidden; }
 .dg-header-scrollbar-container { height: 58px; overflow: hidden; }
 .dg-resize-line { position: absolute; width: 1px; background-color: #E0E0E0; z-index: 6; }
-.dg-colorize { padding: 2px 3px; border-radius: var(--radius); color: #FFF; }
+.dg-colorize { padding: 2px 3px; border-radius: 4px; color: #FFF; }
 .dg-fluid { border-right: 1px solid #E0E0E0; }
 .dg-noborder.dg-fluid { border-right: 0; }
 .dg-link { color: inherit; }
