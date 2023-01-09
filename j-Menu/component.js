@@ -219,6 +219,10 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 
 		self.tclass('ui-large', opt.large == true);
 
+		if (!opt.nomobile) {
+			self.find('{0}'.format(cls2)).aclass('{0}-mobile'.format(cls));
+		}
+
 		issubmenu = false;
 		prevsub = null;
 
