@@ -131,11 +131,8 @@ COMPONENT('sounds', 'url:https://cdn.componentator.com/sounds/;volume:50', funct
 	self.setter = function(value) {
 
 		if (typeof(value) === 'boolean') {
-
-			if (value == null)
-				volume = config.volume / 100;
-
-			muted = !value;
+			volume = config.volume / 100;
+			muted = value === false;
 			return;
 		}
 
