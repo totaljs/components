@@ -65,7 +65,7 @@ COMPONENT('sounds', 'url:https://cdn.componentator.com/sounds/;volume:50', funct
 
 	self.playurl = function(url) {
 
-		if (!can || !volume || !muted)
+		if (!can || !volume || muted)
 			return;
 
 		var audio = new W.Audio();
