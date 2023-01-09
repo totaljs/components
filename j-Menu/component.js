@@ -11,7 +11,7 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 	var events = {};
 	var ul, children, prevsub, parentclass, container;
 
-	self.make = function() {
+	self.make = function(opt) {
 
 		self.aclass('hidden ' + cls + '-area');
 		self.append('<div class="{0} {0}-style-{1}"><div class="{0}-items"><ul></ul></div><div class="{0}-submenu hidden"><ul></ul></div>'.format(cls, config.style));
@@ -219,6 +219,10 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 
 		self.tclass('ui-large', opt.large == true);
 
+		if (!opt.nomobile) {
+			self.find('{0}'.format(cls2)).aclass('{0}-mobile'.format(cls));
+		}
+
 		issubmenu = false;
 		prevsub = null;
 
@@ -261,14 +265,14 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 		if (opt.element) {
 			switch (opt.align) {
 				case 'center':
-					css.left = Math.ceil((offset.left - w / 2) + (target.innerWidth() / 2));
-					break;
+				css.left = Math.ceil((offset.left - w / 2) + (target.innerWidth() / 2));
+				break;
 				case 'right':
-					css.left = (offset.left - w) + target.innerWidth();
-					break;
+				css.left = (offset.left - w) + target.innerWidth();
+				break;
 				default:
-					css.left = offset.left;
-					break;
+				css.left = offset.left;
+				break;
 			}
 			css.top = opt.position === 'bottom' ? (offset.top - container.height() - 10) : (offset.top + target.innerHeight() + 10);
 
