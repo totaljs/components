@@ -75,7 +75,7 @@
 .dt-columns-reset { display: block; font-size: 11px; padding: 3px 0 8px 10px; cursor: pointer; color: #888888; }
 .dt-columns-reset:hover { text-decoration: underline; }
 .dg-hcol .dg-checkbox { margin-top: 0; }
-.dg-checkbox { width: 15px; height: 15px; border: 1px solid #D0D0D0; vertical-align: middle; font-size: 11px; text-align: center; padding: 1px 0 0 1px; background-color: #FFF; border-radius: var(--radius); margin: 5px auto 0; }
+.dg-checkbox { width: 15px; height: 15px; border: 1px solid #D0D0D0; vertical-align: middle; font-size: 11px; text-align: center; padding: 1px 0 0 1px; background-color: #FFF; border-radius: 4px; margin: 5px auto 0; }
 .dg-checkbox i { display: none; }
 .dg-checked { background-color: var(--color); border-color: var(--color); color: #FFF; }
 .dg-checked i { display: block; }
