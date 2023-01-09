@@ -37,7 +37,7 @@ COMPONENT('window', 'zindex:12;scrollbar:1', function(self, config, cls) {
 		var scr = self.find('> script');
 		self.template = scr.length ? scr.html() : '';
 
-		$(document.body).append('<div id="{0}" class="hidden {3}-container"><div class="{3}"><div data-bind="@config__change .{3}-icon:@icon__text span:value.title" class="{3}-title"><button name="cancel" class="{3}-button-close{2}" data-path="{1}"><i class="ti ti-times"></i></button><i class="{3}-icon"></i><span></span></div><div class="{3}-header"></div><div class="{3}-body"></div></div>'.format(self.ID, self.path, config.closebutton == false ? ' hidden' : '', cls));
+		$(document.body).append('<div id="{0}" class="hidden {3}-container"><div class="{3}"><div class="{3}-title"><button name="cancel" class="{3}-button-close{2}" data-path="{1}"><i class="ti ti-times"></i></button><i class="{3}-icon"></i><span></span></div><div class="{3}-header"></div><div class="{3}-body"></div></div>'.format(self.ID, self.path, config.closebutton == false ? ' hidden' : '', cls));
 		var el = $('#' + self.ID);
 		var body = el.find(cls2 + '-body');
 		body[0].appendChild(self.dom);
@@ -62,18 +62,22 @@ COMPONENT('window', 'zindex:12;scrollbar:1', function(self, config, cls) {
 		});
 	};
 
-	self.icon = function(value) {
-		var el = this.rclass2('ti');
-		value.icon && el.aclass(self.faicon(value.icon));
-	};
-
 	self.configure = function(key, value, init) {
-		if (!init) {
-			switch (key) {
-				case 'closebutton':
-					self.find(cls2 + '-button-close').tclass(value !== true);
-					break;
-			}
+		switch (key) {
+			case 'title':
+				self.find(cls2 + '-title > span').text(value);
+				break;
+			case 'icon':
+				var icon = self.find(cls2 + '-icon');
+				icon.rclass2('fa ti');
+				if (value)
+					icon.aclass(self.faicon(value)).rclass('hidden');
+				else
+					icon.aclass('hidden');
+				break;
+			case 'closebutton':
+				!init && self.find(cls2 + '-button-close').tclass(value !== true);
+				break;
 		}
 	};
 
