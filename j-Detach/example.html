@@ -37,9 +37,6 @@
 
 		win.close = function(next) {
 			SET('common.detach', false);
-			var index = common.windows.findIndex('id', id);
-			common.windows.splice(index, 1);
-			UPD('common.windows');
 			next();
 		};
 
