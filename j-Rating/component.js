@@ -1,7 +1,7 @@
 COMPONENT('rating', function(self, config, cls) {
 
 	var iok = 'ti-star-alt';
-	var ino = 'ti-star';
+	var ino = 'ti-star-alt';
 
 	self.readonly();
 	self.nocompile && self.nocompile();
