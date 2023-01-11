@@ -142,6 +142,11 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 		var label = config.label || content;
 		self.html((label ? ('<div class="' + cls + '-label">{0}{1}:</div>'.format(config.icon ? '<i class="{0}"></i>'.format(config.icon.indexOf(' ') === -1 ? ('ti ti-' + config.icon) : config.icon) : '', label)) : '') + '<input type="file" accept="image/*" class="hidden" /><img src="{0}" class="img-responsive" alt="" />'.format(empty, config.width, config.height));
 		img = self.find('img');
+
+		img[0].onerror = function() {
+			self.set('');
+		};
+
 		img.on('click', function() {
 			self.find('input').trigger('click');
 		});
@@ -198,15 +203,10 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 				};
 
 				img.crossOrigin = 'anonymous';
-				if (orient < 2) {
+				if (orient < 2)
 					img.src = reader.result;
-				} else {
-					SETTER('loading', 'show');
-					self.resetOrientation(reader.result, orient, function(url) {
-						SETTER('loading', 'hide', 500);
-						img.src = url;
-					});
-				}
+				else
+					self.resetOrientation(reader.result, orient, url => img.src = url);
 			};
 			reader.readAsDataURL(file);
 		});
@@ -215,17 +215,11 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 	self.upload = function(base64) {
 		if (base64) {
 			var data = (new Function('base64', 'filename', 'return ' + config.schema))(base64, name);
-			SETTER('loading', 'show');
 			var url = config.url.env(true);
-			AJAX((url.indexOf(' ') === -1 ? 'POST ' : '') + url, data, function(response, err) {
-				SETTER('loading', 'hide', 100);
-				if (err) {
-					SETTER('snackbar', 'warning', err.toString());
-				} else {
-					self.change(true);
-					self.set(config.map ? FN(config.map)(response) : response);
-				}
-			});
+			AJAX((url.indexOf(' ') === -1 ? 'POST ' : '') + url, data, ERROR(function(response) {
+				self.change(true);
+				self.set(config.map ? FN(config.map)(response) : response);
+			}));
 		}
 	};
 
@@ -303,6 +297,7 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 			} else
 				callback(canvas.toDataURL());
 		};
+
 		img.src = src;
 	};
 });
