@@ -42,7 +42,9 @@
 .red { color: #D63B32!important; }
 .blue { color: #377BB5!important; }
 .gray { color: gray!important; }
+.orange { color: #EC8632!important; }
 .green { color: #68B25B!important; }
+.color { color: var(--color)!important; }
 .center { text-align: center!important; }
 .right { text-align: right!important; }
 .fs11 { font-size: 11px; }
