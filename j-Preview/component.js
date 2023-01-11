@@ -50,6 +50,10 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 		return Math.ceil(h * (size / w));
 	};
 
+	self.reupload = function() {
+		img && self.resizeforce(img[0]);
+	};
+
 	self.resizeforce = function(image) {
 
 		var canvas = document.createElement('canvas');
