@@ -160,3 +160,10 @@ p { font-size: 13px; color: #777; margin: 0 0 15px 0; }
 .detail figure > span i { width: 14px; margin-right: 5px; text-align: center; }
 .detail figure > div { margin-left: 150px; }
 .ui-dark .detail figure { border-top-color: #404040; }
+
+.divider { position: relative; margin: 25px 0; }
+.divider div { position: absolute; left: 0; top: -10px; right: 0; text-align: center; }
+.divider span { background-color: #F0F0F0; border-radius: var(--radius); padding: 5px 8px; font-size: 11px; color: #999; }
+.divider span i { margin-right: 5px; }
+
+.ui-dark .divider span { background-color: #404040; color: #A0A0A0; }
