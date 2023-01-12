@@ -172,7 +172,7 @@ p { font-size: 13px; color: #777; margin: 0 0 15px 0; }
 .btn i { width: 15px; text-align: center; margin-right: 5px; }
 .btn:hover { opacity: 0.8; }
 .btn[name='submit'] { font-weight: bold; background-color: var(--color); color: #FFF; }
-.btn:disabled { background-color: #F5F5F5 !important; border-color: #E0E0E0 !important; color: #A0A0A0 !important; cursor: not-allowed; box-shadow: none; }
+.btn:disabled { background-color: #F5F5F5 !important; border-color: #E0E0E0 !important; color: #A0A0A0 !important; cursor: not-allowed; box-shadow: none; opacity: 1 !important; }
 .btn:disabled i { color: #A0A0A0 !important; }
 .btn:first-child { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
 .btn:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
