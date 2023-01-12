@@ -2,9 +2,14 @@
 
 This component contains only Markdown parser.
 
+__Configuration__:
+
+- `highlight {Boolean}` enables auto-syntax highlighter (default: `true`)
+- `charts {Boolean}` enables Apex charts rendering (default: `false`)
+
 __Markdown settings__:
 
-```javascript
+```js
 var opt = {};
 var text = 'YOUR_MARKDOWN_STRING';
 
