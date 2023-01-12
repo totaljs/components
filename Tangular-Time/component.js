@@ -9,23 +9,23 @@ Thelpers.time = function(value) {
 	if (minutes < 60) {
 		if (minutes < 3)
 			return 'now';
-		return minutes + ' ' + 'minutes ago';
+		return Thelpers.pluralize(minutes, '# minutes ago,# minute ago,# minutes ago,# minutes ago');
 	}
 
 	var hours = (minutes / 60) >> 0;
 	if (hours < 24)
-		return hours + ' ' + Thelpers.pluralize(hours, 'hours ago,hour ago,hours ago,hours ago');
+		return hours + ' ' + Thelpers.pluralize(hours, '# hours ago,# hour ago,# hours ago,# hours ago');
 
 	var days = (hours / 24) >> 0;
 	if (days < 30)
-		return days + ' ' + Thelpers.pluralize(days, 'days ago,day ago,days ago,days ago');
+		return days + ' ' + Thelpers.pluralize(days, '# days ago,# day ago,# days ago,# days ago');
 
 	var months = (days / 29) >> 0;
 	if (months < 12)
-		return months + ' ' + Thelpers.pluralize(months, 'months ago,month ago,months ago,months ago');
+		return months + ' ' + Thelpers.pluralize(months, '# months ago,# month ago,# months ago,# months ago');
 
 	var years = (months / 12) >> 0;
-	return years + ' ' + Thelpers.pluralize(years, 'years ago,year ago,years ago,years ago');
+	return years + ' ' + Thelpers.pluralize(years, '# years ago,# year ago,# years ago,# years ago');
 };
 
 Thelpers.time2 = function(value) {
