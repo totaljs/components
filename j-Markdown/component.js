@@ -354,16 +354,18 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 				}
 			}
 
-			if (!opt.nocode && W.hljs) {
-				arr = el.find('.markdown-code');
-				for (var t of arr) {
-					if (!t.$mdloaded) {
-						t.$mdloaded = 1;
-						var sub = $(t).find('pre code');
-						for (var block of sub)
-							W.hljs.highlightBlock(block);
+			if (!opt.nocode && config.highlight) {
+				WAIT('hljs', function() {
+					arr = el.find('.markdown-code');
+					for (var t of arr) {
+						if (!t.$mdloaded) {
+							t.$mdloaded = 1;
+							var sub = $(t).find('pre code');
+							for (var block of sub)
+								W.hljs.highlightBlock(block);
+						}
 					}
-				}
+				});
 			}
 
 			arr = el.find('a');
