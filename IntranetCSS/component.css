@@ -6,7 +6,7 @@
 .panel > .toolbar button { height: 22px; line-height: 20px; min-width: 60px; }
 .panel > label { display: block; padding: 10px 10px; border-bottom: 1px solid #E0E0E0; font-size: 15px; color: #000; font-weight: bold; border-radius: var(--radius) var(--radius) 0 0; }
 .panel > label i { margin-right: 7px; }
-.panel .padding { padding: 15px 10px; }
+.panel .padding { padding: var(--gap) 15px; }
 .ui-dark .panel { background-color: #202020; border-color: #404040; }
 .ui-dark .panel > label { border-bottom-color: #404040; color: #FFF; }
 
@@ -84,7 +84,7 @@
 .configuration > section:first-child > label { border-top: 0; border-radius: var(--radius) var(--radius) 0 0; }
 .configuration > section > article { border-top: 1px solid #E0E0E0; }
 .configuration > section:first-child article:first-child { border-top: 0; border-radius: var(--radius) var(--radius) 0 0; }
-.configuration .padding { padding: 15px 10px; }
+.configuration .padding { padding: var(--gap) 15px; }
 .configuration > .toolbar { float: right; margin: 10px 10px 0 10px; }
 .configuration > .toolbar button { height: 22px; line-height: 20px; min-width: 60px; }
 
