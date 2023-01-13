@@ -5,7 +5,8 @@
 
 __Configuration__:
 
-- `search` {String} a placeholder for search field (default: `Search`)
+- `search {String}` a placeholder for search field (default: `Search`)
+- `list {String}` URL address for obtaining list of icons (default: Total.js Icons CDN)
 
 ## Usage
 
