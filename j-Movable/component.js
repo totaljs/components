@@ -1,4 +1,4 @@
-COMPONENT('movable', function(self, config) {
+COMPONENT('movable', 'move:true', function(self, config) {
 
 	var events = {};
 	var draggable;
@@ -25,7 +25,7 @@ COMPONENT('movable', function(self, config) {
 		switch (e.type) {
 			case 'drop':
 
-				var parent = draggable.parentNode;
+				var parent = config.container ? $(draggable).closest(config.container)[0] : draggable.parentNode;
 				var a = draggable;
 				var b = e.target;
 				var ai = -1;
@@ -57,10 +57,12 @@ COMPONENT('movable', function(self, config) {
 						break;
 				}
 
-				if (ai > bi)
-					parent.insertBefore(a, b);
-				else
-					parent.insertBefore(a, b.nextSibling);
+				if (config.move) {
+					if (ai > bi)
+						parent.insertBefore(a, b);
+					else
+						parent.insertBefore(a, b.nextSibling);
+				}
 
 				config.exec && self.EXEC(config.exec, $(parent).find(config.selector), a, b);
 				self.path && self.change(true);
@@ -79,11 +81,10 @@ COMPONENT('movable', function(self, config) {
 	};
 
 	events.ondown = function(e) {
-		if (e.target.nodeName === 'INPUT' || e.target.nodeName === 'TEXTAREA') {
+		if (e.target.nodeName === 'INPUT' || e.target.nodeName === 'TEXTAREA')
 			draggable = null;
-			return;
-		}
-		draggable = this;
+		else
+			draggable = this;
 	};
 
 	self.destroy = function() {

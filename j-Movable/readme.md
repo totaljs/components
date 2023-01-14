@@ -4,10 +4,12 @@ The component handles similar `draggable` element and supports movement between 
 
 __Configuration__:
 
-- `selector` {String} jQuery selector for watching
-- `exec` {String} A path to method which will be executed if the user moves element
-- `global` {Boolean} drag & drop events will be binded to `document` (default: `false`)
-- `parent` {String} selector for finding of element where will be binded drag & drop envets (default: current element)
+- `selector {String}` jQuery selector for watching
+- `exec {String}` A path to method which will be executed if the user moves element
+- `global {Boolean}` drag & drop events will be binded to `document` (default: `false`)
+- `parent {String}` selector for finding of element where will be binded drag & drop envets (default: current element)
+- __NEW__ `move {Boolean}` enables auto re-ordering elements (default: `true`)
+- __NEW__ `container {String}` a selector for finding of the main container
 
 __Example of `Exec` method__:
 
