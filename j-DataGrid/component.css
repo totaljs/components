@@ -84,12 +84,12 @@
 .dg input::placeholder { color: #A0A0A0; opacity: 1; }
 .dg input::-ms-input-placeholder { color: #A0A0A0 !important; }
 .dg-col button { margin: 4px 0 0; border: 0; background-color: #FFF; font-size: 10px; color: #404040; height: 19px; border: 1px solid #E0E0E0; border-left: 0; padding: 0 3px; outline: 0; line-height: 10px; min-width: 20px; }
-.dg-col button:hover { background-color: var(--color); color: #FFF; }
-.dg-col button[name='remove'] { background-color: #ffe5dd; color: red; }
-.dg-col button[name='remove']:hover { background-color: red; color: #FFF; }
+.dg-col button:hover { background-color: var(--color); border-color: var(--color); color: #FFF; }
+.dg-col button[name='remove'] { background-color: #ffe5dd; border-color: #ffe5dd; color: red; }
+.dg-col button[name='remove']:hover { background-color: #E8483F; border-color: #E8483F; color: #FFF; }
 .dg-col button:first-child { border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-left: 1px solid #E0E0E0; }
 .dg-col button:last-child { border-top-right-radius: 3px; border-bottom-right-radius: 3px; }
-.dg-col button:disabled { background-color: #F0F0F0 !important; color: silver !important; cursor: not-allowed; }
+.dg-col button:disabled { background-color: #F0F0F0 !important; color: #A0A0A0 !important; cursor: not-allowed; }
 .dg-editable .dg-checkbox { position: relative; display: inline-block; margin-left: 5px; margin-right: 5px; }
 .dg-editable > div > .dg-checkbox { border-color: var(--color); }
 .dg-bool { height: 28px; }
