@@ -1,11 +1,13 @@
-COMPONENT('time', 'icon:ti ti-clock', function(self, config) {
+COMPONENT('time', 'icon:ti ti-clock', function(self, config, cls) {
 
 	var is = true;
 	var fn;
 
 	self.make = function() {
 
+		self.aclass(cls);
 		self.append((config.icon ? '<i class="{0}"></i>'.format(config.icon) : '') + '<span></span>');
+
 		var span = self.find('span');
 
 		fn = function() {
