@@ -108,7 +108,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			return;
 
 		var el = openeditor.element;
-		var url = '#' + Date.now().toString(36);
+		var url = '#link' + Date.now().toString(36);
 		var mtd = el[0];
 
 		for (var i = 0; i < 5; i++) {
@@ -149,7 +149,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 	};
 
 	self.format.code = function() {
-		var url = '#' + Date.now().toString(36);
+		var url = '#code' + Date.now().toString(36);
 		document.execCommand('CreateLink', false, url);
 		var a = openeditor.element.find('a[href="{0}"]'.format(url));
 		a.replaceWith('<span class="paper-code">' + a.html() + '</span>');
@@ -167,7 +167,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 		// Font-Awesome icon
 		var tag = openeditor.element[0].nodeName.toLowerCase();
-		var icon = '<i class="ti ti-flag {0}-icon"></i>&nbsp;'.format(cls);
+		var icon = '<i class="ti ti-flag {0}-icon" contenteditable="false"></i>&nbsp;'.format(cls);
 
 		switch (tag) {
 			case 'span':
