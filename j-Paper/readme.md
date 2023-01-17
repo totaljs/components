@@ -1,7 +1,8 @@
 ## j-Paper (BETA)
 
 - a very complex component
-- output is a simple `Object Array` structure
+- output is a simple `Object Array` structure:
+	- `[{ id: String, widget: String, newbie: Boolean, changed: Boolean, config: Object }]`
 - widgets repository: https://github.com/totaljs/parts/tree/main/paper
 
 __Configuration__:
@@ -39,6 +40,12 @@ __Configuration__:
 	- `opt.width {Number}` optional
 	- `opt.height {Number}` optional
 	- __IMPORTANT__: `callback` argument must be executed after upload with the `files {Array}` argument
+- `change {String}` a link to the `function(change)`
+	- `change.id {String}` identifier
+	- `change.block {String}` a block identifier
+	- `change.blockprev {String}` a previous block identifier
+	- `change.widget {String}` a widget id
+	- `change.type {String}` operation type (insert, update, remove)
 
 __Methods__:
 

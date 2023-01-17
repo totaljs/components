@@ -487,6 +487,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 				data.blockprev = prev.attrd('id');
 		}
 
+		widget.changed = true;
 		config.change && self.EXEC(config.change, data);
 
 		if (config.autosave) {
@@ -501,8 +502,10 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		var arr = self.find('.widget');
 		for (var el of arr) {
 			var w = el.$widget;
-			if (w && (!w.dom.parentNode || !w.dom.innerHTML.trim()))
-				w.remove();
+			if (w && (!w.dom.parentNode || !w.dom.innerHTML.trim())) {
+				if (!openeditor || openeditor.widget !== w)
+					w.remove();
+			}
 		}
 	};
 
@@ -917,7 +920,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			} catch (e) {
 				console.error(e);
 			}
-			items.push({ id: id, widget: name, config: cfg || {} });
+			items.push({ id: id, widget: name, changed: w.changed, newbie: w.newbie, config: cfg || {} });
 		}
 		callback && callback(items);
 		return items;
