@@ -1,6 +1,8 @@
 COMPONENT('iframepreview', function(self, config, cls) {
 
 	var iframe;
+	var ready = false;
+	var writetimeout;
 
 	self.readonly();
 	self.nocompile && self.nocompile();
@@ -9,6 +11,14 @@ COMPONENT('iframepreview', function(self, config, cls) {
 		self.aclass(cls);
 		self.html('<iframe src="about:blank" frameborder="0" scrolling="no"></iframe>');
 		iframe = self.find('iframe');
+
+		var isready = () => ready = true;
+		var timeout = null;
+
+		iframe.on('load', function() {
+			timeout && clearTimeout(timeout);
+			timeout = setTimeout(isready, 150);
+		});
 	};
 
 	self.destroy = function() {
@@ -16,6 +26,15 @@ COMPONENT('iframepreview', function(self, config, cls) {
 	};
 
 	self.write = function(content) {
+
+		writetimeout && clearTimeout(writetimeout);
+		writetimeout = null;
+
+		if (!ready) {
+			writetimeout = setTimeout(self.write, 200, content);
+			return;
+		}
+
 		var win = iframe && iframe[0] ? iframe[0].contentWindow : null;
 		if (win) {
 
@@ -58,9 +77,9 @@ COMPONENT('iframepreview', function(self, config, cls) {
 	};
 
 	self.setter = function(value) {
-		if (value == null)
-			iframe.attr('src', 'about:blank');
-		else
+		if (value)
 			self.write(value);
+		else
+			iframe.attr('src', 'about:blank');
 	};
 });
