@@ -22,9 +22,9 @@ __Configuration__:
 - `scrollbarshadow` {Boolean} optional, enables a shadow in scrollbar (default: `false`)
 - `style` {Number} supports two styles (1: classic (default), 2: bottom of for is without padding)
 - `closeoutside` {Boolean} closes the form when the user clicks outside of the form (default: `false`)
+- `closeesc` {Boolean} closes the form when the user presses `ESC` key
+- `independent` {Boolean} closing doesn't depent on the condition according to the path
 - `close {String}` link to a global `function()` and it's executed if the form is closing
-- __NEW__ `closeesc` {Boolean} closes the form when the user presses `ESC` key
-- __NEW__ `independent` {Boolean} closing doesn't depent on the condition according to the path
 
 __Good to know__:
 
