@@ -30,11 +30,11 @@ __Good to know__:
 New version of this component supports dynamic evaluation of the content of `<script type="text/html">`. The example below contains a script with HTML and the component evaluates the content if the j-Form will be displayed (only once).
 
 ```html
-<div data---="fullform__path__config">
+<ui-component name="fullform" path="path" config="config">
 	<script type="text/html">
 		A CONTENT
 	</script>
-</div>
+</ui-component>
 ```
 
 ### Author
