@@ -17,8 +17,8 @@ COMPONENT('carousel', 'animate:3000', function(self, config, cls) {
 		self.element.wrapInner('<div class="{0}-container"><div class="{0}-body"></div></div>'.format(cls));
 		container = self.find(cls2 + '-container');
 
-		container[0].onwheel = function() {
-			return false;
+		container[0].onwheel = function(e) {
+			return e.deltaX == 0;
 		};
 
 		body = self.find(cls2 + '-body');
