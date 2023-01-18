@@ -343,7 +343,7 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:0', function(self,
 			builder.push('<div></div>');
 		builder.push('</div><div class="{0}-days">'.format(cls));
 
-		var clearbtn = self.opt.clear === false ? null : '<span class="{0}-clear">{1}</span>'.format(cls, config.clear);
+		var clearbtn = self.opt.clear === false ? null : '<span>{1}</span>'.format(cls, config.clear);
 
 		for (var i = 0; i < 42; i++)
 			builder.push('<div class="{0}-date"><div></div></div>'.format(cls, i));
