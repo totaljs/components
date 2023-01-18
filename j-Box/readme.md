@@ -31,11 +31,11 @@ __Configuration__:
 The component supports dynamic evaluation of the content of `<script type="text/html">`. The example below contains a script with HTML and the component evaluates the content if the j-Form will be displayed (only once).
 
 ```html
-<div data---="box__path__config">
+<ui-component name="box" path="path" config="config">
 	<script type="text/html">
 		A CONTENT
 	</script>
-</div>
+</ui-component>
 ```
 
 ### Author
