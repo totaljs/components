@@ -104,7 +104,7 @@ COMPONENT('centered', 'closebutton:1;closeesc:1;scrollbar:1;visibleY:0', functio
 
 			if (is) {
 				self.resizeforce();
-				self.tclass('invisible');
+				self.rclass('invisible');
 			} else if (config.close)
 				self.EXEC(config.close);
 
