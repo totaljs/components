@@ -27,6 +27,7 @@ __Configuration__:
 - `transparent {Boolean}` optional, all elements on the background of the box will be clickable (default: `false`)
 - `align {String}` optional, `center` (default), `left`, `right`
 - `close {String}` link to a global `function()` and it's executed if the form is closing
+
 The component supports dynamic evaluation of the content of `<script type="text/html">`. The example below contains a script with HTML and the component evaluates the content if the j-Form will be displayed (only once).
 
 ```html
