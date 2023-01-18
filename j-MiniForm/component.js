@@ -56,11 +56,14 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 	};
 
 	self.cancel = function() {
-		config.cancel && self.EXEC(config.cancel, self.hide);
-		self.hide();
+		if (config.cancel)
+			self.EXEC(config.cancel, self.hide);
+		else
+			self.hide();
 	};
 
 	self.hide = function() {
+		config.close && self.EXEC(config.close);
 		if (config.independent)
 			self.hideforce();
 		self.esc(false);
