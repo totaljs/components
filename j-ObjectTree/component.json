@@ -1,6 +1,6 @@
 {
 	"datecreated": "2022-03-25T10:08:00.000Z",
-	"dateupdated": "2023-01-18T07:53:00.000Z",
+	"dateupdated": "2023-01-18T07:53:01.000Z",
 	"name": "j-ObjectTree",
 	"tags": [
 		"object",
@@ -9,6 +9,7 @@
 	],
 	"color": "transparent",
 	"version": 1,
+	"darkmode": true,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
