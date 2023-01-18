@@ -69,7 +69,7 @@
 .ui-input-type-icon .ui-input-control, .ui-input-type-color .ui-input-control, .ui-input-type-color .ui-input-emoji { cursor: pointer; }
 
 .ui-dark .ui-input-required .ui-input-control { border-color: #505050; }
-.ui-dark .ui-input-raw .ui-input-control { border-color: #404040; background-color: #202020!important; box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+.ui-dark .ui-input-raw .ui-input-control { border-color: #404040; background-color: #202020 !important; box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
 .ui-dark .ui-input-required .ui-input-icon-left { border-color: #404040; }
 .ui-dark .ui-input-required .ui-input-icon-right { border-color: #404040; }
 .ui-dark .ui-input-control input, .ui-dark .ui-input-control textarea { background-color: transparent; color: #FFF; }
