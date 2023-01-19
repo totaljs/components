@@ -49,7 +49,7 @@ __Configuration__:
 
 __Methods__:
 
-- `component.save(callback)` for saving content
+- `component.save(function(data, ischange) {` for saving content
 - `component.import(url or url_array, [callback])` for importing additional widgets
 
 __Good to know__:
