@@ -17,6 +17,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 	var settings = {};
 	var checksum = {};
 	var skip = false;
+	var check = null;
 
 	var movement = function(key) {
 
@@ -55,7 +56,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 		var edit = function(e) {
 
-			if (config.readonly)
+			if (config.readonly || !widget.iseditable())
 				return;
 
 			if (e) {
@@ -626,8 +627,13 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			setTimeout2(self.ID + 'css', self.cmd.rebuildcss, 200);
 		};
 
+		meta.iseditable = function() {
+			return check ? check(meta) : true;
+		};
+
 		meta.edit = function(el, opt, callback) {
-			self.cmd.edit(el, opt, callback);
+			if (meta.iseditable())
+				self.cmd.edit(el, opt, callback);
 		};
 
 		meta.upload = function(opt, callback) {
@@ -959,6 +965,10 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		self.rclass('hidden invisible');
 		self.append('<section class="{0}-first"></section>'.format(cls));
 
+		config.contextmenu && self.event('contextmenu', '.widget', function(e) {
+			self.EXEC(config.contextmenu, this.$widget, e);
+		});
+
 		self.event('click', 'section', function(e) {
 
 			var t = this;
@@ -1096,6 +1106,9 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 	self.configure = function(key, value) {
 		switch (key) {
+			case 'check':
+				check = value ? GET(self.makepath(value)) : null;
+				break;
 			case 'readonly':
 				value && openeditor && openeditor.close();
 				self.tclass(cls + '-r readonly', !!value);

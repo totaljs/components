@@ -46,6 +46,8 @@ __Configuration__:
 	- `change.blockprev {String}` a previous block identifier
 	- `change.widget {String}` a widget id
 	- `change.type {String}` operation type (insert, update, remove)
+- `contextmenu {String}` a link to the `function(widget)` when the user pressed the right mouse button on the widget
+- `check {String}` a link to the `function(widget)` that decides whether to enable editing or not
 
 __Methods__:
 
