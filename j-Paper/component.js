@@ -939,6 +939,11 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			var w = child[0].$widget;
 			var cfg;
 
+			if (w.removed) {
+				ischange = true;
+				continue;
+			}
+
 			try {
 				cfg = w.save ? w.save() : {};
 			} catch (e) {
