@@ -8,6 +8,7 @@ __Configuration__:
 
 - `app {String}` a link to the method/variable where will be stored `app` instance
 - `url {String}` a link to the app schema (must be in the `json` format)
+- `id {String}` overwrites app ID
 
 __Methods__:
 

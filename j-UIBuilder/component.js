@@ -12,7 +12,12 @@ COMPONENT('uibuilder', function(self, config, cls) {
 
 		data.id = self.ID;
 		UIBuilder.build(self.element, data, function(response) {
+
 			response.component = self;
+
+			if (config.id)
+				response.id = config.id;
+
 			self.app = response;
 			config.app && self.SEEX(config.app, response);
 		});
