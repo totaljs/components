@@ -10,14 +10,9 @@ COMPONENT('uibuilder', function(self, config, cls) {
 		if (!data || data instanceof Array || typeof(data) !== 'object')
 			return;
 
-		data.id = self.ID;
+		data.id = config.id || self.ID;
 		UIBuilder.build(self.element, data, function(response) {
-
 			response.component = self;
-
-			if (config.id)
-				response.id = config.id;
-
 			self.app = response;
 			config.app && self.SEEX(config.app, response);
 		});
