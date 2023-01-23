@@ -2,16 +2,16 @@
 	.paper { max-width: 800px; width: 100%; margin: 30px auto; border: 2px solid #E0E0E0; padding: 20px 50px; border-radius: var(--radius); }
 </style>
 
-<div data---="LAZY menu"></div>
-<div data---="LAZY colorpicker"></div>
-<div data---="LAZY faicons"></div>
-<div data---="LAZY fileuploader"></div>
-<div data---="LAZY imageuploader"></div>
-<div data---="directory__null__placeholder:Search widget"></div>
+<ui-component name="LAZY menu"></ui-component>
+<ui-component name="LAZY colorpicker"></ui-component>
+<ui-component name="LAZY faicons"></ui-component>
+<ui-component name="LAZY fileuploader"></ui-component>
+<ui-component name="LAZY imageuploader"></ui-component>
+<ui-component name="directory" config="placeholder:Search widget"></ui-component>
 
 <div class="help center">Start writing with the <code>/</code> backslash character</div>
 <div class="paper" data-scope="paperdata">
-	<div data---="paper__?.data__readonly:0;parent:auto;margin:80;command:?/command;upload:?/upload;change:?/change;format:?/format;icon:?/icon" class="padding hidden invisible"></div>
+	<ui-component name="paper" path="?.data" config="readonly:0;parent:auto;margin:80;command:?/command;upload:?/upload;change:?/change;format:?/format;icon:?/icon" class="padding hidden invisible"></ui-component>
 </div>
 
 <script>
@@ -66,7 +66,7 @@
 				opt.element.rclass2('ti').aclass(val);
 				save();
 			};
-			SETTER('faicons/show', opt);
+			SETTER('icons/show', opt);
 		};
 
 		$(document).on('contextmenu', '.widget', function(e) {

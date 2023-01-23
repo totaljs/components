@@ -4,7 +4,12 @@ This component contains some preddefined sounds like `beep`, `fail`, `success`, 
 
 __Configuration__:
 
-- `url` {String} URL address to sound library (default: `https://cdn.componentator.com/sounds/`)
+- `url {String}` URL address to sound library (default: `https://cdn.componentator.com/sounds/`)
+- `volume {Number}` (default: `50`)
+
+__Good to know__:
+
+`path` can contain `{Number}`, it will control volume or `{Boolean}` it will enable or disable sounds.
 
 __Methods__:
 

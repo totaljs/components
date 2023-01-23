@@ -22,19 +22,20 @@ __Configuration__:
 - `scrollbarshadow` {Boolean} optional, enables a shadow in scrollbar (default: `false`)
 - `style` {Number} supports two styles (1: classic (default), 2: bottom of for is without padding)
 - `closeoutside` {Boolean} closes the form when the user clicks outside of the form (default: `false`)
-- __NEW__ `closeesc` {Boolean} closes the form when the user presses `ESC` key
-- __NEW__ `independent` {Boolean} closing doesn't depent on the condition according to the path
+- `closeesc` {Boolean} closes the form when the user presses `ESC` key
+- `independent` {Boolean} closing doesn't depent on the condition according to the path
+- `close {String}` link to a global `function()` and it's executed if the form is closing
 
 __Good to know__:
 
 New version of this component supports dynamic evaluation of the content of `<script type="text/html">`. The example below contains a script with HTML and the component evaluates the content if the j-Form will be displayed (only once).
 
 ```html
-<div data---="largeform__path__config">
+<dui-component name="largeform" path="path" config="config">
 	<script type="text/html">
 		A CONTENT
 	</script>
-</div>
+</ui-component>
 ```
 
 ### Author

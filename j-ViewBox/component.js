@@ -67,7 +67,7 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;resizedelay:200;initdelay:2
 		var centered = '';
 
 		if (config.centered)
-			centered = '<div class="{0}-centered-table"><div class="{0}-centered-cell"></div></div>'.format(cls);
+			centered = '<div><div class="{0}-centered-table"><div class="{0}-centered-cell"></div></div></div>'.format(cls);
 
 		config.invisible && self.aclass('invisible');
 		config.scroll && MAIN.version > 17 && self.element.wrapInner('<div class="' + cls + '-body">' + centered + '</div>');

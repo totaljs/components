@@ -41,7 +41,7 @@ COMPONENT('centered', 'closebutton:1;closeesc:1;scrollbar:1;visibleY:0', functio
 
 		self.aclass(cls + '-container hidden invisible');
 		self.event('click', '[data-name="close"],[name="close"]', function() {
-			self.set('');
+			self.hide();
 		});
 
 		if (self.dom.children[0].nodeName === ('SCRI' + 'PT')) {
@@ -74,10 +74,15 @@ COMPONENT('centered', 'closebutton:1;closeesc:1;scrollbar:1;visibleY:0', functio
 
 		config.closeoutside && self.find(cls2 + '-body' + (typeof(config.closeoutside) === 'string' ? (',' + config.closeoutside) : '')).on('mousedown touchstart', function(e) {
 			if (e.target === this)
-				self.set('');
+				self.hide();
 		});
 
 		self.on('resize2', self.resize);
+	};
+
+	self.hide = function() {
+		config.close && self.EXEC(config.close);
+		self.set('');
 	};
 
 	self.setter = function(value) {
@@ -96,8 +101,13 @@ COMPONENT('centered', 'closebutton:1;closeesc:1;scrollbar:1;visibleY:0', functio
 				config.closeesc && events.unbind();
 
 			self.tclass('hidden', !is);
-			self.resizeforce();
-			self.rclass('invisible');
+
+			if (is) {
+				self.resizeforce();
+				self.rclass('invisible');
+			} else if (config.close)
+				self.EXEC(config.close);
+
 			$('html').tclass(cls + '-noscroll', is);
 		}
 	};

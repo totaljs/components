@@ -1,6 +1,5 @@
-COMPONENT('timepicker', function(self, config) {
+COMPONENT('timepicker', function(self, config, cls) {
 
-	var cls = 'ui-timepicker';
 	var cls2 = '.' + cls;
 	var bindedevents = false;
 	var timeout = 0;
@@ -217,10 +216,15 @@ COMPONENT('timepicker', function(self, config) {
 	};
 
 	self.hide = function(sleep) {
-		if (!is)
+
+		if (!is) {
+			self.target = null;
 			return;
+		}
+
 		clearTimeout(timeout);
 		timeout = setTimeout(function() {
+
 			self.unbindevents();
 
 			if (self.opt) {

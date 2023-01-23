@@ -1,6 +1,7 @@
 COMPONENT('title', 'separator:-', function(self, config) {
 
 	self.singleton();
+	self.readonly();
 
 	self.make = function() {
 		config.name = document.title;

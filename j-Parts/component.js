@@ -10,9 +10,7 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 	};
 
 	var itemreplace = function(item, content) {
-		if (item.path)
-			content = content.replace(/~PATH~/g, item.path).replace('PLUGIN(function(', 'PLUGIN(\'{0}\', function('.format(item.path));
-		return content.replace(/~ID~/g, item.id || '');
+		return ADAPT(item.path, item.id, content);
 	};
 
 	var itempath = function(item, path) {

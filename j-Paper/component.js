@@ -15,7 +15,9 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 	var oldcss;
 	var pendingwidgets = false;
 	var settings = {};
+	var checksum = {};
 	var skip = false;
+	var check = null;
 
 	var movement = function(key) {
 
@@ -54,7 +56,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 		var edit = function(e) {
 
-			if (config.readonly)
+			if (config.readonly || !widget.iseditable())
 				return;
 
 			if (e) {
@@ -108,7 +110,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			return;
 
 		var el = openeditor.element;
-		var url = '#' + Date.now().toString(36);
+		var url = '#link' + Date.now().toString(36);
 		var mtd = el[0];
 
 		for (var i = 0; i < 5; i++) {
@@ -149,7 +151,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 	};
 
 	self.format.code = function() {
-		var url = '#' + Date.now().toString(36);
+		var url = '#code' + Date.now().toString(36);
 		document.execCommand('CreateLink', false, url);
 		var a = openeditor.element.find('a[href="{0}"]'.format(url));
 		a.replaceWith('<span class="paper-code">' + a.html() + '</span>');
@@ -167,7 +169,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 		// Font-Awesome icon
 		var tag = openeditor.element[0].nodeName.toLowerCase();
-		var icon = '<i class="ti ti-flag {0}-icon"></i>&nbsp;'.format(cls);
+		var icon = '<i class="ti ti-flag {0}-icon" contenteditable="false"></i>&nbsp;'.format(cls);
 
 		switch (tag) {
 			case 'span':
@@ -487,12 +489,15 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 				data.blockprev = prev.attrd('id');
 		}
 
+		widget.changed = true;
 		config.change && self.EXEC(config.change, data);
 
 		if (config.autosave) {
-			self.save(function(response) {
-				skip = true;
-				self.set(response, 2);
+			self.save(function(response, is) {
+				if (is) {
+					skip = true;
+					self.set(response, 2);
+				}
 			});
 		}
 	};
@@ -501,13 +506,17 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		var arr = self.find('.widget');
 		for (var el of arr) {
 			var w = el.$widget;
-			if (w && (!w.dom.parentNode || !w.dom.innerHTML.trim()))
-				w.remove();
+			if (w && (!w.dom.parentNode || !w.dom.innerHTML.trim())) {
+				if (!openeditor || openeditor.widget !== w)
+					w.remove();
+			}
 		}
 	};
 
-	self.cmd.refresh = function() {
+	self.cmd.refresh = function(disablesync) {
 		var elements = self.find('.widget');
+		if (disablesync)
+			nosync = true;
 		for (var el of elements) {
 
 			if (el.$widget)
@@ -547,6 +556,9 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			// w.newbie && self.cmd.change(w, 'append');
 		}
 
+		if (disablesync)
+			nosync = false;
+
 	};
 
 	self.cmd.widgets = function() {
@@ -567,6 +579,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		meta.newbie = el.getAttribute('data-newbie') === '1';
 		meta.newbie && el.removeAttribute('data-newbie');
 		meta.widgets = {};
+		checksum[id] = HASH(meta.config);
 
 		meta.widgets.save = function(el) {
 			return self.save(null, $(el));
@@ -582,6 +595,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 				settings[item.id] = item.config;
 				builder.push('<section><div class="widget paper-{0}" data-widget="{0}" data-id="{1}"></div></section>'.format(item.widget, item.id));
 			}
+
 			$(el).html('<section class="{0}-first"></section>'.format(cls) + builder.join(''));
 			self.cmd.refresh();
 		};
@@ -613,8 +627,13 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			setTimeout2(self.ID + 'css', self.cmd.rebuildcss, 200);
 		};
 
+		meta.iseditable = function() {
+			return check ? check(meta) : true;
+		};
+
 		meta.edit = function(el, opt, callback) {
-			self.cmd.edit(el, opt, callback);
+			if (meta.iseditable())
+				self.cmd.edit(el, opt, callback);
 		};
 
 		meta.upload = function(opt, callback) {
@@ -903,23 +922,45 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 	};
 
 	self.save = function(callback, el) {
+
 		var body = $(el || self.element);
 		var items = [];
 		var arr = body.find('> section > .widget');
+		var ischange = false;
+
 		for (var child of arr) {
+
 			var child = $(child);
 			var name = child.attrd('widget');
+			if (!name)
+				continue;
+
 			var id = ATTRD(child);
 			var w = child[0].$widget;
 			var cfg;
+
+			if (w.removed) {
+				ischange = true;
+				continue;
+			}
+
 			try {
 				cfg = w.save ? w.save() : {};
 			} catch (e) {
 				console.error(e);
+				cfg = {};
 			}
-			items.push({ id: id, widget: name, config: cfg || {} });
+
+			if (!ischange) {
+				var sum = HASH(cfg);
+				if (checksum[id] !== sum)
+					ischange = true;
+			}
+
+			items.push({ id: id, widget: name, changed: w.changed, newbie: w.newbie, config: cfg });
 		}
-		callback && callback(items);
+
+		callback && callback(items, ischange);
 		return items;
 	};
 
@@ -927,6 +968,11 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 		self.aclass(cls);
 		self.rclass('hidden invisible');
+		self.append('<section class="{0}-first"></section>'.format(cls));
+
+		config.contextmenu && self.event('contextmenu', '.widget', function(e) {
+			self.EXEC(config.contextmenu, this.$widget, e);
+		});
 
 		self.event('click', 'section', function(e) {
 
@@ -1065,6 +1111,9 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 	self.configure = function(key, value) {
 		switch (key) {
+			case 'check':
+				check = value ? GET(self.makepath(value)) : null;
+				break;
 			case 'readonly':
 				value && openeditor && openeditor.close();
 				self.tclass(cls + '-r readonly', !!value);
@@ -1094,23 +1143,94 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		}
 
 		selected = null;
-		settings = {};
 
-		var plus = '<section class="{0}-first"></section>'.format(cls);
+		var tempsettings = {};
+		var sections = self.find('> section').toArray();
 
-		if (arr) {
-			var builder = [];
-			for (var item of arr) {
-				settings[item.id] = item.config;
-				builder.push('<section><div class="widget paper-{0}" data-widget="{0}" data-id="{1}"></div></section>'.format(item.widget, item.id));
-			}
-			self.html(plus + builder.join(''));
-			self.cmd.refresh();
-		} else {
-			self.html(plus);
-			self.cmd.refresh();
+		// First out because it's empty
+		var prev = sections.shift();
+		var el;
+
+		for (var m of sections) {
+			el = $(m).find('> div');
+			m.PID = ATTRD(el);
+			m.PIS = false;
 		}
 
+		if (!arr)
+			arr = EMPTYARRAY;
+
+		var template = '<section><div class="widget paper-{0}" data-widget="{0}" data-id="{1}"></div></section>';
+
+		for (var i = 0; i < arr.length; i++) {
+
+			var item = arr[i];
+			var sum = checksum[item.id];
+			var ischange = false;
+
+			if (item.config) {
+				tempsettings[item.id] = item.config;
+				checksum[item.id] = HASH(item.config);
+				ischange = sum !== checksum[item.id];
+			} else
+				tempsettings[item.id] = settings[item.id];
+
+			var index = sections.findIndex('PID', item.id);
+			if (index === -1) {
+
+				// not found, creates new
+				el = $(template.format(item.widget, item.id))[0];
+
+				// Appends it after prev element
+				NODEINSERT(el, prev);
+				prev = el;
+
+			} else if (index !== i) {
+				// Position has been changed
+
+				if (ischange) {
+					el = $(template.format(item.widget, item.id))[0];
+					NODEINSERT(el, prev);
+				} else {
+					el = sections[index];
+					el.PIS = true;
+					NODEINSERT(el, prev);
+				}
+
+				prev = el;
+
+			} else {
+				if (ischange) {
+					el = $(template.format(item.widget, item.id))[0];
+					NODEINSERT(el, prev);
+					prev = el;
+				} else {
+					el = sections[index];
+					el.PIS = true;
+					prev = el;
+				}
+			}
+		}
+
+		// Remove all unused sections
+		for (var m of sections) {
+			if (!m.PIS)
+				m.parentNode.removeChild(m);
+		}
+
+		// Reset state
+		var elements = self.find('.widget');
+		for (var el of elements) {
+			var widget = el.$widget;
+			if (widget) {
+				widget.changed = false;
+				widget.newbie = false;
+			}
+		}
+
+		settings = tempsettings;
+
+		self.cmd.refresh(true);
 		setTimeout(self.cmd.cleaner, 2000);
 	};
 

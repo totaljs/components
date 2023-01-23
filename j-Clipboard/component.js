@@ -7,7 +7,7 @@ COMPONENT('clipboard', function(self, config, cls) {
 	self.nocompile();
 
 	self.make = function() {
-		if (navigator.clipboard && W.isSecureContext) {
+		if (navigator.clipboard && W.isSecureContext && window.self === window.top) {
 			self.copy = function(value) {
 				navigator.clipboard.writeText(value).catch(err => console.error(err));
 			};

@@ -1,6 +1,6 @@
 ## j-FileUploader
 
-A simple singleton component for uploading of files.
+A simple component for uploading files. It supports auto-resizing images.
 
 __Methods__:
 
@@ -11,8 +11,12 @@ __Methods__:
 	- `opt.progress(percentage)` {Function}
 	- `opt.accept` {String} accept type (default: `*/*`)
 	- `opt.prefix` {String} a name prefix `<input name="file{0}"` (default: `file{0}`)
-	- __NEW__ `opt.files` {FileList} optional (if you use e.g Drag & Drop)
-	- __NEW__ `opt.data` {Object} optional, additional custom data `key_string:value_string`
+	- `opt.files` {FileList} optional (if you use e.g Drag & Drop)
+	- `opt.data` {Object} optional, additional custom data `key_string:value_string`
+	- __NEW__ `opt.width {Number}` optional, image width
+	- __NEW__ `opt.width {Number}` optional, image height
+	- __NEW__ `opt.background {String}` optional, background color defined in HEX or can be `transparent`
+	- __NEW__ `opt.keeporiginal {Boolean}` optional, prevents for double resizing (default: `false`)
 
 __Friendly components__:
 This component works with `loading` when the file is uploading.

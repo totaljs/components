@@ -453,7 +453,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 				self.modifyval(item);
 				self.change(true);
 			};
-			SETTER('faicons/show', opt);
+			SETTER('icons/show', opt);
 		});
 	};
 	types.fontawesome.render = function(item, next) {

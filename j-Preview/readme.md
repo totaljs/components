@@ -30,6 +30,10 @@ __Configuration__:
 - `empty {String}` a link to the empty image
 - `keeporiginal {Boolean}` keeps the original image if the dimension is the same as the width/height defined in the configuration (default: `false`)
 
+__Methods__:
+
+- `component.reupload()` it reuploads a current image value as a base64.
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

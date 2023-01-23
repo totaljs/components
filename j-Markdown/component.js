@@ -1,4 +1,4 @@
-COMPONENT('markdown', function (self) {
+COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 
 	self.readonly();
 	self.singleton();
@@ -6,6 +6,14 @@ COMPONENT('markdown', function (self) {
 	self.nocompile();
 
 	self.make = function() {
+
+		if (config.highlight) {
+			IMPORT('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js');
+			IMPORT('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css');
+		}
+
+		if (config.charts)
+			IMPORT('https://cdn.componentator.com/apexcharts.min@310.js');
 
 		// Remove from DOM because Markdown is used as a String prototype and Tangular helper
 		setTimeout(function() {
@@ -248,7 +256,7 @@ COMPONENT('markdown', function (self) {
 				}
 			}
 
-			if (!opt.nochart) {
+			if (!opt.nochart && W.ApexCharts) {
 				arr = el.find('.lang-barchart');
 				for (var t of arr) {
 					if (!t.$mdloaded) {
@@ -346,16 +354,18 @@ COMPONENT('markdown', function (self) {
 				}
 			}
 
-			if (!opt.nocode && W.hljs) {
-				arr = el.find('.markdown-code');
-				for (var t of arr) {
-					if (!t.$mdloaded) {
-						t.$mdloaded = 1;
-						var sub = $(t).find('pre code');
-						for (var block of sub)
-							W.hljs.highlightBlock(block);
+			if (!opt.nocode && config.highlight) {
+				WAIT('hljs', function() {
+					arr = el.find('.markdown-code');
+					for (var t of arr) {
+						if (!t.$mdloaded) {
+							t.$mdloaded = 1;
+							var sub = $(t).find('pre code');
+							for (var block of sub)
+								W.hljs.highlightBlock(block);
+						}
 					}
-				}
+				});
 			}
 
 			arr = el.find('a');
@@ -871,4 +881,4 @@ COMPONENT('markdown', function (self) {
 
 	})();
 
-}, ['https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css']);
+});

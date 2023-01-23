@@ -50,6 +50,11 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 		return Math.ceil(h * (size / w));
 	};
 
+	self.reupload = function() {
+		name = 'image.jpg';
+		img && self.resizeforce(img[0]);
+	};
+
 	self.resizeforce = function(image) {
 
 		var canvas = document.createElement('canvas');
@@ -65,12 +70,14 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 		var y = 0;
 		var is = false;
 		var diff = 0;
+		var propw = 'naturalWidth';
+		var proph = 'naturalHeight';
 
 		if (config.customize) {
 
 			if (config.percentage) {
-				config.width = (image.width / 100) * config.percentage >> 0;
-				config.height = (image.height / 100) * config.percentage >> 0;
+				config.width = (image[propw] / 100) * config.percentage >> 0;
+				config.height = (image[proph] / 100) * config.percentage >> 0;
 				canvas.width = config.width;
 				canvas.height = config.height;
 				ctx.fillStyle = config.background;
@@ -78,15 +85,15 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 				empty = canvas.toDataURL('image/png');
 			}
 
-			if (image.width > config.width || image.height > config.height) {
-				if (image.width > image.height) {
+			if (image[propw] > config.width || image[proph] > config.height) {
+				if (image[propw] > image[proph]) {
 
-					w = resizewidth(image.width, image.height, config.height);
+					w = resizewidth(image[propw], image[proph], config.height);
 					h = config.height;
 
 					if (w < config.width) {
 						w = config.width;
-						h = resizeheight(image.width, image.height, config.width);
+						h = resizeheight(image[propw], image[proph], config.width);
 					}
 
 					if (w > config.width) {
@@ -95,14 +102,14 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 					}
 
 					is = true;
-				} else if (image.height > image.width) {
+				} else if (image[proph] > image[propw]) {
 
 					w = config.width;
-					h = resizeheight(image.width, image.height, config.width);
+					h = resizeheight(image[propw], image[proph], config.width);
 
 					if (h < config.height) {
 						h = config.height;
-						w = resizewidth(image.width, image.height, config.height);
+						w = resizewidth(image[propw], image[proph], config.height);
 					}
 
 					if (h > config.height) {
@@ -116,18 +123,18 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 		}
 
 		if (!is) {
-			if (image.width < config.width && image.height < config.height) {
-				w = image.width;
-				h = image.height;
-				x = (config.width / 2) - (image.width / 2);
-				y = (config.height / 2) - (image.height / 2);
-			} else if (image.width >= image.height) {
+			if (image[propw] < config.width && image[proph] < config.height) {
+				w = image[propw];
+				h = image[proph];
+				x = (config.width / 2) - (image[propw] / 2);
+				y = (config.height / 2) - (image[proph] / 2);
+			} else if (image[propw] >= image[proph]) {
 				w = config.width;
-				h = image.height * (config.width / image.width);
+				h = image[proph] * (config.width / image[propw]);
 				y = (config.height / 2) - (h / 2);
 			} else {
 				h = config.height;
-				w = (image.width * (config.height / image.height)) >> 0;
+				w = (image[propw] * (config.height / image[proph])) >> 0;
 				x = (config.width / 2) - (w / 2);
 			}
 		}
@@ -142,6 +149,10 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 		var label = config.label || content;
 		self.html((label ? ('<div class="' + cls + '-label">{0}{1}:</div>'.format(config.icon ? '<i class="{0}"></i>'.format(config.icon.indexOf(' ') === -1 ? ('ti ti-' + config.icon) : config.icon) : '', label)) : '') + '<input type="file" accept="image/*" class="hidden" /><img src="{0}" class="img-responsive" alt="" />'.format(empty, config.width, config.height));
 		img = self.find('img');
+
+		img[0].crossOrigin = 'anonymous';
+		img[0].onerror = () => self.set('');
+
 		img.on('click', function() {
 			self.find('input').trigger('click');
 		});
@@ -198,15 +209,10 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 				};
 
 				img.crossOrigin = 'anonymous';
-				if (orient < 2) {
+				if (orient < 2)
 					img.src = reader.result;
-				} else {
-					SETTER('loading', 'show');
-					self.resetOrientation(reader.result, orient, function(url) {
-						SETTER('loading', 'hide', 500);
-						img.src = url;
-					});
-				}
+				else
+					self.resetOrientation(reader.result, orient, url => img.src = url);
 			};
 			reader.readAsDataURL(file);
 		});
@@ -215,17 +221,11 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 	self.upload = function(base64) {
 		if (base64) {
 			var data = (new Function('base64', 'filename', 'return ' + config.schema))(base64, name);
-			SETTER('loading', 'show');
 			var url = config.url.env(true);
-			AJAX((url.indexOf(' ') === -1 ? 'POST ' : '') + url, data, function(response, err) {
-				SETTER('loading', 'hide', 100);
-				if (err) {
-					SETTER('snackbar', 'warning', err.toString());
-				} else {
-					self.change(true);
-					self.set(config.map ? FN(config.map)(response) : response);
-				}
-			});
+			AJAX((url.indexOf(' ') === -1 ? 'POST ' : '') + url, data, ERROR(function(response) {
+				self.change(true);
+				self.set(config.map ? FN(config.map)(response) : response);
+			}));
 		}
 	};
 
@@ -303,6 +303,7 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 			} else
 				callback(canvas.toDataURL());
 		};
+
 		img.src = src;
 	};
 });

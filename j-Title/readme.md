@@ -13,16 +13,6 @@ __Methods__:
 
 - `component.rename(value)`
 
-__Usage__:
-
-```javascript
-SETTER('title/rename', 'Title');
-
-OR
-
-SET('common.name', 'Title');
-````
-
 ### Author
 
 - Pavol Danko <palodanko5@gmail.com>

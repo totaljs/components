@@ -41,8 +41,9 @@ __Configuration__:
 - `parent {String}` optional, a selector for obtaining of offset (can contain `parent` or jQuery selector for `.closest()` method)
 - `selectall {Boolean}` optional, selects all text
 - `cursor {String}` optional, a cursor position `beg` or `end` (default)
-- __NEW__: `notify {String}` optional, a path to `function(opt)` that will be notified after successful change
-- __NEW__: `prevent {Boolean}` optional, executes `.preventDefault()` and `.stopPropagation()` in the click event
+- `notify {String}` optional, a path to `function(opt)` that will be notified after successful change
+- `prevent {Boolean}` optional, executes `.preventDefault()` and `.stopPropagation()` in the click event
+- __NEW__: `align {String}` optional, sets a valeu for the text-align property for the floating mode only
 
 ### Author
 

@@ -5,6 +5,7 @@ COMPONENT('exec', function(self, config) {
 
 	self.readonly();
 	self.blind();
+	self.singleton();
 
 	self.register = function(fn) {
 		extensions.push(fn);
@@ -108,8 +109,9 @@ COMPONENT('exec', function(self, config) {
 			};
 		};
 
-		self.event('contextmenu', config.selector3 || '.exec3', fn('3', true));
-		self.event('dblclick', config.selector2 || '.exec2', fn('2'));
-		self.event('click', config.selector || '.exec', fn(''));
+		var el = $(document.body);
+		el.on('contextmenu', config.selector3 || '.exec3', fn('3', true));
+		el.on('dblclick', config.selector2 || '.exec2', fn('2'));
+		el.on('click', config.selector || '.exec', fn(''));
 	};
 });

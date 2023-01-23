@@ -1,6 +1,6 @@
 ## j-Exec
 
-The component has a similar functionality like `j-Click` but it can handle multiple clicks / elements. __RECOMMENDATION__: add this component into the `<body>` element.
+The component executes a method when the user clicks on the same element with the `exec`, `exec2`, or `exec3` class. More information is below. The component is a singleton, and it works for the whole HTML document.
 
 __Configuration__:
 - `selector` is a selector for capturing `click` (default: `.exec`)
