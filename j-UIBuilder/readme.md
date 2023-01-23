@@ -8,6 +8,7 @@ __Configuration__:
 
 - `app {String}` a link to the method/variable where will be stored `app` instance
 - `url {String}` a link to the app schema (must be in the `json` format)
+- `css {Boolean}` applies app style to the current element (default: `true`)
 - `id {String}` overwrites app ID
 
 __Methods__:
