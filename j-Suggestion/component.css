@@ -4,7 +4,7 @@
 .ui-suggestion-search input { width: 100%; background-color: #FFF; border: 0; font-size: 12px; outline: 0; padding: 0; margin: 0; line-height: 16px; outline: 0; }
 .ui-suggestion-search > div { margin-left: 35px; padding: 8px 10px 0 0; }
 .ui-suggestion-search > span { float: left; width: 16px; text-align: center; padding: 11px 0 0 12px; font-size: 12px; }
-.ui-suggestion-search .fa-times { color: red; cursor: pointer; }
+.ui-suggestion-search .ti-times { color: red; cursor: pointer; }
 .ui-suggestion-arrow { position: absolute; top: -10px; left: 107px; width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #E0E0E0; }
 .ui-suggestion-arrow:before { content: ' '; position: absolute; width: 0; height: 0; margin-top: 2px; margin-left: -8px; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 8px solid #FFF; }
 .ui-suggestion-visible { opacity: 1; transform: translate(0px,0px); }

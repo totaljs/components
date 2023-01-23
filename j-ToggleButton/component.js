@@ -16,7 +16,7 @@ COMPONENT('togglebutton', function(self, config, cls) {
 			case 'icontrue':
 			case 'iconfalse':
 				if (value.indexOf(' ') === -1)
-					config[key] = 'fa fa-' + value;
+					config[key] = 'ti ti-' + value;
 				break;
 		}
 	};

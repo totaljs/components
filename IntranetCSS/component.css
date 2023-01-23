@@ -2,18 +2,18 @@
 .ui-dark .bg-smoke { background-color: #282828; }
 
 .panel { background-color: #FFF; border-radius: var(--radius); border: 1px solid #E0E0E0; }
-.panel > .toolbar { float: right; margin: 10px 10px 0 10px; }
-.panel > .toolbar button { height: 22px; line-height: 20px; min-width: 60px; }
-.panel > label { display: block; padding: 10px 10px; border-bottom: 1px solid #E0E0E0; font-size: 15px; color: #000; font-weight: bold; border-radius: var(--radius) var(--radius) 0 0; }
+.panel > .toolbar { float: right; margin: 15px 20px 0 10px; }
+.panel > .toolbar button { height: 30px; line-height: 30px; min-width: 60px; }
+.panel > label { display: block; padding: 18px 20px; border-bottom: 1px solid #E0E0E0; font-size: 16px; color: #000; font-weight: bold; border-radius: var(--radius) var(--radius) 0 0; }
 .panel > label i { margin-right: 7px; }
-.panel .padding { padding: 15px 10px; }
+.panel .padding { padding: 18px var(--gap); }
 .ui-dark .panel { background-color: #202020; border-color: #404040; }
 .ui-dark .panel > label { border-bottom-color: #404040; color: #FFF; }
 
 .toolbar { height: 26px; }
 .toolbar button { outline: 0; background: #FFF; border: 1px solid #E0E0E0; border-left: 0; font-size: 11px; height: 26px; padding: 0 8px; color: #000; min-width: 80px; text-align: center; vertical-align: top; background-color: #FFF; line-height: 24px; float: left; text-align: center !important; }
 .toolbar button i { margin-right: 5px; }
-.toolbar button .fa-plus-circle, .toolbar button .fa-check-circle { color: #68B25B; }
+.toolbar button .ti-plus-circle, .toolbar button .ti-check-circle { color: #68B25B; }
 .toolbar button:first-child { border-left: 1px solid #E0E0E0; border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
 .toolbar button:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
 .toolbar button:hover { border-color: #D0D0D0; }
@@ -84,7 +84,7 @@
 .configuration > section:first-child > label { border-top: 0; border-radius: var(--radius) var(--radius) 0 0; }
 .configuration > section > article { border-top: 1px solid #E0E0E0; }
 .configuration > section:first-child article:first-child { border-top: 0; border-radius: var(--radius) var(--radius) 0 0; }
-.configuration .padding { padding: 15px 10px; }
+.configuration .padding { padding: var(--gap) 15px; }
 .configuration > .toolbar { float: right; margin: 10px 10px 0 10px; }
 .configuration > .toolbar button { height: 22px; line-height: 20px; min-width: 60px; }
 
@@ -160,3 +160,25 @@ p { font-size: 13px; color: #777; margin: 0 0 15px 0; }
 .detail figure > span i { width: 14px; margin-right: 5px; text-align: center; }
 .detail figure > div { margin-left: 150px; }
 .ui-dark .detail figure { border-top-color: #404040; }
+
+.divider { position: relative; margin: 25px 0; }
+.divider div { position: absolute; left: 0; top: -10px; right: 0; text-align: center; }
+.divider span { background-color: #F0F0F0; border-radius: var(--radius); padding: 5px 8px; font-size: 11px; color: #999; }
+.divider span i { margin-right: 5px; }
+
+.ui-dark .divider span { background-color: #404040; color: #A0A0A0; }
+
+.btn { border: 0; margin: 0; background-color: #E7E7E7; height: 40px; padding: 0 20px; color: #000; cursor: pointer; font-family: Arial; line-height: 34px; vertical-align: middle; outline: 0; font-size: 14px; text-decoration: none; transition: all 0.3s; width: 100%; }
+.btn i { width: 15px; text-align: center; margin-right: 5px; }
+.btn:hover { opacity: 0.8; }
+.btn[name='submit'] { font-weight: bold; background-color: var(--color); color: #FFF; }
+.btn:disabled { background-color: #F5F5F5 !important; border-color: #E0E0E0 !important; color: #A0A0A0 !important; cursor: not-allowed; box-shadow: none; opacity: 1 !important; }
+.btn:disabled i { color: #A0A0A0 !important; }
+.btn:first-child { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
+.btn:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
+.btn.small { height: 24px; padding: 0 8px; line-height: 14px; font-size: 12px; }
+
+.ui-dark .btn { background-color: #555; color: #F0F0F0; }
+.ui-dark .btn[name='submit'] { background-color: var(--color); color: #FFF; }
+.ui-dark .btn:disabled { background-color: #333 !important; border-color: #333 !important; color: #888 !important; }
+.ui-dark .btn:disabled i { color: #999 !important; }

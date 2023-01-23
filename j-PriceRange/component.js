@@ -18,7 +18,7 @@ COMPONENT('pricerange', function(self) {
 		step = (self.attrd('step') || '10').parseInt();
 		curr = self.attrd('currency') || '{0} &euro;';
 		self.toggle('ui-pricerange');
-		self.append('<div class="ui-pricerange-to ui-pricerange-price">{1}</div><div class="ui-pricerange-from ui-pricerange-price">{0}</div><div class="ui-pricerange-slider"><div class="ui-pricerange-slider-value"><span data-name="margin-right"><i class="fa fa-angle-right"></i></span><span data-name="margin-left"><i class="fa fa-angle-left"></i></span></div></div>'.format(curr.format(min.format(0)), curr.format(max.format(0))));
+		self.append('<div class="ui-pricerange-to ui-pricerange-price">{1}</div><div class="ui-pricerange-from ui-pricerange-price">{0}</div><div class="ui-pricerange-slider"><div class="ui-pricerange-slider-value"><span data-name="margin-right"><i class="ti ti-angle-right"></i></span><span data-name="margin-left"><i class="ti ti-angle-left"></i></span></div></div>'.format(curr.format(min.format(0)), curr.format(max.format(0))));
 
 		slider = self.find('.ui-pricerange-slider-value');
 		container = self.find('.ui-pricerange-slider');

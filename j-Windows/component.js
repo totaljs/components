@@ -1,4 +1,4 @@
-COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, config, cls) {
+COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var cache = {};
@@ -11,6 +11,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 	var lastWW = WW;
 	var lastWH = WH;
 	var resizer;
+	var position = [];
 
 	self.make = function() {
 
@@ -42,17 +43,23 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 		});
 
 		self.event('mousedown touchstart', cls2 + '-item', function() {
+
 			if (prevfocused) {
 				if (prevfocused[0] == this)
 					return;
 				prevfocused.rclass(cls + '-focused');
 			}
+
 			var el = $(this);
 			var id = el.attrd('id');
 			prevfocused = el.aclass(cls + '-focused');
 			var meta = cache[id];
 			if (meta && meta.meta.focus)
 				meta.meta.focus();
+
+			var index = position.indexOf(meta);
+			position.push(position.splice(index, 1)[0]);
+			self.reorder();
 
 		});
 
@@ -362,6 +369,11 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 			setTimeout2(self.ID + '_win_' + obj.meta.cachekey, wsavecallback, 500, null, obj);
 	};
 
+	self.reorder = function() {
+		for (var index = 0; index < position.length; index++)
+			position[index].container.css('z-index', config.zindex + index);
+	};
+
 	self.wadd = function(item) {
 
 		var hidden = '';
@@ -410,7 +422,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 
 		hidden = ishidden ? ' hidden' : '';
 
-		var el = $('<div class="{0}-item{2}" data-id="{id}" style="left:{x}px;top:{y}px;width:{width}px"><span class="{0}-resize {0}-resize-tl"></span><span class="{0}-resize {0}-resize-tr"></span><span class="{0}-resize {0}-resize-bl"></span><span class="{0}-resize {0}-resize-br"></span><div class="{0}-title"><i class="fa fa-times {0}-control" data-name="close"></i><i class="far fa-window-maximize {0}-control" data-name="maximize"></i><i class="far fa-window-minimize {0}-control" data-name="minimize"></i><i class="{1} {0}-control {0}-lastbutton" data-name="menu"></i><span>{{ title }}</span></div><div class="{0}-body" style="height:{height}px"></div></div>'.format(cls, config.menuicon, hidden).arg(item.offset).arg(item));
+		var el = $('<div class="{0}-item{2}" data-id="{id}" style="left:{x}px;top:{y}px;width:{width}px"><span class="{0}-resize {0}-resize-tl"></span><span class="{0}-resize {0}-resize-tr"></span><span class="{0}-resize {0}-resize-bl"></span><span class="{0}-resize {0}-resize-br"></span><div class="{0}-title"><i class="ti ti-times {0}-control" data-name="close"></i><i class="ti ti-maximize {0}-control" data-name="maximize"></i><i class="ti ti-underscore {0}-control" data-name="minimize"></i><i class="{1} {0}-control {0}-lastbutton" data-name="menu"></i><span>{{ title }}</span></div><div class="{0}-body" style="height:{height}px"></div></div>'.format(cls, config.menuicon, hidden).arg(item.offset).arg(item));
 		var body = el.find(cls2 + '-body');
 		var pos;
 
@@ -454,8 +466,8 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 			var builder = [];
 			for (var i = 0; i < item.buttons.length; i++) {
 				var btn = item.buttons[i];
-				var icon = btn.icon.indexOf(' ') === -1 ? ('fa fa-' + btn.icon) : btn.icon;
-				builder.push('<i class="fa fa-{1} {0}-control" data-name="{2}"></i>'.format(cls, icon, btn.name));
+				var icon = self.faicon(btn.icon);
+				builder.push('<i class="ti ti-{1} {0}-control" data-name="{2}"></i>'.format(cls, icon, btn.name));
 			}
 			builder.length && el.find(cls2 + '-lastbutton').before(builder.join(''));
 		}
@@ -524,6 +536,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 					break;
 
 				case 'maximize':
+
 					if (obj.meta.maximize) {
 						obj.meta.maximize();
 					} else {
@@ -604,11 +617,18 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 					break;
 
 				case 'focus':
+
 					obj.setcommand('resetminimize');
 					prevfocused && prevfocused.rclass(cls + '-focused');
 					prevfocused = obj.element.parent().aclass(cls + '-focused');
+
 					if (obj.meta.focus)
 						obj.meta.focus();
+
+					var index = position.indexOf(obj);
+					var item = position.splice(index, 1)[0];
+					position.push(item);
+					self.reorder();
 					break;
 				default:
 					if (obj.meta.buttons) {
@@ -638,6 +658,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 		obj.meta.data && data.push(obj);
 
 		self.append(el);
+		position.push(obj);
 
 		setTimeout(function(obj) {
 			obj.setcommand('focus');
@@ -648,6 +669,7 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 	self.wrem = function(item, notify) {
 		var obj = cache[item.id];
 		if (obj) {
+
 			var main = obj.element.closest(cls2 + '-item');
 
 			if (obj.meta.actions.hide) {
@@ -655,6 +677,11 @@ COMPONENT('windows', 'menuicon:fa fa-navicon;reoffsetresize:0', function(self, c
 				main.aclass('hidden');
 				self.wsave(obj);
 			} else {
+
+				var index = position.indexOf(obj);
+				if (index !== -1)
+					position.splice(index, 1);
+
 				obj.meta.destroy && obj.meta.destroy.call(obj);
 				main.off('*');
 				main.find('*').off('*');

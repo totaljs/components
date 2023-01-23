@@ -1,4 +1,4 @@
-COMPONENT('markdown', function (self) {
+COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 
 	self.readonly();
 	self.singleton();
@@ -6,6 +6,14 @@ COMPONENT('markdown', function (self) {
 	self.nocompile();
 
 	self.make = function() {
+
+		if (config.highlight) {
+			IMPORT('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js');
+			IMPORT('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css');
+		}
+
+		if (config.charts)
+			IMPORT('https://cdn.componentator.com/apexcharts.min@310.js');
 
 		// Remove from DOM because Markdown is used as a String prototype and Tangular helper
 		setTimeout(function() {
@@ -19,10 +27,10 @@ COMPONENT('markdown', function (self) {
 			var is = next.hclass('hidden');
 			var icons = el.find('i');
 			if (el.hclass('markdown-showsecret')) {
-				icons.eq(0).tclass('fa-unlock', !is).tclass('fa-lock', is);
-				icons.eq(1).tclass('fa-angle-up', !is).tclass('fa-angle-down', is);
+				icons.eq(0).tclass('ti-unlock', !is).tclass('ti-lock', is);
+				icons.eq(1).tclass('ti-angle-up', !is).tclass('ti-angle-down', is);
 			} else {
-				icons.eq(0).tclass('fa-minus', !is).tclass('fa-plus', is);
+				icons.eq(0).tclass('ti-minus', !is).tclass('ti-plus', is);
 				el.tclass('markdown-showblock-visible', !is);
 			}
 			el.find('b').html(el.attrd(is ? 'show' : 'hide'));
@@ -194,7 +202,7 @@ COMPONENT('markdown', function (self) {
 
 			var icon = value.substring(beg, end);
 			if (icon.indexOf(' ') === -1)
-				icon = 'fa fa-' + icon;
+				icon = 'ti ti-' + icon;
 			return value.substring(0, beg - 1) + '<i class="' + icon + '"></i>' + value.substring(end + 1);
 		}
 
@@ -228,7 +236,7 @@ COMPONENT('markdown', function (self) {
 					if (!t.$mdloaded) {
 						t.$mdloaded = 1;
 						var el = $(t);
-						el.parent().replaceWith('<div class="markdown-secret" data-show="{0}" data-hide="{1}"><span class="markdown-showsecret"><i class="fa fa-lock"></i><i class="fa pull-right fa-angle-down"></i><b>{0}</b></span><div class="hidden">'.format(opt.showsecret || 'Show secret data', opt.hidesecret || 'Hide secret data') + el.html().trim().markdown(opt.secretoptions, true) +'</div></div>');
+						el.parent().replaceWith('<div class="markdown-secret" data-show="{0}" data-hide="{1}"><span class="markdown-showsecret"><i class="ti ti-lock"></i><i class="ti pull-right ti-angle-down"></i><b>{0}</b></span><div class="hidden">'.format(opt.showsecret || 'Show secret data', opt.hidesecret || 'Hide secret data') + el.html().trim().markdown(opt.secretoptions, true) +'</div></div>');
 					}
 				}
 			}
@@ -248,7 +256,7 @@ COMPONENT('markdown', function (self) {
 				}
 			}
 
-			if (!opt.nochart) {
+			if (!opt.nochart && W.ApexCharts) {
 				arr = el.find('.lang-barchart');
 				for (var t of arr) {
 					if (!t.$mdloaded) {
@@ -346,16 +354,18 @@ COMPONENT('markdown', function (self) {
 				}
 			}
 
-			if (!opt.nocode && W.hljs) {
-				arr = el.find('.markdown-code');
-				for (var t of arr) {
-					if (!t.$mdloaded) {
-						t.$mdloaded = 1;
-						var sub = $(t).find('pre code');
-						for (var block of sub)
-							W.hljs.highlightBlock(block);
+			if (!opt.nocode && config.highlight) {
+				WAIT('hljs', function() {
+					arr = el.find('.markdown-code');
+					for (var t of arr) {
+						if (!t.$mdloaded) {
+							t.$mdloaded = 1;
+							var sub = $(t).find('pre code');
+							for (var block of sub)
+								W.hljs.highlightBlock(block);
+						}
 					}
-				}
+				});
 			}
 
 			arr = el.find('a');
@@ -597,7 +607,7 @@ COMPONENT('markdown', function (self) {
 						line = lines[i].substring(3).trim();
 						if (opt.formatting !== false)
 							line = formatline(line);
-						builder.push('<div class="markdown-block"><span class="markdown-showblock"><i class="fa fa-plus"></i>{0}</span><div class="hidden">'.format(line));
+						builder.push('<div class="markdown-block"><span class="markdown-showblock"><i class="ti ti-plus"></i>{0}</span><div class="hidden">'.format(line));
 					}
 					prev = '';
 					continue;
@@ -852,7 +862,7 @@ COMPONENT('markdown', function (self) {
 						}
 					}
 
-					builder.push('<li>' + tmpstr.trim().replace(/\[x\]/g, '<i class="fa fa-check-square green"></i>').replace(/\[\s\]/g, '<i class="far fa-square"></i>') + '</li>');
+					builder.push('<li>' + tmpstr.trim().replace(/\[x\]/g, '<i class="ti ti-check-square green"></i>').replace(/\[\s\]/g, '<i class="ti ti-square"></i>') + '</li>');
 
 				} else {
 					closeul();
@@ -871,4 +881,4 @@ COMPONENT('markdown', function (self) {
 
 	})();
 
-}, ['https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css']);
+});

@@ -4,8 +4,8 @@ Customizable search input.
 
 __Configuration__:
 
-- `searchicon` {String} search icon (default: `fa fa-search`)
-- `cancelicon` {String} cancel icon (default: `fa fa-times`)
+- `searchicon` {String} search icon (default: `ti ti-search`)
+- `cancelicon` {String} cancel icon (default: `ti ti-times`)
 - `align` {String} icon align (default: `left`)
 - `placeholder` {String} a plceholder
 - `autofocus` {Boolean/Number} enables auto-focus for non-mobile devices (number means a delay for auto-focus, default: `false`)

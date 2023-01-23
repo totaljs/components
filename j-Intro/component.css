@@ -6,7 +6,7 @@
 .ui-intro-figures { display: table; width: 100%; }
 .ui-intro .visible { display: table-cell; }
 .ui-intro figure { display: none; vertical-align: middle; text-align: center; width: 100%; height: 100%; overflow: hidden; }
-i.ui-intro-button { margin: 14px 5px 0; cursor: pointer; color: silver; font-size: 14px; }
+i.ui-intro-button { margin: 16px 5px 0; cursor: pointer; color: silver; font-size: 12px; }
 .ui-intro-pagination { padding: 10px; background-color: #F0F0F0; height: 60px; border-radius: 0 0 var(--radius) var(--radius); }
 .ui-intro-pagination .selected { color: var(--color); }
 .ui-intro-pagination button { float: right; border: 0; background-color: var(--color); color: #FFF; border-radius: var(--radius); font: normal 13px Arial; text-transform: uppercase; font-weight: bold; height: 40px; width: 150px; padding: 0; margin: 0; outline: 0; }

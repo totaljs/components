@@ -16,7 +16,7 @@
 .dg-btn-columns i { position: absolute; margin-left: -5px; top: 26px; }
 .dg-btn-columns:hover { background-color: #D9D9D9; color: #D9D9D9; }
 .dg-sorting { cursor: pointer; }
-.dg-sorting .fa-sort { color: gray; }
+.dg-sorting .ti-sort { color: gray; }
 .dg-hcol:first-child { border-left: 0; }
 .dg-resize { position: absolute; width: 10px; cursor: col-resize; height: 30px; border-right: 1px solid #D0D0D0; z-index: 2; }
 .dg-label { padding: 8px 8px 0; height: 30px; font-size: 12px; user-select: none; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
@@ -60,7 +60,7 @@
 .dg-pagination-pages { float: left; font-size: 12px; margin: 7px 0 0 10px; }
 .dg-visible { visibility: visible; }
 .dg-columns { position: absolute; right: 0; top: 35px; width: 182px; background-color: #FFF; z-index: 1; box-shadow: 0 5px 20px rgba(0,0,0,0.1); border-radius: var(--color); font-size: 12px; line-height: 16px; z-index: 6; color: #000; border: 1px solid #E0E0E0; user-select: none; }
-.dg-columns-checkbox > span { border-radius: var(--radius); border: 1px solid #D0D0D0; margin: 2px 5px 0 0; font-size: 8px; color: #FFF; width: 12px; height: 12px; line-height: 12px; float: left; text-align: center; }
+.dg-columns-checkbox > span { border-radius: 4px; border: 1px solid #D0D0D0; margin: 2px 5px 0 0; font-size: 8px; color: #FFF; width: 12px; height: 12px; line-height: 12px; float: left; text-align: center; }
 .dg-columns-checkbox > span i { visibility: hidden; }
 .dg-columns-checkbox-checked > span { background-color: #000; border-color: #000; }
 .dg-columns-checkbox-checked > span i { visibility: visible; }
@@ -75,7 +75,7 @@
 .dt-columns-reset { display: block; font-size: 11px; padding: 3px 0 8px 10px; cursor: pointer; color: #888888; }
 .dt-columns-reset:hover { text-decoration: underline; }
 .dg-hcol .dg-checkbox { margin-top: 0; }
-.dg-checkbox { width: 15px; height: 15px; border: 1px solid #D0D0D0; vertical-align: middle; font-size: 11px; text-align: center; padding: 1px 0 0 1px; background-color: #FFF; border-radius: var(--radius); margin: 5px auto 0; }
+.dg-checkbox { width: 15px; height: 15px; border: 1px solid #D0D0D0; vertical-align: middle; font-size: 11px; text-align: center; padding: 1px 0 0 1px; background-color: #FFF; border-radius: 4px; margin: 5px auto 0; }
 .dg-checkbox i { display: none; }
 .dg-checked { background-color: var(--color); border-color: var(--color); color: #FFF; }
 .dg-checked i { display: block; }
@@ -83,13 +83,13 @@
 .dg input:-ms-input-placeholder { color: #A0A0A0 !important; }
 .dg input::placeholder { color: #A0A0A0; opacity: 1; }
 .dg input::-ms-input-placeholder { color: #A0A0A0 !important; }
-.dg-col button { margin: 4px 0 0; border: 0; background-color: #FFF; font-size: 10px; color: #404040; height: 19px; border: 1px solid #E0E0E0; border-left: 0; padding: 0 3px; outline: 0; line-height: 10px; min-width: 20px; }
-.dg-col button:hover { background-color: var(--color); color: #FFF; }
-.dg-col button[name='remove'] { background-color: #ffe5dd; color: red; }
-.dg-col button[name='remove']:hover { background-color: red; color: #FFF; }
-.dg-col button:first-child { border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-left: 1px solid #E0E0E0; }
+.dg-col button { margin: 4px 0 0 1px; border: 0; background-color: #F0F0F0; font-size: 10px; color: #404040; height: 19px; border: 1px solid #F0F0F0; border-left: 0; padding: 0 3px; outline: 0; line-height: 10px; min-width: 20px; }
+.dg-col button:hover { background-color: var(--color); border-color: var(--color); color: #FFF; }
+.dg-col button[name='remove'] { background-color: #FFE5DD; border-color: #FFE5DD; color: red; }
+.dg-col button[name='remove']:hover { background-color: #E8483F; border-color: #E8483F; color: #FFF; }
+.dg-col button:first-child { border-top-left-radius: 3px; border-bottom-left-radius: 3px; margin-left: 0; }
 .dg-col button:last-child { border-top-right-radius: 3px; border-bottom-right-radius: 3px; }
-.dg-col button:disabled { background-color: #F0F0F0 !important; color: silver !important; cursor: not-allowed; }
+.dg-col button:disabled { background-color: #F0F0F0 !important; color: #A0A0A0 !important; cursor: not-allowed; }
 .dg-editable .dg-checkbox { position: relative; display: inline-block; margin-left: 5px; margin-right: 5px; }
 .dg-editable > div > .dg-checkbox { border-color: var(--color); }
 .dg-bool { height: 28px; }
@@ -103,7 +103,7 @@
 .dg-header-scrollbar { overflow-y: hidden; }
 .dg-header-scrollbar-container { height: 58px; overflow: hidden; }
 .dg-resize-line { position: absolute; width: 1px; background-color: #E0E0E0; z-index: 6; }
-.dg-colorize { padding: 2px 3px; border-radius: var(--radius); color: #FFF; }
+.dg-colorize { padding: 2px 3px; border-radius: 4px; color: #FFF; }
 .dg-fluid { border-right: 1px solid #E0E0E0; }
 .dg-noborder.dg-fluid { border-right: 0; }
 .dg-link { color: inherit; }
@@ -129,7 +129,7 @@
 .ui-dark .dg-filter-selected { background-color: #3c3a32 !important; color: #FFF; }
 .ui-dark .dg-filter-selected label { color: #FFF; }
 .ui-dark .dg { color: #E0E0E0; }
-.ui-dark .dg-sorting .fa-sort { color: #A0A0A0; }
+.ui-dark .dg-sorting .ti-sort { color: #A0A0A0; }
 .ui-dark .dg-filter { border-top-color: #353535; }
 .ui-dark .dg-resize { border-right-color: #353535; }
 .ui-dark .dg-filter-empty { border-top-color: #353535; height: 23px; background: repeating-linear-gradient(45deg,#252525,#252525 10px,#202020 10px,#202020 20px); }

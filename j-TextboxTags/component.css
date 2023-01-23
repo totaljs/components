@@ -1,13 +1,13 @@
 .ui-textboxtags { border: 1px solid #E0E0E0; padding: 3px; border-radius: 2px; position: relative; display: block; width: 100%; background-color: #FFFFFF; }
 .ui-textboxtags-label { margin-bottom: 3px; font-size: 12px; text-align: left; }
-.ui-textboxtags-label .fa { width: 14px; }
+.ui-textboxtags-label .ti { width: 14px; }
 .ui-textboxtags-required .ui-textboxtags-label { font-weight: bold; }
 .ui-textboxtags-required .ui-textboxtags-label:before { color: red; content: '***'; margin-right: 5px; }
 .ui-textboxtags-invalid .ui-textboxtags { border: 1px solid #E1A1A1 !important; background-color: #FFF3F3 !important; }
 .ui-textboxtags-values { min-height: 60px; }
 .ui-textboxtags-tag { padding: 3px 6px 3px 8px; line-height: 16px; vertical-align: middle; background-color: #4783EE; font-size: 12px; position: relative; display: inline-block; margin: 2px; border-radius: 2px; color: #FFFFFF; font-weight: bold; }
-.ui-textboxtags-tag .fa { font-size: 12px; color: #A8C3F5; margin-left: 5px; cursor: pointer; }
+.ui-textboxtags-tag .ti { font-size: 12px; color: #A8C3F5; margin-left: 5px; cursor: pointer; }
 .ui-textboxtags input { background-color: transparent; font-size: 12px; color: #000; width: auto; position: relative; display: inline-block; border: 0; width: 99px; outline: 0; margin: 2px 3px; padding: 3px 0; }
 .ui-textboxtags-container.ui-disabled .ui-textboxtags { background-color: #F0F0F0; }
 .ui-textboxtags-container.ui-disabled input { display: none; }
-.ui-textboxtags-container.ui-disabled .ui-textboxtags-tag .fa { display: none; }
+.ui-textboxtags-container.ui-disabled .ui-textboxtags-tag .ti { display: none; }

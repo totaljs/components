@@ -1,7 +1,8 @@
 ## j-Paper (BETA)
 
 - a very complex component
-- output is a simple `Object Array` structure
+- output is a simple `Object Array` structure:
+	- `[{ id: String, widget: String, newbie: Boolean, changed: Boolean, config: Object }]`
 - widgets repository: https://github.com/totaljs/parts/tree/main/paper
 
 __Configuration__:
@@ -39,16 +40,25 @@ __Configuration__:
 	- `opt.width {Number}` optional
 	- `opt.height {Number}` optional
 	- __IMPORTANT__: `callback` argument must be executed after upload with the `files {Array}` argument
+- `change {String}` a link to the `function(change)`
+	- `change.id {String}` identifier
+	- `change.block {String}` a block identifier
+	- `change.blockprev {String}` a previous block identifier
+	- `change.widget {String}` a widget id
+	- `change.type {String}` operation type (insert, update, remove)
+- `contextmenu {String}` a link to the `function(widget)` when the user pressed the right mouse button on the widget
+- `check {String}` a link to the `function(widget)` that decides whether to enable editing or not
 
 __Methods__:
 
-- `component.save(callback)` for saving content
+- `component.save(function(data, ischange) {` for saving content
 - `component.import(url or url_array, [callback])` for importing additional widgets
 
 __Good to know__:
 
 The component creates a global variable called `window.papercache {Object}` used by all `j-Paper` instances.
 
+- the component compares the content when you change data, so you can change data in real-time
 - the component assigns (in the form) `paper-yourwidgetname` class to every widget element
 - reserved HTML classes `readonly`, `widget`, `selected`
 - `htmlelement.$widget {Object}` contains a widget instance

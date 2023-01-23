@@ -1,5 +1,5 @@
-<a href="#timepicker">SHOW TIMEPICKER <span data-bind="form.date__html:value.format('HH\:mm\:ss')"></span></a>
-<div data---="timepicker"></div>
+<a href="#timepicker">SHOW TIMEPICKER <ui-bind path="form.date" config="html:value.format('HH\:mm\:ss')"></ui-bind></a>
+<ui-component name="timepicker"></ui-component>
 
 <script>
 	var form = {};

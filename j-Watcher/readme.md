@@ -1,12 +1,12 @@
 ## j-Watcher
 
-This component executes the code defined in `<script type="text/js"></script>` tag.
+This component executes the code defined in the `<script type="text/js"></script>` tag.
 
 ```html
 <script type="text/js">
 
-	// value {Object} a value binded according to the path
-	// path {String} a path where the value was binded
+	// value {Object} a value bound according to the path
+	// path {String} a path where the value was bonded
 	// type {Number} binding type (0: init, 1: manually, 2: by input, 3: default value)
 	// element {jQuery element} a current element
 	// datasource {Object}

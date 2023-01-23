@@ -1,0 +1,19 @@
+<div data---="LAZY period"></div>
+
+<button class="btn">Click</button>
+
+<script>
+
+    $(document).on('click', '.btn', function() {
+        var opt = {};
+        opt.element = $(this);
+        opt.align = 'left';
+        opt.callback = function(start, end) {
+            console.log(start);
+            console.log(end);
+        };
+        SETTER('period/show', opt);
+    });
+
+
+</script>

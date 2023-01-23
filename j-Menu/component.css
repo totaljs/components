@@ -41,3 +41,14 @@
 .ui-large .ui-menu li { font-size: 14px; padding: 7px 15px; }
 .ui-large.ui-menu li { font-size: 14px; padding: 7px 15px; }
 .ui-large .ui-menu-note { font-size: 13px; }
+
+@media (max-width: 600px) {
+    .ui-menu-mobile.ui-menu-style-1 .ui-menu-divider { margin: 9px 0; font-size: 13px !important; }
+    .ui-menu-mobile.ui-menu-style-1 li { margin: 0; padding: 7px 10px; list-style-type: none; font-size: 17px; cursor: pointer; }
+    
+    .ui-menu-mobile.ui-menu-style-2 li { margin: 2px 10px; padding: 8px 5px; border-radius: var(--radius); font-size: 17px; }
+    .ui-menu-mobile.ui-menu-style-2 .ui-menu-divider { margin: 9px 0; font-size: 13px !important; }
+    .ui-menu-mobile.ui-menu-style-2 .ui-menu-divider span { padding-left: 12px; }
+
+    .ui-menu-mobile .ui-menu-note { font-size: 12px; }
+}

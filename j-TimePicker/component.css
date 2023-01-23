@@ -6,7 +6,7 @@
 .ui-timepicker i { display: block; text-align: center; cursor: pointer; height: 20px; }
 .ui-timepicker i:hover { color: gray; }
 .ui-timepicker > div { float: left; width: 40px; }
-.ui-timepicker > div .fa-chevron-up { padding-top: 5px; }
+.ui-timepicker > div .ti-chevron-up { padding-top: 5px; }
 .ui-timepicker-hours { border-right: 1px solid #F0F0F0; }
 .ui-timepicker-seconds { border-left: 1px solid #F0F0F0; }
 .ui-timepicker-ampm { border-left: 1px solid #F0F0F0; }

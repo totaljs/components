@@ -39,7 +39,7 @@ __view.html__:
 	PLUGIN(function(exports) {
 
 		// Optional
-		// Is executed only one time
+		// Is executed only one-time
 		exports.init = function(el) {
 			// @el {jQuery element}
 		};

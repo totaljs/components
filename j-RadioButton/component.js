@@ -64,7 +64,7 @@ COMPONENT('radiobutton', 'inline:1', function(self, config, cls) {
 			var el = $(this);
 			var is = el.attrd('value') === (value == null ? null : value.toString());
 			el.tclass(cls + '-selected', is);
-			el.find('.fa').tclass('fa-circle-o', !is).tclass('fa-circle', is);
+			el.find('.ti').tclass('ti-circle', !is).tclass('ti-bull', is);
 		});
 	};
 

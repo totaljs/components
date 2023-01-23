@@ -24,13 +24,14 @@ var opt = {};
 // opt.large {Boolean}       : it will make menu bigger
 // opt.fixedwidth {Boolean}  : NEW: enables fixed width according to the target element
 // opt.offsetWidth {Number}  : increases width of the menu
+// opt.nomobile {Boolean}    : change size on mobile screen
 
 opt.element = YOUR_ELEMENT;
 // or if you want to use a fixed position:
 // opt.x {Number}            : `x` position
 // opt.y {Number}            : `y` position
 
-opt.items = ['Label', { name: 'Item 1', icon: 'print', class: 'custom_class_name' }, { name: 'Item 2', icon: 'home', note: 'A simple description for this item' }, '-', { name: 'Item 3', icon: 'far fa-envelope', children: [{ name: 'Submenu item 1', icon: 'cog' }, { name: 'Submenu item 2', icon: 'home' }] }, { name: 'Selected', icon: 'check-circle', selected: true }, { name: 'Item 4', icon: 'gear', disabled: true }];
+opt.items = ['Label', { name: 'Item 1', icon: 'print', class: 'custom_class_name' }, { name: 'Item 2', icon: 'home', note: 'A simple description for this item' }, '-', { name: 'Item 3', icon: 'ti ti-envelope', children: [{ name: 'Submenu item 1', icon: 'cog' }, { name: 'Submenu item 2', icon: 'home' }] }, { name: 'Selected', icon: 'check-circle', selected: true }, { name: 'Item 4', icon: 'gear', disabled: true }];
 // Item properties
 // name {String}             : Item name
 // icon {String}             : Icon

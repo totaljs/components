@@ -43,7 +43,7 @@ COMPONENT('pictureupload', 'extension:false;singlefile:true;type:png', function(
 
 	self.redraw = function() {
 		var label = config.label || content;
-		self.html((label ? ('<div class="' + cls + '-label">{0}{1}:</div>'.format(config.icon ? '<i class="fa fa-{0}"></i>'.format(config.icon) : '', label)) : '') + '<input type="file" accept="image/*" class="hidden" /><img src="{0}" class="img-responsive" alt="" />'.format(empty, config.width, config.height));
+		self.html((label ? ('<div class="' + cls + '-label">{0}{1}:</div>'.format(config.icon ? '<i class="ti ti-{0}"></i>'.format(config.icon) : '', label)) : '') + '<input type="file" accept="image/*" class="hidden" /><img src="{0}" class="img-responsive" alt="" />'.format(empty, config.width, config.height));
 		img = self.find('img');
 		img.on('click', function() {
 			self.find('input').trigger('click');

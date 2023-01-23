@@ -11,7 +11,7 @@ __Configuration__:
 - `label` {String} (optional) label (default is HTML content)
 - `autofocus` {Boolean} (optional) focuses the input (default: `false`)
 - `align` {String} (optional) `left` (default), `right` or `center`
-- `autofill` {Boolean} (optional) enables browser's autofill feature (default: `false`)
+- `autofill` {Boolean} (optional) enables the browser's autofill feature (default: `false`)
 - `placeholder` {String} (optional) adds a `placeholder` text into the input
 - `maxlength` {Number} (optional) sets a maximum length of chars
 - `minlength` {Number} (optional) sets a minimum length of chars
@@ -23,14 +23,14 @@ __Configuration__:
 - `disabled` {Boolean} (optional) disables this component
 - `error` {String} (optional) adds a `string` text under the input
 - `iconclick` {String} (optional) needs to contain a link to a function
-- `autocomplete` {String} (optional) needs to contain a link to a function, is triggered on `focus` event
+- `autocomplete` {String} (optional) needs to contain a link to a function, is triggered on the `focus` event
 - `spaces` {Boolean} (optional) enables spaces otherwise it removes them (default: `true`)
 - `readonly` {Boolean} optional, default `false`
 - __NEW__ `innerlabel` {Boolean} optional, enables inner label (default: `true`)
 
 __Interesting:__
 
-- `type:date` uses `calendar` component
+- `type:date` uses the `calendar` component
 
 ### Author
 

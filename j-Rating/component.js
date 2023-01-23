@@ -1,7 +1,7 @@
 COMPONENT('rating', function(self, config, cls) {
 
-	var iok = 'fa-star';
-	var ino = 'fa-star-o';
+	var iok = 'ti-star-alt';
+	var ino = 'ti-star-alt';
 
 	self.readonly();
 	self.nocompile && self.nocompile();
@@ -9,7 +9,7 @@ COMPONENT('rating', function(self, config, cls) {
 	self.make = function() {
 		var builder = [];
 		for (var i = 0; i < 5; i++)
-			builder.push('<i class="fa {0}"></i>'.format(ino));
+			builder.push('<i class="ti {0}"></i>'.format(ino));
 		self.aclass(cls);
 		self.html('{0}<div>{1}</div>'.format(self.html(), builder.join('')));
 		self.event('click', 'i', function() {

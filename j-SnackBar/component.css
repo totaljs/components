@@ -6,9 +6,9 @@
 .ui-snackbar-body i { margin-right: 5px; }
 .ui-snackbar-visible { transform: translate(0, 0); }
 .ui-snackbar-icon { float: left; font-size: 28px; border-right: 1px solid #505050; padding: 13px 0 0 0; width: 63px; height: 63px; text-align: center; color: #4285F4; }
-.ui-snackbar-icon .fa-times-circle { color: red; }
-.ui-snackbar-icon .fa-check-circle { color: #60CD4F; }
-.ui-snackbar-icon .fa-spinner { color: yellow; }
+.ui-snackbar-icon .ti-times-circle { color: red; }
+.ui-snackbar-icon .ti-check-circle { color: #60CD4F; }
+.ui-snackbar-icon .ti-spinner { color: yellow; }
 
 @media(max-width: 767px) {
 	.ui-snackbar > div { width: 100%; }

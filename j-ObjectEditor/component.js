@@ -7,7 +7,7 @@ COMPONENT('objecteditor', 'null:true;dateformat:yyyy-MM-dd HH\\:mm\\:ss', functi
 	var tstring = '<div class="ui-oe-string ui-oe-item"><div class="ui-oe-label"><span>{label}</span></div><div class="ui-oe-control"><input type="text" data-type="string" name="{path}" value="{value}" /></div></div>';
 	var tdate = '<div class="ui-oe-date ui-oe-item"><div class="ui-oe-label"><span>{label}</span></div><div class="ui-oe-control"><input type="text" data-type="date" name="{path}" value="{value}" /></div></div>';
 	var tnumber = '<div class="ui-oe-number ui-oe-item"><div class="ui-oe-label"><span>{label}</span></div><div class="ui-oe-control"><input type="text" data-type="number" name="{path}" value="{value}" /></div></div>';
-	var tboolean = '<div class="ui-oe-boolean ui-oe-item"><div class="ui-oe-label"><span>{label}</span></div><div class="ui-oe-control"><div data-name="{path}" class="ui-eo-checkbox{value}"><i class="fa fa-check"></i></div></div></div>';
+	var tboolean = '<div class="ui-oe-boolean ui-oe-item"><div class="ui-oe-label"><span>{label}</span></div><div class="ui-oe-control"><div data-name="{path}" class="ui-eo-checkbox{value}"><i class="ti ti-check"></i></div></div></div>';
 	var tnull = '<div class="ui-oe-null ui-oe-item"><div class="ui-oe-label"><span>{label}</span></div><div class="ui-oe-control">null</div></div>';
 	var tgroup = '<div class="ui-oe-group ui-oe-level-{level}"><div class="ui-oe-label">{name}</div><div class="ui-oe-items">{body}</div></div>';
 	var tarray = '<div class="ui-oe-array ui-oe-level-{level}"><div class="ui-oe-label"><b>Array:</b> {name}</div><div class="ui-oe-items">{body}</div></div>';

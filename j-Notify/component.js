@@ -8,7 +8,7 @@ COMPONENT('notify', 'timeout:3000;position:top-right', function(self, config, cl
 	self.readonly();
 	self.nocompile();
 
-	self.template = Tangular.compile('<div class="{0} {0}-{{ type }} {0}-hidden" data-id="{{ id }}"><figure><div class="{0}-dot"></div><div class="{0}-icon"><i class="fa {{ icon }}"></i></div><div class="{0}-message">{{ message | raw }}</div></figure></div>'.format(cls));
+	self.template = Tangular.compile('<div class="{0} {0}-{{ type }} {0}-hidden" data-id="{{ id }}"><figure><div class="{0}-dot"></div><div class="{0}-icon"><i class="ti {{ icon }}"></i></div><div class="{0}-message">{{ message | raw }}</div></figure></div>'.format(cls));
 	self.items = {};
 
 	self.make = function() {
@@ -127,7 +127,7 @@ COMPONENT('notify', 'timeout:3000;position:top-right', function(self, config, cl
 		// type 2: warning
 		// type 3: info
 
-		var obj = { id: Math.floor(Math.random() * 100000).toString(36), message: message, type: type, icon: icon || (type === 1 ? 'fa-check-circle' : type === 2 ? 'fa-times-circle' : 'fa-info-circle') };
+		var obj = { id: Math.floor(Math.random() * 100000).toString(36), message: message, type: type, icon: icon || (type === 1 ? 'ti-check-circle' : type === 2 ? 'ti-times-circle' : 'ti-info-circle') };
 		self.items[obj.id] = obj;
 		var el = $(self.template(obj));
 		if (istop)

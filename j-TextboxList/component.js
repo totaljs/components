@@ -12,7 +12,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 	self.getter = null;
 	self.nocompile && self.nocompile();
 
-	self.template = Tangular.compile(('<div class="{0}-item"><div>'  + (config.movable ? '<i class="fa fa-angle-up {0}-up"></i><i class="fa fa-angle-down {0}-down"></i>' : '') + '<i class="far fa-trash-o {0}-remove"></i></div><div><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder }}"{{ if disabled}} disabled="disabled"{{ fi }} value="{{ value }}" /></div></div>').format(cls));
+	self.template = Tangular.compile(('<div class="{0}-item"><div>'  + (config.movable ? '<i class="ti ti-angle-up {0}-up"></i><i class="ti ti-angle-down {0}-down"></i>' : '') + '<i class="ti ti-trash {0}-remove"></i></div><div><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder }}"{{ if disabled}} disabled="disabled"{{ fi }} value="{{ value }}" /></div></div>').format(cls));
 
 	self.configure = function (key, value, init, prev) {
 
@@ -59,7 +59,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 		var html = config.label || content;
 
 		if (config.icon)
-			icon = '<i class="{0}"></i>'.format(config.icon.indexOf(' ') === -1 ? ('fa fa-' + config.icon) : config.icon);
+			icon = '<i class="{0}"></i>'.format(self.faicon(config.icon));
 
 		empty.value = '';
 		self.tclass(cls + '-movable', !!config.movable);
@@ -164,7 +164,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 
 			if (config.limit && len && raw.length >= config.limit) {
 				if (!helper) {
-					base.after(('<div class="' + cls + '-helper"><i class="fa fa-warning" aria-hidden="true"></i> {0}</div>').format(config.error));
+					base.after(('<div class="' + cls + '-helper"><i class="ti ti-warning" aria-hidden="true"></i> {0}</div>').format(config.error));
 					helper = container.closest(cls2).find(cls2 + '-helper');
 				}
 				return;

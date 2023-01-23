@@ -46,7 +46,12 @@ COMPONENT('filereader', function(self) {
 				reader = null;
 				setTimeout(next, 500);
 			};
-			reader.readAsText(file);
+
+			if (self.opt.base64)
+				reader.readAsDataURL(file);
+			else
+				reader.readAsText(file);
+
 		}, function() {
 			SETTER('loading', 'hide', 1000);
 			input[0].value = '';

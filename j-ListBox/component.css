@@ -1,14 +1,14 @@
 .ui-listbox { border: 1px solid #E0E0E0; font-size: 14px; color: #000; position: relative; }
 .ui-listbox ul { list-style-type: none; width: 100%; height: 100%; overflow: auto; margin: 0; padding: 0; overflow-scrolling: touch; }
 .ui-listbox li { border-bottom: 1px solid #E0E0E0; padding: 5px 10px; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; overflow-scrolling: }
-.ui-listbox li .fa { width: 22px; font-size: 12px; border-right: 1px solid #E0E0E0; margin-right: 7px; color: #A0A0A0; }
+.ui-listbox li .ti { width: 22px; font-size: 12px; border-right: 1px solid #E0E0E0; margin-right: 7px; color: #A0A0A0; }
 .ui-listbox li:hover { background-color: #F0F0F0; }
 .ui-listbox-selected { background-color: #FFE7A4 !important; font-weight: bold; }
 .ui-listbox-search-empty { height: 34px; }
 .ui-listbox-search { border-bottom: 1px solid #E0E0E0; height: 34px; background-color: #FFF; position: absolute; width: 100%; box-shadow: 0 5px 10px rgba(0,0,0,0.05); }
 .ui-listbox-search input { width: 100%; outline: 0; background-color: #FFF; font: normal normal 12px Arial; border: 0; margin: 0; padding: 0; }
 .ui-listbox-search span { float: left; width: 30px; text-align: center; height: 30px; padding: 8px 0 0; font-size: 12px; color: #A0A0A0; }
-.ui-listbox-search .fa-times { color: red; cursor: pointer; }
+.ui-listbox-search .ti-times { color: red; cursor: pointer; }
 .ui-listbox-search div { margin-left: 30px; padding: 6px 10px 0 0; }
 .ui-listbox-invalid { border-color: #E1A1A1; background-color: #FFF3F3 !important; }
 .ui-listbox-invalid .ui-listbox-search { border-color: #E1A1A1; }

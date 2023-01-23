@@ -1,4 +1,4 @@
-<a href="#datepicker">SHOW DATEPICKER: <b data-bind="form.date__html:value.format('dd.MM.yyyy')"></b></a>
+<a href="#datepicker">SHOW DATEPICKER: <b data-bind="form.date__html:value?value.format('dd.MM.yyyy'):DEF.empty"></b></a>
 <div data---="datepicker__null__today:Set today;firstday:0"></div>
 
 <script>

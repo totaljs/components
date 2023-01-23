@@ -8,7 +8,7 @@ input:invalid { box-shadow: none; }
 .ui-textbox-input { display: table-cell; padding: 7px 2px 0 5px; }
 .ui-textbox-input input { font: normal 14px Arial; border: 0; outline: 0; color: #000; width: 100%; background-color: #FFF; margin: 0; padding: 0; appearance: none; border-radius: 0; vertical-align: top; line-height: 12px; }
 .ui-textbox-control { position: relative; vertical-align: middle; display: table-cell; text-align: center; white-space: nowrap; text-overflow: clip; border-left: 1px solid #E0E0E0; width: 32px; color: #000; }
-.ui-textbox .fa-times { color: red; cursor: pointer; }
+.ui-textbox .ti-times { color: red; cursor: pointer; }
 .ui-textbox-label { margin-bottom: 3px; font-size: 12px; text-align: left; }
 .ui-textbox-label i { margin-right: 3px; }
 .ui-textbox-innerlabel { position: relative; }
@@ -25,8 +25,8 @@ input:invalid { box-shadow: none; }
 .ui-textbox-invalid .ui-textbox { border-color: #E1A1A1 !important; background-color: #FFF3F3 !important; }
 .ui-textbox-invalid input { background-color: #FFF3F3 !important; }
 .ui-textbox-invalid .ui-textbox-control { border-color: #E1A1A1 !important; }
-.ui-textbox .fa-caret-up, .ui-textbox .fa-caret-down { display: block; line-height: 9px; cursor: pointer; }
-.ui-textbox .fa-calendar, .ui-textbox .fa-eye, .ui-textbox .fa-eye-slash { cursor: pointer; }
+.ui-textbox .ti-caret-up, .ui-textbox .ti-caret-down { display: block; line-height: 9px; cursor: pointer; }
+.ui-textbox .ti-calendar, .ui-textbox .ti-eye, .ui-textbox .ti-lock { cursor: pointer; }
 .ui-textbox-helper { margin-top: 8px; font-size: 11px; color: red; text-align: left; display: none; }
 .ui-textbox-helper-show { display: block; }
 .ui-textbox-container.ui-disabled .ui-textbox { background-color: #F0F0F0; cursor: not-allowed; color: gray; }
@@ -38,7 +38,7 @@ input:invalid { box-shadow: none; }
 .ui-dark .ui-textbox { border-color: #383838; background-color: #202020; }
 .ui-dark .ui-textbox-input input { color: #FFF; background-color: #202020; }
 .ui-dark .ui-textbox-control { border-left-color: #383838; color: #A0A0A0; }
-.ui-dark .ui-textbox .fa-times { color: red; }
+.ui-dark .ui-textbox .ti-times { color: red; }
 .ui-dark .ui-textbox-required .ui-textbox-label:before { color: red; }
 .ui-dark .ui-textbox-required .ui-textbox-control { border-color: #454545; }
 .ui-dark .ui-textbox-required .ui-textbox { border-color: #454545; }

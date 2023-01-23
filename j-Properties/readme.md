@@ -25,7 +25,7 @@ form.push({ group: 'Personal', label: 'Birth date', name: 'user.birth', type: 'd
 form.push({ group: 'Additional', label: 'Newsletter', name: 'user.newsletter', type: 'bool', value: true });
 form.push({ group: 'Additional', label: 'City', name: 'user.city', type: 'list', value: 2, items: 'items', dirsearch: 'Search city', dircustom: true });
 form.push({ group: 'Additional', label: 'Color', name: 'user.color', type: 'color', value: '#e73323' });
-form.push({ group: 'Additional', label: 'Icon', name: 'user.icon', type: 'fontawesome', value: 'fas fa-home' });
+form.push({ group: 'Additional', label: 'Icon', name: 'user.icon', type: 'fontawesome', value: 'ti ti-home' });
 form.push({ group: 'Additional', label: 'Emoji', name: 'user.emoji', type: 'emoji', value: '', show: 'n => n.age === 33' });
 ```
 

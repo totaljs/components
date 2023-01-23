@@ -125,7 +125,7 @@ COMPONENT('tour', 'skiptext:Skip;nexttext:Next;backtext:Back;endtext:End;escape:
 
 		item.title && builder.push('<div class="' + cls + '-info-header"><span>' + counter + '</span><div>' + item.title + '</div></div>');
 		builder.push('<div class="' + cls + '-info-body">' + item.text + '</div>');
-		builder.push('<div class="{0}-info-footer"><button class="close">{1}</button><button class="back"{2}><i class="fas fa-angle-left"></i>{3}</button><button class="next">{4}<i class="fas fa-angle-right {5}"></i></button></div>'.format(cls, config.skiptext, (lastindex === 0 ? ' disabled' : ''), config.backtext, islast ? config.endtext : config.nexttext, islast ? 'hidden' : ''));
+		builder.push('<div class="{0}-info-footer"><button class="close">{1}</button><button class="back"{2}><i class="ti ti-angle-left"></i>{3}</button><button class="next">{4}<i class="ti ti-angle-right {5}"></i></button></div>'.format(cls, config.skiptext, (lastindex === 0 ? ' disabled' : ''), config.backtext, islast ? config.endtext : config.nexttext, islast ? 'hidden' : ''));
 
 		$info.html(builder.join(''));
 

@@ -1,0 +1,19 @@
+<div data---="scanner"></div>
+<button class="button">Open Scanner</button>
+
+<script>
+
+	$(document).find('.button').on('click', function() {
+
+		var opt = {};
+		opt.size = '';
+		opt.points = [40, 30];
+
+		opt.callback = function(base64) {
+			console.log(base64);
+		}
+
+		SETTER('scanner/show', opt);
+	});
+
+</script>

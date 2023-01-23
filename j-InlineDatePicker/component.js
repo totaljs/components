@@ -206,7 +206,7 @@ COMPONENT('inlinedatepicker', 'today:Set today;firstday:0', function(self, confi
 	self.makehtml = function() {
 
 		var builder = [];
-		builder.push('<div class="{0}-header"><span class="{0}-next"><i class="fa fa-angle-right"></i></span><span class="{0}-prev"><i class="fa fa-angle-left"></i></span><div class="{0}-info"><span class="{0}-month">---</span><span class="{0}-year">---</span></div></div><div class="{0}-years hidden"></div><div class="{0}-months"></div><div class="{0}-body hidden"><div class="{0}-week">'.format(cls));
+		builder.push('<div class="{0}-header"><span class="{0}-next"><i class="ti ti-angle-right"></i></span><span class="{0}-prev"><i class="ti ti-angle-left"></i></span><div class="{0}-info"><span class="{0}-month">---</span><span class="{0}-year">---</span></div></div><div class="{0}-years hidden"></div><div class="{0}-months"></div><div class="{0}-body hidden"><div class="{0}-week">'.format(cls));
 		for (var i = 0; i < 7; i++)
 			builder.push('<div></div>');
 		builder.push('</div><div class="{0}-days">'.format(cls));
@@ -413,7 +413,7 @@ COMPONENT('inlinedatepicker', 'today:Set today;firstday:0', function(self, confi
 				var dt = date[i].getFullYear() + '-' + date[i].getMonth() + '-' + date[i].getDate();
 				var el = self.find(cls2 + '-date[data-date="{0}"]'.format(dt));
 				if (el.length && !el.find('i').length)
-					el.append('<i class="fa fa-circle"></i>');
+					el.append('<i class="ti ti-bull"></i>');
 			}
 
 		});

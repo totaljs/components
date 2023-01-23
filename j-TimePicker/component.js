@@ -1,6 +1,5 @@
-COMPONENT('timepicker', function(self, config) {
+COMPONENT('timepicker', function(self, config, cls) {
 
-	var cls = 'ui-timepicker';
 	var cls2 = '.' + cls;
 	var bindedevents = false;
 	var timeout = 0;
@@ -13,7 +12,7 @@ COMPONENT('timepicker', function(self, config) {
 	self.make = function() {
 
 		self.aclass(cls + ' hidden');
-		self.append('<div class="{0}-hours"><i class="fa fa-chevron-up"></i><input type="text" maxlength="2" /><i class="fa fa-chevron-down"></i></div><div class="{0}-minutes"><i class="fa fa-chevron-up"></i><input type="text" maxlength="2" /><i class="fa fa-chevron-down"></i></div><div class="{0}-seconds hidden"><i class="fa fa-chevron-up"></i><input type="text" maxlength="2" /><i class="fa fa-chevron-down"></i></div><div class="{0}-ampm hidden"><i class="fa fa-chevron-up"></i><span>AM</span><i class="fa fa-chevron-down"></i></div>'.format(cls));
+		self.append('<div class="{0}-hours"><i class="ti ti-chevron-up"></i><input type="text" maxlength="2" /><i class="ti ti-chevron-down"></i></div><div class="{0}-minutes"><i class="ti ti-chevron-up"></i><input type="text" maxlength="2" /><i class="ti ti-chevron-down"></i></div><div class="{0}-seconds hidden"><i class="ti ti-chevron-up"></i><input type="text" maxlength="2" /><i class="ti ti-chevron-down"></i></div><div class="{0}-ampm hidden"><i class="ti ti-chevron-up"></i><span>AM</span><i class="ti ti-chevron-down"></i></div>'.format(cls));
 
 		var fn = function(e) {
 			if (is && (e.type !== 'keydown' || e.which === 27))
@@ -29,7 +28,7 @@ COMPONENT('timepicker', function(self, config) {
 
 			if (code === 38 || code === 40) {
 				e.preventDefault();
-				$(this).parent().find('.fa-chevron-' + (code === 38 ? 'up' : 'down')).trigger('click');
+				$(this).parent().find('.ti-chevron-' + (code === 38 ? 'up' : 'down')).trigger('click');
 				return;
 			}
 
@@ -50,7 +49,7 @@ COMPONENT('timepicker', function(self, config) {
 			var el = $(this);
 			var parent = el.parent();
 			var cls = parent.attr('class');
-			var up = el.hclass('fa-chevron-up');
+			var up = el.hclass('ti-chevron-up');
 			var type = cls.substring(cls.lastIndexOf('-') + 1);
 			var val;
 
@@ -217,10 +216,15 @@ COMPONENT('timepicker', function(self, config) {
 	};
 
 	self.hide = function(sleep) {
-		if (!is)
+
+		if (!is) {
+			self.target = null;
 			return;
+		}
+
 		clearTimeout(timeout);
 		timeout = setTimeout(function() {
+
 			self.unbindevents();
 
 			if (self.opt) {

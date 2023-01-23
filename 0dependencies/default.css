@@ -42,13 +42,17 @@
 .red { color: #D63B32!important; }
 .blue { color: #377BB5!important; }
 .gray { color: gray!important; }
+.orange { color: #EC8632!important; }
 .green { color: #68B25B!important; }
+.color { color: var(--color)!important; }
 .center { text-align: center!important; }
 .right { text-align: right!important; }
 .fs11 { font-size: 11px; }
 .fs12 { font-size: 12px; }
 .noscrollbar::-webkit-scrollbar { display: none; }
 .noscrollbar { overflow-y: scroll; -ms-overflow-style: none; scrollbar-width: none; }
+ui-component, ui-plugin, ui-import { display: block; }
+.block { display: block; }
 
 .ui-scrollbar { overflow: hidden; }
 .ui-scrollbar-area { overflow: scroll; overflow-scrolling: touch;-webkit-overflow-scrolling: touch; }

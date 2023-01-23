@@ -57,19 +57,17 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', f
 	};
 
 	self.cancel = function() {
-		config.cancel && self.EXEC(config.cancel, self.hide);
-		self.hide();
+		if (config.cancel)
+			self.EXEC(config.cancel, self.hide);
+		else
+			self.hide();
 	};
 
 	self.hide = function() {
+		config.close && self.EXEC(config.close);
 		if (config.independent)
 			self.hideforce();
 		self.set('');
-	};
-
-	self.icon = function(value) {
-		var el = this.rclass2('fa');
-		value.icon && el.aclass(value.icon.indexOf(' ') === -1 ? ('fa fa-' + value.icon) : value.icon);
 	};
 
 	self.resize = function() {
@@ -105,7 +103,7 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', f
 
 	self.make = function() {
 
-		$(document.body).append('<div id="{0}" class="hidden {4}-container invisible"><div class="{4}" style="max-width:{1}px"><div data-bind="@config__text span:value.title__change .{4}-icon:@icon" class="{4}-title"><button name="cancel" class="{4}-button-close{3}" data-path="{2}"><i class="fa fa-times"></i></button><i class="{4}-icon"></i><span></span></div><div class="{4}-body"></div></div>'.format(self.ID, config.width || 800, self.path, config.closebutton == false ? ' hidden' : '', cls));
+		$(document.body).append('<div id="{0}" class="hidden {4}-container invisible"><div class="{4}" style="max-width:{1}px"><div class="{4}-title"><button name="cancel" class="{4}-button-close{3}" data-path="{2}"><i class="ti ti-times"></i></button><i class="{4}-icon hidden"></i><span></span></div><div class="{4}-body"></div></div>'.format(self.ID, config.width || 800, self.path, config.closebutton == false ? ' hidden' : '', cls));
 
 		var scr = self.find('> script');
 		self.template = scr.length ? scr.html().trim() : '';
@@ -157,18 +155,27 @@ COMPONENT('largeform', 'zindex:12;padding:30;scrollbar:1;scrolltop:1;style:1', f
 	};
 
 	self.configure = function(key, value, init, prev) {
-		if (!init) {
-			switch (key) {
-				case 'width':
-					if (value !== prev) {
-						self.find(cls2).css('max-width', value + 'px');
-						self.rsize();
-					}
-					break;
-				case 'closebutton':
-					self.find(cls2 + '-button-close').tclass('hidden', value !== true);
-					break;
-			}
+		switch (key) {
+			case 'title':
+				self.find(cls2 + '-title > span').text(value);
+				break;
+			case 'icon':
+				var icon = self.find(cls2 + '-icon');
+				icon.rclass2('fa ti');
+				if (value)
+					icon.aclass(self.faicon(value)).rclass('hidden');
+				else
+					icon.aclass('hidden');
+				break;
+			case 'width':
+				if (!init && value !== prev) {
+					self.find(cls2).css('max-width', value + 'px');
+					self.rsize();
+				}
+				break;
+			case 'closebutton':
+				!init && self.find(cls2 + '-button-close').tclass('hidden', value !== true);
+				break;
 		}
 	};
 

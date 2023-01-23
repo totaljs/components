@@ -10,7 +10,7 @@ COMPONENT('notifybar', 'timeout:5000', function(self, config, cls) {
 
 	self.make = function() {
 		self.aclass(cls + ' hidden');
-		self.append('<div class="{0}-controls"><button name="prev" disabled><i class="fa fa-angle-left"></i></button><button name="next" disabled><i class="fa fa-angle-right"></i></button></div><div class="{0}-body">OK</div>'.format(cls));
+		self.append('<div class="{0}-controls"><button name="prev" disabled><i class="ti ti-angle-left"></i></button><button name="next" disabled><i class="ti ti-angle-right"></i></button></div><div class="{0}-body">OK</div>'.format(cls));
 		self.event('click', cls2 + '-body', self.hide);
 		self.event('click', 'button', function() {
 			self[this.name]();
@@ -46,8 +46,8 @@ COMPONENT('notifybar', 'timeout:5000', function(self, config, cls) {
 		prevtype && self.rclass(cls + '-' + prevtype);
 		var msg = self.history[currentindex];
 
-		if (msg.body.indexOf('fa-') === -1)
-			msg.body = '<i class="fa fa-' + (msg.type === 1 ? 'check-circle' : msg.type === 2 ? 'warning' : 'info-circle') + '"></i>' + msg.body;
+		if (msg.body.indexOf('ti-') === -1)
+			msg.body = '<i class="ti ti-' + (msg.type === 1 ? 'check-circle' : msg.type === 2 ? 'warning' : 'info-circle') + '"></i>' + msg.body;
 
 		body.html(msg.body);
 		buttons[0].disabled = !self.history.length || currentindex === 0;

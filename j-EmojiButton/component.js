@@ -7,7 +7,7 @@ COMPONENT('emojibutton', 'default:#FFFFFF;align:left;position:top', function(sel
 
 	self.make = function() {
 		self.aclass(cls);
-		self.append('<span class="{0}-arrow"><i class="fa fa-angle-down"></i></span><div class="{0}-icon"></div>'.format(cls));
+		self.append('<span class="{0}-arrow"><i class="ti ti-angle-down"></i></span><div class="{0}-icon"></div>'.format(cls));
 		icon = self.find('.' + cls + '-icon');
 
 		self.event('click', function() {

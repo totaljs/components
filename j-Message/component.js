@@ -143,13 +143,13 @@ COMPONENT('message', 'button:OK;style:2', function(self, config, cls) {
 	self.content = function(classname, text, icon) {
 
 		if (icon.indexOf(' ') === -1)
-			icon = 'fa fa-' + icon;
+			icon = 'ti ti-' + icon;
 
 		!is && self.html('<div><div class="{0}-icon"><i class="{1}"></i></div><div class="{0}-body"><div class="{0}-text"></div><hr /><button>{2}</button></div></div>'.format(cls, icon, config.button));
 
 		self.rclass2(cls + '-').aclass(classname);
 		self.find(cls2 + '-body').rclass().aclass(cls + '-body');
-		is && self.find(cls2 + '-icon').find('.fa').rclass2('fa').aclass(icon);
+		is && self.find(cls2 + '-icon').find('.ti').rclass2('ti').aclass(icon);
 		self.find(cls2 + '-text').html(text);
 		self.rclass('hidden');
 		self.element.focus();

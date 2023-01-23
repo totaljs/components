@@ -4,8 +4,9 @@
 .ui-windows-item { position: absolute; border-radius: var(--radius); box-shadow: 0 10px 20px rgba(0,0,0,0.03); background-color: #FFF; z-index: 4; }
 .ui-windows-title { border: 1px solid #E0E0E0; border-radius: var(--radius) var(--radius) 0 0; height: 32px; }
 .ui-windows-control { float: right; width: 30px; text-align: center; border-left: 1px solid #E0E0E0; line-height: 30px; cursor: pointer; font-size: 13px; }
+i.ui-windows-control { transform: scale(1); font-size: 16px; }
 .ui-windows-control:hover { background-color: #F9F9F9; }
-.ui-windows-control.fa-times { color: red; border-radius: 0 var(--radius) 0 0; }
+.ui-windows-control.ti-times { color: red; border-radius: 0 var(--radius) 0 0; }
 .ui-windows-title span { cursor: default; line-height: 31px; display: block; margin-right: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 0 0 10px; font-weight: bold; }
 .ui-windows-nomove .ui-windows-title span { cursor: default; }
 .ui-windows-title span i { margin-right: 5px; }
@@ -13,12 +14,12 @@
 .ui-windows-moving .ui-windows-item { pointer-events: none; }
 .ui-windows-dragged { z-index: 6; pointer-events: unset !important; }
 .ui-windows-dragged .ui-windows-title { background-color: #FAFAFA; }
-.ui-windows-focused { z-index: 5; }
 .ui-windows-maximized { box-shadow: none; }
+.ui-windows-maximized .ui-windows-title .ui-windows-control.ti-maximize:before { content: '\ea01'; }
 .ui-windows-maximized .ui-windows-title { border-left: 0; border-right: 0; border-radius: 0; border-top: 0 }
 .ui-windows-maximized .ui-windows-control { height: 31px; }
 .ui-windows-maximized .ui-windows-body { border: 0; }
-.ui-windows-maximized .ui-windows-title .fa-window-maximize:before { content: '\f2d2'; }
+.ui-windows-maximized .ui-windows-title .ti-window:before { content: '\ea01'; }
 .ui-windows-minimized .ui-windows-body { display: none; }
 .ui-windows-nominimize .ui-windows-control[data-name='minimize'] { display: none; }
 .ui-windows-nomaximize .ui-windows-control[data-name='maximize'] { display: none; }

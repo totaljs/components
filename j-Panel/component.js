@@ -1,4 +1,4 @@
-COMPONENT('panel', 'width:350;icon:home;zindex:12;scrollbar:true;scrollbarY:true;margin:0;padding:20;closeicon:fa fa-times', function(self, config, cls) {
+COMPONENT('panel', 'width:350;icon:home;zindex:12;scrollbar:true;scrollbarY:true;margin:0;padding:20;closeicon:ti ti-times', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 
@@ -84,7 +84,7 @@ COMPONENT('panel', 'width:350;icon:home;zindex:12;scrollbar:true;scrollbarY:true
 
 		var scr = self.find('> script');
 		self.template = scr.length ? scr.html() : '';
-		$(document.body).append('<div id="{0}" class="hidden {5}-container{3}"><div class="{5}" style="max-width:{1}px"><div data-bind="@config__change .ui-panel-icon:@icon__html span:value.title" class="{5}-title"><button name="cancel" class="{5}-button-close{2}"><i class="{6}"></i></button><button name="menu" class="{5}-button-menu{4}"><i class="fa fa-ellipsis-h"></i></button><i class="{5}-icon"></i><span></span></div><div class="{5}-header"></div><div class="{5}-body"></div></div>'.format(self.ID, config.width, config.closebutton == false ? ' hidden' : '', config.bg ? '' : ' ui-panel-inline', config.menu ? '' : ' hidden', cls, config.closeicon));
+		$(document.body).append('<div id="{0}" class="hidden {5}-container{3}"><div class="{5}" style="max-width:{1}px"><div data-bind="@config__change .ui-panel-icon:@icon__html span:value.title" class="{5}-title"><button name="cancel" class="{5}-button-close{2}"><i class="{6}"></i></button><button name="menu" class="{5}-button-menu{4}"><i class="ti ti-ellipsis-h"></i></button><i class="{5}-icon"></i><span></span></div><div class="{5}-header"></div><div class="{5}-body"></div></div>'.format(self.ID, config.width, config.closebutton == false ? ' hidden' : '', config.bg ? '' : ' ui-panel-inline', config.menu ? '' : ' hidden', cls, config.closeicon));
 		var el = $('#' + self.ID);
 		var body = el.find(cls2 + '-body');
 

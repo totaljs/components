@@ -1,10 +1,11 @@
 .ui-form-noscroll, .ui-form-noscroll body { overflow: hidden; }
 .ui-form-container { width: 100%; position: fixed; left: 0; top: 0; bottom: 0; right: 0; background-color: rgba(230,233,237,0.8); z-index: 5; overflow-y: scroll; transform-style: preserve-3d; overflow-scrolling: touch; }
-.ui-form { background-color: #FFF; margin: 0 auto 30px; border-radius: var(--radius); box-shadow: 0 0 30px rgba(0,0,0,0.05); transform: translate(0, -500px); transition: all 0.2s; opacity: 0; }
+.ui-form { background-color: #FFF; margin: 0 auto 30px; border-radius: var(--radius); box-shadow: 0 2px 30px rgba(0,0,0,0.10); transform: translate(0, -500px); transition: all 0.2s; opacity: 0; }
 .ui-form-animate { transform: skewX(0deg); opacity: 1; }
 .ui-form .padding { padding: 15px; }
 .ui-form-title { padding: 18px 15px 18px 15px; font-size: 16px; user-select: none; color: #000; background-color: #FFF; border-bottom: 1px solid #E0E0E0; height: 58px; }
 .ui-form-title .ui-form-button-close { float: right; cursor: pointer; font-size: 18px; margin: -2px 0 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; width: 20px; padding: 0; }
+.ui-form-title .ui-form-button-close i { font-weight: bold; }
 .ui-form-title .ui-form-button-close:hover { transform: scale(1.2); }
 .ui-form-title > span { font-weight: bold; }
 .ui-form-title > i { margin-right: 7px; }

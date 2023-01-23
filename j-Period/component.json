@@ -1,0 +1,20 @@
+{
+	"datecreated": "2022-11-30T10:40:15.595Z",
+	"dateupdated": null,
+	"name": "j-Period",
+	"tags": [
+		"period",
+		"datepicker",
+        "date",
+        "calendar"
+	],
+	"color": "transparent",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Kirill Zlobin",
+	"email": "jsdevzk@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

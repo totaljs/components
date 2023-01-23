@@ -14,7 +14,7 @@ COMPONENT('searchbox', 'cleartype:0;keypress:0;autotrim:1', function(self, confi
 	self.make = function() {
 
 		self.aclass(cls);
-		self.append('<div class="{0}-placeholder"><i class="fa fa-search"></i><span>{1}</span></div><div class="{0}-input hidden"><span class="{0}-control"><i class="fa fa-times-circle"></i></span><span class="{0}-type"></span><div><input type="text" maxlength="100" /></div></div>'.format(cls, config.placeholder));
+		self.append('<div class="{0}-placeholder"><i class="ti ti-search"></i><span>{1}</span></div><div class="{0}-input hidden"><span class="{0}-control"><i class="ti ti-times-circle"></i></span><span class="{0}-type"></span><div><input type="text" maxlength="100" /></div></div>'.format(cls, config.placeholder));
 
 		els.type = self.find(cls2 + '-type');
 		els.placeholder = self.find(cls2 + '-placeholder');

@@ -18,7 +18,7 @@ __Configuration__:
 - `width {Number}` a picture width (required)
 - `height {Number}` a picture height (required)
 - `percentage {Number}` resizes a picture according to the percentage (then `width` and `height` aren't required)
-- `icon {String}` (optional) the label icon without `fa`, (default: `null`)
+- `icon {String}` (optional) the label icon without `ti`, (default: `null`)
 - `background {String}` (optional) a background color (default: `white`)
 - `schema {String}` prepared object for sending (default: `{file:base64,filename:filename}`, `base64` + `filename` is a value from preview)
 - `quality {Number}` JPEG quality (default: `90`)
@@ -29,6 +29,10 @@ __Configuration__:
 	- example: `value => value.id`
 - `empty {String}` a link to the empty image
 - `keeporiginal {Boolean}` keeps the original image if the dimension is the same as the width/height defined in the configuration (default: `false`)
+
+__Methods__:
+
+- `component.reupload()` it reuploads a current image value as a base64.
 
 ### Author
 

@@ -10,7 +10,7 @@
 .ui-oe-item:last-child .ui-oe-control { border-bottom: 0; }
 .ui-oe-label { width: 30%; float: left; font-weight: bold; }
 .ui-oe-label span { display: block; border-bottom: 1px solid #E0E0E0; line-height: 23px; }
-.ui-oe-label .fa { margin-right: 5px; }
+.ui-oe-label .ti { margin-right: 5px; }
 .ui-oe-control { border-bottom: 1px solid #E0E0E0; line-height: 0; }
 .ui-oe-null { height: 24px; }
 .ui-oe-null .ui-oe-label { width: 30%; float: left; font-weight: bold; }
@@ -31,8 +31,8 @@
 .ui-oe-boolean { height: 24px; }
 .ui-oe-boolean .ui-oe-control { margin-left: 30%; height: 24px; padding: 4px 0 0 3px; }
 .ui-oe-boolean .ui-eo-checkbox { width: 15px; height: 15px; background-color: #E0E0E0; margin: 0; border-radius: var(--radius); text-align: center; padding: 2px 0 0; cursor: pointer; color: #FFF; font-size: 10px; }
-.ui-oe-boolean .ui-eo-checkbox .fa { display: none; }
-.ui-oe-boolean .ui-eo-checkbox.checked .fa { display: block; }
+.ui-oe-boolean .ui-eo-checkbox .ti { display: none; }
+.ui-oe-boolean .ui-eo-checkbox.checked .ti { display: block; }
 .ui-oe-boolean .ui-eo-checkbox.checked { background-color: #4584F1; }
 
 .ui-dark .ui-oe { border-color: #404040; background-color: #252525; }

@@ -1,12 +1,12 @@
 <!-- REMOVE -->
-<div data-scope="model">
-	<div data---="input__?.name__required:true">Name</div>
+<ui-plugin path="model">
+	<ui-component name="input" path="?.name" config="required:true">Name</ui-component>
 	<br />
 	<br />
-	<div data---="validate__?">
+	<ui-component name="validate" path="?">
 		<button name="submit" disabled="disabled" onclick="show_me()">SUBMIT FORM</button>
-	</div>
-</div>
+	</ui-component>
+</ui-plugin>
 
 <style type="text/css">
 	button:disabled {

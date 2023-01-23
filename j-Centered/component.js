@@ -41,13 +41,13 @@ COMPONENT('centered', 'closebutton:1;closeesc:1;scrollbar:1;visibleY:0', functio
 
 		self.aclass(cls + '-container hidden invisible');
 		self.event('click', '[data-name="close"],[name="close"]', function() {
-			self.set('');
+			self.hide();
 		});
 
 		if (self.dom.children[0].nodeName === ('SCRI' + 'PT')) {
 			var html = self.dom.children[0].innerHTML;
 			self.makeforce = function() {
-				self.html('<span class="fas fa-times {0}-button{2}" data-name="close"></span><div class="{0}-content"><div class="{0}-body">{1}</div></div>'.format(cls, html, config.closebutton ? '' : ' hidden'));
+				self.html('<span class="ti ti-times {0}-button{2}" data-name="close"></span><div class="{0}-content"><div class="{0}-body">{1}</div></div>'.format(cls, html, config.closebutton ? '' : ' hidden'));
 				if (html.COMPILABLE())
 					COMPILE();
 				self.makeforce = null;
@@ -69,15 +69,20 @@ COMPONENT('centered', 'closebutton:1;closeesc:1;scrollbar:1;visibleY:0', functio
 				self.scrollbar = SCROLLBAR($(scroller), { visibleY: config.visibleY });
 
 			self.dom.appendChild(scroller);
-			self.element.prepend('<span class="fas fa-times {0}-button{1}" data-name="close"></span>'.format(cls, config.closebutton ? '' : ' hidden'));
+			self.element.prepend('<span class="ti ti-times {0}-button{1}" data-name="close"></span>'.format(cls, config.closebutton ? '' : ' hidden'));
 		}
 
 		config.closeoutside && self.find(cls2 + '-body' + (typeof(config.closeoutside) === 'string' ? (',' + config.closeoutside) : '')).on('mousedown touchstart', function(e) {
 			if (e.target === this)
-				self.set('');
+				self.hide();
 		});
 
 		self.on('resize2', self.resize);
+	};
+
+	self.hide = function() {
+		config.close && self.EXEC(config.close);
+		self.set('');
 	};
 
 	self.setter = function(value) {
@@ -96,8 +101,13 @@ COMPONENT('centered', 'closebutton:1;closeesc:1;scrollbar:1;visibleY:0', functio
 				config.closeesc && events.unbind();
 
 			self.tclass('hidden', !is);
-			self.resizeforce();
-			self.rclass('invisible');
+
+			if (is) {
+				self.resizeforce();
+				self.rclass('invisible');
+			} else if (config.close)
+				self.EXEC(config.close);
+
 			$('html').tclass(cls + '-noscroll', is);
 		}
 	};

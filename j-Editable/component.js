@@ -202,7 +202,7 @@ COMPONENT('editable', 'disabled:0;class:default', function(self, config, cls) {
 
 			var target = $(e.target);
 			if (opt.type === 'tags') {
-				if (target.hclass('fa') || target.hclass('remove')) {
+				if (target.hclass('ti') || target.hclass('remove')) {
 					var temp = GET(opt.path);
 					var index = target.parent().eq(0).index();
 					temp.splice(index, 1);
@@ -554,10 +554,10 @@ COMPONENT('editable', 'disabled:0;class:default', function(self, config, cls) {
 
 			changed[meta.path.substring(self.path.length + 1)] = 1;
 			config.changed && self.SEEX(config.changed, self.changed());
-			config.invalid && self.EXEC(config.invalid, el, false, meta);
+			config.error && self.EXEC(config.error, el, false, meta);
 			meta.invalid && self.EXEC(meta.invalid, el, false, meta);
 		} else {
-			config.invalid && self.EXEC(config.invalid, el, true, meta);
+			config.error && self.EXEC(config.error, el, true, meta);
 			meta.invalid && self.EXEC(meta.invalid, el, true, meta);
 			el.aclass((meta.required ? 'invalid ' : '') + 'changed');
 		}
@@ -669,9 +669,9 @@ COMPONENT('editable', 'disabled:0;class:default', function(self, config, cls) {
 
 			var el = self.find('.invalid');
 
-			if (config.invalid) {
+			if (config.error) {
 				for (var i = 0; i < el.length; i++)
-					self.EXEC(config.invalid, el[0], false, el[0].$editable);
+					self.EXEC(config.error, el[0], false, el[0].$editable);
 			}
 
 			el.rclass('invalid');

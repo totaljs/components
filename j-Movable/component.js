@@ -1,4 +1,4 @@
-COMPONENT('movable', function(self, config) {
+COMPONENT('movable', 'move:true', function(self, config) {
 
 	var events = {};
 	var draggable;
@@ -25,7 +25,8 @@ COMPONENT('movable', function(self, config) {
 		switch (e.type) {
 			case 'drop':
 
-				var parent = draggable.parentNode;
+				var parent = config.container ? $(draggable).closest(config.container)[0] : draggable.parentNode;
+
 				var a = draggable;
 				var b = e.target;
 				var ai = -1;
@@ -35,10 +36,12 @@ COMPONENT('movable', function(self, config) {
 				draggable = null;
 
 				while (true) {
+
 					if (b.parentNode === parent) {
 						is = true;
 						break;
 					}
+
 					b = b.parentNode;
 					if (b == null || b.tagName === 'HTML')
 						break;
@@ -57,12 +60,45 @@ COMPONENT('movable', function(self, config) {
 						break;
 				}
 
-				if (ai > bi)
-					parent.insertBefore(a, b);
-				else
-					parent.insertBefore(a, b.nextSibling);
+				var children;
 
-				config.exec && self.EXEC(config.exec, $(parent).find(config.selector), a, b);
+				var $b = $(e.target);
+				b = $b.filter(config.selector);
+
+				if (!b.length)
+					b = $b.closest(config.selector);
+
+				if (b.length)
+					b = b[0];
+				else
+					return;
+
+				if (config.move) {
+					if (ai > bi)
+						parent.insertBefore(a, b);
+					else
+						parent.insertBefore(a, b.nextSibling);
+
+					children = $(parent).find(config.selector).toArray();
+
+				} else {
+
+					children = $(parent).find(config.selector);
+
+					var tmp = [];
+					for (var i = 0; i < children.length; i++) {
+						var item = children[i];
+						if (item === a)
+							tmp.push(b);
+						else if (item === b)
+							tmp.push(a);
+						else
+							tmp.push(item);
+					}
+					children = tmp;
+				}
+
+				config.exec && self.EXEC(config.exec, children, a, b);
 				self.path && self.change(true);
 				break;
 
@@ -79,11 +115,10 @@ COMPONENT('movable', function(self, config) {
 	};
 
 	events.ondown = function(e) {
-		if (e.target.nodeName === 'INPUT' || e.target.nodeName === 'TEXTAREA') {
+		if (e.target.nodeName === 'INPUT' || e.target.nodeName === 'TEXTAREA')
 			draggable = null;
-			return;
-		}
-		draggable = this;
+		else
+			draggable = this;
 	};
 
 	self.destroy = function() {

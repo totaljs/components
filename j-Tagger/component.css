@@ -5,3 +5,4 @@
 .ui-tagger-fullwidth .ui-tagger-item { display: block; max-width: inherit; margin: 0 0 1px; }
 .ui-dark .ui-tagger-item i { background-color: #707070; }
 .ui-dark .ui-tagger-item { background-color: #404040; color: silver; }
+.ui-tagger-item .ti.ti-times { transform: scale(1); font-size: 12px; font-weight: bold; }

@@ -9,7 +9,7 @@ COMPONENT('view', 'cache:session', function(self, config, cls) {
 	self.readonly();
 
 	var replace2 = function(value) {
-		return '<div data-scope="' + path + '__isolated:1;init:?/init">' + value.replace('PLUGIN(function', 'PLUGIN(\'' + path + '\', function').replace(/~PATH~/g, path) + '</div>';
+		return '<div data-scope="' + path + '__isolated:1;init:?/init">' + ADAPT(path, '', value) + '</div>';
 	};
 
 	self.destroy = function() {
