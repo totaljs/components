@@ -6,7 +6,7 @@ __Configuration__:
 
 - `required` {Boolean} user needs to enter some tag (default: `false`)
 - `placeholder` {String} a placeholder for the input
-- `height` {Number} a control height in pixels, optional
+- `height` {Number} a controlled height in pixels, optional
 - `type` {String} target data type for stored values, it can be `array` (default) or `string`
 - `icon` {String} a label icon without `ti-`, e.g. `home`
 - `label` {String} a label (default: `innerHTML`)

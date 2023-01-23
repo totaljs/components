@@ -1,6 +1,6 @@
 ﻿## j-TextboxList
 
-- works with array
+- works with an array
 
 __Configuration__:
 
@@ -10,8 +10,8 @@ __Configuration__:
 - `maxlength` {Number} sets a maximum length of chars
 - `disabled` {Boolean} disables this component
 - `limit` {Number} sets a maximum length of lists
-- `error` {String} error message when limit is reached (default `You reach the maximum limit`)
-- `required` {Boolean} whether list is required (default `false`)
+- `error` {String} error message when a limit is reached (default `You reach the maximum limit`)
+- `required` {Boolean} whether a list is required (default `false`)
 - `type` {String} can be `email`, `url`, `currency`, `number`, `date`, `lower`, `upper`, `a-z` or empty (default)
 - __NEW__ `movable` {Boolean} enables changing of position for existing items
 

@@ -1,6 +1,6 @@
 ## j-ToggleBox
 
-ToggleBox can re-order or hidden items in `Array`. The component expects `Array`.
+ToggleBox can re-order or hide items in `Array`. The component expects `Array`.
 
 __Configuration__:
 
@@ -8,7 +8,7 @@ __Configuration__:
 - `text` {String} A property name for text (it needs to be `String`, default: `name`)
 - `hidden` {String} A property for show/hide (it needs to be `Boolean`, default: `hidden`)
 - `disabled` {Boolean} Can disable the control (default: `false`)
-- `replace` {Boolean} Can replace position of elements (default: `false`)
+- `replace` {Boolean} Can replace the position of elements (default: `false`)
 
 ### Author
 

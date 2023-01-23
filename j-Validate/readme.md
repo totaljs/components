@@ -9,10 +9,10 @@ __Configuration__:
 - `selector {String}` jQuery selector for disabling (default: `button[name="submit"]`)
 - `delay {Number}` a timeout for validation (default: `100`)
 - `flags {String}` flags for better validation, can contain `visible,hidden,enabled,disabled` components
-	- `enabled` validates all components which are enabled `input`, `textarea` or `select` elements
-	- `disabled` validates all components which are disabled `input`, `textarea` or `select` elements
-	- `hidden` validates all components which are hidden
-	- `visible` validates all components which are visible
+	- `enabled` validate all components which are enabled `input`, `textarea` or `select` elements
+	- `disabled` validate all components which are disabled `input`, `textarea` or `select` elements
+	- `hidden` validate all components which are hidden
+	- `visible` validate all components which are visible
 - `track {String}` can contain paths divided by the comma, and manual changing of each path (via `SET()`, `UPD()`, `INC()`, etc. methods) will evaluate the validation
 - `validonly {Boolean}` skips `dirty` state (default: `false`)
 - __NEW__ `changes {Boolean}` enables comparing changes only between the input model and the form (default: `false`)
