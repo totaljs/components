@@ -32,7 +32,7 @@ COMPONENT('listform', 'empty:---;default:1;', function(self, config, cls) {
 		if (footer && config.footertop)
 			self.append(tmp);
 
-		self.append('<div class="{0}-items"><div class="{0}-emptylabel">{1}</div></div>'.format(cls, config.empty));
+		self.append('<div class="{0}-container"><div class="{0}-emptylabel">{1}</div><div class="{0}-items"></div></div>'.format(cls, config.empty));
 
 		if (footer && !config.footertop)
 			self.append(tmp);

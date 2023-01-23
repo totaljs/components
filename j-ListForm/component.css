@@ -1,7 +1,7 @@
 .ui-listform-invalid .ui-listform-items { border-color: red; }
-.ui-listform-items { border: 1px solid #E0E0E0; border-radius: var(--radius); }
-.ui-listform-items .ui-listform-item:nth-child(1) { border-top-left-radius: var(--radius); border-top-right-radius: var(--radius); }
-.ui-listform-items .ui-listform-item:last { border-bottom-left-radius: var(--radius); border-bottom-right-radius: var(--radius); }
+.ui-listform-container { border: 1px solid #E0E0E0; border-radius: var(--radius); }
+.ui-listform-items .ui-listform-item:first-child { border-top-left-radius: var(--radius); border-top-right-radius: var(--radius); }
+.ui-listform-items .ui-listform-item:last-child { border-bottom-left-radius: var(--radius); border-bottom-right-radius: var(--radius); }
 .ui-listform-form-container { background-color: #F8F8F8; padding: 15px; }
 .ui-listform-form { border-radius: var(--radius); border: 1px solid #E0E0E0; background-color: #FFF; }
 .ui-listform-emptylabel { text-align: center; display: none; padding: 15px; font-size: 12px; color: gray; }
@@ -12,7 +12,7 @@
 .ui-disabled .ui-listform-item { cursor: not-allowed; color: gray; }
 .ui-listform-new button[name='remove'] { display: none; }
 
-.ui-dark .ui-listform-items { border-color: #404040; }
+.ui-dark .ui-listform-container { border-color: #404040; }
 .ui-dark .ui-listform-form-container { background-color: #282828; }
 .ui-dark .ui-listform-form { border-color: #404040; background-color: #232323; }
 .ui-dark .ui-listform-item { border-bottom-color: #404040; }
