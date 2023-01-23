@@ -1,20 +1,20 @@
 <div style="width:400px">
-	<div data---="textbox__form.name__required:true;placeholder:Your name;icon2:pencil;error:Please enter your name">Name</div>
+	<ui-component name="textbox" path="form.name" config="required:true;placeholder:Your name;icon2:pencil;error:Please enter your name">Name</ui-component>
 	<br />
-	<div data---="textbox__form.email__required:true;type:email;autofill:email;icon:envelope;error:E-mail must be in format email@domain.com">E-mail</div>
+	<ui-component name="textbox" path="form.email" config="required:true;type:email;autofill:email;icon:envelope;error:E-mail must be in format email@domain.com">E-mail</ui-component>
 	<br />
-	<div data---="textbox__form.password__type:password">Password</div>
+	<ui-component name="textbox" path="form.password" config="type:password">Password</ui-component>
 	<br />
-	<div data---="textbox__form.note">Note</div>
+	<ui-component name="textbox" path="form.note">Note</ui-component>
 	<br />
-	<div data---="textbox__form.phone__type:phone">Phone</div>
+	<ui-component name="textbox" path="form.phone" config="type:phone">Phone</ui-component>
 	<br />
-	<div data---="textbox__form.age__type:number;increment:true">Age</div>
+	<ui-component name="textbox" path="form.age" config="type:number;increment:true">Age</ui-component>
 	<br />
-	<div data---="textbox__form.search__type:search">Search</div>
+	<ui-component name="textbox" path="form.search" config="type:search">Search</ui-component>
 	<hr />
 	<h2>Inner label</h2>
-	<div data---="textbox__form.name__required:true;innerlabel:true;placeholder:Your name;icon2:pencil;error:Please enter your name">Name</div>
+	<ui-component name="textbox" path="form.name" config="required:true;innerlabel:true;placeholder:Your name;icon2:pencil;error:Please enter your name">Name</ui-component>
 </div>
 
 <script>

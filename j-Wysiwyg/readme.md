@@ -5,9 +5,9 @@
 __Configuration__:
 
 - `placeholder {String}` optional
-- `code {Boolean}` enables/disable word highlighting (default: `true`)
-- `links {Boolean}` enables/disable links (default: `true`)
-- `ul {Boolean}` enables/disable unordered list (default: `true`)
+- `code {Boolean}` enables/disables word highlighting (default: `true`)
+- `links {Boolean}` enables/disables links (default: `true`)
+- `ul {Boolean}` enables/disables unordered list (default: `true`)
 - `required {Boolean}` optional, enables "required" mode (default: `false`)
 
 ### Author

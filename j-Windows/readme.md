@@ -8,10 +8,10 @@
 
 __Configuration__:
 
-- `menuicon` {String} a menu icon in window title bar (default `ti ti-navicon`)
-- __NEW__ `reoffsetresize` {Boolean} all windows will be re-offset according to `main` window dimension (default: `true`)
+- `menuicon` {String} a menu icon in the window title bar (default `ti ti-navicon`)
+- __NEW__ `reoffsetresize` {Boolean} all windows will be re-offset according to the `main` window dimension (default: `true`)
 
-The `windows` component expects `Array` of objects.
+The `windows` component expects an `Array` of objects.
 
 ```javascript
 // Component declaration
@@ -25,7 +25,7 @@ var win = {
 	cachekey: 'WINDOW_ID',
 
 	// Positioning
-	// You can define specific display size and if the display size is not specified then the window tries to find a size for larger display
+	// You can define a specific display size and if the display size is not specified then the window tries to find a size for a larger display
 	html: 'THE CONTENT OF WINDOW', // or can be raw HTMLElement
 
 	offset: { x: 200, y: 100, width: 600, height: 400, minwidth: 200, minheight: 200, maxwidth: 1000, maxheight: 1000 }, // minwidth, maxwidth, maxheight, minheight are optional
@@ -36,7 +36,7 @@ var win = {
 	// Default settings
 	actions: { move: true, close: true, hide: true, resize: true, menu: false, minimize: true, maximize: true, autosave: false },
 	// GOOD TO KNOW:
-	// "undefined" close or "close:false" and "hide:true" doesn't destroy the instance of window (it will be hidden only)
+	// "undefined" close or "close:false" and "hide:true" don't destroy the instance of window (it will be hidden only)
 
 	// A window title
 	title: 'Title for the window',
@@ -54,11 +54,11 @@ var win = {
 		// @el {jQuery} a content of the window
 		// @this {Instance}
 
-		// this.meta {Object} a reference to window object
+		// this.meta {Object} a reference to the window object
 		// this.element {jQuery} a content element of the window
 		// this.container {jQuery} a main content element of the window
-		// this.main {Object} a reference to "Windows" component
-		// this.width {Number} a width of window
+		// this.main {Object} a reference to the "Windows" component
+		// this.width {Number} a width of the window
 		// this.height {Number} a height of the content of the window
 		// this.x {Number} offset X
 		// this.y {Number} offset Y

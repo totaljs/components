@@ -5,7 +5,7 @@
 
 __Configuration__:
 
-Config is same as [typed.js](https://github.com/mattboldt/typed.js#customization). The only difference is that all keys are lowercase. This is to maintain consistency with other components. The only one added configuration is `id`
+Config is the same as [typed.js](https://github.com/mattboldt/typed.js#customization). The only difference is that all keys are lowercase. This is to maintain consistency with other components. The only added configuration is `id`
 
 - `id` {String} (optional) set custom (css) id (default: generated)
 

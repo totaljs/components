@@ -5,7 +5,7 @@
 __Configuration__:
 
 - `seconds` {Boolean} optional, enables seconds (default: `false`)
-- `ampm` {Boolean} optional, enables 12 hours time (default: `false`)
+- `ampm` {Boolean} optional, enables 12 hours time format (default: `false`)
 
 The component must be called manually or works with `j-Input` component automatically. This component is a singleton.
 
@@ -19,7 +19,7 @@ var opt = {};
 // opt.offsetX {Number}    : adds X offset (default: 0)
 // opt.offsetY {Number}    : adds Y offset (default: 0)
 // opt.seconds {Boolean}   : shows seconds (default: false)
-// opt.ampm    {Boolean}   : shows 12 hours time (default: false)
+// opt.ampm    {Boolean}   : shows 12 hours time format (default: false)
 
 opt.value = new Date();
 // or
@@ -31,7 +31,7 @@ opt.callback = function(date) {
 	console.log(date);
 };
 
-// opt.close {Function} optional, this function can determine closing of TimePicker
+// opt.close {Function} optional, this function can determine the closing of TimePicker
 
 SETTER('timepicker', 'show', opt);
 ```
