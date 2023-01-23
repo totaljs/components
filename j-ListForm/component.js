@@ -23,7 +23,7 @@ COMPONENT('listform', 'empty:---;default:1;', function(self, config, cls) {
 		var tmp;
 
 		self.template = Tangular.compile(scr.eq(0).html());
-		form = '<div class="{0}-form-container hidden{2}"><ui-plugin name="{1}" config="isolated:1"><div class="{0}-form">{3}</div></ui-plugin></div>'.format(cls, self.ID, config.formclass ? (' ' + config.formclass) : '', scr.eq(1).html());
+		form = '<div class="{0}-form-container hidden{2}"><ui-plugin path="{1}" config="isolated:1"><div class="{0}-form">{3}</div></ui-plugin></div>'.format(cls, self.ID, config.formclass ? (' ' + config.formclass) : '', scr.eq(1).html());
 		tmp = scr.eq(2).html();
 		scr.remove();
 
