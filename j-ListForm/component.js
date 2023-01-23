@@ -1,4 +1,4 @@
-COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
+COMPONENT('listform', 'empty:---;default:1;', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var skip = false;
@@ -23,11 +23,20 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 		var tmp;
 
 		self.template = Tangular.compile(scr.eq(0).html());
-		form = '<div class="{0}-form-container hidden{2}" data-scope="{1}__isolated:1"><div class="{0}-form">{3}</div></div>'.format(cls, self.ID, config.formclass ? (' ' + config.formclass) : '', scr.eq(1).html());
+		form = '<div class="{0}-form-container hidden{2}"><ui-plugin name="{1}" config="isolated:1"><div class="{0}-form">{3}</div></ui-plugin></div>'.format(cls, self.ID, config.formclass ? (' ' + config.formclass) : '', scr.eq(1).html());
 		tmp = scr.eq(2).html();
 		scr.remove();
+
+		var footer = tmp ? '<div class="{0}-footer">{1}</div>'.format(cls, tmp) : '';
+
+		if (footer && config.footertop)
+			self.append(tmp);
+
 		self.append('<div class="{0}-items"><div class="{0}-emptylabel">{1}</div></div>'.format(cls, config.empty));
-		tmp && self.append('<div class="{0}-footer">{1}</div>'.format(cls, tmp));
+
+		if (footer && !config.footertop)
+			self.append(tmp);
+
 		container = self.find(cls2 + '-items');
 
 		var entersubmit = function() {
