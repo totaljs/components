@@ -5,7 +5,7 @@
 
 __Configuration__:
 
-- `icon {String}` home icon (default: `fa fa-home`)
+- `icon {String}` home icon (default: `ti ti-home`)
 - `exec {String}` path to the method `function(url, el)` for manual processing of links
 - `historyapi {Boolean}` enables redirecting via `REDIRECT()` (default `true`)
 - `style {Number}` supports two styles `1` classic (default), `2` with bigger padding and only with bottom border

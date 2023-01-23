@@ -1,10 +1,10 @@
 <div id="form">
     <div><input type="text" placeholder="press enter" /></div>
 </div>
-<div><button data---="click__doSubmit__enter:#form">SUBMIT</button></div>
+<div><button><ui-component name="click" path="doSubmit" config="enter:#form">SUBMIT</ui-component></button></div>
 <br />
-<div><button data---="click__user.name__value:Peter">SET VALUE user.name</button></div>
-<div data-bind="user.name__text"></div>
+<div><button><ui-component name="click" path="user.name" config="value:Peter">SET VALUE user.name</ui-component></button></div>
+<ui-bind path="user.name" config="text"></ui-bind>
 
 <script>
 	function doSubmit() {
