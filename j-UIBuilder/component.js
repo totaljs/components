@@ -1,4 +1,4 @@
-COMPONENT('uibuilder', function(self, config, cls) {
+COMPONENT('uibuilder', 'css:1', function(self, config, cls) {
 
 	self.make = function() {
 		self.aclass(cls);
@@ -12,6 +12,10 @@ COMPONENT('uibuilder', function(self, config, cls) {
 
 		data.id = config.id || self.ID;
 		UIBuilder.build(self.element, data, function(response) {
+
+			if (!config.css)
+				response.css = '';
+
 			response.component = self;
 			self.app = response;
 			config.app && self.SEEX(config.app, response);
