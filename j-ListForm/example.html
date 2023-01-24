@@ -9,7 +9,7 @@
 
 <div style="width:400px">
 
-	<div data---="listform__users__autofocus:1">
+	<ui-component name="listform" path="users" config="autofocus:1">
 
 		<!-- LIST RENDERING -->
 		<script type="text/html">
@@ -19,12 +19,12 @@
 		<!-- FORM RENDERING -->
 		<script type="text/html">
 			<div class="padding">
-				<div data---="input__?.name__required:1__''" class="m">Name</div>
-				<div data---="validation__?">
+				<ui-component name="input" path="?.name" config="required:1" default="''" class="m">Name</ui-component>
+				<ui-component name="validate" path="?">
 					<button name="submit"><i class="ti ti-save"></i>Save</button>
 					<button name="remove">Remove</button>
 					<button name="cancel">Cancel</button>
-				</div>
+				</ui-component>
 			</div>
 		</script>
 
@@ -34,9 +34,9 @@
 			<div style="margin-top:10px"><button name="create"><i class="ti ti-plus-circle green"></i>Create new</button></div>
 		</script>
 
-	</div>
+	</ui-component>
 	<hr />
-	<div data-bind="users__text:STRINGIFY(value)" style="font-family:monospace"></div>
+	<ui-bind path="users" config="text:STRINGIFY(value)" style="font-family:monospace"></ui-bind>
 
 </div>
 
