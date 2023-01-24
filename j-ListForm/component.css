@@ -19,3 +19,6 @@
 .ui-dark .ui-listform-selected { background-color: #282828; }
 .ui-dark .ui-disabled .ui-listform-item { color: #777; }
 .ui-dark .ui-listform-emptylabel { color: #777; }
+
+.ui-listform-item.highlight { background-color: rgba(0,0,0,0.1); }
+.ui-dark .ui-listform-item.highlight { background-color: rgba(255,255,255,0.1); }
