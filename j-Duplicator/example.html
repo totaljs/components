@@ -1,18 +1,18 @@
-<div data-bind="tabs__template__click span:choosetab">
+<ui-bind path="tabs" config="template;click span:choosetab" class="block">
 	<script type="text/html">
 		{{ foreach m in value }}
 			<span data-index="{{ $index }}" class="mr5 link">{{ $index + 1 }}</span>
 		{{ end }}
 	</script>
-</div>
+</ui-bind>
 
 <h2>Duplicator</h2>
 
-<div data---="duplicator__mytab__datasource:tabs" class="invisible">
+<ui-component name="duplicator" path="mytab" config="datasource:tabs" class="invisible">
 	<script type="text/html">
-		<div data---="input__?.name">Name</div>
+		<ui-component name="input" path="?.name">Name</ui-component>
 	</script>
-</div>
+</ui-component>
 
 <script>
 

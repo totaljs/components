@@ -13,20 +13,19 @@ This component appends `.scopename()` function to each item of Array for handlin
 ### Advanced templating
 
 ```html
-<div data---="duplicator__mytab__datasource:tabs" class="invisible">
+<ui-component name="duplicator" path="mytab" config="datasource:tabs" class="invisible">
 
 	<script type="text/html" data-id="PRODUCT">
-		<div data---="input__?.name">Name</div>
+		<ui-component name="input" path="?.name">Name</ui-component>
 	</script>
 
 	<script type="text/html" data-id="USER">
-		<div data---="input__?.age">Age</div>
+		<ui-component name="input" path="?.age">Age</ui-component>
 	</script>
 
 	<!-- DYNAMIC -->
 	<script type="text/html" data-id="ORDER" data-url="/templates/orders.html"></script>
-
-</div>
+</ui-component>
 
 <script>
 
