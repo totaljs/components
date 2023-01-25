@@ -1,9 +1,9 @@
 <div style="width:500px">
-	<div data---="detail__form"></div>
+	<ui-component name="detail" path="form"></ui-component>
 	<br />
 	<div>-- OR --</div>
 	<br />
-	<div data---="detail__model__style:2">
+	<ui-component name="detail" path="model" config="style:2">
 		<script type="text/plain">
 			[
 				{ name: 'First name', path: 'firstname', type: 'string' },
@@ -11,11 +11,11 @@
 				{ name: 'Age', path: 'age', type: 'number' }
 			]
 		</script>
-	</div>
+	</ui-component>
 	<br />
 	<div>-- OR FILTERED --</div>
 	<br />
-	<div data---="detail__model__style:3">
+	<ui-component name="detail" path="model" config="style:3">
 		<script type="text/plain">
 			[
 				// Will be displayed, look to show condition ("m" means "model")
@@ -25,9 +25,9 @@
 				{ name: 'Age', path: 'age', type: 'number', show: 'm=>m.type==2' }
 			]
 		</script>
-	</div>
+	</ui-component>
 	<br />
-	<div data---="detail__model__style:4">
+	<ui-component name="detail" path="model" config="style:4">
 		<script type="text/plain">
 			[
 				// Will be displayed, look to show condition ("m" means "model")
@@ -37,7 +37,7 @@
 				{ name: 'Age', path: 'age', type: 'number', show: 'm=>m.type==2' }
 			]
 		</script>
-	</div>
+	</ui-component>
 </div>
 
 <script>
