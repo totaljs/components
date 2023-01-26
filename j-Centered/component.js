@@ -81,7 +81,6 @@ COMPONENT('centered', 'closebutton:1;closeesc:1;scrollbar:1;visibleY:0', functio
 	};
 
 	self.hide = function() {
-		config.close && self.EXEC(config.close);
 		self.set('');
 	};
 
