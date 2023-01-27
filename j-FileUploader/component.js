@@ -65,12 +65,12 @@ COMPONENT('fileuploader', function(self) {
 		});
 	};
 
-	self.uploadfiles = function(files, callback) {
+	self.uploadfiles = function(files) {
 
 		if (files) {
 			for (var i = 0; i < files.length; i++) {
 				var filename = self.preparefilename(files[i].name);
-				self.opt.fd.append((self.opt.prefix || 'file{0}').format(self.opt.index++), files[i], filename);
+				self.opt.fd.append((self.opt.prefix || 'file{0}').format(self.opt.indexer++), files[i], filename);
 			}
 		}
 
@@ -96,7 +96,7 @@ COMPONENT('fileuploader', function(self) {
 	};
 
 	self.processimage = function(file, callback) {
-		name = self.preparefilename(file.name.replace(/\.(ico|png|jpeg|gif|svg|webp)$/, self.opt.background === 'transparent' ? '.png' : '.jpg'));
+		var name = self.preparefilename(file.name.replace(/\.(ico|png|jpeg|gif|svg|webp)$/, self.opt.background === 'transparent' ? '.png' : '.jpg'));
 		self.getorientation(file, function(orient) {
 			var reader = new FileReader();
 			reader.onload = function () {
