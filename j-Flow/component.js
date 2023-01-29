@@ -288,9 +288,11 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;markers:1;curvedlines:1;horizo
 			for (var i = 0; i < keys.length; i++) {
 				var key = keys[i];
 				tmp = self.cache[key];
-				tmp.el.rclass('invisible');
-				tmp.width = tmp.el.width();
-				tmp.instance.connections && self.reconnect(tmp);
+				if (tmp) {
+					tmp.el.rclass('invisible');
+					tmp.width = tmp.el.width();
+					tmp.instance.connections && self.reconnect(tmp);
+				}
 			}
 
 			self.find('.removed').remove();
