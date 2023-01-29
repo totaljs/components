@@ -250,6 +250,9 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;markers:1;curvedlines:1;horizo
 				el.css({ left: com.x, top: com.y });
 			}
 
+			if (!com.element)
+				com.element = el.find('.content').eq(0);
+
 			if (!com.connections)
 				com.connections = {};
 
@@ -1159,14 +1162,13 @@ EXTENSION('flow:map', function(self, config, cls) {
 			sel.aclass('hidden');
 
 			for (var key in self.cache) {
+				var cache = self.cache[key];
 				var instance = self.cache[key].instance;
-
 				var fx = instance.x;
 				var fy = instance.y;
-				var el = instance.element.closest('.component');
+				var el = cache.el;
 				var tx = instance.x + el.width();
 				var ty = instance.y + el.height();
-
 				if (fromX < fx && toX > tx && fromY < fy && toY > ty)
 					self.op.select(key, true);
 			}
