@@ -1,38 +1,42 @@
 <h2>Static tabs</h2>
-<ul class="tabmenu" data---="tabmenu__tab">
-	<li data-value="tab1">Tab 1</li>
-	<li data-value="tab2">Tab 2</li>
-	<li data-value="tab3">Tab 3</li>
-</ul>
+	<ui-component name="tabmenu" path="tab">
+		<ul class="tabmenu">
+			<li data-value="tab1">Tab 1</li>
+			<li data-value="tab2">Tab 2</li>
+			<li data-value="tab3">Tab 3</li>
+		</ul>
+	</ui-component>
 
-<div data-bind="tab__show:value==='tab1'" class="hidden">
-	TAB 1 content
-</div>
-<div data-bind="tab__show:value==='tab2'" class="hidden">
-	TAB 2 content
-</div>
-<div data-bind="tab__show:value==='tab3'" class="hidden">
-	TAB 3 content
-</div>
+	<ui-bind path="tab" config="show:value==='tab1'" class="block hidden">
+		TAB 1 content
+	</ui-bind>
+	<ui-bind path="tab" config="show:value==='tab2'" class="block hidden">
+		TAB 2 content
+	</ui-bind>
+	<ui-bind path="tab" config="show:value==='tab3'" class="block hidden">
+		TAB 3 content
+	</ui-bind>
 
-<br />
+	<br />
 
-<h2>Dynamic tabs</h2>
-<ul class="tabmenu" data---="tabmenu__tab__datasource:tabs">
-	<script type="text/html">
-		<li data-value="{{ value }}">{{ name }}</li>
-	</script>
-</ul>
+	<h2>Dynamic tabs</h2>
+	<ui-component name="tabmenu" path="tab" config="datasource:tabs">
+		<ul class="tabmenu">
+			<script type="text/html">
+				<li data-value="{{ value }}">{{ name }}</li>
+			</script>
+		</ul>
+	</ui-component>
 
-<div data-bind="tab__show:value==='tab1'" class="hidden">
-	Dynamic TAB 1 content
-</div>
-<div data-bind="tab__show:value==='tab2'" class="hidden">
-	Dynamic TAB 2 content
-</div>
-<div data-bind="tab__show:value==='tab3'" class="hidden">
-	Dynamic TAB 3 content
-</div>
+	<ui-bind path="tab" config="show:value==='tab1'" class="block hidden">
+		Dynamic TAB 1 content
+	</ui-bind>
+	<ui-bind path="tab" config="show:value==='tab2'" class="block hidden">
+		Dynamic TAB 2 content
+	</ui-bind>
+	<ui-bind path="tab" config="show:value==='tab3'" class="block hidden">
+		Dynamic TAB 3 content
+	</ui-bind>
 
 <script>
 	var tab = 'tab1';

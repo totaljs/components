@@ -11,7 +11,7 @@ var opt = {};
 
 // opt.placeholder {String}  : A placeholder and can be HTML (optional)
 // opt.icon {String}         : An icon (optional)
-// opt.hide {Function}       : Is executed when the StatusInput is hidding (optional)
+// opt.hide {Function}       : Is executed when the StatusInput is hiding (optional)
 // opt.validate {RegExp}     : A validator, must be RegExp or nullable (optional)
 // opt.valuel {String}       : A default value for the input (optional)
 // opt.callback {Function}   : A callback

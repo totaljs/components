@@ -1,13 +1,13 @@
-<div data---="LAZY tooltip"></div>
+<ui-component name="LAZY tooltip"></ui-component>
 
-<div data---="statsbarsimple__mystats">
+<ui-component name="statsbarsimple" path="mystats">
 	<script type="text/html">
 		{{ name }} {{ value | format(0) }} visitors / {{ percentage }}%
 	</script>
 	<script type="text/html">
 		Tooltip: {{ name }} {{ percentage }}%
 	</script>
-</div>
+</ui-component>
 
 <script>
 	var mystats = [{ name: 'Social', value: 40, color: '#649BD0' }, { name: 'Advert', value: 98, color: '#EF914E' }, { name: 'Search', value: 59, color: '#87C17E' }, { name: 'Direct', value: 76, color: '#9D9BC5' }];
