@@ -1,8 +1,8 @@
-<div data---="directory"></div>
+<ui-component name="directory"></ui-component>
 
 <div style="width:500px;height:300px">
-	<div data---="importcsv___output__datasource:data;keys:firstname=First name,lastname=Last name,email=Email;skipfirst:0"></div>
-	<div data-bind="output__html b:value ? value.length : 0" class="help">Total items for import: <b>0</b></div>
+	<ui-component name="importcsv" path="output" config="datasource:data;keys:firstname=First name,lastname=Last name,email=Email;skipfirst:0"></ui-component>
+	<ui-bind path="output" config="html b:value ? value.length : 0" class="block help">Total items for import: <b>0</b></ui-bind>
 </div>
 
 <script>
