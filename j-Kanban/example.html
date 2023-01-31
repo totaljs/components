@@ -3,7 +3,7 @@
 	.ui-dark .caption { border-bottom-color: #404040; }
 </style>
 
-<div data---="kanban__items__parent:window;move:onmoveitem;margin:50">
+<ui-component name="kanban" path="items" config="parent:window;move:onmoveitem;margin:50">
 
 	<!-- Group header rendering -->
 	<script type="text/html">
@@ -14,7 +14,7 @@
 	<script type="text/html">
 		<div>{{ name }}</div>
 	</script>
-</div>
+</ui-component>
 
 <script>
 

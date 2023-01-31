@@ -1,4 +1,4 @@
-<div data---="listmenu__listmenu.selected__datasource:listmenu.datasource" class="listmenu">
+<ui-component name="listmenu" path="listmenu.selected" config="datasource:listmenu.datasource" class="listmenu">
 	<script type="text/html">
 		{{ if id && id !== '-' }}
 			<a href="#">{{ name }}</a>
@@ -6,7 +6,7 @@
 			<hr />
 		{{ fi }}
 	</script>
-</div>
+</ui-component>
 
 <script>
 
