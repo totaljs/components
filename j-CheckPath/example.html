@@ -1,11 +1,11 @@
-<div data---="checkpath"></div>
+<ui-component name="checkpath"></ui-component>
 
-<div data-scope="common">
+<ui-plugin path="common">
 	<div class="padding">
-		<div data---="input__?.title" class="m">Title</div>
-		<div data-bind="?.title__html__empty:---"></div>
+		<ui-component name="input" path="?.title" class="m">Title</ui-component>
+		<ui-bind path="?.title" config="html;empty:---" class="block"></ui-bind>
 	</div>
-</div>
+</ui-plugin>
 
 <script>
 
