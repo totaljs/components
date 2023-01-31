@@ -1,14 +1,14 @@
-<div data---="LAZY loading"></div>
-<div data---="LAZY message"></div>
+<ui-component name="LAZY loading"></ui-component>
+<ui-component name="LAZY message"></ui-component>
 
 <!-- REMOVE -->
-<div data---="textbox__model.name__required:true">Name</div>
+<ui-component name="textbox" path="model.name" config="required:true">Name</ui-component>
 <br />
 
 <!-- VALIDATION -->
-<div data---="submit__model__url:POST /submit/">
+<ui-component name="submit" path="model" config="url:POST /submit/">
 	<button name="submit" disabled="disabled">SUBMIT FORM</button>
-</div>
+</ui-component>
 
 <style type="text/css">
 	button:disabled {

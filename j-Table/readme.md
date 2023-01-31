@@ -1,7 +1,7 @@
 ## j-Table
 
 - please try to understand the functionality
-- `j-Table` is very very very simple alternative to `j-DataGrid` targeted for UI
+- `j-Table` is a very very very simple alternative to `j-DataGrid` targeted for UI
 - `data-source` expects `Array` or `Object` with `{ page: 1, pages: 10, limit: 50, items: [], count: 1000 }`
 
 __Configuration__:
@@ -16,11 +16,11 @@ __Configuration__:
 - `border` {Boolean} enables border (default: `false`)
 - `scrollbar` {Boolean} enables custom scrollbar (default: `false`) + important: `height` must be specified
 - `height` {Number/String} height of grid or can contain selector `window`, `parent` or custom selector `.ui-viewbox-body`
-- `paginate` {String} a link to `function(model)` for performing of pagination `{ page: 1, limit: 10, sort: [] }`
+- `paginate` {String} a link to `function(model)` for performing pagination `{ page: 1, limit: 10, sort: [] }`
 - `redraw` {String} a link to function, it's evaluated when the table is redrawing
 - `filter` {String} a link to function, it's evaluated before the table is rendering
 - `dblclick` {String} a link to function, it's evaluated when the user performs double-click
-- `datasource` {String} path to data-source (for other extra data in template. Usage: `{{ $.data.something }}`)
+- `datasource` {String} path to data-source (for other extra data in the template. Usage: `{{ $.data.something }}`)
 - `click` {String} a path to `function(button_name, row, button_element)`, is executed when the user will click on the button
 - `flat` {Boolean} removes padding in cells (default: `false`)
 - __NEW__ `noborder` {Boolean} removes border around (default: `false`)
@@ -41,7 +41,7 @@ __HTML definition__:
 		data-align="TD1,TD2,TD3"     : column align, optional (0: left, 1: center, 2: right)
 		data-type="TYPE"             : can be "detail" (Tangular template) or "empty" (empty is rendered when the Array is empty)
 		data-display="MD,XS"         : can contain display types "LG" large, "MD" medium, "SM" small, "XS" extra small
-		data-sort="name,,price"      : enables sorting, can contain name of fields (a column with empty value will have disabled sorting)
+		data-sort="name,,price"      : enables sorting, can contain the name of fields (a column with empty value will have disabled sorting)
 	-->
 	<script type="text/html" data-size="0,150px,50px" data-head="Name,Created,Opt" data-align="0,0,1" data-sort="1">
 		<tr>

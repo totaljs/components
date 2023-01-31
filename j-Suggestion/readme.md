@@ -19,7 +19,7 @@ Method: `component.show(orientation, targetElement, [items/function(search, next
 Method: `component.hide()`
 
 __Attributes__:
-- `targetElement` can contain `data-options="Name 1|ti-building|Value 1;Name 2|ti-github|Value 2;"` attribut with all items of the context menu.
+- `targetElement` can contain `data-options="Name 1|ti-building|Value 1;Name 2|ti-github|Value 2;"` attribute with all items of the context menu.
 
 __Configuration__:
 - `placeholder` - a placeholder for the search input

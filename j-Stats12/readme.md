@@ -5,7 +5,7 @@ __Configuration__:
 - `height {Number}` a height of chart (default: `120`)
 - `max {Number}` a maximal hourly value (default: `undefined`)
 - `border {Boolean}` enables border (default: `true`)
-- `highlight {Boolean}` highlights current hour (default: `false`)
+- `highlight {Boolean}` highlights the current hour (default: `false`)
 
 ### Author
 

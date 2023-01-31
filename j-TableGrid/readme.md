@@ -1,4 +1,4 @@
-The component makes a simple table grid (composed from `div` elements) divided by a simple border that you can modify.
+The component makes a simple table grid (composed of `div` elements) divided by a simple border that you can modify.
 
 __Configuration__:
 
@@ -6,8 +6,8 @@ __Configuration__:
 - `countxs {Number}` items per row for mobile display
 - `countsm {Number}` items per row for small display
 - `countmd {Number}` items per row for medium display
-- `countlg {Number}` items per row for large display
-- `parent {String}` for obtaining of size (default: `window`)
+- `countlg {Number}` items per row for a large display
+- `parent {String}` for obtaining size (default: `window`)
 - `margin {Number}` a vertical margin (default: `0`)
 - `scrollbar {Boolean}` enables custom scrollbar (default: `false`)
 - `fill {Boolean}` fills the grid with empty rowsm need to define `row` and `scrollbar`
@@ -16,7 +16,7 @@ __Configuration__:
 - `rowsm {Number}` a default row height for small display (default: `0`)
 - `rowmd {Number}` a default row height for medium display (default: `0`)
 - `rowlg {Number}` a default row height for large display (default: `0`)
-- `scrolltop {Boolean}` scrolls to top after change data (default: `true`)
+- `scrolltop {Boolean}` scrolls to the top after change data (default: `true`)
 
 
 __Classes__:
