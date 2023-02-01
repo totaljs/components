@@ -1,18 +1,18 @@
-<div data---="LAZY directory"></div>
-<div data---="LAZY colorpicker"></div>
-<div data---="LAZY faicons"></div>
-<div data---="LAZY datepicker"></div>
-<div data---="LAZY timepicker"></div>
-<div data---="LAZY emoji"></div>
-<div data---="LAZY menu"></div>
+<ui-component name="LAZY directory"></ui-component>
+<ui-component name="LAZY colorpicker"></ui-component>
+<ui-component name="LAZY faicons"></ui-component>
+<ui-component name="LAZY datepicker"></ui-component>
+<ui-component name="LAZY timepicker"></ui-component>
+<ui-component name="LAZY emoji"></ui-component>
+<ui-component name="LAZY menu"></ui-component>
 
 <div style="width:600px;padding:20px;background-color:#F0F0F0">
 
-	<div data---="properties2__form" class="m"></div>
-	<div data---="properties2__form2__style:2" class="m"></div>
+	<ui-component name="properties2" path="form" class="m"></ui-component>
+	<ui-component name="properties2" path="form2" config="style:2" class="m"></ui-component>
 
 	<!-- PERSISTENT MODE -->
-	<div data---="properties2__form3__style:2">
+	<ui-component name="properties2" path="form3" config="style:2">
 		<script type="text/plain">
 			[
 				{ group: 'Personal', label: 'First name', name: 'firstname', type: 'string',transform: 'capitalize', note: 'Type your name' },
@@ -20,7 +20,7 @@
 				{ group: 'Personal', label: 'Token', name: 'token', type: 'string', placeholder: 'String', camouflage: true }
 			]
 		</script>
-	</div>
+	</ui-component>
 
 </div>
 
