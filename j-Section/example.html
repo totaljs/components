@@ -2,13 +2,13 @@
 	body { padding: 0; margin: 0; overflow: hidden; }
 </style>
 
-<div data---="section__common.section__parent:window;scrollbar:1__''">
+<ui-component name="section" path="common.section" config="parent:window;scrollbar:1" default="''">
 
 	<section class="hidden invisible" data-if="1" data-title="Section 1">
 		<div class="padding">
 			<div style="background-color:#F0F0F0;margin:30px auto;padding:30px;max-width:600px;border-radius:10px">
 				<div>SECTION 1</div>
-				<div><span class="link" data-bind="null__click:showsection2">Show section 2</span></div>
+				<div><ui-bind path="null" config="click:showsection2" class="link" >Show section 2</ui-bind></div>
 			</div>
 		</div>
 	</section>
@@ -24,7 +24,7 @@
 	</section>
 
 	<section class="hidden invisible" data-if="2" data-parent="1" data-title="Section 2" data-url="LINK_TO_TEMPLATE"></section>
-</div>
+</ui-component>
 
 
 <script>

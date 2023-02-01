@@ -1,13 +1,13 @@
 
 <div style="max-width:300px">
-	<div data---="slider__myrange"></div>
-	<div data-bind="myrange__text:value + '%'" class="help"></div>
+	<ui-component name="slider" path="myrange"></ui-component>
+	<ui-bind path="myrange" config="text:value + '%'" class="help block"></ui-bind>
 	<br />
-	<div data---="slider__myrange2"></div>
-	<div data-bind="myrange2__text:value + '%'" class="help"></div>
+	<ui-component name="slider" path="myrange2"></ui-component>
+	<ui-bind path="myrange2" config="text:value + '%'" class="help block"></ui-bind>
 	<br />
-	<div data---="slider__myrange__disabled:1"></div>
-	<div data-bind="myrange__text:value + '%'" class="help"></div>
+	<ui-component name="slider" path="myrange" config="disabled:1"></ui-component>
+	<ui-bind path="myrange" config="text:value + '%'" class="help block"></ui-bind>
 </div>
 
 <script>
