@@ -19,15 +19,15 @@
 	.ui-large .my-button { font-size: 16px; }
 </style>
 
-<div data---="checkboxlistexpert__model.framework__datasource:list;disabled:1;required:true;label:Your favorite frameworks;type:number__2">
+<ui-component name="checkboxlistexpert" path="model.framework" config="datasource:list;disabled:1;required:true;label:Your favorite frameworks;type:number" default="2">
 	<script type="text/html">
 		<div class="my-button">
 			<div>{{ name }}</div>
 		</div>
 	</script>
-</div>
+</ui-component>
 <hr>
-<div data---="checkboxlistexpert__model.framework2__selector:#mybutton;datasource:list;required:true;label:Your favorite frameworks;type:number__0"></div>
+<ui-component name="checkboxlistexpert" path="model.framework2" config="selector:#mybutton;datasource:list;required:true;label:Your favorite frameworks;type:number" default="0"></ui-component>
 <script type="text/html" id="mybutton">
 	<div class="my-button">
 		<div class="checkbox"><i class="ti ti-square"></i></div>

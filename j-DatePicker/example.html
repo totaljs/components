@@ -1,5 +1,5 @@
-<a href="#datepicker">SHOW DATEPICKER: <b data-bind="form.date__html:value?value.format('dd.MM.yyyy'):DEF.empty"></b></a>
-<div data---="datepicker__null__today:Set today;firstday:0"></div>
+<a href="#datepicker">SHOW DATEPICKER: <b><ui-bind path="form.date" config="html:value?value.format('dd.MM.yyyy'):DEF.empty"></ui-bind></b></a>
+<ui-component name="datepicker" path="null" config="today:Set today;firstday:0"></ui-component>
 
 <script>
 	var form = {};

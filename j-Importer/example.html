@@ -1,5 +1,5 @@
-<div>CURRENT VALUE: <span data-bind="myvalue__html:value"></span></div>
-<div data---="importer__myvalue__if:d3;url:https://d3js.org/d3.v4.min.js"></div>
+<div>CURRENT VALUE: <ui-bind path="myvalue" config="html:value"></ui-bind></div>
+<ui-component name="importer" path="myvalue" config="if:d3;url:https://d3js.org/d3.v4.min.js"></ui-component>
 
 <script>
 

@@ -2,17 +2,17 @@
 	body { padding: 0; margin: 0; overflow: hidden; }
 </style>
 
-<div data---="windows__common.windows"></div>
+<ui-component name="windows" path="common.windows"></ui-component>
 
 <div class="center padding"><button onclick="togglewindow()">Toggle windowed mode</button></div>
 
 <div style="margin:30px auto;border:1px solid #E0E0E0;max-width:500px;width:100%;min-height:100px;">
-	<div data---="detach__common.detach__detach:el_detach;attach:el_attach;remove:el_remove">
+	<ui-component name="detach" path="common.detach" config="detach:el_detach;attach:el_attach;remove:el_remove">
 		<div class="padding">
 			<h2>Your content</h2>
 			<div><img src="https://www.totaljs.com/download/sn1v001gi41d.svg" width="200" /></div>
 		</div>
-	</div>
+	</ui-component>
 </div>
 
 <script>

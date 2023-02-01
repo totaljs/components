@@ -10,7 +10,7 @@ __Configuration__
 
 __Example__
 
-`<div data---="dragdropelement__null__exec:console.log;"></div>`
+`<ui-component name="dragdropelement" path="null" config="exec:console.log;"></ui-component>`
 
 __Author__
 - Michal Capo <capo@dasolutions.sk>

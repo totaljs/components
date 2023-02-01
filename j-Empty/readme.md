@@ -15,23 +15,23 @@ __Configuration__:
 __Use-case 1__:
 
 ```html
-<div data---="empty__datasource" class="hidden">
+<ui-component name="empty" path="datasource" class="hidden">
 	Items not found
-</div>
-<div class="hidden" data-bind="datasource__show:value && value.length"></div>
+</ui-component>
+<ui-bind path="datasource" config="show:value && value.length" class="hidden"></ui-bind>
 ```
 
 __Use-case 2__:
 
 ```html
-<div data---="empty__datasource" class="hidden">
+<ui-component name="empty" path="datasource" class="hidden">
 	<script type="text/html">
 		Items not found
 	</script>
 	<div>
 		YOUR CONTENT. This DIV will be hidden automatically if the "datasource" is empty.
 	</div>
-</div>
+</ui-component
 ```
 
 ### Author

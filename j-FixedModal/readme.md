@@ -24,11 +24,11 @@ The content of the `j-FixedModal` is divided to 3 parts: `header`, `body` and `f
 This component supports dynamic evaluation of the content of `<script type="text/html">`. The example below contains a script with HTML and the component evaluates the content if the j-Modal will be displayed (only once).
 
 ```html
-<div data---="fixedmodal__path__config">
+<ui-component name="fixedmodal" path="path" config="config">
 	<script type="text/html">
 		A CONTENT
 	</script>
-</div>
+</ui-component>
 ```
 
 ### Author

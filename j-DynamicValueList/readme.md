@@ -31,7 +31,7 @@ This component is very special component. It can keep values for example `Number
 If the `value` will be changed then the component performs `AJAX` call automatically. Server must response with `Array`.
 
 ```html
-<div data---="dynamicvaluelist__path.to.property__url:/users/?id={0};dirsource:GET /users/?search={0}"></div>
+<ui-component name="dynamicvaluelist" path="path.to.property" config="url:/users/?id={0};dirsource:GET /users/?search={0}"></ui-component>
 ```
 
 ### Inline usage
@@ -39,7 +39,7 @@ If the `value` will be changed then the component performs `AJAX` call automatic
 If the `value` will be changed then the component performs `config.exec` for obtaining a readable text of a value.
 
 ```html
-<div data---="dynamicvaluelist__path.to.property__read:my_function"></div>
+<ui-component name="dynamicvaluelist" path="path.to.property" config="read:my_function"></ui-component>
 
 <script>
 	function my_function(arr, next) {

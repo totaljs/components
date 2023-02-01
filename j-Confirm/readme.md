@@ -26,7 +26,7 @@ SETTER('confirm', 'show2', message, ['Yes', 'No'], function() {
 
 ```javascript
 // "Remove" button will be with Font-Awesome icon called: "trash-o"
-SETTER('confirm', 'show2', 'Are you sure you want to remove selected item?', ['"trash-o" Remove', 'Cancel'], REMOVE_FUNCTION);
+SETTER('confirm', 'show2', 'Are you sure you want to remove selected item?', ['"trash" Remove', 'Cancel'], REMOVE_FUNCTION);
 
 // "Confirm" button will be "green" with Font-Awesome icon called: "checked-circle"
 SETTER('confirm', 'show2', 'Are you sure you want to confirm selected items?', ['"checked-circle" Confirm #2BA433', 'Cancel'], REMOVE_FUNCTION);

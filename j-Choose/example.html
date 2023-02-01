@@ -8,7 +8,7 @@
 	.iconmenu > div:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
 </style>
 
-<div data---="choose__myselectionsingle__selector:div;limit:1" class="iconmenu m">
+<ui-component name="choose" path="myselectionsingle" config="selector:div;limit:1" class="iconmenu m">
 	<div data-id="male">
 		<i class="ti ti-male"></i>
 		<span>Male</span>
@@ -17,9 +17,9 @@
 		<i class="ti ti-female"></i>
 		<span>Female</span>
 	</div>
-</div>
+</ui-component>
 
-<div data---="choose__myselectionmultiple__selector:div;limit:2" class="iconmenu m">
+<ui-component name="choose" path="myselectionmultiple" config="selector:div;limit:2" class="iconmenu m">
 	<div data-id="male">
 		<i class="ti ti-male"></i>
 		<span>Male</span>
@@ -32,7 +32,7 @@
 		<i class="ti ti-question-circle"></i>
 		<span>Unknown</span>
 	</div>
-</div>
+</ui-component>
 
-<div>Output single: <code data-bind="myselectionsingle__text:JSON.stringify(value)"></code></div>
-<div>Output multiple: <code data-bind="myselectionmultiple__text:JSON.stringify(value)"></code></div>
+<div>Output single: <code><ui-bind path="myselectionsingle" config="text:JSON.stringify(value)"></ui-bind></code></div>
+<div>Output multiple: <code><ui-bind path="myselectionmultiple" config="text:JSON.stringify(value)"></ui-bind></code></div>

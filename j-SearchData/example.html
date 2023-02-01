@@ -1,14 +1,14 @@
-<div data---="textbox__search__type:search"></div>
+<ui-component name="textbox" path="search" config="type:search"></ui-component>
 <br />
-<div data---="searchdata__search__datasource:searchitems;output:searchoutput">
-	<div data-bind="searchoutput__template">
+<ui-component name="searchdata" path="search" config="datasource:searchitems;output:searchoutput">
+	<ui-bind path="searchoutput" config="template" class="block">
 		<script type="text/html">
 			{{ foreach m in value }}
 				<div>{{ m.name }}</div>
 			{{ end }}
 		</script>
-	</div>
-</div>
+	</ui-bind>
+</ui-component>
 
 <script>
 

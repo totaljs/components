@@ -14,15 +14,15 @@ __Configuration__:
 __Example__:
 
 ```html
-<div data---="releaser__common.form__if:userform">
+<ui-component name="releaser" path="common.form" config="if:userform">
 	<script type="text/html">
-		<div data---="datagrid__.......">
+		<ui-component name="datagrid" path=".......">
 			<SCR type="text/html">
 				YOUR COLUMNS
 			</SCR>
-		</div>
+		</ui-component>
 	</script>
-</div>
+</
 ```
 
 ### Author

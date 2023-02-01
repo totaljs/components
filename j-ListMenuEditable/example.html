@@ -1,15 +1,15 @@
 <!-- EXAMPLE DEPENDENCIES -->
-<div data---="menu"></div>
+<ui-component name="menu"></ui-component>
 
 <div style="width: 400px;">
-	<div data---="listmenueditable__tags__title:All tags;editclick:edit;addclick:add;click:click">
+	<ui-component name="listmenueditable" path="tags" config="title:All tags;editclick:edit;addclick:add;click:click">
 		<script type="text/html">
 			{{ if mycolor }}
 				<i class="ti ti-circle-alt" style="color: {{ mycolor }}"></i>
 			{{ fi }}
 			{{ name }}
 		</script>
-	</div>
+	</ui-component>
 </div>
 
 <script>

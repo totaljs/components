@@ -1,13 +1,13 @@
-<div data---="locale__mylocale"></div>
+<ui-component name="locale" path="mylocale"></ui-component>
 <hr />
-<pre data-bind="mylocale__text:JSON.stringify(value, null, '  ')"></pre>
-<div class="mt10" data-bind="testvalue__template">
+<pre><ui-bind name="mylocale" path="text:JSON.stringify(value, null, '  ')"></ui-bind></pre>
+<ui-bind path="testvalue" config="template" class="mt10 block">
 	<script type="text/html">
 		<div>{{ value.date | format }}</div>
 		<div>{{ value.date | format('[ts]') }}</div>
 		<div>{{ value.number | format(2) }}</div>
 	</script>
-</div>
+</ui-bind>
 
 <script>
 	var testvalue = { date: new Date(), number: 1234567.89 };

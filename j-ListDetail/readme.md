@@ -14,14 +14,14 @@ __Configuration__:
 Parts: list + detail must be wrapped to independent `<section>` element, e.g.
 
 ```html
-<div data---="listdetail__...">
+<ui-component name="listdetail__...">
 	<section>
 		LIST
 	</section>
 	<section>
 		DETAIL
 	</section>
-</div>
+</ui-component>
 ```
 
 ### Author

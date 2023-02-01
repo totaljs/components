@@ -1,13 +1,13 @@
-<div data---="edit"></div>
+<ui-component name="edit"></ui-component>
 
-<div style="width:500px;padding:10px;border:1px solid #E0E0E0" data-scope="form">
+<ui-plugin path="form" style="width:500px;padding:10px;border:1px solid #E0E0E0">
 
 	<div class="row m">
 		<div class="col-xs-3">
 			Name:
 		</div>
 		<div class="col-xs-9">
-			<div class="edit2" data-edit="required:1;floating:1" data-bind="?.name__html" style="height:24px;background-color:#E0E0E0"></div>
+			<div class="edit2" data-edit="required:1;floating:1"><ui-bind path="?.name" config="html" style="height:24px;background-color:#E0E0E0"></ui-bind></div>
 		</div>
 	</div>
 	<div class="row m">
@@ -23,11 +23,11 @@
 			HTML:
 		</div>
 		<div class="col-xs-9">
-			<div class="edit" data-edit="multiline:1;floating:1;type:html" data-bind="form.html__html" style="min-height:24px;background-color:#E0E0E0"></div>
+			<div class="edit" data-edit="multiline:1;floating:1;type:html"><ui-bind path="form.html" config="html" style="min-height:24px;background-color:#E0E0E0"></ui-bind></div>
 		</div>
 	</div>
-</div>
-<pre data-bind="form__html:JSON.stringify(value, null, '  ')"></pre>
+</ui-plugin>
+<pre><ui-bind path="form" config="html:JSON.stringify(value, null, '  ')"></ui-bind></pre>
 
 <script>
 

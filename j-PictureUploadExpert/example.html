@@ -1,13 +1,13 @@
 <style>
 	.dragdrop-message { margin-top:35px; text-align:center; font-weight:bold; }
 	.dragdrop-container { height:100px; background:#EFEFEF; border:2px dashed #CCC; border-radius: 2px; }
-	.over { border-color: black !important; }
+	.over { border-color: #000 !important; }
 </style>
 
-<div data---="loading" class="hidden"></div>
+<ui-component name="loading" class="hidden"></ui-component>
 
 <div style="padding:50px;max-width:300px">
-	<div class="link m" data---="pictureuploadexpert__pictures__width:200;height:200;url:/api/upload/base64/;dropselector:.dragdrop-container">Click to upload</div>
+	<ui-component name="pictureuploadexpert" path="pictures" config="width:200;height:200;url:/api/upload/base64/;dropselector:.dragdrop-container" class="link m">Click to upload</ui-component>
 	<div class="dragdrop-container m">
 		<div class="dragdrop-over">
 			<div class="dragdrop-message">Drop images here</div>
