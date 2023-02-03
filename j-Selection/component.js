@@ -1,17 +1,17 @@
-COMPONENT('selection', 'remember:1;key:id;class:selected;selector:.selection;attr:id;event:click;dblclickselectall:1', function(self, config, cls) {
+COMPONENT('selection', 'remember:1;key:id;class:selected;click:.selection;selector:.selection;attr:id;event:click;dblclickselectall:1', function(self, config, cls) {
 
 	var skip = false;
 
 	self.make = function() {
 		self.aclass(cls);
-		self.event(config.event, config.selector, function(e) {
+		self.event(config.event, config.click, function(e) {
 			e.preventDefault();
 			e.stopPropagation();
 			self.toggle($(this));
 		});
 
 		if (config.dblclickselectall) {
-			self.event('dblclick', config.selector, function() {
+			self.event('dblclick', config.click, function() {
 				self.selecttoggle();
 			});
 		}
@@ -58,6 +58,7 @@ COMPONENT('selection', 'remember:1;key:id;class:selected;selector:.selection;att
 		}
 		skip = true;
 		self.set(sel);
+		self.change();
 	};
 
 	self.toggle = function(id) {
@@ -84,6 +85,7 @@ COMPONENT('selection', 'remember:1;key:id;class:selected;selector:.selection;att
 		skip = true;
 		el.tclass(config.class, added);
 		self.update(true);
+		self.change();
 	};
 
 	self.recalc = function() {
