@@ -7,7 +7,11 @@ COMPONENT('selection', 'remember:1;key:id;class:selected;click:.selection;select
 		self.event(config.event, config.click, function(e) {
 			e.preventDefault();
 			e.stopPropagation();
-			self.toggle($(this));
+
+			var el = $(this);
+			if (config.click === config.selector)
+				el = el.find(config.selector);
+			self.toggle(el);
 		});
 
 		if (config.dblclickselectall) {
