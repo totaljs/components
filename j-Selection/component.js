@@ -9,7 +9,7 @@ COMPONENT('selection', 'remember:1;key:id;class:selected;click:.selection;select
 			e.stopPropagation();
 
 			var el = $(this);
-			if (config.click === config.selector)
+			if (config.click !== config.selector)
 				el = el.find(config.selector);
 			self.toggle(el);
 		});
