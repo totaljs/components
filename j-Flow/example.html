@@ -1,11 +1,11 @@
 <style>
-    .toolbar { margin-bottom: 10px; }
-    .toolbar button { min-width: 26px; height: 24px; background-color: transparent; border: 0; font-size: 12px; color: gray; }
-    .toolbar button span { margin-left: 3px; }
-    .toolbar button[name="remove"] { color: red !important; }
-    .toolbar button:disabled { color: #C0C0C0 !important; cursor: not-allowed; }
-    .toolbar button:hover { color: black; }
-    .toolbar button:first-child { border-left: 0; }
+	.toolbar { margin-bottom: 10px; }
+	.toolbar button { min-width: 26px; height: 24px; background-color: transparent; border: 0; font-size: 12px; color: gray; }
+	.toolbar button span { margin-left: 3px; }
+	.toolbar button[name="remove"] { color: red !important; }
+	.toolbar button:disabled { color: #C0C0C0 !important; cursor: not-allowed; }
+	.toolbar button:hover { color: black; }
+	.toolbar button:first-child { border-left: 0; }
 </style>
 
 <div class="toolbar">
@@ -37,5 +37,13 @@
 	function floweditor_remove() {
 		CMD('flow.selected.clear');
 	}
+
+	// Extend buttons for using Web components
+	customElements.define('is-button', class extends HTMLButtonElement {
+		constructor() {
+			super();
+			setTimeout(NEWUIBIND, 2, this);
+		}
+	}, { extends: 'button' });
 
 </script>
