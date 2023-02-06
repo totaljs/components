@@ -2,9 +2,9 @@
 .ui-directory { position: absolute; opacity: 0; transition: 0.25s transform cubic-bezier(0.23, 1, 0.32, 1); left: -100; top: -100; z-index: 100; box-shadow: 0 1px 20px rgba(0,0,0,0.1); background-color: #FFF; border-radius: var(--radius); border: 1px solid #E0E0E0; overflow: hidden; transition: all 0.2s; }
 .ui-directory-search { height: 42px; background: #FFF; border-radius: var(--radius) var(--radius) 0 0; border-bottom: 1px solid #E0E0E0; line-height: 26px; }
 .ui-directory-search input { width: 100%; background-color: #FFF; border: 0; font-size: 14px; outline: 0; padding: 0; margin: 0; line-height: 28px; outline: 0; }
-.ui-directory-search > div { margin: 0 30px 0 35px; padding: 6px 10px 0 0; line-height: 24px; }
+.ui-directory-search > div { margin: 0 22px 0 35px; padding: 6px 10px 0 0; line-height: 24px; }
 .ui-directory-search > span { float: left; width: 16px; text-align: center; padding: 7px 0 0 12px; font-size: 14px; }
-.ui-directory-add { float: right !important; padding-left: 0 !important; color: #83c83c; text-align: left !important; font-size: 11px !important; cursor: pointer; width: 22px !important; }
+.ui-directory-add { float: right !important; padding-left: 0 !important; color: #83c83c; text-align: left !important; font-size: 14px !important; cursor: pointer; width: 24px !important; font-weight: bold; padding-top: 8px; }
 .ui-directory .ui-disabled { color: #A0A0A0 !important; cursor: not-allowed; }
 .ui-directory-search .ti-times { color: red; cursor: pointer; }
 .ui-directory-visible { opacity: 1; }
