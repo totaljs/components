@@ -1,4 +1,4 @@
-COMPONENT('uistudio', 'css:1', function(self, config, cls) {
+COMPONENT('uistudio', 'css:1;inputdelay:20', function(self, config, cls) {
 
 	self.readonly();
 
@@ -7,6 +7,8 @@ COMPONENT('uistudio', 'css:1', function(self, config, cls) {
 	current.origin = location.origin;
 
 	var navigate = function() {
+
+		SETTER('loading/show');
 
 		AJAX('POST ' + config.url + ' ERROR', current, function(response) {
 
@@ -35,12 +37,14 @@ COMPONENT('uistudio', 'css:1', function(self, config, cls) {
 
 					UIBuilder.build(self.element, data, function(app) {
 
+						SETTER('loading/hide', 500);
+
 						self.app = app;
 						self.app.component = self;
 
 						// Loads input data
 						if (response.input)
-							self.app.input(response.input, response.data);
+							setTimeout(response => self.app.input(response.input, response.data), config.inputdelay, response);
 
 						self.app.on('output', function(meta) {
 							current.output = meta.id;
@@ -50,7 +54,8 @@ COMPONENT('uistudio', 'css:1', function(self, config, cls) {
 
 					});
 				});
-			}
+			} else
+				SETTER('loading/hide', 500);
 
 		});
 
