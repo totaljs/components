@@ -1,0 +1,17 @@
+{
+	"datecreated": "2023-02-08T21:32:05.000Z",
+	"dateupdated": null,
+	"name": "j-UIStudio",
+	"tags": [
+		"ui",
+		"studio"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
