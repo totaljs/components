@@ -33,7 +33,10 @@ COMPONENT('uistudio', 'css:1;inputdelay:20', function(self, config, cls) {
 					if (!config.css)
 						data.css = '';
 
-					data.query = data.query || current.query;
+					data.id = response.id;
+					data.query = data.query || current.query || {};
+					data.ssid = data.query.ssid;
+					data.openplatform = data.query.openplatform;
 
 					UIBuilder.build(self.element, data, function(app) {
 
