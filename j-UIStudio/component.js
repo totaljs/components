@@ -1,4 +1,4 @@
-COMPONENT('uistudio', 'css:1;inputdelay:20', function(self, config, cls) {
+COMPONENT('uistudio', 'css:0;inputdelay:20', function(self, config, cls) {
 
 	self.readonly();
 
