@@ -1,4 +1,4 @@
-COMPONENT('uistudio', 'css:0;inputdelay:20', function(self, config, cls) {
+COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cls) {
 
 	self.readonly();
 
@@ -8,7 +8,7 @@ COMPONENT('uistudio', 'css:0;inputdelay:20', function(self, config, cls) {
 
 	var navigate = function() {
 
-		SETTER('loading/show');
+		config.loading && SETTER('loading/show');
 
 		AJAX('POST ' + config.url + ' ERROR', current, function(response) {
 
@@ -40,7 +40,7 @@ COMPONENT('uistudio', 'css:0;inputdelay:20', function(self, config, cls) {
 
 					UIBuilder.build(self.element, data, function(app) {
 
-						SETTER('loading/hide', 500);
+						config.loading && SETTER('loading/hide', 500);
 
 						self.app = app;
 						self.app.component = self;
@@ -57,7 +57,7 @@ COMPONENT('uistudio', 'css:0;inputdelay:20', function(self, config, cls) {
 
 					});
 				});
-			} else
+			} else if (config.loading)
 				SETTER('loading/hide', 500);
 
 		});
