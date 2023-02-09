@@ -5,7 +5,7 @@ __BETA__: This component renders the app according to the Total.js Flow UI Studi
 __Configuration__:
 
 - `url {String}` a link to the Flow UI Studio schema (must be in the `json` format)
-- `css {Boolean}` applies app style to the current element (default: `false`)
+- `css {Boolean}` applies app style to the current element (default: `true`)
 
 __Properties__:
 
