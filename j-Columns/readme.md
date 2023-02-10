@@ -11,7 +11,7 @@ __Configuration__:
 - `marginsm` {Number} adds margin to `height` for `SM` display (default: `margin`)
 - `marginxs` {Number} adds margin to `height` for `XS` display (default: `margin`)
 - `noborder` {Boolean} disables border (default: `false`)
-- `fontsize` {Boolean} enables percentual font-size according to the size of rows
+- `fontsize` {Boolean} enables percentual font-size according to the size of rows (default: `false`)
 
 __Good to know__:
 
