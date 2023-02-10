@@ -18,7 +18,15 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 			// response.query
 			// response.url
 
+			var issame = current.id === response.id;
+
 			if (response.url) {
+
+				if (issame) {
+					if (response.input)
+						setTimeout(response => self.app.input(response.input, response.data), config.inputdelay, response);
+					return;
+				}
 
 				current.id = response.id;
 				current.data = response.data;
@@ -58,11 +66,6 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 					});
 				});
 			} else {
-
-				// Loads input data to the current app
-				if (response.input && self.app)
-					setTimeout(response => self.app.input(response.input, response.data), config.inputdelay, response);
-
 				if (config.loading)
 					SETTER('loading/hide', 500);
 			}
