@@ -57,8 +57,15 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 
 					});
 				});
-			} else if (config.loading)
-				SETTER('loading/hide', 500);
+			} else {
+
+				// Loads input data to the current app
+				if (response.input && self.app)
+					setTimeout(response => self.app.input(response.input, response.data), config.inputdelay, response);
+
+				if (config.loading)
+					SETTER('loading/hide', 500);
+			}
 
 		});
 
