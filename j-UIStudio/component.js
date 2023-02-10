@@ -25,6 +25,7 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 				if (issame) {
 					if (response.input)
 						setTimeout(response => self.app.input(response.input, response.data), config.inputdelay, response);
+					SETTER('loading/hide', 500);
 					return;
 				}
 
