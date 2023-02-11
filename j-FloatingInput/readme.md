@@ -19,6 +19,7 @@ Method: `component.show(options)`
 - `options.icon` {String} optional, Font-Awesome icon
 - `options.close` {Function} optional, can determine closing of panel
 - `options.align` {String} optional, `left` (default), `right` or `center`
+- `options.value` {String} optional, a default value for the input
 - `options.position` {String} optional, `top` (default), `bottom`
 - `options.summary` {String} additional help content
 - `options.monospace` {Boolean} enables monospace font
