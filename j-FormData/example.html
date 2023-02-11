@@ -1,0 +1,10 @@
+<ui-component name="LAZY formdata"></ui-component>
+<button>Send data</button>
+
+<script>
+
+	$(document).on('click', 'button', function() {
+		SETTER('formdata/send', { url: 'https://www.yourwebsite.com/api/', data: { name: 'Total.js Platform' }});
+	});
+
+</script>

@@ -300,5 +300,7 @@
 	"j-Period",
 	"j-Title",
 	"j-Time",
-	"j-UIStudio"
+	"j-UIStudio",
+	"j-FileSaver",
+	"j-FormData"
 ]
