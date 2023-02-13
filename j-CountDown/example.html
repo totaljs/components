@@ -1,9 +1,9 @@
-﻿<ui-component name="countdown" path="expiredate" config="text:You can send SMS again: {0}">
+﻿<ui-component name="countdown" path="expiredate" class="invisible">
+	<script type="text/html">You can send SMS again: {0}</script>
 	<a href="#">Send SMS again</a>
 </ui-component>
 
-<ui-component name="countdown" path="expiredate">
-	<script type="text/html">You can send SMS again: {0}</script>
+<ui-component name="countdown" path="expiredate" config="text:You can send SMS again\: {0}" class="invisible">
 	<a href="#">Send SMS again</a>
 </ui-component>
 
