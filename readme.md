@@ -19,6 +19,9 @@ Please contact us on <info@totaljs.com>.
 | [Denis Granec](https://github.com/PatchwerkQWER) | contributor | <denis@granec.cz> |
 | [Pedro Costa](https://github.com/pnmcosta) | contributor | <hello@pmcdigital.pt> |
 | [Michal Capo](https://github.com/michalCapo) | contributor | <capo@dasolutions.sk> |
+| [Tomáš Novák](https://github.com/tomee03) | contributor | <tomas@totaljs.com> |
+| [Tereza Boďová](https://github.com/TerezzaB) | contributor | <terezka@totaljs.com> |
+| [Pavol Danko](https://github.com/PavolSK) | contributor | <palo@totaljs.com> |
 
 ## Contact
 
