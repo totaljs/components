@@ -1,0 +1,12 @@
+﻿<ui-component name="countdown" path="expiredate" config="text:You can send SMS again: {0}">
+	<a href="#">Send SMS again</a>
+</ui-component>
+
+<ui-component name="countdown" path="expiredate">
+	<script type="text/html">You can send SMS again: {0}</script>
+	<a href="#">Send SMS again</a>
+</ui-component>
+
+<script>
+	var expiredate = NOW.add('10 seconds');
+</script>

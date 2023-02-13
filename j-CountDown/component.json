@@ -1,0 +1,16 @@
+{
+	"datecreated": "2023-02-13T10:34:00.000Z",
+	"dateupdated": null,
+	"name": "j-CountDown",
+	"tags": [
+		"countdown"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Tomáš Novák",
+	"email": "tomas@totaljs.com",
+	"license": "https://www.totaljs.com/license/"
+}
