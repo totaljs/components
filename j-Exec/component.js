@@ -73,7 +73,11 @@ COMPONENT('exec', function(self, config) {
 							if (index !== -1) {
 								var method = attr.substring(index + 1).trim();
 								if (method) {
-									scope.plugin[method].call(scope.plugin, el, e);
+									var fn = scope.plugin[method];
+									if (fn)
+										fn.call(scope.plugin, el, e);
+									else
+										WARN('The method "{0}" not found'.format(attr));
 									return;
 								}
 							}
