@@ -119,7 +119,16 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 			if (self.opt.callback) {
 
 				self.opt.scope && M.scope(self.opt.scope);
-				var item = self.opt.items[+el.attrd('index')];
+
+				var index = +el.attrd('index');
+				if (index === -1) {
+					self.opt.scope && M.scope(self.opt.scope);
+					self.opt.callback(input.val(), self.opt.element, true);
+					self.hide();
+					return;
+				}
+
+				var item = self.opt.items[index];
 
 				if (self.opt.checkbox) {
 					item.selected = !item.selected;
