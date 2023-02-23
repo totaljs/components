@@ -123,7 +123,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 				var index = +el.attrd('index');
 				if (index === -1) {
 					self.opt.scope && M.scope(self.opt.scope);
-					self.opt.callback(input.val(), self.opt.element, true);
+					self.opt.callback(self.opt.custom ? input.val() : null, self.opt.element, self.opt.custom ? true : false);
 					self.hide();
 					return;
 				}
