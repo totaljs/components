@@ -43,7 +43,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 		self.aclass('hidden ' + cls + '-area');
 		self.append('<div class="{1}"><div class="{1}-search"><span class="{1}-add hidden"><i class="ti ti-plus"></i></span><span class="{1}-button"><i class="ti ti-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" name="dir{2}" autocomplete="new-password" /></div></div><div class="{1}-container"><ul></ul></div></div>'.format(config.placeholder, cls, Date.now()));
 
-		customvalue = $('<li data-index="-1"></li>')[0];
+		customvalue = $('<li data-index="-2"></li>')[0];
 
 		main = self.find(cls2);
 		container = self.find('ul');
@@ -121,9 +121,9 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 				self.opt.scope && M.scope(self.opt.scope);
 
 				var index = +el.attrd('index');
-				if (index === -1) {
+				if (index === -2) {
 					self.opt.scope && M.scope(self.opt.scope);
-					self.opt.callback(self.opt.custom ? input.val() : null, self.opt.element, self.opt.custom ? true : false);
+					self.opt.callback(input.val(), self.opt.element, true);
 					self.hide();
 					return;
 				}
