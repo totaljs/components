@@ -7,6 +7,10 @@ __Configuration__:
 
 - `search {String}` a placeholder for search field (default: `Search`)
 - `list {String}` URL address for obtaining list of icons (default: Total.js Icons CDN)
+- `clist {String}` URL address for obtaining custom list of icons same format as Total.js Icons
+- `clist2 {String}` URL address for obtaining second custom list of icons same format as Total.js Icons
+- `clistprefix {String}` custom icons prefix separated by commas (far fa- fas fa-,....)
+- `clist2prefix {String}` second custom icons prefix separated by commas (far fa- fas fa-,....)
 
 ## Usage
 
