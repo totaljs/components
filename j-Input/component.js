@@ -127,7 +127,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			var t = this;
 			var code = e.which;
 
-			if (t.readOnly || config.disabled) {
+			if (t.readOnly || config.readonly || config.disabled) {
 				// TAB
 				if (e.keyCode !== 9) {
 					if (config.dirsource) {
