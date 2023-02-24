@@ -30,10 +30,20 @@ COMPONENT('icons', 'search:Search;scrollbarshadow:0', function(self, config, cls
 		empty && builder.push(template.format('', ''));
 
 		AJAX('GET ' + (config.list || 'https://cdn.componentator.com/icons-db.html'), function(response) {
+
 			response = response.split(',');
 			for (var icon of response)
 				builder.push(template.format(icon.toSearch(), 'ti ti-' + icon));
-			self.find(cls2 + '-content').html(builder.join(''));
+
+			if (config.custom) {
+				AJAX('GET ' + config.custom, function(response) {
+					response = response.split(',');
+					for (var icon of response)
+						builder.push(template.format(icon.toSearch(), 'tic ti-' + icon));
+					self.find(cls2 + '-content').html(builder.join(''));
+				});
+			} else
+				self.find(cls2 + '-content').html(builder.join(''));
 		});
 	};
 
