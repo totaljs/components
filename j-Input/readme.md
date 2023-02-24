@@ -57,6 +57,7 @@ __Configuration__:
 - `multiple {Boolean}` enables checkboxes if `dirsource` is not empty
 - __NEW__ `tabindex {Number}` adds a tabindex (default: `0`)
 - __NEW__ `tabs {Boolean}` enables tabs for multiline (default: `true`)
+- __NEW__ `readonly {Boolean}` block text field edition (default: `false`)
 
 __Interesting:__
 
