@@ -35,6 +35,32 @@ COMPONENT('icons', 'search:Search;scrollbarshadow:0', function(self, config, cls
 				builder.push(template.format(icon.toSearch(), 'ti ti-' + icon));
 			self.find(cls2 + '-content').html(builder.join(''));
 		});
+		
+		if(config.clist) {
+			AJAX('GET ' + config.clist, function(response) {
+				response = response.split(',');
+				var prefix = config.clistprefix.split(',');
+				for (var icon of response) {
+					for (var i = 0; i < prefix.length; i++)
+						builder.push(template.format(icon.toSearch(), prefix[i] + icon));
+				}
+
+				self.find(cls2 + '-content').html(builder.join(''));
+			});
+		}
+
+		if(config.clist2) {
+			AJAX('GET ' + config.clist2, function(response) {
+				response = response.split(',');
+				var prefix = config.clist2prefix.split(',');
+				for (var icon of response) {
+					for (var i = 0; i < prefix.length; i++)
+						builder.push(template.format(icon.toSearch(), prefix[i] + icon));
+				}
+
+				self.find(cls2 + '-content').html(builder.join(''));
+			});
+		}
 	};
 
 	self.search = function(value) {
