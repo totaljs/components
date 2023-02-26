@@ -657,7 +657,6 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 		main.css(options);
 
 		!isMOBILE && setTimeout(function() {
-			ready = true;
 			if (opt.search !== false)
 				input.focus();
 		}, 200);
@@ -670,8 +669,10 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 				var h = container.find('li:first-child').innerHeight() + 1;
 				var y = (container.find('li.selected').index() * h) - (h * 2);
 				scroller[0].scrollTop = y < 0 ? 0 : y;
-			} else
+			} else {
 				scroller[0].scrollTop = 0;
+				ready = true;
+			}
 
 			self.rclass('invisible');
 
