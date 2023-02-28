@@ -216,7 +216,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 					if (self.opt.callback) {
 						self.opt.scope && M.scope(self.opt.scope);
 						var index = +sel.attrd('index');
-						if (self.opt.custom && (!sel.length || index === -1))
+						if (self.opt.custom && (!sel.length || index === -2))
 							self.opt.callback(this.value, self.opt.element, true);
 						else
 							self.opt.callback(self.opt.items[index], self.opt.element);
