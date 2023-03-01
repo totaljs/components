@@ -56,7 +56,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 		var edit = function(e) {
 
-			if (config.readonly || !widget.iseditable())
+			if (config.readonly || !widget.iseditable2())
 				return;
 
 			if (e) {
@@ -133,15 +133,20 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		var link = {};
 		link.element = tmp;
 		link.href = '';
+		tmp.aclass(cls + '-link');
 
 		if (content.indexOf('@') !== -1)
 			link.href = 'mailto:' + content;
-		else if ((/\d+/).test(content))
+		else if ((/^[0-9\s\+\-]+$/).test(content))
 			link.href = 'tel:' + content;
 		else if (content.indexOf(' ') === -1 && content.indexOf(',') === -1 && content.indexOf('.') !== -1)
 			link.href = (/http(s):\/\//).test(content) ? content : ('https://' + content);
 
 		link.target = link.href.indexOf('.') !== -1 && link.href.indexOf(location.hostname) === -1 ? '_blank' : '';
+
+		link.href && tmp.attr('href', link.href);
+		link.target && tmp.attr('target', link.target);
+
 		link.widget = self;
 		config.link && self.EXEC(config.link, link);
 	};
@@ -169,7 +174,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 		// Font-Awesome icon
 		var tag = openeditor.element[0].nodeName.toLowerCase();
-		var icon = '<i class="ti ti-flag {0}-icon" contenteditable="false"></i>&nbsp;'.format(cls);
+		var icon = '<i class="ti ti-flag {0}-icon" contenteditable="false"></i>'.format(cls);
 
 		switch (tag) {
 			case 'span':
@@ -238,6 +243,12 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		var clickme = function() {
 			openeditor.timeout && clearTimeout(openeditor.timeout);
 			openeditor.timeout = setTimeout(loadformat, 150);
+		};
+
+		var paste = function(e) {
+			e.preventDefault();
+			var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+			document.execCommand('insertHTML', false, text);
 		};
 
 		var keydown = function(e) {
@@ -418,7 +429,11 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			el.off('click', clickme);
 			el.rattr('contenteditable');
 			el.off('keydown', keydown);
+			el.off('paste', paste);
 			el.off('keyup', keyup);
+
+			openeditor.timeout && clearTimeout(openeditor.timeout);
+
 			if (opt.callback) {
 				var arg = {};
 				arg.text = el.text();
@@ -431,7 +446,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 				arg.param = opt.param;
 				opt.callback(arg);
 			}
-			openeditor.timeout && clearTimeout(openeditor.timeout);
+
 			openeditor = null;
 			config.format && self.EXEC(config.format, null);
 		};
@@ -439,6 +454,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		$(W).on('click', clickoutside);
 		el.on('keydown', keydown);
 		el.on('click', clickme);
+		el.on('paste', paste);
 		el.on('keyup', keyup);
 	};
 
@@ -610,8 +626,10 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			self.cmd.refresh();
 		};
 
-		meta.next = function() {
-			$(el).parent().after('<section><div class="widget paper-html" data-widget="html" data-id="{0}" data-newbie="1"></div></section>'.format(Date.now().toString(36)));
+		meta.append = function(same) {
+			var id = Date.now().toString(36);
+			$(el).parent().after('<section><div class="widget paper-{1}" data-widget="{1}" data-id="{0}" data-newbie="1"></div></section>'.format(id, same === true ? name : (same || 'html')));
+			setTimeout(self.cmd.refresh, 100);
 		};
 
 		meta.css = function(val) {
@@ -627,12 +645,18 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			setTimeout2(self.ID + 'css', self.cmd.rebuildcss, 200);
 		};
 
-		meta.iseditable = function() {
+		meta.iseditable = function(t) {
+			if (t instanceof jQuery)
+				t = t[0];
+			return (t.classList.contains(cls + '-icon') || t.classList.contains(cls + '-link')) ? false : true;
+		};
+
+		meta.iseditable2 = function() {
 			return check ? check(meta) : true;
 		};
 
 		meta.edit = function(el, opt, callback) {
-			if (meta.iseditable())
+			if (meta.iseditable2())
 				self.cmd.edit(el, opt, callback);
 		};
 
@@ -712,6 +736,8 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		meta.update = function() {
 			if (meta.removed)
 				return;
+			if (nosync)
+				nosync = false;
 			meta.change('update');
 		};
 
@@ -984,8 +1010,30 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			if (e.target.tagName === 'A' || $(e.target).closest('a').length)
 				return;
 
+			var target = e.target;
+
 			e.stopPropagation();
+
+			if (target.classList.contains(cls + '-link'))
+				return;
+
 			e.preventDefault();
+
+			if (target.classList.contains(cls + '-icon')) {
+
+				if (openeditor)
+					openeditor.close();
+
+				var opt = {};
+				opt.element = $(e.target);
+				opt.widget = opt.element.closest('.widget')[0].$widget;
+
+				config.icon && self.EXEC(config.icon, opt, function() {
+					opt.widget.change('update');
+				});
+
+				return;
+			}
 
 			//t.parentNode === self.dom &&
 			if (e.target === t) {
@@ -1001,7 +1049,6 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		});
 
 		self.event('click', '.widget', function() {
-
 			if (!config.readonly)
 				self.cmd.select(this.$widget);
 		});
@@ -1010,21 +1057,6 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 			if (config.readonly)
 				return;
-
-			if (e.target.classList.contains(cls + '-icon')) {
-
-				if (openeditor)
-					openeditor.close();
-
-				var opt = {};
-				opt.element = $(e.target);
-
-				config.icon && self.EXEC(config.icon, opt, function() {
-					opt.element.closest('.widget')[0].$widget.change('update');
-				});
-
-				return;
-			}
 
 			if (e.target === self.dom) {
 

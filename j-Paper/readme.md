@@ -61,6 +61,7 @@ The component creates a global variable called `window.papercache {Object}` used
 - the component compares the content when you change data, so you can change data in real-time
 - the component assigns (in the form) `paper-yourwidgetname` class to every widget element
 - reserved HTML classes `readonly`, `widget`, `selected`
+	- readonly usage: `.readonly .paper-yourwidgetname { ... }`
 - `htmlelement.$widget {Object}` contains a widget instance
 	- `widget.remove()` method will remove the widget
 
