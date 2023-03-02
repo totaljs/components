@@ -137,7 +137,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 		if (content.indexOf('@') !== -1)
 			link.href = 'mailto:' + content;
-		else if ((/^[0-9\s\+\-]+$/).test(content))
+		else if ((/^[0-9\s+-]+$/).test(content))
 			link.href = 'tel:' + content;
 		else if (content.indexOf(' ') === -1 && content.indexOf(',') === -1 && content.indexOf('.') !== -1)
 			link.href = (/http(s):\/\//).test(content) ? content : ('https://' + content);
@@ -172,7 +172,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 	self.format.icon = function() {
 
-		// Font-Awesome icon
+		// Total.js icon
 		var tag = openeditor.element[0].nodeName.toLowerCase();
 		var icon = '<i class="ti ti-flag {0}-icon" contenteditable="false"></i>'.format(cls);
 
@@ -870,6 +870,9 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 						item.js = undefined;
 
+						if (item.css)
+							item.css = item.css.replace(/CLASS/g, 'paper-' + item.id);
+
 						if (item.import) {
 							for (var m of item.import)
 								imports.push(m);
@@ -899,6 +902,9 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 				widget.html = html;
 
 				new Function('exports', js)(widget);
+
+				if (widget.css)
+					widget.css = widget.css.replace(/CLASS/g, 'paper-' + widget.id);
 
 				if (cache.instances[widget.id])
 					WARN('Overwriting paper widget:', widget.id);
