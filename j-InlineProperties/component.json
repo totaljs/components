@@ -1,0 +1,20 @@
+{
+	"datecreated": "2023-03-02T20:00:59.000Z",
+	"dateupdated": null,
+	"name": "j-InlineProperties",
+	"tags": [
+		"properties",
+		"inline",
+		"form"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"darkmode": true,
+	"largemode": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

@@ -303,5 +303,6 @@
 	"j-UIStudio",
 	"j-FileSaver",
 	"j-FormData",
-	"j-CountDown"
+	"j-CountDown",
+	"j-InlineProperties"
 ]
