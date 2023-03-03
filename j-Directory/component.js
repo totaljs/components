@@ -597,6 +597,9 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 			container.prepend(customvalue);
 
 		var options = { left: 0, top: 0, width: width };
+		var height = opt.height || scroller.height();
+
+		scroller.css('height', opt.height || '');
 
 		if (opt.element) {
 			switch (opt.align) {
@@ -611,7 +614,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 					break;
 			}
 
-			options.top = opt.position === 'bottom' ? ((offset.top - self.height()) + element.height()) : offset.top;
+			options.top = opt.position === 'bottom' ? ((offset.top - height) + element.height()) : offset.top;
 		} else {
 			options.top = opt.y;
 			options.left = opt.x;
@@ -626,7 +629,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 			options.top += opt.offsetY;
 
 		var mw = width;
-		var mh = self.height();
+		var mh = height;
 
 		if (options.left < 0)
 			options.left = 10;
