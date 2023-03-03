@@ -80,7 +80,7 @@ COMPONENT('inlineproperties', 'close:Close;dateformat:[date];dirsearch:Search;wi
 			var id = ATTRD(el);
 			var parent = el.closest('figure').tclass(cls + '-checked');
 			var item = self.opt.items.findItem('id', id);
-			item.value = parent.hclass(cls2 + '-checked');
+			item.value = parent.hclass(cls + '-checked');
 			self.opt.changed[id] = 1;
 		});
 
