@@ -225,12 +225,16 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			return;
 		}
 
+		var widgetel = el.closest('.widget')[0];
+		if (!widgetel)
+			return;
+
 		opt.backup = el.html();
 		opt.html && el.html(opt.html);
 		el.attr('contenteditable', true);
 
 		openeditor = {};
-		openeditor.widget = el.closest('.widget')[0].$widget;
+		openeditor.widget = widgetel.$widget;
 		openeditor.element = el;
 		openeditor.dom = el[0];
 		openeditor.parent = opt.parent ? opt.parent[0] : openeditor.dom;
