@@ -2,6 +2,7 @@ COMPONENT('inlineproperties', 'close:Close;dateformat:[date];dirsearch:Search;wi
 
 	var cls2 = '.' + cls;
 	var renders = {};
+	var parentclass;
 	var container;
 	var body;
 
@@ -77,9 +78,9 @@ COMPONENT('inlineproperties', 'close:Close;dateformat:[date];dirsearch:Search;wi
 		self.event('click', cls2 + '-booleanclick', function() {
 			var el = $(this);
 			var id = ATTRD(el);
-			el.closest('figure').tclass(cls + '-checked');
+			var parent = el.closest('figure').tclass(cls + '-checked');
 			var item = self.opt.items.findItem('id', id);
-			item.value = el.hclass(cls2 + '-checked');
+			item.value = parent.hclass(cls2 + '-checked');
 			self.opt.changed[id] = 1;
 		});
 
@@ -167,6 +168,18 @@ COMPONENT('inlineproperties', 'close:Close;dateformat:[date];dirsearch:Search;wi
 			if (m.type === 'bool')
 				m.type = 'boolean';
 			builder.push('<figure class="{0}-item {0}-{2}" data-id="{3}"><div class="{0}-name">{1}</div><div class="{0}-value">{4}</div></figure>'.format(cls, m.name, m.type, m.id, renders[m.type](m)));
+		}
+
+		var c = opt.class;
+
+		if (parentclass && c !== parentclass) {
+			self.rclass(parentclass);
+			parentclass = null;
+		}
+
+		if (!parentclass && c) {
+			body.aclass(c);
+			parentclass = c;
 		}
 
 		container.html(builder.join(''));
