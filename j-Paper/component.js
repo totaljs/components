@@ -1163,7 +1163,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 				self.tclass(cls + '-w', !value);
 				var tmp = self.find('.widget');
 				for (var w of tmp)
-					w.$widget.readonly = false;
+					w.$widget.readonly = value;
 				break;
 			case 'widgets':
 				value && self.import(value.split(',').trim());
