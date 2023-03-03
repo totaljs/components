@@ -61,7 +61,9 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 			if (e) {
 
-				if (e.target.classList.contains(cls + '-icon'))
+				var clslist = e.target.classList;
+
+				if (clslist.contains('picon') || clslist.contains('plink'))
 					return;
 
 				e.preventDefault();
@@ -127,13 +129,13 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		if (!tmp.length)
 			return;
 
-		openeditor && openeditor.close();
-
 		var content = tmp.text();
 		var link = {};
 		link.element = tmp;
 		link.href = '';
-		tmp.aclass(cls + '-link');
+		tmp.aclass('plink');
+
+		openeditor && openeditor.close();
 
 		if (content.indexOf('@') !== -1)
 			link.href = 'mailto:' + content;
@@ -143,12 +145,11 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			link.href = (/http(s):\/\//).test(content) ? content : ('https://' + content);
 
 		link.target = link.href.indexOf('.') !== -1 && link.href.indexOf(location.hostname) === -1 ? '_blank' : '';
-
 		link.href && tmp.attr('href', link.href);
 		link.target && tmp.attr('target', link.target);
 
 		link.widget = self;
-		config.link && self.EXEC(config.link, link);
+		config.link && setTimeout(() => self.EXEC(config.link, link), 200);
 	};
 
 	self.format.bold = function() {
@@ -159,7 +160,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		var url = '#code' + Date.now().toString(36);
 		document.execCommand('CreateLink', false, url);
 		var a = openeditor.element.find('a[href="{0}"]'.format(url));
-		a.replaceWith('<span class="paper-code">' + a.html() + '</span>');
+		a.replaceWith('<span class="pcode">' + a.html() + '</span>');
 	};
 
 	self.format.italic = function() {
@@ -174,7 +175,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 		// Total.js icon
 		var tag = openeditor.element[0].nodeName.toLowerCase();
-		var icon = '<i class="ti ti-flag {0}-icon" contenteditable="false"></i>'.format(cls);
+		var icon = '<i class="ti ti-flag picon" contenteditable="false"></i>';
 
 		switch (tag) {
 			case 'span':
@@ -652,7 +653,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		meta.iseditable = function(t) {
 			if (t instanceof jQuery)
 				t = t[0];
-			return (t.classList.contains(cls + '-icon') || t.classList.contains(cls + '-link')) ? false : true;
+			return (t.classList.contains('picon') || t.classList.contains('plink')) ? false : true;
 		};
 
 		meta.iseditable2 = function() {
@@ -1024,12 +1025,12 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 			e.stopPropagation();
 
-			if (target.classList.contains(cls + '-link'))
+			if (target.classList.contains('plink'))
 				return;
 
 			e.preventDefault();
 
-			if (target.classList.contains(cls + '-icon')) {
+			if (target.classList.contains('picon')) {
 
 				if (openeditor)
 					openeditor.close();
