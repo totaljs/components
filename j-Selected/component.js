@@ -5,14 +5,16 @@ COMPONENT('selected', 'class:selected;selector:a;attr:if;attror:or;delay:50', fu
 	var highlight = function() {
 		var cls = config.class;
 		var val = self.get() || '';
-		self.find(config.selector).each(function() {
-			var el = $(this);
+		var arr = self.find(config.selector);
+
+		for (var m of arr) {
+			var el = $(m);
 			var or = el.attrd(config.attror) || '';
-			if (el.attrd(config.attr) === val || (or && val.indexOf(or) !== -1))
+			if (el.attrd(config.attr) === val || (or && val.includes(or)))
 				el.aclass(cls);
 			else if (el.hclass(cls))
 				el.rclass(cls);
-		});
+		}
 	};
 
 	self.configure = function(key, value) {
