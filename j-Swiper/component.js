@@ -1,4 +1,4 @@
-COMPONENT('jswiper', 'null', function(self, config, cls) {
+COMPONENT('swiper', 'null', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var container, body, pagination, navigation, items, swiper;

@@ -1,6 +1,6 @@
 ## j-Swiper
 
-- wrapper for Swiper.js library
+- wrapper for [Swiper.js library](https://swiperjs.com/)
 - easy usage
 - learn from example
 

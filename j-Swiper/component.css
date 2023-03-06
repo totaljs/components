@@ -1,2 +1,2 @@
-.ui-jswiper-button-next.swiper-button-next:after, .ui-jswiper-button-prev.swiper-button-prev:after { color: var(--color); }
-.ui-jswiper-pagination .swiper-pagination-bullet-active { background: var(--color); }
+.ui-wiper-button-next.swiper-button-next:after, .ui-wiper-button-prev.swiper-button-prev:after { color: var(--color); }
+.ui-wiper-pagination .swiper-pagination-bullet-active { background: var(--color); }
