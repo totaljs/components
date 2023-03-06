@@ -1,11 +1,13 @@
 COMPONENT('jswiper', 'null', function(self, config, cls) {
+
 	var cls2 = '.' + cls;
-	var swiper, container, items = [], body, pagination, navigation;
+	var container, body, pagination, navigation, items, swiper;
 	var opt = {};
 
 	self.readonly();
 
 	self.make = function() {
+
 		var scr = self.find('script');
 		if (scr.length) {
 			self.template = Tangular.compile(scr.html());
@@ -62,9 +64,7 @@ COMPONENT('jswiper', 'null', function(self, config, cls) {
 			}
 		};
 
-		setTimeout(function() {
-			swiper = new Swiper(cls2 + '-' + self.id, opt);
-		}, 400);
+		swiper = new Swiper(cls2 + '-' + self.id, opt);
 	};
 
 	self.setter = function(value) {
@@ -86,4 +86,5 @@ COMPONENT('jswiper', 'null', function(self, config, cls) {
 		self.rclass('hidden');
 		items = body.find('> figure').toArray();
 	};
+
 }, ['https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js', 'https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css']);
