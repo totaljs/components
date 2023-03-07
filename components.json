@@ -305,5 +305,6 @@
 	"j-FormData",
 	"j-CountDown",
 	"j-InlineProperties",
-	"j-Swiper"
+	"j-Swiper",
+	"j-SwitchButton"
 ]
