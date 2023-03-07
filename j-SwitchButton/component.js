@@ -18,7 +18,7 @@ COMPONENT('switchbutton', function(self, config, cls) {
 
 	self.make = function() {
 		self.aclass(cls);
-		self.html('<div class="{1}-label"><span>{0}</span>{2}</div><label tabindex=0><div class="{1}-slider"></div></label>'.format(self.html(), cls, config.label));
+		self.html('<div class="{1}-label"><span>{0}</span>{2}</div><label tabindex=0><div class="{1}-slider"></div></label>'.format(self.html(), cls, config.description));
 		
 		self.event('click', function() {
 			if (!config.disabled) {
