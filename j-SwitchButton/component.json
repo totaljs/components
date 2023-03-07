@@ -10,7 +10,7 @@
 	"version": 1,
 	"picture": "picture.jpg",
 	"dependencies": "",
-	"author": "Dodo Marton",
-	"email": "dodo@totaljs.com",
+	"author": "Totaljs",
+	"email": "info@totaljs.com",
 	"license": "https://www.totaljs.com/license/"
 }

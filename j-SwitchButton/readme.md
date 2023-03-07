@@ -9,5 +9,5 @@ __Configuration__:
 
 ### Author
 
-- Dodo Marton <dodo@totaljs.com>
+- Totaljs <info@totaljs.com>
 - [License](https://www.totaljs.com/license/)
