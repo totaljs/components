@@ -20,3 +20,9 @@
 .ui-switchbutton-align-right > label { order: 2; }
 .ui-switchbutton-align-right .ui-switchbutton-label { order: 1; margin-left: 0; margin-right: 15px; }
 .ui-switchbutton-border { border-bottom: 1px solid #E0E0E0; }
+
+.ui-dark .ui-switchbutton > .ui-switchbutton-label { color: #e0e0e0; }
+.ui-dark .ui-switchbutton-checked > .ui-switchbutton-label > span { color: #FFF; }
+.ui-dark .ui-switchbutton label > .ui-switchbutton-slider:before { background-color: #666; border-color: #888; }
+.ui-dark .ui-switchbutton-checked label > .ui-switchbutton-slider:before { background-color: #ffffff; border-color: #FFF; }
+.ui-dark .ui-switchbutton.ui-disabled label > .ui-switchbutton-slider:before { background-color: #E0E0E0; border-color: #E0E0E0; }

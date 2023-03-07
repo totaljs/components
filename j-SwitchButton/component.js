@@ -10,6 +10,9 @@ COMPONENT('switchbutton', function(self, config, cls) {
 			case 'disabled':
 				!init && self.tclass('ui-disabled', value);
 				break;
+			case 'invalid': 
+				self.tclass(cls + '-invalid', value);
+				break;
 		}
 	};
 
@@ -43,15 +46,5 @@ COMPONENT('switchbutton', function(self, config, cls) {
 
 	self.setter = function(value) {
 		self.tclass(cls + '-checked', value === true);
-	};
-
-	self.state = function(type) {
-		if (!type)
-			return;
-		var invalid = config.required ? self.isInvalid() : false;
-		if (invalid === self.$oldstate)
-			return;
-		self.$oldstate = invalid;
-		self.tclass(cls + '-invalid', invalid);
 	};
 });
