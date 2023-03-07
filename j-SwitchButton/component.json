@@ -1,5 +1,5 @@
 {
-	"datecreated": "2023-03-07T12:00:00.000Z",
+	"datecreated": "2023-03-07T12:00:01.000Z",
 	"dateupdated": null,
 	"name": "j-SwitchButton",
 	"tags": [
@@ -7,6 +7,7 @@
 		"switch",
 		"button"
 	],
+	"darkmode": true,
 	"version": 1,
 	"picture": "picture.jpg",
 	"dependencies": "",
