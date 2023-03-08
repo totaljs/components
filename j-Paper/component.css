@@ -1,5 +1,6 @@
 .ui-paper { font-size: 15px; font-family: Arial; padding: 15px 0; }
 .ui-paper [contenteditable] { outline: 0; }
-.ui-paper section { padding-bottom: 10px; }
+.ui-paper section { padding-bottom: 10px; position: relative; }
 .ui-paper .paper-html { min-height: 16px; display: inline-block; width: 100%; }
+.ui-paper-placeholder { position: absolute; opacity: 0.4; pointer-events: none; margin-left: 3px; }
 .ui-paper-first { height: 10px; }
