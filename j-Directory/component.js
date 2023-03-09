@@ -674,9 +674,9 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 				scroller[0].scrollTop = y < 0 ? 0 : y;
 			} else {
 				scroller[0].scrollTop = 0;
-				ready = true;
 			}
 
+			ready = true;
 			self.rclass('invisible');
 
 		}, 100);
