@@ -27,8 +27,9 @@ COMPONENT('switchbutton', function(self, config, cls) {
 			}
 		});
 
-		self.event('keyup', 'label', function(e) {
+		self.event('keydown', 'label', function(e) {
 			if (!config.disabled && e.which === 32) {
+				e.preventDefault();
 				self.dirty(false);
 				self.getter(!self.get());
 			}
