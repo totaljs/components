@@ -14,7 +14,7 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 
 		var url = config.url;
 		if (current.ssid)
-			url = QUERIFY({ ssid: current.ssid });
+			url = QUERIFY(url, { ssid: current.ssid });
 
 		AJAX('POST {0} ERROR'.format(url), current, function(response) {
 
