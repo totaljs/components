@@ -9,7 +9,7 @@
 .ui-notify-2 .ui-notify-icon { color: #F43D35; }
 .ui-notify-3 .ui-notify-icon { color: var(--color); }
 .ui-notify-icon { float: left; font-size: 25px; padding: 0 0 0 10px; width: 50px; text-align: center; height: 60px; line-height: 60px; border-radius: var(--radius) 0 0 var(--radius); }
-.ui-notify-message { margin: 1px 0 0 60px; line-height: 16px; height: 60px; display: table-cell; width: 100%; vertical-align: middle; padding: 0 10px; text-align: left; }
+.ui-notify-message { margin: 1px 0 0 60px; line-height: 16px; height: 60px; display: table-cell; width: 100%; vertical-align: middle; padding: 0 10px; text-align: left; word-break: break-all; }
 .ui-notify-hidden { transform: scale(0.7); opacity: 0.1; }
 
 .ui-notify-container-top { left: 50%; margin-left: -200px; top: 20px; }
