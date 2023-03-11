@@ -5,12 +5,18 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 	var current = {};
 
 	current.origin = location.origin;
+	current.query = NAV.query;
+	current.ssid = config.ssid || NAV.query.ssid;
 
 	var navigate = function() {
 
 		config.loading && SETTER('loading/show');
 
-		AJAX('POST ' + config.url + ' ERROR', current, function(response) {
+		var url = config.url;
+		if (current.ssid)
+			url = QUERIFY({ ssid: current.ssid });
+
+		AJAX('POST {0} ERROR'.format(url), current, function(response) {
 
 			// response.id
 			// response.parent
@@ -37,14 +43,14 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 					self.app = null;
 				}
 
-				AJAX('GET ' + response.url + ' ERROR', function(data) {
+				AJAX('GET {url} ERROR'.args(response), function(data) {
 
 					if (!config.css)
 						data.css = '';
 
 					data.id = response.id;
 					data.query = data.query || current.query || {};
-					data.ssid = data.query.ssid;
+					data.ssid = data.query.ssid || current.ssid;
 					data.openplatform = data.query.openplatform;
 
 					UIBuilder.build(self.element, data, function(app) {
