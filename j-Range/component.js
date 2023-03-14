@@ -59,7 +59,7 @@ COMPONENT('range', function(self, config) {
 
 		var attrs = [];
 		config.step && attrs.attr('step', config.step);
-		config.max && attrs.attr('max', config.max);
+		(config.max || config.max === 0) && attrs.attr('max', config.max);
 		config.min && attrs.attr('min', config.min);
 		self.html('{0}<input type="range" data-jc-bind=""{1} />'.format(html, attrs.length ? ' ' + attrs.join(' ') : ''));
 	};
