@@ -25,6 +25,7 @@ __Methods__:
 	- `opt.autofocus {Boolean}` tries to focus first input/textarea
 	- `opt.hide {String}` a link to the method `function(box_element)`
 	- `opt.show {String}` a link to the method `function(box_element)`
+	- `opt.autohide {Boolean}` enables hiding a box after clicking on it
 	- `opt.delay {Number}` a simple delay for rendering (default: `0`)
 	- `opt.scrolltop {Boolean}` it deducts scroll top position from the current offset Y (default: `false`)
 	- `opt.url {String}` optional, URL address for the content
