@@ -71,7 +71,7 @@ __Missing types__:
 ### Persistent mode
 
 ```html
-<div data---="properties__form__parent:window">
+<ui-component name="properties" path="form" config="parent:window">
 	<script type="text/html">
 		[
 			{ group: 'Personal', label: 'First name', name: 'firstname', type: 'string', transform: 'capitalize' },
@@ -82,7 +82,7 @@ __Missing types__:
 			{ group: 'Additional', label: 'Emoji', name: 'emoji', type: 'emoji', show: 'n => n.age === 33' }
 		]
 	</script>
-</div>
+</ui-component>
 
 <script>
 	var form = { firstname: 'John', lastname: 'Connor' };

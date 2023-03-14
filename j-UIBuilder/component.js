@@ -10,6 +10,12 @@ COMPONENT('uibuilder', 'css:1', function(self, config, cls) {
 		if (!data || data instanceof Array || typeof(data) !== 'object')
 			return;
 
+		if (self.app) {
+			self.app.remove();
+			self.app = null;
+			config.app && self.SEEX(config.app, null);
+		}
+
 		data.id = config.id || self.ID;
 		UIBuilder.build(self.element, data, function(response) {
 

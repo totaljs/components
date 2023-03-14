@@ -1,0 +1,10 @@
+<ui-component name="LAZY filesaver"></ui-component>
+<button>Save something</button>
+
+<script>
+
+	$(document).on('click', 'button', function() {
+		SETTER('filesaver/save', 'totaljs.txt', 'Hello world!\n\nwww.totaljs.com');
+	});
+
+</script>

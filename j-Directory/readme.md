@@ -18,8 +18,9 @@ Method: `component.show(options)`
 - `options.offsetY` {Number} optional, `y` offset (default: `0`)
 - `options.offsetWidth` {Number} optional, `width` offset (default: `0`)
 - `options.placeholder` {String} optional, a placeholder for search field
+- __NEW__ `options.height` {Number} optional, a height of the container (default: `180`)
 - `options.render` {Function} optional, a function for customized render of item `function(item, text)` must return `HTML`
-- `options.custom` {Boolean} optional, enables returning a value not defined in `options.items`, default: `false`
+- `options.custom` {Boolean/String} optional, enables returning a value not defined in `options.items`, default: `false`
 - `options.minwidth` {Number} optional, a minimal width, default `200`
 - `options.maxwidth` {Number} optional, a maximal width, default `infinite`
 - `options.callback(selected_item, element, iscustom, e) {Function}` is triggered when the user clicks on the item
@@ -33,7 +34,7 @@ Method: `component.show(options)`
 - `options.position` {String} optional, `top` (default), `bottom`
 - `options.raw` {Boolean} optional, this option disables escaping of characters (in other words: HTML content will be allowed in labels of items, default: `false`)
 - `options.classname` {String} optional, a custom container class for all items
-- __NEW__: absolute positioning works only if `options.element` is not defined
+- absolute positioning works only if `options.element` is not defined
 	- `options.x` {Number} absolute position X
 	- `options.y` {Number} absolute position y
 - `options.checkbox` {Boolean} optional, enables checkboxes
@@ -45,6 +46,7 @@ Method: `component.hide()`
 
 __Configuration__:
 - `placeholder` - a placeholder for the search input
+- `Create` - a placeholder for `Create` label (default: `Create`)
 
 __Supported item fields__:
 

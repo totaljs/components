@@ -1,4 +1,4 @@
-COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/paper/db.json;autosave:1', function(self, config, cls) {
+COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/paper/db.json;autosave:1;placeholder:Press / for adding rich content', function(self, config, cls) {
 
 	// <??? class="widget" data-widget="NAME__CONFIG__VERSION" data-id="ID">
 
@@ -56,19 +56,21 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 		var edit = function(e) {
 
-			if (config.readonly || !widget.iseditable())
+			if (config.readonly || !widget.iseditable2())
 				return;
 
 			if (e) {
 
-				if (e.target.classList.contains(cls + '-icon'))
+				var clslist = e.target.classList;
+
+				if (clslist.contains('picon') || clslist.contains('plink'))
 					return;
 
 				e.preventDefault();
 				e.stopPropagation();
 			}
 
-			self.cmd.edit(widget.element, { widget: widget, commands: true, multiline: true }, function(response) {
+			self.cmd.edit(widget.element, { widget: widget, commands: true, multiline: true, placeholder: widget.newbie }, function(response) {
 				if (response.text) {
 					widget.change('update');
 					widget.end(response.key);
@@ -84,6 +86,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			widget.element.html(widget.config.html);
 
 		if (widget.newbie) {
+			config.placeholder && widget.element.parent().prepend('<div class="{0}-placeholder">{1}</div>'.format(cls, config.placeholder));
 			self.cmd.select(widget);
 			setTimeout(edit, 10);
 		}
@@ -127,23 +130,27 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		if (!tmp.length)
 			return;
 
-		openeditor && openeditor.close();
-
 		var content = tmp.text();
 		var link = {};
 		link.element = tmp;
 		link.href = '';
+		tmp.aclass('plink');
+
+		openeditor && openeditor.close();
 
 		if (content.indexOf('@') !== -1)
 			link.href = 'mailto:' + content;
-		else if ((/\d+/).test(content))
+		else if ((/^[0-9\s+-]+$/).test(content))
 			link.href = 'tel:' + content;
 		else if (content.indexOf(' ') === -1 && content.indexOf(',') === -1 && content.indexOf('.') !== -1)
 			link.href = (/http(s):\/\//).test(content) ? content : ('https://' + content);
 
 		link.target = link.href.indexOf('.') !== -1 && link.href.indexOf(location.hostname) === -1 ? '_blank' : '';
+		link.href && tmp.attr('href', link.href);
+		link.target && tmp.attr('target', link.target);
+
 		link.widget = self;
-		config.link && self.EXEC(config.link, link);
+		config.link && setTimeout(() => self.EXEC(config.link, link), 200);
 	};
 
 	self.format.bold = function() {
@@ -154,7 +161,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		var url = '#code' + Date.now().toString(36);
 		document.execCommand('CreateLink', false, url);
 		var a = openeditor.element.find('a[href="{0}"]'.format(url));
-		a.replaceWith('<span class="paper-code">' + a.html() + '</span>');
+		a.replaceWith('<span class="pcode">' + a.html() + '</span>');
 	};
 
 	self.format.italic = function() {
@@ -167,9 +174,9 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 	self.format.icon = function() {
 
-		// Font-Awesome icon
+		// Total.js icon
 		var tag = openeditor.element[0].nodeName.toLowerCase();
-		var icon = '<i class="ti ti-flag {0}-icon" contenteditable="false"></i>&nbsp;'.format(cls);
+		var icon = '<i class="ti ti-flag picon" contenteditable="false"></i>';
 
 		switch (tag) {
 			case 'span':
@@ -220,12 +227,16 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			return;
 		}
 
+		var widgetel = el.closest('.widget')[0];
+		if (!widgetel)
+			return;
+
 		opt.backup = el.html();
 		opt.html && el.html(opt.html);
 		el.attr('contenteditable', true);
 
 		openeditor = {};
-		openeditor.widget = el.closest('.widget')[0].$widget;
+		openeditor.widget = widgetel.$widget;
 		openeditor.element = el;
 		openeditor.dom = el[0];
 		openeditor.parent = opt.parent ? opt.parent[0] : openeditor.dom;
@@ -238,6 +249,12 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		var clickme = function() {
 			openeditor.timeout && clearTimeout(openeditor.timeout);
 			openeditor.timeout = setTimeout(loadformat, 150);
+		};
+
+		var paste = function(e) {
+			e.preventDefault();
+			var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+			document.execCommand('insertHTML', false, text);
 		};
 
 		var keydown = function(e) {
@@ -414,11 +431,17 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		}
 
 		openeditor.close = function() {
+
 			$(W).off('click', clickoutside);
 			el.off('click', clickme);
 			el.rattr('contenteditable');
 			el.off('keydown', keydown);
+			el.off('paste', paste);
 			el.off('keyup', keyup);
+			el.off('input');
+
+			openeditor.timeout && clearTimeout(openeditor.timeout);
+
 			if (opt.callback) {
 				var arg = {};
 				arg.text = el.text();
@@ -431,7 +454,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 				arg.param = opt.param;
 				opt.callback(arg);
 			}
-			openeditor.timeout && clearTimeout(openeditor.timeout);
+
 			openeditor = null;
 			config.format && self.EXEC(config.format, null);
 		};
@@ -439,6 +462,20 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		$(W).on('click', clickoutside);
 		el.on('keydown', keydown);
 		el.on('click', clickme);
+
+		if (opt.placeholder) {
+			var placeholder = el.closest('section').find('.' + cls + '-placeholder')[0];
+			var placeholderprev = false;
+			placeholder && el.on('input', function() {
+				var is = this.innerHTML.length > 0;
+				if (placeholderprev !== is) {
+					placeholderprev = is;
+					placeholder.classList.toggle('hidden', is);
+				}
+			});
+		}
+
+		el.on('paste', paste);
 		el.on('keyup', keyup);
 	};
 
@@ -610,8 +647,10 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			self.cmd.refresh();
 		};
 
-		meta.next = function() {
-			$(el).parent().after('<section><div class="widget paper-html" data-widget="html" data-id="{0}" data-newbie="1"></div></section>'.format(Date.now().toString(36)));
+		meta.append = function(same) {
+			var id = Date.now().toString(36);
+			$(el).parent().after('<section><div class="widget paper-{1}" data-widget="{1}" data-id="{0}" data-newbie="1"></div></section>'.format(id, same === true ? name : (same || 'html')));
+			setTimeout(self.cmd.refresh, 100);
 		};
 
 		meta.css = function(val) {
@@ -627,12 +666,18 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			setTimeout2(self.ID + 'css', self.cmd.rebuildcss, 200);
 		};
 
-		meta.iseditable = function() {
+		meta.iseditable = function(t) {
+			if (t instanceof jQuery)
+				t = t[0];
+			return (t.classList.contains('picon') || t.classList.contains('plink')) ? false : true;
+		};
+
+		meta.iseditable2 = function() {
 			return check ? check(meta) : true;
 		};
 
 		meta.edit = function(el, opt, callback) {
-			if (meta.iseditable())
+			if (meta.iseditable2())
 				self.cmd.edit(el, opt, callback);
 		};
 
@@ -712,6 +757,8 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		meta.update = function() {
 			if (meta.removed)
 				return;
+			if (nosync)
+				nosync = false;
 			meta.change('update');
 		};
 
@@ -844,6 +891,9 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 						item.js = undefined;
 
+						if (item.css)
+							item.css = item.css.replace(/CLASS/g, 'paper-' + item.id);
+
 						if (item.import) {
 							for (var m of item.import)
 								imports.push(m);
@@ -873,6 +923,9 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 				widget.html = html;
 
 				new Function('exports', js)(widget);
+
+				if (widget.css)
+					widget.css = widget.css.replace(/CLASS/g, 'paper-' + widget.id);
 
 				if (cache.instances[widget.id])
 					WARN('Overwriting paper widget:', widget.id);
@@ -974,6 +1027,8 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			self.EXEC(config.contextmenu, this.$widget, e);
 		});
 
+		var AA = 0;
+
 		self.event('click', 'section', function(e) {
 
 			var t = this;
@@ -984,24 +1039,42 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			if (e.target.tagName === 'A' || $(e.target).closest('a').length)
 				return;
 
+			var target = e.target;
+
 			e.stopPropagation();
+
+			if (target.classList.contains('plink'))
+				return;
+
 			e.preventDefault();
 
-			//t.parentNode === self.dom &&
-			if (e.target === t) {
+			if (target.classList.contains('picon')) {
 
-				if (openeditor) {
+				if (openeditor)
 					openeditor.close();
-					return;
-				}
 
+				var opt = {};
+				opt.element = $(e.target);
+				opt.widget = opt.element.closest('.widget')[0].$widget;
+
+				config.icon && self.EXEC(config.icon, opt, function() {
+					opt.widget.change('update');
+				});
+
+				return;
+			}
+
+			if (openeditor)
+				openeditor.close();
+
+			setTimeout(function() {
 				$(t).after('<section><div class="widget whtml" data-widget="html" data-id="{0}" data-newbie="1"></div></section>'.format(Date.now().toString(36)));
 				self.cmd.refresh();
-			}
+			}, 100);
+
 		});
 
 		self.event('click', '.widget', function() {
-
 			if (!config.readonly)
 				self.cmd.select(this.$widget);
 		});
@@ -1010,21 +1083,6 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 			if (config.readonly)
 				return;
-
-			if (e.target.classList.contains(cls + '-icon')) {
-
-				if (openeditor)
-					openeditor.close();
-
-				var opt = {};
-				opt.element = $(e.target);
-
-				config.icon && self.EXEC(config.icon, opt, function() {
-					opt.element.closest('.widget')[0].$widget.change('update');
-				});
-
-				return;
-			}
 
 			if (e.target === self.dom) {
 
@@ -1120,7 +1178,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 				self.tclass(cls + '-w', !value);
 				var tmp = self.find('.widget');
 				for (var w of tmp)
-					w.$widget.readonly = false;
+					w.$widget.readonly = value;
 				break;
 			case 'widgets':
 				value && self.import(value.split(',').trim());

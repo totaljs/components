@@ -1,21 +1,21 @@
 <script type="text/html" id="template">
 	<div>AAA PATH CCC</div>
-	<div data-bind="cities__template">
+	<ui-bind path="cities" config="template" class="block">
 		<SCR type="text/html">
 			{{ foreach m in value }}
 				<div>{{ m }}</div>
 			{{ end }}
 		</SCR>
-	</div>
+	</ui-bind>
 </script>
 
-<div data---="loadcontent__null__selector:#template;replace:PATH=111"></div>
+<ui-component name="loadcontent" path="null" config="selector:#template;replace:PATH=111"></ui-component>
 <br />
-<div data---="loadcontent__null__selector:#template;replace:PATH=222"></div>
+<ui-component name="loadcontent" path="null" config="selector:#template;replace:PATH=222"></ui-component>
 <br />
-<div data---="loadcontent__null__selector:#template;replace:PATH=333"></div>
+<ui-component name="loadcontent" path="null" config="selector:#template;replace:PATH=333"></ui-component>
 <br />
-<div data---="loadcontent__null__selector:#template;replace:PATH=444"></div>
+<ui-component name="loadcontent" path="null" config="selector:#template;replace:PATH=444"></ui-component>
 
 <script>
 	var cities = ['Bratislava', 'Berlin', 'Barcelona'];

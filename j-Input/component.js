@@ -127,7 +127,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			var t = this;
 			var code = e.which;
 
-			if (t.readOnly || config.disabled) {
+			if (t.readOnly || config.readonly || config.disabled) {
 				// TAB
 				if (e.keyCode !== 9) {
 					if (config.dirsource) {
@@ -989,11 +989,19 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			return false;
 
 		var val = self.get();
+		var type = typeof(val);
 
 		if (config.type === 'checkbox')
 			return val === true || val === 1;
 
-		return (config.type === 'phone' || config.type === 'email') && (val != null && (typeof(val) === 'string' && val.length !== 0));
+		if (type === 'string' && val && (config.minlength != null || config.maxlength != null)) {
+			if ((config.minlength != null && val.length < config.minlength) || (config.maxlength != null && val.length > config.maxlength))
+				return true;
+			if (!config.type || (config.type === 'string' || config.type === 'multiline'))
+				return false;
+		}
+
+		return (config.type === 'phone' || config.type === 'email') && (val != null && (type === 'string' && val.length !== 0));
 	};
 
 });

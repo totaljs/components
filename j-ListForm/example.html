@@ -36,7 +36,7 @@
 
 	</ui-component>
 	<hr />
-	<div data-bind="users__text:STRINGIFY(value)" style="font-family:monospace"></div>
+	<ui-bind path="users" config="text:STRINGIFY(value)" style="font-family:monospace" class="block"></ui-bind>
 
 </div>
 

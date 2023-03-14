@@ -24,8 +24,9 @@ __Methods__:
 	- `opt.mouseleave {String}` a link to the method, it's executed when the mouse cursor leaves the box `function(e, close)}`
 	- `opt.autofocus {Boolean}` tries to focus first input/textarea
 	- `opt.hide {String}` a link to the method `function(box_element)`
-	- __NEW__: `opt.show {String}` a link to the method `function(box_element)`
+	- `opt.show {String}` a link to the method `function(box_element)`
 	- `opt.delay {Number}` a simple delay for rendering (default: `0`)
+	- `opt.scrolltop {Boolean}` it deducts scroll top position from the current offset Y (default: `false`)
 	- `opt.url {String}` optional, URL address for the content
 		- `opt.path {String}` will replace all `~PATH~` phrases in the downloaded template
 		- `opt.ID {String}` will replace all `~ID~` phrases in the downloaded template

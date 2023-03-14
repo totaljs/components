@@ -10,6 +10,7 @@ This component sets current browser locale (number format, date format and time 
 __Configuration__:
 
 - `language {String}` optional, a custom language (default: `navigator.language`)
+- `requests {Boolean}` optional, adds a language to the every request (it affects `DEF.languagehtml`, default: `false`)
 
 __Environments__:
 

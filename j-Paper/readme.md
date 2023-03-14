@@ -48,6 +48,7 @@ __Configuration__:
 	- `change.type {String}` operation type (insert, update, remove)
 - `contextmenu {String}` a link to the `function(widget)` when the user pressed the right mouse button on the widget
 - `check {String}` a link to the `function(widget)` that decides whether to enable editing or not
+- `placeholder {String}` a placeholder for the default HTML widget (default: `Press / for adding rich content`)
 
 __Methods__:
 
@@ -61,6 +62,7 @@ The component creates a global variable called `window.papercache {Object}` used
 - the component compares the content when you change data, so you can change data in real-time
 - the component assigns (in the form) `paper-yourwidgetname` class to every widget element
 - reserved HTML classes `readonly`, `widget`, `selected`
+	- readonly usage: `.readonly .paper-yourwidgetname { ... }`
 - `htmlelement.$widget {Object}` contains a widget instance
 	- `widget.remove()` method will remove the widget
 

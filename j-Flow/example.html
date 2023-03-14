@@ -1,20 +1,20 @@
 <style>
-    .toolbar { margin-bottom: 10px; }
-    .toolbar button { min-width: 26px; height: 24px; background-color: transparent; border: 0; font-size: 12px; color: gray; }
-    .toolbar button span { margin-left: 3px; }
-    .toolbar button[name="remove"] { color: red !important; }
-    .toolbar button:disabled { color: #C0C0C0 !important; cursor: not-allowed; }
-    .toolbar button:hover { color: black; }
-    .toolbar button:first-child { border-left: 0; }
+	.toolbar { margin-bottom: 10px; }
+	.toolbar button { min-width: 26px; height: 24px; background-color: transparent; border: 0; font-size: 12px; color: gray; }
+	.toolbar button span { margin-left: 3px; }
+	.toolbar button[name="remove"] { color: red !important; }
+	.toolbar button:disabled { color: #C0C0C0 !important; cursor: not-allowed; }
+	.toolbar button:hover { color: black; }
+	.toolbar button:first-child { border-left: 0; }
 </style>
 
 <div class="toolbar">
-	<button disabled="disabled" data-bind="floweditor.undo__enabled:value && value.length > 0__click:floweditor_undo"><i class="ti ti-undo"></i></button>
-	<button disabled="disabled" data-bind="floweditor.redo__enabled:value && value.length > 0__click:floweditor_redo"><i class="ti ti-redo"></i></button>
-	<button name="remove" disabled="disabled" data-bind="floweditor.info.selected__enabled__click:floweditor_remove"><i class="ti ti-trash"></i></button>
+	<button is="is-button" path="floweditor.undo" config="enabled:value && value.length > 0;click:floweditor_undo" disabled="disabled"><i class="ti ti-undo"></i></button>
+	<button is="is-button" path="floweditor.redo" config="enabled:value && value.length > 0;click:floweditor_redo" disabled="disabled"><i class="ti ti-redo"></i></button>
+	<button is="is-button" path="floweditor.info.selected" config="enabled;click:floweditor_remove" name="remove" disabled="disabled"><i class="ti ti-trash"></i></button>
 </div>
 
-<div data---="flow__flowmodel__width:6000;height:6000;grid:26;infopath:floweditor.info;undopath:floweditor.undo;redopath:floweditor.redo"></div>
+<ui-component name="flow" path="flowmodel" config="width:6000;height:6000;grid:26;infopath:floweditor.info;undopath:floweditor.undo;redopath:floweditor.redo"></ui-component>
 
 <script>
 
@@ -37,5 +37,13 @@
 	function floweditor_remove() {
 		CMD('flow.selected.clear');
 	}
+
+	// Extend buttons for using Web components
+	customElements.define('is-button', class extends HTMLButtonElement {
+		constructor() {
+			super();
+			setTimeout(NEWUIBIND, 2, this);
+		}
+	}, { extends: 'button' });
 
 </script>

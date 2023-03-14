@@ -1,0 +1,21 @@
+<div style="margin-bottom:30px">
+	<ui-component name="swiper" path="datasource" config="slidesperview:3;spacebetween:30;pagination:1;navigation:1" class="hidden invisible">
+		<script type="text/html">
+			<div style="background-color:#E0E0E0;height:150px;color:#000">{{ name }}</div>
+		</script>
+	</ui-component>
+</div>
+
+<div>
+	<ui-component name="swiper" path="null" config="slidesperview:3;autoplay:1" class="hidden invisible">
+		<figure class="swiper-slide"><div style="background-color:#E0E0E0;height:150px;color:#000">A</div></figure>
+		<figure class="swiper-slide"><div style="background-color:#E0E0E0;height:150px;color:#000">B</div></figure>
+		<figure class="swiper-slide"><div style="background-color:#E0E0E0;height:150px;color:#000">C</div></figure>
+		<figure class="swiper-slide"><div style="background-color:#E0E0E0;height:150px;color:#000">D</div></figure>
+		<figure class="swiper-slide"><div style="background-color:#E0E0E0;height:150px;color:#000">E</div></figure>
+		<figure class="swiper-slide"><div style="background-color:#E0E0E0;height:150px;color:#000">F</div></figure>
+	</ui-component>
+</div>
+<script>
+	var datasource = [{ name: 'A' }, { name: 'B' }, { name: 'C' }, { name: 'D' }, { name: 'E' }, { name: 'F' }, { name: 'G' }, { name: 'H' }, { name: 'I' }, { name: 'J' }]
+</script>

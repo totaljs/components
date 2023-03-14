@@ -24,7 +24,7 @@ __Allowed properties__:
 - `text {String}` a text/title
 - `name {String}` a name of property in the model
 - `align {Number}` align for inputs (`0` left (default), `1` center, `2` right)
-- `icon {String}` optional, font-awesome icon identifier
+- `icon {String}` optional, Total JS or font-awesome icon identifier
 - `summary {String}` optional, a summarization
 - `note {String}` optional, a note
 - `required {Boolean}` optional, is the property required?

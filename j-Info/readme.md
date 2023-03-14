@@ -33,7 +33,7 @@ SETTER('info', 'show', opt);
 __or with Tangular templates:__
 
 ```html
-<div data---="info">
+<ui-component name="info">
 
 	<script type="text/html" name="template1">
 		{{ value.name }}
@@ -47,7 +47,7 @@ __or with Tangular templates:__
 		{{ value.description }}
 	</script>
 
-</div>
+</ui-component>
 
 <script>
 function some_caller() {

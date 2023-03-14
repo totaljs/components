@@ -1,10 +1,11 @@
-<div data---="releaser__common.form__if:userform;release:2000">
+<ui-component name="releaser" path="common.form" config="if:userform;release:2000">
 	<script type="text/html">
 		<i class="ti ti-thumbs-up"></i> THE CONTENT IS RENDERED
 	</script>
-</div>
+</ui-component>
 <hr />
-<button data-bind="null__click:releaser_show">Show</button> <button data-bind="null__click:releaser_release">Release (2 sec)</button>
+<button is="is-button" path="null" config="click:releaser_show">Show</button> 
+<button is="is-button" path="null" config="click:releaser_release">Release (2 sec)</button>
 
 <script>
 	function releaser_show() {

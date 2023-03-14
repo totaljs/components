@@ -16,7 +16,7 @@ It's a simple alternative to `j-CloudEditor`. You can specify the main configura
 __Configuration__:
 
 - `parent {String}` a selector for the main container (default: `auto`)
-- `autosave {Boolean}` auto rebinds value from the editor to the component's path (default: `true`)
+- `autosave {Number}` auto rebinds value from the editor to the component's path (in milliseconds, default: `500`)
 - `event {String}` a path to the `function(name, value)`
 	- `click`
 	- `errors`

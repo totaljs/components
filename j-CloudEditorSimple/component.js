@@ -1,4 +1,4 @@
-COMPONENT('cloudeditorsimple', 'parent:auto;autosave:1;margin:0;linenumbers:1;realtime:1;type:clientside', function(self, config) {
+COMPONENT('cloudeditorsimple', 'parent:auto;autosave:500;margin:0;linenumbers:1;realtime:1;type:clientside', function(self, config) {
 
 	var iframe;
 	var savetimeout;
@@ -59,6 +59,12 @@ COMPONENT('cloudeditorsimple', 'parent:auto;autosave:1;margin:0;linenumbers:1;re
 			case 'errors':
 			case 'change':
 				config.event && self.SEEX(config.event, msg.TYPE, msg.value);
+
+				if (msg.TYPE === 'change' && config.autosave) {
+					savetimeout && clearTimeout(savetimeout);
+					savetimeout = setTimeout(save, config.autosave === true ? 400 : config.autosave);
+				}
+
 				break;
 			case 'menu':
 			case 'contextmenu':
@@ -69,10 +75,6 @@ COMPONENT('cloudeditorsimple', 'parent:auto;autosave:1;margin:0;linenumbers:1;re
 				break;
 			case 'cursor':
 				config.event && self.SEEX(config.event, msg.TYPE, msg.value);
-				if (config.autosave) {
-					savetimeout && clearTimeout(savetimeout);
-					savetimeout = setTimeout(save, 500);
-				}
 				break;
 			case 'init':
 				init = true;

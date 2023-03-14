@@ -36,7 +36,8 @@
 .ui-box-align-right { margin: 0 0 0 auto; }
 
 .ui-dark .ui-box { background-color: #202020; }
-.ui-dark .ui-box-container { background-color: rgba(50,50,50,0.9); }
+.ui-dark .ui-box-bg { background-color: rgba(50,50,50,0.9); }
+.ui-dark .ui-box-nobg .ui-box { border-color: #333; }
 .ui-dark .ui-box-title { background-color: #202020; border-bottom-color: #303030; color: #FFF; }
 .ui-dark .ui-box-title > nav { background-color: #202020; border-top-color: #303030; }
 .ui-dark .ui-box-title > nav button { border-color: #404040; background-color: #505050; color: #E0E0E0; }

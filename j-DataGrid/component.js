@@ -1793,15 +1793,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:28;mi
 		var sh = SCROLLBARWIDTH();
 		controls.hide();
 
-		if (config.height === 'fluid') {
-			var mh = config.minheight;
-			if (h < mh)
-				h = mh;
-		} else if (config.height === 'auto') {
-			var mh = config.minheight;
-			if (h < mh)
-				h = mh;
-		}
+		var mh = config.minheight;
+		if (h < mh)
+			h = mh;
 
 		var ismobile = isMOBILE && isTOUCH;
 

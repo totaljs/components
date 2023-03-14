@@ -3,10 +3,10 @@
 	.changed::after { float: right; content: '+'; margin-left: 5px; font-weight: normal; color: orange; }
 </style>
 
-<div data---="LAZY datepicker"></div>
-<div data---="LAZY directory"></div>
+<ui-component name="LAZY datepicker"></ui-component>
+<ui-component name="LAZY directory"></ui-component>
 
-<div data---="editable__form">
+<ui-component name="editable" path="form">
 	<div style="width:500px;padding:10px;border:1px solid #E0E0E0">
 
 		<div class="row">
@@ -14,7 +14,7 @@
 				Name:
 			</div>
 			<div class="col-xs-9">
-				<div class="editable" data-editable="required:true" data-bind="form.name__html"></div>
+				<div class="editable" data-editable="required:true"><ui-bind path="form.name" config="html"></ui-bind></div>
 			</div>
 		</div>
 		<div class="row">
@@ -22,7 +22,7 @@
 				Email:
 			</div>
 			<div class="col-xs-9">
-				<div class="editable" data-editable="required:1;type:email" data-bind="form.email__html"></div>
+				<div class="editable" data-editable="required:1;type:email"><ui-bind path="form.email" config="html"></ui-bind></div>
 			</div>
 		</div>
 		<div class="row">
@@ -30,7 +30,7 @@
 				Nickname:
 			</div>
 			<div class="col-xs-9">
-				<div class="editable" data-editable="required:true" data-bind="form.nickname__empty:Nickname__html"></div>
+				<div class="editable" data-editable="required:true"><ui-bind path="form.nickname" config="empty:Nickname;html"></ui-bind></div>
 			</div>
 		</div>
 		<div class="row">
@@ -46,7 +46,7 @@
 				Country:
 			</div>
 			<div class="col-xs-9">
-				<div class="editable" data-editable="rebind:1;dirsource:countries;type:tags" data-bind="form.countries__template:{#countrytags}"></div>
+				<div class="editable" data-editable="rebind:1;dirsource:countries;type:tags"><ui-bind path="form.countries" config="template:{#countrytags}"></ui-bind></div>
 			</div>
 		</div>
 		<div class="row">
@@ -54,12 +54,12 @@
 				Date:
 			</div>
 			<div class="col-xs-9">
-				<div class="editable" data-editable="type:date" data-bind="form.date__html:(new Date() || value).format('yyyy-MM-dd')"></div>
+				<div class="editable" data-editable="type:date"><ui-bind path="form.date" config="html:(new Date() || value).format('yyyy-MM-dd')"></ui-bind></div>
 			</div>
 		</div>
 	</div>
-	<pre data-bind="form__html:JSON.stringify(value, null, '  ')"></pre>
-</div>
+	<pre><ui-bind path="form" config="html:JSON.stringify(value, null, '  ')"></ui-bind></pre>
+</ui-component>
 
 <script type="text/html" id="countrytags">
 	{{ foreach m in value }}<span class="editable-tag"><i class="ti ti-times"></i>{{ m }}</span>{{ end }}
@@ -68,7 +68,7 @@
 
 <script>
 
-	// Alternative to tags (data-bind="path__change:myfunc")
+	// Alternative to tags (ui-bind path="path" config="change:myfunc")
 	function myfunc(data, path, el) {
 		if (!data)
 			return el.html('');

@@ -1,0 +1,17 @@
+{
+	"datecreated": "2023-03-07T12:00:04.000Z",
+	"dateupdated": null,
+	"name": "j-SwitchButton",
+	"tags": [
+		"toggle",
+		"switch",
+		"button"
+	],
+	"darkmode": true,
+	"version": 1,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Totaljs",
+	"email": "info@totaljs.com",
+	"license": "https://www.totaljs.com/license/"
+}

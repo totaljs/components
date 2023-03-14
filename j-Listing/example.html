@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-sm-6">
 		<h2>With layout</h2>
-		<div data---="listing__items">
+		<ui-component name="listing" path="items">
 			<script type="text/html">
 				<div class="col-xs-4">
 					<div>Item: {{ name }}</div>
@@ -12,19 +12,19 @@
 				<br />
 				<div class="row">{{ body | raw }}</div>
 			</script>
-		</div>
+		</ui-component>
 		<br />
 	</div>
 
 	<div class="col-sm-6">
 		<h2>Without layout</h2>
-		<div data---="listing__items__count:8">
+		<ui-component name="listing" path="items" config="count:8">
 			<script type="text/html">
 				<div>
 					<div>Item: {{ name }}</div>
 				</div>
 			</script>
-		</div>
+		</ui-component>
 		<br />
 	</div>
 </div>

@@ -1,0 +1,16 @@
+{
+	"datecreated": "2023-03-06T14:00:01.000Z",
+	"dateupdated": null,
+	"name": "j-Swiper",
+	"tags": [
+		"swiper",
+		"slider",
+		"carousel"
+	],
+	"version": 1,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Dodo Marton",
+	"email": "dodo@totaljs.com",
+	"license": "https://www.totaljs.com/license/"
+}

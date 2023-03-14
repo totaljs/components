@@ -3,7 +3,7 @@
 	html{height:100%;}
 </style>
 
-<div data---="grid__griddata__exec:filtering">
+<ui-component name="grid" path="griddata" config="exec:filtering">
 	<script type="text/plain">
 		[
 			{ name: 'name', text: 'Name', size: 2, render: 'n => n.toUpperCase()', filter: 'Search in name' },
@@ -12,7 +12,7 @@
 			{ name: 'created', text: 'Created', size: 1, filter: 'Search in dates', format: 'dd.MM.yyyy', align: 'center' }
 		]
 	</script>
-</div>
+</ui-component>
 
 <script>
 	var griddata = { page: 1, count: 18, pages: 3, limit: 6, items: [] };

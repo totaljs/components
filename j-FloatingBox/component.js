@@ -148,6 +148,9 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 		if (opt.offsetY)
 			options.top += opt.offsetY;
 
+		if (opt.scrolltop)
+			options.top -= $(W).scrollTop();
+
 		var mw = width;
 		var mh = opt.box.height();
 

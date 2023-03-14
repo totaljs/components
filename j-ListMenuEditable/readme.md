@@ -28,14 +28,14 @@ __Good to know__:
 Path __must be__ array of objects. After click on item in menu
 Supports dynamic evaluation of the content of `<script type="text/html">`. The example below contains a script with HTML and the component evaluates the content when the component is creating (only once).
 ```
-<div data---="listmenueditable__tags">
+<ui-component name="listmenueditable" path="tags">
 	<script type="text/html">
 		{{ if mycolor }}
 			<i class="ti ti-circle" style="color: {{ mycolor }}"></i>
 		{{ fi }}
 		{{ name }}
 	</script>
-</div>
+</ui-component>
 ```
 
 __Adding of custom class__:

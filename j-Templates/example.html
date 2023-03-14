@@ -5,7 +5,7 @@
 <br />
 
 <div style="width:500px;height:300px;border:1px solid #E0E0E0">
-	<div data---="templates__myfiles__template:mytemplate;drop:template_drop">
+	<ui-component name="templates" path="myfiles" config="template:mytemplate;drop:template_drop">
 
 		<script type="text/html" data-name="list">
 			<div class="list padding">
@@ -23,13 +23,13 @@
 			</div>
 		</script>
 
-	</div>
+	</ui-component>
 
 </div>
 <br />
 <div><b>Without multiple templates:</b></div>
 <div style="width:500px;height:300px;border:1px solid #E0E0E0;margin-top:10px">
-	<div data---="templates__myfiles">
+	<ui-component name="templates" path="myfiles">
 		<script type="text/html">
 			<div class="list padding">
 				{{ foreach m in value }}
@@ -37,7 +37,7 @@
 				{{ end }}
 			</div>
 		</script>
-	</div>
+	</ui-component>
 </div>
 
 <script>

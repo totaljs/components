@@ -25,7 +25,7 @@ AJAX('POST /api/profile/', userprofile, ASETTER('snackbar/response', 'Profile ha
 	console.log(response);
 }));
 
-// Or with a callback and without message
+// Or with a callback and without a message
 AJAX('POST /api/profile/', userprofile, ASETTER('snackbar/response', function(response) {
 	console.log(response);
 }));

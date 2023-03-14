@@ -9,6 +9,9 @@ COMPONENT('locale', function(self, config) {
 		if (!language)
 			return;
 
+		if (config.requests)
+			DEF.languagehtml = language;
+
 		var fdw = 0; // First day of week  : 0 sunday, 1 monday, 5 friday, 6 saturday
 		var nf = 1;  // Number format      : 1 == 100 000.123, 2 == 100 000,123, 3 == 100.000,123, 4 == 100,000.123
 		var tf = 24; // Time format        : 12, 24
@@ -1001,7 +1004,6 @@ COMPONENT('locale', function(self, config) {
 			self.use(config.language);
 		else if (!self.use(language))
 			self.use(language.split('-')[0]);
-
 	};
 
 });

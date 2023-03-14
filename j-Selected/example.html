@@ -3,10 +3,12 @@
 	nav a { display: block; }
 </style>
 
-<nav data---="selected__common.page">
-	<a href="#users" data-if="users">Users</a>
-	<a href="#products" data-if="products">Products</a>
-	<a href="#settings" data-if="settings">Settings</a>
+<nav>
+	<ui-component name="selected" path="common.page">
+		<a href="#users" data-if="users">Users</a>
+		<a href="#products" data-if="products">Products</a>
+		<a href="#settings" data-if="settings">Settings</a>
+	</ui-component>
 </nav>
 
 <script>

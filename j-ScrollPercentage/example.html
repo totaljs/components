@@ -1,6 +1,6 @@
-<div data-bind="common.scroll__exec div:myProgress" style="border: 1px solid #D0D0D0;padding:2px"><div style="height:10px;background-color:#79B34C"></div></div>
+<ui-bind path="common.scroll" config="exec div:myProgress" style="border: 1px solid #D0D0D0;padding:2px" class="block"><div style="height:10px;background-color:#79B34C"></div></ui-bind>
 <br />
-<div style="height:400px;overflow-y:scroll" data---="scrollpercentage__common.scroll">
+<ui-component name="scrollpercentage" path="common.scroll" style="height:400px;overflow-y:scroll">
 	<div>Text</div>
 	<div>Text</div>
 	<div>Text</div>
@@ -173,7 +173,7 @@
 	<div>Text</div>
 	<div>Text</div>
 	<div>Text</div>
-</div>
+</ui-component>
 
 <script>
 	function myProgress(value, path, el) {

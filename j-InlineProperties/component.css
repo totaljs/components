@@ -1,0 +1,27 @@
+.ui-inlineproperties { position: absolute; left: 0; right: 0; bottom: 0; top: 0; z-index: 90; }
+.ui-inlineproperties-body { position: absolute; background: #FFF; left: 50px; top: 50px; border-radius: var(--radius); box-shadow: 2px 5px 15px rgba(0,0,0,0.08); border: 1px solid #E0E0E0; border-radius: var(--radius); z-index: 1; transform-origin: top left; }
+.ui-inlineproperties-item { height: 22px; border-bottom: 1px solid #E0E0E0; font-size: 11px; }
+.ui-inlineproperties-name { line-height: 21px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; border-right: 1px solid #E0E0E0; float: left; width: 80px; padding: 0 5px; color: #777; }
+.ui-inlineproperties-value { margin-left: 80px; }
+.ui-inlineproperties-value input { width: 100%; border: 0; height: 21px; line-height: 21px; outline: 0; border: 0; margin: 0; padding: 0 0 0 5px; background: transparent; color: #000; }
+.ui-inlineproperties-button { padding: 8px; }
+.ui-inlineproperties-button button { width: 100%; background: #F0F0F0; color: #777; border: 0; height: 24px; line-height: 23px; font-size: 11px; border-radius: var(--radius); }
+.ui-inlineproperties-button button:hover { opacity: 0.9; }
+.ui-inlineproperties-colorclick { padding: 3px 0 0 5px; cursor: pointer; }
+.ui-inlineproperties-color span { width: 14px; height: 14px; display: block; border-radius: var(--radius); }
+.ui-inlineproperties-iconclick { padding: 3px 0 0 6px; cursor: pointer; }
+.ui-inlineproperties-dateclick { height: 21px; line-height: 21px; padding: 0 5px; cursor: pointer; }
+.ui-inlineproperties-listclick { height: 21px; line-height: 21px; padding: 0 5px; cursor: pointer; }
+.ui-inlineproperties-icon span { width: 14px; height: 14px; display: block; line-height: 14px; }
+.ui-inlineproperties-booleanclick { padding: 3px 0 0 5px; cursor: pointer; }
+.ui-inlineproperties-boolean span { width: 14px; height: 14px; background: #F0F0F0; display: block; border-radius: var(--radius); }
+.ui-inlineproperties-boolean i { display: none; color: #FFF; }
+.ui-inlineproperties-checked span { background: var(--color); font-size: 9px; }
+.ui-inlineproperties-checked i { display: block; font-weight: bold; line-height: 14px; text-align: center; }
+
+.ui-dark .ui-inlineproperties-body { background: #353535; border-color: #404040; box-shadow: 2px 5px 15px rgba(0,0,0,0.15); color: #FFF; }
+.ui-dark .ui-inlineproperties-item { border-bottom-color: #404040; }
+.ui-dark .ui-inlineproperties-name { border-right-color: #404040; color: #C0C0C0; }
+.ui-dark .ui-inlineproperties-button button { background: #555; color: #C0C0C0; }
+.ui-dark .ui-inlineproperties-boolean span { background: #777; }
+.ui-dark .ui-inlineproperties-value input { color: #FFF; }

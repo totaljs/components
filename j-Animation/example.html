@@ -1,15 +1,15 @@
-<div data-scope="form" class="container">
-	<div data---="animation__null__style:6">
+<ui-plugin path="form" class="container">
+	<ui-component name="animation" config="style:6">
 		<div class="row">
 			<div class="col-md-3 m">
-				<div data---="input__?.name" class="animation">Name</div>
+				<ui-component name="input" path="?.name" class="animation">Name</ui-component>
 			</div>
 			<div class="col-md-3 m">
-				<div data---="input__?.price__type:number" class="animation">Price</div>
+				<ui-component name="input" path="?.price" config="type:number" class="animation">Price</ui-component>
 			</div>
 			<div class="col-md-3 m">
-				<div data---="input__?.address" class="animation" data-animation="noanimation:1">Without animation</div>
+				<ui-component name="input" path="?.address" class="animation" data-animation="noanimation:1">Without animation</ui-component>
 			</div>
 		</div>
-	</div>
-</div>
+	</ui-component>
+</ui-plugin>

@@ -10,6 +10,7 @@ __Configuration__:
 - `class {String}` selected class (default: `selected`)
 - `dblclickselectall {Boolean}` enables reverse selection after double-click (default: `true`)
 - `cancel {String}` a path to the variable (if the variable is changed then the selection is resetted, default: empty)
+- __NEW__: `click {String}` a selector for capturing of click (default: `.selection`)
 
 __Methods__:
 

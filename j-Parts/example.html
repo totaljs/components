@@ -1,19 +1,19 @@
-<div data---="exec">
+<ui-component name="exec">
 
-	<div data-bind="myparts__template">
+	<ui-bind path="myparts" config="template" class="block">
 		<script type="text/html">
 			{{ foreach m in value }}
 			<button class="exec" data-exec="changepart" data-id="{{ m.id }}"><i class="ti ti-times exec mr5" data-prevent="true" data-exec="closepart"></i>{{ m.name }}</button>
 			{{ end }}
 		</script>
-	</div>
+	</ui-bind>
 	<br />
 
 	<div style="width:600px;height:300px;border:1px solid #E0E0E0">
-		<div data---="parts__myparts__parent:auto"></div>
+		<ui-component name="parts" path="myparts" config="parent:auto"></ui-component>
 	</div>
 
-</div>
+</ui-component>
 
 <script>
 	var myparts = [];

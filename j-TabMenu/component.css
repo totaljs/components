@@ -1,4 +1,5 @@
 .ui-tabmenu { padding: 0; margin: 0 0 10px; display: block; position: relative; font-size: 12px; list-style-type: none; height: 26px; }
+.tabmenu { padding: 0; margin: 0 0 10px; display: block; position: relative; font-size: 12px; list-style-type: none; height: 26px; }
 .ui-tabmenu li { float: left; line-height: 26px; border: 0; margin: 0 1px 0 0; padding: 0; background-color: #F0F0F0; text-align: center; color: gray; cursor: pointer; min-width: 80px; }
 .ui-tabmenu li:first-child { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
 .ui-tabmenu li:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }

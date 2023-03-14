@@ -2,7 +2,7 @@
 	body { background-color: #E0E0E0; }
 </style>
 
-<div data---="menu"></div>
+<ui-component name="menu"></ui-component>
 
 <div class="container">
 	<div class="row">
@@ -22,6 +22,6 @@
 		opt.callback = function(selected) {
 			console.log(selected);
 		};
-		SETTER('menu', 'show', opt);
+		SETTER('menu/show', opt);
 	});
 </script>

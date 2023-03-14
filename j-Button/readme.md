@@ -8,7 +8,7 @@ A simple button component with great features.
 __Configuration__:
 
 - `exec {String}` __required__ a path to the `function(el, path)` method
-- `icon {String}` Font-Awesome icons (default: `undefined`)
+- `icon {String}` Total JS icons (default: `undefined`)
 - `color {String}` An icon color (default: `undefined`)
 - `validation {Boolean}` Enables validation for all components on the path (default: `true`)
 - `delay` {Number} a timeout for validation (default: `100`)

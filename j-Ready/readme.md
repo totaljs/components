@@ -1,6 +1,6 @@
 ## j-Ready
 
-This component executes some operations when the component is ready.
+This component executes some operations when the component is ready. 
 
 __Configuration__:
 

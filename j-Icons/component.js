@@ -4,6 +4,7 @@ COMPONENT('icons', 'search:Search;scrollbarshadow:0', function(self, config, cls
 	var template = '<span data-search="{0}"><i class="{1}"></i></span>';
 	var events = {};
 	var container;
+	var content;
 	var is = false;
 	var cachekey;
 
@@ -13,9 +14,9 @@ COMPONENT('icons', 'search:Search;scrollbarshadow:0', function(self, config, cls
 	self.nocompile();
 
 	self.redraw = function() {
-		self.html('<div class="{0}"><div class="{0}-header"><div class="{0}-search"><span><i class="ti ti-search clearsearch"></i></span><div><input type="text" placeholder="{1}" class="{0}-search-input"></div></div></div><div class="{0}-scrollbar"><div class="{0}-content"></div></div></div>'.format(cls, config.search));
-		container = self.find(cls2 + '-content');
-		self.scrollbar = SCROLLBAR(self.find(cls2 + '-scrollbar'), { visibleY: 1, shadow: config.scrollbarshadow });
+		container.html('<div class="{0}"><div class="{0}-header"><div class="{0}-search"><span><i class="ti ti-search clearsearch"></i></span><div><input type="text" placeholder="{1}" class="{0}-search-input"></div></div></div><div class="{0}-scrollbar"><div class="{0}-content"></div></div></div>'.format(cls, config.search));
+		content = container.find(cls2 + '-content');
+		self.scrollbar = SCROLLBAR(container.find(cls2 + '-scrollbar'), { visibleY: 1, shadow: config.scrollbarshadow });
 	};
 
 	self.rendericons = function(empty) {
@@ -30,28 +31,38 @@ COMPONENT('icons', 'search:Search;scrollbarshadow:0', function(self, config, cls
 		empty && builder.push(template.format('', ''));
 
 		AJAX('GET ' + (config.list || 'https://cdn.componentator.com/icons-db.html'), function(response) {
+
 			response = response.split(',');
 			for (var icon of response)
 				builder.push(template.format(icon.toSearch(), 'ti ti-' + icon));
-			self.find(cls2 + '-content').html(builder.join(''));
+
+			if (config.custom) {
+				AJAX('GET ' + config.custom, function(response) {
+					response = response.split(',');
+					for (var icon of response)
+						builder.push(template.format(icon.toSearch(), 'tic ti-' + icon));
+					container.find(cls2 + '-content').html(builder.join(''));
+				});
+			} else
+				container.find(cls2 + '-content').html(builder.join(''));
 		});
 	};
 
 	self.search = function(value) {
 
-		var search = self.find('.clearsearch');
+		var search = container.find('.clearsearch');
 		search.rclass2('ti-');
 
 		if (!value.length) {
 			search.aclass('ti-search');
-			container.find('.hidden').rclass('hidden');
+			content.find('.hidden').rclass('hidden');
 			return;
 		}
 
 		value = value.toSearch();
 		search.aclass('ti-times');
 		self.scrollbar.scrollTop(0);
-		var icons = container.find('span');
+		var icons = content.find('span');
 		for (var i = 0; i < icons.length; i++) {
 			var el = $(icons[i]);
 			el.tclass('hidden', el.attrd('search').indexOf(value) === -1);
@@ -60,13 +71,20 @@ COMPONENT('icons', 'search:Search;scrollbarshadow:0', function(self, config, cls
 
 	self.make = function() {
 
-		self.aclass(cls + '-container hidden');
+		self.aclass(cls + '-area hidden');
+		self.append('<div class="{0}-container"></div>'.format(cls));
+		container = self.find(cls2 + '-container');
 
 		self.event('keydown', 'input', function() {
 			var t = this;
 			setTimeout2(self.ID, function() {
 				self.search(t.value);
 			}, 300);
+		});
+
+		self.element.on('click', function(e) {
+			if (e.target === self.dom)
+				self.hide();
 		});
 
 		self.event('click', '.ti-times', function() {
@@ -123,9 +141,9 @@ COMPONENT('icons', 'search:Search;scrollbarshadow:0', function(self, config, cls
 			return;
 		}
 
-		var search = self.find(cls2 + '-search-input');
+		var search = container.find(cls2 + '-search-input');
 		search.val('');
-		self.find('.clearsearch').rclass2('ti-').aclass('ti-search');
+		container.find('.clearsearch').rclass2('ti-').aclass('ti-search');
 
 		if (M.scope)
 			opt.scope = M.scope();
@@ -137,12 +155,12 @@ COMPONENT('icons', 'search:Search;scrollbarshadow:0', function(self, config, cls
 		if (is) {
 			css.left = 0;
 			css.top = 0;
-			self.css(css);
+			container.css(css);
 		} else
 			self.rclass('hidden');
 
 		var target = $(opt.element);
-		var w = self.element.width();
+		var w = container.width();
 		var offset = target.offset();
 
 		if (opt.element) {
@@ -173,7 +191,7 @@ COMPONENT('icons', 'search:Search;scrollbarshadow:0', function(self, config, cls
 
 		is = true;
 		self.rendericons(opt.empty);
-		self.css(css);
+		container.css(css);
 		if (opt.scrolltop == null || opt.scrolltop)
 			self.scrollbar.scrollTop(0);
 		search.focus();
@@ -182,7 +200,7 @@ COMPONENT('icons', 'search:Search;scrollbarshadow:0', function(self, config, cls
 	};
 
 	self.clear = function() {
-		container.empty();
+		content.empty();
 		cachekey = null;
 	};
 
@@ -192,7 +210,7 @@ COMPONENT('icons', 'search:Search;scrollbarshadow:0', function(self, config, cls
 		self.opt = null;
 		self.unbindevents();
 		self.aclass('hidden');
-		container.find('.hidden').rclass('hidden');
+		content.find('.hidden').rclass('hidden');
 		setTimeout2(self.ID, self.clear, 1000 * 10);
 	};
 });

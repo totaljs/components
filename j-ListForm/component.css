@@ -11,6 +11,7 @@
 .ui-listform-item:last-child { border-bottom: 0; }
 .ui-disabled .ui-listform-item { cursor: not-allowed; color: gray; }
 .ui-listform-new button[name='remove'] { display: none; }
+.ui-listform-item-highlight { background-color: rgba(0,0,0,0.1); }
 
 .ui-dark .ui-listform-container { border-color: #404040; }
 .ui-dark .ui-listform-form-container { background-color: #282828; }
@@ -19,3 +20,4 @@
 .ui-dark .ui-listform-selected { background-color: #282828; }
 .ui-dark .ui-disabled .ui-listform-item { color: #777; }
 .ui-dark .ui-listform-emptylabel { color: #777; }
+.ui-dark .ui-listform-item-highlight { background-color: rgba(255,255,255,0.1); }

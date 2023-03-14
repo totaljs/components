@@ -76,6 +76,8 @@ COMPONENT('listform', 'empty:---;default:1;', function(self, config, cls) {
 				switch (this.name) {
 					case 'up':
 					case 'down':
+						el.closest('.ui-listform-item').aclass('ui-listform-item-highlight');
+						el.closest('.ui-listform-item').rclass(('ui-listform-item-highlight'), 1000);
 						var index = items.indexOf(tmp);
 						var tmp = index + (this.name === 'up' ? -1 : 1);
 						if (tmp < 0 || index > items.length)
