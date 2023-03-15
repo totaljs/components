@@ -659,6 +659,11 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 
 		main.css(options);
 
+		setTimeout(() => {
+			if (options.top + main.height() > window.innerHeight)
+				main.css('top', Math.max(window.innerHeight - main.height() - 20, 10));
+		}, 50);
+
 		!isMOBILE && setTimeout(function() {
 			if (opt.search !== false)
 				input.focus();
