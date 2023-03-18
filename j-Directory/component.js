@@ -218,7 +218,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 						var index = +sel.attrd('index');
 						if (self.opt.custom && (!sel.length || index === -2))
 							self.opt.callback(this.value, self.opt.element, true);
-						else
+						else if (self.opt.items[index])
 							self.opt.callback(self.opt.items[index], self.opt.element);
 					}
 					self.hide();
