@@ -11,6 +11,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 	var parentclass = null;
 	var skiphide = false;
 	var skipmouse = false;
+	var autohide = false;
 	var customvalue;
 	var main;
 
@@ -179,7 +180,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 		});
 
 		var e_resize = function() {
-			is && self.hide(0);
+			is && autohide && self.hide(0);
 		};
 
 		self.bindedevents = false;
@@ -583,6 +584,8 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 			width = opt.maxwidth;
 
 		ready = false;
+		autohide = !!isMOBILE;
+
 		opt.ajaxold = null;
 		plus.aclass('hidden');
 		self.find('input').prop('placeholder', opt.placeholder || config.placeholder);
@@ -636,6 +639,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 		else if ((mw + options.left) > WW)
 			options.left = (WW - mw) - 10;
 
+		/*
 		var dom = opt.element ? opt.element[0].parentNode : null;
 		var restrict = true;
 
@@ -650,11 +654,11 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 				break;
 
 			dom = dom.parentNode;
-		}
+		}*/
 
 		if (options.top < 0)
 			options.top = 10;
-		else if (restrict && (mh + options.top) > WH)
+		else if ((mh + options.top) > WH) // else if (restrict && (mh + options.top) > WH)
 			options.top = (WH - mh) - 10;
 
 		main.css(options);
@@ -678,6 +682,8 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 
 			ready = true;
 			self.rclass('invisible');
+
+			isMOBILE && setTimeout(() => autohide = true, 1000);
 
 		}, 100);
 
