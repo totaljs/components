@@ -11,7 +11,6 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 	var parentclass = null;
 	var skiphide = false;
 	var skipmouse = false;
-	var autohide = false;
 	var customvalue;
 	var main;
 
@@ -178,26 +177,6 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 			}
 
 		});
-
-		var e_resize = function() {
-			is && autohide && self.hide(0);
-		};
-
-		self.bindedevents = false;
-
-		self.bindevents = function() {
-			if (!self.bindedevents) {
-				$(W).on('resize', e_resize);
-				self.bindedevents = true;
-			}
-		};
-
-		self.unbindevents = function() {
-			if (self.bindedevents) {
-				self.bindedevents = false;
-				$(W).off('resize', e_resize);
-			}
-		};
 
 		self.event('keydown', 'input', function(e) {
 			var o = false;
@@ -507,11 +486,11 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 			return;
 		}
 
-		setTimeout(self.bindevents, 500);
 		self.tclass(cls + '-search-hidden', opt.search === false);
 
 		self.opt = opt;
 		opt.class && main.aclass(opt.class);
+		skiphide = true;
 
 		input.val('');
 
@@ -584,7 +563,6 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 			width = opt.maxwidth;
 
 		ready = false;
-		autohide = !!isMOBILE;
 
 		opt.ajaxold = null;
 		plus.aclass('hidden');
@@ -639,26 +617,9 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 		else if ((mw + options.left) > WW)
 			options.left = (WW - mw) - 10;
 
-		/*
-		var dom = opt.element ? opt.element[0].parentNode : null;
-		var restrict = true;
-
-		while (dom) {
-
-			if (dom.tagName === 'BODY') {
-				restrict = false;
-				break;
-			}
-
-			if (dom.classList.contains('ui-scrollbar-area'))
-				break;
-
-			dom = dom.parentNode;
-		}*/
-
 		if (options.top < 0)
 			options.top = 10;
-		else if ((mh + options.top) > WH) // else if (restrict && (mh + options.top) > WH)
+		else if ((mh + options.top) > WH)
 			options.top = (WH - mh) - 10;
 
 		main.css(options);
@@ -670,6 +631,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 
 		setTimeout(function() {
 			self.initializing = false;
+			skiphide = false;
 			is = true;
 
 			if (selected) {
@@ -682,8 +644,6 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 
 			ready = true;
 			self.rclass('invisible');
-
-			isMOBILE && setTimeout(() => autohide = true, 1000);
 
 		}, 100);
 
@@ -711,18 +671,23 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 	};
 
 	self.hide = function(sleep) {
+
 		if (!is || self.initializing)
 			return;
+
 		clearTimeout(timeout);
 		timeout = setTimeout(function() {
-			self.unbindevents();
+
 			self.rclass(cls + '-visible').aclass('hidden');
+
 			if (self.opt) {
 				self.opt.close && self.opt.close();
 				self.opt.class && self.rclass(self.opt.class);
 				self.opt = null;
 			}
+
 			is = false;
+
 		}, sleep ? sleep : 100);
 	};
 });
