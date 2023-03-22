@@ -12,6 +12,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 	var skiphide = false;
 	var skipmouse = false;
 	var customvalue;
+	var search;
 	var main;
 
 	template = template.format(templateE);
@@ -50,6 +51,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 		input = self.find('input');
 		icon = self.find(cls2 + '-button').find('.ti');
 		plus = self.find(cls2 + '-add');
+		search = self.find(cls2 + '-search');
 
 		self.event('mouseenter mouseleave', 'li', function() {
 			if (ready && !issearch && !skipmouse) {
@@ -610,17 +612,20 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 			options.top += opt.offsetY;
 
 		var mw = width;
-		var mh = height;
+		var mh = scroller.height();
 
 		if (options.left < 0)
 			options.left = 10;
 		else if ((mw + options.left) > WW)
 			options.left = (WW - mw) - 10;
 
-		if (options.top < 0)
-			options.top = 10;
-		else if ((mh + options.top) > WH)
+		mh += search.height();
+
+		if ((mh + options.top) > WH)
 			options.top = (WH - mh) - 10;
+
+		if (options.top < 10)
+			options.top = 10;
 
 		main.css(options);
 
@@ -638,9 +643,8 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 				var h = container.find('li:first-child').innerHeight() + 1;
 				var y = (container.find('li.selected').index() * h) - (h * 2);
 				scroller[0].scrollTop = y < 0 ? 0 : y;
-			} else {
+			} else
 				scroller[0].scrollTop = 0;
-			}
 
 			ready = true;
 			self.rclass('invisible');
