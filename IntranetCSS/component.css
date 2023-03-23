@@ -182,3 +182,18 @@ p { font-size: 13px; color: #777; margin: 0 0 15px 0; }
 .ui-dark .btn[name='submit'] { background-color: var(--color); color: #FFF; }
 .ui-dark .btn:disabled { background-color: #333 !important; border-color: #333 !important; color: #888 !important; }
 .ui-dark .btn:disabled i { color: #999 !important; }
+
+table.board { border-collapse: separate; border-spacing: 0; font-size: 12px; }
+table.board tr th { font-size: 13px; font-weight: 500; color: #555; padding: 8px 7px; background: #f3f3f3; text-align: left; border-top: solid 1px #ddd; }
+table.board tr th i { margin-right: 5px; }
+table.board tr td { padding: 7px; vertical-align: middle; }
+table.board tr th, table.board tr td { border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; }
+table.board tr th:first-child, table.board tr td:first-child { border-left: 1px solid #ddd; }
+table.board tr:first-child th:first-child { border-top-left-radius: var(--radius); }
+table.board tr:first-child th:last-child { border-top-right-radius: var(--radius); }
+table.board tr:last-child td:first-child { border-bottom-left-radius: var(--radius); }
+table.board tr:last-child td:last-child { border-bottom-right-radius: var(--radius); }
+
+.ui-dark table.board tr th { background: rgba(0,0,0,0.05); color: #fff; border-top: 1px solid #aaa; }
+.ui-dark table.board tr th, .ui-dark table.board tr td { border-right: 1px solid #aaa; border-bottom: 1px solid #aaa; }
+.ui-dark table.board tr th:first-child, .ui-dark table.board tr td:first-child { border-left: 1px solid #aaa; }
