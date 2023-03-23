@@ -33,6 +33,11 @@ __Methods__:
 
 - `component.use(language)`
 
+__Supported special languages__:
+
+- `eu` with the dd.MM.yyyy with a 24 hour system
+- `us` with the MM-dd-yyyy with a 12 hour system
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com> and Lucia Širková

@@ -192,6 +192,9 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 			});
 		});
 
+		if (opt.autohide)
+			opt.box.on('click', self.hide);
+
 		opt.autofocus && self.autofocus(opt.autofocus);
 		is = true;
 

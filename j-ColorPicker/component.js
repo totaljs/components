@@ -130,6 +130,10 @@ COMPONENT('colorpicker', function(self, config, cls) {
 			css.top += opt.offsetY;
 
 		is = true;
+
+		if (css.top + self.element.height() > window.innerHeight)
+			css.top = window.innerHeight - self.element.height() - 20; 
+
 		self.element.css(css);
 		setTimeout(self.bindevents, 10);
 	};

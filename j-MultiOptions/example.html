@@ -1,5 +1,5 @@
 <div style="width:600px;margin:30px auto">
-	<ui-bind path="multioptions" config="options" class="block">
+	<ui-component name="multioptions" path="options" class="block">
 		<script type="text/plain">
 			option('background', 'Background Color', '#8CC152', 'Color');
 			option('type', 'Type', 'days', ['hours', 'days', 'months', 'years']);
@@ -13,7 +13,7 @@
 			option('onlyInteger', 'Whole numbers', true);
 			option('decimals', 'Decimals', 1);
 		</script>
-	</ui-bind>
+	</ui-component>
 </div>
 
 <script>
