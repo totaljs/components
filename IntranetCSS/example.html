@@ -55,11 +55,11 @@
 			</div>
 			<br />
 
-			<div data---="breadcrumb__common.breadcrumb" class="invisible">
+			<ui-component name="breadcrumb" path="common.breadcrumb" class="invisible">
 				<div class="toolbar">
 					<button><i class="ti ti-plus-circle green"></i>Add</button>
 				</div>
-			</div>
+			</ui-component>
 			<br />
 
 			<div class="monospace fs11">.nav > nav</div>
@@ -139,16 +139,16 @@
 				</figure>
 			</div>
 
-		</div>
-		<div class="col-sm-6">
-
+			<br />
 			<div class="monospace fs11">.message.message-color</div>
 			<div class="message"><i class="ti ti-warning"></i>Some success message</div>
 			<div class="message message-error"><i class="ti ti-warning"></i>Some error message</div>
 			<div class="message message-alert"><i class="ti ti-warning"></i>Some error message</div>
 			<div class="message message-success"><i class="ti ti-warning"></i>Some error message</div>
 
-			<br />
+		</div>
+		<div class="col-sm-6">
+
 			<div class="monospace fs11">.configuration > section > label + article</div>
 			<div class="configuration">
 
@@ -256,6 +256,47 @@
 			<div class="m"><button class="btn">Button</button></div>
 			<div><button class="btn" name="submit">Button</button></div>
 
+			
+			<br />
+			<div class="caption m">
+				<label>Table</label>
+			</div>
+
+			<div class="monospace fs11">table.board</div>
+			<table class="board">
+				<col />
+				<col />
+				<col style="min-width:200px">
+				<thead>
+					<tr>
+						<th style="text-align:center">ID</th>
+						<th>Status</th>
+						<th><i class="ti ti-info-circle"></i>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="bg-smoke" style="text-align:center;">1</td>
+						<td><span class="badge badge-medium badge-red">Canceled</span></td>
+						<td>Example description</td>
+					</tr>
+					<tr>
+						<td class="bg-smoke" style="text-align:center;">2</td>
+						<td><span class="badge badge-medium badge-green">Approved</span></td>
+						<td>Example description</td>
+					</tr>
+					<tr>
+						<td class="bg-smoke" style="text-align:center;">3</td>
+						<td><span class="badge badge-medium badge-red">Canceled</span></td>
+						<td>Example description</td>
+					</tr>
+					<tr>
+						<td class="bg-smoke" style="text-align:center;">4</td>
+						<td><span class="badge badge-medium badge-green">Approved</span></td>
+						<td>Example description</td>
+					</tr>
+				</tbody>
+			</table>
 
 		</div>
 	</div>
