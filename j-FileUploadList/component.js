@@ -55,7 +55,7 @@ COMPONENT('fileuploadlist', 'multiple:true;url:/api/upload/;text:name', function
 			if (config.disabled)
 				return;
 
-			var index = +$(this).closest(cls2 + '-item').attrd('index');
+			var index = +$(this).closest(cls2 + '-item').attrd('id');
 			self.get().splice(index, 1);
 			self.update(true);
 			self.change(true);
