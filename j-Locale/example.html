@@ -1,6 +1,6 @@
 <ui-component name="locale" path="mylocale"></ui-component>
 <hr />
-<pre><ui-bind name="mylocale" path="text:JSON.stringify(value, null, '  ')"></ui-bind></pre>
+<pre><ui-bind path="mylocale" config="text:JSON.stringify(value, null, '  ')"></ui-bind></pre>
 <ui-bind path="testvalue" config="template" class="mt10 block">
 	<script type="text/html">
 		<div>{{ value.date | format }}</div>
