@@ -8,6 +8,8 @@ The component can print a HTML content.
 __Configuration__:
 
 - `delay {Number}` a delay for evaluating of printer (default: `500`)
+- `delayprint {Number}` a delay for printing (default: `500`)
+- `delayclose {Number}` a delay for closing window (default: `1000`)
 
 __Methods__:
 

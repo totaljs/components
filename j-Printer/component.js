@@ -1,4 +1,4 @@
-COMPONENT('printer', 'delay:500', function(self, config, cls) {
+COMPONENT('printer', 'delay:500;delayprint:500;delayclose:1000', function(self, config, cls) {
 
 	self.nocompile();
 	self.readonly();
@@ -29,9 +29,9 @@ COMPONENT('printer', 'delay:500', function(self, config, cls) {
 			doc.open();
 			doc.write(html);
 			doc.close();
-			win.print();
 
-			setTimeout(() => self.dom.removeChild(iframe), config.delay);
+			setTimeout(() => win.print(), config.delayprint);
+			setTimeout(() => self.dom.removeChild(iframe), config.delayclose);
 
 		}, config.delay);
 
