@@ -22,7 +22,7 @@ opt.text = 'https://www.totaljs.com';
 opt.callback = function(base64) {
 	console.log(base64);
 };
-SETTER('qrcode/save', opt);
+SETTER('qrcode/create', opt);
 ````
 
 ### Author
