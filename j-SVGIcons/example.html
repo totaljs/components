@@ -1,0 +1,18 @@
+<ui-component name="svgicons" config="url:/svgicons.svg;size:30"></ui-component>
+
+<div class="padding"></div>
+	<ui-svgicon name="phone"></ui-svgicon>
+	<ui-svgicon name="phone"></ui-svgicon>
+	<ui-svgicon name="phone" size="50"></ui-svgicon>
+	<span class="toggle">
+		<ui-svgicon name="profile" selected="profilefull"></ui-svgicon>
+	</span>
+</div>
+
+<script>
+
+	setInterval(function() {
+		$('.toggle').tclass('selected');
+	}, 1500);
+
+</script>
