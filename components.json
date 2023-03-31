@@ -309,5 +309,6 @@
 	"j-SwitchButton",
 	"j-QRCode",
 	"j-Printer",
-	"j-SVGIcons"
+	"j-SVGIcons",
+	"j-iFrame"
 ]

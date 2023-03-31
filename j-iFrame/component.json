@@ -1,0 +1,16 @@
+{
+	"datecreated": "2023-03-31T20:16:00.001Z",
+	"dateupdated": null,
+	"name": "j-iFrame",
+	"tags": [
+		"iframe"
+	],
+	"color": "transparent",
+	"version": 1,
+	"responsive": false,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
