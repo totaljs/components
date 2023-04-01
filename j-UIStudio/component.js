@@ -88,4 +88,4 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 		navigate();
 	};
 
-}, ['https://cdn.componentator.com/uibuilder.min@1.js']);
+}, ['<UIBuilder> https://cdn.componentator.com/uibuilder.min@1.js']);
