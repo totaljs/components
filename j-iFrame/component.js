@@ -1,6 +1,7 @@
 COMPONENT('iframe', 'margin:0;parent:window;scrollbar:0', function(self, config, cls) {
 
 	var iframe;
+	var size;
 
 	self.make = function() {
 		self.aclass(cls);
@@ -16,7 +17,11 @@ COMPONENT('iframe', 'margin:0;parent:window;scrollbar:0', function(self, config,
 
 	self.resizeforce = function() {
 		var parent = self.parent(config.parent);
-		iframe.css({ height: parent.height() - config.margin });
+		var h = parent.height() - config.margin;
+		if (size != h) {
+			size = h;
+			iframe.css({ height: h });
+		}
 	};
 
 	self.setter = function(value) {
