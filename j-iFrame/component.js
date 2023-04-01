@@ -1,4 +1,4 @@
-COMPONENT('iframe', 'margin:0;parent:window;scrollbar:0;left:0;right:0;top:0;bottom:0', function(self, config, cls) {
+COMPONENT('iframe', 'margin:0;parent:window;scrollbar:0', function(self, config, cls) {
 
 	var iframe;
 	var size;
@@ -18,23 +18,9 @@ COMPONENT('iframe', 'margin:0;parent:window;scrollbar:0;left:0;right:0;top:0;bot
 	self.resizeforce = function() {
 		var parent = self.parent(config.parent);
 		var h = parent.height() - config.margin;
-
 		if (size != h) {
 			size = h;
-			var css = {};
-			css.height = h;
-
-			if (config.position === 'absolute') {
-				css.position = 'absolute';
-				if (config.top)
-					css.top = config.top;
-				if (config.right)
-					css.right = config.right;
-				if (config.left)
-					css.left = config.left;
-			}
-
-			iframe.css(css);
+			iframe.css({ height: h });
 		}
 	};
 
