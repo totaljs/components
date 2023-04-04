@@ -875,6 +875,8 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 	self.formatter(function(path, value) {
 		if (value) {
 			switch (config.type) {
+				case 'id':
+					return (value + '').toLowerCase().replace(/[^a-z0-9]/g, '');
 				case 'lower':
 					return (value + '').toLowerCase();
 				case 'upper':
