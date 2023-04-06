@@ -2090,6 +2090,10 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 		controls.hide();
 
 		if (config.exec && (value == null || (config.pagination && value.items == null))) {
+
+			if (value && W.ERROR && ERROR(value))
+				return;
+
 			self.operation('refresh');
 			if (config.pagination) {
 				if (value && value.items == null)
