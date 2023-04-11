@@ -9,7 +9,7 @@ Thelpers.jsonformat = function(json, format) {
 
 	json = json.replace(/<|>/g, function(text) {
 		return text === '<' ? '&lt;' : '&gt;';
-	});
+	}).replace(/&/g, '&amp;');
 
 	return json.replace(/\t.*?:\s/g, function(text) {
 		return '<span class="json-key">' + text.encode() + '</span>';
@@ -28,4 +28,5 @@ Thelpers.jsonformat = function(json, format) {
 	}).replace(reguid2, function(text) {
 		return '<span class="json-uid">' + text.encode() + '</span>';
 	});
+
 };
