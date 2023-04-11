@@ -7,9 +7,9 @@ Thelpers.jsonformat = function(json, format) {
 	else if (json.indexOf('\t') === -1)
 		json = JSON.stringify(JSON.parse(json), null, '\t');
 
-	json = json.replace(/<|>/g, function(text) {
+	json = json.replace(/&/g, '&amp;').replace(/<|>/g, function(text) {
 		return text === '<' ? '&lt;' : '&gt;';
-	}).replace(/&/g, '&amp;');
+	});
 
 	return json.replace(/\t.*?:\s/g, function(text) {
 		return '<span class="json-key">' + text.encode() + '</span>';
