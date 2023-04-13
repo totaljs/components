@@ -3,6 +3,7 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 	self.readonly();
 
 	var current = {};
+	var parents = [];
 
 	current.origin = location.origin;
 	current.query = NAV.query;
@@ -33,6 +34,13 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 						setTimeout(response => self.app.input(response.input, response.data), config.inputdelay, response);
 					SETTER('loading/hide', 500);
 					return;
+				} else {
+					var breadcrumb = CLONE(current);
+					breadcrumb.navigate = function() {
+						current = this;
+						navigate();
+					};
+					parents.push(breadcrumb);
 				}
 
 				current.id = response.id;
@@ -57,6 +65,7 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 
 						config.loading && SETTER('loading/hide', 500);
 
+						app.breadcrumb = parents;
 						self.app = app;
 						self.app.component = self;
 
@@ -86,6 +95,13 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 	self.make = function() {
 		self.aclass(cls);
 		navigate();
+	};
+
+	self.destroy = function() {
+		if (self.app) {
+			self.app.remove();
+			self.app = null;
+		}
 	};
 
 }, ['<UIBuilder> https://cdn.componentator.com/uibuilder.min@1.js']);

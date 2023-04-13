@@ -12,6 +12,10 @@ __Properties__:
 
 - `component.app` contains an `app` instance
 
+__Good to know__:
+
+The component extends the `app` instance by adding `breadcrumb {Array}` property.
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
