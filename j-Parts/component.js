@@ -17,6 +17,15 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 		return path.replace(/\?/g, item.scope || item.path || item.id || '?');
 	};
 
+	var itemop = function(type, item, el) {
+		if (item[type]) {
+			if (typeof(item[type]) === 'function')
+				item[type](item.element, item);
+			else
+				self.EXEC(itempath(item, item.blur), el || item.element, item);
+		}
+	};
+
 	self.focus = function(id, fromsetter) {
 
 		var is = false;
@@ -34,7 +43,7 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 			is = true;
 			item.focused = false;
 			item.element.rclass(classname);
-			item.blur && self.EXEC(itempath(item, item.blur), item.element, item);
+			itemop('blur', item);
 		}
 
 		item = selected;
@@ -46,8 +55,8 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 				is = true;
 			}
 
-			item.reload && self.EXEC(itempath(item, item.reload), item.element, item);
-			item.focus && self.EXEC(itempath(item, item.focus), item.element, item);
+			itemop('reload', item);
+			itemop('focus', item);
 		}
 
 		if (is) {
@@ -93,7 +102,7 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 
 			skip = true;
 			self.update(true);
-			item.remove && self.EXEC(itempath(item, item.remove), item.element, item);
+			itemop('remove', item);
 			item.element.remove();
 			setTimeout2(self.ID + 'free', FREE, 1000);
 		}
@@ -124,7 +133,7 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 
 		if (item.import) {
 			IMPORT(item.import, div, function() {
-				item.init && self.EXEC(itempath(item, item.init), div, item);
+				itemop('init', item, div);
 				setTimeout2(self.ID + 'focus', self.focus, 100, null, item.id);
 				div.rclass('invisible', item.delay || 10);
 				item.import = null;
@@ -138,13 +147,18 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 
 		div[0].$part = item;
 		item.element = div;
-		config.create && self.EXEC(config.create, item);
+		itemop('create', item);
 		self.append(div);
 
 		if (!item.import) {
 			setTimeout2(self.ID + 'focus', self.focus, 100, null, item.id);
 			div.rclass('invisible', item.delay || 10);
-			item.init && self.EXEC(true, itempath(item, item.init), div, item);
+			if (item.init) {
+				if (typeof(item.init) === 'function')
+					item.init(div, item);
+				else
+					self.EXEC(true, itempath(item, item.init), div, item);
+			}
 		}
 	};
 
@@ -185,7 +199,7 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 			if (!model.findItem('id', el.attrd('id'))) {
 				var obj = div[i].$part;
 				if (obj) {
-					obj.remove && self.EXEC(itempath(obj, obj.remove), obj.element, obj);
+					itemop('remove', obj);
 					obj.element.remove();
 				}
 			}
