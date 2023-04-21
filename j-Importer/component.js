@@ -5,6 +5,7 @@ COMPONENT('importer', function(self, config) {
 	var pending = false;
 	var skip = false;
 	var content = '';
+	var singletonkey;
 
 	var replace = function(value) {
 		return self.scope ? self.makepath(value) : value.replace(/\?/g, config.path || config.if);
@@ -23,14 +24,14 @@ COMPONENT('importer', function(self, config) {
 			if (!W.$importercache)
 				W.$importercache = {};
 
-			var key = config.path + '|' + config.id + '|' + config.url;
-			if (W.$importercache[key]) {
+			singletonkey = HASH(config.path + '|' + config.id + '|' + config.url).toString(36);
+
+			if (W.$importercache[singletonkey]) {
 				skip = true;
 				setTimeout(() => self.remove(), 10);
 				return;
 			}
 
-			W.$importercache[key] = 1;
 		}
 
 		var scr = self.find('script');
@@ -38,6 +39,10 @@ COMPONENT('importer', function(self, config) {
 	};
 
 	self.reload = function(recompile) {
+
+		if (config.singleton)
+			W.$importercache[singletonkey] = 1;
+
 		config.reload && EXEC(replace(config.reload));
 		recompile && COMPILE();
 		setTimeout(function() {
