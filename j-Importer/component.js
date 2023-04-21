@@ -3,6 +3,7 @@ COMPONENT('importer', function(self, config) {
 	var init = false;
 	var clid = null;
 	var pending = false;
+	var skip = false;
 	var content = '';
 
 	var replace = function(value) {
@@ -16,6 +17,22 @@ COMPONENT('importer', function(self, config) {
 	self.readonly();
 
 	self.make = function() {
+
+		if (config.singleton) {
+
+			if (!W.$importercache)
+				W.$importercache = {};
+
+			var key = config.path + '|' + config.id + '|' + config.url;
+			if (W.$importercache[key]) {
+				skip = true;
+				setTimeout(() => self.remove(), 10);
+				return;
+			}
+
+			W.$importercache[key] = 1;
+		}
+
 		var scr = self.find('script');
 		content = scr.length ? scr.html() : '';
 	};
@@ -31,7 +48,7 @@ COMPONENT('importer', function(self, config) {
 
 	self.setter = function(value) {
 
-		if (pending)
+		if (pending || skip)
 			return;
 
 		if (config.if !== value) {
