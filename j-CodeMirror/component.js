@@ -1,6 +1,7 @@
 COMPONENT('codemirror', 'linenumbers:true;required:false;trim:false;tabs:true;height:200;minheight:200', function(self, config, cls) {
 
 	var editor, container;
+	var skipbind = false;
 	var cls2 = '.' + cls;
 
 	self.getter = null;
@@ -156,9 +157,10 @@ COMPONENT('codemirror', 'linenumbers:true;required:false;trim:false;tabs:true;he
 					val = lines.join('\n').trim();
 				}
 
+				skipbind = true;
 				self.getter2 && self.getter2(val);
 				self.change(true);
-				self.rewrite(val, 2);
+				self.set(val, 2);
 				config.required && self.validate2();
 			}, 200);
 
@@ -169,6 +171,11 @@ COMPONENT('codemirror', 'linenumbers:true;required:false;trim:false;tabs:true;he
 	};
 
 	self.setter = function(value, path, type) {
+
+		if (skipbind) {
+			skipbind = false;
+			return;
+		}
 
 		editor.setValue(value || '');
 		editor.refresh();
@@ -197,7 +204,7 @@ COMPONENT('codemirror', 'linenumbers:true;required:false;trim:false;tabs:true;he
 		self.$oldstate = invalid;
 		container.tclass(cls + '-invalid', invalid);
 	};
-}, ['//cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/htmlmixed/htmlmixed.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/xml/xml.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/css/css.min.js', '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/markdown/markdown.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/addon/mode/overlay.min.js', function(next) {
+}, ['https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/htmlmixed/htmlmixed.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/xml/xml.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/css/css.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/markdown/markdown.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/addon/mode/overlay.min.js', function(next) {
 
 	CodeMirror.defineMode('totaljsresources', function() {
 		var REG_KEY = /^[a-z0-9_\-.#]+/i;
