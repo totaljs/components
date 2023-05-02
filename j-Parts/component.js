@@ -23,7 +23,7 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 			if (typeof(fn) === 'function')
 				fn(item.element, item);
 			else
-				self.EXEC(itempath(fn, item.blur), el || item.element, item);
+				self.EXEC(itempath(item, fn), el || item.element, item);
 		}
 	};
 
