@@ -1,0 +1,21 @@
+{
+	"datecreated": "2022-05-02T13:00:00.000Z",
+	"dateupdated": null,
+	"name": "j-Zones",
+	"tags": [
+		"map",
+		"zones",
+		"zone",
+		"polygon",
+		"draw"
+	],
+	"color": "transparent",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Dodo Marton",
+	"email": "dodo@totaljs.com",
+	"license": "https://www.totaljs.com/license/"
+}
