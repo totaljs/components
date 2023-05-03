@@ -8,6 +8,7 @@ __Configuration__:
 - `color {String}` enables custom color for created polygon (default: `#fcba03`)
 - `zoom {Number}` a default zoom level (default: `11`)
 - `modify {Boolean}` enables modifiyng of the polygon (default: `true`)
+- `opacity {Number}` determines the transparency of the polygon in percentage (default: `20`)
 
 __Data-source__ needs to contain:
 
