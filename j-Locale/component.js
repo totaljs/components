@@ -9,9 +9,6 @@ COMPONENT('locale', function(self, config) {
 		if (!language)
 			return;
 
-		if (config.requests)
-			DEF.languagehtml = language;
-
 		var fdw = 0; // First day of week  : 0 sunday, 1 monday, 5 friday, 6 saturday
 		var nf = 1;  // Number format      : 1 == 100 000.123, 2 == 100 000,123, 3 == 100.000,123, 4 == 100,000.123
 		var tf = 24; // Time format        : 12, 24
@@ -104,13 +101,6 @@ COMPONENT('locale', function(self, config) {
 			case 'bm':
 				nf = 4;
 				df = 'dd/MM/yyyy';
-				tf = 24;
-				fdw = 1;
-				break;
-
-			case 'eu':
-				nf = 3;
-				df = 'yyyy-MM-dd';
 				tf = 24;
 				fdw = 1;
 				break;
@@ -324,6 +314,14 @@ COMPONENT('locale', function(self, config) {
 				df = 'MM/dd/yyyy';
 				tf = 12;
 				fdw = 0;
+				break;
+
+			case 'us':
+				nf = 4;
+				df = 'MM-dd-yyyy';
+				tf = 12;
+				fdw = 0;
+				language = 'en';
 				break;
 
 			case 'eo':
@@ -795,6 +793,14 @@ COMPONENT('locale', function(self, config) {
 				fdw = 1;
 				break;
 
+			case 'eu':
+				nf = 2;
+				df = 'dd.MM.yyyy';
+				tf = 24;
+				fdw = 1;
+				language = 'en';
+				break;
+
 			case 'sl':
 				nf = 3;
 				df = 'dd.MM.yyyy';
@@ -981,6 +987,9 @@ COMPONENT('locale', function(self, config) {
 		if (!df)
 			return false;
 
+		if (config.requests)
+			DEF.languagehtml = language;
+
 		DEF.dateformat = df;
 		DEF.timeformat = tf === 12 ? '!HH:mm a' : 'HH:mm';
 		DEF.firtdayofweek = fdw;
@@ -998,12 +1007,13 @@ COMPONENT('locale', function(self, config) {
 	};
 
 	self.make = function() {
-
-		var language = navigator.language.toLowerCase();
-		if (config.language)
+		if (config.language) {
 			self.use(config.language);
-		else if (!self.use(language))
-			self.use(language.split('-')[0]);
+		} else {
+			var language = navigator.language.toLowerCase();
+			if (!self.use(language.split('-')[0]))
+				self.use(language);
+		}
 	};
 
 });

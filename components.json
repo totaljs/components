@@ -306,5 +306,10 @@
 	"j-CountDown",
 	"j-InlineProperties",
 	"j-Swiper",
-	"j-SwitchButton"
+	"j-SwitchButton",
+	"j-QRCode",
+	"j-Printer",
+	"j-SVGIcons",
+	"j-iFrame",
+	"j-MapZones"
 ]

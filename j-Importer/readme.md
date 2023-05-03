@@ -4,12 +4,13 @@ __j-Import__ is a great component for importing HTML templates, scripts or style
 
 __Configuration__:
 
-- `if` {String} needs to contain a value
-- `url` {String} relative/absolute URL to a subpage or subpart
-- `reload` {String} a link to method in the global scope, it's executed if the __condition__ is valid
-- `cleaner` {Number} (optional) idle time (in minutes) for running of cleaning (default: `0`)
-- `clean` {String} (optional) a link to function, it's executed before the importer is cleaned
-- __NEW__: `id` {String} a custom identifier for replacing `~ID~` phrases in the imported HTML (default: empty)
+- `if {String}` needs to contain a value
+- `url {String}` relative/absolute URL to a subpage or subpart
+- `reload {String}` a link to method in the global scope, it's executed if the __condition__ is valid
+- `cleaner {Number}` (optional) idle time (in minutes) for running of cleaning (default: `0`)
+- `clean {String}` (optional) a link to function, it's executed before the importer is cleaned
+- `id {String}` a custom identifier for replacing `~ID~` phrases in the imported HTML (default: empty)
+- __NEW__: `singleton {Boolean}` it handles only the one instance of importer according to the `path + if + url` (default: `false`)
 
 __New update__:
 

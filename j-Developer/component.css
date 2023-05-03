@@ -1,4 +1,4 @@
-.ui-developer { position: fixed; background-color: #FFF; z-index: 10000; border: 2px solid #E0E0E0; min-height: 200px; width: 420px; font-size: 11px; box-shadow: 0 10px 15px rgba(0,0,0,0.1); color: #000000; user-select: none; }
+.ui-developer { position: fixed; background-color: #FFF; z-index: 10000; border: 2px solid #E0E0E0; min-height: 200px; width: 460px; font-size: 11px; box-shadow: 0 10px 15px rgba(0,0,0,0.1); color: #000000; user-select: none; }
 .ui-developer svg { border-bottom: 1px solid #E0E0E0; }
 .ui-developer path { stroke-width: 2px; fill: none; }
 .ui-developer line { stroke-width: 1px; stroke: #F0F0F0; }

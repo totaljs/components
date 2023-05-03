@@ -48,6 +48,7 @@ __Configuration__:
 	- `change.type {String}` operation type (insert, update, remove)
 - `contextmenu {String}` a link to the `function(widget)` when the user pressed the right mouse button on the widget
 - `check {String}` a link to the `function(widget)` that decides whether to enable editing or not
+- `placeholder {String}` a placeholder for the default HTML widget (default: `Press / for adding rich content`)
 
 __Methods__:
 

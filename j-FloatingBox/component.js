@@ -111,6 +111,8 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 			opt.box.rclass('invisible hidden');
 		}
 
+		self.aclass(cls + '-visible');
+
 		var element = opt.element ? $(opt.element) : null;
 		setTimeout(self.bindevents, 500);
 
@@ -178,7 +180,6 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 
 		opt.prevscope = M.scope();
 		opt.scope && M.scope(opt.scope);
-		self.aclass(cls + '-visible', opt.delay || 0);
 		opt.init && opt.init();
 
 		if (!opt.initialized && opt.config.init)
@@ -190,6 +191,9 @@ COMPONENT('floatingbox', 'zindex:10', function(self, config, cls) {
 				close(opt);
 			});
 		});
+
+		if (opt.autohide)
+			opt.box.on('click', self.hide);
 
 		opt.autofocus && self.autofocus(opt.autofocus);
 		is = true;

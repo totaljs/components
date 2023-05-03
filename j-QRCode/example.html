@@ -1,0 +1,16 @@
+<ui-component name="qrcode" config="width:200;height:200"></ui-component>
+
+<script>
+
+	ON('ready', function() {
+		var opt = {};
+		opt.text = 'https://totaljs.com';
+		opt.callback = function(base64) {
+			var img = document.createElement('IMG');
+			img.setAttribute('src', base64);
+			document.body.append(img);
+		};
+		SETTER('qrcode/create', opt);
+	});
+
+</script>

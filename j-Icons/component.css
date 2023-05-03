@@ -15,7 +15,7 @@
 .ui-icons-content span:hover { transform: scale(1.15); color: #000; }
 .ui-icons-scrollbar { height: 305px; }
 
-.ui-dark .ui-icons { background-color: #202020; border-color: #303030; }
+.ui-dark .ui-icons-container { background-color: #202020; border-color: #303030; }
 .ui-dark .ui-icons-header { background-color: #202020; border-color: #303030; }
 .ui-dark .ui-icons-content { color: #A0A0A0; }
 .ui-dark .ui-icons-search span { background-color: #252525; border-color: #303030; color: #A0A0A0; }

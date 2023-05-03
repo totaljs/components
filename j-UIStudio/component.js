@@ -3,14 +3,21 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 	self.readonly();
 
 	var current = {};
+	var parents = [];
 
 	current.origin = location.origin;
+	current.query = NAV.query;
+	current.ssid = config.ssid || NAV.query.ssid;
 
 	var navigate = function() {
 
 		config.loading && SETTER('loading/show');
 
-		AJAX('POST ' + config.url + ' ERROR', current, function(response) {
+		var url = config.url;
+		if (current.ssid)
+			url = QUERIFY(url, { ssid: current.ssid });
+
+		AJAX('POST {0} ERROR'.format(url), current, function(response) {
 
 			// response.id
 			// response.parent
@@ -27,6 +34,13 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 						setTimeout(response => self.app.input(response.input, response.data), config.inputdelay, response);
 					SETTER('loading/hide', 500);
 					return;
+				} else {
+					var breadcrumb = CLONE(current);
+					breadcrumb.navigate = function() {
+						current = this;
+						navigate();
+					};
+					parents.push(breadcrumb);
 				}
 
 				current.id = response.id;
@@ -37,20 +51,21 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 					self.app = null;
 				}
 
-				AJAX('GET ' + response.url + ' ERROR', function(data) {
+				AJAX('GET {url} ERROR'.args(response), function(data) {
 
 					if (!config.css)
 						data.css = '';
 
 					data.id = response.id;
 					data.query = data.query || current.query || {};
-					data.ssid = data.query.ssid;
+					data.ssid = data.query.ssid || current.ssid;
 					data.openplatform = data.query.openplatform;
 
 					UIBuilder.build(self.element, data, function(app) {
 
 						config.loading && SETTER('loading/hide', 500);
 
+						app.breadcrumb = parents;
 						self.app = app;
 						self.app.component = self;
 
@@ -82,4 +97,11 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 		navigate();
 	};
 
-}, ['https://cdn.componentator.com/uibuilder.min@1.js']);
+	self.destroy = function() {
+		if (self.app) {
+			self.app.remove();
+			self.app = null;
+		}
+	};
+
+}, ['<UIBuilder> https://cdn.componentator.com/uibuilder.min@1.js']);

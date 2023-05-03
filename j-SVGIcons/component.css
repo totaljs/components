@@ -1,0 +1,3 @@
+.ui-svgicon-b { display: none; }
+.selected .ui-svgicon-a { display: none; }
+.selected .ui-svgicon-b { display: block; }

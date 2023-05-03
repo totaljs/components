@@ -3,7 +3,9 @@ COMPONENT('importer', function(self, config) {
 	var init = false;
 	var clid = null;
 	var pending = false;
+	var skip = false;
 	var content = '';
+	var singletonkey;
 
 	var replace = function(value) {
 		return self.scope ? self.makepath(value) : value.replace(/\?/g, config.path || config.if);
@@ -16,11 +18,31 @@ COMPONENT('importer', function(self, config) {
 	self.readonly();
 
 	self.make = function() {
+
+		if (config.singleton) {
+
+			if (!W.$importercache)
+				W.$importercache = {};
+
+			singletonkey = HASH(config.path + '|' + config.id + '|' + config.url).toString(36);
+
+			if (W.$importercache[singletonkey]) {
+				skip = true;
+				setTimeout(() => self.remove(), 10);
+				return;
+			}
+
+		}
+
 		var scr = self.find('script');
 		content = scr.length ? scr.html() : '';
 	};
 
 	self.reload = function(recompile) {
+
+		if (config.singleton)
+			W.$importercache[singletonkey] = 1;
+
 		config.reload && EXEC(replace(config.reload));
 		recompile && COMPILE();
 		setTimeout(function() {
@@ -31,7 +53,7 @@ COMPONENT('importer', function(self, config) {
 
 	self.setter = function(value) {
 
-		if (pending)
+		if (pending || skip)
 			return;
 
 		if (config.if !== value) {

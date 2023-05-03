@@ -19,6 +19,8 @@ COMPONENT('iframepreview', function(self, config, cls) {
 			timeout && clearTimeout(timeout);
 			timeout = setTimeout(isready, 150);
 		});
+
+		timeout = setTimeout(isready, 1000);
 	};
 
 	self.destroy = function() {

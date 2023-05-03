@@ -217,8 +217,13 @@ COMPONENT('layout', 'space:1;border:0;parent:window;margin:0;remember:1;autoresi
 
 				var w = offset.left;
 
-				if (!isright2 && drag.type === 'right')
+				if (!isright2 && drag.type === 'right') {
 					w = self.width() - w;
+					return;
+				}
+
+				if (isright2)
+					w -= s[drag.type].offset().left;
 
 				s[drag.type].css('width', w);
 				config.remember && PREF.set(pk, w, prefexpire);

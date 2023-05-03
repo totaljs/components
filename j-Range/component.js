@@ -1,8 +1,9 @@
-COMPONENT('range', function(self, config) {
+COMPONENT('range', function(self, config, cls) {
 
+	var cls2 = '.' + cls;
 	var content = '';
 
-	self.nocompile && self.nocompile();
+	self.nocompile();
 
 	self.validate = function(value) {
 		return !config.required || config.disabled ? true : value != 0;
@@ -31,7 +32,7 @@ COMPONENT('range', function(self, config) {
 				break;
 
 			case 'required':
-				self.find('.ui-range-label').tclass('ui-range-label-required', value);
+				self.find(cls2 +'-label').tclass(cls + '-label-required', value);
 				break;
 
 			case 'type':
@@ -55,19 +56,24 @@ COMPONENT('range', function(self, config) {
 		var html = '';
 
 		if (label)
-			html = '<div class="ui-range-label{1}">{2}{0}:</div>'.format(label, config.required ? ' ui-range-label-required' : '', (config.icon ? '<i class="ti ti-{0}"></i>'.format(config.icon) : ''));
+			html = ('<div class="' + cls + '-label{1}">{2}{0}:</div>').format(label, config.required ? (' ' + cls + '-label-required') : '', (config.icon ? '<i class="ti ti-{0}"></i>'.format(config.icon) : ''));
 
 		var attrs = [];
+
 		config.step && attrs.attr('step', config.step);
-		config.max && attrs.attr('max', config.max);
-		config.min && attrs.attr('min', config.min);
+
+		if (config.max || config.max === 0)
+			attrs.attr('max', config.max);
+		if (config.min || config.min === 0)
+			attrs.attr('min', config.min);
+
 		self.html('{0}<input type="range" data-jc-bind=""{1} />'.format(html, attrs.length ? ' ' + attrs.join(' ') : ''));
 	};
 
 	self.make = function() {
 		self.type = config.type;
 		content = self.html();
-		self.aclass('ui-range');
+		self.aclass(cls);
 		self.redraw();
 	};
 });

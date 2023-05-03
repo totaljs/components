@@ -9,9 +9,11 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 	var templateraw = template.format(templateR);
 	var regstrip = /(&nbsp;|<([^>]+)>)/ig;
 	var parentclass = null;
+	var parentclass2 = null;
 	var skiphide = false;
 	var skipmouse = false;
 	var customvalue;
+	var search;
 	var main;
 
 	template = template.format(templateE);
@@ -50,6 +52,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 		input = self.find('input');
 		icon = self.find(cls2 + '-button').find('.ti');
 		plus = self.find(cls2 + '-add');
+		search = self.find(cls2 + '-search');
 
 		self.event('mouseenter mouseleave', 'li', function() {
 			if (ready && !issearch && !skipmouse) {
@@ -178,26 +181,6 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 
 		});
 
-		var e_resize = function() {
-			is && self.hide(0);
-		};
-
-		self.bindedevents = false;
-
-		self.bindevents = function() {
-			if (!self.bindedevents) {
-				$(W).on('resize', e_resize);
-				self.bindedevents = true;
-			}
-		};
-
-		self.unbindevents = function() {
-			if (self.bindedevents) {
-				self.bindedevents = false;
-				$(W).off('resize', e_resize);
-			}
-		};
-
 		self.event('keydown', 'input', function(e) {
 			var o = false;
 			switch (e.which) {
@@ -218,7 +201,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 						var index = +sel.attrd('index');
 						if (self.opt.custom && (!sel.length || index === -2))
 							self.opt.callback(this.value, self.opt.element, true);
-						else
+						else if (self.opt.items[index])
 							self.opt.callback(self.opt.items[index], self.opt.element);
 					}
 					self.hide();
@@ -458,14 +441,14 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 
 		self.tclass(cls + '-default', !opt.render);
 
-		if (parentclass) {
-			self.rclass(parentclass);
-			parentclass = null;
-		}
-
 		if (opt.classname) {
 			main.aclass(opt.classname);
 			parentclass = opt.classname;
+		}
+
+		if (opt.class) {
+			main.aclass(opt.class);
+			parentclass2 = opt.class;
 		}
 
 		if (!opt.minwidth)
@@ -506,11 +489,11 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 			return;
 		}
 
-		setTimeout(self.bindevents, 500);
 		self.tclass(cls + '-search-hidden', opt.search === false);
 
 		self.opt = opt;
 		opt.class && main.aclass(opt.class);
+		skiphide = true;
 
 		input.val('');
 
@@ -583,6 +566,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 			width = opt.maxwidth;
 
 		ready = false;
+
 		opt.ajaxold = null;
 		plus.aclass('hidden');
 		self.find('input').prop('placeholder', opt.placeholder || config.placeholder);
@@ -629,33 +613,20 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 			options.top += opt.offsetY;
 
 		var mw = width;
-		var mh = height;
+		var mh = scroller.height();
 
 		if (options.left < 0)
 			options.left = 10;
 		else if ((mw + options.left) > WW)
 			options.left = (WW - mw) - 10;
 
-		var dom = opt.element ? opt.element[0].parentNode : null;
-		var restrict = true;
+		mh += search.height();
 
-		while (dom) {
-
-			if (dom.tagName === 'BODY') {
-				restrict = false;
-				break;
-			}
-
-			if (dom.classList.contains('ui-scrollbar-area'))
-				break;
-
-			dom = dom.parentNode;
-		}
-
-		if (options.top < 0)
-			options.top = 10;
-		else if (restrict && (mh + options.top) > WH)
+		if ((mh + options.top) > WH)
 			options.top = (WH - mh) - 10;
+
+		if (options.top < 10)
+			options.top = 10;
 
 		main.css(options);
 
@@ -666,17 +637,17 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 
 		setTimeout(function() {
 			self.initializing = false;
+			skiphide = false;
 			is = true;
 
 			if (selected) {
 				var h = container.find('li:first-child').innerHeight() + 1;
 				var y = (container.find('li.selected').index() * h) - (h * 2);
 				scroller[0].scrollTop = y < 0 ? 0 : y;
-			} else {
+			} else
 				scroller[0].scrollTop = 0;
-				ready = true;
-			}
 
+			ready = true;
 			self.rclass('invisible');
 
 		}, 100);
@@ -705,18 +676,32 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 	};
 
 	self.hide = function(sleep) {
+
 		if (!is || self.initializing)
 			return;
+
 		clearTimeout(timeout);
 		timeout = setTimeout(function() {
-			self.unbindevents();
+
 			self.rclass(cls + '-visible').aclass('hidden');
+
+			if (parentclass) {
+				main.rclass(parentclass);
+				parentclass = null;
+			}
+
+			if (parentclass2) {
+				main.rclass(parentclass2);
+				parentclass2 = null;
+			}
+
 			if (self.opt) {
 				self.opt.close && self.opt.close();
-				self.opt.class && self.rclass(self.opt.class);
 				self.opt = null;
 			}
+
 			is = false;
+
 		}, sleep ? sleep : 100);
 	};
 });
