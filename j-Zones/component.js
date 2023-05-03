@@ -23,7 +23,7 @@ COMPONENT('zones', 'height:200;zoom:13;color:#fcba03;modify:1', function(self, c
   self.make = function() {
 
     self.aclass(cls);
-    self.append('<div id="track"></div>');
+    self.append('<div></div>');
     meta.container = self.find('div')[0];
 
     if (config.height > 0)
