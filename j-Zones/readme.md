@@ -14,10 +14,15 @@ __Data-source__ needs to contain:
 ```js
 {
     items: ['48.75152530164132, 19.13902142954625', '48.726826662905296, 19.123238694044034', ...] // polygon points
-    color: '#FD391A', 
-    zoom: 13
+    color: '#FD391A', // optional
+    zoom: 13 // optional
 }
 ```
+
+__Good to know__:
+
+- `SHIFT + click` on vertices (created point) will delete selected point
+
 ### Author
 
 - Dodo Marton <dodo@totaljs.com>
