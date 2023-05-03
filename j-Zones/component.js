@@ -1,4 +1,4 @@
-COMPONENT('zones', 'height:200;zoom:13;color:#fcba03;modify:1', function(self, config, cls) {
+COMPONENT('mapzones', 'height:200;zoom:13;color:#fcba03;modify:1', function(self, config, cls) {
 
   var meta = { points: [], zoom: config.zoom, color: config.color };
   var skip = false;
