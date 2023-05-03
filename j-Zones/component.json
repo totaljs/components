@@ -1,9 +1,10 @@
 {
 	"datecreated": "2022-05-02T13:00:00.000Z",
 	"dateupdated": null,
-	"name": "j-Zones",
+	"name": "j-MapZones",
 	"tags": [
 		"map",
+		"mapzones",
 		"zones",
 		"zone",
 		"polygon",

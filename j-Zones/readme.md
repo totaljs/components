@@ -1,4 +1,4 @@
-## j-Zones
+## j-MapZones
 
 The component for drawing and displaying zones on the map. This component uses [OpenLayers](https://openlayers.org/) library with the [OpenStreetMap](https://www.openstreetmap.org/) map engine. The component uses 3rd party dependencies.
 
