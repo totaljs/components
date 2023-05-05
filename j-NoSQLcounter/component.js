@@ -100,7 +100,7 @@ COMPONENT('nosqlcounter', 'count:0;height:80', function(self, config, cls) {
 			if (i === maxbars - 1)
 				cls += (cls ? ' ' : '') + 'last';
 
-			var w = bar.format(2, '');
+			var w = bar.floor(2);
 
 			builder.push('<div style="width:{0}%" title="{3}" class="{4}"><div style="height:{1}%"><span>{2}</span></div></div>'.format(w, h.format(0, ''), val, months[item.month - 1] + ' ' + item.year, cls));
 			dates.push('<div style="width:{0}%">{1}</div>'.format(w, months[item.month - 1].substring(0, 3)));
