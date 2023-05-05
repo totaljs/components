@@ -16,9 +16,9 @@ __Good to know 1__:
 __Item specification__:
 
 - `item.id {String}` very important, part identifier
-- `item.blur {String}` optional, a link to the `function(element, item)` if the part is focused out
-- `item.focus {String}` or `item.reload {String}` optional, a link to the `function(element, item)` if the part is focused
-- `item.remove {String}` optional, a link to the `function(element, item)` if the part is removed
+- `item.blur {String/Function(el, item)}` optional, a link to the `function(element, item)` if the part is focused out
+- `item.focus {String/Function(el, item)}` or `item.reload {String}` optional, a link to the `function(element, item)` if the part is focused
+- `item.remove {String/Function(el, item)}` optional, a link to the `function(element, item)` if the part is removed
 - `item.html {String}` a HTML content or use `item.url`
 - `item.import {String}` URL address for the part content
 - `item.path {String}` optional, it replaces all `~PATH~` phrases automatically

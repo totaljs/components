@@ -1007,12 +1007,13 @@ COMPONENT('locale', function(self, config) {
 	};
 
 	self.make = function() {
-
-		var language = navigator.language.toLowerCase();
-		if (config.language)
+		if (config.language) {
 			self.use(config.language);
-		else if (!self.use(language))
-			self.use(language.split('-')[0]);
+		} else {
+			var language = navigator.language.toLowerCase();
+			if (!self.use(language.split('-')[0]))
+				self.use(language);
+		}
 	};
 
 });

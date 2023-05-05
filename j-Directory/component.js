@@ -9,6 +9,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 	var templateraw = template.format(templateR);
 	var regstrip = /(&nbsp;|<([^>]+)>)/ig;
 	var parentclass = null;
+	var parentclass2 = null;
 	var skiphide = false;
 	var skipmouse = false;
 	var customvalue;
@@ -440,14 +441,14 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 
 		self.tclass(cls + '-default', !opt.render);
 
-		if (parentclass) {
-			self.rclass(parentclass);
-			parentclass = null;
-		}
-
 		if (opt.classname) {
 			main.aclass(opt.classname);
 			parentclass = opt.classname;
+		}
+
+		if (opt.class) {
+			main.aclass(opt.class);
+			parentclass2 = opt.class;
 		}
 
 		if (!opt.minwidth)
@@ -684,9 +685,18 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 
 			self.rclass(cls + '-visible').aclass('hidden');
 
+			if (parentclass) {
+				main.rclass(parentclass);
+				parentclass = null;
+			}
+
+			if (parentclass2) {
+				main.rclass(parentclass2);
+				parentclass2 = null;
+			}
+
 			if (self.opt) {
 				self.opt.close && self.opt.close();
-				self.opt.class && self.rclass(self.opt.class);
 				self.opt = null;
 			}
 

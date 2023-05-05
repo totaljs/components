@@ -2,6 +2,10 @@
 
 A simple component for uploading files. It supports auto-resizing images.
 
+__Configuration__:
+
+- `url {String}` a default URL address for uploading
+
 __Methods__:
 
 - `fileuploader/upload(opt)` shows a file dialog

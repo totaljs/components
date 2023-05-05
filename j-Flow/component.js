@@ -256,7 +256,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;markers:1;curvedlines:1;horizo
 			if (!com.connections)
 				com.connections = {};
 
-			self.cache[key] = { id: key, instance: com, el: el, checksum: checksum, actions: com.actions || {}};
+			self.cache[key] = { id: key, instance: com, el: el, checksum: checksum, actions: com.actions || {} };
 		}
 
 		if (!value.groups)
@@ -284,12 +284,19 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;markers:1;curvedlines:1;horizo
 		}
 
 		self.el.lines.find('path').aclass('removed');
-		keys = Object.keys(self.cache);
 
 		var reconnect = function() {
 
-			for (var i = 0; i < keys.length; i++) {
-				var key = keys[i];
+			var keys = Object.keys(self.cache);
+			for (var key of keys) {
+				tmp = self.cache[key];
+				if (tmp) {
+					tmp.el.find('.connected').rclass('connected');
+					tmp.el.rclass('invisible');
+				}
+			}
+
+			for (var key of keys) {
 				tmp = self.cache[key];
 				if (tmp) {
 					tmp.el.rclass('invisible');
@@ -716,7 +723,7 @@ EXTENSION('flow:operations', function(self, config, cls) {
 
 	self.op.modified = function() {
 		self.change(true);
-		self.update(true, 2);
+		self.update(2);
 	};
 
 	self.op.clean = function() {

@@ -1,0 +1,16 @@
+{
+	"datecreated": "2023-03-31T10:51:01.000Z",
+	"dateupdated": null,
+	"name": "j-SVGIcons",
+	"tags": [
+		"loading"
+	],
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

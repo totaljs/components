@@ -1,4 +1,4 @@
-COMPONENT('fileuploader', function(self) {
+COMPONENT('fileuploader', function(self, config) {
 
 	var input;
 
@@ -34,6 +34,9 @@ COMPONENT('fileuploader', function(self) {
 		self.opt = opt;
 		self.opt.fd = new FormData();
 		self.opt.indexer = 0;
+
+		if (!opt.url)
+			opt.url = config.url;
 
 		if (opt.files) {
 			self.uploadfiles(opt.files);
