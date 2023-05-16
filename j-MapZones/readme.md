@@ -14,7 +14,7 @@ __Data-source__ needs to contain:
 
 ```js
 {
-    items: ['48.75152530164132, 19.13902142954625', '48.726826662905296, 19.123238694044034', ...] // polygon points
+    points: [{ lat: 48.75152530164132, lng: 19.13902142954625 }, { lat: 48.726826662905296, lng: 19.123238694044034 }, ...] // polygon points
     color: '#FD391A', // optional
     zoom: 13 // optional
 }
