@@ -990,6 +990,11 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 			var id = ATTRD(child);
 			var w = child[0].$widget;
+
+			// Widget not found
+			if (!w)
+				continue;
+
 			var cfg;
 
 			if (w.removed) {
@@ -1026,8 +1031,6 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		config.contextmenu && self.event('contextmenu', '.widget', function(e) {
 			self.EXEC(config.contextmenu, this.$widget, e);
 		});
-
-		var AA = 0;
 
 		self.event('click', 'section', function(e) {
 
