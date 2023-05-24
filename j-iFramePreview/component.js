@@ -43,6 +43,9 @@ COMPONENT('iframepreview', function(self, config, cls) {
 			var is = false;
 			var offset = '<div id="IFPOFFSET"></div>';
 
+			if (content.indexOf('<body') === -1)
+				content = '<!DOCTYPE html><html><head><meta charset="utf-8" /></head><body style="font-family:Arial;font-size:14px;margin:0;padding:0">' + content + '</body></html>';
+
 			content = content.replace(/<\/body>/i, function() {
 				is = true;
 				return offset + '</body>';
@@ -79,7 +82,9 @@ COMPONENT('iframepreview', function(self, config, cls) {
 	};
 
 	self.setter = function(value) {
-		self.tclass('hidden', !!value);
+
+		self.tclass('hidden', !value);
+
 		if (value)
 			self.write(value);
 		else
