@@ -3,14 +3,16 @@ COMPONENT('iframepreview', function(self, config, cls) {
 	var iframe;
 	var ready = false;
 	var writetimeout;
+	var container;
 
 	self.readonly();
 	self.nocompile && self.nocompile();
 
 	self.make = function() {
 		self.aclass(cls);
-		self.html('<iframe src="about:blank" frameborder="0" scrolling="no"></iframe>');
+		self.html('<div><iframe src="about:blank" frameborder="0" scrolling="no"></iframe></div>');
 		iframe = self.find('iframe');
+		container = self.find('div');
 
 		var isready = () => ready = true;
 		var timeout = null;
@@ -73,7 +75,7 @@ COMPONENT('iframepreview', function(self, config, cls) {
 			if (el.length) {
 				var offset = el.offset();
 				if (offset) {
-					self.element.css('height', offset.top);
+					container.css('height', offset.top);
 					if (offset.top == 0)
 						setTimeout(self.resize, 1000);
 				}
