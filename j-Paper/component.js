@@ -212,6 +212,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		// opt.backslashremove {Boolean}
 		// opt.param {Object} a custom parameter
 		// opt.parent {Element}
+		// opt.select {Boolean} it selects all text
 
 		if (opt.format == null)
 			opt.format = true;
@@ -429,6 +430,9 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			sel.removeAllRanges();
 			sel.addRange(range);
 		}
+
+		if (opt.select)
+			setTimeout(() => document.execCommand('selectAll', false, null), 20);
 
 		openeditor.close = function() {
 
