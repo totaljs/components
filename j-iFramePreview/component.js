@@ -9,8 +9,8 @@ COMPONENT('iframepreview', function(self, config, cls) {
 	self.nocompile && self.nocompile();
 
 	self.make = function() {
-		self.aclass(cls);
-		self.html('<div><iframe src="about:blank" frameborder="0" scrolling="no"></iframe></div>');
+		self.aclass(cls + ' hidden');
+		self.html('<div><iframe src="about:blank" frameborder="0" scrolling="no" loading="lazy"></iframe></div>');
 		iframe = self.find('iframe');
 		container = self.find('div');
 
@@ -61,6 +61,7 @@ COMPONENT('iframepreview', function(self, config, cls) {
 			doc.write(content);
 			doc.close();
 			self.resize();
+			self.rclass('hidden');
 			setTimeout(self.resize, 500);
 			setTimeout(self.resize, 1000);
 			setTimeout(self.resize, 2000);
@@ -85,7 +86,7 @@ COMPONENT('iframepreview', function(self, config, cls) {
 
 	self.setter = function(value) {
 
-		self.tclass('hidden', !value);
+		self.aclass('hidden');
 
 		if (value)
 			self.write(value);
