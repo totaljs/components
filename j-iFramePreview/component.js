@@ -79,6 +79,7 @@ COMPONENT('iframepreview', function(self, config, cls) {
 	};
 
 	self.setter = function(value) {
+		self.tclass('hidden', !!value);
 		if (value)
 			self.write(value);
 		else
