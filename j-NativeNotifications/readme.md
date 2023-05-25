@@ -14,7 +14,7 @@ __Methods__
 __Usage__
 
 ```javascript
-SETTER('nativenotifications', 'append', 'TITLE', 'MESSAGE', function() {
+SETTER('nativenotifications/show', 'TITLE', 'MESSAGE', function() {
     // optional, click
 }, '/img/warning-optional.png');
 ```
