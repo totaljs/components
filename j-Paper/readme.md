@@ -66,6 +66,15 @@ The component creates a global variable called `window.papercache {Object}` used
 - `htmlelement.$widget {Object}` contains a widget instance
 	- `widget.remove()` method will remove the widget
 
+__Shortcuts in text edit__:
+
+- `CMD + m` highlights text
+- `CMD + l` creates a link
+- `CMD + p` adds an icon
+- `CMD + b` bold
+- `CMD + i` italic
+- `CMD + u` underline
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
