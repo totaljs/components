@@ -54,6 +54,7 @@ __Methods__:
 
 - `component.save(function(data, ischange) {` for saving content
 - `component.import(url or url_array, [callback])` for importing additional widgets
+- `component.notify(event, [a], [b], [c], [d])` emits event in every widget
 
 __Good to know__:
 

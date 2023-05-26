@@ -1210,6 +1210,12 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		}
 	};
 
+	self.notify = function(a, b, c, d, e) {
+		var widgets = self.find('.widget');
+		for (var el of widgets)
+			el.$widget.emit(a, b, c, d, e);
+	};
+
 	self.setter = function(arr) {
 
 		if (skip) {
