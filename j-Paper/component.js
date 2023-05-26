@@ -93,6 +93,10 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 	};
 
+	self.makeid = function() {
+		return Date.now().toString(36) + 'X' + Math.random().toString(36).substring(3, 7);
+	};
+
 	self.removeselection = function() {
 		var arr = document.getSelection().getRangeAt(0).cloneContents().querySelectorAll('*');
 		for (var el of arr) {
@@ -336,7 +340,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 					cmd.append = function(name) {
 						var w = W.papercache.instances[name];
-						var id = Date.now().toString(36);
+						var id = self.makeid();
 						settings[id] = w.config;
 						opt.widget.element.parent().after('<section><div class="widget paper-{0}" data-widget="{0}" data-id="{1}" data-newbie="1"></div></section>'.format(name, id));
 						opt.widget.remove();
@@ -646,13 +650,13 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			if (config.readonly)
 				return;
 
-			var id = Date.now().toString(36);
+			var id = self.makeid();
 			$(el).append('<section><div class="widget paper-html" data-widget="html" data-id="{0}" data-newbie="1"></div></section>'.format(id));
 			self.cmd.refresh();
 		};
 
 		meta.append = function(same) {
-			var id = Date.now().toString(36) + 'X' + Math.random().toString(36).substring(3, 7);
+			var id = self.makeid();
 			$(el).parent().after('<section><div class="widget paper-{1}" data-widget="{1}" data-id="{0}" data-newbie="1"></div></section>'.format(id, same === true ? name : (same || 'html')));
 			setTimeout(self.cmd.refresh, 100);
 		};
@@ -755,7 +759,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		};
 
 		meta.makeid = function() {
-			return Date.now().toString(36);
+			return self.makeid();
 		};
 
 		meta.update = function() {
@@ -1075,7 +1079,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 				openeditor.close();
 
 			setTimeout(function() {
-				$(t).after('<section><div class="widget whtml" data-widget="html" data-id="{0}" data-newbie="1"></div></section>'.format(Date.now().toString(36)));
+				$(t).after('<section><div class="widget whtml" data-widget="html" data-id="{0}" data-newbie="1"></div></section>'.format(self.makeid()));
 				self.cmd.refresh();
 			}, 100);
 
@@ -1098,7 +1102,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 					return;
 				}
 
-				self.append('<section><div class="widget whtml" data-widget="html" data-id="{0}" data-newbie="1"></div></section>'.format(Date.now().toString(36)));
+				self.append('<section><div class="widget whtml" data-widget="html" data-id="{0}" data-newbie="1"></div></section>'.format(self.makeid()));
 				self.cmd.refresh();
 			}
 		});
