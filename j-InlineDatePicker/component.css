@@ -4,7 +4,7 @@
 .ui-inlinedatepicker-footer { height: 28px; border-top: 1px solid #E0E0E0; font-size: 11px; padding: 0 8px; line-height: 26px; background-color: #F8F8F8; }
 .ui-inlinedatepicker-footer > span:hover { text-decoration: underline; }
 .ui-inlinedatepicker-now { float: left; color: #000; cursor: pointer; }
-.ui-inlinedatepicker-today div { background-color: #F0F0F0; font-weight: bold; }
+.ui-inlinedatepicker-day-today div { background-color: #F0F0F0; font-weight: bold; }
 .ui-inlinedatepicker-selected div { background-color: #F8F7DA; font-weight: bold; color: #000; }
 .ui-inlinedatepicker-date i { position: absolute; left: 15px; top: 26px; font-size: 6px; color: red; }
 .ui-inlinedatepicker-months > div { width: 61px; height: 78px; line-height: 76px; position: relative; display: inline-block; text-align: center; cursor: pointer; text-transform: uppercase; font-weight: bold; }
