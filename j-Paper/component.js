@@ -348,8 +348,8 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 					};
 
 					config.command && self.EXEC(config.command, cmd);
+					e.preventDefault();
 				}
-				e.preventDefault();
 				return;
 			}
 
