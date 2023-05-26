@@ -6,7 +6,7 @@
 .ui-datepicker-footer { height: 28px; border-top: 1px solid #E0E0E0; font-size: 11px; padding: 0 8px; line-height: 26px; background-color: #F8F8F8; display: flex; justify-content: space-between; }
 .ui-datepicker-footer > span:hover { text-decoration: underline; }
 .ui-datepicker-now, .ui-datepicker-clear { color: #000; cursor: pointer; }
-.ui-datepicker-today div { background-color: #F0F0F0; font-weight: bold; }
+.ui-datepicker-day-today div { background-color: #F0F0F0; font-weight: bold; }
 .ui-datepicker-selected div { background-color: #F8F7DA; font-weight: bold; color: #000; }
 .ui-datepicker-date i { position: absolute; left: 15px; top: 26px; font-size: 6px; color: red; }
 .ui-datepicker-months > div { width: 61px; height: 78px; line-height: 76px; position: relative; display: inline-block; text-align: center; cursor: pointer; text-transform: uppercase; font-weight: bold; }
