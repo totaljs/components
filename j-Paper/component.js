@@ -18,6 +18,11 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 	var checksum = {};
 	var skip = false;
 	var check = null;
+	var previndex = null;
+	var prevcleaner = null;
+	var prevclean = function() {
+		previndex = null;
+	};
 
 	var movement = function(key) {
 
@@ -38,6 +43,14 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 			// 38: up, 40: down
 			if ((key === 38 && index === 0) || (key === 40 && (index === count - 1))) {
+
+				if (previndex !== index) {
+					previndex = index;
+					prevcleaner && clearTimeout(prevcleaner);
+					prevcleaner = setTimeout(prevclean, 1000);
+					return;
+				}
+
 				openeditor.key = key;
 				openeditor.close();
 			}
