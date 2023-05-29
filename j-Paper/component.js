@@ -1059,11 +1059,10 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			if (config.readonly)
 				return;
 
-			if (e.target.tagName === 'A' || $(e.target).closest('a').length)
+			if (e.target.tagName === 'A' || $(e.target).closest('a,[data-prevent]').length)
 				return;
 
 			var target = e.target;
-
 			e.stopPropagation();
 
 			if (target.classList.contains('plink'))

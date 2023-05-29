@@ -76,6 +76,10 @@ __Shortcuts in text edit__:
 - `CMD + i` italic
 - `CMD + u` underline
 
+__Good to know__:
+
+- `[data-prevent]` attribute can prevent click event in the widget
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
