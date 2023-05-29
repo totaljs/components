@@ -766,8 +766,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 		meta.remove = function() {
 			meta.removed = true;
-			if (meta.sync !== false)
-				self.cmd.change(meta, 'remove');
+			self.cmd.change(meta, 'remove');
 			meta.element.parent().remove();
 		};
 
