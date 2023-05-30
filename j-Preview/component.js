@@ -234,9 +234,10 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 		if (base64) {
 			var url = config.url.env(true);
 			if (config.output === 'file') {
+				var file = dataURLtoFile(base64, name);
 				var data = new FormData();
-				data.append('file', dataURLtoFile(base64, name));
-				UPLOAD(url, ERROR(function(response) {
+				data.append('file', file);
+				UPLOAD(url, data, ERROR(function(response) {
 					self.change(true);
 					self.set(config.map ? FN(config.map)(response) : response);
 				}));
