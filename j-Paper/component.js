@@ -702,6 +702,12 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 				self.cmd.edit(el, opt, callback);
 		};
 
+		meta.focus = function() {
+			if (openeditor)
+				openeditor.close();
+			meta.emit('focus', true);
+		};
+
 		meta.upload = function(opt, callback) {
 			// opt.accept {String}
 			// opt.files {FileList} optional
@@ -766,7 +772,10 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 		meta.remove = function() {
 			meta.removed = true;
-			self.cmd.change(meta, 'remove');
+
+			if (!meta.newbie)
+				self.cmd.change(meta, 'remove');
+
 			meta.element.parent().remove();
 		};
 
