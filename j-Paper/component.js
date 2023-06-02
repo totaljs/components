@@ -688,9 +688,24 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		};
 
 		meta.iseditable = function(t) {
+
 			if (t instanceof jQuery)
 				t = t[0];
-			return (t.classList.contains('picon') || t.classList.contains('plink')) ? false : true;
+
+			if ((t.classList.contains('picon') || t.classList.contains('plink')))
+				return false;
+
+			if (t.tagName === 'A') {
+				for (var i = 0; i < 10; i++) {
+					t = t.parentNode;
+					if (t == null)
+						break;
+					if (t.tagName === 'A')
+						return false;
+				}
+			}
+
+			return true;
 		};
 
 		meta.iseditable2 = function() {
