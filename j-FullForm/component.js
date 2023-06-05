@@ -198,6 +198,7 @@ COMPONENT('fullform', 'zindex:12;padding:20;scrollbar:1;scrolltop:1;style:1', fu
 
 	self.hideforce = function() {
 		if (!self.hclass('hidden')) {
+			config.hide && self.SEEX(config.hide);
 			self.aclass('hidden');
 			self.release(true);
 			self.esc(false);

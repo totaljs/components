@@ -187,6 +187,7 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 
 	self.hideforce = function() {
 		if (!self.hclass('hidden')) {
+			config.hide && self.SEEX(config.hide);
 			self.aclass('hidden');
 			self.release(true);
 			self.esc(false);

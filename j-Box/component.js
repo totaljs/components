@@ -235,6 +235,7 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 
 	self.hideforce = function() {
 		if (!self.hclass('hidden')) {
+			config.hide && self.SEEX(config.hide);
 			self.aclass('hidden');
 			self.release(true);
 			self.esc(false);

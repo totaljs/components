@@ -25,6 +25,7 @@ __Configuration__:
 - `closeesc` {Boolean} closes the form when the user presses `ESC` key
 - `independent` {Boolean} closing doesn't depent on the condition according to the path
 - `close {String}` link to a global `function()` and it's executed if the form is closing
+- __NEW__ `hide {String}` link to a global `function()` and it's executed if the form hides
 
 __Good to know__:
 

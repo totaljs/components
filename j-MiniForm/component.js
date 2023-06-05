@@ -97,6 +97,7 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 
 	self.hideforce = function() {
 		if (!self.hclass('hidden')) {
+			config.hide && self.SEEX(config.hide);
 			self.aclass('hidden');
 			self.release(true);
 			self.find(cls2).rclass(cls + '-animate');
