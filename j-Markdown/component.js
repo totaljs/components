@@ -862,7 +862,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 						}
 					}
 
-					builder.push('<li>' + tmpstr.trim().replace(/\[x\]/g, '<i class="ti ti-check-square green"></i>').replace(/\[\s\]/g, '<i class="ti ti-square"></i>') + '</li>');
+					builder.push('<li data-line="{0}">'.format(i) + tmpstr.trim().replace(/\[x\]/g, '<i class="ti ti-check-square green"></i>').replace(/\[\s\]/g, '<i class="ti ti-square"></i>') + '</li>');
 
 				} else {
 					closeul();
