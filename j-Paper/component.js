@@ -257,6 +257,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		openeditor.widget = widgetel.$widget;
 		openeditor.element = el;
 		openeditor.dom = el[0];
+		openeditor.multiline = opt.multiline;
 		openeditor.parent = opt.parent ? opt.parent[0] : openeditor.dom;
 
 		var clickoutside = function(e) {
@@ -433,7 +434,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		};
 
 		var keyup = function(e) {
-			if (e.keyCode === 40 || e.keyCode === 38)
+			if (!openeditor.multiline && (e.keyCode === 40 || e.keyCode === 38))
 				movement(e.keyCode);
 		};
 
