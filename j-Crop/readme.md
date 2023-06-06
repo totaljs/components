@@ -6,7 +6,7 @@ __Supports__:
 - drag and drop
 - local files
 - responsive
-- __NEW__: automatically rotates image according to the EXIF information
+- automatically rotates image according to the EXIF information
 
 __Configuration__:
 
@@ -17,11 +17,11 @@ __Configuration__:
 - `format` {String} a format for URL file generator (default: `{0}`)
 
 __Attributes__
-- `data-jc-path="url-to-image"` - must contain URL to picture
+- `path="url-to-image"` - must contain URL to picture
 
 __Methods__:
 
-```javascript
+```js
 // e.g.
 var component = FIND('croper');
 
@@ -29,11 +29,16 @@ var component = FIND('croper');
 component.reconfigure('width:500;height:200');
 
 // Get cropped image
+// component.output([type], [return_object])
 var png = component.output('image/png');
 var jpg = component.output('image/jpeg');
 
 // Below method automatically detects the transparency and sets the output
 var data = component.output();
+
+// var data = component.output(true);
+// data.filename {String}
+// data.data {String} base64
 
 // Is the image cropped?
 console.log('Is changed?', component.dirty());
