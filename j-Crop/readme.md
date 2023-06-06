@@ -17,7 +17,7 @@ __Configuration__:
 - `format` {String} a format for URL file generator (default: `{0}`)
 
 __Attributes__
-- `path="url-to-image"` - must contain URL to picture
+- `path="path-with-url-to-image"` - must contain URL to picture
 
 __Methods__:
 
