@@ -18,9 +18,10 @@ __Methods__:
 	- `opt.files` {FileList} optional (if you use e.g Drag & Drop)
 	- `opt.data` {Object} optional, additional custom data `key_string:value_string`
 	- __NEW__ `opt.width {Number}` optional, image width
-	- __NEW__ `opt.width {Number}` optional, image height
+	- __NEW__ `opt.height {Number}` optional, image height
 	- __NEW__ `opt.background {String}` optional, background color defined in HEX or can be `transparent`
 	- __NEW__ `opt.keeporiginal {Boolean}` optional, prevents for double resizing (default: `false`)
+	- __NEW__ `opt.onlylarger {Boolean}` optional, resizes images only larger than `opt.width` or `opt.height`
 
 __Friendly components__:
 This component works with `loading` when the file is uploading.
