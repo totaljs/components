@@ -40,10 +40,6 @@ var data = component.output();
 // data.filename {String}
 // data.data {String} base64
 
-// Is the image cropped?
-console.log('Is changed?', component.dirty());
-console.log('Is changed?', CHANGE(component.path));
-
 // New method for clearing of canvas
 component.clear();
 ```
