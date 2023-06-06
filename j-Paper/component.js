@@ -696,14 +696,15 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			if ((t.classList.contains('picon') || t.classList.contains('plink')))
 				return false;
 
-			if (t.tagName === 'A') {
-				for (var i = 0; i < 10; i++) {
-					t = t.parentNode;
-					if (t == null)
-						break;
-					if (t.tagName === 'A')
-						return false;
-				}
+			if (t.tagName === 'A')
+				return false;
+
+			for (var i = 0; i < 10; i++) {
+				t = t.parentNode;
+				if (t == null)
+					break;
+				if (t.tagName === 'A')
+					return false;
 			}
 
 			return true;
