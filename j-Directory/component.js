@@ -351,7 +351,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 						}
 
 						if (customvalue.parentNode)
-							customvalue.parentNode.removeChild(customvalue.parentNode);
+							customvalue.parentNode.removeChild(customvalue);
 
 						skipclear = true;
 						self.opt.items = items;
