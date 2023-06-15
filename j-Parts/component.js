@@ -3,6 +3,7 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 	var skip = false;
 	var partw;
 	var parth;
+	var prev = [];
 
 	self.make = function() {
 		self.aclass(cls);
@@ -45,6 +46,7 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 			item.focused = false;
 			item.element.rclass(classname);
 			itemop('blur', item);
+			prev.push(item.id);
 		}
 
 		item = selected;
@@ -83,6 +85,7 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 
 		var model = self.get();
 		if (id == null) {
+			prev = [];
 			for (var item of model)
 				self.close(item.id);
 			return;
@@ -90,11 +93,20 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 
 		var item = model.findItem('id', id);
 		if (item) {
+
+			prev = prev.remove(id);
 			var index = model.indexOf(item);
 			model.splice(index, 1);
 
 			if (item.focused) {
 				// next part to focus
+				var previd = prev.last();
+				if (previd) {
+					var tmp = model.findIndex('id', previd);
+					if (tmp !== -1)
+						index = tmp;
+				}
+
 				var next = model[index];
 				if (!next)
 					next = model[0];
