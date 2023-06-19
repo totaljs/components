@@ -747,60 +747,55 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 
 					if (line.substring(0, 2) === '# ') {
 						tmp = line.substring(2).trim();
-
-						if (opt.html)
-							line = opt.html(line, '#');
-
-						if (opt.headlines !== false)
+						if (opt.headlines !== false) {
+							if (opt.html)
+								tmp = opt.html(tmp, '#');
 							builder.push('<h1 id="' + markdown_id(tmp) + '">' + tmp + '</h1>');
+						}
 						prev = '#';
 						continue;
 					}
 
 					if (line.substring(0, 3) === '## ') {
 						tmp = line.substring(3).trim();
-
-						if (opt.html)
-							line = opt.html(line, '##');
-
-						if (opt.headlines !== false)
+						if (opt.headlines !== false) {
+							if (opt.html)
+								tmp = opt.html(tmp, '##');
 							builder.push('<h2 id="' + markdown_id(tmp) + '">' + tmp + '</h2>');
+						}
 						prev = '##';
 						continue;
 					}
 
 					if (line.substring(0, 4) === '### ') {
 						tmp = line.substring(4).trim();
-
-						if (opt.html)
-							line = opt.html(line, '###');
-
-						if (opt.headlines !== false)
+						if (opt.headlines !== false) {
+							if (opt.html)
+								tmp = opt.html(tmp, '###');
 							builder.push('<h3 id="' + markdown_id(tmp) + '">' + tmp + '</h3>');
+						}
 						prev = '###';
 						continue;
 					}
 
 					if (line.substring(0, 5) === '#### ') {
 						tmp = line.substring(5).trim();
-
-						if (opt.html)
-							line = opt.html(line, '####');
-
-						if (opt.headlines !== false)
+						if (opt.headlines !== false) {
+							if (opt.html)
+								tmp = opt.html(tmp, '####');
 							builder.push('<h4 id="' + markdown_id(tmp) + '">' + tmp + '</h4>');
+						}
 						prev = '####';
 						continue;
 					}
 
 					if (line.substring(0, 6) === '##### ') {
 						tmp = line.substring(6).trim();
-
-						if (opt.html)
-							line = opt.html(line, '#####');
-
-						if (opt.headlines !== false)
+						if (opt.headlines !== false) {
+							if (opt.html)
+								tmp = opt.html(tmp, '#####');
 							builder.push('<h5 id="' + markdown_id(tmp) + '">' + tmp + '</h5>');
+						}
 						prev = '#####';
 						continue;
 					}
@@ -825,23 +820,23 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 				}
 
 				if (line.substring(0, 5) === '&gt; ') {
-
-					if (opt.html)
-						line = opt.html(line, 'blockquote');
-
-					if (opt.blockquotes !== false)
-						builder.push('<blockquote>' + line.substring(5).trim() + '</blockquote>');
+					if (opt.blockquotes !== false) {
+						line = line.substring(5).trim();
+						if (opt.html)
+							line = opt.html(line, 'blockquote');
+						builder.push('<blockquote>' + line + '</blockquote>');
+					}
 					prev = '>';
 					continue;
 				}
 
 				if (line.substring(0, 5) === '&lt; ') {
-
-					if (opt.html)
-						line = opt.html(line, 'section');
-
-					if (opt.sections !== false)
-						builder.push('<section>' + line.substring(5).trim() + '</section>');
+					if (opt.sections !== false) {
+						line = line.substring(5).trim();
+						if (opt.html)
+							line = opt.html(line, 'section');
+						builder.push('<section>' + line + '</section>');
+					}
 					prev = '<';
 					continue;
 				}
