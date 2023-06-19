@@ -607,6 +607,10 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 						line = lines[i].substring(3).trim();
 						if (opt.formatting !== false)
 							line = formatline(line);
+						if (opt.custom)
+							line = opt.custom(line);
+						if (opt.html)
+							line = opt.html(line, 'block');
 						builder.push('<div class="markdown-block"><span class="markdown-showblock"><i class="ti ti-plus"></i>{0}</span><div class="hidden">'.format(line));
 					}
 					prev = '';
@@ -743,6 +747,10 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 
 					if (line.substring(0, 2) === '# ') {
 						tmp = line.substring(2).trim();
+
+						if (opt.html)
+							line = opt.html(line, '#');
+
 						if (opt.headlines !== false)
 							builder.push('<h1 id="' + markdown_id(tmp) + '">' + tmp + '</h1>');
 						prev = '#';
@@ -751,6 +759,10 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 
 					if (line.substring(0, 3) === '## ') {
 						tmp = line.substring(3).trim();
+
+						if (opt.html)
+							line = opt.html(line, '##');
+
 						if (opt.headlines !== false)
 							builder.push('<h2 id="' + markdown_id(tmp) + '">' + tmp + '</h2>');
 						prev = '##';
@@ -759,6 +771,10 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 
 					if (line.substring(0, 4) === '### ') {
 						tmp = line.substring(4).trim();
+
+						if (opt.html)
+							line = opt.html(line, '###');
+
 						if (opt.headlines !== false)
 							builder.push('<h3 id="' + markdown_id(tmp) + '">' + tmp + '</h3>');
 						prev = '###';
@@ -767,6 +783,10 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 
 					if (line.substring(0, 5) === '#### ') {
 						tmp = line.substring(5).trim();
+
+						if (opt.html)
+							line = opt.html(line, '####');
+
 						if (opt.headlines !== false)
 							builder.push('<h4 id="' + markdown_id(tmp) + '">' + tmp + '</h4>');
 						prev = '####';
@@ -775,6 +795,10 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 
 					if (line.substring(0, 6) === '##### ') {
 						tmp = line.substring(6).trim();
+
+						if (opt.html)
+							line = opt.html(line, '#####');
+
 						if (opt.headlines !== false)
 							builder.push('<h5 id="' + markdown_id(tmp) + '">' + tmp + '</h5>');
 						prev = '#####';
@@ -801,6 +825,10 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 				}
 
 				if (line.substring(0, 5) === '&gt; ') {
+
+					if (opt.html)
+						line = opt.html(line, 'blockquote');
+
 					if (opt.blockquotes !== false)
 						builder.push('<blockquote>' + line.substring(5).trim() + '</blockquote>');
 					prev = '>';
@@ -808,6 +836,10 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 				}
 
 				if (line.substring(0, 5) === '&lt; ') {
+
+					if (opt.html)
+						line = opt.html(line, 'section');
+
 					if (opt.sections !== false)
 						builder.push('<section>' + line.substring(5).trim() + '</section>');
 					prev = '<';
@@ -862,10 +894,20 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 						}
 					}
 
-					builder.push('<li data-line="{0}">'.format(i) + tmpstr.trim().replace(/\[x\]/g, '<i class="ti ti-check-square green"></i>').replace(/\[\s\]/g, '<i class="ti ti-square"></i>') + '</li>');
+					var tmpval = tmpstr.trim();
+
+					if (opt.html)
+						tmpval = opt.html(tmpval, 'blockquote');
+
+					builder.push('<li data-line="{0}">'.format(i) + tmpval.replace(/\[x\]/g, '<i class="ti ti-check-square green"></i>').replace(/\[\s\]/g, '<i class="ti ti-square"></i>') + '</li>');
 
 				} else {
 					closeul();
+					if (line) {
+						line = line.trim();
+						if (opt.html)
+							line = opt.html(line, opt.linetag);
+					}
 					line && builder.push((opt.linetag ? ('<' + opt.linetag + '>') : '') + line.trim() + (opt.linetag ? ('</' + opt.linetag + '>') : ''));
 					prev = 'p';
 				}
