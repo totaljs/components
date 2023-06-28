@@ -69,7 +69,7 @@ COMPONENT('approve', 'cancel:Cancel', function(self, config, cls) {
 
 		self.callback = fn;
 
-		var icon = a.match(/("|:)[a-z0-9-\s]+("|:)/);
+		var icon = a.match(/["\:][a-z0-9-\s]+["\:]/);
 		if (icon) {
 
 			var tmp = icon + '';
@@ -77,7 +77,7 @@ COMPONENT('approve', 'cancel:Cancel', function(self, config, cls) {
 				tmp = 'ti ti-' + tmp;
 
 			a = a.replace(icon, '').trim();
-			icon = '<i class="{0}"></i>'.format(tmp.replace(/"/g, ''));
+			icon = '<i class="{0}"></i>'.format(tmp.replace(/"|\:/g, ''));
 		} else
 			icon = '';
 
