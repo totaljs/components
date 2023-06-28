@@ -26,10 +26,10 @@ SETTER('approve/show', message, 'Yes', function() {
 
 ```javascript
 // "Remove" button will be with Font-Awesome icon called: "trash-o"
-SETTER('approve/show', 'Are you sure you want to remove selected item?', '"trash-o" Remove', REMOVE_FUNCTION);
+SETTER('approve/show', 'Are you sure you want to remove selected item?', ':trash-o: Remove', REMOVE_FUNCTION);
 
 // "Confirm" button will be "green" with Font-Awesome icon called: "checked-circle"
-SETTER('approve/show', 'Are you sure you want to confirm selected items?', '"checked-circle" Confirm #2BA433', REMOVE_FUNCTION);
+SETTER('approve/show', 'Are you sure you want to confirm selected items?', ':checked-circle: Confirm #2BA433', REMOVE_FUNCTION);
 ```
 
 ### Author

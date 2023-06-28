@@ -69,7 +69,7 @@ COMPONENT('approve', 'cancel:Cancel', function(self, config, cls) {
 
 		self.callback = fn;
 
-		var icon = a.match(/"[a-z0-9-\s]+"/);
+		var icon = a.match(/("|:)[a-z0-9-\s]+("|:)/);
 		if (icon) {
 
 			var tmp = icon + '';
