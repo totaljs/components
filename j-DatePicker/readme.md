@@ -6,7 +6,7 @@
 
 __Configuration__:
 
-- `firstday {Number}` first day in the week
+- `firstday {Number}` first day in the week (default: `DEF.firstdayofweek`)
 - `today {String}` a label for the `Set today` button
 - `clear {String}` a label for the `Clear` button
 - `days {String}` days e.g. `SU,MO,TU,WE,TH,FR,SA` (default).
