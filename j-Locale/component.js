@@ -992,7 +992,7 @@ COMPONENT('locale', function(self, config) {
 
 		DEF.dateformat = df;
 		DEF.timeformat = tf === 12 ? '!HH:mm a' : 'HH:mm';
-		DEF.firtdayofweek = fdw;
+		DEF.firstdayofweek = fdw;
 		DEF.decimalseparator = nf === 2 || nf === 3 ? ',' : '.';
 		DEF.thousandsseparator = nf === 4 ? ',' : nf === 3 ? '.' : ' ';
 
