@@ -1,4 +1,4 @@
-COMPONENT('inlinedatepicker', 'today:Set today;firstday:0', function(self, config, cls) {
+COMPONENT('inlinedatepicker', 'today:Set today;firstday:-1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var skip = false;
@@ -89,7 +89,7 @@ COMPONENT('inlinedatepicker', 'today:Set today;firstday:0', function(self, confi
 
 		var d = new Date(year, month, 1, 12, 0);
 		var output = { header: [], days: [], month: month, year: year };
-		var firstday = config.firstday;
+		var firstday = config.firstday === -1 ? DEF.firstdayofweek : config.firstday;
 		var firstcount = 0;
 		var frm = d.getDay() - firstday;
 		var today = NOW;
