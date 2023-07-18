@@ -37,16 +37,12 @@ COMPONENT('breadcrumb', 'icon:ti ti-home;historyapi:1;root:Root;rooturl:/', func
 		config.root && arr.push({ name: config.root, url: config.rooturl });
 
 		var fn = function(name, url, callback) {
-			if (name && url)
-				arr.push({ name: name, url: url, callback: callback });
+			name && arr.push({ name: name, url: url, callback: callback });
 			return fn;
 		};
 
-		setTimeout(function() {
-			self.set(arr);
-		}, 1);
-
-		return fn(name, url, callback);
+		setTimeout(() => self.set(arr), 1);
+		return fn(name, url || NAV.url, callback);
 	};
 
 	self.setter = function(value, path, type) {
