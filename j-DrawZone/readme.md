@@ -11,8 +11,8 @@ __Configuration__:
 - `readonly {Boolean}` enables readonly mode (default: `false`)
 - `stroke {Number}` a stroke width (default: `2`)
 - `radius {Number}` a radius size of points in the polygon (default: `7`)
-- `latlng {String}` a default map position (default: `48.73702477,19.137712`)
-- `opacity {Number}` determines the transparency of the polygon in percentage (default: `20`)
+- `latlng {String}` a default map position (default: `48.73702478789267,19.137712002562715`)
+- `opacity {Number}` determines the transparency of the polygon in percentage (default: `40`)
 
 __Data-source__ needs to contain:
 
