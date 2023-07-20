@@ -1,4 +1,4 @@
-COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readonly:0;opacity:40;margin:0;geolocation:1;latlng:48.73702477,19.137712', function(self, config, cls) {
+COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readonly:0;opacity:40;margin:0;geolocation:1;latlng:48.73702478789267,19.137712002562715', function(self, config, cls) {
 
 	var meta = { points: [], zoom: config.zoom, color: config.color, layer: null };
 	var skip = false;
