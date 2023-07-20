@@ -36,7 +36,7 @@ __Configuration__:
 - `unhighlight` {Boolean} enables `undo highlighting` of selected row (default: `true`)
 - `checked` {String} `path` to a variable or path to `function(rows, grid)` is executed if the user selected/checked some rows
 - `autoselect` {Boolean} enables auto-select of first row in grid, it performs `EXEC(config.click)`, default: `false`
-- `exec` {String} a link to `function(page, sort)` for server-side operations only (it disables client-side sorting & filtering), supported types: `refresh` or `page`
+- `exec` {String} a link to `function(type, page, sort)` for server-side operations only (it disables client-side sorting & filtering), supported types: `refresh` or `page`
 - `changed` {String} `path` to a variable or path to `function(rows, grid)` is executed if the user changed some rows
 - `dblclick` {String} a link to `function(row, grid, row_el)` method, it's executed if the user double-clicks on a row
 - `noborder` {Boolean} can disable a border around the grid (default: `false`)
