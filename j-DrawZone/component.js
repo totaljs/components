@@ -43,7 +43,7 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 		});
 
 		meta.map.on('moveend', function() {
-			var zoom = meta.view.getZoom();
+			var zoom = meta.view.getZoom() >> 0;
 			if (meta.zoom !== zoom) {
 				meta.zoom = zoom;
 				var model = self.get();
@@ -186,7 +186,7 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 
 		meta.modify.on('modifyend', function(e) {
 			self.coords(e.features.item(0));
-			meta.zoom = meta.view.getZoom();
+			meta.zoom = meta.view.getZoom() >> 0;
 		});
 
 		meta.map.addInteraction(meta.modify);
@@ -211,7 +211,7 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 
 		meta.draw.on('drawend', function(e) {
 			meta.map.removeInteraction(meta.draw);
-			meta.zoom = meta.view.getZoom();
+			meta.zoom = meta.view.getZoom() >> 0;
 			meta.draw = null;
 			self.coords(e.feature);
 		});
@@ -277,7 +277,7 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 		skip = true;
 
 		var obj = self.get() || {};
-		obj.zoom = meta.view.getZoom();
+		obj.zoom = meta.view.getZoom() >> 0;
 		obj.color = obj.color || config.color;
 		obj.points = arr;
 		obj.center = { lat: center[1], lng: center[0] };
