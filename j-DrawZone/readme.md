@@ -24,6 +24,20 @@ __Data-source__ needs to contain:
 }
 ```
 
+__Methods__:
+
+- `component.clear([draw])` clears the polygon `@draw {Boolean}` (default: `false`)
+- `component.move(lat, lng)` moves the map to the specific position
+- `component.export(opt, callback(base64))` exports data into the picture
+    - `opt.width {Number}` required
+    - `opt.height {Number}` required
+    - `opt.zoom {Number}` (default: `13`)
+    - `opt.type {png|jpg}` (default: `png`)
+    - `opt.quality {Number}` only for JPEG
+    - `opt.points {Array Number}`
+    - `opt.color {String}` (default: `config.color`)
+    - `opt.radius {Number}` (default: `config.radius`)
+
 __Output__:
 
 - is extended by `center { lat: Number, lng: Number }` property
