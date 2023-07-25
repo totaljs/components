@@ -335,7 +335,7 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 
 			if (value.center) {
 				view.setCenter(ol.proj.fromLonLat([value.center.lng, value.center.lat], 'EPSG:3857'));
-				view.animate({ zoom: meta.zoom, duration: 250 });
+				view.animate({ zoom: zoom, duration: 1 });
 			} else
 				setTimeout(self.center, 800);
 
