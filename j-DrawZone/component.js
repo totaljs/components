@@ -3,10 +3,13 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 	var meta = { points: [], zoom: config.zoom, color: config.color };
 	var skip = false;
 
-	self.readonly();
 	self.nocompile();
 
 	self.meta = meta;
+
+	self.validate = function(value) {
+		return (config.disabled || !config.required) ? true : value && value.points && value.points.length > 0;
+	};
 
 	self.destroy = function() {
 
@@ -289,6 +292,10 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 		meta.draw && meta.map.removeInteraction(meta.draw);
 		meta.draw = null;
 		meta.polygon = null;
+		var model = self.get();
+		model.points = [];
+		self.set(model);
+		self.change(true);
 		draw && self.draw();
 	};
 

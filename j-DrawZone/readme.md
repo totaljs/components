@@ -13,6 +13,7 @@ __Configuration__:
 - `radius {Number}` a radius size of points in the polygon (default: `7`)
 - `center {String}` a default map position (default: `48.73702478789267,19.137712002562715`)
 - `opacity {Number}` determines the transparency of the polygon in percentage (default: `40`)
+- `required {Boolean}` optional (default: `false`)
 
 __Data-source__ needs to contain:
 
