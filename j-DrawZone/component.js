@@ -344,13 +344,12 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 			var arr;
 
 			if (value.center) {
-				arr = [value.center.lng, value.center.lat];
+				arr = [value.center.lat, value.center.lng];
 			} else {
 				arr = config.center.split(',');
 				arr[0] = arr[0].parseFloat();
 				arr[1] = arr[1].parseFloat();
 			}
-
 
 			view.setCenter(ol.proj.fromLonLat([arr[1], arr[0]], 'EPSG:3857'));
 			view.setZoom(zoom);
