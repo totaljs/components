@@ -38,6 +38,7 @@ __Methods__:
     - `opt.points {Array Number}`
     - `opt.color {String}` (default: `config.color`)
     - `opt.radius {Number}` (default: `config.radius`)
+    - `opt.opacity {Number}` (default: `config.opacity`)
 
 __Output__:
 

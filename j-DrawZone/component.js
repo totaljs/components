@@ -87,6 +87,12 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 		// opt.points {Array Number}
 		// opt.color {String}
 		// opt.radius {Number}
+		// opt.opacity {Number}
+
+		var opacity = opt.opacity || config.opacity;
+
+		if (opacity)
+			opacity = opacity / 100;
 
 		if (callback)
 			opt.callback = callback;
@@ -130,7 +136,7 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 			for (var canvas of nodes) {
 
 				if (canvas.width > 0) {
-					var opacity = canvas.parentNode.style.opacity || canvas.style.opacity;
+					var opacity = opt.opacity;
 					var transform = canvas.style.transform;
 					var matrix;
 
