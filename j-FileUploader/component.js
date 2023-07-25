@@ -30,6 +30,8 @@ COMPONENT('fileuploader', function(self, config) {
 		// opt.height {Number}
 		// opt.keeporiginal {Boolean}
 		// opt.background {String} (hex or "transparent")
+		// opt.base64 {String}
+		// opt.filename {String}
 
 		self.opt = opt;
 		self.opt.fd = new FormData();
@@ -40,6 +42,12 @@ COMPONENT('fileuploader', function(self, config) {
 
 		if (opt.files) {
 			self.processfiles(opt.files);
+		} else if (opt.base64) {
+			fetch(opt.base64).then(res => res.blob()).then(function(blob) {
+				self.opt.fd.append((self.opt.prefix || 'file{0}').format(self.opt.indexer++), blob, opt.filename || opt.name);
+				self.uploadfiles(null);
+			});
+
 		} else {
 			input[0].value = '';
 			self.find('input').attr('accept', opt.accept || '*/*').prop('multiple', !!opt.multiple);
