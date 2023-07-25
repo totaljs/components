@@ -276,7 +276,7 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 		obj.points = arr;
 		obj.center = { lat: center[1], lng: center[0] };
 
-		self.clear();
+		self.clear(false, true);
 		meta.polygon = self.createpolygon(arr, obj.color, config.radius);
 		meta.map.addLayer(meta.polygon);
 		self.set(obj);
@@ -285,17 +285,23 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 			self.modify();
 	};
 
-	self.clear = function(draw) {
+	self.clear = function(draw, noreset) {
+
 		var layers = meta.map.getAllLayers();
 		for (var i = 1; i < layers.length; i++)
 			meta.map.removeLayer(layers[i]);
+
 		meta.draw && meta.map.removeInteraction(meta.draw);
 		meta.draw = null;
 		meta.polygon = null;
-		var model = self.get();
-		model.points = [];
-		self.set(model);
-		self.change(true);
+
+		if (!noreset) {
+			var obj = self.get();
+			obj.points = [];
+			self.set(obj);
+			self.change(true);
+		}
+
 		draw && self.draw();
 	};
 
@@ -310,7 +316,7 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 			return;
 		}
 
-		self.clear();
+		self.clear(false, true);
 
 		var refresh = false;
 
