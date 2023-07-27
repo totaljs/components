@@ -15,9 +15,9 @@
 	<ui-component name="properties2" path="form3" config="style:2">
 		<script type="text/plain">
 			[
-				{ group: 'Personal', label: 'First name', name: 'firstname', type: 'string',transform: 'capitalize', note: 'Type your name' },
-				{ group: 'Personal', label: 'Last name', name: 'lastname', type: 'string', placeholder: 'String' },
-				{ group: 'Personal', label: 'Token', name: 'token', type: 'string', placeholder: 'String', camouflage: true }
+				{ group: 'Personal', name: 'First name', id: 'firstname', type: 'string',transform: 'capitalize', note: 'Type your name' },
+				{ group: 'Personal', name: 'Last name', id: 'lastname', type: 'string', placeholder: 'String' },
+				{ group: 'Personal', name: 'Token', id: 'token', type: 'string', placeholder: 'String', camouflage: true }
 			]
 		</script>
 	</ui-component>
@@ -27,30 +27,30 @@
 <script>
 	var items = [{ id: 2, name: 'Banská Bystrica' }, { id: 3, name: 'Bratislava' }];
 	var form = [];
-	form.push({ group: 'Personal', label: 'First name', name: 'firstname', type: 'string', value: 'Peter', transform: 'capitalize', note: 'Type your name' });
-	form.push({ group: 'Personal', label: 'Last name', name: 'lastname', type: 'string', value: 'Širka', placeholder: 'String' });
-	form.push({ group: 'Personal', label: 'Age', name: 'age', type: 'number', value: 33, min: 30 });
-	form.push({ group: 'Personal', label: 'Birth date', name: 'birth', type: 'date', value: NOW });
-	form.push({ group: 'Additional', label: 'Newsletter', name: 'newsletter', type: 'bool', value: true });
-	form.push({ group: 'Additional', label: 'City', name: 'city', type: 'list', value: 2, items: 'items', dirsearch: 'Search city', dircustom: true });
-	form.push({ group: 'Additional', label: 'Color', name: 'color', type: 'color', value: '#e73323' });
-	form.push({ group: 'Additional', label: 'Icon', name: 'icon', type: 'fontawesome', value: 'ti ti-home' });
-	form.push({ group: 'Additional', label: 'Emoji', name: 'emoji', type: 'emoji', value: '', show: 'n => n.age === 33' });
-	form.push({ group: 'Additional', label: 'Exec', exec: 'myexec', type: 'exec', value: 'Some text to exec' });
-	form.push({ group: 'Additional', label: 'Readonly', name: 'something', type: 'text', value: 'Readonly value' });
+	form.push({ group: 'Personal', name: 'First name', id: 'firstname', type: 'string', value: 'Peter', transform: 'capitalize', note: 'Type your name' });
+	form.push({ group: 'Personal', name: 'Last name', id: 'lastname', type: 'string', value: 'Širka', placeholder: 'String' });
+	form.push({ group: 'Personal', name: 'Age', id: 'age', type: 'number', value: 33, min: 30 });
+	form.push({ group: 'Personal', name: 'Birth date', id: 'birth', type: 'date', value: NOW });
+	form.push({ group: 'Additional', name: 'Newsletter', id: 'newsletter', type: 'bool', value: true });
+	form.push({ group: 'Additional', name: 'City', id: 'city', type: 'list', value: 2, items: 'items', dirsearch: 'Search city', dircustom: true });
+	form.push({ group: 'Additional', name: 'Color', id: 'color', type: 'color', value: '#e73323' });
+	form.push({ group: 'Additional', name: 'Icon', id: 'icon', type: 'fontawesome', value: 'ti ti-home' });
+	form.push({ group: 'Additional', name: 'Emoji', id: 'emoji', type: 'emoji', value: '', show: 'n => n.age === 33' });
+	form.push({ group: 'Additional', name: 'Exec', exec: 'myexec', type: 'exec', value: 'Some text to exec' });
+	form.push({ group: 'Additional', name: 'Readonly', id: 'something', type: 'text', value: 'Readonly value' });
 
 	var form2 = [];
-	form2.push({ group: 'Personal', label: 'First name', name: 'firstname', type: 'string', value: 'Peter', transform: 'capitalize', note: 'Type your name' });
-	form2.push({ group: 'Personal', label: 'Last name', name: 'lastname', type: 'string', value: 'Širka', placeholder: 'String' });
-	form2.push({ group: 'Personal', label: 'Age', name: 'age', type: 'number', value: 33, min: 30 });
-	form2.push({ group: 'Personal', label: 'Birth date', name: 'birth', type: 'date', value: NOW });
-	form2.push({ group: 'Additional', label: 'Newsletter', name: 'newsletter', type: 'bool', value: true });
-	form2.push({ group: 'Additional', label: 'City', name: 'city', type: 'list', value: 2, items: 'items', dirsearch: 'Search city', dircustom: true });
-	form2.push({ group: 'Additional', label: 'Color', name: 'color', type: 'color', value: '#e73323' });
-	form2.push({ group: 'Additional', label: 'Icon', name: 'icon', type: 'fontawesome', value: 'ti ti-home' });
-	form2.push({ group: 'Additional', label: 'Emoji', name: 'emoji', type: 'emoji', value: '', show: 'n => n.age === 33' });
-	form2.push({ group: 'Additional', label: 'Exec', exec: 'myexec', type: 'exec', value: 'Some text to exec' });
-	form2.push({ group: 'Additional', label: 'Readonly', name: 'something', type: 'text', value: 'Readonly value', icon: 'ti ti-home #000' });
+	form2.push({ group: 'Personal', name: 'First name', id: 'firstname', type: 'string', value: 'Peter', transform: 'capitalize', note: 'Type your name' });
+	form2.push({ group: 'Personal', name: 'Last name', id: 'lastname', type: 'string', value: 'Širka', placeholder: 'String' });
+	form2.push({ group: 'Personal', name: 'Age', id: 'age', type: 'number', value: 33, min: 30 });
+	form2.push({ group: 'Personal', name: 'Birth date', id: 'birth', type: 'date', value: NOW });
+	form2.push({ group: 'Additional', name: 'Newsletter', id: 'newsletter', type: 'bool', value: true });
+	form2.push({ group: 'Additional', name: 'City', id: 'city', type: 'list', value: 2, items: 'items', dirsearch: 'Search city', dircustom: true });
+	form2.push({ group: 'Additional', name: 'Color', id: 'color', type: 'color', value: '#e73323' });
+	form2.push({ group: 'Additional', name: 'Icon', id: 'icon', type: 'fontawesome', value: 'ti ti-home' });
+	form2.push({ group: 'Additional', name: 'Emoji', id: 'emoji', type: 'emoji', value: '', show: 'n => n.age === 33' });
+	form2.push({ group: 'Additional', name: 'Exec', exec: 'myexec', type: 'exec', value: 'Some text to exec' });
+	form2.push({ group: 'Additional', name: 'Readonly', id: 'something', type: 'text', value: 'Readonly value', icon: 'ti ti-home #000' });
 
 	var form3 = {};
 	form3.firstname = 'Peter';

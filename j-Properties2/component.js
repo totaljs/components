@@ -33,7 +33,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		if (datasource) {
 			datasource = new Function('return ' + datasource)();
 			for (var i = 0; i < datasource.length; i++)
-				paths[datasource[i].name] = 1;
+				paths[datasource[i].id] = 1;
 		}
 
 		var elu = $('#properties2upload');
@@ -72,12 +72,12 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 	self.modifyval = function(item) {
 
-		values[item.name] = item.value;
+		values[item.id] = item.value;
 		var items = datasource || self.get();
 		for (var i = 0; i < items.length; i++) {
 			var m = items[i];
 			if (m.show) {
-				var is = funcs[m.name + '_show'](values);
+				var is = funcs[m.id + '_show'](values);
 				self.find(cls2 + '-item[data-index="{0}"]'.format(i)).tclass('hidden', !is);
 			}
 		}
@@ -85,8 +85,8 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		skip = true;
 
 		if (datasource) {
-			self.get()[item.name] = item.value;
-			UPD(self.path + '.' + item.name);
+			self.get()[item.id] = item.value;
+			UPD(self.path + '.' + item.id);
 		} else
 			UPD(self.path);
 
@@ -792,11 +792,11 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		var c = cls;
 
 		if (item.show) {
-			if (!funcs[item.name + '_show'](values))
+			if (!funcs[item.id + '_show'](values))
 				c = 'hidden ' + c;
 		}
 
-		var meta = { label: item.label, type: item.type };
+		var meta = { name: item.name, type: item.type };
 
 		if (item.icon) {
 			var tmp = item.icon;
@@ -815,7 +815,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		if (item.ricon)
 			plus = '<div class="{0}-ricon">{1}</div>'.format(cls, item.ricon.charAt(0) === '!' ? item.ricon.substring(1) : '<i class="{0}"></i>'.format(item.ricon));
 
-		var el = $(('<div class="{2}-item{3} {2}-t{type}' + (item.required ? ' {2}-required' : '') + (item.icon ? ' {2}-isicon' : '') + (item.note ? ' {2}-isnote' : '') + '" data-index="{1}">' + (config.style === 2 ? '{{ icon }}<div>' : '') + '<div class="{0}-key">' + (config.style === 2 ? '' : '{{ icon }}') + '{{ label }}</div>' + (config.style === 2 ? (plus + '<div class="{0}-value">&nbsp;</div><div class="{0}-note">{1}</div>').format(cls, config.encodenotes ? Thelpers.encode(item.note) : item.note) : (plus + '<div class="{0}-value">&nbsp;</div>')) + '</div>' + (config.style === 2 ? '</div>' : '')).format(cls, index, c, item.required ? (' ' + cls + '-required') : '').arg(meta));
+		var el = $(('<div class="{2}-item{3} {2}-t{type}' + (item.required ? ' {2}-required' : '') + (item.icon ? ' {2}-isicon' : '') + (item.note ? ' {2}-isnote' : '') + '" data-index="{1}">' + (config.style === 2 ? '{{ icon }}<div>' : '') + '<div class="{0}-key">' + (config.style === 2 ? '' : '{{ icon }}') + '{{ name }}</div>' + (config.style === 2 ? (plus + '<div class="{0}-value">&nbsp;</div><div class="{0}-note">{1}</div>').format(cls, config.encodenotes ? Thelpers.encode(item.note) : item.note) : (plus + '<div class="{0}-value">&nbsp;</div>')) + '</div>' + (config.style === 2 ? '</div>' : '')).format(cls, index, c, item.required ? (' ' + cls + '-required') : '').arg(meta));
 
 		if (plus)
 			el.aclass(cls + '-isricon');
@@ -861,7 +861,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		for (var i = 0; i < items.length; i++) {
 			var item = items[i];
 			var g = item.group || config.defaultgroup;
-			var val = datasource ? value[item.name] : item.value;
+			var val = datasource ? value[item.id] : item.value;
 
 			item.invalid = false;
 
@@ -881,14 +881,16 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				// case 'boolean':
 				// case 'list':
 				default:
+					if (!item.type)
+						item.type = 'string';
 					item.prev = val;
 					break;
 			}
 
 			if (item.show && is)
-				funcs[item.name + '_show'] = typeof(item.show) === 'string' ? FN(item.show) : item.show;
+				funcs[item.id + '_show'] = typeof(item.show) === 'string' ? FN(item.show) : item.show;
 
-			values[item.name] = val;
+			values[item.id] = val;
 
 			if (item.required)
 				item.invalid = !val;
@@ -921,7 +923,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			for (var i = 0; i < items.length; i++) {
 				var item = items[i];
 				if (item.show) {
-					var can = funcs[item.name + '_show'](values);
+					var can = funcs[item.id + '_show'](values);
 					self.find(cls2 + '-item[data-index="{0}"]'.format(i)).tclass('hidden', !can);
 				}
 			}

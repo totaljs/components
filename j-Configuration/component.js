@@ -17,7 +17,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		for (var i = 0; i < items.length; i++) {
 			var item = items[i];
 			if (item.required && item.isdisabled !== true && item.isvisible !== false) {
-				var val = value[item.name];
+				var val = value[item.id];
 				var is = item.validate(item.prepare(val));
 				item.element.tclass(cls + '-invalid', !is);
 				if (!is)
@@ -74,7 +74,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			align = 2;
 
 		builder.push('<div class="{0}-item{1}">'.format(cls, align ? (' ' + cls + '-align-' + align) : ''));
-		builder.push('<div class="{0}-item-label">{1}{2}</div>'.format(cls, icon, item.text));
+		builder.push('<div class="{0}-item-label">{1}{2}</div>'.format(cls, icon, item.name || item.text));
 		item.summary && builder.push('<div class="{0}-item-summary">{1}</div>'.format(cls, item.summary));
 		builder.push('<div class="{0}-item-control"></div>'.format(cls));
 		item.note && builder.push('<div class="{0}-item-note">{1}</div>'.format(cls, item.note));
@@ -86,7 +86,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 		var get = function() {
 			var model = self.get() || EMPTYOBJECT;
-			return model[item.name];
+			return model[item.id];
 		};
 
 		var set = function(val) {
@@ -97,14 +97,14 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 				model = {};
 			}
 
-			var old = model[item.name];
+			var old = model[item.id];
 			val = T.prepare(val);
 			if (old != val) {
-				model[item.name] = val;
+				model[item.id] = val;
 				if (empty)
 					SET(self.path, model);
 				else
-					UPD(self.path + '.' + item.name, 2);
+					UPD(self.path + '.' + item.id, 2);
 				self.change(true);
 				return true;
 			}
@@ -113,11 +113,11 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		var el = $(builder.join(''));
 		item.required && el.aclass(cls + '-required');
 		var control = el.find(cls2 + '-item-control');
-		var type = self.types[item.type](item, control, set, get);
+		var type = self.types[item.type || 'string'](item, control, set, get);
 		T = type;
 		type.element = el;
 		type.control = control;
-		type.name = item.name;
+		type.id = item.id;
 		type.required = item.required;
 
 		var fndisable = item.disable ? FN(item.disable) : null;
@@ -275,7 +275,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			icon = '<i class="' + self.faicon(item.icon) + '"></i>';
 
 		var builder = ['<div>'];
-		builder.push('<div class="{0}-group">{1}</div>'.format(cls, icon + item.text));
+		builder.push('<div class="{0}-group">{1}</div>'.format(cls, icon + item.name || item.text));
 		if (item.summary)
 			builder.push('<div class="{0}-group-summary">{1}</div>'.format(cls, item.summary));
 		else
@@ -313,7 +313,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		};
 
 		el.parent().aclass(cls + '-border');
-		el.append('<div class="{0}-type-number"{1}><span><i class=ti ti-angle-up"></i><i class="ti ti-angle-down"></i></span><div><input type="text" placeholder="{2}" /></div></div>'.format(cls, item.width ? ' style="max-width:{0}px"'.format(item.width) : '', (item.placeholder || '').encode()));
+		el.append('<div class="{0}-type-number"{1}><span><i class="ti ti-angle-up"></i><i class="ti ti-angle-down"></i></span><div><input type="text" placeholder="{2}" /></div></div>'.format(cls, item.width ? ' style="max-width:{0}px"'.format(item.width) : '', (item.placeholder || '').encode()));
 
 		var input = el.find('input');
 		input.prop('maxlength', item.maxlength || 12);
@@ -386,7 +386,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 			var obj = (items || EMPTYARRAY).findItem('id', val);
 			el.find('label').tclass('hidden', !!obj);
-			el.find(cls2 + '-value').text(obj ? obj.name : '');
+			el.find(cls2 + '-value').text(obj ? obj.id : '');
 		};
 
 		obj.validate = function(val) {
@@ -619,7 +619,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 	};
 
 	self.rebind = function(val) {
-		datasource = new Function('val', 'return ' + val.trim())(val);
+		datasource = val instanceof Array ? val : new Function('val', 'return ' + val.trim())(val);
 		self.redraw();
 		self.refresh();
 	};
@@ -673,7 +673,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			var val = value[key];
 			for (var j = 0; j < items.length; j++) {
 				var item = items[j];
-				if (item.name === key && item.type !== 'group' && (!diff || diff.indexOf(path) === -1))
+				if (item.id === key && item.type !== 'group' && (!diff || diff.indexOf(path) === -1))
 					item.bind(item.prepare(val));
 			}
 		}

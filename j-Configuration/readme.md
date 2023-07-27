@@ -52,16 +52,16 @@ Declaration must be defined in the component's element body wrapped in the `<scr
 ```js
 [
 	{
-		text: 'My group label',
+		name: 'My group label',
 		type: 'group',
 		// summary: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam, nostrum.',
-		// icon: 'fa fa-home'
+		// icon: 'ti ti-home'
 	},
 	{
-		name: 'name',
-		text: 'Application name',
+		id: 'name',
+		name: 'Application name',
 		type: 'string',
-		icon: 'fa fa-home',
+		icon: 'ti ti-home',
 		disable: 'model => model.interval < 100',
 		summary: 'Lorem, ipsum dolor sit amet consectetur, adipisicing elit. Iste eos, illum voluptas assumenda sunt possimus necessitatibus nobis provident dicta deserunt.',
 		required: true
