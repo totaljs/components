@@ -16,6 +16,7 @@ __Configuration__:
 - `remove {String}` a link to a function `function(remove_item, callback(really_remove?))`
 - `selector {String}` a jQuery selector for custom template (outside of the component). Works like `custom template` in [data-binding](https://wiki.totaljs.com/jcomponent/08-data-binding/)
 - `footertop {Boolean}` moves the footer on the top of the component (default: `false`)
+- __NEW__ `move {String}` a link to a function `function(items)`
 
 The component needs to have defined 3 templates wrapped in `<script type="text/html">`:
 
