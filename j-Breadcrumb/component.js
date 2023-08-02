@@ -1,4 +1,4 @@
-COMPONENT('breadcrumb', 'icon:ti ti-home;historyapi:1;root:Root;rooturl:/', function(self, config, cls) {
+COMPONENT('breadcrumb', 'icon:ti ti-home;historyapi:1;root:Root;usetitle:false;rooturl:/', function(self, config, cls) {
 
 	var nav;
 
@@ -56,6 +56,9 @@ COMPONENT('breadcrumb', 'icon:ti ti-home;historyapi:1;root:Root;rooturl:/', func
 			var item = value[i];
 			builder.push('<{0}="{1}"{4}>{2}</{3}>'.format(config.exec ? 'span data-id' : 'a href', item.url || item.id, Thelpers.encode(item.name), config.exec ? 'span' : 'a', item.callback ? ' class="{0}-children"'.format(cls) : ''));
 		}
+
+		if (config.title)
+			document.title = (value.length > 1 ? (item.name + ' / ') : '') + config.title;
 
 		var html = builder.join('<i class="ti ti-angle-right"></i>');
 
