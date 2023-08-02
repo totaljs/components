@@ -80,7 +80,7 @@ COMPONENT('listform', 'empty:---;default:1;', function(self, config, cls) {
 						el.closest('.ui-listform-item').rclass(('ui-listform-item-highlight'), 1000);
 						var index = items.indexOf(tmp);
 						var tmp = index + (this.name === 'up' ? -1 : 1);
-						if (tmp < 0 || index > items.length)
+						if (tmp < 0 || tmp >= items.length)
 							return;
 						var a = items[tmp];
 						items[tmp] = items[index];
@@ -89,6 +89,7 @@ COMPONENT('listform', 'empty:---;default:1;', function(self, config, cls) {
 						skip = true;
 						self.set(items, 2);
 						self.change(true);
+						config.move && self.EXEC(config.move, items);
 						break;
 					case 'remove':
 						items.splice(items.indexOf(tmp), 1);
