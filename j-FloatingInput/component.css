@@ -4,7 +4,7 @@
 .ui-floatinginput-input textarea { width: 100%; background-color: #FFF; border: 0; font-size: 12px; outline: 0; padding: 0; margin: 0; line-height: 16px; outline: 0; resize: none; }
 .ui-floatinginput-input > div { margin: 0 30px 0 35px; padding: 6px 10px 0 0; line-height: 24px; }
 .ui-floatinginput-input > span { float: left; width: 16px; text-align: center; padding: 8px 0 0 12px; font-size: 12px; }
-.ui-floatinginput-control input { margin: 4px 0 0; }
+.ui-floatinginput-control input { margin: 5px 0 0; }
 .ui-floatinginput-add { float: right !important; padding-left: 0 !important; color: #83c83c; text-align: left !important; font-size: 11px !important; cursor: pointer; width: 22px !important; }
 .ui-floatinginput-visible { opacity: 1; }
 .ui-floatinginput-summary { font-size: 11px; color: gray; border-bottom: 1px solid #E0E0E0; padding: 5px 10px 8px; line-height: 14px; }
