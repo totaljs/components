@@ -904,7 +904,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 						if (opt.html)
 							line = opt.html(line, opt.linetag);
 					}
-					line && builder.push((opt.linetag ? ('<' + opt.linetag + ' class="markdowm-line" data-line="' + i +  '">') : '') + line.trim() + (opt.linetag ? ('</' + opt.linetag + '>') : ''));
+					line && builder.push((opt.linetag ? ('<' + opt.linetag + ' class="markdown-line" data-line="' + i +  '">') : '') + line.trim() + (opt.linetag ? ('</' + opt.linetag + '>') : ''));
 					prev = 'p';
 				}
 			}
