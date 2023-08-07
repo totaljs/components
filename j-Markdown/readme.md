@@ -50,6 +50,7 @@ __Good to know__:
 - class `markdown-small` can decrease font sizes
 - event `ON('markdown', function(el, opt) {})` is executed if the markdown is pre-rendered (`el {jQuery}` is `<body` element in most cases)
 - components registers `Thelpers.markdown([opt])` helper
+- __NEW__: every rendered line contain `markdown-line` class and `data-line="line_number"` attribute
 
 __Toggleable section:__
 

@@ -437,6 +437,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 			var prevsize = 0;
 			var previndex;
 			var tmp;
+			var headline = '<{0} id="{3}" class="markdown-element" data-index="{1}">{2}</{0}>';
 
 			if (opt.wrap == null)
 				opt.wrap = true;
@@ -611,7 +612,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 							line = opt.custom(line);
 						if (opt.html)
 							line = opt.html(line, 'block');
-						builder.push('<div class="markdown-block"><span class="markdown-showblock"><i class="ti ti-plus"></i>{0}</span><div class="hidden">'.format(line));
+						builder.push('<div class="markdown-block markdown-line" data-line="{0}"><span class="markdown-showblock"><i class="ti ti-plus"></i>{1}</span><div class="hidden">'.format(i, line));
 					}
 					prev = '';
 					continue;
@@ -634,7 +635,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 					closeul();
 					iscode = true;
 					if (opt.code !== false)
-						tmp = '<div class="markdown-code hidden"><pre class="noscrollbar"><code class="lang-' + lines[i].substring(3) + '">';
+						tmp = '<div class="markdown-code markdown-line hidden"><pre class="noscrollbar"><code class="lang-{0}">'.format(lines[i].substring(3));
 					prev = 'code';
 					continue;
 				}
@@ -750,7 +751,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 						if (opt.headlines !== false) {
 							if (opt.html)
 								tmp = opt.html(tmp, '#');
-							builder.push('<h1 id="' + markdown_id(tmp) + '">' + tmp + '</h1>');
+							builder.push(headline.format('h1', i, tmp, markdown_id(tmp)));
 						}
 						prev = '#';
 						continue;
@@ -761,7 +762,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 						if (opt.headlines !== false) {
 							if (opt.html)
 								tmp = opt.html(tmp, '##');
-							builder.push('<h2 id="' + markdown_id(tmp) + '">' + tmp + '</h2>');
+							builder.push(headline.format('h2', i, tmp, markdown_id(tmp)));
 						}
 						prev = '##';
 						continue;
@@ -772,7 +773,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 						if (opt.headlines !== false) {
 							if (opt.html)
 								tmp = opt.html(tmp, '###');
-							builder.push('<h3 id="' + markdown_id(tmp) + '">' + tmp + '</h3>');
+							builder.push(headline.format('h3', i, tmp, markdown_id(tmp)));
 						}
 						prev = '###';
 						continue;
@@ -783,7 +784,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 						if (opt.headlines !== false) {
 							if (opt.html)
 								tmp = opt.html(tmp, '####');
-							builder.push('<h4 id="' + markdown_id(tmp) + '">' + tmp + '</h4>');
+							builder.push(headline.format('h4', i, tmp, markdown_id(tmp)));
 						}
 						prev = '####';
 						continue;
@@ -794,7 +795,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 						if (opt.headlines !== false) {
 							if (opt.html)
 								tmp = opt.html(tmp, '#####');
-							builder.push('<h5 id="' + markdown_id(tmp) + '">' + tmp + '</h5>');
+							builder.push(headline.format('h5', i, tmp, markdown_id(tmp)));
 						}
 						prev = '#####';
 						continue;
@@ -806,7 +807,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 				if (tmp === '---' || tmp === '***') {
 					prev = 'hr';
 					if (opt.hr !== false)
-						builder.push('<hr class="markdown-line' + (tmp.charAt(0) === '-' ? '1' : '2') + '" />');
+						builder.push('<hr class="markdown-line' + (tmp.charAt(0) === '-' ? '1' : '2') + ' markdown-line" data-line="' + i + '" />');
 					continue;
 				}
 
@@ -824,7 +825,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 						line = line.substring(5).trim();
 						if (opt.html)
 							line = opt.html(line, 'blockquote');
-						builder.push('<blockquote>' + line + '</blockquote>');
+						builder.push('<blockquote class="markdown-line" data-line="' + i + '">' + line + '</blockquote>');
 					}
 					prev = '>';
 					continue;
@@ -835,7 +836,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 						line = line.substring(5).trim();
 						if (opt.html)
 							line = opt.html(line, 'section');
-						builder.push('<section>' + line + '</section>');
+						builder.push('<section class="markdown-line" data-line="' + i + '">' + line + '</section>');
 					}
 					prev = '<';
 					continue;
@@ -894,7 +895,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 					if (opt.html)
 						tmpval = opt.html(tmpval, 'blockquote');
 
-					builder.push('<li data-line="{0}">'.format(i) + tmpval.replace(/\[x\]/g, '<i class="ti ti-check-square green"></i>').replace(/\[\s\]/g, '<i class="ti ti-square"></i>') + '</li>');
+					builder.push('<li data-line="{0}" class="markdown-line">'.format(i) + tmpval.replace(/\[x\]/g, '<i class="ti ti-check-square green"></i>').replace(/\[\s\]/g, '<i class="ti ti-square"></i>') + '</li>');
 
 				} else {
 					closeul();
@@ -903,7 +904,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 						if (opt.html)
 							line = opt.html(line, opt.linetag);
 					}
-					line && builder.push((opt.linetag ? ('<' + opt.linetag + '>') : '') + line.trim() + (opt.linetag ? ('</' + opt.linetag + '>') : ''));
+					line && builder.push((opt.linetag ? ('<' + opt.linetag + ' class="markdowm-line" data-line="' + i +  '">') : '') + line.trim() + (opt.linetag ? ('</' + opt.linetag + '>') : ''));
 					prev = 'p';
 				}
 			}
