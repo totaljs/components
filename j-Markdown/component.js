@@ -437,7 +437,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 			var prevsize = 0;
 			var previndex;
 			var tmp;
-			var headline = '<{0} id="{3}" class="markdown-element" data-index="{1}">{2}</{0}>';
+			var headline = '<{0} id="{3}" class="markdown-line" data-index="{1}">{2}</{0}>';
 
 			if (opt.wrap == null)
 				opt.wrap = true;
