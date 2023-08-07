@@ -796,7 +796,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				c = 'hidden ' + c;
 		}
 
-		var meta = { name: item.name, type: item.type };
+		var meta = { name: item.label, type: item.type };
 
 		if (item.icon) {
 			var tmp = item.icon;
