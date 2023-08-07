@@ -8,7 +8,6 @@
 .markdown h3 { cursor: default; margin: 0 0 10px; font-size: 20px; padding: 0 0 5px; color: #404040; font-weight: bold; line-height: 22px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; }
 .markdown h4, .markdown h5 { cursor: default; margin: 0 0 10px; font-size: 17px; color: #404040; font-weight: bold; line-height: 22px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; background-color: #F0F0F0; padding: 4px 3px; border-radius: var(--radius); border-bottom: 1px solid #E0E0E0; }
 .markdown p { margin: 0 0 15px; padding-left: 0; padding-right: 0; }
-.markdown-small p { margin-bottom: 10px; }
 .markdown p code, .markdown li code, .markdown section code, .markdown blockquote code, .markdown h1 code, .markdown h2 code, .markdown h3 code, .markdown h4 code, .markdown td code { background-color: #E0E0E0; padding: 1px 4px 2px; border-radius: var(--radius); font-size: 14px; }
 .markdown p code, .markdown section code, .markdown li code, .markdown blockquote code, .markdown td code { border: 1px solid #E0E0E0; background-color: #F5F5F5; }
 .markdown pre { padding: 0; border-radius: var(--radius); margin: 20px 0; width: 100%; }
@@ -46,6 +45,7 @@
 .markdown-showblock-visible { border-bottom: 0; }
 .markdown-video { position: relative; padding-bottom: 56.25%; padding-top: 25px; height: 0; margin-bottom: 15px; }
 .markdown-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.markdown-small p, .markdown-small section, .markdown-small blockquote, .markdown-small table, .markdown-small .markdown-code { margin-bottom: 10px; }
 
 .ui-dark .markdown { color: #C0C0C0; }
 .ui-dark .markdown blockquote { color: #FFF; background-color: #444; }
