@@ -881,13 +881,16 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 					}
 
 					var tmpstr = (type === 'ol' ? tmpline.substring(tmpline.indexOf('.') + 1) : tmpline.substring(2));
+					var istask = false;
+
 					if (type !== 'ol') {
 						var tt = tmpstr.substring(0, 3);
-						if (tt === '[ ]' || tt === '[x]') {
-							if (previndex != null)
-								builder[previndex] = builder[previndex].replace('<ul', '<ul class="markdown-tasks"');
-							previndex = null;
-						}
+						istask = tt === '[ ]' || tt === '[x]';
+						// if (istask) {
+						// 	if (previndex != null)
+						// 		builder[previndex] = builder[previndex].replace('<ul', '<ul class="markdown-tasks"');
+						// 	previndex = null;
+						// }
 					}
 
 					var tmpval = tmpstr.trim();
@@ -895,7 +898,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 					if (opt.html)
 						tmpval = opt.html(tmpval, 'blockquote');
 
-					builder.push('<li data-line="{0}" class="markdown-line">'.format(i) + tmpval.replace(/\[x\]/g, '<i class="ti ti-check-square green"></i>').replace(/\[\s\]/g, '<i class="ti ti-square"></i>') + '</li>');
+					builder.push('<li data-line="{0}" class="markdown-line{1}">'.format(i, istask ? ' markdown-task' : '') + tmpval.replace(/\[x\]/g, '<i class="ti ti-check-square green"></i>').replace(/\[\s\]/g, '<i class="ti ti-square"></i>') + '</li>');
 
 				} else {
 					closeul();
