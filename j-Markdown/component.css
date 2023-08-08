@@ -34,8 +34,8 @@
 .markdown-secret { padding: 0; border-radius: var(--radius); border: 1px solid #E0E0E0; }
 .markdown-secret > div { padding: 15px 15px 1px; border-radius: 0 0 var(--radius) var(--radius); background-color: #F8F8F8; }
 .markdown-small p code, .markdown-small li code, .markdown-small section code, .markdown-small blockquote code, .markdown-small td code, .markdown-small pre code { font-size: 12px; }
-.markdown-tasks { list-style-type: none; padding-left: 1px !important; }
-.markdown-tasks li > i:first-child { margin-right: 5px; }
+.markdown-task { cursor: pointer; }
+.markdown-task > i:first-child { margin-right: 5px; }
 .markdown-code { margin-bottom: 15px; }
 .markdown-block { margin: 0; }
 .markdown-block:last-child { margin-bottom: 15px; }
