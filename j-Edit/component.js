@@ -7,6 +7,14 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 	self.readonly();
 	self.singleton();
 
+	var findfn = function(opt, path) {
+		if (path.charAt(0) === '@') {
+			var com = opt.element.component();
+			return com ? com[path.substring(1)] : null;
+		} else
+			return GET(opt.scope ? opt.scope.makepath(path) : path);
+	};
+
 	self.parse = function(el) {
 
 		var t = el[0];
@@ -37,7 +45,8 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 			opt.checkforce = function(el) {
 				var opt = el[0].$edit;
 				var path = opt.scope ? opt.scope.makepath(opt.check) : opt.check;
-				return GET(path)(opt, el);
+				var fn = findfn(opt, path);
+				return fn ? fn(opt, el) : NOOP;
 			};
 		}
 
@@ -297,7 +306,9 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 		var opt = el[0].$edit;
 		var fn = opt.exec || opt.save || config.exec;
 		if (fn) {
-			fn = GET(opt.scope ? opt.scope.makepath(fn) : fn);
+
+			fn = findfn(opt, fn);
+
 			if (typeof(fn) === 'function') {
 				opt.detached = true;
 				fn(opt, function(body) {
