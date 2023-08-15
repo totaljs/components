@@ -229,14 +229,15 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 				el = opt.element ||  $('body');
 
 			var arr;
+			var tmp;
 
 			if (!opt.nosecret) {
 				arr = el.find('.lang-secret');
 				for (var t of arr) {
 					if (!t.$mdloaded) {
 						t.$mdloaded = 1;
-						var el = $(t);
-						el.parent().replaceWith('<div class="markdown-secret" data-show="{0}" data-hide="{1}"><span class="markdown-showsecret"><i class="ti ti-lock"></i><i class="ti pull-right ti-angle-down"></i><b>{0}</b></span><div class="hidden">'.format(opt.showsecret || 'Show secret data', opt.hidesecret || 'Hide secret data') + el.html().trim().markdown(opt.secretoptions, true) +'</div></div>');
+						tmp = $(t);
+						tmp.parent().replaceWith('<div class="markdown-secret" data-show="{0}" data-hide="{1}"><span class="markdown-showsecret"><i class="ti ti-lock"></i><i class="ti pull-right ti-angle-down"></i><b>{0}</b></span><div class="hidden">'.format(opt.showsecret || 'Show secret data', opt.hidesecret || 'Hide secret data') + tmp.html().trim().markdown(opt.secretoptions, true) +'</div></div>');
 					}
 				}
 			}
@@ -246,12 +247,12 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 				for (var t of arr) {
 					if (!t.$mdloaded) {
 						t.$mdloaded = 1;
-						var el = $(t);
-						var html = el.html();
+						tmp = $(t);
+						var html = tmp.html();
 						if (html.indexOf('youtube') !== -1)
-							el.parent().replaceWith('<div class="markdown-video"><iframe src="https://www.youtube.com/embed/' + html.split('v=')[1] + '" frameborder="0" allowfullscreen></iframe></div>');
+							tmp.parent().replaceWith('<div class="markdown-video"><iframe src="https://www.youtube.com/embed/' + html.split('v=')[1] + '" frameborder="0" allowfullscreen></iframe></div>');
 						else if (html.indexOf('vimeo') !== -1)
-							el.parent().replaceWith('<div class="markdown-video"><iframe src="//player.vimeo.com/video/' + html.substring(html.lastIndexOf('/') + 1) + '" frameborder="0" allowfullscreen></iframe></div>');
+							tmp.parent().replaceWith('<div class="markdown-video"><iframe src="//player.vimeo.com/video/' + html.substring(html.lastIndexOf('/') + 1) + '" frameborder="0" allowfullscreen></iframe></div>');
 					}
 				}
 			}
@@ -261,8 +262,8 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 				for (var t of arr) {
 					if (!t.$mdloaded) {
 						t.$mdloaded = 1;
-						var el = $(t);
-						var arr = el.html().split('\n').trim();
+						tmp = $(t);
+						var arr = tmp.html().split('\n').trim();
 						var series = [];
 						var categories = [];
 						var y = '';
@@ -292,7 +293,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 							fill: { opacity: 1 },
 						};
 
-						var chart = new W.ApexCharts(el.parent().empty()[0], options);
+						var chart = new W.ApexCharts(tmp.parent().empty()[0], options);
 						chart.render();
 					}
 				}
@@ -306,8 +307,8 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 						if (!W.ApexCharts)
 							return;
 
-						var el = $(t);
-						var arr = el.html().split('\n').trim();
+						tmp = $(t);
+						var arr = tmp.html().split('\n').trim();
 						var series = [];
 						var categories = [];
 						var y = '';
@@ -348,8 +349,8 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 				for (var t of arr) {
 					if (!t.$mdloaded) {
 						t.$mdloaded = 1;
-						var el = $(t);
-						el.parent().replaceWith('<div class="markdown-iframe">' + el.html().replace(/&lt;/g, '<').replace(/&gt;/g, '>') + '</div>');
+						tmp = $(t);
+						tmp.parent().replaceWith('<div class="markdown-iframe">' + tmp.html().replace(/&lt;/g, '<').replace(/&gt;/g, '>') + '</div>');
 					}
 				}
 			}
@@ -360,8 +361,8 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 					for (var t of arr) {
 						if (!t.$mdloaded) {
 							t.$mdloaded = 1;
-							var sub = $(t).find('pre code');
-							for (var block of sub)
+							tmp = $(t).find('pre code');
+							for (var block of tmp)
 								W.hljs.highlightBlock(block);
 						}
 					}
