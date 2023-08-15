@@ -220,6 +220,104 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 			});
 		}
 
+		function parseul(builder) {
+
+			var ul = {};
+			var is = false;
+			var currentindex = -1;
+			var output = [];
+
+			for (var i = 0; i < builder.length; i++) {
+
+				var line = builder[i];
+
+				if (line.charAt(0) === '\0') {
+
+					if (!is)
+						currentindex = output.push('<ul />') - 1;
+
+					var key = currentindex + '';
+					is = true;
+
+					var tmp = line.substring(1);
+					var index = tmp.indexOf('<');
+					var obj = {};
+					obj.index = i;
+					obj.type = tmp.substring(0, 2);
+					obj.offset = +tmp.substring(2, index).trim();
+					obj.line = line.substring(index + 1);
+
+					if (ul[key])
+						ul[key].push(obj);
+					else
+						ul[key] = [obj];
+
+				} else {
+					output.push(line);
+					is = false;
+				}
+			}
+
+			for (var key in ul) {
+
+				var line = +key;
+				var arr = ul[key];
+				var lines = [];
+				var tags = [];
+				var prev;
+				var diff;
+				var init = false;
+				var tmp;
+				var unclosed = 0;
+
+				for (var i = 0; i < arr.length; i++) {
+
+					var li = arr[i];
+					var beg = li.type === 'ul' ? '<ul>' : li.type === 'o1' ? '<ol type="1">' : '<ol type="a">';
+					var end = li.type === 'ul' ? '</ul>' : '</ol>';
+
+					var diff = li.offset - (prev ? prev.offset : 0);
+
+					// Init
+					if (!init) {
+						init = true;
+						lines.push(beg);
+						tags.push(end);
+					}
+
+					if (diff > 0) {
+						var last = lines[lines.length - 1];
+						last = last.replace(/<\/li>$/, '');
+						lines[lines.length - 1] = last;
+						tags.push(end + '</li>');
+						lines.push(beg);
+						lines.push(li.line);
+						unclosed++;
+					} else if (diff < 0) {
+						while (diff < 0) {
+							unclosed--;
+							tmp = tags.pop();
+							lines.push(tmp);
+							diff++;
+						}
+						lines.push(li.line);
+					} else {
+						lines.push(li.line);
+					}
+
+					prev = li;
+
+				}
+
+				while (tags.length)
+					lines.push(tags.pop());
+
+				output[line] = lines.join('\n');
+			}
+
+			return output;
+		}
+
 		FUNC.markdownredraw = function(el, opt) {
 
 			if (!opt)
@@ -591,6 +689,12 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 			for (var i = 0; i < lines.length; i++) {
 
 				lines[i] = lines[i].replace(encodetags, encode);
+
+				if (!lines[i]) {
+					builder.push('');
+					continue;
+				}
+
 				var three = lines[i].substring(0, 3);
 
 				if (!iscode && (three === ':::' || (three === '==='))) {
@@ -853,53 +957,19 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 					else
 						size = 0;
 
-					var append = false;
-
-					if (prevsize !== size) {
-						// NESTED
-						if (size > prevsize) {
-							prevsize = size;
-							append = true;
-							var index = builder.length - 1;
-							builder[index] = builder[index].substring(0, builder[index].length - 5);
-							prev = '';
-						} else {
-							// back to normal
-							prevsize = size;
-							builder.push('</' + ul.pop() + '>');
-						}
-					}
-
-					var type = tmpline.charAt(0) === '-' ? 'ul' : 'ol';
-					if (prev !== type) {
-						var subtype;
-						if (type === 'ol')
-							subtype = tmpline.charAt(0);
-						previndex = builder.push('<' + type + (subtype ? (' type="' + subtype + '"') : '') + '>') - 1;
-						ul.push(type + (append ? '></li' : ''));
-						prev = type;
-						prevsize = size;
-					}
-
-					var tmpstr = (type === 'ol' ? tmpline.substring(tmpline.indexOf('.') + 1) : tmpline.substring(2));
+					var ultype = tmpline.charAt(0) === '-' ? 'ul' : 'ol';
+					var tmpstr = (ultype === 'ol' ? tmpline.substring(tmpline.indexOf('.') + 1) : tmpline.substring(2));
 					var istask = false;
 
-					if (type !== 'ol') {
-						var tt = tmpstr.substring(0, 3);
-						istask = tt === '[ ]' || tt === '[x]';
-						// if (istask) {
-						// 	if (previndex != null)
-						// 		builder[previndex] = builder[previndex].replace('<ul', '<ul class="markdown-tasks"');
-						// 	previndex = null;
-						// }
-					}
+					var tt = tmpstr.trim().substring(0, 3);
+					istask = tt === '[ ]' || tt === '[x]';
 
 					var tmpval = tmpstr.trim();
 
 					if (opt.html)
-						tmpval = opt.html(tmpval, 'blockquote');
+						tmpval = opt.html(tmpval, 'li');
 
-					builder.push('<li data-line="{0}" class="markdown-line{1}">'.format(i, istask ? ' markdown-task' : '') + tmpval.replace(/\[x\]/g, '<i class="ti ti-check-square green"></i>').replace(/\[\s\]/g, '<i class="ti ti-square"></i>') + '</li>');
+					builder.push('\0' + (ultype === 'ol' ? ('o' + ((/\d+\./).test(tmpline) ? '1' : 'a')) : 'ul') + size + '<li data-line="{0}" class="markdown-line{1}">'.format(i, istask ? ' markdown-task' : '') + tmpval.replace(/\[x\]/g, '<i class="ti ti-check-square green"></i>').replace(/\[\s\]/g, '<i class="ti ti-square"></i>') + '</li>');
 
 				} else {
 					closeul();
@@ -914,8 +984,12 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 			}
 
 			closeul();
+
 			table && opt.tables !== false && builder.push('</tbody></table>');
 			iscode && opt.code !== false && builder.push('</code></pre>');
+
+			builder = parseul(builder);
+
 			if (!opt.noredraw && typeof(window) === 'object')
 				setTimeout(FUNC.markdownredraw, 1, null, opt);
 			return (opt.wrap ? ('<div class="markdown' + (nested ? '' : ' markdown-container') + '">') : '') + builder.join('\n').replace(/\t/g, '    ') + (opt.wrap ? '</div>' : '');
