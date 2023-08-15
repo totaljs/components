@@ -170,7 +170,7 @@ COMPONENT('timepicker', function(self, config, cls) {
 		var count = 0;
 
 		if (opt.ampm == null)
-			opt.ampm = DEF.timeformat ? DEF.timeformat.indexOf('a') !== -1 : !!config.ampm;
+			opt.ampm = !!config.ampm;
 
 		if (opt.seconds == null)
 			opt.seconds = !!config.seconds;
@@ -199,6 +199,20 @@ COMPONENT('timepicker', function(self, config, cls) {
 		el = $(el);
 		var off = el.offset();
 
+		self.rclass2(cls + '-').tclass(cls + '-' + count).aclass('invisible').rclass('hidden');
+
+		if (opt.align) {
+			var w = self.element.width();
+			switch (opt.align) {
+				case 'center':
+					off.left = Math.ceil((off.left - w / 2) + (el.innerWidth() / 2));
+					break;
+				case 'right':
+					off.left = (off.left - w) + el.innerWidth();
+					break;
+			}
+		}
+
 		if (opt.offsetX)
 			off.left += opt.offsetX;
 
@@ -207,7 +221,7 @@ COMPONENT('timepicker', function(self, config, cls) {
 
 		off.top += el.innerHeight() + 12;
 		self.element.css(off);
-		self.rclass2(cls + '-').tclass(cls + '-' + count).rclass('hidden').aclass(cls + '-visible', 100);
+		self.rclass('invisible').aclass(cls + '-visible', 100);
 		clearTimeout(timeout);
 
 		setTimeout(function() {
