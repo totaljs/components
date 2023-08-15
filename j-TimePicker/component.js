@@ -170,7 +170,7 @@ COMPONENT('timepicker', function(self, config, cls) {
 		var count = 0;
 
 		if (opt.ampm == null)
-			opt.ampm = !!config.ampm;
+			opt.ampm = DEF.timeformat ? DEF.timeformat.indexOf('a') !== -1 : !!config.ampm;
 
 		if (opt.seconds == null)
 			opt.seconds = !!config.seconds;
