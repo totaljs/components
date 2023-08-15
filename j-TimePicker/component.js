@@ -11,7 +11,7 @@ COMPONENT('timepicker', function(self, config, cls) {
 
 	self.make = function() {
 
-		self.aclass(cls + ' hidden');
+		self.aclass(cls + ' hidden invisible');
 		self.append('<div class="{0}-hours"><i class="ti ti-chevron-up"></i><input type="text" maxlength="2" /><i class="ti ti-chevron-down"></i></div><div class="{0}-minutes"><i class="ti ti-chevron-up"></i><input type="text" maxlength="2" /><i class="ti ti-chevron-down"></i></div><div class="{0}-seconds hidden"><i class="ti ti-chevron-up"></i><input type="text" maxlength="2" /><i class="ti ti-chevron-down"></i></div><div class="{0}-ampm hidden"><i class="ti ti-chevron-up"></i><span>AM</span><i class="ti ti-chevron-down"></i></div>'.format(cls));
 
 		var fn = function(e) {
@@ -221,7 +221,7 @@ COMPONENT('timepicker', function(self, config, cls) {
 
 		off.top += el.innerHeight() + 12;
 		self.element.css(off);
-		self.rclass('invisible').aclass(cls + '-visible', 100);
+		self.rclass('invisible');
 		clearTimeout(timeout);
 
 		setTimeout(function() {
@@ -246,7 +246,7 @@ COMPONENT('timepicker', function(self, config, cls) {
 				self.opt.close = null;
 			}
 
-			self.rclass(cls + '-visible').aclass('hidden');
+			self.aclass('hidden invisible');
 			self.target = null;
 			is = false;
 		}, sleep ? sleep : 100);
