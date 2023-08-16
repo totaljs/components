@@ -9,6 +9,7 @@ __Configuration__:
 - `links {Boolean}` enables/disables links (default: `true`)
 - `ul {Boolean}` enables/disables unordered list (default: `true`)
 - `required {Boolean}` optional, enables "required" mode (default: `false`)
+- `allowrawpaste {Boolean}` optional, enables raw pasting rich content (default: `false`)
 
 ### Author
 

@@ -1,4 +1,4 @@
-COMPONENT('wysiwyg', 'required:0;links:false;ul:true;code:true;ul:true', function(self, config, cls) {
+COMPONENT('wysiwyg', 'required:0;links:false;ul:true;code:true;ul:true;allowrawpaste:0', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var timers = {};
@@ -204,6 +204,10 @@ COMPONENT('wysiwyg', 'required:0;links:false;ul:true;code:true;ul:true', functio
 		});
 
 		editor.on('paste', function(e) {
+
+			if (config.allowrawpaste)
+				return;
+
 			e.preventDefault();
 			e.stopPropagation();
 			var text = e.originalEvent.clipboardData.getData(self.attrd('clipboard') || 'text/plain');
