@@ -28,6 +28,7 @@
 .ui-datepicker-week > div { height: 25px; line-height: 25px; font-weight: bold; color: #000; border-bottom: 1px solid #E0E0E0; }
 .ui-datepicker-days > div { font-size: 11px; cursor: pointer; }
 .ui-datepicker-date:hover > div { border-color: #E0E0E0; color: #000; }
+.ui-datepicker-selected:hover > div { border-color: var(--color); color: #FFF; }
 .ui-datepicker-days > div > div { width: 28px; height: 28px; line-height: 24px; border-radius: 100%; margin: 0 auto; position: relative; display: inline-block; border: 2px solid transparent; }
 
 .ui-dark .ui-datepicker { background-color: #282828; border-color: #404040; color: gray; }
@@ -46,3 +47,4 @@
 .ui-dark .ui-datepicker-info > span:hover { color: #FFF; }
 .ui-dark .ui-datepicker-week > div { color: #FFF; border-bottom-color: #404040; }
 .ui-dark .ui-datepicker-date:hover > div { border-color: #505050; color: #FFF; }
+.ui-dark .ui-datepicker-selected:hover > div { border-color: var(--color); color: #FFF; }
