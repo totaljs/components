@@ -2,7 +2,6 @@ COMPONENT('inlinedatepicker', 'today:Set today;firstday:-1', function(self, conf
 
 	var cls2 = '.' + cls;
 	var skip = false;
-	var visible = false;
 	var current;
 	var elyears, elmonths, elbody;
 
