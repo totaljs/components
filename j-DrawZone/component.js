@@ -35,9 +35,19 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 		extent[0] += extent[0];
 		extent[2] += extent[2];
 
+		var tile = new ol.layer.Tile({ source: new ol.source.OSM() });
+
+		tile.on('prerender', function (e) {
+			if (config.filter) {
+				var ctx = e.context;
+				ctx.canvas.style.filter = config.filter;
+				ctx.globalCompositeOperation = 'source-over';
+			}
+		});
+
 		meta.view = new ol.View({ center: [0,0], zoom: config.zoom, extent });
 		meta.map = new ol.Map({
-			layers: [new ol.layer.Tile({ source: new ol.source.OSM() })],
+			layers: [tile],
 			target: meta.container,
 			view: meta.view
 		});
