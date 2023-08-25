@@ -14,7 +14,8 @@ __Configuration__:
 - `rename` {String} optional, a path to `function(item, newname, fn_accept(true))`
 - `unselectexpand` {Boolean} optional, can `unselect` selected item when the user clicks on the expandable item (default: `false`)
 - `reselect` {Boolean} optional, evaluates `exec` again if the tree is refreshed (default: `false`)
-- __NEW__ `iconoptions` {String} Font-Awesome icon to options (default: `ti ti-ellipsis-h`)
+- `selectexpand` {Boolean} optional, enables adding `select` class to expandable items (default: `false`)
+- __NEW__ `iconoptions` {String} icon to options (default: `ti ti-ellipsis-h`)
 - __NEW__ `expanded` {Boolean} expands all children (default: `false`)
 
 __Data structure__:
