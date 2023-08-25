@@ -194,17 +194,8 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 				case 13:
 					o = true;
 					var sel = self.find('li.current');
-					if (sel.hclass('ui-disabled'))
-						return;
-					if (self.opt.callback) {
-						self.opt.scope && M.scope(self.opt.scope);
-						var index = +sel.attrd('index');
-						if (self.opt.custom && (!sel.length || index === -2))
-							self.opt.callback(this.value, self.opt.element, true);
-						else if (self.opt.items[index])
-							self.opt.callback(self.opt.items[index], self.opt.element);
-					}
-					self.hide();
+					if (!sel.hclass('ui-disabled'))
+						sel.trigger('click');
 					break;
 				case 38: // up
 					o = true;
@@ -360,7 +351,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 						}
 
 						if (customvalue.parentNode)
-							customvalue.parentNode.removeChild(customvalue.parentNode);
+							customvalue.parentNode.removeChild(customvalue);
 
 						skipclear = true;
 						self.opt.items = items;

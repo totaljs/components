@@ -126,10 +126,9 @@ COMPONENT('mapzones', 'height:200;zoom:13;color:#fcba03;modify:1;opacity:20', fu
 	self.parse = function(value) {
 
 		for (var i = 0; i < value.length; i++) {
-			var item = value[i];
-			var tmp = item.split(',');
-			meta.points.push(ol.proj.transform([tmp[1], tmp[0] ], 'EPSG:4326', 'EPSG:3857'));
-		}
+      var item = value[i];
+      meta.points.push(ol.proj.transform([item.lng, item.lat ], 'EPSG:4326', 'EPSG:3857'));
+    }
 
 		meta.source = new ol.source.Vector({});
 		
@@ -212,15 +211,13 @@ COMPONENT('mapzones', 'height:200;zoom:13;color:#fcba03;modify:1;opacity:20', fu
 		var tmp = wkt.replace('POLYGON((', '').replace('))', '').split(',');
 
 		for (var i = 0; i < tmp.length; i++) {
-			var item = tmp[i];
-			var tmpitem = item.split(' ');
-
-			tmpitem[0] = +tmpitem[0];
-			tmpitem[1] = +tmpitem[1];
-
-			tmpitem.reverse();
-			arr.push(tmpitem.join());
-		}
+      var item = tmp[i];
+      var tmpitem = item.split(' ');
+      var latlng = {};
+      latlng.lat = +tmpitem[1];
+      latlng.lng = +tmpitem[0];
+      arr.push(latlng);
+    }
 
 		skip = true;
 
@@ -251,8 +248,8 @@ COMPONENT('mapzones', 'height:200;zoom:13;color:#fcba03;modify:1;opacity:20', fu
 		meta.zoom = value.zoom ? value.zoom : config.zoom;
 		self.setstyle();
 
-		if (value && value.items && value.items.length) {
-			var polygon = self.parse(value.items);
+		if (value && value.points && value.points.length) {
+			var polygon = self.parse(value.points);
 			meta.map.addLayer(polygon);
 			self.center();
 		} else {

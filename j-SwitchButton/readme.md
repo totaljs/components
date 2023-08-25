@@ -10,5 +10,5 @@ __Configuration__:
 
 ### Author
 
-- Totaljs <info@totaljs.com>
+- Tomáš Novák <info@totaljs.com>
 - [License](https://www.totaljs.com/license/)

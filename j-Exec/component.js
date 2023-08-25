@@ -2,6 +2,7 @@ COMPONENT('exec', function(self, config) {
 
 	var regparent = /\?\d/;
 	var extensions = [];
+	var skiptimeout;
 
 	self.readonly();
 	self.blind();
@@ -22,14 +23,33 @@ COMPONENT('exec', function(self, config) {
 		};
 
 		var fn = function(plus, forceprevent) {
-			return function(e) {
+			return function execlick(e) {
 
 				var el = $(this);
+
+				if (!plus && skiptimeout)
+					return;
+
+				if (!e.$force && !plus && el.hclass('exec2')) {
+					skiptimeout && clearTimeout(skiptimeout);
+					skiptimeout = setTimeout(function(ctx, e) {
+						skiptimeout = null;
+						e.$force = true;
+						execlick.call(ctx, e);
+					}, 300, this, e);
+					return;
+				}
+
 				var attr = el.attrd('exec' + plus);
 				var path = el.attrd('path' + plus);
 				var href = el.attrd('href' + plus);
 				var def = el.attrd('def' + plus);
 				var reset = el.attrd('reset' + plus);
+
+				if (skiptimeout) {
+					clearTimeout(skiptimeout);
+					skiptimeout = null;
+				}
 
 				scope = null;
 

@@ -9,6 +9,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 	var offset = { x: 0, y: 0 };
 	var cache = { x: 0, y: 0, zoom: 0 };
 	var width = 0;
+	var filename;
 
 	// self.bindvisible();
 	self.novalidate();
@@ -53,7 +54,13 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 		}
 	};
 
-	self.output = function(type) {
+	self.output = function(type, returnobj) {
+
+		if (type === true) {
+			returnobj = true;
+			type = null;
+		}
+
 		var canvas2 = document.createElement('canvas');
 		var ctx2 = canvas2.getContext('2d');
 
@@ -74,7 +81,11 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 		h = ((h / 100) * zoom);
 
 		ctx2.drawImage(img, current.x || 0, current.y || 0, w, h);
-		return type ? canvas2.toDataURL(type) : !config.background && self.isTransparent(canvas2) ? canvas2.toDataURL('image/png') : canvas2.toDataURL('image/jpeg');
+
+		var t = type || (!config.background && self.isTransparent(canvas2) ? 'image/png' : 'image/jpeg');
+		self.filename = filename.replace(/\.[a-z]+$/i, '') + (t.indexOf('png') === -1 ? '.jpg' : '.png');
+		var data = canvas2.toDataURL(t);
+		return returnobj ? { filename: self.filename, data: data } : data;
 	};
 
 	self.make = function() {
@@ -124,7 +135,6 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 			var file = this.files[0];
 			self.load(file);
 			this.value = '';
-
 		});
 
 		$(canvas).on('mousedown', function (e) {
@@ -168,18 +178,19 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 		});
 
 		self.load = function(file) {
+
+			filename = file.name;
+
 			self.getOrientation(file, function(orient) {
 				var reader = new FileReader();
 				reader.onload = function () {
 					if (orient < 2) {
 						img.src = reader.result;
-						setTimeout(function() {
-							self.change(true);
-						}, 500);
+						setTimeout(() => self.change(true), 500);
 					} else {
-						SETTER('loading', 'show');
-						self.resetOrientation(reader.result, orient, function(url) {
-							SETTER('loading', 'hide', 500);
+						SETTER('loading/show');
+						self.resetorientation(reader.result, orient, function(url) {
+							SETTER('loading/hide', 500);
 							img.src = url;
 							self.change(true);
 						});
@@ -287,7 +298,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 		canvas && context && context.clearRect(0, 0, canvas.width, canvas.height);
 	};
 
-	self.resetOrientation = function(src, srcOrientation, callback) {
+	self.resetorientation = function(src, srcOrientation, callback) {
 		var img = new Image();
 		img.onload = function() {
 			var width = img.width;

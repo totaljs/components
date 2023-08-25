@@ -3,14 +3,16 @@ COMPONENT('iframepreview', function(self, config, cls) {
 	var iframe;
 	var ready = false;
 	var writetimeout;
+	var container;
 
 	self.readonly();
 	self.nocompile && self.nocompile();
 
 	self.make = function() {
-		self.aclass(cls);
-		self.html('<iframe src="about:blank" frameborder="0" scrolling="no"></iframe>');
+		self.aclass(cls + ' hidden');
+		self.html('<div><iframe src="about:blank" frameborder="0" scrolling="no" loading="lazy"></iframe></div>');
 		iframe = self.find('iframe');
+		container = self.find('div');
 
 		var isready = () => ready = true;
 		var timeout = null;
@@ -43,6 +45,9 @@ COMPONENT('iframepreview', function(self, config, cls) {
 			var is = false;
 			var offset = '<div id="IFPOFFSET"></div>';
 
+			if (content.indexOf('<body') === -1)
+				content = '<!DOCTYPE html><html><head><meta charset="utf-8" /></head><body style="font-family:Arial;font-size:14px;margin:0;padding:0">' + content + '</body></html>';
+
 			content = content.replace(/<\/body>/i, function() {
 				is = true;
 				return offset + '</body>';
@@ -56,6 +61,7 @@ COMPONENT('iframepreview', function(self, config, cls) {
 			doc.write(content);
 			doc.close();
 			self.resize();
+			self.rclass('hidden');
 			setTimeout(self.resize, 500);
 			setTimeout(self.resize, 1000);
 			setTimeout(self.resize, 2000);
@@ -70,7 +76,7 @@ COMPONENT('iframepreview', function(self, config, cls) {
 			if (el.length) {
 				var offset = el.offset();
 				if (offset) {
-					self.element.css('height', offset.top);
+					container.css('height', offset.top);
 					if (offset.top == 0)
 						setTimeout(self.resize, 1000);
 				}
@@ -79,6 +85,9 @@ COMPONENT('iframepreview', function(self, config, cls) {
 	};
 
 	self.setter = function(value) {
+
+		self.aclass('hidden');
+
 		if (value)
 			self.write(value);
 		else

@@ -191,6 +191,18 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 		});
 	};
 
+	// Source: https://stackoverflow.com/questions/35940290/how-to-convert-base64-string-to-javascript-file-object-like-as-from-file-input-f
+	function dataURLtoFile(dataurl, filename) {
+		var arr = dataurl.split(',');
+		var mime = arr[0].match(/:(.*?);/)[1];
+		var bstr = atob(arr[arr.length - 1]);
+		var n = bstr.length;
+		var u8arr = new Uint8Array(n);
+		while (n--)
+			u8arr[n] = bstr.charCodeAt(n);
+		return new File([u8arr], filename, {type:mime});
+	}
+
 	self.load = function(file) {
 
 		name = file.name.replace(/\.(png|gif|jpeg|svg|webp)$/i, '.jpg');
@@ -201,7 +213,7 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 				var img = new Image();
 				img.onload = function() {
 					if (config.keeporiginal && img.width == config.width && img.height == config.height) {
-						self.upload(reader.result);
+						self.upload(reader.result, file.name);
 					} else {
 						self.resizeforce(img);
 						self.change(true);
@@ -218,14 +230,24 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 		});
 	};
 
-	self.upload = function(base64) {
+	self.upload = function(base64, filename) {
 		if (base64) {
-			var data = (new Function('base64', 'filename', 'return ' + config.schema))(base64, name);
 			var url = config.url.env(true);
-			AJAX((url.indexOf(' ') === -1 ? 'POST ' : '') + url, data, ERROR(function(response) {
-				self.change(true);
-				self.set(config.map ? FN(config.map)(response) : response);
-			}));
+			if (config.output === 'file') {
+				var file = dataURLtoFile(base64, filename || name);
+				var data = new FormData();
+				data.append('file', file);
+				UPLOAD(url, data, ERROR(function(response) {
+					self.change(true);
+					self.set(config.map ? FN(config.map)(response) : response);
+				}));
+			} else {
+				var data = (new Function('base64', 'filename', 'return ' + config.schema))(base64, filename || name);
+				AJAX((url.indexOf(' ') === -1 ? 'POST ' : '') + url, data, ERROR(function(response) {
+					self.change(true);
+					self.set(config.map ? FN(config.map)(response) : response);
+				}));
+			}
 		}
 	};
 

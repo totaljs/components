@@ -18,6 +18,11 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 	var checksum = {};
 	var skip = false;
 	var check = null;
+	var previndex = null;
+	var prevcleaner = null;
+	var prevclean = function() {
+		previndex = null;
+	};
 
 	var movement = function(key) {
 
@@ -38,6 +43,14 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 			// 38: up, 40: down
 			if ((key === 38 && index === 0) || (key === 40 && (index === count - 1))) {
+
+				if (previndex !== index) {
+					previndex = index;
+					prevcleaner && clearTimeout(prevcleaner);
+					prevcleaner = setTimeout(prevclean, 1000);
+					return;
+				}
+
 				openeditor.key = key;
 				openeditor.close();
 			}
@@ -91,6 +104,10 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			setTimeout(edit, 10);
 		}
 
+	};
+
+	self.makeid = function() {
+		return Date.now().toString(36) + 'X' + Math.random().toString(36).substring(3, 7);
 	};
 
 	self.removeselection = function() {
@@ -212,6 +229,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		// opt.backslashremove {Boolean}
 		// opt.param {Object} a custom parameter
 		// opt.parent {Element}
+		// opt.select {Boolean} it selects all text
 
 		if (opt.format == null)
 			opt.format = true;
@@ -239,6 +257,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		openeditor.widget = widgetel.$widget;
 		openeditor.element = el;
 		openeditor.dom = el[0];
+		openeditor.multiline = opt.multiline;
 		openeditor.parent = opt.parent ? opt.parent[0] : openeditor.dom;
 
 		var clickoutside = function(e) {
@@ -335,7 +354,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 					cmd.append = function(name) {
 						var w = W.papercache.instances[name];
-						var id = Date.now().toString(36);
+						var id = self.makeid();
 						settings[id] = w.config;
 						opt.widget.element.parent().after('<section><div class="widget paper-{0}" data-widget="{0}" data-id="{1}" data-newbie="1"></div></section>'.format(name, id));
 						opt.widget.remove();
@@ -343,8 +362,8 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 					};
 
 					config.command && self.EXEC(config.command, cmd);
+					e.preventDefault();
 				}
-				e.preventDefault();
 				return;
 			}
 
@@ -415,7 +434,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		};
 
 		var keyup = function(e) {
-			if (e.keyCode === 40 || e.keyCode === 38)
+			if (!openeditor.multiline && (e.keyCode === 40 || e.keyCode === 38))
 				movement(e.keyCode);
 		};
 
@@ -429,6 +448,9 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			sel.removeAllRanges();
 			sel.addRange(range);
 		}
+
+		if (opt.select)
+			setTimeout(() => document.execCommand('selectAll', false, null), 20);
 
 		openeditor.close = function() {
 
@@ -642,13 +664,13 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			if (config.readonly)
 				return;
 
-			var id = Date.now().toString(36);
+			var id = self.makeid();
 			$(el).append('<section><div class="widget paper-html" data-widget="html" data-id="{0}" data-newbie="1"></div></section>'.format(id));
 			self.cmd.refresh();
 		};
 
 		meta.append = function(same) {
-			var id = Date.now().toString(36);
+			var id = self.makeid();
 			$(el).parent().after('<section><div class="widget paper-{1}" data-widget="{1}" data-id="{0}" data-newbie="1"></div></section>'.format(id, same === true ? name : (same || 'html')));
 			setTimeout(self.cmd.refresh, 100);
 		};
@@ -667,9 +689,25 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		};
 
 		meta.iseditable = function(t) {
+
 			if (t instanceof jQuery)
 				t = t[0];
-			return (t.classList.contains('picon') || t.classList.contains('plink')) ? false : true;
+
+			if ((t.classList.contains('picon') || t.classList.contains('plink')))
+				return false;
+
+			if (t.tagName === 'A')
+				return false;
+
+			for (var i = 0; i < 10; i++) {
+				t = t.parentNode;
+				if (t == null)
+					break;
+				if (t.tagName === 'A')
+					return false;
+			}
+
+			return true;
 		};
 
 		meta.iseditable2 = function() {
@@ -679,6 +717,12 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		meta.edit = function(el, opt, callback) {
 			if (meta.iseditable2())
 				self.cmd.edit(el, opt, callback);
+		};
+
+		meta.focus = function() {
+			if (openeditor)
+				openeditor.close();
+			meta.emit('focus', true);
 		};
 
 		meta.upload = function(opt, callback) {
@@ -745,13 +789,15 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 		meta.remove = function() {
 			meta.removed = true;
-			if (meta.sync !== false)
+
+			if (!meta.newbie)
 				self.cmd.change(meta, 'remove');
+
 			meta.element.parent().remove();
 		};
 
 		meta.makeid = function() {
-			return Date.now().toString(36);
+			return self.makeid();
 		};
 
 		meta.update = function() {
@@ -990,6 +1036,11 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 
 			var id = ATTRD(child);
 			var w = child[0].$widget;
+
+			// Widget not found
+			if (!w)
+				continue;
+
 			var cfg;
 
 			if (w.removed) {
@@ -1027,8 +1078,6 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			self.EXEC(config.contextmenu, this.$widget, e);
 		});
 
-		var AA = 0;
-
 		self.event('click', 'section', function(e) {
 
 			var t = this;
@@ -1036,11 +1085,10 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			if (config.readonly)
 				return;
 
-			if (e.target.tagName === 'A' || $(e.target).closest('a').length)
+			if (e.target.tagName === 'A' || $(e.target).closest('a,[data-prevent]').length)
 				return;
 
 			var target = e.target;
-
 			e.stopPropagation();
 
 			if (target.classList.contains('plink'))
@@ -1068,7 +1116,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 				openeditor.close();
 
 			setTimeout(function() {
-				$(t).after('<section><div class="widget whtml" data-widget="html" data-id="{0}" data-newbie="1"></div></section>'.format(Date.now().toString(36)));
+				$(t).after('<section><div class="widget whtml" data-widget="html" data-id="{0}" data-newbie="1"></div></section>'.format(self.makeid()));
 				self.cmd.refresh();
 			}, 100);
 
@@ -1091,7 +1139,7 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 					return;
 				}
 
-				self.append('<section><div class="widget whtml" data-widget="html" data-id="{0}" data-newbie="1"></div></section>'.format(Date.now().toString(36)));
+				self.append('<section><div class="widget whtml" data-widget="html" data-id="{0}" data-newbie="1"></div></section>'.format(self.makeid()));
 				self.cmd.refresh();
 			}
 		});
@@ -1184,6 +1232,12 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 				value && self.import(value.split(',').trim());
 				break;
 		}
+	};
+
+	self.notify = function(a, b, c, d, e) {
+		var widgets = self.find('.widget');
+		for (var el of widgets)
+			el.$widget.emit(a, b, c, d, e);
 	};
 
 	self.setter = function(arr) {

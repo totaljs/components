@@ -84,6 +84,9 @@ COMPONENT('validation', 'delay:100;flags:visible;changes:0;strictchanges:0', fun
 		if (!disabled && config.changes && backup === current)
 			disabled = true;
 
+		if (HIDDEN(self.element))
+			disabled = true;
+
 		if (disabled !== old) {
 			elements.prop('disabled', disabled);
 			self.tclass(cls + '-ok', !disabled);

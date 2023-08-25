@@ -29,6 +29,7 @@ __Configuration__:
 	- example: `value => value.id`
 - `empty {String}` a link to the empty image
 - `keeporiginal {Boolean}` keeps the original image if the dimension is the same as the width/height defined in the configuration (default: `false`)
+- __NEW__ `output {String}` output type `base64` (default) or `file`
 
 __Methods__:
 

@@ -20,6 +20,7 @@ var opt = {};
 // opt.offsetY {Number}    : adds Y offset (default: 0)
 // opt.seconds {Boolean}   : shows seconds (default: false)
 // opt.ampm    {Boolean}   : shows 12 hours time format (default: false)
+// opt.align   {left|center|right} (default: left)
 
 opt.value = new Date();
 // or

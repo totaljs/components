@@ -1,4 +1,4 @@
-COMPONENT('inlineproperties', 'close:Close;dateformat:[date];dirsearch:Search;width:180', function(self, config, cls) {
+COMPONENT('inlineproperties', 'close:Close;dateformat:[date];dirsearch:Search;width:200', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var renders = {};
@@ -226,7 +226,7 @@ COMPONENT('inlineproperties', 'close:Close;dateformat:[date];dirsearch:Search;wi
 		}
 
 		var target = $(opt.element);
-		var w = opt.width || 200;
+		var w = opt.width || config.width;
 		var offset = target.offset();
 		var css = {};
 

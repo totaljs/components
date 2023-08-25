@@ -11,6 +11,7 @@ __Configuration__:
 - `style {Number}` supports two styles `1` classic (default), `2` with bigger padding and only with bottom border
 - `root {String}` a label for root item (default: `Root`)
 - __NEW__: `rooturl {String}` a relative URL address for root item (default: `/`)
+- __NEW__: `title {String}` enables generating `document.title` from the last item of the breadcrumb (default: `null`)
 
 ## Data-source example
 

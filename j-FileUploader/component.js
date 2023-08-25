@@ -30,6 +30,8 @@ COMPONENT('fileuploader', function(self, config) {
 		// opt.height {Number}
 		// opt.keeporiginal {Boolean}
 		// opt.background {String} (hex or "transparent")
+		// opt.base64 {String}
+		// opt.filename {String}
 
 		self.opt = opt;
 		self.opt.fd = new FormData();
@@ -39,7 +41,13 @@ COMPONENT('fileuploader', function(self, config) {
 			opt.url = config.url;
 
 		if (opt.files) {
-			self.uploadfiles(opt.files);
+			self.processfiles(opt.files);
+		} else if (opt.base64) {
+			fetch(opt.base64).then(res => res.blob()).then(function(blob) {
+				self.opt.fd.append((self.opt.prefix || 'file{0}').format(self.opt.indexer++), blob, opt.filename || opt.name);
+				self.uploadfiles(null);
+			});
+
 		} else {
 			input[0].value = '';
 			self.find('input').attr('accept', opt.accept || '*/*').prop('multiple', !!opt.multiple);
@@ -47,28 +55,31 @@ COMPONENT('fileuploader', function(self, config) {
 		}
 	};
 
+	self.processfiles = function(files, callback) {
+		if (self.opt.width || self.opt.height) {
+			var queue = [];
+			for (var i = 0; i < files.length; i++)
+				queue.push(files[i]);
+			queue.wait(function(item, next) {
+				self.processimage(item, function(filename, blob) {
+					self.opt.fd.append((self.opt.prefix || 'file{0}').format(self.opt.indexer++), blob, filename);
+					next();
+				});
+			}, () => self.uploadfiles(null, callback));
+		} else
+			self.uploadfiles(files, callback);
+	};
+
 	self.make = function() {
 		self.aclass('hidden');
 		self.append('<input type="file" multiple />');
 		input = self.find('input');
 		self.event('change', 'input', function(e) {
-			var files = e.target.files;
-			if (self.opt.width || self.opt.height) {
-				var queue = [];
-				for (var i = 0; i < files.length; i++)
-					queue.push(files[i]);
-				queue.wait(function(item, next) {
-					self.processimage(item, function(filename, blob) {
-						self.opt.fd.append((self.opt.prefix || 'file{0}').format(self.opt.indexer++), blob, filename);
-						next();
-					});
-				}, () => self.uploadfiles());
-			} else
-				self.uploadfiles(files, () => this.value = '');
+			self.processfiles(e.target.files, () => this.value = '');
 		});
 	};
 
-	self.uploadfiles = function(files) {
+	self.uploadfiles = function(files, callback) {
 
 		if (files) {
 			for (var i = 0; i < files.length; i++) {
@@ -85,7 +96,6 @@ COMPONENT('fileuploader', function(self, config) {
 		SETTER('loading/show');
 		UPLOAD(self.opt.url, self.opt.fd, function(response, err) {
 
-			input[0].value = '';
 			SETTER('loading/hide', 500);
 
 			if (!response && err)
@@ -95,17 +105,28 @@ COMPONENT('fileuploader', function(self, config) {
 			else
 				self.opt.callback(response);
 
-		}, self.opt.progress);
+		}, function(percentage, speed, remaining) {
+			self.opt.progress && self.opt.progress(percentage, speed, remaining);
+			if (percentage === 100 && callback) {
+				callback();
+				callback = null;
+			}
+		});
+
+		setTimeout(function() {
+			input[0].value = '';
+		}, 1500);
+
 	};
 
 	self.processimage = function(file, callback) {
-		var name = self.preparefilename(file.name.replace(/\.(ico|png|jpeg|gif|svg|webp)$/, self.opt.background === 'transparent' ? '.png' : '.jpg'));
+		var name = self.preparefilename(file.name.replace(/\.(ico|png|jpeg|jpg|gif|svg|webp|heic)$/i, self.opt.background === 'transparent' ? '.png' : '.jpg'));
 		self.getorientation(file, function(orient) {
 			var reader = new FileReader();
 			reader.onload = function () {
 				var img = new Image();
 				img.onload = function() {
-					if (self.opt.keeporiginal && img.width == self.opt.width && img.height == self.opt.height)
+					if (self.opt.keeporiginal && ((img.width == self.opt.width && img.height == self.opt.height) || (self.opt.width && self.opt.onlylarger && img.width <= self.opt.width)))
 						fetch(reader.result).then(res => res.blob()).then(blob => callback(name, blob));
 					else
 						self.resizeimage(img, name, callback);
@@ -133,13 +154,6 @@ COMPONENT('fileuploader', function(self, config) {
 		var opt = self.opt;
 		var canvas = document.createElement('canvas');
 		var ctx = canvas.getContext('2d');
-		canvas.width = opt.width;
-		canvas.height = opt.height;
-
-		if (opt.background !== 'transparent') {
-			ctx.fillStyle = opt.background || '#FFFFFF';
-			ctx.fillRect(0, 0, opt.width, opt.height);
-		}
 
 		var w = 0;
 		var h = 0;
@@ -147,6 +161,20 @@ COMPONENT('fileuploader', function(self, config) {
 		var y = 0;
 		var is = false;
 		var diff = 0;
+
+		if (!opt.width)
+			opt.width = (image.width * (opt.height / image.height)) >> 0;
+
+		if (!opt.height)
+			opt.height = image.height * (opt.width / image.width);
+
+		canvas.width = opt.width;
+		canvas.height = opt.height;
+
+		if (opt.background !== 'transparent') {
+			ctx.fillStyle = opt.background || '#FFFFFF';
+			ctx.fillRect(0, 0, opt.width, opt.height);
+		}
 
 		if (image.width > opt.width || image.height > opt.height) {
 			if (image.width > image.height) {
@@ -204,7 +232,9 @@ COMPONENT('fileuploader', function(self, config) {
 		ctx.drawImage(image, x, y, w, h);
 
 		var base64 = opt.background === 'transparent' ? canvas.toDataURL('image/png') : canvas.toDataURL('image/jpeg', (opt.quality || 90) * 0.01);
-		fetch(base64).then(res => res.blob()).then(blob => callback(name, blob));
+		if (base64.length > 10)
+			fetch(base64).then(res => res.blob()).then(blob => callback(name, blob));
+
 	};
 
 	// http://stackoverflow.com/a/32490603

@@ -69,4 +69,4 @@ COMPONENT('typed', 'typespeed:0;startdelay:0;backspeed:0;smartbackspace:true;shu
 		});
 	};
 
-}, ['https://unpkg.com/typed.js@2.0.132/dist/typed.umd.js']);
+}, ['https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js']);

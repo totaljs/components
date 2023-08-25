@@ -14,7 +14,7 @@
 				Name:
 			</div>
 			<div class="col-xs-9">
-				<div class="editable" data-editable="required:true"><ui-bind path="form.name" config="html"></ui-bind></div>
+				<ui-bind path="form.name" config="html" class="editable block" data-editable="required:true"></ui-bind>
 			</div>
 		</div>
 		<div class="row">
@@ -22,7 +22,7 @@
 				Email:
 			</div>
 			<div class="col-xs-9">
-				<div class="editable" data-editable="required:1;type:email"><ui-bind path="form.email" config="html"></ui-bind></div>
+				<ui-bind path="form.email" config="html" class="editable block" data-editable="required:1;type:email"></ui-bind>
 			</div>
 		</div>
 		<div class="row">
@@ -30,7 +30,7 @@
 				Nickname:
 			</div>
 			<div class="col-xs-9">
-				<div class="editable" data-editable="required:true"><ui-bind path="form.nickname" config="empty:Nickname;html"></ui-bind></div>
+				<ui-bind path="form.nickname" config="empty:Nickname;html" class="editable block" data-editable="required:true"></ui-bind>
 			</div>
 		</div>
 		<div class="row">
@@ -46,7 +46,7 @@
 				Country:
 			</div>
 			<div class="col-xs-9">
-				<div class="editable" data-editable="rebind:1;dirsource:countries;type:tags"><ui-bind path="form.countries" config="template:{#countrytags}"></ui-bind></div>
+				<ui-bind path="form.countries" config="template:{#countrytags}" class="editable block" data-editable="rebind:1;dirsource:countries;type:tags"></ui-bind>
 			</div>
 		</div>
 		<div class="row">
@@ -54,7 +54,7 @@
 				Date:
 			</div>
 			<div class="col-xs-9">
-				<div class="editable" data-editable="type:date"><ui-bind path="form.date" config="html:(new Date() || value).format('yyyy-MM-dd')"></ui-bind></div>
+				<ui-bind path="form.date" config="html:(new Date() || value).format('yyyy-MM-dd')" class="editable block" data-editable="type:date"></ui-bind>
 			</div>
 		</div>
 	</div>
