@@ -1,6 +1,6 @@
 ## j-UIStudio
 
-__BETA__: This component renders the app according to the Total.js Flow UI Studio schema.
+This component renders the app according to the Total.js Flow UI Studio schema.
 
 __Configuration__:
 
