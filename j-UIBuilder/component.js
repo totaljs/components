@@ -23,8 +23,12 @@ COMPONENT('uibuilder', 'css:1', function(self, config, cls) {
 				response.css = '';
 
 			response.component = self;
+			response.schema = data;
 			self.app = response;
-			config.app && self.SEEX(config.app, response);
+			config.app && self.SEEX(config.app, response, data);
+			config.output && self.app.on('output', function(meta) {
+				self.SEEX(config.output, meta);
+			});
 		});
 	};
 

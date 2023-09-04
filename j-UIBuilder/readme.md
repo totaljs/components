@@ -19,6 +19,52 @@ __Properties__:
 
 - `component.app` contains an `app` instance
 
+## How to handle data?
+
+```html
+<ui-component name="uibuilder" ... config="app:myapphandler"></ui-component>
+
+<script>
+
+	function myapphandler(app) {
+
+		// app.component {jComponent}
+		// app.schema {Object} uibuilder compiled design
+		// app.schema.inputs {Array Objects}
+		// app.schema.outputs {Array Objects}
+
+		// How to capture data?
+		app.on('output', function(meta) {
+			// meta.id {String} output identifier
+			// meta.data {Object} raw data from the builder
+			// meta.app {Object} app instance
+			// meta.instance {Object} which instance sent data?
+			// meta.instanceid {String} an instance identifier
+			// meta.component {Object} which component sent data?
+			// meta.componentid {String} a component identifier
+			// meta.err {String} optional, error handler (nullable)
+			// meta.output {String} an output name
+			// meta.note {String} optional, a note
+			// meta.ref {String} an internal reference
+
+			AJAX('POST /yourapi/', meta.data, function(response) {
+				// What next?
+			});
+
+		});
+
+		// How to inject data?
+		// Example
+		app.on('ready', function() {
+			// First, you must know input identifier
+			app.input('cidlm5caacg_load', { email: '@' }, console.log);
+		});
+
+	}
+
+</script>
+````
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
