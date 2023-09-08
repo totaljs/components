@@ -91,7 +91,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 	self.make = function() {
 
 		self.aclass(cls);
-		self.append('<input type="file" style="display:none" accept="image/*" /><ul><li data-type="upload"><span class=ti ti-folder"></span></li><li data-type="plus"><span class="ti ti-plus"></span></li><li data-type="refresh"><span class="ti ti-redo"></span></li><li data-type="minus"><span class="ti ti-minus"></span></li></ul><canvas></canvas>');
+		self.append('<input type="file" style="display:none" accept="image/*" /><ul><li data-type="upload"><span class="ti ti-folder"></span></li><li data-type="plus"><span class="ti ti-plus"></span></li><li data-type="refresh"><span class="ti ti-redo"></span></li><li data-type="minus"><span class="ti ti-minus"></span></li></ul><canvas></canvas>');
 
 		canvas = self.find('canvas')[0];
 		context = canvas.getContext('2d');
