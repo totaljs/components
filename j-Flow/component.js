@@ -1787,12 +1787,12 @@ EXTENSION('flow:connections', function(self, config, cls) {
 		var a = self.helpers.position(output, true);
 		var b = self.helpers.position(input);
 
-		var cls = 'conn' + D + a.id + D + b.id + D + a.index + D + b.index;
+		var cls2 = 'conn' + D + a.id + D + b.id + D + a.index + D + b.index;
 		var newbie = true;
 		var path;
 
 		for (var m of self.connections) {
-			if (m.classes[cls]) {
+			if (m.classes[cls2]) {
 				path = m.path.rclass('removed');
 				newbie = false;
 				break;
