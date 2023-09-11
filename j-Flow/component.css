@@ -1,4 +1,4 @@
-.ui-flow { position: relative; transform-origin: top left; transition: transform 0.3s; }
+.ui-flow { position: relative; transform-origin: top left; transition: transform 0.2s; }
 .ui-flow .component { position: absolute; left: 150px; top: 150px; border: 2px solid #E0E0E0; background-color: #FFF; border-radius: var(--radius); box-shadow: 1px 1px 10px rgba(0,0,0,0.03); }
 .ui-flow-h .inputs { margin: 0; position: relative; top: 0; left: 0; }
 .ui-flow-h .input { background-color: #FFF; padding: 0 8px; font-size: 11px; color: gray; border-top: 1px solid #E0E0E0; line-height: 20px; }
