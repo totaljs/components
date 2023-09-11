@@ -284,7 +284,8 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;markers:1;curvedlines:1;horizo
 			ondone && ondone(tmp.el, tmp.instance);
 		}
 
-		self.el.lines.find('path').aclass('removed');
+		for (var m of self.connections)
+			m.path.aclass('removed');
 
 		var reconnect = function() {
 
@@ -826,6 +827,19 @@ EXTENSION('flow:operations', function(self, config, cls) {
 		}
 	};
 
+	var clearcacheconnections = function() {
+		var index = 0;
+		while (true) {
+			var item = self.connections[index];
+			if (!item)
+				break;
+			if (item.path.parentNode)
+				index++;
+			else
+				self.connections.splice(index, 1);
+		}
+	};
+
 	self.op.remove = function(id, noundo) {
 
 		var tmp = self.cache[id];
@@ -859,6 +873,8 @@ EXTENSION('flow:operations', function(self, config, cls) {
 
 		self.el.lines.find('.from' + D + id).remove();
 		self.el.lines.find('.to' + D + id).remove();
+
+		clearcacheconnections();
 
 		// browse all components and find dependencies to this component
 		for (var key in self.cache)
