@@ -44,6 +44,7 @@ __Configuration__:
 - `dirsearch` {Boolean/String} optional, can disable search in `j-Directory` (default: `true`) or `{String}` (key name) can map a value for searching
 - `dirraw {Boolean}` optional, can disable escaping of items for `j-Directory` (default: `false`)
 - `dirdetail {String}` optional, a link to the function `function(val, next(NEW_TEXT))` (targeted for to `dirsource`)
+- __NEW__ `dirfilter {String}` optional, an inline filter conditional method, for example: `value.id !== 2` (targeted for to `dirsource`)
 - `mask {String}` optional, can contain a mask in the form `###/##` (`#` is replaced for a char)
 - `maskregexp {String}` optional, can contain RegExp for each char in the form `\d,\d,\d,null,\d,\d` (`,` is delimiter)
 - `masktidy {Boolean}` optional, the component returns only raw chars without fixed chars (default: `false`)
@@ -55,9 +56,9 @@ __Configuration__:
 - `camouflage {Boolean/String}` masks the value in the input after is triggered `blur` event (default: `false`) or it can be `String` which will be used as a camouflage
 - `monospace {Boolean}` enables `monospaced` font (default: `false`)
 - `multiple {Boolean}` enables checkboxes if `dirsource` is not empty
-- __NEW__ `tabindex {Number}` adds a tabindex (default: `0`)
-- __NEW__ `tabs {Boolean}` enables tabs for multiline (default: `true`)
-- __NEW__ `readonly {Boolean}` block text field edition (default: `false`)
+- `tabindex {Number}` adds a tabindex (default: `0`)
+- `tabs {Boolean}` enables tabs for multiline (default: `true`)
+- `readonly {Boolean}` block text field edition (default: `false`)
 
 __Interesting:__
 

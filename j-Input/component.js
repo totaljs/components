@@ -12,6 +12,26 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 		W.ui_input_template = Tangular.compile(('{{ if label }}<div class="{0}-label">{{ if icon }}<i class="{{ icon }}"></i>{{ fi }}{{ label | raw }}{{ after | raw }}</div>{{ fi }}<div class="{0}-control{{ if licon }} {0}-licon{{ fi }}{{ if ricon || (type === \'number\' && increment) }} {0}-ricon{{ fi }}">{{ if ricon || (type === \'number\' && increment) }}<div class="{0}-icon-right{{ if type === \'number\' && increment && !ricon }} {0}-increment{{ else if riconclick || type === \'date\' || type === \'time\' || (type === \'search\' && searchalign === 1) || type === \'password\' }} {0}-click{{ fi }}">{{ if type === \'number\' && !ricon }}<i class="ti ti-caret-up"></i><i class="ti ti-caret-down"></i>{{ else }}{{ ricon | ui_input_icon }}{{ fi }}</div>{{ fi }}{{ if licon }}<div class="{0}-icon-left{{ if liconclick || (type === \'search\' && searchalign !== 1) }} {0}-click{{ fi }}">{{ licon | ui_input_icon }}</div>{{ fi }}<div class="{0}-input{{ if align === 1 || align === \'center\' }} center{{ else if align === 2 || align === \'right\' }} right{{ fi }}">{{ if placeholder }}<div class="{0}-placeholder">{{ placeholder }}</div>{{ fi }}{{ if dirsource || type === \'icon\' || type === \'emoji\' || type === \'color\' }}<div class="{0}-value" tabindex="{{ tabindex }}"></div>{{ else }}{{ if type === \'multiline\' }}<textarea data-jc-bind="" style="height:{{ height }}px" tabindex="{{ tabindex }}"></textarea>{{ else }}<input type="{{ if type === \'password\' }}password{{ else }}text{{ fi }}" tabindex="{{ tabindex }}" {{ if autofill }} autocomplete="on" name="{{ NAME }}"{{ else }} name="input' + Date.now() + '" autocomplete="new-password"{{ fi }} data-jc-bind=""{{ if maxlength > 0}} maxlength="{{ maxlength }}"{{ fi }}{{ if autofocus }} autofocus{{ fi }} />{{ fi }}{{ fi }}</div></div>{{ if error }}<div class="{0}-error hidden"><i class="ti ti-warning"></i> {{ error }}</div>{{ fi }}').format(cls));
 	};
 
+	var dirsourceprepare = function(arr) {
+
+		if (!config.dirfilter)
+			return arr;
+
+		var fn = FN(config.dirfilter);
+		var output = [];
+		for (var m of arr) {
+			if (fn(m))
+				output.push(m);
+		}
+
+		return output;
+	};
+
+	var dirsourceread = function() {
+		var arr = GET(self.makepath(config.dirsource));
+		return dirsourceprepare(arr);
+	};
+
 	self.make = function() {
 
 		if (config.innerlabel && config.after)
@@ -302,7 +322,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 
 			var opt = {};
 			opt.element = self.find(cls2 + '-control');
-			opt.items = dirsource || GET(self.makepath(config.dirsource));
+			opt.items = dirsource || dirsourceread();
 			opt.offsetY = -1 + (config.diroffsety || 0);
 			opt.offsetX = 0 + (config.diroffsetx || 0);
 			opt.placeholder = config.dirplaceholder;
@@ -341,11 +361,8 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					if (item)
 						item.selected = typeof(item) === 'object' && item[config.dirvalue] === val;
 				}
-			} else if (config.direxclude) {
-				opt.exclude = function(item) {
-					return item ? item[config.dirvalue] === val : false;
-				};
-			}
+			} else if (config.direxclude)
+				opt.exclude = item => item ? item[config.dirvalue] === val : false;
 
 			opt.callback = function(item, el, custom) {
 
@@ -819,11 +836,11 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					self.bindvalue();
 				} else {
 					if (value.indexOf(',') !== -1) {
-						dirsource = self.parsesource(value);
+						dirsource = dirsourceprepare(self.parsesource(value));
 						self.bindvalue();
 					} else {
 						self.datasource(value, function(path, value) {
-							dirsource = value;
+							dirsource = dirsourceprepare(value);
 							self.bindvalue();
 						});
 					}
@@ -945,7 +962,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					value.setSeconds((tmp[2] || '0').parseInt());
 					break;
 				case 'slug':
-					value = value.slug();	
+					value = value.slug();
 					break;
 			}
 		} else {
