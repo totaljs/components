@@ -296,10 +296,32 @@ COMPONENT('editable', 'disabled:0;class:default', function(self, config, cls) {
 
 						opt.value = val;
 						!opt.save && el.html(typeof(item) === 'string' ? item : item[attr.key]);
+
+						var output = GET(self.find('pre > ui-bind')[0].uibind.path);
+
+						if( typeof(item) === 'object' ) {
+							var itempath = opt.path.split('.')[1] || opt.path;
+							var prevpath = itempath;
+							var spath = prevpath.slice(0,-2)
+							el[0].$editable.path = '';
+
+							if(itempath.slice(-2, itempath.length) === 'id')
+								itempath = itempath.slice(0,-2)
+
+							output[itempath] = item.name || item.id;
+
+							if(output[''])
+								output[spath] = output[''];
+
+							delete output[''];
+
+							SET('{0}'.format(self.find('pre > ui-bind')[0].uibind.path), output, 2);
+							el[0].$editable.path = prevpath;
+						}
+
 						self.approve2(el);
 					}
 				};
-
 				SETTER('directory', 'show', attr);
 
 			} else if (opt.type === 'boolean') {
