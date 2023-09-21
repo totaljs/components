@@ -48,4 +48,4 @@ COMPONENT('uibuilder', 'css:1', function(self, config, cls) {
 		}
 	};
 
-}, ['https://cdn.componentator.com/uibuilder.min@1.js']);
+}, ['<UIBuilder> https://cdn.componentator.com/uibuilder.min@1.js']);
