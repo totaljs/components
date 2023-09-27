@@ -2,6 +2,9 @@ COMPONENT('uibuilder', 'css:1', function(self, config, cls) {
 
 	self.make = function() {
 		self.aclass(cls);
+	};
+
+	self.done = function() {
 		config.url && AJAX('GET ' + config.url, self.load);
 	};
 
@@ -45,4 +48,4 @@ COMPONENT('uibuilder', 'css:1', function(self, config, cls) {
 		}
 	};
 
-}, ['https://cdn.componentator.com/uibuilder.min@1.js']);
+}, ['<UIBuilder> https://cdn.componentator.com/uibuilder.min@1.js']);
