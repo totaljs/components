@@ -6,9 +6,7 @@
 .ui-miniform-animate { transform: scale(1); opacity: 1; }
 .ui-miniform-title { padding: 18px 15px 18px 20px; font-size: 18px; user-select: none; color: #000; background-color: #FFF; border-bottom: 1px solid #E0E0E0; height: 58px; border-radius: var(--radius) var(--radius) 0 0; }
 .ui-miniform-title .ui-miniform-button-close { float: right; cursor: pointer; font-size: 18px; margin: 1px 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; width: 20px; padding: 0; }
-.ui-miniform-title .ui-miniform-button-close i { font-weight: bold; }
 .ui-miniform-title .ui-miniform-button-close:hover { transform: scale(1.1); }
-.ui-miniform-title > span { font-weight: bold; }
 .ui-miniform-title i { margin-right: 7px; }
 .ui-miniform > nav { padding: 0 15px 0; border-top: 1px solid #E0E0E0; background-color: #FFF; border-radius: 0 0 var(--radius) var(--radius); line-height: 65px; height: 65px; display: block; float: none; position: relative; }
 .ui-miniform > nav button { border: 0; margin: 15px 0 0; background-color: #F0F0F0; height: 34px; padding: 0 15px; color: #000; cursor: pointer; font-family: Arial; line-height: 34px; vertical-align: middle; outline: 0; font-size: 14px; text-decoration: none; transition: all 0.3s; float: left; width: 50%; }
@@ -18,7 +16,7 @@
 .ui-miniform > nav button:disabled { background-color: #F5F5F5 !important; border-color: #E0E0E0 !important; color: silver !important; cursor: not-allowed; box-shadow: none; }
 .ui-miniform > nav button:first-child { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
 .ui-miniform > nav button:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
-.ui-miniform > nav button[name='submit'] { font-weight: bold; background-color: var(--color); color: #FFF; }
+.ui-miniform > nav button[name='submit'] { background-color: var(--color); color: #FFF; }
 
 .ui-dark .ui-miniform-container { background-color: rgba(50,50,50,0.9); }
 .ui-dark .ui-miniform { background-color: #202020; }
