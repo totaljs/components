@@ -18,6 +18,7 @@
 .ui-box-title > nav button:first-child { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); border-left: 0; }
 .ui-box-title > nav button:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
 .ui-box-title i { margin-right: 7px; }
+.ui-form-title > span { font-weight: bold; }
 .ui-box > nav { padding: 0 15px 0; border-top: 1px solid #E0E0E0; background-color: #FFF; border-radius: 0 0 3px 3px; line-height: 65px; height: 65px; display: block; float: none; width: 100%; }
 .ui-box > nav button { border: 0; margin: 15px 0 0; background-color: #F0F0F0; height: 34px; padding: 0 20px; color: #000; cursor: pointer; font-family: Arial; line-height: 34px; vertical-align: middle; outline: 0; font-size: 14px; text-decoration: none; transition: all 0.3s; float: left; width: 50%; }
 .ui-box > nav button i { width: 15px; text-align: center; margin-right: 5px; }
@@ -27,7 +28,7 @@
 .ui-box > nav button:disabled i { color: silver !important; }
 .ui-box > nav button:first-child { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
 .ui-box > nav button:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
-.ui-box > nav button[name='submit'] { background-color: var(--color); color: #FFF; }
+.ui-box > nav button[name='submit'] { font-weight: bold; background-color: var(--color); color: #FFF; }
 .ui-box-style-2 .ui-box { border-bottom-right-radius: 0; border-bottom-left-radius: 0; }
 .ui-box-style-3 .ui-box { border-top-right-radius: 0; border-top-left-radius: 0; }
 .ui-box-align-left { margin: 0 auto 0 0; }

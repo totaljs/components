@@ -11,11 +11,12 @@
 .ui-form > nav button { border: 0; margin: 15px 0 0; background-color: #F0F0F0; height: 34px; padding: 0 20px; color: #000; cursor: pointer; font-family: Arial; line-height: 34px; vertical-align: middle; outline: 0; font-size: 14px; text-decoration: none; transition: all 0.3s; float: left; width: 50%; }
 .ui-form > nav button i { width: 15px; text-align: center; margin-right: 5px; }
 .ui-form > nav button:hover { opacity: 0.9; }
+.ui-form-title > span { font-weight: bold; }
 .ui-form > nav button:active { background-color: #D0D0D0; }
 .ui-form > nav button:disabled { background-color: #F5F5F5 !important; border-color: #E0E0E0 !important; color: silver !important; cursor: not-allowed; box-shadow: none; }
 .ui-form > nav button:first-child { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
 .ui-form > nav button:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
-.ui-form > nav button[name='submit'] { background-color: var(--color); color: #FFF; }
+.ui-form > nav button[name='submit'] { font-weight: bold; background-color: var(--color); color: #FFF; }
 
 .ui-dark .ui-form-container { background-color: rgba(50,50,50,0.9); }
 .ui-dark .ui-form { background-color: #202020; }
