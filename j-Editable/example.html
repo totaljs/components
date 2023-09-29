@@ -38,7 +38,7 @@
 				Framework:
 			</div>
 			<div class="col-xs-9">
-				<ui-bind class="editable block" config="html;empty:Choose a framework;change:framework" path="form.frameworkid" data-editable="dirsource:frameworks;"></ui-bind>
+				<ui-bind class="editable block" config="html;empty:Choose a framework;change:renderframework" path="form.frameworkid" data-editable="dirsource:frameworks;"></ui-bind>
 			</div>
 		</div>
 		<div class="row">
@@ -87,19 +87,8 @@
 	form.countries = ['Slovakia', 'Hungary'];
 	form.frameworkid = 0;
 
-
-	function framework(data, path, el, dsource = frameworks) {
-
-		var html = '';
-		if( data == 0 )
-			return el.html(dsource[0].name);
-
-		for(var obj of dsource){
-			if(obj.id === data){
-				html = data.name;
-				return el.html(html);
-			}
-		}
+	function renderframework(value, path, el) {
+		return value ? frameworks.findValue('id', value, 'name', DEF.empty) : DEF.empty;
 	}
 
 </script>
