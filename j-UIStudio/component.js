@@ -29,6 +29,12 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 
 			if (response.url) {
 
+				if (response.url.charAt(0) === '/') {
+					var origin = url.substring(0, url.indexOf('/', 9));
+					if (location.origin.indexOf(origin) === -1)
+						response.url = origin + response.url;
+				}
+
 				if (issame) {
 					if (response.input)
 						setTimeout(response => self.app.input(response.input, response.data), config.inputdelay, response);
