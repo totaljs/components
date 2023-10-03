@@ -367,8 +367,13 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;markers:1;curvedlines:1;horizo
 			for (var j = 0; j < inputs.length; j++) {
 				var com = inputs[j];
 				var instance = self.cache[com.id];
-				var input = instance.inputs ? instance.inputs.find('> .input[data-index="{0}"]'.format(com.index)) : null;
-				if (!input || !self.el.connect(output, input, true, com)) {
+				if (instance) {
+					var input = instance.inputs ? instance.inputs.find('> .input[data-index="{0}"]'.format(com.index)) : null;
+					if (!input || !self.el.connect(output, input, true, com)) {
+						inputs[j] = null;
+						problem = true;
+					}
+				} else {
 					inputs[j] = null;
 					problem = true;
 				}
