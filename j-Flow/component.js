@@ -838,7 +838,7 @@ EXTENSION('flow:operations', function(self, config, cls) {
 			var item = self.connections[index];
 			if (!item)
 				break;
-			if (item.path.parentNode)
+			if (item.path[0].parentNode)
 				index++;
 			else
 				self.connections.splice(index, 1);
