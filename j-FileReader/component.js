@@ -1,3 +1,4 @@
+
 COMPONENT('filereader', function(self) {
 
 	var input;
@@ -23,20 +24,23 @@ COMPONENT('filereader', function(self) {
 			opt.callback = callback;
 
 		if (opt.files) {
-			self.process(files);
+			self.process(opt.files, opt.multiple);
 		} else {
 			input.attr('accept', opt.accept || '*/*').prop('multiple', !!opt.multiple);
 			input.trigger('click');
 		}
 	};
 
-	self.process = function(files) {
+	self.process = function(files, multiple) {
 
 		SETTER('loading/show');
 
 		var arr = [];
-		for (var i = 0; i < files.length; i++)
+		for (var i = 0; i < files.length; i++) {
 			arr.push(i);
+			if (multiple != null && multiple == false)
+				break;
+		}
 
 		arr.wait(function(index, next) {
 			var file = files[index];
