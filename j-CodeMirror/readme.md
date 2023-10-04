@@ -8,7 +8,7 @@ __Configuration__:
 
 - `type {String}` type for syntax highlighting (default: `htmlmixed`)
 - `required {Boolean}` enables "required" (default: `false`)
-- `linernumbers {Boolean}` shows line numbers (default: `false`)
+- `linenumbers {Boolean}` shows line numbers (default: `false`)
 - `icon {String}` icon for label without `fa-` e.g. `home`, `cog`, etc.
 - `height {Number}` control height (default: `200` px)
 - `label {String}` label (default is HTML content)
