@@ -9,12 +9,13 @@ __Methods__:
 	- `opt.multiple {Boolean}` enables multiple files (default: `false`)
 	- `opt.accept {String}` allows only specified content-type (default: `undefined`)
 	- `opt.base64 {Boolean}` reads a file in Base64 encoding (default: `false`)
+	- __NEW__: `opt.files {HTTP File}` reads files
 	- `opt.callback {Function(file)}` a callback
-- `component.process(files)` - internal, processing `files` object`
 
 ```js
 var opt = {};
 opt.accept = 'text/*';
+// opt.files = e.files;
 opt.callback = function(file) {
 	console.log(file);
 };

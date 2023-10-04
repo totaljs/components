@@ -22,13 +22,17 @@ COMPONENT('filereader', function(self) {
 		if (!opt.callback)
 			opt.callback = callback;
 
-		input.attr('accept', opt.accept || '*/*').prop('multiple', !!opt.multiple);
-		input.trigger('click');
+		if (opt.files) {
+			self.process(files);
+		} else {
+			input.attr('accept', opt.accept || '*/*').prop('multiple', !!opt.multiple);
+			input.trigger('click');
+		}
 	};
 
 	self.process = function(files) {
 
-		SETTER('loading', 'show');
+		SETTER('loading/show');
 
 		var arr = [];
 		for (var i = 0; i < files.length; i++)
@@ -53,7 +57,7 @@ COMPONENT('filereader', function(self) {
 				reader.readAsText(file);
 
 		}, function() {
-			SETTER('loading', 'hide', 1000);
+			SETTER('loading/hide', 1000);
 			input[0].value = '';
 		});
 	};
