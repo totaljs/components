@@ -1,7 +1,7 @@
 COMPONENT('console', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
-	var etabs, source ,elogs, current;
+	var etabs, source, elogs, current, clearbtn;
 	var ready = false;
 
 	self.singleton();
@@ -10,15 +10,22 @@ COMPONENT('console', function(self, config, cls) {
 	self.make = function() {
 
 		self.aclass(cls + ' hidden');
-		self.append('<div class="{0}-body"><div class="{0}-tabs"><span class="{0}-close"><i class="ti ti-times"></i></span><div></div></div><div class="{0}-output"></div></div>'.format(cls));
+		self.append('<div class="{0}-body"><div class="{0}-tabs"><span class="{0}-close"><i class="ti ti-times"></i></span><span class="{0}-clear hidden"><i class="ti ti-trash"></i></span><div></div></div><div class="{0}-output"></div></div>'.format(cls));
 
 		etabs = self.find(cls2 + '-tabs > div');
 		elogs = self.find(cls2 + '-output');
+		clearbtn = self.find(cls2 + '-clear');
 
 		self.event('click', cls2 + '-tab', function() {
 			var el = $(this);
 			var id = el.attrd('id');
 			self.show(id);
+		});
+
+		self.event('click', cls2 + '-clear', function() {
+			source[current].items = [];
+			clearbtn.aclass('hidden');
+			elogs.empty();
 		});
 
 		self.event('click', cls2 + '-close', function() {
@@ -74,6 +81,7 @@ COMPONENT('console', function(self, config, cls) {
 
 		elogs.html(builder.join(''));
 		elogs[0].scrollTop = 0;
+		clearbtn.tclass('hidden', !builder.length);
 	};
 
 	self.show = function(id) {
