@@ -8,7 +8,8 @@
 
 __Configuration__:
 
-- `datasource` {String} a path to data-source (learn from example)
+- `datasource {String}` a path to data-source (learn from example)
+- __NEW__ `clear {String}` clear logs, link to the `function(source)`
 
 __Good to know__:
 

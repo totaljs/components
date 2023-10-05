@@ -10,7 +10,7 @@ COMPONENT('console', function(self, config, cls) {
 	self.make = function() {
 
 		self.aclass(cls + ' hidden');
-		self.append('<div class="{0}-body"><div class="{0}-tabs"><span class="{0}-close"><i class="ti ti-times"></i></span><span class="{0}-clear hidden"><i class="ti ti-trash"></i></span><div></div></div><div class="{0}-output"></div></div>'.format(cls));
+		self.append(('<div class="{0}-body"><div class="{0}-tabs"><span class="{0}-close"><i class="ti ti-times"></i></span>' + (config.clear ? '<span class="{0}-clear hidden"><i class="ti ti-trash"></i></span>' : '') + '<div></div></div><div class="{0}-output"></div></div>').format(cls));
 
 		etabs = self.find(cls2 + '-tabs > div');
 		elogs = self.find(cls2 + '-output');
@@ -23,9 +23,7 @@ COMPONENT('console', function(self, config, cls) {
 		});
 
 		self.event('click', cls2 + '-clear', function() {
-			source[current].items = [];
-			clearbtn.aclass('hidden');
-			elogs.empty();
+			config.clear && self.EXEC(config.clear, source[current]);
 		});
 
 		self.event('click', cls2 + '-close', function() {
