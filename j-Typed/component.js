@@ -1,4 +1,4 @@
-COMPONENT('typed', 'typespeed:0;startdelay:0;backspeed:0;smartbackspace:true;shuffle:false;backdelay:700;fadeout:false;fadeoutclass:typed-fade-out;fadeoutdelay:500;loop:false;loopcount:Infinity;showcursor:true;cursorchar:|;autoinsertcss:true;contenttype:html', function(self, config) {
+COMPONENT('typed', 'typespeed:50;startdelay:50;backspeed:0;smartbackspace:true;shuffle:false;backdelay:700;fadeout:false;fadeoutclass:typed-fade-out;fadeoutdelay:500;loop:false;loopcount:Infinity;showcursor:true;cursorchar:|;autoinsertcss:true;contenttype:html', function(self, config) {
 
 	var typed = null;
 	var render = function(value) {
@@ -12,8 +12,11 @@ COMPONENT('typed', 'typespeed:0;startdelay:0;backspeed:0;smartbackspace:true;shu
 		typed && typed.destroy();
 
 		var node = config.selector ? self.find(config.selector)[0] : self.dom;
+		var span = document.createElement('SPAN');
 
-		typed = new W.Typed(node, {
+		$(node).html(span);
+
+		typed = new W.Typed(span, {
 			strings: value,
 			typeSpeed: config.typespeed,
 			startDelay: config.startdelay,
@@ -65,7 +68,7 @@ COMPONENT('typed', 'typespeed:0;startdelay:0;backspeed:0;smartbackspace:true;shu
 
 	self.configure = function(key, value) {
 		if (key === 'text' && value)
-			self.render(value.split('|'));
+			render(value.split('|').trim());
 	};
 
 	self.setter = render;
