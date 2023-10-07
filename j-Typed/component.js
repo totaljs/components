@@ -1,10 +1,9 @@
 COMPONENT('typed', 'typespeed:0;startdelay:0;backspeed:0;smartbackspace:true;shuffle:false;backdelay:700;fadeout:false;fadeoutclass:typed-fade-out;fadeoutdelay:500;loop:false;loopcount:Infinity;showcursor:true;cursorchar:|;autoinsertcss:true;contenttype:html', function(self, config) {
 
-	var typed;
+	var typed = null;
+	var render = function(value) {
 
-	self.setter = function(value) {
-
-		if (!value.length)
+		if (!value || !value.length)
 			return;
 
 		if (!(value instanceof Array))
@@ -14,7 +13,7 @@ COMPONENT('typed', 'typespeed:0;startdelay:0;backspeed:0;smartbackspace:true;shu
 
 		var node = config.selector ? self.find(config.selector)[0] : self.dom;
 
-		typed = new Typed(node, {
+		typed = new W.Typed(node, {
 			strings: value,
 			typeSpeed: config.typespeed,
 			startDelay: config.startdelay,
@@ -63,5 +62,12 @@ COMPONENT('typed', 'typespeed:0;startdelay:0;backspeed:0;smartbackspace:true;shu
 			}
 		});
 	};
+
+	self.configure = function(key, value) {
+		if (key === 'text' && value)
+			self.render(value.split('|'));
+	};
+
+	self.setter = render;
 
 }, ['https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js']);

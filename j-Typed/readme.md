@@ -8,6 +8,7 @@ __Configuration__:
 Config is the same as [typed.js](https://github.com/mattboldt/typed.js#customization). The only difference is that all keys are lowercase. This is to maintain consistency with other components. The only added configuration is `id`
 
 - __NEW__: `selector {String}` can contain a nested element for rendering text
+- __NEW__: `text {String}` in the form `Text 1|Text 2|Text 3|Text N` otherwise text is loaded according to the `path`
 - `typespeed {Number}` in milliseconds (default: `0`)
 - `startdelay {Number}` in milliseconds (default: `0`)
 - `backspeed {Number}` in milliseconds (default: `0`)

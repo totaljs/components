@@ -3,7 +3,9 @@
 	"dateupdated": "2023-10-07T10:19:00.000Z",
 	"name": "j-Typed",
 	"tags": [
-		"jcomponent"
+		"text",
+		"typed",
+		"typewriter"
 	],
 	"color": "transparent",
 	"version": 1,
