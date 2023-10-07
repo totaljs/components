@@ -1,12 +1,6 @@
 COMPONENT('typed', 'typespeed:0;startdelay:0;backspeed:0;smartbackspace:true;shuffle:false;backdelay:700;fadeout:false;fadeoutclass:typed-fade-out;fadeoutdelay:500;loop:false;loopcount:Infinity;showcursor:true;cursorchar:|;autoinsertcss:true;contenttype:html', function(self, config) {
 
 	var typed;
-	var id;
-
-	self.make = function() {
-		id = self.config.id || 'typed' + self.id;
-		self.append('<span id="{0}"></span>'.format(id));
-	};
 
 	self.setter = function(value) {
 
@@ -18,7 +12,9 @@ COMPONENT('typed', 'typespeed:0;startdelay:0;backspeed:0;smartbackspace:true;shu
 
 		typed && typed.destroy();
 
-		typed = new Typed('#{0}'.format(id), {
+		var node = config.selector ? self.find(config.selector)[0] : self.dom;
+
+		typed = new Typed(node, {
 			strings: value,
 			typeSpeed: config.typespeed,
 			startDelay: config.startdelay,
@@ -65,7 +61,6 @@ COMPONENT('typed', 'typespeed:0;startdelay:0;backspeed:0;smartbackspace:true;shu
 			onDestroy: function(typed) {
 				self.emit('typed.onDestroy', typed, self);
 			}
-
 		});
 	};
 
