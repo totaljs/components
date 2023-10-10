@@ -13,6 +13,7 @@ COMPONENT('dropfiles', function(self, config, cls) {
 		is = false;
 		self.rclass(cls + '-visible');
 		config.class && has && self.rclass('over');
+		has && $('body').rclass(cls + '-enabled');
 		has = false;
 		check = null;
 	};
@@ -44,6 +45,7 @@ COMPONENT('dropfiles', function(self, config, cls) {
 		if (e.type === 'dragenter') {
 			is = e.originalEvent.dataTransfer.types.includes('Files');
 			self.tclass(cls + '-visible', is);
+			$('body').tclass(cls + '-enabled', is);
 		}
 
 		if (!is)
