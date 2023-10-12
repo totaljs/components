@@ -20,7 +20,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 
 	Thelpers.ui_directory_helper = function(val) {
 		var t = this;
-		return t.template ? (typeof(t.template) === 'string' ? t.template.indexOf('{{') === -1 ? t.template : Tangular.render(t.template, this) : t.render(this, val)) : self.opt.render ? self.opt.render(this, val) : val;
+		return self.opt.templatecompiled ? self.opt.templatecompiled(this) : t.template ? (typeof(t.template) === 'string' ? t.template.indexOf('{{') === -1 ? t.template : Tangular.render(t.template, this) : t.render(this, val)) : self.opt.render ? self.opt.render(this, val) : val;
 	};
 
 	self.template = Tangular.compile(template);
@@ -411,6 +411,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 		// opt.offsetWidth --> plusWidth
 		// opt.placeholder
 		// opt.render
+		// opt.template
 		// opt.custom
 		// opt.minwidth
 		// opt.maxwidth
@@ -452,6 +453,9 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 				return;
 			}
 		}
+
+		if (opt.template)
+			opt.templatecompiled = Tangular.compile(opt.template);
 
 		self.initializing = true;
 		self.target = el;

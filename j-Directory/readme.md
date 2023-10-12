@@ -41,6 +41,7 @@ Method: `component.show(options)`
 - `options.checked` {Array String} optional, identifiers of checked items
 	- targeted for `options.items {Function(q, next)}`
 	- the callback returns only raw identifiers `Array {String}`
+- __NEW__ `options.template` {String} optional, a custom Tangular template e.g. `{{ name }}` (default: null)
 
 Method: `component.hide()`
 
