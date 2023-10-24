@@ -206,14 +206,12 @@ COMPONENT('inlineproperties', 'close:Close;dateformat:[date];dirsearch:Search;wi
 					value && el.find('span').aclass(value);
 					break;
 				case 'list':
-					if (value) {
-						var items = item.items;
-						if (typeof(items) === 'string')
-							items = GET(items);
-						item.items2 = CLONE(items);
-						var tmp = item.items2.findItem('id', value);
-						el.find(cls2 + '-listclick').html(tmp ? tmp.name : '');
-					}
+					var items = item.items;
+					if (typeof(items) === 'string')
+						items = GET(items);
+					item.items2 = CLONE(items);
+					var tmp = item.items2.findItem('id', value);
+					el.find(cls2 + '-listclick').html(tmp ? tmp.name : '');
 					break;
 				case 'color':
 					value && el.find('span').css('background-color', value);
