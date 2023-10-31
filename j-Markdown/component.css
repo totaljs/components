@@ -39,6 +39,7 @@
 .markdown-block { margin: 0; }
 .markdown-block:last-child { margin-bottom: 15px; }
 .markdown-block > div { padding: 10px 10px 1px; border: 1px solid #E0E0E0; margin: 10px 0; border-radius: var(--radius); }
+.markdown-block > div > *:last-child { margin-bottom: 10px; }
 .markdown-showblock { cursor: pointer; display: block; padding: 3px 0; user-select: none; border-bottom: 1px solid #E0E0E0; }
 .markdown-showblock i { width: 16px; font-size: 12px; padding: 6px 0 0; float: left; }
 .markdown-showblock-visible { border-bottom: 0; }
