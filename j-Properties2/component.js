@@ -317,19 +317,21 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			var t = this;
 
 			if (e.type === 'change')
-				SETTER('!datepicker', 'hide');
+				SETTER('!datepicker/hide');
 
 			if (t.$processed)
 				return;
 
 			var item = self.finditem(t);
-			var val = t.value.parseDate(config.dateformat);
+			var val = t.value ? t.value.parseDate(config.dateformat) : '';
 			item.value = val;
 			item.changed = !item.prev || item.prev.format(config.dateformat) !== val.format(config.dateformat);
 			self.findel(t).tclass(cls + '-changed', item.changed);
+
 			config.change && self.EXEC(config.change, item, function(val) {
 				t.value = val;
 			});
+
 			self.modifyval(item);
 			self.change(true);
 			item.required && self.validate2();
@@ -354,13 +356,17 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			var opt = {};
 			var item = self.finditem(t);
 			opt.element = el.closest(cls2 + '-date').find('input');
-			opt.value = item.value;
+
+			if (item.value)
+				opt.value = item.value.parseDate(config.dateformat);
+
 			opt.callback = function(value) {
 				t.$processed = false;
 				t.value = value.format(config.dateformat);
 				el.trigger('change');
 			};
-			SETTER('datepicker', 'show', opt);
+
+			SETTER('datepicker/show', opt);
 		});
 	};
 	types.date.render = function(item, next) {
