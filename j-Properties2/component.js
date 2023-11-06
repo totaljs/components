@@ -334,7 +334,11 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 			self.modifyval(item);
 			self.change(true);
-			item.required && self.validate2();
+			if (item.required) {
+				item.invalid = item.value instanceof Date ? false : true;
+				self.validate2();
+			}
+
 			t.$processed = true;
 		});
 
@@ -363,6 +367,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			opt.callback = function(value) {
 				t.$processed = false;
 				t.value = value.format(config.dateformat);
+				item.value = value;
 				el.trigger('change');
 			};
 
@@ -678,7 +683,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				self.change(true);
 				item.required && self.validate2();
 			};
-			SETTER('faicons', 'show', opt);
+			SETTER('icons/show', opt);
 		});
 	};
 	types.fontawesome.render = function(item, next) {
