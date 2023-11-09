@@ -386,7 +386,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 			var obj = (items || EMPTYARRAY).findItem('id', val);
 			el.find('label').tclass('hidden', !!obj);
-			el.find(cls2 + '-value').text(obj ? obj.id : '');
+			el.find(cls2 + '-value').text(obj ? obj.name : '');
 		};
 
 		obj.validate = function(val) {
