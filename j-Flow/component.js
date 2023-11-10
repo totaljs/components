@@ -867,7 +867,7 @@ EXTENSION('flow:operations', function(self, config, cls) {
 			return false;
 		}
 
-		if (tmp.actions.remove === false)
+		if (tmp.actions && tmp.actions.remove === false)
 			return false;
 
 		tmp.instance.onremove && tmp.instance.onremove(tmp.el, tmp.instance);
@@ -1591,7 +1591,7 @@ EXTENSION('flow:components', function(self, config) {
 
 		self.op.unselect('connections');
 
-		if (tmp.actions.select !== false) {
+		if (tmp.actions && tmp.actions.select !== false) {
 			var is = ismeta;
 			if (!is)
 				is = target.hclass(clssel);
@@ -1600,7 +1600,7 @@ EXTENSION('flow:components', function(self, config) {
 
 		setTimeout(selectconnections, 5);
 
-		if (tmp.actions.move === false)
+		if (tmp.actions && tmp.actions.move === false)
 			return;
 
 		self.preventreposition = true;
@@ -1757,7 +1757,7 @@ EXTENSION('flow:connections', function(self, config, cls) {
 		var com = target.closest('.component');
 		var tmp = self.cache[com.attrd('id')];
 
-		if (tmp.actions.disabled || tmp.actions.connect === false)
+		if (tmp.actions && (tmp.actions.disabled || tmp.actions.connect === false))
 			return;
 
 		var offset = self.getOffset();
