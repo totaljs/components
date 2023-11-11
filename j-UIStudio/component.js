@@ -1,4 +1,4 @@
-COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cls) {
+COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self, config, cls) {
 
 	self.readonly();
 
@@ -74,6 +74,9 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 						app.breadcrumb = parents;
 						self.app = app;
 						self.app.component = self;
+
+						if (config.title)
+							document.title = data.name + (config.plus ? (' - ' + config.plus) : '');
 
 						// Loads input data
 						if (response.input)
