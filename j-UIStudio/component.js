@@ -80,11 +80,13 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 							setTimeout(response => self.app.input(response.input, response.data), config.inputdelay, response);
 
 						self.app.on('output', function(meta) {
-							if (!meta.processed) {
-								current.output = meta.id;
-								current.data = meta.data;
-								navigate();
-							}
+							setTimeout(function(meta) {
+								if (!meta.processed) {
+									current.output = meta.id;
+									current.data = meta.data;
+									navigate();
+								}
+							}, 10, meta);
 						});
 
 					});
