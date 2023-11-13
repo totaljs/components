@@ -2,6 +2,12 @@ COMPONENT('uibuilder', 'css:1', function(self, config, cls) {
 
 	self.make = function() {
 		self.aclass(cls);
+		var scr = self.find('scr' + 'ipt');
+		if (scr.length > 0) {
+			var meta = PARSE(scr.html());
+			self.empty();
+			self.load(meta);
+		}
 	};
 
 	self.done = function() {
