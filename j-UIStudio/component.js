@@ -29,9 +29,9 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 
 			if (response.url) {
 
-				if (response.url.charAt(0) === '/') {
+				if (response.url.charAt(0) === '/' && (/^http(s):\/\//i).test(url)) {
 					var origin = url.substring(0, url.indexOf('/', 9));
-					if (location.origin.indexOf(origin) === -1)
+					if (origin.charAt(0) !== '/' && location.origin.indexOf(origin) === -1)
 						response.url = origin + response.url;
 				}
 
