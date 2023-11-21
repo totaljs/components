@@ -9,11 +9,10 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 	current.query = NAV.query;
 	current.ssid = config.ssid || NAV.query.ssid;
 
-	var navigate = function() {
+	var navigate = function(url) {
 
 		config.loading && SETTER('loading/show');
 
-		var url = config.url;
 		if (current.ssid)
 			url = QUERIFY(url, { ssid: current.ssid });
 
@@ -105,7 +104,7 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 
 	self.make = function() {
 		self.aclass(cls);
-		navigate();
+		config.url && navigate(config.url);
 	};
 
 	self.destroy = function() {
@@ -113,6 +112,10 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 			self.app.remove();
 			self.app = null;
 		}
+	};
+
+	self.setter = function(value) {
+		value && navigate(value);
 	};
 
 }, ['<UIBuilder> https://cdn.componentator.com/uibuilder.min@1.js']);
