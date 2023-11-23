@@ -71,6 +71,7 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 						config.loading && SETTER('loading/hide', 500);
 
 						app.breadcrumb = parents;
+
 						self.app = app;
 						self.app.component = self;
 
@@ -91,6 +92,7 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 							}, 10, meta);
 						});
 
+						config.onapp && self.EXEC(config.onapp, app);
 					});
 				});
 			} else {
