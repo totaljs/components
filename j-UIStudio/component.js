@@ -129,6 +129,10 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 
 	self.setter = function(value) {
 		if (value) {
+			current = {};
+			current.origin = config.origin || location.origin;
+			current.query = NAV.query;
+			current.ssid = config.ssid || NAV.query.ssid;
 			endpoint = value;
 			navigate();
 		}
