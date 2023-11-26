@@ -180,7 +180,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	};
 
 	types.string.render = function(item, next) {
-		next('<div class="{0}-string{5}"><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pstring"{4} /></div>'.format(cls, item.maxlength, item.placeholder || '', Thelpers.encode(item.value), item.disabled ? ' disabled' : '', item.camouflage ? (' ' + cls + '-camouflage') : ''));
+		next('<div class="{0}-string{5}"><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pstring"{4} /></div>'.format(cls, item.maxlength, item.placeholder || '', Thelpers.encode(item.value), item.disabled ? ' disabled' : '', (item.camouflage ? (' ' + cls + '-camouflage') : '') + (item.monospace ? (' ' + cls + '-monospace') : '')));
 	};
 	types.string.set = function(el, value) {
 		el.find('input').val(value == null ? '' : (value + ''));
@@ -304,7 +304,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		});
 	};
 	types.number.render = function(item, next) {
-		next('<div class="{0}-number"><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pnumber"{4} /></div>'.format(cls, 20, item.placeholder || '', Thelpers.encode((item.value == null ? '' : item.value) + ''), item.disabled ? ' disabled' : ''));
+		next('<div class="{0}-number"><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pnumber{5}"{4} /></div>'.format(cls, 20, item.placeholder || '', Thelpers.encode((item.value == null ? '' : item.value) + ''), item.disabled ? ' disabled' : ''), (item.monospace ? (' ' + cls + '-monospace') : ''));
 	};
 	types.number.set = function(el, value) {
 		el.find('input').val(value == null ? '' : (value + ''));

@@ -51,9 +51,10 @@ __Data properties in data declaration__:
 - `items` {Object Array/String} items for `list` type only, string can contain a path to `Array` or `URL address` to search
 - `show` {Arrow function}, example: `data => data.KEY === 'SOMETHING'` --> will show the item if the condition will valid
 - `icon` {String} Total icon, can contain a color e.g. `ti ti-home #00000`
-- __NEW__ `ricon` {String} Right Font-Awesome icon or text e.g. `!HTML text`
-- __NEW__ `riconclick` {String} a path to the method `function(item, set(new_val))`
-- __NEW__ `camouflage` {Boolean} only for `string` type
+- `ricon` {String} Right Font-Awesome icon or text e.g. `!HTML text`
+- `riconclick` {String} a path to the method `function(item, set(new_val))`
+- `camouflage` {Boolean} only for `string` type
+- `monospace` {Boolean} it uses a monospace font
 
 __Allowed types in data__:
 
