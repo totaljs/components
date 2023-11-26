@@ -10,6 +10,7 @@ __Configuration__:
 - `title {Boolean}` optional, rewrites `document.title` by the app name
 - `plus {String}` optional, it works only with `title:true` and it adds `title - config.plus`
 - `onmeta {String}` optional, a link to the `function(app)`
+- `origin {String}` optional
 
 __Properties__:
 
