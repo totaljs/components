@@ -4,14 +4,20 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 
 	var current = {};
 	var parents = [];
+	var endpoint;
 
 	current.origin = config.origin || location.origin;
 	current.query = NAV.query;
 	current.ssid = config.ssid || NAV.query.ssid;
 
-	var navigate = function(url) {
+	var navigate = function() {
 
 		config.loading && SETTER('loading/show');
+
+		var url = endpoint;
+
+		if (url.charAt(0) === '/')
+			url = (config.origin || location.origin) + url;
 
 		if (current.ssid)
 			url = QUERIFY(url, { ssid: current.ssid });
@@ -110,7 +116,8 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 
 	self.make = function() {
 		self.aclass(cls);
-		config.url && navigate(config.url);
+		endpoint = config.url;
+		endpoint && navigate();
 	};
 
 	self.destroy = function() {
@@ -121,7 +128,10 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 	};
 
 	self.setter = function(value) {
-		value && navigate(value);
+		if (value) {
+			endpoint = value;
+			navigate();
+		}
 	};
 
 }, ['<UIBuilder> https://cdn.componentator.com/uibuilder.min@1.js']);
