@@ -5,7 +5,7 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 	var current = {};
 	var parents = [];
 
-	current.origin = location.origin;
+	current.origin = config.origin || location.origin;
 	current.query = NAV.query;
 	current.ssid = config.ssid || NAV.query.ssid;
 
