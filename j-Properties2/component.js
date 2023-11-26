@@ -47,9 +47,16 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			var item = index >= 0 ? arr[index] : null;
 			if (item && item.riconclick) {
 				item.element = el;
-				self.EXEC(item.riconclick, item, function(val) {
-					types[item.type].set(el, val, item);
-				});
+				item.value = values[item.id];
+				if (typeof(item.riconclick) === 'function') {
+					item.riconclick(item, function(val) {
+						types[item.type].set(el, val, item);
+					});
+				} else {
+					self.EXEC(item.riconclick, item, function(val) {
+						types[item.type].set(el, val, item);
+					});
+				}
 			}
 		});
 
