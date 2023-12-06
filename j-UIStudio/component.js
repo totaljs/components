@@ -32,6 +32,9 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 
 			var issame = current.id === response.id;
 
+			response.iscurrent = issame;
+			config.onmeta && self.SEEX(config.onmeta, response);
+
 			if (response.url) {
 
 				if (response.url.charAt(0) === '/') {
