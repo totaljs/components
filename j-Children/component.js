@@ -85,7 +85,7 @@ COMPONENT('children', function(self, config, cls) {
 
 		self.update();
 		self.change(true);
-		config.change && self.SEEX(config.change, arr);
+		config.onchange && self.SEEX(config.onchange, arr);
 	};
 
 	self.finditem = function(id, items) {

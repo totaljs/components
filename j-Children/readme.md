@@ -5,7 +5,7 @@ The component renders draggable items as a tree without the possibility of colla
 __Configuration__:
 
 - `empty {String}` an empty text (default: `null`)
-- `change {String}` optional, a link to the `function(arr)` - captures items when resorted
+- `onchange {String}` optional, a link to the `function(arr)` - captures items when resorted
 
 __Template__:
 
