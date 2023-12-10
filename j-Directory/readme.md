@@ -47,7 +47,7 @@ Method: `component.hide()`
 
 __Configuration__:
 - `placeholder` - a placeholder for the search input
-- `Create` - a placeholder for `Create` label (default: `Create`)
+- `create` - a placeholder for `Create` label (default: `Create`)
 
 __Supported item fields__:
 
