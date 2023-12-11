@@ -496,6 +496,9 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 
 		String.prototype.markdown = function(opt, nested) {
 
+			if (opt instanceof jQuery)
+				opt = { element: opt };
+
 			// opt.wrap = true;
 			// opt.linetag = 'p';
 			// opt.ul = true;
