@@ -122,12 +122,12 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/;key:name', funct
 			}
 		});
 
-		self.on('resize', self.resize);
+		self.on('resize + resize2', self.resize);
 		setTimeout(self.resize, 500);
 	};
 
 	self.resize = function() {
-		var el = config.parent === 'window' ? $(W) : config.parent ? self.closest(config.parent) : self.element;
+		var el = self.parent(config.parent);
 		if (self.scrollbar) {
 			self.scrollbar.element.css('height', el.height() - epath.height() - (config.margin || 0));
 			self.scrollbar.resize();
