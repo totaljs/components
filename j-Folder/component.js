@@ -219,8 +219,8 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/;key:name', funct
 
 	self.setter = function(value) {
 		// value === path
-		value = self.tidypath(value);
-		self.renderpath(value || '');
+		value = self.tidypath(value || '');
+		self.renderpath(value);
 		config.browse && self.EXEC(config.browse, self.makepath(value), self.renderitems, self.opt.selected);
 		self.resize();
 		self.opt.selected = null;
