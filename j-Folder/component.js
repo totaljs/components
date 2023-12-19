@@ -86,13 +86,13 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/;key:name', funct
 				arr.push(path[i]);
 			self.opt.selected = null;
 			path = arr.join(config.delimiter).trim();
-			self.set(path ? self.makepath(path) : '');
+			self.set(path ? self.patcher(path) : '');
 		});
 
 		self.event('click', cls2 + '-nav', function(e) {
 			e.stopPropagation();
 			var el = $(this);
-			self.set(self.makepath(el.attrd('path').trim()));
+			self.set(self.patcher(el.attrd('path').trim()));
 		});
 
 		self.event('click', cls2 + '-checkbox', function(e) {
@@ -112,7 +112,7 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/;key:name', funct
 			if (el.hclass(cls + '-folder')) {
 				item = self.opt.selected = self.opt.items[index];
 				var p = self.get();
-				self.set(p ? self.makepath(p + config.delimiter + item[config.key]) : self.makepath(item[config.key]));
+				self.set(p ? self.patcher(p + config.delimiter + item[config.key]) : self.patcher(item[config.key]));
 			} else if (el.hclass(cls + '-file')) {
 				var c = cls + '-selected';
 				item = self.opt.selected = self.opt.items[index];
@@ -209,7 +209,7 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/;key:name', funct
 		self.scrollbar && self.scrolltop(1);
 	};
 
-	self.makepath = function(path) {
+	self.patcher = function(path) {
 		return !path || path.charAt(0) === config.delimiter ? path.substring(1, path.length - 1) : path;
 	};
 
@@ -221,7 +221,7 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/;key:name', funct
 		// value === path
 		value = self.tidypath(value || '');
 		self.renderpath(value);
-		config.browse && self.EXEC(config.browse, self.makepath(value), self.renderitems, self.opt.selected);
+		config.browse && self.EXEC(config.browse, self.patcher(value), self.renderitems, self.opt.selected);
 		self.resize();
 		self.opt.selected = null;
 	};
