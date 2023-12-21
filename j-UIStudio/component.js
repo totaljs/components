@@ -80,10 +80,10 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 					data.ssid = data.query.ssid || current.ssid;
 					data.openplatform = data.query.openplatform;
 
-					UIBuilder.build(self.element, data, function(app) {
+					if (breadcrumb)
+						breadcrumb.name = data.name;
 
-						if (breadcrumb)
-							breadcrumb.name = app.name;
+					UIBuilder.build(self.element, data, function(app) {
 
 						config.loading && SETTER('loading/hide', 500);
 
