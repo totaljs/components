@@ -31,6 +31,7 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 			// response.url
 
 			var issame = current.id === response.id;
+			var breadcrumb = null;
 
 			response.iscurrent = issame;
 			config.onmeta && self.SEEX(config.onmeta, response);
@@ -53,7 +54,7 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 					SETTER('loading/hide', 500);
 					return;
 				} else {
-					var breadcrumb = CLONE(current);
+					breadcrumb = CLONE(current);
 					breadcrumb.navigate = function() {
 						current = this;
 						navigate();
@@ -80,6 +81,9 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 					data.openplatform = data.query.openplatform;
 
 					UIBuilder.build(self.element, data, function(app) {
+
+						if (breadcrumb)
+							breadcrumb.name = app.name;
 
 						config.loading && SETTER('loading/hide', 500);
 
