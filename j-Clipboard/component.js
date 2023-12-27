@@ -10,6 +10,7 @@ COMPONENT('clipboard', function(self, config, cls) {
 		if (navigator.clipboard && W.isSecureContext && window.self === window.top) {
 			self.copy = function(value) {
 				navigator.clipboard.writeText(value).catch(err => console.error(err));
+				config.oncopy && self.EXEC(config.oncopy, value);
 			};
 		} else {
 			var id = 'clipboard' + self.id;
@@ -21,6 +22,7 @@ COMPONENT('clipboard', function(self, config, cls) {
 				container.select();
 				document.execCommand('copy');
 				container.blur();
+				config.oncopy && self.EXEC(config.oncopy, value);
 			};
 		}
 	};
