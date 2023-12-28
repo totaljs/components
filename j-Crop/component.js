@@ -87,7 +87,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 		ctx2.drawImage(img, current.x || 0, current.y || 0, w, h);
 
 		var t = type || (!config.background && self.isTransparent(canvas2) ? 'image/png' : 'image/jpeg');
-		self.filename = (filename || ('image' + Date.now().toString(36))).replace(/\.[a-z]+$/i, '') + (t.indexOf('png') === -1 ? '.jpg' : '.png');
+		self.filename = (filename || ('image' + (new Date()).format('yyyy-MM-dd_HHmmss'))).replace(/\.[a-z]+$/i, '') + (t.indexOf('png') === -1 ? '.jpg' : '.png');
 		var data = canvas2.toDataURL(t);
 		return returnobj ? { filename: self.filename, data: data } : data;
 	};
