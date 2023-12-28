@@ -311,5 +311,7 @@
 	"j-Printer",
 	"j-SVGIcons",
 	"j-iFrame",
-	"j-DrawZone"
+	"j-DrawZone",
+	"j-UIEditor",
+	"j-FlowEditor"
 ]
