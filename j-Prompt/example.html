@@ -1,0 +1,24 @@
+<ui-component name="prompt"></ui-component>
+
+<script>
+	setTimeout(function() {
+		var opt = {};
+		opt.name = 'Folder name';
+		opt.summary = 'Enter a folder name for your documents:';
+		opt.value = '';
+
+		opt.callback = function(val) {
+			console.log('Returned', val);
+		};
+
+		opt.cancel = function(val) {
+			console.log('Canceled', val);
+		};
+
+		opt.hide = function() {
+			console.log('Hidden');
+		};
+
+		SETTER('prompt/show', opt);
+	}, 1000);
+</script>

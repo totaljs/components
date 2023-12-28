@@ -313,5 +313,6 @@
 	"j-iFrame",
 	"j-DrawZone",
 	"j-UIEditor",
-	"j-FlowEditor"
+	"j-FlowEditor",
+	"j-Prompt"
 ]
