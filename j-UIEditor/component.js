@@ -33,6 +33,7 @@ COMPONENT('uieditor', 'url:https://uibuilder.totaljs.com;margin:0;zindex:30;left
 				case 'close':
 					setTimeout(self.hide, 200);
 					meta.close && meta.close();
+					config.onclose && self.EXEC(config.onclose, data.data);
 					break;
 				case 'ready':
 					var msg = { TYPE: 'init', data: meta.data, upload: meta.upload, groups: meta.groups, apps: meta.apps, views: meta.views, uibuilder: 1 };
@@ -40,12 +41,15 @@ COMPONENT('uieditor', 'url:https://uibuilder.totaljs.com;margin:0;zindex:30;left
 					break;
 				case 'save':
 					meta.save && meta.save(data.data);
+					config.onsave && self.EXEC(config.onsave, data.data);
 					break;
 				case 'publish':
 					meta.publish && meta.publish(data.data);
+					config.onpublish && self.EXEC(config.onpublish, data.data);
 					break;
 				case 'render':
 					meta.render && meta.render(data.data);
+					config.onrender && self.EXEC(config.onrender, data.data);
 					break;
 			}
 		});

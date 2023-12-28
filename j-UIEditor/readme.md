@@ -13,6 +13,9 @@ __Configuration__:
 - `bottom {Number}` default: `0`
 - `zindex {Number}` default: `30`
 - `language {String}` default: `eu` (english)
+- `onsave {String}` optional, a link to `function(data)`
+- `onpublish {String}` optional, a link to `function(data)`
+- `onrender {String}` optional, a link to `function(data)`
 
 __Model__:
 
