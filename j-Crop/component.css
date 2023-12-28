@@ -1,7 +1,7 @@
 .ui-crop { text-align: center; padding: 40px 0 60px; background-color: #FFFFF5; position: relative; width: 100%; user-select: none; }
 .ui-crop canvas { cursor: crosshair; border: 1px solid #4285F4; }
 .ui-crop-dragdrop canvas { border: 1px dashed red !important; }
-.ui-crop ul { position:absolute; list-style-type: none; margin: 0; padding: 0; left: 50%; margin-left: -50px; bottom: 18px; width: 120px; color: #FFF; text-align: center; }
+.ui-crop ul { position: absolute; list-style-type: none; margin: 0; padding: 0; left: 50%; margin-left: -100px; bottom: 18px; width: 200px; color: #FFF; text-align: center; }
 .ui-crop ul li { font-size: 12px; padding: 3px 0; width: 25px; margin-left: 5px; position: relative; display: inline-block; cursor: pointer; text-align: center; background-color: var(--color); line-height: 20px; border-radius: var(--radius); user-select: none; }
 .ui-crop ul li:first-child { border-left: 0; margin-left: 0; }
 .ui-crop ul li:hover { opacity: 0.9;}

@@ -11,6 +11,8 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 	var width = 0;
 	var filename;
 
+	self.samesize = '';
+
 	// self.bindvisible();
 	self.novalidate();
 	self.nocompile && self.nocompile();
@@ -24,6 +26,8 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 
 		var width = config.width;
 		var height = config.height;
+
+		self.samesize = img.width === width && img.height === height && img.src.substring(0, 5) !== 'data:' ? $(img).attr('src') : '';
 
 		var nw = (img.width / 2);
 		var nh = (img.height / 2);
@@ -83,7 +87,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 		ctx2.drawImage(img, current.x || 0, current.y || 0, w, h);
 
 		var t = type || (!config.background && self.isTransparent(canvas2) ? 'image/png' : 'image/jpeg');
-		self.filename = filename.replace(/\.[a-z]+$/i, '') + (t.indexOf('png') === -1 ? '.jpg' : '.png');
+		self.filename = (filename || ('image' + Date.now().toString(36))).replace(/\.[a-z]+$/i, '') + (t.indexOf('png') === -1 ? '.jpg' : '.png');
 		var data = canvas2.toDataURL(t);
 		return returnobj ? { filename: self.filename, data: data } : data;
 	};
@@ -91,10 +95,16 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 	self.make = function() {
 
 		self.aclass(cls);
-		self.append('<input type="file" style="display:none" accept="image/*" /><ul><li data-type="upload"><span class="ti ti-folder"></span></li><li data-type="plus"><span class="ti ti-plus"></span></li><li data-type="refresh"><span class="ti ti-redo"></span></li><li data-type="minus"><span class="ti ti-minus"></span></li></ul><canvas></canvas>');
+		self.append(('<input type="file" style="display:none" accept="image/*" /><ul>' + (config.browse ? '<li data-type="browse"><span class="ti ti-folder"></span></li>' : '') + '<li data-type="upload"><span class="ti ti-upload"></span></li><li data-type="plus"><span class="ti ti-plus"></span></li><li data-type="refresh"><span class="ti ti-redo"></span></li><li data-type="minus"><span class="ti ti-minus"></span></li></ul><canvas></canvas>'));
 
 		canvas = self.find('canvas')[0];
 		context = canvas.getContext('2d');
+
+		context.mozImageSmoothingEnabled = true;
+		context.imageSmoothingQuality = 'low';
+		context.webkitImageSmoothingEnable = true;
+		context.msImageSmoothingEnabled = true;
+		context.imageSmoothingEnabled = true;
 
 		self.event('click', 'li', function(e) {
 
@@ -107,12 +117,19 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 				case 'upload':
 					self.find('input').trigger('click');
 					break;
+				case 'browse':
+					self.EXEC(config.browse, function(url) {
+						img.src = url;
+						self.change(true);
+					});
+					break;
 				case 'plus':
 					zoom += 3;
 					if (zoom > 300)
 						zoom = 300;
 					current.x -= 3;
 					current.y -= 3;
+					self.samesize = '';
 					self.redraw();
 					break;
 				case 'minus':
@@ -121,6 +138,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 						zoom = 3;
 					current.x += 3;
 					current.y += 3;
+					self.samesize = '';
 					self.redraw();
 					break;
 				case 'refresh':
@@ -148,6 +166,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 			var y = e.clientY - rect.top;
 			offset.x = x - current.x;
 			offset.y = y - current.y;
+			self.samesize = '';
 		});
 
 		config.dragdrop && $(canvas).on('dragenter dragover dragexit drop dragleave', function (e) {
@@ -216,6 +235,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 			var y = e.clientY - rect.top;
 			current.x = x - offset.x;
 			current.y = y - offset.y;
+			self.samesize = '';
 			self.redraw();
 		});
 	};
