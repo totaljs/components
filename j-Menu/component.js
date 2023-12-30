@@ -204,7 +204,9 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 			return;
 		}
 
-		var tmp;
+		var target = opt.element ? $(opt.element) : null;
+		if (target && HIDDEN(target))
+			return;
 
 		self.target = tmp;
 		self.opt = opt;
@@ -219,9 +221,8 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 
 		self.tclass('ui-large', opt.large == true);
 
-		if (!opt.nomobile) {
+		if (!opt.nomobile)
 			self.find('{0}'.format(cls2)).aclass('{0}-mobile'.format(cls));
-		}
 
 		issubmenu = false;
 		prevsub = null;
@@ -249,7 +250,6 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 				self.bindevents();
 		}
 
-		var target = $(opt.element);
 		var plusW = opt.offsetWidth || 0;
 
 		if (opt.fixedwidth) {
