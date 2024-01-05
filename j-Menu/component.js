@@ -260,9 +260,9 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 			container.css({ 'max-width': '', width: '' });
 
 		var w = container.width();
-		var offset = target.offset();
 
 		if (opt.element) {
+			var offset = target.offset();
 			switch (opt.align) {
 				case 'center':
 					css.left = Math.ceil((offset.left - w / 2) + (target.innerWidth() / 2));
