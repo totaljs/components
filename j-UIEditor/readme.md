@@ -16,6 +16,7 @@ __Configuration__:
 - `onsave {String}` optional, a link to `function(data)`
 - `onpublish {String}` optional, a link to `function(data)`
 - `onrender {String}` optional, a link to `function(data)`
+- `closebutton {Boolean}` default: `true`
 
 __Model__:
 

@@ -1,4 +1,4 @@
-COMPONENT('floweditor', 'left:1;top:1;margin:0;right:0;bottom:0;zindex:30;language:eu;url:https://flow.totaljs.com', function(self, config, cls) {
+COMPONENT('floweditor', 'left:1;top:1;margin:0;right:0;bottom:0;zindex:30;language:eu;url:https://flow.totaljs.com;closebutton:1', function(self, config, cls) {
 
 	var self = this;
 	var iframe;
@@ -66,7 +66,7 @@ COMPONENT('floweditor', 'left:1;top:1;margin:0;right:0;bottom:0;zindex:30;langua
 		}
 
 		iframe && self.find('iframe').remove();
-		self.append('<iframe src="{0}&hideclose=0&language={1}&darkmode={2}" scrolling="no" frameborder="0" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *"></iframe>'.format(config.url + '/?socket=' + encodeURIComponent(value), config.language, $('body').hclass('ui-dark') ? 1 : 0));
+		self.append('<iframe src="{0}&language={1}&darkmode={2}&hideclose={3}" scrolling="no" frameborder="0" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *"></iframe>'.format(config.url + '/?socket=' + encodeURIComponent(value), config.language, $('body').hclass('ui-dark') ? 1 : 0, config.closebutton ? '0' : '1'));
 		iframe = self.find('iframe')[0];
 		self.resize();
 		self.rclass('hidden');

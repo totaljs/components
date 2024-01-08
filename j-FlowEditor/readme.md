@@ -13,6 +13,7 @@ __Configuration__:
 - `bottom {Number}` default: `0`
 - `zindex {Number}` default: `30`
 - `language {String}` default: `eu` (english)
+- `closebutton {Boolean}` default: `true`
 
 __Model__:
 
