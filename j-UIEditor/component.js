@@ -68,7 +68,7 @@ COMPONENT('uieditor', 'url:https://uibuilder.totaljs.com;margin:0;zindex:30;left
 		iframe && self.find('iframe').remove();
 		var url = config.url;
 		url += url.indexOf('?') === -1 ? '?' : '&';
-		self.append('<iframe src="{0}language={1}&darkmode={2}&hideclose={3}" scrolling="no" frameborder="0" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *"></iframe>'.format(url, config.language, $('body').hclass('ui-dark') ? 1 : 0, config.closebutton ? '0' : '1'));
+		self.append('<iframe src="{0}language={1}&darkmode={2}&hideclose={3}" scrolling="no" frameborder="0"></iframe>'.format(url, config.language, $('body').hclass('ui-dark') ? 1 : 0, config.closebutton ? '0' : '1'));
 		iframe = self.find('iframe')[0];
 		self.resize();
 		self.rclass('hidden');
