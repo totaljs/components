@@ -94,9 +94,10 @@ COMPONENT('exec', function(self, config) {
 								var method = attr.substring(index + 1).trim();
 								if (method) {
 									var fn = scope.plugin[method];
-									if (fn)
+									if (fn) {
+										M.caller(scope.path);
 										fn.call(scope.plugin, el, e);
-									else
+									} else
 										WARN('The method "{0}" not found'.format(attr));
 									return;
 								}
