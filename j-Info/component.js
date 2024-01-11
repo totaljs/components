@@ -144,7 +144,7 @@ COMPONENT('info', function(self, config, cls) {
 		options.left = opt.x || offset.left;
 		options.left = (opt.align === 'half' ? Math.ceil(options.left - (width / 2)) : opt.align === 'center' ? Math.ceil(options.left - ((width / 2) - (tw / 2))) : opt.align === 'left' ? options.left - 8 : (options.left - width) + tw) + (opt.offsetX || 0);
 
-		options.top = opt.y || offset.opt;
+		options.top = opt.y || offset.top;
 		options.top = (opt.position === 'bottom' ? (options.top - self.element.height() - 10) : (options.top + th + 10)) + (opt.offsetY || 0);
 
 		var sum = options.left + width;
