@@ -12,11 +12,11 @@ __Configuration__:
 
 __Methods__:
 
-- `component.show(message, approve_button_label, [cancel_button_label], callback)`
+- `component.show(message, approve_button_label, [cancel_button_label], callback, [callback_cancel])`
 
 __Usage__:
 
-```javascript
+```js
 SETTER('approve/show', message, 'Yes', function() {
 
 });
