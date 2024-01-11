@@ -20,8 +20,8 @@ __Show options__:
 - `opt.class` {String} a custom class name
 - `opt.closeclick` {Boolean} closes info when user performs mouse click (default: `false`)
 - __NEW__ `opt.position` {String} position `top` (default) or `bottom`
-- __NEW__ `opt.x` {Number} enables absolute position (must be declared with `opt.y`)
-- __NEW__ `opt.y` {Number} enables absolute position (must be declared with `opt.x`)
+- __NEW__ `opt.x` {Number} enables absolute position (`opt.y` is not required)
+- __NEW__ `opt.y` {Number} enables absolute position (`opt.x` is not required)
 
 ```javascript
 var opt = {};
