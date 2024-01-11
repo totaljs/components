@@ -29,6 +29,26 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 			// response.data
 			// response.query
 			// response.url
+			// response.exec
+
+			if (response.exec) {
+				config.loading && SETTER('loading/hide', 500);
+				var tmp = {};
+				tmp.id = response.id;
+				tmp.app = self.app;
+				tmp.data = response.data;
+				tmp.parent = response.parent;
+				tmp.query = response.query;
+				tmp.element = self.element;
+				tmp.output = function(id, data) {
+					current.id = tmp.id;
+					current.output = id;
+					current.data = data == undefined ? tmp.data : data;
+					navigate();
+				};
+				new Function('instance', response.exec)(tmp);
+				return;
+			}
 
 			var issame = current.id === response.id;
 			var breadcrumb = null;
