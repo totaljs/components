@@ -19,6 +19,7 @@ __Configuration__:
 - `drop {String}` optional, a path to method which will be executed if a file will be drag&dropped
 - `key {String}` optional, a key name for creating of path (default: `name`)
 - `raw {Boolean}` optional, disables HTML encoding `name` (default: `false`)
+- __NEW__: `contextmenu {String}` optional, a path to method `function(item, el, e)` (when a user displays the context menu)
 
 ```js
 function fn_browser(path, next, item) {

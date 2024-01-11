@@ -32,12 +32,13 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/;key:name', funct
 	};
 
 	self.make = function() {
+
 		self.aclass(cls);
 		self.append('<div class="{0}-path"></div><div class="{0}-scrollbar"><div class="{0}-items"></div></div>'.format(cls));
 		epath = self.find(cls2 + '-path');
 		eitems = self.find(cls2 + '-items');
 
-		if (config.scrollbar && window.SCROLLBAR) {
+		if (config.scrollbar && W.SCROLLBAR) {
 			self.scrollbar = SCROLLBAR(self.find(cls2 + '-scrollbar'), { visibleY: !!config.scrollbarY });
 			self.scrollleft = self.scrollbar.scrollLeft;
 			self.scrolltop = self.scrollbar.scrollTop;
@@ -69,6 +70,16 @@ COMPONENT('folder', 'up:..;root:Root;scrollbar:true;delimiter:/;key:name', funct
 			}
 			e.preventDefault();
 		});
+
+		if (config.contextmenu) {
+			self.event('contextmenu', cls2 + '-item', function(e) {
+				e.stopPropagation();
+				e.preventDefault();
+				var el = $(this);
+				var index = +el.closest(cls2 + '-item').attrd('index');
+				config.contextmenu && self.EXEC(config.contextmenu, self.opt.items[index], el, e);
+			});
+		}
 
 		self.event('click', cls2 + '-item-options', function(e) {
 			e.stopPropagation();
