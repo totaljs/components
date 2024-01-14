@@ -102,7 +102,7 @@ COMPONENT('imageviewer', 'selector:.img-viewer;container:.img-container;loading:
 
 	self.show = function(el) {
 
-		if (isrendering || el == null || isclosed)
+		if (isrendering || el == null || isclosed || WIDTH() === 'xs')
 			return;
 
 		var parent = el.closest(config.container);
