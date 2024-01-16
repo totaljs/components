@@ -137,7 +137,7 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false;flowoutput:1', 
 
 						self.app.on('output', function(meta) {
 
-							if (config.flowoutput && meta.component !== 'flowoutput')
+							if (config.flowoutput && meta.componentid !== 'flowoutput')
 								return;
 
 							setTimeout(function(meta) {
