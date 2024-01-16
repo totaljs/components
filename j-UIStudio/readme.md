@@ -12,6 +12,8 @@ __Configuration__:
 - `onmeta {String}` optional, a link to the `function(meta)` captures a meta data
 - `onapp {String}` optional, a link to the `function(app)` captures a new UI design
 - `origin {String}` optional
+- `onrequest {String}` optional, a link to the `function(payload)` can modify request data
+- `flowoutput {Boolean}` optional, enables outputs only from FlowOutput component (default: `true`)
 
 __Properties__:
 

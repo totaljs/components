@@ -1,4 +1,4 @@
-COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self, config, cls) {
+COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false;flowoutput:1', function(self, config, cls) {
 
 	self.readonly();
 
@@ -22,6 +22,8 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 
 		if (current.ssid)
 			url = QUERIFY(url, { ssid: current.ssid });
+
+		config.onrequest && self.EXEC(config.onrequest, current);
 
 		AJAX('POST {0} ERROR'.format(url), current, function(response) {
 
@@ -134,12 +136,18 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 							setTimeout(response => self.app.input(response.input, response.data), config.inputdelay, response);
 
 						self.app.on('output', function(meta) {
+
+							if (config.flowoutput && meta.component !== 'flowoutput')
+								return;
+
 							setTimeout(function(meta) {
+
 								if (!meta.processed) {
 									current.output = meta.id;
 									current.data = meta.data;
 									navigate();
 								}
+
 							}, 10, meta);
 						});
 
