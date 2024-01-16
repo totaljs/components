@@ -167,7 +167,7 @@ __Good to know__:
 
 __How to extend a class of row?__
 
-- look to the `{{ if active` line, it extends a class of row by adding `dg-active-class` if the `active` will be valid
+- look to the `{{ if active }}` line, it extends a class of row by adding `dg-active-class` if the `active` will be valid
 
 ```javascript
 [
@@ -180,7 +180,7 @@ __How to extend a class of row?__
 __Multiple schemas__:
 
 ```html
-<div data---="datagrid__obj">
+<div name="datagrid" path="obj">
 
 	<script type="text/plain" data-id="SCHEMA_A">
 		[
