@@ -1,4 +1,4 @@
-COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self, config, cls) {
+	COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self, config, cls) {
 
 	self.readonly();
 
@@ -23,6 +23,11 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self
 			url = QUERIFY(url, { ssid: current.ssid });
 
 		AJAX('POST {0} ERROR'.format(url), current, function(response) {
+
+			if (!response.id) {
+				// end
+				return;
+			}
 
 			// response.id
 			// response.parent
