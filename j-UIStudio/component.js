@@ -26,6 +26,7 @@
 
 			if (!response.id) {
 				// end
+				config.loading && SETTER('loading/hide', 500);
 				return;
 			}
 
