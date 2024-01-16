@@ -1,7 +1,8 @@
-	COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self, config, cls) {
+COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false', function(self, config, cls) {
 
 	self.readonly();
 
+	var cachecurrent = null;
 	var current = {};
 	var parents = [];
 	var endpoint;
@@ -25,7 +26,12 @@
 		AJAX('POST {0} ERROR'.format(url), current, function(response) {
 
 			if (!response.id) {
-				// end
+
+				if (cachecurrent) {
+					current = cachecurrent;
+					cachecurrent = null;
+				}
+
 				config.loading && SETTER('loading/hide', 500);
 				return;
 			}
@@ -36,6 +42,8 @@
 			// response.query
 			// response.url
 			// response.exec
+
+			cachecurrent = CLONE(current);
 
 			if (response.exec) {
 				config.loading && SETTER('loading/hide', 500);
