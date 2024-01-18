@@ -440,8 +440,8 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:-1', function(self
 		});
 
 		self.find(cls2 + '-now').on('click', function() {
-			self.setdate(new Date());
-			self.hide();
+			current = new Date();
+			self.date(current, true);
 		});
 
 		self.find(cls2 + '-clear').on('click', function() {
