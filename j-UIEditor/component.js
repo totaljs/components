@@ -36,7 +36,7 @@ COMPONENT('uieditor', 'url:https://uibuilder.totaljs.com;margin:0;zindex:30;left
 					config.onclose && self.EXEC(config.onclose, data.data);
 					break;
 				case 'ready':
-					var msg = { TYPE: 'init', data: meta.data, upload: meta.upload, groups: meta.groups, apps: meta.apps, paths: meta.paths, views: meta.views, uibuilder: 1 };
+					var msg = { TYPE: 'init', data: meta.data, upload: config.upload ? (/^http(s):/i).test(config.upload) ? config.upload : true : null, groups: meta.groups, apps: meta.apps, paths: meta.paths, views: meta.views, uibuilder: 1 };
 					iframe.contentWindow.postMessage(STRINGIFY(msg), '*');
 					break;
 				case 'save':
@@ -50,6 +50,12 @@ COMPONENT('uieditor', 'url:https://uibuilder.totaljs.com;margin:0;zindex:30;left
 				case 'render':
 					meta.render && meta.render(data.data);
 					config.onrender && self.EXEC(config.onrender, data.data);
+					break;
+				case 'upload':
+					self.EXEC(config.upload, data.data, function(response) {
+						var msg = { TYPE: 'callback', data: response, id: data.callbackid, uibuilder: 1 };
+						iframe.contentWindow.postMessage(STRINGIFY(msg), '*');
+					});
 					break;
 			}
 		});
