@@ -180,7 +180,7 @@ __How to extend a class of row?__
 __Multiple schemas__:
 
 ```html
-<div name="datagrid" path="obj">
+<ui-component name="datagrid" path="obj">
 
 	<script type="text/plain" data-id="SCHEMA_A">
 		[
@@ -196,7 +196,7 @@ __Multiple schemas__:
 		]
 	</script>
 
-</div>
+</ui-component>
 
 <script>
 	// Usage
