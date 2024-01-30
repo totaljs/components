@@ -44,10 +44,14 @@ COMPONENT('message', 'button:OK;style:2', function(self, config, cls) {
 	};
 
 	self.warning = function(message, icon, fn) {
+
 		if (typeof(icon) === 'function') {
 			fn = icon;
-			icon = undefined;
+			icon = null;
 		}
+
+		if (icon && typeof(icon) !== 'string')
+			icon = null;
 
 		if (message instanceof Array) {
 			var builder = [];
@@ -63,10 +67,14 @@ COMPONENT('message', 'button:OK;style:2', function(self, config, cls) {
 	};
 
 	self.info = function(message, icon, fn) {
+
 		if (typeof(icon) === 'function') {
 			fn = icon;
-			icon = undefined;
+			icon = null;
 		}
+
+		if (icon && typeof(icon) !== 'string')
+			icon = null;
 
 		if (message instanceof Array) {
 			var builder = [];
@@ -85,8 +93,11 @@ COMPONENT('message', 'button:OK;style:2', function(self, config, cls) {
 
 		if (typeof(icon) === 'function') {
 			fn = icon;
-			icon = undefined;
+			icon = null;
 		}
+
+		if (icon && typeof(icon) !== 'string')
+			icon = null;
 
 		self.callback = fn;
 		self.content(cls + '-success', message, icon || 'check-circle');
