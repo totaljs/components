@@ -70,7 +70,7 @@ var component = {
 
 	outputs: ['1 output name', '2 output name'],
 	// or
-	// outputs: [{ id: 'A', name: 'A output name' }, { id: 'B', name: 'B output name' }],
+	// outputs: [{ id: 'A', name: 'A output name' }, { id: 'B', name: 'B output name', color: '#FF8E37' }],
 
 	connections: { '0': [{ id: '0002', index: '2', disabled: false }] }, // Look to the connection object below
 	// or
