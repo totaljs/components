@@ -37,7 +37,9 @@ COMPONENT('floweditor', 'left:1;top:1;margin:0;right:0;bottom:0;zindex:30;langua
 					iframe.contentWindow.postMessage(STRINGIFY({ TYPE: 'load', data: meta.data }), '*');
 					break;
 				case 'keypress':
-					SETTER('shortcuts/exec', data.value);
+				case 'F1':
+				case 'F10':
+					SETTER('shortcuts/exec', data.value || data.TYPE);
 					break;
 				case 'save':
 					meta.callback(typeof(data.data) === 'object' ? JSON.stringify(data.data, null, '\t') : data.data);
