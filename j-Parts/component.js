@@ -35,10 +35,8 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 		var classname = cls + '-focused';
 		var selected = model.findItem('id', id);
 
-		if (fromsetter && selected) {
-			if (selected.element.hclass(classname))
-				return;
-		}
+		if (fromsetter && selected && selected.element.hclass(classname))
+			return;
 
 		var item = model.findItem('focused', true);
 		if (item && item.id !== id) {
@@ -50,6 +48,7 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 		}
 
 		item = selected;
+
 		if (item) {
 
 			if (!item.element.hclass(classname)) {
@@ -60,6 +59,7 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 
 			itemop('reload', item);
 			itemop('focus', item);
+			config.focus && self.EXEC(config.focus, item);
 		}
 
 		if (is) {
@@ -116,6 +116,7 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 			skip = true;
 			self.update(true);
 			itemop('remove', item);
+			config.close && self.EXEC(config.close, item);
 			item.element.remove();
 			setTimeout2(self.ID + 'free', FREE, 1000);
 		}
