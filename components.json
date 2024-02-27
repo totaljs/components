@@ -315,5 +315,6 @@
 	"j-UIEditor",
 	"j-FlowEditor",
 	"j-Prompt",
-	"Tangular-RGBA"
+	"Tangular-RGBA",
+	"j-DataSource"
 ]

@@ -1,0 +1,9 @@
+<ui-component name="datasource" config="url:https://www.totaljs.com/dashboard.json;path:#mycodelist">
+	<script type="text/plain">
+		return value.children;
+	</script>
+</ui-component>
+
+<ui-bind path="#mycodelist" config="html pre:JSON.stringify(value, null, '  ')" class="block">
+	<pre></pre>
+</ui-bind>
