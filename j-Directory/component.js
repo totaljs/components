@@ -429,7 +429,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 		var el = opt.element instanceof jQuery ? opt.element[0] : opt.element;
 
 		if (opt.items == null)
-			opt.items = EMPTYARRAY;
+			opt.items = [];
 
 		self.tclass(cls + '-default', !opt.render);
 
