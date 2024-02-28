@@ -3,12 +3,12 @@ COMPONENT('autocomplete', 'height:200', function(self, config, cls) {
 	var clssel = 'selected';
 
 	var container, old, searchtimeout, searchvalue, blurtimeout, datasource, offsetter, scroller;
-	var margin = {};
 	var skipmouse = false;
+	var margin = {};
 	var is = false;
 	var prev;
 
-	self.template = Tangular.compile('<li{{ if select }} class="' + clssel + '"{{ fi }} data-index="{{ index }}"><span>{{ name }}</span><span>{{ type }}</span></li>');
+	self.template = Tangular.compile('<li{{ if select }} class="' + clssel + '"{{ fi }} data-index="{{ index }}"><span>{{ name }}</span></li>');
 	self.readonly();
 	self.singleton();
 	self.nocompile && self.nocompile();
@@ -128,9 +128,7 @@ COMPONENT('autocomplete', 'height:200', function(self, config, cls) {
 
 	function blur() {
 		clearTimeout(blurtimeout);
-		blurtimeout = setTimeout(function() {
-			self.visible(false);
-		}, 300);
+		blurtimeout = setTimeout(self.visible, 300, false);
 	}
 
 	self.visible = function(visible) {
@@ -158,18 +156,18 @@ COMPONENT('autocomplete', 'height:200', function(self, config, cls) {
 		self.css(offset);
 	};
 
-	self.show = function(opt) {
+	self.show = function(opt, callback) {
 
 		clearTimeout(searchtimeout);
 		var selector = 'input,[contenteditable]';
 
+		if (callback)
+			opt.callback = callback;
+
 		if (opt.input == null)
 			opt.input = opt.element;
 
-		if (opt.input.setter)
-			opt.input = opt.input.find(selector);
-		else
-			opt.input = $(opt.input);
+		opt.input = opt.input.setter ? opt.input.find(selector) : $(opt.input);
 
 		if (opt.input[0].tagName !== 'INPUT' && !opt.input.attr('contenteditable'))
 			opt.input = opt.input.find(selector);
