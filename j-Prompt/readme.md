@@ -16,6 +16,7 @@ var opt = {};
 opt.name = 'A title'; // optional
 opt.summary = 'A small sumarization'; // optional
 opt.value = ''; // a default value, optional
+// opt.type = 'password'; // it can change an input type (default: `text`)
 // opt.width = config.width; // max. width, optional
 // opt.zindex = config.zindex; // a custom zindex, optional
 

@@ -73,6 +73,7 @@ COMPONENT('prompt', 'zindex:12;width:400;cancel:Cancel;submit:OK', function(self
 		self.opt = opt;
 		$('html').aclass(cls + '-noscroll');
 		var title = opt.name || opt.title || '';
+		input.attr('type', opt.type || 'text');
 		input.val(opt.value || '');
 		self.find(cls2 + '-title').tclass('hidden', !title).html(title);
 		self.find(cls2 + '-summary').tclass('hidden', !opt.summary).html(opt.summary || '');
