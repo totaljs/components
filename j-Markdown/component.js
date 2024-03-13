@@ -180,9 +180,9 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 			return value;
 		}
 
-		function markdown_id(value) {
+		function markdown_id(prefix, value) {
 			value = value.replace(regtags, '');
-			return value.slug().replace(regdash, '-');
+			return prefix + value.slug().replace(regdash, '-');
 		}
 
 		function markdown_icon(value) {
@@ -325,6 +325,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 
 			var arr;
 			var tmp;
+			var prefix = opt.prefix || '';
 
 			if (!opt.nosecret) {
 				arr = el.find('.lang-secret');
@@ -480,7 +481,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 							beg = '-';
 						if (text.substring(text.length - 1) === '>')
 							end = '-';
-						a.attr('href', '#' + (beg + markdown_id(a.text()) + end));
+						a.attr('href', '#' + (beg + markdown_id(prefix, a.text()) + end));
 					} else if (c !== '/' && c !== '#')
 						a.attr('target', '_blank');
 				}
@@ -533,7 +534,8 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 			var ishead = 0;
 			var isprevblock = false;
 			var tmp;
-			var headline = '<{0} id="{3}" class="markdown-line" data-index="{1}">{2}</{0}>';
+			var prefix = opt.prefix || '';
+			var headline = '<{0}' + (opt.bookmarks === false ? '' : ' id="{3}"') + ' class="markdown-line" data-index="{1}">{2}</{0}>';
 
 			if (opt.wrap == null)
 				opt.wrap = true;
@@ -848,7 +850,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 						if (opt.headlines !== false) {
 							if (opt.html)
 								tmp = opt.html(tmp, '#');
-							builder.push(headline.format('h1', i, tmp, markdown_id(tmp)));
+							builder.push(headline.format('h1', i, tmp, markdown_id(prefix, tmp)));
 						}
 						continue;
 					}
@@ -858,7 +860,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 						if (opt.headlines !== false) {
 							if (opt.html)
 								tmp = opt.html(tmp, '##');
-							builder.push(headline.format('h2', i, tmp, markdown_id(tmp)));
+							builder.push(headline.format('h2', i, tmp, markdown_id(prefix, tmp)));
 						}
 						continue;
 					}
@@ -868,7 +870,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 						if (opt.headlines !== false) {
 							if (opt.html)
 								tmp = opt.html(tmp, '###');
-							builder.push(headline.format('h3', i, tmp, markdown_id(tmp)));
+							builder.push(headline.format('h3', i, tmp, markdown_id(prefix, tmp)));
 						}
 						continue;
 					}
@@ -878,7 +880,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 						if (opt.headlines !== false) {
 							if (opt.html)
 								tmp = opt.html(tmp, '####');
-							builder.push(headline.format('h4', i, tmp, markdown_id(tmp)));
+							builder.push(headline.format('h4', i, tmp, markdown_id(prefix, tmp)));
 						}
 						continue;
 					}
@@ -888,7 +890,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 						if (opt.headlines !== false) {
 							if (opt.html)
 								tmp = opt.html(tmp, '#####');
-							builder.push(headline.format('h5', i, tmp, markdown_id(tmp)));
+							builder.push(headline.format('h5', i, tmp, markdown_id(prefix, tmp)));
 						}
 						continue;
 					}

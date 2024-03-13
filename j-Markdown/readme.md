@@ -38,6 +38,8 @@ console.log(text.markdown(opt));
 - `opt.keywords = true` parses keywords in the form `{keyword}(type)`
 - `opt.noredraw = true` skips redrawing of code/video/section/block parts (default: `false`)
 - `opt.element {jQuery}` HTML element that will be used as a default element in `FUNC.markdownredraw()`
+- __NEW__: `opt.bookmarks {Boolean}` enables/disables creating headline bookmarks `id=""` (default: `true`)
+- __NEW__: `opt.prefix {String}` a prefix for bookmarks (default: `empty`)
 
 __Good to know__:
 
