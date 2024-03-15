@@ -1,4 +1,4 @@
-COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visibleY:1;scrollbar:0;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;margin:0', function(self, config, cls) {
+COMPONENT('table', 'highlight:true;border:true;unhighlight:true;multiple:false;pk:id;visibleY:1;scrollbar:0;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;margin:0', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var etable, ebody, eempty, ehead, eheadsize, efooter, container;
@@ -179,6 +179,9 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 		templates.empty && templates.empty.COMPILABLE() && COMPILE(eempty);
 
 		self.event('click', '.sort', function() {
+
+			if (self.hclass(cls + '-isempty'))
+				return;
 
 			var th = $(this);
 			var i = th.find('i');
@@ -439,6 +442,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 		count && ebody.html(builder.join(''));
 		eempty.tclass(clsh, count > 0);
 		etable.tclass(clsh, count == 0);
+		self.tclass(cls + '-isempty', count > 0);
 		config.redraw && self.EXEC(config.redraw, self);
 	};
 
@@ -585,6 +589,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 		if (empty) {
 			etable.aclass(clsh);
 			eempty.rclass(clsh);
+			self.aclass(cls + '-isempty');
 			return;
 		}
 
