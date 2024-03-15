@@ -19,7 +19,7 @@ __Configuration__:
 - `height {Number}` a picture height (required)
 - `percentage {Number}` resizes a picture according to the percentage (then `width` and `height` aren't required)
 - `icon {String}` (optional) the label icon without `ti`, (default: `null`)
-- `background {String}` (optional) a background color (default: `white`)
+- `background {String}` (optional) a background color, it can be `transparent` (default: `white`)
 - `schema {String}` prepared object for sending (default: `{file:base64,filename:filename}`, `base64` + `filename` is a value from preview)
 - `quality {Number}` JPEG quality (default: `90`)
 - `customize {Boolean}` resizes picture to the defined size (default: `true`)
@@ -30,6 +30,7 @@ __Configuration__:
 - `empty {String}` a link to the empty image
 - `keeporiginal {Boolean}` keeps the original image if the dimension is the same as the width/height defined in the configuration (default: `false`)
 - __NEW__ `output {String}` output type `base64` (default) or `file`
+- __NEW__ `type {String}` an image type `jpg` (default) or `png`
 
 __Methods__:
 

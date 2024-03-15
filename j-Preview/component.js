@@ -1,4 +1,4 @@
-COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customize:1;schema:{file\\:base64,name\\:filename}', function(self, config, cls) {
+COMPONENT('preview', 'width:200;height:100;type:jpg;background:#FFFFFF;quality:90;customize:1;schema:{file\\:base64,name\\:filename}', function(self, config, cls) {
 
 	var empty, img, canvas, name, content = null;
 
@@ -51,7 +51,7 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 	};
 
 	self.reupload = function() {
-		name = 'image.jpg';
+		name = 'image.' + config.type;
 		img && self.resizeforce(img[0]);
 	};
 
@@ -140,7 +140,7 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 		}
 
 		ctx.drawImage(image, x, y, w, h);
-		var base64 = canvas.toDataURL('image/jpeg', config.quality * 0.01);
+		var base64 = canvas.toDataURL('image/' + (config.type === 'jpg' ? 'jpeg' : config.type), config.quality * 0.01);
 		img.attr('src', base64);
 		self.upload(base64);
 	};
@@ -200,12 +200,12 @@ COMPONENT('preview', 'width:200;height:100;background:#FFFFFF;quality:90;customi
 		var u8arr = new Uint8Array(n);
 		while (n--)
 			u8arr[n] = bstr.charCodeAt(n);
-		return new File([u8arr], filename, {type:mime});
+		return new File([u8arr], filename, { type: mime });
 	}
 
 	self.load = function(file) {
 
-		name = file.name.replace(/\.(png|gif|jpeg|svg|webp)$/i, '.jpg');
+		name = file.name.replace(/\.(png|gif|jpeg|svg|webp)$/i, '.' + config.type);
 
 		self.getOrientation(file, function(orient) {
 			var reader = new FileReader();
