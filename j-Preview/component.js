@@ -1,4 +1,4 @@
-COMPONENT('preview', 'width:200;height:100;type:jpg;background:#FFFFFF;quality:90;customize:1;schema:{file\\:base64,name\\:filename}', function(self, config, cls) {
+COMPONENT('preview', 'width:200;height:100;convert:jpg;background:#FFFFFF;quality:90;customize:1;schema:{file\\:base64,name\\:filename}', function(self, config, cls) {
 
 	var empty, img, canvas, name, content = null;
 
@@ -51,7 +51,7 @@ COMPONENT('preview', 'width:200;height:100;type:jpg;background:#FFFFFF;quality:9
 	};
 
 	self.reupload = function() {
-		name = 'image.' + config.type;
+		name = 'image.' + config.convert;
 		img && self.resizeforce(img[0]);
 	};
 
@@ -140,7 +140,7 @@ COMPONENT('preview', 'width:200;height:100;type:jpg;background:#FFFFFF;quality:9
 		}
 
 		ctx.drawImage(image, x, y, w, h);
-		var base64 = canvas.toDataURL('image/' + (config.type === 'jpg' ? 'jpeg' : config.type), config.quality * 0.01);
+		var base64 = canvas.toDataURL('image/' + (config.convert === 'jpg' ? 'jpeg' : config.convert), config.quality * 0.01);
 		img.attr('src', base64);
 		self.upload(base64);
 	};
@@ -205,7 +205,7 @@ COMPONENT('preview', 'width:200;height:100;type:jpg;background:#FFFFFF;quality:9
 
 	self.load = function(file) {
 
-		name = file.name.replace(/\.(png|gif|jpeg|svg|webp)$/i, '.' + config.type);
+		name = file.name.replace(/\.(png|gif|jpeg|svg|webp)$/i, '.' + config.convert);
 
 		self.getOrientation(file, function(orient) {
 			var reader = new FileReader();
