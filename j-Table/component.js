@@ -442,7 +442,7 @@ COMPONENT('table', 'highlight:true;border:true;unhighlight:true;multiple:false;p
 		count && ebody.html(builder.join(''));
 		eempty.tclass(clsh, count > 0);
 		etable.tclass(clsh, count == 0);
-		self.tclass(cls + '-isempty', count > 0);
+		self.tclass(cls + '-isempty', count === 0);
 		config.redraw && self.EXEC(config.redraw, self);
 	};
 
