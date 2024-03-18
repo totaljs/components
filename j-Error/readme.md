@@ -5,7 +5,7 @@
 - if the `error source` is empty or nullable then the component hides element
 
 __Configuration__:
-- `icon` {String} error icon without `fa-` (default: `warning`)
+- `icon {String}` an error icon (default: `ti-warning`)
 
 ### Author
 

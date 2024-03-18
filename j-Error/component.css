@@ -1,2 +1,2 @@
 .ui-error { margin: 0 0 15px; padding: 0; list-style-type: none; border: 2px solid #BE3A48; border-left-width: 0; border-right-width: 0; padding: 10px 0; color: #BE3A48; font-family: Arial; font-size: 14px }
-.ui-error i { width: 16px; }
+.ui-error i { width: 16px; margin-right: 5px; }
