@@ -1,8 +1,14 @@
 ## j-Error
 
 - easy usage
-- an `error source` must be `array` like this `[{ error: 'Error Message 1' }, { error: 'Error Message 2' }]`
-- if the `error source` is empty or nullable then the component hides element
+- errors are displayed only if the path contains an array in the form below:
+
+```js
+[
+	{ error: 'Error Message 1' },
+	{ error: 'Error Message 2' }
+]
+```
 
 __Configuration__:
 - `icon {String}` an error icon (default: `warning`)
