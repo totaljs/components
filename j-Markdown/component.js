@@ -690,6 +690,10 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 				lines[i] = lines[i].replace(encodetags, encode);
 
 				if (!lines[i]) {
+
+					if (opt.emptynewline !== false && !lines[i - 1])
+						builder.push('<br />');
+
 					builder.push('');
 					continue;
 				}
