@@ -32,6 +32,7 @@
 .ui-dashboard > svg { border: 4px solid #FFF; }
 .ui-dashboard > svg rect { stroke: #FFF; stroke-width: 2px; }
 .ui-dashboard-nogrid svg { display: none; }
+.ui-dashboard-collided .ui-dashboard-title, .ui-dashboard-collided figure { border-color: #E93A52; }
 
 .ui-dark .ui-dashboard > svg { border-color: #202020; }
 .ui-dark .ui-dashboard > svg rect { stroke: #202020; stroke-width: 2px; }

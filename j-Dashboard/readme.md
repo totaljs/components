@@ -11,12 +11,12 @@ The component expects `Array` of objects.
 
 __Configuration__:
 
-- `axisX` {Number} a size of grid of X axis (default: `12`)
-- `axisY` {Number} a size of grid of Y axis (default: `144`)
-- `padding` {Number} a padding between widgets (default: `10`)
-- `delay` {Number} init delay (default: `200`)
-- `serviceinterval` {Number} a service interval (default: `5000`)
-- `ondrop` {String} a path to method `function(meta) {}`, is executed if someone drops some element into area
+- `axisX {Number}` a size of grid of X axis (default: `12`)
+- `axisY {Number}` a size of grid of Y axis (default: `144`)
+- `padding {Number}` a padding between widgets (default: `10`)
+- `delay {Number}` init delay (default: `200`)
+- `serviceinterval {Number}` a service interval (default: `5000`)
+- `ondrop {String}` a path to method `function(meta) {}`, is executed if someone drops some element into area
 	- `meta.x` X grid position
 	- `meta.y` Y grid position
 	- `meta.el` dragged element
@@ -27,7 +27,7 @@ __Configuration__:
 	- `meta.target`
 	- `meta.d` a display mode `xs`, `sm`, `md` or `lg`
 - `noemitresize` disables executing of `resize` method in all nested component (default: `false`)
-- `parent` {String} a parent container which sets a minimal height (default: `null`)
+- `parent {String}` a parent container which sets a minimal height (default: `null`)
 - `minsizexs {Number}` a minimal column/row size for extra small displays (default: `2`)
 - `minsizesm {Number}` a minimal column/row size for small displays (default: `2`)
 - `minsizemd {Number}` a minimal column/row size for mediun displays (default: `1`)

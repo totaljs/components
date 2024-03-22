@@ -15,6 +15,7 @@ COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation
 	var current_display;
 	var isinit = true;
 	var dtfocus;
+	var collision;
 
 	self.readonly();
 
@@ -576,6 +577,33 @@ COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation
 
 		if (!init && (prevw !== obj.width || prevh !== obj.height))
 			setTimeout(resizewidget, 2, obj);
+
+		collision && clearTimeout(collision);
+		collision = setTimeout(self.checkcollision, 500);
+	};
+
+	self.checkcollision = function() {
+
+		var check = function(itema, itemb) {
+			var rect1 = itema.offset;
+			var rect2 = itemb.offset;
+			return rect1.x < (rect2.x + rect2.width) && (rect1.x + rect1.width) > rect2.x && rect1.y < (rect2.y + rect2.height) && (rect1.height + rect1.y) > rect2.y;
+		};
+
+		for (var keya in cache) {
+			var a = cache[keya];
+			var is = [];
+			for (var keyb in cache) {
+				var b = cache[keyb];
+				if (keya !== keyb) {
+					if (check(a, b))
+						is.push(b);
+				}
+			}
+			a.collided = is;
+			a.container.tclass(cls + '-collided', is.length > 0);
+		}
+
 	};
 
 	self.send = function(id, body) {
@@ -701,7 +729,6 @@ COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation
 				delete cache[key];
 			}
 		}
-
 		for (var i = 0; i < value.length; i++) {
 			var obj = value[i];
 			var item = cache[obj.id];
