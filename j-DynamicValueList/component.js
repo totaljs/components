@@ -99,7 +99,7 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 						next(values);
 					};
 
-					if (config.dirsource.indexOf(' ') !== -1) {
+					if (config.dirsource.indexOf(' ') !== -1 || config.tapi) {
 						var val = encodeURIComponent(value);
 						var fn = config.tapi ? TAPI : AJAX;
 						fn(config.dirsource.format(val).arg({ value: val }), processor);
