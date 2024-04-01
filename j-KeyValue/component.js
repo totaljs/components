@@ -6,6 +6,16 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config, cls) {
 	var skip = false;
 	var empty = {};
 
+	var modify = function(val) {
+		// Is >19?
+		if (self.modify) {
+			self.modify(val, 2);
+		} else {
+			self.set(val, 2);
+			self.change(true);
+		}
+	};
+
 	self.nocompile && self.nocompile();
 	self.template = Tangular.compile('<div class="{0}-item"><div class="{0}-item-remove"><i class="ti ti-times"></i></div><div class="{0}-item-key"><input type="text" name="key" maxlength="{{ max }}"{{ if disabled }} disabled="disabled"{{ fi }} placeholder="{{ placeholder_key }}" value="{{ key }}" autocomplete="new-password" /></div><div class="{0}-item-value"><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder_value }}" value="{{ value }}" autocomplete="new-password" /></div></div>'.format(cls));
 
@@ -96,9 +106,7 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config, cls) {
 			var key = inputs[0].value;
 			parent.remove();
 			delete obj[key];
-
-			SET(self.path, obj, 2);
-			self.change(true);
+			modify(obj);
 		});
 
 		self.event('focus', 'input', function() {
@@ -123,8 +131,7 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config, cls) {
 				var tmp = self.get();
 				!tmp && (tmp = {});
 				tmp[key] = value;
-				self.set(tmp);
-				self.change(true);
+				modify(tmp);
 				inputs.val('');
 				inputs.eq(0).focus();
 				return;
@@ -144,8 +151,7 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config, cls) {
 			}
 
 			skip = true;
-			SET(self.path, keyvalue, 2);
-			self.change(true);
+			modify(keyvalue);
 		});
 	};
 
