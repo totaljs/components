@@ -24,6 +24,7 @@ This component is very special component. It can keep a value for example `Numbe
 - `dirkey` {String} a key name for reading of text in dirsource (default: `name`)
 - `dirvalue` {String} a key name for reading of value in dirsource (default: `id`)
 - `onresponse` {String} a path to property or `function(response)`, executed if the response is processed (default: `undefined`)
+- __NEW__ `tapi {Boolean}` enables calling `TAPI()` insteadof `AJAX()` (default: false)
 
 ### AJAX usage
 
