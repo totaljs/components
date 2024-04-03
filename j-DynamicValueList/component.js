@@ -120,7 +120,7 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 						self.set(arr);
 					}
 					self.change();
-					config.required && setTimeout(self.validate2, 100);
+					config.required && setTimeout(self => self.validate2(), 100, self);
 				};
 				SETTER('directory/show', opt);
 			} else {
@@ -136,7 +136,7 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 						self.set(arr);
 					}
 					self.change();
-					config.required && setTimeout(self.validate2, 100);
+					config.required && setTimeout(self => self.validate2(), 100, self);
 					self.bindsinglevalue(value, t.$dlid);
 				}, self.get());
 			}

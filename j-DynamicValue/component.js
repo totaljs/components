@@ -87,14 +87,14 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;tapi:0;loading:1', f
 				opt.callback = function(selected) {
 					self.set(selected[config.dirvalue || 'id']);
 					self.change();
-					config.required && setTimeout(self.validate2, 100);
+					config.required && setTimeout(self => self.validate2(), 100, self);
 				};
 				SETTER('directory', 'show', opt);
 			} else {
 				self.EXEC(config.click || config.find, self.element, function(value) {
 					self.set(value);
 					self.change();
-					config.required && setTimeout(self.validate2, 100);
+					config.required && setTimeout(self => self.validate2(), 100, self);
 				}, self.get());
 			}
 
