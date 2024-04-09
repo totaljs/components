@@ -79,7 +79,7 @@ COMPONENT('prompt', 'zindex:12;width:400;cancel:Cancel;submit:OK', function(self
 		self.find(cls2 + '-summary').tclass('hidden', !opt.summary).html(opt.summary || '');
 		self.css('z-index', opt.zindex || config.zindex);
 		body.css({ 'max-width': opt.width || config.width });
-		self.find(cls2 + '-area').tclass(cls + '-centered', opt.centered === true);
+		self.tclass(cls + '-centered', opt.centered === true);
 		self.rclass('hidden');
 		self.autofocus('input');
 	};
