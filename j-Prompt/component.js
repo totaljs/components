@@ -28,7 +28,7 @@ COMPONENT('prompt', 'zindex:12;width:400;cancel:Cancel;submit:OK', function(self
 
 	self.make = function() {
 
-		$(document.body).append('<div id="{1}" class="{0} {0}-container hidden"><div class="{0}-body"><div class="{0}-title"></div><div class="{0}-summary"></div><div class="{0}-input"><input type="text" /></div><div class="{0}-buttons"><button name="cancel">{cancel}</button><button name="submit">{submit}</button></div>'.format(cls, self.ID).args(config));
+		$(document.body).append('<div id="{1}" class="{0} {0}-container hidden"><div class="{0}-area"><div class="{0}-body"><div class="{0}-title"></div><div class="{0}-summary"></div><div class="{0}-input"><input type="text" /></div><div class="{0}-buttons"><button name="cancel">{cancel}</button><button name="submit">{submit}</button></div></div>'.format(cls, self.ID).args(config));
 
 		self.replace('#' + self.ID);
 		body = self.find(cls2 + '-body');
@@ -78,7 +78,8 @@ COMPONENT('prompt', 'zindex:12;width:400;cancel:Cancel;submit:OK', function(self
 		self.find(cls2 + '-title').tclass('hidden', !title).html(title);
 		self.find(cls2 + '-summary').tclass('hidden', !opt.summary).html(opt.summary || '');
 		self.css('z-index', opt.zindex || config.zindex);
-		body.css('max-width', opt.width || config.width);
+		body.css({ 'max-width': opt.width || config.width });
+		self.find(cls2 + '-area').tclass(cls + '-centered', opt.centered === true);
 		self.rclass('hidden');
 		self.autofocus('input');
 	};

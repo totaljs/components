@@ -19,6 +19,7 @@ opt.value = ''; // a default value, optional
 // opt.type = 'password'; // it can change an input type (default: `text`)
 // opt.width = config.width; // max. width, optional
 // opt.zindex = config.zindex; // a custom zindex, optional
+// opt.centered = true; // centers the window to the middle of the screen
 
 opt.cancel = function(val) {
 	// @val {String}
