@@ -49,6 +49,7 @@ COMPONENT('swiper', 'null', function(self, config, cls) {
 		}
 
 		opt.slidesPerView = 1;
+		opt.loopAddBlankSlides = true;
 		opt.spaceBetween = config.spacebetween || 30;
 		opt.loop = config.loop && true;
 		opt.lazy = true;
@@ -64,7 +65,9 @@ COMPONENT('swiper', 'null', function(self, config, cls) {
 			}
 		};
 
-		swiper = new Swiper(cls2 + '-' + self.id, opt);
+		setTimeout(() => {
+		 	swiper = new Swiper(cls2 + '-' + self.id, opt);
+		}, 500);
 	};
 
 	self.setter = function(value) {
@@ -87,4 +90,4 @@ COMPONENT('swiper', 'null', function(self, config, cls) {
 		items = body.find('> figure').toArray();
 	};
 
-}, ['https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js', 'https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css']);
+}, ['https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css']);
