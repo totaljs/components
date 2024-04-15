@@ -38,7 +38,7 @@ COMPONENT('cookie2', 'redirect:about\\:blank;agree:ACCEPT COOKIES;cancel:CANCEL'
 
 		self.aclass(cls);
 		self.rclass('hidden');
-		self.element.prepend('<div class="ui-cookie2-icon"><i class="ti ti-cookie-bite"></i></div');
+		self.element.prepend('<div class="ui-cookie2-icon"><i class="ti ti-cookie"></i></div');
 		self.append('<div class="ui-cookie2-buttons"><button name="agree">{0}</button><button name="cancel">{1}</button></div>'.format(config.agree, config.cancel));
 
 		self.event('click', 'button', function() {
