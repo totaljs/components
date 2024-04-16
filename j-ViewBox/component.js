@@ -108,7 +108,8 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;resizedelay:200;initdelay:2
 	};
 
 	self.resizeforce = function() {
-
+		if (!config.margin)
+			config.margin = ENV('margin') || 0;
 		var el = self.parent(config.parent);
 		var h = el.height();
 		var w = el.width();
