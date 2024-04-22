@@ -43,7 +43,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 	self.make = function() {
 
 		self.aclass('hidden ' + cls + '-area');
-		self.append('<div class="{1}"><div class="{1}-search"><span class="{1}-add hidden"><i class="ti ti-plus"></i></span><span class="{1}-button"><i class="ti ti-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" name="dir{2}" autocomplete="new-password" /></div></div><div class="{1}-container"><ul></ul></div></div>'.format(config.placeholder, cls, Date.now()));
+		self.append('<div class="{1}"><div class="{1}-search"><span class="{1}-add hidden"><i class="ti ti-plus"></i></span><span class="{1}-button"><i class="ti ti-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" name="dir{2}" spellcheck="false" role="combobox" aria-expanded="true" aria-invalid="false" aria-autocomplete="list" aria-expanded="true" aria-haspopup="false" autocapitalize="off" autocomplete="off" autocorrect="off" /></div></div><div class="{1}-container"><ul></ul></div></div>'.format(config.placeholder, cls, Date.now()));
 
 		customvalue = $('<li data-index="-2"></li>')[0];
 
