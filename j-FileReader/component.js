@@ -48,7 +48,7 @@ COMPONENT('filereader', function(self) {
 			var reader = new FileReader();
 
 			reader.onload = function() {
-				self.opt.progress && self.opt.progress((100 / length) * index, file);
+				self.opt.progress && self.opt.progress((100 / length) * (index + 1), file);
 				var data = { body: reader.result, filename: file.name, type: file.type, size: file.size };
 				if (self.opt.callback)
 					self.opt.callback(data);
