@@ -11,6 +11,7 @@ __Methods__:
 	- `opt.base64 {Boolean}` reads a file in Base64 encoding (default: `false`)
 	- __NEW__: `opt.files {HTTP Files}` reads files e.g. from Drag & Drop
 	- `opt.callback {Function(file)}` a callback
+	- __NEW__: `opt.progress {Function(percentage, file)}` optional
 
 ```js
 var opt = {};

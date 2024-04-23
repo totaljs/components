@@ -1,4 +1,3 @@
-
 COMPONENT('filereader', function(self) {
 
 	var input;
@@ -42,10 +41,14 @@ COMPONENT('filereader', function(self) {
 				break;
 		}
 
+		var length = arr.length;
+
 		arr.wait(function(index, next) {
 			var file = files[index];
 			var reader = new FileReader();
+
 			reader.onload = function() {
+				self.opt.progress && self.opt.progress((100 / length) * index, file);
 				var data = { body: reader.result, filename: file.name, type: file.type, size: file.size };
 				if (self.opt.callback)
 					self.opt.callback(data);
