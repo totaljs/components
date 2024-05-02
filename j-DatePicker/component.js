@@ -224,8 +224,10 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:-1', function(self
 		if ((l + s) > WW)
 			l = (l + w) - s;
 
-		if ((t + height) > WH)
-			t = WH - height - 10;
+		if ($(W).scrollTop() === 0) {
+			if ((t + height) > WH)
+				t = WH - height - 10;
+		}
 
 		var restrict = true;
 		var parent = dom.parentNode;
