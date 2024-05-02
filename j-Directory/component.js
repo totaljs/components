@@ -617,8 +617,10 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 
 		mh += search.height();
 
-		if ((mh + options.top) > WH)
-			options.top = (WH - mh) - 10;
+		if ($(W).scrollTop() === 0) {
+			if ((mh + options.top) > WH)
+				options.top = (WH - mh) - 10;
+		}
 
 		if (options.top < 10)
 			options.top = 10;
