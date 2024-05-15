@@ -48,26 +48,24 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			if (item && item.riconclick) {
 				item.element = el;
 				item.value = values[item.id];
-				if (typeof(item.riconclick) === 'function') {
-					item.riconclick(item, function(val) {
-						var t = el.find('input')[0];
-						if (t) {
-							t.$processed = true;
-							t.value = val;
-							$(t).trigger('change');
-						} else {
-							types[item.type].set(el, val, item);
-							self.modifyval(item);
-							self.change(true);
-						}
-					});
-				} else {
-					self.EXEC(item.riconclick, item, function(val) {
+
+				var fn = function(val) {
+					var t = el.find('input')[0];
+					if (t) {
+						t.$processed = false;
+						t.value = val;
+						$(t).trigger('change');
+					} else {
 						types[item.type].set(el, val, item);
 						self.modifyval(item);
 						self.change(true);
-					});
-				}
+					}
+				};
+
+				if (typeof(item.riconclick) === 'function')
+					item.riconclick(item, fn);
+				else
+					self.EXEC(item.riconclick, item, fn);
 			}
 		});
 
@@ -127,6 +125,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		});
 
 		self.event('change', '.pstring', function() {
+
 			var t = this;
 			var item = self.finditem(t);
 			var val = t.value.trim();
