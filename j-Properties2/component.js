@@ -50,13 +50,22 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				item.value = values[item.id];
 				if (typeof(item.riconclick) === 'function') {
 					item.riconclick(item, function(val) {
-						types[item.type].set(el, val, item);
-						self.modifyval(item);
+						var t = el.find('input')[0];
+						if (t) {
+							t.$processed = true;
+							t.value = val;
+							$(t).trigger('change');
+						} else {
+							types[item.type].set(el, val, item);
+							self.modifyval(item);
+							self.change(true);
+						}
 					});
 				} else {
 					self.EXEC(item.riconclick, item, function(val) {
 						types[item.type].set(el, val, item);
 						self.modifyval(item);
+						self.change(true);
 					});
 				}
 			}
@@ -201,9 +210,11 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		self.event('focus', '.ppassword', function() {
 			$(this).attr('type', 'text');
 		});
+
 		self.event('blur', '.ppassword', function() {
 			$(this).attr('type', 'password');
 		});
+
 		self.event('change', '.ppassword', function() {
 			var t = this;
 			var item = self.finditem(t);
@@ -233,9 +244,11 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			item.required && self.validate2();
 		});
 	};
+
 	types.password.render = function(item, next) {
 		next('<div class="{0}-string"><input type="password" maxlength="{1}" placeholder="{2}" value="{3}" class="ppassword"{4} /></div>'.format(cls, item.maxlength, item.placeholder || '', Thelpers.encode(item.value), item.disabled ? ' disabled' : ''));
 	};
+
 	types.password.set = function(el, value) {
 		el.find('input').val(value == null ? '' : (value + ''));
 	};
@@ -306,9 +319,11 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 		});
 	};
+
 	types.number.render = function(item, next) {
 		next('<div class="{0}-number"><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pnumber{5}"{4} /></div>'.format(cls, 20, item.placeholder || '', Thelpers.encode((item.value == null ? '' : item.value) + ''), item.disabled ? ' disabled' : ''), (item.monospace ? (' ' + cls + '-monospace') : ''));
 	};
+
 	types.number.set = function(el, value) {
 		el.find('input').val(value == null ? '' : (value + ''));
 	};
@@ -344,6 +359,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 			self.modifyval(item);
 			self.change(true);
+
 			if (item.required) {
 				item.invalid = item.value instanceof Date ? false : true;
 				self.validate2();
@@ -369,6 +385,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			var el = $(t);
 			var opt = {};
 			var item = self.finditem(t);
+
 			opt.element = el.closest(cls2 + '-date').find('input');
 
 			if (item.value)
@@ -384,9 +401,11 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			SETTER('datepicker/show', opt);
 		});
 	};
+
 	types.date.render = function(item, next) {
 		next('<div class="{0}-date"><i class="ti ti-calendar pdate"></i><div><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pdate" /></div></div>'.format(cls, config.dateformat.length, item.placeholder || '', item.value ? item.value.format(config.dateformat) : ''));
 	};
+
 	types.date.set = function(el, value) {
 		el.find('input').val(value == null ? '' : (value instanceof Date ? value.format(config.dateformat) : (value + '')));
 	};
@@ -424,9 +443,11 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			item.required && self.validate2();
 		});
 	};
+
 	types.bool.render = function(item, next) {
 		next('<div class="{0}-bool"><span class="{0}-booltoggle{1}"><i></i></span></div>'.format(cls, item.value ? ' checked' : ''));
 	};
+
 	types.bool.set = function(el, value) {
 		el.find(cls2 + '-booltoggle').tclass('checked', !!value);
 	};
@@ -447,9 +468,11 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	types.exec.set = NOOP;
 
 	types.text = {};
+
 	types.text.render = function(item, next) {
 		next('<div class="{0}-text">{1}</div>'.format(cls, item.value ? Thelpers.encode(item.value) : ''));
 	};
+
 	types.text.set = function(el, value) {
 		el.find(cls2 + '-text').html(value ? Thelpers.encode(value) : '');
 	};
@@ -513,7 +536,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				self.change(true);
 				item.required && self.validate2();
 			};
-			SETTER('directory', 'show', opt);
+			SETTER('directory/show', opt);
 		});
 	};
 
@@ -585,7 +608,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				self.change(true);
 				item.required && self.validate2();
 			};
-			SETTER('menu', 'show', opt);
+			SETTER('menu/show', opt);
 		});
 	};
 
@@ -601,6 +624,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			next(template.format(cls, m));
 		}
 	};
+
 	types.menu.set = function(el, value, item) {
 		var items = typeof(item.items) === 'string' ? item.items.indexOf('/') === -1 ? GET(self.makepath(item.items)) : item.items : item.items;
 		var val = items instanceof Array ? items.findValue(item.dirvalue || 'id', value, item.dirkey || 'name') : '';
@@ -646,12 +670,14 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				self.change(true);
 				item.required && self.validate2();
 			};
-			SETTER('colorpicker', 'show', opt);
+			SETTER('colorpicker/show', opt);
 		});
 	};
+
 	types.color.render = function(item, next) {
 		next('<div class="{0}-color"><span class="{0}-colortoggle"><b{1}>&nbsp;</b></span></div>'.format(cls, item.value ? (' style="background-color:' + item.value + '"') : ''));
 	};
+
 	types.color.set = function(el, value) {
 		el.find('b').css('background-color', value || '');
 	};
@@ -696,9 +722,11 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 			SETTER('icons/show', opt);
 		});
 	};
+
 	types.fontawesome.render = function(item, next) {
 		next('<div class="{0}-fontawesome"><span class="{0}-fontawesometoggle"><i class="{1}"></i></span></div>'.format(cls, item.value || ''));
 	};
+
 	types.fontawesome.set = function(el, value) {
 		el.find('i').rclass2('ti').aclass(value || '');
 	};
@@ -740,12 +768,14 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				self.change(true);
 				item.required && self.validate2();
 			};
-			SETTER('emoji', 'show', opt);
+			SETTER('emoji/show', opt);
 		});
 	};
+
 	types.emoji.render = function(item, next) {
 		next('<div class="{0}-emoji"><span class="{0}-emojitoggle">{1}</span></div>'.format(cls, item.value || DEF.empty));
 	};
+
 	types.emoji.set = function(el, value) {
 		el.find('span').html(value || DEF.empty);
 	};
@@ -784,7 +814,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				var file = this;
 				var data = new FormData();
 				data.append('file', file.files[0]);
-				SETTER('loading', 'show');
+				SETTER('loading/show');
 				UPLOAD(item.url, data, function(response) {
 					item.value = response;
 					item.changed = item.prev !== item.value;
@@ -792,7 +822,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 					config.change && self.EXEC(config.change, item, function(val) {
 						self.findel(t).find(cls2 + '-filename').text(val);
 					});
-					SETTER('loading', 'hide', 1000);
+					SETTER('loading/hide', 1000);
 					file.value = '';
 					self.modifyval(item);
 					self.change(true);
