@@ -51,10 +51,12 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				if (typeof(item.riconclick) === 'function') {
 					item.riconclick(item, function(val) {
 						types[item.type].set(el, val, item);
+						self.modifyval(item);
 					});
 				} else {
 					self.EXEC(item.riconclick, item, function(val) {
 						types[item.type].set(el, val, item);
+						self.modifyval(item);
 					});
 				}
 			}
@@ -182,6 +184,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 	types.string.render = function(item, next) {
 		next('<div class="{0}-string{5}"><input type="text" maxlength="{1}" placeholder="{2}" value="{3}" class="pstring"{4} /></div>'.format(cls, item.maxlength, item.placeholder || '', Thelpers.encode(item.value), item.disabled ? ' disabled' : '', (item.camouflage ? (' ' + cls + '-camouflage') : '') + (item.monospace ? (' ' + cls + '-monospace') : '')));
 	};
+
 	types.string.set = function(el, value) {
 		el.find('input').val(value == null ? '' : (value + ''));
 	};
