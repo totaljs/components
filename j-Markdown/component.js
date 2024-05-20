@@ -107,6 +107,12 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 				return (/^\d+$/).test(text) ? '<sup data-id="{0}" class="markdown-footnote">{1}</sup>'.format(link.substring(1), text) : '<span data-id="{0}" class="markdown-footnote">{1}</span>'.format(link.substring(1), text);
 			}
 
+			if (link.isEmail())
+				return '<a href="mailto:' + link + '" rel="nofollow">' + text + '</a>';
+
+			if (link.isPhone())
+				return '<a href="tel:' + link + '" rel="nofollow">' + text + '</a>';
+
 			if (link.substring(0, 4) === 'www.')
 				link = 'https://' + link;
 
