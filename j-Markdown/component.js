@@ -476,7 +476,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 					if (href === '#') {
 						var beg = '';
 						var end = '';
-						var text = el.html();
+						var text = a.html();
 						if (text.substring(0, 1) === '<')
 							beg = '-';
 						if (text.substring(text.length - 1) === '>')
