@@ -20,7 +20,7 @@
 .markdown blockquote { padding: 15px 20px; background-color: #F0F0F0; margin: 10px 0 20px; border-radius: var(--radius); }
 .markdown section { padding: 15px 20px; background-color: #FFFED1; margin: 10px 0 15px; border-radius: var(--radius); }
 .markdown hr { border-color: #E0E0E0; border-width: 2px; }
-.markdown-line2 { border-width: 4px; margin: 15px 0 30px !important; }
+.markdown-line2 { border-width: 4px !important; margin: 15px 0 30px !important; }
 .markdown h1 code { font-size: 28px; font-weight: normal; background-color: #DAE8F8; }
 .markdown h2 code { font-size: 23px; font-weight: normal; background-color: #DAE8F8; }
 .markdown h3 code { font-size: 18px; font-weight: normal; background-color: #DAE8F8; }
