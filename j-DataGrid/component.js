@@ -783,13 +783,17 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 		var d = { is: false };
 
 		self.event('dragstart', function(e) {
+			d.prevent = true;
 			!isIE && e.originalEvent.dataTransfer.setData('text/plain', GUID());
 		});
 
 		self.event('dragenter dragover dragexit drop dragleave', function (e) {
 
-			e.stopPropagation();
-			e.preventDefault();
+			if (d.prevent) {
+				e.stopPropagation();
+				e.preventDefault();
+			} else
+				return;
 
 			switch (e.type) {
 				case 'drop':
@@ -803,6 +807,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 					break;
 
 				case 'dragenter':
+
+					d.prevent = true;
+
 					if (!d.is) {
 						d.index = +$(e.target).closest('.dg-hcol').attrd('index');
 						d.is = true;
@@ -813,6 +820,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 				default:
 					return;
 			}
+
 		});
 
 		self.event('change', '.dg-pagination-input', function() {
