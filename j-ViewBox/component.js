@@ -161,7 +161,7 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;resizedelay:200;initdelay:2
 		css.width = '';
 		self.css(css);
 		elb.length && elb.css(css);
-		self.element.SETTER('*', 'resize');
+		self.element.SETTER('*/resize');
 		var c = cls + '-hidden';
 		self.hclass(c) && self.rclass(c, 100);
 		scrollbar && scrollbar.resize();
