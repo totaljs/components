@@ -10,10 +10,10 @@ __Configuration__:
 - `disabled {Boolean}` disables the control (default: `false`)
 - `formclass {String}` a custom class for form container
 - `itemclass {String}` a custom class for item container
-- `create {String}` a link to a function `function(callback(DEFAULT_ITEM_OBJECT))` (`null` value skips creating)
-- `submit {String}` a link to a function `function(form_data, callback(NEW_DATA))` (`null` value skips updating)
-- `update {String}` a link to a function `function(form_data, callback(NEW_DATA))` (`null` value skips updating)
-- `remove {String}` a link to a function `function(remove_item, callback(really_remove?))`
+- `create {String}` a link to a function `function(empty_object, callback(DEFAULT_ITEM_OBJECT), arr)` (`null` value skips creating)
+- `submit {String}` a link to a function `function(form_data, callback(NEW_DATA), arr)` (`null` value skips updating)
+- `update {String}` a link to a function `function(form_data, callback(NEW_DATA), arr)` (`null` value skips updating)
+- `remove {String}` a link to a function `function(remove_item, callback(really_remove?), arr)`
 - `selector {String}` a jQuery selector for custom template (outside of the component). Works like `custom template` in [data-binding](https://wiki.totaljs.com/jcomponent/08-data-binding/)
 - `footertop {Boolean}` moves the footer on the top of the component (default: `false`)
 - __NEW__ `move {String}` a link to a function `function(items)`
