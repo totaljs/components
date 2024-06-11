@@ -93,7 +93,7 @@ __Configuration__:
 __Column properties__:
 
 - `name` {String} a name of field in the row object
-- `text` {String} a column label, text with `.fa fa-home` will render FontAwesome icon
+- `text` {String} a column label, text with `.ti ti-home` will render Total icon
 - `title` {String} a column tooltip (optional)
 - `width` {Number} a column width (optional, default `config.colwidth`)
 - `filter` {String/Boolean} a placeholder for the filter or `boolean` can disable filter for this column (optional)
