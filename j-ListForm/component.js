@@ -201,7 +201,7 @@ COMPONENT('listform', 'empty:---;default:1;', function(self, config, cls) {
 		});
 	};
 
-	self.configure = function(key, value) {
+	self.configure = function(key, value, init) {
 		switch (key) {
 			case 'disabled':
 				self.tclass('ui-' + key, !!value);
@@ -209,6 +209,8 @@ COMPONENT('listform', 'empty:---;default:1;', function(self, config, cls) {
 				break;
 			case 'required':
 				self.tclass(cls + '-' + key, !!value);
+				if (!init)
+					self.validate2();
 				break;
 		}
 	};
