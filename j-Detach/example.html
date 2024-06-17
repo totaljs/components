@@ -10,7 +10,7 @@
 	<ui-component name="detach" path="common.detach" config="detach:el_detach;attach:el_attach;remove:el_remove">
 		<div class="padding">
 			<h2>Your content</h2>
-			<div><img src="https://www.totaljs.com/download/sn1v001gi41d.svg" width="200" /></div>
+			<div><img src="https://cdn.componentator.com/logo.svg" width="200" /></div>
 		</div>
 	</ui-component>
 </div>
@@ -67,7 +67,9 @@
 	}
 
 	function togglewindow() {
-		TOGGLE('common.detach');
+		var path = 'common.detach';
+		var val = GET(path);
+		SET(path, !val);
 	}
 
 </script>

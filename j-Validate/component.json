@@ -1,11 +1,8 @@
 {
 	"datecreated": "2021-11-13T15:48:14.000Z",
-	"dateupdated": "2023-07-20T12:39:00.000Z",
+	"dateupdated": "2024-06-12T10:38:00.000Z",
 	"name": "j-Validate",
-	"tags": [
-		"validation",
-		"validator"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": false,

@@ -1,12 +1,8 @@
 {
-	"datecreated": "2024-02-27T10:46:00.000Z",
+	"datecreated": "2024-02-27T10:46:01.000Z",
 	"dateupdated": null,
 	"name": "j-DataSource",
-	"tags": [
-		"datasource",
-		"array",
-		"codelist"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"responsive": false,

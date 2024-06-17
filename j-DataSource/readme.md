@@ -2,6 +2,8 @@
 
 The component loads data from the external source via `AJAX()` method and it binds the value according to the `config.path`.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `path {String}` __required__ a path where the value will be set

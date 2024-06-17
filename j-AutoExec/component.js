@@ -6,6 +6,7 @@ COMPONENT('autoexec', 'delay:0;init:0;manually:0;input:1', function(self, config
 	self.readonly();
 
 	var exec = function() {
+		delay = null;
 		config.exec && self.EXEC(config.exec, self.element, self.get());
 	};
 
@@ -17,9 +18,19 @@ COMPONENT('autoexec', 'delay:0;init:0;manually:0;input:1', function(self, config
 		}
 	};
 
-	self.setter = function(value, path, type) {
+	self.setter = function(value, path, flags) {
 
 		var is = false;
+		var type = flags;
+
+		if (jComponent.v20) {
+			if (flags.init)
+				type =0;
+			else if (flags.touched)
+				type = 2;
+			else if (flags.modified)
+				type = 1;
+		}
 
 		if ((type === 1 || type === 2) && track.length) {
 			for (var p of track) {

@@ -2,5 +2,8 @@
 
 <script>
 	var volume = 50; // 50%
-	SETTER(true, 'audio/play', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
+	if (jComponent.is20)
+		SETTER('audio/play @important', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
+	else
+		SETTER(true, 'audio/play', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
 </script>

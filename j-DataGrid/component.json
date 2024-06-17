@@ -1,11 +1,8 @@
 {
 	"datecreated": "2018-06-20T07:59:00.000Z",
-	"dateupdated": "2024-06-10T21:05:00.001Z",
+	"dateupdated": "2024-06-14T07:50:00.001Z",
 	"name": "j-DataGrid",
-	"tags": [
-		"datagrid",
-		"grid"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 2,
 	"darkmode": true,

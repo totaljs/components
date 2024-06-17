@@ -2,7 +2,7 @@
 
 This component sets current browser locale (number format, date format and time format) according to the `navigatior.language`.
 
-- easy usage
+- jComponent `v19|v20`
 - singleton
 - `path` will contain current's browser locale
 - sets `DEF.dateformat` and it creates environment value called `[ts]`

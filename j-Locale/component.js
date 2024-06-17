@@ -1,8 +1,8 @@
 COMPONENT('locale', function(self, config) {
 
 	self.singleton();
-	self.nocompile();
 	self.readonly();
+	self.nocompile && self.nocompile();
 
 	self.use = function(language) {
 
@@ -999,6 +999,7 @@ COMPONENT('locale', function(self, config) {
 		ENV('ts', (tf === 12 ? '!' : '') + df + ' - ' + (tf === 12 ? DEF.timeformat.substring(1) : DEF.timeformat));
 		ENV('date', DEF.dateformat);
 		ENV('time', DEF.timeformat);
+
 		CONFIG('datepicker,firstday', 'firstday:' + fdw);
 		CONFIG('timepicker', 'ampm:' + tf === 12 ? 'true' : 'false');
 
@@ -1011,8 +1012,8 @@ COMPONENT('locale', function(self, config) {
 			self.use(config.language);
 		} else {
 			var language = navigator.language.toLowerCase();
-			if (!self.use(language.split('-')[0]))
-				self.use(language);
+			if (!self.use(language))
+				self.use(language.split('-')[0])
 		}
 	};
 

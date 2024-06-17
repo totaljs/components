@@ -30,7 +30,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;markers:1;curvedlines:1;horizo
 		config.horizontal = 1;
 
 		self.aclass(cls);
-		self.html(('<div class="{0}-selection hidden"></div><div class="{0}-groups"></div><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg" class="{0}-connections"><defs><marker id="{0}-arrow" viewbox="0 0 10 10" refX="5" refY="5" markerwidth="4" markerheight="4" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" /></marker></defs><g class="lines"></g><g class="anim"></g></svg><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">' + (config.grid ? '<defs><pattern id="jflowgrid" width="{grid}" height="{grid}" patternunits="userSpaceOnUse"><path d="M {grid} 0 L 0 0 0 {grid}" fill="none" class="{0}-grid" shape-rendering="crispEdges" /></pattern></defs><rect width="100%" height="100%" fill="url(#jflowgrid)" shape-rendering="crispEdges" />' : '') + '</svg>').format(cls).arg(config));
+		self.html(('<div class="{0}-selection hidden"></div><div class="{0}-groups"></div><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg" class="{0}-connections"><defs><marker id="{0}-arrow" viewbox="0 0 10 10" refX="5" refY="5" markerwidth="4" markerheight="4" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" /></marker></defs><g class="lines"></g><g class="anim"></g></svg><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">' + (config.grid ? '<defs><pattern id="jflowgrid" width="{grid}" height="{grid}" patternunits="userSpaceOnUse"><path d="M {grid} 0 L 0 0 0 {grid}" fill="none" class="{0}-grid" shape-rendering="crispEdges" /></pattern></defs><rect width="100%" height="100%" fill="url(#jflowgrid)" shape-rendering="crispEdges" />' : '') + '</svg>').format(cls).args(config));
 
 		var svg = self.find('svg');
 		self.el.svg = svg.eq(0);
@@ -223,7 +223,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;markers:1;curvedlines:1;horizo
 
 				html = $(html);
 				self.append(html);
-				el = self.find('.component[data-id="{id}"]'.arg(com));
+				el = self.find('.component[data-id="{id}"]'.args(com));
 
 				if (com.tab) {
 					el.aclass('tab-' + com.tab);

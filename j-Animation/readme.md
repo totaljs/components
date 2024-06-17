@@ -2,6 +2,8 @@
 
 This component can animate elements with `.animation` class.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `style {Number}` style of animation:

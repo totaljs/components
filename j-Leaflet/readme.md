@@ -2,6 +2,8 @@
 
 This component uses [Leaflet](https://leafletjs.com/) library with the [OpenStreetMap](https://www.openstreetmap.org/) map engine. The component uses 3rd party dependencies.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `height {Number/String}` fixed height or a parent element (default: `200`)

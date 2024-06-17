@@ -1,5 +1,6 @@
 ## j-CloudEditor (BETA)
 
+- jComponent `v19|v20`
 - it works in the iframe
 - supports multiple cursors (`shift + cmd + arrow-down/up`)
 - supports finding selected text (`cmd + d`)

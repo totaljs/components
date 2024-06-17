@@ -5,6 +5,9 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 
 	self.nocompile();
 
+	// jComponent +v20
+	self.autobind20 && self.autobind20();
+
 	self.init = function() {
 		Thelpers.ui_input_icon = function(val) {
 			return val.charAt(0) === '!' || val.indexOf(' ') !== -1 ? ('<span class="ui-input-icon-custom">' + (val.charAt(0) === '!' ? val.substring(1) : ('<i class="' + val) + '"></i>') + '</span>') : ('<i class="ti ti-' + val + '"></i>');
@@ -995,7 +998,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			var invalid = config.required ? self.isInvalid() : self.forcedvalidation() ? self.isInvalid() : false;
 			if (invalid !== self.$oldstate) {
 				self.$oldstate = invalid;
-				self.tclass(cls + '-invalid', invalid);
+				self.tclass(cls + '-invalid', !!invalid);
 				self.tclass(cls + '-ok', !invalid);
 				config.error && self.find(cls2 + '-error').tclass('hidden', !invalid);
 			}

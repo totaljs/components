@@ -2,6 +2,7 @@
 
 It's a simple alternative to `j-CloudEditor`. You can specify the main configuration in the config, and the value is `{String}` (in `j-CloudEditor` is configuration part of value).
 
+- jComponent `v19|v20`
 - it works in the iframe
 - supports multiple cursors (`shift + cmd + arrow-down/up`)
 - supports finding selected text (`cmd + d`)

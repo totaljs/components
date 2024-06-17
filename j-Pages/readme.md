@@ -2,6 +2,8 @@
 
 The component is a better alternative to the `j-Section` component. As a result, you can easily make a multi-page app with dynamic content loading when needed. The result looks very intuitive for mobile devices or desktop computers.
 
+- jComponent `v19|v20`
+
 __Main configuration__:
 
 - `margin {Number/String}` a top margin (default: `0`)

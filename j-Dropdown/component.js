@@ -1,8 +1,12 @@
-COMPONENT('dropdown', function(self, config) {
+COMPONENT('dropdown', function(self, config, cls) {
 
 	var select, condition, content = null;
 	var render = '';
+
 	self.nocompile && self.nocompile();
+
+	// jComponent +v20
+	self.autobind20 && self.autobind20();
 
 	self.validate = function(value) {
 
@@ -14,8 +18,6 @@ COMPONENT('dropdown', function(self, config) {
 			value = '';
 		else
 			value = value.toString();
-
-		EMIT('reflow', self.name);
 
 		switch (self.type) {
 			case 'currency':
@@ -83,6 +85,11 @@ COMPONENT('dropdown', function(self, config) {
 
 	self.bind = function(path, arr) {
 
+		if (M.is20) {
+			arr = path;
+			path = '';
+		}
+
 		if (!arr)
 			arr = EMPTYARRAY;
 
@@ -115,11 +122,11 @@ COMPONENT('dropdown', function(self, config) {
 		var builder = [];
 		var label = content || config.label;
 		if (label) {
-			builder.push('<div class="ui-dropdown-label">{0}{1}:</div>'.format(config.icon ? '<span class="ti ti-{0}"></span> '.format(config.icon) : '', label));
-			builder.push('<div class="ui-dropdown-values">{0}</div>'.format(html));
+			builder.push(('<div class="' + cls + '-label">{0}{1}:</div>').format(config.icon ? '<span class="ti ti-{0}"></span> '.format(config.icon) : '', label));
+			builder.push(('<div class="' + cls + '-values">{0}</div>').format(html));
 			self.html(builder.join(''));
 		} else
-			self.html(html).aclass('ui-dropdown-values');
+			self.html(html).aclass(cls + '-values');
 		select = self.find('select');
 		render && self.refresh();
 		config.disabled && self.reconfigure('disabled:true');
@@ -130,7 +137,7 @@ COMPONENT('dropdown', function(self, config) {
 		self.template = Tangular.compile('<option value="{{value}}"{{if selected}} selected="selected"{{ fi }}>{{text}}</option>');
 		self.type = config.type;
 		content = self.html();
-		self.aclass('ui-dropdown-container');
+		self.aclass(cls + '-container');
 		self.redraw();
 		config.if && (condition = FN(config.if));
 		config.items && self.reconfigure({ items: config.items });
@@ -144,6 +151,6 @@ COMPONENT('dropdown', function(self, config) {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		self.tclass('ui-dropdown-invalid', invalid);
+		self.tclass(cls + '-invalid', !!invalid);
 	};
 });

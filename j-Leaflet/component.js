@@ -138,7 +138,7 @@ COMPONENT('leaflet', 'height:200;zoom:11;draggable:0;marker:1;margin:0;maxzoom:1
 				meta.marker.on('moveend', function(e) {
 					skip = true;
 					var pos = e.target._latlng;
-					self.set(pos.lat + ',' + pos.lng);
+					self.bind('@touched @modified', pos.lat + ',' + pos.lng);
 				});
 			}
 		}
@@ -179,7 +179,8 @@ COMPONENT('leaflet', 'height:200;zoom:11;draggable:0;marker:1;margin:0;maxzoom:1
 						meta.map.setView(pos, gps[2]);
 						self.marker(pos);
 						skip = true;
-						self.set(item.pos);
+						self.bind('@modified', item.pos);
+						self.setter(item.pos);
 					}
 				});
 			}

@@ -2,6 +2,8 @@
 
 __j-Input__ is multifuncional `input` component which supports a lot of features and it's optimized for everyday usage. It's a great alternative to `j-Textbox` and `j-Dropdown`. Works only with jComponent `+v17`.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `type {String}` optional, can be `email`, `multiline`, `checkbox`, `phone`, `password`, `zip`, `date` (needs `datepicker` component), `time` (needs `timepicker` component), `color` (needs `colorpicker` component), `icon` (needs `faicons` component), `emoji` (needs `emoji` component), `url`, `number`, `number2` (nullable), `search`, `lower`, `upper`, `slug`, `id` or empty (default)
@@ -41,7 +43,7 @@ __Configuration__:
 - `dirkey {String}` optional, a key name for reading of `text` in `dirsource` (default: `name`)
 - `dirvalue {String}` optional, a key name for reading of `value` in `dirsource` (default: `id`)
 - `direxclude {Boolean}` optional, excludes a current value from `j-Directory` (default: `true`)
-- `dirsearch` {Boolean/String} optional, can disable search in `j-Directory` (default: `true`) or `{String}` (key name) can map a value for searching
+- `dirsearch {Boolean/String}` optional, can disable search in `j-Directory` (default: `true`) or `{String}` (key name) can map a value for searching
 - `dirraw {Boolean}` optional, can disable escaping of items for `j-Directory` (default: `false`)
 - `dirdetail {String}` optional, a link to the function `function(val, next(NEW_TEXT))` (targeted for to `dirsource`)
 - __NEW__ `dirfilter {String}` optional, an inline filter conditional method, for example: `value.id !== 2` (targeted for to `dirsource`)
@@ -68,6 +70,10 @@ __Interesting:__
 - if `licon` or `ricon` starts with `!` then the component render a raw value instead of `icon`
 - `ui-input-ok` class is binded when the input is validated and filled
 - `SET('path', 'camouflage', 'show');` shows the value for 2000 ms
+
+```video
+https://www.youtube.com/watch?v=Ne3ezaP0w34
+```
 
 ### Author
 

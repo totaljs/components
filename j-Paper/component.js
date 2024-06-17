@@ -555,8 +555,9 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 			self.save(function(response, is) {
 				if (is) {
 					skip = true;
-					self.set(response, 2);
-				}
+					self.bind('@modified @touched', response);
+				} else
+					self.bind('@touched');
 			});
 		}
 	};

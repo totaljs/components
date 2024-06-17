@@ -22,5 +22,9 @@
 		input.val('');
 	};
 
-	SETTER(true, 'autocomplete/show', opt);
+	if (jComponent.is20)
+		SETTER('autocomplete/show @important', opt);
+	else
+		SETTER(true, 'autocomplete/show', opt);
+
 </script>

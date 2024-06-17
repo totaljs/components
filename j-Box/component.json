@@ -1,13 +1,8 @@
 {
 	"datecreated": "2022-01-12T20:15:00.000Z",
-	"dateupdated": "2024-02-11T19:39:00.000Z",
+	"dateupdated": "2024-06-10T13:42:00.000Z",
 	"name": "j-Box",
-	"tags": [
-		"large",
-		"full",
-		"form",
-		"modal"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"darkmode": true,

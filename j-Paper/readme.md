@@ -1,6 +1,6 @@
 ## j-Paper (BETA)
 
-- a very complex component
+- jComponent `v19|v20`
 - output is a simple `Object Array` structure:
 	- `[{ id: String, widget: String, newbie: Boolean, changed: Boolean, config: Object }]`
 - widgets repository: https://github.com/totaljs/parts/tree/main/paper

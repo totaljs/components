@@ -197,7 +197,6 @@ COMPONENT('autocomplete', 'height:200', function(self, config, cls) {
 		offsetter = $(opt.element);
 		self.opt = opt;
 		self.resize();
-		self.refresh();
 		searchvalue = '';
 		self.visible(false);
 	};

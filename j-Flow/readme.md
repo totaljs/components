@@ -1,6 +1,6 @@
 ## j-Flow
 
-- Works only with `+v18`
+- jComponent `v19|v20`
 - identifiers can't contain `__` char
 
 __Configuration__:

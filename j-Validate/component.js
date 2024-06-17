@@ -7,11 +7,14 @@ COMPONENT('validate', 'delay:100;flags:visible;changes:0;strictchanges:0', funct
 	var reset = 0;
 	var old, track;
 	var currentvalue;
+	var customvalidation = null;
+	var currentpath = '';
 
 	self.readonly();
 
 	self.make = function() {
 		elements = self.find(config.selector || def);
+		currentpath = self.path.toString();
 	};
 
 	self.configure = function(key, value, init) {
@@ -25,11 +28,15 @@ COMPONENT('validate', 'delay:100;flags:visible;changes:0;strictchanges:0', funct
 					flags = value.split(',');
 					for (var i = 0; i < flags.length; i++)
 						flags[i] = '@' + flags[i];
+					flags = flags.join(' ');
 				} else
 					flags = null;
 				break;
 			case 'track':
 				track = value.split(',').trim();
+				break;
+			case 'if':
+				customvalidation = new Function('value', 'path', 'return ' + value);
 				break;
 		}
 	};
@@ -44,7 +51,7 @@ COMPONENT('validate', 'delay:100;flags:visible;changes:0;strictchanges:0', funct
 	self.setter = function(value, path, type) {
 
 		currentvalue = value;
-		var is = path === self.path || path.length < self.path.length;
+		var is = path === currentpath || path.length < currentpath.length;
 
 		if (config.changes) {
 			current = STRINGIFY(value, config.strictchanges != true);
@@ -75,11 +82,30 @@ COMPONENT('validate', 'delay:100;flags:visible;changes:0;strictchanges:0', funct
 
 	var check = function() {
 
-		var path = self.path.replace(/\.\*$/, '');
-		var disabled = tracked || config.validonly ? !VALID(path, flags) : DISABLED(path, flags);
+		var arr = COMPONENTS(self.path + (flags ? (' ' + flags) : ''));
+		var disabled = false;
+		var modified = false;
+
+		for (var m of arr) {
+			if (config.validonly) {
+				if (m.config.invalid) {
+					disabled = true;
+					break;
+				}
+			} else if (m.config.invalid) {
+				disabled = false;
+				break;
+			} else if (m.config.modified)
+				modified = true;
+		}
+
+		if (!disabled) {
+			if (!config.validonly)
+				disabled = modified == false;
+		}
 
 		if (!disabled && config.if)
-			disabled = !EVALUATE(path, config.if);
+			disabled = customvalidation(self.get(), '');
 
 		if (!disabled && config.changes && backup === current)
 			disabled = true;
@@ -99,8 +125,14 @@ COMPONENT('validate', 'delay:100;flags:visible;changes:0;strictchanges:0', funct
 
 	};
 
+	// jComponent v20
+	self.state2 = function() {
+		setTimeout2(self.ID, check, config.delay);
+	};
+
 	self.state = function(type, what) {
-		if (type === 3 || what === 3) {
+		var isreset = jComponent.is20 ? (!config.modified && !config.touched) : (type === 3 || what === 3);
+		if (isreset) {
 			self.rclass(cls + '-modified');
 			tracked = 0;
 			backup = current;

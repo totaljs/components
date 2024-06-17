@@ -2,9 +2,11 @@
 
 Expandable/Collabsible object tree.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
-- `exec` {String} function to call when a user clicks on icon
+- `exec {String}` function to call when a user clicks on icon
 
 __Usage__:
 

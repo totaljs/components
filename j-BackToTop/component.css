@@ -1,4 +1,4 @@
-.ui-backtotop { visibility: hidden; position: fixed; right: 25px; bottom: 20px; transform: translate3d(55px, 0, 0); transition: transform 0.65s, visibility 0.65s cubic-bezier(0, 0, 0, 1); z-index: 50; }
+.ui-backtotop { visibility: hidden; position: fixed; right: 25px; bottom: 20px; transform: translate3d(55px, 0, 0); transition: transform 0.65s, visibility 0.65s cubic-bezier(0, 0, 0, 1); z-index: 50; cursor: pointer; }
 .ui-backtotop.active { visibility: visible; transform: translate3d(0,0,0); transition: transform 0.65s; }
 .ui-backtotop span { color: #bbb; font-size: 30px; transition: color 0.8s; }
 .ui-backtotop span:hover { color: #888; transition: color 0.8s; }

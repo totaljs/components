@@ -188,7 +188,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 	self.init = function() {
 
 		ON('resize + resize2', function() {
-			setTimeout2('datagridresize', ASETTER('datagrid/resize'), 500);
+			setTimeout2('datagridresize', () => SETTER('datagrid/resize'), 500);
 		});
 
 		Thelpers.ui_datagrid_autoformat = function(val, type) {
@@ -1197,9 +1197,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 		if (config.exec) {
 			self.set(null);
 		} else {
-			setTimeout(function() {
-				self.refresh();
-			}, 100);
+			setTimeout(() => self.refresh(), 100);
 		}
 	};
 
@@ -1414,7 +1412,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 
 		CSS(css, self.ID);
 
-		var w = self.width();
+		var w = self.element.width();
 		if (w > opt.width)
 			opt.width = w - 2;
 
@@ -1471,7 +1469,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 		column += '<div class="dg-hcol"></div>';
 		header[0].innerHTML = resize.join('') + Trow.format(0, column);
 
-		var w = self.width();
+		var w = self.element.width();
 		if (w > opt.width)
 			opt.width = w;
 
@@ -1840,7 +1838,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 		}
 
 		if (w == null)
-			w = self.width();
+			w = self.element.width();
 
 		var emptyspace = 50 - mr;
 		if (emptyspace < 50)

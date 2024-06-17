@@ -12,6 +12,9 @@ COMPONENT('textbox', function(self, config, cls) {
 
 	self.nocompile && self.nocompile();
 
+	// jComponent +v20
+	self.autobind20 && self.autobind20();
+
 	self.validate = function(value) {
 
 		if ((!config.required || config.disabled) && !self.forcedvalidation())
@@ -140,7 +143,7 @@ COMPONENT('textbox', function(self, config, cls) {
 		attrs.attr('data-jc-bind', '');
 
 		if (config.autofill) {
-			attrs.attr('name', self.path.replace(/\./g, '_'));
+			attrs.attr('name', self.path.toString().replace(/\./g, '_'));
 			attrs.attr('autocomplete', 'on');
 			self.autofill && self.autofill();
 		} else {
@@ -180,7 +183,7 @@ COMPONENT('textbox', function(self, config, cls) {
 			builder.push('</div><div class="{0}">{1}</div>'.format(cls, html));
 			config.error && builder.push('<div class="{0}-helper"><i class="ti ti-warning" aria-hidden="true"></i> {1}</div>'.format(cls, config.error));
 			self.html(builder.join(''));
-			self.aclass('ui-textbox-container');
+			self.aclass(cls + '-container');
 			input = self.find('input');
 		} else {
 			config.error && builder.push('<div class="{0}-helper"><i class="ti ti-warning" aria-hidden="true"></i> {1}</div>'.format(cls, config.error));
@@ -211,9 +214,10 @@ COMPONENT('textbox', function(self, config, cls) {
 				self.refresh();
 				break;
 			case 'required':
-				self.noValid(!value);
+				// Backward compatibility
+				self.noValid && self.noValid(!value);
 				!value && self.state(1, 1);
-				self.tclass(cls + '-required', value === true);
+				self.tclass(cls + '-required', !!value);
 				break;
 			case 'placeholder':
 				input.prop('placeholder', value || '');
@@ -222,7 +226,7 @@ COMPONENT('textbox', function(self, config, cls) {
 				input.prop('maxlength', value || 1000);
 				break;
 			case 'autofill':
-				input.prop('name', value ? self.path.replace(/\./g, '_') : '');
+				input.prop('name', value ? self.path.toString().replace(/\./g, '_') : '');
 				break;
 			case 'label':
 				if (content && value)
@@ -300,15 +304,23 @@ COMPONENT('textbox', function(self, config, cls) {
 		return value ? config.spaces === false ? value.replace(/\s/g, '') : value : value;
 	});
 
-	self.state = function(type) {
+	self.state = function(type, what) {
+
 		if (!type)
 			return;
+
+		if (type === 1 && what === 4) {
+			self.rclass(cls + '-invalid');
+			self.$oldstate = null;
+			return;
+		}
+
 		var invalid = config.required ? self.isInvalid() : self.forcedvalidation() ? self.isInvalid() : false;
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		self.tclass(cls + '-invalid', invalid);
-		config.error && self.find(cls2 + '-helper').tclass(cls + '-helper-show', invalid);
+		self.tclass(cls + '-invalid', !!invalid);
+		config.error && self.find(cls2 + '-helper').tclass(cls + '-helper-show', !!invalid);
 	};
 
 	self.forcedvalidation = function() {
