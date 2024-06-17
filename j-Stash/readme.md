@@ -2,6 +2,7 @@
 
 The component can postpone elements without destructing and detaching from the DOM. This component can help you with dynamic content from the server side. We use the component in the Total.js FlowStream projects for the component's settings.
 
+- jComponent `v19|v20`
 - elements can contain everything like components, scopes, binders, etc.
 
 __Configuration__:

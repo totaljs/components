@@ -1,5 +1,7 @@
 The component makes a simple table grid (composed of `div` elements) divided by a simple border that you can modify.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `count {Number}` a default count of items per row

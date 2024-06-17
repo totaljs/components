@@ -2,6 +2,7 @@
 
 The component enables `contenteditable` attribute for elements with `edit` or `edit2` classes.
 
+- jComponent `v19|v20`
 - singleton
 - put the component under `<body` element like `j-Directory` or `j-DatePicker`
 

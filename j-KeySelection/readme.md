@@ -2,6 +2,7 @@
 
 This component allows user to select some items by up/down keys and confirm selection by the `enter` key.
 
+- jComponent `v19|v20`
 - supports auto-scroll
 
 __Configuration__

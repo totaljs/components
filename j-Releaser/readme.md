@@ -2,6 +2,8 @@
 
 The component can release after some time own content (DOM) + memory. We recommend to use it for `j-DataGrid`, `j-CodeMirror`, `j-CloudEditor`, etc..
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `if {String}` must contain a value for comparing with the model

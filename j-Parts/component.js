@@ -1,6 +1,5 @@
 COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 
-	var skip = false;
 	var partw;
 	var parth;
 	var prev = [];
@@ -69,10 +68,8 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 			config.focus && self.EXEC(config.focus, item);
 		}
 
-		if (is) {
-			skip = true;
-			self.update(true);
-		}
+		if (is)
+			self.bind('@touched @modified', model);
 	};
 
 	self.rename = function(id, name, icon) {
@@ -83,8 +80,7 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 				item.name = name;
 			if (icon)
 				item.icon = icon;
-			skip = true;
-			self.update(true);
+			self.bind('@touched @modified', model);
 		}
 	};
 
@@ -120,8 +116,7 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 				next && setTimeout(self.focus, 5, next.id);
 			}
 
-			skip = true;
-			self.update(true);
+			self.bind('@touched @modified', model);
 			itemop('remove', item);
 			config.close && self.EXEC(config.close, item);
 			item.element.remove();
@@ -203,11 +198,6 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 	};
 
 	self.setter = function(value) {
-
-		if (skip) {
-			skip = false;
-			return;
-		}
 
 		var model = value || EMPTYARRAY;
 		var focus = null;

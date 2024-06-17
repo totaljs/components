@@ -23,7 +23,7 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 			return t.$edit;
 
 		var opt = (el.attrd('edit') || '').parseConfig();
-		opt.scope = opt.plugin = el.scope();
+		opt.scope = opt.plugin = M.is20 ? el.plugin() : el.scope();
 		opt.html = el.html();
 
 		if (opt.type)

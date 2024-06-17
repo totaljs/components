@@ -4,7 +4,7 @@ COMPONENT('releaser', 'delay:500;release:10000;bindvisible:0', function(self, co
 	var releasing = null;
 
 	self.readonly();
-	config.visible && self.bindvisible();
+	config.visible && self.bindvisible && self.bindvisible();
 
 	self.make = function() {
 		var scr = 'scri' + 'pt';

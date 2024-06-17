@@ -172,8 +172,7 @@ COMPONENT('inlinedatepicker', 'today:Set today;firstday:-1', function(self, conf
 			dt.setSeconds(+(time[2] || '0'));
 		}
 
-		self.change(true);
-		self.set(dt);
+		self.bind('@touched @modified @setter', dt);
 	};
 
 	self.make = function() {

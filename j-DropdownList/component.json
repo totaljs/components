@@ -1,11 +1,12 @@
 {
 	"datecreated": "2022-02-21T18:14:03.000Z",
-	"dateupdated": "2023-01-25T11:00:04.000Z",
+	"dateupdated": "2023-01-25T11:00:06.000Z",
 	"name": "j-DropdownList",
 	"tags": [
 		"dropdown",
 		"list"
 	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"darkmode": true,

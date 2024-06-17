@@ -2,6 +2,8 @@
 
 This content can handle multiple `parts` stored in the `Array` and focus on one specific part. It simulates something like browser tabs.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `parent {String}` parent area due to part size (default: `auto`)

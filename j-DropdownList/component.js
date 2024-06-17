@@ -29,7 +29,7 @@ COMPONENT('dropdownlist', 'limit:3;check:true', function(self, config, cls) {
 				return;
 
 			var items = self.get();
-			var datasource = typeof(config.datasource) === 'string' ? GET(config.datasource) : config.datasource;
+			var datasource = typeof(config.datasource) === 'string' ? GET(self.makepath(config.datasource)) : config.datasource;
 			var opt = {};
 
 			opt.element = $(this);
@@ -70,8 +70,7 @@ COMPONENT('dropdownlist', 'limit:3;check:true', function(self, config, cls) {
 					items.splice(config.limit);
 
 				nocheck = true;
-				self.set(items);
-				self.change(true);
+				self.bind('@touched @modified @setter', items);
 				setTimeout(self.uncheck, 100);
 			};
 
@@ -89,23 +88,22 @@ COMPONENT('dropdownlist', 'limit:3;check:true', function(self, config, cls) {
 			var index = arr.findIndex('id', id);
 			arr.splice(index, 1);
 			nocheck = true;
-			self.update(true);
-			self.change(true);
+			self.bind('@touched @modified @setter', arr);
 			setTimeout(self.uncheck, 100);
 		});
 	};
 
 	self.configure = function(key, value) {
 		if (key === 'datasource') {
-			if (config.datasource.indexOf(',') !== -1)
-				config.datasource = self.parsesource(config.datasource);
+			if (value.includes(','))
+				config.datasource = config.datasource.parseSource();
 		} else if (key === 'disabled')
 			self.tclass('ui-disabled', value);
 	};
 
 	self.check = function() {
 		var items = self.get() || [];
-		var check = typeof(config.datasource) === 'string' ? GET(config.datasource) : config.datasource;
+		var check = typeof(config.datasource) === 'string' ? GET(self.makepath(config.datasource)) : config.datasource;
 		items.wait(function(item, next) {
 			var m = check.findItem('id', item.id);
 			if (m) {
@@ -117,8 +115,7 @@ COMPONENT('dropdownlist', 'limit:3;check:true', function(self, config, cls) {
 			next();
 		}, function() {
 			nocheck = true;
-			self.set(items.remove('id', ''));
-			self.change(true);
+			self.bind('@touched @modified @setter', items.remove('id', ''))
 			setTimeout(self.uncheck, 100);
 		});
 	};

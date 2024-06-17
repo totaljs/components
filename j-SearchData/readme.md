@@ -2,6 +2,8 @@
 
 This component tries to filter data according to the search phrase.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `datasource {String}` __required__ - a path to the data-source with list of items `Array`

@@ -2,6 +2,8 @@
 
 This component executes the code defined in the `<script type="text/js"></script>` tag.
 
+- jComponent `v19|v20`
+
 ```html
 <script type="text/js">
 

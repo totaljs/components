@@ -47,11 +47,11 @@ COMPONENT('choose', 'limit:1;attr:id;key:id;selector:.selection;event:click;clas
 			if (config.limit === 1) {
 				if (model === id) {
 					if (config.uncheck) {
-						self.set(null);
+						self.bind('@modified @touched @setter', null);
 						config.click && self.EXEC(config.click, null);
 					}
 				} else {
-					self.set(id);
+					self.bind('@modified @touched @setter', id);
 					config.click && self.EXEC(config.click, id);
 				}
 			} else {
@@ -63,7 +63,7 @@ COMPONENT('choose', 'limit:1;attr:id;key:id;selector:.selection;event:click;clas
 				} else
 					model.splice(index, 1);
 				config.click && self.EXEC(config.click, model);
-				self.update(true);
+				self.bind('@modified @touched @setter', model);
 			}
 		}
 		self.change(true);
