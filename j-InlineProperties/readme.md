@@ -1,5 +1,6 @@
 ## j-InlineProperties
 
+- jComponent `v19|v20`
 - easy usage for different cases
 - singleton
 

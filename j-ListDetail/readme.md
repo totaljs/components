@@ -2,6 +2,8 @@
 
 The component divides the content for listing part and detail part. Displaying of detail part depends on the `path {Boolean}`.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `parent {String}` parent element for obtaining of width/height (default: `auto`)

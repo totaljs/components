@@ -1,12 +1,8 @@
 {
-	"datecreated": "2024-01-11T13:48:02.000Z",
+	"datecreated": "2024-01-11T13:48:03.000Z",
 	"dateupdated": null,
 	"name": "Tangular-RGBA",
-	"tags": [
-		"rgba",
-		"color",
-		"tangular"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

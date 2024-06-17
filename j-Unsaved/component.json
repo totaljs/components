@@ -1,11 +1,8 @@
 {
 	"datecreated": "2022-10-05T15:09:58.000Z",
-	"dateupdated": "2023-01-21T21:44:58.000Z",
+	"dateupdated": "2023-01-21T21:44:59.000Z",
 	"name": "j-Unsaved",
-	"tags": [
-		"unsaved",
-		"message"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"picture": "picture.jpg",

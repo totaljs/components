@@ -1,10 +1,8 @@
 {
 	"datecreated": "2023-12-28T15:17:00.000Z",
-	"dateupdated": "2024-04-09T21:06:00.000Z",
+	"dateupdated": "2024-04-09T21:06:01.000Z",
 	"name": "j-Prompt",
-	"tags": [
-		"promt"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

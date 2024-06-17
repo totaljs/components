@@ -2,6 +2,8 @@
 
 The component can show an action when time is expired.
 
+- jComponent `v19|v20`
+
 __Configuration__
 
 - `text {String}` optional, a text for countdown

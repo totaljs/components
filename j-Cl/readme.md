@@ -2,6 +2,7 @@
 
 The component parses inline data defined in the component's element. Data is parsed to the code list format.
 
+- jComponent `v19|v20`
 - Data source format: `id1|name1|icon1,id2|name2|icon2,id3|name3|icon3`
 - Parsed to: `[{ id, name, icon }]`
 

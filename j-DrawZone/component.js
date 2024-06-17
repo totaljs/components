@@ -284,8 +284,6 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 			arr.push(latlng);
 		}
 
-		skip = true;
-
 		var obj = self.get() || {};
 		obj.zoom = meta.view.getZoom() >> 0;
 		obj.color = obj.color || config.color;
@@ -295,7 +293,7 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 		self.clear(false, true);
 		meta.polygon = self.createpolygon(arr, obj.color, config.radius);
 		meta.map.addLayer(meta.polygon);
-		self.set(obj);
+		self.bind('@modified @touched', obj);
 
 		if (!config.readonly)
 			self.modify();
@@ -314,8 +312,7 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 		if (!noreset) {
 			var obj = self.get();
 			obj.points = [];
-			self.set(obj);
-			self.change(true);
+			self.bind('@modified @touched', obj);
 		}
 
 		draw && self.draw();

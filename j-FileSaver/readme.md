@@ -2,6 +2,7 @@
 
 This component is a wrapper for the [FileSaver.js library](https://github.com/eligrey/FileSaver.js/). With this component you can easily save locally generated files directly in the web browser.
 
+- jComponent `v19|v20`
 - singleton
 
 ### Methods

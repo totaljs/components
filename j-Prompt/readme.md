@@ -2,6 +2,8 @@
 
 The component (singleton) displays a prompt window with a simple textbox.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `zindex {Number}` optional (default: `12`)

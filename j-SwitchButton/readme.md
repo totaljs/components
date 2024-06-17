@@ -1,5 +1,7 @@
 ## j-SwitchButton
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `required {Boolean}` optional, enables "required" (default: `false`)

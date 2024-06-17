@@ -1,12 +1,8 @@
 {
 	"datecreated": "2023-03-02T20:00:03.000Z",
-	"dateupdated": "2023-10-24T12:30:00.000Z",
+	"dateupdated": "2023-10-24T12:30:01.000Z",
 	"name": "j-InlineProperties",
-	"tags": [
-		"properties",
-		"inline",
-		"form"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"responsive": true,

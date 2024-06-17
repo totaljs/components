@@ -2,6 +2,7 @@
 
 The component for data saving data to and loading from the local storage of the browser.
 
+- jComponent `v19|v20`
 - supports __dark mode__
 
 __Configuration__:

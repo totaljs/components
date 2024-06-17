@@ -1,4 +1,5 @@
 COMPONENT('switchbutton', function(self, config, cls) {
+
 	self.nocompile();
 
 	self.validate = function(value) {
@@ -21,17 +22,14 @@ COMPONENT('switchbutton', function(self, config, cls) {
 		self.html('<div class="{1}-label"><span>{0}</span>{2}</div><label tabindex=0><div class="{1}-slider"></div></label>'.format(self.html(), cls, config.description));
 		
 		self.event('click', function() {
-			if (!config.disabled) {
-				self.dirty(false);
-				self.getter(!self.get());
-			}
+			if (!config.disabled)
+				self.bind('@touched @modified @setter', !self.get());
 		});
 
 		self.event('keydown', 'label', function(e) {
 			if (!config.disabled && e.which === 32) {
 				e.preventDefault();
-				self.dirty(false);
-				self.getter(!self.get());
+				self.bind('@touched @modified @setter', !self.get());
 			}
 		});
 

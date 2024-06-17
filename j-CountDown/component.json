@@ -1,10 +1,8 @@
 {
-	"datecreated": "2023-02-13T10:34:02.000Z",
+	"datecreated": "2023-02-13T10:34:03.000Z",
 	"dateupdated": null,
 	"name": "j-CountDown",
-	"tags": [
-		"countdown"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

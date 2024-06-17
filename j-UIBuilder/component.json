@@ -1,11 +1,8 @@
 {
 	"datecreated": "2022-08-25T00:25:03.000Z",
-	"dateupdated": "2023-11-13T15:42:01.000Z",
+	"dateupdated": "2023-11-13T15:42:02.000Z",
 	"name": "j-UIBuilder",
-	"tags": [
-		"ui",
-		"builder"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

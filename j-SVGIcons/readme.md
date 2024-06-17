@@ -2,6 +2,7 @@
 
 This component registers a new Web component in the form `<ui-svgicon name="icon_name"></ui-svgicon>`.
 
+- jComponent `v19|v20`
 - Use SVG sprites generator <https://svgsprit.es/>
 
 __Configuration__:

@@ -71,6 +71,7 @@ COMPONENT('swiper', 'null', function(self, config, cls) {
 	};
 
 	self.setter = function(value) {
+
 		if (!value || !(value instanceof Array)) {
 			if (self.template) {
 				body.html('');

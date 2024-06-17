@@ -2,6 +2,8 @@
 
 A simple Tangular template engine __helper__ for transforming `hex` colors to `RGBA colors`.
 
+- jComponent `v19|v20`
+
 __Usage__:
 
 ```html

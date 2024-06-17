@@ -2,6 +2,8 @@
 
 The component loads a content from the template `<script type="text/html">` and appends it into the element. It's a great solution for reusable content. Learn from example.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `selector {String}` a jQuery selector (it will use it for entire DOM)

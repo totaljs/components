@@ -2,6 +2,7 @@
 
 The component opens Flow editor in the iframe.
 
+- jComponent `v19|v20`
 - Flow editor/designer repository <https://github.com/totaljs/flowdesigner> (if you don't want to use cloud version)
 
 __Configuration__:

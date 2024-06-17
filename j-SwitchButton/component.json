@@ -1,12 +1,8 @@
 {
-	"datecreated": "2023-03-07T12:01:04.000Z",
+	"datecreated": "2023-03-07T12:01:05.000Z",
 	"dateupdated": null,
 	"name": "j-SwitchButton",
-	"tags": [
-		"toggle",
-		"switch",
-		"button"
-	],
+	"jcomponent": "19|20",
 	"darkmode": true,
 	"version": 1,
 	"picture": "picture.jpg",

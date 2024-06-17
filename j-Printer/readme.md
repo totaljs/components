@@ -2,6 +2,7 @@
 
 The component can print a HTML content.
 
+- jComponent `v19|v20`
 - singleton
 - easy usage
 

@@ -1,15 +1,8 @@
 {
 	"datecreated": "2023-07-20T20:37:02.000Z",
-	"dateupdated": "2023-08-18T08:36:00.000Z",
+	"dateupdated": "2023-08-18T08:36:01.000Z",
 	"name": "j-DrawZone",
-	"tags": [
-		"map",
-		"mapzones",
-		"zones",
-		"zone",
-		"polygon",
-		"draw"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"darkmode": false,

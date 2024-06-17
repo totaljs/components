@@ -2,6 +2,8 @@
 
 The component can draw a zone (polygon). This component uses [OpenLayers](https://openlayers.org/) library with the [OpenStreetMap](https://www.openstreetmap.org/) map engine.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `parent {String}` a parent element (default: `undefined`)

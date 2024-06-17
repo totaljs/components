@@ -1,11 +1,8 @@
 {
-	"datecreated": "2023-02-11T12:53:00.000Z",
+	"datecreated": "2023-02-11T12:53:01.000Z",
 	"dateupdated": null,
 	"name": "j-FileSaver",
-	"tags": [
-		"file",
-		"saver"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

@@ -2,6 +2,7 @@
 
 The component opens UI Builder in the iframe.
 
+- jComponent `v19|v20`
 - UI Builder editor repository <https://github.com/totaljs/uibuilder> (if you don't want to use cloud version)
 
 __Configuration__:

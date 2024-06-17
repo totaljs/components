@@ -1,12 +1,8 @@
 {
-	"datecreated": "2024-02-28T12:36:01.000Z",
+	"datecreated": "2024-02-28T12:36:02.000Z",
 	"dateupdated": null,
 	"name": "j-Cl",
-	"tags": [
-		"datasource",
-		"array",
-		"codelist"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"responsive": false,

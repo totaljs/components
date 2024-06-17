@@ -2,6 +2,8 @@
 
 This component renders the app according to the Total.js Flow UI Studio schema.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `url {String}` a link to the Flow UI Studio schema (must be in the `json` format)

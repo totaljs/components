@@ -1,11 +1,8 @@
 {
 	"datecreated": "2022-06-11T11:19:46.002Z",
-	"dateupdated": "2023-10-10T12:21:01.002Z",
+	"dateupdated": "2023-10-10T12:21:02.002Z",
 	"name": "j-DropFiles",
-	"tags": [
-		"drop",
-		"files"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"darkmode": true,
 	"version": 1,
