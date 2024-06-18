@@ -1,11 +1,8 @@
 {
 	"datecreated": "2021-01-28T09:30:07.000Z",
-	"dateupdated": "2023-04-11T12:03:07.000Z",
+	"dateupdated": "2023-04-11T12:03:08.000Z",
 	"name": "Tangular-JsonFormat",
-	"tags": [
-		"tangular",
-		"helpers"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"darkmode": true,

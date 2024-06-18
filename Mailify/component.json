@@ -1,10 +1,8 @@
 {
 	"datecreated": "2017-01-18T08:10:00.000Z",
-	"dateupdated": "2018-05-26T10:34:00.000Z",
+	"dateupdated": "2018-05-26T10:35:00.000Z",
 	"name": "Mailify",
-	"tags": [
-		"email"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": false,

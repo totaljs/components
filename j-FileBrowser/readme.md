@@ -2,8 +2,7 @@
 
 The component will open a file browser and returns selected files.
 
-- singleton
-- easy usage
+- jComponent `v19|v20`
 
 __Methods__:
 

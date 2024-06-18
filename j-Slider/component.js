@@ -4,12 +4,11 @@ COMPONENT('slider', function(self, config, cls) {
 	var events = {};
 	var thumb;
 	var track;
-	var skip = false;
 	var prevwidth;
 
 	self.nocompile && self.nocompile();
 
-	self.updateposition = function() {
+	self.updateposition = function(update) {
 
 		var x = (thumb.css('left') || '').parseInt();
 		var w = thumb.width();
@@ -24,8 +23,7 @@ COMPONENT('slider', function(self, config, cls) {
 			p = ((x / width) * 100).floor(3);
 		}
 
-		skip = true;
-		self.set(Math.round(p));
+		update && self.bind('@touched @modified', Math.round(p));
 	};
 
 	self.make = function() {
@@ -63,7 +61,7 @@ COMPONENT('slider', function(self, config, cls) {
 			else if (x < 0)
 				x = 0;
 			thumb.css('left', x);
-			setTimeout2(self.ID, self.updateposition, 100);
+			setTimeout2(self.ID, self.updateposition, 100, null, true);
 		};
 
 		events.mdown = function(e) {
@@ -82,6 +80,7 @@ COMPONENT('slider', function(self, config, cls) {
 			events.x = e.pageX;
 			events.w = thumb.width();
 			events.width = track.width() - events.w;
+
 			if (target === track[0]) {
 				var x = ((e.pageX - offset.left) - (events.w / 2)) >> 0;
 				if (x > events.width)
@@ -89,22 +88,16 @@ COMPONENT('slider', function(self, config, cls) {
 				else if (x < 0)
 					x = 0;
 				thumb.css('left', x);
-				setTimeout2(self.ID, self.updateposition, 100);
+				setTimeout2(self.ID, self.updateposition, 100, null, true);
 			} else
 				$(W).on('mousemove touchmove', events.mmove).on('mouseup touchend', events.mup);
 
-			self.change(true);
 		};
 
 		self.find(cls2 + '-body').on('mousedown touchstart', events.mdown);
 	};
 
 	self.setter = function(value) {
-
-		if (skip) {
-			skip = false;
-			return;
-		}
 
 		var w = thumb.width();
 		var width = track.width() - w;
@@ -136,7 +129,7 @@ COMPONENT('slider', function(self, config, cls) {
 				var icon = tmp.find('i');
 				icon = icon.length ? icon : null;
 				if (value) {
-					value = self.faicon(value);
+					value = self.icon(value);
 					if (icon)
 						icon.rclass().aclass(value);
 					else

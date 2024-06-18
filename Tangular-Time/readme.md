@@ -2,6 +2,8 @@
 
 A simple Tangular template engine __helper__ for rendering `humanable` date and time.
 
+- jComponent `v19|v20`
+
 __Outputs__:
 
 - `now`
@@ -18,7 +20,7 @@ __Usage__:
 
 or
 
-```javascript
+```js
 console.log(Thelpers.time(new Date()));
 ```
 

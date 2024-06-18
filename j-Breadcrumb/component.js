@@ -1,4 +1,4 @@
-COMPONENT('breadcrumb', 'icon:ti ti-home;historyapi:1;root:Root;usetitle:false;rooturl:/', function(self, config, cls) {
+COMPONENT('breadcrumb', 'icon:ti ti-home;historyapi:1;root:Root;arrowicon:ti ti-angle-right;usetitle:false;rooturl:/', function(self, config, cls) {
 
 	var nav;
 
@@ -60,14 +60,14 @@ COMPONENT('breadcrumb', 'icon:ti ti-home;historyapi:1;root:Root;usetitle:false;r
 		if (config.title)
 			document.title = (value.length > 1 ? (item.name + ' / ') : '') + config.title;
 
-		var html = builder.join('<i class="ti ti-angle-right"></i>');
+		var html = builder.join('<i class="{0}"></i>'.format(config.arrowicon));
 
 		if (config.icon && html)
 			html = '<i class="{0}"></i>'.format(config.icon) + html;
 
 		nav.html(html);
 
-		if (!type)
+		if (!type || (M.is20 && !type.init))
 			self.rclass('hidden invisible');
 	};
 

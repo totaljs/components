@@ -2,7 +2,9 @@
 
 A simple Tangular template engine __helper__ for rendering `humanable` size of file or directory. `Number` contains prototype `Number.filesize()`.
 
-```javascript
+- jComponent `v19|v20`
+
+```js
 (100).filesize([type])
 // type {String} optional, can contain bytes, KB, MB, GB or TB (default: __empty__)
 ```
@@ -23,6 +25,6 @@ __Usage__:
 
 or
 
-```javascript
+```js
 console.log(Thelpers.filesize(1000));
 ```

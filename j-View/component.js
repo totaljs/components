@@ -9,7 +9,7 @@ COMPONENT('view', 'cache:session', function(self, config, cls) {
 	self.readonly();
 
 	var replace2 = function(value) {
-		return '<div data-scope="' + path + '__isolated:1;init:?/init">' + ADAPT(path, '', value) + '</div>';
+		return '<ui-plugin path="' + path + '" config="isolated:1;init:?/init">' + ADAPT(path, '', value) + '</ui-plugin>';
 	};
 
 	self.destroy = function() {
@@ -21,11 +21,11 @@ COMPONENT('view', 'cache:session', function(self, config, cls) {
 			setTimeout(self.download, 100);
 		} else {
 			W.jcviewspending[config.url] = 1;
-			IMPORTCACHE(config.url, config.cache, self.element, function() {
+			IMPORT(config.url + ' <{cache}>'.args(config), self.element, function() {
 				delete W.jcviewspending[config.url];
 				self.rclass('hidden');
 				self.rclass('invisible', 150);
-			}, true, replace2);
+			}, replace2);
 		}
 	};
 
@@ -34,7 +34,7 @@ COMPONENT('view', 'cache:session', function(self, config, cls) {
 		self.download();
 	};
 
-	self.setter = function(value, p, type) {
+	self.setter = function(value, p, type)	 {
 		SET(path, value, type);
 	};
 

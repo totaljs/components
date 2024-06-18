@@ -1,12 +1,8 @@
 {
-	"datecreated": "2018-11-03T21:40:00.000Z",
+	"datecreated": "2018-11-03T21:40:01.000Z",
 	"dateupdated": null,
 	"name": "Tangular-FileSize",
-	"tags": [
-		"jcomponent",
-		"tangular",
-		"helpers"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

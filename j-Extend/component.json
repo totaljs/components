@@ -1,11 +1,8 @@
 {
 	"datecreated": "2021-03-14T11:06:01.000Z",
-	"dateupdated": "2023-01-25T13:30:02.000Z",
+	"dateupdated": "2024-06-18T15:27:00.000Z",
 	"name": "j-Extend",
-	"tags": [
-		"extend",
-		"extender"
-	],
+	"jcomponent": "19|20",
 	"color": "silver",
 	"version": 1,
 	"responsive": true,

@@ -2,9 +2,7 @@
 	"datecreated": "2016-05-05T05:44:53.155Z",
 	"dateupdated": null,
 	"name": "Tags",
-	"tags": [
-		"tag"
-	],
+	"jcomponent": "19|20",
 	"color": "blue",
 	"version": 5,
 	"responsive": true,

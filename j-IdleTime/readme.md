@@ -2,7 +2,7 @@
 
 This component emits event `ON('idletime', function(is) {})` when the website is in idle. It reacts on mouse, keyboard, touch events or focusing of window. And the component sets `Boolean` according to the path with the current idle state.
 
-- singleton
+- jComponent `v19|v20`
 
 __Configuration__:
 

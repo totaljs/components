@@ -104,7 +104,7 @@ COMPONENT('masonry', 'lg:25;md:33.33;sm:50;xs:100', function(self, config, cls) 
 		} else
 			container.html(builder.join(''));
 
-		compilable && self.compile();
+		compilable && self.compile && self.compile();
 	};
 
 });

@@ -40,7 +40,7 @@ COMPONENT('button', 'delay:100;icon:ti ti-home;flags:visible;validation:1;name:s
 				if (self.button) {
 					var i = self.find('i').rclass2('ti');
 					if (value)
-						i.aclass(self.faicon(value)).rclass('hidden');
+						i.aclass(self.icon(value)).rclass('hidden');
 					else
 						i.aclass('hidden');
 				}
@@ -57,7 +57,7 @@ COMPONENT('button', 'delay:100;icon:ti ti-home;flags:visible;validation:1;name:s
 	};
 
 	self.redraw = function() {
-		var html = '<i class="{0}"></i>'.format(config.icon ? (self.faicon(config.icon) + (config.color ? (' ' + config.color) : '')) : 'hidden') + ihtml;
+		var html = '<i class="{0}"></i>'.format(config.icon ? (self.icon(config.icon) + (config.color ? (' ' + config.color) : '')) : 'hidden') + ihtml;
 		self.html('<button' + (config.disabled || (self.path && config.validation) ? ' disabled' : '') + (config.name ? (' name="' + config.name + '"') : '') + '>' + html + '</button>');
 		self.button = self.find('button');
 		if (ready) {
@@ -92,7 +92,6 @@ COMPONENT('button', 'delay:100;icon:ti ti-home;flags:visible;validation:1;name:s
 		var disabled = tracked || config.validonly ? !VALID(path, flags) : DISABLED(path, flags);
 		if (!disabled && config.if)
 			disabled = !EVALUATE(path, config.if);
-
 		if (disabled !== old && self.button) {
 			self.button.prop('disabled', disabled);
 			old = disabled;

@@ -1,10 +1,8 @@
 {
 	"datecreated": "2021-03-17T13:22:04.000Z",
-	"dateupdated": "2023-01-31T15:44:01.000Z",
+	"dateupdated": "2024-06-18T15:25:01.000Z",
 	"name": "j-Masonry",
-	"tags": [
-		"masonry"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

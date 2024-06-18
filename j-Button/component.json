@@ -1,10 +1,8 @@
 {
 	"datecreated": "2021-04-29T20:15:02.000Z",
-	"dateupdated": "2023-01-23T10:22:03.000Z",
+	"dateupdated": "2024-06-18T14:29:04.000Z",
 	"name": "j-Button",
-	"tags": [
-		"button"
-	],
+	"jcomponent": "19",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

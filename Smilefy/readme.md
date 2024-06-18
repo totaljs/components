@@ -1,5 +1,6 @@
 ## Smilefy
 
+- jComponent `v19|v20`
 - simple JavaScript function
 - UTF smiles
 
