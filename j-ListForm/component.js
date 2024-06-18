@@ -68,42 +68,54 @@ COMPONENT('listform', 'empty:---;default:1;', function(self, config, cls) {
 			var el = $(this);
 			var parent = el.closest(cls2 + '-item');
 			var tmp;
+			var fn;
 
 			if (parent.length) {
-				var tmp = parent[0].$data;
+				var data = parent[0].$data;
 				self.cancel();
 				e.stopPropagation();
 				switch (this.name) {
 					case 'up':
 					case 'down':
-						el.closest('.ui-listform-item').aclass('ui-listform-item-highlight');
-						el.closest('.ui-listform-item').rclass(('ui-listform-item-highlight'), 1000);
-						var index = items.indexOf(tmp);
-						var tmp = index + (this.name === 'up' ? -1 : 1);
+						tmp = parent.aclass(cls + '-item-highlight');
+						tmp.rclass(cls + '-item-highlight', 1000);
+						var index = items.indexOf(data);
+
+						tmp = index + (this.name === 'up' ? -1 : 1);
 						if (tmp < 0 || tmp >= items.length)
 							return;
+
 						var a = items[tmp];
 						items[tmp] = items[index];
 						items[index] = a;
 						NODEMOVE(parent[0], this.name === 'up');
 						skip = true;
-						self.set(items, 2);
-						self.change(true);
+						self.bind('@modified @touched @setter', items);
 						config.move && self.EXEC(config.move, items);
 						break;
+
 					case 'remove':
-						items.splice(items.indexOf(tmp), 1);
-						skip = true;
-						self.set(items, 2);
-						self.change(true);
-						parent.remove();
+
+						fn = function(is) {
+							self.cancel();
+							if (is !== false && data) {
+								parent.remove();
+								items.splice(items.indexOf(data), 1);
+								skip = true;
+								self.bind('@modified @touched @setter', items);
+							}
+						};
+
+						if (config.remove)
+							self.EXEC(config.remove, data, fn, self.get());
+						else
+							fn();
 						break;
 				}
 				return;
 			}
 
 			var is = false;
-			var fn;
 
 			switch (this.name) {
 
@@ -150,8 +162,7 @@ COMPONENT('listform', 'empty:---;default:1;', function(self, config, cls) {
 								self.create(tmp);
 							}
 							skip = true;
-							self.set(items, 2);
-							self.change(true);
+							self.bind('@modified @touched @setter', items);
 						}
 						self.cancel();
 					};
@@ -180,8 +191,7 @@ COMPONENT('listform', 'empty:---;default:1;', function(self, config, cls) {
 							el.parentNode.removeChild(el);
 							items.splice(items.indexOf(data), 1);
 							skip = true;
-							self.set(items, 2);
-							self.change(true);
+							self.bind('@modified @touched @setter', items);
 						}
 					};
 

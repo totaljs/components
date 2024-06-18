@@ -1,11 +1,8 @@
 {
 	"datecreated": "2021-06-16T23:29:13.000Z",
-	"dateupdated": "2023-11-09T22:34:00.000Z",
+	"dateupdated": "2023-11-09T22:34:01.000Z",
 	"name": "j-Configuration",
-	"tags": [
-		"config",
-		"form"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

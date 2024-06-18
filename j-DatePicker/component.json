@@ -1,11 +1,8 @@
 {
 	"datecreated": "2019-02-06T21:33:00.000Z",
-	"dateupdated": "2024-05-02T15:40:01.000Z",
+	"dateupdated": "2024-05-02T15:40:02.000Z",
 	"name": "j-DatePicker",
-	"tags": [
-		"datepicker",
-		"calendar"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"responsive": true,

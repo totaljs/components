@@ -57,13 +57,19 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			prev.element.aclass(cls + '-last');
 	};
 
-	self.types = {};
+	self.compilefn = function(fn) {
+		var index = fn.indexOf('=>');
+		if (index !== -1)
+			fn = fn.substring(index + 2);
+		return new Function('value', 'model', fn);
+	};
 
+	self.types = {};
 	self.types.template = function(item) {
 
 		var icon = '';
 		if (item.icon)
-			icon = '<i class="' + self.faicon(item.icon) + '"></i>';
+			icon = '<i class="' + self.icon(item.icon) + '"></i>';
 
 		var builder = [];
 		var align = item.align || 0;
@@ -101,10 +107,14 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			val = T.prepare(val);
 			if (old != val) {
 				model[item.id] = val;
-				if (empty)
-					SET(self.path, model);
-				else
-					UPD(self.path + '.' + item.id, 2);
+
+				if (empty) {
+					self.bind('@modified @touched', model);
+				} else {
+					self.bind('@modified @touched');
+					UPD(self.path.toString() + '.' + item.id);
+				}
+
 				self.change(true);
 				return true;
 			}
@@ -112,19 +122,20 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 		var el = $(builder.join(''));
 		item.required && el.aclass(cls + '-required');
+
 		var control = el.find(cls2 + '-item-control');
 		var type = self.types[item.type || 'string'](item, control, set, get);
+
 		T = type;
 		type.element = el;
 		type.control = control;
 		type.id = item.id;
 		type.required = item.required;
 
-		var fndisable = item.disable ? FN(item.disable) : null;
-
+		var fndisable = item.disable ? self.compilefn(item.disable) : null;
 		if (fndisable) {
 			type.$disable = function(model) {
-				var is = !!fndisable(model);
+				var is = !!fndisable(model, model);
 				item.button && type.element.find(cls2 + '-button button').prop('disabled', is);
 				type.isdisabled = is;
 				return is;
@@ -134,10 +145,10 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 			type.isdisabled = false;
 		}
 
-		var fnvisible = item.visible ? FN(item.visible) : null;
+		var fnvisible = item.visible ? self.compilefn(item.visible) : null;
 		if (fnvisible) {
 			type.$visible = function(model) {
-				var is = !!fnvisible(model);
+				var is = !!fnvisible(model, model);
 				type.isvisible = is;
 				return is;
 			};
@@ -160,11 +171,11 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 	};
 
 	self.types.string = function(item, el, set, get) {
+
 		var obj = {};
 
 		obj.bind = function(val) {
 			var input = el.find('input');
-
 			if (item.camouflage) {
 				var arr = [];
 				for (var i = 0; i < val.length; i++)
@@ -272,7 +283,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 
 		var icon = '';
 		if (item.icon)
-			icon = '<i class="' + self.faicon(item.icon) + '"></i>';
+			icon = '<i class="' + self.icon(item.icon) + '"></i>';
 
 		var builder = ['<div>'];
 		builder.push('<div class="{0}-group">{1}</div>'.format(cls, icon + item.name || item.text));
@@ -576,7 +587,7 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		var builder = [];
 
 		for (var i = 0; i < items.length; i++)
-			builder.push('<div class="{0}-type-selectable-item"><i class="{icon}"></i><span>{name}</div>'.format(cls).arg(items[i]));
+			builder.push('<div class="{0}-type-selectable-item"><i class="{icon}"></i><span>{name}</div>'.format(cls).args(items[i]));
 
 		el.append('<div class="{0}-type-selectable">{1}</div>'.format(cls, builder.join('')));
 
@@ -667,7 +678,8 @@ COMPONENT('configuration', 'dateformat:yyyy-MM-dd', function(self, config, cls) 
 		if (!value)
 			value = {};
 
-		var diff = path.substring(self.path.length + 1);
+		var p = self.path.toString();
+		var diff = path.substring(p.length + 1);
 
 		for (var key in value) {
 			var val = value[key];
