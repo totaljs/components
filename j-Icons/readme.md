@@ -1,5 +1,6 @@
 ## j-Icons
 
+- jComponent `v19|v20`
 - Total.js Icons list
 - singleton
 
@@ -7,7 +8,7 @@ __Configuration__:
 
 - `search {String}` a placeholder for search field (default: `Search`)
 - `list {String}` URL address for obtaining list of icons (default: Total.js Icons CDN)
-- __NEW__: `custom {String}` a custom icon list (it uses `tic ti-NAME` prefix)
+- __NEW__: `custom {String}` a link to the custom icon list (it uses `tic ti-NAME` prefix)
 
 ## Usage
 

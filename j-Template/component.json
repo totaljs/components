@@ -2,10 +2,7 @@
 	"datecreated": "2015-08-05T05:36:06.000Z",
 	"dateupdated": "2023-01-31T11:10:00.000Z",
 	"name": "j-Template",
-	"tags": [
-		"Tangular",
-		"templates"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

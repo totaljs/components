@@ -1,12 +1,13 @@
 COMPONENT('templates', 'scrollbar:1;scrolltop:1;visibleY:1;margin:0;parent:auto;emptyif:!value||!value.length', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
-	var eitems;
 	var drag = {};
 	var templates = {};
 	var rendered = false;
 	var template = 'default';
 	var isempty = false;
+	var fn = null;
+	var eitems;
 
 	self.readonly();
 	self.nocompile();
@@ -117,17 +118,18 @@ COMPONENT('templates', 'scrollbar:1;scrolltop:1;visibleY:1;margin:0;parent:auto;
 	self.configure = function(key, value) {
 		if (key === 'template') {
 			self.datasource(value, function(path, value) {
-				template = value;
+				template = M.is20 ? path : value;
 				rendered && self.refresh();
 			}, true);
-		}
+		} else if (value === 'emptyif')
+			fn = new Function('value', 'return ' + value);
 	};
 
 	self.setter = function(value) {
 
 		if (template) {
 
-			if (templates.empty && FN('value=>' + config.emptyif)(value)) {
+			if (templates.empty && fn(value)) {
 				if (!isempty) {
 					isempty = true;
 					self.aclass(cls + '-empty');

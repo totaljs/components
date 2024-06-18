@@ -2,6 +2,8 @@
 
 A simple and fully responsive navigation layout.
 
+- jComponent `v19|v20`
+
 __Good to know__:
 
 - `path {Boolean}` shows the navigation panel in display modes defined in the `hide` config option

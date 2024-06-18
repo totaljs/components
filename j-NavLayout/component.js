@@ -8,13 +8,17 @@ COMPONENT('navlayout', 'parent:window;autoresize:1;margin:0;width:250;hide:xs,sm
 	self.readonly();
 
 	self.init = function() {
-		ON('resize + resize2', function() {
-			for (var i = 0; i < M.components.length; i++) {
-				var com = M.components[i];
-				if (com.name === 'navlayout' && com.dom.offsetParent && com.$ready && !com.$removed && com.config.autoresize)
-					com.resize();
-			}
-		});
+
+		var resize = function() {
+			setTimeout2(self.name, function() {
+				for (var m of M.components) {
+					if (m.name === self.name && !HIDDEN(m.dom) && (m.ready || (m.$ready && !m.$removed)) && com.config.autoresize)
+						m.resize();
+				}
+			}, 200);
+		};
+
+		ON('resize + resize2', resize);
 	};
 
 	self.make = function() {

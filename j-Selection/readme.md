@@ -1,4 +1,8 @@
-- The component supports something like checkbox list.
+## j-Selection
+
+The component supports something like checkbox list.
+
+- jComponent `v19|v20`
 
 __Configuration__:
 

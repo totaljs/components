@@ -1,5 +1,7 @@
 ## j-Stats7
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `height {Number}` a height of chart (default: `120`)

@@ -2,6 +2,8 @@
 
 This component captures basic keyboard keys like `arrows`, `enter` and `esc`.
 
+- jComponent `v19|v20`
+
 __Methods__:
 
 - `component.assign(ondown(key, e), [onunassign])`
