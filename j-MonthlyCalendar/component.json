@@ -1,11 +1,8 @@
 {
 	"datecreated": "2020-11-27T08:56:02.000Z",
-	"dateupdated": "2023-01-31T16:06:00.000Z",
+	"dateupdated": "2023-01-31T16:06:01.000Z",
 	"name": "j-MonthlyCalendar",
-	"tags": [
-		"monthly",
-		"calendar"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"darkmode": true,

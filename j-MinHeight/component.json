@@ -1,11 +1,8 @@
 {
 	"datecreated": "2020-11-19T10:58:01.000Z",
-	"dateupdated": "2023-01-31T15:55:01.000Z",
+	"dateupdated": "2023-01-31T15:55:02.000Z",
 	"name": "j-MinHeight",
-	"tags": [
-		"height",
-		"minheight"
-	],
+	"jcomponent": "19|20",
 	"darkmode": true,
 	"color": "transparent",
 	"version": 1,

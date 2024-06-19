@@ -3,9 +3,7 @@
 	"dateupdated": "2023-01-23T11:07:19.000Z",
 	"name": "j-Columns",
 	"darkmode": 1,
-	"tags": [
-		"columns"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

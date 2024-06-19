@@ -1,27 +1,28 @@
 ## j-MonthlyCalendar (BETA)
 
+- jComponent `v19|v20`
 - supports only monthly view
 
 __Configuration__:
 
-- `parent` {String} a jQuery selector for obtaining of fixed height (default `auto`)
-- `firstday` {Number} first day in the calendar `0 = Sunday`, default `0`
-- `noborder` {Boolean} disables border (default: `false`)
-- `selectable` {Boolean} enables selecting of days (default: `true`)
-- `morebutton` {String} a Tangular template for __More button__ (default: `+{{ count }} more`)
-- `select` {String} a path to `Function(item_event, el, e)`, be careful: `item_event` can be `null`
-- `create` {String} a path to `Function({ beg: Date, end: Date }, beg_element, end_element)`
-- `dblclick` {String} a path to `Function(item_event, el, e)`
-- `dblclickdate` {String} a path to `Function(date, el, e)`
-- `contextmenu` {String} a path to `Function(item_event, el, e)`
-- `rebind` {String} a path to `Function({ dates: Array, date: Date })` is executed when the calendar is rebinded
-- `topoffset` {Boolean} subtracts `offset.top` from `height` (default: `false`)
-- `topposition` {Boolean} subtracts `position.top` from `height` (default: `false`)
-- `margin` {Number} top/bottom margin together (default: `0`)
-- `marginxs` {Number} top/bottom margin together for `xs` screen width
-- `marginsm` {Number} top/bottom margin together for `sm` screen width
-- `marginmd` {Number} top/bottom margin together for `md` screen width
-- `marginlg` {Number} top/bottom margin together for `lg` screen width
+- `parent {String}` a jQuery selector for obtaining of fixed height (default `auto`)
+- `firstday {Number}` first day in the calendar `0 = Sunday`, default `0`
+- `noborder {Boolean}` disables border (default: `false`)
+- `selectable {Boolean}` enables selecting of days (default: `true`)
+- `morebutton {String}` a Tangular template for __More button__ (default: `+{{ count }} more`)
+- `select {String}` a path to `Function(item_event, el, e)`, be careful: `item_event` can be `null`
+- `create {String}` a path to `Function({ beg: Date, end: Date }, beg_element, end_element)`
+- `dblclick {String}` a path to `Function(item_event, el, e)`
+- `dblclickdate {String}` a path to `Function(date, el, e)`
+- `contextmenu {String}` a path to `Function(item_event, el, e)`
+- `rebind {String}` a path to `Function({ dates: Array, date: Date })` is executed when the calendar is rebinded
+- `topoffset {Boolean}` subtracts `offset.top` from `height` (default: `false`)
+- `topposition {Boolean}` subtracts `position.top` from `height` (default: `false`)
+- `margin {Number}` top/bottom margin together (default: `0`)
+- `marginxs {Number}` top/bottom margin together for `xs` screen width
+- `marginsm {Number}` top/bottom margin together for `sm` screen width
+- `marginmd {Number}` top/bottom margin together for `md` screen width
+- `marginlg {Number}` top/bottom margin together for `lg` screen width
 - __NEW__: `keepselected {Boolean}` keeps selected (hovered) days (default: `false`)
 - __NEW__: `hover {String}` a path to `Function({ beg: Date, end: Date }, beg_element, end_element)` (same like `create`, but it's called on `component.hover()` and `component.unhover()` methods)
 - __NEW__: `scalewidth {Boolean}` scales the height according to the width of the parent element

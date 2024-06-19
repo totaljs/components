@@ -3,6 +3,9 @@ COMPONENT('rawinput', 'type:text', function(self, config, cls) {
 	var customvalidator;
 	var input;
 
+	// jComponent +v20
+	self.autobind20 && self.autobind20();
+
 	self.validate = function(value) {
 
 		if ((!config.required || config.disabled) && !self.forcedvalidation())
@@ -240,5 +243,4 @@ COMPONENT('rawinput', 'type:text', function(self, config, cls) {
 		var val = self.get();
 		return (self.type === 'phone' || self.type === 'email') && (val != null && (typeof(val) === 'string' && val.length !== 0));
 	};
-
 });

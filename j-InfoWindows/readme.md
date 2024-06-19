@@ -1,6 +1,6 @@
 ## j-InfoWindows
 
-- Works only with `+v18`
+- jComponent `v19|v20`
 - Supports mobile devices
 - Supports touches
 - Movable
@@ -8,7 +8,7 @@
 
 __Configuration__:
 
-- `reoffsetresize` {Boolean} all windows will be re-offset according to `main` window dimension (default: `true`)
+- `reoffsetresize {Boolean}` all windows will be re-offset according to `main` window dimension (default: `true`)
 
 The `InfoWindows` component expects `Array` of objects.
 
