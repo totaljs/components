@@ -33,7 +33,6 @@ COMPONENT('exec', function(self, config) {
 				}
 
 				var attr = el.attrd('exec' + plus);
-				var path = el.attrd('path' + plus);
 				var href = el.attrd('href' + plus);
 
 				if (skiptimeout) {
@@ -57,8 +56,11 @@ COMPONENT('exec', function(self, config) {
 					if (M.is20) {
 						// el.EXEC() tries to find the closest plugin
 						el.EXEC(attr, el, e);
-					} else
+					} else {
+						if (attr.includes('?'))
+							attr = el.scope().makepath(attr);
 						EXEC(attr, el, e);
+					}
 				}
 
 				href && REDIRECT(href);
