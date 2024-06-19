@@ -1,8 +1,7 @@
 ## j-MultiOptions
 
 - jComponent `v19|v20`
-- Works with Bootstrap
-- It expects the whole object with `key`: `value`
+- it expects the whole object with `key`: `value`
 - HTML body of the jComponent has to be `<script type="text/plain>` with (JavaScript) mapping
 
 __Configuration__:
@@ -25,19 +24,19 @@ __Basic types__:
 
 __Simple Array__:
 
-```javascript
+```js
 option('language', 'Language', 'sk', ['sk', 'en', 'de']);
 ```
 
 __Advanced Array__:
 
-```javascript
+```js
 option('language', 'Language', 1, [{ text: 'sk', value: 1}, { text: 'en', value: 2}, { text: 'de', value: 3}]);
 ```
 
 __Array from URL__:
 
-```javascript
+```js
 option('language', 'Language', 1, '/my/api/codelist/');
 // It expects some "Array"
 ```
@@ -46,7 +45,7 @@ __Colors__:
 
 MultiOptions component uses this color scheme: <http://codepen.io/devi8/pen/lvIeh> and the declaration below will show all colors in the widget settings.
 
-```javascript
+```js
 option('background', 'Background', '#FC6E51', 'Color');
 ```
 
