@@ -1,5 +1,6 @@
 ## j-Approve
 
+- jComponent `v19|v20`
 - easy usage
 - singleton
 - works with Bootstrap
@@ -8,7 +9,7 @@
 
 __Configuration__:
 
-- `cancel` {String} a label for cancel button (default: `Cancel`)
+- `cancel {String}` a label for cancel button (default: `Cancel`)
 
 __Methods__:
 
@@ -24,7 +25,7 @@ SETTER('approve/show', message, 'Yes', function() {
 
 ## A simple styling of buttons
 
-```javascript
+```js
 // "Remove" button will be with Font-Awesome icon called: "trash-o"
 SETTER('approve/show', 'Are you sure you want to remove selected item?', ':trash-o: Remove', REMOVE_FUNCTION);
 

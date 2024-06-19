@@ -184,6 +184,10 @@ COMPONENT('imageuploader', function(self) {
 		if (base64) {
 			var data = (new Function('base64', 'filename', 'return ' + (self.opt.schema || '{file:base64,name:filename}')))(base64, name);
 			AJAX('POST ' + self.opt.url.env(true), data, function(response, err) {
+
+				if (ERROR(response))
+					err = response[0].error;
+
 				if (err) {
 					tmperror.push(err + '');
 					self.wait();

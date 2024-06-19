@@ -1,13 +1,8 @@
 {
 	"datecreated": "2020-06-03T12:35:07.000Z",
-	"dateupdated": "2024-04-03T11:10:00.000Z",
+	"dateupdated": "2024-04-03T11:10:01.000Z",
 	"name": "j-DynamicValueList",
-	"tags": [
-		"value",
-		"input",
-		"dynamic",
-		"list"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

@@ -2,6 +2,10 @@
 
 This component is very special component. It can keep values for example `Number` and at the same it can render another readable `text`. This component is optimized for dynamic usage, so it needs to be linked with another component or part. This component works with array.
 
+- jComponent `v19|v20`
+
+__Configuration__:
+
 - `icon {String}` icon for label e.g. home, cog, etc.
 - `label {String}` label (default is HTML content)
 - `icon2 {String}` icon in the right box e.g. home, cog, etc. (default: `angle-down`)
