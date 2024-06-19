@@ -93,7 +93,7 @@ COMPONENT('validate', 'delay:100;flags:visible;changes:0;strictchanges:0', funct
 					break;
 				}
 			} else if (m.config.invalid) {
-				disabled = false;
+				disabled = true;
 				break;
 			} else if (m.config.modified)
 				modified = true;
@@ -105,7 +105,7 @@ COMPONENT('validate', 'delay:100;flags:visible;changes:0;strictchanges:0', funct
 		}
 
 		if (!disabled && config.if)
-			disabled = customvalidation(self.get(), '');
+			disabled = !customvalidation(self.get(), '');
 
 		if (!disabled && config.changes && backup === current)
 			disabled = true;
