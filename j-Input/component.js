@@ -87,6 +87,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				val = false;
 			else
 				val = true;
+
 			self.set(val, 2);
 		});
 
@@ -538,7 +539,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			return true;
 
 		if (config.dirsource)
-			return !!value;
+			return config.multiple ? (value ? value.length > 0 : false) : (value != null && value !== '');
 
 		if (customvalidator)
 			return customvalidator(value);
@@ -843,7 +844,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 						self.bindvalue();
 					} else {
 						self.datasource(value, function(path, value) {
-							dirsource = dirsourceprepare(value);
+							dirsource = dirsourceprepare(M.is20 ? path : value);
 							self.bindvalue();
 						});
 					}
