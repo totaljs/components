@@ -809,7 +809,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 		var is = false;
 
 		if (config.type === 'checkbox') {
-			html = '<div class="{0}-checkbox"><span><i class="{checkicon}"></i></span><label>{label}</label></div>'.format(cls).arg(config);
+			html = '<div class="{0}-checkbox"><span><i class="{checkicon}"></i></span><label>{label}</label></div>'.format(cls).args(config);
 		} else {
 			is = true;
 			var opt = CLONE(config);
