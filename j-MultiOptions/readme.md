@@ -1,5 +1,6 @@
 ## j-MultiOptions
 
+- jComponent `v19|v20`
 - Works with Bootstrap
 - It expects the whole object with `key`: `value`
 - HTML body of the jComponent has to be `<script type="text/plain>` with (JavaScript) mapping
