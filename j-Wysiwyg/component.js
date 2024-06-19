@@ -4,7 +4,6 @@ COMPONENT('wysiwyg', 'required:0;links:false;ul:true;code:true;ul:true;allowrawp
 	var timers = {};
 	var buttons = {};
 	var D = document;
-	var skip = false;
 	var placeholder;
 	var editor;
 
@@ -61,7 +60,7 @@ COMPONENT('wysiwyg', 'required:0;links:false;ul:true;code:true;ul:true;allowrawp
 		else
 			value = value.toString();
 
-		EMIT('reflow', self.name);
+		self.emit('reflow', self.name);
 		return value.length > 0;
 	};
 
@@ -183,8 +182,7 @@ COMPONENT('wysiwyg', 'required:0;links:false;ul:true;code:true;ul:true;allowrawp
 		});
 
 		self.save = function() {
-			skip = true;
-			self.getter(editor.html());
+			self.bind('@touched @modified', editor.html());
 		};
 
 		editor.on('click', function(e) {
@@ -384,12 +382,6 @@ COMPONENT('wysiwyg', 'required:0;links:false;ul:true;code:true;ul:true;allowrawp
 	};
 
 	self.setter = function(value, path, type) {
-
-		if (skip && type === 2) {
-			skip = false;
-			return;
-		}
-
 		var val = value ? (value + '').trim() : '';
 		self.reset();
 		editor.html(val);

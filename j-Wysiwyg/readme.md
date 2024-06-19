@@ -1,5 +1,6 @@
 ## j-Wysiwyg
 
+- jComponent `v19|v20`
 - supports __dark mode__
 
 __Configuration__:

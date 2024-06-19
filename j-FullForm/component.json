@@ -1,13 +1,8 @@
 {
 	"datecreated": "2021-01-09T12:58:07.000Z",
-	"dateupdated": "2023-09-29T08:51:00.000Z",
+	"dateupdated": "2024-06-19T09:32:00.000Z",
 	"name": "j-FullForm",
-	"tags": [
-		"large",
-		"full",
-		"form",
-		"modal"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"darkmode": true,

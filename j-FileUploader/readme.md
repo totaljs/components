@@ -2,6 +2,8 @@
 
 A simple component for uploading files. It supports auto-resizing images.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `url {String}` a default URL address for uploading

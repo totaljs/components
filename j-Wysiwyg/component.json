@@ -1,10 +1,8 @@
 {
 	"datecreated": "2021-01-09T16:04:01.000Z",
-	"dateupdated": "2023-08-16T09:25:00.000Z",
+	"dateupdated": "2024-06-18T15:48:00.000Z",
 	"name": "j-Wysiwyg",
-	"tags": [
-		"wysiwyg"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"darkmode": true,

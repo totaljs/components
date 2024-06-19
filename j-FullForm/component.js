@@ -11,15 +11,14 @@ COMPONENT('fullform', 'zindex:12;padding:20;scrollbar:1;scrolltop:1;style:1', fu
 		W.$$fullform = true;
 
 		$(document).on('click', cls2 + '-button-close', function() {
-			SET($(this).attrd('path'), '');
+			$(this).component().set(null);
 		});
 
 		var resize = function() {
 			setTimeout2(self.name, function() {
-				for (var i = 0; i < M.components.length; i++) {
-					var com = M.components[i];
-					if (com.name === 'fullform' && !HIDDEN(com.dom) && com.$ready && !com.$removed)
-						com.resize();
+				for (var m of M.components) {
+					if (m.name === self.name && !HIDDEN(m.dom) && (m.ready || (m.$ready && !m.$removed)))
+						m.resize();
 				}
 			}, 200);
 		};

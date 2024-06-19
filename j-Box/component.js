@@ -17,7 +17,7 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 		var resize = function() {
 			setTimeout2(self.name, function() {
 				for (var m of M.components) {
-					if (m.name === 'box' && !HIDDEN(m.dom) && (m.ready || (m.$ready && !m.$removed)))
+					if (m.name === self.name && !HIDDEN(m.dom) && (m.ready || (m.$ready && !m.$removed)))
 						m.resize();
 				}
 			}, 200);
