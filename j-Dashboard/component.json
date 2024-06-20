@@ -1,10 +1,8 @@
 {
 	"datecreated": "2019-10-12T18:50:00.000Z",
-	"dateupdated": "2024-03-22T11:04:01.000Z",
+	"dateupdated": "2024-03-22T11:04:02.000Z",
 	"name": "j-Dashboard",
-	"tags": [
-		"dashboard"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

@@ -2,10 +2,12 @@
 
 A simple floating search input. It uses absolute position and it's targeted above of toolbars because it can overlay the toolbar.
 
+- jComponent `v19|v20`
+
 __Configuration__
 
-- `placeholder` {String} A placeholder for input (default: empty)
-- `height` {Number} A height in pixels (default: `45`)
+- `placeholder {String}` A placeholder for input (default: empty)
+- `height {Number}` A height in pixels (default: `45`)
 
 __Methods__:
 

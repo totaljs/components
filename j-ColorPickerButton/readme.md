@@ -4,6 +4,8 @@
 - Supports __Dark theme__
 - It uses `j-ColorPicker`
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `default` a default color (default: `#FFFFFF`)

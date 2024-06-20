@@ -2,6 +2,8 @@
 
 - This component is a much simple component compared to `j-Layout`.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `parent` {String} can contain `parent`, `window` or jQuery selector for the `closest` method (default: `window`)

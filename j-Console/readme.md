@@ -6,6 +6,8 @@
 - supports app tabs
 - supports __dark mode__
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `datasource {String}` a path to data-source (learn from example)

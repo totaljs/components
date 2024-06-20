@@ -6,9 +6,11 @@
 - singleton
 - __NEW__ supports large mode
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
-- __NEW__ `style` {Number} changes style (supported style `2` (default) and `1`)
+- __NEW__ `style {Number}` changes style (supported style `2` (default) and `1`)
 
 ## Usage
 

@@ -3,6 +3,8 @@
 - singleton
 - place the component under `<body` element
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `container {String}` a container for group of images (default: `.img-container`)

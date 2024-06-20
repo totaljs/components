@@ -1,13 +1,8 @@
 {
 	"datecreated": "2019-11-28T20:53:02.000Z",
-	"dateupdated": "2023-01-25T10:46:08.000Z",
+	"dateupdated": "2023-01-25T10:46:09.000Z",
 	"name": "j-Dockable",
-	"tags": [
-		"dock",
-		"docking",
-		"panels",
-		"windows"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"darkmode": true,

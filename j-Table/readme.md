@@ -4,6 +4,8 @@
 - `j-Table` is a very very very simple alternative to `j-DataGrid` targeted for UI
 - `data-source` expects `Array` or `Object` with `{ page: 1, pages: 10, limit: 50, items: [], count: 1000 }`
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `highlight {Boolean}` enables highlighting of the row (default: `true`)

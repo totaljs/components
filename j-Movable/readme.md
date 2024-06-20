@@ -2,6 +2,8 @@
 
 The component handles similar `draggable` element and supports movement between each other. Each element according to the selector must have defined `draggable="true"` attribute.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `selector {String}` jQuery selector for watching

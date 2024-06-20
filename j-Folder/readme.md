@@ -2,6 +2,8 @@
 
 The component can render a content like file browser. `path` must be in the form e.g. `Directory/Directory/File`. Learn from example.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `up {String}` a label for Up button (default: `..`)

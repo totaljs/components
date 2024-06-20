@@ -1,11 +1,8 @@
 {
 	"datecreated": "2019-02-16T20:29:00.000Z",
-	"dateupdated": "2024-03-15T08:18:00.000Z",
+	"dateupdated": "2024-03-15T08:18:02.000Z",
 	"name": "j-Table",
-	"tags": [
-		"table",
-		"simple grid"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"darkmode": true,

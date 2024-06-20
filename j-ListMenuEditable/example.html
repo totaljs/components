@@ -27,17 +27,17 @@
 		opt.callback = function(selected) {
 			switch (selected.id) {
 				case 'edit':
-					SETTER('listmenueditable', 'edit', index);
+					SETTER('listmenueditable/edit', index);
 					break;
 				case 'remove':
-					SETTER('listmenueditable', 'remove', index);
+					SETTER('listmenueditable/remove', index);
 					break;
 			}
 		};
-		SETTER('menu', 'show', opt);
+		SETTER('menu/show', opt);
 	}
 
 	function add() {
-		SETTER('listmenueditable', 'add', { name: 'New tag', mycolor: '#8e44ad', editable: true });
+		SETTER('listmenueditable/add', { name: 'New tag', mycolor: '#8e44ad', editable: true });
 	}
 </script>
