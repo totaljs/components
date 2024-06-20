@@ -2,9 +2,7 @@
 	"datecreated": "2020-04-15T10:39:06.000Z",
 	"dateupdated": "2023-01-25T10:26:11.000Z",
 	"name": "j-Detail",
-	"tags": [
-		"detail"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"darkmode": true,
