@@ -12,7 +12,7 @@ COMPONENT('navlayout', 'parent:window;autoresize:1;margin:0;width:250;hide:xs,sm
 		var resize = function() {
 			setTimeout2(self.name, function() {
 				for (var m of M.components) {
-					if (m.name === self.name && !HIDDEN(m.dom) && (m.ready || (m.$ready && !m.$removed)) && com.config.autoresize)
+					if (m.name === self.name && !HIDDEN(m.dom) && (m.ready || (m.$ready && !m.$removed)) && m.config.autoresize)
 						m.resize();
 				}
 			}, 200);
