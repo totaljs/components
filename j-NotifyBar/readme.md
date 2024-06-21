@@ -5,6 +5,8 @@
 - warning message `SETTER('notifybar/warning', 'MESSAGE')`
 - info message `SETTER('notifybar/info', 'MESSAGE', '[BUTTON_LABEL]', [callback_dismiss])`
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `timeout` {Number} A timeout in milliseconds (default: `4000`)

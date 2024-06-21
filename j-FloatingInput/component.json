@@ -1,11 +1,8 @@
 {
 	"datecreated": "2020-03-18T15:37:02.000Z",
-	"dateupdated": "2023-08-02T15:48:01.000Z",
+	"dateupdated": "2023-08-02T15:48:02.000Z",
 	"name": "j-FloatingInput",
-	"tags": [
-		"floating",
-		"input"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

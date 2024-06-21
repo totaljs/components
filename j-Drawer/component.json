@@ -1,12 +1,9 @@
 {
 	"datecreated": "2018-08-16T21:32:00.000Z",
-	"dateupdated": "2023-01-25T11:00:02.000Z",
+	"dateupdated": "2023-01-25T11:00:03.000Z",
 	"name": "j-Drawer",
 	"darkmode": 1,
-	"tags": [
-		"drawer",
-		"menu"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

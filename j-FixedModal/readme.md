@@ -3,17 +3,19 @@
 - Works only with `+v17`
 - The component moves the content of this component under `<body>` tag (because of positioning)
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
-- `width` {Number} modal max-width
-- `if` {String} condition for showing of the modal, it's compared with the value within of `path`
-- `reload` {String} link to a global function and it's executed if the form is showing
-- `submit` {String} link to a global function and it's executed if the submit button is pressed
-- `cancel` {String} link to a global function and it's executed if the cancel button is pressed
-- `enter` {Boolean} captures `enter` key automatically and performs submit (default: `false`)
-- `autofocus` {Boolean/String} can focus an input. `String` === `jQuery selector` for the input
-- `default` {String} a short alias for `DEFAULT(default, true)`
-- `zindex` {Number} can affect z-index (default: `12`)
+- `width {Number}` modal max-width
+- `if {String}` condition for showing of the modal, it's compared with the value within of `path`
+- `reload {String}` link to a global function and it's executed if the form is showing
+- `submit {String}` link to a global function and it's executed if the submit button is pressed
+- `cancel {String}` link to a global function and it's executed if the cancel button is pressed
+- `enter {Boolean}` captures `enter` key automatically and performs submit (default: `false`)
+- `autofocus {Boolean/String}` can focus an input. `String` === `jQuery selector` for the input
+- `default {String}` a short alias for `DEFAULT(default, true)`
+- `zindex {Number}` can affect z-index (default: `12`)
 
 __Good to know__:
 

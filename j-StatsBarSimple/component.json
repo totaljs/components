@@ -1,11 +1,8 @@
 {
 	"datecreated": "2020-01-08T12:13:21.000Z",
-	"dateupdated": "2023-01-31T12:04:01.000Z",
+	"dateupdated": "2023-01-31T12:04:02.000Z",
 	"name": "j-StatsBarSimple",
-	"tags": [
-		"chart",
-		"barchart"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"darkmode": 1,

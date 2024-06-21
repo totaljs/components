@@ -1,14 +1,14 @@
 .ui-navigation-item > div { display: none; }
 .ui-navigation-item span { display: block; width: 96%; border: 0; text-align: left; padding: 2px 5px; background-color: transparent; color: #000; outline: 0; text-decoration: none; margin: 0 auto 2px; cursor: pointer; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
-.ui-navigation-item span .far { width: 20px; text-align: center; margin-right: 5px; }
-.ui-navigation-item span .far:before { content: '\f15c'; }
+.ui-navigation-item span .ti { width: 20px; text-align: center; margin-right: 5px; }
+.ui-navigation-item span .ti:before { content: '\e995'; }
 .ui-navigation-item span b { float: right; font-size: 10px; margin: 2px 0 0; display: none; }
 .ui-navigation-item span:hover b { display: block; }
-.ui-navigation-item .ui-navigation-children .far:before { content: '\f07b'; font-weight: 900; }
+.ui-navigation-item .ui-navigation-children .ti:before { content: '\eab7'; font-weight: 900; }
 .ui-navigation-selected { background-color: #F0F0F0; }
 .ui-navigation-show > div { display: block; }
 .ui-navigation-show > span { font-weight: bold; }
-.ui-navigation-show > span .far:before { content: '\f07c' !important; }
+.ui-navigation-show > span .ti:before { content: '\eab8' !important; }
 .ui-navigation-level-1 .ui-navigation-link { padding-left: 20px; }
 .ui-navigation-level-2 .ui-navigation-link { padding-left: 40px; }
 .ui-navigation-level-3 .ui-navigation-link { padding-left: 60px; }

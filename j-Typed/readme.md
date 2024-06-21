@@ -3,6 +3,8 @@
 - Based on [typed.js](https://github.com/mattboldt/typed.js/) by [Matt Boldt](https://github.com/mattboldt)
 - Value must be __array__
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 Config is the same as [typed.js](https://github.com/mattboldt/typed.js#customization). The only difference is that all keys are lowercase. This is to maintain consistency with other components. The only added configuration is `id`

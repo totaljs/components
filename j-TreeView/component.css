@@ -9,10 +9,10 @@
 .ui-treeview-open > .ui-treeview-children { display: block; }
 .ui-treeview-selected > div { background-color: #F0F0F0; }
 .ui-treeview-item-container > .ui-treeview-item > i { float: right; display: none; font-size: 10px; color: gray; margin: 3px 5px 0 0; }
-.ui-treeview-arrow:before { content: '\f107'; }
+.ui-treeview-arrow:before { content: '\e95c'; }
 .ui-treeview-canexpand > .ui-treeview-item > i { display: block; }
 .ui-treeview-canexpand > .ui-treeview-item:hover > i { color: #000; }
-.ui-treeview-open > .ui-treeview-item > i:before { content: '\f106'; }
+.ui-treeview-open > .ui-treeview-item > i:before { content: '\e95f'; }
 
 .ui-disabled.ui-treeview { cursor: not-allowed; }
 .ui-disabled.ui-treeview .ui-treeview-item, .ui-disabled.ui-treeview .ui-treeview-canexpand > .ui-treeview-item > i { color: #A0A0A0 !important; }

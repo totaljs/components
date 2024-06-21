@@ -4,6 +4,8 @@
 - supports __Dark mode__
 - singleton
 
+- jComponent `v19|v20`
+
 ## Usage
 
 ```javascript
@@ -20,7 +22,7 @@ opt.callback = function(newvalue) {
 	console.log(newvalue);
 };
 
-SETTER('statusinput', 'show', opt);
+SETTER('statusinput/show', opt);
 ```
 
 ### Author

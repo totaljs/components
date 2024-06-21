@@ -7,6 +7,8 @@
 - Draggable
 - Resizable
 
+- jComponent `v19|v20`
+
 The component expects `Array` of objects.
 
 __Configuration__:
