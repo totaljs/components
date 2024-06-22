@@ -4,11 +4,11 @@ A simple solution for making of advanced wizards. Wizard downloads steps (as HTM
 
 __Configuration__
 
-- `output` {String} a path for output, the object will contain entire output (steps will be properties)
-- `exec` {String} a path to `method(output_object)`, it's executed if wizard doesn't contain any next step
-- `next` {String} a path, here will be assigned next step with `enabled {Boolean}` property
-- `back` {String} a path, here will be assigned previous step with `enabled {Boolean}` property
-- `validate` {Boolean} enables validation (default: `true`)
+- `output {String}` a path for output, the object will contain entire output (steps will be properties)
+- `exec {String}` a path to `method(output_object)`, it's executed if wizard doesn't contain any next step
+- `next {String}` a path, here will be assigned next step with `enabled {Boolean}` property
+- `back {String}` a path, here will be assigned previous step with `enabled {Boolean}` property
+- `validate {Boolean}` enables validation (default: `true`)
 
 __Schema__:
 

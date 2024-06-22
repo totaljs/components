@@ -2,6 +2,8 @@
 
 This component contains some predefined sounds like `beep`, `fail`, `success`, etc... Path contains a volume control in percentage, `0` disables playing.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `url {String}` URL address to sound library (default: `https://cdn.componentator.com/sounds/`)

@@ -1,12 +1,8 @@
 {
 	"datecreated": "2020-02-15T11:31:04.000Z",
-	"dateupdated": "2024-02-11T19:37:00.000Z",
+	"dateupdated": "2024-02-11T19:38:00.000Z",
 	"name": "j-MiniForm",
-	"tags": [
-		"mini",
-		"form",
-		"modal"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 2,
 	"darkmode": true,

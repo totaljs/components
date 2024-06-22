@@ -1,5 +1,7 @@
 ## j-ListForm
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `autofocus {String/Boolean}` focuses the first input element, `string` means a custom selector (default: `false`)

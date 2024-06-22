@@ -1,11 +1,8 @@
 {
 	"datecreated": "2020-03-11T13:55:01.000Z",
-	"dateupdated": "2023-01-31T12:17:03.000Z",
+	"dateupdated": "2023-01-31T12:17:04.000Z",
 	"name": "j-Sounds",
-	"tags": [
-		"sounds",
-		"audio"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,
