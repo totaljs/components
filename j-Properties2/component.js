@@ -865,7 +865,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 		if (item.ricon)
 			plus = '<div class="{0}-ricon">{1}</div>'.format(cls, item.ricon.charAt(0) === '!' ? item.ricon.substring(1) : '<i class="{0}"></i>'.format(item.ricon));
 
-		var el = $(('<div class="{2}-item{3} {2}-t{type}' + (item.required ? ' {2}-required' : '') + (item.icon ? ' {2}-isicon' : '') + (item.note ? ' {2}-isnote' : '') + '" data-index="{1}">' + (config.style === 2 ? '{{ icon }}<div>' : '') + '<div class="{0}-key">' + (config.style === 2 ? '' : '{{ icon }}') + '{{ name }}</div>' + (config.style === 2 ? (plus + '<div class="{0}-value">&nbsp;</div><div class="{0}-note">{1}</div>').format(cls, config.encodenotes ? Thelpers.encode(item.note) : item.note) : (plus + '<div class="{0}-value">&nbsp;</div>')) + '</div>' + (config.style === 2 ? '</div>' : '')).format(cls, index, c, item.required ? (' ' + cls + '-required') : '').arg(meta));
+		var el = $(('<div class="{2}-item{3} {2}-t{type}' + (item.required ? ' {2}-required' : '') + (item.icon ? ' {2}-isicon' : '') + (item.note ? ' {2}-isnote' : '') + '" data-index="{1}">' + (config.style === 2 ? '{{ icon }}<div>' : '') + '<div class="{0}-key">' + (config.style === 2 ? '' : '{{ icon }}') + '{{ name }}</div>' + (config.style === 2 ? (plus + '<div class="{0}-value">&nbsp;</div><div class="{0}-note">{1}</div>').format(cls, config.encodenotes ? Thelpers.encode(item.note) : item.note) : (plus + '<div class="{0}-value">&nbsp;</div>')) + '</div>' + (config.style === 2 ? '</div>' : '')).format(cls, index, c, item.required ? (' ' + cls + '-required') : '').args(meta));
 
 		if (plus)
 			el.aclass(cls + '-isricon');

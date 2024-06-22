@@ -56,7 +56,7 @@ COMPONENT('submit', 'delay:100;flags:visible;loading:1;default:1;messages:1;bloc
 		if (url.indexOf('{{') !== -1)
 			url = Tangular.render(url, data);
 		else if (url.indexOf('{') !== -1)
-			url = url.arg(data);
+			url = url.args(data);
 
 		var model = data;
 

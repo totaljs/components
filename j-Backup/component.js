@@ -1,7 +1,7 @@
 COMPONENT('backup', 'expire:1 day;btnsave:SAVE;btnload:LOAD', function(self, config, cls) {
 	self.make = function() {
 		self.aclass(cls);
-		self.append('<button name="save"><i class="ti ti-cloud-upload"></i>{{ btnsave }}</button><button name="load"><i class="ti ti-download"></i>{{ btnload }}</button>'.arg(config));
+		self.append('<button name="save"><i class="ti ti-cloud-upload"></i>{{ btnsave }}</button><button name="load"><i class="ti ti-download"></i>{{ btnload }}</button>'.args(config));
 		self.event('click', 'button', function() {
 			var name = this.name;
 			switch (name) {
