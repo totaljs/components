@@ -15,10 +15,9 @@ COMPONENT('datatable', 'height:parent;margin:0;pluralizeitems:# items,# item,# i
 		};
 
 		var resize = function() {
-			for (var i = 0; i < M.components.length; i++) {
-				var com = M.components[i];
-				if (com.name === 'datatable' && !HIDDEN(com.dom) && com.$ready && !com.$removed)
-					com.resizeforce();
+			for (var m of M.components) {
+				if (m.name === self.name && !HIDDEN(m.dom) && (m.ready || (m.$ready && !m.$removed)))
+					m.resizeforce();
 			}
 		};
 

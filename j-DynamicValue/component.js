@@ -80,7 +80,7 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;tapi:0;loading:1', f
 					if (config.dirsource.indexOf(' ') !== -1 || config.tapi) {
 						var val = encodeURIComponent(value);
 						var fn = config.tapi ? TAPI : AJAX;
-						fn(config.dirsource.format(val).arg({ value: val }), next);
+						fn(config.dirsource.format(val).args({ value: val }), next);
 					} else
 						self.EXEC(config.dirsource, value, next);
 				};
@@ -144,9 +144,9 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;tapi:0;loading:1', f
 				config.loading && SETTER('loading', 'show');
 				var val = encodeURIComponent(value);
 				if (config.tapi)
-					TAPI(config.url.format(val).arg({ value: val }), self.bindvalue);
+					TAPI(config.url.format(val).args({ value: val }), self.bindvalue);
 				else
-					AJAX((config.url.indexOf(' ') === -1 ? 'GET ' : '') + config.url.format(val).arg({ value: val }), self.bindvalue);
+					AJAX((config.url.indexOf(' ') === -1 ? 'GET ' : '') + config.url.format(val).args({ value: val }), self.bindvalue);
 			} else
 				self.EXEC(config.exec || config.read, value, self.bindvalue, type);
 		} else

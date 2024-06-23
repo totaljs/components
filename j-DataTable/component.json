@@ -1,12 +1,8 @@
 {
 	"datecreated": "2020-05-10T16:25:13.000Z",
-	"dateupdated": "2023-07-20T14:35:00.000Z",
+	"dateupdated": "2023-07-20T14:35:01.000Z",
 	"name": "j-DataTable",
-	"tags": [
-		"datatable",
-		"table",
-		"datagrid"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"darkmode": true,

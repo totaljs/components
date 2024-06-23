@@ -52,6 +52,8 @@ COMPONENT('importcsv', 'parent:parent;margin:0;skipfirst:1;notdefined:---;dirsea
 			case 'datasource':
 				setTimeout(function() {
 					self.datasource(value, function(path, value) {
+						if (M.is20)
+							value = path;
 						self.import(value);
 					});
 				}, 1);

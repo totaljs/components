@@ -88,6 +88,9 @@ COMPONENT('radiobuttonexpert', function(self, config, cls) {
 
 	self.bind = function(path, arr) {
 
+		if (M.is20)
+			arr = path;
+
 		if (!arr)
 			arr = EMPTYARRAY;
 
@@ -97,16 +100,14 @@ COMPONENT('radiobuttonexpert', function(self, config, cls) {
 		for (var i = 0; i < arr.length; i++) {
 			var item = arr[i];
 			item[disabledkey] = +item[disabledkey] || 0;
-			builder.push(template(item).replace(reg, function(text) {
-				return text.substring(0, 2) === '$i' ? i.toString() : self.path + '[' + i + ']';
-			}));
+			builder.push(template(item).replace(reg, text => text.substring(0, 2) === '$i' ? i.toString() : self.path + '[' + i + ']'));
 		}
 
 		var render = builder.join('');
 		self.find(cls2 + '-container').remove();
 		self.append('<div class="{0}-container{1}">{2}</div>'.format(cls, config.class ? ' ' + config.class : '', render));
 		self.refresh();
-		recompile && self.compile();
+		recompile && self.compile && self.compile();
 	};
 
 });

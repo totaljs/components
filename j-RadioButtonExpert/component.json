@@ -1,12 +1,8 @@
 {
 	"datecreated": "2020-02-05T14:59:00.000Z",
-	"dateupdated": "2022-02-01T10:25:00.001Z",
+	"dateupdated": "2022-02-01T10:25:01.001Z",
 	"name": "j-RadioButtonExpert",
-	"tags": [
-		"radiobutton",
-		"expert",
-		"radio"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"darkmode": 1,

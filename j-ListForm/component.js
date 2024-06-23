@@ -131,8 +131,12 @@ COMPONENT('listform', 'empty:---;default:1;', function(self, config, cls) {
 					fn = function(obj) {
 						if (config.create || !config.default)
 							SET('{0} @reset'.format(self.ID), obj);
-						else
-							DEFAULT(self.ID + '__{}');
+						else {
+							if (M.is20)
+								SET('{0} @default'.format(self.ID), {});
+							else
+								DEFAULT(self.ID + '__{}');
+						}
 						self.edit();
 					};
 
@@ -229,7 +233,7 @@ COMPONENT('listform', 'empty:---;default:1;', function(self, config, cls) {
 		if (!self.$$check) {
 			form = $(form)[0];
 			container.append(form);
-			self.compile();
+			self.compile && self.compile();
 			self.$$check = true;
 		}
 	};
@@ -295,7 +299,7 @@ COMPONENT('listform', 'empty:---;default:1;', function(self, config, cls) {
 
 	self.setter = function(value, path, type) {
 
-		if (!type)
+		if ((M.is20 && type.init) || !type)
 			self.rclass('invisible');
 
 		items = value;

@@ -558,7 +558,7 @@ COMPONENT('properties', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;t
 				c = 'hidden ' + c;
 		}
 
-		var el = $('<div class="{2}-item" data-index="{1}"><div class="{0}-key">{{ label }}</div><div class="{0}-value">&nbsp;</div></div>'.format(cls, index, c).arg(item));
+		var el = $('<div class="{2}-item" data-index="{1}"><div class="{0}-key">{{ label }}</div><div class="{0}-value">&nbsp;</div></div>'.format(cls, index, c).args(item));
 		type.render(item, function(html) {
 			el.find(cls2 + '-value').html(html);
 		});

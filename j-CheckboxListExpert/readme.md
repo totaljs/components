@@ -2,17 +2,19 @@
 
 Perfect component for checboxlist with custom styles. It's a little bit advanced but absolutely worth it!
 
+- jComponent `v19|v20`
+
 __Configuration__
 
-- `label` {String} can change the title label
-- `required` {Boolean} enables `required` (default: `false`)
-- `disabled` {Boolean} disables this control (default: `false`)
-- `type` {String} can contain `number` (default: `string`)
-- `class` {String} inserts a class into an element with class `.ui-checkboxlistexpert-container`
-- `datasource` {String} path to data-source (must be array or array of objects) or __NEW__: `id|name,id|name`
-- `value` {String} determines a property name for value (in data-source) (default: `id`)
-- `disabledkey` {String} determines a property name for disabled item (in data-source) (default: `disabled`)
-- __NEW__ `selector` {String} a jQuery selector for custom template (outside of the component). Works like `custom template` in [data-binding](https://wiki.totaljs.com/jcomponent/08-data-binding/)
+- `label {String}` can change the title label
+- `required {Boolean}` enables `required` (default: `false`)
+- `disabled {Boolean}` disables this control (default: `false`)
+- `type {String}` can contain `number` (default: `string`)
+- `class {String}` inserts a class into an element with class `.ui-checkboxlistexpert-container`
+- `datasource {String}` path to data-source (must be array or array of objects) or __NEW__: `id|name,id|name`
+- `value {String}` determines a property name for value (in data-source) (default: `id`)
+- `disabledkey {String}` determines a property name for disabled item (in data-source) (default: `disabled`)
+- __NEW__ `selector {String}` a jQuery selector for custom template (outside of the component). Works like `custom template` in [data-binding](https://wiki.totaljs.com/jcomponent/08-data-binding/)
 
 __Good to know__
 
