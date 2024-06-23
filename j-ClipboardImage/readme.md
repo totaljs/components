@@ -2,6 +2,8 @@
 
 This component automaticaly captures images in Clipboard.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `quality {Number}` JPEG quality, (default: `90`)

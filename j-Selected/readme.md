@@ -2,6 +2,8 @@
 
 The component can set a specific class to a specific element according to the simple condition.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `class {String}` is a class name for selected element (default: `selected`)

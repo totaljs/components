@@ -1,4 +1,4 @@
-COMPONENT('error', 'icon:warning', function(self, config, cls) {
+COMPONENT('error', 'icon:ti ti-warning', function(self, config, cls) {
 
 	self.readonly();
 	self.nocompile && self.nocompile();

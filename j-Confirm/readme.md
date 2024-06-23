@@ -6,10 +6,12 @@
 - supports __dark mode__
 - modal
 
+- jComponent `v19|v20`
+
 __Usage__:
 
 ```javascript
-SETTER('confirm', 'show', message, ['Yes', 'No'], function(index) {
+SETTER('confirm/show', message, ['Yes', 'No'], function(index) {
 	// @index {Number} a button index
 
 	// In this case:
@@ -17,7 +19,7 @@ SETTER('confirm', 'show', message, ['Yes', 'No'], function(index) {
 	// index == 1: No
 });
 
-SETTER('confirm', 'show2', message, ['Yes', 'No'], function() {
+SETTER('confirm/show2', message, ['Yes', 'No'], function() {
 	// In this case will be the callback executed if the user will click on "yes" button only
 });
 ````

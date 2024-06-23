@@ -2,6 +2,8 @@
 
 - easy usage
 
+- jComponent `v19|v20`
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

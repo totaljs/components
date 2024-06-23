@@ -1,10 +1,8 @@
 {
 	"datecreated": "2016-04-27T08:07:25.622Z",
-	"dateupdated": "2023-01-23T10:09:01.000Z",
+	"dateupdated": "2023-01-23T10:09:02.000Z",
 	"name": "j-Banners",
-	"tags": [
-		"banner"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

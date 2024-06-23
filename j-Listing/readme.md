@@ -3,6 +3,8 @@
 - easy usage
 - works with the whole Arrays only on client-side
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `count {Number}` Optional, items per page (default: `20`)
@@ -20,10 +22,10 @@ __Configuration__:
 
 __Tangular layout__:
 
-- `body` {String} contains all rendered items, output is __HTML__
-- `page` {Number} current page number
-- `pages` {Number} count of pages
-- `count` {Number} count of items
+- `body {String}` contains all rendered items, output is __HTML__
+- `page {Number}` current page number
+- `pages {Number}` count of pages
+- `count {Number}` count of items
 
 __Tangular item__:
 
