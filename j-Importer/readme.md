@@ -2,6 +2,8 @@
 
 __j-Import__ is a great component for importing HTML templates, scripts or styles according to the path and condition. The component can help with SPA applications because you can easily import templates, scripts or styles dynamically.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `if {String}` needs to contain a value

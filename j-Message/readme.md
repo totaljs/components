@@ -3,11 +3,13 @@
 - singleton
 - easy usage
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
-- `button` {String} a button label (default: `OK`)
-- `style` {Number} can change a style (default: `1`), style `2` is similiar to `j-Approve` component
-- `closeoutside` {Boolean} enables closing of message box by clicking outside of main button
+- `button {String}` a button label (default: `OK`)
+- `style {Number}` can change a style (default: `1`), style `2` is similiar to `j-Approve` component
+- `closeoutside {Boolean}` enables closing of message box by clicking outside of main button
 
 __Usage__:
 

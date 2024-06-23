@@ -1,5 +1,7 @@
 ## j-Intro
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `if {String}` condition for showing of the intro, it's compared with the value within of `path`

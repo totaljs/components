@@ -1,5 +1,7 @@
 - The component moves the content of this component under `<body>` tag (because of positioning)
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `if {String}` condition for showing of the form, it's compared with the value within of `data-jc-path`

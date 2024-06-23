@@ -7,6 +7,8 @@
 - works with touches
 - supports __dark mode__
 
+- jComponent `v19|v20`
+
 __Methods__:
 
 Method: `component.show(orientation, targetElement, [items/function(search, next)], clickCallback)`

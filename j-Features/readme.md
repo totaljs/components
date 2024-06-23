@@ -3,6 +3,7 @@
 - only for desktop computers
 - singleton
 - works with Bootstrap Grid System
+- jComponent `v19|v20`
 
 ### Methods
 
@@ -21,8 +22,8 @@ Method: `component.hide()`
 
 __Configuration__:
 
-- `placeholder` {String} a placeholder for the search input
-- `height` {Number} height of list item (optional, default `35`)
+- `placeholder {String}` a placeholder for the search input
+- `height {Number}` height of list item (optional, default `35`)
 
 ### Author
 

@@ -1,11 +1,8 @@
 {
 	"datecreated": "2016-02-19T13:24:33.907Z",
-	"dateupdated": "2023-01-31T14:55:00.000Z",
+	"dateupdated": "2023-01-31T14:55:01.000Z",
 	"name": "j-Loading",
-	"tags": [
-		"loading",
-		"preloader"
-	],
+	"jcomponent": "19|20",
 	"darkmode": true,
 	"color": "white",
 	"version": 1,

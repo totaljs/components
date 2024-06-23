@@ -1,11 +1,8 @@
 {
 	"datecreated": "2016-04-28T11:18:11.392Z",
-	"dateupdated": "2023-02-01T10:30:00.000Z",
+	"dateupdated": "2023-02-01T10:30:01.000Z",
 	"name": "j-Rating",
-	"tags": [
-		"rating",
-		"stars"
-	],
+	"jcomponent": "19|20",
 	"color": "orange",
 	"version": 1,
 	"responsive": true,

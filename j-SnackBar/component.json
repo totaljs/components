@@ -1,11 +1,8 @@
 {
 	"datecreated": "2017-10-18T12:02:01.000Z",
-	"dateupdated": "2023-01-31T12:24:00.000Z",
+	"dateupdated": "2023-01-31T12:24:01.000Z",
 	"name": "j-Snackbar",
-	"tags": [
-		"message",
-		"snackbar"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": false,

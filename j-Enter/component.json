@@ -1,11 +1,8 @@
 {
 	"datecreated": "2017-11-10T08:44:02.000Z",
-	"dateupdated": "2023-01-25T13:05:02.000Z",
+	"dateupdated": "2023-01-25T13:05:03.000Z",
 	"name": "j-Enter",
-	"tags": [
-		"enter",
-		"keyboard"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

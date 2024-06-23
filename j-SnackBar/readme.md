@@ -7,10 +7,12 @@
 - __NEW__ waiting message `SETTER('snackbar/waiting', 'MESSAGE', '[BUTTON_LABEL]', [callback_dismiss])`
 - `message` can contain `HTML` code
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
-- `button` {String} A label for dismiss button (default: `OK`)
-- `timeout` {Number} A timeout in milliseconds (default: `4000`)
+- `button {String}` A label for dismiss button (default: `OK`)
+- `timeout {Number}` A timeout in milliseconds (default: `4000`)
 
 __Works with ASETTER__:
 

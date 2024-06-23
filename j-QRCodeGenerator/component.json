@@ -1,10 +1,8 @@
 {
 	"datecreated": "2016-05-08T06:48:29.016Z",
-	"dateupdated": "2023-02-01T10:12:00.000Z",
+	"dateupdated": "2023-02-01T10:12:01.000Z",
 	"name": "j-QRCodeGenerator",
-	"tags": [
-		"jcomponent"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"responsive": true,

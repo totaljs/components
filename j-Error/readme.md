@@ -1,5 +1,6 @@
 ## j-Error
 
+- jComponent `v19|v20`
 - easy usage
 - errors are displayed only if the path contains an array in the form below:
 
