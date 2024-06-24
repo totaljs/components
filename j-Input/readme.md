@@ -32,7 +32,7 @@ __Configuration__:
 - `spaces {Boolean}` optional, enables spaces otherwise it removes them (default: `true`)
 - `innerlabel {Boolean}` optional, enables inner label (default: `true`)
 - `dirsource {String}` optional, path to a data-source or __NEW__ to `function(search, next)` (path must contain `/` or __NEW__: `id|name,id|name`
-- `dircustom` {String/Boolean} optional, can contain a path to `function(val, next(new_val))` or can be `Boolean`. This option can enable adding a custom value (value not defined in data-source)
+- `dircustom {String/Boolean}` optional, can contain a path to `function(val, next(new_val))` or can be `Boolean`. This option can enable adding a custom value (value not defined in data-source)
 - `dirrender {String}` optional, a path to `function(item, text)` (must return HTML for `j-Directory`), this function can affect list of items in `j-Directory`
 - `dirminwidth {Number}` optional, a minimum width for `j-Directory`, default: `200`
 - `dirmaxwidth {Number}` optional, a maximum width for `j-Directory`
