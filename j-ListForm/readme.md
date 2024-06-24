@@ -13,8 +13,8 @@ __Configuration__:
 - `formclass {String}` a custom class for form container
 - `itemclass {String}` a custom class for item container
 - `create {String}` a link to a function `function(empty_object, callback(DEFAULT_ITEM_OBJECT), arr)` (`null` value skips creating)
-- `submit {String}` a link to a function `function(form_data, callback(NEW_DATA), arr, newbie)` (`null` value skips updating)
-- `update {String}` a link to a function `function(form_data, callback(NEW_DATA), arr, newbie)` (`null` value skips updating)
+- `submit {String}` a link to a function `function(form_data, callback(NEW_DATA), arr, item_ref_in_items)` (`null` value skips updating)
+- `update {String}` a link to a function `function(form_data, callback(NEW_DATA), arr, item_ref_in_items)` (`null` value skips updating)
 - `remove {String}` a link to a function `function(remove_item, callback(really_remove?), arr)`
 - `selector {String}` a jQuery selector for custom template (outside of the component). Works like `custom template` in [data-binding](https://wiki.totaljs.com/jcomponent/08-data-binding/)
 - `footertop {Boolean}` moves the footer on the top of the component (default: `false`)

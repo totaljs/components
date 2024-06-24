@@ -173,7 +173,7 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 					};
 
 					if (config[this.name])
-						self.EXEC(config[this.name], tmp, fn, self.get(), form.$target ? false : true);
+						self.EXEC(config[this.name], tmp, fn, self.get(), form.$data);
 					else
 						fn(tmp);
 
