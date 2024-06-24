@@ -1,7 +1,7 @@
 COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:id;increment:1;format:auto;autovalue:name;direxclude:false;checkicon:ti ti-check;forcevalidation:1;searchalign:1;height:80;tabs:1;after:\\:', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
-	var input, placeholder, dirsource, binded, customvalidator, mask, rawvalue, isdirvisible = false, nobindcamouflage = false, focused = false;
+	var input, placeholder, dirsource, binded, customvalidator, customtransformer, mask, rawvalue, isdirvisible = false, nobindcamouflage = false, focused = false;
 
 	self.nocompile();
 
@@ -88,7 +88,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			else
 				val = true;
 
-			self.set(val, 2);
+			self.set(self.itransform(val), 2);
 		});
 
 		self.event('focus', 'input,textarea,' + cls2 + '-value', function() {
@@ -110,12 +110,12 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					var val = typeof(value) === 'string' ? value : value[config.autovalue];
 					if (config.autoexec) {
 						self.EXEC(config.autoexec, value, function(val) {
-							self.set(val, 2);
+							self.set(self.itransform(val), 2);
 							self.change();
 							self.bindvalue();
 						});
 					} else {
-						self.set(val, 2);
+						self.set(self.itransform(val), 2);
 						self.change();
 						self.bindvalue();
 					}
@@ -139,7 +139,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 
 			if (config.mask) {
 				var val = (e.originalEvent.clipboardData || window.clipboardData).getData('text');
-				self.set(val.replace(/\s|\t/g, ''));
+				self.set(self.itransform(val.replace(/\s|\t/g, '')));
 				e.preventDefault();
 			}
 
@@ -270,6 +270,17 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			self.rclass(cls + '-focused');
 		});
 
+		self.itransform = function(value) {
+			if (customtransformer) {
+				return customtransformer(value);
+			} else if (config.transform) {
+				var fn = GET(self.makepath(config.transform));
+				if (fn)
+					value = fn.call(self, value, config);
+			}
+			return value;
+		};
+
 		self.event('click', cls2 + '-control', function() {
 
 			if (config.disabled || isdirvisible)
@@ -282,7 +293,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				opt.empty = true;
 				opt.callback = function(val) {
 					self.change(true);
-					self.set(val, 2);
+					self.set(self.itransform(val), 2);
 					self.check();
 					rawvalue[0].focus();
 				};
@@ -295,7 +306,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				opt.empty = true;
 				opt.callback = function(al) {
 					self.change(true);
-					self.set(al, 2);
+					self.set(self.itransform(al), 2);
 					self.check();
 					rawvalue[0].focus();
 				};
@@ -308,7 +319,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				opt.empty = true;
 				opt.callback = function(al) {
 					self.change(true);
-					self.set(al, 2);
+					self.set(self.itransform(al), 2);
 					self.check();
 					rawvalue[0].focus();
 				};
@@ -373,7 +384,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				// empty
 				if (item == null || (config.multiple && !item.length)) {
 					rawvalue.html('');
-					self.set(config.multiple ? [] : null, 2);
+					self.set(self.itransform(config.multiple ? [] : null), 2);
 					self.change();
 					self.check();
 					return;
@@ -388,7 +399,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 						arr.push(m[config.dirvalue || config.value]);
 					}
 
-					self.set(arr, 2);
+					self.set(self.itransform(arr), 2);
 					self.change(true);
 					// self.bindvalue();
 					return;
@@ -398,12 +409,13 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				if (custom && typeof(config.dircustom) === 'string') {
 					var fn = GET(self.makepath(config.dircustom));
 					fn(val, function(val) {
-						self.set(val, 2);
+						self.set(self.itransform(val), 2);
 						self.change(true);
 						self.bindvalue();
 					});
 				} else if (custom) {
 					if (val) {
+						val = self.itransform(val);
 						self.set(val, 2);
 						self.change(true);
 						if (dirsource)
@@ -412,6 +424,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 							input.val(val);
 					}
 				} else {
+					val = self.itransform(val);
 					self.set(val, 2);
 					self.change(true);
 					if (dirsource)
@@ -462,7 +475,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					opt.value = self.get();
 					opt.callback = function(val) {
 						self.change(true);
-						self.set(val);
+						self.set(self.itransform(val));
 					};
 					SETTER('datepicker/show', opt);
 				} else if (config.type === 'time') {
@@ -471,7 +484,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					opt.value = self.get();
 					opt.callback = function(val) {
 						self.change(true);
-						self.set(val);
+						self.set(self.itransform(val));
 					};
 					SETTER('timepicker/show', opt);
 				} else if (config.type === 'search')
@@ -484,7 +497,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 						var n = tmp.hclass('ti-caret-up') ? 1 : -1;
 						self.change(true);
 						var val = self.preparevalue((self.get() || 0) + (config.increment * n));
-						self.set(val, 2);
+						self.set(self.itransform(val), 2);
 					}
 				}
 				return;
@@ -531,6 +544,8 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 	};
 
 	self.validate = function(value) {
+
+		console.log('OK', config.required);
 
 		if ((!config.required || config.disabled) && !self.forcedvalidation())
 			return true;
@@ -865,7 +880,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				self.type = value;
 				break;
 			case 'validate':
-				customvalidator = value ? (/\(|=|>|<|\+|-|\)/).test(value) ? FN('value=>' + value) : (function(path) { path = self.makepath(path); return function(value) { return GET(path)(value); }; })(value) : null;
+				customvalidator = value ? (/\(|=|>|<|\+|-|\)/).test(value) ? (new Function('value', 'return ' + value)) : (function(path) { path = self.makepath(path); return function(value) { return GET(path)(value); }; })(value) : null;
 				break;
 			case 'innerlabel':
 				self.tclass(cls + '-inner', !!value);
@@ -873,6 +888,9 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				break;
 			case 'monospace':
 				self.tclass(cls + '-monospace', !!value);
+				break;
+			case 'transform':
+				customtransformer = value && (/\(|=|>|<|\+|-|\)/).test(value) ? (new Function('value', 'return ' + value)) : null;
 				break;
 			case 'maskregexp':
 				if (value) {
@@ -984,7 +1002,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			}
 		}
 
-		return value ? config.spaces === false ? value.replace(/\s/g, '') : value : value;
+		return self.itransform(value ? config.spaces === false ? value.replace(/\s/g, '') : value : value);
 	});
 
 	self.state = function(type, what) {

@@ -61,6 +61,7 @@ __Configuration__:
 - `tabindex {Number}` adds a tabindex (default: `0`)
 - `tabs {Boolean}` enables tabs for multiline (default: `true`)
 - `readonly {Boolean}` block text field edition (default: `false`)
+- __NEW__: `transform {String}` a link to the `function(value, config)` for transforming of entered values
 
 __Interesting:__
 
