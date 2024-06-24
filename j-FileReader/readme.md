@@ -4,6 +4,8 @@
 - easy usage
 - only for text files
 
+- jComponent `v19|v20`
+
 __Methods__:
 - `component.open(opt)` - opens file browser
 	- `opt.multiple {Boolean}` enables multiple files (default: `false`)

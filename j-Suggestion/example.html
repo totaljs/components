@@ -10,7 +10,7 @@
 
 <script>
 	$(document).on('click', 'a', function() {
-		SETTER('suggestion', 'show', 'left', this, [{ name: 'Total.js' }, { name: 'Express.js' }, { name: 'Meteor.js' }, { name: 'Koa.js' }, { name: 'ASP.NET' }, { name: 'PHP' }, { name: 'Python' }, { name: 'Node.js' }], function(value) {
+		SETTER('suggestion/show', 'left', this, [{ name: 'Total.js' }, { name: 'Express.js' }, { name: 'Meteor.js' }, { name: 'Koa.js' }, { name: 'ASP.NET' }, { name: 'PHP' }, { name: 'Python' }, { name: 'Node.js' }], function(value) {
 			console.log('CLICK', value);
 		});
 	});

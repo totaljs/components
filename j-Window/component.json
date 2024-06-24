@@ -1,11 +1,8 @@
 {
 	"datecreated": "2018-02-23T20:22:59.000Z",
-	"dateupdated": "2023-01-17T23:11:01.000Z",
+	"dateupdated": "2023-01-17T23:11:02.000Z",
 	"name": "j-Window",
-	"tags": [
-		"window",
-		"modal"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"darkmode": true,

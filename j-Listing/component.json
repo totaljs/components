@@ -1,11 +1,8 @@
 {
 	"datecreated": "2017-12-21T21:43:04.000Z",
-	"dateupdated": "2023-01-31T14:44:00.000Z",
+	"dateupdated": "2023-01-31T14:44:01.000Z",
 	"name": "j-Listing",
-	"tags": [
-		"listing",
-		"list"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

@@ -2,6 +2,8 @@
 
 This component evaluates some method if the user press `enter`. Important: component finds all `input` elements and performs `CAN()` for the path.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 - `exec {String}` a method name for execution
 - `validate {Boolean}` enables validate (default: `true`)

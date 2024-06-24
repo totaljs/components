@@ -1,10 +1,8 @@
 {
 	"datecreated": "2017-07-18T22:00:00.000Z",
-	"dateupdated": "2023-01-25T13:00:03.000Z",
+	"dateupdated": "2023-01-25T13:00:04.000Z",
 	"name": "j-Enterbox",
-	"tags": [
-		"enterbox"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

@@ -1,22 +1,24 @@
 ## j-Tree
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
-- `first` {Boolean} selects the first tree item, default: `true` (optional)
-- `exec` {String} __required__: link to a function, this function is executed when the node is selected in the tree
-- `autoreset` {Boolean} resets state when datas-source is changed (optional, default: `false`)
-- `selected` {String} selected class (optional, default: `selected`)
-- `checked` {String} optional, a path to `function(arr, component)` or path to `property`
-- `checkednested` {Boolean} optional, checks all nested items (default: `true`)
-- `upload` {String} optional, a path to `function(item, files)` (enables drag & drop files)
-- `dragdrop` {String} optional, a path to `function(item, target_item, itemel, targetel)` (enables drag & drop items)
-- `options` {String} optional, a path to `function(item, el)` enables a small button for an inline context menu for each item
-- `rename` {String} optional, a path to `function(item, newname, fn_accept(true))`
-- `unselectexpand` {Boolean} optional, can `unselect` selected item when the user clicks on the expandable item (default: `false`)
-- `reselect` {Boolean} optional, evaluates `exec` again if the tree is refreshed (default: `false`)
-- `selectexpand` {Boolean} optional, enables adding `selected` class to expandable items (default: `false`)
-- __NEW__ `iconoptions` {String} icon to options (default: `ti ti-ellipsis-h`)
-- __NEW__ `expanded` {Boolean} expands all children (default: `false`)
+- `first {Boolean}` selects the first tree item, default: `true` (optional)
+- `exec {String}` __required__: link to a function, this function is executed when the node is selected in the tree
+- `autoreset {Boolean}` resets state when datas-source is changed (optional, default: `false`)
+- `selected {String}` selected class (optional, default: `selected`)
+- `checked {String}` optional, a path to `function(arr, component)` or path to `property`
+- `checkednested {Boolean}` optional, checks all nested items (default: `true`)
+- `upload {String}` optional, a path to `function(item, files)` (enables drag & drop files)
+- `dragdrop {String}` optional, a path to `function(item, target_item, itemel, targetel)` (enables drag & drop items)
+- `options {String}` optional, a path to `function(item, el)` enables a small button for an inline context menu for each item
+- `rename {String}` optional, a path to `function(item, newname, fn_accept(true))`
+- `unselectexpand {Boolean}` optional, can `unselect` selected item when the user clicks on the expandable item (default: `false`)
+- `reselect {Boolean}` optional, evaluates `exec` again if the tree is refreshed (default: `false`)
+- `selectexpand {Boolean}` optional, enables adding `selected` class to expandable items (default: `false`)
+- __NEW__ `iconoptions {String}` icon to options (default: `ti ti-ellipsis-h`)
+- __NEW__ `expanded {Boolean}` expands all children (default: `false`)
 
 __Data structure__:
 

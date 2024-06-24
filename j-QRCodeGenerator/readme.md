@@ -3,9 +3,11 @@
 - easy usage
 - uses <http://goqr.me> server
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
-- `size` {Number} in pixels, default: `200`
+- `size {Number}` in pixels, default: `200`
 
 ### Author
 
