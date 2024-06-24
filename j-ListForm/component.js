@@ -1,4 +1,4 @@
-COMPONENT('listform', 'empty:---;default:1;', function(self, config, cls) {
+COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var skip = false;
@@ -129,14 +129,15 @@ COMPONENT('listform', 'empty:---;default:1;', function(self, config, cls) {
 					}
 
 					fn = function(obj) {
+
+						if (config.newbie)
+							obj[config.newbie] = true;
+
 						if (config.create || !config.default)
 							SET('{0} @reset'.format(self.ID), obj);
-						else {
-							if (M.is20)
-								SET('{0} @default'.format(self.ID), {});
-							else
-								DEFAULT(self.ID + '__{}');
-						}
+						else
+							SET('{0} @default'.format(self.ID), obj);
+
 						self.edit();
 					};
 
@@ -172,7 +173,7 @@ COMPONENT('listform', 'empty:---;default:1;', function(self, config, cls) {
 					};
 
 					if (config[this.name])
-						self.EXEC(config[this.name], tmp, fn, self.get());
+						self.EXEC(config[this.name], tmp, fn, self.get(), form.$target ? false : true);
 					else
 						fn(tmp);
 
