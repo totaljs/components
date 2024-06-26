@@ -25,13 +25,14 @@ COMPONENT('fileuploader', function(self, config) {
 		// opt.multiple {Boolean}
 		// opt.accept {String}
 		// opt.prefix = 'file{0}'
-		// opt.data = { key: value };
+		// opt.data = { key: value }
 		// opt.width {Number}
 		// opt.height {Number}
 		// opt.keeporiginal {Boolean}
 		// opt.background {String} (hex or "transparent")
 		// opt.base64 {String}
 		// opt.filename {String}
+		// opt.quality {Number}
 
 		self.opt = opt;
 		self.opt.fd = new FormData();
