@@ -10,15 +10,14 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 		W.$$form = true;
 
 		$(document).on('click', cls2 + '-button-close', function() {
-			SET($(this).attrd('path'), '');
+			$(this).component().set(null);
 		});
 
 		var resize = function() {
 			setTimeout2('form', function() {
-				for (var i = 0; i < M.components.length; i++) {
-					var com = M.components[i];
-					if (com.name === 'form' && !HIDDEN(com.dom) && com.$ready && !com.$removed)
-						com.resize();
+				for (var m of M.components) {
+					if (m.name === self.name && !HIDDEN(m.dom) && (m.ready || (m.$ready && !m.$removed)))
+						m.resize();
 				}
 			}, 200);
 		};
@@ -66,8 +65,7 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 
 	self.hide = function() {
 		config.close && self.EXEC(config.close);
-		if (config.independent)
-			self.hideforce();
+		config.independent && self.hideforce();
 		self.set('');
 	};
 
@@ -146,7 +144,7 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 				var icon = self.find(cls2 + '-icon');
 				icon.rclass2('fa ti');
 				if (value)
-					icon.aclass(self.faicon(value)).rclass('hidden');
+					icon.aclass(self.icon(value)).rclass('hidden');
 				else
 					icon.aclass('hidden');
 				break;

@@ -855,7 +855,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 				color = text;
 				return '';
 			}).trim();
-			tmp = self.faicon(tmp);
+			tmp = self.icon(tmp);
 			meta.icon = Tangular.render('<i class="{{ icon }}"{{ if color }} style="{{ type }}color:{{ color }}"{{ fi }}></i>', { icon: tmp, color: color, type: config.style === 2 ? 'background-' : '' });
 		} else
 			meta.icon = '';

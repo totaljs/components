@@ -1,7 +1,6 @@
 ## j-Notify
 
 - jComponent `v19|v20`
-- easy usage
 
 __Configuration__:
 

@@ -178,7 +178,7 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 			var item = items[i];
 			indexer.index = i;
 			if (item.icon)
-				item.icon = self.faicon(item.icon);
+				item.icon = self.icon(item.icon);
 			builder.push(self.template(item, indexer));
 		}
 

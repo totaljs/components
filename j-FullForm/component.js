@@ -157,7 +157,7 @@ COMPONENT('fullform', 'zindex:12;padding:20;scrollbar:1;scrolltop:1;style:1', fu
 				var icon = self.find(cls2 + '-icon');
 				icon.rclass2('fa ti');
 				if (value)
-					icon.aclass(self.faicon(value)).rclass('hidden');
+					icon.aclass(self.icon(value)).rclass('hidden');
 				else
 					icon.aclass('hidden');
 				break;

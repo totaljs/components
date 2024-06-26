@@ -1,6 +1,8 @@
 ## j-Properties 2
 
-The component uses `j-DatePicker`, `j-TimePicker`, `j-Directory`, `j-Emoji`, `j-ColorPicker` and `j-FaIcons` components.
+The component uses `j-DatePicker`, `j-TimePicker`, `j-Directory`, `j-Emoji`, `j-ColorPicker` and `j-Icons` components.
+
+- jComponent `v19`
 
 __Configuration__:
 
@@ -30,31 +32,31 @@ form.push({ group: 'Additional', label: 'Emoji', name: 'user.emoji', type: 'emoj
 
 __Data properties in data declaration__:
 
-- `name` {String} an item identifier (required)
-- `label` {String} a label (required)
-- `group` {String} a group name (required)
-- `note` {String} a small note under control
-- `type` {String} a type (required)
-- `placeholder` {String} a placeholder (supports few types only)
-- `transform` {String} for `string` type only, can contain `capitalize`, `uppercase`, `lowercase` or `slug`
-- `maxlength` {Number} for `string` type only
-- `validate` {RegExp/String} for `string` type only, can contain `email`, `phone` or `url`
-- `min` {Number} for `number` type only
-- `max` {Number} for `number` type only
-- `inc` {Number/String} increments a value according to the value, targeted for `number` or `date` (can contain `1 day` or `-1 day`) type only
-- `required` {Boolean} for type `string`, `number` or `date`
-- `dirsearch` {String/Boolean} a placeholder for `list` type only, boolean disables search
-- `dircustom` {Boolean} enables a custom value for `list` type only
-- `dirkey` {String} a key name for label/name, targeted for `list` type only (default: `name`)
-- `dirvalue` {String} a key name for value, targeted for `list` type only (default: `id`)
-- `detail` {String} URL address for obtaining of data for `list` type, example: `/users/{0}/` and `{0}` will be replaced with the value from list
-- `items` {Object Array/String} items for `list` type only, string can contain a path to `Array` or `URL address` to search
-- `show` {Arrow function}, example: `data => data.KEY === 'SOMETHING'` --> will show the item if the condition will valid
-- `icon` {String} Total icon, can contain a color e.g. `ti ti-home #00000`
-- `ricon` {String} Right Font-Awesome icon or text e.g. `!HTML text`
-- `riconclick` {String} a path to the method `function(item, set(new_val))`
-- `camouflage` {Boolean} only for `string` type
-- `monospace` {Boolean} it uses a monospace font
+- `name {String}` an item identifier (required)
+- `label {String}` a label (required)
+- `group {String}` a group name (required)
+- `note {String}` a small note under control
+- `type {String}` a type (required)
+- `placeholder {String}` a placeholder (supports few types only)
+- `transform {String}` for `string` type only, can contain `capitalize`, `uppercase`, `lowercase` or `slug`
+- `maxlength {Number}` for `string` type only
+- `validate {RegExp/String}` for `string` type only, can contain `email`, `phone` or `url`
+- `min {Number}` for `number` type only
+- `max {Number}` for `number` type only
+- `inc {Number/String}` increments a value according to the value, targeted for `number` or `date` (can contain `1 day` or `-1 day`) type only
+- `required {Boolean}` for type `string`, `number` or `date`
+- `dirsearch {String/Boolean}` a placeholder for `list` type only, boolean disables search
+- `dircustom {Boolean}` enables a custom value for `list` type only
+- `dirkey {String}` a key name for label/name, targeted for `list` type only (default: `name`)
+- `dirvalue {String}` a key name for value, targeted for `list` type only (default: `id`)
+- `detail {String}` URL address for obtaining of data for `list` type, example: `/users/{0}/` and `{0}` will be replaced with the value from list
+- `items {Object Array/String}` items for `list` type only, string can contain a path to `Array` or `URL address` to search
+- `show {Arrow function}`, example: `data => data.KEY === 'SOMETHING'` --> will show the item if the condition will valid
+- `icon {String}` Total icon, can contain a color e.g. `ti ti-home #00000`
+- `ricon {String}` Right Font-Awesome icon or text e.g. `!HTML text`
+- `riconclick {String}` a path to the method `function(item, set(new_val))`
+- `camouflage {Boolean}` only for `string` type
+- `monospace {Boolean}` it uses a monospace font
 
 __Allowed types in data__:
 
@@ -81,8 +83,8 @@ __Missing types__:
 
 The component extends the Array by adding:
 
-- `invalid` {Boolean} field determines if the `value` is invalid (default: `undefined`)
-- `changed` {Boolean} field determines if the `value` has been changed (default: `undefined`)
+- `invalid {Boolean}` field determines if the `value` is invalid (default: `undefined`)
+- `changed {Boolean}` field determines if the `value` has been changed (default: `undefined`)
 - `prev` {???} field contains an initial value
 
 ### Author

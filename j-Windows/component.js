@@ -466,7 +466,7 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', functio
 			var builder = [];
 			for (var i = 0; i < item.buttons.length; i++) {
 				var btn = item.buttons[i];
-				var icon = self.faicon(btn.icon);
+				var icon = self.icon(btn.icon);
 				builder.push('<i class="ti ti-{1} {0}-control" data-name="{2}"></i>'.format(cls, icon, btn.name));
 			}
 			builder.length && el.find(cls2 + '-lastbutton').before(builder.join(''));

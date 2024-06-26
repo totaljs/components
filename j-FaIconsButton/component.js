@@ -28,7 +28,7 @@ COMPONENT('faiconsbutton', 'default:#FFFFFF;align:left;position:top;empty:1', fu
 				self.set(icon);
 				self.change(true);
 			};
-			SETTER('faicons', 'show', opt);
+			SETTER('faicons/show', opt);
 		});
 	};
 

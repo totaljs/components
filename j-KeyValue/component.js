@@ -71,7 +71,7 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config, cls) {
 		var label = config.label || content;
 
 		if (icon)
-			icon = '<i class="{0}"></i>'.format(self.faicon(icon));
+			icon = '<i class="{0}"></i>'.format(self.icon(icon));
 
 		empty.value = '';
 

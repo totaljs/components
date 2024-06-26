@@ -1,9 +1,8 @@
 ## j-FloatingInput
 
+- jComponent `v19|v20`
 - singleton
 - supports __dark mode__
-
-- jComponent `v19|v20`
 
 __Methods__:
 

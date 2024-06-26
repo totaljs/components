@@ -59,7 +59,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 		var html = config.label || content;
 
 		if (config.icon)
-			icon = '<i class="{0}"></i>'.format(self.faicon(config.icon));
+			icon = '<i class="{0}"></i>'.format(self.icon(config.icon));
 
 		empty.value = '';
 		self.tclass(cls + '-movable', !!config.movable);

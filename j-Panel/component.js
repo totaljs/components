@@ -37,7 +37,7 @@ COMPONENT('panel', 'width:350;icon:home;zindex:12;scrollbar:true;scrollbarY:true
 	}
 
 	self.icon = function(value, path, el) {
-		el.rclass().aclass(cls + '-icon ' + self.faicon(value.icon));
+		el.rclass().aclass(cls + '-icon ' + self.icon(value.icon));
 	};
 
 	self.readonly();

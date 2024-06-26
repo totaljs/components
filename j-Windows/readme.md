@@ -1,11 +1,5 @@
 ## j-Windows
 
-- Works only with `+v18`
-- Supports mobile devices
-- Supports touches
-- Movable
-- Resizable
-
 - jComponent `v19|v20`
 
 __Configuration__:

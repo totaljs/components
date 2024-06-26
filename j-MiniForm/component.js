@@ -168,7 +168,7 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 				var icon = self.find(cls2 + '-icon');
 				icon.rclass2('fa ti');
 				if (value)
-					icon.aclass(self.faicon(value)).rclass('hidden');
+					icon.aclass(self.icon(value)).rclass('hidden');
 				else
 					icon.aclass('hidden');
 				break;

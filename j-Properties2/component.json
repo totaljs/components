@@ -1,12 +1,8 @@
 {
 	"datecreated": "2020-02-17T14:29:03.000Z",
-	"dateupdated": "2024-05-15T14:20:00.000Z",
+	"dateupdated": "2024-05-15T14:20:01.000Z",
 	"name": "j-Properties2",
-	"tags": [
-		"properties",
-		"parameters",
-		"form"
-	],
+	"jcomponent": "19",
 	"color": "transparent",
 	"version": 1,
 	"darkmode": true,

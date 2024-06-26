@@ -13,7 +13,7 @@ __Configuration__:
 - `cancel {String}` link to a global `function(hide)` and it's executed if the cancel button is pressed
 - `enter {Boolean}` captures `enter` key automatically and performs submit (default: `false`)
 - `center {Boolean}` centers the form to middle of screen
-- `autofocus` {Boolean/String} can focus an input. `String` === `jQuery selector` for the input
+- `autofocus {Boolean/String}` can focus an input. `String` === `jQuery selector` for the input
 - `default {String}` a short alias for `DEFAULT(default, true)`
 - `closebutton {Boolean}` can hide `x` button (default: `false`)
 - `zindex {Number}` can affect z-index (default: `12`)
