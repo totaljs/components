@@ -12,7 +12,7 @@
 .ui-panel-title .ui-panel-button-menu:hover i { color: #000; transform: rotate(-90deg); }
 .ui-panel-title .ui-panel-button-close { float: right; cursor: pointer; font-size: 14px; transition: all 0.2s; background: none; border: 0; outline: 0; color: #777; text-align: center !important; padding: 0; margin: 7px 2px 0 0; width: 34px; height: 30px; border-radius: var(--radius); }
 .ui-panel-title .ui-panel-button-close:hover { color: red; }
-.ui-panel-title > span { font-weight: bold; max-width: 70%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; display: inline-block; vertical-align: middle; line-height: 45px; }
+.ui-panel-title > label { font-weight: bold; max-width: 70%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; display: inline-block; vertical-align: middle; line-height: 45px; }
 .ui-panel-title > i { margin-right: 7px; line-height: 45px; float: left; }
 
 .ui-dark .ui-panel { background-color: #303030; }
