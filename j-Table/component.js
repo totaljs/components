@@ -247,10 +247,10 @@ COMPONENT('table', 'highlight:true;border:true;unhighlight:true;multiple:false;p
 						config.exec && self.SEEX(config.exec, self.selected(), el);
 					}
 				} else {
+					opt.selected.push(index);
 					el.aclass(cls + '-selected');
 					config.exec && self.SEEX(config.exec, self.selected(), el);
 					config.detail && self.row_detail(el);
-					opt.selected.push(index);
 				}
 			} else {
 
@@ -300,6 +300,7 @@ COMPONENT('table', 'highlight:true;border:true;unhighlight:true;multiple:false;p
 			if (index > -1) {
 
 				var is = config.highlight ? el.hclass(cls + '-selected') : true;
+
 				if (isdblclick && config.dblclick && is) {
 					self.forceselectid && clearTimeout(self.forceselectid);
 					self.SEEX(config.dblclick, opt.items[index], el);
