@@ -77,8 +77,12 @@ COMPONENT('importer', function(self, config) {
 		if (content) {
 			self.html(replace2(content));
 			setTimeout(self.reload, 50, true);
-		} else
-			self.import(config.url, self.reload, true, replace2);
+		} else {
+			if (M.is20)
+				self.import(config.url + ' @prepend', self.reload, replace2);
+			else
+				self.import(config.url, self.reload, true, replace2);
+		}
 	};
 
 	self.clean = function() {
