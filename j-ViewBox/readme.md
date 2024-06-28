@@ -27,6 +27,7 @@ __Configuration__:
 - `initdelay {Number}` removes the `inivisible` class after specified time (default: `250` ms)
 - `centered {Boolean}` enables vertical and horitonzal centering for the content (default: `false`)
 - `resizedelay {Number}` delay for resizing (default: `200`)
+- __NEW__: `togglescrolled {String}` a DOM selector for the parent elements (it appends `ui-viewbox-scrolled` class when the viewbox is scrolled)
 
 __Methods__:
 

@@ -80,7 +80,15 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;resizedelay:200;initdelay:2
 		if (config.scroll) {
 			if (config.scrollbar) {
 				if (MAIN.version > 17) {
-					scrollbar = W.SCROLLBAR(self.find(cls2 + '-body'), { shadow: config.scrollbarshadow, visibleY: config.visibleY, visibleX: config.visibleX, orientation: config.visibleX ? null : 'y', parent: self.element });
+					var scrolledcache = null;
+					var scrolled = function(scrollbar) {
+						if (config.togglescrolled) {
+							if (!scrolledcache)
+								scrolledcache = self.parent(config.togglescrolled);
+							scrolledcache && scrolledcache.tclass(cls + '-scrolled', scrollbar.scrollTop() > 0);
+						}
+					};
+					scrollbar = W.SCROLLBAR(self.find(cls2 + '-body'), { shadow: config.scrollbarshadow, visibleY: config.visibleY, visibleX: config.visibleX, orientation: config.visibleX ? null : 'y', parent: self.element, onscroll: scrolled });
 					self.scrollbar = scrollbar;
 					self.scrolltop = scrollbar.scrollTop;
 					self.scrollbottom = scrollbar.scrollBottom;
