@@ -1444,7 +1444,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 		var Trow = '<div class="dg-hrow dg-row-{0}">{1}</div>';
 
 		if (config.hfunc)
-			config.numbering = '<div class="dg-hfunc dg-hfunc-main" data-value="-1"><i class="{0}"></i></div>'.format(self.faicon(config.hfuncicon));
+			config.numbering = '<div class="dg-hfunc dg-hfunc-main" data-value="-1"><i class="{0}"></i></div>'.format(self.icon(config.hfuncicon));
 
 		var column = config.numbering !== false ? Theadercol({ index: -1, label: config.numbering, filter: false, name: '$', sorting: false }) : '';
 		var resize = [];
