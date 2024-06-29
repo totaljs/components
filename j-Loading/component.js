@@ -8,8 +8,18 @@ COMPONENT('loading', function(self, config, cls) {
 	self.nocompile();
 
 	self.make = function() {
+
 		self.aclass(cls + ' ' + cls + '-' + (config.style || 1));
 		self.append('<div><div class="' + cls + '-text hellip"></div></div>');
+
+		if (M.events) {
+			setTimeout(function() {
+				if (!M.events['@flag showloading']) {
+					ON('@flag showloading', () => self.show());
+					ON('@flag hideloading', () => self.hide(800));
+				}
+			}, 100);
+		}
 	};
 
 	self.show = function(text) {

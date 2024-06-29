@@ -1,6 +1,7 @@
 ## j-Loading
 
 - jComponent `v19|v20`
+- it automatically assigns flags `@showloading` and `@hideloading`
 
 __Configuration__:
 
