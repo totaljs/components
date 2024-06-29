@@ -12,6 +12,7 @@ __Configuration__:
 - `attr {String}` attribute for comparing (default: `href`)
 - `strict {Boolean}` enables strict comparing of URL address (default: `false`)
 - `delay {Number}` a delay for rebinding of selection when the model is changed (default: `300`)
+- __NEW__: `watch {String}` a path for watching changes
 
 ### Author
 
