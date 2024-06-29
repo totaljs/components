@@ -1,12 +1,11 @@
 ## j-Menu
 
+- jComponent `v19|v20`
 - easy usage for different cases
 - works with touches
 - supports __Dark mode__
 - singleton
 - __NEW__ supports large mode
-
-- jComponent `v19|v20`
 
 __Configuration__:
 
@@ -14,7 +13,7 @@ __Configuration__:
 
 ## Usage
 
-```javascript
+```js
 var opt = {};
 
 // opt.offsetX {Number}      : adds X offset (default: 0)
