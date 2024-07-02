@@ -2,9 +2,8 @@
 
 This component can show a loading text for async AJAX operations.
 
-- works with `AJAX()` method only
-
 - jComponent `v19|v20`
+- works with `AJAX()` method only
 
 __Configuration__:
 
