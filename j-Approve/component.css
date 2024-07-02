@@ -15,17 +15,16 @@
 .ui-approve-visible .ui-approve-body { -webkit-transform: scale(1); transform: scale(1); }
 .ui-approve-click { transform: scale(1.07) !important; }
 
-
 .ui-approve-style-2 { background-color: rgba(0,0,0,0.7); }
 .ui-approve-style-2 .ui-approve-body { max-width: 500px; border-radius: var(--radius); }
-.ui-approve-style-2 .ui-approve-content { padding: 24px; text-align: left; font-size: 16px; }
+.ui-approve-style-2 .ui-approve-content { padding: 28px 24px 24px; text-align: left; font-size: 15px; color: #797982; line-height: 1.25rem; }
 .ui-approve-style-2 .ui-approve-content > i { margin-left: 38px; margin-bottom: 12px; }
 .ui-approve-style-2 .ui-approve-buttons { display: flex; align-items: center; justify-content: end; height: auto; padding: 0 24px 24px;  }
-.ui-approve-style-2 button { min-width: 90px; width: auto; border-radius: var(--radius); border: 1px solid #e4e4e7; height: 38px; line-height: 38px; }
-.ui-approve-style-2 button[data-index='0'] { margin-right: 12px; border-color: #EC2C28; transition: opacity .2s; }
-.ui-approve-style-2 button[data-index='1'] { color: #222; background-color: #fff; transition: background-color .2s; }
+.ui-approve-style-2 button { min-width: 92px; width: auto; border-radius: var(--radius); border: 1px solid #e4e4e7; height: 40px; line-height: 40px; font-size: 14px; }
+.ui-approve-style-2 button[data-index='0'] { order: 2; margin-left: 12px; background-color: #18181b; border-color: #18181b; transition: opacity .2s; }
+.ui-approve-style-2 button[data-index='1'] { color: color: #797982; background-color: #fff; transition: background-color .2s; }
 .ui-approve-style-2 .ui-approve-close { display: none; }
-.ui-approve-style-2 button[data-index='0']:hover { opacity: .8; }
+.ui-approve-style-2 button[data-index='0']:hover { opacity: .9; }
 .ui-approve-style-2 button[data-index='1']:hover { background-color: #f0f0f0; }
 
 @media(max-width: 340px) {
@@ -39,7 +38,10 @@
 .ui-dark .ui-approve-close { color: #505050; }
 .ui-dark .ui-approve-close:hover { color: #888; }
 .ui-dark .ui-approve button[data-index='0'] { background-color: #EC2C28; color: #fff; }
+
 .ui-dark .ui-approve-style-2.ui-approve { background-color: rgba(0,0,0,0.7); }
-.ui-dark .ui-approve-style-2.ui-approve button { border-color: #303030; }
-.ui-dark .ui-approve-style-2.ui-approve button[data-index='0'] { border-color: #EC2C28; }
+.ui-dark .ui-approve-style-2 .ui-approve-body { background-color: #09090b; border: 1px solid #27272a; }
+.ui-dark .ui-approve-style-2.ui-approve .ui-approve-content { color: #8f8f97; }
+.ui-dark .ui-approve-style-2.ui-approve button[data-index='0'] { color: #09090b; background-color: #fff; }
+.ui-dark .ui-approve-style-2.ui-approve button[data-index='1'] { color: #797982; background-color: #09090b; border-color: #27272a; }
 .ui-dark .ui-approve-style-2.ui-approve button[data-index='1']:hover { background-color: #303030; }
