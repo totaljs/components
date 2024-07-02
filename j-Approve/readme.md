@@ -9,6 +9,7 @@
 __Configuration__:
 
 - `cancel` {String} a label for cancel button (default: `Cancel`)
+- __NEW__: `style` {Number} changes style (supported style `1` (default) and `2`)
 
 __Methods__:
 

@@ -12,6 +12,8 @@ COMPONENT('approve', 'cancel:Cancel', function(self, config, cls) {
 	self.make = function() {
 
 		self.aclass(cls + ' hidden');
+		self.aclass(cls + '-style-' + (config.style || 1));
+
 		self.html('<div><div class="{0}-body"><span class="{0}-close"><i class="ti ti-times"></i></span><div class="{0}-content"></div><div class="{0}-buttons"><button data-index="0"></button><button data-index="1"></button></div></div></div>'.format(cls));
 
 		buttons = self.find(cls2 + '-buttons').find('button');
