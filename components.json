@@ -311,5 +311,13 @@
 	"j-Printer",
 	"j-SVGIcons",
 	"j-iFrame",
-	"j-MapZones"
+	"j-DrawZone",
+	"j-UIEditor",
+	"j-FlowEditor",
+	"j-Prompt",
+	"Tangular-RGBA",
+	"j-DataSource",
+	"j-Cl",
+	"j-TotalTemplates",
+	"j-OneTime"
 ]

@@ -1,5 +1,6 @@
 ## j-AutoDarkMode
 
+- jComponent `v19|v20`
 - singleton
 - readonly
 

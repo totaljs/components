@@ -1,15 +1,11 @@
 ## j-Windows
 
-- Works only with `+v18`
-- Supports mobile devices
-- Supports touches
-- Movable
-- Resizable
+- jComponent `v19|v20`
 
 __Configuration__:
 
-- `menuicon` {String} a menu icon in the window title bar (default `ti ti-navicon`)
-- `reoffsetresize` {Boolean} all windows will be re-offset according to the `main` window dimension (default: `true`)
+- `menuicon {String}` a menu icon in the window title bar (default `ti ti-navicon`)
+- `reoffsetresize {Boolean}` all windows will be re-offset according to the `main` window dimension (default: `true`)
 - `zindex {Number}` a start z-index positioning (default: `5`)
 
 The `windows` component expects an `Array` of objects.

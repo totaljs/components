@@ -1,5 +1,6 @@
 ## j-DropFiles
 
+- jComponent `v19|v20`
 - singleton
 - captures all dropped files into the `window`
 - must be located under `<body>` element due to positioning

@@ -1,7 +1,7 @@
 ## j-NoScrollbar
 
+- jComponent `v19|v20`
 - this component is something like `j-ViewBox` without native/custom scrollbar
-- optimized for jComponent `+v18`
 
 __Configuration__:
 

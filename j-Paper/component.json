@@ -1,13 +1,8 @@
 {
 	"datecreated": "2022-10-06T10:47:04.000Z",
-	"dateupdated": "2023-03-08T19:33:01.000Z",
+	"dateupdated": "2024-06-12T10:45:00.000Z",
 	"name": "j-Paper",
-	"tags": [
-		"paper",
-		"wysiwyg",
-		"rich",
-		"widgets"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

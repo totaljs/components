@@ -1,0 +1,14 @@
+{
+	"datecreated": "2024-02-27T10:46:01.000Z",
+	"dateupdated": null,
+	"name": "j-DataSource",
+	"jcomponent": "19|20",
+	"color": "white",
+	"version": 1,
+	"responsive": false,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

@@ -1,4 +1,4 @@
-COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:0', function(self, config, cls) {
+COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:-1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var skip = false;
@@ -86,7 +86,7 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:0', function(self,
 
 		var d = new Date(year, month, 1, 12, 0);
 		var output = { header: [], days: [], month: month, year: year };
-		var firstday = config.firstday;
+		var firstday = config.firstday === -1 ? DEF.firstdayofweek : config.firstday;
 		var firstcount = 0;
 		var frm = d.getDay() - firstday;
 		var today = NOW;
@@ -221,8 +221,13 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:0', function(self,
 		if (opt.offsetY)
 			t += opt.offsetY;
 
-		if (l + s > WW)
+		if ((l + s) > WW)
 			l = (l + w) - s;
+
+		if ($(W).scrollTop() === 0) {
+			if ((t + height) > WH)
+				t = WH - height - 10;
+		}
 
 		var restrict = true;
 		var parent = dom.parentNode;
@@ -437,8 +442,8 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:0', function(self,
 		});
 
 		self.find(cls2 + '-now').on('click', function() {
-			self.setdate(new Date());
-			self.hide();
+			current = new Date();
+			self.date(current, true);
 		});
 
 		self.find(cls2 + '-clear').on('click', function() {

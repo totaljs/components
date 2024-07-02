@@ -2,6 +2,8 @@
 
 A simple singleton component for uploading of resized images. The component uploads base64 according to the `schema` defined in `options` of caller.
 
+- jComponent `v19|v20`
+
 __Methods__:
 
 - `imageuploader/upload(opt)` shows a file dialog

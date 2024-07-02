@@ -4,10 +4,12 @@
 - easy for customization
 - supports __dark mode__
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
-- `exec` {String} a link to the function
-- `pk` {String} a primary key (default: `id`) for remembering last state of tree
+- `exec {String}` a link to the function
+- `pk {String}` a primary key (default: `id`) for remembering last state of tree
 
 __Data-source__:
 

@@ -4,14 +4,14 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1;realtime:0;margin:0', function(
 	var savetimeout;
 	var callbacks = {};
 	var callbackid = 1;
-	var skip = false;
 	var init = false;
 
 	var save = function() {
 		savetimeout = null;
 		send({ TYPE: 'body' }, function(msg) {
-			skip = true;
-			self.set(msg.value);
+			var model = self.get();
+			model.body = msg.value;
+			self.bind('@modified @touched', model);
 		});
 	};
 
@@ -157,9 +157,9 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1;realtime:0;margin:0', function(
 			if (callback) {
 				callback(msg.value);
 			} else {
-				skip = true;
-				self.get().body = msg.value;
-				self.update(true);
+				var model = self.get();
+				model.body = msg.value;
+				self.bind('@modified', model)
 			}
 		});
 	};
@@ -188,12 +188,6 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1;realtime:0;margin:0', function(
 	var settertimeout;
 
 	self.setter = function() {
-
-		if (skip) {
-			skip = false;
-			return;
-		}
-
 		if (init) {
 			settertimeout = null;
 			var model = self.get();

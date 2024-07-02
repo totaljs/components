@@ -2,6 +2,8 @@
 
 The component renders a terminal output/input directly in the web browser. __IMPORTANT__: the example doesn't work as you expect, it needs a real terminal output.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `cols {Number}` count of cols (default: `80`)

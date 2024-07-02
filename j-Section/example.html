@@ -8,7 +8,7 @@
 		<div class="padding">
 			<div style="background-color:#F0F0F0;margin:30px auto;padding:30px;max-width:600px;border-radius:10px">
 				<div>SECTION 1</div>
-				<div><ui-bind path="null" config="click:showsection2" class="link" >Show section 2</ui-bind></div>
+				<div class="exec link" data-exec="showsection2">Show section 2</div>
 			</div>
 		</div>
 	</section>
@@ -25,7 +25,6 @@
 
 	<section class="hidden invisible" data-if="2" data-parent="1" data-title="Section 2" data-url="LINK_TO_TEMPLATE"></section>
 </ui-component>
-
 
 <script>
 

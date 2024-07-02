@@ -1,11 +1,8 @@
 {
 	"datecreated": "2016-03-02T06:53:56.041Z",
-	"dateupdated": "2023-01-24T10:58:02.000Z",
+	"dateupdated": "2023-01-24T10:58:03.000Z",
 	"name": "j-Confirm",
-	"tags": [
-		"confirm",
-		"dialog"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"responsive": true,

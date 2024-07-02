@@ -68,7 +68,7 @@ COMPONENT('pages', 'margin:0;delay:220;margintype:offset;scrollbar:1', function(
 
 		var css = {};
 		css.height = h;
-		css.width = self.width();
+		css.width = self.element.width();
 
 		var sections = self.find(cls2 + '-section');
 		sections.css(css);
@@ -90,7 +90,7 @@ COMPONENT('pages', 'margin:0;delay:220;margintype:offset;scrollbar:1', function(
 			init = true;
 		}
 
-		self.element.SETTER('*', 'resize');
+		self.element.SETTER('*/resize');
 	};
 
 	var replace = function(cfg, value) {

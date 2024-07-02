@@ -2,9 +2,12 @@
 
 The component renders draggable items as a tree without the possibility of collapsing. Data-Source must be `Object Array` in the form: `{ id: String, children: [ ], YOUR PROPERTIES }, { ... }`
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `empty {String}` an empty text (default: `null`)
+- `onchange {String}` optional, a link to the `function(arr)` - captures items when resorted
 
 __Template__:
 

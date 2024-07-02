@@ -5,10 +5,9 @@
 /*.ui-largeform-animate-click { transform: skewX(-2deg); }*/
 .ui-largeform-title { padding: 0 10px 0 var(--gap); line-height: 57px; font-size: 18px; user-select: none; color: #000; background-color: #FFF; border-bottom: 1px solid #E0E0E0; height: 58px; border-radius: 3px 3px 0 0; }
 .ui-largeform-title .ui-largeform-button-close { float: right; cursor: pointer; font-size: 18px; margin: 1px 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; width: 20px; padding: 0; }
-.ui-largeform-title .ui-largeform-button-close i { font-weight: bold; }
 .ui-largeform-title .ui-largeform-button-close:hover { transform: scale(1.1); }
-.ui-largeform-title > span { font-weight: bold; }
 .ui-largeform-title i { margin-right: 7px; }
+.ui-form-title > span { font-weight: bold; }
 .ui-largeform > nav { padding: 0 15px 0; border-top: 1px solid #E0E0E0; background-color: #FFF; border-radius: 0 0 3px 3px; line-height: 65px; height: 65px; display: block; float: none; width: 100%; }
 .ui-largeform > nav button { border: 0; margin: 15px 0 0; background-color: #F0F0F0; height: 34px; padding: 0 20px; color: #000; cursor: pointer; font-family: Arial; line-height: 34px; vertical-align: middle; outline: 0; font-size: 14px; text-decoration: none; transition: all 0.3s; float: left; width: 50%; }
 .ui-largeform > nav button i { width: 15px; text-align: center; margin-right: 5px; }

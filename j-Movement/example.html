@@ -1,8 +1,8 @@
 <ui-component name="movement"></ui-component>
 
-<ui-bind path="null" config="click:assignmovement" class="block" style="width:400px;height:400px;padding:20px;font-size:16px;border:2px solid #E0E0E0">
+<div class="block exec" data-exec="assignmovement" style="width:400px;height:400px;padding:20px;font-size:16px;border:2px solid #E0E0E0">
 	Click here and press arrows/enter/esc: <b><ui-bind path="mykey" config="text;empty"></ui-bind></b>
-</ui-bind>
+</div>
 
 <script>
 	function assignmovement() {

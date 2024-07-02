@@ -1,12 +1,8 @@
 {
 	"datecreated": "2020-02-17T12:26:02.000Z",
-	"dateupdated": "2023-01-31T11:33:01.001Z",
+	"dateupdated": "2023-09-29T08:52:03.000Z",
 	"name": "j-LargeForm",
-	"tags": [
-		"large",
-		"form",
-		"modal"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"darkmode": true,

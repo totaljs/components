@@ -1,4 +1,4 @@
-COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function(self, config, cls) {
+COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;tapi:0;loading:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 
@@ -77,23 +77,24 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function
 				opt.empty = config.dirempty;
 				opt.key = config.dirkey;
 				opt.items = function(value, next) {
-					if (config.dirsource.indexOf(' ') !== -1) {
+					if (config.dirsource.indexOf(' ') !== -1 || config.tapi) {
 						var val = encodeURIComponent(value);
-						AJAX(config.dirsource.format(val).arg({ value: val }), next);
+						var fn = config.tapi ? TAPI : AJAX;
+						fn(config.dirsource.format(val).args({ value: val }), next);
 					} else
 						self.EXEC(config.dirsource, value, next);
 				};
 				opt.callback = function(selected) {
 					self.set(selected[config.dirvalue || 'id']);
 					self.change();
-					config.required && setTimeout(self.validate2, 100);
+					config.required && setTimeout(self => self.validate2(), 100, self);
 				};
 				SETTER('directory', 'show', opt);
 			} else {
 				self.EXEC(config.click || config.find, self.element, function(value) {
 					self.set(value);
 					self.change();
-					config.required && setTimeout(self.validate2, 100);
+					config.required && setTimeout(self => self.validate2(), 100, self);
 				}, self.get());
 			}
 
@@ -142,7 +143,10 @@ COMPONENT('dynamicvalue', 'html:{{ name }};icon2:angle-down;loading:1', function
 			if (config.url) {
 				config.loading && SETTER('loading', 'show');
 				var val = encodeURIComponent(value);
-				AJAX((config.url.indexOf(' ') === -1 ? 'GET ' : '') + config.url.format(val).arg({ value: val }), self.bindvalue);
+				if (config.tapi)
+					TAPI(config.url.format(val).args({ value: val }), self.bindvalue);
+				else
+					AJAX((config.url.indexOf(' ') === -1 ? 'GET ' : '') + config.url.format(val).args({ value: val }), self.bindvalue);
 			} else
 				self.EXEC(config.exec || config.read, value, self.bindvalue, type);
 		} else

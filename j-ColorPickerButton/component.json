@@ -1,11 +1,8 @@
 {
 	"datecreated": "2019-04-04T14:18:02.000Z",
-	"dateupdated": "2023-01-23T11:08:02.000Z",
+	"dateupdated": "2023-01-23T11:08:04.000Z",
 	"name": "j-ColorPickerButton",
-	"tags": [
-		"button",
-		"color"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"responsive": true,

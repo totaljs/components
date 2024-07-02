@@ -5,6 +5,9 @@ COMPONENT('raweditable', 'formatting:false', function(self, config, cls) {
 	var filled = false;
 	var focused = false;
 
+	// jComponent +v20
+	self.autobind20 && self.autobind20();
+
 	self.validate = function(value) {
 
 		if ((!config.required || config.disabled) && !self.forcedvalidation())

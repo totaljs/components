@@ -1,12 +1,8 @@
 {
 	"datecreated": "2021-06-13T22:00:02.000Z",
-	"dateupdated": "2023-01-31T12:05:02.000Z",
+	"dateupdated": "2023-01-31T12:05:03.000Z",
 	"name": "j-Stats7",
-	"tags": [
-		"daily stats",
-		"chart",
-		"barchart"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"darkmode": 1,

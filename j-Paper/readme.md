@@ -1,6 +1,6 @@
 ## j-Paper (BETA)
 
-- a very complex component
+- jComponent `v19|v20`
 - output is a simple `Object Array` structure:
 	- `[{ id: String, widget: String, newbie: Boolean, changed: Boolean, config: Object }]`
 - widgets repository: https://github.com/totaljs/parts/tree/main/paper
@@ -54,6 +54,7 @@ __Methods__:
 
 - `component.save(function(data, ischange) {` for saving content
 - `component.import(url or url_array, [callback])` for importing additional widgets
+- `component.notify(event, [a], [b], [c], [d])` emits event in every widget
 
 __Good to know__:
 
@@ -65,6 +66,19 @@ The component creates a global variable called `window.papercache {Object}` used
 	- readonly usage: `.readonly .paper-yourwidgetname { ... }`
 - `htmlelement.$widget {Object}` contains a widget instance
 	- `widget.remove()` method will remove the widget
+
+__Shortcuts in text edit__:
+
+- `CMD + m` highlights text
+- `CMD + l` creates a link
+- `CMD + p` adds an icon
+- `CMD + b` bold
+- `CMD + i` italic
+- `CMD + u` underline
+
+__Good to know__:
+
+- `[data-prevent]` attribute can prevent click event in the widget
 
 ### Author
 

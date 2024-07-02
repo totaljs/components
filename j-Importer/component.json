@@ -1,11 +1,8 @@
 {
 	"datecreated": "2016-08-18T07:20:00.865Z",
-	"dateupdated": "2023-04-21T15:50:00.000Z",
+	"dateupdated": "2024-06-28T20:45:00.000Z",
 	"name": "j-Importer",
-	"tags": [
-		"importer",
-		"import"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

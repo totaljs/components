@@ -1,5 +1,7 @@
 ## j-ListForm
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `autofocus {String/Boolean}` focuses the first input element, `string` means a custom selector (default: `false`)
@@ -10,12 +12,14 @@ __Configuration__:
 - `disabled {Boolean}` disables the control (default: `false`)
 - `formclass {String}` a custom class for form container
 - `itemclass {String}` a custom class for item container
-- `create {String}` a link to a function `function(callback(DEFAULT_ITEM_OBJECT))`
-- `submit {String}` a link to a function `function(form_data, callback(NEW_DATA))`
-- `update {String}` a link to a function `function(form_data, callback(NEW_DATA))`
-- `remove {String}` a link to a function `function(remove_item, callback(really_remove?))`
+- `create {String}` a link to a function `function(empty_object, callback(DEFAULT_ITEM_OBJECT), arr)` (`null` value skips creating)
+- `submit {String}` a link to a function `function(form_data, callback(NEW_DATA), arr, item_ref_in_items)` (`null` value skips updating)
+- `update {String}` a link to a function `function(form_data, callback(NEW_DATA), arr, item_ref_in_items)` (`null` value skips updating)
+- `remove {String}` a link to a function `function(remove_item, callback(really_remove?), arr)`
 - `selector {String}` a jQuery selector for custom template (outside of the component). Works like `custom template` in [data-binding](https://wiki.totaljs.com/jcomponent/08-data-binding/)
 - `footertop {Boolean}` moves the footer on the top of the component (default: `false`)
+- __NEW__: `move {String}` a link to a function `function(items)`
+- __NEW__: `newbie {String}` a property name for every new item (it will always contain `true` value)
 
 The component needs to have defined 3 templates wrapped in `<script type="text/html">`:
 

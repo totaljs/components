@@ -27,7 +27,7 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 				return;
 
 			var key = 'spotlight' + (self.opt.id || '');
-			var arr = PREF[key] || [];
+			var arr = CACHE(key) || [];
 			var id = HASH(item) + '';
 			item.spotlightid = id;
 
@@ -39,7 +39,7 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 			if (arr.length > 10)
 				arr.pop();
 
-			PREF.set(key, arr, typeof(self.opt.recent) === 'string' ? self.opt.recent : '1 month');
+			CACHE(key, arr, typeof(self.opt.recent) === 'string' ? self.opt.recent : '1 month');
 		}
 	};
 
@@ -109,13 +109,16 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 	};
 
 	self.search = function(value) {
-		if (typeof(self.opt.search) === 'function')
+		if (typeof(self.opt.search) === 'function') {
 			self.opt.search(value, self.render);
-		else {
+		} else {
 			var url = self.opt.search.format(encodeURIComponent(value));
-			if (self.opt.cache)
-				AJAXCACHE(url, self.render, self.opt.cache);
-			else
+			if (self.opt.cache) {
+				if (M.is20)
+					AJAX(url + ' <' + self.opt.cache + '>', self.render);
+				else
+					AJAXCACHE(url, self.render, self.opt.cache);
+			} else
 				AJAX(url, self.render);
 		}
 	};
@@ -132,10 +135,7 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 			el.tclass('selected', is);
 			if (is) {
 				var t = (itemheight * counter) - itemheight;
-				if ((t + itemheight * 5) > h)
-					scroller.scrollTop(t);
-				else
-					scroller.scrollTop(0);
+				scroller.scrollTop((t + itemheight * 5) > h ? t : 0);
 			}
 			counter++;
 		});
@@ -178,7 +178,7 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 			var item = items[i];
 			indexer.index = i;
 			if (item.icon)
-				item.icon = self.faicon(item.icon);
+				item.icon = self.icon(item.icon);
 			builder.push(self.template(item, indexer));
 		}
 
@@ -195,7 +195,7 @@ COMPONENT('spotlight', 'height:40;placeholder:Search', function(self, config, cl
 		}
 
 		var key = 'spotlight' + (opt.id || '');
-		var recent = PREF[key];
+		var recent = CACHE(key);
 
 		if (self.opt && self.opt.id !== opt.id)
 			self.items = [];

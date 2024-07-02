@@ -1,12 +1,8 @@
 {
 	"datecreated": "2017-11-03T21:04:00.000Z",
-	"dateupdated": "2023-01-23T10:13:05.000Z",
+	"dateupdated": "2023-01-23T10:13:06.000Z",
 	"name": "j-BarChart",
-	"tags": [
-		"barchart",
-		"chart",
-		"bar"
-	],
+	"jcomponent": "19|20",
 	"darkmode": true,
 	"color": "transparent",
 	"version": 1,

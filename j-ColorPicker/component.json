@@ -1,12 +1,8 @@
 {
 	"datecreated": "2019-03-25T13:47:01.000Z",
-	"dateupdated": "2023-03-15T08:58:19.000Z",
+	"dateupdated": "2024-05-02T15:41:01.000Z",
 	"name": "j-ColorPicker",
-	"tags": [
-		"colors",
-		"picker",
-		"colorpicker"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"responsive": true,

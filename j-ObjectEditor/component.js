@@ -80,7 +80,7 @@ COMPONENT('objecteditor', 'null:true;dateformat:yyyy-MM-dd HH\\:mm\\:ss', functi
 			tmp.value = val;
 
 			if (val == null) {
-				builder.push(tnull.arg(tmp));
+				builder.push(tnull.args(tmp));
 				continue;
 			}
 
@@ -88,18 +88,18 @@ COMPONENT('objecteditor', 'null:true;dateformat:yyyy-MM-dd HH\\:mm\\:ss', functi
 			if (type === 'string') {
 				tmp.value = Tangular.helpers.encode(tmp.value);
 				if (tmp.value.indexOf('\n') == -1)
-					builder.push(tstring.arg(tmp));
+					builder.push(tstring.args(tmp));
 				else
-					builder.push(tstringmultiline.arg(tmp));
+					builder.push(tstringmultiline.args(tmp));
 			} else if (type === 'number')
-				builder.push(tnumber.arg(tmp));
+				builder.push(tnumber.args(tmp));
 			else if (type === 'boolean') {
 				tmp.value = val ? ' checked' : '';
-				builder.push(tboolean.arg(tmp));
+				builder.push(tboolean.args(tmp));
 			} else {
 				if (val instanceof Date) {
 					tmp.value = tmp.value.format(config.dateformat);
-					builder.push(tdate.arg(tmp));
+					builder.push(tdate.args(tmp));
 				} else if (val instanceof Array) {
 
 					type = typeof(val[0]);
@@ -109,26 +109,26 @@ COMPONENT('objecteditor', 'null:true;dateformat:yyyy-MM-dd HH\\:mm\\:ss', functi
 						for (var j = 0; j < val.length; j++) {
 							tmp.path = tmp.pathraw + '[' + j + ']';
 							tmp.value = val[j];
-							sub.push(tnumber.arg(tmp));
+							sub.push(tnumber.args(tmp));
 						}
 					} else if (type === 'string') {
 						for (var j = 0; j < val.length; j++) {
 							tmp.path = tmp.pathraw + '[' + j + ']';
 							tmp.value = val[j];
 							tmp.value = Tangular.helpers.encode(tmp.value);
-							sub.push(tstring.arg(tmp));
+							sub.push(tstring.args(tmp));
 						}
 					} else if (type === 'boolean') {
 						for (var j = 0; j < val.length; j++) {
 							tmp.path = tmp.pathraw + '[' + j + ']';
 							tmp.value = val[j];
-							sub.push(tboolean.arg(tmp));
+							sub.push(tboolean.args(tmp));
 						}
 					} else {
 						for (var j = 0; j < val.length; j++)
 							sub.push(self.redraw(tmp.pathraw + '[' + j + ']', val[j], j + 1));
 					}
-					sub.length && builder.push(tarray.arg({ name: tmp.pathraw, body: sub.join(''), level: level }));
+					sub.length && builder.push(tarray.args({ name: tmp.pathraw, body: sub.join(''), level: level }));
 				} else
 					builder.push(self.redraw(tmp.path, val, level + 1));
 			}
@@ -136,7 +136,7 @@ COMPONENT('objecteditor', 'null:true;dateformat:yyyy-MM-dd HH\\:mm\\:ss', functi
 		}
 
 		var output = builder.join('');
-		return level ? tgroup.arg({ name: path, body: output, level: level }) : output;
+		return level ? tgroup.args({ name: path, body: output, level: level }) : output;
 	};
 
 	self.setter = function(value) {

@@ -1,8 +1,7 @@
-COMPONENT('inlinedatepicker', 'today:Set today;firstday:0', function(self, config, cls) {
+COMPONENT('inlinedatepicker', 'today:Set today;firstday:-1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var skip = false;
-	var visible = false;
 	var current;
 	var elyears, elmonths, elbody;
 
@@ -89,7 +88,7 @@ COMPONENT('inlinedatepicker', 'today:Set today;firstday:0', function(self, confi
 
 		var d = new Date(year, month, 1, 12, 0);
 		var output = { header: [], days: [], month: month, year: year };
-		var firstday = config.firstday;
+		var firstday = config.firstday === -1 ? DEF.firstdayofweek : config.firstday;
 		var firstcount = 0;
 		var frm = d.getDay() - firstday;
 		var today = NOW;
@@ -173,8 +172,7 @@ COMPONENT('inlinedatepicker', 'today:Set today;firstday:0', function(self, confi
 			dt.setSeconds(+(time[2] || '0'));
 		}
 
-		self.change(true);
-		self.set(dt);
+		self.bind('@touched @modified @setter', dt);
 	};
 
 	self.make = function() {

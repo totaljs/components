@@ -1,8 +1,6 @@
 ## j-Controls
 
-- easy usage for different cases
-- works with touches
-- supports __Dark mode__
+- jComponent `v19|v20`
 - singleton
 
 ## Usage

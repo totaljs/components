@@ -1,13 +1,12 @@
 COMPONENT('selection', 'remember:1;key:id;class:selected;click:.selection;selector:.selection;attr:id;event:click;dblclickselectall:1', function(self, config, cls) {
 
-	var skip = false;
-
 	self.make = function() {
+
 		self.aclass(cls);
+
 		self.event(config.event, config.click, function(e) {
 			e.preventDefault();
 			e.stopPropagation();
-
 			var el = $(this);
 			if (config.click !== config.selector)
 				el = el.find(config.selector);
@@ -31,8 +30,7 @@ COMPONENT('selection', 'remember:1;key:id;class:selected;click:.selection;select
 			sel.push(el.attrd(config.attr));
 			el.aclass(config.class);
 		}
-		skip = true;
-		self.set(sel);
+		self.bind('@modified @touched', sel);
 	};
 
 	self.selectnone = function() {
@@ -43,8 +41,7 @@ COMPONENT('selection', 'remember:1;key:id;class:selected;click:.selection;select
 				var el = $(arr[i]);
 				el.rclass(config.class);
 			}
-			skip = true;
-			self.set([]);
+			self.bind('@modified @touched', []);
 		}
 	};
 
@@ -60,9 +57,7 @@ COMPONENT('selection', 'remember:1;key:id;class:selected;click:.selection;select
 				el.aclass(config.class);
 			}
 		}
-		skip = true;
-		self.set(sel);
-		self.change();
+		self.bind('@modified @touched', sel);
 	};
 
 	self.toggle = function(id) {
@@ -86,10 +81,8 @@ COMPONENT('selection', 'remember:1;key:id;class:selected;click:.selection;select
 		}
 
 		var el = self.find(config.selector + '[data-{0}="{1}"]'.format(config.attr, id));
-		skip = true;
 		el.tclass(config.class, added);
-		self.update(true);
-		self.change();
+		self.bind('@modified @touched', model);
 	};
 
 	self.recalc = function() {
@@ -102,8 +95,9 @@ COMPONENT('selection', 'remember:1;key:id;class:selected;click:.selection;select
 	};
 
 	var datasource = function(path, value) {
+
 		if (!config.remember) {
-			self.set([]);
+			self.bind('@modified', []);
 			return;
 		}
 
@@ -121,7 +115,7 @@ COMPONENT('selection', 'remember:1;key:id;class:selected;click:.selection;select
 		for (var i = 0; i < rem.length; i++)
 			model.splice(model.indexOf(rem[i]), 1);
 
-		self.update();
+		self.bind('@modified', []);
 	};
 
 	self.configure = function(key, value) {
@@ -130,10 +124,7 @@ COMPONENT('selection', 'remember:1;key:id;class:selected;click:.selection;select
 	};
 
 	self.setter = function() {
-		if (skip)
-			skip = false;
-		else
-			setTimeout2(self.ID, self.recalc, 10);
+		setTimeout2(self.ID, self.recalc, 10);
 	};
 
 });

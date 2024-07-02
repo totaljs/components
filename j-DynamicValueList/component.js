@@ -99,10 +99,10 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 						next(values);
 					};
 
-					if (config.dirsource.indexOf(' ') !== -1) {
+					if (config.dirsource.indexOf(' ') !== -1 || config.tapi) {
 						var val = encodeURIComponent(value);
 						var fn = config.tapi ? TAPI : AJAX;
-						fn(config.dirsource.format(val).arg({ value: val }), processor);
+						fn(config.dirsource.format(val).args({ value: val }), processor);
 					} else
 						self.EXEC(config.dirsource, value, processor);
 				};
@@ -120,7 +120,7 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 						self.set(arr);
 					}
 					self.change();
-					config.required && setTimeout(self.validate2, 100);
+					config.required && setTimeout(self => self.validate2(), 100, self);
 				};
 				SETTER('directory/show', opt);
 			} else {
@@ -136,7 +136,7 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 						self.set(arr);
 					}
 					self.change();
-					config.required && setTimeout(self.validate2, 100);
+					config.required && setTimeout(self => self.validate2(), 100, self);
 					self.bindsinglevalue(value, t.$dlid);
 				}, self.get());
 			}
@@ -231,9 +231,9 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 				};
 
 				if (config.tapi)
-					TAPI(config.url.format(val).arg({ value: val }), fn);
+					TAPI(config.url.format(val).args({ value: val }), fn);
 				else
-					AJAX('GET ' + config.url.format(val).arg({ value: val }), fn);
+					AJAX('GET ' + config.url.format(val).args({ value: val }), fn);
 
 			} else {
 				self.EXEC(config.exec || config.read, value, function(response) {
@@ -262,9 +262,9 @@ COMPONENT('dynamicvaluelist', 'html:{{ name }};icon2:angle-down;loading:1;limit:
 				config.loading && SETTER('loading/show');
 				var val = encodeURIComponent(value.join(','));
 				if (config.tapi)
-					TAPI(config.url.format(val).arg({ value: val }), self.bindvalue);
+					TAPI(config.url.format(val).args({ value: val }), self.bindvalue);
 				else
-					AJAX('GET ' + config.url.format(val).arg({ value: val }), self.bindvalue);
+					AJAX('GET ' + config.url.format(val).args({ value: val }), self.bindvalue);
 			} else
 				self.EXEC(config.exec || config.read, value, self.bindvalue, type);
 		} else

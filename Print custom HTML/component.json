@@ -1,11 +1,8 @@
 {
-	"datecreated": "2015-08-03T13:04:32.138Z",
+	"datecreated": "2015-08-03T13:04:33.138Z",
 	"dateupdated": null,
 	"name": "Print custom HTML",
-	"tags": [
-		"print",
-		"printer"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": false,

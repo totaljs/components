@@ -1,5 +1,7 @@
 ## j-Box
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `title {String}` form title
@@ -17,7 +19,7 @@ __Configuration__:
 - `scrollbar {Boolean}` enables custom scrollbar (default: `true`)
 - `scrolltop {Boolean}` enables scrolling to top after form is displayed (default: `true`)
 - `scrollbarshadow {Boolean}` optional, enables a shadow in scrollbar (default: `false`)
-- `style` {Number} supports two styles (1: classic (default), 2: box bottom without padding, 3: box top without padding)
+- `style {Number}` supports two styles (1: classic (default), 2: box bottom without padding, 3: box top without padding)
 - `closeoutside {Boolean}` closes the form when the user clicks outside of the form (default: `false`)
 - `closeesc {Boolean}` closes the form when the user presses `ESC` key
 - `independent {Boolean}` closing doesn't depent on the condition according to the path
@@ -27,6 +29,7 @@ __Configuration__:
 - `transparent {Boolean}` optional, all elements on the background of the box will be clickable (default: `false`)
 - `align {String}` optional, `center` (default), `left`, `right`
 - `close {String}` link to a global `function()` and it's executed if the form is closing
+- __NEW__ `hide {String}` link to a global `function()` and it's executed if the form hides
 
 The component supports dynamic evaluation of the content of `<script type="text/html">`. The example below contains a script with HTML and the component evaluates the content if the j-Form will be displayed (only once).
 

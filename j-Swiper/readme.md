@@ -1,5 +1,6 @@
 ## j-Swiper
 
+- jComponent `v19|v20`
 - wrapper for [Swiper.js library](https://swiperjs.com/)
 - easy usage
 - learn from example

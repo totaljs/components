@@ -13,7 +13,14 @@
 
 		<!-- LIST RENDERING -->
 		<script type="text/html">
-			<div>{{ name }}</div>
+			<div>
+				<div class="pull-right">
+					<button name="up"><i class="ti ti-arrow-up"></i></button>
+					<button name="down"><i class="ti ti-arrow-down"></i></button>
+					<button name="remove"><i class="ti ti-remove"></i></button>
+				</div>
+				{{ name }}
+			</div>
 		</script>
 
 		<!-- FORM RENDERING -->

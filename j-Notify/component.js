@@ -119,7 +119,7 @@ COMPONENT('notify', 'timeout:3000;position:top-right', function(self, config, cl
 
 		if (message.charAt(0) === '"') {
 			var index = message.indexOf('"', 1);
-			icon = self.faicon(message.substring(1, index).trim());
+			icon = self.icon(message.substring(1, index).trim());
 			message = message.substring(index + 1).trim();
 		}
 

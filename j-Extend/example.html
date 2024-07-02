@@ -1,16 +1,15 @@
 <div style="width:300px">
 	<ui-plugin path="form">
-		<ui-component name="extend" path="null" config="name:test"></ui-component>
+		<ui-component name="extend" config="name:test"></ui-component>
 	</ui-plugin>
 </div>
 
 <script>
 	ON('extend_test', function(opt) {
-
 		// Here you can use IMPORT() method
-
-		opt.element.append('<div class="m">Extended:</div>');
-		ADD('input__?.name__required:1;label:Name', opt.element);
-
+		opt.element.append(`
+			<div class="m">Extended:</div>
+			<ui-component name="input" path="?.name" config="required:1">Label</ui-component>
+		`);
 	});
 </script>

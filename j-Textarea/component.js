@@ -5,6 +5,9 @@ COMPONENT('textarea', 'scrollbar:true', function(self, config, cls) {
 
 	self.nocompile && self.nocompile();
 
+	// jComponent +v20
+	self.autobind20 && self.autobind20();
+
 	self.validate = function(value) {
 		if (config.disabled || !config.required || config.readonly)
 			return true;

@@ -1,12 +1,8 @@
 {
 	"datecreated": "2022-02-12T12:07:03.000Z",
-	"dateupdated": "2023-05-02T09:42:00.000Z",
+	"dateupdated": "2024-02-20T15:54:01.000Z",
 	"name": "j-Parts",
-	"tags": [
-		"parts",
-		"pages",
-		"content"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

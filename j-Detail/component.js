@@ -26,7 +26,7 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 			for (var i = 0; i < mapping.length; i++) {
 				var item = mapping[i];
 				if (item.show)
-					item.show = FN(item.show);
+					item.show =  new Function('value', 'return ' + item.show);
 			}
 		}
 
@@ -175,7 +175,7 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 		} else
 			meta.icon = '';
 
-		var el = $('<div class="{2}-item{3}" data-index="{1}"><div class="{0}-key">{{ icon }}{{ label }}</div><div class="{0}-value">&nbsp;</div></div>'.format(cls, index, c, item.required ? (' ' + cls + '-required') : '').arg(meta));
+		var el = $('<div class="{2}-item{3}" data-index="{1}"><div class="{0}-key">{{ icon }}{{ label }}</div><div class="{0}-value">&nbsp;</div></div>'.format(cls, index, c, item.required ? (' ' + cls + '-required') : '').args(meta));
 		type.render(item, function(html) {
 			if (item.note)
 				html += '<div class="{0}-note">{1}</div>'.format(cls, item.note);

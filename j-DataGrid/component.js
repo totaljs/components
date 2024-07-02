@@ -188,7 +188,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 	self.init = function() {
 
 		ON('resize + resize2', function() {
-			setTimeout2('datagridresize', ASETTER('datagrid/resize'), 500);
+			setTimeout2('datagridresize', () => SETTER('datagrid/resize'), 500);
 		});
 
 		Thelpers.ui_datagrid_autoformat = function(val, type) {
@@ -783,13 +783,17 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 		var d = { is: false };
 
 		self.event('dragstart', function(e) {
+			d.prevent = true;
 			!isIE && e.originalEvent.dataTransfer.setData('text/plain', GUID());
 		});
 
 		self.event('dragenter dragover dragexit drop dragleave', function (e) {
 
-			e.stopPropagation();
-			e.preventDefault();
+			if (d.prevent) {
+				e.stopPropagation();
+				e.preventDefault();
+			} else
+				return;
 
 			switch (e.type) {
 				case 'drop':
@@ -803,6 +807,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 					break;
 
 				case 'dragenter':
+
+					d.prevent = true;
+
 					if (!d.is) {
 						d.index = +$(e.target).closest('.dg-hcol').attrd('index');
 						d.is = true;
@@ -813,6 +820,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 				default:
 					return;
 			}
+
 		});
 
 		self.event('change', '.dg-pagination-input', function() {
@@ -1004,7 +1012,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 			value.page = 1;
 
 		var keys = Object.keys(opt.filter);
-		self.SEEX(config.exec, type, keys.length ? opt.filter : null, opt.sort && opt.sort.sort ? [(opt.sort.name + '_' + (opt.sort.sort === 1 ? 'asc' : 'desc'))] : null, value.page, self);
+		self.EXEC(config.exec, type, keys.length ? opt.filter : null, opt.sort && opt.sort.sort ? [(opt.sort.name + '_' + (opt.sort.sort === 1 ? 'asc' : 'desc'))] : null, value.page, self);
 
 		switch (type) {
 			case 'sort':
@@ -1189,9 +1197,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 		if (config.exec) {
 			self.set(null);
 		} else {
-			setTimeout(function() {
-				self.refresh();
-			}, 100);
+			setTimeout(() => self.refresh(), 100);
 		}
 	};
 
@@ -1406,7 +1412,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 
 		CSS(css, self.ID);
 
-		var w = self.width();
+		var w = self.element.width();
 		if (w > opt.width)
 			opt.width = w - 2;
 
@@ -1438,7 +1444,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 		var Trow = '<div class="dg-hrow dg-row-{0}">{1}</div>';
 
 		if (config.hfunc)
-			config.numbering = '<div class="dg-hfunc dg-hfunc-main" data-value="-1"><i class="{0}"></i></div>'.format(self.faicon(config.hfuncicon));
+			config.numbering = '<div class="dg-hfunc dg-hfunc-main" data-value="-1"><i class="{0}"></i></div>'.format(self.icon(config.hfuncicon));
 
 		var column = config.numbering !== false ? Theadercol({ index: -1, label: config.numbering, filter: false, name: '$', sorting: false }) : '';
 		var resize = [];
@@ -1463,7 +1469,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 		column += '<div class="dg-hcol"></div>';
 		header[0].innerHTML = resize.join('') + Trow.format(0, column);
 
-		var w = self.width();
+		var w = self.element.width();
 		if (w > opt.width)
 			opt.width = w;
 
@@ -1832,7 +1838,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 		}
 
 		if (w == null)
-			w = self.width();
+			w = self.element.width();
 
 		var emptyspace = 50 - mr;
 		if (emptyspace < 50)

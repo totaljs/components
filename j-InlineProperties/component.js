@@ -1,4 +1,4 @@
-COMPONENT('inlineproperties', 'close:Close;dateformat:[date];dirsearch:Search;width:180', function(self, config, cls) {
+COMPONENT('inlineproperties', 'close:Close;dateformat:[date];dirsearch:Search;width:200', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var renders = {};
@@ -206,14 +206,12 @@ COMPONENT('inlineproperties', 'close:Close;dateformat:[date];dirsearch:Search;wi
 					value && el.find('span').aclass(value);
 					break;
 				case 'list':
-					if (value) {
-						var items = item.items;
-						if (typeof(items) === 'string')
-							items = GET(items);
-						item.items2 = CLONE(items);
-						var tmp = item.items2.findItem('id', value);
-						el.find(cls2 + '-listclick').html(tmp ? tmp.name : '');
-					}
+					var items = item.items;
+					if (typeof(items) === 'string')
+						items = GET(items);
+					item.items2 = CLONE(items);
+					var tmp = item.items2.findItem('id', value);
+					el.find(cls2 + '-listclick').html(tmp ? tmp.name : '');
 					break;
 				case 'color':
 					value && el.find('span').css('background-color', value);
@@ -226,7 +224,7 @@ COMPONENT('inlineproperties', 'close:Close;dateformat:[date];dirsearch:Search;wi
 		}
 
 		var target = $(opt.element);
-		var w = opt.width || 200;
+		var w = opt.width || config.width;
 		var offset = target.offset();
 		var css = {};
 

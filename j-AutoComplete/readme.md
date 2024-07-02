@@ -1,6 +1,6 @@
 ## j-AutoComplete
 
-- easy usage
+- jComponent `v19|v20`
 - works with `<input` tags only
 - singleton
 - __NEW__: works with `contenteditable` attribute
@@ -34,7 +34,7 @@ opt.callback = function(value, input) {
 // opt.offsetX {Number} "y" offset
 // opt.autoselect {Boolean} selects first suggestion automatically (default: false)
 
-SETTER('autocomplete', 'show', opt);
+SETTER('autocomplete/show', opt);
 ```
 
 ### Author

@@ -1,11 +1,8 @@
 {
 	"datecreated": "2021-05-11T14:53:01.000Z",
-	"dateupdated": "2023-01-31T09:09:00.000Z",
+	"dateupdated": "2023-01-31T09:09:01.000Z",
 	"name": "j-FileBrowser",
-	"tags": [
-		"file",
-		"browser"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

@@ -24,11 +24,11 @@ COMPONENT('filebrowser', function(self) {
 	self.make = function() {
 		self.aclass('hidden');
 		self.append('<input type="file" multiple />');
-		input = self.find('input');
 		self.event('change', 'input', function(e) {
 			self.opt.callback(e.target.files, e);
 			this.value = '';
 		});
+		input = self.find('input');
 	};
 
 });

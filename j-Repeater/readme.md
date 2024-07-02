@@ -6,7 +6,7 @@
 __Configuration__:
 
 - `hidden` {Boolean} adds `hidden` class when the data-source is `null` or `empty` (default: `true`)
-- `check` {Boolean} enables/disables checking of content (a simple prevention for re-rendering)
+- `check` {Boolean} checks changes between new and old renders (default: `true`)
 
 ### Author
 

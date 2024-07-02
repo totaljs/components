@@ -4,14 +4,12 @@ COMPONENT('cloudeditorsimple', 'parent:auto;autosave:500;margin:0;linenumbers:1;
 	var savetimeout;
 	var callbacks = {};
 	var callbackid = 1;
-	var skip = false;
 	var init = false;
 
 	var save = function() {
 		savetimeout = null;
 		send({ TYPE: 'body' }, function(msg) {
-			skip = true;
-			self.set(msg.value);
+			self.bind('@touched @modified', msg.value);
 		});
 	};
 
@@ -156,13 +154,10 @@ COMPONENT('cloudeditorsimple', 'parent:auto;autosave:500;margin:0;linenumbers:1;
 	self.save = function(callback) {
 		send({ TYPE: 'body' }, function(msg) {
 			send({ TYPE: 'clear' });
-			if (callback) {
+			if (callback)
 				callback(msg.value);
-			} else {
-				skip = true;
-				self.get().body = msg.value;
-				self.update(true);
-			}
+			else
+				self.bind('@touched @modified', msg.value);
 		});
 	};
 
@@ -190,12 +185,6 @@ COMPONENT('cloudeditorsimple', 'parent:auto;autosave:500;margin:0;linenumbers:1;
 	var settertimeout;
 
 	self.setter = function() {
-
-		if (skip) {
-			skip = false;
-			return;
-		}
-
 		if (init) {
 			settertimeout = null;
 			var value = self.get();

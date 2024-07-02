@@ -72,7 +72,8 @@ COMPONENT('checkboxlistexpert', function(self, config, cls) {
 			var valindex = data.indexOf(val);
 
 			if (valindex === -1) {
-				self.push(val);
+				data.push(val);
+				self.set(data);
 			} else {
 				data.splice(valindex, 1);
 				self.set(data);
@@ -109,6 +110,9 @@ COMPONENT('checkboxlistexpert', function(self, config, cls) {
 
 	self.bind = function(path, arr) {
 
+		if (M.is20)
+			arr = path;
+
 		if (!arr)
 			arr = EMPTYARRAY;
 
@@ -121,14 +125,12 @@ COMPONENT('checkboxlistexpert', function(self, config, cls) {
 			var item = arr[i];
 			item[disabledkey] = +item[disabledkey] || 0;
 			datasource.push(item);
-			builder.push(self.template(item).replace(reg, function(text) {
-				return text.substring(0, 2) === '$i' ? i.toString() : self.path + '[' + i + ']';
-			}));
+			builder.push(self.template(item).replace(reg, text => text.substring(0, 2) === '$i' ? i.toString() : self.path.toString() + '[' + i + ']'));
 		}
 
 		self.find(cls2 + '-container').remove();
 		self.append('<div class="{0}-container{1}">{2}</div>'.format(cls, config.class ? ' ' + config.class : '', builder.join('')));
 		self.refresh();
-		recompile && self.compile();
+		recompile && self.compile && self.compile();
 	};
 });

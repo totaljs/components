@@ -34,7 +34,7 @@ COMPONENT('stats24', 'height:120;tooltiplarge:0;tooltip:1;tooltiptext:{0};border
 				opt.html = '<b>' + config.tooltiptext.format(val[index] || 0).format(0) + '</b><br /><i class="ti ti-clock"></i> ' + index.padLeft(2, '0') + ':00 - ' + (toindex).padLeft(2, '0') + ':00';
 				opt.align = 'bottom';
 				opt.timeout = 2000;
-				SETTER('tooltip', 'show', opt);
+				SETTER('tooltip/show', opt);
 			}
 		});
 	};
@@ -60,49 +60,47 @@ COMPONENT('stats24', 'height:120;tooltiplarge:0;tooltip:1;tooltiptext:{0};border
 		container.css('height', config.height);
 
 		var current = NOW.getHours();
+		var width = self.element.width() || 400;
 
-		self.width(function(width) {
+		old = sum;
+		var max = config.max;
 
-			old = sum;
-			var max = config.max;
+		smallsize = width < 400;
+		self.tclass(cls + '-smallsize', smallsize);
 
-			smallsize = width < 400;
-			self.tclass(cls + '-smallsize', smallsize);
-
-			if (!max) {
-				max = 0;
-				for (var i = 0; i < 24; i++) {
-					if (value[i] > max)
-						max = value[i];
-				}
-			}
-
+		if (!max) {
+			max = 0;
 			for (var i = 0; i < 24; i++) {
-
-				var num = value[i];
-
-				if (num > max)
-					num = max;
-
-				var p = (num / max) * 100;
-
-				if (isNaN(p))
-					p = 0;
-
-				var h = ((config.height / 100) * p) - (smallsize ? 2 : 17);
-				if (h < 18)
-					h = 18;
-
-				if (smallsize && h === 18)
-					h = 5;
-
-				var val = value[i];
-				if (val > 1000)
-					val = (val / 1000).floor(1) + ' K';
-
-				bars[i].css('height', (h >> 0) + 'px').tclass('online', value[i] > 0).find('span').html(smallsize ? '' : val);
-				config.highlight && bars[i].tclass('now', i === current);
+				if (value[i] > max)
+					max = value[i];
 			}
-		});
+		}
+
+		for (var i = 0; i < 24; i++) {
+
+			var num = value[i];
+
+			if (num > max)
+				num = max;
+
+			var p = (num / max) * 100;
+
+			if (isNaN(p))
+				p = 0;
+
+			var h = ((config.height / 100) * p) - (smallsize ? 2 : 17);
+			if (h < 18)
+				h = 18;
+
+			if (smallsize && h === 18)
+				h = 5;
+
+			var val = value[i];
+			if (val > 1000)
+				val = (val / 1000).floor(1) + ' K';
+
+			bars[i].css('height', (h >> 0) + 'px').tclass('online', value[i] > 0).find('span').html(smallsize ? '' : val);
+			config.highlight && bars[i].tclass('now', i === current);
+		}
 	};
 });

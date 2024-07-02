@@ -1,11 +1,13 @@
-COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cls) {
+COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false;flowoutput:1', function(self, config, cls) {
 
 	self.readonly();
 
+	var cachecurrent = null;
 	var current = {};
 	var parents = [];
+	var endpoint;
 
-	current.origin = location.origin;
+	current.origin = config.origin || location.origin;
 	current.query = NAV.query;
 	current.ssid = config.ssid || NAV.query.ssid;
 
@@ -13,21 +15,74 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 
 		config.loading && SETTER('loading/show');
 
-		var url = config.url;
+		var url = endpoint;
+
+		if (url.charAt(0) === '/')
+			url = (config.origin || location.origin) + url;
+
 		if (current.ssid)
 			url = QUERIFY(url, { ssid: current.ssid });
 
+		config.onrequest && self.EXEC(config.onrequest, current);
+
 		AJAX('POST {0} ERROR'.format(url), current, function(response) {
+
+			if (!response.id) {
+
+				if (cachecurrent) {
+					current = cachecurrent;
+					cachecurrent = null;
+				}
+
+				config.loading && SETTER('loading/hide', 500);
+				return;
+			}
 
 			// response.id
 			// response.parent
 			// response.data
 			// response.query
 			// response.url
+			// response.exec
+
+			cachecurrent = CLONE(current);
+
+			if (response.exec) {
+				config.loading && SETTER('loading/hide', 500);
+				var tmp = {};
+				tmp.id = response.id;
+				tmp.app = self.app;
+				tmp.data = response.data;
+				tmp.parent = response.parent;
+				tmp.query = response.query;
+				tmp.element = self.element;
+				tmp.output = function(id, data) {
+					current.id = tmp.id;
+					current.output = id;
+					current.data = data == undefined ? tmp.data : data;
+					navigate();
+				};
+				new Function('instance', response.exec)(tmp);
+				return;
+			}
 
 			var issame = current.id === response.id;
+			var breadcrumb = null;
+
+			response.iscurrent = issame;
+			config.onmeta && self.SEEX(config.onmeta, response);
 
 			if (response.url) {
+
+				if (response.url.charAt(0) === '/') {
+					if (config.origin) {
+						response.url = config.origin + response.url;
+					} else {
+						var origin = url.substring(0, url.indexOf('/', 9));
+						if (origin.charAt(0) !== '/' && location.origin.indexOf(origin) === -1)
+							response.url = origin + response.url;
+					}
+				}
 
 				if (issame) {
 					if (response.input)
@@ -35,7 +90,7 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 					SETTER('loading/hide', 500);
 					return;
 				} else {
-					var breadcrumb = CLONE(current);
+					breadcrumb = CLONE(current);
 					breadcrumb.navigate = function() {
 						current = this;
 						navigate();
@@ -61,26 +116,42 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 					data.ssid = data.query.ssid || current.ssid;
 					data.openplatform = data.query.openplatform;
 
+					if (breadcrumb)
+						breadcrumb.name = data.name;
+
 					UIBuilder.build(self.element, data, function(app) {
 
 						config.loading && SETTER('loading/hide', 500);
 
 						app.breadcrumb = parents;
+
 						self.app = app;
 						self.app.component = self;
+
+						if (config.title)
+							document.title = data.name + (config.plus ? (' - ' + config.plus) : '');
 
 						// Loads input data
 						if (response.input)
 							setTimeout(response => self.app.input(response.input, response.data), config.inputdelay, response);
 
 						self.app.on('output', function(meta) {
-							if (!meta.processed) {
-								current.output = meta.id;
-								current.data = meta.data;
-								navigate();
-							}
+
+							if (config.flowoutput && meta.componentid !== 'flowoutput')
+								return;
+
+							setTimeout(function(meta) {
+
+								if (!meta.processed) {
+									current.output = meta.id;
+									current.data = meta.data;
+									navigate();
+								}
+
+							}, 10, meta);
 						});
 
+						config.onapp && self.EXEC(config.onapp, app);
 					});
 				});
 			} else {
@@ -94,13 +165,26 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20', function(self, config, cl
 
 	self.make = function() {
 		self.aclass(cls);
-		navigate();
+		endpoint = config.url;
+		endpoint && navigate();
 	};
 
 	self.destroy = function() {
 		if (self.app) {
 			self.app.remove();
 			self.app = null;
+		}
+	};
+
+	self.setter = function(value) {
+		if (value) {
+			current = {};
+			current.origin = config.origin || location.origin;
+			current.query = NAV.query;
+			current.ssid = config.ssid || NAV.query.ssid;
+			parents = [];
+			endpoint = value;
+			navigate();
 		}
 	};
 

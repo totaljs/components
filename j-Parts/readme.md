@@ -2,11 +2,15 @@
 
 This content can handle multiple `parts` stored in the `Array` and focus on one specific part. It simulates something like browser tabs.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `parent {String}` parent area due to part size (default: `auto`)
 - `margin {Number}` vertical margin (default: `0`)
 - `create {String}` a link to the `function(part)`, it's executed if the part is created (called once)
+- `focus {String}` a link to the `function(part)`, it's executed if the part is focused
+- `close {String}` a link to the `function(part)`, it's executed if the part is closed
 
 __Good to know 1__:
 

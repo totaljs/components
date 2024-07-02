@@ -20,7 +20,7 @@ COMPONENT('colorpickerbutton', 'default:#FFFFFF;align:left;position:top', functi
 				self.set(color.toUpperCase());
 				self.change(true);
 			};
-			SETTER('colorpicker', 'show', opt);
+			SETTER('colorpicker/show', opt);
 		});
 	};
 

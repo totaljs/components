@@ -2,7 +2,9 @@
 
 This helper can create a short value from big numbers.
 
-```javascript
+- jComponent `v19|v20`
+
+```js
 Thelpers.counter([value], [decimals]);
 // @value {Number} a value
 // @decimals {Number} optional, count of decimals (default: `0`)
@@ -23,6 +25,6 @@ __Usage__:
 
 or
 
-```javascript
+```js
 console.log(Thelpers.counter(134000));
 ```

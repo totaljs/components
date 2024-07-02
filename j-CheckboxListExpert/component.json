@@ -1,13 +1,8 @@
 {
 	"datecreated": "2020-02-10T15:30:02.000Z",
-	"dateupdated": "2023-01-31T10:55:00.001Z",
+	"dateupdated": "2023-01-31T10:55:01.001Z",
 	"name": "j-CheckboxListExpert",
-	"tags": [
-		"checkbox",
-		"checkboxlist",
-		"expert",
-		"list"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"darkmode": 1,

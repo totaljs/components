@@ -1,11 +1,8 @@
 {
 	"datecreated": "2020-05-31T19:55:00.000Z",
-	"dateupdated": "2023-01-31T11:49:00.000Z",
+	"dateupdated": "2023-01-31T11:49:01.000Z",
 	"name": "j-ImageUploader",
-	"tags": [
-		"image",
-		"upload"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"darkmode": false,

@@ -6,7 +6,7 @@ COMPONENT('avatar', function(self) {
 	self.readonly();
 	self.singleton();
 
-	window.avatarerror = function(image) {
+	W.avatarerror = function(image) {
 		var img = $(image);
 		var el = img.parent()[0];
 		el.$avatar = false;

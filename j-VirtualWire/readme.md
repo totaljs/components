@@ -1,5 +1,7 @@
 ## j-VirtualWire
 
+- jComponent `v19|v20`
+
 This is a very special UI component that can move elements from `element` to another `element` according to the selector and the value of the path. Look to the example for understanding.
 
 - `selector {String}` a selector for wires (default: `.virtualwire`)

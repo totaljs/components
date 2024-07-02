@@ -29,16 +29,16 @@ COMPONENT('checkpath', 'position:3', function(self, config, cls) {
 
 		$(document).on('click', function(e) {
 			var el = $(e.target);
-			var scope = el.scope();
+			var plugin = jComponent.is20 ? el.plugin() : el.scope();
 			var com = el.component();
 			var bind = el.binder();
 			var builder = [];
-			if (com || scope || bind) {
+			if (com || plugin || bind) {
 				builder.push('<i class="ti ti-info-circle"></i>');
-				builder.push('<div><i class="ti ti-copy"></i><b>Scope</b><span class="monospace">{0}</span></div>');
+				builder.push('<div><i class="ti ti-copy"></i><b>Plugin</b><span class="monospace">{0}</span></div>');
 				builder.push('<div><i class="ti ti-copy"></i><b>Component</b><span class="monospace">{1}</span></div>');
 				builder.push('<div><i class="ti ti-copy"></i><b>Binder</b><span class="monospace">{2}</span></div>');
-				self.html(builder.join('').format(scope ? scope.path : DEF.empty, com ? ('<span>{0}</span>'.format(com.name) + com.path) : DEF.empty, bind ? bind.path : DEF.empty));
+				self.html(builder.join('').format(plugin ? plugin.path.toString() : DEF.empty, com ? ('<span>{0}</span>'.format(com.name) + com.path.toString()) : DEF.empty, bind ? bind.path.toString() : DEF.empty));
 				self.rclass('hidden');
 			} else
 				self.aclass('hidden');

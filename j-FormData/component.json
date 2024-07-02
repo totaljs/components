@@ -1,12 +1,8 @@
 {
-	"datecreated": "2023-02-11T12:55:01.000Z",
+	"datecreated": "2023-02-11T12:55:03.000Z",
 	"dateupdated": null,
 	"name": "j-FormData",
-	"tags": [
-		"form",
-		"data",
-		"submit"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

@@ -3,6 +3,9 @@ COMPONENT('floatingsearch', 'height:46', function(self, config, cls) {
 	var is = false;
 	var input;
 
+	// jComponent +v20
+	self.autobind20 && self.autobind20();
+
 	self.make = function() {
 
 		self.aclass(cls + ' hidden');

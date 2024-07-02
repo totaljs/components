@@ -1,0 +1,15 @@
+{
+	"datecreated": "2023-07-20T20:37:02.000Z",
+	"dateupdated": "2023-08-18T08:36:01.000Z",
+	"name": "j-DrawZone",
+	"jcomponent": "19|20",
+	"color": "transparent",
+	"version": 1,
+	"darkmode": false,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Sirka & Dodo Marton",
+	"email": "info@totaljs.com",
+	"license": "https://www.totaljs.com/license/"
+}

@@ -7,7 +7,7 @@ COMPONENT('treeview', 'parent:parent;droppable:1;movable:1;expanded:0;autosort:1
 	var cache = {};
 
 	self.make = function() {
-		self.template = Tangular.compile(('<div class="{0}-item{{ if item.classname }} {{ item.classname }}{{ fi }}" data-id="{{ id }}">' + (config.arrows ? '<i class="{0}-arrow fa"></i>' : '') + '<div>{{ if item.html }}{{ item.html | raw }}{{ else }}{{ item.name }}{{ fi }}</div></div>').format(cls));
+		self.template = Tangular.compile(('<div class="{0}-item{{ if item.classname }} {{ item.classname }}{{ fi }}" data-id="{{ id }}">' + (config.arrows ? '<i class="{0}-arrow ti"></i>' : '') + '<div>{{ if item.html }}{{ item.html | raw }}{{ else }}{{ item.name }}{{ fi }}</div></div>').format(cls));
 		self.aclass(cls);
 		self.append('<div class="{0}-scrollbar"><div class="{0}-container"></div></div>'.format(cls));
 		container = self.find(cls2 + '-container')[0];

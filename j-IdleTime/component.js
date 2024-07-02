@@ -58,9 +58,7 @@ COMPONENT('idletime', 'count:300', function(self, config) {
 				var diff = Math.ceil((now - ticks) / 1000);
 				if (diff >= config.count) {
 					rebind();
-					setTimeout(function() {
-						EMIT('reload');
-					}, 500);
+					setTimeout(() => EMIT('reload'), 500);
 				}
 				ticks = now;
 			}

@@ -1,5 +1,6 @@
 ## j-Menu
 
+- jComponent `v19|v20`
 - easy usage for different cases
 - works with touches
 - supports __Dark mode__
@@ -8,11 +9,11 @@
 
 __Configuration__:
 
-- __NEW__ `style` {Number} changes style (supported style `2` (default) and `1`)
+- __NEW__ `style {Number}` changes style (supported style `2` (default) and `1`)
 
 ## Usage
 
-```javascript
+```js
 var opt = {};
 
 // opt.offsetX {Number}      : adds X offset (default: 0)

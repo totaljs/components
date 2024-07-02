@@ -1,5 +1,9 @@
 ## j-Validation
 
+The component contains the same source-code as the `j-Validate` component.
+
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `if {String}` can contain JS condition for evaluation
@@ -17,12 +21,14 @@ __Configuration__:
 - `validonly {Boolean}` skips `dirty` state (default: `false`)
 - __NEW__ `changes {Boolean}` enables comparing changes only between the input model and the form (default: `false`)
 - __NEW__ `strictchanges {Boolean}` enables strict comparing changes (otherwise `null`, `false`, `empty strings` and `0` values will be removed), default: `false`
+- __NEW__ `exec {String}` optional, a link to the `function(data)` that is executed when the model is validated and changed
+- __NEW__ `output {String}` optional, a link to the `function(valid)` or path
 
 __Good to know__:
 
-- component adds `ui-validation-ok` class to the element if the model is valid
-- component adds `ui-validation-no` class to the element if the model is invalid
-- component adds `ui-validation-modified` class to the element if the model is changed
+- component adds `ui-validate-ok` class to the element if the model is valid
+- component adds `ui-validate-no` class to the element if the model is invalid
+- component adds `ui-validate-modified` class to the element if the model is changed
 
 ### Author
 

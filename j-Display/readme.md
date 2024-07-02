@@ -1,3 +1,7 @@
+## j-Display
+
+- jComponent `v19|v20`
+
 The component measures a display size according to the current element. It uses `WIDTH()` method and appends a CSS class in the form `jc-DISPLAY_SIZE`:
 
 - `jc-xs` extra small display (mobile phone)

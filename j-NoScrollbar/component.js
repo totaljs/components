@@ -10,16 +10,13 @@ COMPONENT('noscrollbar', 'margin:0;invisible:1;delay:100;initdelay:250', functio
 	self.init = function() {
 
 		var resize = function() {
-			for (var i = 0; i < M.components.length; i++) {
-				var com = M.components[i];
-				if (com.name === 'noscrollbar' && com.dom.offsetParent && com.$ready && !com.$removed)
-					com.resizeforce();
+			for (var m of M.components) {
+				if (m.name === 'noscrollbar' && m.dom.offsetParent && (m.ready || (m.$ready && !m.$removed)))
+					m.resizeforce();
 			}
 		};
 
-		ON('resize2', function() {
-			setTimeout2('noscrollbarresize', resize, 200);
-		});
+		ON('resize2', () => setTimeout2('noscrollbarresize', resize, 200));
 	};
 
 	self.configure = function(key, value, init) {

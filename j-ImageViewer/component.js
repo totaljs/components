@@ -1,4 +1,4 @@
-COMPONENT('imageviewer', 'selector:.img-viewer;container:body;loading:1;unknown:Unknown image', function(self, config, cls) {
+COMPONENT('imageviewer', 'selector:.img-viewer;container:.img-container;loading:1;unknown:Unknown image', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var isclosed = false;
@@ -102,7 +102,7 @@ COMPONENT('imageviewer', 'selector:.img-viewer;container:body;loading:1;unknown:
 
 	self.show = function(el) {
 
-		if (isrendering || el == null || isclosed)
+		if (isrendering || el == null || isclosed || WIDTH() === 'xs')
 			return;
 
 		var parent = el.closest(config.container);
@@ -124,7 +124,7 @@ COMPONENT('imageviewer', 'selector:.img-viewer;container:body;loading:1;unknown:
 
 		var image = new Image();
 		// image.crossOrigin = 'anonymous';
-		image.src = el[0].src;
+		image.src = el.attr('data-src') || el.attr('src');
 		image.onload = function() {
 
 			var img = this;

@@ -9,7 +9,7 @@
 .ui-folder-item:hover .ui-folder-item-options { display: block; }
 .ui-folder-item-icon { width: 28px; float: left; margin: 0; height: 32px; line-height: 32px; text-align: center; }
 .ui-folder-item-name { margin-left: 30px; height: 32px; line-height: 32px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
-.ui-folder-item-options { position: absolute; right: 10px; font-size: 11px; top: 8px; display: none; }
+.ui-folder-item-options { position: absolute; right: 10px; font-size: 14px; top: 6px; display: none; width: 18px; height: 20px; }
 .ui-folder-checkbox { width: 16px; height: 16px; line-height: 16px; border-radius: var(--radius); background-color: #FFF; border: 1px solid #E0E0E0; font-size: 11px; text-align: center; float: left; padding: 1px 0 0; margin: 7px 0 0 8px; }
 .ui-folder-checkbox i { display: none; margin: 0; width: 100% !important; }
 .ui-folder-checkbox-checked { background-color: #4285F4 !important; border-color: #4285F4 !important; color: #FFF; }

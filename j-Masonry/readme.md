@@ -2,6 +2,8 @@
 
 A simple Masonry component. The component renders an Array according to the display size to columns.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `lg {Number}` (large display) column width in percentage (default: `25`)

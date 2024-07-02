@@ -1,7 +1,6 @@
 ## j-Breadcrumb
 
-- Supports __Dark theme__
-- Only SPA
+- jComponent `v19|v20`
 
 __Configuration__:
 
@@ -10,7 +9,9 @@ __Configuration__:
 - `historyapi {Boolean}` enables redirecting via `REDIRECT()` (default `true`)
 - `style {Number}` supports two styles `1` classic (default), `2` with bigger padding and only with bottom border
 - `root {String}` a label for root item (default: `Root`)
-- __NEW__: `rooturl {String}` a relative URL address for root item (default: `/`)
+- `rooturl {String}` a relative URL address for root item (default: `/`)
+- `title {String}` enables generating `document.title` from the last item of the breadcrumb (default: `null`)
+- __NEW__: `arrowicon {String}` arrow icon (default: `ti ti-angle-right`)
 
 ## Data-source example
 

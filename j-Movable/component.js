@@ -2,6 +2,7 @@ COMPONENT('movable', 'move:true', function(self, config) {
 
 	var events = {};
 	var draggable;
+	var check;
 
 	self.readonly();
 
@@ -10,9 +11,14 @@ COMPONENT('movable', 'move:true', function(self, config) {
 		target.on('dragenter dragover dragexit drop dragleave dragstart', config.selector, events.ondrag).on('mousedown', config.selector, events.ondown);
 	};
 
+	self.configure = function(key, value) {
+		if (key === 'check')
+			check = value ? GET(self.makepath(value)) : null;
+	};
+
 	events.ondrag = function(e) {
 
-		if (!draggable) {
+		if (config.disabled || !draggable) {
 			e.preventDefault();
 			return;
 		}
@@ -115,10 +121,14 @@ COMPONENT('movable', 'move:true', function(self, config) {
 	};
 
 	events.ondown = function(e) {
+
+		if (config.disabled)
+			return;
+
 		if (e.target.nodeName === 'INPUT' || e.target.nodeName === 'TEXTAREA')
 			draggable = null;
 		else
-			draggable = this;
+			draggable = !check || check($(this)) ? this : null;
 	};
 
 	self.destroy = function() {

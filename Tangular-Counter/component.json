@@ -1,12 +1,8 @@
 {
 	"datecreated": "2018-11-03T21:48:00.000Z",
-	"dateupdated": "2021-04-06T10:52:00.000Z",
+	"dateupdated": "2021-04-06T10:52:01.000Z",
 	"name": "Tangular-Counter",
-	"tags": [
-		"jcomponent",
-		"tangular",
-		"helpers"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

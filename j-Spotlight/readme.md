@@ -13,7 +13,7 @@ __Methods__:
 Method: `component.show(opt)`
 
 - `opt.id {String}` optional, an identifier for recent items (default: `empty`)
-- `opt.recent {String}` enables recent items, must contain an expiration format (default: `3 days`, empty=disabled)
+- `opt.recent {String}` enables recent items, must contain an expiration format (default: `3 days`, `empty` means disabled)
 - `opt.callback(selected_item) {Function}` is triggered when the user clicks on the item
 - `opt.cancel {Function}` is triggered then the user cancels component
 - `opt.search {String}` URL address for searching of values in the form `GET /api/search/?={0}`

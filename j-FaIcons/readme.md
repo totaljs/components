@@ -1,16 +1,17 @@
 ## j-FaIcons
 
+- jComponent `v19`
 - Font-Awesome Icons
 - singleton
 - supports pro icons
 
 __Configuration__:
 
-- `search` {String} a placeholder for search field (default: `Search`)
+- `search {String}` a placeholder for search field (default: `Search`)
 
 ## Usage
 
-```javascript
+```js
 var opt = {};
 
 // opt.offsetX {Number}    : adds X offset (default: 0)
@@ -28,9 +29,8 @@ opt.callback = function(icon) {
 	console.log(icon);
 };
 
-SETTER('faicons', 'show', opt);
+SETTER('faicons/show', opt);
 ```
-
 
 ### Author
 

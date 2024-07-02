@@ -1,11 +1,8 @@
 {
 	"datecreated": "2021-12-29T18:55:00.000Z",
-	"dateupdated": "2023-01-31T12:08:00.000Z",
+	"dateupdated": "2023-08-17T10:55:01.000Z",
 	"name": "j-InlineDatePicker",
-	"tags": [
-		"datepicker",
-		"calendar"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"responsive": true,

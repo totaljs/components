@@ -7,7 +7,7 @@ COMPONENT('children', function(self, config, cls) {
 
 	self.items = {};
 	self.parents = {};
-	self.novalidate();
+	self.novalidate && self.novalidate();
 	self.nocompile();
 	self.getter = null;
 
@@ -83,8 +83,8 @@ COMPONENT('children', function(self, config, cls) {
 			ac.push(b.item);
 		}
 
-		self.update();
-		self.change(true);
+		self.bind('@touched @modified @setter', arr);
+		config.onchange && self.SEEX(config.onchange, arr);
 	};
 
 	self.finditem = function(id, items) {
@@ -114,7 +114,7 @@ COMPONENT('children', function(self, config, cls) {
 			var childrenhtml = renderchildren(item, level + 1);
 			self.parents[item.id] = parent;
 			self.items[item.id] = item;
-			builder.push(template.arg({ id: item.id, html: self.template({ value: item, level: level }) + childrenhtml }));
+			builder.push(template.args({ id: item.id, html: self.template({ value: item, level: level }) + childrenhtml }));
 		}
 
 		builder.push('</div>');
@@ -135,7 +135,7 @@ COMPONENT('children', function(self, config, cls) {
 			var item = value[i];
 			var childrenhtml = renderchildren(item, 1);
 			self.items[item.id] = item;
-			builder.push(template.arg({ id: item.id, html: self.template({ value: item, level: 0 }) + childrenhtml, level: 0 }));
+			builder.push(template.args({ id: item.id, html: self.template({ value: item, level: 0 }) + childrenhtml, level: 0 }));
 		}
 
 		self.html(builder.length ? builder.join('') : config.empty ? '<div class="{0}-empty">{1}</div>'.format(cls, config.empty) : '');

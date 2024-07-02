@@ -1,5 +1,7 @@
 The component is alternative to `CheckboxListExpert` and `RadioButtonListExpert`.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `limit {Number}` selection limit, `1` will return a value, `>1` will return array of values (default: `1`)
@@ -12,6 +14,7 @@ __Configuration__:
 - `type {String}` converting type, supports `string` or `number` (default: `string`)
 - `uncheck {Boolean}` allows to uncheck selected value for `limit:1` (default: `false`)
 - `disabled {Boolean}` disables the component
+- __NEW__ `click {String}` a link to the `function(val)` that is evaluted when the user changes the value
 
 ### Author
 

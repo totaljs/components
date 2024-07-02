@@ -81,7 +81,7 @@ COMPONENT('navigation', 'pk:id', function(self, config, cls) {
 				}
 
 				var o = '<div class="ui-navigation-item ui-navigation-level-{0}{1}" title="{2}" data-id="{3}">'.format(level, childs && !item.collapsed ? ' ' + cls + '-show' : '', item.title, indexer);
-				o += '<span class="ui-navigation-link{1}">{2}<i class="far"></i>{0}</span>'.format(item.name, childs ? ' ui-navigation-children' : '', item.options ? '<b><i class="ti ti-ellipsis-h"></i></b>' : '');
+				o += '<span class="ui-navigation-link{1}">{2}<i class="ti"></i>{0}</span>'.format(item.name, childs ? ' ui-navigation-children' : '', item.options ? '<b><i class="ti ti-ellipsis-h"></i></b>' : '');
 
 				items[indexer] = item;
 

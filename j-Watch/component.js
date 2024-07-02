@@ -7,7 +7,7 @@ COMPONENT('watch', function(self, config, cls) {
 	};
 
 	self.setter = function(value, path, type) {
-		config.exec && self.SEEX(config.exec, value, self.element, type, path);
+		config.exec && self.SEEX(config.exec, value, self.element, type, path ? path.toString() : '');
 	};
 
 });

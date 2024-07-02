@@ -1,4 +1,4 @@
-COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visibleY:1;scrollbar:0;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;margin:0', function(self, config, cls) {
+COMPONENT('table', 'highlight:true;border:true;unhighlight:true;multiple:false;pk:id;visibleY:1;scrollbar:0;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;margin:0', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var etable, ebody, eempty, ehead, eheadsize, efooter, container;
@@ -180,6 +180,9 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 
 		self.event('click', '.sort', function() {
 
+			if (self.hclass(cls + '-isempty'))
+				return;
+
 			var th = $(this);
 			var i = th.find('i');
 			var type;
@@ -244,10 +247,10 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 						config.exec && self.SEEX(config.exec, self.selected(), el);
 					}
 				} else {
+					opt.selected.push(index);
 					el.aclass(cls + '-selected');
 					config.exec && self.SEEX(config.exec, self.selected(), el);
 					config.detail && self.row_detail(el);
-					opt.selected.push(index);
 				}
 			} else {
 
@@ -297,6 +300,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 			if (index > -1) {
 
 				var is = config.highlight ? el.hclass(cls + '-selected') : true;
+
 				if (isdblclick && config.dblclick && is) {
 					self.forceselectid && clearTimeout(self.forceselectid);
 					self.SEEX(config.dblclick, opt.items[index], el);
@@ -439,6 +443,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 		count && ebody.html(builder.join(''));
 		eempty.tclass(clsh, count > 0);
 		etable.tclass(clsh, count == 0);
+		self.tclass(cls + '-isempty', count === 0);
 		config.redraw && self.EXEC(config.redraw, self);
 	};
 
@@ -585,6 +590,7 @@ COMPONENT('table', 'highlight:true;unhighlight:true;multiple:false;pk:id;visible
 		if (empty) {
 			etable.aclass(clsh);
 			eempty.rclass(clsh);
+			self.aclass(cls + '-isempty');
 			return;
 		}
 

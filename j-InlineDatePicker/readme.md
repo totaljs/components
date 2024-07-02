@@ -1,11 +1,11 @@
 ## j-InlineDatePicker
 
-- supports __dark mode__
+- jComponent `v19|v20`
 
 __Configuration__:
 
 - `required {Boolean}` required (default: `false`)
-- `firstday {Number}` first day in the week (default: `0` - sunday)
+- `firstday {Number}` first day in the week (default: `DEF.firstdayofweek`)
 - `today {String}` a label for `Set today` button
 - `days {String}` days e.g. `SU,MO,TU,WE,TH,FR,SA` (default).
 - `months {String}` months e.g. `January,February,...` (default).

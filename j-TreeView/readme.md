@@ -2,22 +2,24 @@
 
 This component is only a beta preview. It's still under construction.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
-- `parent` {String} a container with fixed height, can be `window`. Default value: `parent` element.
-- `visibleY` {Boolean} still shows `Y` scrollbar (default: `true`)
-- `movable` {Boolean} enables the moving of nodes (default: `true`)
-- `cachexpand` {Boolean} remembers the previous state (default: `true`)
-- `arrows` {Boolean} enables arrows for folders (default: `true`)
-- `expanded` {Boolean} expands all nodes (default: `false`)
-- `autosort` {Boolean} sorts nodes according to `item.sort` (if exists) or `item.name` (if exists), default: `true`
-- `margin` {Number} top/bottom margin together (default: `0`)
-- `marginxs` {Number} top/bottom margin together for `xs` screen width
+- `parent {String}` a container with fixed height, can be `window`. Default value: `parent` element.
+- `visibleY {Boolean}` still shows `Y` scrollbar (default: `true`)
+- `movable {Boolean}` enables the moving of nodes (default: `true`)
+- `cachexpand {Boolean}` remembers the previous state (default: `true`)
+- `arrows {Boolean}` enables arrows for folders (default: `true`)
+- `expanded {Boolean}` expands all nodes (default: `false`)
+- `autosort {Boolean}` sorts nodes according to `item.sort` (if exists) or `item.name` (if exists), default: `true`
+- `margin {Number}` top/bottom margin together (default: `0`)
+- `marginxs {Number}` top/bottom margin together for `xs` screen width
 - `marginsm` top/bottom margin together for `sm` screen width
 - `marginmd` top/bottom margin together for `md` screen width
 - `marginlg` top/bottom margin together for `lg` screen width
-- `disabled` {Boolean} disables the entire component
-- `parentselectable` {Boolean} parent will be selectable (default: `true`)
+- `disabled {Boolean}` disables the entire component
+- `parentselectable {Boolean}` parent will be selectable (default: `true`)
 
 __Data structure__:
 

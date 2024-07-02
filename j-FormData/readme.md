@@ -2,6 +2,7 @@
 
 With this component you can send data via the POST/PUT/DELETE method to the current window or another.
 
+- jComponent `v19|v20`
 - singleton
 
 ### Configuration

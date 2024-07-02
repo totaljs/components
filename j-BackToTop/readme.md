@@ -1,5 +1,6 @@
 ## j-BackToTop
 
+- jComponent `v19|v20`
 - works as singleton
 
 __Configuration__:

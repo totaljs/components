@@ -4,18 +4,20 @@ Component for editable list menu
 
 - You can change CSS for your needs.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
-- `iconremove` {String} optional, change `remove` button icon. It's fontawesome icon without `ti-` part (default: `times`)
-- `defaulticon` {String} optional, change `edit` button icon (default: `pencil-alt`)
-- `addicon` {String} optional, will change `add` button icon (default: `plus-square`)
-- `placeholder` {String} optional, a placeholder for input (default: `Write text and press ENTER`)
-- `class` {String} CSS class for selected item (default: `selected`)
-- `title` {String} optional, will add title on top of list menu (important if you want use `addicon` and `addclick`)
-- `key` {String} optional, a default `key` for `text` value (default: `name`)
-- `click` {String} optional, action after click on item in menu. Path to function(element, index)
-- `addclick` {String} optional, action after click on `add `button. Path to function() executes when user click on `add` icon
-- `editclick` {String} optional, action after click on `edit` button. Path to function(element, index)
+- `iconremove {String}` optional, change `remove` button icon. It's fontawesome icon without `ti-` part (default: `times`)
+- `defaulticon {String}` optional, change `edit` button icon (default: `pencil-alt`)
+- `addicon {String}` optional, will change `add` button icon (default: `plus-square`)
+- `placeholder {String}` optional, a placeholder for input (default: `Write text and press ENTER`)
+- `class {String}` CSS class for selected item (default: `selected`)
+- `title {String}` optional, will add title on top of list menu (important if you want use `addicon` and `addclick`)
+- `key {String}` optional, a default `key` for `text` value (default: `name`)
+- `click {String}` optional, action after click on item in menu. Path to function(element, index)
+- `addclick {String}` optional, action after click on `add `button. Path to function() executes when user click on `add` icon
+- `editclick {String}` optional, action after click on `edit` button. Path to function(element, index)
 
 __Methods__:
 

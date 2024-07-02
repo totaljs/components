@@ -422,7 +422,7 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', functio
 
 		hidden = ishidden ? ' hidden' : '';
 
-		var el = $('<div class="{0}-item{2}" data-id="{id}" style="left:{x}px;top:{y}px;width:{width}px"><span class="{0}-resize {0}-resize-tl"></span><span class="{0}-resize {0}-resize-tr"></span><span class="{0}-resize {0}-resize-bl"></span><span class="{0}-resize {0}-resize-br"></span><div class="{0}-title"><i class="ti ti-times {0}-control" data-name="close"></i><i class="ti ti-maximize {0}-control" data-name="maximize"></i><i class="ti ti-underscore {0}-control" data-name="minimize"></i><i class="{1} {0}-control {0}-lastbutton" data-name="menu"></i><span>{{ title }}</span></div><div class="{0}-body" style="height:{height}px"></div></div>'.format(cls, config.menuicon, hidden).arg(item.offset).arg(item));
+		var el = $('<div class="{0}-item{2}" data-id="{id}" style="left:{x}px;top:{y}px;width:{width}px"><span class="{0}-resize {0}-resize-tl"></span><span class="{0}-resize {0}-resize-tr"></span><span class="{0}-resize {0}-resize-bl"></span><span class="{0}-resize {0}-resize-br"></span><div class="{0}-title"><i class="ti ti-times {0}-control" data-name="close"></i><i class="ti ti-maximize {0}-control" data-name="maximize"></i><i class="ti ti-underscore {0}-control" data-name="minimize"></i><i class="{1} {0}-control {0}-lastbutton" data-name="menu"></i><span>{{ title }}</span></div><div class="{0}-body" style="height:{height}px"></div></div>'.format(cls, config.menuicon, hidden).args(item.offset).args(item));
 		var body = el.find(cls2 + '-body');
 		var pos;
 
@@ -466,7 +466,7 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', functio
 			var builder = [];
 			for (var i = 0; i < item.buttons.length; i++) {
 				var btn = item.buttons[i];
-				var icon = self.faicon(btn.icon);
+				var icon = self.icon(btn.icon);
 				builder.push('<i class="ti ti-{1} {0}-control" data-name="{2}"></i>'.format(cls, icon, btn.name));
 			}
 			builder.length && el.find(cls2 + '-lastbutton').before(builder.join(''));

@@ -1,6 +1,6 @@
 ## j-Configuration
 
-- easy usage
+- jComponent `v19|v20`
 - supports __dark mode__
 
 __Configuration__:
@@ -28,8 +28,8 @@ __Allowed properties__:
 - `summary {String}` optional, a summarization
 - `note {String}` optional, a note
 - `required {Boolean}` optional, is the property required?
-- `disable {String}` optional, declaration of arrow function in the form `model => model.interval === 100`
-- `visible {String}` optional, declaration of arrow function in the form `model => model.interval === 100`
+- `disable {String}` optional, declaration of arrow function in the form `value.interval === 100`
+- `visible {String}` optional, declaration of arrow function in the form `value.interval === 100`
 - `button {String}` optional, creates a small button
 - `click {String}` optional, a link to the method (depends on the `button`)
 - `maxlength {Number}` optional, supports only `string` type
@@ -52,16 +52,16 @@ Declaration must be defined in the component's element body wrapped in the `<scr
 ```js
 [
 	{
-		text: 'My group label',
+		name: 'My group label',
 		type: 'group',
 		// summary: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam, nostrum.',
-		// icon: 'fa fa-home'
+		// icon: 'ti ti-home'
 	},
 	{
-		name: 'name',
-		text: 'Application name',
+		id: 'name',
+		name: 'Application name',
 		type: 'string',
-		icon: 'fa fa-home',
+		icon: 'ti ti-home',
 		disable: 'model => model.interval < 100',
 		summary: 'Lorem, ipsum dolor sit amet consectetur, adipisicing elit. Iste eos, illum voluptas assumenda sunt possimus necessitatibus nobis provident dicta deserunt.',
 		required: true

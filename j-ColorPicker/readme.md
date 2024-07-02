@@ -4,6 +4,8 @@
 - Simple color picker
 - Supports __Dark theme__
 
+- jComponent `v19|v20`
+
 ## Usage
 
 ```javascript
@@ -24,7 +26,7 @@ opt.callback = function(color) {
 	console.log(color); // callback parameter has string with HEX color (like #bada55)
 };
 
-SETTER('colorpicker', 'show', opt);
+SETTER('colorpicker/show', opt);
 ```
 
 

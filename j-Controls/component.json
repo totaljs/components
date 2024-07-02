@@ -1,12 +1,8 @@
 {
 	"datecreated": "2022-02-07T09:02:00.000Z",
-	"dateupdated": "2023-01-25T10:02:00.000Z",
+	"dateupdated": "2023-01-25T10:03:00.000Z",
 	"name": "j-Controls",
-	"tags": [
-		"menu",
-		"controls",
-		"contextmenu"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"responsive": true,

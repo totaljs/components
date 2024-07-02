@@ -1,12 +1,8 @@
 {
 	"datecreated": "2022-03-26T19:55:10.000Z",
-	"dateupdated": "2023-02-11T19:09:00.000Z",
+	"dateupdated": "2024-06-17T08:09:00.000Z",
 	"name": "j-CloudEditorSimple",
-	"tags": [
-		"syntax",
-		"code",
-		"editor"
-	],
+	"jcomponent": "19|20",
 	"darkmode": true,
 	"color": "white",
 	"version": 1,

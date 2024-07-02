@@ -83,7 +83,7 @@
 .dg input:-ms-input-placeholder { color: #A0A0A0 !important; }
 .dg input::placeholder { color: #A0A0A0; opacity: 1; }
 .dg input::-ms-input-placeholder { color: #A0A0A0 !important; }
-.dg-col button { margin: 4px 0 0 1px; border: 0; background-color: #F0F0F0; font-size: 10px; color: #404040; height: 19px; border: 1px solid #F0F0F0; border-left: 0; padding: 0 3px; outline: 0; line-height: 10px; min-width: 20px; }
+.dg-col button { margin: 4px 0 0 1px; border: 0; background-color: #F0F0F0; font-size: 12px; color: #404040; height: 19px; border: 1px solid #F0F0F0; border-left: 0; padding: 0 3px; outline: 0; line-height: 10px; min-width: 20px; }
 .dg-col button:hover { background-color: var(--color); border-color: var(--color); color: #FFF; }
 .dg-col button[name='remove'] { background-color: #FFE5DD; border-color: #FFE5DD; color: red; }
 .dg-col button[name='remove']:hover { background-color: #E8483F; border-color: #E8483F; color: #FFF; }

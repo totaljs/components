@@ -2,6 +2,7 @@
 
 This component captures the `ON('ERROR', function(err` event trigger from the `ERROR()` method and tries to display form more comfortably.
 
+- jComponent `v19|v20`
 - easy usage
 - singleton
 

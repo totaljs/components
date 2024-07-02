@@ -1,5 +1,6 @@
 ## j-FloatingPanel
 
+- jComponent `v19|v20`
 - singleton
 - supports custom scrollbars
 - supports __dark mode__
@@ -8,7 +9,7 @@ __Methods__:
 
 Method: `component.show(options)`
 
-- `options.element {Element/`jQuery Element}
+- `options.element {Element/jQuery Element}`
 - `options.offsetX {Number}` optional, `x` offset (default: `0`)
 - `options.offsetY {Number}` optional, `y` offset (default: `0`)
 - `options.offsetWidth {Number}` optional, `width` offset (default: `0`)

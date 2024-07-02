@@ -1,4 +1,4 @@
-COMPONENT('breadcrumb', 'icon:ti ti-home;historyapi:1;root:Root;rooturl:/', function(self, config, cls) {
+COMPONENT('breadcrumb', 'icon:ti ti-home;historyapi:1;root:Root;arrowicon:ti ti-angle-right;usetitle:false;rooturl:/', function(self, config, cls) {
 
 	var nav;
 
@@ -37,16 +37,12 @@ COMPONENT('breadcrumb', 'icon:ti ti-home;historyapi:1;root:Root;rooturl:/', func
 		config.root && arr.push({ name: config.root, url: config.rooturl });
 
 		var fn = function(name, url, callback) {
-			if (name && url)
-				arr.push({ name: name, url: url, callback: callback });
+			name && arr.push({ name: name, url: url, callback: callback });
 			return fn;
 		};
 
-		setTimeout(function() {
-			self.set(arr);
-		}, 1);
-
-		return fn(name, url, callback);
+		setTimeout(() => self.set(arr), 1);
+		return fn(name, url || NAV.url, callback);
 	};
 
 	self.setter = function(value, path, type) {
@@ -61,14 +57,17 @@ COMPONENT('breadcrumb', 'icon:ti ti-home;historyapi:1;root:Root;rooturl:/', func
 			builder.push('<{0}="{1}"{4}>{2}</{3}>'.format(config.exec ? 'span data-id' : 'a href', item.url || item.id, Thelpers.encode(item.name), config.exec ? 'span' : 'a', item.callback ? ' class="{0}-children"'.format(cls) : ''));
 		}
 
-		var html = builder.join('<i class="ti ti-angle-right"></i>');
+		if (config.title)
+			document.title = (value.length > 1 ? (item.name + ' / ') : '') + config.title;
+
+		var html = builder.join('<i class="{0}"></i>'.format(config.arrowicon));
 
 		if (config.icon && html)
 			html = '<i class="{0}"></i>'.format(config.icon) + html;
 
 		nav.html(html);
 
-		if (!type)
+		if (!type || (M.is20 && !type.init))
 			self.rclass('hidden invisible');
 	};
 

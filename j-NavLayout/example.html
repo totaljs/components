@@ -19,7 +19,8 @@
 	var common = { menu: false };
 
 	setInterval(function() {
-		TOGGLE('common.menu');
+		var path = 'common.menu';
+		SET(path, !GET(path));
 	}, 3000);
 
 </script>

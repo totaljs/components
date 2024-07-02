@@ -31,12 +31,15 @@ console.log(text.markdown(opt));
 - `opt.hr = true` enables page breaks
 - `opt.blockquotes = true` enables blockquotes `< blockqote`
 - `opt.custom = function(line) { return line; }` a custom parser for each processed line
+- `opt.html = function(line, type) { return line; }` a custom parser for each post-processed line
 - `opt.sections = true` enables sections `> section`
 - `opt.footnotes = true` enables footnotes `#1: foot note description` and usage in links `[link](#1)`
 - `opt.urlify = true` converts URL addresses to links
 - `opt.keywords = true` parses keywords in the form `{keyword}(type)`
 - `opt.noredraw = true` skips redrawing of code/video/section/block parts (default: `false`)
 - `opt.element {jQuery}` HTML element that will be used as a default element in `FUNC.markdownredraw()`
+- __NEW__: `opt.bookmarks {Boolean}` enables/disables creating headline bookmarks `id=""` (default: `true`)
+- __NEW__: `opt.prefix {String}` a prefix for bookmarks (default: `empty`)
 
 __Good to know__:
 
@@ -49,6 +52,7 @@ __Good to know__:
 - class `markdown-small` can decrease font sizes
 - event `ON('markdown', function(el, opt) {})` is executed if the markdown is pre-rendered (`el {jQuery}` is `<body` element in most cases)
 - components registers `Thelpers.markdown([opt])` helper
+- __NEW__: every rendered line contain `markdown-line` class and `data-line="line_number"` attribute
 
 __Toggleable section:__
 

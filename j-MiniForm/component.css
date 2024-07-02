@@ -4,12 +4,20 @@
 .ui-miniform-container-cell { display: table-cell; width: 100%; height: 100%; vertical-align: middle; text-align: center; }
 .ui-miniform { background-color: #FFF; border-radius: var(--radius); box-shadow: 0 10px 30px rgba(0,0,0,0.1); transform: scale(0); transition: all 0.15s; opacity: 0; text-align: left; position: relative; margin: 0 auto; }
 .ui-miniform-animate { transform: scale(1); opacity: 1; }
-.ui-miniform-title { padding: 18px 15px 18px 20px; font-size: 18px; user-select: none; color: #000; background-color: #FFF; border-bottom: 1px solid #E0E0E0; height: 58px; border-radius: var(--radius) var(--radius) 0 0; }
-.ui-miniform-title .ui-miniform-button-close { float: right; cursor: pointer; font-size: 18px; margin: 1px 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; width: 20px; padding: 0; }
-.ui-miniform-title .ui-miniform-button-close i { font-weight: bold; }
+.ui-miniform-title { padding: 10px 15px 18px 20px; font-size: 18px; user-select: none; color: #000; background-color: #FFF; border-bottom: 1px solid #E0E0E0; height: 58px; border-radius: var(--radius) var(--radius) 0 0; line-height: 14px; }
+.ui-miniform-title .ui-miniform-button-close { float: right; cursor: pointer; font-size: 18px; margin: 10px 0 0; transition: all 0.2s; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; width: 20px; padding: 0; }
 .ui-miniform-title .ui-miniform-button-close:hover { transform: scale(1.1); }
-.ui-miniform-title > span { font-weight: bold; }
-.ui-miniform-title i { margin-right: 7px; }
+.ui-miniform-title > i { float: left; margin: 11px 7px 0 0; }
+.ui-miniform-title span { float: left; margin-top: 14px; font-weight: bold; }
+.ui-miniform-title > nav { float: right; margin: 5px 18px 0 0; font-size: 14px; }
+.ui-miniform-title > nav button { border: 0; margin: 0; background-color: #F0F0F0; height: 28px; padding: 0 10px; color: #000; cursor: pointer; font-family: Arial; line-height: 23px; vertical-align: middle; outline: 0; font-size: 12px; text-decoration: none; transition: all 0.3s; float: left; border-left: 1px solid #E0E0E0; }
+.ui-miniform-title > nav button i { width: 12px; text-align: center; margin-right: 5px; }
+.ui-miniform-title > nav button:hover { opacity: 0.8; }
+.ui-miniform-title > nav button:active { background-color: #D0D0D0; }
+.ui-miniform-title > nav button:disabled { background-color: #F5F5F5 !important; border-color: #E0E0E0 !important; color: silver !important; cursor: not-allowed; miniform-shadow: none; }
+.ui-miniform-title > nav button:disabled i { color: silver !important; }
+.ui-miniform-title > nav button:first-child { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); border-left: 0; }
+.ui-miniform-title > nav button:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
 .ui-miniform > nav { padding: 0 15px 0; border-top: 1px solid #E0E0E0; background-color: #FFF; border-radius: 0 0 var(--radius) var(--radius); line-height: 65px; height: 65px; display: block; float: none; position: relative; }
 .ui-miniform > nav button { border: 0; margin: 15px 0 0; background-color: #F0F0F0; height: 34px; padding: 0 15px; color: #000; cursor: pointer; font-family: Arial; line-height: 34px; vertical-align: middle; outline: 0; font-size: 14px; text-decoration: none; transition: all 0.3s; float: left; width: 50%; }
 .ui-miniform > nav button i { width: 15px; text-align: center; margin-right: 5px; }
@@ -23,6 +31,11 @@
 .ui-dark .ui-miniform-container { background-color: rgba(50,50,50,0.9); }
 .ui-dark .ui-miniform { background-color: #202020; }
 .ui-dark .ui-miniform-title { background-color: #202020; border-bottom-color: #303030; color: #FFF; }
+.ui-dark .ui-miniform-title > nav { background-color: #202020; border-top-color: #303030; }
+.ui-dark .ui-miniform-title > nav button { border-color: #404040; background-color: #505050; color: #E0E0E0; }
+.ui-dark .ui-miniform-title > nav button:active { background-color: #404040; }
+.ui-dark .ui-miniform-title > nav button:disabled i { color: #606060 !important; }
+.ui-dark .ui-miniform-title > nav button:disabled { background-color: #303030 !important; color: #606060 !important; border-color: #202020 !important; }
 .ui-dark .ui-miniform > nav { background-color: #202020; border-top-color: #303030; }
 .ui-dark .ui-miniform nav button { border-color: #202020; background-color: #505050; color: #E0E0E0; }
 .ui-dark .ui-miniform > nav button[name='submit'] { background-color: var(--color); color: #FFF; }

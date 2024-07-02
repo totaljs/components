@@ -1,5 +1,6 @@
 ## j-InlineProperties
 
+- jComponent `v19|v20`
 - easy usage for different cases
 - singleton
 
@@ -8,7 +9,7 @@ __Configuration__:
 - `close {String}` a label for close button (default: `Close`)
 - `dateformat {String}` a default date format (default: `[date]`)
 - `dirsearch {String}` a default placeholder for j-Directory (default: `Search`)
-- `width {Number}` a default width (default: `180`)
+- `width {Number}` a default width (default: `200`)
 
 ## Usage
 

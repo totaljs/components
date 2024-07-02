@@ -25,7 +25,7 @@ COMPONENT('backtotop', 'icon:ti ti-arrow-circle-up', function(self, config, cls)
 	self.make = function() {
 
 		self.aclass(cls);
-		self.html('<span><i class="{0}"></i></span>'.format(self.faicon(config.icon)));
+		self.html('<span><i class="{0}"></i></span>'.format(self.icon(config.icon)));
 
 		self.event('click', function() {
 			document.body.scrollTop = 0;
@@ -33,7 +33,6 @@ COMPONENT('backtotop', 'icon:ti ti-arrow-circle-up', function(self, config, cls)
 		});
 
 		$W = $(W);
-
 		$W.on('scroll', function() {
 			timeout && clearTimeout(timeout);
 			timeout = setTimeout(self.onscroll, 200);

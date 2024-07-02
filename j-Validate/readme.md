@@ -1,5 +1,9 @@
 ## j-Validate
 
+The component contains the same source-code as the `j-Validation` component.
+
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `if {String}` can contain JS condition for evaluation

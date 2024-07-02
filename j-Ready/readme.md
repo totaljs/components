@@ -2,6 +2,8 @@
 
 This component executes some operations when the component is ready. 
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `rclass {String}` A list of CSS classes to remove divided by space

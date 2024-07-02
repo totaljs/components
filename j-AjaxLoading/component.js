@@ -35,10 +35,10 @@ COMPONENT('ajaxloading', 'icon:true', function(self) {
 
 	self.init = function() {
 		ON('request', function(req) {
-			SETTER('ajaxloading', 'apply', 'req', req.url);
+			SETTER('ajaxloading/apply', 'req', req.url);
 		});
 		ON('response', function(res) {
-			SETTER('ajaxloading', 'apply', 'res', res.url);
+			SETTER('ajaxloading/apply', 'res', res.url);
 		});
 	};
 });

@@ -9,15 +9,14 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 		W.$$miniform = true;
 
 		$(document).on('click', cls2 + '-button-close', function() {
-			SET($(this).attrd('path'), '');
+			$(this).component().set(null);
 		});
 
 		var resize = function() {
 			setTimeout2(self.name, function() {
-				for (var i = 0; i < M.components.length; i++) {
-					var com = M.components[i];
-					if (com.name === 'miniform' && !HIDDEN(com.dom) && com.$ready && !com.$removed)
-						com.resize();
+				for (var m of M.components) {
+					if (m.name === self.name && !HIDDEN(m.dom) && (m.ready || (m.$ready && !m.$removed)))
+						m.resize();
 				}
 			}, 200);
 		};
@@ -97,6 +96,7 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 
 	self.hideforce = function() {
 		if (!self.hclass('hidden')) {
+			config.hide && self.SEEX(config.hide);
 			self.aclass('hidden');
 			self.release(true);
 			self.find(cls2).rclass(cls + '-animate');
@@ -168,7 +168,7 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 				var icon = self.find(cls2 + '-icon');
 				icon.rclass2('fa ti');
 				if (value)
-					icon.aclass(self.faicon(value)).rclass('hidden');
+					icon.aclass(self.icon(value)).rclass('hidden');
 				else
 					icon.aclass('hidden');
 				break;

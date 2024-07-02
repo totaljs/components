@@ -1,11 +1,8 @@
 {
-	"datecreated": "2023-03-30T15:37:58.000Z",
+	"datecreated": "2023-03-30T15:37:59.000Z",
 	"dateupdated": null,
 	"name": "j-QRCode",
-	"tags": [
-		"qrcode",
-		"code"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

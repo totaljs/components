@@ -7,7 +7,7 @@
 			Name:
 		</div>
 		<div class="col-xs-9">
-			<div class="edit2" data-edit="required:1;floating:1"><ui-bind path="?.name" config="html" style="height:24px;background-color:#E0E0E0"></ui-bind></div>
+			<ui-bind class="edit2 block" data-edit="required:1;floating:1" path="?.name" config="html" style="height:24px;background-color:#E0E0E0"></ui-bind>
 		</div>
 	</div>
 	<div class="row m">
@@ -23,11 +23,11 @@
 			HTML:
 		</div>
 		<div class="col-xs-9">
-			<div class="edit" data-edit="multiline:1;floating:1;type:html"><ui-bind path="form.html" config="html" style="min-height:24px;background-color:#E0E0E0"></ui-bind></div>
+			<ui-bind  class="edit block" data-edit="multiline:1;floating:1;type:html" path="form.html" config="html" style="min-height:24px;background-color:#E0E0E0"></ui-bind>
 		</div>
 	</div>
+	<pre><ui-bind path="?" config="html:JSON.stringify(value, null, '  ')"></ui-bind></pre>
 </ui-plugin>
-<pre><ui-bind path="form" config="html:JSON.stringify(value, null, '  ')"></ui-bind></pre>
 
 <script>
 

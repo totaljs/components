@@ -11,20 +11,19 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 		W.$$box = true;
 
 		$(document).on('click', cls2 + '-button-close', function() {
-			SET($(this).attrd('path'), '');
+			$(this).component().set(null);
 		});
 
 		var resize = function() {
 			setTimeout2(self.name, function() {
-				for (var i = 0; i < M.components.length; i++) {
-					var com = M.components[i];
-					if (com.name === 'box' && !HIDDEN(com.dom) && com.$ready && !com.$removed)
-						com.resize();
+				for (var m of M.components) {
+					if (m.name === self.name && !HIDDEN(m.dom) && (m.ready || (m.$ready && !m.$removed)))
+						m.resize();
 				}
 			}, 200);
 		};
 
-		ON('resize2', resize);
+		self.on('resize2', resize);
 
 		$(document).on('click', cls2 + '-container', function(e) {
 
@@ -41,9 +40,7 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 				var form = el.find(cls2);
 				var c = cls + '-animate-click';
 				form.aclass(c);
-				setTimeout(function() {
-					form.rclass(c);
-				}, 300);
+				form.rclass(c, 300);
 			}
 		});
 	}
@@ -109,7 +106,7 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 
 		self.find(cls2 + '-body').css(csspos);
 		self.scrollbar && self.scrollbar.resize();
-		self.element.SETTER('*', 'resize');
+		self.element.SETTER('*/resize');
 	};
 
 	self.make = function() {
@@ -173,7 +170,8 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 		});
 
 		config.enter && self.event('keydown', 'input', function(e) {
-			e.which === 13 && !self.find('button[name="submit"]')[0].disabled && setTimeout2(self.ID + 'enter', self.submit, 500);
+			if (e.which === 13 && !self.find('button[name="submit"]')[0].disabled)
+				setTimeout2(self.ID + 'enter', self.submit, 500);
 		});
 	};
 
@@ -186,7 +184,7 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 				var icon = self.find(cls2 + '-icon');
 				icon.rclass2('fa ti');
 				if (value)
-					icon.aclass(self.faicon(value)).rclass('hidden');
+					icon.aclass(self.icon(value)).rclass('hidden');
 				else
 					icon.aclass('hidden');
 				break;
@@ -235,8 +233,9 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 
 	self.hideforce = function() {
 		if (!self.hclass('hidden')) {
+			config.hide && self.SEEX(config.hide);
 			self.aclass('hidden');
-			self.release(true);
+			self.release && self.release(true);
 			self.esc(false);
 			self.find(cls2).rclass(cls + '-animate');
 			W.$$box_level--;
@@ -287,7 +286,7 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 		self.css('z-index', W.$$box_level * config.zindex);
 		self.aclass('invisible');
 		self.rclass('hidden');
-		self.release(false);
+		self.release && self.release(false);
 		self.find(cls2).css({ 'max-width': value + 'px', width: '' });
 
 		config.scrolltop && self.scrollbar && self.scrollbar.scrollTop(0);
@@ -299,12 +298,9 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 		setTimeout(function() {
 			self.rclass('invisible');
 			self.find(cls2).aclass(cls + '-animate');
-			if (!init && isMOBILE) {
-				$('body').aclass('hidden');
-				setTimeout(function() {
-					$('body').rclass('hidden');
-				}, 50);
-			}
+
+			if (!init && isMOBILE)
+				$('body').aclass('hidden').rclass('hidden', 200);
 
 			config.autofocus && self.autofocus(config.autofocus);
 			init = true;

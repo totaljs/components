@@ -57,11 +57,12 @@ COMPONENT('approve', 'cancel:Cancel', function(self, config, cls) {
 		$(W).off('keydown', events.keydown);
 	};
 
-	self.show = function(message, a, b, fn) {
+	self.show = function(message, a, b, fn, cancel) {
 
 		clearTimeout2(self.id);
 
 		if (typeof(b) === 'function') {
+			cancel = fn;
 			fn = b;
 			b = config.cancel;
 		}
@@ -70,8 +71,9 @@ COMPONENT('approve', 'cancel:Cancel', function(self, config, cls) {
 			self.currscope = M.scope();
 
 		self.callback = fn;
+		self.callbackcancel = typeof(cancel) === 'function' ? cancel : null;
 
-		var icon = a.match(/"[a-z0-9-\s]+"/);
+		var icon = a.match(/[":][a-z0-9-\s]+[":]/);
 		if (icon) {
 
 			var tmp = icon + '';
@@ -79,7 +81,7 @@ COMPONENT('approve', 'cancel:Cancel', function(self, config, cls) {
 				tmp = 'ti ti-' + tmp;
 
 			a = a.replace(icon, '').trim();
-			icon = '<i class="{0}"></i>'.format(tmp.replace(/"/g, ''));
+			icon = '<i class="{0}"></i>'.format(tmp.replace(/"|:/g, ''));
 		} else
 			icon = '';
 
@@ -106,8 +108,9 @@ COMPONENT('approve', 'cancel:Cancel', function(self, config, cls) {
 
 		if (!index) {
 			self.currscope && M.scope(self.currscope);
-			self.callback && self.callback(index);
-		}
+			self.callback && self.callback();
+		} else if (self.callbackcancel)
+			self.callbackcancel();
 
 		self.rclass(cls + '-visible');
 		events.unbind();

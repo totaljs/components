@@ -2,6 +2,8 @@
 
 This component renders a current time.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `icon {String}` icon (default: `ti ti-clock`)

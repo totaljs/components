@@ -1,8 +1,9 @@
 COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 
-	var skip = false;
 	var partw;
 	var parth;
+	var prev = [];
+	var current = null;
 
 	self.make = function() {
 		self.aclass(cls);
@@ -34,10 +35,13 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 		var classname = cls + '-focused';
 		var selected = model.findItem('id', id);
 
-		if (fromsetter && selected) {
-			if (selected.element.hclass(classname))
-				return;
+		if (selected === current) {
+			itemop('reload', selected);
+			return;
 		}
+
+		if (fromsetter && selected && selected.element.hclass(classname))
+			return;
 
 		var item = model.findItem('focused', true);
 		if (item && item.id !== id) {
@@ -45,9 +49,12 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 			item.focused = false;
 			item.element.rclass(classname);
 			itemop('blur', item);
+			prev.push(item.id);
 		}
 
 		item = selected;
+		current = item;
+
 		if (item) {
 
 			if (!item.element.hclass(classname)) {
@@ -58,12 +65,11 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 
 			itemop('reload', item);
 			itemop('focus', item);
+			config.focus && self.EXEC(config.focus, item);
 		}
 
-		if (is) {
-			skip = true;
-			self.update(true);
-		}
+		if (is)
+			self.bind('@touched @modified', model);
 	};
 
 	self.rename = function(id, name, icon) {
@@ -74,8 +80,7 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 				item.name = name;
 			if (icon)
 				item.icon = icon;
-			skip = true;
-			self.update(true);
+			self.bind('@touched @modified', model);
 		}
 	};
 
@@ -83,6 +88,7 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 
 		var model = self.get();
 		if (id == null) {
+			prev = [];
 			for (var item of model)
 				self.close(item.id);
 			return;
@@ -90,20 +96,29 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 
 		var item = model.findItem('id', id);
 		if (item) {
+
+			prev = prev.remove(id);
 			var index = model.indexOf(item);
 			model.splice(index, 1);
 
 			if (item.focused) {
 				// next part to focus
+				var previd = prev.last();
+				if (previd) {
+					var tmp = model.findIndex('id', previd);
+					if (tmp !== -1)
+						index = tmp;
+				}
+
 				var next = model[index];
 				if (!next)
 					next = model[0];
 				next && setTimeout(self.focus, 5, next.id);
 			}
 
-			skip = true;
-			self.update(true);
+			self.bind('@touched @modified', model);
 			itemop('remove', item);
+			config.close && self.EXEC(config.close, item);
 			item.element.remove();
 			setTimeout2(self.ID + 'free', FREE, 1000);
 		}
@@ -112,9 +127,10 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 	self.create = function(item) {
 
 		if (item.processed)
-			return;
+			return false;
 
 		item.processed = true;
+
 		var div = $('<div></div>');
 		div.aclass(cls + '-item invisible');
 		div.attrd('id', item.id);
@@ -161,6 +177,8 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 					self.EXEC(true, itempath(item, item.init), div, item);
 			}
 		}
+
+		return true;
 	};
 
 	self.resize = function() {
@@ -181,17 +199,21 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 
 	self.setter = function(value) {
 
-		if (skip) {
-			skip = false;
-			return;
-		}
-
 		var model = value || EMPTYARRAY;
+		var focus = null;
+		var is = false;
 
 		for (var item of model) {
-			self.create(item);
-			item.focused && self.focus(item.id);
+			if (self.create(item)) {
+				is = true;
+			} else {
+				if (item.focused && item !== current)
+					focus = item.id;
+			}
 		}
+
+		if (focus && !is)
+			self.focus(item.id);
 
 		// Clean ghosts
 		var div = self.find('> div').toArray();
@@ -202,6 +224,8 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 				if (obj) {
 					itemop('remove', obj);
 					obj.element.remove();
+					if (current === obj)
+						current = null;
 				}
 			}
 		}

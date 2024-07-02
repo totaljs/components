@@ -1,5 +1,6 @@
 ## j-GPS
 
+- jComponent `v19|v20`
 - singleton
 - readonly
 

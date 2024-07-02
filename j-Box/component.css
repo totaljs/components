@@ -7,10 +7,8 @@
 .ui-box-animate { transform: scale(1); opacity: 1; }
 .ui-box-title { padding: 0 10px 0 var(--gap); line-height: 57px; font-size: 16px; user-select: none; color: #000; background-color: #FFF; border-bottom: 1px solid #E0E0E0; height: 58px; border-radius: 3px 3px 0 0; }
 .ui-box-title .ui-box-button-close { float: right; cursor: pointer; font-size: 18px; margin: 1px 0 0; background: none; border: 0; outline: 0; height: auto; color: red; text-align: right !important; width: 20px; padding: 0; }
-.ui-box-title .ui-box-button-close i { font-weight: bold; }
 .ui-box-title .ui-box-button-close:hover { transform: scale(1.1); }
 .ui-box-title > nav { float: right; margin-right: 18px; font-size: 14px; }
-.ui-box-title > span { font-weight: bold; }
 .ui-box-title > nav button { border: 0; margin: 15px 0 0; background-color: #F0F0F0; height: 28px; padding: 0 10px; color: #000; cursor: pointer; font-family: Arial; line-height: 23px; vertical-align: middle; outline: 0; font-size: 12px; text-decoration: none; transition: all 0.3s; float: left; border-left: 1px solid #E0E0E0; }
 .ui-box-title > nav button i { width: 12px; text-align: center; margin-right: 5px; }
 .ui-box-title > nav button:hover { opacity: 0.8; }
@@ -20,6 +18,7 @@
 .ui-box-title > nav button:first-child { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); border-left: 0; }
 .ui-box-title > nav button:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
 .ui-box-title i { margin-right: 7px; }
+.ui-box-title > span { font-weight: bold; }
 .ui-box > nav { padding: 0 15px 0; border-top: 1px solid #E0E0E0; background-color: #FFF; border-radius: 0 0 3px 3px; line-height: 65px; height: 65px; display: block; float: none; width: 100%; }
 .ui-box > nav button { border: 0; margin: 15px 0 0; background-color: #F0F0F0; height: 34px; padding: 0 20px; color: #000; cursor: pointer; font-family: Arial; line-height: 34px; vertical-align: middle; outline: 0; font-size: 14px; text-decoration: none; transition: all 0.3s; float: left; width: 50%; }
 .ui-box > nav button i { width: 15px; text-align: center; margin-right: 5px; }

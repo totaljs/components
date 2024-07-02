@@ -5,7 +5,8 @@ COMPONENT('searchinput', 'searchicon:ti ti-search;cancelicon:ti ti-times;align:l
 	var prev;
 	var prev2;
 
-	self.novalidate();
+	self.autobind20 && self.autobind20();
+	self.novalidate && self.novalidate();
 
 	self.make = function() {
 
@@ -43,7 +44,9 @@ COMPONENT('searchinput', 'searchicon:ti ti-search;cancelicon:ti ti-times;align:l
 
 	self.setter = function(value, path, type) {
 
-		input.value = value || '';
+		var val =  value || '';
+		if (input.value !== val)
+			input.value = val;
 
 		if (prev2 !== input.value) {
 			prev2 = input.value;

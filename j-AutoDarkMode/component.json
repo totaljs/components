@@ -1,11 +1,8 @@
 {
 	"datecreated": "2022-07-02T18:08:00.001Z",
-	"dateupdated": "2023-01-23T09:23:00.001Z",
+	"dateupdated": "2023-01-23T09:23:01.001Z",
 	"name": "j-AutoDarkMode",
-	"tags": [
-		"auto",
-		"darkmode"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": false,

@@ -1,16 +1,9 @@
-COMPONENT('typed', 'typespeed:0;startdelay:0;backspeed:0;smartbackspace:true;shuffle:false;backdelay:700;fadeout:false;fadeoutclass:typed-fade-out;fadeoutdelay:500;loop:false;loopcount:Infinity;showcursor:true;cursorchar:|;autoinsertcss:true;contenttype:html', function(self, config) {
+COMPONENT('typed', 'typespeed:50;startdelay:50;backspeed:0;smartbackspace:true;shuffle:false;backdelay:700;fadeout:false;fadeoutclass:typed-fade-out;fadeoutdelay:500;loop:false;loopcount:Infinity;showcursor:true;cursorchar:|;autoinsertcss:true;contenttype:html', function(self, config) {
 
-	var typed;
-	var id;
+	var typed = null;
+	var render = function(value) {
 
-	self.make = function() {
-		id = self.config.id || 'typed' + self.id;
-		self.append('<span id="{0}"></span>'.format(id));
-	};
-
-	self.setter = function(value) {
-
-		if (!value.length)
+		if (!value || !value.length)
 			return;
 
 		if (!(value instanceof Array))
@@ -18,7 +11,12 @@ COMPONENT('typed', 'typespeed:0;startdelay:0;backspeed:0;smartbackspace:true;shu
 
 		typed && typed.destroy();
 
-		typed = new Typed('#{0}'.format(id), {
+		var node = config.selector ? self.find(config.selector)[0] : self.dom;
+		var span = document.createElement('SPAN');
+
+		$(node).html(span);
+
+		typed = new W.Typed(span, {
 			strings: value,
 			typeSpeed: config.typespeed,
 			startDelay: config.startdelay,
@@ -65,8 +63,14 @@ COMPONENT('typed', 'typespeed:0;startdelay:0;backspeed:0;smartbackspace:true;shu
 			onDestroy: function(typed) {
 				self.emit('typed.onDestroy', typed, self);
 			}
-
 		});
 	};
 
-}, ['https://unpkg.com/typed.js@2.0.132/dist/typed.umd.js']);
+	self.configure = function(key, value) {
+		if (key === 'text' && value)
+			render(value.split('|').trim());
+	};
+
+	self.setter = render;
+
+}, ['https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js']);

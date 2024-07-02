@@ -36,16 +36,24 @@ COMPONENT('choose', 'limit:1;attr:id;key:id;selector:.selection;event:click;clas
 		id = convert(ATTRD(id, config.attr));
 
 		var model = self.get();
+		var tmp;
+
 		if (model == null) {
 			self.rewrite(model);
-			self.set(config.limit === 1 ? id : [id]);
+			tmp = config.limit === 1 ? id : [id];
+			self.set(tmp);
+			config.click && self.EXEC(config.click, tmp);
 		} else {
 			if (config.limit === 1) {
 				if (model === id) {
-					if (config.uncheck)
-						self.set(null);
-				} else
-					self.set(id);
+					if (config.uncheck) {
+						self.bind('@modified @touched @setter', null);
+						config.click && self.EXEC(config.click, null);
+					}
+				} else {
+					self.bind('@modified @touched @setter', id);
+					config.click && self.EXEC(config.click, id);
+				}
 			} else {
 				var index = model.indexOf(id);
 				if (index === -1) {
@@ -54,7 +62,8 @@ COMPONENT('choose', 'limit:1;attr:id;key:id;selector:.selection;event:click;clas
 					model.push(id);
 				} else
 					model.splice(index, 1);
-				self.update(true);
+				config.click && self.EXEC(config.click, model);
+				self.bind('@modified @touched @setter', model);
 			}
 		}
 		self.change(true);

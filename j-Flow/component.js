@@ -15,6 +15,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;markers:1;curvedlines:1;horizo
 	self.op = {};     // operations
 	self.cache = {};  // cache
 	self.paused = {};
+	self.connections = [];
 	self.animations = {};
 	self.animations_token = 0;
 	self.info = { zoom: 100 };
@@ -29,7 +30,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;markers:1;curvedlines:1;horizo
 		config.horizontal = 1;
 
 		self.aclass(cls);
-		self.html(('<div class="{0}-selection hidden"></div><div class="{0}-groups"></div><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg" class="{0}-connections"><defs><marker id="{0}-arrow" viewbox="0 0 10 10" refX="5" refY="5" markerwidth="4" markerheight="4" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" /></marker></defs><g class="lines"></g><g class="anim"></g></svg><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">' + (config.grid ? '<defs><pattern id="jflowgrid" width="{grid}" height="{grid}" patternunits="userSpaceOnUse"><path d="M {grid} 0 L 0 0 0 {grid}" fill="none" class="{0}-grid" shape-rendering="crispEdges" /></pattern></defs><rect width="100%" height="100%" fill="url(#jflowgrid)" shape-rendering="crispEdges" />' : '') + '</svg>').format(cls).arg(config));
+		self.html(('<div class="{0}-selection hidden"></div><div class="{0}-groups"></div><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg" class="{0}-connections"><defs><marker id="{0}-arrow" viewbox="0 0 10 10" refX="5" refY="5" markerwidth="4" markerheight="4" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" /></marker></defs><g class="lines"></g><g class="anim"></g></svg><svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">' + (config.grid ? '<defs><pattern id="jflowgrid" width="{grid}" height="{grid}" patternunits="userSpaceOnUse"><path d="M {grid} 0 L 0 0 0 {grid}" fill="none" class="{0}-grid" shape-rendering="crispEdges" /></pattern></defs><rect width="100%" height="100%" fill="url(#jflowgrid)" shape-rendering="crispEdges" />' : '') + '</svg>').format(cls).args(config));
 
 		var svg = self.find('svg');
 		self.el.svg = svg.eq(0);
@@ -38,7 +39,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;markers:1;curvedlines:1;horizo
 		self.el.anim = self.el.svg.find('g.anim');
 		self.el.lines = self.el.svg.find('g.lines');
 		self.el.groups = self.find('.' + cls + '-groups');
-		self.template = Tangular.compile('<div class="component invisible{{ if inputs && inputs.length }} hasinputs{{ fi }}{{ if outputs && outputs.length }} hasoutputs{{ fi }}{{ if component }} f-{{ component }}{{ fi }}" data-id="{{ id }}" style="top:{{ y }}px;left:{{ x }}px"><div class="area"><div class="content">{{ html | raw }}</div>{{ if inputs && inputs.length }}<div class="inputs">{{ foreach m in inputs }}<div class="input" data-index="{{ if m.id }}{{ m.id }}{{ else }}{{ $index }}{{ fi }}"><i class="component-io"></i><span>{{ if m.name }}{{ m.name | raw }}{{ else }}{{ m | raw }}{{ fi }}</span></div>{{ end }}</div>{{ fi }}{{ if outputs && outputs.length }}<div class="outputs">{{ foreach m in outputs }}<div class="output{{ if m.type }} output-{{ m.type }}{{ fi }}" data-index="{{ if m.id }}{{ m.id }}{{ else }}{{ $index }}{{ fi }}"><i class="component-io"></i><span>{{ if m.name }}{{ m.name | raw }}{{ else }}{{ m | raw }}{{ fi }}</span></div>{{ end }}</div>{{ fi }}</div></div>');
+		self.template = Tangular.compile('<div class="component invisible{{ if inputs && inputs.length }} hasinputs{{ fi }}{{ if outputs && outputs.length }} hasoutputs{{ fi }}{{ if component }} f-{{ component }}{{ fi }}" data-id="{{ id }}" style="top:{{ y }}px;left:{{ x }}px"><div class="area"><div class="content">{{ html | raw }}</div>{{ if inputs && inputs.length }}<div class="inputs">{{ foreach m in inputs }}<div class="input" data-index="{{ if m.id }}{{ m.id }}{{ else }}{{ $index }}{{ fi }}"{{ if m.color }} style="color:{{ m.color }}"{{ fi }}><i class="component-io"></i><span>{{ if m.name }}{{ m.name | raw }}{{ else }}{{ m | raw }}{{ fi }}</span></div>{{ end }}</div>{{ fi }}{{ if outputs && outputs.length }}<div class="outputs">{{ foreach m in outputs }}<div class="output{{ if m.type }} output-{{ m.type }}{{ fi }}" data-index="{{ if m.id }}{{ m.id }}{{ else }}{{ $index }}{{ fi }}"{{ if m.color }} style="color:{{ m.color }}"{{ fi }}><i class="component-io"></i><span>{{ if m.name }}{{ m.name | raw }}{{ else }}{{ m | raw }}{{ fi }}</span></div>{{ end }}</div>{{ fi }}</div></div>');
 		self.aclass(cls + '-' + (config.horizontal ? 'h' : 'v'));
 
 		drag.touchmove = function(e) {
@@ -222,7 +223,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;markers:1;curvedlines:1;horizo
 
 				html = $(html);
 				self.append(html);
-				el = self.find('.component[data-id="{id}"]'.arg(com));
+				el = self.find('.component[data-id="{id}"]'.args(com));
 
 				if (com.tab) {
 					el.aclass('tab-' + com.tab);
@@ -256,7 +257,7 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;markers:1;curvedlines:1;horizo
 			if (!com.connections)
 				com.connections = {};
 
-			self.cache[key] = { id: key, instance: com, el: el, checksum: checksum, actions: com.actions || {} };
+			self.cache[key] = { id: key, instance: com, el: el, outputs: el.find('.outputs'), inputs: el.find('.inputs'), checksum: checksum, actions: com.actions || {} };
 		}
 
 		if (!value.groups)
@@ -283,7 +284,8 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;markers:1;curvedlines:1;horizo
 			ondone && ondone(tmp.el, tmp.instance);
 		}
 
-		self.el.lines.find('path').aclass('removed');
+		for (var m of self.connections)
+			m.path.aclass('removed');
 
 		var reconnect = function() {
 
@@ -299,17 +301,27 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;markers:1;curvedlines:1;horizo
 			for (var key of keys) {
 				tmp = self.cache[key];
 				if (tmp) {
-					tmp.el.rclass('invisible');
+					tmp.el[0].classList.remove('invisible');
 					tmp.width = tmp.el.width();
 					tmp.instance.connections && self.reconnect(tmp);
 				}
 			}
 
-			self.find('.removed').remove();
+			var arr = self.find('.removed');
+
+			for (var m of arr) {
+				for (var i = 0; i < self.connections.length; i++) {
+					if (self.connections[i].path[0] === m) {
+						self.connections.splice(i, 1);
+						break;
+					}
+				}
+			}
+
+			arr.remove();
 			rebuilding = false;
 
-			for (var i = 0; i < removedconn.length; i++) {
-				var conn = removedconn[i];
+			for (var conn of removedconn) {
 				self.helpers.checkconnectedinput(conn.toid, conn.toindex);
 				self.helpers.checkconnectedoutput(conn.fromid, conn.fromindex);
 				var com = self.find('.component[data-id="' + conn.fromid + '"]');
@@ -347,18 +359,26 @@ COMPONENT('flow', 'width:6000;height:6000;grid:25;markers:1;curvedlines:1;horizo
 	self.reconnect = function(m) {
 
 		for (var index in m.instance.connections) {
-			var output = m.el.find('.output[data-index="{0}"]'.format(index));
+
+			var output = m.outputs.find('> .output[data-index="{0}"]'.format(index));
 			var inputs = m.instance.connections[index];
 			var problem = false;
+
 			for (var j = 0; j < inputs.length; j++) {
 				var com = inputs[j];
-				var el = self.find('.component[data-id="{0}"]'.format(com.id));
-				var input = el.find('.input[data-index="{0}"]'.format(com.index));
-				if (!self.el.connect(output, input, true, com)) {
+				var instance = self.cache[com.id];
+				if (instance) {
+					var input = instance.inputs ? instance.inputs.find('> .input[data-index="{0}"]'.format(com.index)) : null;
+					if (!input || !self.el.connect(output, input, true, com)) {
+						inputs[j] = null;
+						problem = true;
+					}
+				} else {
 					inputs[j] = null;
 					problem = true;
 				}
 			}
+
 			if (problem) {
 				index = 0;
 				while (true) {
@@ -515,13 +535,35 @@ EXTENSION('flow:helpers', function(self, config) {
 	};
 
 	self.helpers.checkconnectedoutput = function(id, index) {
-		var is = !!self.el.lines.find('.from' + D + id + D + index).length;
-		self.find('.component[data-id="{0}"]'.format(id)).find('.output[data-index="{0}"]'.format(index)).tclass('connected', is);
+
+		var cls = 'from' + D + id + D + index;
+		var is = false;
+
+		for (var m of self.connections) {
+			if (m.classes[cls]) {
+				is = true;
+				break;
+			}
+		}
+
+		var instance = self.cache[id];
+		instance && instance.el.find('.output[data-index="{0}"]'.format(index)).tclass('connected', is);
 	};
 
 	self.helpers.checkconnectedinput = function(id, index) {
-		var is = !!self.el.lines.find('.to' + D + id + D + index).length;
-		self.find('.component[data-id="{0}"]'.format(id)).find('.input[data-index="{0}"]'.format(index)).tclass('connected', is);
+
+		var cls = 'to' + D + id + D + index;
+		var is = false;
+
+		for (var m of self.connections) {
+			if (m.classes[cls]) {
+				is = true;
+				break;
+			}
+		}
+
+		var instance = self.cache[id];
+		instance && instance.el.find('.input[data-index="{0}"]'.format(index)).tclass('connected', is);
 	};
 
 	self.helpers.move2 = function(x4, y4, conn, findex, tindex) {
@@ -790,6 +832,19 @@ EXTENSION('flow:operations', function(self, config, cls) {
 		}
 	};
 
+	var clearcacheconnections = function() {
+		var index = 0;
+		while (true) {
+			var item = self.connections[index];
+			if (!item)
+				break;
+			if (item.path[0].parentNode)
+				index++;
+			else
+				self.connections.splice(index, 1);
+		}
+	};
+
 	self.op.remove = function(id, noundo) {
 
 		var tmp = self.cache[id];
@@ -812,7 +867,7 @@ EXTENSION('flow:operations', function(self, config, cls) {
 			return false;
 		}
 
-		if (tmp.actions.remove === false)
+		if (tmp.actions && tmp.actions.remove === false)
 			return false;
 
 		tmp.instance.onremove && tmp.instance.onremove(tmp.el, tmp.instance);
@@ -823,6 +878,8 @@ EXTENSION('flow:operations', function(self, config, cls) {
 
 		self.el.lines.find('.from' + D + id).remove();
 		self.el.lines.find('.to' + D + id).remove();
+
+		clearcacheconnections();
 
 		// browse all components and find dependencies to this component
 		for (var key in self.cache)
@@ -931,7 +988,20 @@ EXTENSION('flow:operations', function(self, config, cls) {
 		if (!noundo)
 			self.op.undo({ type: 'disconnect', fromid: fromid, toid: toid, fromindex: fromindex, toindex: toindex });
 
-		self.el.lines.find('.conn{0}{1}{2}{3}'.format(D + fromid, D + toid, D + fromindex, D + toindex)).remove();
+		var id = 'conn{0}{1}{2}{3}'.format(D + fromid, D + toid, D + fromindex, D + toindex);
+		var rem = [];
+
+		for (var m of self.connections) {
+			if (m.classes[id])
+				rem.push(m);
+		}
+
+		for (var m of rem) {
+			var index = self.connections.indexOf(m);
+			self.connections.splice(index, 1);
+			m.path.remove();
+		}
+
 		self.op.modified();
 		self.helpers.checkconnected(a);
 		self.helpers.checkconnectedoutput(fromid, fromindex);
@@ -953,11 +1023,9 @@ EXTENSION('flow:operations', function(self, config, cls) {
 
 		repositionpending = false;
 
-		var arr = self.el.lines.find('.connection');
+		for (var conn of self.connections) {
 
-		for (var i = 0; i < arr.length; i++) {
-
-			var path = $(arr[i]);
+			var path = conn.path;
 			if (path.hclass('removed'))
 				continue;
 
@@ -966,11 +1034,19 @@ EXTENSION('flow:operations', function(self, config, cls) {
 			if (!meta)
 				continue;
 
-			var output = self.find('.component[data-id="{0}"]'.format(meta.fromid)).find('.output[data-index="{0}"]'.format(meta.fromindex));
+			var outputinstance = self.cache[meta.fromid];
+			if (!outputinstance)
+				continue;
+
+			var output = outputinstance.outputs.find('> .output[data-index="{0}"]'.format(meta.fromindex));
 			if (!output.length)
 				continue;
 
-			var input = self.find('.component[data-id="{0}"]'.format(meta.toid)).find('.input[data-index="{0}"]'.format(meta.toindex));
+			var inputinstance = self.cache[meta.toid];
+			if (!inputinstance)
+				continue;
+
+			var input = inputinstance.inputs.find('> .input[data-index="{0}"]'.format(meta.toindex));
 			if (!input.length)
 				continue;
 
@@ -988,7 +1064,7 @@ EXTENSION('flow:operations', function(self, config, cls) {
 				path.rclass2('connection-type-');
 
 				if (output && output.type) {
-					path.aclass('connection-type-' + output.type);
+					path.aclass('connection-type-' + (output.type || 'output'));
 					if (config.markers && output.type === 'transform')
 						marker = 'url(#{0}-arrow)'.format(cls);
 				}
@@ -1515,7 +1591,7 @@ EXTENSION('flow:components', function(self, config) {
 
 		self.op.unselect('connections');
 
-		if (tmp.actions.select !== false) {
+		if (tmp.actions && tmp.actions.select !== false) {
 			var is = ismeta;
 			if (!is)
 				is = target.hclass(clssel);
@@ -1524,7 +1600,7 @@ EXTENSION('flow:components', function(self, config) {
 
 		setTimeout(selectconnections, 5);
 
-		if (tmp.actions.move === false)
+		if (tmp.actions && tmp.actions.move === false)
 			return;
 
 		self.preventreposition = true;
@@ -1681,7 +1757,7 @@ EXTENSION('flow:connections', function(self, config, cls) {
 		var com = target.closest('.component');
 		var tmp = self.cache[com.attrd('id')];
 
-		if (tmp.actions.disabled || tmp.actions.connect === false)
+		if (tmp.actions && (tmp.actions.disabled || tmp.actions.connect === false))
 			return;
 
 		var offset = self.getOffset();
@@ -1731,16 +1807,31 @@ EXTENSION('flow:connections', function(self, config, cls) {
 
 		var a = self.helpers.position(output, true);
 		var b = self.helpers.position(input);
-		var path = self.el.lines.asvg('path');
 
-		path.aclass('connection from' + D + a.id + ' to' + D + b.id + ' from' + D + a.id + D + a.index + ' to' + D + b.id + D + b.index + ' conn' + D + a.id + D + b.id + D + a.index + D + b.index + (HIDDEN(self.element) ? ' hidden' : ''));
+		var cls2 = 'conn' + D + a.id + D + b.id + D + a.index + D + b.index;
+		var newbie = true;
+		var path;
+
+		for (var m of self.connections) {
+			if (m.classes[cls2]) {
+				path = m.path.rclass('removed');
+				newbie = false;
+				break;
+			}
+		}
+
+		if (!path) {
+			path = self.el.lines.asvg('path');
+			path.aclass('connection from' + D + a.id + ' to' + D + b.id + ' from' + D + a.id + D + a.index + ' to' + D + b.id + D + b.index + ' conn' + D + a.id + D + b.id + D + a.index + D + b.index + (HIDDEN(self.element) ? ' hidden' : ''));
+			path.attrd('fromindex', a.index);
+			path.attrd('toindex', b.index);
+			path.attrd('from', a.id);
+			path.attrd('to', b.id);
+		}
+
 		path.attrd('offset', a.x + ',' + a.y + ',' + b.x + ',' + b.y);
-		path.attrd('fromindex', a.index);
-		path.attrd('toindex', b.index);
 		path.attrd('fromindexoffset', a.indexoffset);
 		path.attrd('toindexoffset', b.indexoffset);
-		path.attrd('from', a.id);
-		path.attrd('to', b.id);
 
 		if (config.markers)
 			path.attr('marker-end', 'url(#{0}-arrow)'.format(cls));
@@ -1751,7 +1842,11 @@ EXTENSION('flow:connections', function(self, config, cls) {
 			path.css({ stroke: color });
 		}
 
-		input.add(output).aclass('connected');
+		if (newbie)
+			input.add(output);
+
+		output.aclass('connected');
+		input.aclass('connected');
 
 		if (init) {
 			var kp = 'input' + D + b.id + D + b.index;
@@ -1767,7 +1862,7 @@ EXTENSION('flow:connections', function(self, config, cls) {
 
 		var outputmeta = typeof(ac.outputs[0]) === 'object' ? ac.outputs.findItem('id', a.index) : null;
 		if (outputmeta) {
-			path.aclass('connection-type-' + outputmeta.type);
+			path.aclass('connection-type-' + (outputmeta.type || 'output'));
 			if (config.markers && outputmeta.type === 'transform')
 				path.attr('marker-start', 'url(#{0}-arrow)'.format(cls));
 		}
@@ -1805,22 +1900,32 @@ EXTENSION('flow:connections', function(self, config, cls) {
 
 		output.closest('.component').aclass('connected');
 
-		var meta = {};
-		meta.output = ac;
-		meta.input = data[b.id];
-		meta.fromid = a.id;
-		meta.toid = b.id;
-		meta.fromindex = a.index;
-		meta.toindex = b.index;
-		meta.path = path;
-		meta.init = init;
-		ac.onconnect && ac.onconnect.call(ac, meta);
-		bc.onconnect && bc.onconnect.call(bc, meta);
-		config.onconnect && self.EXEC(config.onconnect, meta);
+		if (newbie) {
+			var meta = {};
+			meta.output = ac;
+			meta.input = data[b.id];
+			meta.fromid = a.id;
+			meta.toid = b.id;
+			meta.fromindex = a.index;
+			meta.toindex = b.index;
+			meta.path = path;
+			meta.init = init;
+			meta.classes = {};
 
-		if (!init) {
-			self.op.undo({ type: 'connect', fromid: meta.fromid, toid: meta.toid, fromindex: meta.fromindex + '', toindex: meta.toindex + '' });
-			self.op.modified();
+			var arr = path.attr('class').split(' ');
+			for (var m of arr)
+				meta.classes[m] = 1;
+
+			ac.onconnect && ac.onconnect.call(ac, meta);
+			bc.onconnect && bc.onconnect.call(bc, meta);
+			config.onconnect && self.EXEC(config.onconnect, meta);
+
+			if (!init) {
+				self.op.undo({ type: 'connect', fromid: meta.fromid, toid: meta.toid, fromindex: meta.fromindex + '', toindex: meta.toindex + '' });
+				self.op.modified();
+			}
+
+			self.connections.push(meta);
 		}
 
 		return true;
@@ -2023,6 +2128,38 @@ EXTENSION('flow:commands', function(self, config, cls) {
 		if (!path.length || (self.animations[id] > opt.limit) || document.hidden)
 			return;
 
+		var execanim = function(self, el, dom, opt, line2) {
+			var fn = function() {
+				dom.$count += (opt.speed || 3);
+				if (document.hidden || !dom.$path || !dom.$path.parentNode || dom.$token !== self.animations_token) {
+					el.remove();
+					el = null;
+					if (self.animations[id])
+						self.animations[id]--;
+					if (animationcount > 0)
+						animationcount--;
+					if (line2.$flowanimcount > 0)
+						line2.$flowanimcount--;
+					return;
+				}
+
+				if (dom.$count >= 100) {
+					if (animationcount > 0)
+						animationcount--;
+					if (self.animations[id] > 0)
+						self.animations[id]--;
+					if (line2.$flowanimcount > 0)
+						line2.$flowanimcount--;
+					el.remove();
+					el = null;
+					return;
+				} else
+					el.attr('transform', translate_path(dom.$count, dom.$path, opt.reverse));
+				requestAnimationFrame(fn);
+			};
+			requestAnimationFrame(fn);
+		};
+
 		var add = function(next) {
 			for (var i = 0; i < path.length; i++) {
 
@@ -2058,41 +2195,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 				else
 					self.animations[id] = 1;
 
-				(function(self, el, dom, opt, line2) {
-
-					var fn = function() {
-
-						dom.$count += (opt.speed || 3);
-
-						if (document.hidden || !dom.$path || !dom.$path.parentNode || dom.$token !== self.animations_token) {
-							el.remove();
-							el = null;
-							if (self.animations[id])
-								self.animations[id]--;
-							if (animationcount > 0)
-								animationcount--;
-							if (line2.$flowanimcount > 0)
-								line2.$flowanimcount--;
-							return;
-						}
-
-						if (dom.$count >= 100) {
-							if (animationcount > 0)
-								animationcount--;
-							if (self.animations[id] > 0)
-								self.animations[id]--;
-							if (line2.$flowanimcount > 0)
-								line2.$flowanimcount--;
-							el.remove();
-							el = null;
-							return;
-						} else
-							el.attr('transform', translate_path(dom.$count, dom.$path, opt.reverse));
-
-						requestAnimationFrame(fn);
-					};
-					requestAnimationFrame(fn);
-				})(self, el, dom, opt, line);
+				execanim(self, el, dom, opt, line);
 			}
 
 			next && setTimeout(next, opt.delay || 50);
@@ -2173,11 +2276,13 @@ EXTENSION('flow:commands', function(self, config, cls) {
 			}
 		}
 
-		if (zoom >= 0.3 || zoom <= 1.7) {
+		if (zoom >= 0.3 && zoom <= 1.7) {
 			self.info.zoom = 100 * zoom;
 			self.op.refreshinfo();
+			// @TODO: fix scrolling position after zooming
 			self.element.css('transform', 'scale({0})'.format(zoom));
-		}
+		} else
+			zoom = (self.info.zoom / 100);
 
 	});
 

@@ -1,31 +1,32 @@
 ## j-Section
 
+- jComponent `v19|v20`
 - keeps a fixed percentage height
 - great usage for intranet applications
 - supports `releasing`
 
 __Configuration__:
 
-- `height` {Number} a percentage of height
-- `parent` {String} optional, a container with fixed height, can be `window`. Default value: `parent` element.
-- `minheight` {Number} a minimal height in pixels (default: `0` - disabled)
-- `scroll` {Boolean} enables vertical scrolling (default: `false` - disabled)
-- `scrollbar` {Boolean} shows scrollbar (default: `false`)
-- `delay` {Number} `msec.` resizes the box again if the value is changed according to the path (default: `100`)
-- `visibleY` {Boolean} still shows `Y` scrollbar (default: `false`)
-- `visibleX` {Boolean} still shows `X` scrollbar (default: `false`)
-- `scrolltop` {Boolean} scrolls to top automatically if the `path` is changed (default: `false`)
-- `margin` {Number} optional, a top/bottom margin together (supports `auto` which is counted from `offset.top`, default: `0`)
-- `marginxs` {Number} optional, a top/bottom margin together for `xs` screen width
+- `height {Number}` a percentage of height
+- `parent {String}` optional, a container with fixed height, can be `window`. Default value: `parent` element.
+- `minheight {Number}` a minimal height in pixels (default: `0` - disabled)
+- `scroll {Boolean}` enables vertical scrolling (default: `false` - disabled)
+- `scrollbar {Boolean}` shows scrollbar (default: `false`)
+- `delay {Number}` `msec.` resizes the box again if the value is changed according to the path (default: `100`)
+- `visibleY {Boolean}` still shows `Y` scrollbar (default: `false`)
+- `visibleX {Boolean}` still shows `X` scrollbar (default: `false`)
+- `scrolltop {Boolean}` scrolls to top automatically if the `path` is changed (default: `false`)
+- `margin {Number}` optional, a top/bottom margin together (supports `auto` which is counted from `offset.top`, default: `0`)
+- `marginxs {Number}` optional, a top/bottom margin together for `xs` screen width
 - `marginsm` optional, a top/bottom margin together for `sm` screen width
 - `marginmd` optional, a top/bottom margin together for `md` screen width
 - `marginlg` optional, a top/bottom margin together for `lg` screen width
-- `invisible` {Boolean} if `true` then section sets `invisible` class when is rendering (default: `true`)
-- `autofocus` {Boolean/String} can focus an input. `String` === `jQuery selector` for the input
-- `back` {String} a title for back button (default: `Back`)
-- `delayanim` {Number} animation delay (default: `100`)
-- __NEW__ `scrollbarshadow` {Boolean} adds shadow for scrollbars (default: `false`)
-- __NEW__ `backexec` {String} a link to the `function(parent)` that captures back button (it prevents standard behaviour)
+- `invisible {Boolean}` if `true` then section sets `invisible` class when is rendering (default: `true`)
+- `autofocus {Boolean/String}` can focus an input. `String` === `jQuery selector` for the input
+- `back {String}` a title for back button (default: `Back`)
+- `delayanim {Number}` animation delay (default: `100`)
+- `scrollbarshadow {Boolean}` adds shadow for scrollbars (default: `false`)
+- `backexec {String}` a link to the `function(parent)` that captures back button (it prevents standard behaviour)
 
 __Methods__:
 
@@ -41,7 +42,7 @@ __Methods__:
 __Definition__:
 
 ```html
-<div data---="section__path">
+<ui-component name="section" path="path">
 
 	<!-- path must have same value as "data-if" attribute -->
 	<section data-if="1" data-title="A title">
@@ -67,7 +68,7 @@ __Definition__:
 	<!-- Template from URL address -->
 	<section data-if="4" data-parent="2" data-title="A title" data-url="LINK_TO_HTML_TEMPLATE"></section>
 
-</div>
+</ui-component>
 ```
 
 __Section attributes__:
@@ -84,8 +85,8 @@ __Good to know__:
 - If you want to add an additional content into the header to right side, just append inside of component e.g. `<div>BUTTON</div>`.
 - You can dynamically insert/remove sections via `component.import()` or `component.cancel()` methods.
 - All section's attributes can be changed dynamically (e.g. `data-title`, `data-parent`, etc.).
-- __NEW__: all `~PATH~` phrases will be replaced for the `data-if` attribute value
-- __NEW__: all `~ID~` phrases will be replaced for the `data-if` attribute value
+- all `~PATH~` phrases will be replaced for the `data-if` attribute value
+- all `~ID~` phrases will be replaced for the `data-if` attribute value
 - `SET('path', 'if', 'right')` will animated the content to the right side
 
 ### Author

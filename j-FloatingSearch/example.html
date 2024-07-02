@@ -1,12 +1,12 @@
 <div style="position:relative">
 	<ui-component name="floatingsearch" path="pathtosearch"></ui-component>
 	<div style="height:45px;background-color:#F0F0F0;line-height:45px;padding:0 12px;">
-		<ui-bind path="null" config="click:showsearch" class="pull-right"><i class="ti ti-search"></i></ui-bind>
+		<div class="exec pull-right" data-exec="showsearch"><i class="ti ti-search"></i></div>
 		TOOLBAR
 	</div>
 </div>
 <br />
-<ui-bind name="pathtosearch" config="text b" class="block">You're searching: <b></b></ui-bind>
+<ui-bind path="pathtosearch" config="text b" class="block">You're searching: <b></b></ui-bind>
 
 <script>
 	function showsearch() {

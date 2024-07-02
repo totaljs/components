@@ -1,4 +1,4 @@
-COMPONENT('error', function(self, config, cls) {
+COMPONENT('error', 'icon:ti ti-warning', function(self, config, cls) {
 
 	self.readonly();
 	self.nocompile && self.nocompile();
@@ -16,7 +16,7 @@ COMPONENT('error', function(self, config, cls) {
 
 		var builder = [];
 		for (var i = 0, length = value.length; i < length; i++)
-			builder.push('<div><i class="ti {1}"></i>{0}</div>'.format(value[i].error, 'ti-' + (config.icon || 'times-circle')));
+			builder.push('<div><i class="{1}"></i>{0}</div>'.format(value[i].error, self.icon(config.icon)));
 
 		self.html(builder.join(''));
 		self.tclass('hidden', false);

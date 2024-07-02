@@ -1,6 +1,6 @@
 ﻿## j-Avatar
 
-- easy usage
+- jComponent `v19|v20`
 - supports themes
 - it's singleton
 - inspiration from `react-user-avatar`

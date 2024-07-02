@@ -50,13 +50,13 @@ COMPONENT('codemirror', 'linenumbers:true;required:false;trim:false;tabs:true;he
 	self.resizeforce = function() {
 		if (config.parent) {
 			var parent = self.parent(config.parent);
-			var h = parent.height();
+			var h = parent.height() - config.margin;
 
 			if (h < config.minheight)
 				h = config.minheight;
 
-			editor.setSize('100%', (h - config.margin) + 'px');
-			self.css('height', h - config.margin);
+			editor.setSize('100%', h + 'px');
+			self.css('height', h);
 		} else
 			editor.setSize('100%', config.height + 'px');
 	};
@@ -111,7 +111,20 @@ COMPONENT('codemirror', 'linenumbers:true;required:false;trim:false;tabs:true;he
 		editor = CodeMirror(container[0], options);
 		self.editor = editor;
 
+		var isfirefox = navigator.userAgent.includes('Firefox');
+
 		editor.on('keydown', function(editor, e) {
+
+			if ((e.ctrlKey || e.metaKey) && isfirefox) {
+				switch (e.code) {
+					case 'BracketRight':
+					case 'BracketLeft':
+						editor.execCommand('indent' + (e.code === 'BracketLeft' ? 'Less' : 'More'));
+						e.stopPropagation();
+						e.preventDefault();
+						return;
+				}
+			}
 
 			if (e.shiftKey && e.ctrlKey && (e.keyCode === 40 || e.keyCode === 38)) {
 				var tmp = editor.getCursor();

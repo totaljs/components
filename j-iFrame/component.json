@@ -1,10 +1,8 @@
 {
 	"datecreated": "2023-03-31T20:16:00.001Z",
-	"dateupdated": "2023-04-01T16:07:00.001Z",
+	"dateupdated": "2023-04-01T16:07:01.001Z",
 	"name": "j-iFrame",
-	"tags": [
-		"iframe"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": false,

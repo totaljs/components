@@ -1,15 +1,17 @@
 ## j-DatePicker
 
+- jComponent `v19|v20`
 - it's improved clone of `j-Calendar`
 - supports __dark mode__
 - supports __touch gestures (swipe)__ and fixed full size on mobile
 
 __Configuration__:
 
-- `firstday` {Number} first day in the week
-- `today` {String} a label for `Set today` button
-- `days` {String} days e.g. `SU,MO,TU,WE,TH,FR,SA` (default).
-- `months` {String} months e.g. `January,February,...` (default).
+- `firstday {Number}` first day in the week (default: `DEF.firstdayofweek`)
+- `today {String}` a label for the `Set today` button
+- `clear {String}` a label for the `Clear` button
+- `days {String}` days e.g. `SU,MO,TU,WE,TH,FR,SA` (default).
+- `months {String}` months e.g. `January,February,...` (default).
 
 The component must be called manually or works with `j-Input` component automatically. The component is a singleton.
 

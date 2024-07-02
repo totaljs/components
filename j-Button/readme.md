@@ -2,6 +2,7 @@
 
 A simple button component with great features.
 
+- jComponent `v19`
 - fully responsive
 - supports validation
 

@@ -1,5 +1,4 @@
-.ui-timepicker { position: absolute; background-color: #FFF; border-radius: var(--radius); height: 70px; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.25s; transform: scale(0.5); transform-origin: left top; border: 1px solid #E0E0E0; z-index: 100; }
-.ui-timepicker-visible { transform: scale(1); }
+.ui-timepicker { position: absolute; background-color: #FFF; border-radius: var(--radius); height: 70px; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #E0E0E0; z-index: 100; }
 .ui-timepicker-0 { width: 82px; }
 .ui-timepicker-1 { width: 122px; }
 .ui-timepicker-2 { width: 162px; }
@@ -11,7 +10,7 @@
 .ui-timepicker-seconds { border-left: 1px solid #F0F0F0; }
 .ui-timepicker-ampm { border-left: 1px solid #F0F0F0; }
 .ui-timepicker-ampm span { height: 30px; display: block; line-height: 30px; text-align: center; }
-.ui-timepicker input { display: block; width: 100%; border: 0; background-color: #FFF; text-align: center; outline: 0; height: 30px; color: #000000; }
+.ui-timepicker input { display: block; width: 100%; border: 0; background-color: #FFF; text-align: center; outline: 0; height: 30px; color: #000; }
 
 .ui-dark .ui-timepicker { background-color: #303030; border-color: #353535; color: #A0A0A0; box-shadow: 1px 5px 10px rgba(0,0,0,0.2); }
 .ui-dark .ui-timepicker input { background-color: #303030; color: #FFF; }

@@ -284,7 +284,7 @@ COMPONENT('infowindows', 'reoffsetresize:0', function(self, config, cls) {
 			drag.el.css({ left: drag.x, top: drag.y, width: item.width });
 			drag.body.css({ height: item.height });
 			meta.resize && meta.resize.call(item, item.width, item.height, drag.body, item.x, item.y);
-			self.element.SETTER('*', 'resize');
+			self.element.SETTER('*/resize');
 		}
 
 		meta.move && meta.move.call(item, item.x, item.y, drag.body);
@@ -349,7 +349,7 @@ COMPONENT('infowindows', 'reoffsetresize:0', function(self, config, cls) {
 
 		hidden = ishidden ? ' hidden' : '';
 
-		var el = $('<div class="{0}-item{1}" data-id="{id}" style="left:{x}px;top:{y}px;width:{width}px"><span class="{0}-resize {0}-resize-tl"></span><span class="{0}-resize {0}-resize-tr"></span><span class="{0}-resize {0}-resize-bl"></span><span class="{0}-resize {0}-resize-br"></span><div class="{0}-title"><i class="ti ti-times {0}-control" data-name="close"></i><span>{{ title }}</span></div><div class="{0}-body" style="height:{height}px"></div></div>'.format(cls, hidden).arg(item.offset).arg(item));
+		var el = $('<div class="{0}-item{1}" data-id="{id}" style="left:{x}px;top:{y}px;width:{width}px"><span class="{0}-resize {0}-resize-tl"></span><span class="{0}-resize {0}-resize-tr"></span><span class="{0}-resize {0}-resize-bl"></span><span class="{0}-resize {0}-resize-br"></span><div class="{0}-title"><i class="ti ti-times {0}-control" data-name="close"></i><span>{{ title }}</span></div><div class="{0}-body" style="height:{height}px"></div></div>'.format(cls, hidden).args(item.offset).args(item));
 		var body = el.find(cls2 + '-body');
 		var pos;
 
@@ -395,7 +395,7 @@ COMPONENT('infowindows', 'reoffsetresize:0', function(self, config, cls) {
 
 		obj.emitresize = function() {
 			obj.ert = null;
-			obj.element.SETTER('*', 'resize');
+			obj.element.SETTER('*/resize');
 		};
 
 		obj.setsize = function(w, h) {

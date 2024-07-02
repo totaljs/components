@@ -1,15 +1,38 @@
 COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:id;increment:1;format:auto;autovalue:name;direxclude:false;checkicon:ti ti-check;forcevalidation:1;searchalign:1;height:80;tabs:1;after:\\:', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
-	var input, placeholder, dirsource, binded, customvalidator, mask, rawvalue, isdirvisible = false, nobindcamouflage = false, focused = false;
+	var input, placeholder, dirsource, binded, customvalidator, customtransformer, mask, rawvalue, isdirvisible = false, nobindcamouflage = false, focused = false;
 
 	self.nocompile();
+
+	// jComponent +v20
+	self.autobind20 && self.autobind20();
 
 	self.init = function() {
 		Thelpers.ui_input_icon = function(val) {
 			return val.charAt(0) === '!' || val.indexOf(' ') !== -1 ? ('<span class="ui-input-icon-custom">' + (val.charAt(0) === '!' ? val.substring(1) : ('<i class="' + val) + '"></i>') + '</span>') : ('<i class="ti ti-' + val + '"></i>');
 		};
-		W.ui_input_template = Tangular.compile(('{{ if label }}<div class="{0}-label">{{ if icon }}<i class="{{ icon }}"></i>{{ fi }}{{ label | raw }}{{ after | raw }}</div>{{ fi }}<div class="{0}-control{{ if licon }} {0}-licon{{ fi }}{{ if ricon || (type === \'number\' && increment) }} {0}-ricon{{ fi }}">{{ if ricon || (type === \'number\' && increment) }}<div class="{0}-icon-right{{ if type === \'number\' && increment && !ricon }} {0}-increment{{ else if riconclick || type === \'date\' || type === \'time\' || (type === \'search\' && searchalign === 1) || type === \'password\' }} {0}-click{{ fi }}">{{ if type === \'number\' && !ricon }}<i class="ti ti-caret-up"></i><i class="ti ti-caret-down"></i>{{ else }}{{ ricon | ui_input_icon }}{{ fi }}</div>{{ fi }}{{ if licon }}<div class="{0}-icon-left{{ if liconclick || (type === \'search\' && searchalign !== 1) }} {0}-click{{ fi }}">{{ licon | ui_input_icon }}</div>{{ fi }}<div class="{0}-input{{ if align === 1 || align === \'center\' }} center{{ else if align === 2 || align === \'right\' }} right{{ fi }}">{{ if placeholder }}<div class="{0}-placeholder">{{ placeholder }}</div>{{ fi }}{{ if dirsource || type === \'icon\' || type === \'emoji\' || type === \'color\' }}<div class="{0}-value" tabindex="{{ tabindex }}"></div>{{ else }}{{ if type === \'multiline\' }}<textarea data-jc-bind="" style="height:{{ height }}px" tabindex="{{ tabindex }}"></textarea>{{ else }}<input type="{{ if type === \'password\' }}password{{ else }}text{{ fi }}" tabindex="{{ tabindex }}" {{ if autofill }} autocomplete="on" name="{{ NAME }}"{{ else }} name="input' + Date.now() + '" autocomplete="new-password"{{ fi }} data-jc-bind=""{{ if maxlength > 0}} maxlength="{{ maxlength }}"{{ fi }}{{ if autofocus }} autofocus{{ fi }} />{{ fi }}{{ fi }}</div></div>{{ if error }}<div class="{0}-error hidden"><i class="ti ti-warning"></i> {{ error }}</div>{{ fi }}').format(cls));
+		W.ui_input_template = Tangular.compile(('{{ if label }}<div class="{0}-label">{{ if icon }}<i class="{{ icon }}"></i>{{ fi }}{{ label | raw }}{{ after | raw }}</div>{{ fi }}<div class="{0}-control{{ if licon }} {0}-licon{{ fi }}{{ if ricon || (type === \'number\' && increment) }} {0}-ricon{{ fi }}">{{ if ricon || (type === \'number\' && increment) }}<div class="{0}-icon-right{{ if type === \'number\' && increment && !ricon }} {0}-increment{{ else if riconclick || type === \'date\' || type === \'time\' || (type === \'search\' && searchalign === 1) || type === \'password\' }} {0}-click{{ fi }}">{{ if type === \'number\' && !ricon }}<i class="ti ti-caret-up"></i><i class="ti ti-caret-down"></i>{{ else }}{{ ricon | ui_input_icon }}{{ fi }}</div>{{ fi }}{{ if licon }}<div class="{0}-icon-left{{ if liconclick || (type === \'search\' && searchalign !== 1) }} {0}-click{{ fi }}">{{ licon | ui_input_icon }}</div>{{ fi }}<div class="{0}-input{{ if align === 1 || align === \'center\' }} center{{ else if align === 2 || align === \'right\' }} right{{ fi }}">{{ if placeholder }}<div class="{0}-placeholder">{{ placeholder }}</div>{{ fi }}{{ if dirsource || type === \'icon\' || type === \'emoji\' || type === \'color\' }}<div class="{0}-value" tabindex="{{ tabindex }}"></div>{{ else }}{{ if type === \'multiline\' }}<textarea data-jc-bind="" style="height:{{ height }}px" tabindex="{{ tabindex }}"></textarea>{{ else }}<input type="{{ if type === \'password\' }}password{{ else }}text{{ fi }}" tabindex="{{ tabindex }}" {{ if autofill }} autocomplete="on" name="{{ NAME }}"{{ else }} name="input' + Date.now() + '" autocomplete="new-password" spellcheck="false" role="combobox" aria-expanded="true" aria-invalid="false" aria-autocomplete="list" aria-expanded="true" aria-haspopup="false" autocapitalize="off" autocomplete="off" autocorrect="off"{{ fi }} data-jc-bind=""{{ if maxlength > 0}} maxlength="{{ maxlength }}"{{ fi }}{{ if autofocus }} autofocus{{ fi }} />{{ fi }}{{ fi }}</div></div>{{ if error }}<div class="{0}-error hidden"><i class="ti ti-warning"></i> {{ error }}</div>{{ fi }}').format(cls));
+	};
+
+	var dirsourceprepare = function(arr) {
+
+		if (!config.dirfilter)
+			return arr;
+
+		var fn = FN(config.dirfilter);
+		var output = [];
+		for (var m of arr) {
+			if (fn(m))
+				output.push(m);
+		}
+
+		return output;
+	};
+
+	var dirsourceread = function() {
+		var arr = GET(self.makepath(config.dirsource));
+		return dirsourceprepare(arr);
 	};
 
 	self.make = function() {
@@ -64,7 +87,8 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				val = false;
 			else
 				val = true;
-			self.set(val, 2);
+
+			self.set(self.itransform(val), 2);
 		});
 
 		self.event('focus', 'input,textarea,' + cls2 + '-value', function() {
@@ -86,17 +110,17 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					var val = typeof(value) === 'string' ? value : value[config.autovalue];
 					if (config.autoexec) {
 						self.EXEC(config.autoexec, value, function(val) {
-							self.set(val, 2);
+							self.set(self.itransform(val), 2);
 							self.change();
 							self.bindvalue();
 						});
 					} else {
-						self.set(val, 2);
+						self.set(self.itransform(val), 2);
 						self.change();
 						self.bindvalue();
 					}
 				};
-				SETTER('autocomplete', 'show', opt);
+				SETTER('autocomplete/show', opt);
 			} else if (config.mask) {
 				setTimeout(function(input) {
 					input.selectionStart = input.selectionEnd = 0;
@@ -115,7 +139,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 
 			if (config.mask) {
 				var val = (e.originalEvent.clipboardData || window.clipboardData).getData('text');
-				self.set(val.replace(/\s|\t/g, ''));
+				self.set(self.itransform(val.replace(/\s|\t/g, '')));
 				e.preventDefault();
 			}
 
@@ -246,6 +270,17 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			self.rclass(cls + '-focused');
 		});
 
+		self.itransform = function(value) {
+			if (customtransformer) {
+				return customtransformer(value);
+			} else if (config.transform) {
+				var fn = GET(self.makepath(config.transform));
+				if (fn)
+					value = fn.call(self, value, config);
+			}
+			return value;
+		};
+
 		self.event('click', cls2 + '-control', function() {
 
 			if (config.disabled || isdirvisible)
@@ -258,7 +293,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				opt.empty = true;
 				opt.callback = function(val) {
 					self.change(true);
-					self.set(val, 2);
+					self.set(self.itransform(val), 2);
 					self.check();
 					rawvalue[0].focus();
 				};
@@ -271,7 +306,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				opt.empty = true;
 				opt.callback = function(al) {
 					self.change(true);
-					self.set(al, 2);
+					self.set(self.itransform(al), 2);
 					self.check();
 					rawvalue[0].focus();
 				};
@@ -284,7 +319,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				opt.empty = true;
 				opt.callback = function(al) {
 					self.change(true);
-					self.set(al, 2);
+					self.set(self.itransform(al), 2);
 					self.check();
 					rawvalue[0].focus();
 				};
@@ -302,7 +337,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 
 			var opt = {};
 			opt.element = self.find(cls2 + '-control');
-			opt.items = dirsource || GET(self.makepath(config.dirsource));
+			opt.items = dirsource || dirsourceread();
 			opt.offsetY = -1 + (config.diroffsety || 0);
 			opt.offsetX = 0 + (config.diroffsetx || 0);
 			opt.placeholder = config.dirplaceholder;
@@ -341,18 +376,15 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					if (item)
 						item.selected = typeof(item) === 'object' && item[config.dirvalue] === val;
 				}
-			} else if (config.direxclude) {
-				opt.exclude = function(item) {
-					return item ? item[config.dirvalue] === val : false;
-				};
-			}
+			} else if (config.direxclude)
+				opt.exclude = item => item ? item[config.dirvalue] === val : false;
 
 			opt.callback = function(item, el, custom) {
 
 				// empty
 				if (item == null || (config.multiple && !item.length)) {
 					rawvalue.html('');
-					self.set(config.multiple ? [] : null, 2);
+					self.set(self.itransform(config.multiple ? [] : null), 2);
 					self.change();
 					self.check();
 					return;
@@ -367,7 +399,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 						arr.push(m[config.dirvalue || config.value]);
 					}
 
-					self.set(arr, 2);
+					self.set(self.itransform(arr), 2);
 					self.change(true);
 					// self.bindvalue();
 					return;
@@ -377,12 +409,13 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				if (custom && typeof(config.dircustom) === 'string') {
 					var fn = GET(self.makepath(config.dircustom));
 					fn(val, function(val) {
-						self.set(val, 2);
+						self.set(self.itransform(val), 2);
 						self.change(true);
 						self.bindvalue();
 					});
 				} else if (custom) {
 					if (val) {
+						val = self.itransform(val);
 						self.set(val, 2);
 						self.change(true);
 						if (dirsource)
@@ -391,6 +424,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 							input.val(val);
 					}
 				} else {
+					val = self.itransform(val);
 					self.set(val, 2);
 					self.change(true);
 					if (dirsource)
@@ -441,7 +475,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					opt.value = self.get();
 					opt.callback = function(val) {
 						self.change(true);
-						self.set(val);
+						self.set(self.itransform(val));
 					};
 					SETTER('datepicker/show', opt);
 				} else if (config.type === 'time') {
@@ -450,7 +484,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					opt.value = self.get();
 					opt.callback = function(val) {
 						self.change(true);
-						self.set(val);
+						self.set(self.itransform(val));
 					};
 					SETTER('timepicker/show', opt);
 				} else if (config.type === 'search')
@@ -463,7 +497,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 						var n = tmp.hclass('ti-caret-up') ? 1 : -1;
 						self.change(true);
 						var val = self.preparevalue((self.get() || 0) + (config.increment * n));
-						self.set(val, 2);
+						self.set(self.itransform(val), 2);
 					}
 				}
 				return;
@@ -518,7 +552,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			return true;
 
 		if (config.dirsource)
-			return !!value;
+			return config.multiple ? (value ? value.length > 0 : false) : (value != null && value !== '');
 
 		if (customvalidator)
 			return customvalidator(value);
@@ -788,7 +822,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 		var is = false;
 
 		if (config.type === 'checkbox') {
-			html = '<div class="{0}-checkbox"><span><i class="{checkicon}"></i></span><label>{label}</label></div>'.format(cls).arg(config);
+			html = '<div class="{0}-checkbox"><span><i class="{checkicon}"></i></span><label>{label}</label></div>'.format(cls).args(config);
 		} else {
 			is = true;
 			var opt = CLONE(config);
@@ -819,11 +853,11 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					self.bindvalue();
 				} else {
 					if (value.indexOf(',') !== -1) {
-						dirsource = self.parsesource(value);
+						dirsource = dirsourceprepare(self.parsesource(value));
 						self.bindvalue();
 					} else {
 						self.datasource(value, function(path, value) {
-							dirsource = value;
+							dirsource = dirsourceprepare(M.is20 ? path : value);
 							self.bindvalue();
 						});
 					}
@@ -844,7 +878,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				self.type = value;
 				break;
 			case 'validate':
-				customvalidator = value ? (/\(|=|>|<|\+|-|\)/).test(value) ? FN('value=>' + value) : (function(path) { path = self.makepath(path); return function(value) { return GET(path)(value); }; })(value) : null;
+				customvalidator = value ? (/\(|=|>|<|\+|-|\)/).test(value) ? (new Function('value', 'return ' + value)) : (function(path) { path = self.makepath(path); return function(value) { return GET(path)(value); }; })(value) : null;
 				break;
 			case 'innerlabel':
 				self.tclass(cls + '-inner', !!value);
@@ -852,6 +886,9 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				break;
 			case 'monospace':
 				self.tclass(cls + '-monospace', !!value);
+				break;
+			case 'transform':
+				customtransformer = value && (/\(|=|>|<|\+|-|\)/).test(value) ? (new Function('value', 'return ' + value)) : null;
 				break;
 			case 'maskregexp':
 				if (value) {
@@ -877,6 +914,8 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			switch (config.type) {
 				case 'id':
 					return (value + '').toLowerCase().replace(/[^a-z0-9]/g, '');
+				case 'slug':
+					return (value + '').slug();
 				case 'lower':
 					return (value + '').toLowerCase();
 				case 'upper':
@@ -916,6 +955,10 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					else
 						tmp = '';
 					return value + (tmp ? (' ' + tmp) : '');
+				case 'id':
+					return (value + '').toLowerCase().replace(/[^a-z0-9]/g, '');
+				case 'slug':
+					return (value + '').slug();
 				case 'lower':
 				case 'email':
 					value = value.toLowerCase();
@@ -944,9 +987,6 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					value.setMinutes((tmp[1] || '0').parseInt());
 					value.setSeconds((tmp[2] || '0').parseInt());
 					break;
-				case 'slug':
-					value = value.slug();	
-					break;
 			}
 		} else {
 			switch (config.type) {
@@ -960,7 +1000,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			}
 		}
 
-		return value ? config.spaces === false ? value.replace(/\s/g, '') : value : value;
+		return self.itransform(value ? config.spaces === false ? value.replace(/\s/g, '') : value : value);
 	});
 
 	self.state = function(type, what) {
@@ -975,7 +1015,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			var invalid = config.required ? self.isInvalid() : self.forcedvalidation() ? self.isInvalid() : false;
 			if (invalid !== self.$oldstate) {
 				self.$oldstate = invalid;
-				self.tclass(cls + '-invalid', invalid);
+				self.tclass(cls + '-invalid', !!invalid);
 				self.tclass(cls + '-ok', !invalid);
 				config.error && self.find(cls2 + '-error').tclass('hidden', !invalid);
 			}

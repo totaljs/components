@@ -41,8 +41,8 @@ COMPONENT('rules', 'dirsearch:Search', function(self, config, cls) {
 
 	self.forcechange = function() {
 		skip = true;
-		self.change(true);
 		self.update();
+		self.change(true);
 	};
 
 	self.make = function() {

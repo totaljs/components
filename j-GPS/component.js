@@ -32,7 +32,7 @@ COMPONENT('gps', 'watcher:1', function(self, config) {
 
 		cache = key;
 		self.emit('gps', obj);
-		self.set(obj);
+		self.bind('@modified', obj);
 	};
 
 	self.make = function() {

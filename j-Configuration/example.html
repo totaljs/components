@@ -4,17 +4,17 @@
 <ui-component name="LAZY icons"></ui-component>
 
 <ui-component name="configuration" path="config" class="invisible">
-	<script type="text/plain">
+	<script type="name/plain">
 		[
 			{
-				text: 'My group',
+				name: 'My group',
 				type: 'group',
 				summary: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam, nostrum.',
 				icon: 'ti ti-home'
 			},
 			{
-				name: 'name',
-				text: 'Application name',
+				id: 'name',
+				name: 'Application name',
 				type: 'string',
 				icon: 'ti ti-home',
 				disable: 'model => model.interval < 100',
@@ -24,8 +24,8 @@
 				required: true
 			},
 			{
-				name: 'name',
-				text: 'Application name',
+				id: 'name',
+				name: 'Application name',
 				type: 'string',
 				icon: 'ti ti-home',
 				note: 'ajldksasdljsalj',
@@ -34,57 +34,57 @@
 				required: true
 			},
 			{
-				name: 'date',
-				text: 'Date',
+				id: 'date',
+				name: 'Date',
 				type: 'date',
 				disable: 'model => model.interval < 100',
 				placeholder: 'Test',
 				summary: 'Lorem, ipsum dolor sit amet consectetur, adipisicing elit. Iste eos, illum voluptas assumenda sunt possimus necessitatibus nobis provident dicta deserunt.'
 			},
 			{
-				name: 'interval',
-				text: 'Backup interval',
+				id: 'interval',
+				name: 'Backup interval',
 				type: 'number',
 				min: 1,
 				summary: 'Lorem, ipsum dolor sit amet consectetur, adipisicing elit. Iste eos, illum voluptas assumenda sunt possimus necessitatibus nobis provident dicta deserunt.'
 			},
 			{
-				name: 'color',
-				text: 'Color',
+				id: 'color',
+				name: 'Color',
 				type: 'color',
 				disable: 'model => model.interval < 100',
 				summary: 'Lorem, ipsum dolor sit amet consectetur, adipisicing elit. Iste eos, illum voluptas assumenda sunt possimus necessitatibus nobis provident dicta deserunt.'
 			},
 			{
-				name: 'icon',
-				text: 'Icon',
+				id: 'icon',
+				name: 'Icon',
 				type: 'icon',
 				disable: 'model => model.interval < 100',
 				summary: 'Lorem, ipsum dolor sit amet consectetur, adipisicing elit. Iste eos, illum voluptas assumenda sunt possimus necessitatibus nobis provident dicta deserunt.'
 			},
 			{
-				name: 'interval',
-				text: 'Backup interval',
+				id: 'interval',
+				name: 'Backup interval',
 				type: 'number'
 			},
 			{
-				name: 'interval',
+				id: 'interval',
 				disable: 'model => model.interval < 100',
-				text: 'Backup interval',
+				name: 'Backup interval',
 				type: 'number'
 			},
 			{
-				name: 'city2',
+				id: 'city2',
 				items: [{ id: 'bb', name: 'BB', icon: 'ti ti-map-pin' }, { id: 'ba', name: 'BA', icon: 'ti ti-map-pin' }, { id: 'zv', name: 'ZV', icon: 'ti ti-map-pin' }, { id: 'se', name: 'SE', icon: 'ti ti-map-pin' }],
-				text: 'City',
+				name: 'City',
 				multiple: true,
 				dirempty: 'Empty',
 				type: 'selectable'
 			},
 			{
-				name: 'city',
+				id: 'city',
 				items: [{ id: 'bb', name: 'Banská Bystrica' }, { id: 'ba', name: 'Bratislava' }, { id: 'zv', name: 'Zvolen' }],
-				text: 'City',
+				name: 'City',
 				noborder: 1,
 				dirempty: 'Empty',
 				placeholder: 'Choose city',
@@ -92,21 +92,21 @@
 				type: 'dropdown'
 			},
 			{
-				text: 'System',
+				name: 'System',
 				type: 'group',
 				summary: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam, nostrum.',
 				icon: 'ti ti-home'
 			},
 			{
-				name: 'notes',
-				text: 'Multiline',
+				id: 'notes',
+				name: 'Multiline',
 				type: 'multiline',
 				placeholder: 'Test placeholder',
 				summary: 'Lorem, ipsum dolor sit amet consectetur, adipisicing elit. Iste eos, illum voluptas assumenda sunt possimus necessitatibus nobis provident dicta deserunt.'
 			},
 			{
-				name: 'newsletter',
-				text: 'Allow newsletter',
+				id: 'newsletter',
+				name: 'Allow newsletter',
 				type: 'boolean',
 				disable: 'model => model.interval < 100',
 				summary: 'Lorem, ipsum dolor sit amet consectetur, adipisicing elit. Iste eos, illum voluptas assumenda sunt possimus necessitatibus nobis provident dicta deserunt.'

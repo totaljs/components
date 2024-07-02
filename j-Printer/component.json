@@ -1,11 +1,8 @@
 {
-	"datecreated": "2023-03-30T20:28:00.000Z",
+	"datecreated": "2023-03-30T20:28:01.000Z",
 	"dateupdated": null,
 	"name": "j-Printer",
-	"tags": [
-		"printer",
-		"print"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"responsive": true,

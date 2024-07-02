@@ -20,7 +20,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 
 	Thelpers.ui_directory_helper = function(val) {
 		var t = this;
-		return t.template ? (typeof(t.template) === 'string' ? t.template.indexOf('{{') === -1 ? t.template : Tangular.render(t.template, this) : t.render(this, val)) : self.opt.render ? self.opt.render(this, val) : val;
+		return self.opt.templatecompiled ? self.opt.templatecompiled(this) : t.template ? (typeof(t.template) === 'string' ? t.template.indexOf('{{') === -1 ? t.template : Tangular.render(t.template, this) : t.render(this, val)) : self.opt.render ? self.opt.render(this, val) : val;
 	};
 
 	self.template = Tangular.compile(template);
@@ -43,7 +43,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 	self.make = function() {
 
 		self.aclass('hidden ' + cls + '-area');
-		self.append('<div class="{1}"><div class="{1}-search"><span class="{1}-add hidden"><i class="ti ti-plus"></i></span><span class="{1}-button"><i class="ti ti-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" name="dir{2}" autocomplete="new-password" /></div></div><div class="{1}-container"><ul></ul></div></div>'.format(config.placeholder, cls, Date.now()));
+		self.append('<div class="{1}"><div class="{1}-search"><span class="{1}-add hidden"><i class="ti ti-plus"></i></span><span class="{1}-button"><i class="ti ti-search"></i></span><div><input type="text" placeholder="{0}" class="{1}-search-input" name="dir{2}" spellcheck="false" role="combobox" aria-expanded="true" aria-invalid="false" aria-autocomplete="list" aria-expanded="true" aria-haspopup="false" autocapitalize="off" autocomplete="off" autocorrect="off" /></div></div><div class="{1}-container"><ul></ul></div></div>'.format(config.placeholder, cls, Date.now()));
 
 		customvalue = $('<li data-index="-2"></li>')[0];
 
@@ -194,17 +194,8 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 				case 13:
 					o = true;
 					var sel = self.find('li.current');
-					if (sel.hclass('ui-disabled'))
-						return;
-					if (self.opt.callback) {
-						self.opt.scope && M.scope(self.opt.scope);
-						var index = +sel.attrd('index');
-						if (self.opt.custom && (!sel.length || index === -2))
-							self.opt.callback(this.value, self.opt.element, true);
-						else if (self.opt.items[index])
-							self.opt.callback(self.opt.items[index], self.opt.element);
-					}
-					self.hide();
+					if (!sel.hclass('ui-disabled'))
+						sel.trigger('click');
 					break;
 				case 38: // up
 					o = true;
@@ -360,7 +351,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 						}
 
 						if (customvalue.parentNode)
-							customvalue.parentNode.removeChild(customvalue.parentNode);
+							customvalue.parentNode.removeChild(customvalue);
 
 						skipclear = true;
 						self.opt.items = items;
@@ -420,6 +411,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 		// opt.offsetWidth --> plusWidth
 		// opt.placeholder
 		// opt.render
+		// opt.template
 		// opt.custom
 		// opt.minwidth
 		// opt.maxwidth
@@ -437,7 +429,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 		var el = opt.element instanceof jQuery ? opt.element[0] : opt.element;
 
 		if (opt.items == null)
-			opt.items = EMPTYARRAY;
+			opt.items = [];
 
 		self.tclass(cls + '-default', !opt.render);
 
@@ -461,6 +453,9 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 				return;
 			}
 		}
+
+		if (opt.template)
+			opt.templatecompiled = Tangular.compile(opt.template);
 
 		self.initializing = true;
 		self.target = el;
@@ -622,8 +617,10 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 
 		mh += search.height();
 
-		if ((mh + options.top) > WH)
-			options.top = (WH - mh) - 10;
+		if ($(W).scrollTop() === 0) {
+			if ((mh + options.top) > WH)
+				options.top = (WH - mh) - 10;
+		}
 
 		if (options.top < 10)
 			options.top = 10;

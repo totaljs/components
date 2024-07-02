@@ -2,11 +2,7 @@
 	"datecreated": "2020-12-29T14:02:02.000Z",
 	"dateupdated": "2023-02-01T10:35:00.000Z",
 	"name": "j-RawEditable",
-	"tags": [
-		"textbox",
-		"input",
-		"element"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"responsive": true,

@@ -6,7 +6,8 @@ COMPONENT('aselected', 'selector:a;attr:href;class:selected;delay:300', function
 
 	self.make = function() {
 		self.refresh();
-		ON('location', self.refresh);
+		self.on('location', self.refresh);
+		config.watch && self.datasource(config.watch, self.setter);
 	};
 
 	self.refresh = function() {

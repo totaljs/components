@@ -1,11 +1,8 @@
 {
 	"datecreated": "2020-08-25T12:21:05.000Z",
-	"dateupdated": "2023-01-31T09:01:03.000Z",
+	"dateupdated": "2023-01-31T09:01:05.000Z",
 	"name": "j-FeedbackButton",
-	"tags": [
-		"feedback",
-		"button"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"darkmode": true,

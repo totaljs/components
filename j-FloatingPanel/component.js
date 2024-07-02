@@ -231,7 +231,7 @@ COMPONENT('floatingpanel', 'minwidth:200;height:200', function(self, config, cls
 				arr = imported[opt.import];
 				container.empty();
 			} else {
-				var tmp = $('<div data-import="url:{0}"></div>'.format(opt.import));
+				var tmp = $('<ui-import config="url:{0}"></ui-import>'.format(opt.import));
 				arr = imported[opt.import] = [];
 				isnew = true;
 				for (var i = 0; i < tmp.length; i++)

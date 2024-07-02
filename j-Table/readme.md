@@ -1,28 +1,30 @@
 ## j-Table
 
-- please try to understand the functionality
+- try to understand the functionality
 - `j-Table` is a very very very simple alternative to `j-DataGrid` targeted for UI
 - `data-source` expects `Array` or `Object` with `{ page: 1, pages: 10, limit: 50, items: [], count: 1000 }`
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
-- `highlight` {Boolean} enables highlighting of the row (default: `true`)
-- `unhighlight` {Boolean} enables undo-highlighting of the row (default: `true`)
-- `multiple` {Boolean} enables multiple row highlighting (default: `false`)
-- `detail` {Boolean/String} if `string` then the value must be a link to `function(row_data, next_fn(new_data_for_detail_template_OR__new_html), tdelement)`
-- `exec` {String} a path to `function(row/rows)` or path to `variable`
-- `remember` {Boolean} enables remembering of last selected rows (default: `false`)
-- `pk` {String} a primary key (default: `id`)
-- `border` {Boolean} enables border (default: `false`)
-- `scrollbar` {Boolean} enables custom scrollbar (default: `false`) + important: `height` must be specified
-- `height` {Number/String} height of grid or can contain selector `window`, `parent` or custom selector `.ui-viewbox-body`
-- `paginate` {String} a link to `function(model)` for performing pagination `{ page: 1, limit: 10, sort: [] }`
-- `redraw` {String} a link to function, it's evaluated when the table is redrawing
-- `filter` {String} a link to function, it's evaluated before the table is rendering
-- `dblclick` {String} a link to function, it's evaluated when the user performs double-click
-- `datasource` {String} path to data-source (for other extra data in the template. Usage: `{{ $.data.something }}`)
-- `click` {String} a path to `function(button_name, row, button_element)`, is executed when the user will click on the button
-- `flat` {Boolean} removes padding in cells (default: `false`)
+- `highlight {Boolean}` enables highlighting of the row (default: `true`)
+- `unhighlight {Boolean}` enables undo-highlighting of the row (default: `true`)
+- `multiple {Boolean}` enables multiple row highlighting (default: `false`)
+- `detail {Boolean/String}` if `string` then the value must be a link to `function(row_data, next_fn(new_data_for_detail_template_OR__new_html), tdelement)`
+- `exec {String}` a path to `function(row/rows)` or path to `variable`
+- `remember {Boolean}` enables remembering of last selected rows (default: `false`)
+- `pk {String}` a primary key (default: `id`)
+- `border {Boolean}` enables border (default: `true`)
+- `scrollbar {Boolean}` enables custom scrollbar (default: `false`) + important: `height` must be specified
+- `height {Number/String}` height of grid or can contain selector `window`, `parent` or custom selector `.ui-viewbox-body`
+- `paginate {String}` a link to `function(model)` for performing pagination `{ page: 1, limit: 10, sort: [] }`
+- `redraw {String}` a link to function, it's evaluated when the table is redrawing
+- `filter {String}` a link to function, it's evaluated before the table is rendering
+- `dblclick {String}` a link to function, it's evaluated when the user performs double-click
+- `datasource {String}` path to data-source (for other extra data in the template. Usage: `{{ $.data.something }}`)
+- `click {String}` a path to `function(button_name, row, button_element)`, is executed when the user will click on the button
+- `flat {Boolean}` removes padding in cells (default: `false`)
 - __NEW__ `noborder` {Boolean} removes border around (default: `false`)
 
 __Good to know__:
@@ -33,7 +35,7 @@ __Good to know__:
 __HTML definition__:
 
 ```html
-<div data---="table__PATH__CONF">
+<ui-component name="table" path="" config="">
 
 	<!--
 		data-size="TD1,TD2,TD3"      : column width, optional (can contain pixels or percentage), "0" means "auto" width
@@ -60,7 +62,7 @@ __HTML definition__:
 		EMPTY
 	</script>
 
-</div>
+</ui-component>
 ```
 
 __Good to know__:

@@ -2,6 +2,8 @@
 
 A simple Tangular template engine __helper__ for rendering `colors` from the string.
 
+- jComponent `v19|v20`
+
 __Usage__:
 
 ```html

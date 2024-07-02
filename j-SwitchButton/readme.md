@@ -1,5 +1,7 @@
 ## j-SwitchButton
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `required {Boolean}` optional, enables "required" (default: `false`)
@@ -10,5 +12,5 @@ __Configuration__:
 
 ### Author
 
-- Totaljs <info@totaljs.com>
+- Tomáš Novák <info@totaljs.com>
 - [License](https://www.totaljs.com/license/)

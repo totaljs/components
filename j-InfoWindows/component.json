@@ -1,10 +1,8 @@
 {
 	"datecreated": "2020-10-15T14:45:03.000Z",
-	"dateupdated": "2023-01-31T12:06:41.000Z",
+	"dateupdated": "2024-06-19T15:42:00.000Z",
 	"name": "j-InfoWindows",
-	"tags": [
-		"windows"
-	],
+	"jcomponent": "19|20",
 	"color": "white",
 	"version": 1,
 	"darkmode": true,

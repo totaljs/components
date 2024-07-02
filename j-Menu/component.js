@@ -204,7 +204,9 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 			return;
 		}
 
-		var tmp;
+		var target = opt.element ? $(opt.element) : null;
+		if (target && HIDDEN(target))
+			return;
 
 		self.target = tmp;
 		self.opt = opt;
@@ -219,9 +221,8 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 
 		self.tclass('ui-large', opt.large == true);
 
-		if (!opt.nomobile) {
+		if (!opt.nomobile)
 			self.find('{0}'.format(cls2)).aclass('{0}-mobile'.format(cls));
-		}
 
 		issubmenu = false;
 		prevsub = null;
@@ -249,7 +250,6 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 				self.bindevents();
 		}
 
-		var target = $(opt.element);
 		var plusW = opt.offsetWidth || 0;
 
 		if (opt.fixedwidth) {
@@ -260,9 +260,9 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 			container.css({ 'max-width': '', width: '' });
 
 		var w = container.width();
-		var offset = target.offset();
 
 		if (opt.element) {
+			var offset = target.offset();
 			switch (opt.align) {
 				case 'center':
 					css.left = Math.ceil((offset.left - w / 2) + (target.innerWidth() / 2));

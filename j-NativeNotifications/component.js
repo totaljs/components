@@ -2,7 +2,7 @@ COMPONENT('nativenotifications', 'timeout:8000', function(self, config) {
 
 	var autoclosing;
 	var system = false;
-	var N = window.Notification;
+	var N = W.Notification;
 
 	self.singleton();
 	self.readonly();
@@ -13,14 +13,14 @@ COMPONENT('nativenotifications', 'timeout:8000', function(self, config) {
 		if (!N)
 			return;
 		system = N.permission === 'granted';
-		!system && N.requestPermission(function (permission) {
+		!system && N.requestPermission(function(permission) {
 			system = permission === 'granted';
 		});
 	};
 
-	self.append = function(title, message, callback, img) {
+	self.show = self.append = function(title, message, callback, img) {
 
-		if (!system || !self.get())
+		if (!system)
 			return;
 
 		var obj = { id: Math.floor(Math.random() * 100000), date: new Date(), callback: callback };
@@ -39,7 +39,7 @@ COMPONENT('nativenotifications', 'timeout:8000', function(self, config) {
 		obj.system = new N(title, options);
 		obj.system.onclick = function() {
 
-			window.focus();
+			W.focus();
 			self.items = self.items.remove('id', obj.id);
 
 			if (obj.callback) {

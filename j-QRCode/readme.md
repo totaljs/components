@@ -2,6 +2,8 @@
 
 This component creates a QR code. It includes the [QRCode library](https://davidshimjs.github.io/qrcodejs/).
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
 - `width {Number}` a default image width (default: `128`)

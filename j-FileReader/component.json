@@ -1,11 +1,8 @@
 {
 	"datecreated": "2017-02-27T13:35:00.000Z",
-	"dateupdated": "2023-01-31T09:10:00.000Z",
+	"dateupdated": "2024-04-23T13:49:01.000Z",
 	"name": "j-FileReader",
-	"tags": [
-		"file",
-		"reader"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

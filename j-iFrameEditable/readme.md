@@ -4,9 +4,11 @@
 - height of iframe is automatically counted from the `body`
 - __important__: content must contain `contenteditable` attribute
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
-- `bind` {String} can contain `body` (default), `html` or `contenteditable`
+- `bind {String}` can contain `body` (default), `html` or `contenteditable`
 
 __Methods__:
 

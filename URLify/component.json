@@ -1,10 +1,8 @@
 {
 	"datecreated": "2016-02-22T13:39:43.589Z",
-	"dateupdated": "2018-05-26T10:34:01.000Z",
+	"dateupdated": "2018-05-26T10:34:02.000Z",
 	"name": "URLify",
-	"tags": [
-		"url"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 3,
 	"responsive": false,

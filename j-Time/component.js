@@ -20,9 +20,10 @@ COMPONENT('time', 'icon:ti ti-clock', function(self, config, cls) {
 		fn = function() {
 			if (is) {
 				NOW = new Date();
+				var newformat = format;
 				if (NOW.getSeconds() % 2 === 0)
-					format = format.replace(/:/g, ' ');
-				span.html(NOW.format(format));
+					newformat = format.replace(/:/g, ' ');
+				span.html(NOW.format(newformat));
 			}
 		};
 

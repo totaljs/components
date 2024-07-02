@@ -1,0 +1,15 @@
+{
+	"datecreated": "2023-12-28T11:16:00.000Z",
+	"dateupdated": "2024-02-06T14:25:01.000Z",
+	"name": "j-FlowEditor",
+	"jcomponent": "19|20",
+	"darkmode": true,
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

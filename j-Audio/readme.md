@@ -1,6 +1,6 @@
 ## j-Audio
 
-- easy usage
+- jComponent `v19|v20`
 - singleton
 - the component can `play` and `stop` audio/sound `mp3`
 - `path` represents a volume control

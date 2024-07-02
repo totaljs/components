@@ -1,4 +1,6 @@
-# Free JavaScript UI components for everyone
+# Free JavaScript Web UI components for everyone
+
+[![Made in EU](https://cdn.componentator.com/eu-small.png)](https://european-union.europa.eu/)
 
 - [Website](https://componentator.com)
 - [__Documentation__](https://docs.totaljs.com/components/)
