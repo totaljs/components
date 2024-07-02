@@ -1,0 +1,10 @@
+<ui-component name="markdown"></ui-component>
+<ui-component name="totaltemplates"></ui-component>
+
+<script>
+
+	ON('ready', function() {
+		setTimeout(() => SETTER('totaltemplates/preview', '# {{ value.name }}\n\n{{ value.text }}', { name: 'Total.js', text: 'Lorem, ipsum, dolor sit amet consectetur adipisicing elit. Assumenda, delectus.' }), 1000);
+	});
+
+</script>
