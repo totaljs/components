@@ -317,5 +317,7 @@
 	"j-Prompt",
 	"Tangular-RGBA",
 	"j-DataSource",
-	"j-Cl"
+	"j-Cl",
+	"j-TotalTemplates",
+	"j-OneTime"
 ]
