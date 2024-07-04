@@ -2,27 +2,29 @@
 
 This component can handle different contents asynchronously. __If the element doesn't contain any content__ then the component downloads the content according to the `url` defined in configuration.
 
+- jComponent `v19|v20`
+
 __Configuration__:
 
-- `url` {String} required, a relative URL address
-- `if` {String} required, condition, it's compared with the value within of `path` (__NEW__: supports multiple paths divided by `comma`)
-- `reload` {String} optional, a link to function `function(init) {}`, it's executed when the part is visible (always)
-- `hidden` {String} optional, a link to function, it's executed when the part is hidden (always)
-- `init` {String} optional, a link to function, it's executed when the part is visible and onetime
-- `default` {String} optional, a short alias for `DEFAULT(default)`
-- `hide` {Boolean} optional, auto-hide element if the `if` condition is not valid (default: `true`)
-- `cleaner` {Number} optional, idle time (in minutes) for running of cleaning (default: `0`)
-- `clean` {String} optional, a link to function, it's executed before the part is cleaned
-- `loading` {Boolean} optional, enables loading via `SETTER('loading')` (default: `true`)
-- `path` {String} optional, the component replace all `~PATH~` phrases for the value of the `path` in the downloaded template
-- `replace` {String} optional, a link to method `function(content) { return content }` which can modify downloaded template
-- `absolute` {Boolean} optional, enables absolute position (default `false`)
-- `check` {String} optional, a link to function `function(next) { next(); }`, it's executed when the part is wanting to show
-- `invisible` {Boolean} enables adding of `invisible` class when the part is going to hide (default: `false`)
-- `delay` {Number} a delay (in ms) for removing of `invisible` class and hiding of `loading` (default: `500`)
-- `autofocus` {Boolean/String} focuses the first input, textarea (default: `false`)
-- `delayloading` {Number} a delay (in ms) for hiding of of `loading` (default: `800`)
-- __NEW__: `id` {String} a custom identifier for replacing `~ID~` phrases in the imported HTML (default: empty)
+- `url {String}` required, a relative URL address
+- `if {String}` required, condition, it's compared with the value within of `path` (__NEW__: supports multiple paths divided by the `comma`)
+- `reload {String}` optional, a link to function `function(init) {}`, it's executed when the part is visible (always)
+- `hidden {String}` optional, a link to function, it's executed when the part is hidden (always)
+- `init {String}` optional, a link to function, it's executed when the part is visible and onetime
+- `default {String}` optional, a short alias for `DEFAULT(default)`
+- `hide {Boolean}` optional, auto-hide element if the `if` condition is not valid (default: `true`)
+- `cleaner {Number}` optional, idle time (in minutes) for running of cleaning (default: `0`)
+- `clean {String}` optional, a link to function, it's executed before the part is cleaned
+- `loading {Boolean}` optional, enables loading via `SETTER('loading')` (default: `true`)
+- `path {String}` optional, the component replace all `~PATH~` and `CLASS` phrases for the value of the `path` in the downloaded template
+- `replace {String}` optional, a link to method `function(content) { return content }` which can modify downloaded template
+- `absolute {Boolean}` optional, enables absolute position (default `false`)
+- `check {String}` optional, a link to function `function(next) { next(); }`, it's executed when the part is wanting to show
+- `invisible {Boolean}` enables adding of `invisible` class when the part is going to hide (default: `false`)
+- `delay {Number}` a delay (in ms) for removing of `invisible` class and hiding of `loading` (default: `500`)
+- `autofocus {Boolean/String}` focuses the first input, textarea (default: `false`)
+- `delayloading {Number}` a delay (in ms) for hiding of of `loading` (default: `800`)
+- `id {String}` a custom identifier for replacing `~ID~` phrases in the imported HTML (default: empty)
 
 __Good to know 1__:
 

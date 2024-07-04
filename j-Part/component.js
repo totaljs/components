@@ -77,11 +77,11 @@ COMPONENT('part', 'hide:1;loading:1;delay:500;delayloading:800', function(self, 
 					else {
 						preparator = function(content) {
 							var path = replace(config.path || config.if);
-							return ADAPT(path, config.id, content.replace(/~PATH~/g, path));
+							return ADAPT(path, config.id, content);
 						};
 					}
 
-					self.import(replace(config.url), function() {
+					var callback = function() {
 
 						if (!init) {
 							config.init && EXEC(replace(config.init));
@@ -94,8 +94,9 @@ COMPONENT('part', 'hide:1;loading:1;delay:500;delayloading:800', function(self, 
 							config.reload && EXEC(replace(config.reload), true);
 							config.default && DEFAULT(replace(config.default), true);
 							config.loading && SETTER('loading/hide', config.delayloading);
-							isresizing && self.resize();
-							self.hclass('invisible') && self.rclass('invisible', config.delay);
+							var invisible = self.hclass('invisible');
+							invisible && self.rclass('invisible', config.delay);
+							isresizing && setTimeout(self.resize, 50);
 							setTimeout(self.emitresize, 200);
 							downloading = false;
 							config.autofocus && self.autofocus(config.autofocus);
@@ -108,7 +109,12 @@ COMPONENT('part', 'hide:1;loading:1;delay:500;delayloading:800', function(self, 
 						else
 							done();
 
-					}, true, preparator);
+					};
+
+					if (M.is20)
+						self.import(replace(config.url) + ' @prepend', callback, preparator);
+					else
+						self.import(replace(config.url), callback, true, preparator);
 
 				}, 200);
 			}
@@ -127,7 +133,7 @@ COMPONENT('part', 'hide:1;loading:1;delay:500;delayloading:800', function(self, 
 	};
 
 	self.emitresize = function() {
-		self.element.SETTER('*', 'resize');
+		self.element.SETTER('*/resize');
 	};
 
 	self.configure = function(key, value) {

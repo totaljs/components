@@ -81,7 +81,7 @@ COMPONENT('page', 'hide:1;loading:1;delay:500;delayloading:800', function(self, 
 						};
 					}
 
-					self.import(replace(config.url), function() {
+					var callback = function() {
 
 						if (!init) {
 							config.init && EXEC(replace(config.init));
@@ -109,7 +109,12 @@ COMPONENT('page', 'hide:1;loading:1;delay:500;delayloading:800', function(self, 
 						else
 							done();
 
-					}, true, preparator);
+					};
+
+					if (M.is20)
+						self.import(replace(config.url) + ' @prepend', callback, preparator);
+					else
+						self.import(replace(config.url), callback, true, preparator);
 
 				}, 200);
 			}
@@ -128,7 +133,7 @@ COMPONENT('page', 'hide:1;loading:1;delay:500;delayloading:800', function(self, 
 	};
 
 	self.emitresize = function() {
-		self.element.SETTER('*', 'resize');
+		self.element.SETTER('*/resize');
 	};
 
 	self.configure = function(key, value) {
