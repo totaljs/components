@@ -15,6 +15,7 @@ The value/response (from the upload) will be used as a URL address for preview.
 __Configuration__:
 
 - `url {String}` (__IMPORTANT__) upload URL, can contain a method too (required)
+- `exec {String}` (__IMPORTANT__) a path to method function() instead browse files to upload
 - `width {Number}` a picture width (required)
 - `height {Number}` a picture height (required)
 - `percentage {Number}` resizes a picture according to the percentage (then `width` and `height` aren't required)
