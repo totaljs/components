@@ -1,10 +1,9 @@
 ## j-iFrameEditable
 
+- jComponent `v19|v20`
 - can edit HTML safely
 - height of iframe is automatically counted from the `body`
 - __important__: content must contain `contenteditable` attribute
-
-- jComponent `v19|v20`
 
 __Configuration__:
 
