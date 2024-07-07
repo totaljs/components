@@ -154,7 +154,10 @@ COMPONENT('preview', 'width:200;height:100;convert:jpg;background:#FFFFFF;qualit
 		img[0].onerror = () => self.set('');
 
 		img.on('click', function() {
-			self.find('input').trigger('click');
+			if(config.exec)
+				self.EXEC(config.exec);
+			else
+				self.find('input').trigger('click');
 		});
 	};
 
