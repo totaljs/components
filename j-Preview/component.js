@@ -155,7 +155,7 @@ COMPONENT('preview', 'width:200;height:100;convert:jpg;background:#FFFFFF;qualit
 
 		img.on('click', function() {
 			if(config.exec)
-				self.EXEC(config.exec);
+				self.EXEC(config.exec, val => self.bind('@modified @touched', val));
 			else
 				self.find('input').trigger('click');
 		});
