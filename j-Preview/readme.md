@@ -2,6 +2,7 @@
 
 This component resizes the picture automatically according to the settings and uploads it to the server in `base64` format.
 
+- jComponent `v19|v20`
 - response from server needs to contain URL address to the picture
 - easy usage
 - works with Bootstrap Grid System
