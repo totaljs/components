@@ -27,6 +27,7 @@ __Section attribute configuration `data-config`__:
 - `hide {String}` a link to the `function(el)`, it's executed when the page is hidden
 - `check {String}` a link to the `function(next, el)`
 	- `next {Function}` continues with page displaying
+- __NEW__: `autofocus {Boolean}` performs autofocus for the current page
 
 ### Author
 
