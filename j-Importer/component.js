@@ -31,11 +31,17 @@ COMPONENT('importer', function(self, config) {
 				setTimeout(() => self.remove(), 10);
 				return;
 			}
-
 		}
 
 		var scr = self.find('script');
 		content = scr.length ? scr.html() : '';
+
+		if (config.parent) {
+			var parent = self.parent(config.parent);
+			if (parent && parent.length)
+				parent[0].appendChild(self.dom);
+		}
+
 	};
 
 	self.reload = function(recompile) {

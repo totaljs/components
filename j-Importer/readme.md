@@ -13,6 +13,7 @@ __Configuration__:
 - `clean {String}` (optional) a link to function, it's executed before the importer is cleaned
 - `id {String}` a custom identifier for replacing `~ID~` phrases in the imported HTML (default: empty)
 - __NEW__: `singleton {Boolean}` it handles only the one instance of importer according to the `path + if + url` (default: `false`)
+- __NEW__: `parent {String}` it moves itself as a direct child of the `parent` selector
 
 __New update__:
 
