@@ -109,6 +109,9 @@ ui-component, ui-plugin, ui-import { display: block; }
 .ui-dark .scrollbar, .ui-dark.scrollbar { scrollbar-color: rgba(255,255,255,0.4) transparent; }
 .ui-dark .scrollbar::-webkit-scrollbar-thumb, .ui-dark.ui-scrollbar::-webkit-scrollbar-thumb { border-color: rgba(255,255,255,0.4); }
 
+.ui-clcolor { display: block; border-radius: var(--radius); color: #FFF; padding: 0 3px; }
+.ui-clcolor i { margin-right: 3px; }
+
 .grid-lg-1,.grid-md-1,.grid-sm-1,.grid-xs-1,.grid-lg-2,.grid-md-2,.grid-sm-2,.grid-xs-2,.grid-lg-3,.grid-md-3,.grid-sm-3,.grid-xs-3,.grid-lg-4,.grid-md-4,.grid-sm-4,.grid-xs-4, .grid-lg-6,.grid-md-6,.grid-sm-6,.grid-xs-6, .grid-lg-7,.grid-md-7,.grid-sm-7,.grid-xs-7,.grid-lg-8,.grid-md-8,.grid-sm-8,.grid-xs-8, .grid-lg-9,.grid-md-9,.grid-sm-9,.grid-xs-9, .grid-lg-10,.grid-md-10,.grid-sm-10,.grid-xs-10,.grid-lg-11,.grid-md-11,.grid-sm-11,.grid-xs-11,.grid-lg-12,.grid-md-12,.grid-sm-12,.grid-xs-12,.grid-1,.grid-2,.grid-3,.grid-4,.grid-5,.grid-6,.grid-7,.grid-8,.grid-9,.grid-10,.grid-11,.grid-12 { display: grid; column-gap: var(--gap); }
 .jc-xs .grid-1, .jc-sm .grid-1, .jc-md .grid-1, .jc-lg .grid-1 { grid-template-columns: repeat(1, minmax(0,1fr)); }
 .jc-xs .grid-2, .jc-sm .grid-2, .jc-md .grid-2, .jc-lg .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
