@@ -4,7 +4,7 @@ COMPONENT('validate', 'delay:100;flags:visible;changes:0;strictchanges:0', funct
 	var def = 'button[name="submit"]';
 	var flags = null;
 	var tracked = false;
-	var reset = 0;
+	var reset = false;
 	var old, track;
 	var currentvalue;
 	var customvalidation = null;
@@ -51,13 +51,29 @@ COMPONENT('validate', 'delay:100;flags:visible;changes:0;strictchanges:0', funct
 	self.setter = function(value, path, type) {
 
 		currentvalue = value;
+
 		var is = path === currentpath || path.length < currentpath.length;
+		var isreset = false;
+
+		if (M.version >= 20) {
+			type = type.init || type.reset ? 0 : 1;
+			if (!type)
+				isreset = true;
+			config.modified = !isreset;
+			config.touched = !isreset;
+		}
 
 		if (config.changes) {
 			current = STRINGIFY(value, config.strictchanges != true);
-			if (is)
+			if (M.version >= 20) {
+				if (isreset)
+					backup = current;
+				else
+					is = backup === current;
+			} else if (is) {
 				backup = current;
-			else
+				is = true;
+			} else
 				is = backup === current;
 		}
 
