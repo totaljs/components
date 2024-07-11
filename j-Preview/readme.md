@@ -33,6 +33,7 @@ __Configuration__:
 - __NEW__ `output {String}` output type `base64` (default) or `file`
 - __NEW__ `convert {String}` an image type `jpg` (default) or `png`
 - __NEW__ `exec {String}` a path to the method `function(next(url))` (it prevents file upload dialog)
+- __NEW__ `center {Boolean}` aligns the image and label to the center
 
 __Methods__:
 

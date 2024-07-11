@@ -164,7 +164,7 @@ COMPONENT('preview', 'width:200;height:100;convert:jpg;background:#FFFFFF;qualit
 	self.make = function() {
 
 		content = self.html();
-		self.aclass(cls);
+		self.aclass(cls + (config.center ? (' ' + cls + '-centered') : ''));
 		self.reinit();
 		self.redraw();
 
