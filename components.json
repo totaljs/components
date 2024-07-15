@@ -319,5 +319,6 @@
 	"j-DataSource",
 	"j-Cl",
 	"j-TotalTemplates",
-	"j-OneTime"
+	"j-OneTime",
+	"j-MonacoEditor"
 ]
