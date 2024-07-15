@@ -22,14 +22,14 @@ COMPONENT('clickbox', function(self, config, cls) {
 		el.prepend('<div><i class="ti ti-caret-down"></i><span></span></div>');
 		self.event('click', function() {
 
-			var cls = cls + '-visible';
+			var c = cls + '-visible';
 
-			if (self.hclass(cls)) {
-				self.rclass(cls);
+			if (self.hclass(c)) {
+				self.rclass(c);
 				return;
 			}
 
-			self.aclass(cls, 50);
+			self.aclass(c, 50);
 		});
 
 		self.refresh();
