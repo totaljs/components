@@ -37,7 +37,7 @@ COMPONENT('clickbox', function(self, config, cls) {
 
 	self.refresh = function() {
 
-		var query = NAV.query();
+		var query = NAV.query;
 		var value = query[config.param] || '';
 		var all = self.find('a');
 
