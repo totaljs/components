@@ -1,4 +1,6 @@
-COMPONENT('clickbox', function(self, config) {
+COMPONENT('clickbox', function(self, config, cls) {
+
+	var cls2 = '.' + cls;
 
 	self.readonly();
 	self.blind();
@@ -6,34 +8,36 @@ COMPONENT('clickbox', function(self, config) {
 
 	self.init = function() {
 		$(document).on('click', function() {
-			$('.ui-clickbox-visible').rclass('ui-clickbox-visible');
+			$(cls2 + '-visible').rclass(cls + '-visible');
 		});
 	};
 
 	self.make = function() {
 
-		self.aclass('ui-clickbox');
+		self.aclass(cls);
+
 		var el = self.element;
+
 		el.wrapInner('<nav></nav>');
 		el.prepend('<div><i class="ti ti-caret-down"></i><span></span></div>');
 		self.event('click', function() {
 
-			var cls = 'ui-clickbox-visible';
+			var cls = cls + '-visible';
+
 			if (self.hclass(cls)) {
 				self.rclass(cls);
 				return;
 			}
 
-			setTimeout(function() {
-				self.aclass(cls);
-			}, 50);
+			self.aclass(cls, 50);
 		});
 
 		self.refresh();
 	};
 
 	self.refresh = function() {
-		var query = MAIN.parseQuery();
+
+		var query = NAV.query();
 		var value = query[config.param] || '';
 		var all = self.find('a');
 
@@ -41,8 +45,9 @@ COMPONENT('clickbox', function(self, config) {
 			all = all.eq(0);
 
 		all.each(function() {
-			if (this.href.indexOf(config.param + '=' + value) !== -1) {
-				var el = $(this).aclass('selected');
+			var t = this;
+			if (t.href.indexOf(config.param + '=' + value) !== -1) {
+				var el = $(t).aclass('selected');
 				self.find('span').html(el.text());
 			}
 		});
