@@ -484,7 +484,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 
 		var hidedir = function() {
 			ishidedir = true;
-			SETTER('!directory', 'hide');
+			SETTER('!directory/hide');
 			setTimeout(function() {
 				ishidedir = false;
 			}, 800);
@@ -540,7 +540,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 				self.applyfilterdirectory(el, col, item);
 			};
 
-			SETTER('directory', 'show', dir);
+			SETTER('directory/show', dir);
 		});
 
 		self.event('dblclick', '.dg-col', function(e) {
@@ -2445,7 +2445,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 				next(meta);
 				self.datagrid_cancel(meta);
 			};
-			SETTER('directory', 'show', opt);
+			SETTER('directory/show', opt);
 			return;
 		}
 
@@ -2469,7 +2469,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 				next(meta);
 				self.datagrid_cancel(meta);
 			};
-			SETTER('datepicker', 'show', opt);
+			SETTER('datepicker/show', opt);
 		}
 
 		current.fn = function(e) {
