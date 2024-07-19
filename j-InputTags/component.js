@@ -4,7 +4,6 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 	var input, placeholder, dirsource, binded, customvalidator, tags, skip = false;
 
 	self.nocompile();
-	// self.bindvisible(50);
 
 	self.init = function() {
 		Thelpers.ui_inputtags_icon = function(val) {
@@ -21,7 +20,8 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 		if (isMOBILE && config.autofocus)
 			config.autofocus = false;
 
-		config.PATH = self.path.replace(/\./g, '_');
+		// What is that?
+		config.PATH = self.path.toString().replace(/\./g, '_');
 
 		self.aclass(cls + ' invisible');
 		self.rclass('invisible', 100);
@@ -397,6 +397,8 @@ COMPONENT('inputtags', 'dirkey:name;dirvalue:id;transform:0;enteronly:1;after:\\
 				input.prop('contenteditable', !value);
 				if (typeof(tmp) !== 'function') {
 					self.datasource(value, function(path, value) {
+						if (M.is20)
+							value = path;
 						dirsource = value || EMPTYARRAY;
 						self.bindvalue();
 					});
