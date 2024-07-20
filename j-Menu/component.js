@@ -155,7 +155,7 @@ COMPONENT('menu', 'style:2', function(self, config, cls) {
 			var cn = item.classname || item.class || '';
 			var icon = '';
 
-			var color = item.color ? 'style="color:{color}"'.arg(item) : '';
+			var color = item.color ? 'style="color:{color}"'.args(item) : '';
 			if (item.icon)
 				icon = '<i class="{0}" {1}></i>'.format(item.icon.charAt(0) === '!' ? item.icon.substring(1) : item.icon.indexOf(' ') === -1 ? ('ti ti-' + item.icon) : item.icon, color);
 			else
