@@ -841,7 +841,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			input = rawvalue = placeholder = null;
 	};
 
-	self.configure = function(key, value) {
+	self.configure = function(key, value, init) {
 		switch (key) {
 			case 'icon':
 				if (value && value.indexOf(' ') === -1)
@@ -850,11 +850,13 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			case 'dirsource':
 				if (config.dirajax || value.indexOf('/') !== -1) {
 					dirsource = null;
-					self.bindvalue();
+					if (!init)
+						self.bindvalue();
 				} else {
 					if (value.indexOf(',') !== -1) {
 						dirsource = dirsourceprepare(self.parsesource(value));
-						self.bindvalue();
+						if (!init)
+							self.bindvalue();
 					} else {
 						self.datasource(value, function(path, value) {
 							dirsource = dirsourceprepare(M.is20 ? path : value);
