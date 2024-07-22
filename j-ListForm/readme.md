@@ -41,9 +41,13 @@ The component watches a click event on all buttons with `name` attribute:
 
 __Listing buttons:__
 
-- __NEW__: `name="remove"` removes item
-- __NEW__: `name="up"` moves item to up
-- __NEW__: `name="down"` moves item to down
+- `name="remove"` removes item
+- `name="up"` moves item to up
+- `name="down"` moves item to down
+
+__Methods:__
+
+- __NEW__: `component.add()` opens a create form
 
 ### Author
 

@@ -120,32 +120,7 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 			switch (this.name) {
 
 				case 'create':
-
-					self.check();
-
-					if (!$(form).hclass('hidden') && !form.$data) {
-						self.cancel();
-						return;
-					}
-
-					fn = function(obj) {
-
-						if (config.newbie)
-							obj[config.newbie] = true;
-
-						if (config.create || !config.default)
-							SET('{0} @reset'.format(self.ID), obj);
-						else
-							SET('{0} @default'.format(self.ID), obj);
-
-						self.edit();
-					};
-
-					if (config.create)
-						self.EXEC(config.create, {}, fn, self.get());
-					else
-						fn({});
-
+					self.add();
 					is = true;
 					break;
 
@@ -228,6 +203,34 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 					self.validate2();
 				break;
 		}
+	};
+
+	self.add = function() {
+
+		self.check();
+
+		if (!$(form).hclass('hidden') && !form.$data) {
+			self.cancel();
+			return;
+		}
+
+		var fn = function(obj) {
+
+			if (config.newbie)
+				obj[config.newbie] = true;
+
+			if (config.create || !config.default)
+				SET('{0} @reset'.format(self.ID), obj);
+			else
+				SET('{0} @default'.format(self.ID), obj);
+
+			self.edit();
+		};
+
+		if (config.create)
+			self.EXEC(config.create, {}, fn, self.get());
+		else
+			fn({});
 	};
 
 	self.check = function() {
