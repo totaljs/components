@@ -20,6 +20,7 @@ __Configuration__:
 - `footertop {Boolean}` moves the footer on the top of the component (default: `false`)
 - __NEW__: `move {String}` a link to a function `function(items)`
 - __NEW__: `newbie {String}` a property name for every new item (it will always contain `true` value)
+- __NEW__: `plugin {String}` a custom plugin name inside the component (default: `component.ID`)
 
 The component needs to have defined 3 templates wrapped in `<script type="text/html">`:
 
