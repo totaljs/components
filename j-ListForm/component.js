@@ -5,6 +5,7 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 	var container;
 	var form;
 	var items;
+	var plugin;
 
 	self.validate = function(value) {
 		return config.disabled || !config.required ? true : !!(value && value.length > 0);
@@ -12,6 +13,7 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 
 	self.make = function() {
 
+		plugin = config.plugin || self.ID;
 		self.aclass(cls + ' invisible');
 
 		if (config.selector) {
@@ -23,7 +25,7 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 		var tmp;
 
 		self.template = Tangular.compile(scr.eq(0).html());
-		form = '<div class="{0}-form-container hidden{2}"><ui-plugin path="{1}" config="isolated:1"><div class="{0}-form">{3}</div></ui-plugin></div>'.format(cls, config.plugin || self.ID, config.formclass ? (' ' + config.formclass) : '', scr.eq(1).html());
+		form = '<div class="{0}-form-container hidden{2}"><ui-plugin path="{1}" config="isolated:1"><div class="{0}-form">{3}</div></ui-plugin></div>'.format(cls, plugin, config.formclass ? (' ' + config.formclass) : '', scr.eq(1).html());
 		tmp = scr.eq(2).html();
 		scr.remove();
 
@@ -127,7 +129,7 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 				case 'submit':
 				case 'update':
 
-					tmp = GET('{0} @reset'.format(self.ID));
+					tmp = GET('{0} @reset'.format(plugin));
 					fn = function(tmp) {
 						if (tmp) {
 
@@ -220,9 +222,9 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 				obj[config.newbie] = true;
 
 			if (config.create || !config.default)
-				SET('{0} @reset'.format(self.ID), obj);
+				SET('{0} @reset'.format(plugin), obj);
 			else
-				SET('{0} @default'.format(self.ID), obj);
+				SET('{0} @default'.format(plugin), obj);
 
 			self.edit();
 		};
@@ -261,7 +263,7 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 			}
 			form.$target = el;
 			form.$data = el.$data;
-			SET('{0} @reset'.format(self.ID), CLONE(el.$data));
+			SET('{0} @reset'.format(plugin), CLONE(el.$data));
 			$(el).aclass(cls + '-selected');
 		} else {
 			parent = container[0];
