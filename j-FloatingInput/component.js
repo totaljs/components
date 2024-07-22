@@ -220,7 +220,7 @@ COMPONENT('floatinginput', 'minwidth:200', function(self, config, cls) {
 				break;
 		}
 
-		options.top = opt.position === 'bottom' ? ((offset.top - self.height()) + element.height()) : offset.top;
+		options.top = opt.position === 'bottom' ? ((offset.top - self.element.height()) + element.height()) : offset.top;
 		options.scope = M.scope ? M.scope() : '';
 
 		area.tclass('hidden', opt.multiline != true);
