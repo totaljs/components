@@ -18,7 +18,7 @@
 .ui-menu-divider span { display: block; margin: 5px 12px; }
 .ui-menu-divider hr { margin: 5px 0; border-color: #E0E0E0; }
 .ui-menu li.ui-menu-disabled { color: #a0a0a0; background-color: #FFF; cursor: not-allowed; }
-.ui-menu li.ui-menu-disabled i { color: #c5c5c5; }
+.ui-menu li.ui-menu-disabled i { color: #c5c5c5 !important; }
 
 .ui-menu-style-2 .ui-menu-items { border-radius: var(--radius); }
 .ui-menu-style-2 li { margin: 2px 10px; padding: 7px 2px; border-radius: var(--radius); font-size: 13px; }
@@ -35,7 +35,7 @@
 .ui-dark .ui-menu-divider hr { border-color: #404040; }
 .ui-dark .ui-menu-note { color: #777; }
 .ui-dark .ui-menu li.ui-menu-disabled { background-color: #303030; color: #656565; }
-.ui-dark .ui-menu li.ui-menu-disabled i { color: #525252; }
+.ui-dark .ui-menu li.ui-menu-disabled i { color: #525252 !important; }
 
 .ui-large .ui-menu-divider { font-size: 14px !important; }
 .ui-large .ui-menu li { font-size: 14px; padding: 7px 15px; }
