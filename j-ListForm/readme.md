@@ -47,7 +47,7 @@ __Listing buttons:__
 
 __Methods:__
 
-- __NEW__: `component.add()` opens a create form
+- __NEW__: `component.add()` opens a form for creating record
 
 ### Author
 
