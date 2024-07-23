@@ -1,13 +1,11 @@
 ## j-Dashboard
 
-- Works only with `+v18`
+- jComponent `v19|v20`
 - Supports mobile devices
 - Supports touches
 - Movable
 - Draggable
 - Resizable
-
-- jComponent `v19|v20`
 
 The component expects `Array` of objects.
 
