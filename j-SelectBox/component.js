@@ -80,6 +80,9 @@ COMPONENT('selectbox', function(self, config, cls) {
 
 	self.bind = function(path, value) {
 
+		if (M.is20)
+			value = path;
+
 		var kt = config.text || 'name';
 		var kv = config.value || 'id';
 		var builder = [];
