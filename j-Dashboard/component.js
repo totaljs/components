@@ -1,4 +1,4 @@
-COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation:3;serviceinterval:5000;minsizexs:3;minsizesm:2;minsizemd:2;minsizelg:1;iconremove:ti ti-trash;iconsettings:ti ti-cog', function(self, config, cls) {
+COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation:3;margin:0;serviceinterval:5000;minsizexs:3;minsizesm:2;minsizemd:2;minsizelg:1;iconremove:ti ti-trash;iconsettings:ti ti-cog', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var cache = {};
@@ -388,7 +388,8 @@ COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation
 		}
 
 		var parent = config.parent ? self.parent(config.parent) : null;
-		var h = parent ? parent.height() : 0;
+		var h = parent ? (parent.height() - config.margin) : 0;
+
 		max += 20;
 
 		var css = {};

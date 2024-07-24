@@ -28,6 +28,7 @@ __Configuration__:
 	- `meta.d` a display mode `xs`, `sm`, `md` or `lg`
 - `noemitresize` disables executing of `resize` method in all nested component (default: `false`)
 - `parent {String}` a parent container which sets a minimal height (default: `null`)
+- `margin {Number}` a top/bottom margin for the `parent` option (default: `0`)
 - `minsizexs {Number}` a minimal column/row size for extra small displays (default: `2`)
 - `minsizesm {Number}` a minimal column/row size for small displays (default: `2`)
 - `minsizemd {Number}` a minimal column/row size for mediun displays (default: `1`)
