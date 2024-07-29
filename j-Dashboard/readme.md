@@ -134,8 +134,7 @@ var component = {
 			remove();
 		};
 
-		exports.configure = function(config) {
-			// @config {Object}
+		exports.configure = function() {
 			// is executed when the configuration is changed
 		};
 
