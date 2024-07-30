@@ -6,6 +6,8 @@
 .ui-infowindows-title span { cursor: default; line-height: 21px; display: block; margin: 0 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 0 0 5px; font-size: 11px; text-align: center; }
 .ui-infowindows-nomove .ui-infowindows-title span { cursor: default; }
 .ui-infowindows-title span i { margin-right: 5px; }
+.ui-infowindows-control { transform: scale(1); }
+.ui-infowindows-control:first-child { border-radius: var(--radius) 0 0 var(--radius); }
 .ui-infowindows-body { border: 1px solid #E0E0E0; border-top: 0; border-radius: 0 0 var(--radius) var(--radius); overflow: hidden; }
 .ui-infowindows-noclose .ui-infowindows-control[data-name='close'] { display: none; }
 .ui-infowindows-noresize .ui-infowindows-resize { display: none; }
