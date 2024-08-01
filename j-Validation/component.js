@@ -103,6 +103,10 @@ COMPONENT('validation', 'delay:100;flags:visible;changes:0;strictchanges:0', fun
 		var modified = false;
 
 		for (var m of arr) {
+
+			if (m === self)
+				continue;
+
 			if (config.validonly) {
 				if (m.config.invalid) {
 					disabled = true;
