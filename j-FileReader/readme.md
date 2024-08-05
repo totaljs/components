@@ -1,10 +1,9 @@
 ## j-FileReader
 
+- jComponent `v19|v20`
 - singleton
 - easy usage
 - only for text files
-
-- jComponent `v19|v20`
 
 __Methods__:
 - `component.open(opt)` - opens file browser
