@@ -6,7 +6,7 @@ __j-Input__ is multifuncional `input` component which supports a lot of features
 
 __Configuration__:
 
-- `type {String}` optional, can be `email`, `multiline`, `checkbox`, `phone`, `password`, `zip`, `date` (needs `datepicker` component), `time` (needs `timepicker` component), `color` (needs `colorpicker` component), `icon` (needs `faicons` component), `emoji` (needs `emoji` component), `url`, `number`, `number2` (nullable), `search`, `lower`, `upper`, `slug`, `id` or empty (default)
+- `type {String}` optional, can be `email`, `multiline`, `checkbox`, `phone`, `password`, `zip`, `date` (needs `datepicker` component), `time` (needs `timepicker` component), `color` (needs `colorpicker` component), `icon` (needs `faicons` component), `emoji` (needs `emoji` component), `url`, `number`, `number2` (nullable), `search`, `lower`, `upper`, `slug`, `id`, __NEW__: `radiobutton` or empty (default)
 - `required {Boolean}` optional, enables "required" (default: `false`)
 - `icon {String}` optional, icon for label e.g. `home`, `cog`, etc.
 - `licon {String}` optional, left icon e.g. `home`, `cog`, etc.
@@ -62,6 +62,7 @@ __Configuration__:
 - `tabs {Boolean}` enables tabs for multiline (default: `true`)
 - `readonly {Boolean}` block text field edition (default: `false`)
 - __NEW__: `transform {String}` a link to the `function(value, config)` for transforming of entered values
+- __NEW__: `multiline {Boolean}` works only with `radiobutton` type
 
 __Interesting:__
 

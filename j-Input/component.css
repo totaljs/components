@@ -68,6 +68,17 @@
 .ui-input-type-icon .ui-input-value, .ui-input-type-emoji .ui-input-value { font-size: 15px; }
 .ui-input-type-icon .ui-input-control, .ui-input-type-color .ui-input-control, .ui-input-type-color .ui-input-emoji { cursor: pointer; }
 
+.ui-input-radiobuttons { margin-top: 5px; }
+.ui-input-radiobuttons > div { position: relative; display: inline-block; margin-left: 10px; cursor: pointer; height: 26px; }
+.ui-input-radiobuttons.ui-input-multiline > div { display: block; margin-left: 0; }
+.ui-input-radiobuttons > div:first-child { margin-left: 0; }
+.ui-input-radiobuttons > div span { border-radius: var(--radius); float: left; border: 1px solid #D0D0D0; width: 20px; height: 20px; margin-right: 7px; padding: 3px; }
+.ui-input-radiobuttons > div.ui-input-checked i { border-radius: var(--radius); background-color: #000; height: 12px; display: block; }
+
+.ui-disabled .ui-input-radiobuttons > div span { border-color: #E0E0E0; background: #F0F0F0; }
+.ui-disabled .ui-input-radiobuttons > div { color: #A0A0A0; }
+.ui-disabled .ui-input-radiobuttons > div.ui-input-checked i { background-color: #B0B0B0; }
+
 .ui-dark .ui-input-required .ui-input-control { border-color: #505050; }
 .ui-dark .ui-input-raw .ui-input-control { border-color: #404040; background-color: #202020 !important; box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
 .ui-dark .ui-input-required .ui-input-icon-left { border-color: #404040; }
@@ -85,3 +96,9 @@
 .ui-dark .ui-input-inner.ui-input-invalid { border-color: #8E3D3D; box-shadow: 0 0 #0000,0 0 #0000,0px 0px 0px 4px #D85A5A42; }
 .ui-dark .ui-disabled .ui-input-checkbox span { background-color: #282828; color: #999; border-color: #303003; }
 .ui-dark .ui-disabled .ui-input-checkbox { color: #666; }
+
+.ui-dark .ui-input-radiobuttons > div span { border-color: #404040; background: #252525; }
+.ui-dark .ui-input-radiobuttons > div.ui-input-checked i { background-color: #E0E0E0; }
+.ui-dark .ui-disabled .ui-input-radiobuttons > div span { border-color: #303003; background: #282828; }
+.ui-dark .ui-disabled .ui-input-radiobuttons > div { color: #666; }
+.ui-dark .ui-disabled .ui-input-radiobuttons > div.ui-input-checked i { background-color: #666; }
