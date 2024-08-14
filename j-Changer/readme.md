@@ -9,6 +9,10 @@ __An example to understand__:
 ```html
 
 <ui-plugin>
+
+	...
+	...
+
 	<ui-component name="changer" path="?.pictures"></ui-component>
 
 	<nav>
