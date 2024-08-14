@@ -69,6 +69,20 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				self.check();
 		});
 
+		self.event('click', cls2 + '-radio', function() {
+
+			if (config.disabled) {
+				$(this).blur();
+				return;
+			}
+
+			self.change(true);
+			var index = this.getAttribute('data-index');
+			var val = dirsource[index];
+			if (val)
+				self.set(self.itransform(val.id), 2);
+		});
+
 		self.event('click', cls2 + '-checkbox', function() {
 
 			if (config.disabled) {
@@ -560,6 +574,9 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 		if (config.type === 'date')
 			return value instanceof Date && !isNaN(value.getTime());
 
+		if (config.type === 'radiobutton')
+			return !!value;
+
 		if (config.type === 'checkbox')
 			return value === true || value === 1;
 
@@ -689,10 +706,15 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 
 		var is = false;
 
-		if (config.dirsource)
-			is = !!rawvalue.text();
-		else
-			is = input && input.length ? !!input[0].value : !!self.get();
+		if (config.type !== 'radiobutton') {
+			if (config.dirsource)
+				is = !!rawvalue.text();
+			else
+				is = input && input.length ? !!input[0].value : !!self.get();
+		} else {
+			var tmp = self.get();
+			is = tmp && tmp.length > 0;
+		}
 
 		if (binded === is)
 			return;
@@ -709,7 +731,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 
 		var value = self.get();
 
-		if (dirsource) {
+		if (dirsource && config.type !== 'radiobutton') {
 
 			var item;
 			var text = [];
@@ -720,11 +742,11 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					if (item === value)
 						break;
 					item = null;
-				} else if (config.multiple) {
+				} else if (config.multiple || config.type === 'radiobutton') {
 					var v = item[config.dirvalue || config.value];
 					var index = value instanceof Array ? value.indexOf(v) : -1;
 					if (index !== -1)
-						text.push({ index: index, value: item[config.dirkey || config.key] });
+						text.push({ index: index, name: item[config.dirkey || config.key] });
 				} else if (item[config.dirvalue || config.value] === value) {
 					item = item[config.dirkey || config.key];
 					break;
@@ -736,7 +758,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 
 				text.quicksort('index');
 				for (var i = 0; i < text.length; i++)
-					text[i] = text[i].value;
+					text[i] = text[i].name;
 
 				item = text.join(', ');
 			} else if (value && item == null && config.dircustom)
@@ -747,7 +769,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			else
 				rawvalue.text(item || '');
 
-		} else if (config.dirsource) {
+		} else if (config.dirsource && config.type !== 'radiobutton') {
 			if (config.dirdetail) {
 				self.EXEC(config.dirdetail, value, function(val) {
 					if (config.dirraw)
@@ -763,6 +785,13 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				rawvalue.text(value || '');
 		} else {
 			switch (config.type) {
+				case 'radiobutton':
+					var index = dirsource.findIndex('id', value);
+					self.find(cls2 + '-radiobuttons').find(cls2 + '-radio').each(function() {
+						var el = $(this);
+						el.tclass(cls + '-checked', el.attr('data-index') == index);
+					});
+					break;
 				case 'color':
 					rawvalue.css('background-color', value || '');
 					break;
@@ -823,6 +852,8 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 
 		if (config.type === 'checkbox') {
 			html = '<div class="{0}-checkbox"><span><i class="{checkicon}"></i></span><label>{label}</label></div>'.format(cls).args(config);
+		} else if (config.type === 'radiobutton') {
+			html = ('<div class="{0}-radiobutton">' + (config.label ? ('<label class="{0}-label">' + config.label + ':</label>') : '') + '<div class="{0}-radiobuttons"></div></div>').format(cls);
 		} else {
 			is = true;
 			var opt = CLONE(config);
@@ -837,8 +868,17 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			input = self.find('input,textarea');
 			rawvalue = self.find(cls2 + '-value');
 			placeholder = self.find(cls2 + '-placeholder');
-		} else
+		} else if (config.type !== 'radiobutton')
 			input = rawvalue = placeholder = null;
+	};
+
+	self.radiorender = function() {
+		var builder = [];
+		for (let i = 0; i < dirsource.length; i++) {
+			let item = dirsource[i];
+			builder.push('<div data-index="{1}" class="{0}-radio"><span><i></i></span>{name}</div>'.format(cls, i).args(item));
+		}
+		self.find(cls2 + '-radiobuttons').tclass(cls + '-multiline', !!config.multiline).html(builder.join(''));
 	};
 
 	self.configure = function(key, value, init) {
@@ -855,17 +895,24 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				} else {
 					if (value.indexOf(',') !== -1) {
 						dirsource = dirsourceprepare(self.parsesource(value));
-						if (!init)
+						if (config.type === 'radiobutton')
+							self.radiorender();
+						else if (!init)
 							self.bindvalue();
 					} else {
 						self.datasource(value, function(path, value) {
 							dirsource = dirsourceprepare(M.is20 ? path : value);
-							self.bindvalue();
+							if (config.type === 'radiobutton')
+								self.radiorender();
+							else
+								self.bindvalue();
 						});
 					}
 				}
-				self.tclass(cls + '-dropdown', !!value);
-				input.prop('readonly', !!config.disabled || !!config.dirsource);
+				if (config.type !== 'radiobutton') {
+					self.tclass(cls + '-dropdown', !!value);
+					input.prop('readonly', !!config.disabled || !!config.dirsource);
+				}
 				break;
 			case 'disabled':
 				self.tclass('ui-disabled', !!value);
@@ -1034,6 +1081,9 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 
 		var val = self.get();
 		var type = typeof(val);
+
+		if (config.type === 'radiobutton')
+			return !!val;
 
 		if (config.type === 'checkbox')
 			return val === true || val === 1;
