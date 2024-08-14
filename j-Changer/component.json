@@ -1,0 +1,15 @@
+{
+	"datecreated": "2024-08-14T17:55:00.000Z",
+	"dateupdated": null,
+	"name": "j-Changer",
+	"jcomponent": "19|20",
+	"color": "white",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
