@@ -115,7 +115,7 @@ COMPONENT('dropdownlist', 'limit:3;check:true', function(self, config, cls) {
 			next();
 		}, function() {
 			nocheck = true;
-			self.bind('@touched @modified @setter', items.remove('id', ''))
+			self.bind('@touched @modified @setter', items.remove('id', ''));
 			setTimeout(self.uncheck, 100);
 		});
 	};
