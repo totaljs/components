@@ -31,10 +31,24 @@ COMPONENT('breadcrumb', 'icon:ti ti-home;historyapi:1;root:Root;arrowicon:ti ti-
 		});
 	};
 
+	self.root = function() {
+		if (config.root) {
+			var arr = [];
+			arr.push({ name: config.root, url: config.rooturl });
+			self.set(arr);
+		}
+	};
+
 	self.add = function(name, url, callback) {
+
 		var arr = [];
 
 		config.root && arr.push({ name: config.root, url: config.rooturl });
+
+		if (!name) {
+			callback && callback();
+			return;
+		}
 
 		var fn = function(name, url, callback) {
 			name && arr.push({ name: name, url: url, callback: callback });

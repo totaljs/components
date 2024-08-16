@@ -32,6 +32,7 @@ __Configuration__:
 ## Methods
 
 - `component.add(name1, url1, [callback])(name2, url2)(name3, url3)...`
+- `component.root()` it resets a breadcrumb
 
 ### Author
 
