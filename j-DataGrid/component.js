@@ -2229,6 +2229,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 					return false;
 			} else if (val instanceof Date) {
 
+				val = new Date(val.getTime());
 				val.setHours(0);
 				val.setMinutes(0);
 
