@@ -1,4 +1,4 @@
-COMPONENT('faviconunread', 'bg:red;fg:white', function(self, config) {
+COMPONENT('faviconunread', 'bg:red;fg:white;badge:true', function(self, config) {
 
 	var tmp = {};
 
@@ -53,6 +53,13 @@ COMPONENT('faviconunread', 'bg:red;fg:white', function(self, config) {
 				tmp.el.attr({ type: 'image/png', href: canvas.toDataURL() });
 
 			canvas = img = null;
+
+			if (config.badge) {
+				try {
+					navigator.setAppBadge && navigator.setAppBadge(value ? (+value) : 0);
+				} catch {}
+			}
+
 		};
 	};
 
