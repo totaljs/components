@@ -660,9 +660,9 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', functio
 		self.append(el);
 		position.push(obj);
 
-		setTimeout(function(obj) {
-			obj.setcommand('focus');
-		}, 100, obj);
+		item.offset.maximized && obj.setcommand('maximize');
+
+		setTimeout(obj => obj.setcommand('focus'), 100, obj);
 		return obj;
 	};
 
@@ -734,6 +734,16 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', functio
 	self.show = function(id) {
 		var item = cache[id];
 		item && item.setcommand('show');
+	};
+
+	self.maximize = function(id) {
+		var item = cache[id];
+		item && item.setcommand('maximize');
+	};
+
+	self.minimize = function(id) {
+		var item = cache[id];
+		item && item.setcommand('minimize');
 	};
 
 	self.focus = function(id) {

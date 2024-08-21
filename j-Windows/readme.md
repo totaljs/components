@@ -25,7 +25,7 @@ var win = {
 	// You can define a specific display size and if the display size is not specified then the window tries to find a size for a larger display
 	html: 'THE CONTENT OF WINDOW', // or can be raw HTMLElement
 
-	offset: { x: 200, y: 100, width: 600, height: 400, minwidth: 200, minheight: 200, maxwidth: 1000, maxheight: 1000 }, // minwidth, maxwidth, maxheight, minheight are optional
+	offset: { x: 200, y: 100, width: 600, height: 400, minwidth: 200, minheight: 200, maxwidth: 1000, maxheight: 1000, maximized: false }, // minwidth, maxwidth, maxheight, minheight and maximized are optional
 
 	// Prevents hidden state for "hide: true" option
 	// hidden: false,
