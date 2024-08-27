@@ -1,6 +1,7 @@
-COMPONENT('display', 'delay:100', function(self, config, cls) {
+COMPONENT('display', 'delay:100;xs:768;sm:992;md:1200', function(self, config, cls) {
 
 	var initialized = false;
+	var sizes = {};
 	var prev;
 
 	self.readonly();
@@ -12,7 +13,17 @@ COMPONENT('display', 'delay:100', function(self, config, cls) {
 	};
 
 	self.resizeforce = function() {
-		var size = WIDTH(self.element);
+
+		var width = self.element.width();
+		var size = 'lg';
+
+		if (width <= config.xs)
+			size = 'xs';
+		else if (width <= config.sm)
+			size = 'sm';
+		else if (width <= config.md)
+			size = 'md';
+
 		if (!prev || prev.substring(3) !== size) {
 			prev && self.rclass(prev);
 			prev = (M.version < 19 ? 'jc-' : 'd-') + size;

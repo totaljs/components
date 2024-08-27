@@ -12,6 +12,11 @@ The component measures a display size according to the current element. It uses 
 __Configuration__:
 
 - `delay {Number}` a delay for obtaining of size (default: `100` ms)
+- __NEW__: `xs {Number}` a maximum width for the extra small display (default: `768`)
+- __NEW__: `sm {Number}` a maximum width for the small display (default: `992`)
+- __NEW__: `md {Number}` a maximum width for the medium display (default: `1200`)
+
+The component calculates the interval between displays automatically. The default display type is `lg`.
 
 ### Author
 
