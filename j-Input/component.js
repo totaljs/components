@@ -53,8 +53,9 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			if (typeof(config.autofill) === 'string') {
 				config.NAME = config.autofill;
 			} else {
-				var index = self.path.lastIndexOf('.');
-				config.NAME = index === -1 ? self.path : self.path.substring(index + 1);
+				var path = self.path.toString();
+				var index = path.lastIndexOf('.');
+				config.NAME = index === -1 ? path : path.substring(index + 1);
 			}
 		}
 
