@@ -13,30 +13,34 @@ COMPONENT('enter', 'validate:1;trigger:button[name="submit"];flags:visible;timeo
 
 	self.readonly();
 
-	var isvalid = function() {
+	self.make = function() {
 
-		var arr = COMPONENTS(self.path);
-		for (var m of arr) {
+		var isvalid = function() {
 
-			if (m === self)
-				continue;
+			var arr = COMPONENTS(self.path);
+			var modified = false;
+			var disabled = false;
 
-			if (config.validonly) {
-				if (m.config.invalid) {
+			for (var m of arr) {
+
+				if (m === self)
+					continue;
+
+				if (config.validonly) {
+					if (m.config.invalid) {
+						disabled = true;
+						break;
+					}
+				} else if (m.config.invalid) {
 					disabled = true;
 					break;
-				}
-			} else if (m.config.invalid) {
-				disabled = true;
-				break;
-			} else if (m.config.modified)
-				modified = true;
-		}
+				} else if (m.config.modified)
+					modified = true;
+			}
 
-		return modified && !disabled;
-	};
+			return modified && !disabled;
+		};
 
-	self.make = function() {
 		self.event('keydown', 'input', function(e) {
 			if (e.which === 13 && (!config.validate || !self.path || isvalid())) {
 				if (config.exec) {
