@@ -1,7 +1,8 @@
 COMPONENT('enter', 'validate:1;trigger:button[name="submit"];flags:visible;timeout:1500;delay:500', function(self, config) {
 
-	var flags;
 	var delay = null;
+	var flags;
+
 	var submit = function(btn) {
 		delay = null;
 		if (btn)
@@ -11,9 +12,33 @@ COMPONENT('enter', 'validate:1;trigger:button[name="submit"];flags:visible;timeo
 	};
 
 	self.readonly();
+
+	var isvalid = function() {
+
+		var arr = COMPONENTS(self.path);
+		for (var m of arr) {
+
+			if (m === self)
+				continue;
+
+			if (config.validonly) {
+				if (m.config.invalid) {
+					disabled = true;
+					break;
+				}
+			} else if (m.config.invalid) {
+				disabled = true;
+				break;
+			} else if (m.config.modified)
+				modified = true;
+		}
+
+		return modified && !disabled;
+	};
+
 	self.make = function() {
 		self.event('keydown', 'input', function(e) {
-			if (e.which === 13 && (!config.validate || !self.path || CAN(self.path, flags))) {
+			if (e.which === 13 && (!config.validate || !self.path || isvalid())) {
 				if (config.exec) {
 					if (!BLOCKED(self.ID, config.timeout)) {
 						delay && clearTimeout(delay);
