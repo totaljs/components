@@ -124,9 +124,7 @@ COMPONENT('shoppingcart', 'discount:0;expiration:6 days', function(self, config)
 
 	self.clean = function() {
 		var datasource = self.prepare();
-		datasource.items = datasource.items.remove(function(item) {
-			return item.count <= 0;
-		});
+		datasource.items = datasource.items.remove(item => item.count <= 0);
 		self.sum();
 	};
 

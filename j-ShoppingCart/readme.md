@@ -1,13 +1,14 @@
 ## j-ShoppingCart
 
+- jComponent `v19|v20`
 - singleton
 - supports discount
 - data are stored in localStorage
 
 __Configuration__:
 
-- `discount` {Number} a discount in percentage (optional, default: `0`)
-- `expiration` {String} data expiration (default: `6 days`)
+- `discount {Number}` a discount in percentage (optional, default: `0`)
+- `expiration {String}` data expiration (default: `6 days`)
 
 __Output__:
 
