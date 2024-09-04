@@ -32,7 +32,7 @@ __Output__:
 ### Methods
 
 - `instance.add(id, price, count, [name])` adds new product or increase count if the product exists
-- `instance.upd(id, count)` updates product's count
+- `instance.upd(id, [count], [price], [name])` updates product's data
 - `instance.buy(id, price, count, [name])` creates/updates product
 - `instance.rem(id)` removes product
 - `instance.has(id)` checks product

@@ -112,11 +112,16 @@ COMPONENT('shoppingcart', 'discount:0;expiration:6 days', function(self, config)
 		EMIT(Name + '.add', item);
 	};
 
-	self.upd = function(id, count) {
+	self.upd = function(id, count, price, name) {
 		var datasource = self.prepare();
 		var item = datasource.items.findItem('id', id);
 		if (item) {
-			item.count = count;
+			if (count != null)
+				item.count = count;
+			if (price != null)
+				item.price = price;
+			if (name != name)
+				item.name = name;
 			EMIT(Name + '.upd', item);
 			setTimeout2(self.id + '.sum', self.sum, 100);
 		}
