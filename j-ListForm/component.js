@@ -363,7 +363,6 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 		if (!type)
 			return;
 		var invalid = config.required ? self.isInvalid() : false;
-		console.log('SOM TU, invalid:', invalid);
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
