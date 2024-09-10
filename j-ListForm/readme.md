@@ -21,6 +21,7 @@ __Configuration__:
 - __NEW__: `move {String}` a link to a function `function(items)`
 - __NEW__: `newbie {String}` a property name for every new item (it will always contain `true` value)
 - __NEW__: `plugin {String}` a custom plugin name inside the component (default: `component.ID`)
+- __NEW__: `invalidform {Boolean}` disables `j-Validate` component if the `j-ListForm` is in editing mode (default: `false`)
 
 The component needs to have defined 3 templates wrapped in `<script type="text/html">`:
 

@@ -1,6 +1,7 @@
 COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
+	var skip2 = false;
 	var skip = false;
 	var container;
 	var form;
@@ -8,7 +9,12 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 	var plugin;
 
 	self.validate = function(value) {
-		return config.disabled || !config.required ? true : !!(value && value.length > 0);
+		if (config.disabled)
+			return true;
+		var valid = config.required ? !!(value && value.length > 0) : true;
+		if (valid && config.invalidform)
+			valid = self.$$invalid ? false : valid;
+		return valid;
 	};
 
 	self.make = function() {
@@ -143,6 +149,7 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 								items.push(tmp);
 								self.create(tmp);
 							}
+							self.$$invalid = false;
 							skip = true;
 							self.bind('@modified @touched @setter', items);
 						}
@@ -168,13 +175,14 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 					var data = form.$data;
 
 					fn = function(is) {
-						self.cancel();
 						if (is !== false && data) {
 							el.parentNode.removeChild(el);
 							items.splice(items.indexOf(data), 1);
 							skip = true;
+							self.$$invalid = false;
 							self.bind('@modified @touched @setter', items);
 						}
+						self.cancel();
 					};
 
 					if (config.remove)
@@ -241,6 +249,9 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 			container.append(form);
 			self.compile && self.compile();
 			self.$$check = true;
+			self.$$invalid = true;
+			if (config.invalidform)
+				self.validate2();
 		}
 	};
 
@@ -279,12 +290,29 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 			$(form).tclass(cls + '-new', !el).rclass('hidden');
 			config.autofocus && self.autofocus(config.autofocus);
 		}, 150);
+
+		if (config.invalidform) {
+			self.$$invalid = true;
+			self.validate2();
+			skip2 = true;
+			self.update();
+		}
+
 	};
 
 	self.cancel = function() {
 		if (self.$$check) {
+
+			if (self.$$invalid) {
+				self.$$invalid = false;
+				self.validate2();
+				skip2 = true;
+				self.update();
+			}
+
 			if (form.parentNode !== self.dom)
 				self.dom.appendChild(form);
+
 			form.$target && $(form.$target).rclass(cls + '-selected');
 			form.$target = form.$data = null;
 			$(form).aclass('hidden');
@@ -304,6 +332,11 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 	};
 
 	self.setter = function(value, path, type) {
+
+		if (skip2) {
+			skip2 = false;
+			return;
+		}
 
 		if ((M.is20 && type.init) || !type)
 			self.rclass('invisible');
@@ -330,6 +363,7 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 		if (!type)
 			return;
 		var invalid = config.required ? self.isInvalid() : false;
+		console.log('SOM TU, invalid:', invalid);
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
