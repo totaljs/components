@@ -42,7 +42,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 		var keywords = /\{.*?\}\(.*?\)/g;
 		var linksexternal = /(https|http):\/\//;
 		var format = /__.*?__|_.*?_|\*\*.*?\*\*|\*.*?\*|~~.*?~~|~.*?~/g;
-		var ordered = /^[a-z|0-9]{1,3}\.\s|^-\s/i;
+		var ordered = /^[a-z|0-9]{1,3}\.\s|^(-|\*|\+)\s/i;
 		var orderedsize = /^(\s|\t)+/;
 		var code = /`.*?`/g;
 		var encodetags = /<|>/g;
@@ -953,7 +953,8 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 					else
 						size = 0;
 
-					var ultype = tmpline.charAt(0) === '-' ? 'ul' : 'ol';
+					var c = tmpline.charAt(0);
+					var ultype = c === '-' || c === '+' || c === '*' ? 'ul' : 'ol';
 					var tmpstr = (ultype === 'ol' ? tmpline.substring(tmpline.indexOf('.') + 1) : tmpline.substring(2));
 					var istask = false;
 

@@ -1,12 +1,8 @@
 {
 	"datecreated": "2019-05-22T14:47:00.000Z",
-	"dateupdated": "2024-05-21T15:25:00.000Z",
+	"dateupdated": "2024-09-14T10:32:00.000Z",
 	"name": "j-Markdown",
-	"tags": [
-		"markdown",
-		"parser",
-		"formatter"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"darkmode": true,
