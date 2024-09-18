@@ -1,4 +1,4 @@
-COMPONENT('hashchange', function(self) {
+COMPONENT('hashchange', function(self, config) {
 
 	var prev = '';
 
