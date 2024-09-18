@@ -191,7 +191,7 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 
 		if (self.hclass('hidden') === isHidden) {
 			if (!isHidden) {
-				config.reload && setTimeout(() => self.EXEC(config.reload, self), 2);
+				config.reload && self.EXEC(config.reload, self);
 				config.default && DEFAULT(self.makepath(config.default), true);
 			}
 			return;
@@ -225,7 +225,7 @@ COMPONENT('miniform', 'zindex:12', function(self, config, cls) {
 		self.resize();
 		self.release(false);
 
-		config.reload && setTimeout(() => self.EXEC(config.reload, self), 2);
+		config.reload && self.EXEC(config.reload, self);
 		config.default && DEFAULT(self.makepath(config.default), true);
 
 		setTimeout(function() {
