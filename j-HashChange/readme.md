@@ -3,6 +3,7 @@
 The component captures all changes for `#hashtag` in the URL address. When change, it emits event `hash`. The component reacts to the real changes.
 
 - jComponent `v19|v20`
+- singleton
 
 __Configuration__:
 
@@ -11,8 +12,14 @@ __Configuration__:
 __How to capture hash change?__
 
 ```js
+// Global:
 ON('hash', function(hash) {
 	// @hash {String} - it can be "empty"
+});
+
+// Or in the Plugin declaration:
+exports.on('hash', function(hash) {
+
 });
 ````
 
