@@ -1,0 +1,13 @@
+<ui-component name="hashchange"></ui-component>
+
+<ui-bind path="currenthash" config="text"></ui-bind>
+
+<script>
+
+	setInterval(() => location.hash = GUID(10), 1000);
+
+	ON('hash', function(hash) {
+		SET('currenthash', hash);
+	});
+
+</script>
