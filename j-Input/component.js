@@ -772,12 +772,15 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 
 		} else if (config.dirsource && config.type !== 'radiobutton') {
 			if (config.dirdetail) {
-				self.EXEC(config.dirdetail, value, function(val) {
-					if (config.dirraw)
-						rawvalue.html(val || '');
-					else
-						rawvalue.text(val || '');
-					self.check();
+				// Timer was added due to the "exports.caller"
+				setTimeout2(self.ID + 'dirdetail', function() {
+					self.EXEC(config.dirdetail, value, function(val) {
+						if (config.dirraw)
+							rawvalue.html(val || '');
+						else
+							rawvalue.text(val || '');
+						self.check();
+					}, 5);
 				});
 				return;
 			} else if (config.dirraw)
