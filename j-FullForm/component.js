@@ -218,7 +218,7 @@ COMPONENT('fullform', 'zindex:12;padding:20;scrollbar:1;scrolltop:1;style:1', fu
 
 		if (self.hclass('hidden') === isHidden) {
 			if (!isHidden) {
-				config.reload && self.EXEC(config.reload, self);
+				config.reload && setTimeout(() => self.EXEC(config.reload, self), 2);
 				config.default && DEFAULT(self.makepath(config.default), true);
 				config.scrolltop && self.scrollbar && self.scrollbar.scrollTop(0);
 			}
@@ -253,7 +253,7 @@ COMPONENT('fullform', 'zindex:12;padding:20;scrollbar:1;scrolltop:1;style:1', fu
 		self.release(false);
 
 		config.scrolltop && self.scrollbar && self.scrollbar.scrollTop(0);
-		config.reload && self.EXEC(config.reload, self);
+		config.reload && setTimeout(() => self.EXEC(config.reload, self), 2);
 		config.default && DEFAULT(self.makepath(config.default), true);
 
 		self.resize();

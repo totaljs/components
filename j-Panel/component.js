@@ -156,7 +156,7 @@ COMPONENT('panel', 'width:350;icon:home;zindex:12;scrollbar:true;scrollbarY:true
 
 		if (self.hclass('hidden') === isHidden) {
 			if (!isHidden) {
-				config.reload && self.EXEC(config.reload, self);
+				config.reload && setTimeout(() => self.EXEC(config.reload, self), 2);
 				config.default && DEFAULT(self.makepath(config.default), true);
 			}
 			return;
@@ -194,7 +194,7 @@ COMPONENT('panel', 'width:350;icon:home;zindex:12;scrollbar:true;scrollbarY:true
 		self.release(false);
 		setTimeout(self.resize, 100);
 
-		config.reload && self.EXEC(config.reload, self);
+		config.reload && setTimeout(() => self.EXEC(config.reload, self), 2);
 		config.refresh && self.EXEC(config.refresh, self);
 		config.default && DEFAULT(self.makepath(config.default), true);
 

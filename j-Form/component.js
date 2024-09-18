@@ -206,7 +206,7 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 
 		if (self.hclass('hidden') === isHidden) {
 			if (!isHidden) {
-				config.reload && self.EXEC(config.reload, self);
+				config.reload && setTimeout(() => self.EXEC(config.reload, self), 2);
 				config.default && DEFAULT(self.makepath(config.default), true);
 			}
 			return;
@@ -245,7 +245,7 @@ COMPONENT('form', 'zindex:12;scrollbar:1', function(self, config, cls) {
 		else
 			self.element.scrollTop(0);
 
-		config.reload && self.EXEC(config.reload, self);
+		config.reload && setTimeout(() => self.EXEC(config.reload, self), 2);
 		config.default && DEFAULT(self.makepath(config.default), true);
 
 		setTimeout(function() {
