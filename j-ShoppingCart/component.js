@@ -171,6 +171,7 @@ COMPONENT('shoppingcart', 'discount:0;expiration:6 days', function(self, config)
 
 		!init && CACHE(Name, datasource.items, config.expiration);
 		self.update(true);
+		EMIT(Name + '.sum', datasource);
 		EMIT(Name + '.total', datasource);
 	};
 
