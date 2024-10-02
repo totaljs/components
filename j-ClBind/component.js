@@ -28,15 +28,15 @@ COMPONENT('clbind', 'nullable:1;key:id', function(self, config, cls) {
 	self.configure = function(key, value) {
 		if (key === 'dirsource' || key === 'datasource' || key === 'source') {
 			self.datasource(value, function(arr) {
-				datasource = arr;
-				bind();
+				datasource = arr || [];
+				setTimeout2(self.ID, bind, 5);
 			});
 		}
 	};
 
 	self.setter = function(value) {
 		curr = value;
-		bind();
+		setTimeout2(self.ID, bind, 5);
 	};
 
 });
