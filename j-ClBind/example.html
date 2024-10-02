@@ -1,0 +1,13 @@
+<ui-component name="clbind" path="form.typeid" config="datasource:#types;nullable:0;bind:form.type">
+	<script type="text/html">
+		<div>Value: {{ value.name }}</div>
+	</script>
+</ui-component>
+<br />
+<ui-bind path="form.type" config="html:value"></ui-bind>
+
+<script>
+	DEF.cl.types = [{ id: 'totaljs', name: 'Total.js' }, { id: 'java', name: 'Java' }, { id: 'php', name: 'PHP' }, { id: '.net', name: '.NET' }];
+	var form = {};
+	form.typeid = 'totaljs';
+</script>
