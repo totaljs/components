@@ -127,9 +127,10 @@ COMPONENT('fileuploader', function(self, config) {
 			reader.onload = function () {
 				var img = new Image();
 				img.onload = function() {
-					if (self.opt.keeporiginal && ((img.width == self.opt.width && img.height == self.opt.height) || (self.opt.width && self.opt.onlylarger && img.width <= self.opt.width)))
+					if (self.opt.keeporiginal && ((img.width == self.opt.width && img.height == self.opt.height) || (self.opt.width && self.opt.onlylarger && img.width <= self.opt.width))) {
+						name = self.preparefilename(file.name);
 						fetch(reader.result).then(res => res.blob()).then(blob => callback(name, blob));
-					else
+					} else
 						self.resizeimage(img, name, callback);
 				};
 				img.crossOrigin = 'anonymous';
