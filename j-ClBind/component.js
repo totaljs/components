@@ -27,16 +27,16 @@ COMPONENT('clbind', 'nullable:1;key:id', function(self, config, cls) {
 
 	self.configure = function(key, value) {
 		if (key === 'dirsource' || key === 'datasource' || key === 'source') {
-			self.datasource(value, function(arr) {
-				datasource = arr || [];
-				setTimeout2(self.ID, bind, 5);
+			self.datasource(value, function(path, value) {
+				datasource = (M.is20 ? path : value) || [];
+				bind();
 			});
 		}
 	};
 
 	self.setter = function(value) {
 		curr = value;
-		setTimeout2(self.ID, bind, 5);
+		bind();
 	};
 
 });

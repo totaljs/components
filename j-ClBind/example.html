@@ -4,7 +4,7 @@
 	</script>
 </ui-component>
 <br />
-<ui-bind path="form.type" config="html:value"></ui-bind>
+<ui-bind path="!form.type" config="html:value.name"></ui-bind>
 
 <script>
 	DEF.cl.types = [{ id: 'totaljs', name: 'Total.js' }, { id: 'java', name: 'Java' }, { id: 'php', name: 'PHP' }, { id: '.net', name: '.NET' }];
