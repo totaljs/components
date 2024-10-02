@@ -151,7 +151,7 @@ COMPONENT('imageuploader', function(self) {
 	};
 
 	self.load = function(file) {
-		name = file.name.replace(/\.(ico|png|jpeg|gif|svg|webp)$/, self.opt.background === 'transparent' ? '.png' : '.jpg');
+		name = file.name.replace(/\.(ico|png|jpg|jpeg|gif|svg|webp)$/i, self.opt.background === 'transparent' ? '.png' : '.jpg');
 		self.getorientation(file, function(orient) {
 			var reader = new FileReader();
 			reader.onload = function () {
@@ -159,6 +159,7 @@ COMPONENT('imageuploader', function(self) {
 				img.onload = function() {
 
 					if (self.opt.keeporiginal && img.width == self.opt.width && img.height == self.opt.height) {
+						name = file.name;
 						self.upload(reader.result);
 						self.change(true);
 					} else {
