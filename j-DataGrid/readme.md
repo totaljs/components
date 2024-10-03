@@ -90,7 +90,7 @@ __Configuration__:
 	- `config.exec` will be executed if the scrollbar is at the end, and you can use as the raw response `array` of rows
 - `ovalue {String}` a default key for obtaining of `value` from `column.options` (default: `id`)
 - `otext {String}` a default key for obtaining of `text` from `column.options` (default: `name`)
-- __NEW__ `raw {Boolean}` enables/disables HTML escaping (default: `false`)
+- __NEW__ `raw {Boolean}` enables/disables HTML escaping in column filters (default: `false`)
 
 __Column properties__:
 
