@@ -90,7 +90,6 @@ __Configuration__:
 	- `config.exec` will be executed if the scrollbar is at the end, and you can use as the raw response `array` of rows
 - `ovalue {String}` a default key for obtaining of `value` from `column.options` (default: `id`)
 - `otext {String}` a default key for obtaining of `text` from `column.options` (default: `name`)
-- __NEW__ `raw {Boolean}` enables/disables HTML escaping in column filters (default: `false`)
 
 __Column properties__:
 
@@ -122,9 +121,11 @@ __Column properties__:
 - `type {String}` optional, can contain a data-type (`string`, `boolean`, `date`, `number`, `email`, `phone` or `url`) for the field
 - `editable {Boolean}` enables editing
 - `currency {String}` a currency name (must be defined in `DEF.currencies`)
-- __NEW__ `editable {String}` A path to custom editable `function(meta)`, important: `meta.next(new_value)` or `meta.cancel()`
-- __NEW__ `colorize {Boolean}` enables a colorization of the value
-- __NEW__ `monospace {Boolean}` enables monospace font type
+- `editable {String}` A path to custom editable `function(meta)`, important: `meta.next(new_value)` or `meta.cancel()`
+- `colorize {Boolean}` enables a colorization of the value
+- `monospace {Boolean}` enables monospace font type
+- __NEW__ `raw {Boolean}` enables/disables HTML escaping in column filters (default: `false`)
+- __NEW__ `pair {Boolean}` enables/disables auto value pairing with `options` configuration (default: `false`)
 
 __Row controls (NEW)__:
 

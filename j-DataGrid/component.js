@@ -1357,7 +1357,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 				col.templatecustom = true;
 				col.template = TC((col.template.indexOf('<button') === -1 ? ('<div class="dg-value' + (col.monospace ? ' dg-monospace' : '') + cls + '">{0}</div>') : '{0}').format(col.template));
 			} else
-				col.template = TC(('<div class="' + (isbool ? 'dg-bool' : ('dg-value' + (col.monospace ? ' dg-monospace' : ''))) + cls + '"' + (config.allowtitles ? ' title="{{ {0} }}"' : '') + '>{{ {0} }}</div>').format(col.name + (col.currency ? ' | currency(\'{0}\')'.format(col.currency) : col.format != null ? ' | format({0})'.format(col.format && typeof(col.format) === 'string' ? ('\'' + col.format + '\'') : col.format) : '') + (col.type && config.autoformat ? ' | ui_datagrid_autoformat(\'{0}\')'.format(col.type) : '') + (col.empty ? ' | def({0})'.format(col.empty === true || col.empty == '1' ? '' : ('\'' + col.empty + '\'')) : '') + (isbool ? ' | ui_datagrid_checkbox' : '') + (col.colorize && col.type !== 'boolean' ? (' | ui_datagrid_colorize(' + (col.currency || col.format ? 0 : 1) + ')') : '')));
+				col.template = TC(('<div class="' + (isbool ? 'dg-bool' : ('dg-value' + (col.monospace ? ' dg-monospace' : ''))) + cls + '"' + (config.allowtitles ? ' title="{{ {0} }}"' : '') + '>{{ {0} }}</div>').format((col.options ? '$' : col.name) + (col.currency ? ' | currency(\'{0}\')'.format(col.currency) : col.format != null ? ' | format({0})'.format(col.format && typeof(col.format) === 'string' ? ('\'' + col.format + '\'') : col.format) : '') + (col.type && config.autoformat ? ' | ui_datagrid_autoformat(\'{0}\')'.format(col.type) : '') + (col.empty ? ' | def({0})'.format(col.empty === true || col.empty == '1' ? '' : ('\'' + col.empty + '\'')) : '') + (isbool ? ' | ui_datagrid_checkbox' : '') + (col.colorize && col.type !== 'boolean' ? (' | ui_datagrid_colorize(' + (col.currency || col.format ? 0 : 1) + ')') : '') + (col.raw && col.options ? ' | raw' : '')));
 
 			if (col.header)
 				col.header = TC(col.header);
@@ -1585,8 +1585,15 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 
 		for (var j = 0; j < opt.cols.length; j++) {
 			var col = opt.cols[j];
-			if (!col.hidden)
-				column += Tcol.format(j, col.template(row), col.align, row.CHANGES && row.CHANGES[col.name] ? ' dg-col-changed' : '');
+			if (!col.hidden) {
+				var secondvalue = null;
+				if (!col.templatecustom && col.pair && col.options) {
+					if (!col.optionscache)
+						col.optionscache = (((typeof(col.options) === 'string') ? GET(col.options) : col.options) || EMPTYARRAY);
+					secondvalue = col.optionscache.findValue(col.ovalue, row[col.name], col.otext, row[col.name]);
+				}
+				column += Tcol.format(j, col.template(row, secondvalue), col.align, row.CHANGES && row.CHANGES[col.name] ? ' dg-col-changed' : '');
+			}
 		}
 
 		column += '<div class="dg-col">&nbsp;</div>';
@@ -1609,6 +1616,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 		}
 
 		var is = false;
+
+		for (var col of opt.cols)
+			col.optionscache = null;
 
 		for (var i = 0, length = rows.length; i < length; i++) {
 			var row = rows[i];
