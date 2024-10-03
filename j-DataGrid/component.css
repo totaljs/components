@@ -31,8 +31,8 @@
 .dg-hcol .dg-label { padding-top: 11px; }
 .dg-filter-selected { background-color: #FBF0CA !important; }
 .dg-filter-selected label { color: #000; }
-.dg-filter i { position: absolute; right: 8px; margin-top: 6px; font-size: 10px; color: red; display: none; cursor: pointer; }
-.dg-filter-selected i { display: block; }
+.dg-filter > i { position: absolute; right: 8px; margin-top: 6px; font-size: 10px; color: red; display: none; cursor: pointer; }
+.dg-filter-selected > i { display: block; }
 .dg-filter-selected input { padding-right: 12px; }
 .dg-clickable .dg-row { cursor: pointer; }
 .dg-row { height: 30px; font-size: 12px; border-bottom: 1px solid #E0E0E0; -webkit-transform: translateZ(0); }

@@ -45,8 +45,8 @@ or raw `Array` but you can't use pagination and external filters:
 __Configuration__:
 
 - `filterlabel {String}` a default placeholder for all filters (optional)
-- __NEW__ `rememberfilter {Boolean}` with true it remembers filters for every schema (default: `true`)
-- __NEW__ `schema {String}` a default schema (default: `default`)
+- `rememberfilter {Boolean}` with true it remembers filters for every schema (default: `true`)
+- `schema {String}` a default schema (default: `default`)
 - `pluralizepages {String}` pluralization for pages (optional, default: `# pages,# page,# pages,# pages`)
 - `pluralizeitems {String}` pluralization for items (optional, default: `# items,# item,# items,# items`)
 - `height {Number/String}` height of grid, supported values: `auto` (default), __NEW__ `fluid`, `parent` (or `parent1`, `parent2`) or `NUMBER` as height or `selector` for jQuery.closest()
@@ -76,7 +76,7 @@ __Configuration__:
 - `button {String}` a link to `function(btn_name, row, btn_element, event, name)` is executed if the user clicks on a __button__ in the row
 - `exec {String}` a link to `function(type, filter, sort, page)` for server-side operations only (it disables client-side sorting & filtering), supported types: `refresh` or `page`
 - `changed {String}` `path` to a variable or path to `function(rows, grid)` is executed if the user changed some rows
-- `chang {String/Boolean}e` __NEW__ boolean enables internal editing or string must contain a `path` to a variable or path to `function(meta, next(meta))` is executed if the user double clicks on a column (`meta` can be `null` if the grid is refreshed) + `next(null)` replaces previous content again
+- `chang {String/Boolean}` boolean enables internal editing or string must contain a `path` to a variable or path to `function(meta, next(meta))` is executed if the user double clicks on a column (`meta` can be `null` if the grid is refreshed) + `next(null)` replaces previous content again
 - `columns {String}` a path to definition of `columns {Array}`
 - `dblclick {String}` a link to `function(row, grid, row_el)` method, it's executed if the user double-clicks on a row
 - `noborder {Boolean}` can disable a border around the grid (default: `false`)
@@ -88,8 +88,9 @@ __Configuration__:
 - `hfuncicon {String}` hfunc icon e.g. home, cog, etc.
 - `pagination {Boolean}` enables/disables pagination (default: `true`)
 	- `config.exec` will be executed if the scrollbar is at the end, and you can use as the raw response `array` of rows
-- __NEW__ `ovalue {String}` a default key for obtaining of `value` from `column.options` (default: `id`)
-- __NEW__ `otext {String}` a default key for obtaining of `text` from `column.options` (default: `name`)
+- `ovalue {String}` a default key for obtaining of `value` from `column.options` (default: `id`)
+- `otext {String}` a default key for obtaining of `text` from `column.options` (default: `name`)
+- __NEW__ `raw {Boolean}` enables/disables HTML escaping (default: `false`)
 
 __Column properties__:
 
