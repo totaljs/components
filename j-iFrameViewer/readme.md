@@ -14,6 +14,7 @@ __Options__:
 - `esc {Boolean}` can close the component with pressing of `ESC` key (defualt: `false`)
 - `width {String}` a width of iframe (default: `100%`)
 - `margin {Number}` a vertical (top/bottom) margin (default: `0`)
+- __NEW__: `html {String}` a custom HTML content for the iframe
 
 ### Author
 

@@ -90,10 +90,19 @@ COMPONENT('iframeviewer', function(self, config, cls) {
 		is = true;
 		self.tclass(cls + '-fixed', !!opt.width && opt.width !== '100%');
 		self.find('label').text(opt.name);
-		iframe.attr('src', opt.url).css('width', opt.width || '100%');
+		if (opt.html) {
+			if (opt.html.indexOf('<body') === -1)
+				opt.html = '<!DOCTYPE html><html><head><meta charset="utf-8" /></head><body style="font-family:Arial;font-size:14px;margin:0;padding:0">' + opt.html + '</body></html>';
+			iframe.attr('src', opt.url).css('width', opt.width || '100%');
+			var doc = iframe[0].contentWindow.document;
+			doc.open();
+			doc.write(opt.html);
+			doc.close();
+		} else
+			iframe.attr('src', opt.url).css('width', opt.width || '100%');
+
 		self.resize();
 		self.rclass('hidden');
-		iframe.focus();
+		if (!opt.html)
+			iframe.focus();
 	};
-
-});
