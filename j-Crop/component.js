@@ -14,7 +14,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 	self.samesize = '';
 
 	// self.bindvisible();
-	self.novalidate();
+	self.novalidate && self.novalidate();
 	self.nocompile && self.nocompile();
 	self.getter = null;
 

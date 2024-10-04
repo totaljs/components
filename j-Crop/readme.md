@@ -1,5 +1,7 @@
 ## j-Crop
 
+- jComponent `v19|v20`
+
 __Supports__:
 
 - zoom
@@ -10,11 +12,11 @@ __Supports__:
 
 __Configuration__:
 
-- `width` {Number} target width, required
-- `height` {Number} target height, required
-- `dragdrop` {Boolean} enables drag&drop (default: `true`)
-- `background` {String} a background color (default: transparent)
-- `format` {String} a format for URL file generator (default: `{0}`)
+- `width {Number}` target width, required
+- `height {Number}` target height, required
+- `dragdrop {Boolean}` enables drag&drop (default: `true`)
+- `background {String}` a background color (default: transparent)
+- `format {String}` a format for URL file generator (default: `{0}`)
 
 __Attributes__
 - `path="path-with-url-to-image"` - must contain URL to picture
