@@ -34,7 +34,10 @@ COMPONENT('importer', function(self, config) {
 		}
 
 		var scr = self.find('script');
-		content = scr.length ? scr.html() : '';
+		content = (scr.length ? scr.html() : '');
+
+		if (content)
+			content = content.replace(/SCR/g, 'scr' + 'ipt');
 
 		if (config.parent) {
 			var parent = self.parent(config.parent);
