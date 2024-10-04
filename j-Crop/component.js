@@ -264,13 +264,11 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 	};
 
 	self.setter = function(value) {
-		self.width(function(w) {
-			width = w;
-			if (value)
-				img.src = config.format.format(value);
-			else
-				self.redraw();
-		});
+		width = self.width();
+		if (value)
+			img.src = config.format.format(value);
+		else
+			self.redraw();
 	};
 
 	self.isTransparent = function(canvas) {
