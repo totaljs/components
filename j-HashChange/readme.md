@@ -8,6 +8,7 @@ The component captures all changes for `#hashtag` in the URL address. When chang
 __Configuration__:
 
 - `delay {Number}` a delay for emitting `hash` event (default: `0`)
+- __NEW__: `middleware {String}` a middleware (separated by the comma) for initial emit of the `hash` event
 
 __How to capture hash change?__
 

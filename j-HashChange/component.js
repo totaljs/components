@@ -22,7 +22,10 @@ COMPONENT('hashchange', function(self, config) {
 
 	self.make = function() {
 		$(W).on('hashchange', self.handler);
-		self.handler();
+		if (config.middleware)
+			MIDDLEWARE(config.middleware.split(',').trim(), self.handler);
+		else
+			self.on('ready', self.handler);
 	};
 
 	self.destroy = () => $(W).off('hashchange', self.handler);
