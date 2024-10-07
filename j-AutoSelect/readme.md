@@ -3,7 +3,7 @@
 - jComponent `v19|v20`
 - singleton
 
-The component automatically adds `.selected` class according to the selector `class="autoselect"` within the entire HTML document.
+The component automatically adds `.selected` class according to the selector `class="autoselect"` within the entire HTML document. This component is a perfect solution for server-side rendering and subsequent highlighting.
 
 __Configuration__:
 
