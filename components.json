@@ -323,5 +323,6 @@
 	"j-MonacoEditor",
 	"j-Changer",
 	"j-HashChange",
-	"j-ClBind"
+	"j-ClBind",
+	"j-AutoSelect"
 ]

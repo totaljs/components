@@ -1,0 +1,33 @@
+<style>
+	.links a { display: block; border: 0; text-align: left; color: gray; font-size: 14px; border-radius: 2px; padding: 2px 10px; margin-bottom: 1px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; }
+	.links a i { width: 14px; text-align: center; font-size: 12px; margin-right: 7px; color: #4285F4; }
+	.links .selected { font-weight: bold; color: white !important; background-color: #4285F4; }
+	.links .selected i { color: white !important }
+	.links a:hover { text-decoration: none; color: black; }
+</style>
+
+<ui-component name="autoselect" path="NAV.url"></ui-component>
+
+<div class="links autoselect">
+	<div>Menu 1</div>
+	<a href="/"><i class="ti ti-users"></i>Users</a>
+	<a href="/products/"><i class="ti ti-box"></i>Products</a>
+	<a href="/settings/"><i class="ti ti-cog"></i>Settings</a>
+</div>
+<br />
+<div class="links autoselect">
+	<div>Menu 2</div>
+	<a href="/"><i class="ti ti-users"></i>Users</a>
+	<a href="/products/"><i class="ti ti-box"></i>Products</a>
+	<a href="/settings/"><i class="ti ti-cog"></i>Settings</a>
+</div>
+
+<script>
+
+	var arr = ['/', '/products/', '/settings/'];
+
+	setInterval(function() {
+		REDIRECT(arr[(Math.random() * arr.length) >> 0]);
+	}, 1500);
+
+</script>
