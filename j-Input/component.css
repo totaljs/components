@@ -72,7 +72,7 @@
 .ui-input-radiobuttons > div { position: relative; display: inline-block; margin-left: 10px; cursor: pointer; height: 26px; line-height: 21px; }
 .ui-input-radiobuttons.ui-input-multiline > div { display: block; margin-left: 0; }
 .ui-input-radiobuttons > div:first-child { margin-left: 0; }
-.ui-input-radiobuttons > div span { border-radius: var(--radius); float: left; border: 1px solid #D0D0D0; width: 20px; height: 20px; margin-right: 7px; padding: 3px; }
+.ui-input-radiobuttons > div span { border-radius: var(--radius); float: left; border: 1px solid #D0D0D0; background-color: #FFF; width: 20px; height: 20px; margin-right: 7px; padding: 3px; }
 .ui-input-radiobuttons > div.ui-input-checked i { border-radius: var(--radius); background-color: #000; height: 12px; display: block; }
 
 .ui-disabled .ui-input-radiobuttons > div span { border-color: #E0E0E0; background: #F0F0F0; }
