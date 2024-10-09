@@ -106,3 +106,4 @@ COMPONENT('iframeviewer', function(self, config, cls) {
 		if (!opt.html)
 			iframe.focus();
 	};
+});
