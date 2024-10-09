@@ -1,0 +1,7 @@
+<div id="output"></div>
+
+<script>
+	var builder = [];
+	['https://www.totaljs.com', 'info@totaljs.com', '+421903163302', '#68B25B', false, true].forEach(num => builder.push(Thelpers.autoformat(num)));
+	$('#output').html(builder.join('<br />'));
+</script>
