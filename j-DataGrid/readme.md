@@ -76,7 +76,7 @@ __Configuration__:
 - `button {String}` a link to `function(btn_name, row, btn_element, event, name)` is executed if the user clicks on a __button__ in the row
 - `exec {String}` a link to `function(type, filter, sort, page)` for server-side operations only (it disables client-side sorting & filtering), supported types: `refresh` or `page`
 - `changed {String}` `path` to a variable or path to `function(rows, grid)` is executed if the user changed some rows
-- `chang {String/Boolean}` boolean enables internal editing or string must contain a `path` to a variable or path to `function(meta, next(meta))` is executed if the user double clicks on a column (`meta` can be `null` if the grid is refreshed) + `next(null)` replaces previous content again
+- `change {String/Boolean}` boolean enables internal editing or string must contain a `path` to a variable or path to `function(meta, next(meta))` is executed if the user double clicks on a column (`meta` can be `null` if the grid is refreshed) + `next(null)` replaces previous content again
 - `columns {String}` a path to definition of `columns {Array}`
 - `dblclick {String}` a link to `function(row, grid, row_el)` method, it's executed if the user double-clicks on a row
 - `noborder {Boolean}` can disable a border around the grid (default: `false`)
