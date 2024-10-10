@@ -1,7 +1,6 @@
 ## j-Rating
 
 - easy usage
-
 - jComponent `v19|v20`
 
 ### Author

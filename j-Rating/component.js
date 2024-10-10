@@ -13,7 +13,7 @@ COMPONENT('rating', function(self, config, cls) {
 		self.aclass(cls);
 		self.html('{0}<div>{1}</div>'.format(self.html(), builder.join('')));
 		self.event('click', 'i', function() {
-			!config.disabled && self.set($(this).index() + 1);
+			!config.disabled && self.bind('@touched @modified', $(this).index() + 1);
 		});
 	};
 
