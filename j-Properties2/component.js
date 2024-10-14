@@ -102,9 +102,9 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 		if (datasource) {
 			self.get()[item.id] = item.value;
-			UPD(self.path + '.' + item.id);
+			UPD(self.path.toString() + '.' + item.id);
 		} else
-			UPD(self.path);
+			UPD(self.path.toString());
 
 	};
 
@@ -888,7 +888,7 @@ COMPONENT('properties2', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;
 
 	self.setter = function(value, path) {
 
-		var p = path.substring(self.path.length + 1);
+		var p = path.substring(self.path.toString().length + 1);
 
 		if (skip || (p && !paths[p])) {
 			skip = false;
