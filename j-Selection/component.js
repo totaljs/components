@@ -96,6 +96,9 @@ COMPONENT('selection', 'remember:1;key:id;class:selected;click:.selection;select
 
 	var datasource = function(path, value) {
 
+		if (M.is20)
+			value = path;
+
 		if (!config.remember) {
 			self.bind('@modified', []);
 			return;
@@ -115,7 +118,7 @@ COMPONENT('selection', 'remember:1;key:id;class:selected;click:.selection;select
 		for (var i = 0; i < rem.length; i++)
 			model.splice(model.indexOf(rem[i]), 1);
 
-		self.bind('@modified', []);
+		self.bind('@modified @setter', model);
 	};
 
 	self.configure = function(key, value) {
@@ -123,7 +126,7 @@ COMPONENT('selection', 'remember:1;key:id;class:selected;click:.selection;select
 			self.datasource(value, datasource);
 	};
 
-	self.setter = function() {
+	self.setter = function(value) {
 		setTimeout2(self.ID, self.recalc, 10);
 	};
 
