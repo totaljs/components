@@ -21,7 +21,7 @@ j-Importer can contain `<script type="text/html">` with a content which will be 
 
 __Good to know 1__:
 
-- all `~PATH~` phrases will be replaced by `config.path` or `config.if` automatically
+- all `CLASS` and `~PATH~` phrases will be replaced by `config.path` or `config.if` automatically
 - all `~ID~` phrases will be replaced by `config.id` automatically
 - importer automatically replaces `<SCR>` elements to `<script>` elements only within `<script type="text/html">` template
 

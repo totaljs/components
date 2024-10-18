@@ -6,12 +6,14 @@ COMPONENT('importer', function(self, config) {
 	var skip = false;
 	var content = '';
 	var singletonkey;
+	var isplugin = false;
 
 	var replace = function(value) {
 		return self.scope ? self.makepath(value) : value.replace(/\?/g, config.path || config.if);
 	};
 
 	var replace2 = function(value) {
+		isplugin = value ? value.includes('<ui-plugin') : false;
 		return value ? ADAPT(config.path || config.if, config.id, value) : value;
 	};
 
@@ -45,6 +47,14 @@ COMPONENT('importer', function(self, config) {
 				parent[0].appendChild(self.dom);
 		}
 
+	};
+
+	var wait = function() {
+		if (isplugin) {
+			var name = config.path || config.if;
+			WAIT(() => PLUGINS[name], self.reload);
+		} else
+			self.reload();
 	};
 
 	self.reload = function(recompile) {
@@ -88,9 +98,9 @@ COMPONENT('importer', function(self, config) {
 			setTimeout(self.reload, 50, true);
 		} else {
 			if (M.is20)
-				self.import(config.url + ' @prepend', self.reload, replace2);
+				self.import(config.url + ' @prepend', wait, replace2);
 			else
-				self.import(config.url, self.reload, true, replace2);
+				self.import(config.url, wait, true, replace2);
 		}
 	};
 

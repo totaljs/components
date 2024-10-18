@@ -28,7 +28,7 @@ __Configuration__:
 
 __Good to know 1__:
 
-- all `~PATH~` phrases will be replaced by `config.path` or `config.if` automatically
+- all `CLASS` and `~PATH~` phrases will be replaced by `config.path` or `config.if` automatically
 - all `~ID~` phrases will be replaced by `config.id` automatically
 
 __Good to know 2__:
