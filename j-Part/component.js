@@ -5,6 +5,7 @@ COMPONENT('part', 'hide:1;loading:1;delay:500;delayloading:800', function(self, 
 	var downloading = false;
 	var isresizing = false;
 	var cache = {};
+	var isplugin = false;
 
 	self.releasemode && self.releasemode('true');
 	self.readonly();
@@ -77,6 +78,7 @@ COMPONENT('part', 'hide:1;loading:1;delay:500;delayloading:800', function(self, 
 					else {
 						preparator = function(content) {
 							var path = replace(config.path || config.if);
+							isplugin = content.includes('<ui-plugin');
 							return ADAPT(path, config.id, content);
 						};
 					}
@@ -87,6 +89,14 @@ COMPONENT('part', 'hide:1;loading:1;delay:500;delayloading:800', function(self, 
 							config.init && EXEC(replace(config.init));
 							init = true;
 						}
+
+						var watcher = function() {
+							if (isplugin) {
+								var name = config.path || config.if;
+								WAIT(() => PLUGINS[name], done);
+							} else
+								done();
+						};
 
 						var done = function() {
 							config.hide && self.rclass('hidden');
@@ -105,9 +115,9 @@ COMPONENT('part', 'hide:1;loading:1;delay:500;delayloading:800', function(self, 
 						EMIT('parts.' + config.if, self.element, self);
 
 						if (config.check)
-							EXEC(replace(config.check), done);
+							EXEC(replace(config.check), watcher);
 						else
-							done();
+							watcher();
 
 					};
 
