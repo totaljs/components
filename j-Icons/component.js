@@ -191,9 +191,17 @@ COMPONENT('icons', 'search:Search;scrollbarshadow:0', function(self, config, cls
 
 		is = true;
 		self.rendericons(opt.empty);
+
+		if ($(W).scrollTop() === 0) {
+			if (css.top + self.element.height() > W.innerHeight)
+				css.top = W.innerHeight - self.element.height() - 20;
+		}
+
 		container.css(css);
+
 		if (opt.scrolltop == null || opt.scrolltop)
 			self.scrollbar.scrollTop(0);
+
 		search.focus();
 		setTimeout(self.bindevents, 50);
 		clearTimeout2(self.ID);
