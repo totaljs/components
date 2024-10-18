@@ -193,8 +193,8 @@ COMPONENT('icons', 'search:Search;scrollbarshadow:0', function(self, config, cls
 		self.rendericons(opt.empty);
 
 		if ($(W).scrollTop() === 0) {
-			if (css.top + self.element.height() > W.innerHeight)
-				css.top = W.innerHeight - self.element.height() - 20;
+			if (css.top + container.height() > W.innerHeight)
+				css.top = W.innerHeight - container.height() - 20;
 		}
 
 		container.css(css);
