@@ -1,6 +1,6 @@
 ## j-Attachments
 
-The component renders attachments into the simple list. A user is able to remove attachments.
+The component displays attachments in the simple list. A user can remove attachments.
 
 - jComponent `v19|v20`
 
