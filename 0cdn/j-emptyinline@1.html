@@ -1,0 +1,2 @@
+<style>.ui-emptyinline{padding:5px 0;color:#777;font-size:12px}.ui-emptyinline i{margin-right:5px}</style>
+<script>COMPONENT('emptyinline@1','icon:ti ti-ban',function(self,config,cls){self.make=function(){self.aclass(cls+' hidden');config.icon&&self.element.prepend('<i class="{icon}"></i>')};self.setter=function(value){self.tclass('hidden',value instanceof Array?value.length>0:!!value)}});</script>
