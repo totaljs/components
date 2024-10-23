@@ -1,0 +1,12 @@
+.ui-attachments { padding: 0; font-size: 13px; }
+.ui-attachments-file { text-overflow: ellipsis; white-space: nowrap; overflow: hidden; background-color: #F0F0F0; border-radius: var(--radius); padding: 4px 5px; display: block; vertical-align: top; color: #777; margin-top: 2px; }
+.ui-attachments-file:hover { text-decoration: none; background-color: #E0E0E0; }
+.ui-attachments-file > i { margin-right: 5px; }
+.ui-attachments-remove { float: right; color: #E73323; margin-left: 5px; }
+.ui-attachments-date { float: right; margin-left: 5px; }
+.ui-attachments-size { color: #A0A0A0; margin-left: 5px; font-size: 11px; }
+.ui-attachments-size i { margin-right: 5px; }
+
+.ui-dark .ui-attachments-file { background-color: #333; }
+.ui-dark .ui-attachments-file:hover { background-color: #383838; }
+.ui-dark .ui-attachments-size { color: #666; }
