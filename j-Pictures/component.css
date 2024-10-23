@@ -1,0 +1,9 @@
+.ui-pictures ui-component { gap: var(--margin); }
+.ui-pictures-item { position: relative; cursor: grab; }
+.ui-pictures-item span { background-color: #E73323; border-radius: 20px; position: absolute; text-align: center; top: -5px; right: -5px; width: 21px; height: 21px; line-height: 20px; font-size: 11px; cursor: pointer !important; display: none; }
+.ui-pictures-item:hover span { display: inline-block; }
+.ui-pictures.ui-disabled .ui-pictures-remove { display: none !important; }
+.ui-pictures-item span i { color: #FFF; }
+.ui-pictures-item img { border-radius: var(--radius); border: 1px solid #D0D0D0; }
+
+.ui-dark .ui-pictures-item img { border: 1px solid #383838; }
