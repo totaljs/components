@@ -6,20 +6,7 @@ The component will display text inside the element if the value is empty or the 
 
 __Configuration__:
 
-- `grid {Number}` a column count in the grid (default: `4`)
-
----
-
-A value be `Array` in the form:
-
-```
-[
-	"/url_to_image_1.jpeg",
-	"/url_to_image_2.jpeg",
-	"/url_to_image_3.jpeg",
-	"/url_to_image_4.jpeg"
-]
-```
+- `icon {String}` a default icon (default: `ti ti-ban`)
 
 ### Author
 
