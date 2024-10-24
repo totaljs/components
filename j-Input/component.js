@@ -126,8 +126,8 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 						var arr = [];
 						q = q.toSearch();
 						for (var m of source) {
-							var name = ((typeof(m) === 'string' ? m : m[config.autovalue]) || '').toSearch();
-							if (!q || name.includes(q))
+							var name = ((typeof(m) === 'string' ? m : m[config.autovalue]) || '');
+							if (name && (!q || name.toSearch().includes(q)))
 								arr.push({ [config.autovalue]: name });
 						}
 						next(arr);
