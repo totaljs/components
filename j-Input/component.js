@@ -124,8 +124,9 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				if (source instanceof Array) {
 					opt.search = function(q, next) {
 						var arr = [];
+						q = q.toSearch();
 						for (var m of source) {
-							var name = typeof(m) === 'string' ? m : m[config.autovalue];
+							var name = ((typeof(m) === 'string' ? m : m[config.autovalue]) || '').toSearch();
 							if (!q || name.includes(q))
 								arr.push({ [config.autovalue]: name });
 						}
