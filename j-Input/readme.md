@@ -50,7 +50,7 @@ __Configuration__:
 - `mask {String}` optional, can contain a mask in the form `###/##` (`#` is replaced for a char)
 - `maskregexp {String}` optional, can contain RegExp for each char in the form `\d,\d,\d,null,\d,\d` (`,` is delimiter)
 - `masktidy {Boolean}` optional, the component returns only raw chars without fixed chars (default: `false`)
-- `autosource {String}` a path to `search` function in `autocomplete`, `function(search, render(arr))`
+- `autosource {String}` a path to the search source `Array` (__NEW__) or `function(search, render(arr))` for dynamic searching
 - `autovalue {String}` a property path for the value in `autosource`, default: `name`
 - `autoexec {String}` a path method `function(item, next(value_to_input))`
 - `searchalign {Number}` can align icon on `type:search` to left (`2`) or right (`1`, default)

@@ -120,7 +120,19 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			if (config.autosource) {
 				var opt = {};
 				opt.element = self.element;
-				opt.search = GET(self.makepath(config.autosource));
+				var source = GET(self.makepath(config.autosource));
+				if (source instanceof Array) {
+					opt.search = function(q, next) {
+						var arr = [];
+						for (var m of source) {
+							var name = typeof(m) === 'string' ? m : m[config.autovalue];
+							if (!q || name.includes(q))
+								arr.push({ [config.autovalue]: name });
+						}
+						next(arr);
+					};
+				} else
+					opt.search = source;
 				opt.callback = function(value) {
 					var val = typeof(value) === 'string' ? value : value[config.autovalue];
 					if (config.autoexec) {
