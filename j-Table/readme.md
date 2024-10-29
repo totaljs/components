@@ -24,7 +24,8 @@ __Configuration__:
 - `datasource {String}` path to data-source (for other extra data in the template. Usage: `{{ $.data.something }}`)
 - `click {String}` a path to `function(button_name, row, button_element)`, is executed when the user will click on the button
 - `flat {Boolean}` removes padding in cells (default: `false`)
-- __NEW__ `noborder` {Boolean} removes border around (default: `false`)
+- `noborder {Boolean}` removes border around (default: `false`)
+- __NEW__: `hidewhenempty {Boolean}` hides table when empty (default: `false`)
 
 __Good to know__:
 

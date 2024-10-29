@@ -591,9 +591,11 @@ COMPONENT('table', 'highlight:true;border:true;unhighlight:true;multiple:false;p
 			etable.aclass(clsh);
 			eempty.rclass(clsh);
 			self.aclass(cls + '-isempty');
+			config.hidewhenempty && self.aclass('hidden');
 			return;
 		}
 
+		config.hidewhenempty && self.rclass('hidden');
 		self.redraw();
 
 		if (config.remember) {
