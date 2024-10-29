@@ -168,6 +168,7 @@ COMPONENT('leaflet', 'height:200;zoom:11;draggable:0;marker:1;margin:0;maxzoom:1
 			var pos = self.parse(value);
 			meta.map.setView(pos.slice(0, 2), pos[2]);
 			self.marker(pos);
+			self.resize();
 
 		} else {
 			if (address) {
@@ -181,6 +182,7 @@ COMPONENT('leaflet', 'height:200;zoom:11;draggable:0;marker:1;margin:0;maxzoom:1
 						skip = true;
 						self.bind('@modified', item.pos);
 						self.setter(item.pos);
+						self.resize();
 					}
 				});
 			}
