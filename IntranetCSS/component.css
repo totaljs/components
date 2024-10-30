@@ -199,7 +199,7 @@ table.board tr:last-child td:last-child { border-bottom-right-radius: var(--radi
 .ui-dark table.board tr th:first-child, .ui-dark table.board tr td:first-child { border-left: 1px solid #aaa; }
 
 .tabmenu { padding: 0; margin: 0 0 10px; display: block; position: relative; font-size: 12px; list-style-type: none; height: 26px; }
-.tabmenu div, .tabmenu li, .tabmenu a { float: left; line-height: 26px; border: 0; margin: 0 1px 0 0; padding: 0; background-color: #F0F0F0; text-align: center; color: gray; cursor: pointer; min-width: 80px; text-decoration: none; }
+.tabmenu div, .tabmenu li, .tabmenu a { float: left; line-height: 26px; border: 0; margin: 0 1px 0 0; padding: 0 8px; background-color: #F0F0F0; text-align: center; color: gray; cursor: pointer; min-width: 80px; text-decoration: none; }
 .tabmenu div:first-child, .tabmenu li:first-child, .tabmenu div:first-child, .tabmenu a:first-child { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
 .tabmenu div:last-child, .tabmenu li:last-child, .tabmenu a:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
 .tabmenu .selected { background-color: var(--color); color: #FFF; }
