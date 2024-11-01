@@ -954,7 +954,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				self.tclass(cls + '-monospace', !!value);
 				break;
 			case 'transform':
-				customtransformer = value && (/\(|=|>|<|\+|-|\)/).test(value) ? (new Function('value', 'return ' + value)) : null;
+				customtransformer = value && (/\(|=|>|<|\+|-|value\.|\)/).test(value) ? (new Function('value', 'return ' + value)) : null;
 				break;
 			case 'maskregexp':
 				if (value) {
