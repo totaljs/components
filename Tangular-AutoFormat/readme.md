@@ -1,6 +1,6 @@
 # Tangular-AutoFormat
 
-This TAngular helper automatically formats email, phone number, boolean, or HEX color.
+This TAngular helper automatically formats email, phone number, boolean, numbers, dates or HEX color.
 
 - jComponent `v19|v20`
 
