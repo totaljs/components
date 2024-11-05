@@ -1021,15 +1021,15 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 						if (tmp.length < 4)
 							return text;
 
-						if (tmp === 'string')
+						if (tmp === 'string' || tmp === 'text')
 							color = '#f6f5d7';
-						else if (tmp === 'date')
-							color = '#E1CEFB';
+						else if (tmp === 'date' || tmp === 'time' || tmp === 'datetime')
+							color = '#ffd6d6';
 						else if (tmp === 'number')
 							color = '#c9e2ef';
-						else if (tmp === 'bolean' || tmp === 'bool')
+						else if (tmp === 'boolean' || tmp === 'bool')
 							color = '#ded7f6';
-						else if (tmp === 'object')
+						else if (tmp === 'object' || tmp === 'json' || tmp === 'xml')
 							color = '#f6d7d7';
 
 						var label = text.substring(0, index - 1).trim();
