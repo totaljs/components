@@ -993,4 +993,59 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 
 	})();
 
+
+	customElements.define('ui-markdown', class extends HTMLElement {
+
+		// Implement status
+		constructor() {
+			super();
+			setTimeout(function(el) {
+				el.style.display = 'block';
+				var config = (el.getAttribute('config') || '').parseConfig();
+				if (config.small)
+					el.classList.add('markdown-small');
+
+				var scr = el.querySelector('scr' + 'ipt');
+				var html = Thelpers.markdown((scr ? scr.innerHTML : el.innerHTML).trim(), { element: $(el) });
+
+				if (config.code) {
+					html = html.replace(/<code>.*?<\/code>/g, function(text) {
+						var index = text.indexOf('{');
+						if (index === -1 || text.substring(0, 2) === '{{')
+							return text;
+
+						var color = '#d7f6e3';
+						var variable = text.substring(index - 1);
+						var tmp = variable.substring(0, variable.lastIndexOf('<')).toSearch();
+
+						if (tmp.length < 4)
+							return text;
+
+						if (tmp === 'string')
+							color = '#f6f5d7';
+						else if (tmp === 'date')
+							color = '#E1CEFB';
+						else if (tmp === 'number')
+							color = '#c9e2ef';
+						else if (tmp === 'bolean' || tmp === 'bool')
+							color = '#ded7f6';
+						else if (tmp === 'object')
+							color = '#f6d7d7';
+
+						var label = text.substring(0, index - 1).trim();
+						return label + (label.length > 6 ? '</code> <code style="background-color:' + color + '">' : '') + variable.trim();
+					});
+				}
+
+				el.innerHTML = html;
+
+			}, 1, this);
+		}
+
+		static get observedAttributes() {
+			return ['config'];
+		}
+
+	});
+
 });

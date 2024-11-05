@@ -64,6 +64,16 @@ Another markdown content
 :::
 ```
 
+## __NEW__: Inline usage
+
+```html
+<ui-markdown config="code:true|false (default);small:true|false (default)">
+	<script type="text/plain">
+		YOUR MARKDOWN CONTENT
+	</script>
+</ui-markdown>
+```
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
