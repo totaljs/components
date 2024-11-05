@@ -3,6 +3,16 @@
 
 <ui-bind path="markdown" config="html:Thelpers.markdown(value)" class="block"></ui-bind>
 
+<hr />
+
+<ui-markdown>
+	<script type="text/plain">
+# Hello world!
+
+Inline markdown defined in `<ui-markdown>` element.
+	</script>
+</ui-markdown>
+
 <script>
 	var markdown = '# Hello `world`\nLorem ipsum dolor sit amet, **consectetur** adipisicing elit. Eius [1](#1), ~~illo~~.\n\n> This is a simple blockquote\n\n< And this one is section\n\n```javascript \nalert(\'Markdown Preview\');\n```\n\n::: Toggleable section\nHello world!\n:::\n\n```secret\nHello world\n```\n\n#1: footnote';
 
