@@ -17,10 +17,10 @@ __Configuration__:
 - `duration {Number}` optional, animation duration between scrolling items (default: `300`)
 - `durationsnap {Number}` optional, duration for snap animation (default: `200`)
 - `count {Number}` count of visible items (default: `1`)
-__NEW__: `countxs {Number}` optional
-__NEW__: `countsm {Number}` optional
-__NEW__: `countmd {Number}` optional
-__NEW__: `countlg {Number}` optional
+- __NEW__: `countxs {Number}` optional
+- __NEW__: `countsm {Number}` optional
+- __NEW__: `countmd {Number}` optional
+- __NEW__: `countlg {Number}` optional
 
 __Methods__:
 
