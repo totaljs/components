@@ -186,9 +186,10 @@ COMPONENT('carousel2', 'selector:figure;margin:10;snapping:true;animate:5000;del
 		}
 
 		var sum = 0;
+		var visible = config['count' + WIDTH()] || config.count;
 
-		width = config.count ? (w / config.count) : 0;
-		margin = config.count ? (config.margin / config.count) : 0;
+		width = visible ? (w / visible) : 0;
+		margin = visible ? (config.margin / visible) : 0;
 		count = 0;
 
 		var arr = self.find(config.selector);
@@ -207,7 +208,7 @@ COMPONENT('carousel2', 'selector:figure;margin:10;snapping:true;animate:5000;del
 
 			sum += w + config.margin;
 
-			if (config.count)
+			if (visible)
 				css.width = w - (config.margin - margin);
 
 			css['margin-right'] = config.margin;
