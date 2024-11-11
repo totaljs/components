@@ -17,8 +17,8 @@ __An example to understand__:
 
 	<nav>
 		<ui-component name="validate" path="?">
-			<button name="submit" disabled><i class="ti ti-check-circle mr5"></i>@(SUBMIT)</button>
-			<button name="cancel">@(Cancel)</button>
+			<button name="submit" disabled><i class="ti ti-check-circle mr5"></i>SUBMIT</button>
+			<button name="cancel">Cancel</button>
 		</ui-component>
 	</nav>
 </ui-plugin>
