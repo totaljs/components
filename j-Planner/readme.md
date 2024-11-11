@@ -1,12 +1,11 @@
 ## j-Planner
 
 - please try to understand the functionality
-
 - jComponent `v19|v20`
 
 __Data-source__ needs to contain:
 
-```javascript
+```js
 {
     items: [{ id: '12345', name: 'A name of plan', dtbeg: NOW.add('-5 days'), dtend: NOW.add('3 days'), progress: 30, color: '#5385EA', title: 'A tooltip' }, ...] // items
     year: 2019
