@@ -12,7 +12,7 @@ __Configuration__:
 - `parent {String}` optional, a container with fixed height, can be `window`. Default value: `parent` element.
 - `minheight {Number}` a minimal height in pixels (default: `0` - disabled)
 - `scroll {Boolean}` enables vertical scrolling (default: `false` - disabled)
-- `scrollbar {Boolean}` shows scrollbar (default: `true`)
+- `scrollbar {Boolean/String}` shows scrollbar (default: `true` or __new__: `native`)
 - `delay {Number}` `msec.` resizes the box again if the value is changed according to the path (default: `100`)
 - `visibleY {Boolean}` still shows the `Y` scrollbar (default: `false`)
 - `visibleX {Boolean}` still shows the `X` scrollbar (default: `false`)

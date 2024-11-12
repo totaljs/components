@@ -88,7 +88,7 @@ COMPONENT('viewbox', 'margin:0;scroll:true;delay:100;resizedelay:200;initdelay:2
 							scrolledcache && scrolledcache.tclass(cls + '-scrolled', scrollbar.scrollTop() > 0);
 						}
 					};
-					scrollbar = W.SCROLLBAR(self.find(cls2 + '-body'), { shadow: config.scrollbarshadow, visibleY: config.visibleY, visibleX: config.visibleX, orientation: config.visibleX ? null : 'y', parent: self.element, onscroll: scrolled });
+					scrollbar = W.SCROLLBAR(self.find(cls2 + '-body'), { native: config.scrollbar === 'native', shadow: config.scrollbarshadow, visibleY: config.visibleY, visibleX: config.visibleX, orientation: config.visibleX ? null : 'y', parent: self.element, onscroll: scrolled });
 					self.scrollbar = scrollbar;
 					self.scrolltop = scrollbar.scrollTop;
 					self.scrollbottom = scrollbar.scrollBottom;
