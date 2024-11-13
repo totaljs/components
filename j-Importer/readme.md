@@ -14,6 +14,7 @@ __Configuration__:
 - `id {String}` a custom identifier for replacing `~ID~` phrases in the imported HTML (default: empty)
 - __NEW__: `singleton {Boolean}` it handles only the one instance of importer according to the `path + if + url` (default: `false`)
 - __NEW__: `parent {String}` it moves itself as a direct child of the `parent` selector
+- __NEW__: `adapt {Boolean}` if `true` it calls the `reload:?/soemthing` method for the nested plugin instead of the current plugin (default: `false`)
 
 __New update__:
 

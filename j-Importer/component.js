@@ -9,7 +9,7 @@ COMPONENT('importer', function(self, config) {
 	var isplugin = false;
 
 	var replace = function(value) {
-		return self.scope ? self.makepath(value) : value.replace(/\?/g, config.path || config.if);
+		return !config.adapt && self.scope ? self.makepath(value) : value.replace(/\?/g, config.path || config.if);
 	};
 
 	var replace2 = function(value) {
