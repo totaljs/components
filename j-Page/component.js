@@ -30,7 +30,19 @@ COMPONENT('page', 'hide:1;loading:1;delay:500;delayloading:800', function(self, 
 
 	self.setter = function(value) {
 
-		if (cache[value]) {
+		var is = false;
+
+		if (value instanceof Array) {
+			for (let m of value) {
+				if (m && cache[m]) {
+					is = true;
+					break;
+				}
+			}
+		} else
+			is = value ? cache[value] : false;
+
+		if (is) {
 
 			if (downloading)
 				return;

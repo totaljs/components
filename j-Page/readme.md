@@ -3,6 +3,7 @@
 This component can handle different contents asynchronously. The component has same functionality like `j-Part`. __If the element doesn't contain any content__ then the component downloads the content according to the `url` defined in configuration.
 
 - jComponent `v19|v20`
+- __NEW__ `path` can contain `{String Array}`
 
 __Configuration__:
 
