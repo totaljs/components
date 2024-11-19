@@ -1,0 +1,14 @@
+{
+	"datecreated": "2024-11-19T19:45:00.000Z",
+	"dateupdated": null,
+	"name": "j-ElementID",
+	"jcomponent": "19|20",
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.gif",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

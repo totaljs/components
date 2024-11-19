@@ -328,5 +328,7 @@
 	"Tangular-AutoFormat",
 	"j-Attachments",
 	"j-Pictures",
-	"j-EmptyInline"
+	"j-EmptyInline",
+	"j-ElementID",
+	"j-ExpansionPanel"
 ]
