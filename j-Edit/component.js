@@ -50,6 +50,12 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 			};
 		}
 
+		if (opt.focus && opt.scope)
+			opt.focus = opt.scope.makepath(opt.focus);
+
+		if (opt.blur && opt.scope)
+			opt.blur = opt.scope.makepath(opt.blur);
+
 		t.$edit = opt;
 		return opt;
 	};
@@ -231,6 +237,12 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 		opt.keypressed = 0;
 		opt.html = value;
 		opt.element = el;
+		opt.set = function(value) {
+			var el = this.element;
+			el.html(value);
+			if (self.approve(el))
+				self.detach(el);
+		};
 
 		self.attach(opt.floating ? floating : el);
 	};
@@ -346,6 +358,8 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 			el.on('blur', events.blur);
 			el.on('paste', events.paste);
 			el.attr('contenteditable', true);
+
+			o.focus && EXEC(o.focus, o, el);
 			el.focus();
 
 			if (o.clear || o.cursor === 'beg' || o.cursor === 'begin')
@@ -380,6 +394,7 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 			opt.is = false;
 			el.rclass('edit-open edit-multiline');
 			el.attr('contenteditable', false);
+			opt.blur && EXEC(opt.blur, opt, el);
 		}
 	};
 
