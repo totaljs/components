@@ -239,6 +239,7 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 		opt.element = el;
 		opt.set = function(value) {
 			var el = this.element;
+			this.html = '';
 			el.html(value);
 			if (self.approve(el))
 				self.detach(el);
