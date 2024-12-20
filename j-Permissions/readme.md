@@ -10,7 +10,8 @@ __Configuration__:
 - `disabled {Boolean}` optional, disables this component
 - `default {String}` default value of `type` (default: `R`)
 - `dirraw {Boolean}` optional, disables HTML encoding for text in `j-Directory` (default: `false`)
-
+- __NEW__: `autoremove {Boolean}` optional, it automatically removes non-existent permissions (default: `true`)
+- __NEW__: `autoexclude {Boolean}` optional, it excludes the used permissions from the `dirsource` (default: `true`)
 
 __Source__:
 

@@ -1,4 +1,4 @@
-COMPONENT('permissions', 'placeholder:Search;types:R,RW;default:R', function(self, config, cls) {
+COMPONENT('permissions', 'placeholder:Search;types:R,RW;default:R;autoremove:1;autoexclude:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var skip = false;
@@ -49,6 +49,7 @@ COMPONENT('permissions', 'placeholder:Search;types:R,RW;default:R', function(sel
 		}
 
 		var builder = [];
+		var remove = [];
 
 		for (let m of items) {
 			let arr = m.split('|');
@@ -57,6 +58,13 @@ COMPONENT('permissions', 'placeholder:Search;types:R,RW;default:R', function(sel
 			let name = dirsource.findValue('id', arr[1], 'name');
 			if (name)
 				builder.push(self.template({ id: arr[1], name: name, value: arr[0] || 'R' }));
+			else if (config.autoremove)
+				remove.push(m);
+		}
+
+		if (remove.length) {
+			for (let m of remove)
+				items.splice(items.indexOf(m), 1);
 		}
 
 		tbody.html(builder.join(''));
@@ -81,19 +89,27 @@ COMPONENT('permissions', 'placeholder:Search;types:R,RW;default:R', function(sel
 			if (config.disabled)
 				return;
 
+
+			var items = self.get();
 			var opt = {};
+			var used = {};
+
+			for (let m of items)
+				used[m.split('|')[1]] = 1;
+
 			opt.raw = !!config.dirraw;
 			opt.element = $(this);
 			opt.placeholder = config.placeholder;
 			opt.items = dirsource;
+
+			if (config.autoexclude)
+				opt.exclude = item => used[item.id];
+
 			opt.callback = function(selected) {
-				var items = self.get();
-				for (let m of items) {
-					if (m.split('|')[1] === selected.id)
-						return;
+				if (!used[selected.id]) {
+					items.push(types[0].id + '|' + selected.id);
+					self.bind('@modified @touched @setter', items);
 				}
-				items.push(types[0].id + '|' + selected.id);
-				self.bind('@modified @touched @setter', items);
 			};
 
 			SETTER('directory/show', opt);
