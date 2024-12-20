@@ -1,6 +1,8 @@
 <ui-component name="directory"></ui-component>
 <ui-component name="permissions" path="mypermissions" config="dirsource:datasource;types:R|Read,W|Write">Permissions</ui-component>
 
+<div class="mt10"><ui-bind path="mypermissions" config="text:JSON.stringify(value)"></ui-bind></div>
+
 <script>
 	var mypermissions = ['RW|admin', 'R|employee'];
 	var datasource = [{ id: 'admin', name: 'Admin' }, { id: 'employee', name: 'Employee' }, { id: 'accountant', name: 'Accountant' }];
