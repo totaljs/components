@@ -26,7 +26,7 @@ COMPONENT('permissions', 'placeholder:Search;types:R,RW;default:R;autoremove:1;a
 						self.redraw();
 					} else {
 						self.datasource(value, function(value, path) {
-							dirsource = M.is20 ? value : path;
+							dirsource = CLONE(M.is20 ? value : path);
 							self.redraw();
 						});
 					}
@@ -90,7 +90,7 @@ COMPONENT('permissions', 'placeholder:Search;types:R,RW;default:R;autoremove:1;a
 				return;
 
 
-			var items = self.get();
+			var items = self.get() || [];
 			var opt = {};
 			var used = {};
 
