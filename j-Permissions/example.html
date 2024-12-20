@@ -1,5 +1,10 @@
 <ui-component name="directory"></ui-component>
-<ui-component name="permissions" path="mypermissions" config="dirsource:searchusers;pk:name;empty:Not defined permissions">Permissions</ui-component>
+<ui-component name="permissions" path="mypermissions" config="dirsource:datasource;types:R|Read,W|Write">Permissions</ui-component>
+
+<script>
+	var mypermissions = ['RW|admin', 'R|employee'];
+	var datasource = [{ id: 'admin', name: 'Admin' }, { id: 'employee', name: 'Employee' }, { id: 'accountant', name: 'Accountant' }];
+</script>
 
 <script>
 	var mypermissions = [{ name: 'Peter', value: 'RW' }, { name: 'Denis', value: 'R' }, { name: 'Group: Managers', text: '<b>Group:</b> Managers', value: 'R' }];

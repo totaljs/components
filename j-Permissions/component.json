@@ -1,12 +1,10 @@
 {
 	"datecreated": "2019-07-26T14:14:01.000Z",
-	"dateupdated": "2023-02-01T09:48:15.000Z",
+	"dateupdated": "2024-12-20T09:21:55.000Z",
 	"name": "j-Permissions",
-	"tags": [
-		"permissions"
-	],
 	"color": "white",
 	"version": 1,
+	"jcomponent": "19|20",
 	"responsive": true,
 	"darkmode": true,
 	"picture": "picture.jpg",
