@@ -1,4 +1,4 @@
-COMPONENT('permissions', 'placeholder:Search;types:R,RW;default:R;autoremove:1;autoexclude:1', function(self, config, cls) {
+COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:1;autoexclude:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var skip = false;
@@ -36,6 +36,10 @@ COMPONENT('permissions', 'placeholder:Search;types:R,RW;default:R;autoremove:1;a
 	};
 
 	self.redraw = function() {
+		setTimeout2(self.ID, self.redrawforce, 50);
+	};
+
+	self.redrawforce = function() {
 
 		if (!dirsource)
 			return;
@@ -48,18 +52,27 @@ COMPONENT('permissions', 'placeholder:Search;types:R,RW;default:R;autoremove:1;a
 			return;
 		}
 
-		var builder = [];
-		var remove = [];
+		let builder = [];
+		let remove = [];
+		let cache = {};
 
 		for (let m of items) {
 			let arr = m.split('|');
+			if (cache[arr[1]])
+				cache[arr[1]].push(arr[0]);
+			else
+				cache[arr[1]] = [arr[0]];
+		}
+
+		for (let key in cache) {
 			// arr[0]; Permission
 			// arr[1]; who
-			let name = dirsource.findValue('id', arr[1], 'name');
+			let name = dirsource.findValue('id', key, 'name');
 			if (name)
-				builder.push(self.template({ id: arr[1], name: name, value: arr[0] || 'R' }));
+				builder.push(self.template({ id: key, name: name, value: cache[key] }));
 			else if (config.autoremove)
 				remove.push(m);
+
 		}
 
 		if (remove.length) {
@@ -73,12 +86,13 @@ COMPONENT('permissions', 'placeholder:Search;types:R,RW;default:R;autoremove:1;a
 	self.recompile = function() {
 		var builder = ['<tr data-id="{{ id }}"><td class="{0}-text"><i class="ti ti-trash {0}-remove red"></i>{{ name | raw }}</td>'];
 		for (let type of types)
-			builder.push('<td class="{0}-type{{ if value === \'{1}\' }} {0}-checked{{ fi }}" data-type="{1}"><i class="ti"></i>{2}</td>'.format(cls, type.id, type.name));
-				builder.push('</tr>');
+			builder.push('<td class="{0}-type{{ if value.includes(\'{1}\') }} {0}-checked{{ fi }}" data-type="{1}"><i class="ti"></i>{2}</td>'.format(cls, type.id, type.name));
+		builder.push('</tr>');
 		self.template = Tangular.compile(builder.join('').format(cls));
 	};
 
 	self.make = function() {
+
 		self.aclass(cls);
 		config.disabled && self.aclass(cls + '-disabled');
 		self.html('<div class="{0}-header"><i class="ti ti-plus-circle green"></i><span>{1}</span></div><div class="{0}-container invisible"><table><tbody></tbody></table></div>'.format(cls, self.html()));
@@ -89,10 +103,9 @@ COMPONENT('permissions', 'placeholder:Search;types:R,RW;default:R;autoremove:1;a
 			if (config.disabled)
 				return;
 
-
-			var items = self.get() || [];
-			var opt = {};
-			var used = {};
+			let items = self.get() || [];
+			let opt = {};
+			let used = {};
 
 			for (let m of items)
 				used[m.split('|')[1]] = 1;
@@ -120,23 +133,38 @@ COMPONENT('permissions', 'placeholder:Search;types:R,RW;default:R;autoremove:1;a
 			if (config.disabled)
 				return;
 
-			var el = $(this);
-			var tr = el.closest('tr');
-			tr.find(cls2 + '-checked').rclass(cls + '-checked');
-			el.aclass(cls + '-checked');
+			let el = $(this);
+			let tr = el.closest('tr');
+			let is = false;
 
-			var id = ATTRD(el);
-			var items = self.get();
+			// tr.find(cls2 + '-checked').rclass(cls + '-checked');
+			el.tclass(cls + '-checked');
 
-			for (let i = 0; i < items.length; i++) {
-				let item = items[i];
+			let id = ATTRD(el);
+			let items = self.get();
+			let types = [];
+
+			tr.find(cls2 + '-checked').each(function() {
+				let checked = $(this);
+				let type = ATTRD(checked, 'type');
+				types.push(type);
+			});
+
+			let rem = [];
+
+			for (let item of items) {
 				let arr = item.split('|');
-				if (arr[1] === id) {
-					items[i] = el.attrd('type') + '|' + id;
-					self.bind('@modified @touched', items);
-					break;
-				}
+				if (arr[1] === id)
+					rem.push(item);
 			}
+
+			for (let item of rem)
+				items.splice(items.indexOf(item), 1);
+
+			for (let type of types)
+				items.push(type + '|' + id);
+
+			self.bind('@modified @touched', items);
 
 		});
 
