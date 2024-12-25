@@ -71,7 +71,7 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 			if (name)
 				builder.push(self.template({ id: key, name: name, value: cache[key] }));
 			else if (config.autoremove)
-				remove.push(m);
+				remove.push(key);
 
 		}
 
