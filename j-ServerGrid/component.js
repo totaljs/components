@@ -136,7 +136,7 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 			self.selected();
 		});
 
-		self.event('click', cls2 + '-sort', function() {
+		self.event('click', cls2 + '-sort', function(e) {
 
 			let model = self.get();
 			let el = $(this);
@@ -157,8 +157,8 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 
 			// Remove other sorts
 			for (let m of model.columns) {
-				if (m.sorting && m !== column)
-					column.sort = '';
+				if (m.sorting && m !== column && m.sort)
+					m.sort = '';
 			}
 
 			filtercache.sort = column.sort ? (column.id + '_' + column.sort) : '';
