@@ -1,4 +1,4 @@
-COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;margin:0;filter:Filter', function(self, config, cls) {
+COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;margin:0;filter:Filter;opacity:0.3', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var nodes = {};
@@ -346,7 +346,7 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 				let color = col.color || col.bg;
 
 				obj.width = col.width;
-				obj.color = color ? rgba(color, 0.5) : '';
+				obj.color = color ? rgba(color, opacity) : '';
 				obj.id = col.id;
 				obj.align = col.align;
 			 	html += Ttd({ value: obj });
