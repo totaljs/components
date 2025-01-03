@@ -1,11 +1,11 @@
 {
-	"datecreated": "2025-01-03T20:14:50.000Z",
+	"datecreated": "2025-01-03T20:14:51.000Z",
 	"dateupdated": null,
 	"name": "j-ServerGrid",
 	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 2,
-	"darkmode": true,
+	"darkmode": false,
 	"responsive": true,
 	"picture": "picture.jpg",
 	"dependencies": "",
