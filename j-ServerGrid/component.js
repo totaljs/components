@@ -8,6 +8,7 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 	var Ttf = Tangular.compile('<div class="{0}-tf{{ if value.filter }} {0}-tf-is{{ fi }}" style="width:{{ value.width }}px"><i class="{0}-clear ti ti-times"></i><input name="{{ value.id }}"{{ if !value.filtering }} disabled{{ fi }}{{ if value.placeholder }} placeholder="{{ value.placeholder }}"{{ fi }}{{ if value.filter }} value="{{ value.filter }}"{{ fi }} /></div>'.format(cls));
 	var scrollY = 0;
 	var scrollX = 0;
+	var emptyrows = 0;
 
 	var rgba = function(hex, alpha) {
 		if (hex && /^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
@@ -194,8 +195,10 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 			height = parent.height() - config.margin;
 		}
 
+		let rowsheight = height - 36 - 36 - 22;
+		emptyrows = Math.ceil(rowsheight / 33);
 		nodes.container.css('height', height - 35);
-		nodes.rows.css('height', height - 36 - 36 - 22);
+		nodes.rows.css('height', rowsheight);
 		nodes.scrollbarX && nodes.scrollbarX.resize();
 		nodes.scrollbarY && nodes.scrollbarY.resize();
 	};
@@ -348,6 +351,12 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 			builder.push(html + '</div>');
 		}
 
+		let diff = emptyrows - value.items.length;
+		let empty = '<div class="{0}-row-empty"></div>'.format(cls);
+
+		for (let i = 0; i < diff; i++)
+			builder.push(empty);
+
 		nodes.pagination.pages.html(value.pages.pluralize(config.pluralizepages));
 		nodes.pagination.count.html(value.count.pluralize(config.pluralizeitems));
 
@@ -359,6 +368,7 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 
 		nodes.table.css('width', width);
 		nodes.data.html(builder.join(''));
+		self.tclass(cls + '-noscroll', diff > 0);
 
 		self.resizeforce();
 		self.selected();

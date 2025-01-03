@@ -5,6 +5,9 @@
 .ui-servergrid-filter input:disabled { background: #F9F9F9; }
 .ui-servergrid-clear { position: absolute; right: 5px; top: 4px; cursor: pointer; color: #D72727; visibility: hidden; }
 .ui-servergrid-row { display: flex; border-bottom: 1px solid #E0E0E0; align-items: center; border-right: 1px solid #E0E0E0; }
+.ui-servergrid-row-empty { border-bottom: 1px solid #E0E0E0; align-items: center; border-right: 1px solid #E0E0E0; height: 32px; }
+.ui-servergrid-noscroll .ui-servergrid-rows { overflow-y: hidden; }
+.ui-servergrid-noscroll .ui-scrollbar-y span { visibility: hidden; }
 .ui-servergrid-data { margin-bottom: 15px; }
 .ui-servergrid-rows, .ui-servergrid-header { margin-right: 15px; }
 .ui-servergrid-th, .ui-servergrid-td { border: 1px solid transparent; border-left-color: #E0E0E0; height: 32px; line-height: 32px; padding: 0 5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
