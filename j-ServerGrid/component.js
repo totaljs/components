@@ -29,6 +29,9 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 		config.noborder && self.aclass(cls + '-noborder');
 		config.checkbox && self.aclass(cls + '-checkbox');
 
+		if (config.click || config.cell)
+			self.aclass(cls + '-pointer');
+
 		nodes.container = self.find(cls2 + '-container');
 		nodes.scrollbarX = SCROLLBAR(nodes.container, { visibleX: true, orientation: 'x', controls: self.element, wrap: false });
 		nodes.table = self.find(cls2 + '-table');

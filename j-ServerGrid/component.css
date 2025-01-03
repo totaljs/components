@@ -25,7 +25,7 @@
 .ui-servergrid-rows::-webkit-scrollbar { display: none; }
 .ui-servergrid-rows { overflow: scroll; -ms-overflow-style: none; scrollbar-width: none; }
 .ui-servergrid-number { width: 34px; font-size: 11px; color: #999; text-align: center; padding: 0; }
-.ui-servergrid-number em { margin: 7px 0 0 4px; display: none; border: 1px solid #D0D0D0; border-radius: var(--radius); width: 16px; height: 16px; line-height: 14px; text-align: center; background: #FFF; cursor: pointer; }
+.ui-servergrid-number em { margin: 7px 0 0 8px; display: none; border: 1px solid #D0D0D0; border-radius: var(--radius); width: 16px; height: 16px; line-height: 14px; text-align: center; background: #FFF; cursor: pointer; }
 .ui-servergrid-number em i { visibility: hidden; }
 .ui-servergrid-number span { display: block; }
 .ui-servergrid-checkbox .ui-servergrid-number:hover em { display: block; }
@@ -50,7 +50,8 @@
 .ui-servergrid-td.highlight { border-color: #156EE1; }
 .ui-servergrid-row.highlight { background-color: rgb(255,245,167,0.26); }
 .ui-servergrid-noborder { border: 0; border-radius: 0; }
-.ui-servergrid-th-number em { margin: 10px 0 0 4px; border: 1px solid #D0D0D0; border-radius: var(--radius); width: 16px; height: 16px; line-height: 14px; text-align: center; background: #FFF; cursor: pointer; display: block; font-size: 11px; }
+.ui-servergrid-th-number em { margin: 10px 0 0 8px; border: 1px solid #D0D0D0; border-radius: var(--radius); width: 16px; height: 16px; line-height: 14px; text-align: center; background: #FFF; cursor: pointer; display: block; font-size: 11px; }
 .ui-servergrid-th-number em i { visibility: hidden; }
 .ui-servergrid-th-number.selected em { display: block; border-color: var(--color); }
 .ui-servergrid-th-number.selected em i { visibility: visible; color: var(--color); }
+.ui-servergrid-pointer .ui-servergrid-row { cursor: pointer; }
