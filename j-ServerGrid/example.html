@@ -1,0 +1,42 @@
+<ui-component name="grid" path="data" config="checkbox:1;height:500"></ui-component>
+
+<script id="datasource" type="text/json">
+{
+	"items": [
+		{
+			"id": "IuX45p1cl61f",
+			"name": "Hello world!",
+			"createdby": "Peter Sirka",
+			"dtcreated": "2024-11-25T22:43:53.455Z"
+		}
+	],
+	"count": 1,
+	"page": 2,
+	"limit": 50,
+	"pages": 3,
+	"columns": [
+		{
+			"id": "name",
+			"name": "Message",
+			"width": 300,
+			"color": "#F4E8E8",
+			"icon": "ti ti-envelope",
+			"filtering": true,
+			"sorting": true
+		},
+		{
+			"id": "createdby",
+			"name": "Created by",
+			"filtering": true,
+			"sorting": true
+		},
+		{
+			"id": "dtcreated",
+			"name": "Created",
+			"icon": "ti ti-calendar",
+			"filtering": true,
+			"sorting": true
+		}
+	]
+}
+</script>
