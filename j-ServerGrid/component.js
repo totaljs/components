@@ -119,10 +119,13 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 			self.selected();
 		});
 
-		self.event('click', cls2 + '-number', function() {
+		self.event('click', cls2 + '-number', function(e) {
 
 			if (!config.checkbox)
 				return;
+
+			e.preventDefault();
+			e.stopPropagation();
 
 			let el = $(this).closest(cls2 + '-row');
 			let index = +ATTRD(el, 'index');
