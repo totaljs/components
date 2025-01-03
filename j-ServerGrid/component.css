@@ -24,7 +24,7 @@
 .ui-servergrid-container { overflow: scroll; -ms-overflow-style: none; scrollbar-width: none; }
 .ui-servergrid-rows::-webkit-scrollbar { display: none; }
 .ui-servergrid-rows { overflow: scroll; -ms-overflow-style: none; scrollbar-width: none; }
-.ui-servergrid-number { width: 34px; font-size: 11px; color: #999; text-align: center; }
+.ui-servergrid-number { width: 34px; font-size: 11px; color: #999; text-align: center; padding: 0; }
 .ui-servergrid-number em { margin: 7px 0 0 4px; display: none; border: 1px solid #D0D0D0; border-radius: var(--radius); width: 16px; height: 16px; line-height: 14px; text-align: center; background: #FFF; cursor: pointer; }
 .ui-servergrid-number em i { visibility: hidden; }
 .ui-servergrid-number span { display: block; }
