@@ -36,7 +36,7 @@
 .ui-servergrid-th-number { width: 34px; justify-content: center; text-align: center; }
 .ui-servergrid-th-number i { margin-right: 0 !important; color: #000; }
 .ui-servergrid-sort { cursor: pointer; }
-.ui-servergrid-btn-sort { position: absolute; right: 10px; top: 0; color: #999; }
+.ui-servergrid-btn-sort { position: absolute; right: 4px; top: 0; color: #999; }
 .ui-servergrid-left { text-align: left; }
 .ui-servergrid-right { text-align: right; }
 .ui-servergrid-center { text-align: center; }
