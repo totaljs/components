@@ -73,9 +73,13 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 			config.cell && self.SEEX(config.cell, row, el, column);
 		});
 
-		self.event('click', cls2 + '-row_' + self.ID, function() {
+		self.event('click', cls2 + '-row_' + self.ID, function(e) {
 
 			if (!config.click)
+				return;
+
+			let target = e ? e.target : null;
+			if (target && target.tagName === 'A' || $(target).closest('a'))
 				return;
 
 			let el = $(this);
