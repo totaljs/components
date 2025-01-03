@@ -37,6 +37,7 @@ __Configuration__:
 - `pluralizepages {String}` pluralization for pages (optional, default: `# pages,# page,# pages,# pages`)
 - `pluralizeitems {String}` pluralization for items (optional, default: `# items,# item,# items,# items`)
 - `margin {Number}` a top margin for height (optional, default: `0`)
+- `noborder {Boolean}` can remove a border (default: `false`)
 - `parent {String}` selector for `auto` height option (default: `window`)
 - `height {Number}` a fixed height
 - `filter {String}` a default placeholder for all filters (optional)
