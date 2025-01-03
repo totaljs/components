@@ -1,4 +1,4 @@
-<ui-component name="servergrid" path="data" config="checkbox:1;height:500"></ui-component>
+<ui-component name="servergrid" path="data" config="checkbox:1;height:500;exec:filtering"></ui-component>
 
 <script id="datasource" type="text/json">
 {
@@ -45,5 +45,9 @@
 <script>
 
 	var data = PARSE('#datasource');
+
+	function filtering(type, filter, sort, page) {
+		console.log('Type:', type, 'Filter:', filter, 'Sort:', sort, 'Page:', page);
+	}
 
 </script>
