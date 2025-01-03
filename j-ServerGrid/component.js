@@ -346,7 +346,7 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 				let color = col.color || col.bg;
 
 				obj.width = col.width;
-				obj.color = color ? rgba(color, opacity) : '';
+				obj.color = color ? rgba(color, config.opacity) : '';
 				obj.id = col.id;
 				obj.align = col.align;
 			 	html += Ttd({ value: obj });
