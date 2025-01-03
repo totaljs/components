@@ -33,7 +33,7 @@
 .ui-servergrid-row.selected em i { visibility: visible !important; }
 .ui-servergrid-row.selected em { display: block; color: var(--color); border-color: var(--color); }
 .ui-servergrid-row.selected span { display: none; }
-.ui-servergrid-th-number { width: 34px; justify-content: center; text-align: center; }
+.ui-servergrid-th-number { width: 34px; justify-content: center; text-align: center; padding: 0; }
 .ui-servergrid-th-number i { margin-right: 0 !important; color: #000; }
 .ui-servergrid-sort { cursor: pointer; }
 .ui-servergrid-btn-sort { position: absolute; right: 10px; top: 0; color: #999; }
