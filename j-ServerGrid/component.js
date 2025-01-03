@@ -56,9 +56,6 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 			if (!config.cell)
 				return;
 
-			if (nodes.cellhighlight && nodes.cellhighlight[0] === this)
-				return;
-
 			let el = $(this);
 			nodes.cellhighlight && nodes.cellhighlight.rclass('highlight');
 			nodes.cellhighlight = el;
@@ -76,9 +73,6 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 		self.event('click', cls2 + '-row_' + self.ID, function() {
 
 			if (!config.click)
-				return;
-
-			if (nodes.rowhighlight && nodes.rowhighlight[0] === this)
 				return;
 
 			let el = $(this);
@@ -242,7 +236,7 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 			if (m.$selected)
 				selected.push(m);
 		}
-		config.checked && self.EXEC(config.checked, selected);
+		config.checked && self.SEEX(config.checked, selected);
 	};
 
 	self.setter = function(value) {
