@@ -367,7 +367,7 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 
 		nodes.pagination.first.prop('disabled', value.page <= 1);
 		nodes.pagination.last.prop('disabled', value.page >= value.pages);
-		nodes.pagination.prev.prop('disabled', value.page <= 1 && value.pages > 1);
+		nodes.pagination.prev.prop('disabled', value.page <= 1);
 		nodes.pagination.next.prop('disabled', value.page >= value.pages);
 		nodes.pagination.page.prop('disabled', value.pages <= 1).val(value.page + '');
 
