@@ -1,11 +1,11 @@
 .ui-servergrid { border: 1px solid #E0E0E0; border-radius: var(--radius); font-size: 13px; background: #FFF; position: relative; }
-.ui-servergrid-filter { display: flex; border-bottom: 1px solid #E0E0E0; align-items: center; height: 22px; }
+.ui-servergrid-filter { display: flex; border-bottom: 1px solid #E0E0E0; align-items: center; height: 22px; gap: 0; }
 .ui-servergrid-filter:last-child { border-right: 1px solid #E0E0E0; }
 .ui-servergrid-filter input { border: 0; background: transparent; outline: 0; font-size: 11px; height: 21px; padding: 0 20px 0 5px; margin: 0; width: 100%; }
 .ui-servergrid-filter input:disabled { background: #F9F9F9; }
 .ui-servergrid-clear { position: absolute; right: 5px; top: 4px; cursor: pointer; color: #D72727; visibility: hidden; }
-.ui-servergrid-row { display: flex; border-bottom: 1px solid #E0E0E0; align-items: center; border-right: 1px solid #E0E0E0; }
-.ui-servergrid-row-empty { border-bottom: 1px solid #E0E0E0; align-items: center; border-right: 1px solid #E0E0E0; height: 32px; }
+.ui-servergrid-row { display: flex; border-bottom: 1px solid #E0E0E0; align-items: center; border-right: 1px solid #E0E0E0; gap: 0; }
+.ui-servergrid-row-empty { border-bottom: 1px solid #F0F0F0; align-items: center; border-right: 1px solid #E0E0E0; height: 32px; }
 .ui-servergrid-noscroll .ui-servergrid-rows { overflow-y: hidden; }
 .ui-servergrid-noscroll .ui-scrollbar-y span { visibility: hidden; }
 .ui-servergrid-data { margin-bottom: 15px; }

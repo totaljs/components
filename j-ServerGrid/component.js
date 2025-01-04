@@ -78,8 +78,9 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 			if (!config.click)
 				return;
 
+
 			let target = e ? e.target : null;
-			if (target && target.tagName === 'A' || $(target).closest('a'))
+			if (target && target.tagName === 'A' || $(target).closest('a').length)
 				return;
 
 			let el = $(this);
