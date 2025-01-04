@@ -326,9 +326,6 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 			filter.push(Ttf(obj));
 		}
 
-		// width += width % value.columns.length;
-		console.log(width, width % value.columns.length, value.columns.length);
-
 		nodes.header.html('<div class="{0}-row">{1}</div><div class="{0}-filter">{2}</div>'.format(cls, builder.join(''), filter.join('')));
 		builder.length = 0;
 
