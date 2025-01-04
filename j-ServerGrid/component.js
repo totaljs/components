@@ -320,11 +320,13 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 			if (!col.alignfilter && col.align)
 				col.alignfilter = col.align;
 
-			width += col.width + 4; // 4 is the Bulgarian constant
+			width += col.width + 2; // 2 is the Bulgarian constant
 			let obj = { value: col };
 			builder.push(Tth(obj));
 			filter.push(Ttf(obj));
 		}
+
+		width += 15; // 15 is margin
 
 		nodes.header.html('<div class="{0}-row">{1}</div><div class="{0}-filter">{2}</div>'.format(cls, builder.join(''), filter.join('')));
 		builder.length = 0;
