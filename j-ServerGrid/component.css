@@ -26,8 +26,8 @@
 .ui-servergrid-container { overflow: scroll; -ms-overflow-style: none; scrollbar-width: none; }
 .ui-servergrid-rows::-webkit-scrollbar { display: none; }
 .ui-servergrid-rows { overflow: scroll; -ms-overflow-style: none; scrollbar-width: none; }
-.ui-servergrid-number { width: 34px; font-size: 11px; color: #999; text-align: center; }
-.ui-servergrid-number em { margin: 7px 0 0 3px; display: none; border: 1px solid #D0D0D0; border-radius: var(--radius); width: 16px; height: 16px; line-height: 14px; text-align: center; background: #FFF; cursor: pointer; }
+.ui-servergrid-number { width: 40px; font-size: 11px; color: #999; text-align: center; }
+.ui-servergrid-number em { margin: 7px 0 0 7px; display: none; border: 1px solid #D0D0D0; border-radius: var(--radius); width: 16px; height: 16px; line-height: 14px; text-align: center; background: #FFF; cursor: pointer; }
 .ui-servergrid-number em i { visibility: hidden; }
 .ui-servergrid-number span { display: block; }
 .ui-servergrid-checkbox .ui-servergrid-number:hover em { display: block; }
@@ -35,7 +35,7 @@
 .ui-servergrid-row.selected em i { visibility: visible !important; }
 .ui-servergrid-row.selected em { display: block; color: var(--color); border-color: var(--color); }
 .ui-servergrid-row.selected span { display: none; }
-.ui-servergrid-th-number { width: 34px; justify-content: center; text-align: center; }
+.ui-servergrid-th-number { width: 40px; justify-content: center; text-align: center; }
 .ui-servergrid-th-number i { margin-right: 0 !important; color: #000; }
 .ui-servergrid-sort { cursor: pointer; }
 .ui-servergrid-btn-sort { position: absolute; right: 4px; top: 0; color: #999; }
@@ -52,7 +52,7 @@
 .ui-servergrid-td.highlight { border-color: #156EE1; }
 .ui-servergrid-row.highlight { background-color: rgb(255,245,167,0.26); }
 .ui-servergrid-noborder { border: 0; border-radius: 0; }
-.ui-servergrid-th-number em { margin: 10px 0 0 3px; border: 1px solid #D0D0D0; border-radius: var(--radius); width: 16px; height: 16px; line-height: 14px; text-align: center; background: #FFF; cursor: pointer; display: block; font-size: 11px; }
+.ui-servergrid-th-number em { margin: 10px 0 0 7px; border: 1px solid #D0D0D0; border-radius: var(--radius); width: 16px; height: 16px; line-height: 14px; text-align: center; background: #FFF; cursor: pointer; display: block; font-size: 11px; }
 .ui-servergrid-th-number em i { visibility: hidden; }
 .ui-servergrid-th-number.selected em { display: block; border-color: var(--color); }
 .ui-servergrid-th-number.selected em i { visibility: visible; color: var(--color); }

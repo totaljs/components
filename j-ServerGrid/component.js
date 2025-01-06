@@ -259,7 +259,7 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 
 		let builder = [];
 		let filter = [];
-		let width = 34;
+		let width = 40; // numbering + checkox
 
 		builder.push(('<div class="{0}-th {0}-th-number">' + (config.checkbox ? '<em><i class="ti ti-check"></i></em>' : '') + '</div>').format(cls));
 		filter.push('<div class="{0}-th-number">&nbsp;</div>'.format(cls));
