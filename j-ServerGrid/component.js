@@ -2,7 +2,7 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 
 	var cls2 = '.' + cls;
 	var nodes = {};
-	var filtercache = { sort: {}, filter: {}, page: 1, pages: 1 };
+	var filtercache = { sort: '', filter: {}, page: 1, pages: 1 };
 	var Ttd = Tangular.compile('<div class="{0}-td {0}-c{{ value.id }}{{ if value.align }} {0}-{{ value.align }}{{ fi }} {0}-{1}" style="width:{{ value.width }}px{{ if value.color }};background:{{ value.color }}{{ fi }}">{{ value.text | raw }}</div>'.format(cls, self.ID));
 	var Tth = Tangular.compile('<div class="{0}-th{{ if value.sorting }} {0}-sort{{ fi }}{{ if value.alignheader }} {0}-{{ value.alignheader }}{{ fi }}" style="width:{{ value.width }}px" data-id="{{ value.id }}">{{ if value.sorting }}<span class="{0}-btn-sort"><i class="ti {{ if value.sort === \'asc\' }}ti-angle-up{{ else if value.sort === \'desc\' }}ti-angle-down{{ else }}ti-arrows-v{{ fi }}"></i></span>{{ fi }}<div>{{ if value.icon }}<i class="{{ value.icon }}"></i>{{ fi }}{{ value.name | raw }}</div></div>'.format(cls));
 	var Ttf = Tangular.compile('<div class="{0}-tf{{ if value.filter }} {0}-tf-is{{ fi }}" style="width:{{ value.width }}px"><i class="{0}-clear ti ti-times"></i><input name="{{ value.id }}"{{ if !value.filtering }} disabled{{ fi }}{{ if value.placeholder }} placeholder="{{ value.placeholder }}"{{ fi }}{{ if value.filter }} value="{{ value.filter }}"{{ fi }} /></div>'.format(cls));
