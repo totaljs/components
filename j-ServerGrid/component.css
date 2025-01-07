@@ -17,7 +17,7 @@
 .ui-servergrid-tf-is { background-color: rgb(255,245,167,0.26); }
 .ui-servergrid-tf-is .ui-servergrid-clear { visibility: visible; }
 .ui-servergrid-th { height: 36px; line-height: 36px; font-weight: bold; }
-.ui-servergrid-th.ui-servergrid-sort > div { padding-right: 15px; }
+.ui-servergrid-th.ui-servergrid-sort > div { padding-right: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ui-servergrid-th:first-child, .ui-servergrid-td:first-child { border-left: 0 }
 .ui-servergrid-th { background: #F4F4F4; position: relative; }
 .ui-servergrid-th > div i { margin-right: 5px; color: #999; }
