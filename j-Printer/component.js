@@ -4,18 +4,24 @@ COMPONENT('printer', 'delay:500;delayprint:500;delayclose:1000', function(self, 
 	self.readonly();
 	self.singleton();
 
+	var iframe;
+
 	self.make = function() {
 		self.aclass(cls);
 	};
 
-	self.print = function(title, html) {
+	self.print = function(title, html, test) {
 
-		if (html == null) {
+		if (html == null || html === true) {
+			test = html === true;
 			html = title;
 			title = '';
 		}
 
-		var iframe = $('<ifra' + 'me src="about:blank" frameborder="0" scrolling="no"></ifr' + 'ame>')[0];
+		if (iframe)
+			self.dom.removeChild(iframe);
+
+		iframe = $('<ifra' + 'me src="about:blank" frameborder="0" scrolling="no"></ifr' + 'ame>')[0];
 		self.dom.appendChild(iframe);
 
 		var win = iframe.contentWindow;
@@ -30,8 +36,10 @@ COMPONENT('printer', 'delay:500;delayprint:500;delayclose:1000', function(self, 
 			doc.write(html);
 			doc.close();
 
-			setTimeout(() => win.print(), config.delayprint);
-			setTimeout(() => self.dom.removeChild(iframe), config.delayclose);
+			if (!test) {
+				setTimeout(() => win.print(), config.delayprint);
+				setTimeout(() => self.dom.removeChild(iframe), config.delayclose);
+			}
 
 		}, config.delay);
 
