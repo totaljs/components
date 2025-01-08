@@ -4,8 +4,6 @@ COMPONENT('printer', 'delay:500;delayprint:500;delayclose:1000', function(self, 
 	self.readonly();
 	self.singleton();
 
-	var iframe;
-
 	self.make = function() {
 		self.aclass(cls);
 	};
@@ -18,29 +16,26 @@ COMPONENT('printer', 'delay:500;delayprint:500;delayclose:1000', function(self, 
 			title = '';
 		}
 
-		if (iframe)
-			self.dom.removeChild(iframe);
-
-		iframe = $('<ifra' + 'me src="about:blank" frameborder="0" scrolling="no"></ifr' + 'ame>')[0];
-		self.dom.appendChild(iframe);
-
-		var win = iframe.contentWindow;
-
 		if (html.indexOf('<body>') === -1)
 			html = '<html><head><title>{0}</title><meta charset="utf-8" /></head><body style="font-family:Arial;font-size:14px;margin:0;padding:0;color:#000">{1}</body></html>'.format(title, html);
 
-		setTimeout(function() {
+		if (test) {
+			let win = W.open('', '', 'width=800,height=600');
+			win.document.write(html);
+			return;
+		}
 
+		var iframe = $('<ifra' + 'me src="about:blank" frameborder="0" scrolling="no"></ifr' + 'ame>')[0];
+		var win = iframe.contentWindow;
+		self.dom.appendChild(iframe);
+
+		setTimeout(function() {
 			var doc = win.document;
 			doc.open();
 			doc.write(html);
 			doc.close();
-
-			if (!test) {
-				setTimeout(() => win.print(), config.delayprint);
-				setTimeout(() => self.dom.removeChild(iframe), config.delayclose);
-			}
-
+			setTimeout(() => win.print(), config.delayprint);
+			setTimeout(() => self.dom.removeChild(iframe), config.delayclose);
 		}, config.delay);
 
 	};
