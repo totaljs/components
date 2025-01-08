@@ -8,7 +8,7 @@ COMPONENT('totaltemplates', function(self, config) {
 
 		if (!(template.includes('>') || template.includes(';') || template.includes('"') || template.includes(',') || template.includes('{'))) {
 			if (cache[template]) {
-				self.render(response, model, callback);
+				self.render(cache[template], model, callback);
 			} else {
 				AJAX('GET ' + template, function(response) {
 					cache[template] = response;
@@ -73,6 +73,11 @@ COMPONENT('totaltemplates', function(self, config) {
 			else
 				WARN('j-TotalTempates error: pop-up windows are blocked');
 		});
-	}
+	};
+
+	self.on('service', function(counter) {
+		if (counter % 5 === 0)
+			cache = {};
+	});
 
 });
