@@ -1,8 +1,22 @@
 COMPONENT('totaltemplates', function(self, config) {
 
+	var cache = {};
+
 	self.singleton();
 
 	self.render = function(template, model, callback) {
+
+		if (!(template.includes('>') || template.includes(';') || template.includes('"') || template.includes(','))) {
+			if (cache[template]) {
+				self.render(response, model, callback);
+			} else {
+				AJAX('GET ' + template, function(response) {
+					cache[template] = response;
+					self.render(response, model, callback);
+				});
+			}
+			return;
+		}
 
 		if (typeof(model) === 'function') {
 			callback = model;
