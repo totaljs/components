@@ -26,11 +26,11 @@ COMPONENT('printer', 'delay:500;delayprint:500;delayclose:1000', function(self, 
 		}
 
 		var iframe = $('<ifra' + 'me src="about:blank" frameborder="0" scrolling="no"></ifr' + 'ame>')[0];
-		var win = iframe.contentWindow;
 		self.dom.appendChild(iframe);
 
 		setTimeout(function() {
-			var doc = win.document;
+			let win = iframe.contentWindow;
+			let doc = win.document;
 			doc.open();
 			doc.write(html);
 			doc.close();
