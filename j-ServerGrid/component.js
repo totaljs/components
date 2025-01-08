@@ -251,13 +251,14 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 
 					let val = m.value;
 
-					if (col.dirsource) {
+					col.filter = val;
+
+					if (col.dirsource)
 						val = val == null || val == '' ? null : col.dirsource.findValue('name', val, 'id');
-						col.filter = m.value;
-					}
 
 					if (val != null && val !== '')
 						obj[name] = val;
+
 				}
 			}
 		}
