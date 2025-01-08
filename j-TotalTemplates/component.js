@@ -6,7 +6,7 @@ COMPONENT('totaltemplates', function(self, config) {
 
 	self.render = function(template, model, callback) {
 
-		if (!(template.includes('>') || template.includes(';') || template.includes('"') || template.includes(','))) {
+		if (!(template.includes('>') || template.includes(';') || template.includes('"') || template.includes(',') || template.includes('{'))) {
 			if (cache[template]) {
 				self.render(response, model, callback);
 			} else {
