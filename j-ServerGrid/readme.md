@@ -20,7 +20,8 @@ __Data-source__ needs to contain:
 			alignheader: 1, // optional: 0 or left (default), 1 or center, 2 or right
 			alignfilter: 1, // optional: 0 or left (default), 1 or center, 2 or right
 			icon: 'ti ti-home', // optional: column icon
-			color: '#000000' // optional: color for all rows
+			color: '#000000' // optional: color for all rows,
+			dirsource: [{ id: 'String|Number|Boolean', name: '...' }] // optional: a dropdown filter (it needs "directory" component)
 		}
 	],
     items: [{ name: 'Row <b>1</b> will be bold' }, { name: 'Row 2' }, ...] // items

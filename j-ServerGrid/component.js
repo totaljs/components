@@ -5,7 +5,7 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 	var filtercache = { sort: '', filter: {}, page: 1, pages: 1 };
 	var Ttd = Tangular.compile('<div class="{0}-td {0}-c{{ value.id }}{{ if value.align }} {0}-{{ value.align }}{{ fi }} {0}-{1}" style="width:{{ value.width }}px{{ if value.color }};background:{{ value.color }}{{ fi }}">{{ value.text | raw }}</div>'.format(cls, self.ID));
 	var Tth = Tangular.compile('<div class="{0}-th{{ if value.sorting }} {0}-sort{{ fi }}{{ if value.alignheader }} {0}-{{ value.alignheader }}{{ fi }}" style="width:{{ value.width }}px" data-id="{{ value.id }}">{{ if value.sorting }}<span class="{0}-btn-sort"><i class="ti {{ if value.sort === \'asc\' }}ti-angle-up{{ else if value.sort === \'desc\' }}ti-angle-down{{ else }}ti-arrows-v{{ fi }}"></i></span>{{ fi }}<div>{{ if value.icon }}<i class="{{ value.icon }}"></i>{{ fi }}{{ value.name | raw }}</div></div>'.format(cls));
-	var Ttf = Tangular.compile('<div class="{0}-tf{{ if value.filter }} {0}-tf-is{{ fi }}" style="width:{{ value.width }}px"><i class="{0}-clear ti ti-times"></i><input name="{{ value.id }}"{{ if !value.filtering }} disabled{{ fi }}{{ if value.placeholder }} placeholder="{{ value.placeholder }}"{{ fi }}{{ if value.filter }} value="{{ value.filter }}"{{ fi }} /></div>'.format(cls));
+	var Ttf = Tangular.compile('<div class="{0}-tf{{ if value.filter }} {0}-tf-is{{ fi }}" style="width:{{ value.width }}px"><i class="{0}-clear ti ti-times"></i><input data-name="{{ value.id }}"{{ if !value.filtering }} disabled{{ fi }}{{ if value.placeholder }} placeholder="{{ value.placeholder }}"{{ fi }}{{ if value.filter }} value="{{ value.filter }}"{{ fi }}{{ if cls }} class="{{ cls }}"{{ fi }} autocomplete="new-password" role="combobox" aria-expanded="true" aria-invalid="false" aria-autocomplete="list" aria-haspopup="false" autocapitalize="off" autocorrect="off" spellcheck="false"{{ if value.dirsource }} readonly{{ fi }} /></div>'.format(cls));
 	var scrollY = 0;
 	var scrollX = 0;
 	var emptyrows = 0;
@@ -171,13 +171,40 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 			config.exec && self.EXEC(config.exec, 'sort', filtercache.filter, filtercache.sort, filtercache.page);
 		});
 
-		self.event('click', cls2 + '-clear', function() {
+		self.event('click', cls2 + '-clear', function(e) {
+
+			e.stopPropagation();
+			e.preventDefault();
+
+			let model = self.get();
 			let el = $(this).closest(cls2 + '-tf');
 			// let index = el.index();
 			// let model = self.get();
 			// let column = model.columns[index - 1];
-			el.find('input').val('');
+			let input = el.find('input');
+			input.val('');
 			self.filter();
+		});
+
+		self.event('click', cls2 + '-dirsource', function(e) {
+
+			e.stopPropagation();
+			e.preventDefault();
+
+			let model = self.get();
+			let input = $(this);
+			let opt = {};
+			let column = model.columns.findItem('id', input.attrd('name'));
+			opt.element = input;
+			opt.items = column.dirsource;
+			opt.offsetY = 24;
+			opt.offsetX = 2;
+			opt.callback = function(selected) {
+				input.val(selected.name);
+				self.filter();
+			};
+
+			SETTER('directory/show', opt);
 		});
 
 	};
@@ -217,10 +244,20 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 
 		for (let m of inputs) {
 			if (!m.disabled) {
-				let col = model.columns.findItem('id', m.name);
+
+				let name = m.getAttribute('data-name');
+				let col = model.columns.findItem('id', name);
 				if (col) {
-					col.filter = m.value;
-					obj[m.name] = m.value;
+
+					let val = m.value;
+
+					if (col.dirsource) {
+						val = val == null || val == '' ? null : col.dirsource.findValue('name', val, 'id');
+						col.filter = m.value;
+					}
+
+					if (val != null && val !== '')
+						obj[name] = val;
 				}
 			}
 		}
@@ -321,7 +358,16 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 				col.alignfilter = col.align;
 
 			width += col.width + 2; // 2 is the Bulgarian constant
-			let obj = { value: col };
+
+			let ccls = '';
+
+			if (col.dirsource)
+				ccls += (ccls ? ' ' : '') + '{0}-dirsource';
+
+			if (col.alignfilter)
+				ccls += (ccls ? ' ' : '') + '{0}-' + col.alignfilter;
+
+			let obj = { value: col, cls: ccls.format(cls) };
 			builder.push(Tth(obj));
 			filter.push(Ttf(obj));
 		}
