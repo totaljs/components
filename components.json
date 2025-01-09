@@ -331,5 +331,6 @@
 	"j-EmptyInline",
 	"j-ElementID",
 	"j-ExpansionPanel",
-	"j-ServerGrid"
+	"j-ServerGrid",
+	"j-Tabs"
 ]
