@@ -1,4 +1,4 @@
-COMPONENT('tabmenu', 'class:selected;selector:li;attr:value', function(self, config, cls) {
+COMPONENT('tabmenu', 'class:selected;selector:li;attr:id', function(self, config, cls) {
 
 	var old, oldtab, loaded = false;
 
