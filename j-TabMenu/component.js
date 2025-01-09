@@ -13,7 +13,7 @@ COMPONENT('tabmenu', 'class:selected;selector:li;attr:id', function(self, config
 			if (!config.disabled) {
 				var el = $(this);
 				if (!el.hclass(config.class))
-					self.bind('@touched @modified', el.attrd(config.attr));
+					self.bind('@touched @modified @setter', el.attrd(config.attr));
 			}
 		});
 
