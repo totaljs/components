@@ -296,7 +296,7 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 		self.bind('@modified @touched', obj);
 
 		if (!config.readonly) {
-			config.exec && self.EXEC(config.exec, obj);
+			config.exec && self.EXEC(config.exec, obj, self);
 			self.modify();
 		}
 	};
