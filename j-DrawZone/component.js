@@ -16,7 +16,6 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 		for (var m of meta.points)
 			m.remove();
 
-		meta.map.remove();
 		meta.points = null;
 		meta.map = null;
 		meta.polygon = null;
