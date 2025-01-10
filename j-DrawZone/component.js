@@ -228,9 +228,7 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 	};
 
 	self.center = function() {
-		var feature = meta.source.getFeatures()[0];
-		var polygon = feature.getGeometry();
-		meta.view.fit(polygon, { padding: [170, 50, 30, 150] });
+		meta.view.fit(meta.polygon.getSource().getFeatures()[0].getGeometry());
 		meta.view.animate({ zoom: meta.zoom, duration: 250 });
 	};
 
@@ -292,6 +290,7 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 
 		self.clear(false, true);
 		meta.polygon = self.createpolygon(arr, obj.color, config.radius);
+
 		meta.map.addLayer(meta.polygon);
 		self.bind('@modified @touched', obj);
 
