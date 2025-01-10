@@ -11,7 +11,6 @@ COMPONENT('leaflet', 'height:200;zoom:11;draggable:0;marker:1;margin:0;maxzoom:1
 		for (var m of meta.markers)
 			m.remove();
 		meta.map.off();
-		meta.map.remove();
 		meta.markers = null;
 		meta.map = null;
 		meta.marker = null;
@@ -135,10 +134,13 @@ COMPONENT('leaflet', 'height:200;zoom:11;draggable:0;marker:1;margin:0;maxzoom:1
 				meta.marker.on('click', function(e) {
 					config.click && self.SEEX(config.click, e.latlng.lat + ',' + e.latlng.lng, e);
 				});
+
 				meta.marker.on('moveend', function(e) {
 					skip = true;
-					var pos = e.target._latlng;
-					self.bind('@touched @modified', pos.lat + ',' + pos.lng);
+					let tmp = e.target._latlng;
+					let pos = tmp.lat + ',' + tmp.lng;
+					self.bind('@touched @modified', pos);
+					config.exec && self.EXEC(config.exec, pos, self);
 				});
 			}
 		}
