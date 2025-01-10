@@ -295,8 +295,10 @@ COMPONENT('drawzone', 'height:200;zoom:13;stroke:2;radius:7;color:#fcba03;readon
 		meta.map.addLayer(meta.polygon);
 		self.bind('@modified @touched', obj);
 
-		if (!config.readonly)
+		if (!config.readonly) {
+			config.exec && self.EXEC(config.exec, obj);
 			self.modify();
+		}
 	};
 
 	self.clear = function(draw, noreset) {
