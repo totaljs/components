@@ -1,4 +1,4 @@
-COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false;flowoutput:1', function(self, config, cls) {
+COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false;flowoutput:flowoutput', function(self, config, cls) {
 
 	self.readonly();
 
@@ -137,7 +137,7 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false;flowoutput:1', 
 
 						self.app.on('output', function(meta) {
 
-							if (config.flowoutput && meta.componentid !== 'flowoutput')
+							if (config.flowoutput && !config.flowoutput.includes(meta.componentid))
 								return;
 
 							setTimeout(function(meta) {
