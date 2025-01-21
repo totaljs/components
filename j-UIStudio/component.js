@@ -25,6 +25,7 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false;flowoutput:flow
 
 		config.onrequest && self.EXEC(config.onrequest, current);
 
+		// Obtain current step
 		AJAX('POST {0} ERROR'.format(url), current, function(response) {
 
 			if (!response.id) {
@@ -92,7 +93,7 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false;flowoutput:flow
 				} else {
 					breadcrumb = CLONE(current);
 					breadcrumb.navigate = function() {
-						current = this;
+						current = CLONE(this);
 						navigate();
 					};
 					parents.push(breadcrumb);
@@ -106,6 +107,7 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false;flowoutput:flow
 					self.app = null;
 				}
 
+				// Download design
 				AJAX('GET {url} ERROR'.args(response), function(data) {
 
 					if (!config.css)
@@ -122,7 +124,6 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false;flowoutput:flow
 					UIBuilder.build(self.element, data, function(app) {
 
 						config.loading && SETTER('loading/hide', 500);
-
 						app.breadcrumb = parents;
 
 						self.app = app;
@@ -135,6 +136,7 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false;flowoutput:flow
 						if (response.input)
 							setTimeout(response => self.app.input(response.input, response.data), config.inputdelay, response);
 
+						// Capture output
 						self.app.on('output', function(meta) {
 
 							if (config.flowoutput && !config.flowoutput.includes(meta.componentid))
