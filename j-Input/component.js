@@ -503,7 +503,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					opt.value = self.get();
 					opt.callback = function(val) {
 						self.change(true);
-						self.set(self.itransform(val));
+						self.set(self.itransform(val), 2);
 					};
 					SETTER('datepicker/show', opt);
 				} else if (config.type === 'time') {
