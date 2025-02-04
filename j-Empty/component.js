@@ -59,9 +59,9 @@ COMPONENT('empty', 'icon:ti ti-database;parent:parent;margin:0;wait:1', function
 		table.rclass('hidden');
 	};
 
-	self.setter = function(value, path, type) {
+	self.setter = function(value, path, flags) {
 
-		if (!value && type === 0 && config.wait)
+		if (!value && config.wait && (flags === 0 || flags.init))
 			return;
 
 		visible = false;
