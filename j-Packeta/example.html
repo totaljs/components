@@ -2,12 +2,14 @@
 
 <button>Select pickup point</button>
 
+<ui-bind path="!response" config="html pre:JSON.stringify(value,null,'\t').encode()"><pre></pre></ui-bind>
+
 <script>
 
 	$(document).on('click', 'button', function() {
 		var opt = {};
 		opt.callback = function(point) {
-			console.log(point);
+			SET('response', point);
 		};
 		SETTER('packeta/show', opt);
 	});
