@@ -27,6 +27,7 @@ __Configuration__:
 - `keywords {String}` custom keywords in the form e.g. `ID,PATH`
 - `minheight {Number}` optional, a minimal height (default: `0`)
 - `margin {Number}` optional, a vertical margin (default: `0`)
+- __NEW__: `url {String}` optional, a link to the editor (default: `//cdn.componentator.com/editor/1.min.html`)
 
 __Method__:
 

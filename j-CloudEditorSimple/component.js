@@ -1,4 +1,4 @@
-COMPONENT('cloudeditorsimple', 'parent:auto;autosave:500;margin:0;linenumbers:1;realtime:1;type:clientside', function(self, config) {
+COMPONENT('cloudeditorsimple', 'parent:auto;autosave:500;margin:0;linenumbers:1;realtime:1;type:clientside;url://cdn.componentator.com/editor/1.min.html', function(self, config) {
 
 	var iframe;
 	var savetimeout;
@@ -84,7 +84,7 @@ COMPONENT('cloudeditorsimple', 'parent:auto;autosave:500;margin:0;linenumbers:1;
 		var protocol = location.protocol;
 		if (protocol === 'file:')
 			protocol = 'http:';
-		self.append('<iframe src="{1}//cdn.componentator.com/editor/1.min.html?id={0}" frameborder="0" scrolling="no" allowtransparency="true" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *" style="width:100%;overflow:hidden;display:block"></iframe>'.format(self.ID, protocol));
+		self.append('<iframe src="{1}{2}?id={0}" frameborder="0" scrolling="no" allowtransparency="true" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *" style="width:100%;overflow:hidden;display:block"></iframe>'.format(self.ID, protocol, config.url));
 		iframe = self.find('iframe');
 		self.resize();
 		$(W).on('message', onmessage);
