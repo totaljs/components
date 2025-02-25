@@ -69,6 +69,7 @@ COMPONENT('cloudeditorsimple', 'parent:auto;autosave:500;margin:0;linenumbers:1;
 				var offset = self.element.offset();
 				msg.x += offset.left;
 				msg.y += offset.top;
+				msg.instance = self;
 				config.contextmenu && self.SEEX(config.contextmenu, msg);
 				break;
 			case 'cursor':
@@ -193,7 +194,6 @@ COMPONENT('cloudeditorsimple', 'parent:auto;autosave:500;margin:0;linenumbers:1;
 			settertimeout && clearTimeout(settertimeout);
 			settertimeout = setTimeout(self.setter, 100);
 		}
-
 	};
 
 });

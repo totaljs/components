@@ -65,6 +65,7 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1;realtime:0;margin:0;url://cdn.c
 				var offset = self.element.offset();
 				msg.x += offset.left;
 				msg.y += offset.top;
+				msg.instance = self;
 				config.contextmenu && self.SEEX(config.contextmenu, msg);
 				break;
 			case 'cursor':
