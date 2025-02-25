@@ -5,7 +5,7 @@
 .ui-console2-tabs span i { margin-right: 5px; }
 .ui-console2-tabs > div span:first-child { border-radius: var(--radius) 0 0 0; }
 .ui-console2-tabs > div { float: left; }
-.ui-console2-tabs > span { cursor: pointer; }
+.ui-console2-tabs > span { cursor: pointer; font-size: 12px; }
 .ui-console2-output { background-color: #FFF; overflow: auto; overflow-scrolling: touch; }
 .ui-console2-tabs > .ui-console2-close { color: red !important; float: right; border-right: 0; margin: 2px 0 0 3px; height: 20px; line-height: 20px; padding: 0 5px; background: transparent; }
 .ui-console2-tabs > .ui-console2-clear { color: #777; float: right; border-right: 0; border-right: 1px solid #D0D0D0; margin: 2px 0 0 3px; height: 20px; line-height: 20px; padding: 0 5px; background: transparent; }
