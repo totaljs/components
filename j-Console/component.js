@@ -97,23 +97,31 @@ COMPONENT('console', function(self, config, cls) {
 		if (!ready)
 			return;
 
+		var datasource = self.makepath(config.datasource);
 		source = value;
-		if (path === config.datasource)
+		if (path === datasource)
 			self.render_tabs();
-		else if (path.substring(config.datasource.length + 1).substring(0, current.length) === current)
+		else if (path.substring(datasource.length + 1).substring(0, current.length) === current)
 			self.render_logs(source[current]);
 	};
 
 	self.configure = function(key, value) {
-		if (key === 'datasource')
-			self.datasource(value, self.rebind);
+		if (key === 'datasource') {
+			self.datasource(value, function(path, value, type) {
+				if (M.is20)
+					self.rebind(type, path);
+				else
+					self.rebind(path, value);
+			});
+		}
 	};
 
 	self.setter = function(value) {
 
 		if (value && !ready) {
 			ready = true;
-			self.rebind(config.datasource, GET(self.makepath(config.datasource)));
+			var datasource = self.makepath(config.datasource);
+			self.rebind(datasource, GET(datasource));
 		}
 
 		if (value) {
