@@ -18,6 +18,8 @@ COMPONENT('console2', 'icon:ti ti-script;name:Console;clear:1;autoclose:1;autosh
 		self.event('click', cls2 + '-clear', function() {
 			SET(self.makepath(config.datasource), []);
 			config.autoclose && self.set(false);
+			if (typeof(config.clear) === 'string')
+				self.EXEC(config.clear);
 		});
 
 		self.event('click', cls2 + '-close', function() {
