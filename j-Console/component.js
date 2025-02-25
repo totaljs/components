@@ -52,7 +52,7 @@ COMPONENT('console', function(self, config, cls) {
 				current = key;
 
 			var icon = self.icon(item.icon);
-			builder.push(('<span title="{1}" data-id="{2}" class="' + cls + '-tab{3}"><i class="{0}"></i>{1}</span>').format(icon + (item.name ? '' : '" style="margin-right:0'), item.name, keys[i], current === keys[i] ? (' ' + cls + '-selected') : ''));
+			builder.push(('<span title="{1}" data-id="{2}" class="' + cls + '-tab{3}"><i class="{0}"></i>{1}</span>').format(icon + (item.name ? '' : '" style="margin-right:0'), item.name, key, current === key ? (' ' + cls + '-selected') : ''));
 		}
 
 		etabs.html(builder.join(''));
