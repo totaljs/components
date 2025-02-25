@@ -43,10 +43,9 @@ COMPONENT('console', function(self, config, cls) {
 		if (!source)
 			return;
 
-		var keys = Object.keys(source);
 		var builder = [];
 
-		for (var key in keys) {
+		for (var key in source) {
 			var item = source[key];
 
 			if (!current)
