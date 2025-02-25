@@ -47,7 +47,7 @@ COMPONENT('console2', 'icon:ti ti-script;name:Console;clear:1;autoclose:1;autosh
 		elogs[0].scrollTop = 0;
 		clearbtn.tclass('hidden', !builder.length);
 
-		if (config.autoshow && !self.get())
+		if (config.autoshow && !self.get() && builder.length)
 			self.set(true);
 	};
 
