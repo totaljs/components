@@ -46,11 +46,11 @@ COMPONENT('console', function(self, config, cls) {
 		var keys = Object.keys(source);
 		var builder = [];
 
-		for (var i = 0; i < keys.length; i++) {
-			var item = source[keys[i]];
+		for (var key in keys) {
+			var item = source[key];
 
 			if (!current)
-				current = keys[i];
+				current = key;
 
 			var icon = self.icon(item.icon);
 			builder.push(('<span title="{1}" data-id="{2}" class="' + cls + '-tab{3}"><i class="{0}"></i>{1}</span>').format(icon + (item.name ? '' : '" style="margin-right:0'), item.name, keys[i], current === keys[i] ? (' ' + cls + '-selected') : ''));
@@ -114,15 +114,13 @@ COMPONENT('console', function(self, config, cls) {
 
 		if (value && !ready) {
 			ready = true;
-			self.rebind(config.datasource, GET(config.datasource));
+			self.rebind(config.datasource, GET(self.makepath(config.datasource)));
 		}
 
 		if (value) {
 			self.rclass('hidden');
-
 			if (typeof(value) === 'string')
 				self.show(value);
-
 			self.aclass(cls + '-visible', 100);
 		} else {
 			self.rclass('hidden', 100);

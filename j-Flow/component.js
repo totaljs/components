@@ -732,13 +732,23 @@ EXTENSION('flow:operations', function(self, config, cls) {
 		}
 	};
 
+	self.op.parseconnection2 = function(el) {
+		return { fromid: el.attrd('from'), toid: el.attrd('to'), input: el.attrd('toindex'), output: el.attrd('fromindex') };
+	}
+
 	self.op.unselect = function(type, id) {
 
 		var cls = 'connection-selected';
+		var sel;
 
 		if (type == null || type === 'connections') {
-			self.el.lines.find('.' + cls).rclass(cls);
+			sel = self.el.lines.find('.' + cls).rclass(cls);
 			self.el.lines.find('.highlight').rclass('highlight');
+			if (sel.length && config.onconnection) {
+				var conn = self.op.parseconnection2(sel);
+				conn.selected = false;
+				self.EXEC(config.onconnection, conn);
+			}
 		}
 
 		cls = 'component-selected';
@@ -1983,6 +1993,12 @@ EXTENSION('flow:connections', function(self, config, cls) {
 		self.info.type = 'connection';
 		self.op.refreshinfo();
 
+		if (config.onconnection) {
+			var conn = self.op.parseconnection2(el);
+			conn.selected = true;
+			self.EXEC(config.onconnection, conn);
+		}
+
 		var dom = el[0];
 		var parent = el.parent()[0];
 
@@ -2043,7 +2059,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 		var item = self.groups.findItem('id', id);
 		if (item) {
 			var pos = self.el.groups.find('> div[data-id="{0}"]'.format(id)).offset();
-			var scroll = self.closest('.ui-scrollbar-area');
+			var scroll = self.element.closest('.ui-scrollbar-area');
 			if (scroll) {
 				var offset = self.element.offset();
 				scroll.animate({ scrollLeft: pos.left - 200 - offset.left, scrollTop: pos.top - 150 - offset.top }, 300);
@@ -2057,7 +2073,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 		var com = self.cache[id];
 		if (com) {
 			var pos = com.el.offset();
-			var scroll = self.closest('.ui-scrollbar-area');
+			var scroll = self.element.closest('.ui-scrollbar-area');
 			if (scroll) {
 				var offset = self.element.offset();
 				scroll.animate({ scrollLeft: pos.left - 200 - offset.left, scrollTop: pos.top - 150 - offset.top }, 300);
