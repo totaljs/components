@@ -1,0 +1,15 @@
+{
+	"datecreated": "2025-02-25T12:49:04.000Z",
+	"dateupdated": null,
+	"name": "j-Console2",
+	"jcomponent": "19|20",
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"darkmode": true,
+	"picture": "picture.gif",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

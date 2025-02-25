@@ -1,0 +1,18 @@
+<style>
+	body { background-color: #D0D0D0; }
+</style>
+
+<ui-component name="console2" path="visible" config="datasource:logs"></ui-component>
+
+<script>
+
+	var visible = true;
+	var logs = [];
+
+	logs.push({ type: 'info', body: 'Lorem <b>ipsum</b> dolor sit amet, consectetur adipisicing elit. Soluta, ea.' });
+	logs.push({ type: 'error', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, ea.' });
+
+	// 2 seconds delay
+	setTimeout(() => PUSH('logs', { type: 'warning', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, tempora.' }, 2000);
+
+</script>
