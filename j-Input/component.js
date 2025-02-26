@@ -294,7 +294,10 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 
 		self.event('blur', 'input,textarea,' + cls2 + '-value', function() {
 			focused = false;
-			self.camouflage(true);
+			if (M.is20)
+				setTimeout(() => self.camouflage(true), 300);
+			else
+				self.camouflage(true);
 			self.rclass(cls + '-focused');
 		});
 
@@ -659,7 +662,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 	self.getterin = self.getter;
 	self.getter = function(value, realtime, nobind) {
 
-		if (nobindcamouflage)
+		if (!M.is20 && nobindcamouflage)
 			return;
 
 		if (config.mask && config.masktidy) {
@@ -710,7 +713,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 
 		self.setterin(value, path, type);
 		self.bindvalue();
-		config.camouflage && !focused && setTimeout(self.camouflage, type === 'show' ? 2000 : 1, true);
+		config.camouflage && !focused && setTimeout(self.camouflage, ((M.is20 && type.show) || type === 'show') ? 2000 : 1, true);
 
 		if (config.type === 'password')
 			self.password(true);
