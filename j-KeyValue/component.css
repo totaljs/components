@@ -14,7 +14,8 @@
 .ui-keyvalue-base .ui-keyvalue-item-key { height: 30px; border-bottom-left-radius: var(--radius); }
 .ui-keyvalue.ui-disabled input { color: #777; cursor: not-allowed; }
 .ui-keyvalue.ui-disabled i { display: none; }
-.ui-keyvalue .ui-keyvalue-base { border-radius: var(--radius); }
+.ui-keyvalue-empty .ui-keyvalue-base { border-radius: var(--radius); }
+.ui-keyvalue-empty .ui-keyvalue-item-key { border-top-left-radius: var(--radius); }
 
 .ui-dark .ui-keyvalue-item { background-color: #202020; border-color: #444; }
 .ui-dark .ui-keyvalue-item-remove { border-left-color: #444; color: #DA4453; }
