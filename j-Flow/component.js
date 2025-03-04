@@ -2181,7 +2181,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 		self.op.unselect();
 	});
 
-	function translate_path(count, path, reverse) {
+	var translate_path = function(count, path, reverse) {
 
 		if (reverse)
 			count = 100 - count;
