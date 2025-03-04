@@ -1193,6 +1193,11 @@ EXTENSION('flow:map', function(self, config, cls) {
 
 	events.move = function(e) {
 
+		if (drag.contextmenu) {
+			clearTimeout(drag.contextmenu);
+			drag.contextmenu = null;
+		}
+
 		if (!drag.is) {
 			self.aclass(cls + '-drag');
 			drag.is = true;
@@ -1238,6 +1243,11 @@ EXTENSION('flow:map', function(self, config, cls) {
 	};
 
 	events.up = function() {
+
+		if (drag.contextmenu) {
+			clearTimeout(drag.contextmenu);
+			drag.contextmenu = null;
+		}
 
 		self.rclass(cls + '-drag');
 
@@ -1347,9 +1357,21 @@ EXTENSION('flow:map', function(self, config, cls) {
 			css.height = 0;
 
 			self.el.selection.rclass('hidden').css(css);
+
 		} else if (drag.target[0]) {
 			drag.top = drag.target[0].scrollTop;
 			drag.left = drag.target[0].scrollLeft;
+		}
+
+		if (e.type === 'touchstart' && config.contextmenu) {
+			drag.contextmenu && clearTimeout(drag.contextmenu);
+			drag.contextmenu = setTimeout(function(drag) {
+				drag.contextmenu = null;
+				if (!drag.is) {
+					events.unbind();
+					self.SEEX(config.contextmenu, e, 'map');
+				}
+			}, 1200, drag);
 		}
 
 		events.bind();
@@ -1405,6 +1427,11 @@ EXTENSION('flow:components', function(self, config) {
 
 	events.move = function(e) {
 
+		if (drag.contextmenu) {
+			clearTimeout(drag.contextmenu);
+			drag.contextmenu = null;
+		}
+
 		if (self.op.isout(e)) {
 			events.up(e);
 			return;
@@ -1429,6 +1456,11 @@ EXTENSION('flow:components', function(self, config) {
 	};
 
 	self.components_moved = events.up = function(e, obj, nosnapping) {
+
+		if (drag.contextmenu) {
+			clearTimeout(drag.contextmenu);
+			drag.contextmenu = null;
+		}
 
 		if (!obj)
 			obj = drag;
@@ -1629,6 +1661,17 @@ EXTENSION('flow:components', function(self, config) {
 			drag.selected.push({ id: node.attrd('id'), node: node, pos: node.position(), output: node.find('.output'), input: node.find('.input') });
 		}
 
+		if (e.type === 'touchstart' && config.contextmenu) {
+			drag.contextmenu && clearTimeout(drag.contextmenu);
+			drag.contextmenu = setTimeout(function(drag) {
+				drag.contextmenu = null;
+				if (!drag.is) {
+					events.unbind();
+					self.SEEX(config.contextmenu, e, 'component', self.cache[drag.id].instance);
+				}
+			}, 1200, drag);
+		}
+
 		self.focused && self.focused.rclass('component-focused');
 		self.focused = target.aclass('component-focused');
 		events.bind();
@@ -1647,6 +1690,11 @@ EXTENSION('flow:connections', function(self, config, cls) {
 	drag.css = {};
 
 	events.move = function(e) {
+
+		if (drag.contextmenu) {
+			clearTimeout(drag.contextmenu);
+			drag.contextmenu = null;
+		}
 
 		if (self.op.isout(e)) {
 			events.up(e);
@@ -1670,6 +1718,11 @@ EXTENSION('flow:connections', function(self, config, cls) {
 	};
 
 	events.up = function(e) {
+
+		if (drag.contextmenu) {
+			clearTimeout(drag.contextmenu);
+			drag.contextmenu = null;
+		}
 
 		drag.path.remove();
 		events.unbind();
@@ -1970,6 +2023,13 @@ EXTENSION('flow:connections', function(self, config, cls) {
 
 	});
 
+	self.event('touchend', function() {
+		if (drag.contextmenu) {
+			clearTimeout(drag.contextmenu);
+			drag.contextmenu = null;
+		}
+	});
+
 	self.event('mousedown touchstart', '.connection', function(e) {
 
 		var el = $(this);
@@ -1993,8 +2053,8 @@ EXTENSION('flow:connections', function(self, config, cls) {
 		self.info.type = 'connection';
 		self.op.refreshinfo();
 
+		conn = self.op.parseconnection2(el);
 		if (config.onconnection) {
-			var conn = self.op.parseconnection2(el);
 			conn.selected = true;
 			self.EXEC(config.onconnection, conn);
 		}
@@ -2005,6 +2065,24 @@ EXTENSION('flow:connections', function(self, config, cls) {
 		parent.removeChild(dom);
 		parent.appendChild(dom);
 		e.preventDefault();
+
+		if (e.type === 'touchstart' && config.contextmenu) {
+			drag.contextmenu && clearTimeout(drag.contextmenu);
+			drag.contextmenu = setTimeout(function(drag, conn) {
+				drag.contextmenu = null;
+				if (!drag.is) {
+					events.unbind();
+					var data = {};
+					data.fromid = conn.fromid;
+					data.toid = conn.toid;
+					data.fromindex = conn.input;
+					data.toindex = conn.output;
+					data.from = self.cache[conn.fromid].instance;
+					data.to = self.cache[conn.toid].instance;
+					self.SEEX(config.contextmenu, e, 'connection', data);
+				}
+			}, 1200, drag, conn);
+		}
 
 	});
 
@@ -2501,6 +2579,11 @@ EXTENSION('flow:groups', function(self, config, cls) {
 
 	events.move = function(e) {
 
+		if (drag.contextmenu) {
+			clearTimeout(drag.contextmenu);
+			drag.contextmenu = null;
+		}
+
 		var evt = e.type === 'touchmove' ? e.touches[0] : e;
 
 		var x = (evt.pageX + drag.plusX) - drag.pageX;
@@ -2596,7 +2679,14 @@ EXTENSION('flow:groups', function(self, config, cls) {
 	};
 
 	events.up = function(e) {
+
+		if (drag.contextmenu) {
+			clearTimeout(drag.contextmenu);
+			drag.contextmenu = null;
+		}
+
 		var evt = e.type === 'touchend' ? e.touches[0] : e;
+
 		if (drag.is) {
 			var id = drag.element.attrd('id');
 			var group = self.groups.findItem('id', id);
@@ -2645,6 +2735,17 @@ EXTENSION('flow:groups', function(self, config, cls) {
 		item && config.dblclickgroup && self.SEEX(config.dblclickgroup, item, e);
 	});
 
+	self.event('contextmenu', '.' + cls + '-group', function(e) {
+
+		events.is && events.up(e);
+
+		e.preventDefault();
+		e.stopPropagation();
+
+		var item = self.groups.findItem('id', $(this).attrd('id'));
+		config.contextmenu && self.SEEX(config.contextmenu, e, 'group', item);
+	});
+
 	self.event('mousedown touchstart', '.' + cls + '-group', function(e) {
 
 		var evt = e.type === 'touchstart' ? e.touches[0] : e;
@@ -2680,6 +2781,17 @@ EXTENSION('flow:groups', function(self, config, cls) {
 		drag.pos = drag.element.position();
 		drag.ismeta = (evt.metaKey || evt.ctrlKey || evt.shiftKey);
 		drag.selected = [];
+
+		if (e.type === 'touchstart' && config.contextmenu) {
+			drag.contextmenu && clearTimeout(drag.contextmenu);
+			drag.contextmenu = setTimeout(function(drag) {
+				drag.contextmenu = null;
+				if (!drag.is) {
+					events.unbind();
+					self.SEEX(config.contextmenu, e, 'group', self.groups.findItem('id', drag.id));
+				}
+			}, 1200, drag);
+		}
 
 		var rect1 = { x: self.op.zoom(drag.pos.left), y: self.op.zoom(drag.pos.top), width: drag.element.width(), height: drag.element.height() };
 
