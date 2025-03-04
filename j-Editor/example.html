@@ -1,0 +1,27 @@
+<ui-component name="LAZY menu"></ui-component>
+
+<div style="width:600px;height:200px;border:1px solid #E0E0E0">
+	<ui-component name="editor" path="editorbody" config="contextmenu:editor_contextmenu"></ui-component>
+</div>
+<div class="clearfix"></div>
+
+<script>
+
+	var editorbody = '\n\n<h1>HELLO WORLD</h1>\n\n';
+
+	function editor_contextmenu(obj) {
+		var opt = {};
+		opt.x = obj.x;
+		opt.y = obj.y;
+		opt.items = [];
+		opt.items.push({ id: '1', name: 'Test item 1' });
+		opt.items.push({ id: '2', name: 'Test item 2' });
+		opt.items.push({ id: '3', name: 'Test item 3' });
+		opt.items.push({ id: '4', name: 'Test item 4' });
+		opt.callback = function(selected) {
+			console.log(selected);
+		};
+		SETTER('menu/show', opt);
+	}
+
+</script>
