@@ -734,7 +734,7 @@ EXTENSION('flow:operations', function(self, config, cls) {
 
 	self.op.parseconnection2 = function(el) {
 		return { fromid: el.attrd('from'), toid: el.attrd('to'), input: el.attrd('toindex'), output: el.attrd('fromindex') };
-	}
+	};
 
 	self.op.unselect = function(type, id) {
 
