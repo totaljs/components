@@ -2190,7 +2190,7 @@ EXTENSION('flow:commands', function(self, config, cls) {
 		var t = (l / 100) * count;
 		var p = path.getPointAtLength(t);
 		return 'translate(' + (p.x >> 0) + ',' + (p.y >> 0) + ')';
-	}
+	};
 
 	self.command('flow.traffic', function(id, opt) {
 
