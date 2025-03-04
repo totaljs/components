@@ -1,4 +1,4 @@
-COMPONENT('editor', 'parent:auto;autosave:500;margin:0;linenumbers:1;realtime:1;type:clientside;url://cdn.componentator.com/editor/1.min.html', function(self, config) {
+COMPONENT('code', 'parent:auto;autosave:500;margin:0;linenumbers:1;realtime:1;type:clientside;url://cdn.componentator.com/editor/1.min.html', function(self, config) {
 
 	var iframe;
 	var savetimeout;
