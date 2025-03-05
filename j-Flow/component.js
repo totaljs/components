@@ -734,7 +734,7 @@ EXTENSION('flow:operations', function(self, config, cls) {
 
 	self.op.parseconnection2 = function(el) {
 		return { fromid: el.attrd('from'), toid: el.attrd('to'), input: el.attrd('toindex'), output: el.attrd('fromindex') };
-	};
+	}
 
 	self.op.unselect = function(type, id) {
 
@@ -1289,22 +1289,24 @@ EXTENSION('flow:map', function(self, config, cls) {
 	events.bind = function() {
 		if (!events.is) {
 			events.is = true;
-			self.element.on('mouseup', events.up);
-			self.element.on('mousemove', events.move);
-			self.element.on('touchend', events.up);
-			self.element.on('touchmove', events.movetouch);
-			$(W).on('mouseleave', events.leave);
+			var $W = $(W);
+			$W.on('mouseup', events.up);
+			$W.on('mousemove', events.move);
+			$W.on('touchend', events.up);
+			$W.on('touchmove', events.movetouch);
+			$W.on('mouseleave', events.leave);
 		}
 	};
 
 	events.unbind = function() {
 		if (events.is) {
+			var $W = $(W);
 			events.is = false;
-			self.element.off('mouseup', events.up);
-			self.element.off('mousemove', events.move);
-			self.element.off('touchend', events.up);
-			self.element.off('touchmove', events.movetouch);
-			$(W).off('mouseleave', events.leave);
+			$W.off('mouseup', events.up);
+			$W.off('mousemove', events.move);
+			$W.off('touchend', events.up);
+			$W.off('touchmove', events.movetouch);
+			$W.off('mouseleave', events.leave);
 		}
 	};
 
@@ -1518,20 +1520,22 @@ EXTENSION('flow:components', function(self, config) {
 		if (!events.is) {
 			events.is = true;
 			self.op.isoutcache();
-			self.element.on('mouseup', events.up);
-			self.element.on('mousemove', events.move);
-			self.element.on('touchend', events.up);
-			self.element.on('touchmove', events.movetouch);
+			var $W = $(W);
+			$W.on('mouseup', events.up);
+			$W.on('mousemove', events.move);
+			$W.on('touchend', events.up);
+			$W.on('touchmove', events.movetouch);
 		}
 	};
 
 	events.unbind = function() {
 		if (events.is) {
 			events.is = false;
-			self.element.off('mouseup', events.up);
-			self.element.off('mousemove', events.move);
-			self.element.off('touchend', events.up);
-			self.element.off('touchmove', events.movetouch);
+			var $W = $(W);
+			$W.off('mouseup', events.up);
+			$W.off('mousemove', events.move);
+			$W.off('touchend', events.up);
+			$W.off('touchmove', events.movetouch);
 		}
 	};
 
