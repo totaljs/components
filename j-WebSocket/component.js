@@ -21,7 +21,7 @@ COMPONENT('websocket', 'reconnect:3000;encoder:false;statsinterval:1000', functi
 
 		if (config.stats) {
 			statsinterval = setInterval(function() {
-				self.SEEX(config.statsinput, { received: sizei, sent: sizeo });
+				self.SEEX(config.stats, { received: sizei, sent: sizeo });
 				sizei = 0;
 				sizeo = 0;
 			}, config.statsinterval);
