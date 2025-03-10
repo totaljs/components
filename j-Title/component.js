@@ -15,7 +15,7 @@ COMPONENT('title', 'separator:-;plus:1', function(self, config) {
 		if (!text)
 			text = config.empty;
 		let tmp = config.plus ? ((text ? (text + ' ' + config.separator + ' ') : '') + config.name) : text;
-		document.title = text;
+		document.title = tmp;
 	};
 
 });
