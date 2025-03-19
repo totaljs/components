@@ -1,0 +1,15 @@
+{
+	"datecreated": "2025-03-19T08:23:00.000Z",
+	"dateupdated": null,
+	"name": "j-Restart",
+	"jcomponent": "19|20",
+	"darkmode": true,
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.gif",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
