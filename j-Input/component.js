@@ -6,7 +6,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 	self.nocompile();
 
 	// jComponent +v20
-	self.autobind20 && self.autobind20();
+	self.autobind20 && self.autobind20(config.$delay);
 
 	self.init = function() {
 		Thelpers.ui_input_icon = function(val) {
