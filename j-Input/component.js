@@ -202,6 +202,11 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 
 		if (W.ui_input_cache.tags[config.type]) {
 
+			self.event('click', function() {
+				if (!config.disabled)
+					rawvalue.focus();
+			});
+
 			self.addtag = function(text) {
 				rawvalue.before('<span class="{0}-tag"><i class="ti ti-times {0}-tag-remove"></i>{1}</span>'.format(cls, Thelpers.encode(text)));
 			};
@@ -873,16 +878,12 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 
 				text.quicksort('index');
 				for (let i = 0; i < text.length; i++)
-					text[i] = text[i].name;
-
-				item = text.join(config.separator == null ? ', ' : (config.separator || ''));
+					text[i] = config.dirraw ? text[i].name : '<span class="{0}-tag">{1}</span>'.format(cls, Thelpers.encode(text[i].name));
+				item = text.join('');
 			} else if (value && item == null && config.dircustom)
 				item = value;
 
-			if (config.dirraw)
-				rawvalue.html(item || '');
-			else
-				rawvalue.text(item || '');
+			rawvalue.html(item || '');
 
 		} else if (config.dirsource && config.type !== 'radiobutton') {
 			if (config.dirdetail) {
@@ -904,8 +905,8 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 		} else {
 
 			if (W.ui_input_cache.tags[config.type]) {
+				self.find(cls2 + '-tag').remove();
 				if (value instanceof Array) {
-					self.find(cls2 + '-tag').remove();
 					for (let m of value)
 						self.addtag(m);
 				}

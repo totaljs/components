@@ -81,7 +81,7 @@
 
 .ui-input-tags .ui-input-value { min-width: 30px; display: inline-block; line-height: 24px; cursor: text; }
 .ui-input-tags.ui-input-inner { padding-bottom: 5px; }
-.ui-input-tag { background-color: var(--color); color: #FFF; border-radius: var(--radius); padding: 2px 4px; margin-right: 5px; white-space: nowrap; vertical-align: top; }
+.ui-input-tag { background-color: var(--color); color: #FFF; border-radius: var(--radius); padding: 2px 5px; margin-right: 5px; white-space: nowrap; vertical-align: top; }
 .ui-input-tag i { color: rgb(255,196,196,0.8); cursor: pointer; user-select: none; margin-right: 3px; }
 .ui-disabled .ui-input-tag i { display: none; }
 .ui-disabled .ui-input-value { display: none; }
