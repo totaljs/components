@@ -151,7 +151,11 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 							if (!val)
 								return;
 
-							let arr = self.get();
+							let arr = self.get() || [];
+
+							if (!(arr instanceof Array))
+								arr = [arr];
+
 							rawvalue.empty();
 
 							if (!arr.includes(val)) {
