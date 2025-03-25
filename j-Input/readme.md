@@ -6,7 +6,36 @@ __j-Input__ is multifuncional `input` component which supports a lot of features
 
 __Configuration__:
 
-- `type {String}` optional, can be `email`, `multiline`, `checkbox`, `phone`, `password`, `zip`, `date` (needs `datepicker` component), `time` (needs `timepicker` component), `color` (needs `colorpicker` component), `icon` (needs `faicons` component), `emoji` (needs `emoji` component), `url`, `number`, `number2` (nullable), `search`, `lower`, `upper`, `slug`, `id`, __NEW__: `radiobutton` or empty (default)
+- `type {String}` optional, values:
+	- empty value means default `text`
+	- `email`,
+	- `multiline`
+	- `checkbox`
+	- `phone`
+	- `password`
+	- `zip`
+	- `date` (needs `datepicker` component)
+	- `time` (needs `timepicker` component)
+	- `color` (needs `colorpicker` component)
+	- `icon` (needs `faicons` component)
+	- `emoji` (needs `emoji` component)
+	- `url`
+	- `number`
+	- `number2` (nullable)
+	- `search`
+	- `lower`
+	- `upper`
+	- `slug`
+	- `id`
+	- __NEW__: `radiobutton`
+	- __NEW__: `tags`
+	- __NEW__: `tags-lower`
+	- __NEW__: `tags-upper`
+	- __NEW__: `tags-id`
+	- __NEW__: `tags-email`
+	- __NEW__: `tags-slug`
+	- __NEW__: `tags-phone`
+	- __NEW__: `tags-url`
 - `required {Boolean}` optional, enables "required" (default: `false`)
 - `icon {String}` optional, icon for label e.g. `home`, `cog`, etc.
 - `licon {String}` optional, left icon e.g. `home`, `cog`, etc.
