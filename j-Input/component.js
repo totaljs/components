@@ -384,8 +384,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			var val = self.get();
 
 			if (config.multiple) {
-				for (var i = 0; i < opt.items.length; i++) {
-					var item = opt.items[i];
+				for (var item of opt.items) {
 					if (val instanceof Array) {
 						item.selectedts = val.indexOf(item[config.dirvalue || config.value]);
 						item.selected = item.selectedts !== -1;
@@ -402,8 +401,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				opt.search = config.dirsearch;
 
 			if (dirsource && config.direxclude == false && !config.multiple) {
-				for (var i = 0; i < dirsource.length; i++) {
-					var item = dirsource[i];
+				for (var item of dirsource) {
 					if (item)
 						item.selected = typeof(item) === 'object' && item[config.dirvalue] === val;
 				}
@@ -753,8 +751,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			var item;
 			var text = [];
 
-			for (var i = 0; i < dirsource.length; i++) {
-				item = dirsource[i];
+			for (item of dirsource) {
 				if (typeof(item) === 'string') {
 					if (item === value)
 						break;
@@ -777,7 +774,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				for (var i = 0; i < text.length; i++)
 					text[i] = text[i].name;
 
-				item = text.join(', ');
+				item = text.join(config.separator == null ? ', ' : (config.separator || ''));
 			} else if (value && item == null && config.dircustom)
 				item = value;
 
