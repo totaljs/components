@@ -11,7 +11,8 @@ __Configuration__:
 - `align {String}` icon align (default: `left`)
 - `placeholder {String}` a plceholder
 - `autofocus {Boolean/Number}` enables auto-focus for non-mobile devices (number means a delay for auto-focus, default: `false`)
-- `exec {String}` a link to `function(value, element)` which is evaluated if the search input is affected
+- `exec {String}` a link to the `function(value, element)` which will be evaluated if the input is affected
+- __NEW__: `realtime {Boolean}` enables real-time binding (default: `true`)
 
 __Methods__:
 

@@ -1,17 +1,29 @@
-COMPONENT('searchinput', 'searchicon:ti ti-search;cancelicon:ti ti-times;align:left', function(self, config, cls) {
+COMPONENT('searchinput', 'searchicon:ti ti-search;cancelicon:ti ti-times;align:left;realtime:1', function(self, config, cls) {
 
 	var input;
 	var icon;
 	var prev;
 	var prev2;
 
-	self.autobind20 && self.autobind20(200, true);
 	self.novalidate && self.novalidate();
 
 	self.make = function() {
 
 		self.aclass(cls + ' ' + cls + '-' + config.align);
-		self.html('<span><i class="{0}"></i></span><div><input type="text" autocomplete="new-password" maxlength="100" placeholder="{1}" data-jc-bind /></div>'.format(config.searchicon, config.placeholder));
+		self.html('<span><i class="{0}"></i></span><div><input type="text" autocomplete="new-password" maxlength="100" placeholder="{1}" /></div>'.format(config.searchicon, config.placeholder));
+
+		if (config.realtime && config.path) {
+			self.autobind20 && self.autobind20(200, false);
+			self.find('input').attr('data-jc-bind', '1');
+		} else {
+			self.find('input').on('change', function() {
+				let value = input.value;
+				self.check();
+				self.path && self.bind('@touched @modified', value);
+				config.exec && self.SEEX(config.exec, value, self.element);
+			});
+		}
+
 		input = self.find('input')[0];
 		icon = self.find('i');
 

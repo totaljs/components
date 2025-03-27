@@ -75,7 +75,7 @@ __Configuration__:
 - `dirsearch {Boolean|String}` optional, can disable search in `j-Directory` (default: `true`) or `{String}` (key name) can map a value for searching
 - `dirraw {Boolean}` optional, can disable escaping of items for `j-Directory` (default: `false`)
 - `dirdetail {String}` optional, a link to the function `function(val, next(NEW_TEXT))` (targeted for to `dirsource`)
-- __NEW__ `dirfilter {String}` optional, an inline filter conditional method, for example: `value.id !== 2` (targeted for to `dirsource`)
+- `dirfilter {String}` optional, an inline filter conditional method, for example: `value.id !== 2` (targeted for to `dirsource`)
 - `mask {String}` optional, can contain a mask in the form `###/##` (`#` is replaced for a char)
 - `maskregexp {String}` optional, can contain RegExp for each char in the form `\d,\d,\d,null,\d,\d` (`,` is delimiter)
 - `masktidy {Boolean}` optional, the component returns only raw chars without fixed chars (default: `false`)
@@ -93,6 +93,8 @@ __Configuration__:
 - `transform {String}` a link to the `function(value, config)` for transforming of entered values
 - `multiline {Boolean}` works only with `radiobutton` type
 - __NEW__: `separator {String|Boolean}` a separator for multiple rendered values
+- __NEW__: `realtime {Boolean}` enables real-time binding (default: `true`)
+- __NEW__: `exec {String}` a link to the `function(value, element)` which will be evaluated if the input is affected
 
 __Interesting:__
 

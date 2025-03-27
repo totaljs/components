@@ -1,10 +1,10 @@
-COMPONENT('rawinput', 'type:text', function(self, config, cls) {
+COMPONENT('rawinput', 'type:text;realtime:1', function(self, config, cls) {
 
 	var customvalidator;
 	var input;
 
 	// jComponent +v20
-	self.autobind20 && self.autobind20();
+	config.realtime && self.autobind20 && self.autobind20();
 
 	self.validate = function(value) {
 
@@ -114,13 +114,16 @@ COMPONENT('rawinput', 'type:text', function(self, config, cls) {
 
 		if (config.autofill) {
 			attr.attr('autocomplete', 'on');
-			attr.attr('name', self.path);
+			attr.attr('name', self.path.toString());
 		} else {
 			attr.attr('name', Date.now() + '');
 			attr.attr('autocomplete', 'new-password');
 		}
 
-		self.append('<input data-jc-bind="" {0} />'.format(attr.join(' ')));
+		if (config.realtime)
+			attr.attr('data-jc-bind', '1');
+
+		self.append('<input {0} />'.format(attr.join(' ')));
 
 		var $input = self.find('input');
 		input = $input[0];
@@ -129,6 +132,14 @@ COMPONENT('rawinput', 'type:text', function(self, config, cls) {
 			if (e.which === 13)
 				self.SEEX(config.enter, input.value, self);
 		});
+
+		if (!config.realtime) {
+			$input.on('change', function() {
+				let value = self.formatter(this.value);
+				self.path && self.bind('@touched @modified', value);
+				config.exec && self.SEEX(config.exec, value, self.element);
+			});
+		}
 
 		$input.on('focus', function() {
 
@@ -220,16 +231,7 @@ COMPONENT('rawinput', 'type:text', function(self, config, cls) {
 
 	self.setter = function(value) {
 		input.value = self.formatter(value == null ? '' : value);
-	};
-
-	self.state = function(type) {
-		if (type) {
-			var invalid = config.required ? self.isInvalid() : self.forcedvalidation() ? self.isInvalid() : false;
-			if (invalid === self.$oldstate)
-				return;
-			self.$oldstate = invalid;
-			self.tclass(cls + '-invalid', invalid);
-		}
+		config.exec && self.SEEX(config.exec, input.value, self.element);
 	};
 
 	self.forcedvalidation = function() {
