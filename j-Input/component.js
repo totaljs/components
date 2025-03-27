@@ -510,7 +510,17 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			} else if (config.direxclude)
 				opt.exclude = item => item ? item[config.dirvalue] === val : false;
 
+			opt.close = function() {
+				if (!opt.skipclose) {
+					self.bind('@touched');
+					if (!M.is20)
+						self.state(1);
+				}
+			};
+
 			opt.callback = function(item, el, custom) {
+
+				opt.skipclose = true;
 
 				// empty
 				if (item == null || (config.multiple && !item.length)) {
