@@ -4,7 +4,7 @@ COMPONENT('rawinput', 'type:text;realtime:1', function(self, config, cls) {
 	var input;
 
 	// jComponent +v20
-	config.realtime && self.autobind20 && self.autobind20();
+	config.realtime && self.autobind20 && self.autobind20(200, true);
 
 	self.validate = function(value) {
 
