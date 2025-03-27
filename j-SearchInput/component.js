@@ -19,6 +19,7 @@ COMPONENT('searchinput', 'searchicon:ti ti-search;cancelicon:ti ti-times;align:l
 		} else {
 			input.on('change', function() {
 				let value = input.value;
+				prev2 = value;
 				self.check();
 				self.path && self.bind('@touched @modified', value);
 				config.exec && self.SEEX(config.exec, value, self.element);
@@ -30,7 +31,6 @@ COMPONENT('searchinput', 'searchicon:ti ti-search;cancelicon:ti ti-times;align:l
 
 		self.event('click', 'span', function() {
 			prev && self.set('');
-			prev2 = '';
 		});
 
 		config.autofocus && self.autofocus();
