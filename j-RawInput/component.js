@@ -4,7 +4,7 @@ COMPONENT('rawinput', 'type:text;realtime:1', function(self, config, cls) {
 	var input;
 
 	// jComponent +v20
-	config.realtime && self.autobind20 && self.autobind20(200, true);
+	config.realtime && self.autobind20 && self.autobind20(200);
 
 	self.validate = function(value) {
 
@@ -121,7 +121,7 @@ COMPONENT('rawinput', 'type:text;realtime:1', function(self, config, cls) {
 		}
 
 		if (config.realtime)
-			attr.attr('data-jc-bind', '1');
+			attr.attr('data-jc-bind', '');
 
 		self.append('<input {0} />'.format(attr.join(' ')));
 

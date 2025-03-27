@@ -14,8 +14,8 @@ COMPONENT('searchinput', 'searchicon:ti ti-search;cancelicon:ti ti-times;align:l
 		input = self.find('input');
 
 		if (config.realtime) {
-			input.attr('data-jc-bind', '1');
-			self.autobind20 && self.autobind20(200, true);
+			input.attr('data-jc-bind', '');
+			self.autobind20 && self.autobind20(200);
 		} else {
 			input.on('change', function() {
 				let value = input.value;
