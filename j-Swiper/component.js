@@ -4,7 +4,7 @@ COMPONENT('swiper', 'null', function(self, config, cls) {
 	var container, body, pagination, navigation, items, swiper;
 	var opt = {};
 	var inactivitytimer;
-	var resettime = config.resettime !== undefined ? config.resettime * 60000 : null;
+	var resettime = config.reset !== undefined ? config.reset * 60000 : null;
 
 	self.readonly();
 

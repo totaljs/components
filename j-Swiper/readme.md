@@ -14,7 +14,7 @@ __Configuration__:
 - `autoplay {Boolean}` allow autoplay (default: `false`)
 - `delay {Number}` a delay between slides change, working with autoplay only (default: `2500`)
 - `loop {Boolean}` infinity loop through the slides (default: `false`)
-- __NEW__ `resettime` idle time after which the swiper restarts and returns to the first image (enter in minutes)
+- __NEW__ `reset {Number}` idle time after which the swiper restarts and returns to the first image (enter in minutes)
 
 ### Author
 
