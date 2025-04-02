@@ -33,6 +33,7 @@ COMPONENT('fileuploader', function(self, config) {
 		// opt.base64 {String}
 		// opt.filename {String}
 		// opt.quality {Number}
+		// opt.disproportionate {Boolean}
 
 		self.opt = opt;
 		self.opt.fd = new FormData();
