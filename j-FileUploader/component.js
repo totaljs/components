@@ -63,7 +63,7 @@ COMPONENT('fileuploader', function(self, config) {
 			for (var i = 0; i < files.length; i++)
 				queue.push(files[i]);
 			queue.wait(function(item, next) {
-				if (item.type.substring(0, 5) === 'image/') {
+				if (item.type.substring(0, 6) === 'image/') {
 					self.processimage(item, function(filename, blob) {
 						self.opt.fd.append((self.opt.prefix || 'file{0}').format(self.opt.indexer++), blob, filename);
 						next();
