@@ -3,6 +3,8 @@ COMPONENT('swiper', 'null', function(self, config, cls) {
 	var cls2 = '.' + cls;
 	var container, body, pagination, navigation, items, swiper;
 	var opt = {};
+	var inactivitytimer;
+	var resettime = config.reset !== undefined ? config.reset * 60000 : null;
 
 	self.readonly();
 
@@ -50,8 +52,9 @@ COMPONENT('swiper', 'null', function(self, config, cls) {
 
 		opt.slidesPerView = 1;
 		opt.loopAddBlankSlides = true;
-		opt.spaceBetween = config.spacebetween || 30;
+		opt.spaceBetween = config.spacebetween || 0;
 		opt.loop = config.loop && true;
+		opt.freeMode = config.freemode && true;
 		opt.lazy = true;
 
 		opt.breakpoints = {
@@ -61,13 +64,30 @@ COMPONENT('swiper', 'null', function(self, config, cls) {
 			},
 			768: {
 				slidesPerView: config.slidesperview || 1,
-				spaceBetween: config.spacebetween || 30
+				spaceBetween: config.spacebetween || 0
 			}
 		};
 
 		setTimeout(() => {
 		 	swiper = new Swiper(cls2 + '-' + self.id, opt);
+		 	if (resettime !== null) 
+		 		resettimer();
 		}, 500);
+
+		if (resettime !== null) {
+			document.addEventListener("touchstart", resettimer);
+			document.addEventListener("mousedown", resettimer);
+			document.addEventListener("mousemove", resettimer);
+			document.addEventListener("keydown", resettimer);
+		}
+
+		function resettimer() {
+			clearTimeout(inactivitytimer);
+			inactivitytimer = setTimeout(() => {
+				if (swiper) 
+					swiper.slideTo(0);
+			}, resettime);
+		}
 	};
 
 	self.setter = function(value) {
