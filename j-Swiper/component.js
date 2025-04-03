@@ -75,10 +75,13 @@ COMPONENT('swiper', 'null', function(self, config, cls) {
 		}, 500);
 
 		if (resettime !== null) {
-			document.addEventListener("touchstart", resettimer);
-			document.addEventListener("mousedown", resettimer);
-			document.addEventListener("mousemove", resettimer);
-			document.addEventListener("keydown", resettimer);
+			document.addEventListener('pointerdown', resettimer);
+			document.addEventListener('wheel', resettimer);
+			document.addEventListener('keydown', resettimer);
+			document.addEventListener("visibilitychange", () => {
+				if (document.visibilityState === "visible") 
+					resettimer();
+			});
 		}
 
 		function resettimer() {
