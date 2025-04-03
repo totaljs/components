@@ -63,10 +63,16 @@ COMPONENT('fileuploader', function(self, config) {
 			for (var i = 0; i < files.length; i++)
 				queue.push(files[i]);
 			queue.wait(function(item, next) {
-				self.processimage(item, function(filename, blob) {
-					self.opt.fd.append((self.opt.prefix || 'file{0}').format(self.opt.indexer++), blob, filename);
+				if (item.type.substring(0, 5) === 'image/') {
+					self.processimage(item, function(filename, blob) {
+						self.opt.fd.append((self.opt.prefix || 'file{0}').format(self.opt.indexer++), blob, filename);
+						next();
+					});
+				} else {
+					self.opt.fd.append((self.opt.prefix || 'file{0}').format(self.opt.indexer++), item, item.name);
 					next();
-				});
+				}
+
 			}, () => self.uploadfiles(null, callback));
 		} else
 			self.uploadfiles(files, callback);
