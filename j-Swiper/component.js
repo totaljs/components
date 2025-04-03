@@ -52,8 +52,9 @@ COMPONENT('swiper', 'null', function(self, config, cls) {
 
 		opt.slidesPerView = 1;
 		opt.loopAddBlankSlides = true;
-		opt.spaceBetween = config.spacebetween || 30;
+		opt.spaceBetween = config.spacebetween || 0;
 		opt.loop = config.loop && true;
+		opt.freeMode = config.freemode && true;
 		opt.lazy = true;
 
 		opt.breakpoints = {
@@ -63,7 +64,7 @@ COMPONENT('swiper', 'null', function(self, config, cls) {
 			},
 			768: {
 				slidesPerView: config.slidesperview || 1,
-				spaceBetween: config.spacebetween || 30
+				spaceBetween: config.spacebetween || 0
 			}
 		};
 
