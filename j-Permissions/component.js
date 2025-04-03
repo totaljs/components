@@ -47,6 +47,7 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 		let items = self.get();
 		tbody.empty();
 
+
 		if (!items || !items.length) {
 			config.empty && tbody.append('<tr><td class="{0}-empty"><i class="ti ti-database"></i>{1}</td></tr>'.format(cls, config.empty));
 			return;
@@ -80,7 +81,11 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 				items.splice(items.indexOf(m), 1);
 		}
 
-		tbody.html(builder.join(''));
+		if (items.length)
+			tbody.html(builder.join(''));
+		else
+			config.empty && tbody.append('<tr><td class="{0}-empty"><i class="ti ti-database"></i>{1}</td></tr>'.format(cls, config.empty));
+
 	};
 
 	self.recompile = function() {
