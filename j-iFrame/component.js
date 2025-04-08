@@ -1,4 +1,4 @@
-COMPONENT('iframe', 'margin:0;parent:window;scrollbar:0', function(self, config, cls) {
+COMPONENT('iframe', 'margin:0;parent:window;scrollbar:0;autohide:0', function(self, config, cls) {
 
 	var size;
 	var loaded = false;
@@ -65,6 +65,7 @@ COMPONENT('iframe', 'margin:0;parent:window;scrollbar:0', function(self, config,
 		loaded = false;
 		pending.length = 0;
 		self.iframe.attr('src', value || 'about:blank');
+		config.autohide && self.tclass('hidden', !value);
 	};
 
 });

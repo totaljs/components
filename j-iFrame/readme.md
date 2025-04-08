@@ -11,6 +11,7 @@ __Configuration__:
 - `scrollbar {Boolean}` optional, enables iframe scrolling (default: `false`)
 - __NEW__: `message {String}` optional, a link to the `function(msg)`
 - __NEW__: `ready {String}` optional, a link to the `function(com)` when the iframe is ready
+- __NEW__: `autohide {Boolean}` optional, adds `hidden` class if the iframe is blank
 
 __Methods__:
 
