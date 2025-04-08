@@ -9,6 +9,12 @@ __Configuration__:
 - `parent {String}` optional, a container selector (default: `window`)
 - `margin {Number}` optional, a vertical margin (default: `0`)
 - `scrollbar {Boolean}` optional, enables iframe scrolling (default: `false`)
+- __NEW__: `message {String}` optional, a link to the `function(msg)`
+- __NEW__: `ready {String}` optional, a link to the `function(com)` when the iframe is ready
+
+__Methods__:
+
+- __NEW__: `SETTER('iframe/send', { your_message_data })` for sending message to the iframe
 
 ### Author
 
