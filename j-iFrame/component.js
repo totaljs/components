@@ -47,7 +47,12 @@ COMPONENT('iframe', 'margin:0;parent:window;scrollbar:0;autohide:0', function(se
 
 	self.resizeforce = function() {
 		var parent = self.parent(config.parent);
-		var h = parent.height() - config.margin;
+		var margin = config['margin' + WIDTH()];
+
+		if (margin == null)
+			margin = config.margin;
+
+		var h = parent.height() - margin;
 		if (size != h) {
 			size = h;
 			self.iframe.css({ height: h });

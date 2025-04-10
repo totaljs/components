@@ -7,8 +7,12 @@ The component renders another URL address (stored in the `path` attribute) direc
 __Configuration__:
 
 - `parent {String}` optional, a container selector (default: `window`)
+- `scrollbar {Boolean}` optional, enables native iframe scrolling (default: `false`)
 - `margin {Number}` optional, a vertical margin (default: `0`)
-- `scrollbar {Boolean}` optional, enables iframe scrolling (default: `false`)
+- __NEW__: `marginxs {Number}` optional, a vertical margin for extra small display
+- __NEW__: `marginsm {Number}` optional, a vertical margin for small display
+- __NEW__: `marginmd {Number}` optional, a vertical margin for medium display
+- __NEW__: `marginlg {Number}` optional, a vertical margin for large display
 - __NEW__: `message {String}` optional, a link to the `function(msg)`
 - __NEW__: `ready {String}` optional, a link to the `function(com)` when the iframe is ready
 - __NEW__: `autohide {Boolean}` optional, adds `hidden` class if the iframe is blank
