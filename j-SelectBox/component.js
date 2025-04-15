@@ -5,7 +5,7 @@ COMPONENT('selectbox', function(self, config, cls) {
 	var Eitems, Eselected, condition;
 
 	self.datasource2 = EMPTYARRAY;
-	self.template = Tangular.compile('<span data-search="{{ search }}" data-index="{{ index }}">{{ text }}</span>');
+	self.template = Tangular.compile('<span data-search="{{ search }}" data-index="{{ index }}">{{ text | raw }}</span>');
 	self.nocompile && self.nocompile();
 
 	self.validate = function(value) {
