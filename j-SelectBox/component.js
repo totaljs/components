@@ -1,11 +1,10 @@
-COMPONENT('selectbox', function(self, config, cls) {
+COMPONENT('selectbox', 'raw:0', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
-
 	var Eitems, Eselected, condition;
 
 	self.datasource2 = EMPTYARRAY;
-	self.template = Tangular.compile('<span data-search="{{ search }}" data-index="{{ index }}">{{ text }}</span>');
+	self.template = Tangular.compile('<span data-search="{{ search }}" data-index="{{ index }}">{{ text ' + (config.raw ? ' | raw' : '') + ' }}</span>');
 	self.nocompile && self.nocompile();
 
 	self.validate = function(value) {
