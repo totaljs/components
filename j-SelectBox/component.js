@@ -5,7 +5,7 @@ COMPONENT('selectbox', function(self, config, cls) {
 	var Eitems, Eselected, condition;
 
 	self.datasource2 = EMPTYARRAY;
-	self.template = Tangular.compile('<span data-search="{{ search }}" data-index="{{ index }}">{{ text | raw }}</span>');
+	self.template = Tangular.compile('<span data-search="{{ search }}" data-index="{{ index }}">{{ text }}</span>');
 	self.nocompile && self.nocompile();
 
 	self.validate = function(value) {
@@ -107,7 +107,7 @@ COMPONENT('selectbox', function(self, config, cls) {
 					val = item[kv];
 				}
 
-				item = { text: text, value: val, index: index++, search: text.toSearch() };
+				item = { text: config.raw ? text : Thelpers.encode(text), value: val, index: index++,search: text.toSearch() };
 				self.datasource2.push(item);
 				builder.push(self.template(item));
 			}
