@@ -84,7 +84,7 @@
 .ui-input-tag { background-color: var(--color); color: #FFF; border-radius: var(--radius); padding: 2px 5px; margin-right: 5px; white-space: nowrap; vertical-align: top; }
 .ui-input-tag i { color: rgb(255,196,196,0.8); cursor: pointer; user-select: none; margin-right: 3px; }
 .ui-disabled .ui-input-tag i { display: none; }
-.ui-disabled .ui-input-value { display: none; }
+.ui-disabled.ui-input-tags .ui-input-value { display: none; }
 
 .ui-dark .ui-input-required .ui-input-control { border-color: #505050; }
 .ui-dark .ui-input-raw .ui-input-control { border-color: #404040; background-color: #202020 !important; box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
