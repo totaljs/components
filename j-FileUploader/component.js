@@ -238,6 +238,12 @@ COMPONENT('fileuploader', function(self, config) {
 		}
 
 		if (!is) {
+
+			if (opt.disproportionate) {
+				canvas.width = w = opt.width = image.width;
+				canvas.height = h = opt.height = image.height;
+			}
+
 			if (image.width < opt.width && image.height < opt.height) {
 				w = image.width;
 				h = image.height;
