@@ -1,5 +1,5 @@
 .ui-textboxlist-label { margin-bottom: 3px; font-size: 12px; text-align: left; }
-.ui-textboxlist-label-required:before { color: red; content: '***'; margin-right: 5px; }
+.ui-textboxlist.required .ui-textboxlist-label:before { color: red; content: '*'; margin-right: 5px; }
 .ui-textboxlist-label i { margin-right: 5px; }
 .ui-textboxlist-items > div:first-child { border-radius: var(--radius) var(--radius) 0 0; }
 .ui-textboxlist-item { height: 36px; background-color: #FFF; border: 1px solid #E0E0E0; border-bottom: 0; }
