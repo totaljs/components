@@ -18,12 +18,21 @@ COMPONENT('expander', 'height:150;iconup:ti-angle-double-up;icondown:ti-angle-do
 		self.element.wrapInner('<div class="{0}-container" style="max-height:{1}px"><div class="{0}-nodes"></div></div>'.format(cls, config.height));
 		self.append('<div class="' + cls + '-fade"></div><div class="' + cls + '-button"><span class="ti {0}"></span></div>'.format(config.icondown));
 		self.event('click', cls2 + '-button', () => self.toggle());
+		self.resizeforce();
 		self.resize();
 	};
 
-	self.resize = function() {
+	self.resizeforce = function() {
 		let height = self.find(cls2 + '-nodes').height();
 		self.tclass(cls + '-visible', height > config.height);
+	};
+
+	self.resize = function() {
+		setTimeout2(self.ID, self.resizeforce, 300);
+	};
+
+	self.setter = function() {
+		self.resize();
 	};
 
 });
