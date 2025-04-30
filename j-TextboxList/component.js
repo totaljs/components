@@ -1,4 +1,4 @@
-COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maximum limit;movable:false', function (self, config, cls) {
+COMPONENT('textboxlist', 'maxlength:100;required:0;error:You reach the maximum limit;movable:false', function (self, config, cls) {
 
 	var container, content;
 	var empty = {};
@@ -26,6 +26,9 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 				self.find('input').prop('disabled', true);
 				empty.disabled = value;
 				self.reset();
+				break;
+			case 'required':
+				self.tclass(cls + '-required', !!value);
 				break;
 			case 'maxlength':
 				empty.max = value;
@@ -78,6 +81,7 @@ COMPONENT('textboxlist', 'maxlength:100;required:false;error:You reach the maxim
 			self.aclass('ui-disabled');
 
 		content = self.html();
+
 		self.aclass(cls);
 		self.redraw();
 
