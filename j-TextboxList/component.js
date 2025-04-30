@@ -80,6 +80,9 @@ COMPONENT('textboxlist', 'maxlength:100;required:0;error:You reach the maximum l
 		if (config.disabled)
 			self.aclass('ui-disabled');
 
+		if (config.required)
+			self.aclass(cls + '-required');
+
 		content = self.html();
 
 		self.aclass(cls);
