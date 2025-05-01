@@ -1,4 +1,4 @@
-COMPONENT('EAN13', 'width:200;padright:1', function(self, config, cls) {
+COMPONENT('EAN13', 'width:200;padright:1;visibility:hidden', function(self, config, cls) {
 
 	self.init = function() {
 		// MIT License
@@ -18,7 +18,7 @@ COMPONENT('EAN13', 'width:200;padright:1', function(self, config, cls) {
 			value = config.padright ? value.padRight(13, '0') : value.padLeft(13, '0');
 			new EAN13(canvas[0], value);
 		}
-		self.tclass('invisible', !value);
+		self.tclass(config.visibility, !value);
 	};
 
 });
