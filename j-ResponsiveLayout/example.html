@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PAGE TITLE</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+	<style type="text/css">
+		* { margin: 0; padding: 0; }
+		html, body { height: 100%; }
+		.layout { display: grid; grid-template-rows: 60px 1fr 60px; height: 100vh; }
+		header, footer { display: flex; align-items: center; justify-content: space-between; height: 60px; padding: var(--gap); background: #fff; }
+		header { border-bottom: 1px solid #e0e0e0; }
+		header nav a { margin-left: 20px; }
+		main { display: grid; grid-template-columns: 220px 1fr; overflow: hidden; }
+		aside { width: 220px; height: 100%; padding: var(--gap); background-color: #fff; border-right: 1px solid #e0e0e0;  }
+		footer { border-top: 1px solid #e0e0e0; }
+		.responsivecontent { overflow-y: auto; padding: var(--gap); }
+		.mobilemenubtn { display: none; background-color: transparent; border: 0; font-size: 20px; }
+		.mobileasidebtn { position: fixed; bottom: 80px; left: 20px; display: none; z-index: 1001; background-color: #f0f0f0; border: 1px solid #e0e0e0; border-radius: var(--radius); padding: 4px 10px; }
+		.mobilemenu-visible header nav { position: absolute; top: 60px; left: 0; visibility: visible; width: 100%; height: calc(100vh - 120px); display: flex; flex-direction: column; gap: var(--gap); padding: var(--gap); z-index: 1000; background-color: #e0e0e0; transition: all 0.2s ease; }
+		.mobilemenu-visible header nav a { margin-left: 0; }
+		.mobilemenu-visible .mobilemenubtn i { color: red; }
+		.mobilemenu-visible .mobilemenubtn i:before { content: '\ea63'; }
+		.mobileaside-visible aside { display: block; visibility: visible; z-index: 1000; position: absolute; width: 100%; top: 60px; left: 0; height: calc(100vh - 120px); transition: left .2s ease; }
+		.mobileaside-visible .mobileasidebtn i:before { content: '\e90b' !important; }
+
+		@media (max-width: 768px) {
+			.mobilemenubtn { display: block; }
+			.mobileasidebtn { display: block; }
+			main { grid-template-columns: 1fr; }
+			aside { visibility: hidden; background-color: #e0e0e0; position: absolute; left: -100%; top: 60px;  }
+			header nav { visibility: hidden; top: -100%; transition: top .2s ease; }
+		}	
+	</style>
+</head>
+<body>
+	<div class="responsivelayout">
+		<header>
+			<button class="mobileasidebtn"><i class="ti ti-angle-double-right"></i></button>
+			<span>HEADER</span>
+			<nav>
+				<a href="#">Link 1</a>
+				<a href="#">Link 2</a>
+				<a href="#">Link 3</a>
+			</nav>
+			<button class="mobilemenubtn"><i class="ti ti-bars"></i></button>
+		</header>
+		<main>
+	    	<aside>ASIDE</aside>
+	    	<section class="responsivecontent">
+	    		CONTENT
+	  		</section>
+		</main>
+		<footer>FOOTER</footer>
+	</div>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			var body = document.body;
+			var menubtn = document.querySelector('.mobilemenubtn');
+			var asidebtn = document.querySelector('.mobileasidebtn');
+			var navlinks = document.querySelectorAll('header nav a');
+
+			menubtn.addEventListener('click', function () {
+				if (body.classList.contains('mobileaside-visible'))
+					body.classList.remove('mobileaside-visible');
+
+				body.classList.toggle('mobilemenu-visible');
+			});
+
+			asidebtn.addEventListener('click', function () {
+				if (body.classList.contains('mobilemenu-visible'))
+					body.classList.remove('mobilemenu-visible');
+
+				body.classList.toggle('mobileaside-visible');
+			});
+
+			navlinks.forEach(function(link) {
+				link.addEventListener('click', function () {
+					document.querySelector('body').classList.remove('mobilemenu-visible');
+				});
+			});
+
+		});
+	</script>
+</body>
+</html>
