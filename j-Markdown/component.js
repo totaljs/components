@@ -47,7 +47,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 		var code = /`.*?`/g;
 		var encodetags = /<|>/g;
 		var regdash = /-{2,}/g;
-		var regicons = /(^|[^\w]):((fab|far|fas|fal|fad|fa|ti)\s(fa|ti)-)?[a-z-]+:([^\w]|$)/g;
+		var regicons = /(^|[^\w]):((fab|far|fas|fal|fad|fa|ti|tic)\s(fa|ti|tic)-)?[a-z-]+:([^\w]|$)/g;
 		var regemptychar = /\s|\W/;
 		var regtags = /<[^>]*>/g;
 
