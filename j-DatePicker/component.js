@@ -271,12 +271,14 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:-1', function(self
 			return;
 		}
 
-		var time = self.time.split(':');
+		if (!self.opt.clock) {
+			var time = self.time.split(':');
 
-		if (time.length > 1) {
-			dt.setHours(+(time[0] || '0'));
-			dt.setMinutes(+(time[1] || '0'));
-			dt.setSeconds(+(time[2] || '0'));
+			if (time.length > 1) {
+				dt.setHours(+(time[0] || '0'));
+				dt.setMinutes(+(time[1] || '0'));
+				dt.setSeconds(+(time[2] || '0'));
+			}
 		}
 
 		self.opt.scope && M.scope(self.opt.scope);
@@ -352,7 +354,47 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:-1', function(self
 
 		for (var i = 0; i < 42; i++)
 			builder.push('<div class="{0}-date"><div></div></div>'.format(cls, i));
-		builder.push('</div></div><div class="{0}-footer"><span class="{0}-now">{2}</span><span class="{0}-clear">{3}</span></div>'.format(cls, config.close, config.today, clearbtn));
+
+		builder.push('</div></div>');
+
+		if (self.opt.clock) {
+			var cols = self.opt.ampm ? ' col-3' : ' col-2';
+			var timepicker = '<div class="{0}-time"><i class="ti ti-clock"></i><div class="{0}-select-wrapper{1}">{{ content }}</div></div>'.format(cls, cols);
+			var selecthours = '<div class="{0}-selecticon"><select id="{0}-hours" class="{0}-hours">{{ options }}</select><i class="ti ti-angle-down"></i></div>'.format(cls);
+			var selectminutes = '<div class="{0}-selecticon"><select id="{0}-minutes" class="{0}-minutes">{{ options }}</select><i class="ti ti-angle-down"></i></div>'.format(cls);
+			var selectampm = '';
+
+			var hoursopt = [];
+			var minutesopt = [];
+
+			if (self.opt.ampm) {
+				for (let i = 1; i <= 12; i++) {
+					let val = i.toString().padStart(2, "0");
+					hoursopt.push('<option value="{0}">{0}</option>'.format(val));
+				}
+			} else {
+				for (let i = 0; i < 24; i++) {
+					let val = i.toString().padStart(2, "0");
+					hoursopt.push('<option value="{0}">{0}</option>'.format(val));
+				}
+			}
+
+			for (let i = 0; i < 60; i++) {
+				let val = i.toString().padStart(2, "0");
+				minutesopt.push('<option value="{0}">{0}</option>'.format(val));
+			}
+
+			if (self.opt.ampm)
+				selectampm = '<div class="{0}-selecticon ampm"><select id="{0}-ampm" class="{0}-ampm"><option value="am">AM</option><option value="pm">PM</option></select><i class="ti ti-angle-down"></i></div>'.format(cls);
+
+			selecthours = selecthours.arg({ options: hoursopt.join('') });
+			selectminutes = selectminutes.arg({ options: minutesopt.join('') });
+
+			timepicker = timepicker.arg({ content: selecthours + selectminutes + selectampm });
+			builder.push(timepicker);
+		}
+
+		builder.push('<div class="{0}-footer"><span class="{0}-now">{2}</span><span class="{0}-clear">{3}</span></div>'.format(cls, config.close, config.today, clearbtn));
 
 		self.html('<div class="{0}">{1}</div>'.format(cls, builder.join('')));
 		main = $(self.find(cls2)[0]);
@@ -437,7 +479,26 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:-1', function(self
 
 		self.find(cls2 + '-date').on('click', function() {
 			var dt = $(this).attrd('date').split('-');
-			self.setdate(new Date(+dt[0], +dt[1], +dt[2], 12, 0, 0));
+
+			var hours = 12;
+			var minutes = 0;
+
+			if (self.opt.clock) {
+				hours = parseInt(self.find(cls2 + '-hours').val());
+				minutes = parseInt(self.find(cls2 + '-minutes').val());
+
+				if (self.opt.ampm) {
+					var ampm = self.find(cls2 + '-ampm').val();
+
+					if (ampm === 'pm' && hours < 12) {
+						hours += 12;
+					} else if (ampm === 'am' && hours === 12) {
+						hours = 0;
+					}
+				}
+			}
+
+			self.setdate(new Date(+dt[0], +dt[1], +dt[2], hours, minutes, 0));
 			self.hide();
 		});
 
@@ -447,6 +508,17 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:-1', function(self
 		});
 
 		self.find(cls2 + '-clear').on('click', function() {
+			if (self.opt.clock ) {
+				self.find(cls2 + '-minutes').val('00');
+
+				if (self.opt.ampm) {
+					self.find(cls2 + '-hours').val('01');
+					self.find(cls2 + '-ampm').val('am');
+				} else {
+					self.find(cls2 + '-hours').val('00');
+				}
+			}
+
 			self.setdate(null);
 			self.hide();
 		});
@@ -477,6 +549,47 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:-1', function(self
 
 			e.preventDefault();
 			e.stopPropagation();
+		});
+
+		self.opt.clock && self.find(cls2 + '-hours').on('change', function() {
+			var el = $(this);
+			var value = parseInt(el.val());
+
+			if (self.opt.ampm) {
+				var ampm = self.find(cls2 + '-ampm').val();
+
+				if (ampm === 'pm' && value < 12) {
+					value += 12;
+				} else if (ampm === 'am' && value === 12) {
+					value = 0;
+				}
+			}
+
+			current.setHours(value);
+			self.setdate(current);
+		});
+
+		self.opt.clock && self.find(cls2 + '-minutes').on('change', function() {
+			var el = $(this);
+			var value = parseInt(el.val());
+
+			current.setMinutes(value);
+			self.setdate(current);
+		});
+
+		self.opt.clock && self.opt.ampm && self.find(cls2 + '-ampm').on('change', function() {
+			var el = $(this);
+			var value = el.val();
+			var hour = current.getHours();
+
+			if (value === 'pm' && hour < 12) {
+				hour += 12;
+			} else if (value === 'am' && hour >= 12) {
+				hour -= 12;
+			}
+
+			current.setHours(hour);
+			self.setdate(current);
 		});
 	};
 
@@ -563,7 +676,6 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:-1', function(self
 				if (el.length && !el.find('i').length)
 					el.append('<i class="ti ti-circle-alt"></i>');
 			}
-
 		});
 
 		var info = self.find(cls2 + '-info');
