@@ -369,28 +369,28 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:-1', function(self
 
 			if (self.opt.ampm) {
 				for (let i = 1; i <= 12; i++) {
-					let val = i.toString().padStart(2, "0");
+					let val = i.toString().padStart(2, '0');
 					hoursopt.push('<option value="{0}">{0}</option>'.format(val));
 				}
 			} else {
 				for (let i = 0; i < 24; i++) {
-					let val = i.toString().padStart(2, "0");
+					let val = i.toString().padStart(2, '0');
 					hoursopt.push('<option value="{0}">{0}</option>'.format(val));
 				}
 			}
 
 			for (let i = 0; i < 60; i++) {
-				let val = i.toString().padStart(2, "0");
+				let val = i.toString().padStart(2, '0');
 				minutesopt.push('<option value="{0}">{0}</option>'.format(val));
 			}
 
 			if (self.opt.ampm)
 				selectampm = '<div class="{0}-selecticon ampm"><select id="{0}-ampm" class="{0}-ampm"><option value="am">AM</option><option value="pm">PM</option></select><i class="ti ti-angle-down"></i></div>'.format(cls);
 
-			selecthours = selecthours.arg({ options: hoursopt.join('') });
-			selectminutes = selectminutes.arg({ options: minutesopt.join('') });
+			selecthours = selecthours.args({ options: hoursopt.join('') });
+			selectminutes = selectminutes.args({ options: minutesopt.join('') });
 
-			timepicker = timepicker.arg({ content: selecthours + selectminutes + selectampm });
+			timepicker = timepicker.args({ content: selecthours + selectminutes + selectampm });
 			builder.push(timepicker);
 		}
 
