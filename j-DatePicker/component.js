@@ -279,6 +279,8 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:-1', function(self
 				dt.setMinutes(+(time[1] || '0'));
 				dt.setSeconds(+(time[2] || '0'));
 			}
+		} else {
+
 		}
 
 		self.opt.scope && M.scope(self.opt.scope);
@@ -360,8 +362,8 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:-1', function(self
 		if (self.opt.clock) {
 			var cols = self.opt.ampm ? ' col-3' : ' col-2';
 			var timepicker = '<div class="{0}-time"><i class="ti ti-clock"></i><div class="{0}-select-wrapper{1}">{{ content }}</div></div>'.format(cls, cols);
-			var selecthours = '<div class="{0}-selecticon"><select id="{0}-hours" class="{0}-hours">{{ options }}</select><i class="ti ti-angle-down"></i></div>'.format(cls);
-			var selectminutes = '<div class="{0}-selecticon"><select id="{0}-minutes" class="{0}-minutes">{{ options }}</select><i class="ti ti-angle-down"></i></div>'.format(cls);
+			var selecthours = '<div class="{0}-selecticon"><select class="{0}-hours">{{ options }}</select><i class="ti ti-angle-down"></i></div>'.format(cls);
+			var selectminutes = '<div class="{0}-selecticon"><select class="{0}-minutes">{{ options }}</select><i class="ti ti-angle-down"></i></div>'.format(cls);
 			var selectampm = '';
 
 			var hoursopt = [];
@@ -385,7 +387,7 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:-1', function(self
 			}
 
 			if (self.opt.ampm)
-				selectampm = '<div class="{0}-selecticon ampm"><select id="{0}-ampm" class="{0}-ampm"><option value="am">AM</option><option value="pm">PM</option></select><i class="ti ti-angle-down"></i></div>'.format(cls);
+				selectampm = '<div class="{0}-selecticon ampm"><select class="{0}-ampm"><option value="am">AM</option><option value="pm">PM</option></select><i class="ti ti-angle-down"></i></div>'.format(cls);
 
 			selecthours = selecthours.args({ options: hoursopt.join('') });
 			selectminutes = selectminutes.args({ options: minutesopt.join('') });
@@ -624,6 +626,23 @@ COMPONENT('datepicker', 'today:Set today;clear:Clear;firstday:-1', function(self
 		}
 
 		value = new Date((value || NOW).getTime());
+
+		if (self.opt.clock) {
+			var hour = value.getHours();
+			var minutes = value.getMinutes().toString().padStart(2, '0');
+
+			self.find(cls2 + '-minutes').val(minutes);
+
+			if (self.opt.ampm) {
+				var hour12 = hour % 12 || 12;
+				var ampm = hour >= 12 ? 'pm' : 'am';
+
+				self.find(cls2 + '-hours').val(hour12.toString().padStart(2, '0'));
+				self.find(cls2 + '-ampm').val(ampm);
+			} else {
+				self.find(cls2 + '-hours').val(hour.toString().padStart(2, '0'));
+			}
+		}
 
 		var output = self.calculate(value.getFullYear(), value.getMonth(), value);
 		var dom = self.find(cls2 + '-date');
