@@ -15,6 +15,7 @@ __Configuration__:
 	- `password`
 	- `zip`
 	- `date` (needs `datepicker` component)
+	- __NEW__: `datetime` (needs `datepicker` component)
 	- `time` (needs `timepicker` component)
 	- `color` (needs `colorpicker` component)
 	- `icon` (needs `faicons` component)

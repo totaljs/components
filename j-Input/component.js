@@ -14,7 +14,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 		};
 		W.ui_input_cache = {};
 		W.ui_input_cache.tags = { tags: 1, 'tags-lower': 1, 'tags-upper': 1, 'tags-slug': 1, 'tags-email': 1, 'tags-phone': 1, 'tags-url': 1, 'tags-id': 1 };
-		W.ui_input_cache.template = Tangular.compile(('{{ if label }}<div class="{0}-label">{{ if icon }}<i class="{{ icon }}"></i>{{ fi }}{{ label | raw }}{{ after | raw }}</div>{{ fi }}<div class="{0}-control{{ if licon }} {0}-licon{{ fi }}{{ if ricon || (type === \'number\' && increment) }} {0}-ricon{{ fi }}">{{ if ricon || (type === \'number\' && increment) }}<div class="{0}-icon-right{{ if type === \'number\' && increment && !ricon }} {0}-increment{{ else if riconclick || type === \'date\' || type === \'time\' || (type === \'search\' && searchalign === 1) || type === \'password\' }} {0}-click{{ fi }}">{{ if type === \'number\' && !ricon }}<i class="ti ti-caret-up"></i><i class="ti ti-caret-down"></i>{{ else }}{{ ricon | ui_input_icon }}{{ fi }}</div>{{ fi }}{{ if licon }}<div class="{0}-icon-left{{ if liconclick || (type === \'search\' && searchalign !== 1) }} {0}-click{{ fi }}">{{ licon | ui_input_icon }}</div>{{ fi }}<div class="{0}-input{{ if align === 1 || align === \'center\' }} center{{ else if align === 2 || align === \'right\' }} right{{ fi }}">{{ if placeholder }}<div class="{0}-placeholder">{{ placeholder }}</div>{{ fi }}{{ if tags }}<span class="{0}-value" contenteditable="true" tabindex="{{ tabindex }}"></span>{{ else if dirsource || type === \'icon\' || type === \'emoji\' || type === \'color\' }}<div class="{0}-value" tabindex="{{ tabindex }}"></div>{{ else }}{{ if type === \'multiline\' }}<textarea{{ if realtime }} data-jc-bind=""{{ fi }} style="height:{{ height }}px" tabindex="{{ tabindex }}"></textarea>{{ else }}<input type="{{ if type === \'password\' }}password{{ else }}text{{ fi }}" tabindex="{{ tabindex }}" {{ if autofill }} autocomplete="on" name="{{ NAME }}"{{ else }} name="input' + Date.now() + '" autocomplete="new-password" spellcheck="false" role="combobox" aria-expanded="true" aria-invalid="false" aria-autocomplete="list" aria-expanded="true" aria-haspopup="false" autocapitalize="off" autocomplete="off" autocorrect="off"{{ fi }}{{ if realtime }} data-jc-bind=""{{ fi }}{{ if maxlength > 0}} maxlength="{{ maxlength }}"{{ fi }}{{ if autofocus }} autofocus{{ fi }} />{{ fi }}{{ fi }}</div></div>{{ if error }}<div class="{0}-error hidden"><i class="ti ti-warning"></i> {{ error }}</div>{{ fi }}').format(cls));
+		W.ui_input_cache.template = Tangular.compile(('{{ if label }}<div class="{0}-label">{{ if icon }}<i class="{{ icon }}"></i>{{ fi }}{{ label | raw }}{{ after | raw }}</div>{{ fi }}<div class="{0}-control{{ if licon }} {0}-licon{{ fi }}{{ if ricon || (type === \'number\' && increment) }} {0}-ricon{{ fi }}">{{ if ricon || (type === \'number\' && increment) }}<div class="{0}-icon-right{{ if type === \'number\' && increment && !ricon }} {0}-increment{{ else if riconclick || type === \'date\' || type === \'datetime\' || type === \'time\' || (type === \'search\' && searchalign === 1) || type === \'password\' }} {0}-click{{ fi }}">{{ if type === \'number\' && !ricon }}<i class="ti ti-caret-up"></i><i class="ti ti-caret-down"></i>{{ else }}{{ ricon | ui_input_icon }}{{ fi }}</div>{{ fi }}{{ if licon }}<div class="{0}-icon-left{{ if liconclick || (type === \'search\' && searchalign !== 1) }} {0}-click{{ fi }}">{{ licon | ui_input_icon }}</div>{{ fi }}<div class="{0}-input{{ if align === 1 || align === \'center\' }} center{{ else if align === 2 || align === \'right\' }} right{{ fi }}">{{ if placeholder }}<div class="{0}-placeholder">{{ placeholder }}</div>{{ fi }}{{ if tags }}<span class="{0}-value" contenteditable="true" tabindex="{{ tabindex }}"></span>{{ else if dirsource || type === \'icon\' || type === \'emoji\' || type === \'color\' }}<div class="{0}-value" tabindex="{{ tabindex }}"></div>{{ else }}{{ if type === \'multiline\' }}<textarea{{ if realtime }} data-jc-bind=""{{ fi }} style="height:{{ height }}px" tabindex="{{ tabindex }}"></textarea>{{ else }}<input type="{{ if type === \'password\' }}password{{ else }}text{{ fi }}" tabindex="{{ tabindex }}" {{ if autofill }} autocomplete="on" name="{{ NAME }}"{{ else }} name="input' + Date.now() + '" autocomplete="new-password" spellcheck="false" role="combobox" aria-expanded="true" aria-invalid="false" aria-autocomplete="list" aria-expanded="true" aria-haspopup="false" autocapitalize="off" autocomplete="off" autocorrect="off"{{ fi }}{{ if realtime }} data-jc-bind=""{{ fi }}{{ if maxlength > 0}} maxlength="{{ maxlength }}"{{ fi }}{{ if autofocus }} autofocus{{ fi }} />{{ fi }}{{ fi }}</div></div>{{ if error }}<div class="{0}-error hidden"><i class="ti ti-warning"></i> {{ error }}</div>{{ fi }}').format(cls));
 	};
 
 	var dirsourceprepare = function(arr) {
@@ -185,7 +185,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			} else if (config.dirsource && (config.autofocus != false && config.autofocus != 0)) {
 				if (!isdirvisible)
 					self.find(cls2 + '-control').trigger('click');
-			} else if (config.type === 'date' || config.type === 'time') {
+			} else if (config.type === 'date' || config.type === 'datetime' || config.type === 'time') {
 				setTimeout(function() {
 					self.element.find(cls2 + '-icon-right').trigger('click');
 				}, 300);
@@ -610,10 +610,12 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			}
 
 			if (!left && !config.riconclick) {
-				if (config.type === 'date') {
+				if (config.type === 'date' || config.type === 'datetime') {
 					opt = {};
 					opt.element = self.element;
 					opt.value = self.get();
+					opt.time = config.type === 'datetime';
+					opt.ampm = DEF.timeformat && DEF.timeformat.includes('a');
 					opt.callback = function(val) {
 						self.change(true);
 						self.set(self.itransform(val), 2);
@@ -701,7 +703,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 		if (W.ui_input_cache.tags[config.type])
 			return value && value.length > 0;
 
-		if (config.type === 'date')
+		if (config.type === 'date' || config.type === 'datetime')
 			return value instanceof Date && !isNaN(value.getTime());
 
 		if (config.type === 'radiobutton')
@@ -966,7 +968,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 		if (!config.ricon) {
 			if (config.dirsource)
 				config.ricon = 'angle-down';
-			else if (config.type === 'date') {
+			else if (config.type === 'date' || config.type === 'datetime') {
 				config.ricon = 'calendar';
 				if (!config.align && !config.innerlabel)
 					config.align = 1;
@@ -1129,11 +1131,16 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					if (format === 'auto')
 						format = '';
 					return value.format(format || DEF.dateformat || 'yyyy-MM-dd');
+				case 'datetime':
+					var format = config.format;
+					if (format === 'auto')
+						format = '';
+					return value.format(format || ENV('ts'));
 				case 'time':
 					var format = config.format;
 					if (format === 'auto')
 						format = '';
-					return value.format(format || 'HH:mm');
+					return value.format(format || ENV('time') || 'HH:mm');
 				case 'number':
 					return config.format ? (config.format === 'auto' ? value.format() : value.format(config.format)) : value;
 				case 'number2':
@@ -1149,6 +1156,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			var tmp;
 			switch (config.type) {
 				case 'date':
+				case 'datetime':
 					tmp = self.get();
 					if (tmp)
 						tmp = tmp.format('HH:mm');
@@ -1209,6 +1217,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					break;
 				case 'number2':
 				case 'date':
+				case 'datetime':
 					value = null;
 					break;
 			}
