@@ -3,7 +3,7 @@
 .ui-datepicker-visible { -moz-transform: scale(1); -ms-transform: scale(1); -webkit-transform: scale(1); filter: alpha(opacity=100); opacity: 1; transform: scale(1); }
 .ui-datepicker-disabled { color: silver !important; cursor: pointer; }
 .ui-datepicker-body,.ui-datepicker-months,.ui-datepicker-years { height: 235px; }
-.ui-datepicker-footer { background-color: #F8F8F8; border-top: 1px solid #E0E0E0; display: flex; font-size: 11px; height: 28px; justify-content: space-between; line-height: 26px; padding: 0 8px; }
+.ui-datepicker-footer { background-color: #F8F8F8; border-top: 1px solid #E0E0E0; display: flex; font-size: 11px; height: 28px; justify-content: space-between; line-height: 26px; padding: 0 8px; border-radius: 0 0 var(--radius) var(--radius); }
 .ui-datepicker-footer > span: hover { text-decoration: underline; }
 .ui-datepicker-now,.ui-datepicker-clear { color: #000; cursor: pointer; }
 .ui-datepicker-day-today div { background-color: #F0F0F0; font-weight: bold; }
