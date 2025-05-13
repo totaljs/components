@@ -1,0 +1,11 @@
+{
+	"datecreated": "2025-04-22T14:00:00.000Z",
+	"name": "j-ResponsiveLayout",
+	"jcomponent": "19|20",
+	"version": 1,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Dodo Marton",
+	"email": "dodo@totaljs.com",
+	"license": "https://www.totaljs.com/license/"
+}
