@@ -4,14 +4,14 @@ On `drag` event displays modal inside given element with text `Drop & drop files
 
 __Configuration__
 
-- `exec` {String} - the component executes this method if the files are dropped
-- `class` {String} - toggles class if the drag over is emitted (default: `ui-dragdropelement`)
-- `text` {String} - text to display in the middle of element (default: `Drag & drop files here`)
+- `exec {String}` the component executes this method if the files are dropped
+- `text {String}` text to display (default `empty`)
 
 __Example__
 
 `<ui-component name="dragdropelement" config="exec:console.log;"></ui-component>`
 
 __Author__
-- Michal Capo <capo@dasolutions.sk>
+
+- Michal Capo <capo@dasolutions.sk> and Marek Dorotovič <marek@totaljs.com>
 - [License](https://www.totaljs.com/license/)

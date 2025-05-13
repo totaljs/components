@@ -1,55 +1,70 @@
-COMPONENT('dragdropelement', 'class:ui-dragdropelement;text:Drag & drop files here;', function (self, config) {
+COMPONENT('dragdropelement', function(self, config, cls) {
 
-	var modal;
-	var timeout_id;
+	var area;
+	var timeoutid;
 
 	self.readonly();
 	self.destroy = function () {
-		modal.off('*').remove();
+		area.off('*').remove();
 	};
 
 	self.make = function () {
+
 		var hidden = true;
-		var id = 'dde' + self.ID;
+		var text = '';
 
-		self.append('<div id="{0}" class="{1} hidden"><span>{2}</span></div>'.format(id, config.class, config.text));
+		if (config.text)
+			text = '<span>{0}</span>'.format(config.text);
 
-		modal = $('#' + id);
+		self.aclass(cls);
+		self.append('<div class="{0}-area hidden">{1}</div>'.format(cls, text));
+		area = self.find('.' + cls + '-area');
 
-		const show = function (e) {
+		var show = function(e) {
+
 			e.stopPropagation();
 			e.preventDefault();
 
-			if (timeout_id) {
-				clearTimeout(timeout_id);
-				timeout_id = null;
+			if (config.disabled)
+				return;
+
+			if (timeoutid) {
+				clearTimeout(timeoutid);
+				timeoutid = null;
 			} else {
 				if (hidden) {
-					modal.rclass('hidden');
+					area.rclass('hidden');
 					hidden = false;
 				}
 			}
 		};
 
-		const hide = function (e) {
+		var hide = function(e) {
+
 			e.stopPropagation();
 			e.preventDefault();
 
-			if (!timeout_id)
-				timeout_id = setTimeout(function () {
-					modal.aclass('hidden');
-					timeout_id = null;
+			if (config.disabled)
+				return;
+
+			if (!timeoutid) {
+				timeoutid = setTimeout(function () {
+					area.aclass('hidden');
+					timeoutid = null;
 					hidden = true;
 				}, 100);
+			}
 		};
 
-		const finish = function (e) {
+		var finish = function (e) {
+			if (config.disabled)
+				return;
 			self.EXEC(config.exec, e.originalEvent.dataTransfer.files, e);
 		};
 
-		modal.on('dragenter dragover', show);
-		modal.on('drop dragleave', hide);
-		modal.on('drop', finish);
+		area.on('dragenter dragover', show);
+		area.on('drop dragleave', hide);
+		area.on('drop', finish);
 
 		self.event('dragenter dragover', show);
 		self.event('drop dragleave', hide);
