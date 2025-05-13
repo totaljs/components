@@ -59,7 +59,7 @@ COMPONENT('dragdropelement', function(self, config, cls) {
 		var finish = function (e) {
 			if (config.disabled)
 				return;
-			self.EXEC(config.exec, e.originalEvent.dataTransfer.files, e);
+			self.EXEC(config.exec, e.originalEvent.dataTransfer.files, e, self);
 		};
 
 		area.on('dragenter dragover', show);

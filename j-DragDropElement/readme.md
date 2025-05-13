@@ -4,7 +4,7 @@ On `drag` event displays modal inside given element with text `Drop & drop files
 
 __Configuration__
 
-- `exec {String}` the component executes this method if the files are dropped
+- `exec {String}` the component executes this method if the files are dropped - `function(files, e, component)`
 - `text {String}` text to display (default `empty`)
 
 __Example__
