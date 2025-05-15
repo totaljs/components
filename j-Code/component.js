@@ -87,8 +87,9 @@ COMPONENT('code', 'parent:auto;autosave:500;margin:0;linenumbers:1;realtime:1;ty
 			protocol = 'http:';
 		self.append('<iframe src="{1}{2}?id={0}" frameborder="0" scrolling="no" allowtransparency="true" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *" style="width:100%;overflow:hidden;display:block"></iframe>'.format(self.ID, protocol, config.url));
 		iframe = self.find('iframe');
-		self.resize();
 		$(W).on('message', onmessage);
+		self.resizeforce();
+		self.on('resize + resize2', self.resize);
 	};
 
 	self.destroy = function() {
@@ -164,15 +165,19 @@ COMPONENT('code', 'parent:auto;autosave:500;margin:0;linenumbers:1;realtime:1;ty
 
 	self.send = send;
 
-	self.resize = function() {
+	self.resizeforce = function() {
+
 		var parent = self.parent(config.parent);
-		var w = parent.width();
 		var h = parent.height() - config.margin;
 
 		if (config.minheight && h < config.minheight)
 			h = config.minheight;
 
-		iframe.css({ width: w, height: h });
+		iframe.css({ height: h });
+	};
+
+	self.resize = function() {
+		setTimeout2(self.ID, self.resizeforce, 1000);
 	};
 
 	self.marker = function(name, from, to, color) {
