@@ -40,12 +40,12 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false;iconoptions
 			config.options && self.EXEC(config.options, cache[index], el);
 		});
 
-        self.event('contextmenu', '.item', function(e) {
-            e.preventDefault();
-            var el = $(this);
-            var index = el.attrd('index');
-            config.contextmenu && EXEC(config.contextmenu, cache[index], el);
-        });
+		self.event('contextmenu', cls2 + '-item', function(e) {
+			e.preventDefault();
+			var el = $(this);
+			var index = el.attrd('index');
+			config.contextmenu && self.EXEC(config.contextmenu, cache[index], el);
+		});
 
 		self.event('focusout', 'input', function() {
 			var input = $(this);
