@@ -1,4 +1,4 @@
-COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false;iconoptions:ti ti-ellipsis-h', function(self, config, cls) {
+COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false;iconoptions:ti ti-ellipsis-h;key:path', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var cache = null;
@@ -39,6 +39,13 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false;iconoptions
 			var index = +el.closest(cls2 + '-item').attrd('index');
 			config.options && self.EXEC(config.options, cache[index], el);
 		});
+
+        self.event('contextmenu', '.item', function(e) {
+            e.preventDefault();
+            var el = $(this);
+            var index = el.attrd('index');
+            config.contextmenu && EXEC(config.contextmenu, cache[index], el);
+        });
 
 		self.event('focusout', 'input', function() {
 			var input = $(this);
@@ -134,7 +141,27 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false;iconoptions
 		});
 	};
 
+	self.findindex = function(prop, val, tree) {
+		if (!tree)
+			tree = self.get();
+		var item = tree.findItem(prop || config.key, val);
+		if (item)
+			return item.$pointer;
+		for (var i = 0; i < tree.length; i++) {
+			var item = tree[i];
+			if (item.children) {
+				var index = self.findindex(prop, val, item.children);
+				if (index != null)
+					return index;
+			}
+		}
+	};
+
 	self.select = function(index, noeval, reinit) {
+
+		if (typeof(index) === 'string')
+			index = self.findindex(null, index);
+
 		var el = self.find('[data-index="{0}"]'.format(index));
 		var c = '-selected';
 		if (el.hclass(cls + '-expand')) {
@@ -177,6 +204,10 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false;iconoptions
 	};
 
 	self.rename = function(index) {
+
+		if (typeof(index) === 'string')
+			index = self.findindex(null, index);
+
 		var div = self.find('[data-index="{0}"] .ui-tree-item-name'.format(index));
 		if (div[0].$def)
 			return;
@@ -201,11 +232,16 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false;iconoptions
 	};
 
 	self.expand = function(index) {
+
 		if (index == null) {
 			self.find(cls2 + '-expand').each(function() {
 				$(this).parent().aclass(cls + '-show');
 			});
 		} else {
+
+			if (typeof(index) === 'string')
+				index = self.findindex(null, index);
+
 			self.find('[data-index="{0}"]'.format(index)).each(function() {
 				var el = $(this);
 				if (el.hclass(cls + '-expand')) {
@@ -230,6 +266,10 @@ COMPONENT('tree', 'autoreset:false;checkednested:true;reselect:false;iconoptions
 				$(this).parent().rclass(cls + '-show');
 			});
 		} else {
+
+			if (typeof(index) === 'string')
+				index = self.findindex(null, index);
+
 			self.find('[data-index="{0}"]'.format(index)).each(function() {
 				var el = $(this);
 				if (el.hclass(cls + '-expand')) {
