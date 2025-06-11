@@ -1,12 +1,9 @@
 {
 	"datecreated": "2017-12-21T09:16:04.000Z",
-	"dateupdated": "2023-01-31T15:57:06.000Z",
+	"dateupdated": "2025-06-11T14:18:00.000Z",
 	"name": "j-MobileCarousel",
-	"tags": [
-		"mobile",
-		"carousel"
-	],
 	"color": "transparent",
+	"jcomponent": "19|20",
 	"version": 1,
 	"responsive": true,
 	"picture": "picture.gif",

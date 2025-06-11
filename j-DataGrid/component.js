@@ -1415,7 +1415,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 			}
 		}
 
-		CSS(css, self.ID);
+		// v20 STYLE(), v19 CSS()
+		(W.STYLE?W.STYLE:W.CSS)(css, self.ID);
 
 		var w = self.element.width();
 		if (w > opt.width)
