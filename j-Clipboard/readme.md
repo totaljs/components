@@ -12,6 +12,7 @@ __Methods__:
 __Configuration__:
 
 - `oncopy {String}` a link to the `function(value)`
+- `native {Boolean}` enables native clipboard (default: `false`)
 
 ### Author
 

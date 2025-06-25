@@ -9,6 +9,7 @@ __Configuration__:
 - `zoom {Number}` a default zoom level (default: `11`)
 - `modify {Boolean}` enables modifiyng of the polygon (default: `true`)
 - `opacity {Number}` determines the transparency of the polygon in percentage (default: `20`)
+- __NEW__ `exec {String}` a link to the `function(value)`, it's executed when the value is changed
 
 __Data-source__ needs to contain:
 
@@ -26,5 +27,5 @@ __Good to know__:
 
 ### Author
 
-- Dodo Marton <dodo@totaljs.com>
+- Dodo Marton <dodo@totaljs.com> / Peter Širka <petersirka@gmail.com>
 - [License](https://www.totaljs.com/license/)

@@ -31,6 +31,7 @@ __Configuration__:
 - `margin {Number}` optional, a vertical margin (default: `0`)
 - `linenumbers {Boolean}` optional, enables line numbers (default: `true`)
 - `type {String}` optional, content-type (default: `clientside`)
+- __NEW__: `url {String}` optional, a link to the editor (default: `//cdn.componentator.com/editor/1.min.html`)
 
 __Method__:
 

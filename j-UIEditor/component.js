@@ -36,7 +36,7 @@ COMPONENT('uieditor', 'url:https://uibuilder.totaljs.com;margin:0;zindex:30;left
 					config.onclose && self.EXEC(config.onclose, data.data);
 					break;
 				case 'ready':
-					var msg = { TYPE: 'init', data: meta.data, upload: config.upload ? (/^http(s):/i).test(config.upload) ? config.upload : true : null, groups: meta.groups, apps: meta.apps, paths: meta.paths, views: meta.views, uibuilder: 1 };
+					var msg = { TYPE: 'init', data: meta.data, upload: config.upload ? (/^http(s):/i).test(config.upload) ? config.upload : true : null, groups: meta.groups, apps: meta.apps, paths: meta.paths, codes: meta.codes, views: meta.views, uibuilder: 1 };
 					iframe.contentWindow.postMessage(STRINGIFY(msg), '*');
 					break;
 				case 'save':

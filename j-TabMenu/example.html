@@ -1,44 +1,47 @@
 <h2>Static tabs</h2>
-	<ui-component name="tabmenu" path="tab">
-		<ul class="tabmenu">
-			<li data-value="tab1">Tab 1</li>
-			<li data-value="tab2">Tab 2</li>
-			<li data-value="tab3">Tab 3</li>
+
+<ui-component name="tabmenu" path="tab">
+	<ul>
+		<li data-id="tab1">Tab 1</li>
+		<li data-id="tab2">Tab 2</li>
+		<li data-id="tab3">Tab 3</li>
+	</ul>
+</ui-component>
+
+<ui-bind path="tab" config="show:value==='tab1'" class="block hidden">
+	TAB 1 content
+</ui-bind>
+<ui-bind path="tab" config="show:value==='tab2'" class="block hidden">
+	TAB 2 content
+</ui-bind>
+<ui-bind path="tab" config="show:value==='tab3'" class="block hidden">
+	TAB 3 content
+</ui-bind>
+
+<br />
+
+<h2>Dynamic tabs</h2>
+<ui-component name="tabmenu" path="tab" config="datasource:tabs">
+	<script type="text/html">
+		<ul>
+			{{ foreach m in value }}
+			<li data-id="{{ m.id }}">{{ m.name }}</li>
+			{{ end }}
 		</ul>
-	</ui-component>
+	</script>
+</ui-component>
 
-	<ui-bind path="tab" config="show:value==='tab1'" class="block hidden">
-		TAB 1 content
-	</ui-bind>
-	<ui-bind path="tab" config="show:value==='tab2'" class="block hidden">
-		TAB 2 content
-	</ui-bind>
-	<ui-bind path="tab" config="show:value==='tab3'" class="block hidden">
-		TAB 3 content
-	</ui-bind>
-
-	<br />
-
-	<h2>Dynamic tabs</h2>
-	<ui-component name="tabmenu" path="tab" config="datasource:tabs">
-		<ul class="tabmenu">
-			<script type="text/html">
-				<li data-value="{{ value }}">{{ name }}</li>
-			</script>
-		</ul>
-	</ui-component>
-
-	<ui-bind path="tab" config="show:value==='tab1'" class="block hidden">
-		Dynamic TAB 1 content
-	</ui-bind>
-	<ui-bind path="tab" config="show:value==='tab2'" class="block hidden">
-		Dynamic TAB 2 content
-	</ui-bind>
-	<ui-bind path="tab" config="show:value==='tab3'" class="block hidden">
-		Dynamic TAB 3 content
-	</ui-bind>
+<ui-bind path="tab" config="show:value==='tab1'" class="block hidden">
+	Dynamic TAB 1 content
+</ui-bind>
+<ui-bind path="tab" config="show:value==='tab2'" class="block hidden">
+	Dynamic TAB 2 content
+</ui-bind>
+<ui-bind path="tab" config="show:value==='tab3'" class="block hidden">
+	Dynamic TAB 3 content
+</ui-bind>
 
 <script>
 	var tab = 'tab1';
-	var tabs = [{ name: 'Tab 1', value: 'tab1' }, { name: 'Tab2', value: 'tab2' }, { name: 'Tab 3', value: 'tab3' }];
+	var tabs = [{ name: 'Tab 1', id: 'tab1' }, { name: 'Tab2', id: 'tab2' }, { name: 'Tab 3', id: 'tab3' }];
 </script>

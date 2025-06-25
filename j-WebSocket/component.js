@@ -1,9 +1,12 @@
-COMPONENT('websocket', 'reconnect:3000;encoder:false', function(self, config) {
+COMPONENT('websocket', 'reconnect:3000;encoder:false;statsinterval:1000', function(self, config) {
 
-	var ws, url;
+	var ws, url, statsinterval;
 	var queue = [];
 	var sending = false;
 	var isidle = false;
+	var sizei = 0;
+	var sizeo = 0;
+	var encoder = config.stats && W.TextEncoder ? (new TextEncoder()) : null;
 
 	self.online = false;
 	self.readonly();
@@ -13,8 +16,19 @@ COMPONENT('websocket', 'reconnect:3000;encoder:false', function(self, config) {
 		url = (config.url || '').env(true);
 		if (!url.match(/^(ws|wss):\/\//))
 			url = location.origin.replace('http', 'ws') + (url.charAt(0) !== '/' ? '/' : '') + url;
+
 		setTimeout(self.connect, 500);
+
+		if (config.stats) {
+			statsinterval = setInterval(function() {
+				self.SEEX(config.stats, { received: sizei, sent: sizeo });
+				sizei = 0;
+				sizeo = 0;
+			}, config.statsinterval);
+		}
+
 		self.destroy = function() {
+			statsinterval && clearInterval(statsinterval);
 			isidle = true;
 			self.close();
 		};
@@ -22,10 +36,12 @@ COMPONENT('websocket', 'reconnect:3000;encoder:false', function(self, config) {
 
 	self.send = function(obj) {
 		var data = JSON.stringify(obj);
+
 		if (config.encoder)
 			queue.push(encodeURIComponent(data));
 		else
 			queue.push(data);
+
 		self.process();
 		return self;
 	};
@@ -57,6 +73,10 @@ COMPONENT('websocket', 'reconnect:3000;encoder:false', function(self, config) {
 
 		async.wait(function(item, next) {
 			if (ws) {
+
+				if (encoder)
+					sizeo += encoder.encode(item).length;
+
 				ws.send(item);
 				setTimeout(next, 5);
 			} else {
@@ -96,9 +116,15 @@ COMPONENT('websocket', 'reconnect:3000;encoder:false', function(self, config) {
 	}
 
 	function onMessage(e) {
-		var data;
+
+		var data = null;
+		var msg = e.data;
+
+		if (encoder && msg)
+			sizei += encoder.encode(msg).length;
+
 		try {
-			data = PARSE(config.encoder ? decodeURIComponent(e.data) : e.data);
+			data = PARSE(config.encoder ? decodeURIComponent(msg) : msg);
 			self.path && self.set(data);
 		} catch (e) {
 			WARN('WebSocket "{0}": {1}'.format(url, e.toString()));

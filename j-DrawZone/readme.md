@@ -16,7 +16,8 @@ __Configuration__:
 - `center {String}` a default map position (default: `48.73702478789267,19.137712002562715`)
 - `opacity {Number}` determines the transparency of the polygon in percentage (default: `40`)
 - `required {Boolean}` optional (default: `false`)
-- __NEW__ `filter {String}` optional, CSS filter e.g. `filter:grayscale(90%) invert(100%)` (default: `null`)
+- `filter {String}` optional, CSS filter e.g. `filter:grayscale(90%) invert(100%)` (default: `null`)
+- __NEW__: `exec {String}` optional, a link to the `function(value, component)` (it will be executed when the value is changed)
 
 __Data-source__ needs to contain:
 

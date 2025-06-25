@@ -1,4 +1,4 @@
-COMPONENT('clipboard', function(self, config, cls) {
+COMPONENT('clipboard', 'native:0', function(self, config, cls) {
 
 	var container;
 
@@ -7,7 +7,7 @@ COMPONENT('clipboard', function(self, config, cls) {
 	self.nocompile();
 
 	self.make = function() {
-		if (navigator.clipboard && W.isSecureContext && window.self === window.top) {
+		if (config.native && navigator.clipboard && W.isSecureContext && W.self === W.top) {
 			self.copy = function(value) {
 				navigator.clipboard.writeText(value).catch(err => console.error(err));
 				config.oncopy && self.EXEC(config.oncopy, value);

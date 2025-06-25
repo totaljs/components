@@ -1,2 +1,3 @@
-.ui-dragdropelement { z-index: 12; background-color: rgba(229, 229, 229, 0.3) !important; border: 0.12em dashed #000; border-radius: var(--radius); position: absolute; width: 88%; height: 88%; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; font-size: 1.2em; }
-.ui-dragdropelement span { color: #a5a5a5; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 1.5em; }
+.ui-dragdropelement { min-height: 16px; position: relative; }
+.ui-dragdropelement-area { background-color: rgba(229,229,229,0.3) !important; position: absolute; inset: 0; border: 1px dashed #000; border-radius: var(--radius); text-align: center; display: grid; place-content: center; }
+.ui-dragdropelement-area span { color: #000; font-size: 14px; }

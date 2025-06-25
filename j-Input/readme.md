@@ -6,7 +6,37 @@ __j-Input__ is multifuncional `input` component which supports a lot of features
 
 __Configuration__:
 
-- `type {String}` optional, can be `email`, `multiline`, `checkbox`, `phone`, `password`, `zip`, `date` (needs `datepicker` component), `time` (needs `timepicker` component), `color` (needs `colorpicker` component), `icon` (needs `faicons` component), `emoji` (needs `emoji` component), `url`, `number`, `number2` (nullable), `search`, `lower`, `upper`, `slug`, `id`, __NEW__: `radiobutton` or empty (default)
+- `type {String}` optional, values:
+	- empty value means default `text`
+	- `email`,
+	- `multiline`
+	- `checkbox`
+	- `phone`
+	- `password`
+	- `zip`
+	- `date` (needs `datepicker` component)
+	- __NEW__: `datetime` (needs `datepicker` component)
+	- `time` (needs `timepicker` component)
+	- `color` (needs `colorpicker` component)
+	- `icon` (needs `faicons` component)
+	- `emoji` (needs `emoji` component)
+	- `url`
+	- `number`
+	- `number2` (nullable)
+	- `search`
+	- `lower`
+	- `upper`
+	- `slug`
+	- `id`
+	- __NEW__: `radiobutton`
+	- __NEW__: `tags`
+	- __NEW__: `tags-lower`
+	- __NEW__: `tags-upper`
+	- __NEW__: `tags-id`
+	- __NEW__: `tags-email`
+	- __NEW__: `tags-slug`
+	- __NEW__: `tags-phone`
+	- __NEW__: `tags-url`
 - `required {Boolean}` optional, enables "required" (default: `false`)
 - `icon {String}` optional, icon for label e.g. `home`, `cog`, etc.
 - `licon {String}` optional, left icon e.g. `home`, `cog`, etc.
@@ -43,10 +73,10 @@ __Configuration__:
 - `dirkey {String}` optional, a key name for reading of `text` in `dirsource` (default: `name`)
 - `dirvalue {String}` optional, a key name for reading of `value` in `dirsource` (default: `id`)
 - `direxclude {Boolean}` optional, excludes a current value from `j-Directory` (default: `true`)
-- `dirsearch {Boolean/String}` optional, can disable search in `j-Directory` (default: `true`) or `{String}` (key name) can map a value for searching
+- `dirsearch {Boolean|String}` optional, can disable search in `j-Directory` (default: `true`) or `{String}` (key name) can map a value for searching
 - `dirraw {Boolean}` optional, can disable escaping of items for `j-Directory` (default: `false`)
 - `dirdetail {String}` optional, a link to the function `function(val, next(NEW_TEXT))` (targeted for to `dirsource`)
-- __NEW__ `dirfilter {String}` optional, an inline filter conditional method, for example: `value.id !== 2` (targeted for to `dirsource`)
+- `dirfilter {String}` optional, an inline filter conditional method, for example: `value.id !== 2` (targeted for to `dirsource`)
 - `mask {String}` optional, can contain a mask in the form `###/##` (`#` is replaced for a char)
 - `maskregexp {String}` optional, can contain RegExp for each char in the form `\d,\d,\d,null,\d,\d` (`,` is delimiter)
 - `masktidy {Boolean}` optional, the component returns only raw chars without fixed chars (default: `false`)
@@ -55,14 +85,17 @@ __Configuration__:
 - `autoexec {String}` a path method `function(item, next(value_to_input))`
 - `searchalign {Number}` can align icon on `type:search` to left (`2`) or right (`1`, default)
 - `forcevalidation {Boolean}` enables for force validation for `phone` and `email` (default: `true`)
-- `camouflage {Boolean/String}` masks the value in the input after is triggered `blur` event (default: `false`) or it can be `String` which will be used as a camouflage
+- `camouflage {Boolean|String}` masks the value in the input after is triggered `blur` event (default: `false`) or it can be `String` which will be used as a camouflage
 - `monospace {Boolean}` enables `monospaced` font (default: `false`)
 - `multiple {Boolean}` enables checkboxes if `dirsource` is not empty
 - `tabindex {Number}` adds a tabindex (default: `0`)
 - `tabs {Boolean}` enables tabs for multiline (default: `true`)
 - `readonly {Boolean}` block text field edition (default: `false`)
-- __NEW__: `transform {String}` a link to the `function(value, config)` for transforming of entered values
-- __NEW__: `multiline {Boolean}` works only with `radiobutton` type
+- `transform {String}` a link to the `function(value, config)` for transforming of entered values
+- `multiline {Boolean}` works only with `radiobutton` type
+- __NEW__: `separator {String|Boolean}` a separator for multiple rendered values
+- __NEW__: `realtime {Boolean}` enables real-time binding (default: `true`)
+- __NEW__: `exec {String}` a link to the `function(value, element)` which will be evaluated if the input is affected
 
 __Interesting:__
 

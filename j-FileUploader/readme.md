@@ -24,9 +24,10 @@ __Methods__:
 	- `opt.background {String}` optional, background color defined in HEX or can be `transparent`
 	- `opt.keeporiginal {Boolean}` optional, prevents for double resizing (default: `false`)
 	- `opt.onlylarger {Boolean}` optional, resizes images only larger than `opt.width` or `opt.height`
-	- __NEW__: `opt.base64 {String}` optional, it can contain a valid `dataURI` format (required to fill `opt.filename`)
-	- __NEW__: `opt.filename {String}` optional, required with `opt.base64` field
-	- __NEW__: `opt.quality {Number}` optional, a default JPEG quality (default: `90`)
+	- `opt.base64 {String}` optional, it can contain a valid `dataURI` format (required to fill `opt.filename`)
+	- `opt.filename {String}` optional, required with `opt.base64` field
+	- `opt.quality {Number}` optional, a default JPEG quality (default: `90`)
+	- __NEW__: `opt.disproportionate {Boolean}` use `opt.width` or `opt.height` as maximum values
 
 __Friendly components__:
 This component works with `loading` when the file is uploading.

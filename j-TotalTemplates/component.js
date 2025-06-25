@@ -1,8 +1,22 @@
 COMPONENT('totaltemplates', function(self, config) {
 
+	var cache = {};
+
 	self.singleton();
 
 	self.render = function(template, model, callback) {
+
+		if (!(template.includes('>') || template.includes(';') || template.includes('"') || template.includes(',') || template.includes('{'))) {
+			if (cache[template]) {
+				self.render(cache[template], model, callback);
+			} else {
+				AJAX('GET ' + template, function(response) {
+					cache[template] = response;
+					self.render(response, model, callback);
+				});
+			}
+			return;
+		}
 
 		if (typeof(model) === 'function') {
 			callback = model;
@@ -12,6 +26,7 @@ COMPONENT('totaltemplates', function(self, config) {
 		var helpers = {};
 		var strhelpers = '';
 
+		var raw = template;
 		var beg = template.indexOf('<scr' + 'ipt>');
 		var end;
 
@@ -39,14 +54,14 @@ COMPONENT('totaltemplates', function(self, config) {
 			new Function('Thelpers', strhelpers)(helpers);
 
 		var value = Tangular.render(template, { value: model }, null, helpers);
-		callback && callback(value);
+		callback && callback(value, raw);
 		return value;
 	};
 
 	self.preview = function(template, model) {
-		self.render(template, model, function(html) {
+		self.render(template, model, function(html, raw) {
 			var d = W.open();
-			var ismd = (/<(html|body|div|span|b|em|strong|h1|h2|h3|img)/i).test(template) === false;
+			var ismd = (/<(html|body|div|span|b|em|strong|h1|h2|h3|img)/i).test(raw) === false;
 			if (ismd) {
 				if (!html.markdown)
 					WARN('j-TotalTempates error: j-Markdown is not declared');
@@ -58,7 +73,13 @@ COMPONENT('totaltemplates', function(self, config) {
 				d.document.write(html);
 			else
 				WARN('j-TotalTempates error: pop-up windows are blocked');
+
 		});
-	}
+	};
+
+	self.on('service', function(counter) {
+		if (counter % 5 === 0)
+			cache = {};
+	});
 
 });

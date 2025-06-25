@@ -50,6 +50,12 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 			};
 		}
 
+		if (opt.focus && opt.scope)
+			opt.focus = opt.scope.makepath(opt.focus);
+
+		if (opt.blur && opt.scope)
+			opt.blur = opt.scope.makepath(opt.blur);
+
 		t.$edit = opt;
 		return opt;
 	};
@@ -199,8 +205,13 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 			e.stopPropagation();
 		}
 
-		var value = el.html();
+		var value = opt.attr ? el.attrd(opt.attr) : el.html();
 		var empty = false;
+
+		if (opt.attr)
+			opt.html = el.html();
+		else
+			opt.html = value;
 
 		var jcbind = el[0].$jcbind || {};
 		if (jcbind.empty && jcbind.empty == el[0].innerText) {
@@ -221,16 +232,34 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 			floating.html(empty ? '' : value);
 			floating.rclass('hidden');
 			floating[0].$edit = opt;
+
 		} else {
+
 			floating.aclass('hidden');
 			delete floating[0].$edit;
+
+			if (opt.attr)
+				el.text(value);
+
 			empty && el.empty();
 		}
 
 		opt.is = true;
 		opt.keypressed = 0;
-		opt.html = value;
 		opt.element = el;
+		opt.set = function(value) {
+
+			var el = this.element;
+			this.html = '';
+
+			if (opt.attr)
+				el.attrd(opt.attr, value);
+
+			el.html(value);
+
+			if (self.approve(el))
+				self.detach(el);
+		};
 
 		self.attach(opt.floating ? floating : el);
 	};
@@ -338,7 +367,9 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 	};
 
 	self.attach = function(el) {
+
 		if (!el[0].$editevents) {
+
 			var o = el[0].$edit;
 			el[0].$editevents = true;
 			el.aclass('edit-open' + (o.multiline ? ' edit-multiline' : ''));
@@ -346,6 +377,8 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 			el.on('blur', events.blur);
 			el.on('paste', events.paste);
 			el.attr('contenteditable', true);
+
+			o.focus && EXEC(o.focus, o, el);
 			el.focus();
 
 			if (o.clear || o.cursor === 'beg' || o.cursor === 'begin')
@@ -353,11 +386,9 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 			else
 				self.movecursor(el, 0);
 
-			if (o.select || o.selectall) {
-				setTimeout(function() {
-					document.execCommand('selectAll', false, null);
-				}, 20);
-			}
+			if (o.select || o.selectall)
+				setTimeout(() => document.execCommand('selectAll', false, null), 20);
+
 		}
 	};
 
@@ -380,6 +411,7 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 			opt.is = false;
 			el.rclass('edit-open edit-multiline');
 			el.attr('contenteditable', false);
+			opt.blur && EXEC(opt.blur, opt, el);
 		}
 	};
 

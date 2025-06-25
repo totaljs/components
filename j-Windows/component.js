@@ -343,7 +343,7 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', functio
 			drag.el.css({ left: drag.x, top: drag.y, width: item.width });
 			drag.body.css({ height: item.height });
 			meta.resize && meta.resize.call(item, item.width, item.height, drag.body, item.x, item.y);
-			self.element.SETTER('*', 'resize');
+			self.element.SETTER('*/resize');
 		}
 
 		meta.move && meta.move.call(item, item.x, item.y, drag.body);
@@ -476,7 +476,7 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', functio
 
 		obj.emitresize = function() {
 			obj.ert = null;
-			obj.element.SETTER('*', 'resize');
+			obj.element.SETTER('*/resize');
 		};
 
 		obj.setsize = function(w, h) {
@@ -640,6 +640,13 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', functio
 			}
 		};
 
+		obj.settitle = function(title) {
+			let t = this;
+			let eltitle = t.element.parent().find(cls2 + '-title > span');
+			let icon = eltitle.find('i').attr('class');
+			eltitle.html((icon ? '<i class="{0}"></i>'.format(icon) : '') + title);
+		};
+
 		obj.setoffset = function(x, y) {
 			var t = this;
 			var obj = {};
@@ -659,10 +666,9 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', functio
 
 		self.append(el);
 		position.push(obj);
-
 		item.offset.maximized && obj.setcommand('maximize');
-
 		setTimeout(obj => obj.setcommand('focus'), 100, obj);
+
 		return obj;
 	};
 
@@ -734,6 +740,11 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', functio
 	self.show = function(id) {
 		var item = cache[id];
 		item && item.setcommand('show');
+	};
+
+	self.title = function(id, title) {
+		var item = cache[id];
+		item && item.settitle(title);
 	};
 
 	self.maximize = function(id) {

@@ -15,7 +15,12 @@ __Configuration__:
 __Methods__:
 
 ```js
+// SETTER('printer/print', [title], html, test);
+
 SETTER('printer/print', '<h1>Total.js Platform</h1>');
+
+// Shows test window
+SETTER('printer/print', '<h1>Total.js Platform</h1>', true);
 ````
 
 ### Author

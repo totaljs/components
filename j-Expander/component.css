@@ -1,7 +1,9 @@
 .ui-expander { position: relative; width: 100%; font-size: 14px; }
-.ui-expander-container { max-height: 150px; overflow: hidden; transition: all 0.5s; }
-.ui-expander-fade { position: absolute; left: 0; top: 50%; margin-top: -30px; background: linear-gradient(transparent,#FFF); height: 50%; width: 100%; text-align: center; }
-.ui-expander-button { text-align: center; margin: 10px auto; cursor: pointer; font-size: 15px; color: #A0A0A0; max-width: 200px; border-top: 1px solid #E0E0E0; padding: 3px 0; border-radius: 0 0 var(--radius) var(--radius); }
+.ui-expander-container { overflow: hidden; transition: all 0.5s; }
+.ui-expander-fade { position: absolute; left: 0; top: 50%; margin-top: -30px; background: linear-gradient(transparent,#FFF); height: 50%; width: 100%; text-align: center; display: none; }
+.ui-expander-button { display: none; text-align: center; margin: 10px auto; cursor: pointer; font-size: 15px; color: #A0A0A0; max-width: 200px; border-top: 1px solid #E0E0E0; padding: 3px 0; border-radius: 0 0 var(--radius) var(--radius); }
 .ui-expander-button:hover { background-color: #F8F8F8; }
-.ui-expander-expanded .ui-expander-fade { display: none; }
-.ui-expander-expanded .ui-expander-container { max-height: 1500px !important; }
+.ui-expander-visible .ui-expander-button { display: block; }
+.ui-expander-visible .ui-expander-fade { display: block; }
+.ui-expander-visible.ui-expander-expanded .ui-expander-fade { display: none; }
+.ui-expander-visible.ui-expander-expanded .ui-expander-container { max-height: 1500px !important; }

@@ -1,0 +1,15 @@
+{
+	"datecreated": "2025-01-09T19:32:01.000Z",
+	"dateupdated": null,
+	"name": "j-Tabs",
+	"jcomponent": "19|20",
+	"color": "transparent",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.gif",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

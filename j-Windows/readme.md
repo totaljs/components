@@ -139,6 +139,7 @@ __Methods__:
 - `component.toggle(window_id)` toggles a window
 - `component.focus(window_id)` focuses a window
 - `component.hide(window_id)` closes a window
+- __NEW__: `component.title(window_id, title)` renames title
 
 ### Author
 

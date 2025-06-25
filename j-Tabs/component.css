@@ -1,0 +1,9 @@
+.ui-tabs-tabs { display: flex; justify-content: flex-start; gap: 8px; }
+.ui-tabs-item { min-width: 100px; text-align: center; padding: 5px 15px; background-color: #F0F0F0; border-radius: var(--radius); cursor: pointer; flex-shrink: 0; font-size: 13px; }
+.ui-tabs-item i { margin-right: 5px; }
+.ui-tabs-item:hover { background-color: #F5F5F5; }
+.ui-tabs-item.selected { background-color: var(--color); color: #FFF; }
+
+.ui-dark .ui-tabs-item { background-color: #383838; }
+.ui-dark .ui-tabs-item:hover { background-color: #404040; }
+.ui-dark .ui-tabs-item.selected { background-color: var(--color); color: #FFF; }

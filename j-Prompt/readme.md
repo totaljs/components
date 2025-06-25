@@ -22,6 +22,7 @@ opt.value = ''; // a default value, optional
 // opt.width = config.width; // max. width, optional
 // opt.zindex = config.zindex; // a custom zindex, optional
 // opt.centered = true; // centers the window to the middle of the screen
+// opt.newbie = true; // allows to submit a default value
 
 opt.cancel = function(val) {
 	// @val {String}

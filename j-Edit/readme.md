@@ -15,17 +15,17 @@ __Configuration__:
 
 - `dateformat {String}` a default format for parsing dates (default: `yyyy-MM-dd`)
 - `exec {String}` optional, a default path to `function(opt, accept(boolean/html_value_for_the_element))`
-- __NEW__ `floating {Boolean}` optional, can enables floating by default (default: `false`)
-- __NEW__ `minwidth {Number}` optional, a min width
-- __NEW__ `offsetX {Number}` optional, X offset
-- __NEW__ `offsetY {Number}` optional, Y offset
+- `floating {Boolean}` optional, can enables floating by default (default: `false`)
+- `minwidth {Number}` optional, a min width
+- `offsetX {Number}` optional, X offset
+- `offsetY {Number}` optional, Y offset
 
 ---
 
 `data-edit` attribute supports:
 
-- `required` {Boolean} optional, enables "required" (default: `false`)
-- `type` {String} optional, can be `string` (default), `date`, `number`, `boolean`, `email`, `url`, or `html`
+- `required {Boolean}` optional, enables "required" (default: `false`)
+- `type {String}` optional, can be `string` (default), `date`, `number`, `boolean`, `email`, `url`, or `html`
 - `check {String}` optional, a path to `function(opt, el)` must return `boolean`, it means `Can the user edit that field?`
 - `exec {String}` optional, a path to `function(opt, accept(boolean/html_value_for_the_element))`
 - `format {String}` optional, a format for `date`, default: `yyyy-MM-dd`
@@ -44,7 +44,14 @@ __Configuration__:
 - `cursor {String}` optional, a cursor position `beg` or `end` (default)
 - `notify {String}` optional, a path to `function(opt)` that will be notified after successful change
 - `prevent {Boolean}` optional, executes `.preventDefault()` and `.stopPropagation()` in the click event
-- __NEW__: `align {String}` optional, sets a valeu for the text-align property for the floating mode only
+- `align {String}` optional, sets a valeu for the text-align property for the floating mode only
+- `focus {String}` optional, a link to the `function(opt, el)` when it's focused
+- `blur {String}` optional, a link to the `function(opt, el)` when it's blurred
+- __NEW__: `attr {String}` optional, an `data-{attr}` name to get the unformatted value
+
+__Good to know__:
+
+- `opt.set(value)` can be used to assign a value
 
 ### Author
 

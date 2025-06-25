@@ -68,6 +68,7 @@ COMPONENT('mapzones', 'height:200;zoom:13;color:#fcba03;modify:1;opacity:20', fu
 	};
 
 	self.modify = function() {
+
 		meta.modify = new ol.interaction.Modify({
 			source: meta.source,
 			deleteCondition: function(e) { 
@@ -84,6 +85,7 @@ COMPONENT('mapzones', 'height:200;zoom:13;color:#fcba03;modify:1;opacity:20', fu
 	};
 
 	self.draw = function() {
+
 		meta.draw = new ol.interaction.Draw({
 			source: meta.source,
 			type: 'Polygon',
@@ -108,7 +110,6 @@ COMPONENT('mapzones', 'height:200;zoom:13;color:#fcba03;modify:1;opacity:20', fu
 		var feature = meta.source.getFeatures()[0];
 		var polygon = feature.getGeometry();
 		meta.view.fit(polygon, {padding: [170, 50, 30, 150]});
-
 		meta.map.getView().animate({
 			zoom: meta.zoom,
 			duration: 250
@@ -117,21 +118,21 @@ COMPONENT('mapzones', 'height:200;zoom:13;color:#fcba03;modify:1;opacity:20', fu
 
 	self.centergeolocation = function() {
 		meta.positionFeature.once('change', function() {
-			var feature = meta.source.getFeatures()[0];
-			var point = feature.getGeometry();
+			let feature = meta.source.getFeatures()[0];
+			let point = feature.getGeometry();
 			meta.view.fit(point, {padding: [170, 50, 30, 150], minResolution: 50});
 		});
 	};
 
 	self.parse = function(value) {
 
-		for (var i = 0; i < value.length; i++) {
-      var item = value[i];
-      meta.points.push(ol.proj.transform([item.lng, item.lat ], 'EPSG:4326', 'EPSG:3857'));
-    }
+		for (let i = 0; i < value.length; i++) {
+			let item = value[i];
+			meta.points.push(ol.proj.transform([item.lng, item.lat ], 'EPSG:4326', 'EPSG:3857'));
+		}
 
 		meta.source = new ol.source.Vector({});
-		
+
 		meta.feature = new ol.Feature({
 			geometry: new ol.geom.Polygon([meta.points])
 		});
@@ -181,7 +182,7 @@ COMPONENT('mapzones', 'height:200;zoom:13;color:#fcba03;modify:1;opacity:20', fu
 		);
 
 		meta.geolocation.on('change:position', function() {
-			var coords = meta.geolocation.getPosition();
+			let coords = meta.geolocation.getPosition();
 			meta.positionFeature.setGeometry(coords ? new ol.geom.Point(coords) : null);
 		});
 
@@ -198,10 +199,8 @@ COMPONENT('mapzones', 'height:200;zoom:13;color:#fcba03;modify:1;opacity:20', fu
 	var coords = function(feature) {
 		var p = feature.getGeometry();
 		var format = new ol.format.WKT();
-
 		var wkt  = format.writeGeometry(p.transform(ol.proj.get('EPSG:3857'),ol.proj.get('EPSG:4326')));
 		p.transform(ol.proj.get('EPSG:4326'), ol.proj.get('EPSG:3857'));
-
 		parsecoords(wkt);
 	};
 
@@ -211,19 +210,19 @@ COMPONENT('mapzones', 'height:200;zoom:13;color:#fcba03;modify:1;opacity:20', fu
 		var tmp = wkt.replace('POLYGON((', '').replace('))', '').split(',');
 
 		for (var i = 0; i < tmp.length; i++) {
-      var item = tmp[i];
-      var tmpitem = item.split(' ');
-      var latlng = {};
-      latlng.lat = +tmpitem[1];
-      latlng.lng = +tmpitem[0];
-      arr.push(latlng);
-    }
+			var item = tmp[i];
+			var tmpitem = item.split(' ');
+			var latlng = {};
+			latlng.lat = +tmpitem[1];
+			latlng.lng = +tmpitem[0];
+			arr.push(latlng);
+		}
 
 		skip = true;
 
-		var obj = { zoom: meta.zoom, points: arr };
-
-		self.set(obj);
+		var obj = { zoom: meta.zoom, points: arr, color: meta.color };
+		self.bind('@modified @touched @setter', obj);
+		config.exec && self.EXEC(obj);
 	};
 
 	self.setstyle = function() {
@@ -239,6 +238,7 @@ COMPONENT('mapzones', 'height:200;zoom:13;color:#fcba03;modify:1;opacity:20', fu
 	};
 
 	self.setter = function(value) {
+
 		if (skip) {
 			skip = false;
 			return;

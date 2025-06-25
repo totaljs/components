@@ -20,7 +20,10 @@ COMPONENT('mobilecarousel', 'count:1;selector:.col-sm-4;margin:15;snapping:true;
 		setTimeout(self.resize, 50);
 		setTimeout(self.resize, 500);
 		setTimeout(self.resize, 2000);
-		CSS('.{3} .{3}-{0} {1}{margin:0 0 0 {2}px;padding:0;float:left;vertical-align:top;display:inline-block}.{3} .{3}-{0} {1}:first-child{margin-left:0}'.format(self.id, config.selector, config.margin, cls));
+
+		// v20 STYLE(), v19 CSS()
+		(W.STYLE?W.STYLE:W.CSS)('.{3} .{3}-{0} {1}{margin:0 0 0 {2}px;padding:0;float:left;vertical-align:top;display:inline-block}.{3} .{3}-{0} {1}:first-child{margin-left:0}'.format(self.id, config.selector, config.margin, cls));
+
 		container = self.find(cls2 + '-container').aclass(cls + '-' + self.id);
 		config.snapping && container.on('scroll', function() {
 			!skip && setTimeout2(self.id, self.snap, 200);

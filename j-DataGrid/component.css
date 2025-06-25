@@ -4,7 +4,7 @@
 .dg .dg-header-scrollbar > .ui-scrollbar-area { overflow-y: hidden; }
 .dg .dg-body-scrollbar > .ui-scrollbar-area { overflow-x: hidden; }
 .dg-container { overflow: hidden; border-top: 1px solid #E0E0E0; border-left: 1px solid #E0E0E0; border-right: 1px solid #E0E0E0; position: relative; }
-.jc-19 .dg-container { border-bottom: 1px solid #E0E0E0; }
+.jc-19 .dg-container, .jc-20 .dg-container { border-bottom: 1px solid #E0E0E0; }
 .dg-mobile .dg-container { border-right: 1px solid #E0E0E0; border-bottom: 1px solid #E0E0E0; }
 .dg-header { position: relative; border-bottom: 1px solid #E0E0E0; }
 .dg-hrow { height: 60px; }
@@ -46,7 +46,7 @@
 .dg-col--1 { width: 40px; }
 .dg-col--1 .dg-label { text-overflow: clip; }
 .dg-row-empty { height: 30px; font-size: 12px; border-bottom: 1px solid #F0F0F0; background-color: #FFF !important; cursor: default; }
-.dg-footer { border: 1px solid #E0E0E0; border-top: 0; height: 32px; }
+.dg-footer { border: 1px solid #E0E0E0; border-top: 0; height: 33px; }
 .dg-pagination { float: left; }
 .dg-pagination button { background-color: #FFF; border: 0; border-left: 1px solid #E0E0E0; height: 31px; width: 40px; color: #000; font-size: 12px; text-align: center; outline: 0; }
 .dg-pagination button:hover { background-color: #F0F0F0; }

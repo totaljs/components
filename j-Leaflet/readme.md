@@ -1,4 +1,4 @@
-## j-Leaflet (BETA)
+## j-Leaflet
 
 This component uses [Leaflet](https://leafletjs.com/) library with the [OpenStreetMap](https://www.openstreetmap.org/) map engine. The component uses 3rd party dependencies.
 
@@ -18,6 +18,7 @@ __Configuration__:
 - `move {String}` move event - a link to the function or variable `function(pos)`
 - `click {String}` a marker click event - a link to the function or variable `function(pos)`
 - `center {String}` a default location (e.g. `Bratislava, Slovakia`) if the `setter` value is empty/nullable
+- __NEW__: `exec {String}` optional, a link to the `function(value, component)` (it will be executed when the value is changed)
 
 __Methods__:
 
