@@ -18,10 +18,11 @@ __Configuration__:
 - `remove {String}` a link to a function `function(remove_item, callback(really_remove?), arr)`
 - `selector {String}` a jQuery selector for custom template (outside of the component). Works like `custom template` in [data-binding](https://wiki.totaljs.com/jcomponent/08-data-binding/)
 - `footertop {Boolean}` moves the footer on the top of the component (default: `false`)
-- __NEW__: `move {String}` a link to a function `function(items)`
-- __NEW__: `newbie {String}` a property name for every new item (it will always contain `true` value)
-- __NEW__: `plugin {String}` a custom plugin name inside the component (default: `component.ID`)
-- __NEW__: `invalidform {Boolean}` disables `j-Validate` component if the `j-ListForm` is in editing mode (default: `false`)
+- `move {String}` a link to a function `function(items)`
+- `newbie {String}` a property name for every new item (it will always contain `true` value)
+- `plugin {String}` a custom plugin name inside the component (default: `component.ID`)
+- `invalidform {Boolean}` disables `j-Validate` component if the `j-ListForm` is in editing mode (default: `false`)
+- __NEW__: `delay {Number}` initial delay for displaying detail (default: `1000` ms)
 
 The component needs to have defined 3 templates wrapped in `<script type="text/html">`:
 
