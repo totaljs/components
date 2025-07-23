@@ -5,7 +5,7 @@
 __Configuration__:
 
 - `placeholder {String}` a placeholder for `j-Directory` component (default: `Search`)
-- `types {String}` types of permission (array delimited by comma, default: `R,RW`)
+- `types {String}` permission types (only one character per operation!!!!) (array delimited by comma, default: `R,W`)
 - `dirsource {String}` optional, path to a data-source or __NEW__: `id|name,id|name`
 - `disabled {Boolean}` optional, disables this component
 - `default {String}` default value of `type` (default: `R`)
@@ -31,7 +31,7 @@ __Source__:
 __Input & Output__:
 
 ```js
-['R|123456', 'RW|654321']
+['R123456', 'W123456', 'W654321']
 ````
 
 ### Author
