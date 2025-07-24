@@ -129,6 +129,7 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 				if (!used[selected.id]) {
 					items.push(types[0].id + selected.id);
 					self.bind('@modified @touched @setter', items);
+					config.exec && self.EXEC(config.exec, items);
 				}
 			};
 
@@ -171,6 +172,7 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 				items.push(type + id);
 
 			self.bind('@modified @touched', items);
+			config.exec && self.EXEC(config.exec, items);
 
 		});
 
@@ -182,6 +184,7 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 			var items = self.get();
 			items = items.remove(n => n.substring(1) === id);
 			self.bind('@modified @touched @setter', items);
+			config.exec && self.EXEC(config.exec, items);
 		});
 	};
 
