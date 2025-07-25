@@ -7,6 +7,7 @@ __Configuration__:
 - `menuicon {String}` a menu icon in the window title bar (default `ti ti-navicon`)
 - `reoffsetresize {Boolean}` all windows will be re-offset according to the `main` window dimension (default: `true`)
 - `zindex {Number}` a start z-index positioning (default: `5`)
+- __NEW__: `maximizemargin {String}` a margin for the maximized state in the form `left_px top_px width_px height_px` (default: `0 0 0 0`)
 
 The `windows` component expects an `Array` of objects.
 

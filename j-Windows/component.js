@@ -1,4 +1,4 @@
-COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', function(self, config, cls) {
+COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5;maximizemargin:0 0 0 0', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var cache = {};
@@ -551,10 +551,12 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', functio
 							obj.setcommand('resetminimize');
 						}
 
-						var ww = self.element.width() || WW;
-						var wh = self.element.height() || WH;
-						obj.setoffset(0, 0);
-						obj.setsize(ww, wh - obj.element.position().top);
+						let margin = config.maximizemargin.split(' ');
+						let ww = self.element.width() || WW;
+						let wh = self.element.height() || WH;
+
+						obj.setoffset(0 + (+margin[0]), 0 + (+margin[1]));
+						obj.setsize(ww - (+margin[2]), wh - obj.element.position().top - (+margin[3]));
 					}
 					break;
 
