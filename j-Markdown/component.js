@@ -700,6 +700,13 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 					if (opt.emptynewline !== false && !lines[i - 1])
 						builder.push('<br />');
 
+					if (table) {
+						table = null;
+						if (opt.tables !== false)
+							builder.push('</tbody></table>');
+					}
+
+					closeul();
 					builder.push('');
 					continue;
 				}

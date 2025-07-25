@@ -1,6 +1,7 @@
-COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
+COMPONENT('listform', 'empty:---;default:1;delay:1000', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
+	var rendered = false;
 	var skip2 = false;
 	var skip = false;
 	var container;
@@ -286,10 +287,16 @@ COMPONENT('listform', 'empty:---;default:1', function(self, config, cls) {
 		else
 			parent.appendChild(form);
 
+		if (!rendered && config.delay > 300)
+			SETTER('loading/show');
+
 		setTimeout(function() {
+			if (!rendered && config.delay > 300)
+				SETTER('loading/hide');
+			rendered = true;
 			$(form).tclass(cls + '-new', !el).rclass('hidden');
 			config.autofocus && self.autofocus(config.autofocus);
-		}, 150);
+		}, rendered ? 100 : config.delay);
 
 		if (config.invalidform) {
 			self.$$invalid = true;
