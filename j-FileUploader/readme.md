@@ -3,6 +3,7 @@
 A simple component for uploading files. It supports auto-resizing images.
 
 - jComponent `v19|v20`
+- __IMPORTANT__: in jComponent v20, the value of `opt.url` must be in the form `POST /url/`
 
 __Configuration__:
 
