@@ -1,9 +1,9 @@
 {
-	"datecreated": "2025-07-30T13:55:01.000Z",
+	"datecreated": "2025-07-30T13:55:02.000Z",
 	"dateupdated": null,
 	"name": "j-ServerList",
 	"jcomponent": "19|20",
-	"darkmode": true,
+	"darkmode": false,
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,
