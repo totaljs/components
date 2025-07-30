@@ -59,7 +59,7 @@ COMPONENT('serverlist', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 		nodes.scrollbarY = SCROLLBAR(nodes.rows, { visibleY: true, orientation: 'y', controls: self.element, marginY: 50, wrap: false });
 		self.resizeforce();
 
-		self.event('click', cls2 + '-item_' + self.ID, function(e) {
+		self.event('click', cls2 + '-item', function(e) {
 
 			if (!config.click)
 				return;
