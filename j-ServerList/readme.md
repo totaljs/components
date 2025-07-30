@@ -1,4 +1,4 @@
-## j-ServerGrid
+## j-ServerList
 
 __BETA VERSION__. This componnet is designed for single page and enterprise applications.It has nearly the same functionality as the `j-ServerGrid`, but it gives developers more freedom to create custom item rendering.
 
