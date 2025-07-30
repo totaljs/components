@@ -92,7 +92,7 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0;pluralizeitems:# items,
 			value.pages = 1;
 
 		var builder = [];
-		var g = { count: value.count, page: value.page, pages: value.pages };
+		var g = { count: value.count, page: value.page, pages: value.pages, value: value };
 
 		for (var i = 0; i < value.items.length; i++) {
 			g.index = i;

@@ -43,7 +43,7 @@ __Tangular layout__:
 __Tangular item__:
 
 - `model` contains an object from `Array`
-- second model contains info about data-source `{ index: Number, page: Number, pages: Number, count: Number }`
+- second model `$` contains info about data-source `{ index: Number, page: Number, pages: Number, count: Number, value: YOUR_DATA }`
 
 ### Author
 
