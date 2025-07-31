@@ -44,6 +44,7 @@ __Configuration__:
 - `click {String}` a link to a path or `function(row, row_element)`
 - `exec {String}` a link to `function(type, filter, sort, page)` for server-side operations (supported types: `filter`, `page` and `sort`)
 - `display {Boolean}` enables auto adding jComponent responsive class `d-xs`, `d-lg`, etc. according to the screen width (default: `true`)
+- `empty {String}` an empty message (default: `No records found.`)
 
 __Good to know__:
 
