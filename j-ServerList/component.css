@@ -30,7 +30,7 @@
 .ui-serverlist-rows::-webkit-scrollbar { display: none; }
 .ui-serverlist-rows { overflow: scroll; -ms-overflow-style: none; scrollbar-width: none; }
 .ui-serverlist-number { width: 40px; font-size: 11px; color: #999; text-align: center; }
-.ui-serverlist-checkbox { margin: 7px 0 0 7px; display: block; border: 1px solid #D0D0D0; border-radius: var(--radius); width: 16px; height: 16px; line-height: 14px; text-align: center; background: #FFF; cursor: pointer; font-size: 11px; }
+.ui-serverlist-checkbox { margin: 0 0 5px 0; display: block; border: 1px solid #D0D0D0; border-radius: var(--radius); width: 16px; height: 16px; line-height: 14px; text-align: center; background: #FFF; cursor: pointer; font-size: 11px; }
 .ui-serverlist-checkbox i { visibility: hidden; }
 .ui-serverlist-checkboxes .ui-serverlist-number:hover em { display: block; }
 .ui-serverlist-checkboxes .ui-serverlist-number:hover span { display: none; }
