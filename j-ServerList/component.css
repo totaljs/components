@@ -10,7 +10,7 @@
 .ui-serverlist-noscroll .ui-serverlist-rows { overflow-y: hidden; }
 .ui-serverlist-noscroll .ui-scrollbar-y span { visibility: hidden; }
 .ui-serverlist-items { margin-bottom: 15px; }
-.ui-serverlist-rows, .ui-serverlist-header { margin-right: 15px; }
+.ui-serverlist-rows, .ui-serverlist-header { padding-right: 15px; }
 .ui-serverlist-rows { background: #FFF; }
 .ui-serverlist-header { background: #F4F4F4; }
 .ui-serverlist-th, .ui-serverlist-td { border: 1px solid transparent; border-left-color: #E0E0E0; height: 32px; line-height: 32px; padding: 0 5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -30,12 +30,12 @@
 .ui-serverlist-rows::-webkit-scrollbar { display: none; }
 .ui-serverlist-rows { overflow: scroll; -ms-overflow-style: none; scrollbar-width: none; }
 .ui-serverlist-number { width: 40px; font-size: 11px; color: #999; text-align: center; }
-.ui-serverlist-check { margin: 7px 0 0 7px; display: block; border: 1px solid #D0D0D0; border-radius: var(--radius); width: 16px; height: 16px; line-height: 14px; text-align: center; background: #FFF; cursor: pointer; font-size: 11px; }
-.ui-serverlist-check i { visibility: hidden; }
-.ui-serverlist-checkbox .ui-serverlist-number:hover em { display: block; }
-.ui-serverlist-checkbox .ui-serverlist-number:hover span { display: none; }
-.ui-serverlist-item.selected .ui-serverlist-check { color: var(--color); border-color: var(--color); }
-.ui-serverlist-item.selected .ui-serverlist-check i { visibility: visible !important; }
+.ui-serverlist-checkbox { margin: 7px 0 0 7px; display: block; border: 1px solid #D0D0D0; border-radius: var(--radius); width: 16px; height: 16px; line-height: 14px; text-align: center; background: #FFF; cursor: pointer; font-size: 11px; }
+.ui-serverlist-checkbox i { visibility: hidden; }
+.ui-serverlist-checkboxes .ui-serverlist-number:hover em { display: block; }
+.ui-serverlist-checkboxes .ui-serverlist-number:hover span { display: none; }
+.ui-serverlist-item.selected .ui-serverlist-checkbox { color: var(--color); border-color: var(--color); }
+.ui-serverlist-item.selected .ui-serverlist-checkbox i { visibility: visible !important; }
 .ui-serverlist-item.selected .ui-serverlist-number span { display: none; }
 .ui-serverlist-th-number { width: 20px; justify-content: center; text-align: center; }
 .ui-serverlist-th-number i { margin-right: 0 !important; color: #000; }
@@ -59,4 +59,4 @@
 .ui-serverlist-th-number.selected em { display: block; border-color: var(--color); }
 .ui-serverlist-th-number.selected em i { visibility: visible; color: var(--color); }
 .ui-serverlist-pointer .ui-serverlist-row { cursor: pointer; }
-.ui-serverlist-checkbox .ui-serverlist-th-number { width: 40px; }
+.ui-serverlist-checkboxes .ui-serverlist-th-number { width: 40px; }

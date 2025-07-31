@@ -1,4 +1,4 @@
-COMPONENT('serverlist', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;margin:0;filter:Filter;prop:html', function(self, config, cls) {
+COMPONENT('serverlist', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;margin:0;filter:Filter;prop:html;display:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var nodes = {};
@@ -29,16 +29,15 @@ COMPONENT('serverlist', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 		self.empty();
 
 		self.aclass(cls);
-		self.append('<div class="{0}-container"><div class="{0}-table"><div class="{0}-header"></div><div class="{0}-rows"><div class="{0}-items"></div></div></div></div><div class="{0}-pagination"><span class="{0}-pagination-count">0</span><button name="first" disabled><i class="ti ti-angle-double-left"></i></button><button name="prev" disabled><i class="ti ti-angle-left"></i></button><input autocomplete="new-password" spellcheck="false" role="combobox" aria-expanded="true" aria-invalid="false" aria-autocomplete="list" autocapitalize="off" autocorrect="off" disabled value="1" /><button name="next" disabled><i class="ti ti-angle-right"></i></button><button name="last" disabled><i class="ti ti-angle-double-right"></i></button><span class="{0}-pagination-pages">0</span></div>'.format(cls));
+		self.append('<div class="{0}-container"><div class="{0}-table"><div class="{0}-header noscrollbar"></div><div class="{0}-rows"><div class="{0}-items"></div></div></div></div><div class="{0}-pagination"><span class="{0}-pagination-count">0</span><button name="first" disabled><i class="ti ti-angle-double-left"></i></button><button name="prev" disabled><i class="ti ti-angle-left"></i></button><input autocomplete="new-password" spellcheck="false" role="combobox" aria-expanded="true" aria-invalid="false" aria-autocomplete="list" autocapitalize="off" autocorrect="off" disabled value="1" /><button name="next" disabled><i class="ti ti-angle-right"></i></button><button name="last" disabled><i class="ti ti-angle-double-right"></i></button><span class="{0}-pagination-pages">0</span></div>'.format(cls));
 
 		config.noborder && self.aclass(cls + '-noborder');
-		config.checkbox && self.aclass(cls + '-checkbox');
+		config.checkbox && self.aclass(cls + '-checkboxes');
 
 		if (config.click || config.cell)
 			self.aclass(cls + '-pointer');
 
 		nodes.container = self.find(cls2 + '-container');
-		nodes.scrollbarX = SCROLLBAR(nodes.container, { visibleX: true, orientation: 'x', controls: self.element, wrap: false });
 		nodes.table = self.find(cls2 + '-table');
 		nodes.header = self.find(cls2 + '-header');
 		nodes.rows = self.find(cls2 + '-rows');
@@ -217,8 +216,11 @@ COMPONENT('serverlist', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 		emptyrows = Math.ceil(rowsheight / 33);
 		nodes.container.css('height', height - 35);
 		nodes.rows.css('height', rowsheight);
-		nodes.scrollbarX && nodes.scrollbarX.resize();
 		nodes.scrollbarY && nodes.scrollbarY.resize();
+
+		if (config.display)
+			self.rclass2('d-').aclass('d-' + WIDTH(self.element));
+
 	};
 
 	// Collects filters
@@ -299,7 +301,8 @@ COMPONENT('serverlist', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 			if (col.filtering == true)
 				col.placeholder = config.filter;
 
-			col.width = config.colwidth;
+			if (!col.width)
+				col.width = config.colwidth;
 
 			switch (col.align) {
 				case 0:
@@ -360,7 +363,7 @@ COMPONENT('serverlist', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 
 		width += 15; // 15 is margin
 
-		nodes.header.html('<div class="{0}-row">{1}</div><div class="{0}-filter">{2}</div>'.format(cls, builder.join(''), filter.join('')));
+		nodes.header.html('<div class="{0}-width"><div class="{0}-row">{1}</div><div class="{0}-filter">{2}</div></div>'.format(cls, builder.join(''), filter.join('')));
 		builder.length = 0;
 
 		let model = {};
@@ -369,7 +372,7 @@ COMPONENT('serverlist', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 			let row = value.items[i];
 			let html = '<div class="{0}-item{1}" data-index="{2}">'.format(cls, row.$selected ? ' selected' : '', i);
 			if (config.checkbox)
-				html += '<div class="{0}-check"><i class="ti ti-check"></i></div>'.format(cls);
+				html += '<div class="{0}-checkbox"><i class="ti ti-check"></i></div>'.format(cls);
 			model.value = row;
 			html += Titem ? Titem(model, value) : row[config.prop] || '';
 			builder.push(html + '</div>');
@@ -387,6 +390,7 @@ COMPONENT('serverlist', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 		nodes.pagination.page.prop('disabled', value.pages <= 1).val(value.page + '');
 
 		nodes.data.html(builder.join(''));
+		nodes.header.find(cls2 + '-width').css({ width: width });
 		self.tclass(cls + '-noscroll', diff > 0);
 
 		self.resizeforce();
