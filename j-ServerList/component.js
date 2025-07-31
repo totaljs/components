@@ -109,7 +109,7 @@ COMPONENT('serverlist', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 			self.selected();
 		});
 
-		self.event('click', cls2 + '-check', function(e) {
+		self.event('click', cls2 + '-checkbox', function(e) {
 
 			if (!config.checkbox)
 				return;
