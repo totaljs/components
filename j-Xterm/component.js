@@ -46,5 +46,5 @@ COMPONENT('xterm', 'cols:80;rows:24', function(self, config, cls) {
 
 }, [function() {
 	let cdn = (DEF.cdn || 'https://cdn.componentator.com');
-	IMPORT(cdn + 'xterm.min@314.css', () => IMPORT(cdn + '/xterm.min@314.js', next));
+	IMPORT(cdn + '/xterm.min@314.css', () => IMPORT(cdn + '/xterm.min@314.js', next));
 }]);
