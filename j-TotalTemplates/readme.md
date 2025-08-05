@@ -15,6 +15,10 @@ __Preview__:
 - `SETTER('totaltemplates/preview', 'template', { model: 'custom' })` opens a template in a new tab
 - `SETTER('totaltemplates/preview', 'HTML_or_URL', model)`
 
+__Good to know__:
+
+- the `~CDN~` keyword will only be replaced by the value of `DEF.CDN` for external HTML templates.
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>
