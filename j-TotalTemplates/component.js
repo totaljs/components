@@ -12,7 +12,7 @@ COMPONENT('totaltemplates', function(self, config) {
 			} else {
 				AJAX('GET ' + template, function(response) {
 					cache[template] = response.replace(/~CDN~/g, DEF.cdn || 'https://cdn.componentator.com');
-					self.render(response, model, callback);
+					self.render(cache[template], model, callback);
 				});
 			}
 			return;
