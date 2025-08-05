@@ -82,10 +82,11 @@ COMPONENT('code', 'parent:auto;autosave:500;margin:0;linenumbers:1;realtime:1;ty
 	};
 
 	self.make = function() {
-		var protocol = location.protocol;
-		if (protocol === 'file:')
-			protocol = 'http:';
-		self.append('<iframe src="{1}{2}?id={0}" frameborder="0" scrolling="no" allowtransparency="true" allow="clipboard-read; clipboard-write; geolocation *; microphone *; camera *; midi *; encrypted-media *" style="width:100%;overflow:hidden;display:block"></iframe>'.format(self.ID, protocol, config.url));
+
+		if (!config.url)
+			config.url = (DEF.cdn || 'https://cdn.componentator.com') + '/editor/1.min.html';
+
+		self.append('<iframe src="{1}?id={0}" frameborder="0" scrolling="no" allowtransparency="true" allow="clipboard-read; clipboard-write; geolocation *; microphone *; camera *; midi *; encrypted-media *" style="width:100%;overflow:hidden;display:block"></iframe>'.format(self.ID, config.url));
 		iframe = self.find('iframe');
 		$(W).on('message', onmessage);
 		self.resizeforce();
