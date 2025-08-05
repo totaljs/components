@@ -11,7 +11,7 @@ COMPONENT('totaltemplates', function(self, config) {
 				self.render(cache[template], model, callback);
 			} else {
 				AJAX('GET ' + template, function(response) {
-					cache[template] = response;
+					cache[template] = response.replace(/~CDN~/g, DEF.cdn || 'https://cdn.componentator.com');
 					self.render(response, model, callback);
 				});
 			}
