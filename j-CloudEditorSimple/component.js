@@ -84,7 +84,7 @@ COMPONENT('cloudeditorsimple', 'parent:auto;autosave:500;margin:0;linenumbers:1;
 	self.make = function() {
 		if (!config.url)
 			config.url = (DEF.cdn || 'https://cdn.componentator.com') + '/editor/1.min.html';
-		self.append('<iframe src="{1}?id={0}" frameborder="0" scrolling="no" allowtransparency="true" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *" style="width:100%;overflow:hidden;display:block"></iframe>'.format(self.ID, protocol, config.url));
+		self.append('<iframe src="{1}?id={0}" frameborder="0" scrolling="no" allowtransparency="true" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *" style="width:100%;overflow:hidden;display:block"></iframe>'.format(self.ID, config.url));
 		iframe = self.find('iframe');
 		self.resize();
 		$(W).on('message', onmessage);
