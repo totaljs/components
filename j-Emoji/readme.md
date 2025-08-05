@@ -7,15 +7,15 @@
 
 __Configuration__:
 
-- `categories` {String} change emoticons in categories. Use unicode without special characters (default: `128342,128578,128161,127944,128008,128690,128172,127828,127937`)
-- `height` {Number} set component height (default: `295`)
-- `history` {Number} history limit for frequently used emoticons (default: `49`)
-- `empty` {String} a message when no emoticons are found  (default: `No emoji match your search`)
-- `emptyemoji` {Number} change emoticon when no emoticons are found. Use unicode without special characters (default: `128557`)
-- `speed` {Number} scroll speed in ms (default: `500`)
-- `footer` {String} footer message (default: `Choose skin tone`)
-- `toneemoji` {String} skin tones emoticon. Use unicode without special characters (default: `9995`)
-- `search` {String} a placeholder for search field (default: `Search`)
+- `categories {String}` change emoticons in categories. Use unicode without special characters (default: `128342,128578,128161,127944,128008,128690,128172,127828,127937`)
+- `height {Number}` set component height (default: `295`)
+- `history {Number}` history limit for frequently used emoticons (default: `49`)
+- `empty {String}` a message when no emoticons are found  (default: `No emoji match your search`)
+- `emptyemoji {Number}` change emoticon when no emoticons are found. Use unicode without special characters (default: `128557`)
+- `speed {Number}` scroll speed in ms (default: `500`)
+- `footer {String}` footer message (default: `Choose skin tone`)
+- `toneemoji {String}` skin tones emoticon. Use unicode without special characters (default: `9995`)
+- `search {String}` a placeholder for search field (default: `Search`)
 
 __Good to know__:
 
@@ -45,7 +45,7 @@ opt.callback = function(emoji) {
 	console.log(emoji); // callback parameter has String.fromCodePoint() value
 };
 
-SETTER('emoji', 'show', opt);
+SETTER('emoji/show', opt);
 ```
 
 ### Author

@@ -7,13 +7,15 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 
 	self.make = function() {
 
+		let cdn = (DEF.cdn || 'https://cdn.componentator.com');
+
 		if (config.highlight) {
-			IMPORT('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js');
-			IMPORT('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css');
+			IMPORT(cdn + '/highlight.min@1020.js');
+			IMPORT(cdn + '/highlight.min@1020.css');
 		}
 
 		if (config.charts)
-			IMPORT('https://cdn.componentator.com/apexcharts.min@310.js');
+			IMPORT(cdn + '/apexcharts.min@310.js');
 
 		// Remove from DOM because Markdown is used as a String prototype and Tangular helper
 		setTimeout(function() {

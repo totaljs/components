@@ -1,4 +1,4 @@
-COMPONENT('cloudeditor', 'parent:auto;autosave:1;realtime:0;margin:0;url://cdn.componentator.com/editor/1.min.html', function(self, config) {
+COMPONENT('cloudeditor', 'parent:auto;autosave:1;realtime:0;margin:0', function(self, config) {
 
 	var iframe;
 	var savetimeout;
@@ -82,9 +82,14 @@ COMPONENT('cloudeditor', 'parent:auto;autosave:1;realtime:0;margin:0;url://cdn.c
 	};
 
 	self.make = function() {
+
 		var protocol = location.protocol;
 		if (protocol === 'file:')
 			protocol = 'http:';
+
+		if (!config.url)
+			config.url = (DEF.cdn || 'https://cdn.componentator.com') + '/editor/1.min.html';
+
 		self.append('<iframe src="{1}{2}?id={0}" frameborder="0" scrolling="no" allowtransparency="true" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *" style="width:100%;overflow:hidden;display:block"></iframe>'.format(self.ID, protocol, config.url));
 		iframe = self.find('iframe');
 		self.resize();

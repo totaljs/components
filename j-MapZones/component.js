@@ -264,4 +264,7 @@ COMPONENT('mapzones', 'height:200;zoom:13;color:#fcba03;modify:1;opacity:20', fu
 
 	};
 
-}, ['https://cdn.jsdelivr.net/npm/ol@v7.3.0/dist/ol.js', 'https://cdn.jsdelivr.net/npm/ol@v7.3.0/ol.css']);
+}, [function(next) {
+	let cdn = (DEF.cdn || 'https://cdn.componentator.com');
+	IMPORT(cdn + '/ol.min@730.css', () => IMPORT(cdn + '/ol.min@730.js', next));
+}]);

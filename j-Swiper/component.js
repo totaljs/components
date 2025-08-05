@@ -1,4 +1,4 @@
-COMPONENT('swiper', 'null', function(self, config, cls) {
+COMPONENT('swiper', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var container, body, pagination, navigation, items, swiper;
@@ -114,4 +114,7 @@ COMPONENT('swiper', 'null', function(self, config, cls) {
 		items = body.find('> figure').toArray();
 	};
 
-}, ['https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css']);
+}, [function(next) {
+	let cdn = (DEF.cdn || 'https://cdn.componentator.com');
+	IMPORT(cdn + '/swiper.min@11.js', () => IMPORT(cdn + '/swiper.min@11.css', next));
+}]);

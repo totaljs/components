@@ -337,7 +337,8 @@ COMPONENT('emoji', 'categories:128342,128578,128161,127944,128008,128690,128172,
 	};
 
 }, [function(next) {
-	AJAX('GET https://cdn.componentator.com/j-emoji.json', function(response) {
+	let cdn = (DEF.cdn || 'https://cdn.componentator.com');
+	AJAX('GET {0}/j-emoji.json'.format(cdn), function(response) {
 
 		W.emoticonsdb = response;
 		W.emoticons_search = [];
