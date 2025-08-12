@@ -13,7 +13,7 @@ __Render__:
 __Preview__:
 
 - `SETTER('totaltemplates/preview', 'template', { model: 'custom' })` opens a template in a new tab
-- `SETTER('totaltemplates/preview', 'HTML_or_URL', model)`
+- `SETTER('totaltemplates/preview', 'HTML_or_URL', model, [print {Number_delay/Boolean}])`
 
 __Good to know__:
 
