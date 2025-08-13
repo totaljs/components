@@ -45,6 +45,8 @@ __Configuration__:
 - `exec {String}` a link to `function(type, filter, sort, page)` for server-side operations (supported types: `filter`, `page` and `sort`)
 - `display {Boolean}` enables auto adding jComponent responsive class `d-xs`, `d-lg`, etc. according to the screen width (default: `true`)
 - `empty {String}` an empty message (default: `No records found.`)
+- __NEW__: `scrollbarshadow {Boolean}` enables scrollbar shadow (default: `false`)
+- __NEW__: `scrolltop {Boolean}` it automatically scrolls to the top after the data source is changed (default: `true`)
 
 __Good to know__:
 

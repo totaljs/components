@@ -1,4 +1,4 @@
-COMPONENT('serverlist', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;margin:0;filter:Filter;prop:html;display:1;empty:No records found.', function(self, config, cls) {
+COMPONENT('serverlist', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;margin:0;scrolltop:1;filter:Filter;prop:html;display:1;empty:No records found.', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var nodes = {};
@@ -56,7 +56,7 @@ COMPONENT('serverlist', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 		nodes.pagination.pages = pe.find(cls2 + '-pagination-pages');
 		nodes.pagination.count = pe.find(cls2 + '-pagination-count');
 
-		nodes.scrollbarY = SCROLLBAR(nodes.rows, { visibleY: true, orientation: 'y', controls: self.element, marginY: 50, wrap: false });
+		nodes.scrollbarY = SCROLLBAR(nodes.rows, { visibleY: true, shadow: config.scrollbarshadow, orientation: 'y', controls: self.element, marginY: 50, wrap: false });
 		self.resizeforce();
 
 		self.event('click', cls2 + '-item', function(e) {
@@ -394,6 +394,9 @@ COMPONENT('serverlist', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 
 		nodes.data.html(builder.join(''));
 		nodes.header.find(cls2 + '-width').css({ width: width });
+
+		if (config.scrolltop && !flags.noscroll)
+			nodes.scrollbarY.scrollTop(0);
 
 		self.resizeforce();
 		self.selected();

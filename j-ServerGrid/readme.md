@@ -46,6 +46,8 @@ __Configuration__:
 - `cell {String}` a link to a path or `function(row, cell_element, column)`
 - `exec {String}` a link to `function(type, filter, sort, page)` for server-side operations (supported types: `filter`, `page` and `sort`)
 - `opacity {Number}` a default background opacity for column colors (default: `0.3`);
+- __NEW__: `scrollbarshadow {Boolean}` enables scrollbar shadow (default: `false`)
+- __NEW__: `scrolltop {Boolean}` it automatically scrolls to the top after the data source is changed (default: `true`)
 
 __Good to know__:
 

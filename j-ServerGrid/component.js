@@ -51,7 +51,7 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 		nodes.pagination.pages = pe.find(cls2 + '-pagination-pages');
 		nodes.pagination.count = pe.find(cls2 + '-pagination-count');
 
-		nodes.scrollbarY = SCROLLBAR(nodes.rows, { visibleY: true, orientation: 'y', controls: self.element, marginY: 50, wrap: false });
+		nodes.scrollbarY = SCROLLBAR(nodes.rows, { visibleY: true, shadow: config.scrollbarshadow, orientation: 'y', controls: self.element, marginY: 50, wrap: false });
 		self.resizeforce();
 
 		self.event('click', cls2 + '-' + self.ID, function() {
@@ -423,6 +423,9 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 		nodes.table.css('width', width);
 		nodes.data.html(builder.join(''));
 		self.tclass(cls + '-noscroll', diff > 0);
+
+		if (config.scrolltop && !flags.noscroll)
+			nodes.scrollbarY.scrollTop(0);
 
 		self.resizeforce();
 		self.selected();
