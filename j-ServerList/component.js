@@ -278,7 +278,7 @@ COMPONENT('serverlist', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 		config.checked && self.SEEX(config.checked, selected);
 	};
 
-	self.setter = function(value) {
+	self.setter = function(value, path, flags) {
 
 		if (!value) {
 			config.exec && self.EXEC(config.exec, 'filter', filtercache.filter, filtercache.sort, filtercache.page);

@@ -1,4 +1,4 @@
-COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;margin:0;filter:Filter;opacity:0.3', function(self, config, cls) {
+COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pages;pluralizeitems:# items,# item,# items,# items;margin:0;filter:Filter;opacity:0.3;scrolltop:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var nodes = {};
@@ -288,7 +288,7 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 		config.checked && self.SEEX(config.checked, selected);
 	};
 
-	self.setter = function(value) {
+	self.setter = function(value, path, flags) {
 
 		if (!value) {
 			config.exec && self.EXEC(config.exec, 'filter', filtercache.filter, filtercache.sort, filtercache.page);
