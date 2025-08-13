@@ -395,11 +395,15 @@ COMPONENT('serverlist', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 		nodes.data.html(builder.join(''));
 		nodes.header.find(cls2 + '-width').css({ width: width });
 
-		if (config.scrolltop && !flags.noscroll)
-			nodes.scrollbarY.scrollTop(0);
-
 		self.resizeforce();
 		self.selected();
+
+		if (config.scrolltop && !flags.noscroll) {
+			setTimeout(function() {
+				nodes.scrollbarY.resize();
+				nodes.scrollbarY.scrollTop(0);
+			}, 500);
+		}
 	};
 
 });

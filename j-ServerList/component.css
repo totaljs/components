@@ -1,5 +1,5 @@
 .ui-serverlist { border: 1px solid #E0E0E0; border-radius: var(--radius); font-size: 13px; background: #FFF; position: relative; }
-.ui-serverlist-filter { display: flex; border-bottom: 1px solid #E0E0E0; align-items: center; height: 22px; gap: 0; background: #FFF; }
+.ui-serverlist-filter { display: flex; align-items: center; height: 21px; gap: 0; background: #FFF; }
 .ui-serverlist-filter:last-child { border-right: 1px solid #E0E0E0; }
 .ui-serverlist-filter input { border: 0; background: transparent; outline: 0; font-size: 11px; height: 21px; padding: 0 5px; margin: 0; width: 100%; }
 .ui-serverlist-filter input[readonly] { cursor: pointer; user-select: none; caret-color: transparent; }
@@ -12,7 +12,7 @@
 .ui-serverlist-items { margin-bottom: 15px; }
 .ui-serverlist-rows, .ui-serverlist-header { padding-right: 15px; }
 .ui-serverlist-rows { background: #FFF; }
-.ui-serverlist-header { background: #F4F4F4; }
+.ui-serverlist-header { background: #F4F4F4; border-bottom: 1px solid #E0E0E0; }
 .ui-serverlist-th, .ui-serverlist-td { border: 1px solid transparent; border-left-color: #E0E0E0; height: 32px; line-height: 32px; padding: 0 5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ui-serverlist-tf { border-left: 1px solid #E0E0E0; position: relative; background-color: #FFF; }
 .ui-serverlist-tf-is input { padding-right: 20px; }
