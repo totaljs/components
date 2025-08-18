@@ -18,9 +18,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 	self.nocompile && self.nocompile();
 	self.getter = null;
 
-	img.crossOrigin = 'anonymous';
-
-	img.onload = function () {
+	self.loadimage = function() {
 		can = true;
 		zoom = 100;
 
@@ -46,14 +44,24 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 		self.redraw();
 	};
 
+	self.resizeimage = function() {
+		if (img.width && img.height)
+			self.loadimage();
+		else
+			self.redraw();
+	};
+
 	self.configure = function(key, value, init) {
 		if (init)
 			return;
 		switch (key) {
 			case 'width':
 			case 'height':
-				cache.x = current.x = cache.y = current.y = 0;
-				setTimeout2(self._id + 'resize', self.redraw, 50);
+				if (cache[key] !== value) {
+					cache.x = current.x = cache.y = current.y = 0;
+					cache[key] = value;
+					setTimeout2(self._id + 'resize', self.resizeimage, 10);
+				}
 				break;
 		}
 	};
@@ -94,6 +102,9 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 
 	self.make = function() {
 
+		img.crossOrigin = 'anonymous';
+		img.onload = self.loadimage;
+
 		self.aclass(cls);
 		self.append(('<input type="file" style="display:none" accept="image/*" /><ul>' + (config.browse ? '<li data-type="browse"><span class="ti ti-folder"></span></li>' : '') + '<li data-type="upload"><span class="ti ti-upload"></span></li><li data-type="plus"><span class="ti ti-plus"></span></li><li data-type="refresh"><span class="ti ti-redo"></span></li><li data-type="minus"><span class="ti ti-minus"></span></li></ul><canvas></canvas>'));
 
@@ -131,6 +142,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 					current.y -= 3;
 					self.samesize = '';
 					self.redraw();
+					self.change(true);
 					break;
 				case 'minus':
 					zoom -= 3;
@@ -140,6 +152,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 					current.y += 3;
 					self.samesize = '';
 					self.redraw();
+					self.change(true);
 					break;
 				case 'refresh':
 					zoom = cache.zoom;
@@ -263,8 +276,23 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 		context.drawImage(img, (current.x || 0) * ratio, (current.y || 0) * ratio, w * ratio, h * ratio);
 	};
 
+	let timeout;
+
 	self.setter = function(value) {
+
 		width = self.width();
+
+		if (!width) {
+			timeout && clearTimeout(timeout);
+			timeout = setTimeout(self.setter, 100, value);
+			return;
+		}
+
+		if (timeout) {
+			clearTimeout(timeout);
+			timeout = null;
+		}
+
 		if (value)
 			img.src = config.format.format(value);
 		else
