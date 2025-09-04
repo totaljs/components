@@ -149,8 +149,19 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 		}
 
 		function markdown_links2(value) {
+
 			value = value.substring(4, value.length - 4);
-			return '<a href="' + (value.isEmail() ? 'mailto:' : linksexternal.test(value) ? '' : 'http://') + value + '" target="_blank">' + value + '</a>';
+
+			let url = value;
+
+			if (value.isEmail())
+				url = 'mailto:' + value;
+			else if (value.isPhone())
+				url = 'tel:' + value;
+			else if (!linksexternal.test(value))
+				url = 'http://' + url;
+
+			return '<a href="' + url + '" target="_blank">' + value + '</a>';
 		}
 
 		function markdown_format(value, index, text) {
