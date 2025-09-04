@@ -470,6 +470,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			}, 500);
 
 			var opt = {};
+
 			opt.element = self.find(cls2 + '-control');
 			opt.items = dirsource || dirsourceread();
 			opt.offsetY = -1 + (config.diroffsety || 0);
@@ -483,6 +484,9 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			opt.key = config.dirkey || config.key;
 			opt.empty = config.dirempty;
 			opt.checkbox = !!config.multiple;
+
+			if (opt.items instanceof Array)
+				opt.items = CLONE(opt.items);
 
 			var val = self.get();
 			if (config.multiple) {
