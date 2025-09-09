@@ -507,7 +507,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				opt.search = config.dirsearch;
 
 			if (dirsource && config.direxclude == false && !config.multiple) {
-				for (var item of dirsource) {
+				for (var item of opt.items) {
 					if (item)
 						item.selected = typeof(item) === 'object' && item[config.dirvalue] === val;
 				}
