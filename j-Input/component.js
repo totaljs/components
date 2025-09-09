@@ -1059,7 +1059,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 							self.bindvalue();
 					} else {
 						self.datasource(value, function(path, value) {
-							dirsource = dirsourceprepare(M.is20 ? path : value);
+							dirsource = CLONE(dirsourceprepare(M.is20 ? path : value));
 							if (config.type === 'radiobutton')
 								self.radiorender();
 							else
