@@ -1,3 +1,4 @@
+.ui-permissions { font-size: 13px; }
 .ui-permissions-header { height: 30px; cursor: pointer; color: #777; font-size: 12px; }
 .ui-permissions-header:hover { color: #000; }
 .ui-permissions-header .green { float: right; width: 30px; line-height: 30px; text-align: right; transform: scale(1); font-size: 14px; }
@@ -9,7 +10,7 @@
 .ui-permissions-cell:first-child { border-left: 0; justify-content: flex-start; }
 .ui-permissions-text { flex: 1; }
 .ui-permissions-remove { margin-right: 8px; cursor: pointer; }
-.ui-permissions-type { color: #A0A0A0; font-size: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.ui-permissions-type { color: #A0A0A0; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 .ui-permissions-type i { margin-right: 5px; margin-top: 1px; color: #E0E0E0; }
 .ui-permissions-type i:before { content: '\ea8c'; }
 .ui-permissions-checked { background-color: #FFFED5; color: #000; }
