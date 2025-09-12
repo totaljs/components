@@ -26,6 +26,8 @@ __Configuration__:
 - `forcevalidation {Boolean}` enables for force validation for `phone` and `email` (default: `true`)
 - `monospace {Boolean}` enables `monospaced` font (default: `false`)
 - `enter {String}` a link to `function(val, com)` - evaluated when the user presses enter
+- __NEW__: `realtime {Boolean}` enables real-time binding (default: `true`)
+- __NEW__: `exec {String}` a link to the `function(value, element)` which will be evaluated if the input is affected
 
 ### Author
 

@@ -317,6 +317,10 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 				self.ajaxold = val;
 				setTimeout2(self.ID, function(val) {
 					self.opt && self.opt.ajax(val, function(items) {
+
+						if (!self.opt)
+							return;
+
 						var builder = [];
 						var indexer = {};
 						var item;

@@ -1,11 +1,8 @@
 {
-	"datecreated": "2025-02-04T14:00:00.000Z",
+	"datecreated": "2025-02-04T14:00:01.000Z",
 	"dateupdated": null,
-	"name": "j-Packetawidget",
-	"tags": [
-		"packeta",
-		"packetawidget"
-	],
+	"name": "j-Packeta",
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"responsive": true,

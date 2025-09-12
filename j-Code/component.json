@@ -1,0 +1,15 @@
+{
+	"datecreated": "2025-03-04T09:11:01.000Z",
+	"dateupdated": "2025-08-05T09:21:00.000Z",
+	"name": "j-Code",
+	"jcomponent": "19|20",
+	"darkmode": true,
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

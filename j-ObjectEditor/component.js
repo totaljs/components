@@ -23,14 +23,17 @@ COMPONENT('objecteditor', 'null:true;dateformat:yyyy-MM-dd HH\\:mm\\:ss', functi
 		self.event('click', '.ui-eo-checkbox', function() {
 			var el = $(this);
 			var cls = 'checked';
-			var path = self.path + '.' + el.attrd('name');
+			var name = el.attrd('name');
+			var path = self.path + '.' + name;
 			el.tclass(cls);
 			skip = true;
-			SET(path, el.hclass(cls));
-			self.change(true);
+			var val = el.hclass(cls);
+			SET(path, val);
+			self.bind('@touched @modified');
+			config.exec && self.EXEC(config.exec, name, val);
 		});
 
-		self.event('input', 'input,textarea', function() {
+		self.event('change', 'input,textarea', function() {
 
 			var el = $(this);
 			var type = el.attrd('type');
@@ -48,11 +51,10 @@ COMPONENT('objecteditor', 'null:true;dateformat:yyyy-MM-dd HH\\:mm\\:ss', functi
 					break;
 			}
 
-			setTimeout2(self.ID, function() {
-				skip = true;
-				SET(path, val);
-				self.change(true);
-			}, 100);
+			skip = true;
+			SET(path, val);
+			self.bind('@touched @modified');
+			config.exec && self.EXEC(config.exec, this.name, val);
 		});
 	};
 

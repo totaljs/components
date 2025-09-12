@@ -69,6 +69,7 @@ COMPONENT('cloudeditorsimple', 'parent:auto;autosave:500;margin:0;linenumbers:1;
 				var offset = self.element.offset();
 				msg.x += offset.left;
 				msg.y += offset.top;
+				msg.instance = self;
 				config.contextmenu && self.SEEX(config.contextmenu, msg);
 				break;
 			case 'cursor':
@@ -81,10 +82,9 @@ COMPONENT('cloudeditorsimple', 'parent:auto;autosave:500;margin:0;linenumbers:1;
 	};
 
 	self.make = function() {
-		var protocol = location.protocol;
-		if (protocol === 'file:')
-			protocol = 'http:';
-		self.append('<iframe src="{1}//cdn.componentator.com/editor/1.min.html?id={0}" frameborder="0" scrolling="no" allowtransparency="true" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *" style="width:100%;overflow:hidden;display:block"></iframe>'.format(self.ID, protocol));
+		if (!config.url)
+			config.url = (DEF.cdn || 'https://cdn.componentator.com') + '/editor/1.min.html';
+		self.append('<iframe src="{1}?id={0}" frameborder="0" scrolling="no" allowtransparency="true" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *" style="width:100%;overflow:hidden;display:block"></iframe>'.format(self.ID, config.url));
 		iframe = self.find('iframe');
 		self.resize();
 		$(W).on('message', onmessage);
@@ -193,7 +193,6 @@ COMPONENT('cloudeditorsimple', 'parent:auto;autosave:500;margin:0;linenumbers:1;
 			settertimeout && clearTimeout(settertimeout);
 			settertimeout = setTimeout(self.setter, 100);
 		}
-
 	};
 
 });

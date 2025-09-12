@@ -1,0 +1,75 @@
+<style>
+	/* CUSTOM FORMATTING */
+	.ui-serverlist-items { display: grid; column-gap: var(--gap); grid-template-columns: repeat(4, minmax(0,1fr)); padding: 20px; }
+	.ui-serverlist-item { border: 2px solid #E0E0E0; padding: 10px; border-radius: 10px; }
+	.ui-serverlist-check { position: absolute; margin: -20px 0 0 -20px; }
+</style>
+
+<ui-component name="serverlist" path="data" config="checkbox:1;height:500;exec:filtering">
+	<script type="text/html">
+		<div>{{ value.name }}, total pages: {{ $.pages }}</div>
+	</script>
+</ui-component>
+
+<script id="datasource" type="text/json">
+{
+	"items": [
+		{
+			"id": "1",
+			"name": "Hello world! 1",
+			"createdby": "Peter Sirka",
+			"dtcreated": "2024-11-25T22:43:53.455Z"
+		},
+		{
+			"id": "2",
+			"name": "Hello world! 2",
+			"createdby": "Peter Sirka",
+			"dtcreated": "2024-11-25T22:43:53.455Z"
+		},
+		{
+			"id": "3",
+			"name": "Hello world! 3",
+			"createdby": "Peter Sirka",
+			"dtcreated": "2024-11-25T22:43:53.455Z"
+		}
+	],
+	"count": 1,
+	"page": 2,
+	"limit": 50,
+	"pages": 3,
+	"columns": [
+		{
+			"id": "name",
+			"name": "Message",
+			"icon": "ti ti-envelope",
+			"filtering": true,
+			"sorting": true
+		},
+		{
+			"id": "createdby",
+			"name": "Created by",
+			"filtering": true,
+			"sorting": true
+		},
+		{
+			"id": "dtcreated",
+			"name": "Created",
+			"icon": "ti ti-calendar",
+			"filtering": true,
+			"sorting": true
+		}
+	]
+}
+</script>
+
+
+<script>
+
+	var data = PARSE('#datasource');
+
+	function filtering(type, filter, sort, page) {
+		console.log('Type:', type, 'Filter:', filter, 'Sort:', sort, 'Page:', page);
+		UPD('data');
+	}
+
+</script>

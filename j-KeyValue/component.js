@@ -2,7 +2,7 @@ COMPONENT('keyvalue', 'maxlength:100', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var container, content = null;
-	var cempty = 'empty';
+	var cempty = cls + '-empty';
 	var skip = false;
 	var empty = {};
 

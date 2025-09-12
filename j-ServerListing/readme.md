@@ -15,10 +15,10 @@ __Configuration__:
 - `marginsm` a top/bottom margin together for `sm` screen width
 - `marginmd` a top/bottom margin together for `md` screen width
 - `marginlg` a top/bottom margin together for `lg` screen width
-- __NEW__: `pluralizeitems` a pluralization for count of all items, form: `# zero,# one,# two-four,# five and more`
-- __NEW__: `pluralizepages` a pluralization for count of all items, form: `# zero,# one,# two-four,# five and more`
-- __NEW__: `modulo {Number}` can append empty items with `{ EMPTY: 1 }` object (default: `0`)
-- __NEW__: `nopages {Boolean}` can hide pagination if the pages are less than `2` (default: `false`)
+- `pluralizeitems` a pluralization for count of all items, form: `# zero,# one,# two-four,# five and more` (if empty, counter will be hidden)
+- `pluralizepages` a pluralization for count of all items, form: `# zero,# one,# two-four,# five and more` (if empty, counter will be hidden)
+- `modulo {Number}` can append empty items with `{ EMPTY: 1 }` object (default: `0`)
+- `nopages {Boolean}` can hide pagination if the pages are less than `2` (default: `false`)
 
 __Model__:
 
@@ -43,7 +43,7 @@ __Tangular layout__:
 __Tangular item__:
 
 - `model` contains an object from `Array`
-- second model contains info about data-source `{ index: Number, page: Number, pages: Number, count: Number }`
+- second model `$` contains info about data-source `{ index: Number, page: Number, pages: Number, count: Number, value: YOUR_DATA }`
 
 ### Author
 

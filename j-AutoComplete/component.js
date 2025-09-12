@@ -21,7 +21,7 @@ COMPONENT('autocomplete', 'height:200', function(self, config, cls) {
 		scroller = self.find('.noscrollbar');
 		container = self.find('ul');
 
-		self.event('click', 'li', function(e) {
+		self.event('mousedown touchstart', 'li', function(e) {
 			e.preventDefault();
 			e.stopPropagation();
 			if (self.opt.callback) {

@@ -1,12 +1,10 @@
 ## j-Console
 
+- jComponent `v19|v20`
 - easy usage
 - singleton
-- modal
 - supports app tabs
 - supports __dark mode__
-
-- jComponent `v19|v20`
 
 __Configuration__:
 

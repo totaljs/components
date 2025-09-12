@@ -36,7 +36,7 @@ opt.data.fieldName1 = 'value';
 opt.data.fieldName2 = 'value';
 
 // Shows file browser
-SETTER('upload', 'show', opt);
+SETTER('upload/show', opt);
 ```
 
 Files are uploaded with these names/keys in the form `file1`, `file2`, `file..N`.

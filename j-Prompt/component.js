@@ -17,7 +17,7 @@ COMPONENT('prompt', 'zindex:12;width:400;cancel:Cancel;submit:OK', function(self
 
 		var val = input.val();
 
-		if (val === self.opt.value) {
+		if (!val || (!self.opt.newbie && val === self.opt.value)) {
 			op.cancel();
 			return;
 		}

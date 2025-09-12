@@ -43,17 +43,16 @@ COMPONENT('console', function(self, config, cls) {
 		if (!source)
 			return;
 
-		var keys = Object.keys(source);
 		var builder = [];
 
-		for (var i = 0; i < keys.length; i++) {
-			var item = source[keys[i]];
+		for (var key in source) {
+			var item = source[key];
 
 			if (!current)
-				current = keys[i];
+				current = key;
 
 			var icon = self.icon(item.icon);
-			builder.push(('<span title="{1}" data-id="{2}" class="' + cls + '-tab{3}"><i class="{0}"></i>{1}</span>').format(icon + (item.name ? '' : '" style="margin-right:0'), item.name, keys[i], current === keys[i] ? (' ' + cls + '-selected') : ''));
+			builder.push(('<span title="{1}" data-id="{2}" class="' + cls + '-tab{3}"><i class="{0}"></i>{1}</span>').format(icon + (item.name ? '' : '" style="margin-right:0'), item.name, key, current === key ? (' ' + cls + '-selected') : ''));
 		}
 
 		etabs.html(builder.join(''));
@@ -98,31 +97,37 @@ COMPONENT('console', function(self, config, cls) {
 		if (!ready)
 			return;
 
+		var datasource = self.makepath(config.datasource);
 		source = value;
-		if (path === config.datasource)
+		if (path === datasource)
 			self.render_tabs();
-		else if (path.substring(config.datasource.length + 1).substring(0, current.length) === current)
+		else if (path.substring(datasource.length + 1).substring(0, current.length) === current)
 			self.render_logs(source[current]);
 	};
 
 	self.configure = function(key, value) {
-		if (key === 'datasource')
-			self.datasource(value, self.rebind);
+		if (key === 'datasource') {
+			self.datasource(value, function(path, value, type) {
+				if (M.is20)
+					self.rebind(type, path);
+				else
+					self.rebind(path, value);
+			});
+		}
 	};
 
 	self.setter = function(value) {
 
 		if (value && !ready) {
 			ready = true;
-			self.rebind(config.datasource, GET(config.datasource));
+			var datasource = self.makepath(config.datasource);
+			self.rebind(datasource, GET(datasource));
 		}
 
 		if (value) {
 			self.rclass('hidden');
-
 			if (typeof(value) === 'string')
 				self.show(value);
-
 			self.aclass(cls + '-visible', 100);
 		} else {
 			self.rclass('hidden', 100);

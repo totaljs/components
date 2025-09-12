@@ -114,28 +114,31 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 			if (!t.$editevents)
 				return;
 
-			var meta = t.$edit;
+			var keydown = e.type === 'keydown';
 
+			var meta = t.$edit;
 			if (meta.clear) {
 				t.innerHTML = '';
 				meta.clear = 0;
 			}
 
-			if (!meta.keypressed) {
-				meta.keypressed = 1;
-				$(t).aclass('edit-keypressed');
-			}
+			if (keydown) {
+				if (!meta.keypressed) {
+					meta.keypressed = 1;
+					$(t).aclass('edit-keypressed');
+				}
 
-			if ((e.metaKey || e.ctrlKey) && (e.which === 66 || e.which === 76 || e.which === 73 || e.which === 85)) {
-				if (meta.type !== 'html') {
-					e.preventDefault();
-					e.stopPropagation();
+				if ((e.metaKey || e.ctrlKey) && (e.which === 66 || e.which === 76 || e.which === 73 || e.which === 85)) {
+					if (meta.type !== 'html') {
+						e.preventDefault();
+						e.stopPropagation();
+					}
 				}
 			}
 
 			var el;
 
-			if (e.which === 27) {
+			if (!keydown && e.which === 27) {
 				el = $(t);
 				t.$edit.is = false;
 				self.detach(el);
@@ -149,15 +152,16 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 
 				e.preventDefault();
 
-				el = $(t);
-
-				if (self.approve(el)) {
-					self.detach(el);
-					el.rclass('edit-keypressed');
-					if (e.which === 9 && self.focusnext(t, e))
-						return;
-				} else
-					self.detach(el);
+				if (!keydown) {
+					el = $(t);
+					if (self.approve(el)) {
+						self.detach(el);
+						el.rclass('edit-keypressed');
+						if (e.which === 9 && self.focusnext(t, e))
+							return;
+					} else
+						self.detach(el);
+				}
 			}
 		};
 
@@ -374,6 +378,7 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 			el[0].$editevents = true;
 			el.aclass('edit-open' + (o.multiline ? ' edit-multiline' : ''));
 			el.on('keydown', events.keydown);
+			el.on('keyup', events.keydown);
 			el.on('blur', events.blur);
 			el.on('paste', events.paste);
 			el.attr('contenteditable', true);

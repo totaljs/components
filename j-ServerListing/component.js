@@ -92,7 +92,7 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0;pluralizeitems:# items,
 			value.pages = 1;
 
 		var builder = [];
-		var g = { count: value.count, page: value.page, pages: value.pages };
+		var g = { count: value.count, page: value.page, pages: value.pages, value: value };
 
 		for (var i = 0; i < value.items.length; i++) {
 			g.index = i;
@@ -173,7 +173,7 @@ COMPONENT('serverlisting', 'pages:3;scrolltop:1;margin:0;pluralizeitems:# items,
 		}
 
 		if (value.pages != null && value.count !== null)
-			paginate.find(cls2 + '-info').html(value.pages.pluralize(config.pluralizepages) + ' / ' + value.count.pluralize(config.pluralizeitems));
+			paginate.find(cls2 + '-info').html((config.pluralizepages ? value.pages.pluralize(config.pluralizepages) : '') + (config.pluralizeitems && config.pluralizepages ? ' / ' : '') + (config.pluralizeitems ? value.count.pluralize(config.pluralizeitems) : ''));
 
 		paginate.find('.selected').rclass('selected');
 		paginate.find(cls2 + '-page[data-index="{0}"]'.format(value.page)).aclass('selected');

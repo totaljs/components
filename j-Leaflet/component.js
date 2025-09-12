@@ -192,4 +192,7 @@ COMPONENT('leaflet', 'height:200;zoom:11;draggable:0;marker:1;margin:0;maxzoom:1
 
 	};
 
-}, ['https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.min.css', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.min.js']);
+}, [function(next) {
+	let cdn = (DEF.cdn || 'https://cdn.componentator.com');
+	IMPORT(cdn + '/leaflet.min@180.css', () => IMPORT(cdn + '/leaflet.min@180.js', next));
+}]);

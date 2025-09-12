@@ -1,4 +1,4 @@
-COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', function(self, config, cls) {
+COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5;maximizemargin:0 0 0 0', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var cache = {};
@@ -479,7 +479,7 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', functio
 			obj.element.SETTER('*/resize');
 		};
 
-		obj.setsize = function(w, h) {
+		obj.setsize = function(w, h, nosave) {
 			var t = this;
 			var obj = {};
 
@@ -495,7 +495,8 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', functio
 
 			t.ert && clearTimeout(t.ert);
 			t.ert = setTimeout(t.emitresize, 100);
-			self.wsave(t);
+			if (nosave != true)
+				self.wsave(t);
 		};
 
 		obj.setcommand = function(type) {
@@ -551,10 +552,12 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', functio
 							obj.setcommand('resetminimize');
 						}
 
-						var ww = self.element.width() || WW;
-						var wh = self.element.height() || WH;
-						obj.setoffset(0, 0);
-						obj.setsize(ww, wh - obj.element.position().top);
+						let margin = config.maximizemargin.split(' ');
+						let ww = self.element.width() || WW;
+						let wh = self.element.height() || WH;
+
+						obj.setoffset(0 + (+margin[0]), 0 + (+margin[1]), true);
+						obj.setsize(ww - (+margin[2]), wh - obj.element.position().top - (+margin[3]), true);
 					}
 					break;
 
@@ -647,7 +650,7 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', functio
 			eltitle.html((icon ? '<i class="{0}"></i>'.format(icon) : '') + title);
 		};
 
-		obj.setoffset = function(x, y) {
+		obj.setoffset = function(x, y, nosave) {
 			var t = this;
 			var obj = {};
 
@@ -658,7 +661,8 @@ COMPONENT('windows', 'menuicon:ti ti-navicon;reoffsetresize:0;zindex:5', functio
 				obj.top = t.y = t.meta.offset.y = y;
 
 			t.element.parent().css(obj);
-			self.wsave(t);
+			if (nosave != true)
+				self.wsave(t);
 		};
 
 		obj.meta.service && services.push(obj);

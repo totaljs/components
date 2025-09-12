@@ -7,13 +7,15 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 
 	self.make = function() {
 
+		let cdn = (DEF.cdn || 'https://cdn.componentator.com');
+
 		if (config.highlight) {
-			IMPORT('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js');
-			IMPORT('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css');
+			IMPORT(cdn + '/highlight.min@1020.js');
+			IMPORT(cdn + '/highlight.min@1020.css');
 		}
 
 		if (config.charts)
-			IMPORT('https://cdn.componentator.com/apexcharts.min@310.js');
+			IMPORT(cdn + '/apexcharts.min@310.js');
 
 		// Remove from DOM because Markdown is used as a String prototype and Tangular helper
 		setTimeout(function() {
@@ -47,7 +49,7 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 		var code = /`.*?`/g;
 		var encodetags = /<|>/g;
 		var regdash = /-{2,}/g;
-		var regicons = /(^|[^\w]):((fab|far|fas|fal|fad|fa|ti)\s(fa|ti)-)?[a-z-]+:([^\w]|$)/g;
+		var regicons = /(^|[^\w]):((fab|far|fas|fal|fad|fa|ti|tic)\s(fa|ti|tic)-)?[a-z-]+:([^\w]|$)/g;
 		var regemptychar = /\s|\W/;
 		var regtags = /<[^>]*>/g;
 
@@ -147,8 +149,19 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 		}
 
 		function markdown_links2(value) {
+
 			value = value.substring(4, value.length - 4);
-			return '<a href="' + (value.isEmail() ? 'mailto:' : linksexternal.test(value) ? '' : 'http://') + value + '" target="_blank">' + value + '</a>';
+
+			let url = value;
+
+			if (value.isEmail())
+				url = 'mailto:' + value;
+			else if (value.isPhone())
+				url = 'tel:' + value;
+			else if (!linksexternal.test(value))
+				url = 'http://' + url;
+
+			return '<a href="' + url + '" target="_blank">' + value + '</a>';
 		}
 
 		function markdown_format(value, index, text) {
@@ -700,6 +713,13 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 					if (opt.emptynewline !== false && !lines[i - 1])
 						builder.push('<br />');
 
+					if (table) {
+						table = null;
+						if (opt.tables !== false)
+							builder.push('</tbody></table>');
+					}
+
+					closeul();
 					builder.push('');
 					continue;
 				}

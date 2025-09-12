@@ -1,4 +1,4 @@
-COMPONENT('title', 'separator:-', function(self, config) {
+COMPONENT('title', 'separator:-;plus:1', function(self, config) {
 
 	self.singleton();
 	self.readonly();
@@ -14,7 +14,8 @@ COMPONENT('title', 'separator:-', function(self, config) {
 	self.rename = function(text) {
 		if (!text)
 			text = config.empty;
-		document.title = (text ? (text + ' ' + config.separator + ' ') : '') + config.name;
+		let tmp = config.plus ? ((text ? (text + ' ' + config.separator + ' ') : '') + config.name) : text;
+		document.title = tmp;
 	};
 
 });

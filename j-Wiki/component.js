@@ -54,6 +54,13 @@ COMPONENT('wiki', 'title:Wiki;margin:20;width:400', function(self, config, cls) 
 	};
 
 	self.rebind = function(path, value) {
+
+		if (M.is20) {
+			let tmp = value;
+			value = path;
+			path = value;
+		}
+
 		var builder = [];
 		var template = '<div class="{0}-topic"><label data-index="{1}"><i class="ti"></i>{2}</label><div class="{0}-topic-body"></div></div>';
 		for (var i = 0; i < (value || EMPTYARRAY).length; i++)
@@ -77,4 +84,7 @@ COMPONENT('wiki', 'title:Wiki;margin:20;width:400', function(self, config, cls) 
 		}
 	};
 
-}, ['https://cdn.componentator.com/highlight.min@914.js', 'https://cdn.componentator.com/apexcharts.min@310.js']);
+}, [function(next) {
+	let cdn = (DEF.cdn || 'https://cdn.componentator.com');
+	IMPORT(cdn + '/highlight.min@914.js', () => IMPORT(cdn + '/apexcharts.min@310.js', next));
+}]);

@@ -65,14 +65,14 @@ COMPONENT('upload', function(self) {
 		UPLOAD(self.opt.url, data, function(response, err) {
 
 			el.value = '';
-			SETTER('loading', 'hide', 1000);
+			SETTER('loading/hide', 1000);
 
 			if (err) {
 
 				if (self.opt.error)
 					self.opt.error(err);
 				else
-					SETTER('snackbar', 'warning', err.toString());
+					SETTER('snackbar/warning', err.toString());
 
 			} else {
 

@@ -190,4 +190,7 @@ COMPONENT('uistudio', 'css:1;loading:1;inputdelay:20;title:false;flowoutput:flow
 		}
 	};
 
-}, ['<UIBuilder> https://cdn.componentator.com/uibuilder.min@1.js']);
+}, [function(next) {
+	let cdn = (DEF.cdn || 'https://cdn.componentator.com');
+	IMPORT('<UIBuilder> {0}/uibuilder.min@1.js'.format(cdn), next);
+}]);

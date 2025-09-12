@@ -1,0 +1,15 @@
+{
+	"datecreated": "2025-07-30T13:55:10.000Z",
+	"dateupdated": "2025-08-13T14:00:00.001Z",
+	"name": "j-ServerList",
+	"jcomponent": "19|20",
+	"darkmode": false,
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

@@ -7,9 +7,9 @@ Great component for inline Wiki/Documentation.
 
 __Configuration__:
 
-- `title` {String} a title (default: `Wiki`)
-- `datasource` {String} a path to data-source (learn from example)
-- `width` {Number} a default width (default: `400`)
+- `title {String}` a title (default: `Wiki`)
+- `datasource {String}`` a path to data-source (learn from example)
+- `width {Number}` a default width (default: `400`)
 
 ### Author
 

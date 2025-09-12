@@ -1,0 +1,14 @@
+{
+	"datecreated": "2025-05-01T10:39:00.000Z",
+	"dateupdated": null,
+	"name": "j-EAN13",
+	"jcomponent": "19|20",
+	"color": "transparent",
+	"version": 1,
+	"responsive": true,
+	"picture": "picture.png",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}

@@ -1387,6 +1387,7 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 		}
 
 		cols.quicksort('index');
+		opt.filter = {};
 		opt.cols = cols;
 		self.rebindcss();
 		prerender && self.rendercols();
@@ -1415,7 +1416,8 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 			}
 		}
 
-		CSS(css, self.ID);
+		// v20 STYLE(), v19 CSS()
+		(W.STYLE?W.STYLE:W.CSS)(css, self.ID);
 
 		var w = self.element.width();
 		if (w > opt.width)
@@ -2177,10 +2179,9 @@ COMPONENT('datagrid', 'checkbox:true;colwidth:150;schema:default;rowheight:30;mi
 	var REG_SPACE = /\s/g;
 
 	self.filter = function(row) {
-		var keys = Object.keys(opt.filter);
-		for (var i = 0; i < keys.length; i++) {
+		for (let key in opt.filter) {
 
-			var column = keys[i];
+			var column = key;
 			var filter = opt.filter[column];
 			var val2 = opt.filtercache[column];
 			var val = row['$' + column] || row[column];

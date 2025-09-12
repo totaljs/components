@@ -509,7 +509,8 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 		var tmp = builder.join('');
 		if (tmp !== oldcss) {
 			oldcss = tmp;
-			CSS(tmp, self.ID);
+			// v20 STYLE(), v19 CSS()
+			(W.STYLE?W.STYLE:W.CSS)(tmp, self.ID);
 		}
 	};
 
@@ -1016,7 +1017,10 @@ COMPONENT('paper', 'readonly:0;margin:0;widgets:https://cdn.componentator.com/pa
 				widgets.push(w);
 			}
 			cache.widgets = widgets;
-			CSS(css.join('\n'), 'paper');
+
+			// v20 STYLE(), v19 CSS()
+			(W.STYLE?W.STYLE:W.CSS)(css.join('\n'), 'paper');
+
 			UPD('papercache');
 		}
 	};

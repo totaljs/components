@@ -33,7 +33,8 @@ COMPONENT('faicons', 'search:Search;scrollbarshadow:0', function(self, config, c
 
 		empty && builder.push(template.format('', ''));
 
-		AJAX('GET https://cdn.componentator.com/icons-db.html', function(response) {
+		let cdn = (DEF.cdn || 'https://cdn.componentator.com');
+		AJAX('GET {0}/icons-db.html'.format(cdn), function(response) {
 
 			response = response.split(',');
 

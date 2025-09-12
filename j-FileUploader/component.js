@@ -33,6 +33,7 @@ COMPONENT('fileuploader', function(self, config) {
 		// opt.base64 {String}
 		// opt.filename {String}
 		// opt.quality {Number}
+		// opt.disproportionate {Boolean}
 
 		self.opt = opt;
 		self.opt.fd = new FormData();
@@ -62,10 +63,16 @@ COMPONENT('fileuploader', function(self, config) {
 			for (var i = 0; i < files.length; i++)
 				queue.push(files[i]);
 			queue.wait(function(item, next) {
-				self.processimage(item, function(filename, blob) {
-					self.opt.fd.append((self.opt.prefix || 'file{0}').format(self.opt.indexer++), blob, filename);
+				if (item.type.substring(0, 6) === 'image/') {
+					self.processimage(item, function(filename, blob) {
+						self.opt.fd.append((self.opt.prefix || 'file{0}').format(self.opt.indexer++), blob, filename);
+						next();
+					});
+				} else {
+					self.opt.fd.append((self.opt.prefix || 'file{0}').format(self.opt.indexer++), item, item.name);
 					next();
-				});
+				}
+
 			}, () => self.uploadfiles(null, callback));
 		} else
 			self.uploadfiles(files, callback);
@@ -181,33 +188,49 @@ COMPONENT('fileuploader', function(self, config) {
 		if (image.width > opt.width || image.height > opt.height) {
 			if (image.width > image.height) {
 
-				w = resizewidth(image.width, image.height, opt.height);
-				h = opt.height;
-
-				if (w < opt.width) {
+				if (opt.disproportionate) {
 					w = opt.width;
-					h = resizeheight(image.width, image.height, opt.width);
-				}
+					h = resizeheight(image.width, image.height, w);
+					canvas.width = w;
+					canvas.height = h;
+				} else {
 
-				if (w > opt.width) {
-					diff = w - opt.width;
-					x -= (diff / 2) >> 0;
+					w = resizewidth(image.width, image.height, opt.height);
+					h = opt.height;
+
+					if (w < opt.width) {
+						w = opt.width;
+						h = resizeheight(image.width, image.height, opt.width);
+					}
+
+					if (w > opt.width) {
+						diff = w - opt.width;
+						x -= (diff / 2) >> 0;
+					}
 				}
 
 				is = true;
 			} else if (image.height > image.width) {
 
-				w = opt.width;
-				h = resizeheight(image.width, image.height, opt.width);
-
-				if (h < opt.height) {
+				if (opt.disproportionate) {
 					h = opt.height;
-					w = resizewidth(image.width, image.height, opt.height);
-				}
+					w = resizewidth(image.width, image.height, h);
+					canvas.width = w;
+					canvas.height = h;
+				} else {
 
-				if (h > opt.height) {
-					diff = h - opt.height;
-					y -= (diff / 2) >> 0;
+					w = opt.width;
+					h = resizeheight(image.width, image.height, opt.width);
+
+					if (h < opt.height) {
+						h = opt.height;
+						w = resizewidth(image.width, image.height, opt.height);
+					}
+
+					if (h > opt.height) {
+						diff = h - opt.height;
+						y -= (diff / 2) >> 0;
+					}
 				}
 
 				is = true;
@@ -215,6 +238,12 @@ COMPONENT('fileuploader', function(self, config) {
 		}
 
 		if (!is) {
+
+			if (opt.disproportionate) {
+				canvas.width = w = opt.width = image.width;
+				canvas.height = h = opt.height = image.height;
+			}
+
 			if (image.width < opt.width && image.height < opt.height) {
 				w = image.width;
 				h = image.height;

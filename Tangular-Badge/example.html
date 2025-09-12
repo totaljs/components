@@ -1,0 +1,13 @@
+<style>
+	.badge { font-size: 12px; padding: 4px 6px; border-radius: var(--radius); background-color: var(--color); line-height: 12px; vertical-align: middle; position: relative; display: inline-block; color: #FFF; }
+	.badge i { margin-right: 3px; }
+	.badge-small { font-size: 10px; padding: 0px 3px 1px; }
+	.badge-medium { font-size: 11px; padding: 2px 6px; }
+	.badge-medium i { margin-right: 5px; }
+</style>
+
+<div id="output"></div>
+
+<script>
+	$('#output').html(Thelpers.badge('Avengers') + Thelpers.badge('jComponent') + Thelpers.badge('Total.js'));
+</script>

@@ -1,0 +1,25 @@
+.ui-console2 { position: fixed; left: 0; right: 0; bottom: 0; z-index: 32; border: 5px solid rgba(100,100,100,0.1); border-bottom: 0; display: none; }
+.ui-console2-visible { display: block; }
+.ui-console2-tabs { height: 26px; padding: 0; background-color: rgba(230,230,230,0.8); border-radius: var(--radius) var(--radius) 0 0; }
+.ui-console2-tabs div > span { float: left; min-width: 24px; height: 26px; line-height: 26px; text-align: center; background-color: #FFF; color: #000; font-size: 12px; padding: 0 7px; }
+.ui-console2-tabs span i { margin-right: 5px; }
+.ui-console2-tabs > div span:first-child { border-radius: var(--radius) 0 0 0; }
+.ui-console2-tabs > div { float: left; }
+.ui-console2-tabs > span { cursor: pointer; font-size: 12px; }
+.ui-console2-output { background-color: #FFF; overflow: auto; overflow-scrolling: touch; }
+.ui-console2-tabs > .ui-console2-close { color: red !important; float: right; border-right: 0; margin: 2px 0 0 3px; height: 20px; line-height: 20px; padding: 0 5px; background: transparent; }
+.ui-console2-tabs > .ui-console2-clear { color: #777; float: right; border-right: 0; border-right: 1px solid #D0D0D0; margin: 2px 0 0 3px; height: 20px; line-height: 20px; padding: 0 5px; background: transparent; }
+.ui-console2-message { height: 28px; font-size: 12px; border-bottom: 1px solid #F0F0F0; line-height: 28px; padding: 0 5px 0 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-right: 30px; }
+.ui-console2-message i { width: 12px; margin-right: 7px; text-align: center; }
+.ui-console2-error { color: #E73323; }
+.ui-console2-warning { color: #E8A826; }
+.ui-console2-success { color: #8CC152; }
+.ui-console2-info { color: #3BAFDA; }
+.ui-console2-body { overflow: hidden; }
+
+.ui-dark .ui-console2 { border: 5px solid rgba(0,0,0,0.8); }
+.ui-dark .ui-console2-tabs { background-color: rgba(0,0,0,0.8); }
+.ui-dark .ui-console2-output { background-color: #222; }
+.ui-dark .ui-console2-tabs > .ui-console2-clear { color: #888; border-right: 1px solid #202020; }
+.ui-dark .ui-console2-message { border-bottom-color: #303030; }
+.ui-dark .ui-console2-tabs > div span {  background-color: #222; color: #FFF !important; }

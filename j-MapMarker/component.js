@@ -223,13 +223,8 @@ COMPONENT('mapmarker', 'parent:auto;type:roadmap;draggable:false;markerwidth:40;
 			}
 		};
 
-		opt.setVisible = function(value) {
-			opt.marker.setVisible(value);
-		};
-
-		opt.onclick && google.maps.event.addListener(marker, 'click', function() {
-			opt.onclick(opt);
-		});
+		opt.setVisible = value => opt.marker.setVisible(value);
+		opt.onclick && google.maps.event.addListener(marker, 'click', () => opt.onclick(opt));
 
 		opt.callback && opt.callback(opt);
 
@@ -239,4 +234,7 @@ COMPONENT('mapmarker', 'parent:auto;type:roadmap;draggable:false;markerwidth:40;
 		}, 500, null, pos);
 	};
 
-}, ['https://cdn.componentator.com/markerwithlabel.min@123.js', 'https://cdn.componentator.com/markerclusterer.min@365.js']);
+}, [function(next) {
+	let cdn = (DEF.cdn || 'https://cdn.componentator.com');
+	IMPORT(cdn + '/markerwithlabel.min@123.js', () => IMPORT(cdn + '/markerclusterer.min@365.js', next));
+}]);

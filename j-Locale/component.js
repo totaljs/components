@@ -987,8 +987,12 @@ COMPONENT('locale', function(self, config) {
 		if (!df)
 			return false;
 
-		if (config.requests)
-			DEF.languagehtml = language;
+		if (config.requests) {
+			if (M.is20)
+				DEF.language = language;
+			else
+				DEF.languagehtml = language;
+		}
 
 		DEF.dateformat = df;
 		DEF.timeformat = tf === 12 ? '!HH:mm a' : 'HH:mm';

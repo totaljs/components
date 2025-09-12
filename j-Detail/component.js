@@ -42,8 +42,12 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 
 	self.nocompile();
 
+	self.readvalue = function(path, value) {
+		return M.is20 ? M.get(value, path) : GET(path, value);
+	};
+
 	self.mapvalue = function(item, raw) {
-		var val = item.path ? item.path.indexOf('.') === -1 ? item.value[item.path] : GET(item.path, item.value) : item.value;
+		var val = item.path ? item.path.indexOf('.') === -1 ? item.value[item.path] : self.readvalue(item.path, item.value) : item.value;
 		return raw ? val : (val === false || val === true ? val : val == null || val === '' ? (item.empty || DEF.empty) : val);
 	};
 

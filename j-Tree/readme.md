@@ -17,8 +17,10 @@ __Configuration__:
 - `unselectexpand {Boolean}` optional, can `unselect` selected item when the user clicks on the expandable item (default: `false`)
 - `reselect {Boolean}` optional, evaluates `exec` again if the tree is refreshed (default: `false`)
 - `selectexpand {Boolean}` optional, enables adding `selected` class to expandable items (default: `false`)
-- __NEW__ `iconoptions {String}` icon to options (default: `ti ti-ellipsis-h`)
-- __NEW__ `expanded {Boolean}` expands all children (default: `false`)
+- `iconoptions {String}` icon to options (default: `ti ti-ellipsis-h`)
+- `expanded {Boolean}` expands all children (default: `false`)
+- __NEW__: `contextmenu {String}` optional, a path to `function(item, el)` enables mouse contextmenu
+- __NEW__: `key {String}` a value can be used as `index` in below methods (default: `path`)
 
 __Data structure__:
 

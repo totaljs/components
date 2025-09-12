@@ -88,7 +88,10 @@ COMPONENT('avatar', function(self) {
 		builder.push('width:{0}px;height:{0}px;'.format(options.size));
 		options.radius && builder.push('border-radius:{0}px'.format(options.radius));
 		css += '\n' + name + ' img{' + builder.join(';') + '}';
-		CSS(css, 'avatar-' + id);
+
+		// v20 STYLE(), v19 CSS()
+		(W.STYLE?W.STYLE:W.CSS)(css, 'avatar-' + id);
+
 		setTimeout2(self.id + 'rebind', self.rebind, 100, 5);
 	};
 

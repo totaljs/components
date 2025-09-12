@@ -23,7 +23,7 @@ __Configuration__:
 - __NEW__ `onpause {String}` a path to method `fn(path, is)`, it's executed when the output/input is paused
 - `steplines {Boolean}` enables step lines (default: `false`)
 - `animationradius {Number}` animation radius in pixels (default: `5`)
-- `contextmenu {String}` a path to `function(e, type, component/meta)` (type can be `map`, `component` or `connection`)
+- `contextmenu {String}` a path to `function(e, type, component/meta)` (type can be `map`, `component`, `connection`, `group`)
 - `dblclick {String}` a path to `function(component)`
 - `outputoffsetX {Number}` a default X offset for output point (default: `10`)
 - `outputoffsetY {Number}` a default Y offset for output point (default: `12`)

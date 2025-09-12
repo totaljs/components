@@ -9,4 +9,7 @@ COMPONENT('highlightsyntax', function(self, config) {
 		} else
 			self.tclass('hidden', true);
 	};
-}, ['//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/styles/github.min.css', '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/highlight.min.js']);
+}, [function(next) {
+	let cdn = (DEF.cdn || 'https://cdn.componentator.com');
+	IMPORT(cdn + '/highlight.min@1020.css', () => IMPORT(cdn + '/highlight.min@1020.js', next));
+}]);

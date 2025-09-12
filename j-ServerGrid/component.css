@@ -24,7 +24,7 @@
 .ui-servergrid-th:first-child, .ui-servergrid-td:first-child { border-left: 0 }
 .ui-servergrid-th { background: #F4F4F4; position: relative; }
 .ui-servergrid-th > div i { margin-right: 5px; color: #999; }
-.ui-servergrid-row:hover { background: #F8F8F8; }
+.ui-servergrid-rows .ui-servergrid-row:hover { background: #F8F8F8; }
 .ui-servergrid-row.selected .ui-servergrid-number { visibility: visible; }
 .ui-servergrid-container { overflow: scroll; -ms-overflow-style: none; scrollbar-width: none; }
 .ui-servergrid-rows::-webkit-scrollbar { display: none; }
@@ -37,7 +37,7 @@
 .ui-servergrid-checkbox .ui-servergrid-number:hover span { display: none; }
 .ui-servergrid-row.selected em i { visibility: visible !important; }
 .ui-servergrid-row.selected em { display: block; color: var(--color); border-color: var(--color); }
-.ui-servergrid-row.selected span { display: none; }
+.ui-servergrid-row.selected .ui-servergrid-number span { display: none; }
 .ui-servergrid-th-number { width: 40px; justify-content: center; text-align: center; }
 .ui-servergrid-th-number i { margin-right: 0 !important; color: #000; }
 .ui-servergrid-sort { cursor: pointer; }
