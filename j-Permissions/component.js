@@ -57,15 +57,16 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 		let cache = {};
 
 		for (let m of items) {
-			let arr = m.split('|');
-			if (cache[arr[1]])
-				cache[arr[1]].push(arr[0]);
+			let op = m.substring(0, 1);
+			let who = m.substring(1);
+			if (cache[who])
+				cache[who].push(op);
 			else
-				cache[arr[1]] = [arr[0]];
+				cache[who] = [op];
 		}
 
 		for (let key in cache) {
-			// arr[0]; Permission
+			// arr[0]; operation (single character only)
 			// arr[1]; who
 			let name = dirsource.findValue('id', key, 'name');
 			if (name)
@@ -80,23 +81,31 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 				items.splice(items.indexOf(m), 1);
 		}
 
-		tbody.html(builder.join(''));
+		if (items.length)
+			tbody.html(builder.join(''));
+		else
+			config.empty && tbody.append('<tr><td class="{0}-empty"><i class="ti ti-database"></i>{1}</td></tr>'.format(cls, config.empty));
+
 	};
 
 	self.recompile = function() {
-		var builder = ['<tr data-id="{{ id }}"><td class="{0}-text"><i class="ti ti-trash {0}-remove red"></i>{{ name | raw }}</td>'];
-		for (let type of types)
-			builder.push('<td class="{0}-type{{ if value.includes(\'{1}\') }} {0}-checked{{ fi }}" data-type="{1}"><i class="ti"></i>{2}</td>'.format(cls, type.id, type.name));
-		builder.push('</tr>');
+		var builder = ['<div class="{0}-row" data-id="{{ id }}">'];
+		builder.push('<div class="{0}-cell {0}-text"><i class="ti ti-trash {0}-remove red"></i>{{ name | raw }}</div>');
+		for (let type of types) {
+			builder.push('<div class="{0}-cell {0}-type{{ if value.includes(\'{1}\') }} {0}-checked{{ fi }}" data-type="{1}"><i class="ti"></i><span>{2}</span></div>'.format(cls, type.id, type.name));
+		}
+		builder.push('</div>');
 		self.template = Tangular.compile(builder.join('').format(cls));
+
+		self.find('.' + cls + '-container').css('--permissions-cols', types.length);
 	};
 
 	self.make = function() {
 
 		self.aclass(cls);
 		config.disabled && self.aclass(cls + '-disabled');
-		self.html('<div class="{0}-header"><i class="ti ti-plus-circle green"></i><span>{1}</span></div><div class="{0}-container invisible"><table><tbody></tbody></table></div>'.format(cls, self.html()));
-		tbody = self.find('tbody');
+		self.html('<div class="{0}-header"><i class="ti ti-plus-circle green"></i><span>{1}</span></div><div class="{0}-container invisible"></div>'.format(cls, self.html()));
+		tbody = self.find('.' + cls + '-container');
 
 		self.event('click', cls2 + '-header', function() {
 
@@ -107,8 +116,10 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 			let opt = {};
 			let used = {};
 
-			for (let m of items)
-				used[m.split('|')[1]] = 1;
+			for (let m of items) {
+				let id = m.substring(1);
+				used[id] = 1;
+			}
 
 			opt.raw = !!config.dirraw;
 			opt.element = $(this);
@@ -120,8 +131,9 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 
 			opt.callback = function(selected) {
 				if (!used[selected.id]) {
-					items.push(types[0].id + '|' + selected.id);
+					items.push(types[0].id + selected.id);
 					self.bind('@modified @touched @setter', items);
+					config.exec && self.EXEC(config.exec, items);
 				}
 			};
 
@@ -153,8 +165,7 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 			let rem = [];
 
 			for (let item of items) {
-				let arr = item.split('|');
-				if (arr[1] === id)
+				if (item.substring(1) === id)
 					rem.push(item);
 			}
 
@@ -162,9 +173,10 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 				items.splice(items.indexOf(item), 1);
 
 			for (let type of types)
-				items.push(type + '|' + id);
+				items.push(type + id);
 
 			self.bind('@modified @touched', items);
+			config.exec && self.EXEC(config.exec, items);
 
 		});
 
@@ -172,10 +184,11 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 			if (config.disabled)
 				return;
 			var el = $(this);
-			var index = +el.closest('tr').attrd('index');
+			var id = el.closest('tr').attrd('id');
 			var items = self.get();
-			items.splice(index, 1);
+			items = items.remove(n => n.substring(1) === id);
 			self.bind('@modified @touched @setter', items);
+			config.exec && self.EXEC(config.exec, items);
 		});
 	};
 
