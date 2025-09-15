@@ -89,23 +89,19 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 	};
 
 	self.recompile = function() {
-		var builder = ['<div class="{0}-row" data-id="{{ id }}">'];
-		builder.push('<div class="{0}-cell {0}-text"><i class="ti ti-trash {0}-remove red"></i>{{ name | raw }}</div>');
-		for (let type of types) {
-			builder.push('<div class="{0}-cell {0}-type{{ if value.includes(\'{1}\') }} {0}-checked{{ fi }}" data-type="{1}"><i class="ti"></i><span>{2}</span></div>'.format(cls, type.id, type.name));
-		}
-		builder.push('</div>');
+		var builder = ['<tr data-id="{{ id }}"><td class="{0}-text"><i class="ti ti-trash {0}-remove red"></i>{{ name | raw }}</td>'];
+		for (let type of types)
+			builder.push('<td class="{0}-type{{ if value.includes(\'{1}\') }} {0}-checked{{ fi }}" data-type="{1}"><i class="ti"></i>{2}</td>'.format(cls, type.id, type.name));
+		builder.push('</tr>');
 		self.template = Tangular.compile(builder.join('').format(cls));
-
-		self.find('.' + cls + '-container').css('--permissions-cols', types.length);
 	};
 
 	self.make = function() {
 
 		self.aclass(cls);
 		config.disabled && self.aclass(cls + '-disabled');
-		self.html('<div class="{0}-header"><i class="ti ti-plus-circle green"></i><span>{1}</span></div><div class="{0}-container invisible"></div>'.format(cls, self.html()));
-		tbody = self.find('.' + cls + '-container');
+		self.html('<div class="{0}-header"><i class="ti ti-plus-circle green"></i><span>{1}</span></div><div class="{0}-container invisible"><table><tbody></tbody></table></div>'.format(cls, self.html()));
+		tbody = self.find('tbody');
 
 		self.event('click', cls2 + '-header', function() {
 
