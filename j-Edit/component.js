@@ -83,6 +83,10 @@ COMPONENT('edit', 'dateformat:yyyy-MM-dd;padding:10;floating:0', function(self, 
 
 		var parent = el[0];
 		for (var i = 0; i < 12; i++) {
+
+			if (!parent || !parent.parentNode)
+				return;
+
 			parent = parent.parentNode;
 			if (parent === document.body)
 				break;
