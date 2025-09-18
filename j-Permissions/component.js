@@ -94,7 +94,6 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 		self.template = Tangular.compile(builder.join('').format(cls));
 
 		self.find('.' + cls + '-container').css('--permissions-cols', types.length);
-
 		self.header = '<div class="{0}-headerrow">'.format(cls);
 		self.header += '<div class="{0}-cell {0}-headercell"><button class="{0}-headerbutton"><i class="ti ti-plus-circle mr5"></i>{1}</button></div>'.format(cls, config.label || 'Add');
 		
