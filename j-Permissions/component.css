@@ -1,6 +1,6 @@
 .ui-permissions-container { display: grid; grid-template-columns: 1fr repeat(var(--permissions-cols, 4), max-content); border: 1px solid #E0E0E0; border-radius: var(--radius); width: 100%; }
 .ui-permissions-row { display: contents; }
-.ui-permissions-cell { padding: 5px 5px; border-top: 1px solid #E0E0E0; border-left: 1px solid #e0e0e0; }
+.ui-permissions-cell { padding: 8px; border-top: 1px solid #E0E0E0; border-left: 1px solid #e0e0e0; }
 .ui-permissions-row:first-of-type .ui-permissions-cell { border-top: 0; }
 .ui-permissions-row .ui-permissions-cell:first-child { border-left: 0; }
 .ui-permissions-headerrow { display: contents; }
@@ -10,10 +10,10 @@
 .ui-permissions-headercell { background: #f0f0f0; font-size: 11px; border-top: 0; color: #909090; width: 70px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; line-height: 24px; }
 .ui-permissions-headerrow .ui-permissions-headercell:first-child { justify-content: flex-start; border-radius: var(--radius) 0 0 0; border-left: 0; width: 100%; text-align: left; }
 .ui-permissions-headerrow .ui-permissions-headercell:last-child { border-radius: 0 var(--radius) 0 0; }
-.ui-permissions-text { justify-content: flex-start; font-size: 13px; }
+.ui-permissions-text { display: flex; align-items: center; justify-content: flex-start; font-size: 13px; }
 .ui-permissions-remove { margin-right: 8px; margin-bottom: 1px; cursor: pointer; }
 .ui-permissions-type { cursor: pointer; color: #999; font-size: 10px; display: flex; align-items: center; justify-content: center; width: 70px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ui-permissions-type i { width: 20px; height: 20px; line-height: 20px; font-size: 13px; text-align: center; border: 1px solid #d0d0d0; border-radius: 4px; background: #fff; }
+.ui-permissions-type i { width: 20px; height: 20px; line-height: 20px; font-size: 13px; text-align: center; border: 1px solid #d0d0d0; border-radius: 4px; background: #fff; transform: scale(1) !important; }
 .ui-permissions-type i:before { content: ''; }
 .ui-permissions-type.ui-permissions-checked i:before { content: '\e956'; }
 .ui-permissions-checked { color: #000; }
