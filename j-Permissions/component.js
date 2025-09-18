@@ -1,12 +1,11 @@
-COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:1;autoexclude:1', function(self, config, cls) {
+COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:1;autoexclude:1;label:Add', function (self, config, cls) {
 
 	var cls2 = '.' + cls;
-	var skip = false;
 	var dirsource = EMPTYARRAY;
 	var types = EMPTYARRAY;
 	var tbody;
 
-	self.configure = function(key, value) {
+	self.configure = function (key, value, cls) {
 		switch (key) {
 			case 'types':
 				types = value.split(',');
@@ -16,16 +15,13 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 				}
 				self.recompile();
 				break;
-			case 'disabled':
-				self.tclass(cls + '-disabled', value);
-				break;
 			case 'dirsource':
 				if (value) {
 					if (value.includes(',')) {
 						dirsource = value.parseSource();
 						self.redraw();
 					} else {
-						self.datasource(value, function(value, path) {
+						self.datasource(value, function (value, path) {
 							dirsource = CLONE(M.is20 ? value : path);
 							self.redraw();
 						});
@@ -35,20 +31,21 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 		}
 	};
 
-	self.redraw = function() {
+	self.redraw = function () {
 		setTimeout2(self.ID, self.redrawforce, 50);
 	};
 
-	self.redrawforce = function() {
+	self.redrawforce = function () {
 
 		if (!dirsource)
 			return;
 
 		let items = self.get();
 		tbody.empty();
+		tbody.append(self.header);
 
 		if (!items || !items.length) {
-			config.empty && tbody.append('<tr><td class="{0}-empty"><i class="ti ti-database"></i>{1}</td></tr>'.format(cls, config.empty));
+			config.empty && tbody.append('<div class="{0}-row"><div class="{0}-cell {0}-empty" style="grid-column:1 / span {1}"><i class="ti ti-database"></i>{2}</div></div>'.format(cls, types.length + 1, config.empty));
 			return;
 		}
 
@@ -59,6 +56,7 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 		for (let m of items) {
 			let op = m.substring(0, 1);
 			let who = m.substring(1);
+			
 			if (cache[who])
 				cache[who].push(op);
 			else
@@ -66,14 +64,11 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 		}
 
 		for (let key in cache) {
-			// arr[0]; operation (single character only)
-			// arr[1]; who
 			let name = dirsource.findValue('id', key, 'name');
 			if (name)
 				builder.push(self.template({ id: key, name: name, value: cache[key] }));
 			else if (config.autoremove)
 				remove.push(key);
-
 		}
 
 		if (remove.length) {
@@ -82,32 +77,70 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 		}
 
 		if (items.length)
-			tbody.html(builder.join(''));
+			tbody.append(builder.join(''));
 		else
-			config.empty && tbody.append('<tr><td class="{0}-empty"><i class="ti ti-database"></i>{1}</td></tr>'.format(cls, config.empty));
-
+			config.empty && tbody.append('<div class="{0}-row"><div class="{0}-cell {0}-empty" style="grid-column:1 / span {1}"><i class="ti ti-database"></i>{2}</div></div>'.format(cls, types.length + 1, config.empty));
 	};
 
-	self.recompile = function() {
+	self.recompile = function () {
 		var builder = ['<div class="{0}-row" data-id="{{ id }}">'];
 		builder.push('<div class="{0}-cell {0}-text"><i class="ti ti-trash {0}-remove red"></i>{{ name | raw }}</div>');
+		
 		for (let type of types) {
-			builder.push('<div class="{0}-cell {0}-type{{ if value.includes(\'{1}\') }} {0}-checked{{ fi }}" data-type="{1}"><i class="ti"></i><span>{2}</span></div>'.format(cls, type.id, type.name));
+			builder.push('<div class="{0}-cell {0}-type{{ if value.includes(\'{1}\') }} {0}-checked{{ fi }}" data-type="{1}"><i class="ti"></i></div>'.format(cls, type.id));
 		}
+
 		builder.push('</div>');
 		self.template = Tangular.compile(builder.join('').format(cls));
 
 		self.find('.' + cls + '-container').css('--permissions-cols', types.length);
+
+		self.header = '<div class="{0}-headerrow">'.format(cls);
+		self.header += '<div class="{0}-cell {0}-headercell"><button class="{0}-headerbutton"><i class="ti ti-plus-circle mr5"></i>{1}</button></div>'.format(cls, config.label || 'Add');
+		
+		for (let type of types) {
+			self.header += '<div class="{0}-cell {0}-headercell" title="{1}">{1}</div>'.format(cls, type.name);
+		}
+
+		self.header += '</div>';
 	};
 
-	self.make = function() {
-
+	self.make = function () {
 		self.aclass(cls);
-		config.disabled && self.aclass(cls + '-disabled');
-		self.html('<div class="{0}-header"><i class="ti ti-plus-circle green"></i><span>{1}</span></div><div class="{0}-container invisible"></div>'.format(cls, self.html()));
+
+		self.html('<div class="{0}-container invisible"></div>'.format(cls));
 		tbody = self.find('.' + cls + '-container');
 
-		self.event('click', cls2 + '-header', function() {
+		self.event('click', cls2 + '-type', function () {
+
+			if (config.disabled)
+				return;
+
+			let el = $(this);
+			let row = el.closest(cls2 + '-row');
+
+			el.tclass(cls + '-checked');
+
+			let id = row.attrd('id');
+			let items = self.get() || [];
+			let typesel = [];
+
+			row.find('.' + cls + '-checked').each(function () {
+				let checked = $(this);
+				let type = checked.attrd('type');
+				typesel.push(type);
+			});
+
+			items = items.remove(n => n.substring(1) === id);
+
+			for (let type of typesel)
+				items.push(type + id);
+
+			self.bind('@modified @touched', items);
+			config.exec && self.EXEC(config.exec, items);
+		});
+
+		self.event('click', cls2 + '-headerbutton', function() {
 
 			if (config.disabled)
 				return;
@@ -122,7 +155,7 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 			}
 
 			opt.raw = !!config.dirraw;
-			opt.element = $(this);
+			opt.element = $(this).closest('.' + cls + '-headercell');
 			opt.placeholder = config.placeholder;
 			opt.items = dirsource;
 
@@ -140,51 +173,12 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 			SETTER('directory/show', opt);
 		});
 
-		self.event('click', cls2 + '-type', function() {
-
+		self.event('click', cls2 + '-remove', function () {
 			if (config.disabled)
 				return;
-
-			let el = $(this);
-			let tr = el.closest('tr');
-			let is = false;
-
-			// tr.find(cls2 + '-checked').rclass(cls + '-checked');
-			el.tclass(cls + '-checked');
-
-			let id = ATTRD(el);
-			let items = self.get();
-			let types = [];
-
-			tr.find(cls2 + '-checked').each(function() {
-				let checked = $(this);
-				let type = ATTRD(checked, 'type');
-				types.push(type);
-			});
-
-			let rem = [];
-
-			for (let item of items) {
-				if (item.substring(1) === id)
-					rem.push(item);
-			}
-
-			for (let item of rem)
-				items.splice(items.indexOf(item), 1);
-
-			for (let type of types)
-				items.push(type + id);
-
-			self.bind('@modified @touched', items);
-			config.exec && self.EXEC(config.exec, items);
-
-		});
-
-		self.event('click', cls2 + '-remove', function(e) {
-			if (config.disabled)
-				return;
+			
 			var el = $(this);
-			var id = el.closest('tr').attrd('id');
+			var id = el.closest(cls2 + '-row').attrd('id');
 			var items = self.get();
 			items = items.remove(n => n.substring(1) === id);
 			self.bind('@modified @touched @setter', items);
@@ -192,9 +186,8 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 		});
 	};
 
-	self.setter = function(value) {
+	self.setter = function () {
 		self.redraw();
 		self.find(cls2 + '-container').rclass('invisible');
 	};
-
 });
