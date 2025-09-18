@@ -1,31 +1,38 @@
-.ui-permissions { font-size: 13px; }
-.ui-permissions-header { height: 30px; cursor: pointer; color: #777; font-size: 12px; }
-.ui-permissions-header:hover { color: #000; }
-.ui-permissions-header .green { float: right; width: 30px; line-height: 30px; text-align: right; transform: scale(1); font-size: 14px; }
-.ui-permissions-header span { margin: 0 30px 0 0; display: block; line-height: 30px; }
-.ui-permissions-header span:after { content: ':'; }
-.ui-permissions table { width: 100%; table-layout: fixed; font-size: 13px; }
-.ui-permissions tr { border-top: 1px solid #E0E0E0; }
-.ui-permissions td { border-left: 1px solid #E0E0E0; padding: 5px 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.ui-permissions tr:first-child { border-top: 0; }
-.ui-permissions td:first-child { border-left: 0; }
-.ui-permissions-remove { margin-right: 8px; cursor: pointer; }
-.ui-permissions-type { width: 60px; color: #A0A0A0; font-size: 10px; cursor: pointer; text-align: center; padding-left: 0 !important; padding-right: 0 !important; }
-.ui-permissions-type i { margin-right: 5px; margin-top: 1px; color: #E0E0E0; }
-.ui-permissions-type i:before { content: '\ea8c'; }
-.ui-permissions-checked { background-color: #FFFED5; color: #000; }
-.ui-permissions-checked i { color: #68B25B; }
-.ui-permissions-empty { color: #A0A0A0; padding: 10px 20px !important; text-align: center; }
-.ui-permissions-empty i { margin-right: 5px; }
-.ui-permissions-type.ui-permissions-checked i:before { content: '\e955'; }
-.ui-permissions-container { border: 1px solid #E0E0E0; border-radius: var(--radius); }
-.ui-permissions-disabled .green { display: none; }
-.ui-permissions-disabled .ui-permissions-header:hover { cursor: default; color: gray; }
-.ui-permissions-disabled .ui-permissions-type { cursor: not-allowed; }
-.ui-permissions-disabled .ti-times { display: none; }
-
+.ui-permissions-container { display: grid; grid-template-columns: 1fr repeat(var(--permissions-cols, 4), max-content); border: 1px solid #E0E0E0; border-radius: var(--radius); width: 100%; }
+.ui-permissions-row { display: contents; }
+.ui-permissions-cell { padding: 5px 5px; border-top: 1px solid #E0E0E0; border-left: 1px solid #e0e0e0; }
+.ui-permissions-row:first-of-type .ui-permissions-cell { border-top: 0; }
+.ui-permissions-row .ui-permissions-cell:first-child { border-left: 0; }
+.ui-permissions-headerrow { display: contents; }
+.ui-permissions-headerbutton { height: 22px; line-height: 21px; background-color: #fff; padding: 0 8px; color: #000; border: 1px solid #e0e0e0; border-radius: var(--radius); font-size: 11px; }
+.ui-permissions-headerbutton i { color: #68B25B; }
+.ui-permissions-headerbutton:hover { border-color: #d0d0d0; }
+.ui-permissions-headercell { background: #f0f0f0; font-size: 11px; border-top: 0; color: #909090; width: 70px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; line-height: 24px; }
+.ui-permissions-headerrow .ui-permissions-headercell:first-child { justify-content: flex-start; border-radius: var(--radius) 0 0 0; border-left: 0; width: 100%; text-align: left; }
+.ui-permissions-headerrow .ui-permissions-headercell:last-child { border-radius: 0 var(--radius) 0 0; }
+.ui-permissions-text { justify-content: flex-start; font-size: 13px; }
+.ui-permissions-remove { margin-right: 8px; margin-bottom: 1px; cursor: pointer; }
+.ui-permissions-type { cursor: pointer; color: #999; font-size: 10px; display: flex; align-items: center; justify-content: center; width: 70px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ui-permissions-type i { width: 20px; height: 20px; line-height: 20px; font-size: 13px; text-align: center; border: 1px solid #d0d0d0; border-radius: 4px; background: #fff; }
+.ui-permissions-type i:before { content: ''; }
+.ui-permissions-type.ui-permissions-checked i:before { content: '\e956'; }
+.ui-permissions-checked { color: #000; }
+.ui-permissions-checked i { color: inherit; }
+.ui-permissions-empty { color: #A0A0A0; font-size: 12px; padding: 10px; text-align: center; }
+.ui-permissions-empty i { margin-right: 5px; margin-bottom: 1px; }
+.ui-permissions.ui-disabled .ui-permissions-type { cursor: not-allowed; }
+.ui-permissions.ui-disabled .ui-permissions-type i { background-color: #f8f8f8; color: silver; }
+.ui-permissions.ui-disabled .ui-permissions-headerbutton { pointer-events: none; color: silver; background-color: #f8f8f8; }
+.ui-permissions.ui-disabled .ui-permissions-headerbutton i { color: silver !important; }
+.ui-permissions.ui-disabled .ui-permissions-text i { color: silver !important; cursor: not-allowed; }
 .ui-dark .ui-permissions-container { border-color: #404040; }
-.ui-dark .ui-permissions tr { border-color: #404040; background-color: #252525; }
-.ui-dark .ui-permissions td { border-color: #404040; }
+.ui-dark .ui-permissions .ui-permissions-cell { border-color: #404040; background-color: #252525; }
 .ui-dark .ui-permissions-checked { background-color: #313131; color: #FFF; }
-.ui-dark .ui-permissions-header:hover { color: #FFF; }
+.ui-dark .ui-permissions-headercell { background: #282828 !important; color: #FFF; }
+.ui-dark .ui-permissions-headerbutton { background-color: #202020; border-color: #333; color: #c0c0c0; }
+.ui-dark .ui-permissions-type i { border-color: #404040; background: #252525; }
+.ui-dark .ui-permissions-type.ui-permissions-checked i:before { color: #fff; }
+.ui-dark .ui-permissions.ui-disabled .ui-permissions-headerbutton { color: #666; border-color: #404040 !important; background-color: #303030; }
+.ui-dark .ui-permissions.ui-disabled .ui-permissions-headerbutton i { color: #666 !important; }
+.ui-dark .ui-permissions.ui-disabled .ui-permissions-type i { background-color: #282828; border-color: #303030; }
+.ui-dark .ui-permissions.ui-disabled .ui-permissions-type i:before { color: #999 !important; }
