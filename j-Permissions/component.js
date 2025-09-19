@@ -1,4 +1,4 @@
-COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:1;autoexclude:1;label:Add', function (self, config, cls) {
+COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:1;autoexclude:1;button:Add', function (self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var dirsource = EMPTYARRAY;
@@ -95,7 +95,7 @@ COMPONENT('permissions', 'placeholder:Search;types:C,R,U,D;default:R;autoremove:
 
 		self.find('.' + cls + '-container').css('--permissions-cols', types.length);
 		self.header = '<div class="{0}-headerrow">'.format(cls);
-		self.header += '<div class="{0}-cell {0}-headercell"><button class="{0}-headerbutton"><i class="ti ti-plus-circle mr5"></i>{1}</button></div>'.format(cls, config.label || 'Add');
+		self.header += '<div class="{0}-cell {0}-headercell"><button class="{0}-headerbutton"><i class="ti ti-plus-circle mr5"></i>{1}</button></div>'.format(cls, config.button);
 		
 		for (let type of types) {
 			self.header += '<div class="{0}-cell {0}-headercell" title="{1}">{1}</div>'.format(cls, type.name);
