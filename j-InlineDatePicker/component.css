@@ -6,6 +6,7 @@
 .ui-inlinedatepicker-now { float: left; color: #000; cursor: pointer; }
 .ui-inlinedatepicker-day-today div { background-color: #F0F0F0; font-weight: bold; }
 .ui-inlinedatepicker-selected div { background-color: var(--color); font-weight: bold; color: #FFF; }
+.ui-inlinedatepicker-highlighted div { border-color: var(--color) !important; }
 .ui-inlinedatepicker-date i { position: absolute; left: 12px; top: 25px; font-size: 12px; color: red; }
 .ui-inlinedatepicker-months > div { width: 61px; height: 78px; line-height: 76px; position: relative; display: inline-block; text-align: center; cursor: pointer; text-transform: uppercase; font-weight: bold; }
 .ui-inlinedatepicker-months > div > div { width: 50px; height: 50px; line-height: 46px; position: relative; display: inline-block; border-radius: 100%; border: 2px solid transparent; }
@@ -35,6 +36,7 @@
 .ui-dark .ui-inlinedatepicker-now { color: #FFF; }
 .ui-dark .ui-inlinedatepicker-day-today div { background-color: #353535; }
 .ui-dark .ui-inlinedatepicker-selected div { background-color: var(--color); color: #FFF; }
+.ui-dark .ui-inlinedatepicker-highlighted div { border-color: var(--color) !important; color: #FFF; }
 .ui-dark .ui-inlinedatepicker-date i { color: red; }
 .ui-dark .ui-inlinedatepicker-months > div:hover > div { border-color: var(--color); color: #FFF; }
 .ui-dark .ui-inlinedatepicker-years > div:hover > div { border-color: var(--color); color: #FFF; }

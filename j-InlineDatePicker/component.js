@@ -238,6 +238,9 @@ COMPONENT('inlinedatepicker', 'today:Set today;firstday:-1', function(self, conf
 			if (index) {
 				current.setMonth(+index);
 				self.date(current, true);
+
+				var dates = self.find(cls2 + '-date.' + cls + '-selected');
+				dates.rclass(cls + '-selected').aclass(cls + '-highlighted');
 			} else if (!elmonths.hclass(h))
 				index = 1;
 
@@ -265,6 +268,9 @@ COMPONENT('inlinedatepicker', 'today:Set today;firstday:-1', function(self, conf
 			if (year) {
 				current.setFullYear(+year);
 				self.date(current, true);
+
+				var dates = self.find(cls2 + '-date.' + cls + '-selected');
+				dates.rclass(cls + '-selected').aclass(cls + '-highlighted');
 			} else if (!elyears.hclass(h))
 				year = 1;
 
@@ -306,6 +312,9 @@ COMPONENT('inlinedatepicker', 'today:Set today;firstday:-1', function(self, conf
 			if (elyears.hclass('hidden')) {
 				current.setMonth(current.getMonth() + 1);
 				self.date(current, true);
+
+				var dates = self.find(cls2 + '-date.' + cls + '-selected');
+				dates.rclass(cls + '-selected').aclass(cls + '-highlighted');
 			} else {
 				current.setFullYear(current.getFullYear() + 25);
 				self.years();
@@ -320,6 +329,9 @@ COMPONENT('inlinedatepicker', 'today:Set today;firstday:-1', function(self, conf
 			if (elyears.hclass('hidden')) {
 				current.setMonth(current.getMonth() - 1);
 				self.date(current, true);
+
+				var dates = self.find(cls2 + '-date.' + cls + '-selected');
+				dates.rclass(cls + '-selected').aclass(cls + '-highlighted');
 			} else {
 				current.setFullYear(current.getFullYear() - 25);
 				self.years();
@@ -350,10 +362,8 @@ COMPONENT('inlinedatepicker', 'today:Set today;firstday:-1', function(self, conf
 
 		var empty = !value;
 
-		if (skipday) {
+		if (skipday)
 			skipday = false;
-			empty = true;
-		}
 
 		if (skip) {
 			skip = false;
