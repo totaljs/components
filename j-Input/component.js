@@ -618,7 +618,7 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					opt = {};
 					opt.element = self.element;
 					opt.value = self.get();
-					opt.time = config.type === 'datetime';
+					opt.clock = config.type === 'datetime';
 					opt.ampm = DEF.timeformat && DEF.timeformat.includes('a');
 					opt.callback = function(val) {
 						self.change(true);
