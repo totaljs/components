@@ -373,7 +373,8 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 			}
 		} else if (value) {
 
-			value = value.toSearch().split(' ');
+			value = self.opt.fuzzy != false ? value.toSearch().split(' ') : value.toLowerCase().split(' ');
+
 			var arr = container.find('li');
 
 			for (var i = 0; i < arr.length; i++) {
@@ -382,7 +383,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 				if (!val)
 					continue;
 
-				val = val.toSearch();
+				val = self.opt.fuzzy != false ? val.toSearch() : val.toLowerCase();
 				var is = false;
 
 				for (var j = 0; j < value.length; j++) {
