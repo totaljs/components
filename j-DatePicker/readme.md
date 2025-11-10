@@ -26,7 +26,7 @@ opt.value = new Date();
 // or opt.value = 'path.to.date'; --> then "opt.callback" is disabled
 // opt.align {String}      : align "left" (default), "center" or "right"
 // opt.position {String}   : position "top" (default) or "bottom"
-// NEW: opt.time {Boolean} : enables time (default: false)
+// NEW: opt.clock {Boolean} : enables time (default: false)
 // NEW: opt.ampm {Boolean} : enables AM/PM (default: false)
 
 opt.clear = false; // Removes "clear" button from datepicker. If this property is not specified as "false" - "clear" button will be shown
