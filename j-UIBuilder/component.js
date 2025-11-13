@@ -25,7 +25,9 @@ COMPONENT('uibuilder', 'css:1', function(self, config, cls) {
 			config.app && self.SEEX(config.app, null);
 		}
 
-		data.id = config.id || self.ID;
+		if (config.id)
+			data.id = config.id;
+
 		UIBuilder.build(self.element, data, function(response) {
 
 			if (!config.css)
