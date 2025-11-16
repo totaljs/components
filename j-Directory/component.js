@@ -93,7 +93,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 				skiphide = false;
 			}, 800);
 
-			if (self.opt.search === false)
+			if (self.opt && self.opt.search === false)
 				$(this).blur();
 		});
 
