@@ -34,6 +34,8 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 
 	var dirsourceread = function() {
 		var arr = GET(self.makepath(config.dirsource));
+		if(typeof arr === 'function')
+			self.EXEC(config.dirsource, null, (val) => { arr = val; });
 		return dirsourceprepare(arr);
 	};
 
