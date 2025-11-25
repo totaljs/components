@@ -20,7 +20,7 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 
 	Thelpers.ui_directory_helper = function(val) {
 		var t = this;
-		return self.opt.templatecompiled ? self.opt.templatecompiled(this) : t.template ? (typeof(t.template) === 'string' ? t.template.indexOf('{{') === -1 ? t.template : Tangular.render(t.template, this) : t.render(this, val)) : self.opt.render ? self.opt.render(this, val) : val;
+		return self.opt.templatecompiled ? self.opt.templatecompiled(this) : t.template ? (typeof(t.template) === 'string' ? t.template.includes('{{') ? Tangular.render(t.template, this) : t.template : t.render(this, val)) : self.opt.render ? self.opt.render(this, val) : val;
 	};
 
 	self.template = Tangular.compile(template);
@@ -336,11 +336,22 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 							if (self.opt.checked)
 								item.selected = self.opt.checked.indexOf(item.id) !== -1;
 
+							var c = '';
+
+							if (item.selected)
+								c += (c ? ' ' : 'selected current');
+
+							if (item.classname)
+								c += (c ? ' ' : item.classname);
+
+							if (item.disabled)
+								c += (c ? ' ' : 'ui-disabled');
+
+							indexer.classes = c;
 							indexer.index = i;
 							indexer.search = item[key] ? item[key].replace(regstrip, '') : '';
 							indexer.checkbox = self.opt.checkbox === true;
 							resultscount++;
-
 							builder.push(self.opt.ta(item, indexer));
 						}
 
