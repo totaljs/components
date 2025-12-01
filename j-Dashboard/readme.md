@@ -44,6 +44,7 @@ __Configuration__:
 	- `5` changing of X position
 	- `6` changing of Y position
 - `grid {Boolean}` renders background grid (default: `false`)
+- __NEW__: `reanimate {Boolean}` enables animation for changing widgets (default: `false`)
 
 ```js
 // Component declaration

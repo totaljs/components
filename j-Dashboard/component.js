@@ -632,7 +632,7 @@ COMPONENT('dashboard', 'grid:0;delay:700;axisX:12;axisY:144;padding:10;animation
 	};
 
 	var winit = function(el, obj, isinit) {
-		if (isinit && config.animation) {
+		if ((isinit || config.reanimate) && config.animation) {
 			var def = isMOBILE ? 40 : 100;
 			var delay = obj ? (def * (obj.offset.x + 1)) + (def * (obj.offset.y) + 1) : 10;
 			setTimeout(wanim, delay, el);
