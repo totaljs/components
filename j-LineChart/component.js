@@ -7,6 +7,7 @@ COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;
 	self.nocompile();
 
 	self.make = function() {
+
 		self.aclass(cls);
 		self.empty().append('<svg></svg>');
 		svg = self.find('svg');
@@ -76,9 +77,9 @@ COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;
 				break;
 			case 'width':
 			case 'height':
-				setTimeout2(self._id, () => self.refresh(), 100);
-				break;
-			default:
+			case 'marginW':
+			case 'marginH':
+				setTimeout2(self._id || self.id, () => self.refresh(), 100);
 				!init && self.resize();
 				break;
 		}
