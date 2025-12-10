@@ -49,7 +49,7 @@ __Data properties in data declaration__:
 - `path {String}` a path to value in model (`value` must contain a model)
 - `template {String}` A Tangular template (works only with `type:'template'` and `{{ value }}` contains a raw value, and `{{ item }}` contains the entire item)
 - `empty {String}` An empty value when the value is nullable (default: `---`)
-- `show {String}` Arrow function condition (must return boolean) and it works only with defined `path`
+- `show {String}` the conditional function `value.type === 'company'` then displays if the evaluated condition is `true`
 - __NEW__ `autoformat {Boolean}` enables auto-format for `email`, or `phones`, and only for `string` type (default: `false`)
 - __NEW__ `colorize {Boolean}` colorizes the value with except `list`, `color` and `icon` type
 - __NEW__ `plus {String}` adds a value to end of rendered value for `number` and `string` types
