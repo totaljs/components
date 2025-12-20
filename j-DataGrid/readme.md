@@ -56,7 +56,7 @@ __Configuration__:
 - `boolean {String}` a values for filtering of boolean values (optional, default: `true|on|yes`)
 - `resize {Boolean}` enables resizing of columns (optional, default: `true`)
 - `reorder {Boolean}` enables re-ordering of columns (optional, default: `true`)
-- `sort {Boolean}` enables sorting (optional, default `true`)
+- `sorting {Boolean}` enables sorting (optional, default `true`)
 - `remember {Boolean}` remembers re-ordering and resizing columns (optional, default `true`)
 - `checkbox {Boolean}` enables checkboxes
 - `colwidth {Number}` a default column width in pixels (optional, default `150`)
