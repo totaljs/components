@@ -149,14 +149,21 @@ COMPONENT('parts', 'parent:auto;margin:0', function(self, config, cls) {
 			div.css({ width: partw, height: parth });
 
 		if (item.import) {
-			IMPORT(item.import, div, function() {
+			let args = [];
+			args.push(item.import);
+			args.push(div);
+			args.push(function() {
 				itemop('init', item, div);
 				setTimeout2(self.ID + 'focus', self.focus, 100, null, item.id);
 				div.rclass('invisible', item.delay || 10);
 				item.import = null;
-			}, true, function(content) {
+			});
+			if (M.version <= 19)
+				args.push(true);
+			args.push(function(content) {
 				return itemreplace(item, content);
 			});
+			IMPORT.apply(W, args);
 		} else if (div.html) {
 			div.append(itemreplace(item, item.html));
 			item.html.COMPILABLE() && setTimeout(COMPILE, 1, div);
