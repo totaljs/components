@@ -1,0 +1,15 @@
+{
+	"datecreated": "2026-01-02T11:54:00.000Z",
+	"dateupdated": null,
+	"name": "j-Remember",
+	"jcomponent": "19|20",
+	"color": "white",
+	"version": 1,
+	"responsive": true,
+	"darkmode": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Peter Širka",
+	"email": "petersirka@gmail.com",
+	"license": "https://www.totaljs.com/license/"
+}
