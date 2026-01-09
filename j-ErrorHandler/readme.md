@@ -14,6 +14,7 @@ __Configuration__:
 	- `response.items {String Array}`
 	- `response.message {String}`
 	- `response.keyword_target_property {Boolean}` optional, according to the `keywords` settings
+- __NEW__: `offline {String}` an offline message, default: `No internet connection`
 
 The component tries using `j-Message`, `j-Snackbar`, `j-NotifyBar` or `j-Notify` for displaying of errors if you don't have defined `exec` configuration.
 

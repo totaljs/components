@@ -1,4 +1,4 @@
-COMPONENT('errorhandler', 'keywords:401=login', function(self, config) {
+COMPONENT('errorhandler', 'keywords:401=login;offline:No internet connection.', function(self, config) {
 
 	self.readonly();
 	self.singleton();
@@ -12,6 +12,9 @@ COMPONENT('errorhandler', 'keywords:401=login', function(self, config) {
 			keywords[i] = keywords[i].split('=');
 
 		self.on('ERROR', function(err) {
+
+			if (err === '0')
+				err = [{ error: config.offline }];
 
 			if (err instanceof Error)
 				err = [{ error: err.message }];
