@@ -8,6 +8,8 @@ COMPONENT('markdown', 'highlight:true;charts:false', function (self, config) {
 	self.make = function() {
 
 		let cdn = (config.cdn || DEF.cdn || 'https://cdn.componentator.com');
+		if (cdn === '/')
+			cdn = '';
 
 		if (config.highlight) {
 			IMPORT(cdn + '/highlight.min@1020.js');
