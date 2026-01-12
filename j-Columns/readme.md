@@ -15,6 +15,11 @@ __Configuration__:
 - `noborder {Boolean}` disables border (default: `false`)
 - `fontsize {Boolean}` enables percentual font-size according to the size of rows (default: `false`)
 
+__Methods__:
+
+- `SETTER('columns/refresh')` - reloads all `section` and sets sizes
+- `SETTER('columns/add', size, html_node)` - adds a new column and performs refresh
+
 __Good to know__:
 
 Each column must be wrappend in `<section>`, try to understand from example.
