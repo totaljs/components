@@ -7,14 +7,15 @@ COMPONENT('columns', 'parent:window;margin:0;fontsize:0', function(self, config,
 
 	self.make = function() {
 		self.aclass(cls + (config.noborder ? (' ' + cls + '-noborder') : ''));
+		self.on('resize2', self.resize);
 		self.refresh();
 	};
 
 	self.refresh = function() {
+		cache = '';
 		columns = self.find('> section').aclass(cls + '-col');
 		self.rclass('hidden');
 		self.resize();
-		self.on('resize2', self.resize);
 	};
 
 	self.add = function(size, html) {
