@@ -1,11 +1,8 @@
 {
 	"datecreated": "2017-08-10T21:45:00.000Z",
-	"dateupdated": "2023-01-25T10:45:01.000Z",
+	"dateupdated": "2025-01-13T11:10:00.000Z",
 	"name": "j-DonutChart",
-	"tags": [
-		"donut",
-		"chart"
-	],
+	"jcomponent": "19|20",
 	"color": "transparent",
 	"version": 1,
 	"darkmode": true,

@@ -7,6 +7,7 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:1;present
 	var indexer = 0;
 	var indexerskip = false;
 	var force = false;
+	var notmodified = null;
 
 	self.readonly();
 	self.nocompile();
@@ -127,8 +128,13 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:1;present
 			beg = end;
 		}
 
-		if (!force && NOTMODIFIED(self.id, items))
-			return;
+		if (!force) {
+			let tmp = HASH(items);
+			if (tmp === notmodified)
+				return;
+			else
+				notmodified = tmp;
+		}
 
 		var size = width;
 		var half = size / 2;
@@ -181,7 +187,7 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:1;present
 		}
 	};
 
-	self.setter = function(value) {
+	self.setter = function redraw(value) {
 
 		if (!value) {
 			g.empty();
@@ -192,9 +198,11 @@ COMPONENT('donutchart', 'format:{{ value | format(0) }};size:0;tooltip:1;present
 			var w = typeof(config.size) === 'string' ? self.parent(config.size).width() : config.size;
 			self.redraw(w, value);
 		} else {
-			self.width(function(width) {
+			let width = self.width();
+			if (width)
 				self.redraw(width - (config.margin || 0), value);
-			});
+			else
+				setTimeout(redraw, 500);
 		}
 	};
 });
