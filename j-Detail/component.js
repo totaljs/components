@@ -125,7 +125,7 @@ COMPONENT('detail', 'defaultgroup:Default', function(self, config, cls) {
 	types.datetime.init = NOOP;
 	types.datetime.render = function(item, next) {
 		var value = self.mapvalue(item);
-		value = value ? value.format(item.format || config.datetimeformat || (DEF.dateformat + ' ' + DEF.timeformat)) : '';
+		value = value ? value.format(item.format || config.datetimeformat || (DEF.dateformat + ' - ' + DEF.timeformat)) : '';
 		next('<div class="{0}-date">{1}{2}</div>'.format(cls, item.colorize ? colorize(value) : value, item.plus));
 	};
 
