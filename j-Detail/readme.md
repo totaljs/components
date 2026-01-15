@@ -6,9 +6,8 @@ This component can render values from model. Supports inline mapping - look into
 
 __Configuration__:
 
-- `dateformat {String}` a date format (default: `yyyy-MM-dd`)
-- `timeformat {String}` a time format (default: `HH:mm`)
-- `datetimeformat {String}` a date/time format (default: `yyyy-MM-dd HH:mm`)
+- `dateformat {String}` a date format (default: `DEF.dateformat`)
+- `datetimeformat {String}` a date/time format (default: `DEF.dateformat + ' ' + DEF.timeformat`)
 - `numberformat {Number}` a default number format (default: empty)
 - `small {Boolean}` enables smaller design (default: `false`)
 - `style {Number}` component style (default: `1`), supports style `2`, `3` (minimal) and `4` (modern)
@@ -60,6 +59,7 @@ __Allowed types in data__:
 - `bool`
 - `number`
 - `date`
+- `datetime`
 - `list`
 - `color`
 - `emoji`
