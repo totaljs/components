@@ -104,8 +104,10 @@ COMPONENT('shortcuts', function(self) {
 	};
 
 	self.exec = function(shortcut) {
-		var item = items.findItem('shortcut', shortcut.toLowerCase().replace(/\s/g, ''));
-		item && item.callback(null, $(item.owner));
+		if (shortcut) {
+			var item = items.findItem('shortcut', shortcut.toLowerCase().replace(/\s/g, ''));
+			item && item.callback(null, $(item.owner));
+		}
 	};
 
 	self.register = function(shortcut, callback, prevent, prepare, owner) {
