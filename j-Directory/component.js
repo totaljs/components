@@ -339,13 +339,13 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 							var c = '';
 
 							if (item.selected)
-								c += (c ? ' ' : 'selected current');
+								c += (c ? ' ' : '') + 'selected current';
 
 							if (item.classname)
-								c += (c ? ' ' : item.classname);
+								c += (c ? ' ' : '') + item.classname;
 
 							if (item.disabled)
-								c += (c ? ' ' : 'ui-disabled');
+								c += (c ? ' ' : '') + 'ui-disabled';
 
 							indexer.classes = c;
 							indexer.index = i;
@@ -539,13 +539,13 @@ COMPONENT('directory', 'minwidth:200;create:Create', function(self, config, cls)
 				var c = '';
 
 				if (item.selected)
-					c += (c ? ' ' : 'selected current');
+					c += (c ? ' ' : '') + 'selected current';
 
 				if (item.classname)
-					c += (c ? ' ' : item.classname);
+					c += (c ? ' ' : '') + item.classname;
 
 				if (item.disabled)
-					c += (c ? ' ' : 'ui-disabled');
+					c += (c ? ' ' : '') + 'ui-disabled';
 
 				indexer.classes = c;
 				indexer.checkbox = opt.checkbox === true;
