@@ -1,4 +1,4 @@
-COMPONENT('listdetail', 'resize:1;width:35%;parent:auto;margin:0;maxwidth:50%;minwidth:20%', function(self, config, cls) {
+COMPONENT('listdetail', 'resize:1;width:35%;parent:auto;margin:0;maxwidth:50%;minwidth:20%;position:vertical', function(self, config, cls) {
 
 	var a, b, temp, init, resizer, is = false;
 	var cls2 = '.' + cls;
@@ -6,7 +6,103 @@ COMPONENT('listdetail', 'resize:1;width:35%;parent:auto;margin:0;maxwidth:50%;mi
 
 	self.readonly();
 
+	var normalizeposition = function() {
+		if (config.position)
+			config.position = ('' + config.position).trim().toLowerCase();
+		else
+			config.position = 'vertical';
+
+		if (config.position !== 'horizontal' && config.position !== 'vertical')
+			config.position = 'vertical';
+	};
+
+	var isstacked = function() {
+		return config.position === 'horizontal';
+	};
+
+	var useheight = function() {
+		return config.height != null || config.minheight != null || config.maxheight != null;
+	};
+
+	var parsevalue = function(val, total) {
+		if (val == null)
+			return 0;
+		if (typeof(val) === 'number')
+			return val;
+
+		var str = ('' + val).trim();
+		if (!str)
+			return 0;
+
+		if (str[str.length - 1] === '%')
+			return ((total / 100) * parseFloat(str)) >> 0;
+
+		if (str.endsWith('px'))
+			return parseFloat(str) >> 0;
+
+		if (str[0] === '+' || str[0] === '-')
+			return (total + parseFloat(str)) >> 0;
+
+		return parseFloat(str) >> 0;
+	};
+
+	var clamp = function(val, min, max) {
+		if (min && val < min)
+			val = min;
+		if (max && val > max)
+			val = max;
+		return val;
+	};
+
+	var setclasses = function(stacked) {
+		self.tclass(cls + '-horizontal', stacked);
+		self.tclass(cls + '-vertical', stacked);
+	};
+
+	var getkeys = function(stacked) {
+		var byheight = stacked && useheight();
+		return byheight ? { key: 'height', min: 'minheight', max: 'maxheight' } : { key: 'width', min: 'minwidth', max: 'maxwidth' };
+	};
+
+	var getsize = function(stacked, total, raw) {
+		var keys = getkeys(stacked);
+		var size = raw == null ? parsevalue(config[keys.key], total) : raw;
+		var min = parsevalue(config[keys.min], total);
+		var max = parsevalue(config[keys.max], total);
+
+		size = clamp(size, min, max);
+		if (size > total)
+			size = total;
+
+		return { key: keys.key, size: size };
+	};
+
+	var applylayout = function(stacked, size, h, w) {
+		if (stacked) {
+			b.css({ height: size, width: '' });
+			resizer.css({ top: is ? (h - size) : '-1px', left: 0, width: '', height: '' });
+			a.css({ height: is ? (h - size) : h, 'margin-right': '' });
+		} else {
+			b.css({ width: size, height: h });
+			resizer.css({ left: is ? (w - size) : '-1px', top: '', width: '', height: h });
+			a.css({ height: h, left: '', top: '', 'margin-right': is ? size : '' });
+		}
+	};
+
+	var arrange = function() {
+		if (!a || !b)
+			return;
+		if (is) {
+			if (isstacked())
+				self.dom.appendChild(b[0]);
+			else
+				self.dom.insertBefore(b[0], a[0]);
+		}
+	};
+
 	self.make = function() {
+
+		normalizeposition();
 
 		var arr = self.find('> section');
 		a = $(arr[0]);
@@ -15,6 +111,7 @@ COMPONENT('listdetail', 'resize:1;width:35%;parent:auto;margin:0;maxwidth:50%;mi
 		b.aclass(cls + '-detail');
 		self.element.prepend('<div class="{0}-resizer"></div>'.format(cls));
 		self.aclass(cls);
+		setclasses(isstacked());
 		temp = $('<div />');
 		temp.aclass(cls + '-temporary');
 		self.resize();
@@ -25,24 +122,25 @@ COMPONENT('listdetail', 'resize:1;width:35%;parent:auto;margin:0;maxwidth:50%;mi
 			e.preventDefault();
 			e.stopPropagation();
 			var tmp = events.touches ? e.touches[0] : e;
-			var x = events.x - tmp.pageX;
-			resizer.css('left', events.left - x);
+			if (isstacked()) {
+				var y = events.y - tmp.pageY;
+				resizer.css('top', events.top - y);
+			} else {
+				var x = events.x - tmp.pageX;
+				resizer.css('left', events.left - x);
+			}
 		};
 
 		events.up = function() {
 			var parent = self.parent(config.parent);
+			var stacked = isstacked();
+			var h = parent.height() - config.margin;
 			var w = parent.width();
-			var left = w - resizer.position().left;
-
-			if (left < config.minwidth)
-				left = config.minwidth;
-
-			if (left > config.maxwidth)
-				left = config.maxwidth;
-
-			config.width = left;
-			a.css('margin-right', left);
-			b.css('width', left);
+			var total = stacked ? h : w;
+			var pos = stacked ? resizer.position().top : resizer.position().left;
+			var raw = total - pos;
+			var tmp = getsize(stacked, total, raw);
+			config[tmp.key] = tmp.size;
 			events.unbind();
 			self.resizeforce();
 		};
@@ -70,8 +168,13 @@ COMPONENT('listdetail', 'resize:1;width:35%;parent:auto;margin:0;maxwidth:50%;mi
 
 			events.touches = e.type === 'touchstart' ? 1 : 0;
 			var tmp = events.touches ? e.touches[0] : e;
-			events.x = tmp.pageX;
-			events.left = resizer.position().left;
+			if (isstacked()) {
+				events.y = tmp.pageY;
+				events.top = resizer.position().top;
+			} else {
+				events.x = tmp.pageX;
+				events.left = resizer.position().left;
+			}
 			events.bind();
 			e.preventDefault();
 			e.stopPropagation();
@@ -88,27 +191,16 @@ COMPONENT('listdetail', 'resize:1;width:35%;parent:auto;margin:0;maxwidth:50%;mi
 		var parent = self.parent(config.parent);
 		var h = parent.height() - config.margin;
 		var w = parent.width();
+		var stacked = isstacked();
+		var total = stacked ? h : w;
 
-		if (typeof(config.width) === 'string')
-			config.width = w.inc(config.width) >> 0;
+		setclasses(stacked);
 
-		if (typeof(config.minwidth) === 'string')
-			config.minwidth = w.inc(config.minwidth) >> 0;
+		if (!a || !b || !resizer || !parent)
+			return;
 
-		if (typeof(config.maxwidth) === 'string')
-			config.maxwidth = w.inc(config.maxwidth) >> 0;
-
-		var css = {};
-		css.width = config.width;
-		css.height = h;
-		b.css(css);
-		css.height = h;
-		css.left = is ? (w - config.width) : '-1px';
-		css.width = '';
-		resizer.css(css);
-		css.left = '';
-		css['margin-right'] = is ? config.width : '';
-		a.css(css);
+		var tmp = getsize(stacked, total);
+		applylayout(stacked, tmp.size, h, w);
 		is && b.SETTER('*/resize');
 		a.SETTER('*/resize');
 
@@ -127,7 +219,7 @@ COMPONENT('listdetail', 'resize:1;width:35%;parent:auto;margin:0;maxwidth:50%;mi
 		is = show;
 
 		if (is)
-			self.dom.insertBefore(b[0], a[0]);
+			arrange();
 		else
 			temp[0].appendChild(b[0]);
 
@@ -135,8 +227,29 @@ COMPONENT('listdetail', 'resize:1;width:35%;parent:auto;margin:0;maxwidth:50%;mi
 		self.resizeforce();
 	};
 
+	self.configure = function(key, value) {
+		switch (key) {
+			case 'position':
+				config.position = value;
+				normalizeposition();
+				arrange();
+				self.resizeforce();
+				break;
+			case 'height':
+			case 'minheight':
+			case 'maxheight':
+			case 'width':
+			case 'minwidth':
+			case 'maxwidth':
+			case 'margin':
+			case 'parent':
+				config[key] = value;
+				self.resizeforce();
+				break;
+		}
+	};
+
 	self.setter = function(value) {
 		self.toggle(!!value);
 	};
-
 });
