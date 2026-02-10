@@ -12,6 +12,10 @@ __Configuration__:
 - `minwidth {Number/String}` a minimal width of the detail panel (default: `20%`)
 - `maxwidth {Number/String}` a maximal width of the detail panel (default: `50%`)
 - `resize {Boolean}` enables/disables detail panel resizing (default: `true`)
+- __NEW__: `position {String}` split orientation: `vertical` (side-by-side) or `horizontal` (stacked) (default: `vertical`)
+- __NEW__: `height {Number/String}` a detail panel height (only for `position:horizontal`; when set, it overrides `width` for sizing the detail panel) (default: `null`)
+- __NEW__: `minheight {Number/String}` a minimal height of the detail panel (only for `position:horizontal` + `height`) (default: `null`)
+- __NEW__: `maxheight {Number/String}` a maximal height of the detail panel (only for `position:horizontal` + `height`) (default: `null`)
 
 Parts: list + detail must be wrapped to independent `<section>` element, e.g.
 
