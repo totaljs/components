@@ -1,6 +1,6 @@
 ## j-Prompt
 
-The component (singleton) displays a prompt window with a simple textbox.
+The component (singleton) displays a prompt window with single-line or multiline input.
 
 - jComponent `v19|v20`
 
@@ -11,6 +11,10 @@ __Configuration__:
 - `cancel {String}` optional, label for the cancel button (default: `Cancel`)
 - `submit {String}` optional, label for the submit button (default: `OK`)
 
+__Options__:
+
+- `multiline {Boolean}` optional (default: `false`)
+
 __Example__:
 
 ```js
@@ -18,7 +22,8 @@ var opt = {};
 opt.name = 'A title'; // optional
 opt.summary = 'A small sumarization'; // optional
 opt.value = ''; // a default value, optional
-// opt.type = 'password'; // it can change an input type (default: `text`)
+// opt.multiline = true; // enables textarea with 3 rows
+// opt.type = 'password'; // only for single-line mode
 // opt.width = config.width; // max. width, optional
 // opt.zindex = config.zindex; // a custom zindex, optional
 // opt.centered = true; // centers the window to the middle of the screen
@@ -39,7 +44,7 @@ opt.hide = function() {
 };
 
 SETTER('prompt/show', opt);
-````
+```
 
 ### Author
 
