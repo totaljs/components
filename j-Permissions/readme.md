@@ -14,6 +14,7 @@ __Configuration__:
 - `autoremove {Boolean}` optional, it automatically removes non-existent permissions (default: `true`)
 - `autoexclude {Boolean}` optional, it excludes the used permissions from the `dirsource` (default: `true`)
 - __NEW__: `exec {String}` optional, it executes a method (`path.to.method`) when the user changes the value
+- __NEW__: `button {String}` optional, a button label (default: `Add`)
 
 __Source__:
 

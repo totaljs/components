@@ -30,6 +30,10 @@ __Configuration__:
 - `marginW {Number}` a margin for `width`
 - `marginH {Number}` a margin for `height`
 
+__Good to know__:
+
+The `templateX`, `templateY` and `selected` config options can be defined without the use of the `{{` and `}}` brackets. The component appends them automatically.
+
 ### Author
 
 - Peter Širka <petersirka@gmail.com>

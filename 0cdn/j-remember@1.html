@@ -1,0 +1,1 @@
+<script>COMPONENT('remember@1','repeat:10 minutes;delay:3000',function(self,config){let key='remember_'+config.id||self.ID;self.readonly();self.make=function(){let is=CACHE(key);if(!is){setTimeout(function(){CACHE(key,{},config.repeat);config.exec&&self.EXEC(config.exec,self.element)},config.delay)}};self.reset=function(id){if(key===id)CACHE(key,null,'-1 day')}});</script>

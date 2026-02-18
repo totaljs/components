@@ -8,6 +8,7 @@ __Configuration__:
 
 - `highlight {Boolean}` enables auto-syntax highlighter (default: `true`)
 - `charts {Boolean}` enables Apex charts rendering (default: `false`)
+- `cdn {String}` a default CDN URL address for 3rd party dependencies (default: `DEF.cdn`)
 
 __Markdown settings__:
 

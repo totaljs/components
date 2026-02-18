@@ -1,4 +1,4 @@
-COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timeformat:HH:mm;defaultgroup:Default', function(self, config, cls) {
+COMPONENT('detail', 'defaultgroup:Default', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var types = {};
@@ -117,7 +117,15 @@ COMPONENT('detail', 'datetimeformat:yyyy-MM-dd HH:mm;dateformat:yyyy-MM-dd;timef
 	types.date.init = NOOP;
 	types.date.render = function(item, next) {
 		var value = self.mapvalue(item);
-		value = value ? value.format(item.format || config.dateformat) : '';
+		value = value ? value.format(item.format || config.dateformat || DEF.dateformat) : '';
+		next('<div class="{0}-date">{1}{2}</div>'.format(cls, item.colorize ? colorize(value) : value, item.plus));
+	};
+
+	types.datetime = {};
+	types.datetime.init = NOOP;
+	types.datetime.render = function(item, next) {
+		var value = self.mapvalue(item);
+		value = value ? value.format(item.format || config.datetimeformat || (DEF.dateformat + ' - ' + DEF.timeformat)) : '';
 		next('<div class="{0}-date">{1}{2}</div>'.format(cls, item.colorize ? colorize(value) : value, item.plus));
 	};
 

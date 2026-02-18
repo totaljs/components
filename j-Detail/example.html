@@ -18,11 +18,11 @@
 	<ui-component name="detail" path="model" config="style:3">
 		<script type="text/plain">
 			[
-				// Will be displayed, look to show condition ("m" means "model")
-				{ name: 'First name', path: 'firstname', type: 'string', show: 'm=>m.type==1' },
-				{ name: 'Last name', path: 'lastname', type: 'string', show: 'm=>m.type==1' },
-				// Won't be displayed, look to show condition ("m" means "model")
-				{ name: 'Age', path: 'age', type: 'number', show: 'm=>m.type==2' }
+				// Will be displayed, look to show condition ("value" means "model")
+				{ name: 'First name', path: 'firstname', type: 'string', show: 'value.type==1' },
+				{ name: 'Last name', path: 'lastname', type: 'string', show: 'value.type==1' },
+				// Won't be displayed, look to show condition ("value" means "model")
+				{ name: 'Age', path: 'age', type: 'number', show: 'value.type==2' }
 			]
 		</script>
 	</ui-component>
@@ -30,11 +30,11 @@
 	<ui-component name="detail" path="model" config="style:4">
 		<script type="text/plain">
 			[
-				// Will be displayed, look to show condition ("m" means "model")
-				{ name: 'First name', path: 'firstname', type: 'string', show: 'm=>m.type==1' },
-				{ name: 'Last name', path: 'lastname', type: 'string', show: 'm=>m.type==1' },
-				// Won't be displayed, look to show condition ("m" means "model")
-				{ name: 'Age', path: 'age', type: 'number', show: 'm=>m.type==2' }
+				// Will be displayed, look to show condition ("value" means "model")
+				{ name: 'First name', path: 'firstname', type: 'string', show: 'value.type==1' },
+				{ name: 'Last name', path: 'lastname', type: 'string', show: 'value.type==1' },
+				// Won't be displayed, look to show condition ("value" means "model")
+				{ name: 'Age', path: 'age', type: 'number', show: 'value.type==2' }
 			]
 		</script>
 	</ui-component>

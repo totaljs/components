@@ -44,6 +44,7 @@ Method: `component.show(options)`
 	- targeted for `options.items {Function(q, next)}`
 	- the callback returns only raw identifiers `Array {String}`
 - __NEW__ `options.template {String}` optional, a custom Tangular template e.g. `{{ name }}` (default: null)
+- __NEW__ `options.fuzzy {Boolean}` optional, it can disable fuzzy search (default: `true`)
 
 Method: `component.hide()`
 

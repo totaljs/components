@@ -52,7 +52,11 @@ COMPONENT('barchart', 'pl:20;pt:10;pb:25;prselected:0;axisX:true;axisY:true;padd
 			case 'templateY':
 				templateY = Tangular.compile(value);
 				break;
-			default:
+			case 'height':
+			case 'width':
+			case 'marginH':
+			case 'marginW':
+				setTimeout2(self._id || self.id, () => self.refresh(), 100);
 				!init && self.resize();
 				break;
 		}

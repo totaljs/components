@@ -72,14 +72,15 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 		if (self.hclass('hidden'))
 			return;
 
-		var padding = WIDTH() === 'xs' ? 0 : config.padding;
-		var ui = self.find(cls2);
+		let padding = WIDTH() === 'xs' ? 0 : config.padding;
+		let padding2 = config.style == 1 ? (padding * 2) : padding;
+		let ui = self.find(cls2);
 
-		csspos.height = WH - (config.style == 1 ? (padding * 2) : padding);
+		csspos.height = WH - padding2;
 		csspos.top = config.style === 3 ? 0 : padding;
 
 		var w = config.width;
-		if (w > WW) {
+		if (w > (WW - padding2)) {
 			// w = WW - padding;
 			csspos.width = '';
 			csspos.maxwidth = '';
@@ -96,10 +97,7 @@ COMPONENT('box', 'zindex:12;padding:25;scrollbar:1;scrolltop:1;style:1;align:cen
 		var el = self.find(cls2 + '-title');
 		var th = el.height();
 
-		csspos = { height: csspos.height - th };
-
-		if (w)
-			csspos.width = w;
+		csspos = { height: csspos.height - th, width: w || '' };
 
 		if (nav)
 			csspos.height -= nav.height() + 5;

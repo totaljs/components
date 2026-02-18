@@ -1,4 +1,4 @@
-COMPONENT('code', 'parent:auto;autosave:500;margin:0;linenumbers:1;realtime:1;type:clientside;url://cdn.componentator.com/editor/1.min.html', function(self, config) {
+COMPONENT('code', 'parent:auto;autosave:500;margin:0;linenumbers:1;realtime:1;type:clientside', function(self, config) {
 
 	var iframe;
 	var savetimeout;
@@ -84,7 +84,7 @@ COMPONENT('code', 'parent:auto;autosave:500;margin:0;linenumbers:1;realtime:1;ty
 	self.make = function() {
 
 		if (!config.url)
-			config.url = (DEF.cdn || 'https://cdn.componentator.com') + '/editor/1.min.html';
+			config.url = (DEF.cdn || 'https://cdn.componentator.com') + '/editor.min@1.html';
 
 		self.append('<iframe src="{1}?id={0}" frameborder="0" scrolling="no" allowtransparency="true" allow="clipboard-read; clipboard-write; geolocation *; microphone *; camera *; midi *; encrypted-media *" style="width:100%;overflow:hidden;display:block"></iframe>'.format(self.ID, config.url));
 		iframe = self.find('iframe');

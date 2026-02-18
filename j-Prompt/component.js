@@ -37,9 +37,9 @@ COMPONENT('prompt', 'zindex:12;width:400;cancel:Cancel;submit:OK', function(self
 	op.pulse = function() {
 		clearTimeout(op.pulsetimeout);
 		self.rclass(cls + '-pulse');
-		body[0] && body[0].offsetHeight;
 		self.aclass(cls + '-pulse');
 		op.pulsetimeout = setTimeout(function() {
+			self.autofocus('input,textarea');
 			self.rclass(cls + '-pulse');
 		}, 120);
 	};

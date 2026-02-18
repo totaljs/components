@@ -1,4 +1,4 @@
-COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:id;increment:1;format:auto;autovalue:name;direxclude:false;checkicon:ti ti-check;forcevalidation:1;searchalign:1;height:80;tabs:1;after:\\:;realtime:1', function(self, config, cls) {
+COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:id;increment:1;format:auto;autovalue:name;direxclude:false;checkicon:ti ti-check;forcevalidation:1;searchalign:1;height:80;tabs:1;after:\\:;realtime:1;dirrawrender:1', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
 	var input, placeholder, dirsource, binded, customvalidator, customtransformer, mask, rawvalue, isdirvisible = false, nobindcamouflage = false, focused = false;
@@ -904,7 +904,6 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 			}
 
 			if (config.multiple) {
-
 				text.quicksort('index');
 				for (let i = 0; i < text.length; i++)
 					text[i] = config.dirraw ? text[i].name : '<span class="{0}-tag">{1}</span>'.format(cls, Thelpers.encode(text[i].name));
@@ -927,10 +926,12 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 					}, 5);
 				});
 				return;
-			} else if (config.dirraw)
-				rawvalue.html(value || '');
-			else
-				rawvalue.text(value || '');
+			} else if (config.dirrawrender) {
+				if (config.dirraw)
+					rawvalue.html(value || '');
+				else
+					rawvalue.text(value || '');
+			}
 		} else {
 
 			if (W.ui_input_cache.tags[config.type]) {

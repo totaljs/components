@@ -1,4 +1,4 @@
-COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;fill:false;point:5;fillopacity:0.1;offsetX:0;offsetY:10;selected:{{ value | format(0) }};templateY:{{ value | format(0) }};templateX:{{ value }};axisY:true;axisX:true;height:0;width:0;yaxis:4', function(self, config, cls) {
+COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;fill:false;point:5;fillopacity:0.1;offsetX:0;offsetY:10;selected:value | format(0);templateY:value | format(0);templateX:value;axisY:true;axisX:true;height:0;width:0;yaxis:4', function(self, config, cls) {
 
 	var svg, g, axis, selected, points, fills, selectedold;
 	var templateX, templateY, templateS;
@@ -7,6 +7,7 @@ COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;
 	self.nocompile();
 
 	self.make = function() {
+
 		self.aclass(cls);
 		self.empty().append('<svg></svg>');
 		svg = self.find('svg');
@@ -60,21 +61,25 @@ COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;
 	self.configure = function(key, value, init) {
 		switch (key) {
 			case 'templateX':
+				if (value.charAt(0) !== '{')
+					value = '{{' + value + '}}';
 				templateX = Tangular.compile(value);
 				break;
 			case 'templateY':
+				if (value.charAt(0) !== '{')
+					value = '{{' + value + '}}';
 				templateY = Tangular.compile(value);
 				break;
 			case 'selected':
+				if (value.charAt(0) !== '{')
+					value = '{{' + value + '}}';
 				templateS = Tangular.compile(value);
 				break;
 			case 'width':
 			case 'height':
-				setTimeout2(self._id, function() {
-					self.refresh();
-				}, 100);
-				break;
-			default:
+			case 'marginW':
+			case 'marginH':
+				setTimeout2(self._id || self.id, () => self.refresh(), 100);
 				!init && self.resize();
 				break;
 		}
@@ -91,9 +96,7 @@ COMPONENT('linechart', 'type:normal;pl:25;pr:0;pt:10;pb:25;prselected:0;limit:0;
 	self.setter = function(value) {
 
 		if (!self.element[0].offsetParent) {
-			setTimeout(function() {
-				self.refresh();
-			}, 1000);
+			setTimeout(() => self.refresh(), 1000);
 			return;
 		}
 

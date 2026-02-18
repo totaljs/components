@@ -6,9 +6,8 @@ This component can render values from model. Supports inline mapping - look into
 
 __Configuration__:
 
-- `dateformat {String}` a date format (default: `yyyy-MM-dd`)
-- `timeformat {String}` a time format (default: `HH:mm`)
-- `datetimeformat {String}` a date/time format (default: `yyyy-MM-dd HH:mm`)
+- `dateformat {String}` a date format (default: `DEF.dateformat`)
+- `datetimeformat {String}` a date/time format (default: `DEF.dateformat + ' ' + DEF.timeformat`)
 - `numberformat {Number}` a default number format (default: empty)
 - `small {Boolean}` enables smaller design (default: `false`)
 - `style {Number}` component style (default: `1`), supports style `2`, `3` (minimal) and `4` (modern)
@@ -49,7 +48,7 @@ __Data properties in data declaration__:
 - `path {String}` a path to value in model (`value` must contain a model)
 - `template {String}` A Tangular template (works only with `type:'template'` and `{{ value }}` contains a raw value, and `{{ item }}` contains the entire item)
 - `empty {String}` An empty value when the value is nullable (default: `---`)
-- `show {String}` Arrow function condition (must return boolean) and it works only with defined `path`
+- `show {String}` the conditional function `value.type === 'company'` then displays if the evaluated condition is `true`
 - __NEW__ `autoformat {Boolean}` enables auto-format for `email`, or `phones`, and only for `string` type (default: `false`)
 - __NEW__ `colorize {Boolean}` colorizes the value with except `list`, `color` and `icon` type
 - __NEW__ `plus {String}` adds a value to end of rendered value for `number` and `string` types
@@ -60,6 +59,7 @@ __Allowed types in data__:
 - `bool`
 - `number`
 - `date`
+- `datetime`
 - `list`
 - `color`
 - `emoji`
