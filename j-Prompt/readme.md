@@ -11,10 +11,6 @@ __Configuration__:
 - `cancel {String}` optional, label for the cancel button (default: `Cancel`)
 - `submit {String}` optional, label for the submit button (default: `OK`)
 
-__Options__:
-
-- `multiline {Boolean}` optional (default: `false`)
-
 __Example__:
 
 ```js
