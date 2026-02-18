@@ -22,12 +22,13 @@ var opt = {};
 opt.name = 'A title'; // optional
 opt.summary = 'A small sumarization'; // optional
 opt.value = ''; // a default value, optional
-// opt.multiline = true; // enables textarea with 3 rows
 // opt.type = 'password'; // only for single-line mode
 // opt.width = config.width; // max. width, optional
 // opt.zindex = config.zindex; // a custom zindex, optional
 // opt.centered = true; // centers the window to the middle of the screen
 // opt.newbie = true; // allows to submit a default value
+// opt.multiline = true; // NEW: enables textarea with 3 rows
+// opt.monospace = true; // NEW: enables monospace text
 
 opt.cancel = function(val) {
 	// @val {String}
