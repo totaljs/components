@@ -1,12 +1,13 @@
 .ui-prompt-noscroll, .ui-prompt-noscroll body { overflow: hidden; }
 .ui-prompt-container { position: fixed; left: 0; right: 0; bottom: 0; top: 0; }
-.ui-prompt-body { background-color: #FFF; margin: 20px auto; border-radius: 10px; box-shadow: 0 2px 30px rgba(0,0,0,0.2); overflow: hidden; border: 1px solid #D0D0D0; width: 100%; padding: 20px; }
+.ui-prompt-body { background-color: #FFF; margin: 20px auto; border-radius: 10px; box-shadow: 0 2px 30px rgba(0,0,0,0.2); overflow: hidden; border: 1px solid #D0D0D0; width: 100%; padding: 20px; transform: scale(1); transition: transform 0.12s ease; }
+.ui-prompt-pulse .ui-prompt-body { transform: scale(1.05); }
 .ui-prompt-title { font-size: 16px; color: #000; margin: 0 0 5px 0; font-weight: bold; }
 .ui-prompt-summary { font-size: 13px; color: #777; margin: 0 0 7px 0; }
 .ui-prompt-input { border: 2px solid #E0E0E0; padding: 2px 5px; border-radius: var(--radius); }
 .ui-prompt-input input, .ui-prompt-input textarea { width: 100%; border: 0; background: transparent; outline: 0; display: block; font: inherit; }
 .ui-prompt-input input { height: 24px; }
-.ui-prompt-input textarea { resize: none; overflow-y: auto; height: 72px; line-height: 24px; }
+.ui-prompt-input textarea { resize: none; overflow-y: auto; height: 72px; }
 .ui-prompt-buttons { text-align: right; margin: 5px 0 0; }
 .ui-prompt-centered .ui-prompt-area { width: 100%; height: 100%; display: grid; align-items: center; }
 .ui-prompt button { border: 0; margin: 15px 0 0; background-color: #F0F0F0; height: 34px; padding: 0 15px; color: #000; cursor: pointer; font-family: Arial; line-height: 34px; vertical-align: middle; outline: 0; font-size: 14px; text-decoration: none; transition: all 0.3s; min-width: 90px; }
