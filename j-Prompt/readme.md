@@ -14,6 +14,7 @@ __Configuration__:
 __Options__:
 
 - `multiline {Boolean}` optional (default: `false`)
+- `monospace {Boolean}` optional (default: `false`)
 
 __Example__:
 
@@ -23,6 +24,7 @@ opt.name = 'A title'; // optional
 opt.summary = 'A small sumarization'; // optional
 opt.value = ''; // a default value, optional
 // opt.multiline = true; // enables textarea with 3 rows
+// opt.monospace = true; // enables monospace text style
 // opt.type = 'password'; // only for single-line mode
 // opt.width = config.width; // max. width, optional
 // opt.zindex = config.zindex; // a custom zindex, optional
