@@ -1,7 +1,7 @@
 COMPONENT('prompt', 'zindex:12;width:400;cancel:Cancel;submit:OK', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
-	var body, input, textarea, multiline = false;
+	var body, input, textarea, field, multiline = false;
 	var op = {};
 
 	self.readonly();
@@ -34,16 +34,31 @@ COMPONENT('prompt', 'zindex:12;width:400;cancel:Cancel;submit:OK', function(self
 		self.hide();
 	};
 
+	op.pulse = function() {
+		clearTimeout(op.pulsetimeout);
+		self.rclass(cls + '-pulse');
+		body[0] && body[0].offsetHeight;
+		self.aclass(cls + '-pulse');
+		op.pulsetimeout = setTimeout(function() {
+			self.rclass(cls + '-pulse');
+		}, 120);
+	};
+
 	self.make = function() {
 
 		$(document.body).append('<div id="{1}" class="{0} {0}-container hidden"><div class="{0}-area"><div class="{0}-body"><div class="{0}-title"></div><div class="{0}-summary"></div><div class="{0}-input"><input type="text" /><textarea rows="3" class="hidden"></textarea></div><div class="{0}-buttons"><button name="cancel">{cancel}</button><button name="submit">{submit}</button></div></div>'.format(cls, self.ID).args(config));
 
 		self.replace('#' + self.ID);
 		body = self.find(cls2 + '-body');
+		field = self.find(cls2 + '-input');
 		input = self.find('input');
 		textarea = self.find('textarea');
 
 		self.event('click', function(e) {
+			if (!$(e.target).closest(cls2 + '-body').length) {
+				op.pulse();
+				return;
+			}
 			var tag = e.target.tagName;
 			if (tag !== 'INPUT' && tag !== 'TEXTAREA' && tag !== 'BUTTON')
 				self.autofocus(currentselector());
@@ -85,6 +100,8 @@ COMPONENT('prompt', 'zindex:12;width:400;cancel:Cancel;submit:OK', function(self
 		if (!self.opt)
 			return;
 
+		clearTimeout(op.pulsetimeout);
+		self.rclass(cls + '-pulse');
 		self.opt.hide && self.opt.hide();
 		self.opt = null;
 		self.aclass('hidden', 100);
@@ -98,6 +115,7 @@ COMPONENT('prompt', 'zindex:12;width:400;cancel:Cancel;submit:OK', function(self
 		var value = opt.value || '';
 		input.tclass('hidden', multiline);
 		textarea.tclass('hidden', !multiline);
+		field.tclass('monospace', opt.monospace === true);
 		input.attr('type', opt.type || 'text');
 		input.val(value);
 		textarea.val(value);
