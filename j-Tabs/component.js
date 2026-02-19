@@ -1,7 +1,7 @@
-COMPONENT('tabs', 'tabs:1', function(self, config, cls) {
+COMPONENT('tabs', function(self, config, cls) {
 
 	var cls2 = '.' + cls;
-	var open = [];
+	var open = '';
 	var manual = false;
 
 	self.make = function() {
@@ -32,6 +32,9 @@ COMPONENT('tabs', 'tabs:1', function(self, config, cls) {
 			let id = section.attrd('id');
 
 			if (section.hclass('hidden'))
+				open = id;
+
+			if (!open)
 				open = id;
 
 			self.bind('@touched @modified @setter', open || null);
