@@ -131,7 +131,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 				case 'browse':
 					self.EXEC(config.browse, function(url) {
 						img.src = url;
-						self.change(true);
+						self.bind('@touched @modified');
 					});
 					break;
 				case 'plus':
@@ -142,7 +142,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 					current.y -= 3;
 					self.samesize = '';
 					self.redraw();
-					self.change(true);
+					self.bind('@touched @modified');
 					break;
 				case 'minus':
 					zoom -= 3;
@@ -152,7 +152,7 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 					current.y += 3;
 					self.samesize = '';
 					self.redraw();
-					self.change(true);
+					self.bind('@touched @modified');
 					break;
 				case 'refresh':
 					zoom = cache.zoom;
@@ -218,13 +218,13 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 				reader.onload = function () {
 					if (orient < 2) {
 						img.src = reader.result;
-						setTimeout(() => self.change(true), 500);
+						setTimeout(() => self.bind('@touched @modified'), 500);
 					} else {
 						SETTER('loading/show');
 						self.resetorientation(reader.result, orient, function(url) {
 							SETTER('loading/hide', 500);
 							img.src = url;
-							self.change(true);
+							self.bind('@touched @modified');
 						});
 					}
 				};
