@@ -218,13 +218,13 @@ COMPONENT('crop', 'dragdrop:true;format:{0}', function(self, config, cls) {
 				reader.onload = function () {
 					if (orient < 2) {
 						img.src = reader.result;
-						setTimeout(() => self.bind('@touched @modified'), 500);
+						setTimeout(() => self.bind('@touched @modified @notify'), 500);
 					} else {
 						SETTER('loading/show');
 						self.resetorientation(reader.result, orient, function(url) {
 							SETTER('loading/hide', 500);
 							img.src = url;
-							self.bind('@touched @modified');
+							self.bind('@touched @modified @notify');
 						});
 					}
 				};
