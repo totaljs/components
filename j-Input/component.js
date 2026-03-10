@@ -1075,11 +1075,11 @@ COMPONENT('input', 'maxlength:200;innerlabel:0;tabindex:0;dirkey:name;dirvalue:i
 				break;
 			case 'disabled':
 				self.tclass('ui-disabled', !!value);
-				self.reset();
+				self.validate2();
 				break;
 			case 'required':
 				self.tclass(cls + '-required', !!value);
-				self.reset();
+				self.validate2();
 				break;
 			case 'type':
 				self.type = value;
