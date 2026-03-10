@@ -38,8 +38,8 @@
 .ui-dark .ui-menu li.ui-menu-disabled i { color: #525252 !important; }
 
 .ui-large .ui-menu-divider { font-size: 14px !important; }
-.ui-large .ui-menu li { font-size: 14px; padding: 7px 15px; }
-.ui-large.ui-menu li { font-size: 14px; padding: 7px 15px; }
+.ui-large .ui-menu li { font-size: 14px; padding: 7px 5px; }
+.ui-large.ui-menu li { font-size: 14px; padding: 7px 5px; }
 .ui-large .ui-menu-note { font-size: 13px; }
 
 @media (max-width: 600px) {
