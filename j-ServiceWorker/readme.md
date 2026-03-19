@@ -3,7 +3,7 @@
 - __PERFECT EXAMPLE__ https://github.com/totaljs/emptyproject-pwa
 - This component is a little bit special. First of all, you need put the code below into file e.g. `sw-jcomponent.js` and place it to the `public` (e.g. `myproject/public/sw-jcomponent.js`)
 
-```
+```js
 var prefix='jc';function hash(s,unsigned){var hash=0,i,char;if(!s.length)return hash;var l=s.length;for(i=0;i<l;i++){char=s.charCodeAt(i);hash=((hash<<5)-hash)+char;hash|=0;}return unsigned?hash>>>0:hash}self.addEventListener('install',()=>{self.skipWaiting()});self.addEventListener('message',function(e){if(e.data.action==='jc-sw'){var data=e.data.data;data.name=prefix+'-'+data.version+'-'+hash(data.assets.toString(),true);addcache(e.data.data)}});self.addEventListener('fetch',function(e){e.respondWith(fetch(e.request).catch(function(){return caches.match(e.request).then(function(response){if(response)return response;if(e.request.mode==='navigate'||(e.request.method==='GET'&&e.request.headers.get('accept').includes('text/html')))return caches.match('jc-offline-fallback')})}))});function addcache(data){caches.open(data.name).then(function(cache){if(data.assets&&data.assets.length)cache.addAll(data.assets);if(data.fallback){fetch(data.fallback,{mode:'no-cors'}).then(function(response){return cache.put('jc-offline-fallback',response)})}}).then(function(){caches.keys().then(function(keys){return Promise.all(keys.map(function(key){if(data.name!==key)return caches.delete(key)}))})})}
 ```
 
@@ -11,12 +11,13 @@ var prefix='jc';function hash(s,unsigned){var hash=0,i,char;if(!s.length)return 
 
 __Configuration__:
 
-- `expire` {String} expiration data from users storage (default: `1 day`) __we don't recommend changing this__
-- `debug` {Boolean} enables `debug` mode. It'll refresh assets every reload (so you don't need to change the version) (default: `false`)
-- `datasource` {String} path to data-source (data-source is a object)
+- `expire {String}` expiration data from users storage (default: `1 day`) __we don't recommend changing this__
+- `debug {Boolean}` enables `debug` mode. It'll refresh assets every reload (so you don't need to change the version) (default: `false`)
+- `datasource {String}` path to data-source (data-source is a object)
 
 __Datasource structure__:
-```javascript
+
+```js
 {
 	version: '1.00',
 	fallback: '/',
@@ -34,8 +35,9 @@ __Good to know__:
 - __It's work only in Single Page Applications like [this](https://github.com/totaljs/spa) or [this](https://github.com/totaljs/emptyproject-pwa)__
 
 __Usage__:
+
 ```html
-<div data---="serviceworker__version__datasource:mysource"></div>
+<ui-component name="serviceworker" path="version" config="datasource:mysource"></ui-component>
 
 <script>
 	var version = '1.34';
@@ -50,7 +52,6 @@ __Usage__:
 	};
 </script>
 ```
-
 
 ### Author
 

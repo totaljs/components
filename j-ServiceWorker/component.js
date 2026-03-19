@@ -5,13 +5,13 @@ COMPONENT('serviceworker', 'debug:false;expire:1 day', function(self, config) {
 
 	self.singleton();
 	self.nocompile();
-	self.novalidate();
+	self.novalidate && self.novalidate();
 
 	self.configure = function(key, value) {
 
 		switch (key) {
 			case 'datasource':
-				self.datasource(value, self.bind);
+				self.datasource(value, self.bind_value);
 				break;
 		}
 
@@ -27,7 +27,9 @@ COMPONENT('serviceworker', 'debug:false;expire:1 day', function(self, config) {
 		}
 	};
 
-	self.bind = function(path, value) {
+	self.bind_value = function(path, value) {
+		if (M.is20)
+			value = path;
 
 		datasource = value;
 
