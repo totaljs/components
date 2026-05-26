@@ -1,4 +1,4 @@
-COMPONENT('choose', 'limit:1;attr:id;key:id;selector:.selection;event:click;class:selected;type:string;uncheck:false;indexer:1', function(self, config, cls) {
+COMPONENT('choose', 'limit:1;attr:id;key:id;selector:.selection;event:click;class:selected;type:string;uncheck:false', function(self, config, cls) {
 
 	var convert = function(val) {
 		switch (config.type) {
