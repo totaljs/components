@@ -70,22 +70,25 @@ COMPONENT('choose', 'limit:1;attr:id;key:id;selector:.selection;event:click;clas
 	};
 
 	self.recalc = function() {
+
 		let arr = self.find(config.selector);
 		let model = self.get();
-		let indexer = 0;
+
 		for (let i = 0; i < arr.length; i++) {
+
 			let el = $(arr[i]);
 			let is = false;
-			if (config.limit === 1)
-				is = model == null ? false : model === convert(el.attrd(config.attr));
-			else
-				is = model && model instanceof Array && model.length ? model.indexOf(el.attrd(config.attr)) !== -1 : false;
+			let index = -1;
 
-			if (config.indexer) {
-				if (is)
-					indexer++;
-				el.find(config.indexer).text(is ? indexer : '');
+			if (config.limit === 1) {
+				is = model == null ? false : model === convert(el.attrd(config.attr));
+			} else {
+				index = model && model instanceof Array && model.length ? model.indexOf(el.attrd(config.attr)) !== -1 : -1;
+				is = index != -1;
 			}
+
+			if ((!config.limit || config.limit > 1) && config.indexer)
+				el.find(config.indexer).text(is ? (index + 1) : '');
 
 			el.tclass(config.class, is);
 		}
