@@ -15,7 +15,7 @@ __Configuration__:
 - `uncheck {Boolean}` allows to uncheck selected value for `limit:1` (default: `false`)
 - `disabled {Boolean}` disables the component
 - `click {String}` a link to the `function(val)` that is evaluted when the user changes the value
-- `indexer {Boolean}` the selected index to be filled into the `data-index` attribute of the item (default: `true`)
+- __NEW__: `indexer {String}` a HTML selector for binding of the selected index
 
 ### Author
 

@@ -84,7 +84,7 @@ COMPONENT('choose', 'limit:1;attr:id;key:id;selector:.selection;event:click;clas
 			if (config.indexer) {
 				if (is)
 					indexer++;
-				el.attrd('index', is ? indexer : '');
+				el.find(config.indexer).text(is ? indexer : '');
 			}
 
 			el.tclass(config.class, is);
