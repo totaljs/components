@@ -83,7 +83,7 @@ COMPONENT('choose', 'limit:1;attr:id;key:id;selector:.selection;event:click;clas
 			if (config.limit === 1) {
 				is = model == null ? false : model === convert(el.attrd(config.attr));
 			} else {
-				index = model && model instanceof Array && model.length ? model.indexOf(el.attrd(config.attr)) !== -1 : -1;
+				index = model && model instanceof Array && model.length ? model.indexOf(el.attrd(config.attr)) : -1;
 				is = index != -1;
 			}
 
