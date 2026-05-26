@@ -1,4 +1,4 @@
-COMPONENT('choose', 'limit:1;attr:id;key:id;selector:.selection;event:click;class:selected;type:string;uncheck:false', function(self, config, cls) {
+COMPONENT('choose', 'limit:1;attr:id;key:id;selector:.selection;event:click;class:selected;type:string;uncheck:false;indexer:1', function(self, config, cls) {
 
 	var convert = function(val) {
 		switch (config.type) {
@@ -70,15 +70,23 @@ COMPONENT('choose', 'limit:1;attr:id;key:id;selector:.selection;event:click;clas
 	};
 
 	self.recalc = function() {
-		var arr = self.find(config.selector);
-		var model = self.get();
-		for (var i = 0; i < arr.length; i++) {
-			var el = $(arr[i]);
-			var is = false;
+		let arr = self.find(config.selector);
+		let model = self.get();
+		let indexer = 0;
+		for (let i = 0; i < arr.length; i++) {
+			let el = $(arr[i]);
+			let is = false;
 			if (config.limit === 1)
 				is = model == null ? false : model === convert(el.attrd(config.attr));
 			else
 				is = model && model instanceof Array && model.length ? model.indexOf(el.attrd(config.attr)) !== -1 : false;
+
+			if (config.indexer) {
+				if (is)
+					indexer++;
+				el.attrd('index', is ? indexer : '');
+			}
+
 			el.tclass(config.class, is);
 		}
 	};

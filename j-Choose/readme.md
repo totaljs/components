@@ -14,7 +14,8 @@ __Configuration__:
 - `type {String}` converting type, supports `string` or `number` (default: `string`)
 - `uncheck {Boolean}` allows to uncheck selected value for `limit:1` (default: `false`)
 - `disabled {Boolean}` disables the component
-- __NEW__ `click {String}` a link to the `function(val)` that is evaluted when the user changes the value
+- `click {String}` a link to the `function(val)` that is evaluted when the user changes the value
+- `indexer {Boolean}` the selected index to be filled into the `data-index` attribute of the item (default: `true`)
 
 ### Author
 
