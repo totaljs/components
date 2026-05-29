@@ -25,7 +25,7 @@
 .ui-flow > svg { margin: -1px 0 0 -1px; outline: 0; }
 .ui-flow-grid { stroke: #F8F8F8; stroke-width: 2; }
 .ui-flow .output.connected .component-io.disabled, .ui-flow .input.connected .component-io.disabled, .ui-flow .output .component-io.disabled, .ui-flow .input .component-io.disabled { background-color: red !important; color: #FFF; }
-.ui-flow .traffic { fill: transparent; stroke-width: 3px; }
+.ui-flow .traffic { fill: #000; stroke-width: 3px; }
 .ui-flow-connections { position: absolute; pointer-events: none; }
 .ui-flow-connections path { pointer-events: auto; }
 .ui-flow-groups { position: relative; }
@@ -55,3 +55,4 @@
 .ui-dark .ui-flow .group-selected { border-color: var(--color); }
 .ui-dark .ui-flow-selection { background: rgba(255,255,255,0.1); }
 .ui-dark #ui-flow-arrow { fill: #999; }
+.ui-dark .ui-flow .traffic { fill: #FFF; }
