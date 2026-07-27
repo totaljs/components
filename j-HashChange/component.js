@@ -1,6 +1,7 @@
 COMPONENT('hashchange', function(self, config) {
 
-	var prev = '';
+	let prev = null;
+	let isready = false;
 
 	self.singleton();
 	self.readonly();
@@ -10,7 +11,11 @@ COMPONENT('hashchange', function(self, config) {
 	};
 
 	self.handler = function() {
-		var hash = location.hash.substring(1);
+
+		if (!isready)
+			return;
+
+		let hash = location.hash.substring(1);
 		if (prev !== hash) {
 			prev = hash;
 			if (config.delay)
@@ -20,12 +25,23 @@ COMPONENT('hashchange', function(self, config) {
 		}
 	};
 
+	self.on('location', function() {
+		let hash = location.hash;
+		if (hash !== prev)
+			self.handler();
+	});
+
 	self.make = function() {
 		$(W).on('hashchange', self.handler);
-		if (config.middleware)
-			MIDDLEWARE(config.middleware.split(',').trim(), self.handler);
-		else
+		if (config.middleware) {
+			MIDDLEWARE(config.middleware.split(',').trim(), function() {
+				isready = true;
+				self.handler();
+			});
+		} else {
+			isready = true;
 			self.on('ready', self.handler);
+		}
 	};
 
 	self.destroy = () => $(W).off('hashchange', self.handler);
