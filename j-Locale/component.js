@@ -226,6 +226,7 @@ COMPONENT('locale', function(self, config) {
 				break;
 
 			case 'cs':
+			case 'cz':
 				nf = 2;
 				df = 'dd.MM.yyyy';
 				tf = 24;
