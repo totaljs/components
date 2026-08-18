@@ -22,7 +22,7 @@ COMPONENT('code', 'parent:auto;autosave:500;margin:0;linenumbers:1;realtime:1;ty
 		}
 
 		msg.id = self.ID;
-		iframe[0] && iframe[0]?.contentWindow.postMessage(STRINGIFY(msg), '*');
+		iframe[0] && iframe[0]?.contentWindow?.postMessage(STRINGIFY(msg), '*');
 	};
 
 	var onmessage = function(e) {
