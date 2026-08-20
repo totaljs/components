@@ -2327,14 +2327,22 @@ EXTENSION('flow:commands', function(self, config, cls) {
 	});
 
 	self.command('flow.components.add', function(com) {
-		if (!com.id)
-			com.id = 'f' + Date.now().toString(36);
+
 		var data = self.get();
-		data[com.id] = com;
-		self.op.modify(com, 'newbie');
+
+		if (!(com instanceof Array))
+			com = [com];
+
+		for (let m of com) {
+			if (!m.id)
+				m.id = 'f' + Date.now().toString(36);
+			data[m.id] = m;
+			self.op.modify(m, 'newbie');
+			self.op.undo({ type: 'component', id: m.id });
+		}
+
 		self.op.modified();
 		self.refresh(true);
-		self.op.undo({ type: 'component', id: com.id });
 	});
 
 	self.command('flow.groups.add', function(item) {
