@@ -34,6 +34,7 @@ __Configuration__:
 - `linenumbers {Boolean}` optional, enables line numbers (default: `true`)
 - `type {String}` optional, content-type (default: `clientside`)
 - `url {String}` optional, a link to the editor (default: `//cdn.componentator.com/editor/1.min.html`)
+- __NEW__: `lint {Boolean}` optional, enables lint (default: `true`)
 
 __Method__:
 
@@ -52,6 +53,7 @@ __Method__:
 - `component.replacerange(value, from, [to])`
 - `component.command(cmd)` executes `codemirror.execCommand()` method
 - `component.exec(a, [b], [c])` executes `document.execCommand(a, b, c)` method
+- __NEW__: `component.setoption(name, value)` sends `setOption` command to the CodeMirror
 
 __IMPORTANT__:
 

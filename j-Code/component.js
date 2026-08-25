@@ -1,4 +1,4 @@
-COMPONENT('code', 'parent:auto;autosave:500;margin:0;linenumbers:1;realtime:1;type:clientside', function(self, config) {
+COMPONENT('code', 'parent:auto;autosave:500;margin:0;linenumbers:1;realtime:1;type:clientside;lint:true', function(self, config) {
 
 	var iframe;
 	var savetimeout;
@@ -102,6 +102,10 @@ COMPONENT('code', 'parent:auto;autosave:500;margin:0;linenumbers:1;realtime:1;ty
 		send({ TYPE: 'replace', value: text, to: to });
 	};
 
+	self.setoption = function(name, value) {
+		send({ TYPE: 'setoption', name: name, value: value });
+	};
+
 	self.readonly = function(is) {
 		send({ TYPE: 'readonly', value: is });
 	};
@@ -196,7 +200,7 @@ COMPONENT('code', 'parent:auto;autosave:500;margin:0;linenumbers:1;realtime:1;ty
 		if (init) {
 			settertimeout = null;
 			var value = self.get();
-			send({ TYPE: 'init', linenumbers: config.linenumbers, realtime: config.realtime, readonly: config.readonly, mode: config.type || 'clientside', value: value || '', keywords: config.keywords, darkmode: $('body').hclass('ui-dark') });
+			send({ TYPE: 'init', linenumbers: config.linenumbers, realtime: config.realtime, readonly: config.readonly, mode: config.type || 'clientside', value: value || '', keywords: config.keywords, darkmode: $('body').hclass('ui-dark'), lint: config.lint });
 		} else {
 			settertimeout && clearTimeout(settertimeout);
 			settertimeout = setTimeout(self.setter, 100);
