@@ -56,7 +56,11 @@ COMPONENT('code', 'parent:auto;autosave:500;margin:0;linenumbers:1;realtime:1;ty
 			case 'shortcut':
 			case 'errors':
 			case 'change':
-				config.event && self.SEEX(config.event, msg.TYPE, msg.value);
+			case 'cursor':
+
+				msg.type = msg.TYPE;
+				msg.instance = self;
+				config.event && self.SEEX(config.event, msg);
 
 				if (msg.TYPE === 'change' && config.autosave) {
 					savetimeout && clearTimeout(savetimeout);
@@ -71,9 +75,6 @@ COMPONENT('code', 'parent:auto;autosave:500;margin:0;linenumbers:1;realtime:1;ty
 				msg.y += offset.top;
 				msg.instance = self;
 				config.contextmenu && self.SEEX(config.contextmenu, msg);
-				break;
-			case 'cursor':
-				config.event && self.SEEX(config.event, msg.TYPE, msg.value);
 				break;
 			case 'init':
 				init = true;
