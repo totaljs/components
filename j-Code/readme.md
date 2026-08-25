@@ -18,12 +18,14 @@ __Configuration__:
 
 - `parent {String}` a selector for the main container (default: `auto`)
 - `autosave {Number}` auto rebinds value from the editor to the component's path (in milliseconds, default: `500`)
-- `event {String}` a path to the `function(name, value)`
-	- `click`
-	- `errors`
-	- `shortcut`
-	- `cursor` contains cursor position
-	- `change` contains partial changes for real-time collaboration (`config.realtime` must be `true`)
+- `event {String}` a path to the `function(obj)`
+	- `obj.type {String}`
+		- `click`
+		- `errors`
+		- `shortcut`
+		- `cursor` contains cursor position
+		- `change` contains partial changes for real-time collaboration (`config.realtime` must be `true`)
+	- `obj.instance {Editor}`
 - `contextmenu {String}` a path to the `function(opt)`
 - `realtime {Boolean}` enables realtime sending changes to the `event` method (event name is `change`), default: `true`
 - `keywords {String}` custom keywords in the form e.g. `ID,PATH`
