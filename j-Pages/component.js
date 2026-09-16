@@ -191,14 +191,26 @@ COMPONENT('pages', 'margin:0;delay:220;margintype:offset;scrollbar:1', function(
 			};
 
 			if (cfg.url) {
+
 				config.loading && self.EXEC(config.loading, true);
-				IMPORT(cfg.url, cfg.scroller ? cfg.scroller.body : show, function() {
+
+				let args = [];
+
+				args.push(cfg.url);
+				args.push(cfg.scroller ? cfg.scroller.body : show);
+				args.push(function() {
 					cfg.url = null;
 					run(cfg);
-				}, true, function(content) {
+				});
+
+				if (!M.is20)
+					args.push(true);
+
+				args.push(function(content) {
 					var path = cfg.path || cfg.if;
 					return ADAPT(path, cfg.id, content);
 				});
+				IMPORT.apply(W, args);
 			} else
 				run(cfg);
 		}
