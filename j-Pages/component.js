@@ -169,9 +169,11 @@ COMPONENT('pages', 'margin:0;delay:220;margintype:offset;scrollbar:1', function(
 					cfg.scroller && cfg.scrolltop && cfg.scroller.scrollTop(0);
 					setTimeout(function() {
 						show.css({ transition: 'all ' + animdelay + 's' }).aclass(cls + '-visible').rclass('hidden invisible');
-						show.rclass(cls + '-hide-' + anim, delay);
-						cfg.reload && self.EXEC(replace(cfg, cfg.reload), show);
-						cfg.autofocus && show.autofocus && show.autofocus();
+						requestAnimationFrame(function() {
+							show.rclass(cls + '-hide-' + anim, delay);
+							cfg.reload && self.EXEC(replace(cfg, cfg.reload), show);
+							cfg.autofocus && show.autofocus && show.autofocus();
+						});
 					}, 50);
 				};
 			})(cfg, anim);
@@ -207,9 +209,10 @@ COMPONENT('pages', 'margin:0;delay:220;margintype:offset;scrollbar:1', function(
 					args.push(true);
 
 				args.push(function(content) {
-					var path = cfg.path || cfg.if;
+					let path = cfg.path || cfg.if;
 					return ADAPT(path, cfg.id, content);
 				});
+
 				IMPORT.apply(W, args);
 			} else
 				run(cfg);
