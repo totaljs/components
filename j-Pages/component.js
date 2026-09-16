@@ -172,7 +172,7 @@ COMPONENT('pages', 'margin:0;delay:220;margintype:offset;scrollbar:1', function(
 						show.rclass(cls + '-hide-' + anim, delay);
 						cfg.reload && self.EXEC(replace(cfg, cfg.reload), show);
 						cfg.autofocus && show.autofocus && show.autofocus();
-					}, 10);
+					}, 50);
 				};
 			})(cfg, anim);
 
