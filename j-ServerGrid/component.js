@@ -264,6 +264,10 @@ COMPONENT('servergrid', 'colwidth:150;pluralizepages:# pages,# page,# pages,# pa
 		}
 
 		filtercache.filter = obj;
+
+		// Resets page
+		filtercache.page = 1;
+
 		config.exec && self.EXEC(config.exec, 'filter', filtercache.filter, filtercache.sort, filtercache.page);
 	};
 
