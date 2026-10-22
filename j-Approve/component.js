@@ -42,7 +42,7 @@ COMPONENT('approve', 'cancel:Cancel', function(self, config, cls) {
 	events.keydown = function(e) {
 		var index = e.which === 13 ? 0 : e.which === 27 ? 1 : null;
 		if (index != null) {
-			self.find('button[data-index="{0}"]'.format(index)).trigger('click');
+			setTimeout(() => self.find('button[data-index="{0}"]'.format(index)).trigger('click'), 10);
 			e.preventDefault();
 			e.stopPropagation();
 			events.unbind();
