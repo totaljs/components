@@ -1,6 +1,6 @@
 # Total.js jComponent AI kit
 
-> Rules, a template and tools so an AI model can create Total.js jComponents (UI components for the Total.js UI library v20) from a natural-language description, in a single-file format: component.html (CSS + script + live example, runs in the browser), readme.md and preview.jpg.
+> Rules, a template and tools so an AI model can create Total.js jComponents (UI components for the Total.js UI library v20) from a natural-language description (or convert existing ones), in a single-file format: component.html (CSS + script + live example, runs in the browser), readme.md and preview.jpg.
 
 Plain JavaScript (ES5 style), no TypeScript. Library: https://cdn.componentator.com/spa.min@20.js. Catalogue: https://componentator.com.
 
@@ -23,5 +23,6 @@ Plain JavaScript (ES5 style), no TypeScript. Library: https://cdn.componentator.
 
 ## Optional
 
+- [Convert tool](https://raw.githubusercontent.com/totaljs/components/ai/tools/convert.js): Converts a component of the classic format (component.js, component.css, component.json, example.html...) to component.html + readme.md + preview.jpg
 - [Package tool](https://raw.githubusercontent.com/totaljs/components/ai/tools/componentator.js): Creates the package for componentator.com (component.css, component.js, component.json, dependencies.html, example.html, readme.md, picture.jpg) from component.html and readme.md
 - [Checker](https://raw.githubusercontent.com/totaljs/components/ai/tools/check.js): Checks a component folder in a browser and creates preview.jpg

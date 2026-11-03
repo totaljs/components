@@ -1,9 +1,11 @@
 ---
 name: jcomponent
-description: Create a new Total.js jComponent (UI component for the Total.js UI library, jComponent v20) from a natural-language description, for example "a modern radio button list according to the Apple UI guidelines". Use when asked to write or design a component for componentator.com / totaljs/components. Output is exactly 3 files - component.html (runnable in the browser), readme.md and preview.jpg.
+description: Create a new Total.js jComponent (UI component for the Total.js UI library, jComponent v20) from a natural-language description, for example "a modern radio button list according to the Apple UI guidelines", or convert an existing component of the classic format (component.js, component.css, component.json...) to the new one. Use when asked to write, design, convert or update a component for componentator.com / totaljs/components. Output is exactly 3 files - component.html (runnable in the browser), readme.md and preview.jpg.
 ---
 
-# Creating a jComponent from a description
+# Creating or converting a jComponent
+
+Two tasks use the same format: **create** a component from a description (this page) and **convert** an existing component of the classic format (see "Converting an existing component" at the end).
 
 The user describes a component in plain words (what it does, how it looks). You deliver a complete, working component in the format below. The user does not know lifecycle names: derive them.
 
@@ -57,7 +59,7 @@ The `component` attribute on `<style>` and `<script>` is what the tooling uses t
 
 ### Style rules
 
-- Every selector starts with `.ui-<name>` (the `cls` value), for example `.ui-radio-item`. Nothing global, no tag selectors on their own.
+- Every selector is scoped under `.ui-<name>` (the `cls` value), for example `.ui-radio-item`; it may follow a state class of the library such as `.ui-dark`. Nothing global, no tag selectors on their own.
 - Use the library variables where they exist: `var(--color)` (primary), `rgba(var(--rgb), .1)`, `var(--radius)`, `var(--gap)`, `var(--margin)`.
 - Dark mode: the library adds the class `ui-dark` to `body` (`APPEARANCE({ dark: true })` switches it, use it to test). Add `.ui-dark .ui-<name> ...` rules for every colour of your own and set `darkmode: true` in the readme.
 - Icons are Total.js icons: `<i class="ti ti-home"></i>` (never Font Awesome `fa-`).
@@ -99,7 +101,7 @@ COMPONENT('name', 'key:value;key2:value', function(self, config, cls) {
 - A disabled component rejects the interaction (not only looks disabled) and keeps the native `disabled` property and the ARIA state in sync (`self.configure`).
 - Two instances with different paths and configuration must stay independent: no per-instance data in `self.init`, no fixed ids, no global state.
 - Implement only the hooks that the behaviour needs (`make`, `setter`, `configure`, `validate`, `state`, `resize`, `destroy`, `init`). Clean in `destroy` only what the instance owns.
-- Do not use `self.nocompile()`, `self.release()`, `self.bindvisible()` (no-ops in v20) or `self.readonly()` on a component with a setter (it removes the setter). See "Avoid" in `docs/api.md`.
+- Do not use `self.nocompile()`, `self.release()`, `self.bindvisible()` (no-ops in v20). `self.readonly()` clears `getter` and `setter` at the moment it is called: if you use it, call it before you define them. See "Avoid" in `docs/api.md`.
 - Code style: ES5 (`var`, `function`), tabs, single quotes, Total.js prototypes (`'{0}'.format(x)`, `Tangular.compile`) before hand-written helpers. No ES modules, no `require`, no TypeScript, no extra libraries, no `console.log`.
 - Support the usual options when they make sense (`disabled`, `required` with `self.validate`, `label`); do not invent options that nothing uses.
 
@@ -188,8 +190,31 @@ It needs `npm install playwright` (it uses Chrome if Chromium is not installed).
 3. Empty values, the boundaries, `disabled` and `required` behave as documented.
 4. Keyboard operation and the accessible names work; `ui-dark` on the body keeps the component readable.
 5. Two instances with different paths and configs are independent.
-6. Every selector starts with `.ui-<name>`.
+6. Every selector is scoped under `.ui-<name>`.
 7. Every option of the default configuration is in the readme and vice versa.
 8. `readme.md` frontmatter has all 9 keys; `created` and `updated` are the real current date and time read from the system (`yyyy-MM-dd HH:mm`).
 9. `preview.jpg` exists, is 300x240 and matches the final example.
 10. `node tools/componentator.js <folder>` created the package and `componentator/picture.jpg` looks good.
+
+## Converting an existing component
+
+The classic format is a folder `j-Name/` with `component.js`, `component.css`, `component.json`, `example.html`, `dependencies.html`, `readme.md` and `picture.jpg` (the components of `totaljs/components`, branch `master`). **Converting only changes the format, never the behaviour.**
+
+1. **Mechanical part, with the tool:**
+
+   ```bash
+   node tools/convert.js <old-folder> --out <dir>      # the result is <dir>/<name>/
+   node tools/convert.js <old-folder> --out <dir> --prefix j-   # the folder is j-<name>
+   ```
+
+   The name is the one of `COMPONENT('name')` (not of the old folder). The tool creates `component.html` (`component.css` -> `<style component>`, `component.js` -> `<script component>` without the no-op `self.nocompile()`, `example.html` -> the example, `dependencies.html` -> `<head>` with `spa.min@20` and any other dependency of the old file), `readme.md` (frontmatter from `component.json`, `# Title`, bullets in the form `` `key {Type}` ``, without the `### Author` block) and `preview.jpg` (a copy of `picture.jpg`). `created` is kept, `updated` is the current date and time of the system. The version of the library is the one that the component declares in `component.json` (`jcomponent`; without it, v19): a v19-only component keeps `spa.min@19` and `jcomponent: v19`. Do not force `spa.min@20` on it: it can fail (`NOTMODIFIED is not defined`, `self.compile is not a function`...). Updating it to run on v20 is a separate task.
+2. **Check:** `node tools/check.js <result> --legacy`. Fix the **errors**:
+   - `description: TODO` -> write one sentence from the readme and the code.
+   - Options of the default configuration that the readme does not document -> read the code, add them to `__Configuration__:` with their `{Type}` and default.
+   - `__Configuration__:` missing in a component that has defaults -> add it.
+   - `preview.jpg` missing -> `node tools/check.js <result> --preview`.
+3. **Warnings** are rules for new components that the old code does not follow (selectors that are not scoped under `.ui-<name>`, `id="..."`, `self.release()`, `console.log`). Do not rewrite code to remove them: that can change the behaviour. List them next to the result, and fix only what is trivially safe.
+4. **Run the browser test:** `node tools/check.js <result> --legacy` with Playwright, and open `component.html`. If the component fails, compare with the old one before you change anything: it may need another component or a library (`dependencies.html`).
+5. Do not convert two folders that register the same name (`j-QRCode` and `j-QRCodeGenerator` both register `qrcode`) and do not convert a folder without `component.js` (`j-ResponsiveLayout`): report them.
+6. Only components (`j-*`) are converted. Tangular helpers and templates (`Tangular-*`, `URLify`, `Mailify`...) are not jComponents.
+7. To publish on componentator, `node tools/componentator.js <result>` creates the package again (see "Package for componentator").

@@ -63,7 +63,7 @@ Properties: `self.name`, `self.id`, `self.path`, `self.ID`, `self.element` (jQue
 | `self.EXEC(path, ...args)` | execute a linked function (`config.change`); keeps the `?/handler` resolution |
 | `self.makepath(path)` | resolve `?` to the path of the parent plugin |
 
-**Avoid** (verified in `library.js` 20.014): `self.nocompile()`, `self.release()` and `self.bindvisible()` are no-ops; `self.readonly()` clears `getter` and `setter` (it is not the HTML `readonly` property; never use it on a component that has a setter); do not invent `self.compile()`, `self.novalidate()` or `self.notify()`; do not call `$`-prefixed members (`$setter`, `$validate`...).
+**Avoid** (verified in `library.js` 20.014): `self.nocompile()`, `self.release()` and `self.bindvisible()` are no-ops; `self.readonly()` clears `getter` and `setter` at the moment it is called (it is not the HTML `readonly` property): call it before you define them, as the existing components do, never after; do not invent `self.compile()`, `self.novalidate()` or `self.notify()`; do not call `$`-prefixed members (`$setter`, `$validate`...).
 
 Direction of the data: `model change -> setter -> DOM` and `user interaction -> normalize -> self.modify -> setter -> DOM`. The setter renders only: it must not write the value back or fire the user-change callback.
 
@@ -92,7 +92,7 @@ Total.js icons: `<i class="ti ti-home"></i>`. `self.icon(value)` adds the prefix
 
 ## Component
 
-- `instance.readonly()`: The library comment says "disables validation", but in v20 it also clears `getter` and `setter`: do not use it on a component that renders values.
+- `instance.readonly()`: The library comment says "disables validation", but in v20 it also clears `getter` and `setter` when it is called: call it before defining them.
 - `instance.singleton()`: The method enables changes the component instance to a singleton.
 - `instance.set(value, [flags])` (value {String}; [flags] {String} with @): The method assigns a value to the model and calls `setter`.
 - `instance.rewrite(value, [flags])` (value {String}; [flags] {String} with @): The method assigns a value to the model without calling the setter.

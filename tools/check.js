@@ -1,5 +1,8 @@
 // Checks a component folder and creates preview.jpg
-// Usage: node tools/check.js <folder> [--preview]
+// Usage: node tools/check.js <folder> [--preview] [--no-browser] [--legacy]
+//
+// --legacy is for a converted component: the rules about the style of the code (selectors, id attributes,
+// no-op helpers, console.log) are reported as warnings because converting must not change the behaviour.
 // Needs: npm install playwright && npx playwright install chromium
 
 var fs = require('fs');
@@ -7,11 +10,19 @@ var path = require('path');
 
 var dir = path.resolve(process.argv[2] || '.');
 var preview = process.argv.indexOf('--preview') !== -1;
+var nobrowser = process.argv.indexOf('--no-browser') !== -1;
+var legacy = process.argv.indexOf('--legacy') !== -1;
 var errors = [];
+var warnings = [];
 var KEYS = ['name', 'description', 'author', 'version', 'darkmode', 'license', 'created', 'updated', 'jcomponent'];
 
 var fail = function(msg) {
 	errors.push(msg);
+};
+
+// A rule of the style of the code: an error for a new component, a warning for a converted one
+var style = function(msg) {
+	(legacy ? warnings : errors).push(msg);
 };
 
 var read = function(name) {
@@ -30,13 +41,17 @@ if (!fs.existsSync(path.join(dir, 'preview.jpg')) && !preview)
 	fail('Missing file: preview.jpg (use --preview to create it)');
 
 // component.html
-var name = (html.match(/COMPONENT\(\s*'([a-z0-9]+)'/) || [])[1];
+var name = (html.match(/COMPONENT\(\s*'([A-Za-z0-9]+)'/) || [])[1];
 
 if (!name)
-	fail('component.html: COMPONENT(\'name\', ...) not found or the name is not lower case');
+	fail('component.html: COMPONENT(\'name\', ...) not found or the name is not alphanumeric');
 
-if (!/<link[^>]+spa\.min@20\.css/.test(html) || !/<script[^>]+spa\.min@20\.js/.test(html))
-	fail('component.html: spa.min@20 css and js are required in <head>');
+if (!/<link[^>]+spa\.min@20\.css/.test(html) || !/<script[^>]+spa\.min@20\.js/.test(html)) {
+	if (legacy && /<link[^>]+spa\.min@19\.css/.test(html) && /<script[^>]+spa\.min@19\.js/.test(html))
+		warnings.push('component.html: it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20');
+	else
+		fail('component.html: spa.min@20 css and js are required in <head>');
+}
 
 if ((html.match(/<style component>/g) || []).length !== 1)
 	fail('component.html: exactly one <style component> is required');
@@ -54,31 +69,35 @@ var code = (html.match(/<script component>([\s\S]*?)<\/script>/) || [])[1] || ''
 code = code.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
 
 if (/\bconsole\.log\(/.test(code))
-	fail('component.html: console.log in the component');
+	style('component.html: console.log in the component');
 
 if (/\bid\s*=\s*\\?["']/.test(code))
-	fail('component.html: id="..." attributes in the component, use aria-label or a wrapping <label>');
+	style('component.html: id="..." attributes in the component, use aria-label or a wrapping <label>');
 
 ['nocompile', 'release', 'bindvisible'].forEach(function(key) {
 	if (new RegExp('self\\.' + key + '\\b').test(code))
-		fail('component.html: self.' + key + '() is a no-op in jComponent v20, remove it');
+		style('component.html: self.' + key + '() is a no-op in jComponent v20, remove it');
 });
 
-if (/self\.readonly\(/.test(code) && /self\.setter\s*=/.test(code))
-	fail('component.html: self.readonly() removes the setter, do not use it in a component that has one');
+// self.readonly() clears getter and setter at the moment it is called: it must be called before they are defined
+var readonly = code.search(/self\.readonly\(/);
+var defined = code.search(/self\.(setter|getter)\s*=/);
 
-var style = (html.match(/<style component>([\s\S]*?)<\/style>/) || [])[1] || '';
+if (readonly !== -1 && defined !== -1 && readonly > defined)
+	style('component.html: self.readonly() is called after self.setter/self.getter were defined and removes them, call it before');
+
+var css = (html.match(/<style component>([\s\S]*?)<\/style>/) || [])[1] || '';
 
 if (name) {
-	var selectors = style.replace(/\/\*[\s\S]*?\*\//g, '').replace(/@media[^{]*\{/g, '').split('}');
+	var selectors = css.replace(/\/\*[\s\S]*?\*\//g, '').replace(/@(-webkit-)?keyframes[^{]*\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}/g, '').replace(/@[a-z-]+[^{;]*\{(?=\s*[^{}]*\{)/g, '').split('}');
 	selectors.forEach(function(block) {
 		var sel = block.split('{')[0].trim();
 		if (!sel)
 			return;
 		sel.split(',').forEach(function(s) {
-			s = s.trim().replace(/^\.ui-dark\s+/, '');
-			if (s && s.indexOf('.ui-' + name) !== 0)
-				fail('component.html: selector "' + s + '" does not start with .ui-' + name);
+			s = s.trim();
+			if (s && s.indexOf('.ui-' + name) === -1)
+				style('component.html: selector "' + s + '" is not scoped under .ui-' + name);
 		});
 	});
 }
@@ -125,11 +144,12 @@ if (!fm) {
 		fail('readme.md: darkmode must be true or false');
 }
 
-if (!/__Configuration__:/.test(readme))
+// Defaults of the configuration vs readme
+var defaults = (html.match(/COMPONENT\(\s*'[A-Za-z0-9]+'\s*,\s*'([^']*)'/) || [])[1];
+
+if (defaults && !/__Configuration__:/.test(readme))
 	fail('readme.md: the __Configuration__: section is missing');
 
-// Defaults of the configuration vs readme
-var defaults = (html.match(/COMPONENT\(\s*'[a-z0-9]+'\s*,\s*'([^']*)'/) || [])[1];
 if (defaults) {
 	defaults.split(';').forEach(function(item) {
 		var key = item.split(':')[0].trim();
@@ -143,17 +163,21 @@ var finish = function(extra) {
 	if (errors.length) {
 		console.log('FAILED (' + errors.length + ')');
 		errors.forEach(function(m) { console.log('- ' + m); });
+		warnings.forEach(function(m) { console.log('~ ' + m); });
 		process.exit(1);
 	}
-	console.log('OK ' + dir);
+	console.log('OK ' + dir + (warnings.length ? ' (' + warnings.length + ' warnings)' : ''));
+	warnings.forEach(function(m) { console.log('~ ' + m); });
 };
 
 // Browser
 var pw;
 try {
+	if (nobrowser)
+		throw new Error('skipped');
 	pw = require('playwright');
 } catch (e) {
-	console.log('playwright is not installed: structure checked, the browser test was skipped');
+	console.log(nobrowser ? 'structure checked, the browser test was skipped (--no-browser)' : 'playwright is not installed: structure checked, the browser test was skipped');
 	return finish();
 }
 

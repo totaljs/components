@@ -1,9 +1,9 @@
 ---
 name: jcomponent
-description: Use when asked to create or design a Total.js jComponent (a UI component for the Total.js UI library v20, componentator.com, totaljs/components) from a description. Output: component.html + readme.md + preview.jpg.
+description: Use when asked to create, design, convert or update a Total.js jComponent (a UI component for the Total.js UI library v20, componentator.com, totaljs/components): from a description, or from a component of the classic format. Output: component.html + readme.md + preview.jpg.
 ---
 
-# Create a jComponent
+# Create or convert a jComponent
 
 Read the repository's `AGENTS.md` first.
 

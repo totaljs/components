@@ -159,7 +159,7 @@
 			// self.datasource(path, function(path, value)) watches another path and calls the function on a change
 			// self.template = Tangular.compile('...')     a Tangular template, render it with self.template(model)
 			// self.watch(path, function(value, flags, path))  the callback arguments differ from self.setter
-			// self.readonly()                              avoid: it removes "getter" and "setter" of the instance
+			// self.readonly()                              it clears "getter" and "setter" when it is called, so call it before defining them
 			// self.singleton()                             only one instance for the whole page
 			// self.makepath('?.items')                    resolves the path "?" to the path of the parent ui-plugin
 
