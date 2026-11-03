@@ -30,8 +30,9 @@ A folder named after the component (lower case, one word if possible):
 1. **Check the name** against `https://componentator.com` and the folders of this repository; do not duplicate an existing component.
 2. **Write the contract** before the code and keep it short (it ends in the readme): purpose, model (type and shape, empty value), configuration (keys, types, defaults), callbacks (name and exact arguments), state (disabled, required/invalid, empty), public methods (only if really needed). Choose the smallest coherent API. Ask the user only when an open decision changes the meaning or the data contract; otherwise decide and state the assumption.
 3. **Write `component.html`** following the rules below.
-4. **Write `readme.md`.**
-5. **Run `node tools/check.js <folder> --preview`**, fix what it reports, and open the file in a browser: try every option, the keyboard, two instances at the same time and dark mode.
+4. **Read the date and time from the system** (`date '+%Y-%m-%d %H:%M'`) and **write `readme.md`** with it in `created` and `updated`.
+5. **Check the files.**
+   Run `node tools/check.js <folder> --preview`, fix what it reports, and open the file in a browser: try every option, the keyboard, two instances at the same time and dark mode.
 6. Report what was verified and what was not.
 
 ## 1. component.html
@@ -64,10 +65,10 @@ The `component` attribute on `<style>` and `<script>` is what the tooling uses t
 When the user names a design language ("Apple UI guidelines", "Material", "minimal"), translate it into the CSS of the component: sizes, spacing, radius, typography, colours, motion and states. Keep what makes a component good in any style:
 
 - Semantic, keyboard-operable controls (real `button`, `input`, `label`; arrow keys inside a group, `Space`/`Enter` to select), visible focus, sufficient contrast, touch targets of about 44px.
-- Roles and ARIA state when the native element is not enough (`role="radiogroup"`, `aria-checked`, `aria-disabled`); labels and errors associated with their controls using instance-specific ids.
+- Roles and ARIA state when the native element is not enough (`role="radiogroup"`, `aria-checked`, `aria-disabled`). Name the controls with `aria-label` or a wrapping `<label>`; do not use `id="..."` attributes (two instances must not share an id, and the component must not depend on one).
 - Respect `prefers-reduced-motion` for animations.
-- Untrusted values are rendered with `.text()` or an escaping helper, never as raw HTML.
-- The texts that the user sees come from the configuration or from the model, never hard-coded in one language.
+- Values that come from data are rendered with `.text()` or an escaping helper, never as raw HTML.
+- **The label is the HTML content of the tag**, as in `j-Input` (`config.label || self.html()`), so it can contain markup and the `@(...)` translation markers of the application: `<ui-component name="radiolist" path="form.plan">Plan</ui-component>`. `label` in the configuration is only the alternative. The same goes for other short texts of the component that are not data. Nothing the user sees is hard-coded in one language.
 
 ### Script rules
 
@@ -102,6 +103,7 @@ COMPONENT('name', 'key:value;key2:value', function(self, config, cls) {
 ### Example rules
 
 - Use `<ui-component name="<name>" path="..." config="key:value">` and close it once. Inside `config`, a `:` in a value is escaped as `\:`. Special keys with `$` (`$id`, `$class`, `$binding`, `$delay`, `$init`, `$setter`, `$state`, `$reconfigure`, `$compile`, `$url`) are handled by the library. See `docs/aicontext/ui-component.md`.
+- The label of the example goes in the content of the tag, not in `config` (`<ui-component ...>Plan</ui-component>`).
 - The example shows the component working with realistic data (the main instance goes first: it is the one in `preview.jpg`) and, when it has important options, more instances with a different `config` (and one disabled).
 - Data is set in a plain `<script>` with `SET('path', value)` or by declaring the object. If a callback is linked from `config`, define a stub of it in the same script.
 - It works offline from the data side: no APIs, no tokens, no private URLs.
@@ -137,7 +139,7 @@ __Callbacks__:
 - Types: `{String}`, `{Number}`, `{Boolean}`, `{Object}`, `{Function}`. A config that links to a function is "link to a global `function(args)`" with the exact arguments.
 - One bullet per option, in the same order as the default configuration string.
 - State the model shape, the callbacks with their payloads, the public methods (if any), the dependencies on other components and the runtime used (`jComponent v20`).
-- `created` and `updated` are the current date and time.
+- **`created` and `updated` must be the real current date and time.** A model does not know it: read it from the system (`date '+%Y-%m-%d %H:%M'`) when you write the file and never invent it, copy it from another readme or from the template. For a new component both are the same moment; when you change an existing component, `created` stays and `updated` is read again. `tools/check.js` rejects dates in the future and `updated` older than `created`.
 
 ## 3. preview.jpg
 
@@ -163,5 +165,5 @@ It needs `npm install playwright` (it uses Chrome if Chromium is not installed).
 5. Two instances with different paths and configs are independent.
 6. Every selector starts with `.ui-<name>`.
 7. Every option of the default configuration is in the readme and vice versa.
-8. `readme.md` frontmatter has all 9 keys, dates in `yyyy-MM-dd HH:mm`.
+8. `readme.md` frontmatter has all 9 keys; `created` and `updated` are the real current date and time read from the system (`yyyy-MM-dd HH:mm`).
 9. `preview.jpg` exists, is 300x240 and matches the final example.

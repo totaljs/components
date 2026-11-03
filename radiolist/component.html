@@ -89,6 +89,12 @@
 				return output;
 			};
 
+			// The label is HTML (the content of the tag or "config.label", as in j-Input); the group is named with aria-label, so no ids are needed
+			var setlabel = function(html) {
+				self.find(cls2 + '-label').html(html || '').tclass('hidden', !html);
+				self.find(cls2 + '-list').attr('aria-label', $('<div></div>').html(html || '').text());
+			};
+
 			var same = function(a, b) {
 				return a != null && b != null && (a + '') === (b + '');
 			};
@@ -129,12 +135,11 @@
 
 			self.make = function() {
 
-				var label = config.label || $.trim(self.element.text());
+				var label = config.label || $.trim(self.html());
 
 				self.aclass(cls);
-				self.html('<div class="{0}-label" id="{1}"></div><div class="{0}-list" role="radiogroup"></div>'.format(cls, self.ID + '-label'));
-				self.find(cls2 + '-label').text(label).tclass('hidden', !label);
-				self.find(cls2 + '-list').attr('aria-labelledby', self.ID + '-label');
+				self.html('<div class="{0}-label"></div><div class="{0}-list" role="radiogroup"></div>'.format(cls));
+				setlabel(label);
 
 				self.tclass('ui-disabled', !!config.disabled);
 				self.tclass(cls + '-required', !!config.required);
@@ -230,7 +235,7 @@
 						config.datasource && onsource(GET(self.makepath(config.datasource)));
 						break;
 					case 'label':
-						self.find(cls2 + '-label').text(value).tclass('hidden', !value);
+						setlabel(value);
 						break;
 					case 'disabled':
 						self.tclass('ui-disabled', !!value);
@@ -247,14 +252,14 @@
 
 	</script>
 
-	<!-- Example: a data-source with descriptions, the callback is linked from the configuration -->
-	<ui-component name="radiolist" path="*form.plan" config="label:Plan;datasource:*form.plans;change:onplanchange;required:true"></ui-component>
+	<!-- Example: a data-source with descriptions, the callback is linked from the configuration and the label is the content of the tag -->
+	<ui-component name="radiolist" path="*form.plan" config="datasource:*form.plans;change:onplanchange;required:true">Plan</ui-component>
 
 	<!-- Example: the items are in the configuration (text|value, separated by a comma) -->
-	<ui-component name="radiolist" path="*form.size" config="label:Size;items:Small|s,Medium|m,Large|l"></ui-component>
+	<ui-component name="radiolist" path="*form.size" config="items:Small|s,Medium|m,Large|l">Size</ui-component>
 
 	<!-- Example: a disabled instance -->
-	<ui-component name="radiolist" path="*form.locked" config="label:Disabled;items:One|1,Two|2;disabled:true"></ui-component>
+	<ui-component name="radiolist" path="*form.locked" config="items:One|1,Two|2;disabled:true">Disabled</ui-component>
 
 	<script>
 

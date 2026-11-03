@@ -56,6 +56,9 @@ code = code.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
 if (/\bconsole\.log\(/.test(code))
 	fail('component.html: console.log in the component');
 
+if (/\bid\s*=\s*\\?["']/.test(code))
+	fail('component.html: id="..." attributes in the component, use aria-label or a wrapping <label>');
+
 ['nocompile', 'release', 'bindvisible'].forEach(function(key) {
 	if (new RegExp('self\\.' + key + '\\b').test(code))
 		fail('component.html: self.' + key + '() is a no-op in jComponent v20, remove it');
@@ -100,6 +103,24 @@ if (!fm) {
 		if (meta[key] && !/^\d{4}-\d\d-\d\d \d\d:\d\d$/.test(meta[key]))
 			fail('readme.md: "' + key + '" must be yyyy-MM-dd HH:mm');
 	});
+	var toDate = function(value) {
+		var m = /^(\d{4})-(\d\d)-(\d\d) (\d\d):(\d\d)$/.exec(value || '');
+		return m ? new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5]) : null;
+	};
+
+	var created = toDate(meta.created);
+	var updated = toDate(meta.updated);
+
+	// A model does not know the current date: it must be the real one
+	if (created && created.getTime() > Date.now() + 120000)
+		fail('readme.md: "created" is in the future, use the current date and time of the system');
+
+	if (updated && updated.getTime() > Date.now() + 120000)
+		fail('readme.md: "updated" is in the future, use the current date and time of the system');
+
+	if (created && updated && updated < created)
+		fail('readme.md: "updated" is older than "created"');
+
 	if (meta.darkmode && meta.darkmode !== 'true' && meta.darkmode !== 'false')
 		fail('readme.md: darkmode must be true or false');
 }
