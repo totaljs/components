@@ -13,39 +13,187 @@
 
 	<!-- Style -->
 	<style component>
-		.ui-example {}
+
+		/* Every selector starts with .ui-<name> (cls). Variables of the library: --color, --rgb, --radius, --gap, --margin */
+		.ui-example { position: relative; font-size: 13px; margin-bottom: var(--margin); transition: opacity .2s; }
+		.ui-example-title { margin-bottom: 5px; font-size: 12px; color: #777; }
+		.ui-example-title i { margin-right: 5px; }
+		.ui-example-control { display: flex; align-items: center; border: 1px solid #E0E0E0; border-radius: var(--radius); background: #FFF; overflow: hidden; }
+		.ui-example-button { width: 34px; height: 34px; line-height: 34px; text-align: center; cursor: pointer; user-select: none; color: var(--color); }
+		.ui-example-button:hover { background: rgba(var(--rgb), 0.1); }
+		.ui-example-value { flex: 1; text-align: center; line-height: 34px; font-weight: bold; border-left: 1px solid #E0E0E0; border-right: 1px solid #E0E0E0; }
+
+		/* States are toggled with classes that start with cls (ui-example-flash) or with the library classes (ui-disabled) */
+		.ui-example-flash .ui-example-value { background: rgba(var(--rgb), 0.1); }
+		.ui-example-invalid .ui-example-control { border-color: red; }
+		.ui-example.ui-disabled { opacity: 0.5; }
+		.ui-example.ui-disabled * { cursor: not-allowed; }
+
+		/* Dark mode (the library adds the class ui-dark to body) */
+		.ui-dark .ui-example-title { color: #A0A0A0; }
+		.ui-dark .ui-example-control { background: #252525; border-color: #404040; }
+		.ui-dark .ui-example-value { border-color: #404040; }
+
 	</style>
 
 	<!-- Source-code -->
 	<script component>
 
-		COMPONENT('example', 'title:Title;icon:ti ti-warning', function(self, config, cls) {
+		// COMPONENT(name, defaults, declaration)
+		// - name: lower case, without "j-"; it's used in <ui-component name="example">
+		// - defaults: configuration string (key1:value;key2:value), every key must be documented in readme.md
+		COMPONENT('example', 'title:Title;icon:ti ti-warning;step:1;min:0;max:100;disabled:false;required:false', function(self, config, cls) {
 
 			// @self {Object} a component instance
-			// @config {Object} a parsed configuration from the configuration string (key1:value;key2:value), numbers are parsed as numbers, boolean as boolean
-			// @cls {String} contains normalized component name as a CSS class name
+			// @config {Object} a parsed configuration (numbers are parsed as numbers, true/false as booleans)
+			// @cls {String} the normalized name of the component as a CSS class: "ui-example"
 
 			// Good to know:
 			// self.element {jQuery element of the component}
+			// self.dom {DOM element of the component}
+			// self.path {the path to the model}
+			// self.ID {the unique ID of the instance}
 
-			// Constructor
+			// Private variables and helpers go first
+			var cls2 = '.' + cls;
+			var flashid;
+
+			// "self.init" is executed only once for the component type, before the first instance.
+			// Use it for shared things (Tangular helpers, global functions, global events).
+			// self.init = function() {};
+
+			// "self.nocompile()" disables the compilation of HTML which is inside of the component tag.
+			// Use it for components that don't contain other components.
+			self.nocompile && self.nocompile();
+
+			// Constructor: it's executed once per instance. Create the DOM here.
 			self.make = function() {
+
 				self.aclass(cls);
+
+				// A string with {0}, {1} placeholders is filled via .format()
+				self.html('<div class="{0}-title"><i class="{1}"></i><span>{2}</span></div><div class="{0}-control"><div class="{0}-button" data-step="-1"><i class="ti ti-minus"></i></div><div class="{0}-value"></div><div class="{0}-button" data-step="1"><i class="ti ti-plus"></i></div></div>'.format(cls, config.icon, config.title));
+
+				config.disabled && self.aclass('ui-disabled');
+
+				// One delegated event listener for all buttons: self.event(events, selector, handler)
+				self.event('click', cls2 + '-button', function() {
+					if (!config.disabled)
+						self.change2(+$(this).attrd('step') * config.step);
+				});
 			};
 
-			self.setter = function(value) {
-				// path has been changed, update the view according to the value
+			// The user changes the value. "self.change(true)" marks the component as changed (dirty)
+			// and "self.set(value)" writes to the model and executes "self.setter".
+			self.change2 = function(diff) {
+
+				var value = (self.get() || 0) + diff;
+
+				if (value < config.min)
+					value = config.min;
+				else if (value > config.max)
+					value = config.max;
+
+				self.change(true);
+				self.set(value);
+
+				// "config.exec" is a link to a global function, "self.EXEC" executes it: function(value, element)
+				config.exec && self.EXEC(config.exec, value, self.element);
+			};
+
+			// The path has been changed (the first call is when the component is ready).
+			// @value {Object} a new value from the model, it can be "undefined" or "null".
+			self.setter = function(value, path, type) {
+
+				self.find(cls2 + '-value').text(value == null ? '-' : value);
+
+				// Visual feedback, a short highlight. Timers are always cleaned in "destroy".
+				self.aclass(cls + '-flash');
+				flashid && clearTimeout(flashid);
+				flashid = setTimeout(function() {
+					flashid = null;
+					self.rclass(cls + '-flash');
+				}, 300);
+			};
+
+			// Validation: it's used when "required:true". It returns "true" if the value is valid.
+			// The result is read by FORM validation, by "self.isInvalid()" and by "COMPONENTS('path @invalid')"
+			self.validate = function(value) {
+				return (config.disabled || !config.required) ? true : (value != null && value > 0);
+			};
+
+			// "self.state(type, what)" is executed if the state (dirty, valid, invalid) has been changed.
+			self.state = function(type) {
+				if (type)
+					self.tclass(cls + '-invalid', config.required ? self.isInvalid() : false);
+			};
+
+			// The configuration was changed in runtime (e.g. SETTER('example/reconfigure', 'title:New')).
+			// "init" is "true" when the key is processed for the first time: ignore it if "make" handles it.
+			self.configure = function(key, value, init) {
+
+				if (init)
+					return;
+
+				switch (key) {
+					case 'title':
+						self.find(cls2 + '-title span').text(value);
+						break;
+					case 'icon':
+						self.find(cls2 + '-title i').attr('class', value);
+						break;
+					case 'disabled':
+						self.tclass('ui-disabled', !!value);
+						break;
+					case 'required':
+						self.state(1);
+						break;
+				}
+			};
+
+			// The window or the parent element was resized. Debounce with setTimeout2(id, fn, delay).
+			// self.resize = function() {
+			// 	setTimeout2(self.ID + 'resize', self.refresh, 200);
+			// };
+
+			// Other members you will see in the existing components:
+			// self.on('resize + resize2', fn)             a global event of the library
+			// self.datasource(path, function(path, value)) watches another path and calls the function on a change
+			// self.template = Tangular.compile('...')     a Tangular template, render it with self.template(model)
+			// self.readonly()                              disables validation and the "state" of the component
+			// self.singleton()                             only one instance for the whole page
+			// self.makepath('?.items')                    resolves the path "?" to the path of the parent ui-plugin
+
+			// Clean everything that was created outside of the element: timers, intervals, window events.
+			self.destroy = function() {
+				flashid && clearTimeout(flashid);
 			};
 
 		});
 
 	</script>
 
-	<!-- Example -->
-	<ui-component name="example" path="*form" config="title:Test;if:myform"></ui-component>
+	<!-- Example: the component with its defaults and the path to the model -->
+	<ui-component name="example" path="*form.count"></ui-component>
+
+	<!-- Example: the configuration is in the "config" attribute (key:value;key2:value) and "exec" links to a global function -->
+	<ui-component name="example" path="*form.apples" config="title:Apples;icon:ti ti-shopping-cart;step:5;max:50;required:true;exec:oncountchange"></ui-component>
+
+	<!-- Example: a disabled instance -->
+	<ui-component name="example" path="*form.locked" config="title:Locked;icon:ti ti-lock;disabled:true"></ui-component>
 
 	<script>
-		SET('*form', 'myform');
+
+		// The data are set via SET(path, value). The "*" is the common path of the library.
+		SET('*form.count', 3);
+		SET('*form.apples', 10);
+		SET('*form.locked', 7);
+
+		// A global function linked from "config" (exec:oncountchange)
+		function oncountchange(value, element) {
+			// A reaction to the change, e.g. send the value to the server
+		}
+
 	</script>
 
 </body>

@@ -37,7 +37,7 @@ Declarations called inside the component function: `self.nocompile()` (do not co
 
 - `path="form.name"` binds to `GET('form.name')` and `SET('form.name', value)`.
 - `?` is replaced by the path of the parent `<ui-plugin>` (`self.makepath('?.items')`). A leading `*` is the common path prefix of the library (the example uses `path="*form"`).
-- `SET`, `GET`, `UPD`, `PUSH`, `CMD`, `SETTER('component/method', ...)` and `EXEC` work from outside the component.
+- `SET`, `GET`, `UPD`, `PUSH`, `CMD`, `EXEC` and `SETTER('component/method', ...args)` work from outside the component. `SETTER('example/reconfigure', 'title:New')` calls the method on every instance of the component `example`; `SETTER(true, 'example/method', ...)` waits until the component is ready.
 
 ## Dark and large mode
 

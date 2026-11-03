@@ -44,7 +44,9 @@ if ((html.match(/<style component>/g) || []).length !== 1)
 if ((html.match(/<script component>/g) || []).length !== 1)
 	fail('component.html: exactly one <script component> is required');
 
-if ((html.match(/<ui-component\b/g) || []).length !== (html.match(/<\/ui-component>/g) || []).length)
+var markup = html.replace(/<script component>[\s\S]*?<\/script>/, '').replace(/<!--[\s\S]*?-->/g, '');
+
+if ((markup.match(/<ui-component\b/g) || []).length !== (markup.match(/<\/ui-component>/g) || []).length)
 	fail('component.html: <ui-component> tags are not balanced');
 
 if (/\bconsole\.log\(/.test((html.match(/<script component>([\s\S]*?)<\/script>/) || [])[1] || ''))
