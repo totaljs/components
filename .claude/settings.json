@@ -3,6 +3,7 @@
   "permissions": {
     "allow": [
       "Bash(node tools/check.js *)",
+      "Bash(node tools/componentator.js *)",
       "Bash(git status *)",
       "Bash(git diff *)",
       "Bash(git log *)"

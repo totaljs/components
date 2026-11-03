@@ -19,6 +19,7 @@ This branch contains everything an AI model (Claude, ChatGPT, Codex, Gemini, Cop
 | [`docs/api.md`](docs/api.md) | Reference of the jComponent API |
 | [`docs/aicontext/`](docs/aicontext/readme.md) | Guides of the Total.js team: how to develop a component, `ui-component`, `ui-bind`, `ui-import` and `ui-plugin` |
 | [`tools/check.js`](tools/check.js) | Checks a component and creates `preview.jpg` |
+| [`tools/componentator.js`](tools/componentator.js) | Creates the package for componentator.com (`component.css`, `component.js`, `component.json`, `dependencies.html`, `example.html`, `readme.md` and an artistic `picture.jpg`) |
 | [`AGENTS.md`](AGENTS.md), `CLAUDE.md`, `GEMINI.md`, [`llms.txt`](llms.txt) | Entry points for each agent |
 
 ### How to use it
@@ -31,6 +32,7 @@ This branch contains everything an AI model (Claude, ChatGPT, Codex, Gemini, Cop
 npm install playwright                    # once
 node tools/check.js <folder>              # structure, readme, selectors, browser errors, dark mode
 node tools/check.js <folder> --preview    # also creates preview.jpg (300x240)
+node tools/componentator.js <folder>      # package for componentator.com in <folder>/componentator/
 ```
 
 ## Contact

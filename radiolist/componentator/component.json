@@ -1,0 +1,14 @@
+{
+	"datecreated": "2026-11-03T08:06:00.000Z",
+	"dateupdated": "2026-11-03T08:24:00.000Z",
+	"name": "j-RadioList",
+	"jcomponent": "20",
+	"color": "white",
+	"version": 1,
+	"darkmode": true,
+	"responsive": true,
+	"picture": "picture.jpg",
+	"dependencies": "",
+	"author": "Gera G. Güiles",
+	"license": "MIT"
+}

@@ -21,6 +21,7 @@ Plain JavaScript in ES5 style, no TypeScript (Total.js does not support it: neve
 npm install playwright                    # once, for the browser test and the preview
 node tools/check.js <folder>              # structure, readme, selectors, browser errors, dark mode
 node tools/check.js <folder> --preview    # also creates preview.jpg (300x240)
+node tools/componentator.js <folder>      # the package for componentator.com in <folder>/componentator/
 ```
 
 ## Repository layout
@@ -30,6 +31,7 @@ node tools/check.js <folder> --preview    # also creates preview.jpg (300x240)
 - `docs/api.md` is the reference of the API (extracted from the library source and from how components use it).
 - `docs/aicontext/` are the guides of the Total.js team about the HTML elements of the library.
 - `tools/check.js` checks a component folder and creates `preview.jpg`.
+- `tools/componentator.js` creates the package of the classic format for componentator.com (`component.css`, `component.js`, `component.json`, `dependencies.html`, `example.html`, `readme.md`, `picture.jpg`) from `component.html` and `readme.md`.
 - `llms.txt` is the index for models. `CLAUDE.md`, `GEMINI.md` and `.github/copilot-instructions.md` import this file.
 
 ## Conventions

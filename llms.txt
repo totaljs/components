@@ -23,4 +23,5 @@ Plain JavaScript (ES5 style), no TypeScript. Library: https://cdn.componentator.
 
 ## Optional
 
+- [Package tool](https://raw.githubusercontent.com/totaljs/components/ai/tools/componentator.js): Creates the package for componentator.com (component.css, component.js, component.json, dependencies.html, example.html, readme.md, picture.jpg) from component.html and readme.md
 - [Checker](https://raw.githubusercontent.com/totaljs/components/ai/tools/check.js): Checks a component folder in a browser and creates preview.jpg

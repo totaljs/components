@@ -25,6 +25,8 @@ A folder named after the component (lower case, one word if possible):
   preview.jpg      300x240 screenshot of the rendered example
 ```
 
+The 3 files are the source. For **componentator.com** the package of the classic format (`component.css`, `component.js`, `component.json`, `dependencies.html`, `example.html`, `readme.md` and an artistic `picture.jpg`) is generated from them by a tool, never written by hand (see "Package for componentator").
+
 ## Workflow
 
 1. **Check the name** against `https://componentator.com` and the folders of this repository; do not duplicate an existing component.
@@ -33,7 +35,8 @@ A folder named after the component (lower case, one word if possible):
 4. **Read the date and time from the system** (`date '+%Y-%m-%d %H:%M'`) and **write `readme.md`** with it in `created` and `updated`.
 5. **Check the files.**
    Run `node tools/check.js <folder> --preview`, fix what it reports, and open the file in a browser: try every option, the keyboard, two instances at the same time and dark mode.
-6. Report what was verified and what was not.
+6. **Create the package for componentator**: `node tools/componentator.js <folder>` (see below).
+7. Report what was verified and what was not.
 
 ## 1. component.html
 
@@ -146,6 +149,28 @@ __Callbacks__:
 - 300 x 240 px, JPEG, created by `node tools/check.js <folder> --preview`.
 - A screenshot of `component.html` in light mode on a white background. It shows the **first** `<ui-component>` of the example (the others are hidden), so put the main instance first, with data, and make it fit in 300 x 240 px.
 
+## Package for componentator
+
+```bash
+node tools/componentator.js <folder>                      # creates <folder>/componentator/
+node tools/componentator.js <folder> --email <email>      # also writes the email of the author in component.json
+node tools/componentator.js <folder> --out <dir>          # another output folder
+```
+
+It reads `component.html` and `readme.md` (run `check.js` first: the dates and the keys of the frontmatter must be valid) and creates the files of the classic component, as in `j-Input`:
+
+| File | From |
+| --- | --- |
+| `component.css` | `<style component>` |
+| `component.js` | `<script component>` |
+| `example.html` | the example of `component.html` (everything after the component script) |
+| `dependencies.html` | the `spa.min@20` links of `<head>` |
+| `component.json` | the frontmatter of `readme.md` (`name` is `j-` + the title of the readme, `jcomponent: v20` is `20`, the dates are ISO) |
+| `readme.md` | the readme without the frontmatter, with `## j-Name`, the jComponent version and an `### Author` block |
+| `picture.jpg` | the first instance of the example in light and dark mode on a soft gradient, 600 x 480 px (2x of 300 x 240) |
+
+Open `component.json` and `readme.md` of the package after you create it and check that they look like the ones of `j-Input`.
+
 ## Checking the result
 
 ```bash
@@ -167,3 +192,4 @@ It needs `npm install playwright` (it uses Chrome if Chromium is not installed).
 7. Every option of the default configuration is in the readme and vice versa.
 8. `readme.md` frontmatter has all 9 keys; `created` and `updated` are the real current date and time read from the system (`yyyy-MM-dd HH:mm`).
 9. `preview.jpg` exists, is 300x240 and matches the final example.
+10. `node tools/componentator.js <folder>` created the package and `componentator/picture.jpg` looks good.

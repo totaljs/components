@@ -1,0 +1,40 @@
+.ui-radiolist { position: relative; margin-bottom: var(--margin); font: 17px/22px -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+.ui-radiolist-label { padding: 0 16px 6px; font-size: 13px; line-height: 18px; text-transform: uppercase; color: #6D6D72; }
+.ui-radiolist-required .ui-radiolist-label:after { content: ' *'; color: #FF3B30; }
+
+/* Grouped list */
+.ui-radiolist-list { background: #F2F2F7; border-radius: 10px; overflow: hidden; }
+.ui-radiolist-item { position: relative; display: flex; align-items: center; min-height: 44px; padding: 0 16px; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; outline: 0; }
+.ui-radiolist-item + .ui-radiolist-item:before { content: ''; position: absolute; top: 0; left: 16px; right: 0; height: 1px; background: #C6C6C8; transform: scaleY(0.5); transform-origin: top; }
+.ui-radiolist-item:active { background: #E5E5EA; }
+.ui-radiolist-item:focus-visible { box-shadow: inset 0 0 0 2px rgba(var(--rgb), 0.6); }
+
+.ui-radiolist-text { flex: 1; min-width: 0; padding: 11px 0; }
+.ui-radiolist-text span { display: block; color: #000; }
+.ui-radiolist-text small { display: block; margin-top: 1px; font-size: 15px; line-height: 20px; color: #8E8E93; }
+.ui-radiolist-check { width: 24px; margin-left: 12px; text-align: right; font-size: 18px; color: var(--color); opacity: 0; transition: opacity 0.15s; }
+.ui-radiolist-selected .ui-radiolist-check { opacity: 1; }
+
+@media (hover: hover) {
+	.ui-radiolist:not(.ui-disabled) .ui-radiolist-item:hover { background: #ECECF0; }
+}
+
+/* States */
+.ui-radiolist.ui-disabled { opacity: 0.5; }
+.ui-radiolist.ui-disabled .ui-radiolist-item { cursor: not-allowed; }
+.ui-radiolist-invalid .ui-radiolist-list { box-shadow: inset 0 0 0 1px #FF3B30; }
+
+@media (prefers-reduced-motion: reduce) {
+	.ui-radiolist-check { transition: none; }
+}
+
+/* Dark mode */
+.ui-dark .ui-radiolist-label { color: #98989F; }
+.ui-dark .ui-radiolist-list { background: #1C1C1E; }
+.ui-dark .ui-radiolist-item + .ui-radiolist-item:before { background: #38383A; }
+.ui-dark .ui-radiolist-item:active { background: #2C2C2E; }
+.ui-dark .ui-radiolist-text span { color: #FFF; }
+.ui-dark .ui-radiolist-text small { color: #98989F; }
+@media (hover: hover) {
+	.ui-dark .ui-radiolist:not(.ui-disabled) .ui-radiolist-item:hover { background: #242426; }
+}
