@@ -102,7 +102,7 @@ COMPONENT('name', 'key:value;key2:value', function(self, config, cls) {
 ### Example rules
 
 - Use `<ui-component name="<name>" path="..." config="key:value">` and close it once. Inside `config`, a `:` in a value is escaped as `\:`. Special keys with `$` (`$id`, `$class`, `$binding`, `$delay`, `$init`, `$setter`, `$state`, `$reconfigure`, `$compile`, `$url`) are handled by the library. See `docs/aicontext/ui-component.md`.
-- The example shows the component working with realistic data and, when it has important options, a second instance with a different `config` (and one disabled).
+- The example shows the component working with realistic data (the main instance goes first: it is the one in `preview.jpg`) and, when it has important options, more instances with a different `config` (and one disabled).
 - Data is set in a plain `<script>` with `SET('path', value)` or by declaring the object. If a callback is linked from `config`, define a stub of it in the same script.
 - It works offline from the data side: no APIs, no tokens, no private URLs.
 
@@ -142,7 +142,7 @@ __Callbacks__:
 ## 3. preview.jpg
 
 - 300 x 240 px, JPEG, created by `node tools/check.js <folder> --preview`.
-- A screenshot of `component.html` in light mode on a white background, showing the component with data. Make the example fit in 300 x 240 px, or the preview will cut it.
+- A screenshot of `component.html` in light mode on a white background. It shows the **first** `<ui-component>` of the example (the others are hidden), so put the main instance first, with data, and make it fit in 300 x 240 px.
 
 ## Checking the result
 

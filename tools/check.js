@@ -169,6 +169,12 @@ try {
 	await page.waitForTimeout(200);
 
 	if (preview) {
+		// The preview shows the first instance of the example
+		await page.evaluate(function() {
+			var els = document.querySelectorAll('ui-component');
+			for (var i = 1; i < els.length; i++)
+				els[i].style.visibility = 'hidden';
+		});
 		await page.screenshot({ path: path.join(dir, 'preview.jpg'), type: 'jpeg', quality: 90 });
 		console.log('preview.jpg created (300x240, light mode)');
 	}
