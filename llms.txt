@@ -1,0 +1,21 @@
+# Total.js jComponent AI kit
+
+> Rules, a template and tools so an AI model can create or convert Total.js jComponents (UI components for the Total.js UI library v20) into a single-file format: component.html (CSS + script + live example, runs in the browser), readme.md and preview.jpg.
+
+Plain JavaScript (ES5 style), no TypeScript. Library: https://cdn.componentator.com/spa.min@20.js. Catalogue: https://componentator.com.
+
+## Start here
+
+- [AGENTS.md](https://raw.githubusercontent.com/totaljs/components/ai/AGENTS.md): What this repository is and how to use it
+- [SKILL.md](https://raw.githubusercontent.com/totaljs/components/ai/SKILL.md): Rules to create or convert a component, conversion table and checklist
+- [Template: component.html](https://raw.githubusercontent.com/totaljs/components/ai/example/component.html): The reference component
+- [Template: readme.md](https://raw.githubusercontent.com/totaljs/components/ai/example/readme.md): The reference readme with the frontmatter
+
+## Reference
+
+- [API](https://raw.githubusercontent.com/totaljs/components/ai/docs/api.md): Methods of the library and what a component can implement
+- [Documentation](https://docs.totaljs.com/components/): Total.js UI components documentation
+
+## Optional
+
+- [Checker](https://raw.githubusercontent.com/totaljs/components/ai/tools/check.js): Checks a component folder in a browser and creates preview.jpg

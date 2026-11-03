@@ -34,8 +34,7 @@
 			};
 
 			self.setter = function(value) {
-				// path has been changed
-				console.log(value);
+				// path has been changed, update the view according to the value
 			};
 
 		});
@@ -44,8 +43,6 @@
 
 	<!-- Example -->
 	<ui-component name="example" path="*form" config="title:Test;if:myform"></ui-component>
-
-	</ui-component>
 
 	<script>
 		SET('*form', 'myform');
