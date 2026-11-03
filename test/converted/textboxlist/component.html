@@ -58,6 +58,7 @@
 
 			self.setter = null;
 			self.getter = null;
+			self.nocompile && self.nocompile();
 
 			self.template = Tangular.compile(('<div class="{0}-item"><div>'  + (config.movable ? '<i class="ti ti-angle-up {0}-up"></i><i class="ti ti-angle-down {0}-down"></i>' : '') + '<i class="ti ti-trash {0}-remove"></i></div><div><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder }}"{{ if disabled}} disabled="disabled"{{ fi }} value="{{ value }}" /></div></div>').format(cls));
 

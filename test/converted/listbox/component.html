@@ -60,6 +60,7 @@
 
 			self.items = EMPTYARRAY;
 			self.template = Tangular.compile('<li data-search="{{ search }}" data-index="{{ index }}" style="padding-right:{0}px">{{ if icon }}<i class="ti ti-{{ icon }}"></i>{{ fi }}{{ text }}</li>'.format(SCROLLBARWIDTH()));
+			self.nocompile && self.nocompile();
 
 			self.init = function() {
 

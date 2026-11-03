@@ -82,6 +82,8 @@
 			self.years_from;
 			self.years_to;
 
+			self.nocompile();
+
 			self.validate = function(value) {
 				if (!config.required || config.disabled)
 					return true;

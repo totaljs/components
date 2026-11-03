@@ -30,6 +30,7 @@
 			var divs, nav, interval, indexer = 0;
 
 			self.readonly();
+			self.nocompile();
 
 			self.destroy = function() {
 				interval && clearInterval(interval);

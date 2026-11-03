@@ -49,6 +49,7 @@
 			var clsdrag = cls + '-drag';
 
 			self.template = Tangular.compile('<li data-index="{{ index }}" draggable="true"{{ if !hidden }} class="{0}-visible"{{ fi }}><span></span>{{ text }}</li>'.format(cls));
+			self.nocompile && self.nocompile();
 
 			self.configure = function(key, value) {
 				switch (key) {

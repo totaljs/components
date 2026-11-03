@@ -62,6 +62,8 @@
 			var container;
 			var skip = false;
 
+			self.nocompile();
+
 			self.validate = function(value) {
 				return !config.required || config.disabled ? true : !!value;
 			};

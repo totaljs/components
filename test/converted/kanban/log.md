@@ -10,17 +10,18 @@ Result of converting the old component with `tools/convert.js` and checking it w
 
 ## Browser (Chrome, from disk)
 
-- It opens in Chrome from disk without JavaScript errors of its own.
+The file was opened with `spa.min@19` and with `spa.min@20` (the `<head>` was changed in a copy, the component was not touched).
+
+| Library | Result |
+| --- | --- |
+| v19 | no JavaScript errors |
+| v20 | no JavaScript errors |
+
+It declares `v19,v20` and gives the same result in both versions.
 
 ## Warnings
 
-1 warning(s). They are style rules for new components that the old code does not follow; nothing was rewritten because converting must not change the behaviour.
-
-### 1 x self.release() is a no-op in jComponent v20, remove it
-
-- `self.release() is a no-op in jComponent v20, remove it`
-
-**How to fix**: delete the call. If it is written as `if (self.release()) return;` delete the whole line: `release()` returns nothing, so the condition is never true.
+None.
 
 ## Still to finish
 

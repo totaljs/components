@@ -49,6 +49,7 @@
 			var cls2 = '.' + cls;
 
 			self.readonly();
+			self.nocompile();
 
 			self.make = function() {
 
@@ -61,6 +62,7 @@
 					month.name = MONTHS[i].substring(0, 3);
 					months.push(month);
 				}
+
 
 				var builder = [];
 				for (var i = 0; i < 12; i++)

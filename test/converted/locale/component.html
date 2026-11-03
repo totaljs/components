@@ -23,6 +23,7 @@
 
 			self.singleton();
 			self.readonly();
+			self.nocompile && self.nocompile();
 
 			self.use = function(language) {
 
@@ -187,6 +188,7 @@
 						tf = 24;
 						fdw = 1;
 						break;
+
 
 					case 'tzm':
 						nf = 3;

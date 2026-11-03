@@ -79,6 +79,8 @@
 			var cls2 = '.' + cls;
 			var input, placeholder, dirsource, binded, customvalidator, tags, skip = false;
 
+			self.nocompile();
+
 			self.init = function() {
 				Thelpers.ui_inputtags_icon = function(val) {
 					return val.charAt(0) === '!' ? ('<span class="' + cls + '-icon-custom">' + val.substring(1) + '</span>') : ('<i class="ti ti-' + val + '"></i>');

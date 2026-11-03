@@ -39,6 +39,7 @@
 			var css = { 'margin-left': '0', 'margin-right': '0' };
 
 			self.novalidate();
+			self.nocompile && self.nocompile();
 
 			self.make = function() {
 				min = (self.attrd('min') || '0').parseInt();

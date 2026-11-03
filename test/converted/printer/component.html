@@ -21,6 +21,7 @@
 
 		COMPONENT('printer', 'delay:500;delayprint:500;delayclose:1000', function(self, config, cls) {
 
+			self.nocompile();
 			self.readonly();
 			self.singleton();
 

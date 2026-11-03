@@ -52,6 +52,7 @@
 
 			self.singleton();
 			self.readonly();
+			self.nocompile();
 
 			self.template = Tangular.compile('<div class="{0} {0}-{{ type }} {0}-hidden" data-id="{{ id }}"><figure><div class="{0}-dot"></div><div class="{0}-icon"><i class="ti {{ icon }}"></i></div><div class="{0}-message">{{ message | raw }}</div></figure></div>'.format(cls));
 			self.items = {};

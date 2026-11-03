@@ -10,9 +10,14 @@ Result of converting the old component with `tools/convert.js` and checking it w
 
 ## Browser (Chrome, from disk)
 
-- `CON Access to XMLHttpRequest at 'https://www.totaljs.com/dashboard.json' from origin 'null' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.`
+The file was opened with `spa.min@19` and with `spa.min@20` (the `<head>` was changed in a copy, the component was not touched).
 
-This message comes from the test environment (no user gesture, CORS, `file://` or an API key), not from the conversion.
+| Library | Result |
+| --- | --- |
+| v19 | `CON Access to XMLHttpRequest at 'https://www.totaljs.com/dashboard.json' from origin 'null' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resourc` |
+| v20 | `CON Access to XMLHttpRequest at 'https://www.totaljs.com/dashboard.json' from origin 'null' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access` |
+
+It declares `v19,v20` and gives the same result in both versions (the message comes from the test environment, not from the component).
 
 ## Warnings
 

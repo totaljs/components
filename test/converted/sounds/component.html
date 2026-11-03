@@ -28,6 +28,7 @@
 			self.items = [];
 			self.readonly();
 			self.singleton();
+			self.nocompile && self.nocompile();
 
 			self.make = function() {
 				var audio = document.createElement('audio');

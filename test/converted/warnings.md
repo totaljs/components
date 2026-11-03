@@ -1,6 +1,6 @@
 # Warnings
 
-All the warnings of `node tools/check.js <folder> --legacy` over the converted components, one by one. 703 warnings in 122 components, sorted by the number of warnings. Generated on 2026-11-03 11:16.
+All the warnings of `node tools/check.js <folder> --legacy` over the converted components, one by one. 669 warnings in 104 components, sorted by the number of warnings. Generated on 2026-11-03 11:40.
 
 They are style rules of the new components that the old code does not follow. They are warnings and not errors because converting must not change the behaviour of a component, so nothing was rewritten. How to read them:
 
@@ -31,34 +31,21 @@ They are style rules of the new components that the old code does not follow. Th
 | [properties2](#properties2) | 3 |
 | [properties](#properties) | 3 |
 | [listmenu](#listmenu) | 3 |
-| [layer](#layer) | 3 |
-| [largeform](#largeform) | 3 |
-| [inlineform](#inlineform) | 3 |
-| [fullform](#fullform) | 3 |
 | [floatingbox](#floatingbox) | 3 |
-| [window](#window) | 2 |
 | [upload](#upload) | 2 |
 | [singleupload](#singleupload) | 2 |
 | [scanner](#scanner) | 2 |
 | [planner](#planner) | 2 |
-| [panel](#panel) | 2 |
-| [page](#page) | 2 |
-| [modal](#modal) | 2 |
-| [miniform](#miniform) | 2 |
-| [form](#form) | 2 |
 | [flow](#flow) | 2 |
-| [fixedmodal](#fixedmodal) | 2 |
 | [fileuploadlist](#fileuploadlist) | 2 |
 | [fileupload](#fileupload) | 2 |
 | [emoji](#emoji) | 2 |
 | [editable](#editable) | 2 |
 | [contenteditable](#contenteditable) | 2 |
 | [checkboxlist](#checkboxlist) | 2 |
-| [box](#box) | 2 |
 | [wysiwyg](#wysiwyg) | 1 |
 | [wizardexpert](#wizardexpert) | 1 |
 | [websocket](#websocket) | 1 |
-| [treeview](#treeview) | 1 |
 | [tour](#tour) | 1 |
 | [touchmove](#touchmove) | 1 |
 | [tooltip](#tooltip) | 1 |
@@ -69,21 +56,18 @@ They are style rules of the new components that the old code does not follow. Th
 | [tagger](#tagger) | 1 |
 | [submit](#submit) | 1 |
 | [splashscreen](#splashscreen) | 1 |
-| [section](#section) | 1 |
 | [scrollbar](#scrollbar) | 1 |
 | [repeatergroup](#repeatergroup) | 1 |
 | [repeater](#repeater) | 1 |
-| [releaser](#releaser) | 1 |
 | [range](#range) | 1 |
 | [radiobutton](#radiobutton) | 1 |
-| [prompt](#prompt) | 1 |
 | [pricerange](#pricerange) | 1 |
 | [pictureuploadexpert](#pictureuploadexpert) | 1 |
 | [pictureupload](#pictureupload) | 1 |
 | [permissionsop](#permissionsop) | 1 |
 | [period](#period) | 1 |
-| [part](#part) | 1 |
 | [pagination](#pagination) | 1 |
+| [page](#page) | 1 |
 | [objecttree](#objecttree) | 1 |
 | [nosqlcounter](#nosqlcounter) | 1 |
 | [modificator](#modificator) | 1 |
@@ -91,19 +75,19 @@ They are style rules of the new components that the old code does not follow. Th
 | [mapmarker](#mapmarker) | 1 |
 | [map](#map) | 1 |
 | [listbox](#listbox) | 1 |
-| [lazyload](#lazyload) | 1 |
 | [lazycontent](#lazycontent) | 1 |
 | [layout](#layout) | 1 |
-| [kanban](#kanban) | 1 |
+| [layer](#layer) | 1 |
+| [largeform](#largeform) | 1 |
 | [isopen](#isopen) | 1 |
 | [intro](#intro) | 1 |
+| [inlineform](#inlineform) | 1 |
 | [info](#info) | 1 |
-| [infinitescroll](#infinitescroll) | 1 |
 | [iframepreview](#iframepreview) | 1 |
 | [iframeeditable](#iframeeditable) | 1 |
 | [html-5-template](#html-5-template) | 1 |
 | [highlightsyntax](#highlightsyntax) | 1 |
-| [formtab](#formtab) | 1 |
+| [fullform](#fullform) | 1 |
 | [fontawesomebox](#fontawesomebox) | 1 |
 | [fontawesome](#fontawesome) | 1 |
 | [filter](#filter) | 1 |
@@ -116,7 +100,6 @@ They are style rules of the new components that the old code does not follow. Th
 | [dropdown](#dropdown) | 1 |
 | [dragdropfiles](#dragdropfiles) | 1 |
 | [disable](#disable) | 1 |
-| [diagram](#diagram) | 1 |
 | [developer](#developer) | 1 |
 | [dashboard](#dashboard) | 1 |
 | [csv-export](#csv-export) | 1 |
@@ -127,7 +110,6 @@ They are style rules of the new components that the old code does not follow. Th
 | [clipboard](#clipboard) | 1 |
 | [clickbox](#clickbox) | 1 |
 | [click](#click) | 1 |
-| [chunkyscroll](#chunkyscroll) | 1 |
 | [checkbox](#checkbox) | 1 |
 | [calendar](#calendar) | 1 |
 | [button](#button) | 1 |
@@ -806,38 +788,6 @@ They are style rules of the new components that the old code does not follow. Th
 - `selector ".listmenu a" is not scoped under .ui-listmenu`
 - `selector ".listmenu .selected" is not scoped under .ui-listmenu`
 
-## layer
-
-[layer/component.html](layer/component.html), 3 warnings:
-
-- `it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20`
-- `id="..." attribute in the code, near: ument.body).append('<div id="{1}" class="{0}"><div class="{0}-toolbar" (use aria-label or a wrapping <label>, an id is shared by every instance)`
-- `self.release() is a no-op in jComponent v20, remove it`
-
-## largeform
-
-[largeform/component.html](largeform/component.html), 3 warnings:
-
-- `id="..." attribute in the code, near: ument.body).append('<div id="{0}" class="hidden {4}-container invisibl (use aria-label or a wrapping <label>, an id is shared by every instance)`
-- `self.release() is a no-op in jComponent v20, remove it`
-- `selector ".ui-form-title > span" is not scoped under .ui-largeform`
-
-## inlineform
-
-[inlineform/component.html](inlineform/component.html), 3 warnings:
-
-- `it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20`
-- `id="..." attribute in the code, near: ument.body).append('<div id="{0}" class="hidden {3}-container" style=" (use aria-label or a wrapping <label>, an id is shared by every instance)`
-- `self.release() is a no-op in jComponent v20, remove it`
-
-## fullform
-
-[fullform/component.html](fullform/component.html), 3 warnings:
-
-- `id="..." attribute in the code, near: ument.body).append('<div id="{0}" class="hidden {4}-container invisibl (use aria-label or a wrapping <label>, an id is shared by every instance)`
-- `self.release() is a no-op in jComponent v20, remove it`
-- `selector ".ui-form-title > span" is not scoped under .ui-fullform`
-
 ## floatingbox
 
 [floatingbox/component.html](floatingbox/component.html), 3 warnings:
@@ -845,13 +795,6 @@ They are style rules of the new components that the old code does not follow. Th
 - `selector ".floatingbox" is not scoped under .ui-floatingbox`
 - `selector ".floatingbox-visible" is not scoped under .ui-floatingbox`
 - `selector ".ui-dark .floatingbox" is not scoped under .ui-floatingbox`
-
-## window
-
-[window/component.html](window/component.html), 2 warnings:
-
-- `id="..." attribute in the code, near: ument.body).append('<div id="{0}" class="hidden {3}-container"><div cl (use aria-label or a wrapping <label>, an id is shared by every instance)`
-- `self.release() is a no-op in jComponent v20, remove it`
 
 ## upload
 
@@ -881,54 +824,12 @@ They are style rules of the new components that the old code does not follow. Th
 - `id="..." attribute in the code, near: 2000/svg"><defs><pattern id="{1}" width="20" height="20" patternunits= (use aria-label or a wrapping <label>, an id is shared by every instance)`
 - `selector ".ui-dark .svg-text" is not scoped under .ui-planner`
 
-## panel
-
-[panel/component.html](panel/component.html), 2 warnings:
-
-- `id="..." attribute in the code, near: ument.body).append('<div id="{0}" class="hidden {5}-container{3}"><div (use aria-label or a wrapping <label>, an id is shared by every instance)`
-- `self.release() is a no-op in jComponent v20, remove it`
-
-## page
-
-[page/component.html](page/component.html), 2 warnings:
-
-- `self.release() is a no-op in jComponent v20, remove it`
-- `selector ".page" is not scoped under .ui-page`
-
-## modal
-
-[modal/component.html](modal/component.html), 2 warnings:
-
-- `id="..." attribute in the code, near: ument.body).append('<div id="{0}" class="{1}-container hidden"></div>' (use aria-label or a wrapping <label>, an id is shared by every instance)`
-- `self.release() is a no-op in jComponent v20, remove it`
-
-## miniform
-
-[miniform/component.html](miniform/component.html), 2 warnings:
-
-- `id="..." attribute in the code, near: ument.body).append('<div id="{0}" class="hidden {4}-container invisibl (use aria-label or a wrapping <label>, an id is shared by every instance)`
-- `self.release() is a no-op in jComponent v20, remove it`
-
-## form
-
-[form/component.html](form/component.html), 2 warnings:
-
-- `id="..." attribute in the code, near: ument.body).append('<div id="{0}" class="hidden {4}-container invisibl (use aria-label or a wrapping <label>, an id is shared by every instance)`
-- `self.release() is a no-op in jComponent v20, remove it`
-
 ## flow
 
 [flow/component.html](flow/component.html), 2 warnings:
 
 - `id="..." attribute in the code, near: nnections"><defs><marker id="{0}-arrow" viewbox="0 0 10 10" refX="5" r (use aria-label or a wrapping <label>, an id is shared by every instance)`
 - `selector ".ui-dark #ui-flow-arrow" is not scoped under .ui-flow`
-
-## fixedmodal
-
-[fixedmodal/component.html](fixedmodal/component.html), 2 warnings:
-
-- `id="..." attribute in the code, near: ument.body).append('<div id="{0}" class="{1}-container hidden"></div>' (use aria-label or a wrapping <label>, an id is shared by every instance)`
-- `self.release() is a no-op in jComponent v20, remove it`
 
 ## fileuploadlist
 
@@ -972,13 +873,6 @@ They are style rules of the new components that the old code does not follow. Th
 - `it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20`
 - `selector ".ui-dark .ui-checkbox.ui-disabled div" is not scoped under .ui-checkboxlist`
 
-## box
-
-[box/component.html](box/component.html), 2 warnings:
-
-- `id="..." attribute in the code, near: { var html = '<div id="{0}" class="hidden {4}-container invisibl (use aria-label or a wrapping <label>, an id is shared by every instance)`
-- `self.release() is a no-op in jComponent v20, remove it`
-
 ## wysiwyg
 
 [wysiwyg/component.html](wysiwyg/component.html), 1 warnings:
@@ -996,12 +890,6 @@ They are style rules of the new components that the old code does not follow. Th
 [websocket/component.html](websocket/component.html), 1 warnings:
 
 - `it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20`
-
-## treeview
-
-[treeview/component.html](treeview/component.html), 1 warnings:
-
-- `self.release() is a no-op in jComponent v20, remove it`
 
 ## tour
 
@@ -1063,12 +951,6 @@ They are style rules of the new components that the old code does not follow. Th
 
 - `it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20`
 
-## section
-
-[section/component.html](section/component.html), 1 warnings:
-
-- `self.release() is a no-op in jComponent v20, remove it`
-
 ## scrollbar
 
 [scrollbar/component.html](scrollbar/component.html), 1 warnings:
@@ -1087,12 +969,6 @@ They are style rules of the new components that the old code does not follow. Th
 
 - `it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20`
 
-## releaser
-
-[releaser/component.html](releaser/component.html), 1 warnings:
-
-- `self.bindvisible() is a no-op in jComponent v20, remove it`
-
 ## range
 
 [range/component.html](range/component.html), 1 warnings:
@@ -1104,12 +980,6 @@ They are style rules of the new components that the old code does not follow. Th
 [radiobutton/component.html](radiobutton/component.html), 1 warnings:
 
 - `it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20`
-
-## prompt
-
-[prompt/component.html](prompt/component.html), 1 warnings:
-
-- `id="..." attribute in the code, near: ument.body).append('<div id="{1}" class="{0} {0}-container hidden"><di (use aria-label or a wrapping <label>, an id is shared by every instance)`
 
 ## pricerange
 
@@ -1141,17 +1011,17 @@ They are style rules of the new components that the old code does not follow. Th
 
 - `it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20`
 
-## part
-
-[part/component.html](part/component.html), 1 warnings:
-
-- `self.release() is a no-op in jComponent v20, remove it`
-
 ## pagination
 
 [pagination/component.html](pagination/component.html), 1 warnings:
 
 - `it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20`
+
+## page
+
+[page/component.html](page/component.html), 1 warnings:
+
+- `selector ".page" is not scoped under .ui-page`
 
 ## objecttree
 
@@ -1195,12 +1065,6 @@ They are style rules of the new components that the old code does not follow. Th
 
 - `it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20`
 
-## lazyload
-
-[lazyload/component.html](lazyload/component.html), 1 warnings:
-
-- `self.release() is a no-op in jComponent v20, remove it`
-
 ## lazycontent
 
 [lazycontent/component.html](lazycontent/component.html), 1 warnings:
@@ -1213,11 +1077,17 @@ They are style rules of the new components that the old code does not follow. Th
 
 - `it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20`
 
-## kanban
+## layer
 
-[kanban/component.html](kanban/component.html), 1 warnings:
+[layer/component.html](layer/component.html), 1 warnings:
 
-- `self.release() is a no-op in jComponent v20, remove it`
+- `it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20`
+
+## largeform
+
+[largeform/component.html](largeform/component.html), 1 warnings:
+
+- `selector ".ui-form-title > span" is not scoped under .ui-largeform`
 
 ## isopen
 
@@ -1231,17 +1101,17 @@ They are style rules of the new components that the old code does not follow. Th
 
 - `id="..." attribute in the code, near: ument.body).append('<div id="{0}" class="hidden {1}"><div class="{1}-b (use aria-label or a wrapping <label>, an id is shared by every instance)`
 
+## inlineform
+
+[inlineform/component.html](inlineform/component.html), 1 warnings:
+
+- `it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20`
+
 ## info
 
 [info/component.html](info/component.html), 1 warnings:
 
 - `it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20`
-
-## infinitescroll
-
-[infinitescroll/component.html](infinitescroll/component.html), 1 warnings:
-
-- `self.release() is a no-op in jComponent v20, remove it`
 
 ## iframepreview
 
@@ -1267,11 +1137,11 @@ They are style rules of the new components that the old code does not follow. Th
 
 - `selector "pre" is not scoped under .ui-highlightsyntax`
 
-## formtab
+## fullform
 
-[formtab/component.html](formtab/component.html), 1 warnings:
+[fullform/component.html](fullform/component.html), 1 warnings:
 
-- `id="..." attribute in the code, near: append('<div class="{0}" id="{1}"><div class="{0}-layer"></div></div>' (use aria-label or a wrapping <label>, an id is shared by every instance)`
+- `selector ".ui-form-title > span" is not scoped under .ui-fullform`
 
 ## fontawesomebox
 
@@ -1345,12 +1215,6 @@ They are style rules of the new components that the old code does not follow. Th
 
 - `it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20`
 
-## diagram
-
-[diagram/component.html](diagram/component.html), 1 warnings:
-
-- `self.release() is a no-op in jComponent v20, remove it`
-
 ## developer
 
 [developer/component.html](developer/component.html), 1 warnings:
@@ -1410,12 +1274,6 @@ They are style rules of the new components that the old code does not follow. Th
 [click/component.html](click/component.html), 1 warnings:
 
 - `it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20`
-
-## chunkyscroll
-
-[chunkyscroll/component.html](chunkyscroll/component.html), 1 warnings:
-
-- `self.release() is a no-op in jComponent v20, remove it`
 
 ## checkbox
 

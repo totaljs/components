@@ -29,6 +29,7 @@
 			var $W;
 
 			self.singleton();
+			self.nocompile && self.nocompile();
 
 			self.onscroll = function() {
 				timeout = null;

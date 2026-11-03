@@ -50,6 +50,8 @@
 
 			var cls2 = '.' + cls;
 
+			self.nocompile();
+
 			self.validate = function(value) {
 				return !config.required || config.disabled ? true : !!value;
 			};

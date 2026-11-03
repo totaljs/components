@@ -10,7 +10,14 @@ Result of converting the old component with `tools/convert.js` and checking it w
 
 ## Browser (Chrome, from disk)
 
-- It opens in Chrome from disk without JavaScript errors of its own.
+The file was opened with `spa.min@19` and with `spa.min@20` (the `<head>` was changed in a copy, the component was not touched).
+
+| Library | Result |
+| --- | --- |
+| v19 | no JavaScript errors |
+| v20 | no JavaScript errors |
+
+It declares `v19,v20` and gives the same result in both versions.
 
 ## Warnings
 
@@ -20,13 +27,13 @@ Result of converting the old component with `tools/convert.js` and checking it w
 
 - `id="..." attribute in the code, near: 2000/svg"><defs><pattern id="{1}" width="20" height="20" patternunits= (use aria-label or a wrapping <label>, an id is shared by every instance)`
 
-**How to fix**: remove the `id` and name the control with `aria-label` or a wrapping `<label>`; if the code reads the element back with `$('#id')`, keep a reference to the element instead (`var el = $(...)`) or use `self.find(...)`. `data-id` is not an `id` and is never reported.
+**Possible fix**: remove the `id` and name the control with `aria-label` or a wrapping `<label>`; if the code reads the element back with `$('#id')`, keep a reference to the element instead (`var el = $(...)`) or use `self.find(...)`. `data-id` is not an `id` and is never reported.
 
 ### 1 x selector "..." is not scoped under .ui-planner
 
 - `selector ".ui-dark .svg-text" is not scoped under .ui-planner`
 
-**How to fix**: rename the class so it starts with `.ui-planner` (for example `.ui-name-part`), in the CSS **and** in every place of the JavaScript or the example that writes or searches that class. If the class is a public one that applications already style (for example `.markdown`), leave it: renaming it changes the markup that other code depends on.
+**Possible fix**: rename the class so it starts with `.ui-planner` (for example `.ui-name-part`), in the CSS **and** in every place of the JavaScript or the example that writes or searches that class. If the class is a public one that applications already style (for example `.markdown`), leave it: renaming it changes the markup that other code depends on.
 
 ## Still to finish
 

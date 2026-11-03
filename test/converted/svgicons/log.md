@@ -10,11 +10,14 @@ Result of converting the old component with `tools/convert.js` and checking it w
 
 ## Browser (Chrome, from disk)
 
-- `CON Unsafe attempt to load URL file:///svgicons.svg#phone from frame with URL file:///private/tmp/claude-501/-Volumes-Grey-GitHub-forge/fb219623-c588-470a-b816-3f1893e444ed/scratchpad/conv/svgicons/component.html. 'file:' URLs are treated as unique security origins.`
-- `CON Unsafe attempt to load URL file:///svgicons.svg#phone from frame with URL file:///private/tmp/claude-501/-Volumes-Grey-GitHub-forge/fb219623-c588-470a-b816-3f1893e444ed/scratchpad/conv/svgicons/component.html. 'file:' URLs are treated as unique security origins.`
-- `CON Unsafe attempt to load URL file:///svgicons.svg#phone from frame with URL file:///private/tmp/claude-501/-Volumes-Grey-GitHub-forge/fb219623-c588-470a-b816-3f1893e444ed/scratchpad/conv/svgicons/component.html. 'file:' URLs are treated as unique security origins.`
+The file was opened with `spa.min@19` and with `spa.min@20` (the `<head>` was changed in a copy, the component was not touched).
 
-This message comes from the test environment (no user gesture, CORS, `file://` or an API key), not from the conversion.
+| Library | Result |
+| --- | --- |
+| v19 | `CON Unsafe attempt to load URL file:///svgicons.svg#phone from frame with URL file:///private/tmp/claude-501/-Volumes-Grey-GitHub-forge/fb219623-c588-470a-b816-3f1893e444ed/scratchpad/v19set/svgicons/` |
+| v20 | `CON Unsafe attempt to load URL file:///svgicons.svg#phone from frame with URL file:///private/tmp/claude-501/-Volumes-Grey-GitHub-forge/fb219623-c588-470a-b816-3f1893e444ed/scratchpad/v20set/svgicons/` |
+
+It declares `v19,v20` and gives the same result in both versions (the message comes from the test environment, not from the component).
 
 ## Warnings
 
@@ -26,7 +29,7 @@ This message comes from the test environment (no user gesture, CORS, `file://` o
 - `selector ".selected .ui-svgicon-a" is not scoped under .ui-svgicons`
 - `selector ".selected .ui-svgicon-b" is not scoped under .ui-svgicons`
 
-**How to fix**: rename the class so it starts with `.ui-svgicons` (for example `.ui-name-part`), in the CSS **and** in every place of the JavaScript or the example that writes or searches that class. If the class is a public one that applications already style (for example `.markdown`), leave it: renaming it changes the markup that other code depends on.
+**Possible fix**: rename the class so it starts with `.ui-svgicons` (for example `.ui-name-part`), in the CSS **and** in every place of the JavaScript or the example that writes or searches that class. If the class is a public one that applications already style (for example `.markdown`), leave it: renaming it changes the markup that other code depends on.
 
 ## Still to finish
 

@@ -30,6 +30,8 @@
 			var datasource;
 			var reg = /\$(index|path)/g;
 
+			self.nocompile();
+
 			self.configure = function(key, value, init) {
 
 				if (init)

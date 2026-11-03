@@ -121,6 +121,8 @@
 			var skip = false;
 			var values, funcs, datasource, rendered = false;
 
+			self.nocompile();
+
 			self.validate = function(value) {
 				if (config.validation && value) {
 					var arr = value instanceof Array ? value : datasource;

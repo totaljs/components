@@ -78,6 +78,7 @@
 			var eventsmore = {};
 
 			self.readonly();
+			self.nocompile();
 
 			self.make = function() {
 				self.aclass(cls);
@@ -530,6 +531,7 @@
 
 					for (var i = 0; i < tmp.length; i++)
 						self.addevent(tmp[i]);
+
 
 				} else if (events && events.length)
 					self.addevents(events);

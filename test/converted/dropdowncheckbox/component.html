@@ -65,6 +65,8 @@
 			!W.$dropdowncheckboxtemplate && (W.$dropdowncheckboxtemplate = Tangular.compile('<div class="' + cls + '-item" data-index="{{ index }}"><div><i class="ti ti-{{ $.checkicon }}"></i></div><span>{{ text }}</span></div>'));
 			var template = W.$dropdowncheckboxtemplate;
 
+			self.nocompile && self.nocompile();
+
 			self.validate = function(value) {
 				return config.disabled || !config.required ? true : value && value.length > 0;
 			};
