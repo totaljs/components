@@ -24,6 +24,8 @@ node tools/check.js test/converted/<name> --legacy
 | Still to finish: `__Configuration__:` section missing | 10 |
 | No errors in `check.js --legacy` | 261 |
 
+The errors, warnings and messages that were seen are in [log.md](log.md).
+
 Descriptions are written from the old readme and from the code, in one sentence. The old description was kept when the old readme had a usable first sentence ("old readme" in the table).
 
 ## What was not converted
