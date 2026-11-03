@@ -1,12 +1,12 @@
 ---
 name: columns
-description: The component Columns is a very simple alternative to j-Layout and j-Layout2. With this component you can set columns with 100% height by your needs.
+description: The component Columns is a very simple alternative to j-Layout and j-Layout2.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2020-12-01 23:40
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

@@ -1,12 +1,12 @@
 ---
 name: fileuploader
-description: A simple component for uploading files. It supports auto-resizing images.
+description: A simple component for uploading files.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2020-11-03 09:16
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

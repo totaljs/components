@@ -1,12 +1,12 @@
 ---
 name: cloudeditor
-description: from, to, pos arguments must be in the form: { line: Number, ch: Number }.
+description: TODO
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2022-01-21 21:01
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

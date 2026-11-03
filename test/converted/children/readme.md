@@ -1,12 +1,12 @@
 ---
 name: children
-description: The component renders draggable items as a tree without the possibility of collapsing. Data-Source must be Object Array in the form: { id: String, children: [
+description: Try to understand the functionality from the example.
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2021-07-21 16:17
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

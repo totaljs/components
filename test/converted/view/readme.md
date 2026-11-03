@@ -1,12 +1,12 @@
 ---
 name: view
-description: This component can be helpful for reusable views in intranet apps. The component wraps the view into the isolated scope, and the value according to the
+description: This component can be helpful for reusable views in intranet apps.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2021-04-29 16:03
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

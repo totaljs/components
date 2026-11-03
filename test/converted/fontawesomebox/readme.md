@@ -1,12 +1,12 @@
 ---
 name: fontawesomebox
-description: A simple FontAwesome viewer with fulltext searching. Optimized for jComponent +v17.
+description: A simple FontAwesome viewer with fulltext searching.
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2017-10-18 11:14
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

@@ -1,12 +1,12 @@
 ---
 name: watch
-description: The component can evaluate the method in the form function(value, element, type, path) when the value (according to the path) is changed. The component can
+description: The component can evaluate the method in the form function(value, element, type, path) when the value (according to the path) is changed.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2022-06-24 14:16
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

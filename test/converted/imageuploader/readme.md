@@ -1,12 +1,12 @@
 ---
 name: imageuploader
-description: A simple singleton component for uploading of resized images. The component uploads base64 according to the schema defined in options of caller.
+description: A simple singleton component for uploading of resized images.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2020-05-31 21:55
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

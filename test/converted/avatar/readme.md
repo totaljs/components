@@ -1,12 +1,12 @@
 ---
 name: avatar
-description: Avatar component needs to register your own theme. It contains default theme.
+description: Avatar component needs to register your own theme.
 author: Denis Granec
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2017-09-04 16:44
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

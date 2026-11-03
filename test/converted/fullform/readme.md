@@ -1,12 +1,12 @@
 ---
 name: fullform
-description: The component moves the content of this component under <body> tag (because of positioning) and it supports evaluation of the content of <script
+description: TODO
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2021-01-09 13:58
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

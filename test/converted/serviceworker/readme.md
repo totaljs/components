@@ -1,12 +1,12 @@
 ---
 name: serviceworker
-description: <script> var version = '1.34'; var mysource = { version: version, fallback: '/', assets: [ '/pages/settings.html', '/pages/articles.html',
+description: TODO
 author: Denis Granec
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2019-11-28 15:55
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

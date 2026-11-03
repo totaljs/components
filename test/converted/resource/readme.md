@@ -1,12 +1,12 @@
 ---
 name: resource
-description: Resources are very great solution for e.g. translate some texts in all scripts. The component can be appended multiple-times and all components use one
+description: Resources are very great solution for e.g.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2016-08-01 06:55
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

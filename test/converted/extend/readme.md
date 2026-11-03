@@ -1,12 +1,12 @@
 ---
 name: extend
-description: This component is a specific component with powerful functionality. When the component is evaluated then it executes two events in the form below. The
+description: This component is a specific component with powerful functionality.
 author: Pete Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2021-03-14 12:06
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

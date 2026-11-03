@@ -1,12 +1,12 @@
 ---
 name: websocket
-description: With this component, you can receive data via WebSocket. This component supports auto-reconnect to WebSocket when the connection is closed.
+description: With this component, you can receive data via WebSocket.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2016-07-28 08:00
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

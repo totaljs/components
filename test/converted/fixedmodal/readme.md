@@ -1,12 +1,12 @@
 ---
 name: fixedmodal
-description: The content of the j-FixedModal is divided to 3 parts: header, body and footer. Each part must be defined. The component adds CSS classes to each part, for
+description: The content of the j-FixedModal is divided to 3 parts: header, body and footer.
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2019-06-28 18:08
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

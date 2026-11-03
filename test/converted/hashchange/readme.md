@@ -1,12 +1,12 @@
 ---
 name: hashchange
-description: The component captures all changes for #hashtag in the URL address. When change, it emits event hash. The component reacts to the real changes.
+description: The component captures all changes for #hashtag in the URL address.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2024-09-18 15:02
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

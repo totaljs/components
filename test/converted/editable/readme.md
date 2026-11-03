@@ -1,12 +1,12 @@
 ---
 name: editable
-description: This component can edit all elements with editable class. It works with data-bind or dynamic values. Learn more from example.
+description: This component can edit all elements with editable class.
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2019-02-11 15:00
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

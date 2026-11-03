@@ -1,12 +1,12 @@
 ---
 name: typed
-description: Config is the same as [typed.js](https://github.com/mattboldt/typed.js#customization). The only difference is that all keys are lowercase. This is to maintain
+description: TODO
 author: Denis Granec
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2018-12-25 22:40
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

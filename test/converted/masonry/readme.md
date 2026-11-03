@@ -1,12 +1,12 @@
 ---
 name: masonry
-description: A simple Masonry component. The component renders an Array according to the display size to columns.
+description: A simple Masonry component.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2021-03-17 14:22
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

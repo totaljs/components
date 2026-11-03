@@ -1,12 +1,12 @@
 ---
 name: movable
-description: The component handles similar draggable element and supports movement between each other. Each element according to the selector must have defined
+description: The component handles similar draggable element and supports movement between each other.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2019-10-01 22:25
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

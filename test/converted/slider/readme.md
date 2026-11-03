@@ -1,12 +1,12 @@
 ---
 name: slider
-description: This slider works only with 100% X axis. Output: percentage (from 0 to 100).
+description: This slider works only with 100% X axis.
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2021-01-28 14:41
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

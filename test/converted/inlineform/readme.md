@@ -1,12 +1,12 @@
 ---
 name: inlineform
-description: New version of this component supports dynamic evaluation of the content of <script type="text/html">. The example below contains a script with HTML and the
+description: TODO
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2017-07-31 11:40
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

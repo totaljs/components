@@ -1,12 +1,12 @@
 ---
 name: clock
-description: SETTER('clock', 'toggle', ELEMENT, PATH, function(date) { console.log('SELECTED DATE:', date); }, XOFFSET); 
+description: TODO
 author: Denis Granec
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2017-12-19 04:32
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

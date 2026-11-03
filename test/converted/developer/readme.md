@@ -1,12 +1,12 @@
 ---
 name: developer
-description: This component monitors jComponent single page application. Just include component under the <body> element. It works only with jComponent +v18.
+description: TODO
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2020-02-12 11:26
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

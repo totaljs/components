@@ -1,12 +1,12 @@
 ---
 name: carousel2
-description: Is a simple carousel component optimized for desktop computers and mobile devices. Each elemet must be wrapped into the <figure> element (look to example).
+description: If the component's path is changed then the component summarizes all cells again.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2021-02-03 01:14
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

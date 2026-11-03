@@ -1,12 +1,12 @@
 ---
 name: datasource
-description: The component loads data from the external source via AJAX() method and it binds the value according to the config.path.
+description: TODO
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2024-02-27 11:46
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

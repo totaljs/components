@@ -1,12 +1,12 @@
 ---
 name: watcher
-description: This component executes the code defined in the <script type="text/js"></script> tag.
+description: TODO
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2022-01-21 16:12
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

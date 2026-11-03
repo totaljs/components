@@ -1,12 +1,12 @@
 ---
 name: stash
-description: The component can postpone elements without destructing and detaching from the DOM. This component can help you with dynamic content from the server side. We
+description: The component can postpone elements without destructing and detaching from the DOM.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2022-01-14 21:49
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

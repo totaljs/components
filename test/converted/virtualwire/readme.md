@@ -1,12 +1,12 @@
 ---
 name: virtualwire
-description: This is a very special UI component that can move elements from element to another element according to the selector and the value of the path. Look to the
+description: This is a very special UI component that can move elements from element to another element according to the selector and the value of the path.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2020-01-03 11:55
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

@@ -1,12 +1,12 @@
 ---
 name: wizardexpert
-description: A simple solution for making of advanced wizards. Wizard downloads steps (as HTML parts) according to the schema. Steps are wrapped into custom scopes, so they
+description: A simple solution for making of advanced wizards.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2020-01-29 11:39
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

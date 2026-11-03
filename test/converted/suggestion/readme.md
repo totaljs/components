@@ -1,12 +1,12 @@
 ---
 name: suggestion
-description: Method: component.show(orientation, targetElement, [items/function(search, next)], clickCallback)
+description: If the value isn't defined then the component uses name as value.
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2017-07-19 00:00
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

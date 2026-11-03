@@ -1,12 +1,12 @@
 ---
 name: tooltip
-description: // opt.offsetX {Number} : adds X offset (default: 0) // opt.offsetY {Number} : adds Y offset (default: 0) // opt.align {String} : align bottom (default), top,
+description: TODO
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2016-10-20 17:52
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

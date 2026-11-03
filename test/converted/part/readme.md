@@ -1,12 +1,12 @@
 ---
 name: part
-description: This component can handle different contents asynchronously. If the element doesn't contain any content then the component downloads the content according to
+description: This component can handle different contents asynchronously.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2018-01-30 09:48
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

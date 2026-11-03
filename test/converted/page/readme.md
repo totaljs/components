@@ -1,12 +1,12 @@
 ---
 name: page
-description: This component can handle different contents asynchronously. The component has same functionality like j-Part. If the element doesn't contain any content then
+description: This component can handle different contents asynchronously.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2016-10-27 12:00
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

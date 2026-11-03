@@ -1,12 +1,12 @@
 ---
 name: xterm
-description: The component renders a terminal output/input directly in the web browser. IMPORTANT: the example doesn't work as you expect, it needs a real terminal output.
+description: The component renders a terminal output/input directly in the web browser.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2022-04-24 22:22
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

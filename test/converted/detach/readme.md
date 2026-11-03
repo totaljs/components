@@ -1,12 +1,12 @@
 ---
 name: detach
-description: The component can detach/attach all children (HTML elements). For example, if you have elements inside a panel, you can move the elements e.g., to the
+description: The component can detach/attach all children (HTML elements).
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2022-10-03 22:25
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

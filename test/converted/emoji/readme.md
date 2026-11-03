@@ -1,12 +1,12 @@
 ---
 name: emoji
-description: // opt.offsetX {Number} : adds X offset (default: 0) // opt.offsetY {Number} : adds Y offset (default: 0) // opt.align {String} : align left (default), center
+description: TODO
 author: Denis Granec
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2019-03-18 19:03
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

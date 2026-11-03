@@ -1,12 +1,12 @@
 ---
 name: minheight
-description: This component sets a minimal height for the parent (defined) element. The component is usefull for intranet applications.
+description: This component sets a minimal height for the parent (defined) element.
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2020-11-19 11:58
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

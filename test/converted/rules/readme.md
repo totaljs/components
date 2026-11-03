@@ -1,12 +1,12 @@
 ---
 name: rules
-description: The component can create a simple rules which you can transform to some engines like Total.js Flow. The component uses j-Directory component.
+description: The component can create a simple rules which you can transform to some engines like Total.js Flow.
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2020-11-14 20:51
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

@@ -1,12 +1,12 @@
 ---
 name: folder
-description: The component can render a content like file browser. path must be in the form e.g. Directory/Directory/File. Learn from example.
+description: The component can render a content like file browser.
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2019-02-08 17:52
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

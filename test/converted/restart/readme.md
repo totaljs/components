@@ -1,12 +1,12 @@
 ---
 name: restart
-description: The component is very primitive and it will only display the content if the value is positive. It can be useful for single page applications that change a
+description: The component is very primitive and it will only display the content if the value is positive.
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2025-03-19 09:23
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

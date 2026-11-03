@@ -1,12 +1,12 @@
 ---
 name: markdownpreview
-description: This component depends on j-Markdown component. It uses highlight.js library for syntax highlight.
+description: This component depends on j-Markdown component.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2018-05-01 11:38
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

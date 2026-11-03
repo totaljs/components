@@ -1,12 +1,12 @@
 ---
 name: fontawesome
-description: A simple FontAwesome viewer with fulltext searching. Supports a recent feature and it's responsive.
+description: A simple FontAwesome viewer with fulltext searching.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2017-02-19 23:15
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

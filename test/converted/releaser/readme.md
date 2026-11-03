@@ -1,12 +1,12 @@
 ---
 name: releaser
-description: The component can release after some time own content (DOM) + memory. We recommend to use it for j-DataGrid, j-CodeMirror, j-CloudEditor, etc..
+description: The component can release after some time own content (DOM) + memory.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2022-02-08 16:57
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

@@ -1,12 +1,12 @@
 ---
 name: fileuploadlist
-description: This component can upload files and the result adds into the model. Model must be the array.
+description: This component can upload files and the result adds into the model.
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2018-02-02 10:24
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

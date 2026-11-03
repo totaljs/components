@@ -1,12 +1,12 @@
 ---
 name: info
-description: <script type="text/html" name="template1"> {{ value.name }} </script>
+description: TODO
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2016-08-22 23:23
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

@@ -1,12 +1,12 @@
 ---
 name: dragdropelement
-description: On drag event displays modal inside given element with text Drop & drop files here. On moving dragged files away from element or dropping dragged files modal
+description: On drag event displays modal inside given element with text Drop & drop files here.
 author: Michal Capo
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2019-01-29 20:19
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

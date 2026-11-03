@@ -1,12 +1,12 @@
 ---
 name: duplicator
-description: <script type="text/html" data-id="PRODUCT"> <ui-component name="input" path="?.name">Name</ui-component> </script>
+description: TODO
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2019-05-05 12:22
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

@@ -1,12 +1,12 @@
 ---
 name: errorhandler
-description: This component captures the ON('ERROR', function(err event trigger from the ERROR() method and tries to display form more comfortably.
+description: The component tries using j-Message, j-Snackbar, j-NotifyBar or j-Notify for displaying of errors if you don't have defined exec configuration.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2022-10-27 10:36
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

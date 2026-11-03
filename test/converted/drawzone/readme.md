@@ -1,12 +1,12 @@
 ---
 name: drawzone
-description: The component can draw a zone (polygon). This component uses [OpenLayers](https://openlayers.org/) library with the
+description: TODO
 author: Peter Sirka & Dodo Marton
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2023-07-20 22:37
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

@@ -1,12 +1,12 @@
 ---
 name: tabs
-description: <ui-component name="tabs" path="tab" class="invisible">
+description: TODO
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2025-01-09 20:32
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

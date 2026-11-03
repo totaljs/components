@@ -1,12 +1,12 @@
 ---
 name: formtab
-description: // Optional minimized: true, data: { blabla: '"data" will be cloned into the form scope' } // NEW: scope: false (disables scope) // NEW: scope:
+description: TODO
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2019-08-23 14:22
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

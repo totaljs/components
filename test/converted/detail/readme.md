@@ -1,12 +1,12 @@
 ---
 name: detail
-description: This component can render values from model. Supports inline mapping - look into the source-code of the example.
+description: This component can render values from model.
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2020-04-15 12:39
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

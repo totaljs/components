@@ -1,12 +1,12 @@
 ---
 name: fileupload
-description: Is very helpful component for uploading e.g. profile photos. I consider this component as inline file upload. Look into the html source. The component uploads
+description: Is very helpful component for uploading e.g.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2016-03-11 19:43
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

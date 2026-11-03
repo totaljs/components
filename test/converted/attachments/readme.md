@@ -1,12 +1,12 @@
 ---
 name: attachments
-description: The component displays attachments in the simple list. A user can remove attachments.
+description: The component displays attachments in the simple list.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2024-10-23 13:17
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

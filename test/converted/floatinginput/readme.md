@@ -1,12 +1,12 @@
 ---
 name: floatinginput
-description: Method: component.show(options)
+description: TODO
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2020-03-18 16:37
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

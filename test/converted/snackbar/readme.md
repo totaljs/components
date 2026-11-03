@@ -1,12 +1,12 @@
 ---
 name: snackbar
-description: // Or with a callback AJAX('POST /api/profile/', userprofile, ASETTER('snackbar/response', 'Profile has been saved successfully', function(response) {
+description: TODO
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2017-10-18 14:02
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

@@ -1,12 +1,12 @@
 ---
 name: scrollpercentage
-description: Component must be attached on the element which will be as a scroll container. For the entire window use body element.
+description: Component must be attached on the element which will be as a scroll container.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2018-08-17 13:10
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

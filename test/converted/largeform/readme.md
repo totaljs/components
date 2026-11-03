@@ -1,12 +1,12 @@
 ---
 name: largeform
-description: New version of this component supports dynamic evaluation of the content of <script type="text/html">. The example below contains a script with HTML and the
+description: TODO
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2020-02-17 13:26
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

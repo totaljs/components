@@ -1,12 +1,12 @@
 ---
 name: timepicker
-description: The component must be called manually or works with j-Input component automatically. This component is a singleton.
+description: The component must be called manually or works with j-Input component automatically.
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2019-01-26 21:22
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

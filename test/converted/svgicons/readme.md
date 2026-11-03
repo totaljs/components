@@ -1,12 +1,12 @@
 ---
 name: svgicons
-description: This component registers a new Web component in the form <ui-svgicon name="iconname"></ui-svgicon>.
+description: TODO
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2023-03-31 12:51
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

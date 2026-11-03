@@ -1,12 +1,12 @@
 ---
 name: contextmenu
-description: Method: component.show(orientation, targetElement, [items], clickCallback, [offsetX], [offsetY]) - orientation {String} can be left, center or right -
+description: If the value isn't defined then the component uses name as value.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2016-05-11 21:46
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

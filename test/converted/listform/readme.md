@@ -1,12 +1,12 @@
 ---
 name: listform
-description: The component needs to have defined 3 templates wrapped in <script type="text/html">:
+description: The component watches a click event on all buttons with name attribute:
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2020-02-13 14:30
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

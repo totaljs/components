@@ -1,6 +1,6 @@
 # Converted components (evidence)
 
-The result of `node tools/convert.js` over the components of the classic format of `totaljs/components` (branch `master`, folders `j-*`). Generated on 2026-11-03 10:10. Every folder has the new declaration: `component.html`, `readme.md` and `preview.jpg` (the old `picture.jpg`).
+The result of `node tools/convert.js` over the components of the classic format of `totaljs/components` (branch `master`, folders `j-*`). Generated on 2026-11-03 10:36. Every folder has the new declaration: `component.html`, `readme.md` and `preview.jpg` (the old `picture.jpg`).
 
 **This is the mechanical part only.** It is what the tool does without an AI: the code of every component is untouched (only the no-op `self.nocompile()` is removed). The rest (see "To finish") is done by an AI following [`SKILL.md`](../../SKILL.md).
 
@@ -17,8 +17,8 @@ node tools/check.js test/converted/<name> --legacy
 | Open in Chrome with no JavaScript error of their own | **326** (3 report a message of the environment, see below) |
 | Declare jComponent v20 (`spa.min@20`) | 259 |
 | Declare only v19 (`spa.min@19`, they need an update to run on v20) | 70 |
-| Complete after the tool (no errors in `check.js --legacy`) | 160 |
-| To finish by the AI: `description: TODO` | 108 |
+| Complete after the tool (no errors in `check.js --legacy`) | 112 |
+| To finish by the AI: `description: TODO` (the first sentence of the old readme is used when it is prose; code is never used) | 171 |
 | To finish by the AI: options of the default configuration not documented in the readme | 64 |
 | To finish by the AI: `__Configuration__:` section missing | 10 |
 | To finish by the AI: no `preview.jpg` (the old one did not exist) | 18 |
@@ -43,27 +43,27 @@ Folder | jComponent | Browser | To finish | Warnings
 --- | --- | --- | --- | ---
 [ajaxloading](ajaxloading/component.html) | v20 | ok | - | -
 [animation](animation/component.html) | v20 | ok | - | 1
-[approve](approve/component.html) | v20 | ok | - | -
-[aselected](aselected/component.html) | v20 | ok | - | -
+[approve](approve/component.html) | v20 | ok | description | -
+[aselected](aselected/component.html) | v20 | ok | description | -
 [attachments](attachments/component.html) | v20 | ok | - | 1
 [audio](audio/component.html) | v20 | message | description | -
-[autocomplete](autocomplete/component.html) | v20 | ok | options, config section | -
+[autocomplete](autocomplete/component.html) | v20 | ok | description, options, config section | -
 [autodarkmode](autodarkmode/component.html) | v20 | ok | - | -
 [autoexec](autoexec/component.html) | v20 | ok | - | -
-[autofill](autofill/component.html) | v20 | ok | - | -
+[autofill](autofill/component.html) | v20 | ok | description | -
 [autoselect](autoselect/component.html) | v20 | ok | - | -
 [avatar](avatar/component.html) | v20 | ok | - | 1
 [backtotop](backtotop/component.html) | v20 | ok | description, preview | -
 [backup](backup/component.html) | v20 | ok | options | -
 [banners](banners/component.html) | v20 | ok | description, options, config section | -
 [barchart](barchart/component.html) | v20 | ok | options | -
-[box](box/component.html) | v20 | ok | - | 2
+[box](box/component.html) | v20 | ok | description | 2
 [breadcrumb](breadcrumb/component.html) | v20 | ok | description, options | -
 [button](button/component.html) | v19 | ok | options | 1
 [calendar](calendar/component.html) | v19 | ok | options | 1
 [carousel](carousel/component.html) | v20 | ok | description | -
 [carousel2](carousel2/component.html) | v20 | ok | options | -
-[centered](centered/component.html) | v20 | ok | - | -
+[centered](centered/component.html) | v20 | ok | description | -
 [changer](changer/component.html) | v20 | ok | - | -
 [checkbox](checkbox/component.html) | v19 | ok | description | 1
 [checkboxlist](checkboxlist/component.html) | v19 | ok | description | 2
@@ -73,40 +73,40 @@ Folder | jComponent | Browser | To finish | Warnings
 [choose](choose/component.html) | v20 | ok | options | -
 [chunkyscroll](chunkyscroll/component.html) | v20 | ok | description, options | 1
 [cl](cl/component.html) | v20 | ok | - | -
-[clbind](clbind/component.html) | v20 | ok | options | 13
+[clbind](clbind/component.html) | v20 | ok | description, options | 13
 [click](click/component.html) | v19 | ok | - | 1
 [clickbox](clickbox/component.html) | v19 | ok | - | 1
 [clipboard](clipboard/component.html) | v20 | ok | description | 1
 [clipboardimage](clipboardimage/component.html) | v20 | ok | - | -
-[clock](clock/component.html) | v19 | ok | - | 1
-[cloudeditor](cloudeditor/component.html) | v20 | ok | - | -
-[cloudeditorsimple](cloudeditorsimple/component.html) | v20 | ok | - | -
-[code](code/component.html) | v20 | ok | - | -
+[clock](clock/component.html) | v19 | ok | description | 1
+[cloudeditor](cloudeditor/component.html) | v20 | ok | description | -
+[cloudeditorsimple](cloudeditorsimple/component.html) | v20 | ok | description | -
+[code](code/component.html) | v20 | ok | description | -
 [codemirror](codemirror/component.html) | v19 | ok | description | 80
-[colorpicker](colorpicker/component.html) | v20 | ok | - | -
+[colorpicker](colorpicker/component.html) | v20 | ok | description | -
 [colorpickerbutton](colorpickerbutton/component.html) | v20 | ok | description, options | -
 [colorselector](colorselector/component.html) | v20 | ok | description, options | -
 [columns](columns/component.html) | v20 | ok | - | -
-[configuration](configuration/component.html) | v20 | ok | - | -
-[confirm](confirm/component.html) | v20 | ok | - | -
+[configuration](configuration/component.html) | v20 | ok | description | -
+[confirm](confirm/component.html) | v20 | ok | description | -
 [console](console/component.html) | v20 | ok | description | 1
 [console2](console2/component.html) | v20 | ok | description, preview | -
 [contenteditable](contenteditable/component.html) | v19 | ok | description | 2
 [contentslider](contentslider/component.html) | v20 | ok | description | -
 [contextmenu](contextmenu/component.html) | v20 | ok | - | -
-[controls](controls/component.html) | v20 | ok | - | -
+[controls](controls/component.html) | v20 | ok | description | -
 [cookie](cookie/component.html) | v19 | ok | description | 1
 [cookie2](cookie2/component.html) | v19 | ok | description | 1
 [countdown](countdown/component.html) | v20 | ok | - | 1
-[crop](crop/component.html) | v20 | ok | - | -
+[crop](crop/component.html) | v20 | ok | description | -
 [dashboard](dashboard/component.html) | v20 | ok | - | 1
 [datagrid](datagrid/component.html) | v20 | ok | options, preview | 183
-[datasource](datasource/component.html) | v20 | message | - | -
+[datasource](datasource/component.html) | v20 | message | description | -
 [datatable](datatable/component.html) | v20 | ok | description, options | -
 [datepicker](datepicker/component.html) | v20 | ok | - | -
 [detach](detach/component.html) | v20 | ok | - | -
 [detail](detail/component.html) | v20 | ok | - | 1
-[developer](developer/component.html) | v19 | ok | options, config section | 1
+[developer](developer/component.html) | v19 | ok | description, options, config section | 1
 [diagram](diagram/component.html) | v20 | ok | description | 2
 [directory](directory/component.html) | v20 | ok | options | -
 [disable](disable/component.html) | v19 | ok | - | 1
@@ -117,7 +117,7 @@ Folder | jComponent | Browser | To finish | Warnings
 [dragdropfiles](dragdropfiles/component.html) | v20 | ok | description | 1
 [draggable](draggable/component.html) | v20 | ok | - | -
 [drawer](drawer/component.html) | v20 | ok | description, config section | -
-[drawzone](drawzone/component.html) | v20 | ok | options | -
+[drawzone](drawzone/component.html) | v20 | ok | description, options | -
 [dropdown](dropdown/component.html) | v20 | ok | description | 1
 [dropdowncheckbox](dropdowncheckbox/component.html) | v20 | ok | description | -
 [dropdownlist](dropdownlist/component.html) | v20 | ok | description | 1
@@ -129,11 +129,11 @@ Folder | jComponent | Browser | To finish | Warnings
 [edit](edit/component.html) | v20 | ok | options | -
 [editable](editable/component.html) | v19 | ok | - | 2
 [elementid](elementid/component.html) | v20 | ok | preview | -
-[emoji](emoji/component.html) | v19 | ok | - | 2
+[emoji](emoji/component.html) | v19 | ok | description | 2
 [emojibutton](emojibutton/component.html) | v19 | ok | description, options | 1
 [empty](empty/component.html) | v20 | ok | description | -
 [emptyinline](emptyinline/component.html) | v20 | ok | - | -
-[enter](enter/component.html) | v20 | ok | options | -
+[enter](enter/component.html) | v20 | ok | description, options | -
 [enterbox](enterbox/component.html) | v20 | ok | - | -
 [error](error/component.html) | v20 | ok | description | -
 [errorhandler](errorhandler/component.html) | v20 | ok | - | -
@@ -141,40 +141,40 @@ Folder | jComponent | Browser | To finish | Warnings
 [expander](expander/component.html) | v20 | ok | description | -
 [expansionpanel](expansionpanel/component.html) | v20 | ok | description, preview | -
 [extend](extend/component.html) | v20 | ok | - | -
-[faicons](faicons/component.html) | v19 | ok | options | 1
+[faicons](faicons/component.html) | v19 | ok | description, options | 1
 [faiconsbutton](faiconsbutton/component.html) | v19 | ok | description | 1
 [faviconunread](faviconunread/component.html) | v20 | ok | description | -
-[features](features/component.html) | v20 | ok | - | -
+[features](features/component.html) | v20 | ok | description | -
 [feedbackbutton](feedbackbutton/component.html) | v20 | ok | description | -
 [filebrowser](filebrowser/component.html) | v20 | ok | - | -
 [filereader](filereader/component.html) | v20 | ok | description | -
-[filesaver](filesaver/component.html) | v20 | ok | - | -
+[filesaver](filesaver/component.html) | v20 | ok | description | -
 [fileupload](fileupload/component.html) | v19 | ok | - | 2
 [fileuploader](fileuploader/component.html) | v20 | ok | - | -
 [fileuploadlist](fileuploadlist/component.html) | v19 | ok | - | 2
-[filter](filter/component.html) | v19 | ok | - | 1
+[filter](filter/component.html) | v19 | ok | description | 1
 [fixedmodal](fixedmodal/component.html) | v20 | ok | - | 2
 [floatingbox](floatingbox/component.html) | v20 | ok | description | 4
-[floatinginput](floatinginput/component.html) | v20 | ok | options | -
+[floatinginput](floatinginput/component.html) | v20 | ok | description, options | -
 [floatingpanel](floatingpanel/component.html) | v20 | ok | options, config section | -
 [floatingsearch](floatingsearch/component.html) | v20 | ok | - | -
-[flow](flow/component.html) | v20 | ok | options | 2
+[flow](flow/component.html) | v20 | ok | description, options | 2
 [floweditor](floweditor/component.html) | v20 | ok | options | -
 [folder](folder/component.html) | v20 | ok | - | -
 [fontawesome](fontawesome/component.html) | v19 | ok | - | 1
 [fontawesomebox](fontawesomebox/component.html) | v19 | ok | - | 1
-[form](form/component.html) | v20 | ok | - | 2
+[form](form/component.html) | v20 | ok | description | 2
 [formdata](formdata/component.html) | v20 | ok | config section | -
-[formtab](formtab/component.html) | v20 | ok | preview | 1
-[fullform](fullform/component.html) | v20 | ok | options | 3
+[formtab](formtab/component.html) | v20 | ok | description, preview | 1
+[fullform](fullform/component.html) | v20 | ok | description, options | 3
 [gallery](gallery/component.html) | v20 | ok | description | -
 [gauge](gauge/component.html) | v20 | ok | description | -
 [gps](gps/component.html) | v20 | ok | - | -
 [grid](grid/component.html) | v19 | ok | description, options | 4
 [hashchange](hashchange/component.html) | v20 | ok | - | -
 [highlightsyntax](highlightsyntax/component.html) | v20 | ok | - | 1
-[icons](icons/component.html) | v20 | ok | options | -
-[idletime](idletime/component.html) | v20 | ok | - | -
+[icons](icons/component.html) | v20 | ok | description, options | -
+[idletime](idletime/component.html) | v20 | ok | description | -
 [iframe](iframe/component.html) | v20 | ok | - | -
 [iframeeditable](iframeeditable/component.html) | v20 | ok | description | 1
 [iframepreview](iframepreview/component.html) | v20 | ok | description | 1
@@ -183,12 +183,12 @@ Folder | jComponent | Browser | To finish | Warnings
 [imageviewer](imageviewer/component.html) | v20 | ok | description | -
 [importcsv](importcsv/component.html) | v20 | ok | - | 1
 [importer](importer/component.html) | v20 | ok | - | -
-[infinitescroll](infinitescroll/component.html) | v20 | ok | - | 1
+[infinitescroll](infinitescroll/component.html) | v20 | ok | description | 1
 [info](info/component.html) | v19 | ok | description, preview | 1
 [infowindows](infowindows/component.html) | v20 | ok | - | 1
 [inlinedatepicker](inlinedatepicker/component.html) | v20 | ok | description | -
-[inlineform](inlineform/component.html) | v19 | ok | - | 3
-[inlineproperties](inlineproperties/component.html) | v20 | ok | - | 1
+[inlineform](inlineform/component.html) | v19 | ok | description | 3
+[inlineproperties](inlineproperties/component.html) | v20 | ok | description | 1
 [input](input/component.html) | v20 | ok | description, options | -
 [inputtags](inputtags/component.html) | v20 | ok | description | -
 [intro](intro/component.html) | v20 | ok | description | 1
@@ -197,45 +197,45 @@ Folder | jComponent | Browser | To finish | Warnings
 [kanban](kanban/component.html) | v20 | ok | description | 2
 [keyselection](keyselection/component.html) | v20 | ok | - | -
 [keyvalue](keyvalue/component.html) | v20 | ok | - | -
-[largeform](largeform/component.html) | v20 | ok | options | 3
+[largeform](largeform/component.html) | v20 | ok | description, options | 3
 [layer](layer/component.html) | v19 | ok | description, options, preview | 3
 [layout](layout/component.html) | v19 | ok | - | 1
 [layout2](layout2/component.html) | v20 | ok | options | -
 [lazycontent](lazycontent/component.html) | v19 | ok | - | 1
-[lazyimages](lazyimages/component.html) | v20 | ok | - | -
+[lazyimages](lazyimages/component.html) | v20 | ok | description | -
 [lazyload](lazyload/component.html) | v20 | ok | description | 1
-[leaflet](leaflet/component.html) | v20 | ok | - | 5
+[leaflet](leaflet/component.html) | v20 | ok | description | 5
 [linechart](linechart/component.html) | v20 | ok | options | -
 [listbox](listbox/component.html) | v19 | ok | description | 1
-[listdetail](listdetail/component.html) | v20 | ok | - | -
+[listdetail](listdetail/component.html) | v20 | ok | description | -
 [listform](listform/component.html) | v20 | ok | - | -
 [listing](listing/component.html) | v20 | ok | description | -
 [listmenu](listmenu/component.html) | v19 | ok | - | 3
 [listmenueditable](listmenueditable/component.html) | v20 | ok | options | -
 [livestats](livestats/component.html) | v20 | ok | description | 1
-[loadcontent](loadcontent/component.html) | v20 | ok | - | -
+[loadcontent](loadcontent/component.html) | v20 | ok | description | -
 [loading](loading/component.html) | v20 | ok | description | -
 [locale](locale/component.html) | v20 | ok | - | -
 [mainprogress](mainprogress/component.html) | v20 | ok | - | -
 [map](map/component.html) | v19 | ok | description | 1
 [mapmarker](mapmarker/component.html) | v19 | ok | description | 1
-[mapzones](mapzones/component.html) | v20 | ok | - | -
+[mapzones](mapzones/component.html) | v20 | ok | description | -
 [markdown](markdown/component.html) | v20 | ok | - | 94
-[markdowneditor](markdowneditor/component.html) | v19 | ok | - | 6
+[markdowneditor](markdowneditor/component.html) | v19 | ok | description | 6
 [markdownpreview](markdownpreview/component.html) | v19 | ok | - | 1
 [masonry](masonry/component.html) | v20 | ok | - | -
-[menu](menu/component.html) | v20 | ok | - | -
-[message](message/component.html) | v20 | ok | - | -
+[menu](menu/component.html) | v20 | ok | description | -
+[message](message/component.html) | v20 | ok | description | -
 [minheight](minheight/component.html) | v20 | ok | - | -
-[miniform](miniform/component.html) | v20 | ok | - | 2
+[miniform](miniform/component.html) | v20 | ok | description | 2
 [mobilecarousel](mobilecarousel/component.html) | v20 | ok | preview | -
 [modal](modal/component.html) | v20 | ok | - | 2
 [modificator](modificator/component.html) | v19 | ok | - | 1
-[monacoeditor](monacoeditor/component.html) | v20 | ok | - | -
+[monacoeditor](monacoeditor/component.html) | v20 | ok | description | -
 [monthlycalendar](monthlycalendar/component.html) | v20 | ok | options | 1
 [movable](movable/component.html) | v20 | ok | - | -
 [movement](movement/component.html) | v20 | ok | - | -
-[multioptions](multioptions/component.html) | v19 | ok | - | 42
+[multioptions](multioptions/component.html) | v19 | ok | description | 42
 [nativenotifications](nativenotifications/component.html) | v20 | ok | description | -
 [navigation](navigation/component.html) | v20 | ok | description | 1
 [navlayout](navlayout/component.html) | v20 | ok | - | -
@@ -243,18 +243,18 @@ Folder | jComponent | Browser | To finish | Warnings
 [nosqlcounter](nosqlcounter/component.html) | v19 | ok | description, options | 1
 [notifications](notifications/component.html) | v19 | ok | description | 12
 [notificationspanel](notificationspanel/component.html) | v20 | ok | description | -
-[notify](notify/component.html) | v20 | ok | - | 1
-[notifybar](notifybar/component.html) | v20 | ok | - | -
+[notify](notify/component.html) | v20 | ok | description | 1
+[notifybar](notifybar/component.html) | v20 | ok | description | -
 [objecteditor](objecteditor/component.html) | v20 | ok | description | 47
 [objecttree](objecttree/component.html) | v20 | ok | options | 1
 [offline](offline/component.html) | v20 | ok | - | -
 [onetime](onetime/component.html) | v20 | ok | - | -
-[packeta](packeta/component.html) | v20 | ok | - | -
+[packeta](packeta/component.html) | v20 | ok | description | -
 [page](page/component.html) | v20 | ok | - | 2
 [pages](pages/component.html) | v20 | ok | config section | -
 [pagination](pagination/component.html) | v19 | ok | description | 1
-[panel](panel/component.html) | v20 | ok | options, preview | 2
-[paper](paper/component.html) | v20 | ok | - | 1
+[panel](panel/component.html) | v20 | ok | description, options, preview | 2
+[paper](paper/component.html) | v20 | ok | description | 1
 [parameters](parameters/component.html) | v20 | ok | options | -
 [part](part/component.html) | v20 | ok | - | 1
 [parts](parts/component.html) | v20 | ok | - | -
@@ -306,25 +306,25 @@ Folder | jComponent | Browser | To finish | Warnings
 [servergrid](servergrid/component.html) | v20 | ok | description | 1
 [serverlist](serverlist/component.html) | v20 | ok | options | 1
 [serverlisting](serverlisting/component.html) | v20 | ok | options | -
-[serviceworker](serviceworker/component.html) | v20 | ok | - | -
+[serviceworker](serviceworker/component.html) | v20 | ok | description | -
 [shoppingcart](shoppingcart/component.html) | v20 | ok | description | -
 [shortcuts](shortcuts/component.html) | v20 | ok | - | -
 [singleupload](singleupload/component.html) | v19 | ok | description | 2
 [slider](slider/component.html) | v20 | ok | - | -
-[snackbar](snackbar/component.html) | v20 | ok | - | -
+[snackbar](snackbar/component.html) | v20 | ok | description | -
 [sounds](sounds/component.html) | v20 | ok | - | -
-[splashscreen](splashscreen/component.html) | v19 | ok | options | 1
-[spotlight](spotlight/component.html) | v20 | ok | - | -
+[splashscreen](splashscreen/component.html) | v19 | ok | description, options | 1
+[spotlight](spotlight/component.html) | v20 | ok | description | -
 [stash](stash/component.html) | v20 | ok | options | -
 [stats12](stats12/component.html) | v20 | ok | description | -
 [stats24](stats24/component.html) | v20 | ok | description | -
 [stats7](stats7/component.html) | v20 | ok | description | -
 [statsbarsimple](statsbarsimple/component.html) | v20 | ok | - | -
-[statusinput](statusinput/component.html) | v20 | ok | - | -
+[statusinput](statusinput/component.html) | v20 | ok | description | -
 [sticker](sticker/component.html) | v20 | ok | description | -
 [submit](submit/component.html) | v19 | ok | - | 1
 [suggestion](suggestion/component.html) | v20 | ok | - | -
-[svgicons](svgicons/component.html) | v20 | message | - | 3
+[svgicons](svgicons/component.html) | v20 | message | description | 3
 [swiper](swiper/component.html) | v20 | ok | description | 3
 [switchbutton](switchbutton/component.html) | v20 | ok | description | -
 [table](table/component.html) | v20 | ok | description, options | -
@@ -333,7 +333,7 @@ Folder | jComponent | Browser | To finish | Warnings
 [tabs](tabs/component.html) | v20 | ok | description, preview | 1
 [tagger](tagger/component.html) | v19 | ok | - | 1
 [template](template/component.html) | v20 | ok | description | -
-[templates](templates/component.html) | v20 | ok | - | -
+[templates](templates/component.html) | v20 | ok | description | -
 [textarea](textarea/component.html) | v20 | ok | description | -
 [textbox](textbox/component.html) | v20 | ok | description | 13
 [textboxlist](textboxlist/component.html) | v19 | ok | description | 1
@@ -344,13 +344,13 @@ Folder | jComponent | Browser | To finish | Warnings
 [togglebox](togglebox/component.html) | v19 | ok | preview | 1
 [togglebutton](togglebutton/component.html) | v19 | ok | - | 1
 [togglemore](togglemore/component.html) | v20 | ok | - | -
-[tooltip](tooltip/component.html) | v19 | ok | - | 1
+[tooltip](tooltip/component.html) | v19 | ok | description | 1
 [totaltemplates](totaltemplates/component.html) | v20 | ok | - | -
 [touchmove](touchmove/component.html) | v19 | ok | options, config section | 1
 [tour](tour/component.html) | v19 | ok | description | 1
 [tree](tree/component.html) | v20 | ok | - | -
 [treeview](treeview/component.html) | v20 | ok | options | 2
-[typed](typed/component.html) | v20 | ok | - | -
+[typed](typed/component.html) | v20 | ok | description | -
 [uibuilder](uibuilder/component.html) | v20 | ok | - | -
 [uieditor](uieditor/component.html) | v20 | ok | options | -
 [uistudio](uistudio/component.html) | v20 | ok | options | -
@@ -362,10 +362,10 @@ Folder | jComponent | Browser | To finish | Warnings
 [viewbox](viewbox/component.html) | v20 | ok | description | -
 [virtualwire](virtualwire/component.html) | v20 | ok | config section | -
 [watch](watch/component.html) | v20 | ok | - | -
-[watcher](watcher/component.html) | v20 | ok | - | -
+[watcher](watcher/component.html) | v20 | ok | description | -
 [websocket](websocket/component.html) | v19 | ok | - | 1
 [wiki](wiki/component.html) | v19 | ok | options | 34
-[window](window/component.html) | v20 | ok | preview | 2
+[window](window/component.html) | v20 | ok | description, preview | 2
 [windows](windows/component.html) | v20 | ok | - | 1
 [wizardexpert](wizardexpert/component.html) | v19 | ok | - | 1
 [wysiwyg](wysiwyg/component.html) | v20 | ok | description | 1

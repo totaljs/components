@@ -1,12 +1,12 @@
 ---
 name: pages
-description: The component is a better alternative to the j-Section component. As a result, you can easily make a multi-page app with dynamic content loading when needed.
+description: The component is a better alternative to the j-Section component.
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2022-06-07 15:11
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

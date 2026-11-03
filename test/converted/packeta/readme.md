@@ -1,12 +1,12 @@
 ---
 name: packeta
-description: This component allows customers to select a [Packeta](https://www.packeta.com/) pickup point. After selection, a complete pickup point object is retrieved,
+description: TODO
 author: Dodo Marton
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2025-02-04 15:00
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

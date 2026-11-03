@@ -1,12 +1,12 @@
 ---
 name: remember
-description: The component calls a function within the repeat interval. Information about the previous call is stored in localStorage.
+description: The component calls a function within the repeat interval.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2026-01-02 12:56
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

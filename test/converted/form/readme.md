@@ -1,12 +1,12 @@
 ---
 name: form
-description: New version of this component supports dynamic evaluation of the content of <script type="text/html">. The example below contains a script with HTML and the
+description: TODO
 author: Peter Širka
 version: 2
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2015-08-06 07:20
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

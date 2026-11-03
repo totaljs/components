@@ -1,12 +1,12 @@
 ---
 name: search
-description: Simple fulltext search component. This component can show/hide elements according to the searching phrase.
+description: Simple fulltext search component.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2016-08-01 07:48
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

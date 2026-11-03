@@ -1,12 +1,12 @@
 ---
 name: scrollbar
-description: Custom scrollbars. IMPORTANT: It wraps current content by adding two nested div elements with relative position. It works with jComponent v17 only.
+description: Custom scrollbars. IMPORTANT: It wraps current content by adding two nested div elements with relative position.
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2018-12-23 23:13
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

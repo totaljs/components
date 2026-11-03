@@ -1,12 +1,12 @@
 ---
 name: markdowneditor
-description: This component use https://simplemde.com/ editor for markdown editing.
+description: TODO
 author: Michal Capo
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2018-07-12 16:23
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

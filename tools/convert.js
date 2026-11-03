@@ -121,15 +121,22 @@ if (index !== -1) {
 // "- `key` {Type} text" -> "- `key {Type}` text"
 readme = readme.replace(/^(\s*- )`([A-Za-z0-9_$.-]+)`\s*\{([^}]+)\}/gm, '$1`$2 {$3}`');
 
-// A short description: the first paragraph, otherwise TODO
+// A short description: the first paragraph of prose (outside of the code blocks), otherwise TODO
 var description = '';
-readme.split('\n\n').some(function(part) {
+readme.replace(/```[\s\S]*?```/g, '').split(/\n\s*\n/).some(function(part) {
 	part = part.trim();
-	if (!part || /^(#|-|\*|```|__|\d+\.)/.test(part) || part.indexOf('|') !== -1)
+	if (!part || /^(#|-|\*|`|__|\d+\.|>|<)/.test(part) || part.indexOf('|') !== -1)
+		return false;
+	// It must look like a sentence, not like code
+	if (!/^[A-Z]/.test(part) || /[{};]|<\/?[a-z]|\/\/|\s=\s|\(\)|\w\.\w+\(/.test(part))
 		return false;
 	description = part.replace(/\n/g, ' ').replace(/[`_*]/g, '').replace(/\s+/g, ' ');
 	return true;
 });
+
+// The first sentence
+var sentence = description.match(/^.{20,}?[.!?](\s|$)/);
+sentence && (description = sentence[0].trim());
 
 if (description.length > 160)
 	description = description.substring(0, 160).replace(/\s+\S*$/, '');

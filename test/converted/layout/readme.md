@@ -1,12 +1,12 @@
 ---
 name: layout
-description: Making of layout is very easy and with a lot of possibilities. Layout must have own HTML structure. Look to example. The example below describes only meta data
+description: Making of layout is very easy and with a lot of possibilities.
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2019-05-05 01:36
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

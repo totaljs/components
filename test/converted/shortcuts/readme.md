@@ -1,12 +1,12 @@
 ---
 name: shortcuts
-description: This component can help with creating keyboard shortcuts. The component is singleton.
+description: This component can help with creating keyboard shortcuts.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2017-02-24 12:06
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

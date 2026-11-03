@@ -1,12 +1,12 @@
 ---
 name: togglebox
-description: ToggleBox can re-order or hide items in Array. The component expects Array.
+description: ToggleBox can re-order or hide items in Array.
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2017-10-06 23:48
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

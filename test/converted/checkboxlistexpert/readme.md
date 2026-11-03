@@ -1,12 +1,12 @@
 ---
 name: checkboxlistexpert
-description: Perfect component for checboxlist with custom styles. It's a little bit advanced but absolutely worth it!
+description: Perfect component for checboxlist with custom styles.
 author: Denis Granec
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2020-02-10 16:30
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

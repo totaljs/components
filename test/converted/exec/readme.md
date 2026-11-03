@@ -1,12 +1,12 @@
 ---
 name: exec
-description: The component executes a method when the user clicks on the same element with the exec, exec2, or exec3 class. More information is below. The component is a
+description: The component executes a method when the user clicks on the same element with the exec, exec2, or exec3 class.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2016-10-18 16:39
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

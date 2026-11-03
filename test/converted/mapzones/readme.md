@@ -1,12 +1,12 @@
 ---
 name: mapzones
-description: The component for drawing and displaying zones on the map. This component uses [OpenLayers](https://openlayers.org/) library with the
+description: TODO
 author: Dodo Marton / Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2023-05-02 15:00
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

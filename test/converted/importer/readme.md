@@ -1,12 +1,12 @@
 ---
 name: importer
-description: j-Importer can contain <script type="text/html"> with a content which will be evaluated as HTML if the condition will be valid.
+description: If the part component isn't within scope then the value from the config.if will replace ?
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2016-08-18 09:20
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

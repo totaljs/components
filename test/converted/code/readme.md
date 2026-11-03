@@ -1,12 +1,12 @@
 ---
 name: code
-description: It's a simple alternative to j-CloudEditor. You can specify the main configuration in the config, and the value is {String} (in j-CloudEditor is configuration
+description: TODO
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2025-03-04 10:11
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

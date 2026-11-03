@@ -1,12 +1,12 @@
 ---
 name: serverlist
-description: The ServerList component attempts to locate a Tangular template. If one exists, the component uses it. Otherwise, it tries to render a content from the html
+description: The ServerList component attempts to locate a Tangular template.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2025-07-30 15:55
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

@@ -1,12 +1,12 @@
 ---
 name: statsbarsimple
-description: The component needs to have a defined template for rendering content and a tooltip. For an understanding look to the example.
+description: The component needs to have a defined template for rendering content and a tooltip.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2020-01-08 13:13
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

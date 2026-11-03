@@ -1,12 +1,12 @@
 ---
 name: lazycontent
-description: This component shows own content when it's visible. It supports helpful features as redraw and hide.
+description: This component shows own content when it's visible.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2016-05-02 13:30
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

@@ -1,12 +1,12 @@
 ---
 name: paper
-description: The component creates a global variable called window.papercache {Object} used by all j-Paper instances.
+description: TODO
 author: Peter Širka
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2022-10-06 12:47
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 

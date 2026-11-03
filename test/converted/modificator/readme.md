@@ -1,12 +1,12 @@
 ---
 name: modificator
-description: This component can modify behaviour of element according to the preddefined schema. The component can be hooked on a body element (because it's singleton) and
+description: This component can modify behaviour of element according to the preddefined schema.
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2017-09-05 10:40
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19
 ---
 

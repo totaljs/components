@@ -1,12 +1,12 @@
 ---
 name: loadcontent
-description: The component loads a content from the template <script type="text/html"> and appends it into the element. It's a great solution for reusable content. Learn
+description: TODO
 author: Peter Širka
 version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2022-05-03 21:31
-updated: 2026-11-03 09:56
+updated: 2026-11-03 10:36
 jcomponent: v19,v20
 ---
 
