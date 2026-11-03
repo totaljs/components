@@ -153,7 +153,27 @@ fs.mkdirSync(out, { recursive: true });
 fs.writeFileSync(path.join(out, 'component.html'), html);
 fs.writeFileSync(path.join(out, 'readme.md'), meta + '# ' + title + '\n\n' + readme.trim() + '\n');
 
-if (fs.existsSync(path.join(src, 'picture.jpg')))
-	fs.copyFileSync(path.join(src, 'picture.jpg'), path.join(out, 'preview.jpg'));
+// preview.jpg: the picture of the old component. Most are picture.jpg, some are picture.gif or picture.png (converted to jpg:
+// a gif keeps its first frame). component.json says which one it is ("picture").
+var picture = ['picture.jpg', 'picture.jpeg', 'picture.png', 'picture.gif'].filter(function(file) {
+	return fs.existsSync(path.join(src, file));
+})[0];
+
+if (picture && /\.jpe?g$/.test(picture)) {
+	fs.copyFileSync(path.join(src, picture), path.join(out, 'preview.jpg'));
+} else if (picture) {
+	// The conversion uses a tool of the system: sips (macOS), magick or convert (ImageMagick)
+	var cp = require('child_process');
+	var target = path.join(out, 'preview.jpg');
+	var tries = [['sips', ['-s', 'format', 'jpeg', path.join(src, picture), '--out', target]], ['magick', [path.join(src, picture) + '[0]', '-background', 'white', '-flatten', target]], ['convert', [path.join(src, picture) + '[0]', '-background', 'white', '-flatten', target]]];
+	var done = tries.some(function(t) {
+		var r = cp.spawnSync(t[0], t[1], { stdio: 'ignore' });
+		return !r.error && r.status === 0 && fs.existsSync(target);
+	});
+	if (!done) {
+		fs.copyFileSync(path.join(src, picture), path.join(out, 'preview' + path.extname(picture)));
+		console.log('WARNING ' + name + ': ' + picture + ' was copied as it is, there is no sips, magick or convert to make preview.jpg');
+	}
+}
 
 console.log('OK ' + path.basename(src) + ' -> ' + out);

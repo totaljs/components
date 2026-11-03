@@ -1,6 +1,6 @@
 ---
 name: packeta
-description: TODO
+description: Opens the Packeta widget so the user can pick a pickup point, then passes the selected point object to a callback
 author: Dodo Marton
 version: 1
 darkmode: false

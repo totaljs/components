@@ -1,6 +1,6 @@
 ---
 name: tabmenu
-description: TODO
+description: Tab navigation that marks the selected element with a CSS class and runs a function when the tab changes
 author: Peter Širka
 version: 1
 darkmode: true

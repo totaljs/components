@@ -1,6 +1,6 @@
 ---
 name: stats24
-description: TODO
+description: Bar chart of 24 hourly values with tooltips on hover and the current hour optionally highlighted
 author: Peter Širka
 version: 1
 darkmode: false

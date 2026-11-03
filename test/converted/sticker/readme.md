@@ -1,6 +1,6 @@
 ---
 name: sticker
-description: TODO
+description: Keeps an element stuck at the top while scrolling by toggling CSS classes at scroll positions, per screen size
 author: Peter Širka
 version: 1
 darkmode: false

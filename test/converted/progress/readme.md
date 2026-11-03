@@ -1,6 +1,6 @@
 ---
 name: progress
-description: TODO
+description: Progress bar that shows a percentage between 0 and 100 bound to the path, with optional animation
 author: Peter Širka
 version: 1
 darkmode: true

@@ -1,6 +1,6 @@
 ---
 name: approve
-description: TODO
+description: Singleton modal confirmation dialog with approve and cancel buttons that runs a callback when the user approves
 author: Peter Širka
 version: 1
 darkmode: true

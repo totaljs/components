@@ -1,6 +1,6 @@
 ---
 name: paper
-description: TODO
+description: Block-based rich content editor that stores its widgets as an object array, loads them from widget repositories and can autosave
 author: Peter Širka
 version: 1
 darkmode: true

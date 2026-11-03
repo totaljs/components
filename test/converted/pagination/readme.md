@@ -1,6 +1,6 @@
 ---
 name: pagination
-description: TODO
+description: Page navigation with numbered page buttons and pluralized page and item labels, calling a callback when a page is selected
 author: Peter Širka
 version: 1
 darkmode: true

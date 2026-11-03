@@ -1,6 +1,6 @@
 ---
 name: diagram
-description: TODO
+description: Renders a Tangular template inside a scrollable diagram that resizes to its parent, with an optional reversed layout
 author: Peter Širka
 version: 1
 darkmode: true

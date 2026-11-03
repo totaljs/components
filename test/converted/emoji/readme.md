@@ -1,6 +1,6 @@
 ---
 name: emoji
-description: TODO
+description: Searchable emoji picker with categories, a history of frequently used emoticons and selectable skin tones
 author: Denis Granec
 version: 1
 darkmode: true

@@ -1,6 +1,6 @@
 ---
 name: raweditable
-description: TODO
+description: Minimal editable text field with type rules, validation, length limits and autocomplete, designed for custom extensions
 author: Peter Širka
 version: 1
 darkmode: false

@@ -1,6 +1,6 @@
 ---
 name: autofill
-description: TODO
+description: Wraps all nested elements in a form element with form events disabled
 author: Peter Širka
 version: 1
 darkmode: false

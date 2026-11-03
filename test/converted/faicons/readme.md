@@ -1,6 +1,6 @@
 ---
 name: faicons
-description: TODO
+description: Searchable singleton picker of Font Awesome icons with a scrollable list, including pro icons when they are available
 author: Peter Širka
 version: 1
 darkmode: true

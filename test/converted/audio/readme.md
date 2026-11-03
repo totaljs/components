@@ -1,6 +1,6 @@
 ---
 name: audio
-description: TODO
+description: Singleton audio player that plays and stops MP3 sounds from a URL, with a volume control
 author: Peter Širka
 version: 1
 darkmode: false

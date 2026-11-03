@@ -1,6 +1,6 @@
 ---
 name: banners
-description: TODO
+description: Responsive banner rotator that cycles through slides at a set interval, with navigation icons
 author: Peter Širka
 version: 1
 darkmode: false

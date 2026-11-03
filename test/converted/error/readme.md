@@ -1,6 +1,6 @@
 ---
 name: error
-description: TODO
+description: Displays the error messages from an array of objects with an error property, hidden when the array is empty
 author: Peter Širka
 version: 1
 darkmode: false

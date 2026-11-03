@@ -1,6 +1,6 @@
 ---
 name: radiobutton
-description: TODO
+description: Group of radio buttons built from an items string or a data-source, with required, disabled and inline options
 author: Peter Širka
 version: 1
 darkmode: true

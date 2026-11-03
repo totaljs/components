@@ -1,6 +1,6 @@
 ---
 name: clock
-description: TODO
+description: Singleton clock popup toggled from an element that passes the selected date to a callback, with optional 12-hour time
 author: Denis Granec
 version: 1
 darkmode: true

@@ -1,6 +1,6 @@
 ---
 name: checkbox
-description: TODO
+description: Checkbox bound to a data path, with an optional label, required and disabled states, and a reverse mode
 author: Peter Širka
 version: 1
 darkmode: true

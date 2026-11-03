@@ -1,6 +1,6 @@
 ---
 name: notifications
-description: TODO
+description: Singleton toast notifications with icon, date, message, color and callback, auto-closing and optional native alerts when unfocused
 author: Peter Širka
 version: 1
 darkmode: false

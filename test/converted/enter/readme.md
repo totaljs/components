@@ -1,6 +1,6 @@
 ---
 name: enter
-description: TODO
+description: Runs a method when the user presses Enter inside the form, after validating the inputs, or clicks a submit button if one is set
 author: Peter Širka
 version: 1
 darkmode: false

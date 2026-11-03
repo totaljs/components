@@ -1,6 +1,6 @@
 ---
 name: listing
-description: TODO
+description: Paginated client-side list that renders a template for each item of an array, with page buttons and item counts
 author: Peter Širka
 version: 1
 darkmode: false

@@ -1,6 +1,6 @@
 ---
 name: mapzones
-description: TODO
+description: OpenLayers map for drawing and editing polygon zones from data-source points, with a callback when the value changes
 author: Dodo Marton / Peter Širka
 version: 1
 darkmode: true

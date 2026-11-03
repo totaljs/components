@@ -1,6 +1,6 @@
 ---
 name: passwordmeter
-description: TODO
+description: Password strength meter with a progress bar and rating label, checking length, digits, letter case and special characters
 author: Peter Širka
 version: 1
 darkmode: true

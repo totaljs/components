@@ -1,6 +1,6 @@
 ---
 name: rating
-description: TODO
+description: Five-star rating control that stores the clicked score, from 1 to 5, as the bound value
 author: Peter Širka
 version: 1
 darkmode: false

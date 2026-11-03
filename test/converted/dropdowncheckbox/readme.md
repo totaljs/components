@@ -1,6 +1,6 @@
 ---
 name: dropdowncheckbox
-description: TODO
+description: Dropdown with multiple selection through checkboxes, filled from static items or a data-source, with a summary text for selected values
 author: Peter Širka
 version: 1
 darkmode: true

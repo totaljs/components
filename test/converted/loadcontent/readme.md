@@ -1,6 +1,6 @@
 ---
 name: loadcontent
-description: TODO
+description: Loads an HTML template from a script type text/html element into the page, with text replacement and a callback after loading
 author: Peter Širka
 version: 1
 darkmode: false

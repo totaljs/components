@@ -1,6 +1,6 @@
 ---
 name: notificationspanel
-description: TODO
+description: Singleton side panel listing notifications, with a click callback, a clear button and optional removal of items after a click
 author: Peter Širka
 version: 1
 darkmode: true

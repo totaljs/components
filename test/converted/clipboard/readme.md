@@ -1,6 +1,6 @@
 ---
 name: clipboard
-description: TODO
+description: Singleton that copies text to the clipboard using the Clipboard API, with a document.execCommand fallback
 author: Peter Širka
 version: 1
 darkmode: false

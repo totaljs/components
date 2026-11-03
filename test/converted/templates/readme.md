@@ -1,6 +1,6 @@
 ---
 name: templates
-description: TODO
+description: Renders a list from named templates, with drag and drop, custom scrollbars, context menu and an empty template
 author: Peter Širka
 version: 1
 darkmode: false

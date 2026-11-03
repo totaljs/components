@@ -1,6 +1,6 @@
 ---
 name: console2
-description: TODO
+description: Log console panel that shows messages from a data source, with a clear button and automatic opening and closing
 author: Peter Širka
 version: 1
 darkmode: true

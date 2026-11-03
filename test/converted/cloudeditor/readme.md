@@ -1,6 +1,6 @@
 ---
 name: cloudeditor
-description: TODO
+description: Code editor embedded in an iframe with multiple cursors, find, diff tracking and optional real-time collaboration
 author: Peter Širka
 version: 1
 darkmode: true

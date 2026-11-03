@@ -1,6 +1,6 @@
 ---
 name: iframeeditable
-description: TODO
+description: Edits HTML safely inside an iframe whose height follows its body, for content marked as contenteditable
 author: Peter Širka
 version: 1
 darkmode: false

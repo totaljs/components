@@ -1,6 +1,6 @@
 ---
 name: miniform
-description: TODO
+description: Small modal form shown when the value of its path matches the if condition, with submit and cancel callbacks
 author: Peter Širka
 version: 2
 darkmode: true

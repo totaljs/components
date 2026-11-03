@@ -1,6 +1,6 @@
 ---
 name: livestats
-description: TODO
+description: Live SVG line chart with one colored line per key, updated from incoming values, with dark mode support
 author: Peter Širka
 version: 1
 darkmode: true

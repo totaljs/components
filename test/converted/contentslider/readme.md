@@ -1,6 +1,6 @@
 ---
 name: contentslider
-description: TODO
+description: Content slider that cycles through links at a set interval and can remember its state in localStorage
 author: Peter Širka
 version: 1
 darkmode: false

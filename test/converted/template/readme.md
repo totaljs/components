@@ -1,6 +1,6 @@
 ---
 name: template
-description: TODO
+description: Renders a Tangular template with the bound model and hides itself when the model is null or undefined
 author: Peter Širka
 version: 1
 darkmode: false

@@ -1,6 +1,6 @@
 ---
 name: drawer
-description: TODO
+description: Side drawer that slides in from the left or right and shows when its path value matches the if condition, with responsive widths
 author: Peter Širka
 version: 1
 darkmode: false

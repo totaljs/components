@@ -1,6 +1,6 @@
 ---
 name: idletime
-description: TODO
+description: Emits idle when the page has no mouse, keyboard, touch or focus activity for a set time, and reload when a hidden page is shown again
 author: Peter Širka
 version: 1
 darkmode: false

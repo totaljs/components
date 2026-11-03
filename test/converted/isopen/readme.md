@@ -1,6 +1,6 @@
 ---
 name: isopen
-description: TODO
+description: Shows opening hours from a template and whether the place is open at the current time, refreshed automatically
 author: Peter Širka
 version: 1
 darkmode: false

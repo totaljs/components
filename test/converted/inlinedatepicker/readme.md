@@ -1,6 +1,6 @@
 ---
 name: inlinedatepicker
-description: TODO
+description: Date picker rendered inline in the page with configurable first day of the week, day and month names, and optional badges per date
 author: Peter Širka
 version: 1
 darkmode: true

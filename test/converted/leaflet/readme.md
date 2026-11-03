@@ -1,6 +1,6 @@
 ---
 name: leaflet
-description: TODO
+description: OpenStreetMap map using the Leaflet library, with an optional marker that can be dragged and a move callback
 author: Peter Širka
 version: 1
 darkmode: true

@@ -1,6 +1,6 @@
 ---
 name: permissions
-description: TODO
+description: Editor for permission lists that assigns types such as read and write to directory entries, with a search box and a data-source
 author: Peter Širka
 version: 1
 darkmode: true

@@ -1,6 +1,6 @@
 ---
 name: tooltip
-description: TODO
+description: Singleton tooltip shown next to an element with HTML content, offset, alignment and optional auto-hide timeout
 author: Peter Širka
 version: 1
 darkmode: true

@@ -1,6 +1,6 @@
 ---
 name: mapmarker
-description: TODO
+description: Google Maps marker bound to a path with GPS coordinates or an address, with an optional draggable marker and autocomplete
 author: Peter Širka
 version: 1
 darkmode: false

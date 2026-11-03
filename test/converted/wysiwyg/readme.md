@@ -1,6 +1,6 @@
 ---
 name: wysiwyg
-description: TODO
+description: Rich text editor with formatting, code highlighting, links and unordered lists, supporting dark mode and optional raw paste
 author: Peter Širka
 version: 1
 darkmode: true

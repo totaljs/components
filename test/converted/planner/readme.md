@@ -1,6 +1,6 @@
 ---
 name: planner
-description: TODO
+description: Gantt-style planner that draws items as bars over the days of a year, with progress, colors and tooltips from a data-source
 author: Peter Širka
 version: 1
 darkmode: true

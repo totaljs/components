@@ -1,6 +1,6 @@
 ---
 name: code
-description: TODO
+description: Embedded code editor, the same as CloudEditorSimple, with its settings in the config and a plain string value
 author: Peter Širka
 version: 1
 darkmode: true

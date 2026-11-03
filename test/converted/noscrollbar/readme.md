@@ -1,6 +1,6 @@
 ---
 name: noscrollbar
-description: TODO
+description: Container that fills the height of its parent without a visible scrollbar, resizing on window resize and scrolling to top or bottom
 author: Peter Širka
 version: 1
 darkmode: false

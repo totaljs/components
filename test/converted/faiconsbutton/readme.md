@@ -1,6 +1,6 @@
 ---
 name: faiconsbutton
-description: TODO
+description: Button that shows the selected Font Awesome icon and opens the icon picker popup on click
 author: Peter Širka
 version: 1
 darkmode: true

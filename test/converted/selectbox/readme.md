@@ -1,6 +1,6 @@
 ---
 name: selectbox
-description: TODO
+description: Dropdown select with static items or a data-source, with an optional search box, empty option and disabled state
 author: Peter Širka
 version: 1
 darkmode: true

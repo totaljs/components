@@ -1,6 +1,6 @@
 ---
 name: donutchart
-description: TODO
+description: Donut chart with optional tooltips, piece highlighting, and select and redraw callbacks
 author: Peter Širka
 version: 1
 darkmode: true

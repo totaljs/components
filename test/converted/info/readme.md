@@ -1,6 +1,6 @@
 ---
 name: info
-description: TODO
+description: Singleton info popup with HTML content displayed next to an element, aligned left, center, right or half, shown and hidden by setter calls
 author: Peter Širka
 version: 1
 darkmode: true

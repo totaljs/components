@@ -1,6 +1,6 @@
 ---
 name: autocomplete
-description: TODO
+description: Shows search suggestions under an input or contenteditable field from a search function and passes the chosen value to a callback
 author: Peter Širka
 version: 1
 darkmode: true

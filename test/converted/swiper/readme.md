@@ -1,6 +1,6 @@
 ---
 name: swiper
-description: TODO
+description: Wrapper for the Swiper.js carousel with slides per view, spacing, navigation, pagination, autoplay and loop options
 author: Dodo Marton
 version: 1
 darkmode: false

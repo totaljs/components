@@ -1,6 +1,6 @@
 ---
 name: textarea
-description: TODO
+description: Multi-line text field with label, icon, placeholder, length limit, error text and optional monospace font
 author: Peter Širka
 version: 1
 darkmode: true

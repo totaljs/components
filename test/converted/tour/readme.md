@@ -1,6 +1,6 @@
 ---
 name: tour
-description: TODO
+description: Step-by-step guided tour that highlights target elements from a data-source, with keyboard navigation and custom button texts
 author: Denis Granec
 version: 1
 darkmode: false

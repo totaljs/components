@@ -1,6 +1,6 @@
 ---
 name: colorselector
-description: TODO
+description: Row of preset color swatches for choosing one color, with an optional empty value and disabled or required states
 author: Peter Širka
 version: 1
 darkmode: false

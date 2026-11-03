@@ -1,6 +1,6 @@
 ---
 name: formtab
-description: TODO
+description: Tabbed side forms that open under the body and fit the window, with a configurable width for each screen size
 author: Peter Širka
 version: 1
 darkmode: true

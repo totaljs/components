@@ -1,6 +1,6 @@
 ---
 name: textboxtags
-description: TODO
+description: Tag input that stores entered words as an array or string, with optional lowercase or uppercase conversion
 author: Peter Širka
 version: 1
 darkmode: false

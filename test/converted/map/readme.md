@@ -1,6 +1,6 @@
 ---
 name: map
-description: TODO
+description: Google Maps map bound to a path that accepts GPS coordinates or an address, with an optional draggable marker
 author: Peter Širka
 version: 1
 darkmode: false

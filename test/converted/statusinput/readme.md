@@ -1,6 +1,6 @@
 ---
 name: statusinput
-description: TODO
+description: Singleton input bar with placeholder, icon, validation and a callback that receives the entered value
 author: Peter Širka
 version: 1
 darkmode: true

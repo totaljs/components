@@ -1,6 +1,6 @@
 ---
 name: repeater
-description: TODO
+description: Renders a template for each item of an array, with index and path placeholders and an optional filter
 author: Peter Širka
 version: 1
 darkmode: false

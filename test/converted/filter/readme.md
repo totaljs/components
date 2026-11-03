@@ -1,6 +1,6 @@
 ---
 name: filter
-description: TODO
+description: Singleton filter popup with Apply, Reset and Cancel buttons, whose options can include date, time and directory pickers
 author: Peter Širka
 version: 1
 darkmode: true

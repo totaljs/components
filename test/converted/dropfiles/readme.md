@@ -1,6 +1,6 @@
 ---
 name: dropfiles
-description: TODO
+description: Singleton that captures files dropped anywhere on the window and passes them to a handler, with an optional check before accepting the drop
 author: Peter Širka
 version: 1
 darkmode: true

@@ -1,6 +1,6 @@
 ---
 name: jsontree
-description: TODO
+description: Shows JSON text as an expandable tree view, calls a click handler with the path of the selected node and has a clear button
 author: Martin Smola
 version: 1
 darkmode: false

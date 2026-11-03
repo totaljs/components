@@ -1,6 +1,6 @@
 ---
 name: message
-description: TODO
+description: Singleton message box that shows warning, success and other messages through SETTER calls, with a configurable button
 author: Peter Širka
 version: 1
 darkmode: true

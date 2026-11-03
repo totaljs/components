@@ -1,6 +1,6 @@
 ---
 name: carousel
-description: TODO
+description: Content carousel with swipe gestures, automatic animation at a set interval and left and right controls
 author: Peter Širka
 version: 1
 darkmode: false

@@ -1,6 +1,6 @@
 ---
 name: confirm
-description: TODO
+description: Singleton confirmation dialog with custom buttons that passes the clicked button index or runs a callback on yes
 author: Peter Širka
 version: 1
 darkmode: true

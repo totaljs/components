@@ -1,6 +1,6 @@
 ---
 name: largeform
-description: TODO
+description: Large form window shown when the value of its path matches the if condition, with submit and cancel callbacks
 author: Peter Širka
 version: 1
 darkmode: true

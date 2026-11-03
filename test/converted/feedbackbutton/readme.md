@@ -1,6 +1,6 @@
 ---
 name: feedbackbutton
-description: TODO
+description: Singleton floating feedback button on the left or right edge that can link to a URL, be dismissed, and stay hidden for a set expiration time
 author: Jozef Marton
 version: 1
 darkmode: true

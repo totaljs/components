@@ -1,6 +1,6 @@
 ---
 name: controls
-description: TODO
+description: Singleton popup menu positioned at an element or coordinates, with items, submenus, captions and dividers
 author: Peter Širka
 version: 1
 darkmode: true

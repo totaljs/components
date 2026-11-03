@@ -1,6 +1,6 @@
 ---
 name: tabs
-description: TODO
+description: Tabbed panels defined by section elements with a data-id and title, each with an optional icon
 author: Peter Širka
 version: 1
 darkmode: true

@@ -1,6 +1,6 @@
 ---
 name: loading
-description: TODO
+description: Singleton loading indicator with a spinner or a top line, shown and hidden through SETTER calls with an optional text
 author: Peter Širka
 version: 1
 darkmode: true

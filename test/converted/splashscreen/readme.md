@@ -1,6 +1,6 @@
 ---
 name: splashscreen
-description: TODO
+description: Full-screen splash screen for single page apps that is removed after a timeout and can be remembered for a period
 author: Peter Širka
 version: 1
 darkmode: false

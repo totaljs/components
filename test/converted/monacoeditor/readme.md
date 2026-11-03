@@ -1,6 +1,6 @@
 ---
 name: monacoeditor
-description: TODO
+description: Monaco code editor bound to a path, with a configurable language and theme and a fixed or parent-based height
 author: Peter Širka
 version: 1
 darkmode: false

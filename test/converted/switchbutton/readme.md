@@ -1,6 +1,6 @@
 ---
 name: switchbutton
-description: TODO
+description: Toggle switch for a boolean value, with left or right alignment, an optional description and bottom border
 author: Tomáš Novák
 version: 1
 darkmode: true

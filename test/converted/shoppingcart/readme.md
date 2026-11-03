@@ -1,6 +1,6 @@
 ---
 name: shoppingcart
-description: TODO
+description: Singleton shopping cart stored in localStorage, with add, update, remove, discount and server sync methods
 author: Peter Širka
 version: 1
 darkmode: false

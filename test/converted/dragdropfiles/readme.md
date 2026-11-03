@@ -1,6 +1,6 @@
 ---
 name: dragdropfiles
-description: TODO
+description: Drop zone that runs a method with the dropped files, toggles a class on drag over and opens a file dialog on click
 author: Peter Širka
 version: 1
 darkmode: false

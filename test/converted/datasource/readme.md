@@ -1,6 +1,6 @@
 ---
 name: datasource
-description: TODO
+description: Loads data from a URL with AJAX, optionally after a delay, and binds the result to a path in the model
 author: Peter Širka
 version: 1
 darkmode: false

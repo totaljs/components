@@ -1,6 +1,6 @@
 ---
 name: filesaver
-description: TODO
+description: Singleton wrapper of FileSaver.js that saves a generated string or blob as a local file with the given name and content type
 author: Peter Širka
 version: 1
 darkmode: false

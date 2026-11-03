@@ -214,9 +214,12 @@ try {
 	await page.waitForTimeout(200);
 
 	if (preview) {
-		// The preview shows the first instance of the example
+		// The preview shows the first instance of the example (the components that only load dependencies, "LAZY ...", are ignored)
+		await page.waitForTimeout(1000);
 		await page.evaluate(function() {
-			var els = document.querySelectorAll('ui-component');
+			var els = Array.prototype.filter.call(document.querySelectorAll('ui-component'), function(el) {
+				return (el.getAttribute('name') || '').indexOf('LAZY') !== 0;
+			});
 			for (var i = 1; i < els.length; i++)
 				els[i].style.visibility = 'hidden';
 		});

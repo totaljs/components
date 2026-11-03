@@ -1,6 +1,6 @@
 ---
 name: servergrid
-description: TODO
+description: Beta paged data grid for single page apps, where columns, rows, sorting, filtering and pages come from the data-source
 author: Peter Širka
 version: 2
 darkmode: false

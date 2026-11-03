@@ -1,6 +1,6 @@
 ---
 name: checkboxlist
-description: TODO
+description: Group of checkboxes built from static items or a data source, bound to a path as a list of selected values
 author: Peter Širka
 version: 1
 darkmode: true

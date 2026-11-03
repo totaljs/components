@@ -1,6 +1,6 @@
 ---
 name: cookie
-description: TODO
+description: Singleton cookie consent notice that stores agreement in localStorage, with a cancel option that clears data and redirects
 author: Peter Širka
 version: 1
 darkmode: false

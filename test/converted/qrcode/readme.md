@@ -1,6 +1,6 @@
 ---
 name: qrcode
-description: TODO
+description: Renders a QR code image for the bound text value using an external QR code server, with a configurable size
 author: Peter Širka
 version: 1
 darkmode: false

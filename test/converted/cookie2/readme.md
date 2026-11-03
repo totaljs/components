@@ -1,6 +1,6 @@
 ---
 name: cookie2
-description: TODO
+description: Cookie consent notice like Cookie with different default button labels, storing agreement in localStorage
 author: Peter Širka
 version: 1
 darkmode: false

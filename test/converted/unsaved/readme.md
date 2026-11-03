@@ -1,6 +1,6 @@
 ---
 name: unsaved
-description: TODO
+description: Warns the user before leaving the page when the bound value or a check function reports unsaved changes
 author: Peter Širka
 version: 1
 darkmode: false

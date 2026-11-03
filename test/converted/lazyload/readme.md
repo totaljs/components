@@ -1,6 +1,6 @@
 ---
 name: lazyload
-description: TODO
+description: Runs a callback for lazy elements matching a selector when they become visible in the scrolling container
 author: Peter Širka
 version: 1
 darkmode: false

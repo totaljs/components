@@ -1,6 +1,6 @@
 ---
 name: aselected
-description: TODO
+description: Adds a selected class to links whose href matches the current browser address, intended for public websites
 author: Peter Širka
 version: 1
 darkmode: false

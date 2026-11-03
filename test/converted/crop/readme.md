@@ -1,6 +1,6 @@
 ---
 name: crop
-description: TODO
+description: Image cropper with zoom and drag and drop for local files or URLs that outputs an image of a fixed width and height
 author: Peter Širka
 version: 1
 darkmode: false

@@ -1,6 +1,6 @@
 ---
 name: watcher
-description: TODO
+description: Runs the code in a script tag of type text/js whenever the bound value changes, with access to value and path
 author: Peter Širka
 version: 1
 darkmode: false

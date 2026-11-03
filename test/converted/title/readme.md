@@ -1,6 +1,6 @@
 ---
 name: title
-description: TODO
+description: Sets the browser document title from a bound value, combined with a site name and a separator
 author: Pavol Danko
 version: 1
 darkmode: false

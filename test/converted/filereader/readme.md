@@ -1,6 +1,6 @@
 ---
 name: filereader
-description: TODO
+description: Singleton that opens the file browser and reads the selected text files, passing their contents to a callback
 author: Peter Širka
 version: 1
 darkmode: false

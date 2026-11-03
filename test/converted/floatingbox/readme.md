@@ -1,6 +1,6 @@
 ---
 name: floatingbox
-description: TODO
+description: Singleton floating box shown next to a target element by its id, hidden on backdrop click, with a configurable z-index and dark mode
 author: Peter Širka
 version: 1
 darkmode: true

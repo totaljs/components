@@ -1,6 +1,6 @@
 ---
 name: navigation
-description: TODO
+description: Simple tree-style navigation menu built from a data-source, remembering open items by primary key and supporting dark mode
 author: Peter Širka
 version: 1
 darkmode: true

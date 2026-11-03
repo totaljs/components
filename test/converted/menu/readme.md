@@ -1,6 +1,6 @@
 ---
 name: menu
-description: TODO
+description: Singleton popup menu with submenus, touch support, dark mode and a large mode, closed by clicking outside it
 author: Peter Širka
 version: 1
 darkmode: true

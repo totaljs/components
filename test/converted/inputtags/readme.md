@@ -1,6 +1,6 @@
 ---
 name: inputtags
-description: TODO
+description: Input that turns each entered value into a removable tag, with optional left and right icons and a lookup from a data-source
 author: Peter Širka
 version: 1
 darkmode: true

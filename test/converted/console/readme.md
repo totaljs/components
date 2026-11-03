@@ -1,6 +1,6 @@
 ---
 name: console
-description: TODO
+description: Singleton log console that shows messages from a data source in tabs per app, with a clear action and dark mode
 author: Peter Širka
 version: 1
 darkmode: true
