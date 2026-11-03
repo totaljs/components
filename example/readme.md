@@ -7,7 +7,7 @@ darkmode: <true|false>
 license: <license type>
 created: <yyyy-MM-dd HH:mm>
 updated: <yyyy-MM-dd HH:mm>
-jcomponent: v19,v20
+jcomponent: v20
 ---
 
 # Example

@@ -1,22 +1,38 @@
 ---
 name: jcomponent
-description: Create or convert a Total.js jComponent (UI component for the Total.js UI library, jComponent v20). Use when asked to write, port or update a component for componentator.com / totaljs/components. Output is exactly 3 files - component.html (runnable in the browser), readme.md and preview.jpg.
+description: Create a new Total.js jComponent (UI component for the Total.js UI library, jComponent v20) from a natural-language description, for example "a modern radio button list according to the Apple UI guidelines". Use when asked to write or design a component for componentator.com / totaljs/components. Output is exactly 3 files - component.html (runnable in the browser), readme.md and preview.jpg.
 ---
 
-# Creating a jComponent
+# Creating a jComponent from a description
 
-Read `docs/api.md` for the API of the library before you use a method you are not sure about. For the HTML elements of the library (`<ui-component>`, `<ui-bind>`, `<ui-import>`, `<ui-plugin>`) use the guides in `docs/aicontext/`. Never invent methods: if it is not in `docs/api.md` or in the component you are converting, do not call it.
+The user describes a component in plain words (what it does, how it looks). You deliver a complete, working component in the format below. The user does not know lifecycle names: derive them.
 
-A component lives in its own folder and consists of exactly 3 files:
+Read these first:
+
+- `example/component.html` and `example/readme.md`: the template. Copy its structure.
+- `docs/api.md`: the API of the instance. **Never call a method that is not there or in the template.**
+- `docs/aicontext/component-development.md`: how to turn a description into a contract, which hooks to choose, how to separate model changes from rendering, and how to verify.
+- `docs/aicontext/ui-component.md`: the attributes of `<ui-component>` for the example.
+
+## Output
+
+A folder named after the component (lower case, one word if possible):
 
 ```
 <name>/
   component.html   CSS + script + live example, opens directly in a browser
-  readme.md        frontmatter + configuration documentation
+  readme.md        frontmatter + documentation
   preview.jpg      300x240 screenshot of the rendered example
 ```
 
-The reference is `example/component.html` and `example/readme.md`. Start from them and keep their structure.
+## Workflow
+
+1. **Check the name** against `https://componentator.com` and the folders of this repository; do not duplicate an existing component.
+2. **Write the contract** before the code and keep it short (it ends in the readme): purpose, model (type and shape, empty value), configuration (keys, types, defaults), callbacks (name and exact arguments), state (disabled, required/invalid, empty), public methods (only if really needed). Choose the smallest coherent API. Ask the user only when an open decision changes the meaning or the data contract; otherwise decide and state the assumption.
+3. **Write `component.html`** following the rules below.
+4. **Write `readme.md`.**
+5. **Run `node tools/check.js <folder> --preview`**, fix what it reports, and open the file in a browser: try every option, the keyboard, two instances at the same time and dark mode.
+6. Report what was verified and what was not.
 
 ## 1. component.html
 
@@ -24,24 +40,34 @@ One self-contained file. Open it in a browser and the component must render, wit
 
 Order inside the file:
 
-1. `<head>` with the meta tags of the example and the library (always these two lines, version `@20`):
+1. `<head>` with the meta tags of the template and the library (always these two lines, version `@20`):
    ```html
    <link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
    <script src="https://cdn.componentator.com/spa.min@20.js"></script>
    ```
-2. `<style component>` : all CSS of the component, one block.
-3. `<script component>` : the component, one `COMPONENT(...)` call.
-4. The example: one or more `<ui-component>` tags and a plain `<script>` that fills the data.
+2. `<style component>`: all the CSS of the component, one block.
+3. `<script component>`: the component, one `COMPONENT(...)` call.
+4. The example: `<ui-component>` tags and a plain `<script>` that fills the data.
 
 The `component` attribute on `<style>` and `<script>` is what the tooling uses to extract the code for the CDN. Keep both exactly once and do not put anything else in them.
 
 ### Style rules
 
-- Every selector starts with `.ui-<name>` (the `cls` value), for example `.ui-checkbox-label`. Nothing global, no tag selectors on their own.
-- Use the library variables instead of hard-coded values where they exist: `var(--color)` (primary), `rgba(var(--rgb), .1)`, `var(--radius)`, `var(--gap)`, `var(--margin)`.
-- Dark mode: the library adds the class `ui-dark` to `body` (`APPEARANCE({ dark: true })` switches it, use it to test). If the component has colours of its own, add `.ui-dark .ui-<name> ...` rules and set `darkmode: true` in the readme. Set `darkmode: false` only when the component really cannot be used in dark mode.
+- Every selector starts with `.ui-<name>` (the `cls` value), for example `.ui-radio-item`. Nothing global, no tag selectors on their own.
+- Use the library variables where they exist: `var(--color)` (primary), `rgba(var(--rgb), .1)`, `var(--radius)`, `var(--gap)`, `var(--margin)`.
+- Dark mode: the library adds the class `ui-dark` to `body` (`APPEARANCE({ dark: true })` switches it, use it to test). Add `.ui-dark .ui-<name> ...` rules for every colour of your own and set `darkmode: true` in the readme.
 - Icons are Total.js icons: `<i class="ti ti-home"></i>` (never Font Awesome `fa-`).
 - No external fonts, images or libraries other than `spa.min@20`.
+
+### Design and accessibility
+
+When the user names a design language ("Apple UI guidelines", "Material", "minimal"), translate it into the CSS of the component: sizes, spacing, radius, typography, colours, motion and states. Keep what makes a component good in any style:
+
+- Semantic, keyboard-operable controls (real `button`, `input`, `label`; arrow keys inside a group, `Space`/`Enter` to select), visible focus, sufficient contrast, touch targets of about 44px.
+- Roles and ARIA state when the native element is not enough (`role="radiogroup"`, `aria-checked`, `aria-disabled`); labels and errors associated with their controls using instance-specific ids.
+- Respect `prefers-reduced-motion` for animations.
+- Untrusted values are rendered with `.text()` or an escaping helper, never as raw HTML.
+- The texts that the user sees come from the configuration or from the model, never hard-coded in one language.
 
 ### Script rules
 
@@ -52,34 +78,33 @@ COMPONENT('name', 'key:value;key2:value', function(self, config, cls) {
 
 	self.make = function() {
 		self.aclass(cls);
-		// build the DOM once
+		// build the DOM once, register delegated events once
 	};
 
-	self.setter = function(value) {
-		// the value on `path` changed, update the view
+	self.setter = function(value, path, flags) {
+		// the model changed: render only
 	};
 
 });
 ```
 
-- The name is written without the `j-` prefix and in lower case. `cls` is `ui-<name>`; use it for every class (`cls + '-label'`), never type the name twice.
-- The second argument is the default configuration string. Numbers are parsed as numbers, `true`/`false` as booleans. Every option in this string must be documented in the readme, and every documented option must have a default here or a clear fallback in the code.
-- Typical members, only when needed: `self.make` (constructor, once), `self.setter(value, path, type)` (path changed), `self.getter`, `self.validate`, `self.configure(key, value, init)` (config changed at runtime), `self.init` (once per component type, for globals and helpers), `self.destroy`, `self.nocompile()` (when the HTML inside must not be compiled), `self.readonly()`.
-- Options that link to a global function (`exec`, `reload`, `submit`...) are executed with `self.EXEC(config.exec, args...)`. The user changing the value is `self.change(true); self.set(value);`. Timers, intervals and window events are cleaned in `self.destroy`.
-- `example/component.html` is a working template (a stepper) with every one of these patterns commented: defaults, `make`, event delegation, `setter`, `validate`, `state`, `configure`, `EXEC`, `destroy`, dark mode. Copy its structure.
-- Useful helpers: `self.aclass/rclass/tclass`, `self.find`, `self.event`, `self.html`, `self.get/set`, `self.dirty`, `self.check`, `self.makepath`, `self.element`, `self.dom`.
-- Style of code: ES5 (`var`, `function`), tabs for indentation, single quotes, Total.js prototypes (`'{0}'.format(x)`, `Tangular.compile`) before hand-written helpers. No ES modules, no `require`, no TypeScript, no extra libraries.
-- No `console.log` left in the component.
-- Support the usual options when they make sense: `disabled`, `required` (with `self.validate`), `class`, `label`. Do not invent options that nothing uses.
+- The name is lower case, without the `j-` prefix. `cls` is `ui-<name>`: use it for every class (`cls + '-label'`), never type the name twice.
+- The second argument is the default configuration string. Numbers are parsed as numbers, `true`/`false` as booleans. Every key in it is documented in the readme.
+- **Data flow:** `model change -> setter -> DOM` and `user interaction -> normalize -> self.modify(value) -> setter -> DOM`. The setter renders only; it never writes the value back and never fires the callback of the user. Fire the callback once, from the interaction, with `self.EXEC(config.change, value, self)`.
+- Handle the empty value (`null`, `undefined`, `''`) according to the declared model type. Clone arrays and objects before changing them.
+- A disabled component rejects the interaction (not only looks disabled) and keeps the native `disabled` property and the ARIA state in sync (`self.configure`).
+- Two instances with different paths and configuration must stay independent: no per-instance data in `self.init`, no fixed ids, no global state.
+- Implement only the hooks that the behaviour needs (`make`, `setter`, `configure`, `validate`, `state`, `resize`, `destroy`, `init`). Clean in `destroy` only what the instance owns.
+- Do not use `self.nocompile()`, `self.release()`, `self.bindvisible()` (no-ops in v20) or `self.readonly()` on a component with a setter (it removes the setter). See "Avoid" in `docs/api.md`.
+- Code style: ES5 (`var`, `function`), tabs, single quotes, Total.js prototypes (`'{0}'.format(x)`, `Tangular.compile`) before hand-written helpers. No ES modules, no `require`, no TypeScript, no extra libraries, no `console.log`.
+- Support the usual options when they make sense (`disabled`, `required` with `self.validate`, `label`); do not invent options that nothing uses.
 
 ### Example rules
 
-- Use `<ui-component name="<name>" path="..." config="key:value">` and close it once.
-- The example must show the component working with realistic data and, when the component has important options, a second instance with a different `config`.
-- Data is set in a plain `<script>` with `SET('path', value)` or by declaring the object.
-- `<ui-component>` attributes: `name` (required), `path`, `config` (`key:value;key2:value`), `default` (initial value). Inside `config`, a `:` in a value is escaped as `\:` (absolute URLs may stay as they are). A component can be versioned in the tag (`textbox@1`). Special keys with `$` (`$id`, `$class`, `$binding`, `$delay`, `$init`, `$setter`, `$state`, `$reconfigure`, `$compile`, `$url`) are handled by the library, not by the component. Details: `docs/aicontext/ui-component.md`.
-- If the example references a callback in `config` (a link to a global function), define a stub of it in the example script.
-- It must work offline from the data side: no APIs, no tokens, no private URLs.
+- Use `<ui-component name="<name>" path="..." config="key:value">` and close it once. Inside `config`, a `:` in a value is escaped as `\:`. Special keys with `$` (`$id`, `$class`, `$binding`, `$delay`, `$init`, `$setter`, `$state`, `$reconfigure`, `$compile`, `$url`) are handled by the library. See `docs/aicontext/ui-component.md`.
+- The example shows the component working with realistic data and, when it has important options, a second instance with a different `config` (and one disabled).
+- Data is set in a plain `<script>` with `SET('path', value)` or by declaring the object. If a callback is linked from `config`, define a stub of it in the same script.
+- It works offline from the data side: no APIs, no tokens, no private URLs.
 
 ## 2. readme.md
 
@@ -93,44 +118,31 @@ darkmode: <true|false>
 license: <license type>
 created: <yyyy-MM-dd HH:mm>
 updated: <yyyy-MM-dd HH:mm>
-jcomponent: v19,v20
+jcomponent: v20
 ---
 
 # <Name>
 
-<Optional short paragraph with anything that is not obvious.>
+<Short paragraph: purpose, model (type and shape), anything not obvious.>
 
 __Configuration__:
 
 - `key {Type}` description (default: `value`)
+
+__Callbacks__:
+
+- `change {String}` link to a global `function(value, component)`, executed after a change by the user
 ```
 
-- Types: `{String}`, `{Number}`, `{Boolean}`, `{Object}`, `{Function}`. A config that links to a global function is described as "link to a global `function(args)`".
-- One bullet per option, in the same order as in the default configuration string, then the rest.
-- Mention dependencies on other components, if any (for example "needs `datepicker`").
-- Keep the author, license and `created` of existing components. Set `updated` to the current date and time.
+- Types: `{String}`, `{Number}`, `{Boolean}`, `{Object}`, `{Function}`. A config that links to a function is "link to a global `function(args)`" with the exact arguments.
+- One bullet per option, in the same order as the default configuration string.
+- State the model shape, the callbacks with their payloads, the public methods (if any), the dependencies on other components and the runtime used (`jComponent v20`).
+- `created` and `updated` are the current date and time.
 
 ## 3. preview.jpg
 
-- 300 x 240 px, JPEG.
-- A screenshot of `component.html` opened in a browser, cropped to the component, light mode, on white background.
-- Take it from the final file, after the last change of the component.
-
-## Converting an existing component
-
-Old format (folder with `component.js`, `component.css`, `component.json`, `example.html`, `dependencies.html`, `readme.md`, `picture.jpg`):
-
-| Old | New |
-| --- | --- |
-| `component.css` | `<style component>` |
-| `component.js` | `<script component>` (keep the logic, fix only what the rules above require) |
-| `example.html` | the example block |
-| `dependencies.html` | `<head>` links, always `spa.min@20` |
-| `component.json` | frontmatter: `datecreated`->`created`, `dateupdated`->`updated`, `author`, `license`, `darkmode`, `jcomponent` |
-| old `readme.md` | frontmatter + configuration list; remove the `### Author` block |
-| `picture.jpg` | `preview.jpg` (retake it if it is not 300x240 or does not show the new example) |
-
-Do not change the behaviour. If you think the component has a bug, report it next to the result and do not fix it silently.
+- 300 x 240 px, JPEG, created by `node tools/check.js <folder> --preview`.
+- A screenshot of `component.html` in light mode on a white background, showing the component with data. Make the example fit in 300 x 240 px, or the preview will cut it.
 
 ## Checking the result
 
@@ -145,9 +157,11 @@ It needs `npm install playwright` (it uses Chrome if Chromium is not installed).
 
 0. `node tools/check.js <folder>` prints `OK`.
 1. `component.html` opens from disk and renders with no errors in the browser console.
-2. Clicking, typing and every documented option were tried in the example.
-3. `ui-dark` on the page keeps the component readable (if `darkmode: true`).
-4. Every selector starts with `.ui-<name>`.
-5. Every option from the default configuration is in the readme and vice versa.
-6. `readme.md` frontmatter has all 10 keys, dates in `yyyy-MM-dd HH:mm`.
-7. `preview.jpg` exists, is 300x240 and matches the final example.
+2. The initial value and a change of the model render; a user interaction changes the model and fires the callback exactly once.
+3. Empty values, the boundaries, `disabled` and `required` behave as documented.
+4. Keyboard operation and the accessible names work; `ui-dark` on the body keeps the component readable.
+5. Two instances with different paths and configs are independent.
+6. Every selector starts with `.ui-<name>`.
+7. Every option of the default configuration is in the readme and vice versa.
+8. `readme.md` frontmatter has all 9 keys, dates in `yyyy-MM-dd HH:mm`.
+9. `preview.jpg` exists, is 300x240 and matches the final example.

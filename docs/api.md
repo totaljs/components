@@ -15,23 +15,57 @@ COMPONENT(name, config, function(self, config, cls, element) { ... });
 
 ## Members you implement (all optional)
 
+Implement only what the behaviour needs; an empty stub is not an implementation.
+
 | Member | When it runs |
 | --- | --- |
-| `self.init = function()` | once for the component type, before the first instance (globals, `Thelpers`, shared state) |
-| `self.make = function()` | once per instance when it is created (build the DOM, register events) |
-| `self.setter = function(value, path, type)` | the value on `path` changed (including the first time) |
-| `self.getter = function(value, ...)` | the user changed something; calls `self.set` through the default implementation |
+| `self.init = function()` | once for the component type, before the first instance's `make` (shared resources, `Thelpers`; never per-instance data) |
+| `self.make = function()` | once per instance (build the DOM, register delegated events) |
+| `self.setter = function(value, path, flags)` | the model changed, including the first time. `flags` is an object in v20 (not the old numeric `type`) |
+| `self.setter2 = function(value, path, flags)` | observes rendering without replacing an inherited setter |
+| `self.getter = function(value, realtime)` | parses a user input; keep the built-in unless parsing really needs it, because overriding replaces its model-writing pipeline |
 | `self.validate = function(value)` | returns `true` when valid (used with `config.required`) |
-| `self.configure = function(key, value, init)` | a configuration key changed; `init` is `true` on the first pass |
-| `self.state = function(type, what)` | the state changed (dirty, valid, ...) |
-| `self.destroy = function()` | the element was removed, clean timers and global events |
-| `self.resize = function()` | the window or the parent was resized |
+| `self.configure = function(key, value, init, previous)` | a configuration key changed; called per key after `make` and on `self.reconfigure(...)`; `init` is `true` on the first pass |
+| `self.state = function(type, what)` | the state changed (touched, modified, invalid...) |
+| `self.resize = function()` | the window or the parent was resized (debounce it with `setTimeout2`) |
+| `self.destroy = function()` | the instance was removed: clean timers, observers, outside-DOM events, subscriptions, requests, third-party widgets. Only when something is owned |
 
-Declarations called inside the component function: `self.nocompile()` (do not compile the HTML inside the tag), `self.readonly()` (no validation or state), `self.singleton()` (one instance for the whole page).
+State is public in `config.disabled`, `config.touched`, `config.modified` and `config.invalid`, with the matching state classes. A disabled component must reject interactions, not only look disabled.
 
-## Helpers on `self` (jQuery-like)
+## Instance reference (`self`)
 
-`self.aclass(cls)` add class, `self.rclass(cls)` remove, `self.tclass(cls, bool)` toggle, `self.hclass(cls)` has, `self.find(selector)`, `self.event(events, [selector], handler)`, `self.html(value)`, `self.append(html)`, `self.css(obj)`, `self.attr`, `self.get()`, `self.set(value)`, `self.dirty(false)`, `self.check()`, `self.makepath(path)` (resolves `?` and `*` in paths), `self.on(name, fn)`, `self.watch(path, fn)`, `self.change(true)`. Plus the ones in the generated list.
+Properties: `self.name`, `self.id`, `self.path`, `self.ID`, `self.element` (jQuery), `self.dom` (DOM element), `self.config`.
+
+| Method | What it does |
+| --- | --- |
+| `self.aclass(cls, [timeout])` | add a class (optionally for a time) |
+| `self.rclass(cls, [timeout])` | remove a class (optionally after a time); without arguments removes all |
+| `self.rclass2(search)` | remove the classes that contain `search` (`rclass2('ti-')`) |
+| `self.tclass(cls, [bool])` / `self.hclass(cls)` | toggle / has class |
+| `self.attr(name, [value])` | read or write an attribute |
+| `self.css(name, value)` or `self.css(obj)` | styles |
+| `self.html(value)` / `self.empty()` / `self.append(html)` | content |
+| `self.find(selector)` | find inside the element |
+| `self.event(name, [selector], fn)` | event; delegate with a selector, bind once in `make` |
+| `self.get()` | read the model value |
+| `self.set(value, [flags])` | programmatic write; calls `setter` |
+| `self.rewrite(value, [flags])` | write without calling `setter` |
+| `self.modify(value, [flags])` | **user interaction**: writes, marks touched/modified and calls `setter` |
+| `self.push(value)` | push to an array model |
+| `self.update([flags])` / `self.refresh()` | notify the model watchers / call `setter` again |
+| `self.change([bool])` | mark the component as changed (dirty) |
+| `self.watch(path, fn, [autoinit])` / `self.unwatch(path, [fn])` | watch another path; callback is `(value, flags, path)` |
+| `self.datasource(path, fn, [init])` | like `watch`, the new source replaces the previous one |
+| `self.reconfigure(config)` | change the configuration (string or object); calls `configure` |
+| `self.validate2()` / `self.isInvalid()` | run the validation / read the result |
+| `self.singleton()` | one instance for the whole page |
+| `self.autobind20(delay, realtimebinding)` | automatic binding of native text/select controls |
+| `self.EXEC(path, ...args)` | execute a linked function (`config.change`); keeps the `?/handler` resolution |
+| `self.makepath(path)` | resolve `?` to the path of the parent plugin |
+
+**Avoid** (verified in `library.js` 20.014): `self.nocompile()`, `self.release()` and `self.bindvisible()` are no-ops; `self.readonly()` clears `getter` and `setter` (it is not the HTML `readonly` property; never use it on a component that has a setter); do not invent `self.compile()`, `self.novalidate()` or `self.notify()`; do not call `$`-prefixed members (`$setter`, `$validate`...).
+
+Direction of the data: `model change -> setter -> DOM` and `user interaction -> normalize -> self.modify -> setter -> DOM`. The setter renders only: it must not write the value back or fire the user-change callback.
 
 ## Paths
 
@@ -58,7 +92,7 @@ Total.js icons: `<i class="ti ti-home"></i>`. `self.icon(value)` adds the prefix
 
 ## Component
 
-- `instance.readonly()`: The method disables validation.
+- `instance.readonly()`: The library comment says "disables validation", but in v20 it also clears `getter` and `setter`: do not use it on a component that renders values.
 - `instance.singleton()`: The method enables changes the component instance to a singleton.
 - `instance.set(value, [flags])` (value {String}; [flags] {String} with @): The method assigns a value to the model and calls `setter`.
 - `instance.rewrite(value, [flags])` (value {String}; [flags] {String} with @): The method assigns a value to the model without calling the setter.

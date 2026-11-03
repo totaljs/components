@@ -49,8 +49,20 @@ var markup = html.replace(/<script component>[\s\S]*?<\/script>/, '').replace(/<
 if ((markup.match(/<ui-component\b/g) || []).length !== (markup.match(/<\/ui-component>/g) || []).length)
 	fail('component.html: <ui-component> tags are not balanced');
 
-if (/\bconsole\.log\(/.test((html.match(/<script component>([\s\S]*?)<\/script>/) || [])[1] || ''))
+var code = (html.match(/<script component>([\s\S]*?)<\/script>/) || [])[1] || '';
+
+code = code.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+
+if (/\bconsole\.log\(/.test(code))
 	fail('component.html: console.log in the component');
+
+['nocompile', 'release', 'bindvisible'].forEach(function(key) {
+	if (new RegExp('self\\.' + key + '\\b').test(code))
+		fail('component.html: self.' + key + '() is a no-op in jComponent v20, remove it');
+});
+
+if (/self\.readonly\(/.test(code) && /self\.setter\s*=/.test(code))
+	fail('component.html: self.readonly() removes the setter, do not use it in a component that has one');
 
 var style = (html.match(/<style component>([\s\S]*?)<\/style>/) || [])[1] || '';
 
