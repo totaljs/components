@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-enter {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('enter', 'validate:1;trigger:button[name="submit"];flags:visible;timeout:1500;delay:500', function(self, config) {
+
+			var delay = null;
+			var flags;
+
+			var submit = function(btn) {
+				delay = null;
+				if (btn)
+					btn.trigger('click');
+				else
+					self.EXEC(config.exec, self);
+			};
+
+			self.readonly();
+
+			self.make = function() {
+
+				var isvalid = function() {
+
+					var arr = COMPONENTS(self.path);
+					var modified = false;
+					var disabled = false;
+
+					for (var m of arr) {
+
+						if (m === self)
+							continue;
+
+						if (config.validonly) {
+							if (m.config.invalid) {
+								disabled = true;
+								break;
+							}
+						} else if (m.config.invalid) {
+							disabled = true;
+							break;
+						} else if (m.config.modified)
+							modified = true;
+					}
+
+					return modified && !disabled;
+				};
+
+				self.event('keydown', 'input', function(e) {
+					if (e.which === 13 && (!config.validate || !self.path || isvalid())) {
+						if (config.exec) {
+							if (!BLOCKED(self.ID, config.timeout)) {
+								delay && clearTimeout(delay);
+								delay = setTimeout(submit, config.delay);
+							}
+						} else {
+							var btn = self.find(config.trigger);
+							if (!btn.prop('disabled')) {
+								if (!BLOCKED(self.ID, config.timeout)) {
+									delay && clearTimeout(delay);
+									delay = setTimeout(submit, config.delay, btn);
+								}
+							}
+						}
+					}
+				});
+			};
+
+			self.configure = function(key, value) {
+				switch (key) {
+					case 'flags':
+						if (value) {
+							flags = value.split(',');
+							for (var i = 0; i < flags.length; i++)
+								flags[i] = '@' + flags[i];
+						} else
+							flags = null;
+						break;
+				}
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="enter" config="exec:doSubmit;validate:false"  style="padding:50px;max-width:300px">
+		<div>Login</div>
+		<div><input type="text" /></div>
+		<br />
+		<div>Password</div>
+		<div><input type="password" /></div>
+	</ui-component>
+
+	<script>
+		function doSubmit() {
+			alert('ENTER pressed');
+		}
+	</script>
+
+</body>
+</html>

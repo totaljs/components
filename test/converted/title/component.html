@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-title {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('title', 'separator:-;plus:1', function(self, config) {
+
+			self.singleton();
+			self.readonly();
+
+			self.make = function() {
+				config.name = document.title;
+			};
+
+			self.setter = function(value) {
+				self.rename(value);
+			};
+
+			self.rename = function(text) {
+				if (!text)
+					text = config.empty;
+				let tmp = config.plus ? ((text ? (text + ' ' + config.separator + ' ') : '') + config.name) : text;
+				document.title = tmp;
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	Title has been changed with the value defined in the <code>common.name</code>.
+
+	<ui-component name="title" path="common.name"></ui-component>
+
+	<script>
+		var common = { name: 'Page name' };
+	</script>
+
+</body>
+</html>

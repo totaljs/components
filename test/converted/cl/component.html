@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-cl {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('cl', function(self, config) {
+			self.readonly();
+			self.make = function() {
+				var data = config.items || self.attr('value') || self.attr('items') || self.attrd('items') || self.html();
+				data && self.set(data.parseSource());
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="cl" path="#mycodelist" value="SK|Slovakia,CZ|Czechia,DE|Germany,FR|France"></ui-component>
+
+	<ui-bind path="#mycodelist" config="html pre:JSON.stringify(value, null, '  ')" class="block">
+		<pre></pre>
+	</ui-bind>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+---
+name: range
+description: TODO
+author: Peter Širka
+version: 1
+darkmode: true
+license: https://www.totaljs.com/license/
+created: 2016-05-06 14:21
+updated: 2026-11-03 09:56
+jcomponent: v19
+---
+
+# Range
+
+- supports __dark mode__
+
+__Attributes__:
+
+- `max {Number}` maximum value (default: `100`)
+- `min {Number}` minimum value (default: `0`)
+- `step {Number}` step size (default: `1`)
+- `required {Boolean}` optional, enables "required" (default: `false`)
+- `type {String}` optional, can be `number` and converts the value to number (default: `string`)

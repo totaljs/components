@@ -1,0 +1,47 @@
+---
+name: uieditor
+description: The component opens UI Builder in the iframe.
+author: Peter Širka
+version: 1
+darkmode: true
+license: https://www.totaljs.com/license/
+created: 2023-12-28 11:58
+updated: 2026-11-03 09:56
+jcomponent: v19,v20
+---
+
+# UIEditor
+
+The component opens UI Builder in the iframe.
+
+- UI Builder editor repository <https://github.com/totaljs/uibuilder> (if you don't want to use cloud version)
+
+__Configuration__:
+
+- `url {String}` a link to the UI Builder (default: `https://uibuilder.totaljs.com`)
+- `top {Number}` default: `0`
+- `left {Number}` default: `0`
+- `right {Number}` default: `0`
+- `bottom {Number}` default: `0`
+- `zindex {Number}` default: `30`
+- `language {String}` default: `eu` (english)
+- `onsave {String}` optional, a link to `function(data)`
+- `onpublish {String}` optional, a link to `function(data)`
+- `onrender {String}` optional, a link to `function(data)`
+- `closebutton {Boolean}` default: `true`
+
+__Model__:
+
+```js
+{
+	data: { .. UI BUILDER DESIGN .. },
+	upload: 'https://.../upload/', // optional
+	groups: [{ id: 'group1', name: 'Group 1' }], // optional
+	apps: [{ id: 'app1', name: 'App 1' }], // optional
+	views: [{ id: 'view1', name: 'View 1' }], // optional
+	close: function() {}, // optional, it's executed when the editor is closed
+	save: function(data) {}, // optional, it's executed when the user saves design
+	publish: function(data) {}, // optional, it's executed when the user compiles design
+	render: function(data) {}, // optional, it's executed when the user wants to preview a design
+}
+```

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@19.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@19.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-repeater {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('repeater', 'hidden:true;check:true', function(self, config) {
+
+			var filter = null;
+			var recompile = false;
+			var reg = /\$(index|path)/g;
+
+			self.readonly();
+
+			self.configure = function(key, value) {
+				if (key === 'filter')
+					filter = value ? GET(value) : null;
+			};
+
+			self.make = function() {
+				var element = self.find('script');
+
+				if (!element.length) {
+					element = self.element;
+					self.element = self.element.parent();
+				}
+
+				var html = element.html();
+				element.remove();
+				self.template = Tangular.compile(html);
+				recompile = html.COMPILABLE();
+			};
+
+			self.setter = function(value) {
+
+				if (!value || !value.length) {
+					config.hidden && self.aclass('hidden');
+					self.empty();
+					self.cache = '';
+					return;
+				}
+
+				var builder = [];
+				for (var i = 0, length = value.length; i < length; i++) {
+					var item = value[i];
+					item.index = i;
+					if (!filter || filter(item)) {
+						builder.push(self.template(item).replace(reg, function(text) {
+							return text.substring(0, 2) === '$i' ? i.toString() : self.path + '[' + i + ']';
+						}));
+					}
+				}
+
+				var tmp = builder.join('');
+
+				if (config.check) {
+					if (tmp === self.cache)
+						return;
+					self.cache = tmp;
+				}
+
+				self.html(tmp);
+				config.hidden && self.rclass('hidden');
+				recompile && self.compile();
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="repeater" path="datasource" config="filter:filter_data">
+		<script type="text/html">
+			 <div>
+				<div>index: $index</div>
+				<div>path: $path</div>
+				<div>{{ name }}</div>
+				<div>{{ amount | format(2) }}</div>
+				<div>{{ created | format('yyyy-MM-dd') }}</div>
+				<br />
+			 </div>
+		</script>
+	</ui-component>
+	<script>
+		var datasource = [];
+		datasource.push({ name: 'Row 1', amount: 1000, created: new Date() });
+		datasource.push({ name: 'Row 2', amount: 10000, created: new Date() });
+		datasource.push({ name: 'Row 3', amount: 100000, created: new Date() });
+
+		// filter is optional
+		function filter_data(item) {
+			return item.amount > 0;
+		}
+	</script>
+
+</body>
+</html>

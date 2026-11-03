@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-selection {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('selection', 'remember:1;key:id;class:selected;click:.selection;selector:.selection;attr:id;event:click;dblclickselectall:1', function(self, config, cls) {
+
+			self.make = function() {
+
+				self.aclass(cls);
+
+				self.event(config.event, config.click, function(e) {
+					e.preventDefault();
+					e.stopPropagation();
+					var el = $(this);
+					if (config.click !== config.selector)
+						el = el.find(config.selector);
+					self.toggle(el);
+				});
+
+				if (config.dblclickselectall) {
+					self.event('dblclick', config.click, function() {
+						self.selecttoggle();
+					});
+				}
+
+				config.cancel && self.watch(self.makepath(config.cancel), self.selectnone);
+			};
+
+			self.selectall = function() {
+				var arr = self.find(config.selector);
+				var sel = [];
+				for (var i = 0; i < arr.length; i++) {
+					var el = $(arr[i]);
+					sel.push(el.attrd(config.attr));
+					el.aclass(config.class);
+				}
+				self.bind('@modified @touched', sel);
+			};
+
+			self.selectnone = function() {
+				var model = self.get();
+				if (model && model.length) {
+					var arr = self.find(config.selector);
+					for (var i = 0; i < arr.length; i++) {
+						var el = $(arr[i]);
+						el.rclass(config.class);
+					}
+					self.bind('@modified @touched', []);
+				}
+			};
+
+			self.selecttoggle = function() {
+				var arr = self.find(config.selector);
+				var sel = [];
+				for (var i = 0; i < arr.length; i++) {
+					var el = $(arr[i]);
+					if (el.hclass(config.class)) {
+						el.rclass(config.class);
+					} else {
+						sel.push(el.attrd(config.attr));
+						el.aclass(config.class);
+					}
+				}
+				self.bind('@modified @touched', sel);
+			};
+
+			self.toggle = function(id) {
+
+				if (id instanceof jQuery)
+					id = id.attrd(config.attr);
+
+				var model = self.get();
+				var added = false;
+				if (model == null) {
+					model = [id];
+					added = true;
+					self.rewrite(model);
+				} else {
+					var index = model.indexOf(id);
+					if (index === -1) {
+						model.push(id);
+						added = true;
+					} else
+						model.splice(index, 1);
+				}
+
+				var el = self.find(config.selector + '[data-{0}="{1}"]'.format(config.attr, id));
+				el.tclass(config.class, added);
+				self.bind('@modified @touched', model);
+			};
+
+			self.recalc = function() {
+				var arr = self.find(config.selector);
+				var model = self.get() || EMPTYARRAY;
+				for (var i = 0; i < arr.length; i++) {
+					var el = $(arr[i]);
+					el.tclass(config.class, model.indexOf(el.attrd(config.attr)) !== -1);
+				}
+			};
+
+			var datasource = function(path, value) {
+
+				if (M.is20)
+					value = path;
+
+				if (!config.remember) {
+					self.bind('@modified', []);
+					return;
+				}
+
+				if (!value)
+					value = EMPTYARRAY;
+
+				var model = self.get() || EMPTYARRAY;
+				var rem = [];
+				for (var i = 0; i < model.length; i++) {
+					var item = value.findItem(config.key, model[i]);
+					if (!item)
+						rem.push(model[i]);
+				}
+
+				for (var i = 0; i < rem.length; i++)
+					model.splice(model.indexOf(rem[i]), 1);
+
+				self.bind('@modified @setter', model);
+			};
+
+			self.configure = function(key, value) {
+				if (key === 'datasource')
+					self.datasource(value, datasource);
+			};
+
+			self.setter = function(value) {
+				setTimeout2(self.ID, self.recalc, 10);
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<style>
+		.items > div { height: 28px; line-height: 28px; border-bottom: 1px solid #E0E0E0; }
+		.selection { width: 18px; height: 18px; font-size: 11px; border-radius: 3px; border: 1px solid #E0E0E0; text-align: center; float: left; cursor: pointer; margin: 4px 5px 0 0; }
+		.selection i { display: none; line-height: 16px; }
+		.selection.selected i { display: block; }
+	</style>
+
+	<ui-component name="selection" path="myselection" class="items m">
+		<div><span class="selection" data-id="1"><i class="ti ti-check"></i></span>Item 1</div>
+		<div><span class="selection" data-id="2"><i class="ti ti-check"></i></span>Item 2</div>
+		<div><span class="selection" data-id="3"><i class="ti ti-check"></i></span>Item 3</div>
+		<div><span class="selection" data-id="4"><i class="ti ti-check"></i></span>Item 4</div>
+		<div><span class="selection" data-id="5"><i class="ti ti-check"></i></span>Item 5</div>
+		<div><span class="selection" data-id="6"><i class="ti ti-check"></i></span>Item 6</div>
+		<div><span class="selection" data-id="7"><i class="ti ti-check"></i></span>Item 7</div>
+		<div><span class="selection" data-id="8"><i class="ti ti-check"></i></span>Item 8</div>
+		<div><span class="selection" data-id="9"><i class="ti ti-check"></i></span>Item 9</div>
+	</ui-component>
+
+	<div>Output: <code><ui-bind path="myselection" config="text:JSON.stringify(value)"></ui-bind></code></div>
+
+</body>
+</html>

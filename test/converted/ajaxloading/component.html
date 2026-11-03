@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-ajaxloading { color: #A0A0A0; font-size: 11px; margin: 5px 0 10px; line-height: 14px; }
+		.ui-ajaxloading i { margin-right: 5px; color: var(--color); }
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('ajaxloading', 'icon:true', function(self) {
+
+			var pattern, html;
+
+			self.readonly();
+
+			self.make = function() {
+				self.aclass('ui-ajaxloading hidden');
+				html = self.html();
+			};
+
+			self.configure = function(key, value) {
+				switch (key) {
+					case 'url':
+						pattern = new RegExp(value);
+						break;
+					case 'label':
+						html = value;
+						self.html(value);
+						break;
+					case 'icon':
+						self.html((value ? '<i class="ti ti-spinner ti-pulse"></i>' : '') + html);
+						break;
+				}
+			};
+
+			self.apply = function(type, url) {
+				if (pattern && pattern.test(url)) {
+					if (type === 'req')
+						self.rclass('hidden');
+					else
+						self.aclass('hidden', 300);
+				}
+			};
+
+			self.init = function() {
+				ON('request', function(req) {
+					SETTER('ajaxloading/apply', 'req', req.url);
+				});
+				ON('response', function(res) {
+					SETTER('ajaxloading/apply', 'res', res.url);
+				});
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	<div style="width:300px">
+		<ui-component name="ajaxloading" config="url:/users/" class="hidden">Loading users</ui-component>
+		<br />
+	</div>
+
+	<script>
+		setTimeout(function() {
+			AJAX('GET /users/');
+		}, 2000);
+	</script>
+
+</body>
+</html>

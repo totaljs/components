@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-watch {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('watch', function(self, config, cls) {
+
+			self.readonly();
+
+			self.make = function() {
+				self.aclass(cls);
+			};
+
+			self.setter = function(value, path, type) {
+				config.exec && self.SEEX(config.exec, value, self.element, type, path ? path.toString() : '');
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="watch" path="common.value" config="exec:changedvalue"></ui-component>
+
+	<div class="padding">
+		<div id="mytitle"></div>
+	</div>
+
+	<script>
+
+		var common = { value: 'init' };
+
+		setInterval(function() {
+			SET('common.value', new Date().format('HH:mm:ss'));
+		}, 1000);
+
+		function changedvalue(value, element, type, path) {
+			$('#mytitle').html(value);
+		}
+
+	</script>
+
+</body>
+</html>

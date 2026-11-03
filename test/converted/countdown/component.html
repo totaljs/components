@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.avatar { overflow: hidden; }
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('countdown', function(self, config, cls) {
+
+			var interval = null;
+			var template;
+			var container;
+			var text;
+			var is = false;
+
+			self.readonly();
+
+			self.make = function() {
+
+				self.aclass(cls);
+
+				var scr = self.find('> scr' + 'ipt');
+				if (scr.length) {
+					template = scr.html();
+					scr.remove();
+				} else
+					template = config.text || '{0}';
+
+				text = document.createElement('DIV');
+				container = document.createElement('DIV');
+
+				while (self.dom.children.length)
+					container.appendChild(self.dom.children[0]);
+
+				self.dom.appendChild(text);
+				self.dom.appendChild(container);
+				text = $(text);
+				container = $(container);
+				container.aclass('hidden');
+
+				self.rclass('hidden invisible');
+			};
+
+			self.setter = function(value) {
+				if (value instanceof Date && (value > NOW))
+					self.recalculate(value.getTime());
+				else {
+					clearInterval(interval);
+					interval = null;
+					text.aclass('hidden');
+					container.rclass('hidden');
+					is = false;
+				}
+			};
+
+			self.destroy = function() {
+				interval && clearInterval(interval);
+				interval = null;
+			};
+
+			self.recalculate = function(expiredate) {
+				interval && clearInterval(interval);
+				interval = setInterval(function () {
+
+					var now = Date.now();
+					var timeleft = expiredate - now;
+
+					if (timeleft < 0) {
+						clearInterval(interval);
+						interval = null;
+						container.rclass('hidden');
+						text.aclass('hidden');
+						is = false;
+						return;
+					}
+
+					var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+					var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+
+					text.html(template.format(minutes.padLeft(2) + ':' + seconds.padLeft(2)));
+
+					if (!is) {
+						text.rclass('hidden');
+						container.aclass('hidden');
+						is = true;
+					}
+
+				}, 1000);
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="countdown" path="expiredate" class="invisible">
+		<script type="text/html">You can send SMS again: {0}</script>
+		<a href="#">Send SMS again</a>
+	</ui-component>
+
+	<ui-component name="countdown" path="expiredate" config="text:You can send SMS again\: {0}" class="invisible">
+		<a href="#">Send SMS again</a>
+	</ui-component>
+
+	<script>
+		var expiredate = NOW.add('10 seconds');
+	</script>
+
+</body>
+</html>

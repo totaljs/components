@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-progress { background-color: #F0F0F0; border-radius: var(--radius); box-sizing: border-box; }
+		.ui-progress div { background-size: 56px 56px; animation: progress 20s infinite linear forwards; margin-right: 30px; background-image: repeating-linear-gradient(45deg,#4285F4,#4285F4 10px,#4993E7 10px,#4993E7 20px); text-align: right; font-size: 10px; color: #FFFFFF; padding: 2px 5px 0 0; height: 18px; font-weight: bold; border-radius: 3px; min-width: 30px; }
+		.ui-dark .ui-progress { background-color: #303030; }
+
+		@keyframes progress {
+			from { background-position: 0% 0%; }
+			to { background-position: 100% 0%; }
+		}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('progress', 'animate:true', function(self, config, cls) {
+
+			var container, old = null;
+
+			self.readonly();
+
+			self.make = function() {
+				self.aclass(cls);
+				self.append('<div style="width:10%">0%</div>');
+				container = self.find('div');
+			};
+
+			self.setter = function(value) {
+				!value && (value = 0);
+				if (old === value)
+					return;
+
+				if (value > 100)
+					value = 100;
+				else if (value < 0)
+					value = 0;
+
+				old = value >> 0;
+				if (config.animate)
+					container.stop().animate({ width: old + '%' }, 80).show();
+				else
+					container.css({ width: old + '%' });
+
+				container.html(old + '%');
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	<div style="padding:50px;max-width:300px">
+		<ui-component name="progress" path="percentage1"></ui-component>
+		<br />
+		<ui-component name="progress" path="percentage2"></ui-component>
+		<br />
+		<ui-component name="progress" path="percentage3" config="animate:false"></ui-component>
+	</div>
+
+	<script>
+		var percentage = 30;
+		setInterval(function() {
+			SET('percentage1', (Math.random() * 100) >> 0);
+			SET('percentage2', (Math.random() * 100) >> 0);
+			SET('percentage3', (Math.random() * 100) >> 0);
+		}, 800);
+	</script>
+
+</body>
+</html>

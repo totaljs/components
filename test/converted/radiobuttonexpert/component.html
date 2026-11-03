@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-radiobuttonexpert { color: #000; font-size: 14px; vertical-align: baseline; position: relative; }
+		.ui-radiobuttonexpert-label { margin-bottom: 5px; font-size: 12px; text-align: left; }
+		.ui-radiobuttonexpert-label-required:before { color: red; content: '*'; margin-right: 5px; }
+		.ui-large .ui-radiobuttonexpert-label { font-size: 14px; }
+		.ui-radiobuttonexpert-container { }
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('radiobuttonexpert', function(self, config, cls) {
+
+			var cls2 = '.' + cls;
+			var template;
+			var recompile = false;
+			var selected;
+			var reg = /\$(index|path)/g;
+
+			self.configure = function(key, value, init) {
+				if (init)
+					return;
+				switch (key) {
+					case 'disabled':
+						self.tclass('ui-disabled', value);
+						break;
+					case 'required':
+						self.find(cls2 + '-label').tclass(cls + '-label-required', value);
+						break;
+					case 'type':
+						self.type = config.type;
+						break;
+					case 'label':
+						self.find(cls2 + '-label').html(value);
+						break;
+					case 'datasource':
+						if (value.indexOf(',') === -1)
+							self.datasource(value, self.bind);
+						else
+							self.bind('', self.parsesource(value));
+						break;
+				}
+			};
+
+			self.make = function() {
+
+				var element = self.find('script');
+				if (!element.length && !config.selector)
+					return;
+
+				var html;
+				if (config.selector) {
+					var customselector = $(document).find(config.selector);
+					html = customselector.html();
+					self.html(html);
+				} else {
+					html = element.html();
+					element.remove();
+				}
+
+				html = html.replace('>', ' data-value="{{ {0} }}" data-disabled="{{ {1} }}">'.format(config.value || 'id', config.disabledkey || 'disabled'));
+				template = Tangular.compile(html);
+				recompile = html.COMPILABLE();
+
+				config.label && self.html('<div class="' + cls + '-label{1}">{0}</div>'.format(config.label, config.required ? (' ' + cls + '-label-required') : ''));
+				config.datasource && self.reconfigure('datasource:' + config.datasource);
+				config.type && (self.type = config.type);
+				config.disabled && self.aclass('ui-disabled');
+
+				self.event('click', '[data-value]', function() {
+					var el = $(this);
+					if (config.disabled || +el.attrd('disabled'))
+						return;
+					var value = self.parser(el.attrd('value'));
+					self.set(value);
+					self.change(true);
+				});
+			};
+
+			self.validate = function(value) {
+				return (config.disabled || !config.required) ? true : !!value;
+			};
+
+			self.setter = function(value) {
+
+				selected && selected.rclass('selected');
+
+				if (value == null)
+					return;
+
+				var el = self.find('[data-value="' + value + '"]');
+				if (el) {
+					el.aclass('selected');
+					selected = el;
+				}
+			};
+
+			self.bind = function(path, arr) {
+
+				if (M.is20)
+					arr = path;
+
+				if (!arr)
+					arr = EMPTYARRAY;
+
+				var builder = [];
+				var disabledkey = config.disabledkey || 'disabled';
+
+				for (var i = 0; i < arr.length; i++) {
+					var item = arr[i];
+					item[disabledkey] = +item[disabledkey] || 0;
+					builder.push(template(item).replace(reg, text => text.substring(0, 2) === '$i' ? i.toString() : self.path + '[' + i + ']'));
+				}
+
+				var render = builder.join('');
+				self.find(cls2 + '-container').remove();
+				self.append('<div class="{0}-container{1}">{2}</div>'.format(cls, config.class ? ' ' + config.class : '', render));
+				self.refresh();
+				recompile && self.compile && self.compile();
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<style>
+		.my-button { display: inline-block; padding: 10px 20px; margin-right: 10px; border: 1px solid gray; cursor: pointer; border-radius: 2px; }
+		.my-button:hover { border-color: #4285F4; }
+		.my-button.selected { color: white; background: #4285F4; border-color: rgba(0, 0, 0, 0.2); }
+		.my-button[data-disabled="1"] { background-color: #dcdcdc; color: gray; border-color: #dcdcdc; cursor: not-allowed;}
+		.ui-disabled .my-button { background-color: #dcdcdc; color: gray; border-color: #dcdcdc; cursor: not-allowed; }
+		.ui-disabled .my-button:hover { background-color: #dcdcdc; color: gray; border-color: #dcdcdc; }
+		.ui-disabled .my-button.selected { border-color: gray; background: #efefef; color: #5a5a5a; }
+
+		.ui-dark .my-button { border-color: #404040; color: #adadad; }
+		.ui-dark .my-button.selected { color: white; }
+		.ui-dark .my-button[data-disabled="1"] { background-color: #525252; color: gray; border-color: #525252; }
+		.ui-dark .ui-disabled .my-button { background-color: #525252; color: gray; border-color: #525252; }
+		.ui-dark .ui-disabled .my-button:hover { background-color: #525252; color: gray; border-color: #525252; }
+		.ui-dark .ui-disabled .my-button.selected { border-color: rgba(0, 0, 0, 0.2); background: #969696; color: #ffffff; }
+		.ui-large .my-button { font-size: 16px; }
+
+		.star-rating > div { display: inline-block; width: 30px; height: 30px; line-height: 29px; text-align: center; margin-right: 5px; border: 1px solid gray; cursor: pointer; border-radius: 50px; font-weight: bold; }
+		.star-rating > div:hover { border-color: #bada55; }
+		.star-rating > div.selected { color: white; background: #bada55; border-color: rgba(0, 0, 0, 0.2); }
+		.star-rating > div.purple:hover { border-color: purple; }
+		.star-rating .purple.selected { background-color: purple; }
+		.star-rating > div[data-disabled="1"] { background-color: #dcdcdc; color: gray; border-color: #dcdcdc; }
+	</style>
+
+	<ui-component name="radiobuttonexpert" path="model.framework" config="datasource:list;disabled:1;required:true;label:Your favorite language;type:number" default="2">
+		<script type="text/html">
+			<div class="my-button">
+				<div>{{ name }}</div>
+			</div>
+		</script>
+	</ui-component>
+	<hr />
+	<ui-component name="radiobuttonexpert" path="model.framework" config="selector:#mybutton;datasource:list;required:true;label:Your favorite language;type:number" default="2">
+		<script type="text/html" id="mybutton">
+			<div class="my-button">
+				<div>{{ name }}</div>
+				<ui-bind path="timer" config="text" class="center block" style="font-size:11px"></ui-bind>
+			</div>
+		</script>
+	</ui-component>
+	<hr />
+	<ui-component name="radiobuttonexpert" path="model.rating" config="datasource:rating;class:star-rating;label:Please, rate us">
+		<script type="text/html">
+			<div class="button{{ if classname }} {{ classname }}{{ fi }}">
+				<div>{{ name }}</div>
+			</div>
+		</script>
+	</ui-component>
+
+	<script>
+		var list = [{ name: 'Total.js', id: 1 }, { name: 'express', id: 2 }, { name: 'Hapi', id: 3, disabled: false }, { name: 'Koa', id: 4, disabled: true }, { name: 'Sails', id: 5 }, { name: 'Meteor', id: 6 }, { name: 'Adonis', id: 7 }, { name: 'Nest', id: 8 }];
+		var rating = [{ name: '1', id: 1, disabled: 1 }, { name: '2', id: 2 }, { name: '3', id: 3 }, { name: '4', id: 4 }, { name: '5', id: 5, classname: 'purple' }];
+		setInterval(function() {
+			var path = 'timer';
+			SET(path, (GET(path) || 0) + 1);
+		}, 1000);
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-iframe {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('iframe', 'margin:0;parent:window;scrollbar:0;autohide:0', function(self, config, cls) {
+
+			var size;
+			var loaded = false;
+			var pending = [];
+			var winid = 'iframeonload' + self.ID;
+
+			self.iframe = null;
+
+			var onmessage = function(e) {
+				let event = e.originalEvent;
+				if (config.message && self.iframe && self.iframe[0].src.includes(event.origin)) {
+					let msg = event.data && typeof(event.data) === 'string' ? PARSE(event.data || '') : event.data;
+					if (msg)
+						self.SEEX(config.message, msg);
+				}
+			};
+
+			var onload = function() {
+				loaded = true;
+				let messages = pending.splice(0);
+				for (let msg of messages)
+					self.send(msg);
+				if (config.ready)
+					self.EXEC(config.ready, self);
+				self.resizeforce();
+			};
+
+			self.make = function() {
+				W[winid] = () => setTimeout2(self.ID, onload, 300);
+				self.aclass(cls);
+				self.append('<iframe frameborder="0" scrolling="' + (config.scrollbar ? 'yes' : 'no') + '" allowtransparency="true" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *" style="width:100%" onload="{0}()"></iframe>'.format(winid));
+				self.iframe = self.find('iframe');
+				self.on('resize + resize2', self.resize);
+				self.resize();
+				$(W).on('message', onmessage);
+			};
+
+			self.resize = function() {
+				setTimeout2(self.ID, self.resizeforce, 300);
+			};
+
+			self.destroy = function() {
+				delete W[winid];
+				$(W).off('message', onmessage);
+			};
+
+			self.resizeforce = function() {
+				var parent = self.parent(config.parent);
+				var margin = config['margin' + WIDTH()];
+
+				if (margin == null)
+					margin = config.margin;
+
+				var h = parent.height() - margin;
+				if (size != h) {
+					size = h;
+					self.iframe.css({ height: h });
+				}
+			};
+
+			self.send = function(msg) {
+				if (loaded)
+					self.iframe[0].contentWindow.postMessage(STRINGIFY(msg), '*');
+				else
+					pending.push(msg);
+			};
+
+			self.setter = function(value) {
+				loaded = false;
+				pending.length = 0;
+				self.iframe.attr('src', value || 'about:blank');
+				config.autohide && self.tclass('hidden', !value);
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="iframe" path="common.url"></ui-component>
+
+	<script>
+		var common = { url: 'https://www.totaljs.com' };
+	</script>
+
+</body>
+</html>

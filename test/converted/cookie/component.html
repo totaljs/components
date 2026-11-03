@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@19.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@19.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-cookie { font-size: 11px; padding: 3px 20px 5px; border-bottom: 1px solid #E0E0E0; text-align: center; background-color: #FFF; }
+		.ui-cookie button { position: relative; display: inline-block; padding: 1px 5px; border-radius: 3px; font-size: 10px; background-color: #000; color: #FFF; border: 0; margin-left: 5px; cursor: pointer; outline: 0; }
+		.ui-cookie button:hover { background-color: #303030; }
+		.ui-cookie button[name="cancel"] { background-color: #F0F0F0; color: gray; }
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('cookie', 'redirect:about\\:blank;agree:OK;cancel:Cancel', function(self, config) {
+
+			self.singleton();
+			self.readonly();
+
+			self.cancel = function() {
+				document.cookie.split(';').forEach(function(key) {
+					COOKIES.set(key.split('=')[0], '', '-2 days');
+				});
+				try {
+					Object.keys(localStorage).forEach(function(key) {
+						localStorage.removeItem(key);
+					});
+				} catch (e) {}
+				location.href = config.redirect;
+				return self;
+			};
+
+			self.make = function() {
+
+				var cookie;
+
+				// Determines private mode
+				try {
+					cookie = localStorage.getItem('cookie');
+				} catch (e) {
+					// Is private mode
+					// We disable message
+					cookie = true;
+				}
+
+				if (cookie) {
+					self.aclass('hidden');
+					return;
+				}
+
+				self.aclass('ui-cookie');
+				self.rclass('hidden');
+				self.append('<button name="agree">{0}</button><button name="cancel">{1}</button>'.format(config.agree, config.cancel));
+
+				self.event('click', 'button', function() {
+
+					if (this.name === 'cancel')
+						return self.cancel();
+
+					// private mode
+					try {
+						localStorage.setItem('cookie', '1');
+					} catch (e) {}
+
+					self.aclass('hidden');
+				});
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="cookie" class="hidden">This site uses cookies for visitor statistics. By continuing to browse the site you are agreeing to our use of cookies. <a href="/privacy/">Privacy Policy</a></ui-component>
+
+	<div>CONTENT</div>
+	<div>CONTENT</div>
+	<div>CONTENT</div>
+	<div>CONTENT</div>
+	<div>CONTENT</div>
+	<div>CONTENT</div>
+	<div>CONTENT</div>
+
+</body>
+</html>

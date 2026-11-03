@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-tabmenu ul { padding: 0; margin: 0 0 10px; font-size: 12px; list-style-type: none; display: flex; justify-content: flex-start; gap: 8px; }
+		.ui-tabmenu li { min-width: 100px; text-align: center; padding: 5px 15px; background-color: #F0F0F0; border-radius: var(--radius); cursor: pointer; flex-shrink: 0; font-size: 13px; }
+		.ui-tabmenu li:hover { background-color: #F5F5F5; }
+		.ui-tabmenu li.selected { background-color: var(--color); color: #FFF; }
+		.ui-tabmenu i { margin-right: 5px; }
+		.ui-tabmenu.ui-disabled li.selected { background-color: #E0E0E0; }
+		.ui-tabmenu.ui-disabled li { cursor: not-allowed; color: #A0A0A0; }
+
+		.ui-dark .ui-tabmenu li { background-color: #303030; color: #A0A0A0; }
+		.ui-dark .ui-tabmenu li.selected { background-color: var(--color); color: #FFF; }
+		.ui-dark .ui-tabmenu.ui-disabled li.selected { background-color: #404040; }
+		.ui-dark .ui-tabmenu.ui-disabled li { color: #888; }
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('tabmenu', 'class:selected;selector:li;attr:id', function(self, config, cls) {
+
+			var old, oldtab, loaded = false;
+
+			self.readonly();
+
+			self.make = function() {
+
+				self.aclass(cls);
+
+				self.event('click', config.selector, function() {
+					if (!config.disabled) {
+						var el = $(this);
+						if (!el.hclass(config.class))
+							self.bind('@touched @modified @setter', el.attrd(config.attr));
+					}
+				});
+
+				var scr = self.find('script');
+				if (scr.length) {
+					self.template = Tangular.compile(scr.html());
+					scr.remove();
+				}
+			};
+
+			self.configure = function(key, value) {
+				switch (key) {
+					case 'disabled':
+						self.tclass('ui-disabled', !!value);
+						break;
+					case 'datasource':
+						self.datasource(value, function(path, value) {
+
+							if (M.is20)
+								value = path;
+
+							if (value instanceof Array) {
+								old = null;
+								self.html(self.template({ value: value }));
+								self.refresh();
+							}
+
+						}, true);
+						break;
+				}
+			};
+
+			self.setter = function(value) {
+
+				if (!loaded) {
+					loaded = true;
+					self.rclass('invisible hidden', 10);
+				}
+
+				if (old === value)
+					return;
+
+				oldtab && oldtab.rclass(config.class);
+				oldtab = self.find(config.selector + '[data-' + config.attr + '="' + value + '"]').aclass(config.class);
+				old = value;
+				config.exec && self.EXEC(config.exec, value);
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<h2>Static tabs</h2>
+
+	<ui-component name="tabmenu" path="tab">
+		<ul>
+			<li data-id="tab1">Tab 1</li>
+			<li data-id="tab2">Tab 2</li>
+			<li data-id="tab3">Tab 3</li>
+		</ul>
+	</ui-component>
+
+	<ui-bind path="tab" config="show:value==='tab1'" class="block hidden">
+		TAB 1 content
+	</ui-bind>
+	<ui-bind path="tab" config="show:value==='tab2'" class="block hidden">
+		TAB 2 content
+	</ui-bind>
+	<ui-bind path="tab" config="show:value==='tab3'" class="block hidden">
+		TAB 3 content
+	</ui-bind>
+
+	<br />
+
+	<h2>Dynamic tabs</h2>
+	<ui-component name="tabmenu" path="tab" config="datasource:tabs">
+		<script type="text/html">
+			<ul>
+				{{ foreach m in value }}
+				<li data-id="{{ m.id }}">{{ m.name }}</li>
+				{{ end }}
+			</ul>
+		</script>
+	</ui-component>
+
+	<ui-bind path="tab" config="show:value==='tab1'" class="block hidden">
+		Dynamic TAB 1 content
+	</ui-bind>
+	<ui-bind path="tab" config="show:value==='tab2'" class="block hidden">
+		Dynamic TAB 2 content
+	</ui-bind>
+	<ui-bind path="tab" config="show:value==='tab3'" class="block hidden">
+		Dynamic TAB 3 content
+	</ui-bind>
+
+	<script>
+		var tab = 'tab1';
+		var tabs = [{ name: 'Tab 1', id: 'tab1' }, { name: 'Tab2', id: 'tab2' }, { name: 'Tab 3', id: 'tab3' }];
+	</script>
+
+</body>
+</html>

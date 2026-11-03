@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@19.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@19.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-disable {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('disable', function(self, config) {
+
+			var validate = null;
+			self.readonly();
+
+			self.configure = function(key, value) {
+				if (key === 'validate')
+					validate = value.split(',').trim();
+			};
+
+			self.setter = function(value) {
+				var is = true;
+
+				if (config.if)
+					is = EVALUATE(self.path, config.if);
+				else
+					is = !value;
+
+				var types = { INPUT: 1, TEXTAREA: 1, SELECT: 1 };
+
+				self.find(config.selector || '[data-jc]').each(function() {
+					var el = $(this);
+					if (types[this.nodeName])
+						el.prop('disabled', is);
+					var com = el.component();
+					com && com.reconfigure('disabled:' + is);
+				});
+
+				validate && validate.forEach(FN('n => RESET({0}n)'.format(self.pathscope ? '\'' + self.pathscope + '.\'+' : '')));
+			};
+
+			self.state = function() {
+				self.update();
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="disable" path="user" config="if:!user">
+		<div>
+			<div><input type="text" placeholder="disabled" /></div>
+		</div>
+	</ui-component>
+
+	<ui-component name="disable" path="user" config="if:!user;selector:input[type='text']">
+		<div>
+			<div><input type="text" placeholder="disabled" /></div>
+			<div><input type="password" placeholder="enabled" /></div>
+		</div>
+	</ui-component>
+
+	<script>
+		var user = null;
+	</script>
+
+</body>
+</html>

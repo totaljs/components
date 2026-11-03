@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-errorhandler {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('errorhandler', 'keywords:401=login;offline:No internet connection.', function(self, config) {
+
+			self.readonly();
+			self.singleton();
+			self.blind();
+
+			self.make = function() {
+
+				var keywords = config.keywords ? config.keywords.split(',') : EMPTYARRAY;
+				for (var i = 0; i < keywords.length; i++)
+					keywords[i] = keywords[i].split('=');
+
+				self.on('ERROR', function(err) {
+
+					if (err === '0')
+						err = [{ error: config.offline }];
+
+					if (err instanceof Error)
+						err = [{ error: err.message }];
+					else if (!(err instanceof Array))
+						err = [{ error: err.error || err.message || err.err }];
+
+					var arr = [];
+					var response = {};
+
+					for (var m of err) {
+
+						if (!m.error)
+							continue;
+
+						for (var k of keywords) {
+							if ((m.name && m.name.indexOf(k[0]) !== -1) || m.error.indexOf(k[0]) !== -1)
+								response[k[1]] = true;
+						}
+
+						arr.push(m.error.toString().encode());
+					}
+
+					response.items = arr;
+
+					if (config.exec) {
+						response.message = arr.join('<br />');
+						self.SEEX(config.exec, response);
+					} else {
+						var name = self.caniuse('message') ? 'message' : self.caniuse('notify') ? 'notify' : self.caniuse('notifybar') ? 'notifybar' : self.caniuse('snackbar') ? 'snackbar' : '';
+						if (name)
+							SETTER(name + '/warning', response.items.join('<br />'));
+						else if (W.console)
+							console.error('ERROR():', response.items.join('<br />'));
+					}
+
+					SETTER('!loading/hide', 100);
+				});
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="errorhandler"></ui-component>
+	<ui-component name="LAZY message"></ui-component>
+
+	<script>
+
+		setTimeout(function() {
+			ERROR([{ error: 'Error 1' }, { error: 'Error 2' }]);
+		}, 3000);
+
+	</script>
+
+</body>
+</html>

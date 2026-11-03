@@ -1,0 +1,25 @@
+---
+name: carousel
+description: TODO
+author: Peter Širka
+version: 1
+darkmode: false
+license: https://www.totaljs.com/license/
+created: 2020-06-08 23:27
+updated: 2026-11-03 09:56
+jcomponent: v19,v20
+---
+
+# Carousel
+
+- supports __touch gestures (swipe)__ and fixed full size on mobile
+- learn from example
+
+__Configuration__:
+
+- `animate {Number}` animation interval (default: `3000`, zero `0` disables animation)
+
+__Methods__:
+
+- `left` moves the content to left
+- `right` moves the content to right

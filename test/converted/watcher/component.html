@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-watcher {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('watcher', 'delay:0', function(self, config) {
+
+			var fn = NOOP;
+			var delay = null;
+			var datasource = null;
+
+			var exec = function(path, type) {
+				delay = null;
+				fn.call(self, self.get(), path, type, self.element, self, datasource);
+			};
+
+			self.readonly();
+
+			self.make = function() {
+				var scr = self.find('scri' + 'pt').eq(0);
+				var js = scr.html();
+				if (js) {
+
+					if (self.scope) {
+						js = js.replace(/\?(.|\/)+/g, function(val) {
+							return val.replace(/\?/g, self.scope.path);
+						});
+					}
+
+					fn = new Function('value', 'path', 'type', 'element', 'component', 'datasource', js);
+					scr.remove();
+				}
+
+				config.datasource && self.datasource(config.datasource, function(path, value) {
+					datasource = value;
+					if (config.delay) {
+						delay && clearTimeout(delay);
+						delay = setTimeout(exec, config.delay, '', -1);
+					} else
+						exec('', -1);
+
+				});
+			};
+
+			self.destroy = function() {
+				fn = null;
+				datasource = null;
+			};
+
+			self.setter = function(value, path, type) {
+				if (config.delay) {
+					delay && clearTimeout(delay);
+					delay = setTimeout(exec, config.delay, value, path, type);
+				} else
+					fn.call(self, value, path, type, self.element, self, datasource);
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="watcher" path="common.value">
+		<script type="text/js">
+			console.log('-->', value, path, type);
+			element.html(value);
+		</script>
+	</ui-component>
+
+	<script>
+		var common = { value: 'init' };
+		setInterval(function() {
+			SET('common.value', new Date().format('HH:mm:ss'));
+		}, 1000);
+	</script>
+
+</body>
+</html>

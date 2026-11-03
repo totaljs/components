@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-unsaved {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('unsaved', 'message:Changes that you made may not be saved.', function(self, config) {
+
+			self.singleton();
+			self.readonly();
+
+			self.make = function() {
+
+				var makemessage = function(val) {
+					return typeof(val) === 'string' ? val : config.message;
+				};
+
+				W.onbeforeunload = function() {
+
+					var val = self.get();
+					if (val) {
+						return makemessage(val);
+					} else if (config.check) {
+
+						var index = config.check.indexOf('/');
+						var fn;
+
+						if (index === -1)
+							fn = self.get(config.check);
+						else {
+							var arr = config.check.split('/').trim();
+							var tmp = PLUGINS[arr[0]];
+							if (tmp)
+								fn = tmp[arr[1]];
+						}
+
+						if (fn) {
+							var msg = fn();
+							if (msg)
+								return makemessage(msg);
+						}
+					}
+				};
+			};
+
+			self.destroy = function() {
+				W.onbeforeunload = null;
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="unsaved" config="check:checkunsaved"></ui-component>
+
+	<script>
+
+		function checkunsaved() {
+			// if "true" then the browser will ask about unsaved changes
+			return true;
+		}
+
+	</script>
+
+</body>
+</html>

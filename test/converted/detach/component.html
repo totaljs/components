@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-detach {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('detach', function(self, config) {
+
+			self.readonly();
+
+			var children = [];
+			var detached = false;
+
+			self.destroy = function() {
+				config.remove && self.EXEC(config.remove, children, self.element);
+			};
+
+			self.setter = function(value) {
+				if (value === true) {
+					if (!detached) {
+						detached = true;
+						children.length = 0;
+						for (var i = 0; i < self.dom.children.length; i++)
+							children.push(self.dom.children[i]);
+						self.EXEC(config.detach, children, self.element);
+					}
+				} else {
+					if (detached) {
+						self.EXEC(config.attach, children, self.element);
+						detached = false;
+						children.length = 0;
+					}
+				}
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<style>
+		body { padding: 0; margin: 0; overflow: hidden; }
+	</style>
+
+	<ui-component name="windows" path="common.windows"></ui-component>
+
+	<div class="center padding"><button onclick="togglewindow()">Toggle windowed mode</button></div>
+
+	<div style="margin:30px auto;border:1px solid #E0E0E0;max-width:500px;width:100%;min-height:100px;">
+		<ui-component name="detach" path="common.detach" config="detach:el_detach;attach:el_attach;remove:el_remove">
+			<div class="padding">
+				<h2>Your content</h2>
+				<div><img src="https://cdn.componentator.com/logo.svg" width="200" /></div>
+			</div>
+		</ui-component>
+	</div>
+
+	<script>
+
+		var common = {};
+
+		common.detach = false;
+		common.windows = [];
+
+		function el_detach(children, element) {
+
+			var id = 'mywin';
+			var div = document.createElement('DIV');
+
+			var win = {};
+			win.id = id;
+			win.cachekey = id;
+			win.offset = { x: 200, y: 100, width: 840, height: 500, minwidth: 450, minheight: 300 };
+			win.actions = { move: true, close: true, resize: true, maximize: true, minimize: false, autosave: true };
+			win.title = 'Example';
+			win.html = div;
+
+			win.close = function(next) {
+				SET('common.detach', false);
+				next();
+			};
+
+			for (var m of children)
+				div.appendChild(m);
+
+			PUSH('common.windows', win);
+		}
+
+		function el_attach(children, element) {
+
+			var id = 'mywin';
+
+			for (var m of children)
+				element[0].appendChild(m);
+
+			common.windows.splice(common.windows.findIndex('id', id), 1);
+			UPD('common.windows');
+		}
+
+		function el_remove(children) {
+			var id = 'mywin';
+			var index = common.windows.findIndex('id', id);
+			if (index !== -1) {
+				common.windows.splice(index, 1);
+				UPD('common.windows');
+			}
+		}
+
+		function togglewindow() {
+			var path = 'common.detach';
+			var val = GET(path);
+			SET(path, !val);
+		}
+
+	</script>
+
+</body>
+</html>

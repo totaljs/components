@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-printer iframe { position: absolute; width: 21cm; min-height: 29.7cm; z-index: -1; opacity: 0; pointer-events: none; }
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('printer', 'delay:500;delayprint:500;delayclose:1000', function(self, config, cls) {
+
+			self.readonly();
+			self.singleton();
+
+			self.make = function() {
+				self.aclass(cls);
+			};
+
+			self.print = function(title, html, test) {
+
+				if (html == null || html === true) {
+					test = html === true;
+					html = title;
+					title = '';
+				}
+
+				if (html.indexOf('<body>') === -1)
+					html = '<html><head><title>{0}</title><meta charset="utf-8" /></head><body style="font-family:Arial;font-size:14px;margin:0;padding:0;color:#000">{1}</body></html>'.format(title, html);
+
+				if (test) {
+					let win = W.open('', '', 'width=800,height=600');
+					win.document.write(html);
+					return;
+				}
+
+				var iframe = $('<ifra' + 'me src="about:blank" frameborder="0" scrolling="no"></ifr' + 'ame>')[0];
+				self.dom.appendChild(iframe);
+
+				setTimeout(function() {
+					let win = iframe.contentWindow;
+					let doc = win.document;
+					doc.open();
+					doc.write(html);
+					doc.close();
+					setTimeout(() => win.print(), config.delayprint);
+					setTimeout(() => self.dom.removeChild(iframe), config.delayclose);
+				}, config.delay);
+
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<style>
+		body { background-color: #D0D0D0; }
+	</style>
+
+	<ui-component name="printer"></ui-component>
+
+	<script>
+
+		ON('ready', function() {
+			SETTER('printer/print', '<h1>Total.js Platform</h1>');
+		});
+
+	</script>
+
+</body>
+</html>

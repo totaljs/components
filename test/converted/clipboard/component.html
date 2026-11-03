@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-clipboard { position: absolute; left: -100px; top: -100px; height: 1px; width: 1px; }
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('clipboard', 'native:0', function(self, config, cls) {
+
+			var container;
+
+			self.singleton();
+			self.readonly();
+
+			self.make = function() {
+				if (config.native && navigator.clipboard && W.isSecureContext && W.self === W.top) {
+					self.copy = function(value) {
+						navigator.clipboard.writeText(value).catch(err => console.error(err));
+						config.oncopy && self.EXEC(config.oncopy, value);
+					};
+				} else {
+					var id = 'clipboard' + self.id;
+					$(document.body).append('<textarea id="{0}" class="{1}"></textarea>'.format(id, cls));
+					container = $('#' + id);
+					self.copy = function(value) {
+						container.val(value);
+						container.focus();
+						container.select();
+						document.execCommand('copy');
+						container.blur();
+						config.oncopy && self.EXEC(config.oncopy, value);
+					};
+				}
+			};
+
+			self.setter = function(value) {
+				value && self.copy(value);
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="clipboard"></ui-component>
+	<div style="cursor:pointer">Copy to clipboard: My value to clipboard</div>
+	<div style="cursor:pointer">Copy to clipboard: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, voluptatem?</div>
+
+	<script>
+		$('div').on('click', function() {
+			var el = $(this);
+
+			el.css('background-color', '#E0E0E0');
+			setTimeout(function() {
+				el.css('background-color', 'transparent');
+			}, 200);
+
+			// Copy to clipboard
+			SETTER('clipboard/copy', el.html());
+		});
+	</script>
+
+</body>
+</html>

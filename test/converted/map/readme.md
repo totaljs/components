@@ -1,0 +1,35 @@
+---
+name: map
+description: TODO
+author: Peter Širka
+version: 1
+darkmode: false
+license: https://www.totaljs.com/license/
+created: 2016-05-08 09:40
+updated: 2026-11-03 09:56
+jcomponent: v19
+---
+
+# Map
+
+- easy usage
+- `path="target.property"` can contain GPS `48.727903,19.157763` or text `Viestova 28, Banská Bystrica, Slovakia`
+- two way binding works with GPS (so the component returns GPS coordinates into the model when the `text` is used instead of GPS)
+- __important__: the component element (or its `CSS`) must have defined `width` and `height` style attributes
+
+__Configuration__:
+
+- `key` __IMPORTANT__ Google API key
+- `type` (optional) has to contain a map type (`roadmap` (default), `satellite`, `hybrid`, `terrain`)
+- `draggable` (optional) for drag & drop marker (default: `false`)
+- `click` (optional) has to contain a function name and this method is evaluated when the user click on the marker
+- `zoom` (optional), default `13`
+- `icon` (optional) has to contain a URL to a new icon marker
+- `animation` (optional) has to contain a animation type (`bounce` and `drop`)
+
+__Methods__:
+
+- `component.search(lat, lng)` arguments must be numbers
+- `component.search(text)` arguments must be a string
+- `component.reset()` call `resize` event (useful for modals)
+- `component.reset(lat, lng)` arguments must be numbers

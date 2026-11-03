@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-loadcontent {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('loadcontent', 'wait:0', function(self, config) {
+
+			self.readonly();
+			self.blind();
+
+			self.make = function() {
+				var template = $(config.selector);
+				if (template.length) {
+
+					var content = template.html().replace(/SCR/g, 'scr' + 'ipt');
+					var replace = (config.replace || '').split(',').trim();
+
+					for (var m of replace) {
+						var tmp = m.split('=');
+						content = content.replace(new RegExp(tmp[0], 'g'), tmp[1]);
+					}
+
+					self.html(content);
+					COMPILE();
+					config.exec && self.SEEX(config.exec, self.element);
+				} else if (config.wait && self.dom)
+					setTimeout(self.make, config.wait);
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<script type="text/html" id="template">
+		<div>AAA PATH CCC</div>
+		<ui-bind path="cities" config="template" class="block">
+			<SCR type="text/html">
+				{{ foreach m in value }}
+					<div>{{ m }}</div>
+				{{ end }}
+			</SCR>
+		</ui-bind>
+	</script>
+
+	<ui-component name="loadcontent" config="selector:#template;replace:PATH=111"></ui-component>
+	<br />
+	<ui-component name="loadcontent" config="selector:#template;replace:PATH=222"></ui-component>
+	<br />
+	<ui-component name="loadcontent" config="selector:#template;replace:PATH=333"></ui-component>
+	<br />
+	<ui-component name="loadcontent" config="selector:#template;replace:PATH=444"></ui-component>
+
+	<script>
+		var cities = ['Bratislava', 'Berlin', 'Barcelona'];
+	</script>
+
+</body>
+</html>

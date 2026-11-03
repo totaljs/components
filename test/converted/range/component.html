@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@19.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@19.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-range { width: 100%; }
+		.ui-range-label { margin-bottom: 0; font-size: 12px; color: #656D78; text-align: left; }
+		.ui-range-label .ti { width: 14px; }
+		.ui-range-label-required:before { color: red; content: '***'; margin-right: 5px; }
+		.ui-range input[type=range] { appearance: none; margin: 10px 0; width: 100%; }
+		.ui-range input[type=range]:focus { outline: none; }
+		.ui-range input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 10px; cursor: pointer; animate: 0.2s; box-shadow: 0px 0px 0px #000, 0px 0px 0px #0d0d0d; background: #E0E0E0; border-radius: 25px; border: 0px solid #000101; }
+		.ui-range input[type=range]::-webkit-slider-thumb { box-shadow: 0px 0px 0px #000, 0px 0px 0px #0d0d0d; border: 0px solid #000; height: 17px; width: 39px; border-radius: 7px; background: #505050; cursor: pointer; -webkit-appearance: none; margin-top: -3.6px; }
+		.ui-range input[type=range]:focus::-webkit-slider-runnable-track { background: #E0E0E0; }
+		.ui-range input[type=range]::-moz-range-track { width: 100%; height: 10px; cursor: pointer; animate: 0.2s; box-shadow: 0px 0px 0px #000, 0px 0px 0px #0d0d0d; background: #E0E0E0; border-radius: 25px; border: 0px solid #000101; }
+		.ui-range input[type=range]::-moz-range-thumb { box-shadow: 0px 0px 0px #000, 0px 0px 0px #0d0d0d; border: 0px solid #000; height: 17px; width: 39px; border-radius: 7px; background: #505050; cursor: pointer; }
+		.ui-range input[type=range]::-ms-track { width: 100%; height: 10px; cursor: pointer; animate: 0.2s; background: transparent; border-color: transparent; border-width: 39px 0; color: transparent; }
+		.ui-range input[type=range]::-ms-fill-lower { background: #E0E0E0; border: 0px solid #000101; border-radius: 50px; box-shadow: 0px 0px 0px #000, 0px 0px 0px #0d0d0d; }
+		.ui-range input[type=range]::-ms-fill-upper { background: #E0E0E0; border: 0px solid #000101; border-radius: 50px; box-shadow: 0px 0px 0px #000, 0px 0px 0px #0d0d0d; }
+		.ui-range input[type=range]::-ms-thumb { box-shadow: 0px 0px 0px #000, 0px 0px 0px #0d0d0d; border: 0px solid #000; height: 17px; width: 39px; border-radius: 7px; background: #505050; cursor: pointer; }
+		.ui-range input[type=range]:focus::-ms-fill-lower { background: #E0E0E0; }
+		.ui-range input[type=range]:focus::-ms-fill-upper { background: #E0E0E0; }
+
+		.ui-dark .ui-range input { background-color: #303030; }
+		.ui-dark .ui-range input[type=range]::-webkit-slider-runnable-track { background: #303030; }
+		.ui-dark .ui-range input[type=range]:focus::-webkit-slider-runnable-track { background: #303030; }
+		.ui-dark .ui-range input[type=range]::-webkit-slider-runnable-track { background: #303030; }
+		.ui-dark .ui-range input[type=range]::-moz-range-track { background: #303030; }
+		.ui-dark .ui-range input[type=range]::-ms-fill-lower { background: #303030; }
+		.ui-dark .ui-range input[type=range]::-ms-fill-upper { background: #303030; }
+		.ui-dark .ui-range input[type=range]:focus::-ms-fill-lower { background: #303030; }
+		.ui-dark .ui-range input[type=range]:focus::-ms-fill-upper { background: #303030; }
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('range', function(self, config, cls) {
+
+			var cls2 = '.' + cls;
+			var content = '';
+
+			self.validate = function(value) {
+				return !config.required || config.disabled ? true : value != 0;
+			};
+
+			self.configure = function(key, value, init, prev) {
+				if (init)
+					return;
+				var redraw = false;
+				switch (key) {
+					case 'step':
+					case 'max':
+					case 'min':
+						var input = self.find('input');
+						if (value)
+							input.prop(key, value);
+						else
+							input.removeProp(key);
+						break;
+
+					case 'icon':
+						if (value && prev)
+							self.find('i').rclass().aclass('ti ti-' + value);
+						else
+							redraw = true;
+						break;
+
+					case 'required':
+						self.find(cls2 +'-label').tclass(cls + '-label-required', value);
+						break;
+
+					case 'type':
+						self.type = value;
+						break;
+
+					case 'label':
+						redraw = true;
+						break;
+				}
+
+				if (redraw) {
+					self.redraw();
+					self.refresh();
+				}
+			};
+
+			self.redraw = function() {
+
+				var label = config.label || content;
+				var html = '';
+
+				if (label)
+					html = ('<div class="' + cls + '-label{1}">{2}{0}:</div>').format(label, config.required ? (' ' + cls + '-label-required') : '', (config.icon ? '<i class="ti ti-{0}"></i>'.format(config.icon) : ''));
+
+				var attrs = [];
+
+				config.step && attrs.attr('step', config.step);
+
+				if (config.max || config.max === 0)
+					attrs.attr('max', config.max);
+				if (config.min || config.min === 0)
+					attrs.attr('min', config.min);
+
+				self.html('{0}<input type="range" data-jc-bind=""{1} />'.format(html, attrs.length ? ' ' + attrs.join(' ') : ''));
+			};
+
+			self.make = function() {
+				self.type = config.type;
+				content = self.html();
+				self.aclass(cls);
+				self.redraw();
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	<div style="margin: 80px auto 0;width:400px;">
+		<ui-component name="range" path="myrange" config="required:true;type:number">Select size</ui-component>
+	</div>
+
+	<script>
+		var myrange = 30;
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-scrollpercentage {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('scrollpercentage', function(self, config) {
+
+			var container;
+
+			self.readonly();
+
+			self.make = function() {
+				if (self.element[0].tagName === 'BODY') {
+					$(W).on('scroll', self.refresh);
+					container = document.documentElement;
+				} else
+					container = self.element.on('scroll', self.refresh)[0];
+				self.refresh();
+			};
+
+			self.refresh = function() {
+				var t = container;
+				var pos = t.scrollTop;
+				var h = t.scrollHeight;
+				var p = (pos / (h - t.clientHeight)) * 100;
+				if (config.exec)
+					self.EXEC(config.exec, p, container);
+				else
+					SET(self.path, p, 2);
+			};
+
+			self.setter = function(value, path, type) {
+				type && type !== 2 && (container.scrollTop = ((container.scrollHeight - container.clientHeight) / 100) * value);
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-bind path="common.scroll" config="exec div:myProgress" style="border: 1px solid #D0D0D0;padding:2px" class="block"><div style="height:10px;background-color:#79B34C"></div></ui-bind>
+	<br />
+	<ui-component name="scrollpercentage" path="common.scroll" style="height:400px;overflow-y:scroll">
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+		<div>Text</div>
+	</ui-component>
+
+	<script>
+		function myProgress(value, path, el) {
+			el.css('width', value + '%');
+		}
+	</script>
+
+</body>
+</html>

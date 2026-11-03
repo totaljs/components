@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-releaser {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('releaser', 'delay:500;release:10000;bindvisible:0', function(self, config) {
+
+			var visible = false;
+			var releasing = null;
+
+			self.readonly();
+			config.visible && self.bindvisible && self.bindvisible();
+
+			self.make = function() {
+				var scr = 'scri' + 'pt';
+				var el = self.find('> ' + scr);
+				var html = el.length ? el.html() : self.html();
+				self.template = html.replace(/SCR/g, scr);
+				self.aclass('invisible');
+			};
+
+			self.releasehtml = function() {
+				config.released && self.SEEX(config.released, self.element);
+				releasing = null;
+				self.empty();
+				FREE();
+			};
+
+			self.setter = function(value) {
+				if (value === config.if) {
+
+					if (visible)
+						return;
+
+					if (releasing) {
+						clearTimeout(releasing);
+						releasing = null;
+						visible = true;
+						return;
+					}
+
+					visible = true;
+					self.aclass('invisible');
+					self.html(self.template);
+					self.rclass('invisible', config.delay);
+					config.render && self.SEEX(config.render, self.element);
+					COMPILE(self.element);
+
+				} else if (visible) {
+					visible = false;
+					releasing = setTimeout(self.releasehtml, config.release);
+				}
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="exec"></ui-component>
+
+	<ui-component name="releaser" path="common.form" config="if:userform;release:2000">
+		<script type="text/html">
+			<i class="ti ti-thumbs-up"></i> THE CONTENT IS RENDERED
+		</script>
+	</ui-component>
+	<hr />
+	<button class="exec" data-exec="releaser_show">Show</button>
+	<button class="exec" data-exec="releaser_release">Release (2 sec)</button>
+
+	<script>
+		function releaser_show() {
+			SET('common.form', 'userform');
+		}
+
+		function releaser_release() {
+			NUL('common.form');
+		}
+	</script>
+
+</body>
+</html>
