@@ -21,7 +21,6 @@ Plain JavaScript in ES5 style, no TypeScript (Total.js does not support it: neve
 npm install playwright                    # once, for the browser test and the preview
 node tools/check.js <folder>              # structure, readme, selectors, browser errors, dark mode
 node tools/check.js <folder> --preview    # also creates preview.jpg (300x240)
-node tools/componentator.js <folder>      # the package for componentator.com in <folder>/componentator/
 ```
 
 To **convert** an existing component:
@@ -41,7 +40,6 @@ Converting only changes the format, never the behaviour.
 - `docs/aicontext/` are the guides of the Total.js team about the HTML elements of the library.
 - `tools/check.js` checks a component folder and creates `preview.jpg`. With `--legacy` the rules about the style of the code are warnings (for converted components).
 - `tools/convert.js` converts a component of the classic format (`component.js`, `component.css`, `component.json`, `example.html`, `dependencies.html`, `readme.md`, `picture.jpg`) to `component.html`, `readme.md` and `preview.jpg`; the rest is finished by the agent following `SKILL.md`.
-- `tools/componentator.js` creates the package of the classic format for componentator.com (`component.css`, `component.js`, `component.json`, `dependencies.html`, `example.html`, `readme.md`, `picture.jpg`) from `component.html` and `readme.md`.
 - `llms.txt` is the index for models. `CLAUDE.md`, `GEMINI.md` and `.github/copilot-instructions.md` import this file.
 
 ## Conventions
