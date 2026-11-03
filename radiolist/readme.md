@@ -1,16 +1,6 @@
----
-name: radiolist
-description: Single-choice list in the style of the Apple Human Interface Guidelines, a grouped list with a checkmark on the selected row
-author: Gera G. Güiles
-version: 1
-darkmode: true
-license: MIT
-created: 2026-11-03 09:06
-updated: 2026-11-03 09:24
-jcomponent: v20
----
+## j-RadioList
 
-# RadioList
+- jComponent `v20`
 
 A single-choice list in the style of the Apple Human Interface Guidelines (iOS grouped list): rows of at least 44 px, hairline separators, a blue checkmark on the selected row, an optional secondary text and a small uppercase header. It is a radio group for assistive technologies (`role="radiogroup"` and `role="radio"`) and it follows the system look in light and dark mode.
 
@@ -36,3 +26,8 @@ __Good to know__:
 - All the configuration can be changed in runtime: `SETTER('radiolist/reconfigure', 'items:A|a,B|b')`.
 - Colours follow the library: the checkmark uses `--color`.
 - Tested with jComponent v20 (`20.014`).
+
+### Author
+
+- Gera G. Güiles
+- License: MIT
