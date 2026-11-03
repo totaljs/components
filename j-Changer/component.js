@@ -1,1 +1,0 @@
-COMPONENT('changer', NOOP);

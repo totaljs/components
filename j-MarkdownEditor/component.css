@@ -1,5 +1,0 @@
-.ui-markdown-editor-label { margin-bottom: 5px; font-size: 12px; text-align: left; }
-.ui-markdown-editor-label .ti { margin-right: 5px; }
-.ui-markdown-editor-label-required { font-weight: bold; }
-.ui-markdown-editor-label-required:before { color: red; content: '***'; margin-right: 5px; }
-.ui-markdown-editor-invalid { border-color: #E7B8B8 !important; background-color: #FFF3F3 !important; }

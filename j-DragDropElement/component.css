@@ -1,3 +1,0 @@
-.ui-dragdropelement { min-height: 16px; position: relative; }
-.ui-dragdropelement-area { background-color: rgba(229,229,229,0.3) !important; position: absolute; inset: 0; border: 1px dashed #000; border-radius: var(--radius); text-align: center; display: grid; place-content: center; }
-.ui-dragdropelement-area span { color: #000; font-size: 14px; }

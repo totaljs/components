@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-example {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('example', 'title:Title;icon:ti ti-warning', function(self, config, cls) {
+
+			// @self {Object} a component instance
+			// @config {Object} a parsed configuration from the configuration string (key1:value;key2:value), numbers are parsed as numbers, boolean as boolean
+			// @cls {String} contains normalized component name as a CSS class name
+
+			// Good to know:
+			// self.element {jQuery element of the component}
+
+			// Constructor
+			self.make = function() {
+				self.aclass(cls);
+			};
+
+			self.setter = function(value) {
+				// path has been changed
+				console.log(value);
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="example" path="*form" config="title:Test;if:myform"></ui-component>
+
+	</ui-component>
+
+	<script>
+		SET('*form', 'myform');
+	</script>
+
+</body>
+</html>
