@@ -1,6 +1,6 @@
 # Converted components (evidence)
 
-The result of `node tools/convert.js` over the components of the classic format of `totaljs/components` (branch `master`, folders `j-*`). Generated on 2026-11-03 11:12. Every folder has the new declaration: `component.html`, `readme.md` and `preview.jpg` (the old `picture.jpg`).
+The result of `node tools/convert.js` over the components of the classic format of `totaljs/components` (branch `master`, folders `j-*`). Generated on 2026-11-03 11:14. Every folder has the new declaration: `component.html`, `readme.md` and `preview.jpg` (the old `picture.jpg`).
 
 **This is the mechanical part only.** It is what the tool does without an AI: the code of every component is untouched (only the no-op `self.nocompile()` is removed). The rest (see "To finish") is done by an AI following [`SKILL.md`](../../SKILL.md).
 

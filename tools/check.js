@@ -74,9 +74,13 @@ code = code.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
 if (/\bconsole\.log\(/.test(code))
 	style('component.html: console.log in the component');
 
-// An id attribute, not data-id or aria-labelledby
-if (/(^|[^\w-])id\s*=\s*\\?["']/.test(code))
-	style('component.html: id="..." attributes in the component, use aria-label or a wrapping <label>');
+// An id attribute, not data-id or aria-labelledby. The message says where it is.
+var idmatch = /(^|[^\w-])id\s*=\s*\\?["']/.exec(code);
+
+if (idmatch) {
+	var idpos = idmatch.index + idmatch[1].length;
+	style('component.html: id="..." attribute in the code, near: ' + code.substring(Math.max(0, idpos - 25), idpos + 45).replace(/\s+/g, ' ').trim() + ' (use aria-label or a wrapping <label>, an id is shared by every instance)');
+}
 
 ['nocompile', 'release', 'bindvisible'].forEach(function(key) {
 	if (new RegExp('self\\.' + key + '\\b').test(code))

@@ -8,14 +8,14 @@ What was seen while converting 329 components with `tools/convert.js` and checki
 
 | Warning | Count |
 | --- | --- |
-| selector "..." is not scoped under .ui-<name> | 572 |
-| it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20 | 72 |
-| id="..." attributes in the component, use aria-label or a wrapping <label> | 32 |
-| self.release() is a no-op in jComponent v20, remove it | 20 |
-| selector "..."text"..." is not scoped under .ui-<name> | 3 |
-| selector "..."password"..." is not scoped under .ui-<name> | 2 |
-| console.log in the component | 1 |
-| self.bindvisible() is a no-op in jComponent v20, remove it | 1 |
+| `selector "..." is not scoped under .ui-<name>` | 572 |
+| `it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20` | 72 |
+| `id="..." attribute in the code (the warning says where, use aria-label or a wrapping <label>)` | 32 |
+| `self.release() is a no-op in jComponent v20, remove it` | 20 |
+| `selector "..."text"..." is not scoped under .ui-<name>` | 3 |
+| `selector "..."password"..." is not scoped under .ui-<name>` | 2 |
+| `console.log in the component` | 1 |
+| `self.bindvisible() is a no-op in jComponent v20, remove it` | 1 |
 
 Top components by number of warnings:
 
