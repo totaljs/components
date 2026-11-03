@@ -17,6 +17,7 @@ This branch contains everything an AI model (Claude, ChatGPT, Codex, Gemini, Cop
 | [`example/`](example) | The template: `component.html` and `readme.md` |
 | [`SKILL.md`](SKILL.md) | The skill: rules, conversion table from the old format, checklist |
 | [`docs/api.md`](docs/api.md) | Reference of the jComponent API |
+| [`docs/aicontext/`](docs/aicontext/readme.md) | Guides of the Total.js team for `ui-component`, `ui-bind`, `ui-import` and `ui-plugin` |
 | [`tools/check.js`](tools/check.js) | Checks a component and creates `preview.jpg` |
 | [`AGENTS.md`](AGENTS.md), `CLAUDE.md`, `GEMINI.md`, [`llms.txt`](llms.txt) | Entry points for each agent |
 

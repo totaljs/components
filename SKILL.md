@@ -5,7 +5,7 @@ description: Create or convert a Total.js jComponent (UI component for the Total
 
 # Creating a jComponent
 
-Read `docs/api.md` for the API of the library before you use a method you are not sure about. Never invent methods: if it is not in `docs/api.md` or in the component you are converting, do not call it.
+Read `docs/api.md` for the API of the library before you use a method you are not sure about. For the HTML elements of the library (`<ui-component>`, `<ui-bind>`, `<ui-import>`, `<ui-plugin>`) use the guides in `docs/aicontext/`. Never invent methods: if it is not in `docs/api.md` or in the component you are converting, do not call it.
 
 A component lives in its own folder and consists of exactly 3 files:
 
@@ -75,6 +75,8 @@ COMPONENT('name', 'key:value;key2:value', function(self, config, cls) {
 - Use `<ui-component name="<name>" path="..." config="key:value">` and close it once.
 - The example must show the component working with realistic data and, when the component has important options, a second instance with a different `config`.
 - Data is set in a plain `<script>` with `SET('path', value)` or by declaring the object.
+- `<ui-component>` attributes: `name` (required), `path`, `config` (`key:value;key2:value`), `default` (initial value). Inside `config`, a `:` in a value is escaped as `\:` (absolute URLs may stay as they are). A component can be versioned in the tag (`textbox@1`). Special keys with `$` (`$id`, `$class`, `$binding`, `$delay`, `$init`, `$setter`, `$state`, `$reconfigure`, `$compile`, `$url`) are handled by the library, not by the component. Details: `docs/aicontext/ui-component.md`.
+- If the example references a callback in `config` (a link to a global function), define a stub of it in the example script.
 - It must work offline from the data side: no APIs, no tokens, no private URLs.
 
 ## 2. readme.md

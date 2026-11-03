@@ -14,7 +14,7 @@ Plain JavaScript in ES5 style, no TypeScript (Total.js does not support it: neve
 
 1. Read [`SKILL.md`](SKILL.md): the rules, the conversion table from the old format and the checklist.
 2. Start from `example/component.html` and `example/readme.md`.
-3. Use [`docs/api.md`](docs/api.md) for the API of the library.
+3. Use [`docs/api.md`](docs/api.md) for the API of the library and [`docs/aicontext/`](docs/aicontext/readme.md) for the HTML elements (`ui-component`, `ui-bind`, `ui-import`, `ui-plugin`).
 4. Check the result:
 
 ```bash
@@ -30,6 +30,7 @@ To **convert** an existing component, give the agent its old folder (`component.
 - `SKILL.md` is the skill: how to create or convert a component. `.claude/skills/jcomponent/` and `.agents/skills/jcomponent/` point to it so Claude Code and Codex load it.
 - `example/` is the template: `component.html` and `readme.md`.
 - `docs/api.md` is the reference of the API (extracted from the library source and from how components use it).
+- `docs/aicontext/` are the guides of the Total.js team about the HTML elements of the library.
 - `tools/check.js` checks a component folder and creates `preview.jpg`.
 - `llms.txt` is the index for models. `CLAUDE.md`, `GEMINI.md` and `.github/copilot-instructions.md` import this file.
 

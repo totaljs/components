@@ -14,6 +14,10 @@ Plain JavaScript (ES5 style), no TypeScript. Library: https://cdn.componentator.
 ## Reference
 
 - [API](https://raw.githubusercontent.com/totaljs/components/ai/docs/api.md): Methods of the library and what a component can implement
+- [AI context: ui-component](https://raw.githubusercontent.com/totaljs/components/ai/docs/aicontext/ui-component.md): How to initialize a component in HTML (name, path, config, default, special keys)
+- [AI context: ui-bind](https://raw.githubusercontent.com/totaljs/components/ai/docs/aicontext/ui-bind.md): Data binding
+- [AI context: ui-import](https://raw.githubusercontent.com/totaljs/components/ai/docs/aicontext/ui-import.md): Dynamic content import
+- [AI context: ui-plugin](https://raw.githubusercontent.com/totaljs/components/ai/docs/aicontext/ui-plugin.md): Scoped composition
 - [Documentation](https://docs.totaljs.com/components/): Total.js UI components documentation
 
 ## Optional
