@@ -1,6 +1,6 @@
 # Warnings
 
-All the warnings of `node tools/check.js <folder> --legacy` over the converted components, one by one. 729 warnings in 141 components, sorted by the number of warnings. Generated on 2026-11-03 11:07.
+All the warnings of `node tools/check.js <folder> --legacy` over the converted components, one by one. 703 warnings in 122 components, sorted by the number of warnings. Generated on 2026-11-03 11:12.
 
 They are style rules of the new components that the old code does not follow. They are warnings and not errors because converting must not change the behaviour of a component, so nothing was rewritten. How to read them:
 
@@ -11,7 +11,7 @@ They are style rules of the new components that the old code does not follow. Th
 
 | Component | Warnings |
 | --- | --- |
-| [datagrid](#datagrid) | 183 |
+| [datagrid](#datagrid) | 182 |
 | [markdown](#markdown) | 94 |
 | [codemirror](#codemirror) | 80 |
 | [objecteditor](#objecteditor) | 47 |
@@ -19,14 +19,13 @@ They are style rules of the new components that the old code does not follow. Th
 | [wiki](#wiki) | 34 |
 | [textbox](#textbox) | 13 |
 | [clbind](#clbind) | 13 |
-| [notifications](#notifications) | 12 |
+| [notifications](#notifications) | 11 |
 | [jsontree](#jsontree) | 11 |
 | [display](#display) | 10 |
 | [markdowneditor](#markdowneditor) | 6 |
 | [noscrollbar](#noscrollbar) | 5 |
 | [leaflet](#leaflet) | 5 |
 | [grid](#grid) | 4 |
-| [floatingbox](#floatingbox) | 4 |
 | [swiper](#swiper) | 3 |
 | [svgicons](#svgicons) | 3 |
 | [properties2](#properties2) | 3 |
@@ -36,9 +35,9 @@ They are style rules of the new components that the old code does not follow. Th
 | [largeform](#largeform) | 3 |
 | [inlineform](#inlineform) | 3 |
 | [fullform](#fullform) | 3 |
+| [floatingbox](#floatingbox) | 3 |
 | [window](#window) | 2 |
 | [upload](#upload) | 2 |
-| [treeview](#treeview) | 2 |
 | [singleupload](#singleupload) | 2 |
 | [scanner](#scanner) | 2 |
 | [planner](#planner) | 2 |
@@ -46,7 +45,6 @@ They are style rules of the new components that the old code does not follow. Th
 | [page](#page) | 2 |
 | [modal](#modal) | 2 |
 | [miniform](#miniform) | 2 |
-| [kanban](#kanban) | 2 |
 | [form](#form) | 2 |
 | [flow](#flow) | 2 |
 | [fixedmodal](#fixedmodal) | 2 |
@@ -54,15 +52,13 @@ They are style rules of the new components that the old code does not follow. Th
 | [fileupload](#fileupload) | 2 |
 | [emoji](#emoji) | 2 |
 | [editable](#editable) | 2 |
-| [duplicator](#duplicator) | 2 |
-| [diagram](#diagram) | 2 |
 | [contenteditable](#contenteditable) | 2 |
 | [checkboxlist](#checkboxlist) | 2 |
 | [box](#box) | 2 |
 | [wysiwyg](#wysiwyg) | 1 |
 | [wizardexpert](#wizardexpert) | 1 |
-| [windows](#windows) | 1 |
 | [websocket](#websocket) | 1 |
+| [treeview](#treeview) | 1 |
 | [tour](#tour) | 1 |
 | [touchmove](#touchmove) | 1 |
 | [tooltip](#tooltip) | 1 |
@@ -71,11 +67,8 @@ They are style rules of the new components that the old code does not follow. Th
 | [textboxtags](#textboxtags) | 1 |
 | [textboxlist](#textboxlist) | 1 |
 | [tagger](#tagger) | 1 |
-| [tabs](#tabs) | 1 |
 | [submit](#submit) | 1 |
 | [splashscreen](#splashscreen) | 1 |
-| [serverlist](#serverlist) | 1 |
-| [servergrid](#servergrid) | 1 |
 | [section](#section) | 1 |
 | [scrollbar](#scrollbar) | 1 |
 | [repeatergroup](#repeatergroup) | 1 |
@@ -87,34 +80,25 @@ They are style rules of the new components that the old code does not follow. Th
 | [pricerange](#pricerange) | 1 |
 | [pictureuploadexpert](#pictureuploadexpert) | 1 |
 | [pictureupload](#pictureupload) | 1 |
-| [pictures](#pictures) | 1 |
 | [permissionsop](#permissionsop) | 1 |
-| [permissions](#permissions) | 1 |
 | [period](#period) | 1 |
 | [part](#part) | 1 |
-| [paper](#paper) | 1 |
 | [pagination](#pagination) | 1 |
 | [objecttree](#objecttree) | 1 |
-| [notify](#notify) | 1 |
 | [nosqlcounter](#nosqlcounter) | 1 |
-| [navigation](#navigation) | 1 |
-| [monthlycalendar](#monthlycalendar) | 1 |
 | [modificator](#modificator) | 1 |
 | [markdownpreview](#markdownpreview) | 1 |
 | [mapmarker](#mapmarker) | 1 |
 | [map](#map) | 1 |
-| [livestats](#livestats) | 1 |
 | [listbox](#listbox) | 1 |
 | [lazyload](#lazyload) | 1 |
 | [lazycontent](#lazycontent) | 1 |
 | [layout](#layout) | 1 |
+| [kanban](#kanban) | 1 |
 | [isopen](#isopen) | 1 |
 | [intro](#intro) | 1 |
-| [inlineproperties](#inlineproperties) | 1 |
-| [infowindows](#infowindows) | 1 |
 | [info](#info) | 1 |
 | [infinitescroll](#infinitescroll) | 1 |
-| [importcsv](#importcsv) | 1 |
 | [iframepreview](#iframepreview) | 1 |
 | [iframeeditable](#iframeeditable) | 1 |
 | [html-5-template](#html-5-template) | 1 |
@@ -127,37 +111,33 @@ They are style rules of the new components that the old code does not follow. Th
 | [faicons](#faicons) | 1 |
 | [exec](#exec) | 1 |
 | [emojibutton](#emojibutton) | 1 |
+| [duplicator](#duplicator) | 1 |
 | [dropdownlist](#dropdownlist) | 1 |
 | [dropdown](#dropdown) | 1 |
 | [dragdropfiles](#dragdropfiles) | 1 |
-| [dockable](#dockable) | 1 |
 | [disable](#disable) | 1 |
+| [diagram](#diagram) | 1 |
 | [developer](#developer) | 1 |
-| [detail](#detail) | 1 |
 | [dashboard](#dashboard) | 1 |
 | [csv-export](#csv-export) | 1 |
 | [countdown](#countdown) | 1 |
 | [cookie2](#cookie2) | 1 |
 | [cookie](#cookie) | 1 |
-| [console](#console) | 1 |
 | [clock](#clock) | 1 |
 | [clipboard](#clipboard) | 1 |
 | [clickbox](#clickbox) | 1 |
 | [click](#click) | 1 |
 | [chunkyscroll](#chunkyscroll) | 1 |
-| [children](#children) | 1 |
 | [checkbox](#checkbox) | 1 |
 | [calendar](#calendar) | 1 |
 | [button](#button) | 1 |
 | [avatar](#avatar) | 1 |
-| [attachments](#attachments) | 1 |
 | [animation](#animation) | 1 |
 
 ## datagrid
 
-[datagrid/component.html](datagrid/component.html), 183 warnings:
+[datagrid/component.html](datagrid/component.html), 182 warnings:
 
-- id="..." attributes in the component, use aria-label or a wrapping <label>
 - selector ".dg" is not scoped under .ui-datagrid
 - selector ".dg-body" is not scoped under .ui-datagrid
 - selector ".dg .ui-scrollbar-y" is not scoped under .ui-datagrid
@@ -701,10 +681,9 @@ They are style rules of the new components that the old code does not follow. Th
 
 ## notifications
 
-[notifications/component.html](notifications/component.html), 12 warnings:
+[notifications/component.html](notifications/component.html), 11 warnings:
 
 - it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20
-- id="..." attributes in the component, use aria-label or a wrapping <label>
 - selector ".ui-notification-container" is not scoped under .ui-notifications
 - selector ".ui-notification" is not scoped under .ui-notifications
 - selector ".ui-notification > i" is not scoped under .ui-notifications
@@ -787,15 +766,6 @@ They are style rules of the new components that the old code does not follow. Th
 - selector ".right" is not scoped under .ui-grid
 - selector ".center" is not scoped under .ui-grid
 
-## floatingbox
-
-[floatingbox/component.html](floatingbox/component.html), 4 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
-- selector ".floatingbox" is not scoped under .ui-floatingbox
-- selector ".floatingbox-visible" is not scoped under .ui-floatingbox
-- selector ".ui-dark .floatingbox" is not scoped under .ui-floatingbox
-
 ## swiper
 
 [swiper/component.html](swiper/component.html), 3 warnings:
@@ -868,6 +838,14 @@ They are style rules of the new components that the old code does not follow. Th
 - self.release() is a no-op in jComponent v20, remove it
 - selector ".ui-form-title > span" is not scoped under .ui-fullform
 
+## floatingbox
+
+[floatingbox/component.html](floatingbox/component.html), 3 warnings:
+
+- selector ".floatingbox" is not scoped under .ui-floatingbox
+- selector ".floatingbox-visible" is not scoped under .ui-floatingbox
+- selector ".ui-dark .floatingbox" is not scoped under .ui-floatingbox
+
 ## window
 
 [window/component.html](window/component.html), 2 warnings:
@@ -881,13 +859,6 @@ They are style rules of the new components that the old code does not follow. Th
 
 - it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20
 - id="..." attributes in the component, use aria-label or a wrapping <label>
-
-## treeview
-
-[treeview/component.html](treeview/component.html), 2 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
-- self.release() is a no-op in jComponent v20, remove it
 
 ## singleupload
 
@@ -934,13 +905,6 @@ They are style rules of the new components that the old code does not follow. Th
 ## miniform
 
 [miniform/component.html](miniform/component.html), 2 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
-- self.release() is a no-op in jComponent v20, remove it
-
-## kanban
-
-[kanban/component.html](kanban/component.html), 2 warnings:
 
 - id="..." attributes in the component, use aria-label or a wrapping <label>
 - self.release() is a no-op in jComponent v20, remove it
@@ -994,20 +958,6 @@ They are style rules of the new components that the old code does not follow. Th
 - it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20
 - selector ".editable-multiline" is not scoped under .ui-editable
 
-## duplicator
-
-[duplicator/component.html](duplicator/component.html), 2 warnings:
-
-- it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20
-- id="..." attributes in the component, use aria-label or a wrapping <label>
-
-## diagram
-
-[diagram/component.html](diagram/component.html), 2 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
-- self.release() is a no-op in jComponent v20, remove it
-
 ## contenteditable
 
 [contenteditable/component.html](contenteditable/component.html), 2 warnings:
@@ -1041,17 +991,17 @@ They are style rules of the new components that the old code does not follow. Th
 
 - it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20
 
-## windows
-
-[windows/component.html](windows/component.html), 1 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
-
 ## websocket
 
 [websocket/component.html](websocket/component.html), 1 warnings:
 
 - it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20
+
+## treeview
+
+[treeview/component.html](treeview/component.html), 1 warnings:
+
+- self.release() is a no-op in jComponent v20, remove it
 
 ## tour
 
@@ -1101,12 +1051,6 @@ They are style rules of the new components that the old code does not follow. Th
 
 - it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20
 
-## tabs
-
-[tabs/component.html](tabs/component.html), 1 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
-
 ## submit
 
 [submit/component.html](submit/component.html), 1 warnings:
@@ -1118,18 +1062,6 @@ They are style rules of the new components that the old code does not follow. Th
 [splashscreen/component.html](splashscreen/component.html), 1 warnings:
 
 - it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20
-
-## serverlist
-
-[serverlist/component.html](serverlist/component.html), 1 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
-
-## servergrid
-
-[servergrid/component.html](servergrid/component.html), 1 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
 
 ## section
 
@@ -1197,23 +1129,11 @@ They are style rules of the new components that the old code does not follow. Th
 
 - it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20
 
-## pictures
-
-[pictures/component.html](pictures/component.html), 1 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
-
 ## permissionsop
 
 [permissionsop/component.html](permissionsop/component.html), 1 warnings:
 
 - it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20
-
-## permissions
-
-[permissions/component.html](permissions/component.html), 1 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
 
 ## period
 
@@ -1227,12 +1147,6 @@ They are style rules of the new components that the old code does not follow. Th
 
 - self.release() is a no-op in jComponent v20, remove it
 
-## paper
-
-[paper/component.html](paper/component.html), 1 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
-
 ## pagination
 
 [pagination/component.html](pagination/component.html), 1 warnings:
@@ -1245,29 +1159,11 @@ They are style rules of the new components that the old code does not follow. Th
 
 - selector ".ti-rotate-270" is not scoped under .ui-objecttree
 
-## notify
-
-[notify/component.html](notify/component.html), 1 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
-
 ## nosqlcounter
 
 [nosqlcounter/component.html](nosqlcounter/component.html), 1 warnings:
 
 - it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20
-
-## navigation
-
-[navigation/component.html](navigation/component.html), 1 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
-
-## monthlycalendar
-
-[monthlycalendar/component.html](monthlycalendar/component.html), 1 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
 
 ## modificator
 
@@ -1293,12 +1189,6 @@ They are style rules of the new components that the old code does not follow. Th
 
 - it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20
 
-## livestats
-
-[livestats/component.html](livestats/component.html), 1 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
-
 ## listbox
 
 [listbox/component.html](listbox/component.html), 1 warnings:
@@ -1323,6 +1213,12 @@ They are style rules of the new components that the old code does not follow. Th
 
 - it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20
 
+## kanban
+
+[kanban/component.html](kanban/component.html), 1 warnings:
+
+- self.release() is a no-op in jComponent v20, remove it
+
 ## isopen
 
 [isopen/component.html](isopen/component.html), 1 warnings:
@@ -1332,18 +1228,6 @@ They are style rules of the new components that the old code does not follow. Th
 ## intro
 
 [intro/component.html](intro/component.html), 1 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
-
-## inlineproperties
-
-[inlineproperties/component.html](inlineproperties/component.html), 1 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
-
-## infowindows
-
-[infowindows/component.html](infowindows/component.html), 1 warnings:
 
 - id="..." attributes in the component, use aria-label or a wrapping <label>
 
@@ -1358,12 +1242,6 @@ They are style rules of the new components that the old code does not follow. Th
 [infinitescroll/component.html](infinitescroll/component.html), 1 warnings:
 
 - self.release() is a no-op in jComponent v20, remove it
-
-## importcsv
-
-[importcsv/component.html](importcsv/component.html), 1 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
 
 ## iframepreview
 
@@ -1437,6 +1315,12 @@ They are style rules of the new components that the old code does not follow. Th
 
 - it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20
 
+## duplicator
+
+[duplicator/component.html](duplicator/component.html), 1 warnings:
+
+- it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20
+
 ## dropdownlist
 
 [dropdownlist/component.html](dropdownlist/component.html), 1 warnings:
@@ -1455,29 +1339,23 @@ They are style rules of the new components that the old code does not follow. Th
 
 - id="..." attributes in the component, use aria-label or a wrapping <label>
 
-## dockable
-
-[dockable/component.html](dockable/component.html), 1 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
-
 ## disable
 
 [disable/component.html](disable/component.html), 1 warnings:
 
 - it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20
 
+## diagram
+
+[diagram/component.html](diagram/component.html), 1 warnings:
+
+- self.release() is a no-op in jComponent v20, remove it
+
 ## developer
 
 [developer/component.html](developer/component.html), 1 warnings:
 
 - it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20
-
-## detail
-
-[detail/component.html](detail/component.html), 1 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
 
 ## dashboard
 
@@ -1509,12 +1387,6 @@ They are style rules of the new components that the old code does not follow. Th
 
 - it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20
 
-## console
-
-[console/component.html](console/component.html), 1 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
-
 ## clock
 
 [clock/component.html](clock/component.html), 1 warnings:
@@ -1545,12 +1417,6 @@ They are style rules of the new components that the old code does not follow. Th
 
 - self.release() is a no-op in jComponent v20, remove it
 
-## children
-
-[children/component.html](children/component.html), 1 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
-
 ## checkbox
 
 [checkbox/component.html](checkbox/component.html), 1 warnings:
@@ -1574,12 +1440,6 @@ They are style rules of the new components that the old code does not follow. Th
 [avatar/component.html](avatar/component.html), 1 warnings:
 
 - selector ".avatar" is not scoped under .ui-avatar
-
-## attachments
-
-[attachments/component.html](attachments/component.html), 1 warnings:
-
-- id="..." attributes in the component, use aria-label or a wrapping <label>
 
 ## animation
 

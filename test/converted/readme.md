@@ -1,6 +1,6 @@
 # Converted components (evidence)
 
-The result of `node tools/convert.js` over the components of the classic format of `totaljs/components` (branch `master`, folders `j-*`). Generated on 2026-11-03 11:07. Every folder has the new declaration: `component.html`, `readme.md` and `preview.jpg` (the old `picture.jpg`).
+The result of `node tools/convert.js` over the components of the classic format of `totaljs/components` (branch `master`, folders `j-*`). Generated on 2026-11-03 11:12. Every folder has the new declaration: `component.html`, `readme.md` and `preview.jpg` (the old `picture.jpg`).
 
 **This is the mechanical part only.** It is what the tool does without an AI: the code of every component is untouched (only the no-op `self.nocompile()` is removed). The rest (see "To finish") is done by an AI following [`SKILL.md`](../../SKILL.md).
 
@@ -44,7 +44,7 @@ Folder | Type | jComponent | Browser | Description | Preview | Still to finish |
 [animation](animation/component.html) | component | v20 | ok | old readme | picture.jpg | - | 1
 [approve](approve/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [aselected](aselected/component.html) | component | v20 | ok | added | picture.jpg | - | -
-[attachments](attachments/component.html) | component | v20 | ok | old readme | picture.jpg | - | 1
+[attachments](attachments/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [audio](audio/component.html) | component | v20 | message | added | picture.jpg | - | -
 [autocomplete](autocomplete/component.html) | component | v20 | ok | added | picture.jpg | options, config section | -
 [autodarkmode](autodarkmode/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
@@ -68,7 +68,7 @@ Folder | Type | jComponent | Browser | Description | Preview | Still to finish |
 [checkboxlist](checkboxlist/component.html) | component | v19 | ok | added | picture.jpg | - | 2
 [checkboxlistexpert](checkboxlistexpert/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [checkpath](checkpath/component.html) | component | v20 | ok | added | picture.jpg | - | -
-[children](children/component.html) | component | v20 | ok | old readme | picture.jpg | - | 1
+[children](children/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [choose](choose/component.html) | component | v20 | ok | old readme | picture.jpg | options | -
 [chunkyscroll](chunkyscroll/component.html) | component | v20 | ok | added | picture.jpg | options | 1
 [cl](cl/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
@@ -88,7 +88,7 @@ Folder | Type | jComponent | Browser | Description | Preview | Still to finish |
 [columns](columns/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [configuration](configuration/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [confirm](confirm/component.html) | component | v20 | ok | added | picture.jpg | - | -
-[console](console/component.html) | component | v20 | ok | added | picture.jpg | - | 1
+[console](console/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [console2](console2/component.html) | component | v20 | ok | added | converted from gif | - | -
 [contenteditable](contenteditable/component.html) | component | v19 | ok | added | picture.jpg | - | 2
 [contentslider](contentslider/component.html) | component | v20 | ok | added | picture.jpg | - | -
@@ -100,18 +100,18 @@ Folder | Type | jComponent | Browser | Description | Preview | Still to finish |
 [crop](crop/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [csv-export](csv-export/component.html) | package | v19 | ok | added | picture.jpg | - | 1
 [dashboard](dashboard/component.html) | component | v20 | ok | old readme | picture.jpg | - | 1
-[datagrid](datagrid/component.html) | component | v20 | ok | old readme | converted from gif | options | 183
+[datagrid](datagrid/component.html) | component | v20 | ok | old readme | converted from gif | options | 182
 [datasource](datasource/component.html) | component | v20 | message | added | picture.jpg | - | -
 [datatable](datatable/component.html) | component | v20 | ok | added | picture.jpg | options | -
 [datepicker](datepicker/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [detach](detach/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
-[detail](detail/component.html) | component | v20 | ok | old readme | picture.jpg | - | 1
+[detail](detail/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [developer](developer/component.html) | component | v19 | ok | added | picture.jpg | options, config section | 1
-[diagram](diagram/component.html) | component | v20 | ok | added | picture.jpg | - | 2
+[diagram](diagram/component.html) | component | v20 | ok | added | picture.jpg | - | 1
 [directory](directory/component.html) | component | v20 | ok | old readme | picture.jpg | options | -
 [disable](disable/component.html) | component | v19 | ok | old readme | picture.jpg | - | 1
 [display](display/component.html) | component | v20 | ok | old readme | picture.jpg | - | 10
-[dockable](dockable/component.html) | component | v20 | ok | old readme | picture.jpg | options | 1
+[dockable](dockable/component.html) | component | v20 | ok | old readme | picture.jpg | options | -
 [donutchart](donutchart/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [dragdropelement](dragdropelement/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [dragdropfiles](dragdropfiles/component.html) | component | v20 | ok | added | picture.jpg | - | 1
@@ -122,7 +122,7 @@ Folder | Type | jComponent | Browser | Description | Preview | Still to finish |
 [dropdowncheckbox](dropdowncheckbox/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [dropdownlist](dropdownlist/component.html) | component | v20 | ok | added | picture.jpg | - | 1
 [dropfiles](dropfiles/component.html) | component | v20 | ok | added | picture.jpg | - | -
-[duplicator](duplicator/component.html) | component | v19 | ok | added | picture.jpg | - | 2
+[duplicator](duplicator/component.html) | component | v19 | ok | added | picture.jpg | - | 1
 [dynamicvalue](dynamicvalue/component.html) | component | v20 | ok | old readme | picture.jpg | options, config section | -
 [dynamicvaluelist](dynamicvaluelist/component.html) | component | v20 | ok | old readme | picture.jpg | options | -
 [EAN13](EAN13/component.html) | component | v20 | ok | old readme | converted from png | options | -
@@ -154,7 +154,7 @@ Folder | Type | jComponent | Browser | Description | Preview | Still to finish |
 [fileuploadlist](fileuploadlist/component.html) | component | v19 | ok | old readme | picture.jpg | - | 2
 [filter](filter/component.html) | component | v19 | ok | added | picture.jpg | - | 1
 [fixedmodal](fixedmodal/component.html) | component | v20 | ok | old readme | picture.jpg | - | 2
-[floatingbox](floatingbox/component.html) | component | v20 | ok | added | picture.jpg | - | 4
+[floatingbox](floatingbox/component.html) | component | v20 | ok | added | picture.jpg | - | 3
 [floatinginput](floatinginput/component.html) | component | v20 | ok | added | picture.jpg | options | -
 [floatingpanel](floatingpanel/component.html) | component | v20 | ok | old readme | picture.jpg | options, config section | -
 [floatingsearch](floatingsearch/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
@@ -182,21 +182,21 @@ Folder | Type | jComponent | Browser | Description | Preview | Still to finish |
 [iframeviewer](iframeviewer/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [imageuploader](imageuploader/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [imageviewer](imageviewer/component.html) | component | v20 | ok | added | picture.jpg | - | -
-[importcsv](importcsv/component.html) | component | v20 | ok | old readme | picture.jpg | - | 1
+[importcsv](importcsv/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [importer](importer/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [infinitescroll](infinitescroll/component.html) | component | v20 | ok | added | picture.jpg | - | 1
 [info](info/component.html) | component | v19 | ok | added | converted from png | - | 1
-[infowindows](infowindows/component.html) | component | v20 | ok | old readme | picture.jpg | - | 1
+[infowindows](infowindows/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [inlinedatepicker](inlinedatepicker/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [inlineform](inlineform/component.html) | component | v19 | ok | added | picture.jpg | - | 3
-[inlineproperties](inlineproperties/component.html) | component | v20 | ok | added | picture.jpg | - | 1
+[inlineproperties](inlineproperties/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [input](input/component.html) | component | v20 | ok | added | picture.jpg | options | -
 [inputtags](inputtags/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [intranet-css](intranet-css/component.html) | package | v20 | ok | added | picture.jpg | - | -
 [intro](intro/component.html) | component | v20 | ok | added | picture.jpg | - | 1
 [isopen](isopen/component.html) | component | v19 | ok | added | picture.jpg | - | 1
 [jsontree](jsontree/component.html) | component | v20 | ok | added | converted from png | - | 11
-[kanban](kanban/component.html) | component | v20 | ok | added | picture.jpg | - | 2
+[kanban](kanban/component.html) | component | v20 | ok | added | picture.jpg | - | 1
 [keyselection](keyselection/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [keyvalue](keyvalue/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [largeform](largeform/component.html) | component | v20 | ok | added | picture.jpg | options | 3
@@ -214,7 +214,7 @@ Folder | Type | jComponent | Browser | Description | Preview | Still to finish |
 [listing](listing/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [listmenu](listmenu/component.html) | component | v19 | ok | old readme | picture.jpg | - | 3
 [listmenueditable](listmenueditable/component.html) | component | v20 | ok | old readme | picture.jpg | options | -
-[livestats](livestats/component.html) | component | v20 | ok | added | picture.jpg | - | 1
+[livestats](livestats/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [loadcontent](loadcontent/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [loading](loading/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [locale](locale/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
@@ -235,18 +235,18 @@ Folder | Type | jComponent | Browser | Description | Preview | Still to finish |
 [modal](modal/component.html) | component | v20 | ok | old readme | picture.jpg | - | 2
 [modificator](modificator/component.html) | component | v19 | ok | old readme | picture.jpg | - | 1
 [monacoeditor](monacoeditor/component.html) | component | v20 | ok | added | picture.jpg | - | -
-[monthlycalendar](monthlycalendar/component.html) | component | v20 | ok | old readme | picture.jpg | options | 1
+[monthlycalendar](monthlycalendar/component.html) | component | v20 | ok | old readme | picture.jpg | options | -
 [movable](movable/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [movement](movement/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [multioptions](multioptions/component.html) | component | v19 | ok | added | picture.jpg | - | 42
 [nativenotifications](nativenotifications/component.html) | component | v20 | ok | added | picture.jpg | - | -
-[navigation](navigation/component.html) | component | v20 | ok | added | picture.jpg | - | 1
+[navigation](navigation/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [navlayout](navlayout/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [noscrollbar](noscrollbar/component.html) | component | v20 | ok | added | picture.jpg | - | 5
 [nosqlcounter](nosqlcounter/component.html) | component | v19 | ok | added | picture.jpg | options | 1
-[notifications](notifications/component.html) | component | v19 | ok | added | picture.jpg | - | 12
+[notifications](notifications/component.html) | component | v19 | ok | added | picture.jpg | - | 11
 [notificationspanel](notificationspanel/component.html) | component | v20 | ok | added | picture.jpg | - | -
-[notify](notify/component.html) | component | v20 | ok | added | picture.jpg | - | 1
+[notify](notify/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [notifybar](notifybar/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [objecteditor](objecteditor/component.html) | component | v20 | ok | added | picture.jpg | - | 47
 [objecttree](objecttree/component.html) | component | v20 | ok | old readme | picture.jpg | options | 1
@@ -257,16 +257,16 @@ Folder | Type | jComponent | Browser | Description | Preview | Still to finish |
 [pages](pages/component.html) | component | v20 | ok | old readme | picture.jpg | config section | -
 [pagination](pagination/component.html) | component | v19 | ok | added | picture.jpg | - | 1
 [panel](panel/component.html) | component | v20 | ok | added | converted from gif | options | 2
-[paper](paper/component.html) | component | v20 | ok | added | picture.jpg | - | 1
+[paper](paper/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [parameters](parameters/component.html) | component | v20 | ok | old readme | picture.jpg | options | -
 [part](part/component.html) | component | v20 | ok | old readme | picture.jpg | - | 1
 [parts](parts/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [passwordmeter](passwordmeter/component.html) | component | v20 | ok | added | picture.jpg | options | -
 [paste](paste/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [period](period/component.html) | component | v19 | ok | old readme | picture.jpg | options | 1
-[permissions](permissions/component.html) | component | v20 | ok | added | picture.jpg | - | 1
+[permissions](permissions/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [permissionsop](permissionsop/component.html) | component | v19 | ok | old readme | picture.jpg | - | 1
-[pictures](pictures/component.html) | component | v20 | ok | old readme | picture.jpg | - | 1
+[pictures](pictures/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [pictureupload](pictureupload/component.html) | component | v19 | ok | added | picture.jpg | options | 1
 [pictureuploadexpert](pictureuploadexpert/component.html) | component | v19 | ok | added | picture.jpg | - | 1
 [pin](pin/component.html) | component | v20 | ok | old readme | picture.jpg | options | -
@@ -308,8 +308,8 @@ Folder | Type | jComponent | Browser | Description | Preview | Still to finish |
 [selectbox](selectbox/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [selected](selected/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [selection](selection/component.html) | component | v20 | ok | old readme | picture.jpg | options | -
-[servergrid](servergrid/component.html) | component | v20 | ok | added | picture.jpg | - | 1
-[serverlist](serverlist/component.html) | component | v20 | ok | old readme | picture.jpg | options | 1
+[servergrid](servergrid/component.html) | component | v20 | ok | added | picture.jpg | - | -
+[serverlist](serverlist/component.html) | component | v20 | ok | old readme | picture.jpg | options | -
 [serverlisting](serverlisting/component.html) | component | v20 | ok | old readme | picture.jpg | options | -
 [serviceworker](serviceworker/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [shoppingcart](shoppingcart/component.html) | component | v20 | ok | added | picture.jpg | - | -
@@ -336,7 +336,7 @@ Folder | Type | jComponent | Browser | Description | Preview | Still to finish |
 [table](table/component.html) | component | v20 | ok | added | picture.jpg | options | -
 [tablegrid](tablegrid/component.html) | component | v20 | ok | old readme | picture.jpg | options | -
 [tabmenu](tabmenu/component.html) | component | v20 | ok | added | picture.jpg | - | -
-[tabs](tabs/component.html) | component | v20 | ok | added | converted from gif | - | 1
+[tabs](tabs/component.html) | component | v20 | ok | added | converted from gif | - | -
 [tagger](tagger/component.html) | component | v19 | ok | old readme | picture.jpg | - | 1
 [tags](tags/component.html) | package | v20 | ok | added | picture.jpg | - | -
 [tangular-autoformat](tangular-autoformat/component.html) | package | v20 | ok | old readme | picture.jpg | - | -
@@ -366,7 +366,7 @@ Folder | Type | jComponent | Browser | Description | Preview | Still to finish |
 [touchmove](touchmove/component.html) | component | v19 | ok | old readme | picture.jpg | options, config section | 1
 [tour](tour/component.html) | component | v19 | ok | added | picture.jpg | - | 1
 [tree](tree/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
-[treeview](treeview/component.html) | component | v20 | ok | old readme | picture.jpg | options | 2
+[treeview](treeview/component.html) | component | v20 | ok | old readme | picture.jpg | options | 1
 [typed](typed/component.html) | component | v20 | ok | added | picture.jpg | - | -
 [uibuilder](uibuilder/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [uieditor](uieditor/component.html) | component | v20 | ok | old readme | picture.jpg | options | -
@@ -384,7 +384,7 @@ Folder | Type | jComponent | Browser | Description | Preview | Still to finish |
 [websocket](websocket/component.html) | component | v19 | ok | old readme | picture.jpg | - | 1
 [wiki](wiki/component.html) | component | v19 | ok | old readme | picture.jpg | options | 34
 [window](window/component.html) | component | v20 | ok | added | converted from gif | - | 2
-[windows](windows/component.html) | component | v20 | ok | old readme | picture.jpg | - | 1
+[windows](windows/component.html) | component | v20 | ok | old readme | picture.jpg | - | -
 [wizardexpert](wizardexpert/component.html) | component | v19 | ok | old readme | picture.jpg | - | 1
 [wysiwyg](wysiwyg/component.html) | component | v20 | ok | added | picture.jpg | - | 1
 [xterm](xterm/component.html) | component | v20 | ok | old readme | picture.jpg | - | -

@@ -4,18 +4,18 @@ What was seen while converting 329 components with `tools/convert.js` and checki
 
 ## 1. Warnings (style rules of the new components that the old code does not follow)
 
-**729 warnings** in 141 components. They are warnings, not errors, because converting must not change the behaviour of a component: `check.js --legacy` reports them and does not rewrite anything.
+**703 warnings** in 122 components. They are warnings, not errors, because converting must not change the behaviour of a component: `check.js --legacy` reports them and does not rewrite anything.
 
 | Warning | Count |
 | --- | --- |
 | selector "..." is not scoped under .ui-<name> | 572 |
-| it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20 | 70 |
-| id="..." attributes in the component, use aria-label or a wrapping <label> | 58 |
+| it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20 | 72 |
+| id="..." attributes in the component, use aria-label or a wrapping <label> | 32 |
 | self.release() is a no-op in jComponent v20, remove it | 20 |
 | selector "..."text"..." is not scoped under .ui-<name> | 3 |
 | selector "..."password"..." is not scoped under .ui-<name> | 2 |
-| self.bindvisible() is a no-op in jComponent v20, remove it | 1 |
 | console.log in the component | 1 |
+| self.bindvisible() is a no-op in jComponent v20, remove it | 1 |
 
 Top components by number of warnings:
 
@@ -63,6 +63,7 @@ Other messages seen in earlier runs, with the same cause (the environment): `map
 
 | What was seen | Cause | Fix |
 | --- | --- | --- |
+| `windows` (and 25 more) reported `id="..." attributes` although they have none | The rule looked for `id=` with a word boundary, and `data-id="..."` matched (the hyphen is a boundary) | The rule only matches an `id` attribute, not `data-id` or `aria-...`: the warnings of this kind went from 58 to 32, and 19 components have no warning anymore |
 | 8 components failed in Chrome after converting: `NOTMODIFIED is not defined` (`repeatergroup`, `textboxtags`), `EVALUATE is not defined` (`disable`), `self.compile is not a function` (`repeater`), `self.path.replace is not a function` (`submit`), `Maximum call stack size exceeded` (`pagination`), `Cannot read properties of undefined (reading setCenter)` (`mapmarker`), a syntax error in `filter` | They are v19 components: their `component.json` has no `jcomponent` (or `19`) and the tool put `spa.min@20` on them. In the old format (`spa.min@19`) they were clean | The tool keeps the version that the component declares: 70 components stay on `spa.min@19` and `jcomponent: v19` |
 | `crop` and about 30 more had code as the description (`// Resize canvas component.reconfigure(...)`) | The first block of the old readme was taken as the description, and a code block with blank lines gave a piece of code | Code blocks are ignored, it has to look like a sentence and only its first sentence is used; otherwise `TODO` (then written by the AI) |
 | 18 components had no preview | Their picture is `picture.gif` (14) or `picture.png` (3); the tool only looked for `picture.jpg` | They are converted to `preview.jpg`. `scanner` has no picture at all and got a generated one |

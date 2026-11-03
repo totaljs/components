@@ -74,7 +74,8 @@ code = code.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
 if (/\bconsole\.log\(/.test(code))
 	style('component.html: console.log in the component');
 
-if (/\bid\s*=\s*\\?["']/.test(code))
+// An id attribute, not data-id or aria-labelledby
+if (/(^|[^\w-])id\s*=\s*\\?["']/.test(code))
 	style('component.html: id="..." attributes in the component, use aria-label or a wrapping <label>');
 
 ['nocompile', 'release', 'bindvisible'].forEach(function(key) {
