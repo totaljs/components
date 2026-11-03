@@ -1,6 +1,6 @@
 // Converts a component of the classic format (component.js, component.css, component.json, example.html,
 // dependencies.html, readme.md, picture.jpg) to the new format (component.html, readme.md, preview.jpg).
-// Usage: node tools/convert.js <old-folder> [--out <dir>] [--prefix <j->]
+// Usage: node tools/convert.js <old-folder> [--out <dir>] [--prefix <j->] [--name <name>]
 //
 // - The folder of the result is the name of the component (the name of COMPONENT('name')), with --prefix it is <prefix><name>.
 // - It does the mechanical part only. Then run: node tools/check.js <result> and finish what it reports.
@@ -56,12 +56,34 @@ var css = read('component.css').trim();
 var example = read('example.html').trim();
 var deps = read('dependencies.html').trim();
 
-if (!js)
-	die('there is no component.js');
+// A package that is not a jComponent (a Tangular helper, a CSS library, a template) has no COMPONENT('name'):
+// it is converted with its CSS, its JavaScript (if any) and its example, and its name is the one of component.json
+var slug = function(value) {
+	return (value || '').replace(/^j-/i, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+};
 
-var name = (js.match(/COMPONENT\(\s*'([^'@]+)/) || [])[1];
+var dedent = function(text) {
+	var lines = text.replace(/^\n+|\s+$/g, '').split('\n');
+	var min = Infinity;
+	lines.forEach(function(line) {
+		line.trim() && (min = Math.min(min, /^[ \t]*/.exec(line)[0].length));
+	});
+	return lines.map(function(line) { return line.substring(min === Infinity ? 0 : min); }).join('\n');
+};
+
+var compname = (js.match(/COMPONENT\(\s*'([^'@]+)/) || [])[1];
+var isPackage = !compname;
+var name = compname || slug(json.name);
+
+// --name <name> only for a package whose name is already the one of a component (for example Tooltip and j-Tooltip)
+if (isPackage && option('--name'))
+	name = option('--name');
+
 if (!name)
-	die('COMPONENT(\'name\') not found');
+	die('there is no COMPONENT(\'name\') and no name in component.json');
+
+if (isPackage)
+	console.log('PACKAGE ' + name + ': it is not a jComponent (no COMPONENT in component.js), converted with its css, js and example');
 
 if ((js.match(/^COMPONENT\(/gm) || []).length > 1)
 	console.log('WARNING ' + name + ': more than one COMPONENT in component.js');
@@ -83,6 +105,27 @@ deps.split('\n').forEach(function(line) {
 
 // The version of the library is the one that the component declares. Without "jcomponent" in component.json it is v19:
 // forcing v20 on a v19 component breaks it (for example NOTMODIFIED or EVALUATE are not defined in v20)
+// A package: the <style> blocks of the example are its CSS, and a full page of the example is reduced to its body
+if (isPackage) {
+	var styles = [];
+
+	if (/^\s*(<!DOCTYPE|<html)/i.test(example)) {
+		((example.match(/<head[^>]*>([\s\S]*?)<\/head>/i) || [])[1] || '').split('\n').forEach(function(line) {
+			line = line.trim();
+			/^<(link|script)\b/i.test(line) && !/cdn\.componentator\.com\/spa\.min/.test(line) && extra.push(line);
+		});
+		var inner = example.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+		inner && (example = inner[1]);
+	}
+
+	example = example.replace(/<style[^>]*>([\s\S]*?)<\/style>/gi, function(match, content) {
+		styles.push(dedent(content));
+		return '';
+	}).replace(/\n{3,}/g, '\n\n').trim();
+
+	css = [css].concat(styles).filter(Boolean).join('\n\n');
+}
+
 var declared = json.jcomponent ? ('' + json.jcomponent).split('|').map(function(v) { return v.trim(); }) : ['19'];
 var v20 = declared.indexOf('20') !== -1;
 
@@ -95,15 +138,15 @@ extra.forEach(function(line) { head.push(line); });
 
 var html = '<!DOCTYPE html>\n<html>\n<head>\n\t<meta charset="utf-8" />\n\t<meta http-equiv="X-UA-Compatible" content="IE=11" />\n\t<meta name="format-detection" content="telephone=no" />\n\t<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />\n\t<meta name="robots" content="all,follow" />\n' +
 	head.map(function(line) { return '\t' + line; }).join('\n') + '\n</head>\n<body>\n\n' +
-	'\t<!-- Style -->\n\t<style component>\n' + (css ? indent(css, 2) : '\t\t.ui-' + name + ' {}') + '\n\t</style>\n\n' +
-	'\t<!-- Source-code -->\n\t<script component>\n\n' + indent(js, 2) + '\n\n\t</script>\n\n' +
+	'\t<!-- Style -->\n\t<style component>\n' + (css ? indent(css, 2) : isPackage ? '\t\t/* This package has no CSS */' : '\t\t.ui-' + name + ' {}') + '\n\t</style>\n\n' +
+	'\t<!-- Source-code -->\n\t<script component>\n\n' + (js ? indent(js, 2) : '\t\t// This package has no JavaScript') + '\n\n\t</script>\n\n' +
 	'\t<!-- Example -->\n' + indent(example, 1) + '\n\n</body>\n</html>\n';
 
 // readme.md
 var readme = read('readme.md');
 var title = (json.name || '').replace(/^j-/i, '') || name;
 
-readme = readme.replace(/^__Configuration__\s*$/m, '__Configuration__:').replace(/^## .*\n+/, '').replace(/^- jComponent `[^`]*`\n+/m, '');
+readme = readme.replace(/^__Configuration__\s*$/m, '__Configuration__:').replace(/^#{1,2} .*\n+/, '').replace(/^- jComponent `[^`]*`\n+/m, '');
 
 // The block "### Author" keeps only what is not the author or the license
 var index = readme.search(/^### Author\s*$/m);

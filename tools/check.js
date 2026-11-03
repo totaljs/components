@@ -43,7 +43,10 @@ if (!fs.existsSync(path.join(dir, 'preview.jpg')) && !preview)
 // component.html
 var name = (html.match(/COMPONENT\(\s*'([A-Za-z0-9]+)'/) || [])[1];
 
-if (!name)
+// A package that is not a jComponent (a Tangular helper, a CSS library) has no COMPONENT
+var isPackage = !/COMPONENT\(/.test((html.match(/<script component>([\s\S]*?)<\/script>/) || [])[1] || '');
+
+if (!name && !isPackage)
 	fail('component.html: COMPONENT(\'name\', ...) not found or the name is not alphanumeric');
 
 if (!/<link[^>]+spa\.min@20\.css/.test(html) || !/<script[^>]+spa\.min@20\.js/.test(html)) {
@@ -204,7 +207,7 @@ try {
 		return document.querySelectorAll('ui-component').length;
 	});
 
-	if (!found)
+	if (!found && !isPackage)
 		logs.push('Browser: no <ui-component> in the example');
 
 	// Dark mode must not throw

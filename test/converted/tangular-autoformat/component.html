@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		/* This package has no CSS */
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		Thelpers.autoformat = function(value, format) {
+
+			if (value === false || value === true)
+				return '<i class="ti ti-{0}"></i>'.format(value ? 'check-square' : 'square');
+
+			if (value instanceof Date)
+				return value.format(format || '[date]');
+
+			if (value instanceof Array) {
+				var builder = [];
+				for (let m of value)
+					builder.push('<span class="badge badge-medium mr5">{0}</span>'.format(m.toString().encode()));
+				return builder.join('');
+			}
+
+			var type = typeof(value);
+
+			if (!value || typeof(value) === 'object')
+				return value;
+
+			if (type === 'number')
+				return typeof(format) === 'string' ? value.currency(format) : value.format(format || 0);
+
+			value = value.trim();
+
+			if (value.includes('@'))
+				return '<a href="mailto:{0}">{0}</a>'.format(value);
+
+			if ((/^http(s)\:\//).test(value))
+				return '<a href="{0}" target="_blank">{0}</a>'.format(value);
+
+			if (value.charAt(0) === '#')
+				return '<i class="ti ti-square-alt" style="color:{0}"></i>'.format(value);
+
+			if ((/[0-9\s\-\+]/).test(value))
+				return '<a href="tel:{0}">{0}</a>'.format(value.replace(/\s/g, ''));
+
+			return value;
+		};
+
+	</script>
+
+	<!-- Example -->
+	<div id="output"></div>
+
+	<script>
+		var builder = [];
+		['https://www.totaljs.com', 'info@totaljs.com', '+421903163302', '#68B25B', false, true].forEach(num => builder.push(Thelpers.autoformat(num)));
+		$('#output').html(builder.join('<br />'));
+	</script>
+
+</body>
+</html>

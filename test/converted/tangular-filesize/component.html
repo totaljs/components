@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		/* This package has no CSS */
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		Thelpers.filesize = function(value, decimals, type) {
+			return value ? value.filesize(decimals, type) : '...';
+		};
+
+		Number.prototype.filesize = function(decimals, type) {
+
+			if (typeof(decimals) === 'string') {
+				var tmp = type;
+				type = decimals;
+				decimals = tmp;
+			}
+
+			var value;
+			var t = this;
+
+			// this === bytes
+			switch (type) {
+				case 'bytes':
+					value = t;
+					break;
+				case 'KB':
+					value = t / 1024;
+					break;
+				case 'MB':
+					value = filesizehelper(t, 2);
+					break;
+				case 'GB':
+					value = filesizehelper(t, 3);
+					break;
+				case 'TB':
+					value = filesizehelper(t, 4);
+					break;
+				default:
+
+					type = 'bytes';
+					value = t;
+
+					if (value > 1023) {
+						value = value / 1024;
+						type = 'KB';
+					}
+
+					if (value > 1023) {
+						value = value / 1024;
+						type = 'MB';
+					}
+
+					if (value > 1023) {
+						value = value / 1024;
+						type = 'GB';
+					}
+
+					if (value > 1023) {
+						value = value / 1024;
+						type = 'TB';
+					}
+
+					break;
+			}
+
+			type = ' ' + type;
+			return (decimals === undefined ? value.format(2).replace('.00', '') : value.format(decimals)) + type;
+		};
+
+		function filesizehelper(number, count) {
+			while (count--) {
+				number = number / 1024;
+				if (number.toFixed(3) === '0.000')
+					return 0;
+			}
+			return number;
+		}
+
+	</script>
+
+	<!-- Example -->
+	<div id="output"></div>
+
+	<script>
+		var numbers = [5, 134, 2309, 43300330];
+		var builder = [];
+		numbers.forEach(function(num) {
+			builder.push(Thelpers.filesize(num));
+		});
+		$('#output').html(builder.join('<br />'));
+	</script>
+
+</body>
+</html>

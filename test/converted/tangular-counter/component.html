@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		/* This package has no CSS */
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		Thelpers.counter = function(value, decimals) {
+
+			if (decimals == null)
+				decimals = 0;
+
+			if (value > 999999)
+				return (value / 1000000).format(decimals) + ' M';
+			if (value > 9999)
+				return (value / 1000).format(decimals) + ' K';
+			return value.format(decimals);
+		};
+
+	</script>
+
+	<!-- Example -->
+	<div id="output"></div>
+
+	<script>
+		var numbers = [1000, 10000, 100000, 1000000];
+		var builder = [];
+		numbers.forEach(function(num) {
+			builder.push(Thelpers.counter(num));
+		});
+		$('#output').html(builder.join('<br />'));
+	</script>
+
+</body>
+</html>
