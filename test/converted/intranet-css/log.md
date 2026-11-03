@@ -1,0 +1,22 @@
+# Log: intranet-css
+
+Result of converting the old component with `tools/convert.js` and checking it with `node tools/check.js intranet-css --legacy`. Type: **package**, jComponent: **v20**. This file is evidence for the review; it is not part of the format of a component (`component.html`, `readme.md`, `preview.jpg`).
+
+## What was done
+
+- `component.css` -> `<style component>`, `component.js` -> `<script component>`, `example.html` -> the example, `dependencies.html` -> the `<head>`, `component.json` -> the frontmatter of `readme.md`. The code of the component was not changed.
+- Description: written by the AI from the readme and the code, check it.
+- Preview: picture.jpg.
+
+## Browser (Chrome, from disk)
+
+- It opens in Chrome from disk without JavaScript errors of its own.
+
+## Warnings
+
+None.
+
+## Still to finish
+
+Nothing: `check.js --legacy` reports no errors.
+

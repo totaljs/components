@@ -1,11 +1,11 @@
 # Warnings
 
-All the warnings of `node tools/check.js <folder> --legacy` over the converted components, one by one. 703 warnings in 122 components, sorted by the number of warnings. Generated on 2026-11-03 11:14.
+All the warnings of `node tools/check.js <folder> --legacy` over the converted components, one by one. 703 warnings in 122 components, sorted by the number of warnings. Generated on 2026-11-03 11:16.
 
 They are style rules of the new components that the old code does not follow. They are warnings and not errors because converting must not change the behaviour of a component, so nothing was rewritten. How to read them:
 
 - `selector "X" is not scoped under .ui-<name>`: the CSS rule `X` does not belong to the class of the component (for example `.dg` in `datagrid`).
-- `id="..." attribute in the code, near: ...`: the JavaScript of the component writes an `id` attribute (the warning shows the text around it). For a new component the rule is to avoid it: every instance of the component would repeat the same id; use `aria-label` or a wrapping `<label>`. `data-id` is not an `id` and is not reported. It is only a warning: nothing was changed.
+- `id="..." attributes`: the code writes `id` attributes.
 - `self.release()` / `self.bindvisible()`: calls that do nothing in jComponent v20.
 - `it uses spa.min@19`: the component declares v19 only.
 

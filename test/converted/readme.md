@@ -1,6 +1,6 @@
 # Converted components (evidence)
 
-The result of `node tools/convert.js` over the components of the classic format of `totaljs/components` (branch `master`, folders `j-*`). Generated on 2026-11-03 11:14. Every folder has the new declaration: `component.html`, `readme.md` and `preview.jpg` (the old `picture.jpg`).
+The result of `node tools/convert.js` over the components of the classic format of `totaljs/components` (branch `master`, folders `j-*`). Generated on 2026-11-03 11:16. Every folder has the new declaration: `component.html`, `readme.md` and `preview.jpg` (the old `picture.jpg`).
 
 **This is the mechanical part only.** It is what the tool does without an AI: the code of every component is untouched (only the no-op `self.nocompile()` is removed). The rest (see "To finish") is done by an AI following [`SKILL.md`](../../SKILL.md).
 
@@ -25,7 +25,7 @@ node tools/check.js test/converted/<name> --legacy
 | Still to finish: `__Configuration__:` section missing | 10 |
 | No errors in `check.js --legacy` | 280 |
 
-The errors, warnings and messages that were seen are in [log.md](log.md), and all the warnings, one by one, in [warnings.md](warnings.md).
+The errors, warnings and messages that were seen are in [log.md](log.md), and all the warnings, one by one, in [warnings.md](warnings.md). **Every folder has its own `log.md`** with what was seen in that component (browser, warnings with the text around them, what is still to finish) and how to fix each thing; it is evidence for the review and not part of the format of a component.
 
 Descriptions are written from the old readme and from the code, in one sentence. The old description was kept when the old readme had a usable first sentence ("old readme" in the table).
 
