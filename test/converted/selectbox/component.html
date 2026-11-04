@@ -55,6 +55,7 @@
 
 			self.datasource2 = EMPTYARRAY;
 			self.template = Tangular.compile('<span data-search="{{ search }}" data-index="{{ index }}">{{ text ' + (config.raw ? ' | raw' : '') + ' }}</span>');
+			self.nocompile && self.nocompile();
 
 			self.validate = function(value) {
 				return config.disabled || !config.required ? true : value && value.length > 0;
@@ -161,6 +162,7 @@
 					}
 				}
 
+
 				Eitems.empty().append(builder.join(''));
 				self.refresh();
 				self.search();
@@ -228,6 +230,7 @@
 					var index = +el.attrd('index');
 					el.tclass(cls + '-selected', selected[index] !== undefined);
 				});
+
 
 				Eselected.empty().append(builder.join(''));
 				self.search();

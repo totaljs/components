@@ -10,35 +10,30 @@ Result of converting the old component with `tools/convert.js` and checking it w
 
 ## Browser (Chrome, from disk)
 
-- It opens in Chrome from disk without JavaScript errors of its own.
+The file was opened with `spa.min@19` and with `spa.min@20` (the `<head>` was changed in a copy, the component was not touched).
+
+| Library | Result |
+| --- | --- |
+| v19 | no JavaScript errors |
+| v20 | no JavaScript errors |
+
+It declares `v19` only. It also loads with v20 without errors; that does not prove that it works in v20.
 
 ## Warnings
 
-3 warning(s). They are style rules for new components that the old code does not follow; nothing was rewritten because converting must not change the behaviour.
+1 warning(s). They are style rules for new components that the old code does not follow; nothing was rewritten because converting must not change the behaviour.
 
 ### 1 x it uses spa.min@19 (the component declares v19 only): it needs an update to run on jCompon
 
 - `it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20`
 
-**How to fix**: change the two links of the `<head>` to `spa.min@20`, open the file in the browser and fix what the console reports (typical errors in v20: `NOTMODIFIED is not defined`, `EVALUATE is not defined`, `self.compile is not a function`), then set `jcomponent: v19,v20` in `readme.md`. If it cannot run on v20, leave it as it is.
-
-### 1 x `id` attribute
-
-- `id="..." attribute in the code, near: ument.body).append('<div id="{1}" class="{0}"><div class="{0}-toolbar" (use aria-label or a wrapping <label>, an id is shared by every instance)`
-
-**How to fix**: remove the `id` and name the control with `aria-label` or a wrapping `<label>`; if the code reads the element back with `$('#id')`, keep a reference to the element instead (`var el = $(...)`) or use `self.find(...)`. `data-id` is not an `id` and is never reported.
-
-### 1 x self.release() is a no-op in jComponent v20, remove it
-
-- `self.release() is a no-op in jComponent v20, remove it`
-
-**How to fix**: delete the call. If it is written as `if (self.release()) return;` delete the whole line: `release()` returns nothing, so the condition is never true.
+**Possible fix**: change the two links of the `<head>` to `spa.min@20`, open the file in the browser and fix what the console reports (typical errors in v20: `NOTMODIFIED is not defined`, `EVALUATE is not defined`, `self.compile is not a function`), then set `jcomponent: v19,v20` in `readme.md`. If it cannot run on v20, leave it as it is.
 
 ## Still to finish
 
 ### Options of the default configuration that the readme does not document
 
-The code defines these options and `readme.md` does not say what they do. How to fix: read what the code does with `config.<key>` and add one bullet per option under `__Configuration__:`. Draft lines (the type is guessed from the default, the description must be written):
+The code defines these options and `readme.md` does not say what they do. Possible fix: read what the code does with `config.<key>` and add one bullet per option under `__Configuration__:`. Draft lines (the type is guessed from the default, the description must be written):
 
 - `offset {Number}` TODO describe what it does (default: `65`)
 

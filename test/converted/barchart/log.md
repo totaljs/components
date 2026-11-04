@@ -10,7 +10,14 @@ Result of converting the old component with `tools/convert.js` and checking it w
 
 ## Browser (Chrome, from disk)
 
-- It opens in Chrome from disk without JavaScript errors of its own.
+The file was opened with `spa.min@19` and with `spa.min@20` (the `<head>` was changed in a copy, the component was not touched).
+
+| Library | Result |
+| --- | --- |
+| v19 | no JavaScript errors |
+| v20 | no JavaScript errors |
+
+It declares `v19,v20` and gives the same result in both versions.
 
 ## Warnings
 
@@ -20,7 +27,7 @@ None.
 
 ### Options of the default configuration that the readme does not document
 
-The code defines these options and `readme.md` does not say what they do. How to fix: read what the code does with `config.<key>` and add one bullet per option under `__Configuration__:`. Draft lines (the type is guessed from the default, the description must be written):
+The code defines these options and `readme.md` does not say what they do. Possible fix: read what the code does with `config.<key>` and add one bullet per option under `__Configuration__:`. Draft lines (the type is guessed from the default, the description must be written):
 
 - `axisX {Boolean}` TODO describe what it does (default: `true`)
 - `axisY {Boolean}` TODO describe what it does (default: `true`)

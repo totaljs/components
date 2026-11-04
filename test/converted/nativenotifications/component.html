@@ -27,6 +27,7 @@
 
 			self.singleton();
 			self.readonly();
+			self.nocompile && self.nocompile();
 			self.items = [];
 
 			self.make = function() {

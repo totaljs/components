@@ -46,6 +46,7 @@
 			var cls2 = '.' + cls;
 
 			self.readonly();
+			self.nocompile && self.nocompile();
 
 			self.configure = function(key, value, init) {
 

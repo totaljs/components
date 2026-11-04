@@ -32,6 +32,7 @@
 
 			self.singleton();
 			self.readonly();
+			self.nocompile && self.nocompile();
 
 			self.cancel = function() {
 				document.cookie.split(';').forEach(function(key) {

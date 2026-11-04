@@ -39,6 +39,8 @@
 			var track;
 			var prevwidth;
 
+			self.nocompile && self.nocompile();
+
 			self.updateposition = function(update) {
 
 				var x = (thumb.css('left') || '').parseInt();

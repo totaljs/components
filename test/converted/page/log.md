@@ -10,23 +10,24 @@ Result of converting the old component with `tools/convert.js` and checking it w
 
 ## Browser (Chrome, from disk)
 
-- It opens in Chrome from disk without JavaScript errors of its own.
+The file was opened with `spa.min@19` and with `spa.min@20` (the `<head>` was changed in a copy, the component was not touched).
+
+| Library | Result |
+| --- | --- |
+| v19 | no JavaScript errors |
+| v20 | no JavaScript errors |
+
+It declares `v19,v20` and gives the same result in both versions.
 
 ## Warnings
 
-2 warning(s). They are style rules for new components that the old code does not follow; nothing was rewritten because converting must not change the behaviour.
-
-### 1 x self.release() is a no-op in jComponent v20, remove it
-
-- `self.release() is a no-op in jComponent v20, remove it`
-
-**How to fix**: delete the call. If it is written as `if (self.release()) return;` delete the whole line: `release()` returns nothing, so the condition is never true.
+1 warning(s). They are style rules for new components that the old code does not follow; nothing was rewritten because converting must not change the behaviour.
 
 ### 1 x selector "..." is not scoped under .ui-page
 
 - `selector ".page" is not scoped under .ui-page`
 
-**How to fix**: rename the class so it starts with `.ui-page` (for example `.ui-name-part`), in the CSS **and** in every place of the JavaScript or the example that writes or searches that class. If the class is a public one that applications already style (for example `.markdown`), leave it: renaming it changes the markup that other code depends on.
+**Possible fix**: rename the class so it starts with `.ui-page` (for example `.ui-name-part`), in the CSS **and** in every place of the JavaScript or the example that writes or searches that class. If the class is a public one that applications already style (for example `.markdown`), leave it: renaming it changes the markup that other code depends on.
 
 ## Still to finish
 

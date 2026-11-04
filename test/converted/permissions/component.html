@@ -114,7 +114,7 @@
 				for (let m of items) {
 					let op = m.substring(0, 1);
 					let who = m.substring(1);
-
+					
 					if (cache[who])
 						cache[who].push(op);
 					else
@@ -143,7 +143,7 @@
 			self.recompile = function () {
 				var builder = ['<div class="{0}-row" data-id="{{ id }}">'];
 				builder.push('<div class="{0}-cell {0}-text"><i class="ti ti-trash {0}-remove red"></i>{{ name | raw }}</div>');
-
+				
 				for (let type of types) {
 					builder.push('<div class="{0}-cell {0}-type{{ if value.includes(\'{1}\') }} {0}-checked{{ fi }}" data-type="{1}"><i class="ti"></i></div>'.format(cls, type.id));
 				}
@@ -154,7 +154,7 @@
 				self.find('.' + cls + '-container').css('--permissions-cols', types.length);
 				self.header = '<div class="{0}-headerrow">'.format(cls);
 				self.header += '<div class="{0}-cell {0}-headercell"><button class="{0}-headerbutton"><i class="ti ti-plus-circle mr5"></i>{1}</button></div>'.format(cls, config.button);
-
+				
 				for (let type of types) {
 					self.header += '<div class="{0}-cell {0}-headercell" title="{1}">{1}</div>'.format(cls, type.name);
 				}
@@ -233,7 +233,7 @@
 				self.event('click', cls2 + '-remove', function () {
 					if (config.disabled)
 						return;
-
+					
 					var el = $(this);
 					var id = el.closest(cls2 + '-row').attrd('id');
 					var items = self.get();

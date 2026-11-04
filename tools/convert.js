@@ -4,7 +4,7 @@
 //
 // - The folder of the result is the name of the component (the name of COMPONENT('name')), with --prefix it is <prefix><name>.
 // - It does the mechanical part only. Then run: node tools/check.js <result> and finish what it reports.
-// - The behaviour of the component is never changed.
+// - The code of the component is never changed (self.nocompile(), self.release()... are only reported by check.js).
 
 var fs = require('fs');
 var path = require('path');
@@ -41,7 +41,8 @@ var format = function(date) {
 
 var indent = function(text, tabs) {
 	var t = '\t\t'.substring(0, tabs);
-	return text.split('\n').map(function(line) { return line.trim() ? t + line : ''; }).join('\n');
+	// A line with only spaces keeps them: the code is moved exactly as it is
+	return text.split('\n').map(function(line) { return line ? t + line : ''; }).join('\n');
 };
 
 var json;
@@ -88,8 +89,7 @@ if (isPackage)
 if ((js.match(/^COMPONENT\(/gm) || []).length > 1)
 	console.log('WARNING ' + name + ': more than one COMPONENT in component.js');
 
-// The calls that are no-ops in jComponent v20
-js = js.replace(/^[ \t]*self\.nocompile\s*&&\s*self\.nocompile\(\);?[ \t]*\n/gm, '').replace(/^[ \t]*self\.nocompile\(\);?[ \t]*\n/gm, '').replace(/\n{3,}/g, '\n\n');
+// The code of the component is never changed: self.nocompile() and the like are only reported by check.js (the owner decides)
 
 // head: the library in v20 and everything else that the old dependencies.html had
 var head = [];

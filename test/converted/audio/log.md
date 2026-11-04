@@ -10,9 +10,14 @@ Result of converting the old component with `tools/convert.js` and checking it w
 
 ## Browser (Chrome, from disk)
 
-- `ERR play() failed because the user didn't interact with the document first. https://goo.gl/xX8pDD`
+The file was opened with `spa.min@19` and with `spa.min@20` (the `<head>` was changed in a copy, the component was not touched).
 
-This message comes from the test environment (no user gesture, CORS, `file://` or an API key), not from the conversion.
+| Library | Result |
+| --- | --- |
+| v19 | `ERR play() failed because the user didn't interact with the document first. https://goo.gl/xX8pDD` |
+| v20 | `ERR play() failed because the user didn't interact with the document first. https://goo.gl/xX8pDD` |
+
+It declares `v19,v20` and gives the same result in both versions (the message comes from the test environment, not from the component).
 
 ## Warnings
 

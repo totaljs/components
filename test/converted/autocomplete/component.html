@@ -42,6 +42,7 @@
 			self.template = Tangular.compile('<li{{ if select }} class="' + clssel + '"{{ fi }} data-index="{{ index }}"><span>{{ name }}</span></li>');
 			self.readonly();
 			self.singleton();
+			self.nocompile && self.nocompile();
 
 			self.make = function() {
 

@@ -10,7 +10,14 @@ Result of converting the old component with `tools/convert.js` and checking it w
 
 ## Browser (Chrome, from disk)
 
-- It opens in Chrome from disk without JavaScript errors of its own.
+The file was opened with `spa.min@19` and with `spa.min@20` (the `<head>` was changed in a copy, the component was not touched).
+
+| Library | Result |
+| --- | --- |
+| v19 | no JavaScript errors |
+| v20 | no JavaScript errors |
+
+It declares `v19,v20` and gives the same result in both versions.
 
 ## Warnings
 
@@ -20,7 +27,7 @@ Result of converting the old component with `tools/convert.js` and checking it w
 
 - `id="..." attribute in the code, near: var offset = ('<div id="IFPOFFSET"></div><scr' + 'ipt>window.addE (use aria-label or a wrapping <label>, an id is shared by every instance)`
 
-**How to fix**: remove the `id` and name the control with `aria-label` or a wrapping `<label>`; if the code reads the element back with `$('#id')`, keep a reference to the element instead (`var el = $(...)`) or use `self.find(...)`. `data-id` is not an `id` and is never reported.
+**Possible fix**: remove the `id` and name the control with `aria-label` or a wrapping `<label>`; if the code reads the element back with `$('#id')`, keep a reference to the element instead (`var el = $(...)`) or use `self.find(...)`. `data-id` is not an `id` and is never reported.
 
 ## Still to finish
 

@@ -10,35 +10,32 @@ Result of converting the old component with `tools/convert.js` and checking it w
 
 ## Browser (Chrome, from disk)
 
-- It opens in Chrome from disk without JavaScript errors of its own. It has no `<ui-component>` tag in the example (it is opened from code or it is not a jComponent), so nothing is shown.
+The file was opened with `spa.min@19` and with `spa.min@20` (the `<head>` was changed in a copy, the component was not touched).
+
+| Library | Result |
+| --- | --- |
+| v19 | no JavaScript errors |
+| v20 | no JavaScript errors |
+
+It declares `v19,v20` and gives the same result in both versions.
+
+The example has no `<ui-component>` tag (it is opened from code or it is not a jComponent), so nothing is shown.
 
 ## Warnings
 
-3 warning(s). They are style rules for new components that the old code does not follow; nothing was rewritten because converting must not change the behaviour.
-
-### 1 x `id` attribute
-
-- `id="..." attribute in the code, near: ument.body).append('<div id="{0}" class="hidden {4}-container invisibl (use aria-label or a wrapping <label>, an id is shared by every instance)`
-
-**How to fix**: remove the `id` and name the control with `aria-label` or a wrapping `<label>`; if the code reads the element back with `$('#id')`, keep a reference to the element instead (`var el = $(...)`) or use `self.find(...)`. `data-id` is not an `id` and is never reported.
-
-### 1 x self.release() is a no-op in jComponent v20, remove it
-
-- `self.release() is a no-op in jComponent v20, remove it`
-
-**How to fix**: delete the call. If it is written as `if (self.release()) return;` delete the whole line: `release()` returns nothing, so the condition is never true.
+1 warning(s). They are style rules for new components that the old code does not follow; nothing was rewritten because converting must not change the behaviour.
 
 ### 1 x selector "..." is not scoped under .ui-fullform
 
 - `selector ".ui-form-title > span" is not scoped under .ui-fullform`
 
-**How to fix**: rename the class so it starts with `.ui-fullform` (for example `.ui-name-part`), in the CSS **and** in every place of the JavaScript or the example that writes or searches that class. If the class is a public one that applications already style (for example `.markdown`), leave it: renaming it changes the markup that other code depends on.
+**Possible fix**: rename the class so it starts with `.ui-fullform` (for example `.ui-name-part`), in the CSS **and** in every place of the JavaScript or the example that writes or searches that class. If the class is a public one that applications already style (for example `.markdown`), leave it: renaming it changes the markup that other code depends on.
 
 ## Still to finish
 
 ### Options of the default configuration that the readme does not document
 
-The code defines these options and `readme.md` does not say what they do. How to fix: read what the code does with `config.<key>` and add one bullet per option under `__Configuration__:`. Draft lines (the type is guessed from the default, the description must be written):
+The code defines these options and `readme.md` does not say what they do. Possible fix: read what the code does with `config.<key>` and add one bullet per option under `__Configuration__:`. Draft lines (the type is guessed from the default, the description must be written):
 
 - `padding {Number}` TODO describe what it does (default: `20`)
 

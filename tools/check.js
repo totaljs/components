@@ -77,14 +77,21 @@ if (/\bconsole\.log\(/.test(code))
 // An id attribute, not data-id or aria-labelledby. The message says where it is.
 var idmatch = /(^|[^\w-])id\s*=\s*\\?["']/.exec(code);
 
-if (idmatch) {
+// An id built from self.ID is unique for each instance, it is not a problem
+var uniqueid = /'#'\s*\+\s*self\.ID|id=["']\s*\+\s*self\.ID|id=\\?["']\{\d\}\\?["'][^\n]*\.format\(\s*self\.ID/.test(code);
+
+if (idmatch && !uniqueid) {
 	var idpos = idmatch.index + idmatch[1].length;
 	style('component.html: id="..." attribute in the code, near: ' + code.substring(Math.max(0, idpos - 25), idpos + 45).replace(/\s+/g, ' ').trim() + ' (use aria-label or a wrapping <label>, an id is shared by every instance)');
 }
 
-['nocompile', 'release', 'bindvisible'].forEach(function(key) {
+// self.nocompile(), self.release() and self.bindvisible() do nothing in v20 but they do something in v19:
+// they are a problem only in a component that does not declare v19 (jcomponent in the frontmatter of readme.md)
+var declaresV19 = /^jcomponent:.*\b(v)?19\b/m.test(readme);
+
+!declaresV19 && ['nocompile', 'release', 'bindvisible'].forEach(function(key) {
 	if (new RegExp('self\\.' + key + '\\b').test(code))
-		style('component.html: self.' + key + '() is a no-op in jComponent v20, remove it');
+		style('component.html: self.' + key + '() is a no-op in jComponent v20, remove it (the component does not declare v19)');
 });
 
 // self.readonly() clears getter and setter at the moment it is called: it must be called before they are defined

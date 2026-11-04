@@ -32,6 +32,8 @@
 
 			var icon;
 
+			self.nocompile();
+
 			self.validate = function(value) {
 				return (config.disabled || !config.required) ? true : value === true;
 			};

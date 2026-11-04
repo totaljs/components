@@ -134,6 +134,8 @@
 			var cls2 = '.' + cls;
 			var input, placeholder, dirsource, binded, customvalidator, customtransformer, mask, rawvalue, isdirvisible = false, nobindcamouflage = false, focused = false;
 
+			self.nocompile();
+
 			// jComponent +v20
 			config.realtime && self.autobind20 && self.autobind20(config.$delay);
 
@@ -1132,6 +1134,7 @@
 
 				if (config.type)
 					self.aclass(cls + '-type-' + config.type);
+
 
 				var html;
 				var is = false;

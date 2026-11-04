@@ -23,6 +23,7 @@
 		COMPONENT('error', 'icon:ti ti-warning', function(self, config, cls) {
 
 			self.readonly();
+			self.nocompile && self.nocompile();
 
 			self.make = function() {
 				self.aclass(cls + ' hidden');

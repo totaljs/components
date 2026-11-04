@@ -25,6 +25,7 @@
 			var old, oldvalue;
 
 			self.readonly();
+			self.nocompile && self.nocompile();
 
 			self.make = function() {
 				var scr = self.find('script');

@@ -4,18 +4,16 @@ What was seen while converting 329 components with `tools/convert.js` and checki
 
 ## 1. Warnings (style rules of the new components that the old code does not follow)
 
-**703 warnings** in 122 components. They are warnings, not errors, because converting must not change the behaviour of a component: `check.js --legacy` reports them and does not rewrite anything.
+**669 warnings** in 104 components. They are warnings, not errors, because converting must not change the behaviour of a component: `check.js --legacy` reports them and does not rewrite anything.
 
 | Warning | Count |
 | --- | --- |
 | `selector "..." is not scoped under .ui-<name>` | 572 |
 | `it uses spa.min@19 (the component declares v19 only): it needs an update to run on jComponent v20` | 72 |
-| `id="..." attribute in the code (the warning says where, use aria-label or a wrapping <label>)` | 32 |
-| `self.release() is a no-op in jComponent v20, remove it` | 20 |
+| `id="..." attribute in the code (the warning says where)` | 19 |
 | `selector "..."text"..." is not scoped under .ui-<name>` | 3 |
 | `selector "..."password"..." is not scoped under .ui-<name>` | 2 |
 | `console.log in the component` | 1 |
-| `self.bindvisible() is a no-op in jComponent v20, remove it` | 1 |
 
 Top components by number of warnings:
 
@@ -45,25 +43,32 @@ All of them, one by one, are in [warnings.md](warnings.md).
 
 ## 2. Messages of the browser test
 
-Each `component.html` was opened from disk in Chrome (headless, 800x600) and the JavaScript errors and console errors were collected.
+Every `component.html` was opened from disk in Chrome (headless, 800x600) twice: with `spa.min@19` and with `spa.min@20` (the `<head>` was changed in a copy; the components were not touched). The JavaScript errors and the console errors were collected. Each folder has the result of both runs in its own `log.md`.
 
-Result of the run that is reported in the readme: **326 without messages, 3 with a message**. They come from the test environment, not from the conversion:
+- **Components that declare `v19,v20` (276): 0 give a different result in the two versions.** 273 have no message in either, and 3 have the same message in both, which comes from the test environment and not from the component: `audio` (`ERR play() failed because the user didn't interact with the ...`), `datasource` (`CON Access to XMLHttpRequest at 'https://www.totaljs.com/das...`), `svgicons` (`CON Unsafe attempt to load URL file:///svgicons.svg#phone fr...`).
+- **Components that declare `v19` only (72):** all load with `spa.min@19` (only `map` shows a message: the Google Maps example needs an API key). With `spa.min@20`, 64 load without errors (this does not prove that they work in v20) and 8 fail:
 
-| Component | Message |
+| Component | Error with `spa.min@20` |
 | --- | --- |
-| audio | `ERR play() failed because the user didn't interact with the document first. https://goo.gl/xX8pDD` |
-| datasource | `CON Access to XMLHttpRequest at 'https://www.totaljs.com/dashboard.json' from origin 'null' has been blocked by CORS policy: Response to preflight request doesn` |
-| svgicons | `CON Unsafe attempt to load URL file:///svgicons.svg#phone from frame with URL file:///private/tmp/claude-501/-Volumes-Grey-GitHub-forge/fb219623-c588-470a-b816-` |
+| disable | `ERR EVALUATE is not defined` |
+| filter | `ERR "-buttons"><button name="reset">{reset}</button><button name="apply"><i class="ti ti-filter"></i>{apply}</button><bu` |
+| mapmarker | `ERR Cannot read properties of undefined (reading 'setCenter')` |
+| pagination | `ERR Maximum call stack size exceeded` |
+| repeater | `ERR self.compile is not a function` |
+| repeatergroup | `ERR NOTMODIFIED is not defined` |
+| submit | `ERR self.path.replace is not a function` |
+| textboxtags | `ERR NOTMODIFIED is not defined` |
 
 Other messages seen in earlier runs, with the same cause (the environment): `map` and `mapmarker` (`Google Maps JavaScript API error: ApiProjectMapError`, the example needs a key), `iframe` (`Permissions policy violation: accelerometer is not allowed in this document`).
 
-14 components have no `<ui-component>` tag in the example (popups, forms and singletons that are opened from code): box, changer, floweditor, form, formtab, fullform, largeform, miniform, panel, permissionsop, serviceworker, uieditor, uistudio, websocket. They load without errors, but the browser test does not show anything of them.
+33 components have no `<ui-component>` tag in the example (popups, forms and singletons that are opened from code, and the packages that are not jComponents), so the browser test does not show anything of them.
 
 ## 3. What failed and was fixed in the process
 
 | What was seen | Cause | Fix |
 | --- | --- | --- |
 | `windows` (and 25 more) reported `id="..." attributes` although they have none | The rule looked for `id=` with a word boundary, and `data-id="..."` matched (the hyphen is a boundary) | The rule only matches an `id` attribute, not `data-id` or `aria-...`: the warnings of this kind went from 58 to 32, and 19 components have no warning anymore |
+| The tool removed `self.nocompile()` from the components that declare v19 | `self.nocompile()` is a no-op in v20, but it does something in v19; the first version of the tool removed it in every component | The tool never changes the code of a component: the code is moved exactly as it is (the JS and the CSS of the 329 components were compared with the originals and are identical) and `check.js` only reports it |
 | 8 components failed in Chrome after converting: `NOTMODIFIED is not defined` (`repeatergroup`, `textboxtags`), `EVALUATE is not defined` (`disable`), `self.compile is not a function` (`repeater`), `self.path.replace is not a function` (`submit`), `Maximum call stack size exceeded` (`pagination`), `Cannot read properties of undefined (reading setCenter)` (`mapmarker`), a syntax error in `filter` | They are v19 components: their `component.json` has no `jcomponent` (or `19`) and the tool put `spa.min@20` on them. In the old format (`spa.min@19`) they were clean | The tool keeps the version that the component declares: 70 components stay on `spa.min@19` and `jcomponent: v19` |
 | `crop` and about 30 more had code as the description (`// Resize canvas component.reconfigure(...)`) | The first block of the old readme was taken as the description, and a code block with blank lines gave a piece of code | Code blocks are ignored, it has to look like a sentence and only its first sentence is used; otherwise `TODO` (then written by the AI) |
 | 18 components had no preview | Their picture is `picture.gif` (14) or `picture.png` (3); the tool only looked for `picture.jpg` | They are converted to `preview.jpg`. `scanner` has no picture at all and got a generated one |

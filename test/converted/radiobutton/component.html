@@ -45,6 +45,8 @@
 			var cls2 = '.' + cls;
 			var template = '<div data-value="{1}"><i></i><span>{0}</span></div>';
 
+			self.nocompile();
+
 			self.configure = function(key, value, init) {
 				if (init)
 					return;

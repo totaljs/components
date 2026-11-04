@@ -37,6 +37,7 @@
 
 			self.singleton();
 			self.readonly();
+			self.nocompile && self.nocompile();
 			self.history = [];
 
 			var cls2 = '.' + cls;

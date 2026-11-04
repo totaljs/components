@@ -61,6 +61,7 @@
 				}
 			};
 
+			self.nocompile && self.nocompile();
 			self.template = Tangular.compile('<div class="{0}-item"><div class="{0}-item-remove"><i class="ti ti-times"></i></div><div class="{0}-item-key"><input type="text" name="key" maxlength="{{ max }}"{{ if disabled }} disabled="disabled"{{ fi }} placeholder="{{ placeholder_key }}" value="{{ key }}" autocomplete="new-password" /></div><div class="{0}-item-value"><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder_value }}" value="{{ value }}" autocomplete="new-password" /></div></div>'.format(cls));
 
 			self.binder = function(fn) {

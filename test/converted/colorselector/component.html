@@ -29,6 +29,8 @@
 
 			var selected, list, content, colors = null;
 
+			self.nocompile && self.nocompile();
+
 			self.validate = function(value) {
 				return config.disabled || !config.required ? true : colors.indexOf(value) === -1;
 			};

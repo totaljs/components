@@ -60,6 +60,7 @@
 			self.singleton();
 			self.readonly();
 			self.blind();
+			self.nocompile();
 
 			self.redraw = function() {
 				container.html('<div class="{0}"><div class="{0}-header"><div class="{0}-search"><span><i class="ti ti-search clearsearch"></i></span><div><input type="text" placeholder="{1}" class="{0}-search-input"></div></div></div><div class="{0}-scrollbar"><div class="{0}-content"></div></div></div>'.format(cls, config.search));

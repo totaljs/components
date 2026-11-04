@@ -422,6 +422,7 @@
 
 			self.readonly();
 			// self.bindvisible();
+			self.nocompile();
 
 			var reconfig = function() {
 				self.tclass('dg-clickable', !!(config.click || config.dblclick));
@@ -1198,6 +1199,7 @@
 					!ishidedir && hidedir();
 					isecolumns && self.applycolumns();
 				});
+
 
 				self.resize();
 				// config.exec && self.operation('init');

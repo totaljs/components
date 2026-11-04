@@ -25,6 +25,7 @@
 
 			self.singleton();
 			self.readonly();
+			self.nocompile();
 
 			self.make = function() {
 				if (config.native && navigator.clipboard && W.isSecureContext && W.self === W.top) {

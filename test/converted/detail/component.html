@@ -156,6 +156,8 @@
 				}
 			};
 
+			self.nocompile();
+
 			self.readvalue = function(path, value) {
 				return M.is20 ? M.get(value, path) : GET(path, value);
 			};

@@ -25,6 +25,7 @@
 			var iframe, skip = false;
 
 			self.readonly();
+			self.nocompile && self.nocompile();
 
 			self.init = function() {
 				W.iframeeditableinstances = {};

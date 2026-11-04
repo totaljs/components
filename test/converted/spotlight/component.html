@@ -52,6 +52,7 @@
 			self.callback = null;
 			self.readonly();
 			self.singleton();
+			self.nocompile && self.nocompile();
 
 			var onclick = function(e) {
 				if (is && (!$(e.target).closest(cls2).length))

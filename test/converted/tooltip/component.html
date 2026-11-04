@@ -38,6 +38,7 @@
 			self.singleton();
 			self.readonly();
 			self.blind();
+			self.nocompile && self.nocompile();
 
 			self.enable = function() {
 				can = true;

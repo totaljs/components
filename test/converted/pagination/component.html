@@ -46,6 +46,7 @@
 			var info;
 
 			self.template = Tangular.compile('<span class="page{{ if selected }} selected{{ fi }}" data-page="{{ page }}">{{ page }}</span>');
+			self.nocompile && self.nocompile();
 			self.readonly();
 
 			self.make = function() {
