@@ -8,6 +8,8 @@
 - [Join __Total.js Telegram__](https://t.me/totalplatform)
 - [Support](https://www.totaljs.com/support/)
 
+---
+
 - `components.json` contains all parsed components and their metadata (used by https://componentator.com)
 - the `/cdn/` directory contains all components uploaded to https://cdn.componentator.com
 
