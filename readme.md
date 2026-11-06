@@ -8,6 +8,9 @@
 - [Join __Total.js Telegram__](https://t.me/totalplatform)
 - [Support](https://www.totaljs.com/support/)
 
+- `components.json` contains all parsed components and their metadata (used by https://componentator.com)
+- the `/cdn/` directory contains all components uploaded to https://cdn.componentator.com
+
 ## Create components with AI
 
 This branch contains everything an AI model (Claude, ChatGPT, Codex, Gemini, Copilot…) needs to create a new jComponent from a description (or to convert an existing one), for example _"make me a modern radio button list according to the Apple UI guidelines"_. Each component has 3 files: `component.html` (CSS + script + live example, it runs directly in the browser), `readme.md` and `preview.jpg`.

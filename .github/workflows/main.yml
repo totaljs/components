@@ -12,13 +12,13 @@ jobs:
       
     - uses: actions/setup-node@v3
       with:
-        node-version: '14'
+        node-version: '26'
 
     - name: Generating components
       run: |
-        npm install total4
-        node cdn.js
-        ls 0cdn/ -la
+        npm install total5
+        cd tools
+        node componentator.js
         
     - name: FTP Deployer
       uses: sand4rt/ftp-deployer@v1.3
@@ -27,4 +27,4 @@ jobs:
         username: ${{ secrets.KEYCDN_USERNAME }}
         password: ${{ secrets.KEYCDN_PASSWORD }}
         remote_folder: /
-        local_folder: 0cdn/ # optional, local path, default is: dist
+        local_folder: cdn/ # optional, local path, default is: dist
