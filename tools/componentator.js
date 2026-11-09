@@ -50,6 +50,8 @@ Utils.ls('../components', async function(files) {
 		let source = parseSource(meta.html);
 		meta.js = source.js;
 		meta.css = source.css;
+		meta.created = meta.created.parseDate('yyyy-MM-dd HH:mm');
+		meta.updated = meta.updated.parseDate('yyyy-MM-dd HH:mm');
 		items.push(meta);
 		await PROMISIFY(Total.Fs.writeFile, '../cdn/' + 'j-' + meta.name + '.html', (meta.css ? ('<style>' + meta.css + '</style>\n') : '') + (meta.js ? ('<script>' + meta.js + '</script>\n') : ''));
 	}
