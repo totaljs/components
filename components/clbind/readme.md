@@ -1,5 +1,5 @@
 ---
-name: clbind
+name: ClBind
 description: Reads one item from a data source by its id and renders it inside the element, with an optional Tangular template
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: animation
+name: Animation
 description: This component can animate elements with .animation class.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: treeview
+name: TreeView
 description: This component is only a beta preview.
 author: Peter Širka
 version: 1

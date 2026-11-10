@@ -1,5 +1,5 @@
 ---
-name: table
+name: Table
 description: Simple UI table for arrays or paged data, with row highlighting, detail rows, sorting, pagination and remembered selection
 author: Peter Širka
 version: 1

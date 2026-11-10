@@ -1,5 +1,5 @@
 ---
-name: scrollpercentage
+name: ScrollPercentage
 description: Component must be attached on the element which will be as a scroll container.
 author: Peter Širka
 version: 1

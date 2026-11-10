@@ -1,5 +1,5 @@
 ---
-name: search
+name: Search
 description: Simple fulltext search component.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: minheight
+name: MinHeight
 description: This component sets a minimal height for the parent (defined) element.
 author: Peter Širka
 version: 1

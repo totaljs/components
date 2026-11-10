@@ -1,5 +1,5 @@
 ---
-name: input
+name: Input
 description: Multi-purpose input for text, email, multiline and checkbox values, with validation, formatting, masks and a directory lookup
 author: Peter Širka
 version: 1

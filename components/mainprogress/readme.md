@@ -1,5 +1,5 @@
 ---
-name: mainprogress
+name: MainProgress
 description: This component is singleton.
 author: Peter Širka
 version: 1

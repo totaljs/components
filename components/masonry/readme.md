@@ -1,5 +1,5 @@
 ---
-name: masonry
+name: Masonry
 description: A simple Masonry component.
 author: Peter Širka
 version: 1

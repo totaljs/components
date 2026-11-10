@@ -1,5 +1,5 @@
 ---
-name: repeater
+name: Repeater
 description: Renders a template for each item of an array, with index and path placeholders and an optional filter
 author: Peter Širka
 version: 1

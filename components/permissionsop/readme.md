@@ -1,5 +1,5 @@
 ---
-name: permissionsop
+name: PermissionsOP
 description: The component is similar like j-Permissions, but this component is more developer friendly (more automated) and it's targeted for OpenPlatform applications.
 author: Peter Širka
 version: 1

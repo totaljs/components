@@ -1,5 +1,5 @@
 ---
-name: codemirror
+name: CodeMirror
 description: Code field based on CodeMirror with syntax highlighting, line numbers, tab indentation and a configurable height
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: scrollbar
+name: Scrollbar
 description: Custom scrollbars. IMPORTANT: It wraps current content by adding two nested div elements with relative position.
 author: Peter Širka
 version: 1

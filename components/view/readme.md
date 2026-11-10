@@ -1,5 +1,5 @@
 ---
-name: view
+name: View
 description: This component can be helpful for reusable views in intranet apps.
 author: Peter Širka
 version: 1

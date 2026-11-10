@@ -1,5 +1,5 @@
 ---
-name: responsivelayout
+name: ResponsiveLayout
 description: Fully responsive template with two interactive buttons.
 author: Dodo Marton
 version: 1

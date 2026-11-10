@@ -1,5 +1,5 @@
 ---
-name: click
+name: Click
 description: The component calls a method or can set a value according to the path.
 author: Peter Širka
 version: 1

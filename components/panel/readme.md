@@ -1,5 +1,5 @@
 ---
-name: panel
+name: Panel
 description: Window panel shown when the value of its path matches the if condition, with a title, close button and dark mode support
 author: Peter Širka
 version: 1

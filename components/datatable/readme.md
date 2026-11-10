@@ -1,5 +1,5 @@
 ---
-name: datatable
+name: DataTable
 description: Paginated, sortable data table (beta) for SPA and server-side listing, with scrolling, responsive layout and dark mode
 author: Peter Širka
 version: 1

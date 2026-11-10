@@ -1,5 +1,5 @@
 ---
-name: print-custom-html
+name: PrintCustomHTML
 description: Function that opens a window, writes custom HTML into it and prints it.
 author: Peter Širka
 version: 1

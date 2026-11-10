@@ -1,5 +1,5 @@
 ---
-name: checkbox
+name: Checkbox
 description: Checkbox bound to a data path, with an optional label, required and disabled states, and a reverse mode
 author: Peter Širka
 version: 1

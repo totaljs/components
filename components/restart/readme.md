@@ -1,5 +1,5 @@
 ---
-name: restart
+name: Restart
 description: The component is very primitive and it will only display the content if the value is positive.
 author: Peter Širka
 version: 1

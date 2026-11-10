@@ -1,5 +1,5 @@
 ---
-name: developer
+name: Developer
 description: Developer overlay that monitors a jComponent single page app and shows timings, call counts and memory in Chromium
 author: Peter Širka
 version: 1

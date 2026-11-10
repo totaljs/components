@@ -1,5 +1,5 @@
 ---
-name: iframe
+name: iFrame
 description: The component renders another URL address (stored in the path attribute) directly in the iframe.
 author: Peter Širka
 version: 1

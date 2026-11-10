@@ -1,5 +1,5 @@
 ---
-name: contextmenu
+name: ContextMenu
 description: If the value isn't defined then the component uses name as value.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: monthlycalendar
+name: MonthlyCalendar
 description: Month and day names are taken from MONTHS and DAYS properties defined in jComponent library.
 author: Peter Širka
 version: 1

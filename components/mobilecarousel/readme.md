@@ -1,5 +1,5 @@
 ---
-name: mobilecarousel
+name: MobileCarousel
 description: Works only with Bootstrap grid system and in mobile devices xs.
 author: Peter Širka
 version: 1

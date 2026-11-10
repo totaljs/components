@@ -1,5 +1,5 @@
 ---
-name: dropdownlist
+name: DropdownList
 description: Multi-value picker that shows selected items as removable tags, choosing from a data-source with an optional selection limit
 author: Peter Širka
 version: 1

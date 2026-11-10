@@ -1,5 +1,5 @@
 ---
-name: window
+name: Window
 description: Modal window shown when a condition on the bound value matches, with optional closing on Escape and submit on Enter
 author: Peter Širka
 version: 1

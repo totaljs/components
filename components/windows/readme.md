@@ -1,5 +1,5 @@
 ---
-name: windows
+name: Windows
 description: The windows component expects an Array of objects.
 author: Peter Širka
 version: 1

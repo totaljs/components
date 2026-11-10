@@ -1,5 +1,5 @@
 ---
-name: imageuploader
+name: ImageUploader
 description: A simple singleton component for uploading of resized images.
 author: Peter Širka
 version: 1

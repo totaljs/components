@@ -1,5 +1,5 @@
 ---
-name: button
+name: Button
 description: A simple button component with great features.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: backup
+name: Backup
 description: The component for data saving data to and loading from the local storage of the browser.
 author: Kirill Zlobin
 version: 1

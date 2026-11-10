@@ -1,5 +1,5 @@
 ---
-name: cl
+name: Cl
 description: The component parses inline data defined in the component's element.
 author: Peter Širka
 version: 1

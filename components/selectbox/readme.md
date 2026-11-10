@@ -1,5 +1,5 @@
 ---
-name: selectbox
+name: SelectBox
 description: Dropdown select with static items or a data-source, with an optional search box, empty option and disabled state
 author: Peter Širka
 version: 1

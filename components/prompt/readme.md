@@ -1,5 +1,5 @@
 ---
-name: prompt
+name: Prompt
 description: The component (singleton) displays a prompt window with single-line or multiline input.
 author: Peter Širka
 version: 1

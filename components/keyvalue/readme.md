@@ -1,5 +1,5 @@
 ---
-name: keyvalue
+name: KeyValue
 description: A simple component for create key/value pairs values.
 author: Peter Širka
 version: 1

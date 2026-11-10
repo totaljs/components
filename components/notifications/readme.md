@@ -1,5 +1,5 @@
 ---
-name: notifications
+name: Notifications
 description: Singleton toast notifications with icon, date, message, color and callback, auto-closing and optional native alerts when unfocused
 author: Peter Širka
 version: 1

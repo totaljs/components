@@ -1,5 +1,5 @@
 ---
-name: message
+name: Message
 description: Singleton message box that shows warning, success and other messages through SETTER calls, with a configurable button
 author: Peter Širka
 version: 1

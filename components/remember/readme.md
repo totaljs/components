@@ -1,5 +1,5 @@
 ---
-name: remember
+name: Remember
 description: The component calls a function within the repeat interval.
 author: Peter Širka
 version: 1

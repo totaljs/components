@@ -1,5 +1,5 @@
 ---
-name: lazycontent
+name: LazyContent
 description: This component shows own content when it's visible.
 author: Peter Širka
 version: 1

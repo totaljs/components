@@ -1,5 +1,5 @@
 ---
-name: imageviewer
+name: ImageViewer
 description: Singleton image viewer with previous and next navigation over a group of images, keyboard support and a default title for unnamed ones
 author: Peter Širka
 version: 1

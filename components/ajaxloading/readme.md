@@ -1,5 +1,5 @@
 ---
-name: ajaxloading
+name: AjaxLoading
 description: This component can show a loading text for async AJAX operations.
 author: Peter Širka
 version: 1

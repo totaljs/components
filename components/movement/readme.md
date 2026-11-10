@@ -1,5 +1,5 @@
 ---
-name: movement
+name: Movement
 description: This component captures basic keyboard keys like arrows, enter and esc.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: floweditor
+name: FlowEditor
 description: The component opens Flow editor in the iframe.
 author: Peter Širka
 version: 1

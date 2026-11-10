@@ -1,5 +1,5 @@
 ---
-name: listmenueditable
+name: ListMenuEditable
 description: Component for editable list menu
 author: Denis Granec
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: wiki
+name: Wiki
 description: Great component for inline Wiki/Documentation.
 author: Peter Širka
 version: 1

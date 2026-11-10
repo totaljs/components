@@ -1,5 +1,5 @@
 ---
-name: navlayout
+name: NavLayout
 description: A simple and fully responsive navigation layout.
 author: Peter Širka
 version: 1

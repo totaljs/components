@@ -1,5 +1,5 @@
 ---
-name: flow
+name: Flow
 description: Canvas-based visual flow designer with draggable nodes and connecting lines, a background grid, zoom and optional curved lines
 author: Peter Širka
 version: 1

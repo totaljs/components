@@ -1,5 +1,5 @@
 ---
-name: backtotop
+name: BackToTop
 description: Singleton button that appears when the page is scrolled down and scrolls the page back to the top
 author: Martin Jirku
 version: 1

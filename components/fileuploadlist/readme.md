@@ -1,5 +1,5 @@
 ---
-name: fileuploadlist
+name: FileUploadList
 description: This component can upload files and the result adds into the model.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: dynamicvalue
+name: DynamicValue
 description: This component is very special component.
 author: Peter Širka
 version: 1

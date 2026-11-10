@@ -1,5 +1,5 @@
 ---
-name: elementid
+name: ElementID
 description: This component fills the data-id attribute with the value read from the path.
 author: Peter Širka
 version: 1

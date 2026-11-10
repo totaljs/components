@@ -1,5 +1,5 @@
 ---
-name: slider
+name: Slider
 description: This slider works only with 100% X axis.
 author: Peter Širka
 version: 1

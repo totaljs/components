@@ -1,5 +1,5 @@
 ---
-name: navigation
+name: Navigation
 description: Simple tree-style navigation menu built from a data-source, remembering open items by primary key and supporting dark mode
 author: Peter Širka
 version: 1

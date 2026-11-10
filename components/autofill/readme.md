@@ -1,5 +1,5 @@
 ---
-name: autofill
+name: AutoFill
 description: Wraps all nested elements in a form element with form events disabled
 author: Peter Širka
 version: 1

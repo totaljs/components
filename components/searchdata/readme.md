@@ -1,5 +1,5 @@
 ---
-name: searchdata
+name: SearchData
 description: This component tries to filter data according to the search phrase.
 author: Peter Širka
 version: 1

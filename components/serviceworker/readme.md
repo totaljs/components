@@ -1,5 +1,5 @@
 ---
-name: serviceworker
+name: ServiceWorker
 description: Service worker helper that caches app assets and serves an offline fallback page when the network is unavailable
 author: Denis Granec
 version: 1

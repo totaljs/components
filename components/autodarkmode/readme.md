@@ -1,5 +1,5 @@
 ---
-name: autodarkmode
+name: AutoDarkMode
 description: The component automatically applies dark mode according to the operation system.
 author: Peter Širka
 version: 1

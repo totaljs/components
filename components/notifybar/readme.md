@@ -1,5 +1,5 @@
 ---
-name: notifybar
+name: NotifyBar
 description: Singleton top bar showing success, warning or info messages with a message history and an automatic timeout
 author: Peter Širka
 version: 1

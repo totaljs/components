@@ -1,5 +1,5 @@
 ---
-name: textboxlist
+name: TextboxList
 description: Input that adds entries to a list, with a maximum limit, type rules, error text and optional reordering of items
 author: Peter Širka
 version: 1

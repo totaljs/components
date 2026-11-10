@@ -1,5 +1,5 @@
 ---
-name: stats24
+name: Stats24
 description: Bar chart of 24 hourly values with tooltips on hover and the current hour optionally highlighted
 author: Peter Širka
 version: 1

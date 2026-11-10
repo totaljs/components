@@ -1,5 +1,5 @@
 ---
-name: floatinginput
+name: FloatingInput
 description: Singleton floating input popup shown next to an element with x and y offsets and a minimum width, supporting dark mode
 author: Peter Širka
 version: 1

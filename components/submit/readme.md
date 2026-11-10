@@ -1,5 +1,5 @@
 ---
-name: submit
+name: Submit
 description: This component is very similar to j-Validation but it adds additional features which can simplify the creation of SPA.
 author: Peter Širka
 version: 1

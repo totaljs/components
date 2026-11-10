@@ -1,5 +1,5 @@
 ---
-name: pages
+name: Pages
 description: The component is a better alternative to the j-Section component.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: layer
+name: Layer
 description: Bootstrap layer panel shown when the value of its path matches the if condition, with a title, back button and optional scrollbar
 author: Peter Širka
 version: 1

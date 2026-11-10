@@ -1,5 +1,5 @@
 ---
-name: pin
+name: Pin
 description: A simple PIN maker.
 author: Peter Širka
 version: 1

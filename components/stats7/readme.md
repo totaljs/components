@@ -1,5 +1,5 @@
 ---
-name: stats7
+name: Stats7
 description: Bar chart of seven daily values starting from a chosen first day of the week, with the current day optionally highlighted
 author: Peter Širka
 version: 1

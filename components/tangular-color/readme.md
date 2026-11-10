@@ -1,5 +1,5 @@
 ---
-name: tangular-color
+name: TangularColor
 description: A simple Tangular template engine helper for rendering colors from the string.
 author: Peter Širka
 version: 1

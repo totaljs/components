@@ -1,5 +1,5 @@
 ---
-name: detail
+name: Detail
 description: This component can render values from model.
 author: Peter Širka
 version: 1

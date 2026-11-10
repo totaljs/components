@@ -1,5 +1,5 @@
 ---
-name: tags
+name: Tags
 description: CSS-only styles for tag labels.
 author: Peter Širka
 version: 5

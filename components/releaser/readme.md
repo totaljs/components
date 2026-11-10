@@ -1,5 +1,5 @@
 ---
-name: releaser
+name: Releaser
 description: The component can release after some time own content (DOM) + memory.
 author: Peter Širka
 version: 1

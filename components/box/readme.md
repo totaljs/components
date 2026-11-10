@@ -1,5 +1,5 @@
 ---
-name: box
+name: Box
 description: Modal form with a title, icon and submit and cancel handlers, shown when its path value matches the if condition
 author: Peter Širka
 version: 1

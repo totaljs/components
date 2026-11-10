@@ -1,5 +1,5 @@
 ---
-name: svgicons
+name: SVGIcons
 description: Registers the ui-svgicon element that displays icons from an SVG sprite file, with name, size and selected state
 author: Peter Širka
 version: 1

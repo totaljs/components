@@ -1,5 +1,5 @@
 ---
-name: typed
+name: Typed
 description: Typing animation that types out an array of texts with the typed.js library, with speed, loop and cursor options
 author: Denis Granec
 version: 1

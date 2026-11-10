@@ -1,5 +1,5 @@
 ---
-name: markdowneditor
+name: MarkdownEditor
 description: Markdown editor based on SimpleMDE, bound to a path and updating the value as the text changes
 author: Michal Capo
 version: 1

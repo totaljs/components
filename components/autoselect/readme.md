@@ -1,5 +1,5 @@
 ---
-name: autoselect
+name: AutoSelect
 description: The component automatically adds .selected class according to the selector class="autoselect" within the entire HTML document.
 author: Peter Širka
 version: 1

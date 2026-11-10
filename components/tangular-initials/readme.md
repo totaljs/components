@@ -1,5 +1,5 @@
 ---
-name: tangular-initials
+name: TangularInitials
 description: A simple Tangular template engine helper for rendering initials from the name (firstname + lastname).
 author: Peter Širka
 version: 1

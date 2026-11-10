@@ -1,5 +1,5 @@
 ---
-name: folder
+name: Folder
 description: The component can render a content like file browser.
 author: Peter Širka
 version: 1

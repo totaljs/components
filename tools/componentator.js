@@ -90,7 +90,7 @@ Utils.ls('../components', async function(files) {
 		meta.created = meta.created.parseDate('yyyy-MM-dd HH:mm');
 		meta.updated = meta.updated.parseDate('yyyy-MM-dd HH:mm');
 		items.push(meta);
-		await PROMISIFY(Total.Fs.writeFile, '../cdn/' + 'j-' + meta.name + '.html', (meta.css ? ('<style>' + Utils.minify_css(meta.css) + '</style>\n') : '') + (meta.js ? ('<script>' + Utils.minify_js(meta.js) + '</script>\n') : ''));
+		await PROMISIFY(Total.Fs.writeFile, '../cdn/' + 'j-' + meta.name.toLowerCase() + '.html', (meta.css ? ('<style>' + Utils.minify_css(meta.css) + '</style>\n') : '') + (meta.js ? ('<script>' + Utils.minify_js(meta.js) + '</script>\n') : ''));
 	}
 
 	Total.Fs.writeFile('../components.json', JSON.stringify(items, null, '\t'), NOOP);

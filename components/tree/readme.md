@@ -1,5 +1,5 @@
 ---
-name: tree
+name: Tree
 description: Setter automatically extends each object by adding .$pointer property with a tree index.
 author: Peter Širka
 version: 1

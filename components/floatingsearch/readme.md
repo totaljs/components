@@ -1,5 +1,5 @@
 ---
-name: floatingsearch
+name: FloatingSearch
 description: A simple floating search input.
 author: Peter Širka
 version: 1

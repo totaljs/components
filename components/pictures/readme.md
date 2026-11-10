@@ -1,5 +1,5 @@
 ---
-name: pictures
+name: Pictures
 description: The component displays images in a simple list.
 author: Peter Širka
 version: 1

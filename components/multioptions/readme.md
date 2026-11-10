@@ -1,5 +1,5 @@
 ---
-name: multioptions
+name: MultiOptions
 description: Form that builds typed option fields from a mapping of key and value pairs and binds the result as an object to the path
 author: Peter Širka
 version: 1

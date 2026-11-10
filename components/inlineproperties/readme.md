@@ -1,5 +1,5 @@
 ---
-name: inlineproperties
+name: InlineProperties
 description: Singleton panel of editable properties shown next to an element, with a close button, a default width and date and directory settings
 author: Peter Širka
 version: 1

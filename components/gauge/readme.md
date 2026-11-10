@@ -1,5 +1,5 @@
 ---
-name: gauge
+name: Gauge
 description: Donut gauge drawn in SVG from colored percentage segments, with an optional formatted value shown in the center
 author: Peter Širka
 version: 1

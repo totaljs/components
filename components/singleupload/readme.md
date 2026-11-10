@@ -1,5 +1,5 @@
 ---
-name: singleupload
+name: SingleUpload
 description: Upload control for one file that posts to a URL, with optional accepted file types and a title template
 author: Peter Širka
 version: 1

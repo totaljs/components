@@ -1,5 +1,5 @@
 ---
-name: extend
+name: Extend
 description: This component is a specific component with powerful functionality.
 author: Pete Širka
 version: 1

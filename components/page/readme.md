@@ -1,5 +1,5 @@
 ---
-name: page
+name: Page
 description: This component can handle different contents asynchronously.
 author: Peter Širka
 version: 1

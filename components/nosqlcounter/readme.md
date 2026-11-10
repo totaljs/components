@@ -1,5 +1,5 @@
 ---
-name: nosqlcounter
+name: NoSQLcounter
 description: Bar chart of monthly counts from year, month and value records, with optional month names and a maximum value limit
 author: Peter Širka
 version: 1

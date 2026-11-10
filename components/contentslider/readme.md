@@ -1,5 +1,5 @@
 ---
-name: contentslider
+name: ContentSlider
 description: Content slider that cycles through links at a set interval and can remember its state in localStorage
 author: Peter Širka
 version: 1

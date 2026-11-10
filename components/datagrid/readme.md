@@ -1,5 +1,5 @@
 ---
-name: datagrid
+name: DataGrid
 description: This grid was created for single page applications and enterprise applications.
 author: Peter Širka
 version: 2

@@ -1,5 +1,5 @@
 ---
-name: confirm
+name: Confirm
 description: Singleton confirmation dialog with custom buttons that passes the clicked button index or runs a callback on yes
 author: Peter Širka
 version: 1

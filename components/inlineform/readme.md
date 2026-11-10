@@ -1,5 +1,5 @@
 ---
-name: inlineform
+name: InlineForm
 description: Inline form panel moved under the body and shown for a path value, with title, icon and reload hook, optionally hidden on outside click
 author: Peter Širka
 version: 1

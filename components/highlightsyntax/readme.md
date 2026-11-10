@@ -1,5 +1,5 @@
 ---
-name: highlightsyntax
+name: HighlightSyntax
 description: Simple syntax highlighter with help of Highlight.js.
 author: Peter Širka
 version: 1

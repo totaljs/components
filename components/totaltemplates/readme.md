@@ -1,5 +1,5 @@
 ---
-name: totaltemplates
+name: TotalTemplates
 description: This component can render Total.js Templates.
 author: Peter Širka
 version: 1

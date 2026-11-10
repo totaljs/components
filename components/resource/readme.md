@@ -1,5 +1,5 @@
 ---
-name: resource
+name: Resource
 description: Resources are very great solution for e.g.
 author: Peter Širka
 version: 1

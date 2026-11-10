@@ -1,5 +1,5 @@
 ---
-name: intranet-css
+name: IntranetCSS
 description: CSS for intranet applications built with the Total.js UI library.
 author: Peter Širka
 version: 5

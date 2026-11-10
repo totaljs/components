@@ -1,5 +1,5 @@
 ---
-name: movable
+name: Movable
 description: The component handles similar draggable element and supports movement between each other.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: offline
+name: Offline
 description: This component displays a message box when there is no internet connection.
 author: Peter Širka
 version: 1

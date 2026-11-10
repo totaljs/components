@@ -1,5 +1,5 @@
 ---
-name: snackbar
+name: Snackbar
 description: Singleton notification bar for info, success, warning or waiting messages, with a dismiss button and timeout
 author: Peter Širka
 version: 1

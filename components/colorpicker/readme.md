@@ -1,5 +1,5 @@
 ---
-name: colorpicker
+name: ColorPicker
 description: Singleton color picker popup placed next to an element, with offsets, alignment and opacity for hex colors
 author: Denis Granec
 version: 1

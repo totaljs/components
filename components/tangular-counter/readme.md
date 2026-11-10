@@ -1,5 +1,5 @@
 ---
-name: tangular-counter
+name: TangularCounter
 description: This helper can create a short value from big numbers.
 author: Peter Širka
 version: 1

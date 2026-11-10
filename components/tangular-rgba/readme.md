@@ -1,5 +1,5 @@
 ---
-name: tangular-rgba
+name: TangularRGBA
 description: A simple Tangular template engine helper for transforming hex colors to RGBA colors.
 author: Peter Širka
 version: 1

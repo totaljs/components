@@ -1,5 +1,5 @@
 ---
-name: listmenu
+name: ListMenu
 description: A ListMenu component for custom list items.
 author: Peter Širka
 version: 1

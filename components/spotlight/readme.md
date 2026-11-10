@@ -1,5 +1,5 @@
 ---
-name: spotlight
+name: Spotlight
 description: Singleton search overlay that queries a URL or function, shows results and recent items, and calls back with the selection
 author: Peter Širka
 version: 1

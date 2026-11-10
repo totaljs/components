@@ -1,5 +1,5 @@
 ---
-name: togglebutton
+name: ToggleButton
 description: Icons can be in the form: circle or ti ti-circle.
 author: Peter Širka
 version: 1

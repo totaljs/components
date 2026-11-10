@@ -1,5 +1,5 @@
 ---
-name: repeatergroup
+name: RepeaterGroup
 description: Groups an array of items automatically by a chosen property and renders the template for each group
 author: Peter Širka
 version: 1

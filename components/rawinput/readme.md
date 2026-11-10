@@ -1,5 +1,5 @@
 ---
-name: rawinput
+name: RawInput
 description: Minimal text input with type rules, validation, length limits and autocomplete, designed for custom extensions
 author: Peter Širka
 version: 1

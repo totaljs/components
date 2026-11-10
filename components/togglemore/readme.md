@@ -1,5 +1,5 @@
 ---
-name: togglemore
+name: ToggleMore
 description: Is a simple component to toggle content.
 author: Denis Granec
 version: 1

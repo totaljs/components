@@ -1,5 +1,5 @@
 ---
-name: stash
+name: Stash
 description: The component can postpone elements without destructing and detaching from the DOM.
 author: Peter Širka
 version: 1

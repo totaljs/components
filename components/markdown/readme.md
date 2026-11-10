@@ -1,5 +1,5 @@
 ---
-name: markdown
+name: Markdown
 description: This component contains only Markdown parser.
 author: Peter Širka
 version: 1

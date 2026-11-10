@@ -1,5 +1,5 @@
 ---
-name: layout
+name: Layout
 description: Making of layout is very easy and with a lot of possibilities.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: modal
+name: Modal
 description: Is a simple alternative to j-Form.
 author: Peter Širka
 version: 1

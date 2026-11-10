@@ -1,5 +1,5 @@
 ---
-name: modificator
+name: Modificator
 description: This component can modify behaviour of element according to the preddefined schema.
 author: Peter Širka
 version: 1

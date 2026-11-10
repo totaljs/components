@@ -1,5 +1,5 @@
 ---
-name: menu
+name: Menu
 description: Singleton popup menu with submenus, touch support, dark mode and a large mode, closed by clicking outside it
 author: Peter Širka
 version: 1

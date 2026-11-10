@@ -1,5 +1,5 @@
 ---
-name: error
+name: Error
 description: Displays the error messages from an array of objects with an error property, hidden when the array is empty
 author: Peter Širka
 version: 1

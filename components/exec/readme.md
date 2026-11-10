@@ -1,5 +1,5 @@
 ---
-name: exec
+name: Exec
 description: The component executes a method when the user clicks on the same element with the exec, exec2, or exec3 class.
 author: Peter Širka
 version: 1

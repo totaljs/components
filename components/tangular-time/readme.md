@@ -1,5 +1,5 @@
 ---
-name: tangular-time
+name: TangularTime
 description: A simple Tangular template engine helper for rendering humanable date and time.
 author: Peter Širka
 version: 1

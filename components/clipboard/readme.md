@@ -1,5 +1,5 @@
 ---
-name: clipboard
+name: Clipboard
 description: Singleton that copies text to the clipboard using the Clipboard API, with a document.execCommand fallback
 author: Peter Širka
 version: 1

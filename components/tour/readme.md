@@ -1,5 +1,5 @@
 ---
-name: tour
+name: Tour
 description: Step-by-step guided tour that highlights target elements from a data-source, with keyboard navigation and custom button texts
 author: Denis Granec
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: title
+name: Title
 description: Sets the browser document title from a bound value, combined with a site name and a separator
 author: Pavol Danko
 version: 1

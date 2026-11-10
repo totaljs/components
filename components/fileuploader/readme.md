@@ -1,5 +1,5 @@
 ---
-name: fileuploader
+name: FileUploader
 description: A simple component for uploading files.
 author: Peter Širka
 version: 1

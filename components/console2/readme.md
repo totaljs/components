@@ -1,5 +1,5 @@
 ---
-name: console2
+name: Console2
 description: Log console panel that shows messages from a data source, with a clear button and automatic opening and closing
 author: Peter Širka
 version: 1

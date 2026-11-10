@@ -1,5 +1,5 @@
 ---
-name: markdownpreview
+name: MarkdownPreview
 description: This component depends on j-Markdown component.
 author: Peter Širka
 version: 1

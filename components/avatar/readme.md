@@ -1,5 +1,5 @@
 ---
-name: avatar
+name: Avatar
 description: Avatar component needs to register your own theme.
 author: Denis Granec
 version: 1

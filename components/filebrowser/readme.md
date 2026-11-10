@@ -1,5 +1,5 @@
 ---
-name: filebrowser
+name: FileBrowser
 description: The component will open a file browser and returns selected files.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: uistudio
+name: UIStudio
 description: This component renders the app according to the Total.js Flow UI Studio schema.
 author: Peter Širka
 version: 1

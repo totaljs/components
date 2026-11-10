@@ -1,5 +1,5 @@
 ---
-name: parameters
+name: Parameters
 description: This component can changed internal parameters.
 author: Peter Širka
 version: 1

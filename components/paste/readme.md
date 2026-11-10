@@ -1,5 +1,5 @@
 ---
-name: paste
+name: Paste
 description: The component captures paste event.
 author: Peter Širka
 version: 1

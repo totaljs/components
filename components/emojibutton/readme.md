@@ -1,5 +1,5 @@
 ---
-name: emojibutton
+name: EmojiButton
 description: Button that shows the chosen value as a preview and opens a popup picker on click, with alignment and position options
 author: Peter Širka
 version: 1

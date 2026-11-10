@@ -1,5 +1,5 @@
 ---
-name: range
+name: Range
 description: Slider for choosing a number between a minimum and maximum, with a set step and optional conversion to a number type
 author: Peter Širka
 version: 1

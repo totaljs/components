@@ -1,5 +1,5 @@
 ---
-name: configuration
+name: Configuration
 description: Settings form generated from a declaration of typed properties such as text, number, date, dropdown and color
 author: Peter Širka
 version: 1

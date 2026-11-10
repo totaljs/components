@@ -1,5 +1,5 @@
 ---
-name: mailify
+name: Mailify
 description: This method finds all emails and creates links with mailto:.
 author: Peter Širka
 version: 1

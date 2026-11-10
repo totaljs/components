@@ -1,5 +1,5 @@
 ---
-name: radiobuttonexpert
+name: RadioButtonExpert
 description: Perfect component for radiobutton with custom styles.
 author: Denis Granec
 version: 1

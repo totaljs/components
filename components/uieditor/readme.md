@@ -1,5 +1,5 @@
 ---
-name: uieditor
+name: UIEditor
 description: The component opens UI Builder in the iframe.
 author: Peter Širka
 version: 1

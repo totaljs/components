@@ -1,5 +1,5 @@
 ---
-name: virtualwire
+name: VirtualWire
 description: This is a very special UI component that can move elements from element to another element according to the selector and the value of the path.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: printer
+name: Printer
 description: The component can print a HTML content.
 author: Peter Širka
 version: 1

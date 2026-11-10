@@ -1,5 +1,5 @@
 ---
-name: preview
+name: Preview
 description: This component resizes the picture automatically according to the settings and uploads it to the server in base64 format.
 author: Peter Širka
 version: 1

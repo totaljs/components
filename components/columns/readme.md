@@ -1,5 +1,5 @@
 ---
-name: columns
+name: Columns
 description: The component Columns is a very simple alternative to j-Layout and j-Layout2.
 author: Peter Širka
 version: 1

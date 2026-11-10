@@ -1,5 +1,5 @@
 ---
-name: lazyimages
+name: LazyImages
 description: Loads images from data-src into src only when they scroll into view, with support for custom scrollbars
 author: Peter Širka
 version: 1

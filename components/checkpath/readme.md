@@ -1,5 +1,5 @@
 ---
-name: checkpath
+name: CheckPath
 description: Development tool that shows a popup with the plugin, component and binder of the clicked element, with copy buttons
 author: Kirill Zlobin
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: period
+name: Period
 description: The component for picking a time period.
 author: Kirill Zlobin
 version: 1

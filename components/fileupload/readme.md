@@ -1,5 +1,5 @@
 ---
-name: fileupload
+name: FileUpload
 description: Is very helpful component for uploading e.g.
 author: Peter Širka
 version: 1

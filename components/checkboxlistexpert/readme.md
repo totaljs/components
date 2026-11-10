@@ -1,5 +1,5 @@
 ---
-name: checkboxlistexpert
+name: CheckboxListExpert
 description: Perfect component for checboxlist with custom styles.
 author: Denis Granec
 version: 1

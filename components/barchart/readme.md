@@ -1,5 +1,5 @@
 ---
-name: barchart
+name: BarChart
 description: Please review an example and keep a data-source.
 author: Peter Širka
 version: 1

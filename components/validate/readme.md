@@ -1,5 +1,5 @@
 ---
-name: validate
+name: Validate
 description: The component contains the same source-code as the j-Validation component.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: pricerange
+name: PriceRange
 description: The component stores value as string 200-500, explanation: from-to.
 author: Peter Širka
 version: 1

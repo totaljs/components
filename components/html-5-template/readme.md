@@ -1,5 +1,5 @@
 ---
-name: html-5-template
+name: HTML5Template
 description: Starter HTML 5 page that loads the Total.js UI library.
 author: Peter Širka
 version: 6

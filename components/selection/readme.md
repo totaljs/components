@@ -1,5 +1,5 @@
 ---
-name: selection
+name: Selection
 description: The component supports something like checkbox list.
 author: Peter Širka
 version: 1

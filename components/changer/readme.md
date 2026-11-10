@@ -1,5 +1,5 @@
 ---
-name: changer
+name: Changer
 description: This component captures inline changes and can affect the validate component.
 author: Peter Širka
 version: 1

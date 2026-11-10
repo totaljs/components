@@ -1,5 +1,5 @@
 ---
-name: disable
+name: Disable
 description: The component disables nested controls like input, select and textarea.
 author: Peter Širka
 version: 1

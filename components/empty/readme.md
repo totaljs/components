@@ -1,5 +1,5 @@
 ---
-name: empty
+name: Empty
 description: Placeholder with an icon and a message that is shown when the watched data-source is empty and hidden otherwise
 author: Peter Širka
 version: 1

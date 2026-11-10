@@ -1,5 +1,5 @@
 ---
-name: expander
+name: Expander
 description: Clips content to a maximum height with a fade and a button that expands or collapses it, with configurable icons
 author: Peter Širka
 version: 1

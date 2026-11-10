@@ -1,5 +1,5 @@
 ---
-name: tangular-badge
+name: TangularBadge
 description: Tangular helper that renders colored badge elements for a label or a list of labels.
 author: Peter Širka
 version: 1

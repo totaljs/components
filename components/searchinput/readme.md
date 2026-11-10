@@ -1,5 +1,5 @@
 ---
-name: searchinput
+name: SearchInput
 description: Customizable search input.
 author: Peter Širka
 version: 1

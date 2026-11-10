@@ -1,5 +1,5 @@
 ---
-name: rules
+name: Rules
 description: The component can create a simple rules which you can transform to some engines like Total.js Flow.
 author: Peter Širka
 version: 1

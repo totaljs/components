@@ -1,5 +1,5 @@
 ---
-name: sounds
+name: Sounds
 description: This component contains some predefined sounds like beep, fail, success, etc...
 author: Peter Širka
 version: 1

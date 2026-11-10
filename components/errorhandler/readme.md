@@ -1,5 +1,5 @@
 ---
-name: errorhandler
+name: ErrorHandler
 description: The component tries using j-Message, j-Snackbar, j-NotifyBar or j-Notify for displaying of errors if you don't have defined exec configuration.
 author: Peter Širka
 version: 1

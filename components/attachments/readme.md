@@ -1,5 +1,5 @@
 ---
-name: attachments
+name: Attachments
 description: The component displays attachments in the simple list.
 author: Peter Širka
 version: 1

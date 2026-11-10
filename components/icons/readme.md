@@ -1,5 +1,5 @@
 ---
-name: icons
+name: Icons
 description: Singleton browser of Total.js icons with search, loaded from a CDN icon list or from a custom list
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: fullform
+name: FullForm
 description: Full-screen form displayed when the value of its path matches the if condition, with title, icon, submit and cancel hooks
 author: Peter Širka
 version: 1

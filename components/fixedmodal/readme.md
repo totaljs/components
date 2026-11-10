@@ -1,5 +1,5 @@
 ---
-name: fixedmodal
+name: FixedModal
 description: The content of the j-FixedModal is divided to 3 parts: header, body and footer.
 author: Peter Širka
 version: 1

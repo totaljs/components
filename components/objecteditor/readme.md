@@ -1,5 +1,5 @@
 ---
-name: objecteditor
+name: ObjectEditor
 description: Editor for JavaScript objects that shows nested properties and arrays as editable controls bound to the path, with a change callback
 author: Peter Širka
 version: 1

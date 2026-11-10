@@ -1,5 +1,5 @@
 ---
-name: importer
+name: Importer
 description: If the part component isn't within scope then the value from the config.if will replace ?
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: hashchange
+name: HashChange
 description: The component captures all changes for #hashtag in the URL address.
 author: Peter Širka
 version: 1

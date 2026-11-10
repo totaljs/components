@@ -1,5 +1,5 @@
 ---
-name: rows
+name: Rows
 description: The component Rows is a very simple alternative to j-Layout and j-Layout2.
 author: Peter Širka
 version: 1

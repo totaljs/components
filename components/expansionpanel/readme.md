@@ -1,5 +1,5 @@
 ---
-name: expansionpanel
+name: ExpansionPanel
 description: Accordion that turns child sections into labeled panels which open and close on click, optionally several at once
 author: Peter Širka
 version: 1

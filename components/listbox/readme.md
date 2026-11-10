@@ -1,5 +1,5 @@
 ---
-name: listbox
+name: Listbox
 description: Select list box with static items or a data-source, with an optional search box, empty option and required validation
 author: Peter Širka
 version: 1

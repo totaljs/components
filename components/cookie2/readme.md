@@ -1,5 +1,5 @@
 ---
-name: cookie2
+name: Cookie2
 description: Cookie consent notice like Cookie with different default button labels, storing agreement in localStorage
 author: Peter Širka
 version: 1

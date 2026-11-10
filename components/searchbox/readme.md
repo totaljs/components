@@ -1,5 +1,5 @@
 ---
-name: searchbox
+name: SearchBox
 description: The component contains a search box (input).
 author: Peter Širka
 version: 1

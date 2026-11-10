@@ -1,5 +1,5 @@
 ---
-name: autoexec
+name: AutoExec
 description: This component automatically executes a method defined in exec option.
 author: Peter Širka
 version: 1

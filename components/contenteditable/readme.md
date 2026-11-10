@@ -1,5 +1,5 @@
 ---
-name: contenteditable
+name: ContentEditable
 description: Rich text area with bold, italic, underline and link shortcuts, required validation and methods to insert content
 author: Peter Širka
 version: 1

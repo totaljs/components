@@ -1,5 +1,5 @@
 ---
-name: tangular-jsonformat
+name: TangularJsonFormat
 description: A simple Tangular helper for formatting of objects to more readable JSON.
 author: Peter Širka
 version: 1

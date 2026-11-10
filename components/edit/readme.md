@@ -1,5 +1,5 @@
 ---
-name: edit
+name: Edit
 description: The component enables contenteditable attribute for elements with edit or edit2 classes.
 author: Peter Širka
 version: 1

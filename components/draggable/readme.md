@@ -1,5 +1,5 @@
 ---
-name: draggable
+name: Draggable
 description: A simple component which can capture drag & drop operation.
 author: Peter Širka
 version: 1

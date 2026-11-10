@@ -1,5 +1,5 @@
 ---
-name: children
+name: Children
 description: Try to understand the functionality from the example.
 author: Peter Širka
 version: 1

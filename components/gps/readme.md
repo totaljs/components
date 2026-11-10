@@ -1,5 +1,5 @@
 ---
-name: gps
+name: GPS
 description: The component tries to read GPS coordinates.
 author: Peter Širka
 version: 1

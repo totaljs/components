@@ -1,5 +1,5 @@
 ---
-name: tangular-filesize
+name: TangularFileSize
 description: Tangular helper and Number prototype that render a file size in a human readable form.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: stats12
+name: Stats12
 description: Bar chart of 12 monthly values, scaled to the largest value or a set maximum, with the current month optionally highlighted
 author: Peter Širka
 version: 1

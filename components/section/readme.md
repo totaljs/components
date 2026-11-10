@@ -1,5 +1,5 @@
 ---
-name: section
+name: Section
 description: Container with a fixed percentage height of its parent or window, with optional scrolling and sections that switch by path
 author: Peter Širka
 version: 1

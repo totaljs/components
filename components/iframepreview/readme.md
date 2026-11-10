@@ -1,5 +1,5 @@
 ---
-name: iframepreview
+name: iFramePreview
 description: Renders HTML safely inside an iframe whose height fits its body, for previews such as invoices or emails
 author: Peter Širka
 version: 1

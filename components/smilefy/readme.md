@@ -1,5 +1,5 @@
 ---
-name: smilefy
+name: Smilefy
 description: Function that converts text emoticons such as :) into UTF smileys.
 author: Peter Širka
 version: 3

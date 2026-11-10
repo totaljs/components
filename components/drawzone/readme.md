@@ -1,5 +1,5 @@
 ---
-name: drawzone
+name: DrawZone
 description: Map component for drawing a polygon zone on OpenLayers with an OpenStreetMap base, with zoom, color and readonly options
 author: Peter Sirka & Dodo Marton
 version: 1

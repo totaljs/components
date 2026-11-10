@@ -1,5 +1,5 @@
 ---
-name: togglebox
+name: ToggleBox
 description: ToggleBox can re-order or hide items in Array.
 author: Peter Širka
 version: 1

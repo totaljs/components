@@ -1,5 +1,5 @@
 ---
-name: scanner
+name: Scanner
 description: The component for scanning documents.
 author: Kirill Zlobin
 version: 1

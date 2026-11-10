@@ -1,5 +1,5 @@
 ---
-name: dockable
+name: Dockable
 description: The dockable component expects Array of objects.
 author: Peter Širka
 version: 1

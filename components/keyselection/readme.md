@@ -1,5 +1,5 @@
 ---
-name: keyselection
+name: KeySelection
 description: This component allows user to select some items by up/down keys and confirm selection by the enter key.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: chunkyscroll
+name: ChunkyScroll
 description: Virtual scrolling list that renders only the visible rows of thousands of items, with configurable row height and margins
 author: Peter Širka
 version: 1

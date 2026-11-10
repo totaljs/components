@@ -1,5 +1,5 @@
 ---
-name: detach
+name: Detach
 description: The component can detach/attach all children (HTML elements).
 author: Peter Širka
 version: 1

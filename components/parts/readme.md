@@ -1,5 +1,5 @@
 ---
-name: parts
+name: Parts
 description: This content can handle multiple parts stored in the Array and focus on one specific part.
 author: Peter Širka
 version: 1

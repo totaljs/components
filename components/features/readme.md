@@ -1,5 +1,5 @@
 ---
-name: features
+name: Features
 description: Desktop-only singleton popup with a searchable list of features, opened by a method that receives the items and a placeholder
 author: Peter Širka
 version: 1

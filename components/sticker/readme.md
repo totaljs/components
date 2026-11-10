@@ -1,5 +1,5 @@
 ---
-name: sticker
+name: Sticker
 description: Keeps an element stuck at the top while scrolling by toggling CSS classes at scroll positions, per screen size
 author: Peter Širka
 version: 1

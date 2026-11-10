@@ -1,5 +1,5 @@
 ---
-name: fontawesome
+name: FontAwesome
 description: A simple FontAwesome viewer with fulltext searching.
 author: Peter Širka
 version: 1

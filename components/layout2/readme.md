@@ -1,5 +1,5 @@
 ---
-name: layout2
+name: Layout2
 description: Making of layout is very easy.
 author: Peter Širka
 version: 1

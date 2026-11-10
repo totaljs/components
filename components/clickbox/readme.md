@@ -1,5 +1,5 @@
 ---
-name: clickbox
+name: ClickBox
 description: This component is optimized for SEO.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: qrcode
+name: QRCode
 description: Generates QR code images from a text with the bundled QRCode library, with configurable colors, size and delay.
 author: Peter Širka
 version: 1

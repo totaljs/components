@@ -1,5 +1,5 @@
 ---
-name: approve
+name: Approve
 description: Singleton modal confirmation dialog with approve and cancel buttons that runs a callback when the user approves
 author: Peter Širka
 version: 1

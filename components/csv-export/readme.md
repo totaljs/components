@@ -1,5 +1,5 @@
 ---
-name: csv-export
+name: CSVExport
 description: Function that downloads an array of objects as a CSV file from the browser, with optional columns.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: faviconunread
+name: FaviconUnread
 description: Shows an unread count on the page favicon as a colored badge, also using the app badge API where the browser supports it
 author: Peter Širka
 version: 1

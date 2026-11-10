@@ -1,5 +1,5 @@
 ---
-name: urlify
+name: URLify
 description: This method finds all URL addresses and creates links.
 author: Peter Širka
 version: 3

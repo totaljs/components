@@ -1,5 +1,5 @@
 ---
-name: infowindows
+name: InfoWindows
 description: The InfoWindows component expects Array of objects.
 author: Peter Širka
 version: 1

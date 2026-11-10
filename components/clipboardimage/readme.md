@@ -1,5 +1,5 @@
 ---
-name: clipboardimage
+name: ClipboardImage
 description: This component automaticaly captures images in Clipboard.
 author: Peter Širka
 version: 1

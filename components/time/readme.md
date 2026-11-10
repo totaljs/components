@@ -1,5 +1,5 @@
 ---
-name: time
+name: Time
 description: This component renders a current time.
 author: Peter Širka
 version: 1

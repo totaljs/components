@@ -1,5 +1,5 @@
 ---
-name: dragdropelement
+name: DragDropElement
 description: On drag event displays modal inside given element with text Drop & drop files here.
 author: Michal Capo
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: upload
+name: Upload
 description: The component can perform uploading of files.
 author: Peter Širka
 version: 1

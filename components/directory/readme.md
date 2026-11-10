@@ -1,5 +1,5 @@
 ---
-name: directory
+name: Directory
 description: It's similar component like j-Suggestion, but has improved design and supports more handy features.
 author: Peter Širka
 version: 1

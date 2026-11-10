@@ -1,5 +1,5 @@
 ---
-name: serverlisting
+name: ServerListing
 description: The model must be in the format below:
 author: Peter Širka
 version: 1

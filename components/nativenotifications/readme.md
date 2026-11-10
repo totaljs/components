@@ -1,5 +1,5 @@
 ---
-name: nativenotifications
+name: NativeNotifications
 description: Singleton wrapper for browser system notifications with a title, message, optional icon and callback, closed after a timeout
 author: Peter Širka
 version: 1

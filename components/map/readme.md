@@ -1,5 +1,5 @@
 ---
-name: map
+name: Map
 description: Google Maps map bound to a path that accepts GPS coordinates or an address, with an optional draggable marker
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: dropdown
+name: Dropdown
 description: Select box filled from static items or a data-source array, with optional filter condition, number conversion and an empty option
 author: Peter Širka
 version: 1

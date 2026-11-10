@@ -1,5 +1,5 @@
 ---
-name: colorpickerbutton
+name: ColorPickerButton
 description: Button that opens a color picker and shows the selected color, with a default color and position options
 author: Peter Širka
 version: 1

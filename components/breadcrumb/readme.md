@@ -1,5 +1,5 @@
 ---
-name: breadcrumb
+name: Breadcrumb
 description: Breadcrumb navigation trail built from a data source, with a root link, configurable icons and an optional document title
 author: Peter Širka
 version: 1

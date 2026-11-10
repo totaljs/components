@@ -1,5 +1,5 @@
 ---
-name: locale
+name: Locale
 description: This component sets current browser locale (number format, date format and time format) according to the navigatior.language.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: linechart
+name: LineChart
 description: Please review an example and keep a data-source.
 author: Peter Širka
 version: 1

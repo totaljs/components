@@ -1,5 +1,5 @@
 ---
-name: dashboard
+name: Dashboard
 description: The component expects Array of objects.
 author: Peter Širka
 version: 1

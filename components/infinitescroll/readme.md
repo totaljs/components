@@ -1,5 +1,5 @@
 ---
-name: infinitescroll
+name: InfiniteScroll
 description: Scrollable container that runs a method when the user reaches the end, so more content can be loaded and appended while reading
 author: Peter Širka
 version: 1

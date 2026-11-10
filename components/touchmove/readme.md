@@ -1,5 +1,5 @@
 ---
-name: touchmove
+name: TouchMove
 description: Simple touchmove component for easy touch navigation next/prev/up/down.
 author: Peter Širka
 version: 1

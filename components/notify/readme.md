@@ -1,5 +1,5 @@
 ---
-name: notify
+name: Notify
 description: Singleton toast notifications for warning, success and info messages, shown in a screen corner and closed automatically
 author: Peter Širka
 version: 1

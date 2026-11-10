@@ -1,5 +1,5 @@
 ---
-name: faiconsbutton
+name: FaIconsButton
 description: Button that shows the selected Font Awesome icon and opens the icon picker popup on click
 author: Peter Širka
 version: 1

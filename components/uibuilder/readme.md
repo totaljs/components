@@ -1,5 +1,5 @@
 ---
-name: uibuilder
+name: UIBuilder
 description: This component renders the application designed via UI Builder.
 author: Peter Širka
 version: 1

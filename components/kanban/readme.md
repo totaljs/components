@@ -1,5 +1,5 @@
 ---
-name: kanban
+name: Kanban
 description: Kanban board with draggable items in groups, with callbacks for moving, removing and double-clicking an item
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: selected
+name: Selected
 description: The component can set a specific class to a specific element according to the simple condition.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: viewbox
+name: ViewBox
 description: Container with a fixed percentage height of its parent or window, with optional scrolling, centering and disabled overlay
 author: Peter Širka
 version: 1

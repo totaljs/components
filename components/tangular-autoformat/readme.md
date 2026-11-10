@@ -1,5 +1,5 @@
 ---
-name: tangular-autoformat
+name: TangularAutoFormat
 description: This TAngular helper automatically formats email, phone number, boolean, numbers, dates or HEX color.
 author: Peter Širka
 version: 1

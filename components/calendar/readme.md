@@ -1,5 +1,5 @@
 ---
-name: calendar
+name: Calendar
 description: The component must be called manually or works with textbox or j-Input component automatically.
 author: Peter Širka
 version: 1

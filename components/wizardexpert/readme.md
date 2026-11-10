@@ -1,5 +1,5 @@
 ---
-name: wizardexpert
+name: WizardExpert
 description: A simple solution for making of advanced wizards.
 author: Peter Širka
 version: 1

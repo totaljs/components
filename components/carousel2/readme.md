@@ -1,5 +1,5 @@
 ---
-name: carousel2
+name: Carousel2
 description: If the component's path is changed then the component summarizes all cells again.
 author: Peter Širka
 version: 1

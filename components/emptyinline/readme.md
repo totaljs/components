@@ -1,5 +1,5 @@
 ---
-name: emptyinline
+name: EmptyInline
 description: The component will display text inside the element if the value is empty or the array doesn't contain an item.
 author: Peter Širka
 version: 1

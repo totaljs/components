@@ -1,5 +1,5 @@
 ---
-name: editable
+name: Editable
 description: This component can edit all elements with editable class.
 author: Peter Širka
 version: 1

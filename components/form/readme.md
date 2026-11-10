@@ -1,5 +1,5 @@
 ---
-name: form
+name: Form
 description: Side form that is displayed when the value of its path matches the if condition, with title, icon, reload and submit hooks
 author: Peter Širka
 version: 2

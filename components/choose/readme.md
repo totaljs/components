@@ -1,5 +1,5 @@
 ---
-name: choose
+name: Choose
 description: The component is alternative to CheckboxListExpert and RadioButtonListExpert.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: notificationspanel
+name: NotificationsPanel
 description: Singleton side panel listing notifications, with a click callback, a clear button and optional removal of items after a click
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: countdown
+name: CountDown
 description: The component can show an action when time is expired.
 author: Tomáš Novák
 version: 1

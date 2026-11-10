@@ -1,5 +1,5 @@
 ---
-name: floatingpanel
+name: FloatingPanel
 description: You can combine methods with j-Shortcuts component.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: listform
+name: ListForm
 description: The component watches a click event on all buttons with name attribute:
 author: Peter Širka
 version: 1

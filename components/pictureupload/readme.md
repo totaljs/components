@@ -1,5 +1,5 @@
 ---
-name: pictureupload
+name: PictureUpload
 description: Picture drop zone that uploads a raw image file at a fixed width and height, with an optional icon, URL and background color
 author: Peter Širka
 version: 1

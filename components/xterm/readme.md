@@ -1,5 +1,5 @@
 ---
-name: xterm
+name: Xterm
 description: The component renders a terminal output/input directly in the web browser.
 author: Peter Širka
 version: 1

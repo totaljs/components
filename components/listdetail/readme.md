@@ -1,5 +1,5 @@
 ---
-name: listdetail
+name: ListDetail
 description: Splits content into a list and a resizable detail panel, side by side or stacked, with the detail shown when the path has a value
 author: Peter Širka
 version: 1

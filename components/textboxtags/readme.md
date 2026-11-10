@@ -1,5 +1,5 @@
 ---
-name: textboxtags
+name: TextboxTags
 description: Tag input that stores entered words as an array or string, with optional lowercase or uppercase conversion
 author: Peter Širka
 version: 1

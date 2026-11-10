@@ -1,5 +1,5 @@
 ---
-name: centered
+name: Centered
 description: Centered modal form moved under the body tag that appears when its path value matches the if condition, with close options
 author: Peter Širka
 version: 1

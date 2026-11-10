@@ -1,5 +1,5 @@
 ---
-name: ready
+name: Ready
 description: This component executes some operations when the component is ready.
 author: Peter Širka
 version: 1

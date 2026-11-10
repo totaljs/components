@@ -1,5 +1,5 @@
 ---
-name: importcsv
+name: ImportCSV
 description: Output of this component is mapped array.
 author: Peter Širka
 version: 1

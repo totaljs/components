@@ -1,5 +1,5 @@
 ---
-name: websocket
+name: WebSocket
 description: With this component, you can receive data via WebSocket.
 author: Peter Širka
 version: 1

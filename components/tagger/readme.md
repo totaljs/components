@@ -1,5 +1,5 @@
 ---
-name: tagger
+name: Tagger
 description: Tagger can render items in the array and each item can be removed.
 author: Peter Širka
 version: 1

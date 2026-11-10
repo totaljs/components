@@ -1,5 +1,5 @@
 ---
-name: duplicator
+name: Duplicator
 description: Beta component that repeats its template once per item of a data-source array, each copy bound to its own item in an independent scope
 author: Peter Širka
 version: 1

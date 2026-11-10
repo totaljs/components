@@ -1,5 +1,5 @@
 ---
-name: grid
+name: Grid
 description: Data table with a fixed header, scrollable body, filtering and pagination, driven by a data-source with items and page information
 author: Peter Širka
 version: 1

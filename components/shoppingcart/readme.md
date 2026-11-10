@@ -1,5 +1,5 @@
 ---
-name: shoppingcart
+name: ShoppingCart
 description: Singleton shopping cart stored in localStorage, with add, update, remove, discount and server sync methods
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: cookie
+name: Cookie
 description: Singleton cookie consent notice that stores agreement in localStorage, with a cancel option that clears data and redirects
 author: Peter Širka
 version: 1

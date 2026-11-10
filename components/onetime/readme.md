@@ -1,5 +1,5 @@
 ---
-name: onetime
+name: OneTime
 description: This component executes a method only once and it waits for expiration.
 author: Peter Širka
 version: 1

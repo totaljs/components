@@ -1,5 +1,5 @@
 ---
-name: serverlist
+name: ServerList
 description: The ServerList component attempts to locate a Tangular template.
 author: Peter Širka
 version: 1

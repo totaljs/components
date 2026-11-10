@@ -1,5 +1,5 @@
 ---
-name: controls
+name: Controls
 description: Singleton popup menu positioned at an element or coordinates, with items, submenus, captions and dividers
 author: Peter Širka
 version: 1

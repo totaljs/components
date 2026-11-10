@@ -1,5 +1,5 @@
 ---
-name: aselected
+name: ASelected
 description: Adds a selected class to links whose href matches the current browser address, intended for public websites
 author: Peter Širka
 version: 1

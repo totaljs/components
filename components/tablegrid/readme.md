@@ -1,5 +1,5 @@
 ---
-name: tablegrid
+name: TableGrid
 description: The component makes a simple table grid (composed of div elements) divided by a simple border that you can modify.
 author: Peter Širka
 version: 1

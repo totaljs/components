@@ -1,5 +1,5 @@
 ---
-name: intro
+name: Intro
 description: Step-by-step guided tour shown in a popup with next and done buttons, displayed when the value of its path matches the if condition
 author: Peter Širka
 version: 1

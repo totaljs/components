@@ -1,5 +1,5 @@
 ---
-name: properties2
+name: Properties2
 description: The component uses j-DatePicker, j-TimePicker, j-Directory, j-Emoji, j-ColorPicker and j-Icons components.
 author: Peter Širka
 version: 1

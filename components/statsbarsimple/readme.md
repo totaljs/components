@@ -1,5 +1,5 @@
 ---
-name: statsbarsimple
+name: StatsBarSimple
 description: The component needs to have a defined template for rendering content and a tooltip.
 author: Peter Širka
 version: 1

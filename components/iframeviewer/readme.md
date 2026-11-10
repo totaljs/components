@@ -1,5 +1,5 @@
 ---
-name: iframeviewer
+name: iFrameViewer
 description: This component show a layer (over the content) with a iframe.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: display
+name: Display
 description: The component calculates the interval between displays automatically.
 author: Peter Širka
 version: 1

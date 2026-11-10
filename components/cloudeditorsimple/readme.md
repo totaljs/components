@@ -1,5 +1,5 @@
 ---
-name: cloudeditorsimple
+name: CloudEditorSimple
 description: Simpler embedded code editor whose settings are in the config and whose bound value is a plain string
 author: Peter Širka
 version: 1

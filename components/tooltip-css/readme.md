@@ -1,5 +1,5 @@
 ---
-name: tooltip-css
+name: TooltipCSS
 description: CSS-only tooltips based on the tooltip attribute, positioned with tooltip-position.
 author: Peter Širka
 version: 1

@@ -1,5 +1,5 @@
 ---
-name: recaptcha
+name: reCAPTCHA
 description: Google reCAPTCHA widget bound to a form value, configured with a site API key and a light or dark theme
 author: Peter Širka
 version: 1

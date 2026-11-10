@@ -1,5 +1,5 @@
 ---
-name: objecttree
+name: ObjectTree
 description: Expandable/Collabsible object tree.
 author: Martin Smola
 version: 1

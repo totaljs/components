@@ -1,5 +1,5 @@
 ---
-name: textbox
+name: Textbox
 description: Text input with label, icons, placeholder, length limits, type rules and validation for email, phone, date and number
 author: Peter Širka
 version: 1

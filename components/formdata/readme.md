@@ -1,5 +1,5 @@
 ---
-name: formdata
+name: FormData
 description: With this component you can send data via the POST/PUT/DELETE method to the current window or another.
 author: Peter Širka
 version: 1

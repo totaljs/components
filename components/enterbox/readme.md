@@ -1,5 +1,5 @@
 ---
-name: enterbox
+name: Enterbox
 description: A simple EnterBox. Each value needs to be confirmed via enter key or clicking on the button.
 author: Peter Širka
 version: 1

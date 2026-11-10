@@ -1,5 +1,5 @@
 ---
-name: shortcuts
+name: Shortcuts
 description: This component can help with creating keyboard shortcuts.
 author: Peter Širka
 version: 1

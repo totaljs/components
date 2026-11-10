@@ -1,5 +1,5 @@
 ---
-name: pictureuploadexpert
+name: PictureUploadExpert
 description: Advanced picture uploader with drag and drop, multiple files, EXIF orientation and resized one-by-one upload to a URL
 author: Denis Granec
 version: 1

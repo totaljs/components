@@ -1,5 +1,5 @@
 ---
-name: gallery
+name: Gallery
 description: Full-screen image preview gallery with previous and next navigation and keyboard support, designed for Bootstrap grid layouts
 author: Peter Širka
 version: 1

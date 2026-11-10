@@ -1,5 +1,5 @@
 ---
-name: watch
+name: Watch
 description: The component can evaluate the method in the form function(value, element, type, path) when the value (according to the path) is changed.
 author: Peter Širka
 version: 1

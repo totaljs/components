@@ -1,5 +1,5 @@
 ---
-name: timepicker
+name: TimePicker
 description: The component must be called manually or works with j-Input component automatically.
 author: Peter Širka
 version: 1
