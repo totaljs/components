@@ -39,7 +39,7 @@ function normalizeTabs(text) {
             result.push(l);
     }
 
-    return result.join('\n');
+    return result.join('\n').trim();
 }
 
 function parseSource(html) {
