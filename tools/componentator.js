@@ -20,14 +20,17 @@ function parseSource(html) {
 	beg = html.indexOf('<style component>');
 
 	if (beg !== -1) {
-		tmp = Utils.minify_css(html.substring(beg + 17, html.indexOf('</style>', beg + 17)));
-		if (!tmp.endsWith('{}'))
+		tmp = html.substring(beg + 17, html.indexOf('</style>', beg + 17)).trim();
+		if (!tmp.endsWith('{}') && !tmp.includes('has no CSS'))
 			css = tmp;
 	}
 
 	beg = html.indexOf('<script component>');
-	if (beg !== -1)
-		js = Utils.minify_js(html.substring(beg + 18, html.indexOf('</script>', beg + 18)));
+	if (beg !== -1) {
+		js = html.substring(beg + 18, html.indexOf('</script>', beg + 18)).trim();
+		if (js.includes('no JavaScript'))
+			js = '';
+	}
 
 	return { css: css, js: js };
 }
@@ -53,7 +56,9 @@ Utils.ls('../components', async function(files) {
 		meta.created = meta.created.parseDate('yyyy-MM-dd HH:mm');
 		meta.updated = meta.updated.parseDate('yyyy-MM-dd HH:mm');
 		items.push(meta);
-		await PROMISIFY(Total.Fs.writeFile, '../cdn/' + 'j-' + meta.name + '.html', (meta.css ? ('<style>' + meta.css + '</style>\n') : '') + (meta.js ? ('<script>' + meta.js + '</script>\n') : ''));
+		if (meta.name === 'tags')
+			console.log(meta)
+		await PROMISIFY(Total.Fs.writeFile, '../cdn/' + 'j-' + meta.name + '.html', (meta.css ? ('<style>' + Utils.minify_css(meta.css) + '</style>\n') : '') + (meta.js ? ('<script>' + Utils.minify_js(meta.js) + '</script>\n') : ''));
 	}
 
 	Total.Fs.writeFile('../components.json', JSON.stringify(items, null, '\t'), NOOP);
