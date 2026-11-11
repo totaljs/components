@@ -1,6 +1,6 @@
 # Log: searchdata
 
-Result of converting the old component with `tools/convert.js` and checking it with `node tools/check.js searchdata --legacy`. Type: **component**, jComponent: **v20**. This file is evidence for the review; it is not part of the format of a component (`component.html`, `readme.md`, `preview.jpg`).
+Result of converting the old component and checking it with `node tools/check.js searchdata --legacy`. Type: **component**, jComponent: **v20**. This file is evidence for the review; it is not part of the format of a component (`component.html`, `readme.md`, `preview.jpg`).
 
 ## What was done
 

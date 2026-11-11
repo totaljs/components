@@ -15,7 +15,7 @@
 
 ## Create components with AI
 
-This branch contains everything an AI model (Claude, ChatGPT, Codex, Gemini, Copilot…) needs to create a new jComponent from a description (or to convert an existing one), for example _"make me a modern radio button list according to the Apple UI guidelines"_. Each component has 3 files: `component.html` (CSS + script + live example, it runs directly in the browser), `readme.md` and `preview.jpg`.
+This branch contains everything an AI model (Claude, ChatGPT, Codex, Gemini, Copilot…) needs to create a new jComponent from a description, for example _"make me a modern radio button list according to the Apple UI guidelines"_. Each component has 3 files: `component.html` (CSS + script + live example, it runs directly in the browser), `readme.md` and `preview.jpg`.
 
 | File | What it is |
 | --- | --- |
@@ -24,13 +24,12 @@ This branch contains everything an AI model (Claude, ChatGPT, Codex, Gemini, Cop
 | [`docs/api.md`](docs/api.md) | Reference of the jComponent API |
 | [`docs/aicontext/`](docs/aicontext/readme.md) | Guides of the Total.js team: how to develop a component, `ui-component`, `ui-bind`, `ui-import` and `ui-plugin` |
 | [`tools/check.js`](tools/check.js) | Checks a component and creates `preview.jpg` |
-| [`tools/convert.js`](tools/convert.js) | Converts a component of the classic format to the new one (the mechanical part) |
 | [`AGENTS.md`](AGENTS.md), `CLAUDE.md`, `GEMINI.md`, [`llms.txt`](llms.txt) | Entry points for each agent |
 
 ### How to use it
 
 1. Give the model this repository (or upload `SKILL.md`, `docs/api.md` and the `example/` folder).
-2. Describe the component you need. The model derives the contract, writes the 3 files and checks them. To **convert** an existing component, give the model its old folder (`component.js`, `component.css`, `component.json`, `example.html`, `dependencies.html`, `readme.md`, `picture.jpg`): `node tools/convert.js <old-folder> --out <dir>` does the mechanical part and the model finishes it (descriptions, documentation of the options), without changing the behaviour.
+2. Describe the component you need. The model derives the contract, writes the 3 files and checks them.
 3. Check the result:
 
 ```bash

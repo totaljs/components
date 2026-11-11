@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Guidance for AI agents. This repository teaches an agent how to **create [Total.js](https://www.totaljs.com) jComponents** (UI components for the Total.js UI library, `v20`) from a natural-language description, for example "make me a modern radio button list according to the Apple UI guidelines", and how to **convert** the existing components of the classic format to the new one.
+Guidance for AI agents. This repository teaches an agent how to **create [Total.js](https://www.totaljs.com) jComponents** (UI components for the Total.js UI library, `v20`) from a natural-language description, for example "make me a modern radio button list according to the Apple UI guidelines".
 
 ## Project
 
@@ -12,7 +12,7 @@ Plain JavaScript in ES5 style, no TypeScript (Total.js does not support it: neve
 
 ## Using it
 
-1. Read [`SKILL.md`](SKILL.md): the workflow, the rules, the checklist and how to convert a component.
+1. Read [`SKILL.md`](SKILL.md): the workflow, the rules and the checklist.
 2. Start from `example/component.html` and `example/readme.md`.
 3. Use [`docs/api.md`](docs/api.md) for the API of the library and [`docs/aicontext/`](docs/aicontext/readme.md) for how to develop a component and for the HTML elements (`ui-component`, `ui-bind`, `ui-import`, `ui-plugin`).
 4. Check the result:
@@ -23,15 +23,6 @@ node tools/check.js <folder>              # structure, readme, selectors, browse
 node tools/check.js <folder> --preview    # also creates preview.jpg (300x240)
 ```
 
-To **convert** an existing component:
-
-```bash
-node tools/convert.js <old-folder> --out <dir>    # the mechanical part
-node tools/check.js <dir>/<name> --legacy         # what is left to finish
-```
-
-Converting only changes the format, never the behaviour.
-
 ## Repository layout
 
 - `SKILL.md` is the skill: how to create a component. `.claude/skills/jcomponent/` and `.agents/skills/jcomponent/` point to it so Claude Code and Codex load it.
@@ -39,7 +30,6 @@ Converting only changes the format, never the behaviour.
 - `docs/api.md` is the reference of the API (extracted from the library source and from how components use it).
 - `docs/aicontext/` are the guides of the Total.js team about the HTML elements of the library.
 - `tools/check.js` checks a component folder and creates `preview.jpg`. With `--legacy` the rules about the style of the code are warnings (for converted components).
-- `tools/convert.js` converts a component of the classic format (`component.js`, `component.css`, `component.json`, `example.html`, `dependencies.html`, `readme.md`, `picture.jpg`) to `component.html`, `readme.md` and `preview.jpg`; the rest is finished by the agent following `SKILL.md`.
 - `llms.txt` is the index for models. `CLAUDE.md`, `GEMINI.md` and `.github/copilot-instructions.md` import this file.
 
 ## Conventions

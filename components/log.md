@@ -1,6 +1,6 @@
 # Log of the conversion
 
-What was seen while converting 329 components with `tools/convert.js` and checking them with `tools/check.js --legacy` and in Chrome. Generated on 2026-11-03 10:52. The summary is in [readme.md](readme.md).
+What was seen while converting 329 components and checking them with `tools/check.js --legacy` and in Chrome. Generated on 2026-11-03 10:52. The summary is in [readme.md](readme.md).
 
 ## 1. Warnings (style rules of the new components that the old code does not follow)
 

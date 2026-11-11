@@ -1,11 +1,9 @@
 ---
 name: jcomponent
-description: Create a new Total.js jComponent (UI component for the Total.js UI library, jComponent v20) from a natural-language description, for example "a modern radio button list according to the Apple UI guidelines", or convert an existing component of the classic format (component.js, component.css, component.json...) to the new one. Use when asked to write, design, convert or update a component for componentator.com / totaljs/components. Output is exactly 3 files - component.html (runnable in the browser), readme.md and preview.jpg.
+description: Create a new Total.js jComponent (UI component for the Total.js UI library, jComponent v20) from a natural-language description, for example "a modern radio button list according to the Apple UI guidelines". Use when asked to write, design or update a component for componentator.com / totaljs/components. Output is exactly 3 files - component.html (runnable in the browser), readme.md and preview.jpg.
 ---
 
-# Creating or converting a jComponent
-
-Two tasks use the same format: **create** a component from a description (this page) and **convert** an existing component of the classic format (see "Converting an existing component" at the end).
+# Creating a jComponent
 
 The user describes a component in plain words (what it does, how it looks). You deliver a complete, working component in the format below. The user does not know lifecycle names: derive them.
 
@@ -170,25 +168,3 @@ It needs `npm install playwright` (it uses Chrome if Chromium is not installed).
 7. Every option of the default configuration is in the readme and vice versa.
 8. `readme.md` frontmatter has all 9 keys; `created` and `updated` are the real current date and time read from the system (`yyyy-MM-dd HH:mm`).
 9. `preview.jpg` exists, is 300x240 and matches the final example.
-
-## Converting an existing component
-
-The classic format is a folder `j-Name/` with `component.js`, `component.css`, `component.json`, `example.html`, `dependencies.html`, `readme.md` and `picture.jpg` (the components of `totaljs/components`, branch `master`). **Converting only changes the format, never the behaviour.**
-
-1. **Mechanical part, with the tool:**
-
-   ```bash
-   node tools/convert.js <old-folder> --out <dir>      # the result is <dir>/<name>/
-   node tools/convert.js <old-folder> --out <dir> --prefix j-   # the folder is j-<name>
-   ```
-
-   The name is the one of `COMPONENT('name')` (not of the old folder). The tool creates `component.html` (`component.css` -> `<style component>`, `component.js` -> `<script component>`, `example.html` -> the example, `dependencies.html` -> `<head>` with `spa.min@20` and any other dependency of the old file), `readme.md` (frontmatter from `component.json`, `# Title`, bullets in the form `` `key {Type}` ``, without the `### Author` block) and `preview.jpg` (a copy of `picture.jpg`). `created` is kept, `updated` is the current date and time of the system. The version of the library is the one that the component declares in `component.json` (`jcomponent`; without it, v19): a v19-only component keeps `spa.min@19` and `jcomponent: v19`. Do not force `spa.min@20` on it: it can fail (`NOTMODIFIED is not defined`, `self.compile is not a function`...). Updating it to run on v20 is a separate task.
-2. **Check:** `node tools/check.js <result> --legacy`. Fix the **errors**:
-   - `description: TODO` -> write one sentence from the readme and the code.
-   - Options of the default configuration that the readme does not document -> read the code, add them to `__Configuration__:` with their `{Type}` and default.
-   - `__Configuration__:` missing in a component that has defaults -> add it.
-   - `preview.jpg` missing -> `node tools/check.js <result> --preview`.
-3. **Warnings** are rules for new components that the old code does not follow (selectors that are not scoped under `.ui-<name>`, `id="..."`, `self.release()`, `console.log`). Do not rewrite code to remove them: that can change the behaviour. List them next to the result, and fix only what is trivially safe.
-4. **Run the browser test:** `node tools/check.js <result> --legacy` with Playwright, and open `component.html`. If the component fails, compare with the old one before you change anything: it may need another component or a library (`dependencies.html`).
-5. Two folders that register the same name (`j-QRCode` and `j-QRCodeGenerator` both register `qrcode`) cannot both be `qrcode/`: convert one and report the other so that the owner decides the new name (the name inside `COMPONENT(...)` and the CSS classes would change).
-6. The packages that are not jComponents (Tangular helpers, CSS libraries, page templates: `Tangular-*`, `URLify`, `Tooltip`, `j-ResponsiveLayout`...) have no `COMPONENT('name')`. The tool converts them too: the CSS (and the `<style>` blocks of their example) goes to `<style component>`, the JavaScript to `<script component>` (empty if it has none) and the example is the body of the page; the name is the one of `component.json` (`--name <name>` when it is already the name of a component, for example `Tooltip` is `tooltip-css`). `check.js` does not ask for selectors or options in them. `0cdn`, `0dependencies` and `0emptycomponent` are not components.
