@@ -6,7 +6,7 @@ version: 1
 darkmode: false
 license: https://www.totaljs.com/license/
 created: 2023-02-08 22:35
-updated: 2026-11-03 10:36
+updated: 2025-08-05 10:25
 jcomponent: v19,v20
 ---
 
