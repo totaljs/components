@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+<style component>
+	.ui-webmcp { display: none !important; }
+</style>
+<script component>
+	COMPONENT('webmcp', 'url:/$mcp/;tools:auto;source:', function(self, config, cls) {
+
+		var lifecycle = new AbortController();
+		var registered = [];
+		var context;
+		var endpoint;
+		var sequence = 0;
+
+		function rpc(method, params, signal) {
+			var id = ++sequence;
+			return fetch(endpoint, {
+				method: 'POST',
+				credentials: 'same-origin',
+				redirect: 'error',
+				headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+				body: JSON.stringify({ jsonrpc: '2.0', id: id, method: method, params: params }),
+				signal: signal || lifecycle.signal
+			}).then(function(response) {
+				if (!response.ok)
+					throw new Error('MCP HTTP ' + response.status);
+				return response.json();
+			}).then(function(data) {
+				if (!data || data.id !== id || data.jsonrpc !== '2.0' || !data.result || data.error)
+					throw new Error(data && data.error && data.error.message || 'Invalid MCP response.');
+				return data.result;
+			});
+		}
+
+		function register(tool) {
+			if (lifecycle.signal.aborted)
+				return;
+			return Promise.resolve(context.registerTool({
+				name: tool.name,
+				description: tool.description || tool.name,
+				inputSchema: tool.inputSchema || { type: 'object', properties: {} },
+				execute: function(input, options) {
+					if (lifecycle.signal.aborted)
+						return Promise.reject(new Error('The WebMCP component was removed.'));
+					return rpc('tools/call', { name: tool.name, arguments: input }, options && options.signal);
+				}
+			}, { signal: lifecycle.signal })).then(function() {
+				if (lifecycle.signal.aborted && context.unregisterTool)
+					context.unregisterTool(tool.name);
+				else
+					registered.push(tool.name);
+			});
+		}
+
+		function warn(error) {
+			window.console && console.warn('webmcp:', error && error.message || error);
+		}
+
+		function select(catalogue, selection) {
+			if (selection === 'auto')
+				return catalogue;
+			if (typeof selection === 'string') {
+				selection = selection.trim();
+				if (selection === 'auto')
+					return catalogue;
+				selection = selection.charAt(0) === '[' ? JSON.parse(selection) : selection.split(',').map(function(name) { return name.trim(); }).filter(Boolean);
+			}
+			if (!Array.isArray(selection))
+				throw new Error('Expected an array of MCP tools or auto.');
+
+			var names = [];
+			return selection.map(function(item) {
+				var name = typeof item === 'string' ? item : item && item.name;
+				var tool = catalogue.find(function(candidate) { return candidate.name === name; });
+				if (!tool || names.indexOf(name) !== -1)
+					throw new Error('Unknown or duplicate MCP tool.');
+				names.push(name);
+				if (item && typeof item.description === 'string' && item.description.trim())
+					return Object.assign({}, tool, { description: item.description });
+				return tool;
+			});
+		}
+
+		self.readonly();
+
+		self.make = function() {
+			self.aclass(cls);
+			self.dom.hidden = true;
+			if (!config.source && !config.tools)
+				return;
+
+			context = document.modelContext || navigator.modelContext;
+			if (!context || typeof context.registerTool !== 'function')
+				return;
+
+			try {
+				var url = new URL(config.url, location.href);
+				if (url.origin !== location.origin || !/^https?:$/.test(url.protocol) || url.username || url.password)
+					throw new Error('Expected a same-origin MCP endpoint.');
+				endpoint = url.href;
+			} catch (error) {
+				warn(error);
+				return;
+			}
+
+			rpc('tools/list', {}).then(function(result) {
+				if (!Array.isArray(result.tools))
+					throw new Error('Invalid MCP catalogue.');
+				var source = config.source ? GET(config.source) : config.tools;
+				return Promise.resolve(typeof source === 'function' ? source(JSON.parse(JSON.stringify(result.tools)), self) : source).then(function(selection) {
+					return select(result.tools, selection).reduce(function(chain, tool) {
+						return chain.then(function() { return register(tool); }).catch(function(error) {
+							// A tool that cannot be registered must not stop the following tools.
+							lifecycle.signal.aborted || warn(tool.name + ': ' + (error && error.message || error));
+						});
+					}, Promise.resolve());
+				});
+			}).catch(function(error) {
+				// Discovery is optional and must not interrupt the host page.
+				lifecycle.signal.aborted || warn(error);
+			});
+		};
+
+		self.destroy = function() {
+			lifecycle.abort();
+			if (context && context.unregisterTool)
+				registered.forEach(function(name) { context.unregisterTool(name); });
+		};
+	});
+</script>
+<ui-component name="webmcp"></ui-component>
+</body>
+</html>
