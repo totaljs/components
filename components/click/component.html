@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@19.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@19.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-click {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('click', function(self, config) {
+
+			self.readonly();
+
+			self.click = function() {
+				if (!config.disabled) {
+					if (config.value)
+						self.set(self.parser(config.value));
+					else
+						self.EXEC(self.path, self.element);
+				}
+			};
+
+			self.make = function() {
+				self.event('click', self.click);
+				config.enter && $(config.enter === '?' ? self.scope : config.enter).on('keydown', 'input', function(e) {
+					e.which === 13 && setTimeout(function() {
+						!self.element[0].disabled && self.click();
+					}, 100);
+				});
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	<div id="form">
+	    <div><input type="text" placeholder="press enter" /></div>
+	</div>
+	<div><button><ui-component name="click" path="doSubmit" config="enter:#form">SUBMIT</ui-component></button></div>
+	<br />
+	<div><button><ui-component name="click" path="user.name" config="value:Peter">SET VALUE user.name</ui-component></button></div>
+	<ui-bind path="user.name" config="text"></ui-bind>
+
+	<script>
+		function doSubmit() {
+	        alert('SUBMIT');
+	    }
+	</script>
+
+</body>
+</html>

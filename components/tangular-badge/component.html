@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.badge { font-size: 12px; padding: 4px 6px; border-radius: var(--radius); background-color: var(--color); line-height: 12px; vertical-align: middle; position: relative; display: inline-block; color: #FFF; }
+		.badge i { margin-right: 3px; }
+		.badge-small { font-size: 10px; padding: 0px 3px 1px; }
+		.badge-medium { font-size: 11px; padding: 2px 6px; }
+		.badge-medium i { margin-right: 5px; }
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		Thelpers.badge = function(value, size) {
+			if (!value)
+				return '';
+
+			let colors = DEF.badgecolors || ['#1abc9c','#2ecc71','#3498db','#9b59b6','#34495e','#16a085','#2980b9','#8e44ad','#2c3e50','#f1c40f','#e67e22','#e74c3c','#d35400','#c0392b'];
+
+
+			if (!(value instanceof Array))
+				value = [value];
+
+			let output = '';
+
+			for (let m of value) {
+				let num = 0;
+				for (let i = 0; i < m.length; i++)
+					num += m.charCodeAt(i);
+				output += '<span class="badge badge-{2} mr5" style="background-color:{0}">{1}</span>'.format(colors[num % colors.length], m, size || 'medium');
+			}
+
+			return output;
+		};
+
+	</script>
+
+	<!-- Example -->
+	<div id="output"></div>
+
+	<script>
+		$('#output').html(Thelpers.badge('Avengers') + Thelpers.badge('jComponent') + Thelpers.badge('Total.js'));
+	</script>
+
+</body>
+</html>

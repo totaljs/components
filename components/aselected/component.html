@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-aselected {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('aselected', 'selector:a;attr:href;class:selected;delay:300', function(self, config) {
+
+			self.readonly();
+
+			var timeoutid;
+
+			self.make = function() {
+				self.refresh();
+				self.on('location', self.refresh);
+				config.watch && self.datasource(config.watch, self.setter);
+			};
+
+			self.refresh = function() {
+				timeoutid && clearTimeout(timeoutid);
+				timeoutid = null;
+				var arr = self.find(config.selector);
+				var url = NAV.url;
+				for (var i = 0; i < arr.length; i++) {
+					var el = $(arr[i]);
+					var href = el.attr(config.attr) || '';
+					var selected = config.strict ? url === href : url.length === 1 || href.length === 1 ? href === url : url.indexOf(href) === 0;
+					el.tclass(config.class, selected);
+				}
+			};
+
+			self.setter = function() {
+				timeoutid && clearTimeout(timeoutid);
+				timeoutid = setTimeout(self.refresh, config.delay);
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<style>
+		.links a { display: block; border: 0; text-align: left; color: gray; font-size: 14px; border-radius: 2px; padding: 2px 10px; margin-bottom: 1px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; }
+		.links a i { width: 14px; text-align: center; font-size: 12px; margin-right: 7px; color: #4285F4; }
+		.links .selected { font-weight: bold; color: white !important; background-color: #4285F4; }
+		.links .selected i { color: white !important }
+		.links a:hover { text-decoration: none; color: black; }
+	</style>
+
+	<ui-component name="aselected" class="links">
+		<a href="/"><i class="ti ti-users"></i>Users</a>
+		<a href="/products/"><i class="ti ti-box"></i>Products</a>
+		<a href="/settings/"><i class="ti ti-cog"></i>Settings</a>
+	</ui-component>
+
+	<script>
+
+		var arr = ['/', '/products/', '/settings/'];
+
+		setInterval(function() {
+			REDIRECT(arr[(Math.random() * arr.length) >> 0]);
+		}, 1500);
+
+	</script>
+
+</body>
+</html>

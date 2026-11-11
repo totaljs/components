@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-emptyinline { padding: 5px 0; color: #777; font-size: 12px; }
+		.ui-emptyinline i { margin-right: 5px; }
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('emptyinline', 'icon:ti ti-ban', function(self, config, cls) {
+
+			self.make = function() {
+				self.aclass(cls + ' hidden');
+				config.icon && self.element.prepend('<i class="{icon}"></i>'.args(config));
+			};
+
+			self.setter = function(value) {
+				self.tclass('hidden', value instanceof Array ? value.length > 0 : !!value);
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="emptyinline" path="common.pictures">Without pictures</ui-component>
+
+	<script>
+
+		var common = {};
+
+		common.pictures = [];
+
+	</script>
+
+</body>
+</html>

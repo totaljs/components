@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		/* This package has no CSS */
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		Thelpers.color = function(value) {
+			var hash = HASH(value, true);
+			var color = '#';
+			for (var i = 0; i < 3; i++) {
+				var value = (hash >> (i * 8)) & 0xFF;
+				color += ('00' + value.toString(16)).substr(-2);
+			}
+			return color;
+		};
+
+	</script>
+
+	<!-- Example -->
+	<div id="output"></div>
+
+	<script>
+		$('#output').html('<i class="ti ti-circle-alt" style="color:{0}"></i> <i class="ti ti-circle-alt" style="color:{1}"></i> <i class="ti ti-circle-alt" style="color:{2}"></i>'.format(Thelpers.color('Avengers'), Thelpers.color('jComponent'), Thelpers.color('Total.js')));
+	</script>
+
+</body>
+</html>

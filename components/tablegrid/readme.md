@@ -1,0 +1,42 @@
+---
+name: TableGrid
+description: The component makes a simple table grid (composed of div elements) divided by a simple border that you can modify.
+author: Peter Širka
+version: 1
+darkmode: false
+license: https://www.totaljs.com/license/
+created: 2022-01-30 12:03
+updated: 2026-11-03 10:36
+jcomponent: v19,v20
+---
+
+# TableGrid
+
+The component makes a simple table grid (composed of `div` elements) divided by a simple border that you can modify.
+
+__Configuration__:
+
+- `count {Number}` a default count of items per row
+- `countxs {Number}` items per row for mobile display
+- `countsm {Number}` items per row for small display
+- `countmd {Number}` items per row for medium display
+- `countlg {Number}` items per row for a large display
+- `parent {String}` for obtaining size (default: `window`)
+- `margin {Number}` a vertical margin (default: `0`)
+- `scrollbar {Boolean}` enables custom scrollbar (default: `false`)
+- `fill {Boolean}` fills the grid with empty rowsm need to define `row` and `scrollbar`
+- `row {Number}` a default row height for all displays (default: `0`)
+- `rowxs {Number}` a default row height for mobile display (default: `0`)
+- `rowsm {Number}` a default row height for small display (default: `0`)
+- `rowmd {Number}` a default row height for medium display (default: `0`)
+- `rowlg {Number}` a default row height for large display (default: `0`)
+- `scrolltop {Boolean}` scrolls to the top after change data (default: `true`)
+
+
+__Classes__:
+
+- `ui-tablegrid-bl` means border-left
+- `ui-tablegrid-bt` means border-top
+- `ui-tablegrid-first` first item in the row
+- `ui-tablegrid-last` last item in the row
+- `ui-tablegrid-empty` empty item

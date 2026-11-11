@@ -1,0 +1,35 @@
+---
+name: NoScrollbar
+description: Container that fills the height of its parent without a visible scrollbar, resizing on window resize and scrolling to top or bottom
+author: Peter Širka
+version: 1
+darkmode: false
+license: https://www.totaljs.com/license/
+created: 2022-01-14 21:43
+updated: 2026-11-03 10:36
+jcomponent: v19,v20
+---
+
+# NoScrollbar
+
+- this component is something like `j-ViewBox` without native/custom scrollbar
+
+__Configuration__:
+
+- `parent {String}` optional, a container with fixed height, can be `window`. Default value: `parent` element.
+- `minheight {Number}` a minimal height in pixels (default: `0` - disabled)
+- `delay {Number}` `msec.` resizes the box again if the value is changed according to the path (default: `100`)
+- `scrollto {String}` scrolls to top/bottom automatically if the `path` is changed (default: `EMPTY`, can be `top` or `bottom`)
+- `margin {Number}` optional, a top/bottom margin together (supports `auto` which is counted from `offset.top`, default: `0`)
+- `marginxs {Number}` optional, a top/bottom margin together for `xs` screen width
+- `marginsm` optional, a top/bottom margin together for `sm` screen width
+- `marginmd` optional, a top/bottom margin together for `md` screen width
+- `marginlg` optional, a top/bottom margin together for `lg` screen width
+- `invisible {Boolean}` if `true` then viewbox sets `invisible` class when is rendering (default: `true`)
+- `initdelay {Number}` removes `inivisible` class after specified time (default: `250` ms)
+
+__Methods__:
+
+- `component.scrolltop(val)` scrolls Y
+- `component.scrollbottom(val)` scrolls Y from bottom side
+- `component.resize()` resizes container (it reacts on `resize` events automatically)

@@ -1,0 +1,47 @@
+---
+name: Calendar
+description: The component must be called manually or works with textbox or j-Input component automatically.
+author: Peter Širka
+version: 1
+darkmode: true
+license: https://www.totaljs.com/license/
+created: 2015-10-08 08:14
+updated: 2026-11-03 10:36
+jcomponent: v19
+---
+
+# Calendar
+
+- supports __dark mode__
+- supports __touch gestures (swipe)__ and fixed full size on mobile
+
+__Configuration__:
+
+- `firstday {Number}` (optional) first day in the week
+- `today {String}` (optional) label for `Set today` button
+- `days {String}` (optional) days e.g. `SU,MO,TU,WE,TH,FR,SA` (default).
+- `months {String}` (optional) months e.g. `January,February,...` (default).
+- `yearselect {Boolean}` (optional) dropdown with years (default `true`).
+- `monthselect {Boolean}` (optional) dropdown with months (default `true`).
+- `yearfrom {String}` (optional) set minimum year limit in dropdown e.g. `-5 years` `current`  (default `-100 years`).
+- `yearto {String}` (optional) set maximum year limit in dropdown  `+5 years` `current` (default `current`).
+
+The component must be called manually or works with `textbox` or `j-Input` component automatically. The component is a singleton.
+
+- works __only__ with Bootstrap Grid System (otherwise is need to fix CSS)
+- __important__ add the calendar component under `<body>` element
+
+## Usage
+
+```javascript
+var ELEMENT = $(document);
+var PATH = 'some.path.to.date';
+var X_OFFSET = 100;
+FIND('calendar').toggle(ELEMENT, PATH, function(date) {
+	console.log('SELECTED DATE:', date);
+}, X_OFFSET);
+
+// OR
+
+FIND('calendar').toggle(ELEMENT, 'path.to.date OR date object', 'path.to.binding.date');
+```

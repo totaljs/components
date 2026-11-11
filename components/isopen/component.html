@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@19.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@19.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-isopen {}
+		.ui-isopen span { font-size: 10px; padding: 2px 5px; border-radius: var(--radius); text-transform: uppercase; color: #FFF; float: left; margin: 1px 5px 0 0; }
+		.ui-isopen .open { background-color: #8CC152; }
+		.ui-isopen .closed { background-color: #DA4453; }
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('isopen', function(self) {
+
+			var interval, prev;
+
+			self.destroy = function() {
+				clearInterval(interval);
+			};
+
+			self.blind();
+			self.nocompile && self.nocompile();
+
+			self.make = function() {
+
+				var scr = self.find('script');
+				var me = false;
+
+				if (!scr.length) {
+					scr = self.element;
+					me = true;
+				}
+
+				self.template = Tangular.compile(scr.html());
+				interval = setInterval(self.prerender, 60000);
+				!me && scr.remove();
+				self.prerender();
+				self.tclass('ui-isopen');
+			};
+
+			self.prerender = function() {
+				var dt = new Date();
+				var model = {};
+				model.minutes = dt.getMinutes();
+				model.hours = dt.getHours();
+				model.date = dt;
+				model.day = dt.getDate();
+				model.month = dt.getMonth() + 1;
+				model.year = dt.getFullYear();
+				model.daytype = dt.getDay();
+				model.week = model.daytype === 0 || model.daytype === 6;
+				var tmp = self.template(model);
+				if (tmp !== prev) {
+					prev = tmp;
+					self.html(tmp);
+				}
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="isopen" config="class:hidden" class="hidden">
+		<script type="text/html">
+			{{ if week }}<span class="closed">closed</span>{{ else }}<span class="open">open</span>{{ fi }}
+			<div>07:00 - 09:00</div>
+		</script>
+	</ui-component>
+
+</body>
+</html>

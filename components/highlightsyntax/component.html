@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		pre { margin-top: 5px; }
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('highlightsyntax', function(self, config) {
+			self.readonly();
+			self.nocompile && self.nocompile();
+			self.setter = function(value) {
+				if (value) {
+					self.html('<pre><code class="{0}">{1}</code></pre>'.format(config.type, Tangular.helpers.encode(value)));
+					hljs.highlightBlock(self.find('code')[0]);
+					self.tclass('hidden', false);
+				} else
+					self.tclass('hidden', true);
+			};
+		}, [function(next) {
+			let cdn = (DEF.cdn || 'https://cdn.componentator.com');
+			IMPORT(cdn + '/highlight.min@1020.css', () => IMPORT(cdn + '/highlight.min@1020.js', next));
+		}]);
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="highlightsyntax" path="exampleHTML" config="type:html"></ui-component>
+	<ui-component name="highlightsyntax" path="exampleJS" config="type:js"></ui-component>
+	<ui-component name="highlightsyntax" path="exampleCSS" config="type:css"></ui-component>
+
+	<script>
+		var exampleHTML = "This is <b>HTML</b>";
+		var exampleJS = "var a = 0;";
+		var exampleCSS = "body { color: red; }";
+	</script>
+
+</body>
+</html>

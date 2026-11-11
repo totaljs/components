@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-selected {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('selected', 'class:selected;selector:a;attr:if;attror:or;delay:50', function(self, config) {
+
+			self.readonly();
+
+			var highlight = function() {
+				var cls = config.class;
+				var val = self.get() || '';
+				var arr = self.find(config.selector);
+
+				for (var m of arr) {
+					var el = $(m);
+					var or = el.attrd(config.attror) || '';
+					if (el.attrd(config.attr) === val || (or && val.includes(or)))
+						el.aclass(cls);
+					else if (el.hclass(cls))
+						el.rclass(cls);
+				}
+			};
+
+			self.configure = function(key, value) {
+				switch (key) {
+					case 'datasource':
+						self.datasource(value, function() {
+							setTimeout2(self.ID, highlight, config.delay);
+						});
+						break;
+				}
+			};
+
+			self.setter = function() {
+				setTimeout2(self.ID, highlight, config.delay);
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	<style>
+		.selected { font-weight: bold; }
+		nav a { display: block; }
+	</style>
+
+	<nav>
+		<ui-component name="selected" path="common.page">
+			<a href="#users" data-if="users">Users</a>
+			<a href="#products" data-if="products">Products</a>
+			<a href="#settings" data-if="settings">Settings</a>
+		</ui-component>
+	</nav>
+
+	<script>
+
+		SET('common.page', 'products');
+
+		window.onhashchange = function() {
+			SET('common.page', location.hash.substring(1));
+		};
+
+	</script>
+
+</body>
+</html>

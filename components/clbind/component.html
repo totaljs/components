@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.animation { visibility: hidden; }
+		.ui-animation-1-init { transition: all 0.2s; opacity: 0; }
+		.ui-animation-1-run { opacity: 1; }
+		.ui-animation-2-init { transition: all 0.2s; transform: scale(1.5); }
+		.ui-animation-2-run { transform: scale(1); }
+		.ui-animation-3-init { transition: all 0.2s; transform: scale(0.5); }
+		.ui-animation-3-run { transform: scale(1); }
+		.ui-animation-4-init { transition: all 0.2s; transform: rotateY(-90deg); }
+		.ui-animation-4-run { transform: rotateY(-1deg); }
+		.ui-animation-5-init { transition: all 0.2s; transform: translate(-100px); opacity: 0; }
+		.ui-animation-5-run { transform: translate(0); opacity: 1; }
+		.ui-animation-6-init { transition: all 0.2s; transform: translate(0, -100px); opacity: 0; }
+		.ui-animation-6-run { transform: translate(0, 0); opacity: 1; }
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('clbind', 'nullable:1;key:id', function(self, config, cls) {
+
+			var datasource = [];
+			var template = null;
+			var curr = null;
+
+			var bind = function() {
+				var item = datasource.findItem(config.key, curr);
+				if (template && (config.nullable || item))
+					self.html(template({ value: item }));
+				if (!config.nullable)
+					self.tclass('hidden', !item);
+				config.bind && self.SEEX(config.bind, item, self.element);
+				config.exec && self.SEEX(config.exec, item, self.element);
+			};
+
+			self.make = function() {
+				var scr = self.find('scr' + 'ipt,template');
+				var str = (scr.length ? scr.html() : self.html()).trim();
+				if (str)
+					template = Tangular.compile(str);
+			};
+
+			self.configure = function(key, value) {
+				if (key === 'dirsource' || key === 'datasource' || key === 'source') {
+					self.datasource(value, function(path, value) {
+						datasource = (M.is20 ? path : value) || [];
+						setTimeout2(self.ID, bind, 10);
+					});
+				}
+			};
+
+			self.setter = function(value) {
+				curr = value;
+				setTimeout2(self.ID, bind, 10);
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="clbind" path="form.typeid" config="datasource:#types;nullable:0;bind:form.type">
+		<script type="text/html">
+			<div>Value: {{ value.name }}</div>
+		</script>
+	</ui-component>
+	<br />
+	<ui-bind path="!form.type" config="html:value.name"></ui-bind>
+
+	<script>
+		DEF.cl.types = [{ id: 'totaljs', name: 'Total.js' }, { id: 'java', name: 'Java' }, { id: 'php', name: 'PHP' }, { id: '.net', name: '.NET' }];
+		var form = {};
+		form.typeid = 'totaljs';
+	</script>
+
+</body>
+</html>

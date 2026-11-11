@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-gallery-noscroll { overflow: hidden !important; overflow-scrolling: auto !important; }
+		.ui-gallery-preview, .ui-gallery img { border-radius: var(--radius); cursor: pointer; }
+		.ui-gallery-preview { position: fixed; left: 0; top: 0; bottom: 0; right: 0; background-color: rgba(255,255,255,0.8); height: 100%; z-index: 10; overflow: hidden; }
+		.ui-gallery-table { width: 100%; height: 100%; display: table; }
+		.ui-gallery-cell { vertical-align: middle; align-self: center; display: table-cell; }
+		.ui-gallery-cell img { margin: 0 auto; border-radius: 4px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); width: auto; max-height: 100%; height: 100%; display: block; }
+		.ui-gallery-cell div { position: absolute; bottom: 20px; top: 20px; right: 20px; left: 20px; z-index: 2; }
+		.ui-gallery-preview button { position: absolute; width: 50px; height: 80px; background-color: #369CE6; color: #FFF; font-size: 20px; border: 0; top: 50%; margin-top: -60px; outline: 0; cursor: pointer; z-index: 5; }
+		.ui-gallery-preview button * { cursor: pointer; }
+		.ui-gallery-preview button:hover { opacity: 0.9; }
+		.ui-gallery-preview button[name="next"] { right: 0; border-radius: var(--radius) 0 0 var(--radius); }
+		.ui-gallery-preview button[name="prev"] { border-radius: 0 var(--radius) var(--radius) 0; }
+
+		@media(max-width: 980px) {
+			.ui-gallery-cell img { width: 100%; max-height: auto; height: auto; max-width: 100%; display: block; border-radius: 0; }
+			.ui-gallery-cell div { position: relative; bottom: 0; top: 0; right: 0; left: 0; display: block; }
+		}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('gallery', function(self, config, cls) {
+
+			var images, container, current = 0;
+			var cls2 = '.' + cls;
+
+			self.readonly();
+			self.blind();
+			self.nocompile && self.nocompile();
+
+			self.init = function() {
+
+				$('body').append('<div class="{0}-preview hidden"><button name="prev"><i class="ti ti-caret-left"></i></button><button name="next"><i class="ti ti-caret-right"></i></button><div class="{0}-table"><div class="{0}-cell"><div><img src="" alt="" /></div></div></div></div>'.format(cls));
+				W.uigallerycontainer = $('.' + cls +'-preview');
+
+				ON('resize2 + resize', function() {
+					setTimeout2(cls, function() {
+						$(cls2 + '-preview').css({ width: WW, height: WH });
+					}, 500);
+				});
+
+				$(W).on('keydown', function(e) {
+
+					if (!W.uigalleryinstance || W.uigallerycontainer.hclass('hidden'))
+						return;
+
+					switch (e.which) {
+						case 39:
+							W.uigalleryinstance.next();
+							break;
+						case 37:
+							W.uigalleryinstance.prev();
+							break;
+						case 27:
+							W.uigalleryinstance.close();
+							break;
+					}
+				});
+
+				W.uigallerycontainer.on('click', 'button', function() {
+					W.uigalleryinstance && W.uigalleryinstance[this.name]();
+				});
+
+				W.uigallerycontainer.on('click', 'img', function() {
+					W.uigalleryinstance && W.uigalleryinstance.close();
+				});
+			};
+
+			self.make = function() {
+
+				self.aclass(cls);
+
+				images = self.find('img');
+
+				// Sets index
+				images.each(function(index) {
+					$(this).attrd('index', index);
+				});
+
+				images = images.toArray();
+				container = $($(cls2 + '-preview')[0]);
+
+				self.event('click', 'img', function() {
+					var img = $(this);
+					self.show(+img.attrd('index'));
+				});
+
+				container.on('touchmove', function(e) {
+					e.preventDefault();
+				});
+			};
+
+			self.close = function() {
+				container.aclass('hidden');
+				$('html,body').rclass(cls + '-noscroll');
+				W.uigalleryinstance = null;
+			};
+
+			self.show = function(index) {
+
+				W.uigalleryinstance = self;
+
+				current = index;
+				var img = images[current];
+
+				// Loads image
+				container.find('img').attr('src', $(img).attrd('src'));
+				container.rclass('hidden');
+				container.css('height', $(W).height() + 5);
+				$('html,body').aclass(cls + '-noscroll');
+			};
+
+			self.next = function() {
+				current++;
+				if (current > images.length - 1)
+					current = 0;
+				self.show(current);
+			};
+
+			self.prev = function() {
+				current--;
+				if (current < 0)
+					current = images.length - 1;
+				self.show(current);
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<style>
+		body { background-color: #F0F0F0; }
+	</style>
+
+	<div>Images are from <a href="https://pixabay.com" target="_blank">https://pixabay.com</a></div>
+	<br />
+
+	<ui-component name="gallery" class="row"> 
+		<div class="col-xs-4">
+			<img src="https://cdn.pixabay.com/photo/2018/07/24/20/18/noodles-3559956__480.jpg" data-src="https://cdn.pixabay.com/photo/2018/07/24/20/18/noodles-3559956_1280.jpg" border="0" class="img-responsive" />
+		</div>
+		<div class="col-xs-4">
+			<img src="https://cdn.pixabay.com/photo/2018/07/22/13/12/sunflower-3554567__480.jpg" data-src="https://cdn.pixabay.com/photo/2018/07/22/13/12/sunflower-3554567_1280.jpg" border="0" class="img-responsive" />
+		</div>
+		<div class="col-xs-4">
+			<img src="https://cdn.pixabay.com/photo/2018/07/06/23/31/bike-3521373__480.jpg" data-src="https://cdn.pixabay.com/photo/2018/07/06/23/31/bike-3521373_1280.jpg" border="0" class="img-responsive" />
+		</div>
+	</ui-component>
+	<br />
+	<ui-component name="gallery" class="row">
+		<div class="col-xs-4">
+			<img src="https://cdn.pixabay.com/photo/2018/07/26/05/52/sheep-3562868__480.jpg" data-src="https://cdn.pixabay.com/photo/2018/07/26/05/52/sheep-3562868_1280.jpg" border="0" class="img-responsive" />
+		</div>
+		<div class="col-xs-4">
+			<img src="https://cdn.pixabay.com/photo/2018/06/28/15/23/soft-fruits-3504149__480.jpg" data-src="https://cdn.pixabay.com/photo/2018/06/28/15/23/soft-fruits-3504149_1280.jpg" border="0" class="img-responsive" />
+		</div>
+		<div class="col-xs-4">
+			<img src="https://cdn.pixabay.com/photo/2018/07/06/08/49/tomato-3520004__480.jpg" data-src="https://cdn.pixabay.com/photo/2018/07/06/08/49/tomato-3520004_1280.jpg" border="0" class="img-responsive" />
+		</div>
+	</ui-component>
+
+</body>
+</html>

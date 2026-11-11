@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-resource {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('resource', function(self) {
+
+			self.readonly();
+			self.blind();
+			self.nocompile();
+
+			self.init = function() {
+				W.RESOURCEDB = {};
+				W.RESOURCE = function(name, def) {
+					return W.RESOURCEDB[name] || def || name;
+				};
+			};
+
+			self.download = function(url, callback) {
+				AJAX('GET ' + url, function(response) {
+					if (!response) {
+						callback && callback();
+						return;
+					}
+
+					if (typeof(response) !== 'string')
+						response = response.toString();
+					self.prepare(response);
+					callback && callback();
+				});
+			};
+
+			self.prepare = function(value) {
+
+				var arr = value.split('\n');
+
+				for (var i = 0; i < arr.length; i++) {
+
+					var clean = arr[i].trim();
+					if (clean.substring(0, 2) === '//')
+						continue;
+
+					var index = clean.indexOf(':');
+					if (index === -1)
+						return;
+
+					var key = clean.substring(0, index).trim();
+					var value = clean.substring(index + 1).trim();
+
+					W.RESOURCEDB[key] = value;
+				}
+
+				return self;
+			};
+
+			self.make = function() {
+				var el = self.find('script');
+				self.prepare(el.html());
+				el.remove();
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	Open Web Developer console.
+
+	<ui-component name="resource">
+		<script type="text/plain">
+				yes     : Yes
+				no      : No
+				message : Are you sure?
+		</script>
+	</ui-component>
+
+	<ui-component name="resource">
+		<script type="text/plain">
+				first     : Value of first
+				second    : Value of second
+				a b c     : ABC
+		</script>
+	</ui-component>
+
+	<script>
+
+		setTimeout(function() {
+			console.log(RESOURCE('yes'));
+			console.log(RESOURCE('no'));
+			console.log(RESOURCE('message'));
+			console.log(RESOURCE('first'));
+			console.log(RESOURCE('second'));
+			console.log(RESOURCE('a b c'));
+			console.log(RESOURCE('notfound', 'NOT FOUND'));
+		}, 2000);
+
+	</script>
+
+</body>
+</html>

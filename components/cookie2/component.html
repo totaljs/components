@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@19.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@19.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-cookie2 { position: fixed; right: 40px; bottom: 40px; max-width: 320px; background-color: #133762; color: #FFF; padding: 20px; box-shadow: 0 5px 10px rgba(0,0,0,0.2); font-size: 14px; line-height: 18px; border-radius: var(--radius); z-index: 100; }
+		.ui-cookie2 a { color: #FFF; font-weight: bold; }
+		.ui-cookie2-buttons { margin-top: 20px; }
+		.ui-cookie2-icon { text-align: center; font-size: 40px; margin-bottom: 20px; }
+		.ui-cookie2-buttons button { border: 0; background-color: transparent; font-size: 12px; color: #FFF; border-radius: var(--radius); font-weight: bold; height: 40px; width: 30%; outline: 0; }
+		.ui-cookie2-buttons button:first-child { background-color: #2A69BB; width: 60%; }
+
+		@media(max-width: 440px) {
+			.ui-cookie2 { left: 20px; right: 20px; bottom: 20px; max-width: inherit; }
+		}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('cookie2', 'redirect:about\\:blank;agree:ACCEPT COOKIES;cancel:CANCEL', function(self, config, cls) {
+
+			self.singleton();
+			self.readonly();
+			self.nocompile && self.nocompile();
+
+			self.cancel = function() {
+				document.cookie.split(';').forEach(function(key) {
+					COOKIES.set(key.split('=')[0], '', '-2 days');
+				});
+				try {
+					Object.keys(localStorage).forEach(function(key) {
+						localStorage.removeItem(key);
+					});
+				} catch (e) {}
+				location.href = config.redirect;
+				return self;
+			};
+
+			self.make = function() {
+
+				var cookie;
+
+				// Determines private mode
+				try {
+					cookie = localStorage.getItem('cookie');
+				} catch (e) {
+					// Is private mode
+					// We disable message
+					cookie = true;
+				}
+
+				if (cookie) {
+					self.aclass('hidden');
+					self.remove();
+					return;
+				}
+
+				self.aclass(cls);
+				self.rclass('hidden');
+				self.element.prepend('<div class="ui-cookie2-icon"><i class="ti ti-cookie"></i></div');
+				self.append('<div class="ui-cookie2-buttons"><button name="agree">{0}</button><button name="cancel">{1}</button></div>'.format(config.agree, config.cancel));
+
+				self.event('click', 'button', function() {
+
+					if (this.name === 'cancel')
+						return self.cancel();
+
+					// private mode
+					try {
+						localStorage.setItem('cookie', '1');
+					} catch (e) {}
+
+					self.aclass('hidden');
+				});
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="cookie2" class="hidden">This site uses cookies for visitor statistics. By continuing to browse the site you are agreeing to our use of cookies. <a href="/privacy/">Privacy Policy</a></ui-component>
+
+	<div>CONTENT</div>
+	<div>CONTENT</div>
+	<div>CONTENT</div>
+	<div>CONTENT</div>
+	<div>CONTENT</div>
+	<div>CONTENT</div>
+	<div>CONTENT</div>
+
+</body>
+</html>

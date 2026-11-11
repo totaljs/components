@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-packeta {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('packeta', function(self) {
+
+			self.singleton();
+			self.show = function(opt) {
+
+				if (typeof(W.Packeta) === 'undefined' || typeof(Packeta.Widget) === 'undefined')
+					throw new Error('Packeta is not loaded.');
+
+				Packeta.Widget.pick(null, function(point) {
+					if (point) {
+						if (opt.callback)
+							opt.callback(point);
+					}
+				});
+
+			};
+
+		}, ['https://widget.packeta.com/v6/www/js/library.js']);
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="packeta"></ui-component>
+
+	<button>Select pickup point</button>
+
+	<ui-bind path="!response" config="html pre:JSON.stringify(value,null,'\t').encode()"><pre></pre></ui-bind>
+
+	<script>
+
+		$(document).on('click', 'button', function() {
+			var opt = {};
+			opt.callback = function(point) {
+				SET('response', point);
+			};
+			SETTER('packeta/show', opt);
+		});
+
+	</script>
+
+</body>
+</html>

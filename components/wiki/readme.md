@@ -1,0 +1,24 @@
+---
+name: Wiki
+description: Great component for inline Wiki/Documentation.
+author: Peter Širka
+version: 1
+darkmode: true
+license: https://www.totaljs.com/license/
+created: 2019-02-09 17:32
+updated: 2026-11-03 10:36
+jcomponent: v19
+---
+
+# Wiki
+
+Great component for inline Wiki/Documentation.
+
+- easy usage
+- supports __dark mode__
+
+__Configuration__:
+
+- `title {String}` a title (default: `Wiki`)
+- `datasource {String}`` a path to data-source (learn from example)
+- `width {Number}` a default width (default: `400`)

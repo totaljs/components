@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-restart { position: absolute; }
+		.ui-restart a { display: block; background-color: #E73323; color: #FFF; padding: 5px 10px; border-radius: var(--radius); font-size: 11px; border-bottom: 1px solid rgba(0,0,0,0.2); }
+		.ui-restart i { margin-right: 5px; }
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('restart', 'url:?reload=1;top:75;right:20', function(self, config, cls) {
+
+			self.singleton();
+
+			let is = false;
+			let html;
+
+			self.make = function() {
+
+				let css = {};
+
+				if (config.top)
+					css.top = config.top + 'px';
+
+				if (config.bottom)
+					css.bottom = config.bottom + 'px';
+
+				if (config.right)
+					css.right = config.right + 'px';
+
+				if (config.left)
+					css.left = config.left + 'px';
+
+				self.aclass('hidden ' + cls);
+				self.css(css);
+				html = self.html();
+				self.empty();
+
+			};
+
+			self.setter = function(value) {
+				if (!is && value) {
+					is = true;
+					self.html('<a href="{0}">{1}</a>'.format(config.url, html));
+					self.rclass('hidden');
+				}
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="restart" path="common.restart" config="top:20;right:20" class="hidden"><i class="ti ti-bullhorn"></i>New update. <b>Reload</b></ui-component>
+
+	<script>
+
+		var common = {};
+		setTimeout(() => SET('common.restart', true), 2000);
+
+	</script>
+
+</body>
+</html>

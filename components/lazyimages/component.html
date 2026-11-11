@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-lazyimages {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('lazyimages', 'type:position', function(self, config) {
+
+			var is = null;
+			var regtest = /[?.\/]/;
+			var scrollcontainer;
+
+			self.readonly();
+
+			self.customscrollbar = function() {
+				var area = self.closest('.ui-scrollbar-area');
+				if (area.length) {
+					is = true;
+					area.on('scroll', self.refresh);
+					scrollcontainer = area;
+					setTimeout(self.refresh, 1000);
+				} else
+					setTimeout(self.customscrollbar, 500);
+			};
+
+			self.make = function() {
+				if (config.customscrollbar) {
+					self.customscrollbar();
+				} else {
+					is = true;
+					scrollcontainer = $(W);
+					scrollcontainer.on('scroll', self.refresh);
+					setTimeout(self.refresh, 1000);
+				}
+			};
+
+			self.refresh = function() {
+				setTimeout2(self.id, self.prepare, 200);
+			};
+
+			self.released = self.refresh;
+			self.setter = self.refresh;
+
+			self.prepare = function() {
+				var scroll = config.customscrollbar ? scrollcontainer[0].scrollTop : scrollcontainer.scrollTop();
+				var beg = scroll;
+				var end = beg + WH;
+				var off = 50;
+				var arr = self.dom.querySelectorAll('img[data-src]');
+				for (var i = 0; i < arr.length; i++) {
+					var t = arr[i];
+					if (!t.$lazyload) {
+						var src = t.getAttribute('data-src');
+						if (src && regtest.test(src)) {
+
+							var el = $(t);
+
+							if (config.offsetter)
+								el = el.closest(config.offsetter);
+
+							var top = (is ? 0 : scroll) + (config.type === 'position' ? el.position() : el.offset()).top;
+
+							if (isMOBILE && !top)
+								continue;
+
+							if (config.customscrollbar)
+								top += scroll;
+
+							if ((top + off) >= beg && (top - off) <= end) {
+								t.setAttribute('src', src);
+								t.$lazyload = true;
+								t.removeAttribute('data-src');
+							}
+						}
+					}
+				}
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="lazyimages">
+
+		<div>SCROLL DOWN</div>
+		<div style="height:1000px"></div>
+
+		<!-- EMPTY GIF -->
+		<!-- YOU CAN USE ENCODED SVG WITH PREDDEFINED SIZE -->
+		<img src="data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="https://cdn.pixabay.com/photo/2019/08/26/01/13/pacific-4430530_1280.jpg" />
+
+	</ui-component>
+
+</body>
+</html>

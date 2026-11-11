@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.smiles { background-image: url(https://cdn.componentator.com/smilefy.png); width: 18px; height: 18px; position: relative; display: inline-block; vertical-align: middle; margin-top: -1px; }
+		.smiles-0 { background-position: 0 0; }
+		.smiles-1 { background-position: -18px 0; }
+		.smiles-2 { background-position: -36px 0; }
+		.smiles-3 { background-position: -54px 0; }
+		.smiles-4 { background-position: -72px 0; }
+		.smiles-5 { background-position: -90px 0; }
+		.smiles-6 { background-position: -108px 0; }
+		.smiles-7 { background-position: -126px 0; }
+		.smiles-8 { background-position: -144px 0; }
+		.smiles-9 { background-position: -162px 0; }
+		.smiles-10 { background-position: -180px 0; }
+		.smiles-11 { background-position: -198px 0; }
+		.smiles-12 { background-position: -216px 0; }
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		FUNC.smilefy = function(str) {
+			var db = { ':-)': '&#128512;', ':)': '&#128512;', ';)': '&#128521;', ':D': '&#128513;', '8)': '&#128515;', ';(': '&#128546;', ':(': '&#128531;', ':P': '&#128539;', ':O': '&#128558;', ':*': '&#128536;', '+1': '&#128077;' };
+			return str.replace(/(^|\s)+(-1|[:;8O\-)DP(|*]|\+1){1,3}/g, function(match) {
+
+				var index = arguments[3];
+				var str = arguments[4];
+
+				var c = str.charAt(index + 1);
+				if (c !== ':' && c !== '8' && c !== ';' && c !== '+')
+					return match;
+
+				var beg = match.charAt(0);
+				var end = match.charAt(match.length - 1);
+
+				if (beg !== ' ')
+					beg = '';
+
+				if (end !== ' ')
+					end = '';
+
+				var smile = db[match.trim().replace('-', '')];
+				return smile === undefined ? match : (beg + smile + end);
+			});
+		};
+
+	</script>
+
+	<!-- Example -->
+	<div id="post">Hello :-) I'm laughing :-D</div>
+	<script>
+	  var el = document.getElementById('post');
+	  el.innerHTML = FUNC.smilefy(el.innerHTML);
+	</script>
+
+</body>
+</html>

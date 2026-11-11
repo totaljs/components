@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-view {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('view', 'cache:session', function(self, config, cls) {
+
+			var path = 'view_' + GUID(15);
+
+			self.init = function() {
+				W.jcviewspending = {};
+			};
+
+			self.readonly();
+
+			var replace2 = function(value) {
+				return '<ui-plugin path="' + path + '" config="isolated:1;init:?/init">' + ADAPT(path, '', value) + '</ui-plugin>';
+			};
+
+			self.destroy = function() {
+				SET(path, null);
+			};
+
+			self.download = function() {
+				if (W.jcviewspending[config.url]) {
+					setTimeout(self.download, 100);
+				} else {
+					W.jcviewspending[config.url] = 1;
+					IMPORT(config.url + ' <{cache}>'.args(config), self.element, function() {
+						delete W.jcviewspending[config.url];
+						self.rclass('hidden');
+						self.rclass('invisible', 150);
+					}, replace2);
+				}
+			};
+
+			self.make = function() {
+				self.aclass(cls);
+				self.download();
+			};
+
+			self.setter = function(value, p, type)	 {
+				SET(path, value, type);
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-4">
+				<ui-component name="view" path="a" config="url:https://cdn.componentator.com/examples/view.html"></ui-component>
+			</div>
+			<div class="col-xs-4">
+				<ui-component name="view" path="b" config="url:[view]"></ui-component>
+			</div>
+			<div class="col-xs-4">
+				<ui-component name="view" path="c" config="url:[view]"></ui-component>
+			</div>
+		</div>
+	</div>
+
+	<script>
+
+		ENV('view', 'https://cdn.componentator.com/examples/view.html');
+
+		var a = { name: 'Total.js' };
+		var b = { name: 'Express.js' };
+		var c = { name: 'Meteor.js' };
+
+	</script>
+
+</body>
+</html>

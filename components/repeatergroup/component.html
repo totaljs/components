@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@19.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@19.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-repeatergroup {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('repeatergroup', function(self, config) {
+
+			var html, template_group;
+			var reg = /\$(index|path)/g;
+			var force = false;
+			var recompile = false;
+
+			self.readonly();
+
+			self.released = function(is) {
+				if (is) {
+					html = self.html();
+					self.empty();
+				} else
+					html && self.html(html);
+			};
+
+			self.make = function() {
+				self.find('script').each(function(index) {
+					var element = $(this);
+					var html = element.html();
+					element.remove();
+					if (index)
+						template_group = Tangular.compile(html);
+					else
+						self.template = Tangular.compile(html);
+					!recompile && (recompile = html.COMPILABLE());
+				});
+			};
+
+			self.configure = function(key, value, init) {
+				if (init)
+					return;
+				if (key === 'group') {
+					force = true;
+					self.refresh();
+				}
+			};
+
+			self.setter = function(value) {
+
+				if (!value || !value.length) {
+					self.empty();
+					return;
+				}
+
+				if (!force && NOTMODIFIED(self.id, value))
+					return;
+
+				force = false;
+				html = '';
+				var length = value.length;
+				var groups = {};
+
+				for (var i = 0; i < length; i++) {
+					var name = value[i][config.group] || '0';
+					if (groups[name])
+						groups[name].push(value[i]);
+					else
+						groups[name] = [value[i]];
+				}
+
+				var index = 0;
+				var indexgroup = 0;
+				var builder = '';
+				var keys = Object.keys(groups);
+
+				keys.quicksort();
+				keys.forEach(function(key) {
+					var arr = groups[key];
+					var tmp = '';
+
+					for (var i = 0, length = arr.length; i < length; i++) {
+						var item = arr[i];
+						tmp += self.template(item).replace(reg, function(text) {
+							return text.substring(0, 2) === '$i' ? index.toString() : self.path + '[' + index + ']';
+						});
+						item.index = index++;
+					}
+
+					if (key !== '0') {
+						var options = {};
+						options[config.group] = key;
+						options.length = arr.length;
+						options.index = indexgroup++;
+						options.body = tmp;
+						builder += template_group(options);
+					}
+
+				});
+
+				self.html(builder);
+				recompile && COMPILE();
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="repeatergroup" path="datasource" config="group:category">
+		<script type="text/html">
+			 <div>
+				<div>{{ name }} ($index)</div>
+				<div>{{ amount | format(2) }}</div>
+				<div>{{ created | format('yyyy-MM-dd') }}</div>
+				<br />
+			 </div>
+		</script>
+		<script type="text/html">
+			<div style="font-size:16px;font-weight:bold;margin-bottom:10px">{{ category }} ({{ index + 1 }}/{{ length }})</div>
+			<div>
+				{{ body | raw }}
+			</div>
+		</script>
+	</ui-component>
+
+	<script>
+		var datasource = [];
+		datasource.push({ name: 'Row 1', category: 'Jeans', amount: 100, created: new Date() });
+		datasource.push({ name: 'Row 2', category: 'Shoes', amount: 1000, created: new Date() });
+		datasource.push({ name: 'Row 3', category: 'Shoes', amount: 10000, created: new Date() });
+		datasource.push({ name: 'Row 4', category: 'Jeans', amount: 100000, created: new Date() });
+	</script>
+
+</body>
+</html>

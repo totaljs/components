@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		/* This package has no CSS */
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		Thelpers.rgba = function(hex, alpha) {
+			if (hex && /^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+				var c = hex.substring(1).split('');
+				if (c.length === 3)
+					c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+				c= '0x' + c.join('');
+				return 'rgba(' + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',') + ',' + alpha + ')';
+			}
+			return 'rgba(0,0,0,' + alpha + ')';
+		};
+
+	</script>
+
+	<!-- Example -->
+	<div id="output" style="font-size:20px"></div>
+
+	<script>
+		$('#output').html('<i class="ti ti-circle-alt" style="color:{0}"></i> <i class="ti ti-circle-alt" style="color:{1}"></i> <i class="ti ti-circle-alt" style="color:{2}"></i>'.format(Thelpers.rgba('#DE9E46', 0.5), Thelpers.rgba('#CD4F41', 0.5), Thelpers.rgba('#2C8078', 0.5)));
+	</script>
+
+</body>
+</html>

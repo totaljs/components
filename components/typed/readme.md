@@ -1,0 +1,53 @@
+---
+name: Typed
+description: Typing animation that types out an array of texts with the typed.js library, with speed, loop and cursor options
+author: Denis Granec
+version: 1
+darkmode: false
+license: https://www.totaljs.com/license/
+created: 2018-12-25 22:40
+updated: 2026-11-03 10:36
+jcomponent: v19,v20
+---
+
+# Typed
+
+- Based on [typed.js](https://github.com/mattboldt/typed.js/) by [Matt Boldt](https://github.com/mattboldt)
+- Value must be __array__
+
+__Configuration__:
+
+Config is the same as [typed.js](https://github.com/mattboldt/typed.js#customization). The only difference is that all keys are lowercase. This is to maintain consistency with other components. The only added configuration is `id`
+
+- __NEW__: `selector {String}` can contain a nested element for rendering text
+- __NEW__: `text {String}` in the form `Text 1|Text 2|Text 3|Text N` otherwise text is loaded according to the `path`
+- `typespeed {Number}` in milliseconds (default: `0`)
+- `startdelay {Number}` in milliseconds (default: `0`)
+- `backspeed {Number}` in milliseconds (default: `0`)
+- `smartbackspace {Boolean}` this would only backspace the words after "This is a" (default: `true`)
+- `shuffle {Boolean}` shuffle the strings (default: `true`)
+- `backdelay {String}` time before backspacing (default: `700`)
+- `fadeout {Boolean}` fade out instead of backspace (default: `false`)
+- `fadeoutclass {String}` css class for fade animation (default: `typed-fade-out`)
+- `fadeoutdelay {Number}` fade out delay in milliseconds (default: `500`)
+- `loop {Boolean}` loop strings (default: `false`)
+- `loopcount {String/Number}` amount of loops (default: `Infinity`)
+- `showcursor {Boolean}` show cursor (default: `true`)
+- `cursorchar {String}` cursor character (default: `|`)
+- `autoinsertcss {Boolean}` insert CSS for cursor and fadeOut into HTML `<head>` (default: `true`)
+- `contenttype {String}` contentType `html` or `null` for plaintext (default: `html`)
+
+__Global events__:
+
+Again, same as [typed.js](https://github.com/mattboldt/typed.js#customization). Added `component` parameter
+
+- `ON('typed.onComplete', function(typed, component) {})`
+- `ON('typed.preStringTyped', function(pos, typed, component) {})`
+- `ON('typed.onStringTyped', function(pos, typed, component) {})`
+- `ON('typed.onLastStringBackspaced', function(typed, component) {})`
+- `ON('typed.onTypingPaused', function(pos, typed, component) {})`
+- `ON('typed.onTypingResumed', function(pos, typed, component) {})`
+- `ON('typed.onReset', function(typed, component) {})`
+- `ON('typed.onStop', function(pos, typed, component) {})`
+- `ON('typed.onStart', function(pos, typed, component) {})`
+- `ON('typed.onDestroy', function(typed, component) {})`

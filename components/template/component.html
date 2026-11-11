@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-template {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('template', function(self, config, cls) {
+
+			var properties = null;
+			var is = false;
+			var checksum = 0;
+
+			self.readonly();
+
+			self.configure = function(key, value) {
+				if (key === 'properties')
+					properties = value.split(',').trim();
+			};
+
+			self.make = function(template) {
+
+				self.aclass(cls);
+
+				if (template) {
+					self.template = Tangular.compile(template);
+					return;
+				}
+
+				var script = self.find('script');
+
+				if (!script.length) {
+					script = self.element;
+					self.element = self.parent();
+				}
+
+				var html = script.html();
+				is = html.COMPILABLE();
+
+				self.template = Tangular.compile(html);
+				script.remove();
+			};
+
+			self.setter = function(value, path) {
+
+				var p = self.path.toString();
+
+				if (properties && path !== p) {
+					var key = path.substring(p.length + 1);
+					if (!key || properties.indexOf(key))
+						return;
+				}
+
+				var tmp = HASH(value);
+
+				if (checksum === tmp)
+					return;
+
+				checksum = tmp;
+
+				if (value) {
+					setTimeout2(self.ID, function() {
+						self.html(self.template(value)).rclass('hidden');
+						is && COMPILE(self.element);
+					}, 100);
+				} else
+					self.aclass('hidden');
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="template" path="somemodel">
+		<script type="text/html">
+			<table class="table">
+				<tr>
+					<td>Name</td>
+					<td>{{ name }}</td>
+				</tr>
+				<tr>
+					<td>Version</td>
+					<td>{{ version }}</td>
+				</tr>
+			</table>
+		</script>
+	</ui-component>
+
+	<script>
+		var somemodel = { name: 'jComponent', version: 'v2.1.3' };
+	</script>
+
+</body>
+</html>

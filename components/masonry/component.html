@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-masonry-items > section { float: left; }
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('masonry', 'lg:25;md:33.33;sm:50;xs:100', function(self, config, cls) {
+
+			var cls2 = '.' + cls;
+			var compilable = false;
+			var display;
+			var container;
+
+			self.readonly();
+
+			self.resize2 = function() {
+				var d = WIDTH(self.element);
+				if (d !== display) {
+					display = d;
+					self.refresh();
+				}
+			};
+
+			self.make = function() {
+
+				var scr = self.find('script');
+				self.aclass(cls);
+				var html = scr.html();
+				compilable = html.COMPILABLE();
+				self.template = Tangular.compile(html);
+				scr.remove();
+				self.on('resize + resize2', function() {
+					setTimeout2(self.ID + 'resize', self.resize2, 300);
+				});
+				self.append('<div class="{0}-items"></div><div class="clearfix"></div>'.format(cls));
+				container = self.find(cls2 + '-items');
+			};
+
+			self.setter = function(value) {
+
+				if (!value) {
+					container.empty();
+					return;
+				}
+
+				if (!display)
+					display = WIDTH(self.element);
+
+				var columns = [];
+				var w = config[display];
+				var count = (100 / w) >> 0;
+				var counter = [];
+				var builder = [];
+
+				for (var i = 0; i < value.length; i++) {
+					var item = value[i];
+					var index = i % count;
+					var data = { value: item, index: counter[index] || 0, column: index, counter: i };
+
+					if (config.vdom) {
+						builder.push(self.template(data));
+					} else {
+						if (columns[index]) {
+							columns[index] += self.template(data);
+							counter[index]++;
+						} else {
+							counter[index] = 1;
+							columns[index] = self.template(data);
+						}
+					}
+				}
+
+
+				if (!config.vdom) {
+					for (var i = 0; i < columns.length; i++)
+						builder.push('<section style="width:{0}%">{1}</section>'.format(w, columns[i]));
+				}
+
+				if (config.vdom) {
+
+					var div = document.createElement('DIV');
+					var children = container[0].children;
+
+					for (var child of children) {
+						while (child.children.length)
+							div.appendChild(child.children[0]);
+					}
+
+					DIFFDOM($(div), config.vdom, builder.join(''), config.vdomattr);
+					container[0].innerHTML = '';
+
+					var cols = [];
+					for (var i = 0; i < count; i++) {
+						cols.push($('<section style="width:{0}%"></section>'.format(w)));
+						container[0].appendChild(cols[i][0]);
+					}
+
+					var index = 0;
+					while (div.children.length) {
+						var item = div.children[0];
+						if (item) {
+							var col = cols[index];
+							index++;
+							if (index === cols.length)
+								index = 0;
+							col[0].appendChild(item);
+						}
+					}
+
+				} else
+					container.html(builder.join(''));
+
+				compilable && self.compile && self.compile();
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="masonry" path="pictures" config="sm:33.33">
+		<script type="text/html">
+			<div style="margin:10px;background:#F0F0F0;padding:20px"><img src="{{ value }}" class="img-responsive img-rounded" /></div>
+		</script>
+	</ui-component>
+
+	<script>
+		var pictures = ["https://cdn.pixabay.com/photo/2020/12/13/16/21/stork-5828727__340.jpg","https://cdn.pixabay.com/photo/2020/07/31/07/59/flowers-5452263__340.jpg","https://cdn.pixabay.com/photo/2020/03/14/00/23/building-4929371__340.jpg","https://cdn.pixabay.com/photo/2021/02/08/16/03/dinosaur-5995333__340.png","https://cdn.pixabay.com/photo/2020/12/02/00/56/mountains-5795880__340.jpg","https://cdn.pixabay.com/photo/2021/01/30/14/22/women-5963963__340.jpg","https://cdn.pixabay.com/photo/2021/02/05/21/10/church-5985941__340.jpg","https://cdn.pixabay.com/photo/2021/02/11/08/43/couple-6004642__340.jpg","https://cdn.pixabay.com/photo/2020/12/27/12/07/sunrise-5863751__340.png","https://cdn.pixabay.com/photo/2020/09/26/07/05/sea-5603352__340.jpg","https://cdn.pixabay.com/photo/2021/02/18/20/52/flower-6028389__340.jpg","https://cdn.pixabay.com/photo/2021/01/24/20/47/big-basin-redwood-state-park-5946500__340.jpg","https://cdn.pixabay.com/photo/2021/03/09/14/33/dog-6082017__340.jpg","https://cdn.pixabay.com/photo/2021/01/24/20/21/cloud-5946381__340.jpg","https://cdn.pixabay.com/photo/2021/02/12/09/36/sunflowers-6007847__340.jpg","https://cdn.pixabay.com/photo/2020/11/26/15/28/woman-5779323__340.jpg","https://cdn.pixabay.com/photo/2021/02/08/20/24/lake-5996427__340.jpg","https://cdn.pixabay.com/photo/2021/01/05/06/40/boat-5889919__340.png","https://cdn.pixabay.com/photo/2021/03/07/16/31/person-6076771__340.jpg","https://cdn.pixabay.com/photo/2021/02/06/16/29/jay-5988657__340.jpg", "https://cdn.pixabay.com/photo/2021/02/08/16/03/dinosaur-5995333__340.png","https://cdn.pixabay.com/photo/2020/12/27/12/07/sunrise-5863751__340.png","https://cdn.pixabay.com/photo/2021/01/24/20/21/cloud-5946381__340.jpg","https://cdn.pixabay.com/photo/2020/11/27/12/59/woman-5781862__340.jpg","https://cdn.pixabay.com/photo/2020/12/14/15/48/light-bulb-5831252__340.jpg","https://cdn.pixabay.com/photo/2021/01/13/03/27/wallpaper-5913128__340.png","https://cdn.pixabay.com/photo/2020/07/21/17/48/love-5426977__340.jpg","https://cdn.pixabay.com/photo/2020/01/09/01/00/eyes-4751572__340.png","https://cdn.pixabay.com/photo/2021/01/30/12/19/couple-5963678__340.png","https://cdn.pixabay.com/photo/2021/02/01/10/13/mandala-5970032__340.jpg","https://cdn.pixabay.com/photo/2021/01/23/07/53/dogs-5941898__340.jpg","https://cdn.pixabay.com/photo/2020/12/23/14/41/forest-5855196__340.jpg","https://cdn.pixabay.com/photo/2019/12/29/02/33/sand-4726119__340.jpg","https://cdn.pixabay.com/photo/2021/01/22/09/01/unicorn-5939500__340.png","https://cdn.pixabay.com/photo/2021/01/17/02/02/planets-5923806__340.jpg","https://cdn.pixabay.com/photo/2020/04/26/18/08/leaf-5096502_640.jpg", "https://cdn.pixabay.com/photo/2020/10/12/16/45/pattern-5649403__340.jpg"];
+	</script>
+
+</body>
+</html>

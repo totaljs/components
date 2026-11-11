@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-tabs-tabs { display: flex; justify-content: flex-start; gap: 8px; }
+		.ui-tabs-item { min-width: 100px; text-align: center; padding: 5px 15px; background-color: #F0F0F0; border-radius: var(--radius); cursor: pointer; flex-shrink: 0; font-size: 13px; }
+		.ui-tabs-item i { margin-right: 5px; }
+		.ui-tabs-item:hover { background-color: #F5F5F5; }
+		.ui-tabs-item.selected { background-color: var(--color); color: #FFF; }
+
+		.ui-dark .ui-tabs-item { background-color: #383838; }
+		.ui-dark .ui-tabs-item:hover { background-color: #404040; }
+		.ui-dark .ui-tabs-item.selected { background-color: var(--color); color: #FFF; }
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('tabs', function(self, config, cls) {
+
+			var cls2 = '.' + cls;
+			var open = '';
+			var manual = false;
+
+			self.make = function() {
+
+				self.aclass(cls);
+
+				var parent = document.createElement('DIV');
+				parent.classList.add(cls + '-tabs');
+				NODEINSERT(parent, self.dom.children[0], true);
+
+				self.find('> section').aclass('hidden').each(function() {
+					let el = $(this);
+					let div = document.createElement('DIV');
+					el.aclass('hidden');
+					div.classList.add(cls + '-item');
+					div.classList.add(cls + '-item-' + self.ID);
+					let icon = el.attrd('icon') || config.icon;
+					div.innerHTML = (icon ? '<i class="{0}"></i>'.format(icon) : '') + (el.attr('title') || el.attrd('name'));
+					div.setAttribute('data-id', el.attrd('id'));
+					el.attr('title', null);
+					parent.appendChild(div);
+				});
+
+				self.event('click', cls2 + '-item-' + self.ID, function(e) {
+
+					let el = $(this);
+					let section = self.element.find('> section[data-id="{0}"]'.format(ATTRD(el)));
+					let id = section.attrd('id');
+
+					if (section.hclass('hidden'))
+						open = id;
+
+					if (!open)
+						open = id;
+
+					self.bind('@touched @modified @setter', open || null);
+				});
+
+			};
+
+			self.setter = function(value) {
+
+				self.find(cls2 + '-item-' + self.ID).each(function() {
+					let item = $(this);
+					let id = ATTRD(item);
+					let is = value === id;
+					let el = self.element.find('> section[data-id="{0}"]'.format(id));
+					el.tclass('hidden', !is);
+					item.tclass('selected', is);
+				});
+
+				self.rclass('invisible hidden');
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="tabs" path="*tab" class="invisible">
+		<section data-id="logs" title="Logs" data-icon="ti ti-history">
+			Log
+		</section>
+		<section data-id="parts" title="Parts" data-icon="ti ti-code-branch">
+			Parts
+		</section>
+		<section data-id="files" title="Files" data-icon="ti ti-copy">
+			Files
+		</section>
+		<section data-id="relations" title="Relations" data-icon="ti ti-link">
+			Relations
+		</section>
+		<section data-id="maintenance" title="Maintenance plan" data-icon="ti ti-calendar">
+			Maintenance plan
+		</section>
+	</ui-component>
+
+	<script>
+		var common = { tab: 'files' };
+	</script>
+
+</body>
+</html>

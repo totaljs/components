@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-infinitescroll {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('infinitescroll', 'margin:0;padding:50;autoscroll:100', function(self, config, cls) {
+
+			var cls2 = '.' + cls;
+			var init = false;
+			var isloading = true;
+			var css = {};
+			var container;
+			var body;
+
+			self.readonly();
+			self.blind();
+
+			self.add = function(content) {
+				content && body.append(content);
+
+				if (typeof(content) === 'string' && content.COMPILABLE())
+					COMPILE();
+
+				setTimeout(function() {
+					self.scrollbar.area.css('overflow-y', 'scroll');
+					setTimeout(function() {
+						self.scrollbar.resize();
+						self.scrollbar.area[0].scrollTop += config.autoscroll;
+						isloading = false;
+					}, 100);
+				}, 200);
+			};
+
+			self.make = function() {
+				self.aclass(cls);
+				self.element.wrapInner('<div class="{0}-container"></div>'.format(cls));
+				container = self.find(cls2 + '-container');
+				self.scrollbar = new SCROLLBAR(container, { visibleY: true, orientation: 'y', onscroll: self.onscroll });
+				body = self.scrollbar.area.find('.ui-scrollbar-body');
+				self.resize();
+				setTimeout(function() {
+					isloading = false;
+					config.exec && self.EXEC(config.exec, self.add, body, true);
+				}, 200);
+			};
+
+			self.onscroll = function(sb) {
+				if (!isloading) {
+					var y = sb.area[0].scrollTop + sb.size.viewHeight + config.padding;
+					if (y >= sb.size.scrollHeight) {
+						isloading = true;
+						self.scrollbar.area.css('overflow-y', 'hidden');
+						config.exec && self.EXEC(config.exec, self.add, self.scrollbar.area, false);
+					}
+				}
+			};
+
+			self.reset = function() {
+				self.scrollbar.scrollTop(0);
+				self.refresh();
+			};
+
+			self.refresh = function() {
+				isloading = true;
+				self.scrollbar.resize();
+				setTimeout(function() {
+					isloading = false;
+				}, 200);
+			};
+
+			self.resize = function() {
+
+				if (self.release())
+					return;
+
+				var el = self.parent(config.parent);
+				var h = el.height();
+				var w = el.width();
+
+				if (h === 0 || w === 0) {
+					self.$waiting && clearTimeout(self.$waiting);
+					self.$waiting = setTimeout(self.resize, 234);
+					return;
+				}
+
+				if (config.margin)
+					h -= config.margin;
+
+				css.height = h;
+				css.width = self.element.width();
+				container.css(css);
+
+				css.width = null;
+				self.element.SETTER('*', 'resize');
+				self.scrollbar.resize();
+
+				if (!init) {
+					self.rclass('invisible', 250);
+					init = true;
+				}
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	<div style="width:500px;height:300px;border:1px solid red">
+		<ui-component name="infinitescroll" config="exec:add_new_content">
+			<div style="height:1000px">Some content</div>
+		</ui-component>
+	</div>
+
+	<script>
+		function add_new_content(next, el, init) {
+
+			// init
+			if (init)
+				return;
+
+			setTimeout(function() {
+				// el.append(...);
+				// or
+				next('<div style="height:500px">' + new Date().format('HH:mm:ss') + '</div>');
+
+				// or if the content doesn't exist:
+				// next();
+			}, 1000);
+		}
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-formdata {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('formdata', 'method:POST;target:_blank;type:application/x-www-form-urlencoded', function(self, config) {
+
+			var form;
+
+			self.singleton();
+			self.readonly();
+
+			self.make = function() {
+				self.aclass('hidden');
+				form = document.createElement('FORM');
+				self.dom.appendChild(form);
+			};
+
+			self.send = function(opt) {
+
+				var data = opt.data || opt.value;
+
+				while (form.children.length)
+					form.removeChild(form.children[0]);
+
+				form.setAttribute('method', opt.method || config.method);
+				form.setAttribute('type', opt.type || config.type);
+				form.setAttribute('target', opt.target || config.target);
+				form.setAttribute('action', opt.url || opt.action);
+
+				for (var key in data) {
+					var input = document.createElement('INPUT');
+					input.setAttribute('name', key);
+					input.setAttribute('type', 'hidden');
+					input.value = data[key];
+					form.appendChild(input);
+				}
+
+				form.submit();
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="LAZY formdata"></ui-component>
+	<button>Send data</button>
+
+	<script>
+
+		$(document).on('click', 'button', function() {
+			SETTER('formdata/send', { url: 'http://127.0.0.1:8000/api/', data: { name: 'Total.js Platform' }});
+		});
+
+	</script>
+
+</body>
+</html>

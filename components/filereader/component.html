@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-filereader {}
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('filereader', function(self) {
+
+			var input;
+
+			self.readonly();
+			self.nocompile();
+			self.singleton();
+
+			self.make = function() {
+				self.aclass('hidden');
+				self.append('<input type="file" />');
+				input = self.find('input');
+				input.on('change', function(e) {
+					self.process(e.target.files);
+				});
+			};
+
+			self.open = function(opt, callback) {
+
+				self.opt = opt;
+
+				if (!opt.callback)
+					opt.callback = callback;
+
+				if (opt.files) {
+					self.process(opt.files, opt.multiple);
+				} else {
+					input.attr('accept', opt.accept || '*/*').prop('multiple', !!opt.multiple);
+					input.trigger('click');
+				}
+			};
+
+			self.process = function(files, multiple) {
+
+				SETTER('loading/show');
+
+				var arr = [];
+				for (var i = 0; i < files.length; i++) {
+					arr.push(i);
+					if (multiple != null && multiple == false)
+						break;
+				}
+
+				var length = arr.length;
+
+				arr.wait(function(index, next) {
+					var file = files[index];
+					var reader = new FileReader();
+
+					reader.onload = function() {
+						self.opt.progress && self.opt.progress((100 / length) * (index + 1), file);
+						var data = { body: reader.result, filename: file.name, type: file.type, size: file.size };
+						if (self.opt.callback)
+							self.opt.callback(data);
+						else
+							self.set(data);
+						reader = null;
+						setTimeout(next, 500);
+					};
+
+					if (self.opt.base64)
+						reader.readAsDataURL(file);
+					else
+						reader.readAsText(file);
+
+				}, function() {
+					SETTER('loading/hide', 1000);
+					input[0].value = '';
+				});
+			};
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="filereader"></ui-component>
+	<a href="javascript:fopen()">OPEN FILE</a>
+
+	<script>
+		function fopen() {
+			var opt = {};
+			opt.accept = 'text/*';
+			opt.callback = function(file) {
+				$(document.body).append('<div><pre><code>{0}</code></pre></div>'.format(JSON.stringify(file, null, '    ').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')));
+			};
+			SETTER('filereader/open', opt);
+		}
+	</script>
+
+</body>
+</html>

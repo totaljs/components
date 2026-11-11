@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<!-- Style -->
+	<style component>
+		.ui-dropfiles { position: fixed; left: 10px; top: 10px; right: 10px; bottom: 10px; z-index: -1; display: none; background-color: rgba(0,0,0,0.4); border: 2px dashed rgba(0,0,0,0.6); border-radius: var(--radius); }
+		.ui-dropfiles-visible { display: block; z-index: 500; }
+		.ui-dropfiles > div { display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; font-size: 16px; color: #FFF; pointer-events: none; }
+		.ui-dropfiles-enabled iframe { pointer-events: none; }
+
+		.ui-dark .ui-dropfiles { background-color: rgba(200,200,200,0.4); border: 2px dashed rgba(200,200,200,0.6); }
+		.ui-dark .ui-dropfiles > div { color: #D0D0D0; }
+	</style>
+
+	<!-- Source-code -->
+	<script component>
+
+		COMPONENT('dropfiles', function(self, config, cls) {
+
+			self.readonly();
+			self.singleton();
+			self.nocompile();
+
+			var has = false;
+			var is = false;
+			var events = 'dragenter dragover dragexit drop dragleave';
+			var check = null;
+
+			var hide = function() {
+				is = false;
+				self.rclass(cls + '-visible');
+				config.class && has && self.rclass('over');
+				has && $('body').rclass(cls + '-enabled');
+				has = false;
+				check = null;
+			};
+
+			self.destroy = function() {
+				$(W).off(events, self.filehandler);
+			};
+
+			self.make = function() {
+				self.aclass(cls).rclass('hidden');
+				self.element.wrapInner('<div><div></div></div>');
+				$(W).on(events, self.filehandler);
+			};
+
+			self.filehandler = function(e) {
+
+				if (config.check) {
+					if (!check)
+						check = GET(self.makepath(config.check));
+					if (check && !check(e)) {
+						hide();
+						return;
+					}
+				}
+
+				if (config.disabled)
+					return;
+
+				if (e.type === 'dragenter') {
+					is = e.originalEvent.dataTransfer.types.includes('Files');
+					self.tclass(cls + '-visible', is);
+					$('body').tclass(cls + '-enabled', is);
+				}
+
+				if (!is)
+					return;
+
+				e.stopPropagation();
+				e.preventDefault();
+
+				switch (e.type) {
+					case 'drop':
+						break;
+					case 'dragenter':
+					case 'dragover':
+						has = true;
+						return;
+					case 'dragleave':
+					case 'dragexit':
+					default:
+						if (is && e.target === self.dom)
+							setTimeout2(self.ID, hide, 300);
+						return;
+				}
+
+				hide();
+				self.EXEC(config.exec, e.originalEvent.dataTransfer.files, e);
+			};
+
+		});
+
+	</script>
+
+	<!-- Example -->
+	<ui-component name="dropfiles" config="exec:dropfiles" class="hidden">
+		Drag &amp; Drop files here
+	</ui-component>
+
+	<script>
+		function dropfiles(files, evt) {
+
+			console.log(files, evt);
+
+			/*
+
+			var data = new FormData();
+			for (var i = 0, length = files.length; i < length; i++)
+				data.append('file' + i, files[i]);
+
+			UPLOAD('/api/upload/', data, function(response) {
+				console.log(response);
+			});
+
+			*/
+		}
+	</script>
+
+</body>
+</html>
