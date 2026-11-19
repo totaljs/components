@@ -13,21 +13,48 @@
 
 	<!-- Style -->
 	<style component>
-		.ui-ready {}
+		.ui-ready-loading:before { content: ''; visibility: visible; position: absolute; left: 50%; top: 50%; width: 30px; height: 30px; margin: -15px 0 0 -15px; box-sizing: border-box; border: 3px solid rgba(0,0,0,0.1); border-top-color: var(--ui-ready-color, var(--color, #4285F4)); border-radius: 50%; animation: ui-ready-spin 0.8s linear infinite; }
+		.ui-ready-relative { position: relative; }
+		.ui-dark .ui-ready-loading:before { border-color: rgba(255,255,255,0.15); border-top-color: var(--ui-ready-color, var(--color, #4285F4)); }
+
+		@keyframes ui-ready-spin {
+			to { transform: rotate(360deg); }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			.ui-ready-loading:before { animation-duration: 2.4s; }
+		}
 	</style>
 
 	<!-- Source-code -->
 	<script component>
 
-		COMPONENT('ready', 'delay:800', function(self, config) {
+		COMPONENT('ready', 'delay:800;loading:true', function(self, config, cls) {
 
 			self.readonly();
 			self.blind();
 
 			self.make = function() {
-				config.rclass && self.rclass(config.rclass, config.adelay || config.delay);
-				config.aclass && self.aclass(config.aclass, config.rdelay || config.delay);
-				self.rclass('invisible', config.adelay || config.delay);
+
+				var rdelay = config.rdelay || config.delay;
+
+				// The spinner is shown only above hidden content
+				if (config.loading && self.hclass('invisible')) {
+					var loading = cls + '-loading';
+					if (self.element.css('position') === 'static')
+						loading += ' ' + cls + '-relative';
+
+					// Color: CSS variable "--color", otherwise "DEF.color"
+					if (DEF.color && !getComputedStyle(self.dom).getPropertyValue('--color').trim())
+						self.dom.style.setProperty('--' + cls + '-color', DEF.color);
+
+					self.aclass(loading);
+					self.rclass(loading, rdelay);
+				}
+
+				config.rclass && self.rclass(config.rclass, rdelay);
+				config.aclass && self.aclass(config.aclass, config.adelay || config.delay);
+				self.rclass('invisible', rdelay);
 				config.focus && setTimeout(function() {
 					self.autofocus(config.focus === true || config.focus === 1 ? null : config.focus).focus();
 				}, config.fdelay || (config.delay + 5));
@@ -42,7 +69,7 @@
 		.ready { width: 200px; height: 200px; border: 2px solid red; padding: 20px; }
 	</style>
 
-	<ui-component name="ready" config="aclass:ready" class="invisible">
+	<ui-component name="ready" config="rclass:invisible;delay:2000" class="ready invisible">
 		Hello World!
 	</ui-component>
 
