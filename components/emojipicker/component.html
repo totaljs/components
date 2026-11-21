@@ -13,132 +13,233 @@
 
 	<style component>
 
-		.ui-emojipicker { position: fixed; z-index: 1000; width: 360px; max-width: calc(100vw - 16px); box-sizing: border-box; padding: 10px; background: #FFF; color: #222; border: 1px solid #E0E0E0; border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0, 0, 0, 0.08); font-size: 13px; }
-		.ui-emojipicker-search { display: flex; align-items: center; gap: 8px; padding: 0 10px; border: 1px solid #E0E0E0; border-radius: 8px; background: #F6F6F6; }
+		.ui-emojipicker { position: fixed; z-index: 1000; width: 368px; max-width: calc(100vw - 16px); box-sizing: border-box; display: flex; flex-direction: column; background: #FFF; color: #222; border: 1px solid #E0E0E0; border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0, 0, 0, 0.08); font-size: 13px; overflow: hidden; }
+		.ui-emojipicker-tabs { display: flex; padding: 4px 6px 0; border-bottom: 1px solid #EBEBEB; }
+		.ui-emojipicker-tabs button { flex: 1; height: 36px; padding: 0; border: 0; border-bottom: 2px solid transparent; background: none; color: #888; font-size: 16px; cursor: pointer; }
+		.ui-emojipicker-tabs button:hover, .ui-emojipicker-tabs button:focus-visible { color: #222; outline: none; }
+		.ui-emojipicker-tabs button[aria-selected="true"] { color: var(--color); border-bottom-color: var(--color); }
+		.ui-emojipicker-search { display: flex; align-items: center; gap: 8px; margin: 8px 10px 4px; padding: 0 10px; border: 1px solid #E0E0E0; border-radius: 8px; background: #F6F6F6; }
 		.ui-emojipicker-search i { color: #888; }
-		.ui-emojipicker-search input { flex: 1; min-width: 0; height: 34px; border: 0; background: none; color: inherit; font: inherit; outline: none; }
-		.ui-emojipicker-count { font-size: 12px; color: #888; }
-		.ui-emojipicker-tabs { display: flex; gap: 2px; margin-top: 8px; overflow-x: auto; scrollbar-width: none; }
-		.ui-emojipicker-tabs button { flex: 1 0 auto; min-width: 30px; height: 30px; padding: 0; border: 0; border-bottom: 2px solid transparent; border-radius: 6px 6px 0 0; background: none; font-size: 16px; cursor: pointer; filter: grayscale(1); opacity: 0.7; }
-		.ui-emojipicker-tabs button:hover, .ui-emojipicker-tabs button:focus-visible { filter: none; opacity: 1; background: rgba(var(--rgb), 0.08); outline: none; }
-		.ui-emojipicker-tabs button[aria-selected="true"] { filter: none; opacity: 1; border-bottom-color: var(--color); }
-		.ui-emojipicker-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 2px; height: 228px; overflow: auto; align-content: start; margin-top: 4px; }
-		.ui-emojipicker-grid button { aspect-ratio: 1; min-width: 0; padding: 0; border: 0; border-radius: 6px; background: none; font-size: 21px; line-height: 1; cursor: pointer; }
+		.ui-emojipicker-search input { flex: 1; min-width: 0; height: 32px; border: 0; background: none; color: inherit; font: inherit; outline: none; }
+		.ui-emojipicker-body { position: relative; height: 270px; overflow-y: auto; padding: 0 10px 6px; overscroll-behavior: contain; }
+		.ui-emojipicker-title { position: sticky; top: 0; z-index: 1; margin: 0; padding: 8px 2px 4px; background: #FFF; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.04em; color: #888; }
+		.ui-emojipicker-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 2px; }
+		.ui-emojipicker-grid button { aspect-ratio: 1; min-width: 0; padding: 0; border: 0; border-radius: 6px; background: none; font-size: 23px; line-height: 1; cursor: pointer; font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; }
 		.ui-emojipicker-grid button:hover, .ui-emojipicker-grid button:focus-visible { background: rgba(var(--rgb), 0.12); outline: none; }
-		.ui-emojipicker-empty { grid-column: 1 / -1; padding: 12px; margin: 0; color: #888; }
-		.ui-emojipicker-name { min-height: 16px; margin-top: 6px; font-size: 12px; color: #888; }
+		.ui-emojipicker-grid button[data-t="1"] { position: relative; }
+		.ui-emojipicker-grid button[data-t="1"]::after { content: ''; position: absolute; right: 3px; bottom: 3px; border: 3px solid transparent; border-right-color: #BBB; border-bottom-color: #BBB; }
+		.ui-emojipicker-empty { padding: 24px 12px; margin: 0; text-align: center; color: #888; }
+		.ui-emojipicker-foot { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 10px; border-top: 1px solid #EBEBEB; }
+		.ui-emojipicker-preview { font-size: 22px; width: 26px; text-align: center; font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; }
+		.ui-emojipicker-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #666; }
+		.ui-emojipicker-tone { width: 32px; height: 32px; padding: 0; border: 0; border-radius: 8px; background: none; font-size: 19px; cursor: pointer; }
+		.ui-emojipicker-tone:hover, .ui-emojipicker-tone:focus-visible { background: rgba(var(--rgb), 0.12); outline: none; }
+		.ui-emojipicker-tones { position: absolute; z-index: 2; display: flex; gap: 2px; padding: 4px; background: #FFF; border: 1px solid #E0E0E0; border-radius: 10px; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16); }
+		.ui-emojipicker-tones button { width: 34px; height: 34px; padding: 0; border: 0; border-radius: 6px; background: none; font-size: 22px; cursor: pointer; font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; }
+		.ui-emojipicker-tones button:hover, .ui-emojipicker-tones button:focus-visible, .ui-emojipicker-tones button[aria-pressed="true"] { background: rgba(var(--rgb), 0.15); outline: none; }
+		.ui-emojipicker-loading { padding: 40px; text-align: center; color: #888; }
 
 		.ui-dark .ui-emojipicker { background: #252525; color: #E0E0E0; border-color: #404040; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5); }
+		.ui-dark .ui-emojipicker-tabs, .ui-dark .ui-emojipicker-foot { border-color: #3A3A3A; }
+		.ui-dark .ui-emojipicker-tabs button { color: #999; }
+		.ui-dark .ui-emojipicker-tabs button:hover { color: #E0E0E0; }
 		.ui-dark .ui-emojipicker-search { background: #1E1E1E; border-color: #404040; }
-		.ui-dark .ui-emojipicker-search i, .ui-dark .ui-emojipicker-count, .ui-dark .ui-emojipicker-empty, .ui-dark .ui-emojipicker-name { color: #999; }
+		.ui-dark .ui-emojipicker-title, .ui-dark .ui-emojipicker-tones { background: #252525; }
+		.ui-dark .ui-emojipicker-tones { border-color: #404040; }
+		.ui-dark .ui-emojipicker-search i, .ui-dark .ui-emojipicker-title, .ui-dark .ui-emojipicker-name, .ui-dark .ui-emojipicker-empty, .ui-dark .ui-emojipicker-loading { color: #999; }
 
 	</style>
 
 	<script component>
 
-		COMPONENT('emojipicker', 'search:Find an emoji;empty:No emoji has this word.;categories:Recent,Smileys,People,Nature,Food,Activities,Travel,Objects,Symbols,Flags;history:27', function(self, config, cls) {
+		COMPONENT('emojipicker', 'search:Find an emoji;empty:No emoji found.;categories:Recent,Smileys and people,Animals and nature,Food and drink,Activities,Travel and places,Objects,Symbols,Flags;tone:Skin tone;history:32;list:;language:', function(self, config, cls) {
 
 			var cls2 = '.' + cls;
+			var ICONS = ['ti-clock', 'ti-smile', 'ti-bear', 'ti-apple', 'ti-football', 'ti-car', 'ti-lightbulb', 'ti-heart', 'ti-flag'];
+			var TONES = ['', '🏻', '🏼', '🏽', '🏾', '🏿'];
+			var HAND = '✋';
+			var STORAGE = 'ui-emojipicker';
+			var COLUMNS = 9;
+			var groups = null;
+			var info = {};
+			var waiting = [];
 			var opt = null;
 			var target = null;
 			var focused = null;
-			var tab = 1;
-			var COLUMNS = 9;
-			var STORAGE = 'ui-emojipicker';
+			var press = null;
+			var drawn = false;
 
 			self.singleton();
 			self.readonly();
 
-			// Emoji with English words to find them, in the categories of "config.categories" (after "Recent")
-			var GROUPS = [
-				'😀 smile happy|😃 grin|😄 laugh|😁 beam|😆 squint laugh|😅 sweat|🤣 rofl|😂 joy tears|🙂 slight smile|😉 wink|😊 blush|😇 angel|🥰 love hearts|😍 heart eyes|🤩 star struck|😘 kiss|😋 yum|😛 tongue|😜 wink tongue|🤪 crazy|🤓 nerd|😎 cool sunglasses|🥳 party|😏 smirk|😒 unamused|😞 disappointed|😔 pensive|😟 worried|😕 confused|🙁 frown|😣 persevere|😖 confounded|😫 tired|😩 weary|🥺 pleading|😢 cry|😭 sob|😤 triumph|😠 angry|😡 rage|🤯 mind blown|😳 flushed|😱 scream|😨 fearful|😰 anxious|🤗 hug|🤔 thinking|🤫 shush|🤭 oops|😶 silent|😐 neutral|😑 expressionless|🙄 eye roll|😬 grimace|🤥 lie|😴 sleep|🤤 drool|😷 mask sick|🤒 thermometer ill|🤕 hurt|🤢 nausea|🤮 vomit|🤧 sneeze|🥵 hot|🥶 cold|😵 dizzy|🤠 cowboy|👻 ghost|💀 skull|👽 alien|🤖 robot|💩 poo',
-				'👍 thumbs up yes ok|👎 thumbs down no|👌 ok hand|✌️ victory peace|🤞 fingers crossed luck|🤟 love you|🤘 rock|👏 clap|🙌 raise hands|👐 open hands|🤝 handshake deal|🙏 pray thanks please|✍️ write|💪 strong muscle|👀 eyes look|🧠 brain|👋 wave hello bye|👉 point right|👈 point left|👆 point up|👇 point down|☝️ index up|✋ hand stop|👶 baby|👧 girl|👦 boy|👩 woman|👨 man|👵 old woman|👴 old man|👮 police|👷 worker|🧑‍💻 developer coder|🧑‍🎨 artist|🧑‍🚀 astronaut|🧑‍🍳 cook|🥷 ninja|🦸 hero',
-				'🐶 dog|🐱 cat|🐭 mouse|🐰 rabbit|🦊 fox|🐻 bear|🐼 panda|🐨 koala|🐯 tiger|🦁 lion|🐮 cow|🐷 pig|🐸 frog|🐵 monkey|🐔 chicken|🐧 penguin|🐦 bird|🦄 unicorn|🐝 bee|🦋 butterfly|🐢 turtle|🐍 snake|🐙 octopus|🐬 dolphin|🐳 whale|🐟 fish|🌱 seedling plant|🌲 tree|🌵 cactus|🌸 flower blossom|🌻 sunflower|🍀 clover luck|🍁 leaf autumn|☀️ sun|🌙 moon|⭐ star|🌟 glowing star|✨ sparkles|⚡ zap lightning|🔥 fire hot|☁️ cloud|🌧️ rain|❄️ snow|🌈 rainbow|🌊 wave sea|🌍 earth world globe',
-				'🍎 apple|🍌 banana|🍓 strawberry|🍉 watermelon|🍇 grapes|🍋 lemon|🍑 peach|🥑 avocado|🥕 carrot|🌽 corn|🍞 bread|🧀 cheese|🥚 egg|🍳 cooking|🥓 bacon|🍔 burger|🍟 fries|🍕 pizza|🌮 taco|🥗 salad|🍝 pasta|🍣 sushi|🍦 ice cream|🍰 cake|🎂 birthday cake|🍪 cookie|🍫 chocolate|🍩 donut|☕ coffee|🍵 tea|🍺 beer|🍷 wine|🥂 cheers|🍾 champagne',
-				'🎉 party tada|🎊 confetti|🎁 gift present|🎈 balloon|🎄 christmas tree|🎃 halloween pumpkin|🏆 trophy win|🥇 gold medal first|🥈 silver medal|🥉 bronze medal|⚽ football soccer|🏀 basketball|🎾 tennis|🏐 volleyball|🏓 ping pong|🚴 cycling|🏃 running|🏊 swimming|🎯 target goal|🎮 game|🎲 dice|🧩 puzzle|🎵 music note|🎸 guitar|🎹 piano|🎤 microphone|🎨 art palette|🎬 movie|📷 camera photo',
-				'🚀 rocket launch|✈️ plane|🚗 car|🚕 taxi|🚌 bus|🚲 bike|🛵 scooter|🚂 train|🚢 ship|⛵ sailboat|🗺️ map|🧭 compass|🏠 house home|🏢 office building|🏫 school|🏥 hospital|🏰 castle|⛪ church|🏖️ beach|⛰️ mountain|🏕️ camping|🌆 city|🗽 statue of liberty|🗼 tower',
-				'⏰ alarm clock|⌛ hourglass time|📅 calendar date|📌 pin|📎 paperclip|🔗 link|📝 memo note|📄 page document|📁 folder|📦 package box|📧 email mail|📨 incoming mail|📞 phone|📱 mobile|💻 laptop computer|🖥️ desktop|⌨️ keyboard|🖱️ mouse|🖨️ printer|💾 save disk|🔒 lock|🔓 unlock|🔑 key|🛠️ tools|🔧 wrench|🔨 hammer|⚙️ gear settings|🧪 test lab|🐛 bug|🔍 search|💡 idea bulb|🔋 battery|🔌 plug|📈 chart up|📉 chart down|📊 bar chart|💰 money|💳 card|🛒 cart shop|🏷️ tag label|📚 books|✏️ pencil|✂️ scissors',
-				'❤️ heart love red|🧡 orange heart|💛 yellow heart|💚 green heart|💙 blue heart|💜 purple heart|🖤 black heart|🤍 white heart|💔 broken heart|💯 hundred|💥 boom|💫 dizzy star|💬 speech comment|💭 thought|💤 zzz sleep|✅ check done yes|☑️ checkbox|✔️ check|❌ cross no wrong|❎ cross box|⚠️ warning|⛔ no entry|🚫 prohibited|❓ question|❗ exclamation|➕ plus|➖ minus|➡️ right arrow|⬅️ left arrow|⬆️ up arrow|⬇️ down arrow|🔄 refresh|🔴 red circle|🟠 orange circle|🟡 yellow circle|🟢 green circle|🔵 blue circle|🟣 purple circle|⚫ black circle|⚪ white circle|♻️ recycle|🆕 new|🆗 ok|🆘 sos help',
-				'🇪🇸 spain flag|🇸🇰 slovakia flag|🇨🇿 czechia flag|🇬🇧 uk flag|🇺🇸 usa flag|🇫🇷 france flag|🇩🇪 germany flag|🇮🇹 italy flag|🇵🇹 portugal flag|🇳🇱 netherlands flag|🇵🇱 poland flag|🇦🇹 austria flag|🇨🇭 switzerland flag|🇸🇪 sweden flag|🇲🇽 mexico flag|🇦🇷 argentina flag|🇧🇷 brazil flag|🇨🇦 canada flag|🇯🇵 japan flag|🇨🇳 china flag|🇺🇦 ukraine flag|🇪🇺 europe flag|🏳️ white flag|🏁 finish flag'
-			];
-
-			var CATEGORIES = [];
-			var ALL = [];
-			(function() {
-				for (var i = 0; i < GROUPS.length; i++) {
-					var lines = GROUPS[i].split('|');
-					var list = [];
-					for (var j = 0; j < lines.length; j++) {
-						var index = lines[j].indexOf(' ');
-						var item = { char: lines[j].substring(0, index), words: lines[j].substring(index + 1) };
-						list.push(item);
-						ALL.push(item);
-					}
-					CATEGORIES.push(list);
-				}
-			})();
-
-			// The recent ones of this browser (nothing breaks without storage)
-			var recent = function() {
+			// The recent ones and the skin tone of this browser (nothing breaks without storage)
+			var storage = function() {
 				try {
-					var list = JSON.parse(localStorage.getItem(STORAGE) || '[]');
-					return list instanceof Array ? list : [];
+					var value = JSON.parse(localStorage.getItem(STORAGE) || '{}');
+					if (value instanceof Array)
+						value = { recent: value };
+					return { recent: value.recent instanceof Array ? value.recent : [], tone: value.tone > 0 && value.tone < 6 ? value.tone : 0 };
 				} catch (e) {
-					return [];
+					return { recent: [], tone: 0 };
 				}
 			};
 
-			var remember = function(char) {
-				var list = recent().filter(function(item) {
-					return item !== char;
-				});
-				list.unshift(char);
+			var save = function(value) {
 				try {
-					localStorage.setItem(STORAGE, JSON.stringify(list.slice(0, config.history)));
+					localStorage.setItem(STORAGE, JSON.stringify(value));
 				} catch (e) {}
 			};
 
-			var wordsof = function(char) {
-				for (var i = 0; i < ALL.length; i++) {
-					if (ALL[i].char === char)
-						return ALL[i].words;
+			// The skin tone goes after the first code point (without the presentation selector that follows it)
+			var toned = function(emoji, tone) {
+				if (!tone)
+					return emoji;
+				var chars = Array.from(emoji);
+				var rest = chars.slice(1);
+				if (rest[0] === '️')
+					rest.shift();
+				return chars[0] + TONES[tone] + rest.join('');
+			};
+
+			var names = function() {
+				return String(config.categories || '').split(',');
+			};
+
+			// The data once: the emoji of the CDN (j-emojipicker.json) and the words of config.language
+			self.load = function(callback) {
+				if (groups) {
+					callback && callback();
+					return;
 				}
-				return '';
+				callback && waiting.push(callback);
+				if (waiting.length > 1)
+					return;
+				var url = config.list || ((DEF.cdn || 'https://cdn.componentator.com') + '/j-emojipicker.json');
+				var done = function() {
+					var list = waiting.splice(0);
+					for (var i = 0; i < list.length; i++)
+						list[i]();
+				};
+				AJAX('GET ' + url, function(response) {
+					groups = response && response.groups instanceof Array ? response.groups : [];
+					for (var i = 0; i < groups.length; i++) {
+						for (var j = 0; j < groups[i].items.length; j++) {
+							var item = groups[i].items[j];
+							info[item[0]] = { name: item[1], words: item[1] + '|' + item[2], tones: item[3] };
+						}
+					}
+					var lang = String(config.language || '').toLowerCase();
+					if (!lang || lang === 'en') {
+						done();
+						return;
+					}
+					AJAX('GET ' + url.replace(/\.json(\?.*)?$/, '-' + lang + '.json$1'), function(words) {
+						if (words && typeof(words) === 'object') {
+							for (var key in words) {
+								if (info[key]) {
+									info[key].name = words[key][0] || info[key].name;
+									info[key].words += '|' + words[key][0] + '|' + words[key][1];
+								}
+							}
+						}
+						done();
+					});
+				});
 			};
 
 			self.make = function() {
 
 				self.aclass(cls + ' hidden');
 				self.attr('role', 'dialog');
-				self.html('<div class="{0}-search"><i class="ti ti-search" aria-hidden="true"></i><input type="search" autocomplete="off" spellcheck="false" /><span class="{0}-count"></span></div><div class="{0}-tabs" role="tablist"></div><div class="{0}-grid" role="listbox"></div><div class="{0}-name" aria-live="polite"></div>'.format(cls));
+				self.html('<div class="{0}-tabs" role="tablist"></div><div class="{0}-search"><i class="ti ti-search" aria-hidden="true"></i><input type="search" autocomplete="off" spellcheck="false" /></div><div class="{0}-body"><div class="{0}-loading">…</div></div><div class="{0}-foot"><span class="{0}-preview" aria-hidden="true"></span><span class="{0}-name" aria-live="polite"></span><button type="button" class="{0}-tone"></button></div>'.format(cls));
 
-				self.event('input', 'input', self.draw);
+				self.event('input', 'input', function() {
+					setTimeout2(self.ID + 'search', self.search, 120);
+				});
 
 				self.event('keydown', 'input', function(e) {
 					if (e.key === 'Enter') {
 						e.preventDefault();
-						var first = self.find(cls2 + '-grid button').first();
-						first.length && self.pick(first.attrd('char'));
+						var first = self.find(cls2 + '-body button:visible')[0];
+						first && self.pick(first.textContent);
 					} else if (e.key === 'ArrowDown') {
 						e.preventDefault();
-						var item = self.find(cls2 + '-grid button')[0];
+						var item = self.find(cls2 + '-body button:visible')[0];
 						item && item.focus();
 					}
 				});
 
 				self.event('click', cls2 + '-tabs button', function() {
-					tab = +$(this).attrd('tab');
-					self.find('input').val('');
-					self.draw();
+					var section = self.find(cls2 + '-section[data-index="{0}"]'.format($(this).attrd('index')))[0];
+					if (self.find('input').val()) {
+						self.find('input').val('');
+						self.search();
+						section = self.find(cls2 + '-section[data-index="{0}"]'.format($(this).attrd('index')))[0];
+					}
+					section && (self.find(cls2 + '-body')[0].scrollTop = section.offsetTop);
+				});
+
+				var body = self.find(cls2 + '-body');
+				body.on('scroll', function() {
+					setTimeout2(self.ID + 'scroll', self.current, 50);
 				});
 
 				self.event('click', cls2 + '-grid button', function() {
-					self.pick($(this).attrd('char'));
+					if (press && press.opened)
+						return;
+					self.pick(this.textContent);
 				});
 
-				// Arrows move through the grid, Escape closes everywhere
-				self.event('keydown', cls2 + '-grid button', function(e) {
-					var buttons = self.find(cls2 + '-grid button');
+				// Press and hold (or the context menu) on an emoji with skin tones: its six forms
+				self.event('pointerdown', cls2 + '-grid button[data-t="1"]', function() {
+					var button = this;
+					press && clearTimeout(press.timer);
+					press = { timer: setTimeout(function() {
+						press.opened = true;
+						self.tones(button);
+					}, 450) };
+				});
+
+				self.event('pointerup pointerleave pointercancel', cls2 + '-grid button', function() {
+					if (press && !press.opened) {
+						clearTimeout(press.timer);
+						press = null;
+					}
+				});
+
+				self.event('contextmenu', cls2 + '-grid button[data-t="1"]', function(e) {
+					e.preventDefault();
+					press && clearTimeout(press.timer);
+					press = { opened: true };
+					self.tones(this);
+				});
+
+				self.event('click', cls2 + '-tones button', function(e) {
+					e.stopPropagation();
+					var tone = +$(this).attrd('tone');
+					var base = $(this).parent().attrd('base');
+					var state = storage();
+					state.tone = tone;
+					save(state);
+					press = null;
+					if (base)
+						self.pick(toned(base, tone));
+					else {
+						self.closetones();
+						self.render();
+						self.foot();
+					}
+				});
+
+				self.event('click', cls2 + '-tone', function() {
+					if (self.find(cls2 + '-tones').length)
+						self.closetones();
+					else
+						self.tones(null);
+				});
+
+				self.event('keydown', cls2 + '-body button', function(e) {
+					var buttons = self.find(cls2 + '-body ' + cls2 + '-grid button:visible');
 					var index = buttons.index(this);
 					var next = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: COLUMNS, ArrowUp: -COLUMNS }[e.key];
 					if (next) {
@@ -151,14 +252,19 @@
 					}
 				});
 
-				self.event('mouseover focusin', cls2 + '-grid button', function() {
-					self.find(cls2 + '-name').text($(this).attr('title'));
+				self.event('mouseover focusin', cls2 + '-body button', function() {
+					var item = info[$(this).attrd('e')];
+					self.find(cls2 + '-preview').text(this.textContent);
+					self.find(cls2 + '-name').text(item ? item.name : '');
 				});
 
 				self.event('keydown', function(e) {
 					if (e.key === 'Escape') {
 						e.stopPropagation();
-						self.hide();
+						if (self.find(cls2 + '-tones').length)
+							self.closetones();
+						else
+							self.hide();
 					}
 				});
 
@@ -169,49 +275,115 @@
 				switch (key) {
 					case 'search':
 						self.find('input').attr({ placeholder: value, 'aria-label': value });
-						self.find(cls2 + '-grid').attr('aria-label', value);
+						break;
+					case 'tone':
+						self.find(cls2 + '-tone').attr({ title: value, 'aria-label': value });
 						break;
 				}
 			};
 
-			// The tabs: Recent (when there are some) and the categories, each with its first emoji
-			self.tabs = function(words) {
-				var names = String(config.categories || '').split(',');
-				var builder = [];
-				var history = recent();
-				for (var i = 0; i < CATEGORIES.length + 1; i++) {
-					if (!i && !history.length)
-						continue;
-					var icon = i ? CATEGORIES[i - 1][0].char : '🕘';
-					var name = Thelpers.encode((names[i] || '').trim() || icon);
-					builder.push('<button type="button" role="tab" data-tab="{0}" title="{1}" aria-label="{1}" aria-selected="{2}">{3}</button>'.format(i, name, !words && i === tab, icon));
-				}
-				self.find(cls2 + '-tabs').html(builder.join(''));
+			var button = function(emoji, tone) {
+				var item = info[emoji];
+				var tones = item && item.tones;
+				return '<button type="button" data-e="{0}" data-t="{1}" aria-label="{2}">{3}</button>'.format(emoji, tones ? 1 : 0, Thelpers.encode(item ? item.name : emoji), tones ? toned(emoji, tone) : emoji);
 			};
 
-			self.draw = function() {
-				var words = self.find('input').val().trim().toLowerCase().split(/\s+/).filter(Boolean);
-				var list;
-				if (words.length) {
-					list = ALL.filter(function(item) {
-						for (var i = 0; i < words.length; i++) {
-							if (item.words.indexOf(words[i]) === -1)
-								return false;
-						}
-						return true;
-					});
-				} else if (tab === 0) {
-					list = recent().map(function(char) {
-						return { char: char, words: wordsof(char) };
-					});
-				} else
-					list = CATEGORIES[tab - 1] || [];
-				self.tabs(words.length > 0);
-				self.find(cls2 + '-count').text(list.length);
+			// Every category in one scroll, with its title; the recent ones first
+			self.render = function() {
+				var state = storage();
+				var titles = names();
 				var builder = [];
-				for (var i = 0; i < list.length; i++)
-					builder.push('<button type="button" role="option" data-char="{0}" title="{1}" aria-label="{1}">{0}</button>'.format(list[i].char, Thelpers.encode(list[i].words || list[i].char)));
-				self.find(cls2 + '-grid').html(builder.length ? builder.join('') : '<p class="{0}-empty">{1}</p>'.format(cls, Thelpers.encode(config.empty)));
+				var tabs = [];
+				var recent = state.recent.slice(0, config.history);
+				for (var i = 0; i < groups.length + 1; i++) {
+					var list = [];
+					if (i) {
+						for (var j = 0; j < groups[i - 1].items.length; j++)
+							list.push(button(groups[i - 1].items[j][0], state.tone));
+					} else {
+						for (var k = 0; k < recent.length; k++)
+							list.push('<button type="button" data-e="{0}" aria-label="{1}">{0}</button>'.format(recent[k], Thelpers.encode(info[recent[k]] ? info[recent[k]].name : recent[k])));
+					}
+					if (!list.length)
+						continue;
+					var title = Thelpers.encode((titles[i] || '').trim());
+					tabs.push('<button type="button" role="tab" data-index="{0}" title="{1}" aria-label="{1}" aria-selected="false"><i class="ti {2}" aria-hidden="true"></i></button>'.format(i, title, ICONS[i] || 'ti-smile'));
+					builder.push('<div class="{0}-section" data-index="{1}"><h4 class="{0}-title">{2}</h4><div class="{0}-grid" role="listbox" aria-label="{2}">{3}</div></div>'.format(cls, i, title, list.join('')));
+				}
+				self.find(cls2 + '-tabs').html(tabs.join(''));
+				self.find(cls2 + '-body').html(builder.join(''));
+				drawn = true;
+				self.current();
+			};
+
+			// The tab of the category at the top of the scroll
+			self.current = function() {
+				var body = self.find(cls2 + '-body')[0];
+				var index = '';
+				self.find(cls2 + '-section').each(function() {
+					if (this.offsetTop <= body.scrollTop + 8)
+						index = $(this).attrd('index');
+				});
+				self.find(cls2 + '-tabs button').each(function() {
+					this.setAttribute('aria-selected', $(this).attrd('index') === index ? 'true' : 'false');
+				});
+			};
+
+			// The search hides what does not match: every word must be in the name or the words of the emoji
+			self.search = function() {
+				var words = self.find('input').val().trim().toLowerCase().split(/\s+/).filter(Boolean);
+				var body = self.find(cls2 + '-body');
+				body.find(cls2 + '-empty').remove();
+				var found = 0;
+				body.find(cls2 + '-section').each(function() {
+					var section = $(this);
+					var recent = section.attrd('index') === '0';
+					var count = 0;
+					section.find('button').each(function() {
+						var item = info[$(this).attrd('e')];
+						var text = item ? item.words.toLowerCase() : '';
+						var ok = !words.length || (!recent && words.every(function(word) {
+							return text.indexOf(word) !== -1;
+						}));
+						this.style.display = ok ? '' : 'none';
+						ok && count++;
+					});
+					section.css('display', count ? '' : 'none');
+					found += count;
+				});
+				!found && body.append('<p class="{0}-empty">{1}</p>'.format(cls, Thelpers.encode(config.empty)));
+				body[0].scrollTop = 0;
+				self.current();
+			};
+
+			// The six forms of an emoji (base: the emoji) or the default skin tone (base: null)
+			self.tones = function(el) {
+				self.closetones();
+				var state = storage();
+				var base = el ? $(el).attrd('e') : '';
+				var builder = [];
+				for (var i = 0; i < TONES.length; i++)
+					builder.push('<button type="button" data-tone="{0}" aria-pressed="{1}">{2}</button>'.format(i, i === state.tone, toned(base || HAND, i)));
+				var popup = $('<div class="{0}-tones" data-base="{1}" role="group" aria-label="{2}">{3}</div>'.format(cls, base, Thelpers.encode(config.tone), builder.join('')));
+				self.append(popup);
+				var box = self.dom.getBoundingClientRect();
+				var anchor = (el || self.find(cls2 + '-tone')[0]).getBoundingClientRect();
+				var w = popup[0].offsetWidth;
+				var h = popup[0].offsetHeight;
+				var x = Math.max(4, Math.min(anchor.left - box.left + anchor.width / 2 - w / 2, box.width - w - 4));
+				var y = anchor.top - box.top - h - 4;
+				popup.css({ left: x, top: y < 4 ? anchor.bottom - box.top + 4 : y });
+				popup.find('button')[state.tone].focus();
+			};
+
+			self.closetones = function() {
+				self.find(cls2 + '-tones').remove();
+			};
+
+			self.foot = function() {
+				self.find(cls2 + '-tone').text(toned(HAND, storage().tone));
+				self.find(cls2 + '-preview').text('');
+				self.find(cls2 + '-name').text('');
 			};
 
 			// opt: { element or x and y (and height), offsetX, offsetY, align, callback(emoji) }
@@ -224,13 +396,21 @@
 				opt = options;
 				target = el;
 				focused = document.activeElement;
-				tab = recent().length ? 0 : 1;
+				press = null;
+				self.closetones();
 				self.find('input').val('');
-				self.find(cls2 + '-name').text('');
-				self.draw();
+				self.foot();
 				self.rclass('hidden');
 				self.place();
-				self.find('input').focus();
+				self.load(function() {
+					if (!opt)
+						return;
+					self.render();
+					self.find(cls2 + '-body')[0].scrollTop = 0;
+					self.current();
+					self.find('input').focus();
+				});
+				drawn && self.find('input').focus();
 				setTimeout(function() {
 					opt && $(document).on('mousedown.' + self.ID + ' touchstart.' + self.ID, self.outside);
 				}, 10);
@@ -254,11 +434,15 @@
 				self.css({ left: x, top: Math.max(8, y) });
 			};
 
-			self.pick = function(char) {
+			self.pick = function(emoji) {
 				var callback = opt && opt.callback;
-				remember(char);
+				var state = storage();
+				state.recent = [emoji].concat(state.recent.filter(function(item) {
+					return item !== emoji;
+				})).slice(0, config.history);
+				save(state);
 				self.hide();
-				callback && callback(char);
+				callback && callback(emoji);
 			};
 
 			self.hide = function() {
@@ -266,6 +450,9 @@
 					return;
 				opt = null;
 				target = null;
+				press && press.timer && clearTimeout(press.timer);
+				press = null;
+				self.closetones();
 				$(document).off('.' + self.ID);
 				self.aclass('hidden');
 				focused && focused.focus && document.body.contains(focused) && focused.focus();
@@ -273,6 +460,7 @@
 			};
 
 			self.destroy = function() {
+				press && press.timer && clearTimeout(press.timer);
 				$(document).off('.' + self.ID);
 			};
 
