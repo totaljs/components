@@ -316,28 +316,28 @@
 	</script>
 
 	<p style="padding: 20px 20px 0; font: 13px Arial">
-		<button class="pick-color" style="font-size: 14px; padding: 6px 12px; cursor: pointer"><span class="sample" style="display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: middle; background: rgb(249, 115, 22)"></span> <code>rgb(249, 115, 22)</code></button>
+		<button class="pick-color" data-value="rgb(249, 115, 22)" style="font-size: 14px; padding: 6px 12px; cursor: pointer"><span class="sample" style="display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: middle; background: rgb(249, 115, 22)"></span> <code>rgb(249, 115, 22)</code></button>
+		<button class="pick-color" data-value="#2563eb" style="font-size: 14px; padding: 6px 12px; cursor: pointer; margin-left: 6px"><span class="sample" style="display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: middle; background: #2563eb"></span> <code>#2563eb</code></button>
 	</p>
 
 	<ui-component name="colorpalette"></ui-component>
 
 	<script>
 
-		var current = 'rgb(249, 115, 22)';
-
+		// Each button keeps its value: the colour comes back written like it (rgb() stays rgb(), a lower case hex stays a
+		// lower case hex)
 		$(document).on('click', '.pick-color', function() {
-			var button = this;
-			// The colours used next to it, and the result in the format of the current value
-			SETTER('colorpalette/show', { element: button, value: current, colors: ['#1C1C1A', '#F97316', '#16A34A', '#F97316', '#2563EB'], callback: function(color) {
-				current = color;
-				$(button).find('.sample').css('background', color);
-				$(button).find('code').text(color);
+			var button = $(this);
+			SETTER('colorpalette/show', { element: this, value: button.attrd('value'), colors: ['#1C1C1A', '#F97316', '#16A34A', '#F97316', '#2563EB'], callback: function(color) {
+				button.attrd('value', color);
+				button.find('.sample').css('background', color);
+				button.find('code').text(color);
 			}});
 		});
 
 		// The preview shows it open
 		setTimeout(function() {
-			$('.pick-color').trigger('click');
+			$('.pick-color').first().trigger('click');
 		}, 600);
 
 	</script>
