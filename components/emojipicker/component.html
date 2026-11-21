@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<style component>
+
+		.ui-emojipicker { position: fixed; z-index: 1000; width: 360px; max-width: calc(100vw - 16px); box-sizing: border-box; padding: 10px; background: #FFF; color: #222; border: 1px solid #E0E0E0; border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0, 0, 0, 0.08); font-size: 13px; }
+		.ui-emojipicker-search { display: flex; align-items: center; gap: 8px; padding: 0 10px; border: 1px solid #E0E0E0; border-radius: 8px; background: #F6F6F6; }
+		.ui-emojipicker-search i { color: #888; }
+		.ui-emojipicker-search input { flex: 1; min-width: 0; height: 34px; border: 0; background: none; color: inherit; font: inherit; outline: none; }
+		.ui-emojipicker-count { font-size: 12px; color: #888; }
+		.ui-emojipicker-tabs { display: flex; gap: 2px; margin-top: 8px; overflow-x: auto; scrollbar-width: none; }
+		.ui-emojipicker-tabs button { flex: 1 0 auto; min-width: 30px; height: 30px; padding: 0; border: 0; border-bottom: 2px solid transparent; border-radius: 6px 6px 0 0; background: none; font-size: 16px; cursor: pointer; filter: grayscale(1); opacity: 0.7; }
+		.ui-emojipicker-tabs button:hover, .ui-emojipicker-tabs button:focus-visible { filter: none; opacity: 1; background: rgba(var(--rgb), 0.08); outline: none; }
+		.ui-emojipicker-tabs button[aria-selected="true"] { filter: none; opacity: 1; border-bottom-color: var(--color); }
+		.ui-emojipicker-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 2px; height: 228px; overflow: auto; align-content: start; margin-top: 4px; }
+		.ui-emojipicker-grid button { aspect-ratio: 1; min-width: 0; padding: 0; border: 0; border-radius: 6px; background: none; font-size: 21px; line-height: 1; cursor: pointer; }
+		.ui-emojipicker-grid button:hover, .ui-emojipicker-grid button:focus-visible { background: rgba(var(--rgb), 0.12); outline: none; }
+		.ui-emojipicker-empty { grid-column: 1 / -1; padding: 12px; margin: 0; color: #888; }
+		.ui-emojipicker-name { min-height: 16px; margin-top: 6px; font-size: 12px; color: #888; }
+
+		.ui-dark .ui-emojipicker { background: #252525; color: #E0E0E0; border-color: #404040; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5); }
+		.ui-dark .ui-emojipicker-search { background: #1E1E1E; border-color: #404040; }
+		.ui-dark .ui-emojipicker-search i, .ui-dark .ui-emojipicker-count, .ui-dark .ui-emojipicker-empty, .ui-dark .ui-emojipicker-name { color: #999; }
+
+	</style>
+
+	<script component>
+
+		COMPONENT('emojipicker', 'search:Find an emoji;empty:No emoji has this word.;categories:Recent,Smileys,People,Nature,Food,Activities,Travel,Objects,Symbols,Flags;history:27', function(self, config, cls) {
+
+			var cls2 = '.' + cls;
+			var opt = null;
+			var target = null;
+			var focused = null;
+			var tab = 1;
+			var COLUMNS = 9;
+			var STORAGE = 'ui-emojipicker';
+
+			self.singleton();
+			self.readonly();
+
+			// Emoji with English words to find them, in the categories of "config.categories" (after "Recent")
+			var GROUPS = [
+				'😀 smile happy|😃 grin|😄 laugh|😁 beam|😆 squint laugh|😅 sweat|🤣 rofl|😂 joy tears|🙂 slight smile|😉 wink|😊 blush|😇 angel|🥰 love hearts|😍 heart eyes|🤩 star struck|😘 kiss|😋 yum|😛 tongue|😜 wink tongue|🤪 crazy|🤓 nerd|😎 cool sunglasses|🥳 party|😏 smirk|😒 unamused|😞 disappointed|😔 pensive|😟 worried|😕 confused|🙁 frown|😣 persevere|😖 confounded|😫 tired|😩 weary|🥺 pleading|😢 cry|😭 sob|😤 triumph|😠 angry|😡 rage|🤯 mind blown|😳 flushed|😱 scream|😨 fearful|😰 anxious|🤗 hug|🤔 thinking|🤫 shush|🤭 oops|😶 silent|😐 neutral|😑 expressionless|🙄 eye roll|😬 grimace|🤥 lie|😴 sleep|🤤 drool|😷 mask sick|🤒 thermometer ill|🤕 hurt|🤢 nausea|🤮 vomit|🤧 sneeze|🥵 hot|🥶 cold|😵 dizzy|🤠 cowboy|👻 ghost|💀 skull|👽 alien|🤖 robot|💩 poo',
+				'👍 thumbs up yes ok|👎 thumbs down no|👌 ok hand|✌️ victory peace|🤞 fingers crossed luck|🤟 love you|🤘 rock|👏 clap|🙌 raise hands|👐 open hands|🤝 handshake deal|🙏 pray thanks please|✍️ write|💪 strong muscle|👀 eyes look|🧠 brain|👋 wave hello bye|👉 point right|👈 point left|👆 point up|👇 point down|☝️ index up|✋ hand stop|👶 baby|👧 girl|👦 boy|👩 woman|👨 man|👵 old woman|👴 old man|👮 police|👷 worker|🧑‍💻 developer coder|🧑‍🎨 artist|🧑‍🚀 astronaut|🧑‍🍳 cook|🥷 ninja|🦸 hero',
+				'🐶 dog|🐱 cat|🐭 mouse|🐰 rabbit|🦊 fox|🐻 bear|🐼 panda|🐨 koala|🐯 tiger|🦁 lion|🐮 cow|🐷 pig|🐸 frog|🐵 monkey|🐔 chicken|🐧 penguin|🐦 bird|🦄 unicorn|🐝 bee|🦋 butterfly|🐢 turtle|🐍 snake|🐙 octopus|🐬 dolphin|🐳 whale|🐟 fish|🌱 seedling plant|🌲 tree|🌵 cactus|🌸 flower blossom|🌻 sunflower|🍀 clover luck|🍁 leaf autumn|☀️ sun|🌙 moon|⭐ star|🌟 glowing star|✨ sparkles|⚡ zap lightning|🔥 fire hot|☁️ cloud|🌧️ rain|❄️ snow|🌈 rainbow|🌊 wave sea|🌍 earth world globe',
+				'🍎 apple|🍌 banana|🍓 strawberry|🍉 watermelon|🍇 grapes|🍋 lemon|🍑 peach|🥑 avocado|🥕 carrot|🌽 corn|🍞 bread|🧀 cheese|🥚 egg|🍳 cooking|🥓 bacon|🍔 burger|🍟 fries|🍕 pizza|🌮 taco|🥗 salad|🍝 pasta|🍣 sushi|🍦 ice cream|🍰 cake|🎂 birthday cake|🍪 cookie|🍫 chocolate|🍩 donut|☕ coffee|🍵 tea|🍺 beer|🍷 wine|🥂 cheers|🍾 champagne',
+				'🎉 party tada|🎊 confetti|🎁 gift present|🎈 balloon|🎄 christmas tree|🎃 halloween pumpkin|🏆 trophy win|🥇 gold medal first|🥈 silver medal|🥉 bronze medal|⚽ football soccer|🏀 basketball|🎾 tennis|🏐 volleyball|🏓 ping pong|🚴 cycling|🏃 running|🏊 swimming|🎯 target goal|🎮 game|🎲 dice|🧩 puzzle|🎵 music note|🎸 guitar|🎹 piano|🎤 microphone|🎨 art palette|🎬 movie|📷 camera photo',
+				'🚀 rocket launch|✈️ plane|🚗 car|🚕 taxi|🚌 bus|🚲 bike|🛵 scooter|🚂 train|🚢 ship|⛵ sailboat|🗺️ map|🧭 compass|🏠 house home|🏢 office building|🏫 school|🏥 hospital|🏰 castle|⛪ church|🏖️ beach|⛰️ mountain|🏕️ camping|🌆 city|🗽 statue of liberty|🗼 tower',
+				'⏰ alarm clock|⌛ hourglass time|📅 calendar date|📌 pin|📎 paperclip|🔗 link|📝 memo note|📄 page document|📁 folder|📦 package box|📧 email mail|📨 incoming mail|📞 phone|📱 mobile|💻 laptop computer|🖥️ desktop|⌨️ keyboard|🖱️ mouse|🖨️ printer|💾 save disk|🔒 lock|🔓 unlock|🔑 key|🛠️ tools|🔧 wrench|🔨 hammer|⚙️ gear settings|🧪 test lab|🐛 bug|🔍 search|💡 idea bulb|🔋 battery|🔌 plug|📈 chart up|📉 chart down|📊 bar chart|💰 money|💳 card|🛒 cart shop|🏷️ tag label|📚 books|✏️ pencil|✂️ scissors',
+				'❤️ heart love red|🧡 orange heart|💛 yellow heart|💚 green heart|💙 blue heart|💜 purple heart|🖤 black heart|🤍 white heart|💔 broken heart|💯 hundred|💥 boom|💫 dizzy star|💬 speech comment|💭 thought|💤 zzz sleep|✅ check done yes|☑️ checkbox|✔️ check|❌ cross no wrong|❎ cross box|⚠️ warning|⛔ no entry|🚫 prohibited|❓ question|❗ exclamation|➕ plus|➖ minus|➡️ right arrow|⬅️ left arrow|⬆️ up arrow|⬇️ down arrow|🔄 refresh|🔴 red circle|🟠 orange circle|🟡 yellow circle|🟢 green circle|🔵 blue circle|🟣 purple circle|⚫ black circle|⚪ white circle|♻️ recycle|🆕 new|🆗 ok|🆘 sos help',
+				'🇪🇸 spain flag|🇸🇰 slovakia flag|🇨🇿 czechia flag|🇬🇧 uk flag|🇺🇸 usa flag|🇫🇷 france flag|🇩🇪 germany flag|🇮🇹 italy flag|🇵🇹 portugal flag|🇳🇱 netherlands flag|🇵🇱 poland flag|🇦🇹 austria flag|🇨🇭 switzerland flag|🇸🇪 sweden flag|🇲🇽 mexico flag|🇦🇷 argentina flag|🇧🇷 brazil flag|🇨🇦 canada flag|🇯🇵 japan flag|🇨🇳 china flag|🇺🇦 ukraine flag|🇪🇺 europe flag|🏳️ white flag|🏁 finish flag'
+			];
+
+			var CATEGORIES = [];
+			var ALL = [];
+			(function() {
+				for (var i = 0; i < GROUPS.length; i++) {
+					var lines = GROUPS[i].split('|');
+					var list = [];
+					for (var j = 0; j < lines.length; j++) {
+						var index = lines[j].indexOf(' ');
+						var item = { char: lines[j].substring(0, index), words: lines[j].substring(index + 1) };
+						list.push(item);
+						ALL.push(item);
+					}
+					CATEGORIES.push(list);
+				}
+			})();
+
+			// The recent ones of this browser (nothing breaks without storage)
+			var recent = function() {
+				try {
+					var list = JSON.parse(localStorage.getItem(STORAGE) || '[]');
+					return list instanceof Array ? list : [];
+				} catch (e) {
+					return [];
+				}
+			};
+
+			var remember = function(char) {
+				var list = recent().filter(function(item) {
+					return item !== char;
+				});
+				list.unshift(char);
+				try {
+					localStorage.setItem(STORAGE, JSON.stringify(list.slice(0, config.history)));
+				} catch (e) {}
+			};
+
+			var wordsof = function(char) {
+				for (var i = 0; i < ALL.length; i++) {
+					if (ALL[i].char === char)
+						return ALL[i].words;
+				}
+				return '';
+			};
+
+			self.make = function() {
+
+				self.aclass(cls + ' hidden');
+				self.attr('role', 'dialog');
+				self.html('<div class="{0}-search"><i class="ti ti-search" aria-hidden="true"></i><input type="search" autocomplete="off" spellcheck="false" /><span class="{0}-count"></span></div><div class="{0}-tabs" role="tablist"></div><div class="{0}-grid" role="listbox"></div><div class="{0}-name" aria-live="polite"></div>'.format(cls));
+
+				self.event('input', 'input', self.draw);
+
+				self.event('keydown', 'input', function(e) {
+					if (e.key === 'Enter') {
+						e.preventDefault();
+						var first = self.find(cls2 + '-grid button').first();
+						first.length && self.pick(first.attrd('char'));
+					} else if (e.key === 'ArrowDown') {
+						e.preventDefault();
+						var item = self.find(cls2 + '-grid button')[0];
+						item && item.focus();
+					}
+				});
+
+				self.event('click', cls2 + '-tabs button', function() {
+					tab = +$(this).attrd('tab');
+					self.find('input').val('');
+					self.draw();
+				});
+
+				self.event('click', cls2 + '-grid button', function() {
+					self.pick($(this).attrd('char'));
+				});
+
+				// Arrows move through the grid, Escape closes everywhere
+				self.event('keydown', cls2 + '-grid button', function(e) {
+					var buttons = self.find(cls2 + '-grid button');
+					var index = buttons.index(this);
+					var next = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: COLUMNS, ArrowUp: -COLUMNS }[e.key];
+					if (next) {
+						e.preventDefault();
+						index += next;
+						if (index < 0)
+							self.find('input').focus();
+						else if (buttons[index])
+							buttons[index].focus();
+					}
+				});
+
+				self.event('mouseover focusin', cls2 + '-grid button', function() {
+					self.find(cls2 + '-name').text($(this).attr('title'));
+				});
+
+				self.event('keydown', function(e) {
+					if (e.key === 'Escape') {
+						e.stopPropagation();
+						self.hide();
+					}
+				});
+
+				self.on('resize2', self.hide);
+			};
+
+			self.configure = function(key, value) {
+				switch (key) {
+					case 'search':
+						self.find('input').attr({ placeholder: value, 'aria-label': value });
+						self.find(cls2 + '-grid').attr('aria-label', value);
+						break;
+				}
+			};
+
+			// The tabs: Recent (when there are some) and the categories, each with its first emoji
+			self.tabs = function(words) {
+				var names = String(config.categories || '').split(',');
+				var builder = [];
+				var history = recent();
+				for (var i = 0; i < CATEGORIES.length + 1; i++) {
+					if (!i && !history.length)
+						continue;
+					var icon = i ? CATEGORIES[i - 1][0].char : '🕘';
+					var name = Thelpers.encode((names[i] || '').trim() || icon);
+					builder.push('<button type="button" role="tab" data-tab="{0}" title="{1}" aria-label="{1}" aria-selected="{2}">{3}</button>'.format(i, name, !words && i === tab, icon));
+				}
+				self.find(cls2 + '-tabs').html(builder.join(''));
+			};
+
+			self.draw = function() {
+				var words = self.find('input').val().trim().toLowerCase().split(/\s+/).filter(Boolean);
+				var list;
+				if (words.length) {
+					list = ALL.filter(function(item) {
+						for (var i = 0; i < words.length; i++) {
+							if (item.words.indexOf(words[i]) === -1)
+								return false;
+						}
+						return true;
+					});
+				} else if (tab === 0) {
+					list = recent().map(function(char) {
+						return { char: char, words: wordsof(char) };
+					});
+				} else
+					list = CATEGORIES[tab - 1] || [];
+				self.tabs(words.length > 0);
+				self.find(cls2 + '-count').text(list.length);
+				var builder = [];
+				for (var i = 0; i < list.length; i++)
+					builder.push('<button type="button" role="option" data-char="{0}" title="{1}" aria-label="{1}">{0}</button>'.format(list[i].char, Thelpers.encode(list[i].words || list[i].char)));
+				self.find(cls2 + '-grid').html(builder.length ? builder.join('') : '<p class="{0}-empty">{1}</p>'.format(cls, Thelpers.encode(config.empty)));
+			};
+
+			// opt: { element or x and y (and height), offsetX, offsetY, align, callback(emoji) }
+			self.show = function(options) {
+				var el = options.element ? (options.element instanceof jQuery ? options.element[0] : (options.element.dom || options.element)) : null;
+				if (opt && el && target === el) {
+					self.hide();
+					return;
+				}
+				opt = options;
+				target = el;
+				focused = document.activeElement;
+				tab = recent().length ? 0 : 1;
+				self.find('input').val('');
+				self.find(cls2 + '-name').text('');
+				self.draw();
+				self.rclass('hidden');
+				self.place();
+				self.find('input').focus();
+				setTimeout(function() {
+					opt && $(document).on('mousedown.' + self.ID + ' touchstart.' + self.ID, self.outside);
+				}, 10);
+			};
+
+			self.outside = function(e) {
+				if (!self.dom.contains(e.target))
+					self.hide();
+			};
+
+			// Under the element or the point, or above it when there is no room; always inside the window
+			self.place = function() {
+				var rect = target ? target.getBoundingClientRect() : { left: opt.x || 0, right: opt.x || 0, top: opt.y || 0, bottom: (opt.y || 0) + (opt.height || 0) };
+				var w = self.dom.offsetWidth;
+				var h = self.dom.offsetHeight;
+				var x = opt.align === 'right' ? rect.right - w : opt.align === 'center' ? rect.left + (rect.right - rect.left - w) / 2 : rect.left;
+				var y = rect.bottom + 6 + (opt.offsetY || 0);
+				if (y + h > window.innerHeight - 8)
+					y = rect.top - h - 6 - (opt.offsetY || 0);
+				x = Math.max(8, Math.min(x + (opt.offsetX || 0), window.innerWidth - w - 8));
+				self.css({ left: x, top: Math.max(8, y) });
+			};
+
+			self.pick = function(char) {
+				var callback = opt && opt.callback;
+				remember(char);
+				self.hide();
+				callback && callback(char);
+			};
+
+			self.hide = function() {
+				if (!opt)
+					return;
+				opt = null;
+				target = null;
+				$(document).off('.' + self.ID);
+				self.aclass('hidden');
+				focused && focused.focus && document.body.contains(focused) && focused.focus();
+				focused = null;
+			};
+
+			self.destroy = function() {
+				$(document).off('.' + self.ID);
+			};
+
+		});
+
+	</script>
+
+	<p style="padding: 20px 20px 0; font: 13px Arial">
+		<button class="pick-emoji" style="font-size: 14px; padding: 6px 12px; cursor: pointer">😀 Add an emoji</button>
+		<span class="message" style="margin-left: 10px; font-size: 20px"></span>
+	</p>
+
+	<ui-component name="emojipicker"></ui-component>
+
+	<script>
+
+		$(document).on('click', '.pick-emoji', function() {
+			SETTER('emojipicker/show', { element: this, callback: function(emoji) {
+				$('.message').append(document.createTextNode(emoji));
+			}});
+		});
+
+		// The preview shows it open
+		setTimeout(function() {
+			$('.pick-emoji').trigger('click');
+		}, 600);
+
+	</script>
+
+</body>
+</html>

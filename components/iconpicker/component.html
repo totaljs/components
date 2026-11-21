@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<style component>
+
+		.ui-iconpicker { position: fixed; z-index: 1000; width: 360px; max-width: calc(100vw - 16px); box-sizing: border-box; padding: 10px; background: #FFF; color: #222; border: 1px solid #E0E0E0; border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0, 0, 0, 0.08); font-size: 13px; }
+		.ui-iconpicker-search { display: flex; align-items: center; gap: 8px; padding: 0 10px; border: 1px solid #E0E0E0; border-radius: 8px; background: #F6F6F6; }
+		.ui-iconpicker-search i { color: #888; }
+		.ui-iconpicker-search input { flex: 1; min-width: 0; height: 34px; border: 0; background: none; color: inherit; font: inherit; outline: none; }
+		.ui-iconpicker-count { font-size: 12px; color: #888; }
+		.ui-iconpicker-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 2px; max-height: 260px; overflow: auto; margin-top: 8px; }
+		.ui-iconpicker-grid button { aspect-ratio: 1; min-width: 0; padding: 0; border: 0; border-radius: 6px; background: none; color: inherit; font-size: 17px; cursor: pointer; }
+		.ui-iconpicker-grid button:hover, .ui-iconpicker-grid button:focus-visible { background: rgba(var(--rgb), 0.12); color: var(--color); outline: none; }
+		.ui-iconpicker-grid button.ui-iconpicker-selected { background: var(--color); color: #FFF; }
+		.ui-iconpicker-grid .ui-iconpicker-none { font-size: 11px; color: #888; }
+		.ui-iconpicker-empty { grid-column: 1 / -1; padding: 12px; margin: 0; color: #888; }
+		.ui-iconpicker-name { min-height: 16px; margin-top: 6px; font: 12px Menlo, Consolas, monospace; color: #888; }
+
+		.ui-dark .ui-iconpicker { background: #252525; color: #E0E0E0; border-color: #404040; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5); }
+		.ui-dark .ui-iconpicker-search { background: #1E1E1E; border-color: #404040; }
+		.ui-dark .ui-iconpicker-search i, .ui-dark .ui-iconpicker-count, .ui-dark .ui-iconpicker-empty, .ui-dark .ui-iconpicker-name, .ui-dark .ui-iconpicker-grid .ui-iconpicker-none { color: #999; }
+
+	</style>
+
+	<script component>
+
+		COMPONENT('iconpicker', 'search:Find an icon;empty:No icon has this name.;none:None;list:;css:', function(self, config, cls) {
+
+			var cls2 = '.' + cls;
+			var icons = null;
+			var aliases = {};
+			var others = {};
+			var waiting = [];
+			var opt = null;
+			var target = null;
+			var focused = null;
+			var COLUMNS = 9;
+
+			self.singleton();
+			self.readonly();
+
+			// "home", "ti-home" and "ti ti-home" are the same icon; another name of the stylesheet ("trash") is its icon of
+			// the list ("remove")
+			var normalize = function(value) {
+				var name = String(value || '').trim().replace(/^ti\s+/, '').replace(/^ti-/, '');
+				return aliases[name] || name;
+			};
+
+			// The other names come from the stylesheet: the names whose rule shows the same glyph as a name of the list
+			var aliasesof = function(css) {
+				var names = {};
+				var bycode = {};
+				var output = {};
+				var i, code, name, list;
+				for (i = 0; i < icons.length; i++)
+					names[icons[i]] = true;
+				css.replace(/([^{}]+)\{([^{}]*)\}/g, function(match, selector, body) {
+					var content = (/content:\s*["']([^"']+)["']/).exec(body);
+					var found = content ? selector.match(/\.ti-[a-z0-9-]+(?=::?before)/g) : null;
+					if (found) {
+						list = bycode[content[1]] = bycode[content[1]] || [];
+						for (var j = 0; j < found.length; j++)
+							list.push(found[j].substring(4));
+					}
+					return match;
+				});
+				for (code in bycode) {
+					list = bycode[code];
+					var official = null;
+					for (i = 0; i < list.length; i++) {
+						if (names[list[i]]) {
+							official = list[i];
+							break;
+						}
+					}
+					if (official) {
+						for (i = 0; i < list.length; i++) {
+							name = list[i];
+							if (!names[name])
+								output[name] = official;
+						}
+					}
+				}
+				return output;
+			};
+
+			// The list once (icons-db.html of the CDN of the icons, or config.list), and the other names
+			self.icons = function(callback) {
+				if (icons) {
+					callback && callback(icons, aliases);
+					return;
+				}
+				callback && waiting.push(callback);
+				if (waiting.length > 1 || icons === false)
+					return;
+				icons = false;
+				var cdn = DEF.cdn || 'https://cdn.componentator.com';
+				var link = $('link[href*="spa.min"]').attr('href');
+				AJAX('GET ' + (config.list || (cdn + '/icons-db.html')), function(response) {
+					icons = [];
+					var list = typeof(response) === 'string' ? response.split(',') : [];
+					for (var i = 0; i < list.length; i++) {
+						var name = list[i].trim();
+						if ((/^[a-z0-9-]+$/).test(name))
+							icons.push(name);
+					}
+					AJAX('GET ' + (config.css || link || (cdn + '/spa.min@20.css')), function(css) {
+						aliases = typeof(css) === 'string' && icons.length ? aliasesof(css) : {};
+						others = {};
+						for (var key in aliases)
+							others[aliases[key]] = (others[aliases[key]] || '') + ' ' + key;
+						var list = waiting.splice(0);
+						for (var j = 0; j < list.length; j++)
+							list[j](icons, aliases);
+					});
+				});
+			};
+
+			self.make = function() {
+
+				self.aclass(cls + ' hidden');
+				self.attr('role', 'dialog');
+				self.html('<div class="{0}-search"><i class="ti ti-search" aria-hidden="true"></i><input type="search" autocomplete="off" spellcheck="false" /><span class="{0}-count"></span></div><div class="{0}-grid" role="listbox"></div><div class="{0}-name" aria-live="polite"></div>'.format(cls));
+
+				self.event('input', 'input', self.draw);
+
+				self.event('keydown', 'input', function(e) {
+					if (e.key === 'Enter') {
+						e.preventDefault();
+						var first = self.find(cls2 + '-grid button').first();
+						first.length && self.pick(first.attrd('icon'));
+					} else if (e.key === 'ArrowDown') {
+						e.preventDefault();
+						var item = self.find(cls2 + '-grid button')[0];
+						item && item.focus();
+					}
+				});
+
+				self.event('click', cls2 + '-grid button', function() {
+					self.pick($(this).attrd('icon'));
+				});
+
+				// Arrows move through the grid, Escape closes everywhere
+				self.event('keydown', cls2 + '-grid button', function(e) {
+					var buttons = self.find(cls2 + '-grid button');
+					var index = buttons.index(this);
+					var next = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: COLUMNS, ArrowUp: -COLUMNS }[e.key];
+					if (next) {
+						e.preventDefault();
+						index += next;
+						if (index < 0)
+							self.find('input').focus();
+						else if (buttons[index])
+							buttons[index].focus();
+					}
+				});
+
+				self.event('mouseover focusin', cls2 + '-grid button', function() {
+					var name = $(this).attrd('icon');
+					self.find(cls2 + '-name').text(name ? 'ti ti-' + name : config.none);
+				});
+
+				self.event('keydown', function(e) {
+					if (e.key === 'Escape') {
+						e.stopPropagation();
+						self.hide();
+					}
+				});
+
+				self.on('resize2', self.hide);
+			};
+
+			self.configure = function(key, value) {
+				switch (key) {
+					case 'search':
+						self.find('input').attr({ placeholder: value, 'aria-label': value });
+						self.find(cls2 + '-grid').attr('aria-label', value);
+						break;
+				}
+			};
+
+			self.draw = function() {
+				var words = self.find('input').val().trim().toLowerCase().split(/\s+/).filter(Boolean);
+				var current = opt ? normalize(opt.value) : '';
+				var builder = [];
+				var count = 0;
+				if (opt && opt.empty && !words.length)
+					builder.push('<button type="button" role="option" data-icon="" class="{0}-none{1}" aria-selected="{2}" aria-label="{3}">{3}</button>'.format(cls, current ? '' : ' ' + cls + '-selected', !current, Thelpers.encode(config.none)));
+				for (var i = 0; i < icons.length; i++) {
+					var name = icons[i];
+					var text = name + (others[name] || '');
+					var ok = true;
+					for (var j = 0; j < words.length; j++) {
+						if (text.indexOf(words[j]) === -1) {
+							ok = false;
+							break;
+						}
+					}
+					if (ok) {
+						count++;
+						builder.push('<button type="button" role="option" data-icon="{0}" title="{0}" aria-label="{0}" aria-selected="{1}"{2}><i class="ti ti-{0}" aria-hidden="true"></i></button>'.format(name, name === current, name === current ? ' class="' + cls + '-selected"' : ''));
+					}
+				}
+				self.find(cls2 + '-count').text(count);
+				self.find(cls2 + '-grid').html(builder.length ? builder.join('') : '<p class="{0}-empty">{1}</p>'.format(cls, Thelpers.encode(config.empty)));
+			};
+
+			// opt: { element or x and y (and height), offsetX, offsetY, align, value, empty, callback(icon) }
+			self.show = function(options) {
+				var el = options.element ? (options.element instanceof jQuery ? options.element[0] : (options.element.dom || options.element)) : null;
+				if (opt && el && target === el) {
+					self.hide();
+					return;
+				}
+				self.icons(function() {
+					opt = options;
+					target = el;
+					focused = document.activeElement;
+					self.find('input').val('');
+					self.find(cls2 + '-name').text('');
+					self.draw();
+					self.rclass('hidden');
+					self.place();
+					self.find('input').focus();
+					var selected = self.find(cls2 + '-selected')[0];
+					selected && selected.scrollIntoView({ block: 'center' });
+					setTimeout(function() {
+						opt && $(document).on('mousedown.' + self.ID + ' touchstart.' + self.ID, self.outside);
+					}, 10);
+				});
+			};
+
+			self.outside = function(e) {
+				if (!self.dom.contains(e.target))
+					self.hide();
+			};
+
+			// Under the element or the point, or above it when there is no room; always inside the window
+			self.place = function() {
+				var rect = target ? target.getBoundingClientRect() : { left: opt.x || 0, right: opt.x || 0, top: opt.y || 0, bottom: (opt.y || 0) + (opt.height || 0) };
+				var w = self.dom.offsetWidth;
+				var h = self.dom.offsetHeight;
+				var x = opt.align === 'right' ? rect.right - w : opt.align === 'center' ? rect.left + (rect.right - rect.left - w) / 2 : rect.left;
+				var y = rect.bottom + 6 + (opt.offsetY || 0);
+				if (y + h > window.innerHeight - 8)
+					y = rect.top - h - 6 - (opt.offsetY || 0);
+				x = Math.max(8, Math.min(x + (opt.offsetX || 0), window.innerWidth - w - 8));
+				self.css({ left: x, top: Math.max(8, y) });
+			};
+
+			self.pick = function(name) {
+				var callback = opt && opt.callback;
+				self.hide();
+				callback && callback(name ? 'ti ti-' + name : '');
+			};
+
+			self.hide = function() {
+				if (!opt)
+					return;
+				opt = null;
+				target = null;
+				$(document).off('.' + self.ID);
+				self.aclass('hidden');
+				focused && focused.focus && document.body.contains(focused) && focused.focus();
+				focused = null;
+			};
+
+			self.destroy = function() {
+				$(document).off('.' + self.ID);
+			};
+
+		});
+
+	</script>
+
+	<p style="padding: 20px 20px 0; font: 13px Arial">
+		<button class="pick-icon" style="font-size: 16px; padding: 6px 12px; cursor: pointer"><i class="ti ti-home"></i> <span>ti ti-home</span></button>
+	</p>
+
+	<ui-component name="iconpicker"></ui-component>
+
+	<script>
+
+		var current = 'ti ti-home';
+
+		$(document).on('click', '.pick-icon', function() {
+			var button = this;
+			SETTER('iconpicker/show', { element: button, value: current, empty: true, callback: function(icon) {
+				current = icon;
+				$(button).find('i').attr('class', icon);
+				$(button).find('span').text(icon || 'no icon');
+			}});
+		});
+
+		// The preview shows it open
+		setTimeout(function() {
+			$('.pick-icon').trigger('click');
+		}, 600);
+
+	</script>
+
+</body>
+</html>
