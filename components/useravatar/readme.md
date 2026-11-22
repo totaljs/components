@@ -2,11 +2,11 @@
 name: useravatar
 description: Deterministic SVG avatar generated in the browser from a name, an email, an ID or an object, in six styles and with the colour of the app
 author: Gera G. Güiles
-version: 2
+version: 1
 darkmode: true
 license: MIT
-created: 2026-09-06 00:00
-updated: 2026-11-22 20:46
+created: 2026-11-22 21:19
+updated: 2026-11-22 21:19
 jcomponent: v20
 ---
 
@@ -34,8 +34,6 @@ __Configuration__:
 - `value {String}` the seed when the model is empty (default: `''`)
 
 __Runtime__: jComponent v20, no dependencies.
-
-__Changes in version 2__: the component is one `component.html` for jComponent v20. The avatars are the same as in version 1. The palette now reads the colour of the element, so a `--color` set on a parent wins over the one of the page; `title:true` shows the value with its own case; the ids of the SVG masks are unique per instance.
 
 ## Attribution
 
