@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<style component>
+
+		.ui-uptimebar { --ubgood: #0CA30C; --ubwarn: #E09A00; --ubbad: #D03B3B; --ubnone: #E3E3E3; box-sizing: border-box; min-width: 0; padding: 16px 18px; border: 1px solid #E3E3E3; border-radius: var(--radius); background: #FFF; color: #1F1F1F; font-size: 13px; }
+		.ui-uptimebar-minimal { padding: 0; border-color: transparent; background: transparent; }
+		.ui-uptimebar-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 12px; margin-bottom: 10px; }
+		.ui-uptimebar-title { display: inline-flex; align-items: center; gap: 8px; min-width: 0; font-weight: 600; }
+		.ui-uptimebar-title i { flex: 0 0 auto; }
+		.ui-uptimebar-good .ui-uptimebar-title i { color: var(--ubgood); }
+		.ui-uptimebar-warn .ui-uptimebar-title i { color: var(--ubwarn); }
+		.ui-uptimebar-bad .ui-uptimebar-title i { color: var(--ubbad); }
+		.ui-uptimebar-title span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+		.ui-uptimebar-total { color: #5E5E5E; font-variant-numeric: tabular-nums; white-space: nowrap; }
+		.ui-uptimebar-total b { color: #1F1F1F; font-weight: 600; }
+		.ui-uptimebar-bars { position: relative; display: flex; gap: 2px; height: var(--ubh, 32px); outline: none; }
+		.ui-uptimebar-bar { flex: 1 1 0; min-width: 2px; border-radius: 2px; background: var(--ubnone); }
+		.ui-uptimebar-bar.ui-uptimebar-good { background: var(--ubgood); }
+		/* Degraded days are striped and down days solid, so the state is not told by colour alone */
+		.ui-uptimebar-bar.ui-uptimebar-warn { background: repeating-linear-gradient(135deg, var(--ubwarn) 0 3px, color-mix(in srgb, var(--ubwarn) 55%, #FFF) 3px 5px); }
+		.ui-uptimebar-bar.ui-uptimebar-bad { background: var(--ubbad); }
+		.ui-uptimebar-bar:hover, .ui-uptimebar-bar.ui-uptimebar-on { opacity: .7; }
+		.ui-uptimebar-bars:focus-visible .ui-uptimebar-on { opacity: 1; box-shadow: 0 0 0 2px var(--color); }
+		.ui-uptimebar-bars:focus-visible { outline: none; }
+		.ui-uptimebar-hidden { display: none; }
+		.ui-uptimebar-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 6px; color: #8A8A8A; font-size: 11px; }
+		.ui-uptimebar-tipwrap { position: relative; height: 0; }
+		.ui-uptimebar-tip { position: absolute; bottom: calc(100% + 8px); left: 0; z-index: 5; display: none; min-width: 140px; padding: 7px 10px; border-radius: 8px; background: #1F1F1F; color: #FFF; font-size: 12px; white-space: nowrap; box-shadow: 0 6px 20px rgba(0, 0, 0, .18); pointer-events: none; }
+		.ui-uptimebar-hover .ui-uptimebar-tip { display: block; }
+		.ui-uptimebar-tip div { color: rgba(255, 255, 255, .75); }
+		.ui-uptimebar-tip b { font-weight: 600; }
+		.ui-uptimebar-sr { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+		.ui-dark .ui-uptimebar { --ubgood: #3FB93F; --ubwarn: #F0A814; --ubbad: #E85C5C; --ubnone: #3A3A3A; border-color: #3A3A3A; background: #252525; color: #EDEDED; }
+		.ui-dark .ui-uptimebar-minimal { border-color: transparent; background: transparent; }
+		.ui-dark .ui-uptimebar-total { color: #ABABAB; }
+		.ui-dark .ui-uptimebar-total b { color: #EDEDED; }
+		.ui-dark .ui-uptimebar-bar.ui-uptimebar-warn { background: repeating-linear-gradient(135deg, var(--ubwarn) 0 3px, color-mix(in srgb, var(--ubwarn) 50%, #252525) 3px 5px); }
+		.ui-dark .ui-uptimebar-foot { color: #8A8A8A; }
+		.ui-dark .ui-uptimebar-tip { background: #F2F2F2; color: #1F1F1F; box-shadow: 0 6px 20px rgba(0, 0, 0, .5); }
+		.ui-dark .ui-uptimebar-tip div { color: #5E5E5E; }
+
+		@media (forced-colors: active) {
+			.ui-uptimebar { border: 1px solid CanvasText; }
+			.ui-uptimebar-bar { forced-color-adjust: none; }
+			.ui-uptimebar-tip { border: 1px solid CanvasText; }
+		}
+
+	</style>
+
+	<script component>
+
+		COMPONENT('uptimebar', 'label:;style:card;days:90;height:32;good:99.9;warn:99;states:;caption:;decimals:2;locale:', function(self, config, cls) {
+
+			var cls2 = '.' + cls;
+			var els = {};
+			var days = [];
+			var visible = 0;
+			var cursor = -1;
+			var label = '';
+			var observer = null;
+
+			var locale = function() {
+				return config.locale || document.documentElement.lang || undefined;
+			};
+
+			var nf = function(options) {
+				try {
+					return new Intl.NumberFormat(locale(), options);
+				} catch (e) {
+					return new Intl.NumberFormat(undefined, options);
+				}
+			};
+
+			var df = function(options) {
+				try {
+					return new Intl.DateTimeFormat(locale(), options);
+				} catch (e) {
+					return new Intl.DateTimeFormat(undefined, options);
+				}
+			};
+
+			var num = function(value) {
+				if (value == null || value === '')
+					return null;
+				value = typeof value === 'number' ? value : +value;
+				return isFinite(value) ? value : null;
+			};
+
+			var esc = function(value) {
+				return (value == null ? '' : value + '').replace(/[&<>"']/g, function(c) {
+					return c === '&' ? '&amp;' : c === '<' ? '&lt;' : c === '>' ? '&gt;' : c === '"' ? '&quot;' : '&#39;';
+				});
+			};
+
+			var capitalize = function(text) {
+				return text ? text.charAt(0).toLocaleUpperCase(locale()) + text.substring(1) : text;
+			};
+
+			var percent = function(n) {
+				return nf({ style: 'percent', minimumFractionDigits: 0, maximumFractionDigits: Math.max(0, config.decimals || 0) }).format(n / 100);
+			};
+
+			var state = function(uptime) {
+				if (uptime == null)
+					return '';
+				return uptime >= (num(config.good) || 99.9) ? 'good' : uptime >= (num(config.warn) || 99) ? 'warn' : 'bad';
+			};
+
+			var statetext = function(s) {
+				var list = (config.states || '').split('|');
+				return s === 'bad' ? list[0] || '' : s === 'warn' ? list[1] || '' : s === 'good' ? list[2] || '' : '';
+			};
+
+			// [99.98, 100, null, ...] (the last one is today) or [{ date, uptime, note }]
+			var parse = function(value) {
+				var src = value instanceof Array ? value : value && value.days instanceof Array ? value.days : [];
+				var count = Math.max(1, config.days || 90);
+				var today = new Date();
+				today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+				src = src.slice(-count);
+				days = [];
+				// Missing days at the start are days without data
+				for (var i = 0; i < count; i++) {
+					var item = src[i - (count - src.length)];
+					var obj = item != null && typeof item === 'object' ? item : { uptime: item };
+					var date = obj.date ? new Date(obj.date) : new Date(today.getFullYear(), today.getMonth(), today.getDate() - (count - 1 - i));
+					days.push({ date: isNaN(date.getTime()) ? null : date, uptime: num(obj.uptime), note: obj.note == null ? '' : obj.note + '' });
+				}
+			};
+
+			// Narrow boxes show the last 30 or 60 days, so a bar is never thinner than 3px
+			var fit = function() {
+				var width = els.bars.clientWidth;
+				if (!width)
+					return days.length;
+				var max = Math.floor((width + 2) / 5);
+				if (days.length <= max)
+					return days.length;
+				return max >= 60 ? 60 : Math.min(days.length, 30);
+			};
+
+			var render = function() {
+
+				visible = fit();
+				var start = days.length - visible;
+				var builder = [];
+				var long = df({ weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+				var sum = 0;
+				var count = 0;
+
+				for (var i = 0; i < days.length; i++) {
+					var d = days[i];
+					var s = state(d.uptime);
+					if (i >= start && d.uptime != null) {
+						sum += d.uptime;
+						count++;
+					}
+					builder.push('<span class="{0}-bar{1}{2}" data-index="{3}"></span>'.format(cls, s ? ' ' + cls + '-' + s : '', i < start ? ' ' + cls + '-hidden' : '', i));
+				}
+
+				els.bars.innerHTML = builder.join('');
+
+				// The current state is the state of the last day with data
+				var last = null;
+				for (var j = days.length - 1; j >= 0; j--) {
+					if (days[j].uptime != null) {
+						last = days[j];
+						break;
+					}
+				}
+				var current = last ? state(last.uptime) : '';
+				self.tclass(cls + '-good', current === 'good');
+				self.tclass(cls + '-warn', current === 'warn');
+				self.tclass(cls + '-bad', current === 'bad');
+				els.icon.className = current ? 'ti ' + (current === 'good' ? 'ti-check-circle' : current === 'warn' ? 'ti-exclamation-triangle' : 'ti-times-circle') : '';
+				els.state.textContent = statetext(current);
+				els.state.style.display = els.state.textContent ? '' : 'none';
+
+				var average = count ? sum / count : null;
+				els.total.innerHTML = average == null ? '—' : '<b>{0}</b>{1}'.format(esc(percent(average)), config.caption ? ' ' + esc(config.caption) : '');
+
+				var rtf;
+				try {
+					rtf = new Intl.RelativeTimeFormat(locale(), { numeric: 'auto' });
+				} catch (e) {
+					rtf = null;
+				}
+				els.from.textContent = rtf ? capitalize(rtf.format(-(visible - 1), 'day')) : '';
+				els.to.textContent = rtf ? capitalize(rtf.format(0, 'day')) : '';
+
+				var name = els.name.textContent.trim();
+				els.bars.setAttribute('aria-label', (name ? name + ', ' : '') + (average == null ? '' : percent(average) + (config.caption ? ' ' + config.caption : '')));
+
+				if (cursor !== -1)
+					show(Math.max(start, Math.min(days.length - 1, cursor)), false);
+			};
+
+			var show = function(index, announce) {
+
+				var d = days[index];
+				var bar = els.bars.children[index];
+				if (!d || !bar)
+					return;
+
+				cursor = index;
+				var old = els.bars.querySelector(cls2 + '-on');
+				old && old.classList.remove(cls + '-on');
+				bar.classList.add(cls + '-on');
+
+				var s = state(d.uptime);
+				var date = d.date ? df({ weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }).format(d.date) : '';
+				var text = d.uptime == null ? '—' : percent(d.uptime);
+				var st = statetext(s);
+				els.tip.innerHTML = '<div>{0}</div><b>{1}</b>{2}{3}'.format(esc(date), esc(text), st ? ' · ' + esc(st) : '', d.note ? '<div>' + esc(d.note) + '</div>' : '');
+				self.aclass(cls + '-hover');
+
+				var rect = els.bars.getBoundingClientRect();
+				var box = bar.getBoundingClientRect();
+				var tw = els.tip.offsetWidth;
+				var x = box.left - rect.left + box.width / 2 - tw / 2;
+				x = Math.max(0, Math.min(rect.width - tw, x));
+				els.tip.style.transform = 'translateX(' + Math.round(x) + 'px)';
+
+				if (announce)
+					els.live.textContent = date + ': ' + text + (st ? ', ' + st : '') + (d.note ? '. ' + d.note : '');
+			};
+
+			var hide = function() {
+				cursor = -1;
+				var old = els.bars.querySelector(cls2 + '-on');
+				old && old.classList.remove(cls + '-on');
+				self.rclass(cls + '-hover');
+			};
+
+			self.make = function() {
+
+				label = self.html().trim();
+
+				self.aclass(cls);
+				self.html(('<div class="{0}-top"><div class="{0}-title"><i aria-hidden="true"></i><span class="{0}-name"></span><span class="{0}-state"></span></div><div class="{0}-total"></div></div>' +
+					'<div class="{0}-bars" tabindex="0" role="group"></div><div class="{0}-tipwrap"><div class="{0}-tip" aria-hidden="true"></div></div>' +
+					'<div class="{0}-foot" aria-hidden="true"><span></span><span></span></div><div class="{0}-sr" aria-live="polite"></div>').format(cls));
+
+				els.icon = self.find(cls2 + '-title i')[0];
+				els.name = self.find(cls2 + '-name')[0];
+				els.state = self.find(cls2 + '-state')[0];
+				els.total = self.find(cls2 + '-total')[0];
+				els.bars = self.find(cls2 + '-bars')[0];
+				els.tip = self.find(cls2 + '-tip')[0];
+				els.from = self.find(cls2 + '-foot span')[0];
+				els.to = self.find(cls2 + '-foot span')[1];
+				els.live = self.find(cls2 + '-sr')[0];
+
+				// The tooltip sits above the bars
+				els.bars.parentNode.insertBefore(els.tip.parentNode, els.bars);
+
+				self.event('mouseover', cls2 + '-bar', function() {
+					show(+this.getAttribute('data-index'));
+				});
+
+				self.event('mouseleave', cls2 + '-bars', function() {
+					document.activeElement !== els.bars && hide();
+				});
+
+				// One tab stop: the arrows go through the days, Home and End to the first and the last one
+				self.event('keydown', cls2 + '-bars', function(e) {
+					var start = days.length - visible;
+					var index = cursor === -1 ? days.length - 1 : cursor;
+					switch (e.key) {
+						case 'ArrowLeft':
+							index = cursor === -1 ? index : index - 1;
+							break;
+						case 'ArrowRight':
+							index = cursor === -1 ? index : index + 1;
+							break;
+						case 'Home':
+							index = start;
+							break;
+						case 'End':
+							index = days.length - 1;
+							break;
+						case 'Escape':
+							hide();
+							return;
+						default:
+							return;
+					}
+					e.preventDefault();
+					show(Math.max(start, Math.min(days.length - 1, index)), true);
+				});
+
+				self.event('blur', cls2 + '-bars', hide);
+
+				if (window.ResizeObserver) {
+					observer = new ResizeObserver(function() {
+						fit() !== visible && setTimeout2(self.ID + 'fit', render, 80);
+					});
+					observer.observe(els.bars);
+				}
+			};
+
+			self.configure = function(key, value, init) {
+				switch (key) {
+					case 'label':
+						els.name.innerHTML = value || label;
+						!init && render();
+						break;
+					case 'style':
+						self.tclass(cls + '-minimal', value === 'minimal');
+						break;
+					case 'height':
+						self.dom.style.setProperty('--ubh', Math.max(8, value || 32) + 'px');
+						break;
+					case 'days':
+						if (!init) {
+							parse(self.get());
+							render();
+						}
+						break;
+					case 'good':
+					case 'warn':
+					case 'states':
+					case 'caption':
+					case 'decimals':
+					case 'locale':
+						!init && render();
+						break;
+				}
+			};
+
+			self.setter = function(value) {
+				parse(value);
+				render();
+			};
+
+			self.destroy = function() {
+				observer && observer.disconnect();
+				clearTimeout2(self.ID + 'fit');
+			};
+
+		});
+
+	</script>
+
+	<div style="max-width:960px;padding:12px;display:grid;gap:16px">
+
+		<ui-component name="uptimebar" path="uptime.web" config="states:Down|Degraded|Operational;caption:uptime;height:100">Website</ui-component>
+
+		<ui-component name="uptimebar" path="uptime.api" config="states:Down|Degraded|Operational;caption:uptime;height:24">API</ui-component>
+
+		<ui-component name="uptimebar" path="uptime.mcp" config="states:Down|Degraded|Operational;caption:uptime;days:30;height:20;style:minimal">MCP server for AI agents</ui-component>
+
+	</div>
+
+	<script>
+
+		var uptimes = function(seed, incidents) {
+			var arr = [];
+			for (var i = 0; i < 90; i++) {
+				var v = 100 - ((i * 7 + seed) % 23 === 0 ? 0.03 : 0);
+				if (incidents[i] != null)
+					v = incidents[i];
+				arr.push(v);
+			}
+			return arr;
+		};
+
+		SET('uptime.web', uptimes(3, { 12: 99.42, 47: 97.1, 76: 99.85 }));
+
+		// Objects with a note, and the first days without data
+		var api = uptimes(5, { 30: 99.2, 61: 98.3 }).map(function(uptime, i) {
+			return i < 20 ? null : { uptime: uptime, note: i === 61 ? 'Database maintenance' : '' };
+		});
+		SET('uptime.api', api);
+
+		SET('uptime.mcp', uptimes(9, { 85: 96.4 }).slice(60));
+
+	</script>
+
+</body>
+</html>

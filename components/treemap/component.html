@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<style component>
+
+		/* Group colours: slot 1 is the primary colour of the app, the rest is a colour-blind safe palette in a fixed order */
+		.ui-treemap { --tm1: var(--color); --tm2: #EB6834; --tm3: #1BAF7A; --tm4: #EDA100; --tm5: #E87BA4; --tm6: #008300; --tm7: #6250D6; --tm8: #E34948; --tmbg: #FFF; box-sizing: border-box; min-width: 0; padding: 16px 18px; border: 1px solid #E3E3E3; border-radius: var(--radius); background: #FFF; color: #1F1F1F; font-size: 13px; }
+		.ui-treemap-minimal { padding: 0; border-color: transparent; background: transparent; }
+		.ui-treemap-top { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; margin-bottom: 10px; }
+		.ui-treemap-title { font-weight: 600; font-size: 14px; }
+		.ui-treemap-notitle .ui-treemap-title { display: none; }
+		.ui-treemap-path { display: flex; flex-wrap: wrap; align-items: center; gap: 2px; font-size: 12px; }
+		.ui-treemap-path:empty { display: none; }
+		.ui-treemap-path button { padding: 3px 6px; border: 0; border-radius: 5px; background: transparent; color: var(--color); font: inherit; font-weight: 600; cursor: pointer; }
+		.ui-treemap-path button:hover { background: rgba(var(--rgb), .1); }
+		.ui-treemap-path button:focus-visible { outline: 2px solid var(--color); outline-offset: -2px; }
+		.ui-treemap-path span { color: #5E5E5E; }
+		.ui-treemap-path i { color: #A0A0A0; font-size: 10px; }
+		.ui-treemap-area { position: relative; height: var(--tmh, 300px); outline: none; border-radius: 6px; }
+		.ui-treemap-area:focus-visible { box-shadow: 0 0 0 2px var(--color); }
+		.ui-treemap-tile { position: absolute; box-sizing: border-box; overflow: hidden; border: 1px solid var(--tmbg); border-radius: 4px; color: #1F1F1F; }
+		.ui-treemap-tile.ui-treemap-ink { color: #FFF; }
+		.ui-treemap-group { border-width: 2px; background: var(--tmbg); }
+		.ui-treemap-label { position: absolute; top: 5px; left: 7px; right: 6px; pointer-events: none; line-height: 1.25; }
+		.ui-treemap-label b { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+		.ui-treemap-label span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; opacity: .85; font-variant-numeric: tabular-nums; }
+		.ui-treemap-small .ui-treemap-label span { display: none; }
+		.ui-treemap-tiny .ui-treemap-label { display: none; }
+		.ui-treemap-head { position: absolute; top: 0; left: 0; right: 0; height: 20px; padding: 2px 6px; box-sizing: border-box; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11px; font-weight: 700; pointer-events: none; }
+		.ui-treemap-zoom { cursor: zoom-in; }
+		.ui-treemap-clickable .ui-treemap-leaf { cursor: pointer; }
+		.ui-treemap-tile.ui-treemap-on { z-index: 2; box-shadow: inset 0 0 0 2px #1F1F1F; }
+		.ui-treemap-tip { position: absolute; top: 0; left: 0; z-index: 5; display: none; padding: 7px 10px; border-radius: 8px; background: #1F1F1F; color: #FFF; font-size: 12px; white-space: nowrap; box-shadow: 0 6px 20px rgba(0, 0, 0, .18); pointer-events: none; }
+		.ui-treemap-hover .ui-treemap-tip { display: block; }
+		.ui-treemap-tip div { color: rgba(255, 255, 255, .75); }
+		.ui-treemap-empty { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; color: #8A8A8A; }
+		.ui-treemap-empty i { font-size: 22px; opacity: .6; }
+		.ui-treemap-isempty .ui-treemap-empty { display: flex; }
+		.ui-treemap-sr { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+		.ui-dark .ui-treemap { --tm2: #D95926; --tm3: #199E70; --tm4: #C98500; --tm5: #D55181; --tm6: #0CA30C; --tm7: #9085E9; --tm8: #E66767; --tmbg: #252525; border-color: #3A3A3A; background: #252525; color: #EDEDED; }
+		.ui-dark .ui-treemap-minimal { --tmbg: #1A1A1A; border-color: transparent; background: transparent; }
+		.ui-dark .ui-treemap-path span { color: #ABABAB; }
+		.ui-dark .ui-treemap-tile.ui-treemap-on { box-shadow: inset 0 0 0 2px #FFF; }
+		.ui-dark .ui-treemap-tip { background: #F2F2F2; color: #1F1F1F; box-shadow: 0 6px 20px rgba(0, 0, 0, .5); }
+		.ui-dark .ui-treemap-tip div { color: #5E5E5E; }
+
+		@media (forced-colors: active) {
+			.ui-treemap { border: 1px solid CanvasText; }
+			.ui-treemap-tile { forced-color-adjust: none; border-color: CanvasText; }
+		}
+
+	</style>
+
+	<script component>
+
+		COMPONENT('treemap', 'label:;style:card;height:300;depth:2;format:number;decimals:0;compact:true;currency:EUR;locale:;click:', function(self, config, cls) {
+
+			var cls2 = '.' + cls;
+			var els = {};
+			var root = null;
+			var stack = [];
+			var tiles = [];
+			var cursor = -1;
+			var label = '';
+			var fmt = {};
+			var observer = null;
+			var watcher = null;
+			var lastwidth = 0;
+
+			var esc = function(value) {
+				return (value == null ? '' : value + '').replace(/[&<>"']/g, function(c) {
+					return c === '&' ? '&amp;' : c === '<' ? '&lt;' : c === '>' ? '&gt;' : c === '"' ? '&quot;' : '&#39;';
+				});
+			};
+
+			var locale = function() {
+				return config.locale || document.documentElement.lang || undefined;
+			};
+
+			var nf = function(options) {
+				try {
+					return new Intl.NumberFormat(locale(), options);
+				} catch (e) {
+					return new Intl.NumberFormat(undefined, options);
+				}
+			};
+
+			var prepare = function() {
+				var decimals = Math.max(0, config.decimals || 0);
+				var opt = { minimumFractionDigits: 0, maximumFractionDigits: decimals };
+				var copt = { notation: 'compact', maximumFractionDigits: 1 };
+				if (config.format === 'currency') {
+					opt.style = copt.style = 'currency';
+					opt.currency = copt.currency = config.currency || 'EUR';
+				}
+				fmt.full = nf(opt);
+				fmt.compact = config.compact ? nf(copt) : null;
+				fmt.share = nf({ style: 'percent', maximumFractionDigits: 1 });
+			};
+
+			var format = function(n) {
+				return (fmt.compact && Math.abs(n) >= 10000 ? fmt.compact : fmt.full).format(n);
+			};
+
+			var num = function(value) {
+				if (value == null || value === '')
+					return null;
+				value = typeof value === 'number' ? value : +value;
+				return isFinite(value) && value > 0 ? value : null;
+			};
+
+			// A node: { name, value } or { name, children: [...] }; the value of a group is the sum of its children
+			var build = function(src, depth) {
+				var node = { name: src && src.name != null ? src.name + '' : '', item: src, value: 0, children: null };
+				var list = src instanceof Array ? src : src && src.children instanceof Array ? src.children : null;
+				if (list && depth < 8) {
+					node.children = [];
+					for (var i = 0; i < list.length; i++) {
+						var child = build(list[i], depth + 1);
+						if (child.value > 0) {
+							child.parent = node;
+							node.children.push(child);
+							node.value += child.value;
+						}
+					}
+					node.children.sort(function(a, b) {
+						return b.value - a.value;
+					});
+					if (!node.children.length)
+						node.children = null;
+				} else
+					node.value = num(src && src.value) || 0;
+				return node;
+			};
+
+			// Squarified layout (Bruls, Huizing, van Wijk): rows of tiles as square as possible
+			var squarify = function(nodes, x, y, w, h) {
+				var out = [];
+				var total = 0;
+				for (var i = 0; i < nodes.length; i++)
+					total += nodes[i].value;
+				if (!total || w <= 0 || h <= 0)
+					return out;
+				var scale = w * h / total;
+				var rest = nodes.map(function(n) {
+					return { node: n, area: n.value * scale };
+				});
+				var worst = function(row, side) {
+					var sum = 0;
+					var max = 0;
+					var min = Infinity;
+					for (var r = 0; r < row.length; r++) {
+						sum += row[r].area;
+						max = Math.max(max, row[r].area);
+						min = Math.min(min, row[r].area);
+					}
+					return Math.max(side * side * max / (sum * sum), sum * sum / (side * side * min));
+				};
+				while (rest.length) {
+					var side = Math.min(w, h);
+					var row = [rest.shift()];
+					var best = worst(row, side);
+					while (rest.length) {
+						var test = row.concat([rest[0]]);
+						var ratio = worst(test, side);
+						if (ratio > best)
+							break;
+						row = test;
+						best = ratio;
+						rest.shift();
+					}
+					var sum = 0;
+					for (var s = 0; s < row.length; s++)
+						sum += row[s].area;
+					var k;
+					if (w >= h) {
+						var cw = sum / h;
+						var cy = y;
+						for (k = 0; k < row.length; k++) {
+							var ih = row[k].area / cw;
+							out.push({ node: row[k].node, x: x, y: cy, w: cw, h: ih });
+							cy += ih;
+						}
+						x += cw;
+						w -= cw;
+					} else {
+						var rh = sum / w;
+						var cx = x;
+						for (k = 0; k < row.length; k++) {
+							var iw = row[k].area / rh;
+							out.push({ node: row[k].node, x: cx, y: y, w: iw, h: rh });
+							cx += iw;
+						}
+						y += rh;
+						h -= rh;
+					}
+				}
+				return out;
+			};
+
+			var current = function() {
+				return stack.length ? stack[stack.length - 1] : root;
+			};
+
+			var pathof = function(node) {
+				var names = [];
+				while (node && node.parent) {
+					names.unshift(node.name);
+					node = node.parent;
+				}
+				return names;
+			};
+
+			var render = function() {
+
+				var node = current();
+				var width = els.area.clientWidth;
+				var height = els.area.clientHeight;
+				lastwidth = width;
+				tiles = [];
+				cursor = -1;
+				self.rclass(cls + '-hover');
+
+				var empty = !node || !node.children || !width;
+				self.tclass(cls + '-isempty', !node || !node.children);
+				if (empty) {
+					els.tiles.innerHTML = '';
+					renderpath();
+					return;
+				}
+
+				var builder = [];
+				var top = squarify(node.children, 0, 0, width, height);
+				var nested = config.depth > 1;
+
+				for (var i = 0; i < top.length; i++) {
+					var t = top[i];
+					// The colour of a group follows its place in the current level, its children are shades of it
+					var slot = 'var(--tm' + ((i % 8) + 1) + ')';
+					var group = nested && t.node.children && t.w > 60 && t.h > 50;
+					tiles.push({ node: t.node, rect: t, color: slot, index: tiles.length });
+					var id = tiles.length - 1;
+					if (group) {
+						builder.push('<div class="{0}-tile {0}-group{1}" data-tile="{2}" style="left:{3}px;top:{4}px;width:{5}px;height:{6}px;background:color-mix(in srgb, {7} 22%, var(--tmbg))"><div class="{0}-head"></div>'.format(cls, ' ' + cls + '-zoom', id, t.x.toFixed(1), t.y.toFixed(1), t.w.toFixed(1), t.h.toFixed(1), slot));
+						var inner = squarify(t.node.children, 2, 20, t.w - 4, t.h - 22);
+						for (var j = 0; j < inner.length; j++) {
+							var c = inner[j];
+							var shade = Math.round(92 - Math.min(40, j * 40 / Math.max(1, inner.length - 1)));
+							builder.push(tilehtml(c, 'color-mix(in srgb, ' + slot + ' ' + shade + '%, var(--tmbg))', -1, true));
+						}
+						builder.push('</div>');
+					} else
+						builder.push(tilehtml(t, slot, id, false));
+				}
+
+				els.tiles.innerHTML = builder.join('');
+
+				// Texts after the layout: names are set as text, the ink follows the colour of the tile
+				var nodes = els.tiles.querySelectorAll('[data-name]');
+				for (var n = 0; n < nodes.length; n++)
+					nodes[n].textContent = nodes[n].getAttribute('data-name');
+				var heads = els.tiles.querySelectorAll(cls2 + '-head');
+				var groups = els.tiles.querySelectorAll(cls2 + '-group');
+				for (var g = 0; g < heads.length; g++)
+					heads[g].textContent = tiles[+groups[g].getAttribute('data-tile')].node.name;
+
+				ink();
+				renderpath();
+				rendertable();
+			};
+
+			var tilehtml = function(t, color, id, child) {
+				var size = t.w < 46 || t.h < 22 ? ' ' + cls + '-tiny' : t.w < 80 || t.h < 40 ? ' ' + cls + '-small' : '';
+				var kind = t.node.children ? ' ' + cls + '-zoom' : ' ' + cls + '-leaf';
+				return '<div class="{0}-tile{1}{2}"{3} style="left:{4}px;top:{5}px;width:{6}px;height:{7}px;background:{8}"{9}><div class="{0}-label"><b data-name="{10}"></b><span>{11}</span></div></div>'.format(cls, size, kind, id === -1 ? '' : ' data-tile="' + id + '"', t.x.toFixed(1), t.y.toFixed(1), Math.max(0, t.w).toFixed(1), Math.max(0, t.h).toFixed(1), color, child ? ' data-child="' + esc(t.node.name) + '"' : '', esc(t.node.name), esc(format(t.node.value)));
+			};
+
+			// White or near-black text, whichever has more contrast on the colour of the tile
+			var ink = function() {
+				var list = els.tiles.querySelectorAll(cls2 + '-tile');
+				for (var i = 0; i < list.length; i++) {
+					var el = list[i];
+					var bg = getComputedStyle(el).backgroundColor;
+					var rgb = (bg.match(/[\d.]+/g) || [255, 255, 255]).map(Number);
+					// color-mix() is computed as color(srgb r g b) with channels from 0 to 1
+					if (bg.indexOf('color(') === 0)
+						rgb = rgb.map(function(v) {
+							return v * 255;
+						});
+					var lum = function(v) {
+						v /= 255;
+						return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+					};
+					var l = 0.2126 * lum(rgb[0]) + 0.7152 * lum(rgb[1]) + 0.0722 * lum(rgb[2]);
+					el.classList.toggle(cls + '-ink', 1.05 / (l + 0.05) > (l + 0.05) / 0.05);
+				}
+			};
+
+			var renderpath = function() {
+				if (!stack.length) {
+					els.path.innerHTML = '';
+					return;
+				}
+				var builder = ['<button type="button" data-level="0">{0}</button>'.format(esc(root.name || els.title.textContent.trim() || '…'))];
+				for (var i = 0; i < stack.length; i++) {
+					builder.push('<i class="ti ti-chevron-right" aria-hidden="true"></i>');
+					builder.push(i === stack.length - 1 ? '<span aria-current="location">{0}</span>'.format(esc(stack[i].name)) : '<button type="button" data-level="{0}">{1}</button>'.format(i + 1, esc(stack[i].name)));
+				}
+				els.path.innerHTML = builder.join('');
+			};
+
+			var rendertable = function() {
+				var node = current();
+				var rows = [];
+				var walk = function(n, prefix) {
+					for (var i = 0; n.children && i < n.children.length; i++) {
+						var c = n.children[i];
+						rows.push('<tr><th scope="row">{0}</th><td>{1}</td><td>{2}</td></tr>'.format(esc(prefix + c.name), esc(format(c.value)), esc(fmt.share.format(node.value ? c.value / node.value : 0))));
+						if (c.children && prefix.length < 200)
+							walk(c, prefix + c.name + ' / ');
+					}
+				};
+				walk(node, '');
+				els.table.innerHTML = '<table><caption>{0}</caption><tbody>{1}</tbody></table>'.format(esc(els.title.textContent.trim()), rows.join(''));
+			};
+
+			var show = function(el, announce) {
+				var old = els.tiles.querySelector(cls2 + '-on');
+				old && old.classList.remove(cls + '-on');
+				el.classList.add(cls + '-on');
+				var node = current();
+				var tile = el.hasAttribute('data-tile') ? tiles[+el.getAttribute('data-tile')] : null;
+				var name = tile ? tile.node.name : el.getAttribute('data-child');
+				var target = tile ? tile.node : null;
+				if (!target) {
+					var parent = el.parentNode.hasAttribute('data-tile') ? tiles[+el.parentNode.getAttribute('data-tile')].node : null;
+					for (var i = 0; parent && parent.children && i < parent.children.length; i++) {
+						if (parent.children[i].name === name) {
+							target = parent.children[i];
+							break;
+						}
+					}
+				}
+				if (!target)
+					return;
+				var share = node.value ? target.value / node.value : 0;
+				var where = pathof(target).slice(pathof(node).length).join(' / ');
+				els.tip.innerHTML = '<div>{0}</div><b>{1}</b> · {2}'.format(esc(where), esc(format(target.value)), esc(fmt.share.format(share)));
+				self.aclass(cls + '-hover');
+				var rect = els.area.getBoundingClientRect();
+				var box = el.getBoundingClientRect();
+				var tw = els.tip.offsetWidth;
+				var th = els.tip.offsetHeight;
+				var x = Math.max(0, Math.min(rect.width - tw, box.left - rect.left + box.width / 2 - tw / 2));
+				var y = box.top - rect.top - th - 6;
+				if (y < 0)
+					y = Math.min(rect.height - th, box.top - rect.top + 6);
+				els.tip.style.transform = 'translate(' + Math.round(x) + 'px,' + Math.round(y) + 'px)';
+				if (announce)
+					els.live.textContent = where + ': ' + format(target.value) + ', ' + fmt.share.format(share) + (target.children ? '' : '');
+			};
+
+			var hide = function() {
+				var old = els.tiles.querySelector(cls2 + '-on');
+				old && old.classList.remove(cls + '-on');
+				self.rclass(cls + '-hover');
+			};
+
+			var zoom = function(node) {
+				if (!node || !node.children)
+					return;
+				stack.push(node);
+				render();
+				els.live.textContent = pathof(node).join(' / ');
+			};
+
+			var activate = function(el) {
+				if (el.hasAttribute('data-tile')) {
+					var tile = tiles[+el.getAttribute('data-tile')];
+					if (tile.node.children) {
+						zoom(tile.node);
+						return true;
+					}
+					config.click && self.EXEC(config.click, { name: tile.node.name, value: tile.node.value, path: pathof(tile.node), item: tile.node.item }, self);
+					return false;
+				}
+				// A child inside a group: zoom into the group, or run click for a leaf
+				var group = el.parentNode.hasAttribute('data-tile') ? tiles[+el.parentNode.getAttribute('data-tile')].node : null;
+				var name = el.getAttribute('data-child');
+				for (var i = 0; group && i < group.children.length; i++) {
+					if (group.children[i].name === name) {
+						var target = group.children[i];
+						if (target.children)
+							zoom(target);
+						else
+							config.click && self.EXEC(config.click, { name: target.name, value: target.value, path: pathof(target), item: target.item }, self);
+						return true;
+					}
+				}
+				return false;
+			};
+
+			self.make = function() {
+
+				label = self.html().trim();
+				self.aclass(cls);
+				self.html(('<div class="{0}-top"><div class="{0}-title"></div><nav class="{0}-path"></nav></div>' +
+					'<div class="{0}-area" tabindex="0" role="group"><div class="{0}-tiles" aria-hidden="true"></div><div class="{0}-tip" aria-hidden="true"></div><div class="{0}-empty"><i class="ti ti-border-all" aria-hidden="true"></i></div></div>' +
+					'<div class="{0}-sr {0}-table"></div><div class="{0}-sr" aria-live="polite"></div>').format(cls));
+
+				els.title = self.find(cls2 + '-title')[0];
+				els.path = self.find(cls2 + '-path')[0];
+				els.area = self.find(cls2 + '-area')[0];
+				els.tiles = self.find(cls2 + '-tiles')[0];
+				els.tip = self.find(cls2 + '-tip')[0];
+				els.table = self.find(cls2 + '-table')[0];
+				els.live = self.find(cls2 + '-sr[aria-live]')[0];
+
+				prepare();
+
+				self.event('mouseover', cls2 + '-tile', function(e) {
+					// The innermost tile under the pointer
+					var el = e.target.closest ? e.target.closest(cls2 + '-tile') : this;
+					el && !el.classList.contains(cls + '-on') && show(el);
+				});
+
+				self.event('mouseleave', cls2 + '-area', function() {
+					document.activeElement !== els.area && hide();
+				});
+
+				self.event('click', cls2 + '-tile', function(e) {
+					var el = e.target.closest ? e.target.closest(cls2 + '-tile') : this;
+					if (el === this)
+						activate(el);
+				});
+
+				self.event('click', cls2 + '-path button', function() {
+					stack = stack.slice(0, +this.getAttribute('data-level'));
+					render();
+					els.area.focus();
+				});
+
+				// The keyboard goes through the tiles of the current level, from the biggest one
+				self.event('keydown', cls2 + '-area', function(e) {
+					if (!tiles.length)
+						return;
+					switch (e.key) {
+						case 'ArrowRight':
+						case 'ArrowDown':
+							cursor = Math.min(tiles.length - 1, cursor + 1);
+							break;
+						case 'ArrowLeft':
+						case 'ArrowUp':
+							cursor = Math.max(0, cursor - 1);
+							break;
+						case 'Home':
+							cursor = 0;
+							break;
+						case 'End':
+							cursor = tiles.length - 1;
+							break;
+						case 'Enter':
+						case ' ':
+							e.preventDefault();
+							if (cursor !== -1) {
+								var el = els.tiles.querySelector('[data-tile="' + cursor + '"]');
+								el && activate(el);
+							}
+							return;
+						case 'Backspace':
+						case 'Escape':
+							if (stack.length) {
+								e.preventDefault();
+								stack.pop();
+								render();
+								els.live.textContent = pathof(current()).join(' / ') || root.name || '';
+							} else
+								hide();
+							return;
+						default:
+							return;
+					}
+					e.preventDefault();
+					var target = els.tiles.querySelector('[data-tile="' + cursor + '"]');
+					target && show(target, true);
+				});
+
+				self.event('blur', cls2 + '-area', hide);
+
+				if (window.ResizeObserver) {
+					observer = new ResizeObserver(function() {
+						els.area.clientWidth !== lastwidth && setTimeout2(self.ID + 'resize', render, 60);
+					});
+					observer.observe(els.area);
+				}
+
+				// The ink of the texts follows the theme (APPEARANCE toggles "ui-dark" on the body)
+				if (window.MutationObserver) {
+					watcher = new MutationObserver(function() {
+						setTimeout2(self.ID + 'ink', ink, 50);
+					});
+					watcher.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+				}
+			};
+
+			self.configure = function(key, value, init) {
+				switch (key) {
+					case 'label':
+						els.title.innerHTML = value || label;
+						var text = els.title.textContent.trim();
+						self.tclass(cls + '-notitle', !text);
+						text ? els.area.setAttribute('aria-label', text) : els.area.removeAttribute('aria-label');
+						!init && render();
+						break;
+					case 'style':
+						self.tclass(cls + '-minimal', value === 'minimal');
+						break;
+					case 'height':
+						self.dom.style.setProperty('--tmh', Math.max(120, value || 300) + 'px');
+						!init && render();
+						break;
+					case 'click':
+						self.tclass(cls + '-clickable', !!value);
+						break;
+					case 'depth':
+					case 'format':
+					case 'decimals':
+					case 'compact':
+					case 'currency':
+					case 'locale':
+						if (!init) {
+							prepare();
+							render();
+						}
+						break;
+				}
+			};
+
+			self.setter = function(value) {
+				root = value ? build(value, 0) : null;
+				// The zoom is kept when the same groups still exist
+				var keep = [];
+				var node = root;
+				for (var i = 0; node && i < stack.length; i++) {
+					var next = null;
+					for (var j = 0; node.children && j < node.children.length; j++) {
+						if (node.children[j].name === stack[i].name && node.children[j].children) {
+							next = node.children[j];
+							break;
+						}
+					}
+					if (!next)
+						break;
+					keep.push(next);
+					node = next;
+				}
+				stack = keep;
+				render();
+			};
+
+			self.destroy = function() {
+				observer && observer.disconnect();
+				watcher && watcher.disconnect();
+				clearTimeout2(self.ID + 'resize');
+				clearTimeout2(self.ID + 'ink');
+			};
+
+		});
+
+	</script>
+
+	<div style="max-width:960px;padding:12px;display:grid;gap:16px">
+
+		<ui-component name="treemap" path="tree.site" config="height:150;click:onpageclick">Visits by section</ui-component>
+
+		<ui-component name="treemap" path="tree.revenue" config="format:currency;depth:1;height:220">Revenue by country</ui-component>
+
+		<ui-component name="treemap" path="tree.empty" config="height:120">No data yet</ui-component>
+
+	</div>
+
+	<script>
+
+		SET('tree.site', { name: 'totaljs.com', children: [
+			{ name: 'Blog', children: [{ name: '/blog/total-js-5', value: 6420 }, { name: '/blog/agentic-web', value: 2210 }, { name: '/blog/flow', value: 980 }, { name: '/blog/ui', value: 610 }] },
+			{ name: 'Docs', children: [{ name: '/docs/start', value: 4310 }, { name: '/docs/api', value: 640 }, { name: '/docs/flow', value: 1210 }, { name: '/docs/ui', value: 890 }, { name: '/docs/cms', value: 520 }] },
+			{ name: 'Home', value: 12840 },
+			{ name: 'Product', children: [{ name: '/pricing', value: 2980 }, { name: '/features', value: 1720 }, { name: '/enterprise', value: 860 }] },
+			{ name: 'Company', children: [{ name: '/contact', value: 1340 }, { name: '/about', value: 870 }, { name: '/jobs', value: 210 }] }
+		] });
+
+		SET('tree.revenue', [{ name: 'Spain', value: 4200 }, { name: 'Mexico', value: 1650 }, { name: 'Argentina', value: 980 }, { name: 'Colombia', value: 590 }, { name: 'Chile', value: 410 }, { name: 'Peru', value: 260 }, { name: 'Uruguay', value: 120 }]);
+
+		SET('tree.empty', null);
+
+		function onpageclick(page, component) {
+			// e.g. open the page: page.name, page.value, page.path
+		}
+
+	</script>
+
+</body>
+</html>

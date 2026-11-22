@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<style component>
+
+		.ui-useravatar { display: inline-flex; flex-shrink: 0; overflow: hidden; vertical-align: middle; }
+		.ui-useravatar svg { display: block; width: 100%; height: 100%; }
+
+		/* The avatar is an image: it keeps its colours in dark mode, only a thin ring separates it from a dark background */
+		.ui-dark .ui-useravatar { border-radius: 50%; box-shadow: 0 0 0 1px rgba(255, 255, 255, .08); }
+		.ui-dark .ui-useravatar-square { border-radius: 0; }
+
+		@media (forced-colors: active) {
+			.ui-useravatar { border-radius: 50%; outline: 1px solid CanvasText; }
+			.ui-useravatar-square { border-radius: 0; }
+		}
+
+	</style>
+
+	<script component>
+
+		/*
+		 * Useravatar: deterministic SVG avatars, adapted from Boring Avatars
+		 * https://github.com/boringdesigners/boring-avatars
+		 * Boring Avatars copyright (c) 2021 boringdesigners, MIT License (see readme.md).
+		 */
+
+		COMPONENT('useravatar', 'size:40;variant:;color:;colors:;square:false;title:false;key:;value:', function(self, config, cls) {
+
+			var VARIANTS = ['marble', 'beam', 'pixel', 'sunset', 'ring', 'bauhaus'];
+			var COLORS = ['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90'];
+			var current;
+			var display = '';
+			var ready = false;
+
+			self.readonly();
+
+			function hashcode(value) {
+				var hash = 0;
+				value = value || '';
+				for (var i = 0; i < value.length; i++) {
+					hash = ((hash << 5) - hash) + value.charCodeAt(i);
+					hash |= 0;
+				}
+				return Math.abs(hash);
+			}
+
+			function digit(number, index) {
+				return Math.floor(number / Math.pow(10, index) % 10);
+			}
+
+			function unit(number, range, index) {
+				var value = number % range;
+				return index && digit(number, index) % 2 === 0 ? -value : value;
+			}
+
+			function bool(number, index) {
+				return digit(number, index) % 2 === 0;
+			}
+
+			function color(number, colors) {
+				return colors[number % colors.length];
+			}
+
+			function contrast(hex) {
+				hex = hex.substring(1);
+				var r = parseInt(hex.substring(0, 2), 16);
+				var g = parseInt(hex.substring(2, 4), 16);
+				var b = parseInt(hex.substring(4, 6), 16);
+				return ((r * 299) + (g * 587) + (b * 114)) / 1000 >= 128 ? '#000000' : '#FFFFFF';
+			}
+
+			function escapehtml(value) {
+				return (value == null ? '' : value.toString()).replace(/[&<>"']/g, function(char) {
+					return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[char];
+				});
+			}
+
+			function parsehex(value) {
+				if (!value)
+					return null;
+				value = value.trim();
+				var match = value.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+				if (match) {
+					var hex = match[1];
+					if (hex.length === 3)
+						hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+					return '#' + hex.toUpperCase();
+				}
+				match = value.match(/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
+				if (!match)
+					return null;
+				var output = '#';
+				for (var i = 1; i < 4; i++)
+					output += Math.max(0, Math.min(255, +match[i])).toString(16).replace(/^(.)$/, '0$1');
+				return output.toUpperCase();
+			}
+
+			function mix(hex, target, amount) {
+				var output = '#';
+				for (var i = 1; i < 7; i += 2) {
+					var from = parseInt(hex.substring(i, i + 2), 16);
+					var to = target === 'white' ? 255 : 0;
+					output += Math.round(from + (to - from) * amount).toString(16).replace(/^(.)$/, '0$1');
+				}
+				return output.toUpperCase();
+			}
+
+			function palette(base) {
+				return [mix(base, 'black', .28), base, mix(base, 'white', .25), mix(base, 'white', .5), mix(base, 'black', .5)];
+			}
+
+			function appcolor() {
+				// The colour of the element, so a local --color wins over the one of the page
+				var style = getComputedStyle(self.dom);
+				var names = ['--color', '--primary', '--primary-color', '--color-primary'];
+				for (var i = 0; i < names.length; i++) {
+					var value = parsehex(style.getPropertyValue(names[i]));
+					if (value)
+						return value;
+				}
+				return null;
+			}
+
+			function resolvecolors() {
+				if (config.colors) {
+					var custom = config.colors.split(',').map(parsehex).filter(Boolean);
+					if (custom.length)
+						return custom.length === 1 ? palette(custom[0]) : custom;
+				}
+				if (config.color && config.color !== 'random') {
+					var fixed = parsehex(config.color);
+					if (fixed)
+						return palette(fixed);
+				}
+				var primary = config.color === 'random' ? null : appcolor();
+				return primary ? palette(primary) : COLORS;
+			}
+
+			function identity(value) {
+				if (value && typeof value === 'object') {
+					if (config.key)
+						value = value[config.key];
+					else
+						value = value.email || value.name || value.id;
+				}
+				value = value == null || value === '' ? config.value : value;
+				return (value == null || value === '' ? 'Total.js' : value.toString()).trim();
+			}
+
+			function frame(size, mask, name, square, body, defs) {
+				var labelled = !!config.title;
+				var title = labelled ? '<title>' + escapehtml(display) + '</title>' : '';
+				var accessibility = labelled ? 'role="img" aria-label="' + escapehtml(display) + '"' : 'aria-hidden="true"';
+				return '<svg viewBox="0 0 ' + size + ' ' + size + '" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" ' + accessibility + '>' + title + '<mask id="' + mask + '" maskUnits="userSpaceOnUse" x="0" y="0" width="' + size + '" height="' + size + '"><rect width="' + size + '" height="' + size + '" rx="' + (square ? 0 : size * 2) + '" fill="#fff"/></mask><g mask="url(#' + mask + ')">' + body + '</g>' + (defs || '') + '</svg>';
+			}
+
+			function marble(name, colors, id, square) {
+				var num = hashcode(name);
+				var props = [];
+				for (var i = 0; i < 3; i++)
+					props.push({ color: color(num + i, colors), x: unit(num * (i + 1), 8, 1), y: unit(num * (i + 1), 8, 2), scale: 1.2 + unit(num * (i + 1), 4) / 10, rotate: unit(num * (i + 1), 360, 1) });
+				var filter = id + '-blur';
+				var body = '<rect width="80" height="80" fill="' + props[0].color + '"/><path filter="url(#' + filter + ')" d="M32.414 59.35L50.376 70.5H72.5v-71H33.728L26.5 13.381l19.057 27.08L32.414 59.35z" fill="' + props[1].color + '" transform="translate(' + props[1].x + ' ' + props[1].y + ') rotate(' + props[1].rotate + ' 40 40) scale(' + props[2].scale + ')"/><path filter="url(#' + filter + ')" style="mix-blend-mode:overlay" d="M22.216 24L0 46.75l14.108 38.129L78 86l-3.081-59.276-22.378 4.005 12.972 20.186-23.35 27.395L22.215 24z" fill="' + props[2].color + '" transform="translate(' + props[2].x + ' ' + props[2].y + ') rotate(' + props[2].rotate + ' 40 40) scale(' + props[2].scale + ')"/>';
+				var defs = '<defs><filter id="' + filter + '" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="7"/></filter></defs>';
+				return frame(80, id, name, square, body, defs);
+			}
+
+			function beam(name, colors, id, square) {
+				var size = 36;
+				var num = hashcode(name);
+				var wrapper = color(num, colors);
+				var x = unit(num, 10, 1);
+				var y = unit(num, 10, 2);
+				x = x < 5 ? x + 4 : x;
+				y = y < 5 ? y + 4 : y;
+				var facecolor = contrast(wrapper);
+				var mouth = bool(num, 2) ? '<path d="M15 ' + (19 + unit(num, 3)) + 'c2 1 4 1 6 0" stroke="' + facecolor + '" fill="none" stroke-linecap="round"/>' : '<path d="M13,' + (19 + unit(num, 3)) + ' a1,.75 0 0,0 10,0" fill="' + facecolor + '"/>';
+				var faceX = x > 6 ? x / 2 : unit(num, 8, 1);
+				var faceY = y > 6 ? y / 2 : unit(num, 7, 2);
+				var spread = unit(num, 5);
+				var body = '<rect width="36" height="36" fill="' + color(num + 13, colors) + '"/><rect width="36" height="36" transform="translate(' + x + ' ' + y + ') rotate(' + unit(num, 360) + ' 18 18) scale(' + (1 + unit(num, 3) / 10) + ')" fill="' + wrapper + '" rx="' + (bool(num, 1) ? 36 : 6) + '"/><g transform="translate(' + faceX + ' ' + faceY + ') rotate(' + unit(num, 10, 3) + ' 18 18)">' + mouth + '<rect x="' + (14 - spread) + '" y="14" width="1.5" height="2" rx="1" fill="' + facecolor + '"/><rect x="' + (20 + spread) + '" y="14" width="1.5" height="2" rx="1" fill="' + facecolor + '"/></g>';
+				return frame(size, id, name, square, body);
+			}
+
+			function pixel(name, colors, id, square) {
+				var num = hashcode(name);
+				var body = '';
+				var positions = [];
+				for (var parity = 0; parity < 2; parity++) {
+					for (var column = parity; column < 8; column += 2) {
+						positions.push([column * 10, 0]);
+					}
+				}
+				for (var parity = 0; parity < 2; parity++) {
+					for (var column = parity; column < 8; column += 2) {
+						for (var row = 1; row < 8; row++)
+							positions.push([column * 10, row * 10]);
+					}
+				}
+				for (var i = 0; i < 64; i++) {
+					var x = positions[i][0];
+					var y = positions[i][1];
+					body += '<rect x="' + x + '" y="' + y + '" width="10" height="10" fill="' + color(num % (i + 1), colors) + '"/>';
+				}
+				return frame(80, id, name, square, body);
+			}
+
+			function sunset(name, colors, id, square) {
+				var num = hashcode(name);
+				var top = id + '-top';
+				var bottom = id + '-bottom';
+				var body = '<path fill="url(#' + top + ')" d="M0 0h80v40H0z"/><path fill="url(#' + bottom + ')" d="M0 40h80v40H0z"/>';
+				var defs = '<defs><linearGradient id="' + top + '" x1="40" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="' + color(num, colors) + '"/><stop offset="1" stop-color="' + color(num + 1, colors) + '"/></linearGradient><linearGradient id="' + bottom + '" x1="40" y1="40" x2="40" y2="80" gradientUnits="userSpaceOnUse"><stop stop-color="' + color(num + 2, colors) + '"/><stop offset="1" stop-color="' + color(num + 3, colors) + '"/></linearGradient></defs>';
+				return frame(80, id, name, square, body, defs);
+			}
+
+			function ring(name, colors, id, square) {
+				var num = hashcode(name);
+				var c = [];
+				for (var i = 0; i < 5; i++)
+					c.push(color(num + i, colors));
+				var body = '<path d="M0 0h90v45H0z" fill="' + c[0] + '"/><path d="M0 45h90v45H0z" fill="' + c[1] + '"/><path d="M83 45a38 38 0 00-76 0h76z" fill="' + c[1] + '"/><path d="M83 45a38 38 0 01-76 0h76z" fill="' + c[2] + '"/><path d="M77 45a32 32 0 10-64 0h64z" fill="' + c[2] + '"/><path d="M77 45a32 32 0 11-64 0h64z" fill="' + c[3] + '"/><path d="M71 45a26 26 0 00-52 0h52z" fill="' + c[3] + '"/><path d="M71 45a26 26 0 01-52 0h52z" fill="' + c[0] + '"/><circle cx="45" cy="45" r="23" fill="' + c[4] + '"/>';
+				return frame(90, id, name, square, body);
+			}
+
+			function bauhaus(name, colors, id, square) {
+				var num = hashcode(name);
+				var props = [];
+				for (var i = 0; i < 4; i++)
+					props.push({ color: color(num + i, colors), x: unit(num * (i + 1), 23 - i, 1), y: unit(num * (i + 1), 23 - i, 2), rotate: unit(num * (i + 1), 360), issquare: bool(num, 2) });
+				var body = '<rect width="80" height="80" fill="' + props[0].color + '"/><rect x="10" y="30" width="80" height="' + (props[1].issquare ? 80 : 10) + '" fill="' + props[1].color + '" transform="translate(' + props[1].x + ' ' + props[1].y + ') rotate(' + props[1].rotate + ' 40 40)"/><circle cx="40" cy="40" r="16" fill="' + props[2].color + '" transform="translate(' + props[2].x + ' ' + props[2].y + ')"/><line x1="0" y1="40" x2="80" y2="40" stroke-width="2" stroke="' + props[3].color + '" transform="translate(' + props[3].x + ' ' + props[3].y + ') rotate(' + props[3].rotate + ' 40 40)"/>';
+				return frame(80, id, name, square, body);
+			}
+
+			var renderers = { marble: marble, beam: beam, pixel: pixel, sunset: sunset, ring: ring, bauhaus: bauhaus };
+
+			var redraw = function() {
+				// The text of the label keeps its case, the seed is lower case so "Ada@Example.com" and "ada@example.com" are the same avatar
+				display = identity(current);
+				var name = display.toLowerCase();
+				var hash = hashcode(name);
+				var variant = (config.variant || '').toLowerCase();
+				if (!renderers[variant])
+					variant = VARIANTS[hash % VARIANTS.length];
+				// SVG masks and filters need ids: unique per instance and per seed
+				var id = (cls + '-' + self.ID + '-' + hash).replace(/[^a-z0-9_-]/gi, '');
+				var size = Math.max(8, +config.size || 40);
+				self.css({ width: size, height: size });
+				self.tclass(cls + '-square', !!config.square);
+				self.attr('data-variant', variant);
+				self.html(renderers[variant](name, resolvecolors(), id, !!config.square));
+			};
+
+			self.make = function() {
+				self.aclass(cls);
+				ready = true;
+				redraw();
+			};
+
+			self.setter = function(value) {
+				current = value;
+				ready && redraw();
+			};
+
+			self.configure = function(key, value, init) {
+				!init && ready && redraw();
+			};
+
+		});
+
+	</script>
+
+	<div style="display:flex;flex-wrap:wrap;gap:12px;padding:12px;font:14px Arial,sans-serif">
+
+		<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-sizing:border-box;width:100%;max-width:420px;height:216px;border:1px solid #E5E5E5;border-radius:12px;text-align:center">
+			<ui-component name="useravatar" path="users.peter" config="size:112;title:true"></ui-component>
+			<div><b style="font-size:16px">Peter Širka</b><div style="margin-top:2px;color:#666;font-size:12px">peter@totaljs.com</div></div>
+		</div>
+
+		<div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid #E5E5E5;border-radius:12px">
+			<ui-component name="useravatar" path="users.ada" config="size:56;variant:beam;color:#16A085"></ui-component>
+			<div><b>Ada Lovelace</b><div style="color:#666;font-size:12px">Beam, a fixed colour</div></div>
+		</div>
+
+		<div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid #E5E5E5;border-radius:12px">
+			<ui-component name="useravatar" path="users.grace" config="size:56;variant:ring;colors:#FF6B6B,#FFD93D,#6BCB77,#4D96FF"></ui-component>
+			<div><b>Grace Hopper</b><div style="color:#666;font-size:12px">Ring, a custom palette</div></div>
+		</div>
+
+		<div style="display:flex;align-items:center;gap:8px;width:100%">
+			<ui-component name="useravatar" path="users.demo" config="variant:marble;size:48"></ui-component>
+			<ui-component name="useravatar" path="users.demo" config="variant:beam;size:48"></ui-component>
+			<ui-component name="useravatar" path="users.demo" config="variant:pixel;size:48"></ui-component>
+			<ui-component name="useravatar" path="users.demo" config="variant:sunset;size:48"></ui-component>
+			<ui-component name="useravatar" path="users.demo" config="variant:ring;size:48"></ui-component>
+			<ui-component name="useravatar" path="users.demo" config="variant:bauhaus;size:48;square:true"></ui-component>
+			<ui-component name="useravatar" path="users.login" config="key:login;size:48;color:random"></ui-component>
+			<ui-component name="useravatar" path="users.nobody" config="value:guest;size:48"></ui-component>
+		</div>
+
+	</div>
+
+	<script>
+
+		SET('users', {
+			peter: 'peter@totaljs.com',
+			ada: 'ada@example.com',
+			grace: { name: 'Grace Hopper', email: 'grace@example.com' },
+			demo: 'total.js',
+			login: { login: 'gera', email: 'gera@example.com' },
+			nobody: null
+		});
+
+	</script>
+
+</body>
+</html>

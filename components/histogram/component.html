@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<style component>
+
+		.ui-histogram { --hggood: #0CA30C; --hgwarn: #E09A00; --hgbad: #D03B3B; box-sizing: border-box; min-width: 0; padding: 16px 18px; border: 1px solid #E3E3E3; border-radius: var(--radius); background: #FFF; color: #1F1F1F; font-size: 13px; }
+		.ui-histogram-minimal { padding: 0; border-color: transparent; background: transparent; }
+		.ui-histogram-title { margin-bottom: 12px; font-weight: 600; font-size: 14px; }
+		.ui-histogram-notitle .ui-histogram-title { display: none; }
+		.ui-histogram-chart { position: relative; margin-top: 6px; margin-left: var(--hgleft, 36px); outline: none; border-radius: 3px; }
+		.ui-histogram-chart:focus-visible { box-shadow: 0 0 0 2px var(--color); }
+		.ui-histogram-plot { position: relative; display: flex; align-items: flex-end; gap: 2px; height: var(--hgh, 180px); border-bottom: 1px solid #CFCFCF; }
+		.ui-histogram-grid { position: absolute; left: 0; right: 0; height: 0; border-top: 1px solid #EDEDED; pointer-events: none; }
+		.ui-histogram-grid span { position: absolute; right: calc(100% + 6px); top: -7px; color: #6B6B6B; font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+		.ui-histogram-bar { position: relative; flex: 1 1 0; min-width: 1px; border-radius: 3px 3px 0 0; background: var(--color); transition: height .35s ease-out, opacity .15s; }
+		.ui-histogram-bar.ui-histogram-good { background: var(--hggood); }
+		.ui-histogram-bar.ui-histogram-warn { background: repeating-linear-gradient(135deg, var(--hgwarn) 0 3px, color-mix(in srgb, var(--hgwarn) 55%, #FFF) 3px 5px); }
+		.ui-histogram-bar.ui-histogram-bad { background: var(--hgbad); }
+		.ui-histogram-active .ui-histogram-bar { opacity: .45; }
+		.ui-histogram-active .ui-histogram-bar.ui-histogram-on { opacity: 1; }
+		.ui-histogram-mark { position: absolute; top: 0; bottom: 0; width: 0; border-left: 1.5px dashed #1F1F1F; pointer-events: none; }
+		.ui-histogram-mark span { position: absolute; top: 0; left: 4px; padding: 0 4px; border-radius: 3px; background: rgba(255, 255, 255, .9); color: #1F1F1F; font-size: 11px; font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; }
+		.ui-histogram-mark.ui-histogram-flip span { left: auto; right: 4px; }
+		.ui-histogram-nomarks .ui-histogram-mark { display: none; }
+		.ui-histogram-axis { position: relative; height: 18px; margin-top: 4px; color: #6B6B6B; font-size: 11px; font-variant-numeric: tabular-nums; }
+		.ui-histogram-axis span { position: absolute; top: 0; transform: translateX(-50%); white-space: nowrap; }
+		.ui-histogram-axis span:first-child { transform: none; }
+		.ui-histogram-axis span:last-child { transform: translateX(-100%); }
+		.ui-histogram-tip { position: absolute; top: 0; left: 0; z-index: 5; display: none; padding: 7px 10px; border-radius: 8px; background: #1F1F1F; color: #FFF; font-size: 12px; white-space: nowrap; box-shadow: 0 6px 20px rgba(0, 0, 0, .18); pointer-events: none; }
+		.ui-histogram-active .ui-histogram-tip { display: block; }
+		.ui-histogram-tip div { color: rgba(255, 255, 255, .75); }
+		.ui-histogram-empty { display: none; align-items: center; gap: 8px; padding: 10px 0; color: #8A8A8A; }
+		.ui-histogram-empty i { font-size: 18px; opacity: .7; }
+		.ui-histogram-isempty .ui-histogram-empty { display: flex; }
+		.ui-histogram-isempty .ui-histogram-chart { display: none; }
+		.ui-histogram-sr { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+		@media (prefers-reduced-motion: reduce) {
+			.ui-histogram-bar { transition: none; }
+		}
+
+		.ui-dark .ui-histogram { --hggood: #3FB93F; --hgwarn: #F0A814; --hgbad: #E85C5C; border-color: #3A3A3A; background: #252525; color: #EDEDED; }
+		.ui-dark .ui-histogram-minimal { border-color: transparent; background: transparent; }
+		.ui-dark .ui-histogram-plot { border-bottom-color: #4A4A4A; }
+		.ui-dark .ui-histogram-grid { border-top-color: #333; }
+		.ui-dark .ui-histogram-grid span, .ui-dark .ui-histogram-axis { color: #9A9A9A; }
+		.ui-dark .ui-histogram-mark { border-left-color: #F2F2F2; }
+		.ui-dark .ui-histogram-mark span { background: rgba(37, 37, 37, .9); color: #F2F2F2; }
+		.ui-dark .ui-histogram-bar.ui-histogram-warn { background: repeating-linear-gradient(135deg, var(--hgwarn) 0 3px, color-mix(in srgb, var(--hgwarn) 50%, #252525) 3px 5px); }
+		.ui-dark .ui-histogram-tip { background: #F2F2F2; color: #1F1F1F; box-shadow: 0 6px 20px rgba(0, 0, 0, .5); }
+		.ui-dark .ui-histogram-tip div { color: #5E5E5E; }
+
+		@media (forced-colors: active) {
+			.ui-histogram { border: 1px solid CanvasText; }
+			.ui-histogram-bar { forced-color-adjust: none; border: 1px solid CanvasText; }
+			.ui-histogram-mark { border-left-color: CanvasText; }
+		}
+
+	</style>
+
+	<script component>
+
+		COMPONENT('histogram', 'label:;style:card;height:180;bins:0;min:;max:;clip:99;marks:50,75,95;zones:;goodup:true;format:number;unit:;decimals:0;locale:', function(self, config, cls) {
+
+			var cls2 = '.' + cls;
+			var els = {};
+			var bins = [];
+			var total = 0;
+			var sorted = [];
+			var cursor = -1;
+			var label = '';
+			var fmt = {};
+
+			var locale = function() {
+				return config.locale || document.documentElement.lang || undefined;
+			};
+
+			var nf = function(options) {
+				try {
+					return new Intl.NumberFormat(locale(), options);
+				} catch (e) {
+					return new Intl.NumberFormat(undefined, options);
+				}
+			};
+
+			var prepare = function() {
+				fmt.value = nf({ maximumFractionDigits: Math.max(0, config.decimals || 0) });
+				fmt.count = nf({ maximumFractionDigits: 0 });
+				fmt.compact = nf({ notation: 'compact', maximumFractionDigits: 1 });
+				fmt.share = nf({ style: 'percent', maximumFractionDigits: 1 });
+				fmt.seconds = nf({ maximumFractionDigits: 1 });
+			};
+
+			var esc = function(value) {
+				return (value == null ? '' : value + '').replace(/[&<>"']/g, function(c) {
+					return c === '&' ? '&amp;' : c === '<' ? '&lt;' : c === '>' ? '&gt;' : c === '"' ? '&quot;' : '&#39;';
+				});
+			};
+
+			var num = function(value) {
+				if (value == null || value === '')
+					return null;
+				value = typeof value === 'number' ? value : +value;
+				return isFinite(value) ? value : null;
+			};
+
+			var pad = function(n) {
+				return n < 10 ? '0' + n : '' + n;
+			};
+
+			// format:ms shows milliseconds as seconds from 1000 (2.4 s), format:duration seconds as minutes
+			var format = function(n) {
+				if (n == null)
+					return '—';
+				var unit = config.unit ? ' ' + config.unit : '';
+				switch (config.format) {
+					case 'ms':
+						return Math.abs(n) >= 1000 ? fmt.seconds.format(n / 1000) + ' s' : fmt.count.format(n) + ' ms';
+					case 'duration':
+						var sec = Math.round(Math.abs(n));
+						if (sec < 60)
+							return fmt.seconds.format(Math.abs(n)) + ' s';
+						var h = Math.floor(sec / 3600);
+						var m = Math.floor((sec % 3600) / 60);
+						return h ? h + ' h ' + pad(m) + ' m' : m + ' m ' + pad(sec % 60) + ' s';
+					case 'percent':
+						return fmt.value.format(n) + ' %';
+				}
+				return (Math.abs(n) >= 10000 ? fmt.compact : fmt.value).format(n) + unit;
+			};
+
+			var quantile = function(p) {
+				if (!sorted.length)
+					return null;
+				var pos = (sorted.length - 1) * p;
+				var lo = Math.floor(pos);
+				var hi = Math.ceil(pos);
+				return sorted[lo] + (sorted[hi] - sorted[lo]) * (pos - lo);
+			};
+
+			// Raw values [812, 1430, ...] or bins already counted: { bins: [{ from, to, count }] }
+			var parse = function(value) {
+
+				bins = [];
+				sorted = [];
+				total = 0;
+
+				if (value && value.bins instanceof Array) {
+					for (var b = 0; b < value.bins.length; b++) {
+						var bin = value.bins[b] || {};
+						var from = num(bin.from);
+						var to = num(bin.to);
+						var count = num(bin.count) || 0;
+						if (from != null && to != null && to > from) {
+							bins.push({ from: from, to: to, count: count });
+							total += count;
+						}
+					}
+					return;
+				}
+
+				var src = value instanceof Array ? value : value && value.values instanceof Array ? value.values : [];
+				for (var i = 0; i < src.length; i++) {
+					var n = num(src[i]);
+					n != null && sorted.push(n);
+				}
+				sorted.sort(function(a, b) {
+					return a - b;
+				});
+
+				if (!sorted.length)
+					return;
+
+				var min = num(config.min);
+				var max = num(config.max);
+				if (min == null)
+					min = sorted[0];
+				// The long tail goes into the last bin, so a few outliers do not squeeze the chart
+				if (max == null)
+					max = config.clip > 0 && config.clip < 100 ? quantile(config.clip / 100) : sorted[sorted.length - 1];
+				if (max <= min)
+					max = min + 1;
+
+				// The count of bins: the configuration, or Sturges' rule between 6 and 40
+				var count2 = config.bins > 0 ? config.bins : Math.max(6, Math.min(40, Math.ceil(Math.log(sorted.length) / Math.LN2 + 1) * 2));
+
+				// Round bin edges: a step of 1, 2, 2.5 or 5 times a power of ten
+				var raw = (max - min) / count2;
+				var p = Math.pow(10, Math.floor(Math.log(raw) / Math.LN10));
+				var steps = [1, 2, 2.5, 5, 10];
+				var step = p;
+				for (var s = 0; s < steps.length; s++) {
+					if (steps[s] * p >= raw) {
+						step = steps[s] * p;
+						break;
+					}
+				}
+				var start = Math.floor(min / step) * step;
+				var end = Math.ceil(max / step) * step;
+				if (end <= start)
+					end = start + step;
+
+				for (var e = start; e < end - step / 1000; e += step)
+					bins.push({ from: +e.toFixed(10), to: +(e + step).toFixed(10), count: 0 });
+
+				for (var k = 0; k < sorted.length; k++) {
+					var v = Math.max(start, Math.min(end, sorted[k]));
+					var index = Math.min(bins.length - 1, Math.floor((v - start) / step));
+					bins[index].count++;
+					total++;
+				}
+			};
+
+			var zone = function(bin) {
+				var list = (config.zones + '').split(',').map(num).filter(function(v) {
+					return v != null;
+				});
+				if (list.length < 2)
+					return '';
+				var mid = (bin.from + bin.to) / 2;
+				if (config.goodup)
+					return mid >= list[1] ? 'good' : mid >= list[0] ? 'warn' : 'bad';
+				return mid <= list[0] ? 'good' : mid <= list[1] ? 'warn' : 'bad';
+			};
+
+			var render = function() {
+
+				self.tclass(cls + '-isempty', !bins.length || !total);
+				if (!bins.length || !total) {
+					els.plot.innerHTML = '';
+					return;
+				}
+
+				var maxcount = 0;
+				for (var i = 0; i < bins.length; i++)
+					maxcount = Math.max(maxcount, bins[i].count);
+
+				// Count axis: 0, half and a round top
+				var p = Math.pow(10, Math.floor(Math.log(maxcount || 1) / Math.LN10));
+				var top = Math.ceil((maxcount || 1) / p) * p;
+				if (top / p > 5 && top % (2 * p))
+					top += p;
+
+				var builder = [];
+				var ticks = [top, top / 2];
+				for (var t = 0; t < ticks.length; t++)
+					builder.push('<span class="{0}-grid" style="bottom:{1}%"><span>{2}</span></span>'.format(cls, (ticks[t] / top * 100).toFixed(2), esc(fmt.count.format(ticks[t]))));
+
+				for (i = 0; i < bins.length; i++) {
+					var z = zone(bins[i]);
+										// The width follows the range of the bin, so bins of different sizes are honest
+					builder.push('<span class="{0}-bar{1}" data-index="{2}" style="height:{3}%;flex-grow:{4}"></span>'.format(cls, z ? ' ' + cls + '-' + z : '', i, (bins[i].count / top * 100).toFixed(2), +(bins[i].to - bins[i].from).toFixed(6)));
+				}
+
+				var first = bins[0].from;
+				var last = bins[bins.length - 1].to;
+				var pos = function(v) {
+					return Math.max(0, Math.min(100, (v - first) / (last - first) * 100));
+				};
+
+				// Percentile marks (only with raw values)
+				if (sorted.length) {
+					var marks = (config.marks + '').split(',').map(num).filter(function(v) {
+						return v != null && v > 0 && v < 100;
+					});
+					for (var m = 0; m < marks.length; m++) {
+						var q = quantile(marks[m] / 100);
+						var x = pos(q);
+						builder.push('<span class="{0}-mark{1}" style="left:{2}%"><span>p{3} {4}</span></span>'.format(cls, x > 70 ? ' ' + cls + '-flip' : '', x.toFixed(2), marks[m], esc(format(q))));
+					}
+				}
+
+				els.plot.innerHTML = builder.join('');
+
+				// Several marks close to each other are stacked
+				var labels = els.plot.querySelectorAll(cls2 + '-mark span');
+				for (var l = 0; l < labels.length; l++)
+					labels[l].style.top = (2 + l * 17) + 'px';
+
+				var mid = (first + last) / 2;
+				els.axis.innerHTML = '<span style="left:0">{0}</span><span style="left:50%">{1}</span><span style="left:100%">{2}</span>'.format(esc(format(first)), esc(format(mid)), esc(format(last)));
+
+				var longest = Math.max(fmt.count.format(top).length, 2);
+				self.dom.style.setProperty('--hgleft', Math.round(longest * 7 + 10) + 'px');
+
+				// A table for screen readers
+				var rows = [];
+				for (i = 0; i < bins.length; i++)
+					rows.push('<tr><th scope="row">{0} – {1}</th><td>{2}</td></tr>'.format(esc(format(bins[i].from)), esc(format(bins[i].to)), esc(fmt.count.format(bins[i].count))));
+				els.table.innerHTML = '<table><caption>' + esc(els.title.textContent.trim()) + '</caption><tbody>' + rows.join('') + '</tbody></table>';
+
+				cursor !== -1 && cursor < bins.length && show(cursor, false);
+			};
+
+			var show = function(index, announce) {
+				var bin = bins[index];
+				var bar = els.plot.querySelector('[data-index="' + index + '"]');
+				if (!bin || !bar)
+					return;
+				cursor = index;
+				var old = els.plot.querySelector(cls2 + '-on');
+				old && old.classList.remove(cls + '-on');
+				bar.classList.add(cls + '-on');
+				var range = format(bin.from) + ' – ' + format(bin.to);
+				var text = fmt.count.format(bin.count) + ' (' + fmt.share.format(total ? bin.count / total : 0) + ')';
+				els.tip.innerHTML = '<div>{0}</div><b>{1}</b>'.format(esc(range), esc(text));
+				self.aclass(cls + '-active');
+				var rect = els.chart.getBoundingClientRect();
+				var box = bar.getBoundingClientRect();
+				var tw = els.tip.offsetWidth;
+				var x = Math.max(0, Math.min(rect.width - tw, box.left - rect.left + box.width / 2 - tw / 2));
+				var y = Math.max(0, box.top - rect.top - els.tip.offsetHeight - 8);
+				els.tip.style.transform = 'translate(' + Math.round(x) + 'px,' + Math.round(y) + 'px)';
+				if (announce)
+					els.live.textContent = range + ': ' + text;
+			};
+
+			var hide = function() {
+				cursor = -1;
+				var old = els.plot.querySelector(cls2 + '-on');
+				old && old.classList.remove(cls + '-on');
+				self.rclass(cls + '-active');
+			};
+
+			self.make = function() {
+
+				label = self.html().trim();
+				self.aclass(cls);
+				self.html(('<div class="{0}-title"></div><div class="{0}-chart" tabindex="0" role="group"><div class="{0}-plot" aria-hidden="true"></div><div class="{0}-axis" aria-hidden="true"></div><div class="{0}-tip" aria-hidden="true"></div></div>' +
+					'<div class="{0}-empty"><i class="ti ti-chart-bar" aria-hidden="true"></i></div><div class="{0}-sr {0}-table"></div><div class="{0}-sr" aria-live="polite"></div>').format(cls));
+
+				els.title = self.find(cls2 + '-title')[0];
+				els.chart = self.find(cls2 + '-chart')[0];
+				els.plot = self.find(cls2 + '-plot')[0];
+				els.axis = self.find(cls2 + '-axis')[0];
+				els.tip = self.find(cls2 + '-tip')[0];
+				els.table = self.find(cls2 + '-table')[0];
+				els.live = self.find(cls2 + '-sr[aria-live]')[0];
+
+				prepare();
+
+				self.event('mouseover', cls2 + '-bar', function() {
+					show(+this.getAttribute('data-index'));
+				});
+
+				self.event('mouseleave', cls2 + '-chart', function() {
+					document.activeElement !== els.chart && hide();
+				});
+
+				self.event('keydown', cls2 + '-chart', function(e) {
+					if (!bins.length)
+						return;
+					var index = cursor;
+					switch (e.key) {
+						case 'ArrowLeft':
+							index = index <= 0 ? 0 : index - 1;
+							break;
+						case 'ArrowRight':
+							index = index === -1 ? 0 : Math.min(bins.length - 1, index + 1);
+							break;
+						case 'Home':
+							index = 0;
+							break;
+						case 'End':
+							index = bins.length - 1;
+							break;
+						case 'Escape':
+							hide();
+							return;
+						default:
+							return;
+					}
+					e.preventDefault();
+					show(index, true);
+				});
+
+				self.event('blur', cls2 + '-chart', hide);
+			};
+
+			self.configure = function(key, value, init) {
+				switch (key) {
+					case 'label':
+						els.title.innerHTML = value || label;
+						var text = els.title.textContent.trim();
+						self.tclass(cls + '-notitle', !text);
+						text ? els.chart.setAttribute('aria-label', text) : els.chart.removeAttribute('aria-label');
+						!init && render();
+						break;
+					case 'style':
+						self.tclass(cls + '-minimal', value === 'minimal');
+						break;
+					case 'height':
+						self.dom.style.setProperty('--hgh', Math.max(60, value || 180) + 'px');
+						break;
+					case 'marks':
+						self.tclass(cls + '-nomarks', !value);
+						!init && render();
+						break;
+					case 'bins':
+					case 'min':
+					case 'max':
+						if (!init) {
+							parse(self.get());
+							render();
+						}
+						break;
+					case 'zones':
+					case 'goodup':
+					case 'format':
+					case 'unit':
+					case 'decimals':
+					case 'locale':
+						if (!init) {
+							prepare();
+							render();
+						}
+						break;
+				}
+			};
+
+			self.setter = function(value) {
+				parse(value);
+				render();
+			};
+
+		});
+
+	</script>
+
+	<div style="max-width:960px;padding:12px;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr))">
+
+		<ui-component name="histogram" path="dist.lcp" config="format:ms;zones:2500,4000;goodup:false;height:130">Load time (LCP) of the visits</ui-component>
+
+		<ui-component name="histogram" path="dist.time" config="format:duration;marks:50,90;height:150">Time on page</ui-component>
+
+		<ui-component name="histogram" path="dist.age" config="unit:years;marks:;height:120;style:minimal">Age of the users (counted bins)</ui-component>
+
+		<ui-component name="histogram" path="dist.empty">No data yet</ui-component>
+
+	</div>
+
+	<script>
+
+		// A log-normal sample: most visits are fast, a long tail is slow
+		var sample = function(n, median, spread, seed) {
+			var out = [];
+			var s = seed;
+			var rnd = function() {
+				s = (s * 16807) % 2147483647;
+				return s / 2147483647;
+			};
+			for (var i = 0; i < n; i++) {
+				var u = rnd() || 0.5;
+				var v = rnd() || 0.5;
+				var z = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+				out.push(Math.round(median * Math.exp(z * spread)));
+			}
+			return out;
+		};
+
+		SET('dist.lcp', sample(3000, 1900, 0.45, 7));
+		SET('dist.time', sample(1500, 75, 0.8, 11).map(function(v) { return Math.min(v, 900); }));
+		SET('dist.age', { bins: [{ from: 18, to: 25, count: 410 }, { from: 25, to: 35, count: 980 }, { from: 35, to: 45, count: 760 }, { from: 45, to: 55, count: 420 }, { from: 55, to: 65, count: 190 }, { from: 65, to: 80, count: 60 }] });
+		SET('dist.empty', []);
+
+	</script>
+
+</body>
+</html>

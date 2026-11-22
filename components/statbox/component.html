@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<style component>
+
+		.ui-statbox { position: relative; display: flex; flex-direction: column; box-sizing: border-box; height: 100%; min-width: 0; padding: 16px 18px; border: 1px solid #E3E3E3; border-radius: var(--radius); background: #FFF; color: #1F1F1F; font-size: 13px; overflow: hidden; transition: border-color .15s, box-shadow .15s; }
+		.ui-statbox-head { display: flex; align-items: center; gap: 8px; min-height: 18px; color: #5E5E5E; }
+		.ui-statbox-head > i { flex: 0 0 auto; width: 18px; text-align: center; color: var(--color); }
+		.ui-statbox-label { flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+		.ui-statbox-live { display: none; flex: 0 0 auto; align-items: center; gap: 6px; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: .04em; color: #1B7F1B; }
+		.ui-statbox-live:before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #0CA30C; box-shadow: 0 0 0 0 rgba(12, 163, 12, .5); animation: ui-statbox-pulse 1.8s ease-out infinite; }
+		.ui-statbox-islive .ui-statbox-live { display: inline-flex; }
+		.ui-statbox-value { margin-top: 10px; font-size: 28px; line-height: 1.15; font-weight: 600; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+		.ui-statbox-unit { margin-left: 4px; font-size: .5em; font-weight: normal; color: #5E5E5E; }
+		.ui-statbox-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; min-height: 18px; margin-top: 6px; color: #5E5E5E; }
+		.ui-statbox-delta { display: none; align-items: center; gap: 3px; padding: 1px 7px 1px 5px; border-radius: 20px; background: rgba(0, 0, 0, .05); color: #1F1F1F; font-weight: 600; white-space: nowrap; }
+		.ui-statbox-hasdelta .ui-statbox-delta { display: inline-flex; }
+		.ui-statbox-delta i { font-size: 11px; }
+		.ui-statbox-good .ui-statbox-delta { background: rgba(12, 163, 12, .12); }
+		.ui-statbox-good .ui-statbox-delta i { color: #0A8A0A; }
+		.ui-statbox-bad .ui-statbox-delta { background: rgba(208, 59, 59, .12); }
+		.ui-statbox-bad .ui-statbox-delta i { color: #D03B3B; }
+		.ui-statbox-period { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+		.ui-statbox-trend { display: none; height: 36px; margin-top: auto; padding-top: 12px; }
+		.ui-statbox-hastrend .ui-statbox-trend { display: block; }
+		.ui-statbox-plot { position: relative; height: 100%; }
+		.ui-statbox-plot svg { display: block; width: 100%; height: 100%; overflow: visible; }
+		.ui-statbox-line { fill: none; stroke: rgba(var(--rgb), .55); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+		.ui-statbox-area { fill: rgba(var(--rgb), .08); stroke: none; }
+		.ui-statbox-dot { position: absolute; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: var(--color); box-shadow: 0 0 0 2px #FFF; }
+		.ui-statbox-meter { display: none; height: 6px; margin-top: auto; border-radius: 6px; background: rgba(var(--rgb), .15); overflow: hidden; }
+		.ui-statbox-hastarget .ui-statbox-meter { display: block; }
+		.ui-statbox-hastrend .ui-statbox-meter { margin-top: 10px; }
+		.ui-statbox-hastarget:not(.ui-statbox-hastrend) .ui-statbox-meter { margin-top: 14px; }
+		.ui-statbox-meter span { display: block; width: 0; height: 100%; border-radius: 6px; background: var(--color); transition: width .4s ease-out; }
+		.ui-statbox-empty .ui-statbox-value { color: #8A8A8A; }
+
+		/* Clickable box */
+		.ui-statbox-clickable { cursor: pointer; }
+		.ui-statbox-clickable:hover { border-color: rgba(var(--rgb), .5); box-shadow: 0 2px 10px rgba(0, 0, 0, .06); }
+		.ui-statbox-clickable:focus-visible { outline: 2px solid var(--color); outline-offset: 2px; }
+
+		/* Styles */
+		.ui-statbox-accent { border-left: 4px solid var(--color); padding-left: 15px; }
+		.ui-statbox-soft { border-color: transparent; background: rgba(var(--rgb), .08); }
+		.ui-statbox-soft .ui-statbox-dot { box-shadow: none; }
+		.ui-statbox-minimal { padding: 4px 0; border-color: transparent; background: transparent; border-radius: 0; }
+		.ui-statbox-minimal.ui-statbox-clickable:hover { border-color: transparent; box-shadow: none; }
+		/* A dark layer over the colour keeps the white text readable on light primary colours */
+		.ui-statbox-solid { border-color: transparent; background: linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), var(--color); color: #FFF; }
+		.ui-statbox-solid .ui-statbox-head, .ui-statbox-solid .ui-statbox-head > i, .ui-statbox-solid .ui-statbox-foot, .ui-statbox-solid .ui-statbox-unit, .ui-statbox-solid .ui-statbox-live, .ui-statbox-solid.ui-statbox-empty .ui-statbox-value { color: rgba(255, 255, 255, .88); }
+		.ui-statbox-solid .ui-statbox-live:before { background: #FFF; box-shadow: none; }
+		.ui-statbox-solid .ui-statbox-delta, .ui-statbox-solid.ui-statbox-good .ui-statbox-delta, .ui-statbox-solid.ui-statbox-bad .ui-statbox-delta { background: rgba(255, 255, 255, .2); color: #FFF; }
+		.ui-statbox-solid.ui-statbox-good .ui-statbox-delta i, .ui-statbox-solid.ui-statbox-bad .ui-statbox-delta i { color: #FFF; }
+		.ui-statbox-solid .ui-statbox-line { stroke: rgba(255, 255, 255, .7); }
+		.ui-statbox-solid .ui-statbox-area { fill: rgba(255, 255, 255, .12); }
+		.ui-statbox-solid .ui-statbox-dot { background: #FFF; box-shadow: none; }
+		.ui-statbox-solid .ui-statbox-meter { background: rgba(255, 255, 255, .25); }
+		.ui-statbox-solid .ui-statbox-meter span { background: #FFF; }
+		.ui-statbox-solid.ui-statbox-clickable:focus-visible { outline-color: #1F1F1F; }
+
+		/* Sizes */
+		.ui-statbox-small { padding: 10px 12px; font-size: 12px; }
+		.ui-statbox-small.ui-statbox-accent { padding-left: 11px; }
+		.ui-statbox-small .ui-statbox-value { margin-top: 6px; font-size: 20px; }
+		.ui-statbox-small .ui-statbox-trend { height: 26px; padding-top: 8px; }
+		.ui-statbox-large { padding: 22px 24px; }
+		.ui-statbox-large.ui-statbox-accent { padding-left: 21px; }
+		.ui-statbox-large .ui-statbox-head { font-size: 14px; }
+		.ui-statbox-large .ui-statbox-value { margin-top: 12px; font-size: 48px; letter-spacing: -.02em; }
+		.ui-statbox-large .ui-statbox-foot { margin-top: 8px; font-size: 14px; }
+		.ui-statbox-large .ui-statbox-trend { height: 56px; padding-top: 18px; }
+		.ui-statbox-minimal.ui-statbox-small, .ui-statbox-minimal.ui-statbox-large { padding-left: 0; padding-right: 0; }
+
+		@keyframes ui-statbox-pulse {
+			0% { box-shadow: 0 0 0 0 rgba(12, 163, 12, .5); }
+			70% { box-shadow: 0 0 0 6px rgba(12, 163, 12, 0); }
+			100% { box-shadow: 0 0 0 0 rgba(12, 163, 12, 0); }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			.ui-statbox, .ui-statbox-meter span { transition: none; }
+			.ui-statbox-live:before { animation: none; }
+		}
+
+		/* Dark mode */
+		.ui-dark .ui-statbox { border-color: #3A3A3A; background: #252525; color: #EDEDED; }
+		.ui-dark .ui-statbox-head, .ui-dark .ui-statbox-foot, .ui-dark .ui-statbox-unit { color: #ABABAB; }
+		.ui-dark .ui-statbox-live { color: #4CC94C; }
+		.ui-dark .ui-statbox-delta { background: rgba(255, 255, 255, .08); color: #EDEDED; }
+		.ui-dark .ui-statbox-good .ui-statbox-delta { background: rgba(12, 163, 12, .2); }
+		.ui-dark .ui-statbox-good .ui-statbox-delta i { color: #4CC94C; }
+		.ui-dark .ui-statbox-bad .ui-statbox-delta { background: rgba(230, 103, 103, .2); }
+		.ui-dark .ui-statbox-bad .ui-statbox-delta i { color: #EE7B7B; }
+		.ui-dark .ui-statbox-dot { box-shadow: 0 0 0 2px #252525; }
+		.ui-dark .ui-statbox-empty .ui-statbox-value { color: #8A8A8A; }
+		.ui-dark .ui-statbox-clickable:hover { box-shadow: 0 2px 10px rgba(0, 0, 0, .4); }
+		.ui-dark .ui-statbox-soft { border-color: transparent; background: rgba(var(--rgb), .16); }
+		.ui-dark .ui-statbox-soft .ui-statbox-dot { box-shadow: none; }
+		.ui-dark .ui-statbox-minimal { border-color: transparent; background: transparent; }
+		.ui-dark .ui-statbox-minimal .ui-statbox-dot { box-shadow: none; }
+		.ui-dark .ui-statbox-accent { border-left-color: var(--color); }
+		.ui-dark .ui-statbox-solid { border-color: transparent; background: linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), var(--color); color: #FFF; }
+		.ui-dark .ui-statbox-solid .ui-statbox-head, .ui-dark .ui-statbox-solid .ui-statbox-foot, .ui-dark .ui-statbox-solid .ui-statbox-unit, .ui-dark .ui-statbox-solid .ui-statbox-live { color: rgba(255, 255, 255, .88); }
+		.ui-dark .ui-statbox-solid .ui-statbox-delta, .ui-dark .ui-statbox-solid.ui-statbox-good .ui-statbox-delta, .ui-dark .ui-statbox-solid.ui-statbox-bad .ui-statbox-delta { background: rgba(255, 255, 255, .2); color: #FFF; }
+		.ui-dark .ui-statbox-solid.ui-statbox-good .ui-statbox-delta i, .ui-dark .ui-statbox-solid.ui-statbox-bad .ui-statbox-delta i { color: #FFF; }
+		.ui-dark .ui-statbox-solid .ui-statbox-dot { box-shadow: none; }
+		.ui-dark .ui-statbox-solid.ui-statbox-clickable:focus-visible { outline-color: #FFF; }
+
+		/* Windows high contrast */
+		@media (forced-colors: active) {
+			.ui-statbox { border: 1px solid CanvasText; }
+			.ui-statbox-meter { border: 1px solid CanvasText; }
+			.ui-statbox-meter span, .ui-statbox-dot, .ui-statbox-live:before { background: CanvasText; }
+			.ui-statbox-line { stroke: CanvasText; }
+		}
+
+	</style>
+
+	<script component>
+
+		COMPONENT('statbox', 'label:;icon:;style:card;size:normal;color:;format:number;decimals:0;compact:true;currency:EUR;locale:;unit:;period:;live:;goodup:true;animate:true;empty:—;click:', function(self, config, cls) {
+
+			var cls2 = '.' + cls;
+			var STYLES = ['card', 'accent', 'soft', 'solid', 'minimal'];
+			var SIZES = ['small', 'normal', 'large'];
+			var els = {};
+			var formatter = null;
+			var deltaformatter = null;
+			var shown = null;
+			var raf = 0;
+			var label = '';
+
+			var reduced = function() {
+				return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+			};
+
+			var locale = function() {
+				return config.locale || document.documentElement.lang || undefined;
+			};
+
+			var intl = function(options) {
+				try {
+					return new Intl.NumberFormat(locale(), options);
+				} catch (e) {
+					// An unknown locale or currency: fall back to the browser defaults
+					return new Intl.NumberFormat(undefined, { maximumFractionDigits: options.maximumFractionDigits || 0 });
+				}
+			};
+
+			var prepare = function() {
+
+				var decimals = Math.max(0, config.decimals || 0);
+				var opt = { minimumFractionDigits: 0, maximumFractionDigits: decimals };
+
+				if (config.format === 'percent')
+					opt.style = 'percent';
+				else if (config.format === 'currency') {
+					opt.style = 'currency';
+					opt.currency = config.currency || 'EUR';
+					opt.minimumFractionDigits = decimals;
+				}
+
+				formatter = { full: intl(opt) };
+
+				if (config.compact) {
+					var copt = { notation: 'compact', maximumFractionDigits: 1 };
+					if (opt.style === 'currency') {
+						copt.style = 'currency';
+						copt.currency = opt.currency;
+					}
+					formatter.compact = intl(copt);
+				}
+
+				deltaformatter = intl({ style: 'percent', maximumFractionDigits: 1, signDisplay: 'exceptZero' });
+			};
+
+			var pad = function(n) {
+				return n < 10 ? '0' + n : '' + n;
+			};
+
+			// Seconds to "45 s", "2 m 05 s", "1 h 02 m"
+			var duration = function(sec) {
+				var neg = sec < 0;
+				sec = Math.round(Math.abs(sec));
+				var h = Math.floor(sec / 3600);
+				var m = Math.floor((sec % 3600) / 60);
+				var s = sec % 60;
+				var text = h ? (h + ' h ' + pad(m) + ' m') : m ? (m + ' m ' + pad(s) + ' s') : (s + ' s');
+				return (neg ? '-' : '') + text;
+			};
+
+			var format = function(n) {
+				if (config.format === 'duration')
+					return duration(n);
+				if (config.format === 'percent')
+					return formatter.full.format(n / 100);
+				return (formatter.compact && Math.abs(n) >= 10000 ? formatter.compact : formatter.full).format(n);
+			};
+
+			var normalize = function(value) {
+				if (value == null || value === '')
+					return {};
+				if (typeof value === 'number' || typeof value === 'string')
+					return { value: value };
+				return value;
+			};
+
+			var num = function(value) {
+				if (value == null || value === '')
+					return null;
+				value = typeof value === 'number' ? value : +value;
+				return isFinite(value) ? value : null;
+			};
+
+			var paint = function(n) {
+				els.number.textContent = n == null ? config.empty : format(n);
+			};
+
+			var animate = function(to) {
+
+				raf && cancelAnimationFrame(raf);
+				raf = 0;
+
+				var from = shown;
+				shown = to;
+
+				if (to == null || from == null || from === to || !config.animate || reduced() || !window.requestAnimationFrame) {
+					paint(to);
+					return;
+				}
+
+				var start = null;
+				var length = 600;
+				var integer = config.format !== 'percent' && !config.decimals && Math.round(from) === from && Math.round(to) === to;
+
+				var step = function(time) {
+					if (start == null)
+						start = time;
+					var t = Math.min(1, (time - start) / length);
+					var e = 1 - Math.pow(1 - t, 3);
+					var n = from + (to - from) * e;
+					paint(t === 1 ? to : integer ? Math.round(n) : n);
+					raf = t === 1 ? 0 : requestAnimationFrame(step);
+				};
+
+				raf = requestAnimationFrame(step);
+			};
+
+			var trend = function(arr) {
+
+				var points = [];
+
+				if (arr instanceof Array) {
+					for (var i = 0; i < arr.length; i++) {
+						var n = num(arr[i]);
+						n != null && points.push(n);
+					}
+				}
+
+				self.tclass(cls + '-hastrend', points.length > 1);
+
+				if (points.length < 2)
+					return;
+
+				var min = Math.min.apply(Math, points);
+				var max = Math.max.apply(Math, points);
+				var range = max - min || 1;
+				var line = [];
+				var x, y;
+
+				for (var j = 0; j < points.length; j++) {
+					x = j / (points.length - 1) * 100;
+					y = max === min ? 50 : (1 - (points[j] - min) / range) * 100;
+					line.push(x.toFixed(2) + ',' + y.toFixed(2));
+				}
+
+				els.line.setAttribute('points', line.join(' '));
+				els.area.setAttribute('d', 'M0,100 L' + line.join(' L') + ' L100,100 Z');
+				els.dot.style.left = '100%';
+				els.dot.style.top = y.toFixed(2) + '%';
+			};
+
+			var render = function(value) {
+
+				var model = normalize(value);
+				var n = num(model.value);
+				var delta = num(model.delta);
+				var previous = num(model.previous);
+				var target = num(model.target);
+
+				self.tclass(cls + '-empty', n == null);
+				animate(n);
+
+				if (delta == null && previous != null && previous !== 0 && n != null)
+					delta = (n - previous) / Math.abs(previous) * 100;
+
+				var hasdelta = delta != null;
+				var up = hasdelta && delta > 0;
+				var down = hasdelta && delta < 0;
+				var good = config.goodup ? up : down;
+				var bad = config.goodup ? down : up;
+
+				self.tclass(cls + '-hasdelta', hasdelta);
+				self.tclass(cls + '-good', good);
+				self.tclass(cls + '-bad', bad);
+
+				if (hasdelta) {
+					els.deltaicon.className = up ? 'ti ti-arrow-up' : down ? 'ti ti-arrow-down' : 'ti ti-minus';
+					els.deltatext.textContent = deltaformatter.format(delta / 100);
+				}
+
+				trend(model.trend);
+
+				var hastarget = target != null && target > 0 && n != null;
+				self.tclass(cls + '-hastarget', hastarget);
+
+				if (hastarget) {
+					var pct = Math.max(0, Math.min(100, n / target * 100));
+					els.bar.style.width = pct.toFixed(1) + '%';
+					els.meter.setAttribute('aria-valuemax', target);
+					els.meter.setAttribute('aria-valuenow', n);
+					els.meter.setAttribute('aria-valuetext', format(n) + ' / ' + format(target));
+				}
+			};
+
+			var hex2rgb = function(hex) {
+				var m = (/^#?([0-9a-f]{3}|[0-9a-f]{6})$/i).exec(hex || '');
+				if (!m)
+					return '';
+				var h = m[1].length === 3 ? m[1].replace(/./g, '$&$&') : m[1];
+				return [parseInt(h.substring(0, 2), 16), parseInt(h.substring(2, 4), 16), parseInt(h.substring(4, 6), 16)].join(', ');
+			};
+
+			var setcolor = function(value) {
+				var rgb = hex2rgb(value);
+				if (rgb) {
+					self.dom.style.setProperty('--color', value.charAt(0) === '#' ? value : '#' + value);
+					self.dom.style.setProperty('--rgb', rgb);
+				} else {
+					self.dom.style.removeProperty('--color');
+					self.dom.style.removeProperty('--rgb');
+				}
+			};
+
+			var setstyle = function() {
+				for (var i = 0; i < STYLES.length; i++)
+					self.tclass(cls + '-' + STYLES[i], config.style === STYLES[i] || (STYLES[i] === 'card' && STYLES.indexOf(config.style) === -1));
+				for (var j = 0; j < SIZES.length; j++)
+					self.tclass(cls + '-' + SIZES[j], config.size === SIZES[j]);
+			};
+
+			var setclick = function() {
+				var on = !!config.click;
+				self.tclass(cls + '-clickable', on);
+				if (on) {
+					self.attr('role', 'button');
+					self.attr('tabindex', '0');
+				} else {
+					self.attr('role', 'group');
+					self.dom.removeAttribute('tabindex');
+				}
+			};
+
+			var setlabel = function() {
+				var text = config.label || label;
+				els.label.innerHTML = text;
+				self.attr('aria-label', els.label.textContent.trim());
+				els.meter.setAttribute('aria-label', els.label.textContent.trim());
+			};
+
+			var seticon = function() {
+				var icon = config.icon ? self.icon(config.icon) : '';
+				els.icon.className = icon;
+				els.icon.style.display = icon ? '' : 'none';
+			};
+
+			self.make = function() {
+
+				// The label is the content of the tag (it can contain markup and @(...) translations)
+				label = self.html().trim();
+
+				self.aclass(cls);
+				self.html(('<div class="{0}-head"><i aria-hidden="true"></i><span class="{0}-label"></span><span class="{0}-live"></span></div>' +
+					'<div class="{0}-value"><span class="{0}-number"></span><span class="{0}-unit"></span></div>' +
+					'<div class="{0}-foot"><span class="{0}-delta"><i aria-hidden="true"></i><span></span></span><span class="{0}-period"></span></div>' +
+					'<div class="{0}-trend" aria-hidden="true"><div class="{0}-plot"><svg viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><path class="{0}-area" /><polyline class="{0}-line" vector-effect="non-scaling-stroke" /></svg><span class="{0}-dot"></span></div></div>' +
+					'<div class="{0}-meter" role="progressbar" aria-valuemin="0"><span></span></div>').format(cls));
+
+				els.icon = self.find(cls2 + '-head > i')[0];
+				els.label = self.find(cls2 + '-label')[0];
+				els.live = self.find(cls2 + '-live')[0];
+				els.number = self.find(cls2 + '-number')[0];
+				els.unit = self.find(cls2 + '-unit')[0];
+				els.deltaicon = self.find(cls2 + '-delta i')[0];
+				els.deltatext = self.find(cls2 + '-delta span')[0];
+				els.period = self.find(cls2 + '-period')[0];
+				els.line = self.find(cls2 + '-line')[0];
+				els.area = self.find(cls2 + '-area')[0];
+				els.dot = self.find(cls2 + '-dot')[0];
+				els.meter = self.find(cls2 + '-meter')[0];
+				els.bar = self.find(cls2 + '-meter span')[0];
+
+				prepare();
+
+				var run = function() {
+					config.click && self.EXEC(config.click, self.get(), self);
+				};
+
+				self.event('click', run);
+				self.event('keydown', function(e) {
+					if (config.click && e.target === self.dom && (e.key === 'Enter' || e.key === ' ')) {
+						e.preventDefault();
+						run();
+					}
+				});
+			};
+
+			self.configure = function(key, value, init) {
+				switch (key) {
+					case 'label':
+						setlabel();
+						break;
+					case 'icon':
+						seticon();
+						break;
+					case 'style':
+					case 'size':
+						setstyle();
+						break;
+					case 'color':
+						setcolor(value);
+						break;
+					case 'unit':
+						els.unit.textContent = value || '';
+						break;
+					case 'period':
+						els.period.textContent = value || '';
+						break;
+					case 'live':
+						els.live.textContent = value || '';
+						self.tclass(cls + '-islive', !!value);
+						break;
+					case 'click':
+						setclick();
+						break;
+					case 'format':
+					case 'decimals':
+					case 'compact':
+					case 'currency':
+					case 'locale':
+					case 'goodup':
+					case 'empty':
+						if (!init) {
+							prepare();
+							shown = null;
+							render(self.get());
+						}
+						break;
+				}
+			};
+
+			self.setter = function(value) {
+				render(value);
+			};
+
+			self.destroy = function() {
+				raf && cancelAnimationFrame(raf);
+			};
+
+		});
+
+	</script>
+
+	<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;padding:12px;max-width:1100px">
+
+		<div style="grid-column:1/-1">
+			<ui-component name="statbox" path="stats.visitors" config="icon:ti ti-users;size:large;period:vs yesterday;live:Live;click:onstatclick">Visitors</ui-component>
+		</div>
+
+		<ui-component name="statbox" path="stats.pageviews" config="icon:ti ti-eye;style:accent;period:vs yesterday">Page views</ui-component>
+
+		<ui-component name="statbox" path="stats.bounce" config="icon:ti ti-door-open;style:soft;format:percent;decimals:1;goodup:false;period:vs yesterday">Bounce rate</ui-component>
+
+		<ui-component name="statbox" path="stats.duration" config="icon:ti ti-stopwatch;format:duration;period:vs yesterday">Average time</ui-component>
+
+		<ui-component name="statbox" path="stats.revenue" config="icon:ti ti-shopping-cart;style:solid;format:currency;currency:EUR;period:of the monthly goal">Sales</ui-component>
+
+		<ui-component name="statbox" path="stats.agents" config="icon:ti ti-robot;style:accent;color:#6250D6;period:vs last week">AI agent visits</ui-component>
+
+		<ui-component name="statbox" path="stats.lcp" config="icon:ti ti-bolt;size:small;unit:ms;goodup:false;period:Largest Contentful Paint">Load time</ui-component>
+
+		<ui-component name="statbox" path="stats.empty" config="icon:ti ti-globe;size:small">Countries</ui-component>
+
+		<div style="grid-column:1/-1">
+			<ui-component name="statbox" path="stats.total" config="style:minimal;size:large;period:in the last 30 days">Total visits</ui-component>
+		</div>
+
+	</div>
+
+	<script>
+
+		SET('stats.visitors', { value: 1284, previous: 1143, trend: [820, 932, 901, 1034, 990, 1130, 1090, 1180, 1143, 1210, 1250, 1284] });
+		SET('stats.pageviews', { value: 48210, previous: 51020, trend: [52000, 50100, 51800, 49900, 51020, 48900, 48210] });
+		SET('stats.bounce', { value: 38.4, previous: 41.2 });
+		SET('stats.duration', { value: 185, previous: 172 });
+		SET('stats.revenue', { value: 7420, target: 10000 });
+		SET('stats.agents', { value: 3120, delta: 64.5, trend: [400, 620, 900, 1300, 1800, 2400, 3120] });
+		SET('stats.lcp', { value: 1830, previous: 2105 });
+		SET('stats.empty', null);
+		SET('stats.total', { value: 1482930, previous: 1310200 });
+
+		// Real time: a new visitor count every 2 seconds
+		setInterval(function() {
+			var model = GET('stats.visitors');
+			var value = model.value + Math.round(Math.random() * 12 - 3);
+			var trend = model.trend.slice(1);
+			trend.push(value);
+			SET('stats.visitors', { value: value, previous: model.previous, trend: trend });
+		}, 2000);
+
+		function onstatclick(value, component) {
+			// e.g. open the detail of the metric
+		}
+
+	</script>
+
+</body>
+</html>

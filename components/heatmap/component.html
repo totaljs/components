@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<style component>
+
+		.ui-heatmap { --hmempty: #F1F1F1; --hmbase: #F4F4F4; box-sizing: border-box; min-width: 0; padding: 16px 18px; border: 1px solid #E3E3E3; border-radius: var(--radius); background: #FFF; color: #1F1F1F; font-size: 13px; container-type: inline-size; }
+		.ui-heatmap-minimal { padding: 0; border-color: transparent; background: transparent; }
+		.ui-heatmap-title { margin-bottom: 12px; font-weight: 600; font-size: 14px; }
+		.ui-heatmap-notitle .ui-heatmap-title { display: none; }
+		.ui-heatmap-body { position: relative; overflow-x: auto; }
+		.ui-heatmap-table { width: 100%; border-collapse: separate; border-spacing: 2px; table-layout: fixed; }
+		.ui-heatmap-table caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+		.ui-heatmap-table th { padding: 0 6px 0 0; color: #6B6B6B; font-size: 11px; font-weight: normal; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+		.ui-heatmap-table thead th { padding: 0 0 4px; text-align: center; font-variant-numeric: tabular-nums; }
+		.ui-heatmap-table tbody th { text-align: right; }
+		.ui-heatmap-corner { width: var(--hmhead, 44px); }
+		.ui-heatmap-table thead th { overflow: visible; text-overflow: clip; }
+		.ui-heatmap-skip thead th span { display: none; }
+		.ui-heatmap-skip thead th.ui-heatmap-mark span { display: inline; }
+		.ui-heatmap-cell { height: var(--hmcell, 22px); padding: 0; border-radius: 3px; background: var(--hmempty); text-align: center; font-size: 11px; font-variant-numeric: tabular-nums; outline: none; }
+		.ui-heatmap-cell:focus-visible { box-shadow: 0 0 0 2px var(--color); }
+		.ui-heatmap-cell.ui-heatmap-on { box-shadow: 0 0 0 2px #1F1F1F; }
+		.ui-heatmap-null { background: transparent; }
+		.ui-heatmap-cell span { display: block; overflow: hidden; white-space: nowrap; }
+		.ui-heatmap-nolabels .ui-heatmap-cell span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+		.ui-heatmap-light { color: #FFF; }
+		.ui-heatmap-clickable .ui-heatmap-cell { cursor: pointer; }
+		.ui-heatmap-tip { position: absolute; top: 0; left: 0; z-index: 5; display: none; padding: 7px 10px; border-radius: 8px; background: #1F1F1F; color: #FFF; font-size: 12px; white-space: nowrap; box-shadow: 0 6px 20px rgba(0, 0, 0, .18); pointer-events: none; }
+		.ui-heatmap-hover .ui-heatmap-tip { display: block; }
+		.ui-heatmap-tip div { color: rgba(255, 255, 255, .75); }
+		.ui-heatmap-tip b { font-weight: 600; }
+		.ui-heatmap-scale { display: flex; align-items: center; gap: 8px; margin-top: 10px; color: #5E5E5E; font-size: 12px; font-variant-numeric: tabular-nums; }
+		.ui-heatmap-nolegend .ui-heatmap-scale, .ui-heatmap-isempty .ui-heatmap-scale { display: none; }
+		.ui-heatmap-ramp { width: 120px; height: 10px; border-radius: 3px; }
+		.ui-heatmap-sr { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+		.ui-heatmap-empty { display: none; align-items: center; gap: 8px; padding: 10px 0; color: #8A8A8A; }
+		.ui-heatmap-empty i { font-size: 18px; opacity: .7; }
+		.ui-heatmap-isempty .ui-heatmap-empty { display: flex; }
+
+		/* Small boxes: thinner labels and cells */
+		@container (max-width: 380px) {
+			.ui-heatmap-table { border-spacing: 1px; }
+			.ui-heatmap-table th { font-size: 10px; }
+		}
+
+		.ui-dark .ui-heatmap { --hmempty: #303030; --hmbase: #2E2E2E; border-color: #3A3A3A; background: #252525; color: #EDEDED; }
+		.ui-dark .ui-heatmap-minimal { border-color: transparent; background: transparent; }
+		.ui-dark .ui-heatmap-table th, .ui-dark .ui-heatmap-scale { color: #ABABAB; }
+		.ui-dark .ui-heatmap-cell.ui-heatmap-on { box-shadow: 0 0 0 2px #FFF; }
+		.ui-dark .ui-heatmap-null { background: transparent; }
+		.ui-dark .ui-heatmap-tip { background: #F2F2F2; color: #1F1F1F; box-shadow: 0 6px 20px rgba(0, 0, 0, .5); }
+		.ui-dark .ui-heatmap-tip div { color: #5E5E5E; }
+
+		@media (forced-colors: active) {
+			.ui-heatmap { border: 1px solid CanvasText; }
+			.ui-heatmap-cell { forced-color-adjust: none; border: 1px solid CanvasText; }
+			.ui-heatmap-tip { border: 1px solid CanvasText; }
+		}
+
+	</style>
+
+	<script component>
+
+		COMPONENT('heatmap', 'label:;type:grid;style:card;color:;cell:22;labels:false;legend:true;min:;max:;firstday:;format:number;decimals:0;compact:true;currency:EUR;locale:;click:', function(self, config, cls) {
+
+			var cls2 = '.' + cls;
+			var els = {};
+			var model = { rows: [], columns: [], data: [], keys: [] };
+			var bounds = { min: 0, max: 0 };
+			var fmt = {};
+			var label = '';
+			var cursor = null;
+
+			var esc = function(value) {
+				return (value == null ? '' : value + '').replace(/[&<>"']/g, function(c) {
+					return c === '&' ? '&amp;' : c === '<' ? '&lt;' : c === '>' ? '&gt;' : c === '"' ? '&quot;' : '&#39;';
+				});
+			};
+
+			var locale = function() {
+				return config.locale || document.documentElement.lang || undefined;
+			};
+
+			var intl = function(options) {
+				try {
+					return new Intl.NumberFormat(locale(), options);
+				} catch (e) {
+					return new Intl.NumberFormat(undefined, { maximumFractionDigits: options.maximumFractionDigits || 0 });
+				}
+			};
+
+			var prepare = function() {
+				var decimals = Math.max(0, config.decimals || 0);
+				var opt = { minimumFractionDigits: 0, maximumFractionDigits: decimals };
+				var copt = { notation: 'compact', maximumFractionDigits: 1 };
+				if (config.format === 'percent')
+					opt.style = 'percent';
+				else if (config.format === 'currency') {
+					opt.style = copt.style = 'currency';
+					opt.currency = copt.currency = config.currency || 'EUR';
+				}
+				fmt.full = intl(opt);
+				fmt.compact = config.compact ? intl(copt) : null;
+			};
+
+			var format = function(n, short) {
+				if (n == null)
+					return '—';
+				if (config.format === 'percent')
+					return fmt.full.format(n / 100);
+				return (fmt.compact && Math.abs(n) >= (short ? 1000 : 10000) ? fmt.compact : fmt.full).format(n);
+			};
+
+			var num = function(value) {
+				if (value == null || value === '')
+					return null;
+				value = typeof value === 'number' ? value : +value;
+				return isFinite(value) ? value : null;
+			};
+
+			var firstday = function() {
+				if (config.firstday !== '' && config.firstday != null)
+					return (+config.firstday) % 7;
+				try {
+					var info = new Intl.Locale(locale() || navigator.language);
+					var week = info.getWeekInfo ? info.getWeekInfo() : info.weekInfo;
+					if (week && week.firstDay)
+						return week.firstDay % 7;
+				} catch (e) {}
+				return 1;
+			};
+
+			// type:grid  { rows: [...], columns: [...], data: [[...], ...] }
+			// type:week  { data: [[24 values], ...] } with data[0] Sunday ... data[6] Saturday (as Date.getDay())
+			var parse = function(value) {
+
+				var src = value || {};
+				var data = src instanceof Array ? src : src.data instanceof Array ? src.data : [];
+				var rows = [];
+				var columns = [];
+				var keys = [];
+				var matrix = [];
+				var long = [];
+				var i, j;
+
+				if (config.type === 'week') {
+					var first = firstday();
+					var wd;
+					try {
+						wd = new Intl.DateTimeFormat(locale(), { weekday: 'short' });
+					} catch (e) {
+						wd = new Intl.DateTimeFormat(undefined, { weekday: 'short' });
+					}
+					var hours;
+					try {
+						hours = new Intl.DateTimeFormat(locale(), { hour: 'numeric', minute: '2-digit' });
+					} catch (e) {
+						hours = new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' });
+					}
+					// 2026-11-01 is a Sunday
+					for (i = 0; i < 7; i++) {
+						var d = (first + i) % 7;
+						rows.push(wd.format(new Date(2026, 10, 1 + d)));
+						keys.push(d);
+						matrix.push((data[d] instanceof Array ? data[d] : []).slice(0, 24).map(num));
+						while (matrix[i].length < 24)
+							matrix[i].push(null);
+					}
+					// The axis shows 00..23, the tooltip the hour of the locale (1:00 AM, 01:00)
+					for (j = 0; j < 24; j++) {
+						columns.push((j < 10 ? '0' : '') + j);
+						long.push(hours.format(new Date(2026, 10, 1, j)));
+					}
+				} else {
+					var width = 0;
+					for (i = 0; i < data.length; i++) {
+						var row = data[i] instanceof Array ? data[i].map(num) : [];
+						width = Math.max(width, row.length);
+						matrix.push(row);
+						keys.push(i);
+					}
+					var srcrows = src.rows instanceof Array ? src.rows : [];
+					var srccols = src.columns instanceof Array ? src.columns : [];
+					for (i = 0; i < matrix.length; i++)
+						rows.push(srcrows[i] == null ? (i + 1) + '' : srcrows[i] + '');
+					for (j = 0; j < width; j++)
+						columns.push(srccols[j] == null ? (j + 1) + '' : srccols[j] + '');
+				}
+
+				bounds.min = Infinity;
+				bounds.max = -Infinity;
+				for (i = 0; i < matrix.length; i++) {
+					for (j = 0; j < matrix[i].length; j++) {
+						if (matrix[i][j] != null) {
+							bounds.min = Math.min(bounds.min, matrix[i][j]);
+							bounds.max = Math.max(bounds.max, matrix[i][j]);
+						}
+					}
+				}
+				if (bounds.min === Infinity)
+					bounds.min = bounds.max = 0;
+				var cmin = num(config.min);
+				var cmax = num(config.max);
+				if (cmin != null)
+					bounds.min = cmin;
+				if (cmax != null)
+					bounds.max = cmax;
+
+				model = { rows: rows, columns: columns, long: long.length ? long : columns, data: matrix, keys: keys, src: src };
+			};
+
+			// 0..1 to a mix of the colour with the empty cell: one hue, light to dark
+			var intensity = function(value) {
+				var range = bounds.max - bounds.min;
+				var t = range ? (value - bounds.min) / range : 1;
+				return Math.max(0, Math.min(1, t));
+			};
+
+			var mix = function(t) {
+				return 'color-mix(in srgb, var(--color) ' + Math.round(12 + t * 88) + '%, var(--hmbase))';
+			};
+
+			var render = function() {
+
+				var rows = model.rows;
+				var columns = model.columns;
+				var empty = !rows.length || !columns.length;
+
+				self.tclass(cls + '-isempty', empty);
+
+				if (empty) {
+					els.table.innerHTML = '';
+					return;
+				}
+
+				// Long rows of columns (24 hours) show only some labels
+				var every = columns.length > 12 ? (columns.length % 3 === 0 ? 3 : 2) : 1;
+				self.tclass(cls + '-skip', every > 1);
+
+				var longest = 0;
+				for (var r = 0; r < rows.length; r++)
+					longest = Math.max(longest, rows[r].length);
+				self.dom.style.setProperty('--hmhead', Math.min(140, Math.round(longest * 6.6 + 12)) + 'px');
+				self.dom.style.setProperty('--hmcell', Math.max(10, config.cell || 22) + 'px');
+
+				var builder = ['<caption>' + esc(els.title.textContent.trim()) + '</caption><thead><tr><td class="' + cls + '-corner"></td>'];
+				for (var j = 0; j < columns.length; j++)
+					builder.push('<th scope="col"{0}><span>{1}</span></th>'.format(j % every === 0 ? ' class="' + cls + '-mark"' : '', esc(columns[j])));
+				builder.push('</tr></thead><tbody>');
+
+				for (var i = 0; i < rows.length; i++) {
+					builder.push('<tr><th scope="row">' + esc(rows[i]) + '</th>');
+					for (j = 0; j < columns.length; j++) {
+						var value = model.data[i][j];
+						if (value == null && config.type !== 'week') {
+							builder.push('<td class="{0}-cell {0}-null" data-r="{1}" data-c="{2}" tabindex="-1"><span></span></td>'.format(cls, i, j));
+							continue;
+						}
+						var t = value == null ? null : intensity(value);
+						builder.push('<td class="{0}-cell{1}" data-r="{2}" data-c="{3}" tabindex="-1"{4}><span>{5}</span></td>'.format(cls, t != null && t > 0.55 ? ' ' + cls + '-light' : '', i, j, t == null ? '' : ' style="background:' + mix(t) + '"', esc(value == null ? '' : format(value, true))));
+					}
+					builder.push('</tr>');
+				}
+
+				builder.push('</tbody>');
+				els.table.innerHTML = builder.join('');
+
+				els.ramp.style.background = 'linear-gradient(90deg,' + mix(0) + ',' + mix(1) + ')';
+				els.min.textContent = format(bounds.min, true);
+				els.max.textContent = format(bounds.max, true);
+
+				// The roving tab stop: the cell of the cursor or the first one
+				var target = cursor ? cell(cursor.r, cursor.c) : null;
+				(target || els.table.querySelector(cls2 + '-cell')).setAttribute('tabindex', '0');
+				if (cursor && target && document.activeElement === document.body)
+					show(target);
+			};
+
+			var cell = function(r, c) {
+				return els.table.querySelector('[data-r="' + r + '"][data-c="' + c + '"]');
+			};
+
+			var show = function(td, announce) {
+
+				var r = +td.getAttribute('data-r');
+				var c = +td.getAttribute('data-c');
+				var value = model.data[r] ? model.data[r][c] : null;
+				var old = els.table.querySelector(cls2 + '-on');
+				old && old.classList.remove(cls + '-on');
+				td.classList.add(cls + '-on');
+
+				els.tip.innerHTML = '<div>{0} · {1}</div><b>{2}</b>'.format(esc(model.rows[r]), esc(model.long[c]), esc(format(value)));
+				self.aclass(cls + '-hover');
+
+				var box = td.getBoundingClientRect();
+				var rect = els.body.getBoundingClientRect();
+				var tw = els.tip.offsetWidth;
+				var th = els.tip.offsetHeight;
+				var x = box.left - rect.left + box.width / 2 - tw / 2;
+				var y = box.top - rect.top - th - 6;
+				if (y < 0)
+					y = box.bottom - rect.top + 6;
+				x = Math.max(0, Math.min(rect.width - tw, x));
+				els.tip.style.transform = 'translate(' + Math.round(x) + 'px,' + Math.round(y) + 'px)';
+
+				if (announce)
+					els.live.textContent = model.rows[r] + ', ' + model.long[c] + ': ' + format(value);
+			};
+
+			var hide = function() {
+				var old = els.table.querySelector(cls2 + '-on');
+				old && old.classList.remove(cls + '-on');
+				self.rclass(cls + '-hover');
+			};
+
+			var run = function(td) {
+				if (!config.click)
+					return;
+				var r = +td.getAttribute('data-r');
+				var c = +td.getAttribute('data-c');
+				var value = model.data[r] ? model.data[r][c] : null;
+				var rowkey = model.keys[r];
+				self.EXEC(config.click, { row: config.type === 'week' ? rowkey : r, column: c, rowlabel: model.rows[r], columnlabel: model.long[c], value: value }, self);
+			};
+
+			var setlabel = function() {
+				els.title.innerHTML = config.label || label;
+				self.tclass(cls + '-notitle', !els.title.textContent.trim());
+			};
+
+			var setcolor = function(value) {
+				var m = (/^#?([0-9a-f]{3}|[0-9a-f]{6})$/i).exec(value || '');
+				if (m) {
+					var h = m[1].length === 3 ? m[1].replace(/./g, '$&$&') : m[1];
+					self.dom.style.setProperty('--color', '#' + h);
+					self.dom.style.setProperty('--rgb', [parseInt(h.substring(0, 2), 16), parseInt(h.substring(2, 4), 16), parseInt(h.substring(4, 6), 16)].join(', '));
+				} else {
+					self.dom.style.removeProperty('--color');
+					self.dom.style.removeProperty('--rgb');
+				}
+			};
+
+			self.make = function() {
+
+				label = self.html().trim();
+
+				self.aclass(cls);
+				self.html(('<div class="{0}-title"></div><div class="{0}-body"><table class="{0}-table"></table><div class="{0}-tip" aria-hidden="true"></div></div>' +
+					'<div class="{0}-empty"><i class="ti ti-table" aria-hidden="true"></i></div>' +
+					'<div class="{0}-scale" aria-hidden="true"><span class="{0}-min"></span><span class="{0}-ramp"></span><span class="{0}-max"></span></div>' +
+					'<div class="{0}-sr" aria-live="polite"></div>').format(cls));
+
+				els.title = self.find(cls2 + '-title')[0];
+				els.body = self.find(cls2 + '-body')[0];
+				els.table = self.find(cls2 + '-table')[0];
+				els.tip = self.find(cls2 + '-tip')[0];
+				els.ramp = self.find(cls2 + '-ramp')[0];
+				els.min = self.find(cls2 + '-min')[0];
+				els.max = self.find(cls2 + '-max')[0];
+				els.live = self.find(cls2 + '-sr')[0];
+
+				prepare();
+
+				self.event('mouseover', cls2 + '-cell', function() {
+					!this.classList.contains(cls + '-null') && show(this);
+				});
+
+				self.event('mouseleave', cls2 + '-body', function() {
+					!els.table.contains(document.activeElement) && hide();
+				});
+
+				self.event('focusin', cls2 + '-cell', function() {
+					cursor = { r: +this.getAttribute('data-r'), c: +this.getAttribute('data-c') };
+					show(this, true);
+				});
+
+				self.event('focusout', cls2 + '-table', function(e) {
+					!els.table.contains(e.relatedTarget) && hide();
+				});
+
+				self.event('click', cls2 + '-cell', function() {
+					!this.classList.contains(cls + '-null') && run(this);
+				});
+
+				// Arrows move through the cells, like in a spreadsheet
+				self.event('keydown', cls2 + '-cell', function(e) {
+					var r = +this.getAttribute('data-r');
+					var c = +this.getAttribute('data-c');
+					switch (e.key) {
+						case 'ArrowLeft':
+							c--;
+							break;
+						case 'ArrowRight':
+							c++;
+							break;
+						case 'ArrowUp':
+							r--;
+							break;
+						case 'ArrowDown':
+							r++;
+							break;
+						case 'Home':
+							c = 0;
+							break;
+						case 'End':
+							c = model.columns.length - 1;
+							break;
+						case 'Enter':
+						case ' ':
+							e.preventDefault();
+							run(this);
+							return;
+						case 'Escape':
+							hide();
+							return;
+						default:
+							return;
+					}
+					e.preventDefault();
+					var next = cell(Math.max(0, Math.min(model.rows.length - 1, r)), Math.max(0, Math.min(model.columns.length - 1, c)));
+					if (next && next !== this) {
+						this.setAttribute('tabindex', '-1');
+						next.setAttribute('tabindex', '0');
+						next.focus();
+					}
+				});
+			};
+
+			self.configure = function(key, value, init) {
+				switch (key) {
+					case 'label':
+						setlabel();
+						!init && render();
+						break;
+					case 'style':
+						self.tclass(cls + '-minimal', value === 'minimal');
+						break;
+					case 'color':
+						setcolor(value);
+						break;
+					case 'labels':
+						self.tclass(cls + '-nolabels', !value);
+						break;
+					case 'legend':
+						self.tclass(cls + '-nolegend', !value);
+						break;
+					case 'click':
+						self.tclass(cls + '-clickable', !!value);
+						break;
+					case 'type':
+					case 'firstday':
+					case 'min':
+					case 'max':
+					case 'cell':
+						if (!init) {
+							parse(model.src);
+							render();
+						}
+						break;
+					case 'format':
+					case 'decimals':
+					case 'compact':
+					case 'currency':
+					case 'locale':
+						if (!init) {
+							prepare();
+							parse(model.src);
+							render();
+						}
+						break;
+				}
+			};
+
+			self.setter = function(value) {
+				parse(value);
+				render();
+			};
+
+		});
+
+	</script>
+
+	<div style="max-width:960px;padding:12px;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr))">
+
+		<ui-component name="heatmap" path="heat.week" config="type:week;cell:14;click:onheatclick">Visits by day and hour</ui-component>
+
+		<ui-component name="heatmap" path="heat.cohort" config="labels:true;format:percent;min:0;max:100;cell:26;color:#1BAF7A">Returning visitors by week</ui-component>
+
+		<ui-component name="heatmap" path="heat.bots" config="type:week;color:#6250D6;style:minimal;cell:16">AI crawlers by day and hour</ui-component>
+
+		<ui-component name="heatmap" path="heat.empty">No data yet</ui-component>
+
+	</div>
+
+	<script>
+
+		// 7 rows (data[0] is Sunday, as Date.getDay()) of 24 hours
+		var week = function(seed, base, night) {
+			var data = [];
+			for (var d = 0; d < 7; d++) {
+				var row = [];
+				var weekend = d === 0 || d === 6;
+				for (var h = 0; h < 24; h++) {
+					var curve = Math.max(0, Math.sin((h - 6) / 18 * Math.PI));
+					var v = base * (night ? 0.6 + Math.random() * 0.8 : curve * (weekend ? 0.55 : 1)) + ((d * 31 + h * 7 + seed) % 13) * base / 40;
+					row.push(Math.round(v));
+				}
+				data.push(row);
+			}
+			return data;
+		};
+
+		SET('heat.week', { data: week(3, 220) });
+		SET('heat.bots', { data: week(5, 40, true) });
+
+		SET('heat.cohort', {
+			rows: ['Oct 5', 'Oct 12', 'Oct 19', 'Oct 26', 'Nov 2', 'Nov 9'],
+			columns: ['Week 0', 'Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+			data: [
+				[100, 42, 31, 26, 22, 20],
+				[100, 45, 33, 27, 24],
+				[100, 39, 29, 25],
+				[100, 47, 35],
+				[100, 44],
+				[100]
+			]
+		});
+
+		SET('heat.empty', null);
+
+		function onheatclick(cell, component) {
+			// e.g. open the visits of that hour: cell.row (day), cell.column (hour), cell.value
+		}
+
+	</script>
+
+</body>
+</html>
