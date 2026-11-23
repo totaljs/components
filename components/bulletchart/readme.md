@@ -1,16 +1,16 @@
 ---
-name: bulletchart
+name: BulletChart
 description: Bullet chart for a value against a target with bands of bad, fair and good and the previous value, as one bar or a list of goals, updated in real time
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 20:23
-updated: 2026-11-22 20:23
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 
-# Bulletchart
+# BulletChart
 
 Shows how far a value is from its goal: a bar for the value, a tick for the target, grey bands behind for bad, fair and good, and a thin mark for the previous value. It takes less space than a gauge and reads better in lists (goals of the month, budgets, page speed by page). The bars move when the model changes, so it works in real time.
 

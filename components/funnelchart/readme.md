@@ -1,16 +1,16 @@
 ---
-name: funnelchart
+name: FunnelChart
 description: Conversion funnel with the value and the share of every step, the share that goes on and the share that is lost between steps, and the overall conversion
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 20:33
-updated: 2026-11-22 20:33
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 
-# Funnelchart
+# FunnelChart
 
 Shows where people leave a process: visits → product page → cart → purchase, a sign-up, the checkout of an AI agent. Every step has its value, a bar and its share of the first step; between two steps an arrow shows the share that goes on and, in brackets, the share that is lost. The overall conversion (last step / first step) is on top. The bars move when the model changes, so it works in real time.
 

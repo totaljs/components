@@ -1,16 +1,16 @@
 ---
-name: timechart
+name: TimeChart
 description: Chart of values over time with lines, areas or bars (grouped or stacked), several series, a tooltip, a legend and keyboard access, updated in real time
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 19:46
-updated: 2026-11-22 19:46
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 
-# Timechart
+# TimeChart
 
 A chart for data that changes over time: visits per day, visitors per second, page views per month... One component draws lines, areas or bars, so a dashboard keeps the same look in every chart. It re-renders on every change of the model, so for a live chart you `SET()` the new data (for example the last 60 seconds) as often as you need.
 

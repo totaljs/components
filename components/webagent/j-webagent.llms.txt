@@ -1,0 +1,47 @@
+# Componentator
+
+> The catalogue of UI components for Total.js (jComponent v20). Each component has a live example, its documentation and a preview. A component loads from the CDN after the library: https://cdn.componentator.com/spa.min@20.js and https://cdn.componentator.com/spa.min@20.css.
+
+Use a component in your app: load the library, then add `<ui-component name="datagrid" path="...">` to the page; the library loads the component from the CDN. Each page of the catalogue shows its configuration, its model and an example.
+
+Create a component: three files (component.html, readme.md, preview.jpg), plain JavaScript in ES5. The rules, the template and the checker are in the AI kit of Total.js components on GitHub.
+
+## Start
+
+- [Catalogue](/): all the components, with search
+- [Documentation](https://docs.totaljs.com/components/): the guides of Total.js UI components
+
+## Forms
+
+- [Input](/components/input/): text, email, multiline and checkbox fields with validation, formatting and masks (campo, formulario)
+- [DatePicker](/components/datepicker/): calendar to choose a date, alone or with Input (fecha, calendario)
+- [ColorPicker](/components/colorpicker/): a colour picker next to an element, hex colours with opacity (color)
+- [EmojiPicker](/components/emojipicker/): choose an emoji by group or by search
+- [IconPicker](/components/iconpicker/): choose a Total.js icon by search (icono)
+
+## Data
+
+- [DataGrid](/components/datagrid/): grid of records for single page and enterprise applications (tabla)
+- [StatsTable](/components/statstable/): table of statistics with sorting, search, bars and sparklines (estadísticas)
+
+## Charts
+
+- [LineChart](/components/linechart/): values over time as lines (gráfico de líneas)
+- [DonutChart](/components/donutchart/): parts of a whole as a donut, with tooltips and selection (gráfico circular)
+- [TimeChart](/components/timechart/): values over time as lines, areas or bars, several series
+- [ScatterChart](/components/scatterchart/): two measures related, as points or bubbles (dispersión)
+- [Heatmap](/components/heatmap/): a grid of values coloured from light to dark, such as visits by day and hour (mapa de calor)
+- [WorldMap](/components/worldmap/): a world map coloured by a value per country (mapa)
+
+## Dashboards
+
+- [StatBox](/components/statbox/): a statistic with its change, a sparkline and a goal (indicador, KPI)
+- [LiveFeed](/components/livefeed/): a live list of events, the newest first
+- [UptimeBar](/components/uptimebar/): the availability of a service in the last 90 days (disponibilidad)
+- [Vitals](/components/vitals/): Core Web Vitals with their official thresholds
+
+## AI and agents
+
+- [WebMCP](/components/webmcp/): the MCP tools of a Total.js 5 application for the AI agents of the browser
+- [WebAgent](/components/webagent/): a chat with the visitors, answered by the AI of the browser with this file
+- [UserAvatar](/components/useravatar/): an avatar generated from a name, an email or an ID (avatar)

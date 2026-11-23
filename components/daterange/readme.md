@@ -1,16 +1,16 @@
 ---
-name: daterange
+name: DateRange
 description: Period selector for dashboards with presets in the language of the page, a calendar for custom ranges, the comparison with the previous period and an inline mode
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 20:12
-updated: 2026-11-22 20:12
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 
-# Daterange
+# DateRange
 
 Chooses the period of a dashboard: a preset (today, 7 days, this month...) or any range in the calendar, and optionally the comparison with the previous period. It is a button with a dropdown, or with `inline:true` a calendar that is always visible (a sidebar of filters).
 

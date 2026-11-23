@@ -1,16 +1,16 @@
 ---
-name: statstable
+name: StatsTable
 description: Table of statistics with sorting, search, inline bars, changes with arrows, sparklines, totals, links and a show more button, for any dashboard
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 20:18
-updated: 2026-11-22 20:18
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 
-# Statstable
+# StatsTable
 
 The table of a dashboard: pages, campaigns, products, countries... with the numbers formatted, bars to compare a column, changes with arrows, a sparkline per row, sorting by any column, a search, totals and a show more button. It re-renders on every change of the model and keeps the sorting, the search and the expanded state.
 

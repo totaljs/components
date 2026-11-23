@@ -1,16 +1,16 @@
 ---
-name: sharechart
+name: ShareChart
 description: Parts of a whole as a donut or a segmented bar, with a legend of values and shares, the small parts folded into one and keyboard access
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 19:50
-updated: 2026-11-22 19:50
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 
-# Sharechart
+# ShareChart
 
 Shows how a whole is split into parts: devices, browsers, traffic sources, AI agents, sales by country... One component draws a donut (`type:donut`) or a segmented bar (`type:bar`), and both have a legend with the value and the share of every part, so every number can be read as text without hovering.
 

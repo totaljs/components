@@ -1,12 +1,12 @@
 ---
-name: heatmap
+name: Heatmap
 description: Grid of values coloured from light to dark, for visits by day and hour, retention cohorts or any table of numbers, with a tooltip, labels in the cells and keyboard access
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 20:14
-updated: 2026-11-22 20:14
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 

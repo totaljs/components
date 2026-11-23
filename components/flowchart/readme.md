@@ -1,16 +1,16 @@
 ---
-name: flowchart
+name: FlowChart
 description: Sankey diagram of flows between steps, such as where visitors come from and where they go, or how AI agents move through a site, with bands as wide as the flows, a tooltip and keyboard access
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 20:42
-updated: 2026-11-22 20:42
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 
-# Flowchart
+# FlowChart
 
 A Sankey diagram: nodes in columns and bands between them as wide as the flow. It shows journeys (source → landing page → pricing → purchase or exit), how AI agents read a site (agent → llms.txt, MCP or HTML → answer), budgets, energy... The columns come from the links, the nodes are sorted so the bands cross as little as possible, and it re-renders on every change of the model.
 

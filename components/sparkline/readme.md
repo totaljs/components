@@ -1,12 +1,12 @@
 ---
-name: sparkline
+name: Sparkline
 description: Small inline chart as a line, an area or bars for tables, lists and texts, with the last value marked, the lowest and highest points and a tooltip
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 20:16
-updated: 2026-11-22 20:16
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 

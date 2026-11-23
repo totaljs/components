@@ -1,16 +1,16 @@
 ---
-name: rankchart
+name: RankChart
 description: Ranking with horizontal bars for top lists such as pages, referrers or AI agents, with shares, changes, links, a show more button and smooth real time updates
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 19:53
-updated: 2026-11-22 19:53
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 
-# Rankchart
+# RankChart
 
 A ranked list where every row has a bar proportional to its value: top pages, referrers, countries, AI agents, slowest pages... Every number is text (value, share and change), the bar only helps to compare. The rows keep their DOM node between updates, so in real time the bars grow and shrink and the rows move instead of jumping.
 

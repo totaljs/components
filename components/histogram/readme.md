@@ -1,12 +1,12 @@
 ---
-name: histogram
+name: Histogram
 description: Histogram of how values are spread, such as load times or time on page, with round bins, percentile marks, zones of good and poor, a tooltip and keyboard access
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 20:29
-updated: 2026-11-22 20:29
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 
