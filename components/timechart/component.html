@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<style component>
+
+		/* Series colours: slot 1 is the primary colour of the app, the rest is a colour-blind safe palette in a fixed order */
+		.ui-timechart { --tc1: var(--color); --tc2: #EB6834; --tc3: #1BAF7A; --tc4: #EDA100; --tc5: #E87BA4; --tc6: #008300; --tc7: #6250D6; --tc8: #E34948; --tcbg: #FFF; position: relative; box-sizing: border-box; min-width: 0; padding: 16px 18px; border: 1px solid #E3E3E3; border-radius: var(--radius); background: #FFF; color: #1F1F1F; font-size: 13px; }
+		.ui-timechart-minimal { padding: 0; border-color: transparent; background: transparent; }
+		.ui-timechart-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; margin-bottom: 12px; }
+		.ui-timechart-head:empty, .ui-timechart-notitle.ui-timechart-nolegend .ui-timechart-head { display: none; }
+		.ui-timechart-title { flex: 1 1 auto; min-width: 0; font-weight: 600; font-size: 14px; }
+		.ui-timechart-notitle .ui-timechart-title { display: none; }
+		.ui-timechart-legend { display: flex; flex-wrap: wrap; gap: 4px 6px; }
+		.ui-timechart-nolegend .ui-timechart-legend { display: none; }
+		.ui-timechart-key { display: inline-flex; align-items: center; gap: 6px; min-height: 28px; padding: 0 8px; border: 0; border-radius: 6px; background: transparent; color: inherit; font: inherit; font-size: 12px; cursor: pointer; }
+		.ui-timechart-key:hover { background: rgba(0, 0, 0, .05); }
+		.ui-timechart-key:focus-visible { outline: 2px solid var(--color); outline-offset: 1px; }
+		.ui-timechart-key[aria-pressed="false"] { color: #8A8A8A; text-decoration: line-through; }
+		.ui-timechart-key[aria-pressed="false"] .ui-timechart-swatch { opacity: .35; }
+		.ui-timechart-swatch { flex: 0 0 auto; width: 12px; height: 12px; border-radius: 3px; }
+		.ui-timechart-line .ui-timechart-key .ui-timechart-swatch { height: 3px; border-radius: 2px; }
+		.ui-timechart-body { position: relative; outline: none; border-radius: 4px; }
+		.ui-timechart-body:focus-visible { box-shadow: 0 0 0 2px var(--color); }
+		.ui-timechart-clickable .ui-timechart-body { cursor: pointer; }
+		.ui-timechart-body svg { display: block; width: 100%; overflow: visible; }
+		.ui-timechart-axis { fill: #6B6B6B; font-size: 11px; font-variant-numeric: tabular-nums; }
+		.ui-timechart-grid { stroke: #EDEDED; stroke-width: 1; shape-rendering: crispEdges; }
+		.ui-timechart-base { stroke: #CFCFCF; stroke-width: 1; shape-rendering: crispEdges; }
+		.ui-timechart-path { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+		.ui-timechart-fill { stroke: none; opacity: .14; }
+		.ui-timechart-stacked .ui-timechart-fill { opacity: .55; }
+		.ui-timechart-marker { stroke: var(--tcbg); stroke-width: 2; }
+		.ui-timechart-cross { position: absolute; display: none; pointer-events: none; }
+		.ui-timechart-cross-line { width: 1px; background: rgba(0, 0, 0, .25); }
+		.ui-timechart-cross-band { border-radius: 4px; background: rgba(0, 0, 0, .05); }
+		.ui-timechart-hover .ui-timechart-cross { display: block; }
+		.ui-timechart-dot { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; box-shadow: 0 0 0 2px var(--tcbg); pointer-events: none; }
+		.ui-timechart-tip { position: absolute; top: 0; left: 0; z-index: 5; display: none; min-width: 120px; max-width: 260px; padding: 8px 10px; border-radius: 8px; background: #1F1F1F; color: #FFF; font-size: 12px; box-shadow: 0 6px 20px rgba(0, 0, 0, .18); pointer-events: none; }
+		.ui-timechart-hover .ui-timechart-tip { display: block; }
+		.ui-timechart-tip-title { margin-bottom: 4px; color: rgba(255, 255, 255, .75); white-space: nowrap; }
+		.ui-timechart-tip-row { display: flex; align-items: center; gap: 6px; line-height: 20px; white-space: nowrap; }
+		.ui-timechart-tip-row span:nth-child(2) { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+		.ui-timechart-tip-row b { margin-left: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+		.ui-timechart-tip .ui-timechart-swatch { width: 10px; height: 10px; box-shadow: 0 0 0 1px rgba(255, 255, 255, .35); }
+		.ui-timechart-nodata { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; gap: 8px; color: #8A8A8A; }
+		.ui-timechart-nodata i { font-size: 22px; opacity: .6; }
+		.ui-timechart-isempty .ui-timechart-nodata { display: flex; }
+		.ui-timechart-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+		/* Dark mode: the same hues stepped for a dark surface */
+		.ui-dark .ui-timechart { --tc2: #D95926; --tc3: #199E70; --tc4: #C98500; --tc5: #D55181; --tc6: #0CA30C; --tc7: #9085E9; --tc8: #E66767; --tcbg: #252525; border-color: #3A3A3A; background: #252525; color: #EDEDED; }
+		.ui-dark .ui-timechart-minimal { --tcbg: #1A1A1A; border-color: transparent; background: transparent; }
+		.ui-dark .ui-timechart-axis { fill: #9A9A9A; }
+		.ui-dark .ui-timechart-grid { stroke: #333; }
+		.ui-dark .ui-timechart-base { stroke: #4A4A4A; }
+		.ui-dark .ui-timechart-key:hover { background: rgba(255, 255, 255, .07); }
+		.ui-dark .ui-timechart-key[aria-pressed="false"] { color: #7A7A7A; }
+		.ui-dark .ui-timechart-cross-line { background: rgba(255, 255, 255, .3); }
+		.ui-dark .ui-timechart-cross-band { background: rgba(255, 255, 255, .06); }
+		.ui-dark .ui-timechart-tip { background: #F2F2F2; color: #1F1F1F; box-shadow: 0 6px 20px rgba(0, 0, 0, .5); }
+		.ui-dark .ui-timechart-tip-title { color: #5E5E5E; }
+		.ui-dark .ui-timechart-tip .ui-timechart-swatch { box-shadow: 0 0 0 1px rgba(0, 0, 0, .2); }
+		.ui-dark .ui-timechart-nodata { color: #8A8A8A; }
+
+		@media (forced-colors: active) {
+			.ui-timechart { border: 1px solid CanvasText; }
+			.ui-timechart-tip { border: 1px solid CanvasText; }
+			.ui-timechart-cross-line { background: CanvasText; }
+		}
+
+	</style>
+
+	<script component>
+
+		COMPONENT('timechart', 'label:;type:line;style:card;height:260;stacked:false;curve:true;markers:false;grid:true;legend:true;min:;max:;format:number;decimals:0;compact:true;currency:EUR;locale:;dates:auto;click:', function(self, config, cls) {
+
+			var cls2 = '.' + cls;
+			var TYPES = ['line', 'area', 'bar'];
+			var els = {};
+			var data = { series: [], labels: [], n: 0, dates: false };
+			var hidden = {};
+			var geo = null;
+			var hoverindex = null;
+			var fmt = {};
+			var label = '';
+			var observer = null;
+			var lastwidth = 0;
+
+			var esc = function(value) {
+				return (value == null ? '' : value + '').replace(/[&<>"']/g, function(c) {
+					return c === '&' ? '&amp;' : c === '<' ? '&lt;' : c === '>' ? '&gt;' : c === '"' ? '&quot;' : '&#39;';
+				});
+			};
+
+			var locale = function() {
+				return config.locale || document.documentElement.lang || undefined;
+			};
+
+			var intl = function(options) {
+				try {
+					return new Intl.NumberFormat(locale(), options);
+				} catch (e) {
+					return new Intl.NumberFormat(undefined, { maximumFractionDigits: options.maximumFractionDigits || 0 });
+				}
+			};
+
+			var intldate = function(options) {
+				try {
+					return new Intl.DateTimeFormat(locale(), options);
+				} catch (e) {
+					return new Intl.DateTimeFormat(undefined, options);
+				}
+			};
+
+			var prepare = function() {
+
+				var decimals = Math.max(0, config.decimals || 0);
+				var opt = { minimumFractionDigits: 0, maximumFractionDigits: decimals };
+				var copt = { notation: 'compact', maximumFractionDigits: 1 };
+
+				if (config.format === 'percent')
+					opt.style = 'percent';
+				else if (config.format === 'currency') {
+					opt.style = copt.style = 'currency';
+					opt.currency = copt.currency = config.currency || 'EUR';
+				}
+
+				fmt.full = intl(opt);
+				fmt.compact = config.compact ? intl(copt) : null;
+			};
+
+			var pad = function(n) {
+				return n < 10 ? '0' + n : '' + n;
+			};
+
+			var duration = function(sec) {
+				var neg = sec < 0;
+				sec = Math.round(Math.abs(sec));
+				var h = Math.floor(sec / 3600);
+				var m = Math.floor((sec % 3600) / 60);
+				var s = sec % 60;
+				return (neg ? '-' : '') + (h ? (h + ' h' + (m ? ' ' + pad(m) + ' m' : '')) : m ? (m + ' m' + (s ? ' ' + pad(s) + ' s' : '')) : (s + ' s'));
+			};
+
+			// "axis" shortens big numbers, the tooltip shows the full value
+			var format = function(n, axis) {
+				if (n == null)
+					return '—';
+				if (config.format === 'duration')
+					return duration(n);
+				if (config.format === 'percent')
+					return fmt.full.format(n / 100);
+				return (fmt.compact && (axis || Math.abs(n) >= 10000) && Math.abs(n) >= 1000 ? fmt.compact : fmt.full).format(n);
+			};
+
+			var num = function(value) {
+				if (value == null || value === '')
+					return null;
+				value = typeof value === 'number' ? value : +value;
+				return isFinite(value) ? value : null;
+			};
+
+			var todate = function(value) {
+				if (value instanceof Date)
+					return isNaN(value.getTime()) ? null : value;
+				if (typeof value === 'string' && (/^\d{4}-\d{2}-\d{2}/).test(value)) {
+					var d = new Date(value);
+					return isNaN(d.getTime()) ? null : d;
+				}
+				return null;
+			};
+
+			var dateformats = function() {
+
+				var mode = config.dates;
+
+				if (mode === 'auto') {
+					var first = data.labels[0];
+					var last = data.labels[data.labels.length - 1];
+					var span = data.labels.length > 1 ? Math.abs(last - first) : 0;
+					var day = 86400000;
+					mode = span && span <= 3600000 ? 'seconds' : span && span < day * 2 ? 'time' : span > day * 200 ? 'month' : 'date';
+				}
+
+				var axis, tip;
+
+				switch (mode) {
+					case 'seconds':
+						axis = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+						tip = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+						break;
+					case 'time':
+						axis = { hour: '2-digit', minute: '2-digit' };
+						tip = { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+						break;
+					case 'datetime':
+						axis = { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' };
+						tip = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+						break;
+					case 'month':
+						axis = { month: 'short', year: 'numeric' };
+						tip = { month: 'long', year: 'numeric' };
+						break;
+					default:
+						axis = { day: 'numeric', month: 'short' };
+						tip = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+						break;
+				}
+
+				fmt.dateaxis = intldate(axis);
+				fmt.datetip = intldate(tip);
+			};
+
+			var labeltext = function(index, axis) {
+				var value = data.labels[index];
+				if (data.dates)
+					return (axis ? fmt.dateaxis : fmt.datetip).format(value);
+				return value == null ? (index + 1) + '' : value + '';
+			};
+
+			var color = function(index) {
+				var s = data.series[index];
+				return s && s.color ? s.color : 'var(--tc' + ((index % 8) + 1) + ')';
+			};
+
+			var parse = function(value) {
+
+				var model = value || {};
+				var series = [];
+				var n = 0;
+				var src = model.series instanceof Array ? model.series : model instanceof Array ? [{ data: model }] : [];
+
+				for (var i = 0; i < src.length && i < 8; i++) {
+					var item = src[i] || {};
+					var arr = item.data instanceof Array ? item.data : [];
+					var values = [];
+					for (var j = 0; j < arr.length; j++)
+						values.push(num(arr[j]));
+					n = Math.max(n, values.length);
+					series.push({ name: item.name == null ? '' : item.name + '', color: (/^#[0-9a-f]{3,8}$/i).test(item.color || '') ? item.color : '', values: values });
+				}
+
+				var labels = model.labels instanceof Array ? model.labels.slice(0, n) : [];
+				var dates = labels.length > 0;
+				var parsed = [];
+
+				for (var k = 0; k < labels.length; k++) {
+					var d = todate(labels[k]);
+					if (!d)
+						dates = false;
+					parsed.push(d);
+				}
+
+				data.series = series;
+				data.n = n;
+				data.dates = dates;
+				data.labels = dates ? parsed : labels;
+				dates && dateformats();
+
+				// Forget hidden series that do not exist anymore
+				var names = {};
+				for (var m = 0; m < series.length; m++)
+					names[series[m].name || m] = 1;
+				for (var key in hidden) {
+					if (!names[key])
+						delete hidden[key];
+				}
+			};
+
+			var ishidden = function(index) {
+				return !!hidden[data.series[index].name || index];
+			};
+
+			// Smooth line through the points that keeps the shape of the data (monotone cubic)
+			var curve = function(p) {
+
+				if (!config.curve || p.length < 3) {
+					var d = '';
+					for (var a = 0; a < p.length; a++)
+						d += (a ? 'L' : 'M') + p[a][0].toFixed(1) + ',' + p[a][1].toFixed(1);
+					return d;
+				}
+
+				var n = p.length;
+				var dx = [];
+				var m = [];
+				var t = [];
+				var i;
+
+				for (i = 0; i < n - 1; i++) {
+					dx[i] = p[i + 1][0] - p[i][0];
+					m[i] = dx[i] ? (p[i + 1][1] - p[i][1]) / dx[i] : 0;
+				}
+
+				t[0] = m[0];
+				t[n - 1] = m[n - 2];
+
+				for (i = 1; i < n - 1; i++)
+					t[i] = m[i - 1] * m[i] <= 0 ? 0 : (m[i - 1] + m[i]) / 2;
+
+				for (i = 0; i < n - 1; i++) {
+					if (!m[i]) {
+						t[i] = t[i + 1] = 0;
+						continue;
+					}
+					var ta = t[i] / m[i];
+					var tb = t[i + 1] / m[i];
+					var s = ta * ta + tb * tb;
+					if (s > 9) {
+						var k = 3 / Math.sqrt(s);
+						t[i] = k * ta * m[i];
+						t[i + 1] = k * tb * m[i];
+					}
+				}
+
+				var path = 'M' + p[0][0].toFixed(1) + ',' + p[0][1].toFixed(1);
+				for (i = 0; i < n - 1; i++) {
+					var h = dx[i] / 3;
+					path += 'C' + (p[i][0] + h).toFixed(1) + ',' + (p[i][1] + t[i] * h).toFixed(1) + ' ' + (p[i + 1][0] - h).toFixed(1) + ',' + (p[i + 1][1] - t[i + 1] * h).toFixed(1) + ' ' + p[i + 1][0].toFixed(1) + ',' + p[i + 1][1].toFixed(1);
+				}
+
+				return path;
+			};
+
+			// A bar with 4px rounded corners on the end away from the baseline
+			var barpath = function(x, y0, y1, w) {
+				var up = y1 <= y0;
+				var h = Math.abs(y0 - y1);
+				var r = Math.min(4, w / 2, h);
+				var top = Math.min(y0, y1);
+				var bottom = top + h;
+				if (up)
+					return 'M' + x + ',' + bottom + 'V' + (top + r) + 'Q' + x + ',' + top + ' ' + (x + r) + ',' + top + 'H' + (x + w - r) + 'Q' + (x + w) + ',' + top + ' ' + (x + w) + ',' + (top + r) + 'V' + bottom + 'Z';
+				return 'M' + x + ',' + top + 'V' + (bottom - r) + 'Q' + x + ',' + bottom + ' ' + (x + r) + ',' + bottom + 'H' + (x + w - r) + 'Q' + (x + w) + ',' + bottom + ' ' + (x + w) + ',' + (bottom - r) + 'V' + top + 'Z';
+			};
+
+			var nice = function(min, max, count) {
+				if (max === min) {
+					if (max === 0)
+						max = 1;
+					else if (max > 0)
+						min = 0;
+					else
+						max = 0;
+				}
+				var raw = (max - min) / Math.max(1, count);
+				var step = Math.pow(10, Math.floor(Math.log(raw) / Math.LN10));
+				var err = raw / step;
+				if (err >= 7.5)
+					step *= 10;
+				else if (err >= 3.5)
+					step *= 5;
+				else if (err >= 1.5)
+					step *= 2;
+				// Durations step by round times: 10 s, 30 s, 1 m, 5 m, 1 h...
+				if (config.format === 'duration') {
+					var STEPS = [1, 2, 5, 10, 15, 30, 60, 120, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400];
+					step = STEPS[STEPS.length - 1];
+					for (var si = 0; si < STEPS.length; si++) {
+						if (STEPS[si] >= raw) {
+							step = STEPS[si];
+							break;
+						}
+					}
+				}
+				return { min: Math.floor(min / step) * step, max: Math.ceil(max / step) * step, step: step };
+			};
+
+			var renderlegend = function() {
+				var builder = [];
+				for (var i = 0; i < data.series.length; i++) {
+					var s = data.series[i];
+					builder.push('<button type="button" class="{0}-key" data-index="{1}" aria-pressed="{2}"><span class="{0}-swatch" style="background:{3}"></span><span>{4}</span></button>'.format(cls, i, ishidden(i) ? 'false' : 'true', color(i), esc(s.name || (i + 1))));
+				}
+				els.legend.innerHTML = builder.join('');
+				self.tclass(cls + '-nolegend', !config.legend || data.series.length < 2);
+			};
+
+			var rendertable = function() {
+				var builder = ['<table><caption>' + esc(els.title.textContent.trim()) + '</caption><thead><tr><th scope="col"></th>'];
+				var i, j;
+				for (i = 0; i < data.series.length; i++)
+					builder.push('<th scope="col">' + esc(data.series[i].name || (i + 1)) + '</th>');
+				builder.push('</tr></thead><tbody>');
+				for (j = 0; j < data.n; j++) {
+					builder.push('<tr><th scope="row">' + esc(labeltext(j)) + '</th>');
+					for (i = 0; i < data.series.length; i++)
+						builder.push('<td>' + esc(format(data.series[i].values[j])) + '</td>');
+					builder.push('</tr>');
+				}
+				builder.push('</tbody></table>');
+				els.table.innerHTML = builder.join('');
+			};
+
+			var draw = function() {
+
+				var width = els.body.clientWidth;
+				var height = Math.max(80, config.height || 260);
+
+				els.body.style.height = height + 'px';
+				lastwidth = width;
+
+				var visible = [];
+				for (var v = 0; v < data.series.length; v++)
+					!ishidden(v) && visible.push(v);
+
+				var empty = !data.n || !data.series.length;
+				self.tclass(cls + '-isempty', empty);
+
+				if (!width || empty) {
+					els.svg.innerHTML = '';
+					geo = null;
+					hide();
+					return;
+				}
+
+				var type = TYPES.indexOf(config.type) === -1 ? 'line' : config.type;
+				var isbar = type === 'bar';
+				var stacked = !!config.stacked && type !== 'line';
+				var n = data.n;
+				var lo = [];
+				var hi = [];
+				var min = Infinity;
+				var max = -Infinity;
+				var posacc = [];
+				var negacc = [];
+				var i, j, s, val;
+
+				for (j = 0; j < n; j++) {
+					posacc[j] = 0;
+					negacc[j] = 0;
+				}
+
+				for (i = 0; i < data.series.length; i++) {
+					lo[i] = [];
+					hi[i] = [];
+					var off = visible.indexOf(i) === -1;
+					for (j = 0; j < n; j++) {
+						val = data.series[i].values[j];
+						if (val == null || off) {
+							lo[i][j] = hi[i][j] = null;
+							continue;
+						}
+						if (stacked) {
+							var acc = val >= 0 ? posacc : negacc;
+							lo[i][j] = acc[j];
+							acc[j] += val;
+							hi[i][j] = acc[j];
+						} else {
+							lo[i][j] = 0;
+							hi[i][j] = val;
+						}
+						min = Math.min(min, lo[i][j], hi[i][j]);
+						max = Math.max(max, lo[i][j], hi[i][j]);
+					}
+				}
+
+				if (min === Infinity) {
+					min = 0;
+					max = 1;
+				}
+
+				// The baseline is zero unless the data or the configuration says otherwise
+				min = Math.min(0, min);
+				var cmin = num(config.min);
+				var cmax = num(config.max);
+				if (cmin != null)
+					min = cmin;
+				if (cmax != null)
+					max = cmax;
+
+				var top = 8;
+				var bottom = height - 22;
+				var plotheight = bottom - top;
+				var scale = nice(min, max, Math.max(2, Math.floor(plotheight / 52)));
+
+				if (cmin != null)
+					scale.min = cmin;
+				if (cmax != null)
+					scale.max = cmax;
+
+				var range = scale.max - scale.min || 1;
+				var ticks = [];
+				for (var tv = scale.min; tv <= scale.max + scale.step / 1000; tv += scale.step)
+					ticks.push(+tv.toFixed(10));
+
+				var longest = 0;
+				for (i = 0; i < ticks.length; i++)
+					longest = Math.max(longest, format(ticks[i], true).length);
+
+				var left = Math.round(longest * 6.6 + 10);
+				var right = width - 4;
+				var plotwidth = Math.max(10, right - left);
+				var band = plotwidth / n;
+
+				var y = function(value) {
+					var v = Math.max(scale.min, Math.min(scale.max, value));
+					return bottom - (v - scale.min) / range * plotheight;
+				};
+
+				var x = function(index) {
+					if (isbar || n === 1)
+						return left + band * (index + 0.5);
+					return left + index * (plotwidth / (n - 1));
+				};
+
+				var zero = y(Math.max(scale.min, Math.min(scale.max, 0)));
+				var builder = [];
+
+				// Grid and y axis
+				for (i = 0; i < ticks.length; i++) {
+					var ty = Math.round(y(ticks[i])) + 0.5;
+					if (config.grid && ticks[i] !== 0)
+						builder.push('<line class="{0}-grid" x1="{1}" x2="{2}" y1="{3}" y2="{3}" />'.format(cls, left, right, ty));
+					builder.push('<text class="{0}-axis" x="{1}" y="{2}" text-anchor="end" dy="0.32em">{3}</text>'.format(cls, left - 8, ty, esc(format(ticks[i], true))));
+				}
+
+				builder.push('<line class="{0}-base" x1="{1}" x2="{2}" y1="{3}" y2="{3}" />'.format(cls, left, right, Math.round(zero) + 0.5));
+
+				// X axis: as many labels as fit
+				var xlongest = 0;
+				for (j = 0; j < n; j++)
+					xlongest = Math.max(xlongest, labeltext(j, true).length);
+				var every = Math.max(1, Math.ceil(n / Math.max(1, Math.floor(plotwidth / (xlongest * 6.8 + 24)))));
+				for (j = 0; j < n; j += every) {
+					var anchor = !isbar && n > 1 && j === 0 ? 'start' : !isbar && n > 1 && j === n - 1 ? 'end' : 'middle';
+					builder.push('<text class="{0}-axis" x="{1}" y="{2}" text-anchor="{3}">{4}</text>'.format(cls, x(j).toFixed(1), height - 4, anchor, esc(labeltext(j, true))));
+				}
+
+				if (isbar) {
+
+					var count = stacked ? 1 : Math.max(1, visible.length);
+					var gap = 2;
+					var barwidth = Math.max(1, Math.min(24, (band * 0.72 - gap * (count - 1)) / count));
+					var groupwidth = barwidth * count + gap * (count - 1);
+					var topmost = [];
+
+					// In a stack only the outer segment has rounded corners
+					if (stacked) {
+						for (j = 0; j < n; j++) {
+							topmost[j] = { pos: -1, neg: -1 };
+							for (i = 0; i < visible.length; i++) {
+								val = data.series[visible[i]].values[j];
+								if (val > 0)
+									topmost[j].pos = visible[i];
+								else if (val < 0)
+									topmost[j].neg = visible[i];
+							}
+						}
+					}
+
+					for (i = 0; i < visible.length; i++) {
+						s = visible[i];
+						var paths = [];
+						for (j = 0; j < n; j++) {
+							if (hi[s][j] == null || hi[s][j] === lo[s][j])
+								continue;
+							var bx = x(j) - groupwidth / 2 + (stacked ? 0 : i * (barwidth + gap));
+							var y0 = y(lo[s][j]);
+							var y1 = y(hi[s][j]);
+							if (stacked) {
+								// 2px surface gap between the segments of a stack
+								var outer = data.series[s].values[j] >= 0 ? topmost[j].pos === s : topmost[j].neg === s;
+								if (lo[s][j] !== 0)
+									y0 += y1 < y0 ? -1 : 1;
+								if (!outer)
+									y1 += y1 < y0 ? 1 : -1;
+								if (Math.abs(y0 - y1) < 1)
+									continue;
+								paths.push(outer ? barpath(bx, y0, y1, barwidth) : 'M' + bx + ',' + y0 + 'V' + y1 + 'H' + (bx + barwidth) + 'V' + y0 + 'Z');
+							} else
+								paths.push(barpath(bx, y0, y1, barwidth));
+						}
+						paths.length && builder.push('<path d="{0}" style="fill:{1}" />'.format(paths.join(''), color(s)));
+					}
+
+				} else {
+
+					// Areas first (the bottom series of a stack first), then the lines on top
+					var lines = [];
+
+					for (i = 0; i < visible.length; i++) {
+						s = visible[i];
+						var segments = [];
+						var current = null;
+						for (j = 0; j < n; j++) {
+							if (hi[s][j] == null) {
+								current = null;
+								continue;
+							}
+							if (!current) {
+								current = [];
+								segments.push(current);
+							}
+							current.push(j);
+						}
+
+						for (var g = 0; g < segments.length; g++) {
+							var seg = segments[g];
+							var upper = [];
+							var lower = [];
+							for (var q = 0; q < seg.length; q++) {
+								upper.push([x(seg[q]), y(hi[s][seg[q]])]);
+								lower.unshift([x(seg[q]), y(lo[s][seg[q]])]);
+							}
+							var linepath = curve(upper);
+							if (type === 'area') {
+								var lowerpath = stacked ? curve(lower).replace(/^M/, 'L') : 'L' + upper[upper.length - 1][0].toFixed(1) + ',' + zero.toFixed(1) + 'L' + upper[0][0].toFixed(1) + ',' + zero.toFixed(1);
+								builder.push('<path class="{0}-fill" d="{1}{2}Z" style="fill:{3}" />'.format(cls, linepath, lowerpath, color(s)));
+							}
+							lines.push('<path class="{0}-path" d="{1}" style="stroke:{2}" />'.format(cls, linepath, color(s)));
+							if (config.markers || seg.length === 1) {
+								for (q = 0; q < upper.length; q++)
+									lines.push('<circle class="{0}-marker" cx="{1}" cy="{2}" r="4" style="fill:{3}" />'.format(cls, upper[q][0].toFixed(1), upper[q][1].toFixed(1), color(s)));
+							}
+						}
+					}
+
+					builder.push(lines.join(''));
+				}
+
+				els.svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+				els.svg.setAttribute('height', height);
+				els.svg.innerHTML = builder.join('');
+
+				self.tclass(cls + '-stacked', stacked);
+				self.tclass(cls + '-line', type === 'line');
+
+				geo = { isbar: isbar, n: n, left: left, top: top, bottom: bottom, band: band, plotwidth: plotwidth, x: x, y: y, hi: hi, visible: visible, type: type };
+
+				if (hoverindex != null)
+					show(Math.min(hoverindex, n - 1));
+			};
+
+			var indexat = function(px) {
+				if (!geo)
+					return null;
+				var index = geo.isbar || geo.n === 1 ? Math.floor((px - geo.left) / geo.band) : Math.round((px - geo.left) / (geo.plotwidth / (geo.n - 1)));
+				return Math.max(0, Math.min(geo.n - 1, index));
+			};
+
+			var show = function(index, announce) {
+
+				if (!geo || index == null)
+					return;
+
+				hoverindex = index;
+
+				var cx = geo.x(index);
+				var rows = [];
+				var dots = [];
+				var spoken = [];
+
+				for (var i = 0; i < geo.visible.length; i++) {
+					var s = geo.visible[i];
+					var value = data.series[s].values[index];
+					var name = data.series[s].name || (s + 1) + '';
+					rows.push('<div class="{0}-tip-row"><span class="{0}-swatch" style="background:{1}"></span><span>{2}</span><b>{3}</b></div>'.format(cls, color(s), esc(name), esc(format(value))));
+					spoken.push(name + ' ' + format(value));
+					if (!geo.isbar && geo.hi[s][index] != null)
+						dots.push('<span class="{0}-dot" style="left:{1}px;top:{2}px;background:{3}"></span>'.format(cls, cx.toFixed(1), geo.y(geo.hi[s][index]).toFixed(1), color(s)));
+				}
+
+				var title = labeltext(index);
+
+				els.tip.innerHTML = '<div class="{0}-tip-title">{1}</div>{2}'.format(cls, esc(title), rows.join(''));
+				els.dots.innerHTML = dots.join('');
+
+				if (geo.isbar) {
+					els.cross.className = cls + '-cross ' + cls + '-cross-band';
+					els.cross.style.left = (geo.left + geo.band * index + 1) + 'px';
+					els.cross.style.width = Math.max(1, geo.band - 2) + 'px';
+				} else {
+					els.cross.className = cls + '-cross ' + cls + '-cross-line';
+					els.cross.style.left = Math.round(cx) + 'px';
+					els.cross.style.width = '';
+				}
+
+				els.cross.style.top = geo.top + 'px';
+				els.cross.style.height = (geo.bottom - geo.top) + 'px';
+
+				self.aclass(cls + '-hover');
+
+				// The tooltip goes to the right of the point, or to the left when it does not fit
+				var tipwidth = els.tip.offsetWidth;
+				var width = els.body.clientWidth;
+				var tx = cx + 14;
+				if (tx + tipwidth > width)
+					tx = cx - 14 - tipwidth;
+				tx = Math.max(0, tx);
+				els.tip.style.transform = 'translate(' + Math.round(tx) + 'px,' + (geo.top + 4) + 'px)';
+
+				if (announce)
+					els.live.textContent = title + ': ' + spoken.join(', ');
+			};
+
+			var hide = function() {
+				hoverindex = null;
+				self.rclass(cls + '-hover');
+			};
+
+			var point = function(index) {
+				var values = {};
+				for (var i = 0; i < data.series.length; i++)
+					values[data.series[i].name || i] = data.series[i].values[index];
+				var model = self.get() || {};
+				return { index: index, label: model.labels instanceof Array ? model.labels[index] : index, values: values };
+			};
+
+			var setlabel = function() {
+				els.title.innerHTML = config.label || label;
+				var text = els.title.textContent.trim();
+				self.tclass(cls + '-notitle', !text);
+				text ? els.body.setAttribute('aria-label', text) : els.body.removeAttribute('aria-label');
+			};
+
+			self.make = function() {
+
+				label = self.html().trim();
+
+				self.aclass(cls);
+				self.html(('<div class="{0}-head"><div class="{0}-title"></div><div class="{0}-legend"></div></div>' +
+					'<div class="{0}-body" tabindex="0" role="group"><svg aria-hidden="true" focusable="false"></svg><div class="{0}-cross"></div><div class="{0}-dots"></div><div class="{0}-tip" aria-hidden="true"></div><div class="{0}-nodata"><i class="ti ti-chart-line" aria-hidden="true"></i></div></div>' +
+					'<div class="{0}-sr {0}-table"></div><div class="{0}-sr" aria-live="polite"></div>').format(cls));
+
+				els.title = self.find(cls2 + '-title')[0];
+				els.legend = self.find(cls2 + '-legend')[0];
+				els.body = self.find(cls2 + '-body')[0];
+				els.svg = self.find(cls2 + '-body svg')[0];
+				els.cross = self.find(cls2 + '-cross')[0];
+				els.dots = self.find(cls2 + '-dots')[0];
+				els.tip = self.find(cls2 + '-tip')[0];
+				els.table = self.find(cls2 + '-table')[0];
+				els.live = self.find(cls2 + '-sr[aria-live]')[0];
+
+				prepare();
+
+				self.event('mousemove', cls2 + '-body', function(e) {
+					if (!geo)
+						return;
+					var rect = els.body.getBoundingClientRect();
+					var px = e.clientX - rect.left;
+					var py = e.clientY - rect.top;
+					if (px < geo.left - 4 || py > geo.bottom + 4) {
+						hide();
+						return;
+					}
+					var index = indexat(px);
+					index !== hoverindex && show(index);
+				});
+
+				self.event('mouseleave', cls2 + '-body', function() {
+					document.activeElement !== els.body && hide();
+				});
+
+				self.event('click', cls2 + '-body', function() {
+					hoverindex != null && config.click && self.EXEC(config.click, point(hoverindex), self);
+				});
+
+				self.event('keydown', cls2 + '-body', function(e) {
+					if (!geo)
+						return;
+					var index = hoverindex;
+					switch (e.key) {
+						case 'ArrowRight':
+						case 'ArrowDown':
+							index = index == null ? 0 : Math.min(geo.n - 1, index + 1);
+							break;
+						case 'ArrowLeft':
+						case 'ArrowUp':
+							index = index == null ? geo.n - 1 : Math.max(0, index - 1);
+							break;
+						case 'Home':
+							index = 0;
+							break;
+						case 'End':
+							index = geo.n - 1;
+							break;
+						case 'Escape':
+							hide();
+							return;
+						case 'Enter':
+						case ' ':
+							e.preventDefault();
+							index != null && config.click && self.EXEC(config.click, point(index), self);
+							return;
+						default:
+							return;
+					}
+					e.preventDefault();
+					show(index, true);
+				});
+
+				self.event('blur', cls2 + '-body', hide);
+
+				self.event('click', cls2 + '-key', function() {
+					var index = +this.getAttribute('data-index');
+					var s = data.series[index];
+					if (!s)
+						return;
+					var key = s.name || index;
+					if (hidden[key])
+						delete hidden[key];
+					else
+						hidden[key] = 1;
+					this.setAttribute('aria-pressed', hidden[key] ? 'false' : 'true');
+					draw();
+				});
+
+				if (window.ResizeObserver) {
+					observer = new ResizeObserver(function() {
+						if (els.body.clientWidth !== lastwidth)
+							setTimeout2(self.ID + 'resize', draw, 60);
+					});
+					observer.observe(els.body);
+				}
+			};
+
+			self.resize = function() {
+				setTimeout2(self.ID + 'resize', draw, 100);
+			};
+
+			self.configure = function(key, value, init) {
+				switch (key) {
+					case 'label':
+						setlabel();
+						!init && rendertable();
+						break;
+					case 'style':
+						self.tclass(cls + '-minimal', value === 'minimal');
+						break;
+					case 'click':
+						self.tclass(cls + '-clickable', !!value);
+						break;
+					case 'legend':
+						!init && renderlegend();
+						break;
+					case 'format':
+					case 'decimals':
+					case 'compact':
+					case 'currency':
+					case 'locale':
+					case 'dates':
+						if (!init) {
+							prepare();
+							data.dates && dateformats();
+							rendertable();
+							draw();
+						}
+						break;
+					case 'type':
+					case 'height':
+					case 'stacked':
+					case 'curve':
+					case 'markers':
+					case 'grid':
+					case 'min':
+					case 'max':
+						!init && draw();
+						break;
+				}
+			};
+
+			self.setter = function(value) {
+				parse(value);
+				renderlegend();
+				rendertable();
+				draw();
+			};
+
+			self.destroy = function() {
+				observer && observer.disconnect();
+				clearTimeout2(self.ID + 'resize');
+			};
+
+		});
+
+	</script>
+
+	<div style="max-width:960px;padding:12px;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr))">
+
+		<ui-component name="timechart" path="charts.live" config="type:area;height:160">Visitors now</ui-component>
+
+		<ui-component name="timechart" path="charts.weekdays" config="type:bar;height:200">Visits by weekday</ui-component>
+
+		<div style="grid-column:1/-1">
+			<ui-component name="timechart" path="charts.month" config="type:area;height:220;click:onchartclick">Visits in the last 30 days</ui-component>
+		</div>
+
+		<ui-component name="timechart" path="charts.sources" config="type:bar;stacked:true;height:220">Traffic sources</ui-component>
+
+		<ui-component name="timechart" path="charts.duration" config="type:line;format:duration;markers:true;curve:false;height:220">Average time on page</ui-component>
+
+		<ui-component name="timechart" path="charts.year" config="type:line;style:minimal;height:200;compact:true">Visits this year</ui-component>
+
+		<ui-component name="timechart" path="charts.empty" config="height:160">No data yet</ui-component>
+
+	</div>
+
+	<script>
+
+		var days = function(count) {
+			var arr = [];
+			var now = new Date();
+			now.setHours(0, 0, 0, 0);
+			for (var i = count - 1; i >= 0; i--)
+				arr.push(new Date(now.getTime() - i * 86400000));
+			return arr;
+		};
+
+		var wave = function(count, base, amp, seed) {
+			var arr = [];
+			for (var i = 0; i < count; i++)
+				arr.push(Math.round(base + Math.sin((i + seed) / 2.2) * amp + (i * base / 120) + ((i * 37 + seed * 11) % 17) * amp / 40));
+			return arr;
+		};
+
+		SET('charts.month', { labels: days(30), series: [{ name: 'Visitors', data: wave(30, 1200, 260, 1) }, { name: 'Page views', data: wave(30, 3100, 520, 4) }, { name: 'AI agents', data: wave(30, 380, 90, 7) }] });
+
+		SET('charts.weekdays', { labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], series: [{ name: 'This week', data: [1420, 1610, 1580, 1720, 1490, 860, 790] }, { name: 'Last week', data: [1310, 1500, 1620, 1540, 1380, 910, 720] }] });
+
+		SET('charts.sources', { labels: days(10), series: [{ name: 'Search', data: wave(10, 620, 80, 2) }, { name: 'Direct', data: wave(10, 340, 60, 5) }, { name: 'Social', data: wave(10, 180, 50, 8) }, { name: 'AI agents', data: wave(10, 120, 40, 3) }] });
+
+		SET('charts.duration', { labels: days(14), series: [{ name: 'Average time', data: wave(14, 170, 25, 3) }] });
+
+		var months = [];
+		for (var m = 0; m < 11; m++)
+			months.push(new Date(2026, m, 1));
+		SET('charts.year', { labels: months, series: [{ name: 'Visits', data: [28400, 31200, 35800, 33100, 39900, 42300, 40100, 38600, 45200, 49800, 52100] }] });
+
+		SET('charts.empty', null);
+
+		// Real time: one point per second, the last 60 seconds
+		var livelabels = [];
+		var livedata = [];
+		for (var i = 59; i >= 0; i--) {
+			livelabels.push(new Date(Date.now() - i * 1000));
+			livedata.push(40 + Math.round(Math.sin(i / 6) * 8 + Math.random() * 6));
+		}
+		SET('charts.live', { labels: livelabels, series: [{ name: 'Visitors', data: livedata }] });
+
+		setInterval(function() {
+			livelabels = livelabels.slice(1);
+			livedata = livedata.slice(1);
+			livelabels.push(new Date());
+			livedata.push(Math.max(0, livedata[livedata.length - 1] + Math.round(Math.random() * 8 - 4)));
+			SET('charts.live', { labels: livelabels, series: [{ name: 'Visitors', data: livedata }] });
+		}, 1000);
+
+		function onchartclick(point, component) {
+			// e.g. open the detail of the day: point.index, point.label, point.values
+		}
+
+	</script>
+
+</body>
+</html>

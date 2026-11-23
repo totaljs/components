@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<style component>
+
+		/* Node colours: slot 1 is the primary colour of the app, the rest is a colour-blind safe palette in a fixed order */
+		.ui-flowchart { --fc1: var(--color); --fc2: #EB6834; --fc3: #1BAF7A; --fc4: #EDA100; --fc5: #E87BA4; --fc6: #008300; --fc7: #6250D6; --fc8: #E34948; --fcnode: #8A8A8A; --fcbg: #FFF; box-sizing: border-box; min-width: 0; padding: 16px 18px; border: 1px solid #E3E3E3; border-radius: var(--radius); background: #FFF; color: #1F1F1F; font-size: 13px; }
+		.ui-flowchart-minimal { padding: 0; border-color: transparent; background: transparent; }
+		.ui-flowchart-title { margin-bottom: 12px; font-weight: 600; font-size: 14px; }
+		.ui-flowchart-notitle .ui-flowchart-title { display: none; }
+		.ui-flowchart-body { position: relative; outline: none; border-radius: 4px; }
+		.ui-flowchart-body:focus-visible { box-shadow: 0 0 0 2px var(--color); }
+		.ui-flowchart-body svg { display: block; width: 100%; overflow: visible; }
+		.ui-flowchart-link { fill-opacity: .28; transition: fill-opacity .15s; }
+		.ui-flowchart-node { rx: 2px; }
+		/* A halo of the background keeps the labels readable over the bands */
+		.ui-flowchart-label { fill: #1F1F1F; font-size: 12px; font-weight: 600; pointer-events: none; paint-order: stroke; stroke: var(--fcbg); stroke-width: 3px; stroke-linejoin: round; }
+		.ui-flowchart-label tspan { fill: #5E5E5E; font-weight: normal; font-variant-numeric: tabular-nums; }
+		.ui-flowchart-active .ui-flowchart-link { fill-opacity: .1; }
+		.ui-flowchart-active .ui-flowchart-link.ui-flowchart-on { fill-opacity: .6; }
+		.ui-flowchart-active .ui-flowchart-node { opacity: .4; }
+		.ui-flowchart-active .ui-flowchart-node.ui-flowchart-on { opacity: 1; }
+		.ui-flowchart-clickable .ui-flowchart-node { cursor: pointer; }
+		.ui-flowchart-tip { position: absolute; top: 0; left: 0; z-index: 5; display: none; max-width: 280px; padding: 7px 10px; border-radius: 8px; background: #1F1F1F; color: #FFF; font-size: 12px; box-shadow: 0 6px 20px rgba(0, 0, 0, .18); pointer-events: none; }
+		.ui-flowchart-hover .ui-flowchart-tip { display: block; }
+		.ui-flowchart-tip div { color: rgba(255, 255, 255, .75); white-space: nowrap; }
+		.ui-flowchart-tip b { white-space: nowrap; }
+		.ui-flowchart-nodata { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; color: #8A8A8A; }
+		.ui-flowchart-nodata i { font-size: 22px; opacity: .6; }
+		.ui-flowchart-isempty .ui-flowchart-nodata { display: flex; }
+		.ui-flowchart-sr { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+		@media (prefers-reduced-motion: reduce) {
+			.ui-flowchart-link { transition: none; }
+		}
+
+		.ui-dark .ui-flowchart { --fc2: #D95926; --fc3: #199E70; --fc4: #C98500; --fc5: #D55181; --fc6: #0CA30C; --fc7: #9085E9; --fc8: #E66767; --fcnode: #8A8A8A; --fcbg: #252525; border-color: #3A3A3A; background: #252525; color: #EDEDED; }
+		.ui-dark .ui-flowchart-minimal { --fcbg: #1A1A1A; border-color: transparent; background: transparent; }
+		.ui-dark .ui-flowchart-link { fill-opacity: .38; }
+		.ui-dark .ui-flowchart-active .ui-flowchart-link { fill-opacity: .12; }
+		.ui-dark .ui-flowchart-active .ui-flowchart-link.ui-flowchart-on { fill-opacity: .7; }
+		.ui-dark .ui-flowchart-label { fill: #EDEDED; }
+		.ui-dark .ui-flowchart-label tspan { fill: #ABABAB; }
+		.ui-dark .ui-flowchart-tip { background: #F2F2F2; color: #1F1F1F; box-shadow: 0 6px 20px rgba(0, 0, 0, .5); }
+		.ui-dark .ui-flowchart-tip div { color: #5E5E5E; }
+
+		@media (forced-colors: active) {
+			.ui-flowchart { border: 1px solid CanvasText; }
+			.ui-flowchart-tip { border: 1px solid CanvasText; }
+		}
+
+	</style>
+
+	<script component>
+
+		COMPONENT('flowchart', 'label:;style:card;height:320;nodewidth:12;gap:12;format:number;decimals:0;compact:true;currency:EUR;locale:;click:', function(self, config, cls) {
+
+			var cls2 = '.' + cls;
+			var els = {};
+			var nodes = [];
+			var links = [];
+			var order = [];
+			var cursor = -1;
+			var label = '';
+			var fmt = {};
+			var observer = null;
+			var lastwidth = 0;
+
+			var esc = function(value) {
+				return (value == null ? '' : value + '').replace(/[&<>"']/g, function(c) {
+					return c === '&' ? '&amp;' : c === '<' ? '&lt;' : c === '>' ? '&gt;' : c === '"' ? '&quot;' : '&#39;';
+				});
+			};
+
+			var locale = function() {
+				return config.locale || document.documentElement.lang || undefined;
+			};
+
+			var nf = function(options) {
+				try {
+					return new Intl.NumberFormat(locale(), options);
+				} catch (e) {
+					return new Intl.NumberFormat(undefined, options);
+				}
+			};
+
+			var prepare = function() {
+				var decimals = Math.max(0, config.decimals || 0);
+				var opt = { minimumFractionDigits: 0, maximumFractionDigits: decimals };
+				var copt = { notation: 'compact', maximumFractionDigits: 1 };
+				if (config.format === 'currency') {
+					opt.style = copt.style = 'currency';
+					opt.currency = copt.currency = config.currency || 'EUR';
+				}
+				fmt.full = nf(opt);
+				fmt.compact = config.compact ? nf(copt) : null;
+				fmt.share = nf({ style: 'percent', maximumFractionDigits: 1 });
+			};
+
+			var format = function(n) {
+				return (fmt.compact && Math.abs(n) >= 10000 ? fmt.compact : fmt.full).format(n);
+			};
+
+			var num = function(value) {
+				if (value == null || value === '')
+					return null;
+				value = typeof value === 'number' ? value : +value;
+				return isFinite(value) && value > 0 ? value : null;
+			};
+
+			// { nodes: [{ id, name, color }], links: [{ source, target, value }] }; nodes are optional, the ids of the links name them
+			var parse = function(value) {
+
+				var src = value || {};
+				var list = src.links instanceof Array ? src.links : src instanceof Array ? src : [];
+				var byid = {};
+				nodes = [];
+				links = [];
+
+				var get = function(id) {
+					id = id + '';
+					if (!byid[id]) {
+						byid[id] = { id: id, name: id, color: '', index: nodes.length, inputs: [], outputs: [], value: 0, item: null };
+						nodes.push(byid[id]);
+					}
+					return byid[id];
+				};
+
+				if (src.nodes instanceof Array) {
+					for (var n = 0; n < src.nodes.length; n++) {
+						var item = src.nodes[n] || {};
+						if (item.id == null)
+							continue;
+						var node = get(item.id);
+						node.name = item.name == null ? node.id : item.name + '';
+						node.color = (/^#[0-9a-f]{3,8}$/i).test(item.color || '') ? item.color : '';
+						node.item = item;
+					}
+				}
+
+				for (var i = 0; i < list.length; i++) {
+					var l = list[i] || {};
+					var v = num(l.value);
+					if (v == null || l.source == null || l.target == null || l.source + '' === l.target + '')
+						continue;
+					var link = { source: get(l.source), target: get(l.target), value: v, item: l };
+					links.push(link);
+					link.source.outputs.push(link);
+					link.target.inputs.push(link);
+				}
+
+				// Nodes without links are left out
+				nodes = nodes.filter(function(node) {
+					return node.inputs.length || node.outputs.length;
+				});
+
+				for (var k = 0; k < nodes.length; k++) {
+					var inv = 0;
+					var outv = 0;
+					nodes[k].inputs.forEach(function(x) {
+						inv += x.value;
+					});
+					nodes[k].outputs.forEach(function(x) {
+						outv += x.value;
+					});
+					nodes[k].value = Math.max(inv, outv);
+					nodes[k].invalue = inv;
+					nodes[k].outvalue = outv;
+					nodes[k].slot = k;
+				}
+			};
+
+			// Columns: a node goes one column after the deepest node that sends to it (links back in a loop are ignored)
+			var columns = function() {
+				var depth = {};
+				var visiting = {};
+				var walk = function(node) {
+					if (depth[node.id] != null)
+						return depth[node.id];
+					if (visiting[node.id])
+						return 0;
+					visiting[node.id] = true;
+					var d = 0;
+					for (var i = 0; i < node.inputs.length; i++)
+						d = Math.max(d, walk(node.inputs[i].source) + 1);
+					visiting[node.id] = false;
+					depth[node.id] = d;
+					return d;
+				};
+				var max = 0;
+				for (var i = 0; i < nodes.length; i++) {
+					nodes[i].column = walk(nodes[i]);
+					max = Math.max(max, nodes[i].column);
+				}
+				// Nodes without outputs go to the last column, so the ends line up
+				for (var j = 0; j < nodes.length; j++) {
+					if (!nodes[j].outputs.length && nodes[j].inputs.length)
+						nodes[j].column = max;
+				}
+				var cols = [];
+				for (var c = 0; c <= max; c++)
+					cols.push([]);
+				for (var k = 0; k < nodes.length; k++)
+					cols[nodes[k].column].push(nodes[k]);
+				return cols;
+			};
+
+			var layout = function(width, height) {
+
+				var cols = columns();
+				var nw = Math.max(4, config.nodewidth || 12);
+				var gap = Math.max(2, config.gap || 12);
+				var labelspace = Math.min(140, Math.max(70, width * 0.16));
+				var left = 0;
+				var right = width - nw - (cols.length > 1 ? 0 : labelspace);
+				var top = 2;
+				var bottom = height - 2;
+
+				// The scale fits the fullest column
+				var ky = Infinity;
+				for (var c = 0; c < cols.length; c++) {
+					var sum = 0;
+					for (var n = 0; n < cols[c].length; n++)
+						sum += cols[c][n].value;
+					if (sum)
+						ky = Math.min(ky, (bottom - top - gap * (cols[c].length - 1)) / sum);
+				}
+				if (!isFinite(ky) || ky <= 0)
+					ky = 1;
+
+				var place = function(col) {
+					var y = top;
+					for (var i = 0; i < col.length; i++) {
+						col[i].y0 = y;
+						col[i].y1 = y + Math.max(1, col[i].value * ky);
+						y = col[i].y1 + gap;
+					}
+					// Centre the column vertically
+					var shift = (bottom - (y - gap)) / 2;
+					for (var j = 0; j < col.length; j++) {
+						col[j].y0 += shift;
+						col[j].y1 += shift;
+					}
+				};
+
+				for (c = 0; c < cols.length; c++) {
+					var x = cols.length > 1 ? left + (right - left) * c / (cols.length - 1) : left;
+					for (n = 0; n < cols[c].length; n++) {
+						cols[c][n].x0 = x;
+						cols[c][n].x1 = x + nw;
+					}
+					cols[c].sort(function(a, b) {
+						return b.value - a.value;
+					});
+					place(cols[c]);
+				}
+
+				// A few passes that order every column by the centre of its sources, so the bands cross less
+				var centre = function(node) {
+					var sum = 0;
+					var weight = 0;
+					for (var i = 0; i < node.inputs.length; i++) {
+						var s = node.inputs[i].source;
+						sum += (s.y0 + s.y1) / 2 * node.inputs[i].value;
+						weight += node.inputs[i].value;
+					}
+					return weight ? sum / weight : (node.y0 + node.y1) / 2;
+				};
+				for (var pass = 0; pass < 3; pass++) {
+					for (c = 1; c < cols.length; c++) {
+						cols[c].sort(function(a, b) {
+							return centre(a) - centre(b);
+						});
+						place(cols[c]);
+					}
+				}
+
+				// The bands leave and enter every node in the order of the other end, top to bottom
+				for (var k = 0; k < nodes.length; k++) {
+					var node = nodes[k];
+					node.outputs.sort(function(a, b) {
+						return a.target.y0 - b.target.y0;
+					});
+					node.inputs.sort(function(a, b) {
+						return a.source.y0 - b.source.y0;
+					});
+					var sy = node.y0;
+					for (var o = 0; o < node.outputs.length; o++) {
+						node.outputs[o].sy0 = sy;
+						sy += node.outputs[o].value * ky;
+						node.outputs[o].sy1 = sy;
+					}
+					var ty = node.y0;
+					for (var p = 0; p < node.inputs.length; p++) {
+						node.inputs[p].ty0 = ty;
+						ty += node.inputs[p].value * ky;
+						node.inputs[p].ty1 = ty;
+					}
+				}
+
+				return cols;
+			};
+
+			var color = function(node) {
+				return node.color || 'var(--fc' + ((node.slot % 8) + 1) + ')';
+			};
+
+			var band = function(l) {
+				var x0 = l.source.x1;
+				var x1 = l.target.x0;
+				var xm = (x0 + x1) / 2;
+				return 'M{0},{1}C{2},{1} {3},{4} {5},{4}L{5},{6}C{3},{6} {2},{7} {0},{7}Z'.format(x0.toFixed(1), l.sy0.toFixed(1), xm.toFixed(1), xm.toFixed(1), l.ty0.toFixed(1), x1.toFixed(1), l.ty1.toFixed(1), l.sy1.toFixed(1));
+			};
+
+			var draw = function() {
+
+				var width = els.body.clientWidth;
+				var height = Math.max(120, config.height || 320);
+				lastwidth = width;
+				els.body.style.height = height + 'px';
+				self.tclass(cls + '-isempty', !links.length);
+
+				if (!width || !links.length) {
+					els.svg.innerHTML = '';
+					order = [];
+					return;
+				}
+
+				var cols = layout(width, height);
+				var b = [];
+				var i;
+
+				for (i = 0; i < links.length; i++)
+					b.push('<path class="{0}-link" data-link="{1}" d="{2}" style="fill:{3}" />'.format(cls, i, band(links[i]), color(links[i].source)));
+
+				// Columns close to each other show only the names (the values stay in the tooltip and the table)
+				var spacing = cols.length > 1 ? (width - Math.max(4, config.nodewidth || 12)) / (cols.length - 1) : width;
+				var short = spacing < 120;
+
+				order = [];
+				for (var c = 0; c < cols.length; c++) {
+					for (var n = 0; n < cols[c].length; n++) {
+						var node = cols[c][n];
+						order.push(node);
+						var last = c === cols.length - 1 && cols.length > 1;
+						var lx = last ? node.x0 - 6 : node.x1 + 6;
+						var ly = (node.y0 + node.y1) / 2;
+						b.push('<rect class="{0}-node" data-node="{1}" x="{2}" y="{3}" width="{4}" height="{5}" style="fill:{6}" />'.format(cls, nodes.indexOf(node), node.x0.toFixed(1), node.y0.toFixed(1), (node.x1 - node.x0).toFixed(1), Math.max(1, node.y1 - node.y0).toFixed(1), color(node)));
+						// Labels of tiny nodes would overlap: only the name is shown when there is room
+						if (node.y1 - node.y0 >= 10 || cols[c].length <= 6)
+							b.push('<text class="{0}-label" x="{1}" y="{2}" dy="0.35em" text-anchor="{3}">{4}{5}</text>'.format(cls, lx.toFixed(1), ly.toFixed(1), last ? 'end' : 'start', esc(node.name), short ? '' : ' <tspan>' + esc(format(node.value)) + '</tspan>'));
+					}
+				}
+
+				els.svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+				els.svg.setAttribute('height', height);
+				els.svg.innerHTML = b.join('');
+
+				// A table for screen readers with every flow
+				var rows = links.map(function(l) {
+					return '<tr><td>{0}</td><td>{1}</td><td>{2}</td></tr>'.format(esc(l.source.name), esc(l.target.name), esc(format(l.value)));
+				});
+				els.table.innerHTML = '<table><caption>{0}</caption><tbody>{1}</tbody></table>'.format(esc(els.title.textContent.trim()), rows.join(''));
+
+				cursor !== -1 && cursor < order.length && shownode(order[cursor], null, false);
+			};
+
+			var highlight = function(nodelist, linklist) {
+				var old = els.svg.querySelectorAll(cls2 + '-on');
+				for (var i = 0; i < old.length; i++)
+					old[i].classList.remove(cls + '-on');
+				for (var n = 0; n < nodelist.length; n++) {
+					var el = els.svg.querySelector('[data-node="' + nodes.indexOf(nodelist[n]) + '"]');
+					el && el.classList.add(cls + '-on');
+				}
+				for (var l = 0; l < linklist.length; l++) {
+					var path = els.svg.querySelector('[data-link="' + links.indexOf(linklist[l]) + '"]');
+					path && path.classList.add(cls + '-on');
+				}
+				self.aclass(cls + '-active');
+			};
+
+			var tip = function(html, x, y) {
+				els.tip.innerHTML = html;
+				self.aclass(cls + '-hover');
+				var w = els.body.clientWidth;
+				var tw = els.tip.offsetWidth;
+				var th = els.tip.offsetHeight;
+				var tx = x + 12 + tw > w ? x - 12 - tw : x + 12;
+				var ty = Math.max(0, Math.min(els.body.clientHeight - th, y - th / 2));
+				els.tip.style.transform = 'translate(' + Math.round(Math.max(0, tx)) + 'px,' + Math.round(ty) + 'px)';
+			};
+
+			var describe = function(node) {
+				var parts = [node.name + ': ' + format(node.value)];
+				if (node.inputs.length)
+					parts.push(node.inputs.map(function(l) {
+						return '← ' + l.source.name + ' ' + format(l.value);
+					}).join(', '));
+				if (node.outputs.length)
+					parts.push(node.outputs.map(function(l) {
+						return '→ ' + l.target.name + ' ' + format(l.value);
+					}).join(', '));
+				return parts;
+			};
+
+			var shownode = function(node, point, announce) {
+				highlight([node], node.inputs.concat(node.outputs));
+				var rows = [];
+				var top = node.outputs.slice(0).sort(function(a, b) {
+					return b.value - a.value;
+				}).slice(0, 5);
+				for (var i = 0; i < top.length; i++)
+					rows.push('<div>→ {0}: {1} ({2})</div>'.format(esc(top[i].target.name), esc(format(top[i].value)), esc(fmt.share.format(node.outvalue ? top[i].value / node.outvalue : 0))));
+				var x = point ? point.x : node.x1;
+				var y = point ? point.y : (node.y0 + node.y1) / 2;
+				tip('<b>{0}</b> · {1}{2}'.format(esc(node.name), esc(format(node.value)), rows.join('')), x, y);
+				if (announce)
+					els.live.textContent = describe(node).join('. ');
+			};
+
+			var showlink = function(l, point) {
+				highlight([l.source, l.target], [l]);
+				tip('<div>{0} → {1}</div><b>{2}</b> · {3}'.format(esc(l.source.name), esc(l.target.name), esc(format(l.value)), esc(fmt.share.format(l.source.outvalue ? l.value / l.source.outvalue : 0))), point.x, point.y);
+			};
+
+			var hide = function() {
+				var old = els.svg.querySelectorAll(cls2 + '-on');
+				for (var i = 0; i < old.length; i++)
+					old[i].classList.remove(cls + '-on');
+				self.rclass(cls + '-active');
+				self.rclass(cls + '-hover');
+			};
+
+			var run = function(node) {
+				node && config.click && self.EXEC(config.click, { id: node.id, name: node.name, value: node.value, inputs: node.invalue, outputs: node.outvalue, item: node.item }, self);
+			};
+
+			self.make = function() {
+
+				label = self.html().trim();
+				self.aclass(cls);
+				self.html(('<div class="{0}-title"></div><div class="{0}-body" tabindex="0" role="group"><svg aria-hidden="true" focusable="false"></svg><div class="{0}-tip" aria-hidden="true"></div><div class="{0}-nodata"><i class="ti ti-project-diagram" aria-hidden="true"></i></div></div>' +
+					'<div class="{0}-sr {0}-table"></div><div class="{0}-sr" aria-live="polite"></div>').format(cls));
+
+				els.title = self.find(cls2 + '-title')[0];
+				els.body = self.find(cls2 + '-body')[0];
+				els.svg = self.find(cls2 + '-body svg')[0];
+				els.tip = self.find(cls2 + '-tip')[0];
+				els.table = self.find(cls2 + '-table')[0];
+				els.live = self.find(cls2 + '-sr[aria-live]')[0];
+
+				prepare();
+
+				self.event('mousemove', cls2 + '-body', function(e) {
+					var rect = els.body.getBoundingClientRect();
+					var point = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+					var t = e.target;
+					if (t.hasAttribute && t.hasAttribute('data-node')) {
+						cursor = -1;
+						shownode(nodes[+t.getAttribute('data-node')], point);
+					} else if (t.hasAttribute && t.hasAttribute('data-link'))
+						showlink(links[+t.getAttribute('data-link')], point);
+					else
+						hide();
+				});
+
+				self.event('mouseleave', cls2 + '-body', function() {
+					document.activeElement !== els.body && hide();
+				});
+
+				self.event('click', cls2 + '-node', function() {
+					run(nodes[+this.getAttribute('data-node')]);
+				});
+
+				// The keyboard goes through the nodes column by column
+				self.event('keydown', cls2 + '-body', function(e) {
+					if (!order.length)
+						return;
+					switch (e.key) {
+						case 'ArrowRight':
+						case 'ArrowDown':
+							cursor = Math.min(order.length - 1, cursor + 1);
+							break;
+						case 'ArrowLeft':
+						case 'ArrowUp':
+							cursor = Math.max(0, cursor - 1);
+							break;
+						case 'Home':
+							cursor = 0;
+							break;
+						case 'End':
+							cursor = order.length - 1;
+							break;
+						case 'Enter':
+						case ' ':
+							e.preventDefault();
+							cursor !== -1 && run(order[cursor]);
+							return;
+						case 'Escape':
+							cursor = -1;
+							hide();
+							return;
+						default:
+							return;
+					}
+					e.preventDefault();
+					shownode(order[cursor], null, true);
+				});
+
+				self.event('blur', cls2 + '-body', function() {
+					cursor = -1;
+					hide();
+				});
+
+				if (window.ResizeObserver) {
+					observer = new ResizeObserver(function() {
+						els.body.clientWidth !== lastwidth && setTimeout2(self.ID + 'resize', draw, 60);
+					});
+					observer.observe(els.body);
+				}
+			};
+
+			self.configure = function(key, value, init) {
+				switch (key) {
+					case 'label':
+						els.title.innerHTML = value || label;
+						var text = els.title.textContent.trim();
+						self.tclass(cls + '-notitle', !text);
+						text ? els.body.setAttribute('aria-label', text) : els.body.removeAttribute('aria-label');
+						!init && draw();
+						break;
+					case 'style':
+						self.tclass(cls + '-minimal', value === 'minimal');
+						break;
+					case 'click':
+						self.tclass(cls + '-clickable', !!value);
+						break;
+					case 'height':
+					case 'nodewidth':
+					case 'gap':
+						!init && draw();
+						break;
+					case 'format':
+					case 'decimals':
+					case 'compact':
+					case 'currency':
+					case 'locale':
+						if (!init) {
+							prepare();
+							draw();
+						}
+						break;
+				}
+			};
+
+			self.setter = function(value) {
+				parse(value);
+				draw();
+			};
+
+			self.destroy = function() {
+				observer && observer.disconnect();
+				clearTimeout2(self.ID + 'resize');
+			};
+
+		});
+
+	</script>
+
+	<div style="max-width:960px;padding:12px;display:grid;gap:16px">
+
+		<ui-component name="flowchart" path="flow.paths" config="height:170;gap:8;click:onnodeclick">From the source to the purchase</ui-component>
+
+		<ui-component name="flowchart" path="flow.agents" config="height:300">How AI agents move through the site</ui-component>
+
+		<ui-component name="flowchart" path="flow.empty" config="height:140">No data yet</ui-component>
+
+	</div>
+
+	<script>
+
+		SET('flow.paths', { links: [
+			{ source: 'Search', target: 'Home', value: 9200 },
+			{ source: 'Search', target: 'Blog', value: 7400 },
+			{ source: 'Direct', target: 'Home', value: 6100 },
+			{ source: 'Social', target: 'Blog', value: 3200 },
+			{ source: 'AI agents', target: 'Home', value: 2100 },
+			{ source: 'AI agents', target: 'Blog', value: 900 },
+			{ source: 'Home', target: 'Purchase', value: 860 },
+			{ source: 'Home', target: 'Exit', value: 16540 },
+			{ source: 'Blog', target: 'Purchase', value: 320 },
+			{ source: 'Blog', target: 'Exit', value: 11180 }
+		] });
+
+		SET('flow.agents', {
+			nodes: [{ id: 'gpt', name: 'ChatGPT' }, { id: 'claude', name: 'Claude' }, { id: 'pplx', name: 'Perplexity' }, { id: 'llms', name: '/llms.txt' }, { id: 'mcp', name: 'MCP server' }, { id: 'html', name: 'HTML pages' }, { id: 'docs', name: 'Docs' }, { id: 'checkout', name: 'Checkout' }, { id: 'answer', name: 'Answered' }],
+			links: [
+				{ source: 'gpt', target: 'llms', value: 900 }, { source: 'gpt', target: 'html', value: 1400 }, { source: 'gpt', target: 'mcp', value: 600 },
+				{ source: 'claude', target: 'mcp', value: 800 }, { source: 'claude', target: 'llms', value: 350 }, { source: 'claude', target: 'html', value: 300 },
+				{ source: 'pplx', target: 'html', value: 700 }, { source: 'pplx', target: 'llms', value: 120 },
+				{ source: 'llms', target: 'docs', value: 1100 }, { source: 'llms', target: 'answer', value: 270 },
+				{ source: 'mcp', target: 'checkout', value: 380 }, { source: 'mcp', target: 'docs', value: 520 }, { source: 'mcp', target: 'answer', value: 500 },
+				{ source: 'html', target: 'answer', value: 1900 }, { source: 'html', target: 'docs', value: 500 },
+				{ source: 'docs', target: 'answer', value: 2120 }
+			]
+		});
+
+		SET('flow.empty', null);
+
+		function onnodeclick(node, component) {
+			// e.g. filter the dashboard by the page: node.id, node.name
+		}
+
+	</script>
+
+</body>
+</html>

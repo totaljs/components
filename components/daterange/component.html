@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<style component>
+
+		.ui-daterange { position: relative; display: inline-block; max-width: 100%; font-size: 13px; color: #1F1F1F; }
+		.ui-daterange-toggle { display: inline-flex; align-items: center; gap: 8px; max-width: 100%; min-height: 36px; padding: 0 12px; border: 1px solid #DCDCDC; border-radius: var(--radius); background: #FFF; color: inherit; font: inherit; cursor: pointer; }
+		.ui-daterange-toggle:hover { border-color: rgba(var(--rgb), .6); }
+		.ui-daterange-toggle:focus-visible { outline: 2px solid var(--color); outline-offset: 2px; }
+		.ui-daterange-toggle > i { color: var(--color); }
+		.ui-daterange-toggle b { font-weight: 600; white-space: nowrap; }
+		.ui-daterange-toggle span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #5E5E5E; }
+		.ui-daterange-toggle .ui-daterange-caret { color: #8A8A8A; font-size: 11px; transition: transform .15s; }
+		.ui-daterange-open .ui-daterange-caret { transform: rotate(180deg); }
+		.ui-daterange.ui-disabled .ui-daterange-toggle { opacity: .5; cursor: not-allowed; }
+
+		.ui-daterange-panel { position: absolute; top: calc(100% + 6px); left: 0; z-index: 50; display: none; gap: 4px; padding: 10px; border: 1px solid #E3E3E3; border-radius: 12px; background: #FFF; box-shadow: 0 12px 32px rgba(0, 0, 0, .14); }
+		.ui-daterange-right .ui-daterange-panel { left: auto; right: 0; }
+		.ui-daterange-open .ui-daterange-panel { display: flex; }
+
+		/* Inline: the panel is always visible, without the button */
+		.ui-daterange-inline { display: block; }
+		.ui-daterange-inline .ui-daterange-toggle { display: none; }
+		.ui-daterange-inline .ui-daterange-panel { position: static; display: flex; width: fit-content; max-width: 100%; box-sizing: border-box; box-shadow: none; }
+		.ui-daterange-nopresets .ui-daterange-presets { display: none; }
+		.ui-daterange-nopresets .ui-daterange-calendar { padding-left: 0; }
+		.ui-daterange.ui-disabled .ui-daterange-panel { opacity: .5; pointer-events: none; }
+		@media (max-width: 520px) {
+			.ui-daterange-inline { width: 100%; }
+			.ui-daterange-inline .ui-daterange-panel { width: 100%; padding: 8px; }
+			.ui-daterange-inline .ui-daterange-nav { margin-bottom: 2px; }
+			.ui-daterange-inline .ui-daterange-nav button { height: 28px; }
+			.ui-daterange-inline .ui-daterange-calendar { width: 100%; }
+			.ui-daterange-inline .ui-daterange-grid { width: 100%; }
+			.ui-daterange-inline .ui-daterange-grid th { width: auto; height: 22px; }
+			.ui-daterange-inline .ui-daterange-day { width: 100%; height: 28px; }
+		}
+		.ui-daterange-presets { display: flex; flex-direction: column; gap: 2px; min-width: 150px; padding-right: 10px; border-right: 1px solid #EDEDED; }
+		.ui-daterange-preset { display: flex; align-items: center; gap: 8px; min-height: 32px; padding: 0 10px; border: 0; border-radius: 6px; background: transparent; color: inherit; font: inherit; text-align: left; white-space: nowrap; cursor: pointer; }
+		.ui-daterange-preset:hover { background: rgba(0, 0, 0, .05); }
+		.ui-daterange-preset:focus-visible { outline: 2px solid var(--color); outline-offset: -2px; }
+		.ui-daterange-preset i { width: 14px; font-size: 11px; color: var(--color); visibility: hidden; }
+		.ui-daterange-preset[aria-pressed="true"] { background: rgba(var(--rgb), .1); font-weight: 600; }
+		.ui-daterange-preset[aria-pressed="true"] i { visibility: visible; }
+		.ui-daterange-compare { display: flex; align-items: center; gap: 8px; margin-top: auto; padding: 10px 10px 2px; border-top: 1px solid #EDEDED; color: #5E5E5E; cursor: pointer; }
+		.ui-daterange-compare input { width: 16px; height: 16px; margin: 0; accent-color: var(--color); }
+		.ui-daterange-nocompare .ui-daterange-compare { display: none; }
+
+		.ui-daterange-calendar { padding-left: 6px; }
+		.ui-daterange-nav { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 6px; }
+		.ui-daterange-nav b { font-weight: 600; }
+		.ui-daterange-nav button { width: 32px; height: 32px; border: 0; border-radius: 6px; background: transparent; color: inherit; cursor: pointer; }
+		.ui-daterange-nav button:hover { background: rgba(0, 0, 0, .05); }
+		.ui-daterange-nav button:focus-visible { outline: 2px solid var(--color); outline-offset: -2px; }
+		.ui-daterange-nav button:disabled { opacity: .3; cursor: default; }
+		.ui-daterange-grid { border-collapse: collapse; }
+		.ui-daterange-grid th { width: 36px; height: 26px; color: #8A8A8A; font-size: 11px; font-weight: normal; text-transform: uppercase; }
+		.ui-daterange-grid td { padding: 1px 0; }
+		.ui-daterange-day { display: block; width: 36px; height: 34px; border: 0; border-radius: 0; background: transparent; color: inherit; font: inherit; font-variant-numeric: tabular-nums; cursor: pointer; }
+		.ui-daterange-day:hover { background: rgba(0, 0, 0, .06); border-radius: 6px; }
+		.ui-daterange-day:focus-visible { position: relative; outline: 2px solid var(--color); outline-offset: -2px; border-radius: 6px; }
+		.ui-daterange-day:disabled { color: #C4C4C4; cursor: default; background: transparent; }
+		.ui-daterange-other { color: #A8A8A8; }
+		.ui-daterange-today { font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+		.ui-daterange-in { background: rgba(var(--rgb), .13); }
+		.ui-daterange-in:hover { border-radius: 0; background: rgba(var(--rgb), .22); }
+		.ui-daterange-edge, .ui-daterange-edge:hover { background: var(--color); color: #FFF; border-radius: 6px; }
+		.ui-daterange-from { border-radius: 6px 0 0 6px; }
+		.ui-daterange-to { border-radius: 0 6px 6px 0; }
+		.ui-daterange-from.ui-daterange-to { border-radius: 6px; }
+
+		/* Narrow screens: the presets go above the calendar */
+		@media (max-width: 520px) {
+			.ui-daterange-panel { flex-direction: column; left: 0; right: auto; }
+			.ui-daterange-right .ui-daterange-panel { left: auto; right: 0; }
+			.ui-daterange-presets { flex-direction: row; flex-wrap: wrap; padding: 0 0 8px; border-right: 0; border-bottom: 1px solid #EDEDED; min-width: 0; max-width: 260px; }
+			.ui-daterange-preset { min-height: 30px; padding: 0 8px; }
+			.ui-daterange-preset i { display: none; }
+			.ui-daterange-compare { width: 100%; margin-top: 4px; padding: 8px 4px 0; }
+			.ui-daterange-calendar { padding: 4px 0 0; }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			.ui-daterange-caret { transition: none; }
+		}
+
+		.ui-dark .ui-daterange { color: #EDEDED; }
+		.ui-dark .ui-daterange-toggle { border-color: #444; background: #252525; }
+		.ui-dark .ui-daterange-toggle span { color: #ABABAB; }
+		.ui-dark .ui-daterange-panel { border-color: #3A3A3A; background: #252525; box-shadow: 0 12px 32px rgba(0, 0, 0, .5); }
+		.ui-dark .ui-daterange-inline .ui-daterange-panel { box-shadow: none; }
+		.ui-dark .ui-daterange-presets, .ui-dark .ui-daterange-compare { border-color: #3A3A3A; }
+		.ui-dark .ui-daterange-compare { color: #ABABAB; }
+		.ui-dark .ui-daterange-preset:hover, .ui-dark .ui-daterange-nav button:hover, .ui-dark .ui-daterange-day:hover { background: rgba(255, 255, 255, .08); }
+		.ui-dark .ui-daterange-preset[aria-pressed="true"] { background: rgba(var(--rgb), .22); }
+		.ui-dark .ui-daterange-in { background: rgba(var(--rgb), .25); }
+		.ui-dark .ui-daterange-edge, .ui-dark .ui-daterange-edge:hover { background: var(--color); color: #FFF; }
+		.ui-dark .ui-daterange-other, .ui-dark .ui-daterange-grid th { color: #7A7A7A; }
+		.ui-dark .ui-daterange-day:disabled { color: #555; }
+
+		@media (forced-colors: active) {
+			.ui-daterange-edge { forced-color-adjust: none; background: Highlight; color: HighlightText; }
+			.ui-daterange-in { border: 1px solid Highlight; }
+			.ui-daterange-panel { border: 1px solid CanvasText; }
+		}
+
+	</style>
+
+	<script component>
+
+		COMPONENT('daterange', 'label:;presets:today,yesterday,last7,last30,last90,month,lastmonth,year;preset:last30;labels:;compare:;inline:false;future:false;firstday:;locale:;disabled:false;change:', function(self, config, cls) {
+
+			var cls2 = '.' + cls;
+			var els = {};
+			var value = null;
+			var view = null;
+			var focus = null;
+			var pending = null;
+			var hover = null;
+			var opened = false;
+			var filled = false;
+			var outside = null;
+			var DAY = 86400000;
+
+			var locale = function() {
+				return config.locale || document.documentElement.lang || undefined;
+			};
+
+			var day = function(d) {
+				return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+			};
+
+			var add = function(d, n) {
+				return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+			};
+
+			var same = function(a, b) {
+				return !!a && !!b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+			};
+
+			var todate = function(v) {
+				if (v instanceof Date)
+					return isNaN(v.getTime()) ? null : day(v);
+				if (typeof v === 'string' || typeof v === 'number') {
+					var d = typeof v === 'string' && (/^\d{4}-\d{2}-\d{2}$/).test(v) ? new Date(+v.substring(0, 4), +v.substring(5, 7) - 1, +v.substring(8, 10)) : new Date(v);
+					return isNaN(d.getTime()) ? null : day(d);
+				}
+				return null;
+			};
+
+			var capitalize = function(text) {
+				return text ? text.charAt(0).toLocaleUpperCase(locale()) + text.substring(1) : text;
+			};
+
+			var today = function() {
+				return day(new Date());
+			};
+
+			var presets = function() {
+				return (config.presets || '').split(',').map(function(v) {
+					return v.trim();
+				}).filter(function(v) {
+					return !!range(v);
+				});
+			};
+
+			// The dates of a preset: [from, to], both days included
+			var range = function(id) {
+				var t = today();
+				var m = (/^last(\d+)$/).exec(id || '');
+				if (m && +m[1] > 0)
+					return [add(t, 1 - +m[1]), t];
+				switch (id) {
+					case 'today':
+						return [t, t];
+					case 'yesterday':
+						return [add(t, -1), add(t, -1)];
+					case 'month':
+						return [new Date(t.getFullYear(), t.getMonth(), 1), t];
+					case 'lastmonth':
+						return [new Date(t.getFullYear(), t.getMonth() - 1, 1), new Date(t.getFullYear(), t.getMonth(), 0)];
+					case 'year':
+						return [new Date(t.getFullYear(), 0, 1), t];
+					case 'lastyear':
+						return [new Date(t.getFullYear() - 1, 0, 1), new Date(t.getFullYear() - 1, 11, 31)];
+				}
+				return null;
+			};
+
+			// The period before, with the same length (calendar months and years keep their shape)
+			var previous = function(from, to, preset) {
+				var lastday;
+				switch (preset) {
+					case 'month':
+						lastday = new Date(from.getFullYear(), from.getMonth(), 0).getDate();
+						return { from: new Date(from.getFullYear(), from.getMonth() - 1, 1), to: new Date(from.getFullYear(), from.getMonth() - 1, Math.min(to.getDate(), lastday)) };
+					case 'lastmonth':
+						return { from: new Date(from.getFullYear(), from.getMonth() - 1, 1), to: new Date(from.getFullYear(), from.getMonth(), 0) };
+					case 'year':
+						return { from: new Date(from.getFullYear() - 1, 0, 1), to: new Date(to.getFullYear() - 1, to.getMonth(), Math.min(to.getDate(), new Date(to.getFullYear() - 1, to.getMonth() + 1, 0).getDate())) };
+					case 'lastyear':
+						return { from: new Date(from.getFullYear() - 1, 0, 1), to: new Date(from.getFullYear() - 1, 11, 31) };
+				}
+				var length = Math.round((to - from) / DAY) + 1;
+				return { from: add(from, -length), to: add(from, -1) };
+			};
+
+			// Labels from Intl in the language of the page ("Today", "Last month", "30 days"); "labels" replaces them
+			var label = function(id) {
+				var list = presets();
+				var custom = (config.labels || '').split('|');
+				var index = list.indexOf(id);
+				if (index !== -1 && custom[index])
+					return custom[index];
+				var m = (/^last(\d+)$/).exec(id || '');
+				try {
+					if (m)
+						return capitalize(new Intl.NumberFormat(locale(), { style: 'unit', unit: 'day', unitDisplay: 'long' }).format(+m[1]));
+					var rtf = new Intl.RelativeTimeFormat(locale(), { numeric: 'auto' });
+					switch (id) {
+						case 'today':
+							return capitalize(rtf.format(0, 'day'));
+						case 'yesterday':
+							return capitalize(rtf.format(-1, 'day'));
+						case 'month':
+							return capitalize(rtf.format(0, 'month'));
+						case 'lastmonth':
+							return capitalize(rtf.format(-1, 'month'));
+						case 'year':
+							return capitalize(rtf.format(0, 'year'));
+						case 'lastyear':
+							return capitalize(rtf.format(-1, 'year'));
+					}
+				} catch (e) {}
+				return id;
+			};
+
+			var datefmt = function(options) {
+				try {
+					return new Intl.DateTimeFormat(locale(), options);
+				} catch (e) {
+					return new Intl.DateTimeFormat(undefined, options);
+				}
+			};
+
+			var rangetext = function(from, to) {
+				var f = datefmt({ day: 'numeric', month: 'short', year: 'numeric' });
+				if (same(from, to))
+					return f.format(from);
+				return f.formatRange ? f.formatRange(from, to) : f.format(from) + ' – ' + f.format(to);
+			};
+
+			var firstday = function() {
+				if (config.firstday !== '' && config.firstday != null)
+					return (+config.firstday) % 7;
+				try {
+					var info = new Intl.Locale(locale() || navigator.language);
+					var week = info.getWeekInfo ? info.getWeekInfo() : info.weekInfo;
+					if (week && week.firstDay)
+						return week.firstDay % 7;
+				} catch (e) {}
+				return 1;
+			};
+
+			var allowed = function(d) {
+				return config.future || d <= today();
+			};
+
+			var build = function(from, to, preset, compare) {
+				var out = { from: from, to: to, preset: preset || '', compare: !!compare, previous: null };
+				if (out.compare)
+					out.previous = previous(from, to, out.preset);
+				return out;
+			};
+
+			// The model: { from, to, preset, compare, previous }. A preset alone is enough: { preset: 'last7' }
+			var parse = function(model) {
+				if (!model || typeof model !== 'object')
+					return null;
+				var from = todate(model.from);
+				var to = todate(model.to);
+				var preset = model.preset ? model.preset + '' : '';
+				if ((!from || !to) && preset && range(preset)) {
+					var r = range(preset);
+					from = r[0];
+					to = r[1];
+				}
+				if (!from || !to)
+					return null;
+				if (from > to) {
+					var tmp = from;
+					from = to;
+					to = tmp;
+				}
+				return build(from, to, preset, model.compare);
+			};
+
+			var commit = function(next) {
+				self.modify(next);
+				config.change && self.EXEC(config.change, next, self);
+			};
+
+			var renderpresets = function() {
+				var list = presets();
+				var builder = [];
+				for (var i = 0; i < list.length; i++)
+					builder.push('<button type="button" class="{0}-preset" data-id="{1}" aria-pressed="{2}"><i class="ti ti-check" aria-hidden="true"></i><span></span></button>'.format(cls, list[i], value && value.preset === list[i] ? 'true' : 'false'));
+				var buttons = els.presets.querySelectorAll(cls2 + '-preset');
+				for (var k = 0; k < buttons.length; k++)
+					els.presets.removeChild(buttons[k]);
+				els.compare.insertAdjacentHTML('beforebegin', builder.join(''));
+				buttons = els.presets.querySelectorAll(cls2 + '-preset');
+				for (var j = 0; j < buttons.length; j++)
+					buttons[j].lastChild.textContent = label(list[j]);
+				self.tclass(cls + '-nopresets', !list.length);
+			};
+
+			var rendertoggle = function() {
+				if (value) {
+					var name = value.preset ? label(value.preset) : '';
+					els.name.textContent = name;
+					els.name.style.display = name ? '' : 'none';
+					els.range.textContent = rangetext(value.from, value.to);
+				} else {
+					els.name.style.display = 'none';
+					els.range.textContent = '—';
+				}
+				var text = (els.name.style.display === 'none' ? '' : els.name.textContent + ', ') + els.range.textContent;
+				els.toggle.setAttribute('aria-label', (config.label ? config.label + ': ' : '') + text);
+			};
+
+			var rendercalendar = function() {
+
+				var year = view.getFullYear();
+				var month = view.getMonth();
+				var first = firstday();
+				var start = new Date(year, month, 1);
+				var offset = (start.getDay() - first + 7) % 7;
+				var cursor = add(start, -offset);
+				var t = today();
+				var from = value ? value.from : null;
+				var to = value ? value.to : null;
+				var long = datefmt({ weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+				var short = datefmt({ weekday: 'short' });
+
+				// While choosing a custom range, the preview follows the pointer or the focus
+				if (pending) {
+					var other = hover || focus || pending;
+					from = other < pending ? other : pending;
+					to = other < pending ? pending : other;
+				}
+
+				els.title.textContent = capitalize(datefmt({ month: 'long', year: 'numeric' }).format(start));
+				els.next.disabled = !config.future && new Date(year, month + 1, 1) > t;
+
+				var head = [];
+				for (var w = 0; w < 7; w++) {
+					var wd = add(cursor, w);
+					head.push('<th scope="col" abbr="{0}">{1}</th>'.format(datefmt({ weekday: 'long' }).format(wd), short.format(wd).substring(0, 2)));
+				}
+
+				var rows = [];
+				for (var r = 0; r < 6; r++) {
+					var cells = [];
+					for (var c = 0; c < 7; c++) {
+						var d = cursor;
+						var classes = [cls + '-day'];
+						if (d.getMonth() !== month)
+							classes.push(cls + '-other');
+						if (same(d, t))
+							classes.push(cls + '-today');
+						var inrange = from && to && d >= from && d <= to;
+						if (inrange)
+							classes.push(cls + '-in');
+						if (same(d, from))
+							classes.push(cls + '-from', cls + '-edge');
+						if (same(d, to))
+							classes.push(cls + '-to', cls + '-edge');
+						cells.push('<td role="gridcell" aria-selected="{0}"><button type="button" class="{1}" data-date="{2}" tabindex="{3}" aria-label="{4}"{5}>{6}</button></td>'.format(inrange ? 'true' : 'false', classes.join(' '), d.getTime(), same(d, focus) ? '0' : '-1', long.format(d), allowed(d) ? '' : ' disabled', d.getDate()));
+						cursor = add(cursor, 1);
+					}
+					rows.push('<tr>' + cells.join('') + '</tr>');
+					if (cursor.getMonth() !== month && r >= 4)
+						break;
+				}
+
+				els.grid.innerHTML = '<thead><tr>' + head.join('') + '</tr></thead><tbody>' + rows.join('') + '</tbody>';
+			};
+
+			var focusday = function() {
+				var button = els.grid.querySelector('[tabindex="0"]');
+				button && button.focus();
+			};
+
+			var movefocus = function(d) {
+				if (!allowed(d))
+					return;
+				focus = d;
+				if (d.getMonth() !== view.getMonth() || d.getFullYear() !== view.getFullYear())
+					view = new Date(d.getFullYear(), d.getMonth(), 1);
+				rendercalendar();
+				focusday();
+			};
+
+			var pick = function(d) {
+				if (!allowed(d))
+					return;
+				if (!pending) {
+					pending = d;
+					focus = d;
+					hover = null;
+					rendercalendar();
+					focusday();
+					return;
+				}
+				var from = d < pending ? d : pending;
+				var to = d < pending ? pending : d;
+				pending = null;
+				hover = null;
+				commit(build(from, to, '', value ? value.compare : false));
+				close(true);
+			};
+
+			// The inline calendar keeps its month while the user moves, and starts at the month of the value
+			var showinline = function() {
+				if (!view || (!pending && value && !focus)) {
+					focus = value ? value.to : today();
+					view = new Date(focus.getFullYear(), focus.getMonth(), 1);
+				}
+				if (!focus)
+					focus = value ? value.to : today();
+				renderpresets();
+				els.check.checked = !!(value && value.compare);
+				rendercalendar();
+			};
+
+			var open = function() {
+				if (config.disabled || opened || config.inline)
+					return;
+				opened = true;
+				pending = null;
+				hover = null;
+				focus = value ? value.to : today();
+				view = new Date(focus.getFullYear(), focus.getMonth(), 1);
+				renderpresets();
+				els.check.checked = !!(value && value.compare);
+				rendercalendar();
+				self.aclass(cls + '-open');
+				els.toggle.setAttribute('aria-expanded', 'true');
+
+				// Opens to the left when there is no space on the right
+				self.rclass(cls + '-right');
+				var rect = els.panel.getBoundingClientRect();
+				if (rect.right > (window.innerWidth || document.documentElement.clientWidth) - 8)
+					self.aclass(cls + '-right');
+
+				var selected = els.presets.querySelector('[aria-pressed="true"]') || els.presets.firstChild;
+				selected ? selected.focus() : focusday();
+
+				outside = function(e) {
+					!self.dom.contains(e.target) && close();
+				};
+				document.addEventListener('mousedown', outside, true);
+			};
+
+			var close = function(refocus) {
+				if (config.inline) {
+					renderpresets();
+					rendercalendar();
+					return;
+				}
+				if (!opened)
+					return;
+				opened = false;
+				pending = null;
+				self.rclass(cls + '-open');
+				els.toggle.setAttribute('aria-expanded', 'false');
+				outside && document.removeEventListener('mousedown', outside, true);
+				outside = null;
+				refocus && els.toggle.focus();
+			};
+
+			self.make = function() {
+
+				self.aclass(cls);
+				self.html(('<button type="button" class="{0}-toggle" aria-haspopup="dialog" aria-expanded="false"><i class="ti ti-calendar" aria-hidden="true"></i><b></b><span></span><i class="ti ti-chevron-down {0}-caret" aria-hidden="true"></i></button>' +
+					'<div class="{0}-panel" role="dialog"><div class="{0}-presets"></div>' +
+					'<div class="{0}-calendar"><div class="{0}-nav"><button type="button" data-step="-1"><i class="ti ti-chevron-left" aria-hidden="true"></i></button><b aria-live="polite"></b><button type="button" data-step="1"><i class="ti ti-chevron-right" aria-hidden="true"></i></button></div><table class="{0}-grid" role="grid"></table></div></div>').format(cls));
+
+				els.toggle = self.find(cls2 + '-toggle')[0];
+				els.name = els.toggle.querySelector('b');
+				els.range = els.toggle.querySelector('span');
+				els.panel = self.find(cls2 + '-panel')[0];
+				els.presets = self.find(cls2 + '-presets')[0];
+				els.title = self.find(cls2 + '-nav b')[0];
+				els.prev = self.find(cls2 + '-nav button')[0];
+				els.next = self.find(cls2 + '-nav button')[1];
+				els.grid = self.find(cls2 + '-grid')[0];
+
+				// The compare option lives under the presets
+				var compare = document.createElement('label');
+				compare.className = cls + '-compare';
+				compare.innerHTML = '<input type="checkbox" /><span></span>';
+				els.presets.appendChild(compare);
+				els.compare = compare;
+				els.check = compare.querySelector('input');
+				els.comparetext = compare.querySelector('span');
+
+				self.event('click', cls2 + '-toggle', function() {
+					opened ? close(true) : open();
+				});
+
+				self.event('click', cls2 + '-preset', function() {
+					var id = this.getAttribute('data-id');
+					var r = range(id);
+					r && commit(build(r[0], r[1], id, value ? value.compare : false));
+					close(true);
+				});
+
+				self.event('change', cls2 + '-compare input', function() {
+					if (value)
+						commit(build(value.from, value.to, value.preset, this.checked));
+				});
+
+				self.event('click', cls2 + '-nav button', function() {
+					view = new Date(view.getFullYear(), view.getMonth() + +this.getAttribute('data-step'), 1);
+					var last = new Date(view.getFullYear(), view.getMonth() + 1, 0);
+					focus = focus && focus.getMonth() === view.getMonth() ? focus : allowed(view) ? (allowed(last) ? new Date(view) : today()) : today();
+					rendercalendar();
+				});
+
+				self.event('click', cls2 + '-day', function() {
+					pick(new Date(+this.getAttribute('data-date')));
+				});
+
+				self.event('mouseover', cls2 + '-day', function() {
+					if (!pending)
+						return;
+					var d = new Date(+this.getAttribute('data-date'));
+					if (!same(d, hover)) {
+						hover = d;
+						var keep = document.activeElement;
+						rendercalendar();
+						// The re-render must not steal the focus from the grid
+						keep && els.grid.contains(keep) && focusday();
+					}
+				});
+
+				self.event('keydown', cls2 + '-grid', function(e) {
+					var d = focus || today();
+					switch (e.key) {
+						case 'ArrowLeft':
+							d = add(d, -1);
+							break;
+						case 'ArrowRight':
+							d = add(d, 1);
+							break;
+						case 'ArrowUp':
+							d = add(d, -7);
+							break;
+						case 'ArrowDown':
+							d = add(d, 7);
+							break;
+						case 'PageUp':
+							d = new Date(d.getFullYear(), d.getMonth() - 1, Math.min(d.getDate(), new Date(d.getFullYear(), d.getMonth(), 0).getDate()));
+							break;
+						case 'PageDown':
+							d = new Date(d.getFullYear(), d.getMonth() + 1, Math.min(d.getDate(), new Date(d.getFullYear(), d.getMonth() + 2, 0).getDate()));
+							break;
+						case 'Home':
+							d = add(d, -((d.getDay() - firstday() + 7) % 7));
+							break;
+						case 'End':
+							d = add(d, 6 - ((d.getDay() - firstday() + 7) % 7));
+							break;
+						default:
+							return;
+					}
+					e.preventDefault();
+					hover = null;
+					movefocus(d);
+				});
+
+				self.event('keydown', function(e) {
+					if (e.key === 'Escape' && opened) {
+						e.stopPropagation();
+						if (pending) {
+							pending = null;
+							rendercalendar();
+							focusday();
+						} else
+							close(true);
+					}
+				});
+			};
+
+			self.configure = function(key, value, init) {
+				switch (key) {
+					case 'compare':
+						els.comparetext.textContent = value || '';
+						self.tclass(cls + '-nocompare', !value);
+						break;
+					case 'label':
+						els.panel.setAttribute('aria-label', value || '');
+						!init && rendertoggle();
+						break;
+					case 'inline':
+						self.tclass(cls + '-inline', !!value);
+						!init && value && showinline();
+						break;
+					case 'disabled':
+						self.tclass('ui-disabled', !!value);
+						els.toggle.disabled = !!value;
+						value && close();
+						break;
+					case 'presets':
+					case 'labels':
+					case 'locale':
+					case 'firstday':
+					case 'future':
+						!init && rendertoggle();
+						!init && opened && (renderpresets(), rendercalendar());
+						break;
+				}
+			};
+
+			self.setter = function(model) {
+				value = parse(model);
+				rendertoggle();
+				if (config.inline)
+					showinline();
+				else if (opened) {
+					renderpresets();
+					rendercalendar();
+				}
+
+				// An empty model takes the "preset" once, so the dashboard has a period from the start
+				if (!value && !filled && config.preset && range(config.preset)) {
+					filled = true;
+					var r = range(config.preset);
+					setTimeout(function() {
+						!self.get() && self.set(build(r[0], r[1], config.preset, false));
+					}, 0);
+				}
+				filled = true;
+			};
+
+			self.destroy = function() {
+				outside && document.removeEventListener('mousedown', outside, true);
+			};
+
+		});
+
+	</script>
+
+	<div style="padding:12px;font:13px Arial,sans-serif;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
+
+		<!-- Inline: always visible, a custom range chosen in the calendar -->
+		<ui-component name="daterange" path="filter.inline" config="inline:true;presets:;label:Period"></ui-component>
+
+		<!-- The usual dropdown with presets and the comparison -->
+		<div style="min-height:420px">
+			<ui-component name="daterange" path="filter.period" config="compare:Compare with the previous period;label:Period;change:onperiod"></ui-component>
+		</div>
+
+		<ui-component name="daterange" path="filter.custom" config="presets:today,last7,last30,lastmonth,lastyear;labels:Today|7 days|30 days|Previous month|Previous year;firstday:0;label:Report"></ui-component>
+
+		<ui-component name="daterange" path="filter.locked" config="disabled:true;preset:month;label:Locked"></ui-component>
+
+		<ui-component name="daterange" path="filter.sidebar" config="inline:true;presets:last7,last30,month,lastmonth;compare:Compare;label:Sidebar"></ui-component>
+
+	</div>
+
+	<script>
+
+		// "filter.period" and "filter.locked" are empty: they take the "preset" of the configuration
+		SET('filter.inline', { from: '2026-10-06', to: '2026-10-19' });
+		SET('filter.custom', { preset: 'last7', compare: true });
+		SET('filter.sidebar', { preset: 'last30' });
+
+		function onperiod(value, component) {
+			// e.g. reload the data of the dashboard for value.from - value.to (and value.previous)
+		}
+
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<style component>
+
+		/* Series colours: slot 1 is the primary colour of the app, the rest is a colour-blind safe palette in a fixed order */
+		.ui-scatterchart { --sc1: var(--color); --sc2: #EB6834; --sc3: #1BAF7A; --sc4: #EDA100; --sc5: #E87BA4; --sc6: #008300; --sc7: #6250D6; --sc8: #E34948; --scbg: #FFF; box-sizing: border-box; min-width: 0; padding: 16px 18px; border: 1px solid #E3E3E3; border-radius: var(--radius); background: #FFF; color: #1F1F1F; font-size: 13px; }
+		.ui-scatterchart-minimal { padding: 0; border-color: transparent; background: transparent; }
+		.ui-scatterchart-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; margin-bottom: 10px; }
+		.ui-scatterchart-title { flex: 1 1 auto; font-weight: 600; font-size: 14px; }
+		.ui-scatterchart-notitle .ui-scatterchart-title { display: none; }
+		.ui-scatterchart-notitle.ui-scatterchart-nolegend .ui-scatterchart-head { display: none; }
+		.ui-scatterchart-legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; }
+		.ui-scatterchart-nolegend .ui-scatterchart-legend { display: none; }
+		.ui-scatterchart-legend span { display: inline-flex; align-items: center; gap: 6px; }
+		.ui-scatterchart-legend svg { width: 12px; height: 12px; overflow: visible; }
+		.ui-scatterchart-body { position: relative; outline: none; border-radius: 4px; }
+		.ui-scatterchart-body:focus-visible { box-shadow: 0 0 0 2px var(--color); }
+		.ui-scatterchart-body svg { display: block; width: 100%; overflow: visible; }
+		.ui-scatterchart-axis { fill: #6B6B6B; font-size: 11px; font-variant-numeric: tabular-nums; }
+		.ui-scatterchart-label { fill: #5E5E5E; font-size: 11px; font-weight: 600; }
+		.ui-scatterchart-grid { stroke: #EDEDED; shape-rendering: crispEdges; }
+		.ui-scatterchart-base { stroke: #CFCFCF; shape-rendering: crispEdges; }
+		.ui-scatterchart-avg { stroke: #8A8A8A; stroke-dasharray: 4 3; shape-rendering: crispEdges; }
+		.ui-scatterchart-trend { fill: none; stroke-width: 1.5; stroke-dasharray: 6 4; opacity: .8; }
+		.ui-scatterchart-point { stroke: var(--scbg); stroke-width: 1.5; fill-opacity: .85; transition: opacity .15s; }
+		.ui-scatterchart-bubble .ui-scatterchart-point { fill-opacity: .55; }
+		.ui-scatterchart-active .ui-scatterchart-point { opacity: .35; }
+		.ui-scatterchart-active .ui-scatterchart-point.ui-scatterchart-on { opacity: 1; fill-opacity: 1; stroke: #1F1F1F; stroke-width: 2; }
+		.ui-scatterchart-clickable .ui-scatterchart-point { cursor: pointer; }
+		.ui-scatterchart-tip { position: absolute; top: 0; left: 0; z-index: 5; display: none; padding: 7px 10px; border-radius: 8px; background: #1F1F1F; color: #FFF; font-size: 12px; white-space: nowrap; box-shadow: 0 6px 20px rgba(0, 0, 0, .18); pointer-events: none; }
+		.ui-scatterchart-active .ui-scatterchart-tip { display: block; }
+		.ui-scatterchart-tip b { display: block; margin-bottom: 2px; }
+		.ui-scatterchart-tip div { color: rgba(255, 255, 255, .8); }
+		.ui-scatterchart-tip span { color: #FFF; font-weight: 600; }
+		.ui-scatterchart-nodata { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; color: #8A8A8A; }
+		.ui-scatterchart-nodata i { font-size: 22px; opacity: .6; }
+		.ui-scatterchart-isempty .ui-scatterchart-nodata { display: flex; }
+		.ui-scatterchart-sr { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+		@media (prefers-reduced-motion: reduce) {
+			.ui-scatterchart-point { transition: none; }
+		}
+
+		.ui-dark .ui-scatterchart { --sc2: #D95926; --sc3: #199E70; --sc4: #C98500; --sc5: #D55181; --sc6: #0CA30C; --sc7: #9085E9; --sc8: #E66767; --scbg: #252525; border-color: #3A3A3A; background: #252525; color: #EDEDED; }
+		.ui-dark .ui-scatterchart-minimal { --scbg: #1A1A1A; border-color: transparent; background: transparent; }
+		.ui-dark .ui-scatterchart-axis { fill: #9A9A9A; }
+		.ui-dark .ui-scatterchart-label { fill: #ABABAB; }
+		.ui-dark .ui-scatterchart-grid { stroke: #333; }
+		.ui-dark .ui-scatterchart-base { stroke: #4A4A4A; }
+		.ui-dark .ui-scatterchart-avg { stroke: #7A7A7A; }
+		.ui-dark .ui-scatterchart-active .ui-scatterchart-point.ui-scatterchart-on { stroke: #FFF; }
+		.ui-dark .ui-scatterchart-tip { background: #F2F2F2; color: #1F1F1F; box-shadow: 0 6px 20px rgba(0, 0, 0, .5); }
+		.ui-dark .ui-scatterchart-tip div { color: #5E5E5E; }
+		.ui-dark .ui-scatterchart-tip span { color: #1F1F1F; }
+
+		@media (forced-colors: active) {
+			.ui-scatterchart { border: 1px solid CanvasText; }
+			.ui-scatterchart-tip { border: 1px solid CanvasText; }
+		}
+
+	</style>
+
+	<script component>
+
+		COMPONENT('scatterchart', 'label:;style:card;height:280;xlabel:;ylabel:;zlabel:;xformat:number;yformat:number;bubbles:false;trend:false;average:false;zero:false;legend:true;currency:EUR;locale:;click:', function(self, config, cls) {
+
+			var cls2 = '.' + cls;
+			var els = {};
+			var series = [];
+			var points = [];
+			var order = [];
+			var cursor = -1;
+			var label = '';
+			var observer = null;
+			var lastwidth = 0;
+			var fmt = {};
+
+			// Every series has its own shape too, so the series are not told by colour alone
+			var SYMBOLS = ['circle', 'square', 'triangle', 'diamond', 'cross', 'down', 'circle', 'square'];
+
+			var esc = function(value) {
+				return (value == null ? '' : value + '').replace(/[&<>"']/g, function(c) {
+					return c === '&' ? '&amp;' : c === '<' ? '&lt;' : c === '>' ? '&gt;' : c === '"' ? '&quot;' : '&#39;';
+				});
+			};
+
+			var locale = function() {
+				return config.locale || document.documentElement.lang || undefined;
+			};
+
+			var nf = function(options) {
+				try {
+					return new Intl.NumberFormat(locale(), options);
+				} catch (e) {
+					return new Intl.NumberFormat(undefined, options);
+				}
+			};
+
+			var prepare = function() {
+				fmt.number = nf({ maximumFractionDigits: 2 });
+				fmt.compact = nf({ notation: 'compact', maximumFractionDigits: 1 });
+				fmt.percent = nf({ style: 'percent', maximumFractionDigits: 1 });
+				fmt.currency = nf({ style: 'currency', currency: config.currency || 'EUR', maximumFractionDigits: 0 });
+				fmt.ccurrency = nf({ style: 'currency', currency: config.currency || 'EUR', notation: 'compact', maximumFractionDigits: 1 });
+				fmt.seconds = nf({ maximumFractionDigits: 1 });
+			};
+
+			var pad = function(n) {
+				return n < 10 ? '0' + n : '' + n;
+			};
+
+			var format = function(type, n, axis) {
+				if (n == null)
+					return '—';
+				switch (type) {
+					case 'percent':
+						return fmt.percent.format(n / 100);
+					case 'currency':
+						return (Math.abs(n) >= (axis ? 1000 : 10000) ? fmt.ccurrency : fmt.currency).format(n);
+					case 'ms':
+						return Math.abs(n) >= 1000 ? fmt.seconds.format(n / 1000) + ' s' : fmt.number.format(Math.round(n)) + ' ms';
+					case 'duration':
+						var sec = Math.round(Math.abs(n));
+						if (sec < 60)
+							return sec + ' s';
+						var m = Math.floor(sec / 60);
+						return m >= 60 ? Math.floor(m / 60) + ' h ' + pad(m % 60) + ' m' : m + ' m' + (axis ? '' : ' ' + pad(sec % 60) + ' s');
+				}
+				return (Math.abs(n) >= (axis ? 1000 : 10000) ? fmt.compact : fmt.number).format(n);
+			};
+
+			var num = function(value) {
+				if (value == null || value === '')
+					return null;
+				value = typeof value === 'number' ? value : +value;
+				return isFinite(value) ? value : null;
+			};
+
+			var color = function(index) {
+				var s = series[index];
+				return s && s.color ? s.color : 'var(--sc' + ((index % 8) + 1) + ')';
+			};
+
+			var symbol = function(kind, x, y, r) {
+				var p = function(a, b) {
+					return (x + a).toFixed(1) + ',' + (y + b).toFixed(1);
+				};
+				switch (kind) {
+					case 'square':
+						var s = r * 0.9;
+						return '<rect x="{0}" y="{1}" width="{2}" height="{2}" rx="1.5"'.format((x - s).toFixed(1), (y - s).toFixed(1), (s * 2).toFixed(1));
+					case 'triangle':
+						return '<polygon points="{0} {1} {2}"'.format(p(0, -r * 1.15), p(r * 1.05, r * 0.8), p(-r * 1.05, r * 0.8));
+					case 'down':
+						return '<polygon points="{0} {1} {2}"'.format(p(0, r * 1.15), p(r * 1.05, -r * 0.8), p(-r * 1.05, -r * 0.8));
+					case 'diamond':
+						return '<polygon points="{0} {1} {2} {3}"'.format(p(0, -r * 1.2), p(r * 1.2, 0), p(0, r * 1.2), p(-r * 1.2, 0));
+					case 'cross':
+						var a = r * 0.45;
+						var b = r * 1.1;
+						return '<polygon points="{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11}"'.format(p(-a, -b), p(a, -b), p(a, -a), p(b, -a), p(b, a), p(a, a), p(a, b), p(-a, b), p(-a, a), p(-b, a), p(-b, -a), p(-a, -a));
+				}
+				return '<circle cx="{0}" cy="{1}" r="{2}"'.format(x.toFixed(1), y.toFixed(1), r.toFixed(1));
+			};
+
+			// { series: [{ name, color, points: [{ x, y, size, name }] }] } or [{ x, y, size, name }]
+			var parse = function(value) {
+				var src = value instanceof Array ? [{ points: value }] : value && value.series instanceof Array ? value.series : value && value.points instanceof Array ? [value] : [];
+				series = [];
+				points = [];
+				for (var i = 0; i < src.length && i < 8; i++) {
+					var s = src[i] || {};
+					var list = s.points instanceof Array ? s.points : [];
+					series.push({ name: s.name == null ? '' : s.name + '', color: (/^#[0-9a-f]{3,8}$/i).test(s.color || '') ? s.color : '' });
+					for (var j = 0; j < list.length; j++) {
+						var pt = list[j] || {};
+						var x = num(pt.x);
+						var y = num(pt.y);
+						if (x != null && y != null)
+							points.push({ x: x, y: y, size: num(pt.size), name: pt.name == null ? '' : pt.name + '', series: i, item: pt });
+					}
+				}
+				// The keyboard goes from left to right
+				order = points.map(function(p, index) {
+					return index;
+				}).sort(function(a, b) {
+					return points[a].x - points[b].x || points[a].y - points[b].y;
+				});
+			};
+
+			var nice = function(min, max, count) {
+				if (max === min) {
+					max = max + (max === 0 ? 1 : Math.abs(max) * 0.1);
+					min = min - (min === 0 ? 0 : Math.abs(min) * 0.1);
+				}
+				var raw = (max - min) / Math.max(1, count);
+				var step = Math.pow(10, Math.floor(Math.log(raw) / Math.LN10));
+				var err = raw / step;
+				if (err >= 7.5)
+					step *= 10;
+				else if (err >= 3.5)
+					step *= 5;
+				else if (err >= 1.5)
+					step *= 2;
+				return { min: Math.floor(min / step) * step, max: Math.ceil(max / step) * step, step: step };
+			};
+
+			var regression = function(list) {
+				var n = list.length;
+				if (n < 2)
+					return null;
+				var sx = 0, sy = 0, sxy = 0, sxx = 0;
+				for (var i = 0; i < n; i++) {
+					sx += list[i].x;
+					sy += list[i].y;
+					sxy += list[i].x * list[i].y;
+					sxx += list[i].x * list[i].x;
+				}
+				var d = n * sxx - sx * sx;
+				if (!d)
+					return null;
+				var slope = (n * sxy - sx * sy) / d;
+				return { slope: slope, intercept: (sy - slope * sx) / n };
+			};
+
+			var draw = function() {
+
+				var width = els.body.clientWidth;
+				var height = Math.max(120, config.height || 280);
+				lastwidth = width;
+				els.body.style.height = height + 'px';
+
+				self.tclass(cls + '-isempty', !points.length);
+				self.tclass(cls + '-bubble', !!config.bubbles);
+
+				if (!width || !points.length) {
+					els.svg.innerHTML = '';
+					return;
+				}
+
+				var xs = points.map(function(p) {
+					return p.x;
+				});
+				var ys = points.map(function(p) {
+					return p.y;
+				});
+				var xmin = Math.min.apply(Math, xs);
+				var xmax = Math.max.apply(Math, xs);
+				var ymin = Math.min.apply(Math, ys);
+				var ymax = Math.max.apply(Math, ys);
+				if (config.zero) {
+					xmin = Math.min(0, xmin);
+					ymin = Math.min(0, ymin);
+				}
+
+				var top = 10;
+				var bottom = height - (config.xlabel ? 40 : 24);
+				var plotheight = bottom - top;
+				var yscale = nice(ymin, ymax, Math.max(2, Math.floor(plotheight / 50)));
+
+				var yticks = [];
+				for (var v = yscale.min; v <= yscale.max + yscale.step / 1000; v += yscale.step)
+					yticks.push(+v.toFixed(10));
+				var longest = 0;
+				for (var t = 0; t < yticks.length; t++)
+					longest = Math.max(longest, format(config.yformat, yticks[t], true).length);
+
+				var left = Math.round(longest * 6.6 + 12 + (config.ylabel ? 18 : 0));
+				var right = width - 8;
+				var plotwidth = Math.max(10, right - left);
+				var xscale = nice(xmin, xmax, Math.max(2, Math.floor(plotwidth / 90)));
+
+				var X = function(x) {
+					return left + (x - xscale.min) / (xscale.max - xscale.min || 1) * plotwidth;
+				};
+				var Y = function(y) {
+					return bottom - (y - yscale.min) / (yscale.max - yscale.min || 1) * plotheight;
+				};
+
+				var b = [];
+				var i;
+
+				for (t = 0; t < yticks.length; t++) {
+					var ty = Math.round(Y(yticks[t])) + 0.5;
+					b.push('<line class="{0}-grid" x1="{1}" x2="{2}" y1="{3}" y2="{3}" /><text class="{0}-axis" x="{4}" y="{3}" dy="0.32em" text-anchor="end">{5}</text>'.format(cls, left, right, ty, left - 8, esc(format(config.yformat, yticks[t], true))));
+				}
+				for (var xv = xscale.min; xv <= xscale.max + xscale.step / 1000; xv += xscale.step) {
+					var tx = Math.round(X(xv)) + 0.5;
+					// The last label ends at the edge, so it is never cut
+					b.push('<line class="{0}-grid" x1="{1}" x2="{1}" y1="{2}" y2="{3}" /><text class="{0}-axis" x="{1}" y="{4}" text-anchor="{6}">{5}</text>'.format(cls, tx, top, bottom, bottom + 16, esc(format(config.xformat, +xv.toFixed(10), true)), tx > right - 14 ? 'end' : 'middle'));
+				}
+				b.push('<line class="{0}-base" x1="{1}" x2="{2}" y1="{3}" y2="{3}" />'.format(cls, left, right, Math.round(bottom) + 0.5));
+
+				if (config.xlabel)
+					b.push('<text class="{0}-label" x="{1}" y="{2}" text-anchor="middle">{3}</text>'.format(cls, left + plotwidth / 2, height - 4, esc(config.xlabel)));
+				if (config.ylabel)
+					b.push('<text class="{0}-label" transform="translate(11,{1}) rotate(-90)" text-anchor="middle">{2}</text>'.format(cls, top + plotheight / 2, esc(config.ylabel)));
+
+				// The averages split the chart into four quadrants
+				if (config.average) {
+					var ax = 0, ay = 0;
+					for (i = 0; i < points.length; i++) {
+						ax += points[i].x;
+						ay += points[i].y;
+					}
+					ax /= points.length;
+					ay /= points.length;
+					b.push('<line class="{0}-avg" x1="{1}" x2="{1}" y1="{2}" y2="{3}" /><line class="{0}-avg" x1="{4}" x2="{5}" y1="{6}" y2="{6}" />'.format(cls, Math.round(X(ax)) + 0.5, top, bottom, left, right, Math.round(Y(ay)) + 0.5));
+				}
+
+				// A trend line per series (least squares), drawn inside the range of its points
+				if (config.trend) {
+					for (var s = 0; s < series.length; s++) {
+						var list = points.filter(function(p) {
+							return p.series === s;
+						});
+						var r = regression(list);
+						if (!r)
+							continue;
+						var lx = Math.min.apply(Math, list.map(function(p) {
+							return p.x;
+						}));
+						var hx = Math.max.apply(Math, list.map(function(p) {
+							return p.x;
+						}));
+						// The line stays inside the plot: it is cut where it leaves the range of the y axis
+						if (r.slope) {
+							var xa = (yscale.min - r.intercept) / r.slope;
+							var xb = (yscale.max - r.intercept) / r.slope;
+							lx = Math.max(lx, Math.min(xa, xb));
+							hx = Math.min(hx, Math.max(xa, xb));
+						}
+						if (hx > lx)
+							b.push('<line class="{0}-trend" x1="{1}" y1="{2}" x2="{3}" y2="{4}" style="stroke:{5}" />'.format(cls, X(lx).toFixed(1), Y(r.intercept + r.slope * lx).toFixed(1), X(hx).toFixed(1), Y(r.intercept + r.slope * hx).toFixed(1), color(s)));
+					}
+				}
+
+				// Bubbles: the area follows the size
+				var maxsize = 0;
+				if (config.bubbles) {
+					for (i = 0; i < points.length; i++)
+						maxsize = Math.max(maxsize, points[i].size || 0);
+				}
+
+				// The big bubbles first, so the small ones stay on top
+				var drawing = points.map(function(p, index) {
+					return index;
+				});
+				if (config.bubbles) {
+					drawing.sort(function(a, c) {
+						return (points[c].size || 0) - (points[a].size || 0);
+					});
+				}
+
+				for (i = 0; i < drawing.length; i++) {
+					var p = points[drawing[i]];
+					var radius = config.bubbles && maxsize ? Math.max(4, Math.sqrt((p.size || 0) / maxsize) * Math.min(28, plotwidth / 14)) : 5;
+					p.px = X(p.x);
+					p.py = Y(p.y);
+					b.push(symbol(SYMBOLS[p.series % SYMBOLS.length], p.px, p.py, radius) + ' class="{0}-point" data-index="{1}" style="fill:{2}" />'.format(cls, drawing[i], color(p.series)));
+				}
+
+				els.svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+				els.svg.setAttribute('height', height);
+				els.svg.innerHTML = b.join('');
+
+				cursor !== -1 && show(cursor, false);
+			};
+
+			var renderlegend = function() {
+				var builder = [];
+				for (var i = 0; i < series.length; i++)
+					builder.push('<span><svg viewBox="-6 -6 12 12" aria-hidden="true">{0} style="fill:{1}" /></svg>{2}</span>'.format(symbol(SYMBOLS[i % SYMBOLS.length], 0, 0, 5), color(i), esc(series[i].name || (i + 1))));
+				els.legend.innerHTML = builder.join('');
+				self.tclass(cls + '-nolegend', !config.legend || series.length < 2);
+			};
+
+			var rendertable = function() {
+				var rows = [];
+				for (var i = 0; i < order.length; i++) {
+					var p = points[order[i]];
+					rows.push('<tr><th scope="row">{0}</th><td>{1}</td><td>{2}</td>{3}</tr>'.format(esc(p.name || (series[p.series].name || '')), esc(format(config.xformat, p.x)), esc(format(config.yformat, p.y)), config.bubbles ? '<td>' + esc(fmt.number.format(p.size || 0)) + '</td>' : ''));
+				}
+				els.table.innerHTML = '<table><caption>{0}</caption><thead><tr><th></th><th scope="col">{1}</th><th scope="col">{2}</th>{3}</tr></thead><tbody>{4}</tbody></table>'.format(esc(els.title.textContent.trim()), esc(config.xlabel || 'x'), esc(config.ylabel || 'y'), config.bubbles ? '<th scope="col">' + esc(config.zlabel || '') + '</th>' : '', rows.join(''));
+			};
+
+			var describe = function(p) {
+				var parts = [];
+				parts.push((config.xlabel ? config.xlabel + ' ' : '') + format(config.xformat, p.x));
+				parts.push((config.ylabel ? config.ylabel + ' ' : '') + format(config.yformat, p.y));
+				if (config.bubbles && p.size != null)
+					parts.push((config.zlabel ? config.zlabel + ' ' : '') + fmt.number.format(p.size));
+				return parts;
+			};
+
+			var show = function(index, announce) {
+				var p = points[index];
+				var node = els.svg.querySelector('[data-index="' + index + '"]');
+				if (!p || !node)
+					return;
+				cursor = index;
+				var old = els.svg.querySelector(cls2 + '-on');
+				old && old.classList.remove(cls + '-on');
+				node.classList.add(cls + '-on');
+				// The active point is drawn over the others
+				node.parentNode.appendChild(node);
+				var title = p.name || series[p.series].name || '';
+				var parts = describe(p);
+				var rows = [];
+				rows.push('<div>{0}<span>{1}</span></div>'.format(config.xlabel ? esc(config.xlabel) + ': ' : '', esc(format(config.xformat, p.x))));
+				rows.push('<div>{0}<span>{1}</span></div>'.format(config.ylabel ? esc(config.ylabel) + ': ' : '', esc(format(config.yformat, p.y))));
+				if (config.bubbles && p.size != null)
+					rows.push('<div>{0}<span>{1}</span></div>'.format(config.zlabel ? esc(config.zlabel) + ': ' : '', esc(fmt.number.format(p.size))));
+				els.tip.innerHTML = (title ? '<b>' + esc(title) + '</b>' : '') + rows.join('');
+				self.aclass(cls + '-active');
+				var tw = els.tip.offsetWidth;
+				var th = els.tip.offsetHeight;
+				var width = els.body.clientWidth;
+				var x = p.px + 12 + tw > width ? p.px - 12 - tw : p.px + 12;
+				var y = Math.max(0, Math.min(els.body.clientHeight - th, p.py - th / 2));
+				els.tip.style.transform = 'translate(' + Math.round(Math.max(0, x)) + 'px,' + Math.round(y) + 'px)';
+				if (announce)
+					els.live.textContent = (title ? title + ': ' : '') + parts.join(', ');
+			};
+
+			var hide = function() {
+				cursor = -1;
+				var old = els.svg.querySelector(cls2 + '-on');
+				old && old.classList.remove(cls + '-on');
+				self.rclass(cls + '-active');
+			};
+
+			var run = function(index) {
+				var p = points[index];
+				p && config.click && self.EXEC(config.click, p.item, self);
+			};
+
+			self.make = function() {
+
+				label = self.html().trim();
+				self.aclass(cls);
+				self.html(('<div class="{0}-head"><div class="{0}-title"></div><div class="{0}-legend" aria-hidden="true"></div></div>' +
+					'<div class="{0}-body" tabindex="0" role="group"><svg aria-hidden="true" focusable="false"></svg><div class="{0}-tip" aria-hidden="true"></div><div class="{0}-nodata"><i class="ti ti-chart-line" aria-hidden="true"></i></div></div>' +
+					'<div class="{0}-sr {0}-table"></div><div class="{0}-sr" aria-live="polite"></div>').format(cls));
+
+				els.title = self.find(cls2 + '-title')[0];
+				els.legend = self.find(cls2 + '-legend')[0];
+				els.body = self.find(cls2 + '-body')[0];
+				els.svg = self.find(cls2 + '-body svg')[0];
+				els.tip = self.find(cls2 + '-tip')[0];
+				els.table = self.find(cls2 + '-table')[0];
+				els.live = self.find(cls2 + '-sr[aria-live]')[0];
+
+				prepare();
+
+				// The nearest point within 24px, so small points are easy to hit
+				self.event('mousemove', cls2 + '-body', function(e) {
+					var rect = els.body.getBoundingClientRect();
+					var mx = e.clientX - rect.left;
+					var my = e.clientY - rect.top;
+					var best = -1;
+					var distance = 24 * 24;
+					for (var i = 0; i < points.length; i++) {
+						var dx = points[i].px - mx;
+						var dy = points[i].py - my;
+						var d = dx * dx + dy * dy;
+						if (d < distance) {
+							distance = d;
+							best = i;
+						}
+					}
+					if (best === -1)
+						cursor !== -1 && hide();
+					else if (best !== cursor)
+						show(best);
+				});
+
+				self.event('mouseleave', cls2 + '-body', function() {
+					document.activeElement !== els.body && hide();
+				});
+
+				self.event('click', cls2 + '-body', function() {
+					cursor !== -1 && run(cursor);
+				});
+
+				self.event('keydown', cls2 + '-body', function(e) {
+					if (!order.length)
+						return;
+					var at = order.indexOf(cursor);
+					switch (e.key) {
+						case 'ArrowRight':
+						case 'ArrowDown':
+							at = at === -1 ? 0 : Math.min(order.length - 1, at + 1);
+							break;
+						case 'ArrowLeft':
+						case 'ArrowUp':
+							at = at <= 0 ? 0 : at - 1;
+							break;
+						case 'Home':
+							at = 0;
+							break;
+						case 'End':
+							at = order.length - 1;
+							break;
+						case 'Enter':
+						case ' ':
+							e.preventDefault();
+							cursor !== -1 && run(cursor);
+							return;
+						case 'Escape':
+							hide();
+							return;
+						default:
+							return;
+					}
+					e.preventDefault();
+					show(order[at], true);
+				});
+
+				self.event('blur', cls2 + '-body', hide);
+
+				if (window.ResizeObserver) {
+					observer = new ResizeObserver(function() {
+						els.body.clientWidth !== lastwidth && setTimeout2(self.ID + 'resize', draw, 60);
+					});
+					observer.observe(els.body);
+				}
+			};
+
+			self.configure = function(key, value, init) {
+				switch (key) {
+					case 'label':
+						els.title.innerHTML = value || label;
+						var text = els.title.textContent.trim();
+						self.tclass(cls + '-notitle', !text);
+						text ? els.body.setAttribute('aria-label', text) : els.body.removeAttribute('aria-label');
+						!init && rendertable();
+						break;
+					case 'style':
+						self.tclass(cls + '-minimal', value === 'minimal');
+						break;
+					case 'click':
+						self.tclass(cls + '-clickable', !!value);
+						break;
+					case 'legend':
+						!init && renderlegend();
+						break;
+					case 'currency':
+					case 'locale':
+						if (!init) {
+							prepare();
+							rendertable();
+							draw();
+						}
+						break;
+					case 'height':
+					case 'xlabel':
+					case 'ylabel':
+					case 'zlabel':
+					case 'xformat':
+					case 'yformat':
+					case 'bubbles':
+					case 'trend':
+					case 'average':
+					case 'zero':
+						if (!init) {
+							rendertable();
+							draw();
+						}
+						break;
+				}
+			};
+
+			self.setter = function(value) {
+				parse(value);
+				renderlegend();
+				rendertable();
+				draw();
+			};
+
+			self.destroy = function() {
+				observer && observer.disconnect();
+				clearTimeout2(self.ID + 'resize');
+			};
+
+		});
+
+	</script>
+
+	<div style="max-width:960px;padding:12px;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr))">
+
+		<ui-component name="scatterchart" path="scatter.pages" config="xlabel:Load time;ylabel:Bounce rate;xformat:ms;yformat:percent;trend:true;height:172;click:onpointclick">Load time and bounce rate</ui-component>
+
+		<ui-component name="scatterchart" path="scatter.sources" config="xlabel:Visits;ylabel:Conversion;zlabel:Revenue;yformat:percent;bubbles:true;average:true;height:260">Sources: visits, conversion and revenue</ui-component>
+
+		<ui-component name="scatterchart" path="scatter.devices" config="xlabel:Time on page;ylabel:Pages per visit;xformat:duration;trend:true;height:260">Engagement by device</ui-component>
+
+		<ui-component name="scatterchart" path="scatter.empty" config="height:160">No data yet</ui-component>
+
+	</div>
+
+	<script>
+
+		var seed = 42;
+		var rnd = function() {
+			seed = (seed * 16807) % 2147483647;
+			return seed / 2147483647;
+		};
+
+		var pages = [];
+		for (var i = 0; i < 40; i++) {
+			var load = 600 + rnd() * 4800;
+			pages.push({ x: Math.round(load), y: Math.round((18 + load / 140 + rnd() * 16) * 10) / 10, name: '/page-' + (i + 1) });
+		}
+		SET('scatter.pages', pages);
+
+		SET('scatter.sources', { series: [
+			{ name: 'Search', points: [{ x: 20410, y: 2.9, size: 8200, name: 'Google' }, { x: 3100, y: 3.4, size: 1400, name: 'Bing' }] },
+			{ name: 'Social', points: [{ x: 6100, y: 1.2, size: 1100, name: 'LinkedIn' }, { x: 2400, y: 0.8, size: 300, name: 'X' }] },
+			{ name: 'AI agents', points: [{ x: 4300, y: 4.8, size: 3900, name: 'ChatGPT' }, { x: 1250, y: 5.6, size: 1500, name: 'Claude' }, { x: 540, y: 4.1, size: 420, name: 'Perplexity' }] },
+			{ name: 'Direct', points: [{ x: 11200, y: 2.2, size: 4100, name: 'Direct' }] }
+		] });
+
+		var devices = function(n, base, slope) {
+			var out = [];
+			for (var i = 0; i < n; i++) {
+				var t = 20 + rnd() * 400;
+				out.push({ x: Math.round(t), y: Math.round((base + t * slope + rnd() * 1.6) * 10) / 10 });
+			}
+			return out;
+		};
+		SET('scatter.devices', { series: [{ name: 'Desktop', points: devices(30, 1.8, 0.012) }, { name: 'Mobile', points: devices(30, 1.2, 0.008) }, { name: 'Tablet', points: devices(12, 1.5, 0.01) }] });
+
+		SET('scatter.empty', []);
+
+		function onpointclick(point, component) {
+			// e.g. open the detail of the page: point.name
+		}
+
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<style component>
+
+		.ui-funnelchart { box-sizing: border-box; min-width: 0; padding: 16px 18px; border: 1px solid #E3E3E3; border-radius: var(--radius); background: #FFF; color: #1F1F1F; font-size: 13px; }
+		.ui-funnelchart-minimal { padding: 0; border-color: transparent; background: transparent; }
+		.ui-funnelchart-top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; margin-bottom: 12px; }
+		.ui-funnelchart-title { font-weight: 600; font-size: 14px; }
+		.ui-funnelchart-notitle .ui-funnelchart-title { display: none; }
+		.ui-funnelchart-total { color: #5E5E5E; font-variant-numeric: tabular-nums; }
+		.ui-funnelchart-total b { color: #1F1F1F; font-weight: 600; }
+		.ui-funnelchart-list { margin: 0; padding: 0; list-style: none; counter-reset: step; }
+		.ui-funnelchart-step { display: block; width: 100%; padding: 0; border: 0; border-radius: 8px; background: transparent; color: inherit; font: inherit; text-align: left; }
+		button.ui-funnelchart-step { cursor: pointer; }
+		button.ui-funnelchart-step:hover .ui-funnelchart-bar { filter: brightness(1.08); }
+		.ui-funnelchart-step:focus-visible { outline: 2px solid var(--color); outline-offset: 2px; }
+		.ui-funnelchart-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+		.ui-funnelchart-name { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+		.ui-funnelchart-name:before { counter-increment: step; content: counter(step) '. '; color: #8A8A8A; font-variant-numeric: tabular-nums; }
+		.ui-funnelchart-value { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+		.ui-funnelchart-share { min-width: 48px; text-align: right; color: #5E5E5E; font-variant-numeric: tabular-nums; white-space: nowrap; }
+		.ui-funnelchart-track { display: flex; height: var(--fch, 26px); border-radius: 6px; background: rgba(var(--rgb), .07); }
+		.ui-funnelchart-center .ui-funnelchart-track { justify-content: center; }
+		.ui-funnelchart-bar { width: 0; min-width: 3px; height: 100%; border-radius: 6px; background: var(--color); transition: width .45s ease-out; }
+		.ui-funnelchart-drop { display: flex; align-items: center; gap: 6px; height: 26px; padding-left: 2px; color: #5E5E5E; font-size: 12px; font-variant-numeric: tabular-nums; }
+		.ui-funnelchart-drop i { font-size: 11px; color: #D03B3B; }
+		.ui-funnelchart-drop b { color: #1F1F1F; font-weight: 600; }
+		.ui-funnelchart-nodrop .ui-funnelchart-drop { height: 10px; overflow: hidden; color: transparent; }
+		.ui-funnelchart-nodrop .ui-funnelchart-drop * { display: none; }
+		.ui-funnelchart-empty { display: none; align-items: center; gap: 8px; color: #8A8A8A; }
+		.ui-funnelchart-empty i { font-size: 18px; opacity: .7; }
+		.ui-funnelchart-isempty .ui-funnelchart-empty { display: flex; }
+		.ui-funnelchart-isempty .ui-funnelchart-total { display: none; }
+		.ui-funnelchart-sr { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+		@media (prefers-reduced-motion: reduce) {
+			.ui-funnelchart-bar { transition: none; }
+		}
+
+		.ui-dark .ui-funnelchart { border-color: #3A3A3A; background: #252525; color: #EDEDED; }
+		.ui-dark .ui-funnelchart-minimal { border-color: transparent; background: transparent; }
+		.ui-dark .ui-funnelchart-total, .ui-dark .ui-funnelchart-share, .ui-dark .ui-funnelchart-drop { color: #ABABAB; }
+		.ui-dark .ui-funnelchart-total b, .ui-dark .ui-funnelchart-drop b { color: #EDEDED; }
+		.ui-dark .ui-funnelchart-track { background: rgba(var(--rgb), .14); }
+		.ui-dark .ui-funnelchart-drop i { color: #EE7B7B; }
+
+		@media (forced-colors: active) {
+			.ui-funnelchart { border: 1px solid CanvasText; }
+			.ui-funnelchart-bar { background: Highlight; }
+			.ui-funnelchart-track { border: 1px solid CanvasText; }
+		}
+
+	</style>
+
+	<script component>
+
+		COMPONENT('funnelchart', 'label:;style:card;align:center;height:26;color:;drop:true;caption:;format:number;decimals:0;compact:true;currency:EUR;locale:;click:', function(self, config, cls) {
+
+			var cls2 = '.' + cls;
+			var els = {};
+			var steps = [];
+			var fmt = {};
+			var label = '';
+
+			var esc = function(value) {
+				return (value == null ? '' : value + '').replace(/[&<>"']/g, function(c) {
+					return c === '&' ? '&amp;' : c === '<' ? '&lt;' : c === '>' ? '&gt;' : c === '"' ? '&quot;' : '&#39;';
+				});
+			};
+
+			var locale = function() {
+				return config.locale || document.documentElement.lang || undefined;
+			};
+
+			var nf = function(options) {
+				try {
+					return new Intl.NumberFormat(locale(), options);
+				} catch (e) {
+					return new Intl.NumberFormat(undefined, options);
+				}
+			};
+
+			var prepare = function() {
+				var decimals = Math.max(0, config.decimals || 0);
+				var opt = { minimumFractionDigits: 0, maximumFractionDigits: decimals };
+				var copt = { notation: 'compact', maximumFractionDigits: 1 };
+				if (config.format === 'currency') {
+					opt.style = copt.style = 'currency';
+					opt.currency = copt.currency = config.currency || 'EUR';
+				}
+				fmt.full = nf(opt);
+				fmt.compact = config.compact ? nf(copt) : null;
+				fmt.share = nf({ style: 'percent', maximumFractionDigits: 1 });
+			};
+
+			var format = function(n) {
+				return n == null ? '—' : (fmt.compact && Math.abs(n) >= 10000 ? fmt.compact : fmt.full).format(n);
+			};
+
+			var num = function(value) {
+				if (value == null || value === '')
+					return null;
+				value = typeof value === 'number' ? value : +value;
+				return isFinite(value) && value >= 0 ? value : null;
+			};
+
+			// [{ name: 'Visits', value: 48210 }, { name: 'Product', value: 12400 }, ...] in the order of the funnel
+			var parse = function(value) {
+				var src = value instanceof Array ? value : value && value.steps instanceof Array ? value.steps : [];
+				steps = [];
+				for (var i = 0; i < src.length; i++) {
+					var item = src[i] || {};
+					var n = num(item.value);
+					n != null && steps.push({ name: item.name == null ? '' : item.name + '', value: n, item: item });
+				}
+			};
+
+			var render = function() {
+
+				self.tclass(cls + '-isempty', !steps.length);
+
+				var first = steps.length ? steps[0].value : 0;
+				var max = 0;
+				for (var m = 0; m < steps.length; m++)
+					max = Math.max(max, steps[m].value);
+
+				var tag = config.click ? 'button' : 'div';
+				var builder = [];
+
+				for (var i = 0; i < steps.length; i++) {
+					var s = steps[i];
+					var overall = first ? s.value / first : 0;
+					var width = max ? s.value / max * 100 : 0;
+
+					// Between two steps: the share that goes on and the share that is lost
+					if (i > 0) {
+						var prev = steps[i - 1].value;
+						var kept = prev ? s.value / prev : 0;
+						builder.push('<li class="{0}-drop" aria-hidden="true"><i class="ti ti-arrow-down"></i><b>{1}</b><span>(−{2})</span></li>'.format(cls, esc(fmt.share.format(kept)), esc(fmt.share.format(Math.max(0, 1 - kept)))));
+					}
+
+					var text = s.name + ': ' + format(s.value) + ', ' + fmt.share.format(overall) + (i > 0 && steps[i - 1].value ? ', ' + fmt.share.format(s.value / steps[i - 1].value) : '');
+					builder.push(('<li><{1} {2}class="{0}-step" data-index="{3}" aria-label="{4}">' +
+						'<span class="{0}-head" aria-hidden="true"><span class="{0}-name"></span><span class="{0}-value">{5}</span><span class="{0}-share">{6}</span></span>' +
+						'<span class="{0}-track" aria-hidden="true"><span class="{0}-bar" data-width="{7}"></span></span></{1}></li>').format(cls, tag, tag === 'button' ? 'type="button" ' : '', i, esc(text), esc(format(s.value)), esc(fmt.share.format(overall)), width.toFixed(2)));
+				}
+
+				// The bars keep their nodes while the count of steps does not change, so they move in real time
+				var olds = els.list.querySelectorAll(cls2 + '-bar');
+				var widths = [];
+				for (var o = 0; o < olds.length; o++)
+					widths.push(olds[o].style.width);
+
+				els.list.innerHTML = builder.join('');
+
+				var names = els.list.querySelectorAll(cls2 + '-name');
+				for (var n = 0; n < names.length; n++)
+					names[n].textContent = steps[n].name;
+
+				var bars = els.list.querySelectorAll(cls2 + '-bar');
+				var same = widths.length === bars.length;
+				for (var b = 0; b < bars.length; b++)
+					bars[b].style.width = same ? widths[b] : '0';
+				els.list.offsetWidth;
+				for (b = 0; b < bars.length; b++)
+					bars[b].style.width = bars[b].getAttribute('data-width') + '%';
+
+				var last = steps.length ? steps[steps.length - 1].value : 0;
+				els.total.innerHTML = steps.length > 1 ? '<b>{0}</b>{1}'.format(esc(fmt.share.format(first ? last / first : 0)), config.caption ? ' ' + esc(config.caption) : '') : '';
+			};
+
+			self.make = function() {
+				label = self.html().trim();
+				self.aclass(cls);
+				self.attr('role', 'group');
+				self.html('<div class="{0}-top"><div class="{0}-title"></div><div class="{0}-total"></div></div><ol class="{0}-list"></ol><div class="{0}-empty"><i class="ti ti-filter" aria-hidden="true"></i></div>'.format(cls));
+				els.title = self.find(cls2 + '-title')[0];
+				els.total = self.find(cls2 + '-total')[0];
+				els.list = self.find(cls2 + '-list')[0];
+				prepare();
+				self.event('click', 'button' + cls2 + '-step', function() {
+					var step = steps[+this.getAttribute('data-index')];
+					step && config.click && self.EXEC(config.click, { index: +this.getAttribute('data-index'), name: step.name, value: step.value, item: step.item }, self);
+				});
+			};
+
+			self.configure = function(key, value, init) {
+				switch (key) {
+					case 'label':
+						els.title.innerHTML = value || label;
+						var text = els.title.textContent.trim();
+						self.tclass(cls + '-notitle', !text);
+						text ? self.attr('aria-label', text) : self.dom.removeAttribute('aria-label');
+						break;
+					case 'style':
+						self.tclass(cls + '-minimal', value === 'minimal');
+						break;
+					case 'align':
+						self.tclass(cls + '-center', value === 'center');
+						break;
+					case 'height':
+						self.dom.style.setProperty('--fch', Math.max(8, value || 26) + 'px');
+						break;
+					case 'color':
+						var m = (/^#?([0-9a-f]{3}|[0-9a-f]{6})$/i).exec(value || '');
+						if (m) {
+							var h = m[1].length === 3 ? m[1].replace(/./g, '$&$&') : m[1];
+							self.dom.style.setProperty('--color', '#' + h);
+							self.dom.style.setProperty('--rgb', [parseInt(h.substring(0, 2), 16), parseInt(h.substring(2, 4), 16), parseInt(h.substring(4, 6), 16)].join(', '));
+						} else {
+							self.dom.style.removeProperty('--color');
+							self.dom.style.removeProperty('--rgb');
+						}
+						break;
+					case 'drop':
+						self.tclass(cls + '-nodrop', !value);
+						break;
+					case 'caption':
+					case 'click':
+					case 'format':
+					case 'decimals':
+					case 'compact':
+					case 'currency':
+					case 'locale':
+						if (!init) {
+							prepare();
+							render();
+						}
+						break;
+				}
+			};
+
+			self.setter = function(value) {
+				parse(value);
+				render();
+			};
+
+		});
+
+	</script>
+
+	<div style="max-width:960px;padding:12px;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(400px,100%),1fr))">
+
+		<ui-component name="funnelchart" path="funnel.shop" config="caption:converted;height:12;click:onstepclick">Purchase funnel</ui-component>
+
+		<ui-component name="funnelchart" path="funnel.signup" config="align:left;caption:signed up;color:#1BAF7A">Sign-up</ui-component>
+
+		<ui-component name="funnelchart" path="funnel.agents" config="caption:of the agents bought;drop:false;color:#6250D6;style:minimal">AI agent checkout</ui-component>
+
+	</div>
+
+	<script>
+
+		SET('funnel.shop', [
+			{ name: 'Visits', value: 48210 },
+			{ name: 'Cart', value: 3210 },
+			{ name: 'Purchase', value: 1180 }
+		]);
+
+		SET('funnel.signup', [
+			{ name: 'Pricing page', value: 2980 },
+			{ name: 'Sign-up form', value: 1240 },
+			{ name: 'Email confirmed', value: 890 },
+			{ name: 'First project', value: 512 },
+			{ name: 'Paid plan', value: 96 }
+		]);
+
+		SET('funnel.agents', [
+			{ name: 'Agent sessions', value: 4300 },
+			{ name: 'Read the catalog (MCP)', value: 2150 },
+			{ name: 'Started a checkout', value: 380 },
+			{ name: 'Paid', value: 210 }
+		]);
+
+		function onstepclick(step, component) {
+			// e.g. show who left at this step: step.index, step.name
+		}
+
+	</script>
+
+</body>
+</html>
