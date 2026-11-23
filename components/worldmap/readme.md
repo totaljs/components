@@ -1,16 +1,16 @@
 ---
-name: worldmap
+name: WorldMap
 description: World map coloured by a value per country, such as visitors or sales, with a tooltip, a scale, country names in the language of the page, keyboard access and real time updates
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 19:57
-updated: 2026-11-22 19:57
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 
-# Worldmap
+# WorldMap
 
 A world map where every country is coloured by its value: visitors, AI agent visits, sales... The colour is one hue from light (little) to dark (a lot), split into a few steps, with a scale under the map. It re-paints on every change of the model, so it works in real time.
 

@@ -1,12 +1,12 @@
 ---
-name: iconpicker
+name: IconPicker
 description: Singleton picker of Total.js Icons next to an element or a point, with search, the other names of each icon and keyboard
-author: Gera
+author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-21 08:06
-updated: 2026-11-21 08:06
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 

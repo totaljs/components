@@ -1,16 +1,16 @@
 ---
-name: statbox
+name: StatBox
 description: Statistic box for dashboards with the value, the change against a previous period, a sparkline, a goal meter and five styles, updated in real time
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 19:40
-updated: 2026-11-22 19:40
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 
-# Statbox
+# StatBox
 
 A box that shows one metric of a dashboard: visitors, page views, bounce rate, average time, sales... It reads the value from the model and re-renders on every change, so it works in real time (`SET()` the new value and the number counts to it). One component per box: put several of them in a grid.
 

@@ -1,16 +1,16 @@
 ---
-name: calendarchart
+name: CalendarChart
 description: Calendar of a year or of the last days as a grid of weeks with one coloured cell per day, like the activity of GitHub, with a legend, a total, a tooltip and keyboard access
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 20:38
-updated: 2026-11-22 20:38
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 
-# Calendarchart
+# CalendarChart
 
 Shows a value per day over months: visits, AI agent visits, orders, deployments. Every column is a week and every cell a day, coloured from light to dark in a few steps. The steps are quantiles of the days with a value, so a few big days do not leave the rest of the year pale. It re-renders on every change of the model.
 

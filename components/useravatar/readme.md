@@ -1,16 +1,16 @@
 ---
-name: useravatar
+name: UserAvatar
 description: Deterministic SVG avatar generated in the browser from a name, an email, an ID or an object, in six styles and with the colour of the app
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: MIT
 created: 2026-11-22 21:19
-updated: 2026-11-22 21:19
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 
-# Useravatar
+# UserAvatar
 
 An avatar drawn as SVG from a value: the same value always gives the same avatar. It is an adaptation of [Boring Avatars](https://github.com/boringdesigners/boring-avatars) without React, images, canvas or requests: the name or email never leaves the browser.
 

@@ -1,16 +1,16 @@
 ---
-name: uptimebar
+name: UptimeBar
 description: Availability of a service in the last 90 days as one bar per day, with the uptime, the current state, notes of incidents, a tooltip and keyboard access
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 20:26
-updated: 2026-11-22 20:26
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 
-# Uptimebar
+# UptimeBar
 
 The status line of a service: one bar per day for the last 90 days (website, API, the MCP server of the AI agents...), coloured by the uptime of the day, with the average uptime and the current state on top. Degraded days are striped and down days solid, so the state is not told by colour alone. In narrow boxes it shows the last 60 or 30 days, so a bar is never thinner than 3px.
 

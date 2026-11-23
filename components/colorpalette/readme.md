@@ -1,12 +1,12 @@
 ---
-name: colorpalette
+name: ColorPalette
 description: Singleton colour picker next to an element or a point, with shades, the colours in use, any colour and the format of the value kept
-author: Gera
+author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-21 08:06
-updated: 2026-11-21 08:40
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 

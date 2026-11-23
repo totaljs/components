@@ -1,16 +1,16 @@
 ---
-name: scatterchart
+name: ScatterChart
 description: Scatter and bubble chart to relate two measures (and a third as the size), with series in colours and shapes, trend lines, average lines, a tooltip and keyboard access
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 20:31
-updated: 2026-11-22 20:31
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 
-# Scatterchart
+# ScatterChart
 
 Shows if two measures move together: load time and bounce rate per page, visits and conversion per source, time on page and pages per visit per device. Every point is one item; with `bubbles:true` a third measure is the size of the point. Trend lines (least squares) and average lines (four quadrants) help to read it. It re-renders on every change of the model.
 

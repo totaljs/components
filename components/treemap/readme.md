@@ -1,12 +1,12 @@
 ---
-name: treemap
+name: Treemap
 description: Treemap of a hierarchy, such as visits by section and page or revenue by country, with squarified tiles, two levels at once, zoom into groups with a breadcrumb, a tooltip and keyboard access
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 20:36
-updated: 2026-11-22 20:36
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 

@@ -1,12 +1,12 @@
 ---
-name: emojipicker
+name: EmojiPicker
 description: Singleton emoji picker like the ones of chat apps, with every Unicode emoji in categories, recent ones, skin tones and search in several languages
-author: Gera
+author: Gera G. Güiles
 version: 2
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-21 08:06
-updated: 2026-11-21 08:34
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 

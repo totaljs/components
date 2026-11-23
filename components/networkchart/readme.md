@@ -1,16 +1,16 @@
 ---
-name: networkchart
+name: NetworkChart
 description: Network graph of nodes and links as a force layout, a circle or rings around a centre, with groups, sizes, weights, zoom, dragging, a tooltip and keyboard access, for up to 500 nodes
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 21:16
-updated: 2026-11-22 21:16
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 
-# Networkchart
+# NetworkChart
 
 Shows how things are connected: the internal links of a site (and its orphan pages), the AI agents and the pages they read, referrers and topics, people and teams. Nodes are circles sized by their value and coloured by their group; links are lines as thick as their weight. Hovering a node highlights its neighbours and fades the rest.
 

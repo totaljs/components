@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link href="https://cdn.componentator.com/spa.min@20.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.componentator.com/spa.min@20.js"></script>
+</head>
+<body>
+
+	<style component>
+
+		.ui-webagent { font-size: 14px; color: #1F1F1F; }
+		.ui-webagent-off { display: none !important; }
+		.ui-webagent-launcher { position: fixed; right: 20px; bottom: 20px; z-index: 40; display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; padding: 0; border: 0; border-radius: 50%; background: var(--color); color: #FFF; font-size: 24px; box-shadow: 0 6px 20px rgba(0, 0, 0, .18); cursor: pointer; transition: transform .15s; }
+		.ui-webagent-launcher:hover { transform: scale(1.05); }
+		.ui-webagent-launcher:focus-visible { outline: 3px solid var(--color); outline-offset: 3px; }
+		.ui-webagent-left .ui-webagent-launcher { right: auto; left: 20px; }
+		.ui-webagent-isopen .ui-webagent-launcher { transform: scale(.9); }
+		.ui-webagent-panel { position: fixed; right: 20px; bottom: 88px; z-index: 41; display: none; flex-direction: column; width: 380px; max-width: calc(100vw - 24px); height: 560px; max-height: calc(100vh - 110px); overflow: hidden; border: 1px solid #E3E3E3; border-radius: 14px; background: #FFF; box-shadow: 0 12px 40px rgba(0, 0, 0, .16); }
+		.ui-webagent-left .ui-webagent-panel { right: auto; left: 20px; }
+		.ui-webagent-isopen .ui-webagent-panel { display: flex; animation: ui-webagent-in .18s ease-out; }
+		.ui-webagent-inline .ui-webagent-launcher { display: none; }
+		.ui-webagent-inline .ui-webagent-panel { position: relative; right: auto; bottom: auto; z-index: auto; display: flex; width: 100%; max-width: none; height: var(--wah, 520px); max-height: none; box-shadow: none; border-radius: var(--radius); animation: none; }
+		.ui-webagent-inline .ui-webagent-close { display: none; }
+		.ui-webagent-head { display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 8px 0 14px; border-bottom: 1px solid #EEE; }
+		.ui-webagent-avatar { display: flex; flex: 0 0 auto; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: rgba(var(--rgb), .12); color: var(--color); font-size: 16px; }
+		.ui-webagent-title { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+		.ui-webagent-btn { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 8px; background: transparent; color: inherit; font-size: 16px; cursor: pointer; }
+		.ui-webagent-btn:hover { background: rgba(0, 0, 0, .05); }
+		.ui-webagent-btn:focus-visible, .ui-webagent-choice:focus-visible, .ui-webagent-text a:focus-visible { outline: 2px solid var(--color); outline-offset: 2px; }
+		.ui-webagent-log { flex: 1 1 auto; display: flex; flex-direction: column; gap: 10px; min-height: 0; padding: 14px; overflow-y: auto; overscroll-behavior: contain; }
+		.ui-webagent-msg { max-width: 88%; padding: 9px 12px; border-radius: 4px 14px 14px 14px; background: #F3F3F3; line-height: 1.5; overflow-wrap: anywhere; }
+		.ui-webagent-user { align-self: flex-end; border-radius: 14px 4px 14px 14px; background: var(--color); color: #FFF; white-space: pre-wrap; }
+		.ui-webagent-note { align-self: center; max-width: 100%; padding: 2px 10px; border-radius: 10px; background: transparent; color: #6A6A6A; font-size: 12px; }
+		.ui-webagent-note i { margin-right: 5px; }
+		.ui-webagent-text > :first-child { margin-top: 0; }
+		.ui-webagent-text > :last-child { margin-bottom: 0; }
+		.ui-webagent-text p { margin: 0 0 8px; }
+		.ui-webagent-text ul, .ui-webagent-text ol { margin: 4px 0 8px; padding-left: 20px; }
+		.ui-webagent-text li { margin: 2px 0; }
+		.ui-webagent-text a { color: var(--color); text-decoration: underline; text-underline-offset: 2px; }
+		.ui-webagent-text code { padding: 1px 4px; border-radius: 4px; background: rgba(0, 0, 0, .07); font-family: monospace; font-size: 12.5px; }
+		.ui-webagent-text pre { margin: 6px 0; padding: 8px 10px; border-radius: 8px; background: rgba(0, 0, 0, .06); overflow-x: auto; }
+		.ui-webagent-text pre code { padding: 0; background: none; }
+		.ui-webagent-typing::after { content: ''; display: inline-block; width: 7px; height: 14px; margin-left: 3px; vertical-align: -2px; background: currentColor; opacity: .5; animation: ui-webagent-caret 1s steps(2) infinite; }
+		.ui-webagent-ask { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+		.ui-webagent-choice { height: 34px; padding: 0 14px; border: 1px solid #D5D5D5; border-radius: 8px; background: #FFF; color: inherit; font: inherit; cursor: pointer; }
+		.ui-webagent-choice-yes { border-color: var(--color); background: var(--color); color: #FFF; }
+		.ui-webagent-args { margin: 6px 0 0; padding: 0; list-style: none; font-size: 12.5px; color: #4A4A4A; }
+		.ui-webagent-progress { display: none; padding: 8px 14px; border-top: 1px solid #EEE; color: #5E5E5E; font-size: 12px; }
+		.ui-webagent-progress-track { height: 4px; margin-top: 6px; overflow: hidden; border-radius: 2px; background: #EEE; }
+		.ui-webagent-bar { display: block; width: 0; height: 100%; background: var(--color); transition: width .2s; }
+		.ui-webagent-preparing:not(.ui-webagent-measured) .ui-webagent-bar { width: 30%; animation: ui-webagent-slide 1.2s ease-in-out infinite alternate; }
+		.ui-webagent-preparing .ui-webagent-progress { display: block; }
+		.ui-webagent-form { display: flex; align-items: flex-end; gap: 8px; padding: 10px; border-top: 1px solid #EEE; }
+		.ui-webagent-input { flex: 1 1 auto; min-height: 40px; max-height: 140px; padding: 9px 11px; border: 1px solid #D5D5D5; border-radius: 10px; background: #FFF; color: inherit; font: inherit; line-height: 1.4; resize: none; }
+		.ui-webagent-input:focus { border-color: var(--color); outline: none; box-shadow: 0 0 0 3px rgba(var(--rgb), .15); }
+		.ui-webagent-send { background: var(--color); color: #FFF; }
+		.ui-webagent-send:hover { background: var(--color); opacity: .9; }
+		.ui-webagent-send:disabled { opacity: .45; cursor: default; }
+		.ui-webagent-foot { padding: 0 12px 8px; color: #7A7A7A; font-size: 11px; text-align: center; }
+		.ui-webagent-foot:empty { display: none; }
+		.ui-webagent-sr { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+		@keyframes ui-webagent-in {
+			from { opacity: 0; transform: translateY(8px); }
+			to { opacity: 1; transform: none; }
+		}
+
+		@keyframes ui-webagent-slide {
+			from { transform: translateX(-10%); }
+			to { transform: translateX(250%); }
+		}
+
+		@keyframes ui-webagent-caret {
+			to { opacity: 0; }
+		}
+
+		@media (max-width: 480px) {
+			.ui-webagent-panel { right: 12px; bottom: 84px; width: calc(100vw - 24px); }
+			.ui-webagent-left .ui-webagent-panel { left: 12px; }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			.ui-webagent-launcher, .ui-webagent-isopen .ui-webagent-panel, .ui-webagent-typing::after, .ui-webagent-bar { transition: none; animation: none !important; }
+		}
+
+		.ui-dark .ui-webagent { color: #EDEDED; }
+		.ui-dark .ui-webagent-panel { border-color: #3A3A3A; background: #222; }
+		.ui-dark .ui-webagent-head, .ui-dark .ui-webagent-form, .ui-dark .ui-webagent-progress { border-color: #333; }
+		.ui-dark .ui-webagent-avatar { background: rgba(var(--rgb), .25); }
+		.ui-dark .ui-webagent-btn:hover { background: rgba(255, 255, 255, .07); }
+		.ui-dark .ui-webagent-msg { background: #303030; }
+		.ui-dark .ui-webagent-user { background: var(--color); }
+		.ui-dark .ui-webagent-note { background: transparent; color: #A5A5A5; }
+		.ui-dark .ui-webagent-text code, .ui-dark .ui-webagent-text pre { background: rgba(255, 255, 255, .08); }
+		.ui-dark .ui-webagent-choice { border-color: #4A4A4A; background: #2A2A2A; }
+		.ui-dark .ui-webagent-choice-yes { border-color: var(--color); background: var(--color); }
+		.ui-dark .ui-webagent-args { color: #BDBDBD; }
+		.ui-dark .ui-webagent-progress { color: #A5A5A5; }
+		.ui-dark .ui-webagent-progress-track { background: #3A3A3A; }
+		.ui-dark .ui-webagent-input { border-color: #444; background: #2A2A2A; }
+		.ui-dark .ui-webagent-foot { color: #9A9A9A; }
+
+	</style>
+
+	<script component>
+
+		COMPONENT('webagent', 'name:Assistant;icon:ti ti-robot;llms:/llms.txt;pages:2;url:/$mcp/;tools:;safe:;download:true;position:right;height:520;open:false;language:;welcome:;placeholder:Write a question;note:The AI of your browser answers. It can make mistakes.;opener:Open the assistant;close:Close;send:Send;stop:Stop;preparing:Preparing the AI of your browser;confirm:May I use;yes:Yes;no:No;error:The assistant could not answer. Try again.;change:', function(self, config, cls) {
+
+			var cls2 = '.' + cls;
+			var PAGE = 4000;
+			var els = {};
+			var persona = '';
+			var messages = [];
+			var lang = 'en';
+			var ready = false;
+			var site = null;
+			var tools = null;
+			var base = null;
+			var session = null;
+			var loaded = {};
+			var busy = false;
+			var abort = null;
+			var asking = null;
+			var lifecycle = null;
+			var known = {};
+
+			// The addresses the answers may link: the site itself, what llms.txt names and the pages read. An address
+			// written by the model alone stays text, it may not exist.
+			var link = function(url, owner) {
+				var href;
+				try {
+					href = new URL(url, location.href);
+				} catch (e) {
+					return null;
+				}
+				if (!/^https?:$/.test(href.protocol))
+					return null;
+				var key = href.origin + href.pathname;
+				return owner || href.href === location.origin + '/' || known[key] ? href.href : null;
+			};
+
+			var remember = function(url) {
+				try {
+					var href = new URL(url, location.href);
+					known[href.origin + href.pathname] = true;
+				} catch (e) {}
+			};
+
+			var api = function() {
+				return typeof W.LanguageModel !== 'undefined' && W.LanguageModel && typeof W.LanguageModel.create === 'function' ? W.LanguageModel : null;
+			};
+
+			// The language of the answers: the configuration, the page or the browser (the browser says whether it has it)
+			var language = function() {
+				return (config.language || document.documentElement.lang || navigator.language || 'en').toLowerCase().substring(0, 2);
+			};
+
+			var options = function() {
+				// The content of the site may be in English whatever the language of the visitor
+				return { expectedInputs: [{ type: 'text', languages: lang === 'en' ? ['en'] : ['en', lang] }], expectedOutputs: [{ type: 'text', languages: [lang] }] };
+			};
+
+			var plain = function(value) {
+				return (value || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+			};
+
+			// Same origin only: the agent reads and calls nothing else
+			var local = function(url) {
+				try {
+					var target = new URL(url, location.href);
+					return target.origin === location.origin && /^https?:$/.test(target.protocol) ? target.href : null;
+				} catch (e) {
+					return null;
+				}
+			};
+
+			var get = function(url) {
+				return fetch(url, { credentials: 'same-origin', redirect: 'error', signal: lifecycle.signal }).then(function(response) {
+					if (!response.ok)
+						throw new Error('HTTP ' + response.status);
+					var type = response.headers.get('content-type') || '';
+					return response.text().then(function(text) {
+						// An HTML page is read as its text
+						if (type.indexOf('html') !== -1) {
+							var doc = new DOMParser().parseFromString(text, 'text/html');
+							var main = doc.querySelector('main') || doc.querySelector('article') || doc.body;
+							text = (doc.title ? doc.title + '\n\n' : '') + (main ? main.textContent : '');
+						}
+						return text.replace(/\n{3,}/g, '\n\n').trim();
+					});
+				});
+			};
+
+			// llms.txt: its text and its links ([Title](url): description), the pages the agent may read
+			var readsite = function() {
+				var url = config.llms && local(config.llms);
+				if (!url)
+					return Promise.resolve({ text: '', links: [] });
+				return get(url).then(function(text) {
+					var links = [];
+					var re = /\[([^\]]+)\]\(([^)\s]+)\)(?::?\s*([^\n]*))?/g;
+					var m;
+					while ((m = re.exec(text))) {
+						var href = null;
+						try {
+							href = local(new URL(m[2], url).href);
+						} catch (e) {}
+						href && links.push({ title: m[1], url: href, description: m[3] || '', words: plain(m[1] + ' ' + (m[3] || '') + ' ' + m[2]) });
+					}
+					(text.match(/\]\(([^)\s]+)\)|https?:\/\/[^\s<>()]+/g) || []).forEach(function(item) {
+						try {
+							remember(item.charAt(0) === ']' ? new URL(item.substring(2, item.length - 1), url).href : item.replace(/[.,;:!?]+$/, ''));
+						} catch (e) {}
+					});
+					return { text: text.substring(0, 12000), links: links };
+				}).catch(function() {
+					return { text: '', links: [] };
+				});
+			};
+
+			var rpc = function(method, params, signal) {
+				var id = Date.now();
+				return fetch(local(config.url), {
+					method: 'POST',
+					credentials: 'same-origin',
+					redirect: 'error',
+					headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+					body: JSON.stringify({ jsonrpc: '2.0', id: id, method: method, params: params }),
+					signal: signal || lifecycle.signal
+				}).then(function(response) {
+					if (!response.ok)
+						throw new Error('MCP HTTP ' + response.status);
+					return response.json();
+				}).then(function(data) {
+					if (!data || data.id !== id || data.error || !data.result)
+						throw new Error(data && data.error && data.error.message || 'Invalid MCP response.');
+					return data.result;
+				});
+			};
+
+			// The tools of the site that the agent may use: only the names of the configuration
+			var readtools = function() {
+				var names = (config.tools || '').split(',').map(function(name) { return name.trim(); }).filter(Boolean);
+				if (!names.length || !local(config.url))
+					return Promise.resolve([]);
+				return rpc('tools/list', {}).then(function(result) {
+					return (result.tools || []).filter(function(tool) {
+						return names.indexOf(tool.name) !== -1;
+					});
+				}).catch(function() {
+					return [];
+				});
+			};
+
+			var system = function() {
+				var name;
+				try {
+					name = new Intl.DisplayNames(['en'], { type: 'language' }).of(lang);
+				} catch (e) {
+					name = lang;
+				}
+				var rules = [
+					'You are ' + (config.name || 'the assistant') + ', the assistant of the website "' + document.title + '" (' + location.origin + ').',
+					'Answer only with the content of this website: the text below and the pages and results given in the conversation.',
+					'When the answer is not there, say that you do not know it and suggest a page of the website.',
+					'Never invent prices, dates, people or facts. Answer in ' + name + ', briefly, in Markdown, and link the pages with their address.'
+				];
+				return (persona ? persona + '\n\n' : '') + rules.join(' ') + (site.text ? '\n\nContent of the website (llms.txt):\n\n' + site.text : '');
+			};
+
+			// A new conversation for the model: the rules, the site and the last messages that fit
+			var start = function(history) {
+				var prompts = [{ role: 'system', content: system() }];
+				history.slice(-8).forEach(function(m) {
+					m.content && prompts.push({ role: m.role === 'user' ? 'user' : 'assistant', content: m.content });
+				});
+				var opt = options();
+				opt.initialPrompts = prompts;
+				opt.signal = lifecycle.signal;
+				opt.monitor = function(monitor) {
+					monitor.addEventListener('downloadprogress', function(e) {
+						// A real download: the bar shows how much
+						self.aclass(cls + '-measured');
+						els.bar.style.width = Math.round((e.loaded || 0) * 100) + '%';
+					});
+				};
+				return api().create(opt);
+			};
+
+			// One start at a time: the click that opens the chat and the first question share it (the first start of the
+			// model takes seconds)
+			var preparing = null;
+
+			var prepare = function() {
+				if (session)
+					return Promise.resolve(session);
+				if (preparing)
+					return preparing;
+				self.rclass(cls + '-measured');
+				self.aclass(cls + '-preparing');
+				preparing = (site ? Promise.resolve(site) : readsite()).then(function(value) {
+					site = value;
+					return tools ? tools : readtools();
+				}).then(function(list) {
+					tools = list;
+					// While a question waits, it is the prompt, not the history
+					return start(busy ? messages.slice(0, -1) : messages);
+				}).catch(function(e) {
+					// The content of the site does not fit: a shorter one
+					if (e && e.name === 'QuotaExceededError' && site.text) {
+						site.text = site.text.substring(0, site.text.length >> 1);
+						return start(messages.slice(-2));
+					}
+					throw e;
+				}).then(function(value) {
+					session = value;
+					preparing = null;
+					self.rclass(cls + '-preparing');
+					return session;
+				}, function(e) {
+					preparing = null;
+					self.rclass(cls + '-preparing');
+					throw e;
+				});
+				return preparing;
+			};
+
+			// The pages of llms.txt that match the words of the question, not read yet in this conversation
+			var pagesfor = function(question) {
+				var words = plain(question).split(/[^a-z0-9À-ɏ぀-ヿ一-鿿]+/).filter(function(word) { return word.length > 3; });
+				if (!config.pages || !words.length)
+					return Promise.resolve([]);
+				var scored = site.links.filter(function(link) {
+					return !loaded[link.url];
+				}).map(function(link) {
+					var score = 0;
+					words.forEach(function(word) {
+						link.words.indexOf(word) !== -1 && score++;
+					});
+					return { link: link, score: score };
+				}).filter(function(item) {
+					return item.score > 0;
+				}).sort(function(a, b) {
+					return b.score - a.score;
+				});
+				// Only the pages close to the best one: a word in common is not enough
+				scored = scored.filter(function(item) {
+					return item.score > scored[0].score / 2;
+				}).slice(0, config.pages).map(function(item) {
+					return item.link;
+				});
+				return read(scored);
+			};
+
+			var read = function(links) {
+				return Promise.all(links.map(function(link) {
+					return get(link.url).then(function(text) {
+						loaded[link.url] = true;
+						remember(link.url);
+						return 'Page "' + link.title + '" (' + link.url + '):\n\n' + text.substring(0, PAGE);
+					}).catch(function() {
+						return '';
+					});
+				})).then(function(list) {
+					return list.filter(Boolean);
+				});
+			};
+
+			var describe = function(tool) {
+				return tool.name + ': ' + (tool.description || tool.title || tool.name);
+			};
+
+			// Which tool, if any: an answer constrained to the names of the tools, in a copy of the conversation
+			var choose = function(question, context) {
+				if (!tools.length)
+					return Promise.resolve(null);
+				var names = tools.map(function(tool) { return tool.name; });
+				return session.clone({ signal: abort.signal }).then(function(copy) {
+					// A small model uses tools too eagerly: "none" first, and the pages it already has
+					var text = (context.length ? context.join('\n\n---\n\n') + '\n\n' : '') + 'Tools of the website:\n' + tools.map(describe).join('\n') +
+						'\n\nChoose a tool only when the visitor asks for an action that the tool does, or for data that only the tool gives and that is not in the content of the website above. Otherwise choose none. The question may be in any language.\n\nQuestion of the visitor: ' + question;
+					return copy.prompt(text, { signal: abort.signal, responseConstraint: { type: 'object', properties: { tool: { type: 'string', 'enum': ['none'].concat(names) } }, required: ['tool'] } }).then(function(answer) {
+						var tool = tools.findItem('name', PARSE(answer).tool);
+						if (!tool)
+							return copy.destroy() || null;
+						return copy.prompt('Write the arguments of the tool ' + tool.name + ' for the question: ' + question, { signal: abort.signal, responseConstraint: tool.inputSchema || { type: 'object' } }).then(function(args) {
+							copy.destroy();
+							return { tool: tool, args: PARSE(args) || {} };
+						});
+					});
+				}).catch(function(e) {
+					if (e && e.name === 'AbortError')
+						throw e;
+					return null;
+				});
+			};
+
+			// A tool that changes something waits for the visitor: Yes or No in the conversation
+			var allow = function(call) {
+				var safe = (config.safe || '').split(',').map(function(name) { return name.trim(); });
+				if (safe.indexOf(call.tool.name) !== -1 || (call.tool.annotations && call.tool.annotations.readOnlyHint))
+					return Promise.resolve(true);
+				return new Promise(function(resolve) {
+					var box = document.createElement('div');
+					box.className = cls + '-msg';
+					var args = [];
+					var flat = function(obj, prefix) {
+						Object.keys(obj || {}).forEach(function(key) {
+							var value = obj[key];
+							if (value && typeof value === 'object' && !Array.isArray(value))
+								flat(value, '');
+							else
+								args.push('<li><b>' + (prefix + key).encode() + ':</b> ' + String(value).encode() + '</li>');
+						});
+					};
+					flat(call.args, '');
+					box.innerHTML = '<div>' + config.confirm.encode() + ' <b>' + (call.tool.title || call.tool.description || call.tool.name).encode() + '</b>?</div>' + (args.length ? '<ul class="' + cls + '-args">' + args.join('') + '</ul>' : '') +
+						'<div class="' + cls + '-ask"><button type="button" class="' + cls + '-choice ' + cls + '-choice-yes" data-value="1">' + config.yes.encode() + '</button><button type="button" class="' + cls + '-choice" data-value="0">' + config.no.encode() + '</button></div>';
+					els.log.appendChild(box);
+					els.log.scrollTop = els.log.scrollHeight;
+					box.querySelector('button').focus();
+					asking = function(value) {
+						asking = null;
+						box.parentNode && box.parentNode.removeChild(box);
+						resolve(value);
+					};
+				});
+			};
+
+			var run = function(call) {
+				return rpc('tools/call', { name: call.tool.name, arguments: call.args }, abort.signal).then(function(result) {
+					var text = result.structuredContent ? JSON.stringify(result.structuredContent) : (result.content || []).map(function(item) { return item.text || ''; }).join('\n');
+					return (result.isError ? 'The tool ' + call.tool.name + ' failed: ' : 'Result of the tool ' + call.tool.name + ':\n') + text.substring(0, PAGE);
+				}).catch(function(e) {
+					if (e && e.name === 'AbortError')
+						throw e;
+					return 'The tool ' + call.tool.name + ' could not run.';
+				});
+			};
+
+			// The stream of the model: Chrome gives the new part of the text; a text that repeats the former one replaces it
+			var stream = function(text, onchunk) {
+				var all = '';
+				var reader = session.promptStreaming(text, { signal: abort.signal }).getReader();
+				var next = function() {
+					return reader.read().then(function(r) {
+						if (r.done)
+							return all;
+						var chunk = r.value || '';
+						all = all && chunk.indexOf(all) === 0 ? chunk : all + chunk;
+						onchunk(all);
+						return next();
+					});
+				};
+				return next();
+			};
+
+			var ask = function(question) {
+				var used = null;
+				var context = [];
+				return pagesfor(question).then(function(pages) {
+					context = pages;
+					return choose(question, context);
+				}).then(function(call) {
+					if (!call)
+						return '';
+					return allow(call).then(function(ok) {
+						if (!ok)
+							return 'The visitor said no to the tool ' + call.tool.name + ': it did not run. Tell the visitor briefly that you did not do it, and answer without it.';
+						used = call.tool;
+						note('ti ti-plug', call.tool.title || call.tool.name);
+						return run(call);
+					});
+				}).then(function(result) {
+					var text = (context.length ? context.join('\n\n---\n\n') + '\n\n' : '') + (result ? result + '\n\n' : '') + 'Question of the visitor: ' + question;
+					var bubble = draft();
+					return stream(text, function(value) {
+						bubble.innerHTML = markdown(value);
+						els.log.scrollTop = els.log.scrollHeight;
+					}).then(function(answer) {
+						return { content: answer.trim(), tool: used ? used.name : undefined };
+					});
+				});
+			};
+
+			var draft = function() {
+				var box = document.createElement('div');
+				box.className = cls + '-msg ' + cls + '-text ' + cls + '-typing';
+				els.log.appendChild(box);
+				els.log.setAttribute('aria-busy', 'true');
+				return box;
+			};
+
+			var note = function(icon, text) {
+				var box = document.createElement('div');
+				box.className = cls + '-msg ' + cls + '-note';
+				box.innerHTML = '<i class="' + icon.encode() + '" aria-hidden="true"></i>' + text.encode();
+				els.log.appendChild(box);
+			};
+
+			var setbusy = function(value) {
+				busy = value;
+				els.send.innerHTML = '<i class="' + (value ? 'ti ti-stop-alt' : 'ti ti-send') + '" aria-hidden="true"></i>';
+				els.send.setAttribute('aria-label', value ? config.stop : config.send);
+				els.send.setAttribute('title', value ? config.stop : config.send);
+				els.send.disabled = !value && !els.input.value.trim();
+			};
+
+			var submit = function() {
+				var question = els.input.value.trim();
+				if (busy || !question)
+					return;
+				els.input.value = '';
+				resize();
+				var list = messages.concat([{ role: 'user', content: question }]);
+				self.modify(list);
+				setbusy(true);
+				abort = new AbortController();
+				var attempt = function(again) {
+					return prepare().then(function() {
+						return ask(question);
+					}).catch(function(e) {
+						// Too long a conversation: a new one with the last messages, once
+						if (!again && e && e.name === 'QuotaExceededError') {
+							session && session.destroy();
+							session = null;
+							loaded = {};
+							return start(messages.slice(-3, -1)).then(function(value) {
+								session = value;
+								return attempt(true);
+							});
+						}
+						throw e;
+					});
+				};
+				attempt(false).then(function(reply) {
+					finish(reply);
+				}, function(e) {
+					finish(e && e.name === 'AbortError' ? null : { error: true });
+				});
+			};
+
+			var finish = function(reply) {
+				var list = messages.slice(0);
+				if (reply && reply.error)
+					list.push({ role: 'assistant', content: '', error: true });
+				else if (reply && reply.content)
+					list.push({ role: 'assistant', content: reply.content, tool: reply.tool });
+				asking && asking(false);
+				setbusy(false);
+				els.log.removeAttribute('aria-busy');
+				self.modify(list);
+				// The answer for screen readers, once, when it is complete
+				els.live.textContent = reply && reply.content ? reply.content.replace(/[*_`#>\[\]()]/g, '') : reply && reply.error ? config.error : '';
+				reply && reply.content && config.change && self.EXEC(config.change, list, self);
+				els.input.focus();
+			};
+
+			// Markdown of the answers: everything escaped first; links only to web addresses and paths of the site
+			// owner: a text of the site (welcome), whose links are trusted
+			var markdown = function(value, owner) {
+				var codes = [];
+				var text = (value || '').replace(/```[a-z0-9+#-]*\n?([\s\S]*?)(```|$)/gi, function(all, code) {
+					codes.push('<pre><code>' + code.replace(/\n$/, '').encode() + '</code></pre>');
+					return '\n\u0001' + (codes.length - 1) + '\u0001\n';
+				});
+				var inline = function(line) {
+					var parts = [];
+					line = line.replace(/`([^`]+)`/g, function(all, code) {
+						parts.push('<code>' + code.encode() + '</code>');
+						return '\u0002' + (parts.length - 1) + '\u0002';
+					});
+					line = line.encode();
+					line = line.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, function(all, label, url) {
+						url = url.replace(/&amp;/g, '&');
+						var href = link(url, owner);
+						if (!href)
+							return label;
+						var external = /^https?:\/\//.test(href) && href.indexOf(location.origin) !== 0;
+						parts.push('<a href="' + href.encode() + '"' + (external ? ' target="_blank" rel="noopener noreferrer"' : '') + '>' + label + '</a>');
+						return '\u0002' + (parts.length - 1) + '\u0002';
+					});
+					line = line.replace(/https?:\/\/[^\s<\u0002]+[^\s<.,;:!?)\u0002]/g, function(url) {
+						var href = link(url.replace(/&amp;/g, '&'), owner);
+						if (!href)
+							return url;
+						var external = href.indexOf(location.origin) !== 0;
+						parts.push('<a href="' + href.encode() + '"' + (external ? ' target="_blank" rel="noopener noreferrer"' : '') + '>' + url + '</a>');
+						return '\u0002' + (parts.length - 1) + '\u0002';
+					});
+					line = line.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>').replace(/(^|[^\w*])\*([^*\s][^*]*)\*(?!\w)/g, '$1<i>$2</i>').replace(/(^|[^\w_])_([^_\s][^_]*)_(?!\w)/g, '$1<i>$2</i>');
+					return line.replace(/\u0002(\d+)\u0002/g, function(all, index) {
+						return parts[+index];
+					});
+				};
+				var out = [];
+				var list = null;
+				var para = [];
+				var flush = function() {
+					para.length && out.push('<p>' + para.join('<br />') + '</p>');
+					para = [];
+					list && out.push('</' + list + '>');
+					list = null;
+				};
+				text.split('\n').forEach(function(line) {
+					var block = /^\u0001(\d+)\u0001$/.exec(line.trim());
+					var item = /^\s*([-*+]|\d+[.)])\s+(.*)$/.exec(line);
+					var head = /^\s*#{1,6}\s+(.*)$/.exec(line);
+					if (block) {
+						flush();
+						out.push(codes[+block[1]]);
+					} else if (item) {
+						para.length && flush();
+						var type = /\d/.test(item[1]) ? 'ol' : 'ul';
+						if (list !== type) {
+							flush();
+							out.push('<' + type + '>');
+							list = type;
+						}
+						out.push('<li>' + inline(item[2]) + '</li>');
+					} else if (head) {
+						flush();
+						out.push('<p><b>' + inline(head[1]) + '</b></p>');
+					} else if (!line.trim()) {
+						flush();
+					} else {
+						list && flush();
+						para.push(inline(line.trim()));
+					}
+				});
+				flush();
+				return out.join('');
+			};
+
+			var resize = function() {
+				els.input.style.height = 'auto';
+				els.input.style.height = Math.min(els.input.scrollHeight + 2, 140) + 'px';
+				!busy && (els.send.disabled = !els.input.value.trim());
+			};
+
+			var render = function() {
+				var html = [];
+				var welcome = config.welcome || '';
+				welcome && html.push('<div class="' + cls + '-msg ' + cls + '-text">' + markdown(welcome, true) + '</div>');
+				messages.forEach(function(m) {
+					if (m.role === 'user')
+						html.push('<div class="' + cls + '-msg ' + cls + '-user">' + (m.content || '').encode() + '</div>');
+					else if (m.error)
+						html.push('<div class="' + cls + '-msg ' + cls + '-note" role="alert"><i class="ti ti-warning" aria-hidden="true"></i>' + config.error.encode() + '</div>');
+					else {
+						m.tool && html.push('<div class="' + cls + '-msg ' + cls + '-note"><i class="ti ti-plug" aria-hidden="true"></i>' + m.tool.encode() + '</div>');
+						html.push('<div class="' + cls + '-msg ' + cls + '-text">' + markdown(m.content) + '</div>');
+					}
+				});
+				els.log.innerHTML = html.join('');
+				els.log.scrollTop = els.log.scrollHeight;
+			};
+
+			var open = function(value, focus) {
+				if (config.position === 'inline')
+					value = true;
+				self.tclass(cls + '-isopen', value);
+				els.launcher.setAttribute('aria-expanded', value ? 'true' : 'false');
+				if (value) {
+					els.log.scrollTop = els.log.scrollHeight;
+					focus && els.input.focus();
+					// With the click of the visitor the model may download: it starts now
+					ready && prepare().catch(function() {
+						self.rclass(cls + '-preparing');
+					});
+				} else if (focus)
+					els.launcher.focus();
+			};
+
+			// The component shows only when the browser has its AI for the language of the site
+			var detect = function() {
+				var model = api();
+				if (!model) {
+					self.aclass(cls + '-off');
+					return;
+				}
+				lang = language();
+				Promise.resolve(model.availability(options())).then(function(state) {
+					// A language the AI of the browser does not have: the answers in English
+					if (state === 'unavailable' && lang !== 'en') {
+						lang = 'en';
+						return model.availability(options());
+					}
+					return state;
+				}).then(function(state) {
+					if (lifecycle.signal.aborted)
+						return;
+					// A model still to download (several GB): shown unless the site says download:false
+					ready = state === 'available' || (config.download && (state === 'downloadable' || state === 'downloading'));
+					self.tclass(cls + '-off', !ready);
+					if (ready) {
+						// Rendered while hidden: the last message in sight now
+						els.log.scrollTop = els.log.scrollHeight;
+						// The content of the site is read before the first click, so the click only starts the model
+						readsite().then(function(value) {
+							site = site || value;
+							// The links of an earlier conversation, now that the site is known
+							messages.length && render();
+						});
+						self.hclass(cls + '-isopen') && state === 'available' && prepare().catch(function() {
+							self.rclass(cls + '-preparing');
+						});
+					}
+				}, function() {
+					self.aclass(cls + '-off');
+				});
+			};
+
+			self.make = function() {
+
+				var prompt = self.find('script[type="text/plain"]');
+				persona = (prompt.length ? prompt.html() : self.dom.textContent || '').trim();
+				lifecycle = new AbortController();
+
+				self.aclass(cls + ' ' + cls + '-off');
+				self.html(('<button type="button" class="{0}-launcher" aria-expanded="false"><i aria-hidden="true"></i></button>' +
+					'<section class="{0}-panel" role="dialog">' +
+					'<div class="{0}-head"><span class="{0}-avatar" aria-hidden="true"><i></i></span><div class="{0}-title"></div><button type="button" class="{0}-btn {0}-close"><i class="ti ti-times" aria-hidden="true"></i></button></div>' +
+					'<div class="{0}-log" role="log" aria-live="off"></div>' +
+					'<div class="{0}-progress"><div class="{0}-preptext"></div><div class="{0}-progress-track"><span class="{0}-bar"></span></div></div>' +
+					'<form class="{0}-form" novalidate><textarea class="{0}-input" rows="1" maxlength="2000"></textarea><button type="submit" class="{0}-btn {0}-send" disabled><i class="ti ti-send" aria-hidden="true"></i></button></form>' +
+					'<div class="{0}-foot"></div><div class="{0}-sr" aria-live="polite"></div>' +
+					'</section>').format(cls));
+
+				els.launcher = self.find(cls2 + '-launcher')[0];
+				els.panel = self.find(cls2 + '-panel')[0];
+				els.title = self.find(cls2 + '-title')[0];
+				els.avatar = self.find(cls2 + '-avatar i')[0];
+				els.close = self.find(cls2 + '-close')[0];
+				els.log = self.find(cls2 + '-log')[0];
+				els.preptext = self.find(cls2 + '-preptext')[0];
+				els.bar = self.find(cls2 + '-bar')[0];
+				els.input = self.find(cls2 + '-input')[0];
+				els.send = self.find(cls2 + '-send')[0];
+				els.foot = self.find(cls2 + '-foot')[0];
+				els.live = self.find(cls2 + '-sr')[0];
+
+				self.event('click', cls2 + '-launcher', function() {
+					open(!self.hclass(cls + '-isopen'), true);
+				});
+
+				self.event('click', cls2 + '-close', function() {
+					open(false, true);
+				});
+
+				self.event('keydown', cls2 + '-panel', function(e) {
+					if (e.key === 'Escape' && config.position !== 'inline') {
+						e.stopPropagation();
+						open(false, true);
+					}
+				});
+
+				self.event('input', cls2 + '-input', resize);
+
+				self.event('keydown', cls2 + '-input', function(e) {
+					if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) {
+						e.preventDefault();
+						submit();
+					}
+				});
+
+				self.event('submit', cls2 + '-form', function(e) {
+					e.preventDefault();
+					if (busy)
+						abort && abort.abort();
+					else
+						submit();
+				});
+
+				self.event('click', cls2 + '-choice', function() {
+					asking && asking(this.getAttribute('data-value') === '1');
+				});
+
+				render();
+				detect();
+			};
+
+			self.configure = function(key, value, init) {
+				switch (key) {
+					case 'name':
+						els.title.textContent = value;
+						els.panel.setAttribute('aria-label', value);
+						els.launcher.setAttribute('aria-label', config.opener + (value ? ': ' + value : ''));
+						break;
+					case 'opener':
+						els.launcher.setAttribute('aria-label', value + (config.name ? ': ' + config.name : ''));
+						els.launcher.setAttribute('title', value);
+						break;
+					case 'icon':
+						els.launcher.querySelector('i').className = value;
+						els.avatar.className = value;
+						break;
+					case 'position':
+						self.tclass(cls + '-left', value === 'left');
+						self.tclass(cls + '-inline', value === 'inline');
+						!init && open(value === 'inline' || self.hclass(cls + '-isopen'));
+						break;
+					case 'height':
+						self.dom.style.setProperty('--wah', (value || 520) + 'px');
+						break;
+					case 'open':
+						init && open(!!value);
+						break;
+					case 'placeholder':
+						els.input.setAttribute('placeholder', value);
+						els.input.setAttribute('aria-label', value);
+						break;
+					case 'note':
+						els.foot.textContent = value;
+						break;
+					case 'close':
+						els.close.setAttribute('aria-label', value);
+						els.close.setAttribute('title', value);
+						break;
+					case 'send':
+					case 'stop':
+						setbusy(busy);
+						break;
+					case 'preparing':
+						els.preptext.textContent = value;
+						break;
+					case 'welcome':
+						!init && render();
+						break;
+					case 'llms':
+					case 'url':
+					case 'tools':
+					case 'language':
+						if (!init) {
+							site = null;
+							known = {};
+							tools = null;
+							session && session.destroy();
+							session = null;
+							loaded = {};
+							detect();
+						}
+						break;
+				}
+			};
+
+			// The model: the conversation, [{ role: 'user' | 'assistant', content: String }]
+			self.setter = function(value) {
+				messages = Array.isArray(value) ? value.filter(function(m) { return m && (m.role === 'user' || m.role === 'assistant'); }) : [];
+				render();
+			};
+
+			self.destroy = function() {
+				lifecycle && lifecycle.abort();
+				abort && abort.abort();
+				session && session.destroy();
+			};
+
+		});
+
+	</script>
+
+	<p class="example-notice" style="display:none;max-width:420px;margin:12px;padding:12px 14px;border:1px solid #E3E3E3;border-radius:10px;font:14px/1.5 sans-serif;color:#3A3A3A"><b>Webagent</b> uses the AI built into the browser. To see this component, open this page in Chrome on a computer, or in another browser with built-in AI.</p>
+
+	<div style="max-width:420px;padding:12px">
+		<ui-component name="webagent" path="agent.chat" config="name:Nova;position:inline;height:240;note:;welcome:Hi! I am **Nova**. Ask me how to create or use a jComponent.">
+			<script type="text/plain">You are Nova, the guide of Componentator, the catalogue of Total.js UI components. You help people create and use jComponents. You are friendly and brief.</script>
+		</ui-component>
+	</div>
+
+	<ui-component name="webagent" path="agent.floating" config="name:Nova;welcome:Hi! Ask me anything about the components of Total.js.;change:onagentchange">You are Nova, the guide of Componentator, the catalogue of Total.js UI components. You are friendly and brief.</ui-component>
+
+	<script>
+
+		// The conversation shown in the example
+		SET('agent.chat', [
+			{ role: 'user', content: 'What is Componentator?' },
+			{ role: 'assistant', content: '**Componentator** is the catalogue of UI components for Total.js, each one with a live example.' }
+		]);
+
+		// The example as on a real website: without the AI of the browser the component does not show, so the page says
+		// where to open it
+		(function() {
+			var notice = document.querySelector('.example-notice');
+			var options = { expectedInputs: [{ type: 'text', languages: ['en'] }], expectedOutputs: [{ type: 'text', languages: ['en'] }] };
+			var state = window.LanguageModel ? Promise.resolve(window.LanguageModel.availability(options)).catch(function() { return 'unavailable'; }) : Promise.resolve('unavailable');
+			var wait = new Promise(function(resolve) {
+				setTimeout(function() {
+					resolve('unavailable');
+				}, 3000);
+			});
+			Promise.race([state, wait]).then(function(value) {
+				notice.style.display = value === 'available' ? 'none' : 'block';
+			});
+		})();
+
+		function onagentchange(conversation, component) {
+			// e.g. keep the conversation between pages: CACHE('agent', conversation)
+		}
+
+	</script>
+
+</body>
+</html>

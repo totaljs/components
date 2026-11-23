@@ -1,12 +1,12 @@
 ---
-name: vitals
+name: Vitals
 description: Core Web Vitals panel with the official thresholds at the 75th percentile, the state of every metric, the distribution of good, needs improvement and poor, and the overall assessment
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 20:24
-updated: 2026-11-22 20:24
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 

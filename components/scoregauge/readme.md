@@ -1,16 +1,16 @@
 ---
-name: scoregauge
+name: ScoreGauge
 description: Gauge for a score or a value with thresholds, such as an SEO score, agent readiness, CPU or response time, with the state shown as an icon and a text
 author: Gera G. Güiles
 version: 1
 darkmode: true
 license: https://www.totaljs.com/license/
 created: 2026-11-22 20:21
-updated: 2026-11-22 20:21
+updated: 2026-11-23 13:07
 jcomponent: v20
 ---
 
-# Scoregauge
+# ScoreGauge
 
 A dial for one value inside a range: a score from 0 to 100 (SEO, performance, agent readiness), the load of a server, a response time... The arc takes the colour of the state (bad, needs work, good) according to two thresholds, and the state is also an icon and a text, so it is never told by colour alone. It re-renders on every change of the model, with a short animation.
 
