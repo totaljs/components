@@ -88,6 +88,7 @@
 			var current;
 			var elyears, elmonths, elbody;
 			var main;
+			var sign;
 
 			self.days = EMPTYARRAY;
 			self.days_short = EMPTYARRAY;
@@ -335,6 +336,14 @@
 				self.opt = opt;
 				self.time = dt.format('HH:mm:ss');
 				self.rclass('hidden');
+
+				// The HTML depends on the options, the component is a singleton
+				var tmp = (opt.clock ? '1' : '0') + (opt.ampm ? '1' : '0') + (opt.clear === false ? '0' : '1');
+				if (sign !== tmp) {
+					sign = tmp;
+					self.makehtml();
+				}
+
 				self.date(dt);
 				main.css({ left: l, top: t });
 				main.aclass(cls + '-visible', 50);
@@ -353,6 +362,12 @@
 					return;
 				}
 
+				if (isNaN(dt.getTime()))
+					return;
+
+				// A copy, "current" must not be shared with the model
+				dt = new Date(dt.getTime());
+
 				if (!self.opt.clock) {
 					var time = self.time.split(':');
 
@@ -361,8 +376,6 @@
 						dt.setMinutes(+(time[1] || '0'));
 						dt.setSeconds(+(time[2] || '0'));
 					}
-				} else {
-
 				}
 
 				self.opt.scope && M.scope(self.opt.scope);
@@ -434,7 +447,7 @@
 					builder.push('<div></div>');
 				builder.push('</div><div class="{0}-days">'.format(cls));
 
-				var clearbtn = self.opt.clear === false ? null : '<span>{1}</span>'.format(cls, config.clear);
+				var clearbtn = self.opt.clear === false ? '' : '<span class="{0}-clear"><span>{1}</span></span>'.format(cls, config.clear);
 
 				for (var i = 0; i < 42; i++)
 					builder.push('<div class="{0}-date"><div></div></div>'.format(cls, i));
@@ -478,7 +491,7 @@
 					builder.push(timepicker);
 				}
 
-				builder.push('<div class="{0}-footer"><span class="{0}-now">{2}</span><span class="{0}-clear">{3}</span></div>'.format(cls, config.close, config.today, clearbtn));
+				builder.push('<div class="{0}-footer"><span class="{0}-now">{2}</span>{3}</div>'.format(cls, config.close, config.today, clearbtn));
 
 				self.html('<div class="{0}">{1}</div>'.format(cls, builder.join('')));
 				main = $(self.find(cls2)[0]);
@@ -495,8 +508,6 @@
 				for (var i = 0; i < 25; i++)
 					builder.push('<div class="{0}-year"><div></div></div>'.format(cls));
 				elyears.html(builder.join(''));
-
-				self.makehtml = null;
 
 				self.find(cls2 + '-month').on('click', function(e) {
 
@@ -576,6 +587,12 @@
 					if (self.opt.clock) {
 						hours = parseInt(self.find(cls2 + '-hours').val());
 						minutes = parseInt(self.find(cls2 + '-minutes').val());
+
+						if (isNaN(hours))
+							hours = current.getHours();
+
+						if (isNaN(minutes))
+							minutes = current.getMinutes();
 
 						if (self.opt.ampm) {
 							var ampm = self.find(cls2 + '-ampm').val();
@@ -692,8 +709,6 @@
 			self.date = function(value, skipday) {
 
 				var clssel = cls + '-selected';
-
-				self.makehtml && self.makehtml();
 
 				if (typeof(value) === 'string')
 					value = value.parseDate();
